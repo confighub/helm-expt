@@ -1,0 +1,209 @@
+apiVersion: installer.confighub.com/v1alpha1
+kind: HelmImportIndex
+metadata:
+  name: top-20-artifacthub-helm
+  generatedAt: "2026-05-23T19:46:18.577Z"
+spec:
+  sourceURL: "https://artifacthub.io/api/v1/packages/search?kind=0&sort=stars&limit=20&deprecated=false"
+  metric: "stars"
+  charts:
+    - rank: 1
+      path: "charts/01-prometheus-community-kube-prometheus-stack"
+      repository: "prometheus-community"
+      name: "kube-prometheus-stack"
+      version: "85.3.0"
+      stars: 1206
+      status: "rendered"
+      deterministicAcrossTwoLocalRenders: true
+      resourceCount: 124
+      upstreamYAMLSHA256: "17144a68e9cc5b9def901b043096312809fbc5000026f49cf6dd567c15a91ba1"
+    - rank: 2
+      path: "charts/02-cert-manager-cert-manager"
+      repository: "cert-manager"
+      name: "cert-manager"
+      version: "1.20.2"
+      stars: 973
+      status: "rendered"
+      deterministicAcrossTwoLocalRenders: true
+      resourceCount: 42
+      upstreamYAMLSHA256: "45029db19d75e578bec74b82a0476a6580d1f7193239a210bf4873156ac725ce"
+    - rank: 3
+      path: "charts/03-ingress-nginx-ingress-nginx"
+      repository: "ingress-nginx"
+      name: "ingress-nginx"
+      version: "4.15.1"
+      stars: 828
+      status: "rendered"
+      deterministicAcrossTwoLocalRenders: true
+      resourceCount: 11
+      upstreamYAMLSHA256: "69021fe879a52913af047cf5f1c5b6ecceae91cad4581d49a54ad1a6518090d7"
+    - rank: 4
+      path: "charts/04-argo-argo-cd"
+      repository: "argo"
+      name: "argo-cd"
+      version: "9.5.15"
+      stars: 824
+      status: "rendered"
+      deterministicAcrossTwoLocalRenders: true
+      resourceCount: 49
+      upstreamYAMLSHA256: "3e017ce76d1c143a1f516893c11e3a34646f3421d12e4c53dac2592dc1ced359"
+    - rank: 5
+      path: "charts/05-prometheus-community-prometheus"
+      repository: "prometheus-community"
+      name: "prometheus"
+      version: "29.8.0"
+      stars: 542
+      status: "rendered"
+      deterministicAcrossTwoLocalRenders: true
+      resourceCount: 23
+      upstreamYAMLSHA256: "2bf3013098f2a960f28afaaa3792d2419250924f21f15a982d8876f6a3b12dc2"
+    - rank: 6
+      path: "charts/06-bitnami-redis"
+      repository: "bitnami"
+      name: "redis"
+      version: "25.5.3"
+      stars: 507
+      status: "rendered"
+      deterministicAcrossTwoLocalRenders: true
+      resourceCount: 14
+      upstreamYAMLSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+    - rank: 7
+      path: "charts/07-bitnami-postgresql"
+      repository: "bitnami"
+      name: "postgresql"
+      version: "18.6.7"
+      stars: 417
+      status: "rendered"
+      deterministicAcrossTwoLocalRenders: true
+      resourceCount: 7
+      upstreamYAMLSHA256: "7e0befa4986e25c9f76380dd56a889ea200e182729c34bd2a3a6293f1883dbd2"
+    - rank: 8
+      path: "charts/08-traefik-traefik"
+      repository: "traefik"
+      name: "traefik"
+      version: "40.2.0"
+      stars: 414
+      status: "rendered"
+      deterministicAcrossTwoLocalRenders: true
+      resourceCount: 31
+      upstreamYAMLSHA256: "24103c4ddb71177867afda2f6e7142e6ca0cb04a671173accf2f9e3c5eccfee7"
+    - rank: 9
+      path: "charts/09-k8s-dashboard-kubernetes-dashboard"
+      repository: "k8s-dashboard"
+      name: "kubernetes-dashboard"
+      version: "7.14.0"
+      stars: 364
+      status: "rendered"
+      deterministicAcrossTwoLocalRenders: true
+      resourceCount: 35
+      upstreamYAMLSHA256: "f62d5fb7258b3e4611edcf5536513e3834e49f7f92c9d2724c3163a586ce3d84"
+    - rank: 10
+      path: "charts/10-grafana-loki"
+      repository: "grafana"
+      name: "loki"
+      version: "7.0.0"
+      stars: 337
+      status: "rendered"
+      deterministicAcrossTwoLocalRenders: true
+      resourceCount: 19
+      upstreamYAMLSHA256: "548782e46af18e26a2bde6216054fca7bb3b7692526bff2be8ac27a3e135dc12"
+    - rank: 11
+      path: "charts/11-metrics-server-metrics-server"
+      repository: "metrics-server"
+      name: "metrics-server"
+      version: "3.13.0"
+      stars: 308
+      status: "rendered"
+      deterministicAcrossTwoLocalRenders: true
+      resourceCount: 9
+      upstreamYAMLSHA256: "ddb233cabb8c65c7d365003f357bd505ca56930e9a3e45cc7dcb79cd0efbf113"
+    - rank: 12
+      path: "charts/12-hashicorp-vault"
+      repository: "hashicorp"
+      name: "vault"
+      version: "0.32.0"
+      stars: 294
+      status: "rendered"
+      deterministicAcrossTwoLocalRenders: true
+      resourceCount: 12
+      upstreamYAMLSHA256: "098cfba0885cb8128f5d1fad007f393cc4d308f4391bcda35555c3693234d543"
+    - rank: 13
+      path: "charts/13-gitlab-gitlab"
+      repository: "gitlab"
+      name: "gitlab"
+      version: "10.0.0"
+      stars: 274
+      status: "rendered"
+      deterministicAcrossTwoLocalRenders: true
+      resourceCount: 148
+      upstreamYAMLSHA256: "e6bc48a269d926d320fa5ecba554a0930e1f75affb99cc0ef0d11eef0669b285"
+    - rank: 14
+      path: "charts/14-harbor-harbor"
+      repository: "harbor"
+      name: "harbor"
+      version: "1.19.0"
+      stars: 269
+      status: "rendered"
+      deterministicAcrossTwoLocalRenders: true
+      resourceCount: 30
+      upstreamYAMLSHA256: "e12e5d76dd32a7544c9bcfdb6c9c1f8da4cfba52cd8f7af290da09dad9f48a3d"
+    - rank: 15
+      path: "charts/15-bitnami-keycloak"
+      repository: "bitnami"
+      name: "keycloak"
+      version: "25.2.0"
+      stars: 269
+      status: "rendered"
+      deterministicAcrossTwoLocalRenders: true
+      resourceCount: 15
+      upstreamYAMLSHA256: "9c75d50d68b8d4309ac52cf7a1ec0182b78126bd6afe816d50860be6d7872775"
+    - rank: 16
+      path: "charts/16-jenkinsci-jenkins"
+      repository: "jenkinsci"
+      name: "jenkins"
+      version: "5.9.22"
+      stars: 247
+      status: "rendered"
+      deterministicAcrossTwoLocalRenders: true
+      resourceCount: 12
+      upstreamYAMLSHA256: "6bf328fcc21a0316c0863596171b71545d79fa33b3ccad062a293dd89c304226"
+    - rank: 17
+      path: "charts/17-external-secrets-operator-external-secrets"
+      repository: "external-secrets-operator"
+      name: "external-secrets"
+      version: "2.5.0"
+      stars: 241
+      status: "rendered"
+      deterministicAcrossTwoLocalRenders: true
+      resourceCount: 42
+      upstreamYAMLSHA256: "a1c1a8ff5ba4930b0e3f6758299aa4860eb3f9c5b5b9b91fabc3f0c68965e5bf"
+    - rank: 18
+      path: "charts/18-external-dns-external-dns"
+      repository: "external-dns"
+      name: "external-dns"
+      version: "1.21.1"
+      stars: 229
+      status: "rendered"
+      deterministicAcrossTwoLocalRenders: true
+      resourceCount: 6
+      upstreamYAMLSHA256: "6de7ac63be7b3ca281cb6dace25906748275f618b6b31365d4c2bc12d788556f"
+    - rank: 19
+      path: "charts/19-longhorn-longhorn"
+      repository: "longhorn"
+      name: "longhorn"
+      version: "1.11.2"
+      stars: 216
+      status: "rendered"
+      deterministicAcrossTwoLocalRenders: true
+      resourceCount: 41
+      upstreamYAMLSHA256: "d94b6fdb317754fee1dc3f6ef9651a5218a99e88b331f80b1eceb24cd5071deb"
+    - rank: 20
+      path: "charts/20-bitnami-rabbitmq"
+      repository: "bitnami"
+      name: "rabbitmq"
+      version: "16.0.14"
+      stars: 214
+      status: "rendered"
+      deterministicAcrossTwoLocalRenders: true
+      resourceCount: 10
+      upstreamYAMLSHA256: "6a30d7213099698f618eceff9be7edebeb40c753f97fd9ae4aa1527758fa53d4"

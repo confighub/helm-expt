@@ -1,0 +1,11 @@
+apiVersion: installer.confighub.com/v1alpha1
+kind: Package
+metadata:
+  name: "11-metrics-server-metrics-server"
+  version: "3.13.0"
+spec:
+  bases:
+    - name: default
+      path: base
+      default: true
+      description: "Imported Helm render for metrics-server/metrics-server"

@@ -1,0 +1,6 @@
+auth:
+  adminPassword: "confighub-keycloak-admin-password"
+postgresql:
+  auth:
+    postgresPassword: "confighub-keycloak-postgresql-postgres-password"
+    password: "confighub-keycloak-postgresql-password"

@@ -1,0 +1,11 @@
+apiVersion: installer.confighub.com/v1alpha1
+kind: Package
+metadata:
+  name: "05-prometheus-community-prometheus"
+  version: "29.8.0"
+spec:
+  bases:
+    - name: default
+      path: base
+      default: true
+      description: "Imported Helm render for prometheus-community/prometheus"

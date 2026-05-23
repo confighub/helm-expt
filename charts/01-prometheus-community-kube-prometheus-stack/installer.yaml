@@ -1,0 +1,11 @@
+apiVersion: installer.confighub.com/v1alpha1
+kind: Package
+metadata:
+  name: "01-prometheus-community-kube-prometheus-stack"
+  version: "85.3.0"
+spec:
+  bases:
+    - name: default
+      path: base
+      default: true
+      description: "Imported Helm render for prometheus-community/kube-prometheus-stack"

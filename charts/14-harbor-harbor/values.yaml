@@ -1,0 +1,15 @@
+expose:
+  tls:
+    certSource: none
+harborAdminPassword: "confighub-harbor-admin-password"
+secretKey: "confighub-harbor"
+core:
+  secret: "confighub-core--"
+  secretName: "harbor-core-token"
+  xsrfKey: "confighub-harbor-xsrf-key-000000"
+jobservice:
+  secret: "confighub-job---"
+registry:
+  secret: "confighub-reg---"
+  credentials:
+    htpasswdString: "harbor_registry_user:$2a$05$IPnI.TSgP8ek1/ESjkULVemA.A3nSXPdN80ljsmcun7FtE3ViSYUq"

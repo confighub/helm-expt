@@ -1,0 +1,22 @@
+apiVersion: installer.confighub.com/v1alpha1
+kind: HelmImportSpec
+metadata:
+  name: "20-bitnami-rabbitmq"
+spec:
+  chart:
+    repositoryName: "bitnami"
+    repositoryURL: "https://charts.bitnami.com/bitnami"
+    resolvedRepositoryURL: "https://charts.bitnami.com/bitnami"
+    name: "rabbitmq"
+    version: "16.0.14"
+  render:
+    releaseName: "rabbitmq"
+    namespace: "rabbitmq"
+    kubeVersion: "1.30.0"
+    apiVersions: []
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+    valuesFiles:
+      - values.yaml

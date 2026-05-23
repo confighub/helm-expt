@@ -1,0 +1,11 @@
+apiVersion: installer.confighub.com/v1alpha1
+kind: Package
+metadata:
+  name: "08-traefik-traefik"
+  version: "40.2.0"
+spec:
+  bases:
+    - name: default
+      path: base
+      default: true
+      description: "Imported Helm render for traefik/traefik"

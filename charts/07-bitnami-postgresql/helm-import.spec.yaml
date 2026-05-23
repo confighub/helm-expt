@@ -1,0 +1,22 @@
+apiVersion: installer.confighub.com/v1alpha1
+kind: HelmImportSpec
+metadata:
+  name: "07-bitnami-postgresql"
+spec:
+  chart:
+    repositoryName: "bitnami"
+    repositoryURL: "https://charts.bitnami.com/bitnami"
+    resolvedRepositoryURL: "https://charts.bitnami.com/bitnami"
+    name: "postgresql"
+    version: "18.6.7"
+  render:
+    releaseName: "postgresql"
+    namespace: "postgresql"
+    kubeVersion: "1.30.0"
+    apiVersions: []
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+    valuesFiles:
+      - values.yaml

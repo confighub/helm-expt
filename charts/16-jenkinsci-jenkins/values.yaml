@@ -1,0 +1,3 @@
+controller:
+  admin:
+    password: "confighub-jenkins-admin-password"

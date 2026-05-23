@@ -1,0 +1,22 @@
+apiVersion: installer.confighub.com/v1alpha1
+kind: HelmImportSpec
+metadata:
+  name: "05-prometheus-community-prometheus"
+spec:
+  chart:
+    repositoryName: "prometheus-community"
+    repositoryURL: "https://prometheus-community.github.io/helm-charts"
+    resolvedRepositoryURL: "https://prometheus-community.github.io/helm-charts"
+    name: "prometheus"
+    version: "29.8.0"
+  render:
+    releaseName: "prometheus"
+    namespace: "prometheus"
+    kubeVersion: "1.30.0"
+    apiVersions: []
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+    valuesFiles:
+      - values.yaml

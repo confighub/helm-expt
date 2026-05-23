@@ -1,0 +1,107 @@
+apiVersion: installer.confighub.com/v1alpha1
+kind: HelmImportReceipt
+metadata:
+  name: "05-prometheus-community-prometheus"
+  generatedAt: "2026-05-23T19:46:18.577Z"
+spec:
+  ranking:
+    source: "Artifact Hub packages/search"
+    sourceURL: "https://artifacthub.io/api/v1/packages/search?kind=0&sort=stars&limit=20&deprecated=false"
+    metric: "stars"
+    rank: 5
+    stars: 542
+    packageID: "d5dad873-8e69-411b-8391-933d4391988a"
+  artifactHub:
+    detailsURL: "https://artifacthub.io/api/v1/packages/helm/prometheus-community/prometheus"
+    detailsError: null
+    description: "Prometheus is a monitoring system and time series database."
+    license: "Apache-2.0"
+    signed: true
+    signatures:
+      - "prov"
+  chart:
+    repositoryName: "prometheus-community"
+    repositoryURL: "https://prometheus-community.github.io/helm-charts"
+    resolvedRepositoryURL: "https://prometheus-community.github.io/helm-charts"
+    contentURL: "https://github.com/prometheus-community/helm-charts/releases/download/prometheus-29.8.0/prometheus-29.8.0.tgz"
+    artifactHubDigest: "daba2821dd7c0d29267c8be5056cfbb7ebbf8784cb3159fa55f266615df68e3d"
+    repositoryVerifiedPublisher: true
+    repositoryOfficial: false
+    repositoryCNCF: true
+    name: "prometheus"
+    normalizedName: "prometheus"
+    version: "29.8.0"
+    appVersion: "v3.11.3"
+    archiveSHA256: "daba2821dd7c0d29267c8be5056cfbb7ebbf8784cb3159fa55f266615df68e3d"
+    archiveBytes: 82456
+    kubeVersionConstraint: ">=1.19.0-0"
+    dependencies:
+      - name: "alertmanager"
+        version: "1.37.*"
+        repository: "https://prometheus-community.github.io/helm-charts"
+        artifactHubRepositoryName: "prometheus-community"
+      - name: "kube-state-metrics"
+        version: "7.4.*"
+        repository: "https://prometheus-community.github.io/helm-charts"
+        artifactHubRepositoryName: "prometheus-community"
+      - name: "prometheus-node-exporter"
+        version: "4.55.*"
+        repository: "https://prometheus-community.github.io/helm-charts"
+        artifactHubRepositoryName: "prometheus-community"
+      - name: "prometheus-pushgateway"
+        version: "3.6.*"
+        repository: "https://prometheus-community.github.io/helm-charts"
+        artifactHubRepositoryName: "prometheus-community"
+    links:
+      - name: "source"
+        url: "https://github.com/prometheus/alertmanager"
+      - name: "Upstream Project"
+        url: "https://github.com/prometheus/prometheus"
+      - name: "source"
+        url: "https://github.com/prometheus/pushgateway"
+      - name: "source"
+        url: "https://github.com/prometheus/node_exporter"
+      - name: "source"
+        url: "https://github.com/kubernetes/kube-state-metrics"
+      - name: "Chart Source"
+        url: "https://github.com/prometheus-community/helm-charts"
+  render:
+    helmVersion: "v4.1.4 05fa37973dc9e42b76e1d2883494c87174b6074f go1.26.2"
+    command:
+      - helm
+      - template
+      - "prometheus"
+      - "prometheus-29.8.0.tgz"
+      - --namespace
+      - "prometheus"
+      - --values
+      - values.yaml
+      - --kube-version
+      - "1.30.0"
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+    releaseName: "prometheus"
+    namespace: "prometheus"
+    kubeVersion: "1.30.0"
+    apiVersions: []
+    values:
+      files:
+        - path: values.yaml
+          sha256: "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+      mergedValuesCaptured: false
+  outputs:
+    importSpecSHA256: "f86e7379189d5122125c9e60cb812872cae6198b868b759ab39e026a7a05f306"
+    upstreamYAMLSHA256: "2bf3013098f2a960f28afaaa3792d2419250924f21f15a982d8876f6a3b12dc2"
+    upstreamYAMLBytes: 38698
+    resourceCount: 23
+    secondRenderSHA256: "2bf3013098f2a960f28afaaa3792d2419250924f21f15a982d8876f6a3b12dc2"
+    deterministicAcrossTwoLocalRenders: true
+  status:
+    phase: "rendered"
+    renderError: null
+  artifactHubVersion:
+    detailsURL: "https://artifacthub.io/api/v1/packages/helm/prometheus-community/prometheus/29.8.0"
+    detailsError: null
+    digest: "daba2821dd7c0d29267c8be5056cfbb7ebbf8784cb3159fa55f266615df68e3d"
+    contentURL: "https://github.com/prometheus-community/helm-charts/releases/download/prometheus-29.8.0/prometheus-29.8.0.tgz"

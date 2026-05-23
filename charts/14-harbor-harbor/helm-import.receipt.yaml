@@ -1,0 +1,84 @@
+apiVersion: installer.confighub.com/v1alpha1
+kind: HelmImportReceipt
+metadata:
+  name: "14-harbor-harbor"
+  generatedAt: "2026-05-23T19:46:18.577Z"
+spec:
+  ranking:
+    source: "Artifact Hub packages/search"
+    sourceURL: "https://artifacthub.io/api/v1/packages/search?kind=0&sort=stars&limit=20&deprecated=false"
+    metric: "stars"
+    rank: 14
+    stars: 269
+    packageID: "466e5558-6e9a-4f23-93e4-2339ed25649a"
+  artifactHub:
+    detailsURL: "https://artifacthub.io/api/v1/packages/helm/harbor/harbor"
+    detailsError: null
+    description: "An open source trusted cloud native registry that stores, signs, and scans content"
+    license: "Apache-2.0"
+    signed: false
+    signatures:
+      []
+  chart:
+    repositoryName: "harbor"
+    repositoryURL: "https://helm.goharbor.io"
+    resolvedRepositoryURL: "https://helm.goharbor.io"
+    contentURL: "https://helm.goharbor.io/harbor-1.19.0.tgz"
+    artifactHubDigest: "6b4afcbcb038fbf07a01110e218a61d4d7298b4e90ac46051d8e4ee4505060b3"
+    repositoryVerifiedPublisher: true
+    repositoryOfficial: false
+    repositoryCNCF: false
+    name: "harbor"
+    normalizedName: "harbor"
+    version: "1.19.0"
+    appVersion: "2.15.0"
+    archiveSHA256: "6b4afcbcb038fbf07a01110e218a61d4d7298b4e90ac46051d8e4ee4505060b3"
+    archiveBytes: 54216
+    kubeVersionConstraint: ""
+    dependencies:
+      []
+    links:
+      - name: "source"
+        url: "https://github.com/goharbor/harbor"
+      - name: "source"
+        url: "https://github.com/goharbor/harbor-helm"
+  render:
+    helmVersion: "v4.1.4 05fa37973dc9e42b76e1d2883494c87174b6074f go1.26.2"
+    command:
+      - helm
+      - template
+      - "harbor"
+      - "harbor-1.19.0.tgz"
+      - --namespace
+      - "harbor"
+      - --values
+      - values.yaml
+      - --kube-version
+      - "1.30.0"
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+    releaseName: "harbor"
+    namespace: "harbor"
+    kubeVersion: "1.30.0"
+    apiVersions: []
+    values:
+      files:
+        - path: values.yaml
+          sha256: "7bf2d35982b13f4f2b77320c959e7528a626d9ba9164816c045fe36077282071"
+      mergedValuesCaptured: false
+  outputs:
+    importSpecSHA256: "281f9ab5d41cf47589bca9433c28100b17fad38d56155e7977963f5e2ee69490"
+    upstreamYAMLSHA256: "e12e5d76dd32a7544c9bcfdb6c9c1f8da4cfba52cd8f7af290da09dad9f48a3d"
+    upstreamYAMLBytes: 46151
+    resourceCount: 30
+    secondRenderSHA256: "e12e5d76dd32a7544c9bcfdb6c9c1f8da4cfba52cd8f7af290da09dad9f48a3d"
+    deterministicAcrossTwoLocalRenders: true
+  status:
+    phase: "rendered"
+    renderError: null
+  artifactHubVersion:
+    detailsURL: "https://artifacthub.io/api/v1/packages/helm/harbor/harbor/1.19.0"
+    detailsError: null
+    digest: "6b4afcbcb038fbf07a01110e218a61d4d7298b4e90ac46051d8e4ee4505060b3"
+    contentURL: "https://helm.goharbor.io/harbor-1.19.0.tgz"

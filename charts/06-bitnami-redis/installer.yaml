@@ -1,0 +1,11 @@
+apiVersion: installer.confighub.com/v1alpha1
+kind: Package
+metadata:
+  name: "06-bitnami-redis"
+  version: "25.5.3"
+spec:
+  bases:
+    - name: default
+      path: base
+      default: true
+      description: "Imported Helm render for bitnami/redis"

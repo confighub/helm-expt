@@ -1,0 +1,9 @@
+{
+  "name": "helm-expt",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "node scripts/generate-top20.mjs",
+    "verify": "node scripts/generate-top20.mjs --verify"
+  }
+}

@@ -1,0 +1,22 @@
+apiVersion: installer.confighub.com/v1alpha1
+kind: HelmImportSpec
+metadata:
+  name: "15-bitnami-keycloak"
+spec:
+  chart:
+    repositoryName: "bitnami"
+    repositoryURL: "https://charts.bitnami.com/bitnami"
+    resolvedRepositoryURL: "https://charts.bitnami.com/bitnami"
+    name: "keycloak"
+    version: "25.2.0"
+  render:
+    releaseName: "keycloak"
+    namespace: "keycloak"
+    kubeVersion: "1.30.0"
+    apiVersions: []
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+    valuesFiles:
+      - values.yaml

@@ -1,0 +1,34 @@
+certmanager-issuer:
+  email: "helm-expt@example.invalid"
+registry:
+  storage:
+    secret: "gitlab-registry-storage"
+gitlab:
+  toolbox:
+    backups:
+      objectStorage:
+        config:
+          secret: "gitlab-backup-storage"
+          key: "connection"
+global:
+  hosts:
+    domain: "example.invalid"
+  redis:
+    host: "redis.example.invalid"
+    auth:
+      secret: "gitlab-redis"
+      key: "password"
+  psql:
+    host: "postgresql.example.invalid"
+    password:
+      secret: "gitlab-postgresql"
+      key: "password"
+  appConfig:
+    object_store:
+      enabled: true
+      connection:
+        secret: "gitlab-object-storage"
+        key: "connection"
+    backups:
+      bucket: "gitlab-backups"
+      tmpBucket: "gitlab-tmp"

@@ -1,0 +1,22 @@
+apiVersion: installer.confighub.com/v1alpha1
+kind: HelmImportSpec
+metadata:
+  name: "16-jenkinsci-jenkins"
+spec:
+  chart:
+    repositoryName: "jenkinsci"
+    repositoryURL: "https://charts.jenkins.io/"
+    resolvedRepositoryURL: "https://charts.jenkins.io/"
+    name: "jenkins"
+    version: "5.9.22"
+  render:
+    releaseName: "jenkins"
+    namespace: "jenkins"
+    kubeVersion: "1.30.0"
+    apiVersions: []
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+    valuesFiles:
+      - values.yaml

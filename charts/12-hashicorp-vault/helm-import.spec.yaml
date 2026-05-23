@@ -1,0 +1,22 @@
+apiVersion: installer.confighub.com/v1alpha1
+kind: HelmImportSpec
+metadata:
+  name: "12-hashicorp-vault"
+spec:
+  chart:
+    repositoryName: "hashicorp"
+    repositoryURL: "https://helm.releases.hashicorp.com"
+    resolvedRepositoryURL: "https://helm.releases.hashicorp.com"
+    name: "vault"
+    version: "0.32.0"
+  render:
+    releaseName: "vault"
+    namespace: "vault"
+    kubeVersion: "1.30.0"
+    apiVersions: []
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+    valuesFiles:
+      - values.yaml

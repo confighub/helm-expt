@@ -1,0 +1,22 @@
+apiVersion: installer.confighub.com/v1alpha1
+kind: HelmImportSpec
+metadata:
+  name: "14-harbor-harbor"
+spec:
+  chart:
+    repositoryName: "harbor"
+    repositoryURL: "https://helm.goharbor.io"
+    resolvedRepositoryURL: "https://helm.goharbor.io"
+    name: "harbor"
+    version: "1.19.0"
+  render:
+    releaseName: "harbor"
+    namespace: "harbor"
+    kubeVersion: "1.30.0"
+    apiVersions: []
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+    valuesFiles:
+      - values.yaml

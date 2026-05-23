@@ -1,0 +1,82 @@
+apiVersion: installer.confighub.com/v1alpha1
+kind: HelmImportReceipt
+metadata:
+  name: "02-cert-manager-cert-manager"
+  generatedAt: "2026-05-23T19:46:18.577Z"
+spec:
+  ranking:
+    source: "Artifact Hub packages/search"
+    sourceURL: "https://artifacthub.io/api/v1/packages/search?kind=0&sort=stars&limit=20&deprecated=false"
+    metric: "stars"
+    rank: 2
+    stars: 973
+    packageID: "f475c82a-27a5-4f71-8413-fe70d31268a2"
+  artifactHub:
+    detailsURL: "https://artifacthub.io/api/v1/packages/helm/cert-manager/cert-manager"
+    detailsError: null
+    description: "A Helm chart for cert-manager"
+    license: "Apache-2.0"
+    signed: true
+    signatures:
+      - "prov"
+  chart:
+    repositoryName: "cert-manager"
+    repositoryURL: "https://charts.jetstack.io"
+    resolvedRepositoryURL: "https://charts.jetstack.io"
+    contentURL: "https://charts.jetstack.io/charts/cert-manager-v1.20.2.tgz"
+    artifactHubDigest: "d2a50bd44a09d838c2576a8f3dfca1524597c7393cf8d82ab3ec8a465b9eeb79"
+    repositoryVerifiedPublisher: true
+    repositoryOfficial: false
+    repositoryCNCF: false
+    name: "cert-manager"
+    normalizedName: "cert-manager"
+    version: "1.20.2"
+    appVersion: "v1.20.2"
+    archiveSHA256: "d2a50bd44a09d838c2576a8f3dfca1524597c7393cf8d82ab3ec8a465b9eeb79"
+    archiveBytes: 147139
+    kubeVersionConstraint: ">= 1.22.0-0"
+    dependencies:
+      []
+    links:
+      - name: "source"
+        url: "https://github.com/cert-manager/cert-manager"
+  render:
+    helmVersion: "v4.1.4 05fa37973dc9e42b76e1d2883494c87174b6074f go1.26.2"
+    command:
+      - helm
+      - template
+      - "cert-manager"
+      - "cert-manager-1.20.2.tgz"
+      - --namespace
+      - "cert-manager"
+      - --values
+      - values.yaml
+      - --kube-version
+      - "1.30.0"
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+    releaseName: "cert-manager"
+    namespace: "cert-manager"
+    kubeVersion: "1.30.0"
+    apiVersions: []
+    values:
+      files:
+        - path: values.yaml
+          sha256: "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+      mergedValuesCaptured: false
+  outputs:
+    importSpecSHA256: "04ca1222cf64405765704e3cb3452be1174cb29cc0439095ca21d86f8b008e29"
+    upstreamYAMLSHA256: "45029db19d75e578bec74b82a0476a6580d1f7193239a210bf4873156ac725ce"
+    upstreamYAMLBytes: 41880
+    resourceCount: 42
+    secondRenderSHA256: "45029db19d75e578bec74b82a0476a6580d1f7193239a210bf4873156ac725ce"
+    deterministicAcrossTwoLocalRenders: true
+  status:
+    phase: "rendered"
+    renderError: null
+  artifactHubVersion:
+    detailsURL: "https://artifacthub.io/api/v1/packages/helm/cert-manager/cert-manager/1.20.2"
+    detailsError: null
+    digest: "d2a50bd44a09d838c2576a8f3dfca1524597c7393cf8d82ab3ec8a465b9eeb79"
+    contentURL: "https://charts.jetstack.io/charts/cert-manager-v1.20.2.tgz"

@@ -1,0 +1,85 @@
+apiVersion: installer.confighub.com/v1alpha1
+kind: HelmImportReceipt
+metadata:
+  name: "20-bitnami-rabbitmq"
+  generatedAt: "2026-05-23T19:46:18.577Z"
+spec:
+  ranking:
+    source: "Artifact Hub packages/search"
+    sourceURL: "https://artifacthub.io/api/v1/packages/search?kind=0&sort=stars&limit=20&deprecated=false"
+    metric: "stars"
+    rank: 20
+    stars: 214
+    packageID: "a5a1e501-bfca-4c1b-98c3-90dcfdf6f33b"
+  artifactHub:
+    detailsURL: "https://artifacthub.io/api/v1/packages/helm/bitnami/rabbitmq"
+    detailsError: null
+    description: "RabbitMQ is an open source general-purpose message broker that is designed for consistent, highly-available messaging scenarios (both synchronous and asynchronous)."
+    license: null
+    signed: false
+    signatures:
+      []
+  chart:
+    repositoryName: "bitnami"
+    repositoryURL: "https://charts.bitnami.com/bitnami"
+    resolvedRepositoryURL: "https://charts.bitnami.com/bitnami"
+    contentURL: "oci://registry-1.docker.io/bitnamicharts/rabbitmq:16.0.14"
+    artifactHubDigest: "df625220cafdfe892e68c1b3f1a5500049acd227fe90b2deca04df13190a176b"
+    repositoryVerifiedPublisher: true
+    repositoryOfficial: false
+    repositoryCNCF: false
+    name: "rabbitmq"
+    normalizedName: "rabbitmq"
+    version: "16.0.14"
+    appVersion: "4.1.3"
+    archiveSHA256: "df625220cafdfe892e68c1b3f1a5500049acd227fe90b2deca04df13190a176b"
+    archiveBytes: 73978
+    kubeVersionConstraint: ""
+    dependencies:
+      - name: "common"
+        version: "2.x.x"
+        repository: "oci://registry-1.docker.io/bitnamicharts"
+        artifactHubRepositoryName: null
+    links:
+      - name: "source"
+        url: "https://github.com/bitnami/charts/tree/main/bitnami/rabbitmq"
+  render:
+    helmVersion: "v4.1.4 05fa37973dc9e42b76e1d2883494c87174b6074f go1.26.2"
+    command:
+      - helm
+      - template
+      - "rabbitmq"
+      - "rabbitmq-16.0.14.tgz"
+      - --namespace
+      - "rabbitmq"
+      - --values
+      - values.yaml
+      - --kube-version
+      - "1.30.0"
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+    releaseName: "rabbitmq"
+    namespace: "rabbitmq"
+    kubeVersion: "1.30.0"
+    apiVersions: []
+    values:
+      files:
+        - path: values.yaml
+          sha256: "dd755fd014615231b1085a9bf08fba9289f417a96aab5508d0817c0a5b9b523c"
+      mergedValuesCaptured: false
+  outputs:
+    importSpecSHA256: "7706d750a1aa4a3788a5b8ff1ca84eb50b82dfeb8b96cf47378df4f619a3dda1"
+    upstreamYAMLSHA256: "6a30d7213099698f618eceff9be7edebeb40c753f97fd9ae4aa1527758fa53d4"
+    upstreamYAMLBytes: 15279
+    resourceCount: 10
+    secondRenderSHA256: "6a30d7213099698f618eceff9be7edebeb40c753f97fd9ae4aa1527758fa53d4"
+    deterministicAcrossTwoLocalRenders: true
+  status:
+    phase: "rendered"
+    renderError: null
+  artifactHubVersion:
+    detailsURL: "https://artifacthub.io/api/v1/packages/helm/bitnami/rabbitmq/16.0.14"
+    detailsError: null
+    digest: "df625220cafdfe892e68c1b3f1a5500049acd227fe90b2deca04df13190a176b"
+    contentURL: "oci://registry-1.docker.io/bitnamicharts/rabbitmq:16.0.14"

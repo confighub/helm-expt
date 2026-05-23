@@ -1,0 +1,86 @@
+apiVersion: installer.confighub.com/v1alpha1
+kind: HelmImportReceipt
+metadata:
+  name: "10-grafana-loki"
+  generatedAt: "2026-05-23T19:46:18.577Z"
+spec:
+  ranking:
+    source: "Artifact Hub packages/search"
+    sourceURL: "https://artifacthub.io/api/v1/packages/search?kind=0&sort=stars&limit=20&deprecated=false"
+    metric: "stars"
+    rank: 10
+    stars: 337
+    packageID: "a779e8e7-a6ce-433b-bda6-fd330d31a280"
+  artifactHub:
+    detailsURL: "https://artifacthub.io/api/v1/packages/helm/grafana/loki"
+    detailsError: null
+    description: "Helm chart for Grafana Loki and Grafana Enterprise Logs supporting monolithic, simple scalable, and microservices modes."
+    license: null
+    signed: false
+    signatures:
+      []
+  chart:
+    repositoryName: "grafana"
+    repositoryURL: "https://grafana.github.io/helm-charts"
+    resolvedRepositoryURL: "https://grafana.github.io/helm-charts"
+    contentURL: "https://github.com/grafana/helm-charts/releases/download/helm-loki-7.0.0/loki-7.0.0.tgz"
+    artifactHubDigest: "5eaa28e3535069de2a7ac1f7087ff558e5b4b4a24f0e158072a97e2391132f81"
+    repositoryVerifiedPublisher: false
+    repositoryOfficial: false
+    repositoryCNCF: false
+    name: "loki"
+    normalizedName: "loki"
+    version: "7.0.0"
+    appVersion: "3.6.7"
+    archiveSHA256: "5eaa28e3535069de2a7ac1f7087ff558e5b4b4a24f0e158072a97e2391132f81"
+    archiveBytes: 170255
+    kubeVersionConstraint: ""
+    dependencies:
+      []
+    links:
+      - name: "source"
+        url: "https://github.com/grafana/loki"
+      - name: "source"
+        url: "https://grafana.com/oss/loki/"
+      - name: "source"
+        url: "https://grafana.com/docs/loki/latest/"
+  render:
+    helmVersion: "v4.1.4 05fa37973dc9e42b76e1d2883494c87174b6074f go1.26.2"
+    command:
+      - helm
+      - template
+      - "loki"
+      - "loki-7.0.0.tgz"
+      - --namespace
+      - "loki"
+      - --values
+      - values.yaml
+      - --kube-version
+      - "1.30.0"
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+    releaseName: "loki"
+    namespace: "loki"
+    kubeVersion: "1.30.0"
+    apiVersions: []
+    values:
+      files:
+        - path: values.yaml
+          sha256: "b6e51fadb247f81d36f345d13e02b1bdec03a2a4f2db8cc536783163813c33af"
+      mergedValuesCaptured: false
+  outputs:
+    importSpecSHA256: "e2a05ea8a5f9aa762a6dd1ebe748f1244f994b13c7282e8d6f3dfcbf7ffecd6d"
+    upstreamYAMLSHA256: "548782e46af18e26a2bde6216054fca7bb3b7692526bff2be8ac27a3e135dc12"
+    upstreamYAMLBytes: 32606
+    resourceCount: 19
+    secondRenderSHA256: "548782e46af18e26a2bde6216054fca7bb3b7692526bff2be8ac27a3e135dc12"
+    deterministicAcrossTwoLocalRenders: true
+  status:
+    phase: "rendered"
+    renderError: null
+  artifactHubVersion:
+    detailsURL: "https://artifacthub.io/api/v1/packages/helm/grafana/loki/7.0.0"
+    detailsError: null
+    digest: "5eaa28e3535069de2a7ac1f7087ff558e5b4b4a24f0e158072a97e2391132f81"
+    contentURL: "https://github.com/grafana/helm-charts/releases/download/helm-loki-7.0.0/loki-7.0.0.tgz"
