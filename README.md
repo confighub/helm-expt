@@ -1,67 +1,183 @@
-# ConfigHub Helm Experiment
-
-This repository is the proof workspace for the ConfigHub Helm mission:
+# ConfigHub Helm Proof
 
 ```text
 Use Helm charts. Ship ConfigHub variants.
 ```
 
-The archived top-20 render-and-vendor examples below are compatibility evidence,
-not the main product proof. The main proof is the planned Redis recipe/variant
-path documented in `docs/agreed-execution-plan.md`.
+This repo is the working proof for making Helm less painful with ConfigHub:
+render exact Kubernetes objects, review them, scan them, store receipts, and
+promote approved revisions instead of re-running a chart and hoping.
 
-The archived chart set is the current top 20 Helm packages returned by Artifact Hub, sorted by stars:
+Default ConfigHub org for this project:
 
-<https://artifacthub.io/api/v1/packages/search?kind=0&sort=stars&limit=20&deprecated=false>
-
-Generated at: `2026-05-23T19:46:18.577Z`
-
-Helm used for this run: `v4.1.4 05fa37973dc9e42b76e1d2883494c87174b6074f go1.26.2`
-
-Each archived chart directory contains:
-
-- `installer.yaml`: a minimal ConfigHub package wrapper.
-- `helm-import.spec.yaml`: the proposed first-class Helm import inputs.
-- `helm-import.receipt.yaml`: the receipt with chart source, archive hash, render command, output hash, and two-render determinism check.
-- `values.yaml`: the explicit values overlay used for the import. Most are `{}`; charts with required or randomly generated defaults use deterministic experiment placeholders.
-- `base/kustomization.yaml`: a kustomize base that includes the rendered upstream manifest.
-- `base/upstream.yaml`: the rendered Helm manifest captured as the package input.
-
-## Archived Top 20 Render-And-Vendor Evidence
-
-| Rank | Chart | Version | Stars | Status | 2x deterministic | Resources | Path |
-| ---: | --- | --- | ---: | --- | --- | ---: | --- |
-| 1 | `prometheus-community/kube-prometheus-stack` | 85.3.0 | 1206 | rendered | yes | 124 | [01-prometheus-community-kube-prometheus-stack](archive/render-and-vendor-top20/charts/01-prometheus-community-kube-prometheus-stack/) |
-| 2 | `cert-manager/cert-manager` | 1.20.2 | 973 | rendered | yes | 42 | [02-cert-manager-cert-manager](archive/render-and-vendor-top20/charts/02-cert-manager-cert-manager/) |
-| 3 | `ingress-nginx/ingress-nginx` | 4.15.1 | 828 | rendered | yes | 11 | [03-ingress-nginx-ingress-nginx](archive/render-and-vendor-top20/charts/03-ingress-nginx-ingress-nginx/) |
-| 4 | `argo/argo-cd` | 9.5.15 | 824 | rendered | yes | 49 | [04-argo-argo-cd](archive/render-and-vendor-top20/charts/04-argo-argo-cd/) |
-| 5 | `prometheus-community/prometheus` | 29.8.0 | 542 | rendered | yes | 23 | [05-prometheus-community-prometheus](archive/render-and-vendor-top20/charts/05-prometheus-community-prometheus/) |
-| 6 | `bitnami/redis` | 25.5.3 | 507 | rendered | yes | 14 | [06-bitnami-redis](archive/render-and-vendor-top20/charts/06-bitnami-redis/) |
-| 7 | `bitnami/postgresql` | 18.6.7 | 417 | rendered | yes | 7 | [07-bitnami-postgresql](archive/render-and-vendor-top20/charts/07-bitnami-postgresql/) |
-| 8 | `traefik/traefik` | 40.2.0 | 414 | rendered | yes | 31 | [08-traefik-traefik](archive/render-and-vendor-top20/charts/08-traefik-traefik/) |
-| 9 | `k8s-dashboard/kubernetes-dashboard` | 7.14.0 | 364 | rendered | yes | 35 | [09-k8s-dashboard-kubernetes-dashboard](archive/render-and-vendor-top20/charts/09-k8s-dashboard-kubernetes-dashboard/) |
-| 10 | `grafana/loki` | 7.0.0 | 337 | rendered | yes | 19 | [10-grafana-loki](archive/render-and-vendor-top20/charts/10-grafana-loki/) |
-| 11 | `metrics-server/metrics-server` | 3.13.0 | 308 | rendered | yes | 9 | [11-metrics-server-metrics-server](archive/render-and-vendor-top20/charts/11-metrics-server-metrics-server/) |
-| 12 | `hashicorp/vault` | 0.32.0 | 294 | rendered | yes | 12 | [12-hashicorp-vault](archive/render-and-vendor-top20/charts/12-hashicorp-vault/) |
-| 13 | `gitlab/gitlab` | 10.0.0 | 274 | rendered | yes | 148 | [13-gitlab-gitlab](archive/render-and-vendor-top20/charts/13-gitlab-gitlab/) |
-| 14 | `harbor/harbor` | 1.19.0 | 269 | rendered | yes | 30 | [14-harbor-harbor](archive/render-and-vendor-top20/charts/14-harbor-harbor/) |
-| 15 | `bitnami/keycloak` | 25.2.0 | 269 | rendered | yes | 15 | [15-bitnami-keycloak](archive/render-and-vendor-top20/charts/15-bitnami-keycloak/) |
-| 16 | `jenkinsci/jenkins` | 5.9.22 | 247 | rendered | yes | 12 | [16-jenkinsci-jenkins](archive/render-and-vendor-top20/charts/16-jenkinsci-jenkins/) |
-| 17 | `external-secrets-operator/external-secrets` | 2.5.0 | 241 | rendered | yes | 42 | [17-external-secrets-operator-external-secrets](archive/render-and-vendor-top20/charts/17-external-secrets-operator-external-secrets/) |
-| 18 | `external-dns/external-dns` | 1.21.1 | 229 | rendered | yes | 6 | [18-external-dns-external-dns](archive/render-and-vendor-top20/charts/18-external-dns-external-dns/) |
-| 19 | `longhorn/longhorn` | 1.11.2 | 216 | rendered | yes | 41 | [19-longhorn-longhorn](archive/render-and-vendor-top20/charts/19-longhorn-longhorn/) |
-| 20 | `bitnami/rabbitmq` | 16.0.14 | 214 | rendered | yes | 10 | [20-bitnami-rabbitmq](archive/render-and-vendor-top20/charts/20-bitnami-rabbitmq/) |
-
-## Regenerate
-
-```sh
-npm run generate
+```text
+ConfigHub Helm
 ```
 
-## Verify Stored Receipts
+Do not use `ConfighubOps` for this work.
+
+## What Is Here
+
+| Path | Purpose |
+| --- | --- |
+| `docs/agreed-execution-plan.md` | The current product and execution plan. |
+| `docs/chart-recipe-manifest-flow.md` | Deeper architecture notes for chart to recipe to rendered objects. |
+| `outputs/helm_top500_matrix/` | Background evidence from the top 500 Helm chart source scan. |
+| `archive/render-and-vendor-top20/` | Archived compatibility evidence for the old render-and-vendor experiment. |
+
+The first full product proof is Redis. The goal is a small set of realistic
+Redis install variants, then exact rendered objects, scans, gates, and receipts.
+
+## Local CLI Proof
+
+Prerequisites:
+
+- `node`
+- `cub`
+- Access to the `ConfigHub Helm` org
+
+Verify the archived top-20 receipts:
 
 ```sh
 npm run verify
 ```
 
-The verify command checks that each stored `base/upstream.yaml` still matches the SHA256 in its receipt. It intentionally does not refetch Artifact Hub or chart repositories.
+Render Redis locally with `cub`:
+
+```sh
+mkdir -p out/redis
+cub helm template redis redis \
+  --repo https://charts.bitnami.com/bitnami \
+  --version 25.5.3 \
+  --namespace redis \
+  --output-dir out/redis
+```
+
+Inspect the exact rendered objects:
+
+```sh
+ls -lh out/redis
+sed -n '1,80p' out/redis/redis.yaml
+```
+
+Render a simple HA-style variant by changing Helm inputs deliberately:
+
+```sh
+mkdir -p out/redis-ha
+cub helm template redis redis \
+  --repo https://charts.bitnami.com/bitnami \
+  --version 25.5.3 \
+  --namespace redis \
+  --set architecture=replication \
+  --set replica.replicaCount=2 \
+  --output-dir out/redis-ha
+
+diff -u out/redis/redis.yaml out/redis-ha/redis.yaml || true
+```
+
+That is the minimum CLI loop we want to preserve:
+
+```text
+choose chart inputs
+render exact objects
+compare exact objects
+scan/gate exact objects
+store receipts
+```
+
+## ConfigHub Proof
+
+Log in directly to the demo org:
+
+```sh
+cub auth login \
+  --server https://hub.confighub.com \
+  --organization "ConfigHub Helm"
+```
+
+Create the Redis proof space once:
+
+```sh
+cub space create helm-redis-proof --set-context
+```
+
+If the space already exists, set it as the current default:
+
+```sh
+cub context set --space helm-redis-proof
+```
+
+Install Redis rendered from the chart into ConfigHub units:
+
+```sh
+cub helm install redis redis \
+  --repo https://charts.bitnami.com/bitnami \
+  --version 25.5.3 \
+  --namespace redis
+```
+
+Confirm the units exist:
+
+```sh
+cub unit list --space helm-redis-proof
+```
+
+Open ConfigHub:
+
+```text
+https://hub.confighub.com
+```
+
+In the UI:
+
+1. Switch to the `ConfigHub Helm` org.
+2. Open the `helm-redis-proof` space.
+3. Review the Redis units created by `cub helm install`.
+4. Use unit diffs and revisions to inspect exactly what changed.
+5. Keep all Redis demo/proof work in this org and space unless the README says otherwise.
+
+## Evidence
+
+Top-500 matrix:
+
+```text
+outputs/helm_top500_matrix/helm_top500_import_feature_matrix.xlsx
+outputs/helm_top500_matrix/helm_top500_import_feature_matrix.raw.json
+```
+
+The matrix is a source feature scan. It is background evidence for the control
+points, not proof that every chart has a finished recipe.
+
+Archived top-20 render-and-vendor proof:
+
+```text
+archive/render-and-vendor-top20/charts/
+```
+
+These folders prove that rendered Helm output can be wrapped and verified. They
+are not the main Redis variant proof.
+
+## Next Milestone
+
+Add the Redis proof artifacts:
+
+```text
+recipes/bitnami/redis/25.5.3/
+  recipe-candidate.yaml
+  source-lock.yaml
+  dependency-lock.yaml
+  control-points.yaml
+  variants/
+  revisions/
+```
+
+The finished Redis proof should make this true:
+
+```text
+Helm chart
+  -> ConfigHub recipe candidate
+  -> named install variants
+  -> immutable rendered variant revisions
+  -> scan and install receipts
+  -> ConfigHub review and promotion
+```
