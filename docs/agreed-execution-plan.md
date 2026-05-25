@@ -283,6 +283,46 @@ variant revisions, rendered release objects, scan receipt, and install gate.
 `verify` should verify hashes and references for receipts and fail on missing or
 changed content.
 
+## Current Executable Redis Demo
+
+The root README is the current demo script. It uses real `cub install`
+commands from `confighub/installer`, not target command names.
+
+The executable path is:
+
+```sh
+go install sigs.k8s.io/kustomize/kustomize/v5@v5.8.1
+export PATH="$PATH:$(go env GOPATH)/bin"
+cub plugin install confighub/installer --source-repo --name install --force
+make -C ~/.confighub/plugins/install build
+cub install doc ./archive/render-and-vendor-top20/charts/06-bitnami-redis
+cub install setup \
+  --pull ./archive/render-and-vendor-top20/charts/06-bitnami-redis \
+  --work-dir /tmp/confighub-helm-redis \
+  --non-interactive \
+  --namespace redis
+cub install upload \
+  --work-dir /tmp/confighub-helm-redis \
+  --space helm-redis-proof \
+  --component Redis \
+  --environment Demo \
+  --variant default
+```
+
+This demo proves the current installer path for Helm-derived artifacts:
+
+```text
+Helm-rendered Redis package
+  -> installer.yaml package
+  -> cub install setup
+  -> exact rendered Kubernetes objects
+  -> cub install upload
+  -> ConfigHub Units, revisions, and diffs
+```
+
+The older direct `cub helm install` concept is preserved in
+`docs/old-cub-helm-model.md` as background only.
+
 ## Agreed Target Artifacts
 
 Minimum Redis proof artifacts:
