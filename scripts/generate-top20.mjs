@@ -7,6 +7,8 @@ import { fileURLToPath } from "node:url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = join(__dirname, "..");
 const verifyOnly = process.argv.includes("--verify");
+const renderAndVendorRoot = join(repoRoot, "archive", "render-and-vendor-top20");
+const chartsRoot = join(renderAndVendorRoot, "charts");
 
 const artifactHubSearchURL =
   "https://artifacthub.io/api/v1/packages/search?kind=0&sort=stars&limit=20&deprecated=false";
@@ -485,7 +487,6 @@ function readReceiptHash(chartPath) {
 
 async function main() {
   if (verifyOnly) {
-    const chartsRoot = join(repoRoot, "charts");
     const chartDirs = execFileSync("find", [chartsRoot, "-mindepth", "1", "-maxdepth", "1", "-type", "d"], {
       encoding: "utf8",
     })
@@ -509,7 +510,7 @@ async function main() {
   const packages = await fetchTop20();
   const helmVersionText = helmVersion();
 
-  ensureCleanDir(join(repoRoot, "charts"));
+  ensureCleanDir(chartsRoot);
   ensureCleanDir(join(repoRoot, ".tmp"));
   mkdirSync(join(repoRoot, ".helm"), { recursive: true });
 
@@ -519,7 +520,7 @@ async function main() {
     const chartDirName = `${String(rank).padStart(2, "0")}-${slugify(pkg.repository.name)}-${slugify(
       pkg.normalized_name,
     )}`;
-    const chartPath = join(repoRoot, "charts", chartDirName);
+    const chartPath = join(chartsRoot, chartDirName);
     const basePath = join(chartPath, "base");
     const workDir = join(repoRoot, ".tmp", chartDirName);
     ensureCleanDir(chartPath);
@@ -636,7 +637,7 @@ spec:
 ${rows
   .map(
     (row) => `    - rank: ${row.rank}
-      path: ${yamlQuote(`charts/${row.chartDirName}`)}
+      path: ${yamlQuote(`archive/render-and-vendor-top20/charts/${row.chartDirName}`)}
       repository: ${yamlQuote(row.repository)}
       name: ${yamlQuote(row.name)}
       version: ${yamlQuote(row.version)}
@@ -648,12 +649,12 @@ ${rows
   )
   .join("\n")}
 `;
-  writeFile(join(repoRoot, "charts/index.yaml"), indexYaml);
+  writeFile(join(chartsRoot, "index.yaml"), indexYaml);
 
   const readmeRows = rows
     .map(
       (row) =>
-        `| ${row.rank} | \`${row.repository}/${row.name}\` | ${row.version} | ${row.stars} | ${row.status} | ${row.deterministic ? "yes" : "no"} | ${row.resources} | [${row.chartDirName}](charts/${row.chartDirName}/) |`,
+        `| ${row.rank} | \`${row.repository}/${row.name}\` | ${row.version} | ${row.stars} | ${row.status} | ${row.deterministic ? "yes" : "no"} | ${row.resources} | [${row.chartDirName}](archive/render-and-vendor-top20/charts/${row.chartDirName}/) |`,
     )
     .join("\n");
 
@@ -661,9 +662,17 @@ ${rows
     join(repoRoot, "README.md"),
     `# ConfigHub Helm Experiment
 
-This repository is a generated experiment for making Helm chart imports reproducible and auditable in ConfigHub.
+This repository is the proof workspace for the ConfigHub Helm mission:
 
-The chart set is the current top 20 Helm packages returned by Artifact Hub, sorted by stars:
+\`\`\`text
+Use Helm charts. Ship ConfigHub variants.
+\`\`\`
+
+The archived top-20 render-and-vendor examples below are compatibility evidence,
+not the main product proof. The main proof is the planned Redis recipe/variant
+path documented in \`docs/agreed-execution-plan.md\`.
+
+The archived chart set is the current top 20 Helm packages returned by Artifact Hub, sorted by stars:
 
 <${artifactHubSearchURL}>
 
@@ -671,7 +680,7 @@ Generated at: \`${generatedAt}\`
 
 Helm used for this run: \`${helmVersionText}\`
 
-Each chart directory contains:
+Each archived chart directory contains:
 
 - \`installer.yaml\`: a minimal ConfigHub package wrapper.
 - \`helm-import.spec.yaml\`: the proposed first-class Helm import inputs.
@@ -680,7 +689,7 @@ Each chart directory contains:
 - \`base/kustomization.yaml\`: a kustomize base that includes the rendered upstream manifest.
 - \`base/upstream.yaml\`: the rendered Helm manifest captured as the package input.
 
-## Top 20
+## Archived Top 20 Render-And-Vendor Evidence
 
 | Rank | Chart | Version | Stars | Status | 2x deterministic | Resources | Path |
 | ---: | --- | --- | ---: | --- | --- | ---: | --- |
