@@ -108,6 +108,25 @@ Rendered 14 manifest(s) to /tmp/confighub-helm-redis/out/manifests
 Rendered 1 secret(s) to /tmp/confighub-helm-redis/out/secrets (not uploaded)
 ```
 
+## Helm Comparison
+
+Check the Redis Helm render against the Redis installer render:
+
+```sh
+npm run redis:compare
+```
+
+That command does not upload anything. It checks:
+
+- a fresh Helm render of Redis 25.5.3 byte-matches the archived Helm render
+  recorded in `helm-import.receipt.yaml`
+- `cub install setup` preserves the full Helm object set
+- every Helm object is semantically identical after `cub install` splits and
+  normalizes YAML
+- `cub install setup` separates the Secret into `out/secrets`
+- the only extra object from `cub install setup` is the explicit `redis`
+  Namespace support object
+
 ## ConfigHub Demo
 
 Log in to the demo org:

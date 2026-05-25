@@ -301,6 +301,7 @@ cub install setup \
   --work-dir /tmp/confighub-helm-redis \
   --non-interactive \
   --namespace redis
+npm run redis:compare
 cub install upload \
   --work-dir /tmp/confighub-helm-redis \
   --space helm-redis-proof \
@@ -312,7 +313,8 @@ cub install upload \
 This demo proves the current installer path for Helm-derived artifacts:
 
 ```text
-Helm-rendered Redis package
+Helm render
+  -> archived Redis installer package
   -> installer.yaml package
   -> cub install setup
   -> exact rendered Kubernetes objects
@@ -322,6 +324,70 @@ Helm-rendered Redis package
 
 The older direct `cub helm install` concept is preserved in
 `docs/old-cub-helm-model.md` as background only.
+
+## Helm Equivalence Doctrine
+
+Every Helm-derived proof must investigate 100% of the rendered manifests and
+installed ConfigHub configs against the equivalent regular Helm output.
+
+Known-good deterministic cases must prove:
+
+- Regular Helm renders from captured inputs.
+- The Helm render matches the recorded import receipt.
+- `cub install setup` preserves every Helm object.
+- Any installer normalization is semantic-only, not object-changing.
+- Secret handling is explicit and verified.
+- Installer-added support objects are listed and justified.
+- After `cub install upload`, ConfigHub Units match the local installer output.
+
+Other paths must not be waved through. They need a diff/risk classification:
+
+```text
+OK: semantic YAML normalization only
+OK: intentional installer support object
+Needs control point: generated fact, target fact, capability profile, hook policy
+Needs operator decision: Secret handling, raw manifest slot, lifecycle action
+Blocked: source drift, unresolved renderer/plugin, unsafe nondeterminism
+```
+
+This is the trust story for Helm users: use regular Helm as the reference
+renderer where it is deterministic, then make every ConfigHub difference
+visible, classified, and auditable.
+
+## Corpus Boundary Doctrine
+
+Over time, ConfigHub should build a long-lived corpus of high-value config
+evidence for matrix comparisons across:
+
+- vendor chart versions
+- upstream project/app versions
+- Kubernetes versions and capability profiles
+- install addons and optional components
+- values options, overlays, edits, and organization policies
+- rendered manifests, scans, gates, diffs, and outcomes
+
+That corpus is product data, not a public repo artifact.
+
+The public `helm-expt` repo may contain:
+
+- methodology
+- schemas
+- redacted examples
+- open-source chart examples
+- synthetic examples
+- scripts that prove the comparison approach
+
+The public repo must not contain:
+
+- customer configs
+- secrets or secret-derived material
+- private environment facts
+- private policy results
+- proprietary corpus rows
+- non-public roadmap or packaging details
+
+Public docs should describe the doctrine and the controls, not expose the
+protected corpus itself.
 
 ## Agreed Target Artifacts
 
