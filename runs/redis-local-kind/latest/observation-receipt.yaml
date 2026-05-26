@@ -1,0 +1,45 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ObservationReceipt
+metadata:
+  name: bitnami-redis-standalone-r001-local-kind
+spec:
+  variantRevision: "recipes/bitnami/redis/25.5.3/revisions/standalone/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+  observer:
+    name: redis-local-e2e
+    version: "0.1.0"
+    method: kubectl-kind
+  target:
+    kind: kind
+    name: "helm-expt-redis"
+    context: "kind-helm-expt-redis"
+    namespace: "redis"
+  observedAt: "2026-05-26T11:06:37.421Z"
+  freshnessTTL: 1h
+  result: pass
+  clusterStatus: "existing"
+  targetFacts:
+    defaultStorageClass:
+      name: "standard"
+      status: "existing"
+      provisionerURL: null
+  checks:
+    - name: namespace-support-object-applied
+      result: pass
+      object: v1|Namespace||redis
+    - name: statefulset-redis-master-rollout
+      result: pass
+      object: apps/v1|StatefulSet|redis|redis-master
+    - name: statefulset-redis-replicas-rollout
+      result: pass
+      object: apps/v1|StatefulSet|redis|redis-replicas
+    - name: redis-ping
+      result: pass
+      evidencePath: redis-pong.txt
+      evidenceSHA256: "9597e5d74f44f182ebb56b65a79c6b1b84829735af1ff583d44c3384d8a0a45e"
+    - name: redis-pvcs-bound
+      result: pass
+      count: 4
+  kubectlObjects:
+    path: kubectl-objects.txt
+    sha256: "56be10a023cd796368b9870e5f7485fb83f53c2bfd6854fa4a4c6b4bb81351a4"

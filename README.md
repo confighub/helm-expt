@@ -266,6 +266,17 @@ npm run redis:compare
 `redis:verify-proof` is local and deterministic. `redis:compare` re-renders
 Redis with Helm and `cub install setup` to prove the Helm-equivalence claim.
 
+Optional live local e2e:
+
+```sh
+npm run redis:local-e2e
+npm run redis:verify-local-e2e
+```
+
+This uses a dedicated kind cluster named `helm-expt-redis`, writes a local
+observation receipt under `runs/redis-local-kind/latest/`, and does not change
+the production scan gate.
+
 Background notes:
 
 ```text
