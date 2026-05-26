@@ -225,6 +225,24 @@ archive/render-and-vendor-top20/charts/
 outputs/helm_top500_matrix/
 ```
 
+## Verification
+
+The default verifier is now the artifact-chain verifier:
+
+```sh
+npm run verify
+```
+
+It checks the archived Helm import receipts against their referenced files and
+also runs a negative golden check that corrupts Redis `values.yaml` in a temp
+copy and confirms the verifier rejects it.
+
+The old hash-only archive check is still available for comparison:
+
+```sh
+npm run verify:legacy
+```
+
 Background notes:
 
 ```text
