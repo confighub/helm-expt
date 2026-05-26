@@ -161,6 +161,10 @@ docs/issue-backlog.md
 
 Open P0 issues in that file are gates before credible 20/100/500 chart proof.
 
+The next milestone is 20 full public-chart proofs, not a broad spreadsheet
+with only a few deep examples. The target list and acceptance contract live in
+[docs/top20-full-proof-target.md](docs/top20-full-proof-target.md).
+
 ## Current CLI Boundary
 
 As of May 26, 2026, the real `cub install` surface is the
@@ -215,6 +219,7 @@ recipes/external-secrets/external-secrets/2.5.0/
 packages/external-secrets/external-secrets/2.5.0/
 data/adversarial10/
 data/top500/
+docs/top20-full-proof-target.md
 schemas/
 runs/
 ```

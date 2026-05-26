@@ -168,8 +168,11 @@ Immediate execution order:
    [#9](https://github.com/confighub/helm-expt/issues/9).
 3. **Prove the five-minute happy path continuously**:
    [#26](https://github.com/confighub/helm-expt/issues/26).
-4. **Only then scale the corpus**:
+4. **Scale to 20 full public-chart proofs**:
    [#25](https://github.com/confighub/helm-expt/issues/25).
+   The target is not a spreadsheet plus selected deep dives. It is 20 full
+   recipe/variant/revision proof slices with `cub install` package/setup,
+   Helm equivalence, scans, gates, and receipts.
 
 Current execution status:
 
@@ -186,8 +189,10 @@ Fourth promoted adversarial row: external-secrets/external-secrets@2.5.0.
 The adversarial 10 foundation does not close the scale proof. It gives us the
 first generated chart corpus lock, readiness CSV, per-chart HelmPlans, render
 receipts, stored rendered manifests for successful attempts, and blocker receipt
-for a default-values render failure. The next step is to promote selected rows
-from readiness evidence into full recipe/variant/revision proofs.
+for a default-values render failure. The next step is to promote rows from
+readiness evidence into full recipe/variant/revision proofs until the repo has
+20 complete public-chart proof slices. The target list and per-chart contract
+live in [top20-full-proof-target.md](top20-full-proof-target.md).
 
 The first such promotion is metrics-server. It adds the repeatable pattern for a
 small but non-trivial public chart: source/dependency locks, two variants,
@@ -1248,11 +1253,14 @@ Minimum docs:
 8. External observers can participate, but should not make the happy path feel heavy.
 9. Current top-20 render-and-vendor artifacts are archived as compatibility evidence, not hero proof.
 10. Every maintained chart needs a `HelmPlan` and `ChartDossier`.
-11. The new top-20/top-100/top-500 spreadsheets must be generated proof
+11. The new top-20 milestone is 20 full chart proofs. The top-20 spreadsheet
+    must be a generated evidence map over those proofs, not a substitute for
+    them.
+12. The new top-100/top-500 spreadsheets must be generated proof
     indexes / evidence maps, not proof by themselves.
-12. The P0 gates in `docs/issue-backlog.md` must be complete or deliberately
+13. The P0 gates in `docs/issue-backlog.md` must be complete or deliberately
     reclassified before claiming credible 20/100/500 chart proof.
-13. The target proof is:
+14. The target proof is:
 
 ```text
 Helm complexity

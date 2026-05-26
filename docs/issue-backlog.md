@@ -53,9 +53,11 @@ It partially advances [#24](https://github.com/confighub/helm-expt/issues/24),
   `npm run adversarial10:verify:self-test`.
 
 This is not enough to close those P0s. It is the first foundation for them.
-The next harness step is to turn selected rows into complete
-recipe/variant/revision proofs, add formal schemas, and make spreadsheet rows
-trace all the way to scans, gates, and publication receipts.
+The next harness step is to turn enough rows into complete
+recipe/variant/revision proofs to reach the 20 full public-chart proof target,
+add formal schemas, and make spreadsheet rows trace all the way to scans,
+gates, and publication receipts. The target list and acceptance contract live
+in [top20-full-proof-target.md](top20-full-proof-target.md).
 
 ## Current Promoted Chart Proofs
 
@@ -87,7 +89,8 @@ The council review made the first implementation slice explicit:
    [#30](https://github.com/confighub/helm-expt/issues/30), and
    [#27](https://github.com/confighub/helm-expt/issues/27).
 5. [#25](https://github.com/confighub/helm-expt/issues/25) **Top-N adversarial harness.**
-   Only scale after the artifact chain and UX proof work. Use
+   The next milestone is 20 full public-chart proofs, not just a readiness
+   spreadsheet. Only scale after the artifact chain and UX proof work. Use
    [known-adversarial-charts.md](known-adversarial-charts.md) to choose
    public charts that exercise CRDs, hooks, generated facts, capabilities,
    `tpl`, raw manifests, RBAC/webhooks/APIService, and stateful behavior.

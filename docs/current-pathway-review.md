@@ -278,19 +278,24 @@ The order is deliberate: can I use this safely, why, then raw receipts.
 
 ## 20 / 50 / 100 / 500 Proof Ladder
 
-For 20 charts, prove depth:
+For 20 charts, prove depth with 20 full public-chart proof slices:
 
-- complete Redis proof first
-- promote selected `data/adversarial10/` rows into chart proof folders
-- add enough additional chart rows to reach 20
-- at least default variant per chart
-- at least one second meaningful variant where relevant
-- deterministic render checks
-- Helm equivalence report
-- scan receipt and install gate per rendered revision
-- explicit CRD-heavy charts in the set
-- adversarial set chosen from [known-adversarial-charts.md](known-adversarial-charts.md)
-- every generated spreadsheet row traceable to receipts, not just source scans
+- include Redis as the first full proof;
+- promote rows from `data/adversarial10/` into chart proof folders;
+- add enough additional public chart rows to reach 20;
+- require recipe and package directories for every chart;
+- require at least the default variant per chart;
+- require at least one second meaningful variant where relevant;
+- run deterministic render checks;
+- run `cub install package` and `cub install setup`;
+- produce a Helm equivalence report;
+- produce scan receipt and install gate per rendered revision;
+- include explicit CRD-heavy charts in the set;
+- choose the adversarial set from [known-adversarial-charts.md](known-adversarial-charts.md);
+- make every generated spreadsheet row traceable to receipts, not just source scans.
+
+The concrete target list and acceptance contract live in
+[top20-full-proof-target.md](top20-full-proof-target.md).
 
 For 50 charts, prove breadth without losing clarity:
 

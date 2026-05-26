@@ -119,6 +119,11 @@ Can the plan prove itself against 20, 100, and 500 real charts, including ugly
 Helm behavior?
 ```
 
+For the next milestone, "20 charts" means 20 full public-chart proof slices.
+It does not mean a broad readiness spreadsheet plus a handful of examples.
+Review [top20-full-proof-target.md](top20-full-proof-target.md) as the concrete
+target list and acceptance contract.
+
 Review whether the plan covers:
 
 - source and dependency locks
@@ -164,6 +169,7 @@ recipes/bitnami/redis/25.5.3/
 packages/bitnami/redis/25.5.3/
 docs/demo/redis/
 data/adversarial10/
+docs/top20-full-proof-target.md
 recipes/metrics-server/metrics-server/3.13.0/
 packages/metrics-server/metrics-server/3.13.0/
 recipes/ingress-nginx/ingress-nginx/4.15.1/
