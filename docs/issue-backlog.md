@@ -78,6 +78,7 @@ Rows promoted from readiness evidence into full proof slices:
 | `longhorn/longhorn@1.11.2` | `recipes/longhorn/longhorn/1.11.2/`, `packages/longhorn/longhorn/1.11.2/` | Tenth promoted adversarial row: `default` and `ui-ingress` variants, 22 CRDs, pre-upgrade hook/admission-recovery/RBAC/privileged-storage/StorageClass/UI ingress gates, deterministic `cub install` package/setup proof. |
 | `bitnami/mysql@14.0.3` | `recipes/bitnami/mysql/14.0.3/`, `packages/bitnami/mysql/14.0.3/` | Eleventh promoted adversarial row: `generated-passwords` and `existing-secret` variants, root/user/replication generated facts, target Secret facts, dependency/hook/StatefulSet/PVC/extension gates, deterministic `cub install` package/setup proof. |
 | `grafana/grafana@10.5.15` | `recipes/grafana/grafana/10.5.15/`, `packages/grafana/grafana/10.5.15/` | Twelfth promoted adversarial row: chart-deprecation marker, `generated-passwords` and `existing-secret-ingress` variants, generated admin credential, target Secret facts, UI ingress, RBAC/deployment/provisioning/sidecar/Secret extension gates, deterministic `cub install` package/setup proof. |
+| `hashicorp/vault@0.32.0` | `recipes/hashicorp/vault/0.32.0/`, `packages/hashicorp/vault/0.32.0/` | Thirteenth full public-chart proof row: `default` and `ha-raft-ui` variants, TLS posture, injector webhook, StatefulSet/HA Raft, init/unseal operate policy, service exposure, RBAC/Secret/env extension gates, deterministic `cub install` package/setup proof. |
 
 ## Execution Order
 

@@ -1,0 +1,81 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "hashicorp-vault-0.32.0-default-r001"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "6de2d61c8de0c21faa951e89ec16658bcdff22e69d78075fdd394d895a5e6978"
+  objectCount: 12
+  objects:
+    -
+      apiVersion: "admissionregistration.k8s.io/v1"
+      identity: "admissionregistration.k8s.io/v1|MutatingWebhookConfiguration||vault-agent-injector-cfg"
+      kind: "MutatingWebhookConfiguration"
+      name: "vault-agent-injector-cfg"
+      namespace: ""
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|vault|vault-agent-injector"
+      kind: "Deployment"
+      name: "vault-agent-injector"
+      namespace: "vault"
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|StatefulSet|vault|vault"
+      kind: "StatefulSet"
+      name: "vault"
+      namespace: "vault"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||vault-agent-injector-binding"
+      kind: "ClusterRoleBinding"
+      name: "vault-agent-injector-binding"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||vault-server-binding"
+      kind: "ClusterRoleBinding"
+      name: "vault-server-binding"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||vault-agent-injector-clusterrole"
+      kind: "ClusterRole"
+      name: "vault-agent-injector-clusterrole"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|vault|vault-config"
+      kind: "ConfigMap"
+      name: "vault-config"
+      namespace: "vault"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|vault|vault"
+      kind: "ServiceAccount"
+      name: "vault"
+      namespace: "vault"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|vault|vault-agent-injector"
+      kind: "ServiceAccount"
+      name: "vault-agent-injector"
+      namespace: "vault"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|vault|vault"
+      kind: "Service"
+      name: "vault"
+      namespace: "vault"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|vault|vault-agent-injector-svc"
+      kind: "Service"
+      name: "vault-agent-injector-svc"
+      namespace: "vault"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|vault|vault-internal"
+      kind: "Service"
+      name: "vault-internal"
+      namespace: "vault"

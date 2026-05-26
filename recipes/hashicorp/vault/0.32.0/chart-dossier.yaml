@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "hashicorp-vault-0.32.0"
+spec:
+  chart: "hashicorp/vault"
+  version: "0.32.0"
+  maintainedNotes:
+    - "The chart renders deterministically under pinned Helm, chart version, kube version, and values."
+    - "The default variant keeps the chart defaults: standalone Vault server, injector webhook, and TLS disabled in the rendered Vault config."
+    - "The ha-raft-ui variant enables integrated Raft HA and the UI Service as deliberate variant-controlled outputs."
+    - "The chart does not initialize or unseal Vault; init/unseal and recovery material are operating controls, not hidden render inputs."
+    - "Injector webhook, cluster RBAC, TLS posture, storage, and service exposure are scan/gate review points."
+    - "extra environment, Secret, volume, plugin, init, and sidecar extension slots are powerful config surfaces; promoted variants keep them empty."
+  knownControlPoints:
+    - "stateful-workload"
+    - "admission-webhook"
+    - "tls-posture"
+    - "service-exposure"
+    - "operate-policy"
+    - "rbac-review"
+    - "extension-slots"
+    - "secret-extension-slots"

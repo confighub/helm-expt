@@ -233,6 +233,8 @@ recipes/bitnami/mysql/14.0.3/
 packages/bitnami/mysql/14.0.3/
 recipes/grafana/grafana/10.5.15/
 packages/grafana/grafana/10.5.15/
+recipes/hashicorp/vault/0.32.0/
+packages/hashicorp/vault/0.32.0/
 data/adversarial10/
 data/top500/
 docs/top20-full-proof-target.md
@@ -283,13 +285,14 @@ npm run loki:compare
 npm run longhorn:compare
 npm run mysql:compare
 npm run grafana:compare
+npm run vault:compare
 ```
 
 It checks the archived reference receipts against their referenced files, then
 checks the current Redis proof artifacts, Helm-equivalence evidence, scan/gate
 receipts, variant diff evidence, promoted metrics-server, ingress-nginx,
 cert-manager, external-secrets, Argo CD, PostgreSQL, RabbitMQ,
-kube-prometheus-stack, Loki, Longhorn, MySQL, and Grafana proof/package artifacts, deterministic `cub install`
+kube-prometheus-stack, Loki, Longhorn, MySQL, Grafana, and Vault proof/package artifacts, deterministic `cub install`
 packaging, and negative golden
 self-tests.
 
@@ -782,6 +785,38 @@ npm run grafana:generate-package
 npm run grafana:verify-proof
 npm run grafana:verify-package
 npm run grafana:compare
+```
+
+## Vault Proof
+
+The thirteenth chart promoted into a full proof is:
+
+```text
+recipes/hashicorp/vault/0.32.0/
+packages/hashicorp/vault/0.32.0/
+```
+
+It has two install variants:
+
+```text
+default
+ha-raft-ui
+```
+
+The proof shows that regular Helm output is preserved by real
+`cub install setup`, plus the explained Namespace support object. It also makes
+Vault-specific risk visible: TLS-disabled listener config, injector admission
+webhook, cluster RBAC, StatefulSet storage, init/unseal operating policy, HA
+Raft service discovery, UI service exposure, and Secret/env extension slots.
+
+Useful commands:
+
+```sh
+npm run vault:generate-proof
+npm run vault:generate-package
+npm run vault:verify-proof
+npm run vault:verify-package
+npm run vault:compare
 ```
 
 ## Adversarial 10 Harness

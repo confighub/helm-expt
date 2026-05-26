@@ -194,6 +194,8 @@ recipes/bitnami/mysql/14.0.3/
 packages/bitnami/mysql/14.0.3/
 recipes/grafana/grafana/10.5.15/
 packages/grafana/grafana/10.5.15/
+recipes/hashicorp/vault/0.32.0/
+packages/hashicorp/vault/0.32.0/
 ```
 
 `data/adversarial10/` is a readiness and blocker harness, not final
@@ -284,6 +286,14 @@ Secret binding, UI ingress policy, cluster RBAC review, deployment and
 extension-slot gates, scan/gate, and `cub install` package evidence are
 convincing enough to serve as the repeatable pattern for dashboard/control-plane
 application charts.
+
+`hashicorp/vault@0.32.0` is the thirteenth full public-chart proof row. Review
+whether its `default` and `ha-raft-ui` variants, TLS posture review, injector
+admission webhook review, StatefulSet storage and HA Raft policy, init/unseal
+operate-policy gates, service exposure review, RBAC review, Secret/env
+extension-slot gates, scan/gate, and `cub install` package evidence are
+convincing enough to serve as the repeatable pattern for security-sensitive
+stateful control-plane charts.
 
 Every happy-path demo must also pass the simple UX test:
 

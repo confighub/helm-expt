@@ -89,11 +89,13 @@ recipes/bitnami/mysql/14.0.3/
 packages/bitnami/mysql/14.0.3/
 recipes/grafana/grafana/10.5.15/
 packages/grafana/grafana/10.5.15/
+recipes/hashicorp/vault/0.32.0/
+packages/hashicorp/vault/0.32.0/
 ```
 
-The next step is to turn more chart rows from `data/adversarial10/` into full
-recipe/variant/revision proofs and generated spreadsheets that are backed by
-receipts, not hand-maintained analysis.
+The next step is to turn more chart rows from the top-20 target and generated
+readiness evidence into full recipe/variant/revision proofs and generated
+spreadsheets that are backed by receipts, not hand-maintained analysis.
 
 Council consensus:
 
@@ -344,6 +346,18 @@ variants, generated Grafana admin credential binding, target Secret binding
 for `grafana/grafana-admin`, UI ingress policy, cluster RBAC review,
 deployment/provisioning/sidecar/Secret extension gates, and deterministic
 `cub install` package/setup proof.
+
+The thirteenth full proof row is:
+
+```text
+hashicorp/vault@0.32.0
+```
+
+It proves the security-sensitive stateful control-plane chart shape: `default`
+and `ha-raft-ui` variants, TLS posture review, injector admission webhook
+review, StatefulSet storage and HA Raft policy, init/unseal operate-policy
+gates, service exposure review, cluster RBAC review, Secret/env extension
+gates, and deterministic `cub install` package/setup proof.
 
 The Redis proof now contains the first courtroom-grade slice. Remaining Redis
 day-2 extensions still include:

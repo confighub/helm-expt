@@ -6,7 +6,8 @@ The verifier started with archived render-and-vendor Helm import receipts, but
 the current default `npm run verify` also checks the Redis
 recipe/variant/revision proof, the durable Redis installer package proof, the
 promoted metrics-server, ingress-nginx, cert-manager, external-secrets, Argo CD,
-PostgreSQL, RabbitMQ, kube-prometheus-stack, Loki, Longhorn, MySQL, and Grafana proofs, and the first
+PostgreSQL, RabbitMQ, kube-prometheus-stack, Loki, Longhorn, MySQL, Grafana,
+and Vault proofs, and the first
 adversarial public-chart harness.
 
 ## Scope
@@ -154,6 +155,20 @@ binding, target Secret binding, UI ingress exposure, rendered object
 inventories, render receipts, Helm equivalence receipts, scan receipts,
 install gates, separated Secret handling, and deterministic `cub install`
 package/setup behavior.
+
+The Vault proof verifier checks:
+
+```text
+recipes/hashicorp/vault/0.32.0/
+packages/hashicorp/vault/0.32.0/
+```
+
+That proof is the thirteenth full public-chart proof row. It checks two
+variants, `default` and `ha-raft-ui`, including source/dependency locks, TLS
+posture, injector admission webhook, StatefulSet storage, init/unseal
+operating policy, HA Raft and UI service exposure, rendered object
+inventories, render receipts, Helm equivalence receipts, scan receipts,
+install gates, and deterministic `cub install` package/setup behavior.
 
 The Argo CD proof verifier checks:
 
@@ -490,6 +505,26 @@ For the promoted Grafana proof:
    status, RBAC review, UI ingress policy, deployment policy, and
    provisioning/sidecar/Secret extension slots.
 
+For the promoted Vault proof:
+
+1. Both promoted variants render deterministically with Helm under the pinned
+   inputs.
+2. `default` renders exactly 12 Helm objects, including the Vault StatefulSet,
+   injector Deployment, injector MutatingWebhookConfiguration, and zero
+   Secrets.
+3. `ha-raft-ui` renders exactly 18 Helm objects, including HA discovery RBAC,
+   PodDisruptionBudget, active/standby services, UI Service, and zero Secrets.
+4. Source lock records `hashicorp/vault@0.32.0`, app `1.21.2`, package SHA,
+   and non-deprecated upstream status.
+5. The chart has no subchart dependencies and records an empty dependency
+   closure.
+6. `cub install package` produces byte-identical bundles across two local runs.
+7. `cub install setup` matches Helm semantically, plus only
+   `v1|Namespace||vault`, while preserving separated Secret behavior.
+8. Scan/gate receipts flag TLS posture, injector webhook, RBAC, service
+   exposure, Vault StatefulSet storage/init/unseal operations, and Secret/env
+   extension slots.
+
 ## Negative Golden Check
 
 The verifier must include self-tests that corrupt known-good fixtures and prove
@@ -516,6 +551,7 @@ Current self-tests include:
 - corrupt the Longhorn rendered object set and require rejection;
 - corrupt the MySQL rendered object set and require rejection;
 - corrupt the Grafana rendered object set and require rejection;
+- corrupt the Vault rendered object set and require rejection;
 - corrupt an adversarial harness rendered manifest and require a rendered
   manifest SHA mismatch.
 

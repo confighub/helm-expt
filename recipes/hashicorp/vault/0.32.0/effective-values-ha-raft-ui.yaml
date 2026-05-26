@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "hashicorp-vault-0.32.0-ha-raft-ui"
+spec:
+  files:
+    -
+      path: "effective-values-ha-raft-ui.yaml"
+      source: "inline-proof"
+      sha256: "225203eb35bfc32b08f702678b6bc438347683abe15ab8a183be88d1815aaffc"
+  mergedValuesCaptured: false
+  values:
+    server:
+      ha:
+        enabled: true
+        raft:
+          enabled: true
+    ui:
+      enabled: true

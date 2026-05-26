@@ -1,0 +1,16 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "hashicorp-vault"
+  version: "0.32.0"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "vault default server with injector variant rendered from hashicorp/vault@0.32.0"
+    -
+      name: "ha-raft-ui"
+      path: "bases/ha-raft-ui"
+      description: "vault HA Raft with UI variant rendered from hashicorp/vault@0.32.0"

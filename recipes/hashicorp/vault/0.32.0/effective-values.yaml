@@ -1,0 +1,10 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "hashicorp-vault-0.32.0-default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "c11d5a9172c643238fe854136eb54661a3e3febe8da2ba020e9bf799a8dd1f69"
+  mergedValuesCaptured: false
+  values:
+    {}

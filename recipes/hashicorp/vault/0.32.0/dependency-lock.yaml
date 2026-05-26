@@ -1,0 +1,10 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "hashicorp-vault-0.32.0"
+spec:
+  chart: "hashicorp/vault"
+  version: "0.32.0"
+  dependencies:
+    []
+  chartLockDigest: null

@@ -192,6 +192,7 @@ Ninth promoted adversarial row: grafana/loki@7.0.0.
 Tenth promoted adversarial row: longhorn/longhorn@1.11.2.
 Eleventh promoted adversarial row: bitnami/mysql@14.0.3.
 Twelfth promoted adversarial row: grafana/grafana@10.5.15.
+Thirteenth full proof row: hashicorp/vault@0.32.0.
 ```
 
 The adversarial 10 foundation does not close the scale proof. It gives us the
@@ -287,6 +288,14 @@ variants, generated admin password binding, target Secret binding, UI ingress
 policy, RBAC review, provisioning/dashboard/plugin/sidecar extension-slot
 review, Helm equivalence receipts, and deterministic `cub install`
 package/setup proof.
+
+The thirteenth such promotion is Vault. It adds the repeatable pattern for a
+security-sensitive stateful control-plane chart: source/dependency locks,
+`default` and `ha-raft-ui` variants, TLS posture review, injector admission
+webhook review, Vault StatefulSet storage and HA Raft policy, init/unseal
+operate-policy gates, service exposure review, RBAC review, Secret/env
+extension-slot review, Helm equivalence receipts, and deterministic
+`cub install` package/setup proof.
 
 ## Installer Boundary
 

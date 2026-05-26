@@ -1,0 +1,32 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "hashicorp-vault-0.32.0"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "hashicorp/vault"
+    version: "0.32.0"
+    variants:
+      - "default"
+      - "ha-raft-ui"
+    helmObjectsByVariant:
+      default: 12
+      ha-raft-ui: 18
+    cubInstallObjectsByVariant:
+      default: 13
+      ha-raft-ui: 19
+    helmMatchByVariant:
+      default: "12/12"
+      ha-raft-ui: "18/18"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish only after TLS posture, init/unseal operating policy, storage/HA policy, injector webhook policy, RBAC review, service exposure, and Secret/extension-slot review are satisfied"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "revisions/ha-raft-ui/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/ha-raft-ui/r001/receipts/render-receipt.yaml"
+    - "revisions/ha-raft-ui/r001/receipts/scan-receipt.yaml"
+    - "revisions/ha-raft-ui/r001/receipts/install-gate.yaml"

@@ -1,0 +1,16 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "hashicorp-vault-0.32.0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "hashicorp"
+  repositoryURL: "https://helm.releases.hashicorp.com"
+  chart: "vault"
+  version: "0.32.0"
+  appVersion: "1.21.2"
+  deprecated: false
+  packageSHA256: "e31ddf3f6dd031c0f5407dd6b63361ea5ff655f89c781049b39f4c2a95a6f88a"
+  packageBytes: 51618
+  evidence:
+    sourceCommand: "helm pull hashicorp/vault --version 0.32.0"

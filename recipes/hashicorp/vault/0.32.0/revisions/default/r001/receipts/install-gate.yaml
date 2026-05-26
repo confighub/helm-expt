@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "vault-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "6de2d61c8de0c21faa951e89ec16658bcdff22e69d78075fdd394d895a5e6978"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for default"
+    - "Vault TLS posture must be approved before production"
+    - "Vault init, unseal, recovery, and seal-migration operating policy must be explicit before production"
+    - "Vault StatefulSet storage, HA, and rollback policy need production review"
+    - "Injector webhook, RBAC, service exposure, and Secret/extension slots need production review"
+    - "requires explicit post-install init/unseal and TLS posture decisions before production"

@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "vault-ha-raft-ui-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "734a212cbb2e8d11ed288d32bc8b709e859248ef5587090b04e0fa407b248b5f"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for ha-raft-ui"
+    - "Vault TLS posture must be approved before production"
+    - "Vault init, unseal, recovery, and seal-migration operating policy must be explicit before production"
+    - "Vault StatefulSet storage, HA, and rollback policy need production review"
+    - "Injector webhook, RBAC, service exposure, and Secret/extension slots need production review"
+    - "adds HA discovery, Raft storage, PDB, active/standby services, and UI exposure as variant-controlled outputs"

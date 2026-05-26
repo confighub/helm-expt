@@ -24,8 +24,8 @@ proof.
 ## Current Status
 
 ```text
-Full proofs complete: 13 / 20
-Remaining full proofs: 7 / 20
+Full proofs complete: 14 / 20
+Remaining full proofs: 6 / 20
 ```
 
 | # | Chart | Status | Proof Focus |
@@ -41,7 +41,7 @@ Remaining full proofs: 7 / 20
 | 9 | `bitnami/rabbitmq@16.0.14` | complete | generated credentials, Erlang cookie, stateful/PVC, clustering policy |
 | 10 | `grafana/loki@7.0.0` | complete | blocked default render, required storage/schema values, MinIO object-store variant, ConfigMap normalization |
 | 11 | `longhorn/longhorn@1.11.2` | complete | 22 CRDs, storage lifecycle, privileged/daemon workloads, UI ingress variant |
-| 12 | `hashicorp/vault` | planned | security posture, generated/init material, stateful storage, service exposure |
+| 12 | `hashicorp/vault@0.32.0` | complete | TLS posture, injector webhook, init/unseal operate policy, HA Raft/UI variant |
 | 13 | `secrets-store-csi-driver/secrets-store-csi-driver` | planned | CSI driver, DaemonSet, RBAC, Secret provider integration |
 | 14 | `prometheus-community/prometheus` | planned | monitoring stack, RBAC, PVCs, scrape configuration |
 | 15 | `grafana/grafana@10.5.15` | complete | deprecated chart status, dashboard/config extension slots, Secret handling, UI ingress exposure |
@@ -60,11 +60,11 @@ package SHA and dependency closure.
 The next work should promote charts in this order unless a blocker makes a
 different row more useful:
 
-1. `hashicorp/vault`
-2. `secrets-store-csi-driver/secrets-store-csi-driver`
-3. `prometheus-community/prometheus`
-4. `bitnami/mongodb`
-5. `bitnami/nginx`
+1. `secrets-store-csi-driver/secrets-store-csi-driver`
+2. `prometheus-community/prometheus`
+3. `bitnami/mongodb`
+4. `bitnami/nginx`
+5. `grafana/tempo`
 
 That order alternates between deterministic rendered charts, generated-fact
 stateful charts, one large umbrella chart, and one blocked/default chart. It

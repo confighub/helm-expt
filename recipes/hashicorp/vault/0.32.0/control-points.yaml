@@ -1,0 +1,52 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ControlPoints"
+metadata:
+  name: "hashicorp-vault-0.32.0"
+spec:
+  points:
+    -
+      category: "source-lock"
+      status: "handled"
+      evidence: "source-lock.yaml"
+    -
+      category: "dependency-lock"
+      status: "handled"
+      evidence: "dependency-lock.yaml"
+      note: "chart declares no subchart dependencies; the empty closure is recorded explicitly."
+    -
+      category: "capability-profile"
+      status: "handled"
+      kubeVersion: "1.30.0"
+      note: "Kubernetes API and version branches are bound to the named Kubernetes capability profile."
+    -
+      category: "stateful-workload"
+      status: "scan-and-review"
+      object: "apps/v1|StatefulSet|vault|vault"
+    -
+      category: "admission-webhook"
+      status: "scan-and-review"
+      object: "admissionregistration.k8s.io/v1|MutatingWebhookConfiguration||vault-agent-injector-cfg"
+    -
+      category: "service-exposure"
+      status: "variant-controlled"
+      object: "v1|Service|vault|vault-ui"
+    -
+      category: "tls-posture"
+      status: "scan-and-review"
+      evidence: "v1|ConfigMap|vault|vault-config"
+    -
+      category: "cluster-rbac"
+      status: "scan-and-review"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||vault-agent-injector-clusterrole"
+    -
+      category: "operate-policy"
+      status: "scan-and-review"
+      note: "Vault init, unseal, seal migration, and recovery material are post-render operating controls."
+    -
+      category: "extension-slots"
+      status: "controlled-by-empty-defaults"
+      note: "extra environment, Secret, volume, plugin, init, and sidecar slots are empty in promoted variants."
+    -
+      category: "installer-support-object"
+      status: "handled"
+      object: "v1|Namespace||vault"
