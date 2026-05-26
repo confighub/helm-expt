@@ -1,0 +1,13 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "hashicorp-consul-2.0.0-default-control-plane"
+spec:
+  files:
+    -
+      path: "effective-values.yaml"
+      source: "inline-proof"
+      sha256: "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+  mergedValuesCaptured: false
+  values:
+    {}

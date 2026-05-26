@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "consul-default-control-plane-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "467ec5aadeb6aee76362da376763563d7a1ea4146f5b5098cfdaa0784c961e3f"
+    objectCount: 70
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 71
+    uploadedManifestFiles: 71
+    separatedSecretFiles: 0
+    semanticObjectMatches: "70/70"
+  semanticNormalizations:
+    - "prune-null-fields"
+    - "trim-leading-command-block-newline"
+  classifications:
+    -
+      identity: "v1|Namespace||consul"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run consul:compare"

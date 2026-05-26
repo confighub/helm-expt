@@ -198,6 +198,7 @@ Fifteenth full proof row: prometheus-community/prometheus@29.8.0.
 Sixteenth full proof row: bitnami/mongodb@19.0.7.
 Seventeenth full proof row: bitnami/nginx@24.0.2.
 Eighteenth full proof row: grafana/tempo@1.24.4.
+Nineteenth full proof row: hashicorp/consul@2.0.0.
 ```
 
 The adversarial 10 foundation does not close the scale proof. It gives us the
@@ -341,6 +342,15 @@ ingress policy, ServiceMonitor target capability, NetworkPolicy review,
 StatefulSet/headless-Service runtime risk, chart deprecation review,
 raw/template extension-slot review, Helm equivalence receipts, and
 deterministic `cub install` package/setup proof.
+
+The nineteenth such promotion is Consul, completing the 20-chart milestone. It
+adds the repeatable pattern for a service-mesh/control-plane chart: source and
+empty dependency locks, `default-control-plane` and
+`secure-mesh-existing-secrets` variants, 28 rendered CRDs, cluster RBAC,
+injector admission webhooks, TLS/ACL/gossip target Secret binding, gateway
+topology, UI ingress, lifecycle Job policy, rendered Secret ownership,
+StatefulSet/storage policy, raw/template extension-slot review, Helm
+equivalence receipts, and deterministic `cub install` package/setup proof.
 
 ## Installer Boundary
 

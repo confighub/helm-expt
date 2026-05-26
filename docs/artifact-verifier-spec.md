@@ -247,6 +247,23 @@ raw/template extension-slot review, rendered object inventories, render
 receipts, Helm equivalence receipts, scan receipts, install gates, and
 deterministic `cub install` package/setup behavior.
 
+The Consul proof verifier checks:
+
+```text
+recipes/hashicorp/consul/2.0.0/
+packages/hashicorp/consul/2.0.0/
+```
+
+That proof is the nineteenth full public-chart proof row and twentieth target
+chart. It checks two variants, `default-control-plane` and
+`secure-mesh-existing-secrets`, including source and empty dependency locks,
+28 rendered CRDs, cluster RBAC, injector admission webhooks, TLS/ACL/gossip
+target Secret binding, gateway topology, UI ingress, lifecycle Job policy,
+rendered Secret ownership, StatefulSet/storage policy, raw/template
+extension-slot review, rendered object inventories, render receipts, Helm
+equivalence receipts, scan receipts, install gates, and deterministic
+`cub install` package/setup behavior.
+
 The Argo CD proof verifier checks:
 
 ```text
@@ -692,6 +709,28 @@ For the promoted Tempo proof:
    S3 credentials, query ingress, ServiceMonitor capability, NetworkPolicy,
    StatefulSet/headless-Service runtime risk, and raw/template extension slots.
 
+For the promoted Consul proof:
+
+1. Both promoted variants render deterministically with Helm under the pinned
+   inputs.
+2. `default-control-plane` renders exactly 70 Helm objects, including 28 CRDs,
+   server StatefulSet, injector/webhook-cert-manager Deployments, injector
+   webhooks, services, PDBs, and cluster RBAC.
+3. `secure-mesh-existing-secrets` renders exactly 99 Helm objects, including
+   28 CRDs, one rendered auth-method Secret, ACL init Job, mesh/ingress/
+   terminating gateway Deployments, and UI Ingress.
+4. Source lock records `hashicorp/consul@2.0.0`, app `2.0.0`, package SHA, and
+   non-deprecated upstream status.
+5. Dependency lock records an empty dependency closure.
+6. `cub install package` produces byte-identical bundles across two local runs.
+7. `cub install setup` matches Helm semantically, plus only
+   `v1|Namespace||consul`, with the explicit scalar normalization
+   `trim-leading-command-block-newline`.
+8. Scan/gate receipts flag CRD ownership, cluster RBAC, admission webhooks,
+   TLS/ACL/gossip target Secrets, gateway topology, UI ingress, lifecycle Job,
+   rendered Secret ownership, StatefulSet storage, and raw/template extension
+   slots.
+
 ## Negative Golden Check
 
 The verifier must include self-tests that corrupt known-good fixtures and prove
@@ -725,6 +764,7 @@ Current self-tests include:
 - corrupt the MongoDB rendered object set and require rejection;
 - corrupt the Nginx rendered object set and require rejection;
 - corrupt the Tempo rendered object set and require rejection;
+- corrupt the Consul rendered object set and require rejection;
 - corrupt an adversarial harness rendered manifest and require a rendered
   manifest SHA mismatch.
 

@@ -1,0 +1,16 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "hashicorp-consul-2.0.0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "hashicorp"
+  repositoryURL: "https://helm.releases.hashicorp.com"
+  chart: "consul"
+  version: "2.0.0"
+  appVersion: "2.0.0"
+  deprecated: false
+  packageSHA256: "41d0b30408cd3dbbfdafe5207f85d29111636d105dd17dba005ff5c857647dc0"
+  packageBytes: 265613
+  evidence:
+    harnessReceipt: "../../../../data/adversarial10/charts/hashicorp-consul-2.0.0/render-receipt.yaml"

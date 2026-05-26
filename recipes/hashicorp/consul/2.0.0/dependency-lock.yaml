@@ -1,0 +1,10 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "hashicorp-consul-2.0.0"
+spec:
+  chart: "hashicorp/consul"
+  version: "2.0.0"
+  dependencies:
+    []
+  chartLockDigest: null

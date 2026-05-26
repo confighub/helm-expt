@@ -101,6 +101,8 @@ recipes/bitnami/nginx/24.0.2/
 packages/bitnami/nginx/24.0.2/
 recipes/grafana/tempo/1.24.4/
 packages/grafana/tempo/1.24.4/
+recipes/hashicorp/consul/2.0.0/
+packages/hashicorp/consul/2.0.0/
 ```
 
 The next step is to turn more chart rows from the top-20 target and generated
@@ -432,6 +434,20 @@ ingress, NetworkPolicy, and ServiceMonitor, and the proof records the required
 Prometheus Operator API capability, StatefulSet/headless-Service runtime risk,
 raw/template extension slots, and deterministic `cub install` package/setup
 proof.
+
+The nineteenth full proof row is:
+
+```text
+hashicorp/consul@2.0.0
+```
+
+It completes the 20-chart target with the service-mesh/control-plane shape:
+`default-control-plane` records the chart-default Consul posture, and
+`secure-mesh-existing-secrets` enables TLS, ACLs, gossip encryption, mesh
+gateways, and UI ingress using declared target Secrets. The proof records 28
+CRDs, cluster RBAC, injector webhooks, lifecycle Jobs, rendered Secrets,
+StatefulSet storage, gateway topology, raw/template extension slots, and
+deterministic `cub install` package/setup proof.
 
 The Redis proof now contains the first courtroom-grade slice. Remaining Redis
 day-2 extensions still include:

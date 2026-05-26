@@ -73,7 +73,10 @@ import sys
 import yaml
 
 docs = []
-for doc in yaml.load_all(sys.stdin.read(), Loader=yaml.BaseLoader):
+class ManifestLoader(yaml.SafeLoader):
+    pass
+ManifestLoader.add_constructor("tag:yaml.org,2002:value", lambda loader, node: loader.construct_scalar(node))
+for doc in yaml.load_all(sys.stdin.read(), Loader=ManifestLoader):
     if not isinstance(doc, dict):
         continue
     metadata = doc.get("metadata") or {}

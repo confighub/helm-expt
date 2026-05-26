@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "hashicorp-consul"
+  version: "2.0.0"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "../../../../packages/hashicorp/consul/2.0.0"
+    setupCommand:
+      - "cub"
+      - "install"
+      - "setup"
+      - "--pull"
+      - "../../../../packages/hashicorp/consul/2.0.0"
+      - "--non-interactive"
+      - "--namespace"
+      - "consul"
+  variants:
+    - "variants/default-control-plane/variant.yaml"
+    - "variants/secure-mesh-existing-secrets/variant.yaml"

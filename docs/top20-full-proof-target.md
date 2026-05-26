@@ -24,8 +24,8 @@ proof.
 ## Current Status
 
 ```text
-Full proofs complete: 19 / 20
-Remaining full proofs: 1 / 20
+Full proofs complete: 20 / 20
+Remaining full proofs: 0 / 20
 ```
 
 | # | Chart | Status | Proof Focus |
@@ -49,22 +49,22 @@ Remaining full proofs: 1 / 20
 | 17 | `bitnami/mongodb@19.0.7` | complete | generated root password, existing Secret replica-set variant, storage/PDB/network policy |
 | 18 | `bitnami/nginx@24.0.2` | complete | generated TLS avoidance, existing TLS ingress variant, NetworkPolicy/PDB, low-friction UX |
 | 19 | `grafana/tempo@1.24.4` | complete | deprecated chart marker, local/S3 storage variants, ServiceMonitor capability, query ingress |
-| 20 | `hashicorp/consul` | planned | stateful service mesh/control plane, RBAC, upgrade-sensitive config |
+| 20 | `hashicorp/consul@2.0.0` | complete | 28 CRDs, cluster RBAC, injector webhooks, secure mesh existing-Secret variant |
 
 Versions for rows 11-20 are pinned when their proof run is generated. The
 proof lock, not this planning table, is the source of truth for exact chart
 package SHA and dependency closure.
 
-## Promotion Order
+## Promotion Status
 
-The next work should promote charts in this order unless a blocker makes a
-different row more useful:
+All 20 target rows are promoted. The next milestone is to generate the
+receipt-backed spreadsheet from these proof artifacts and then extend the same
+contract to the next 30 charts.
 
-1. `hashicorp/consul`
-
-That order alternates between deterministic rendered charts, generated-fact
-stateful charts, one large umbrella chart, and one blocked/default chart. It
-keeps the proof honest while still producing steady runnable artifacts.
+The completed set alternates between deterministic rendered charts,
+generated-fact stateful charts, large umbrella charts, blocked/default charts,
+CRD-heavy controllers, and service/control-plane charts. That mix keeps the
+proof honest while still producing runnable artifacts.
 
 ## Spreadsheet Doctrine
 

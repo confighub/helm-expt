@@ -206,6 +206,8 @@ recipes/bitnami/nginx/24.0.2/
 packages/bitnami/nginx/24.0.2/
 recipes/grafana/tempo/1.24.4/
 packages/grafana/tempo/1.24.4/
+recipes/hashicorp/consul/2.0.0/
+packages/hashicorp/consul/2.0.0/
 ```
 
 `data/adversarial10/` is a readiness and blocker harness, not final
@@ -344,6 +346,14 @@ credential Secret, query ingress, ServiceMonitor capability, NetworkPolicy,
 StatefulSet/headless-Service runtime risk, raw/template extension slots,
 scan/gate, and `cub install` package evidence are convincing enough to serve
 as the repeatable pattern for observability storage charts.
+
+`hashicorp/consul@2.0.0` is the nineteenth full public-chart proof row and
+twentieth target chart. Review whether its `default-control-plane` and
+`secure-mesh-existing-secrets` variants, 28 CRDs, cluster RBAC, injector
+webhooks, TLS/ACL/gossip target Secrets, gateway topology, UI ingress,
+lifecycle Jobs, rendered Secrets, StatefulSet storage, raw/template extension
+slots, scan/gate, and `cub install` package evidence are convincing enough to
+serve as the repeatable pattern for service-mesh/control-plane charts.
 
 Every happy-path demo must also pass the simple UX test:
 

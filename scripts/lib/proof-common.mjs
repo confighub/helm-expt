@@ -42,8 +42,11 @@ export function parseObjects(text) {
   return py(
     `
 import json, sys, yaml
+class ManifestLoader(yaml.SafeLoader):
+    pass
+ManifestLoader.add_constructor("tag:yaml.org,2002:value", lambda loader, node: loader.construct_scalar(node))
 objects = []
-for doc in yaml.load_all(sys.stdin.read(), Loader=yaml.BaseLoader):
+for doc in yaml.load_all(sys.stdin.read(), Loader=ManifestLoader):
     if not isinstance(doc, dict):
         continue
     metadata = doc.get("metadata")

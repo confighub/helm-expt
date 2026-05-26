@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "consul-secure-mesh-existing-secrets-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "f44c496151f7893383bbc25e4c0b4f8bcb5ce62136d3d0e3df84d846e2506dd1"
+    objectCount: 99
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 100
+    uploadedManifestFiles: 100
+    separatedSecretFiles: 1
+    semanticObjectMatches: "99/99"
+  semanticNormalizations:
+    - "prune-null-fields"
+    - "trim-leading-command-block-newline"
+  classifications:
+    -
+      identity: "v1|Namespace||consul"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run consul:compare"

@@ -245,6 +245,8 @@ recipes/bitnami/nginx/24.0.2/
 packages/bitnami/nginx/24.0.2/
 recipes/grafana/tempo/1.24.4/
 packages/grafana/tempo/1.24.4/
+recipes/hashicorp/consul/2.0.0/
+packages/hashicorp/consul/2.0.0/
 data/adversarial10/
 data/top500/
 docs/top20-full-proof-target.md
@@ -301,6 +303,7 @@ npm run prometheus:compare
 npm run mongodb:compare
 npm run nginx:compare
 npm run tempo:compare
+npm run consul:compare
 ```
 
 It checks the archived reference receipts against their referenced files, then
@@ -308,9 +311,9 @@ checks the current Redis proof artifacts, Helm-equivalence evidence, scan/gate
 receipts, variant diff evidence, promoted metrics-server, ingress-nginx,
 cert-manager, external-secrets, Argo CD, PostgreSQL, RabbitMQ,
 kube-prometheus-stack, Loki, Longhorn, MySQL, Grafana, Vault,
-Secrets Store CSI Driver, Prometheus, MongoDB, Nginx, and Tempo proof/package
-artifacts, deterministic `cub install` packaging, and negative golden
-self-tests.
+Secrets Store CSI Driver, Prometheus, MongoDB, Nginx, Tempo, and Consul
+proof/package artifacts, deterministic `cub install` packaging, and negative
+golden self-tests.
 
 The old hash-only archive check is still available for comparison:
 
@@ -997,6 +1000,39 @@ npm run tempo:generate-package
 npm run tempo:verify-proof
 npm run tempo:verify-package
 npm run tempo:compare
+```
+
+## Consul Proof
+
+The twentieth chart promoted into a full proof is:
+
+```text
+recipes/hashicorp/consul/2.0.0/
+packages/hashicorp/consul/2.0.0/
+```
+
+It has two install variants:
+
+```text
+default-control-plane
+secure-mesh-existing-secrets
+```
+
+The proof shows that regular Helm output is preserved by real
+`cub install setup`, plus the explained Namespace support object. It makes
+Consul-specific Helm pain visible: 28 CRDs, broad cluster RBAC, injector
+webhooks, TLS/ACL/gossip Secret ownership, gateway topology, UI ingress,
+lifecycle Jobs, rendered Secrets, StatefulSet storage, and raw/template
+extension slots.
+
+Useful commands:
+
+```sh
+npm run consul:generate-proof
+npm run consul:generate-package
+npm run consul:verify-proof
+npm run consul:verify-package
+npm run consul:compare
 ```
 
 ## Adversarial 10 Harness

@@ -1,0 +1,41 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "secure-mesh-existing-secrets"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "consul"
+  releaseName: "consul"
+  valuesProfile: "../../effective-values-secure-mesh-existing-secrets.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"
+  targetFacts:
+    requiredSecrets:
+      -
+        namespace: "consul"
+        name: "consul-ca-cert"
+        keys:
+          - "tls.crt"
+        purpose: "Consul TLS CA certificate"
+      -
+        namespace: "consul"
+        name: "consul-server-cert"
+        keys:
+          - "tls.crt"
+          - "tls.key"
+        purpose: "Consul server TLS certificate and private key"
+      -
+        namespace: "consul"
+        name: "consul-gossip-encryption-key"
+        keys:
+          - "key"
+        purpose: "Consul gossip encryption key"
+      -
+        namespace: "consul"
+        name: "consul-bootstrap-acl-token"
+        keys:
+          - "token"
+        purpose: "Consul ACL bootstrap token"

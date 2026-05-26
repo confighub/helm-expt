@@ -1,0 +1,54 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "hashicorp-consul-2.0.0"
+spec:
+  checkedValues:
+    -
+      path: "global.tls.enabled"
+      variant: "default-control-plane"
+      disposition: "policy-visible-default"
+      reason: "chart default disables Consul TLS; the proof makes that posture explicit instead of hiding it"
+    -
+      path: "global.acls.manageSystemACLs"
+      variant: "default-control-plane"
+      disposition: "policy-visible-default"
+      reason: "chart default disables Consul ACL management; the proof makes that posture explicit instead of hiding it"
+    -
+      path: "global.tls.caCert / server.serverCert"
+      variant: "secure-mesh-existing-secrets"
+      disposition: "target-fact-bound"
+      reason: "TLS CA and server certificate material are declared target Secrets instead of generated or embedded chart inputs"
+    -
+      path: "global.gossipEncryption.*"
+      variant: "secure-mesh-existing-secrets"
+      disposition: "target-fact-bound"
+      reason: "gossip encryption auto-generation is disabled and the key is declared as a target Secret"
+    -
+      path: "global.acls.bootstrapToken.*"
+      variant: "secure-mesh-existing-secrets"
+      disposition: "target-fact-bound"
+      reason: "ACL bootstrap token is declared as a target Secret"
+    -
+      path: "meshGateway / ingressGateways / terminatingGateways"
+      variant: "secure-mesh-existing-secrets"
+      disposition: "mesh-topology-bound"
+      reason: "mesh gateway topology and ClusterIP service exposure are explicit variant choices"
+    -
+      path: "ui.ingress.*"
+      variant: "secure-mesh-existing-secrets"
+      disposition: "ui-exposure-bound"
+      reason: "UI exposure is only added by an explicit variant with host captured"
+    -
+      path: "global.installK8sNetworkingCRDs / connectInject.apiGateway.manageExternalCRDs"
+      variant: "all"
+      disposition: "crd-ownership-review"
+      reason: "Consul installs both Consul and Gateway API CRDs, which can conflict with cluster-managed CRD ownership"
+    -
+      path: "server.extraConfig / connectInject.* / controller.* / gateway.*"
+      variant: "all"
+      disposition: "extension-slot"
+      reason: "Consul exposes powerful config, injector, controller, and gateway extension slots that must stay explicit"
+  unknownValues: "not-checked"
+  deadValues: "not-checked"
+  ignoredValues: "not-checked"

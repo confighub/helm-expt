@@ -1,0 +1,16 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "hashicorp-consul"
+  version: "2.0.0"
+spec:
+  bases:
+    -
+      name: "default-control-plane"
+      path: "bases/default-control-plane"
+      default: true
+      description: "consul default control plane variant rendered from hashicorp/consul@2.0.0"
+    -
+      name: "secure-mesh-existing-secrets"
+      path: "bases/secure-mesh-existing-secrets"
+      description: "consul secure mesh with existing Secrets variant rendered from hashicorp/consul@2.0.0"
