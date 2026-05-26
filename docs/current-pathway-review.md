@@ -93,6 +93,8 @@ recipes/hashicorp/vault/0.32.0/
 packages/hashicorp/vault/0.32.0/
 recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/
 packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/
+recipes/prometheus-community/prometheus/29.8.0/
+packages/prometheus-community/prometheus/29.8.0/
 ```
 
 The next step is to turn more chart rows from the top-20 target and generated
@@ -372,6 +374,18 @@ It proves the node-level CSI driver chart shape: `default` and
 kubelet integration, Linux DaemonSet and hostPath policy, cluster RBAC review,
 synced Secret ownership, rotation/provider-health policy, provider identity
 integration gates, and deterministic `cub install` package/setup proof.
+
+The fifteenth full proof row is:
+
+```text
+prometheus-community/prometheus@29.8.0
+```
+
+It proves the bundled monitoring stack chart shape: `default` and
+`server-only-ephemeral` variants, Alertmanager/exporter/pushgateway component
+selection, Prometheus scrape ConfigMap review, server PVC/storage retention
+policy, cluster RBAC review, remote read/write and exposure extension slots,
+and deterministic `cub install` package/setup proof.
 
 The Redis proof now contains the first courtroom-grade slice. Remaining Redis
 day-2 extensions still include:

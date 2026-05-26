@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "prometheus-29.8.0"
+spec:
+  chart: "prometheus-community/prometheus"
+  version: "29.8.0"
+  dependencies:
+    -
+      name: "alertmanager"
+      repository: "https://prometheus-community.github.io/helm-charts"
+      version: "1.37.0"
+    -
+      name: "kube-state-metrics"
+      repository: "https://prometheus-community.github.io/helm-charts"
+      version: "7.4.0"
+    -
+      name: "prometheus-node-exporter"
+      repository: "https://prometheus-community.github.io/helm-charts"
+      version: "4.55.0"
+    -
+      name: "prometheus-pushgateway"
+      repository: "https://prometheus-community.github.io/helm-charts"
+      version: "3.6.0"
+  chartLockDigest: "sha256:5065b1b0dfe2d6f9b661685b2e5d8a57b841c99a5495415bab2e7e9a5edc92e6"

@@ -1,0 +1,16 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "prometheus-29.8.0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "prometheus-community"
+  repositoryURL: "https://prometheus-community.github.io/helm-charts"
+  chart: "prometheus"
+  version: "29.8.0"
+  appVersion: "v3.11.3"
+  deprecated: false
+  packageSHA256: "daba2821dd7c0d29267c8be5056cfbb7ebbf8784cb3159fa55f266615df68e3d"
+  packageBytes: 82456
+  evidence:
+    sourceCommand: "helm pull prometheus-community/prometheus --version 29.8.0"

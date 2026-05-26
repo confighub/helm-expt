@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "prometheus-server-only-ephemeral-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "4ebf9844833b91d11f7167446e1214d9d268298455a56e730590dd0b8e58ebd5"
+    dependencyLockSHA256: "6a41c28a30239df742b040d6c9406573df5baab5ff4b27f2bbefdf391d42343e"
+    effectiveValuesSHA256: "c65424b81f75e3a3e899cc353534982673aaa96f8a1d30d15dd1a468228b2a98"
+  outputs:
+    renderedObjectSetSHA256: "174e1729753ef551fa059f86111cfd87653ea2380dc879238cf5cc4987e78812"
+    renderedObjectInventorySHA256: "120ab8362eebba690cefc7d719407dfa44ee15ff36b0732723ae39ae6442e829"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 6
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

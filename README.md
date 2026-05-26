@@ -237,6 +237,8 @@ recipes/hashicorp/vault/0.32.0/
 packages/hashicorp/vault/0.32.0/
 recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/
 packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/
+recipes/prometheus-community/prometheus/29.8.0/
+packages/prometheus-community/prometheus/29.8.0/
 data/adversarial10/
 data/top500/
 docs/top20-full-proof-target.md
@@ -289,6 +291,7 @@ npm run mysql:compare
 npm run grafana:compare
 npm run vault:compare
 npm run secrets-store-csi-driver:compare
+npm run prometheus:compare
 ```
 
 It checks the archived reference receipts against their referenced files, then
@@ -296,7 +299,7 @@ checks the current Redis proof artifacts, Helm-equivalence evidence, scan/gate
 receipts, variant diff evidence, promoted metrics-server, ingress-nginx,
 cert-manager, external-secrets, Argo CD, PostgreSQL, RabbitMQ,
 kube-prometheus-stack, Loki, Longhorn, MySQL, Grafana, Vault, and
-Secrets Store CSI Driver proof/package artifacts, deterministic `cub install`
+Secrets Store CSI Driver, and Prometheus proof/package artifacts, deterministic `cub install`
 packaging, and negative golden
 self-tests.
 
@@ -854,6 +857,39 @@ npm run secrets-store-csi-driver:generate-package
 npm run secrets-store-csi-driver:verify-proof
 npm run secrets-store-csi-driver:verify-package
 npm run secrets-store-csi-driver:compare
+```
+
+## Prometheus Proof
+
+The fifteenth chart promoted into a full proof is:
+
+```text
+recipes/prometheus-community/prometheus/29.8.0/
+packages/prometheus-community/prometheus/29.8.0/
+```
+
+It has two install variants:
+
+```text
+default
+server-only-ephemeral
+```
+
+The proof shows that regular Helm output is preserved by real
+`cub install setup`, plus the explained Namespace support object. It also makes
+monitoring-stack risk visible: bundled dependencies, scrape configuration,
+server PVC/storage retention, Alertmanager/exporter ownership, cluster RBAC,
+workload rollout policy, remote read/write, ingress, network policy, PDB, and
+extra-manifest extension slots.
+
+Useful commands:
+
+```sh
+npm run prometheus:generate-proof
+npm run prometheus:generate-package
+npm run prometheus:verify-proof
+npm run prometheus:verify-package
+npm run prometheus:compare
 ```
 
 ## Adversarial 10 Harness

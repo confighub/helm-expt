@@ -198,6 +198,8 @@ recipes/hashicorp/vault/0.32.0/
 packages/hashicorp/vault/0.32.0/
 recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/
 packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/
+recipes/prometheus-community/prometheus/29.8.0/
+packages/prometheus-community/prometheus/29.8.0/
 ```
 
 `data/adversarial10/` is a readiness and blocker harness, not final
@@ -305,6 +307,14 @@ synced Secret ownership, rotation/provider-health policy, provider identity
 integration gates, scan/gate, and `cub install` package evidence are
 convincing enough to serve as the repeatable pattern for node-level CSI driver
 charts.
+
+`prometheus-community/prometheus@29.8.0` is the fifteenth full public-chart
+proof row. Review whether its `default` and `server-only-ephemeral` variants,
+bundled dependency lock, Alertmanager/exporter/pushgateway component
+selection, scrape ConfigMap review, server PVC/storage retention policy,
+cluster RBAC review, remote read/write and exposure extension slots, scan/gate,
+and `cub install` package evidence are convincing enough to serve as the
+repeatable pattern for bundled monitoring stack charts.
 
 Every happy-path demo must also pass the simple UX test:
 

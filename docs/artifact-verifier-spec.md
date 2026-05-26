@@ -7,7 +7,7 @@ the current default `npm run verify` also checks the Redis
 recipe/variant/revision proof, the durable Redis installer package proof, the
 promoted metrics-server, ingress-nginx, cert-manager, external-secrets, Argo CD,
 PostgreSQL, RabbitMQ, kube-prometheus-stack, Loki, Longhorn, MySQL, Grafana,
-Vault, and Secrets Store CSI Driver proofs, and the first
+Vault, Secrets Store CSI Driver, and Prometheus proofs, and the first
 adversarial public-chart harness.
 
 ## Scope
@@ -182,6 +182,21 @@ variants, `default` and `sync-secret-rotation`, including source/dependency
 locks, SecretProviderClass CRDs, CSIDriver kubelet integration, Linux DaemonSet
 workload policy, cluster RBAC, synced Secret ownership, rotation/provider
 health settings, rendered object inventories, render receipts, Helm
+equivalence receipts, scan receipts, install gates, and deterministic
+`cub install` package/setup behavior.
+
+The Prometheus proof verifier checks:
+
+```text
+recipes/prometheus-community/prometheus/29.8.0/
+packages/prometheus-community/prometheus/29.8.0/
+```
+
+That proof is the fifteenth full public-chart proof row. It checks two
+variants, `default` and `server-only-ephemeral`, including source/dependency
+locks for the bundled monitoring subcharts, Prometheus server scrape config,
+Alertmanager/exporter/pushgateway component selection, server PVC/storage
+policy, cluster RBAC, rendered object inventories, render receipts, Helm
 equivalence receipts, scan receipts, install gates, and deterministic
 `cub install` package/setup behavior.
 
@@ -559,6 +574,26 @@ For the promoted Secrets Store CSI Driver proof:
    DaemonSet behavior, RBAC, synced Secret ownership, rotation, provider health
    checks, and provider identity inputs.
 
+For the promoted Prometheus proof:
+
+1. Both promoted variants render deterministically with Helm under the pinned
+   inputs.
+2. `default` renders exactly 23 Helm objects, including Prometheus server,
+   Alertmanager, kube-state-metrics, node-exporter, pushgateway, server PVC,
+   services, and cluster RBAC.
+3. `server-only-ephemeral` renders exactly 6 Helm objects by disabling bundled
+   components and the server PVC.
+4. Source lock records `prometheus-community/prometheus@29.8.0`, app
+   `v3.11.3`, package SHA, and non-deprecated upstream status.
+5. Dependency lock records the four bundled subcharts: alertmanager,
+   kube-state-metrics, prometheus-node-exporter, and prometheus-pushgateway.
+6. `cub install package` produces byte-identical bundles across two local runs.
+7. `cub install setup` matches Helm semantically, plus only
+   `v1|Namespace||monitoring`, while preserving separated Secret behavior.
+8. Scan/gate receipts flag bundled component ownership, scrape config, storage
+   retention, workload rollout, cluster RBAC, remote read/write, ingress,
+   network policy, PDB, and extra-manifest extension slots.
+
 ## Negative Golden Check
 
 The verifier must include self-tests that corrupt known-good fixtures and prove
@@ -588,6 +623,7 @@ Current self-tests include:
 - corrupt the Vault rendered object set and require rejection;
 - corrupt the Secrets Store CSI Driver rendered object set and require
   rejection;
+- corrupt the Prometheus rendered object set and require rejection;
 - corrupt an adversarial harness rendered manifest and require a rendered
   manifest SHA mismatch.
 

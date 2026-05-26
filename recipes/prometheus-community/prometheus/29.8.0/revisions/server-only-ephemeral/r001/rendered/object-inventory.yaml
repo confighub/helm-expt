@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "prometheus-29.8.0-server-only-ephemeral-r001"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "174e1729753ef551fa059f86111cfd87653ea2380dc879238cf5cc4987e78812"
+  objectCount: 6
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|monitoring|prometheus-server"
+      kind: "Deployment"
+      name: "prometheus-server"
+      namespace: "monitoring"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||prometheus-server"
+      kind: "ClusterRoleBinding"
+      name: "prometheus-server"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||prometheus-server"
+      kind: "ClusterRole"
+      name: "prometheus-server"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|monitoring|prometheus-server"
+      kind: "ConfigMap"
+      name: "prometheus-server"
+      namespace: "monitoring"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|monitoring|prometheus-server"
+      kind: "ServiceAccount"
+      name: "prometheus-server"
+      namespace: "monitoring"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|monitoring|prometheus-server"
+      kind: "Service"
+      name: "prometheus-server"
+      namespace: "monitoring"
