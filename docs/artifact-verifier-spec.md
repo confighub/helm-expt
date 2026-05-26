@@ -71,6 +71,19 @@ control points, effective values, target fact requirements, rendered object
 inventories, render receipts, Helm equivalence receipts, scan receipts, install
 gates, and deterministic `cub install` package/setup behavior.
 
+The ingress-nginx proof verifier checks:
+
+```text
+recipes/ingress-nginx/ingress-nginx/4.15.1/
+packages/ingress-nginx/ingress-nginx/4.15.1/
+```
+
+That proof is the second promoted row from the adversarial harness. It checks
+two variants, `default` and `admission-disabled`, including source/dependency
+locks, control points, effective values, rendered object inventories, render
+receipts, Helm equivalence receipts, scan receipts, install gates, and
+deterministic `cub install` package/setup behavior.
+
 ## Required Invariants
 
 For every archived chart directory:
@@ -131,6 +144,22 @@ For the promoted metrics-server proof:
 6. Semantic comparison prunes null fields, because `cub install`/kustomize
    drops `metadata.annotations: null` from the APIService.
 
+For the promoted ingress-nginx proof:
+
+1. Both variants render deterministically with Helm under the pinned capability
+   profile.
+2. `default` renders exactly 11 Helm objects, including the admission Service
+   and ValidatingWebhookConfiguration.
+3. `admission-disabled` renders exactly 9 Helm objects and deliberately omits
+   the admission Service and ValidatingWebhookConfiguration.
+4. Both variants render the controller Deployment and `nginx` IngressClass.
+5. `cub install package` produces byte-identical bundles across two local runs.
+6. `cub install setup --base default` and
+   `cub install setup --base admission-disabled` match Helm semantically, plus
+   only `v1|Namespace||ingress-nginx`.
+7. Scan/gate receipts flag admission webhook observation, Helm hook lifecycle
+   policy, and cluster RBAC where applicable.
+
 ## Negative Golden Check
 
 The verifier must include self-tests that corrupt known-good fixtures and prove
@@ -146,6 +175,7 @@ Current self-tests include:
 - tamper with the reuse-existing-secret target fact and require rejection;
 - lie about the variant diff and require rejection;
 - corrupt the metrics-server rendered object set and require rejection;
+- corrupt the ingress-nginx rendered object set and require rejection;
 - corrupt an adversarial harness rendered manifest and require a rendered
   manifest SHA mismatch.
 

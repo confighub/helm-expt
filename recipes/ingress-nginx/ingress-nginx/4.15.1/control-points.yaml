@@ -1,0 +1,41 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ControlPoints"
+metadata:
+  name: "ingress-nginx-ingress-nginx-4.15.1"
+spec:
+  points:
+    -
+      category: "source-lock"
+      status: "handled"
+      evidence: "source-lock.yaml"
+    -
+      category: "dependency-lock"
+      status: "handled"
+      evidence: "dependency-lock.yaml"
+      note: "chart has no subchart dependencies"
+    -
+      category: "capability-profile"
+      status: "handled"
+      kubeVersion: "1.30.0"
+      note: "service appProtocol and autoscaling branches are bound to the named Kubernetes capability profile."
+    -
+      category: "hook-policy"
+      status: "handled-for-render"
+      policy: "no-hooks"
+      note: "admission patch Jobs are Helm hooks and are excluded from the render proof; lifecycle policy must handle them before production."
+    -
+      category: "admission-webhook"
+      status: "variant-controlled"
+      object: "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||ingress-nginx-admission"
+    -
+      category: "cluster-rbac"
+      status: "scan-and-review"
+      evidence: "scan receipts"
+    -
+      category: "tpl"
+      status: "controlled-by-empty-defaults"
+      note: "chart has tpl extension points; promoted variants do not set those values."
+    -
+      category: "installer-support-object"
+      status: "handled"
+      object: "v1|Namespace||ingress-nginx"

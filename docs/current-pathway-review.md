@@ -67,6 +67,8 @@ docs/demo/redis/
 data/adversarial10/
 recipes/metrics-server/metrics-server/3.13.0/
 packages/metrics-server/metrics-server/3.13.0/
+recipes/ingress-nginx/ingress-nginx/4.15.1/
+packages/ingress-nginx/ingress-nginx/4.15.1/
 ```
 
 The next step is to turn more chart rows from `data/adversarial10/` into full
@@ -112,9 +114,10 @@ scripts/generate-adversarial10-harness.mjs --verify
 ```
 
 `npm run verify` now validates Redis proof artifacts, Redis package
-determinism, metrics-server proof/package artifacts, the archived reference
-corpus, and the first adversarial harness. It still needs formal schemas and
-broader publication traceability before 20/100/500 claims are credible.
+determinism, metrics-server proof/package artifacts, ingress-nginx
+proof/package artifacts, the archived reference corpus, and the first
+adversarial harness. It still needs formal schemas and broader publication
+traceability before 20/100/500 claims are credible.
 
 The Redis proof artifacts now exist:
 
@@ -176,6 +179,18 @@ metrics-server/metrics-server@3.13.0
 It proves the next reusable shape after Redis: a public chart row can become a
 recipe, two variants, rendered revisions, target fact requirements, scan/gate
 receipts, and a deterministic `cub install` package/setup proof.
+
+The second promoted row is:
+
+```text
+ingress-nginx/ingress-nginx@4.15.1
+```
+
+It proves the admission-webhook chart shape: a default variant with admission
+Service and ValidatingWebhookConfiguration, an `admission-disabled` variant
+that deliberately removes those objects, admission webhook and Helm hook
+lifecycle gates, cluster RBAC gates, and deterministic `cub install`
+package/setup proof.
 
 The Redis proof now contains the first courtroom-grade slice. Remaining Redis
 day-2 extensions still include:

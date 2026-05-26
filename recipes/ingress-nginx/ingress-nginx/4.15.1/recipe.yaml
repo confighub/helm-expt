@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "ingress-nginx-ingress-nginx"
+  version: "4.15.1"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "../../../../packages/ingress-nginx/ingress-nginx/4.15.1"
+    setupCommand:
+      - "cub"
+      - "install"
+      - "setup"
+      - "--pull"
+      - "../../../../packages/ingress-nginx/ingress-nginx/4.15.1"
+      - "--non-interactive"
+      - "--namespace"
+      - "ingress-nginx"
+  variants:
+    - "variants/default/variant.yaml"
+    - "variants/admission-disabled/variant.yaml"

@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "ingress-nginx-ingress-nginx-4.15.1-admission-disabled"
+spec:
+  files:
+    -
+      path: "effective-values-admission-disabled.yaml"
+      source: "inline-proof"
+      sha256: "ed2a194b7c5b5e046f3f325b37e592435766f41d0eabb3452ad9474ee65404b8"
+  mergedValuesCaptured: false
+  values:
+    controller:
+      admissionWebhooks:
+        enabled: false

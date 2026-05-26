@@ -1,0 +1,63 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "ingress-nginx-ingress-nginx-4.15.1"
+spec:
+  chart:
+    repository: "ingress-nginx"
+    name: "ingress-nginx"
+    version: "4.15.1"
+  package:
+    path: "packages/ingress-nginx/ingress-nginx/4.15.1"
+    name: "ingress-nginx-ingress-nginx"
+    version: "4.15.1"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "a5cfa27c24649b9adc44448ea19d68e154a7dddeff52b12f4b0c4ee442c52ee8"
+        bytes: 209
+      -
+        path: "bases/admission-disabled/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/admission-disabled/upstream.yaml"
+        sha256: "ad133758fa1985241f9dd1fe766f6ca9f17e199bf7562e37b3c2834a6588c25e"
+        bytes: 10600
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d"
+        bytes: 13119
+      -
+        path: "installer.yaml"
+        sha256: "ab553fd1821c4b490616ff106377a19efcf3d072d8b3104f11c0d34e361c6a9e"
+        bytes: 519
+  deterministicBundle:
+    command: "cub install package packages/ingress-nginx/ingress-nginx/4.15.1 -o <tmp>/ingress-nginx-4.15.1.tgz"
+    sha256: "67696880ec9c64ef02f0759fdd67e2423d478f9fedcd70bbe45b5edd71336f46"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base default --work-dir <tmp> --non-interactive --namespace ingress-nginx"
+      helmReleaseObjectCount: 11
+      cubInstallObjectCountIncludingSupport: 12
+      semanticObjectMatches: "11/11"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||ingress-nginx"
+    -
+      variant: "admission-disabled"
+      base: "admission-disabled"
+      command: "cub install setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base admission-disabled --work-dir <tmp> --non-interactive --namespace ingress-nginx"
+      helmReleaseObjectCount: 9
+      cubInstallObjectCountIncludingSupport: 10
+      semanticObjectMatches: "9/9"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||ingress-nginx"

@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "ingress-nginx-admission-disabled-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "ad133758fa1985241f9dd1fe766f6ca9f17e199bf7562e37b3c2834a6588c25e"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for admission-disabled"
+    - "Admission webhook availability needs a fresh observation receipt after apply"
+    - "Helm admission hook jobs need explicit lifecycle policy before production"
+    - "Cluster-scoped RBAC needs production review"
+    - "removes the admission Service and ValidatingWebhookConfiguration from the rendered revision"

@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "admission-disabled-r001"
+spec:
+  variant: "../../../variants/admission-disabled/variant.yaml"
+  revision: "r001"
+  digest: "df9ec5e51d2774d3ee7f68ecfb00c3388d1c2face4a4f6665d5905a40d667588"
+  digestInputs:
+    recipeSHA256: "015d26978fbff2459a2ead15d831ac81fd61d4f0305149b462e0cd22485be786"
+    variantSHA256: "2f90e183f7b41708f63a66f3a4a326147c3ce692c810c63ab6b794cdfff62c02"
+    effectiveValuesSHA256: "13872ad305abca3d0b8d35efd839e3d97059dd89cd9a4b5dbeade220db762ce7"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "ad133758fa1985241f9dd1fe766f6ca9f17e199bf7562e37b3c2834a6588c25e"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 9

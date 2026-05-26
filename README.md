@@ -203,6 +203,8 @@ recipes/bitnami/redis/25.5.3/
 packages/bitnami/redis/25.5.3/
 recipes/metrics-server/metrics-server/3.13.0/
 packages/metrics-server/metrics-server/3.13.0/
+recipes/ingress-nginx/ingress-nginx/4.15.1/
+packages/ingress-nginx/ingress-nginx/4.15.1/
 data/adversarial10/
 data/top500/
 schemas/
@@ -224,12 +226,15 @@ The default verifier is now the artifact-chain verifier:
 npm run verify
 npm run redis:compare
 npm run redis:verify-package
+npm run metrics-server:compare
+npm run ingress-nginx:compare
 ```
 
 It checks the archived reference receipts against their referenced files, then
 checks the current Redis proof artifacts, Helm-equivalence evidence, scan/gate
-receipts, variant diff evidence, deterministic `cub install` packaging, and
-negative golden self-tests.
+receipts, variant diff evidence, promoted metrics-server and ingress-nginx
+proof/package artifacts, deterministic `cub install` packaging, and negative
+golden self-tests.
 
 The old hash-only archive check is still available for comparison:
 
@@ -360,6 +365,38 @@ npm run metrics-server:generate-package
 npm run metrics-server:verify-proof
 npm run metrics-server:verify-package
 npm run metrics-server:compare
+```
+
+## Ingress NGINX Proof
+
+The second chart promoted from the adversarial harness is:
+
+```text
+recipes/ingress-nginx/ingress-nginx/4.15.1/
+packages/ingress-nginx/ingress-nginx/4.15.1/
+```
+
+It has two install variants:
+
+```text
+default
+admission-disabled
+```
+
+The proof shows that regular Helm output is preserved by real
+`cub install setup`, plus the explained Namespace support object. It also
+makes the chart's awkward parts visible: Kubernetes capability branching,
+admission webhook objects, Helm hook lifecycle policy, `tpl` extension points,
+and cluster RBAC.
+
+Useful commands:
+
+```sh
+npm run ingress-nginx:generate-proof
+npm run ingress-nginx:generate-package
+npm run ingress-nginx:verify-proof
+npm run ingress-nginx:verify-package
+npm run ingress-nginx:compare
 ```
 
 ## Adversarial 10 Harness

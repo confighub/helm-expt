@@ -166,6 +166,8 @@ docs/demo/redis/
 data/adversarial10/
 recipes/metrics-server/metrics-server/3.13.0/
 packages/metrics-server/metrics-server/3.13.0/
+recipes/ingress-nginx/ingress-nginx/4.15.1/
+packages/ingress-nginx/ingress-nginx/4.15.1/
 ```
 
 `data/adversarial10/` is a readiness and blocker harness, not final
@@ -177,6 +179,12 @@ full recipe/variant/revision proofs.
 harness. Review whether its target fact, APIService, RBAC, scan/gate, and
 `cub install` package evidence are convincing enough to serve as the repeatable
 pattern after Redis.
+
+`ingress-nginx/ingress-nginx@4.15.1` is the second row promoted from that
+harness. Review whether its `default` and `admission-disabled` variants,
+admission webhook, Helm hook lifecycle, RBAC, scan/gate, and `cub install`
+package evidence are convincing enough to serve as the repeatable pattern for
+admission-webhook charts.
 
 Every happy-path demo must also pass the simple UX test:
 

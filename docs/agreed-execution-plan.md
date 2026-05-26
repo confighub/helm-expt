@@ -178,6 +178,7 @@ Redis proof slice: complete for first-install/default and reuse-existing-secret.
 Five-minute UX proof: present under docs/demo/redis/.
 Adversarial 10 foundation: present under data/adversarial10/.
 First promoted adversarial row: metrics-server/metrics-server@3.13.0.
+Second promoted adversarial row: ingress-nginx/ingress-nginx@4.15.1.
 ```
 
 The adversarial 10 foundation does not close the scale proof. It gives us the
@@ -190,6 +191,12 @@ The first such promotion is metrics-server. It adds the repeatable pattern for a
 small but non-trivial public chart: source/dependency locks, two variants,
 target Secret facts, APIService and cluster RBAC gates, Helm equivalence
 receipts, and deterministic `cub install` package/setup proof.
+
+The second such promotion is ingress-nginx. It adds the repeatable pattern for
+an admission-webhook chart: source/dependency locks, `default` and
+`admission-disabled` variants, admission webhook and Helm hook lifecycle gates,
+cluster RBAC gates, Helm equivalence receipts, and deterministic
+`cub install` package/setup proof.
 
 ## Installer Boundary
 

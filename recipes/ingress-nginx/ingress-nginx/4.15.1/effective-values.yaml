@@ -1,0 +1,10 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "ingress-nginx-ingress-nginx-4.15.1-default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "0d8eac2d4e5cc2ffa225debea7b1feb1fb372520c5b046e21f6177919d54e622"
+  mergedValuesCaptured: false
+  values:
+    {}
