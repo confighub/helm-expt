@@ -160,19 +160,33 @@ Open P0 issues in that file are gates before credible 20/100/500 chart proof.
 ## Current CLI Boundary
 
 As of May 26, 2026, the real `cub install` surface is the
-`confighub/installer` plugin. Use real installer subcommands in executable
-docs and scripts:
+`confighub/installer` plugin. Commands relevant to this proof include:
 
 ```text
+cub install doc
+cub install pull
 cub install setup
+cub install render
 cub install upload
 cub install plan
 cub install package
 cub install push
-cub install pull
-cub install doc
+cub install inspect
+cub install list
+cub install sign
 cub install verify
+cub install vet
+cub install wizard
 ```
+
+The upstream installer docs usually show the standalone binary name
+`installer`. In this repo, the same command surface is invoked through the Cub
+plugin as `cub install`.
+
+The plugin also exposes package-authoring and registry helper commands such as
+`init`, `new`, `edit`, `deps`, `login`, `logout`, `tag`, and `transformer`.
+`preflight` appears in help as not yet implemented, so do not use it in proof
+docs until it ships.
 
 Do not present shorthand such as `cub install redis`, `cub diff redis`,
 `cub publish redis`, or `cub variant redis ha` as current executable commands.

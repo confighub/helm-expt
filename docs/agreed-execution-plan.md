@@ -384,14 +384,20 @@ Server UI/API, or an external observer integration.
 No step should require a hand-maintained spreadsheet, a Slack instruction, or
 an undocumented CI script.
 
-This is the target execution contract. The current executable installer CLI is
-`cub install setup`, `cub install upload`, `cub install plan`,
-`cub install package`, `cub install push`, `cub install pull`,
-`cub install doc`, and `cub install verify`. Shorter phrases such as
-`cub install redis`, `cub diff redis`, `cub publish redis`, and
-`cub variant redis ha` are candidate future porcelain verbs only until those
-commands exist. If the short UX is needed, propose those verbs deliberately as
-Cub plugins/extensions; do not write them as current executable docs.
+This is the target execution contract. The current executable installer CLI
+includes real subcommands such as `cub install setup`, `cub install upload`,
+`cub install plan`, `cub install package`, `cub install push`,
+`cub install pull`, `cub install doc`, `cub install render`,
+`cub install wizard`, `cub install vet`, and `cub install verify`. Shorter
+phrases such as `cub install redis`, `cub diff redis`, `cub publish redis`,
+and `cub variant redis ha` are candidate future porcelain verbs only until
+those commands exist. If the short UX is needed, propose those verbs
+deliberately as Cub plugins/extensions; do not write them as current executable
+docs.
+
+The upstream installer docs usually show the standalone binary name
+`installer`. In this repo, those commands are written as `cub install ...`
+because the installer is used through the Cub plugin.
 The important rule is that every durable input, decision, output, and
 observation is produced by one of the supported surfaces and leaves a receipt
 or addressable artifact.

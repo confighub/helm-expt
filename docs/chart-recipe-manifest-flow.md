@@ -288,13 +288,18 @@ file must not be bypassed by the flow; they are gates before credible
 The detailed execution contract is in `docs/agreed-execution-plan.md`. Treat
 the shorthand below as candidate future porcelain, not current executable CLI.
 If needed, those verbs should be proposed explicitly as Cub plugins/extensions.
-The current executable installer surface is `cub install setup`,
+The current executable installer surface includes `cub install setup`,
 `cub install upload`, `cub install plan`, `cub install package`,
-`cub install push`, `cub install pull`, `cub install doc`, and
+`cub install push`, `cub install pull`, `cub install doc`,
+`cub install render`, `cub install wizard`, `cub install vet`, and
 `cub install verify`. During implementation the proof repo may expose more
 explicit commands, but every durable chart input, recipe, variant, revision,
-scan, gate, publish/apply action, and observation must map back to one of these
-execution surfaces and produce an addressable artifact or receipt.
+scan, gate, publish/apply action, and observation must map back to one of the
+real execution surfaces and produce an addressable artifact or receipt.
+
+The upstream installer docs usually write these as `installer ...` commands.
+Here they are written as `cub install ...` because the installer is used through
+the Cub plugin.
 
 Target happy path:
 
