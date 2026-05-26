@@ -21,3 +21,4 @@ spec:
       - redis
   variants:
     - variants/default/variant.yaml
+    - variants/reuse-existing-secret/variant.yaml

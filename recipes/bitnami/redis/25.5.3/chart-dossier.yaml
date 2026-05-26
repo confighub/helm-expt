@@ -6,7 +6,8 @@ spec:
   maintainedNotes:
     - Redis is stateful; PVC and credential behavior require explicit variant policy.
     - Bitnami Redis can generate credentials unless a password/existing secret path is provided.
-    - Default is the first proof variant; HA and existing-secret are later slices.
+    - Default and reuse-existing-secret are the first proof variants; HA is a later slice.
   weirdnessNotes:
     - deterministic proof pins auth.password in effective-values.yaml
+    - reuse-existing-secret records redis-existing-secret/redis-password as a target fact requirement
     - cub install separates rendered Secret resources from uploaded manifests

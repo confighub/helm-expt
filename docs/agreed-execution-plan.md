@@ -211,7 +211,7 @@ clear, not audit-shaped:
 ```text
 Chart: bitnami/redis 25.5.3
 Status: ready with controls
-Variants: default, HA, existing-secret
+Variants: default, reuse-existing-secret, HA
 Objects: 14
 Helm match: 14/14, plus explained ConfigHub support object
 Scan: pass with warnings
@@ -529,7 +529,7 @@ but with more ceremony":
    and group. Attributes expose queryable facts from rendered objects. Receipts
    prove source, render, scan, apply, and observe events.
 7. **Keep variant count bounded.** Curate meaningful install variants such as
-   `default`, `ha`, `tls`, `existing-secret`, and `restricted`. Do not turn
+   `default`, `ha`, `tls`, `reuse-existing-secret`, and `restricted`. Do not turn
    every possible values permutation into a named variant.
 8. **Make Helm weirdness explicit.** `lookup`, hooks, generated values,
    `.Capabilities`, `tpl`, CRDs, raw manifests, post-renderers, and umbrella
@@ -692,12 +692,12 @@ review diff against default
 publish approved HA revision
 ```
 
-Existing secret:
+Reuse existing secret:
 
 ```text
-create existing-secret variant
+create reuse-existing-secret variant
 bind redis-password fact or secret handle
-publish approved existing-secret revision
+publish approved reuse-existing-secret revision
 ```
 
 The point is not "better values files". The point is:
@@ -877,7 +877,7 @@ shows:
 - `ControlPointPlan`: each risky feature mapped to source lock, recipe
   validation, recipe-declared target fact requirements, generated facts,
   capability profile, lifecycle policy, scan, gate, or blocker.
-- `SuggestedVariantCatalog`: default, HA, TLS, existing-secret, restricted,
+- `SuggestedVariantCatalog`: default, HA, TLS, reuse-existing-secret, restricted,
   cloud/provider, and upgrade/fresh-install variants where appropriate.
 - `RenderContextSet`: named capability profiles, target fact values that
   satisfy recipe requirements, generated facts, release name, namespace,

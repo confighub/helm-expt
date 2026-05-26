@@ -6,7 +6,16 @@ spec:
   checkedValues:
     - path: auth.password
       disposition: intentional-deterministic-placeholder
-      reason: avoids chart-generated random password during deterministic proof
+      variant: default
+      reason: avoids chart-generated random password during deterministic default proof
+    - path: auth.existingSecret
+      disposition: target-secret-reference
+      variant: reuse-existing-secret
+      reason: moves credential ownership to an explicit target fact
+    - path: auth.existingSecretPasswordKey
+      disposition: target-secret-key-reference
+      variant: reuse-existing-secret
+      reason: records the required key shape without storing secret material
   unknownValues: not-checked
   deadValues: not-checked
   ignoredValues: not-checked

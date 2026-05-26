@@ -9,9 +9,16 @@ spec:
     version: 25.5.3
     variants:
       - default
-    helmObjects: 14
-    cubInstallObjects: 15
-    helmMatch: "14/14"
+      - reuse-existing-secret
+    helmObjectsByVariant:
+      default: 14
+      reuse-existing-secret: 13
+    cubInstallObjectsByVariant:
+      default: 15
+      reuse-existing-secret: 14
+    helmMatchByVariant:
+      default: "14/14"
+      reuse-existing-secret: "13/13"
     scanGate: warn-production-blocked
     nextAction: resolve or waive local scan findings, then publish through ConfigHub OCI
   receipts:
@@ -19,3 +26,7 @@ spec:
     - revisions/default/r001/receipts/render-receipt.yaml
     - revisions/default/r001/receipts/scan-receipt.yaml
     - revisions/default/r001/receipts/install-gate.yaml
+    - revisions/reuse-existing-secret/r001/receipts/helm-equivalence-receipt.yaml
+    - revisions/reuse-existing-secret/r001/receipts/render-receipt.yaml
+    - revisions/reuse-existing-secret/r001/receipts/scan-receipt.yaml
+    - revisions/reuse-existing-secret/r001/receipts/install-gate.yaml

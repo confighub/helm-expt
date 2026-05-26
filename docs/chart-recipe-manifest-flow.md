@@ -337,9 +337,9 @@ publish approved HA revision
 or:
 
 ```text
-create redis existing-secret variant
+create redis reuse-existing-secret variant
 bind redis-password fact or secret handle
-publish approved existing-secret revision
+publish approved reuse-existing-secret revision
 ```
 
 Implementation may initially expose more explicit `cub install ...` subcommands

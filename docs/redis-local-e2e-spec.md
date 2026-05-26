@@ -1,7 +1,7 @@
 # Redis Local E2E Spec
 
-This slice proves the Redis default rendered objects can run in a local
-Kubernetes cluster.
+This slice proves the Redis `default` and `reuse-existing-secret` rendered
+objects can run in a local Kubernetes cluster.
 
 It is intentionally local. It does not prove ConfigHub OCI publication, GitOps
 handoff, or production readiness.
@@ -12,12 +12,14 @@ Input:
 
 ```text
 recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml
+recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml
 ```
 
 Output:
 
 ```text
 runs/redis-local-kind/latest/observation-receipt.yaml
+runs/redis-local-kind/reuse-existing-secret-latest/observation-receipt.yaml
 runs/redis-local-kind/latest/kubectl-objects.txt
 runs/redis-local-kind/latest/redis-pong.txt
 ```
@@ -57,13 +59,16 @@ The e2e proof must:
    install the pinned local-path provisioner for this dedicated kind cluster
    and must record that target fact in the receipt.
 4. Create the `redis` Namespace support object.
-5. Apply the exact rendered release objects.
-6. Wait for:
+5. For `reuse-existing-secret`, create the required target Secret
+   `redis-existing-secret` with key `redis-password` before applying the
+   release objects, and record it as a target fact.
+6. Apply the exact rendered release objects.
+7. Wait for:
    - `statefulset/redis-master`
    - `statefulset/redis-replicas`
-7. Wait for the four Redis PVCs to be `Bound`.
-8. Run a Redis client command that returns `PONG`.
-9. Write an observation receipt with:
+8. Wait for the four Redis PVCs to be `Bound`.
+9. Run a Redis client command that returns `PONG`.
+10. Write an observation receipt with:
    - observer name/version
    - cluster kind/name
    - observed timestamp
@@ -72,6 +77,7 @@ The e2e proof must:
    - result
    - freshness TTL
    - target facts, including default StorageClass
+   - required Secret target fact for `reuse-existing-secret`
    - checked resources
    - bound PVC evidence
    - PONG evidence digest

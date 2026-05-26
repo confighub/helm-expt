@@ -17,8 +17,14 @@ safe operation
 immediate proof
 ```
 
-The first Redis proof is the `default` install variant. Later slices can add
-`ha` and `reuse-existing-secret`.
+The first Redis proof contains two install variants:
+
+```text
+default
+reuse-existing-secret
+```
+
+Later slices can add `ha`.
 
 ## Required Files
 
@@ -32,13 +38,24 @@ recipes/bitnami/redis/25.5.3/
   control-points.yaml
   value-model.yaml
   effective-values.yaml
+  effective-values-reuse-existing-secret.yaml
   recipe.yaml
 
   variants/
     default/variant.yaml
+    reuse-existing-secret/variant.yaml
 
   revisions/
     default/r001/
+      variant-revision.yaml
+      rendered/release-objects.yaml
+      rendered/object-inventory.yaml
+      receipts/helm-equivalence-receipt.yaml
+      receipts/render-receipt.yaml
+      receipts/scan-receipt.yaml
+      receipts/install-gate.yaml
+
+    reuse-existing-secret/r001/
       variant-revision.yaml
       rendered/release-objects.yaml
       rendered/object-inventory.yaml
@@ -54,13 +71,13 @@ recipes/bitnami/redis/25.5.3/
 
 ```text
 Chart: bitnami/redis 25.5.3
-Variant: default
+Variants: default, reuse-existing-secret
 Status: usable with controls
-Helm objects: 14
-ConfigHub/cub install objects: 15
+Helm objects: default 14; reuse-existing-secret 13
+ConfigHub/cub install objects: default 15; reuse-existing-secret 14
 Explained difference: installer namespace support object
-Helm match: 14/14 semantic object matches
-Secrets: 1 rendered secret separated from uploaded manifests
+Helm match: default 14/14; reuse-existing-secret 13/13 semantic object matches
+Secrets: default renders 1 Secret; reuse-existing-secret requires target Secret
 Scan/gate: exact rendered object digest bound; result explicit
 Next action: publish via ConfigHub OCI, or direct apply only for local/test
 Proof: equivalence, render, scan/gate receipts
@@ -96,8 +113,13 @@ which scopes are blocked. It must not imply a pass.
    - hook policy: `no-hooks`
 5. `effective-values.yaml` records the exact values used for the render and
    their SHA256.
+5b. `effective-values-reuse-existing-secret.yaml` records the existing-secret
+    values and must not store `auth.password`.
 6. Unknown, dead, or ignored values are represented explicitly as `unknown`,
    `not-checked`, or `none-detected`; silence is not allowed.
+6b. `variants/reuse-existing-secret/variant.yaml` records the target Secret
+    requirement: namespace `redis`, name `redis-existing-secret`, key
+    `redis-password`.
 
 ### Rendered Revision
 
@@ -112,6 +134,8 @@ which scopes are blocked. It must not imply a pass.
 9. `rendered/object-inventory.yaml` contains every rendered object identity:
    `apiVersion|kind|namespace|name`.
 10. There are exactly 14 Helm release objects for the default variant.
+10b. There are exactly 13 Helm release objects for the
+     `reuse-existing-secret` variant, and no rendered `Secret`.
 11. There are no duplicate object identities.
 
 ### Helm Equivalence
@@ -130,6 +154,12 @@ which scopes are blocked. It must not imply a pass.
     - `secret-separated`
     - `risk`
     - `blocked`
+13b. The `reuse-existing-secret` equivalence receipt must prove:
+    - regular Helm object count: `13`
+    - `cub install setup` object count including support objects: `14`
+    - semantic object matches: `13/13`
+    - separated secret count: `0`
+    - target Secret requirement recorded separately from rendered output
 
 ### Scan And Gate
 
@@ -174,10 +204,8 @@ The Redis proof verifier must fail if:
 The first Redis proof does not need to complete:
 
 - HA variant
-- reuse-existing-secret variant
-- live cluster observation receipt
 - ConfigHub OCI publication receipt
 - upgrade/rollback simulation receipts
 
-Those are required later, but they must not block the first default proof as
-long as their status is explicit.
+Those are required later, but they must not block the first Redis proof as long
+as their status is explicit.

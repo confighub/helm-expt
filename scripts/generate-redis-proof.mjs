@@ -1,6 +1,7 @@
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -8,12 +9,33 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(__dirname, "..");
 const archiveRedis = join(repoRoot, "archive", "render-and-vendor-top20", "charts", "06-bitnami-redis");
 const proofRoot = join(repoRoot, "recipes", "bitnami", "redis", "25.5.3");
-const revisionRoot = join(proofRoot, "revisions", "default", "r001");
-const renderedRoot = join(revisionRoot, "rendered");
-const receiptsRoot = join(revisionRoot, "receipts");
+const chartRef = "oci://registry-1.docker.io/bitnamicharts/redis";
+const chartVersion = "25.5.3";
+const releaseName = "redis";
+const namespace = "redis";
+const kubeVersion = "1.30.0";
+
+function revisionRootFor(variantName) {
+  return join(proofRoot, "revisions", variantName, "r001");
+}
+
+function renderedRootFor(variantName) {
+  return join(revisionRootFor(variantName), "rendered");
+}
+
+function receiptsRootFor(variantName) {
+  return join(revisionRootFor(variantName), "receipts");
+}
 
 function sha256(data) {
   return createHash("sha256").update(data).digest("hex");
+}
+
+function stripTrailingWhitespace(text) {
+  return text
+    .split("\n")
+    .map((line) => line.trimEnd())
+    .join("\n");
 }
 
 function sha256File(path) {
@@ -249,15 +271,50 @@ function write(path, contents) {
   writeFileSync(path, contents);
 }
 
+function renderHelm(valuesText) {
+  const tempRoot = mkdtempSync(join(tmpdir(), "helm-expt-redis-values-"));
+  const valuesPath = join(tempRoot, "values.yaml");
+  try {
+    writeFileSync(valuesPath, valuesText);
+    return execFileSync(
+      "helm",
+      [
+        "template",
+        releaseName,
+        chartRef,
+        "--version",
+        chartVersion,
+        "--namespace",
+        namespace,
+        "--values",
+        valuesPath,
+        "--kube-version",
+        kubeVersion,
+        "--include-crds",
+        "--skip-tests",
+        "--no-hooks",
+      ],
+      {
+        cwd: repoRoot,
+        encoding: "utf8",
+        stdio: ["ignore", "pipe", "inherit"],
+        maxBuffer: 1024 * 1024 * 100,
+      },
+    );
+  } finally {
+    rmSync(tempRoot, { recursive: true, force: true });
+  }
+}
+
 function digestLine(label, value) {
   return `    ${label}: ${yamlQuote(value)}\n`;
 }
 
-function objectInventoryYaml(objects, releaseDigest) {
+function objectInventoryYaml(variantName, objects, releaseDigest) {
   return `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: RenderedObjectInventory
 metadata:
-  name: bitnami-redis-25.5.3-default-r001
+  name: bitnami-redis-25.5.3-${variantName}-r001
 spec:
   source: rendered/release-objects.yaml
   sourceSHA256: ${yamlQuote(releaseDigest)}
@@ -278,23 +335,47 @@ ${objects
 function main() {
   const archiveReceipt = parseYamlFile(join(archiveRedis, "helm-import.receipt.yaml"));
   const archiveValues = readFileSync(join(archiveRedis, "values.yaml"), "utf8");
-  const releaseObjects = readFileSync(join(archiveRedis, "base", "upstream.yaml"), "utf8");
-  const releaseDigest = sha256(releaseObjects);
-  const valuesDigest = sha256(archiveValues);
+  const defaultReleaseObjects = readFileSync(join(archiveRedis, "base", "upstream.yaml"), "utf8");
+  const reuseExistingSecretValues = `auth:
+  existingSecret: redis-existing-secret
+  existingSecretPasswordKey: redis-password
+`;
+
+  const variants = [
+    {
+      name: "default",
+      displayName: "default",
+      effectiveValuesFile: "effective-values.yaml",
+      valuesText: archiveValues,
+      valuesSourcePath: "../../../../archive/render-and-vendor-top20/charts/06-bitnami-redis/values.yaml",
+      releaseObjects: defaultReleaseObjects,
+      expectedObjectCount: 14,
+      expectedSecretCount: 1,
+      targetFactNote: "renders Redis Secret; cub install separates it from uploaded manifests",
+    },
+    {
+      name: "reuse-existing-secret",
+      displayName: "reuse existing secret",
+      effectiveValuesFile: "effective-values-reuse-existing-secret.yaml",
+      valuesText: reuseExistingSecretValues,
+      releaseObjects: stripTrailingWhitespace(renderHelm(reuseExistingSecretValues)),
+      expectedObjectCount: 13,
+      expectedSecretCount: 0,
+      targetFactNote: "requires target Secret redis/redis-existing-secret with key redis-password",
+      targetFacts: {
+        requiredSecrets: [
+          {
+            namespace,
+            name: "redis-existing-secret",
+            keys: ["redis-password"],
+            purpose: "Redis authentication password",
+          },
+        ],
+      },
+    },
+  ];
 
   rmSync(proofRoot, { recursive: true, force: true });
-  mkdirSync(receiptsRoot, { recursive: true });
-  mkdirSync(renderedRoot, { recursive: true });
-
-  write(join(renderedRoot, "release-objects.yaml"), releaseObjects);
-  const objects = parseRenderedObjects(join(renderedRoot, "release-objects.yaml"));
-  const renderedDocs = parseRenderedDocs(join(renderedRoot, "release-objects.yaml"));
-  const scanFindings = scanRenderedDocs(renderedDocs);
-  const scanCounts = findingCounts(scanFindings);
-  const scanResult = scanFindings.length ? "warn" : "pass";
-  const policyBundleDigest = sha256(JSON.stringify(localScanPolicy));
-  const inventory = objectInventoryYaml(objects, releaseDigest);
-  write(join(renderedRoot, "object-inventory.yaml"), inventory);
 
   const sourceLock = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: SourceLock
@@ -330,25 +411,6 @@ spec:
 `;
   write(join(proofRoot, "dependency-lock.yaml"), dependencyLock);
 
-  const effectiveValues = `apiVersion: helm-expt.confighub.com/v1alpha1
-kind: EffectiveValues
-metadata:
-  name: bitnami-redis-25.5.3-default
-spec:
-  files:
-    - path: effective-values.yaml
-      sourcePath: ../../../../archive/render-and-vendor-top20/charts/06-bitnami-redis/values.yaml
-      sha256: ${yamlQuote(valuesDigest)}
-  mergedValuesCaptured: false
-  values:
-${archiveValues
-  .trimEnd()
-  .split("\n")
-  .map((line) => `    ${line}`)
-  .join("\n")}
-`;
-  write(join(proofRoot, "effective-values.yaml"), effectiveValues);
-
   const valueModel = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ValueModel
 metadata:
@@ -357,7 +419,16 @@ spec:
   checkedValues:
     - path: auth.password
       disposition: intentional-deterministic-placeholder
-      reason: avoids chart-generated random password during deterministic proof
+      variant: default
+      reason: avoids chart-generated random password during deterministic default proof
+    - path: auth.existingSecret
+      disposition: target-secret-reference
+      variant: reuse-existing-secret
+      reason: moves credential ownership to an explicit target fact
+    - path: auth.existingSecretPasswordKey
+      disposition: target-secret-key-reference
+      variant: reuse-existing-secret
+      reason: records the required key shape without storing secret material
   unknownValues: not-checked
   deadValues: not-checked
   ignoredValues: not-checked
@@ -380,6 +451,15 @@ spec:
       status: handled-for-default-proof
       evidence: effective-values.yaml
       note: auth.password is deterministic in this proof; future generated-fact receipt should own this.
+    - category: target-facts
+      status: required-for-reuse-existing-secret
+      evidence: variants/reuse-existing-secret/variant.yaml
+      required:
+        - kind: Secret
+          namespace: redis
+          name: redis-existing-secret
+          keys:
+            - redis-password
     - category: capability-profile
       status: handled
       kubeVersion: "1.30.0"
@@ -417,54 +497,117 @@ spec:
       - --namespace
       - redis
   variants:
-    - variants/default/variant.yaml
+${variants.map((variant) => `    - variants/${variant.name}/variant.yaml`).join("\n")}
 `;
   write(join(proofRoot, "recipe.yaml"), recipe);
 
-  const variant = `apiVersion: helm-expt.confighub.com/v1alpha1
-kind: Variant
-metadata:
-  name: default
-spec:
-  recipe: ../../recipe.yaml
-  namespace: redis
-  releaseName: redis
-  valuesProfile: ../../effective-values.yaml
-  capabilityProfile:
-    kubeVersion: "1.30.0"
-    apiVersions: []
-  hookPolicy: no-hooks
-`;
-  write(join(proofRoot, "variants", "default", "variant.yaml"), variant);
-
   const recipeDigest = sha256File(join(proofRoot, "recipe.yaml"));
-  const variantDigest = sha256File(join(proofRoot, "variants", "default", "variant.yaml"));
-  const effectiveValuesDigest = sha256File(join(proofRoot, "effective-values.yaml"));
-  const inventoryDigest = sha256(inventory);
   const rendererFingerprint = sha256(
     JSON.stringify({
       renderer: "helm",
       helmVersion: archiveReceipt.spec.render.helmVersion,
-      kubeVersion: "1.30.0",
+      kubeVersion,
       flags: ["--include-crds", "--skip-tests", "--no-hooks"],
     }),
   );
-  const revisionDigest = sha256(
-    JSON.stringify({
-      recipeDigest,
-      variantDigest,
-      effectiveValuesDigest,
-      rendererFingerprint,
-      renderedObjectSetDigest: releaseDigest,
-    }),
-  );
 
-  const variantRevision = `apiVersion: helm-expt.confighub.com/v1alpha1
+  const summaries = [];
+  for (const variant of variants) {
+    const revisionRoot = revisionRootFor(variant.name);
+    const renderedRoot = renderedRootFor(variant.name);
+    const receiptsRoot = receiptsRootFor(variant.name);
+    mkdirSync(receiptsRoot, { recursive: true });
+    mkdirSync(renderedRoot, { recursive: true });
+
+    const releaseObjects = variant.releaseObjects;
+    const releaseDigest = sha256(releaseObjects);
+    write(join(renderedRoot, "release-objects.yaml"), releaseObjects);
+    const objects = parseRenderedObjects(join(renderedRoot, "release-objects.yaml"));
+    const renderedDocs = parseRenderedDocs(join(renderedRoot, "release-objects.yaml"));
+    const secretCount = renderedDocs.filter((doc) => doc.kind === "Secret").length;
+    if (objects.length !== variant.expectedObjectCount) {
+      throw new Error(`${variant.name} expected ${variant.expectedObjectCount} objects, rendered ${objects.length}`);
+    }
+    if (secretCount !== variant.expectedSecretCount) {
+      throw new Error(`${variant.name} expected ${variant.expectedSecretCount} rendered Secrets, saw ${secretCount}`);
+    }
+
+    const scanFindings = scanRenderedDocs(renderedDocs);
+    const scanCounts = findingCounts(scanFindings);
+    const scanResult = scanFindings.length ? "warn" : "pass";
+    const policyBundleDigest = sha256(JSON.stringify(localScanPolicy));
+    const inventory = objectInventoryYaml(variant.name, objects, releaseDigest);
+    const inventoryDigest = sha256(inventory);
+    write(join(renderedRoot, "object-inventory.yaml"), inventory);
+
+    const valuesDigest = sha256(variant.valuesText);
+    const effectiveValues = `apiVersion: helm-expt.confighub.com/v1alpha1
+kind: EffectiveValues
+metadata:
+  name: bitnami-redis-25.5.3-${variant.name}
+spec:
+  files:
+    - path: ${variant.effectiveValuesFile}
+${variant.valuesSourcePath ? `      sourcePath: ${variant.valuesSourcePath}\n` : "      source: inline-proof\n"}      sha256: ${yamlQuote(valuesDigest)}
+  mergedValuesCaptured: false
+  values:
+${variant.valuesText
+  .trimEnd()
+  .split("\n")
+  .map((line) => `    ${line}`)
+  .join("\n")}
+`;
+    write(join(proofRoot, variant.effectiveValuesFile), effectiveValues);
+
+    const targetFactsYaml = variant.targetFacts
+      ? `  targetFacts:
+    requiredSecrets:
+${variant.targetFacts.requiredSecrets
+  .map(
+    (secret) => `      - namespace: ${yamlQuote(secret.namespace)}
+        name: ${yamlQuote(secret.name)}
+        keys:
+${secret.keys.map((key) => `          - ${yamlQuote(key)}`).join("\n")}
+        purpose: ${yamlQuote(secret.purpose)}`,
+  )
+  .join("\n")}
+`
+      : "";
+
+    const variantYaml = `apiVersion: helm-expt.confighub.com/v1alpha1
+kind: Variant
+metadata:
+  name: ${variant.name}
+spec:
+  recipe: ../../recipe.yaml
+  namespace: redis
+  releaseName: redis
+  valuesProfile: ../../${variant.effectiveValuesFile}
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions: []
+  hookPolicy: no-hooks
+${targetFactsYaml}`;
+    write(join(proofRoot, "variants", variant.name, "variant.yaml"), variantYaml);
+
+    const variantDigest = sha256File(join(proofRoot, "variants", variant.name, "variant.yaml"));
+    const effectiveValuesDigest = sha256File(join(proofRoot, variant.effectiveValuesFile));
+    const revisionDigest = sha256(
+      JSON.stringify({
+        recipeDigest,
+        variantDigest,
+        effectiveValuesDigest,
+        rendererFingerprint,
+        renderedObjectSetDigest: releaseDigest,
+      }),
+    );
+
+    const variantRevision = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: VariantRevision
 metadata:
-  name: default-r001
+  name: ${variant.name}-r001
 spec:
-  variant: ../../../variants/default/variant.yaml
+  variant: ../../../variants/${variant.name}/variant.yaml
   revision: r001
   digest: ${yamlQuote(revisionDigest)}
   digestInputs:
@@ -477,12 +620,12 @@ ${digestLine("recipeSHA256", recipeDigest)}${digestLine("variantSHA256", variant
     objectInventory: rendered/object-inventory.yaml
     objectCount: ${objects.length}
 `;
-  write(join(revisionRoot, "variant-revision.yaml"), variantRevision);
+    write(join(revisionRoot, "variant-revision.yaml"), variantRevision);
 
-  const renderReceipt = `apiVersion: helm-expt.confighub.com/v1alpha1
+    const renderReceipt = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: RenderReceipt
 metadata:
-  name: bitnami-redis-default-r001
+  name: bitnami-redis-${variant.name}-r001
 spec:
   variantRevision: ../variant-revision.yaml
   renderer:
@@ -501,40 +644,47 @@ spec:
     renderedObjectSetSHA256: ${yamlQuote(releaseDigest)}
     renderedObjectInventorySHA256: ${yamlQuote(inventoryDigest)}
     objectCount: ${objects.length}
-    secretCountSeparatedByCubInstall: 1
+    renderedSecretCount: ${secretCount}
+    secretCountSeparatedByCubInstall: ${secretCount}
 `;
-  write(join(receiptsRoot, "render-receipt.yaml"), renderReceipt);
+    write(join(receiptsRoot, "render-receipt.yaml"), renderReceipt);
 
-  const equivalenceReceipt = `apiVersion: helm-expt.confighub.com/v1alpha1
+    const classifications = [
+      `    - identity: v1|Namespace||redis
+      classification: installer-support-object
+      disposition: allowed`,
+    ];
+    if (secretCount > 0) {
+      classifications.push(`    - identity: v1|Secret|redis|redis
+      classification: secret-separated
+      disposition: allowed`);
+    }
+    const semanticMatches = `${objects.length}/${objects.length}`;
+    const equivalenceReceipt = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: HelmEquivalenceReceipt
 metadata:
-  name: bitnami-redis-default-r001
+  name: bitnami-redis-${variant.name}-r001
 spec:
   variantRevision: ../variant-revision.yaml
   regularHelm:
-    renderedSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
-    objectCount: 14
+    renderedSHA256: ${yamlQuote(releaseDigest)}
+    objectCount: ${objects.length}
   cubInstall:
-    objectCountIncludingSecretsAndSupportObjects: 15
-    uploadedManifestFiles: 14
-    separatedSecretFiles: 1
-    semanticObjectMatches: "14/14"
+    objectCountIncludingSecretsAndSupportObjects: ${objects.length + 1}
+    uploadedManifestFiles: ${objects.length - secretCount + 1}
+    separatedSecretFiles: ${secretCount}
+    semanticObjectMatches: ${yamlQuote(semanticMatches)}
   classifications:
-    - identity: v1|Namespace||redis
-      classification: installer-support-object
-      disposition: allowed
-    - identity: v1|Secret|redis|redis
-      classification: secret-separated
-      disposition: allowed
+${classifications.join("\n")}
   result: pass
   evidenceCommand: npm run redis:compare
 `;
-  write(join(receiptsRoot, "helm-equivalence-receipt.yaml"), equivalenceReceipt);
+    write(join(receiptsRoot, "helm-equivalence-receipt.yaml"), equivalenceReceipt);
 
-  const scanReceipt = `apiVersion: helm-expt.confighub.com/v1alpha1
+    const scanReceipt = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ScanReceipt
 metadata:
-  name: bitnami-redis-default-r001
+  name: bitnami-redis-${variant.name}-r001
 spec:
   variantRevision: ../variant-revision.yaml
   renderedObjectSetSHA256: ${yamlQuote(releaseDigest)}
@@ -560,12 +710,12 @@ ${scanFindings
   )
   .join("\n")}
 `;
-  write(join(receiptsRoot, "scan-receipt.yaml"), scanReceipt);
+    write(join(receiptsRoot, "scan-receipt.yaml"), scanReceipt);
 
-  const installGate = `apiVersion: helm-expt.confighub.com/v1alpha1
+    const installGate = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: InstallGate
 metadata:
-  name: bitnami-redis-default-r001
+  name: bitnami-redis-${variant.name}-r001
 spec:
   variantRevision: ../variant-revision.yaml
   renderedObjectSetSHA256: ${yamlQuote(releaseDigest)}
@@ -577,9 +727,21 @@ spec:
   reasons:
     - local scan found ${scanCounts.high} high and ${scanCounts.medium} medium finding(s)
     - production publish is blocked until high findings are resolved or explicitly waived
-    - Helm equivalence passed for default variant
+    - Helm equivalence passed for ${variant.name} variant
+    - ${variant.targetFactNote}
 `;
-  write(join(receiptsRoot, "install-gate.yaml"), installGate);
+    write(join(receiptsRoot, "install-gate.yaml"), installGate);
+
+    summaries.push({
+      ...variant,
+      releaseDigest,
+      objectCount: objects.length,
+      secretCount,
+      cubObjectCount: objects.length + 1,
+      scanCounts,
+      semanticMatches,
+    });
+  }
 
   const helmPlan = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: HelmPlan
@@ -591,17 +753,24 @@ spec:
     chart: bitnami/redis
     version: 25.5.3
     variants:
-      - default
-    helmObjects: 14
-    cubInstallObjects: 15
-    helmMatch: "14/14"
+${summaries.map((summary) => `      - ${summary.name}`).join("\n")}
+    helmObjectsByVariant:
+${summaries.map((summary) => `      ${summary.name}: ${summary.objectCount}`).join("\n")}
+    cubInstallObjectsByVariant:
+${summaries.map((summary) => `      ${summary.name}: ${summary.cubObjectCount}`).join("\n")}
+    helmMatchByVariant:
+${summaries.map((summary) => `      ${summary.name}: ${yamlQuote(summary.semanticMatches)}`).join("\n")}
     scanGate: warn-production-blocked
     nextAction: resolve or waive local scan findings, then publish through ConfigHub OCI
   receipts:
-    - revisions/default/r001/receipts/helm-equivalence-receipt.yaml
-    - revisions/default/r001/receipts/render-receipt.yaml
-    - revisions/default/r001/receipts/scan-receipt.yaml
-    - revisions/default/r001/receipts/install-gate.yaml
+${summaries
+  .flatMap((summary) => [
+    `    - revisions/${summary.name}/r001/receipts/helm-equivalence-receipt.yaml`,
+    `    - revisions/${summary.name}/r001/receipts/render-receipt.yaml`,
+    `    - revisions/${summary.name}/r001/receipts/scan-receipt.yaml`,
+    `    - revisions/${summary.name}/r001/receipts/install-gate.yaml`,
+  ])
+  .join("\n")}
 `;
   write(join(proofRoot, "helm-plan.yaml"), helmPlan);
 
@@ -613,9 +782,10 @@ spec:
   maintainedNotes:
     - Redis is stateful; PVC and credential behavior require explicit variant policy.
     - Bitnami Redis can generate credentials unless a password/existing secret path is provided.
-    - Default is the first proof variant; HA and existing-secret are later slices.
+    - Default and reuse-existing-secret are the first proof variants; HA is a later slice.
   weirdnessNotes:
     - deterministic proof pins auth.password in effective-values.yaml
+    - reuse-existing-secret records redis-existing-secret/redis-password as a target fact requirement
     - cub install separates rendered Secret resources from uploaded manifests
 `;
   write(join(proofRoot, "chart-dossier.yaml"), chartDossier);
@@ -627,15 +797,15 @@ spec:
 | Field | Result |
 | --- | --- |
 | Chart | bitnami/redis 25.5.3 |
-| Variant | default |
+| Variants | default, reuse-existing-secret |
 | Status | usable with controls |
-| Helm objects | 14 |
-| ConfigHub/cub install objects | 15 |
-| Explained difference | installer namespace support object |
-| Helm match | 14/14 semantic object matches |
-| Secrets | 1 rendered Secret separated from uploaded manifests |
+| Helm objects | default: 14; reuse-existing-secret: 13 |
+| ConfigHub/cub install objects | default: 15; reuse-existing-secret: 14 |
+| Explained difference | installer namespace support object; default also separates rendered Secret |
+| Helm match | default: 14/14; reuse-existing-secret: 13/13 semantic object matches |
+| Secrets | default renders 1 Secret; reuse-existing-secret renders 0 Secrets and requires target Secret redis-existing-secret/redis-password |
 | Scan/gate | local scan warns; production blocked; local-test warning only |
-| Scan findings | ${scanCounts.high} high, ${scanCounts.medium} medium |
+| Scan findings | ${summaries.map((summary) => `${summary.name}: ${summary.scanCounts.high} high, ${summary.scanCounts.medium} medium`).join("; ")} |
 | Next action | resolve or waive local scan findings, then publish through ConfigHub OCI |
 | Proof | equivalence, render, scan, and gate receipts |
 
@@ -653,7 +823,7 @@ class Helm recipe importer exists.
 `;
   write(join(proofRoot, "README.md"), readme);
 
-  console.log(`generated Redis default proof at ${proofRoot}`);
+  console.log(`generated Redis proof variants at ${proofRoot}: ${summaries.map((summary) => summary.name).join(", ")}`);
 }
 
 main();

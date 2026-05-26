@@ -1,10 +1,10 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: InstallGate
 metadata:
-  name: bitnami-redis-default-r001
+  name: bitnami-redis-reuse-existing-secret-r001
 spec:
   variantRevision: ../variant-revision.yaml
-  renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+  renderedObjectSetSHA256: "a90dda4885fb97749e2c222f1abd840f49dcf6eafa953ea6ea2dbc6ba565fe53"
   decision: warn
   allowedScopes:
     - local-test
@@ -13,5 +13,5 @@ spec:
   reasons:
     - local scan found 2 high and 2 medium finding(s)
     - production publish is blocked until high findings are resolved or explicitly waived
-    - Helm equivalence passed for default variant
-    - renders Redis Secret; cub install separates it from uploaded manifests
+    - Helm equivalence passed for reuse-existing-secret variant
+    - requires target Secret redis/redis-existing-secret with key redis-password

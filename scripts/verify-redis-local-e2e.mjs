@@ -6,8 +6,14 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(__dirname, "..");
-const runRoot = join(repoRoot, "runs", "redis-local-kind", "latest");
-const variantRevision = "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml";
+const args = process.argv.slice(2);
+const variantName = optionValue("--variant") ?? "default";
+if (!["default", "reuse-existing-secret"].includes(variantName)) {
+  throw new Error(`unsupported Redis local e2e verifier variant: ${variantName}`);
+}
+const runName = variantName === "default" ? "latest" : `${variantName}-latest`;
+const runRoot = join(repoRoot, "runs", "redis-local-kind", runName);
+const variantRevision = `recipes/bitnami/redis/25.5.3/revisions/${variantName}/r001/variant-revision.yaml`;
 const releaseObjects = join(
   repoRoot,
   "recipes",
@@ -15,11 +21,16 @@ const releaseObjects = join(
   "redis",
   "25.5.3",
   "revisions",
-  "default",
+  variantName,
   "r001",
   "rendered",
   "release-objects.yaml",
 );
+
+function optionValue(name) {
+  const index = args.indexOf(name);
+  return index === -1 ? null : args[index + 1];
+}
 
 function sha256(data) {
   return createHash("sha256").update(data).digest("hex");
@@ -58,8 +69,9 @@ function main() {
 
   const receipt = parseYamlFile(receiptPath);
   check(receipt.kind === "ObservationReceipt", "receipt must be ObservationReceipt");
-  check(receipt.spec.variantRevision === variantRevision, "observation receipt must point at the default Redis revision");
+  check(receipt.spec.variantRevision === variantRevision, `observation receipt must point at the ${variantName} Redis revision`);
   check(receipt.spec.result === "pass", "local e2e result must be pass");
+  check(receipt.spec.variant === variantName, "local e2e receipt variant mismatch");
   check(receipt.spec.target?.kind === "kind", "target kind must be kind");
   check(receipt.spec.target?.name === "helm-expt-redis", "target cluster must be helm-expt-redis");
   check(receipt.spec.target?.context === "kind-helm-expt-redis", "target context mismatch");
@@ -69,6 +81,20 @@ function main() {
     "observation receipt rendered object digest mismatch",
   );
   check(Boolean(receipt.spec.targetFacts?.defaultStorageClass?.name), "default StorageClass target fact missing");
+  if (variantName === "reuse-existing-secret") {
+    const requiredSecret = receipt.spec.targetFacts?.requiredSecret;
+    const secretEvidencePath = join(runRoot, requiredSecret?.evidencePath ?? "");
+    check(requiredSecret?.namespace === "redis", "reuse local e2e required Secret namespace mismatch");
+    check(requiredSecret?.name === "redis-existing-secret", "reuse local e2e required Secret name mismatch");
+    check(requiredSecret?.key === "redis-password", "reuse local e2e required Secret key mismatch");
+    check(requiredSecret?.status === "applied-by-test", "reuse local e2e required Secret status mismatch");
+    check(existsSync(secretEvidencePath), "reuse local e2e required Secret evidence missing");
+    check(requiredSecret.evidenceSHA256 === sha256File(secretEvidencePath), "reuse local e2e required Secret evidence digest mismatch");
+    check(
+      receipt.spec.checks?.some((check) => check.name === "target-secret-present" && check.result === "pass"),
+      "reuse local e2e target-secret-present check missing",
+    );
+  }
   check(receipt.spec.checks?.some((check) => check.name === "redis-ping" && check.result === "pass"), "redis-ping check missing");
   check(
     receipt.spec.checks?.some((check) => check.name === "redis-pvcs-bound" && check.result === "pass" && check.count === 4),

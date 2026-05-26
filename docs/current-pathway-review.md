@@ -230,7 +230,7 @@ ConfigHub should verify at scale by running chart proof jobs across a matrix of:
 
 - chart versions
 - Kubernetes capability profiles
-- default, HA, TLS, existing-secret, restricted, and provider variants
+- default, HA, TLS, reuse-existing-secret, restricted, and provider variants
 - target fact value profiles
 - generated secret/cert/time policies
 - hooks, CRDs, webhooks, RBAC, raw manifests, and `tpl` controls

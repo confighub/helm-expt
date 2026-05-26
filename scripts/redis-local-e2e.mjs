@@ -9,6 +9,12 @@ const repoRoot = resolve(__dirname, "..");
 const clusterName = "helm-expt-redis";
 const contextName = `kind-${clusterName}`;
 const namespace = "redis";
+const args = process.argv.slice(2);
+const variantName = optionValue("--variant") ?? "default";
+if (!["default", "reuse-existing-secret"].includes(variantName)) {
+  throw new Error(`unsupported Redis local e2e variant: ${variantName}`);
+}
+const runName = variantName === "default" ? "latest" : `${variantName}-latest`;
 const localPathProvisionerURL =
   "https://raw.githubusercontent.com/rancher/local-path-provisioner/v0.0.32/deploy/local-path-storage.yaml";
 const releaseObjects = join(
@@ -18,13 +24,18 @@ const releaseObjects = join(
   "redis",
   "25.5.3",
   "revisions",
-  "default",
+  variantName,
   "r001",
   "rendered",
   "release-objects.yaml",
 );
-const variantRevision = "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml";
-const runRoot = join(repoRoot, "runs", "redis-local-kind", "latest");
+const variantRevision = `recipes/bitnami/redis/25.5.3/revisions/${variantName}/r001/variant-revision.yaml`;
+const runRoot = join(repoRoot, "runs", "redis-local-kind", runName);
+
+function optionValue(name) {
+  const index = args.indexOf(name);
+  return index === -1 ? null : args[index + 1];
+}
 
 function sha256(data) {
   return createHash("sha256").update(data).digest("hex");
@@ -142,6 +153,32 @@ function ensureDefaultStorageClass() {
   };
 }
 
+function ensureReuseExistingSecret() {
+  if (variantName !== "reuse-existing-secret") return null;
+  const secretYaml = kubectl([
+    "-n",
+    namespace,
+    "create",
+    "secret",
+    "generic",
+    "redis-existing-secret",
+    "--from-literal=redis-password=confighub-redis-password",
+    "--dry-run=client",
+    "-o",
+    "yaml",
+  ]);
+  const secretPath = join(runRoot, "redis-existing-secret.yaml");
+  writeFileSync(secretPath, secretYaml);
+  kubectlInherit(["apply", "-f", secretPath]);
+  return {
+    namespace,
+    name: "redis-existing-secret",
+    key: "redis-password",
+    evidencePath: "redis-existing-secret.yaml",
+    evidenceSHA256: sha256File(secretPath),
+  };
+}
+
 function main() {
   mkdirSync(runRoot, { recursive: true });
   const renderedDigest = sha256File(releaseObjects);
@@ -152,6 +189,7 @@ function main() {
   const namespacePath = join(runRoot, "namespace.yaml");
   writeFileSync(namespacePath, namespaceYaml);
   kubectlInherit(["apply", "-f", namespacePath]);
+  const requiredSecret = ensureReuseExistingSecret();
   kubectlInherit(["apply", "-f", releaseObjects]);
 
   kubectlInherit(["-n", namespace, "rollout", "status", "statefulset/redis-master", "--timeout=300s"]);
@@ -166,6 +204,9 @@ function main() {
     "app.kubernetes.io/instance=redis",
     "--timeout=120s",
   ]);
+  if (variantName === "reuse-existing-secret") {
+    kubectlInherit(["-n", namespace, "delete", "secret", "redis", "--ignore-not-found"]);
+  }
 
   const objects = kubectl([
     "-n",
@@ -202,7 +243,7 @@ function main() {
   const receipt = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ObservationReceipt
 metadata:
-  name: bitnami-redis-default-r001-local-kind
+  name: bitnami-redis-${variantName}-r001-local-kind
 spec:
   variantRevision: ${yamlQuote(variantRevision)}
   renderedObjectSetSHA256: ${yamlQuote(renderedDigest)}
@@ -219,16 +260,27 @@ spec:
   freshnessTTL: 1h
   result: pass
   clusterStatus: ${yamlQuote(clusterStatus)}
+  variant: ${yamlQuote(variantName)}
   targetFacts:
     defaultStorageClass:
       name: ${yamlQuote(storageClass.defaultName)}
       status: ${yamlQuote(storageClass.status)}
       provisionerURL: ${yamlQuote(storageClass.provisionerURL)}
-  checks:
+${requiredSecret ? `    requiredSecret:
+      namespace: ${yamlQuote(requiredSecret.namespace)}
+      name: ${yamlQuote(requiredSecret.name)}
+      key: ${yamlQuote(requiredSecret.key)}
+      status: applied-by-test
+      evidencePath: ${yamlQuote(requiredSecret.evidencePath)}
+      evidenceSHA256: ${yamlQuote(requiredSecret.evidenceSHA256)}
+` : ""}  checks:
     - name: namespace-support-object-applied
       result: pass
       object: v1|Namespace||redis
-    - name: statefulset-redis-master-rollout
+${requiredSecret ? `    - name: target-secret-present
+      result: pass
+      object: v1|Secret|redis|redis-existing-secret
+` : ""}    - name: statefulset-redis-master-rollout
       result: pass
       object: apps/v1|StatefulSet|redis|redis-master
     - name: statefulset-redis-replicas-rollout

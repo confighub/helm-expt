@@ -117,8 +117,10 @@ function verifyProof(root) {
     "control-points.yaml",
     "value-model.yaml",
     "effective-values.yaml",
+    "effective-values-reuse-existing-secret.yaml",
     "recipe.yaml",
     "variants/default/variant.yaml",
+    "variants/reuse-existing-secret/variant.yaml",
     "revisions/default/r001/variant-revision.yaml",
     "revisions/default/r001/rendered/release-objects.yaml",
     "revisions/default/r001/rendered/object-inventory.yaml",
@@ -126,6 +128,13 @@ function verifyProof(root) {
     "revisions/default/r001/receipts/render-receipt.yaml",
     "revisions/default/r001/receipts/scan-receipt.yaml",
     "revisions/default/r001/receipts/install-gate.yaml",
+    "revisions/reuse-existing-secret/r001/variant-revision.yaml",
+    "revisions/reuse-existing-secret/r001/rendered/release-objects.yaml",
+    "revisions/reuse-existing-secret/r001/rendered/object-inventory.yaml",
+    "revisions/reuse-existing-secret/r001/receipts/helm-equivalence-receipt.yaml",
+    "revisions/reuse-existing-secret/r001/receipts/render-receipt.yaml",
+    "revisions/reuse-existing-secret/r001/receipts/scan-receipt.yaml",
+    "revisions/reuse-existing-secret/r001/receipts/install-gate.yaml",
   ];
   for (const relative of requiredFiles) required(root, relative);
   check(!existsSync(join(root, "variants", "standalone")), "old standalone variant directory must not exist");
@@ -135,8 +144,10 @@ function verifyProof(root) {
   const dependencyLock = parseYamlFile(join(root, "dependency-lock.yaml"));
   const valueModel = parseYamlFile(join(root, "value-model.yaml"));
   const effectiveValues = parseYamlFile(join(root, "effective-values.yaml"));
+  const reuseEffectiveValues = parseYamlFile(join(root, "effective-values-reuse-existing-secret.yaml"));
   const recipe = parseYamlFile(join(root, "recipe.yaml"));
   const variant = parseYamlFile(join(root, "variants", "default", "variant.yaml"));
+  const reuseVariant = parseYamlFile(join(root, "variants", "reuse-existing-secret", "variant.yaml"));
   const revision = parseYamlFile(join(revisionRoot, "variant-revision.yaml"));
   const inventory = parseYamlFile(join(renderedRoot, "object-inventory.yaml"));
   const equivalence = parseYamlFile(join(receiptsRoot, "helm-equivalence-receipt.yaml"));
@@ -165,6 +176,11 @@ function verifyProof(root) {
   check(common?.version === "2.39.0", "dependency lock must include common 2.39.0");
   check(recipe.spec.chartRef.sourceLock === "source-lock.yaml", "recipe must reference source-lock.yaml");
   check(recipe.spec.chartRef.dependencyLock === "dependency-lock.yaml", "recipe must reference dependency-lock.yaml");
+  check(recipe.spec.variants?.includes("variants/default/variant.yaml"), "recipe must include default variant");
+  check(
+    recipe.spec.variants?.includes("variants/reuse-existing-secret/variant.yaml"),
+    "recipe must include reuse-existing-secret variant",
+  );
 
   check(variant.kind === "Variant", "default variant must be Variant");
   check(variant.metadata.name === "default", "variant name must be default");
@@ -173,10 +189,45 @@ function verifyProof(root) {
   check(variant.spec.capabilityProfile.kubeVersion === "1.30.0", "variant kubeVersion must be 1.30.0");
   check(variant.spec.hookPolicy === "no-hooks", "variant hook policy must be no-hooks");
 
+  check(reuseVariant.kind === "Variant", "reuse-existing-secret variant must be Variant");
+  check(reuseVariant.metadata.name === "reuse-existing-secret", "reuse-existing-secret variant name mismatch");
+  check(reuseVariant.spec.namespace === "redis", "reuse-existing-secret namespace must be redis");
+  check(reuseVariant.spec.releaseName === "redis", "reuse-existing-secret releaseName must be redis");
+  check(
+    reuseVariant.spec.valuesProfile === "../../effective-values-reuse-existing-secret.yaml",
+    "reuse-existing-secret values profile mismatch",
+  );
+  const requiredSecret = reuseVariant.spec.targetFacts?.requiredSecrets?.[0];
+  check(requiredSecret?.namespace === "redis", "reuse-existing-secret target secret namespace mismatch");
+  check(requiredSecret?.name === "redis-existing-secret", "reuse-existing-secret target secret name mismatch");
+  check(
+    requiredSecret?.keys?.includes("redis-password"),
+    "reuse-existing-secret target secret key redis-password missing",
+  );
+
   const effectiveValuesFile = effectiveValues.spec.files?.[0];
   check(effectiveValuesFile?.sha256, "effective values SHA must be present");
   const effectiveValuesSource = existingRelative(root, effectiveValuesFile?.sourcePath, "effective values source");
   check(effectiveValuesFile.sha256 === sha256File(effectiveValuesSource), "effective values source SHA mismatch");
+  const reuseEffectiveValuesFile = reuseEffectiveValues.spec.files?.[0];
+  check(reuseEffectiveValuesFile?.source === "inline-proof", "reuse-existing-secret values must be inline proof values");
+  check(
+    reuseEffectiveValuesFile?.sha256 ===
+      sha256("auth:\n  existingSecret: redis-existing-secret\n  existingSecretPasswordKey: redis-password\n"),
+    "reuse-existing-secret inline values SHA mismatch",
+  );
+  check(
+    reuseEffectiveValues.spec.values?.auth?.existingSecret === "redis-existing-secret",
+    "reuse-existing-secret value auth.existingSecret mismatch",
+  );
+  check(
+    reuseEffectiveValues.spec.values?.auth?.existingSecretPasswordKey === "redis-password",
+    "reuse-existing-secret value auth.existingSecretPasswordKey mismatch",
+  );
+  check(
+    !Object.hasOwn(reuseEffectiveValues.spec.values?.auth ?? {}, "password"),
+    "reuse-existing-secret values must not store auth.password",
+  );
   check(valueModel.spec.unknownValues, "value model must state unknownValues status");
   check(valueModel.spec.deadValues, "value model must state deadValues status");
   check(valueModel.spec.ignoredValues, "value model must state ignoredValues status");
@@ -212,6 +263,8 @@ function verifyProof(root) {
   );
   check(equivalence.spec.regularHelm.objectCount === 14, "regular Helm object count must be 14");
   check(equivalence.spec.cubInstall.objectCountIncludingSecretsAndSupportObjects === 15, "cub object count must be 15");
+  check(equivalence.spec.cubInstall.uploadedManifestFiles === 14, "cub uploaded manifest count must be 14");
+  check(equivalence.spec.cubInstall.separatedSecretFiles === 1, "cub separated secret count must be 1");
   check(equivalence.spec.cubInstall.semanticObjectMatches === "14/14", "semantic object match must be 14/14");
   check(equivalence.spec.result === "pass", "Helm equivalence must pass");
   const namespaceClassification = equivalence.spec.classifications?.find(
@@ -245,6 +298,82 @@ function verifyProof(root) {
   check(installGate.spec.decision === "warn", "install gate must warn with high scan findings");
   check(installGate.spec.allowedScopes?.includes("local-test"), "install gate must allow local-test only");
   check(installGate.spec.blockedScopes?.includes("production"), "install gate must block production with high findings");
+
+  const reuseRevisionRoot = join(root, "revisions", "reuse-existing-secret", "r001");
+  const reuseRenderedRoot = join(reuseRevisionRoot, "rendered");
+  const reuseReceiptsRoot = join(reuseRevisionRoot, "receipts");
+  const reuseRevision = parseYamlFile(join(reuseRevisionRoot, "variant-revision.yaml"));
+  const reuseInventory = parseYamlFile(join(reuseRenderedRoot, "object-inventory.yaml"));
+  const reuseEquivalence = parseYamlFile(join(reuseReceiptsRoot, "helm-equivalence-receipt.yaml"));
+  const reuseRenderReceipt = parseYamlFile(join(reuseReceiptsRoot, "render-receipt.yaml"));
+  const reuseScanReceipt = parseYamlFile(join(reuseReceiptsRoot, "scan-receipt.yaml"));
+  const reuseInstallGate = parseYamlFile(join(reuseReceiptsRoot, "install-gate.yaml"));
+  const reuseReleaseObjectsPath = join(reuseRenderedRoot, "release-objects.yaml");
+  const reuseReleaseText = readFileSync(reuseReleaseObjectsPath, "utf8");
+  const reuseReleaseDigest = sha256File(reuseReleaseObjectsPath);
+  const reuseObjectIdentities = parseRenderedObjects(reuseReleaseObjectsPath);
+  const reuseUniqueObjectIdentities = new Set(reuseObjectIdentities);
+  check(reuseObjectIdentities.length === 13, "Redis reuse-existing-secret must have exactly 13 Helm release objects");
+  check(
+    reuseUniqueObjectIdentities.size === reuseObjectIdentities.length,
+    "Redis reuse-existing-secret must not have duplicate objects",
+  );
+  check(
+    !reuseObjectIdentities.some((identity) => identity.includes("|Secret|")),
+    "Redis reuse-existing-secret must not render a Secret",
+  );
+  check(
+    reuseReleaseText.includes("secretName: redis-existing-secret"),
+    "Redis reuse-existing-secret StatefulSets must reference redis-existing-secret",
+  );
+  check(reuseInventory.spec.objectCount === 13, "reuse-existing-secret inventory must record 13 objects");
+  check(reuseInventory.spec.sourceSHA256 === reuseReleaseDigest, "reuse-existing-secret inventory source digest mismatch");
+  check(reuseInventory.spec.objects.length === 13, "reuse-existing-secret inventory must list 13 objects");
+
+  const reuseVariantDigest = sha256File(join(root, "variants", "reuse-existing-secret", "variant.yaml"));
+  const reuseEffectiveValuesDigest = sha256File(join(root, "effective-values-reuse-existing-secret.yaml"));
+  check(reuseRevision.spec.digestInputs.recipeSHA256 === recipeDigest, "reuse revision recipe digest mismatch");
+  check(reuseRevision.spec.digestInputs.variantSHA256 === reuseVariantDigest, "reuse revision variant digest mismatch");
+  check(
+    reuseRevision.spec.digestInputs.effectiveValuesSHA256 === reuseEffectiveValuesDigest,
+    "reuse revision effective-values digest mismatch",
+  );
+  check(
+    reuseRevision.spec.digestInputs.renderedObjectSetSHA256 === reuseReleaseDigest,
+    "reuse revision rendered digest mismatch",
+  );
+  check(
+    reuseRenderReceipt.spec.outputs.renderedObjectSetSHA256 === reuseReleaseDigest,
+    "reuse render receipt rendered digest mismatch",
+  );
+  check(reuseRenderReceipt.spec.outputs.objectCount === 13, "reuse render receipt object count must be 13");
+  check(reuseRenderReceipt.spec.outputs.renderedSecretCount === 0, "reuse render receipt rendered Secret count must be 0");
+  check(
+    reuseRenderReceipt.spec.outputs.secretCountSeparatedByCubInstall === 0,
+    "reuse render receipt separated secret count must be 0",
+  );
+  check(reuseEquivalence.spec.regularHelm.renderedSHA256 === reuseReleaseDigest, "reuse regular Helm SHA mismatch");
+  check(reuseEquivalence.spec.regularHelm.objectCount === 13, "reuse regular Helm object count must be 13");
+  check(
+    reuseEquivalence.spec.cubInstall.objectCountIncludingSecretsAndSupportObjects === 14,
+    "reuse cub object count must be 14",
+  );
+  check(reuseEquivalence.spec.cubInstall.uploadedManifestFiles === 14, "reuse uploaded manifest count must be 14");
+  check(reuseEquivalence.spec.cubInstall.separatedSecretFiles === 0, "reuse separated secret count must be 0");
+  check(reuseEquivalence.spec.cubInstall.semanticObjectMatches === "13/13", "reuse semantic match must be 13/13");
+  check(reuseEquivalence.spec.result === "pass", "reuse Helm equivalence must pass");
+  check(
+    !reuseEquivalence.spec.classifications?.some((entry) => entry.identity === "v1|Secret|redis|redis"),
+    "reuse equivalence must not classify a rendered Redis Secret",
+  );
+  check(reuseScanReceipt.spec.renderedObjectSetSHA256 === reuseReleaseDigest, "reuse scan receipt rendered digest mismatch");
+  check(reuseScanReceipt.spec.result === "warn", "reuse scan receipt must warn while high findings exist");
+  check(reuseScanReceipt.spec.findingCounts?.high === 2, "reuse scan receipt must record 2 high findings");
+  check(reuseScanReceipt.spec.findingCounts?.medium === 2, "reuse scan receipt must record 2 medium findings");
+  check(reuseInstallGate.spec.renderedObjectSetSHA256 === reuseReleaseDigest, "reuse install gate rendered digest mismatch");
+  check(reuseInstallGate.spec.decision === "warn", "reuse install gate must warn with high scan findings");
+  check(reuseInstallGate.spec.allowedScopes?.includes("local-test"), "reuse install gate must allow local-test only");
+  check(reuseInstallGate.spec.blockedScopes?.includes("production"), "reuse install gate must block production");
 
   return true;
 }
@@ -314,11 +443,20 @@ function runSelfTest() {
     },
     "old standalone variant directory must not exist",
   );
+
+  expectFailure(
+    "reuse-existing-secret target fact tampering is rejected",
+    (root) => {
+      const path = join(root, "variants", "reuse-existing-secret", "variant.yaml");
+      writeFileSync(path, readFileSync(path, "utf8").replace("redis-existing-secret", "wrong-secret"));
+    },
+    "reuse-existing-secret target secret name mismatch",
+  );
 }
 
 if (selfTest) {
   runSelfTest();
 } else {
   verifyProof(proofRoot);
-  console.log("verified Redis default proof artifacts");
+  console.log("verified Redis default and reuse-existing-secret proof artifacts");
 }

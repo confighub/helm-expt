@@ -251,9 +251,10 @@ The first main-path proof artifact is:
 recipes/bitnami/redis/25.5.3/
 ```
 
-It contains the default Redis readiness card, recipe/variant/revision
-artifacts, rendered object inventory, Helm equivalence receipt, render receipt,
-scan receipt, and install gate.
+It contains Redis readiness cards for the `default` and
+`reuse-existing-secret` variants, recipe/variant/revision artifacts, rendered
+object inventories, Helm equivalence receipts, render receipts, scan receipts,
+and install gates.
 
 Useful commands:
 
@@ -271,11 +272,13 @@ Optional live local e2e:
 ```sh
 npm run redis:local-e2e
 npm run redis:verify-local-e2e
+npm run redis:local-e2e:reuse-existing-secret
+npm run redis:verify-local-e2e:reuse-existing-secret
 ```
 
 This uses a dedicated kind cluster named `helm-expt-redis`, writes a local
-observation receipt under `runs/redis-local-kind/latest/`, and does not change
-the production scan gate.
+observation receipt under `runs/redis-local-kind/`, and does not change the
+production scan gate.
 
 Background notes:
 

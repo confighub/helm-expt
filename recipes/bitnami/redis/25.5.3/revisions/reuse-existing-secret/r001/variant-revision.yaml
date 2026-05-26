@@ -1,0 +1,19 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: VariantRevision
+metadata:
+  name: reuse-existing-secret-r001
+spec:
+  variant: ../../../variants/reuse-existing-secret/variant.yaml
+  revision: r001
+  digest: "4ab3e99d94c77553af9dac404e36e5936b636f8c52d1585069f47201cdc74ff6"
+  digestInputs:
+    recipeSHA256: "6a4b98e028348573c740889f588a103d53d5900b5673ffaea827f8830261de65"
+    variantSHA256: "b2791265c12cb27ceed9ddebe676e48b572020cbe8a3f812d09a591c8af77edd"
+    effectiveValuesSHA256: "6fa6bf0963e7c0097f89a2b3709dc8ee43551198ba9d13420f3f8f9401311a26"
+    rendererSHA256: "92eb0156aec54c2e5d7d3c64c10c26903656c4ea069a4a11eb2e07dcee8d88fd"
+    renderedObjectSetSHA256: "a90dda4885fb97749e2c222f1abd840f49dcf6eafa953ea6ea2dbc6ba565fe53"
+
+  rendered:
+    releaseObjects: rendered/release-objects.yaml
+    objectInventory: rendered/object-inventory.yaml
+    objectCount: 13

@@ -14,6 +14,15 @@ spec:
       status: handled-for-default-proof
       evidence: effective-values.yaml
       note: auth.password is deterministic in this proof; future generated-fact receipt should own this.
+    - category: target-facts
+      status: required-for-reuse-existing-secret
+      evidence: variants/reuse-existing-secret/variant.yaml
+      required:
+        - kind: Secret
+          namespace: redis
+          name: redis-existing-secret
+          keys:
+            - redis-password
     - category: capability-profile
       status: handled
       kubeVersion: "1.30.0"
