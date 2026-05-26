@@ -81,6 +81,8 @@ recipes/bitnami/rabbitmq/16.0.14/
 packages/bitnami/rabbitmq/16.0.14/
 recipes/prometheus-community/kube-prometheus-stack/85.3.3/
 packages/prometheus-community/kube-prometheus-stack/85.3.3/
+recipes/grafana/loki/7.0.0/
+packages/grafana/loki/7.0.0/
 ```
 
 The next step is to turn more chart rows from `data/adversarial10/` into full
@@ -130,7 +132,7 @@ determinism, metrics-server proof/package artifacts, ingress-nginx
 proof/package artifacts, cert-manager proof/package artifacts,
 external-secrets proof/package artifacts, Argo CD proof/package artifacts,
 PostgreSQL proof/package artifacts, RabbitMQ proof/package artifacts,
-kube-prometheus-stack proof/package artifacts, the
+kube-prometheus-stack proof/package artifacts, Loki proof/package artifacts, the
 archived reference corpus, and the
 first adversarial harness. It still needs formal schemas and broader
 publication traceability before 20/100/500 claims are credible.
@@ -281,6 +283,20 @@ binds Grafana admin password and renders 10 Prometheus Operator CRDs, a
 `no-crds` variant that omits CRDs, source and dependency locks for the CRD,
 kube-state-metrics, node-exporter, Grafana, and windows-exporter dependencies,
 admission webhook observation gates, cluster RBAC gates, dashboard ConfigMap
+normalization, extension-slot review, and deterministic `cub install`
+package/setup proof.
+
+The ninth promoted row is:
+
+```text
+grafana/loki@7.0.0
+```
+
+It proves the blocked-default storage chart shape: a default render blocker for
+missing `loki.storage.bucketNames.chunks`, `single-binary-filesystem` and
+`simple-scalable-minio` variants, source and dependency locks for MinIO,
+grafana-agent-operator, and rollout-operator, storage/schema binding, MinIO
+object-store fixture, cluster RBAC, StatefulSet/PVC policy, Loki ConfigMap
 normalization, extension-slot review, and deterministic `cub install`
 package/setup proof.
 

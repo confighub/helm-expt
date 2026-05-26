@@ -1,0 +1,16 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "grafana-loki"
+  version: "7.0.0"
+spec:
+  bases:
+    -
+      name: "single-binary-filesystem"
+      path: "bases/single-binary-filesystem"
+      default: true
+      description: "loki single binary filesystem variant rendered from grafana/loki@7.0.0"
+    -
+      name: "simple-scalable-minio"
+      path: "bases/simple-scalable-minio"
+      description: "loki simple scalable with MinIO variant rendered from grafana/loki@7.0.0"

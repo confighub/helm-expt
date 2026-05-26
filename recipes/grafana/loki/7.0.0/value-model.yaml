@@ -1,0 +1,54 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "grafana-loki-7.0.0"
+spec:
+  checkedValues:
+    -
+      path: "loki.storage.bucketNames.chunks"
+      variant: "default"
+      disposition: "required-before-render"
+      reason: "chart default render fails until Loki storage buckets are selected"
+    -
+      path: "loki.schemaConfig.configs"
+      variant: "all-promoted"
+      disposition: "variant-bound"
+      reason: "Loki requires an explicit schema epoch and object-store mode for a usable rendered release"
+    -
+      path: "deploymentMode"
+      variant: "single-binary-filesystem"
+      disposition: "topology-selected"
+      reason: "selects a small single-binary topology instead of the default scalable topology"
+    -
+      path: "singleBinary.replicas / read.replicas / write.replicas / backend.replicas"
+      variant: "single-binary-filesystem"
+      disposition: "topology-selected"
+      reason: "keeps exactly one Loki StatefulSet active and disables distributed read/write/backend components"
+    -
+      path: "loki.storage.type"
+      variant: "single-binary-filesystem"
+      disposition: "filesystem-storage"
+      reason: "avoids external object storage for the small local-test variant"
+    -
+      path: "loki.storage.type / loki.storage.s3 / loki.storage.bucketNames"
+      variant: "simple-scalable-minio"
+      disposition: "object-storage-bound"
+      reason: "selects S3-compatible storage with explicit bucket names and endpoint"
+    -
+      path: "minio.enabled"
+      variant: "simple-scalable-minio"
+      disposition: "dependency-enabled"
+      reason: "turns on the bundled MinIO dependency as a local-test object-store fixture"
+    -
+      path: "grafana-agent-operator / rollout-operator / minio"
+      variant: "all"
+      disposition: "locked-dependency"
+      reason: "chart dependency metadata is recorded in dependency-lock.yaml whether or not a dependency is enabled in a variant"
+    -
+      path: "loki.config / loki.structuredConfig / extraObjects / extraContainers / extraEnv"
+      variant: "all"
+      disposition: "extension-slot"
+      reason: "Loki exposes templated config and raw/extra manifest slots; promoted variants keep raw object slots empty"
+  unknownValues: "not-checked"
+  deadValues: "not-checked"
+  ignoredValues: "not-checked"

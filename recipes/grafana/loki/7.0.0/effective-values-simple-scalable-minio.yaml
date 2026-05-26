@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "grafana-loki-7.0.0-simple-scalable-minio"
+spec:
+  files:
+    -
+      path: "effective-values-simple-scalable-minio.yaml"
+      source: "inline-proof"
+      sha256: "5f37d7cae2dccea5f77ecb5cf18297ef44a18e1d502da285b3e6d26017a8282e"
+  mergedValuesCaptured: false
+  values:
+    loki:
+      schemaConfig:
+        configs:
+          -
+            from: "2024-04-01"
+            index:
+              period: "24h"
+              prefix: "loki_index_"
+            object_store: "s3"
+            schema: "v13"
+            store: "tsdb"
+      storage:
+        bucketNames:
+          admin: "loki-admin"
+          chunks: "loki-chunks"
+          ruler: "loki-ruler"
+        s3:
+          accessKeyId: "loki"
+          endpoint: "minio.loki.svc.cluster.local:9000"
+          insecure: true
+          s3ForcePathStyle: true
+          secretAccessKey: "loki-secret"
+        type: "s3"
+    minio:
+      enabled: true

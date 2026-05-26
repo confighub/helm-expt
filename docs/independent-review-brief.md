@@ -186,6 +186,8 @@ recipes/bitnami/rabbitmq/16.0.14/
 packages/bitnami/rabbitmq/16.0.14/
 recipes/prometheus-community/kube-prometheus-stack/85.3.3/
 packages/prometheus-community/kube-prometheus-stack/85.3.3/
+recipes/grafana/loki/7.0.0/
+packages/grafana/loki/7.0.0/
 ```
 
 `data/adversarial10/` is a readiness and blocker harness, not final
@@ -245,6 +247,14 @@ umbrella dependency lock, admission webhook observation gates, cluster RBAC,
 dashboard ConfigMap normalization, extension-slot review, scan/gate, and
 `cub install` package evidence are convincing enough to serve as the repeatable
 pattern for large umbrella monitoring charts.
+
+`grafana/loki@7.0.0` is the ninth row promoted from that harness. Review
+whether its blocked default render, `single-binary-filesystem` and
+`simple-scalable-minio` variants, storage/schema binding, MinIO object-store
+fixture, dependency lock, cluster RBAC, StatefulSet/PVC policy, Loki ConfigMap
+normalization, extension-slot review, scan/gate, and `cub install` package
+evidence are convincing enough to serve as the repeatable pattern for charts
+that cannot render safely from defaults.
 
 Every happy-path demo must also pass the simple UX test:
 

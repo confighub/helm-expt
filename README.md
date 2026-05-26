@@ -225,6 +225,8 @@ recipes/bitnami/rabbitmq/16.0.14/
 packages/bitnami/rabbitmq/16.0.14/
 recipes/prometheus-community/kube-prometheus-stack/85.3.3/
 packages/prometheus-community/kube-prometheus-stack/85.3.3/
+recipes/grafana/loki/7.0.0/
+packages/grafana/loki/7.0.0/
 data/adversarial10/
 data/top500/
 docs/top20-full-proof-target.md
@@ -271,13 +273,14 @@ npm run argo-cd:compare
 npm run postgresql:compare
 npm run rabbitmq:compare
 npm run kube-prometheus-stack:compare
+npm run loki:compare
 ```
 
 It checks the archived reference receipts against their referenced files, then
 checks the current Redis proof artifacts, Helm-equivalence evidence, scan/gate
 receipts, variant diff evidence, promoted metrics-server, ingress-nginx,
-cert-manager, external-secrets, Argo CD, PostgreSQL, RabbitMQ, and
-kube-prometheus-stack proof/package artifacts, deterministic `cub install`
+cert-manager, external-secrets, Argo CD, PostgreSQL, RabbitMQ,
+kube-prometheus-stack, and Loki proof/package artifacts, deterministic `cub install`
 packaging, and negative golden
 self-tests.
 
@@ -638,6 +641,40 @@ npm run kube-prometheus-stack:generate-package
 npm run kube-prometheus-stack:verify-proof
 npm run kube-prometheus-stack:verify-package
 npm run kube-prometheus-stack:compare
+```
+
+## Loki Proof
+
+The ninth chart promoted from the adversarial harness is:
+
+```text
+recipes/grafana/loki/7.0.0/
+packages/grafana/loki/7.0.0/
+```
+
+It has two install variants:
+
+```text
+single-binary-filesystem
+simple-scalable-minio
+```
+
+The proof shows that regular Helm output is preserved by real
+`cub install setup`, plus the explained Namespace support object and the
+classified Loki ConfigMap leading-blank-line normalization. It also makes the
+chart's awkward parts visible: default render is blocked until storage
+bucket/schema values are supplied, storage mode selection, object-store bucket
+policy, bundled MinIO dependency, cluster RBAC, StatefulSet/PVC policy, and
+`tpl`/raw extension slots.
+
+Useful commands:
+
+```sh
+npm run loki:generate-proof
+npm run loki:generate-package
+npm run loki:verify-proof
+npm run loki:verify-package
+npm run loki:compare
 ```
 
 ## Adversarial 10 Harness

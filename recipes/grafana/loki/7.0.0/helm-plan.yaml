@@ -1,0 +1,33 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "grafana-loki-7.0.0"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "grafana/loki"
+    version: "7.0.0"
+    variants:
+      - "single-binary-filesystem"
+      - "simple-scalable-minio"
+    helmObjectsByVariant:
+      single-binary-filesystem: 19
+      simple-scalable-minio: 36
+    cubInstallObjectsByVariant:
+      single-binary-filesystem: 20
+      simple-scalable-minio: 37
+    helmMatchByVariant:
+      single-binary-filesystem: "19/19"
+      simple-scalable-minio: "36/36"
+    scanGate: "warn-production-blocked"
+    defaultRender: "blocked-with-recorded-mitigation"
+    nextAction: "publish only after storage/schema policy, dependency lock review, StatefulSet/PVC policy, object-store Secret ownership, lifecycle policy, and extension-slot review are satisfied"
+  receipts:
+    - "revisions/single-binary-filesystem/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/single-binary-filesystem/r001/receipts/render-receipt.yaml"
+    - "revisions/single-binary-filesystem/r001/receipts/scan-receipt.yaml"
+    - "revisions/single-binary-filesystem/r001/receipts/install-gate.yaml"
+    - "revisions/simple-scalable-minio/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/simple-scalable-minio/r001/receipts/render-receipt.yaml"
+    - "revisions/simple-scalable-minio/r001/receipts/scan-receipt.yaml"
+    - "revisions/simple-scalable-minio/r001/receipts/install-gate.yaml"

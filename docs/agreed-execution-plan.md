@@ -188,6 +188,7 @@ Fifth promoted adversarial row: argo-cd/argo-cd@9.5.15.
 Sixth promoted adversarial row: bitnami/postgresql@18.6.7.
 Seventh promoted adversarial row: bitnami/rabbitmq@16.0.14.
 Eighth promoted adversarial row: prometheus-community/kube-prometheus-stack@85.3.3.
+Ninth promoted adversarial row: grafana/loki@7.0.0.
 ```
 
 The adversarial 10 foundation does not close the scale proof. It gives us the
@@ -250,6 +251,14 @@ pattern for a large umbrella monitoring stack: source/dependency locks,
 `default` and `no-crds` variants, generated fact binding for Grafana admin
 password, 10 Prometheus Operator CRDs, admission webhook observation gates,
 cluster RBAC gates, dashboard ConfigMap normalization, `tpl`/raw monitoring
+extension-slot review, Helm equivalence receipts, and deterministic
+`cub install` package/setup proof.
+
+The ninth such promotion is Loki. It adds the repeatable pattern for a chart
+whose default path is blocked before render: source/dependency locks,
+`single-binary-filesystem` and `simple-scalable-minio` variants, required
+storage/schema binding, bundled MinIO object-store fixture, cluster RBAC gates,
+StatefulSet/PVC policy, classified Loki ConfigMap normalization, `tpl`/raw
 extension-slot review, Helm equivalence receipts, and deterministic
 `cub install` package/setup proof.
 

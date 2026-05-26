@@ -1,0 +1,29 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "loki-single-binary-filesystem-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30"
+    objectCount: 19
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 20
+    uploadedManifestFiles: 20
+    separatedSecretFiles: 0
+    semanticObjectMatches: "19/19"
+  semanticNormalizations:
+    - "prune-null-fields"
+    - "loki-configmap-leading-blank-line-pruned-by-kustomize"
+  classifications:
+    -
+      identity: "v1|Namespace||loki"
+      classification: "installer-support-object"
+      disposition: "allowed"
+    -
+      identity: "v1|ConfigMap|loki|loki"
+      classification: "serialization-normalization"
+      disposition: "allowed"
+      note: "cub install/kustomize removes one leading blank line from Loki config.yaml; parsed Loki config content is otherwise identical."
+  result: "pass"
+  evidenceCommand: "npm run loki:compare"

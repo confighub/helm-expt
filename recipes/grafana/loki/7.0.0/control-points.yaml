@@ -1,0 +1,60 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ControlPoints"
+metadata:
+  name: "grafana-loki-7.0.0"
+spec:
+  points:
+    -
+      category: "source-lock"
+      status: "handled"
+      evidence: "source-lock.yaml"
+    -
+      category: "dependency-lock"
+      status: "handled"
+      evidence: "dependency-lock.yaml"
+      note: "chart declares MinIO, grafana-agent-operator, and rollout-operator dependencies; promoted variants lock their metadata."
+    -
+      category: "capability-profile"
+      status: "handled"
+      kubeVersion: "1.30.0"
+      note: "Kubernetes API and version branches are bound to the named Kubernetes capability profile."
+    -
+      category: "blocked-default-render"
+      status: "handled"
+      evidence: "default-render-blocker.yaml"
+      note: "The chart default fails before render because required storage bucket/schema inputs are missing; the proof records the blocker and supplies two bounded variants."
+    -
+      category: "storage-config"
+      status: "variant-controlled"
+      evidence: "loki.storage + loki.schemaConfig"
+      note: "Promoted variants bind storage mode, schemaConfig, and object-store settings before creating a rendered revision."
+    -
+      category: "object-storage-policy"
+      status: "variant-controlled"
+      evidence: "simple-scalable-minio"
+      note: "The MinIO variant renders a chart-owned object-store fixture and marks its Secret as review-required before production."
+    -
+      category: "lifecycle-policy"
+      status: "not-present-in-promoted-render"
+      policy: "no-hooks"
+      note: "Promoted Loki variants render with --no-hooks; hook or test enablement must map to lifecycle policy before production."
+    -
+      category: "stateful-workload"
+      status: "scan-and-review"
+      object: "apps/v1|StatefulSet|loki|loki"
+    -
+      category: "pvc-policy"
+      status: "scan-and-review"
+      note: "Loki and MinIO StatefulSets need storage, retention, upgrade, and rollback policy."
+    -
+      category: "cluster-rbac"
+      status: "scan-and-review"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||loki-clusterrole"
+    -
+      category: "tpl"
+      status: "controlled-by-empty-defaults"
+      note: "Loki config, structuredConfig, extraEnv, and raw object slots can use templating; promoted variants keep raw object slots empty."
+    -
+      category: "installer-support-object"
+      status: "handled"
+      object: "v1|Namespace||loki"

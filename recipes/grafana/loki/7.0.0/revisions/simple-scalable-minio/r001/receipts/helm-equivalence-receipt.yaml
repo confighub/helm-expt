@@ -1,0 +1,29 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "loki-simple-scalable-minio-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "8c4176621cdd67670d41b1689de1bcaa74854e40fb8170070606f794d0fc36ab"
+    objectCount: 36
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 37
+    uploadedManifestFiles: 37
+    separatedSecretFiles: 1
+    semanticObjectMatches: "36/36"
+  semanticNormalizations:
+    - "prune-null-fields"
+    - "loki-configmap-leading-blank-line-pruned-by-kustomize"
+  classifications:
+    -
+      identity: "v1|Namespace||loki"
+      classification: "installer-support-object"
+      disposition: "allowed"
+    -
+      identity: "v1|ConfigMap|loki|loki"
+      classification: "serialization-normalization"
+      disposition: "allowed"
+      note: "cub install/kustomize removes one leading blank line from Loki config.yaml; parsed Loki config content is otherwise identical."
+  result: "pass"
+  evidenceCommand: "npm run loki:compare"

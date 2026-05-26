@@ -1,0 +1,13 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DefaultRenderBlocker"
+metadata:
+  name: "grafana-loki-7.0.0-default"
+spec:
+  result: "blocked"
+  defaultValuesSHA256: "ec722e57420a55418d306113bb4ba869592e19b71203363951d302c7fc74118b"
+  command: "helm template loki grafana/loki --version 7.0.0 --namespace loki --kube-version 1.30.0 --include-crds --skip-tests --no-hooks"
+  error: "Error: execution error at (loki/templates/write/statefulset-write.yaml:50:28): Please define loki.storage.bucketNames.chunks\n\nUse --debug flag to render out invalid YAML\n"
+  mitigation:
+    - "bind loki.schemaConfig.configs before render"
+    - "select filesystem or object storage before render"
+    - "bind loki.storage.bucketNames when object storage is selected"

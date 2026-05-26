@@ -6,7 +6,7 @@ The verifier started with archived render-and-vendor Helm import receipts, but
 the current default `npm run verify` also checks the Redis
 recipe/variant/revision proof, the durable Redis installer package proof, the
 promoted metrics-server, ingress-nginx, cert-manager, external-secrets, Argo CD,
-PostgreSQL, RabbitMQ, and kube-prometheus-stack proofs, and the first
+PostgreSQL, RabbitMQ, kube-prometheus-stack, and Loki proofs, and the first
 adversarial public-chart harness.
 
 ## Scope
@@ -165,6 +165,21 @@ generated fact binding for Grafana admin password, rendered object inventories,
 render receipts, Helm equivalence receipts, scan receipts, install gates,
 separated Secret handling, dashboard ConfigMap normalization, and deterministic
 `cub install` package/setup behavior.
+
+The Loki proof verifier checks:
+
+```text
+recipes/grafana/loki/7.0.0/
+packages/grafana/loki/7.0.0/
+```
+
+That proof is the ninth promoted row from the adversarial harness. It checks
+two variants, `single-binary-filesystem` and `simple-scalable-minio`, including
+the blocked default render receipt, source/dependency locks, required
+storage/schema values, bundled MinIO object-store fixture, rendered object
+inventories, render receipts, Helm equivalence receipts, scan receipts,
+install gates, classified Loki ConfigMap normalization, separated Secret
+handling, and deterministic `cub install` package/setup behavior.
 
 ## Required Invariants
 
@@ -356,6 +371,27 @@ For the promoted kube-prometheus-stack proof:
    generated Grafana credential ownership, umbrella dependency review, cluster
    RBAC, and extension-slot review.
 
+For the promoted Loki proof:
+
+1. Both promoted variants render deterministically with Helm under the pinned
+   inputs.
+2. The default chart render is recorded as blocked because
+   `loki.storage.bucketNames.chunks` and storage/schema values are missing.
+3. `single-binary-filesystem` renders exactly 19 Helm objects, including one
+   Loki StatefulSet, cache StatefulSets, and zero Secrets.
+4. `simple-scalable-minio` renders exactly 36 Helm objects, including read,
+   write, backend, cache, and MinIO workloads plus one rendered Secret.
+5. The MinIO, grafana-agent-operator, and rollout-operator dependencies are
+   recorded in `dependency-lock.yaml`.
+6. `cub install package` produces byte-identical bundles across two local runs.
+7. `cub install setup` matches Helm semantically, plus only
+   `v1|Namespace||loki`, while preserving separated Secret behavior.
+8. Semantic comparison classifies the single Loki ConfigMap leading blank-line
+   normalization introduced by `cub install`/kustomize.
+9. Scan/gate receipts flag blocked default render, storage/schema selection,
+   object-store Secret ownership, dependency review, cluster RBAC, StatefulSet
+   policy, lifecycle policy, and extension-slot review.
+
 ## Negative Golden Check
 
 The verifier must include self-tests that corrupt known-good fixtures and prove
@@ -378,6 +414,7 @@ Current self-tests include:
 - corrupt the PostgreSQL rendered object set and require rejection;
 - corrupt the RabbitMQ rendered object set and require rejection;
 - corrupt the kube-prometheus-stack rendered object set and require rejection;
+- corrupt the Loki rendered object set and require rejection;
 - corrupt an adversarial harness rendered manifest and require a rendered
   manifest SHA mismatch.
 

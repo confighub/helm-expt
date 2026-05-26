@@ -1,0 +1,85 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "loki-single-binary-filesystem-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.1.0"
+  policyBundleDigest: "487ad57d229f08e88e2e85d2efc829a7bbae3ff386e6aa8dda795cd32539458d"
+  findingCounts:
+    critical: 0
+    high: 0
+    medium: 11
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "blocked-default-render:loki.storage.bucketNames.chunks"
+      rule: "blocked-default-render"
+      severity: "medium"
+      object: "values|loki.storage.bucketNames.chunks"
+      message: "Chart defaults cannot render until storage bucket and schema values are supplied"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||loki-clusterrole"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||loki-clusterrole"
+      message: "Cluster-scoped RBAC requires explicit review before production promotion"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||loki-clusterrolebinding"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||loki-clusterrolebinding"
+      message: "Cluster-scoped RBAC requires explicit review before production promotion"
+    -
+      id: "dependency-lock-review:loki-dependencies"
+      rule: "dependency-lock-review"
+      severity: "medium"
+      object: "dependency|minio|grafana-agent-operator|rollout-operator"
+      message: "Loki dependency metadata is locked before recipe publication"
+    -
+      id: "extension-slot-review:loki-config-extra"
+      rule: "extension-slot-review"
+      severity: "medium"
+      object: "values|loki.config|loki.structuredConfig|extraObjects"
+      message: "Loki config and raw/tpl extension slots must be scanned when populated"
+    -
+      id: "lifecycle-policy:no-hooks"
+      rule: "lifecycle-policy"
+      severity: "medium"
+      object: "renderer|--no-hooks"
+      message: "Rendered proof excludes hooks/tests; future enablement must map to lifecycle policy"
+    -
+      id: "object-storage-policy:minio"
+      rule: "object-storage-policy"
+      severity: "medium"
+      object: "values|minio.enabled"
+      message: "Object-store fixture, bucket names, endpoint, and Secret ownership need production policy"
+    -
+      id: "stateful-workload-review:apps/v1|StatefulSet|loki|loki"
+      rule: "stateful-workload-review"
+      severity: "medium"
+      object: "apps/v1|StatefulSet|loki|loki"
+      message: "Stateful workload requires storage, upgrade, and rollback policy"
+    -
+      id: "stateful-workload-review:apps/v1|StatefulSet|loki|loki-chunks-cache"
+      rule: "stateful-workload-review"
+      severity: "medium"
+      object: "apps/v1|StatefulSet|loki|loki-chunks-cache"
+      message: "Stateful workload requires storage, upgrade, and rollback policy"
+    -
+      id: "stateful-workload-review:apps/v1|StatefulSet|loki|loki-results-cache"
+      rule: "stateful-workload-review"
+      severity: "medium"
+      object: "apps/v1|StatefulSet|loki|loki-results-cache"
+      message: "Stateful workload requires storage, upgrade, and rollback policy"
+    -
+      id: "storage-config-required:loki.schemaConfig"
+      rule: "storage-config-required"
+      severity: "medium"
+      object: "values|loki.schemaConfig"
+      message: "Loki storage mode and schema epoch are variant inputs that must be reviewed before production"
