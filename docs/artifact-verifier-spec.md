@@ -7,7 +7,7 @@ the current default `npm run verify` also checks the Redis
 recipe/variant/revision proof, the durable Redis installer package proof, the
 promoted metrics-server, ingress-nginx, cert-manager, external-secrets, Argo CD,
 PostgreSQL, RabbitMQ, kube-prometheus-stack, Loki, Longhorn, MySQL, Grafana,
-Vault, Secrets Store CSI Driver, and Prometheus proofs, and the first
+Vault, Secrets Store CSI Driver, Prometheus, and MongoDB proofs, and the first
 adversarial public-chart harness.
 
 ## Scope
@@ -199,6 +199,21 @@ Alertmanager/exporter/pushgateway component selection, server PVC/storage
 policy, cluster RBAC, rendered object inventories, render receipts, Helm
 equivalence receipts, scan receipts, install gates, and deterministic
 `cub install` package/setup behavior.
+
+The MongoDB proof verifier checks:
+
+```text
+recipes/bitnami/mongodb/19.0.7/
+packages/bitnami/mongodb/19.0.7/
+```
+
+That proof is the sixteenth full public-chart proof row. It checks two
+variants, `generated-passwords` and `existing-secret-replicaset`, including
+source/dependency locks, generated root password binding, target Secret
+binding, replica-set and arbiter StatefulSets, persistent storage,
+NetworkPolicy/PDB policy, Helm hook lifecycle review, rendered object
+inventories, render receipts, Helm equivalence receipts, scan receipts,
+install gates, and deterministic `cub install` package/setup behavior.
 
 The Argo CD proof verifier checks:
 
@@ -594,6 +609,22 @@ For the promoted Prometheus proof:
    retention, workload rollout, cluster RBAC, remote read/write, ingress,
    network policy, PDB, and extra-manifest extension slots.
 
+For the promoted MongoDB proof:
+
+1. Both promoted variants render deterministically with Helm under the pinned
+   inputs.
+2. `generated-passwords` renders exactly 8 Helm objects, including one Secret,
+   Deployment, PVC, NetworkPolicy, and PDB.
+3. `existing-secret-replicaset` renders exactly 10 Helm objects, including no
+   Secret, a primary StatefulSet, an arbiter StatefulSet, and headless services.
+4. Dependency lock records the Bitnami `common` subchart.
+5. `cub install package` produces byte-identical bundles across two local runs.
+6. `cub install setup` matches Helm semantically, plus only
+   `v1|Namespace||mongodb`, while preserving separated Secret behavior.
+7. Scan/gate receipts flag generated facts, target facts, replica-set topology,
+   storage, NetworkPolicy/PDB, hook lifecycle, dependency lock, and extension
+   slots.
+
 ## Negative Golden Check
 
 The verifier must include self-tests that corrupt known-good fixtures and prove
@@ -624,6 +655,7 @@ Current self-tests include:
 - corrupt the Secrets Store CSI Driver rendered object set and require
   rejection;
 - corrupt the Prometheus rendered object set and require rejection;
+- corrupt the MongoDB rendered object set and require rejection;
 - corrupt an adversarial harness rendered manifest and require a rendered
   manifest SHA mismatch.
 

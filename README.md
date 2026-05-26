@@ -239,6 +239,8 @@ recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/
 packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/
 recipes/prometheus-community/prometheus/29.8.0/
 packages/prometheus-community/prometheus/29.8.0/
+recipes/bitnami/mongodb/19.0.7/
+packages/bitnami/mongodb/19.0.7/
 data/adversarial10/
 data/top500/
 docs/top20-full-proof-target.md
@@ -292,6 +294,7 @@ npm run grafana:compare
 npm run vault:compare
 npm run secrets-store-csi-driver:compare
 npm run prometheus:compare
+npm run mongodb:compare
 ```
 
 It checks the archived reference receipts against their referenced files, then
@@ -299,7 +302,7 @@ checks the current Redis proof artifacts, Helm-equivalence evidence, scan/gate
 receipts, variant diff evidence, promoted metrics-server, ingress-nginx,
 cert-manager, external-secrets, Argo CD, PostgreSQL, RabbitMQ,
 kube-prometheus-stack, Loki, Longhorn, MySQL, Grafana, Vault, and
-Secrets Store CSI Driver, and Prometheus proof/package artifacts, deterministic `cub install`
+Secrets Store CSI Driver, Prometheus, and MongoDB proof/package artifacts, deterministic `cub install`
 packaging, and negative golden
 self-tests.
 
@@ -890,6 +893,38 @@ npm run prometheus:generate-package
 npm run prometheus:verify-proof
 npm run prometheus:verify-package
 npm run prometheus:compare
+```
+
+## MongoDB Proof
+
+The sixteenth chart promoted into a full proof is:
+
+```text
+recipes/bitnami/mongodb/19.0.7/
+packages/bitnami/mongodb/19.0.7/
+```
+
+It has two install variants:
+
+```text
+generated-passwords
+existing-secret-replicaset
+```
+
+The proof shows that regular Helm output is preserved by real
+`cub install setup`, plus the explained Namespace support object. It makes
+MongoDB-specific risk visible: generated root password, target Secret handling,
+replica-set topology, arbiter StatefulSet, persistent storage, NetworkPolicy,
+PDB, hook lifecycle, and `tpl` configuration slots.
+
+Useful commands:
+
+```sh
+npm run mongodb:generate-proof
+npm run mongodb:generate-package
+npm run mongodb:verify-proof
+npm run mongodb:verify-package
+npm run mongodb:compare
 ```
 
 ## Adversarial 10 Harness

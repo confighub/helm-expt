@@ -200,6 +200,8 @@ recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/
 packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/
 recipes/prometheus-community/prometheus/29.8.0/
 packages/prometheus-community/prometheus/29.8.0/
+recipes/bitnami/mongodb/19.0.7/
+packages/bitnami/mongodb/19.0.7/
 ```
 
 `data/adversarial10/` is a readiness and blocker harness, not final
@@ -315,6 +317,14 @@ selection, scrape ConfigMap review, server PVC/storage retention policy,
 cluster RBAC review, remote read/write and exposure extension slots, scan/gate,
 and `cub install` package evidence are convincing enough to serve as the
 repeatable pattern for bundled monitoring stack charts.
+
+`bitnami/mongodb@19.0.7` is the sixteenth full public-chart proof row. Review
+whether its `generated-passwords` and `existing-secret-replicaset` variants,
+generated root password binding, target Secret binding, replica-set and arbiter
+StatefulSets, persistent storage, NetworkPolicy/PDB policy, hook lifecycle
+review, `tpl` configuration slots, scan/gate, and `cub install` package
+evidence are convincing enough to serve as the repeatable pattern for stateful
+database topology charts.
 
 Every happy-path demo must also pass the simple UX test:
 

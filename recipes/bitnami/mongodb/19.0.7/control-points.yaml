@@ -1,0 +1,59 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ControlPoints"
+metadata:
+  name: "bitnami-mongodb-19.0.7"
+spec:
+  points:
+    -
+      category: "source-lock"
+      status: "handled"
+      evidence: "source-lock.yaml"
+    -
+      category: "dependency-lock"
+      status: "handled"
+      evidence: "dependency-lock.yaml"
+      note: "chart declares the Bitnami common dependency; promoted variants lock its metadata."
+    -
+      category: "capability-profile"
+      status: "handled"
+      kubeVersion: "1.30.0"
+      note: "Kubernetes API and version branches are bound to the named Kubernetes capability profile."
+    -
+      category: "generated-facts"
+      status: "variant-controlled"
+      evidence: "auth.rootPassword"
+      note: "The generated-passwords variant binds the generated root password before render so Helm output is deterministic."
+    -
+      category: "target-facts"
+      status: "variant-controlled"
+      evidence: "auth.existingSecret"
+      note: "The existing-secret-replicaset variant declares the target Secret instead of rendering one."
+    -
+      category: "hook-policy"
+      status: "handled-for-render"
+      policy: "no-hooks"
+      note: "Chart source contains Helm hooks; the proof render excludes hooks and lifecycle policy must handle them before production."
+    -
+      category: "replicaset-topology"
+      status: "variant-controlled"
+      object: "apps/v1|StatefulSet|mongodb|mongodb"
+    -
+      category: "workload-policy"
+      status: "scan-and-review"
+      note: "Deployment/StatefulSet workloads need storage, retention, upgrade, and rollback policy."
+    -
+      category: "network-policy"
+      status: "scan-and-review"
+      object: "networking.k8s.io/v1|NetworkPolicy|mongodb|mongodb"
+    -
+      category: "pdb-policy"
+      status: "scan-and-review"
+      object: "policy/v1|PodDisruptionBudget|mongodb|mongodb"
+    -
+      category: "tpl"
+      status: "controlled-by-empty-defaults"
+      note: "initdb and extended configuration slots use templating; promoted variants do not populate them."
+    -
+      category: "installer-support-object"
+      status: "handled"
+      object: "v1|Namespace||mongodb"

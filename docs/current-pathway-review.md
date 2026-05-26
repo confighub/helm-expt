@@ -95,6 +95,8 @@ recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/
 packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/
 recipes/prometheus-community/prometheus/29.8.0/
 packages/prometheus-community/prometheus/29.8.0/
+recipes/bitnami/mongodb/19.0.7/
+packages/bitnami/mongodb/19.0.7/
 ```
 
 The next step is to turn more chart rows from the top-20 target and generated
@@ -386,6 +388,18 @@ It proves the bundled monitoring stack chart shape: `default` and
 selection, Prometheus scrape ConfigMap review, server PVC/storage retention
 policy, cluster RBAC review, remote read/write and exposure extension slots,
 and deterministic `cub install` package/setup proof.
+
+The sixteenth full proof row is:
+
+```text
+bitnami/mongodb@19.0.7
+```
+
+It proves the stateful database topology chart shape: `generated-passwords` and
+`existing-secret-replicaset` variants, generated root password binding, target
+Secret binding, replica-set and arbiter StatefulSets, persistent storage,
+NetworkPolicy/PDB policy, hook lifecycle review, `tpl` configuration slots, and
+deterministic `cub install` package/setup proof.
 
 The Redis proof now contains the first courtroom-grade slice. Remaining Redis
 day-2 extensions still include:
