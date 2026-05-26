@@ -194,19 +194,6 @@ Those are candidate future porcelain verbs, not the current CLI. If we need
 them to make the happy path obvious, propose them explicitly as Cub
 plugins/extensions and keep executable docs on real commands until they ship.
 
-## Legacy Redis Reference
-
-Detailed legacy commands are intentionally not the root README experience.
-They are retained in [docs/old-cub-helm-model.md](docs/old-cub-helm-model.md)
-for reference only.
-
-The next README-worthy demo must be the new five-minute proof path, using real
-current `cub install` subcommands first. Shorter Cub verbs can be proposed as
-future plugin/extension UX if the proof shows they are needed.
-
-Default handoff is a pinned ConfigHub OCI artifact for GitOps consumption.
-Direct apply is an alternate path, not the default proof story.
-
 ## Planned Proof Files
 
 New proof work should produce files such as:
@@ -245,7 +232,7 @@ npm run verify:legacy
 
 ## Redis Proof
 
-The first main-path proof artifact is:
+The current executable proof is:
 
 ```text
 recipes/bitnami/redis/25.5.3/
@@ -268,6 +255,18 @@ npm run redis:compare
 `redis:verify-proof` is local and deterministic. `redis:compare` re-renders
 Redis with Helm and `cub install setup` to prove the Helm-equivalence claim.
 
+What it proves today:
+
+- `default`: Helm renders 14 Redis objects; `cub install setup` preserves all
+  14 and adds only the Namespace support object while separating the rendered
+  Secret.
+- `reuse-existing-secret`: Helm renders 13 Redis objects; `cub install setup`
+  preserves all 13 and adds only the Namespace support object.
+- The variant diff is recomputed from the rendered objects: one Secret removed,
+  two StatefulSets changed, one target Secret requirement added.
+- The local scan warns and blocks production, so the proof stays honest rather
+  than pretending the chart is production-ready.
+
 Optional live local e2e:
 
 ```sh
@@ -280,6 +279,15 @@ npm run redis:verify-local-e2e:reuse-existing-secret
 This uses a dedicated kind cluster named `helm-expt-redis`, writes a local
 observation receipt under `runs/redis-local-kind/`, and does not change the
 production scan gate.
+
+Default handoff is a pinned ConfigHub OCI artifact for GitOps consumption.
+Direct apply is an alternate path, not the default proof story.
+
+## Legacy Redis Reference
+
+Detailed legacy commands are intentionally not the root README experience.
+They are retained in [docs/old-cub-helm-model.md](docs/old-cub-helm-model.md)
+for reference only.
 
 Background notes:
 
