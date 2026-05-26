@@ -72,7 +72,10 @@ export function parseDocs(text) {
   return py(
     `
 import json, sys, yaml
-docs = [doc for doc in yaml.safe_load_all(sys.stdin.read()) if isinstance(doc, dict)]
+class ManifestLoader(yaml.SafeLoader):
+    pass
+ManifestLoader.add_constructor("tag:yaml.org,2002:value", lambda loader, node: loader.construct_scalar(node))
+docs = [doc for doc in yaml.load_all(sys.stdin.read(), Loader=ManifestLoader) if isinstance(doc, dict)]
 print(json.dumps(docs, sort_keys=True))
 `,
     text,
@@ -109,9 +112,12 @@ export function canonicalObjectMaps(helmYaml, cubYaml) {
     `
 import json, sys, yaml
 payload = json.load(sys.stdin)
+class ManifestLoader(yaml.SafeLoader):
+    pass
+ManifestLoader.add_constructor("tag:yaml.org,2002:value", lambda loader, node: loader.construct_scalar(node))
 def object_map(text):
     result = {}
-    for doc in yaml.safe_load_all(text or ""):
+    for doc in yaml.load_all(text or "", Loader=ManifestLoader):
         if not isinstance(doc, dict):
             continue
         def prune(value):
