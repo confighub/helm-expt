@@ -223,6 +223,8 @@ recipes/bitnami/postgresql/18.6.7/
 packages/bitnami/postgresql/18.6.7/
 recipes/bitnami/rabbitmq/16.0.14/
 packages/bitnami/rabbitmq/16.0.14/
+recipes/prometheus-community/kube-prometheus-stack/85.3.3/
+packages/prometheus-community/kube-prometheus-stack/85.3.3/
 data/adversarial10/
 data/top500/
 docs/top20-full-proof-target.md
@@ -268,13 +270,15 @@ npm run external-secrets:compare
 npm run argo-cd:compare
 npm run postgresql:compare
 npm run rabbitmq:compare
+npm run kube-prometheus-stack:compare
 ```
 
 It checks the archived reference receipts against their referenced files, then
 checks the current Redis proof artifacts, Helm-equivalence evidence, scan/gate
 receipts, variant diff evidence, promoted metrics-server, ingress-nginx,
-cert-manager, external-secrets, Argo CD, PostgreSQL, and RabbitMQ proof/package
-artifacts, deterministic `cub install` packaging, and negative golden
+cert-manager, external-secrets, Argo CD, PostgreSQL, RabbitMQ, and
+kube-prometheus-stack proof/package artifacts, deterministic `cub install`
+packaging, and negative golden
 self-tests.
 
 The old hash-only archive check is still available for comparison:
@@ -601,6 +605,39 @@ npm run rabbitmq:generate-package
 npm run rabbitmq:verify-proof
 npm run rabbitmq:verify-package
 npm run rabbitmq:compare
+```
+
+## Kube Prometheus Stack Proof
+
+The eighth chart promoted from the adversarial harness is:
+
+```text
+recipes/prometheus-community/kube-prometheus-stack/85.3.3/
+packages/prometheus-community/kube-prometheus-stack/85.3.3/
+```
+
+It has two install variants:
+
+```text
+default
+no-crds
+```
+
+The proof shows that regular Helm output is preserved by real
+`cub install setup`, plus the explained Namespace support object. It also makes
+the chart's awkward parts visible: umbrella dependencies, 10 Prometheus
+Operator CRDs, admission webhooks, generated Grafana admin password, cluster
+RBAC, dashboard ConfigMap normalization, and `tpl`/raw monitoring extension
+slots.
+
+Useful commands:
+
+```sh
+npm run kube-prometheus-stack:generate-proof
+npm run kube-prometheus-stack:generate-package
+npm run kube-prometheus-stack:verify-proof
+npm run kube-prometheus-stack:verify-package
+npm run kube-prometheus-stack:compare
 ```
 
 ## Adversarial 10 Harness

@@ -184,6 +184,8 @@ recipes/bitnami/postgresql/18.6.7/
 packages/bitnami/postgresql/18.6.7/
 recipes/bitnami/rabbitmq/16.0.14/
 packages/bitnami/rabbitmq/16.0.14/
+recipes/prometheus-community/kube-prometheus-stack/85.3.3/
+packages/prometheus-community/kube-prometheus-stack/85.3.3/
 ```
 
 `data/adversarial10/` is a readiness and blocker harness, not final
@@ -235,6 +237,14 @@ for both external Secrets, Bitnami `common` dependency lock, StatefulSet/PVC
 policy, clustering policy, extension-slot review, scan/gate, and `cub install`
 package evidence are convincing enough to serve as the repeatable pattern for
 stateful generated-credential charts with clustering material.
+
+`prometheus-community/kube-prometheus-stack@85.3.3` is the eighth row promoted
+from that harness. Review whether its `default` and `no-crds` variants,
+generated fact binding for Grafana admin password, 10-CRD default render,
+umbrella dependency lock, admission webhook observation gates, cluster RBAC,
+dashboard ConfigMap normalization, extension-slot review, scan/gate, and
+`cub install` package evidence are convincing enough to serve as the repeatable
+pattern for large umbrella monitoring charts.
 
 Every happy-path demo must also pass the simple UX test:
 

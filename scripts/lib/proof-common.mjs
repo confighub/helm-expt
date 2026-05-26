@@ -128,6 +128,11 @@ def object_map(text):
             return value
         doc = prune(doc)
         metadata = doc.get("metadata") or {}
+        if isinstance(metadata, dict):
+            for optional_map in ["annotations", "labels"]:
+                if metadata.get(optional_map) == {}:
+                    metadata.pop(optional_map)
+        metadata = doc.get("metadata") or {}
         key = "|".join([str(doc.get("apiVersion", "")), str(doc.get("kind", "")), str(metadata.get("namespace", "")), str(metadata.get("name", ""))])
         if key.strip("|"):
             result[key] = json.dumps(doc, sort_keys=True, separators=(",", ":"), ensure_ascii=True)

@@ -79,6 +79,8 @@ recipes/bitnami/postgresql/18.6.7/
 packages/bitnami/postgresql/18.6.7/
 recipes/bitnami/rabbitmq/16.0.14/
 packages/bitnami/rabbitmq/16.0.14/
+recipes/prometheus-community/kube-prometheus-stack/85.3.3/
+packages/prometheus-community/kube-prometheus-stack/85.3.3/
 ```
 
 The next step is to turn more chart rows from `data/adversarial10/` into full
@@ -127,7 +129,8 @@ scripts/generate-adversarial10-harness.mjs --verify
 determinism, metrics-server proof/package artifacts, ingress-nginx
 proof/package artifacts, cert-manager proof/package artifacts,
 external-secrets proof/package artifacts, Argo CD proof/package artifacts,
-PostgreSQL proof/package artifacts, RabbitMQ proof/package artifacts, the
+PostgreSQL proof/package artifacts, RabbitMQ proof/package artifacts,
+kube-prometheus-stack proof/package artifacts, the
 archived reference corpus, and the
 first adversarial harness. It still needs formal schemas and broader
 publication traceability before 20/100/500 claims are credible.
@@ -265,6 +268,20 @@ material: a `generated-passwords` variant that binds `auth.password` and
 `rabbitmq/rabbitmq-auth` and `rabbitmq/rabbitmq-erlang-cookie`, source and
 dependency locks including the Bitnami `common` dependency, StatefulSet/PVC and
 clustering policy, extension-slot review, and deterministic `cub install`
+package/setup proof.
+
+The eighth promoted row is:
+
+```text
+prometheus-community/kube-prometheus-stack@85.3.3
+```
+
+It proves the large umbrella monitoring stack shape: a `default` variant that
+binds Grafana admin password and renders 10 Prometheus Operator CRDs, a
+`no-crds` variant that omits CRDs, source and dependency locks for the CRD,
+kube-state-metrics, node-exporter, Grafana, and windows-exporter dependencies,
+admission webhook observation gates, cluster RBAC gates, dashboard ConfigMap
+normalization, extension-slot review, and deterministic `cub install`
 package/setup proof.
 
 The Redis proof now contains the first courtroom-grade slice. Remaining Redis

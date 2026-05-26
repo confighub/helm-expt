@@ -1,0 +1,32 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "kube-prometheus-stack-kube-prometheus-stack-85.3.3"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "prometheus-community/kube-prometheus-stack"
+    version: "85.3.3"
+    variants:
+      - "default"
+      - "no-crds"
+    helmObjectsByVariant:
+      default: 124
+      no-crds: 114
+    cubInstallObjectsByVariant:
+      default: 125
+      no-crds: 115
+    helmMatchByVariant:
+      default: "124/124"
+      no-crds: "114/114"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish only after CRD lifecycle/upgrade policy, webhook observation policy, generated Grafana credential policy, dependency lock review, and cluster RBAC review are satisfied"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/no-crds/r001/receipts/render-receipt.yaml"
+    - "revisions/no-crds/r001/receipts/scan-receipt.yaml"
+    - "revisions/no-crds/r001/receipts/install-gate.yaml"

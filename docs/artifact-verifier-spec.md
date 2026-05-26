@@ -6,8 +6,8 @@ The verifier started with archived render-and-vendor Helm import receipts, but
 the current default `npm run verify` also checks the Redis
 recipe/variant/revision proof, the durable Redis installer package proof, the
 promoted metrics-server, ingress-nginx, cert-manager, external-secrets, Argo CD,
-PostgreSQL, and RabbitMQ proofs, and the first adversarial public-chart
-harness.
+PostgreSQL, RabbitMQ, and kube-prometheus-stack proofs, and the first
+adversarial public-chart harness.
 
 ## Scope
 
@@ -151,6 +151,20 @@ source/dependency locks, generated fact binding for password and Erlang cookie,
 target fact binding for both Secrets, rendered object inventories, render
 receipts, Helm equivalence receipts, scan receipts, install gates, separated
 Secret handling, and deterministic `cub install` package/setup behavior.
+
+The kube-prometheus-stack proof verifier checks:
+
+```text
+recipes/prometheus-community/kube-prometheus-stack/85.3.3/
+packages/prometheus-community/kube-prometheus-stack/85.3.3/
+```
+
+That proof is the eighth promoted row from the adversarial harness. It checks
+two variants, `default` and `no-crds`, including umbrella dependency locks,
+generated fact binding for Grafana admin password, rendered object inventories,
+render receipts, Helm equivalence receipts, scan receipts, install gates,
+separated Secret handling, dashboard ConfigMap normalization, and deterministic
+`cub install` package/setup behavior.
 
 ## Required Invariants
 
@@ -322,6 +336,26 @@ For the promoted RabbitMQ proof:
    review, StatefulSet/PVC policy, clustering policy, and extension-slot
    review.
 
+For the promoted kube-prometheus-stack proof:
+
+1. Both promoted variants render deterministically with Helm under the pinned
+   inputs.
+2. `default` renders exactly 124 Helm objects, including 10 Prometheus Operator
+   CRDs, Grafana, kube-state-metrics, node-exporter, and admission webhooks.
+3. `no-crds` renders exactly 114 Helm objects and zero CRDs.
+4. Both variants bind `grafana.adminPassword` before render.
+5. The CRD, kube-state-metrics, node-exporter, Grafana, and windows-exporter
+   dependencies are recorded in `dependency-lock.yaml`.
+6. `cub install package` produces byte-identical bundles across two local runs.
+7. `cub install setup` matches Helm semantically, plus only
+   `v1|Namespace||monitoring`, while preserving separated Secret behavior.
+8. Semantic comparison prunes null fields and empty metadata maps, because
+   `cub install`/kustomize drops empty annotations on Grafana dashboard
+   ConfigMaps.
+9. Scan/gate receipts flag CRD lifecycle, admission webhook observation,
+   generated Grafana credential ownership, umbrella dependency review, cluster
+   RBAC, and extension-slot review.
+
 ## Negative Golden Check
 
 The verifier must include self-tests that corrupt known-good fixtures and prove
@@ -343,6 +377,7 @@ Current self-tests include:
 - corrupt the Argo CD rendered object set and require rejection;
 - corrupt the PostgreSQL rendered object set and require rejection;
 - corrupt the RabbitMQ rendered object set and require rejection;
+- corrupt the kube-prometheus-stack rendered object set and require rejection;
 - corrupt an adversarial harness rendered manifest and require a rendered
   manifest SHA mismatch.
 

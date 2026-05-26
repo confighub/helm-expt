@@ -24,8 +24,8 @@ proof.
 ## Current Status
 
 ```text
-Full proofs complete: 8 / 20
-Remaining full proofs: 12 / 20
+Full proofs complete: 9 / 20
+Remaining full proofs: 11 / 20
 ```
 
 | # | Chart | Status | Proof Focus |
@@ -36,7 +36,7 @@ Remaining full proofs: 12 / 20
 | 4 | `jetstack/cert-manager@v1.20.2` | complete | CRD-heavy control plane, webhook risk, startup lifecycle policy |
 | 5 | `external-secrets/external-secrets@2.5.0` | complete | CRD-heavy controller, dependency lock, webhook Secret/cert-controller |
 | 6 | `argo-cd/argo-cd@9.5.15` | complete | GitOps handoff, CRDs, raw extension slots, cluster RBAC |
-| 7 | `prometheus-community/kube-prometheus-stack@85.3.3` | planned | large umbrella chart, CRDs, dependencies, webhooks, scale |
+| 7 | `prometheus-community/kube-prometheus-stack@85.3.3` | complete | large umbrella chart, CRDs, dependencies, webhooks, generated Grafana credential, scale |
 | 8 | `bitnami/postgresql@18.6.7` | complete | generated credentials, stateful/PVC, upgrade-sensitive values |
 | 9 | `bitnami/rabbitmq@16.0.14` | complete | generated credentials, Erlang cookie, stateful/PVC, clustering policy |
 | 10 | `grafana/loki@7.0.0` | planned | required values, storage modes, generated config, blocked/default path |
@@ -60,11 +60,11 @@ package SHA and dependency closure.
 The next work should promote charts in this order unless a blocker makes a
 different row more useful:
 
-1. `prometheus-community/kube-prometheus-stack`
-2. `grafana/loki`
-3. `longhorn/longhorn`
-4. `bitnami/mysql`
-5. `grafana/grafana`
+1. `grafana/loki`
+2. `longhorn/longhorn`
+3. `bitnami/mysql`
+4. `grafana/grafana`
+5. `hashicorp/vault`
 
 That order alternates between deterministic rendered charts, generated-fact
 stateful charts, one large umbrella chart, and one blocked/default chart. It
