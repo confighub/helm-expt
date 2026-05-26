@@ -75,6 +75,7 @@ Rows promoted from readiness evidence into full proof slices:
 | `bitnami/rabbitmq@16.0.14` | `recipes/bitnami/rabbitmq/16.0.14/`, `packages/bitnami/rabbitmq/16.0.14/` | Seventh promoted adversarial row: `generated-passwords` and `existing-secret` variants, password/Erlang-cookie generated facts, target Secret facts, dependency/StatefulSet/PVC/clustering gates, deterministic `cub install` package/setup proof. |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/`, `packages/prometheus-community/kube-prometheus-stack/85.3.3/` | Eighth promoted adversarial row: `default` and `no-crds` variants, generated Grafana credential, 10 CRDs, umbrella dependencies, admission webhook/RBAC/extension gates, deterministic `cub install` package/setup proof. |
 | `grafana/loki@7.0.0` | `recipes/grafana/loki/7.0.0/`, `packages/grafana/loki/7.0.0/` | Ninth promoted adversarial row: blocked default render, `single-binary-filesystem` and `simple-scalable-minio` variants, storage/schema/object-store gates, dependency/RBAC/StatefulSet/PVC/extension gates, deterministic `cub install` package/setup proof. |
+| `longhorn/longhorn@1.11.2` | `recipes/longhorn/longhorn/1.11.2/`, `packages/longhorn/longhorn/1.11.2/` | Tenth promoted adversarial row: `default` and `ui-ingress` variants, 22 CRDs, pre-upgrade hook/admission-recovery/RBAC/privileged-storage/StorageClass/UI ingress gates, deterministic `cub install` package/setup proof. |
 
 ## Execution Order
 

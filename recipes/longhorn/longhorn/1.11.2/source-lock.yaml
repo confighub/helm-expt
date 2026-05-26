@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "longhorn-longhorn-1.11.2"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "longhorn"
+  repositoryURL: "https://charts.longhorn.io"
+  chart: "longhorn"
+  version: "1.11.2"
+  appVersion: "v1.11.2"
+  packageSHA256: "a70272c83683923ed9cafa07fe1e4f3a6e7d5d74874111b3a8ad421e64102a77"
+  packageBytes: 68293
+  evidence:
+    harnessReceipt: "../../../../data/adversarial10/charts/longhorn-longhorn-1.11.2/render-receipt.yaml"

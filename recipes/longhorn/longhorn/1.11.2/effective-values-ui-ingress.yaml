@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "longhorn-longhorn-1.11.2-ui-ingress"
+spec:
+  files:
+    -
+      path: "effective-values-ui-ingress.yaml"
+      source: "inline-proof"
+      sha256: "84dcd991f67c33de99a3c819ea174a83f5094e1857a48c161679d3f1b4a91e72"
+  mergedValuesCaptured: false
+  values:
+    ingress:
+      enabled: true
+      host: "longhorn.example.test"
+      ingressClassName: "nginx"
+      tls: false

@@ -6,7 +6,7 @@ The verifier started with archived render-and-vendor Helm import receipts, but
 the current default `npm run verify` also checks the Redis
 recipe/variant/revision proof, the durable Redis installer package proof, the
 promoted metrics-server, ingress-nginx, cert-manager, external-secrets, Argo CD,
-PostgreSQL, RabbitMQ, kube-prometheus-stack, and Loki proofs, and the first
+PostgreSQL, RabbitMQ, kube-prometheus-stack, Loki, and Longhorn proofs, and the first
 adversarial public-chart harness.
 
 ## Scope
@@ -110,6 +110,21 @@ two variants, `default` and `no-crds`, including source/dependency locks,
 control points, effective values, rendered object inventories, render receipts,
 Helm equivalence receipts, scan receipts, install gates, separated Secret
 handling, and deterministic `cub install` package/setup behavior.
+
+The Longhorn proof verifier checks:
+
+```text
+recipes/longhorn/longhorn/1.11.2/
+packages/longhorn/longhorn/1.11.2/
+```
+
+That proof is the tenth promoted row from the adversarial harness. It checks
+two variants, `default` and `ui-ingress`, including source/dependency locks, 22
+Longhorn CRDs, pre-upgrade hook policy, admission/recovery observation, cluster
+RBAC, privileged storage workload policy, StorageClass/default-setting policy,
+UI ingress exposure, rendered object inventories, render receipts, Helm
+equivalence receipts, scan receipts, install gates, and deterministic
+`cub install` package/setup behavior.
 
 The Argo CD proof verifier checks:
 
@@ -392,6 +407,23 @@ For the promoted Loki proof:
    object-store Secret ownership, dependency review, cluster RBAC, StatefulSet
    policy, lifecycle policy, and extension-slot review.
 
+For the promoted Longhorn proof:
+
+1. Both promoted variants render deterministically with Helm under the pinned
+   inputs.
+2. `default` renders exactly 41 Helm objects, including 22 Longhorn CRDs, the
+   manager DaemonSet, driver deployer, UI Deployment, cluster RBAC, and no
+   Secrets.
+3. `ui-ingress` renders exactly 42 Helm objects by adding
+   `networking.k8s.io/v1|Ingress|longhorn-system|longhorn-ingress`.
+4. Both variants render the Longhorn CRDs as ordinary digest-bound objects.
+5. `cub install package` produces byte-identical bundles across two local runs.
+6. `cub install setup` matches Helm semantically, plus only
+   `v1|Namespace||longhorn-system`.
+7. Scan/gate receipts flag CRD lifecycle, pre-upgrade hook lifecycle,
+   admission/recovery observation, cluster RBAC, privileged storage workload
+   policy, StorageClass/default-setting policy, and UI ingress policy.
+
 ## Negative Golden Check
 
 The verifier must include self-tests that corrupt known-good fixtures and prove
@@ -415,6 +447,7 @@ Current self-tests include:
 - corrupt the RabbitMQ rendered object set and require rejection;
 - corrupt the kube-prometheus-stack rendered object set and require rejection;
 - corrupt the Loki rendered object set and require rejection;
+- corrupt the Longhorn rendered object set and require rejection;
 - corrupt an adversarial harness rendered manifest and require a rendered
   manifest SHA mismatch.
 

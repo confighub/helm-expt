@@ -227,6 +227,8 @@ recipes/prometheus-community/kube-prometheus-stack/85.3.3/
 packages/prometheus-community/kube-prometheus-stack/85.3.3/
 recipes/grafana/loki/7.0.0/
 packages/grafana/loki/7.0.0/
+recipes/longhorn/longhorn/1.11.2/
+packages/longhorn/longhorn/1.11.2/
 data/adversarial10/
 data/top500/
 docs/top20-full-proof-target.md
@@ -274,13 +276,14 @@ npm run postgresql:compare
 npm run rabbitmq:compare
 npm run kube-prometheus-stack:compare
 npm run loki:compare
+npm run longhorn:compare
 ```
 
 It checks the archived reference receipts against their referenced files, then
 checks the current Redis proof artifacts, Helm-equivalence evidence, scan/gate
 receipts, variant diff evidence, promoted metrics-server, ingress-nginx,
 cert-manager, external-secrets, Argo CD, PostgreSQL, RabbitMQ,
-kube-prometheus-stack, and Loki proof/package artifacts, deterministic `cub install`
+kube-prometheus-stack, Loki, and Longhorn proof/package artifacts, deterministic `cub install`
 packaging, and negative golden
 self-tests.
 
@@ -675,6 +678,38 @@ npm run loki:generate-package
 npm run loki:verify-proof
 npm run loki:verify-package
 npm run loki:compare
+```
+
+## Longhorn Proof
+
+The tenth chart promoted from the adversarial harness is:
+
+```text
+recipes/longhorn/longhorn/1.11.2/
+packages/longhorn/longhorn/1.11.2/
+```
+
+It has two install variants:
+
+```text
+default
+ui-ingress
+```
+
+The proof shows that regular Helm output is preserved by real
+`cub install setup`, plus the explained Namespace support object. It also makes
+the chart's awkward parts visible: 22 Longhorn CRDs, pre-upgrade hook policy,
+admission/recovery observation, cluster RBAC, privileged storage workloads,
+StorageClass/default-setting policy, and explicit UI ingress exposure.
+
+Useful commands:
+
+```sh
+npm run longhorn:generate-proof
+npm run longhorn:generate-package
+npm run longhorn:verify-proof
+npm run longhorn:verify-package
+npm run longhorn:compare
 ```
 
 ## Adversarial 10 Harness

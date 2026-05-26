@@ -189,6 +189,7 @@ Sixth promoted adversarial row: bitnami/postgresql@18.6.7.
 Seventh promoted adversarial row: bitnami/rabbitmq@16.0.14.
 Eighth promoted adversarial row: prometheus-community/kube-prometheus-stack@85.3.3.
 Ninth promoted adversarial row: grafana/loki@7.0.0.
+Tenth promoted adversarial row: longhorn/longhorn@1.11.2.
 ```
 
 The adversarial 10 foundation does not close the scale proof. It gives us the
@@ -261,6 +262,13 @@ storage/schema binding, bundled MinIO object-store fixture, cluster RBAC gates,
 StatefulSet/PVC policy, classified Loki ConfigMap normalization, `tpl`/raw
 extension-slot review, Helm equivalence receipts, and deterministic
 `cub install` package/setup proof.
+
+The tenth such promotion is Longhorn. It adds the repeatable pattern for a
+storage control-plane chart: source/dependency locks, `default` and
+`ui-ingress` variants, 22 Longhorn CRDs, pre-upgrade hook policy,
+admission/recovery observation, cluster RBAC gates, privileged storage workload
+policy, StorageClass/default-setting policy, UI ingress policy, Helm
+equivalence receipts, and deterministic `cub install` package/setup proof.
 
 ## Installer Boundary
 

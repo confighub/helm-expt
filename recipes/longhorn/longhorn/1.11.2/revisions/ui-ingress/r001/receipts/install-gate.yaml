@@ -1,0 +1,20 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "longhorn-ui-ingress-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "2f6508c2bc3f2a09e1ffcb8ec71282b3e2dd52e69fe8ca80fc90ab756f9b9298"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for ui-ingress"
+    - "CRD install/upgrade behavior needs explicit lifecycle policy before production"
+    - "Longhorn admission/recovery services and managers need fresh observation receipts after apply"
+    - "Longhorn pre-upgrade hook Jobs need explicit lifecycle policy before production"
+    - "Cluster-scoped RBAC needs production review"
+    - "Storage DaemonSet host-level behavior and StorageClass/default-setting ConfigMaps need target policy"
+    - "adds UI ingress exposure with host and ingress class made explicit before render"

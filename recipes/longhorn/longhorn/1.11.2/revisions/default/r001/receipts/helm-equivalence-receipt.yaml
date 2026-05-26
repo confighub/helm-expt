@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "longhorn-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "4a2f739775a696f5d67db6adf1f99473c60a3f5adf308ceb3ccbf222435acd90"
+    objectCount: 41
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 42
+    uploadedManifestFiles: 42
+    separatedSecretFiles: 0
+    semanticObjectMatches: "41/41"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||longhorn-system"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run longhorn:compare"

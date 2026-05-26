@@ -188,6 +188,8 @@ recipes/prometheus-community/kube-prometheus-stack/85.3.3/
 packages/prometheus-community/kube-prometheus-stack/85.3.3/
 recipes/grafana/loki/7.0.0/
 packages/grafana/loki/7.0.0/
+recipes/longhorn/longhorn/1.11.2/
+packages/longhorn/longhorn/1.11.2/
 ```
 
 `data/adversarial10/` is a readiness and blocker harness, not final
@@ -255,6 +257,13 @@ fixture, dependency lock, cluster RBAC, StatefulSet/PVC policy, Loki ConfigMap
 normalization, extension-slot review, scan/gate, and `cub install` package
 evidence are convincing enough to serve as the repeatable pattern for charts
 that cannot render safely from defaults.
+
+`longhorn/longhorn@1.11.2` is the tenth row promoted from that harness. Review
+whether its `default` and `ui-ingress` variants, 22 Longhorn CRDs, pre-upgrade
+hook policy, admission/recovery observation, cluster RBAC, privileged storage
+workload policy, StorageClass/default-setting policy, UI ingress policy,
+scan/gate, and `cub install` package evidence are convincing enough to serve as
+the repeatable pattern for storage control-plane charts.
 
 Every happy-path demo must also pass the simple UX test:
 
