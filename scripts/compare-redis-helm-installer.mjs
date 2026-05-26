@@ -2,7 +2,6 @@ import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import {
   existsSync,
-  mkdirSync,
   mkdtempSync,
   readdirSync,
   readFileSync,
@@ -13,9 +12,10 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 
 const repoRoot = process.cwd();
-const redisPackage = resolve(repoRoot, "archive/render-and-vendor-top20/charts/06-bitnami-redis");
+const redisArchiveFixture = resolve(repoRoot, "archive/render-and-vendor-top20/charts/06-bitnami-redis");
+const redisInstallerPackage = resolve(repoRoot, "packages/bitnami/redis/25.5.3");
 const proofRoot = resolve(repoRoot, "recipes/bitnami/redis/25.5.3");
-const receiptFile = join(redisPackage, "helm-import.receipt.yaml");
+const receiptFile = join(redisArchiveFixture, "helm-import.receipt.yaml");
 const chartRef = "oci://registry-1.docker.io/bitnamicharts/redis";
 const chartVersion = "25.5.3";
 const releaseName = "redis";
@@ -46,14 +46,15 @@ try {
   const variants = [
     {
       name: "default",
-      valuesText: readFileSync(join(redisPackage, "values.yaml"), "utf8"),
-      expectedYamlPath: join(redisPackage, "base", "upstream.yaml"),
+      base: "default",
+      valuesText: readFileSync(join(redisArchiveFixture, "values.yaml"), "utf8"),
+      expectedYamlPath: join(proofRoot, "revisions", "default", "r001", "rendered", "release-objects.yaml"),
       expectedHelmSHA: expectedDefaultHelmSHA,
-      packageDir: redisPackage,
       normalizeWhitespace: false,
     },
     {
       name: "reuse-existing-secret",
+      base: "reuse-existing-secret",
       valuesText: "auth:\n  existingSecret: redis-existing-secret\n  existingSecretPasswordKey: redis-password\n",
       expectedYamlPath: join(
         proofRoot,
@@ -63,7 +64,6 @@ try {
         "rendered",
         "release-objects.yaml",
       ),
-      packageDir: null,
       normalizeWhitespace: true,
     },
   ];
@@ -97,7 +97,9 @@ function compareVariant(variant) {
   assertEqual(helmSHA, expectedSHA, `${variant.name} fresh Helm render must match stored release-objects.yaml`);
   assertEqual(helmYaml, expectedYaml, `${variant.name} fresh Helm render must byte-match stored release objects`);
 
-  const packageDir = variant.packageDir ?? writeInstallerPackage(variant.name, expectedYaml);
+  if (!existsSync(redisInstallerPackage)) {
+    throw new Error(`Missing Redis installer package ${redisInstallerPackage}; run npm run redis:generate-package`);
+  }
   const workDir = join(tempRoot, `installer-work-${variant.name}`);
 
   console.log("Rendering the same Redis package with cub install setup...");
@@ -107,7 +109,9 @@ function compareVariant(variant) {
       "install",
       "setup",
       "--pull",
-      packageDir,
+      redisInstallerPackage,
+      "--base",
+      variant.base,
       "--work-dir",
       workDir,
       "--non-interactive",
@@ -182,36 +186,6 @@ function renderHelm(valuesText) {
     ],
     { encoding: "utf8", env, stdio: ["ignore", "pipe", "inherit"], maxBuffer: 1024 * 1024 * 100 },
   );
-}
-
-function writeInstallerPackage(variantName, upstreamYaml) {
-  const packageRoot = join(tempRoot, `installer-package-${variantName}`);
-  mkdirSync(join(packageRoot, "base"), { recursive: true });
-  writeFileSync(
-    join(packageRoot, "installer.yaml"),
-    `apiVersion: installer.confighub.com/v1alpha1
-kind: Package
-metadata:
-  name: "redis-${variantName}"
-  version: "25.5.3"
-spec:
-  bases:
-    - name: default
-      path: base
-      default: true
-      description: "Imported Helm render for bitnami/redis ${variantName}"
-`,
-  );
-  writeFileSync(
-    join(packageRoot, "base", "kustomization.yaml"),
-    `apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-resources:
-  - upstream.yaml
-`,
-  );
-  writeFileSync(join(packageRoot, "base", "upstream.yaml"), upstreamYaml);
-  return packageRoot;
 }
 
 function sha256(text) {

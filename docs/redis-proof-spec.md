@@ -41,6 +41,7 @@ recipes/bitnami/redis/25.5.3/
   effective-values-reuse-existing-secret.yaml
   recipe.yaml
   diffs/default-to-reuse-existing-secret.yaml
+  publication/installer-package-receipt.yaml
 
   variants/
     default/variant.yaml
@@ -64,6 +65,14 @@ recipes/bitnami/redis/25.5.3/
       receipts/render-receipt.yaml
       receipts/scan-receipt.yaml
       receipts/install-gate.yaml
+
+packages/bitnami/redis/25.5.3/
+  installer.yaml
+  README.md
+  bases/default/kustomization.yaml
+  bases/default/upstream.yaml
+  bases/reuse-existing-secret/kustomization.yaml
+  bases/reuse-existing-secret/upstream.yaml
 ```
 
 ## Minimum Readiness Card
@@ -80,8 +89,9 @@ Explained difference: installer namespace support object
 Helm match: default 14/14; reuse-existing-secret 13/13 semantic object matches
 Secrets: default renders 1 Secret; reuse-existing-secret requires target Secret
 Scan/gate: exact rendered object digest bound; result explicit
-Next action: publish via ConfigHub OCI, or direct apply only for local/test
-Proof: equivalence, render, scan/gate receipts
+Installer package: deterministic cub install package with two bases
+Next action: publish via configured ConfigHub OCI, or direct apply only for local/test
+Proof: equivalence, render, scan/gate, package receipts
 Variant diff: default -> reuse-existing-secret explains removed Secret, changed
 StatefulSets, and added target fact
 ```
@@ -171,6 +181,18 @@ which scopes are blocked. It must not imply a pass.
     - added target fact: `Secret redis/redis-existing-secret` key
       `redis-password`
 
+### Installer Package
+
+13d. `packages/bitnami/redis/25.5.3/installer.yaml` must declare a real
+     installer `Package` with bases `default` and `reuse-existing-secret`.
+13e. `cub install package packages/bitnami/redis/25.5.3` must produce
+     byte-identical `.tgz` files across two local runs.
+13f. `cub install setup --base default` must render the default variant and
+     match Helm semantically, with only the namespace support object added.
+13g. `cub install setup --base reuse-existing-secret` must render the
+     existing-secret variant and match Helm semantically, with only the
+     namespace support object added.
+
 ### Scan And Gate
 
 14. `scan-receipt.yaml` is bound to the rendered object set digest.
@@ -199,6 +221,7 @@ and a new Redis proof verifier, for example:
 
 ```sh
 npm run redis:verify-proof
+npm run redis:verify-package
 ```
 
 The Redis proof verifier must fail if:
@@ -208,6 +231,10 @@ The Redis proof verifier must fail if:
 - the namespace support object is not explicitly classified;
 - scan/gate status is missing or falsely implies success;
 - any required file is absent.
+- the durable Redis installer package changes without receipt update;
+- `cub install package` stops being byte-deterministic;
+- either package base stops matching the corresponding Helm-equivalent variant
+  revision.
 
 ## Non-Scope For First Redis Slice
 

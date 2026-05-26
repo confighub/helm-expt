@@ -15,14 +15,17 @@
 | Scan/gate | local scan warns; production blocked; local-test warning only |
 | Scan findings | default: 2 high, 2 medium; reuse-existing-secret: 2 high, 2 medium |
 | Variant diff | default -> reuse-existing-secret removes Secret/redis, retargets two StatefulSets, adds target Secret requirement |
-| Next action | resolve or waive local scan findings, then publish through ConfigHub OCI |
-| Proof | equivalence, render, scan, and gate receipts |
+| Installer package | packages/bitnami/redis/25.5.3 with bases default and reuse-existing-secret |
+| Package proof | deterministic `cub install package`; both bases verified through `cub install setup --base` |
+| Next action | resolve or waive local scan findings, then publish through a configured ConfigHub OCI endpoint |
+| Proof | equivalence, render, scan, gate, package, and local observation receipts |
 
 ## Current Proof Commands
 
 ```sh
 npm run redis:compare
 npm run redis:verify-proof
+npm run redis:verify-package
 ```
 
 This proof uses the archived Redis render as a compatibility fixture and stores

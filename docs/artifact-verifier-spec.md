@@ -1,15 +1,14 @@
 # Artifact Verifier Spec
 
-This is the first executable proof contract for `helm-expt`.
+This is the executable proof contract for `helm-expt`.
 
-The verifier starts small on purpose. V0 verifies the archived
-render-and-vendor Helm import receipts because those are the only receipt
-artifacts present today. The same invariant style must extend to the Redis
-recipe/variant proof and the future top-N chart corpus.
+The verifier started with archived render-and-vendor Helm import receipts, but
+the current default `npm run verify` also checks the Redis
+recipe/variant/revision proof and the durable Redis installer package proof.
 
 ## Scope
 
-V0 verifies:
+The legacy reference verifier checks:
 
 ```text
 archive/render-and-vendor-top20/charts/index.yaml
@@ -25,9 +24,22 @@ This is legacy evidence, not the main product pathway. It is still useful as
 the first golden corpus because it has 20 deterministic chart imports and one
 negative-control shape we can corrupt in a self-test.
 
+The Redis proof verifier checks:
+
+```text
+recipes/bitnami/redis/25.5.3/
+packages/bitnami/redis/25.5.3/
+```
+
+That includes HelmPlan, ChartDossier, source/dependency locks, control points,
+effective values, variants, variant revisions, rendered objects, object
+inventories, Helm equivalence receipts, render receipts, scan receipts, install
+gates, variant diff evidence, the installer package receipt, and the package
+source tree.
+
 ## Required Invariants
 
-For every chart directory:
+For every archived chart directory:
 
 1. Required files exist.
 2. `helm-import.receipt.yaml` has `kind: HelmImportReceipt`.
@@ -58,19 +70,38 @@ For every chart directory:
 
 ## Negative Golden Check
 
-The verifier must include a self-test that copies one known-good chart fixture,
-corrupts an input file, and proves that verification fails for the expected
-reason. The first negative golden check corrupts Redis `values.yaml` and must
-fail with a value SHA mismatch.
+The verifier must include self-tests that corrupt known-good fixtures and prove
+verification fails for the expected reason.
+
+Current self-tests include:
+
+- corrupt archived Redis `values.yaml` and require a value SHA mismatch;
+- corrupt the Redis rendered object digest and require rejection;
+- remove the namespace support classification and require rejection;
+- claim false scan success and require rejection;
+- reintroduce the old `standalone` variant shape and require rejection;
+- tamper with the reuse-existing-secret target fact and require rejection;
+- lie about the variant diff and require rejection.
+
+The Redis installer package verifier must also prove:
+
+- every package source file SHA and byte count matches the package receipt;
+- `cub install package` produces byte-identical bundles across two local runs;
+- the package bundle SHA matches the receipt;
+- `cub install setup --base default` matches the default Helm-equivalent
+  variant, plus only `v1|Namespace||redis`;
+- `cub install setup --base reuse-existing-secret` matches the existing-secret
+  Helm-equivalent variant, plus only `v1|Namespace||redis`.
 
 ## Non-Scope For V0
 
-V0 does not prove:
+The current verifier does not prove:
 
 - source archive bytes, because the archives are not stored in this repo;
-- scanner or install-gate digests, because those artifacts do not exist yet;
-- ConfigHub upload/OCI/observation receipts, because those belong to the Redis
-  courtroom-grade proof path;
+- live ConfigHub OCI publication, unless `REDIS_INSTALLER_OCI_REF` is supplied
+  and `npm run redis:publish-package` is run;
+- upload receipts, upgrade simulation receipts, or rollback simulation
+  receipts;
 - full JSON Schema enforcement, because the immediate gate is hash/reference
   integrity over existing artifacts.
 

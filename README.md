@@ -200,6 +200,7 @@ New proof work should produce files such as:
 
 ```text
 recipes/bitnami/redis/25.5.3/
+packages/bitnami/redis/25.5.3/
 data/top500/
 schemas/
 runs/
@@ -218,11 +219,14 @@ The default verifier is now the artifact-chain verifier:
 
 ```sh
 npm run verify
+npm run redis:compare
+npm run redis:verify-package
 ```
 
-It checks the archived Helm import receipts against their referenced files and
-also runs a negative golden check that corrupts Redis `values.yaml` in a temp
-copy and confirms the verifier rejects it.
+It checks the archived reference receipts against their referenced files, then
+checks the current Redis proof artifacts, Helm-equivalence evidence, scan/gate
+receipts, variant diff evidence, deterministic `cub install` packaging, and
+negative golden self-tests.
 
 The old hash-only archive check is still available for comparison:
 
@@ -248,12 +252,17 @@ Useful commands:
 
 ```sh
 npm run redis:generate-proof
+npm run redis:generate-package
 npm run redis:verify-proof
+npm run redis:verify-package
 npm run redis:compare
 ```
 
-`redis:verify-proof` is local and deterministic. `redis:compare` re-renders
-Redis with Helm and `cub install setup` to prove the Helm-equivalence claim.
+`redis:verify-proof` is local and deterministic. `redis:verify-package`
+rebuilds the Redis installer package twice, checks byte-identical package
+output, and verifies both package bases through real `cub install setup`.
+`redis:compare` re-renders Redis with Helm and `cub install setup` to prove the
+Helm-equivalence claim.
 
 What it proves today:
 
@@ -282,6 +291,16 @@ production scan gate.
 
 Default handoff is a pinned ConfigHub OCI artifact for GitOps consumption.
 Direct apply is an alternate path, not the default proof story.
+
+Optional OCI publication, when a registry endpoint and credentials are
+available:
+
+```sh
+REDIS_INSTALLER_OCI_REF=oci://<registry>/<repo>:<tag> npm run redis:publish-package
+```
+
+Publication is not simulated. Without an explicit registry ref, the package
+proof remains a local deterministic package and setup proof.
 
 ## Legacy Redis Reference
 

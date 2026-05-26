@@ -24,7 +24,9 @@ The council review made the first implementation slice explicit:
 1. [#24](https://github.com/confighub/helm-expt/issues/24) **Schema and verifier first.**
    Without this, artifacts and spreadsheets are decorative.
 2. [#10](https://github.com/confighub/helm-expt/issues/10) **Redis courtroom-grade proof.**
-   Redis is where the full chain becomes real.
+   Redis is where the full chain becomes real. This includes the durable
+   `packages/bitnami/redis/25.5.3` installer package, deterministic package
+   receipt, and `cub install setup --base` checks for each current variant.
 3. [#26](https://github.com/confighub/helm-expt/issues/26) **Five-minute UX proof.**
    Keep proving the path is easier, safer, and correct versus Helm.
 4. **Close the missing determinism/freshness gates**:

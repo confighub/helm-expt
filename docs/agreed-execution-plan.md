@@ -406,7 +406,7 @@ or addressable artifact.
 | --- | --- | --- |
 | Resolve chart source | `cub` / installer | `SourceLock`, chart digest |
 | Resolve chart dependencies | `cub` / installer | `DependencyLock` |
-| Import chart to recipe candidate | `cub` / installer | `RecipeCandidate` |
+| Import chart to recipe | `cub` / installer | `Recipe` |
 | Classify Helm complexity | `cub` / installer | `ControlPoints` |
 | Create/edit install variant | `cub` or ConfigHub Server UI/API | `Variant` |
 | Provide overlays, values, umbrella selections, or Kustomize pieces | `cub` or ConfigHub Server UI/API | explicit variant inputs / extension slots |
@@ -439,6 +439,17 @@ install
 review/diff
 publish to ConfigHub OCI for GitOps pickup
 ```
+
+The current executable Redis proof uses the real installer surface:
+
+```sh
+cub install setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir <work> --non-interactive --namespace redis
+cub install setup --pull packages/bitnami/redis/25.5.3 --base reuse-existing-secret --work-dir <work> --non-interactive --namespace redis
+cub install package packages/bitnami/redis/25.5.3 -o <tmp>/bitnami-redis-25.5.3.tgz
+```
+
+Shorter porcelain may be proposed later, but current executable docs must use
+real `cub install` commands until those verbs exist.
 
 The hidden work should be automatic:
 
@@ -480,7 +491,7 @@ The install action should do the boring work automatically:
 
 ```text
 resolve source
-create/update recipe candidate
+create/update recipe
 create default install variant
 render immutable variant revision
 scan exact rendered objects
@@ -589,7 +600,7 @@ for the next proof increments:
 
 | Missing piece | Why it matters | Mitigation in the plan |
 | --- | --- | --- |
-| Real recipe artifacts | Archived render-and-vendor examples do not prove the new model. | Create `recipes/bitnami/redis/25.5.3/` with `RecipeCandidate`, locks, control points, variants, revisions, receipts, scans, and gates. |
+| Real recipe artifacts | Archived render-and-vendor examples do not prove the new model. | Create `recipes/bitnami/redis/25.5.3/` with `Recipe`, locks, control points, variants, revisions, receipts, scans, gates, and installer package proof. |
 | Dead or ignored values | Helm can accept a values file while silently ignoring the user's intended path. | Add recipe validation, values-schema extraction, unknown/dead-key checks where detectable, and render-diff proof that intended values affected output. |
 | Field provenance | Users need to know which input created a rendered field. | Store recipe/variant input provenance and derived attributes for rendered object facts. |
 | Scan receipts and install gates | Scans are only trustworthy if bound to the exact rendered object set. | Run scans against rendered manifest digests and store `ScanReceipt` plus `InstallGate`. |
@@ -732,14 +743,18 @@ recipes/bitnami/redis/25.5.3/
   README.md
   helm-plan.yaml
   chart-dossier.yaml
-  recipe-candidate.yaml
+  recipe.yaml
   source-lock.yaml
   dependency-lock.yaml
   control-points.yaml
+  value-model.yaml
+  effective-values.yaml
+  effective-values-reuse-existing-secret.yaml
+  diffs/default-to-reuse-existing-secret.yaml
+  publication/installer-package-receipt.yaml
 
   variants/
     default/variant.yaml
-    ha/variant.yaml
     reuse-existing-secret/variant.yaml
 
   revisions/
@@ -756,7 +771,15 @@ recipes/bitnami/redis/25.5.3/
       render-receipt.yaml
       scan-receipt.yaml
       install-gate.yaml
+
+packages/bitnami/redis/25.5.3/
+  installer.yaml
+  bases/default/upstream.yaml
+  bases/reuse-existing-secret/upstream.yaml
 ```
+
+The `ha` variant is a later Redis slice, not a blocker for the first
+two-variant proof.
 
 ## New Spreadsheet and Matrix Evidence
 
@@ -1136,17 +1159,20 @@ Minimum Redis proof artifacts:
 
 - `HelmPlan`.
 - `ChartDossier`.
-- `RecipeCandidate`.
+- `Recipe`.
 - `SourceLock`.
 - `DependencyLock`.
 - `ControlPoints`.
 - `Variant`.
 - `VariantRevision`.
 - `RenderedReleaseObjects`.
+- `HelmEquivalenceReceipt`.
 - `RenderReceipt`.
 - `ScanReceipt`.
 - `InstallGate`.
-- Optional `ObservationReceipt` example.
+- `InstallerPackage`.
+- `InstallerPackageReceipt`.
+- `ObservationReceipt` when a live target is involved.
 
 Minimum new top-500 artifacts:
 

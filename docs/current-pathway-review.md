@@ -104,7 +104,7 @@ The repo needs new proof artifacts, starting with Redis:
 recipes/bitnami/redis/25.5.3/
   helm-plan.yaml
   chart-dossier.yaml
-  recipe-candidate.yaml
+  recipe.yaml
   source-lock.yaml
   dependency-lock.yaml
   control-points.yaml
@@ -114,6 +114,11 @@ recipes/bitnami/redis/25.5.3/
   revisions/
   receipts/
   reports/
+
+packages/bitnami/redis/25.5.3/
+  installer.yaml
+  bases/default/upstream.yaml
+  bases/reuse-existing-secret/upstream.yaml
 ```
 
 It also needs new generated matrix outputs:
@@ -142,11 +147,22 @@ render-receipt.yaml
 rendered-object-inventory.yaml
 scan-receipt.yaml
 install-gate.yaml
+installer-package-receipt.yaml
 upload-receipt.yaml
 oci-artifact-receipt.yaml
 observation-receipt.yaml
 upgrade-simulation-receipt.yaml
 rollback-simulation-receipt.yaml
+```
+
+Current Redis package proof status:
+
+```text
+packages/bitnami/redis/25.5.3 exists
+cub install package is byte-deterministic across two local runs
+cub install setup --base default matches Helm semantically, plus Namespace
+cub install setup --base reuse-existing-secret matches Helm semantically, plus Namespace
+OCI publication remains gated on a configured registry ref and credentials
 ```
 
 Observation is not optional for the workerless claim. A missing or stale
@@ -219,7 +235,7 @@ For 500 charts, prove corpus scale:
 - source locks and dependency locks
 - HelmPlan pain reports
 - control-point classifications
-- recipe-candidate viability
+- recipe viability
 - rendered variant revisions where viable
 - bulk scan/gate results
 - aggregate failure catalog
@@ -241,7 +257,7 @@ Each run should produce:
 
 ```text
 HelmPlan result
-RecipeCandidate result
+Recipe result
 VariantRevision result
 HelmEquivalenceReport
 RenderReceipt
