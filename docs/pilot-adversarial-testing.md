@@ -22,6 +22,83 @@ observed safely, with failures recorded as explicit chart or environment
 requirements rather than hidden Helm pain.
 ```
 
+## Local Pilot
+
+Use the ConfigHub Pilot checkout on this laptop:
+
+```text
+/Users/alexis/code/confighub-ai-demo
+```
+
+The repo-local front door is:
+
+```sh
+/Users/alexis/code/confighub-ai-demo/scripts/pilot
+```
+
+Start with the automated read-only package gate over all 20 current installer
+packages:
+
+```sh
+npm run pilot:adversarial
+```
+
+To also run the full helm-expt verifier first:
+
+```sh
+npm run pilot:adversarial:with-verify
+```
+
+The runner writes receipts under:
+
+```text
+runs/pilot/<run-id>/
+```
+
+Expected first result:
+
+```text
+20/20 installer render previews ready
+20/20 installer e2e gates in WATCH, waiting for live target-access,
+ConfigHub upload/proof, OCI/GitOps, GUI, and Kubernetes runtime receipts
+```
+
+`WATCH` is not failure at this stage. It means Pilot has accepted the local
+package shape and is correctly refusing to claim live success until the live
+proof receipts exist.
+
+This is **not** a live e2e test. It is the offline Pilot gate before live e2e:
+
+```text
+current step: package inspection + render preview + e2e proof gate
+not yet: ConfigHub upload, OCI/GitOps handoff, Kubernetes apply, runtime observation
+```
+
+Call a run "live e2e" only after it includes target-access proof, a disposable
+cluster, ConfigHub proof, OCI/GitOps/controller proof where relevant, exact
+Kubernetes runtime observation, and cleanup/closeout receipts.
+
+Useful single-chart probes:
+
+```sh
+cd /Users/alexis/code/confighub-ai-demo
+./scripts/pilot start \
+  --repo /Users/alexis/code/helm-expt \
+  --task-brief-file /Users/alexis/code/helm-expt/docs/pilot-adversarial-testing.md \
+  --out-dir /tmp/helm-expt-pilot-start \
+  --json
+
+./scripts/pilot installer-render-preview \
+  --source /Users/alexis/code/helm-expt/packages/bitnami/redis/25.5.3 \
+  --out-dir /tmp/helm-expt-pilot-redis-preview \
+  --json
+
+./scripts/pilot installer-e2e-gate \
+  --source /Users/alexis/code/helm-expt/packages/bitnami/redis/25.5.3 \
+  --out-dir /tmp/helm-expt-pilot-redis-gate \
+  --json
+```
+
 ## Safety Rules
 
 Pilot must use only disposable clusters, namespaces, and credentials.
@@ -134,6 +211,7 @@ Start with the whole repo:
 
 ```sh
 npm run verify
+npm run pilot:adversarial
 ```
 
 Then run chart-local checks when narrowing a failure:

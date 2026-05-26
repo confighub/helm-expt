@@ -1,6 +1,7 @@
 import { execFileSync, spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { basename, dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -101,13 +102,24 @@ print(json.dumps(docs[0] if len(docs) == 1 else docs, sort_keys=True))
 }
 
 export function py(script, input) {
-  const result = spawnSync("python3", ["-c", script], {
-    input,
-    encoding: "utf8",
-    maxBuffer: 1024 * 1024 * 200,
-  });
-  if (result.status !== 0) throw new Error(result.stderr || result.stdout);
-  return JSON.parse(result.stdout);
+  const tempRoot = mkdtempSync(join(tmpdir(), "helm-expt-python-"));
+  const inputPath = join(tempRoot, "stdin.txt");
+  try {
+    writeFileSync(inputPath, input ?? "", "utf8");
+    const wrappedScript = [
+      "import sys",
+      `sys.stdin = open(${JSON.stringify(inputPath)}, "r", encoding="utf-8")`,
+      script,
+    ].join("\n");
+    const result = spawnSync("python3", ["-c", wrappedScript], {
+      encoding: "utf8",
+      maxBuffer: 1024 * 1024 * 200,
+    });
+    if (result.status !== 0) throw new Error(result.stderr || result.stdout);
+    return JSON.parse(result.stdout);
+  } finally {
+    rmSync(tempRoot, { recursive: true, force: true });
+  }
 }
 
 export function canonicalObjectMaps(helmYaml, cubYaml) {
