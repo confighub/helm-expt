@@ -1,0 +1,16 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "secrets-store-csi-driver-1.6.0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "secrets-store-csi-driver"
+  repositoryURL: "https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts"
+  chart: "secrets-store-csi-driver"
+  version: "1.6.0"
+  appVersion: "1.6.0"
+  deprecated: false
+  packageSHA256: "63a35e803d78a07df990411fc2df66d1f9426ed4508cc5794b5b4f125bb50744"
+  packageBytes: 10156
+  evidence:
+    sourceCommand: "helm pull secrets-store-csi-driver/secrets-store-csi-driver --version 1.6.0"

@@ -1,0 +1,16 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "secrets-store-csi-driver"
+  version: "1.6.0"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "secrets-store-csi-driver default Linux driver variant rendered from secrets-store-csi-driver/secrets-store-csi-driver@1.6.0"
+    -
+      name: "sync-secret-rotation"
+      path: "bases/sync-secret-rotation"
+      description: "secrets-store-csi-driver sync Secret and rotation variant rendered from secrets-store-csi-driver/secrets-store-csi-driver@1.6.0"

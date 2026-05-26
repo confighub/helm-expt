@@ -7,7 +7,7 @@ the current default `npm run verify` also checks the Redis
 recipe/variant/revision proof, the durable Redis installer package proof, the
 promoted metrics-server, ingress-nginx, cert-manager, external-secrets, Argo CD,
 PostgreSQL, RabbitMQ, kube-prometheus-stack, Loki, Longhorn, MySQL, Grafana,
-and Vault proofs, and the first
+Vault, and Secrets Store CSI Driver proofs, and the first
 adversarial public-chart harness.
 
 ## Scope
@@ -169,6 +169,21 @@ posture, injector admission webhook, StatefulSet storage, init/unseal
 operating policy, HA Raft and UI service exposure, rendered object
 inventories, render receipts, Helm equivalence receipts, scan receipts,
 install gates, and deterministic `cub install` package/setup behavior.
+
+The Secrets Store CSI Driver proof verifier checks:
+
+```text
+recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/
+packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/
+```
+
+That proof is the fourteenth full public-chart proof row. It checks two
+variants, `default` and `sync-secret-rotation`, including source/dependency
+locks, SecretProviderClass CRDs, CSIDriver kubelet integration, Linux DaemonSet
+workload policy, cluster RBAC, synced Secret ownership, rotation/provider
+health settings, rendered object inventories, render receipts, Helm
+equivalence receipts, scan receipts, install gates, and deterministic
+`cub install` package/setup behavior.
 
 The Argo CD proof verifier checks:
 
@@ -525,6 +540,25 @@ For the promoted Vault proof:
    exposure, Vault StatefulSet storage/init/unseal operations, and Secret/env
    extension slots.
 
+For the promoted Secrets Store CSI Driver proof:
+
+1. Both promoted variants render deterministically with Helm under the pinned
+   inputs.
+2. `default` renders exactly 10 Helm objects, including two CRDs, one
+   DaemonSet, one CSIDriver object, cluster RBAC, and zero Secrets.
+3. `sync-secret-rotation` renders exactly 12 Helm objects by adding synced
+   Secret RBAC and driver args for rotation and provider health checks.
+4. Source lock records `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0`,
+   app `1.6.0`, package SHA, and non-deprecated upstream status.
+5. The chart has no subchart dependencies and records an empty dependency
+   closure.
+6. `cub install package` produces byte-identical bundles across two local runs.
+7. `cub install setup` matches Helm semantically, plus only
+   `v1|Namespace||kube-system`, while preserving separated Secret behavior.
+8. Scan/gate receipts flag CRD lifecycle, CSIDriver lifecycle, privileged-node
+   DaemonSet behavior, RBAC, synced Secret ownership, rotation, provider health
+   checks, and provider identity inputs.
+
 ## Negative Golden Check
 
 The verifier must include self-tests that corrupt known-good fixtures and prove
@@ -552,6 +586,8 @@ Current self-tests include:
 - corrupt the MySQL rendered object set and require rejection;
 - corrupt the Grafana rendered object set and require rejection;
 - corrupt the Vault rendered object set and require rejection;
+- corrupt the Secrets Store CSI Driver rendered object set and require
+  rejection;
 - corrupt an adversarial harness rendered manifest and require a rendered
   manifest SHA mismatch.
 

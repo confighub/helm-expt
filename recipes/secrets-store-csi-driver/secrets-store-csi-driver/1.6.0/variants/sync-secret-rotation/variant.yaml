@@ -1,0 +1,14 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "sync-secret-rotation"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "kube-system"
+  releaseName: "secrets-store-csi-driver"
+  valuesProfile: "../../effective-values-sync-secret-rotation.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"

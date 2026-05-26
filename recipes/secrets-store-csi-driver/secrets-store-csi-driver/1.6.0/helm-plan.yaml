@@ -1,0 +1,32 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "secrets-store-csi-driver-1.6.0"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "secrets-store-csi-driver/secrets-store-csi-driver"
+    version: "1.6.0"
+    variants:
+      - "default"
+      - "sync-secret-rotation"
+    helmObjectsByVariant:
+      default: 10
+      sync-secret-rotation: 12
+    cubInstallObjectsByVariant:
+      default: 11
+      sync-secret-rotation: 13
+    helmMatchByVariant:
+      default: "10/10"
+      sync-secret-rotation: "12/12"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish only after CRD lifecycle, CSI DaemonSet, provider identity, synced Secret ownership, rotation, RBAC, and kubelet integration policies are satisfied"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "revisions/sync-secret-rotation/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/sync-secret-rotation/r001/receipts/render-receipt.yaml"
+    - "revisions/sync-secret-rotation/r001/receipts/scan-receipt.yaml"
+    - "revisions/sync-secret-rotation/r001/receipts/install-gate.yaml"

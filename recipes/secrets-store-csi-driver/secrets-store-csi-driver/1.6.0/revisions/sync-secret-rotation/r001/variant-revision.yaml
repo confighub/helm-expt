@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "sync-secret-rotation-r001"
+spec:
+  variant: "../../../variants/sync-secret-rotation/variant.yaml"
+  revision: "r001"
+  digest: "d31b6c656165766ab0f538f2589836a8fe2c7d1c4b4b85f808bd4fa36e22bcf1"
+  digestInputs:
+    recipeSHA256: "64bf1326c5a5e97616677728045236f4612183395c12dd622fbc5bf03f37bf73"
+    variantSHA256: "2ff1d9720e513b6811ebda27413ef8c17290624503ccc1135ee2185b28fe9829"
+    effectiveValuesSHA256: "de7fcb1c9b72e3217035a1d2c84ad6d08fe1d97a14573ae33120bf556bb1e93b"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "3667c16d411f773ef20e51c9980d484eb770c1173092878f1b018f5b4377a182"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 12

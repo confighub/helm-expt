@@ -91,6 +91,8 @@ recipes/grafana/grafana/10.5.15/
 packages/grafana/grafana/10.5.15/
 recipes/hashicorp/vault/0.32.0/
 packages/hashicorp/vault/0.32.0/
+recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/
+packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/
 ```
 
 The next step is to turn more chart rows from the top-20 target and generated
@@ -358,6 +360,18 @@ and `ha-raft-ui` variants, TLS posture review, injector admission webhook
 review, StatefulSet storage and HA Raft policy, init/unseal operate-policy
 gates, service exposure review, cluster RBAC review, Secret/env extension
 gates, and deterministic `cub install` package/setup proof.
+
+The fourteenth full proof row is:
+
+```text
+secrets-store-csi-driver/secrets-store-csi-driver@1.6.0
+```
+
+It proves the node-level CSI driver chart shape: `default` and
+`sync-secret-rotation` variants, SecretProviderClass CRD lifecycle, CSIDriver
+kubelet integration, Linux DaemonSet and hostPath policy, cluster RBAC review,
+synced Secret ownership, rotation/provider-health policy, provider identity
+integration gates, and deterministic `cub install` package/setup proof.
 
 The Redis proof now contains the first courtroom-grade slice. Remaining Redis
 day-2 extensions still include:

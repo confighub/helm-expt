@@ -196,6 +196,8 @@ recipes/grafana/grafana/10.5.15/
 packages/grafana/grafana/10.5.15/
 recipes/hashicorp/vault/0.32.0/
 packages/hashicorp/vault/0.32.0/
+recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/
+packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/
 ```
 
 `data/adversarial10/` is a readiness and blocker harness, not final
@@ -294,6 +296,15 @@ operate-policy gates, service exposure review, RBAC review, Secret/env
 extension-slot gates, scan/gate, and `cub install` package evidence are
 convincing enough to serve as the repeatable pattern for security-sensitive
 stateful control-plane charts.
+
+`secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` is the fourteenth
+full public-chart proof row. Review whether its `default` and
+`sync-secret-rotation` variants, SecretProviderClass CRD lifecycle, CSIDriver
+kubelet integration, Linux DaemonSet and hostPath policy, cluster RBAC review,
+synced Secret ownership, rotation/provider-health policy, provider identity
+integration gates, scan/gate, and `cub install` package evidence are
+convincing enough to serve as the repeatable pattern for node-level CSI driver
+charts.
 
 Every happy-path demo must also pass the simple UX test:
 

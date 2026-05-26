@@ -1,0 +1,22 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "secrets-store-csi-driver-1.6.0"
+spec:
+  chart: "secrets-store-csi-driver/secrets-store-csi-driver"
+  version: "1.6.0"
+  maintainedNotes:
+    - "The chart renders deterministically under pinned Helm, chart version, kube version, and values."
+    - "The default variant installs the Linux CSI DaemonSet, CSIDriver, SecretProviderClass CRDs, and cluster RBAC."
+    - "The sync-secret-rotation variant adds synced Secret RBAC and driver args for rotation and provider health checks."
+    - "The chart does not install a cloud or vault provider; SecretProviderClass provider identity and token requests are integration controls after render."
+    - "CRD lifecycle, CSI driver lifecycle, privileged-node DaemonSet behavior, cluster RBAC, synced Secret ownership, and rotation are scan/gate review points."
+    - "Windows DaemonSet support and provider-specific identity inputs are future variants, not hidden defaults."
+  knownControlPoints:
+    - "crd-lifecycle"
+    - "csi-driver"
+    - "daemonset-workload"
+    - "sync-secret-rotation"
+    - "provider-integration"
+    - "rbac-review"
+    - "extension-slots"

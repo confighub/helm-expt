@@ -1,0 +1,20 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "secrets-store-csi-driver-sync-secret-rotation-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "3667c16d411f773ef20e51c9980d484eb770c1173092878f1b018f5b4377a182"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for sync-secret-rotation"
+    - "CRD lifecycle and upgrade policy must be explicit before production"
+    - "CSI DaemonSet privileged-node, hostPath, rollout, and rollback policy need production review"
+    - "SecretProviderClass provider identity and token-request policy must be explicit before production"
+    - "Synced Secret ownership and rotation behavior need production review"
+    - "Cluster RBAC and CSIDriver kubelet integration need production review"
+    - "adds sync Secret RBAC and driver flags for rotation and provider health checks as variant-controlled outputs"

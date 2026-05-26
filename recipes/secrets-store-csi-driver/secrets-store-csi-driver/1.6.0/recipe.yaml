@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "secrets-store-csi-driver"
+  version: "1.6.0"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "../../../../packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0"
+    setupCommand:
+      - "cub"
+      - "install"
+      - "setup"
+      - "--pull"
+      - "../../../../packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0"
+      - "--non-interactive"
+      - "--namespace"
+      - "kube-system"
+  variants:
+    - "variants/default/variant.yaml"
+    - "variants/sync-secret-rotation/variant.yaml"

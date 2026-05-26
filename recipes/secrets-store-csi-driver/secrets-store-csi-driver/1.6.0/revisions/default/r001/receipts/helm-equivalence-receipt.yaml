@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "secrets-store-csi-driver-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "2490f14dd08f7e309f8f78cd1c2f1b05eb5b8995343b33ad6b3b243401a39ead"
+    objectCount: 10
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 11
+    uploadedManifestFiles: 11
+    separatedSecretFiles: 0
+    semanticObjectMatches: "10/10"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||kube-system"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run secrets-store-csi-driver:compare"
