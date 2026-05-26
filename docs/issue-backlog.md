@@ -66,6 +66,7 @@ Rows promoted from readiness evidence into full proof slices:
 | `bitnami/redis@25.5.3` | `recipes/bitnami/redis/25.5.3/`, `packages/bitnami/redis/25.5.3/` | First complete proof slice with ConfigHub upload/OCI evidence. |
 | `metrics-server/metrics-server@3.13.0` | `recipes/metrics-server/metrics-server/3.13.0/`, `packages/metrics-server/metrics-server/3.13.0/` | First promoted adversarial row: default and `external-tls-ca` variants, target Secret fact, APIService/RBAC gates, deterministic `cub install` package/setup proof. |
 | `ingress-nginx/ingress-nginx@4.15.1` | `recipes/ingress-nginx/ingress-nginx/4.15.1/`, `packages/ingress-nginx/ingress-nginx/4.15.1/` | Second promoted adversarial row: default and `admission-disabled` variants, admission webhook/hook lifecycle/RBAC gates, deterministic `cub install` package/setup proof. |
+| `jetstack/cert-manager@v1.20.2` | `recipes/jetstack/cert-manager/v1.20.2/`, `packages/jetstack/cert-manager/v1.20.2/` | Third promoted adversarial row: default and `crds-enabled` variants, CRD lifecycle/webhook/hook/RBAC gates, deterministic `cub install` package/setup proof. |
 
 ## Execution Order
 

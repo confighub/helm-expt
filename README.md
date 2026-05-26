@@ -205,6 +205,8 @@ recipes/metrics-server/metrics-server/3.13.0/
 packages/metrics-server/metrics-server/3.13.0/
 recipes/ingress-nginx/ingress-nginx/4.15.1/
 packages/ingress-nginx/ingress-nginx/4.15.1/
+recipes/jetstack/cert-manager/v1.20.2/
+packages/jetstack/cert-manager/v1.20.2/
 data/adversarial10/
 data/top500/
 schemas/
@@ -228,13 +230,14 @@ npm run redis:compare
 npm run redis:verify-package
 npm run metrics-server:compare
 npm run ingress-nginx:compare
+npm run cert-manager:compare
 ```
 
 It checks the archived reference receipts against their referenced files, then
 checks the current Redis proof artifacts, Helm-equivalence evidence, scan/gate
-receipts, variant diff evidence, promoted metrics-server and ingress-nginx
-proof/package artifacts, deterministic `cub install` packaging, and negative
-golden self-tests.
+receipts, variant diff evidence, promoted metrics-server, ingress-nginx, and
+cert-manager proof/package artifacts, deterministic `cub install` packaging,
+and negative golden self-tests.
 
 The old hash-only archive check is still available for comparison:
 
@@ -397,6 +400,38 @@ npm run ingress-nginx:generate-package
 npm run ingress-nginx:verify-proof
 npm run ingress-nginx:verify-package
 npm run ingress-nginx:compare
+```
+
+## Cert Manager Proof
+
+The third chart promoted from the adversarial harness is:
+
+```text
+recipes/jetstack/cert-manager/v1.20.2/
+packages/jetstack/cert-manager/v1.20.2/
+```
+
+It has two install variants:
+
+```text
+default
+crds-enabled
+```
+
+The proof shows that regular Helm output is preserved by real
+`cub install setup`, plus the explained Namespace support object. It also makes
+the chart's awkward parts visible: optional CRD rendering, CRD lifecycle and
+upgrade policy, admission webhooks, the Helm startup API check hook,
+`tpl` extension slots, and cluster RBAC.
+
+Useful commands:
+
+```sh
+npm run cert-manager:generate-proof
+npm run cert-manager:generate-package
+npm run cert-manager:verify-proof
+npm run cert-manager:verify-package
+npm run cert-manager:compare
 ```
 
 ## Adversarial 10 Harness

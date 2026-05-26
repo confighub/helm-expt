@@ -179,6 +179,7 @@ Five-minute UX proof: present under docs/demo/redis/.
 Adversarial 10 foundation: present under data/adversarial10/.
 First promoted adversarial row: metrics-server/metrics-server@3.13.0.
 Second promoted adversarial row: ingress-nginx/ingress-nginx@4.15.1.
+Third promoted adversarial row: jetstack/cert-manager@v1.20.2.
 ```
 
 The adversarial 10 foundation does not close the scale proof. It gives us the
@@ -197,6 +198,12 @@ an admission-webhook chart: source/dependency locks, `default` and
 `admission-disabled` variants, admission webhook and Helm hook lifecycle gates,
 cluster RBAC gates, Helm equivalence receipts, and deterministic
 `cub install` package/setup proof.
+
+The third such promotion is cert-manager. It adds the repeatable pattern for a
+CRD-heavy control-plane chart: source/dependency locks, `default` and
+`crds-enabled` variants, CRD lifecycle and upgrade gates, admission webhook
+observation gates, Helm startup hook lifecycle gates, cluster RBAC gates, Helm
+equivalence receipts, and deterministic `cub install` package/setup proof.
 
 ## Installer Boundary
 

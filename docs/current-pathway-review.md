@@ -69,6 +69,8 @@ recipes/metrics-server/metrics-server/3.13.0/
 packages/metrics-server/metrics-server/3.13.0/
 recipes/ingress-nginx/ingress-nginx/4.15.1/
 packages/ingress-nginx/ingress-nginx/4.15.1/
+recipes/jetstack/cert-manager/v1.20.2/
+packages/jetstack/cert-manager/v1.20.2/
 ```
 
 The next step is to turn more chart rows from `data/adversarial10/` into full
@@ -115,9 +117,10 @@ scripts/generate-adversarial10-harness.mjs --verify
 
 `npm run verify` now validates Redis proof artifacts, Redis package
 determinism, metrics-server proof/package artifacts, ingress-nginx
-proof/package artifacts, the archived reference corpus, and the first
-adversarial harness. It still needs formal schemas and broader publication
-traceability before 20/100/500 claims are credible.
+proof/package artifacts, cert-manager proof/package artifacts, the archived
+reference corpus, and the first adversarial harness. It still needs formal
+schemas and broader publication traceability before 20/100/500 claims are
+credible.
 
 The Redis proof artifacts now exist:
 
@@ -191,6 +194,17 @@ Service and ValidatingWebhookConfiguration, an `admission-disabled` variant
 that deliberately removes those objects, admission webhook and Helm hook
 lifecycle gates, cluster RBAC gates, and deterministic `cub install`
 package/setup proof.
+
+The third promoted row is:
+
+```text
+jetstack/cert-manager@v1.20.2
+```
+
+It proves the CRD-heavy control-plane chart shape: a default variant with zero
+CRDs, a `crds-enabled` variant with the six cert-manager CRDs, CRD lifecycle and
+upgrade gates, admission webhook observation gates, Helm startup hook lifecycle
+gates, cluster RBAC gates, and deterministic `cub install` package/setup proof.
 
 The Redis proof now contains the first courtroom-grade slice. Remaining Redis
 day-2 extensions still include:

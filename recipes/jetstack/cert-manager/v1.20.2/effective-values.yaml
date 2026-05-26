@@ -1,0 +1,10 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "jetstack-cert-manager-v1.20.2-default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "22a4d677cfe7d8a8dddc7309615ef8fe595dbb664250969ace1baad7568a24c0"
+  mergedValuesCaptured: false
+  values:
+    {}

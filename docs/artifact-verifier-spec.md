@@ -84,6 +84,19 @@ locks, control points, effective values, rendered object inventories, render
 receipts, Helm equivalence receipts, scan receipts, install gates, and
 deterministic `cub install` package/setup behavior.
 
+The cert-manager proof verifier checks:
+
+```text
+recipes/jetstack/cert-manager/v1.20.2/
+packages/jetstack/cert-manager/v1.20.2/
+```
+
+That proof is the third promoted row from the adversarial harness. It checks two
+variants, `default` and `crds-enabled`, including source/dependency locks,
+control points, effective values, rendered object inventories, render receipts,
+Helm equivalence receipts, scan receipts, install gates, and deterministic
+`cub install` package/setup behavior.
+
 ## Required Invariants
 
 For every archived chart directory:
@@ -160,6 +173,22 @@ For the promoted ingress-nginx proof:
 7. Scan/gate receipts flag admission webhook observation, Helm hook lifecycle
    policy, and cluster RBAC where applicable.
 
+For the promoted cert-manager proof:
+
+1. Both variants render deterministically with Helm under the pinned capability
+   profile.
+2. `default` renders exactly 42 Helm objects and zero CRDs.
+3. `crds-enabled` renders exactly 48 Helm objects, including the six
+   cert-manager CRDs.
+4. Both variants render the controller, cainjector, webhook Deployment, webhook
+   Service, MutatingWebhookConfiguration, and ValidatingWebhookConfiguration.
+5. `cub install package` produces byte-identical bundles across two local runs.
+6. `cub install setup --base default` and
+   `cub install setup --base crds-enabled` match Helm semantically, plus only
+   `v1|Namespace||cert-manager`.
+7. Scan/gate receipts flag CRD lifecycle, admission webhook observation, Helm
+   startup hook lifecycle policy, and cluster RBAC.
+
 ## Negative Golden Check
 
 The verifier must include self-tests that corrupt known-good fixtures and prove
@@ -176,6 +205,7 @@ Current self-tests include:
 - lie about the variant diff and require rejection;
 - corrupt the metrics-server rendered object set and require rejection;
 - corrupt the ingress-nginx rendered object set and require rejection;
+- corrupt the cert-manager rendered object set and require rejection;
 - corrupt an adversarial harness rendered manifest and require a rendered
   manifest SHA mismatch.
 

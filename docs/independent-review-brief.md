@@ -168,6 +168,8 @@ recipes/metrics-server/metrics-server/3.13.0/
 packages/metrics-server/metrics-server/3.13.0/
 recipes/ingress-nginx/ingress-nginx/4.15.1/
 packages/ingress-nginx/ingress-nginx/4.15.1/
+recipes/jetstack/cert-manager/v1.20.2/
+packages/jetstack/cert-manager/v1.20.2/
 ```
 
 `data/adversarial10/` is a readiness and blocker harness, not final
@@ -185,6 +187,12 @@ harness. Review whether its `default` and `admission-disabled` variants,
 admission webhook, Helm hook lifecycle, RBAC, scan/gate, and `cub install`
 package evidence are convincing enough to serve as the repeatable pattern for
 admission-webhook charts.
+
+`jetstack/cert-manager@v1.20.2` is the third row promoted from that harness.
+Review whether its `default` and `crds-enabled` variants, CRD lifecycle,
+admission webhook, Helm startup hook lifecycle, RBAC, scan/gate, and
+`cub install` package evidence are convincing enough to serve as the repeatable
+pattern for CRD-heavy control-plane charts.
 
 Every happy-path demo must also pass the simple UX test:
 

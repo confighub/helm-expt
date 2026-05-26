@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "cert-manager-crds-enabled-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "e288b2413bd1919173bee6afcd823be61399f101cfe2cf61f8e0df56740fefe0"
+    objectCount: 48
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 49
+    uploadedManifestFiles: 49
+    separatedSecretFiles: 0
+    semanticObjectMatches: "48/48"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||cert-manager"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run cert-manager:compare"
