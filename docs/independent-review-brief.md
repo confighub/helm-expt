@@ -204,6 +204,8 @@ recipes/bitnami/mongodb/19.0.7/
 packages/bitnami/mongodb/19.0.7/
 recipes/bitnami/nginx/24.0.2/
 packages/bitnami/nginx/24.0.2/
+recipes/grafana/tempo/1.24.4/
+packages/grafana/tempo/1.24.4/
 ```
 
 `data/adversarial10/` is a readiness and blocker harness, not final
@@ -334,6 +336,14 @@ mitigation, declared TLS target Secrets, ingress exposure, NetworkPolicy, PDB,
 service exposure, static-site supply-chain slots, metrics add-ons, raw/template
 extension slots, scan/gate, and `cub install` package evidence are convincing
 enough to serve as the repeatable pattern for simple web-service charts.
+
+`grafana/tempo@1.24.4` is the eighteenth full public-chart proof row. Review
+whether its deprecated-chart marker, `local-persistent` and
+`s3-query-observability` variants, local/S3 storage backend policy, target S3
+credential Secret, query ingress, ServiceMonitor capability, NetworkPolicy,
+StatefulSet/headless-Service runtime risk, raw/template extension slots,
+scan/gate, and `cub install` package evidence are convincing enough to serve
+as the repeatable pattern for observability storage charts.
 
 Every happy-path demo must also pass the simple UX test:
 

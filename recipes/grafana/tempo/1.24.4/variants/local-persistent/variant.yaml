@@ -1,0 +1,14 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "local-persistent"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "tempo"
+  releaseName: "tempo"
+  valuesProfile: "../../effective-values.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      - "networking.k8s.io/v1"
+  hookPolicy: "no-hooks"

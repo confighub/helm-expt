@@ -1,0 +1,16 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "grafana-tempo"
+  version: "1.24.4"
+spec:
+  bases:
+    -
+      name: "local-persistent"
+      path: "bases/local-persistent"
+      default: true
+      description: "tempo local persistent single-binary variant rendered from grafana/tempo@1.24.4"
+    -
+      name: "s3-query-observability"
+      path: "bases/s3-query-observability"
+      description: "tempo S3 query and observability variant rendered from grafana/tempo@1.24.4"

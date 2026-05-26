@@ -1,0 +1,49 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "grafana-tempo-1.24.4"
+spec:
+  checkedValues:
+    -
+      path: "persistence.enabled / persistence.storageClassName / persistence.size"
+      variant: "local-persistent"
+      disposition: "storage-profile-bound"
+      reason: "local single-binary storage is captured explicitly as a deterministic install variant"
+    -
+      path: "tempo.storage.trace.backend / tempo.storage.trace.local / tempo.storage.trace.wal"
+      variant: "local-persistent"
+      disposition: "storage-backend-bound"
+      reason: "the local backend and WAL/traces paths are pinned before render"
+    -
+      path: "tempo.storage.trace.s3 / tempo.extraEnv"
+      variant: "s3-query-observability"
+      disposition: "target-fact-bound"
+      reason: "S3 credentials are referenced from a declared target Secret instead of embedded in rendered ConfigMaps"
+    -
+      path: "tempo.storage.trace.local"
+      variant: "s3-query-observability"
+      disposition: "merge-cleanup-bound"
+      reason: "set to null so Helm's values merge does not accidentally keep local storage alongside S3"
+    -
+      path: "tempoQuery.enabled / tempoQuery.ingress.*"
+      variant: "s3-query-observability"
+      disposition: "query-exposure-bound"
+      reason: "query UI exposure is only added by an explicit variant with host and ingress class captured"
+    -
+      path: "serviceMonitor.enabled"
+      variant: "s3-query-observability"
+      disposition: "target-capability-bound"
+      reason: "ServiceMonitor rendering is tied to an explicit Prometheus Operator API version requirement"
+    -
+      path: "config / structuredConfig / extraVolumes / extraVolumeMounts"
+      variant: "all"
+      disposition: "extension-slot"
+      reason: "Tempo exposes powerful config and mount extension slots; promoted variants keep them controlled"
+    -
+      path: "reportingEnabled"
+      variant: "all"
+      disposition: "telemetry-disabled"
+      reason: "promoted variants disable Tempo usage reporting explicitly"
+  unknownValues: "not-checked"
+  deadValues: "not-checked"
+  ignoredValues: "not-checked"

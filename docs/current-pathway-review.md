@@ -99,6 +99,8 @@ recipes/bitnami/mongodb/19.0.7/
 packages/bitnami/mongodb/19.0.7/
 recipes/bitnami/nginx/24.0.2/
 packages/bitnami/nginx/24.0.2/
+recipes/grafana/tempo/1.24.4/
+packages/grafana/tempo/1.24.4/
 ```
 
 The next step is to turn more chart rows from the top-20 target and generated
@@ -416,6 +418,20 @@ chart can hide Helm pain: default self-signed TLS generation is controlled,
 records ingress exposure, NetworkPolicy, PDB, service exposure, static-site
 supply-chain slots, metrics add-ons, raw/template extension slots, and
 deterministic `cub install` package/setup proof.
+
+The eighteenth full proof row is:
+
+```text
+grafana/tempo@1.24.4
+```
+
+It proves the observability storage chart shape: the literal chart deprecation
+is recorded, `local-persistent` captures local WAL/traces PVC settings,
+`s3-query-observability` moves S3 credentials to a target Secret and adds query
+ingress, NetworkPolicy, and ServiceMonitor, and the proof records the required
+Prometheus Operator API capability, StatefulSet/headless-Service runtime risk,
+raw/template extension slots, and deterministic `cub install` package/setup
+proof.
 
 The Redis proof now contains the first courtroom-grade slice. Remaining Redis
 day-2 extensions still include:

@@ -1,0 +1,73 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "tempo-s3-query-observability-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "6fb9e1726fb68d7e7e251420e9c5761e078cd38f508fa87af7759e0b302017a4"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.1.0"
+  policyBundleDigest: "2b91d2d514d317e84f0583f7b03ad786554573038b06c51539895083652b132b"
+  findingCounts:
+    critical: 0
+    high: 0
+    medium: 9
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "chart-deprecation:grafana-tempo"
+      rule: "dependency-lock-review"
+      severity: "medium"
+      object: "source|grafana/tempo"
+      message: "The literal grafana/tempo chart is deprecated; successor chart review is required before production catalog publication"
+    -
+      id: "edge-ingress-policy:networking.k8s.io/v1|Ingress|tempo|tempo"
+      rule: "extension-slot-review"
+      severity: "medium"
+      object: "networking.k8s.io/v1|Ingress|tempo|tempo"
+      message: "Tempo query ingress requires host, class, and edge policy review"
+    -
+      id: "extension-slot-review:tempo"
+      rule: "extension-slot-review"
+      severity: "medium"
+      object: "values|config|structuredConfig|extraVolumes|extraVolumeMounts|tpl-strings"
+      message: "Tempo config, structuredConfig, volume/mount, and templated-string extension slots must be scanned when populated"
+    -
+      id: "network-policy-review:networking.k8s.io/v1|NetworkPolicy|tempo|tempo"
+      rule: "extension-slot-review"
+      severity: "medium"
+      object: "networking.k8s.io/v1|NetworkPolicy|tempo|tempo"
+      message: "NetworkPolicy intent must be reviewed against the target namespace and ingress controller topology"
+    -
+      id: "servicemonitor-capability:monitoring.coreos.com/v1|ServiceMonitor|tempo|tempo"
+      rule: "extension-slot-review"
+      severity: "medium"
+      object: "monitoring.coreos.com/v1|ServiceMonitor|tempo|tempo"
+      message: "ServiceMonitor requires the Prometheus Operator CRD to exist in the target cluster"
+    -
+      id: "stateful-workload-review:apps/v1|StatefulSet|tempo|tempo"
+      rule: "deployment-workload-review"
+      severity: "medium"
+      object: "apps/v1|StatefulSet|tempo|tempo"
+      message: "Tempo StatefulSet storage, rollout, and retention policy require production review"
+    -
+      id: "statefulset-service-risk:apps/v1|StatefulSet|tempo|tempo"
+      rule: "service-selector-has-workload-match"
+      severity: "medium"
+      object: "apps/v1|StatefulSet|tempo|tempo"
+      message: "StatefulSet references serviceName tempo-headless, but that Service is not rendered by the chart"
+    -
+      id: "target-secret-fact:apps/v1|StatefulSet|tempo|tempo:tempo:AWS_ACCESS_KEY_ID"
+      rule: "generated-secret-ownership"
+      severity: "medium"
+      object: "apps/v1|StatefulSet|tempo|tempo"
+      message: "container tempo references target Secret tempo-s3-credentials/access_key"
+    -
+      id: "target-secret-fact:apps/v1|StatefulSet|tempo|tempo:tempo:AWS_SECRET_ACCESS_KEY"
+      rule: "generated-secret-ownership"
+      severity: "medium"
+      object: "apps/v1|StatefulSet|tempo|tempo"
+      message: "container tempo references target Secret tempo-s3-credentials/secret_key"

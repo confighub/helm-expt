@@ -243,6 +243,8 @@ recipes/bitnami/mongodb/19.0.7/
 packages/bitnami/mongodb/19.0.7/
 recipes/bitnami/nginx/24.0.2/
 packages/bitnami/nginx/24.0.2/
+recipes/grafana/tempo/1.24.4/
+packages/grafana/tempo/1.24.4/
 data/adversarial10/
 data/top500/
 docs/top20-full-proof-target.md
@@ -298,6 +300,7 @@ npm run secrets-store-csi-driver:compare
 npm run prometheus:compare
 npm run mongodb:compare
 npm run nginx:compare
+npm run tempo:compare
 ```
 
 It checks the archived reference receipts against their referenced files, then
@@ -305,7 +308,7 @@ checks the current Redis proof artifacts, Helm-equivalence evidence, scan/gate
 receipts, variant diff evidence, promoted metrics-server, ingress-nginx,
 cert-manager, external-secrets, Argo CD, PostgreSQL, RabbitMQ,
 kube-prometheus-stack, Loki, Longhorn, MySQL, Grafana, Vault,
-Secrets Store CSI Driver, Prometheus, MongoDB, and Nginx proof/package
+Secrets Store CSI Driver, Prometheus, MongoDB, Nginx, and Tempo proof/package
 artifacts, deterministic `cub install` packaging, and negative golden
 self-tests.
 
@@ -961,6 +964,39 @@ npm run nginx:generate-package
 npm run nginx:verify-proof
 npm run nginx:verify-package
 npm run nginx:compare
+```
+
+## Tempo Proof
+
+The nineteenth chart promoted into a full proof is:
+
+```text
+recipes/grafana/tempo/1.24.4/
+packages/grafana/tempo/1.24.4/
+```
+
+It has two install variants:
+
+```text
+local-persistent
+s3-query-observability
+```
+
+The proof shows that regular Helm output is preserved by real
+`cub install setup`, plus the explained Namespace support object. It makes
+Tempo-specific Helm pain visible: deprecated chart status, local versus S3
+storage backend choice, S3 credentials as target facts, query ingress,
+NetworkPolicy, ServiceMonitor target capability, StatefulSet runtime risk, and
+raw/template extension slots.
+
+Useful commands:
+
+```sh
+npm run tempo:generate-proof
+npm run tempo:generate-package
+npm run tempo:verify-proof
+npm run tempo:verify-package
+npm run tempo:compare
 ```
 
 ## Adversarial 10 Harness

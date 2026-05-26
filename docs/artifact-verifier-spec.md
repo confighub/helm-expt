@@ -231,6 +231,22 @@ review, rendered object inventories, render receipts, Helm equivalence
 receipts, scan receipts, install gates, and deterministic `cub install`
 package/setup behavior.
 
+The Tempo proof verifier checks:
+
+```text
+recipes/grafana/tempo/1.24.4/
+packages/grafana/tempo/1.24.4/
+```
+
+That proof is the eighteenth full public-chart proof row. It checks two
+variants, `local-persistent` and `s3-query-observability`, including source and
+empty dependency locks, deprecated chart marker, local/S3 storage backend
+policy, target S3 credential Secret, query ingress, ServiceMonitor target
+capability, NetworkPolicy, StatefulSet/headless-Service runtime risk,
+raw/template extension-slot review, rendered object inventories, render
+receipts, Helm equivalence receipts, scan receipts, install gates, and
+deterministic `cub install` package/setup behavior.
+
 The Argo CD proof verifier checks:
 
 ```text
@@ -657,6 +673,25 @@ For the promoted Nginx proof:
    exposure, NetworkPolicy/PDB, service exposure, static-site supply-chain,
    metrics add-ons, and raw/template extension slots.
 
+For the promoted Tempo proof:
+
+1. Both promoted variants render deterministically with Helm under the pinned
+   inputs.
+2. `local-persistent` renders exactly 4 Helm objects: StatefulSet, ConfigMap,
+   ServiceAccount, and Service.
+3. `s3-query-observability` renders exactly 8 Helm objects, adding
+   NetworkPolicy, query ConfigMap, Ingress, and ServiceMonitor while rendering
+   no Secret because S3 credentials are a target fact.
+4. Source lock records `grafana/tempo@1.24.4`, app `2.9.0`, package SHA, and
+   deprecated upstream status.
+5. Dependency lock records an empty dependency closure.
+6. `cub install package` produces byte-identical bundles across two local runs.
+7. `cub install setup` matches Helm semantically, plus only
+   `v1|Namespace||tempo`.
+8. Scan/gate receipts flag chart deprecation, storage backend policy, target
+   S3 credentials, query ingress, ServiceMonitor capability, NetworkPolicy,
+   StatefulSet/headless-Service runtime risk, and raw/template extension slots.
+
 ## Negative Golden Check
 
 The verifier must include self-tests that corrupt known-good fixtures and prove
@@ -689,6 +724,7 @@ Current self-tests include:
 - corrupt the Prometheus rendered object set and require rejection;
 - corrupt the MongoDB rendered object set and require rejection;
 - corrupt the Nginx rendered object set and require rejection;
+- corrupt the Tempo rendered object set and require rejection;
 - corrupt an adversarial harness rendered manifest and require a rendered
   manifest SHA mismatch.
 

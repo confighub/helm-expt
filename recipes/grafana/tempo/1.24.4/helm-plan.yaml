@@ -1,0 +1,32 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "grafana-tempo-1.24.4"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "grafana/tempo"
+    version: "1.24.4"
+    variants:
+      - "local-persistent"
+      - "s3-query-observability"
+    helmObjectsByVariant:
+      local-persistent: 4
+      s3-query-observability: 8
+    cubInstallObjectsByVariant:
+      local-persistent: 5
+      s3-query-observability: 9
+    helmMatchByVariant:
+      local-persistent: "4/4"
+      s3-query-observability: "8/8"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish only after chart deprecation review, storage backend policy, S3 credential Secret ownership, query ingress, ServiceMonitor capability, StatefulSet/headless-Service runtime risk, and raw/template extension-slot review are satisfied"
+  receipts:
+    - "revisions/local-persistent/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/local-persistent/r001/receipts/render-receipt.yaml"
+    - "revisions/local-persistent/r001/receipts/scan-receipt.yaml"
+    - "revisions/local-persistent/r001/receipts/install-gate.yaml"
+    - "revisions/s3-query-observability/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/s3-query-observability/r001/receipts/render-receipt.yaml"
+    - "revisions/s3-query-observability/r001/receipts/scan-receipt.yaml"
+    - "revisions/s3-query-observability/r001/receipts/install-gate.yaml"

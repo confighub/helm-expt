@@ -1,0 +1,59 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "grafana-tempo-1.24.4-s3-query-observability"
+spec:
+  files:
+    -
+      path: "effective-values-s3-query-observability.yaml"
+      source: "inline-proof"
+      sha256: "9401362b717c30904b5bb9de7396951b98404968b8783a9f10adca98cd71b317"
+  mergedValuesCaptured: false
+  values:
+    networkPolicy:
+      enabled: true
+    persistence:
+      accessModes:
+        - "ReadWriteOnce"
+      annotations:
+        {}
+      enabled: true
+      size: "10Gi"
+      storageClassName: "local-path"
+    service:
+      targetPort: 3200
+    serviceMonitor:
+      enabled: true
+    tempo:
+      extraEnv:
+        -
+          name: "AWS_ACCESS_KEY_ID"
+          valueFrom:
+            secretKeyRef:
+              key: "access_key"
+              name: "tempo-s3-credentials"
+        -
+          name: "AWS_SECRET_ACCESS_KEY"
+          valueFrom:
+            secretKeyRef:
+              key: "secret_key"
+              name: "tempo-s3-credentials"
+      reportingEnabled: false
+      storage:
+        trace:
+          backend: "s3"
+          local: null
+          s3:
+            bucket: "tempo-traces"
+            endpoint: "s3.us-east-1.amazonaws.com"
+            insecure: false
+            region: "us-east-1"
+          wal:
+            path: "/var/tempo/wal"
+    tempoQuery:
+      enabled: true
+      ingress:
+        enabled: true
+        hosts:
+          - "query.tempo.example.com"
+        ingressClassName: "nginx"

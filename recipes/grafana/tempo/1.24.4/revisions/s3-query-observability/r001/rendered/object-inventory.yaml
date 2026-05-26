@@ -1,0 +1,57 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "grafana-tempo-1.24.4-s3-query-observability-r001"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "6fb9e1726fb68d7e7e251420e9c5761e078cd38f508fa87af7759e0b302017a4"
+  objectCount: 8
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|StatefulSet|tempo|tempo"
+      kind: "StatefulSet"
+      name: "tempo"
+      namespace: "tempo"
+    -
+      apiVersion: "monitoring.coreos.com/v1"
+      identity: "monitoring.coreos.com/v1|ServiceMonitor|tempo|tempo"
+      kind: "ServiceMonitor"
+      name: "tempo"
+      namespace: "tempo"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|Ingress|tempo|tempo"
+      kind: "Ingress"
+      name: "tempo"
+      namespace: "tempo"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|NetworkPolicy|tempo|tempo"
+      kind: "NetworkPolicy"
+      name: "tempo"
+      namespace: "tempo"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|tempo|tempo"
+      kind: "ConfigMap"
+      name: "tempo"
+      namespace: "tempo"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|tempo|tempo-query"
+      kind: "ConfigMap"
+      name: "tempo-query"
+      namespace: "tempo"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|tempo|tempo"
+      kind: "ServiceAccount"
+      name: "tempo"
+      namespace: "tempo"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|tempo|tempo"
+      kind: "Service"
+      name: "tempo"
+      namespace: "tempo"

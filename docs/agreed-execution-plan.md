@@ -197,6 +197,7 @@ Fourteenth full proof row: secrets-store-csi-driver/secrets-store-csi-driver@1.6
 Fifteenth full proof row: prometheus-community/prometheus@29.8.0.
 Sixteenth full proof row: bitnami/mongodb@19.0.7.
 Seventeenth full proof row: bitnami/nginx@24.0.2.
+Eighteenth full proof row: grafana/tempo@1.24.4.
 ```
 
 The adversarial 10 foundation does not close the scale proof. It gives us the
@@ -331,6 +332,15 @@ self-signed TLS generation made explicit, declared backend and ingress TLS
 target Secrets, ingress exposure, NetworkPolicy/PDB policy, static-site
 supply-chain slots, metrics add-ons, raw/template extension-slot review, Helm
 equivalence receipts, and deterministic `cub install` package/setup proof.
+
+The eighteenth such promotion is Tempo. It adds the repeatable pattern for a
+deprecated-but-still-public observability chart: source and empty dependency
+locks, `local-persistent` and `s3-query-observability` variants, local versus
+S3 storage backend policy, target Secret binding for S3 credentials, query
+ingress policy, ServiceMonitor target capability, NetworkPolicy review,
+StatefulSet/headless-Service runtime risk, chart deprecation review,
+raw/template extension-slot review, Helm equivalence receipts, and
+deterministic `cub install` package/setup proof.
 
 ## Installer Boundary
 

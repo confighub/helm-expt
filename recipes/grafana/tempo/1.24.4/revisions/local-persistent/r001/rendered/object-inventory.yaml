@@ -1,0 +1,33 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "grafana-tempo-1.24.4-local-persistent-r001"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "4a18b354ff67e98d84f6d89ce16b973396c9c30bf3c121f4ef146886151c44be"
+  objectCount: 4
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|StatefulSet|tempo|tempo"
+      kind: "StatefulSet"
+      name: "tempo"
+      namespace: "tempo"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|tempo|tempo"
+      kind: "ConfigMap"
+      name: "tempo"
+      namespace: "tempo"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|tempo|tempo"
+      kind: "ServiceAccount"
+      name: "tempo"
+      namespace: "tempo"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|tempo|tempo"
+      kind: "Service"
+      name: "tempo"
+      namespace: "tempo"

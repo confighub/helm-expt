@@ -1,0 +1,16 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "grafana-tempo-1.24.4"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "grafana"
+  repositoryURL: "https://grafana.github.io/helm-charts"
+  chart: "tempo"
+  version: "1.24.4"
+  appVersion: "2.9.0"
+  deprecated: true
+  packageSHA256: "f1f6e318d5bca3b5097cb676077796cdf8135beb2c1f71c4d14614ccf9b0081b"
+  packageBytes: 13508
+  evidence:
+    harnessReceipt: "../../../../data/adversarial10/charts/grafana-tempo-1.24.4/render-receipt.yaml"
