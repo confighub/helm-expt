@@ -97,6 +97,8 @@ recipes/prometheus-community/prometheus/29.8.0/
 packages/prometheus-community/prometheus/29.8.0/
 recipes/bitnami/mongodb/19.0.7/
 packages/bitnami/mongodb/19.0.7/
+recipes/bitnami/nginx/24.0.2/
+packages/bitnami/nginx/24.0.2/
 ```
 
 The next step is to turn more chart rows from the top-20 target and generated
@@ -399,6 +401,20 @@ It proves the stateful database topology chart shape: `generated-passwords` and
 `existing-secret-replicaset` variants, generated root password binding, target
 Secret binding, replica-set and arbiter StatefulSets, persistent storage,
 NetworkPolicy/PDB policy, hook lifecycle review, `tpl` configuration slots, and
+deterministic `cub install` package/setup proof.
+
+The seventeenth full proof row is:
+
+```text
+bitnami/nginx@24.0.2
+```
+
+It proves the simple web-service chart shape and shows that even a small public
+chart can hide Helm pain: default self-signed TLS generation is controlled,
+`http-clusterip` disables generated TLS for a deterministic internal service,
+`existing-tls-ingress` declares backend and ingress TLS Secrets, and the proof
+records ingress exposure, NetworkPolicy, PDB, service exposure, static-site
+supply-chain slots, metrics add-ons, raw/template extension slots, and
 deterministic `cub install` package/setup proof.
 
 The Redis proof now contains the first courtroom-grade slice. Remaining Redis

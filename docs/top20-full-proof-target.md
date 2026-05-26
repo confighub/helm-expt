@@ -24,8 +24,8 @@ proof.
 ## Current Status
 
 ```text
-Full proofs complete: 17 / 20
-Remaining full proofs: 3 / 20
+Full proofs complete: 18 / 20
+Remaining full proofs: 2 / 20
 ```
 
 | # | Chart | Status | Proof Focus |
@@ -47,7 +47,7 @@ Remaining full proofs: 3 / 20
 | 15 | `grafana/grafana@10.5.15` | complete | deprecated chart status, dashboard/config extension slots, Secret handling, UI ingress exposure |
 | 16 | `bitnami/mysql@14.0.3` | complete | generated credentials, existing Secret variant, stateful/PVC, service variants |
 | 17 | `bitnami/mongodb@19.0.7` | complete | generated root password, existing Secret replica-set variant, storage/PDB/network policy |
-| 18 | `bitnami/nginx` | planned | simple baseline chart, service/ingress variants, low-friction UX |
+| 18 | `bitnami/nginx@24.0.2` | complete | generated TLS avoidance, existing TLS ingress variant, NetworkPolicy/PDB, low-friction UX |
 | 19 | `grafana/tempo` | planned | storage backend variants, distributed components, object graph checks |
 | 20 | `hashicorp/consul` | planned | stateful service mesh/control plane, RBAC, upgrade-sensitive config |
 
@@ -60,9 +60,8 @@ package SHA and dependency closure.
 The next work should promote charts in this order unless a blocker makes a
 different row more useful:
 
-1. `bitnami/nginx`
-2. `grafana/tempo`
-3. `hashicorp/consul`
+1. `grafana/tempo`
+2. `hashicorp/consul`
 
 That order alternates between deterministic rendered charts, generated-fact
 stateful charts, one large umbrella chart, and one blocked/default chart. It

@@ -196,6 +196,7 @@ Thirteenth full proof row: hashicorp/vault@0.32.0.
 Fourteenth full proof row: secrets-store-csi-driver/secrets-store-csi-driver@1.6.0.
 Fifteenth full proof row: prometheus-community/prometheus@29.8.0.
 Sixteenth full proof row: bitnami/mongodb@19.0.7.
+Seventeenth full proof row: bitnami/nginx@24.0.2.
 ```
 
 The adversarial 10 foundation does not close the scale proof. It gives us the
@@ -322,6 +323,14 @@ password binding, target Secret binding, replica-set and arbiter StatefulSets,
 persistent storage, NetworkPolicy/PDB policy, Helm hook lifecycle review, `tpl`
 configuration slots, Helm equivalence receipts, and deterministic `cub install`
 package/setup proof.
+
+The seventeenth such promotion is Nginx. It adds the repeatable pattern for a
+simple web-service chart whose default render is still painful: source and
+dependency locks, `http-clusterip` and `existing-tls-ingress` variants,
+self-signed TLS generation made explicit, declared backend and ingress TLS
+target Secrets, ingress exposure, NetworkPolicy/PDB policy, static-site
+supply-chain slots, metrics add-ons, raw/template extension-slot review, Helm
+equivalence receipts, and deterministic `cub install` package/setup proof.
 
 ## Installer Boundary
 

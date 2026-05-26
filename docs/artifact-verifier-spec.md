@@ -215,6 +215,22 @@ NetworkPolicy/PDB policy, Helm hook lifecycle review, rendered object
 inventories, render receipts, Helm equivalence receipts, scan receipts,
 install gates, and deterministic `cub install` package/setup behavior.
 
+The Nginx proof verifier checks:
+
+```text
+recipes/bitnami/nginx/24.0.2/
+packages/bitnami/nginx/24.0.2/
+```
+
+That proof is the seventeenth full public-chart proof row. It checks two
+variants, `http-clusterip` and `existing-tls-ingress`, including source and
+dependency locks, generated TLS mitigation, declared backend and ingress TLS
+target Secrets, ingress exposure, NetworkPolicy/PDB policy, service exposure,
+static-site supply-chain slots, metrics add-ons, raw/template extension-slot
+review, rendered object inventories, render receipts, Helm equivalence
+receipts, scan receipts, install gates, and deterministic `cub install`
+package/setup behavior.
+
 The Argo CD proof verifier checks:
 
 ```text
@@ -625,6 +641,22 @@ For the promoted MongoDB proof:
    storage, NetworkPolicy/PDB, hook lifecycle, dependency lock, and extension
    slots.
 
+For the promoted Nginx proof:
+
+1. Both promoted variants render deterministically with Helm under the pinned
+   inputs.
+2. `http-clusterip` renders exactly 5 Helm objects, including Deployment,
+   Service, ServiceAccount, NetworkPolicy, and PDB, with no rendered Secret.
+3. `existing-tls-ingress` renders exactly 6 Helm objects, adding Ingress while
+   still rendering no Secret because TLS material is a target fact.
+4. Dependency lock records the Bitnami `common` subchart.
+5. `cub install package` produces byte-identical bundles across two local runs.
+6. `cub install setup` matches Helm semantically, plus only
+   `v1|Namespace||nginx`.
+7. Scan/gate receipts flag generated TLS handling, target TLS Secrets, ingress
+   exposure, NetworkPolicy/PDB, service exposure, static-site supply-chain,
+   metrics add-ons, and raw/template extension slots.
+
 ## Negative Golden Check
 
 The verifier must include self-tests that corrupt known-good fixtures and prove
@@ -656,6 +688,7 @@ Current self-tests include:
   rejection;
 - corrupt the Prometheus rendered object set and require rejection;
 - corrupt the MongoDB rendered object set and require rejection;
+- corrupt the Nginx rendered object set and require rejection;
 - corrupt an adversarial harness rendered manifest and require a rendered
   manifest SHA mismatch.
 

@@ -1,0 +1,39 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "bitnami-nginx-24.0.2-http-clusterip-r001"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "a5f890172fd1bd8cf31870607c1a7874313c5746f1020d547af3dac017db4223"
+  objectCount: 5
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|nginx|nginx"
+      kind: "Deployment"
+      name: "nginx"
+      namespace: "nginx"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|NetworkPolicy|nginx|nginx"
+      kind: "NetworkPolicy"
+      name: "nginx"
+      namespace: "nginx"
+    -
+      apiVersion: "policy/v1"
+      identity: "policy/v1|PodDisruptionBudget|nginx|nginx"
+      kind: "PodDisruptionBudget"
+      name: "nginx"
+      namespace: "nginx"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|nginx|nginx"
+      kind: "ServiceAccount"
+      name: "nginx"
+      namespace: "nginx"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|nginx|nginx"
+      kind: "Service"
+      name: "nginx"
+      namespace: "nginx"

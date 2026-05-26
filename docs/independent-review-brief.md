@@ -202,6 +202,8 @@ recipes/prometheus-community/prometheus/29.8.0/
 packages/prometheus-community/prometheus/29.8.0/
 recipes/bitnami/mongodb/19.0.7/
 packages/bitnami/mongodb/19.0.7/
+recipes/bitnami/nginx/24.0.2/
+packages/bitnami/nginx/24.0.2/
 ```
 
 `data/adversarial10/` is a readiness and blocker harness, not final
@@ -325,6 +327,13 @@ StatefulSets, persistent storage, NetworkPolicy/PDB policy, hook lifecycle
 review, `tpl` configuration slots, scan/gate, and `cub install` package
 evidence are convincing enough to serve as the repeatable pattern for stateful
 database topology charts.
+
+`bitnami/nginx@24.0.2` is the seventeenth full public-chart proof row. Review
+whether its `http-clusterip` and `existing-tls-ingress` variants, generated TLS
+mitigation, declared TLS target Secrets, ingress exposure, NetworkPolicy, PDB,
+service exposure, static-site supply-chain slots, metrics add-ons, raw/template
+extension slots, scan/gate, and `cub install` package evidence are convincing
+enough to serve as the repeatable pattern for simple web-service charts.
 
 Every happy-path demo must also pass the simple UX test:
 

@@ -241,6 +241,8 @@ recipes/prometheus-community/prometheus/29.8.0/
 packages/prometheus-community/prometheus/29.8.0/
 recipes/bitnami/mongodb/19.0.7/
 packages/bitnami/mongodb/19.0.7/
+recipes/bitnami/nginx/24.0.2/
+packages/bitnami/nginx/24.0.2/
 data/adversarial10/
 data/top500/
 docs/top20-full-proof-target.md
@@ -295,15 +297,16 @@ npm run vault:compare
 npm run secrets-store-csi-driver:compare
 npm run prometheus:compare
 npm run mongodb:compare
+npm run nginx:compare
 ```
 
 It checks the archived reference receipts against their referenced files, then
 checks the current Redis proof artifacts, Helm-equivalence evidence, scan/gate
 receipts, variant diff evidence, promoted metrics-server, ingress-nginx,
 cert-manager, external-secrets, Argo CD, PostgreSQL, RabbitMQ,
-kube-prometheus-stack, Loki, Longhorn, MySQL, Grafana, Vault, and
-Secrets Store CSI Driver, Prometheus, and MongoDB proof/package artifacts, deterministic `cub install`
-packaging, and negative golden
+kube-prometheus-stack, Loki, Longhorn, MySQL, Grafana, Vault,
+Secrets Store CSI Driver, Prometheus, MongoDB, and Nginx proof/package
+artifacts, deterministic `cub install` packaging, and negative golden
 self-tests.
 
 The old hash-only archive check is still available for comparison:
@@ -925,6 +928,39 @@ npm run mongodb:generate-package
 npm run mongodb:verify-proof
 npm run mongodb:verify-package
 npm run mongodb:compare
+```
+
+## Nginx Proof
+
+The eighteenth chart promoted into a full proof is:
+
+```text
+recipes/bitnami/nginx/24.0.2/
+packages/bitnami/nginx/24.0.2/
+```
+
+It has two install variants:
+
+```text
+http-clusterip
+existing-tls-ingress
+```
+
+The proof shows that regular Helm output is preserved by real
+`cub install setup`, plus the explained Namespace support object. It makes
+Nginx-specific Helm pain visible: default self-signed TLS generation,
+externally managed TLS Secrets, ingress exposure, NetworkPolicy, PDB, service
+exposure, static-site supply-chain slots, metrics add-ons, and raw/template
+extension slots.
+
+Useful commands:
+
+```sh
+npm run nginx:generate-proof
+npm run nginx:generate-package
+npm run nginx:verify-proof
+npm run nginx:verify-package
+npm run nginx:compare
 ```
 
 ## Adversarial 10 Harness
