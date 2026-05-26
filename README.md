@@ -233,6 +233,22 @@ outputs/helm_top500_matrix/
 
 ## Verification
 
+The proof method is deliberately simple:
+
+```text
+1. Render the public Helm chart with regular Helm under pinned inputs.
+2. Record the rendered objects, object inventory, digests, and control points.
+3. Build the chart-derived installer recipe/package.
+4. Run the real cub install path.
+5. Compare the cub install output with the regular Helm output.
+6. Explain every intentional difference, such as the Namespace support object.
+```
+
+The adversarial harness is the repo's local test harness for step 1. It renders
+public charts with regular Helm under pinned chart version, Helm version,
+Kubernetes version, flags, and values. Full chart proofs then verify our work
+by comparing the resulting `cub install` path with that Helm baseline.
+
 The default verifier is now the artifact-chain verifier:
 
 ```sh
