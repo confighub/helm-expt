@@ -1,0 +1,100 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "argo-cd-argo-cd-9.5.15"
+spec:
+  summary:
+    chart: "argo-cd/argo-cd"
+    version: "9.5.15"
+    releaseName: "argo-cd"
+    namespace: "argocd"
+    status: "rendered-needs-control-points"
+    primaryControlPoint: "capability-profile"
+    nextAction: "Render against a named, digest-bound Kubernetes capability profile."
+  sourceLock:
+    repositoryURL: "https://argoproj.github.io/argo-helm"
+    packageSHA256: "95502bea856e2e1e9bfbb7a5ab90d309970b4ffd098ff3dadb99188350768b9e"
+    packageBytes: 221846
+    dependencies: 1
+  renderAttempt:
+    status: "rendered"
+    deterministicAcrossTwoLocalRenders: true
+    resourceCount: 49
+    renderedManifestSHA256: "66c97f6d90166727a1b3967db69013de088bbd59eaac797a53aa4972d76e3d93"
+    renderedManifestPath: "rendered/default.yaml"
+  featureSummary:
+    source:
+      lookup: false
+      generatedFacts: false
+      capabilities: true
+      tpl: true
+      hooks: true
+      required: true
+      extensionSlots: true
+      crdFiles: 0
+      crdTemplates: 3
+      dependencyCount: 1
+    rendered:
+      crdCount: 3
+      clusterRBAC: true
+      webhooks: false
+      apiService: false
+      stateful: true
+      pvc: false
+      kindCounts:
+        ClusterRole: 3
+        ClusterRoleBinding: 3
+        ConfigMap: 8
+        CustomResourceDefinition: 3
+        Deployment: 6
+        Role: 6
+        RoleBinding: 6
+        Secret: 2
+        Service: 5
+        ServiceAccount: 6
+        StatefulSet: 1
+  painReport:
+    - 
+      id: "capability-branching"
+      severity: "P0"
+      controlPoint: "capability-profile"
+      evidence: "Chart source branches on .Capabilities."
+      mitigation: "Render against a named, digest-bound Kubernetes capability profile."
+    - 
+      id: "helm-hooks"
+      severity: "P0"
+      controlPoint: "lifecycle-policy"
+      evidence: "Chart source defines Helm hook annotations."
+      mitigation: "Classify hooks as lifecycle phases, tests, GitOps-compatible hooks, or unsupported blockers."
+    - 
+      id: "crds"
+      severity: "P0"
+      controlPoint: "crd-policy"
+      evidence: "0 CRD source file(s), 3 CRD template(s), 3 rendered CRD object(s)."
+      mitigation: "Split CRD readiness, ordering, schema validation, and upgrade compatibility from ordinary object apply."
+    - 
+      id: "template-extension-slots"
+      severity: "P1"
+      controlPoint: "extension-slot-policy"
+      evidence: "Chart exposes tpl/raw/extra manifest behavior."
+      mitigation: "Treat extension inputs as explicit slots with provenance, scan coverage, and rendered-object diff checks."
+    - 
+      id: "dependencies"
+      severity: "P1"
+      controlPoint: "dependency-lock"
+      evidence: "Chart declares 1 dependency."
+      mitigation: "Lock dependency names, versions, repositories, and package digests before variant publication."
+    - 
+      id: "cluster-rbac"
+      severity: "P1"
+      controlPoint: "rendered-manifest-scan"
+      evidence: "Rendered objects include cluster-scoped RBAC."
+      mitigation: "Scan exact rendered objects for least privilege and policy violations."
+    - 
+      id: "stateful-storage"
+      severity: "P1"
+      controlPoint: "storage-and-upgrade-policy"
+      evidence: "Rendered objects include stateful workloads or PVC claims/templates."
+      mitigation: "Record storage policy, retention expectations, and upgrade/rollback simulation receipts."
+  receipts:
+    - "render-receipt.yaml"

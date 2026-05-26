@@ -1,0 +1,101 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "bitnami-redis-25.5.3"
+spec:
+  chart: "bitnami/redis"
+  version: "25.5.3"
+  objectCount: 14
+  kindCounts:
+    ConfigMap: 3
+    NetworkPolicy: 1
+    PodDisruptionBudget: 2
+    Secret: 1
+    Service: 3
+    ServiceAccount: 2
+    StatefulSet: 2
+  objects:
+    - 
+      apiVersion: "apps/v1"
+      kind: "StatefulSet"
+      namespace: "redis"
+      name: "redis-master"
+      identity: "apps/v1|StatefulSet|redis|redis-master"
+    - 
+      apiVersion: "apps/v1"
+      kind: "StatefulSet"
+      namespace: "redis"
+      name: "redis-replicas"
+      identity: "apps/v1|StatefulSet|redis|redis-replicas"
+    - 
+      apiVersion: "networking.k8s.io/v1"
+      kind: "NetworkPolicy"
+      namespace: "redis"
+      name: "redis"
+      identity: "networking.k8s.io/v1|NetworkPolicy|redis|redis"
+    - 
+      apiVersion: "policy/v1"
+      kind: "PodDisruptionBudget"
+      namespace: "redis"
+      name: "redis-master"
+      identity: "policy/v1|PodDisruptionBudget|redis|redis-master"
+    - 
+      apiVersion: "policy/v1"
+      kind: "PodDisruptionBudget"
+      namespace: "redis"
+      name: "redis-replicas"
+      identity: "policy/v1|PodDisruptionBudget|redis|redis-replicas"
+    - 
+      apiVersion: "v1"
+      kind: "ConfigMap"
+      namespace: "redis"
+      name: "redis-configuration"
+      identity: "v1|ConfigMap|redis|redis-configuration"
+    - 
+      apiVersion: "v1"
+      kind: "ConfigMap"
+      namespace: "redis"
+      name: "redis-health"
+      identity: "v1|ConfigMap|redis|redis-health"
+    - 
+      apiVersion: "v1"
+      kind: "ConfigMap"
+      namespace: "redis"
+      name: "redis-scripts"
+      identity: "v1|ConfigMap|redis|redis-scripts"
+    - 
+      apiVersion: "v1"
+      kind: "Secret"
+      namespace: "redis"
+      name: "redis"
+      identity: "v1|Secret|redis|redis"
+    - 
+      apiVersion: "v1"
+      kind: "ServiceAccount"
+      namespace: "redis"
+      name: "redis-master"
+      identity: "v1|ServiceAccount|redis|redis-master"
+    - 
+      apiVersion: "v1"
+      kind: "ServiceAccount"
+      namespace: "redis"
+      name: "redis-replica"
+      identity: "v1|ServiceAccount|redis|redis-replica"
+    - 
+      apiVersion: "v1"
+      kind: "Service"
+      namespace: "redis"
+      name: "redis-headless"
+      identity: "v1|Service|redis|redis-headless"
+    - 
+      apiVersion: "v1"
+      kind: "Service"
+      namespace: "redis"
+      name: "redis-master"
+      identity: "v1|Service|redis|redis-master"
+    - 
+      apiVersion: "v1"
+      kind: "Service"
+      namespace: "redis"
+      name: "redis-replicas"
+      identity: "v1|Service|redis|redis-replicas"

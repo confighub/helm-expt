@@ -1,0 +1,115 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HarnessRenderReceipt"
+metadata:
+  name: "bitnami-redis-25.5.3-default"
+spec:
+  corpus: "../corpus.yaml"
+  chartRef:
+    rank: 1
+    repository: "bitnami"
+    repositoryURL: "https://charts.bitnami.com/bitnami"
+    chart: "redis"
+    version: "25.5.3"
+    appVersion: "8.6.3"
+    releaseName: "redis"
+    namespace: "redis"
+    packageSHA256: "aa5360967bc1adadf69f0ce91d762f0bb4d80ca36758b37d7d8f1ef981257baf"
+    packageBytes: 104594
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    command:
+      - "helm"
+      - "template"
+      - "redis"
+      - "bitnami/redis"
+      - "--version"
+      - "25.5.3"
+      - "--namespace"
+      - "redis"
+      - "--kube-version"
+      - "1.30.0"
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  renderContext:
+    kubeVersion: "1.30.0"
+    includeCRDs: true
+    skipTests: true
+    noHooks: true
+    valuesProfile: "chart-defaults"
+  outputs:
+    status: "rendered"
+    deterministicAcrossTwoLocalRenders: false
+    firstRenderSHA256: "811d26533430a0f9adb6296bffb1c819a50a7ad8635f5b9b29ed694dbce178ae"
+    secondRenderSHA256: "f29eafe30fb33ffa2c673a2021a1cfc9c4f78aa8975897cd3455d007e227b8cc"
+    renderedManifestPath: "rendered/default.yaml"
+    renderedManifestBytes: 24223
+    objectInventoryPath: "rendered/object-inventory.yaml"
+    resourceCount: 14
+    errorSHA256: null
+    errorExcerpt: null
+  sourceFeatures:
+    lookup: true
+    generatedFacts: true
+    capabilities: false
+    tpl: true
+    hooks: false
+    required: true
+    extensionSlots: true
+    crdFiles: 0
+    crdTemplates: 0
+    dependencyCount: 1
+  renderedFeatures:
+    crdCount: 0
+    clusterRBAC: false
+    webhooks: false
+    apiService: false
+    stateful: true
+    pvc: true
+    kindCounts:
+      ConfigMap: 3
+      NetworkPolicy: 1
+      PodDisruptionBudget: 2
+      Secret: 1
+      Service: 3
+      ServiceAccount: 2
+      StatefulSet: 2
+  proofReadiness: "needs-generated-fact-binding"
+  controlPoints:
+    - 
+      id: "nondeterministic-render"
+      severity: "P0"
+      controlPoint: "generated-facts"
+      evidence: "Two local Helm renders produced different manifest bytes."
+      mitigation: "Generate once, persist the generated fact binding, and render the approved variant revision from that binding."
+    - 
+      id: "generated-fact-candidates"
+      severity: "P0"
+      controlPoint: "generated-facts"
+      evidence: "Chart source contains random, cert, password, UUID, or time helpers."
+      mitigation: "Record generated fact requirements in the recipe and bind generated facts before publication."
+    - 
+      id: "lookup-target-facts"
+      severity: "P0"
+      controlPoint: "recipe-target-facts"
+      evidence: "Chart source calls Helm lookup."
+      mitigation: "Declare target fact requirements in the recipe and bind collected or synthetic facts per variant revision."
+    - 
+      id: "template-extension-slots"
+      severity: "P1"
+      controlPoint: "extension-slot-policy"
+      evidence: "Chart exposes tpl/raw/extra manifest behavior."
+      mitigation: "Treat extension inputs as explicit slots with provenance, scan coverage, and rendered-object diff checks."
+    - 
+      id: "dependencies"
+      severity: "P1"
+      controlPoint: "dependency-lock"
+      evidence: "Chart declares 1 dependency."
+      mitigation: "Lock dependency names, versions, repositories, and package digests before variant publication."
+    - 
+      id: "stateful-storage"
+      severity: "P1"
+      controlPoint: "storage-and-upgrade-policy"
+      evidence: "Rendered objects include stateful workloads or PVC claims/templates."
+      mitigation: "Record storage policy, retention expectations, and upgrade/rollback simulation receipts."

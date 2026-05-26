@@ -1,0 +1,120 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HarnessRenderReceipt"
+metadata:
+  name: "bitnami-postgresql-18.6.7-default"
+spec:
+  corpus: "../corpus.yaml"
+  chartRef:
+    rank: 9
+    repository: "bitnami"
+    repositoryURL: "https://charts.bitnami.com/bitnami"
+    chart: "postgresql"
+    version: "18.6.7"
+    appVersion: "18.4.0"
+    releaseName: "postgresql"
+    namespace: "postgresql"
+    packageSHA256: "0ad5b7d9d50f53000b2369e3ee6aa70b32c3b91c363a118c78d9204ae3f98fe5"
+    packageBytes: 89588
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    command:
+      - "helm"
+      - "template"
+      - "postgresql"
+      - "bitnami/postgresql"
+      - "--version"
+      - "18.6.7"
+      - "--namespace"
+      - "postgresql"
+      - "--kube-version"
+      - "1.30.0"
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  renderContext:
+    kubeVersion: "1.30.0"
+    includeCRDs: true
+    skipTests: true
+    noHooks: true
+    valuesProfile: "chart-defaults"
+  outputs:
+    status: "rendered"
+    deterministicAcrossTwoLocalRenders: false
+    firstRenderSHA256: "873380e64c54009b37008b88c79f00732895bfc5e1e90c057e70447697293c52"
+    secondRenderSHA256: "32a3176ce3ca9b190d5034a0a8e6e0407ce850393cfada37116611312378447e"
+    renderedManifestPath: "rendered/default.yaml"
+    renderedManifestBytes: 9648
+    objectInventoryPath: "rendered/object-inventory.yaml"
+    resourceCount: 7
+    errorSHA256: null
+    errorExcerpt: null
+  sourceFeatures:
+    lookup: true
+    generatedFacts: true
+    capabilities: false
+    tpl: true
+    hooks: true
+    required: true
+    extensionSlots: true
+    crdFiles: 0
+    crdTemplates: 0
+    dependencyCount: 1
+  renderedFeatures:
+    crdCount: 0
+    clusterRBAC: false
+    webhooks: false
+    apiService: false
+    stateful: true
+    pvc: true
+    kindCounts:
+      NetworkPolicy: 1
+      PodDisruptionBudget: 1
+      Secret: 1
+      Service: 2
+      ServiceAccount: 1
+      StatefulSet: 1
+  proofReadiness: "needs-generated-fact-binding"
+  controlPoints:
+    - 
+      id: "nondeterministic-render"
+      severity: "P0"
+      controlPoint: "generated-facts"
+      evidence: "Two local Helm renders produced different manifest bytes."
+      mitigation: "Generate once, persist the generated fact binding, and render the approved variant revision from that binding."
+    - 
+      id: "generated-fact-candidates"
+      severity: "P0"
+      controlPoint: "generated-facts"
+      evidence: "Chart source contains random, cert, password, UUID, or time helpers."
+      mitigation: "Record generated fact requirements in the recipe and bind generated facts before publication."
+    - 
+      id: "lookup-target-facts"
+      severity: "P0"
+      controlPoint: "recipe-target-facts"
+      evidence: "Chart source calls Helm lookup."
+      mitigation: "Declare target fact requirements in the recipe and bind collected or synthetic facts per variant revision."
+    - 
+      id: "helm-hooks"
+      severity: "P0"
+      controlPoint: "lifecycle-policy"
+      evidence: "Chart source defines Helm hook annotations."
+      mitigation: "Classify hooks as lifecycle phases, tests, GitOps-compatible hooks, or unsupported blockers."
+    - 
+      id: "template-extension-slots"
+      severity: "P1"
+      controlPoint: "extension-slot-policy"
+      evidence: "Chart exposes tpl/raw/extra manifest behavior."
+      mitigation: "Treat extension inputs as explicit slots with provenance, scan coverage, and rendered-object diff checks."
+    - 
+      id: "dependencies"
+      severity: "P1"
+      controlPoint: "dependency-lock"
+      evidence: "Chart declares 1 dependency."
+      mitigation: "Lock dependency names, versions, repositories, and package digests before variant publication."
+    - 
+      id: "stateful-storage"
+      severity: "P1"
+      controlPoint: "storage-and-upgrade-policy"
+      evidence: "Rendered objects include stateful workloads or PVC claims/templates."
+      mitigation: "Record storage policy, retention expectations, and upgrade/rollback simulation receipts."

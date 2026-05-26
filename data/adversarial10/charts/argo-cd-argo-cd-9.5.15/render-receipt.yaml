@@ -1,0 +1,125 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HarnessRenderReceipt"
+metadata:
+  name: "argo-cd-argo-cd-9.5.15-default"
+spec:
+  corpus: "../corpus.yaml"
+  chartRef:
+    rank: 6
+    repository: "argo-cd"
+    repositoryURL: "https://argoproj.github.io/argo-helm"
+    chart: "argo-cd"
+    version: "9.5.15"
+    appVersion: "v3.4.2"
+    releaseName: "argo-cd"
+    namespace: "argocd"
+    packageSHA256: "95502bea856e2e1e9bfbb7a5ab90d309970b4ffd098ff3dadb99188350768b9e"
+    packageBytes: 221846
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    command:
+      - "helm"
+      - "template"
+      - "argo-cd"
+      - "argo-cd/argo-cd"
+      - "--version"
+      - "9.5.15"
+      - "--namespace"
+      - "argocd"
+      - "--kube-version"
+      - "1.30.0"
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  renderContext:
+    kubeVersion: "1.30.0"
+    includeCRDs: true
+    skipTests: true
+    noHooks: true
+    valuesProfile: "chart-defaults"
+  outputs:
+    status: "rendered"
+    deterministicAcrossTwoLocalRenders: true
+    firstRenderSHA256: "66c97f6d90166727a1b3967db69013de088bbd59eaac797a53aa4972d76e3d93"
+    secondRenderSHA256: "66c97f6d90166727a1b3967db69013de088bbd59eaac797a53aa4972d76e3d93"
+    renderedManifestPath: "rendered/default.yaml"
+    renderedManifestBytes: 1904304
+    objectInventoryPath: "rendered/object-inventory.yaml"
+    resourceCount: 49
+    errorSHA256: null
+    errorExcerpt: null
+  sourceFeatures:
+    lookup: false
+    generatedFacts: false
+    capabilities: true
+    tpl: true
+    hooks: true
+    required: true
+    extensionSlots: true
+    crdFiles: 0
+    crdTemplates: 3
+    dependencyCount: 1
+  renderedFeatures:
+    crdCount: 3
+    clusterRBAC: true
+    webhooks: false
+    apiService: false
+    stateful: true
+    pvc: false
+    kindCounts:
+      ClusterRole: 3
+      ClusterRoleBinding: 3
+      ConfigMap: 8
+      CustomResourceDefinition: 3
+      Deployment: 6
+      Role: 6
+      RoleBinding: 6
+      Secret: 2
+      Service: 5
+      ServiceAccount: 6
+      StatefulSet: 1
+  proofReadiness: "rendered-needs-control-points"
+  controlPoints:
+    - 
+      id: "capability-branching"
+      severity: "P0"
+      controlPoint: "capability-profile"
+      evidence: "Chart source branches on .Capabilities."
+      mitigation: "Render against a named, digest-bound Kubernetes capability profile."
+    - 
+      id: "helm-hooks"
+      severity: "P0"
+      controlPoint: "lifecycle-policy"
+      evidence: "Chart source defines Helm hook annotations."
+      mitigation: "Classify hooks as lifecycle phases, tests, GitOps-compatible hooks, or unsupported blockers."
+    - 
+      id: "crds"
+      severity: "P0"
+      controlPoint: "crd-policy"
+      evidence: "0 CRD source file(s), 3 CRD template(s), 3 rendered CRD object(s)."
+      mitigation: "Split CRD readiness, ordering, schema validation, and upgrade compatibility from ordinary object apply."
+    - 
+      id: "template-extension-slots"
+      severity: "P1"
+      controlPoint: "extension-slot-policy"
+      evidence: "Chart exposes tpl/raw/extra manifest behavior."
+      mitigation: "Treat extension inputs as explicit slots with provenance, scan coverage, and rendered-object diff checks."
+    - 
+      id: "dependencies"
+      severity: "P1"
+      controlPoint: "dependency-lock"
+      evidence: "Chart declares 1 dependency."
+      mitigation: "Lock dependency names, versions, repositories, and package digests before variant publication."
+    - 
+      id: "cluster-rbac"
+      severity: "P1"
+      controlPoint: "rendered-manifest-scan"
+      evidence: "Rendered objects include cluster-scoped RBAC."
+      mitigation: "Scan exact rendered objects for least privilege and policy violations."
+    - 
+      id: "stateful-storage"
+      severity: "P1"
+      controlPoint: "storage-and-upgrade-policy"
+      evidence: "Rendered objects include stateful workloads or PVC claims/templates."
+      mitigation: "Record storage policy, retention expectations, and upgrade/rollback simulation receipts."

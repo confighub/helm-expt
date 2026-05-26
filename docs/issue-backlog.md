@@ -29,6 +29,34 @@ the evidence regresses:
 | [#10](https://github.com/confighub/helm-expt/issues/10) Create complete Redis HelmPlan and ChartDossier artifacts | `recipes/bitnami/redis/25.5.3/`, durable installer package, upload/OCI receipt. |
 | [#26](https://github.com/confighub/helm-expt/issues/26) Prove simple UX is easier, safer, and correct versus Helm | `docs/demo/redis/` demo script, transcript, and UX acceptance note. |
 
+## Current Adversarial Harness Slice
+
+The first scale-out harness exists under:
+
+```text
+data/adversarial10/
+```
+
+It partially advances [#24](https://github.com/confighub/helm-expt/issues/24),
+[#25](https://github.com/confighub/helm-expt/issues/25), and
+[#4](https://github.com/confighub/helm-expt/issues/4):
+
+- 10 pinned public charts in `corpus.yaml`;
+- chart package SHA and render status in `corpus.lock.yaml`;
+- one generated `helm-plan.yaml` and `render-receipt.yaml` per chart;
+- stored rendered manifests and object inventories for successful render
+  attempts;
+- blocker receipt for the Loki default-values render failure;
+- `proof-readiness.csv` generated from receipts;
+- verifier and negative golden check through
+  `npm run adversarial10:verify` and
+  `npm run adversarial10:verify:self-test`.
+
+This is not enough to close those P0s. It is the first foundation for them.
+The next harness step is to turn selected rows into complete
+recipe/variant/revision proofs, add formal schemas, and make spreadsheet rows
+trace all the way to scans, gates, and publication receipts.
+
 ## Execution Order
 
 The council review made the first implementation slice explicit:

@@ -171,6 +171,20 @@ Immediate execution order:
 4. **Only then scale the corpus**:
    [#25](https://github.com/confighub/helm-expt/issues/25).
 
+Current execution status:
+
+```text
+Redis proof slice: complete for first-install/default and reuse-existing-secret.
+Five-minute UX proof: present under docs/demo/redis/.
+Adversarial 10 foundation: present under data/adversarial10/.
+```
+
+The adversarial 10 foundation does not close the scale proof. It gives us the
+first generated chart corpus lock, readiness CSV, per-chart HelmPlans, render
+receipts, stored rendered manifests for successful attempts, and blocker receipt
+for a default-values render failure. The next step is to promote selected rows
+from readiness evidence into full recipe/variant/revision proofs.
+
 ## Installer Boundary
 
 This repo does not implement `confighub/installer`. For now, `helm-expt`

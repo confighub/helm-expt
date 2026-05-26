@@ -1,0 +1,71 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "metrics-server-metrics-server-3.13.0"
+spec:
+  chart: "metrics-server/metrics-server"
+  version: "3.13.0"
+  objectCount: 9
+  kindCounts:
+    APIService: 1
+    ClusterRole: 2
+    ClusterRoleBinding: 2
+    Deployment: 1
+    RoleBinding: 1
+    Service: 1
+    ServiceAccount: 1
+  objects:
+    - 
+      apiVersion: "apiregistration.k8s.io/v1"
+      kind: "APIService"
+      namespace: ""
+      name: "v1beta1.metrics.k8s.io"
+      identity: "apiregistration.k8s.io/v1|APIService||v1beta1.metrics.k8s.io"
+    - 
+      apiVersion: "apps/v1"
+      kind: "Deployment"
+      namespace: "kube-system"
+      name: "metrics-server"
+      identity: "apps/v1|Deployment|kube-system|metrics-server"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRoleBinding"
+      namespace: ""
+      name: "metrics-server:system:auth-delegator"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||metrics-server:system:auth-delegator"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRoleBinding"
+      namespace: ""
+      name: "system:metrics-server"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||system:metrics-server"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRole"
+      namespace: ""
+      name: "system:metrics-server"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||system:metrics-server"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRole"
+      namespace: ""
+      name: "system:metrics-server-aggregated-reader"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||system:metrics-server-aggregated-reader"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "RoleBinding"
+      namespace: "kube-system"
+      name: "metrics-server-auth-reader"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|metrics-server-auth-reader"
+    - 
+      apiVersion: "v1"
+      kind: "ServiceAccount"
+      namespace: "kube-system"
+      name: "metrics-server"
+      identity: "v1|ServiceAccount|kube-system|metrics-server"
+    - 
+      apiVersion: "v1"
+      kind: "Service"
+      namespace: "kube-system"
+      name: "metrics-server"
+      identity: "v1|Service|kube-system|metrics-server"

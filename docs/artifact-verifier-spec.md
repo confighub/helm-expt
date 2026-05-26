@@ -4,7 +4,8 @@ This is the executable proof contract for `helm-expt`.
 
 The verifier started with archived render-and-vendor Helm import receipts, but
 the current default `npm run verify` also checks the Redis
-recipe/variant/revision proof and the durable Redis installer package proof.
+recipe/variant/revision proof, the durable Redis installer package proof, and
+the first adversarial public-chart harness.
 
 ## Scope
 
@@ -38,6 +39,24 @@ gates, variant diff evidence, the installer package receipt, and the package
 source tree. Remote ConfigHub upload/OCI evidence is recorded separately under
 `runs/redis-confighub/latest/` because it depends on hosted ConfigHub auth.
 
+The adversarial public-chart harness verifier checks:
+
+```text
+data/adversarial10/corpus.yaml
+data/adversarial10/corpus.lock.yaml
+data/adversarial10/proof-readiness.csv
+data/adversarial10/charts/*/helm-plan.yaml
+data/adversarial10/charts/*/render-receipt.yaml
+data/adversarial10/charts/*/rendered/default.yaml
+data/adversarial10/charts/*/rendered/object-inventory.yaml
+```
+
+This is the first scale-out proof index. It is not a full recipe/variant proof
+for all 10 charts. It proves that the corpus is pinned, every row has a
+machine-readable HelmPlan and render receipt, successful render attempts bind
+stored manifests by SHA256, failed attempts record blocker receipts, and the CSV
+is generated from those artifacts.
+
 ## Required Invariants
 
 For every archived chart directory:
@@ -69,6 +88,20 @@ For every archived chart directory:
 19. The index row for the chart matches the receipt for rank, path, chart
     identity, status, determinism, resource count, and upstream YAML digest.
 
+For the adversarial public-chart harness:
+
+1. The corpus lock has one row for every chart in `corpus.yaml`.
+2. Every chart row has a HelmPlan, render receipt, and object inventory.
+3. Successful render receipts point at a stored rendered manifest.
+4. Stored rendered manifest SHA, byte count, and resource count match the
+   receipt.
+5. Failed render receipts do not claim a rendered manifest and record an
+   `errorSHA256`.
+6. CSV status, readiness, feature flags, primary control point, paths, counts,
+   and rendered manifest SHA match the receipt.
+7. Chart identity, version, render context, and package SHA are present in the
+   receipt.
+
 ## Negative Golden Check
 
 The verifier must include self-tests that corrupt known-good fixtures and prove
@@ -82,7 +115,9 @@ Current self-tests include:
 - claim false scan success and require rejection;
 - reintroduce the old `standalone` variant shape and require rejection;
 - tamper with the reuse-existing-secret target fact and require rejection;
-- lie about the variant diff and require rejection.
+- lie about the variant diff and require rejection;
+- corrupt an adversarial harness rendered manifest and require a rendered
+  manifest SHA mismatch.
 
 The Redis installer package verifier must also prove:
 
@@ -98,7 +133,8 @@ The Redis installer package verifier must also prove:
 
 The current verifier does not prove:
 
-- source archive bytes, because the archives are not stored in this repo;
+- source archive bytes for legacy artifacts, because those archives are not
+  stored in this repo;
 - hosted ConfigHub upload/OCI state in the default local `npm run verify`, even
   though the latest remote receipt is recorded under
   `runs/redis-confighub/latest/upload-oci-receipt.yaml`;
@@ -106,6 +142,9 @@ The current verifier does not prove:
   receipts;
 - full JSON Schema enforcement, because the immediate gate is hash/reference
   integrity over existing artifacts.
+- full recipe/variant/revision proofs for every chart in
+  `data/adversarial10/`; that harness is the first generated readiness and
+  blocker map, not the final product proof for those charts.
 
 ## Extension Rule
 

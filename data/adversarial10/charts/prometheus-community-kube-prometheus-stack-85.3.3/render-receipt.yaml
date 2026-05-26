@@ -1,0 +1,135 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HarnessRenderReceipt"
+metadata:
+  name: "prometheus-community-kube-prometheus-stack-85.3.3-default"
+spec:
+  corpus: "../corpus.yaml"
+  chartRef:
+    rank: 5
+    repository: "prometheus-community"
+    repositoryURL: "https://prometheus-community.github.io/helm-charts"
+    chart: "kube-prometheus-stack"
+    version: "85.3.3"
+    appVersion: "v0.90.1"
+    releaseName: "kube-prometheus-stack"
+    namespace: "monitoring"
+    packageSHA256: "ec622442bef2379e170ba0fdc90231d30f8f2886e3414813fe4ae1086779601e"
+    packageBytes: 874778
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    command:
+      - "helm"
+      - "template"
+      - "kube-prometheus-stack"
+      - "prometheus-community/kube-prometheus-stack"
+      - "--version"
+      - "85.3.3"
+      - "--namespace"
+      - "monitoring"
+      - "--kube-version"
+      - "1.30.0"
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  renderContext:
+    kubeVersion: "1.30.0"
+    includeCRDs: true
+    skipTests: true
+    noHooks: true
+    valuesProfile: "chart-defaults"
+  outputs:
+    status: "rendered"
+    deterministicAcrossTwoLocalRenders: false
+    firstRenderSHA256: "a9df6a24768af1e03b22e6a3b5a6ebd0873fe3e7fbae43c6113b24fe4311b238"
+    secondRenderSHA256: "dbdd62108dd83f3056d55d026ea85506a91440c0558ce795409ee6c066aa9b0d"
+    renderedManifestPath: "rendered/default.yaml"
+    renderedManifestBytes: 5129306
+    objectInventoryPath: "rendered/object-inventory.yaml"
+    resourceCount: 124
+    errorSHA256: null
+    errorExcerpt: null
+  sourceFeatures:
+    lookup: false
+    generatedFacts: false
+    capabilities: true
+    tpl: true
+    hooks: true
+    required: true
+    extensionSlots: true
+    crdFiles: 0
+    crdTemplates: 0
+    dependencyCount: 5
+  renderedFeatures:
+    crdCount: 10
+    clusterRBAC: true
+    webhooks: true
+    apiService: false
+    stateful: false
+    pvc: false
+    kindCounts:
+      Alertmanager: 1
+      ClusterRole: 4
+      ClusterRoleBinding: 4
+      ConfigMap: 31
+      CustomResourceDefinition: 10
+      DaemonSet: 1
+      Deployment: 3
+      MutatingWebhookConfiguration: 1
+      Prometheus: 1
+      PrometheusRule: 35
+      Secret: 2
+      Service: 11
+      ServiceAccount: 6
+      ServiceMonitor: 13
+      ValidatingWebhookConfiguration: 1
+  proofReadiness: "needs-generated-fact-binding"
+  controlPoints:
+    - 
+      id: "nondeterministic-render"
+      severity: "P0"
+      controlPoint: "generated-facts"
+      evidence: "Two local Helm renders produced different manifest bytes."
+      mitigation: "Generate once, persist the generated fact binding, and render the approved variant revision from that binding."
+    - 
+      id: "capability-branching"
+      severity: "P0"
+      controlPoint: "capability-profile"
+      evidence: "Chart source branches on .Capabilities."
+      mitigation: "Render against a named, digest-bound Kubernetes capability profile."
+    - 
+      id: "helm-hooks"
+      severity: "P0"
+      controlPoint: "lifecycle-policy"
+      evidence: "Chart source defines Helm hook annotations."
+      mitigation: "Classify hooks as lifecycle phases, tests, GitOps-compatible hooks, or unsupported blockers."
+    - 
+      id: "crds"
+      severity: "P0"
+      controlPoint: "crd-policy"
+      evidence: "0 CRD source file(s), 0 CRD template(s), 10 rendered CRD object(s)."
+      mitigation: "Split CRD readiness, ordering, schema validation, and upgrade compatibility from ordinary object apply."
+    - 
+      id: "template-extension-slots"
+      severity: "P1"
+      controlPoint: "extension-slot-policy"
+      evidence: "Chart exposes tpl/raw/extra manifest behavior."
+      mitigation: "Treat extension inputs as explicit slots with provenance, scan coverage, and rendered-object diff checks."
+    - 
+      id: "dependencies"
+      severity: "P1"
+      controlPoint: "dependency-lock"
+      evidence: "Chart declares 5 dependencies."
+      mitigation: "Lock dependency names, versions, repositories, and package digests before variant publication."
+    - 
+      id: "admission-or-apiservice"
+      severity: "P1"
+      controlPoint: "operate-policy"
+      evidence: "Rendered objects include admission webhooks or APIService resources."
+      mitigation: "Require readiness observations and freshness receipts after apply."
+    - 
+      id: "cluster-rbac"
+      severity: "P1"
+      controlPoint: "rendered-manifest-scan"
+      evidence: "Rendered objects include cluster-scoped RBAC."
+      mitigation: "Scan exact rendered objects for least privilege and policy violations."

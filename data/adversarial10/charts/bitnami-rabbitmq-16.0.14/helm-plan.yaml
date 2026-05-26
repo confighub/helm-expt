@@ -1,0 +1,91 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "bitnami-rabbitmq-16.0.14"
+spec:
+  summary:
+    chart: "bitnami/rabbitmq"
+    version: "16.0.14"
+    releaseName: "rabbitmq"
+    namespace: "rabbitmq"
+    status: "needs-generated-fact-binding"
+    primaryControlPoint: "generated-facts"
+    nextAction: "Generate once, persist the generated fact binding, and render the approved variant revision from that binding."
+  sourceLock:
+    repositoryURL: "https://charts.bitnami.com/bitnami"
+    packageSHA256: "df625220cafdfe892e68c1b3f1a5500049acd227fe90b2deca04df13190a176b"
+    packageBytes: 73978
+    dependencies: 1
+  renderAttempt:
+    status: "rendered"
+    deterministicAcrossTwoLocalRenders: false
+    resourceCount: 10
+    renderedManifestSHA256: "3e62e9c1190360d24596d8dba02b0be280a8146b79188917010ef4c1bddf0a97"
+    renderedManifestPath: "rendered/default.yaml"
+  featureSummary:
+    source:
+      lookup: true
+      generatedFacts: true
+      capabilities: false
+      tpl: true
+      hooks: false
+      required: true
+      extensionSlots: true
+      crdFiles: 0
+      crdTemplates: 0
+      dependencyCount: 1
+    rendered:
+      crdCount: 0
+      clusterRBAC: false
+      webhooks: false
+      apiService: false
+      stateful: true
+      pvc: true
+      kindCounts:
+        NetworkPolicy: 1
+        PodDisruptionBudget: 1
+        Role: 1
+        RoleBinding: 1
+        Secret: 2
+        Service: 2
+        ServiceAccount: 1
+        StatefulSet: 1
+  painReport:
+    - 
+      id: "nondeterministic-render"
+      severity: "P0"
+      controlPoint: "generated-facts"
+      evidence: "Two local Helm renders produced different manifest bytes."
+      mitigation: "Generate once, persist the generated fact binding, and render the approved variant revision from that binding."
+    - 
+      id: "generated-fact-candidates"
+      severity: "P0"
+      controlPoint: "generated-facts"
+      evidence: "Chart source contains random, cert, password, UUID, or time helpers."
+      mitigation: "Record generated fact requirements in the recipe and bind generated facts before publication."
+    - 
+      id: "lookup-target-facts"
+      severity: "P0"
+      controlPoint: "recipe-target-facts"
+      evidence: "Chart source calls Helm lookup."
+      mitigation: "Declare target fact requirements in the recipe and bind collected or synthetic facts per variant revision."
+    - 
+      id: "template-extension-slots"
+      severity: "P1"
+      controlPoint: "extension-slot-policy"
+      evidence: "Chart exposes tpl/raw/extra manifest behavior."
+      mitigation: "Treat extension inputs as explicit slots with provenance, scan coverage, and rendered-object diff checks."
+    - 
+      id: "dependencies"
+      severity: "P1"
+      controlPoint: "dependency-lock"
+      evidence: "Chart declares 1 dependency."
+      mitigation: "Lock dependency names, versions, repositories, and package digests before variant publication."
+    - 
+      id: "stateful-storage"
+      severity: "P1"
+      controlPoint: "storage-and-upgrade-policy"
+      evidence: "Rendered objects include stateful workloads or PVC claims/templates."
+      mitigation: "Record storage policy, retention expectations, and upgrade/rollback simulation receipts."
+  receipts:
+    - "render-receipt.yaml"

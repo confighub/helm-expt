@@ -1,0 +1,84 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "metrics-server-metrics-server-3.13.0"
+spec:
+  summary:
+    chart: "metrics-server/metrics-server"
+    version: "3.13.0"
+    releaseName: "metrics-server"
+    namespace: "kube-system"
+    status: "rendered-needs-control-points"
+    primaryControlPoint: "generated-facts"
+    nextAction: "Record generated fact requirements in the recipe and bind generated facts before publication."
+  sourceLock:
+    repositoryURL: "https://kubernetes-sigs.github.io/metrics-server/"
+    packageSHA256: "fb929902e3b7565663cdd1734f31d63735c932be1541a7228b5aeef6d2348a1f"
+    packageBytes: 13979
+    dependencies: 0
+  renderAttempt:
+    status: "rendered"
+    deterministicAcrossTwoLocalRenders: true
+    resourceCount: 9
+    renderedManifestSHA256: "22dc022aedee5c41c2eac80d4ff8b849a123931e9d3f2914b14951aec38b057e"
+    renderedManifestPath: "rendered/default.yaml"
+  featureSummary:
+    source:
+      lookup: true
+      generatedFacts: true
+      capabilities: true
+      tpl: false
+      hooks: false
+      required: false
+      extensionSlots: false
+      crdFiles: 0
+      crdTemplates: 0
+      dependencyCount: 0
+    rendered:
+      crdCount: 0
+      clusterRBAC: true
+      webhooks: false
+      apiService: true
+      stateful: false
+      pvc: false
+      kindCounts:
+        APIService: 1
+        ClusterRole: 2
+        ClusterRoleBinding: 2
+        Deployment: 1
+        RoleBinding: 1
+        Service: 1
+        ServiceAccount: 1
+  painReport:
+    - 
+      id: "generated-fact-candidates"
+      severity: "P0"
+      controlPoint: "generated-facts"
+      evidence: "Chart source contains random, cert, password, UUID, or time helpers."
+      mitigation: "Record generated fact requirements in the recipe and bind generated facts before publication."
+    - 
+      id: "lookup-target-facts"
+      severity: "P0"
+      controlPoint: "recipe-target-facts"
+      evidence: "Chart source calls Helm lookup."
+      mitigation: "Declare target fact requirements in the recipe and bind collected or synthetic facts per variant revision."
+    - 
+      id: "capability-branching"
+      severity: "P0"
+      controlPoint: "capability-profile"
+      evidence: "Chart source branches on .Capabilities."
+      mitigation: "Render against a named, digest-bound Kubernetes capability profile."
+    - 
+      id: "admission-or-apiservice"
+      severity: "P1"
+      controlPoint: "operate-policy"
+      evidence: "Rendered objects include admission webhooks or APIService resources."
+      mitigation: "Require readiness observations and freshness receipts after apply."
+    - 
+      id: "cluster-rbac"
+      severity: "P1"
+      controlPoint: "rendered-manifest-scan"
+      evidence: "Rendered objects include cluster-scoped RBAC."
+      mitigation: "Scan exact rendered objects for least privilege and policy violations."
+  receipts:
+    - "render-receipt.yaml"

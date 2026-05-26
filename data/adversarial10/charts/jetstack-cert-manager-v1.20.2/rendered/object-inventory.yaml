@@ -1,0 +1,271 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "jetstack-cert-manager-v1.20.2"
+spec:
+  chart: "jetstack/cert-manager"
+  version: "v1.20.2"
+  objectCount: 42
+  kindCounts:
+    ClusterRole: 13
+    ClusterRoleBinding: 10
+    Deployment: 3
+    MutatingWebhookConfiguration: 1
+    Role: 4
+    RoleBinding: 4
+    Service: 3
+    ServiceAccount: 3
+    ValidatingWebhookConfiguration: 1
+  objects:
+    - 
+      apiVersion: "admissionregistration.k8s.io/v1"
+      kind: "MutatingWebhookConfiguration"
+      namespace: ""
+      name: "cert-manager-webhook"
+      identity: "admissionregistration.k8s.io/v1|MutatingWebhookConfiguration||cert-manager-webhook"
+    - 
+      apiVersion: "admissionregistration.k8s.io/v1"
+      kind: "ValidatingWebhookConfiguration"
+      namespace: ""
+      name: "cert-manager-webhook"
+      identity: "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||cert-manager-webhook"
+    - 
+      apiVersion: "apps/v1"
+      kind: "Deployment"
+      namespace: "cert-manager"
+      name: "cert-manager"
+      identity: "apps/v1|Deployment|cert-manager|cert-manager"
+    - 
+      apiVersion: "apps/v1"
+      kind: "Deployment"
+      namespace: "cert-manager"
+      name: "cert-manager-cainjector"
+      identity: "apps/v1|Deployment|cert-manager|cert-manager-cainjector"
+    - 
+      apiVersion: "apps/v1"
+      kind: "Deployment"
+      namespace: "cert-manager"
+      name: "cert-manager-webhook"
+      identity: "apps/v1|Deployment|cert-manager|cert-manager-webhook"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRoleBinding"
+      namespace: ""
+      name: "cert-manager-cainjector"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||cert-manager-cainjector"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRoleBinding"
+      namespace: ""
+      name: "cert-manager-controller-approve:cert-manager-io"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||cert-manager-controller-approve:cert-manager-io"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRoleBinding"
+      namespace: ""
+      name: "cert-manager-controller-certificates"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||cert-manager-controller-certificates"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRoleBinding"
+      namespace: ""
+      name: "cert-manager-controller-certificatesigningrequests"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||cert-manager-controller-certificatesigningrequests"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRoleBinding"
+      namespace: ""
+      name: "cert-manager-controller-challenges"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||cert-manager-controller-challenges"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRoleBinding"
+      namespace: ""
+      name: "cert-manager-controller-clusterissuers"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||cert-manager-controller-clusterissuers"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRoleBinding"
+      namespace: ""
+      name: "cert-manager-controller-ingress-shim"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||cert-manager-controller-ingress-shim"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRoleBinding"
+      namespace: ""
+      name: "cert-manager-controller-issuers"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||cert-manager-controller-issuers"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRoleBinding"
+      namespace: ""
+      name: "cert-manager-controller-orders"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||cert-manager-controller-orders"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRoleBinding"
+      namespace: ""
+      name: "cert-manager-webhook:subjectaccessreviews"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||cert-manager-webhook:subjectaccessreviews"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRole"
+      namespace: ""
+      name: "cert-manager-cainjector"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||cert-manager-cainjector"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRole"
+      namespace: ""
+      name: "cert-manager-cluster-view"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||cert-manager-cluster-view"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRole"
+      namespace: ""
+      name: "cert-manager-controller-approve:cert-manager-io"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||cert-manager-controller-approve:cert-manager-io"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRole"
+      namespace: ""
+      name: "cert-manager-controller-certificates"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||cert-manager-controller-certificates"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRole"
+      namespace: ""
+      name: "cert-manager-controller-certificatesigningrequests"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||cert-manager-controller-certificatesigningrequests"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRole"
+      namespace: ""
+      name: "cert-manager-controller-challenges"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||cert-manager-controller-challenges"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRole"
+      namespace: ""
+      name: "cert-manager-controller-clusterissuers"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||cert-manager-controller-clusterissuers"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRole"
+      namespace: ""
+      name: "cert-manager-controller-ingress-shim"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||cert-manager-controller-ingress-shim"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRole"
+      namespace: ""
+      name: "cert-manager-controller-issuers"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||cert-manager-controller-issuers"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRole"
+      namespace: ""
+      name: "cert-manager-controller-orders"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||cert-manager-controller-orders"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRole"
+      namespace: ""
+      name: "cert-manager-edit"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||cert-manager-edit"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRole"
+      namespace: ""
+      name: "cert-manager-view"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||cert-manager-view"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRole"
+      namespace: ""
+      name: "cert-manager-webhook:subjectaccessreviews"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||cert-manager-webhook:subjectaccessreviews"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "RoleBinding"
+      namespace: "cert-manager"
+      name: "cert-manager-tokenrequest"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|cert-manager|cert-manager-tokenrequest"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "RoleBinding"
+      namespace: "cert-manager"
+      name: "cert-manager-webhook:dynamic-serving"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|cert-manager|cert-manager-webhook:dynamic-serving"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "RoleBinding"
+      namespace: "kube-system"
+      name: "cert-manager-cainjector:leaderelection"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|cert-manager-cainjector:leaderelection"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "RoleBinding"
+      namespace: "kube-system"
+      name: "cert-manager:leaderelection"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|cert-manager:leaderelection"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "Role"
+      namespace: "cert-manager"
+      name: "cert-manager-tokenrequest"
+      identity: "rbac.authorization.k8s.io/v1|Role|cert-manager|cert-manager-tokenrequest"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "Role"
+      namespace: "cert-manager"
+      name: "cert-manager-webhook:dynamic-serving"
+      identity: "rbac.authorization.k8s.io/v1|Role|cert-manager|cert-manager-webhook:dynamic-serving"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "Role"
+      namespace: "kube-system"
+      name: "cert-manager-cainjector:leaderelection"
+      identity: "rbac.authorization.k8s.io/v1|Role|kube-system|cert-manager-cainjector:leaderelection"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "Role"
+      namespace: "kube-system"
+      name: "cert-manager:leaderelection"
+      identity: "rbac.authorization.k8s.io/v1|Role|kube-system|cert-manager:leaderelection"
+    - 
+      apiVersion: "v1"
+      kind: "ServiceAccount"
+      namespace: "cert-manager"
+      name: "cert-manager"
+      identity: "v1|ServiceAccount|cert-manager|cert-manager"
+    - 
+      apiVersion: "v1"
+      kind: "ServiceAccount"
+      namespace: "cert-manager"
+      name: "cert-manager-cainjector"
+      identity: "v1|ServiceAccount|cert-manager|cert-manager-cainjector"
+    - 
+      apiVersion: "v1"
+      kind: "ServiceAccount"
+      namespace: "cert-manager"
+      name: "cert-manager-webhook"
+      identity: "v1|ServiceAccount|cert-manager|cert-manager-webhook"
+    - 
+      apiVersion: "v1"
+      kind: "Service"
+      namespace: "cert-manager"
+      name: "cert-manager"
+      identity: "v1|Service|cert-manager|cert-manager"
+    - 
+      apiVersion: "v1"
+      kind: "Service"
+      namespace: "cert-manager"
+      name: "cert-manager-cainjector"
+      identity: "v1|Service|cert-manager|cert-manager-cainjector"
+    - 
+      apiVersion: "v1"
+      kind: "Service"
+      namespace: "cert-manager"
+      name: "cert-manager-webhook"
+      identity: "v1|Service|cert-manager|cert-manager-webhook"

@@ -37,6 +37,8 @@ the current proof path.
 Read:
 
 - `README.md`
+- `data/adversarial10/summary.md`
+- `data/adversarial10/proof-readiness.csv`
 - `docs/agreed-execution-plan.md`
 - `docs/chart-recipe-manifest-flow.md`
 - `docs/current-pathway-review.md`
@@ -154,6 +156,20 @@ variant revision -> rendered digest -> scan/gate -> receipt -> next action
 ```
 
 If a claim cannot be traced, it is not proof.
+
+Current generated evidence to inspect:
+
+```text
+recipes/bitnami/redis/25.5.3/
+packages/bitnami/redis/25.5.3/
+docs/demo/redis/
+data/adversarial10/
+```
+
+`data/adversarial10/` is a readiness and blocker harness, not final
+certification. Review it for whether each row is clear, generated, and
+receipt-backed, then identify what is still missing before those charts become
+full recipe/variant/revision proofs.
 
 Every happy-path demo must also pass the simple UX test:
 

@@ -1,0 +1,272 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "external-secrets-external-secrets-2.5.0"
+spec:
+  chart: "external-secrets/external-secrets"
+  version: "2.5.0"
+  objectCount: 42
+  kindCounts:
+    ClusterRole: 5
+    ClusterRoleBinding: 2
+    CustomResourceDefinition: 23
+    Deployment: 3
+    Role: 1
+    RoleBinding: 1
+    Secret: 1
+    Service: 1
+    ServiceAccount: 3
+    ValidatingWebhookConfiguration: 2
+  objects:
+    - 
+      apiVersion: "admissionregistration.k8s.io/v1"
+      kind: "ValidatingWebhookConfiguration"
+      namespace: ""
+      name: "externalsecret-validate"
+      identity: "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||externalsecret-validate"
+    - 
+      apiVersion: "admissionregistration.k8s.io/v1"
+      kind: "ValidatingWebhookConfiguration"
+      namespace: ""
+      name: "secretstore-validate"
+      identity: "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||secretstore-validate"
+    - 
+      apiVersion: "apiextensions.k8s.io/v1"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "acraccesstokens.generators.external-secrets.io"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||acraccesstokens.generators.external-secrets.io"
+    - 
+      apiVersion: "apiextensions.k8s.io/v1"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "cloudsmithaccesstokens.generators.external-secrets.io"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||cloudsmithaccesstokens.generators.external-secrets.io"
+    - 
+      apiVersion: "apiextensions.k8s.io/v1"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "clusterexternalsecrets.external-secrets.io"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||clusterexternalsecrets.external-secrets.io"
+    - 
+      apiVersion: "apiextensions.k8s.io/v1"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "clustergenerators.generators.external-secrets.io"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||clustergenerators.generators.external-secrets.io"
+    - 
+      apiVersion: "apiextensions.k8s.io/v1"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "clusterpushsecrets.external-secrets.io"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||clusterpushsecrets.external-secrets.io"
+    - 
+      apiVersion: "apiextensions.k8s.io/v1"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "clustersecretstores.external-secrets.io"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||clustersecretstores.external-secrets.io"
+    - 
+      apiVersion: "apiextensions.k8s.io/v1"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "ecrauthorizationtokens.generators.external-secrets.io"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||ecrauthorizationtokens.generators.external-secrets.io"
+    - 
+      apiVersion: "apiextensions.k8s.io/v1"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "externalsecrets.external-secrets.io"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||externalsecrets.external-secrets.io"
+    - 
+      apiVersion: "apiextensions.k8s.io/v1"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "fakes.generators.external-secrets.io"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||fakes.generators.external-secrets.io"
+    - 
+      apiVersion: "apiextensions.k8s.io/v1"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "gcraccesstokens.generators.external-secrets.io"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||gcraccesstokens.generators.external-secrets.io"
+    - 
+      apiVersion: "apiextensions.k8s.io/v1"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "generatorstates.generators.external-secrets.io"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||generatorstates.generators.external-secrets.io"
+    - 
+      apiVersion: "apiextensions.k8s.io/v1"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "githubaccesstokens.generators.external-secrets.io"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||githubaccesstokens.generators.external-secrets.io"
+    - 
+      apiVersion: "apiextensions.k8s.io/v1"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "grafanas.generators.external-secrets.io"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||grafanas.generators.external-secrets.io"
+    - 
+      apiVersion: "apiextensions.k8s.io/v1"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "mfas.generators.external-secrets.io"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||mfas.generators.external-secrets.io"
+    - 
+      apiVersion: "apiextensions.k8s.io/v1"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "passwords.generators.external-secrets.io"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||passwords.generators.external-secrets.io"
+    - 
+      apiVersion: "apiextensions.k8s.io/v1"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "pushsecrets.external-secrets.io"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||pushsecrets.external-secrets.io"
+    - 
+      apiVersion: "apiextensions.k8s.io/v1"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "quayaccesstokens.generators.external-secrets.io"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||quayaccesstokens.generators.external-secrets.io"
+    - 
+      apiVersion: "apiextensions.k8s.io/v1"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "secretstores.external-secrets.io"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||secretstores.external-secrets.io"
+    - 
+      apiVersion: "apiextensions.k8s.io/v1"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "sshkeys.generators.external-secrets.io"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||sshkeys.generators.external-secrets.io"
+    - 
+      apiVersion: "apiextensions.k8s.io/v1"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "stssessiontokens.generators.external-secrets.io"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||stssessiontokens.generators.external-secrets.io"
+    - 
+      apiVersion: "apiextensions.k8s.io/v1"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "uuids.generators.external-secrets.io"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||uuids.generators.external-secrets.io"
+    - 
+      apiVersion: "apiextensions.k8s.io/v1"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "vaultdynamicsecrets.generators.external-secrets.io"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||vaultdynamicsecrets.generators.external-secrets.io"
+    - 
+      apiVersion: "apiextensions.k8s.io/v1"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "webhooks.generators.external-secrets.io"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||webhooks.generators.external-secrets.io"
+    - 
+      apiVersion: "apps/v1"
+      kind: "Deployment"
+      namespace: "external-secrets"
+      name: "external-secrets"
+      identity: "apps/v1|Deployment|external-secrets|external-secrets"
+    - 
+      apiVersion: "apps/v1"
+      kind: "Deployment"
+      namespace: "external-secrets"
+      name: "external-secrets-cert-controller"
+      identity: "apps/v1|Deployment|external-secrets|external-secrets-cert-controller"
+    - 
+      apiVersion: "apps/v1"
+      kind: "Deployment"
+      namespace: "external-secrets"
+      name: "external-secrets-webhook"
+      identity: "apps/v1|Deployment|external-secrets|external-secrets-webhook"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRoleBinding"
+      namespace: ""
+      name: "external-secrets-cert-controller"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||external-secrets-cert-controller"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRoleBinding"
+      namespace: ""
+      name: "external-secrets-controller"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||external-secrets-controller"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRole"
+      namespace: ""
+      name: "external-secrets-cert-controller"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||external-secrets-cert-controller"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRole"
+      namespace: ""
+      name: "external-secrets-controller"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||external-secrets-controller"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRole"
+      namespace: ""
+      name: "external-secrets-edit"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||external-secrets-edit"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRole"
+      namespace: ""
+      name: "external-secrets-servicebindings"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||external-secrets-servicebindings"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRole"
+      namespace: ""
+      name: "external-secrets-view"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||external-secrets-view"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "RoleBinding"
+      namespace: "external-secrets"
+      name: "external-secrets-leaderelection"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|external-secrets|external-secrets-leaderelection"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "Role"
+      namespace: "external-secrets"
+      name: "external-secrets-leaderelection"
+      identity: "rbac.authorization.k8s.io/v1|Role|external-secrets|external-secrets-leaderelection"
+    - 
+      apiVersion: "v1"
+      kind: "Secret"
+      namespace: "external-secrets"
+      name: "external-secrets-webhook"
+      identity: "v1|Secret|external-secrets|external-secrets-webhook"
+    - 
+      apiVersion: "v1"
+      kind: "ServiceAccount"
+      namespace: "external-secrets"
+      name: "external-secrets"
+      identity: "v1|ServiceAccount|external-secrets|external-secrets"
+    - 
+      apiVersion: "v1"
+      kind: "ServiceAccount"
+      namespace: "external-secrets"
+      name: "external-secrets-cert-controller"
+      identity: "v1|ServiceAccount|external-secrets|external-secrets-cert-controller"
+    - 
+      apiVersion: "v1"
+      kind: "ServiceAccount"
+      namespace: "external-secrets"
+      name: "external-secrets-webhook"
+      identity: "v1|ServiceAccount|external-secrets|external-secrets-webhook"
+    - 
+      apiVersion: "v1"
+      kind: "Service"
+      namespace: "external-secrets"
+      name: "external-secrets-webhook"
+      identity: "v1|Service|external-secrets|external-secrets-webhook"

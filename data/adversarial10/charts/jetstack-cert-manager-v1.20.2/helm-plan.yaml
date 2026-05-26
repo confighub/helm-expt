@@ -1,0 +1,80 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "jetstack-cert-manager-v1.20.2"
+spec:
+  summary:
+    chart: "jetstack/cert-manager"
+    version: "v1.20.2"
+    releaseName: "cert-manager"
+    namespace: "cert-manager"
+    status: "rendered-needs-control-points"
+    primaryControlPoint: "crd-policy"
+    nextAction: "Split CRD readiness, ordering, schema validation, and upgrade compatibility from ordinary object apply."
+  sourceLock:
+    repositoryURL: "https://charts.jetstack.io"
+    packageSHA256: "d2a50bd44a09d838c2576a8f3dfca1524597c7393cf8d82ab3ec8a465b9eeb79"
+    packageBytes: 147139
+    dependencies: 0
+  renderAttempt:
+    status: "rendered"
+    deterministicAcrossTwoLocalRenders: true
+    resourceCount: 42
+    renderedManifestSHA256: "45029db19d75e578bec74b82a0476a6580d1f7193239a210bf4873156ac725ce"
+    renderedManifestPath: "rendered/default.yaml"
+  featureSummary:
+    source:
+      lookup: false
+      generatedFacts: false
+      capabilities: false
+      tpl: true
+      hooks: false
+      required: true
+      extensionSlots: true
+      crdFiles: 0
+      crdTemplates: 6
+      dependencyCount: 0
+    rendered:
+      crdCount: 0
+      clusterRBAC: true
+      webhooks: true
+      apiService: false
+      stateful: false
+      pvc: false
+      kindCounts:
+        ClusterRole: 13
+        ClusterRoleBinding: 10
+        Deployment: 3
+        MutatingWebhookConfiguration: 1
+        Role: 4
+        RoleBinding: 4
+        Service: 3
+        ServiceAccount: 3
+        ValidatingWebhookConfiguration: 1
+  painReport:
+    - 
+      id: "crds"
+      severity: "P0"
+      controlPoint: "crd-policy"
+      evidence: "0 CRD source file(s), 6 CRD template(s), 0 rendered CRD object(s)."
+      mitigation: "Split CRD readiness, ordering, schema validation, and upgrade compatibility from ordinary object apply."
+    - 
+      id: "template-extension-slots"
+      severity: "P1"
+      controlPoint: "extension-slot-policy"
+      evidence: "Chart exposes tpl/raw/extra manifest behavior."
+      mitigation: "Treat extension inputs as explicit slots with provenance, scan coverage, and rendered-object diff checks."
+    - 
+      id: "admission-or-apiservice"
+      severity: "P1"
+      controlPoint: "operate-policy"
+      evidence: "Rendered objects include admission webhooks or APIService resources."
+      mitigation: "Require readiness observations and freshness receipts after apply."
+    - 
+      id: "cluster-rbac"
+      severity: "P1"
+      controlPoint: "rendered-manifest-scan"
+      evidence: "Rendered objects include cluster-scoped RBAC."
+      mitigation: "Scan exact rendered objects for least privilege and policy violations."
+  receipts:
+    - "render-receipt.yaml"

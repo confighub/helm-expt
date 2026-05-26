@@ -201,6 +201,7 @@ New proof work should produce files such as:
 ```text
 recipes/bitnami/redis/25.5.3/
 packages/bitnami/redis/25.5.3/
+data/adversarial10/
 data/top500/
 schemas/
 runs/
@@ -325,6 +326,44 @@ helm-redis-reuse-existing-secret
 
 The receipt verifies both spaces and confirms ConfigHub's hosted OCI endpoint
 returns unit-level OCI manifests for representative Redis StatefulSet Units.
+
+## Adversarial 10 Harness
+
+The first scale-out harness is:
+
+```text
+data/adversarial10/
+```
+
+It uses 10 pinned public Helm charts, renders chart-default values twice with
+real Helm, stores rendered object sets for successful attempts, records blocker
+receipts for failures, and generates a proof-readiness CSV:
+
+```text
+data/adversarial10/corpus.yaml
+data/adversarial10/corpus.lock.yaml
+data/adversarial10/summary.md
+data/adversarial10/proof-readiness.csv
+data/adversarial10/charts/*/helm-plan.yaml
+data/adversarial10/charts/*/render-receipt.yaml
+data/adversarial10/charts/*/rendered/object-inventory.yaml
+```
+
+Useful commands:
+
+```sh
+npm run adversarial10:generate
+npm run adversarial10:verify
+npm run adversarial10:verify:self-test
+```
+
+This is not certification. It is the first generated evidence map showing where
+public-chart Helm pain appears: nondeterministic renders, required values,
+CRDs, hooks, capability branching, `lookup`, generated facts, `tpl`, raw
+extension slots, RBAC, webhooks, APIService, stateful workloads, and PVCs.
+
+Rows must trace to receipts and rendered object digests. Blocked or
+nondeterministic rows are useful findings, not swept-away failures.
 
 ## Legacy Redis Reference
 

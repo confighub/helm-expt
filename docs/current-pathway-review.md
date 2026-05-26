@@ -54,9 +54,22 @@ chart source
   -> observation receipts with freshness
 ```
 
-The current repo is mostly a planning and review packet. It is not yet the proof
-repo. The next step is to create new chart proof repos and new generated
-spreadsheets that are backed by receipts, not hand-maintained analysis.
+The repo now has one complete Redis proof slice and one first generated
+adversarial harness. It is still not a 20/100/500 proof repo, but it is no
+longer only a planning packet.
+
+Current proof surface:
+
+```text
+recipes/bitnami/redis/25.5.3/
+packages/bitnami/redis/25.5.3/
+docs/demo/redis/
+data/adversarial10/
+```
+
+The next step is to turn more chart rows from `data/adversarial10/` into full
+recipe/variant/revision proofs and generated spreadsheets that are backed by
+receipts, not hand-maintained analysis.
 
 Council consensus:
 
@@ -88,17 +101,20 @@ Council consensus:
 
 ## What Is Still Missing
 
-First, build the verifier:
+Keep extending the verifier:
 
 ```text
 schemas/
 scripts/verify-artifact-chain.mjs
+scripts/generate-adversarial10-harness.mjs --verify
 ```
 
-`npm run verify` should validate references, SHA256s, rendered-object inventory,
-scan/gate digest binding, and spreadsheet row traceability.
+`npm run verify` now validates Redis proof artifacts, Redis package
+determinism, the archived reference corpus, and the first adversarial harness.
+It still needs formal schemas and broader scan/gate/publication traceability
+before 20/100/500 claims are credible.
 
-The repo needs new proof artifacts, starting with Redis:
+The Redis proof artifacts now exist:
 
 ```text
 recipes/bitnami/redis/25.5.3/
@@ -121,7 +137,19 @@ packages/bitnami/redis/25.5.3/
   bases/reuse-existing-secret/upstream.yaml
 ```
 
-It also needs new generated matrix outputs:
+The first generated matrix output is:
+
+```text
+data/adversarial10/
+  corpus.yaml
+  corpus.lock.yaml
+  summary.md
+  proof-readiness.csv
+  charts/*/helm-plan.yaml
+  charts/*/render-receipt.yaml
+```
+
+It still needs larger generated matrix outputs:
 
 ```text
 data/top20/
@@ -137,20 +165,10 @@ data/top500/
 The spreadsheet must be generated from artifacts and receipts. It should be a
 proof index, not the proof itself.
 
-The Redis proof must be courtroom-grade. Its first complete revision needs at
-least:
+The Redis proof now contains the first courtroom-grade slice. Remaining Redis
+day-2 extensions still include:
 
 ```text
-effective-values.yaml
-helm-equivalence-receipt.yaml
-render-receipt.yaml
-rendered-object-inventory.yaml
-scan-receipt.yaml
-install-gate.yaml
-installer-package-receipt.yaml
-upload-receipt.yaml
-oci-artifact-receipt.yaml
-observation-receipt.yaml
 upgrade-simulation-receipt.yaml
 rollback-simulation-receipt.yaml
 ```
@@ -169,7 +187,7 @@ ConfigHub hosted OCI returns unit-level manifests for representative StatefulSet
 Observation is not optional for the workerless claim. A missing or stale
 observation receipt must be visible as "unknown/stale", not implied live truth.
 
-The repo also needs simple UX proof artifacts:
+The simple UX proof artifacts now exist:
 
 ```text
 demo-script.md
@@ -177,7 +195,7 @@ cli-transcript.txt
 ux-acceptance.md
 ```
 
-These should show:
+They should continue to show:
 
 - commands a Helm user can run without learning the full model first
 - the immediate value returned by each command
@@ -208,7 +226,8 @@ The order is deliberate: can I use this safely, why, then raw receipts.
 For 20 charts, prove depth:
 
 - complete Redis proof first
-- 19 more chart proof repos or chart proof folders
+- promote selected `data/adversarial10/` rows into chart proof folders
+- add enough additional chart rows to reach 20
 - at least default variant per chart
 - at least one second meaningful variant where relevant
 - deterministic render checks
@@ -216,6 +235,7 @@ For 20 charts, prove depth:
 - scan receipt and install gate per rendered revision
 - explicit CRD-heavy charts in the set
 - adversarial set chosen from [known-adversarial-charts.md](known-adversarial-charts.md)
+- every generated spreadsheet row traceable to receipts, not just source scans
 
 For 50 charts, prove breadth without losing clarity:
 
@@ -276,27 +296,19 @@ schema gaps, unknown values, and upgrade-sensitive state.
 ## P0 Before Scaling
 
 The authoritative issue list is [docs/issue-backlog.md](issue-backlog.md). The
-following P0s must be complete or deliberately reclassified before the
+following open P0s must be complete or deliberately reclassified before the
 20/100/500 proof can be believable:
 
 - [#24](https://github.com/confighub/helm-expt/issues/24) Artifact schema and
-  receipt verifier. Do this first.
-- [#10](https://github.com/confighub/helm-expt/issues/10) Complete Redis
-  HelmPlan and ChartDossier artifacts.
-- [#26](https://github.com/confighub/helm-expt/issues/26) Simple UX proof:
-  easier, safer, and correct versus Helm.
+  receipt verifier. The current verifier is real but not complete.
 - [#4](https://github.com/confighub/helm-expt/issues/4) HelmPlan pain report
-  for each analyzed chart.
+  for each analyzed chart. `data/adversarial10/` is the first generated slice.
 - [#5](https://github.com/confighub/helm-expt/issues/5) EffectiveValues@sha
   with value precedence and provenance.
 - [#6](https://github.com/confighub/helm-expt/issues/6) Dead, unknown, or
   ignored value detection where possible.
 - [#7](https://github.com/confighub/helm-expt/issues/7) Value-to-rendered-field
   explanation for key settings.
-- [#8](https://github.com/confighub/helm-expt/issues/8) Redis Helm equivalence
-  and every ConfigHub difference classified.
-- [#9](https://github.com/confighub/helm-expt/issues/9) Scan receipts and
-  install gates bound to exact manifest digests.
 - [#29](https://github.com/confighub/helm-expt/issues/29) Capability profile
   catalog for finite, digest-bound capability profiles.
 - [#28](https://github.com/confighub/helm-expt/issues/28) Generated fact
@@ -306,7 +318,8 @@ following P0s must be complete or deliberately reclassified before the
 - [#27](https://github.com/confighub/helm-expt/issues/27) Observation
   freshness SLO for workerless proof.
 - [#25](https://github.com/confighub/helm-expt/issues/25) Top-N adversarial run
-  harness that can produce generated spreadsheets from artifacts.
+  harness that can produce generated spreadsheets from artifacts. The
+  10-chart foundation exists but does not yet close the issue.
 
 ## Acceptance Standard
 
