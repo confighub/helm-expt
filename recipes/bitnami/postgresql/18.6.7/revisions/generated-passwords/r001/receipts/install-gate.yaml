@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "postgresql-generated-passwords-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "5ddff6ac6f2de4b98f6fce9d482167f300406c3ff738317e34b322522465ea72"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for generated-passwords"
+    - "Generated credential handling needs explicit generated fact or target fact policy before production"
+    - "Helm hook behavior needs explicit lifecycle policy before production"
+    - "PostgreSQL StatefulSet and volumeClaimTemplates need storage, upgrade, and rollback policy"
+    - "uses a persisted generated fact for auth.postgresPassword and renders the chart Secret deterministically"

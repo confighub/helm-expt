@@ -185,6 +185,7 @@ Second promoted adversarial row: ingress-nginx/ingress-nginx@4.15.1.
 Third promoted adversarial row: jetstack/cert-manager@v1.20.2.
 Fourth promoted adversarial row: external-secrets/external-secrets@2.5.0.
 Fifth promoted adversarial row: argo-cd/argo-cd@9.5.15.
+Sixth promoted adversarial row: bitnami/postgresql@18.6.7.
 ```
 
 The adversarial 10 foundation does not close the scale proof. It gives us the
@@ -226,6 +227,13 @@ variants, capability profile gates, CRD lifecycle and upgrade gates, Helm hook
 lifecycle gates, generated Secret ownership gates, StatefulSet policy, GitOps
 handoff policy, cluster RBAC gates, Helm equivalence receipts, and
 deterministic `cub install` package/setup proof.
+
+The sixth such promotion is PostgreSQL. It adds the repeatable pattern for a
+nondeterministic generated-credential chart: source/dependency locks,
+`generated-passwords` and `existing-secret` variants, generated fact binding,
+target fact binding, Helm hook lifecycle gates, StatefulSet/PVC policy, `tpl`
+extension-slot review, Helm equivalence receipts, and deterministic
+`cub install` package/setup proof.
 
 ## Installer Boundary
 

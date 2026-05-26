@@ -1,0 +1,22 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "existing-secret"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "postgresql"
+  releaseName: "postgresql"
+  valuesProfile: "../../effective-values-existing-secret.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"
+  targetFacts:
+    requiredSecrets:
+      -
+        namespace: "postgresql"
+        name: "postgresql-auth"
+        keys:
+          - "postgres-password"
+        purpose: "PostgreSQL administrator password"

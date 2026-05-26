@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "postgresql-existing-secret-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "63c946704d955651bb3051d69d26dd67e18a074791846752e503d7ddc4ed38ef"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for existing-secret"
+    - "Generated credential handling needs explicit generated fact or target fact policy before production"
+    - "Helm hook behavior needs explicit lifecycle policy before production"
+    - "PostgreSQL StatefulSet and volumeClaimTemplates need storage, upgrade, and rollback policy"
+    - "requires target Secret postgresql/postgresql-auth with postgres-password before apply"

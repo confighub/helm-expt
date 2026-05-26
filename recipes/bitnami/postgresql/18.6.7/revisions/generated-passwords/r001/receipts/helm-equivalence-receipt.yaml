@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "postgresql-generated-passwords-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "5ddff6ac6f2de4b98f6fce9d482167f300406c3ff738317e34b322522465ea72"
+    objectCount: 7
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 8
+    uploadedManifestFiles: 8
+    separatedSecretFiles: 1
+    semanticObjectMatches: "7/7"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||postgresql"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run postgresql:compare"

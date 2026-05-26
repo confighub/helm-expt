@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "bitnami-postgresql-18.6.7"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "bitnami"
+  repositoryURL: "https://charts.bitnami.com/bitnami"
+  chart: "postgresql"
+  version: "18.6.7"
+  appVersion: "18.4.0"
+  packageSHA256: "0ad5b7d9d50f53000b2369e3ee6aa70b32c3b91c363a118c78d9204ae3f98fe5"
+  packageBytes: 89588
+  evidence:
+    harnessReceipt: "../../../../data/adversarial10/charts/bitnami-postgresql-18.6.7/render-receipt.yaml"

@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "generated-passwords-r001"
+spec:
+  variant: "../../../variants/generated-passwords/variant.yaml"
+  revision: "r001"
+  digest: "7f3cd6a979d3e128b2a0620b0d5382264797119ce3ae1b7d8b58f2268d17c9a3"
+  digestInputs:
+    recipeSHA256: "dcb04485e9408e84fc7cc88e111533f62e6e42ed3d390b98132aa2333e6d232a"
+    variantSHA256: "ad4445921985dff565af28a5bac33f96e5924de7794232482fc9e355cc0d8f68"
+    effectiveValuesSHA256: "59fbd00d107904262e709d806e2c36f15ef9f120886300377c28107287a156c7"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "5ddff6ac6f2de4b98f6fce9d482167f300406c3ff738317e34b322522465ea72"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 7

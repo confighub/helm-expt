@@ -71,6 +71,7 @@ Rows promoted from readiness evidence into full proof slices:
 | `jetstack/cert-manager@v1.20.2` | `recipes/jetstack/cert-manager/v1.20.2/`, `packages/jetstack/cert-manager/v1.20.2/` | Third promoted adversarial row: default and `crds-enabled` variants, CRD lifecycle/webhook/hook/RBAC gates, deterministic `cub install` package/setup proof. |
 | `external-secrets/external-secrets@2.5.0` | `recipes/external-secrets/external-secrets/2.5.0/`, `packages/external-secrets/external-secrets/2.5.0/` | Fourth promoted adversarial row: default and `no-crds` variants, capability/CRD/dependency/webhook/Secret/RBAC gates, deterministic `cub install` package/setup proof. |
 | `argo-cd/argo-cd@9.5.15` | `recipes/argo-cd/argo-cd/9.5.15/`, `packages/argo-cd/argo-cd/9.5.15/` | Fifth promoted adversarial row: default and `no-crds` variants, CRD/hook/dependency/Secret/StatefulSet/GitOps/RBAC gates, deterministic `cub install` package/setup proof. |
+| `bitnami/postgresql@18.6.7` | `recipes/bitnami/postgresql/18.6.7/`, `packages/bitnami/postgresql/18.6.7/` | Sixth promoted adversarial row: `generated-passwords` and `existing-secret` variants, generated fact/target fact/hook/dependency/StatefulSet/PVC gates, deterministic `cub install` package/setup proof. |
 
 ## Execution Order
 

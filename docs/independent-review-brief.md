@@ -180,6 +180,8 @@ recipes/external-secrets/external-secrets/2.5.0/
 packages/external-secrets/external-secrets/2.5.0/
 recipes/argo-cd/argo-cd/9.5.15/
 packages/argo-cd/argo-cd/9.5.15/
+recipes/bitnami/postgresql/18.6.7/
+packages/bitnami/postgresql/18.6.7/
 ```
 
 `data/adversarial10/` is a readiness and blocker harness, not final
@@ -216,6 +218,13 @@ whether its `default` and `no-crds` variants, three-CRD default render, disabled
 StatefulSet policy, GitOps handoff, RBAC, scan/gate, and `cub install` package
 evidence are convincing enough to serve as the repeatable pattern for GitOps
 controller charts.
+
+`bitnami/postgresql@18.6.7` is the sixth row promoted from that harness. Review
+whether its `generated-passwords` and `existing-secret` variants, generated
+fact binding, target Secret binding, Bitnami `common` dependency lock, hook
+lifecycle policy, StatefulSet/PVC policy, extension-slot review, scan/gate, and
+`cub install` package evidence are convincing enough to serve as the repeatable
+pattern for stateful generated-credential charts.
 
 Every happy-path demo must also pass the simple UX test:
 
