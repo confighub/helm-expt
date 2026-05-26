@@ -46,12 +46,14 @@ It did not exercise `confighub/installer`:
 - no installer upload/reconcile record
 - no clear package boundary for later variants
 
-That is why the root README now uses:
+That is why the archived reference path uses:
 
 ```text
 Helm-rendered Redis package -> cub install setup -> rendered objects -> cub install upload -> ConfigHub Units
 ```
 
-The root demo is still intentionally modest: it uses a render-and-vendor Redis
-installer package from the archive. It is the current executable proof that the
-ConfigHub installer path works with Helm-derived artifacts.
+That archived reference is intentionally modest: it uses a render-and-vendor
+Redis installer package from the archive. It is not the main pathway for the
+current Helm mission, and it is not proof of recipe candidates, managed
+variants, immutable variant revisions, scan gates, OCI receipts, or the new
+spreadsheet proof system.

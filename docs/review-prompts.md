@@ -6,9 +6,19 @@ Primary source:
 
 - `docs/chart-recipe-manifest-flow.md`
 - `docs/agreed-execution-plan.md`
-- `outputs/helm_top500_matrix/helm_top500_import_feature_matrix.xlsx`
-- `outputs/helm_top500_matrix/helm_top500_import_feature_matrix.raw.json`
+- `docs/current-pathway-review.md`
+- `docs/independent-review-brief.md`
+- `docs/issue-backlog.md`
 - `confighub/installer`: https://github.com/confighub/installer
+
+Scope exclusions:
+
+- `archive/render-and-vendor-top20/` is legacy reference only.
+- `outputs/helm_top500_matrix/` is an old source-feature spreadsheet and is
+  legacy reference only.
+- Do not judge the current plan by whether those old artifacts prove it. They
+  do not. The current plan requires new chart proof repos, new recipe artifacts,
+  new generated spreadsheets, and new receipts.
 
 Core thesis:
 
@@ -36,11 +46,33 @@ The repo should prove:
   -> bulk scans and install gates
 ```
 
+Above all, it must prove simple UX:
+
+```text
+one install command
+one review/diff path
+one apply or publish path
+proof generated automatically
+```
+
+If the first demo feels like Helm plus homework, the plan fails.
+If the result appears harder than Helm, riskier than Helm, or wrong compared
+with Helm, users will not adopt it.
+
 Implementation thesis:
 
 ```text
 Build this by extending confighub/installer.
 Do not invent a separate Helm platform.
+```
+
+Execution boundary:
+
+```text
+The current fast install story uses ConfigHub's OCI endpoint.
+GitHub is the public catalog/proof surface, currently confighub/helm-expt.
+A pure serverless cub install path is deferred and should be tracked as an
+issue, not reviewed as part of the current proof plan.
 ```
 
 Installer is the substrate for `cub install`, `installer.yaml`, Kustomize
@@ -56,18 +88,18 @@ Important review distinction:
 
 ```text
 Current repo state:
-  useful legacy/render-and-vendor evidence, plus top-500 source feature scan.
+  planning docs, legacy reference evidence, and old source-feature scan.
 
 Target repo state:
-  proof that Helm charts become ConfigHub installer recipe candidates,
-  install variants, immutable variant revisions, rendered objects, scans,
-  gates, and receipts.
+  new chart repos prove that Helm charts become ConfigHub installer recipe
+  candidates, install variants, immutable variant revisions, rendered objects,
+  scans, gates, OCI/apply receipts, and generated evidence spreadsheets.
 ```
 
-Do not mark the current repo as "failed" merely because it does not already
-contain the target rewrite. The useful review is: what parts of the current repo
-can be retained as evidence, what must be moved or relabeled, and what new
-artifacts are required to prove the target story?
+Do not treat archived top-20 folders or the old top-500 spreadsheet as the main
+pathway. They are already archived/reference-only. The useful review is: are
+the new pathway, required artifacts, acceptance criteria, and proof strategy
+clear enough for independent implementation and verification?
 
 The proposed repo rewrite matches the whole plan if it answers these questions clearly:
 
@@ -77,9 +109,9 @@ The proposed repo rewrite matches the whole plan if it answers these questions c
 4. Can every variant revision render deterministically?
 5. Can every rendered variant revision be scanned and gated?
 6. Can ConfigHub Server store intended variant state without pretending to be the live watcher?
-7. Can `cub-scout`, Pilot, GitOps, CI/CD, or other external observers submit live observation receipts with freshness?
+7. Can `cub-scout`, GitOps, CI/CD, or other external observers submit live observation receipts with freshness?
 8. Does the repo prove real recipe/variant behavior, not just chart-count benchmark theater?
-9. Is every step executable through `cub`, ConfigHub Server UI/API, Pilot, or an external observer integration, with no hidden manual process?
+9. Is every step executable through `cub`, ConfigHub Server UI/API, or an external observer integration, with no hidden manual process?
 
 If the repo does not make those answers obvious, the repo is still too much of a Helm-render experiment and not enough of a ConfigHub variants proof.
 
@@ -133,7 +165,7 @@ The plan is:
     -> Verified Install Gate
     -> ConfigHub operate/day-2 lifecycle
 
-ConfigHub Server is workerless in this story. It stores recipes, variants, variant revisions, operation records, receipts, target assignments, and desired state. It does not have a built-in live view. Live observations come from cub-scout, Pilot, GitOps controller reports, CI/CD jobs, customer-owned agents/integrations, or human-triggered cub observations. Those observations are submitted as receipts with observer, method, timestamp, result, and freshness.
+ConfigHub Server is workerless in this story. It stores recipes, variants, variant revisions, operation records, receipts, target assignments, and desired state. It does not have a built-in live view. Live observations come from cub-scout, GitOps controller reports, CI/CD jobs, customer-owned agents/integrations, or human-triggered cub observations. Those observations are submitted as receipts with observer, method, timestamp, result, and freshness.
 
 Hard rule:
 
@@ -167,8 +199,10 @@ Please be blunt. Produce:
 5. Any places where the plan sounds like platform ceremony instead of reduced pain.
 6. Whether the variants model is doing enough work, or whether the plan still sounds like values-file management.
 7. Whether the workerless server boundary is clear and credible.
-8. Whether the top-500 chart evidence proves the right thing.
-9. What the helm-expt repo must contain to make the claim believable.
+8. Whether the proposed new top-20/top-100/top-500 evidence will prove the
+   right thing.
+9. What the new chart repos and generated spreadsheets must contain to make the
+   claim believable.
 10. What to cut, rename, or sharpen.
 11. Whether "variant" means a real approval/promotion/operation object, or just a renamed values file.
 
@@ -191,11 +225,16 @@ Read:
 
 - docs/chart-recipe-manifest-flow.md
 - docs/agreed-execution-plan.md
-- outputs/helm_top500_matrix/helm_top500_import_feature_matrix.xlsx
-- outputs/helm_top500_matrix/helm_top500_import_feature_matrix.raw.json
 - README.md
-- archive/render-and-vendor-top20/charts/
 - confighub/installer, especially README.md, docs/author-guide.md, package model, collector/facts, render, deps, OCI/sign/verify, validators, and lifecycle docs
+
+Explicitly exclude from current-pathway proof review:
+
+- archive/render-and-vendor-top20/charts/
+- outputs/helm_top500_matrix/
+
+Those are legacy/reference artifacts only. Mention them only if current docs
+still accidentally present them as the main execution path.
 
 The intended repo story is:
 
@@ -220,39 +259,56 @@ The repo should prove:
 Important constraints:
 
 - ConfigHub variants are the product spine.
+- The happy path must be no more complex than Helm for a first successful
+  install, while producing more proof.
+- The happy path must feel safer and more correct than Helm, not merely more
+  instrumented.
+- Every intentional difference from Helm output must be explained before
+  apply/publish.
 - If a variant is just a values file with a label, the plan fails.
 - A core recipe is not the same thing as a Helm release.
 - A variant revision is the thing users approve, scan, promote, deploy, and roll back.
 - Helm source weirdness should map to control points, not just "bad chart" labels.
-- lookup must become target facts; no hidden live cluster reads during render.
+- lookup must become recipe-declared target fact requirements; no hidden live
+  cluster reads during render.
 - generated random/cert/time/password behavior must become generated facts or secrets.
 - capabilities must become named capability profiles.
 - hooks must become lifecycle policy: test hook, install phase, or unsupported.
 - raw/tpl escape hatches must become explicit extension slots or be rejected.
 - rendered manifests are where market scanners run.
-- ConfigHub Server is workerless; live state comes from cub-scout, Pilot, GitOps/CI reports, or other external observation receipts.
+- ConfigHub Server is workerless; live state comes from cub-scout, GitOps/CI reports, or other external observation receipts.
 - ConfigHub Server must not claim fresh runtime truth unless a current external observation receipt says so.
+- The fast install path uses ConfigHub's OCI endpoint; pure serverless is deferred.
 - The implementation should extend confighub/installer, not create a parallel Helm system.
 - Map every proposed concept to an existing installer concept where possible: package, `installer.yaml`, base, component, input, selection, facts, dependency lock, function chain, validator, render output, OCI artifact, signature, upload, day-2 lifecycle.
 
 Review task:
 
-1. Check whether the current repo structure proves the intended story or still tells the old "render Helm and wrap it" story.
-2. Check whether the top-500 spreadsheet/raw data supports the plan.
-3. Identify mismatches between docs/chart-recipe-manifest-flow.md and the current repo contents.
-4. Propose a concrete repo rewrite with file tree, schemas, and example files.
-5. Propose a simpler top-500 summary table focused on:
+1. Check whether the current docs clearly exclude legacy artifacts from the
+   main proof pathway.
+2. Check whether the proposed happy path proves simpler UX and faster value
+   than plain Helm.
+3. Check whether the proposed new chart repo / new spreadsheet pathway can
+   prove the intended story.
+4. Identify mismatches between docs/chart-recipe-manifest-flow.md,
+   docs/agreed-execution-plan.md, and the target artifacts.
+5. Propose a concrete new chart repo file tree, schemas, and example files.
+6. Propose a new generated top-20/top-100/top-500 summary table focused on:
    - core recipe viable?
    - base variants needed
    - primary control point
    - secondary control point
    - can bulk scan rendered variants?
    - install readiness
-6. Define acceptance criteria for the proof repo.
-7. Identify the smallest useful implementation slice.
-8. Identify any places the plan is technically false, underspecified, or overclaiming.
-9. Identify any places the repo is doing benchmark theater instead of proving recipe/variant behavior.
-10. Identify which pieces can be implemented directly in confighub/installer and which require new model/API concepts.
+   - evidence artifact / receipt link
+7. Define acceptance criteria for the proof repo.
+8. Identify the smallest useful implementation slice.
+9. Identify any places the plan is technically false, underspecified, or overclaiming.
+10. Identify any places the proposed new evidence path risks becoming benchmark
+   theater instead of proving recipe/variant behavior.
+11. Check whether any issue in `docs/issue-backlog.md`, especially P0 gates,
+    is missing from or bypassed by the written plan.
+12. Identify which pieces can be implemented directly in confighub/installer and which require new model/API concepts.
 
 Output format:
 

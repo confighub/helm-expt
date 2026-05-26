@@ -1,8 +1,81 @@
 # ConfigHub Helm Installer Demo
 
-This README is current-state only. Every demo step below uses real `cub`,
-real `cub install` from [confighub/installer](https://github.com/confighub/installer),
-and the real ConfigHub service.
+## Why This Exists
+
+Helm is great at producing Kubernetes objects. It is not a durable operating
+record of what was approved, changed, scanned, promoted, applied, and observed.
+
+ConfigHub's Helm mission is:
+
+```text
+Use Helm charts.
+Ship ConfigHub variants.
+Never have Helm pain again.
+```
+
+The missing object is:
+
+```text
+managed variant + known operation + proof
+```
+
+Helm owns chart rendering. Git owns files. Argo CD and Flux own sync.
+Kubernetes owns live objects. Scanners own findings. CI owns logs. None of them
+owns this complete record:
+
+```text
+this variant revision was approved,
+this exact object set was scanned,
+this exact revision was applied,
+this target observed it fresh,
+this rollback, promotion, or upgrade happened with proof.
+```
+
+ConfigHub is the missing operational record around Helm output. The goal is not
+"better Helm values". The goal is exact, reviewable, scannable, promotable
+variant revisions with receipts.
+
+```text
+Chart -> Recipe -> Variant -> VariantRevision -> Deployment -> Receipt
+```
+
+Default rule:
+
+```text
+1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions
+```
+
+The model is complex. The UX must not be:
+
+```sh
+cub install redis
+cub diff redis
+cub apply redis
+```
+
+Above all, the proof must show that this is simpler than living in Helm
+directly. A user should get immediate value before they understand the full
+model:
+
+```text
+one simple install command
+one clear diff/review path
+one safe apply/promote path
+automatic receipts, scans, gates, and rendered-object proof in the background
+```
+
+If the demo feels like "Helm plus homework", the plan has failed.
+
+Harder than Helm, riskier than Helm, or less correct than Helm are all product
+failures. The first experience must feel:
+
+```text
+easier: fewer decisions before a useful result
+safer: exact objects, scans, gates, and rollback/promote proof
+more correct: Helm-equivalent when expected, with every difference explained
+```
+
+## Current Pathway Boundary
 
 Default ConfigHub org:
 
@@ -12,26 +85,56 @@ ConfigHub Helm
 
 Do not use `ConfighubOps` for this work.
 
-## What This Demo Shows
-
-Today, with existing `cub`, `confighub/installer`, and ConfigHub, this repo
-demonstrates:
-
-- Install the ConfigHub installer plugin so `cub install` is available.
-- Inspect a Redis installer package generated from Helm-rendered Redis YAML.
-- Render that package locally into exact Kubernetes objects.
-- Keep Secrets out of uploaded manifest Units.
-- Upload the rendered Redis objects into ConfigHub with `cub install upload`.
-- Review the created Units, revisions, and diffs in ConfigHub.
-
-The Redis package used here is:
+This README describes the current mission and proof plan. The current main
+pathway is:
 
 ```text
-archive/render-and-vendor-top20/charts/06-bitnami-redis
+new chart proof repos
+  -> new HelmPlan / ChartDossier / recipe artifacts
+  -> new variants and variant revisions
+  -> new rendered-object scans, gates, OCI/apply receipts
+  -> new generated spreadsheets as evidence maps
 ```
 
-The older direct Helm-to-ConfigHub model is documented separately in
-[docs/old-cub-helm-model.md](docs/old-cub-helm-model.md).
+The fast install story for this project uses ConfigHub's OCI endpoint. The
+public catalog/proof surface is the ConfigHub GitHub repo for this work,
+currently `confighub/helm-expt`. A fully serverless `cub install` path is a
+deferred option and is not part of this executable demo.
+
+## Legacy Reference Only
+
+The old render-and-vendor material has been deliberately archived:
+
+```text
+archive/render-and-vendor-top20/
+outputs/helm_top500_matrix/
+```
+
+Those files are reference evidence only. They should not be reviewed as the
+main pathway for this plan.
+
+The archived material can still show that:
+
+- rendered Helm YAML can be wrapped by `confighub/installer`
+- `cub install setup` can preserve a Helm-rendered object set
+- `cub install upload` can create ConfigHub Units from that output
+- the old source-feature spreadsheet helped design the control-point taxonomy
+
+But the current plan must be judged against new chart repos, new recipes, new
+variants, new receipts, and new generated proof spreadsheets.
+
+Planning/backlog sync:
+
+```text
+docs/issue-backlog.md
+```
+
+Open P0 issues in that file are gates before credible 20/100/500 chart proof.
+
+## Legacy Redis Reference
+
+The commands below are retained only for reference. They are not the hero demo
+and not the acceptance test for the current plan.
 
 ## Prerequisites
 
@@ -58,16 +161,16 @@ cub install --help
 Some installer help text says `installer` because that is the plugin binary.
 For this demo, invoke it through Cub as `cub install`.
 
-Optional repo integrity check:
+Optional archive integrity check:
 
 ```sh
 npm run verify
 ```
 
 That command verifies the archived top-20 render-and-vendor receipts. It is not
-part of the ConfigHub upload flow.
+part of the current recipe/variant proof pathway.
 
-## CLI Demo
+## Legacy CLI Reference
 
 Set the package and work directory:
 
@@ -108,7 +211,26 @@ Rendered 14 manifest(s) to /tmp/confighub-helm-redis/out/manifests
 Rendered 1 secret(s) to /tmp/confighub-helm-redis/out/secrets (not uploaded)
 ```
 
-## ConfigHub Demo
+## Legacy Helm Comparison
+
+Check the Redis Helm render against the Redis installer render:
+
+```sh
+npm run redis:compare
+```
+
+That command does not upload anything. It checks:
+
+- a fresh Helm render of Redis 25.5.3 byte-matches the archived Helm render
+  recorded in `helm-import.receipt.yaml`
+- `cub install setup` preserves the full Helm object set
+- every Helm object is semantically identical after `cub install` splits and
+  normalizes YAML
+- `cub install setup` separates the Secret into `out/secrets`
+- the only extra object from `cub install setup` is the explicit `redis`
+  Namespace support object
+
+## Legacy ConfigHub Upload Reference
 
 Log in to the demo org:
 
@@ -158,19 +280,22 @@ reconcile would change:
 cub install plan --work-dir "$WORK_DIR"
 ```
 
-## Supporting Files
+## Planned Proof Files
 
-Top-500 source scan:
+New proof work should produce files such as:
 
 ```text
-outputs/helm_top500_matrix/helm_top500_import_feature_matrix.xlsx
-outputs/helm_top500_matrix/helm_top500_import_feature_matrix.raw.json
+recipes/bitnami/redis/25.5.3/
+data/top500/
+schemas/
+runs/
 ```
 
-Archived top-20 render-and-vendor artifacts:
+Legacy reference files remain here:
 
 ```text
 archive/render-and-vendor-top20/charts/
+outputs/helm_top500_matrix/
 ```
 
 Background notes:

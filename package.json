@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "generate": "node scripts/generate-top20.mjs",
+    "redis:compare": "node scripts/compare-redis-helm-installer.mjs",
     "verify": "node scripts/generate-top20.mjs --verify"
   }
 }
