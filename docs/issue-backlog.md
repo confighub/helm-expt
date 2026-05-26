@@ -67,6 +67,7 @@ Rows promoted from readiness evidence into full proof slices:
 | `metrics-server/metrics-server@3.13.0` | `recipes/metrics-server/metrics-server/3.13.0/`, `packages/metrics-server/metrics-server/3.13.0/` | First promoted adversarial row: default and `external-tls-ca` variants, target Secret fact, APIService/RBAC gates, deterministic `cub install` package/setup proof. |
 | `ingress-nginx/ingress-nginx@4.15.1` | `recipes/ingress-nginx/ingress-nginx/4.15.1/`, `packages/ingress-nginx/ingress-nginx/4.15.1/` | Second promoted adversarial row: default and `admission-disabled` variants, admission webhook/hook lifecycle/RBAC gates, deterministic `cub install` package/setup proof. |
 | `jetstack/cert-manager@v1.20.2` | `recipes/jetstack/cert-manager/v1.20.2/`, `packages/jetstack/cert-manager/v1.20.2/` | Third promoted adversarial row: default and `crds-enabled` variants, CRD lifecycle/webhook/hook/RBAC gates, deterministic `cub install` package/setup proof. |
+| `external-secrets/external-secrets@2.5.0` | `recipes/external-secrets/external-secrets/2.5.0/`, `packages/external-secrets/external-secrets/2.5.0/` | Fourth promoted adversarial row: default and `no-crds` variants, capability/CRD/dependency/webhook/Secret/RBAC gates, deterministic `cub install` package/setup proof. |
 
 ## Execution Order
 

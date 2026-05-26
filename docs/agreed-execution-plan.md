@@ -180,6 +180,7 @@ Adversarial 10 foundation: present under data/adversarial10/.
 First promoted adversarial row: metrics-server/metrics-server@3.13.0.
 Second promoted adversarial row: ingress-nginx/ingress-nginx@4.15.1.
 Third promoted adversarial row: jetstack/cert-manager@v1.20.2.
+Fourth promoted adversarial row: external-secrets/external-secrets@2.5.0.
 ```
 
 The adversarial 10 foundation does not close the scale proof. It gives us the
@@ -204,6 +205,14 @@ CRD-heavy control-plane chart: source/dependency locks, `default` and
 `crds-enabled` variants, CRD lifecycle and upgrade gates, admission webhook
 observation gates, Helm startup hook lifecycle gates, cluster RBAC gates, Helm
 equivalence receipts, and deterministic `cub install` package/setup proof.
+
+The fourth such promotion is external-secrets. It adds the repeatable pattern
+for a CRD-heavy controller chart with a disabled dependency and separated
+webhook Secret: source/dependency locks, `default` and `no-crds` variants,
+capability profile gates, CRD lifecycle and upgrade gates, admission webhook
+observation gates, webhook Secret/cert-controller observation, cluster RBAC
+gates, Helm equivalence receipts, and deterministic `cub install`
+package/setup proof.
 
 ## Installer Boundary
 

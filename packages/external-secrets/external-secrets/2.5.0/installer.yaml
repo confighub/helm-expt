@@ -1,0 +1,16 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "external-secrets-external-secrets"
+  version: "2.5.0"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "external-secrets default variant rendered from external-secrets/external-secrets@2.5.0"
+    -
+      name: "no-crds"
+      path: "bases/no-crds"
+      description: "external-secrets CRDs disabled variant rendered from external-secrets/external-secrets@2.5.0"

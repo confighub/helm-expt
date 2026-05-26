@@ -31,6 +31,10 @@ Treat "Never have Helm pain again" as the ambition. The proof claim starts
 smaller and sharper: ConfigHub shows the exact objects, differences, checks,
 and proof before publish.
 
+We use AI to accelerate Helm chart analysis and recipe creation. We use
+`cub install` to prove the resulting recipes produce correct, Helm-equivalent,
+reviewable ConfigHub variants.
+
 The product promise is:
 
 ```text
@@ -207,6 +211,8 @@ recipes/ingress-nginx/ingress-nginx/4.15.1/
 packages/ingress-nginx/ingress-nginx/4.15.1/
 recipes/jetstack/cert-manager/v1.20.2/
 packages/jetstack/cert-manager/v1.20.2/
+recipes/external-secrets/external-secrets/2.5.0/
+packages/external-secrets/external-secrets/2.5.0/
 data/adversarial10/
 data/top500/
 schemas/
@@ -231,13 +237,14 @@ npm run redis:verify-package
 npm run metrics-server:compare
 npm run ingress-nginx:compare
 npm run cert-manager:compare
+npm run external-secrets:compare
 ```
 
 It checks the archived reference receipts against their referenced files, then
 checks the current Redis proof artifacts, Helm-equivalence evidence, scan/gate
-receipts, variant diff evidence, promoted metrics-server, ingress-nginx, and
-cert-manager proof/package artifacts, deterministic `cub install` packaging,
-and negative golden self-tests.
+receipts, variant diff evidence, promoted metrics-server, ingress-nginx,
+cert-manager, and external-secrets proof/package artifacts, deterministic
+`cub install` packaging, and negative golden self-tests.
 
 The old hash-only archive check is still available for comparison:
 
@@ -432,6 +439,38 @@ npm run cert-manager:generate-package
 npm run cert-manager:verify-proof
 npm run cert-manager:verify-package
 npm run cert-manager:compare
+```
+
+## External Secrets Proof
+
+The fourth chart promoted from the adversarial harness is:
+
+```text
+recipes/external-secrets/external-secrets/2.5.0/
+packages/external-secrets/external-secrets/2.5.0/
+```
+
+It has two install variants:
+
+```text
+default
+no-crds
+```
+
+The proof shows that regular Helm output is preserved by real
+`cub install setup`, plus the explained Namespace support object. It also makes
+the chart's awkward parts visible: Kubernetes capability branching, 23 optional
+CRDs, a disabled locked dependency, validating webhooks, an empty webhook Secret
+filled later by the cert-controller, `tpl` extension slots, and cluster RBAC.
+
+Useful commands:
+
+```sh
+npm run external-secrets:generate-proof
+npm run external-secrets:generate-package
+npm run external-secrets:verify-proof
+npm run external-secrets:verify-package
+npm run external-secrets:compare
 ```
 
 ## Adversarial 10 Harness

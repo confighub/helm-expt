@@ -170,6 +170,8 @@ recipes/ingress-nginx/ingress-nginx/4.15.1/
 packages/ingress-nginx/ingress-nginx/4.15.1/
 recipes/jetstack/cert-manager/v1.20.2/
 packages/jetstack/cert-manager/v1.20.2/
+recipes/external-secrets/external-secrets/2.5.0/
+packages/external-secrets/external-secrets/2.5.0/
 ```
 
 `data/adversarial10/` is a readiness and blocker harness, not final
@@ -193,6 +195,12 @@ Review whether its `default` and `crds-enabled` variants, CRD lifecycle,
 admission webhook, Helm startup hook lifecycle, RBAC, scan/gate, and
 `cub install` package evidence are convincing enough to serve as the repeatable
 pattern for CRD-heavy control-plane charts.
+
+`external-secrets/external-secrets@2.5.0` is the fourth row promoted from that
+harness. Review whether its `default` and `no-crds` variants, 23-CRD default
+render, disabled dependency lock, admission webhook, webhook Secret/cert
+controller, RBAC, scan/gate, and `cub install` package evidence are convincing
+enough to serve as the repeatable pattern for CRD-heavy controller charts.
 
 Every happy-path demo must also pass the simple UX test:
 

@@ -1,0 +1,50 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ControlPoints"
+metadata:
+  name: "external-secrets-external-secrets-2.5.0"
+spec:
+  points:
+    -
+      category: "source-lock"
+      status: "handled"
+      evidence: "source-lock.yaml"
+    -
+      category: "dependency-lock"
+      status: "handled"
+      evidence: "dependency-lock.yaml"
+      note: "chart declares bitwarden-sdk-server dependency; promoted variants keep it disabled but lock its metadata."
+    -
+      category: "capability-profile"
+      status: "handled"
+      kubeVersion: "1.30.0"
+      note: "OpenShift and ServiceMonitor branches are bound to the named Kubernetes capability profile."
+    -
+      category: "crd-policy"
+      status: "variant-controlled"
+      variants:
+        default: 23
+        no-crds: 0
+      note: "CRDs are ordinary rendered objects in the default variant and still need lifecycle/upgrade policy."
+    -
+      category: "admission-webhook"
+      status: "scan-and-observe"
+      objects:
+        - "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||externalsecret-validate"
+        - "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||secretstore-validate"
+    -
+      category: "webhook-secret"
+      status: "scan-and-observe"
+      object: "v1|Secret|external-secrets|external-secrets-webhook"
+      note: "rendered Secret contains metadata only; cert-controller populates certificate material later."
+    -
+      category: "cluster-rbac"
+      status: "scan-and-review"
+      evidence: "scan receipts"
+    -
+      category: "tpl"
+      status: "controlled-by-empty-defaults"
+      note: "extraObjects uses tpl; promoted variants do not set that value."
+    -
+      category: "installer-support-object"
+      status: "handled"
+      object: "v1|Namespace||external-secrets"
