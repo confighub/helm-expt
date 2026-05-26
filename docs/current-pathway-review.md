@@ -87,6 +87,8 @@ recipes/longhorn/longhorn/1.11.2/
 packages/longhorn/longhorn/1.11.2/
 recipes/bitnami/mysql/14.0.3/
 packages/bitnami/mysql/14.0.3/
+recipes/grafana/grafana/10.5.15/
+packages/grafana/grafana/10.5.15/
 ```
 
 The next step is to turn more chart rows from `data/adversarial10/` into full
@@ -328,6 +330,19 @@ It proves the generated-credential stateful chart shape for MySQL:
 for root/user/replication passwords, target Secret binding for
 `mysql/mysql-auth`, Bitnami `common` dependency lock, hook lifecycle policy,
 StatefulSet/PVC policy, extension-slot review, and deterministic
+`cub install` package/setup proof.
+
+The twelfth promoted row is:
+
+```text
+grafana/grafana@10.5.15
+```
+
+It proves the dashboard control-plane app chart shape: a chart-deprecation
+marker in the source lock, `generated-passwords` and `existing-secret-ingress`
+variants, generated Grafana admin credential binding, target Secret binding
+for `grafana/grafana-admin`, UI ingress policy, cluster RBAC review,
+deployment/provisioning/sidecar/Secret extension gates, and deterministic
 `cub install` package/setup proof.
 
 The Redis proof now contains the first courtroom-grade slice. Remaining Redis

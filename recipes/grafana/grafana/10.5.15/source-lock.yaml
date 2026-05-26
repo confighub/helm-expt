@@ -1,0 +1,16 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "grafana-grafana-10.5.15"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "grafana"
+  repositoryURL: "https://grafana.github.io/helm-charts"
+  chart: "grafana"
+  version: "10.5.15"
+  appVersion: "12.3.1"
+  deprecated: true
+  packageSHA256: "c08c87969270402e7d5227edb8385af67cc32ee34817bff89773ad02303b5d79"
+  packageBytes: 50028
+  evidence:
+    harnessReceipt: "../../../../data/adversarial10/charts/grafana-grafana-10.5.15/render-receipt.yaml"

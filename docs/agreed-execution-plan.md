@@ -191,6 +191,7 @@ Eighth promoted adversarial row: prometheus-community/kube-prometheus-stack@85.3
 Ninth promoted adversarial row: grafana/loki@7.0.0.
 Tenth promoted adversarial row: longhorn/longhorn@1.11.2.
 Eleventh promoted adversarial row: bitnami/mysql@14.0.3.
+Twelfth promoted adversarial row: grafana/grafana@10.5.15.
 ```
 
 The adversarial 10 foundation does not close the scale proof. It gives us the
@@ -278,6 +279,14 @@ for root/user/replication passwords, target fact binding for external Secret,
 StatefulSet/PVC policy, hook lifecycle policy, `tpl`/configuration
 extension-slot review, Helm equivalence receipts, and deterministic
 `cub install` package/setup proof.
+
+The twelfth such promotion is Grafana. It adds the repeatable pattern for a
+dashboard/control-plane app chart with a deprecated upstream chart marker:
+source/dependency locks, `generated-passwords` and `existing-secret-ingress`
+variants, generated admin password binding, target Secret binding, UI ingress
+policy, RBAC review, provisioning/dashboard/plugin/sidecar extension-slot
+review, Helm equivalence receipts, and deterministic `cub install`
+package/setup proof.
 
 ## Installer Boundary
 

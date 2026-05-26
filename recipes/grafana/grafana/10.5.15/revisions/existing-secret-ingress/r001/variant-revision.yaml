@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "existing-secret-ingress-r001"
+spec:
+  variant: "../../../variants/existing-secret-ingress/variant.yaml"
+  revision: "r001"
+  digest: "e09cf943695cd0a968513386e745382ef0dc99be69991e6021ed56c9d0bf1488"
+  digestInputs:
+    recipeSHA256: "613f8360119aa7f3aac2322f799be50417ada3a84f3c550eefd32d1400498e52"
+    variantSHA256: "12f7e092087a611211f6f87ef3f872d0dcac8a9492a4e68af4a7f4d71736eb15"
+    effectiveValuesSHA256: "c7a3413a0ec191822fef035b09dfaf42e72fc377bd8fc6b344f871c8da2157c7"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "04b1fc4abd47d12c2eef1e06e7f4dc7cb2dd6ffd639a7a8967bda1c98a00fb60"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 9

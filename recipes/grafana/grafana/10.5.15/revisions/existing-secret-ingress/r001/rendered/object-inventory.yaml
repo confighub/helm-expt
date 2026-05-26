@@ -1,0 +1,63 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "grafana-grafana-10.5.15-existing-secret-ingress-r001"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "04b1fc4abd47d12c2eef1e06e7f4dc7cb2dd6ffd639a7a8967bda1c98a00fb60"
+  objectCount: 9
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|grafana|grafana"
+      kind: "Deployment"
+      name: "grafana"
+      namespace: "grafana"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|Ingress|grafana|grafana"
+      kind: "Ingress"
+      name: "grafana"
+      namespace: "grafana"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||grafana-clusterrolebinding"
+      kind: "ClusterRoleBinding"
+      name: "grafana-clusterrolebinding"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||grafana-clusterrole"
+      kind: "ClusterRole"
+      name: "grafana-clusterrole"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|grafana|grafana"
+      kind: "RoleBinding"
+      name: "grafana"
+      namespace: "grafana"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role|grafana|grafana"
+      kind: "Role"
+      name: "grafana"
+      namespace: "grafana"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|grafana|grafana"
+      kind: "ConfigMap"
+      name: "grafana"
+      namespace: "grafana"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|grafana|grafana"
+      kind: "ServiceAccount"
+      name: "grafana"
+      namespace: "grafana"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|grafana|grafana"
+      kind: "Service"
+      name: "grafana"
+      namespace: "grafana"

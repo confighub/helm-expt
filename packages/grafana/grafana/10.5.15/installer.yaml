@@ -1,0 +1,16 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "grafana-grafana"
+  version: "10.5.15"
+spec:
+  bases:
+    -
+      name: "generated-passwords"
+      path: "bases/generated-passwords"
+      default: true
+      description: "grafana generated passwords variant rendered from grafana/grafana@10.5.15"
+    -
+      name: "existing-secret-ingress"
+      path: "bases/existing-secret-ingress"
+      description: "grafana existing Secret with ingress variant rendered from grafana/grafana@10.5.15"

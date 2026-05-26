@@ -192,6 +192,8 @@ recipes/longhorn/longhorn/1.11.2/
 packages/longhorn/longhorn/1.11.2/
 recipes/bitnami/mysql/14.0.3/
 packages/bitnami/mysql/14.0.3/
+recipes/grafana/grafana/10.5.15/
+packages/grafana/grafana/10.5.15/
 ```
 
 `data/adversarial10/` is a readiness and blocker harness, not final
@@ -274,6 +276,14 @@ Bitnami `common` dependency lock, hook lifecycle policy, StatefulSet/PVC
 policy, extension-slot review, scan/gate, and `cub install` package evidence
 are convincing enough to serve as the repeatable pattern for stateful
 generated-credential charts.
+
+`grafana/grafana@10.5.15` is the twelfth row promoted from that harness. Review
+whether its chart-deprecation marker, `generated-passwords` and
+`existing-secret-ingress` variants, generated admin credential binding, target
+Secret binding, UI ingress policy, cluster RBAC review, deployment and
+extension-slot gates, scan/gate, and `cub install` package evidence are
+convincing enough to serve as the repeatable pattern for dashboard/control-plane
+application charts.
 
 Every happy-path demo must also pass the simple UX test:
 

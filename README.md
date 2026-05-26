@@ -231,6 +231,8 @@ recipes/longhorn/longhorn/1.11.2/
 packages/longhorn/longhorn/1.11.2/
 recipes/bitnami/mysql/14.0.3/
 packages/bitnami/mysql/14.0.3/
+recipes/grafana/grafana/10.5.15/
+packages/grafana/grafana/10.5.15/
 data/adversarial10/
 data/top500/
 docs/top20-full-proof-target.md
@@ -280,13 +282,14 @@ npm run kube-prometheus-stack:compare
 npm run loki:compare
 npm run longhorn:compare
 npm run mysql:compare
+npm run grafana:compare
 ```
 
 It checks the archived reference receipts against their referenced files, then
 checks the current Redis proof artifacts, Helm-equivalence evidence, scan/gate
 receipts, variant diff evidence, promoted metrics-server, ingress-nginx,
 cert-manager, external-secrets, Argo CD, PostgreSQL, RabbitMQ,
-kube-prometheus-stack, Loki, Longhorn, and MySQL proof/package artifacts, deterministic `cub install`
+kube-prometheus-stack, Loki, Longhorn, MySQL, and Grafana proof/package artifacts, deterministic `cub install`
 packaging, and negative golden
 self-tests.
 
@@ -746,6 +749,39 @@ npm run mysql:generate-package
 npm run mysql:verify-proof
 npm run mysql:verify-package
 npm run mysql:compare
+```
+
+## Grafana Proof
+
+The twelfth chart promoted from the adversarial harness is:
+
+```text
+recipes/grafana/grafana/10.5.15/
+packages/grafana/grafana/10.5.15/
+```
+
+It has two install variants:
+
+```text
+generated-passwords
+existing-secret-ingress
+```
+
+The proof shows that regular Helm output is preserved by real
+`cub install setup`, plus the explained Namespace support object. It also makes
+the chart's awkward parts visible: deprecated upstream chart status, generated
+admin password, external admin Secret, explicit UI ingress exposure, cluster
+RBAC, deployment rollout policy, and dashboard/datasource/plugin/sidecar/env
+extension slots.
+
+Useful commands:
+
+```sh
+npm run grafana:generate-proof
+npm run grafana:generate-package
+npm run grafana:verify-proof
+npm run grafana:verify-package
+npm run grafana:compare
 ```
 
 ## Adversarial 10 Harness
