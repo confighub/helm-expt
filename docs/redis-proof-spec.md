@@ -73,6 +73,9 @@ packages/bitnami/redis/25.5.3/
   bases/default/upstream.yaml
   bases/reuse-existing-secret/kustomization.yaml
   bases/reuse-existing-secret/upstream.yaml
+
+runs/redis-confighub/latest/
+  upload-oci-receipt.yaml
 ```
 
 ## Minimum Readiness Card
@@ -91,7 +94,7 @@ Secrets: default renders 1 Secret; reuse-existing-secret requires target Secret
 Scan/gate: exact rendered object digest bound; result explicit
 Installer package: deterministic cub install package with two bases
 Next action: publish via configured ConfigHub OCI, or direct apply only for local/test
-Proof: equivalence, render, scan/gate, package receipts
+Proof: equivalence, render, scan/gate, package, upload/OCI receipts
 Variant diff: default -> reuse-existing-secret explains removed Secret, changed
 StatefulSets, and added target fact
 ```
@@ -193,6 +196,19 @@ which scopes are blocked. It must not imply a pass.
      existing-secret variant and match Helm semantically, with only the
      namespace support object added.
 
+### ConfigHub Upload And OCI
+
+13h. `cub install upload` must create one visible ConfigHub Space per current
+     Redis variant in the configured demo org.
+13i. Each variant Space must contain 14 variant-labeled Kubernetes Units plus
+     an `installer-record` Unit.
+13j. Rendered Secrets must not be uploaded by the default variant.
+13k. The reuse-existing-secret variant must leave `redis-existing-secret` as an
+     expected target fact, not as rendered or stored secret material.
+13l. ConfigHub's hosted OCI endpoint must return a unit-level OCI manifest for
+     a representative Redis Unit, with secret and bearer token omitted from the
+     receipt.
+
 ### Scan And Gate
 
 14. `scan-receipt.yaml` is bound to the rendered object set digest.
@@ -241,7 +257,6 @@ The Redis proof verifier must fail if:
 The first Redis proof does not need to complete:
 
 - HA variant
-- ConfigHub OCI publication receipt
 - upgrade/rollback simulation receipts
 
 Those are required later, but they must not block the first Redis proof as long

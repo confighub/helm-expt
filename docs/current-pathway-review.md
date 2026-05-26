@@ -162,7 +162,8 @@ packages/bitnami/redis/25.5.3 exists
 cub install package is byte-deterministic across two local runs
 cub install setup --base default matches Helm semantically, plus Namespace
 cub install setup --base reuse-existing-secret matches Helm semantically, plus Namespace
-OCI publication remains gated on a configured registry ref and credentials
+Kubara spaces helm-redis-default and helm-redis-reuse-existing-secret exist
+ConfigHub hosted OCI returns unit-level manifests for representative StatefulSets
 ```
 
 Observation is not optional for the workerless claim. A missing or stale

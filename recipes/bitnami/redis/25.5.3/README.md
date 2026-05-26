@@ -17,8 +17,10 @@
 | Variant diff | default -> reuse-existing-secret removes Secret/redis, retargets two StatefulSets, adds target Secret requirement |
 | Installer package | packages/bitnami/redis/25.5.3 with bases default and reuse-existing-secret |
 | Package proof | deterministic `cub install package`; both bases verified through `cub install setup --base` |
-| Next action | resolve or waive local scan findings, then publish through a configured ConfigHub OCI endpoint |
-| Proof | equivalence, render, scan, gate, package, and local observation receipts |
+| ConfigHub upload | Kubara spaces helm-redis-default and helm-redis-reuse-existing-secret |
+| ConfigHub OCI | unit-level OCI manifests verified for representative StatefulSet Units |
+| Next action | resolve or waive local scan findings before production promotion |
+| Proof | equivalence, render, scan, gate, package, upload/OCI, and local observation receipts |
 
 ## Current Proof Commands
 
@@ -26,6 +28,12 @@
 npm run redis:compare
 npm run redis:verify-proof
 npm run redis:verify-package
+```
+
+Remote ConfigHub evidence is recorded at:
+
+```text
+runs/redis-confighub/latest/upload-oci-receipt.yaml
 ```
 
 This proof uses the archived Redis render as a compatibility fixture and stores

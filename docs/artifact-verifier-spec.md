@@ -35,7 +35,8 @@ That includes HelmPlan, ChartDossier, source/dependency locks, control points,
 effective values, variants, variant revisions, rendered objects, object
 inventories, Helm equivalence receipts, render receipts, scan receipts, install
 gates, variant diff evidence, the installer package receipt, and the package
-source tree.
+source tree. Remote ConfigHub upload/OCI evidence is recorded separately under
+`runs/redis-confighub/latest/` because it depends on hosted ConfigHub auth.
 
 ## Required Invariants
 
@@ -98,8 +99,9 @@ The Redis installer package verifier must also prove:
 The current verifier does not prove:
 
 - source archive bytes, because the archives are not stored in this repo;
-- live ConfigHub OCI publication, unless `REDIS_INSTALLER_OCI_REF` is supplied
-  and `npm run redis:publish-package` is run;
+- hosted ConfigHub upload/OCI state in the default local `npm run verify`, even
+  though the latest remote receipt is recorded under
+  `runs/redis-confighub/latest/upload-oci-receipt.yaml`;
 - upload receipts, upgrade simulation receipts, or rollback simulation
   receipts;
 - full JSON Schema enforcement, because the immediate gate is hash/reference

@@ -302,6 +302,22 @@ REDIS_INSTALLER_OCI_REF=oci://<registry>/<repo>:<tag> npm run redis:publish-pack
 Publication is not simulated. Without an explicit registry ref, the package
 proof remains a local deterministic package and setup proof.
 
+Current ConfigHub upload/OCI evidence:
+
+```text
+runs/redis-confighub/latest/upload-oci-receipt.yaml
+```
+
+In Kubara, the current Redis package has been uploaded to:
+
+```text
+helm-redis-default
+helm-redis-reuse-existing-secret
+```
+
+The receipt verifies both spaces and confirms ConfigHub's hosted OCI endpoint
+returns unit-level OCI manifests for representative Redis StatefulSet Units.
+
 ## Legacy Redis Reference
 
 Detailed legacy commands are intentionally not the root README experience.
