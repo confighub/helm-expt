@@ -254,7 +254,8 @@ recipes/bitnami/redis/25.5.3/
 It contains Redis readiness cards for the `default` and
 `reuse-existing-secret` variants, recipe/variant/revision artifacts, rendered
 object inventories, Helm equivalence receipts, render receipts, scan receipts,
-and install gates.
+install gates, and a readable diff from `default` to
+`reuse-existing-secret`.
 
 Useful commands:
 

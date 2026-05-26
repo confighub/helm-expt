@@ -30,3 +30,4 @@ spec:
     - revisions/reuse-existing-secret/r001/receipts/render-receipt.yaml
     - revisions/reuse-existing-secret/r001/receipts/scan-receipt.yaml
     - revisions/reuse-existing-secret/r001/receipts/install-gate.yaml
+    - diffs/default-to-reuse-existing-secret.yaml

@@ -40,6 +40,7 @@ recipes/bitnami/redis/25.5.3/
   effective-values.yaml
   effective-values-reuse-existing-secret.yaml
   recipe.yaml
+  diffs/default-to-reuse-existing-secret.yaml
 
   variants/
     default/variant.yaml
@@ -81,6 +82,8 @@ Secrets: default renders 1 Secret; reuse-existing-secret requires target Secret
 Scan/gate: exact rendered object digest bound; result explicit
 Next action: publish via ConfigHub OCI, or direct apply only for local/test
 Proof: equivalence, render, scan/gate receipts
+Variant diff: default -> reuse-existing-secret explains removed Secret, changed
+StatefulSets, and added target fact
 ```
 
 If scan/gate is not executed yet, the card must say `not-run` or `blocked`.
@@ -160,6 +163,13 @@ which scopes are blocked. It must not imply a pass.
     - semantic object matches: `13/13`
     - separated secret count: `0`
     - target Secret requirement recorded separately from rendered output
+13c. `diffs/default-to-reuse-existing-secret.yaml` must be recomputable from
+     both rendered object sets. It must show:
+    - removed object: `v1|Secret|redis|redis`
+    - added objects: none
+    - changed objects: Redis master and replica StatefulSets
+    - added target fact: `Secret redis/redis-existing-secret` key
+      `redis-password`
 
 ### Scan And Gate
 

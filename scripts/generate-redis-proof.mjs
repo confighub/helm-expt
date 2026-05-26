@@ -743,6 +743,42 @@ spec:
     });
   }
 
+  const defaultSummary = summaries.find((summary) => summary.name === "default");
+  const reuseSummary = summaries.find((summary) => summary.name === "reuse-existing-secret");
+  const variantDiff = `apiVersion: helm-expt.confighub.com/v1alpha1
+kind: VariantDiff
+metadata:
+  name: bitnami-redis-default-to-reuse-existing-secret
+spec:
+  from:
+    variantRevision: revisions/default/r001/variant-revision.yaml
+    renderedObjectSetSHA256: ${yamlQuote(defaultSummary.releaseDigest)}
+  to:
+    variantRevision: revisions/reuse-existing-secret/r001/variant-revision.yaml
+    renderedObjectSetSHA256: ${yamlQuote(reuseSummary.releaseDigest)}
+  summary:
+    addedObjects: 0
+    removedObjects: 1
+    changedObjects: 2
+    addedTargetFacts: 1
+  removedObjects:
+    - identity: v1|Secret|redis|redis
+      reason: reuse-existing-secret uses a target-provided Secret instead of a chart-rendered Secret
+  addedObjects: []
+  changedObjects:
+    - identity: apps/v1|StatefulSet|redis|redis-master
+      reason: redis password volume now references redis-existing-secret
+    - identity: apps/v1|StatefulSet|redis|redis-replicas
+      reason: redis password volume now references redis-existing-secret
+  addedTargetFacts:
+    - kind: Secret
+      namespace: redis
+      name: redis-existing-secret
+      keys:
+        - redis-password
+`;
+  write(join(proofRoot, "diffs", "default-to-reuse-existing-secret.yaml"), variantDiff);
+
   const helmPlan = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: HelmPlan
 metadata:
@@ -771,6 +807,7 @@ ${summaries
     `    - revisions/${summary.name}/r001/receipts/install-gate.yaml`,
   ])
   .join("\n")}
+    - diffs/default-to-reuse-existing-secret.yaml
 `;
   write(join(proofRoot, "helm-plan.yaml"), helmPlan);
 
@@ -806,6 +843,7 @@ spec:
 | Secrets | default renders 1 Secret; reuse-existing-secret renders 0 Secrets and requires target Secret redis-existing-secret/redis-password |
 | Scan/gate | local scan warns; production blocked; local-test warning only |
 | Scan findings | ${summaries.map((summary) => `${summary.name}: ${summary.scanCounts.high} high, ${summary.scanCounts.medium} medium`).join("; ")} |
+| Variant diff | default -> reuse-existing-secret removes Secret/redis, retargets two StatefulSets, adds target Secret requirement |
 | Next action | resolve or waive local scan findings, then publish through ConfigHub OCI |
 | Proof | equivalence, render, scan, and gate receipts |
 

@@ -90,6 +90,34 @@ print(json.dumps(objects, sort_keys=True))
   );
 }
 
+function canonicalObjectMap(path) {
+  const script = `
+import json
+import sys
+import yaml
+
+result = {}
+for doc in yaml.safe_load_all(open(sys.argv[1], "r", encoding="utf-8")):
+    if not isinstance(doc, dict):
+        continue
+    metadata = doc.get("metadata") or {}
+    key = "|".join([
+        str(doc.get("apiVersion", "")),
+        str(doc.get("kind", "")),
+        str(metadata.get("namespace", "")),
+        str(metadata.get("name", "")),
+    ])
+    result[key] = json.dumps(doc, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
+print(json.dumps(result, sort_keys=True))
+`;
+  return JSON.parse(
+    execFileSync("python3", ["-c", script, path], {
+      encoding: "utf8",
+      maxBuffer: 1024 * 1024 * 100,
+    }),
+  );
+}
+
 function fail(message) {
   throw new Error(message);
 }
@@ -118,6 +146,7 @@ function verifyProof(root) {
     "value-model.yaml",
     "effective-values.yaml",
     "effective-values-reuse-existing-secret.yaml",
+    "diffs/default-to-reuse-existing-secret.yaml",
     "recipe.yaml",
     "variants/default/variant.yaml",
     "variants/reuse-existing-secret/variant.yaml",
@@ -145,6 +174,7 @@ function verifyProof(root) {
   const valueModel = parseYamlFile(join(root, "value-model.yaml"));
   const effectiveValues = parseYamlFile(join(root, "effective-values.yaml"));
   const reuseEffectiveValues = parseYamlFile(join(root, "effective-values-reuse-existing-secret.yaml"));
+  const variantDiff = parseYamlFile(join(root, "diffs", "default-to-reuse-existing-secret.yaml"));
   const recipe = parseYamlFile(join(root, "recipe.yaml"));
   const variant = parseYamlFile(join(root, "variants", "default", "variant.yaml"));
   const reuseVariant = parseYamlFile(join(root, "variants", "reuse-existing-secret", "variant.yaml"));
@@ -375,6 +405,36 @@ function verifyProof(root) {
   check(reuseInstallGate.spec.allowedScopes?.includes("local-test"), "reuse install gate must allow local-test only");
   check(reuseInstallGate.spec.blockedScopes?.includes("production"), "reuse install gate must block production");
 
+  const defaultObjectMap = canonicalObjectMap(releaseObjectsPath);
+  const reuseObjectMap = canonicalObjectMap(reuseReleaseObjectsPath);
+  const defaultKeys = new Set(Object.keys(defaultObjectMap));
+  const reuseKeys = new Set(Object.keys(reuseObjectMap));
+  const removedObjects = [...defaultKeys].filter((key) => !reuseKeys.has(key)).sort();
+  const addedObjects = [...reuseKeys].filter((key) => !defaultKeys.has(key)).sort();
+  const changedObjects = [...defaultKeys]
+    .filter((key) => reuseKeys.has(key) && defaultObjectMap[key] !== reuseObjectMap[key])
+    .sort();
+  check(variantDiff.kind === "VariantDiff", "variant diff must be VariantDiff");
+  check(
+    variantDiff.spec.from?.renderedObjectSetSHA256 === releaseDigest,
+    "variant diff default rendered digest mismatch",
+  );
+  check(
+    variantDiff.spec.to?.renderedObjectSetSHA256 === reuseReleaseDigest,
+    "variant diff reuse rendered digest mismatch",
+  );
+  check(JSON.stringify(variantDiff.spec.removedObjects?.map((entry) => entry.identity).sort()) === JSON.stringify(removedObjects), "variant diff removed object summary mismatch");
+  check(JSON.stringify(variantDiff.spec.addedObjects ?? []) === JSON.stringify(addedObjects), "variant diff added object summary mismatch");
+  check(JSON.stringify(variantDiff.spec.changedObjects?.map((entry) => entry.identity).sort()) === JSON.stringify(changedObjects), "variant diff changed object summary mismatch");
+  check(variantDiff.spec.summary?.removedObjects === 1, "variant diff removed count mismatch");
+  check(variantDiff.spec.summary?.addedObjects === 0, "variant diff added count mismatch");
+  check(variantDiff.spec.summary?.changedObjects === 2, "variant diff changed count mismatch");
+  const diffTargetFact = variantDiff.spec.addedTargetFacts?.[0];
+  check(diffTargetFact?.kind === "Secret", "variant diff added target fact kind mismatch");
+  check(diffTargetFact?.namespace === "redis", "variant diff added target fact namespace mismatch");
+  check(diffTargetFact?.name === "redis-existing-secret", "variant diff added target fact name mismatch");
+  check(diffTargetFact?.keys?.includes("redis-password"), "variant diff added target fact key mismatch");
+
   return true;
 }
 
@@ -451,6 +511,15 @@ function runSelfTest() {
       writeFileSync(path, readFileSync(path, "utf8").replace("redis-existing-secret", "wrong-secret"));
     },
     "reuse-existing-secret target secret name mismatch",
+  );
+
+  expectFailure(
+    "variant diff lies are rejected",
+    (root) => {
+      const path = join(root, "diffs", "default-to-reuse-existing-secret.yaml");
+      writeFileSync(path, readFileSync(path, "utf8").replace("removedObjects: 1", "removedObjects: 0"));
+    },
+    "variant diff removed count mismatch",
   );
 }
 

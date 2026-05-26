@@ -14,6 +14,7 @@
 | Secrets | default renders 1 Secret; reuse-existing-secret renders 0 Secrets and requires target Secret redis-existing-secret/redis-password |
 | Scan/gate | local scan warns; production blocked; local-test warning only |
 | Scan findings | default: 2 high, 2 medium; reuse-existing-secret: 2 high, 2 medium |
+| Variant diff | default -> reuse-existing-secret removes Secret/redis, retargets two StatefulSets, adds target Secret requirement |
 | Next action | resolve or waive local scan findings, then publish through ConfigHub OCI |
 | Proof | equivalence, render, scan, and gate receipts |
 
