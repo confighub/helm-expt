@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "mysql-existing-secret-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "3df11b8cf513ef85c4c2c921d7ae5f31e61d3a7e98a46ca7fc6ff2cc7c02c0b2"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for existing-secret"
+    - "Generated credential handling needs explicit generated fact or target fact policy before production"
+    - "Helm hook behavior needs explicit lifecycle policy before production"
+    - "MySQL StatefulSet and volumeClaimTemplates need storage, upgrade, and rollback policy"
+    - "requires target Secret mysql/mysql-auth with MySQL password keys before apply"

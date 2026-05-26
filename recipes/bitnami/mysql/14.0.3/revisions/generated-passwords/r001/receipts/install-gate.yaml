@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "mysql-generated-passwords-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "d479b1df24670a9ca28e7fa2b1d487f63f17a20baa8080ff0b48cd75abce2bdd"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for generated-passwords"
+    - "Generated credential handling needs explicit generated fact or target fact policy before production"
+    - "Helm hook behavior needs explicit lifecycle policy before production"
+    - "MySQL StatefulSet and volumeClaimTemplates need storage, upgrade, and rollback policy"
+    - "uses persisted generated facts for auth.rootPassword, auth.password, and auth.replicationPassword and renders the chart Secret deterministically"

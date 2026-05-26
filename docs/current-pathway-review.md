@@ -85,6 +85,8 @@ recipes/grafana/loki/7.0.0/
 packages/grafana/loki/7.0.0/
 recipes/longhorn/longhorn/1.11.2/
 packages/longhorn/longhorn/1.11.2/
+recipes/bitnami/mysql/14.0.3/
+packages/bitnami/mysql/14.0.3/
 ```
 
 The next step is to turn more chart rows from `data/adversarial10/` into full
@@ -135,8 +137,8 @@ proof/package artifacts, cert-manager proof/package artifacts,
 external-secrets proof/package artifacts, Argo CD proof/package artifacts,
 PostgreSQL proof/package artifacts, RabbitMQ proof/package artifacts,
 kube-prometheus-stack proof/package artifacts, Loki proof/package artifacts,
-Longhorn proof/package artifacts, the
-archived reference corpus, and the
+Longhorn proof/package artifacts, MySQL proof/package artifacts, the archived
+reference corpus, and the
 first adversarial harness. It still needs formal schemas and broader
 publication traceability before 20/100/500 claims are credible.
 
@@ -313,6 +315,19 @@ It proves the storage control-plane chart shape: `default` and `ui-ingress`
 variants, 22 Longhorn CRDs, pre-upgrade hook policy, admission/recovery
 observation, cluster RBAC gates, privileged storage workload policy,
 StorageClass/default-setting policy, UI ingress policy, and deterministic
+`cub install` package/setup proof.
+
+The eleventh promoted row is:
+
+```text
+bitnami/mysql@14.0.3
+```
+
+It proves the generated-credential stateful chart shape for MySQL:
+`generated-passwords` and `existing-secret` variants, generated fact binding
+for root/user/replication passwords, target Secret binding for
+`mysql/mysql-auth`, Bitnami `common` dependency lock, hook lifecycle policy,
+StatefulSet/PVC policy, extension-slot review, and deterministic
 `cub install` package/setup proof.
 
 The Redis proof now contains the first courtroom-grade slice. Remaining Redis

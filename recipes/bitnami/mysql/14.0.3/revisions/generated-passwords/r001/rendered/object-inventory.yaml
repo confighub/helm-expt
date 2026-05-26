@@ -1,0 +1,57 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "bitnami-mysql-14.0.3-generated-passwords-r001"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "d479b1df24670a9ca28e7fa2b1d487f63f17a20baa8080ff0b48cd75abce2bdd"
+  objectCount: 8
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|StatefulSet|mysql|mysql"
+      kind: "StatefulSet"
+      name: "mysql"
+      namespace: "mysql"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|NetworkPolicy|mysql|mysql"
+      kind: "NetworkPolicy"
+      name: "mysql"
+      namespace: "mysql"
+    -
+      apiVersion: "policy/v1"
+      identity: "policy/v1|PodDisruptionBudget|mysql|mysql"
+      kind: "PodDisruptionBudget"
+      name: "mysql"
+      namespace: "mysql"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|mysql|mysql"
+      kind: "ConfigMap"
+      name: "mysql"
+      namespace: "mysql"
+    -
+      apiVersion: "v1"
+      identity: "v1|Secret|mysql|mysql"
+      kind: "Secret"
+      name: "mysql"
+      namespace: "mysql"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|mysql|mysql"
+      kind: "ServiceAccount"
+      name: "mysql"
+      namespace: "mysql"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|mysql|mysql"
+      kind: "Service"
+      name: "mysql"
+      namespace: "mysql"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|mysql|mysql-headless"
+      kind: "Service"
+      name: "mysql-headless"
+      namespace: "mysql"

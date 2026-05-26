@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "bitnami-mysql"
+  version: "14.0.3"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "../../../../packages/bitnami/mysql/14.0.3"
+    setupCommand:
+      - "cub"
+      - "install"
+      - "setup"
+      - "--pull"
+      - "../../../../packages/bitnami/mysql/14.0.3"
+      - "--non-interactive"
+      - "--namespace"
+      - "mysql"
+  variants:
+    - "variants/generated-passwords/variant.yaml"
+    - "variants/existing-secret/variant.yaml"

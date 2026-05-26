@@ -190,6 +190,8 @@ recipes/grafana/loki/7.0.0/
 packages/grafana/loki/7.0.0/
 recipes/longhorn/longhorn/1.11.2/
 packages/longhorn/longhorn/1.11.2/
+recipes/bitnami/mysql/14.0.3/
+packages/bitnami/mysql/14.0.3/
 ```
 
 `data/adversarial10/` is a readiness and blocker harness, not final
@@ -264,6 +266,14 @@ hook policy, admission/recovery observation, cluster RBAC, privileged storage
 workload policy, StorageClass/default-setting policy, UI ingress policy,
 scan/gate, and `cub install` package evidence are convincing enough to serve as
 the repeatable pattern for storage control-plane charts.
+
+`bitnami/mysql@14.0.3` is the eleventh row promoted from that harness. Review
+whether its `generated-passwords` and `existing-secret` variants, generated
+fact binding for root/user/replication passwords, target Secret binding,
+Bitnami `common` dependency lock, hook lifecycle policy, StatefulSet/PVC
+policy, extension-slot review, scan/gate, and `cub install` package evidence
+are convincing enough to serve as the repeatable pattern for stateful
+generated-credential charts.
 
 Every happy-path demo must also pass the simple UX test:
 

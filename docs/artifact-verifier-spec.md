@@ -6,7 +6,7 @@ The verifier started with archived render-and-vendor Helm import receipts, but
 the current default `npm run verify` also checks the Redis
 recipe/variant/revision proof, the durable Redis installer package proof, the
 promoted metrics-server, ingress-nginx, cert-manager, external-secrets, Argo CD,
-PostgreSQL, RabbitMQ, kube-prometheus-stack, Loki, and Longhorn proofs, and the first
+PostgreSQL, RabbitMQ, kube-prometheus-stack, Loki, Longhorn, and MySQL proofs, and the first
 adversarial public-chart harness.
 
 ## Scope
@@ -125,6 +125,20 @@ RBAC, privileged storage workload policy, StorageClass/default-setting policy,
 UI ingress exposure, rendered object inventories, render receipts, Helm
 equivalence receipts, scan receipts, install gates, and deterministic
 `cub install` package/setup behavior.
+
+The MySQL proof verifier checks:
+
+```text
+recipes/bitnami/mysql/14.0.3/
+packages/bitnami/mysql/14.0.3/
+```
+
+That proof is the eleventh promoted row from the adversarial harness. It checks
+two variants, `generated-passwords` and `existing-secret`, including
+source/dependency locks, generated fact binding for root, user, and replication
+passwords, target Secret binding, rendered object inventories, render receipts,
+Helm equivalence receipts, scan receipts, install gates, separated Secret
+handling, and deterministic `cub install` package/setup behavior.
 
 The Argo CD proof verifier checks:
 
@@ -424,6 +438,24 @@ For the promoted Longhorn proof:
    admission/recovery observation, cluster RBAC, privileged storage workload
    policy, StorageClass/default-setting policy, and UI ingress policy.
 
+For the promoted MySQL proof:
+
+1. Both promoted variants render deterministically with Helm under the pinned
+   inputs.
+2. `generated-passwords` renders exactly 8 Helm objects, including one Secret
+   and one StatefulSet.
+3. `existing-secret` renders exactly 7 Helm objects, including zero Secrets and
+   one StatefulSet.
+4. `generated-passwords` binds `auth.rootPassword`, `auth.password`, and
+   `auth.replicationPassword` before render.
+5. `existing-secret` declares target Secret `mysql/mysql-auth`.
+6. The Bitnami `common` dependency is recorded in `dependency-lock.yaml`.
+7. `cub install package` produces byte-identical bundles across two local runs.
+8. `cub install setup` matches Helm semantically, plus only
+   `v1|Namespace||mysql`, while preserving separated Secret behavior.
+9. Scan/gate receipts flag generated facts, target facts, dependency lock
+   review, hook lifecycle, StatefulSet/PVC policy, and extension-slot review.
+
 ## Negative Golden Check
 
 The verifier must include self-tests that corrupt known-good fixtures and prove
@@ -448,6 +480,7 @@ Current self-tests include:
 - corrupt the kube-prometheus-stack rendered object set and require rejection;
 - corrupt the Loki rendered object set and require rejection;
 - corrupt the Longhorn rendered object set and require rejection;
+- corrupt the MySQL rendered object set and require rejection;
 - corrupt an adversarial harness rendered manifest and require a rendered
   manifest SHA mismatch.
 

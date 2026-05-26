@@ -190,6 +190,7 @@ Seventh promoted adversarial row: bitnami/rabbitmq@16.0.14.
 Eighth promoted adversarial row: prometheus-community/kube-prometheus-stack@85.3.3.
 Ninth promoted adversarial row: grafana/loki@7.0.0.
 Tenth promoted adversarial row: longhorn/longhorn@1.11.2.
+Eleventh promoted adversarial row: bitnami/mysql@14.0.3.
 ```
 
 The adversarial 10 foundation does not close the scale proof. It gives us the
@@ -269,6 +270,14 @@ storage control-plane chart: source/dependency locks, `default` and
 admission/recovery observation, cluster RBAC gates, privileged storage workload
 policy, StorageClass/default-setting policy, UI ingress policy, Helm
 equivalence receipts, and deterministic `cub install` package/setup proof.
+
+The eleventh such promotion is MySQL. It adds the repeatable pattern for
+another stateful generated-credential chart: source/dependency locks,
+`generated-passwords` and `existing-secret` variants, generated fact binding
+for root/user/replication passwords, target fact binding for external Secret,
+StatefulSet/PVC policy, hook lifecycle policy, `tpl`/configuration
+extension-slot review, Helm equivalence receipts, and deterministic
+`cub install` package/setup proof.
 
 ## Installer Boundary
 

@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "existing-secret"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "mysql"
+  releaseName: "mysql"
+  valuesProfile: "../../effective-values-existing-secret.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"
+  targetFacts:
+    requiredSecrets:
+      -
+        namespace: "mysql"
+        name: "mysql-auth"
+        keys:
+          - "mysql-root-password"
+          - "mysql-password"
+          - "mysql-replication-password"
+        purpose: "MySQL root, user, and replication passwords"

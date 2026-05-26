@@ -1,0 +1,16 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "bitnami-mysql-14.0.3-generated-passwords"
+spec:
+  files:
+    -
+      path: "effective-values.yaml"
+      source: "inline-proof"
+      sha256: "45b928624798abee606d7b5b2e954237198821767cffb5767aa05c6f3052a091"
+  mergedValuesCaptured: false
+  values:
+    auth:
+      password: "confighub-mysql-user-password"
+      replicationPassword: "confighub-mysql-replication-password"
+      rootPassword: "confighub-mysql-root-password"
