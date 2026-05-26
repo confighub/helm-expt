@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "rabbitmq-generated-passwords-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "7177256a1ef16d1ad91727d3d03ecd0b8cf23da5a3444ba3dd010f4963085fe1"
+    objectCount: 10
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 11
+    uploadedManifestFiles: 11
+    separatedSecretFiles: 2
+    semanticObjectMatches: "10/10"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||rabbitmq"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run rabbitmq:compare"

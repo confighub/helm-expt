@@ -77,6 +77,8 @@ recipes/argo-cd/argo-cd/9.5.15/
 packages/argo-cd/argo-cd/9.5.15/
 recipes/bitnami/postgresql/18.6.7/
 packages/bitnami/postgresql/18.6.7/
+recipes/bitnami/rabbitmq/16.0.14/
+packages/bitnami/rabbitmq/16.0.14/
 ```
 
 The next step is to turn more chart rows from `data/adversarial10/` into full
@@ -125,7 +127,8 @@ scripts/generate-adversarial10-harness.mjs --verify
 determinism, metrics-server proof/package artifacts, ingress-nginx
 proof/package artifacts, cert-manager proof/package artifacts,
 external-secrets proof/package artifacts, Argo CD proof/package artifacts,
-PostgreSQL proof/package artifacts, the archived reference corpus, and the
+PostgreSQL proof/package artifacts, RabbitMQ proof/package artifacts, the
+archived reference corpus, and the
 first adversarial harness. It still needs formal schemas and broader
 publication traceability before 20/100/500 claims are credible.
 
@@ -249,6 +252,20 @@ It proves the generated-credential stateful chart shape: a
 `postgresql/postgresql-auth`, source and dependency locks including the Bitnami
 `common` dependency, hook lifecycle gates, StatefulSet/PVC policy, extension
 slot review, and deterministic `cub install` package/setup proof.
+
+The seventh promoted row is:
+
+```text
+bitnami/rabbitmq@16.0.14
+```
+
+It proves the generated-credential stateful chart shape with clustering
+material: a `generated-passwords` variant that binds `auth.password` and
+`auth.erlangCookie`, an `existing-secret` variant that declares target Secrets
+`rabbitmq/rabbitmq-auth` and `rabbitmq/rabbitmq-erlang-cookie`, source and
+dependency locks including the Bitnami `common` dependency, StatefulSet/PVC and
+clustering policy, extension-slot review, and deterministic `cub install`
+package/setup proof.
 
 The Redis proof now contains the first courtroom-grade slice. Remaining Redis
 day-2 extensions still include:

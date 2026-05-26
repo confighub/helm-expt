@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "existing-secret"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "rabbitmq"
+  releaseName: "rabbitmq"
+  valuesProfile: "../../effective-values-existing-secret.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"
+  targetFacts:
+    requiredSecrets:
+      -
+        namespace: "rabbitmq"
+        name: "rabbitmq-auth"
+        keys:
+          - "rabbitmq-password"
+        purpose: "RabbitMQ administrator password"
+      -
+        namespace: "rabbitmq"
+        name: "rabbitmq-erlang-cookie"
+        keys:
+          - "rabbitmq-erlang-cookie"
+        purpose: "RabbitMQ Erlang cookie for node clustering"

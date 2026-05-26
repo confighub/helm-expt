@@ -221,6 +221,8 @@ recipes/argo-cd/argo-cd/9.5.15/
 packages/argo-cd/argo-cd/9.5.15/
 recipes/bitnami/postgresql/18.6.7/
 packages/bitnami/postgresql/18.6.7/
+recipes/bitnami/rabbitmq/16.0.14/
+packages/bitnami/rabbitmq/16.0.14/
 data/adversarial10/
 data/top500/
 docs/top20-full-proof-target.md
@@ -265,12 +267,13 @@ npm run cert-manager:compare
 npm run external-secrets:compare
 npm run argo-cd:compare
 npm run postgresql:compare
+npm run rabbitmq:compare
 ```
 
 It checks the archived reference receipts against their referenced files, then
 checks the current Redis proof artifacts, Helm-equivalence evidence, scan/gate
 receipts, variant diff evidence, promoted metrics-server, ingress-nginx,
-cert-manager, external-secrets, Argo CD, and PostgreSQL proof/package
+cert-manager, external-secrets, Argo CD, PostgreSQL, and RabbitMQ proof/package
 artifacts, deterministic `cub install` packaging, and negative golden
 self-tests.
 
@@ -565,6 +568,39 @@ npm run postgresql:generate-package
 npm run postgresql:verify-proof
 npm run postgresql:verify-package
 npm run postgresql:compare
+```
+
+## RabbitMQ Proof
+
+The seventh chart promoted from the adversarial harness is:
+
+```text
+recipes/bitnami/rabbitmq/16.0.14/
+packages/bitnami/rabbitmq/16.0.14/
+```
+
+It has two install variants:
+
+```text
+generated-passwords
+existing-secret
+```
+
+The proof shows that regular Helm output is preserved by real
+`cub install setup`, plus the explained Namespace support object. It also makes
+the chart's awkward parts visible: default Helm password and Erlang-cookie
+generation, generated-fact binding, target Secret binding, the Bitnami common
+dependency, StatefulSet/PVC policy, RabbitMQ clustering policy, `tpl`/raw
+extension slots, and upgrade/rollback risk.
+
+Useful commands:
+
+```sh
+npm run rabbitmq:generate-proof
+npm run rabbitmq:generate-package
+npm run rabbitmq:verify-proof
+npm run rabbitmq:verify-package
+npm run rabbitmq:compare
 ```
 
 ## Adversarial 10 Harness

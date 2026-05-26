@@ -1,0 +1,16 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "bitnami-rabbitmq"
+  version: "16.0.14"
+spec:
+  bases:
+    -
+      name: "generated-passwords"
+      path: "bases/generated-passwords"
+      default: true
+      description: "rabbitmq generated passwords variant rendered from bitnami/rabbitmq@16.0.14"
+    -
+      name: "existing-secret"
+      path: "bases/existing-secret"
+      description: "rabbitmq existing Secret variant rendered from bitnami/rabbitmq@16.0.14"

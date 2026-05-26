@@ -186,6 +186,7 @@ Third promoted adversarial row: jetstack/cert-manager@v1.20.2.
 Fourth promoted adversarial row: external-secrets/external-secrets@2.5.0.
 Fifth promoted adversarial row: argo-cd/argo-cd@9.5.15.
 Sixth promoted adversarial row: bitnami/postgresql@18.6.7.
+Seventh promoted adversarial row: bitnami/rabbitmq@16.0.14.
 ```
 
 The adversarial 10 foundation does not close the scale proof. It gives us the
@@ -232,6 +233,14 @@ The sixth such promotion is PostgreSQL. It adds the repeatable pattern for a
 nondeterministic generated-credential chart: source/dependency locks,
 `generated-passwords` and `existing-secret` variants, generated fact binding,
 target fact binding, Helm hook lifecycle gates, StatefulSet/PVC policy, `tpl`
+extension-slot review, Helm equivalence receipts, and deterministic
+`cub install` package/setup proof.
+
+The seventh such promotion is RabbitMQ. It adds the repeatable pattern for a
+stateful generated-credential chart with RabbitMQ-specific clustering material:
+source/dependency locks, `generated-passwords` and `existing-secret` variants,
+generated fact binding for password and Erlang cookie, target fact binding for
+both external Secrets, StatefulSet/PVC policy, clustering policy, `tpl`/raw
 extension-slot review, Helm equivalence receipts, and deterministic
 `cub install` package/setup proof.
 

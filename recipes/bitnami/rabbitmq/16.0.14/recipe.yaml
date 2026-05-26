@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "bitnami-rabbitmq"
+  version: "16.0.14"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "../../../../packages/bitnami/rabbitmq/16.0.14"
+    setupCommand:
+      - "cub"
+      - "install"
+      - "setup"
+      - "--pull"
+      - "../../../../packages/bitnami/rabbitmq/16.0.14"
+      - "--non-interactive"
+      - "--namespace"
+      - "rabbitmq"
+  variants:
+    - "variants/generated-passwords/variant.yaml"
+    - "variants/existing-secret/variant.yaml"

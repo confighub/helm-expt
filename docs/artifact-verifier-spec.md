@@ -6,7 +6,8 @@ The verifier started with archived render-and-vendor Helm import receipts, but
 the current default `npm run verify` also checks the Redis
 recipe/variant/revision proof, the durable Redis installer package proof, the
 promoted metrics-server, ingress-nginx, cert-manager, external-secrets, Argo CD,
-and PostgreSQL proofs, and the first adversarial public-chart harness.
+PostgreSQL, and RabbitMQ proofs, and the first adversarial public-chart
+harness.
 
 ## Scope
 
@@ -136,6 +137,20 @@ source/dependency locks, generated fact binding, target fact binding, rendered
 object inventories, render receipts, Helm equivalence receipts, scan receipts,
 install gates, separated Secret handling, and deterministic `cub install`
 package/setup behavior.
+
+The RabbitMQ proof verifier checks:
+
+```text
+recipes/bitnami/rabbitmq/16.0.14/
+packages/bitnami/rabbitmq/16.0.14/
+```
+
+That proof is the seventh promoted row from the adversarial harness. It checks
+two variants, `generated-passwords` and `existing-secret`, including
+source/dependency locks, generated fact binding for password and Erlang cookie,
+target fact binding for both Secrets, rendered object inventories, render
+receipts, Helm equivalence receipts, scan receipts, install gates, separated
+Secret handling, and deterministic `cub install` package/setup behavior.
 
 ## Required Invariants
 
@@ -287,6 +302,26 @@ For the promoted PostgreSQL proof:
 9. Scan/gate receipts flag generated facts, target facts, Helm hook lifecycle,
    dependency lock review, StatefulSet/PVC policy, and extension-slot review.
 
+For the promoted RabbitMQ proof:
+
+1. Both promoted variants render deterministically with Helm under the pinned
+   inputs.
+2. `generated-passwords` renders exactly 10 Helm objects, including the
+   credential Secret, the config Secret, and one StatefulSet.
+3. `existing-secret` renders exactly 9 Helm objects, including only the config
+   Secret and one StatefulSet.
+4. `generated-passwords` binds `auth.password` and `auth.erlangCookie` before
+   render.
+5. `existing-secret` declares target Secrets `rabbitmq/rabbitmq-auth` and
+   `rabbitmq/rabbitmq-erlang-cookie`.
+6. The Bitnami `common` dependency is recorded in `dependency-lock.yaml`.
+7. `cub install package` produces byte-identical bundles across two local runs.
+8. `cub install setup` matches Helm semantically, plus only
+   `v1|Namespace||rabbitmq`, while preserving separated Secret behavior.
+9. Scan/gate receipts flag generated facts, target facts, dependency lock
+   review, StatefulSet/PVC policy, clustering policy, and extension-slot
+   review.
+
 ## Negative Golden Check
 
 The verifier must include self-tests that corrupt known-good fixtures and prove
@@ -307,6 +342,7 @@ Current self-tests include:
 - corrupt the external-secrets rendered object set and require rejection;
 - corrupt the Argo CD rendered object set and require rejection;
 - corrupt the PostgreSQL rendered object set and require rejection;
+- corrupt the RabbitMQ rendered object set and require rejection;
 - corrupt an adversarial harness rendered manifest and require a rendered
   manifest SHA mismatch.
 

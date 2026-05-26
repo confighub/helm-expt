@@ -182,6 +182,8 @@ recipes/argo-cd/argo-cd/9.5.15/
 packages/argo-cd/argo-cd/9.5.15/
 recipes/bitnami/postgresql/18.6.7/
 packages/bitnami/postgresql/18.6.7/
+recipes/bitnami/rabbitmq/16.0.14/
+packages/bitnami/rabbitmq/16.0.14/
 ```
 
 `data/adversarial10/` is a readiness and blocker harness, not final
@@ -225,6 +227,14 @@ fact binding, target Secret binding, Bitnami `common` dependency lock, hook
 lifecycle policy, StatefulSet/PVC policy, extension-slot review, scan/gate, and
 `cub install` package evidence are convincing enough to serve as the repeatable
 pattern for stateful generated-credential charts.
+
+`bitnami/rabbitmq@16.0.14` is the seventh row promoted from that harness.
+Review whether its `generated-passwords` and `existing-secret` variants,
+generated fact binding for password and Erlang cookie, target Secret binding
+for both external Secrets, Bitnami `common` dependency lock, StatefulSet/PVC
+policy, clustering policy, extension-slot review, scan/gate, and `cub install`
+package evidence are convincing enough to serve as the repeatable pattern for
+stateful generated-credential charts with clustering material.
 
 Every happy-path demo must also pass the simple UX test:
 

@@ -1,0 +1,51 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ControlPoints"
+metadata:
+  name: "bitnami-rabbitmq-16.0.14"
+spec:
+  points:
+    -
+      category: "source-lock"
+      status: "handled"
+      evidence: "source-lock.yaml"
+    -
+      category: "dependency-lock"
+      status: "handled"
+      evidence: "dependency-lock.yaml"
+      note: "chart declares the Bitnami common dependency; promoted variants lock its metadata."
+    -
+      category: "capability-profile"
+      status: "handled"
+      kubeVersion: "1.30.0"
+      note: "Kubernetes API and version branches are bound to the named Kubernetes capability profile."
+    -
+      category: "generated-facts"
+      status: "variant-controlled"
+      evidence: "auth.password + auth.erlangCookie"
+      note: "The generated-passwords variant binds the generated password and Erlang cookie before render so Helm output is deterministic."
+    -
+      category: "target-facts"
+      status: "variant-controlled"
+      evidence: "auth.existingPasswordSecret + auth.existingErlangSecret"
+      note: "The existing-secret variant declares target Secrets for password and Erlang cookie; it still renders the configuration Secret."
+    -
+      category: "hook-policy"
+      status: "not-present-in-promoted-render"
+      policy: "no-hooks"
+      note: "Promoted RabbitMQ variants render no hook objects with the pinned inputs; if enabled by future values, hooks must map to lifecycle policy before production."
+    -
+      category: "stateful-workload"
+      status: "scan-and-review"
+      object: "apps/v1|StatefulSet|rabbitmq|rabbitmq"
+    -
+      category: "pvc-policy"
+      status: "scan-and-review"
+      note: "StatefulSet volumeClaimTemplates need storage, retention, upgrade, and rollback policy."
+    -
+      category: "tpl"
+      status: "controlled-by-empty-defaults"
+      note: "configuration, advancedConfiguration, initScripts, secret names, and extraDeploy can use templating; promoted variants keep raw extension slots empty."
+    -
+      category: "installer-support-object"
+      status: "handled"
+      object: "v1|Namespace||rabbitmq"

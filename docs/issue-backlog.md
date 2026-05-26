@@ -72,6 +72,7 @@ Rows promoted from readiness evidence into full proof slices:
 | `external-secrets/external-secrets@2.5.0` | `recipes/external-secrets/external-secrets/2.5.0/`, `packages/external-secrets/external-secrets/2.5.0/` | Fourth promoted adversarial row: default and `no-crds` variants, capability/CRD/dependency/webhook/Secret/RBAC gates, deterministic `cub install` package/setup proof. |
 | `argo-cd/argo-cd@9.5.15` | `recipes/argo-cd/argo-cd/9.5.15/`, `packages/argo-cd/argo-cd/9.5.15/` | Fifth promoted adversarial row: default and `no-crds` variants, CRD/hook/dependency/Secret/StatefulSet/GitOps/RBAC gates, deterministic `cub install` package/setup proof. |
 | `bitnami/postgresql@18.6.7` | `recipes/bitnami/postgresql/18.6.7/`, `packages/bitnami/postgresql/18.6.7/` | Sixth promoted adversarial row: `generated-passwords` and `existing-secret` variants, generated fact/target fact/hook/dependency/StatefulSet/PVC gates, deterministic `cub install` package/setup proof. |
+| `bitnami/rabbitmq@16.0.14` | `recipes/bitnami/rabbitmq/16.0.14/`, `packages/bitnami/rabbitmq/16.0.14/` | Seventh promoted adversarial row: `generated-passwords` and `existing-secret` variants, password/Erlang-cookie generated facts, target Secret facts, dependency/StatefulSet/PVC/clustering gates, deterministic `cub install` package/setup proof. |
 
 ## Execution Order
 
