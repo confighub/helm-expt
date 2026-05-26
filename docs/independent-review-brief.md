@@ -164,12 +164,19 @@ recipes/bitnami/redis/25.5.3/
 packages/bitnami/redis/25.5.3/
 docs/demo/redis/
 data/adversarial10/
+recipes/metrics-server/metrics-server/3.13.0/
+packages/metrics-server/metrics-server/3.13.0/
 ```
 
 `data/adversarial10/` is a readiness and blocker harness, not final
 certification. Review it for whether each row is clear, generated, and
 receipt-backed, then identify what is still missing before those charts become
 full recipe/variant/revision proofs.
+
+`metrics-server/metrics-server@3.13.0` is the first row promoted from that
+harness. Review whether its target fact, APIService, RBAC, scan/gate, and
+`cub install` package evidence are convincing enough to serve as the repeatable
+pattern after Redis.
 
 Every happy-path demo must also pass the simple UX test:
 

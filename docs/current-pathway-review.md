@@ -65,6 +65,8 @@ recipes/bitnami/redis/25.5.3/
 packages/bitnami/redis/25.5.3/
 docs/demo/redis/
 data/adversarial10/
+recipes/metrics-server/metrics-server/3.13.0/
+packages/metrics-server/metrics-server/3.13.0/
 ```
 
 The next step is to turn more chart rows from `data/adversarial10/` into full
@@ -110,9 +112,9 @@ scripts/generate-adversarial10-harness.mjs --verify
 ```
 
 `npm run verify` now validates Redis proof artifacts, Redis package
-determinism, the archived reference corpus, and the first adversarial harness.
-It still needs formal schemas and broader scan/gate/publication traceability
-before 20/100/500 claims are credible.
+determinism, metrics-server proof/package artifacts, the archived reference
+corpus, and the first adversarial harness. It still needs formal schemas and
+broader publication traceability before 20/100/500 claims are credible.
 
 The Redis proof artifacts now exist:
 
@@ -164,6 +166,16 @@ data/top500/
 
 The spreadsheet must be generated from artifacts and receipts. It should be a
 proof index, not the proof itself.
+
+The first promoted row from that matrix is:
+
+```text
+metrics-server/metrics-server@3.13.0
+```
+
+It proves the next reusable shape after Redis: a public chart row can become a
+recipe, two variants, rendered revisions, target fact requirements, scan/gate
+receipts, and a deterministic `cub install` package/setup proof.
 
 The Redis proof now contains the first courtroom-grade slice. Remaining Redis
 day-2 extensions still include:

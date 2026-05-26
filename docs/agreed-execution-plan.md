@@ -177,6 +177,7 @@ Current execution status:
 Redis proof slice: complete for first-install/default and reuse-existing-secret.
 Five-minute UX proof: present under docs/demo/redis/.
 Adversarial 10 foundation: present under data/adversarial10/.
+First promoted adversarial row: metrics-server/metrics-server@3.13.0.
 ```
 
 The adversarial 10 foundation does not close the scale proof. It gives us the
@@ -184,6 +185,11 @@ first generated chart corpus lock, readiness CSV, per-chart HelmPlans, render
 receipts, stored rendered manifests for successful attempts, and blocker receipt
 for a default-values render failure. The next step is to promote selected rows
 from readiness evidence into full recipe/variant/revision proofs.
+
+The first such promotion is metrics-server. It adds the repeatable pattern for a
+small but non-trivial public chart: source/dependency locks, two variants,
+target Secret facts, APIService and cluster RBAC gates, Helm equivalence
+receipts, and deterministic `cub install` package/setup proof.
 
 ## Installer Boundary
 

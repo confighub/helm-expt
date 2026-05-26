@@ -201,6 +201,8 @@ New proof work should produce files such as:
 ```text
 recipes/bitnami/redis/25.5.3/
 packages/bitnami/redis/25.5.3/
+recipes/metrics-server/metrics-server/3.13.0/
+packages/metrics-server/metrics-server/3.13.0/
 data/adversarial10/
 data/top500/
 schemas/
@@ -326,6 +328,39 @@ helm-redis-reuse-existing-secret
 
 The receipt verifies both spaces and confirms ConfigHub's hosted OCI endpoint
 returns unit-level OCI manifests for representative Redis StatefulSet Units.
+
+## Metrics Server Proof
+
+The first chart promoted from the adversarial harness into a full proof slice
+after Redis is:
+
+```text
+recipes/metrics-server/metrics-server/3.13.0/
+packages/metrics-server/metrics-server/3.13.0/
+```
+
+It has two install variants:
+
+```text
+default
+external-tls-ca
+```
+
+The proof shows that regular Helm output is preserved by real
+`cub install setup`, plus the explained Namespace support object. It also makes
+the chart's awkward parts visible: generated certificate helpers, Helm
+`lookup`, Kubernetes capability branching, APIService readiness, cluster RBAC,
+and external TLS target facts.
+
+Useful commands:
+
+```sh
+npm run metrics-server:generate-proof
+npm run metrics-server:generate-package
+npm run metrics-server:verify-proof
+npm run metrics-server:verify-package
+npm run metrics-server:compare
+```
 
 ## Adversarial 10 Harness
 

@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "metrics-server-metrics-server-3.13.0"
+spec:
+  chart: "metrics-server/metrics-server"
+  version: "3.13.0"
+  maintainedNotes:
+    - "Default chart renders APIService with insecureSkipTLSVerify=true and lets metrics-server generate its serving certificate at runtime."
+    - "tls.type=helm activates Helm lookup and genSelfSignedCert; do not promote that path until generated-fact receipts are formalized."
+    - "external-tls-ca variant moves TLS material to a target Secret and binds APIService caBundle into effective values."
+    - "APIService readiness must be observed after apply because a rendered object alone does not prove aggregated API health."
+  knownControlPoints:
+    - "generated-facts"
+    - "recipe-target-facts"
+    - "capability-profile"
+    - "operate-observation"
+    - "cluster-rbac-scan"

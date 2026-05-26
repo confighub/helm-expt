@@ -57,6 +57,15 @@ The next harness step is to turn selected rows into complete
 recipe/variant/revision proofs, add formal schemas, and make spreadsheet rows
 trace all the way to scans, gates, and publication receipts.
 
+## Current Promoted Chart Proofs
+
+Rows promoted from readiness evidence into full proof slices:
+
+| Chart | Evidence | Status |
+| --- | --- | --- |
+| `bitnami/redis@25.5.3` | `recipes/bitnami/redis/25.5.3/`, `packages/bitnami/redis/25.5.3/` | First complete proof slice with ConfigHub upload/OCI evidence. |
+| `metrics-server/metrics-server@3.13.0` | `recipes/metrics-server/metrics-server/3.13.0/`, `packages/metrics-server/metrics-server/3.13.0/` | First promoted adversarial row: default and `external-tls-ca` variants, target Secret fact, APIService/RBAC gates, deterministic `cub install` package/setup proof. |
+
 ## Execution Order
 
 The council review made the first implementation slice explicit:

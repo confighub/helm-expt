@@ -4,8 +4,9 @@ This is the executable proof contract for `helm-expt`.
 
 The verifier started with archived render-and-vendor Helm import receipts, but
 the current default `npm run verify` also checks the Redis
-recipe/variant/revision proof, the durable Redis installer package proof, and
-the first adversarial public-chart harness.
+recipe/variant/revision proof, the durable Redis installer package proof, the
+first promoted metrics-server proof, and the first adversarial public-chart
+harness.
 
 ## Scope
 
@@ -57,6 +58,19 @@ machine-readable HelmPlan and render receipt, successful render attempts bind
 stored manifests by SHA256, failed attempts record blocker receipts, and the CSV
 is generated from those artifacts.
 
+The metrics-server proof verifier checks:
+
+```text
+recipes/metrics-server/metrics-server/3.13.0/
+packages/metrics-server/metrics-server/3.13.0/
+```
+
+That proof is the first promoted row from the adversarial harness. It checks two
+variants, `default` and `external-tls-ca`, including source/dependency locks,
+control points, effective values, target fact requirements, rendered object
+inventories, render receipts, Helm equivalence receipts, scan receipts, install
+gates, and deterministic `cub install` package/setup behavior.
+
 ## Required Invariants
 
 For every archived chart directory:
@@ -102,6 +116,21 @@ For the adversarial public-chart harness:
 7. Chart identity, version, render context, and package SHA are present in the
    receipt.
 
+For the promoted metrics-server proof:
+
+1. Both variants render deterministically with Helm under the pinned capability
+   profile.
+2. `external-tls-ca` binds `tls.existingSecret.lookup=false`, an explicit
+   `apiService.caBundle`, and the target Secret requirement
+   `kube-system/metrics-server-tls`.
+3. Each variant has exactly 9 Helm objects and a rendered APIService.
+4. `cub install package` produces byte-identical bundles across two local runs.
+5. `cub install setup --base default` and
+   `cub install setup --base external-tls-ca` match Helm semantically, plus only
+   `v1|Namespace||kube-system`.
+6. Semantic comparison prunes null fields, because `cub install`/kustomize
+   drops `metadata.annotations: null` from the APIService.
+
 ## Negative Golden Check
 
 The verifier must include self-tests that corrupt known-good fixtures and prove
@@ -116,6 +145,7 @@ Current self-tests include:
 - reintroduce the old `standalone` variant shape and require rejection;
 - tamper with the reuse-existing-secret target fact and require rejection;
 - lie about the variant diff and require rejection;
+- corrupt the metrics-server rendered object set and require rejection;
 - corrupt an adversarial harness rendered manifest and require a rendered
   manifest SHA mismatch.
 
