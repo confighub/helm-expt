@@ -178,6 +178,8 @@ recipes/jetstack/cert-manager/v1.20.2/
 packages/jetstack/cert-manager/v1.20.2/
 recipes/external-secrets/external-secrets/2.5.0/
 packages/external-secrets/external-secrets/2.5.0/
+recipes/argo-cd/argo-cd/9.5.15/
+packages/argo-cd/argo-cd/9.5.15/
 ```
 
 `data/adversarial10/` is a readiness and blocker harness, not final
@@ -207,6 +209,13 @@ harness. Review whether its `default` and `no-crds` variants, 23-CRD default
 render, disabled dependency lock, admission webhook, webhook Secret/cert
 controller, RBAC, scan/gate, and `cub install` package evidence are convincing
 enough to serve as the repeatable pattern for CRD-heavy controller charts.
+
+`argo-cd/argo-cd@9.5.15` is the fifth row promoted from that harness. Review
+whether its `default` and `no-crds` variants, three-CRD default render, disabled
+`redis-ha` dependency lock, hook lifecycle policy, generated Secret ownership,
+StatefulSet policy, GitOps handoff, RBAC, scan/gate, and `cub install` package
+evidence are convincing enough to serve as the repeatable pattern for GitOps
+controller charts.
 
 Every happy-path demo must also pass the simple UX test:
 

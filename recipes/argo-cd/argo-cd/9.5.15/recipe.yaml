@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "argo-cd-argo-cd"
+  version: "9.5.15"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "../../../../packages/argo-cd/argo-cd/9.5.15"
+    setupCommand:
+      - "cub"
+      - "install"
+      - "setup"
+      - "--pull"
+      - "../../../../packages/argo-cd/argo-cd/9.5.15"
+      - "--non-interactive"
+      - "--namespace"
+      - "argocd"
+  variants:
+    - "variants/default/variant.yaml"
+    - "variants/no-crds/variant.yaml"

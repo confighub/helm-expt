@@ -73,6 +73,8 @@ recipes/jetstack/cert-manager/v1.20.2/
 packages/jetstack/cert-manager/v1.20.2/
 recipes/external-secrets/external-secrets/2.5.0/
 packages/external-secrets/external-secrets/2.5.0/
+recipes/argo-cd/argo-cd/9.5.15/
+packages/argo-cd/argo-cd/9.5.15/
 ```
 
 The next step is to turn more chart rows from `data/adversarial10/` into full
@@ -120,9 +122,10 @@ scripts/generate-adversarial10-harness.mjs --verify
 `npm run verify` now validates Redis proof artifacts, Redis package
 determinism, metrics-server proof/package artifacts, ingress-nginx
 proof/package artifacts, cert-manager proof/package artifacts,
-external-secrets proof/package artifacts, the archived reference corpus, and
-the first adversarial harness. It still needs formal schemas and broader
-publication traceability before 20/100/500 claims are credible.
+external-secrets proof/package artifacts, Argo CD proof/package artifacts, the
+archived reference corpus, and the first adversarial harness. It still needs
+formal schemas and broader publication traceability before 20/100/500 claims
+are credible.
 
 The Redis proof artifacts now exist:
 
@@ -219,6 +222,18 @@ a `no-crds` variant with zero CRDs, source and dependency locks including the
 disabled `bitwarden-sdk-server` dependency, admission webhook observation
 gates, webhook Secret/cert-controller observation, cluster RBAC gates, and
 deterministic `cub install` package/setup proof.
+
+The fifth promoted row is:
+
+```text
+argo-cd/argo-cd@9.5.15
+```
+
+It proves the GitOps controller chart shape: a default variant with three CRDs,
+a `no-crds` variant with zero CRDs, source and dependency locks including the
+disabled `redis-ha` dependency, Helm hook lifecycle gates, generated Secret
+ownership gates, StatefulSet policy, GitOps handoff policy, cluster RBAC gates,
+and deterministic `cub install` package/setup proof.
 
 The Redis proof now contains the first courtroom-grade slice. Remaining Redis
 day-2 extensions still include:

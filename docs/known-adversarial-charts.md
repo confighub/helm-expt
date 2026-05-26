@@ -14,7 +14,7 @@ public-chart behavior.
 | `jetstack/cert-manager` | CRDs, webhooks, hook-like lifecycle, cert bootstrap | CRD readiness, webhook/admission risk, lifecycle policy |
 | `prometheus-community/kube-prometheus-stack` | large CRD set, umbrella chart, dependencies, RBAC, webhooks | scale, CRD ordering, dependency closure, policy scans |
 | `external-secrets/external-secrets` | CRDs, webhooks, RBAC, controller semantics | CRD/webhook/RBAC control points |
-| `argo/argo-cd` | CRDs, RBAC, raw/extra manifests, GitOps integration | ConfigHub OCI -> GitOps handoff, extension slots |
+| `argo-cd/argo-cd` | CRDs, RBAC, raw/extra manifests, GitOps integration | ConfigHub OCI -> GitOps handoff, extension slots |
 | `ingress-nginx/ingress-nginx` | capability branching, admission webhook, cluster RBAC | capability profiles, webhooks, cluster-scope resources |
 | `grafana/loki` | object graph complexity, storage modes, generated config | variants, graph checks, storage risk |
 | `kubernetes-dashboard/kubernetes-dashboard` | generated certs, RBAC, service exposure | generated facts, RBAC scan, ingress/service variants |

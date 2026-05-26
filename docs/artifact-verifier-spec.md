@@ -5,8 +5,8 @@ This is the executable proof contract for `helm-expt`.
 The verifier started with archived render-and-vendor Helm import receipts, but
 the current default `npm run verify` also checks the Redis
 recipe/variant/revision proof, the durable Redis installer package proof, the
-promoted metrics-server, ingress-nginx, cert-manager, and external-secrets
-proofs, and the first adversarial public-chart harness.
+promoted metrics-server, ingress-nginx, cert-manager, external-secrets, and
+Argo CD proofs, and the first adversarial public-chart harness.
 
 ## Scope
 
@@ -105,6 +105,19 @@ packages/external-secrets/external-secrets/2.5.0/
 ```
 
 That proof is the fourth promoted row from the adversarial harness. It checks
+two variants, `default` and `no-crds`, including source/dependency locks,
+control points, effective values, rendered object inventories, render receipts,
+Helm equivalence receipts, scan receipts, install gates, separated Secret
+handling, and deterministic `cub install` package/setup behavior.
+
+The Argo CD proof verifier checks:
+
+```text
+recipes/argo-cd/argo-cd/9.5.15/
+packages/argo-cd/argo-cd/9.5.15/
+```
+
+That proof is the fifth promoted row from the adversarial harness. It checks
 two variants, `default` and `no-crds`, including source/dependency locks,
 control points, effective values, rendered object inventories, render receipts,
 Helm equivalence receipts, scan receipts, install gates, separated Secret
@@ -223,6 +236,26 @@ For the promoted external-secrets proof:
    webhook Secret/cert-controller observation, dependency lock review, and
    cluster RBAC.
 
+For the promoted Argo CD proof:
+
+1. Both variants render deterministically with Helm under the pinned capability
+   profile.
+2. `default` renders exactly 49 Helm objects, including three Argo CD CRDs and
+   two Secrets.
+3. `no-crds` renders exactly 46 Helm objects, including zero CRDs and two
+   Secrets.
+4. Both variants render the server, repo-server, applicationset-controller,
+   Redis Deployment, application-controller StatefulSet, server Service, Redis
+   Service, `argocd-secret`, and `argocd-notifications-secret`.
+5. The disabled `redis-ha` dependency is recorded in `dependency-lock.yaml`.
+6. `cub install package` produces byte-identical bundles across two local runs.
+7. `cub install setup --base default` and
+   `cub install setup --base no-crds` match Helm semantically, plus only
+   `v1|Namespace||argocd`, while preserving separated Secrets.
+8. Scan/gate receipts flag CRD lifecycle, Helm hook lifecycle, generated Secret
+   ownership, dependency lock review, StatefulSet policy, GitOps handoff, and
+   cluster RBAC.
+
 ## Negative Golden Check
 
 The verifier must include self-tests that corrupt known-good fixtures and prove
@@ -241,6 +274,7 @@ Current self-tests include:
 - corrupt the ingress-nginx rendered object set and require rejection;
 - corrupt the cert-manager rendered object set and require rejection;
 - corrupt the external-secrets rendered object set and require rejection;
+- corrupt the Argo CD rendered object set and require rejection;
 - corrupt an adversarial harness rendered manifest and require a rendered
   manifest SHA mismatch.
 

@@ -1,0 +1,63 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "argo-cd-argo-cd-9.5.15"
+spec:
+  chart:
+    repository: "argo-cd"
+    name: "argo-cd"
+    version: "9.5.15"
+  package:
+    path: "packages/argo-cd/argo-cd/9.5.15"
+    name: "argo-cd-argo-cd"
+    version: "9.5.15"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "517877aa4bc3aff8a9ea887475a7631f3db251105dafee215f21d0c4ac1c7e64"
+        bytes: 179
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "e52ddef5e56e347a8959dd1e8591e116479bf8aa8682c83e3753fe7355a38cc0"
+        bytes: 1904282
+      -
+        path: "bases/no-crds/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/no-crds/upstream.yaml"
+        sha256: "23a51fb8ea2215b08a853bbb26698d80f58a5514b68d4f49cdcd870a8371fc71"
+        bytes: 104729
+      -
+        path: "installer.yaml"
+        sha256: "e7f71ad9302647941a736a44f048f3271ebd9d5a7daaff3e1c4ad2700b5b7219"
+        bytes: 436
+  deterministicBundle:
+    command: "cub install package packages/argo-cd/argo-cd/9.5.15 -o <tmp>/argo-cd-9.5.15.tgz"
+    sha256: "81ed5b2990f073077db412185261c8db639bb8bd73b27764a6a5d8db870ff559"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/argo-cd/argo-cd/9.5.15 --base default --work-dir <tmp> --non-interactive --namespace argocd"
+      helmReleaseObjectCount: 49
+      cubInstallObjectCountIncludingSupport: 50
+      semanticObjectMatches: "49/49"
+      separatedSecretCount: 2
+      allowedCubOnlyObjects:
+        - "v1|Namespace||argocd"
+    -
+      variant: "no-crds"
+      base: "no-crds"
+      command: "cub install setup --pull packages/argo-cd/argo-cd/9.5.15 --base no-crds --work-dir <tmp> --non-interactive --namespace argocd"
+      helmReleaseObjectCount: 46
+      cubInstallObjectCountIncludingSupport: 47
+      semanticObjectMatches: "46/46"
+      separatedSecretCount: 2
+      allowedCubOnlyObjects:
+        - "v1|Namespace||argocd"

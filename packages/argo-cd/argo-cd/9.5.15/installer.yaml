@@ -1,0 +1,16 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "argo-cd-argo-cd"
+  version: "9.5.15"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "argo-cd default variant rendered from argo-cd/argo-cd@9.5.15"
+    -
+      name: "no-crds"
+      path: "bases/no-crds"
+      description: "argo-cd CRDs disabled variant rendered from argo-cd/argo-cd@9.5.15"

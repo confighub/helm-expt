@@ -184,6 +184,7 @@ First promoted adversarial row: metrics-server/metrics-server@3.13.0.
 Second promoted adversarial row: ingress-nginx/ingress-nginx@4.15.1.
 Third promoted adversarial row: jetstack/cert-manager@v1.20.2.
 Fourth promoted adversarial row: external-secrets/external-secrets@2.5.0.
+Fifth promoted adversarial row: argo-cd/argo-cd@9.5.15.
 ```
 
 The adversarial 10 foundation does not close the scale proof. It gives us the
@@ -218,6 +219,13 @@ capability profile gates, CRD lifecycle and upgrade gates, admission webhook
 observation gates, webhook Secret/cert-controller observation, cluster RBAC
 gates, Helm equivalence receipts, and deterministic `cub install`
 package/setup proof.
+
+The fifth such promotion is Argo CD. It adds the repeatable pattern for a
+GitOps controller chart: source/dependency locks, `default` and `no-crds`
+variants, capability profile gates, CRD lifecycle and upgrade gates, Helm hook
+lifecycle gates, generated Secret ownership gates, StatefulSet policy, GitOps
+handoff policy, cluster RBAC gates, Helm equivalence receipts, and
+deterministic `cub install` package/setup proof.
 
 ## Installer Boundary
 

@@ -217,6 +217,8 @@ recipes/jetstack/cert-manager/v1.20.2/
 packages/jetstack/cert-manager/v1.20.2/
 recipes/external-secrets/external-secrets/2.5.0/
 packages/external-secrets/external-secrets/2.5.0/
+recipes/argo-cd/argo-cd/9.5.15/
+packages/argo-cd/argo-cd/9.5.15/
 data/adversarial10/
 data/top500/
 docs/top20-full-proof-target.md
@@ -259,13 +261,14 @@ npm run metrics-server:compare
 npm run ingress-nginx:compare
 npm run cert-manager:compare
 npm run external-secrets:compare
+npm run argo-cd:compare
 ```
 
 It checks the archived reference receipts against their referenced files, then
 checks the current Redis proof artifacts, Helm-equivalence evidence, scan/gate
 receipts, variant diff evidence, promoted metrics-server, ingress-nginx,
-cert-manager, and external-secrets proof/package artifacts, deterministic
-`cub install` packaging, and negative golden self-tests.
+cert-manager, external-secrets, and Argo CD proof/package artifacts,
+deterministic `cub install` packaging, and negative golden self-tests.
 
 The old hash-only archive check is still available for comparison:
 
@@ -492,6 +495,39 @@ npm run external-secrets:generate-package
 npm run external-secrets:verify-proof
 npm run external-secrets:verify-package
 npm run external-secrets:compare
+```
+
+## Argo CD Proof
+
+The fifth chart promoted from the adversarial harness is:
+
+```text
+recipes/argo-cd/argo-cd/9.5.15/
+packages/argo-cd/argo-cd/9.5.15/
+```
+
+It has two install variants:
+
+```text
+default
+no-crds
+```
+
+The proof shows that regular Helm output is preserved by real
+`cub install setup`, plus the explained Namespace support object. It also makes
+the chart's awkward parts visible: Kubernetes capability branching, three
+optional CRDs, Helm hook lifecycle policy, a disabled locked `redis-ha`
+dependency, generated/operational Secrets, `tpl` extension slots, the
+application-controller StatefulSet, GitOps handoff policy, and cluster RBAC.
+
+Useful commands:
+
+```sh
+npm run argo-cd:generate-proof
+npm run argo-cd:generate-package
+npm run argo-cd:verify-proof
+npm run argo-cd:verify-package
+npm run argo-cd:compare
 ```
 
 ## Adversarial 10 Harness
