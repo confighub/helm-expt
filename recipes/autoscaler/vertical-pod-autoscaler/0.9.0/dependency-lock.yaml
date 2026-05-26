@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "autoscaler-vertical-pod-autoscaler-0-9-0"
+spec:
+  chart: "autoscaler/vertical-pod-autoscaler"
+  version: "0.9.0"
+  dependencies:
+    []

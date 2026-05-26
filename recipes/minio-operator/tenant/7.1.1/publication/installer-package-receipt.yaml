@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "minio-operator-tenant-7-1-1"
+spec:
+  chart:
+    repository: "minio-operator"
+    name: "tenant"
+    version: "7.1.1"
+  package:
+    path: "packages/minio-operator/tenant/7.1.1"
+    name: "minio-operator-tenant"
+    version: "7.1.1"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "327c251ecea5337e90bf44cd2bf38fe409a9b45f3c7bee24ca3d89fc5d2be73a"
+        bytes: 201
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "4577edd3c6c83479b029c32a8e41e966b19ef3810e062c156c5c54850c4ab32a"
+        bytes: 1881
+      -
+        path: "installer.yaml"
+        sha256: "e60eae75deadf079d0effc57fe65ea470f550c85d558c855bcb438cd37f28ee2"
+        bytes: 316
+  deterministicBundle:
+    command: "cub install package packages/minio-operator/tenant/7.1.1 -o <tmp>/minio-operator-tenant-7-1-1.tgz"
+    sha256: "7a10ca850b10f4b0d7c766397449b88636eb6f798ddf606da6d89b0b2b4e3d42"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/minio-operator/tenant/7.1.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 2
+      cubInstallObjectCountIncludingSupport: 3
+      semanticObjectMatches: "2/2"
+      separatedSecretCount: 1
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

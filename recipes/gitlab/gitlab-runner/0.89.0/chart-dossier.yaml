@@ -1,0 +1,27 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "gitlab-gitlab-runner-0-89-0"
+  labels:
+    confighub.io/chart-ref: "gitlab/gitlab-runner"
+    confighub.io/chart-version: "0.89.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chart: "gitlab/gitlab-runner"
+  version: "0.89.0"
+  maintainedNotes:
+    - "gitlab/gitlab-runner@0.89.0 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+    - "Chart source contains generated/random/time helpers; generated values must be captured before approval if activated by a variant."
+    - "Chart source contains tpl; raw templating extension slots need explicit ownership and review."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "variant-revision"
+    - "rendered-manifest-scan"
+    - "helm-equivalence"
+    - "generated-facts"
+    - "tpl-extension-slots"
+    - "extension-slots"
+  proofFocus: "CI runner, RBAC, runtime registration Secret"

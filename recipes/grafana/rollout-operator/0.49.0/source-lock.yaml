@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "grafana-rollout-operator-0-49-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "grafana"
+  repositoryURL: "https://grafana.github.io/helm-charts"
+  chart: "rollout-operator"
+  ref: "grafana/rollout-operator"
+  version: "0.49.0"
+  appVersion: "v0.36.2"
+  packageSHA256: "681cff1dc555168c658f3c0deaa23b99273dfd08c6a64bc9da6c3afd8f75a079"
+  packageBytes: 9912
+  capturedAt: "generated-by-next80-full-proof-harness"

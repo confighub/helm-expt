@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "bitnami-opensearch-2-0-10"
+spec:
+  chart:
+    repository: "bitnami"
+    name: "opensearch"
+    version: "2.0.10"
+  package:
+    path: "packages/bitnami/opensearch/2.0.10"
+    name: "bitnami-opensearch"
+    version: "2.0.10"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "4037838c9d11000dfbc2831301be5dfbd6a0b5e883351030a31b8e9cf99884cd"
+        bytes: 199
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "99c0b24ee1850d1f5a4da323e9924a8a1f9d93a34a97a985d92c954836747afd"
+        bytes: 43043
+      -
+        path: "installer.yaml"
+        sha256: "13aa14d9b3d4e61aef2681d601a53184be97113c9ae0ba734c3d30fe8fe0ef14"
+        bytes: 309
+  deterministicBundle:
+    command: "cub install package packages/bitnami/opensearch/2.0.10 -o <tmp>/bitnami-opensearch-2-0-10.tgz"
+    sha256: "b2b1f3d2359d4ee073ad371c0f5fa8291a387c50142f0d5cebef9c29eab9b553"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/bitnami/opensearch/2.0.10 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 18
+      cubInstallObjectCountIncludingSupport: 19
+      semanticObjectMatches: "18/18"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

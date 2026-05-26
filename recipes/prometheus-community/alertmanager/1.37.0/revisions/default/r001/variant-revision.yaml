@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "prometheus-community/alertmanager"
+    confighub.io/chart-version: "1.37.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "a863cfd5eaeab88508e3c96efd79e0eeb53e52a03e7f956ecd54d10b6bdaa787"
+  digestInputs:
+    recipeSHA256: "bbbb6194c060933c9b3939db894fec7ed4e4480efce0475c74314a45e3c10580"
+    variantSHA256: "f55cbc9bdea65faa6a0260952a48544ffd3104830fd415221e03d3c7854934d6"
+    effectiveValuesSHA256: "19ed39e3ec38d117e1ee695024286a0e53bc2198137daacf60caf7342dac6163"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "fc6c693435a12f92b94f3f59435e1e23af1cf4b87fc4564cda64ea502e7e1dc6"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 5

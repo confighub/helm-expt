@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "argo-cd-argo-events-2-4-21"
+spec:
+  chart:
+    repository: "argo-cd"
+    name: "argo-events"
+    version: "2.4.21"
+  package:
+    path: "packages/argo-cd/argo-events/2.4.21"
+    name: "argo-cd-argo-events"
+    version: "2.4.21"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "84e55b1711aa009f78e712b35f8a4f300f2ed0ee32d0ed82db282f7b3db744c8"
+        bytes: 200
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "fe5c705f2f03410df75055542a79619c82947dafbf3f1c01c05eca2fc197503b"
+        bytes: 12065
+      -
+        path: "installer.yaml"
+        sha256: "3927c052e2247be77c31b5773f39698be2c07a0cab43d12274089102885c9f98"
+        bytes: 312
+  deterministicBundle:
+    command: "cub install package packages/argo-cd/argo-events/2.4.21 -o <tmp>/argo-cd-argo-events-2-4-21.tgz"
+    sha256: "088dbe2f4c9f8098dbb475e100c4db458d7bc6de2e9be5171af478bfebbacbe5"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/argo-cd/argo-events/2.4.21 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 9
+      cubInstallObjectCountIncludingSupport: 10
+      semanticObjectMatches: "9/9"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

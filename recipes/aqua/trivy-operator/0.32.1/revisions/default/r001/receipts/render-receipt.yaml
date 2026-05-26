@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "aqua-trivy-operator-0-32-1-default-r001"
+  labels:
+    confighub.io/chart-ref: "aqua/trivy-operator"
+    confighub.io/chart-version: "0.32.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "ff36157ab13d78eaae4a1bf5b12f3a0a1e52e18e79f19f6d324c02aa08538100"
+    dependencyLockSHA256: "216caf724e29bfaf0be29aa3db9d4a03770ff5a6d7ebc880d6117688d907b98d"
+    effectiveValuesSHA256: "46d4b0552e6d7489f90123600b314fc322b6d1a18981aff6ca99a22f8018c9ac"
+  outputs:
+    renderedObjectSetSHA256: "4728643a42924d6af2c0b2b4f1f616938c31b6271ed7e32bac2ce36e5e339a25"
+    renderedObjectInventorySHA256: "70516c96775a51a422be3069ae2bf4e825dde4ca8dda6911565ef8d5c2a125f5"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 33
+    renderedSecretCount: 2
+    secretCountSeparatedByCubInstall: 2

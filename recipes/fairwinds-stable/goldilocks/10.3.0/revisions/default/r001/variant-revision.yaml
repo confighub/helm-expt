@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "fairwinds-stable/goldilocks"
+    confighub.io/chart-version: "10.3.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "fb050d20cf8af09d730bffb1e7fe169792fdf653396cdafbe29947586920f25c"
+  digestInputs:
+    recipeSHA256: "be23fe514b273b8304e8697b6a878e02f9bc9c75c3a56d37890f9dcf682da8ce"
+    variantSHA256: "da71ac34bb8397371c99c73dac9011e12de198105696700021f4481f1919cafd"
+    effectiveValuesSHA256: "119613cc7869fd4ac63f76e32ee230445c833e02aa90690eb48137e18c1cd23e"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "5939f53dfe4e6c888630fc4c30fcc478e4786a56cb0092139c418510da17d7a5"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 9

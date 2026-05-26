@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "haproxytech-kubernetes-ingress-1-52-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "haproxytech/kubernetes-ingress"
+    confighub.io/chart-version: "1.52.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "fde3f5c5cd0d854dfb96af29de3b052a16658b4d727da6e96642652da60e9b12"
+    dependencyLockSHA256: "afbb39b1774e4b46b9cb5cc449fc95fec46287827cb74ad3f5e27337a66d9372"
+    effectiveValuesSHA256: "bddc28e4c814d2bd2f7613934f7663bd39aa40ac0b7beacad9677f209e8c636c"
+  outputs:
+    renderedObjectSetSHA256: "d04b79ade525cfe276e761918d319794e8e662ef896ae3418a42e7c781ded544"
+    renderedObjectInventorySHA256: "9876bc2ae0a7d6ff1993e1671a6df136141f73f52f156ef69b6a2e55c28f7a54"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 7
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

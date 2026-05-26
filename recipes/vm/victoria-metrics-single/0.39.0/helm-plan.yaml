@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "vm-victoria-metrics-single-0-39-0"
+  labels:
+    confighub.io/chart-ref: "vm/victoria-metrics-single"
+    confighub.io/chart-version: "0.39.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "vm/victoria-metrics-single"
+    version: "0.39.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 3
+    cubInstallObjectsByVariant:
+      default: 4
+    helmMatchByVariant:
+      default: "3/3"
+    renderedObjectSetSHA256: "10c95bd43cb02502fb823b0d461c26b60fb0b4fe988ccf8a0cbe2e29f0a8c5f8"
+    scanGate: "allow"
+    nextAction: "promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

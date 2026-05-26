@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "projectcalico-tigera-operator-v3-32-0"
+  labels:
+    confighub.io/chart-ref: "projectcalico/tigera-operator"
+    confighub.io/chart-version: "v3.32.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chart: "projectcalico/tigera-operator"
+  version: "v3.32.0"
+  maintainedNotes:
+    - "projectcalico/tigera-operator@v3.32.0 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+    - "Chart source contains Helm hooks; the proof revision uses no-hooks so hook lifecycle must be handled separately before production."
+    - "Chart source contains lookup; future variants using lookup paths must bind target facts in the recipe."
+    - "Rendered output includes cluster-scoped RBAC; production promotion needs RBAC review."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "variant-revision"
+    - "rendered-manifest-scan"
+    - "helm-equivalence"
+    - "target-facts"
+    - "lifecycle-policy"
+    - "cluster-rbac"
+  proofFocus: "networking operator, CRDs, RBAC"

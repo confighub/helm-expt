@@ -1,0 +1,40 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ControlPoints"
+metadata:
+  name: "hashicorp-terraform-1-1-2"
+spec:
+  points:
+    -
+      category: "source-lock"
+      status: "handled"
+      evidence: "source-lock.yaml"
+    -
+      category: "dependency-lock"
+      status: "handled"
+      evidence: "dependency-lock.yaml"
+      dependencyCount: 0
+    -
+      category: "capability-profile"
+      status: "handled"
+      kubeVersion: "1.30.0"
+    -
+      category: "variant-revision"
+      status: "handled"
+      evidence: "revisions/default/r001/variant-revision.yaml"
+    -
+      category: "rendered-manifest-scan"
+      status: "handled"
+      evidence: "revisions/default/r001/receipts/scan-receipt.yaml"
+    -
+      category: "helm-equivalence"
+      status: "handled"
+      evidence: "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    -
+      category: "lifecycle-policy"
+      status: "handled-by-no-hooks-proof"
+      policy: "no-hooks"
+      note: "hook templates are excluded from the approved rendered object revision"
+    -
+      category: "crds"
+      status: "review-required"
+      count: 1

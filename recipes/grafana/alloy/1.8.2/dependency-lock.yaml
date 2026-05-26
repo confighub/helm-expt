@@ -1,0 +1,13 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "grafana-alloy-1-8-2"
+spec:
+  chart: "grafana/alloy"
+  version: "1.8.2"
+  dependencies:
+    -
+      name: "crds"
+      version: "0.0.0"
+      repository: ""
+      condition: "crds.create"

@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "prometheus-community-prometheus-adapter-5-3-0-default"
+  labels:
+    confighub.io/chart-ref: "prometheus-community/prometheus-adapter"
+    confighub.io/chart-version: "5.3.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "2a3bbea6bc4f75c9f7b69f9a6b75fc1d1a73e7c04a3c687c74131694088ed23b"
+  mergedValuesCaptured: false
+  values:
+    {}

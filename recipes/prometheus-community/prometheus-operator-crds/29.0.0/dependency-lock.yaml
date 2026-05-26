@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "prometheus-community-prometheus-operator-crds-29-0-0"
+spec:
+  chart: "prometheus-community/prometheus-operator-crds"
+  version: "29.0.0"
+  dependencies:
+    -
+      name: "crds"
+      version: "0.0.0"
+      repository: ""

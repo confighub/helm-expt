@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "nats-surveyor-0-20-9"
+  labels:
+    confighub.io/chart-ref: "nats/surveyor"
+    confighub.io/chart-version: "0.20.9"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chart: "nats/surveyor"
+  version: "0.20.9"
+  maintainedNotes:
+    - "nats/surveyor@0.20.9 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "variant-revision"
+    - "rendered-manifest-scan"
+    - "helm-equivalence"
+    - "extension-slots"
+  proofFocus: "NATS observability exporter"

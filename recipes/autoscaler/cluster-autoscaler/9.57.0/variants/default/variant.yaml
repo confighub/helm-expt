@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "default"
+  labels:
+    confighub.io/chart-ref: "autoscaler/cluster-autoscaler"
+    confighub.io/chart-version: "9.57.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "default"
+  releaseName: "cluster-autoscaler"
+  valuesProfile: "../../effective-values.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"

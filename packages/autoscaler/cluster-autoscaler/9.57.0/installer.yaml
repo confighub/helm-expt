@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "autoscaler-cluster-autoscaler"
+  version: "9.57.0"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "autoscaler/cluster-autoscaler default variant rendered from autoscaler/cluster-autoscaler@9.57.0"

@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "prometheus-community-alertmanager-1-37-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "prometheus-community"
+  repositoryURL: "https://prometheus-community.github.io/helm-charts"
+  chart: "alertmanager"
+  ref: "prometheus-community/alertmanager"
+  version: "1.37.0"
+  appVersion: "v0.32.1"
+  packageSHA256: "fac00c96da4a20614be8b1c68cf34d63dffaf08cee4dde9d7213e1690b589351"
+  packageBytes: 15366
+  capturedAt: "generated-by-next80-full-proof-harness"

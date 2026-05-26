@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "percona-pg-operator-3-0-0"
+  labels:
+    confighub.io/chart-ref: "percona/pg-operator"
+    confighub.io/chart-version: "3.0.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "percona/pg-operator"
+    version: "3.0.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 12
+    cubInstallObjectsByVariant:
+      default: 13
+    helmMatchByVariant:
+      default: "12/12"
+    renderedObjectSetSHA256: "bf309d7e26c9351501282530b3707719d97e87593333150163c468461725a8ff"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

@@ -1,0 +1,22 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "projectcalico-tigera-operator-v3-32-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "projectcalico/tigera-operator"
+    confighub.io/chart-version: "v3.32.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "9ce56a65a1b0ca63aec202cb662a5389fe6a6a55e6d4b9db9920febcc5b2b350"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+    - "review"
+  blockedScopes:
+    - "production-without-review"
+  reasons:
+    - "regular Helm output matches cub install setup for projectcalico/tigera-operator@v3.32.0"
+    - "10 Helm objects are bound to renderedObjectSetSHA256"
+    - "rendered-object scan has review findings; see scan-receipt.yaml"

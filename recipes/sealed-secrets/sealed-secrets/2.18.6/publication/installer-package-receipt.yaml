@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "sealed-secrets-sealed-secrets-2-18-6"
+spec:
+  chart:
+    repository: "sealed-secrets"
+    name: "sealed-secrets"
+    version: "2.18.6"
+  package:
+    path: "packages/sealed-secrets/sealed-secrets/2.18.6"
+    name: "sealed-secrets-sealed-secrets"
+    version: "2.18.6"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "a30c2fbf17339a9d6cdc89d5d4edfb2c0267285396741b4c3aa5653bba40c312"
+        bytes: 210
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "096c66f4ea312aa7c3a4fc2be815b64271c3f1c829c8914b5c96c190aa22a83e"
+        bytes: 15104
+      -
+        path: "installer.yaml"
+        sha256: "423ff0ee99b56db9a1c18f541310895450feab0dc7a2c207d861ff187c6d6d22"
+        bytes: 342
+  deterministicBundle:
+    command: "cub install package packages/sealed-secrets/sealed-secrets/2.18.6 -o <tmp>/sealed-secrets-sealed-secrets-2-18-6.tgz"
+    sha256: "ebdde8af99c2b4df925428f3e30d0c1cae02fec87cc62023bf0af742221db9c6"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/sealed-secrets/sealed-secrets/2.18.6 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 11
+      cubInstallObjectCountIncludingSupport: 12
+      semanticObjectMatches: "11/11"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

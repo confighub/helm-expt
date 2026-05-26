@@ -1,0 +1,27 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "nfs-subdir-external-provisioner-nfs-subdir-external-provisioner"
+  version: "4.0.18"
+  labels:
+    confighub.io/chart-ref: "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner"
+    confighub.io/chart-version: "4.0.18"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18"
+    setupCommand:
+      - "cub"
+      - "install"
+      - "setup"
+      - "--pull"
+      - "packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18"
+      - "--non-interactive"
+      - "--namespace"
+      - "default"
+  variants:
+    - "variants/default/variant.yaml"

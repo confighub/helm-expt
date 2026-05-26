@@ -1,0 +1,27 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "bitnami-contour"
+  version: "21.1.4"
+  labels:
+    confighub.io/chart-ref: "bitnami/contour"
+    confighub.io/chart-version: "21.1.4"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "packages/bitnami/contour/21.1.4"
+    setupCommand:
+      - "cub"
+      - "install"
+      - "setup"
+      - "--pull"
+      - "packages/bitnami/contour/21.1.4"
+      - "--non-interactive"
+      - "--namespace"
+      - "default"
+  variants:
+    - "variants/default/variant.yaml"

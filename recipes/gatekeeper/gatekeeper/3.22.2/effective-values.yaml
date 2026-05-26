@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "gatekeeper-gatekeeper-3-22-2-default"
+  labels:
+    confighub.io/chart-ref: "gatekeeper/gatekeeper"
+    confighub.io/chart-version: "3.22.2"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "6489d550e25d17279bdd08b534d40e44ba8f60d76fe1fa2615414bd47adbd6c4"
+  mergedValuesCaptured: false
+  values:
+    {}

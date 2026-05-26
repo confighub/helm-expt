@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "elastic-eck-operator-3-4-0-default"
+  labels:
+    confighub.io/chart-ref: "elastic/eck-operator"
+    confighub.io/chart-version: "3.4.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "b9b25d276bab22c4671d77ce5f29e4fb0c4be3c15216d607cc1340d496c9e94e"
+  mergedValuesCaptured: false
+  values:
+    {}

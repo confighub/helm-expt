@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "hashicorp-terraform-1-1-2"
+spec:
+  chart: "hashicorp/terraform"
+  version: "1.1.2"
+  dependencies:
+    []

@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "jetstack-trust-manager-v0-22-1-default-r001"
+  labels:
+    confighub.io/chart-ref: "jetstack/trust-manager"
+    confighub.io/chart-version: "v0.22.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "50eb2239a5db07734497711c4e812eb111d231852c2f614e5b0a1faec7bab683"
+    objectCount: 14
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 15
+    uploadedManifestFiles: 15
+    separatedSecretFiles: 0
+    semanticObjectMatches: "14/14"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

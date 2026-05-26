@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "bitnami-opensearch"
+  version: "2.0.10"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "bitnami/opensearch default variant rendered from bitnami/opensearch@2.0.10"

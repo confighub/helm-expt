@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "gitlab-gitlab-runner-0-89-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "gitlab/gitlab-runner"
+    confighub.io/chart-version: "0.89.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "ad0d78b72ba8c9c6d896ee2faf620db82e9c52d2794f3dbbcbe6f3705c43d95e"
+  result: "pass"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.2.0"
+  policyBundleDigest: "d4913c44f60cee40b376761c82c0c5b84e3f65043012ae875d8f376330dabc35"
+  findingCounts:
+    critical: 0
+    high: 0
+    medium: 0
+    low: 0
+    info: 0
+  findings:
+    []

@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "projectcalico-tigera-operator-v3-32-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "projectcalico/tigera-operator"
+    confighub.io/chart-version: "v3.32.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "9ce56a65a1b0ca63aec202cb662a5389fe6a6a55e6d4b9db9920febcc5b2b350"
+    objectCount: 10
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 11
+    uploadedManifestFiles: 11
+    separatedSecretFiles: 0
+    semanticObjectMatches: "10/10"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

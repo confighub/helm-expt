@@ -1,0 +1,50 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "falcosecurity-falco-9-0-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "falcosecurity/falco"
+    confighub.io/chart-version: "9.0.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "e417f53227667413d5d51b89157f00c603af2cd613e282816c27df69408f7648"
+  objectCount: 6
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|DaemonSet|default|falco"
+      kind: "DaemonSet"
+      name: "falco"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|default|falco"
+      kind: "RoleBinding"
+      name: "falco"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role|default|falco"
+      kind: "Role"
+      name: "falco"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|default|falco"
+      kind: "ConfigMap"
+      name: "falco"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|default|falco-falcoctl"
+      kind: "ConfigMap"
+      name: "falco-falcoctl"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|falco"
+      kind: "ServiceAccount"
+      name: "falco"
+      namespace: "default"

@@ -1,0 +1,22 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "sealed-secrets-sealed-secrets-2-18-6-default-r001"
+  labels:
+    confighub.io/chart-ref: "sealed-secrets/sealed-secrets"
+    confighub.io/chart-version: "2.18.6"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "096c66f4ea312aa7c3a4fc2be815b64271c3f1c829c8914b5c96c190aa22a83e"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+    - "review"
+  blockedScopes:
+    - "production-without-review"
+  reasons:
+    - "regular Helm output matches cub install setup for sealed-secrets/sealed-secrets@2.18.6"
+    - "11 Helm objects are bound to renderedObjectSetSHA256"
+    - "rendered-object scan has review findings; see scan-receipt.yaml"

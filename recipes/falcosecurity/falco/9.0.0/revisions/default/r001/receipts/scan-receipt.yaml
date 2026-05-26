@@ -1,0 +1,36 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "falcosecurity-falco-9-0-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "falcosecurity/falco"
+    confighub.io/chart-version: "9.0.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "e417f53227667413d5d51b89157f00c603af2cd613e282816c27df69408f7648"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.2.0"
+  policyBundleDigest: "d4913c44f60cee40b376761c82c0c5b84e3f65043012ae875d8f376330dabc35"
+  findingCounts:
+    critical: 0
+    high: 0
+    medium: 2
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "privileged-container-review:apps/v1|DaemonSet|default|falco:falco"
+      rule: "privileged-container-review"
+      severity: "medium"
+      object: "apps/v1|DaemonSet|default|falco"
+      message: "container falco is privileged"
+    -
+      id: "privileged-container-review:apps/v1|DaemonSet|default|falco:falco-driver-loader"
+      rule: "privileged-container-review"
+      severity: "medium"
+      object: "apps/v1|DaemonSet|default|falco"
+      message: "container falco-driver-loader is privileged"

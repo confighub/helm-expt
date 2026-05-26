@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "percona-psmdb-operator-1-22-0"
+  labels:
+    confighub.io/chart-ref: "percona/psmdb-operator"
+    confighub.io/chart-version: "1.22.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "percona/psmdb-operator"
+    version: "1.22.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 7
+    cubInstallObjectsByVariant:
+      default: 8
+    helmMatchByVariant:
+      default: "7/7"
+    renderedObjectSetSHA256: "a9ae26e197ef3e108ecab8c30f630ce24004a29b670916169ae6634198b96936"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

@@ -1,0 +1,50 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "falcosecurity-falcosidekick-0-13-1-default-r001"
+  labels:
+    confighub.io/chart-ref: "falcosecurity/falcosidekick"
+    confighub.io/chart-version: "0.13.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "7a657f26e36fdc7b72d0ec1ba0831010739e3f84677af99e7397a500a414d0b4"
+  objectCount: 6
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|falcosidekick"
+      kind: "Deployment"
+      name: "falcosidekick"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|default|falcosidekick"
+      kind: "RoleBinding"
+      name: "falcosidekick"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role|default|falcosidekick"
+      kind: "Role"
+      name: "falcosidekick"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Secret|default|falcosidekick"
+      kind: "Secret"
+      name: "falcosidekick"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|falcosidekick"
+      kind: "ServiceAccount"
+      name: "falcosidekick"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|falcosidekick"
+      kind: "Service"
+      name: "falcosidekick"
+      namespace: "default"

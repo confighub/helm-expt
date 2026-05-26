@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "strimzi-strimzi-kafka-operator-1-0-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "strimzi"
+  repositoryURL: "https://strimzi.io/charts/"
+  chart: "strimzi-kafka-operator"
+  ref: "strimzi/strimzi-kafka-operator"
+  version: "1.0.0"
+  appVersion: "1.0.0"
+  packageSHA256: "afb2e7c9fd95eefef689097fc57740975f588f5285d1af1c00ef26cceff5f7c3"
+  packageBytes: 124029
+  capturedAt: "generated-by-next80-full-proof-harness"

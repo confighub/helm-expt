@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "bitnami-memcached-8-5-5"
+spec:
+  chart:
+    repository: "bitnami"
+    name: "memcached"
+    version: "8.5.5"
+  package:
+    path: "packages/bitnami/memcached/8.5.5"
+    name: "bitnami-memcached"
+    version: "8.5.5"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "bee3477c3811c39ad1ec3d75a42ebaec1d0028aab2788eb72d3d4c4adc16198c"
+        bytes: 197
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "8cd477e08d9fdd2d56df7832f901d773af4f4313a405330180d7068cd7751558"
+        bytes: 5516
+      -
+        path: "installer.yaml"
+        sha256: "b0314cc41d01948e2032afaaee49dd8fe2f2e0e99ceccc8456edc2e27cb8f01c"
+        bytes: 304
+  deterministicBundle:
+    command: "cub install package packages/bitnami/memcached/8.5.5 -o <tmp>/bitnami-memcached-8-5-5.tgz"
+    sha256: "60da1ada3bc125fae54ba7c330bcc9fb7074793ee7b9a6f0ee38594fa39a61d9"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/bitnami/memcached/8.5.5 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 5
+      cubInstallObjectCountIncludingSupport: 6
+      semanticObjectMatches: "5/5"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

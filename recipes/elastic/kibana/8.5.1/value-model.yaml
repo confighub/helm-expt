@@ -1,0 +1,20 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "elastic-kibana-8-5-1"
+spec:
+  checkedValues:
+    -
+      path: "<chart defaults>"
+      variant: "default"
+      disposition: "default-render-captured"
+      reason: "default chart values are bound by source-lock.yaml and effective-values.yaml; rendered objects are digest-bound in the revision receipts"
+  sourceFeatureSignals:
+    usesLookup: false
+    usesGeneratedFacts: false
+    usesCapabilities: false
+    usesTpl: true
+    hasExtensionSlots: true
+  unknownValues: "not-exhaustively-checked-in-next80-lane"
+  deadValues: "not-exhaustively-checked-in-next80-lane"
+  ignoredValues: "not-exhaustively-checked-in-next80-lane"

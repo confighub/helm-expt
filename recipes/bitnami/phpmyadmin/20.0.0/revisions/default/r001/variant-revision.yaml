@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/phpmyadmin"
+    confighub.io/chart-version: "20.0.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "83c005cd0ec19cce717b505547ed1f1235447c6c4ba80f582e39f9616d0f89bd"
+  digestInputs:
+    recipeSHA256: "4b4f225f380aca1bcea72254c8e36b8d3894a0a1bbfa0f11d177c30fb0413975"
+    variantSHA256: "f1c349acdae99f9a504481c10fa42ffb5e6d698ffdb9ddb8244a6a3255cdf737"
+    effectiveValuesSHA256: "e5b08b776ca39e24b0391a613301db9c610443f7a58eea05555bc8eb5bcc1211"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "41d8e5dabf8548c2965f32db8fdb6870f07b3e3fd967d641d8dc952f7569eb0a"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 5

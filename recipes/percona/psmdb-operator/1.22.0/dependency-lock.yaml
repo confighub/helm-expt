@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "percona-psmdb-operator-1-22-0"
+spec:
+  chart: "percona/psmdb-operator"
+  version: "1.22.0"
+  dependencies:
+    []

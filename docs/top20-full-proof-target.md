@@ -57,9 +57,20 @@ package SHA and dependency closure.
 
 ## Promotion Status
 
-All 20 target rows are promoted. The next milestone is to generate the
-receipt-backed spreadsheet from these proof artifacts and then extend the same
-contract to the next 30 charts.
+All 20 target rows are promoted. The same contract has now been extended to
+another 80 public charts in the generated next-80 full-proof lane:
+
+```text
+data/next80-full-proofs/
+```
+
+That brings the public proof surface to:
+
+```text
+20 bespoke proofs
+80 generated full proofs
+100 total recipes and cub install packages
+```
 
 The completed set alternates between deterministic rendered charts,
 generated-fact stateful charts, large umbrella charts, blocked/default charts,

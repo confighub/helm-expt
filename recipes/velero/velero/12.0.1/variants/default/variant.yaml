@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "default"
+  labels:
+    confighub.io/chart-ref: "velero/velero"
+    confighub.io/chart-version: "12.0.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "default"
+  releaseName: "velero"
+  valuesProfile: "../../effective-values.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"

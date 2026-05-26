@@ -1,0 +1,50 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "opencost-opencost-2-5-21-default-r001"
+  labels:
+    confighub.io/chart-ref: "opencost/opencost"
+    confighub.io/chart-version: "2.5.21"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "3cf0267ce7b5173e0c514fad903e559129d63d2f9a6bb83da681dcff1f7977dc"
+  objectCount: 6
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|opencost"
+      kind: "Deployment"
+      name: "opencost"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||opencost"
+      kind: "ClusterRoleBinding"
+      name: "opencost"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||opencost"
+      kind: "ClusterRole"
+      name: "opencost"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|default|opencost-ui-nginx-config"
+      kind: "ConfigMap"
+      name: "opencost-ui-nginx-config"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|opencost"
+      kind: "ServiceAccount"
+      name: "opencost"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|opencost"
+      kind: "Service"
+      name: "opencost"
+      namespace: "default"

@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "jetstack/trust-manager"
+    confighub.io/chart-version: "v0.22.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "b2230146b96c81c8d8d8f7f031d90a72915b599d62d8dcf4ef304a08b290cb57"
+  digestInputs:
+    recipeSHA256: "a0bb9b231863f79ecad03f0ef6cf795cab26f6a9aeb45e0e5c0e08eeb833424b"
+    variantSHA256: "49947039ea0f1173666b2ec72e7db34b3ee9a35d20c7515256281789da5dcbfe"
+    effectiveValuesSHA256: "04f864a70f0038105f8a2cc12155db839a213b4c89ae963ef2ef61c4dcbe4ffb"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "50eb2239a5db07734497711c4e812eb111d231852c2f614e5b0a1faec7bab683"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 14

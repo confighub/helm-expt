@@ -1,0 +1,98 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "elastic-metricbeat-8-5-1-default-r001"
+  labels:
+    confighub.io/chart-ref: "elastic/metricbeat"
+    confighub.io/chart-version: "8.5.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "805a258f07a07f1cdef0ee45ee427a06e28cc18380e52368840efeb7b672e939"
+  objectCount: 14
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|DaemonSet||metricbeat-metricbeat"
+      kind: "DaemonSet"
+      name: "metricbeat-metricbeat"
+      namespace: ""
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|metricbeat-kube-state-metrics"
+      kind: "Deployment"
+      name: "metricbeat-kube-state-metrics"
+      namespace: "default"
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment||metricbeat-metricbeat-metrics"
+      kind: "Deployment"
+      name: "metricbeat-metricbeat-metrics"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||metricbeat-kube-state-metrics"
+      kind: "ClusterRoleBinding"
+      name: "metricbeat-kube-state-metrics"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||metricbeat-metricbeat-cluster-role-binding"
+      kind: "ClusterRoleBinding"
+      name: "metricbeat-metricbeat-cluster-role-binding"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||metricbeat-kube-state-metrics"
+      kind: "ClusterRole"
+      name: "metricbeat-kube-state-metrics"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||metricbeat-metricbeat-cluster-role"
+      kind: "ClusterRole"
+      name: "metricbeat-metricbeat-cluster-role"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding||metricbeat-metricbeat-role-binding"
+      kind: "RoleBinding"
+      name: "metricbeat-metricbeat-role-binding"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role||metricbeat-metricbeat-role"
+      kind: "Role"
+      name: "metricbeat-metricbeat-role"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap||metricbeat-metricbeat-daemonset-config"
+      kind: "ConfigMap"
+      name: "metricbeat-metricbeat-daemonset-config"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap||metricbeat-metricbeat-deployment-config"
+      kind: "ConfigMap"
+      name: "metricbeat-metricbeat-deployment-config"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|metricbeat-kube-state-metrics"
+      kind: "ServiceAccount"
+      name: "metricbeat-kube-state-metrics"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount||metricbeat-metricbeat"
+      kind: "ServiceAccount"
+      name: "metricbeat-metricbeat"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|metricbeat-kube-state-metrics"
+      kind: "Service"
+      name: "metricbeat-kube-state-metrics"
+      namespace: "default"

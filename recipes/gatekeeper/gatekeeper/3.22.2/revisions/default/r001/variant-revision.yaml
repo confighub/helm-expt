@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "gatekeeper/gatekeeper"
+    confighub.io/chart-version: "3.22.2"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "57649ce2ff654a2900d594b5aac09186f35e6349fd72d333922229b7d2c6e49a"
+  digestInputs:
+    recipeSHA256: "937e53944e8bdb00e93c34b4e457367f649272bc3d5c397dd84632892b3d2b18"
+    variantSHA256: "2a43b92d899cb60069eb90c0d6f50430263480f234004c3e650e5c2eca469484"
+    effectiveValuesSHA256: "1cb7e6206bcc5749aba5979627d3a2907461d278f34403d67ed6ca02b9a42566"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "757e7fe97f5331bd964463ed228d147bdc090f3bb6d7c34b319522124efd2e5d"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 30

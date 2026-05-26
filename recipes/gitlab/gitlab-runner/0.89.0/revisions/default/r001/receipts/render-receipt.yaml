@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "gitlab-gitlab-runner-0-89-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "gitlab/gitlab-runner"
+    confighub.io/chart-version: "0.89.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "762dce4bf53169aa02a919093e2b7c96cfeb08f11633ff84e19c9e673e8f267f"
+    dependencyLockSHA256: "352df63df45ae3607b6e07a1fdd1a6493b5ca535ad7400973221d4295ff10655"
+    effectiveValuesSHA256: "b2e452a1e542ff4eb3dc03453dd7bfbd3194efd12d0af54977a0d159676ce604"
+  outputs:
+    renderedObjectSetSHA256: "ad0d78b72ba8c9c6d896ee2faf620db82e9c52d2794f3dbbcbe6f3705c43d95e"
+    renderedObjectInventorySHA256: "9b42c4f60bbd66769fe7ac91ec15206f3e3f4c2ce54e85ceeee073cc0b127b11"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 2
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

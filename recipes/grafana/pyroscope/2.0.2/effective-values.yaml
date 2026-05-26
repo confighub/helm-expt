@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "grafana-pyroscope-2-0-2-default"
+  labels:
+    confighub.io/chart-ref: "grafana/pyroscope"
+    confighub.io/chart-version: "2.0.2"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "f384277fbb62674e03d02ea04dcd2fbedd8f234e8a90007717ea197fecc989bb"
+  mergedValuesCaptured: false
+  values:
+    {}

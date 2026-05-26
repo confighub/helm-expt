@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "open-telemetry-opentelemetry-operator"
+  version: "0.114.0"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "open-telemetry/opentelemetry-operator default variant rendered from open-telemetry/opentelemetry-operator@0.114.0"

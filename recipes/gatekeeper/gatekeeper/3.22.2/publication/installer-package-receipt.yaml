@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "gatekeeper-gatekeeper-3-22-2"
+spec:
+  chart:
+    repository: "gatekeeper"
+    name: "gatekeeper"
+    version: "3.22.2"
+  package:
+    path: "packages/gatekeeper/gatekeeper/3.22.2"
+    name: "gatekeeper-gatekeeper"
+    version: "3.22.2"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "1aff32a6c5dc386e102fa741e1ece997483ca665410c4fb5452aeb4e9e0014b6"
+        bytes: 202
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "757e7fe97f5331bd964463ed228d147bdc090f3bb6d7c34b319522124efd2e5d"
+        bytes: 268270
+      -
+        path: "installer.yaml"
+        sha256: "5b4a19f52228176ed230aa0ba7ad475141c1f7f2c67b7166441ad4f96aab5910"
+        bytes: 318
+  deterministicBundle:
+    command: "cub install package packages/gatekeeper/gatekeeper/3.22.2 -o <tmp>/gatekeeper-gatekeeper-3-22-2.tgz"
+    sha256: "c39fb953ee81bfd9cac2ad1263c970c80874b701ab1c5a89d582eba91f9d0cdf"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/gatekeeper/gatekeeper/3.22.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 30
+      cubInstallObjectCountIncludingSupport: 31
+      semanticObjectMatches: "30/30"
+      separatedSecretCount: 1
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

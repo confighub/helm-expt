@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "prometheus-community/prometheus-operator-crds"
+    confighub.io/chart-version: "29.0.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "f779402363cf1dc32f6050c24fc0a5663759463b873e46758e365e25448cad71"
+  digestInputs:
+    recipeSHA256: "9ac25b900f1d4f3f6e011a794cf25b99bc2f9e92b7fe4779362d39b68a5fa2dd"
+    variantSHA256: "851b956b3f844cf947010bdd8808cdce9ec41c4b5a53de6ef449d245fb6e8f61"
+    effectiveValuesSHA256: "39049c10798f678c7392a71923b33a0f03e2406af3a7ceb436dffcb314163ab7"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "32cfda19c8684a1ad319476b44d9056af7824df3c06622b04a7e28d6bdfd5ab4"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 10

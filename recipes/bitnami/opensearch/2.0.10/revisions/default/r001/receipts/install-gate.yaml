@@ -1,0 +1,22 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "bitnami-opensearch-2-0-10-default-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/opensearch"
+    confighub.io/chart-version: "2.0.10"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "99c0b24ee1850d1f5a4da323e9924a8a1f9d93a34a97a985d92c954836747afd"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+    - "review"
+  blockedScopes:
+    - "production-without-review"
+  reasons:
+    - "regular Helm output matches cub install setup for bitnami/opensearch@2.0.10"
+    - "18 Helm objects are bound to renderedObjectSetSHA256"
+    - "rendered-object scan has review findings; see scan-receipt.yaml"

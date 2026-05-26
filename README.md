@@ -69,6 +69,48 @@ variant revisions with receipts.
 Chart -> Recipe -> Variant -> VariantRevision -> Deployment -> Receipt
 ```
 
+## Current Proof Count
+
+The repo now contains:
+
+```text
+20 bespoke public-chart proofs
+80 generated full public-chart proofs
+100 cub install packages
+```
+
+The next-80 lane is not a loose chart list. Each chart has:
+
+- a recipe directory under `recipes/<repo>/<chart>/<version>/`;
+- a `cub install` package under `packages/<repo>/<chart>/<version>/`;
+- a HelmPlan, ChartDossier, source lock, dependency lock, value model, and
+  control-point file;
+- a default Variant and digest-bound VariantRevision;
+- rendered release objects and an object inventory;
+- render, Helm-equivalence, scan, install-gate, and installer-package receipts;
+- a proof-index row generated from the artifacts.
+
+The strict check is:
+
+```text
+regular helm template output
+  == cub install setup output
+  plus the allowed Namespace support object
+```
+
+The generated proof index is:
+
+```text
+data/next80-full-proofs/proof-index.csv
+```
+
+Verification:
+
+```sh
+npm run next80:verify
+npm run next80:verify:packages
+```
+
 Default rule:
 
 ```text

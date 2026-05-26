@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "runix-pgadmin4-1-62-0"
+spec:
+  chart:
+    repository: "runix"
+    name: "pgadmin4"
+    version: "1.62.0"
+  package:
+    path: "packages/runix/pgadmin4/1.62.0"
+    name: "runix-pgadmin4"
+    version: "1.62.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "43c5e92ebf7d96fa3a38cd3956e25024d5ad547a84682d15b28584d8e3f4a8ac"
+        bytes: 195
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "78528d11d3b5ea8cf8c03e43834edbe87a944df1593c516867cc4e0389ba1565"
+        bytes: 4227
+      -
+        path: "installer.yaml"
+        sha256: "cb672bbaebd4ac895873cf77e0f72f222d8f95c07c3b38be105e952da5140122"
+        bytes: 297
+  deterministicBundle:
+    command: "cub install package packages/runix/pgadmin4/1.62.0 -o <tmp>/runix-pgadmin4-1-62-0.tgz"
+    sha256: "a7ebe7db9ddd892a94b0038baf48ab9900c59f3f959a55a59599fb248724aef2"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/runix/pgadmin4/1.62.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 5
+      cubInstallObjectCountIncludingSupport: 6
+      semanticObjectMatches: "5/5"
+      separatedSecretCount: 1
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

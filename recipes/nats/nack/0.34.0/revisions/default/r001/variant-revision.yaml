@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "nats/nack"
+    confighub.io/chart-version: "0.34.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "1d1fd00a7f6111d03babd0a988a718e1acc1842684313b79f4ac87e1e9cf3bcc"
+  digestInputs:
+    recipeSHA256: "6abbe5e016ee32342698ae26640deaea707aa2100e3e5a9ac8c8ba4191f553d9"
+    variantSHA256: "5ed4a9b6dc24094e0b919baa794e04189f9e0646da3ca903f6b964baef615126"
+    effectiveValuesSHA256: "6eace24ca763340bddd72d8b43aaf58d965156730cadefb86754deb87bdbffdf"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "3578a1e913da259083e95b1bca9492a5e1aac8ae270e2871eb05c5f0c5f6c3c9"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 10

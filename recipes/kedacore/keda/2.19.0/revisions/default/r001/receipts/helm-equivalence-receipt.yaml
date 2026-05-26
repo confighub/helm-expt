@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "kedacore-keda-2-19-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "kedacore/keda"
+    confighub.io/chart-version: "2.19.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "95bac2eeb03cdf4d0392ed7d66c37c81db91beeba346752f932abef73d26db1f"
+    objectCount: 29
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 30
+    uploadedManifestFiles: 30
+    separatedSecretFiles: 0
+    semanticObjectMatches: "29/29"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

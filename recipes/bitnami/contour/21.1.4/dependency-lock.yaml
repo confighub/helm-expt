@@ -1,0 +1,14 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "bitnami-contour-21-1-4"
+spec:
+  chart: "bitnami/contour"
+  version: "21.1.4"
+  dependencies:
+    -
+      name: "common"
+      version: "2.x.x"
+      repository: "oci://registry-1.docker.io/bitnamicharts"
+      tags:
+        - "bitnami-common"

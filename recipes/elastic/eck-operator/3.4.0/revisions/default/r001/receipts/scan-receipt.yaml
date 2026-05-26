@@ -1,0 +1,132 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "elastic-eck-operator-3-4-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "elastic/eck-operator"
+    confighub.io/chart-version: "3.4.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "11bd8f291f9da0611bf6795dbbbe41a9e4e5ae9fe4cd58e9bad69dd883aee278"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.2.0"
+  policyBundleDigest: "d4913c44f60cee40b376761c82c0c5b84e3f65043012ae875d8f376330dabc35"
+  findingCounts:
+    critical: 0
+    high: 0
+    medium: 18
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||elastic-operator"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||elastic-operator"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||elastic-operator-edit"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||elastic-operator-edit"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||elastic-operator-view"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||elastic-operator-view"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||elastic-operator"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||elastic-operator"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||agents.agent.k8s.elastic.co"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||agents.agent.k8s.elastic.co"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||apmservers.apm.k8s.elastic.co"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||apmservers.apm.k8s.elastic.co"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||autoopsagentpolicies.autoops.k8s.elastic.co"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||autoopsagentpolicies.autoops.k8s.elastic.co"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||beats.beat.k8s.elastic.co"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||beats.beat.k8s.elastic.co"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||elasticmapsservers.maps.k8s.elastic.co"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||elasticmapsservers.maps.k8s.elastic.co"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||elasticsearchautoscalers.autoscaling.k8s.elastic.co"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||elasticsearchautoscalers.autoscaling.k8s.elastic.co"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||elasticsearches.elasticsearch.k8s.elastic.co"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||elasticsearches.elasticsearch.k8s.elastic.co"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||enterprisesearches.enterprisesearch.k8s.elastic.co"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||enterprisesearches.enterprisesearch.k8s.elastic.co"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||kibanas.kibana.k8s.elastic.co"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||kibanas.kibana.k8s.elastic.co"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||logstashes.logstash.k8s.elastic.co"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||logstashes.logstash.k8s.elastic.co"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||packageregistries.packageregistry.k8s.elastic.co"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||packageregistries.packageregistry.k8s.elastic.co"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||stackconfigpolicies.stackconfigpolicy.k8s.elastic.co"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||stackconfigpolicies.stackconfigpolicy.k8s.elastic.co"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "rendered-secret-review:v1|Secret|default|elastic-operator-webhook-cert"
+      rule: "rendered-secret-review"
+      severity: "medium"
+      object: "v1|Secret|default|elastic-operator-webhook-cert"
+      message: "Rendered Secret material or references require review before production promotion"
+    -
+      id: "webhook-readiness-review:admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||elastic-operator.default.k8s.elastic.co"
+      rule: "webhook-readiness-review"
+      severity: "medium"
+      object: "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||elastic-operator.default.k8s.elastic.co"
+      message: "Webhook certificate and readiness behavior require observation after apply"

@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "minio-operator-tenant-7-1-1"
+  labels:
+    confighub.io/chart-ref: "minio-operator/tenant"
+    confighub.io/chart-version: "7.1.1"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chart: "minio-operator/tenant"
+  version: "7.1.1"
+  maintainedNotes:
+    - "minio-operator/tenant@7.1.1 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+    - "Chart source contains tpl; raw templating extension slots need explicit ownership and review."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "variant-revision"
+    - "rendered-manifest-scan"
+    - "helm-equivalence"
+    - "tpl-extension-slots"
+    - "secret-material"
+  proofFocus: "object storage tenant custom resources"

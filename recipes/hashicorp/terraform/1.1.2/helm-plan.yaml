@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "hashicorp-terraform-1-1-2"
+  labels:
+    confighub.io/chart-ref: "hashicorp/terraform"
+    confighub.io/chart-version: "1.1.2"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "hashicorp/terraform"
+    version: "1.1.2"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 5
+    cubInstallObjectsByVariant:
+      default: 6
+    helmMatchByVariant:
+      default: "5/5"
+    renderedObjectSetSHA256: "5cc2a190066cc639af6f8856b1ff8e28a40e61546d53cd04f19c5b14d6c37d3b"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

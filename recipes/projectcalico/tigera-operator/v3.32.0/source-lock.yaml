@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "projectcalico-tigera-operator-v3-32-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "projectcalico"
+  repositoryURL: "https://docs.tigera.io/calico/charts"
+  chart: "tigera-operator"
+  ref: "projectcalico/tigera-operator"
+  version: "v3.32.0"
+  appVersion: "v3.32.0"
+  packageSHA256: "7e968633c7d8b1de1e648a15fa838995bdbae285bdca9af9badd13156e360450"
+  packageBytes: 10996
+  capturedAt: "generated-by-next80-full-proof-harness"

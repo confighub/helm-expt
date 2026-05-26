@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "bitnami-spark-10-0-3"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "bitnami"
+  repositoryURL: "https://charts.bitnami.com/bitnami"
+  chart: "spark"
+  ref: "bitnami/spark"
+  version: "10.0.3"
+  appVersion: "4.0.0"
+  packageSHA256: "6d551a4f745c89d0b1cbfe8569dbb8bd93ec9d7e4704dab2cc86177a3a5359dc"
+  packageBytes: 54813
+  capturedAt: "generated-by-next80-full-proof-harness"

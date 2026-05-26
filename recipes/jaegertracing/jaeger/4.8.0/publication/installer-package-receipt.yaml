@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "jaegertracing-jaeger-4-8-0"
+spec:
+  chart:
+    repository: "jaegertracing"
+    name: "jaeger"
+    version: "4.8.0"
+  package:
+    path: "packages/jaegertracing/jaeger/4.8.0"
+    name: "jaegertracing-jaeger"
+    version: "4.8.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "0c1e0aa3112fc3517e8913608044f90ae5b95a98b53619087c8f712c90e3437a"
+        bytes: 200
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "da24b2c05d1c43492627f3d01b0d675ea01bb2acb38017a18dec5a70c55b7939"
+        bytes: 4685
+      -
+        path: "installer.yaml"
+        sha256: "cbb227533453d98a3f96e827933ef61bc4595a5992156805cbb0e981743df017"
+        bytes: 313
+  deterministicBundle:
+    command: "cub install package packages/jaegertracing/jaeger/4.8.0 -o <tmp>/jaegertracing-jaeger-4-8-0.tgz"
+    sha256: "da2ec9e5ab08908c8b005218dbc023e8621325ed6aa1915823259253430a2aac"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/jaegertracing/jaeger/4.8.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 3
+      cubInstallObjectCountIncludingSupport: 4
+      semanticObjectMatches: "3/3"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

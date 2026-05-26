@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "grafana-promtail-6-17-1"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "grafana"
+  repositoryURL: "https://grafana.github.io/helm-charts"
+  chart: "promtail"
+  ref: "grafana/promtail"
+  version: "6.17.1"
+  appVersion: "3.5.1"
+  packageSHA256: "12115103a3b94932473fb3873aa670a68da9504e2f323c03790257088b479d9f"
+  packageBytes: 17587
+  capturedAt: "generated-by-next80-full-proof-harness"

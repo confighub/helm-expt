@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "kedacore-keda-2-19-0"
+  labels:
+    confighub.io/chart-ref: "kedacore/keda"
+    confighub.io/chart-version: "2.19.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "kedacore/keda"
+    version: "2.19.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 29
+    cubInstallObjectsByVariant:
+      default: 30
+    helmMatchByVariant:
+      default: "29/29"
+    renderedObjectSetSHA256: "95bac2eeb03cdf4d0392ed7d66c37c81db91beeba346752f932abef73d26db1f"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

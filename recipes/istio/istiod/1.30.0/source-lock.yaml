@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "istio-istiod-1-30-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "istio"
+  repositoryURL: "https://istio-release.storage.googleapis.com/charts"
+  chart: "istiod"
+  ref: "istio/istiod"
+  version: "1.30.0"
+  appVersion: "1.30.0"
+  packageSHA256: "7a34c7688da34107841e9585b226b94357769749f82502fdc4fb43a6bc3db320"
+  packageBytes: 38873
+  capturedAt: "generated-by-next80-full-proof-harness"

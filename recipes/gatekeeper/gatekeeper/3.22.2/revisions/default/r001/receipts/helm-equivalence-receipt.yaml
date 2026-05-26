@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "gatekeeper-gatekeeper-3-22-2-default-r001"
+  labels:
+    confighub.io/chart-ref: "gatekeeper/gatekeeper"
+    confighub.io/chart-version: "3.22.2"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "757e7fe97f5331bd964463ed228d147bdc090f3bb6d7c34b319522124efd2e5d"
+    objectCount: 30
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 31
+    uploadedManifestFiles: 31
+    separatedSecretFiles: 1
+    semanticObjectMatches: "30/30"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

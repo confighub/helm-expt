@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "argo-cd-argo-rollouts-2-40-9"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "argo-cd"
+  repositoryURL: "https://argoproj.github.io/argo-helm"
+  chart: "argo-rollouts"
+  ref: "argo-cd/argo-rollouts"
+  version: "2.40.9"
+  appVersion: "v1.9.0"
+  packageSHA256: "9028af96514d3e7443b68c56ecf17beae279e73982ffd6ee33bfeb6c70d42f22"
+  packageBytes: 66291
+  capturedAt: "generated-by-next80-full-proof-harness"

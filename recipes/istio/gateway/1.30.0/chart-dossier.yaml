@@ -1,0 +1,22 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "istio-gateway-1-30-0"
+  labels:
+    confighub.io/chart-ref: "istio/gateway"
+    confighub.io/chart-version: "1.30.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chart: "istio/gateway"
+  version: "1.30.0"
+  maintainedNotes:
+    - "istio/gateway@1.30.0 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "variant-revision"
+    - "rendered-manifest-scan"
+    - "helm-equivalence"
+  proofFocus: "gateway workload and Service exposure"

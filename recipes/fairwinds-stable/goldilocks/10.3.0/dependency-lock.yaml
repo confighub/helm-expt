@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "fairwinds-stable-goldilocks-10-3-0"
+spec:
+  chart: "fairwinds-stable/goldilocks"
+  version: "10.3.0"
+  dependencies:
+    -
+      name: "vpa"
+      version: "4.8.*"
+      repository: "https://charts.fairwinds.com/stable"
+      condition: "vpa.enabled"
+    -
+      name: "metrics-server"
+      version: "3.*.*"
+      repository: "https://kubernetes-sigs.github.io/metrics-server/"
+      condition: "metrics-server.enabled"

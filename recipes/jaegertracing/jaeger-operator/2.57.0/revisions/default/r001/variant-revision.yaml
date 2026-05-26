@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "jaegertracing/jaeger-operator"
+    confighub.io/chart-version: "2.57.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "7ae3130bd89242695bc77f2336fb4f939f2b384e97e934359cc79ec035787983"
+  digestInputs:
+    recipeSHA256: "d982f5b3b5fbc0597350cb0ec4af4a593ecf7d79b95a7e49a71bf6d209f4b579"
+    variantSHA256: "5de3246d7bb4f75a213471877565dd5e0e24b8c5d6c9ef80d5d257e9d87f2af8"
+    effectiveValuesSHA256: "976846dfdc4845d6bde252fcedcd6ac44703a51d3d80061e96667d61ba33fb88"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "c17323ac7d71b000b42732323a79731fe3d9244ba4e641d8349a73a71b8807ab"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 11

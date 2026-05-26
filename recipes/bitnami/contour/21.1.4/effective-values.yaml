@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "bitnami-contour-21-1-4-default"
+  labels:
+    confighub.io/chart-ref: "bitnami/contour"
+    confighub.io/chart-version: "21.1.4"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "5c49f3b3c2af2c592adcbecc69a3a91e384f1829a0cbd53dc3671d41034009bf"
+  mergedValuesCaptured: false
+  values:
+    {}

@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "jetstack-trust-manager-v0-22-1"
+spec:
+  chart:
+    repository: "jetstack"
+    name: "trust-manager"
+    version: "v0.22.1"
+  package:
+    path: "packages/jetstack/trust-manager/v0.22.1"
+    name: "jetstack-trust-manager"
+    version: "v0.22.1"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "db90eca8dd8d7581001c767e3fdcddf519d9769235abf1e63411c2b779839761"
+        bytes: 204
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "50eb2239a5db07734497711c4e812eb111d231852c2f614e5b0a1faec7bab683"
+        bytes: 39275
+      -
+        path: "installer.yaml"
+        sha256: "3ce84920dd9979789ae824458475a1393b4545c3503b14ab06652a896942316f"
+        bytes: 323
+  deterministicBundle:
+    command: "cub install package packages/jetstack/trust-manager/v0.22.1 -o <tmp>/jetstack-trust-manager-v0-22-1.tgz"
+    sha256: "28d1e52412a879f370505b15c9edced5fdeb1a9cf04e6159b925001b3027cac6"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/jetstack/trust-manager/v0.22.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 14
+      cubInstallObjectCountIncludingSupport: 15
+      semanticObjectMatches: "14/14"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

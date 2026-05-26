@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "prometheus-community-alertmanager-1-37-0"
+spec:
+  chart: "prometheus-community/alertmanager"
+  version: "1.37.0"
+  dependencies:
+    []

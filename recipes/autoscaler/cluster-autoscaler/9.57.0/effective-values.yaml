@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "autoscaler-cluster-autoscaler-9-57-0-default"
+  labels:
+    confighub.io/chart-ref: "autoscaler/cluster-autoscaler"
+    confighub.io/chart-version: "9.57.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "532caeec980693ad1b9993859a2334c19c617ba1181c2ec28dcdb053e297b888"
+  mergedValuesCaptured: false
+  values:
+    {}

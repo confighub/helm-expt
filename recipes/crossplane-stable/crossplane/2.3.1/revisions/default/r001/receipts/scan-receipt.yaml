@@ -1,0 +1,132 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "crossplane-stable-crossplane-2-3-1-default-r001"
+  labels:
+    confighub.io/chart-ref: "crossplane-stable/crossplane"
+    confighub.io/chart-version: "2.3.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "917b3dc2a52c16f26cefebe2b580889944e23461d95d1fbe912e0c7a451fd996"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.2.0"
+  policyBundleDigest: "d4913c44f60cee40b376761c82c0c5b84e3f65043012ae875d8f376330dabc35"
+  findingCounts:
+    critical: 0
+    high: 0
+    medium: 18
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||crossplane"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||crossplane"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||crossplane-admin"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||crossplane-admin"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||crossplane-browse"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||crossplane-browse"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||crossplane-edit"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||crossplane-edit"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||crossplane-rbac-manager"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||crossplane-rbac-manager"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||crossplane-view"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||crossplane-view"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||crossplane:aggregate-to-admin"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||crossplane:aggregate-to-admin"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||crossplane:aggregate-to-browse"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||crossplane:aggregate-to-browse"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||crossplane:aggregate-to-edit"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||crossplane:aggregate-to-edit"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||crossplane:aggregate-to-view"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||crossplane:aggregate-to-view"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||crossplane:allowed-provider-permissions"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||crossplane:allowed-provider-permissions"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||crossplane:system:aggregate-to-crossplane"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||crossplane:system:aggregate-to-crossplane"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||crossplane"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||crossplane"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||crossplane-admin"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||crossplane-admin"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||crossplane-rbac-manager"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||crossplane-rbac-manager"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "rendered-secret-review:v1|Secret|default|crossplane-root-ca"
+      rule: "rendered-secret-review"
+      severity: "medium"
+      object: "v1|Secret|default|crossplane-root-ca"
+      message: "Rendered Secret material or references require review before production promotion"
+    -
+      id: "rendered-secret-review:v1|Secret|default|crossplane-tls-client"
+      rule: "rendered-secret-review"
+      severity: "medium"
+      object: "v1|Secret|default|crossplane-tls-client"
+      message: "Rendered Secret material or references require review before production promotion"
+    -
+      id: "rendered-secret-review:v1|Secret|default|crossplane-tls-server"
+      rule: "rendered-secret-review"
+      severity: "medium"
+      object: "v1|Secret|default|crossplane-tls-server"
+      message: "Rendered Secret material or references require review before production promotion"

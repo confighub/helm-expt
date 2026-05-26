@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "bitnami-apache-11-4-29"
+  labels:
+    confighub.io/chart-ref: "bitnami/apache"
+    confighub.io/chart-version: "11.4.29"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "bitnami/apache"
+    version: "11.4.29"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 5
+    cubInstallObjectsByVariant:
+      default: 6
+    helmMatchByVariant:
+      default: "5/5"
+    renderedObjectSetSHA256: "0b37f6d8ae27b5b341860619b89aa3d78e02d7bd01a2271fab216d4e65be047c"
+    scanGate: "allow"
+    nextAction: "promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

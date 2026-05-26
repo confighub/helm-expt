@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "kyverno-kyverno-policies-3-8-0"
+  labels:
+    confighub.io/chart-ref: "kyverno/kyverno-policies"
+    confighub.io/chart-version: "3.8.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "kyverno/kyverno-policies"
+    version: "3.8.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 11
+    cubInstallObjectsByVariant:
+      default: 12
+    helmMatchByVariant:
+      default: "11/11"
+    renderedObjectSetSHA256: "e486d983f614fe17b5eb85b4a8e9088242c2b94ca3694d1e11294c44a4bc9ef9"
+    scanGate: "allow"
+    nextAction: "promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

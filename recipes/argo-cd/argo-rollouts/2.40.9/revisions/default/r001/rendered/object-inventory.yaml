@@ -1,0 +1,98 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "argo-cd-argo-rollouts-2-40-9-default-r001"
+  labels:
+    confighub.io/chart-ref: "argo-cd/argo-rollouts"
+    confighub.io/chart-version: "2.40.9"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "cd696130d24a1a676d5bc1abb9978ff10d6d4e6e072655c6ef275453b1e85e47"
+  objectCount: 14
+  objects:
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||analysisruns.argoproj.io"
+      kind: "CustomResourceDefinition"
+      name: "analysisruns.argoproj.io"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||analysistemplates.argoproj.io"
+      kind: "CustomResourceDefinition"
+      name: "analysistemplates.argoproj.io"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||clusteranalysistemplates.argoproj.io"
+      kind: "CustomResourceDefinition"
+      name: "clusteranalysistemplates.argoproj.io"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||experiments.argoproj.io"
+      kind: "CustomResourceDefinition"
+      name: "experiments.argoproj.io"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||rollouts.argoproj.io"
+      kind: "CustomResourceDefinition"
+      name: "rollouts.argoproj.io"
+      namespace: ""
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|argo-rollouts"
+      kind: "Deployment"
+      name: "argo-rollouts"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||argo-rollouts"
+      kind: "ClusterRoleBinding"
+      name: "argo-rollouts"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||argo-rollouts"
+      kind: "ClusterRole"
+      name: "argo-rollouts"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||argo-rollouts-aggregate-to-admin"
+      kind: "ClusterRole"
+      name: "argo-rollouts-aggregate-to-admin"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||argo-rollouts-aggregate-to-edit"
+      kind: "ClusterRole"
+      name: "argo-rollouts-aggregate-to-edit"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||argo-rollouts-aggregate-to-view"
+      kind: "ClusterRole"
+      name: "argo-rollouts-aggregate-to-view"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|default|argo-rollouts-config"
+      kind: "ConfigMap"
+      name: "argo-rollouts-config"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|default|argo-rollouts-notification-configmap"
+      kind: "ConfigMap"
+      name: "argo-rollouts-notification-configmap"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|argo-rollouts"
+      kind: "ServiceAccount"
+      name: "argo-rollouts"
+      namespace: "default"

@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "grafana-rollout-operator-0-49-0-default"
+  labels:
+    confighub.io/chart-ref: "grafana/rollout-operator"
+    confighub.io/chart-version: "0.49.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "93a13ff99670719b724c01e26ebc8d6f91b8eb555e611266e822c92d1f4d7fb4"
+  mergedValuesCaptured: false
+  values:
+    {}

@@ -1,0 +1,26 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "minio-operator-tenant-7-1-1-default-r001"
+  labels:
+    confighub.io/chart-ref: "minio-operator/tenant"
+    confighub.io/chart-version: "7.1.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "4577edd3c6c83479b029c32a8e41e966b19ef3810e062c156c5c54850c4ab32a"
+  objectCount: 2
+  objects:
+    -
+      apiVersion: "minio.min.io/v2"
+      identity: "minio.min.io/v2|Tenant||myminio"
+      kind: "Tenant"
+      name: "myminio"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|Secret||myminio-env-configuration"
+      kind: "Secret"
+      name: "myminio-env-configuration"
+      namespace: ""

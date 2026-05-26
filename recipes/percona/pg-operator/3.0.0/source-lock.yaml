@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "percona-pg-operator-3-0-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "percona"
+  repositoryURL: "https://percona.github.io/percona-helm-charts/"
+  chart: "pg-operator"
+  ref: "percona/pg-operator"
+  version: "3.0.0"
+  appVersion: "3.0.0"
+  packageSHA256: "795b9924089cc9f088d47fbf13cc94f0207c84629d69b581f504a6d1fbeefc92"
+  packageBytes: 85024
+  capturedAt: "generated-by-next80-full-proof-harness"

@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "fairwinds-stable-vpa-4-11-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "fairwinds-stable"
+  repositoryURL: "https://charts.fairwinds.com/stable"
+  chart: "vpa"
+  ref: "fairwinds-stable/vpa"
+  version: "4.11.0"
+  appVersion: "1.6.0"
+  packageSHA256: "28b48002bf80aa397e078375170ae929bebd6cbfd2788628f3cf5363629a1098"
+  packageBytes: 28624
+  capturedAt: "generated-by-next80-full-proof-harness"

@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "argo-cd-argocd-image-updater"
+  version: "1.2.2"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "argo-cd/argocd-image-updater default variant rendered from argo-cd/argocd-image-updater@1.2.2"

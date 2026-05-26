@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "jetstack-cert-manager-csi-driver-v0-14-0"
+  labels:
+    confighub.io/chart-ref: "jetstack/cert-manager-csi-driver"
+    confighub.io/chart-version: "v0.14.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "jetstack/cert-manager-csi-driver"
+    version: "v0.14.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 5
+    cubInstallObjectsByVariant:
+      default: 6
+    helmMatchByVariant:
+      default: "5/5"
+    renderedObjectSetSHA256: "2fa28f4f4c912710babcc4f46818889df3c51396a400dbce6c0245afc20056f3"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "falcosecurity-falcosidekick-0-13-1-default-r001"
+  labels:
+    confighub.io/chart-ref: "falcosecurity/falcosidekick"
+    confighub.io/chart-version: "0.13.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "7a657f26e36fdc7b72d0ec1ba0831010739e3f84677af99e7397a500a414d0b4"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.2.0"
+  policyBundleDigest: "d4913c44f60cee40b376761c82c0c5b84e3f65043012ae875d8f376330dabc35"
+  findingCounts:
+    critical: 0
+    high: 0
+    medium: 1
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "rendered-secret-review:v1|Secret|default|falcosidekick"
+      rule: "rendered-secret-review"
+      severity: "medium"
+      object: "v1|Secret|default|falcosidekick"
+      message: "Rendered Secret material or references require review before production promotion"

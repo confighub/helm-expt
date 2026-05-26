@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1"
+  labels:
+    confighub.io/chart-ref: "aws-ebs-csi-driver/aws-ebs-csi-driver"
+    confighub.io/chart-version: "2.60.1"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chart: "aws-ebs-csi-driver/aws-ebs-csi-driver"
+  version: "2.60.1"
+  maintainedNotes:
+    - "aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+    - "Chart source contains Helm hooks; the proof revision uses no-hooks so hook lifecycle must be handled separately before production."
+    - "Chart source contains tpl; raw templating extension slots need explicit ownership and review."
+    - "Rendered output includes cluster-scoped RBAC; production promotion needs RBAC review."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "variant-revision"
+    - "rendered-manifest-scan"
+    - "helm-equivalence"
+    - "tpl-extension-slots"
+    - "lifecycle-policy"
+    - "cluster-rbac"
+  proofFocus: "CSI driver, DaemonSet, RBAC, storage lifecycle"

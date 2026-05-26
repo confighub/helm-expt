@@ -1,0 +1,26 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "elastic-kibana-8-5-1-default-r001"
+  labels:
+    confighub.io/chart-ref: "elastic/kibana"
+    confighub.io/chart-version: "8.5.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "3c0e03c571ed6c5635edd63244a0085634a30bd73e011e2db802c9d1c63b0cb3"
+  objectCount: 2
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment||kibana-kibana"
+      kind: "Deployment"
+      name: "kibana-kibana"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|Service||kibana-kibana"
+      kind: "Service"
+      name: "kibana-kibana"
+      namespace: ""

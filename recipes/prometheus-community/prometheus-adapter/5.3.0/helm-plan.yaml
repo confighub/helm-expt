@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "prometheus-community-prometheus-adapter-5-3-0"
+  labels:
+    confighub.io/chart-ref: "prometheus-community/prometheus-adapter"
+    confighub.io/chart-version: "5.3.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "prometheus-community/prometheus-adapter"
+    version: "5.3.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 11
+    cubInstallObjectsByVariant:
+      default: 12
+    helmMatchByVariant:
+      default: "11/11"
+    renderedObjectSetSHA256: "50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

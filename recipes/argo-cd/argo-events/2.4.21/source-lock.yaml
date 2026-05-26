@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "argo-cd-argo-events-2-4-21"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "argo-cd"
+  repositoryURL: "https://argoproj.github.io/argo-helm"
+  chart: "argo-events"
+  ref: "argo-cd/argo-events"
+  version: "2.4.21"
+  appVersion: "v1.9.10"
+  packageSHA256: "b325ca4569aa43b6bef3bb0065bb997727124017b307491a731e47cf527b69c7"
+  packageBytes: 12598
+  capturedAt: "generated-by-next80-full-proof-harness"

@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1"
+  labels:
+    confighub.io/chart-ref: "aws-ebs-csi-driver/aws-ebs-csi-driver"
+    confighub.io/chart-version: "2.60.1"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "aws-ebs-csi-driver/aws-ebs-csi-driver"
+    version: "2.60.1"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 19
+    cubInstallObjectsByVariant:
+      default: 20
+    helmMatchByVariant:
+      default: "19/19"
+    renderedObjectSetSHA256: "ae9f0b30339870e7bab818ea4eb299e5393416b5efd5053dd5800017373bb3a7"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

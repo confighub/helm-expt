@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "percona-pg-operator-3-0-0"
+spec:
+  chart: "percona/pg-operator"
+  version: "3.0.0"
+  dependencies:
+    []

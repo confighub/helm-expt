@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "vm-victoria-metrics-single-0-39-0-default"
+  labels:
+    confighub.io/chart-ref: "vm/victoria-metrics-single"
+    confighub.io/chart-version: "0.39.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "499485292bcabc159f7a09677e72a31f114a8d81346f6f83335f368cdc1e4c14"
+  mergedValuesCaptured: false
+  values:
+    {}

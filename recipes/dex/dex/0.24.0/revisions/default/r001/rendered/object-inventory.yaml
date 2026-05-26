@@ -1,0 +1,62 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "dex-dex-0-24-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "dex/dex"
+    confighub.io/chart-version: "0.24.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "5461ff32d1a2a157fd54a958809a06aa73938f52efc8c97f40e866cbc070b2f5"
+  objectCount: 8
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|dex"
+      kind: "Deployment"
+      name: "dex"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||dex-cluster"
+      kind: "ClusterRoleBinding"
+      name: "dex-cluster"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||dex"
+      kind: "ClusterRole"
+      name: "dex"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|default|dex"
+      kind: "RoleBinding"
+      name: "dex"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role|default|dex"
+      kind: "Role"
+      name: "dex"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Secret|default|dex"
+      kind: "Secret"
+      name: "dex"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|dex"
+      kind: "ServiceAccount"
+      name: "dex"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|dex"
+      kind: "Service"
+      name: "dex"
+      namespace: "default"

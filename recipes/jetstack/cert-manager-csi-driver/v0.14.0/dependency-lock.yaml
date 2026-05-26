@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "jetstack-cert-manager-csi-driver-v0-14-0"
+spec:
+  chart: "jetstack/cert-manager-csi-driver"
+  version: "v0.14.0"
+  dependencies:
+    []

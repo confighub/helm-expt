@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "runix-pgadmin4-1-62-0-default"
+  labels:
+    confighub.io/chart-ref: "runix/pgadmin4"
+    confighub.io/chart-version: "1.62.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "6e9fbe5d641eb8e253f421f3aa2f5619b83173e3c2b304cdbc4e729ce0a4f078"
+  mergedValuesCaptured: false
+  values:
+    {}

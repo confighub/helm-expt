@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "velero-velero-12-0-1-default-r001"
+  labels:
+    confighub.io/chart-ref: "velero/velero"
+    confighub.io/chart-version: "12.0.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "4d56fe343fdf97c9f957bbec8dcb534c8d1f820e5abbc21bd8d20f7dfb7d1e89"
+    dependencyLockSHA256: "78bd4487c7f857767a44f1eab790f98afe7b9c94121b9f76c769bf1b6500e698"
+    effectiveValuesSHA256: "3a4fa40cf3fa6146c6efc9a2f3970c00b42f1b9506f38b552f21f61a82fd2f3c"
+  outputs:
+    renderedObjectSetSHA256: "3fc8afa5a2077710e8e9a49df435b234925b373cdaf2209e66fada0044ef2c1b"
+    renderedObjectInventorySHA256: "7f121f98616631a1a8ab5c0ed64f7e55730cf73e86d24ca2bdca4b62cb029b72"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 23
+    renderedSecretCount: 1
+    secretCountSeparatedByCubInstall: 1

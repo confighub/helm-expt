@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "projectcalico-tigera-operator-v3-32-0-default"
+  labels:
+    confighub.io/chart-ref: "projectcalico/tigera-operator"
+    confighub.io/chart-version: "v3.32.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "59dcc8ac48e60b38ed36496750dd28c3cfd639f5a326ea48c9180ee72c60d5c7"
+  mergedValuesCaptured: false
+  values:
+    {}

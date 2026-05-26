@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "prometheus-community-prometheus-pushgateway-3-6-0"
+  labels:
+    confighub.io/chart-ref: "prometheus-community/prometheus-pushgateway"
+    confighub.io/chart-version: "3.6.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "prometheus-community/prometheus-pushgateway"
+    version: "3.6.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 3
+    cubInstallObjectsByVariant:
+      default: 4
+    helmMatchByVariant:
+      default: "3/3"
+    renderedObjectSetSHA256: "80cb018f0b277814e17ca7208be55ef10ed74288a258a6519e7bbcf088a9f450"
+    scanGate: "allow"
+    nextAction: "promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "percona-pxc-operator-1-19-1"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "percona"
+  repositoryURL: "https://percona.github.io/percona-helm-charts/"
+  chart: "pxc-operator"
+  ref: "percona/pxc-operator"
+  version: "1.19.1"
+  appVersion: "1.19.1"
+  packageSHA256: "3b61a8f61af9fdbb9c39bd089a0707680d6a3b89eb8ddba6b9ec588ed161298c"
+  packageBytes: 36268
+  capturedAt: "generated-by-next80-full-proof-harness"

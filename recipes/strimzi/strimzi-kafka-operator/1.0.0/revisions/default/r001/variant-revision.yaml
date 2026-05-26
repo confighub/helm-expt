@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "strimzi/strimzi-kafka-operator"
+    confighub.io/chart-version: "1.0.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "45d45a5fd99dabd09d7beef1a62ee67e84b03a4f6a08d6ce56791815edc4c29b"
+  digestInputs:
+    recipeSHA256: "27bdb9e555a5524cd188a75f42bdfa1c3c6a74ebbfecb0ab6a37402d86e4443c"
+    variantSHA256: "8e8482b61b5eb87fcc547c75623d430192df8a2518b3416ee8100c0eb1ebf316"
+    effectiveValuesSHA256: "5209b932e2cbde4b73ed0ee8f2278e59eff2657b238f279fef9de1e71766c969"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "f3cfe3329c6673870bb6ecd1d31cab9d74ee96695d6b2b6fbfb0f4a1a7b9f23b"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 27

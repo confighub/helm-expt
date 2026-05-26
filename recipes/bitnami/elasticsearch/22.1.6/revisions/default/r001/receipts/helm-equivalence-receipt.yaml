@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "bitnami-elasticsearch-22-1-6-default-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/elasticsearch"
+    confighub.io/chart-version: "22.1.6"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "2dea059172595f3477271eadd1aea69c4274d15a8029a55afb176cb5ffd66217"
+    objectCount: 21
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 22
+    uploadedManifestFiles: 22
+    separatedSecretFiles: 0
+    semanticObjectMatches: "21/21"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

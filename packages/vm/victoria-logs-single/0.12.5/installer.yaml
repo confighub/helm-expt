@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "vm-victoria-logs-single"
+  version: "0.12.5"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "vm/victoria-logs-single default variant rendered from vm/victoria-logs-single@0.12.5"

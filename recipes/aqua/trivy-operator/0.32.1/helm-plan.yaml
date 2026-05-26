@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "aqua-trivy-operator-0-32-1"
+  labels:
+    confighub.io/chart-ref: "aqua/trivy-operator"
+    confighub.io/chart-version: "0.32.1"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "aqua/trivy-operator"
+    version: "0.32.1"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 33
+    cubInstallObjectsByVariant:
+      default: 34
+    helmMatchByVariant:
+      default: "33/33"
+    renderedObjectSetSHA256: "4728643a42924d6af2c0b2b4f1f616938c31b6271ed7e32bac2ce36e5e339a25"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

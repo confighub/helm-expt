@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "sealed-secrets-sealed-secrets-2-18-6-default"
+  labels:
+    confighub.io/chart-ref: "sealed-secrets/sealed-secrets"
+    confighub.io/chart-version: "2.18.6"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "ec9ad1b62e5e77b18f7e170ab4f66101bbed8006e20789d52ef6fe5e8e4eb843"
+  mergedValuesCaptured: false
+  values:
+    {}

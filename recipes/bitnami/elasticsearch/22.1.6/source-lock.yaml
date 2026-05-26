@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "bitnami-elasticsearch-22-1-6"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "bitnami"
+  repositoryURL: "https://charts.bitnami.com/bitnami"
+  chart: "elasticsearch"
+  ref: "bitnami/elasticsearch"
+  version: "22.1.6"
+  appVersion: "9.1.2"
+  packageSHA256: "5c9db533f891fc52fbea44bd15d2782b38c78ad943b80e9afff35103daf10e6a"
+  packageBytes: 145654
+  capturedAt: "generated-by-next80-full-proof-harness"

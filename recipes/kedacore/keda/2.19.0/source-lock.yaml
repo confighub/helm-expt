@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "kedacore-keda-2-19-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "kedacore"
+  repositoryURL: "https://kedacore.github.io/charts"
+  chart: "keda"
+  ref: "kedacore/keda"
+  version: "2.19.0"
+  appVersion: "2.19.0"
+  packageSHA256: "6ee0edbb604577aaa2db07a4eecd836c69e1b1266f2db88a55010870faaad34b"
+  packageBytes: 113079
+  capturedAt: "generated-by-next80-full-proof-harness"

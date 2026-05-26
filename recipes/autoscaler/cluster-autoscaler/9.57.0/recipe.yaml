@@ -1,0 +1,27 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "autoscaler-cluster-autoscaler"
+  version: "9.57.0"
+  labels:
+    confighub.io/chart-ref: "autoscaler/cluster-autoscaler"
+    confighub.io/chart-version: "9.57.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "packages/autoscaler/cluster-autoscaler/9.57.0"
+    setupCommand:
+      - "cub"
+      - "install"
+      - "setup"
+      - "--pull"
+      - "packages/autoscaler/cluster-autoscaler/9.57.0"
+      - "--non-interactive"
+      - "--namespace"
+      - "default"
+  variants:
+    - "variants/default/variant.yaml"

@@ -1,0 +1,44 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "prometheus-community-alertmanager-1-37-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "prometheus-community/alertmanager"
+    confighub.io/chart-version: "1.37.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "fc6c693435a12f92b94f3f59435e1e23af1cf4b87fc4564cda64ea502e7e1dc6"
+  objectCount: 5
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|StatefulSet|default|alertmanager"
+      kind: "StatefulSet"
+      name: "alertmanager"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|default|alertmanager"
+      kind: "ConfigMap"
+      name: "alertmanager"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|alertmanager"
+      kind: "ServiceAccount"
+      name: "alertmanager"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|alertmanager"
+      kind: "Service"
+      name: "alertmanager"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|alertmanager-headless"
+      kind: "Service"
+      name: "alertmanager-headless"
+      namespace: "default"

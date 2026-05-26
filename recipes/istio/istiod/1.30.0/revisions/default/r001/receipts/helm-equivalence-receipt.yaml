@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "istio-istiod-1-30-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "istio/istiod"
+    confighub.io/chart-version: "1.30.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "53385181293dd9a8228f37a370148dde3cc77acecf5a3a8539fa1b8eb0f9afdf"
+    objectCount: 17
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 18
+    uploadedManifestFiles: 18
+    separatedSecretFiles: 0
+    semanticObjectMatches: "17/17"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

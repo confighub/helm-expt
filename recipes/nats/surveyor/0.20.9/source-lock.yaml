@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "nats-surveyor-0-20-9"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "nats"
+  repositoryURL: "https://nats-io.github.io/k8s/helm/charts/"
+  chart: "surveyor"
+  ref: "nats/surveyor"
+  version: "0.20.9"
+  appVersion: "0.9.9"
+  packageSHA256: "599f8f6b403dcd38f710e7db149eda13494df00b20474815a5340af780b23e6d"
+  packageBytes: 5299
+  capturedAt: "generated-by-next80-full-proof-harness"

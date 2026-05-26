@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "jetstack-trust-manager-v0-22-1"
+spec:
+  chart: "jetstack/trust-manager"
+  version: "v0.22.1"
+  dependencies:
+    []

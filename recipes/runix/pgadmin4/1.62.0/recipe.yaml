@@ -1,0 +1,27 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "runix-pgadmin4"
+  version: "1.62.0"
+  labels:
+    confighub.io/chart-ref: "runix/pgadmin4"
+    confighub.io/chart-version: "1.62.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "packages/runix/pgadmin4/1.62.0"
+    setupCommand:
+      - "cub"
+      - "install"
+      - "setup"
+      - "--pull"
+      - "packages/runix/pgadmin4/1.62.0"
+      - "--non-interactive"
+      - "--namespace"
+      - "default"
+  variants:
+    - "variants/default/variant.yaml"

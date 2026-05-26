@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "istio-istiod-1-30-0"
+  labels:
+    confighub.io/chart-ref: "istio/istiod"
+    confighub.io/chart-version: "1.30.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "istio/istiod"
+    version: "1.30.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 17
+    cubInstallObjectsByVariant:
+      default: 18
+    helmMatchByVariant:
+      default: "17/17"
+    renderedObjectSetSHA256: "53385181293dd9a8228f37a370148dde3cc77acecf5a3a8539fa1b8eb0f9afdf"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

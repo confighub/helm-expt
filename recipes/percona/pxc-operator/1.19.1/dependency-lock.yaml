@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "percona-pxc-operator-1-19-1"
+spec:
+  chart: "percona/pxc-operator"
+  version: "1.19.1"
+  dependencies:
+    []

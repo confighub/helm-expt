@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "prometheus-community/prometheus-pushgateway"
+    confighub.io/chart-version: "3.6.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "dc0bbdc714b1dced38f3eb5140fb163f082fcc459fe100a1b698f33c7e94ac34"
+  digestInputs:
+    recipeSHA256: "ad4493833f3b17c47064f353ad0fa2e263a7a93fea80130394f1c1b21a211455"
+    variantSHA256: "f2213df270c929dd4ebe444982e493e9781e1930b68c5793593a6a97a90c6952"
+    effectiveValuesSHA256: "17afba10cd822fea44baad60a7f20bd359ce218690d748b7202ccf5af90bdfa0"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "80cb018f0b277814e17ca7208be55ef10ed74288a258a6519e7bbcf088a9f450"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 3

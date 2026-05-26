@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "prometheus-community-prometheus-node-exporter"
+  version: "4.55.0"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "prometheus-community/prometheus-node-exporter default variant rendered from prometheus-community/prometheus-node-exporter@4.55.0"

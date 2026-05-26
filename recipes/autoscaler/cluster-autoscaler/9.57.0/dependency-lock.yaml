@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "autoscaler-cluster-autoscaler-9-57-0"
+spec:
+  chart: "autoscaler/cluster-autoscaler"
+  version: "9.57.0"
+  dependencies:
+    []

@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "argo-cd-argo-events-2-4-21-default-r001"
+  labels:
+    confighub.io/chart-ref: "argo-cd/argo-events"
+    confighub.io/chart-version: "2.4.21"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "129c664959be9d5d9f79bf5db164f3c61eadcccba470b40ba1d88a2890830f7c"
+    dependencyLockSHA256: "fb5f02585af4eb07942142ca9d55a7b2747e3749c30561035cbf114b0599163a"
+    effectiveValuesSHA256: "53f768fcce1b7c232fe432ce411115bbfaba6a393341437152f99515eca424c3"
+  outputs:
+    renderedObjectSetSHA256: "fe5c705f2f03410df75055542a79619c82947dafbf3f1c01c05eca2fc197503b"
+    renderedObjectInventorySHA256: "f61546682e6285227c0da17551d3abb5f7173120bf54bd26d0b7e63d67592db7"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 9
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

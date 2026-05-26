@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default-r001"
+  labels:
+    confighub.io/chart-ref: "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner"
+    confighub.io/chart-version: "4.0.18"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "5f2f7fae517a7f871ecadbcf21534cabe05b78682c235657b7f3e17bc61e5fba"
+    dependencyLockSHA256: "b097fd82c3638860474662663dfd370f51b17201110480ccf9fbd9aed1008c8f"
+    effectiveValuesSHA256: "fb9c08bc36edceab0d03a97469c85dc5ca5630a67559e9c852f184ae01292058"
+  outputs:
+    renderedObjectSetSHA256: "448129b8cf526e0fb240e23fc1cbddd1b6cd994158faa60904f7db5b1c10eb28"
+    renderedObjectInventorySHA256: "0f5142b5c2e6b343a5b7c88f45f8216238efdf441c673ed6f15787fa916ad015"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 7
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

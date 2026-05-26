@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "minio-operator-operator-7-1-1-default-r001"
+  labels:
+    confighub.io/chart-ref: "minio-operator/operator"
+    confighub.io/chart-version: "7.1.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "3ac734cc8872f78365a7649830f706dc43341bba596b7ff266be2862f0f28b0a"
+    objectCount: 8
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 9
+    uploadedManifestFiles: 9
+    separatedSecretFiles: 0
+    semanticObjectMatches: "8/8"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

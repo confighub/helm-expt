@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "linkerd-linkerd-crds-1-8-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "linkerd"
+  repositoryURL: "https://helm.linkerd.io/stable"
+  chart: "linkerd-crds"
+  ref: "linkerd/linkerd-crds"
+  version: "1.8.0"
+  appVersion: ""
+  packageSHA256: "516789ccd8116f5f7ddd69ad2368be6f3c26cb53eae94f3950061592c0074991"
+  packageBytes: 96187
+  capturedAt: "generated-by-next80-full-proof-harness"

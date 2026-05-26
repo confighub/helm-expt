@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "nats-nats-2-14-0"
+  labels:
+    confighub.io/chart-ref: "nats/nats"
+    confighub.io/chart-version: "2.14.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "nats/nats"
+    version: "2.14.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 7
+    cubInstallObjectsByVariant:
+      default: 8
+    helmMatchByVariant:
+      default: "7/7"
+    renderedObjectSetSHA256: "395344e7541927ec138080eda2a92f6ce69532966040ce5d689f9852a4cee8da"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

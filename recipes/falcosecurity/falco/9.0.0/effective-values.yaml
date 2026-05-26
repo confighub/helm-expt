@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "falcosecurity-falco-9-0-0-default"
+  labels:
+    confighub.io/chart-ref: "falcosecurity/falco"
+    confighub.io/chart-version: "9.0.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "54c81760fbbce8e37027a84d42bba441b7051d9fff921e8c83ac9b06788eccf8"
+  mergedValuesCaptured: false
+  values:
+    {}

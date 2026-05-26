@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "minio-operator/operator"
+    confighub.io/chart-version: "7.1.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "b61c977706c6a57288817bf5f0349d29df500fa8777ef645a4160e53274ceb68"
+  digestInputs:
+    recipeSHA256: "1702ca303090eccb81fad7d8237d59568fa7cd17d6819d2c4bbb561319d94ab8"
+    variantSHA256: "54d59d5dea59aa0831df517043c8bc861f94870ce99ff93af073bd55978fc63a"
+    effectiveValuesSHA256: "cbb2edd60b8ffc646f74aa5e32d611eb381cfa9410bbba64c7685e48477917f2"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "3ac734cc8872f78365a7649830f706dc43341bba596b7ff266be2862f0f28b0a"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 8

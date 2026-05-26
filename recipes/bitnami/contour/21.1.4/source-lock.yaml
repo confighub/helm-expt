@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "bitnami-contour-21-1-4"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "bitnami"
+  repositoryURL: "https://charts.bitnami.com/bitnami"
+  chart: "contour"
+  ref: "bitnami/contour"
+  version: "21.1.4"
+  appVersion: "1.32.1"
+  packageSHA256: "dbb32d59417cb5800a337509521cce5ab2d37dac6e72e451190ced31b27986f8"
+  packageBytes: 269380
+  capturedAt: "generated-by-next80-full-proof-harness"

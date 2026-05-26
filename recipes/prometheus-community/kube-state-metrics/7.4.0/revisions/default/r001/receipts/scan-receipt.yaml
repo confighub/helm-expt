@@ -1,0 +1,36 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "prometheus-community-kube-state-metrics-7-4-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "prometheus-community/kube-state-metrics"
+    confighub.io/chart-version: "7.4.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.2.0"
+  policyBundleDigest: "d4913c44f60cee40b376761c82c0c5b84e3f65043012ae875d8f376330dabc35"
+  findingCounts:
+    critical: 0
+    high: 0
+    medium: 2
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||kube-state-metrics"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||kube-state-metrics"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||kube-state-metrics"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||kube-state-metrics"
+      message: "Cluster-scoped RBAC requires production review"

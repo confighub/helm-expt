@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "kyverno-kyverno-3-8-1"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "kyverno"
+  repositoryURL: "https://kyverno.github.io/kyverno/"
+  chart: "kyverno"
+  ref: "kyverno/kyverno"
+  version: "3.8.1"
+  appVersion: "v1.18.1"
+  packageSHA256: "a33f35b83b6991daf6a1b1cf995becbe369747fcd84411d5089d55a40ee4ae0d"
+  packageBytes: 719178
+  capturedAt: "generated-by-next80-full-proof-harness"

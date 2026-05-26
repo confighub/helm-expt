@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "haproxytech-kubernetes-ingress-1-52-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "haproxytech"
+  repositoryURL: "https://haproxytech.github.io/helm-charts"
+  chart: "kubernetes-ingress"
+  ref: "haproxytech/kubernetes-ingress"
+  version: "1.52.0"
+  appVersion: "3.2.9"
+  packageSHA256: "90920ec938be27e638b86e8267bde75d90058e61ca8c3c64ad27f05d0d5a73f1"
+  packageBytes: 47805
+  capturedAt: "generated-by-next80-full-proof-harness"

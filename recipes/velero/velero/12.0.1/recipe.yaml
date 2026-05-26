@@ -1,0 +1,27 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "velero-velero"
+  version: "12.0.1"
+  labels:
+    confighub.io/chart-ref: "velero/velero"
+    confighub.io/chart-version: "12.0.1"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "packages/velero/velero/12.0.1"
+    setupCommand:
+      - "cub"
+      - "install"
+      - "setup"
+      - "--pull"
+      - "packages/velero/velero/12.0.1"
+      - "--non-interactive"
+      - "--namespace"
+      - "default"
+  variants:
+    - "variants/default/variant.yaml"

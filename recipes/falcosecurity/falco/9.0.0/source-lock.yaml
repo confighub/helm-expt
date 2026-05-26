@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "falcosecurity-falco-9-0-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "falcosecurity"
+  repositoryURL: "https://falcosecurity.github.io/charts"
+  chart: "falco"
+  ref: "falcosecurity/falco"
+  version: "9.0.0"
+  appVersion: "0.44.0"
+  packageSHA256: "0224559b6cb95004908ccb278d5dcf2c9165670d108a4dea2419b87ada3f3d6a"
+  packageBytes: 179815
+  capturedAt: "generated-by-next80-full-proof-harness"

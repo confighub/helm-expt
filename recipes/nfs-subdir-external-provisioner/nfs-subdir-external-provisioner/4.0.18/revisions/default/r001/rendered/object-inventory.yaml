@@ -1,0 +1,56 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default-r001"
+  labels:
+    confighub.io/chart-ref: "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner"
+    confighub.io/chart-version: "4.0.18"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "448129b8cf526e0fb240e23fc1cbddd1b6cd994158faa60904f7db5b1c10eb28"
+  objectCount: 7
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment||nfs-subdir-external-provisioner"
+      kind: "Deployment"
+      name: "nfs-subdir-external-provisioner"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||run-nfs-subdir-external-provisioner"
+      kind: "ClusterRoleBinding"
+      name: "run-nfs-subdir-external-provisioner"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||nfs-subdir-external-provisioner-runner"
+      kind: "ClusterRole"
+      name: "nfs-subdir-external-provisioner-runner"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding||leader-locking-nfs-subdir-external-provisioner"
+      kind: "RoleBinding"
+      name: "leader-locking-nfs-subdir-external-provisioner"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role||leader-locking-nfs-subdir-external-provisioner"
+      kind: "Role"
+      name: "leader-locking-nfs-subdir-external-provisioner"
+      namespace: ""
+    -
+      apiVersion: "storage.k8s.io/v1"
+      identity: "storage.k8s.io/v1|StorageClass||nfs-client"
+      kind: "StorageClass"
+      name: "nfs-client"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount||nfs-subdir-external-provisioner"
+      kind: "ServiceAccount"
+      name: "nfs-subdir-external-provisioner"
+      namespace: ""

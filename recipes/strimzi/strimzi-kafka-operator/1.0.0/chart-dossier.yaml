@@ -1,0 +1,31 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "strimzi-strimzi-kafka-operator-1-0-0"
+  labels:
+    confighub.io/chart-ref: "strimzi/strimzi-kafka-operator"
+    confighub.io/chart-version: "1.0.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chart: "strimzi/strimzi-kafka-operator"
+  version: "1.0.0"
+  maintainedNotes:
+    - "strimzi/strimzi-kafka-operator@1.0.0 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+    - "Chart source contains lookup; future variants using lookup paths must bind target facts in the recipe."
+    - "Chart source contains tpl; raw templating extension slots need explicit ownership and review."
+    - "Rendered output includes 10 CRDs; CRD lifecycle must be reviewed before upgrade/promotion."
+    - "Rendered output includes cluster-scoped RBAC; production promotion needs RBAC review."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "variant-revision"
+    - "rendered-manifest-scan"
+    - "helm-equivalence"
+    - "target-facts"
+    - "tpl-extension-slots"
+    - "extension-slots"
+    - "crds"
+    - "cluster-rbac"
+  proofFocus: "Kafka operator, CRDs, RBAC"

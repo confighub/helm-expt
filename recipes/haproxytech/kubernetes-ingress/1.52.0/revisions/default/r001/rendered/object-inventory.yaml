@@ -1,0 +1,56 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "haproxytech-kubernetes-ingress-1-52-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "haproxytech/kubernetes-ingress"
+    confighub.io/chart-version: "1.52.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "d04b79ade525cfe276e761918d319794e8e662ef896ae3418a42e7c781ded544"
+  objectCount: 7
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|kubernetes-ingress"
+      kind: "Deployment"
+      name: "kubernetes-ingress"
+      namespace: "default"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|IngressClass||haproxy"
+      kind: "IngressClass"
+      name: "haproxy"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||kubernetes-ingress"
+      kind: "ClusterRoleBinding"
+      name: "kubernetes-ingress"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||kubernetes-ingress"
+      kind: "ClusterRole"
+      name: "kubernetes-ingress"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|default|kubernetes-ingress"
+      kind: "ConfigMap"
+      name: "kubernetes-ingress"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|kubernetes-ingress"
+      kind: "ServiceAccount"
+      name: "kubernetes-ingress"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|kubernetes-ingress"
+      kind: "Service"
+      name: "kubernetes-ingress"
+      namespace: "default"

@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "jetstack-cert-manager-csi-driver-v0-14-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "jetstack/cert-manager-csi-driver"
+    confighub.io/chart-version: "v0.14.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "3c698d2c444bd58137ab06ad19fa680452f8e04e35ac6d5052a47334de35b595"
+    dependencyLockSHA256: "95e987fe13647df42549b007910e40335cb24544f471a74362832d1704cd9308"
+    effectiveValuesSHA256: "4d6d7feb2d029339b4a2aae256e0df604747f7902c3d8c7ce430b8b0fd665e72"
+  outputs:
+    renderedObjectSetSHA256: "2fa28f4f4c912710babcc4f46818889df3c51396a400dbce6c0245afc20056f3"
+    renderedObjectInventorySHA256: "ea1f9c6348a4ee8d46d3844c45ffbe7175206661dfe238068784e53e8c525f16"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 5
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

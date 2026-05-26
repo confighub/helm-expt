@@ -1,0 +1,29 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "argo-cd-argo-workflows-1-0-14"
+  labels:
+    confighub.io/chart-ref: "argo-cd/argo-workflows"
+    confighub.io/chart-version: "1.0.14"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chart: "argo-cd/argo-workflows"
+  version: "1.0.14"
+  maintainedNotes:
+    - "argo-cd/argo-workflows@1.0.14 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+    - "Chart source contains Helm hooks; the proof revision uses no-hooks so hook lifecycle must be handled separately before production."
+    - "Chart source contains tpl; raw templating extension slots need explicit ownership and review."
+    - "Rendered output includes cluster-scoped RBAC; production promotion needs RBAC review."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "variant-revision"
+    - "rendered-manifest-scan"
+    - "helm-equivalence"
+    - "tpl-extension-slots"
+    - "lifecycle-policy"
+    - "extension-slots"
+    - "cluster-rbac"
+  proofFocus: "workflow controller, CRDs, RBAC"

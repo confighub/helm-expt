@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "argo-cd-argocd-image-updater-1-2-2-default-r001"
+  labels:
+    confighub.io/chart-ref: "argo-cd/argocd-image-updater"
+    confighub.io/chart-version: "1.2.2"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "0b3646b69dab9a21cad5cbc550a95ffb9ac4be833cc2d076b1fd12cbe4e4eaf2"
+    objectCount: 11
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 12
+    uploadedManifestFiles: 12
+    separatedSecretFiles: 0
+    semanticObjectMatches: "11/11"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "bitnami-spark"
+  version: "10.0.3"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "bitnami/spark default variant rendered from bitnami/spark@10.0.3"

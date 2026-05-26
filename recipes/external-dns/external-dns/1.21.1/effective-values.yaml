@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "external-dns-external-dns-1-21-1-default"
+  labels:
+    confighub.io/chart-ref: "external-dns/external-dns"
+    confighub.io/chart-version: "1.21.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "3769875a194421f7f0dfd8aab1c23f08da3b61a47b574214a2aa197f7b277810"
+  mergedValuesCaptured: false
+  values:
+    {}

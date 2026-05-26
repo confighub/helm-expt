@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "prometheus-community-prometheus-adapter-5-3-0"
+spec:
+  chart:
+    repository: "prometheus-community"
+    name: "prometheus-adapter"
+    version: "5.3.0"
+  package:
+    path: "packages/prometheus-community/prometheus-adapter/5.3.0"
+    name: "prometheus-community-prometheus-adapter"
+    version: "5.3.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "4ff970a3992062a3c1451329288b69093e42cee4b01e73bbcc563a977a6b3595"
+        bytes: 219
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a"
+        bytes: 11668
+      -
+        path: "installer.yaml"
+        sha256: "414b6a38ea312ab2cec0585aa9a3e096f53760daf84affe2f56badd39a3846df"
+        bytes: 370
+  deterministicBundle:
+    command: "cub install package packages/prometheus-community/prometheus-adapter/5.3.0 -o <tmp>/prometheus-community-prometheus-adapter-5-3-0.tgz"
+    sha256: "e0b430afb17dee95193758b5e6a2065f81fc41450209996a952739c731df4f78"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/prometheus-community/prometheus-adapter/5.3.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 11
+      cubInstallObjectCountIncludingSupport: 12
+      semanticObjectMatches: "11/11"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

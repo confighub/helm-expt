@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "prometheus-community-alertmanager"
+  version: "1.37.0"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "prometheus-community/alertmanager default variant rendered from prometheus-community/alertmanager@1.37.0"

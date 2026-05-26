@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "prometheus-community-prometheus-adapter-5-3-0"
+spec:
+  chart: "prometheus-community/prometheus-adapter"
+  version: "5.3.0"
+  dependencies:
+    []

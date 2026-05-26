@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "argo-cd-argo-events"
+  version: "2.4.21"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "argo-cd/argo-events default variant rendered from argo-cd/argo-events@2.4.21"

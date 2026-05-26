@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "grafana/promtail"
+    confighub.io/chart-version: "6.17.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "1e6ae5d174e1afc3eb7fe873f759fa33355584538d34b30327736f6a384ce430"
+  digestInputs:
+    recipeSHA256: "0bd128f74aed526e6905168f79296b123cb6d123371737134874ff2341b6991b"
+    variantSHA256: "cea3c1da4863e371471af9dd7093afe3e12ce304eaac94d14ddab077efc68724"
+    effectiveValuesSHA256: "f8b89eae51debc42c9e3f15276de57472f23b96e059c61e95bbcfe70db5089cc"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "06ff3623536aeca2cb083040a0b0c22d6627e57cd6600f3f3482dd1e7d56eb35"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 5

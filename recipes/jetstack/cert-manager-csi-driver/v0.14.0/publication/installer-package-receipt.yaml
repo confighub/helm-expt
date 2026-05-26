@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "jetstack-cert-manager-csi-driver-v0-14-0"
+spec:
+  chart:
+    repository: "jetstack"
+    name: "cert-manager-csi-driver"
+    version: "v0.14.0"
+  package:
+    path: "packages/jetstack/cert-manager-csi-driver/v0.14.0"
+    name: "jetstack-cert-manager-csi-driver"
+    version: "v0.14.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "d568deb3a1bf216ddd678c7b7998ed78028720fed187cafdc439a4697d33be2f"
+        bytes: 214
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "2fa28f4f4c912710babcc4f46818889df3c51396a400dbce6c0245afc20056f3"
+        bytes: 6587
+      -
+        path: "installer.yaml"
+        sha256: "12a13fe2e0fb9a241308659d45321bf8b155f83feec3cbf1483da7c248c41b18"
+        bytes: 353
+  deterministicBundle:
+    command: "cub install package packages/jetstack/cert-manager-csi-driver/v0.14.0 -o <tmp>/jetstack-cert-manager-csi-driver-v0-14-0.tgz"
+    sha256: "3791114cef219f7dcb44933aa4129c7e87e63f856a87186f22af9918ec0a0951"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/jetstack/cert-manager-csi-driver/v0.14.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 5
+      cubInstallObjectCountIncludingSupport: 6
+      semanticObjectMatches: "5/5"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

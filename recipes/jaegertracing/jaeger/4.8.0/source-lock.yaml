@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "jaegertracing-jaeger-4-8-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "jaegertracing"
+  repositoryURL: "https://jaegertracing.github.io/helm-charts"
+  chart: "jaeger"
+  ref: "jaegertracing/jaeger"
+  version: "4.8.0"
+  appVersion: "2.18.0"
+  packageSHA256: "e5393714186742f3fa3afa35858610753c49a7680557c3df55d7ff74f6189f9d"
+  packageBytes: 35029
+  capturedAt: "generated-by-next80-full-proof-harness"

@@ -1,0 +1,22 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "open-telemetry-opentelemetry-operator-0-114-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "open-telemetry/opentelemetry-operator"
+    confighub.io/chart-version: "0.114.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "68dd01565796d137e5dea26e1db02ef3e0d99bbbafd000ec3663680b5bbda873"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+    - "review"
+  blockedScopes:
+    - "production-without-review"
+  reasons:
+    - "regular Helm output matches cub install setup for open-telemetry/opentelemetry-operator@0.114.0"
+    - "17 Helm objects are bound to renderedObjectSetSHA256"
+    - "rendered-object scan has review findings; see scan-receipt.yaml"

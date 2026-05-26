@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "external-dns/external-dns"
+    confighub.io/chart-version: "1.21.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "4a96813e25ba4ec15c68c47d0640ea940551e63f4785243e381f041a49dc2cb8"
+  digestInputs:
+    recipeSHA256: "c4796eefd7d57ec9d337cbe276e0e727c8133d7aba1f6bab0f76596ca30741b2"
+    variantSHA256: "21ebdb646ff072f0b761bc458f9df278e6ddd14435cacc16f2895188df193e23"
+    effectiveValuesSHA256: "9b8250bce88028adfb075b44a4715f26a9f33c9e41c10271094702a2f944ab06"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "764caa006e0e36ed1ad27659090d71a9ca5ff4d671962684b49500971c57ee74"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 6

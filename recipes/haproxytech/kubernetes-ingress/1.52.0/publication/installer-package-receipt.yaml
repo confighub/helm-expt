@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "haproxytech-kubernetes-ingress-1-52-0"
+spec:
+  chart:
+    repository: "haproxytech"
+    name: "kubernetes-ingress"
+    version: "1.52.0"
+  package:
+    path: "packages/haproxytech/kubernetes-ingress/1.52.0"
+    name: "haproxytech-kubernetes-ingress"
+    version: "1.52.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "3ac23d7ba9a6743c27f12126c77a65bb5867ec18ff6be0ce9eb8f9c3d215067a"
+        bytes: 211
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "d04b79ade525cfe276e761918d319794e8e662ef896ae3418a42e7c781ded544"
+        bytes: 8385
+      -
+        path: "installer.yaml"
+        sha256: "01e836bff0b5b9fd8385689e6bca1b0ccb2cf493ef8ce87d766552b56e338de3"
+        bytes: 345
+  deterministicBundle:
+    command: "cub install package packages/haproxytech/kubernetes-ingress/1.52.0 -o <tmp>/haproxytech-kubernetes-ingress-1-52-0.tgz"
+    sha256: "3ca92559aab90884de3ab47d16970bab11f25951ca605a076b940cbbe1760a0f"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/haproxytech/kubernetes-ingress/1.52.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 7
+      cubInstallObjectCountIncludingSupport: 8
+      semanticObjectMatches: "7/7"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

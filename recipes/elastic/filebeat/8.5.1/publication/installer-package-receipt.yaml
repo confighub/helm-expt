@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "elastic-filebeat-8-5-1"
+spec:
+  chart:
+    repository: "elastic"
+    name: "filebeat"
+    version: "8.5.1"
+  package:
+    path: "packages/elastic/filebeat/8.5.1"
+    name: "elastic-filebeat"
+    version: "8.5.1"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "d71589fad4f023aebe146758f9e66c81319537f1f885486aacccf6c360589b21"
+        bytes: 196
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020"
+        bytes: 6911
+      -
+        path: "installer.yaml"
+        sha256: "65799464b453aadffe3b66b76799e777e9c47d3fe8e9c6f5064fb6b51bdd15bf"
+        bytes: 301
+  deterministicBundle:
+    command: "cub install package packages/elastic/filebeat/8.5.1 -o <tmp>/elastic-filebeat-8-5-1.tgz"
+    sha256: "c31d6c291caaf2bb4942f058051bdf1df44c14762599d9123124be6d7bc6257a"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/elastic/filebeat/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 7
+      cubInstallObjectCountIncludingSupport: 8
+      semanticObjectMatches: "7/7"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

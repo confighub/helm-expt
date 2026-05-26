@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "nats-nats-2-14-0"
+spec:
+  chart: "nats/nats"
+  version: "2.14.0"
+  dependencies:
+    []

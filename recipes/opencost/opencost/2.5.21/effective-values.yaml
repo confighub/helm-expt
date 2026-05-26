@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "opencost-opencost-2-5-21-default"
+  labels:
+    confighub.io/chart-ref: "opencost/opencost"
+    confighub.io/chart-version: "2.5.21"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "21bfb9f05e6e852c8806dae02902d1c708a62ff4d34a4dce5b0f92452fa4c597"
+  mergedValuesCaptured: false
+  values:
+    {}

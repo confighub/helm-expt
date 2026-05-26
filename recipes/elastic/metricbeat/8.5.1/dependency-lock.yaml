@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "elastic-metricbeat-8-5-1"
+spec:
+  chart: "elastic/metricbeat"
+  version: "8.5.1"
+  dependencies:
+    []

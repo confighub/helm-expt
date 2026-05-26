@@ -1,0 +1,22 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "percona-psmdb-operator-1-22-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "percona/psmdb-operator"
+    confighub.io/chart-version: "1.22.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "a9ae26e197ef3e108ecab8c30f630ce24004a29b670916169ae6634198b96936"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+    - "review"
+  blockedScopes:
+    - "production-without-review"
+  reasons:
+    - "regular Helm output matches cub install setup for percona/psmdb-operator@1.22.0"
+    - "7 Helm objects are bound to renderedObjectSetSHA256"
+    - "rendered-object scan has review findings; see scan-receipt.yaml"

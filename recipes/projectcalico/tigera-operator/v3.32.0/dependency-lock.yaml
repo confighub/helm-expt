@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "projectcalico-tigera-operator-v3-32-0"
+spec:
+  chart: "projectcalico/tigera-operator"
+  version: "v3.32.0"
+  dependencies:
+    []

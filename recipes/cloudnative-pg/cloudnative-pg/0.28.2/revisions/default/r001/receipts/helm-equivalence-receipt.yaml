@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "cloudnative-pg-cloudnative-pg-0-28-2-default-r001"
+  labels:
+    confighub.io/chart-ref: "cloudnative-pg/cloudnative-pg"
+    confighub.io/chart-version: "0.28.2"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "67190a176fe9539df56c63c033cfffb1538a06bc47d8624532a0a980fe50bd46"
+    objectCount: 21
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 22
+    uploadedManifestFiles: 22
+    separatedSecretFiles: 0
+    semanticObjectMatches: "21/21"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

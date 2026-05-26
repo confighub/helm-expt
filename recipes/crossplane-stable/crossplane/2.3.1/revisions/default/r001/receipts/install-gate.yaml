@@ -1,0 +1,22 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "crossplane-stable-crossplane-2-3-1-default-r001"
+  labels:
+    confighub.io/chart-ref: "crossplane-stable/crossplane"
+    confighub.io/chart-version: "2.3.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "917b3dc2a52c16f26cefebe2b580889944e23461d95d1fbe912e0c7a451fd996"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+    - "review"
+  blockedScopes:
+    - "production-without-review"
+  reasons:
+    - "regular Helm output matches cub install setup for crossplane-stable/crossplane@2.3.1"
+    - "23 Helm objects are bound to renderedObjectSetSHA256"
+    - "rendered-object scan has review findings; see scan-receipt.yaml"

@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "fairwinds-stable-goldilocks-10-3-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "fairwinds-stable/goldilocks"
+    confighub.io/chart-version: "10.3.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "5939f53dfe4e6c888630fc4c30fcc478e4786a56cb0092139c418510da17d7a5"
+    objectCount: 9
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 10
+    uploadedManifestFiles: 10
+    separatedSecretFiles: 0
+    semanticObjectMatches: "9/9"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

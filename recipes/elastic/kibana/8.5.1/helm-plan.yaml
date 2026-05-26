@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "elastic-kibana-8-5-1"
+  labels:
+    confighub.io/chart-ref: "elastic/kibana"
+    confighub.io/chart-version: "8.5.1"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "elastic/kibana"
+    version: "8.5.1"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 2
+    cubInstallObjectsByVariant:
+      default: 3
+    helmMatchByVariant:
+      default: "2/2"
+    renderedObjectSetSHA256: "3c0e03c571ed6c5635edd63244a0085634a30bd73e011e2db802c9d1c63b0cb3"
+    scanGate: "allow"
+    nextAction: "promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

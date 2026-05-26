@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "strimzi-strimzi-kafka-operator-1-0-0"
+spec:
+  chart:
+    repository: "strimzi"
+    name: "strimzi-kafka-operator"
+    version: "1.0.0"
+  package:
+    path: "packages/strimzi/strimzi-kafka-operator/1.0.0"
+    name: "strimzi-strimzi-kafka-operator"
+    version: "1.0.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "16299ca559d9ee290420ae5adcdc232f65b2957a26fd95d169fa8b4a02d08318"
+        bytes: 210
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "f3cfe3329c6673870bb6ecd1d31cab9d74ee96695d6b2b6fbfb0f4a1a7b9f23b"
+        bytes: 842561
+      -
+        path: "installer.yaml"
+        sha256: "861758f40db2f6ca5922305f4ef855daaa0e050dc6ce0dd198a590da7feeba6e"
+        bytes: 343
+  deterministicBundle:
+    command: "cub install package packages/strimzi/strimzi-kafka-operator/1.0.0 -o <tmp>/strimzi-strimzi-kafka-operator-1-0-0.tgz"
+    sha256: "d0aac3dacbd08095f408dbf0b2b92ac4b1b97ecee494c9acb24db7d882515cc2"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/strimzi/strimzi-kafka-operator/1.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 27
+      cubInstallObjectCountIncludingSupport: 28
+      semanticObjectMatches: "27/27"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

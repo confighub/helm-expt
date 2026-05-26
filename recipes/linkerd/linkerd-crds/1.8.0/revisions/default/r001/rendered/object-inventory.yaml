@@ -1,0 +1,62 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "linkerd-linkerd-crds-1-8-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "linkerd/linkerd-crds"
+    confighub.io/chart-version: "1.8.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b"
+  objectCount: 8
+  objects:
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||authorizationpolicies.policy.linkerd.io"
+      kind: "CustomResourceDefinition"
+      name: "authorizationpolicies.policy.linkerd.io"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||httproutes.gateway.networking.k8s.io"
+      kind: "CustomResourceDefinition"
+      name: "httproutes.gateway.networking.k8s.io"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||httproutes.policy.linkerd.io"
+      kind: "CustomResourceDefinition"
+      name: "httproutes.policy.linkerd.io"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||meshtlsauthentications.policy.linkerd.io"
+      kind: "CustomResourceDefinition"
+      name: "meshtlsauthentications.policy.linkerd.io"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||networkauthentications.policy.linkerd.io"
+      kind: "CustomResourceDefinition"
+      name: "networkauthentications.policy.linkerd.io"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||serverauthorizations.policy.linkerd.io"
+      kind: "CustomResourceDefinition"
+      name: "serverauthorizations.policy.linkerd.io"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||servers.policy.linkerd.io"
+      kind: "CustomResourceDefinition"
+      name: "servers.policy.linkerd.io"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||serviceprofiles.linkerd.io"
+      kind: "CustomResourceDefinition"
+      name: "serviceprofiles.linkerd.io"
+      namespace: ""

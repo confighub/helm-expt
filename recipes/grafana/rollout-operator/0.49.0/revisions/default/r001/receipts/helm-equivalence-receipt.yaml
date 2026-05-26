@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "grafana-rollout-operator-0-49-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "grafana/rollout-operator"
+    confighub.io/chart-version: "0.49.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "dc6b652767aec075b147247c38dbce391bb86750a54e749a45576fd6791d4763"
+    objectCount: 15
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 16
+    uploadedManifestFiles: 16
+    separatedSecretFiles: 0
+    semanticObjectMatches: "15/15"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

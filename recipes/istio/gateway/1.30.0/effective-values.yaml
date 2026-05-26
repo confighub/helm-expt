@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "istio-gateway-1-30-0-default"
+  labels:
+    confighub.io/chart-ref: "istio/gateway"
+    confighub.io/chart-version: "1.30.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "fa272809ac6991894a9ed0ad8c84995af0a65a1262ed040bf9b987f7ca8ca7b5"
+  mergedValuesCaptured: false
+  values:
+    {}

@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "bitnami-zookeeper-13-8-7"
+  labels:
+    confighub.io/chart-ref: "bitnami/zookeeper"
+    confighub.io/chart-version: "13.8.7"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "bitnami/zookeeper"
+    version: "13.8.7"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 7
+    cubInstallObjectsByVariant:
+      default: 8
+    helmMatchByVariant:
+      default: "7/7"
+    renderedObjectSetSHA256: "67672a9bfa85db38f8485736cd19f80ccec599fc17c2c5bb154e3c2feeb54bdb"
+    scanGate: "allow"
+    nextAction: "promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "crossplane-stable-crossplane-2-3-1"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "crossplane-stable"
+  repositoryURL: "https://charts.crossplane.io/stable"
+  chart: "crossplane"
+  ref: "crossplane-stable/crossplane"
+  version: "2.3.1"
+  appVersion: "2.3.1"
+  packageSHA256: "6c1ecc2bca352819ec0bcd4fdfea492a41eeed9f7ade190bc8e9835aa901f65b"
+  packageBytes: 14643
+  capturedAt: "generated-by-next80-full-proof-harness"

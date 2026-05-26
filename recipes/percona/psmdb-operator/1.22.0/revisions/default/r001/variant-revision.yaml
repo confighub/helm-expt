@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "percona/psmdb-operator"
+    confighub.io/chart-version: "1.22.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "68c3a3db7bda2e1fd691bddd1e4b9d1337c512a3dbad37eb3cd6356bfc471a30"
+  digestInputs:
+    recipeSHA256: "b638a6963861c2cd0ade0e65ca8b4b10e5d8205b753b5f853674a0e8778838cc"
+    variantSHA256: "5abaa509611b614fdccc83d9dbeec05023724de5ee3d5605d1704c5bfbf23ea7"
+    effectiveValuesSHA256: "d09c414135c478dd1e51fb99bc8e0ddeec38ba9b4f78ce773a3cfa85196cadb6"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "a9ae26e197ef3e108ecab8c30f630ce24004a29b670916169ae6634198b96936"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 7

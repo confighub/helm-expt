@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "jetstack-trust-manager-v0-22-1"
+  labels:
+    confighub.io/chart-ref: "jetstack/trust-manager"
+    confighub.io/chart-version: "v0.22.1"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "jetstack/trust-manager"
+    version: "v0.22.1"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 14
+    cubInstallObjectsByVariant:
+      default: 15
+    helmMatchByVariant:
+      default: "14/14"
+    renderedObjectSetSHA256: "50eb2239a5db07734497711c4e812eb111d231852c2f614e5b0a1faec7bab683"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

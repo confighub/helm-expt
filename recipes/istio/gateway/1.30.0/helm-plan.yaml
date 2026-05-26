@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "istio-gateway-1-30-0"
+  labels:
+    confighub.io/chart-ref: "istio/gateway"
+    confighub.io/chart-version: "1.30.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "istio/gateway"
+    version: "1.30.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 6
+    cubInstallObjectsByVariant:
+      default: 7
+    helmMatchByVariant:
+      default: "6/6"
+    renderedObjectSetSHA256: "07b3cb11d265a7b857b231a347be2c71742e5bc1eeb02efddd7ce71ecc1c7afc"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

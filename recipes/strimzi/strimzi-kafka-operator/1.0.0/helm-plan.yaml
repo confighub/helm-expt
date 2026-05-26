@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "strimzi-strimzi-kafka-operator-1-0-0"
+  labels:
+    confighub.io/chart-ref: "strimzi/strimzi-kafka-operator"
+    confighub.io/chart-version: "1.0.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "strimzi/strimzi-kafka-operator"
+    version: "1.0.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 27
+    cubInstallObjectsByVariant:
+      default: 28
+    helmMatchByVariant:
+      default: "27/27"
+    renderedObjectSetSHA256: "f3cfe3329c6673870bb6ecd1d31cab9d74ee96695d6b2b6fbfb0f4a1a7b9f23b"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

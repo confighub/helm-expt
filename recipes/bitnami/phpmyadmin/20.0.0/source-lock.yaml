@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "bitnami-phpmyadmin-20-0-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "bitnami"
+  repositoryURL: "https://charts.bitnami.com/bitnami"
+  chart: "phpmyadmin"
+  ref: "bitnami/phpmyadmin"
+  version: "20.0.0"
+  appVersion: "5.2.2"
+  packageSHA256: "1edc604fa2c2e02d3fa14e866e6278f6ea987f52ef8580a7f4058f3fb6329fa8"
+  packageBytes: 127916
+  capturedAt: "generated-by-next80-full-proof-harness"

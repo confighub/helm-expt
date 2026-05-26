@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "argo-cd-argo-rollouts-2-40-9-default"
+  labels:
+    confighub.io/chart-ref: "argo-cd/argo-rollouts"
+    confighub.io/chart-version: "2.40.9"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "fc76652350e1b1cc7932b6298c40564cea8ab2e7e75191e72e3f524dc6740863"
+  mergedValuesCaptured: false
+  values:
+    {}

@@ -1,0 +1,22 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "haproxytech-kubernetes-ingress-1-52-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "haproxytech/kubernetes-ingress"
+    confighub.io/chart-version: "1.52.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "d04b79ade525cfe276e761918d319794e8e662ef896ae3418a42e7c781ded544"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+    - "review"
+  blockedScopes:
+    - "production-without-review"
+  reasons:
+    - "regular Helm output matches cub install setup for haproxytech/kubernetes-ingress@1.52.0"
+    - "7 Helm objects are bound to renderedObjectSetSHA256"
+    - "rendered-object scan has review findings; see scan-receipt.yaml"

@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "autoscaler-vertical-pod-autoscaler"
+  version: "0.9.0"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "autoscaler/vertical-pod-autoscaler default variant rendered from autoscaler/vertical-pod-autoscaler@0.9.0"

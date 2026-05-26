@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "prometheus-community/prometheus-blackbox-exporter"
+    confighub.io/chart-version: "11.10.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "d7cb213436af4d93edc5afa945b2dff20bcbf8a903eca421fde469deb8439b49"
+  digestInputs:
+    recipeSHA256: "f8213c0a3d7c1fadaf63c746e687ac1ea3df1d81af40aea8e3613fe2977b3954"
+    variantSHA256: "c7995862810ca8d0a28d398ecae1622cd2def6264fb932cab63e2c6f923ba4f8"
+    effectiveValuesSHA256: "b9d4676047dd43d328141f6cc43d2a07c19365eb7e9f633a8289ddf834cdbc24"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "43dbd48cda5a6f5aa85365fdba15a04cb328d513a0123983ec943c505a01730c"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 4

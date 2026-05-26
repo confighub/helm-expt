@@ -1,0 +1,32 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "prometheus-community-prometheus-node-exporter-4-55-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "prometheus-community/prometheus-node-exporter"
+    confighub.io/chart-version: "4.55.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "37862948d7c5d39d7be726864e9c71e6fb9e9fcc1ac40140e97153152aa6ffbc"
+  objectCount: 3
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|DaemonSet|default|prometheus-node-exporter"
+      kind: "DaemonSet"
+      name: "prometheus-node-exporter"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|prometheus-node-exporter"
+      kind: "ServiceAccount"
+      name: "prometheus-node-exporter"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|prometheus-node-exporter"
+      kind: "Service"
+      name: "prometheus-node-exporter"
+      namespace: "default"

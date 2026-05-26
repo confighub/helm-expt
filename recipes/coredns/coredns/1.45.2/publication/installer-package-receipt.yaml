@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "coredns-coredns-1-45-2"
+spec:
+  chart:
+    repository: "coredns"
+    name: "coredns"
+    version: "1.45.2"
+  package:
+    path: "packages/coredns/coredns/1.45.2"
+    name: "coredns-coredns"
+    version: "1.45.2"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "8e96764ec97eb83470b8fcb823c3aafadf4f4251599afcfc03a5afc55b446138"
+        bytes: 196
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "e9d0e20ceb7a6ec8e8189aa63d5fcba50be11360c7b734e57b84ad0556b1ca34"
+        bytes: 5321
+      -
+        path: "installer.yaml"
+        sha256: "e41473c0336b80cacd09061cad0a42467c90ff58beb359da00d89f4a25416feb"
+        bytes: 300
+  deterministicBundle:
+    command: "cub install package packages/coredns/coredns/1.45.2 -o <tmp>/coredns-coredns-1-45-2.tgz"
+    sha256: "795878a5ee157ca65dab8859d5dcb51dffeb6ef89b0979cdc6497a06b600a87e"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/coredns/coredns/1.45.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 5
+      cubInstallObjectCountIncludingSupport: 6
+      semanticObjectMatches: "5/5"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "gatekeeper-gatekeeper-3-22-2"
+spec:
+  chart: "gatekeeper/gatekeeper"
+  version: "3.22.2"
+  dependencies:
+    []

@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "opencost-opencost-2-5-21-default-r001"
+  labels:
+    confighub.io/chart-ref: "opencost/opencost"
+    confighub.io/chart-version: "2.5.21"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "52ca181986ae68aa046f2c5ea3d60354b43138142c3e79ecc3383800a1d54d88"
+    dependencyLockSHA256: "cdc11795223b69059708fbe8376b3c672fdcf74b67fa64aac1a1ed021353951d"
+    effectiveValuesSHA256: "b919b89ae3599c09deb4870f235203a25a703b2ea11e2826215ab6d7a755f7eb"
+  outputs:
+    renderedObjectSetSHA256: "3cf0267ce7b5173e0c514fad903e559129d63d2f9a6bb83da681dcff1f7977dc"
+    renderedObjectInventorySHA256: "e0669892f6a1a1842cf1e04a1a6db1d16fd024381b265abbd00df22adac8d125"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 6
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

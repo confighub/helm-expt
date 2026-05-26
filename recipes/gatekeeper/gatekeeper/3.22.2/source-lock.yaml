@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "gatekeeper-gatekeeper-3-22-2"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "gatekeeper"
+  repositoryURL: "https://open-policy-agent.github.io/gatekeeper/charts"
+  chart: "gatekeeper"
+  ref: "gatekeeper/gatekeeper"
+  version: "3.22.2"
+  appVersion: "v3.22.2"
+  packageSHA256: "aadb0419b4e85feaa838de14a2f51342543047e20f9e3d2920f83244e10bc801"
+  packageBytes: 34607
+  capturedAt: "generated-by-next80-full-proof-harness"

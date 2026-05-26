@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "falcosecurity-falcosidekick-0-13-1"
+  labels:
+    confighub.io/chart-ref: "falcosecurity/falcosidekick"
+    confighub.io/chart-version: "0.13.1"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "falcosecurity/falcosidekick"
+    version: "0.13.1"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 6
+    cubInstallObjectsByVariant:
+      default: 7
+    helmMatchByVariant:
+      default: "6/6"
+    renderedObjectSetSHA256: "7a657f26e36fdc7b72d0ec1ba0831010739e3f84677af99e7397a500a414d0b4"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

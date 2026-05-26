@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "bitnami-phpmyadmin-20-0-0"
+spec:
+  chart:
+    repository: "bitnami"
+    name: "phpmyadmin"
+    version: "20.0.0"
+  package:
+    path: "packages/bitnami/phpmyadmin/20.0.0"
+    name: "bitnami-phpmyadmin"
+    version: "20.0.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "b57a4b42676e88c28f1723dab4a263bc27fee5e5805f445aa9608dd1322d7d94"
+        bytes: 199
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "41d8e5dabf8548c2965f32db8fdb6870f07b3e3fd967d641d8dc952f7569eb0a"
+        bytes: 8723
+      -
+        path: "installer.yaml"
+        sha256: "125cacd1ec599c21aa213447ab109db930c03fa202850546b5185337d73eae38"
+        bytes: 309
+  deterministicBundle:
+    command: "cub install package packages/bitnami/phpmyadmin/20.0.0 -o <tmp>/bitnami-phpmyadmin-20-0-0.tgz"
+    sha256: "52400ac4aadb463d6377a584650b30678f5a0b19e37adc04decbb9916e60b29d"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/bitnami/phpmyadmin/20.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 5
+      cubInstallObjectCountIncludingSupport: 6
+      semanticObjectMatches: "5/5"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

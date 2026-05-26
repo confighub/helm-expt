@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "rook-release-rook-ceph-cluster-v1-19-5"
+spec:
+  chart:
+    repository: "rook-release"
+    name: "rook-ceph-cluster"
+    version: "v1.19.5"
+  package:
+    path: "packages/rook-release/rook-ceph-cluster/v1.19.5"
+    name: "rook-release-rook-ceph-cluster"
+    version: "v1.19.5"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "d805f9ceb58609db94ca2023386fd65a4b658b613941c1c8bb2b4b3b8c780257"
+        bytes: 212
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "5ac8f526459d6393552b66ab60f690c6c85a1e86bba45ea82d5bbf219694b010"
+        bytes: 22705
+      -
+        path: "installer.yaml"
+        sha256: "5d86ed7c28c79b098fad17dd19ac26b2d8cf26cf9410846c946b5278497a6492"
+        bytes: 347
+  deterministicBundle:
+    command: "cub install package packages/rook-release/rook-ceph-cluster/v1.19.5 -o <tmp>/rook-release-rook-ceph-cluster-v1-19-5.tgz"
+    sha256: "d05b8045a23ebd2fdab186de3485c7eed5a40e6c6b7c66b44de14c8c35209176"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/rook-release/rook-ceph-cluster/v1.19.5 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 27
+      cubInstallObjectCountIncludingSupport: 28
+      semanticObjectMatches: "27/27"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

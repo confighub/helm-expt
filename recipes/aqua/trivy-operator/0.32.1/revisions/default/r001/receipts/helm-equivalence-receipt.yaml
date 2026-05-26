@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "aqua-trivy-operator-0-32-1-default-r001"
+  labels:
+    confighub.io/chart-ref: "aqua/trivy-operator"
+    confighub.io/chart-version: "0.32.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "4728643a42924d6af2c0b2b4f1f616938c31b6271ed7e32bac2ce36e5e339a25"
+    objectCount: 33
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 34
+    uploadedManifestFiles: 34
+    separatedSecretFiles: 2
+    semanticObjectMatches: "33/33"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

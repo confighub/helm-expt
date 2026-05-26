@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/opensearch"
+    confighub.io/chart-version: "2.0.10"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "81e76ee6be2aacefd19db127bff401f895a0d83d4a6f88133339a19a4acb66fd"
+  digestInputs:
+    recipeSHA256: "d64445a850255abf85c1d8f8f8a21b96a976357bf657cc02c919b9ea20674303"
+    variantSHA256: "f6bc00f1bd029468a3492a34b864e6ac95afaaf7a55fffe09c50e4cca01b60fc"
+    effectiveValuesSHA256: "fb7e58ea1881413e76638ddfcf1c7e81ed04f24bdfe6dd79b1b0e48f25b963fd"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "99c0b24ee1850d1f5a4da323e9924a8a1f9d93a34a97a985d92c954836747afd"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 18

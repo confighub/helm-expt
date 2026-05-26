@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "descheduler-descheduler-0-36-0"
+spec:
+  chart: "descheduler/descheduler"
+  version: "0.36.0"
+  dependencies:
+    []

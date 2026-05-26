@@ -1,0 +1,138 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "aqua-trivy-operator-0-32-1-default-r001"
+  labels:
+    confighub.io/chart-ref: "aqua/trivy-operator"
+    confighub.io/chart-version: "0.32.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "4728643a42924d6af2c0b2b4f1f616938c31b6271ed7e32bac2ce36e5e339a25"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.2.0"
+  policyBundleDigest: "d4913c44f60cee40b376761c82c0c5b84e3f65043012ae875d8f376330dabc35"
+  findingCounts:
+    critical: 0
+    high: 0
+    medium: 19
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||aggregate-config-audit-reports-view"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||aggregate-config-audit-reports-view"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||aggregate-exposed-secret-reports-view"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||aggregate-exposed-secret-reports-view"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||aggregate-vulnerability-reports-view"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||aggregate-vulnerability-reports-view"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||trivy-operator"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||trivy-operator"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||trivy-operator"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||trivy-operator"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||clustercompliancereports.aquasecurity.github.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||clustercompliancereports.aquasecurity.github.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||clusterconfigauditreports.aquasecurity.github.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||clusterconfigauditreports.aquasecurity.github.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||clusterinfraassessmentreports.aquasecurity.github.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||clusterinfraassessmentreports.aquasecurity.github.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||clusterrbacassessmentreports.aquasecurity.github.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||clusterrbacassessmentreports.aquasecurity.github.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||clustersbomreports.aquasecurity.github.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||clustersbomreports.aquasecurity.github.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||clustervulnerabilityreports.aquasecurity.github.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||clustervulnerabilityreports.aquasecurity.github.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||configauditreports.aquasecurity.github.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||configauditreports.aquasecurity.github.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||exposedsecretreports.aquasecurity.github.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||exposedsecretreports.aquasecurity.github.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||infraassessmentreports.aquasecurity.github.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||infraassessmentreports.aquasecurity.github.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||rbacassessmentreports.aquasecurity.github.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||rbacassessmentreports.aquasecurity.github.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||sbomreports.aquasecurity.github.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||sbomreports.aquasecurity.github.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||vulnerabilityreports.aquasecurity.github.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||vulnerabilityreports.aquasecurity.github.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "rendered-secret-review:v1|Secret|default|trivy-operator"
+      rule: "rendered-secret-review"
+      severity: "medium"
+      object: "v1|Secret|default|trivy-operator"
+      message: "Rendered Secret material or references require review before production promotion"
+    -
+      id: "rendered-secret-review:v1|Secret|default|trivy-operator-trivy-config"
+      rule: "rendered-secret-review"
+      severity: "medium"
+      object: "v1|Secret|default|trivy-operator-trivy-config"
+      message: "Rendered Secret material or references require review before production promotion"

@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "grafana-alloy-1-8-2"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "grafana"
+  repositoryURL: "https://grafana.github.io/helm-charts"
+  chart: "alloy"
+  ref: "grafana/alloy"
+  version: "1.8.2"
+  appVersion: "v1.16.1"
+  packageSHA256: "54f8e723bc5b6f730d93489b9721abb1ce15c5d4d3ef80f1d11fe5983742fcf7"
+  packageBytes: 29387
+  capturedAt: "generated-by-next80-full-proof-harness"

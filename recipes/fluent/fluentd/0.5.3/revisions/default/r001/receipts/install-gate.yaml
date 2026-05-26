@@ -1,0 +1,22 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "fluent-fluentd-0-5-3-default-r001"
+  labels:
+    confighub.io/chart-ref: "fluent/fluentd"
+    confighub.io/chart-version: "0.5.3"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "9d7c1ec5d0f201623aa61a0fa2adcb477bac4b7366f5a9b87d9b4a3754c2491a"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+    - "review"
+  blockedScopes:
+    - "production-without-review"
+  reasons:
+    - "regular Helm output matches cub install setup for fluent/fluentd@0.5.3"
+    - "10 Helm objects are bound to renderedObjectSetSHA256"
+    - "rendered-object scan has review findings; see scan-receipt.yaml"

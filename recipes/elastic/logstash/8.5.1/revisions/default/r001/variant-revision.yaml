@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "elastic/logstash"
+    confighub.io/chart-version: "8.5.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "193c1ae729570ac87f0f0987283a2cbb552c02f82a99fba0aeb906175a88c7bb"
+  digestInputs:
+    recipeSHA256: "9028ecf1ce536b542b0b3bcc96775fc82c393ecdcbb99bb8a559313cd611971b"
+    variantSHA256: "94c2857834480b9f012a104771e7b6c7956817518199634ecc5d075fc856cfcd"
+    effectiveValuesSHA256: "9b6945e8b0db6b5e9706827845488f5e49bb019bc3e3fa1cb778f948519afac4"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "1bb5971d54f2bb9fd05ffe69b339261a9c31e8b81eeba48064a9dbc337fe5ecd"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 3

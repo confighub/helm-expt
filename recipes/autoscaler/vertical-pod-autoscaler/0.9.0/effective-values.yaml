@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "autoscaler-vertical-pod-autoscaler-0-9-0-default"
+  labels:
+    confighub.io/chart-ref: "autoscaler/vertical-pod-autoscaler"
+    confighub.io/chart-version: "0.9.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "395a9585a3954f4017ba0f68918c135eec77233aa2c45e22c4c7ad1c913850fa"
+  mergedValuesCaptured: false
+  values:
+    {}

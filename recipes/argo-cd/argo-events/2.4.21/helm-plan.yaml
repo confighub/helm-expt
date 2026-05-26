@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "argo-cd-argo-events-2-4-21"
+  labels:
+    confighub.io/chart-ref: "argo-cd/argo-events"
+    confighub.io/chart-version: "2.4.21"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "argo-cd/argo-events"
+    version: "2.4.21"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 9
+    cubInstallObjectsByVariant:
+      default: 10
+    helmMatchByVariant:
+      default: "9/9"
+    renderedObjectSetSHA256: "fe5c705f2f03410df75055542a79619c82947dafbf3f1c01c05eca2fc197503b"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

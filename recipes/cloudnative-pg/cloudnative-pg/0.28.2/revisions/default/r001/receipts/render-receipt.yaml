@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "cloudnative-pg-cloudnative-pg-0-28-2-default-r001"
+  labels:
+    confighub.io/chart-ref: "cloudnative-pg/cloudnative-pg"
+    confighub.io/chart-version: "0.28.2"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "92b5ef66376d786de99edf30190c3d065ad19d05ffd26d930312f1f48028f6ef"
+    dependencyLockSHA256: "ffaa111e720662e42b37fcc50d84e44a5af13dad7507e6a432c7733332c4adf8"
+    effectiveValuesSHA256: "fe47d85f63de179715271d1e77b65b66cc01aba91522321610a4de59870b7477"
+  outputs:
+    renderedObjectSetSHA256: "67190a176fe9539df56c63c033cfffb1538a06bc47d8624532a0a980fe50bd46"
+    renderedObjectInventorySHA256: "06c3f7ffc2b3165a646343f257f598893f03889cc2a0efd2aac63f622a7a1451"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 21
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

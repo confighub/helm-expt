@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "coredns-coredns-1-45-2"
+spec:
+  chart: "coredns/coredns"
+  version: "1.45.2"
+  dependencies:
+    []

@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "nats-nack-0-34-0"
+spec:
+  chart:
+    repository: "nats"
+    name: "nack"
+    version: "0.34.0"
+  package:
+    path: "packages/nats/nack/0.34.0"
+    name: "nats-nack"
+    version: "0.34.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "7148aff9678eb1908f1e43107aafe356de9fcbde8363da7c29251913e00e4dde"
+        bytes: 190
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "3578a1e913da259083e95b1bca9492a5e1aac8ae270e2871eb05c5f0c5f6c3c9"
+        bytes: 60286
+      -
+        path: "installer.yaml"
+        sha256: "41086585b5cc0f0e6cb7524311abf2bac8492bc948ad3944b090f490e721102e"
+        bytes: 282
+  deterministicBundle:
+    command: "cub install package packages/nats/nack/0.34.0 -o <tmp>/nats-nack-0-34-0.tgz"
+    sha256: "bc3a9cf2f7b64b6a01b7d904d7a4224f5391ff0a3c66163ce0e0b8ac5af0588c"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/nats/nack/0.34.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 10
+      cubInstallObjectCountIncludingSupport: 11
+      semanticObjectMatches: "10/10"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

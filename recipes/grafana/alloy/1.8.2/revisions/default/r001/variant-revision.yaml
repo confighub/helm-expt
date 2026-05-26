@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "grafana/alloy"
+    confighub.io/chart-version: "1.8.2"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "2a3257cb0501718709370f54310d6de3ef9a411225df0165eb2599ac90b51b8c"
+  digestInputs:
+    recipeSHA256: "35289fa00d924676c93884d6381475e5142a991c2903805955d75a3908bacd93"
+    variantSHA256: "7b84d8ca5eedc96b879dc1437aa78084d732dbef6e351d4a2fd547b40b2a744d"
+    effectiveValuesSHA256: "d84783af66a7dcc4c9e521526c34cbdcf261659b04311e79dc52b59bb029cf26"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "984319325f620b099f091df4c45ef851f0dd7593526f146d5271dbf477f7f37b"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 7

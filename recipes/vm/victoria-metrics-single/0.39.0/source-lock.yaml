@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "vm-victoria-metrics-single-0-39-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "vm"
+  repositoryURL: "https://victoriametrics.github.io/helm-charts"
+  chart: "victoria-metrics-single"
+  ref: "vm/victoria-metrics-single"
+  version: "0.39.0"
+  appVersion: "v1.144.0"
+  packageSHA256: "a19f5761c847da513d45abcf1dad8ebab93d90eaede34934b6e3eb447034bd95"
+  packageBytes: 19177
+  capturedAt: "generated-by-next80-full-proof-harness"

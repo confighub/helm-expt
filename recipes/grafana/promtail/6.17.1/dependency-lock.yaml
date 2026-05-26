@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "grafana-promtail-6-17-1"
+spec:
+  chart: "grafana/promtail"
+  version: "6.17.1"
+  dependencies:
+    []

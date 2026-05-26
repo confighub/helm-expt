@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "fairwinds-stable-goldilocks-10-3-0"
+spec:
+  chart:
+    repository: "fairwinds-stable"
+    name: "goldilocks"
+    version: "10.3.0"
+  package:
+    path: "packages/fairwinds-stable/goldilocks/10.3.0"
+    name: "fairwinds-stable-goldilocks"
+    version: "10.3.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "ad2b99c6e98da5d275becf72605ee99fd38c4c197762f3d88a2373362ab8e82c"
+        bytes: 208
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "5939f53dfe4e6c888630fc4c30fcc478e4786a56cb0092139c418510da17d7a5"
+        bytes: 7736
+      -
+        path: "installer.yaml"
+        sha256: "3fd69b017401fa6939ec62cdea6ccf783087df01533aa7b167f83b5cab8eb8b7"
+        bytes: 336
+  deterministicBundle:
+    command: "cub install package packages/fairwinds-stable/goldilocks/10.3.0 -o <tmp>/fairwinds-stable-goldilocks-10-3-0.tgz"
+    sha256: "1ccb876ce49d490494141334c674ec6da4f46accbea5f1bdda5f59a20454b68a"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/fairwinds-stable/goldilocks/10.3.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 9
+      cubInstallObjectCountIncludingSupport: 10
+      semanticObjectMatches: "9/9"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

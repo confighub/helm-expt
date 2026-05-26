@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "runix-pgadmin4-1-62-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "runix/pgadmin4"
+    confighub.io/chart-version: "1.62.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "78528d11d3b5ea8cf8c03e43834edbe87a944df1593c516867cc4e0389ba1565"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.2.0"
+  policyBundleDigest: "d4913c44f60cee40b376761c82c0c5b84e3f65043012ae875d8f376330dabc35"
+  findingCounts:
+    critical: 0
+    high: 0
+    medium: 1
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "rendered-secret-review:v1|Secret|default|pgadmin4"
+      rule: "rendered-secret-review"
+      severity: "medium"
+      object: "v1|Secret|default|pgadmin4"
+      message: "Rendered Secret material or references require review before production promotion"

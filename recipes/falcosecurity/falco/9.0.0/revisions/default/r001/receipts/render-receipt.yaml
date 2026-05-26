@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "falcosecurity-falco-9-0-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "falcosecurity/falco"
+    confighub.io/chart-version: "9.0.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "5e0c948755143130ab7a58eebcf91effdf07703f67ce9ef5a7b9955713bf714c"
+    dependencyLockSHA256: "50ecfd800482f529ab93fd727a24a2d5f5993614a5af30f95aa1c1139d77ce0d"
+    effectiveValuesSHA256: "80201d04835ffc3fefcee6dae62437f6ae0ef70cb739e08ef9a817554bddc984"
+  outputs:
+    renderedObjectSetSHA256: "e417f53227667413d5d51b89157f00c603af2cd613e282816c27df69408f7648"
+    renderedObjectInventorySHA256: "259b4ada5ae62980cda337db35ada7bd2074bf438c62800ffab8091ed5777901"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 6
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

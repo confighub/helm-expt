@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "bitnami-phpmyadmin-20-0-0"
+  labels:
+    confighub.io/chart-ref: "bitnami/phpmyadmin"
+    confighub.io/chart-version: "20.0.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "bitnami/phpmyadmin"
+    version: "20.0.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 5
+    cubInstallObjectsByVariant:
+      default: 6
+    helmMatchByVariant:
+      default: "5/5"
+    renderedObjectSetSHA256: "41d8e5dabf8548c2965f32db8fdb6870f07b3e3fd967d641d8dc952f7569eb0a"
+    scanGate: "allow"
+    nextAction: "promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

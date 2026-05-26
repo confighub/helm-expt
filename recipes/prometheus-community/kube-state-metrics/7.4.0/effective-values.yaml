@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "prometheus-community-kube-state-metrics-7-4-0-default"
+  labels:
+    confighub.io/chart-ref: "prometheus-community/kube-state-metrics"
+    confighub.io/chart-version: "7.4.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "c971ef4f623cbf8c35320cd24b7c2f2f43ac6f4afc3339863e2729c595bb1e88"
+  mergedValuesCaptured: false
+  values:
+    {}

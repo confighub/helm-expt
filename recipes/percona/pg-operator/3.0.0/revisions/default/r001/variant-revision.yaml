@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "percona/pg-operator"
+    confighub.io/chart-version: "3.0.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "f2a192ad34eefd277962ba266d3a14d55551cab1041158e0379b7b71a9897f74"
+  digestInputs:
+    recipeSHA256: "97bfa722366edeead5b724ef4d825e6c485bfb46407d7fb7e6ea566afbb9e19d"
+    variantSHA256: "2e9bfca47909a6c235f25ca5316fec3a56bbae74ea692265829637c27a29afe3"
+    effectiveValuesSHA256: "2fc5d098cb0aa96a53e90a21159cb31e7939d39620889f50bcb035fa81549e4e"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "bf309d7e26c9351501282530b3707719d97e87593333150163c468461725a8ff"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 12

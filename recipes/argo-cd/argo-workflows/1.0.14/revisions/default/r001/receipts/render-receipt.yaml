@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "argo-cd-argo-workflows-1-0-14-default-r001"
+  labels:
+    confighub.io/chart-ref: "argo-cd/argo-workflows"
+    confighub.io/chart-version: "1.0.14"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "a62102aeb77e3a6244f07bd2b015b20fd5dfce1300b1fe9cb270f88e7bd0075b"
+    dependencyLockSHA256: "381190549802a0743caea7215e9edd4750ce98777e5311be9310e645b3aa02bf"
+    effectiveValuesSHA256: "58f08fe6e4d3afc358d7ccbd56b553de209d7fc3048348ba076abff59ce8f773"
+  outputs:
+    renderedObjectSetSHA256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
+    renderedObjectInventorySHA256: "2d240538a65e220b5441788f3c122be57406b2de239da02fb2f9ca58ae1bd8de"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 19
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

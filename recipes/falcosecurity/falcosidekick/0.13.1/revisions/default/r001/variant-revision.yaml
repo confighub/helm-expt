@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "falcosecurity/falcosidekick"
+    confighub.io/chart-version: "0.13.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "6953bde8326fa3418454da01f94d4433ff0f4ba9a2ff5e99d444fbd638537d5e"
+  digestInputs:
+    recipeSHA256: "e2de8ecd09f59c0cc29d5c9ce55c0902c08d19da3d7c07f225e9662c43c9660d"
+    variantSHA256: "642e643f5539055261aacf05a951e46a008a55a31611f8e5a98937fdd14cda41"
+    effectiveValuesSHA256: "204caff4fb013f6749dc00ead04686e78b55ca38d79031a4201608d1cf4f11cf"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "7a657f26e36fdc7b72d0ec1ba0831010739e3f84677af99e7397a500a414d0b4"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 6

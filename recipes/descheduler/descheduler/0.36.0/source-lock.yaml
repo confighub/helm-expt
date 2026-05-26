@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "descheduler-descheduler-0-36-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "descheduler"
+  repositoryURL: "https://kubernetes-sigs.github.io/descheduler/"
+  chart: "descheduler"
+  ref: "descheduler/descheduler"
+  version: "0.36.0"
+  appVersion: "0.36.0"
+  packageSHA256: "fae31d330236c0dee087241e0861759df16235c1f4d4c5a149d83788997b6b8f"
+  packageBytes: 10536
+  capturedAt: "generated-by-next80-full-proof-harness"

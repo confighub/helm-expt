@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "fairwinds-stable-goldilocks-10-3-0-default"
+  labels:
+    confighub.io/chart-ref: "fairwinds-stable/goldilocks"
+    confighub.io/chart-version: "10.3.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "60a4347e8c29eab3394ae82216270379ec6f01561681f8c5f27f4c66172c7b38"
+  mergedValuesCaptured: false
+  values:
+    {}

@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "gitlab-gitlab-runner-0-89-0-default"
+  labels:
+    confighub.io/chart-ref: "gitlab/gitlab-runner"
+    confighub.io/chart-version: "0.89.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "0f7d2bf5d180f65f5ec438625b66dc12c00376d19146d97875b80f515700a2ca"
+  mergedValuesCaptured: false
+  values:
+    {}

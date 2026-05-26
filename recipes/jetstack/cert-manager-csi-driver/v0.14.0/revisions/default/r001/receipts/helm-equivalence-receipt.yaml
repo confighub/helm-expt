@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "jetstack-cert-manager-csi-driver-v0-14-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "jetstack/cert-manager-csi-driver"
+    confighub.io/chart-version: "v0.14.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "2fa28f4f4c912710babcc4f46818889df3c51396a400dbce6c0245afc20056f3"
+    objectCount: 5
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 6
+    uploadedManifestFiles: 6
+    separatedSecretFiles: 0
+    semanticObjectMatches: "5/5"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

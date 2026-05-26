@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "fluent-fluent-bit-0-57-6"
+spec:
+  chart: "fluent/fluent-bit"
+  version: "0.57.6"
+  dependencies:
+    []

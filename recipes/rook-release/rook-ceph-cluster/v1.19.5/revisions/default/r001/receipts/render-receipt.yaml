@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "rook-release-rook-ceph-cluster-v1-19-5-default-r001"
+  labels:
+    confighub.io/chart-ref: "rook-release/rook-ceph-cluster"
+    confighub.io/chart-version: "v1.19.5"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "83f3f0ebd3a1d0879c7c60079c19920a611a1b5006554f324d5e86ebe31ed8bf"
+    dependencyLockSHA256: "01dc9982b8dbd87d85228dbee1825c9f3f832d1d048b30a2cdd5f12e148e5335"
+    effectiveValuesSHA256: "95ab6c2be71015b84920b1142a3f805ca9c7fecb0524a97834f384fb330f25b4"
+  outputs:
+    renderedObjectSetSHA256: "5ac8f526459d6393552b66ab60f690c6c85a1e86bba45ea82d5bbf219694b010"
+    renderedObjectInventorySHA256: "45c3ce552ec6ab6759cbdd2301b9b0fcff49c8381c00074d6eaef03f24b1d399"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 27
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

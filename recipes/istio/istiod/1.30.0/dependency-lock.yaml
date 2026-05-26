@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "istio-istiod-1-30-0"
+spec:
+  chart: "istio/istiod"
+  version: "1.30.0"
+  dependencies:
+    []

@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default"
+  labels:
+    confighub.io/chart-ref: "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner"
+    confighub.io/chart-version: "4.0.18"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "6bb051df326da73b4d0cbf0808bdb3ab566f41cf0cf27a2f2574a6893c4fd5fd"
+  mergedValuesCaptured: false
+  values:
+    {}

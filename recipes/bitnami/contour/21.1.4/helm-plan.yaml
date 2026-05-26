@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "bitnami-contour-21-1-4"
+  labels:
+    confighub.io/chart-ref: "bitnami/contour"
+    confighub.io/chart-version: "21.1.4"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "bitnami/contour"
+    version: "21.1.4"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 20
+    cubInstallObjectsByVariant:
+      default: 21
+    helmMatchByVariant:
+      default: "20/20"
+    renderedObjectSetSHA256: "f28ab1558939812f833981bce56dfdbd7030428a4bcdd816b0eedb1bd13ffd53"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

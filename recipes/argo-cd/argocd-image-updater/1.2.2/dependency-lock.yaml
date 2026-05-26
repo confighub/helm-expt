@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "argo-cd-argocd-image-updater-1-2-2"
+spec:
+  chart: "argo-cd/argocd-image-updater"
+  version: "1.2.2"
+  dependencies:
+    []

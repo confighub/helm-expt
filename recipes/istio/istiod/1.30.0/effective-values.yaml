@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "istio-istiod-1-30-0-default"
+  labels:
+    confighub.io/chart-ref: "istio/istiod"
+    confighub.io/chart-version: "1.30.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "9c90549e942d3e03021f7dc74eb02570f648c48f38035459a40b7ccf749ce841"
+  mergedValuesCaptured: false
+  values:
+    {}

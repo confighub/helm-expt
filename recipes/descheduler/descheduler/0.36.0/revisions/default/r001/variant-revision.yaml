@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "descheduler/descheduler"
+    confighub.io/chart-version: "0.36.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "7400d88f184e1896809aa20a1392a7c9676bdb107de45c7b03966f262d348987"
+  digestInputs:
+    recipeSHA256: "b66e7d6ded0bcfe79ff878bbec64fdc75a33535c7a95830b1d137f22b44e535f"
+    variantSHA256: "046a5b7c991b08e80aff48daae9e06dac3fa57a57f189585541ee9d1e19475a7"
+    effectiveValuesSHA256: "6252d7a5914db6af1d2d6cc52c6dc53d202d37e7d8c20b450df979493552990d"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "23cfd1f815897db367d88feb42f54c765ed17f435cb779cd8dec5ecb196da707"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 5

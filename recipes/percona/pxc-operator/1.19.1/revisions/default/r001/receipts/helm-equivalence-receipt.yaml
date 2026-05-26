@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "percona-pxc-operator-1-19-1-default-r001"
+  labels:
+    confighub.io/chart-ref: "percona/pxc-operator"
+    confighub.io/chart-version: "1.19.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "769b3b65e8543cd4ae04c498b6793f5f9e84b611bff8ec07b7fbaa5efaac8dc6"
+    objectCount: 7
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 8
+    uploadedManifestFiles: 8
+    separatedSecretFiles: 0
+    semanticObjectMatches: "7/7"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

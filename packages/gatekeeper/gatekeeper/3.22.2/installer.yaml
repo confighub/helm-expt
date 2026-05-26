@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "gatekeeper-gatekeeper"
+  version: "3.22.2"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "gatekeeper/gatekeeper default variant rendered from gatekeeper/gatekeeper@3.22.2"

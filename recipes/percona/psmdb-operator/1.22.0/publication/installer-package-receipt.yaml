@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "percona-psmdb-operator-1-22-0"
+spec:
+  chart:
+    repository: "percona"
+    name: "psmdb-operator"
+    version: "1.22.0"
+  package:
+    path: "packages/percona/psmdb-operator/1.22.0"
+    name: "percona-psmdb-operator"
+    version: "1.22.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "200c62880c26a824bd75521a5092887294ba9fb2a4d7169aa8bb55507c4d31fb"
+        bytes: 203
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "a9ae26e197ef3e108ecab8c30f630ce24004a29b670916169ae6634198b96936"
+        bytes: 1348924
+      -
+        path: "installer.yaml"
+        sha256: "fcc4b25f9f608b4ce582cb92e17ced6e8c06a7ff41799039c6dc99381ee1fa56"
+        bytes: 321
+  deterministicBundle:
+    command: "cub install package packages/percona/psmdb-operator/1.22.0 -o <tmp>/percona-psmdb-operator-1-22-0.tgz"
+    sha256: "61d4425d9c1abed3976853c3d5c0da63a09962642be53e3e63a7fe3c09fa594e"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/percona/psmdb-operator/1.22.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 7
+      cubInstallObjectCountIncludingSupport: 8
+      semanticObjectMatches: "7/7"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

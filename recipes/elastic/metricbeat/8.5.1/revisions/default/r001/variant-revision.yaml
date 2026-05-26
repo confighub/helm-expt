@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "elastic/metricbeat"
+    confighub.io/chart-version: "8.5.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "ace18fc8d71b8f719d7cb3374613766f39a6ed935d3b7cd4fcdf67a917d8424a"
+  digestInputs:
+    recipeSHA256: "45e0c4f4d58a3c98ce0fc813e4d7c9b94541a6e564f5a343846c26edd5744bdb"
+    variantSHA256: "1d9984ffbc974f30cf47ce208731da7931c1221c42bc674f01f3e9061b8915e3"
+    effectiveValuesSHA256: "f9a7b5c2140f123171523fae1fb65dc06faf24511d045d5c33a084fad0359042"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "805a258f07a07f1cdef0ee45ee427a06e28cc18380e52368840efeb7b672e939"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 14

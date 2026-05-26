@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "opencost-opencost-2-5-21"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "opencost"
+  repositoryURL: "https://opencost.github.io/opencost-helm-chart"
+  chart: "opencost"
+  ref: "opencost/opencost"
+  version: "2.5.21"
+  appVersion: "1.120.2"
+  packageSHA256: "5f346f7e81d145b6e9d7f8217d1dafa3e31650a3c71b021274f6143220888649"
+  packageBytes: 30253
+  capturedAt: "generated-by-next80-full-proof-harness"

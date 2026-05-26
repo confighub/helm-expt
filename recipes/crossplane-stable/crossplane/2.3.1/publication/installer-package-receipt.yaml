@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "crossplane-stable-crossplane-2-3-1"
+spec:
+  chart:
+    repository: "crossplane-stable"
+    name: "crossplane"
+    version: "2.3.1"
+  package:
+    path: "packages/crossplane-stable/crossplane/2.3.1"
+    name: "crossplane-stable-crossplane"
+    version: "2.3.1"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "8fd79dccafd146dd2afed35f60667283602b9165eb8ef0890028753977a34a4e"
+        bytes: 208
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "917b3dc2a52c16f26cefebe2b580889944e23461d95d1fbe912e0c7a451fd996"
+        bytes: 27934
+      -
+        path: "installer.yaml"
+        sha256: "90bf904f92f81a47bad6800456dc3f144ca054821343d6f6fc9563099ad14e80"
+        bytes: 337
+  deterministicBundle:
+    command: "cub install package packages/crossplane-stable/crossplane/2.3.1 -o <tmp>/crossplane-stable-crossplane-2-3-1.tgz"
+    sha256: "243510bb37b6cd6117298450387d7966f5637b30ebcae192ab3b9848d072d016"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/crossplane-stable/crossplane/2.3.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 23
+      cubInstallObjectCountIncludingSupport: 24
+      semanticObjectMatches: "23/23"
+      separatedSecretCount: 3
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

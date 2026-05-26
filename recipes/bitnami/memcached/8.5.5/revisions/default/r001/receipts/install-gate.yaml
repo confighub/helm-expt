@@ -1,0 +1,22 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "bitnami-memcached-8-5-5-default-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/memcached"
+    confighub.io/chart-version: "8.5.5"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "8cd477e08d9fdd2d56df7832f901d773af4f4313a405330180d7068cd7751558"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+    - "review"
+  blockedScopes:
+    - "production-without-review"
+  reasons:
+    - "regular Helm output matches cub install setup for bitnami/memcached@8.5.5"
+    - "5 Helm objects are bound to renderedObjectSetSHA256"
+    - "rendered-object scan has review findings; see scan-receipt.yaml"

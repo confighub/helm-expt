@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "runix-pgadmin4-1-62-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "runix/pgadmin4"
+    confighub.io/chart-version: "1.62.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "cbfea797c876d94b03c7ec1ee6e708ae7bc4d31e1b273c1f3dbd4c713fc8dd93"
+    dependencyLockSHA256: "20c0626ced667469e30719e0851a116c3562537046a37d82c96542469064e9fc"
+    effectiveValuesSHA256: "52eb1999fb480cf264d4a5453481abd49a73f44d1ba7ec1a63c1cc6dece1053f"
+  outputs:
+    renderedObjectSetSHA256: "78528d11d3b5ea8cf8c03e43834edbe87a944df1593c516867cc4e0389ba1565"
+    renderedObjectInventorySHA256: "ef5b5508fe1051bdf237d730b7a9f18bd19d6e097153a17879bfbaa1cce54f3e"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 5
+    renderedSecretCount: 1
+    secretCountSeparatedByCubInstall: 1

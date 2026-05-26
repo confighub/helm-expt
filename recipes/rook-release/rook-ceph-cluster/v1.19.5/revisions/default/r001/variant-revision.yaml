@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "rook-release/rook-ceph-cluster"
+    confighub.io/chart-version: "v1.19.5"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "1271579e77bf408c1e8dbdc549a04cb876c2dd6e4855640472f2a43ae6bf2d7f"
+  digestInputs:
+    recipeSHA256: "b053918eee5a8ccaa4eb68135f970f0a28f383da4a5883a4fa3fd764ad2e625e"
+    variantSHA256: "74492475c3567ff9be3f4ccf9289ea6ddace9ff6c62c14f8255e868a679ff9d4"
+    effectiveValuesSHA256: "95ab6c2be71015b84920b1142a3f805ca9c7fecb0524a97834f384fb330f25b4"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "5ac8f526459d6393552b66ab60f690c6c85a1e86bba45ea82d5bbf219694b010"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 27

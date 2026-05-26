@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "prometheus-community-prometheus-blackbox-exporter-11-10-0"
+spec:
+  chart: "prometheus-community/prometheus-blackbox-exporter"
+  version: "11.10.0"
+  dependencies:
+    []

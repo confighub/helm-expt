@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "fluent-fluentd-0-5-3"
+  labels:
+    confighub.io/chart-ref: "fluent/fluentd"
+    confighub.io/chart-version: "0.5.3"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "fluent/fluentd"
+    version: "0.5.3"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 10
+    cubInstallObjectsByVariant:
+      default: 11
+    helmMatchByVariant:
+      default: "10/10"
+    renderedObjectSetSHA256: "9d7c1ec5d0f201623aa61a0fa2adcb477bac4b7366f5a9b87d9b4a3754c2491a"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

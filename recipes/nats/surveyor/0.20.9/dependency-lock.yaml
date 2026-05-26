@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "nats-surveyor-0-20-9"
+spec:
+  chart: "nats/surveyor"
+  version: "0.20.9"
+  dependencies:
+    []

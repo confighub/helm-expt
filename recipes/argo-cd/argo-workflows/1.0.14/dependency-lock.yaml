@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "argo-cd-argo-workflows-1-0-14"
+spec:
+  chart: "argo-cd/argo-workflows"
+  version: "1.0.14"
+  dependencies:
+    []

@@ -1,0 +1,31 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "bitnami-phpmyadmin-20-0-0"
+  labels:
+    confighub.io/chart-ref: "bitnami/phpmyadmin"
+    confighub.io/chart-version: "20.0.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chart: "bitnami/phpmyadmin"
+  version: "20.0.0"
+  maintainedNotes:
+    - "bitnami/phpmyadmin@20.0.0 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+    - "Chart source contains Helm hooks; the proof revision uses no-hooks so hook lifecycle must be handled separately before production."
+    - "Chart source contains lookup; future variants using lookup paths must bind target facts in the recipe."
+    - "Chart source contains generated/random/time helpers; generated values must be captured before approval if activated by a variant."
+    - "Chart source contains tpl; raw templating extension slots need explicit ownership and review."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "variant-revision"
+    - "rendered-manifest-scan"
+    - "helm-equivalence"
+    - "target-facts"
+    - "generated-facts"
+    - "tpl-extension-slots"
+    - "lifecycle-policy"
+    - "extension-slots"
+  proofFocus: "admin UI, Secret references, ingress options"

@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "traefik-traefik-40-2-0-default"
+  labels:
+    confighub.io/chart-ref: "traefik/traefik"
+    confighub.io/chart-version: "40.2.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "092a19014b13ac27ed52ecb5cd6f56aafba5518c1b1c005516549d2acafe1b34"
+  mergedValuesCaptured: false
+  values:
+    {}

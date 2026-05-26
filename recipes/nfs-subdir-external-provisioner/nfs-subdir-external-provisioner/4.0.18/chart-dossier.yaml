@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18"
+  labels:
+    confighub.io/chart-ref: "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner"
+    confighub.io/chart-version: "4.0.18"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chart: "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner"
+  version: "4.0.18"
+  maintainedNotes:
+    - "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+    - "Rendered output includes cluster-scoped RBAC; production promotion needs RBAC review."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "variant-revision"
+    - "rendered-manifest-scan"
+    - "helm-equivalence"
+    - "cluster-rbac"
+  proofFocus: "storage provisioner, RBAC, external NFS target facts"

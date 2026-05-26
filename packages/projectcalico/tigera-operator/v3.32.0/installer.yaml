@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "projectcalico-tigera-operator"
+  version: "v3.32.0"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "projectcalico/tigera-operator default variant rendered from projectcalico/tigera-operator@v3.32.0"

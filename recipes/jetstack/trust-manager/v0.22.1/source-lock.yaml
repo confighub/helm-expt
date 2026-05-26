@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "jetstack-trust-manager-v0-22-1"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "jetstack"
+  repositoryURL: "https://charts.jetstack.io"
+  chart: "trust-manager"
+  ref: "jetstack/trust-manager"
+  version: "v0.22.1"
+  appVersion: "v0.22.1"
+  packageSHA256: "7fac0640b4c58424ca7589a91dfdc2f79a3cd490c0b2b5b8d4cfea2654e9133f"
+  packageBytes: 25631
+  capturedAt: "generated-by-next80-full-proof-harness"

@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "fluent-fluentd-0-5-3"
+spec:
+  chart: "fluent/fluentd"
+  version: "0.5.3"
+  dependencies:
+    []

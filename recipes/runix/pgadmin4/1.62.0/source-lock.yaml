@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "runix-pgadmin4-1-62-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "runix"
+  repositoryURL: "https://helm.runix.net"
+  chart: "pgadmin4"
+  ref: "runix/pgadmin4"
+  version: "1.62.0"
+  appVersion: "9.13"
+  packageSHA256: "6f615ad016402c4413845d2c2d020b5a0a0e71d21cd8b80ef63a1feeace972d5"
+  packageBytes: 25955
+  capturedAt: "generated-by-next80-full-proof-harness"

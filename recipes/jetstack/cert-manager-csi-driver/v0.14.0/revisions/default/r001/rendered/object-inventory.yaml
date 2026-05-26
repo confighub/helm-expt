@@ -1,0 +1,44 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "jetstack-cert-manager-csi-driver-v0-14-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "jetstack/cert-manager-csi-driver"
+    confighub.io/chart-version: "v0.14.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "2fa28f4f4c912710babcc4f46818889df3c51396a400dbce6c0245afc20056f3"
+  objectCount: 5
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|DaemonSet|default|cert-manager-csi-driver"
+      kind: "DaemonSet"
+      name: "cert-manager-csi-driver"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||cert-manager-csi-driver"
+      kind: "ClusterRoleBinding"
+      name: "cert-manager-csi-driver"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||cert-manager-csi-driver"
+      kind: "ClusterRole"
+      name: "cert-manager-csi-driver"
+      namespace: ""
+    -
+      apiVersion: "storage.k8s.io/v1"
+      identity: "storage.k8s.io/v1|CSIDriver||csi.cert-manager.io"
+      kind: "CSIDriver"
+      name: "csi.cert-manager.io"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|cert-manager-csi-driver"
+      kind: "ServiceAccount"
+      name: "cert-manager-csi-driver"
+      namespace: "default"

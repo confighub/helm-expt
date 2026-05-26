@@ -1,0 +1,489 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Next80FullProofCorpusLock"
+metadata:
+  name: "next80-full-proofs"
+spec:
+  chartCount: 80
+  kubeVersion: "1.30.0"
+  packageManager: "helm"
+  charts:
+    -
+      rank: 21
+      ref: "traefik/traefik"
+      version: "40.2.0"
+      recipe: "recipes/traefik/traefik/40.2.0"
+      package: "packages/traefik/traefik/40.2.0"
+    -
+      rank: 22
+      ref: "kedacore/keda"
+      version: "2.19.0"
+      recipe: "recipes/kedacore/keda/2.19.0"
+      package: "packages/kedacore/keda/2.19.0"
+    -
+      rank: 23
+      ref: "kyverno/kyverno"
+      version: "3.8.1"
+      recipe: "recipes/kyverno/kyverno/3.8.1"
+      package: "packages/kyverno/kyverno/3.8.1"
+    -
+      rank: 24
+      ref: "kyverno/kyverno-policies"
+      version: "3.8.0"
+      recipe: "recipes/kyverno/kyverno-policies/3.8.0"
+      package: "packages/kyverno/kyverno-policies/3.8.0"
+    -
+      rank: 25
+      ref: "gatekeeper/gatekeeper"
+      version: "3.22.2"
+      recipe: "recipes/gatekeeper/gatekeeper/3.22.2"
+      package: "packages/gatekeeper/gatekeeper/3.22.2"
+    -
+      rank: 26
+      ref: "open-telemetry/opentelemetry-operator"
+      version: "0.114.0"
+      recipe: "recipes/open-telemetry/opentelemetry-operator/0.114.0"
+      package: "packages/open-telemetry/opentelemetry-operator/0.114.0"
+    -
+      rank: 27
+      ref: "elastic/eck-operator"
+      version: "3.4.0"
+      recipe: "recipes/elastic/eck-operator/3.4.0"
+      package: "packages/elastic/eck-operator/3.4.0"
+    -
+      rank: 28
+      ref: "falcosecurity/falcosidekick"
+      version: "0.13.1"
+      recipe: "recipes/falcosecurity/falcosidekick/0.13.1"
+      package: "packages/falcosecurity/falcosidekick/0.13.1"
+    -
+      rank: 29
+      ref: "istio/istiod"
+      version: "1.30.0"
+      recipe: "recipes/istio/istiod/1.30.0"
+      package: "packages/istio/istiod/1.30.0"
+    -
+      rank: 30
+      ref: "istio/gateway"
+      version: "1.30.0"
+      recipe: "recipes/istio/gateway/1.30.0"
+      package: "packages/istio/gateway/1.30.0"
+    -
+      rank: 31
+      ref: "linkerd/linkerd-crds"
+      version: "1.8.0"
+      recipe: "recipes/linkerd/linkerd-crds/1.8.0"
+      package: "packages/linkerd/linkerd-crds/1.8.0"
+    -
+      rank: 32
+      ref: "external-dns/external-dns"
+      version: "1.21.1"
+      recipe: "recipes/external-dns/external-dns/1.21.1"
+      package: "packages/external-dns/external-dns/1.21.1"
+    -
+      rank: 33
+      ref: "aqua/trivy-operator"
+      version: "0.32.1"
+      recipe: "recipes/aqua/trivy-operator/0.32.1"
+      package: "packages/aqua/trivy-operator/0.32.1"
+    -
+      rank: 34
+      ref: "dex/dex"
+      version: "0.24.0"
+      recipe: "recipes/dex/dex/0.24.0"
+      package: "packages/dex/dex/0.24.0"
+    -
+      rank: 35
+      ref: "gitlab/gitlab-runner"
+      version: "0.89.0"
+      recipe: "recipes/gitlab/gitlab-runner/0.89.0"
+      package: "packages/gitlab/gitlab-runner/0.89.0"
+    -
+      rank: 36
+      ref: "cloudnative-pg/cloudnative-pg"
+      version: "0.28.2"
+      recipe: "recipes/cloudnative-pg/cloudnative-pg/0.28.2"
+      package: "packages/cloudnative-pg/cloudnative-pg/0.28.2"
+    -
+      rank: 37
+      ref: "stakater/reloader"
+      version: "2.2.12"
+      recipe: "recipes/stakater/reloader/2.2.12"
+      package: "packages/stakater/reloader/2.2.12"
+    -
+      rank: 38
+      ref: "sealed-secrets/sealed-secrets"
+      version: "2.18.6"
+      recipe: "recipes/sealed-secrets/sealed-secrets/2.18.6"
+      package: "packages/sealed-secrets/sealed-secrets/2.18.6"
+    -
+      rank: 39
+      ref: "fairwinds-stable/goldilocks"
+      version: "10.3.0"
+      recipe: "recipes/fairwinds-stable/goldilocks/10.3.0"
+      package: "packages/fairwinds-stable/goldilocks/10.3.0"
+    -
+      rank: 40
+      ref: "fairwinds-stable/vpa"
+      version: "4.11.0"
+      recipe: "recipes/fairwinds-stable/vpa/4.11.0"
+      package: "packages/fairwinds-stable/vpa/4.11.0"
+    -
+      rank: 41
+      ref: "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner"
+      version: "4.0.18"
+      recipe: "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18"
+      package: "packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18"
+    -
+      rank: 42
+      ref: "aws-ebs-csi-driver/aws-ebs-csi-driver"
+      version: "2.60.1"
+      recipe: "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1"
+      package: "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1"
+    -
+      rank: 43
+      ref: "autoscaler/cluster-autoscaler"
+      version: "9.57.0"
+      recipe: "recipes/autoscaler/cluster-autoscaler/9.57.0"
+      package: "packages/autoscaler/cluster-autoscaler/9.57.0"
+    -
+      rank: 44
+      ref: "autoscaler/vertical-pod-autoscaler"
+      version: "0.9.0"
+      recipe: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0"
+      package: "packages/autoscaler/vertical-pod-autoscaler/0.9.0"
+    -
+      rank: 45
+      ref: "rook-release/rook-ceph"
+      version: "v1.19.5"
+      recipe: "recipes/rook-release/rook-ceph/v1.19.5"
+      package: "packages/rook-release/rook-ceph/v1.19.5"
+    -
+      rank: 46
+      ref: "rook-release/rook-ceph-cluster"
+      version: "v1.19.5"
+      recipe: "recipes/rook-release/rook-ceph-cluster/v1.19.5"
+      package: "packages/rook-release/rook-ceph-cluster/v1.19.5"
+    -
+      rank: 47
+      ref: "crossplane-stable/crossplane"
+      version: "2.3.1"
+      recipe: "recipes/crossplane-stable/crossplane/2.3.1"
+      package: "packages/crossplane-stable/crossplane/2.3.1"
+    -
+      rank: 48
+      ref: "runix/pgadmin4"
+      version: "1.62.0"
+      recipe: "recipes/runix/pgadmin4/1.62.0"
+      package: "packages/runix/pgadmin4/1.62.0"
+    -
+      rank: 49
+      ref: "vm/victoria-metrics-single"
+      version: "0.39.0"
+      recipe: "recipes/vm/victoria-metrics-single/0.39.0"
+      package: "packages/vm/victoria-metrics-single/0.39.0"
+    -
+      rank: 50
+      ref: "vm/victoria-logs-single"
+      version: "0.12.5"
+      recipe: "recipes/vm/victoria-logs-single/0.12.5"
+      package: "packages/vm/victoria-logs-single/0.12.5"
+    -
+      rank: 51
+      ref: "prometheus-community/alertmanager"
+      version: "1.37.0"
+      recipe: "recipes/prometheus-community/alertmanager/1.37.0"
+      package: "packages/prometheus-community/alertmanager/1.37.0"
+    -
+      rank: 52
+      ref: "prometheus-community/prometheus-node-exporter"
+      version: "4.55.0"
+      recipe: "recipes/prometheus-community/prometheus-node-exporter/4.55.0"
+      package: "packages/prometheus-community/prometheus-node-exporter/4.55.0"
+    -
+      rank: 53
+      ref: "prometheus-community/prometheus-blackbox-exporter"
+      version: "11.10.0"
+      recipe: "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0"
+      package: "packages/prometheus-community/prometheus-blackbox-exporter/11.10.0"
+    -
+      rank: 54
+      ref: "prometheus-community/prometheus-pushgateway"
+      version: "3.6.0"
+      recipe: "recipes/prometheus-community/prometheus-pushgateway/3.6.0"
+      package: "packages/prometheus-community/prometheus-pushgateway/3.6.0"
+    -
+      rank: 55
+      ref: "prometheus-community/kube-state-metrics"
+      version: "7.4.0"
+      recipe: "recipes/prometheus-community/kube-state-metrics/7.4.0"
+      package: "packages/prometheus-community/kube-state-metrics/7.4.0"
+    -
+      rank: 56
+      ref: "prometheus-community/prometheus-adapter"
+      version: "5.3.0"
+      recipe: "recipes/prometheus-community/prometheus-adapter/5.3.0"
+      package: "packages/prometheus-community/prometheus-adapter/5.3.0"
+    -
+      rank: 57
+      ref: "prometheus-community/prometheus-operator-crds"
+      version: "29.0.0"
+      recipe: "recipes/prometheus-community/prometheus-operator-crds/29.0.0"
+      package: "packages/prometheus-community/prometheus-operator-crds/29.0.0"
+    -
+      rank: 58
+      ref: "grafana/alloy"
+      version: "1.8.2"
+      recipe: "recipes/grafana/alloy/1.8.2"
+      package: "packages/grafana/alloy/1.8.2"
+    -
+      rank: 59
+      ref: "jetstack/cert-manager-csi-driver"
+      version: "v0.14.0"
+      recipe: "recipes/jetstack/cert-manager-csi-driver/v0.14.0"
+      package: "packages/jetstack/cert-manager-csi-driver/v0.14.0"
+    -
+      rank: 60
+      ref: "grafana/pyroscope"
+      version: "2.0.2"
+      recipe: "recipes/grafana/pyroscope/2.0.2"
+      package: "packages/grafana/pyroscope/2.0.2"
+    -
+      rank: 61
+      ref: "grafana/promtail"
+      version: "6.17.1"
+      recipe: "recipes/grafana/promtail/6.17.1"
+      package: "packages/grafana/promtail/6.17.1"
+    -
+      rank: 62
+      ref: "grafana/rollout-operator"
+      version: "0.49.0"
+      recipe: "recipes/grafana/rollout-operator/0.49.0"
+      package: "packages/grafana/rollout-operator/0.49.0"
+    -
+      rank: 63
+      ref: "bitnami/apache"
+      version: "11.4.29"
+      recipe: "recipes/bitnami/apache/11.4.29"
+      package: "packages/bitnami/apache/11.4.29"
+    -
+      rank: 64
+      ref: "bitnami/zookeeper"
+      version: "13.8.7"
+      recipe: "recipes/bitnami/zookeeper/13.8.7"
+      package: "packages/bitnami/zookeeper/13.8.7"
+    -
+      rank: 65
+      ref: "bitnami/elasticsearch"
+      version: "22.1.6"
+      recipe: "recipes/bitnami/elasticsearch/22.1.6"
+      package: "packages/bitnami/elasticsearch/22.1.6"
+    -
+      rank: 66
+      ref: "bitnami/opensearch"
+      version: "2.0.10"
+      recipe: "recipes/bitnami/opensearch/2.0.10"
+      package: "packages/bitnami/opensearch/2.0.10"
+    -
+      rank: 67
+      ref: "bitnami/memcached"
+      version: "8.5.5"
+      recipe: "recipes/bitnami/memcached/8.5.5"
+      package: "packages/bitnami/memcached/8.5.5"
+    -
+      rank: 68
+      ref: "bitnami/phpmyadmin"
+      version: "20.0.0"
+      recipe: "recipes/bitnami/phpmyadmin/20.0.0"
+      package: "packages/bitnami/phpmyadmin/20.0.0"
+    -
+      rank: 69
+      ref: "bitnami/contour"
+      version: "21.1.4"
+      recipe: "recipes/bitnami/contour/21.1.4"
+      package: "packages/bitnami/contour/21.1.4"
+    -
+      rank: 70
+      ref: "bitnami/spark"
+      version: "10.0.3"
+      recipe: "recipes/bitnami/spark/10.0.3"
+      package: "packages/bitnami/spark/10.0.3"
+    -
+      rank: 71
+      ref: "argo-cd/argo-workflows"
+      version: "1.0.14"
+      recipe: "recipes/argo-cd/argo-workflows/1.0.14"
+      package: "packages/argo-cd/argo-workflows/1.0.14"
+    -
+      rank: 72
+      ref: "argo-cd/argo-rollouts"
+      version: "2.40.9"
+      recipe: "recipes/argo-cd/argo-rollouts/2.40.9"
+      package: "packages/argo-cd/argo-rollouts/2.40.9"
+    -
+      rank: 73
+      ref: "argo-cd/argo-events"
+      version: "2.4.21"
+      recipe: "recipes/argo-cd/argo-events/2.4.21"
+      package: "packages/argo-cd/argo-events/2.4.21"
+    -
+      rank: 74
+      ref: "argo-cd/argocd-image-updater"
+      version: "1.2.2"
+      recipe: "recipes/argo-cd/argocd-image-updater/1.2.2"
+      package: "packages/argo-cd/argocd-image-updater/1.2.2"
+    -
+      rank: 75
+      ref: "hashicorp/terraform"
+      version: "1.1.2"
+      recipe: "recipes/hashicorp/terraform/1.1.2"
+      package: "packages/hashicorp/terraform/1.1.2"
+    -
+      rank: 76
+      ref: "jetstack/trust-manager"
+      version: "v0.22.1"
+      recipe: "recipes/jetstack/trust-manager/v0.22.1"
+      package: "packages/jetstack/trust-manager/v0.22.1"
+    -
+      rank: 77
+      ref: "projectcalico/tigera-operator"
+      version: "v3.32.0"
+      recipe: "recipes/projectcalico/tigera-operator/v3.32.0"
+      package: "packages/projectcalico/tigera-operator/v3.32.0"
+    -
+      rank: 78
+      ref: "fluent/fluent-bit"
+      version: "0.57.6"
+      recipe: "recipes/fluent/fluent-bit/0.57.6"
+      package: "packages/fluent/fluent-bit/0.57.6"
+    -
+      rank: 79
+      ref: "fluent/fluentd"
+      version: "0.5.3"
+      recipe: "recipes/fluent/fluentd/0.5.3"
+      package: "packages/fluent/fluentd/0.5.3"
+    -
+      rank: 80
+      ref: "jaegertracing/jaeger"
+      version: "4.8.0"
+      recipe: "recipes/jaegertracing/jaeger/4.8.0"
+      package: "packages/jaegertracing/jaeger/4.8.0"
+    -
+      rank: 81
+      ref: "jaegertracing/jaeger-operator"
+      version: "2.57.0"
+      recipe: "recipes/jaegertracing/jaeger-operator/2.57.0"
+      package: "packages/jaegertracing/jaeger-operator/2.57.0"
+    -
+      rank: 82
+      ref: "velero/velero"
+      version: "12.0.1"
+      recipe: "recipes/velero/velero/12.0.1"
+      package: "packages/velero/velero/12.0.1"
+    -
+      rank: 83
+      ref: "coredns/coredns"
+      version: "1.45.2"
+      recipe: "recipes/coredns/coredns/1.45.2"
+      package: "packages/coredns/coredns/1.45.2"
+    -
+      rank: 84
+      ref: "descheduler/descheduler"
+      version: "0.36.0"
+      recipe: "recipes/descheduler/descheduler/0.36.0"
+      package: "packages/descheduler/descheduler/0.36.0"
+    -
+      rank: 85
+      ref: "haproxytech/kubernetes-ingress"
+      version: "1.52.0"
+      recipe: "recipes/haproxytech/kubernetes-ingress/1.52.0"
+      package: "packages/haproxytech/kubernetes-ingress/1.52.0"
+    -
+      rank: 86
+      ref: "percona/pxc-operator"
+      version: "1.19.1"
+      recipe: "recipes/percona/pxc-operator/1.19.1"
+      package: "packages/percona/pxc-operator/1.19.1"
+    -
+      rank: 87
+      ref: "percona/pg-operator"
+      version: "3.0.0"
+      recipe: "recipes/percona/pg-operator/3.0.0"
+      package: "packages/percona/pg-operator/3.0.0"
+    -
+      rank: 88
+      ref: "percona/psmdb-operator"
+      version: "1.22.0"
+      recipe: "recipes/percona/psmdb-operator/1.22.0"
+      package: "packages/percona/psmdb-operator/1.22.0"
+    -
+      rank: 89
+      ref: "elastic/kibana"
+      version: "8.5.1"
+      recipe: "recipes/elastic/kibana/8.5.1"
+      package: "packages/elastic/kibana/8.5.1"
+    -
+      rank: 90
+      ref: "elastic/logstash"
+      version: "8.5.1"
+      recipe: "recipes/elastic/logstash/8.5.1"
+      package: "packages/elastic/logstash/8.5.1"
+    -
+      rank: 91
+      ref: "elastic/filebeat"
+      version: "8.5.1"
+      recipe: "recipes/elastic/filebeat/8.5.1"
+      package: "packages/elastic/filebeat/8.5.1"
+    -
+      rank: 92
+      ref: "elastic/metricbeat"
+      version: "8.5.1"
+      recipe: "recipes/elastic/metricbeat/8.5.1"
+      package: "packages/elastic/metricbeat/8.5.1"
+    -
+      rank: 93
+      ref: "nats/nats"
+      version: "2.14.0"
+      recipe: "recipes/nats/nats/2.14.0"
+      package: "packages/nats/nats/2.14.0"
+    -
+      rank: 94
+      ref: "nats/nack"
+      version: "0.34.0"
+      recipe: "recipes/nats/nack/0.34.0"
+      package: "packages/nats/nack/0.34.0"
+    -
+      rank: 95
+      ref: "nats/surveyor"
+      version: "0.20.9"
+      recipe: "recipes/nats/surveyor/0.20.9"
+      package: "packages/nats/surveyor/0.20.9"
+    -
+      rank: 96
+      ref: "strimzi/strimzi-kafka-operator"
+      version: "1.0.0"
+      recipe: "recipes/strimzi/strimzi-kafka-operator/1.0.0"
+      package: "packages/strimzi/strimzi-kafka-operator/1.0.0"
+    -
+      rank: 97
+      ref: "minio-operator/operator"
+      version: "7.1.1"
+      recipe: "recipes/minio-operator/operator/7.1.1"
+      package: "packages/minio-operator/operator/7.1.1"
+    -
+      rank: 98
+      ref: "minio-operator/tenant"
+      version: "7.1.1"
+      recipe: "recipes/minio-operator/tenant/7.1.1"
+      package: "packages/minio-operator/tenant/7.1.1"
+    -
+      rank: 99
+      ref: "opencost/opencost"
+      version: "2.5.21"
+      recipe: "recipes/opencost/opencost/2.5.21"
+      package: "packages/opencost/opencost/2.5.21"
+    -
+      rank: 100
+      ref: "falcosecurity/falco"
+      version: "9.0.0"
+      recipe: "recipes/falcosecurity/falco/9.0.0"
+      package: "packages/falcosecurity/falco/9.0.0"

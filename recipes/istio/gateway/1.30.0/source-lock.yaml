@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "istio-gateway-1-30-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "istio"
+  repositoryURL: "https://istio-release.storage.googleapis.com/charts"
+  chart: "gateway"
+  ref: "istio/gateway"
+  version: "1.30.0"
+  appVersion: "1.30.0"
+  packageSHA256: "399a74623d32411c44f8c74f6340d900d1b251bc608cf0511630cb8363ed9323"
+  packageBytes: 12995
+  capturedAt: "generated-by-next80-full-proof-harness"

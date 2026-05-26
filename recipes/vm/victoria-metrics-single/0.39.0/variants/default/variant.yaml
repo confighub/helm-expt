@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "default"
+  labels:
+    confighub.io/chart-ref: "vm/victoria-metrics-single"
+    confighub.io/chart-version: "0.39.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "default"
+  releaseName: "victoria-metrics-single"
+  valuesProfile: "../../effective-values.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"

@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "haproxytech-kubernetes-ingress-1-52-0"
+spec:
+  chart: "haproxytech/kubernetes-ingress"
+  version: "1.52.0"
+  dependencies:
+    []

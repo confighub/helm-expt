@@ -1,0 +1,26 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "kyverno-kyverno-policies-3-8-0"
+  labels:
+    confighub.io/chart-ref: "kyverno/kyverno-policies"
+    confighub.io/chart-version: "3.8.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chart: "kyverno/kyverno-policies"
+  version: "3.8.0"
+  maintainedNotes:
+    - "kyverno/kyverno-policies@3.8.0 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+    - "Chart source contains lookup; future variants using lookup paths must bind target facts in the recipe."
+    - "Chart source contains tpl; raw templating extension slots need explicit ownership and review."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "variant-revision"
+    - "rendered-manifest-scan"
+    - "helm-equivalence"
+    - "target-facts"
+    - "tpl-extension-slots"
+  proofFocus: "policy bundle, generated policy objects"

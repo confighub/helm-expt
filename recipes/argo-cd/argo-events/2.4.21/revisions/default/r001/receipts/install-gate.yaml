@@ -1,0 +1,22 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "argo-cd-argo-events-2-4-21-default-r001"
+  labels:
+    confighub.io/chart-ref: "argo-cd/argo-events"
+    confighub.io/chart-version: "2.4.21"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "fe5c705f2f03410df75055542a79619c82947dafbf3f1c01c05eca2fc197503b"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+    - "review"
+  blockedScopes:
+    - "production-without-review"
+  reasons:
+    - "regular Helm output matches cub install setup for argo-cd/argo-events@2.4.21"
+    - "9 Helm objects are bound to renderedObjectSetSHA256"
+    - "rendered-object scan has review findings; see scan-receipt.yaml"

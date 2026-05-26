@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "percona-pg-operator-3-0-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "percona/pg-operator"
+    confighub.io/chart-version: "3.0.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "bf309d7e26c9351501282530b3707719d97e87593333150163c468461725a8ff"
+    objectCount: 12
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 13
+    uploadedManifestFiles: 13
+    separatedSecretFiles: 0
+    semanticObjectMatches: "12/12"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

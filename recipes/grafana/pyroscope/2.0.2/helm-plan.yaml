@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "grafana-pyroscope-2-0-2"
+  labels:
+    confighub.io/chart-ref: "grafana/pyroscope"
+    confighub.io/chart-version: "2.0.2"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "grafana/pyroscope"
+    version: "2.0.2"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 18
+    cubInstallObjectsByVariant:
+      default: 19
+    helmMatchByVariant:
+      default: "18/18"
+    renderedObjectSetSHA256: "24d78308d5476731eefba9ac71cee442cf9aeb21f16443557d9a6d9574449df5"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

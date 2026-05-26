@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "vm-victoria-logs-single-0-12-5"
+  labels:
+    confighub.io/chart-ref: "vm/victoria-logs-single"
+    confighub.io/chart-version: "0.12.5"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "vm/victoria-logs-single"
+    version: "0.12.5"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 2
+    cubInstallObjectsByVariant:
+      default: 3
+    helmMatchByVariant:
+      default: "2/2"
+    renderedObjectSetSHA256: "edbf6e7dd31e9a1d0686592e7c1f050b04f5d780bdc33bb34fb3ddbfdfedde04"
+    scanGate: "allow"
+    nextAction: "promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

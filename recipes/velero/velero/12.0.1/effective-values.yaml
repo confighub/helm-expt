@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "velero-velero-12-0-1-default"
+  labels:
+    confighub.io/chart-ref: "velero/velero"
+    confighub.io/chart-version: "12.0.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "1508a45b206d3eab792222cf25525e52cb55756de0e699a3a35cd886230ea0ac"
+  mergedValuesCaptured: false
+  values:
+    {}

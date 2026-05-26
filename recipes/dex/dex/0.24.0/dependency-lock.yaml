@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "dex-dex-0-24-0"
+spec:
+  chart: "dex/dex"
+  version: "0.24.0"
+  dependencies:
+    []

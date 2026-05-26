@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "linkerd-linkerd-crds-1-8-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "linkerd/linkerd-crds"
+    confighub.io/chart-version: "1.8.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "b0cd84fae5e106bb26cce21227cc5fefe2a172d3b9172ca2692ec6285cde0cc3"
+    dependencyLockSHA256: "39805acda0663e044d09c47ed16fd0dec42c81716684c513e9ce0c294024d906"
+    effectiveValuesSHA256: "3db06256a1404c3d04057a0d35a9edf7da0dc64bcde9b02d45918bc60ade7737"
+  outputs:
+    renderedObjectSetSHA256: "af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b"
+    renderedObjectInventorySHA256: "f39a1a57da5b943c62c5a4cf82c115d891e6111ed39aed1ed858b1f973256a8f"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 8
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

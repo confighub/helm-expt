@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "bitnami-spark-10-0-3-default-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/spark"
+    confighub.io/chart-version: "10.0.3"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "bec034832a7f2a6c1d2f05aa7bfcf0ce4562dbb274e7b760170df3e80e1ced55"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.2.0"
+  policyBundleDigest: "d4913c44f60cee40b376761c82c0c5b84e3f65043012ae875d8f376330dabc35"
+  findingCounts:
+    critical: 0
+    high: 0
+    medium: 1
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "rendered-secret-review:v1|Secret|default|spark-secret"
+      rule: "rendered-secret-review"
+      severity: "medium"
+      object: "v1|Secret|default|spark-secret"
+      message: "Rendered Secret material or references require review before production promotion"

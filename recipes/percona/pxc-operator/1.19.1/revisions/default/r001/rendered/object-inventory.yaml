@@ -1,0 +1,56 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "percona-pxc-operator-1-19-1-default-r001"
+  labels:
+    confighub.io/chart-ref: "percona/pxc-operator"
+    confighub.io/chart-version: "1.19.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "769b3b65e8543cd4ae04c498b6793f5f9e84b611bff8ec07b7fbaa5efaac8dc6"
+  objectCount: 7
+  objects:
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||perconaxtradbclusterbackups.pxc.percona.com"
+      kind: "CustomResourceDefinition"
+      name: "perconaxtradbclusterbackups.pxc.percona.com"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||perconaxtradbclusterrestores.pxc.percona.com"
+      kind: "CustomResourceDefinition"
+      name: "perconaxtradbclusterrestores.pxc.percona.com"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||perconaxtradbclusters.pxc.percona.com"
+      kind: "CustomResourceDefinition"
+      name: "perconaxtradbclusters.pxc.percona.com"
+      namespace: ""
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|pxc-operator"
+      kind: "Deployment"
+      name: "pxc-operator"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|default|pxc-operator"
+      kind: "RoleBinding"
+      name: "pxc-operator"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role|default|pxc-operator"
+      kind: "Role"
+      name: "pxc-operator"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|pxc-operator"
+      kind: "ServiceAccount"
+      name: "pxc-operator"
+      namespace: "default"

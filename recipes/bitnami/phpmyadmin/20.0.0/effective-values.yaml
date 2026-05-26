@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "bitnami-phpmyadmin-20-0-0-default"
+  labels:
+    confighub.io/chart-ref: "bitnami/phpmyadmin"
+    confighub.io/chart-version: "20.0.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "08c5f9ed1b8e5949844f98cdfa3aff560d861aedce14f358e93b24bc494a7439"
+  mergedValuesCaptured: false
+  values:
+    {}

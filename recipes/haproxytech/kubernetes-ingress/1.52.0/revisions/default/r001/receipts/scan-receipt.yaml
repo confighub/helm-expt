@@ -1,0 +1,36 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "haproxytech-kubernetes-ingress-1-52-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "haproxytech/kubernetes-ingress"
+    confighub.io/chart-version: "1.52.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "d04b79ade525cfe276e761918d319794e8e662ef896ae3418a42e7c781ded544"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.2.0"
+  policyBundleDigest: "d4913c44f60cee40b376761c82c0c5b84e3f65043012ae875d8f376330dabc35"
+  findingCounts:
+    critical: 0
+    high: 0
+    medium: 2
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||kubernetes-ingress"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||kubernetes-ingress"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||kubernetes-ingress"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||kubernetes-ingress"
+      message: "Cluster-scoped RBAC requires production review"

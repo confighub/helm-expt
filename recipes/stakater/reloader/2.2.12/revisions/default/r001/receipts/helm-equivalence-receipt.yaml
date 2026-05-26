@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "stakater-reloader-2-2-12-default-r001"
+  labels:
+    confighub.io/chart-ref: "stakater/reloader"
+    confighub.io/chart-version: "2.2.12"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e"
+    objectCount: 6
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 7
+    uploadedManifestFiles: 7
+    separatedSecretFiles: 0
+    semanticObjectMatches: "6/6"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

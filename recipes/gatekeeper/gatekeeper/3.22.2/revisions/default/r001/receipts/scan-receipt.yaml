@@ -1,0 +1,156 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "gatekeeper-gatekeeper-3-22-2-default-r001"
+  labels:
+    confighub.io/chart-ref: "gatekeeper/gatekeeper"
+    confighub.io/chart-version: "3.22.2"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "757e7fe97f5331bd964463ed228d147bdc090f3bb6d7c34b319522124efd2e5d"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.2.0"
+  policyBundleDigest: "d4913c44f60cee40b376761c82c0c5b84e3f65043012ae875d8f376330dabc35"
+  findingCounts:
+    critical: 0
+    high: 0
+    medium: 22
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||gatekeeper-manager-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||gatekeeper-manager-role"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||gatekeeper-manager-rolebinding"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||gatekeeper-manager-rolebinding"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||assign.mutations.gatekeeper.sh"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||assign.mutations.gatekeeper.sh"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||assignimage.mutations.gatekeeper.sh"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||assignimage.mutations.gatekeeper.sh"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||assignmetadata.mutations.gatekeeper.sh"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||assignmetadata.mutations.gatekeeper.sh"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||configpodstatuses.status.gatekeeper.sh"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||configpodstatuses.status.gatekeeper.sh"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||configs.config.gatekeeper.sh"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||configs.config.gatekeeper.sh"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||connectionpodstatuses.status.gatekeeper.sh"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||connectionpodstatuses.status.gatekeeper.sh"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||connections.connection.gatekeeper.sh"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||connections.connection.gatekeeper.sh"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||constraintpodstatuses.status.gatekeeper.sh"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||constraintpodstatuses.status.gatekeeper.sh"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||constrainttemplatepodstatuses.status.gatekeeper.sh"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||constrainttemplatepodstatuses.status.gatekeeper.sh"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||constrainttemplates.templates.gatekeeper.sh"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||constrainttemplates.templates.gatekeeper.sh"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||expansiontemplate.expansion.gatekeeper.sh"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||expansiontemplate.expansion.gatekeeper.sh"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||expansiontemplatepodstatuses.status.gatekeeper.sh"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||expansiontemplatepodstatuses.status.gatekeeper.sh"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||modifyset.mutations.gatekeeper.sh"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||modifyset.mutations.gatekeeper.sh"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||mutatorpodstatuses.status.gatekeeper.sh"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||mutatorpodstatuses.status.gatekeeper.sh"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||providerpodstatuses.status.gatekeeper.sh"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||providerpodstatuses.status.gatekeeper.sh"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||providers.externaldata.gatekeeper.sh"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||providers.externaldata.gatekeeper.sh"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||syncsets.syncset.gatekeeper.sh"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||syncsets.syncset.gatekeeper.sh"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "rendered-secret-review:v1|Secret|default|gatekeeper-webhook-server-cert"
+      rule: "rendered-secret-review"
+      severity: "medium"
+      object: "v1|Secret|default|gatekeeper-webhook-server-cert"
+      message: "Rendered Secret material or references require review before production promotion"
+    -
+      id: "webhook-readiness-review:admissionregistration.k8s.io/v1|MutatingWebhookConfiguration||gatekeeper-mutating-webhook-configuration"
+      rule: "webhook-readiness-review"
+      severity: "medium"
+      object: "admissionregistration.k8s.io/v1|MutatingWebhookConfiguration||gatekeeper-mutating-webhook-configuration"
+      message: "Webhook certificate and readiness behavior require observation after apply"
+    -
+      id: "webhook-readiness-review:admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||gatekeeper-validating-webhook-configuration"
+      rule: "webhook-readiness-review"
+      severity: "medium"
+      object: "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||gatekeeper-validating-webhook-configuration"
+      message: "Webhook certificate and readiness behavior require observation after apply"

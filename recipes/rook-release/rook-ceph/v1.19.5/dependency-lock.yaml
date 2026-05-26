@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "rook-release-rook-ceph-v1-19-5"
+spec:
+  chart: "rook-release/rook-ceph"
+  version: "v1.19.5"
+  dependencies:
+    -
+      name: "library"
+      version: "0.0.1"
+      repository: "file://../library"
+    -
+      name: "ceph-csi-operator"
+      version: "0.6.0"
+      repository: "https://ceph.github.io/ceph-csi-operator"
+      condition: "csi.rookUseCsiOperator"
+      alias: "ceph-csi-operator"

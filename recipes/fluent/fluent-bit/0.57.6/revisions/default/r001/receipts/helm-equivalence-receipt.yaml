@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "fluent-fluent-bit-0-57-6-default-r001"
+  labels:
+    confighub.io/chart-ref: "fluent/fluent-bit"
+    confighub.io/chart-version: "0.57.6"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "464d9136c0ba9e845fd81c1dbea556e717d47930d7cb58755de67ead7f8f2a2b"
+    objectCount: 6
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 7
+    uploadedManifestFiles: 7
+    separatedSecretFiles: 0
+    semanticObjectMatches: "6/6"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

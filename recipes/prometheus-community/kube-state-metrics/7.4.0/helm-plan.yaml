@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "prometheus-community-kube-state-metrics-7-4-0"
+  labels:
+    confighub.io/chart-ref: "prometheus-community/kube-state-metrics"
+    confighub.io/chart-version: "7.4.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "prometheus-community/kube-state-metrics"
+    version: "7.4.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 5
+    cubInstallObjectsByVariant:
+      default: 6
+    helmMatchByVariant:
+      default: "5/5"
+    renderedObjectSetSHA256: "b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "coredns-coredns-1-45-2-default-r001"
+  labels:
+    confighub.io/chart-ref: "coredns/coredns"
+    confighub.io/chart-version: "1.45.2"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "e9d0e20ceb7a6ec8e8189aa63d5fcba50be11360c7b734e57b84ad0556b1ca34"
+    objectCount: 5
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 6
+    uploadedManifestFiles: 6
+    separatedSecretFiles: 0
+    semanticObjectMatches: "5/5"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

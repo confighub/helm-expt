@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "traefik-traefik-40-2-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "traefik"
+  repositoryURL: "https://traefik.github.io/charts"
+  chart: "traefik"
+  ref: "traefik/traefik"
+  version: "40.2.0"
+  appVersion: "v3.7.1"
+  packageSHA256: "b73d0159fc1222cc9bdaefde80000a9bad2dfe81de4caed14b9509b3bf6c1df9"
+  packageBytes: 236795
+  capturedAt: "generated-by-next80-full-proof-harness"

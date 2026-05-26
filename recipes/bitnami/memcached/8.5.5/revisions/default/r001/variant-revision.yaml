@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/memcached"
+    confighub.io/chart-version: "8.5.5"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "f2585d5ddb8397b359357847a9d806e940d5e58d33fbc4f6888162dac7969926"
+  digestInputs:
+    recipeSHA256: "ffe28bde6a58c39d54192577a4591c4d64964a05c559e68f4021b8da9d226b0c"
+    variantSHA256: "c7d659618df51db300557ffef2561409226af9a932c6206876193fa9b1fe2ac4"
+    effectiveValuesSHA256: "2931692007d905da826a697ffeb8feaaf62e21ed209ae9bb4d31064887c0836d"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "8cd477e08d9fdd2d56df7832f901d773af4f4313a405330180d7068cd7751558"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 5

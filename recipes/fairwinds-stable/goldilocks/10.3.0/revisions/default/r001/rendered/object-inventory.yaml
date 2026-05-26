@@ -1,0 +1,68 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "fairwinds-stable-goldilocks-10-3-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "fairwinds-stable/goldilocks"
+    confighub.io/chart-version: "10.3.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "5939f53dfe4e6c888630fc4c30fcc478e4786a56cb0092139c418510da17d7a5"
+  objectCount: 9
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|goldilocks-controller"
+      kind: "Deployment"
+      name: "goldilocks-controller"
+      namespace: "default"
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|goldilocks-dashboard"
+      kind: "Deployment"
+      name: "goldilocks-dashboard"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||goldilocks-controller"
+      kind: "ClusterRoleBinding"
+      name: "goldilocks-controller"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||goldilocks-dashboard"
+      kind: "ClusterRoleBinding"
+      name: "goldilocks-dashboard"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||goldilocks-controller"
+      kind: "ClusterRole"
+      name: "goldilocks-controller"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||goldilocks-dashboard"
+      kind: "ClusterRole"
+      name: "goldilocks-dashboard"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|goldilocks-controller"
+      kind: "ServiceAccount"
+      name: "goldilocks-controller"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|goldilocks-dashboard"
+      kind: "ServiceAccount"
+      name: "goldilocks-dashboard"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|goldilocks-dashboard"
+      kind: "Service"
+      name: "goldilocks-dashboard"
+      namespace: "default"

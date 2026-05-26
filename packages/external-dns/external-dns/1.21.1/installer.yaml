@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "external-dns-external-dns"
+  version: "1.21.1"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "external-dns/external-dns default variant rendered from external-dns/external-dns@1.21.1"

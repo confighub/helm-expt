@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "dex-dex-0-24-0-default"
+  labels:
+    confighub.io/chart-ref: "dex/dex"
+    confighub.io/chart-version: "0.24.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "dc077dbc81488a5bf338753fbe97d9a729363e1835247b78d8a410174883b6f4"
+  mergedValuesCaptured: false
+  values:
+    {}

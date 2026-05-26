@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "argo-cd-argo-events-2-4-21"
+spec:
+  chart: "argo-cd/argo-events"
+  version: "2.4.21"
+  dependencies:
+    []

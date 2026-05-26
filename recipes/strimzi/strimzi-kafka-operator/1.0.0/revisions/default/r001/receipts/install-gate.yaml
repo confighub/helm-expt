@@ -1,0 +1,22 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "strimzi-strimzi-kafka-operator-1-0-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "strimzi/strimzi-kafka-operator"
+    confighub.io/chart-version: "1.0.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "f3cfe3329c6673870bb6ecd1d31cab9d74ee96695d6b2b6fbfb0f4a1a7b9f23b"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+    - "review"
+  blockedScopes:
+    - "production-without-review"
+  reasons:
+    - "regular Helm output matches cub install setup for strimzi/strimzi-kafka-operator@1.0.0"
+    - "27 Helm objects are bound to renderedObjectSetSHA256"
+    - "rendered-object scan has review findings; see scan-receipt.yaml"

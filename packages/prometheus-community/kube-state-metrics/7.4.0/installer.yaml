@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "prometheus-community-kube-state-metrics"
+  version: "7.4.0"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "prometheus-community/kube-state-metrics default variant rendered from prometheus-community/kube-state-metrics@7.4.0"

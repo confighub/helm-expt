@@ -1,0 +1,44 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "bitnami-apache-11-4-29-default-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/apache"
+    confighub.io/chart-version: "11.4.29"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "0b37f6d8ae27b5b341860619b89aa3d78e02d7bd01a2271fab216d4e65be047c"
+  objectCount: 5
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|apache"
+      kind: "Deployment"
+      name: "apache"
+      namespace: "default"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|NetworkPolicy|default|apache"
+      kind: "NetworkPolicy"
+      name: "apache"
+      namespace: "default"
+    -
+      apiVersion: "policy/v1"
+      identity: "policy/v1|PodDisruptionBudget|default|apache"
+      kind: "PodDisruptionBudget"
+      name: "apache"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|apache"
+      kind: "ServiceAccount"
+      name: "apache"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|apache"
+      kind: "Service"
+      name: "apache"
+      namespace: "default"

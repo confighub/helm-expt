@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "hashicorp-terraform-1-1-2"
+spec:
+  chart:
+    repository: "hashicorp"
+    name: "terraform"
+    version: "1.1.2"
+  package:
+    path: "packages/hashicorp/terraform/1.1.2"
+    name: "hashicorp-terraform"
+    version: "1.1.2"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "7c0d3fa650a47ce3debefe34fbab0686a319101e7438b1087ae0b133a74701a7"
+        bytes: 199
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "5cc2a190066cc639af6f8856b1ff8e28a40e61546d53cd04f19c5b14d6c37d3b"
+        bytes: 19064
+      -
+        path: "installer.yaml"
+        sha256: "ed6dfe0b86cbfaf5112ea50c5e94d6e599fb8135347d7798e76c569f22067a72"
+        bytes: 310
+  deterministicBundle:
+    command: "cub install package packages/hashicorp/terraform/1.1.2 -o <tmp>/hashicorp-terraform-1-1-2.tgz"
+    sha256: "e7bc73a3884298093d9087061e47d138e6bcb4a89f976e2380811aa69a34cf7d"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/hashicorp/terraform/1.1.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 5
+      cubInstallObjectCountIncludingSupport: 6
+      semanticObjectMatches: "5/5"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

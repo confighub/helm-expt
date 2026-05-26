@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "traefik/traefik"
+    confighub.io/chart-version: "40.2.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "ac5aa9750da6d7769c06285834a6f3bb6fdd86b39a4f6aabcf7853241b5e9be1"
+  digestInputs:
+    recipeSHA256: "ddc78ca31a827276ec0a39255a7e13ab8d60c8f87da772ed55fa39948dbda2e3"
+    variantSHA256: "00897aa42833b93f6d836272e43f2dc31dd373aac6a7333c2eaeb528345fd34c"
+    effectiveValuesSHA256: "bbeadfffe24063223842b62228846435645701bb70f69609b1137ecd3bb0c603"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "84b1e950901024fda7bb0be73aba239015712ae0c3d4cb0ecabcb091abc53c09"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 31
