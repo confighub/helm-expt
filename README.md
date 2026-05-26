@@ -242,6 +242,14 @@ The current executable proof is:
 recipes/bitnami/redis/25.5.3/
 ```
 
+Five-minute demo artifacts:
+
+```text
+docs/demo/redis/demo-script.md
+docs/demo/redis/cli-transcript.txt
+docs/demo/redis/ux-acceptance.md
+```
+
 It contains Redis readiness cards for the `default` and
 `reuse-existing-secret` variants, recipe/variant/revision artifacts, rendered
 object inventories, Helm equivalence receipts, render receipts, scan receipts,

@@ -14,8 +14,20 @@ P1 issues strengthen the proof after P0.
 P2 issues preserve important design depth without blocking the first proof.
 ```
 
-The current plan is not credible at 20/100/500 chart scale until every P0 is
-either completed or deliberately reclassified.
+The current plan is not credible at 20/100/500 chart scale until every open P0
+is either completed or deliberately reclassified.
+
+## Completed Redis Proof Gates
+
+These P0s are complete for the Redis proof slice and should stay closed unless
+the evidence regresses:
+
+| Issue | Evidence |
+| --- | --- |
+| [#8](https://github.com/confighub/helm-expt/issues/8) Prove Helm equivalence for Redis and classify every ConfigHub difference | `npm run redis:compare`, Helm equivalence receipts, and namespace/secret classifications. |
+| [#9](https://github.com/confighub/helm-expt/issues/9) Bind rendered-object scans and install gates to exact manifest digests | Redis scan receipts and install gates are digest-bound and verified by `npm run verify`. |
+| [#10](https://github.com/confighub/helm-expt/issues/10) Create complete Redis HelmPlan and ChartDossier artifacts | `recipes/bitnami/redis/25.5.3/`, durable installer package, upload/OCI receipt. |
+| [#26](https://github.com/confighub/helm-expt/issues/26) Prove simple UX is easier, safer, and correct versus Helm | `docs/demo/redis/` demo script, transcript, and UX acceptance note. |
 
 ## Execution Order
 
@@ -23,12 +35,12 @@ The council review made the first implementation slice explicit:
 
 1. [#24](https://github.com/confighub/helm-expt/issues/24) **Schema and verifier first.**
    Without this, artifacts and spreadsheets are decorative.
-2. [#10](https://github.com/confighub/helm-expt/issues/10) **Redis courtroom-grade proof.**
-   Redis is where the full chain becomes real. This includes the durable
-   `packages/bitnami/redis/25.5.3` installer package, deterministic package
-   receipt, and `cub install setup --base` checks for each current variant.
-3. [#26](https://github.com/confighub/helm-expt/issues/26) **Five-minute UX proof.**
-   Keep proving the path is easier, safer, and correct versus Helm.
+2. **Redis courtroom-grade proof.**
+   Redis now has the first complete proof slice. Keep it green while the next
+   issues scale the pattern.
+3. **Five-minute UX proof.**
+   The first demo script exists under `docs/demo/redis/`. Keep refining the UX
+   without inventing non-existent commands.
 4. **Close the missing determinism/freshness gates**:
    [#29](https://github.com/confighub/helm-expt/issues/29),
    [#28](https://github.com/confighub/helm-expt/issues/28),
@@ -45,14 +57,10 @@ The council review made the first implementation slice explicit:
 | Issue | Area | Why it is a gate |
 | --- | --- | --- |
 | [#24](https://github.com/confighub/helm-expt/issues/24) Add artifact schema and receipt verifier | Proof integrity | Reviewers need machine verification that artifacts, hashes, and receipts are consistent. |
-| [#10](https://github.com/confighub/helm-expt/issues/10) Create complete Redis HelmPlan and ChartDossier artifacts | Redis proof | Redis is the first detailed proof that the model works end to end. |
-| [#26](https://github.com/confighub/helm-expt/issues/26) Prove simple UX is easier, safer, and correct versus Helm | UX / trust | Users will not adopt this if it feels harder, riskier, or wrong compared with Helm. |
 | [#4](https://github.com/confighub/helm-expt/issues/4) Emit a HelmPlan pain report for each analyzed chart | HelmPlan | Every chart needs a visible pain/mitigation report before it can be trusted. |
 | [#5](https://github.com/confighub/helm-expt/issues/5) Produce EffectiveValues@sha with value precedence and provenance | Values / provenance | Helm users need to know which inputs actually produced the result. |
 | [#6](https://github.com/confighub/helm-expt/issues/6) Detect dead, unknown, or ignored Helm values where possible | Values / safety | Silent ignored values are a core Helm pain point. |
 | [#7](https://github.com/confighub/helm-expt/issues/7) Add value-to-rendered-field explanation for key chart settings | Explainability | The proof must show why rendered objects differ between variants. |
-| [#8](https://github.com/confighub/helm-expt/issues/8) Prove Helm equivalence for Redis and classify every ConfigHub difference | Correctness | ConfigHub must be correct versus Helm, with every intentional difference explained. |
-| [#9](https://github.com/confighub/helm-expt/issues/9) Bind rendered-object scans and install gates to exact manifest digests | Safety / scans | Scans and gates are only meaningful when bound to exact rendered objects. |
 | [#29](https://github.com/confighub/helm-expt/issues/29) Define capability profile catalog for Helm proofs | Capability profiles | Top charts branch on Kubernetes/API capabilities; profiles must be finite and digest-bound. |
 | [#28](https://github.com/confighub/helm-expt/issues/28) Define generated fact receipt schema | Generated facts | Passwords, certs, UUIDs, and time values must be generated once and bound into revisions. |
 | [#30](https://github.com/confighub/helm-expt/issues/30) Add upgrade and rollback simulation receipts | Day-2 proof | First install is not enough; upgrades and rollback need digest-bound proof. |
