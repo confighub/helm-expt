@@ -1,21 +1,34 @@
-import { execFileSync, spawnSync } from "node:child_process";
-import { createHash } from "node:crypto";
-import {
-  existsSync,
-  mkdirSync,
-  mkdtempSync,
-  readdirSync,
-  readFileSync,
-  rmSync,
-  writeFileSync,
-  cpSync,
-} from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, cpSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { basename, dirname, join, relative, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { dirname, join, relative } from "node:path";
+import {
+  canonicalObjectMaps,
+  check,
+  command,
+  difference,
+  findingCounts,
+  identityFor,
+  imageTag,
+  labelsMatch,
+  listFiles,
+  listYamlFiles,
+  normalizeYaml,
+  objectFilesFromDirs,
+  parseDocs,
+  parseObjects,
+  readYaml,
+  readYamlText,
+  relativeRepo,
+  repoRoot,
+  runCub,
+  sha256,
+  sha256File,
+  workloadPodSpec,
+  workloadTemplateLabels,
+  write,
+  writeYaml,
+} from "./lib/proof-common.mjs";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const repoRoot = resolve(__dirname, "..");
 const proofRoot = join(repoRoot, "recipes", "metrics-server", "metrics-server", "3.13.0");
 const packageRoot = join(repoRoot, "packages", "metrics-server", "metrics-server", "3.13.0");
 const receiptPath = join(proofRoot, "publication", "installer-package-receipt.yaml");
@@ -980,258 +993,6 @@ npm run metrics-server:compare
   );
 }
 
-function command(cmd, cmdArgs) {
-  return execFileSync(cmd, cmdArgs, {
-    cwd: repoRoot,
-    encoding: "utf8",
-    stdio: ["ignore", "pipe", "inherit"],
-    maxBuffer: 1024 * 1024 * 200,
-  });
-}
-
-function runCub(cubArgs) {
-  return execFileSync("cub", cubArgs, {
-    cwd: repoRoot,
-    encoding: "utf8",
-    env: cubEnv(),
-    stdio: ["ignore", "pipe", "inherit"],
-    maxBuffer: 1024 * 1024 * 200,
-  });
-}
-
-function cubEnv() {
-  const env = { ...process.env, CONFIGHUB_AGENT: "1" };
-  try {
-    const goPath = execFileSync("go", ["env", "GOPATH"], { encoding: "utf8" }).trim();
-    const goBin = join(goPath, "bin");
-    if (!env.PATH?.split(":").includes(goBin)) env.PATH = `${env.PATH ?? ""}:${goBin}`;
-  } catch {
-    // Let cub fail clearly if the local toolchain is incomplete.
-  }
-  return env;
-}
-
-function parseObjects(text) {
-  return py(
-    `
-import json, sys, yaml
-objects = []
-for doc in yaml.load_all(sys.stdin.read(), Loader=yaml.BaseLoader):
-    if not isinstance(doc, dict):
-        continue
-    metadata = doc.get("metadata")
-    if not isinstance(metadata, dict):
-        continue
-    api_version = str(doc.get("apiVersion", ""))
-    kind = str(doc.get("kind", ""))
-    namespace = str(metadata.get("namespace", ""))
-    name = str(metadata.get("name", ""))
-    if api_version and kind and name:
-        objects.append({
-            "apiVersion": api_version,
-            "kind": kind,
-            "namespace": namespace,
-            "name": name,
-            "identity": "|".join([api_version, kind, namespace, name]),
-        })
-objects.sort(key=lambda item: item["identity"])
-print(json.dumps(objects, sort_keys=True))
-`,
-    text,
-  );
-}
-
-function parseDocs(text) {
-  return py(
-    `
-import json, sys, yaml
-docs = [doc for doc in yaml.safe_load_all(sys.stdin.read()) if isinstance(doc, dict)]
-print(json.dumps(docs, sort_keys=True))
-`,
-    text,
-  );
-}
-
-function readYaml(path) {
-  return readYamlText(readFileSync(path, "utf8"));
-}
-
-function readYamlText(text) {
-  return py(
-    `
-import json, sys, yaml
-docs = [doc for doc in yaml.safe_load_all(sys.stdin.read()) if doc is not None]
-print(json.dumps(docs[0] if len(docs) == 1 else docs, sort_keys=True))
-`,
-    text,
-  );
-}
-
-function py(script, input) {
-  const result = spawnSync("python3", ["-c", script], {
-    input,
-    encoding: "utf8",
-    maxBuffer: 1024 * 1024 * 200,
-  });
-  if (result.status !== 0) throw new Error(result.stderr || result.stdout);
-  return JSON.parse(result.stdout);
-}
-
-function canonicalObjectMaps(helmYaml, cubYaml) {
-  return py(
-    `
-import json, sys, yaml
-payload = json.load(sys.stdin)
-def object_map(text):
-    result = {}
-    for doc in yaml.safe_load_all(text or ""):
-        if not isinstance(doc, dict):
-            continue
-        def prune(value):
-            if isinstance(value, dict):
-                return {k: prune(v) for k, v in value.items() if v is not None}
-            if isinstance(value, list):
-                return [prune(v) for v in value]
-            return value
-        doc = prune(doc)
-        metadata = doc.get("metadata") or {}
-        key = "|".join([str(doc.get("apiVersion", "")), str(doc.get("kind", "")), str(metadata.get("namespace", "")), str(metadata.get("name", ""))])
-        if key.strip("|"):
-            result[key] = json.dumps(doc, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
-    return result
-print(json.dumps({"helm": object_map(payload["helm"]), "cub": object_map(payload["cub"])}, sort_keys=True))
-`,
-    JSON.stringify({ helm: helmYaml, cub: cubYaml }),
-  );
-}
-
-function toYaml(value, indent = 0) {
-  const pad = " ".repeat(indent);
-  if (value === null || value === undefined) return "null";
-  if (typeof value === "string") return JSON.stringify(value);
-  if (typeof value === "number" || typeof value === "boolean") return String(value);
-  if (Array.isArray(value)) {
-    if (value.length === 0) return `${pad}[]`;
-    return value
-      .map((item) => {
-        if (item && typeof item === "object" && !Array.isArray(item)) {
-          return `${pad}-\n${toYaml(item, indent + 2)}`;
-        }
-        if (Array.isArray(item)) return `${pad}-\n${toYaml(item, indent + 2)}`;
-        return `${pad}- ${toYaml(item, 0)}`;
-      })
-      .join("\n");
-  }
-  if (typeof value === "object") {
-    const entries = Object.entries(value).filter(([, item]) => item !== undefined);
-    if (entries.length === 0) return `${pad}{}`;
-    return entries
-      .map(([key, item]) => {
-        if (item && typeof item === "object") return `${pad}${key}:\n${toYaml(item, indent + 2)}`;
-        return `${pad}${key}: ${toYaml(item, 0)}`;
-      })
-      .join("\n");
-  }
-  return JSON.stringify(value);
-}
-
-function writeYaml(path, value) {
-  write(path, `${toYaml(value)}\n`);
-}
-
-function write(path, contents) {
-  mkdirSync(dirname(path), { recursive: true });
-  writeFileSync(path, contents);
-}
-
-function normalizeYaml(text) {
-  return `${text
-    .split("\n")
-    .map((line) => line.trimEnd())
-    .join("\n")
-    .replace(/\n*$/, "")}\n`;
-}
-
 function revisionRoot(variantName) {
   return join(proofRoot, "revisions", variantName, "r001");
-}
-
-function sha256(data) {
-  return createHash("sha256").update(data).digest("hex");
-}
-
-function sha256File(path) {
-  return sha256(readFileSync(path));
-}
-
-function relativeRepo(path) {
-  return relative(repoRoot, path).replaceAll("\\", "/");
-}
-
-function findingCounts(findings) {
-  const counts = { critical: 0, high: 0, medium: 0, low: 0, info: 0 };
-  for (const finding of findings) counts[finding.severity] += 1;
-  return counts;
-}
-
-function identityFor(doc) {
-  const metadata = doc.metadata ?? {};
-  return [doc.apiVersion ?? "", doc.kind ?? "", metadata.namespace ?? "", metadata.name ?? ""].join("|");
-}
-
-function labelsMatch(selector, labels) {
-  return Object.entries(selector ?? {}).every(([key, value]) => labels?.[key] === value);
-}
-
-function workloadPodSpec(doc) {
-  if (["Deployment", "StatefulSet", "DaemonSet", "ReplicaSet"].includes(doc.kind)) return doc.spec?.template?.spec ?? null;
-  if (doc.kind === "Job") return doc.spec?.template?.spec ?? null;
-  if (doc.kind === "CronJob") return doc.spec?.jobTemplate?.spec?.template?.spec ?? null;
-  return null;
-}
-
-function workloadTemplateLabels(doc) {
-  if (["Deployment", "StatefulSet", "DaemonSet", "ReplicaSet"].includes(doc.kind)) {
-    return doc.spec?.template?.metadata?.labels ?? {};
-  }
-  if (doc.kind === "Job") return doc.spec?.template?.metadata?.labels ?? {};
-  if (doc.kind === "CronJob") return doc.spec?.jobTemplate?.spec?.template?.metadata?.labels ?? {};
-  return {};
-}
-
-function imageTag(image) {
-  const lastSlash = image.lastIndexOf("/");
-  const lastColon = image.lastIndexOf(":");
-  if (lastColon <= lastSlash) return null;
-  return image.slice(lastColon + 1);
-}
-
-function listFiles(root) {
-  const result = [];
-  if (!existsSync(root)) return result;
-  for (const entry of readdirSync(root, { withFileTypes: true })) {
-    const path = join(root, entry.name);
-    if (entry.isDirectory()) result.push(...listFiles(path));
-    else if (entry.isFile()) result.push(path);
-  }
-  return result.sort();
-}
-
-function listYamlFiles(root) {
-  if (!existsSync(root)) return [];
-  return listFiles(root).filter((file) => [".yaml", ".yml"].some((suffix) => file.endsWith(suffix)));
-}
-
-function objectFilesFromDirs(dirs) {
-  return dirs.flatMap((dir) =>
-    listYamlFiles(dir).map((file) => ({ path: file, yaml: readFileSync(file, "utf8"), name: basename(file) })),
-  );
-}
-
-function difference(left, right) {
-  return [...left].filter((item) => !right.has(item)).sort();
-}
-
-function check(condition, message) {
-  if (!condition) throw new Error(message);
 }
