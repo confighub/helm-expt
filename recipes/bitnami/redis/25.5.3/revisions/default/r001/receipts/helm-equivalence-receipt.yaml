@@ -1,7 +1,7 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: HelmEquivalenceReceipt
 metadata:
-  name: bitnami-redis-standalone-r001
+  name: bitnami-redis-default-r001
 spec:
   variantRevision: ../variant-revision.yaml
   regularHelm:

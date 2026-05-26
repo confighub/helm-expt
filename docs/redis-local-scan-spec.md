@@ -12,14 +12,14 @@ small scanner that always runs in this repo and catches real Redis risks.
 Input:
 
 ```text
-recipes/bitnami/redis/25.5.3/revisions/standalone/r001/rendered/release-objects.yaml
+recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml
 ```
 
 Output:
 
 ```text
-recipes/bitnami/redis/25.5.3/revisions/standalone/r001/receipts/scan-receipt.yaml
-recipes/bitnami/redis/25.5.3/revisions/standalone/r001/receipts/install-gate.yaml
+recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/scan-receipt.yaml
+recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/install-gate.yaml
 ```
 
 ## Scanner Contract
@@ -53,7 +53,7 @@ V0 rules:
 
 ## Expected Redis Findings
 
-For `bitnami/redis@25.5.3` standalone, V0 is expected to produce:
+For `bitnami/redis@25.5.3` default, V0 is expected to produce:
 
 ```text
 high: 2

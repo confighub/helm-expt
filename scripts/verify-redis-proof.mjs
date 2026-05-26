@@ -105,7 +105,7 @@ function required(root, relativePath) {
 }
 
 function verifyProof(root) {
-  const revisionRoot = join(root, "revisions", "standalone", "r001");
+  const revisionRoot = join(root, "revisions", "default", "r001");
   const renderedRoot = join(revisionRoot, "rendered");
   const receiptsRoot = join(revisionRoot, "receipts");
   const requiredFiles = [
@@ -118,23 +118,25 @@ function verifyProof(root) {
     "value-model.yaml",
     "effective-values.yaml",
     "recipe.yaml",
-    "variants/standalone/variant.yaml",
-    "revisions/standalone/r001/variant-revision.yaml",
-    "revisions/standalone/r001/rendered/release-objects.yaml",
-    "revisions/standalone/r001/rendered/object-inventory.yaml",
-    "revisions/standalone/r001/receipts/helm-equivalence-receipt.yaml",
-    "revisions/standalone/r001/receipts/render-receipt.yaml",
-    "revisions/standalone/r001/receipts/scan-receipt.yaml",
-    "revisions/standalone/r001/receipts/install-gate.yaml",
+    "variants/default/variant.yaml",
+    "revisions/default/r001/variant-revision.yaml",
+    "revisions/default/r001/rendered/release-objects.yaml",
+    "revisions/default/r001/rendered/object-inventory.yaml",
+    "revisions/default/r001/receipts/helm-equivalence-receipt.yaml",
+    "revisions/default/r001/receipts/render-receipt.yaml",
+    "revisions/default/r001/receipts/scan-receipt.yaml",
+    "revisions/default/r001/receipts/install-gate.yaml",
   ];
   for (const relative of requiredFiles) required(root, relative);
+  check(!existsSync(join(root, "variants", "standalone")), "old standalone variant directory must not exist");
+  check(!existsSync(join(root, "revisions", "standalone")), "old standalone revision directory must not exist");
 
   const sourceLock = parseYamlFile(join(root, "source-lock.yaml"));
   const dependencyLock = parseYamlFile(join(root, "dependency-lock.yaml"));
   const valueModel = parseYamlFile(join(root, "value-model.yaml"));
   const effectiveValues = parseYamlFile(join(root, "effective-values.yaml"));
   const recipe = parseYamlFile(join(root, "recipe.yaml"));
-  const variant = parseYamlFile(join(root, "variants", "standalone", "variant.yaml"));
+  const variant = parseYamlFile(join(root, "variants", "default", "variant.yaml"));
   const revision = parseYamlFile(join(revisionRoot, "variant-revision.yaml"));
   const inventory = parseYamlFile(join(renderedRoot, "object-inventory.yaml"));
   const equivalence = parseYamlFile(join(receiptsRoot, "helm-equivalence-receipt.yaml"));
@@ -164,8 +166,8 @@ function verifyProof(root) {
   check(recipe.spec.chartRef.sourceLock === "source-lock.yaml", "recipe must reference source-lock.yaml");
   check(recipe.spec.chartRef.dependencyLock === "dependency-lock.yaml", "recipe must reference dependency-lock.yaml");
 
-  check(variant.kind === "Variant", "standalone variant must be Variant");
-  check(variant.metadata.name === "standalone", "variant name must be standalone");
+  check(variant.kind === "Variant", "default variant must be Variant");
+  check(variant.metadata.name === "default", "variant name must be default");
   check(variant.spec.namespace === "redis", "variant namespace must be redis");
   check(variant.spec.releaseName === "redis", "variant releaseName must be redis");
   check(variant.spec.capabilityProfile.kubeVersion === "1.30.0", "variant kubeVersion must be 1.30.0");
@@ -183,14 +185,14 @@ function verifyProof(root) {
   const releaseDigest = sha256File(releaseObjectsPath);
   const objectIdentities = parseRenderedObjects(releaseObjectsPath);
   const uniqueObjectIdentities = new Set(objectIdentities);
-  check(objectIdentities.length === 14, "Redis standalone must have exactly 14 Helm release objects");
-  check(uniqueObjectIdentities.size === objectIdentities.length, "Redis standalone must not have duplicate objects");
+  check(objectIdentities.length === 14, "Redis default must have exactly 14 Helm release objects");
+  check(uniqueObjectIdentities.size === objectIdentities.length, "Redis default must not have duplicate objects");
   check(inventory.spec.objectCount === 14, "object inventory must record 14 objects");
   check(inventory.spec.sourceSHA256 === releaseDigest, "object inventory source digest mismatch");
   check(inventory.spec.objects.length === 14, "object inventory must list 14 objects");
 
   const recipeDigest = sha256File(join(root, "recipe.yaml"));
-  const variantDigest = sha256File(join(root, "variants", "standalone", "variant.yaml"));
+  const variantDigest = sha256File(join(root, "variants", "default", "variant.yaml"));
   const effectiveValuesDigest = sha256File(join(root, "effective-values.yaml"));
   check(revision.spec.digestInputs.recipeSHA256 === recipeDigest, "variant revision recipe digest mismatch");
   check(revision.spec.digestInputs.variantSHA256 === variantDigest, "variant revision variant digest mismatch");
@@ -274,7 +276,7 @@ function runSelfTest() {
   expectFailure(
     "rendered object digest tampering is rejected",
     (root) => {
-      const path = join(root, "revisions", "standalone", "r001", "rendered", "release-objects.yaml");
+      const path = join(root, "revisions", "default", "r001", "rendered", "release-objects.yaml");
       writeFileSync(path, `${readFileSync(path, "utf8")}\n# tampered\n`);
     },
     "object inventory source digest mismatch",
@@ -286,7 +288,7 @@ function runSelfTest() {
       const path = join(
         root,
         "revisions",
-        "standalone",
+        "default",
         "r001",
         "receipts",
         "helm-equivalence-receipt.yaml",
@@ -299,10 +301,18 @@ function runSelfTest() {
   expectFailure(
     "false scan success is rejected",
     (root) => {
-      const path = join(root, "revisions", "standalone", "r001", "receipts", "scan-receipt.yaml");
+      const path = join(root, "revisions", "default", "r001", "receipts", "scan-receipt.yaml");
       writeFileSync(path, readFileSync(path, "utf8").replace("result: warn", "result: pass"));
     },
     "Redis scan receipt must warn while high findings exist",
+  );
+
+  expectFailure(
+    "old standalone variant directory is rejected",
+    (root) => {
+      cpSync(join(root, "variants", "default"), join(root, "variants", "standalone"), { recursive: true });
+    },
+    "old standalone variant directory must not exist",
   );
 }
 
@@ -310,5 +320,5 @@ if (selfTest) {
   runSelfTest();
 } else {
   verifyProof(proofRoot);
-  console.log("verified Redis standalone proof artifacts");
+  console.log("verified Redis default proof artifacts");
 }

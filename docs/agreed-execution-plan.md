@@ -684,7 +684,7 @@ Failures
 
 ## Easy Variant UX
 
-Standalone to HA:
+Default to HA:
 
 ```text
 create HA variant
@@ -718,7 +718,7 @@ Redis is small enough to demo, but rich enough to prove:
 
 - Generated passwords/secrets.
 - Stateful/PVC behavior.
-- Standalone vs HA variants.
+- Default vs HA variants.
 - Reuse existing secret vs generated secret.
 - Capability/profile checks.
 - Bitnami-style chart complexity.
@@ -738,12 +738,12 @@ recipes/bitnami/redis/25.5.3/
   control-points.yaml
 
   variants/
-    standalone/variant.yaml
+    default/variant.yaml
     ha/variant.yaml
     reuse-existing-secret/variant.yaml
 
   revisions/
-    standalone/r001/
+    default/r001/
       variant-revision.yaml
       rendered/release-objects.yaml
       render-receipt.yaml

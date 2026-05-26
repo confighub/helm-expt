@@ -11,7 +11,7 @@ spec:
       status: handled
       evidence: dependency-lock.yaml
     - category: generated-facts
-      status: handled-for-standalone-proof
+      status: handled-for-default-proof
       evidence: effective-values.yaml
       note: auth.password is deterministic in this proof; future generated-fact receipt should own this.
     - category: capability-profile

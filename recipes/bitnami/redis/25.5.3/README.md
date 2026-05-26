@@ -5,7 +5,7 @@
 | Field | Result |
 | --- | --- |
 | Chart | bitnami/redis 25.5.3 |
-| Variant | standalone |
+| Variant | default |
 | Status | usable with controls |
 | Helm objects | 14 |
 | ConfigHub/cub install objects | 15 |

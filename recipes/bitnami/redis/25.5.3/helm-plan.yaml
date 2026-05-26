@@ -8,14 +8,14 @@ spec:
     chart: bitnami/redis
     version: 25.5.3
     variants:
-      - standalone
+      - default
     helmObjects: 14
     cubInstallObjects: 15
     helmMatch: "14/14"
     scanGate: warn-production-blocked
     nextAction: resolve or waive local scan findings, then publish through ConfigHub OCI
   receipts:
-    - revisions/standalone/r001/receipts/helm-equivalence-receipt.yaml
-    - revisions/standalone/r001/receipts/render-receipt.yaml
-    - revisions/standalone/r001/receipts/scan-receipt.yaml
-    - revisions/standalone/r001/receipts/install-gate.yaml
+    - revisions/default/r001/receipts/helm-equivalence-receipt.yaml
+    - revisions/default/r001/receipts/render-receipt.yaml
+    - revisions/default/r001/receipts/scan-receipt.yaml
+    - revisions/default/r001/receipts/install-gate.yaml

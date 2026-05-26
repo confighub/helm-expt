@@ -1,7 +1,7 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: EffectiveValues
 metadata:
-  name: bitnami-redis-25.5.3-standalone
+  name: bitnami-redis-25.5.3-default
 spec:
   files:
     - path: effective-values.yaml

@@ -8,7 +8,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(__dirname, "..");
 const archiveRedis = join(repoRoot, "archive", "render-and-vendor-top20", "charts", "06-bitnami-redis");
 const proofRoot = join(repoRoot, "recipes", "bitnami", "redis", "25.5.3");
-const revisionRoot = join(proofRoot, "revisions", "standalone", "r001");
+const revisionRoot = join(proofRoot, "revisions", "default", "r001");
 const renderedRoot = join(revisionRoot, "rendered");
 const receiptsRoot = join(revisionRoot, "receipts");
 
@@ -257,7 +257,7 @@ function objectInventoryYaml(objects, releaseDigest) {
   return `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: RenderedObjectInventory
 metadata:
-  name: bitnami-redis-25.5.3-standalone-r001
+  name: bitnami-redis-25.5.3-default-r001
 spec:
   source: rendered/release-objects.yaml
   sourceSHA256: ${yamlQuote(releaseDigest)}
@@ -333,7 +333,7 @@ spec:
   const effectiveValues = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: EffectiveValues
 metadata:
-  name: bitnami-redis-25.5.3-standalone
+  name: bitnami-redis-25.5.3-default
 spec:
   files:
     - path: effective-values.yaml
@@ -377,7 +377,7 @@ spec:
       status: handled
       evidence: dependency-lock.yaml
     - category: generated-facts
-      status: handled-for-standalone-proof
+      status: handled-for-default-proof
       evidence: effective-values.yaml
       note: auth.password is deterministic in this proof; future generated-fact receipt should own this.
     - category: capability-profile
@@ -417,14 +417,14 @@ spec:
       - --namespace
       - redis
   variants:
-    - variants/standalone/variant.yaml
+    - variants/default/variant.yaml
 `;
   write(join(proofRoot, "recipe.yaml"), recipe);
 
   const variant = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: Variant
 metadata:
-  name: standalone
+  name: default
 spec:
   recipe: ../../recipe.yaml
   namespace: redis
@@ -435,10 +435,10 @@ spec:
     apiVersions: []
   hookPolicy: no-hooks
 `;
-  write(join(proofRoot, "variants", "standalone", "variant.yaml"), variant);
+  write(join(proofRoot, "variants", "default", "variant.yaml"), variant);
 
   const recipeDigest = sha256File(join(proofRoot, "recipe.yaml"));
-  const variantDigest = sha256File(join(proofRoot, "variants", "standalone", "variant.yaml"));
+  const variantDigest = sha256File(join(proofRoot, "variants", "default", "variant.yaml"));
   const effectiveValuesDigest = sha256File(join(proofRoot, "effective-values.yaml"));
   const inventoryDigest = sha256(inventory);
   const rendererFingerprint = sha256(
@@ -462,9 +462,9 @@ spec:
   const variantRevision = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: VariantRevision
 metadata:
-  name: standalone-r001
+  name: default-r001
 spec:
-  variant: ../../../variants/standalone/variant.yaml
+  variant: ../../../variants/default/variant.yaml
   revision: r001
   digest: ${yamlQuote(revisionDigest)}
   digestInputs:
@@ -482,7 +482,7 @@ ${digestLine("recipeSHA256", recipeDigest)}${digestLine("variantSHA256", variant
   const renderReceipt = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: RenderReceipt
 metadata:
-  name: bitnami-redis-standalone-r001
+  name: bitnami-redis-default-r001
 spec:
   variantRevision: ../variant-revision.yaml
   renderer:
@@ -508,7 +508,7 @@ spec:
   const equivalenceReceipt = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: HelmEquivalenceReceipt
 metadata:
-  name: bitnami-redis-standalone-r001
+  name: bitnami-redis-default-r001
 spec:
   variantRevision: ../variant-revision.yaml
   regularHelm:
@@ -534,7 +534,7 @@ spec:
   const scanReceipt = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ScanReceipt
 metadata:
-  name: bitnami-redis-standalone-r001
+  name: bitnami-redis-default-r001
 spec:
   variantRevision: ../variant-revision.yaml
   renderedObjectSetSHA256: ${yamlQuote(releaseDigest)}
@@ -565,7 +565,7 @@ ${scanFindings
   const installGate = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: InstallGate
 metadata:
-  name: bitnami-redis-standalone-r001
+  name: bitnami-redis-default-r001
 spec:
   variantRevision: ../variant-revision.yaml
   renderedObjectSetSHA256: ${yamlQuote(releaseDigest)}
@@ -577,7 +577,7 @@ spec:
   reasons:
     - local scan found ${scanCounts.high} high and ${scanCounts.medium} medium finding(s)
     - production publish is blocked until high findings are resolved or explicitly waived
-    - Helm equivalence passed for standalone variant
+    - Helm equivalence passed for default variant
 `;
   write(join(receiptsRoot, "install-gate.yaml"), installGate);
 
@@ -591,17 +591,17 @@ spec:
     chart: bitnami/redis
     version: 25.5.3
     variants:
-      - standalone
+      - default
     helmObjects: 14
     cubInstallObjects: 15
     helmMatch: "14/14"
     scanGate: warn-production-blocked
     nextAction: resolve or waive local scan findings, then publish through ConfigHub OCI
   receipts:
-    - revisions/standalone/r001/receipts/helm-equivalence-receipt.yaml
-    - revisions/standalone/r001/receipts/render-receipt.yaml
-    - revisions/standalone/r001/receipts/scan-receipt.yaml
-    - revisions/standalone/r001/receipts/install-gate.yaml
+    - revisions/default/r001/receipts/helm-equivalence-receipt.yaml
+    - revisions/default/r001/receipts/render-receipt.yaml
+    - revisions/default/r001/receipts/scan-receipt.yaml
+    - revisions/default/r001/receipts/install-gate.yaml
 `;
   write(join(proofRoot, "helm-plan.yaml"), helmPlan);
 
@@ -613,7 +613,7 @@ spec:
   maintainedNotes:
     - Redis is stateful; PVC and credential behavior require explicit variant policy.
     - Bitnami Redis can generate credentials unless a password/existing secret path is provided.
-    - Standalone is the first proof variant; HA and existing-secret are later slices.
+    - Default is the first proof variant; HA and existing-secret are later slices.
   weirdnessNotes:
     - deterministic proof pins auth.password in effective-values.yaml
     - cub install separates rendered Secret resources from uploaded manifests
@@ -627,7 +627,7 @@ spec:
 | Field | Result |
 | --- | --- |
 | Chart | bitnami/redis 25.5.3 |
-| Variant | standalone |
+| Variant | default |
 | Status | usable with controls |
 | Helm objects | 14 |
 | ConfigHub/cub install objects | 15 |
@@ -653,7 +653,7 @@ class Helm recipe importer exists.
 `;
   write(join(proofRoot, "README.md"), readme);
 
-  console.log(`generated Redis standalone proof at ${proofRoot}`);
+  console.log(`generated Redis default proof at ${proofRoot}`);
 }
 
 main();

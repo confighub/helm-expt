@@ -251,7 +251,7 @@ The first main-path proof artifact is:
 recipes/bitnami/redis/25.5.3/
 ```
 
-It contains the standalone Redis readiness card, recipe/variant/revision
+It contains the default Redis readiness card, recipe/variant/revision
 artifacts, rendered object inventory, Helm equivalence receipt, render receipt,
 scan receipt, and install gate.
 

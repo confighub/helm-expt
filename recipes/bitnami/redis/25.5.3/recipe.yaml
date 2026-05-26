@@ -20,4 +20,4 @@ spec:
       - --namespace
       - redis
   variants:
-    - variants/standalone/variant.yaml
+    - variants/default/variant.yaml

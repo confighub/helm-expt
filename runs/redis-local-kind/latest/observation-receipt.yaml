@@ -1,9 +1,9 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ObservationReceipt
 metadata:
-  name: bitnami-redis-standalone-r001-local-kind
+  name: bitnami-redis-default-r001-local-kind
 spec:
-  variantRevision: "recipes/bitnami/redis/25.5.3/revisions/standalone/r001/variant-revision.yaml"
+  variantRevision: "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml"
   renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
   observer:
     name: redis-local-e2e
@@ -14,7 +14,7 @@ spec:
     name: "helm-expt-redis"
     context: "kind-helm-expt-redis"
     namespace: "redis"
-  observedAt: "2026-05-26T11:06:37.421Z"
+  observedAt: "2026-05-26T11:10:02.618Z"
   freshnessTTL: 1h
   result: pass
   clusterStatus: "existing"
@@ -42,4 +42,4 @@ spec:
       count: 4
   kubectlObjects:
     path: kubectl-objects.txt
-    sha256: "56be10a023cd796368b9870e5f7485fb83f53c2bfd6854fa4a4c6b4bb81351a4"
+    sha256: "984294899c840ad95dfaa4a8dbaa0baeba99edf74bb8e01c3a45436d7046ba9f"

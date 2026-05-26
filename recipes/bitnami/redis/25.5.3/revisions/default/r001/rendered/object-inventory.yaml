@@ -1,7 +1,7 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: RenderedObjectInventory
 metadata:
-  name: bitnami-redis-25.5.3-standalone-r001
+  name: bitnami-redis-25.5.3-default-r001
 spec:
   source: rendered/release-objects.yaml
   sourceSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"

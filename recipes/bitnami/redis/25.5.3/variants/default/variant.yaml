@@ -1,7 +1,7 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: Variant
 metadata:
-  name: standalone
+  name: default
 spec:
   recipe: ../../recipe.yaml
   namespace: redis

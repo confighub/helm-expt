@@ -17,7 +17,7 @@ safe operation
 immediate proof
 ```
 
-The first Redis proof is the `standalone` install variant. Later slices can add
+The first Redis proof is the `default` install variant. Later slices can add
 `ha` and `reuse-existing-secret`.
 
 ## Required Files
@@ -35,10 +35,10 @@ recipes/bitnami/redis/25.5.3/
   recipe.yaml
 
   variants/
-    standalone/variant.yaml
+    default/variant.yaml
 
   revisions/
-    standalone/r001/
+    default/r001/
       variant-revision.yaml
       rendered/release-objects.yaml
       rendered/object-inventory.yaml
@@ -54,7 +54,7 @@ recipes/bitnami/redis/25.5.3/
 
 ```text
 Chart: bitnami/redis 25.5.3
-Variant: standalone
+Variant: default
 Status: usable with controls
 Helm objects: 14
 ConfigHub/cub install objects: 15
@@ -87,8 +87,8 @@ which scopes are blocked. It must not imply a pass.
 
 ### Variant
 
-4. `variants/standalone/variant.yaml` records:
-   - variant name: `standalone`
+4. `variants/default/variant.yaml` records:
+   - variant name: `default`
    - namespace: `redis`
    - release name: `redis`
    - values profile reference
@@ -108,10 +108,10 @@ which scopes are blocked. It must not imply a pass.
    - renderer/toolchain digest or version
    - rendered object set digest
 8. `rendered/release-objects.yaml` contains the Helm-equivalent Redis release
-   objects for the standalone variant.
+   objects for the default variant.
 9. `rendered/object-inventory.yaml` contains every rendered object identity:
    `apiVersion|kind|namespace|name`.
-10. There are exactly 14 Helm release objects for the standalone variant.
+10. There are exactly 14 Helm release objects for the default variant.
 11. There are no duplicate object identities.
 
 ### Helm Equivalence
@@ -179,5 +179,5 @@ The first Redis proof does not need to complete:
 - ConfigHub OCI publication receipt
 - upgrade/rollback simulation receipts
 
-Those are required later, but they must not block the first standalone proof as
+Those are required later, but they must not block the first default proof as
 long as their status is explicit.

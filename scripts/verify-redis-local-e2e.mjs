@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(__dirname, "..");
 const runRoot = join(repoRoot, "runs", "redis-local-kind", "latest");
+const variantRevision = "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml";
 const releaseObjects = join(
   repoRoot,
   "recipes",
@@ -14,7 +15,7 @@ const releaseObjects = join(
   "redis",
   "25.5.3",
   "revisions",
-  "standalone",
+  "default",
   "r001",
   "rendered",
   "release-objects.yaml",
@@ -57,6 +58,7 @@ function main() {
 
   const receipt = parseYamlFile(receiptPath);
   check(receipt.kind === "ObservationReceipt", "receipt must be ObservationReceipt");
+  check(receipt.spec.variantRevision === variantRevision, "observation receipt must point at the default Redis revision");
   check(receipt.spec.result === "pass", "local e2e result must be pass");
   check(receipt.spec.target?.kind === "kind", "target kind must be kind");
   check(receipt.spec.target?.name === "helm-expt-redis", "target cluster must be helm-expt-redis");

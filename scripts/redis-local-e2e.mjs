@@ -18,12 +18,12 @@ const releaseObjects = join(
   "redis",
   "25.5.3",
   "revisions",
-  "standalone",
+  "default",
   "r001",
   "rendered",
   "release-objects.yaml",
 );
-const variantRevision = "recipes/bitnami/redis/25.5.3/revisions/standalone/r001/variant-revision.yaml";
+const variantRevision = "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml";
 const runRoot = join(repoRoot, "runs", "redis-local-kind", "latest");
 
 function sha256(data) {
@@ -202,7 +202,7 @@ function main() {
   const receipt = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ObservationReceipt
 metadata:
-  name: bitnami-redis-standalone-r001-local-kind
+  name: bitnami-redis-default-r001-local-kind
 spec:
   variantRevision: ${yamlQuote(variantRevision)}
   renderedObjectSetSHA256: ${yamlQuote(renderedDigest)}

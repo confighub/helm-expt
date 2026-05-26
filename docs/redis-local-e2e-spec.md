@@ -1,6 +1,6 @@
 # Redis Local E2E Spec
 
-This slice proves the Redis standalone rendered objects can run in a local
+This slice proves the Redis default rendered objects can run in a local
 Kubernetes cluster.
 
 It is intentionally local. It does not prove ConfigHub OCI publication, GitOps
@@ -11,7 +11,7 @@ handoff, or production readiness.
 Input:
 
 ```text
-recipes/bitnami/redis/25.5.3/revisions/standalone/r001/rendered/release-objects.yaml
+recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml
 ```
 
 Output:
