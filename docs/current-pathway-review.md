@@ -1,0 +1,242 @@
+# Current Pathway Review
+
+This review intentionally excludes legacy reference artifacts:
+
+```text
+archive/render-and-vendor-top20/
+outputs/helm_top500_matrix/
+```
+
+Those files are useful history. They are not on the main pathway for executing
+the current Helm mission.
+
+## Verdict
+
+The mission is clear:
+
+```text
+Use Helm charts. Ship ConfigHub variants. Never have Helm pain again.
+```
+
+The adoption bar is stricter than "works":
+
+```text
+not harder than Helm
+not riskier than Helm
+not wrong compared with Helm
+```
+
+The plan is credible if it proves this chain with new artifacts:
+
+```text
+chart source
+  -> recipe candidate
+  -> install variants
+  -> immutable variant revisions
+  -> exact rendered release objects
+  -> scans and gates
+  -> ConfigHub OCI/apply receipts
+  -> observation receipts with freshness
+```
+
+The current repo is mostly a planning and review packet. It is not yet the proof
+repo. The next step is to create new chart proof repos and new generated
+spreadsheets that are backed by receipts, not hand-maintained analysis.
+
+## What The Repo Does Well
+
+- States the mission and sales pitch clearly.
+- Defines the canonical object model: chart, recipe, variant, variant revision,
+  deployment, receipt.
+- Names the simple UX as the thing that must be proven first: one install,
+  clear diff/review, safe apply or publish, proof generated automatically.
+- Adds the adoption standard that the flow must feel easier, safer, and more
+  correct than Helm from first use.
+- Separates fast install through ConfigHub's OCI endpoint from deferred
+  serverless work.
+- Defines `HelmPlan` and `ChartDossier` as the process and knowledge artifacts.
+- Makes Helm pain absorption explicit: every weirdness needs a model home,
+  policy, status, and proof.
+- Keeps workerless ConfigHub honest: live truth requires external observation
+  receipts with freshness.
+
+## What Is Still Missing
+
+The repo needs new proof artifacts, starting with Redis:
+
+```text
+recipes/bitnami/redis/25.5.3/
+  helm-plan.yaml
+  chart-dossier.yaml
+  recipe-candidate.yaml
+  source-lock.yaml
+  dependency-lock.yaml
+  control-points.yaml
+  value-model.yaml
+  effective-values.yaml
+  variants/
+  revisions/
+  receipts/
+  reports/
+```
+
+It also needs new generated matrix outputs:
+
+```text
+data/top20/
+data/top100/
+data/top500/
+  chart-corpus-lock.yaml
+  proof-readiness.csv
+  control-point-summary.csv
+  matrix.xlsx
+  methodology.md
+```
+
+The spreadsheet must be generated from artifacts and receipts. It should be a
+proof index, not the proof itself.
+
+The repo also needs simple UX proof artifacts:
+
+```text
+demo-script.md
+cli-transcript.txt
+ux-acceptance.md
+```
+
+These should show:
+
+- commands a Helm user can run without learning the full model first
+- the immediate value returned by each command
+- where the user sees rendered objects, diffs, scans, gates, and next action
+- where receipts live for proof after the simple path succeeds
+- why the path is easier, safer, and correct versus Helm
+
+## 20 / 100 / 500 Proof Ladder
+
+For 20 charts, prove depth:
+
+- complete Redis proof first
+- 19 more chart proof repos or chart proof folders
+- at least default variant per chart
+- at least one second meaningful variant where relevant
+- deterministic render checks
+- Helm equivalence report
+- scan receipt and install gate per rendered revision
+
+For 100 charts, prove automation:
+
+- run the same HelmPlan journey without bespoke manual analysis
+- classify every chart as viable, viable-with-control-points, blocked, or
+  unknown
+- require every blocked chart to name the blocking control point
+- generate proof-readiness spreadsheets from artifacts
+
+For 500 charts, prove corpus scale:
+
+- source locks and dependency locks
+- HelmPlan pain reports
+- control-point classifications
+- recipe-candidate viability
+- rendered variant revisions where viable
+- bulk scan/gate results
+- aggregate failure catalog
+
+## At-Scale Adversarial Verification
+
+ConfigHub should verify at scale by running chart proof jobs across a matrix of:
+
+- chart versions
+- Kubernetes capability profiles
+- default, HA, TLS, existing-secret, restricted, and provider variants
+- target fact value profiles
+- generated secret/cert/time policies
+- hooks, CRDs, webhooks, RBAC, raw manifests, and `tpl` controls
+- scanner policy bundles
+- upgrade and rollback paths
+
+Each run should produce:
+
+```text
+HelmPlan result
+RecipeCandidate result
+VariantRevision result
+HelmEquivalenceReport
+RenderReceipt
+ScanReceipt
+InstallGate
+OCIArtifactReceipt or ApplyReceipt
+ObservationReceipt when a live target is involved
+```
+
+Adversarial tests should deliberately include charts that use `lookup`, random
+functions, hooks, CRDs, webhooks, raw manifest slots, non-exact dependencies,
+schema gaps, unknown values, and upgrade-sensitive state.
+
+## P0 Before Scaling
+
+The authoritative issue list is [docs/issue-backlog.md](issue-backlog.md). The
+following P0s must be complete or deliberately reclassified before the
+20/100/500 proof can be believable:
+
+- [#26](https://github.com/confighub/helm-expt/issues/26) Simple UX proof:
+  easier, safer, and correct versus Helm.
+- [#4](https://github.com/confighub/helm-expt/issues/4) HelmPlan pain report
+  for each analyzed chart.
+- [#10](https://github.com/confighub/helm-expt/issues/10) Complete Redis
+  HelmPlan and ChartDossier artifacts.
+- [#5](https://github.com/confighub/helm-expt/issues/5) EffectiveValues@sha
+  with value precedence and provenance.
+- [#6](https://github.com/confighub/helm-expt/issues/6) Dead, unknown, or
+  ignored value detection where possible.
+- [#7](https://github.com/confighub/helm-expt/issues/7) Value-to-rendered-field
+  explanation for key settings.
+- [#8](https://github.com/confighub/helm-expt/issues/8) Redis Helm equivalence
+  and every ConfigHub difference classified.
+- [#9](https://github.com/confighub/helm-expt/issues/9) Scan receipts and
+  install gates bound to exact manifest digests.
+- [#24](https://github.com/confighub/helm-expt/issues/24) Artifact schema and
+  receipt verifier.
+- [#25](https://github.com/confighub/helm-expt/issues/25) Top-N adversarial run
+  harness that can produce generated spreadsheets from artifacts.
+
+## Acceptance Standard
+
+A skeptical reviewer should be able to choose any row in the new spreadsheet
+and follow it to:
+
+```text
+chart source
+source lock
+recipe candidate
+variant
+variant revision
+rendered object digest
+scan/gate result
+receipt
+next action or blocker
+```
+
+If the row cannot be traced to artifacts and receipts, it is not proof.
+
+Separately, a skeptical Helm user should be able to run the happy-path demo and
+say within five minutes:
+
+```text
+I see exactly what will be installed.
+I see what changed.
+I see whether it passed checks.
+I can apply or publish it safely.
+I did not have to learn a new platform ceremony first.
+```
+
+If that does not happen, the proof is too complex even if the artifacts are
+technically complete.
+
+No-go criteria:
+
+- the user must learn the full ConfigHub object model before first value
+- ConfigHub output differs from Helm without an explanation
+- scan/gate/receipt concepts block the first useful result instead of helping it
+- the next action is less clear than Helm's next action
+- rollback, promotion, or publication feels riskier than the Helm/GitOps path

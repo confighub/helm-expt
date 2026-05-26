@@ -103,7 +103,8 @@ the plan fails.
 A ConfigHub variant revision must include:
 
 - Recipe inputs.
-- Environment and target facts used during render.
+- Environment and target fact values used during render, satisfying the
+  target fact requirements declared by the recipe.
 - Capability profile.
 - Generated facts or generated secret handles.
 - Rendered release objects.
@@ -165,7 +166,7 @@ Helm supplies charts.
 Git stores files.
 Argo/Flux sync clusters.
 ConfigHub records variants, operations, and proof.
-cub-scout/Pilot report observed live state.
+cub-scout, GitOps, CI, and other external observers report live state.
 ```
 
 ConfigHub is the operational system of record. It can emit Git, OCI, YAML, or GitOps inputs instead of replacing delivery tools.
@@ -250,10 +251,11 @@ The Helm work should add the missing layer:
 - Import diagnostics and control-point classification.
 - ConfigHub Install Variant definitions.
 - Immutable variant revision receipts.
-- Target/capability/generated fact profiles for Helm-specific nondeterminism.
+- Recipe-declared target fact requirements plus capability/generated fact
+  profiles for Helm-specific nondeterminism.
 - Rendered Release Object receipts.
 - Scan/gate receipts.
-- External observation receipt integration for `cub-scout`, Pilot, GitOps, CI/CD, and other observers.
+- External observation receipt integration for `cub-scout`, GitOps, CI/CD, and other observers.
 
 So the implementation claim is:
 
@@ -268,11 +270,20 @@ Every step in the plan must be executable through one or more of:
 
 - `cub` CLI / `cub install`, backed by `confighub/installer`.
 - ConfigHub Server UI/API for stored variants, variant revisions, receipts,
-  target assignments, approvals, initiatives, and desired state.
-- Pilot for workflow/orchestration around installs, promotions, scans, and
-  observation submission.
-- `cub-scout`, Pilot, GitOps controllers, CI/CD, or other external observers
-  for live observation receipts.
+  target assignments, approvals, initiatives, desired state, and the OCI
+  endpoint used by the fast install path.
+- `cub-scout`, GitOps controllers, CI/CD, or other external observers for live
+  observation receipts.
+
+The current proof is not trying to execute a pure serverless install path.
+GitHub is the public catalog/proof surface, currently `confighub/helm-expt`.
+The fast install path uses ConfigHub's OCI endpoint. A fully client-side,
+serverless `cub install` path is a deferred option and should be tracked as an
+issue, not treated as part of the current proof.
+
+Backlog gates are tracked in `docs/issue-backlog.md`. Open P0 issues in that
+file must not be bypassed by the flow; they are gates before credible
+20/100/500 chart proof.
 
 The detailed execution contract is in `docs/agreed-execution-plan.md`. Treat
 the commands below as target product UX: during implementation the proof repo
@@ -339,7 +350,6 @@ The server's job is to store and govern:
 Live observations come from outside the server:
 
 - `cub-scout`.
-- Pilot.
 - GitOps controller reports.
 - CI/CD jobs.
 - Customer-owned agents or integrations.
@@ -352,10 +362,10 @@ intended state
   stored by ConfigHub Server
 
 applied state
-  recorded by operation receipts from cub, GitOps, CI/CD, Pilot, etc.
+  recorded by operation receipts from cub, GitOps, CI/CD, etc.
 
 live observation
-  submitted as observation receipts by cub-scout, Pilot, or other external observers
+  submitted as observation receipts by cub-scout, GitOps, CI/CD, or other external observers
 ```
 
 ConfigHub Server can aggregate and display intended/applied/observed state, but it should not be the thing that directly watches every cluster unless a customer explicitly deploys an observer that reports back.
@@ -449,6 +459,8 @@ Input:
 Output:
 
 - One canonical ConfigHub recipe for the chart source.
+- Recipe-declared target fact requirements for any `lookup` or cluster-sourced
+  render dependency.
 
 Recommended framing:
 
@@ -469,7 +481,8 @@ Checks:
 
 There are two acceptable import modes:
 
-- **Symbolic recipe mode**: compile chart structure into recipe inputs, facts, components, function chains, and render rules.
+- **Symbolic recipe mode**: compile chart structure into recipe inputs, target
+  fact requirements, components, function chains, and render rules.
 - **Render-and-vendor mode**: render one or more explicit variants and wrap those rendered artifacts. This is easier, but the Helm render context must be captured as a receipt.
 
 The stronger long-term story is symbolic recipe mode. Render-and-vendor remains useful for compatibility and experiments.
@@ -528,7 +541,9 @@ Checks:
 
 - Do not attempt every possible Helm values combination.
 - Define market-relevant and organization-relevant base variants.
-- Make each variant's values, selected components, overlays, capability profile, and fact profile explicit.
+- Make each variant's values, selected components, overlays, capability profile,
+  and target/generated fact value profile explicit. Target fact requirements
+  come from the recipe.
 - Require each variant to have a stable identity and digest.
 - Record parent/child relationships between variants when one derives from another.
 - Make local deltas explicit, so base updates can be propagated or flagged for review.
@@ -543,7 +558,7 @@ Input:
 - Base recipe version.
 - Values profile.
 - Selected overlays/components.
-- Fact and capability profiles.
+- Target/generated fact value profiles and capability profiles.
 - Approval state.
 
 Output:
@@ -554,20 +569,21 @@ Checks:
 
 - Once approved, a variant revision is not re-rendered implicitly.
 - Promotion deploys the approved revision, not a generator invocation.
-- New source, values, facts, policy, or scanner changes create a new candidate revision.
+- New source, values, fact values, policy, or scanner changes create a new candidate revision.
 - Revisions can be compared by source, values, facts, rendered manifests, scan results, and target state.
 
-### Step 5: Target, Capability, and Generated Facts
+### Step 5: Target Fact Values, Capability Profiles, and Generated Facts
 
 Input:
 
 - Variant.
+- Recipe-declared target fact requirements.
 - Target cluster snapshot, when rendering for a real target.
-- Synthetic fact profiles, when bulk scanning representative scenarios.
+- Synthetic fact value profiles, when bulk scanning representative scenarios.
 
 Output:
 
-- Captured fact profiles:
+- Captured fact value profiles:
 
 ```text
 values-profile@sha
@@ -580,10 +596,13 @@ Checks:
 
 - Cluster state is only observed during fact collection.
 - Render must not perform hidden live-cluster reads.
-- Same recipe + same values + same capability profile + same facts must produce byte-identical manifests.
+- Same recipe + same values + same capability profile + same target/generated
+  fact values must produce byte-identical manifests.
 - Sensitive values should not be stored as plain facts; store references, generated secret handles, or secret material in the existing secret path.
 
-This is how we handle Helm `lookup`: turn cluster-sourced nondeterminism into captured target facts.
+This is how we handle Helm `lookup`: turn cluster-sourced nondeterminism into
+target fact requirements in the recipe, then bind captured target fact values
+when rendering a variant revision.
 
 Example:
 
@@ -606,8 +625,8 @@ Now both outcomes are renderable, scannable, and repeatable.
 This aligns with the current installer direction: installer already has a
 collector extension point that writes `out/spec/facts.yaml`, and render uses
 `.Facts.*` from that captured file. The Helm import plan generalizes that
-mechanism into target facts, capability facts, and generated facts for variant
-revisions.
+mechanism into recipe-declared target fact requirements, capability profiles,
+and generated facts for variant revisions.
 
 ### Step 6: Render
 
@@ -617,7 +636,7 @@ Input:
 - Variant digest.
 - Values profile.
 - Capability profile.
-- Target facts.
+- Target fact values satisfying the recipe's target fact requirements.
 - Generated facts.
 - Dependency lock.
 - Renderer version.
@@ -749,8 +768,8 @@ Input:
 - Variant revisions.
 - Installer record.
 - Prior receipts.
-- New target facts.
-- Observation receipts from `cub-scout`, Pilot, GitOps controllers, CI/CD, or other external observers.
+- New target fact values.
+- Observation receipts from `cub-scout`, GitOps controllers, CI/CD, or other external observers.
 - User edits.
 - Drift.
 
@@ -761,7 +780,7 @@ Output:
 Checks:
 
 - Re-rendering with the same spec and facts should be byte-identical.
-- If target facts change, create a new render context rather than silently changing output.
+- If target fact values change, create a new render context rather than silently changing output.
 - Preserve post-install ConfigHub edits according to merge policy.
 - Re-run scans when manifests, policies, scanner versions, or relevant facts change.
 - Track observed live drift separately from source/render determinism.
@@ -781,7 +800,7 @@ Checks:
 | Templates | manifests, helpers, named templates | Recipe import/render | importer policy and diagnostics |
 | `tpl` | template strings supplied through values | Late/literal policy | bound evaluation or reject |
 | `.Files.Get` | bundled config files, dashboards, scripts | Source import | file digest and path restrictions |
-| `lookup` | live Secret/CRD/ConfigMap checks | Target facts | snapshot, synthetic variant, or fail |
+| `lookup` | live Secret/CRD/ConfigMap checks | Recipe target fact requirements plus bound values | snapshot, synthetic variant, or fail |
 | Capabilities | kube version, API versions | Capability profile | named profile digest |
 | Release object | name, namespace, install/upgrade, revision | Variant/render phase | explicit render parameter |
 | Random/cert/time funcs | `randAlphaNum`, `genCA`, `now`, `uuidv4` | Generated facts | generate once and persist |
@@ -800,7 +819,7 @@ Checks:
 | CRD/OpenAPI schemas | schemas used by validators | Scan stage | schema source/digest |
 | Scanner policy | policy bundles, vulnerability DBs | Scan stage | scanner/policy digest |
 | Delivery target | target namespace/cluster/space | Install gate | target binding receipt |
-| Live observation | `cub-scout`, Pilot, GitOps report, CI/CD report | Operate | observation receipt with observer, method, timestamp, freshness |
+| Live observation | `cub-scout`, GitOps report, CI/CD report | Operate | observation receipt with observer, method, timestamp, freshness |
 | Day-2 edits | ConfigHub mutations, drift, upgrades | Operate | merge/reconcile policy |
 
 ## 3. Checks by Failure Type
@@ -810,7 +829,7 @@ Checks:
 | Mutable source | same chart ref gives different bytes | require archive digest or signed immutable ref |
 | Unlocked dependencies | dependency resolution changes | require dependency lock/digests |
 | Missing archive | chart cannot be fetched | fail before recipe |
-| Cluster lookup | live cluster state changes render output | target fact snapshot or synthetic variants |
+| Cluster lookup | live cluster state changes render output | recipe target fact requirement plus target fact snapshot or synthetic variants |
 | Kube capability branch | target cluster changes output | named capability profiles |
 | Random generation | repeated render differs | generated facts persisted once |
 | Time/UUID | repeated render differs | generated facts or forbid in strict mode |
@@ -857,7 +876,9 @@ record receipt
 Controls:
 
 - Values that do not apply without warning become recipe validation and dead-key checks.
-- Non-deterministic re-renders become target facts, generated facts, capability profiles, and two-render determinism checks.
+- Non-deterministic re-renders become recipe-declared target fact requirements,
+  bound target fact values, generated facts, capability profiles, and two-render
+  determinism checks.
 - Helm CLI versus Argo CD versus Flux render differences become explicit renderer/toolchain receipts.
 - "Which value set this field?" becomes recipe/variant provenance.
 - "What will be deployed?" becomes `renderedManifestSet@sha`.
@@ -880,7 +901,7 @@ In the new flow, these are not all solved by one scanner. They are solved at dif
 - Merge conflicts: ConfigHub ownership and operate policy.
 - Random secrets/timestamps: generated facts.
 - CRD gaps: CRD phase and schema/upgrade policy.
-- Diff noise: intended/applied/observed-live views are separated, with observed-live data supplied by `cub-scout`, Pilot, or other external observers.
+- Diff noise: intended/applied/observed-live views are separated, with observed-live data supplied by `cub-scout`, GitOps, CI/CD, or other external observers.
 - Reliability defaults: bulk policy scans over concrete manifest variants.
 
 ### Problem 2: Manage Related Variants Over Time
@@ -921,15 +942,22 @@ Controls:
 
 This is why "deploy and vary however much you like" is plausible: variation happens in the ConfigHub variants model, and deployment operates approved variant revisions.
 
-## 5. Review Against the Top-500 Scan
+## 5. Legacy Top-500 Source Scan
 
-The workbook scan covered 500 Artifact Hub Helm packages sorted by stars. It statically scanned chart source; it did not execute templates, hooks, or lookups.
+The existing workbook scan is legacy/reference material. It covered 500
+Artifact Hub Helm packages sorted by stars and statically scanned chart source;
+it did not execute templates, hooks, or lookups.
+
+Do not treat the existing workbook as the current proof pathway. The current
+plan requires new chart proof repos and new generated spreadsheets backed by
+recipe, variant, revision, scan, gate, and receipt artifacts.
 
 The chart count alone proves nothing. The evidence matters only if each chart
 can be connected to real recipe candidates, bounded install variants, rendered
 objects, scan results, gates, and failure classifications.
 
-The top-500 proof should show breadth across ugly Helm reality:
+The new top-20/top-100/top-500 proof should show breadth across ugly Helm
+reality:
 
 - CRDs.
 - Hooks.
@@ -943,7 +971,7 @@ The top-500 proof should show breadth across ugly Helm reality:
 - Ingress and TLS variants.
 - Upgrade/customization conflicts.
 
-Summary:
+Legacy scan summary:
 
 | Category | Count |
 | --- | ---: |
@@ -965,7 +993,7 @@ Feature counts among scanned charts:
 | Hooks | 54 | lifecycle policy, phases/tests, or fail |
 | Non-test hooks | 42 | install phase mapping or unsupported |
 | Test hooks | 16 | map to test/check actions |
-| `lookup` | 244 | target facts and lookup policy |
+| `lookup` | 244 | recipe target fact requirements and lookup policy |
 | Generated facts candidates | 282 | generated facts persisted in receipts |
 | Random funcs | 220 | generated facts |
 | Certificate funcs | 169 | generated cert facts or secret material |
@@ -991,14 +1019,14 @@ Important overlaps:
 | Combination | Count | Meaning |
 | --- | ---: | --- |
 | `lookup` + generated facts | 221 | many charts combine cluster-derived and generated state |
-| `lookup` + capabilities | 228 | target facts and capability profiles must be designed together |
+| `lookup` + capabilities | 228 | target fact requirements and capability profiles must be designed together |
 | Hooks + generated facts | 43 | lifecycle handling must preserve generated state |
 | `tpl` + raw/extra manifests | 253 | late/literal escape hatches are common |
 | CRDs + webhooks | 55 | install ordering and admission risk often travel together |
 | Stateful/PVC + generated facts | 215 | databases often need generated secrets/certs plus persistence |
 | P0 source risk + P1 features | 148 | source locking and compiler policy often both matter |
 
-Conclusion:
+Conclusion from the legacy scan:
 
 ```text
 The top-500 chart features do not defeat the plan.
@@ -1008,7 +1036,8 @@ They force the plan to be explicit.
 Every observed feature class has a control:
 
 - Lock and verify source/dependencies.
-- Convert cluster reads into target facts.
+- Convert cluster reads into recipe-declared target fact requirements and bound
+  target fact values.
 - Convert random/time/cert generation into generated facts.
 - Convert required/fail into input validation.
 - Convert capabilities into named capability profiles.
@@ -1049,7 +1078,7 @@ This lets ConfigHub answer both questions:
 
 Market scanners belong mostly after render. ConfigHub scan belongs both before and after render:
 
-- Before render: recipe validity, missing facts, unsupported `lookup`, unbounded `tpl`, unsafe generated fact handling, invalid variant definitions.
+- Before render: recipe validity, missing fact values, unsupported `lookup`, unbounded `tpl`, unsafe generated fact handling, invalid variant definitions.
 - After render: Kubernetes object validity, policy violations, image/security checks, RBAC, CRDs, webhooks, storage, network exposure.
 
 ## 7. Leftover Design Questions
@@ -1058,7 +1087,7 @@ These are not optional details. They are the remaining defaults that turn the pl
 
 ### Top Target Facts
 
-Likely top target facts Helm imports need:
+Likely top target fact requirements Helm recipes need:
 
 1. Kubernetes version.
 2. Available API versions and CRDs.
@@ -1073,15 +1102,18 @@ Likely top target facts Helm imports need:
 11. ImagePullSecret availability.
 12. Existing PVC availability for stateful reuse/upgrade flows.
 
-The first two are closer to capability profiles than ordinary facts, but users will think of them as target facts. The UI can group them while keeping the receipt model precise.
+The first two are closer to capability profiles than ordinary facts, but users
+will think of them as target facts. The UI can group them while keeping the
+receipt model precise. The recipe declares these requirements; a render context
+or variant revision binds the concrete target fact values.
 
 ### Lookup Default
 
 Recommended policy:
 
-- **Strict import**: `lookup` must map to a declared target fact or import fails.
+- **Strict import**: `lookup` must map to a declared target fact requirement or import fails.
 - **Bulk scan**: render synthetic variants for common fact values.
-- **Real install**: run a collector once, store target facts, render from the stored snapshot.
+- **Real install**: run a collector once, store target fact values, render from the stored snapshot.
 
 Do not allow hidden live `lookup` during render.
 
@@ -1099,7 +1131,7 @@ Recipe-wide:
 Variant-specific:
 
 - Bad values.
-- Missing target facts.
+- Missing target fact values.
 - Policy scanner findings.
 - RBAC/webhook/CRD footprint.
 - Persistence/ingress/TLS/security context choices.
@@ -1118,7 +1150,8 @@ The per-manifest-set result is the scan audit primitive. The variant revision is
 
 ## 8. What We May Still Be Missing
 
-After reviewing the conversation and the 500-chart feature matrix, the likely missing or under-specified areas are:
+After reviewing the conversation and the legacy 500-chart feature matrix, the
+likely missing or under-specified areas are:
 
 1. **Chart tests as first-class checks**: Helm test hooks should probably become optional post-render or post-install test actions, not just "hooks".
 2. **Notes and human instructions**: `NOTES.txt` sometimes carries required operational steps. We need a policy for extracting or preserving operator notes.
@@ -1135,14 +1168,14 @@ After reviewing the conversation and the 500-chart feature matrix, the likely mi
 13. **Namespace and cluster-scope collisions**: cluster-scoped resources need ownership and conflict checks across installs, not just within one rendered set.
 14. **Remote values or generated values files**: if a workflow fetches values from URLs or CI scripts, that source must be captured as an input artifact.
 15. **OCI registry throttling/availability**: source-acquisition failure is not chart behavior, but it affects import reliability. Mirroring may be part of the product story.
-16. **False positives in static chart scanning**: the current top-500 matrix is a source scan heuristic. It is good enough to prioritize controls, not enough to certify a chart.
+16. **False positives in static chart scanning**: the legacy top-500 matrix is a source scan heuristic. It is good enough to prioritize controls, not enough to certify a chart. New matrices must be generated from chart proof artifacts and receipts.
 17. **Bounded capability profiles**: we should name the supported Kubernetes/API profiles rather than imply an unbounded continuum.
 18. **Scanner coverage gaps**: Snyk/Trivy/Checkov/Kubescape overlap but do not fully substitute for ConfigHub recipe/fact/variant checks.
 19. **Operator override governance**: raw manifest slots and `tpl` need role/policy controls, not just technical receipts.
 20. **Receipt UX**: the receipt has to be understandable to Helm users. A receipt no one can read will not build trust.
 21. **Values dead-key detection**: the attached note calls out values that do not apply without warning. Helm does not reliably prove that a values path affected output. The importer should report unknown values, unused values where detectable, and field-level provenance for generated manifests where possible.
 22. **Field ownership across tools**: Helm, GitOps controllers, operators, and ConfigHub functions can all touch the same fields. The operate model needs ownership/conflict checks, not just render determinism.
-23. **Intended versus applied versus observed live**: scanning rendered YAML is necessary but not enough. ConfigHub Server should store intended state and applied-operation receipts, while `cub-scout`, Pilot, or other external observers submit live observation receipts with freshness.
+23. **Intended versus applied versus observed live**: scanning rendered YAML is necessary but not enough. ConfigHub Server should store intended state and applied-operation receipts, while `cub-scout`, GitOps, CI/CD, or other external observers submit live observation receipts with freshness.
 24. **Variant propagation semantics**: "deploy to prod" must mean promote an approved variant revision while preserving prod-only constraints, not copy dev YAML blindly.
 25. **Rollback semantics**: rollback must be scoped to a variant/target and operation, not a Git revert that pulls unrelated changes with it.
 
@@ -1152,7 +1185,7 @@ Start with these defaults:
 
 - Import requires pinned chart bytes and dependency lock/digests.
 - Import fails on hidden live cluster access.
-- `lookup` must become a target fact.
+- `lookup` must become a recipe-declared target fact requirement.
 - Random/time/cert/password generation must become generated facts or secrets.
 - `tpl` is allowed only for declared values paths and is visible in diagnostics.
 - Raw manifest injection is disabled by default for trusted base variants, allowed only in explicit extension variants.
