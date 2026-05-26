@@ -1,0 +1,21 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: HelmPlan
+metadata:
+  name: bitnami-redis-25.5.3
+spec:
+  readiness:
+    status: usable-with-controls
+    chart: bitnami/redis
+    version: 25.5.3
+    variants:
+      - standalone
+    helmObjects: 14
+    cubInstallObjects: 15
+    helmMatch: "14/14"
+    scanGate: not-run-production-blocked
+    nextAction: run rendered-object scanner, then publish through ConfigHub OCI
+  receipts:
+    - revisions/standalone/r001/receipts/helm-equivalence-receipt.yaml
+    - revisions/standalone/r001/receipts/render-receipt.yaml
+    - revisions/standalone/r001/receipts/scan-receipt.yaml
+    - revisions/standalone/r001/receipts/install-gate.yaml

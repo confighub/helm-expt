@@ -1,0 +1,15 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ScanReceipt
+metadata:
+  name: bitnami-redis-standalone-r001
+spec:
+  variantRevision: ../variant-revision.yaml
+  renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+  result: not-run
+  scanner: null
+  policyBundleDigest: null
+  findingCounts:
+    critical: null
+    high: null
+    medium: null
+    low: null

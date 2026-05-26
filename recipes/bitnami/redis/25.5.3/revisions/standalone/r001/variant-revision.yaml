@@ -1,0 +1,19 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: VariantRevision
+metadata:
+  name: standalone-r001
+spec:
+  variant: ../../../variants/standalone/variant.yaml
+  revision: r001
+  digest: "69c7b96978316f975c7739ed1d216ede791de4134f7350a99d7821df62e04196"
+  digestInputs:
+    recipeSHA256: "41e23842695af38dd6236e21a5113e659468012e0f2198489bee09445ceafe40"
+    variantSHA256: "41f1ed958d49c8154771d6a63f64354486c53c5206ed845c49eef0f5a1594847"
+    effectiveValuesSHA256: "2e69655c8b07b0f144a0b37b40933f46ab1fb81443236ffa3b61f2839498c912"
+    rendererSHA256: "92eb0156aec54c2e5d7d3c64c10c26903656c4ea069a4a11eb2e07dcee8d88fd"
+    renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+
+  rendered:
+    releaseObjects: rendered/release-objects.yaml
+    objectInventory: rendered/object-inventory.yaml
+    objectCount: 14

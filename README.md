@@ -243,6 +243,29 @@ The old hash-only archive check is still available for comparison:
 npm run verify:legacy
 ```
 
+## Redis Proof
+
+The first main-path proof artifact is:
+
+```text
+recipes/bitnami/redis/25.5.3/
+```
+
+It contains the standalone Redis readiness card, recipe/variant/revision
+artifacts, rendered object inventory, Helm equivalence receipt, render receipt,
+scan receipt, and install gate.
+
+Useful commands:
+
+```sh
+npm run redis:generate-proof
+npm run redis:verify-proof
+npm run redis:compare
+```
+
+`redis:verify-proof` is local and deterministic. `redis:compare` re-renders
+Redis with Helm and `cub install setup` to prove the Helm-equivalence claim.
+
 Background notes:
 
 ```text

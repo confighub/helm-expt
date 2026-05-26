@@ -1,0 +1,12 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ValueModel
+metadata:
+  name: bitnami-redis-25.5.3
+spec:
+  checkedValues:
+    - path: auth.password
+      disposition: intentional-deterministic-placeholder
+      reason: avoids chart-generated random password during deterministic proof
+  unknownValues: not-checked
+  deadValues: not-checked
+  ignoredValues: not-checked

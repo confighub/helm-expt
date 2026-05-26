@@ -4,8 +4,11 @@
   "type": "module",
   "scripts": {
     "generate": "node scripts/generate-top20.mjs",
+    "redis:generate-proof": "node scripts/generate-redis-proof.mjs",
     "redis:compare": "node scripts/compare-redis-helm-installer.mjs",
-    "verify": "node scripts/verify-artifact-chain.mjs && node scripts/verify-artifact-chain.mjs --self-test",
+    "redis:verify-proof": "node scripts/verify-redis-proof.mjs",
+    "redis:verify-proof:self-test": "node scripts/verify-redis-proof.mjs --self-test",
+    "verify": "node scripts/verify-artifact-chain.mjs && node scripts/verify-artifact-chain.mjs --self-test && node scripts/verify-redis-proof.mjs && node scripts/verify-redis-proof.mjs --self-test",
     "verify:artifact-chain": "node scripts/verify-artifact-chain.mjs",
     "verify:self-test": "node scripts/verify-artifact-chain.mjs --self-test",
     "verify:legacy": "node scripts/generate-top20.mjs --verify"

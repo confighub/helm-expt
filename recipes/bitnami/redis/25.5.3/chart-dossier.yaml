@@ -1,0 +1,12 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ChartDossier
+metadata:
+  name: bitnami-redis
+spec:
+  maintainedNotes:
+    - Redis is stateful; PVC and credential behavior require explicit variant policy.
+    - Bitnami Redis can generate credentials unless a password/existing secret path is provided.
+    - Standalone is the first proof variant; HA and existing-secret are later slices.
+  weirdnessNotes:
+    - deterministic proof pins auth.password in effective-values.yaml
+    - cub install separates rendered Secret resources from uploaded manifests
