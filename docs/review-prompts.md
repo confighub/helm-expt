@@ -9,6 +9,7 @@ Primary source:
 - `docs/current-pathway-review.md`
 - `docs/independent-review-brief.md`
 - `docs/issue-backlog.md`
+- `docs/known-adversarial-charts.md`
 - `confighub/installer`: https://github.com/confighub/installer
 
 Scope exclusions:
@@ -24,6 +25,20 @@ Core thesis:
 
 ```text
 Use Helm charts. Ship ConfigHub variants.
+```
+
+Phase 1 scope:
+
+```text
+public Helm chart catalog proof
+not enterprise-internal broken chart archaeology
+```
+
+Lead with:
+
+```text
+Approve the Kubernetes objects Helm produced,
+not the values you hope produced them.
 ```
 
 60-second story:
@@ -51,13 +66,22 @@ Above all, it must prove simple UX:
 ```text
 one install command
 one review/diff path
-one apply or publish path
+one publish path to ConfigHub OCI for GitOps pickup
 proof generated automatically
 ```
 
 If the first demo feels like Helm plus homework, the plan fails.
 If the result appears harder than Helm, riskier than Helm, or wrong compared
 with Helm, users will not adopt it.
+
+Council execution guidance:
+
+```text
+Do #24 first: schemas and verifier.
+Then make Redis courtroom-grade.
+Then prove the five-minute UX continuously.
+Only then should top-20/top-100/top-500 count as product evidence.
+```
 
 Implementation thesis:
 
@@ -93,7 +117,7 @@ Current repo state:
 Target repo state:
   new chart repos prove that Helm charts become ConfigHub installer recipe
   candidates, install variants, immutable variant revisions, rendered objects,
-  scans, gates, OCI/apply receipts, and generated evidence spreadsheets.
+  scans, gates, OCI artifact receipts, and generated evidence spreadsheets.
 ```
 
 Do not treat archived top-20 folders or the old top-500 spreadsheet as the main
@@ -264,7 +288,7 @@ Important constraints:
 - The happy path must feel safer and more correct than Helm, not merely more
   instrumented.
 - Every intentional difference from Helm output must be explained before
-  apply/publish.
+  publish.
 - If a variant is just a values file with a label, the plan fails.
 - A core recipe is not the same thing as a Helm release.
 - A variant revision is the thing users approve, scan, promote, deploy, and roll back.

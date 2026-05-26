@@ -18,12 +18,26 @@ The mission is clear:
 Use Helm charts. Ship ConfigHub variants. Never have Helm pain again.
 ```
 
+Lead with:
+
+```text
+Approve the Kubernetes objects Helm produced,
+not the values you hope produced them.
+```
+
 The adoption bar is stricter than "works":
 
 ```text
 not harder than Helm
 not riskier than Helm
 not wrong compared with Helm
+```
+
+Scope:
+
+```text
+public Helm chart catalog proof
+not enterprise-internal broken chart archaeology
 ```
 
 The plan is credible if it proves this chain with new artifacts:
@@ -35,7 +49,8 @@ chart source
   -> immutable variant revisions
   -> exact rendered release objects
   -> scans and gates
-  -> ConfigHub OCI/apply receipts
+  -> ConfigHub OCI artifact receipts
+  -> optional direct-apply receipts for local/test paths
   -> observation receipts with freshness
 ```
 
@@ -43,13 +58,24 @@ The current repo is mostly a planning and review packet. It is not yet the proof
 repo. The next step is to create new chart proof repos and new generated
 spreadsheets that are backed by receipts, not hand-maintained analysis.
 
+Council consensus:
+
+- Product: the first demo must feel simpler than Helm. Hide the noun ladder.
+- Operator: real Helm pains are named correctly, but not yet proven with
+  artifacts.
+- Architecture: build schemas and verifier first, or the repo will produce
+  decorative evidence.
+- Benchmark: top-500 is reconnaissance, not certification. A spreadsheet
+  without receipts is benchmark theater.
+
 ## What The Repo Does Well
 
 - States the mission and sales pitch clearly.
 - Defines the canonical object model: chart, recipe, variant, variant revision,
   deployment, receipt.
 - Names the simple UX as the thing that must be proven first: one install,
-  clear diff/review, safe apply or publish, proof generated automatically.
+  clear diff/review, safe publish to ConfigHub OCI, proof generated
+  automatically.
 - Adds the adoption standard that the flow must feel easier, safer, and more
   correct than Helm from first use.
 - Separates fast install through ConfigHub's OCI endpoint from deferred
@@ -61,6 +87,16 @@ spreadsheets that are backed by receipts, not hand-maintained analysis.
   receipts with freshness.
 
 ## What Is Still Missing
+
+First, build the verifier:
+
+```text
+schemas/
+scripts/verify-artifact-chain.mjs
+```
+
+`npm run verify` should validate references, SHA256s, rendered-object inventory,
+scan/gate digest binding, and spreadsheet row traceability.
 
 The repo needs new proof artifacts, starting with Redis:
 
@@ -96,6 +132,26 @@ data/top500/
 The spreadsheet must be generated from artifacts and receipts. It should be a
 proof index, not the proof itself.
 
+The Redis proof must be courtroom-grade. Its first complete revision needs at
+least:
+
+```text
+effective-values.yaml
+helm-equivalence-receipt.yaml
+render-receipt.yaml
+rendered-object-inventory.yaml
+scan-receipt.yaml
+install-gate.yaml
+upload-receipt.yaml
+oci-artifact-receipt.yaml
+observation-receipt.yaml
+upgrade-simulation-receipt.yaml
+rollback-simulation-receipt.yaml
+```
+
+Observation is not optional for the workerless claim. A missing or stale
+observation receipt must be visible as "unknown/stale", not implied live truth.
+
 The repo also needs simple UX proof artifacts:
 
 ```text
@@ -112,7 +168,25 @@ These should show:
 - where receipts live for proof after the simple path succeeds
 - why the path is easier, safer, and correct versus Helm
 
-## 20 / 100 / 500 Proof Ladder
+Each chart readiness artifact must be easy to read. The first view should be a
+readiness card, not an audit dump:
+
+```text
+Chart
+Status
+Variants
+Objects
+Helm match
+Scan/gate result
+Publish readiness
+Risks handled
+Needs decision
+Proof links
+```
+
+The order is deliberate: can I use this safely, why, then raw receipts.
+
+## 20 / 50 / 100 / 500 Proof Ladder
 
 For 20 charts, prove depth:
 
@@ -123,6 +197,14 @@ For 20 charts, prove depth:
 - deterministic render checks
 - Helm equivalence report
 - scan receipt and install gate per rendered revision
+- explicit CRD-heavy charts in the set
+- adversarial set chosen from [known-adversarial-charts.md](known-adversarial-charts.md)
+
+For 50 charts, prove breadth without losing clarity:
+
+- repeat the same readiness-card output
+- include more public chart categories
+- keep every row traceable to artifacts and receipts
 
 For 100 charts, prove automation:
 
@@ -165,7 +247,8 @@ HelmEquivalenceReport
 RenderReceipt
 ScanReceipt
 InstallGate
-OCIArtifactReceipt or ApplyReceipt
+OCIArtifactReceipt
+ApplyReceipt only when the run explicitly uses a direct-apply path
 ObservationReceipt when a live target is involved
 ```
 
@@ -179,12 +262,14 @@ The authoritative issue list is [docs/issue-backlog.md](issue-backlog.md). The
 following P0s must be complete or deliberately reclassified before the
 20/100/500 proof can be believable:
 
+- [#24](https://github.com/confighub/helm-expt/issues/24) Artifact schema and
+  receipt verifier. Do this first.
+- [#10](https://github.com/confighub/helm-expt/issues/10) Complete Redis
+  HelmPlan and ChartDossier artifacts.
 - [#26](https://github.com/confighub/helm-expt/issues/26) Simple UX proof:
   easier, safer, and correct versus Helm.
 - [#4](https://github.com/confighub/helm-expt/issues/4) HelmPlan pain report
   for each analyzed chart.
-- [#10](https://github.com/confighub/helm-expt/issues/10) Complete Redis
-  HelmPlan and ChartDossier artifacts.
 - [#5](https://github.com/confighub/helm-expt/issues/5) EffectiveValues@sha
   with value precedence and provenance.
 - [#6](https://github.com/confighub/helm-expt/issues/6) Dead, unknown, or
@@ -195,8 +280,14 @@ following P0s must be complete or deliberately reclassified before the
   and every ConfigHub difference classified.
 - [#9](https://github.com/confighub/helm-expt/issues/9) Scan receipts and
   install gates bound to exact manifest digests.
-- [#24](https://github.com/confighub/helm-expt/issues/24) Artifact schema and
-  receipt verifier.
+- [#29](https://github.com/confighub/helm-expt/issues/29) Capability profile
+  catalog for finite, digest-bound capability profiles.
+- [#28](https://github.com/confighub/helm-expt/issues/28) Generated fact
+  receipt schema for passwords, certs, UUIDs, and time values.
+- [#30](https://github.com/confighub/helm-expt/issues/30) Upgrade and rollback
+  simulation receipts.
+- [#27](https://github.com/confighub/helm-expt/issues/27) Observation
+  freshness SLO for workerless proof.
 - [#25](https://github.com/confighub/helm-expt/issues/25) Top-N adversarial run
   harness that can produce generated spreadsheets from artifacts.
 
@@ -226,7 +317,7 @@ say within five minutes:
 I see exactly what will be installed.
 I see what changed.
 I see whether it passed checks.
-I can apply or publish it safely.
+I can publish it safely for GitOps pickup.
 I did not have to learn a new platform ceremony first.
 ```
 

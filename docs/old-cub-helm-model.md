@@ -57,3 +57,38 @@ Redis installer package from the archive. It is not the main pathway for the
 current Helm mission, and it is not proof of recipe candidates, managed
 variants, immutable variant revisions, scan gates, OCI receipts, or the new
 spreadsheet proof system.
+
+## Archived Render-And-Vendor Reference
+
+These commands are retained only for reproducing the old Redis reference:
+
+```sh
+go install sigs.k8s.io/kustomize/kustomize/v5@v5.8.1
+export PATH="$PATH:$(go env GOPATH)/bin"
+cub plugin install confighub/installer --source-repo --name install --force
+make -C ~/.confighub/plugins/install build
+
+export REDIS_PACKAGE=./archive/render-and-vendor-top20/charts/06-bitnami-redis
+export WORK_DIR=/tmp/confighub-helm-redis
+
+cub install doc "$REDIS_PACKAGE"
+cub install setup \
+  --pull "$REDIS_PACKAGE" \
+  --work-dir "$WORK_DIR" \
+  --non-interactive \
+  --namespace redis
+
+npm run redis:compare
+
+cub auth login \
+  --server https://hub.confighub.com \
+  --organization "ConfigHub Helm"
+cub install upload \
+  --work-dir "$WORK_DIR" \
+  --space helm-redis-proof \
+  --component Redis \
+  --environment Demo \
+  --variant default
+```
+
+Again: this is historical compatibility evidence, not the current proof path.

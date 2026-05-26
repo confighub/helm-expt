@@ -7,6 +7,9 @@ Use this brief for independent reviews of the current ConfigHub Helm plan.
 Review the new pathway:
 
 ```text
+public Helm chart catalog proof
+not enterprise-internal broken chart archaeology
+
 new chart proof repos
   -> HelmPlan
   -> ChartDossier
@@ -15,7 +18,7 @@ new chart proof repos
   -> variant revisions
   -> rendered release objects
   -> scans and gates
-  -> ConfigHub OCI/apply receipts
+  -> ConfigHub OCI artifact receipts
   -> generated proof spreadsheets
 ```
 
@@ -38,6 +41,7 @@ Read:
 - `docs/chart-recipe-manifest-flow.md`
 - `docs/current-pathway-review.md`
 - `docs/issue-backlog.md`
+- `docs/known-adversarial-charts.md`
 - `docs/review-prompts.md`
 - `confighub/installer` docs and package/render/upload/OCI/facts behavior
 
@@ -50,6 +54,13 @@ Would a skeptical Helm/GitOps user understand in 60 seconds why this is less
 Helm pain rather than more platform ceremony?
 ```
 
+Preferred public framing:
+
+```text
+Approve the Kubernetes objects Helm produced,
+not the values you hope produced them.
+```
+
 Return:
 
 - Verdict.
@@ -58,7 +69,7 @@ Return:
 - Whether the happy path feels safer and more correct than Helm, not merely
   more instrumented.
 - Whether the value appears immediately: exact rendered objects, diff/review,
-  scan/gate, and safe apply/publish.
+  scan/gate, and safe publish to ConfigHub OCI for GitOps pickup.
 - Three strongest claims.
 - Five likely user objections.
 - Crisp answer to each objection.
@@ -130,6 +141,8 @@ Return:
 - P0 blockers before scaling.
 - Whether any P0 issue in `docs/issue-backlog.md` is being ignored or bypassed
   by the written plan.
+- Whether [#24](https://github.com/confighub/helm-expt/issues/24) really comes
+  first, before the repo generates more evidence artifacts.
 
 ## Acceptance Standard
 
@@ -147,7 +160,7 @@ Every happy-path demo must also pass the simple UX test:
 ```text
 one install command
 one review/diff path
-one apply or publish path
+one publish path to ConfigHub OCI for GitOps pickup
 clear scan/gate status
 receipts available after the fact
 Helm-equivalent output where expected

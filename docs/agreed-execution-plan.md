@@ -17,6 +17,32 @@ before install, promote the same revision to prod, see why environments differ,
 and get receipts proving what changed and what was observed.
 ```
 
+Phase 1 scope:
+
+```text
+Public Helm chart catalog proof.
+Not enterprise Helm archaeology.
+```
+
+Lead with the value, not the noun ladder:
+
+```text
+Approve the Kubernetes objects Helm produced,
+not the values you hope produced them.
+```
+
+"Never have Helm pain again" is the ambition. The near-term proof must be more
+precise: ConfigHub makes Helm output easier to review, safer to apply, and
+provably correct versus Helm where equivalence is expected.
+
+The sharper product triangle:
+
+```text
+correct variants
+safe operations
+immediate proof
+```
+
 ## Canonical Object Model
 
 Use this model consistently in docs, demos, labels, attributes, receipts, and
@@ -30,6 +56,19 @@ VariantRevision = exact rendered object set at a point in time.
 Deployment = a variant revision assigned or applied to a target.
 Receipt = proof of a render, scan, gate, apply, or observation.
 ```
+
+Use friendlier public language in demos and sales materials:
+
+| Internal term | Public phrase |
+| --- | --- |
+| `VariantRevision` | Approved Rendered Revision |
+| `HelmPlan` | Chart Readiness Plan |
+| `ChartDossier` | Chart Operating Notes |
+| `Receipt` | Proof Receipt |
+| `Deployment` | Target Assignment or Apply Record |
+
+Internal artifact names can stay precise. Public UX should not force users to
+learn the internal nouns before they see value.
 
 Default cardinality:
 
@@ -85,7 +124,7 @@ Main pathway:
 new chart proof repos
   -> new HelmPlan / ChartDossier / recipe artifacts
   -> new variants and variant revisions
-  -> new rendered-object scans, gates, OCI/apply receipts
+  -> new rendered-object scans, gates, OCI artifact receipts
   -> new generated spreadsheets as evidence maps
 ```
 
@@ -117,6 +156,39 @@ P2 issues preserve important design depth without blocking the first proof.
 Do not judge the plan as ready for at-scale proof while open P0 gates remain.
 Do not let planning docs hide or bypass open P0 issues.
 
+Immediate execution order:
+
+1. **Build the verifier first**: [#24](https://github.com/confighub/helm-expt/issues/24).
+   Schemas and receipt verification prevent decorative evidence.
+2. **Make Redis courtroom-grade**: [#10](https://github.com/confighub/helm-expt/issues/10),
+   supported by [#5](https://github.com/confighub/helm-expt/issues/5),
+   [#6](https://github.com/confighub/helm-expt/issues/6),
+   [#7](https://github.com/confighub/helm-expt/issues/7),
+   [#8](https://github.com/confighub/helm-expt/issues/8), and
+   [#9](https://github.com/confighub/helm-expt/issues/9).
+3. **Prove the five-minute happy path continuously**:
+   [#26](https://github.com/confighub/helm-expt/issues/26).
+4. **Only then scale the corpus**:
+   [#25](https://github.com/confighub/helm-expt/issues/25).
+
+## Installer Boundary
+
+This repo does not implement `confighub/installer`. For now, `helm-expt`
+defines the public-chart proof contracts, schemas, examples, readiness cards,
+and verifier behavior.
+
+Installer-facing runtime concepts should stay small:
+
+```text
+Package with Helm source metadata
+Variant as named inputs/selection
+Render receipt with manifest-set digest and provenance
+```
+
+Catalog/proof concepts such as Chart Readiness Plans, Chart Operating Notes,
+control-point summaries, and top-N spreadsheets live in `helm-expt` unless and
+until the installer or ConfigHub Server needs a first-class runtime object.
+
 ## Helm Plan and Dossier Artifacts
 
 Add two maintained artifacts to keep the plan executable and chart knowledge
@@ -133,9 +205,33 @@ Proof: Receipts
 `HelmPlan` is the canonical checklist and work plan every chart follows
 on the journey from upstream chart to live deployment.
 
+Publicly, present this as a **Chart Readiness Plan**. The first view must be
+clear, not audit-shaped:
+
+```text
+Chart: bitnami/redis 25.5.3
+Status: ready with controls
+Variants: default, HA, existing-secret
+Objects: 14
+Helm match: 14/14, plus explained ConfigHub support object
+Scan: pass with warnings
+Publish: ready for ConfigHub OCI
+Risks handled: generated password, StatefulSet/PVC, secret separation
+Needs decision: none
+Proof: render receipt, equivalence receipt, scan receipt
+```
+
+Rule:
+
+```text
+First screen: Can I use this safely?
+Second screen: Why?
+Third screen: Raw receipts.
+```
+
 It must be both human-readable and machine-executable enough to drive:
 
-- `cub install analyze ...`
+- a future chart-analysis UX
 - `cub install plan ...`
 - repo scripts and CI checks
 - ConfigHub GUI/porcelain journeys
@@ -288,10 +384,17 @@ Server UI/API, or an external observer integration.
 No step should require a hand-maintained spreadsheet, a Slack instruction, or
 an undocumented CI script.
 
-This is the target execution contract. Some command names below are target UX
-until the Redis proof lands. The important rule is that every durable input,
-decision, output, and observation is produced by one of the supported surfaces
-and leaves a receipt or addressable artifact.
+This is the target execution contract. The current executable installer CLI is
+`cub install setup`, `cub install upload`, `cub install plan`,
+`cub install package`, `cub install push`, `cub install pull`,
+`cub install doc`, and `cub install verify`. Shorter phrases such as
+`cub install redis`, `cub diff redis`, `cub publish redis`, and
+`cub variant redis ha` are candidate future porcelain verbs only until those
+commands exist. If the short UX is needed, propose those verbs deliberately as
+Cub plugins/extensions; do not write them as current executable docs.
+The important rule is that every durable input, decision, output, and
+observation is produced by one of the supported surfaces and leaves a receipt
+or addressable artifact.
 
 | Flow step | Primary execution surface | Durable output |
 | --- | --- | --- |
@@ -306,16 +409,18 @@ and leaves a receipt or addressable artifact.
 | Scan rendered objects | `cub` function chain, CI, or ConfigHub initiative | `ScanReceipt` |
 | Gate install | `cub` or ConfigHub Server UI/API | `InstallGate` |
 | Approve/promote revision | ConfigHub Server UI/API or `cub` | approval / promotion receipt |
-| Publish or apply revision | `cub`, ConfigHub OCI endpoint, GitOps handoff, or CI/CD | OCI artifact / operation receipt |
+| Publish revision | `cub`, ConfigHub OCI endpoint, GitOps handoff, or CI/CD | OCI artifact receipt |
+| Direct apply revision | `cub` or CI/CD, for local/test paths | apply operation receipt |
 | Observe live/applied state | `cub-scout`, GitOps report, CI/CD, customer observer, or human-triggered `cub` | `ObservationReceipt` with freshness |
 
 ## Happy Path UX
 
-The default Redis demo should be two commands:
+The default Redis demo should feel like three short user actions:
 
-```sh
-cub install redis
-cub apply redis
+```text
+install
+review/plan
+publish
 ```
 
 This is the most important proof requirement. ConfigHub must feel simpler and
@@ -326,7 +431,7 @@ The visible experience should be:
 ```text
 install
 review/diff
-apply or publish
+publish to ConfigHub OCI for GitOps pickup
 ```
 
 The hidden work should be automatic:
@@ -339,7 +444,7 @@ render exact objects
 compare to Helm where relevant
 scan/gate
 write receipts
-publish through ConfigHub OCI when requested
+publish through ConfigHub OCI by default
 ```
 
 Acceptance rule:
@@ -365,7 +470,7 @@ The proof must therefore show three things on the happy path:
 | Safer than Helm | exact rendered objects, scan/gate status, receipts, and a safe next action |
 | Correct versus Helm | Helm-equivalent output where expected, with every intentional difference explained |
 
-`cub install redis` should do the boring work automatically:
+The install action should do the boring work automatically:
 
 ```text
 resolve source
@@ -377,14 +482,17 @@ prepare Verified Install Gate
 write receipts
 ```
 
-`cub apply redis` should:
+The publish action should:
 
 ```text
-apply the approved variant revision
-or publish it through ConfigHub's OCI endpoint for GitOps pickup
-write operation receipt
-optionally publish/update ConfigHub Server state
+publish the approved rendered revision through ConfigHub's OCI endpoint
+write OCI artifact receipt
+preserve ConfigHub identity and proof links for GitOps pickup
 ```
+
+A direct apply action may exist for local kind tests, CI smoke tests, or
+customers who explicitly choose direct apply. It is not the default public
+handoff story.
 
 The detailed subcommands may exist for advanced users and CI, but the happy path
 must not require eight visible steps.
@@ -400,9 +508,11 @@ but with more ceremony":
 2. **Prove simple UX first.** The first screen and first command must deliver
    obvious value: exact rendered objects, diff/review, scan/gate status, and
    next action. The deeper receipts and control points are proof on demand.
-3. **Expose the short path first.** `cub install redis`, `cub diff redis`, and
-   `cub apply redis` are the user experience. Source locks, control points,
-   variant revisions, scans, and receipts appear automatically as proof.
+3. **Expose the short path first.** Install, review/plan, and publish are the
+   default user experience. Source locks, control points, variant revisions,
+   scans, and receipts appear automatically as proof. Future Cub porcelain
+   verbs may be proposed as plugins/extensions, but do not document shorthand
+   as executable CLI until it exists.
 4. **Keep the recipe/variant boundary hard.** One chart version normally creates
    one core recipe. Install shapes become variants. Rendered outputs become
    immutable variant revisions.
@@ -570,17 +680,18 @@ Failures
 
 Standalone to HA:
 
-```sh
-cub variant redis ha
-cub diff redis redis-ha
-cub apply redis-ha
+```text
+create HA variant
+review diff against default
+publish approved HA revision
 ```
 
 Existing secret:
 
-```sh
-cub variant redis reuse-existing-secret --secret redis-password
-cub apply redis-existing-secret
+```text
+create existing-secret variant
+bind redis-password fact or secret handle
+publish approved existing-secret revision
 ```
 
 The point is not "better values files". The point is:
@@ -590,7 +701,7 @@ create named install variant
 render exact objects
 compare to another variant/revision
 scan/gate
-apply/promote approved revision
+publish/promote approved revision
 ```
 
 ## First Detailed Proof
@@ -739,15 +850,12 @@ Spreadsheet quality rules:
 
 ## Complete Chart Analysis
 
-A complete chart analysis should be easy for a user to request:
-
-```sh
-cub install analyze bitnami/redis --version 25.5.3
-```
-
-The output should be a human-readable explanation plus machine-readable
-artifacts. To make that possible, keep richer internal representations than the
-spreadsheet shows:
+A complete chart analysis should be easy for a user to request, but the current
+`cub install` plugin does not have a chart-analysis command. Until it does, the
+executable proof should use repo scripts and real installer subcommands, then
+produce the same human-readable explanation plus machine-readable artifacts. To
+make that possible, keep richer internal representations than the spreadsheet
+shows:
 
 - `HelmPlan`: canonical checklist/work plan stages, status, owner,
   detected pain points, mitigation disposition, evidence links, and next
@@ -886,8 +994,8 @@ changed content.
 
 ## Legacy Reference Redis Demo
 
-The root README retains a legacy reference script that uses real `cub install`
-commands from `confighub/installer`, not target command names.
+`docs/old-cub-helm-model.md` retains a legacy reference script that uses real
+`cub install` commands from `confighub/installer`, not target command names.
 
 This path is retained for reference only:
 
