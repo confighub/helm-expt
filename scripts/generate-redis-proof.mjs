@@ -74,6 +74,171 @@ print(json.dumps(objects, sort_keys=True))
   );
 }
 
+function parseRenderedDocs(path) {
+  const script = `
+import json
+import sys
+import yaml
+
+docs = []
+for doc in yaml.load_all(open(sys.argv[1], "r", encoding="utf-8"), Loader=yaml.BaseLoader):
+    if isinstance(doc, dict):
+        docs.append(doc)
+print(json.dumps(docs, sort_keys=True))
+`;
+  return JSON.parse(
+    execFileSync("python3", ["-c", script, path], {
+      encoding: "utf8",
+      maxBuffer: 1024 * 1024 * 100,
+    }),
+  );
+}
+
+const localScanPolicy = {
+  scanner: "helm-expt-local-rendered-object-scan",
+  version: "0.1.0",
+  rules: [
+    {
+      id: "mutable-image-tag",
+      severity: "high",
+      description: "Container image must use an immutable or non-latest tag.",
+    },
+    {
+      id: "pdb-unhealthy-pod-eviction-policy",
+      severity: "medium",
+      description: "PodDisruptionBudget should set unhealthyPodEvictionPolicy explicitly.",
+    },
+    {
+      id: "service-selector-has-workload-match",
+      severity: "high",
+      description: "Service selector must match a rendered workload pod template.",
+    },
+    {
+      id: "workload-service-account-exists",
+      severity: "high",
+      description: "Workload serviceAccountName must reference a rendered ServiceAccount.",
+    },
+  ],
+};
+
+function identityFor(doc) {
+  const metadata = doc.metadata ?? {};
+  return [
+    doc.apiVersion ?? "",
+    doc.kind ?? "",
+    metadata.namespace ?? "",
+    metadata.name ?? "",
+  ].join("|");
+}
+
+function labelsMatch(selector, labels) {
+  return Object.entries(selector ?? {}).every(([key, value]) => labels?.[key] === value);
+}
+
+function workloadPodSpec(doc) {
+  if (["Deployment", "StatefulSet", "DaemonSet", "ReplicaSet"].includes(doc.kind)) {
+    return doc.spec?.template?.spec ?? null;
+  }
+  if (doc.kind === "Job") return doc.spec?.template?.spec ?? null;
+  if (doc.kind === "CronJob") return doc.spec?.jobTemplate?.spec?.template?.spec ?? null;
+  return null;
+}
+
+function workloadTemplateLabels(doc) {
+  if (["Deployment", "StatefulSet", "DaemonSet", "ReplicaSet"].includes(doc.kind)) {
+    return doc.spec?.template?.metadata?.labels ?? {};
+  }
+  if (doc.kind === "Job") return doc.spec?.template?.metadata?.labels ?? {};
+  if (doc.kind === "CronJob") return doc.spec?.jobTemplate?.spec?.template?.metadata?.labels ?? {};
+  return {};
+}
+
+function imageTag(image) {
+  const lastSlash = image.lastIndexOf("/");
+  const lastColon = image.lastIndexOf(":");
+  if (lastColon <= lastSlash) return null;
+  return image.slice(lastColon + 1);
+}
+
+function scanRenderedDocs(docs) {
+  const findings = [];
+  const workloads = docs.filter((doc) => workloadPodSpec(doc));
+  const serviceAccounts = new Set(
+    docs
+      .filter((doc) => doc.kind === "ServiceAccount")
+      .map((doc) => `${doc.metadata?.namespace ?? ""}/${doc.metadata?.name ?? ""}`),
+  );
+
+  for (const doc of workloads) {
+    const object = identityFor(doc);
+    const podSpec = workloadPodSpec(doc);
+    const containers = [...(podSpec.containers ?? []), ...(podSpec.initContainers ?? [])];
+    for (const container of containers) {
+      const image = container.image ?? "";
+      const tag = imageTag(image);
+      if (!tag || tag === "latest") {
+        findings.push({
+          id: `mutable-image-tag:${object}:${container.name ?? "container"}`,
+          rule: "mutable-image-tag",
+          severity: "high",
+          object,
+          message: `container ${container.name ?? "container"} uses mutable image ${image}`,
+        });
+      }
+    }
+
+    const serviceAccountName = podSpec.serviceAccountName;
+    if (serviceAccountName) {
+      const namespace = doc.metadata?.namespace ?? "";
+      if (!serviceAccounts.has(`${namespace}/${serviceAccountName}`)) {
+        findings.push({
+          id: `workload-service-account-exists:${object}`,
+          rule: "workload-service-account-exists",
+          severity: "high",
+          object,
+          message: `workload references missing ServiceAccount ${namespace}/${serviceAccountName}`,
+        });
+      }
+    }
+  }
+
+  for (const doc of docs.filter((item) => item.kind === "PodDisruptionBudget")) {
+    if (!doc.spec?.unhealthyPodEvictionPolicy) {
+      findings.push({
+        id: `pdb-unhealthy-pod-eviction-policy:${identityFor(doc)}`,
+        rule: "pdb-unhealthy-pod-eviction-policy",
+        severity: "medium",
+        object: identityFor(doc),
+        message: "PodDisruptionBudget does not set unhealthyPodEvictionPolicy",
+      });
+    }
+  }
+
+  for (const doc of docs.filter((item) => item.kind === "Service")) {
+    const selector = doc.spec?.selector ?? {};
+    if (!Object.keys(selector).length) continue;
+    const match = workloads.some((workload) => labelsMatch(selector, workloadTemplateLabels(workload)));
+    if (!match) {
+      findings.push({
+        id: `service-selector-has-workload-match:${identityFor(doc)}`,
+        rule: "service-selector-has-workload-match",
+        severity: "high",
+        object: identityFor(doc),
+        message: "Service selector matches no rendered workload pod template",
+      });
+    }
+  }
+
+  findings.sort((left, right) => left.id.localeCompare(right.id));
+  return findings;
+}
+
+function findingCounts(findings) {
+  const counts = { critical: 0, high: 0, medium: 0, low: 0, info: 0 };
+  for (const finding of findings) counts[finding.severity] += 1;
+  return counts;
+}
+
 function yamlQuote(value) {
   if (value === null || value === undefined) return "null";
   return JSON.stringify(String(value));
@@ -123,6 +288,11 @@ function main() {
 
   write(join(renderedRoot, "release-objects.yaml"), releaseObjects);
   const objects = parseRenderedObjects(join(renderedRoot, "release-objects.yaml"));
+  const renderedDocs = parseRenderedDocs(join(renderedRoot, "release-objects.yaml"));
+  const scanFindings = scanRenderedDocs(renderedDocs);
+  const scanCounts = findingCounts(scanFindings);
+  const scanResult = scanFindings.length ? "warn" : "pass";
+  const policyBundleDigest = sha256(JSON.stringify(localScanPolicy));
   const inventory = objectInventoryYaml(objects, releaseDigest);
   write(join(renderedRoot, "object-inventory.yaml"), inventory);
 
@@ -368,14 +538,27 @@ metadata:
 spec:
   variantRevision: ../variant-revision.yaml
   renderedObjectSetSHA256: ${yamlQuote(releaseDigest)}
-  result: not-run
-  scanner: null
-  policyBundleDigest: null
+  result: ${scanResult}
+  scanner:
+    name: ${yamlQuote(localScanPolicy.scanner)}
+    version: ${yamlQuote(localScanPolicy.version)}
+  policyBundleDigest: ${yamlQuote(policyBundleDigest)}
   findingCounts:
-    critical: null
-    high: null
-    medium: null
-    low: null
+    critical: ${scanCounts.critical}
+    high: ${scanCounts.high}
+    medium: ${scanCounts.medium}
+    low: ${scanCounts.low}
+    info: ${scanCounts.info}
+  findings:
+${scanFindings
+  .map(
+    (finding) => `    - id: ${yamlQuote(finding.id)}
+      rule: ${yamlQuote(finding.rule)}
+      severity: ${yamlQuote(finding.severity)}
+      object: ${yamlQuote(finding.object)}
+      message: ${yamlQuote(finding.message)}`,
+  )
+  .join("\n")}
 `;
   write(join(receiptsRoot, "scan-receipt.yaml"), scanReceipt);
 
@@ -392,7 +575,8 @@ spec:
   blockedScopes:
     - production
   reasons:
-    - scan result is not-run, so production publish is blocked
+    - local scan found ${scanCounts.high} high and ${scanCounts.medium} medium finding(s)
+    - production publish is blocked until high findings are resolved or explicitly waived
     - Helm equivalence passed for standalone variant
 `;
   write(join(receiptsRoot, "install-gate.yaml"), installGate);
@@ -411,8 +595,8 @@ spec:
     helmObjects: 14
     cubInstallObjects: 15
     helmMatch: "14/14"
-    scanGate: not-run-production-blocked
-    nextAction: run rendered-object scanner, then publish through ConfigHub OCI
+    scanGate: warn-production-blocked
+    nextAction: resolve or waive local scan findings, then publish through ConfigHub OCI
   receipts:
     - revisions/standalone/r001/receipts/helm-equivalence-receipt.yaml
     - revisions/standalone/r001/receipts/render-receipt.yaml
@@ -450,8 +634,9 @@ spec:
 | Explained difference | installer namespace support object |
 | Helm match | 14/14 semantic object matches |
 | Secrets | 1 rendered Secret separated from uploaded manifests |
-| Scan/gate | scan not run; production blocked; local-test warning only |
-| Next action | run rendered-object scanner, then publish through ConfigHub OCI |
+| Scan/gate | local scan warns; production blocked; local-test warning only |
+| Scan findings | ${scanCounts.high} high, ${scanCounts.medium} medium |
+| Next action | resolve or waive local scan findings, then publish through ConfigHub OCI |
 | Proof | equivalence, render, scan, and gate receipts |
 
 ## Current Proof Commands

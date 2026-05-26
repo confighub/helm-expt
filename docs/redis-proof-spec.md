@@ -67,7 +67,8 @@ Proof: equivalence, render, scan/gate receipts
 ```
 
 If scan/gate is not executed yet, the card must say `not-run` or `blocked`.
-It must not imply a pass.
+If the local scan runs and finds risks, the card must say `warn` and explain
+which scopes are blocked. It must not imply a pass.
 
 ## Required Invariants
 
@@ -139,6 +140,11 @@ It must not imply a pass.
     `allow`, `warn`, or `block`.
 18. `install-gate.yaml` must not allow a production gate when scan result is
     `not-run`; it may allow only `local-test` if explicitly marked.
+19. When the deterministic local scan is present, `scan-receipt.yaml` must bind
+    scanner name/version, policy bundle digest, finding counts, and findings to
+    the rendered object digest.
+20. When any high finding exists, `install-gate.yaml` must block production and
+    may allow only `local-test`.
 
 ## Proof Commands
 

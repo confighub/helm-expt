@@ -12,8 +12,8 @@ spec:
     helmObjects: 14
     cubInstallObjects: 15
     helmMatch: "14/14"
-    scanGate: not-run-production-blocked
-    nextAction: run rendered-object scanner, then publish through ConfigHub OCI
+    scanGate: warn-production-blocked
+    nextAction: resolve or waive local scan findings, then publish through ConfigHub OCI
   receipts:
     - revisions/standalone/r001/receipts/helm-equivalence-receipt.yaml
     - revisions/standalone/r001/receipts/render-receipt.yaml

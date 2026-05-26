@@ -221,11 +221,28 @@ function verifyProof(root) {
   );
 
   check(scanReceipt.spec.renderedObjectSetSHA256 === releaseDigest, "scan receipt rendered digest mismatch");
-  check(scanReceipt.spec.result === "not-run", "first Redis scan receipt must explicitly be not-run");
+  check(
+    scanReceipt.spec.scanner?.name === "helm-expt-local-rendered-object-scan",
+    "scan receipt scanner name mismatch",
+  );
+  check(Boolean(scanReceipt.spec.policyBundleDigest), "scan receipt policy bundle digest must be present");
+  check(scanReceipt.spec.result === "warn", "Redis scan receipt must warn while high findings exist");
+  check(scanReceipt.spec.findingCounts?.high === 2, "Redis scan receipt must record 2 high findings");
+  check(scanReceipt.spec.findingCounts?.medium === 2, "Redis scan receipt must record 2 medium findings");
+  check(scanReceipt.spec.findingCounts?.low === 0, "Redis scan receipt must record 0 low findings");
+  check(scanReceipt.spec.findings?.length === 4, "Redis scan receipt must list 4 findings");
+  check(
+    scanReceipt.spec.findings.filter((finding) => finding.rule === "mutable-image-tag").length === 2,
+    "Redis scan receipt must list 2 mutable-image-tag findings",
+  );
+  check(
+    scanReceipt.spec.findings.filter((finding) => finding.rule === "pdb-unhealthy-pod-eviction-policy").length === 2,
+    "Redis scan receipt must list 2 PDB unhealthy eviction policy findings",
+  );
   check(installGate.spec.renderedObjectSetSHA256 === releaseDigest, "install gate rendered digest mismatch");
-  check(installGate.spec.decision === "warn", "install gate must warn while scan is not-run");
+  check(installGate.spec.decision === "warn", "install gate must warn with high scan findings");
   check(installGate.spec.allowedScopes?.includes("local-test"), "install gate must allow local-test only");
-  check(installGate.spec.blockedScopes?.includes("production"), "install gate must block production while scan is not-run");
+  check(installGate.spec.blockedScopes?.includes("production"), "install gate must block production with high findings");
 
   return true;
 }
@@ -283,9 +300,9 @@ function runSelfTest() {
     "false scan success is rejected",
     (root) => {
       const path = join(root, "revisions", "standalone", "r001", "receipts", "scan-receipt.yaml");
-      writeFileSync(path, readFileSync(path, "utf8").replace("result: not-run", "result: pass"));
+      writeFileSync(path, readFileSync(path, "utf8").replace("result: warn", "result: pass"));
     },
-    "first Redis scan receipt must explicitly be not-run",
+    "Redis scan receipt must warn while high findings exist",
   );
 }
 

@@ -11,5 +11,6 @@ spec:
   blockedScopes:
     - production
   reasons:
-    - scan result is not-run, so production publish is blocked
+    - local scan found 2 high and 2 medium finding(s)
+    - production publish is blocked until high findings are resolved or explicitly waived
     - Helm equivalence passed for standalone variant
