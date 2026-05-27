@@ -34,8 +34,9 @@ if (mode === "--generate") {
 
 function buildReport() {
   const useMoreNow = useMoreNowIndex();
+  const liveE2E = liveE2EIndex();
   const rows = recipeRoots()
-    .map((root) => productionRow(root, useMoreNow))
+    .map((root) => productionRow(root, useMoreNow, liveE2E))
     .filter(Boolean)
     .sort((left, right) => left.chart.localeCompare(right.chart));
   check(rows.length === 20, `expected 20 catalog-supported rows, found ${rows.length}`);
@@ -53,7 +54,7 @@ function recipeRoots() {
     .sort();
 }
 
-function productionRow(root, useMoreNow) {
+function productionRow(root, useMoreNow, liveE2E) {
   const catalog = readYaml(join(root, "catalog-status.yaml"));
   if (catalog.spec?.status !== "catalog-supported") return null;
   const index = readYaml(join(root, "artifact-index.yaml"));
@@ -62,7 +63,7 @@ function productionRow(root, useMoreNow) {
   const version = String(catalog.spec.version);
   const receipt = useMoreNow.get(chart);
   const useMoreNowStatus = receipt?.status ?? "missing";
-  const live = liveStatus(chart);
+  const live = liveStatus(chart, liveE2E);
   const requiredDispositions = dispositionList({
     controls: controls.spec?.points ?? [],
     variants: index.spec?.variants ?? [],
@@ -111,15 +112,30 @@ function useMoreNowIndex() {
   return result;
 }
 
-function liveStatus(chart) {
-  if (chart !== "bitnami/redis") return { status: "not-started", receipts: [] };
-  const receipts = [
+function liveE2EIndex() {
+  const result = new Map();
+  for (const receiptPath of listFiles(join(repoRoot, "runs")).filter((file) => file.endsWith("observation-receipt.json"))) {
+    const receipt = JSON.parse(readFileSync(receiptPath, "utf8"));
+    const chart = receipt.spec?.chart;
+    if (!chart || receipt.spec?.result !== "pass") continue;
+    if (!result.has(chart)) result.set(chart, []);
+    result.get(chart).push(relativeRepo(receiptPath));
+  }
+  return result;
+}
+
+function liveStatus(chart, liveE2E) {
+  const receipts = [...(liveE2E.get(chart) ?? [])];
+  if (chart === "bitnami/redis") {
+    receipts.push(
     "runs/redis-local-kind/latest/observation-receipt.yaml",
     "runs/redis-local-kind/reuse-existing-secret-latest/observation-receipt.yaml",
-  ].filter((path) => existsSync(join(repoRoot, path)));
+    );
+  }
+  const existingReceipts = receipts.filter((path) => existsSync(join(repoRoot, path))).sort();
   return {
-    status: receipts.length === 2 ? "local-kind-observed" : "partial",
-    receipts,
+    status: existingReceipts.length > 0 ? "local-kind-observed" : "not-started",
+    receipts: existingReceipts,
   };
 }
 

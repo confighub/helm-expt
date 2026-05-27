@@ -1,0 +1,89 @@
+# Top-20 Production Disposition Details
+
+The top-20 catalog entries are supported for `local-test`. This file states
+exactly what must be closed before production support can be claimed.
+
+| Chart | Local-test variants | Production state | Required disposition count | Live/e2e receipts |
+| --- | --- | --- | ---: | --- |
+| `argo-cd/argo-cd@9.5.15` | default, no-crds | production-blocked | 6 | 0 |
+| `bitnami/mongodb@19.0.7` | generated-passwords, existing-secret-replicaset | production-blocked | 5 | 0 |
+| `bitnami/mysql@14.0.3` | generated-passwords, existing-secret | production-blocked | 6 | 0 |
+| `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | production-blocked | 4 | 1 |
+| `bitnami/postgresql@18.6.7` | generated-passwords, existing-secret | production-blocked | 6 | 0 |
+| `bitnami/rabbitmq@16.0.14` | generated-passwords, existing-secret | production-blocked | 6 | 0 |
+| `bitnami/redis@25.5.3` | default, reuse-existing-secret | production-blocked | 4 | 0 |
+| `external-secrets/external-secrets@2.5.0` | default, no-crds | production-blocked | 5 | 0 |
+| `grafana/grafana@10.5.15` | generated-passwords, existing-secret-ingress | production-blocked | 5 | 0 |
+| `grafana/loki@7.0.0` | single-binary-filesystem, simple-scalable-minio | production-blocked | 5 | 0 |
+| `grafana/tempo@1.24.4` | local-persistent, s3-query-observability | production-blocked | 4 | 0 |
+| `hashicorp/consul@2.0.0` | default-control-plane, secure-mesh-existing-secrets | production-blocked | 8 | 0 |
+| `hashicorp/vault@0.32.0` | default, ha-raft-ui | production-blocked | 5 | 0 |
+| `ingress-nginx/ingress-nginx@4.15.1` | default, admission-disabled | production-blocked | 5 | 0 |
+| `jetstack/cert-manager@v1.20.2` | default, crds-enabled | production-blocked | 6 | 0 |
+| `longhorn/longhorn@1.11.2` | default, ui-ingress | production-blocked | 5 | 0 |
+| `metrics-server/metrics-server@3.13.0` | default, external-tls-ca | production-blocked | 5 | 0 |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | default, no-crds | production-blocked | 6 | 0 |
+| `prometheus-community/prometheus@29.8.0` | default, server-only-ephemeral | production-blocked | 3 | 0 |
+| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default, sync-secret-rotation | production-blocked | 4 | 0 |
+
+## Standard Disposition Types
+
+### CRD lifecycle and upgrade policy
+
+- owner: catalog-review
+- required evidence: CRD ownership decision; upgrade ordering; rollback/deprecation policy
+- unblock rule: supported only when CRD ownership and upgrade behavior are explicit
+
+### webhook readiness and failure policy
+
+- owner: catalog-review
+- required evidence: webhook deployment readiness; failurePolicy review; certificate/bootstrap handling
+- unblock rule: supported only when webhook failure modes are known before apply
+
+### cluster RBAC review
+
+- owner: security-review
+- required evidence: cluster-scoped RBAC inventory; least-privilege disposition; operator acceptance
+- unblock rule: supported only after cluster-scoped permissions have an explicit disposition
+
+### storage backup restore and rollback policy
+
+- owner: operate-review
+- required evidence: PVC/storage class assumptions; backup/restore path; rollback constraints
+- unblock rule: supported only when stateful rollback is not hand-waved
+
+### generated fact ownership
+
+- owner: catalog-review
+- required evidence: generated secret/cert inventory; persistence or target binding; rotation policy
+- unblock rule: supported only when generated material is captured or deliberately externalized
+
+### target fact preflight
+
+- owner: installer-review
+- required evidence: installer externalRequires/facts; preflight command or documented block; freshness expectation
+- unblock rule: supported only when required target facts are checkable before apply
+
+### hook and lifecycle phase policy
+
+- owner: catalog-review
+- required evidence: hook inventory; phase mapping; unsupported hook blockers
+- unblock rule: supported only when hooks are mapped to lifecycle policy or intentionally excluded
+
+### extension slot provenance and scan policy
+
+- owner: catalog-review
+- required evidence: tpl/raw value inventory; allowed extension slots; scan coverage for rendered additions
+- unblock rule: supported only when extensions are explicit and scanned after render
+
+### scan/gate warning disposition
+
+- owner: security-review
+- required evidence: local scan receipt; external scan receipt; waiver or fix decision
+- unblock rule: supported only when warnings are accepted, fixed, or variant-blocking
+
+## Rule
+
+No chart leaves `production-blocked` until each required disposition is
+accepted, fixed, or turned into an explicit variant blocker, and the result is
+backed by rendered-digest-bound scan and live/e2e receipts.

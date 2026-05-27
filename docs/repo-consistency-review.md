@@ -10,7 +10,7 @@ docs/ -> doctrine, maintenance, customization, promotion review
 recipes/ -> chart proof artifacts
 packages/ -> executable cub installer packages
 data/ -> generated review outputs
-outputs/helm_top500_matrix/ -> historical source-feature matrix only
+data/top500-catalog-analysis/ -> current top-500 proof index and source-scan input
 ```
 
 The old top-20 render-and-vendor payload is removed from the active tree. The

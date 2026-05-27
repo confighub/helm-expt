@@ -16,11 +16,12 @@ Scope exclusions:
 
 - The old `archive/render-and-vendor-top20/` payload has been removed from the
   active tree.
-- `outputs/helm_top500_matrix/` is an old source-feature spreadsheet and is
-  legacy reference only.
+- `data/top500-catalog-analysis/source/source-feature-scan.raw.json` is the
+  historical source-feature scan input. The current top-500 proof index is the
+  generated output in `data/top500-catalog-analysis/`.
 - Do not judge the current plan by whether those old artifacts prove it. They
   do not. The current plan requires new chart proof repos, new recipe artifacts,
-  new generated spreadsheets, and new receipts.
+  generated spreadsheets, and receipts.
 
 Core thesis:
 
@@ -255,11 +256,11 @@ Read:
 
 Explicitly exclude from current-pathway proof review:
 
-- outputs/helm_top500_matrix/
+- legacy source-feature-only spreadsheets
 
 The old render-and-vendor top-20 payload has been removed from the active tree.
-The remaining old matrix is legacy/reference only. Mention it only if current
-docs still accidentally present it as the main execution path.
+The source-feature scan is retained only as input to the generated top-500
+catalog analysis. Do not treat source-feature reconnaissance as product proof.
 
 The intended repo story is:
 

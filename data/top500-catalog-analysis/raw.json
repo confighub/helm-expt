@@ -1,6 +1,6 @@
 {
   "generatedBy": "scripts/generate-top500-catalog-analysis.mjs",
-  "source": "outputs/helm_top500_matrix/helm_top500_import_feature_matrix.raw.json",
+  "source": "data/top500-catalog-analysis/source/source-feature-scan.raw.json",
   "summary": {
     "rows": 500,
     "sourceScanned": 495,

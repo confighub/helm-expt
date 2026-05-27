@@ -1,14 +1,15 @@
 # Current Pathway Review
 
-This review intentionally excludes the legacy source-feature matrix:
+This review intentionally excludes source-feature-only reconnaissance as
+product proof:
 
 ```text
-outputs/helm_top500_matrix/
+data/top500-catalog-analysis/source/source-feature-scan.raw.json
 ```
 
 The old render-and-vendor top-20 payload has been removed from the active tree.
-The remaining matrix is useful history, not the main pathway for executing the
-current Helm mission.
+The source scan is useful history and input to the generated top-500 catalog
+analysis, not the main pathway for executing the current Helm mission.
 
 ## Verdict
 

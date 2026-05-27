@@ -14,7 +14,7 @@ const rawPath = join(outputRoot, "raw.json");
 const reviewCsvPath = join(outputRoot, "review.csv");
 const drilldownCsvPath = join(outputRoot, "drilldown.csv");
 const summaryPath = join(outputRoot, "summary.md");
-const oldMatrixPath = join(repoRoot, "outputs", "helm_top500_matrix", "helm_top500_import_feature_matrix.raw.json");
+const sourceScanPath = join(repoRoot, "data", "top500-catalog-analysis", "source", "source-feature-scan.raw.json");
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -42,7 +42,7 @@ if (mode === "--generate") {
 }
 
 function buildReport() {
-  const sourceRows = JSON.parse(readFileSync(oldMatrixPath, "utf8"));
+  const sourceRows = JSON.parse(readFileSync(sourceScanPath, "utf8"));
   check(Array.isArray(sourceRows), "old top500 matrix raw JSON must be an array");
   check(sourceRows.length === 500, `expected 500 source rows, found ${sourceRows.length}`);
   const proofIndex = currentProofIndex();
@@ -59,7 +59,7 @@ function buildReport() {
   return {
     rows,
     summary,
-    rawJson: `${JSON.stringify({ generatedBy: "scripts/generate-top500-catalog-analysis.mjs", source: relativeRepo(oldMatrixPath), summary, rows }, null, 2)}\n`,
+    rawJson: `${JSON.stringify({ generatedBy: "scripts/generate-top500-catalog-analysis.mjs", source: relativeRepo(sourceScanPath), summary, rows }, null, 2)}\n`,
     reviewCsv: toCsv(rows, reviewHeaders()),
     drilldownCsv: toCsv(rows, drilldownHeaders()),
     summary: toSummary(summary, rows),
@@ -316,9 +316,19 @@ function toSummary(summary, rows) {
   const missing = rows.filter((row) => row.recipe_status === "no-current-recipe").slice(0, 10);
   return `# Top-500 Catalog Analysis
 
-This replaces the old source-feature-only matrix with a catalog proof index.
-It still keeps the old Helm source scan evidence, but it now shows which charts
-have current ConfigHub/cub install proof artifacts and what remains to do.
+This is the public catalog proof index for the Helm mission.
+
+It combines two kinds of evidence:
+
+\`\`\`text
+source-feature reconnaissance
+  + current ConfigHub/cub install recipe evidence
+\`\`\`
+
+The source scan tells us what Helm complexity exists in popular charts. The
+catalog proof columns tell us whether this repo already has a current recipe,
+package, variant, rendered digest, scan/gate evidence, and catalog status for
+that chart.
 
 ## Summary
 
@@ -343,14 +353,46 @@ default-only proofs: ${summary.defaultOnlyProofs}
 supported but production-blocked: ${summary.productionBlockedSupported}
 \`\`\`
 
-## What This Matrix Proves
+## What We Learn
 
+- Helm complexity is normal, not exceptional. The high-rank rows include CRDs,
+  hooks, generated facts, lookup, tpl, RBAC, webhooks, and stateful storage.
 - ${summary.currentProofsTotal} current recipe/package/proof artifacts exist in this repo.
-- ${summary.currentRecipeRows} of the old top-500 source rows currently match those proofs.
-- ${summary.catalogSupported} matched rows are catalog-supported for the declared \`local-test\` scope.
-- ${summary.proofGrade} matched rows are proof-grade default installs that need user-shaped variants before
-  promotion.
-- ${summary.noCurrentRecipeRows} rows still have source reconnaissance only; they are not product proof.
+- ${summary.currentRecipeRows} of the top-500 source rows currently match those
+  proof artifacts.
+- ${summary.catalogSupported} matched rows are catalog-supported for the
+  declared \`local-test\` scope.
+- ${summary.proofGrade} matched rows are proof-grade default installs. They
+  prove deterministic render/package behavior, but they still need
+  user-shaped variants before catalog promotion.
+- ${summary.noCurrentRecipeRows} rows still have source reconnaissance only.
+  They are useful backlog data, not product proof.
+- ${summary.differentCurrentVersionRows} rows have a current recipe for the
+  chart but at a different version than the original source-scan row. These are
+  upgrade/freshness review candidates.
+- The practical next work is visible: add variants to high-rank proof-grade
+  charts, add production dispositions to local-test supported charts, and
+  create recipes for high-rank rows with no current proof.
+
+## How To Read The Files
+
+| File | Use |
+| --- | --- |
+| \`summary.md\` | Human summary and next actions. |
+| \`review.csv\` / \`review.xlsx\` | Short front sheet: one row per top-500 chart with proof/catalog status. |
+| \`drilldown.csv\` | Wider evidence table for control points and source features. |
+| \`raw.json\` | Machine-readable generated report. |
+| \`source/source-feature-scan.raw.json\` | Historical source scan input used to build the current catalog analysis. |
+
+## Important Boundary
+
+This matrix is an evidence map, not a blanket certification.
+
+\`\`\`text
+catalog-supported = recommended only for the declared scope
+proof-grade = deterministic proof exists, but product variants/review remain
+source reconnaissance only = no product proof yet
+\`\`\`
 
 ## Next Promotion Candidates
 
@@ -374,6 +416,7 @@ data/top500-catalog-analysis/review.csv
 data/top500-catalog-analysis/drilldown.csv
 data/top500-catalog-analysis/summary.md
 data/top500-catalog-analysis/review.xlsx
+data/top500-catalog-analysis/source/source-feature-scan.raw.json
 \`\`\`
 `;
 }

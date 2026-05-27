@@ -145,14 +145,15 @@ new chart proof repos
 Reference-only material:
 
 ```text
-outputs/helm_top500_matrix/
+data/top500-catalog-analysis/source/source-feature-scan.raw.json
 ```
 
 The old render-and-vendor top-20 payload has been removed from the active tree.
-The remaining old matrix is useful history, but it must be excluded from
-reviews of whether the current plan works. It does not count as recipe
-candidates, managed variants, variant revisions, scan receipts, install gates,
-OCI receipts, or the new spreadsheet proof system.
+The remaining source-feature scan is useful history and input data for the
+generated top-500 catalog analysis, but it must be excluded from reviews of
+whether the current plan works. It does not count as recipe candidates, managed
+variants, variant revisions, scan receipts, install gates, OCI receipts, or the
+new spreadsheet proof system.
 
 ## Issue Gates
 

@@ -2,21 +2,30 @@
 
 ## Verdict
 
-Yes: recalculate it and produce a new sheet plus raw JSON.
+Yes: recalculated. The current top-500 catalog analysis lives under:
 
-The current files in `outputs/helm_top500_matrix/` are useful historical
-reconnaissance, but they are not aligned with the current catalog proof model.
-They scan chart source features; they do not trace charts to current recipes,
-installer packages, variants, rendered revision digests, scans, gates, catalog
-status, or maintenance review.
+```text
+data/top500-catalog-analysis/
+```
+
+The retained source scan input is:
+
+```text
+data/top500-catalog-analysis/source/source-feature-scan.raw.json
+```
+
+That source scan is useful historical reconnaissance, but it is not the current
+catalog proof model by itself. The generated catalog analysis now traces rows
+to current recipes, installer packages, variants, rendered revision digests,
+scans, gates, catalog status, or maintenance review where those artifacts
+exist.
 
 ## What The Old Matrix Contains
 
 Files reviewed:
 
 ```text
-outputs/helm_top500_matrix/helm_top500_import_feature_matrix.raw.json
-outputs/helm_top500_matrix/helm_top500_import_feature_matrix.xlsx
+data/top500-catalog-analysis/source/source-feature-scan.raw.json
 ```
 
 Raw JSON shape:
@@ -149,7 +158,7 @@ receipts_path
 
 ## Rule
 
-Keep `outputs/helm_top500_matrix/` as historical input until the new matrix
+Keep `data/top500-catalog-analysis/source/source-feature-scan.raw.json` as historical input until the new matrix
 exists, but do not present it as current proof. Once the new matrix is
 generated and reviewed, move or delete the old output from the public proof
 surface.
