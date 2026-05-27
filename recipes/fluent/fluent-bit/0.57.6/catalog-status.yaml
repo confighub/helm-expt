@@ -1,0 +1,23 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: CatalogStatus
+metadata:
+  name: "fluent-fluent-bit-0.57.6"
+spec:
+  chart: "fluent/fluent-bit"
+  version: "0.57.6"
+  status: "proof-grade"
+  supportLevel: "machine-proof-only"
+  supportedScopes:
+    []
+  productionReadiness: "not-reviewed-for-production"
+  supportedVariants:
+    []
+  candidateVariants:
+    - "default"
+  deferredVariants: []
+  review:
+    lastReviewed: "2026-05-27"
+    humanReviewRequired: true
+    productReviewRequired: true
+  notes:
+    - "Machine proof exists; catalog support is not claimed until variant and product review are complete."

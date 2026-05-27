@@ -115,8 +115,8 @@ Pure serverless is optional future work, not part of the current proof.
 
 ## Main Pathway Boundary
 
-The current plan does not execute through the archived top-20 render-and-vendor
-folders or the old top-500 spreadsheet.
+The current plan does not execute through the removed top-20 render-and-vendor
+payload or the old top-500 spreadsheet.
 
 Main pathway:
 
@@ -131,14 +131,14 @@ new chart proof repos
 Reference-only material:
 
 ```text
-archive/render-and-vendor-top20/
 outputs/helm_top500_matrix/
 ```
 
-Those artifacts are useful history and compatibility evidence, but they must be
-excluded from reviews of whether the current plan works. They do not count as
-recipe candidates, managed variants, variant revisions, scan receipts, install
-gates, OCI receipts, or the new spreadsheet proof system.
+The old render-and-vendor top-20 payload has been removed from the active tree.
+The remaining old matrix is useful history, but it must be excluded from
+reviews of whether the current plan works. It does not count as recipe
+candidates, managed variants, variant revisions, scan receipts, install gates,
+OCI receipts, or the new spreadsheet proof system.
 
 ## Issue Gates
 
@@ -1095,26 +1095,13 @@ shows:
 The spreadsheet should be generated from these internal representations, not be
 the internal representation itself.
 
-## Archived Top-20 Artifacts
+## Removed Legacy Top-20 Archive
 
-The archived top-20 artifacts prove the older render-and-vendor path. They are
-useful history, but they are reference only. They are not on the main pathway
-for executing this plan and must not be counted as current product proof.
-
-Disposition:
-
-```text
-archive/render-and-vendor-top20/
-```
-
-Label them as compatibility/legacy evidence:
-
-```text
-These examples show that rendered Helm output can be wrapped and verified.
-They are not the main proof of ConfigHub variants.
-They should be ignored when reviewing whether the new chart-recipe-variant
-pathway has been implemented.
-```
+The old top-20 render-and-vendor archive proved an earlier compatibility path,
+but it is not on the main pathway for executing this plan and has been removed
+from the active tree. Current proof must come from `recipes/`, `packages/`,
+rendered revision receipts, scan/gate receipts, catalog status, and generated
+review outputs.
 
 ## Control Points
 
@@ -1214,9 +1201,9 @@ go install sigs.k8s.io/kustomize/kustomize/v5@v5.8.1
 export PATH="$PATH:$(go env GOPATH)/bin"
 cub plugin install confighub/installer --source-repo --name install --force
 make -C ~/.confighub/plugins/install build
-cub install doc ./archive/render-and-vendor-top20/charts/06-bitnami-redis
+cub install doc ./packages/bitnami/redis/25.5.3
 cub install setup \
-  --pull ./archive/render-and-vendor-top20/charts/06-bitnami-redis \
+  --pull ./packages/bitnami/redis/25.5.3 \
   --work-dir /tmp/confighub-helm-redis \
   --non-interactive \
   --namespace redis
@@ -1229,15 +1216,15 @@ cub install upload \
   --variant default
 ```
 
-This demo proves only the archived render-and-vendor compatibility path:
+This demo proves the current Redis `cub install` compatibility path:
 
 ```text
 Helm render
-  -> archived Redis installer package
+  -> Redis installer package
   -> installer.yaml package
   -> cub install setup
   -> exact rendered Kubernetes objects
-  -> cub install upload
+  -> ConfigHub package/OCI publication path
   -> ConfigHub Units, revisions, and diffs
 ```
 
@@ -1384,7 +1371,7 @@ Minimum docs:
 6. Variant revision is the object users approve, scan, promote, deploy, and roll back.
 7. ConfigHub Server is workerless and does not claim fresh live truth without external observation receipts.
 8. External observers can participate, but should not make the happy path feel heavy.
-9. Current top-20 render-and-vendor artifacts are archived as compatibility evidence, not hero proof.
+9. The old top-20 render-and-vendor payload is removed from the active tree; current proof lives in recipes, packages, receipts, and generated reviews.
 10. Every maintained chart needs a `HelmPlan` and `ChartDossier`.
 11. The new top-20 milestone is 20 full chart proofs. The top-20 spreadsheet
     must be a generated evidence map over those proofs, not a substitute for

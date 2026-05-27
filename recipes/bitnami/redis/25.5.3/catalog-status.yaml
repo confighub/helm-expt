@@ -1,0 +1,26 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: CatalogStatus
+metadata:
+  name: "bitnami-redis-25.5.3"
+spec:
+  chart: "bitnami/redis"
+  version: "25.5.3"
+  status: "catalog-supported"
+  supportLevel: "supported-for-declared-scopes"
+  supportedScopes:
+    - local-test
+  productionReadiness: "blocked-by-current-scan-gate"
+  supportedVariants:
+    - "default"
+    - "reuse-existing-secret"
+  candidateVariants:
+    []
+  deferredVariants: []
+  review:
+    lastReviewed: "2026-05-27"
+    humanReviewRequired: false
+    productReviewRequired: false
+  notes:
+    - "First deliberately supported catalog entry."
+    - "Supported scope is local-test until scan findings have production dispositions."
+    - "Both variants are Helm-equivalent through cub install setup."

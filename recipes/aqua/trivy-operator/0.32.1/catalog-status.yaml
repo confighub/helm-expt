@@ -1,0 +1,23 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: CatalogStatus
+metadata:
+  name: "aqua-trivy-operator-0.32.1"
+spec:
+  chart: "aqua/trivy-operator"
+  version: "0.32.1"
+  status: "proof-grade"
+  supportLevel: "machine-proof-only"
+  supportedScopes:
+    []
+  productionReadiness: "not-reviewed-for-production"
+  supportedVariants:
+    []
+  candidateVariants:
+    - "default"
+  deferredVariants: []
+  review:
+    lastReviewed: "2026-05-27"
+    humanReviewRequired: true
+    productReviewRequired: true
+  notes:
+    - "Machine proof exists; catalog support is not claimed until variant and product review are complete."

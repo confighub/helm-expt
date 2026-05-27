@@ -13,4 +13,4 @@ spec:
   archiveSHA256: "aa5360967bc1adadf69f0ce91d762f0bb4d80ca36758b37d7d8f1ef981257baf"
   artifactHubDigest: "aa5360967bc1adadf69f0ce91d762f0bb4d80ca36758b37d7d8f1ef981257baf"
   evidence:
-    archiveReceipt: ../../../../archive/render-and-vendor-top20/charts/06-bitnami-redis/helm-import.receipt.yaml
+    installerPackageReceipt: publication/installer-package-receipt.yaml

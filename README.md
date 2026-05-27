@@ -109,15 +109,29 @@ The docs that separate proof from recommended catalog support are:
 ```text
 docs/customization-algorithm.md
 docs/catalog-promotion-review.md
+docs/catalog-promotion-next-candidates.md
 docs/maintenance-sla.md
+docs/legacy-patch-review.md
+docs/top500-matrix-refresh-review.md
+docs/repo-consistency-review.md
 ```
 
 Verification:
 
 ```sh
+npm run catalog:status
+npm run catalog:status:verify
+npm run catalog:review
+npm run catalog:review:verify
+npm run legacy-patch:review
+npm run legacy-patch:review:verify
 npm run next80:verify
 npm run next80:verify:packages
 ```
+
+Catalog support is explicit. It is not inferred from machine proof. Today Redis
+is the first `catalog-supported` entry, with production still blocked by the
+current scan gate until the findings have a production disposition.
 
 Default rule:
 
@@ -183,17 +197,18 @@ deferred option and is not part of this executable demo.
 
 ## Legacy Reference Only
 
-The old render-and-vendor material has been deliberately archived:
+The old render-and-vendor top-20 chart payload has been removed from the active
+tree. It remains available in pre-cleanup git history only. The old top-500
+matrix is still present for historical analysis:
 
 ```text
-archive/render-and-vendor-top20/
 outputs/helm_top500_matrix/
 ```
 
-Those files are reference evidence only. They should not be reviewed as the
-main pathway for this plan.
+That matrix is reference evidence only. It should not be reviewed as the main
+pathway for this plan.
 
-The archived material can still show that:
+The historical material showed that:
 
 - rendered Helm YAML can be wrapped by `confighub/installer`
 - `cub install setup` can preserve a Helm-rendered object set
@@ -304,10 +319,9 @@ schemas/
 runs/
 ```
 
-Legacy reference files remain here:
+Legacy source-feature output remains here:
 
 ```text
-archive/render-and-vendor-top20/charts/
 outputs/helm_top500_matrix/
 ```
 
@@ -356,20 +370,13 @@ npm run tempo:compare
 npm run consul:compare
 ```
 
-It checks the archived reference receipts against their referenced files, then
-checks the current Redis proof artifacts, Helm-equivalence evidence, scan/gate
-receipts, variant diff evidence, promoted metrics-server, ingress-nginx,
-cert-manager, external-secrets, Argo CD, PostgreSQL, RabbitMQ,
-kube-prometheus-stack, Loki, Longhorn, MySQL, Grafana, Vault,
-Secrets Store CSI Driver, Prometheus, MongoDB, Nginx, Tempo, and Consul
+It checks the current recipe/package artifact chain, Redis proof artifacts,
+Helm-equivalence evidence, scan/gate receipts, variant diff evidence, promoted
+metrics-server, ingress-nginx, cert-manager, external-secrets, Argo CD,
+PostgreSQL, RabbitMQ, kube-prometheus-stack, Loki, Longhorn, MySQL, Grafana,
+Vault, Secrets Store CSI Driver, Prometheus, MongoDB, Nginx, Tempo, and Consul
 proof/package artifacts, deterministic `cub install` packaging, and negative
 golden self-tests.
-
-The old hash-only archive check is still available for comparison:
-
-```sh
-npm run verify:legacy
-```
 
 ## Redis Proof
 
@@ -1122,12 +1129,6 @@ extension slots, RBAC, webhooks, APIService, stateful workloads, and PVCs.
 
 Rows must trace to receipts and rendered object digests. Blocked or
 nondeterministic rows are useful findings, not swept-away failures.
-
-## Legacy Redis Reference
-
-Detailed legacy commands are intentionally not the root README experience.
-They are retained in [docs/old-cub-helm-model.md](docs/old-cub-helm-model.md)
-for reference only.
 
 Background notes:
 

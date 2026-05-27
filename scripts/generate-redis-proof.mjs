@@ -7,10 +7,11 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(__dirname, "..");
-const archiveRedis = join(repoRoot, "archive", "render-and-vendor-top20", "charts", "06-bitnami-redis");
 const proofRoot = join(repoRoot, "recipes", "bitnami", "redis", "25.5.3");
 const chartRef = "oci://registry-1.docker.io/bitnamicharts/redis";
 const chartVersion = "25.5.3";
+const chartAppVersion = "8.6.3";
+const chartArchiveSHA256 = "aa5360967bc1adadf69f0ce91d762f0bb4d80ca36758b37d7d8f1ef981257baf";
 const releaseName = "redis";
 const namespace = "redis";
 const kubeVersion = "1.30.0";
@@ -40,25 +41,6 @@ function stripTrailingWhitespace(text) {
 
 function sha256File(path) {
   return sha256(readFileSync(path));
-}
-
-function parseYamlFile(path) {
-  const script = `
-import json
-import sys
-import yaml
-
-with open(sys.argv[1], "r", encoding="utf-8") as handle:
-    docs = list(yaml.safe_load_all(handle))
-docs = [doc for doc in docs if doc is not None]
-print(json.dumps(docs[0] if len(docs) == 1 else docs, sort_keys=True))
-`;
-  return JSON.parse(
-    execFileSync("python3", ["-c", script, path], {
-      encoding: "utf8",
-      maxBuffer: 1024 * 1024 * 100,
-    }),
-  );
 }
 
 function parseRenderedObjects(path) {
@@ -306,6 +288,18 @@ function renderHelm(valuesText) {
   }
 }
 
+function helmVersion() {
+  try {
+    return execFileSync("helm", ["version", "--template", "{{.Version}}"], {
+      cwd: repoRoot,
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "inherit"],
+    }).trim();
+  } catch {
+    return "unknown";
+  }
+}
+
 function digestLine(label, value) {
   return `    ${label}: ${yamlQuote(value)}\n`;
 }
@@ -333,9 +327,9 @@ ${objects
 }
 
 function main() {
-  const archiveReceipt = parseYamlFile(join(archiveRedis, "helm-import.receipt.yaml"));
-  const archiveValues = readFileSync(join(archiveRedis, "values.yaml"), "utf8");
-  const defaultReleaseObjects = readFileSync(join(archiveRedis, "base", "upstream.yaml"), "utf8");
+  const rendererVersion = helmVersion();
+  const defaultValues = 'auth:\n  password: "confighub-redis-password"\n';
+  const defaultReleaseObjects = renderHelm(defaultValues);
   const reuseExistingSecretValues = `auth:
   existingSecret: redis-existing-secret
   existingSecretPasswordKey: redis-password
@@ -346,8 +340,7 @@ function main() {
       name: "default",
       displayName: "default",
       effectiveValuesFile: "effective-values.yaml",
-      valuesText: archiveValues,
-      valuesSourcePath: "../../../../archive/render-and-vendor-top20/charts/06-bitnami-redis/values.yaml",
+      valuesText: defaultValues,
       releaseObjects: defaultReleaseObjects,
       expectedObjectCount: 14,
       expectedSecretCount: 1,
@@ -388,11 +381,11 @@ spec:
   contentURL: oci://registry-1.docker.io/bitnamicharts/redis:25.5.3
   chart: redis
   version: 25.5.3
-  appVersion: ${yamlQuote(archiveReceipt.spec.chart.appVersion)}
-  archiveSHA256: ${yamlQuote(archiveReceipt.spec.chart.archiveSHA256)}
-  artifactHubDigest: ${yamlQuote(archiveReceipt.spec.chart.artifactHubDigest)}
+  appVersion: ${yamlQuote(chartAppVersion)}
+  archiveSHA256: ${yamlQuote(chartArchiveSHA256)}
+  artifactHubDigest: ${yamlQuote(chartArchiveSHA256)}
   evidence:
-    archiveReceipt: ../../../../archive/render-and-vendor-top20/charts/06-bitnami-redis/helm-import.receipt.yaml
+    installerPackageReceipt: publication/installer-package-receipt.yaml
 `;
   write(join(proofRoot, "source-lock.yaml"), sourceLock);
 
@@ -486,13 +479,13 @@ spec:
     dependencyLock: dependency-lock.yaml
   importMode: render-and-vendor
   currentExecutableFixture:
-    installerPackage: ../../../../archive/render-and-vendor-top20/charts/06-bitnami-redis
+    installerPackage: ../../../../packages/bitnami/redis/25.5.3
     setupCommand:
       - cub
       - install
       - setup
       - --pull
-      - ../../../../archive/render-and-vendor-top20/charts/06-bitnami-redis
+      - ../../../../packages/bitnami/redis/25.5.3
       - --non-interactive
       - --namespace
       - redis
@@ -505,7 +498,7 @@ ${variants.map((variant) => `    - variants/${variant.name}/variant.yaml`).join(
   const rendererFingerprint = sha256(
     JSON.stringify({
       renderer: "helm",
-      helmVersion: archiveReceipt.spec.render.helmVersion,
+      helmVersion: rendererVersion,
       kubeVersion,
       flags: ["--include-crds", "--skip-tests", "--no-hooks"],
     }),
@@ -630,7 +623,7 @@ spec:
   variantRevision: ../variant-revision.yaml
   renderer:
     name: helm
-    version: ${yamlQuote(archiveReceipt.spec.render.helmVersion)}
+    version: ${yamlQuote(rendererVersion)}
     kubeVersion: "1.30.0"
     flags:
       - --include-crds
@@ -854,10 +847,10 @@ npm run redis:compare
 npm run redis:verify-proof
 \`\`\`
 
-This proof uses the archived Redis render as a compatibility fixture and stores
-new recipe/variant/revision proof artifacts under this directory. The archive
-is not the product pathway; it is the golden comparison input until a first
-class Helm recipe importer exists.
+This proof renders Redis with regular Helm under pinned inputs, stores the
+recipe/variant/revision proof artifacts under this directory, and verifies the
+current \`packages/bitnami/redis/25.5.3\` cub installer package against that
+regular Helm output.
 `;
   write(join(proofRoot, "README.md"), readme);
 

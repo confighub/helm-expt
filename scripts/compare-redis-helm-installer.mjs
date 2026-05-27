@@ -12,15 +12,14 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 
 const repoRoot = process.cwd();
-const redisArchiveFixture = resolve(repoRoot, "archive/render-and-vendor-top20/charts/06-bitnami-redis");
 const redisInstallerPackage = resolve(repoRoot, "packages/bitnami/redis/25.5.3");
 const proofRoot = resolve(repoRoot, "recipes/bitnami/redis/25.5.3");
-const receiptFile = join(redisArchiveFixture, "helm-import.receipt.yaml");
 const chartRef = "oci://registry-1.docker.io/bitnamicharts/redis";
 const chartVersion = "25.5.3";
 const releaseName = "redis";
 const namespace = "redis";
 const kubeVersion = "1.30.0";
+const defaultValuesText = 'auth:\n  password: "confighub-redis-password"\n';
 
 const env = { ...process.env };
 try {
@@ -37,19 +36,12 @@ const tempRoot = mkdtempSync(join(tmpdir(), "helm-expt-redis-compare-"));
 let ok = false;
 
 try {
-  const receipt = readFileSync(receiptFile, "utf8");
-  const expectedDefaultHelmSHA = receipt.match(/upstreamYAMLSHA256:\s+"([^"]+)"/)?.[1];
-  if (!expectedDefaultHelmSHA) {
-    throw new Error(`Could not read upstreamYAMLSHA256 from ${receiptFile}`);
-  }
-
   const variants = [
     {
       name: "default",
       base: "default",
-      valuesText: readFileSync(join(redisArchiveFixture, "values.yaml"), "utf8"),
+      valuesText: defaultValuesText,
       expectedYamlPath: join(proofRoot, "revisions", "default", "r001", "rendered", "release-objects.yaml"),
-      expectedHelmSHA: expectedDefaultHelmSHA,
       normalizeWhitespace: false,
     },
     {

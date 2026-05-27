@@ -5,7 +5,7 @@ metadata:
 spec:
   files:
     - path: effective-values.yaml
-      sourcePath: ../../../../archive/render-and-vendor-top20/charts/06-bitnami-redis/values.yaml
+      source: inline-proof
       sha256: "e876580b22aa7d60397e273e06bdf91fd9d301388ae22c902b17679e7b3213f2"
   mergedValuesCaptured: false
   values:

@@ -1,280 +1,173 @@
-import { execFileSync } from "node:child_process";
-import { createHash } from "node:crypto";
-import {
-  cpSync,
-  existsSync,
-  mkdtempSync,
-  readdirSync,
-  readFileSync,
-  rmSync,
-  writeFileSync,
-} from "node:fs";
+import { cpSync, existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { basename, dirname, join, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const repoRoot = resolve(__dirname, "..");
-const defaultChartsRoot = join(repoRoot, "archive", "render-and-vendor-top20", "charts");
+import { dirname, join, resolve } from "node:path";
+import {
+  check,
+  listFiles,
+  readYaml,
+  relativeRepo,
+  repoRoot,
+  sha256File,
+} from "./lib/proof-common.mjs";
 
 const args = process.argv.slice(2);
 const selfTest = args.includes("--self-test");
-const chartsRoot = resolve(optionValue("--charts-root") ?? defaultChartsRoot);
-
-function optionValue(name) {
-  const index = args.indexOf(name);
-  return index === -1 ? null : args[index + 1];
-}
-
-function sha256File(path) {
-  return createHash("sha256").update(readFileSync(path)).digest("hex");
-}
-
-function byteLength(path) {
-  return readFileSync(path).length;
-}
-
-function parseYamlFile(path) {
-  const script = `
-import json
-import sys
-import yaml
-
-with open(sys.argv[1], "r", encoding="utf-8") as handle:
-    docs = list(yaml.safe_load_all(handle))
-docs = [doc for doc in docs if doc is not None]
-print(json.dumps(docs[0] if len(docs) == 1 else docs, sort_keys=True))
-`;
-  const output = execFileSync("python3", ["-c", script, path], {
-    encoding: "utf8",
-    maxBuffer: 1024 * 1024 * 100,
-  });
-  return JSON.parse(output);
-}
-
-function parseRenderedObjects(path) {
-  const script = `
-import json
-import sys
-import yaml
-
-objects = []
-for doc in yaml.load_all(open(sys.argv[1], "r", encoding="utf-8"), Loader=yaml.BaseLoader):
-    if not isinstance(doc, dict):
-        continue
-    metadata = doc.get("metadata")
-    if not isinstance(metadata, dict):
-        continue
-    api_version = str(doc.get("apiVersion", ""))
-    kind = str(doc.get("kind", ""))
-    namespace = str(metadata.get("namespace", ""))
-    name = str(metadata.get("name", ""))
-    if kind or name or api_version:
-        objects.append({
-            "apiVersion": api_version,
-            "kind": kind,
-            "namespace": namespace,
-            "name": name,
-            "identity": "|".join([api_version, kind, namespace, name]),
-        })
-print(json.dumps(objects, sort_keys=True))
-`;
-  const output = execFileSync("python3", ["-c", script, path], {
-    encoding: "utf8",
-    maxBuffer: 1024 * 1024 * 100,
-  });
-  return JSON.parse(output);
-}
-
-function requiredFiles(chartPath) {
-  return [
-    "helm-import.receipt.yaml",
-    "helm-import.spec.yaml",
-    "installer.yaml",
-    "values.yaml",
-    "base/upstream.yaml",
-    "base/kustomization.yaml",
-  ].map((relative) => join(chartPath, relative));
-}
-
-function sortedChartDirs(root) {
-  return readdirSync(root, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory())
-    .map((entry) => join(root, entry.name))
-    .sort();
-}
-
-function sameJSON(left, right) {
-  return JSON.stringify(left) === JSON.stringify(right);
-}
-
-function verifyChart(chartPath, indexRow = null) {
-  const failures = [];
-  const chartName = basename(chartPath);
-  const fail = (message) => failures.push(`${chartName}: ${message}`);
-  const check = (condition, message) => {
-    if (!condition) fail(message);
-  };
-
-  for (const file of requiredFiles(chartPath)) {
-    check(existsSync(file), `missing required file ${file}`);
-  }
-  if (failures.length) return failures;
-
-  const receiptPath = join(chartPath, "helm-import.receipt.yaml");
-  const importSpecPath = join(chartPath, "helm-import.spec.yaml");
-  const installerPath = join(chartPath, "installer.yaml");
-  const valuesPath = join(chartPath, "values.yaml");
-  const upstreamPath = join(chartPath, "base", "upstream.yaml");
-  const kustomizationPath = join(chartPath, "base", "kustomization.yaml");
-
-  const receipt = parseYamlFile(receiptPath);
-  const importSpec = parseYamlFile(importSpecPath);
-  const installer = parseYamlFile(installerPath);
-  const kustomization = parseYamlFile(kustomizationPath);
-  const objects = parseRenderedObjects(upstreamPath);
-  const identities = objects.map((object) => object.identity);
-  const duplicateIdentities = identities
-    .filter((identity, index) => identities.indexOf(identity) !== index)
-    .filter((identity, index, all) => all.indexOf(identity) === index);
-
-  check(receipt.kind === "HelmImportReceipt", "helm-import.receipt.yaml kind must be HelmImportReceipt");
-  check(importSpec.kind === "HelmImportSpec", "helm-import.spec.yaml kind must be HelmImportSpec");
-  check(installer.kind === "Package", "installer.yaml kind must be Package");
-  check(receipt.metadata?.name === chartName, `receipt metadata.name must equal directory name ${chartName}`);
-  check(importSpec.metadata?.name === chartName, `import spec metadata.name must equal directory name ${chartName}`);
-  check(installer.metadata?.name === chartName, `installer metadata.name must equal directory name ${chartName}`);
-
-  const bases = installer.spec?.bases ?? [];
-  const defaultBases = bases.filter((base) => base?.default === true);
-  check(defaultBases.length === 1, "installer.yaml must declare exactly one default base");
-  check(defaultBases[0]?.path === "base", "installer.yaml default base path must be base");
-  check(
-    Array.isArray(kustomization.resources) && kustomization.resources.includes("upstream.yaml"),
-    "base/kustomization.yaml must reference upstream.yaml",
-  );
-
-  const receiptChart = receipt.spec?.chart ?? {};
-  const importChart = importSpec.spec?.chart ?? {};
-  for (const field of ["repositoryName", "repositoryURL", "resolvedRepositoryURL", "name", "version"]) {
-    check(receiptChart[field] === importChart[field], `chart.${field} mismatch between receipt and import spec`);
-  }
-
-  const receiptRender = receipt.spec?.render ?? {};
-  const importRender = importSpec.spec?.render ?? {};
-  for (const field of ["releaseName", "namespace", "kubeVersion"]) {
-    check(receiptRender[field] === importRender[field], `render.${field} mismatch between receipt and import spec`);
-  }
-  check(
-    sameJSON(receiptRender.apiVersions ?? [], importRender.apiVersions ?? []),
-    "render.apiVersions mismatch between receipt and import spec",
-  );
-  const receiptValueFiles = (receiptRender.values?.files ?? []).map((file) => file.path);
-  check(
-    sameJSON(receiptValueFiles, importRender.valuesFiles ?? []),
-    "render values file list mismatch between receipt and import spec",
-  );
-  check(sameJSON(receiptValueFiles, ["values.yaml"]), "V0 expects exactly one values file: values.yaml");
-
-  const receiptValue = receiptRender.values?.files?.[0] ?? {};
-  check(receiptValue.sha256 === sha256File(valuesPath), "values.yaml SHA256 mismatch");
-  check(receipt.spec?.outputs?.importSpecSHA256 === sha256File(importSpecPath), "helm-import.spec.yaml SHA256 mismatch");
-  check(receipt.spec?.outputs?.upstreamYAMLSHA256 === sha256File(upstreamPath), "base/upstream.yaml SHA256 mismatch");
-  check(receipt.spec?.outputs?.upstreamYAMLBytes === byteLength(upstreamPath), "base/upstream.yaml byte length mismatch");
-  check(receipt.spec?.outputs?.resourceCount === objects.length, "rendered object count mismatch");
-
-  const missingIdentity = objects.filter(
-    (object) => !object.apiVersion || !object.kind || !object.name || !object.identity,
-  );
-  check(missingIdentity.length === 0, "every rendered object must have apiVersion, kind, and metadata.name");
-  check(duplicateIdentities.length === 0, `duplicate rendered object identities: ${duplicateIdentities.join(", ")}`);
-
-  const phase = receipt.spec?.status?.phase;
-  if (phase === "rendered") {
-    check(receipt.spec?.outputs?.deterministicAcrossTwoLocalRenders === true, "rendered chart must be deterministic");
-    check(
-      receipt.spec?.outputs?.secondRenderSHA256 === receipt.spec?.outputs?.upstreamYAMLSHA256,
-      "secondRenderSHA256 must equal upstreamYAMLSHA256 for rendered chart",
-    );
-  } else if (phase === "render-failed") {
-    check(receipt.spec?.outputs?.resourceCount === 0, "render-failed chart must have resourceCount 0");
-  } else {
-    fail(`unsupported receipt status.phase ${JSON.stringify(phase)}`);
-  }
-
-  if (indexRow) {
-    check(indexRow.path?.endsWith(`/${chartName}`), "index path must end with chart directory name");
-    check(indexRow.rank === receipt.spec?.ranking?.rank, "index rank mismatch");
-    check(indexRow.repository === receiptChart.repositoryName, "index repository mismatch");
-    check(indexRow.name === receiptChart.name, "index chart name mismatch");
-    check(indexRow.version === receiptChart.version, "index version mismatch");
-    check(indexRow.status === phase, "index status mismatch");
-    check(
-      indexRow.deterministicAcrossTwoLocalRenders === receipt.spec?.outputs?.deterministicAcrossTwoLocalRenders,
-      "index determinism mismatch",
-    );
-    check(indexRow.resourceCount === receipt.spec?.outputs?.resourceCount, "index resourceCount mismatch");
-    check(indexRow.upstreamYAMLSHA256 === receipt.spec?.outputs?.upstreamYAMLSHA256, "index upstream digest mismatch");
-  }
-
-  return failures;
-}
-
-function verifyArchive(root = chartsRoot) {
-  const failures = [];
-  const indexPath = join(root, "index.yaml");
-  if (!existsSync(indexPath)) {
-    throw new Error(`missing index ${indexPath}`);
-  }
-  const index = parseYamlFile(indexPath);
-  if (index.kind !== "HelmImportIndex") {
-    failures.push("index.yaml kind must be HelmImportIndex");
-  }
-  const rows = index.spec?.charts ?? [];
-  const rowsByDir = new Map(rows.map((row) => [basename(row.path), row]));
-  const chartDirs = sortedChartDirs(root);
-
-  if (rows.length !== chartDirs.length) {
-    failures.push(`index chart count ${rows.length} does not match directory count ${chartDirs.length}`);
-  }
-
-  for (const chartPath of chartDirs) {
-    const row = rowsByDir.get(basename(chartPath));
-    if (!row) {
-      failures.push(`${basename(chartPath)}: missing index row`);
-      continue;
-    }
-    failures.push(...verifyChart(chartPath, row));
-  }
-
-  if (failures.length) {
-    throw new Error(`artifact verification failed:\n${failures.map((failure) => `- ${failure}`).join("\n")}`);
-  }
-
-  return { chartCount: chartDirs.length };
-}
-
-function runSelfTest() {
-  const source = join(defaultChartsRoot, "06-bitnami-redis");
-  const tempRoot = mkdtempSync(join(tmpdir(), "helm-expt-verifier-"));
-  const tempChart = join(tempRoot, "06-bitnami-redis");
-  try {
-    cpSync(source, tempChart, { recursive: true });
-    writeFileSync(join(tempChart, "values.yaml"), "auth:\n  password: corrupted\n");
-    const failures = verifyChart(tempChart);
-    const expected = failures.some((failure) => failure.includes("values.yaml SHA256 mismatch"));
-    if (!expected) {
-      throw new Error(`self-test did not catch values.yaml tampering:\n${failures.join("\n")}`);
-    }
-    console.log("self-test passed: values.yaml tampering is rejected");
-  } finally {
-    rmSync(tempRoot, { recursive: true, force: true });
-  }
-}
 
 if (selfTest) {
   runSelfTest();
 } else {
-  const result = verifyArchive(chartsRoot);
-  console.log(`verified artifact chain for ${result.chartCount} chart import(s)`);
+  const result = verifyCurrentArtifactChain(repoRoot, 100);
+  console.log(`verified current artifact chain for ${result.recipeCount} recipe(s) and ${result.packageCount} package(s)`);
+}
+
+function verifyCurrentArtifactChain(root, expectedCount = null) {
+  const recipeRoots = listFiles(join(root, "recipes"))
+    .filter((file) => file.endsWith("/recipe.yaml"))
+    .map((file) => dirname(file))
+    .sort();
+  const packageInstallers = listFiles(join(root, "packages")).filter((file) => file.endsWith("/installer.yaml")).sort();
+
+  if (expectedCount !== null) {
+    check(recipeRoots.length === expectedCount, `expected ${expectedCount} recipe roots, found ${recipeRoots.length}`);
+    check(packageInstallers.length === expectedCount, `expected ${expectedCount} installer packages, found ${packageInstallers.length}`);
+  }
+
+  for (const recipeRoot of recipeRoots) verifyRecipeRoot(recipeRoot, root);
+
+  return { recipeCount: recipeRoots.length, packageCount: packageInstallers.length };
+}
+
+function verifyRecipeRoot(recipeRoot, root) {
+  for (const relative of [
+    "README.md",
+    "helm-plan.yaml",
+    "chart-dossier.yaml",
+    "source-lock.yaml",
+    "dependency-lock.yaml",
+    "control-points.yaml",
+    "value-model.yaml",
+    "recipe.yaml",
+    "publication/installer-package-receipt.yaml",
+  ]) {
+    check(existsSync(join(recipeRoot, relative)), `${relativeRepo(recipeRoot)} missing ${relative}`);
+  }
+
+  const recipe = readYaml(join(recipeRoot, "recipe.yaml"));
+  const packageReceipt = readYaml(join(recipeRoot, "publication", "installer-package-receipt.yaml"));
+  const fixturePath = recipe.spec?.currentExecutableFixture?.installerPackage;
+  check(Boolean(fixturePath), `${relativeRepo(recipeRoot)} missing currentExecutableFixture.installerPackage`);
+  check(
+    fixturePath.startsWith("packages/") || fixturePath.startsWith("../../../../packages/"),
+    `${relativeRepo(recipeRoot)} fixture must point at current packages/ path`,
+  );
+  const fixtureRoot = resolvePath(root, recipeRoot, fixturePath);
+  check(existsSync(join(fixtureRoot, "installer.yaml")), `${relativeRepo(recipeRoot)} fixture package is missing installer.yaml`);
+
+  const packagePath = packageReceipt.spec?.package?.path;
+  check(Boolean(packagePath), `${relativeRepo(recipeRoot)} package receipt missing package.path`);
+  check(packagePath.startsWith("packages/"), `${relativeRepo(recipeRoot)} package receipt must use repo-relative packages/ path`);
+  const packageRoot = join(root, packagePath);
+  check(existsSync(join(packageRoot, "installer.yaml")), `${relativeRepo(recipeRoot)} package receipt path is missing installer.yaml`);
+  check(
+    resolve(packageRoot) === resolve(fixtureRoot),
+    `${relativeRepo(recipeRoot)} fixture path and package receipt path point at different packages`,
+  );
+
+  const installer = readYaml(join(packageRoot, "installer.yaml"));
+  check(installer.kind === "Package", `${relativeRepo(packageRoot)} installer.yaml must be a Package`);
+  verifyPackageReceipt(recipeRoot, packageRoot, packageReceipt);
+
+  for (const variantPath of recipe.spec?.variants ?? []) {
+    check(existsSync(join(recipeRoot, variantPath)), `${relativeRepo(recipeRoot)} missing variant ${variantPath}`);
+  }
+
+  const revisionFiles = listFiles(join(recipeRoot, "revisions"))
+    .filter((file) => file.endsWith("/variant-revision.yaml"))
+    .sort();
+  check(revisionFiles.length > 0, `${relativeRepo(recipeRoot)} must have at least one variant revision`);
+  for (const revisionFile of revisionFiles) verifyRevision(recipeRoot, dirname(revisionFile));
+}
+
+function verifyPackageReceipt(recipeRoot, packageRoot, receipt) {
+  check(receipt.kind === "InstallerPackageReceipt", `${relativeRepo(recipeRoot)} publication receipt kind mismatch`);
+  for (const file of receipt.spec?.package?.sourceFiles ?? []) {
+    const path = join(packageRoot, file.path);
+    check(existsSync(path), `${relativeRepo(recipeRoot)} package receipt references missing file ${file.path}`);
+    check(sha256File(path) === file.sha256, `${relativeRepo(recipeRoot)} package source SHA mismatch for ${file.path}`);
+    check(readFileSync(path).length === Number(file.bytes), `${relativeRepo(recipeRoot)} package byte length mismatch for ${file.path}`);
+  }
+}
+
+function verifyRevision(recipeRoot, revisionRoot) {
+  const paths = {
+    revision: join(revisionRoot, "variant-revision.yaml"),
+    release: join(revisionRoot, "rendered", "release-objects.yaml"),
+    inventory: join(revisionRoot, "rendered", "object-inventory.yaml"),
+    equivalence: join(revisionRoot, "receipts", "helm-equivalence-receipt.yaml"),
+    render: join(revisionRoot, "receipts", "render-receipt.yaml"),
+    scan: join(revisionRoot, "receipts", "scan-receipt.yaml"),
+    gate: join(revisionRoot, "receipts", "install-gate.yaml"),
+  };
+  for (const [name, path] of Object.entries(paths)) {
+    check(existsSync(path), `${relativeRepo(recipeRoot)} missing ${name} artifact under ${relativeRepo(revisionRoot)}`);
+  }
+
+  const releaseSHA = sha256File(paths.release);
+  const revision = readYaml(paths.revision);
+  const inventory = readYaml(paths.inventory);
+  const equivalence = readYaml(paths.equivalence);
+  const render = readYaml(paths.render);
+  const scan = readYaml(paths.scan);
+  const gate = readYaml(paths.gate);
+
+  check(
+    revision.spec?.digestInputs?.renderedObjectSetSHA256 === releaseSHA,
+    `${relativeRepo(revisionRoot)} variant revision rendered digest mismatch`,
+  );
+  check(inventory.spec?.sourceSHA256 === releaseSHA, `${relativeRepo(revisionRoot)} inventory source digest mismatch`);
+  check(
+    render.spec?.outputs?.renderedObjectSetSHA256 === releaseSHA,
+    `${relativeRepo(revisionRoot)} render receipt digest mismatch`,
+  );
+  check(
+    render.spec?.outputs?.deterministicAcrossTwoLocalRenders !== false,
+    `${relativeRepo(revisionRoot)} render receipt marks render as non-deterministic`,
+  );
+  check(
+    equivalence.spec?.regularHelm?.renderedSHA256 === releaseSHA,
+    `${relativeRepo(revisionRoot)} Helm equivalence digest mismatch`,
+  );
+  check(equivalence.spec?.result === "pass", `${relativeRepo(revisionRoot)} Helm equivalence did not pass`);
+  check(scan.spec?.renderedObjectSetSHA256 === releaseSHA, `${relativeRepo(revisionRoot)} scan digest mismatch`);
+  check(gate.spec?.renderedObjectSetSHA256 === releaseSHA, `${relativeRepo(revisionRoot)} install gate digest mismatch`);
+}
+
+function resolvePath(root, base, path) {
+  if (path.startsWith("packages/")) return join(root, path);
+  return resolve(base, path);
+}
+
+function runSelfTest() {
+  const tempRoot = mkdtempSync(join(tmpdir(), "helm-expt-current-chain-"));
+  try {
+    const sourceRecipe = join(repoRoot, "recipes", "bitnami", "redis", "25.5.3");
+    const sourcePackage = join(repoRoot, "packages", "bitnami", "redis", "25.5.3");
+    const tempRecipe = join(tempRoot, "recipes", "bitnami", "redis", "25.5.3");
+    const tempPackage = join(tempRoot, "packages", "bitnami", "redis", "25.5.3");
+    cpSync(sourceRecipe, tempRecipe, { recursive: true });
+    cpSync(sourcePackage, tempPackage, { recursive: true });
+    writeFileSync(join(tempPackage, "README.md"), `${readFileSync(join(tempPackage, "README.md"), "utf8")}\n# tampered\n`);
+    try {
+      verifyRecipeRoot(tempRecipe, tempRoot);
+    } catch (error) {
+      if (String(error.message).includes("package source SHA mismatch")) {
+        console.log("self-test passed: package source tampering is rejected");
+        return;
+      }
+      throw error;
+    }
+    throw new Error("self-test unexpectedly passed after package source tampering");
+  } finally {
+    rmSync(tempRoot, { recursive: true, force: true });
+  }
 }

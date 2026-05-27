@@ -9,13 +9,13 @@ spec:
     dependencyLock: dependency-lock.yaml
   importMode: render-and-vendor
   currentExecutableFixture:
-    installerPackage: ../../../../archive/render-and-vendor-top20/charts/06-bitnami-redis
+    installerPackage: ../../../../packages/bitnami/redis/25.5.3
     setupCommand:
       - cub
       - install
       - setup
       - --pull
-      - ../../../../archive/render-and-vendor-top20/charts/06-bitnami-redis
+      - ../../../../packages/bitnami/redis/25.5.3
       - --non-interactive
       - --namespace
       - redis

@@ -53,6 +53,8 @@ function reviewRecipe(root) {
   const sourceLock = readYaml(join(root, "source-lock.yaml"));
   const controlPoints = readYaml(join(root, "control-points.yaml"));
   const valueModel = readYaml(join(root, "value-model.yaml"));
+  const catalogStatusPath = join(root, "catalog-status.yaml");
+  const catalogStatus = existsSync(catalogStatusPath) ? readYaml(catalogStatusPath) : null;
   const packageReceiptPath = join(root, "publication", "installer-package-receipt.yaml");
   const packageReceipt = existsSync(packageReceiptPath) ? readYaml(packageReceiptPath) : null;
   const chart = helmPlan.spec?.readiness?.chart ?? sourceLock.spec?.ref ?? `${sourceLock.spec?.repositoryName}/${sourceLock.spec?.chart}`;
@@ -78,7 +80,8 @@ function reviewRecipe(root) {
   const renderedObjects = sum(receiptReviews.map((receipt) => receipt.objectCount));
   const packagePath = packageReceipt?.spec?.package?.path ?? "";
   const packageExists = packagePath ? existsSync(join(repoRoot, packagePath)) : false;
-  const state = promotionState({ chart, machinePass, proofTier, variantCount: variantPaths.length });
+  const inferredState = promotionState({ chart, machinePass, proofTier, variantCount: variantPaths.length });
+  const state = catalogStatus?.spec?.status ?? inferredState;
   const gaps = productGaps({
     proofTier,
     variantCount: variantPaths.length,
@@ -96,6 +99,10 @@ function reviewRecipe(root) {
     package_path: packagePath,
     proof_tier: proofTier,
     promotion_state: state,
+    inferred_promotion_state: inferredState,
+    production_readiness: catalogStatus?.spec?.productionReadiness ?? "not-reviewed",
+    support_level: catalogStatus?.spec?.supportLevel ?? "not-explicit",
+    supported_variants: (catalogStatus?.spec?.supportedVariants ?? []).join(";"),
     machine_checks: machinePass ? "pass" : "fail",
     variants: variantNames.join(";"),
     variant_count: variantPaths.length,
@@ -114,7 +121,7 @@ function reviewRecipe(root) {
     default_review_required: "yes",
     obvious_variants_review: variantPaths.length > 1 ? "review-covered-variants" : "needs-user-shaped-variants",
     ux_review_required: "yes",
-    catalog_recommendation: recommendationFor(state, gaps),
+    catalog_recommendation: recommendationFor(state, gaps, catalogStatus),
     gaps: gaps.join("; "),
   };
 }
@@ -196,8 +203,13 @@ function productGaps(input) {
   return gaps;
 }
 
-function recommendationFor(state, gaps) {
+function recommendationFor(state, gaps, catalogStatus = null) {
   if (state === "blocked") return "fix machine proof failures first";
+  if (state === "catalog-supported") {
+    return catalogStatus?.spec?.productionReadiness === "blocked-by-current-scan-gate"
+      ? "supported for declared scopes; production remains blocked by current gate"
+      : "catalog-supported with explicit status";
+  }
   if (state === "proof-grade") return "keep as proof-grade until product variants and UX review are complete";
   if (gaps.some((gap) => gap.startsWith("recipe executable fixture") || gap.startsWith("installer package path"))) {
     return "candidate, but clean executable fixture before catalog support";
@@ -209,6 +221,10 @@ function toCsv(rows) {
   const headers = [
     "chart",
     "promotion_state",
+    "inferred_promotion_state",
+    "production_readiness",
+    "support_level",
+    "supported_variants",
     "machine_checks",
     "proof_tier",
     "variant_count",
@@ -238,6 +254,7 @@ function toCsv(rows) {
 
 function toSummary(rows) {
   const counts = countBy(rows, "promotion_state");
+  const supportLevelCounts = countBy(rows, "support_level");
   const machineCounts = countBy(rows, "machine_checks");
   const proofTierCounts = countBy(rows, "proof_tier");
   const defaultOnly = rows.filter((row) => row.variant_count <= 1).length;
@@ -256,8 +273,8 @@ gaps that remain before any recipe can be called catalog-supported.
 Important boundary:
 
 \`\`\`text
-This report does not auto-certify catalog-supported status.
-It separates proof-grade evidence from product recommendation.
+This report does not infer catalog-supported status from machine checks.
+Catalog support must come from explicit catalog-status.yaml files.
 \`\`\`
 
 ## Summary
@@ -268,6 +285,7 @@ machine checks pass: ${machineCounts.pass ?? 0}
 machine checks fail: ${machineCounts.fail ?? 0}
 proof-grade: ${counts["proof-grade"] ?? 0}
 catalog-candidate: ${counts["catalog-candidate"] ?? 0}
+catalog-supported: ${counts["catalog-supported"] ?? 0}
 blocked: ${counts.blocked ?? 0}
 default-only recipes: ${defaultOnly}
 multi-variant recipes: ${multiVariant}
@@ -280,6 +298,13 @@ recipes with non-current executable fixture path: ${currentFixtureGaps}
 ${Object.entries(proofTierCounts)
   .sort(([left], [right]) => left.localeCompare(right))
   .map(([tier, count]) => `- \`${tier}\`: ${count}`)
+  .join("\n")}
+
+## Support Levels
+
+${Object.entries(supportLevelCounts)
+  .sort(([left], [right]) => left.localeCompare(right))
+  .map(([level, count]) => `- \`${level}\`: ${count}`)
   .join("\n")}
 
 ## Catalog Candidates
@@ -302,18 +327,17 @@ ${topCandidates
   before catalog support.
 - Charts with CRDs, webhooks, generated facts, lookup, cluster RBAC, or
   stateful storage need plain-English catalog notes, not only machine receipts.
-- A small number of bespoke recipes still reference older executable fixture
-  paths and should be cleaned before catalog support.
+- Executable fixture paths now point at current \`packages/\` paths; keep this as
+  a hard invariant.
 
 ## Next Actions
 
-1. Pick 3-5 catalog candidates, starting with Redis, and run the human product
-   review in \`docs/catalog-promotion-review.md\`.
+1. Pick 3-5 next catalog candidates and run the human product review in
+   \`docs/catalog-promotion-review.md\`.
 2. For each selected chart, decide the supported variants and explicitly defer
    the variants we will not support yet.
-3. Add a catalog status file per promoted chart, so the status is explicit
-   instead of inferred.
-4. Add an upgrade/legacy-patch review lane for supported old versions.
+3. Keep \`catalog-status.yaml\` explicit for every maintained chart.
+4. Use the legacy-patch review lane for supported old versions.
 5. Re-run this report whenever chart versions, scan policy, installer behavior,
    or supported variants change.
 `;
