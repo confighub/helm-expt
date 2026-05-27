@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/jetstack/cert-manager/v1.20.2/chart-dossier.yaml"
     controlPoints: "recipes/jetstack/cert-manager/v1.20.2/control-points.yaml"
     valueModel: "recipes/jetstack/cert-manager/v1.20.2/value-model.yaml"
+    weirdnessAndMitigations: "recipes/jetstack/cert-manager/v1.20.2/weirdness-and-mitigations.md"
     controlPointCategories:
       - "admission-webhook"
       - "capability-profile"
@@ -34,16 +35,16 @@ spec:
       - "tpl"
   catalogStatus:
     path: "recipes/jetstack/cert-manager/v1.20.2/catalog-status.yaml"
-    status: "catalog-candidate"
-    supportLevel: "promotion-review-needed"
+    status: "catalog-supported"
+    supportLevel: "supported-for-declared-scopes"
     supportedScopes:
-      []
-    productionReadiness: "not-reviewed-for-production"
+      - "local-test"
+    productionReadiness: "blocked-by-current-scan-gate"
     supportedVariants:
-      []
-    candidateVariants:
       - "default"
       - "crds-enabled"
+    candidateVariants:
+      []
     deferredVariants:
       []
   installerPackage:

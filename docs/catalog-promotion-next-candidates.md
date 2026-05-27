@@ -1,17 +1,24 @@
 # Catalog Promotion Next Candidates
 
-Redis is the first explicit `catalog-supported` entry. The next promotion
-reviews should prove breadth without making the happy path feel heavy.
+All top-20 bespoke recipes are now explicit `catalog-supported` entries for the
+declared `local-test` scope.
 
-Recommended next five:
+They are not production-supported. Production remains blocked until the
+scan, gate, and operating-policy findings have dispositions.
+
+The next promotion reviews should take proof-grade charts from the generated
+default set, add user-shaped variants, and prove breadth without making the
+happy path feel heavy.
+
+Recommended next candidates:
 
 | Chart | Why it matters | Review focus |
 | --- | --- | --- |
-| `bitnami/nginx` | Simple, familiar workload | Prove shortest possible happy path and low ceremony. |
-| `bitnami/postgresql` | Stateful chart | Storage, secrets, upgrade/rollback, and backup expectations. |
-| `metrics-server/metrics-server` | Small cluster component | APIService, target facts, and production readiness. |
-| `ingress-nginx/ingress-nginx` | Common edge component | Webhooks, hooks, cluster RBAC, and admission-disabled variant. |
-| `jetstack/cert-manager` | CRD-heavy infrastructure | CRD lifecycle, webhook readiness, and hook policy. |
+| `cloudnative-pg/cloudnative-pg` | Operator-backed database | CRDs, webhook lifecycle, backups, and production blockers. |
+| `bitnami/opensearch` | Stateful search workload | Storage, cluster shape, security defaults, and upgrade risk. |
+| `kyverno/kyverno` | Policy engine | CRDs, admission webhooks, generated policies, and safe rollout. |
+| `istio/istiod` | Service mesh control plane | CRDs, webhooks, APIService-like readiness, and cluster RBAC. |
+| `minio-operator/operator` | Storage operator | CRDs, tenant handoff, object storage assumptions, and target facts. |
 
 Promotion review should answer:
 

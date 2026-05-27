@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/prometheus-community/prometheus/29.8.0/chart-dossier.yaml"
     controlPoints: "recipes/prometheus-community/prometheus/29.8.0/control-points.yaml"
     valueModel: "recipes/prometheus-community/prometheus/29.8.0/value-model.yaml"
+    weirdnessAndMitigations: "recipes/prometheus-community/prometheus/29.8.0/weirdness-and-mitigations.md"
     controlPointCategories:
       - "bundle-dependencies"
       - "capability-profile"
@@ -36,16 +37,16 @@ spec:
       - "storage-retention"
   catalogStatus:
     path: "recipes/prometheus-community/prometheus/29.8.0/catalog-status.yaml"
-    status: "catalog-candidate"
-    supportLevel: "promotion-review-needed"
+    status: "catalog-supported"
+    supportLevel: "supported-for-declared-scopes"
     supportedScopes:
-      []
-    productionReadiness: "not-reviewed-for-production"
+      - "local-test"
+    productionReadiness: "blocked-by-current-scan-gate"
     supportedVariants:
-      []
-    candidateVariants:
       - "default"
       - "server-only-ephemeral"
+    candidateVariants:
+      []
     deferredVariants:
       []
   installerPackage:

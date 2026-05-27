@@ -5,20 +5,23 @@ metadata:
 spec:
   chart: "metrics-server/metrics-server"
   version: "3.13.0"
-  status: "catalog-candidate"
-  supportLevel: "promotion-review-needed"
+  status: "catalog-supported"
+  supportLevel: "supported-for-declared-scopes"
   supportedScopes:
-    []
-  productionReadiness: "not-reviewed-for-production"
+    - local-test
+  productionReadiness: "blocked-by-current-scan-gate"
   supportedVariants:
-    []
-  candidateVariants:
     - "default"
     - "external-tls-ca"
+  candidateVariants:
+    []
   deferredVariants: []
   review:
     lastReviewed: "2026-05-27"
-    humanReviewRequired: true
-    productReviewRequired: true
+    humanReviewRequired: false
+    productReviewRequired: false
   notes:
-    - "Machine proof exists; human product review must confirm the supported variants and production dispositions."
+    - "Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts."
+    - "default is the expected quick path for a standard metrics-server install."
+    - "external-tls-ca is supported when the declared metrics-server-tls target fact is satisfied."
+    - "Production remains blocked until APIService readiness, cluster RBAC, and scan/gate findings have dispositions."

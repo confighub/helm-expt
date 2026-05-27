@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/elastic/eck-operator/3.4.0/chart-dossier.yaml"
     controlPoints: "recipes/elastic/eck-operator/3.4.0/control-points.yaml"
     valueModel: "recipes/elastic/eck-operator/3.4.0/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

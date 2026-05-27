@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/nats/nats/2.14.0/chart-dossier.yaml"
     controlPoints: "recipes/nats/nats/2.14.0/control-points.yaml"
     valueModel: "recipes/nats/nats/2.14.0/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

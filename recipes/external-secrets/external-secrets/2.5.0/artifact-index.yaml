@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/external-secrets/external-secrets/2.5.0/chart-dossier.yaml"
     controlPoints: "recipes/external-secrets/external-secrets/2.5.0/control-points.yaml"
     valueModel: "recipes/external-secrets/external-secrets/2.5.0/value-model.yaml"
+    weirdnessAndMitigations: "recipes/external-secrets/external-secrets/2.5.0/weirdness-and-mitigations.md"
     controlPointCategories:
       - "admission-webhook"
       - "capability-profile"
@@ -34,16 +35,16 @@ spec:
       - "webhook-secret"
   catalogStatus:
     path: "recipes/external-secrets/external-secrets/2.5.0/catalog-status.yaml"
-    status: "catalog-candidate"
-    supportLevel: "promotion-review-needed"
+    status: "catalog-supported"
+    supportLevel: "supported-for-declared-scopes"
     supportedScopes:
-      []
-    productionReadiness: "not-reviewed-for-production"
+      - "local-test"
+    productionReadiness: "blocked-by-current-scan-gate"
     supportedVariants:
-      []
-    candidateVariants:
       - "default"
       - "no-crds"
+    candidateVariants:
+      []
     deferredVariants:
       []
   installerPackage:

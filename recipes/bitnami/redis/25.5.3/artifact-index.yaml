@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/bitnami/redis/25.5.3/chart-dossier.yaml"
     controlPoints: "recipes/bitnami/redis/25.5.3/control-points.yaml"
     valueModel: "recipes/bitnami/redis/25.5.3/value-model.yaml"
+    weirdnessAndMitigations: "recipes/bitnami/redis/25.5.3/weirdness-and-mitigations.md"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

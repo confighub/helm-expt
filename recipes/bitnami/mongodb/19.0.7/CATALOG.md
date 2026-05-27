@@ -13,12 +13,12 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Field | Value |
 | --- | --- |
 | Chart | bitnami/mongodb@19.0.7 |
-| Catalog status | catalog-candidate |
-| Support level | promotion-review-needed |
-| Supported scopes | none |
-| Production readiness | not-reviewed-for-production |
-| Supported variants | none |
-| Candidate variants | generated-passwords, existing-secret-replicaset |
+| Catalog status | catalog-supported |
+| Support level | supported-for-declared-scopes |
+| Supported scopes | local-test |
+| Production readiness | blocked-by-current-scan-gate |
+| Supported variants | generated-passwords, existing-secret-replicaset |
+| Candidate variants | none |
 | Control points | capability-profile, dependency-lock, generated-facts, hook-policy, installer-support-object, network-policy, pdb-policy, replicaset-topology, source-lock, target-facts, tpl, workload-policy |
 
 ## Artifact Chain
@@ -32,6 +32,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Chart dossier | [recipes/bitnami/mongodb/19.0.7/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/bitnami/mongodb/19.0.7/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/bitnami/mongodb/19.0.7/value-model.yaml](value-model.yaml) |
+| Weirdness and mitigations | [recipes/bitnami/mongodb/19.0.7/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/bitnami/mongodb/19.0.7/catalog-status.yaml](catalog-status.yaml) |
 | Installer package | [packages/bitnami/mongodb/19.0.7](../../../../packages/bitnami/mongodb/19.0.7) |
 | Installer package receipt | [recipes/bitnami/mongodb/19.0.7/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |

@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/argo-cd/argo-cd/9.5.15/chart-dossier.yaml"
     controlPoints: "recipes/argo-cd/argo-cd/9.5.15/control-points.yaml"
     valueModel: "recipes/argo-cd/argo-cd/9.5.15/value-model.yaml"
+    weirdnessAndMitigations: "recipes/argo-cd/argo-cd/9.5.15/weirdness-and-mitigations.md"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"
@@ -35,16 +36,16 @@ spec:
       - "tpl"
   catalogStatus:
     path: "recipes/argo-cd/argo-cd/9.5.15/catalog-status.yaml"
-    status: "catalog-candidate"
-    supportLevel: "promotion-review-needed"
+    status: "catalog-supported"
+    supportLevel: "supported-for-declared-scopes"
     supportedScopes:
-      []
-    productionReadiness: "not-reviewed-for-production"
+      - "local-test"
+    productionReadiness: "blocked-by-current-scan-gate"
     supportedVariants:
-      []
-    candidateVariants:
       - "default"
       - "no-crds"
+    candidateVariants:
+      []
     deferredVariants:
       []
   installerPackage:

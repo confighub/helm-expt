@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/runix/pgadmin4/1.62.0/chart-dossier.yaml"
     controlPoints: "recipes/runix/pgadmin4/1.62.0/control-points.yaml"
     valueModel: "recipes/runix/pgadmin4/1.62.0/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

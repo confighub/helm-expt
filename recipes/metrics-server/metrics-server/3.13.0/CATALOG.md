@@ -13,12 +13,12 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Field | Value |
 | --- | --- |
 | Chart | metrics-server/metrics-server@3.13.0 |
-| Catalog status | catalog-candidate |
-| Support level | promotion-review-needed |
-| Supported scopes | none |
-| Production readiness | not-reviewed-for-production |
-| Supported variants | none |
-| Candidate variants | default, external-tls-ca |
+| Catalog status | catalog-supported |
+| Support level | supported-for-declared-scopes |
+| Supported scopes | local-test |
+| Production readiness | blocked-by-current-scan-gate |
+| Supported variants | default, external-tls-ca |
+| Candidate variants | none |
 | Control points | apiservice, capability-profile, cluster-rbac, dependency-lock, generated-facts, hook-policy, installer-support-object, lookup, source-lock, target-facts |
 
 ## Artifact Chain
@@ -32,6 +32,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Chart dossier | [recipes/metrics-server/metrics-server/3.13.0/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/metrics-server/metrics-server/3.13.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/metrics-server/metrics-server/3.13.0/value-model.yaml](value-model.yaml) |
+| Weirdness and mitigations | [recipes/metrics-server/metrics-server/3.13.0/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/metrics-server/metrics-server/3.13.0/catalog-status.yaml](catalog-status.yaml) |
 | Installer package | [packages/metrics-server/metrics-server/3.13.0](../../../../packages/metrics-server/metrics-server/3.13.0) |
 | Installer package receipt | [recipes/metrics-server/metrics-server/3.13.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |

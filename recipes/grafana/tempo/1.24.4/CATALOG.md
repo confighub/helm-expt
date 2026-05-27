@@ -13,12 +13,12 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Field | Value |
 | --- | --- |
 | Chart | grafana/tempo@1.24.4 |
-| Catalog status | catalog-candidate |
-| Support level | promotion-review-needed |
-| Supported scopes | none |
-| Production readiness | not-reviewed-for-production |
-| Supported variants | none |
-| Candidate variants | local-persistent, s3-query-observability |
+| Catalog status | catalog-supported |
+| Support level | supported-for-declared-scopes |
+| Supported scopes | local-test |
+| Production readiness | blocked-by-current-scan-gate |
+| Supported variants | local-persistent, s3-query-observability |
+| Candidate variants | none |
 | Control points | capability-profile, chart-deprecation, dependency-lock, extension-slots, installer-support-object, network-policy, query-ingress-policy, servicemonitor-capability, source-lock, stateful-workload, target-facts, upstream-runtime-risk |
 
 ## Artifact Chain
@@ -32,6 +32,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Chart dossier | [recipes/grafana/tempo/1.24.4/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/grafana/tempo/1.24.4/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/grafana/tempo/1.24.4/value-model.yaml](value-model.yaml) |
+| Weirdness and mitigations | [recipes/grafana/tempo/1.24.4/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/grafana/tempo/1.24.4/catalog-status.yaml](catalog-status.yaml) |
 | Installer package | [packages/grafana/tempo/1.24.4](../../../../packages/grafana/tempo/1.24.4) |
 | Installer package receipt | [recipes/grafana/tempo/1.24.4/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |

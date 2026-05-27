@@ -13,12 +13,12 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Field | Value |
 | --- | --- |
 | Chart | hashicorp/vault@0.32.0 |
-| Catalog status | catalog-candidate |
-| Support level | promotion-review-needed |
-| Supported scopes | none |
-| Production readiness | not-reviewed-for-production |
-| Supported variants | none |
-| Candidate variants | default, ha-raft-ui |
+| Catalog status | catalog-supported |
+| Support level | supported-for-declared-scopes |
+| Supported scopes | local-test |
+| Production readiness | blocked-by-current-scan-gate |
+| Supported variants | default, ha-raft-ui |
+| Candidate variants | none |
 | Control points | admission-webhook, capability-profile, cluster-rbac, dependency-lock, extension-slots, installer-support-object, operate-policy, service-exposure, source-lock, stateful-workload, tls-posture |
 
 ## Artifact Chain
@@ -32,6 +32,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Chart dossier | [recipes/hashicorp/vault/0.32.0/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/hashicorp/vault/0.32.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/hashicorp/vault/0.32.0/value-model.yaml](value-model.yaml) |
+| Weirdness and mitigations | [recipes/hashicorp/vault/0.32.0/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/hashicorp/vault/0.32.0/catalog-status.yaml](catalog-status.yaml) |
 | Installer package | [packages/hashicorp/vault/0.32.0](../../../../packages/hashicorp/vault/0.32.0) |
 | Installer package receipt | [recipes/hashicorp/vault/0.32.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |

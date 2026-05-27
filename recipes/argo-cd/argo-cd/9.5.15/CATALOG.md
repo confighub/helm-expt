@@ -13,12 +13,12 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Field | Value |
 | --- | --- |
 | Chart | argo-cd/argo-cd@9.5.15 |
-| Catalog status | catalog-candidate |
-| Support level | promotion-review-needed |
-| Supported scopes | none |
-| Production readiness | not-reviewed-for-production |
-| Supported variants | none |
-| Candidate variants | default, no-crds |
+| Catalog status | catalog-supported |
+| Support level | supported-for-declared-scopes |
+| Supported scopes | local-test |
+| Production readiness | blocked-by-current-scan-gate |
+| Supported variants | default, no-crds |
+| Candidate variants | none |
 | Control points | capability-profile, cluster-rbac, crd-policy, dependency-lock, gitops-handoff, hook-policy, installer-support-object, source-lock, stateful-workload, tpl |
 
 ## Artifact Chain
@@ -32,6 +32,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Chart dossier | [recipes/argo-cd/argo-cd/9.5.15/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/argo-cd/argo-cd/9.5.15/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/argo-cd/argo-cd/9.5.15/value-model.yaml](value-model.yaml) |
+| Weirdness and mitigations | [recipes/argo-cd/argo-cd/9.5.15/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/argo-cd/argo-cd/9.5.15/catalog-status.yaml](catalog-status.yaml) |
 | Installer package | [packages/argo-cd/argo-cd/9.5.15](../../../../packages/argo-cd/argo-cd/9.5.15) |
 | Installer package receipt | [recipes/argo-cd/argo-cd/9.5.15/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |

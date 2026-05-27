@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/bitnami/elasticsearch/22.1.6/chart-dossier.yaml"
     controlPoints: "recipes/bitnami/elasticsearch/22.1.6/control-points.yaml"
     valueModel: "recipes/bitnami/elasticsearch/22.1.6/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

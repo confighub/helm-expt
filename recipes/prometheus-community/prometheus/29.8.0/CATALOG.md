@@ -13,12 +13,12 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Field | Value |
 | --- | --- |
 | Chart | prometheus-community/prometheus@29.8.0 |
-| Catalog status | catalog-candidate |
-| Support level | promotion-review-needed |
-| Supported scopes | none |
-| Production readiness | not-reviewed-for-production |
-| Supported variants | none |
-| Candidate variants | default, server-only-ephemeral |
+| Catalog status | catalog-supported |
+| Support level | supported-for-declared-scopes |
+| Supported scopes | local-test |
+| Production readiness | blocked-by-current-scan-gate |
+| Supported variants | default, server-only-ephemeral |
+| Candidate variants | none |
 | Control points | bundle-dependencies, capability-profile, cluster-rbac, component-selection, dependency-lock, extension-slots, installer-support-object, monitoring-workloads, scrape-config, source-lock, storage-retention |
 
 ## Artifact Chain
@@ -32,6 +32,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Chart dossier | [recipes/prometheus-community/prometheus/29.8.0/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/prometheus-community/prometheus/29.8.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/prometheus-community/prometheus/29.8.0/value-model.yaml](value-model.yaml) |
+| Weirdness and mitigations | [recipes/prometheus-community/prometheus/29.8.0/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/prometheus-community/prometheus/29.8.0/catalog-status.yaml](catalog-status.yaml) |
 | Installer package | [packages/prometheus-community/prometheus/29.8.0](../../../../packages/prometheus-community/prometheus/29.8.0) |
 | Installer package receipt | [recipes/prometheus-community/prometheus/29.8.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |

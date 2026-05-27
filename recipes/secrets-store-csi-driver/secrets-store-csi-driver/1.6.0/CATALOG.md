@@ -13,12 +13,12 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Field | Value |
 | --- | --- |
 | Chart | secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 |
-| Catalog status | catalog-candidate |
-| Support level | promotion-review-needed |
-| Supported scopes | none |
-| Production readiness | not-reviewed-for-production |
-| Supported variants | none |
-| Candidate variants | default, sync-secret-rotation |
+| Catalog status | catalog-supported |
+| Support level | supported-for-declared-scopes |
+| Supported scopes | local-test |
+| Production readiness | blocked-by-current-scan-gate |
+| Supported variants | default, sync-secret-rotation |
+| Candidate variants | none |
 | Control points | capability-profile, cluster-rbac, crd-lifecycle, csi-driver, daemonset-workload, dependency-lock, extension-slots, installer-support-object, platform-variant, provider-integration, source-lock, sync-secret-rotation |
 
 ## Artifact Chain
@@ -32,6 +32,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Chart dossier | [recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/value-model.yaml](value-model.yaml) |
+| Weirdness and mitigations | [recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/catalog-status.yaml](catalog-status.yaml) |
 | Installer package | [packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0](../../../../packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0) |
 | Installer package receipt | [recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |

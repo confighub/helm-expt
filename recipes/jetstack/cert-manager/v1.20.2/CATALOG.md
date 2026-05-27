@@ -13,12 +13,12 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Field | Value |
 | --- | --- |
 | Chart | jetstack/cert-manager@v1.20.2 |
-| Catalog status | catalog-candidate |
-| Support level | promotion-review-needed |
-| Supported scopes | none |
-| Production readiness | not-reviewed-for-production |
-| Supported variants | none |
-| Candidate variants | default, crds-enabled |
+| Catalog status | catalog-supported |
+| Support level | supported-for-declared-scopes |
+| Supported scopes | local-test |
+| Production readiness | blocked-by-current-scan-gate |
+| Supported variants | default, crds-enabled |
+| Candidate variants | none |
 | Control points | admission-webhook, capability-profile, cluster-rbac, crd-policy, dependency-lock, hook-policy, installer-support-object, source-lock, tpl |
 
 ## Artifact Chain
@@ -32,6 +32,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Chart dossier | [recipes/jetstack/cert-manager/v1.20.2/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/jetstack/cert-manager/v1.20.2/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/jetstack/cert-manager/v1.20.2/value-model.yaml](value-model.yaml) |
+| Weirdness and mitigations | [recipes/jetstack/cert-manager/v1.20.2/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/jetstack/cert-manager/v1.20.2/catalog-status.yaml](catalog-status.yaml) |
 | Installer package | [packages/jetstack/cert-manager/v1.20.2](../../../../packages/jetstack/cert-manager/v1.20.2) |
 | Installer package receipt | [recipes/jetstack/cert-manager/v1.20.2/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |

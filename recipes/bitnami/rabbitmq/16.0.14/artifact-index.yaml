@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/bitnami/rabbitmq/16.0.14/chart-dossier.yaml"
     controlPoints: "recipes/bitnami/rabbitmq/16.0.14/control-points.yaml"
     valueModel: "recipes/bitnami/rabbitmq/16.0.14/value-model.yaml"
+    weirdnessAndMitigations: "recipes/bitnami/rabbitmq/16.0.14/weirdness-and-mitigations.md"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"
@@ -35,16 +36,16 @@ spec:
       - "tpl"
   catalogStatus:
     path: "recipes/bitnami/rabbitmq/16.0.14/catalog-status.yaml"
-    status: "catalog-candidate"
-    supportLevel: "promotion-review-needed"
+    status: "catalog-supported"
+    supportLevel: "supported-for-declared-scopes"
     supportedScopes:
-      []
-    productionReadiness: "not-reviewed-for-production"
+      - "local-test"
+    productionReadiness: "blocked-by-current-scan-gate"
     supportedVariants:
-      []
-    candidateVariants:
       - "generated-passwords"
       - "existing-secret"
+    candidateVariants:
+      []
     deferredVariants:
       []
   installerPackage:

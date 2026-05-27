@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/stakater/reloader/2.2.12/chart-dossier.yaml"
     controlPoints: "recipes/stakater/reloader/2.2.12/control-points.yaml"
     valueModel: "recipes/stakater/reloader/2.2.12/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

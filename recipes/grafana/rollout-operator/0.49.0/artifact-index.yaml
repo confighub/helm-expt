@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/grafana/rollout-operator/0.49.0/chart-dossier.yaml"
     controlPoints: "recipes/grafana/rollout-operator/0.49.0/control-points.yaml"
     valueModel: "recipes/grafana/rollout-operator/0.49.0/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

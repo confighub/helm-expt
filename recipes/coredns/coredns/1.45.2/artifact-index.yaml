@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/coredns/coredns/1.45.2/chart-dossier.yaml"
     controlPoints: "recipes/coredns/coredns/1.45.2/control-points.yaml"
     valueModel: "recipes/coredns/coredns/1.45.2/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

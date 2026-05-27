@@ -5,20 +5,23 @@ metadata:
 spec:
   chart: "longhorn/longhorn"
   version: "1.11.2"
-  status: "catalog-candidate"
-  supportLevel: "promotion-review-needed"
+  status: "catalog-supported"
+  supportLevel: "supported-for-declared-scopes"
   supportedScopes:
-    []
-  productionReadiness: "not-reviewed-for-production"
+    - local-test
+  productionReadiness: "blocked-by-current-scan-gate"
   supportedVariants:
-    []
-  candidateVariants:
     - "default"
     - "ui-ingress"
+  candidateVariants:
+    []
   deferredVariants: []
   review:
     lastReviewed: "2026-05-27"
-    humanReviewRequired: true
-    productReviewRequired: true
+    humanReviewRequired: false
+    productReviewRequired: false
   notes:
-    - "Machine proof exists; human product review must confirm the supported variants and production dispositions."
+    - "Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts."
+    - "default preserves the normal Longhorn install shape."
+    - "ui-ingress is supported when ingress exposure assumptions are declared."
+    - "Production remains blocked until storage-class ownership, node prerequisites, backup targets, and scan/gate findings have dispositions."

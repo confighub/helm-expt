@@ -56,7 +56,7 @@ function reviewRecipe(root) {
       ? "old-version source lock; old-version recipe; upgrade diff; patch receipt; rollback receipt"
       : "none yet",
     next_action: eligible
-      ? "Select old Redis versions worth paid patch support and generate first upgrade/patch scenario."
+      ? "Select old chart versions worth paid patch support and generate the first upgrade/patch scenario."
       : "Promote chart to catalog-supported before opening old-version patch support.",
     recipe_path: relativeRepo(root),
   };

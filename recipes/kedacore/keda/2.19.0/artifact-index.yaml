@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/kedacore/keda/2.19.0/chart-dossier.yaml"
     controlPoints: "recipes/kedacore/keda/2.19.0/control-points.yaml"
     valueModel: "recipes/kedacore/keda/2.19.0/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "apiservice"
       - "capability-profile"

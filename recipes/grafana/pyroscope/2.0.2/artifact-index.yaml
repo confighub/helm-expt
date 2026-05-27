@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/grafana/pyroscope/2.0.2/chart-dossier.yaml"
     controlPoints: "recipes/grafana/pyroscope/2.0.2/control-points.yaml"
     valueModel: "recipes/grafana/pyroscope/2.0.2/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

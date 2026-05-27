@@ -13,12 +13,12 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Field | Value |
 | --- | --- |
 | Chart | bitnami/rabbitmq@16.0.14 |
-| Catalog status | catalog-candidate |
-| Support level | promotion-review-needed |
-| Supported scopes | none |
-| Production readiness | not-reviewed-for-production |
-| Supported variants | none |
-| Candidate variants | generated-passwords, existing-secret |
+| Catalog status | catalog-supported |
+| Support level | supported-for-declared-scopes |
+| Supported scopes | local-test |
+| Production readiness | blocked-by-current-scan-gate |
+| Supported variants | generated-passwords, existing-secret |
+| Candidate variants | none |
 | Control points | capability-profile, dependency-lock, generated-facts, hook-policy, installer-support-object, pvc-policy, source-lock, stateful-workload, target-facts, tpl |
 
 ## Artifact Chain
@@ -32,6 +32,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Chart dossier | [recipes/bitnami/rabbitmq/16.0.14/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/bitnami/rabbitmq/16.0.14/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/bitnami/rabbitmq/16.0.14/value-model.yaml](value-model.yaml) |
+| Weirdness and mitigations | [recipes/bitnami/rabbitmq/16.0.14/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/bitnami/rabbitmq/16.0.14/catalog-status.yaml](catalog-status.yaml) |
 | Installer package | [packages/bitnami/rabbitmq/16.0.14](../../../../packages/bitnami/rabbitmq/16.0.14) |
 | Installer package receipt | [recipes/bitnami/rabbitmq/16.0.14/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |

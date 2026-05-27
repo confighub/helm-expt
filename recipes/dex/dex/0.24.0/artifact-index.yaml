@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/dex/dex/0.24.0/chart-dossier.yaml"
     controlPoints: "recipes/dex/dex/0.24.0/control-points.yaml"
     valueModel: "recipes/dex/dex/0.24.0/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/metrics-server/metrics-server/3.13.0/chart-dossier.yaml"
     controlPoints: "recipes/metrics-server/metrics-server/3.13.0/control-points.yaml"
     valueModel: "recipes/metrics-server/metrics-server/3.13.0/value-model.yaml"
+    weirdnessAndMitigations: "recipes/metrics-server/metrics-server/3.13.0/weirdness-and-mitigations.md"
     controlPointCategories:
       - "apiservice"
       - "capability-profile"
@@ -35,16 +36,16 @@ spec:
       - "target-facts"
   catalogStatus:
     path: "recipes/metrics-server/metrics-server/3.13.0/catalog-status.yaml"
-    status: "catalog-candidate"
-    supportLevel: "promotion-review-needed"
+    status: "catalog-supported"
+    supportLevel: "supported-for-declared-scopes"
     supportedScopes:
-      []
-    productionReadiness: "not-reviewed-for-production"
+      - "local-test"
+    productionReadiness: "blocked-by-current-scan-gate"
     supportedVariants:
-      []
-    candidateVariants:
       - "default"
       - "external-tls-ca"
+    candidateVariants:
+      []
     deferredVariants:
       []
   installerPackage:

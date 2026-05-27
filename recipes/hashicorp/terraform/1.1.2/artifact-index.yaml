@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/hashicorp/terraform/1.1.2/chart-dossier.yaml"
     controlPoints: "recipes/hashicorp/terraform/1.1.2/control-points.yaml"
     valueModel: "recipes/hashicorp/terraform/1.1.2/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "crds"

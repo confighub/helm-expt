@@ -13,12 +13,12 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Field | Value |
 | --- | --- |
 | Chart | longhorn/longhorn@1.11.2 |
-| Catalog status | catalog-candidate |
-| Support level | promotion-review-needed |
-| Supported scopes | none |
-| Production readiness | not-reviewed-for-production |
-| Supported variants | none |
-| Candidate variants | default, ui-ingress |
+| Catalog status | catalog-supported |
+| Support level | supported-for-declared-scopes |
+| Supported scopes | local-test |
+| Production readiness | blocked-by-current-scan-gate |
+| Supported variants | default, ui-ingress |
+| Candidate variants | none |
 | Control points | admission-webhook, capability-profile, cluster-rbac, crd-policy, dependency-lock, hook-policy, installer-support-object, privileged-storage-workload, source-lock, storageclass-policy, ui-ingress-policy |
 
 ## Artifact Chain
@@ -32,6 +32,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Chart dossier | [recipes/longhorn/longhorn/1.11.2/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/longhorn/longhorn/1.11.2/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/longhorn/longhorn/1.11.2/value-model.yaml](value-model.yaml) |
+| Weirdness and mitigations | [recipes/longhorn/longhorn/1.11.2/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/longhorn/longhorn/1.11.2/catalog-status.yaml](catalog-status.yaml) |
 | Installer package | [packages/longhorn/longhorn/1.11.2](../../../../packages/longhorn/longhorn/1.11.2) |
 | Installer package receipt | [recipes/longhorn/longhorn/1.11.2/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |

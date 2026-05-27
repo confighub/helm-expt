@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/strimzi/strimzi-kafka-operator/1.0.0/chart-dossier.yaml"
     controlPoints: "recipes/strimzi/strimzi-kafka-operator/1.0.0/control-points.yaml"
     valueModel: "recipes/strimzi/strimzi-kafka-operator/1.0.0/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

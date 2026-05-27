@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/bitnami/phpmyadmin/20.0.0/chart-dossier.yaml"
     controlPoints: "recipes/bitnami/phpmyadmin/20.0.0/control-points.yaml"
     valueModel: "recipes/bitnami/phpmyadmin/20.0.0/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

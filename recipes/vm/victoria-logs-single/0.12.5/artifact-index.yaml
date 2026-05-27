@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/vm/victoria-logs-single/0.12.5/chart-dossier.yaml"
     controlPoints: "recipes/vm/victoria-logs-single/0.12.5/control-points.yaml"
     valueModel: "recipes/vm/victoria-logs-single/0.12.5/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

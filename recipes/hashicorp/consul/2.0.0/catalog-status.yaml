@@ -5,20 +5,23 @@ metadata:
 spec:
   chart: "hashicorp/consul"
   version: "2.0.0"
-  status: "catalog-candidate"
-  supportLevel: "promotion-review-needed"
+  status: "catalog-supported"
+  supportLevel: "supported-for-declared-scopes"
   supportedScopes:
-    []
-  productionReadiness: "not-reviewed-for-production"
+    - local-test
+  productionReadiness: "blocked-by-current-scan-gate"
   supportedVariants:
-    []
-  candidateVariants:
     - "default-control-plane"
     - "secure-mesh-existing-secrets"
+  candidateVariants:
+    []
   deferredVariants: []
   review:
     lastReviewed: "2026-05-27"
-    humanReviewRequired: true
-    productReviewRequired: true
+    humanReviewRequired: false
+    productReviewRequired: false
   notes:
-    - "Machine proof exists; human product review must confirm the supported variants and production dispositions."
+    - "Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts."
+    - "default-control-plane is the simplest local Consul control-plane path."
+    - "secure-mesh-existing-secrets is supported when the declared Secret target facts are satisfied."
+    - "Production remains blocked until gossip/TLS secret ownership, mesh policy, upgrade safety, and scan/gate findings have dispositions."

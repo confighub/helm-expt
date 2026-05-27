@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/external-dns/external-dns/1.21.1/chart-dossier.yaml"
     controlPoints: "recipes/external-dns/external-dns/1.21.1/control-points.yaml"
     valueModel: "recipes/external-dns/external-dns/1.21.1/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

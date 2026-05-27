@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/prometheus-community/prometheus-operator-crds/29.0.0/chart-dossier.yaml"
     controlPoints: "recipes/prometheus-community/prometheus-operator-crds/29.0.0/control-points.yaml"
     valueModel: "recipes/prometheus-community/prometheus-operator-crds/29.0.0/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "crds"
