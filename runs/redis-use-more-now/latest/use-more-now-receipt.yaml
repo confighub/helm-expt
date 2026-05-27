@@ -1,0 +1,92 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: UseMoreNowReceipt
+metadata:
+  name: redis-use-more-now-20260527
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: Kubara
+      server: https://hub.confighub.com
+      cubClientVersion: dev
+      cubServerVersion: v0.1.49
+  package:
+    path: packages/bitnami/redis/25.5.3
+    name: bitnami-redis
+    chart: bitnami/redis
+    chartVersion: 25.5.3
+    bases:
+      - default
+      - reuse-existing-secret
+    docVerified: true
+    targetFactRequirementVerified:
+      base: reuse-existing-secret
+      externalRequireKind: ClusterFeature
+      requirement: Secret redis/redis-existing-secret key redis-password
+  render:
+    command: cub install setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/use-more-now/redis-default --non-interactive --namespace redis
+    result: pass
+    manifestCount: 14
+    separatedSecretCount: 1
+    facts:
+      targetFactChecks:
+        base: default
+        mode: not-required
+        result: pass
+      requiredSecrets: []
+  rerender:
+    command: cub install render --work-dir .tmp/use-more-now/redis-default
+    result: pass
+    manifestCount: 14
+    separatedSecretCount: 1
+  deterministicPackage:
+    command: cub install package packages/bitnami/redis/25.5.3 -o .tmp/use-more-now/archives/redis-a.tgz
+    sha256: 33d75e4443ef0ca2d42d79049074f89e25de740bdc677f2451010024ab035550
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: cub install vet --work-dir .tmp/use-more-now/redis-default
+    result: pass
+    note: Package declares no validators.
+  upload:
+    command: cub install upload --work-dir .tmp/use-more-now/redis-default --space helm-redis-use-more-now
+    result: pass
+    workaround: CUB_CONFIG=/Users/alexis/.confighub/config.yaml
+    uploadedAt: "2026-05-27T07:33:57Z"
+    space: helm-redis-use-more-now
+    unitCount: 15
+    redisKubernetesUnitCount: 14
+    installerRecordUnitCount: 1
+    inferredLinkCount: 31
+    separatedSecretsNotUploaded:
+      - v1/Secret redis/redis
+  plan:
+    command: cub install plan --work-dir .tmp/use-more-now/redis-default
+    result: pass
+    summary: No changes.
+    images:
+      - StatefulSet/redis-master [redis] registry-1.docker.io/bitnami/redis:latest
+      - StatefulSet/redis-replicas [redis] registry-1.docker.io/bitnami/redis:latest
+  serverSideVariant:
+    command: cub variant create staging helm-redis-use-more-now --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}}
+    result: pass
+    upstreamSpace: helm-redis-use-more-now
+    downstreamSpace: helm-redis-use-more-now-staging
+    clonedUnitCount: 15
+    downstreamLabels:
+      Component: Redis
+      Environment: Staging
+      Layer: App
+      Owner: ConfigHubHelm
+      Region: local
+      Variant: staging
+  review:
+    unitList: pass
+    cloneTree: pass
+    unitData: pass
+    revisionList: pass
+    revisionDiff: pass
+    note: Current diff proof uses Unit revision diff; richer variant diff remains a product ask.
+  observedFriction:
+    - kustomize was present in $(go env GOPATH)/bin but not on the default shell PATH.
+    - cub install upload needs explicit CUB_CONFIG in this local setup.
+    - broad cub unit tree --edge link for the Redis space was too slow; narrower clone tree and unit review commands worked.

@@ -219,6 +219,8 @@ instead of pretending the docs solved it.
 Acceptance:
 
 - Redis has an installer-capability gap review.
+- Redis has a `docs/demo/redis/use-more-now-transcript.md` proof using current
+  `cub install doc/setup/render/package/vet/plan/upload`.
 - Target facts are either:
   - represented as installer-native `externalRequires` / fact requirements, or
   - explicitly documented as proof-layer-only pending installer support.
@@ -296,6 +298,8 @@ Acceptance:
   ConfigHub space exists and server-side cloning is the easiest safe path.
 - Redis/ConfigHub demo should include a simple server-side clone when useful,
   for example from a reviewed Redis base space to a staging or regional space.
+- Redis now has live evidence for this in
+  `docs/demo/redis/use-more-now-transcript.md`.
 - Catalog maps should continue linking pre-publish recipe variants separately
   from post-upload ConfigHub server variants.
 
@@ -488,6 +492,12 @@ Acceptance:
 
 ### P1.6 Add Review And Diff Demo
 
+Status:
+
+```text
+complete for the Redis baseline; repeat or deepen for future catalog-supported charts
+```
+
 Action:
 
 Use existing ConfigHub review verbs against the Redis proof spaces:
@@ -507,6 +517,7 @@ Acceptance:
   files.
 - Revision history is visible.
 - A change or variant difference is shown with `cub unit diff`.
+- Current Redis evidence lives in `docs/demo/redis/use-more-now-transcript.md`.
 
 ### P1.7 Add Safe Operation Lane
 
@@ -662,9 +673,9 @@ artifacts that do not prove the user-facing claim.
 
 ## Immediate Next Three Moves
 
-1. Add the Redis "use more now" transcript with current `cub install`
-   docs/setup/render/package/vet/plan/upload evidence.
-2. Use `cub variant create` in the Redis/ConfigHub demo after a reviewed
-   upstream Redis space exists.
-3. Add the review/diff proof with `cub unit tree`, `cub unit data`,
-   `cub revision list`, and `cub unit diff`.
+1. Add the ConfigHub function scan lane for Redis or the next promoted
+   candidate using `cub function vet` / `cub run vet-*`.
+2. Add a local/test safe-operation lane with `cub changeset`, `cub unit
+   approve`, and a gated or dry-run apply path.
+3. Decide whether the next live evidence target is NGINX, PostgreSQL, or
+   Metrics Server, then repeat the use-more-now transcript for that chart.
