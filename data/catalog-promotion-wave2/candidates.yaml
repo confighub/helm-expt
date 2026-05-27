@@ -1,0 +1,99 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "CatalogPromotionWave"
+metadata:
+  name: "wave-2-real-variants"
+  generatedBy: "scripts/select-catalog-promotion-wave2.mjs"
+spec:
+  sourceMatrix: "data/top500-catalog-analysis/raw.json"
+  doctrine: "A chart is not catalog-supported merely because default Helm output is deterministic; it needs obvious user-shaped variants and production dispositions."
+  acceptance:
+    - "Each selected chart must already have proof-grade package/proof artifacts."
+    - "Each selected chart must be default-only today so the next work is genuinely variant promotion."
+    - "Each proposed variant must become an actual recipe variant, package base, rendered revision, scan/gate receipt, and Helm-equivalence receipt before support is claimed."
+    - "Production support remains blocked until production dispositions and live/e2e observation requirements are recorded."
+  candidates:
+    -
+      rank: 8
+      chart: "traefik/traefik"
+      currentVersion: "40.2.0"
+      recipePath: "recipes/traefik/traefik/40.2.0/recipe.yaml"
+      packagePath: "packages/traefik/traefik/40.2.0"
+      why: "Very high-rank ingress controller with CRDs, RBAC, webhooks, generated/source signals, and exposure choices."
+      proposedRealVariants:
+        - "default"
+        - "external-crds"
+        - "internal-clusterip-dashboard-off"
+        - "cloud-loadbalancer"
+      controlFocus:
+        - "CRD ownership"
+        - "IngressClass ownership"
+        - "Service exposure"
+        - "webhook/readiness policy"
+    -
+      rank: 18
+      chart: "external-dns/external-dns"
+      currentVersion: "1.21.1"
+      recipePath: "recipes/external-dns/external-dns/1.21.1/recipe.yaml"
+      packagePath: "packages/external-dns/external-dns/1.21.1"
+      why: "Small, familiar controller where the useful variants are provider and credential choices, not YAML ceremony."
+      proposedRealVariants:
+        - "route53-irsa"
+        - "cloudflare-existing-secret"
+        - "dry-run-txt-registry"
+      controlFocus:
+        - "provider selection"
+        - "credential target facts"
+        - "TXT registry ownership"
+        - "cluster RBAC"
+    -
+      rank: 30
+      chart: "vmware-tanzu/velero"
+      currentVersion: "12.0.1"
+      recipePath: "recipes/velero/velero/12.0.1/recipe.yaml"
+      packagePath: "packages/velero/velero/12.0.1"
+      why: "Backup/restore is a strong production story: provider credentials, object storage, CRDs, and restore safety are visible."
+      proposedRealVariants:
+        - "aws-s3-existing-secret"
+        - "azure-blob-existing-secret"
+        - "filesystem-backup-node-agent"
+      controlFocus:
+        - "backup target facts"
+        - "cloud credentials"
+        - "CRD lifecycle"
+        - "restore/rollback policy"
+    -
+      rank: 35
+      chart: "istio-official/istiod"
+      currentVersion: "1.30.0"
+      recipePath: "recipes/istio/istiod/1.30.0/recipe.yaml"
+      packagePath: "packages/istio/istiod/1.30.0"
+      why: "Service mesh control plane proves ConfigHub can explain hard platform charts without pretending they are simple."
+      proposedRealVariants:
+        - "revisioned-control-plane"
+        - "external-ca"
+        - "minimal-profile"
+      controlFocus:
+        - "webhook lifecycle"
+        - "cluster RBAC"
+        - "revision labels"
+        - "certificate authority boundary"
+    -
+      rank: 38
+      chart: "kyverno/kyverno"
+      currentVersion: "3.8.1"
+      recipePath: "recipes/kyverno/kyverno/3.8.1/recipe.yaml"
+      packagePath: "packages/kyverno/kyverno/3.8.1"
+      why: "Policy engine exercises hooks, lookup, generated facts, CRDs, admission webhooks, and controller sizing."
+      proposedRealVariants:
+        - "default-admission"
+        - "external-crds"
+        - "ha-admission-reports"
+      controlFocus:
+        - "admission webhook safety"
+        - "CRD ownership"
+        - "hook policy"
+        - "controller HA and reports"
+  alternates:
+    - "cloudnative-pg/cloudnative-pg"
+    - "argo/argo-workflows"
+    - "fluent/fluent-bit"

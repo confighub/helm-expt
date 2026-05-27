@@ -325,8 +325,15 @@ Build new outputs under:
 data/top500-catalog-analysis/
   raw.json
   review.csv
+  drilldown.csv
   review.xlsx
   summary.md
+```
+
+Status:
+
+```text
+completed as generated catalog-analysis output
 ```
 
 Acceptance:
@@ -346,6 +353,68 @@ Acceptance:
 What is proved?
 What is recommended?
 What remains risky or unreviewed?
+```
+
+Verification:
+
+```text
+npm run top500:catalog:verify
+```
+
+The generated matrix currently shows 100 current proof recipes in the repo, 91
+matched to the old top-500 source rows, 20 catalog-supported for local-test
+scope, 71 proof-grade/default rows that need user-shaped variants, and 409
+rows that remain source reconnaissance only.
+
+### P0.7 Select The Next Real-Variant Promotion Wave
+
+Problem:
+
+The 80 generated default proofs are valuable but not enough to persuade a Helm
+user that this is the best, simplest, safest install path. The next wave must
+add real variants for charts where the variants are obvious user choices.
+
+Action:
+
+Maintain generated outputs under:
+
+```text
+data/catalog-promotion-wave2/
+  candidates.yaml
+  review.csv
+  summary.md
+```
+
+Status:
+
+```text
+started with five proof-grade/default charts selected
+```
+
+Selected charts:
+
+```text
+traefik/traefik
+external-dns/external-dns
+vmware-tanzu/velero
+istio-official/istiod
+kyverno/kyverno
+```
+
+Acceptance:
+
+- each selected chart is proof-grade and exact-version matched in the top-500
+  catalog analysis
+- each selected chart is default-only today, so the next work is genuine
+  variant promotion
+- each proposed variant must become a real recipe variant, package base,
+  rendered revision, scan/gate receipt, and Helm-equivalence receipt before
+  catalog support is claimed
+
+Verification:
+
+```text
+npm run catalog:wave2:verify
 ```
 
 ## P1 Execution
@@ -485,6 +554,36 @@ Acceptance:
 - Redis stays green
 - next promoted charts have live or dry-run evidence
 - live evidence is clearly separated from machine proof
+
+Current lane:
+
+```text
+data/production-disposition/
+  top20.csv
+  summary.md
+```
+
+Status:
+
+```text
+started
+```
+
+Current facts:
+
+```text
+20 catalog-supported local-test charts
+20 passing ConfigHub use-more-now receipt sets
+1 live/e2e observed chart
+0 production-supported charts
+20 production-blocked pending disposition
+```
+
+Verification:
+
+```text
+npm run production:disposition:verify
+```
 
 ### P1.5 Old-Version Patch Lane
 
