@@ -1,0 +1,85 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "UseMoreNowReceipt"
+metadata:
+  name: "argo-cd-use-more-now-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.49"
+  package:
+    path: "packages/argo-cd/argo-cd/9.5.15"
+    name: "argo-cd-argo-cd"
+    chart: "argo-cd/argo-cd"
+    chartVersion: "9.5.15"
+    bases:
+      - "default"
+      - "no-crds"
+    selectedBase: "default"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub install setup --pull packages/argo-cd/argo-cd/9.5.15 --base default --work-dir .tmp/use-more-now/argo-cd-default --non-interactive --namespace argocd"
+    result: "pass"
+    manifestCount: 48
+    separatedSecretCount: 2
+    facts:
+      {}
+  rerender:
+    command: "cub install render --work-dir .tmp/use-more-now/argo-cd-default"
+    result: "pass"
+    manifestCount: 48
+    separatedSecretCount: 2
+  deterministicPackage:
+    command: "cub install package packages/argo-cd/argo-cd/9.5.15 -o .tmp/use-more-now/argo-cd-archives/argo-cd-a.tgz"
+    sha256: "81ed5b2990f073077db412185261c8db639bb8bd73b27764a6a5d8db870ff559"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub install vet --work-dir .tmp/use-more-now/argo-cd-default"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub install upload --work-dir .tmp/use-more-now/argo-cd-default --space helm-argo-cd-use-more-now --component ArgoCD --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=ArgoCD --unit-label HelmChart=argo-cd-argo-cd --unit-label HelmChartVersion=9.5.15 --unit-label Variant=default --unit-label Proof=argo-cd-use-more-now --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-argo-cd-use-more-now"
+    unitCount: 49
+    kubernetesUnitCount: 48
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      - "v1/Secret argocd/argocd-notifications-secret"
+      - "v1/Secret argocd/argocd-secret"
+  plan:
+    preUpload:
+      command: "cub install plan --work-dir .tmp/use-more-now/argo-cd-default"
+      result: "expected-missing-upload-state"
+    command: "cub install plan --work-dir .tmp/use-more-now/argo-cd-default"
+    result: "pass"
+    summary: "No changes.\nImages in helm-argo-cd-use-more-now (post-render):\n      Deployment/argo-cd-argocd-applicationset-controller [applicationset-controller] quay.io/argoproj/argocd:v3.4.2\n  init  Deployment/argo-cd-argocd-dex-server [copyutil] quay.io/argoproj/argocd:v3.4.2\n      Deployment/argo-cd-argocd-dex-server [dex-server] ghcr.io/dexidp/dex:v2.45.1\n      Deployment/argo-cd-argocd-notifications-controller [notifications-controller] quay.io/argoproj/argocd:v3.4.2\n      Deployment/argo-cd-argocd-redis [redis] ecr-public.aws.com/docker/library/redis:8.2.3-alpine\n  init  Deployment/argo-cd-argocd-repo-server [copyutil] quay.io/argoproj/argocd:v3.4.2\n      Deployment/argo-cd-argocd-repo-server [repo-server] quay.io/argoproj/argocd:v3.4.2\n      Deployment/argo-cd-argocd-server [server] quay.io/argoproj/argocd:v3.4.2"
+  serverSideVariant:
+    command: "cub variant create staging helm-argo-cd-use-more-now --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}} --allow-exists"
+    result: "pass"
+    upstreamSpace: "helm-argo-cd-use-more-now"
+    downstreamSpace: "helm-argo-cd-use-more-now-staging"
+    clonedUnitCount: 49
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "statefulset-argocd-argo-cd-argocd-application-controller"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-argo-cd-use-more-now"
+      - "helm-argo-cd-use-more-now-staging"
+  observedFriction:
+    - "cub install upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub install plan is expected to fail until upload state exists."
+    - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

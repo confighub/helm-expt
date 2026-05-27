@@ -1,0 +1,83 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "UseMoreNowReceipt"
+metadata:
+  name: "secrets-store-csi-driver-use-more-now-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.49"
+  package:
+    path: "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0"
+    name: "secrets-store-csi-driver"
+    chart: "secrets-store-csi-driver/secrets-store-csi-driver"
+    chartVersion: "1.6.0"
+    bases:
+      - "default"
+      - "sync-secret-rotation"
+    selectedBase: "default"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub install setup --pull packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 --base default --work-dir .tmp/use-more-now/secrets-store-csi-driver-default --non-interactive --namespace kube-system"
+    result: "pass"
+    manifestCount: 11
+    separatedSecretCount: 0
+    facts:
+      {}
+  rerender:
+    command: "cub install render --work-dir .tmp/use-more-now/secrets-store-csi-driver-default"
+    result: "pass"
+    manifestCount: 11
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub install package packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 -o .tmp/use-more-now/secrets-store-csi-driver-archives/secrets-store-csi-driver-a.tgz"
+    sha256: "f9996d7c744f87c3988cacd5e6c65edc88de2596c6f3cc61505ce132a82873a1"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub install vet --work-dir .tmp/use-more-now/secrets-store-csi-driver-default"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub install upload --work-dir .tmp/use-more-now/secrets-store-csi-driver-default --space helm-secrets-store-csi-driver-use-more-now --component SecretsStoreCSIDriver --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=SecretsStoreCSIDriver --unit-label HelmChart=secrets-store-csi-driver-secrets-store-csi-driver --unit-label HelmChartVersion=1.6.0 --unit-label Variant=default --unit-label Proof=secrets-store-csi-driver-use-more-now --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-secrets-store-csi-driver-use-more-now"
+    unitCount: 12
+    kubernetesUnitCount: 11
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub install plan --work-dir .tmp/use-more-now/secrets-store-csi-driver-default"
+      result: "expected-missing-upload-state"
+    command: "cub install plan --work-dir .tmp/use-more-now/secrets-store-csi-driver-default"
+    result: "pass"
+    summary: "No changes.\nImages in helm-secrets-store-csi-driver-use-more-now (post-render):\n      DaemonSet/secrets-store-csi-driver [liveness-probe] registry.k8s.io/sig-storage/livenessprobe:v2.18.0\n      DaemonSet/secrets-store-csi-driver [node-driver-registrar] registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.16.0\n      DaemonSet/secrets-store-csi-driver [secrets-store] registry.k8s.io/csi-secrets-store/driver:v1.6.0"
+  serverSideVariant:
+    command: "cub variant create staging helm-secrets-store-csi-driver-use-more-now --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}} --allow-exists"
+    result: "pass"
+    upstreamSpace: "helm-secrets-store-csi-driver-use-more-now"
+    downstreamSpace: "helm-secrets-store-csi-driver-use-more-now-staging"
+    clonedUnitCount: 12
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "daemonset-kube-system-secrets-store-csi-driver"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-secrets-store-csi-driver-use-more-now"
+      - "helm-secrets-store-csi-driver-use-more-now-staging"
+  observedFriction:
+    - "cub install upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub install plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

@@ -1,0 +1,83 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "UseMoreNowReceipt"
+metadata:
+  name: "ingress-nginx-use-more-now-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.49"
+  package:
+    path: "packages/ingress-nginx/ingress-nginx/4.15.1"
+    name: "ingress-nginx-ingress-nginx"
+    chart: "ingress-nginx/ingress-nginx"
+    chartVersion: "4.15.1"
+    bases:
+      - "default"
+      - "admission-disabled"
+    selectedBase: "default"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub install setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base default --work-dir .tmp/use-more-now/ingress-nginx-default --non-interactive --namespace ingress-nginx"
+    result: "pass"
+    manifestCount: 12
+    separatedSecretCount: 0
+    facts:
+      {}
+  rerender:
+    command: "cub install render --work-dir .tmp/use-more-now/ingress-nginx-default"
+    result: "pass"
+    manifestCount: 12
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub install package packages/ingress-nginx/ingress-nginx/4.15.1 -o .tmp/use-more-now/ingress-nginx-archives/ingress-nginx-a.tgz"
+    sha256: "67696880ec9c64ef02f0759fdd67e2423d478f9fedcd70bbe45b5edd71336f46"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub install vet --work-dir .tmp/use-more-now/ingress-nginx-default"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub install upload --work-dir .tmp/use-more-now/ingress-nginx-default --space helm-ingress-nginx-use-more-now --component IngressNGINX --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=IngressNGINX --unit-label HelmChart=ingress-nginx-ingress-nginx --unit-label HelmChartVersion=4.15.1 --unit-label Variant=default --unit-label Proof=ingress-nginx-use-more-now --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-ingress-nginx-use-more-now"
+    unitCount: 13
+    kubernetesUnitCount: 12
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub install plan --work-dir .tmp/use-more-now/ingress-nginx-default"
+      result: "expected-missing-upload-state"
+    command: "cub install plan --work-dir .tmp/use-more-now/ingress-nginx-default"
+    result: "pass"
+    summary: "No changes.\nImages in helm-ingress-nginx-use-more-now (post-render):\n      Deployment/ingress-nginx-controller [controller] registry.k8s.io/ingress-nginx/controller:v1.15.1@sha256:594ceea76b01c592858f803f9ff4d2cb40542cae2060410b2c95f75907d659e1"
+  serverSideVariant:
+    command: "cub variant create staging helm-ingress-nginx-use-more-now --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}} --allow-exists"
+    result: "pass"
+    upstreamSpace: "helm-ingress-nginx-use-more-now"
+    downstreamSpace: "helm-ingress-nginx-use-more-now-staging"
+    clonedUnitCount: 13
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "deployment-ingress-nginx-ingress-nginx-controller"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-ingress-nginx-use-more-now"
+      - "helm-ingress-nginx-use-more-now-staging"
+  observedFriction:
+    - "cub install upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub install plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

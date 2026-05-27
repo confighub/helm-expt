@@ -1,0 +1,97 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "UseMoreNowReceipt"
+metadata:
+  name: "mongodb-use-more-now-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.49"
+  package:
+    path: "packages/bitnami/mongodb/19.0.7"
+    name: "bitnami-mongodb"
+    chart: "bitnami/mongodb"
+    chartVersion: "19.0.7"
+    bases:
+      - "generated-passwords"
+      - "existing-secret-replicaset"
+    selectedBase: "generated-passwords"
+    docVerified: true
+    targetFactRequirements:
+      -
+        base: "existing-secret-replicaset"
+        requirements:
+          -
+            kind: "ClusterFeature"
+            name: "Secret mongodb/mongodb-auth keys mongodb-root-password,mongodb-replica-set-key"
+            namespace: "mongodb"
+            suggestedSource: "kubectl -n mongodb create secret generic mongodb-auth --from-literal=mongodb-root-password=<value> --from-literal=mongodb-replica-set-key=<value>"
+  render:
+    command: "cub install setup --pull packages/bitnami/mongodb/19.0.7 --base generated-passwords --work-dir .tmp/use-more-now/mongodb-generated-passwords --non-interactive --namespace mongodb"
+    result: "pass"
+    manifestCount: 8
+    separatedSecretCount: 1
+    facts:
+      targetFactChecks:
+        base: "generated-passwords"
+        mode: "not-required"
+        result: "pass"
+      targetFacts:
+        requiredSecrets:
+          []
+  rerender:
+    command: "cub install render --work-dir .tmp/use-more-now/mongodb-generated-passwords"
+    result: "pass"
+    manifestCount: 8
+    separatedSecretCount: 1
+  deterministicPackage:
+    command: "cub install package packages/bitnami/mongodb/19.0.7 -o .tmp/use-more-now/mongodb-archives/mongodb-a.tgz"
+    sha256: "1141401fc1491b494dbc9c41a87864b0be6fb27f0e6ae28d95555bcd1fa0917f"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub install vet --work-dir .tmp/use-more-now/mongodb-generated-passwords"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub install upload --work-dir .tmp/use-more-now/mongodb-generated-passwords --space helm-mongodb-use-more-now --component MongoDB --layer App --environment Demo --owner ConfigHubHelm --variant generated-passwords --unit-label Component=MongoDB --unit-label HelmChart=bitnami-mongodb --unit-label HelmChartVersion=19.0.7 --unit-label Variant=generated-passwords --unit-label Proof=mongodb-use-more-now --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-mongodb-use-more-now"
+    unitCount: 9
+    kubernetesUnitCount: 8
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      - "v1/Secret mongodb/mongodb"
+  plan:
+    preUpload:
+      command: "cub install plan --work-dir .tmp/use-more-now/mongodb-generated-passwords"
+      result: "expected-missing-upload-state"
+    command: "cub install plan --work-dir .tmp/use-more-now/mongodb-generated-passwords"
+    result: "pass"
+    summary: "No changes.\nImages in helm-mongodb-use-more-now (post-render):\n  init  Deployment/mongodb [log-dir] registry-1.docker.io/bitnami/mongodb:latest\n      Deployment/mongodb [mongodb] registry-1.docker.io/bitnami/mongodb:latest"
+  serverSideVariant:
+    command: "cub variant create staging helm-mongodb-use-more-now --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}} --allow-exists"
+    result: "pass"
+    upstreamSpace: "helm-mongodb-use-more-now"
+    downstreamSpace: "helm-mongodb-use-more-now-staging"
+    clonedUnitCount: 9
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "deployment-mongodb-mongodb"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-mongodb-use-more-now"
+      - "helm-mongodb-use-more-now-staging"
+  observedFriction:
+    - "cub install upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub install plan is expected to fail until upload state exists."
+    - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."
