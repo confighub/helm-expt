@@ -1,0 +1,83 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "UseMoreNowReceipt"
+metadata:
+  name: "cert-manager-use-more-now-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.49"
+  package:
+    path: "packages/jetstack/cert-manager/v1.20.2"
+    name: "jetstack-cert-manager"
+    chart: "jetstack/cert-manager"
+    chartVersion: "v1.20.2"
+    bases:
+      - "default"
+      - "crds-enabled"
+    selectedBase: "default"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub install setup --pull packages/jetstack/cert-manager/v1.20.2 --base default --work-dir .tmp/use-more-now/cert-manager-default --non-interactive --namespace cert-manager"
+    result: "pass"
+    manifestCount: 43
+    separatedSecretCount: 0
+    facts:
+      {}
+  rerender:
+    command: "cub install render --work-dir .tmp/use-more-now/cert-manager-default"
+    result: "pass"
+    manifestCount: 43
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub install package packages/jetstack/cert-manager/v1.20.2 -o .tmp/use-more-now/cert-manager-archives/cert-manager-a.tgz"
+    sha256: "79ae248a548e647adfa660412021cae0237955bb77a719f516987c33cc06266f"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub install vet --work-dir .tmp/use-more-now/cert-manager-default"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub install upload --work-dir .tmp/use-more-now/cert-manager-default --space helm-cert-manager-use-more-now --component CertManager --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=CertManager --unit-label HelmChart=jetstack-cert-manager --unit-label HelmChartVersion=v1.20.2 --unit-label Variant=default --unit-label Proof=cert-manager-use-more-now --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-cert-manager-use-more-now"
+    unitCount: 44
+    kubernetesUnitCount: 43
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub install plan --work-dir .tmp/use-more-now/cert-manager-default"
+      result: "expected-missing-upload-state"
+    command: "cub install plan --work-dir .tmp/use-more-now/cert-manager-default"
+    result: "pass"
+    summary: "No changes.\nImages in helm-cert-manager-use-more-now (post-render):\n      Deployment/cert-manager [cert-manager-controller] quay.io/jetstack/cert-manager-controller:v1.20.2\n      Deployment/cert-manager-cainjector [cert-manager-cainjector] quay.io/jetstack/cert-manager-cainjector:v1.20.2\n      Deployment/cert-manager-webhook [cert-manager-webhook] quay.io/jetstack/cert-manager-webhook:v1.20.2"
+  serverSideVariant:
+    command: "cub variant create staging helm-cert-manager-use-more-now --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}} --allow-exists"
+    result: "pass"
+    upstreamSpace: "helm-cert-manager-use-more-now"
+    downstreamSpace: "helm-cert-manager-use-more-now-staging"
+    clonedUnitCount: 44
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "deployment-cert-manager-cert-manager-cainjector"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-cert-manager-use-more-now"
+      - "helm-cert-manager-use-more-now-staging"
+  observedFriction:
+    - "cub install upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub install plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

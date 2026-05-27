@@ -21,6 +21,29 @@ Each chart in this target must have:
 The target count includes Redis because it is the first public-chart full
 proof.
 
+## Live Use-More-Now Status
+
+The top-20 set also has current ConfigHub use-more-now evidence:
+
+```text
+20 / 20 use-more-now receipt sets verified
+```
+
+Each receipt set proves the current command path:
+
+```text
+cub install doc/setup/render/package/vet/plan/upload
+ConfigHub Unit inventory and representative data/revision review
+cub variant create staging clone
+cub function vet checks
+cub changeset + approve + apply --dry-run safe boundary
+```
+
+The runner is quota-aware. For large charts, `--cleanup-spaces` removes
+temporary live proof spaces after receipts are written because the Kubara demo
+org has a finite Link quota. The receipt remains the durable proof artifact and
+records whether live spaces were retained or deleted after the run.
+
 ## Current Status
 
 ```text

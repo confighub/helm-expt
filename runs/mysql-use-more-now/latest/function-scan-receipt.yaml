@@ -1,0 +1,79 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "mysql-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-mysql-use-more-now"
+    selector: "Labels.Proof = 'mysql-use-more-now'"
+  subject:
+    chart: "bitnami/mysql"
+    chartVersion: "14.0.3"
+    packagePath: "packages/bitnami/mysql/14.0.3"
+    variant: "generated-passwords"
+    configHubUnitCount: 8
+  unitRevisionBindings:
+    -
+      slug: "configmap-mysql-mysql"
+      headRevisionNum: 2
+      dataHash: "608877da7b623c5bb03a8c200503bca2523bef2fceb8618027b66c8c9b036c78"
+    -
+      slug: "namespace-mysql"
+      headRevisionNum: 2
+      dataHash: "6f575c881f006605369170c33db5d1001ab04978687c0b5556c663cb508e0be9"
+    -
+      slug: "networkpolicy-mysql-mysql"
+      headRevisionNum: 2
+      dataHash: "cfa403695533d0614a8ee6754eb2db46e8d6bca97dae7244878b4fc5c6e15228"
+    -
+      slug: "poddisruptionbudget-mysql-mysql"
+      headRevisionNum: 2
+      dataHash: "9e7cfbed4f216056954a68fe4d70aef2ce58b85dd0f49e9de9e329e0ad9e73e7"
+    -
+      slug: "serviceaccount-mysql-mysql"
+      headRevisionNum: 2
+      dataHash: "d23cc596200aad6b90a58c5706dda927cdec8c910efce640d2bb60c8e28e2451"
+    -
+      slug: "service-mysql-mysql"
+      headRevisionNum: 2
+      dataHash: "492784f54b5e33b0c8d6aa5ea4101c030e4b4228ba75f51cf6e20d091918c9ce"
+    -
+      slug: "service-mysql-mysql-headless"
+      headRevisionNum: 2
+      dataHash: "ba202c769e99b5e5b02e7bff585435080f0f0bd1b0d65a1f65851bdba17759f8"
+    -
+      slug: "statefulset-mysql-mysql"
+      headRevisionNum: 2
+      dataHash: "cf7c8b7adaad8b027fd3893ea06682432d6ec34ea9a0e55997f2c15b72703534"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 8
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 8
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 8
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

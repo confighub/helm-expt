@@ -387,6 +387,7 @@ The default verifier is now the artifact-chain verifier:
 
 ```sh
 npm run verify
+npm run top20:verify-use-more-now
 npm run redis:compare
 npm run redis:verify-package
 npm run metrics-server:compare
@@ -417,7 +418,42 @@ PostgreSQL, RabbitMQ, kube-prometheus-stack, Loki, Longhorn, MySQL, Grafana,
 Vault, Secrets Store CSI Driver, Prometheus, MongoDB, Nginx, Tempo, and Consul
 proof/package artifacts, executable installer target-fact bindings for every
 variant that declares `targetFacts`, deterministic `cub install` packaging,
-and negative golden self-tests.
+top-20 live use-more-now receipts, and negative golden self-tests.
+
+## Top-20 Use-More-Now Lane
+
+The top-20 proof now has one live ConfigHub lane per chart:
+
+```text
+docs/demo/<chart>/use-more-now.md
+docs/demo/<chart>/use-more-now-transcript.md
+runs/<chart>-use-more-now/latest/use-more-now-receipt.yaml
+runs/<chart>-use-more-now/latest/function-scan-receipt.yaml
+runs/<chart>-use-more-now/latest/safe-ops-receipt.yaml
+```
+
+The lane uses current commands only:
+
+```text
+cub install doc/setup/render/package/vet/plan/upload
+cub variant create
+cub unit list/data/diff/approve/apply/cancel
+cub function vet
+cub changeset create/update
+```
+
+Run or verify it with:
+
+```sh
+npm run top20:use-more-now
+npm run top20:use-more-now -- --cleanup-spaces
+npm run top20:verify-use-more-now
+```
+
+`--cleanup-spaces` is for the Kubara demo org quota. It still runs the real
+ConfigHub upload, server-side variant clone, function scan, and safe-ops path,
+then deletes that chart's temporary live proof spaces after receipts and logs
+are written. The receipt records this retention policy explicitly.
 
 ## Redis Proof
 

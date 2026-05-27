@@ -1,0 +1,539 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "kube-prometheus-stack-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-kube-prometheus-stack-use-more-now"
+    selector: "Labels.Proof = 'kube-prometheus-stack-use-more-now'"
+  subject:
+    chart: "prometheus-community/kube-prometheus-stack"
+    chartVersion: "85.3.3"
+    packagePath: "packages/prometheus-community/kube-prometheus-stack/85.3.3"
+    variant: "default"
+    configHubUnitCount: 123
+  unitRevisionBindings:
+    -
+      slug: "customresourcedefinition-scrapeconfigs-monitoring-coreos-com"
+      headRevisionNum: 2
+      dataHash: "211d820a2e353379aa08a727e2f9e4470937d2a92c546de8f25b0e124c3eba3a"
+    -
+      slug: "customresourcedefinition-servicemonitors-monitoring-coreos-com"
+      headRevisionNum: 2
+      dataHash: "cf7484b283cc730cb3f387c251991c36f4107db04e17ef968b035e37139e8f80"
+    -
+      slug: "customresourcedefinition-thanosrulers-monitoring-coreos-com"
+      headRevisionNum: 2
+      dataHash: "e176c719b60bb4c0ddc36828d64a4c54db2236599fd1f64c36eb7b1e4094cf44"
+    -
+      slug: "namespace-monitoring"
+      headRevisionNum: 2
+      dataHash: "77b6f743ca7a0307f1094f413e79267dd3163ced43ba14c4c3cee9858c5f9e2e"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-etcd"
+      headRevisionNum: 2
+      dataHash: "6e2455549c4e14fcd81c2286dfb49ecc182d14b507a11a04c64e3fd11690d12d"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-general-rules"
+      headRevisionNum: 2
+      dataHash: "4118915280e66b94040a14001b9b1f72048f6aebd071ea983cbf8fbc9d0d56ae"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-k8s-rules-pod-owner"
+      headRevisionNum: 2
+      dataHash: "42e00be0f7e630c4349a2f482e2f14ee4e974f530fb3322138e82a91649d5719"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-kube-apiserver-histogram-rules"
+      headRevisionNum: 2
+      dataHash: "7064cd1a8485fd38dbb029c50867880852dfc2e5c81952dfa1986ed5dd2784ab"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-kubernetes-apps"
+      headRevisionNum: 2
+      dataHash: "b47c0e7d7415db36bb47b5ea31861c4dc84c8aa0d3c27c7669ddcf9500f6fbc4"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-kubernetes-resources"
+      headRevisionNum: 2
+      dataHash: "9d7946fc2dac430f913cd8da82275e85c2ad5ebc3b7c371b8508fa20bfe3c1a4"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-kubernetes-system-kube-proxy"
+      headRevisionNum: 2
+      dataHash: "497c6a5b99d606386436fd5c77d2a5e3d365c5ecebb500097c4cf3874b578c10"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-kubernetes-system-kubelet"
+      headRevisionNum: 2
+      dataHash: "2169ee5210e40258cfd496bca32862d79564befd42d0d7020b8b9d3e98f6e88a"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-kubernetes-system-scheduler"
+      headRevisionNum: 2
+      dataHash: "59a611e35a4139b15ee231bbd44efe4a02d1a83b1c5580a7c22e2551cc3a0531"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-node-exporter"
+      headRevisionNum: 2
+      dataHash: "72661b554ddb726af1f83914069ae897a3efb0311abfec367f1757c5b71535c6"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-prometheus-operator"
+      headRevisionNum: 2
+      dataHash: "a0d9910a2bec99d2d5069de931b05514111c8f566fc48dc2a4327a44fa8f6723"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-prometheus"
+      headRevisionNum: 2
+      dataHash: "8211b840a363cd8e24cd41dfe5c9fd8c2c8a1817c8e778d206150ac2d48dbb7f"
+    -
+      slug: "service-kube-system-kube-prometheus-stack-coredns"
+      headRevisionNum: 2
+      dataHash: "fb211008a2b5a480a1a6134cfc53572ea074d62cfe33f84ff76ba62d62ca7612"
+    -
+      slug: "service-kube-system-kube-prometheus-stack-kube-controller-manager"
+      headRevisionNum: 2
+      dataHash: "880d4a2f2c79fd2f779db1216e9c7aeed2e58514719d4c7cd0f970b6ce7ff359"
+    -
+      slug: "service-kube-system-kube-prometheus-stack-kube-etcd"
+      headRevisionNum: 2
+      dataHash: "6fe12d67000ea23aabea26da82f5d170d581f03d5e810ee493fbae437ce3c419"
+    -
+      slug: "service-kube-system-kube-prometheus-stack-kube-proxy"
+      headRevisionNum: 2
+      dataHash: "7af579fdf9b26fbc2e0460e7e4f403c669ac04afe56c4717241e13e0241a2ce1"
+    -
+      slug: "service-kube-system-kube-prometheus-stack-kube-scheduler"
+      headRevisionNum: 2
+      dataHash: "d0cb0a3a8e96342c54e4714e35a1498d7f36d4fe5b8ea9db5ff14d9210ee1a95"
+    -
+      slug: "service-monitoring-kube-prometheus-stack-alertmanager"
+      headRevisionNum: 2
+      dataHash: "e3b66391b5a65021647909942a4d0d718edd4b52a929439080e9ae808d51fdf1"
+    -
+      slug: "service-monitoring-kube-prometheus-stack-operator"
+      headRevisionNum: 2
+      dataHash: "d4086f7b55079ff17946159196a189b2547dd71071f90af665729e9bf0e9d8bc"
+    -
+      slug: "serviceaccount-monitoring-kube-prometheus-stack-kube-state-metrics"
+      headRevisionNum: 2
+      dataHash: "d09200f131fbea59f9ed6cc2bd17e207c5d8c4d63242a6b12c109603c1927c75"
+    -
+      slug: "serviceaccount-monitoring-kube-prometheus-stack-prometheus"
+      headRevisionNum: 2
+      dataHash: "27fd64ed68c02fd81b06a79f8cd639dbfd2c144341cf9b378c887e3320396754"
+    -
+      slug: "servicemonitor-monitoring-kube-prometheus-stack-alertmanager"
+      headRevisionNum: 2
+      dataHash: "53a04d0fd818eb59aebc90eae2cf018519108cffd5ddaf132fdb11b0a4726c8e"
+    -
+      slug: "servicemonitor-monitoring-kube-prometheus-stack-grafana"
+      headRevisionNum: 2
+      dataHash: "905bb6f9484eb201b9cc631f2aee6f5ccbf5819d5e4ad693e873044cb87d6835"
+    -
+      slug: "servicemonitor-monitoring-kube-prometheus-stack-kube-etcd"
+      headRevisionNum: 2
+      dataHash: "ca8477fb14d313ca83001311a47ac65bb69b91354a0cd05265f22f6b26f40d02"
+    -
+      slug: "servicemonitor-monitoring-kube-prometheus-stack-kube-state-metrics"
+      headRevisionNum: 2
+      dataHash: "ce91494cde976724a97f67a0831234c3964628ac45e23648e56bf0e000753706"
+    -
+      slug: "servicemonitor-monitoring-kube-prometheus-stack-kubelet"
+      headRevisionNum: 2
+      dataHash: "c3964abf5daa87754c4e51b7a54a5252dffd0be8834112ef00bbd07a9329c781"
+    -
+      slug: "servicemonitor-monitoring-kube-prometheus-stack-operator"
+      headRevisionNum: 2
+      dataHash: "ea6ab6ca7a3c5803f651618fd344df51119b462c6fd64d59b0106d37a3538d9e"
+    -
+      slug: "servicemonitor-monitoring-kube-prometheus-stack-prometheus-node-exporter"
+      headRevisionNum: 2
+      dataHash: "63b0f6fe1075956be126d92e152eaca5983621ebc3994a52c905ee6e9a75f991"
+    -
+      slug: "clusterrole-kube-prometheus-stack-grafana-clusterrole"
+      headRevisionNum: 2
+      dataHash: "3fb7a930e86db4a2a27b80be59f28114e34e418f28dc20b4688e2b5583e67b98"
+    -
+      slug: "clusterrole-kube-prometheus-stack-kube-state-metrics"
+      headRevisionNum: 2
+      dataHash: "3bd318d926f627c4d2d4f0d1ed7c06928d923ea216e5f8f65f5560c4f9594d0f"
+    -
+      slug: "clusterrole-kube-prometheus-stack-operator"
+      headRevisionNum: 2
+      dataHash: "6f55528ad9898f16a90d2e99428f23e5ff07dc3b55d3b565aa64f8884b35939b"
+    -
+      slug: "clusterrole-kube-prometheus-stack-prometheus"
+      headRevisionNum: 2
+      dataHash: "2e9ef60988311f60456dbcafd0bea7617fb7a02dfd1c3de5dfefa40dd9c8672b"
+    -
+      slug: "clusterrolebinding-kube-prometheus-stack-grafana-clusterrolebinding"
+      headRevisionNum: 2
+      dataHash: "d7c01e9cf983b95eba6b42cf2496e8655856411bcebbc0cbd7cd0247f08cdf48"
+    -
+      slug: "alertmanager-monitoring-kube-prometheus-stack-alertmanager"
+      headRevisionNum: 2
+      dataHash: "c3be099820d6c4b2229401e8dd9af1f1d1997b198c144e31029bdaa511515e3b"
+    -
+      slug: "clusterrolebinding-kube-prometheus-stack-operator"
+      headRevisionNum: 2
+      dataHash: "b3960dc1cdc140defa5a5933da852044b9a60b3efcb03654d0fdec66a19d377a"
+    -
+      slug: "clusterrolebinding-kube-prometheus-stack-kube-state-metrics"
+      headRevisionNum: 2
+      dataHash: "d3f42aad4cda7f20870d4d00acb55e3c64054fc7ca7dc0686833a8b1a95b3a5f"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-alertmanager-overview"
+      headRevisionNum: 2
+      dataHash: "82a73c6425aadc41327df9e333e6d38201ce762bd4759d2a322cfa8f171843c5"
+    -
+      slug: "clusterrolebinding-kube-prometheus-stack-prometheus"
+      headRevisionNum: 2
+      dataHash: "96c58732ed6ea0ed26b42178efc475a141c4c73a0e47fdb74aa557b95d1f16da"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-cluster-total"
+      headRevisionNum: 2
+      dataHash: "28188997133d409bc161afddf77b63cbf36b098590379a5dbb82ffffc8be930f"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-apiserver"
+      headRevisionNum: 2
+      dataHash: "3fbd3b70e9b484b07f5ccbeb71cd07f5a29018d8cd67500c08ad067c16ce0859"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-controller-manager"
+      headRevisionNum: 2
+      dataHash: "491a70307956dd8141f328a543c9b4110eff1251732fcac3869dc0c11258bc64"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-etcd"
+      headRevisionNum: 2
+      dataHash: "0a65fddf0736894bd642bf9086d2c81292855e65a1214c50bc68db757fcfd072"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-grafana-config-dashboards"
+      headRevisionNum: 2
+      dataHash: "dcc4f264a7f2298d2139b0e55fd408d2809114426dddced119733f252a0aecca"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-grafana-overview"
+      headRevisionNum: 2
+      dataHash: "2bfe2afd624d8bd1be0db07f3790c73d710901edbd84e663f73383267a82a639"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-grafana-datasource"
+      headRevisionNum: 2
+      dataHash: "20f3ceb8bcd3b2c650e22f44f9883c4db2b5dc9dfddfae0729d4f77ed28d746b"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-k8s-resources-cluster"
+      headRevisionNum: 2
+      dataHash: "76aee0af2f095a4e3a6a97515fceed5ad611555acfbac7628cb888a7952f5f77"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-k8s-resources-namespace"
+      headRevisionNum: 2
+      dataHash: "f8bcafdcbe91f5985f22245abdedfe277fb94f9c562aaa4e040113854f31cae1"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-k8s-resources-workload"
+      headRevisionNum: 2
+      dataHash: "b54e740af30ff110beb20abad064ec94c481949d64721936e87f82348624ddbb"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-grafana"
+      headRevisionNum: 2
+      dataHash: "8cbbce18681deb01e093f692db2182cc23a2d6f3180bfa3933a38caa48f36def"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-nodes-darwin"
+      headRevisionNum: 2
+      dataHash: "c2158bf26d2f4a5c56b17e2d0d0887229a05eec905c602e3d23e81a2f6313030"
+    -
+      slug: "daemonset-monitoring-kube-prometheus-stack-prometheus-node-exporter"
+      headRevisionNum: 2
+      dataHash: "f64a29c4793457110ba45390d568c61c1c0e9424e6d67dad26ec8a4c86ba8747"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-k8s-coredns"
+      headRevisionNum: 2
+      dataHash: "a8c299898cb4626ceaec46703acedb28a30c533fa60f5e7492d4b3a59b4f4a5b"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-k8s-resources-multicluster"
+      headRevisionNum: 2
+      dataHash: "67df4f6619aa96522aebe456200d608e7049b116c8351c7091a167ec8ddfb7bc"
+    -
+      slug: "deployment-monitoring-kube-prometheus-stack-grafana"
+      headRevisionNum: 2
+      dataHash: "5415d773a67771371d4b001f7925dd237b5d83bb0385eb58c01938e3ddc6317e"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-k8s-resources-node"
+      headRevisionNum: 2
+      dataHash: "db5d33948aac04c93242d0810e80b4f88486dad1c0611a08ee3d97e037c0d00d"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-k8s-resources-pod"
+      headRevisionNum: 2
+      dataHash: "d963913508a41973723b6bddb9148c705a9a2ace256dc24d2fdd27a96358c0ec"
+    -
+      slug: "deployment-monitoring-kube-prometheus-stack-kube-state-metrics"
+      headRevisionNum: 2
+      dataHash: "42ecd8ab69dda68b5255f1654d665290f5b4daa0cb59a98222313eb806d4c884"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-k8s-resources-workloads-namespace"
+      headRevisionNum: 2
+      dataHash: "19a3d2af6a6adfe335e160c0a0bcfb6f5e766c58948b30d51f7afd936bb49041"
+    -
+      slug: "deployment-monitoring-kube-prometheus-stack-operator"
+      headRevisionNum: 2
+      dataHash: "5824c7992aa2927b8da59801b975f3623078267130362c283c993c020d3f29c9"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-kubelet"
+      headRevisionNum: 2
+      dataHash: "9669dd48efb47d591d0c11ca62c4b5ac50178a9840e9d3204a983f77f8104045"
+    -
+      slug: "mutatingwebhookconfiguration-kube-prometheus-stack-admission"
+      headRevisionNum: 2
+      dataHash: "2aece52be45b663ffbbde931d6d087c3ac33f759fecc7f2eedc4f7a2052d05f3"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-namespace-by-pod"
+      headRevisionNum: 2
+      dataHash: "71b4e38bb25c1e16f7f2d5ba5b115f120f10355523b6e7ebada04f28f6262b43"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-namespace-by-workload"
+      headRevisionNum: 2
+      dataHash: "e5631beed6894bace404d401e4f8ee2aac6302581da053d7e029727df97c7bc4"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-node-cluster-rsrc-use"
+      headRevisionNum: 2
+      dataHash: "4300bd5e6c8c2e7a52df71514da1d274cd632910398f45395fa4fcd81ccc552d"
+    -
+      slug: "prometheus-monitoring-kube-prometheus-stack-prometheus"
+      headRevisionNum: 2
+      dataHash: "c728293692039bcce37537d9f3879da92f145f505d81ff6a87296f0881e6a774"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-node-rsrc-use"
+      headRevisionNum: 2
+      dataHash: "be35371a198193d49dd53e51cb8f9eb0d0145053f1bab6cd7b2f8af7baaa5c38"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-nodes-aix"
+      headRevisionNum: 2
+      dataHash: "8f0bc670cb3cbf94ef92e9c1b8058f733210c0cabaea49bf90a4601a09ff2980"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-alertmanager-rules"
+      headRevisionNum: 2
+      dataHash: "b9399d0146da6b5b2f6842749db44e461fa651bdf0046b5e6a522da943828524"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-nodes"
+      headRevisionNum: 2
+      dataHash: "6b088642b04563a75e357a48eaff09ad7d1a3c47d73351d125e6295e39771bd8"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-persistentvolumesusage"
+      headRevisionNum: 2
+      dataHash: "fef442a3c51a3dc50f57cb5f01761c9f89c09f95127bf8ea8729b100758d1f0d"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-pod-total"
+      headRevisionNum: 2
+      dataHash: "18ec302f922d7971d030d20119dee5c90bde62e0570fda90a0676e5114217257"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-config-reloaders"
+      headRevisionNum: 2
+      dataHash: "3b39fa8d7b4de643dc7eff6947afc825cd79162a11e6818d3f48a8430432c44e"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-prometheus"
+      headRevisionNum: 2
+      dataHash: "5959da1dda382a6dc7ee90d3824961d47a411c6f876561a4fa2af91c861db39e"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-proxy"
+      headRevisionNum: 2
+      dataHash: "b4ae80ed5732c89632ae01daf8120ee5e832ad7090d86e2ae94313a1ec4b3f84"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-k8s-rules-container-cpu-usage-seconds-tot"
+      headRevisionNum: 2
+      dataHash: "e1bf95325bd75052e8fa910ca5cc2737094e0ccf5e39c13c6f18757528808d37"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-scheduler"
+      headRevisionNum: 2
+      dataHash: "f3655969c8b0b9c0c245e1148cbfa9fd3c6bfc1607f96ae3ed5107e0ed74bd04"
+    -
+      slug: "configmap-monitoring-kube-prometheus-stack-workload-total"
+      headRevisionNum: 2
+      dataHash: "39f9ef2c01d4c6c1274a2ee0e74b8ef1c038f1546fb8a25108efb23599d97891"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-k8s-rules-container-memory-cache"
+      headRevisionNum: 2
+      dataHash: "eec9d3c3e9c406094a367c834d054504526e6d44eba46c2778d745bbfd02b722"
+    -
+      slug: "customresourcedefinition-alertmanagerconfigs-monitoring-coreos-com"
+      headRevisionNum: 2
+      dataHash: "6650949c70f7b41ff00238e3155f067689765a59c6247b1f00b15750c74166d3"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-k8s-rules-container-memory-rss"
+      headRevisionNum: 2
+      dataHash: "6a72a30ca822e3e1e4b48f720618a056d339e05faf5dd21f7dfa6ba6fd564115"
+    -
+      slug: "customresourcedefinition-alertmanagers-monitoring-coreos-com"
+      headRevisionNum: 2
+      dataHash: "90f014710801a7e05f678c276077fa0509319737c443638eb005175a97a849dc"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-k8s-rules-container-memory-swap"
+      headRevisionNum: 2
+      dataHash: "adb10fa78af03e495d183c69c6d47b4ee3657465d2357d355d66decdb369865f"
+    -
+      slug: "customresourcedefinition-podmonitors-monitoring-coreos-com"
+      headRevisionNum: 2
+      dataHash: "96f49cbbfaed925aa49cd461e1e7ee35c3ade18a4a76f0bfcdec1dc0b02ec234"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-k8s-rules-container-memory-working-set-by"
+      headRevisionNum: 2
+      dataHash: "9010495594a1cfbf663c1c6ebdd2d12e770db6c8ad162b4c8e4f84ee807520da"
+    -
+      slug: "customresourcedefinition-probes-monitoring-coreos-com"
+      headRevisionNum: 2
+      dataHash: "95fc2a23f45d18c1724a778fffc1a9d5917ed5a2d3bd76c0f0157851de47683d"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-k8s-rules-container-resource"
+      headRevisionNum: 2
+      dataHash: "e2821c7bb0792a9b6920c8d1e617495b1a50acf20a25c20596be2916e1876667"
+    -
+      slug: "customresourcedefinition-prometheusagents-monitoring-coreos-com"
+      headRevisionNum: 2
+      dataHash: "7a31b0ed0451dc92a0e6c96d52332959be095152b1cfd79792d92ab6affd915c"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-kube-apiserver-availability-rules"
+      headRevisionNum: 2
+      dataHash: "b6ab57dfb6df39a2d52206edd7cd150a2ca649476ac20d338f277edb66f13b09"
+    -
+      slug: "customresourcedefinition-prometheuses-monitoring-coreos-com"
+      headRevisionNum: 2
+      dataHash: "9438ffd19d47c4ed4721b7305365263aab2ea82e75c75f7675d32d86cfd44a8f"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-kube-apiserver-burnrate-rules"
+      headRevisionNum: 2
+      dataHash: "e9f1ea9d8a3e52b3ac2e7f032b239698a27f68c8b685458c38dae106e7550ba6"
+    -
+      slug: "customresourcedefinition-prometheusrules-monitoring-coreos-com"
+      headRevisionNum: 2
+      dataHash: "831328136c6730abaa4084198be9fd588419dad6eacc94bd57ba25cd7557df5b"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-kube-apiserver-slos"
+      headRevisionNum: 2
+      dataHash: "c5241ab5e1ad15b14411c25409b130729c20a7d6d17d9676c722846e5c38e1c7"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-kube-prometheus-general-rules"
+      headRevisionNum: 2
+      dataHash: "3bd96f2456c0571acb49cf0f4454430813c8c16299efdda3f5f19d673e97aa40"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-kube-prometheus-node-recording-rules"
+      headRevisionNum: 2
+      dataHash: "869557120c29750ec25370d14ae7f2455c37aabef67c54a1a306154e1cba20cb"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-kube-scheduler-rules"
+      headRevisionNum: 2
+      dataHash: "f8e4e12959f2b9c461c1ea8ac9d2b6191ed392c0a093895cc48e3851411d96d1"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-kube-state-metrics"
+      headRevisionNum: 2
+      dataHash: "9ee8887a7a94defffe5b9306a846fc63855b6cf7b3a81b6532adbc09c0cedacb"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-kubelet-rules"
+      headRevisionNum: 2
+      dataHash: "8300347435f6b2689b9916a60cf58ded118a2aab8af34751d781dc61f72fc77c"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-kubernetes-storage"
+      headRevisionNum: 2
+      dataHash: "b0364b12e01f31f1a1731eb5dc411418cb1831cf5ef3414ba77d1e16fcf178eb"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-kubernetes-system"
+      headRevisionNum: 2
+      dataHash: "5f402f90826a67bd9c3cd971c7dfe429c6e5207ef645c62801f64da0378fdd60"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-kubernetes-system-apiserver"
+      headRevisionNum: 2
+      dataHash: "315adbaaea614ab55f29a54cfba752d23e13da8c9b5b8178f06f6bf35280290f"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-kubernetes-system-controller-manager"
+      headRevisionNum: 2
+      dataHash: "19591cc004be840af6b3869e75859895c13d39f62ed67cab49aeb670623ecbb3"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-node-exporter-rules"
+      headRevisionNum: 2
+      dataHash: "de55fd4fc88edf53628bbefbca1fb4cb618c0cb940cb943f74f8b0797bb7f530"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-node-network"
+      headRevisionNum: 2
+      dataHash: "58a5ca3271b71c85268ba094349f6d707611e2ddfe69ec7aa406e2e6dc62d24c"
+    -
+      slug: "prometheusrule-monitoring-kube-prometheus-stack-node-rules"
+      headRevisionNum: 2
+      dataHash: "4ad2f1149e7d42105184c7806128d3396773c6b188c218411d5d7b4d1a097271"
+    -
+      slug: "service-monitoring-kube-prometheus-stack-grafana"
+      headRevisionNum: 2
+      dataHash: "10b9554e23698c3b3a7a6d45503ee5c11068b5c2e6a35e5a22dbc9b3fe58e513"
+    -
+      slug: "service-monitoring-kube-prometheus-stack-kube-state-metrics"
+      headRevisionNum: 2
+      dataHash: "7e0609a4d039f342976cba022c502b3e69d6167a89cab70a7cb8910e55eb24d5"
+    -
+      slug: "service-monitoring-kube-prometheus-stack-prometheus"
+      headRevisionNum: 2
+      dataHash: "0e8e1eb17c6c0d46f79057cc908d54b94bf5e5aec297a195a69326193dce5f41"
+    -
+      slug: "service-monitoring-kube-prometheus-stack-prometheus-node-exporter"
+      headRevisionNum: 2
+      dataHash: "f8e3564160b9b61955939405a403ef0f446917d7d712cc95bed547b06c9e529c"
+    -
+      slug: "serviceaccount-monitoring-kube-prometheus-stack-alertmanager"
+      headRevisionNum: 2
+      dataHash: "ea8a8aa692e5ccb16ad0580b2f3b1e5cb894160fec5dd7b2749c6407e795c21d"
+    -
+      slug: "serviceaccount-monitoring-kube-prometheus-stack-grafana"
+      headRevisionNum: 2
+      dataHash: "2a4868537a1b8795e6381bf10d84f3c6ae52b5bdee6987a975b926c2db4a75e2"
+    -
+      slug: "serviceaccount-monitoring-kube-prometheus-stack-operator"
+      headRevisionNum: 2
+      dataHash: "93eb6e64e551811b4e3c818d99988d62b542348ce016d1ec0926cb8984f78e3c"
+    -
+      slug: "serviceaccount-monitoring-kube-prometheus-stack-prometheus-node-exporter"
+      headRevisionNum: 2
+      dataHash: "c271c9a95b57fede7d52299b871f42c11c8f20da57dd14906b30b135ca8d9684"
+    -
+      slug: "servicemonitor-monitoring-kube-prometheus-stack-apiserver"
+      headRevisionNum: 2
+      dataHash: "fd3d04055cd8f9fe0a8da02bee9048da46911818e2d0b538b1368ea2bbc7ee34"
+    -
+      slug: "servicemonitor-monitoring-kube-prometheus-stack-coredns"
+      headRevisionNum: 2
+      dataHash: "f958a614752f0861b2cb457107a875d22357b3e18568e125eb9a154bfb36312c"
+    -
+      slug: "servicemonitor-monitoring-kube-prometheus-stack-kube-controller-manager"
+      headRevisionNum: 2
+      dataHash: "5f2e0bd210c27f17cfee0880d99a3246a982141cc0972487c2a5a139e4c620cf"
+    -
+      slug: "servicemonitor-monitoring-kube-prometheus-stack-kube-proxy"
+      headRevisionNum: 2
+      dataHash: "dc2fca5e68272e985377ad7de2423e589543d353633dc78192450312cc74d251"
+    -
+      slug: "servicemonitor-monitoring-kube-prometheus-stack-kube-scheduler"
+      headRevisionNum: 2
+      dataHash: "fb65fec131b1c5c66fa760efed5a4930aa6f0a0cb75dc25c8849bed1d012267b"
+    -
+      slug: "servicemonitor-monitoring-kube-prometheus-stack-prometheus"
+      headRevisionNum: 2
+      dataHash: "067d928c0fbcf9b44b41c366f5a4bb4bd685992cd50c7f4665e057a342205453"
+    -
+      slug: "validatingwebhookconfiguration-kube-prometheus-stack-admission"
+      headRevisionNum: 2
+      dataHash: "57cb122fd3326a84aa612d95ead02177677178024b47c7781b0628f9465f5de7"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 123
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 123
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 123
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

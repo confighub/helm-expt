@@ -1,0 +1,83 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "grafana-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-grafana-use-more-now"
+    selector: "Labels.Proof = 'grafana-use-more-now'"
+  subject:
+    chart: "grafana/grafana"
+    chartVersion: "10.5.15"
+    packagePath: "packages/grafana/grafana/10.5.15"
+    variant: "generated-passwords"
+    configHubUnitCount: 9
+  unitRevisionBindings:
+    -
+      slug: "clusterrolebinding-grafana-clusterrolebinding"
+      headRevisionNum: 2
+      dataHash: "f09389e906377f0ee447719b156a1b1cb0f9781142ebfa9245518fc1654c86ad"
+    -
+      slug: "clusterrole-grafana-clusterrole"
+      headRevisionNum: 2
+      dataHash: "786cdc5595b052e125ea97ec710b6671e7c3c340a374ea92367942656fd63b2e"
+    -
+      slug: "configmap-grafana-grafana"
+      headRevisionNum: 2
+      dataHash: "c071c3717c53455443ef966ce71d4c843094df13e3603090bd111c753f49c129"
+    -
+      slug: "deployment-grafana-grafana"
+      headRevisionNum: 2
+      dataHash: "977e6e5651de34826c948f295d7b6b5a3465967ae72094f033cb4c04fd6ee602"
+    -
+      slug: "namespace-grafana"
+      headRevisionNum: 2
+      dataHash: "675d9278ea7cedc116d11907f104bdef99b653b4a7f6a3572ba06717e5287de1"
+    -
+      slug: "rolebinding-grafana-grafana"
+      headRevisionNum: 2
+      dataHash: "17720ea818bdaad2dbf985e2be41cbd9fdb00f7a4986b6fc2fce659ebf9ec9eb"
+    -
+      slug: "role-grafana-grafana"
+      headRevisionNum: 2
+      dataHash: "253a30edf82a9483c5323800f03f3b1ca35514c42d3316c4bda1ab97d8b2c025"
+    -
+      slug: "serviceaccount-grafana-grafana"
+      headRevisionNum: 2
+      dataHash: "326b2243e1ad95e7867d1f0ed6e2b1fe438bae99e6dcf7bc4f3871a0b61d70ba"
+    -
+      slug: "service-grafana-grafana"
+      headRevisionNum: 2
+      dataHash: "a87cdddc85eefa3c24902411b14dad56328642316b1b819ae677e79902bd10e6"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 9
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 9
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 9
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."
