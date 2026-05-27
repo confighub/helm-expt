@@ -10,15 +10,23 @@ The next promotion reviews should take proof-grade charts from the generated
 default set, add user-shaped variants, and prove breadth without making the
 happy path feel heavy.
 
+The generated wave-2 plan is now the source of truth:
+
+```text
+data/catalog-promotion-wave2/candidates.yaml
+data/catalog-promotion-wave2/review.csv
+data/catalog-promotion-wave2/summary.md
+```
+
 Recommended next candidates:
 
 | Chart | Why it matters | Review focus |
 | --- | --- | --- |
-| `cloudnative-pg/cloudnative-pg` | Operator-backed database | CRDs, webhook lifecycle, backups, and production blockers. |
-| `bitnami/opensearch` | Stateful search workload | Storage, cluster shape, security defaults, and upgrade risk. |
-| `kyverno/kyverno` | Policy engine | CRDs, admission webhooks, generated policies, and safe rollout. |
-| `istio/istiod` | Service mesh control plane | CRDs, webhooks, APIService-like readiness, and cluster RBAC. |
-| `minio-operator/operator` | Storage operator | CRDs, tenant handoff, object storage assumptions, and target facts. |
+| `traefik/traefik` | High-rank ingress controller | CRD ownership, IngressClass ownership, Service exposure, webhook/readiness policy. |
+| `external-dns/external-dns` | Provider/credential-driven controller | Provider variants, credential target facts, TXT registry ownership, cluster RBAC. |
+| `vmware-tanzu/velero` | Backup/restore controller | Cloud credentials, backup target facts, CRD lifecycle, restore/rollback policy. |
+| `istio-official/istiod` | Service mesh control plane | Webhook lifecycle, cluster RBAC, revision labels, certificate authority boundary. |
+| `kyverno/kyverno` | Policy engine | Admission webhook safety, CRD ownership, hook policy, controller HA and reports. |
 
 Promotion review should answer:
 
@@ -28,4 +36,12 @@ Are the supported variants obvious?
 Are deferred variants explicit?
 Are scan/gate warnings acceptable for the declared support scope?
 Can cub install output be compared cleanly with regular Helm output?
+```
+
+Alternates if a selected chart is delayed:
+
+```text
+cloudnative-pg/cloudnative-pg
+argo/argo-workflows
+fluent/fluent-bit
 ```
