@@ -132,6 +132,8 @@
     "adversarial10:generate": "node scripts/generate-adversarial10-harness.mjs",
     "adversarial10:verify": "node scripts/generate-adversarial10-harness.mjs --verify",
     "adversarial10:verify:self-test": "node scripts/generate-adversarial10-harness.mjs --self-test",
+    "catalog:review": "node scripts/run-catalog-promotion-review.mjs --generate",
+    "catalog:review:verify": "node scripts/run-catalog-promotion-review.mjs --verify",
     "next80:generate": "node scripts/generate-next80-full-proofs.mjs --generate",
     "next80:verify": "node scripts/generate-next80-full-proofs.mjs --verify",
     "next80:verify:packages": "node scripts/generate-next80-full-proofs.mjs --verify-packages",

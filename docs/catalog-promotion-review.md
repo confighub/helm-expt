@@ -37,7 +37,20 @@ For the current repo:
 npm run verify
 npm run next80:verify
 npm run next80:verify:packages
+npm run catalog:review
+npm run catalog:review:verify
 ```
+
+The generated review outputs are:
+
+```text
+data/catalog-promotion-review/review.csv
+data/catalog-promotion-review/summary.md
+```
+
+The review runner does not auto-certify `catalog-supported`. It checks the
+machine evidence and reports remaining product gaps so a human can make a
+support decision.
 
 ## Required Product Checks
 
