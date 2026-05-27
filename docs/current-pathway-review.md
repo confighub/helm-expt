@@ -55,9 +55,11 @@ chart source
   -> observation receipts with freshness
 ```
 
-The repo now has one complete Redis proof slice and one first generated
-adversarial harness. It is still not a 20/100/500 proof repo, but it is no
-longer only a planning packet.
+The repo now has 20 top-chart catalog entries with bespoke multi-variant proof,
+20/20 local kind live/e2e receipts, 100 machine-proof recipes, and a generated
+top-500 catalog analysis. The top-500 remains analysis, not certification, but
+the top-20 and top-100 proof surfaces are now real artifacts rather than a
+planning packet.
 
 Current proof surface:
 
@@ -106,9 +108,9 @@ recipes/hashicorp/consul/2.0.0/
 packages/hashicorp/consul/2.0.0/
 ```
 
-The next step is to turn more chart rows from the top-20 target and generated
-readiness evidence into full recipe/variant/revision proofs and generated
-spreadsheets that are backed by receipts, not hand-maintained analysis.
+The next step is to close production dispositions for the mandatory top-20
+catalog entries and then promote more top-500 rows from analysis into
+receipt-backed recipe/variant/revision proofs.
 
 Council consensus:
 

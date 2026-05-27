@@ -200,8 +200,9 @@ function toSummary(rows) {
   const productionBlocked = rows.filter((row) => row.production_support === "blocked").length;
   return `# Production Disposition And Live/E2E Lane
 
-This lane starts the work needed to move the supported top-20 from
-\`local-test\` support toward production support.
+The top-20 are mandatory catalog entries because their upstream Helm charts are
+too popular to omit. This lane records the work needed to move those supported
+top-20 entries from \`local-test\` support toward production support.
 
 It does **not** claim production readiness yet.
 
@@ -223,10 +224,10 @@ ${rows.map((row) => `| \`${row.chart}@${row.version}\` | ${row.supported_variant
 
 ## Doctrine
 
-The supported top-20 are easy to try because their local-test paths have
-passing ConfigHub/cub install receipts. They are not production-supported until
-their scan/gate warnings, lifecycle risks, target facts, and live/e2e
-observation requirements have explicit dispositions.
+The top-20 must be in the catalog. Their local-test paths are easy to try
+because they have passing ConfigHub/cub install receipts. They are not
+production-supported until their scan/gate warnings, lifecycle risks, target
+facts, and live/e2e observation requirements have explicit dispositions.
 `;
 }
 

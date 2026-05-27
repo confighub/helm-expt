@@ -44,8 +44,9 @@ The repo now has:
 Important boundary:
 
 ```text
-Machine proof is not catalog support.
-Catalog support must be explicit in catalog-status.yaml.
+Top-20 catalog presence is mandatory because these charts are popular.
+Machine proof decides support scope; it does not erase production review.
+Catalog support scope must be explicit in catalog-status.yaml.
 ```
 
 ## Roadmap Integration: Real Cub And ConfigHub Capabilities
