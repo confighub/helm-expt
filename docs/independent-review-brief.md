@@ -25,12 +25,12 @@ new chart proof repos
 Explicitly exclude legacy/reference artifacts:
 
 ```text
-outputs/helm_top500_matrix/
+data/top500-catalog-analysis/source/source-feature-scan.raw.json
 ```
 
 The old render-and-vendor top-20 payload has been removed from the active tree.
-The remaining old matrix may be mentioned only if docs accidentally present it
-as the current proof path.
+The source-feature scan may be mentioned only as input to the generated
+top-500 catalog analysis, not as the current proof path.
 
 ## Source Docs
 

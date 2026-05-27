@@ -1,0 +1,48 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "ObservationReceipt",
+  "metadata": {
+    "name": "nginx-http-clusterip-local-kind"
+  },
+  "spec": {
+    "variantRevision": "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml",
+    "renderedObjectSetSHA256": "a5f890172fd1bd8cf31870607c1a7874313c5746f1020d547af3dac017db4223",
+    "observer": {
+      "name": "top20-local-e2e",
+      "version": "0.1.0",
+      "method": "kubectl-kind"
+    },
+    "target": {
+      "kind": "kind",
+      "name": "helm-expt-redis",
+      "context": "kind-helm-expt-redis",
+      "namespace": "nginx"
+    },
+    "observedAt": "2026-05-27T13:47:51.807Z",
+    "freshnessTTL": "1h",
+    "result": "pass",
+    "chart": "bitnami/nginx",
+    "chartVersion": "24.0.2",
+    "variant": "http-clusterip",
+    "renderedObjectCount": 5,
+    "checks": [
+      {
+        "name": "server-side-apply",
+        "result": "pass",
+        "evidencePath": "kubectl-apply.txt",
+        "evidenceSHA256": "08d6ef1950962240dc4e0cc0d2b67596f83896d3a9a843b2fd6b2781f726428e"
+      },
+      {
+        "name": "deployment-nginx-rollout",
+        "result": "pass",
+        "object": "deployment/nginx",
+        "evidencePath": "deployment-nginx-rollout.txt",
+        "evidenceSHA256": "355a2289b91e2eeccc838991769fd467e9a1b99465ac80abd972afdc4fc9533d"
+      }
+    ],
+    "kubectlObjects": {
+      "path": "kubectl-objects.txt",
+      "sha256": "6a81d1aa775996e6ea61c5b7ae1a893173d6757bab36f12a7541329f76098fa7"
+    }
+  }
+}

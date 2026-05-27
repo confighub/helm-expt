@@ -1,0 +1,243 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "CatalogPromotionVariantWorkOrders"
+metadata:
+  name: "wave-2-real-variant-work-orders"
+  generatedBy: "scripts/generate-wave2-variant-work-orders.mjs"
+spec:
+  source: "data/catalog-promotion-wave2/candidates.yaml"
+  workOrders:
+    -
+      chart: "traefik/traefik"
+      version: "40.2.0"
+      recipePath: "recipes/traefik/traefik/40.2.0/recipe.yaml"
+      packagePath: "packages/traefik/traefik/40.2.0"
+      state: "not-yet-rendered"
+      requiredBeforeCatalogSupport:
+        - "render each variant with pinned Helm inputs"
+        - "add matching recipe variant and package base"
+        - "write rendered object inventory and immutable revision"
+        - "run Helm-equivalence, external scan, local scan, and install gate"
+        - "run local/e2e where feasible"
+      variants:
+        -
+          name: "default"
+          intent: "Keep the current traefik/traefik default proof as the baseline comparison variant."
+          values:
+            - "current default effective-values.yaml"
+          facts:
+            []
+          blockers:
+            - "catalog support still requires comparing default against the new user-shaped variants"
+        -
+          name: "external-crds"
+          intent: "Use Traefik while CRD ownership is handled outside the package."
+          values:
+            - "providers.kubernetesCRD.enabled=false or CRD install disabled after source review"
+            - "ingressClass.enabled=true"
+          facts:
+            - "CRDs already present if CRD provider remains enabled"
+          blockers:
+            - "confirm exact Traefik chart value for CRD creation versus CRD provider enablement"
+        -
+          name: "internal-clusterip-dashboard-off"
+          intent: "Safe local/internal install with no public LoadBalancer and dashboard disabled."
+          values:
+            - "service.type=ClusterIP"
+            - "ingressRoute.dashboard.enabled=false"
+            - "ports.traefik.expose.default=false"
+          facts:
+            []
+          blockers:
+            []
+        -
+          name: "cloud-loadbalancer"
+          intent: "Normal cloud ingress-controller shape with explicit load balancer ownership."
+          values:
+            - "service.type=LoadBalancer"
+            - "ingressClass.isDefaultClass reviewed"
+            - "providers.kubernetesIngress.enabled=true"
+          facts:
+            - "cloud load balancer controller available"
+            - "ingress class ownership accepted"
+          blockers:
+            - "cloud-specific annotations must be target/variant-owned"
+    -
+      chart: "external-dns/external-dns"
+      version: "1.21.1"
+      recipePath: "recipes/external-dns/external-dns/1.21.1/recipe.yaml"
+      packagePath: "packages/external-dns/external-dns/1.21.1"
+      state: "not-yet-rendered"
+      requiredBeforeCatalogSupport:
+        - "render each variant with pinned Helm inputs"
+        - "add matching recipe variant and package base"
+        - "write rendered object inventory and immutable revision"
+        - "run Helm-equivalence, external scan, local scan, and install gate"
+        - "run local/e2e where feasible"
+      variants:
+        -
+          name: "route53-irsa"
+          intent: "AWS Route53 install using IAM role for service account rather than static credentials."
+          values:
+            - "provider.name=aws"
+            - "serviceAccount.annotations includes eks.amazonaws.com/role-arn"
+            - "registry=txt"
+            - "txtOwnerId set"
+          facts:
+            - "IAM role exists"
+            - "hosted zone scope known"
+          blockers:
+            []
+        -
+          name: "cloudflare-existing-secret"
+          intent: "Cloudflare install with API token supplied by an existing Secret."
+          values:
+            - "provider.name=cloudflare"
+            - "env uses valueFrom secretKeyRef"
+            - "registry=txt"
+            - "txtOwnerId set"
+          facts:
+            - "Cloudflare token Secret exists"
+          blockers:
+            - "confirm chart-supported secret/env shape"
+        -
+          name: "dry-run-txt-registry"
+          intent: "No-change proof/demo mode for understanding DNS changes safely."
+          values:
+            - "dryRun=true"
+            - "registry=txt"
+            - "txtOwnerId set"
+          facts:
+            []
+          blockers:
+            []
+    -
+      chart: "vmware-tanzu/velero"
+      version: "12.0.1"
+      recipePath: "recipes/velero/velero/12.0.1/recipe.yaml"
+      packagePath: "packages/velero/velero/12.0.1"
+      state: "not-yet-rendered"
+      requiredBeforeCatalogSupport:
+        - "render each variant with pinned Helm inputs"
+        - "add matching recipe variant and package base"
+        - "write rendered object inventory and immutable revision"
+        - "run Helm-equivalence, external scan, local scan, and install gate"
+        - "run local/e2e where feasible"
+      variants:
+        -
+          name: "aws-s3-existing-secret"
+          intent: "AWS S3 backup location with cloud credentials supplied externally."
+          values:
+            - "configuration.backupStorageLocation provider=aws"
+            - "configuration.backupStorageLocation bucket set"
+            - "credentials existing Secret"
+          facts:
+            - "S3 bucket exists"
+            - "credential Secret exists"
+          blockers:
+            - "proof recipe uses velero/velero source; source alias must stay clear in catalog"
+        -
+          name: "azure-blob-existing-secret"
+          intent: "Azure Blob backup location with credentials supplied externally."
+          values:
+            - "configuration.backupStorageLocation provider=azure"
+            - "bucket/resource group set"
+            - "credentials existing Secret"
+          facts:
+            - "Azure storage account/container exists"
+            - "credential Secret exists"
+          blockers:
+            []
+        -
+          name: "filesystem-backup-node-agent"
+          intent: "Enable node-agent path for filesystem backup coverage."
+          values:
+            - "deployNodeAgent=true"
+            - "configuration.features reviewed"
+          facts:
+            - "node-agent privileges accepted"
+          blockers:
+            - "daemonset privileges need production disposition"
+    -
+      chart: "istio-official/istiod"
+      version: "1.30.0"
+      recipePath: "recipes/istio/istiod/1.30.0/recipe.yaml"
+      packagePath: "packages/istio/istiod/1.30.0"
+      state: "not-yet-rendered"
+      requiredBeforeCatalogSupport:
+        - "render each variant with pinned Helm inputs"
+        - "add matching recipe variant and package base"
+        - "write rendered object inventory and immutable revision"
+        - "run Helm-equivalence, external scan, local scan, and install gate"
+        - "run local/e2e where feasible"
+      variants:
+        -
+          name: "revisioned-control-plane"
+          intent: "Install a revisioned Istio control plane for safe canary/promotion."
+          values:
+            - "revision set"
+            - "pilot autoscale reviewed"
+          facts:
+            - "namespace injection labels owned by operator"
+          blockers:
+            []
+        -
+          name: "external-ca"
+          intent: "Use externally managed CA material rather than implicit control-plane defaults."
+          values:
+            - "external CA / certificate provider values set after source review"
+          facts:
+            - "CA Secret or provider exists"
+          blockers:
+            - "confirm exact chart values and secret shape"
+        -
+          name: "minimal-profile"
+          intent: "Smallest reasonable control plane for proof/test clusters."
+          values:
+            - "pilot resource profile lowered"
+            - "telemetry/addons left out"
+          facts:
+            []
+          blockers:
+            []
+    -
+      chart: "kyverno/kyverno"
+      version: "3.8.1"
+      recipePath: "recipes/kyverno/kyverno/3.8.1/recipe.yaml"
+      packagePath: "packages/kyverno/kyverno/3.8.1"
+      state: "not-yet-rendered"
+      requiredBeforeCatalogSupport:
+        - "render each variant with pinned Helm inputs"
+        - "add matching recipe variant and package base"
+        - "write rendered object inventory and immutable revision"
+        - "run Helm-equivalence, external scan, local scan, and install gate"
+        - "run local/e2e where feasible"
+      variants:
+        -
+          name: "default-admission"
+          intent: "Normal Kyverno admission controller path with explicit webhook disposition."
+          values:
+            - "admissionController replicas/resources reviewed"
+            - "webhooks failure policy reviewed"
+          facts:
+            - "admission webhook risk accepted"
+          blockers:
+            []
+        -
+          name: "external-crds"
+          intent: "Install controller assuming CRDs are managed by platform lifecycle."
+          values:
+            - "CRD install disabled after source review"
+          facts:
+            - "Kyverno CRDs already present"
+          blockers:
+            - "confirm exact chart CRD ownership values"
+        -
+          name: "ha-admission-reports"
+          intent: "Production-shaped HA admission and reports controller split."
+          values:
+            - "replica counts >1"
+            - "reports/background controller settings reviewed"
+          facts:
+            - "cluster has capacity for HA controllers"
+          blockers:
+            - "webhook rollout and disruption policy must be dispositioned"

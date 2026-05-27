@@ -10,7 +10,7 @@ It does **not** claim production readiness yet.
 ```text
 catalog-supported local-test charts: 20
 ConfigHub use-more-now receipts passing: 20
-live/e2e observed charts: 1
+live/e2e observed charts: 2
 production-supported charts: 0
 production-blocked pending disposition: 20
 ```
@@ -22,7 +22,7 @@ production-blocked pending disposition: 20
 | `argo-cd/argo-cd@9.5.15` | default, no-crds | pass | not-started | blocked | CRD lifecycle and upgrade policy, cluster RBAC review, extension slot provenance and scan policy, hook and lifecycle phase policy, scan/gate warning disposition, storage backup restore and rollback policy |
 | `bitnami/mongodb@19.0.7` | generated-passwords, existing-secret-replicaset | pass | not-started | blocked | extension slot provenance and scan policy, generated fact ownership, hook and lifecycle phase policy, scan/gate warning disposition, target fact preflight |
 | `bitnami/mysql@14.0.3` | generated-passwords, existing-secret | pass | not-started | blocked | extension slot provenance and scan policy, generated fact ownership, hook and lifecycle phase policy, scan/gate warning disposition, storage backup restore and rollback policy, target fact preflight |
-| `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | pass | not-started | blocked | extension slot provenance and scan policy, generated fact ownership, scan/gate warning disposition, target fact preflight |
+| `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | pass | local-kind-observed | blocked | extension slot provenance and scan policy, generated fact ownership, scan/gate warning disposition, target fact preflight |
 | `bitnami/postgresql@18.6.7` | generated-passwords, existing-secret | pass | not-started | blocked | extension slot provenance and scan policy, generated fact ownership, hook and lifecycle phase policy, scan/gate warning disposition, storage backup restore and rollback policy, target fact preflight |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords, existing-secret | pass | not-started | blocked | extension slot provenance and scan policy, generated fact ownership, hook and lifecycle phase policy, scan/gate warning disposition, storage backup restore and rollback policy, target fact preflight |
 | `bitnami/redis@25.5.3` | default, reuse-existing-secret | pass | local-kind-observed | blocked | generated fact ownership, hook and lifecycle phase policy, scan/gate warning disposition, target fact preflight |

@@ -295,8 +295,8 @@ runs/
 data/next80-full-proofs/
   generated proof index for the next 80 charts
 
-outputs/helm_top500_matrix/
-  old source-feature reconnaissance, kept for reference only
+data/top500-catalog-analysis/
+  current top-500 catalog proof index and source-scan input
 ```
 
 For a chart, the easiest way to understand the chain is:

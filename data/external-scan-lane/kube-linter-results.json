@@ -1,0 +1,4087 @@
+{
+  "generatedBy": "scripts/run-external-scan-lane.mjs",
+  "summary": {
+    "subjects": 40,
+    "charts": 20,
+    "pass": 0,
+    "warn": 40,
+    "fail": 0,
+    "totalFindings": 325,
+    "toolStatus": {
+      "kubeLinter": {
+        "available": true,
+        "version": "0.8.3"
+      },
+      "trivy": {
+        "available": false,
+        "version": ""
+      },
+      "kubeconform": {
+        "available": false,
+        "version": ""
+      }
+    }
+  },
+  "rows": [
+    {
+      "chart": "argo-cd/argo-cd",
+      "version": "9.5.15",
+      "variant": "default",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 18,
+      "checkCounts": {
+        "unset-cpu-requirements": 9,
+        "unset-memory-requirements": 9
+      },
+      "renderedPath": "recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "e52ddef5e56e347a8959dd1e8591e116479bf8aa8682c83e3753fe7355a38cc0",
+      "recipePath": "recipes/argo-cd/argo-cd/9.5.15",
+      "findings": [
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"application-controller\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-application-controller"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"applicationset-controller\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-applicationset-controller"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"copyutil\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-dex-server"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"dex-server\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-dex-server"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"notifications-controller\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-notifications-controller"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"redis\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-redis"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"copyutil\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-repo-server"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"repo-server\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-repo-server"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"server\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-server"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"application-controller\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-application-controller"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"applicationset-controller\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-applicationset-controller"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"copyutil\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-dex-server"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"dex-server\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-dex-server"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"notifications-controller\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-notifications-controller"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"redis\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-redis"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"copyutil\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-repo-server"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"repo-server\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-repo-server"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"server\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-server"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "argo-cd/argo-cd",
+      "version": "9.5.15",
+      "variant": "no-crds",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 18,
+      "checkCounts": {
+        "unset-cpu-requirements": 9,
+        "unset-memory-requirements": 9
+      },
+      "renderedPath": "recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "23a51fb8ea2215b08a853bbb26698d80f58a5514b68d4f49cdcd870a8371fc71",
+      "recipePath": "recipes/argo-cd/argo-cd/9.5.15",
+      "findings": [
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"application-controller\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-application-controller"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"applicationset-controller\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-applicationset-controller"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"copyutil\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-dex-server"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"dex-server\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-dex-server"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"notifications-controller\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-notifications-controller"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"redis\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-redis"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"copyutil\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-repo-server"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"repo-server\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-repo-server"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"server\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-server"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"application-controller\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-application-controller"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"applicationset-controller\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-applicationset-controller"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"copyutil\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-dex-server"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"dex-server\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-dex-server"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"notifications-controller\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-notifications-controller"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"redis\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-redis"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"copyutil\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-repo-server"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"repo-server\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-repo-server"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"server\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-server"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/mongodb",
+      "version": "19.0.7",
+      "variant": "existing-secret-replicaset",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 5,
+      "checkCounts": {
+        "latest-tag": 3,
+        "pdb-unhealthy-pod-eviction-policy": 2
+      },
+      "renderedPath": "recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "85bcba9d441796846c8452331d94210c5d3b7d8fb5e5969044741cd5c678372c",
+      "recipePath": "recipes/bitnami/mongodb/19.0.7",
+      "findings": [
+        {
+          "check": "latest-tag",
+          "message": "The container \"mongodb-arbiter\" is using an invalid container image, \"registry-1.docker.io/bitnami/mongodb:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "mongodb",
+            "name": "mongodb-arbiter"
+          }
+        },
+        {
+          "check": "latest-tag",
+          "message": "The container \"log-dir\" is using an invalid container image, \"registry-1.docker.io/bitnami/mongodb:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "mongodb",
+            "name": "mongodb"
+          }
+        },
+        {
+          "check": "latest-tag",
+          "message": "The container \"mongodb\" is using an invalid container image, \"registry-1.docker.io/bitnami/mongodb:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "mongodb",
+            "name": "mongodb"
+          }
+        },
+        {
+          "check": "pdb-unhealthy-pod-eviction-policy",
+          "message": "unhealthyPodEvictionPolicy is not explicitly set",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "mongodb",
+            "name": "mongodb-arbiter"
+          }
+        },
+        {
+          "check": "pdb-unhealthy-pod-eviction-policy",
+          "message": "unhealthyPodEvictionPolicy is not explicitly set",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "mongodb",
+            "name": "mongodb"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/mongodb",
+      "version": "19.0.7",
+      "variant": "generated-passwords",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 3,
+      "checkCounts": {
+        "latest-tag": 2,
+        "pdb-unhealthy-pod-eviction-policy": 1
+      },
+      "renderedPath": "recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "187a27077a6c1924669172528109b878e4d9c7759689a2f52826be8dfbc30f1e",
+      "recipePath": "recipes/bitnami/mongodb/19.0.7",
+      "findings": [
+        {
+          "check": "latest-tag",
+          "message": "The container \"log-dir\" is using an invalid container image, \"registry-1.docker.io/bitnami/mongodb:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "mongodb",
+            "name": "mongodb"
+          }
+        },
+        {
+          "check": "latest-tag",
+          "message": "The container \"mongodb\" is using an invalid container image, \"registry-1.docker.io/bitnami/mongodb:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "mongodb",
+            "name": "mongodb"
+          }
+        },
+        {
+          "check": "pdb-unhealthy-pod-eviction-policy",
+          "message": "unhealthyPodEvictionPolicy is not explicitly set",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "mongodb",
+            "name": "mongodb"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/mysql",
+      "version": "14.0.3",
+      "variant": "existing-secret",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 1,
+      "checkCounts": {
+        "pdb-unhealthy-pod-eviction-policy": 1
+      },
+      "renderedPath": "recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "3df11b8cf513ef85c4c2c921d7ae5f31e61d3a7e98a46ca7fc6ff2cc7c02c0b2",
+      "recipePath": "recipes/bitnami/mysql/14.0.3",
+      "findings": [
+        {
+          "check": "pdb-unhealthy-pod-eviction-policy",
+          "message": "unhealthyPodEvictionPolicy is not explicitly set",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "mysql",
+            "name": "mysql"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/mysql",
+      "version": "14.0.3",
+      "variant": "generated-passwords",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 1,
+      "checkCounts": {
+        "pdb-unhealthy-pod-eviction-policy": 1
+      },
+      "renderedPath": "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "d479b1df24670a9ca28e7fa2b1d487f63f17a20baa8080ff0b48cd75abce2bdd",
+      "recipePath": "recipes/bitnami/mysql/14.0.3",
+      "findings": [
+        {
+          "check": "pdb-unhealthy-pod-eviction-policy",
+          "message": "unhealthyPodEvictionPolicy is not explicitly set",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "mysql",
+            "name": "mysql"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/nginx",
+      "version": "24.0.2",
+      "variant": "existing-tls-ingress",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 3,
+      "checkCounts": {
+        "latest-tag": 2,
+        "pdb-unhealthy-pod-eviction-policy": 1
+      },
+      "renderedPath": "recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "955979d8a644fbfb6075908f91924e095a84c6c203d2886f6209c90a7d616419",
+      "recipePath": "recipes/bitnami/nginx/24.0.2",
+      "findings": [
+        {
+          "check": "latest-tag",
+          "message": "The container \"nginx\" is using an invalid container image, \"registry-1.docker.io/bitnami/nginx:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "nginx",
+            "name": "nginx"
+          }
+        },
+        {
+          "check": "latest-tag",
+          "message": "The container \"preserve-logs-symlinks\" is using an invalid container image, \"registry-1.docker.io/bitnami/nginx:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "nginx",
+            "name": "nginx"
+          }
+        },
+        {
+          "check": "pdb-unhealthy-pod-eviction-policy",
+          "message": "unhealthyPodEvictionPolicy is not explicitly set",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "nginx",
+            "name": "nginx"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/nginx",
+      "version": "24.0.2",
+      "variant": "http-clusterip",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 3,
+      "checkCounts": {
+        "latest-tag": 2,
+        "pdb-unhealthy-pod-eviction-policy": 1
+      },
+      "renderedPath": "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "a5f890172fd1bd8cf31870607c1a7874313c5746f1020d547af3dac017db4223",
+      "recipePath": "recipes/bitnami/nginx/24.0.2",
+      "findings": [
+        {
+          "check": "latest-tag",
+          "message": "The container \"nginx\" is using an invalid container image, \"registry-1.docker.io/bitnami/nginx:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "nginx",
+            "name": "nginx"
+          }
+        },
+        {
+          "check": "latest-tag",
+          "message": "The container \"preserve-logs-symlinks\" is using an invalid container image, \"registry-1.docker.io/bitnami/nginx:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "nginx",
+            "name": "nginx"
+          }
+        },
+        {
+          "check": "pdb-unhealthy-pod-eviction-policy",
+          "message": "unhealthyPodEvictionPolicy is not explicitly set",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "nginx",
+            "name": "nginx"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/postgresql",
+      "version": "18.6.7",
+      "variant": "existing-secret",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 2,
+      "checkCounts": {
+        "latest-tag": 1,
+        "pdb-unhealthy-pod-eviction-policy": 1
+      },
+      "renderedPath": "recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "63c946704d955651bb3051d69d26dd67e18a074791846752e503d7ddc4ed38ef",
+      "recipePath": "recipes/bitnami/postgresql/18.6.7",
+      "findings": [
+        {
+          "check": "latest-tag",
+          "message": "The container \"postgresql\" is using an invalid container image, \"registry-1.docker.io/bitnami/postgresql:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "postgresql",
+            "name": "postgresql"
+          }
+        },
+        {
+          "check": "pdb-unhealthy-pod-eviction-policy",
+          "message": "unhealthyPodEvictionPolicy is not explicitly set",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "postgresql",
+            "name": "postgresql"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/postgresql",
+      "version": "18.6.7",
+      "variant": "generated-passwords",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 2,
+      "checkCounts": {
+        "latest-tag": 1,
+        "pdb-unhealthy-pod-eviction-policy": 1
+      },
+      "renderedPath": "recipes/bitnami/postgresql/18.6.7/revisions/generated-passwords/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "5ddff6ac6f2de4b98f6fce9d482167f300406c3ff738317e34b322522465ea72",
+      "recipePath": "recipes/bitnami/postgresql/18.6.7",
+      "findings": [
+        {
+          "check": "latest-tag",
+          "message": "The container \"postgresql\" is using an invalid container image, \"registry-1.docker.io/bitnami/postgresql:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "postgresql",
+            "name": "postgresql"
+          }
+        },
+        {
+          "check": "pdb-unhealthy-pod-eviction-policy",
+          "message": "unhealthyPodEvictionPolicy is not explicitly set",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "postgresql",
+            "name": "postgresql"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/rabbitmq",
+      "version": "16.0.14",
+      "variant": "existing-secret",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 1,
+      "checkCounts": {
+        "pdb-unhealthy-pod-eviction-policy": 1
+      },
+      "renderedPath": "recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "d508ba5a873dbb2e1fa08b6bc227b1177d84fc1285b1aac974d59d28e9645d63",
+      "recipePath": "recipes/bitnami/rabbitmq/16.0.14",
+      "findings": [
+        {
+          "check": "pdb-unhealthy-pod-eviction-policy",
+          "message": "unhealthyPodEvictionPolicy is not explicitly set",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "rabbitmq",
+            "name": "rabbitmq"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/rabbitmq",
+      "version": "16.0.14",
+      "variant": "generated-passwords",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 1,
+      "checkCounts": {
+        "pdb-unhealthy-pod-eviction-policy": 1
+      },
+      "renderedPath": "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "7177256a1ef16d1ad91727d3d03ecd0b8cf23da5a3444ba3dd010f4963085fe1",
+      "recipePath": "recipes/bitnami/rabbitmq/16.0.14",
+      "findings": [
+        {
+          "check": "pdb-unhealthy-pod-eviction-policy",
+          "message": "unhealthyPodEvictionPolicy is not explicitly set",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "rabbitmq",
+            "name": "rabbitmq"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/redis",
+      "version": "25.5.3",
+      "variant": "default",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 4,
+      "checkCounts": {
+        "latest-tag": 2,
+        "pdb-unhealthy-pod-eviction-policy": 2
+      },
+      "renderedPath": "recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d",
+      "recipePath": "recipes/bitnami/redis/25.5.3",
+      "findings": [
+        {
+          "check": "latest-tag",
+          "message": "The container \"redis\" is using an invalid container image, \"registry-1.docker.io/bitnami/redis:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "redis",
+            "name": "redis-master"
+          }
+        },
+        {
+          "check": "latest-tag",
+          "message": "The container \"redis\" is using an invalid container image, \"registry-1.docker.io/bitnami/redis:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "redis",
+            "name": "redis-replicas"
+          }
+        },
+        {
+          "check": "pdb-unhealthy-pod-eviction-policy",
+          "message": "unhealthyPodEvictionPolicy is not explicitly set",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "redis",
+            "name": "redis-master"
+          }
+        },
+        {
+          "check": "pdb-unhealthy-pod-eviction-policy",
+          "message": "unhealthyPodEvictionPolicy is not explicitly set",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "redis",
+            "name": "redis-replicas"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/redis",
+      "version": "25.5.3",
+      "variant": "reuse-existing-secret",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 4,
+      "checkCounts": {
+        "latest-tag": 2,
+        "pdb-unhealthy-pod-eviction-policy": 2
+      },
+      "renderedPath": "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "a90dda4885fb97749e2c222f1abd840f49dcf6eafa953ea6ea2dbc6ba565fe53",
+      "recipePath": "recipes/bitnami/redis/25.5.3",
+      "findings": [
+        {
+          "check": "latest-tag",
+          "message": "The container \"redis\" is using an invalid container image, \"registry-1.docker.io/bitnami/redis:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "redis",
+            "name": "redis-master"
+          }
+        },
+        {
+          "check": "latest-tag",
+          "message": "The container \"redis\" is using an invalid container image, \"registry-1.docker.io/bitnami/redis:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "redis",
+            "name": "redis-replicas"
+          }
+        },
+        {
+          "check": "pdb-unhealthy-pod-eviction-policy",
+          "message": "unhealthyPodEvictionPolicy is not explicitly set",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "redis",
+            "name": "redis-master"
+          }
+        },
+        {
+          "check": "pdb-unhealthy-pod-eviction-policy",
+          "message": "unhealthyPodEvictionPolicy is not explicitly set",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "redis",
+            "name": "redis-replicas"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "external-secrets/external-secrets",
+      "version": "2.5.0",
+      "variant": "default",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 6,
+      "checkCounts": {
+        "unset-cpu-requirements": 3,
+        "unset-memory-requirements": 3
+      },
+      "renderedPath": "recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "f1c832a9af788c9d2a7a0b066d76a7d8af253d83f5b0fa39c1aa91271230d3db",
+      "recipePath": "recipes/external-secrets/external-secrets/2.5.0",
+      "findings": [
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"cert-controller\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "external-secrets",
+            "name": "external-secrets-cert-controller"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"webhook\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "external-secrets",
+            "name": "external-secrets-webhook"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"external-secrets\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "external-secrets",
+            "name": "external-secrets"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"cert-controller\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "external-secrets",
+            "name": "external-secrets-cert-controller"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"webhook\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "external-secrets",
+            "name": "external-secrets-webhook"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"external-secrets\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "external-secrets",
+            "name": "external-secrets"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "external-secrets/external-secrets",
+      "version": "2.5.0",
+      "variant": "no-crds",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 6,
+      "checkCounts": {
+        "unset-cpu-requirements": 3,
+        "unset-memory-requirements": 3
+      },
+      "renderedPath": "recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "da5857fba93e0394594d7e072b31e3cf28985392b5cc0443730a23b722d7670b",
+      "recipePath": "recipes/external-secrets/external-secrets/2.5.0",
+      "findings": [
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"cert-controller\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "external-secrets",
+            "name": "external-secrets-cert-controller"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"webhook\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "external-secrets",
+            "name": "external-secrets-webhook"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"external-secrets\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "external-secrets",
+            "name": "external-secrets"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"cert-controller\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "external-secrets",
+            "name": "external-secrets-cert-controller"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"webhook\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "external-secrets",
+            "name": "external-secrets-webhook"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"external-secrets\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "external-secrets",
+            "name": "external-secrets"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "grafana/grafana",
+      "version": "10.5.15",
+      "variant": "existing-secret-ingress",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 3,
+      "checkCounts": {
+        "no-read-only-root-fs": 1,
+        "unset-cpu-requirements": 1,
+        "unset-memory-requirements": 1
+      },
+      "renderedPath": "recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "04b1fc4abd47d12c2eef1e06e7f4dc7cb2dd6ffd639a7a8967bda1c98a00fb60",
+      "recipePath": "recipes/grafana/grafana/10.5.15",
+      "findings": [
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"grafana\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "grafana",
+            "name": "grafana"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"grafana\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "grafana",
+            "name": "grafana"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"grafana\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "grafana",
+            "name": "grafana"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "grafana/grafana",
+      "version": "10.5.15",
+      "variant": "generated-passwords",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 3,
+      "checkCounts": {
+        "no-read-only-root-fs": 1,
+        "unset-cpu-requirements": 1,
+        "unset-memory-requirements": 1
+      },
+      "renderedPath": "recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "893351c9b8cad0a10b0176a946bf514a76c5895bdb2d88a31bdd53a94288066d",
+      "recipePath": "recipes/grafana/grafana/10.5.15",
+      "findings": [
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"grafana\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "grafana",
+            "name": "grafana"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"grafana\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "grafana",
+            "name": "grafana"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"grafana\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "grafana",
+            "name": "grafana"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "grafana/loki",
+      "version": "7.0.0",
+      "variant": "simple-scalable-minio",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 21,
+      "checkCounts": {
+        "no-read-only-root-fs": 1,
+        "pdb-unhealthy-pod-eviction-policy": 3,
+        "unset-cpu-requirements": 8,
+        "unset-memory-requirements": 9
+      },
+      "renderedPath": "recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "8c4176621cdd67670d41b1689de1bcaa74854e40fb8170070606f794d0fc36ab",
+      "recipePath": "recipes/grafana/loki/7.0.0",
+      "findings": [
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"minio\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "",
+            "name": "loki-minio"
+          }
+        },
+        {
+          "check": "pdb-unhealthy-pod-eviction-policy",
+          "message": "unhealthyPodEvictionPolicy is not explicitly set",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-backend"
+          }
+        },
+        {
+          "check": "pdb-unhealthy-pod-eviction-policy",
+          "message": "unhealthyPodEvictionPolicy is not explicitly set",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-read"
+          }
+        },
+        {
+          "check": "pdb-unhealthy-pod-eviction-policy",
+          "message": "unhealthyPodEvictionPolicy is not explicitly set",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-write"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"loki-sc-rules\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-backend"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"loki\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-backend"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"loki-canary\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-canary"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"exporter\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-chunks-cache"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"nginx\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-gateway"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"loki\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-read"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"exporter\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-results-cache"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"loki\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-write"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"minio\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "",
+            "name": "loki-minio"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"loki-sc-rules\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-backend"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"loki\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-backend"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"loki-canary\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-canary"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"exporter\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-chunks-cache"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"nginx\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-gateway"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"loki\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-read"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"exporter\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-results-cache"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"loki\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-write"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "grafana/loki",
+      "version": "7.0.0",
+      "variant": "single-binary-filesystem",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 12,
+      "checkCounts": {
+        "unset-cpu-requirements": 6,
+        "unset-memory-requirements": 6
+      },
+      "renderedPath": "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30",
+      "recipePath": "recipes/grafana/loki/7.0.0",
+      "findings": [
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"loki-canary\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-canary"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"exporter\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-chunks-cache"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"nginx\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-gateway"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"exporter\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-results-cache"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"loki-sc-rules\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"loki\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"loki-canary\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-canary"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"exporter\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-chunks-cache"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"nginx\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-gateway"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"exporter\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki-results-cache"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"loki-sc-rules\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"loki\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "loki",
+            "name": "loki"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "grafana/tempo",
+      "version": "1.24.4",
+      "variant": "local-persistent",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 3,
+      "checkCounts": {
+        "no-read-only-root-fs": 1,
+        "unset-cpu-requirements": 1,
+        "unset-memory-requirements": 1
+      },
+      "renderedPath": "recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "4a18b354ff67e98d84f6d89ce16b973396c9c30bf3c121f4ef146886151c44be",
+      "recipePath": "recipes/grafana/tempo/1.24.4",
+      "findings": [
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"tempo\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "tempo",
+            "name": "tempo"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"tempo\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "tempo",
+            "name": "tempo"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"tempo\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "tempo",
+            "name": "tempo"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "grafana/tempo",
+      "version": "1.24.4",
+      "variant": "s3-query-observability",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 6,
+      "checkCounts": {
+        "no-read-only-root-fs": 2,
+        "unset-cpu-requirements": 2,
+        "unset-memory-requirements": 2
+      },
+      "renderedPath": "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "6fb9e1726fb68d7e7e251420e9c5761e078cd38f508fa87af7759e0b302017a4",
+      "recipePath": "recipes/grafana/tempo/1.24.4",
+      "findings": [
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"tempo-query\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "tempo",
+            "name": "tempo"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"tempo\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "tempo",
+            "name": "tempo"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"tempo-query\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "tempo",
+            "name": "tempo"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"tempo\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "tempo",
+            "name": "tempo"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"tempo-query\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "tempo",
+            "name": "tempo"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"tempo\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "tempo",
+            "name": "tempo"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "hashicorp/consul",
+      "version": "2.0.0",
+      "variant": "default-control-plane",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 5,
+      "checkCounts": {
+        "liveness-port": 1,
+        "readiness-port": 1,
+        "startup-port": 1,
+        "unset-cpu-requirements": 1,
+        "unset-memory-requirements": 1
+      },
+      "renderedPath": "recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "467ec5aadeb6aee76362da376763563d7a1ea4146f5b5098cfdaa0784c961e3f",
+      "recipePath": "recipes/hashicorp/consul/2.0.0",
+      "findings": [
+        {
+          "check": "liveness-port",
+          "message": "container \"sidecar-injector\" does not expose port 9445 for the HTTPGet",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "consul",
+            "name": "consul-consul-connect-injector"
+          }
+        },
+        {
+          "check": "readiness-port",
+          "message": "container \"sidecar-injector\" does not expose port 9445 for the HTTPGet",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "consul",
+            "name": "consul-consul-connect-injector"
+          }
+        },
+        {
+          "check": "startup-port",
+          "message": "container \"sidecar-injector\" does not expose port 9445 for the HTTPGet",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "consul",
+            "name": "consul-consul-connect-injector"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"locality-init\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "consul",
+            "name": "consul-consul-server"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"locality-init\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "consul",
+            "name": "consul-consul-server"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "hashicorp/consul",
+      "version": "2.0.0",
+      "variant": "secure-mesh-existing-secrets",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 6,
+      "checkCounts": {
+        "job-ttl-seconds-after-finished": 1,
+        "liveness-port": 1,
+        "readiness-port": 1,
+        "startup-port": 1,
+        "unset-cpu-requirements": 1,
+        "unset-memory-requirements": 1
+      },
+      "renderedPath": "recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "f44c496151f7893383bbc25e4c0b4f8bcb5ce62136d3d0e3df84d846e2506dd1",
+      "recipePath": "recipes/hashicorp/consul/2.0.0",
+      "findings": [
+        {
+          "check": "job-ttl-seconds-after-finished",
+          "message": "Standalone Job does not specify ttlSecondsAfterFinished",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "consul",
+            "name": "consul-consul-server-acl-init"
+          }
+        },
+        {
+          "check": "liveness-port",
+          "message": "container \"sidecar-injector\" does not expose port 9445 for the HTTPGet",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "consul",
+            "name": "consul-consul-connect-injector"
+          }
+        },
+        {
+          "check": "readiness-port",
+          "message": "container \"sidecar-injector\" does not expose port 9445 for the HTTPGet",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "consul",
+            "name": "consul-consul-connect-injector"
+          }
+        },
+        {
+          "check": "startup-port",
+          "message": "container \"sidecar-injector\" does not expose port 9445 for the HTTPGet",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "consul",
+            "name": "consul-consul-connect-injector"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"locality-init\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "consul",
+            "name": "consul-consul-server"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"locality-init\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "consul",
+            "name": "consul-consul-server"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "hashicorp/vault",
+      "version": "0.32.0",
+      "variant": "default",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 9,
+      "checkCounts": {
+        "liveness-port": 1,
+        "no-read-only-root-fs": 2,
+        "readiness-port": 1,
+        "startup-port": 1,
+        "unset-cpu-requirements": 2,
+        "unset-memory-requirements": 2
+      },
+      "renderedPath": "recipes/hashicorp/vault/0.32.0/revisions/default/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "6de2d61c8de0c21faa951e89ec16658bcdff22e69d78075fdd394d895a5e6978",
+      "recipePath": "recipes/hashicorp/vault/0.32.0",
+      "findings": [
+        {
+          "check": "liveness-port",
+          "message": "container \"sidecar-injector\" does not expose port 8080 for the HTTPGet",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault-agent-injector"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"sidecar-injector\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault-agent-injector"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"vault\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault"
+          }
+        },
+        {
+          "check": "readiness-port",
+          "message": "container \"sidecar-injector\" does not expose port 8080 for the HTTPGet",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault-agent-injector"
+          }
+        },
+        {
+          "check": "startup-port",
+          "message": "container \"sidecar-injector\" does not expose port 8080 for the HTTPGet",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault-agent-injector"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"sidecar-injector\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault-agent-injector"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"vault\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"sidecar-injector\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault-agent-injector"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"vault\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "hashicorp/vault",
+      "version": "0.32.0",
+      "variant": "ha-raft-ui",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 12,
+      "checkCounts": {
+        "dangling-service": 2,
+        "liveness-port": 1,
+        "no-read-only-root-fs": 2,
+        "pdb-unhealthy-pod-eviction-policy": 1,
+        "readiness-port": 1,
+        "startup-port": 1,
+        "unset-cpu-requirements": 2,
+        "unset-memory-requirements": 2
+      },
+      "renderedPath": "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "734a212cbb2e8d11ed288d32bc8b709e859248ef5587090b04e0fa407b248b5f",
+      "recipePath": "recipes/hashicorp/vault/0.32.0",
+      "findings": [
+        {
+          "check": "dangling-service",
+          "message": "no pods found matching service labels (map[app.kubernetes.io/instance:vault app.kubernetes.io/name:vault component:server vault-active:true])",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault-active"
+          }
+        },
+        {
+          "check": "dangling-service",
+          "message": "no pods found matching service labels (map[app.kubernetes.io/instance:vault app.kubernetes.io/name:vault component:server vault-active:false])",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault-standby"
+          }
+        },
+        {
+          "check": "liveness-port",
+          "message": "container \"sidecar-injector\" does not expose port 8080 for the HTTPGet",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault-agent-injector"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"sidecar-injector\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault-agent-injector"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"vault\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault"
+          }
+        },
+        {
+          "check": "pdb-unhealthy-pod-eviction-policy",
+          "message": "unhealthyPodEvictionPolicy is not explicitly set",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault"
+          }
+        },
+        {
+          "check": "readiness-port",
+          "message": "container \"sidecar-injector\" does not expose port 8080 for the HTTPGet",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault-agent-injector"
+          }
+        },
+        {
+          "check": "startup-port",
+          "message": "container \"sidecar-injector\" does not expose port 8080 for the HTTPGet",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault-agent-injector"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"sidecar-injector\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault-agent-injector"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"vault\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"sidecar-injector\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault-agent-injector"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"vault\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "ingress-nginx/ingress-nginx",
+      "version": "4.15.1",
+      "variant": "admission-disabled",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 4,
+      "checkCounts": {
+        "liveness-port": 1,
+        "no-read-only-root-fs": 1,
+        "readiness-port": 1,
+        "unset-memory-requirements": 1
+      },
+      "renderedPath": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "ad133758fa1985241f9dd1fe766f6ca9f17e199bf7562e37b3c2834a6588c25e",
+      "recipePath": "recipes/ingress-nginx/ingress-nginx/4.15.1",
+      "findings": [
+        {
+          "check": "liveness-port",
+          "message": "container \"controller\" does not expose port 10254 for the HTTPGet",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "ingress-nginx",
+            "name": "ingress-nginx-controller"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"controller\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "ingress-nginx",
+            "name": "ingress-nginx-controller"
+          }
+        },
+        {
+          "check": "readiness-port",
+          "message": "container \"controller\" does not expose port 10254 for the HTTPGet",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "ingress-nginx",
+            "name": "ingress-nginx-controller"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"controller\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "ingress-nginx",
+            "name": "ingress-nginx-controller"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "ingress-nginx/ingress-nginx",
+      "version": "4.15.1",
+      "variant": "default",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 4,
+      "checkCounts": {
+        "liveness-port": 1,
+        "no-read-only-root-fs": 1,
+        "readiness-port": 1,
+        "unset-memory-requirements": 1
+      },
+      "renderedPath": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d",
+      "recipePath": "recipes/ingress-nginx/ingress-nginx/4.15.1",
+      "findings": [
+        {
+          "check": "liveness-port",
+          "message": "container \"controller\" does not expose port 10254 for the HTTPGet",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "ingress-nginx",
+            "name": "ingress-nginx-controller"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"controller\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "ingress-nginx",
+            "name": "ingress-nginx-controller"
+          }
+        },
+        {
+          "check": "readiness-port",
+          "message": "container \"controller\" does not expose port 10254 for the HTTPGet",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "ingress-nginx",
+            "name": "ingress-nginx-controller"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"controller\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "ingress-nginx",
+            "name": "ingress-nginx-controller"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "jetstack/cert-manager",
+      "version": "v1.20.2",
+      "variant": "crds-enabled",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 6,
+      "checkCounts": {
+        "unset-cpu-requirements": 3,
+        "unset-memory-requirements": 3
+      },
+      "renderedPath": "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "e288b2413bd1919173bee6afcd823be61399f101cfe2cf61f8e0df56740fefe0",
+      "recipePath": "recipes/jetstack/cert-manager/v1.20.2",
+      "findings": [
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"cert-manager-cainjector\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "cert-manager",
+            "name": "cert-manager-cainjector"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"cert-manager-webhook\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "cert-manager",
+            "name": "cert-manager-webhook"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"cert-manager-controller\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "cert-manager",
+            "name": "cert-manager"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"cert-manager-cainjector\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "cert-manager",
+            "name": "cert-manager-cainjector"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"cert-manager-webhook\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "cert-manager",
+            "name": "cert-manager-webhook"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"cert-manager-controller\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "cert-manager",
+            "name": "cert-manager"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "jetstack/cert-manager",
+      "version": "v1.20.2",
+      "variant": "default",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 6,
+      "checkCounts": {
+        "unset-cpu-requirements": 3,
+        "unset-memory-requirements": 3
+      },
+      "renderedPath": "recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "45029db19d75e578bec74b82a0476a6580d1f7193239a210bf4873156ac725ce",
+      "recipePath": "recipes/jetstack/cert-manager/v1.20.2",
+      "findings": [
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"cert-manager-cainjector\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "cert-manager",
+            "name": "cert-manager-cainjector"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"cert-manager-webhook\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "cert-manager",
+            "name": "cert-manager-webhook"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"cert-manager-controller\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "cert-manager",
+            "name": "cert-manager"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"cert-manager-cainjector\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "cert-manager",
+            "name": "cert-manager-cainjector"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"cert-manager-webhook\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "cert-manager",
+            "name": "cert-manager-webhook"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"cert-manager-controller\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "cert-manager",
+            "name": "cert-manager"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "longhorn/longhorn",
+      "version": "1.11.2",
+      "variant": "default",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 24,
+      "checkCounts": {
+        "dangling-service": 2,
+        "no-read-only-root-fs": 5,
+        "privilege-escalation-container": 1,
+        "privileged-container": 1,
+        "run-as-non-root": 5,
+        "unset-cpu-requirements": 5,
+        "unset-memory-requirements": 5
+      },
+      "renderedPath": "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "4a2f739775a696f5d67db6adf1f99473c60a3f5adf308ceb3ccbf222435acd90",
+      "recipePath": "recipes/longhorn/longhorn/1.11.2",
+      "findings": [
+        {
+          "check": "dangling-service",
+          "message": "no pods found matching service labels (map[longhorn.io/admission-webhook:longhorn-admission-webhook])",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-admission-webhook"
+          }
+        },
+        {
+          "check": "dangling-service",
+          "message": "no pods found matching service labels (map[longhorn.io/recovery-backend:longhorn-recovery-backend])",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-recovery-backend"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"longhorn-driver-deployer\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-driver-deployer"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"wait-longhorn-manager\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-driver-deployer"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"longhorn-manager\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-manager"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"pre-pull-share-manager-image\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-manager"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"longhorn-ui\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-ui"
+          }
+        },
+        {
+          "check": "privilege-escalation-container",
+          "message": "container \"longhorn-manager\" is Privileged hence allows privilege escalation.",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-manager"
+          }
+        },
+        {
+          "check": "privileged-container",
+          "message": "container \"longhorn-manager\" is privileged",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-manager"
+          }
+        },
+        {
+          "check": "run-as-non-root",
+          "message": "container \"longhorn-driver-deployer\" is not set to runAsNonRoot",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-driver-deployer"
+          }
+        },
+        {
+          "check": "run-as-non-root",
+          "message": "container \"wait-longhorn-manager\" is not set to runAsNonRoot",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-driver-deployer"
+          }
+        },
+        {
+          "check": "run-as-non-root",
+          "message": "container \"longhorn-manager\" is not set to runAsNonRoot",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-manager"
+          }
+        },
+        {
+          "check": "run-as-non-root",
+          "message": "container \"pre-pull-share-manager-image\" is not set to runAsNonRoot",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-manager"
+          }
+        },
+        {
+          "check": "run-as-non-root",
+          "message": "container \"longhorn-ui\" is not set to runAsNonRoot",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-ui"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"longhorn-driver-deployer\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-driver-deployer"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"wait-longhorn-manager\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-driver-deployer"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"longhorn-manager\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-manager"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"pre-pull-share-manager-image\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-manager"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"longhorn-ui\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-ui"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"longhorn-driver-deployer\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-driver-deployer"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"wait-longhorn-manager\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-driver-deployer"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"longhorn-manager\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-manager"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"pre-pull-share-manager-image\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-manager"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"longhorn-ui\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-ui"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "longhorn/longhorn",
+      "version": "1.11.2",
+      "variant": "ui-ingress",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 24,
+      "checkCounts": {
+        "dangling-service": 2,
+        "no-read-only-root-fs": 5,
+        "privilege-escalation-container": 1,
+        "privileged-container": 1,
+        "run-as-non-root": 5,
+        "unset-cpu-requirements": 5,
+        "unset-memory-requirements": 5
+      },
+      "renderedPath": "recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "2f6508c2bc3f2a09e1ffcb8ec71282b3e2dd52e69fe8ca80fc90ab756f9b9298",
+      "recipePath": "recipes/longhorn/longhorn/1.11.2",
+      "findings": [
+        {
+          "check": "dangling-service",
+          "message": "no pods found matching service labels (map[longhorn.io/admission-webhook:longhorn-admission-webhook])",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-admission-webhook"
+          }
+        },
+        {
+          "check": "dangling-service",
+          "message": "no pods found matching service labels (map[longhorn.io/recovery-backend:longhorn-recovery-backend])",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-recovery-backend"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"longhorn-driver-deployer\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-driver-deployer"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"wait-longhorn-manager\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-driver-deployer"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"longhorn-manager\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-manager"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"pre-pull-share-manager-image\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-manager"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"longhorn-ui\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-ui"
+          }
+        },
+        {
+          "check": "privilege-escalation-container",
+          "message": "container \"longhorn-manager\" is Privileged hence allows privilege escalation.",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-manager"
+          }
+        },
+        {
+          "check": "privileged-container",
+          "message": "container \"longhorn-manager\" is privileged",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-manager"
+          }
+        },
+        {
+          "check": "run-as-non-root",
+          "message": "container \"longhorn-driver-deployer\" is not set to runAsNonRoot",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-driver-deployer"
+          }
+        },
+        {
+          "check": "run-as-non-root",
+          "message": "container \"wait-longhorn-manager\" is not set to runAsNonRoot",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-driver-deployer"
+          }
+        },
+        {
+          "check": "run-as-non-root",
+          "message": "container \"longhorn-manager\" is not set to runAsNonRoot",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-manager"
+          }
+        },
+        {
+          "check": "run-as-non-root",
+          "message": "container \"pre-pull-share-manager-image\" is not set to runAsNonRoot",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-manager"
+          }
+        },
+        {
+          "check": "run-as-non-root",
+          "message": "container \"longhorn-ui\" is not set to runAsNonRoot",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-ui"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"longhorn-driver-deployer\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-driver-deployer"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"wait-longhorn-manager\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-driver-deployer"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"longhorn-manager\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-manager"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"pre-pull-share-manager-image\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-manager"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"longhorn-ui\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-ui"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"longhorn-driver-deployer\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-driver-deployer"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"wait-longhorn-manager\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-driver-deployer"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"longhorn-manager\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-manager"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"pre-pull-share-manager-image\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-manager"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"longhorn-ui\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "longhorn-system",
+            "name": "longhorn-ui"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "metrics-server/metrics-server",
+      "version": "3.13.0",
+      "variant": "default",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 1,
+      "checkCounts": {
+        "unset-memory-requirements": 1
+      },
+      "renderedPath": "recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "22dc022aedee5c41c2eac80d4ff8b849a123931e9d3f2914b14951aec38b057e",
+      "recipePath": "recipes/metrics-server/metrics-server/3.13.0",
+      "findings": [
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"metrics-server\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "metrics-server"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "metrics-server/metrics-server",
+      "version": "3.13.0",
+      "variant": "external-tls-ca",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 1,
+      "checkCounts": {
+        "unset-memory-requirements": 1
+      },
+      "renderedPath": "recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "4b9df6b53cb5d8ed0b655b121696183d1c107ea88511e889bef1aae6708c8dad",
+      "recipePath": "recipes/metrics-server/metrics-server/3.13.0",
+      "findings": [
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"metrics-server\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "metrics-server"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "variant": "default",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 27,
+      "checkCounts": {
+        "dangling-service": 7,
+        "host-network": 1,
+        "host-pid": 1,
+        "no-read-only-root-fs": 3,
+        "sensitive-host-mounts": 3,
+        "unset-cpu-requirements": 6,
+        "unset-memory-requirements": 6
+      },
+      "renderedPath": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "9fac2a0e4140eee298c84ce61f13dd8ca392bb92e2037d0ef0aaa4d8015ee491",
+      "recipePath": "recipes/prometheus-community/kube-prometheus-stack/85.3.3",
+      "findings": [
+        {
+          "check": "dangling-service",
+          "message": "no pods found matching service labels (map[k8s-app:kube-dns])",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "kube-prometheus-stack-coredns"
+          }
+        },
+        {
+          "check": "dangling-service",
+          "message": "no pods found matching service labels (map[component:kube-controller-manager])",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "kube-prometheus-stack-kube-controller-manager"
+          }
+        },
+        {
+          "check": "dangling-service",
+          "message": "no pods found matching service labels (map[component:etcd])",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "kube-prometheus-stack-kube-etcd"
+          }
+        },
+        {
+          "check": "dangling-service",
+          "message": "no pods found matching service labels (map[k8s-app:kube-proxy])",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "kube-prometheus-stack-kube-proxy"
+          }
+        },
+        {
+          "check": "dangling-service",
+          "message": "no pods found matching service labels (map[component:kube-scheduler])",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "kube-prometheus-stack-kube-scheduler"
+          }
+        },
+        {
+          "check": "dangling-service",
+          "message": "no pods found matching service labels (map[alertmanager:kube-prometheus-stack-alertmanager app.kubernetes.io/name:alertmanager])",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-alertmanager"
+          }
+        },
+        {
+          "check": "dangling-service",
+          "message": "no pods found matching service labels (map[app.kubernetes.io/name:prometheus operator.prometheus.io/name:kube-prometheus-stack-prometheus])",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-prometheus"
+          }
+        },
+        {
+          "check": "host-network",
+          "message": "resource shares host's network namespace (via hostNetwork=true).",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-prometheus-node-exporter"
+          }
+        },
+        {
+          "check": "host-pid",
+          "message": "object shares the host's process namespace (via hostPID=true).",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-prometheus-node-exporter"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"grafana-sc-dashboard\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-grafana"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"grafana-sc-datasources\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-grafana"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"grafana\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-grafana"
+          }
+        },
+        {
+          "check": "sensitive-host-mounts",
+          "message": "host system directory \"/\" is mounted on container \"node-exporter\"",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-prometheus-node-exporter"
+          }
+        },
+        {
+          "check": "sensitive-host-mounts",
+          "message": "host system directory \"/proc\" is mounted on container \"node-exporter\"",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-prometheus-node-exporter"
+          }
+        },
+        {
+          "check": "sensitive-host-mounts",
+          "message": "host system directory \"/sys\" is mounted on container \"node-exporter\"",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-prometheus-node-exporter"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"grafana-sc-dashboard\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-grafana"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"grafana-sc-datasources\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-grafana"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"grafana\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-grafana"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"kube-state-metrics\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-kube-state-metrics"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"kube-prometheus-stack\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-operator"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"node-exporter\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-prometheus-node-exporter"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"grafana-sc-dashboard\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-grafana"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"grafana-sc-datasources\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-grafana"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"grafana\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-grafana"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"kube-state-metrics\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-kube-state-metrics"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"kube-prometheus-stack\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-operator"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"node-exporter\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-prometheus-node-exporter"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "variant": "no-crds",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 27,
+      "checkCounts": {
+        "dangling-service": 7,
+        "host-network": 1,
+        "host-pid": 1,
+        "no-read-only-root-fs": 3,
+        "sensitive-host-mounts": 3,
+        "unset-cpu-requirements": 6,
+        "unset-memory-requirements": 6
+      },
+      "renderedPath": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "3f6049fc2b7a40bbfb009b347880e3f319a87c9b60a6fd274220287a10167fc2",
+      "recipePath": "recipes/prometheus-community/kube-prometheus-stack/85.3.3",
+      "findings": [
+        {
+          "check": "dangling-service",
+          "message": "no pods found matching service labels (map[k8s-app:kube-dns])",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "kube-prometheus-stack-coredns"
+          }
+        },
+        {
+          "check": "dangling-service",
+          "message": "no pods found matching service labels (map[component:kube-controller-manager])",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "kube-prometheus-stack-kube-controller-manager"
+          }
+        },
+        {
+          "check": "dangling-service",
+          "message": "no pods found matching service labels (map[component:etcd])",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "kube-prometheus-stack-kube-etcd"
+          }
+        },
+        {
+          "check": "dangling-service",
+          "message": "no pods found matching service labels (map[k8s-app:kube-proxy])",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "kube-prometheus-stack-kube-proxy"
+          }
+        },
+        {
+          "check": "dangling-service",
+          "message": "no pods found matching service labels (map[component:kube-scheduler])",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "kube-prometheus-stack-kube-scheduler"
+          }
+        },
+        {
+          "check": "dangling-service",
+          "message": "no pods found matching service labels (map[alertmanager:kube-prometheus-stack-alertmanager app.kubernetes.io/name:alertmanager])",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-alertmanager"
+          }
+        },
+        {
+          "check": "dangling-service",
+          "message": "no pods found matching service labels (map[app.kubernetes.io/name:prometheus operator.prometheus.io/name:kube-prometheus-stack-prometheus])",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-prometheus"
+          }
+        },
+        {
+          "check": "host-network",
+          "message": "resource shares host's network namespace (via hostNetwork=true).",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-prometheus-node-exporter"
+          }
+        },
+        {
+          "check": "host-pid",
+          "message": "object shares the host's process namespace (via hostPID=true).",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-prometheus-node-exporter"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"grafana-sc-dashboard\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-grafana"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"grafana-sc-datasources\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-grafana"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"grafana\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-grafana"
+          }
+        },
+        {
+          "check": "sensitive-host-mounts",
+          "message": "host system directory \"/\" is mounted on container \"node-exporter\"",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-prometheus-node-exporter"
+          }
+        },
+        {
+          "check": "sensitive-host-mounts",
+          "message": "host system directory \"/proc\" is mounted on container \"node-exporter\"",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-prometheus-node-exporter"
+          }
+        },
+        {
+          "check": "sensitive-host-mounts",
+          "message": "host system directory \"/sys\" is mounted on container \"node-exporter\"",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-prometheus-node-exporter"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"grafana-sc-dashboard\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-grafana"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"grafana-sc-datasources\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-grafana"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"grafana\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-grafana"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"kube-state-metrics\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-kube-state-metrics"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"kube-prometheus-stack\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-operator"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"node-exporter\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-prometheus-node-exporter"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"grafana-sc-dashboard\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-grafana"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"grafana-sc-datasources\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-grafana"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"grafana\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-grafana"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"kube-state-metrics\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-kube-state-metrics"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"kube-prometheus-stack\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-operator"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"node-exporter\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-prometheus-node-exporter"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "prometheus-community/prometheus",
+      "version": "29.8.0",
+      "variant": "default",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 21,
+      "checkCounts": {
+        "host-network": 1,
+        "host-pid": 1,
+        "no-read-only-root-fs": 4,
+        "sensitive-host-mounts": 3,
+        "unset-cpu-requirements": 6,
+        "unset-memory-requirements": 6
+      },
+      "renderedPath": "recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "c11349803ddbb44562066474dd04d47d7c5c75d083dbc96162224573f949c11b",
+      "recipePath": "recipes/prometheus-community/prometheus/29.8.0",
+      "findings": [
+        {
+          "check": "host-network",
+          "message": "resource shares host's network namespace (via hostNetwork=true).",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-prometheus-node-exporter"
+          }
+        },
+        {
+          "check": "host-pid",
+          "message": "object shares the host's process namespace (via hostPID=true).",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-prometheus-node-exporter"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"alertmanager\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-alertmanager"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"pushgateway\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-prometheus-pushgateway"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"prometheus-server-configmap-reload\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-server"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"prometheus-server\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-server"
+          }
+        },
+        {
+          "check": "sensitive-host-mounts",
+          "message": "host system directory \"/\" is mounted on container \"node-exporter\"",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-prometheus-node-exporter"
+          }
+        },
+        {
+          "check": "sensitive-host-mounts",
+          "message": "host system directory \"/proc\" is mounted on container \"node-exporter\"",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-prometheus-node-exporter"
+          }
+        },
+        {
+          "check": "sensitive-host-mounts",
+          "message": "host system directory \"/sys\" is mounted on container \"node-exporter\"",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-prometheus-node-exporter"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"alertmanager\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-alertmanager"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"kube-state-metrics\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-kube-state-metrics"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"node-exporter\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-prometheus-node-exporter"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"pushgateway\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-prometheus-pushgateway"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"prometheus-server-configmap-reload\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-server"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"prometheus-server\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-server"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"alertmanager\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-alertmanager"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"kube-state-metrics\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-kube-state-metrics"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"node-exporter\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-prometheus-node-exporter"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"pushgateway\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-prometheus-pushgateway"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"prometheus-server-configmap-reload\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-server"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"prometheus-server\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-server"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "prometheus-community/prometheus",
+      "version": "29.8.0",
+      "variant": "server-only-ephemeral",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 6,
+      "checkCounts": {
+        "no-read-only-root-fs": 2,
+        "unset-cpu-requirements": 2,
+        "unset-memory-requirements": 2
+      },
+      "renderedPath": "recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "174e1729753ef551fa059f86111cfd87653ea2380dc879238cf5cc4987e78812",
+      "recipePath": "recipes/prometheus-community/prometheus/29.8.0",
+      "findings": [
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"prometheus-server-configmap-reload\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-server"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"prometheus-server\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-server"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"prometheus-server-configmap-reload\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-server"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"prometheus-server\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-server"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"prometheus-server-configmap-reload\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-server"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"prometheus-server\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "monitoring",
+            "name": "prometheus-server"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "secrets-store-csi-driver/secrets-store-csi-driver",
+      "version": "1.6.0",
+      "variant": "default",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 8,
+      "checkCounts": {
+        "no-read-only-root-fs": 3,
+        "privilege-escalation-container": 1,
+        "privileged-container": 1,
+        "run-as-non-root": 3
+      },
+      "renderedPath": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/default/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "2490f14dd08f7e309f8f78cd1c2f1b05eb5b8995343b33ad6b3b243401a39ead",
+      "recipePath": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0",
+      "findings": [
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"liveness-probe\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "secrets-store-csi-driver"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"node-driver-registrar\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "secrets-store-csi-driver"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"secrets-store\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "secrets-store-csi-driver"
+          }
+        },
+        {
+          "check": "privilege-escalation-container",
+          "message": "container \"secrets-store\" is Privileged hence allows privilege escalation.",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "secrets-store-csi-driver"
+          }
+        },
+        {
+          "check": "privileged-container",
+          "message": "container \"secrets-store\" is privileged",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "secrets-store-csi-driver"
+          }
+        },
+        {
+          "check": "run-as-non-root",
+          "message": "container \"liveness-probe\" is not set to runAsNonRoot",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "secrets-store-csi-driver"
+          }
+        },
+        {
+          "check": "run-as-non-root",
+          "message": "container \"node-driver-registrar\" is not set to runAsNonRoot",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "secrets-store-csi-driver"
+          }
+        },
+        {
+          "check": "run-as-non-root",
+          "message": "container \"secrets-store\" is not set to runAsNonRoot",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "secrets-store-csi-driver"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "secrets-store-csi-driver/secrets-store-csi-driver",
+      "version": "1.6.0",
+      "variant": "sync-secret-rotation",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 8,
+      "checkCounts": {
+        "no-read-only-root-fs": 3,
+        "privilege-escalation-container": 1,
+        "privileged-container": 1,
+        "run-as-non-root": 3
+      },
+      "renderedPath": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "3667c16d411f773ef20e51c9980d484eb770c1173092878f1b018f5b4377a182",
+      "recipePath": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0",
+      "findings": [
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"liveness-probe\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "secrets-store-csi-driver"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"node-driver-registrar\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "secrets-store-csi-driver"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"secrets-store\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "secrets-store-csi-driver"
+          }
+        },
+        {
+          "check": "privilege-escalation-container",
+          "message": "container \"secrets-store\" is Privileged hence allows privilege escalation.",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "secrets-store-csi-driver"
+          }
+        },
+        {
+          "check": "privileged-container",
+          "message": "container \"secrets-store\" is privileged",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "secrets-store-csi-driver"
+          }
+        },
+        {
+          "check": "run-as-non-root",
+          "message": "container \"liveness-probe\" is not set to runAsNonRoot",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "secrets-store-csi-driver"
+          }
+        },
+        {
+          "check": "run-as-non-root",
+          "message": "container \"node-driver-registrar\" is not set to runAsNonRoot",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "secrets-store-csi-driver"
+          }
+        },
+        {
+          "check": "run-as-non-root",
+          "message": "container \"secrets-store\" is not set to runAsNonRoot",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "kube-system",
+            "name": "secrets-store-csi-driver"
+          }
+        }
+      ]
+    }
+  ]
+}
