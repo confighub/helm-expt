@@ -13,12 +13,12 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Field | Value |
 | --- | --- |
 | Chart | grafana/grafana@10.5.15 |
-| Catalog status | catalog-candidate |
-| Support level | promotion-review-needed |
-| Supported scopes | none |
-| Production readiness | not-reviewed-for-production |
-| Supported variants | none |
-| Candidate variants | generated-passwords, existing-secret-ingress |
+| Catalog status | catalog-supported |
+| Support level | supported-for-declared-scopes |
+| Supported scopes | local-test |
+| Production readiness | blocked-by-current-scan-gate |
+| Supported variants | generated-passwords, existing-secret-ingress |
+| Candidate variants | none |
 | Control points | capability-profile, chart-deprecation, cluster-rbac, dependency-lock, deployment-workload, extension-slots, generated-facts, installer-support-object, source-lock, target-facts, ui-ingress-policy |
 
 ## Artifact Chain

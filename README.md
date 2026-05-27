@@ -263,10 +263,9 @@ catalog-candidate: worth human review
 catalog-supported: explicitly approved support scope
 ```
 
-Today six recipes are catalog-supported for the declared `local-test` scope:
-Redis, NGINX, PostgreSQL, Metrics Server, Ingress NGINX, and cert-manager.
-Production support is still deliberately blocked until the scan, gate, and
-operating-policy findings have dispositions.
+Today all top-20 bespoke recipes are catalog-supported for the declared
+`local-test` scope. Production support is still deliberately blocked until the
+scan, gate, and operating-policy findings have dispositions.
 
 The catalog review docs are:
 

@@ -34,16 +34,16 @@ spec:
       - "webhook-secret"
   catalogStatus:
     path: "recipes/external-secrets/external-secrets/2.5.0/catalog-status.yaml"
-    status: "catalog-candidate"
-    supportLevel: "promotion-review-needed"
+    status: "catalog-supported"
+    supportLevel: "supported-for-declared-scopes"
     supportedScopes:
-      []
-    productionReadiness: "not-reviewed-for-production"
+      - "local-test"
+    productionReadiness: "blocked-by-current-scan-gate"
     supportedVariants:
-      []
-    candidateVariants:
       - "default"
       - "no-crds"
+    candidateVariants:
+      []
     deferredVariants:
       []
   installerPackage:

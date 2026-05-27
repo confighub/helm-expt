@@ -13,12 +13,12 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Field | Value |
 | --- | --- |
 | Chart | grafana/tempo@1.24.4 |
-| Catalog status | catalog-candidate |
-| Support level | promotion-review-needed |
-| Supported scopes | none |
-| Production readiness | not-reviewed-for-production |
-| Supported variants | none |
-| Candidate variants | local-persistent, s3-query-observability |
+| Catalog status | catalog-supported |
+| Support level | supported-for-declared-scopes |
+| Supported scopes | local-test |
+| Production readiness | blocked-by-current-scan-gate |
+| Supported variants | local-persistent, s3-query-observability |
+| Candidate variants | none |
 | Control points | capability-profile, chart-deprecation, dependency-lock, extension-slots, installer-support-object, network-policy, query-ingress-policy, servicemonitor-capability, source-lock, stateful-workload, target-facts, upstream-runtime-risk |
 
 ## Artifact Chain

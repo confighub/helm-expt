@@ -13,12 +13,12 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Field | Value |
 | --- | --- |
 | Chart | grafana/loki@7.0.0 |
-| Catalog status | catalog-candidate |
-| Support level | promotion-review-needed |
-| Supported scopes | none |
-| Production readiness | not-reviewed-for-production |
-| Supported variants | none |
-| Candidate variants | single-binary-filesystem, simple-scalable-minio |
+| Catalog status | catalog-supported |
+| Support level | supported-for-declared-scopes |
+| Supported scopes | local-test |
+| Production readiness | blocked-by-current-scan-gate |
+| Supported variants | single-binary-filesystem, simple-scalable-minio |
+| Candidate variants | none |
 | Control points | blocked-default-render, capability-profile, cluster-rbac, dependency-lock, installer-support-object, lifecycle-policy, object-storage-policy, pvc-policy, source-lock, stateful-workload, storage-config, tpl |
 
 ## Artifact Chain

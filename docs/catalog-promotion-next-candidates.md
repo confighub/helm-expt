@@ -1,32 +1,24 @@
 # Catalog Promotion Next Candidates
 
-Six recipes are now explicit `catalog-supported` entries for the declared
-`local-test` scope:
+All top-20 bespoke recipes are now explicit `catalog-supported` entries for the
+declared `local-test` scope.
 
-```text
-bitnami/redis
-bitnami/nginx
-bitnami/postgresql
-metrics-server/metrics-server
-ingress-nginx/ingress-nginx
-jetstack/cert-manager
-```
-
-They are not production-supported yet. Production remains blocked until the
+They are not production-supported. Production remains blocked until the
 scan, gate, and operating-policy findings have dispositions.
 
-The next promotion reviews should prove breadth without making the happy path
-feel heavy.
+The next promotion reviews should take proof-grade charts from the generated
+default set, add user-shaped variants, and prove breadth without making the
+happy path feel heavy.
 
 Recommended next candidates:
 
 | Chart | Why it matters | Review focus |
 | --- | --- | --- |
-| `argo-cd/argo-cd` | Common GitOps control plane | Raw/tpl slots, RBAC, CRDs, and GitOps compatibility story. |
-| `external-secrets/external-secrets` | Secret integration chart | CRDs, webhooks, SecretStore expectations, and target facts. |
-| `grafana/grafana` | Familiar app with many knobs | Ingress/TLS, persistence, dashboards, and admin Secret handling. |
-| `hashicorp/vault` | Security-sensitive stateful chart | Seal/init expectations, storage, RBAC, and production blockers. |
-| `prometheus-community/prometheus` | Monitoring baseline | RBAC, PVCs, alerting config, scrape extensions, and safe variants. |
+| `cloudnative-pg/cloudnative-pg` | Operator-backed database | CRDs, webhook lifecycle, backups, and production blockers. |
+| `bitnami/opensearch` | Stateful search workload | Storage, cluster shape, security defaults, and upgrade risk. |
+| `kyverno/kyverno` | Policy engine | CRDs, admission webhooks, generated policies, and safe rollout. |
+| `istio/istiod` | Service mesh control plane | CRDs, webhooks, APIService-like readiness, and cluster RBAC. |
+| `minio-operator/operator` | Storage operator | CRDs, tenant handoff, object storage assumptions, and target facts. |
 
 Promotion review should answer:
 

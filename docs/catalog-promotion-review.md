@@ -105,30 +105,19 @@ Run catalog promotion review again when:
 
 ## Current Repo Interpretation
 
-The repo currently has 100 machine-proof recipes:
+The repo currently has 100 machine-proof recipes. All top-20 bespoke recipes
+are supported only for the declared `local-test` scope:
 
 ```text
-catalog-supported: 6
-catalog-candidate: 14
+catalog-supported: 20
+catalog-candidate: 0
 proof-grade: 80
-```
-
-The six supported entries are supported only for the declared `local-test`
-scope:
-
-```text
-bitnami/redis
-bitnami/nginx
-bitnami/postgresql
-metrics-server/metrics-server
-ingress-nginx/ingress-nginx
-jetstack/cert-manager
 ```
 
 That is deliberate. They have enough evidence to recommend for local proof and
 demo use. They are not production-supported until the scan, gate, and
 operating-policy findings have explicit dispositions.
 
-The remaining 14 top-20 charts are catalog candidates. The next 80 are full
-equivalence proofs for default variants. They are not automatically
-catalog-supported because most do not yet have user-shaped variant choices.
+The next 80 are full equivalence proofs for default variants. They are not
+automatically catalog-supported because most do not yet have user-shaped
+variant choices.

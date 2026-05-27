@@ -13,12 +13,12 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Field | Value |
 | --- | --- |
 | Chart | hashicorp/vault@0.32.0 |
-| Catalog status | catalog-candidate |
-| Support level | promotion-review-needed |
-| Supported scopes | none |
-| Production readiness | not-reviewed-for-production |
-| Supported variants | none |
-| Candidate variants | default, ha-raft-ui |
+| Catalog status | catalog-supported |
+| Support level | supported-for-declared-scopes |
+| Supported scopes | local-test |
+| Production readiness | blocked-by-current-scan-gate |
+| Supported variants | default, ha-raft-ui |
+| Candidate variants | none |
 | Control points | admission-webhook, capability-profile, cluster-rbac, dependency-lock, extension-slots, installer-support-object, operate-policy, service-exposure, source-lock, stateful-workload, tls-posture |
 
 ## Artifact Chain

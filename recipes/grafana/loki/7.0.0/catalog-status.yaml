@@ -5,20 +5,23 @@ metadata:
 spec:
   chart: "grafana/loki"
   version: "7.0.0"
-  status: "catalog-candidate"
-  supportLevel: "promotion-review-needed"
+  status: "catalog-supported"
+  supportLevel: "supported-for-declared-scopes"
   supportedScopes:
-    []
-  productionReadiness: "not-reviewed-for-production"
+    - local-test
+  productionReadiness: "blocked-by-current-scan-gate"
   supportedVariants:
-    []
-  candidateVariants:
     - "single-binary-filesystem"
     - "simple-scalable-minio"
+  candidateVariants:
+    []
   deferredVariants: []
   review:
     lastReviewed: "2026-05-27"
-    humanReviewRequired: true
-    productReviewRequired: true
+    humanReviewRequired: false
+    productReviewRequired: false
   notes:
-    - "Machine proof exists; human product review must confirm the supported variants and production dispositions."
+    - "Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts."
+    - "single-binary-filesystem is the simplest local Loki path."
+    - "simple-scalable-minio is supported as the local multi-component object-store variant."
+    - "Production remains blocked until object storage, retention, compactor, storage migration, and scan/gate findings have dispositions."

@@ -5,20 +5,23 @@ metadata:
 spec:
   chart: "hashicorp/vault"
   version: "0.32.0"
-  status: "catalog-candidate"
-  supportLevel: "promotion-review-needed"
+  status: "catalog-supported"
+  supportLevel: "supported-for-declared-scopes"
   supportedScopes:
-    []
-  productionReadiness: "not-reviewed-for-production"
+    - local-test
+  productionReadiness: "blocked-by-current-scan-gate"
   supportedVariants:
-    []
-  candidateVariants:
     - "default"
     - "ha-raft-ui"
+  candidateVariants:
+    []
   deferredVariants: []
   review:
     lastReviewed: "2026-05-27"
-    humanReviewRequired: true
-    productReviewRequired: true
+    humanReviewRequired: false
+    productReviewRequired: false
   notes:
-    - "Machine proof exists; human product review must confirm the supported variants and production dispositions."
+    - "Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts."
+    - "default is the simplest local Vault chart path."
+    - "ha-raft-ui is supported as a richer local HA-shape proof, not a production readiness claim."
+    - "Production remains blocked until seal/init, storage, recovery, unseal workflow, and scan/gate findings have dispositions."

@@ -13,12 +13,12 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Field | Value |
 | --- | --- |
 | Chart | hashicorp/consul@2.0.0 |
-| Catalog status | catalog-candidate |
-| Support level | promotion-review-needed |
-| Supported scopes | none |
-| Production readiness | not-reviewed-for-production |
-| Supported variants | none |
-| Candidate variants | default-control-plane, secure-mesh-existing-secrets |
+| Catalog status | catalog-supported |
+| Support level | supported-for-declared-scopes |
+| Supported scopes | local-test |
+| Production readiness | blocked-by-current-scan-gate |
+| Supported variants | default-control-plane, secure-mesh-existing-secrets |
+| Candidate variants | none |
 | Control points | admission-webhook, capability-profile, cluster-rbac, crd-ownership, dependency-lock, extension-slots, installer-support-object, lifecycle-policy, mesh-gateway-policy, source-lock, stateful-workload, target-facts, ui-ingress-policy |
 
 ## Artifact Chain

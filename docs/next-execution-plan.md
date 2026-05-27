@@ -36,8 +36,8 @@ The repo now has:
 100 cub install packages
 20 bespoke multi-variant proofs
 80 generated full default proofs
-6 explicit catalog-supported recipes for local-test scope
-14 catalog candidates
+20 explicit catalog-supported recipes for local-test scope
+0 top-20 catalog candidates remaining
 80 proof-grade recipes
 ```
 
@@ -115,7 +115,7 @@ Acceptance:
 - `npm run verify` passes
 - `data/catalog-promotion-review/summary.md` reports:
   - `machine checks pass: 100`
-  - `catalog-supported: 6`
+  - `catalog-supported: 20`
   - `recipes with non-current executable fixture path: 0`
 
 ### P0.2 Make Chart -> Recipe -> Variant Obvious
@@ -350,7 +350,7 @@ What remains risky or unreviewed?
 
 ## P1 Execution
 
-### P1.1 Promote The First Five Catalog Candidates
+### P1.1 Promote The Top-20 Catalog Candidates
 
 Status:
 
@@ -358,7 +358,8 @@ Status:
 complete for local-test scope
 ```
 
-Promoted after Redis:
+The top-20 bespoke charts now have explicit `catalog-supported` status for
+local-test scope. This includes the first five promoted after Redis:
 
 ```text
 bitnami/nginx
@@ -541,9 +542,8 @@ Acceptance:
 Status:
 
 ```text
-complete for the Redis, NGINX, Metrics Server, PostgreSQL, Ingress NGINX, and
-cert-manager baselines; repeat with a target-backed local-kind lane before
-claiming live deploy proof
+complete for the top-20 use-more-now receipt set; repeat with a target-backed
+local-kind lane before claiming live deploy proof
 ```
 
 Action:
@@ -581,14 +581,16 @@ Acceptance:
 - Current cert-manager evidence lives in:
   - `docs/demo/cert-manager/use-more-now-transcript.md`
   - `runs/cert-manager-use-more-now/latest/safe-ops-receipt.yaml`
+- The complete top-20 receipt set is verified by
+  `npm run top20:verify-use-more-now`.
 
 ### P1.8 Add ConfigHub Function Scan Lane
 
 Status:
 
 ```text
-complete for the Redis, NGINX, Metrics Server, PostgreSQL, Ingress NGINX, and
-cert-manager baselines; expand to other catalog candidates
+complete for the top-20 use-more-now receipt set; expand to future promoted
+charts
 ```
 
 Action:
@@ -605,7 +607,7 @@ cub run vet-...
 
 Acceptance:
 
-- Redis or the next promoted candidate has a ConfigHub function-based scan
+- Every top-20 supported local-test chart has a ConfigHub function-based scan
   receipt.
 - Scan/gate results are bound to the rendered object set or Unit revision.
 - This lane coexists with external scanners such as Trivy/Snyk/kube-linter.
@@ -637,6 +639,8 @@ Acceptance:
   `vet-merge-keys` results:
   - `docs/demo/cert-manager/use-more-now-transcript.md`
   - `runs/cert-manager-use-more-now/latest/function-scan-receipt.yaml`
+- The complete top-20 receipt set is verified by
+  `npm run top20:verify-use-more-now`.
 
 ### P1.9 Add Catalog Metadata And Views
 
@@ -751,7 +755,8 @@ artifacts that do not prove the user-facing claim.
 
 ## Immediate Next Three Moves
 
-1. Promote the next 3-5 catalog candidates from the remaining 14.
-2. Generate per-chart weirdness-and-mitigations notes for every supported and
-   candidate chart.
+1. Pick 3-5 proof-grade charts from the generated/default set and add
+   user-shaped variants.
+2. Generate per-chart weirdness-and-mitigations notes for every supported
+   chart.
 3. Start the new top-500 catalog-analysis output shape.

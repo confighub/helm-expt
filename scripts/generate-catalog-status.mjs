@@ -35,12 +35,124 @@ const supportedCatalogEntries = {
       "Production remains blocked until StatefulSet/PVC, backup/restore, generated fact, and scan/gate findings have dispositions.",
     ],
   },
+  "argo-cd/argo-cd": {
+    notes: [
+      "Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.",
+      "default preserves the normal Argo CD install shape.",
+      "no-crds is supported when CRD lifecycle is owned outside this package.",
+      "Production remains blocked until RBAC, CRD ownership, raw extension slots, and scan/gate findings have dispositions.",
+    ],
+  },
+  "bitnami/mongodb": {
+    notes: [
+      "Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.",
+      "generated-passwords is the simplest install path and records generated Secret separation.",
+      "existing-secret-replicaset is supported when the declared MongoDB Secret target facts are satisfied.",
+      "Production remains blocked until replica set, storage, backup/restore, and scan/gate findings have dispositions.",
+    ],
+  },
+  "bitnami/mysql": {
+    notes: [
+      "Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.",
+      "generated-passwords is the simplest install path and records generated Secret separation.",
+      "existing-secret is supported when the declared MySQL Secret target facts are satisfied.",
+      "Production remains blocked until storage, backup/restore, generated fact, and scan/gate findings have dispositions.",
+    ],
+  },
+  "bitnami/rabbitmq": {
+    notes: [
+      "Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.",
+      "generated-passwords is the simplest install path and records generated Secret separation.",
+      "existing-secret is supported when the declared RabbitMQ Secret target facts are satisfied.",
+      "Production remains blocked until clustering, storage, Erlang cookie handling, and scan/gate findings have dispositions.",
+    ],
+  },
+  "external-secrets/external-secrets": {
+    notes: [
+      "Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.",
+      "default preserves the normal External Secrets install shape.",
+      "no-crds is supported when CRD lifecycle is owned outside this package.",
+      "Production remains blocked until CRD/webhook lifecycle, SecretStore expectations, and scan/gate findings have dispositions.",
+    ],
+  },
+  "grafana/grafana": {
+    notes: [
+      "Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.",
+      "generated-passwords is the simplest install path and records generated Secret separation.",
+      "existing-secret-ingress is supported when admin Secret and ingress/TLS target facts are satisfied.",
+      "Production remains blocked until persistence, ingress exposure, dashboard/config ownership, and scan/gate findings have dispositions.",
+    ],
+  },
+  "grafana/loki": {
+    notes: [
+      "Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.",
+      "single-binary-filesystem is the simplest local Loki path.",
+      "simple-scalable-minio is supported as the local multi-component object-store variant.",
+      "Production remains blocked until object storage, retention, compactor, storage migration, and scan/gate findings have dispositions.",
+    ],
+  },
+  "grafana/tempo": {
+    notes: [
+      "Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.",
+      "local-persistent is the simplest local Tempo path.",
+      "s3-query-observability is supported when object-store and query-path assumptions are declared.",
+      "Production remains blocked until object storage, retention, PVC, and scan/gate findings have dispositions.",
+    ],
+  },
+  "hashicorp/consul": {
+    notes: [
+      "Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.",
+      "default-control-plane is the simplest local Consul control-plane path.",
+      "secure-mesh-existing-secrets is supported when the declared Secret target facts are satisfied.",
+      "Production remains blocked until gossip/TLS secret ownership, mesh policy, upgrade safety, and scan/gate findings have dispositions.",
+    ],
+  },
+  "hashicorp/vault": {
+    notes: [
+      "Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.",
+      "default is the simplest local Vault chart path.",
+      "ha-raft-ui is supported as a richer local HA-shape proof, not a production readiness claim.",
+      "Production remains blocked until seal/init, storage, recovery, unseal workflow, and scan/gate findings have dispositions.",
+    ],
+  },
   "metrics-server/metrics-server": {
     notes: [
       "Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.",
       "default is the expected quick path for a standard metrics-server install.",
       "external-tls-ca is supported when the declared metrics-server-tls target fact is satisfied.",
       "Production remains blocked until APIService readiness, cluster RBAC, and scan/gate findings have dispositions.",
+    ],
+  },
+  "longhorn/longhorn": {
+    notes: [
+      "Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.",
+      "default preserves the normal Longhorn install shape.",
+      "ui-ingress is supported when ingress exposure assumptions are declared.",
+      "Production remains blocked until storage-class ownership, node prerequisites, backup targets, and scan/gate findings have dispositions.",
+    ],
+  },
+  "prometheus-community/kube-prometheus-stack": {
+    notes: [
+      "Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.",
+      "default preserves the normal kube-prometheus-stack install shape.",
+      "no-crds is supported when CRD lifecycle is owned outside this package.",
+      "Production remains blocked until CRD lifecycle, RBAC, webhooks, storage, and scan/gate findings have dispositions.",
+    ],
+  },
+  "prometheus-community/prometheus": {
+    notes: [
+      "Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.",
+      "default preserves the normal Prometheus chart install shape.",
+      "server-only-ephemeral is supported as the simplest short-lived local proof path.",
+      "Production remains blocked until retention, storage, RBAC, scrape extension, and scan/gate findings have dispositions.",
+    ],
+  },
+  "secrets-store-csi-driver/secrets-store-csi-driver": {
+    notes: [
+      "Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.",
+      "default preserves the normal CSI driver install shape.",
+      "sync-secret-rotation is supported when Secret sync and rotation assumptions are declared.",
+      "Production remains blocked until provider integration, node DaemonSet policy, rotation expectations, and scan/gate findings have dispositions.",
     ],
   },
   "ingress-nginx/ingress-nginx": {

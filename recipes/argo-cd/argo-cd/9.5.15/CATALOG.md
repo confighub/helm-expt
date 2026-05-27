@@ -13,12 +13,12 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Field | Value |
 | --- | --- |
 | Chart | argo-cd/argo-cd@9.5.15 |
-| Catalog status | catalog-candidate |
-| Support level | promotion-review-needed |
-| Supported scopes | none |
-| Production readiness | not-reviewed-for-production |
-| Supported variants | none |
-| Candidate variants | default, no-crds |
+| Catalog status | catalog-supported |
+| Support level | supported-for-declared-scopes |
+| Supported scopes | local-test |
+| Production readiness | blocked-by-current-scan-gate |
+| Supported variants | default, no-crds |
+| Candidate variants | none |
 | Control points | capability-profile, cluster-rbac, crd-policy, dependency-lock, gitops-handoff, hook-policy, installer-support-object, source-lock, stateful-workload, tpl |
 
 ## Artifact Chain

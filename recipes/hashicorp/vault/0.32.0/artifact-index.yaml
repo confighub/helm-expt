@@ -36,16 +36,16 @@ spec:
       - "tls-posture"
   catalogStatus:
     path: "recipes/hashicorp/vault/0.32.0/catalog-status.yaml"
-    status: "catalog-candidate"
-    supportLevel: "promotion-review-needed"
+    status: "catalog-supported"
+    supportLevel: "supported-for-declared-scopes"
     supportedScopes:
-      []
-    productionReadiness: "not-reviewed-for-production"
+      - "local-test"
+    productionReadiness: "blocked-by-current-scan-gate"
     supportedVariants:
-      []
-    candidateVariants:
       - "default"
       - "ha-raft-ui"
+    candidateVariants:
+      []
     deferredVariants:
       []
   installerPackage:
