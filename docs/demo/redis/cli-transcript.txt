@@ -1,0 +1,108 @@
+Redis proof transcript, sanitized.
+Captured from the current repo state on 2026-05-26.
+
+Command:
+  npm run redis:compare
+
+Key output:
+  Comparing Redis variant: default
+  Rendering Redis with Helm using the captured variant inputs...
+  Rendering the same Redis package with cub install setup...
+  Base: default; components: []
+  Namespace: redis
+  Rendered 14 manifest(s)
+  Rendered 1 secret(s) to out/secrets (not uploaded)
+
+  Comparison passed.
+  Variant: default
+  Helm render SHA256: 362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d
+  Helm objects: 14
+  cub install objects: 15
+  semantic object matches: 14/14
+  cub uploaded-manifest files: 14
+  cub separated-secret files: 1
+  Allowed cub-only object: v1|Namespace||redis
+
+  Comparing Redis variant: reuse-existing-secret
+  Rendering Redis with Helm using the captured variant inputs...
+  Rendering the same Redis package with cub install setup...
+  Base: reuse-existing-secret; components: []
+  Namespace: redis
+  Rendered 14 manifest(s)
+
+  Comparison passed.
+  Variant: reuse-existing-secret
+  Helm render SHA256: a90dda4885fb97749e2c222f1abd840f49dcf6eafa953ea6ea2dbc6ba565fe53
+  Helm objects: 13
+  cub install objects: 14
+  semantic object matches: 13/13
+  cub uploaded-manifest files: 14
+  cub separated-secret files: 0
+  Allowed cub-only object: v1|Namespace||redis
+
+Command:
+  npm run verify
+
+Key output:
+  verified artifact chain for 20 chart import(s)
+  self-test passed: values.yaml tampering is rejected
+  verified Redis default and reuse-existing-secret proof artifacts
+  self-test passed: rendered object digest tampering is rejected
+  self-test passed: missing namespace support classification is rejected
+  self-test passed: false scan success is rejected
+  self-test passed: old standalone variant directory is rejected
+  self-test passed: reuse-existing-secret target fact tampering is rejected
+  self-test passed: variant diff lies are rejected
+  Redis installer package verification passed.
+
+Command:
+  cub install upload --work-dir .tmp/confighub-upload/redis-default --space helm-redis-default ...
+
+Key output:
+  Plan: 14 to add, 0 to change, 0 to delete.
+  Space helm-redis-default:
+    + configmap-redis-redis-configuration
+    + configmap-redis-redis-health
+    + configmap-redis-redis-scripts
+    + namespace-redis
+    + networkpolicy-redis-redis
+    + poddisruptionbudget-redis-redis-master
+    + poddisruptionbudget-redis-redis-replicas
+    + service-redis-redis-headless
+    + service-redis-redis-master
+    + service-redis-redis-replicas
+    + serviceaccount-redis-redis-master
+    + serviceaccount-redis-redis-replica
+    + statefulset-redis-redis-master
+    + statefulset-redis-redis-replicas
+
+  Successfully created unit installer-record
+  Note: 1 rendered Secret(s) were NOT uploaded to ConfigHub.
+
+Command:
+  cub install upload --work-dir .tmp/confighub-upload/redis-reuse-existing-secret --space helm-redis-reuse-existing-secret ...
+
+Key output:
+  Successfully created 14 Redis Kubernetes Units.
+  Successfully created unit installer-record.
+  Expected external references:
+    statefulset-redis-redis-master -> v1/Secret "redis-existing-secret"
+    statefulset-redis-redis-replicas -> v1/Secret "redis-existing-secret"
+
+Command:
+  Hosted ConfigHub OCI read for representative StatefulSet Units
+
+Key output:
+  helm-redis-default:
+    http=200
+    mediaType=application/vnd.oci.image.manifest.v1+json
+    manifestDigest=sha256:fa684793048249f4149500da75223e185c847f3c126a94c670e5b00d87bc6e26
+    layerDigest=sha256:e8dff3ea1c017ba1eb8f708aed6978549076a58885587681b124ca9f0e78df69
+
+  helm-redis-reuse-existing-secret:
+    http=200
+    mediaType=application/vnd.oci.image.manifest.v1+json
+    manifestDigest=sha256:d042ad70da7dd8d80423926a2285d2b249feb3e8256b36f81f18eff19473e322
+    layerDigest=sha256:836ba1f2858ac562280d45bc2dab930d4519fd445c06c90c7614e10bdb586029
+
+Secrets and bearer tokens are not recorded in this transcript.

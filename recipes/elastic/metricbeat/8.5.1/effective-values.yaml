@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "elastic-metricbeat-8-5-1-default"
+  labels:
+    confighub.io/chart-ref: "elastic/metricbeat"
+    confighub.io/chart-version: "8.5.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "7c18ef63a6a3701ffb257d393ae42956a719157f78b2b6c2bc866e8d9107ef2b"
+  mergedValuesCaptured: false
+  values:
+    {}

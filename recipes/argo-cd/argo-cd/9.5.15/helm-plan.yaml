@@ -1,0 +1,32 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "argo-cd-argo-cd-9.5.15"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "argo-cd/argo-cd"
+    version: "9.5.15"
+    variants:
+      - "default"
+      - "no-crds"
+    helmObjectsByVariant:
+      default: 49
+      no-crds: 46
+    cubInstallObjectsByVariant:
+      default: 50
+      no-crds: 47
+    helmMatchByVariant:
+      default: "49/49"
+      no-crds: "46/46"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish only after CRD lifecycle/upgrade policy, hook lifecycle policy, generated Secret ownership, dependency lock review, StatefulSet policy, GitOps handoff policy, and cluster RBAC review are satisfied"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/no-crds/r001/receipts/render-receipt.yaml"
+    - "revisions/no-crds/r001/receipts/scan-receipt.yaml"
+    - "revisions/no-crds/r001/receipts/install-gate.yaml"

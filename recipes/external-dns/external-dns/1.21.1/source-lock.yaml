@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "external-dns-external-dns-1-21-1"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "external-dns"
+  repositoryURL: "https://kubernetes-sigs.github.io/external-dns/"
+  chart: "external-dns"
+  ref: "external-dns/external-dns"
+  version: "1.21.1"
+  appVersion: "0.21.0"
+  packageSHA256: "5dd033a4b872bf641860695705ee460031d0bc695f114bf8926fee6736814e19"
+  packageBytes: 23699
+  capturedAt: "generated-by-next80-full-proof-harness"

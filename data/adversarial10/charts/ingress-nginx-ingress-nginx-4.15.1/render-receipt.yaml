@@ -1,0 +1,112 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HarnessRenderReceipt"
+metadata:
+  name: "ingress-nginx-ingress-nginx-4.15.1-default"
+spec:
+  corpus: "../corpus.yaml"
+  chartRef:
+    rank: 3
+    repository: "ingress-nginx"
+    repositoryURL: "https://kubernetes.github.io/ingress-nginx"
+    chart: "ingress-nginx"
+    version: "4.15.1"
+    appVersion: "1.15.1"
+    releaseName: "ingress-nginx"
+    namespace: "ingress-nginx"
+    packageSHA256: "3eff0bd18151d6e6b1c441463410571443dda1ac78292cb189346628de784f0c"
+    packageBytes: 63237
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    command:
+      - "helm"
+      - "template"
+      - "ingress-nginx"
+      - "ingress-nginx/ingress-nginx"
+      - "--version"
+      - "4.15.1"
+      - "--namespace"
+      - "ingress-nginx"
+      - "--kube-version"
+      - "1.30.0"
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  renderContext:
+    kubeVersion: "1.30.0"
+    includeCRDs: true
+    skipTests: true
+    noHooks: true
+    valuesProfile: "chart-defaults"
+  outputs:
+    status: "rendered"
+    deterministicAcrossTwoLocalRenders: true
+    firstRenderSHA256: "69021fe879a52913af047cf5f1c5b6ecceae91cad4581d49a54ad1a6518090d7"
+    secondRenderSHA256: "69021fe879a52913af047cf5f1c5b6ecceae91cad4581d49a54ad1a6518090d7"
+    renderedManifestPath: "rendered/default.yaml"
+    renderedManifestBytes: 13128
+    objectInventoryPath: "rendered/object-inventory.yaml"
+    resourceCount: 11
+    errorSHA256: null
+    errorExcerpt: null
+  sourceFeatures:
+    lookup: false
+    generatedFacts: false
+    capabilities: true
+    tpl: true
+    hooks: true
+    required: true
+    extensionSlots: false
+    crdFiles: 0
+    crdTemplates: 0
+    dependencyCount: 0
+  renderedFeatures:
+    crdCount: 0
+    clusterRBAC: true
+    webhooks: true
+    apiService: false
+    stateful: false
+    pvc: false
+    kindCounts:
+      ClusterRole: 1
+      ClusterRoleBinding: 1
+      ConfigMap: 1
+      Deployment: 1
+      IngressClass: 1
+      Role: 1
+      RoleBinding: 1
+      Service: 2
+      ServiceAccount: 1
+      ValidatingWebhookConfiguration: 1
+  proofReadiness: "rendered-needs-control-points"
+  controlPoints:
+    - 
+      id: "capability-branching"
+      severity: "P0"
+      controlPoint: "capability-profile"
+      evidence: "Chart source branches on .Capabilities."
+      mitigation: "Render against a named, digest-bound Kubernetes capability profile."
+    - 
+      id: "helm-hooks"
+      severity: "P0"
+      controlPoint: "lifecycle-policy"
+      evidence: "Chart source defines Helm hook annotations."
+      mitigation: "Classify hooks as lifecycle phases, tests, GitOps-compatible hooks, or unsupported blockers."
+    - 
+      id: "template-extension-slots"
+      severity: "P1"
+      controlPoint: "extension-slot-policy"
+      evidence: "Chart exposes tpl/raw/extra manifest behavior."
+      mitigation: "Treat extension inputs as explicit slots with provenance, scan coverage, and rendered-object diff checks."
+    - 
+      id: "admission-or-apiservice"
+      severity: "P1"
+      controlPoint: "operate-policy"
+      evidence: "Rendered objects include admission webhooks or APIService resources."
+      mitigation: "Require readiness observations and freshness receipts after apply."
+    - 
+      id: "cluster-rbac"
+      severity: "P1"
+      controlPoint: "rendered-manifest-scan"
+      evidence: "Rendered objects include cluster-scoped RBAC."
+      mitigation: "Scan exact rendered objects for least privilege and policy violations."

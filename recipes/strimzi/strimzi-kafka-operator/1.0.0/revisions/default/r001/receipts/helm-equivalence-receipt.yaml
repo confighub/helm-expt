@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "strimzi-strimzi-kafka-operator-1-0-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "strimzi/strimzi-kafka-operator"
+    confighub.io/chart-version: "1.0.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "f3cfe3329c6673870bb6ecd1d31cab9d74ee96695d6b2b6fbfb0f4a1a7b9f23b"
+    objectCount: 27
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 28
+    uploadedManifestFiles: 28
+    separatedSecretFiles: 0
+    semanticObjectMatches: "27/27"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

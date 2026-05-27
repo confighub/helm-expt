@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "kedacore/keda"
+    confighub.io/chart-version: "2.19.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "b18f3e4598cc6e873ce132e0af29ca9ec651675e832423de0a05d74f22eb5c69"
+  digestInputs:
+    recipeSHA256: "e56ae258d549c3386de73829fcab4fe3e8a2aed0f1dfc3bf4d619318cbf071eb"
+    variantSHA256: "6f3d83dbc568fc51289ccf26841ebdd36c9c9c44714fc59f51d2c6895e9c261b"
+    effectiveValuesSHA256: "fbe3a61f8abd714417fd156b06550a0b7836d8f50dae05ddf8d07974753edcc9"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "95bac2eeb03cdf4d0392ed7d66c37c81db91beeba346752f932abef73d26db1f"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 29

@@ -1,0 +1,16 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "metrics-server-metrics-server"
+  version: "3.13.0"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "metrics-server default variant rendered from metrics-server/metrics-server@3.13.0"
+    -
+      name: "external-tls-ca"
+      path: "bases/external-tls-ca"
+      description: "metrics-server external TLS with explicit CA variant rendered from metrics-server/metrics-server@3.13.0"

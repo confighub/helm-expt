@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "elastic-kibana-8-5-1"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "elastic"
+  repositoryURL: "https://helm.elastic.co"
+  chart: "kibana"
+  ref: "elastic/kibana"
+  version: "8.5.1"
+  appVersion: "8.5.1"
+  packageSHA256: "dab5f50a4f66a3a62529c336db0df732358c5bac405a17efee1572127b895acf"
+  packageBytes: 14402
+  capturedAt: "generated-by-next80-full-proof-harness"

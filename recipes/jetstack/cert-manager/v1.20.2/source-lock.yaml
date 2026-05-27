@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "jetstack-cert-manager-v1.20.2"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "jetstack"
+  repositoryURL: "https://charts.jetstack.io"
+  chart: "cert-manager"
+  version: "v1.20.2"
+  appVersion: "v1.20.2"
+  packageSHA256: "d2a50bd44a09d838c2576a8f3dfca1524597c7393cf8d82ab3ec8a465b9eeb79"
+  packageBytes: 147139
+  evidence:
+    harnessReceipt: "../../../../data/adversarial10/charts/jetstack-cert-manager-v1.20.2/render-receipt.yaml"

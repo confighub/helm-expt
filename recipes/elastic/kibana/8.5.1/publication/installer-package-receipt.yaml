@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "elastic-kibana-8-5-1"
+spec:
+  chart:
+    repository: "elastic"
+    name: "kibana"
+    version: "8.5.1"
+  package:
+    path: "packages/elastic/kibana/8.5.1"
+    name: "elastic-kibana"
+    version: "8.5.1"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "d1d59fa10e322d29a8ab46ba0f942a03643d1d89e5e0b1851cb56d37ef740a66"
+        bytes: 194
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "3c0e03c571ed6c5635edd63244a0085634a30bd73e011e2db802c9d1c63b0cb3"
+        bytes: 3548
+      -
+        path: "installer.yaml"
+        sha256: "5eff7a7aba384a6ada34725797c88587fa8466e74763f90a09fe87f9e70d4112"
+        bytes: 295
+  deterministicBundle:
+    command: "cub install package packages/elastic/kibana/8.5.1 -o <tmp>/elastic-kibana-8-5-1.tgz"
+    sha256: "d5b3718e4dfcbd0e0aa19b7e9924711311eb4904ca20d321a188f2d1044a92d9"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/elastic/kibana/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 2
+      cubInstallObjectCountIncludingSupport: 3
+      semanticObjectMatches: "2/2"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

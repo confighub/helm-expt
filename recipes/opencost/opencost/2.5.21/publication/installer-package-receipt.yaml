@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "opencost-opencost-2-5-21"
+spec:
+  chart:
+    repository: "opencost"
+    name: "opencost"
+    version: "2.5.21"
+  package:
+    path: "packages/opencost/opencost/2.5.21"
+    name: "opencost-opencost"
+    version: "2.5.21"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "c6e851ac9b5cd2110ddfa479116209cd2a6022f675f36f7ec02b3e9ed9483fa3"
+        bytes: 198
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "3cf0267ce7b5173e0c514fad903e559129d63d2f9a6bb83da681dcff1f7977dc"
+        bytes: 10239
+      -
+        path: "installer.yaml"
+        sha256: "adbddb0f1ef596e082de058fb523480a8e9aa7b2968bb78606d331cb45e5f942"
+        bytes: 306
+  deterministicBundle:
+    command: "cub install package packages/opencost/opencost/2.5.21 -o <tmp>/opencost-opencost-2-5-21.tgz"
+    sha256: "1a2e3a5b840d37e61e62ed20879cd39aa5254168e58db07e15e5fabc345f2b47"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/opencost/opencost/2.5.21 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 6
+      cubInstallObjectCountIncludingSupport: 7
+      semanticObjectMatches: "6/6"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

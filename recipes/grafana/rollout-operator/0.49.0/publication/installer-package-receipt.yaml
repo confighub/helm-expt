@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "grafana-rollout-operator-0-49-0"
+spec:
+  chart:
+    repository: "grafana"
+    name: "rollout-operator"
+    version: "0.49.0"
+  package:
+    path: "packages/grafana/rollout-operator/0.49.0"
+    name: "grafana-rollout-operator"
+    version: "0.49.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "41b83d95cf450a29f82d84d6d19aa690bb5c41faeca9d8f42bf790bf61875da1"
+        bytes: 205
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "dc6b652767aec075b147247c38dbce391bb86750a54e749a45576fd6791d4763"
+        bytes: 14607
+      -
+        path: "installer.yaml"
+        sha256: "737f0dd81c120e662be06e65e567c93c7c388db1cc36c1a63393838a627cfea0"
+        bytes: 327
+  deterministicBundle:
+    command: "cub install package packages/grafana/rollout-operator/0.49.0 -o <tmp>/grafana-rollout-operator-0-49-0.tgz"
+    sha256: "8e77d0f50cb850b97f84c02bf96caea1189500729a5aeab63d3e9c3a615a7e53"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/grafana/rollout-operator/0.49.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 15
+      cubInstallObjectCountIncludingSupport: 16
+      semanticObjectMatches: "15/15"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

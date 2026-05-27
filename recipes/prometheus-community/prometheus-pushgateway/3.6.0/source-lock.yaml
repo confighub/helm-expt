@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "prometheus-community-prometheus-pushgateway-3-6-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "prometheus-community"
+  repositoryURL: "https://prometheus-community.github.io/helm-charts"
+  chart: "prometheus-pushgateway"
+  ref: "prometheus-community/prometheus-pushgateway"
+  version: "3.6.0"
+  appVersion: "v1.11.2"
+  packageSHA256: "4bc699ef1c872a5f837db6735755519e262d1d1ccf02a765b77792e1d882bde7"
+  packageBytes: 11325
+  capturedAt: "generated-by-next80-full-proof-harness"

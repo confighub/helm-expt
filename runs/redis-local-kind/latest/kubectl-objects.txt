@@ -1,0 +1,39 @@
+NAME                   READY   STATUS    RESTARTS   AGE   IP            NODE                            NOMINATED NODE   READINESS GATES
+pod/redis-master-0     1/1     Running   0          91s   10.244.0.17   helm-expt-redis-control-plane   <none>           <none>
+pod/redis-replicas-0   1/1     Running   0          21s   10.244.0.20   helm-expt-redis-control-plane   <none>           <none>
+pod/redis-replicas-1   1/1     Running   0          42s   10.244.0.19   helm-expt-redis-control-plane   <none>           <none>
+pod/redis-replicas-2   1/1     Running   0          91s   10.244.0.18   helm-expt-redis-control-plane   <none>           <none>
+
+NAME                     TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE   SELECTOR
+service/redis-headless   ClusterIP   None           <none>        6379/TCP   24m   app.kubernetes.io/instance=redis,app.kubernetes.io/name=redis
+service/redis-master     ClusterIP   10.96.62.137   <none>        6379/TCP   24m   app.kubernetes.io/component=master,app.kubernetes.io/instance=redis,app.kubernetes.io/name=redis
+service/redis-replicas   ClusterIP   10.96.242.35   <none>        6379/TCP   24m   app.kubernetes.io/component=replica,app.kubernetes.io/instance=redis,app.kubernetes.io/name=redis
+
+NAME                              READY   AGE   CONTAINERS   IMAGES
+statefulset.apps/redis-master     1/1     24m   redis        registry-1.docker.io/bitnami/redis:latest
+statefulset.apps/redis-replicas   3/3     24m   redis        registry-1.docker.io/bitnami/redis:latest
+
+NAME                                                STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE   VOLUMEMODE
+persistentvolumeclaim/redis-data-redis-master-0     Bound    pvc-8a38fa5f-2a9d-453b-9f64-52876f55eff1   8Gi        RWO            standard       <unset>                 24m   Filesystem
+persistentvolumeclaim/redis-data-redis-replicas-0   Bound    pvc-3215eb31-c936-4793-9963-d6b6790fbb32   8Gi        RWO            standard       <unset>                 24m   Filesystem
+persistentvolumeclaim/redis-data-redis-replicas-1   Bound    pvc-ac6a3af9-27cd-46e1-a8da-bffd6a30daf7   8Gi        RWO            standard       <unset>                 23m   Filesystem
+persistentvolumeclaim/redis-data-redis-replicas-2   Bound    pvc-16b4d919-dcc8-460f-b904-0f7b6a367d9b   8Gi        RWO            standard       <unset>                 23m   Filesystem
+
+NAME                                        MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
+poddisruptionbudget.policy/redis-master     N/A             1                 1                     24m
+poddisruptionbudget.policy/redis-replicas   N/A             1                 1                     24m
+
+NAME                                    POD-SELECTOR                                                    AGE
+networkpolicy.networking.k8s.io/redis   app.kubernetes.io/instance=redis,app.kubernetes.io/name=redis   24m
+
+NAME           TYPE     DATA   AGE
+secret/redis   Opaque   1      92s
+
+NAME                            DATA   AGE
+configmap/redis-configuration   4      24m
+configmap/redis-health          6      24m
+configmap/redis-scripts         2      24m
+
+NAME                           SECRETS   AGE
+serviceaccount/redis-master    0         24m
+serviceaccount/redis-replica   0         24m

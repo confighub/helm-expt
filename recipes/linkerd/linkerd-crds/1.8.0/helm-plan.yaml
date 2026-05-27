@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "linkerd-linkerd-crds-1-8-0"
+  labels:
+    confighub.io/chart-ref: "linkerd/linkerd-crds"
+    confighub.io/chart-version: "1.8.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "linkerd/linkerd-crds"
+    version: "1.8.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 8
+    cubInstallObjectsByVariant:
+      default: 9
+    helmMatchByVariant:
+      default: "8/8"
+    renderedObjectSetSHA256: "af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

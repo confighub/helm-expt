@@ -1,0 +1,26 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "grafana-pyroscope-2-0-2"
+spec:
+  chart: "grafana/pyroscope"
+  version: "2.0.2"
+  dependencies:
+    -
+      name: "grafana-agent"
+      version: "0.44.2"
+      repository: "https://grafana.github.io/helm-charts"
+      condition: "agent.enabled"
+      alias: "agent"
+    -
+      name: "alloy"
+      version: "1.5.2"
+      repository: "https://grafana.github.io/helm-charts"
+      condition: "alloy.enabled"
+      alias: "alloy"
+    -
+      name: "minio"
+      version: "4.1.0"
+      repository: "https://charts.min.io/"
+      condition: "minio.enabled"
+      alias: "minio"

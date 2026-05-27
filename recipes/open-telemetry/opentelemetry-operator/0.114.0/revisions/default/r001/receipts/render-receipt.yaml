@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "open-telemetry-opentelemetry-operator-0-114-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "open-telemetry/opentelemetry-operator"
+    confighub.io/chart-version: "0.114.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "9e8773fdae44785194009d236ccbae7f412d5d459dd049f3e902afd05a032f94"
+    dependencyLockSHA256: "93dcf568c6f1802c508cb06b39c4e973638c371ff5cfc0a8aa4c49b3cf1c8fe9"
+    effectiveValuesSHA256: "584d4e1b5d512a36b5120957fb4e265211a1de0eeb10ad19b00a677a78f47768"
+  outputs:
+    renderedObjectSetSHA256: "68dd01565796d137e5dea26e1db02ef3e0d99bbbafd000ec3663680b5bbda873"
+    renderedObjectInventorySHA256: "56ee59b240771b61525fe676c57ee0826663a5418664f2453e2d16a424e40ab8"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 17
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

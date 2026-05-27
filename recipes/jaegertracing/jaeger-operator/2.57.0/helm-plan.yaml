@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "jaegertracing-jaeger-operator-2-57-0"
+  labels:
+    confighub.io/chart-ref: "jaegertracing/jaeger-operator"
+    confighub.io/chart-version: "2.57.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "jaegertracing/jaeger-operator"
+    version: "2.57.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 11
+    cubInstallObjectsByVariant:
+      default: 12
+    helmMatchByVariant:
+      default: "11/11"
+    renderedObjectSetSHA256: "c17323ac7d71b000b42732323a79731fe3d9244ba4e641d8349a73a71b8807ab"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

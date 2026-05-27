@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "grafana-tempo-1.24.4-local-persistent"
+spec:
+  files:
+    -
+      path: "effective-values.yaml"
+      source: "inline-proof"
+      sha256: "d00c19663ddfef96a5cbfbad94a9aa1912a83259e3ad3b4ea99f81ef329b3204"
+  mergedValuesCaptured: false
+  values:
+    persistence:
+      accessModes:
+        - "ReadWriteOnce"
+      annotations:
+        {}
+      enableStatefulSetAutoDeletePVC: false
+      enabled: true
+      size: "10Gi"
+      storageClassName: "local-path"
+    tempo:
+      reportingEnabled: false
+      storage:
+        trace:
+          backend: "local"
+          local:
+            path: "/var/tempo/traces"
+          wal:
+            path: "/var/tempo/wal"

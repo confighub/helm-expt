@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "bitnami-nginx"
+  version: "24.0.2"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "../../../../packages/bitnami/nginx/24.0.2"
+    setupCommand:
+      - "cub"
+      - "install"
+      - "setup"
+      - "--pull"
+      - "../../../../packages/bitnami/nginx/24.0.2"
+      - "--non-interactive"
+      - "--namespace"
+      - "nginx"
+  variants:
+    - "variants/http-clusterip/variant.yaml"
+    - "variants/existing-tls-ingress/variant.yaml"

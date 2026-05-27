@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "hashicorp-terraform-1-1-2-default-r001"
+  labels:
+    confighub.io/chart-ref: "hashicorp/terraform"
+    confighub.io/chart-version: "1.1.2"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "5cc2a190066cc639af6f8856b1ff8e28a40e61546d53cd04f19c5b14d6c37d3b"
+    objectCount: 5
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 6
+    uploadedManifestFiles: 6
+    separatedSecretFiles: 0
+    semanticObjectMatches: "5/5"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

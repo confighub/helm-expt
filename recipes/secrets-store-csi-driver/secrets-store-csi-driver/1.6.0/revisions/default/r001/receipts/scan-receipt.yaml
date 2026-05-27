@@ -1,0 +1,79 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "secrets-store-csi-driver-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "2490f14dd08f7e309f8f78cd1c2f1b05eb5b8995343b33ad6b3b243401a39ead"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.1.0"
+  policyBundleDigest: "d296eddb318a3b6407f5e7c887e4789dfa2f03e54be3c5e7e9e35f7bae22440b"
+  findingCounts:
+    critical: 0
+    high: 0
+    medium: 10
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||secretproviderclasses-admin-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||secretproviderclasses-admin-role"
+      message: "Secrets Store CSI Driver RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||secretproviderclasses-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||secretproviderclasses-role"
+      message: "Secrets Store CSI Driver RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||secretproviderclasses-viewer-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||secretproviderclasses-viewer-role"
+      message: "Secrets Store CSI Driver RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||secretproviderclasspodstatuses-viewer-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||secretproviderclasspodstatuses-viewer-role"
+      message: "Secrets Store CSI Driver RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||secretproviderclasses-rolebinding"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||secretproviderclasses-rolebinding"
+      message: "Secrets Store CSI Driver RBAC requires production review"
+    -
+      id: "crd-upgrade-policy:apiextensions.k8s.io/v1|CustomResourceDefinition||secretproviderclasses.secrets-store.csi.x-k8s.io"
+      rule: "crd-upgrade-policy"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||secretproviderclasses.secrets-store.csi.x-k8s.io"
+      message: "CRD readiness, ordering, schema validation, and upgrade compatibility require explicit policy"
+    -
+      id: "crd-upgrade-policy:apiextensions.k8s.io/v1|CustomResourceDefinition||secretproviderclasspodstatuses.secrets-store.csi.x-k8s.io"
+      rule: "crd-upgrade-policy"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||secretproviderclasspodstatuses.secrets-store.csi.x-k8s.io"
+      message: "CRD readiness, ordering, schema validation, and upgrade compatibility require explicit policy"
+    -
+      id: "csi-daemonset-operate-review:apps/v1|DaemonSet|kube-system|secrets-store-csi-driver"
+      rule: "csi-daemonset-operate-review"
+      severity: "medium"
+      object: "apps/v1|DaemonSet|kube-system|secrets-store-csi-driver"
+      message: "CSI DaemonSet privileged-node, hostPath, rollout, and rollback policy require production review"
+    -
+      id: "csi-driver-review:storage.k8s.io/v1|CSIDriver||secrets-store.csi.k8s.io"
+      rule: "csi-driver-review"
+      severity: "medium"
+      object: "storage.k8s.io/v1|CSIDriver||secrets-store.csi.k8s.io"
+      message: "CSIDriver lifecycle and kubelet integration require production review"
+    -
+      id: "extension-slot-review:secrets-store-csi-driver-values"
+      rule: "extension-slot-review"
+      severity: "medium"
+      object: "values|tokenRequests|linux.nodeSelector|linux.tolerations|linux.priorityClassName|windows.enabled"
+      message: "Provider identity, token-request, scheduling, and platform variant knobs must be scanned when populated"

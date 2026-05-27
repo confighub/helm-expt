@@ -1,0 +1,63 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "longhorn-longhorn-1.11.2"
+spec:
+  chart:
+    repository: "longhorn"
+    name: "longhorn"
+    version: "1.11.2"
+  package:
+    path: "packages/longhorn/longhorn/1.11.2"
+    name: "longhorn-longhorn"
+    version: "1.11.2"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "581eb923952841f77b62fc937425df07179c174e527eaa8f9af0911e267971e2"
+        bytes: 184
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "4a2f739775a696f5d67db6adf1f99473c60a3f5adf308ceb3ccbf222435acd90"
+        bytes: 162499
+      -
+        path: "bases/ui-ingress/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/ui-ingress/upstream.yaml"
+        sha256: "2f6508c2bc3f2a09e1ffcb8ec71282b3e2dd52e69fe8ca80fc90ab756f9b9298"
+        bytes: 163180
+      -
+        path: "installer.yaml"
+        sha256: "091f3b2fe4c63b1317ca757b678c6b44bb1774ee39a9da6a10814b080c901bde"
+        bytes: 477
+  deterministicBundle:
+    command: "cub install package packages/longhorn/longhorn/1.11.2 -o <tmp>/longhorn-1.11.2.tgz"
+    sha256: "b204441cb21bc29ac21ba5fa10c45f8ac8176c4d13b375edd2129d01481c58ea"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/longhorn/longhorn/1.11.2 --base default --work-dir <tmp> --non-interactive --namespace longhorn-system"
+      helmReleaseObjectCount: 41
+      cubInstallObjectCountIncludingSupport: 42
+      semanticObjectMatches: "41/41"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||longhorn-system"
+    -
+      variant: "ui-ingress"
+      base: "ui-ingress"
+      command: "cub install setup --pull packages/longhorn/longhorn/1.11.2 --base ui-ingress --work-dir <tmp> --non-interactive --namespace longhorn-system"
+      helmReleaseObjectCount: 42
+      cubInstallObjectCountIncludingSupport: 43
+      semanticObjectMatches: "42/42"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||longhorn-system"

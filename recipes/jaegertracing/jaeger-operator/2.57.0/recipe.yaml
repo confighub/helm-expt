@@ -1,0 +1,27 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "jaegertracing-jaeger-operator"
+  version: "2.57.0"
+  labels:
+    confighub.io/chart-ref: "jaegertracing/jaeger-operator"
+    confighub.io/chart-version: "2.57.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "packages/jaegertracing/jaeger-operator/2.57.0"
+    setupCommand:
+      - "cub"
+      - "install"
+      - "setup"
+      - "--pull"
+      - "packages/jaegertracing/jaeger-operator/2.57.0"
+      - "--non-interactive"
+      - "--namespace"
+      - "default"
+  variants:
+    - "variants/default/variant.yaml"

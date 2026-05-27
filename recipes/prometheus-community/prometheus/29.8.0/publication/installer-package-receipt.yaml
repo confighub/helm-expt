@@ -1,0 +1,63 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "prometheus-29.8.0"
+spec:
+  chart:
+    repository: "prometheus-community"
+    name: "prometheus"
+    version: "29.8.0"
+  package:
+    path: "packages/prometheus-community/prometheus/29.8.0"
+    name: "prometheus"
+    version: "29.8.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "79d75b6dc557ab93f4f43abea545a3bdbde9da4c059d52122cb2527c613b44da"
+        bytes: 204
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "c11349803ddbb44562066474dd04d47d7c5c75d083dbc96162224573f949c11b"
+        bytes: 38656
+      -
+        path: "bases/server-only-ephemeral/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/server-only-ephemeral/upstream.yaml"
+        sha256: "174e1729753ef551fa059f86111cfd87653ea2380dc879238cf5cc4987e78812"
+        bytes: 16492
+      -
+        path: "installer.yaml"
+        sha256: "94eb4c1d801b10b1be437d776b906f34fa5322a87bcb842f893a7f6707acde1b"
+        bytes: 532
+  deterministicBundle:
+    command: "cub install package packages/prometheus-community/prometheus/29.8.0 -o <tmp>/prometheus-29.8.0.tgz"
+    sha256: "6ca5329f1a665aab8e8cab7e5cfd7c9b5ceadef36942c320105f29d5b4950a68"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/prometheus-community/prometheus/29.8.0 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
+      helmReleaseObjectCount: 23
+      cubInstallObjectCountIncludingSupport: 24
+      semanticObjectMatches: "23/23"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||monitoring"
+    -
+      variant: "server-only-ephemeral"
+      base: "server-only-ephemeral"
+      command: "cub install setup --pull packages/prometheus-community/prometheus/29.8.0 --base server-only-ephemeral --work-dir <tmp> --non-interactive --namespace monitoring"
+      helmReleaseObjectCount: 6
+      cubInstallObjectCountIncludingSupport: 7
+      semanticObjectMatches: "6/6"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||monitoring"

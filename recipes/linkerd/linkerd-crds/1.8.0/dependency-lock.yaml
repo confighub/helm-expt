@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "linkerd-linkerd-crds-1-8-0"
+spec:
+  chart: "linkerd/linkerd-crds"
+  version: "1.8.0"
+  dependencies:
+    -
+      name: "partials"
+      version: "0.1.0"
+      repository: "file://../partials"

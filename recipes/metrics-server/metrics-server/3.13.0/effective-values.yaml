@@ -1,0 +1,10 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "metrics-server-metrics-server-3.13.0-default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "683ed81c6074e7b49f732ab37168e316767e9782f0560ed905ad521d0b0e5b0d"
+  mergedValuesCaptured: false
+  values:
+    {}

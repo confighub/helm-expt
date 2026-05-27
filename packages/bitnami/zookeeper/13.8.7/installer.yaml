@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "bitnami-zookeeper"
+  version: "13.8.7"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "bitnami/zookeeper default variant rendered from bitnami/zookeeper@13.8.7"

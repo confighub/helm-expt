@@ -1,0 +1,27 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "prometheus-community-prometheus-node-exporter-4-55-0"
+  labels:
+    confighub.io/chart-ref: "prometheus-community/prometheus-node-exporter"
+    confighub.io/chart-version: "4.55.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chart: "prometheus-community/prometheus-node-exporter"
+  version: "4.55.0"
+  maintainedNotes:
+    - "prometheus-community/prometheus-node-exporter@4.55.0 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+    - "Chart source contains generated/random/time helpers; generated values must be captured before approval if activated by a variant."
+    - "Chart source contains tpl; raw templating extension slots need explicit ownership and review."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "variant-revision"
+    - "rendered-manifest-scan"
+    - "helm-equivalence"
+    - "generated-facts"
+    - "tpl-extension-slots"
+    - "extension-slots"
+  proofFocus: "DaemonSet, host mounts, node metrics"

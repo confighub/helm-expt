@@ -1,0 +1,62 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ControlPoints"
+metadata:
+  name: "grafana-tempo-1.24.4"
+spec:
+  points:
+    -
+      category: "source-lock"
+      status: "handled"
+      evidence: "source-lock.yaml"
+    -
+      category: "dependency-lock"
+      status: "handled"
+      evidence: "dependency-lock.yaml"
+      note: "chart declares no subchart dependencies; the empty closure is recorded explicitly."
+    -
+      category: "capability-profile"
+      status: "handled"
+      kubeVersion: "1.30.0"
+      note: "Kubernetes API and version branches are bound to the named Kubernetes capability profile."
+    -
+      category: "chart-deprecation"
+      status: "noted"
+      note: "The literal grafana/tempo chart is deprecated; the proof records that status and notes the maintained successor chart separately."
+    -
+      category: "target-facts"
+      status: "variant-controlled"
+      evidence: "tempo.extraEnv secretKeyRef"
+      note: "The s3-query-observability variant declares the target Secret for S3 credentials instead of embedding access keys in rendered ConfigMaps."
+    -
+      category: "capability-profile"
+      status: "variant-controlled"
+      evidence: "monitoring.coreos.com/v1"
+      note: "The ServiceMonitor variant records the Prometheus Operator API as an explicit target capability."
+    -
+      category: "stateful-workload"
+      status: "scan-and-review"
+      object: "apps/v1|StatefulSet|tempo|tempo"
+    -
+      category: "query-ingress-policy"
+      status: "variant-controlled"
+      object: "networking.k8s.io/v1|Ingress|tempo|tempo"
+    -
+      category: "network-policy"
+      status: "scan-and-review"
+      object: "networking.k8s.io/v1|NetworkPolicy|tempo|tempo"
+    -
+      category: "servicemonitor-capability"
+      status: "variant-controlled"
+      object: "monitoring.coreos.com/v1|ServiceMonitor|tempo|tempo"
+    -
+      category: "upstream-runtime-risk"
+      status: "scan-and-review"
+      note: "The chart StatefulSet references serviceName tempo-headless, but the chart renders no headless Service in these variants."
+    -
+      category: "extension-slots"
+      status: "controlled-by-empty-defaults"
+      note: "config, structuredConfig, extra volume/mount, and tpl-controlled strings are controlled in promoted variants."
+    -
+      category: "installer-support-object"
+      status: "handled"
+      object: "v1|Namespace||tempo"

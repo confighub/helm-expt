@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "bitnami-apache-11-4-29"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "bitnami"
+  repositoryURL: "https://charts.bitnami.com/bitnami"
+  chart: "apache"
+  ref: "bitnami/apache"
+  version: "11.4.29"
+  appVersion: "2.4.65"
+  packageSHA256: "be58086b03bfa4f0a96a9254fa4e623bd36cdb3baa87e6cdbb7e6135a259087e"
+  packageBytes: 47126
+  capturedAt: "generated-by-next80-full-proof-harness"

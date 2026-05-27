@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "existing-secret-ingress"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "grafana"
+  releaseName: "grafana"
+  valuesProfile: "../../effective-values-existing-secret-ingress.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"
+  targetFacts:
+    requiredSecrets:
+      -
+        namespace: "grafana"
+        name: "grafana-admin"
+        keys:
+          - "admin-user"
+          - "admin-password"
+        purpose: "Grafana administrator username and password"

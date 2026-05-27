@@ -1,0 +1,54 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "bitnami-mysql-14.0.3"
+spec:
+  checkedValues:
+    -
+      path: "auth.rootPassword"
+      variant: "generated-passwords"
+      disposition: "generated-fact-bound"
+      reason: "default chart uses random root password generation; this variant persists the generated value before render"
+    -
+      path: "auth.password"
+      variant: "generated-passwords"
+      disposition: "generated-fact-bound"
+      reason: "the chart can generate a user password; this variant binds it before render"
+    -
+      path: "auth.replicationPassword"
+      variant: "generated-passwords"
+      disposition: "generated-fact-bound"
+      reason: "the chart can generate a replication password; this variant binds it before render"
+    -
+      path: "auth.existingSecret"
+      variant: "existing-secret"
+      disposition: "target-fact-bound"
+      reason: "externalizes the credential into a declared target Secret instead of rendering a Secret"
+    -
+      path: "auth.secretKeys.adminPasswordKey"
+      variant: "existing-secret"
+      disposition: "target-secret-key"
+      reason: "documents the expected key in the target Secret"
+    -
+      path: "primary.persistence.enabled"
+      variant: "all"
+      disposition: "stateful-storage-enabled"
+      reason: "chart defaults create a StatefulSet with volume claim templates"
+    -
+      path: "architecture"
+      variant: "all"
+      disposition: "standalone"
+      reason: "promoted variants keep standalone architecture; replication becomes a later variant"
+    -
+      path: "common"
+      variant: "all"
+      disposition: "locked-dependency"
+      reason: "chart declares the Bitnami common dependency and records it in dependency-lock.yaml"
+    -
+      path: "primary.initdb.scripts / primary.extendedConfiguration"
+      variant: "all"
+      disposition: "empty-extension-slot"
+      reason: "MySQL exposes tpl/config extension slots; promoted variants keep them empty"
+  unknownValues: "not-checked"
+  deadValues: "not-checked"
+  ignoredValues: "not-checked"

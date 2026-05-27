@@ -1,0 +1,31 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "external-dns-external-dns-1-21-1"
+  labels:
+    confighub.io/chart-ref: "external-dns/external-dns"
+    confighub.io/chart-version: "1.21.1"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chart: "external-dns/external-dns"
+  version: "1.21.1"
+  maintainedNotes:
+    - "external-dns/external-dns@1.21.1 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+    - "Chart source contains generated/random/time helpers; generated values must be captured before approval if activated by a variant."
+    - "Chart source contains tpl; raw templating extension slots need explicit ownership and review."
+    - "Rendered output includes 1 CRDs; CRD lifecycle must be reviewed before upgrade/promotion."
+    - "Rendered output includes cluster-scoped RBAC; production promotion needs RBAC review."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "variant-revision"
+    - "rendered-manifest-scan"
+    - "helm-equivalence"
+    - "generated-facts"
+    - "tpl-extension-slots"
+    - "extension-slots"
+    - "crds"
+    - "cluster-rbac"
+  proofFocus: "external DNS controller, RBAC, provider config"

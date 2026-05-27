@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "hashicorp/terraform"
+    confighub.io/chart-version: "1.1.2"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "40c409175a95558a0683036dc80b3b7877540cfc68ea6eceeae017c731fd5b95"
+  digestInputs:
+    recipeSHA256: "9111e4b84c10cca4bf7449b755f9e195259d444e90b065357ec0c67de33aaf0e"
+    variantSHA256: "68c4d3945979c05e3c215723af0aa2bd5fb08c0f2a99a5909a851dde04ca948b"
+    effectiveValuesSHA256: "3c70d4a52a78187663e03e513531b463db1ce6845f188ecdb6b14a8ec9633e8e"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "5cc2a190066cc639af6f8856b1ff8e28a40e61546d53cd04f19c5b14d6c37d3b"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 5

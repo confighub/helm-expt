@@ -1,0 +1,14 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "simple-scalable-minio"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "loki"
+  releaseName: "loki"
+  valuesProfile: "../../effective-values-simple-scalable-minio.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"

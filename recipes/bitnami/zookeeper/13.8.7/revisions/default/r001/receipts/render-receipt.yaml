@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "bitnami-zookeeper-13-8-7-default-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/zookeeper"
+    confighub.io/chart-version: "13.8.7"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "5ad15302d63649e9f299c5b83e5b346236c1ae1c7ac20850369eadb7a0a432f0"
+    dependencyLockSHA256: "467c366d3859e862e3e74573570e67c836ad6108220d712661104a792d0b98c0"
+    effectiveValuesSHA256: "04c1a45390e7d626205efae94d6177f6740b5734c412d0f3ec64e03c2a697d62"
+  outputs:
+    renderedObjectSetSHA256: "67672a9bfa85db38f8485736cd19f80ccec599fc17c2c5bb154e3c2feeb54bdb"
+    renderedObjectInventorySHA256: "5b03ef563f31826afbb279abf3e1d280091d520c77c58f1ca8d4b08298334e6f"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 7
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

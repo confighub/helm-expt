@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "grafana-pyroscope-2-0-2"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "grafana"
+  repositoryURL: "https://grafana.github.io/helm-charts"
+  chart: "pyroscope"
+  ref: "grafana/pyroscope"
+  version: "2.0.2"
+  appVersion: "2.0.2"
+  packageSHA256: "2ef4155c4952f4427964273e4bd9bc81bb3356083dc43d28665979d2359f172f"
+  packageBytes: 87722
+  capturedAt: "generated-by-next80-full-proof-harness"

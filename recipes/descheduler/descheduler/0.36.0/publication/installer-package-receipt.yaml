@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "descheduler-descheduler-0-36-0"
+spec:
+  chart:
+    repository: "descheduler"
+    name: "descheduler"
+    version: "0.36.0"
+  package:
+    path: "packages/descheduler/descheduler/0.36.0"
+    name: "descheduler-descheduler"
+    version: "0.36.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "c90d7551c6b7ce1331d65ebea1d15050348585ed1f21fe5671fd828bbda2ef32"
+        bytes: 204
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "23cfd1f815897db367d88feb42f54c765ed17f435cb779cd8dec5ecb196da707"
+        bytes: 5989
+      -
+        path: "installer.yaml"
+        sha256: "6b60942f4b287d035bc5045689237911bba1c79ac3a671aa33c7f093680b98ef"
+        bytes: 324
+  deterministicBundle:
+    command: "cub install package packages/descheduler/descheduler/0.36.0 -o <tmp>/descheduler-descheduler-0-36-0.tgz"
+    sha256: "ade98781bd54405308961ca0d1b29646d425e6e3624819cee5c095418ea30490"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/descheduler/descheduler/0.36.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 5
+      cubInstallObjectCountIncludingSupport: 6
+      semanticObjectMatches: "5/5"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

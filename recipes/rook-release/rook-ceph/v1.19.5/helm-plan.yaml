@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "rook-release-rook-ceph-v1-19-5"
+  labels:
+    confighub.io/chart-ref: "rook-release/rook-ceph"
+    confighub.io/chart-version: "v1.19.5"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "rook-release/rook-ceph"
+    version: "v1.19.5"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 133
+    cubInstallObjectsByVariant:
+      default: 134
+    helmMatchByVariant:
+      default: "133/133"
+    renderedObjectSetSHA256: "26789923789aab27d01638f52680ee6de6d982268eee3740cabc733142f67ba8"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

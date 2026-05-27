@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "prometheus-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "c11349803ddbb44562066474dd04d47d7c5c75d083dbc96162224573f949c11b"
+    objectCount: 23
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 24
+    uploadedManifestFiles: 24
+    separatedSecretFiles: 0
+    semanticObjectMatches: "23/23"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||monitoring"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run prometheus:compare"

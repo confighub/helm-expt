@@ -1,0 +1,26 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "bitnami-rabbitmq-16.0.14"
+spec:
+  chart: "bitnami/rabbitmq"
+  version: "16.0.14"
+  maintainedNotes:
+    - "Default chart rendering is nondeterministic unless auth.password is bound before render."
+    - "Default chart rendering is also nondeterministic unless auth.erlangCookie is bound before render."
+    - "generated-passwords variant persists auth.password and auth.erlangCookie as generated facts and renders chart Secrets deterministically."
+    - "existing-secret variant does not render the credential Secret and instead declares rabbitmq/rabbitmq-auth and rabbitmq/rabbitmq-erlang-cookie as target facts."
+    - "existing-secret variant still renders rabbitmq-config because configuration is chart-owned in both promoted variants."
+    - "Chart declares the Bitnami common dependency and records it in dependency-lock.yaml."
+    - "Promoted variants render no hook objects; future hook-producing values must map to lifecycle policy."
+    - "RabbitMQ renders a StatefulSet with volumeClaimTemplates and needs storage/upgrade/rollback policy."
+    - "configuration, advancedConfiguration, initScripts, secret names, and extraDeploy are template-powered extension slots; promoted variants keep raw slots empty."
+  knownControlPoints:
+    - "generated-facts"
+    - "target-facts"
+    - "dependency-lock"
+    - "lifecycle-policy"
+    - "stateful-workload-policy"
+    - "pvc-policy"
+    - "clustering-policy"
+    - "tpl-extension-slot"

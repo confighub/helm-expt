@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "haproxytech-kubernetes-ingress-1-52-0-default"
+  labels:
+    confighub.io/chart-ref: "haproxytech/kubernetes-ingress"
+    confighub.io/chart-version: "1.52.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "f503ee554703c9c8ec59cab23c794b2145df129b09fd37516a0a1cdbd7f51ff8"
+  mergedValuesCaptured: false
+  values:
+    {}

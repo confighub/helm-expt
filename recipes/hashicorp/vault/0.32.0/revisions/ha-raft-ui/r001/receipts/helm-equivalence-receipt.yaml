@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "vault-ha-raft-ui-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "734a212cbb2e8d11ed288d32bc8b709e859248ef5587090b04e0fa407b248b5f"
+    objectCount: 18
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 19
+    uploadedManifestFiles: 19
+    separatedSecretFiles: 0
+    semanticObjectMatches: "18/18"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||vault"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run vault:compare"

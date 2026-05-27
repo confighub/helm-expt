@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "bitnami-spark-10-0-3-default"
+  labels:
+    confighub.io/chart-ref: "bitnami/spark"
+    confighub.io/chart-version: "10.0.3"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "ea84d4dbcfd5ad918cb969b58f31807ca132e2e6813b9e6e01fedfb23e7609f4"
+  mergedValuesCaptured: false
+  values:
+    {}

@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "elastic-kibana-8-5-1-default"
+  labels:
+    confighub.io/chart-ref: "elastic/kibana"
+    confighub.io/chart-version: "8.5.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "33130a552b95f82ff46bfa2cc78821688dac030b12bc9928e9ddab4480dfd598"
+  mergedValuesCaptured: false
+  values:
+    {}

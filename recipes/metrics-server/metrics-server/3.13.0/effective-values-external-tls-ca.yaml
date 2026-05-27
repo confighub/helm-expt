@@ -1,0 +1,20 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "metrics-server-metrics-server-3.13.0-external-tls-ca"
+spec:
+  files:
+    -
+      path: "effective-values-external-tls-ca.yaml"
+      source: "inline-proof"
+      sha256: "ec280460c57a3bd32d5e9537f6038ccd26a1195efcdc0d1a34baa907ece10cfa"
+  mergedValuesCaptured: false
+  values:
+    apiService:
+      caBundle: "confighub-metrics-server-ca"
+      insecureSkipTLSVerify: false
+    tls:
+      existingSecret:
+        lookup: false
+        name: "metrics-server-tls"
+      type: "existingSecret"

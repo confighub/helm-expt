@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "nfs-subdir-external-provisioner-nfs-subdir-external-provisioner"
+  version: "4.0.18"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner default variant rendered from nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18"

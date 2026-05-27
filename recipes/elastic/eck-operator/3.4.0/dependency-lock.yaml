@@ -1,0 +1,13 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "elastic-eck-operator-3-4-0"
+spec:
+  chart: "elastic/eck-operator"
+  version: "3.4.0"
+  dependencies:
+    -
+      name: "eck-operator-crds"
+      version: "3.4.0"
+      repository: ""
+      condition: "installCRDs"

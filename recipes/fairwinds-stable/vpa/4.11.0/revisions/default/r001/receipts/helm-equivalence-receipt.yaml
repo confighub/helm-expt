@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "fairwinds-stable-vpa-4-11-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "fairwinds-stable/vpa"
+    confighub.io/chart-version: "4.11.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "9fc49375853347271950b87624ed5215a97a56370dc361b14d22f7efb157a48b"
+    objectCount: 28
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 29
+    uploadedManifestFiles: 29
+    separatedSecretFiles: 0
+    semanticObjectMatches: "28/28"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

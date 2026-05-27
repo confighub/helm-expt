@@ -1,0 +1,61 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "grafana-generated-passwords-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "893351c9b8cad0a10b0176a946bf514a76c5895bdb2d88a31bdd53a94288066d"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.1.0"
+  policyBundleDigest: "2b91d2d514d317e84f0583f7b03ad786554573038b06c51539895083652b132b"
+  findingCounts:
+    critical: 0
+    high: 0
+    medium: 7
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||grafana-clusterrole"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||grafana-clusterrole"
+      message: "Grafana RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||grafana-clusterrolebinding"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||grafana-clusterrolebinding"
+      message: "Grafana RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|Role|grafana|grafana"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|Role|grafana|grafana"
+      message: "Grafana RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|RoleBinding|grafana|grafana"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|RoleBinding|grafana|grafana"
+      message: "Grafana RBAC requires production review"
+    -
+      id: "deployment-workload-review:apps/v1|Deployment|grafana|grafana"
+      rule: "deployment-workload-review"
+      severity: "medium"
+      object: "apps/v1|Deployment|grafana|grafana"
+      message: "Grafana Deployment, persistence choice, and rollout policy require production review"
+    -
+      id: "extension-slot-review:provisioning"
+      rule: "extension-slot-review"
+      severity: "medium"
+      object: "values|datasources|dashboardProviders|dashboards|plugins|sidecar|envRenderSecret"
+      message: "Grafana provisioning, plugin, sidecar, and Secret/env extension slots must be scanned when populated"
+    -
+      id: "generated-secret-ownership:v1|Secret|grafana|grafana"
+      rule: "generated-secret-ownership"
+      severity: "medium"
+      object: "v1|Secret|grafana|grafana"
+      message: "Grafana admin Secret content and ownership must be explicit before production promotion"

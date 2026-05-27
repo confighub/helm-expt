@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "prometheus-community-prometheus-pushgateway-3-6-0-default"
+  labels:
+    confighub.io/chart-ref: "prometheus-community/prometheus-pushgateway"
+    confighub.io/chart-version: "3.6.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "10f68c221ebed0d72ba62d51e512eaab0dea01aa2621c752243cdc88aa23bf24"
+  mergedValuesCaptured: false
+  values:
+    {}

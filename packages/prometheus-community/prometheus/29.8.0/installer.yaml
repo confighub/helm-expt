@@ -1,0 +1,16 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "prometheus"
+  version: "29.8.0"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "prometheus default monitoring stack variant rendered from prometheus-community/prometheus@29.8.0"
+    -
+      name: "server-only-ephemeral"
+      path: "bases/server-only-ephemeral"
+      description: "prometheus server only without persistence variant rendered from prometheus-community/prometheus@29.8.0"

@@ -1,0 +1,72 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "linkerd-linkerd-crds-1-8-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "linkerd/linkerd-crds"
+    confighub.io/chart-version: "1.8.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.2.0"
+  policyBundleDigest: "d4913c44f60cee40b376761c82c0c5b84e3f65043012ae875d8f376330dabc35"
+  findingCounts:
+    critical: 0
+    high: 0
+    medium: 8
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||authorizationpolicies.policy.linkerd.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||authorizationpolicies.policy.linkerd.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||httproutes.gateway.networking.k8s.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||httproutes.gateway.networking.k8s.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||httproutes.policy.linkerd.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||httproutes.policy.linkerd.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||meshtlsauthentications.policy.linkerd.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||meshtlsauthentications.policy.linkerd.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||networkauthentications.policy.linkerd.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||networkauthentications.policy.linkerd.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||serverauthorizations.policy.linkerd.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||serverauthorizations.policy.linkerd.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||servers.policy.linkerd.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||servers.policy.linkerd.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||serviceprofiles.linkerd.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||serviceprofiles.linkerd.io"
+      message: "CRD lifecycle and upgrade behavior require review"

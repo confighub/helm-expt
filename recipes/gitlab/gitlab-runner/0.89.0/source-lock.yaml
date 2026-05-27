@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "gitlab-gitlab-runner-0-89-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "gitlab"
+  repositoryURL: "https://charts.gitlab.io"
+  chart: "gitlab-runner"
+  ref: "gitlab/gitlab-runner"
+  version: "0.89.0"
+  appVersion: "19.0.0"
+  packageSHA256: "22ac6e4757b61801ea1da86f40a5d300c45d32a27495e585b632c01364534e68"
+  packageBytes: 31751
+  capturedAt: "generated-by-next80-full-proof-harness"

@@ -1,0 +1,29 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "bitnami-memcached-8-5-5"
+  labels:
+    confighub.io/chart-ref: "bitnami/memcached"
+    confighub.io/chart-version: "8.5.5"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chart: "bitnami/memcached"
+  version: "8.5.5"
+  maintainedNotes:
+    - "bitnami/memcached@8.5.5 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+    - "Chart source contains lookup; future variants using lookup paths must bind target facts in the recipe."
+    - "Chart source contains generated/random/time helpers; generated values must be captured before approval if activated by a variant."
+    - "Chart source contains tpl; raw templating extension slots need explicit ownership and review."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "variant-revision"
+    - "rendered-manifest-scan"
+    - "helm-equivalence"
+    - "target-facts"
+    - "generated-facts"
+    - "tpl-extension-slots"
+    - "extension-slots"
+  proofFocus: "cache workload, Service, simple scale knobs"

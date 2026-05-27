@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "prometheus-community-prometheus-node-exporter-4-55-0"
+spec:
+  chart:
+    repository: "prometheus-community"
+    name: "prometheus-node-exporter"
+    version: "4.55.0"
+  package:
+    path: "packages/prometheus-community/prometheus-node-exporter/4.55.0"
+    name: "prometheus-community-prometheus-node-exporter"
+    version: "4.55.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "5c84b7ddbcf0d5419819d8a2f391139f0877f216e987389577e52dc3bc850eb8"
+        bytes: 226
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "37862948d7c5d39d7be726864e9c71e6fb9e9fcc1ac40140e97153152aa6ffbc"
+        bytes: 5221
+      -
+        path: "installer.yaml"
+        sha256: "ff8e3b3378238f20d04e5c93a883b9549e92c04c7a4aa0a92ee529ac1032ef65"
+        bytes: 390
+  deterministicBundle:
+    command: "cub install package packages/prometheus-community/prometheus-node-exporter/4.55.0 -o <tmp>/prometheus-community-prometheus-node-exporter-4-55-0.tgz"
+    sha256: "d9b0f78c8f597763983d886cbe36358b8ccb89503fe9ae031fce9b5d8623e912"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/prometheus-community/prometheus-node-exporter/4.55.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 3
+      cubInstallObjectCountIncludingSupport: 4
+      semanticObjectMatches: "3/3"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

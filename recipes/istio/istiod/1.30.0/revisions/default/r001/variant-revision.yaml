@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "istio/istiod"
+    confighub.io/chart-version: "1.30.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "add9fe5f59c4bee135be299995f91da3b8411969240948dcf387d04cbde45663"
+  digestInputs:
+    recipeSHA256: "aea51cb1554dc2e53931d4a00de8a0d9ae00d966fa1d1332c6b9f2c739c27e1b"
+    variantSHA256: "366b395131e38e7238747cffe83dbde460f917534210196ad0a84f6661162d9f"
+    effectiveValuesSHA256: "f2a7aaf3fb0d1e5e6da0024bafc8a20d236281ef29a8a5afb6cb7093a0855e4f"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "53385181293dd9a8228f37a370148dde3cc77acecf5a3a8539fa1b8eb0f9afdf"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 17

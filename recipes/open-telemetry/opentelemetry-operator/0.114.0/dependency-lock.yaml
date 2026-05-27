@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "open-telemetry-opentelemetry-operator-0-114-0"
+spec:
+  chart: "open-telemetry/opentelemetry-operator"
+  version: "0.114.0"
+  dependencies:
+    []

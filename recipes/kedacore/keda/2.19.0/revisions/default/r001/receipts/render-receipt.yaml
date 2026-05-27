@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "kedacore-keda-2-19-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "kedacore/keda"
+    confighub.io/chart-version: "2.19.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "68e5610626e24896b02101a107f14eb3ddf72f883dad2b7b82b3caa0da9e31c0"
+    dependencyLockSHA256: "d76eafd830c10b7515224c7c2626d19e76b92b0dccb3091ba9db7233cbd591c4"
+    effectiveValuesSHA256: "fbe3a61f8abd714417fd156b06550a0b7836d8f50dae05ddf8d07974753edcc9"
+  outputs:
+    renderedObjectSetSHA256: "95bac2eeb03cdf4d0392ed7d66c37c81db91beeba346752f932abef73d26db1f"
+    renderedObjectInventorySHA256: "62f0f7430a290c14dc88468355900e39919696d57646aa79054d071c3b4e951c"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 29
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

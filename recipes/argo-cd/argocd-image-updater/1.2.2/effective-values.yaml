@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "argo-cd-argocd-image-updater-1-2-2-default"
+  labels:
+    confighub.io/chart-ref: "argo-cd/argocd-image-updater"
+    confighub.io/chart-version: "1.2.2"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "9c48611cfe8e25929ad52efd7a58263bd0a7a101f4d6e084525a7e9eb6b27008"
+  mergedValuesCaptured: false
+  values:
+    {}

@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "grafana/rollout-operator"
+    confighub.io/chart-version: "0.49.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "b608def0b2aa3fb67360e919b132e0552bae164c60a54ab270f1945ba6e8d1b6"
+  digestInputs:
+    recipeSHA256: "d9f069ecd8377bab4dcbc39e1f18ebbae096fab5ec818aacde1010bd7f8bada7"
+    variantSHA256: "05000e9a777d69ce302e5342ddd05f80d1786242424800b5c4fa53d969688444"
+    effectiveValuesSHA256: "0133bf8171b9b4cbf4ac64f905742c930a9bc957e0e1b811cbcc89129b4f38da"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "dc6b652767aec075b147247c38dbce391bb86750a54e749a45576fd6791d4763"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 15

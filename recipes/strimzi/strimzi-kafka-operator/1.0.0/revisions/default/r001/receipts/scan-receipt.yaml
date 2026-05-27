@@ -1,0 +1,144 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "strimzi-strimzi-kafka-operator-1-0-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "strimzi/strimzi-kafka-operator"
+    confighub.io/chart-version: "1.0.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "f3cfe3329c6673870bb6ecd1d31cab9d74ee96695d6b2b6fbfb0f4a1a7b9f23b"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.2.0"
+  policyBundleDigest: "d4913c44f60cee40b376761c82c0c5b84e3f65043012ae875d8f376330dabc35"
+  findingCounts:
+    critical: 0
+    high: 0
+    medium: 20
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||strimzi-cluster-operator-global"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||strimzi-cluster-operator-global"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||strimzi-cluster-operator-leader-election"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||strimzi-cluster-operator-leader-election"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||strimzi-cluster-operator-namespaced"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||strimzi-cluster-operator-namespaced"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||strimzi-cluster-operator-watched"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||strimzi-cluster-operator-watched"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||strimzi-entity-operator"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||strimzi-entity-operator"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||strimzi-kafka-broker"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||strimzi-kafka-broker"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||strimzi-kafka-client"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||strimzi-kafka-client"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||strimzi-cluster-operator"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||strimzi-cluster-operator"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||strimzi-cluster-operator-kafka-broker-delegation"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||strimzi-cluster-operator-kafka-broker-delegation"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||strimzi-cluster-operator-kafka-client-delegation"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||strimzi-cluster-operator-kafka-client-delegation"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||kafkabridges.kafka.strimzi.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||kafkabridges.kafka.strimzi.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||kafkaconnectors.kafka.strimzi.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||kafkaconnectors.kafka.strimzi.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||kafkaconnects.kafka.strimzi.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||kafkaconnects.kafka.strimzi.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||kafkamirrormaker2s.kafka.strimzi.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||kafkamirrormaker2s.kafka.strimzi.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||kafkanodepools.kafka.strimzi.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||kafkanodepools.kafka.strimzi.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||kafkarebalances.kafka.strimzi.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||kafkarebalances.kafka.strimzi.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||kafkas.kafka.strimzi.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||kafkas.kafka.strimzi.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||kafkatopics.kafka.strimzi.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||kafkatopics.kafka.strimzi.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||kafkausers.kafka.strimzi.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||kafkausers.kafka.strimzi.io"
+      message: "CRD lifecycle and upgrade behavior require review"
+    -
+      id: "crd-lifecycle-review:apiextensions.k8s.io/v1|CustomResourceDefinition||strimzipodsets.core.strimzi.io"
+      rule: "crd-lifecycle-review"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||strimzipodsets.core.strimzi.io"
+      message: "CRD lifecycle and upgrade behavior require review"

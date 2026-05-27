@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "nats-nack-0-34-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "nats"
+  repositoryURL: "https://nats-io.github.io/k8s/helm/charts/"
+  chart: "nack"
+  ref: "nats/nack"
+  version: "0.34.0"
+  appVersion: "0.23.0"
+  packageSHA256: "e4a713e6e76f3df1e63a4db8d4c47d41ee35c927cd56e75ff8b2296fd85dfc2c"
+  packageBytes: 11049
+  capturedAt: "generated-by-next80-full-proof-harness"

@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "external-dns-external-dns-1-21-1"
+spec:
+  chart:
+    repository: "external-dns"
+    name: "external-dns"
+    version: "1.21.1"
+  package:
+    path: "packages/external-dns/external-dns/1.21.1"
+    name: "external-dns-external-dns"
+    version: "1.21.1"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "c688229a728fe59a88d1a005445a3c548a65047e4bac207a4e2411331ab51de3"
+        bytes: 206
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "764caa006e0e36ed1ad27659090d71a9ca5ff4d671962684b49500971c57ee74"
+        bytes: 8829
+      -
+        path: "installer.yaml"
+        sha256: "2cdd8557720c6acc1084978809a47e06c4474f19287d85f9bb1a987a0793a37a"
+        bytes: 330
+  deterministicBundle:
+    command: "cub install package packages/external-dns/external-dns/1.21.1 -o <tmp>/external-dns-external-dns-1-21-1.tgz"
+    sha256: "8daed864e059a43c682dc97afd3820c577e2ecb1364e6bd2b4933beedac600c5"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/external-dns/external-dns/1.21.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 6
+      cubInstallObjectCountIncludingSupport: 7
+      semanticObjectMatches: "6/6"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

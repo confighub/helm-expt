@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "grafana-promtail-6-17-1-default"
+  labels:
+    confighub.io/chart-ref: "grafana/promtail"
+    confighub.io/chart-version: "6.17.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "09905bc9367598d03aab4f97c272279278935c73e6f84c59642196be54b218ef"
+  mergedValuesCaptured: false
+  values:
+    {}

@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "fluent-fluent-bit-0-57-6"
+spec:
+  chart:
+    repository: "fluent"
+    name: "fluent-bit"
+    version: "0.57.6"
+  package:
+    path: "packages/fluent/fluent-bit/0.57.6"
+    name: "fluent-fluent-bit"
+    version: "0.57.6"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "d34fa88101f93baee9e0afe6ffe95ce5d8f6b830969ea06e7aa597ef5657eaa1"
+        bytes: 198
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "464d9136c0ba9e845fd81c1dbea556e717d47930d7cb58755de67ead7f8f2a2b"
+        bytes: 5669
+      -
+        path: "installer.yaml"
+        sha256: "676ea0cb1bff224a6b3531f821ac3b138b0d3c06d78b5ef2f079a2c63fb4a483"
+        bytes: 306
+  deterministicBundle:
+    command: "cub install package packages/fluent/fluent-bit/0.57.6 -o <tmp>/fluent-fluent-bit-0-57-6.tgz"
+    sha256: "927d51336074709b3466f6ec458392d5b590073ff38953c4b7a524e65a63a90d"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/fluent/fluent-bit/0.57.6 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 6
+      cubInstallObjectCountIncludingSupport: 7
+      semanticObjectMatches: "6/6"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

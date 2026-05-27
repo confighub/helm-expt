@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "descheduler-descheduler-0-36-0-default"
+  labels:
+    confighub.io/chart-ref: "descheduler/descheduler"
+    confighub.io/chart-version: "0.36.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "1568a55826f661de9dd311ec8e1cc715a8787a0b608108601069e177899314a8"
+  mergedValuesCaptured: false
+  values:
+    {}

@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "bitnami-apache-11-4-29-default"
+  labels:
+    confighub.io/chart-ref: "bitnami/apache"
+    confighub.io/chart-version: "11.4.29"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "36516eb97c119607e51e635312a0b370456d5655c6ba1eb3e79643ebcc923189"
+  mergedValuesCaptured: false
+  values:
+    {}

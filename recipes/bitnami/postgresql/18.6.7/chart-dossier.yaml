@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "bitnami-postgresql-18.6.7"
+spec:
+  chart: "bitnami/postgresql"
+  version: "18.6.7"
+  maintainedNotes:
+    - "Default chart rendering is nondeterministic unless auth.postgresPassword is bound before render."
+    - "generated-passwords variant persists auth.postgresPassword as a generated fact and renders the Secret deterministically."
+    - "existing-secret variant does not render a Secret and instead declares postgresql/postgresql-auth as a target fact."
+    - "Chart declares the Bitnami common dependency and records it in dependency-lock.yaml."
+    - "Chart source contains Helm hook annotations; the rendered proof excludes hooks and keeps lifecycle policy explicit."
+    - "PostgreSQL renders a StatefulSet with volumeClaimTemplates and needs storage/upgrade/rollback policy."
+    - "initdb and extended configuration are template-powered extension slots; promoted variants keep them empty."
+  knownControlPoints:
+    - "generated-facts"
+    - "target-facts"
+    - "dependency-lock"
+    - "hook-lifecycle-policy"
+    - "stateful-workload-policy"
+    - "pvc-policy"
+    - "tpl-extension-slot"

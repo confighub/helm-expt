@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "bitnami-opensearch-2-0-10"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "bitnami"
+  repositoryURL: "https://charts.bitnami.com/bitnami"
+  chart: "opensearch"
+  ref: "bitnami/opensearch"
+  version: "2.0.10"
+  appVersion: "3.2.0"
+  packageSHA256: "bced5a244e0260965fde8a92dd630992834ca31df7fe6bf7a189d1a2b2a88dfc"
+  packageBytes: 108480
+  capturedAt: "generated-by-next80-full-proof-harness"

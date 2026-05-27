@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "grafana-pyroscope-2-0-2-default-r001"
+  labels:
+    confighub.io/chart-ref: "grafana/pyroscope"
+    confighub.io/chart-version: "2.0.2"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "00145afd4ec5666a3d6df582f90c72115876d95d737bdf5364e27dd096278137"
+    dependencyLockSHA256: "d73490300e7ff2aaf3741c665bc408866fbd3d7134466609405af914495fcf98"
+    effectiveValuesSHA256: "e16d7cb9c098f46065da9d88539281e938f93c6d83cc06cdc3aae137616a3321"
+  outputs:
+    renderedObjectSetSHA256: "24d78308d5476731eefba9ac71cee442cf9aeb21f16443557d9a6d9574449df5"
+    renderedObjectInventorySHA256: "3d56186931375170bb31e7a27029df5f4b5f7412ab7e4df45ac47f98ba36292d"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 18
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

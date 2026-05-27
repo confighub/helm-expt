@@ -1,0 +1,50 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "istio-gateway-1-30-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "istio/gateway"
+    confighub.io/chart-version: "1.30.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "07b3cb11d265a7b857b231a347be2c71742e5bc1eeb02efddd7ce71ecc1c7afc"
+  objectCount: 6
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|gateway"
+      kind: "Deployment"
+      name: "gateway"
+      namespace: "default"
+    -
+      apiVersion: "autoscaling/v2"
+      identity: "autoscaling/v2|HorizontalPodAutoscaler|default|gateway"
+      kind: "HorizontalPodAutoscaler"
+      name: "gateway"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|default|gateway"
+      kind: "RoleBinding"
+      name: "gateway"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role|default|gateway"
+      kind: "Role"
+      name: "gateway"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|gateway"
+      kind: "ServiceAccount"
+      name: "gateway"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|gateway"
+      kind: "Service"
+      name: "gateway"
+      namespace: "default"

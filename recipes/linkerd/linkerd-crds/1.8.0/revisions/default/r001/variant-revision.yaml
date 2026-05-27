@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "linkerd/linkerd-crds"
+    confighub.io/chart-version: "1.8.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "13837b92c4feda268fdeeb08dfd92c1adf95a7656211f963d8ae76de3a2f94b0"
+  digestInputs:
+    recipeSHA256: "268cdb3529411770f11f12132b3d9fbf7b025aa3082126d29fbcbfe9ad901e9d"
+    variantSHA256: "366fbe5df7e71e00da1aeb997703b8655f4a7127133b43af5d3d53bb3d4fb551"
+    effectiveValuesSHA256: "3db06256a1404c3d04057a0d35a9edf7da0dc64bcde9b02d45918bc60ade7737"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 8

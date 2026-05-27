@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "elastic-eck-operator-3-4-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "elastic"
+  repositoryURL: "https://helm.elastic.co"
+  chart: "eck-operator"
+  ref: "elastic/eck-operator"
+  version: "3.4.0"
+  appVersion: "3.4.0"
+  packageSHA256: "097f44d2b9ba895495db311eecd9de9ee03d44a5d50fd6ebaf023edbb2ef3c97"
+  packageBytes: 152075
+  capturedAt: "generated-by-next80-full-proof-harness"

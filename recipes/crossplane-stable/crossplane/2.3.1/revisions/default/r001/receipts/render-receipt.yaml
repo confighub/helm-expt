@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "crossplane-stable-crossplane-2-3-1-default-r001"
+  labels:
+    confighub.io/chart-ref: "crossplane-stable/crossplane"
+    confighub.io/chart-version: "2.3.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "24cd3760cb289c5d5593b96d6798c83321fa8d20fedd222943ed0ee85d6b186c"
+    dependencyLockSHA256: "efa3398fc5f1091a7905861aed14733246f845c0df4b0728bf0886e475fcff81"
+    effectiveValuesSHA256: "cd6232df092df91692db7b31c616951d1cafdb90a0a3c7ddd2fb242eabcc9ca3"
+  outputs:
+    renderedObjectSetSHA256: "917b3dc2a52c16f26cefebe2b580889944e23461d95d1fbe912e0c7a451fd996"
+    renderedObjectInventorySHA256: "0f3c0a260261af48f12b5b4294b71d5d38a8af400d3eb7da78f9cf6c6d635f41"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 23
+    renderedSecretCount: 3
+    secretCountSeparatedByCubInstall: 3

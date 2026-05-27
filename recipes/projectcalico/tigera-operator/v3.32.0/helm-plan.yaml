@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "projectcalico-tigera-operator-v3-32-0"
+  labels:
+    confighub.io/chart-ref: "projectcalico/tigera-operator"
+    confighub.io/chart-version: "v3.32.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "projectcalico/tigera-operator"
+    version: "v3.32.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 10
+    cubInstallObjectsByVariant:
+      default: 11
+    helmMatchByVariant:
+      default: "10/10"
+    renderedObjectSetSHA256: "9ce56a65a1b0ca63aec202cb662a5389fe6a6a55e6d4b9db9920febcc5b2b350"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

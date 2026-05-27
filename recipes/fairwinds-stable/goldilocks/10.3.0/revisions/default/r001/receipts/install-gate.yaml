@@ -1,0 +1,22 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "fairwinds-stable-goldilocks-10-3-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "fairwinds-stable/goldilocks"
+    confighub.io/chart-version: "10.3.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "5939f53dfe4e6c888630fc4c30fcc478e4786a56cb0092139c418510da17d7a5"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+    - "review"
+  blockedScopes:
+    - "production-without-review"
+  reasons:
+    - "regular Helm output matches cub install setup for fairwinds-stable/goldilocks@10.3.0"
+    - "9 Helm objects are bound to renderedObjectSetSHA256"
+    - "rendered-object scan has review findings; see scan-receipt.yaml"

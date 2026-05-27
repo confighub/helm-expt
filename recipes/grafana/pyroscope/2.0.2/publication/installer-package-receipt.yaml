@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "grafana-pyroscope-2-0-2"
+spec:
+  chart:
+    repository: "grafana"
+    name: "pyroscope"
+    version: "2.0.2"
+  package:
+    path: "packages/grafana/pyroscope/2.0.2"
+    name: "grafana-pyroscope"
+    version: "2.0.2"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "474d2f703232a571ab0f57f81d0c418148f79b95482de276da3d2985ee92575e"
+        bytes: 197
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "24d78308d5476731eefba9ac71cee442cf9aeb21f16443557d9a6d9574449df5"
+        bytes: 50797
+      -
+        path: "installer.yaml"
+        sha256: "66180ac18f4dec0924776817aff5def319bab0e9d62ce13e88ded394772cad54"
+        bytes: 304
+  deterministicBundle:
+    command: "cub install package packages/grafana/pyroscope/2.0.2 -o <tmp>/grafana-pyroscope-2-0-2.tgz"
+    sha256: "bd83d3e6b19f182fac1a04e2d27f49feda6074f3c5d26cd7f77a9afc33c6f648"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/grafana/pyroscope/2.0.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 18
+      cubInstallObjectCountIncludingSupport: 19
+      semanticObjectMatches: "18/18"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

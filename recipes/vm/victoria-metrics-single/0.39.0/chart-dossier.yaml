@@ -1,0 +1,27 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "vm-victoria-metrics-single-0-39-0"
+  labels:
+    confighub.io/chart-ref: "vm/victoria-metrics-single"
+    confighub.io/chart-version: "0.39.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chart: "vm/victoria-metrics-single"
+  version: "0.39.0"
+  maintainedNotes:
+    - "vm/victoria-metrics-single@0.39.0 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+    - "Chart source contains tpl; raw templating extension slots need explicit ownership and review."
+    - "Rendered output has stateful/storage behavior; rollback and upgrade plans must be explicit."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "variant-revision"
+    - "rendered-manifest-scan"
+    - "helm-equivalence"
+    - "tpl-extension-slots"
+    - "extension-slots"
+    - "stateful-storage"
+  proofFocus: "metrics database, StatefulSet/PVC"

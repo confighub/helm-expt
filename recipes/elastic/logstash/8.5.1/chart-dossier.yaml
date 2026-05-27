@@ -1,0 +1,27 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "elastic-logstash-8-5-1"
+  labels:
+    confighub.io/chart-ref: "elastic/logstash"
+    confighub.io/chart-version: "8.5.1"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chart: "elastic/logstash"
+  version: "8.5.1"
+  maintainedNotes:
+    - "elastic/logstash@8.5.1 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+    - "Chart source contains tpl; raw templating extension slots need explicit ownership and review."
+    - "Rendered output has stateful/storage behavior; rollback and upgrade plans must be explicit."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "variant-revision"
+    - "rendered-manifest-scan"
+    - "helm-equivalence"
+    - "tpl-extension-slots"
+    - "extension-slots"
+    - "stateful-storage"
+  proofFocus: "log processing workload, ConfigMap pipeline"

@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "rabbitmq-existing-secret-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "d508ba5a873dbb2e1fa08b6bc227b1177d84fc1285b1aac974d59d28e9645d63"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for existing-secret"
+    - "Generated credential handling needs explicit generated fact or target fact policy before production"
+    - "Any future hook-producing values need explicit lifecycle policy before production"
+    - "RabbitMQ StatefulSet and volumeClaimTemplates need storage, upgrade, and rollback policy"
+    - "requires target Secrets rabbitmq/rabbitmq-auth and rabbitmq/rabbitmq-erlang-cookie before apply"

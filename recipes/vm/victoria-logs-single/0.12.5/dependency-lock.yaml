@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "vm-victoria-logs-single-0-12-5"
+spec:
+  chart: "vm/victoria-logs-single"
+  version: "0.12.5"
+  dependencies:
+    -
+      name: "vector"
+      version: "0.52.*"
+      repository: "https://helm.vector.dev"
+      condition: "vector.enabled"
+    -
+      name: "victoria-metrics-common"
+      version: "0.3.*"
+      repository: "oci://ghcr.io/victoriametrics/helm-charts"

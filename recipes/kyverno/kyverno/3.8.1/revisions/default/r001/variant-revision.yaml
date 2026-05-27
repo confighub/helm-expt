@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "kyverno/kyverno"
+    confighub.io/chart-version: "3.8.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "3bc62d1f7d56d6bbe3d8aa1b8c6d55fb4218931082e1d3a3b41620e998d674a0"
+  digestInputs:
+    recipeSHA256: "5709c7a1d741d4c8cc59ee3a0e06b43bf0be7fe50e3d96bd3235e21cf7030514"
+    variantSHA256: "7d91e6f264691db830842a274b7b7bafedf9d89a150f953916f14f7698303dcd"
+    effectiveValuesSHA256: "9d62042eac2e9778b060c228c1f59746cc7eb1f9dfcc9dfd9ddffc936c1219ca"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "00df8d584a2b69683a7895eff47d5a2bd6c1947827272bc518b0b79bbba80884"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 69

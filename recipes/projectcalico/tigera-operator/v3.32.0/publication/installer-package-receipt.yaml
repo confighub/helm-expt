@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "projectcalico-tigera-operator-v3-32-0"
+spec:
+  chart:
+    repository: "projectcalico"
+    name: "tigera-operator"
+    version: "v3.32.0"
+  package:
+    path: "packages/projectcalico/tigera-operator/v3.32.0"
+    name: "projectcalico-tigera-operator"
+    version: "v3.32.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "ae68b7e3d0277dae7a3a6d426c8f490938f4b478fca5b09dd330cd4fe7fed209"
+        bytes: 211
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "9ce56a65a1b0ca63aec202cb662a5389fe6a6a55e6d4b9db9920febcc5b2b350"
+        bytes: 19893
+      -
+        path: "installer.yaml"
+        sha256: "f3aaf1674ec4bea38b14fd604e79f993f4dcfd34bf3286060b38ee81c22427c6"
+        bytes: 344
+  deterministicBundle:
+    command: "cub install package packages/projectcalico/tigera-operator/v3.32.0 -o <tmp>/projectcalico-tigera-operator-v3-32-0.tgz"
+    sha256: "87e3c40bc33a18859fdb678939791bfc5738c1788bc2cafad58011b8c63c1076"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/projectcalico/tigera-operator/v3.32.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 10
+      cubInstallObjectCountIncludingSupport: 11
+      semanticObjectMatches: "10/10"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

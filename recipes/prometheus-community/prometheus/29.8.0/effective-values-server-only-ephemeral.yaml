@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "prometheus-29.8.0-server-only-ephemeral"
+spec:
+  files:
+    -
+      path: "effective-values-server-only-ephemeral.yaml"
+      source: "inline-proof"
+      sha256: "8d363af799fd5f9107b2e68106b2d544aa0365421c1aba23a2860b93b6c546e9"
+  mergedValuesCaptured: false
+  values:
+    alertmanager:
+      enabled: false
+    kube-state-metrics:
+      enabled: false
+    prometheus-node-exporter:
+      enabled: false
+    prometheus-pushgateway:
+      enabled: false
+    server:
+      persistentVolume:
+        enabled: false

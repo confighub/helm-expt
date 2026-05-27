@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "falcosecurity-falco"
+  version: "9.0.0"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "falcosecurity/falco default variant rendered from falcosecurity/falco@9.0.0"

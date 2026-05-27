@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "bitnami-phpmyadmin"
+  version: "20.0.0"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "bitnami/phpmyadmin default variant rendered from bitnami/phpmyadmin@20.0.0"

@@ -1,0 +1,29 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "grafana-rollout-operator-0-49-0"
+  labels:
+    confighub.io/chart-ref: "grafana/rollout-operator"
+    confighub.io/chart-version: "0.49.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chart: "grafana/rollout-operator"
+  version: "0.49.0"
+  maintainedNotes:
+    - "grafana/rollout-operator@0.49.0 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+    - "Rendered output includes 2 CRDs; CRD lifecycle must be reviewed before upgrade/promotion."
+    - "Rendered output includes cluster-scoped RBAC; production promotion needs RBAC review."
+    - "Rendered output includes admission webhooks; live readiness/certificate observations are required after apply."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "variant-revision"
+    - "rendered-manifest-scan"
+    - "helm-equivalence"
+    - "extension-slots"
+    - "crds"
+    - "cluster-rbac"
+    - "webhooks"
+  proofFocus: "operator, CRDs, RBAC"

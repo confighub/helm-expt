@@ -1,0 +1,56 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ObservationReceipt
+metadata:
+  name: bitnami-redis-reuse-existing-secret-r001-local-kind
+spec:
+  variantRevision: "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "a90dda4885fb97749e2c222f1abd840f49dcf6eafa953ea6ea2dbc6ba565fe53"
+  observer:
+    name: redis-local-e2e
+    version: "0.1.0"
+    method: kubectl-kind
+  target:
+    kind: kind
+    name: "helm-expt-redis"
+    context: "kind-helm-expt-redis"
+    namespace: "redis"
+  observedAt: "2026-05-26T11:33:15.250Z"
+  freshnessTTL: 1h
+  result: pass
+  clusterStatus: "existing"
+  variant: "reuse-existing-secret"
+  targetFacts:
+    defaultStorageClass:
+      name: "standard"
+      status: "existing"
+      provisionerURL: null
+    requiredSecret:
+      namespace: "redis"
+      name: "redis-existing-secret"
+      key: "redis-password"
+      status: applied-by-test
+      evidencePath: "redis-existing-secret.yaml"
+      evidenceSHA256: "d6d217aef4f6b41dec84e45772d8540d715d22ec9e15f50b59ccdeca54539c98"
+  checks:
+    - name: namespace-support-object-applied
+      result: pass
+      object: v1|Namespace||redis
+    - name: target-secret-present
+      result: pass
+      object: v1|Secret|redis|redis-existing-secret
+    - name: statefulset-redis-master-rollout
+      result: pass
+      object: apps/v1|StatefulSet|redis|redis-master
+    - name: statefulset-redis-replicas-rollout
+      result: pass
+      object: apps/v1|StatefulSet|redis|redis-replicas
+    - name: redis-ping
+      result: pass
+      evidencePath: redis-pong.txt
+      evidenceSHA256: "9597e5d74f44f182ebb56b65a79c6b1b84829735af1ff583d44c3384d8a0a45e"
+    - name: redis-pvcs-bound
+      result: pass
+      count: 4
+  kubectlObjects:
+    path: kubectl-objects.txt
+    sha256: "970cdadfe145acd9734efd88cc385b86cdce3c1d98755c7070ec8bb662bccea1"

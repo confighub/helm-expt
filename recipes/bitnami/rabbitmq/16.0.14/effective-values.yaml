@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "bitnami-rabbitmq-16.0.14-generated-passwords"
+spec:
+  files:
+    -
+      path: "effective-values.yaml"
+      source: "inline-proof"
+      sha256: "3acdd157fd3dd030a160b73e6671b6c7ead1a7fba57acd6f3ac5577940de3646"
+  mergedValuesCaptured: false
+  values:
+    auth:
+      erlangCookie: "confighub-rabbitmq-erlang-cookie"
+      password: "confighub-rabbitmq-password"

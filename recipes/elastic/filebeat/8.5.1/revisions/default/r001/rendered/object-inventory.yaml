@@ -1,0 +1,56 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "elastic-filebeat-8-5-1-default-r001"
+  labels:
+    confighub.io/chart-ref: "elastic/filebeat"
+    confighub.io/chart-version: "8.5.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020"
+  objectCount: 7
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|DaemonSet||filebeat-filebeat"
+      kind: "DaemonSet"
+      name: "filebeat-filebeat"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||filebeat-filebeat-cluster-role-binding"
+      kind: "ClusterRoleBinding"
+      name: "filebeat-filebeat-cluster-role-binding"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||filebeat-filebeat-cluster-role"
+      kind: "ClusterRole"
+      name: "filebeat-filebeat-cluster-role"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding||filebeat-filebeat-role-binding"
+      kind: "RoleBinding"
+      name: "filebeat-filebeat-role-binding"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role||filebeat-filebeat-role"
+      kind: "Role"
+      name: "filebeat-filebeat-role"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap||filebeat-filebeat-daemonset-config"
+      kind: "ConfigMap"
+      name: "filebeat-filebeat-daemonset-config"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount||filebeat-filebeat"
+      kind: "ServiceAccount"
+      name: "filebeat-filebeat"
+      namespace: ""

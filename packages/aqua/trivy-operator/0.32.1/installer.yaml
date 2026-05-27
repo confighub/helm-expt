@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "aqua-trivy-operator"
+  version: "0.32.1"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "aqua/trivy-operator default variant rendered from aqua/trivy-operator@0.32.1"

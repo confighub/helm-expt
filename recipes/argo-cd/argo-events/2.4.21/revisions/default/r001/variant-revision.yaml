@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "argo-cd/argo-events"
+    confighub.io/chart-version: "2.4.21"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "e2477b480724b8af1d4ad07dac29be619cf606e7849d8dd5fe5becb2dbd6ac3d"
+  digestInputs:
+    recipeSHA256: "c0c22cc3b069a85e71a5ed057e2d975f9113264cecc73be681763874e29f9627"
+    variantSHA256: "59e05d8d14c55ac85f10ba0de9806aeeae62bea9edafedec75566b953b674c20"
+    effectiveValuesSHA256: "53f768fcce1b7c232fe432ce411115bbfaba6a393341437152f99515eca424c3"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "fe5c705f2f03410df75055542a79619c82947dafbf3f1c01c05eca2fc197503b"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 9

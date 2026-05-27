@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "gitlab-gitlab-runner-0-89-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "gitlab/gitlab-runner"
+    confighub.io/chart-version: "0.89.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "ad0d78b72ba8c9c6d896ee2faf620db82e9c52d2794f3dbbcbe6f3705c43d95e"
+  decision: "allow"
+  allowedScopes:
+    - "local-test"
+    - "review"
+    - "production-candidate"
+  blockedScopes:
+    []
+  reasons:
+    - "regular Helm output matches cub install setup for gitlab/gitlab-runner@0.89.0"
+    - "2 Helm objects are bound to renderedObjectSetSHA256"
+    - "rendered-object scan produced no findings in the local proof policy"

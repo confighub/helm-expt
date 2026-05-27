@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "elastic-logstash-8-5-1"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "elastic"
+  repositoryURL: "https://helm.elastic.co"
+  chart: "logstash"
+  ref: "elastic/logstash"
+  version: "8.5.1"
+  appVersion: "8.5.1"
+  packageSHA256: "70aace1eb5ecb759942e60ffd192a849330582900658a6b306055a9530adb44b"
+  packageBytes: 14197
+  capturedAt: "generated-by-next80-full-proof-harness"

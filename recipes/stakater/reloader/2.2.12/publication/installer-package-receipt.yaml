@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "stakater-reloader-2-2-12"
+spec:
+  chart:
+    repository: "stakater"
+    name: "reloader"
+    version: "2.2.12"
+  package:
+    path: "packages/stakater/reloader/2.2.12"
+    name: "stakater-reloader"
+    version: "2.2.12"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "bfc2c1842971dae9ca537d786fdfc55ee2875f12a62d4e54e2f3bcd5d676271f"
+        bytes: 198
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e"
+        bytes: 6708
+      -
+        path: "installer.yaml"
+        sha256: "647898377e271b3692b951b7fe33251f118669a4ff45f98ef32257e9db532876"
+        bytes: 306
+  deterministicBundle:
+    command: "cub install package packages/stakater/reloader/2.2.12 -o <tmp>/stakater-reloader-2-2-12.tgz"
+    sha256: "6b6facb3366b616b523a5fd81ed41620e108e418104619646255e756344c537d"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/stakater/reloader/2.2.12 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 6
+      cubInstallObjectCountIncludingSupport: 7
+      semanticObjectMatches: "6/6"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

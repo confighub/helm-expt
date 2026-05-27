@@ -1,0 +1,27 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "autoscaler-cluster-autoscaler-9-57-0"
+  labels:
+    confighub.io/chart-ref: "autoscaler/cluster-autoscaler"
+    confighub.io/chart-version: "9.57.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chart: "autoscaler/cluster-autoscaler"
+  version: "9.57.0"
+  maintainedNotes:
+    - "autoscaler/cluster-autoscaler@9.57.0 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+    - "Chart source contains tpl; raw templating extension slots need explicit ownership and review."
+    - "Rendered output includes cluster-scoped RBAC; production promotion needs RBAC review."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "variant-revision"
+    - "rendered-manifest-scan"
+    - "helm-equivalence"
+    - "tpl-extension-slots"
+    - "extension-slots"
+    - "cluster-rbac"
+  proofFocus: "cluster autoscaler, RBAC, cloud provider knobs"

@@ -1,0 +1,315 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "argo-cd-argo-cd-9.5.15"
+spec:
+  chart: "argo-cd/argo-cd"
+  version: "9.5.15"
+  objectCount: 49
+  kindCounts:
+    ClusterRole: 3
+    ClusterRoleBinding: 3
+    ConfigMap: 8
+    CustomResourceDefinition: 3
+    Deployment: 6
+    Role: 6
+    RoleBinding: 6
+    Secret: 2
+    Service: 5
+    ServiceAccount: 6
+    StatefulSet: 1
+  objects:
+    - 
+      apiVersion: "apiextensions.k8s.io/v1"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "applications.argoproj.io"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||applications.argoproj.io"
+    - 
+      apiVersion: "apiextensions.k8s.io/v1"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "applicationsets.argoproj.io"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||applicationsets.argoproj.io"
+    - 
+      apiVersion: "apiextensions.k8s.io/v1"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "appprojects.argoproj.io"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||appprojects.argoproj.io"
+    - 
+      apiVersion: "apps/v1"
+      kind: "Deployment"
+      namespace: "argocd"
+      name: "argo-cd-argocd-applicationset-controller"
+      identity: "apps/v1|Deployment|argocd|argo-cd-argocd-applicationset-controller"
+    - 
+      apiVersion: "apps/v1"
+      kind: "Deployment"
+      namespace: "argocd"
+      name: "argo-cd-argocd-dex-server"
+      identity: "apps/v1|Deployment|argocd|argo-cd-argocd-dex-server"
+    - 
+      apiVersion: "apps/v1"
+      kind: "Deployment"
+      namespace: "argocd"
+      name: "argo-cd-argocd-notifications-controller"
+      identity: "apps/v1|Deployment|argocd|argo-cd-argocd-notifications-controller"
+    - 
+      apiVersion: "apps/v1"
+      kind: "Deployment"
+      namespace: "argocd"
+      name: "argo-cd-argocd-redis"
+      identity: "apps/v1|Deployment|argocd|argo-cd-argocd-redis"
+    - 
+      apiVersion: "apps/v1"
+      kind: "Deployment"
+      namespace: "argocd"
+      name: "argo-cd-argocd-repo-server"
+      identity: "apps/v1|Deployment|argocd|argo-cd-argocd-repo-server"
+    - 
+      apiVersion: "apps/v1"
+      kind: "Deployment"
+      namespace: "argocd"
+      name: "argo-cd-argocd-server"
+      identity: "apps/v1|Deployment|argocd|argo-cd-argocd-server"
+    - 
+      apiVersion: "apps/v1"
+      kind: "StatefulSet"
+      namespace: "argocd"
+      name: "argo-cd-argocd-application-controller"
+      identity: "apps/v1|StatefulSet|argocd|argo-cd-argocd-application-controller"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRoleBinding"
+      namespace: ""
+      name: "argo-cd-argocd-application-controller"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||argo-cd-argocd-application-controller"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRoleBinding"
+      namespace: ""
+      name: "argo-cd-argocd-notifications-controller"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||argo-cd-argocd-notifications-controller"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRoleBinding"
+      namespace: ""
+      name: "argo-cd-argocd-server"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||argo-cd-argocd-server"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRole"
+      namespace: ""
+      name: "argo-cd-argocd-application-controller"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||argo-cd-argocd-application-controller"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRole"
+      namespace: ""
+      name: "argo-cd-argocd-notifications-controller"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||argo-cd-argocd-notifications-controller"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "ClusterRole"
+      namespace: ""
+      name: "argo-cd-argocd-server"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||argo-cd-argocd-server"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "RoleBinding"
+      namespace: "argocd"
+      name: "argo-cd-argocd-application-controller"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|argocd|argo-cd-argocd-application-controller"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "RoleBinding"
+      namespace: "argocd"
+      name: "argo-cd-argocd-applicationset-controller"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|argocd|argo-cd-argocd-applicationset-controller"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "RoleBinding"
+      namespace: "argocd"
+      name: "argo-cd-argocd-dex-server"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|argocd|argo-cd-argocd-dex-server"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "RoleBinding"
+      namespace: "argocd"
+      name: "argo-cd-argocd-notifications-controller"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|argocd|argo-cd-argocd-notifications-controller"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "RoleBinding"
+      namespace: "argocd"
+      name: "argo-cd-argocd-repo-server"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|argocd|argo-cd-argocd-repo-server"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "RoleBinding"
+      namespace: "argocd"
+      name: "argo-cd-argocd-server"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|argocd|argo-cd-argocd-server"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "Role"
+      namespace: "argocd"
+      name: "argo-cd-argocd-application-controller"
+      identity: "rbac.authorization.k8s.io/v1|Role|argocd|argo-cd-argocd-application-controller"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "Role"
+      namespace: "argocd"
+      name: "argo-cd-argocd-applicationset-controller"
+      identity: "rbac.authorization.k8s.io/v1|Role|argocd|argo-cd-argocd-applicationset-controller"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "Role"
+      namespace: "argocd"
+      name: "argo-cd-argocd-dex-server"
+      identity: "rbac.authorization.k8s.io/v1|Role|argocd|argo-cd-argocd-dex-server"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "Role"
+      namespace: "argocd"
+      name: "argo-cd-argocd-notifications-controller"
+      identity: "rbac.authorization.k8s.io/v1|Role|argocd|argo-cd-argocd-notifications-controller"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "Role"
+      namespace: "argocd"
+      name: "argo-cd-argocd-repo-server"
+      identity: "rbac.authorization.k8s.io/v1|Role|argocd|argo-cd-argocd-repo-server"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "Role"
+      namespace: "argocd"
+      name: "argo-cd-argocd-server"
+      identity: "rbac.authorization.k8s.io/v1|Role|argocd|argo-cd-argocd-server"
+    - 
+      apiVersion: "v1"
+      kind: "ConfigMap"
+      namespace: "argocd"
+      name: "argo-cd-argocd-redis-health-configmap"
+      identity: "v1|ConfigMap|argocd|argo-cd-argocd-redis-health-configmap"
+    - 
+      apiVersion: "v1"
+      kind: "ConfigMap"
+      namespace: "argocd"
+      name: "argocd-cm"
+      identity: "v1|ConfigMap|argocd|argocd-cm"
+    - 
+      apiVersion: "v1"
+      kind: "ConfigMap"
+      namespace: "argocd"
+      name: "argocd-cmd-params-cm"
+      identity: "v1|ConfigMap|argocd|argocd-cmd-params-cm"
+    - 
+      apiVersion: "v1"
+      kind: "ConfigMap"
+      namespace: "argocd"
+      name: "argocd-gpg-keys-cm"
+      identity: "v1|ConfigMap|argocd|argocd-gpg-keys-cm"
+    - 
+      apiVersion: "v1"
+      kind: "ConfigMap"
+      namespace: "argocd"
+      name: "argocd-notifications-cm"
+      identity: "v1|ConfigMap|argocd|argocd-notifications-cm"
+    - 
+      apiVersion: "v1"
+      kind: "ConfigMap"
+      namespace: "argocd"
+      name: "argocd-rbac-cm"
+      identity: "v1|ConfigMap|argocd|argocd-rbac-cm"
+    - 
+      apiVersion: "v1"
+      kind: "ConfigMap"
+      namespace: "argocd"
+      name: "argocd-ssh-known-hosts-cm"
+      identity: "v1|ConfigMap|argocd|argocd-ssh-known-hosts-cm"
+    - 
+      apiVersion: "v1"
+      kind: "ConfigMap"
+      namespace: "argocd"
+      name: "argocd-tls-certs-cm"
+      identity: "v1|ConfigMap|argocd|argocd-tls-certs-cm"
+    - 
+      apiVersion: "v1"
+      kind: "Secret"
+      namespace: "argocd"
+      name: "argocd-notifications-secret"
+      identity: "v1|Secret|argocd|argocd-notifications-secret"
+    - 
+      apiVersion: "v1"
+      kind: "Secret"
+      namespace: "argocd"
+      name: "argocd-secret"
+      identity: "v1|Secret|argocd|argocd-secret"
+    - 
+      apiVersion: "v1"
+      kind: "ServiceAccount"
+      namespace: "argocd"
+      name: "argo-cd-argocd-repo-server"
+      identity: "v1|ServiceAccount|argocd|argo-cd-argocd-repo-server"
+    - 
+      apiVersion: "v1"
+      kind: "ServiceAccount"
+      namespace: "argocd"
+      name: "argocd-application-controller"
+      identity: "v1|ServiceAccount|argocd|argocd-application-controller"
+    - 
+      apiVersion: "v1"
+      kind: "ServiceAccount"
+      namespace: "argocd"
+      name: "argocd-applicationset-controller"
+      identity: "v1|ServiceAccount|argocd|argocd-applicationset-controller"
+    - 
+      apiVersion: "v1"
+      kind: "ServiceAccount"
+      namespace: "argocd"
+      name: "argocd-dex-server"
+      identity: "v1|ServiceAccount|argocd|argocd-dex-server"
+    - 
+      apiVersion: "v1"
+      kind: "ServiceAccount"
+      namespace: "argocd"
+      name: "argocd-notifications-controller"
+      identity: "v1|ServiceAccount|argocd|argocd-notifications-controller"
+    - 
+      apiVersion: "v1"
+      kind: "ServiceAccount"
+      namespace: "argocd"
+      name: "argocd-server"
+      identity: "v1|ServiceAccount|argocd|argocd-server"
+    - 
+      apiVersion: "v1"
+      kind: "Service"
+      namespace: "argocd"
+      name: "argo-cd-argocd-applicationset-controller"
+      identity: "v1|Service|argocd|argo-cd-argocd-applicationset-controller"
+    - 
+      apiVersion: "v1"
+      kind: "Service"
+      namespace: "argocd"
+      name: "argo-cd-argocd-dex-server"
+      identity: "v1|Service|argocd|argo-cd-argocd-dex-server"
+    - 
+      apiVersion: "v1"
+      kind: "Service"
+      namespace: "argocd"
+      name: "argo-cd-argocd-redis"
+      identity: "v1|Service|argocd|argo-cd-argocd-redis"
+    - 
+      apiVersion: "v1"
+      kind: "Service"
+      namespace: "argocd"
+      name: "argo-cd-argocd-repo-server"
+      identity: "v1|Service|argocd|argo-cd-argocd-repo-server"
+    - 
+      apiVersion: "v1"
+      kind: "Service"
+      namespace: "argocd"
+      name: "argo-cd-argocd-server"
+      identity: "v1|Service|argocd|argo-cd-argocd-server"

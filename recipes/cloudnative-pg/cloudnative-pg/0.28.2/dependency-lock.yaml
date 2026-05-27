@@ -1,0 +1,14 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "cloudnative-pg-cloudnative-pg-0-28-2"
+spec:
+  chart: "cloudnative-pg/cloudnative-pg"
+  version: "0.28.2"
+  dependencies:
+    -
+      name: "cluster"
+      version: "0.0"
+      repository: "https://cloudnative-pg.github.io/grafana-dashboards"
+      condition: "monitoring.grafanaDashboard.create"
+      alias: "monitoring"

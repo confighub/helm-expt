@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "prometheus-community/kube-state-metrics"
+    confighub.io/chart-version: "7.4.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "8d1ccc9d232b53495874312d2cca7ee5863a259f283db072cdece033e8addb5f"
+  digestInputs:
+    recipeSHA256: "d0be8b90216ae93bc363b9c1fdbda7407afc9eef230c2b46993947b3b24edc47"
+    variantSHA256: "b8440c9c5b76bdf66e0f8496ac3efbfffc99567ae878fd1b9d8eb606bd6d6b40"
+    effectiveValuesSHA256: "f19aafe9a8b0ba7eec97b3a1d1165dc4f476a1dacc4dde2968d397952b91085b"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 5

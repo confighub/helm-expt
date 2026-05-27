@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "argo-cd-argo-rollouts-2-40-9"
+spec:
+  chart: "argo-cd/argo-rollouts"
+  version: "2.40.9"
+  dependencies:
+    []

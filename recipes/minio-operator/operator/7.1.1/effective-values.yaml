@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "minio-operator-operator-7-1-1-default"
+  labels:
+    confighub.io/chart-ref: "minio-operator/operator"
+    confighub.io/chart-version: "7.1.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "531d72af522202d883f9f05f038f15dc768e291755e0a1a17b765d733ed5b235"
+  mergedValuesCaptured: false
+  values:
+    {}

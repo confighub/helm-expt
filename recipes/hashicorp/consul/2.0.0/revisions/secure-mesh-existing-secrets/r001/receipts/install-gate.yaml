@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "consul-secure-mesh-existing-secrets-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "f44c496151f7893383bbc25e4c0b4f8bcb5ce62136d3d0e3df84d846e2506dd1"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for secure-mesh-existing-secrets"
+    - "Consul TLS, ACL, gossip, gateway, CRD, and UI posture are explicit variant choices"
+    - "Helm hook behavior needs explicit lifecycle policy before production"
+    - "Consul CRDs, cluster RBAC, injector webhooks, StatefulSet storage, gateway topology, UI ingress, ACL init Job, and extension slots need production review"
+    - "requires target Secrets for CA, server certificate, gossip key, and ACL bootstrap token before apply"

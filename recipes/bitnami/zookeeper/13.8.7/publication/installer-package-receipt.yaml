@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "bitnami-zookeeper-13-8-7"
+spec:
+  chart:
+    repository: "bitnami"
+    name: "zookeeper"
+    version: "13.8.7"
+  package:
+    path: "packages/bitnami/zookeeper/13.8.7"
+    name: "bitnami-zookeeper"
+    version: "13.8.7"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "e40800b1d1942e1d954f8a56914b59e56938ef35078cf15d6eed6970b8c6fc29"
+        bytes: 198
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "67672a9bfa85db38f8485736cd19f80ccec599fc17c2c5bb154e3c2feeb54bdb"
+        bytes: 10514
+      -
+        path: "installer.yaml"
+        sha256: "6c3ce051306f91f6287d688e362b05f224cdd1f17c7273b953262c7b676425e7"
+        bytes: 306
+  deterministicBundle:
+    command: "cub install package packages/bitnami/zookeeper/13.8.7 -o <tmp>/bitnami-zookeeper-13-8-7.tgz"
+    sha256: "3973a58ed6b58954bfefb4b51c54b1ed59773f3d682eb3b073f131715d1e2813"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/bitnami/zookeeper/13.8.7 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 7
+      cubInstallObjectCountIncludingSupport: 8
+      semanticObjectMatches: "7/7"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

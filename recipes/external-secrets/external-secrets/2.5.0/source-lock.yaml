@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "external-secrets-external-secrets-2.5.0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "external-secrets"
+  repositoryURL: "https://charts.external-secrets.io"
+  chart: "external-secrets"
+  version: "2.5.0"
+  appVersion: "v2.5.0"
+  packageSHA256: "7f8cb50cd236cc0f8476b333119cb507a3becdc896fdb7ab16329e521911018f"
+  packageBytes: 185739
+  evidence:
+    harnessReceipt: "../../../../data/adversarial10/charts/external-secrets-external-secrets-2.5.0/render-receipt.yaml"

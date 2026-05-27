@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "aqua-trivy-operator-0-32-1"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "aqua"
+  repositoryURL: "https://aquasecurity.github.io/helm-charts/"
+  chart: "trivy-operator"
+  ref: "aqua/trivy-operator"
+  version: "0.32.1"
+  appVersion: "0.30.1"
+  packageSHA256: "2dfb5c7f8a2b8cd338208c362b88e4eae607b24f199226c31a6f5bb76c7ace08"
+  packageBytes: 52009
+  capturedAt: "generated-by-next80-full-proof-harness"

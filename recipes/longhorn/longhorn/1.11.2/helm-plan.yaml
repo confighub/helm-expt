@@ -1,0 +1,32 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "longhorn-longhorn-1.11.2"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "longhorn/longhorn"
+    version: "1.11.2"
+    variants:
+      - "default"
+      - "ui-ingress"
+    helmObjectsByVariant:
+      default: 41
+      ui-ingress: 42
+    cubInstallObjectsByVariant:
+      default: 42
+      ui-ingress: 43
+    helmMatchByVariant:
+      default: "41/41"
+      ui-ingress: "42/42"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish only after CRD lifecycle/upgrade policy, admission/recovery observation policy, pre-upgrade hook policy, privileged storage workload policy, UI ingress policy, and cluster RBAC review are satisfied"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "revisions/ui-ingress/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/ui-ingress/r001/receipts/render-receipt.yaml"
+    - "revisions/ui-ingress/r001/receipts/scan-receipt.yaml"
+    - "revisions/ui-ingress/r001/receipts/install-gate.yaml"

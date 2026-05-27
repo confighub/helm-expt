@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "grafana-rollout-operator-0-49-0"
+  labels:
+    confighub.io/chart-ref: "grafana/rollout-operator"
+    confighub.io/chart-version: "0.49.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "grafana/rollout-operator"
+    version: "0.49.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 15
+    cubInstallObjectsByVariant:
+      default: 16
+    helmMatchByVariant:
+      default: "15/15"
+    renderedObjectSetSHA256: "dc6b652767aec075b147247c38dbce391bb86750a54e749a45576fd6791d4763"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

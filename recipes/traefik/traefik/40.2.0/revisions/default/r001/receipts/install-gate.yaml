@@ -1,0 +1,22 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "traefik-traefik-40-2-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "traefik/traefik"
+    confighub.io/chart-version: "40.2.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "84b1e950901024fda7bb0be73aba239015712ae0c3d4cb0ecabcb091abc53c09"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+    - "review"
+  blockedScopes:
+    - "production-without-review"
+  reasons:
+    - "regular Helm output matches cub install setup for traefik/traefik@40.2.0"
+    - "31 Helm objects are bound to renderedObjectSetSHA256"
+    - "rendered-object scan has review findings; see scan-receipt.yaml"

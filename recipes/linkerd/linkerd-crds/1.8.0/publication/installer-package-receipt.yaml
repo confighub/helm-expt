@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "linkerd-linkerd-crds-1-8-0"
+spec:
+  chart:
+    repository: "linkerd"
+    name: "linkerd-crds"
+    version: "1.8.0"
+  package:
+    path: "packages/linkerd/linkerd-crds/1.8.0"
+    name: "linkerd-linkerd-crds"
+    version: "1.8.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "46fa3fda8e0e2b4089ed3edb60e05942075ac8869dbb6cae684feb0c5577a8a4"
+        bytes: 200
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b"
+        bytes: 653309
+      -
+        path: "installer.yaml"
+        sha256: "a46716f3da9ec4b6781add7bc63a1c23baf0acc19b65958b6472a13151491b60"
+        bytes: 313
+  deterministicBundle:
+    command: "cub install package packages/linkerd/linkerd-crds/1.8.0 -o <tmp>/linkerd-linkerd-crds-1-8-0.tgz"
+    sha256: "770b6955ef2813a73f01b4641cfe80c890918cefeb0f0b29d546e63d9a3c5b42"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/linkerd/linkerd-crds/1.8.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 8
+      cubInstallObjectCountIncludingSupport: 9
+      semanticObjectMatches: "8/8"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

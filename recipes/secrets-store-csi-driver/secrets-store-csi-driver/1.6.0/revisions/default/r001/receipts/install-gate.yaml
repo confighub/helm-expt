@@ -1,0 +1,20 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "secrets-store-csi-driver-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "2490f14dd08f7e309f8f78cd1c2f1b05eb5b8995343b33ad6b3b243401a39ead"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for default"
+    - "CRD lifecycle and upgrade policy must be explicit before production"
+    - "CSI DaemonSet privileged-node, hostPath, rollout, and rollback policy need production review"
+    - "SecretProviderClass provider identity and token-request policy must be explicit before production"
+    - "Synced Secret ownership and rotation behavior need production review"
+    - "Cluster RBAC and CSIDriver kubelet integration need production review"
+    - "installs the CSI driver and CRDs; SecretProviderClass provider behavior remains a post-install integration decision"

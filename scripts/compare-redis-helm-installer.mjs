@@ -1,28 +1,30 @@
-import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import {
   existsSync,
   mkdtempSync,
   readdirSync,
   readFileSync,
   rmSync,
+  writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 
 const repoRoot = process.cwd();
-const redisPackage = resolve(
-  repoRoot,
-  "archive/render-and-vendor-top20/charts/06-bitnami-redis",
-);
-const valuesFile = join(redisPackage, "values.yaml");
-const upstreamYaml = join(redisPackage, "base/upstream.yaml");
-const receiptFile = join(redisPackage, "helm-import.receipt.yaml");
+const redisArchiveFixture = resolve(repoRoot, "archive/render-and-vendor-top20/charts/06-bitnami-redis");
+const redisInstallerPackage = resolve(repoRoot, "packages/bitnami/redis/25.5.3");
+const proofRoot = resolve(repoRoot, "recipes/bitnami/redis/25.5.3");
+const receiptFile = join(redisArchiveFixture, "helm-import.receipt.yaml");
+const chartRef = "oci://registry-1.docker.io/bitnamicharts/redis";
+const chartVersion = "25.5.3";
+const releaseName = "redis";
+const namespace = "redis";
+const kubeVersion = "1.30.0";
 
 const env = { ...process.env };
 try {
-  const goPath = execFileSync("go", ["env", "GOPATH"], { encoding: "utf8" })
-    .trim();
+  const goPath = execFileSync("go", ["env", "GOPATH"], { encoding: "utf8" }).trim();
   const goBin = join(goPath, "bin");
   if (!env.PATH?.split(":").includes(goBin)) {
     env.PATH = `${env.PATH ?? ""}:${goBin}`;
@@ -32,125 +34,44 @@ try {
 }
 
 const tempRoot = mkdtempSync(join(tmpdir(), "helm-expt-redis-compare-"));
-const workDir = join(tempRoot, "installer-work");
 let ok = false;
 
 try {
   const receipt = readFileSync(receiptFile, "utf8");
-  const expectedHelmSHA = receipt.match(/upstreamYAMLSHA256:\s+"([^"]+)"/)?.[1];
-  if (!expectedHelmSHA) {
+  const expectedDefaultHelmSHA = receipt.match(/upstreamYAMLSHA256:\s+"([^"]+)"/)?.[1];
+  if (!expectedDefaultHelmSHA) {
     throw new Error(`Could not read upstreamYAMLSHA256 from ${receiptFile}`);
   }
 
-  console.log("Rendering Redis with Helm using the captured import inputs...");
-  const helmYaml = execFileSync(
-    "helm",
-    [
-      "template",
-      "redis",
-      "oci://registry-1.docker.io/bitnamicharts/redis",
-      "--version",
-      "25.5.3",
-      "--namespace",
-      "redis",
-      "--values",
-      valuesFile,
-      "--kube-version",
-      "1.30.0",
-      "--include-crds",
-      "--skip-tests",
-      "--no-hooks",
-    ],
-    { encoding: "utf8", env, stdio: ["ignore", "pipe", "inherit"] },
-  );
+  const variants = [
+    {
+      name: "default",
+      base: "default",
+      valuesText: readFileSync(join(redisArchiveFixture, "values.yaml"), "utf8"),
+      expectedYamlPath: join(proofRoot, "revisions", "default", "r001", "rendered", "release-objects.yaml"),
+      expectedHelmSHA: expectedDefaultHelmSHA,
+      normalizeWhitespace: false,
+    },
+    {
+      name: "reuse-existing-secret",
+      base: "reuse-existing-secret",
+      valuesText: "auth:\n  existingSecret: redis-existing-secret\n  existingSecretPasswordKey: redis-password\n",
+      expectedYamlPath: join(
+        proofRoot,
+        "revisions",
+        "reuse-existing-secret",
+        "r001",
+        "rendered",
+        "release-objects.yaml",
+      ),
+      normalizeWhitespace: true,
+    },
+  ];
 
-  const helmSHA = sha256(helmYaml);
-  assertEqual(
-    helmSHA,
-    expectedHelmSHA,
-    "fresh Helm render must match helm-import.receipt.yaml",
-  );
-
-  const archivedYaml = readFileSync(upstreamYaml, "utf8");
-  assertEqual(
-    sha256(archivedYaml),
-    expectedHelmSHA,
-    "archived upstream.yaml must match helm-import.receipt.yaml",
-  );
-  assertEqual(
-    helmYaml,
-    archivedYaml,
-    "fresh Helm render must byte-match archived upstream.yaml",
-  );
-
-  console.log("Rendering the same Redis package with cub install setup...");
-  const setupOutput = execFileSync(
-    "cub",
-    [
-      "install",
-      "setup",
-      "--pull",
-      redisPackage,
-      "--work-dir",
-      workDir,
-      "--non-interactive",
-      "--namespace",
-      "redis",
-    ],
-    { encoding: "utf8", env, stdio: ["ignore", "pipe", "inherit"] },
-  );
-  process.stdout.write(setupOutput);
-
-  const helmObjects = objectKeySetFromYaml(helmYaml);
-  const cubObjectFiles = objectFilesFromDirs([
-    join(workDir, "out/manifests"),
-    join(workDir, "out/secrets"),
-  ]);
-  const cubYaml = cubObjectFiles.map((file) => file.yaml).join("\n---\n");
-  const semantic = canonicalObjectMaps(helmYaml, cubYaml);
-  const cubObjects = new Set(Object.keys(semantic.cub));
-
-  const missingFromCub = difference(helmObjects, cubObjects);
-  if (missingFromCub.length) {
-    throw new Error(
-      `cub install output is missing Helm object(s):\n${missingFromCub.join(
-        "\n",
-      )}`,
-    );
+  for (const variant of variants) {
+    compareVariant(variant);
   }
 
-  const extraInCub = difference(cubObjects, helmObjects);
-  assertEqual(
-    JSON.stringify(extraInCub),
-    JSON.stringify(["v1|Namespace||redis"]),
-    "cub install may add only the explicit namespace support object",
-  );
-
-  const semanticDiffs = [];
-  for (const key of helmObjects) {
-    if (semantic.helm[key] !== semantic.cub[key]) {
-      semanticDiffs.push(key);
-    }
-  }
-  if (semanticDiffs.length) {
-    throw new Error(
-      `cub install output differs semantically from Helm object(s):\n${semanticDiffs.join(
-        "\n",
-      )}`,
-    );
-  }
-
-  const manifestFiles = listYamlFiles(join(workDir, "out/manifests"));
-  const secretFiles = listYamlFiles(join(workDir, "out/secrets"));
-
-  console.log("\nComparison passed.");
-  console.log(`Helm render SHA256: ${helmSHA}`);
-  console.log(`Helm objects: ${helmObjects.size}`);
-  console.log(`cub install objects: ${cubObjects.size}`);
-  console.log(`semantic object matches: ${helmObjects.size}/${helmObjects.size}`);
-  console.log(`cub uploaded-manifest files: ${manifestFiles.length}`);
-  console.log(`cub separated-secret files: ${secretFiles.length}`);
-  console.log("Allowed cub-only object: v1|Namespace||redis");
   ok = true;
 } finally {
   if (ok) {
@@ -160,8 +81,122 @@ try {
   }
 }
 
+function compareVariant(variant) {
+  console.log(`\nComparing Redis variant: ${variant.name}`);
+  console.log("Rendering Redis with Helm using the captured variant inputs...");
+  const helmYaml = variant.normalizeWhitespace ? stripTrailingWhitespace(renderHelm(variant.valuesText)) : renderHelm(variant.valuesText);
+  const helmSHA = sha256(helmYaml);
+  const expectedYaml = variant.normalizeWhitespace
+    ? stripTrailingWhitespace(readFileSync(variant.expectedYamlPath, "utf8"))
+    : readFileSync(variant.expectedYamlPath, "utf8");
+  const expectedSHA = sha256(expectedYaml);
+
+  if (variant.expectedHelmSHA) {
+    assertEqual(helmSHA, variant.expectedHelmSHA, `${variant.name} fresh Helm render must match receipt SHA`);
+  }
+  assertEqual(helmSHA, expectedSHA, `${variant.name} fresh Helm render must match stored release-objects.yaml`);
+  assertEqual(helmYaml, expectedYaml, `${variant.name} fresh Helm render must byte-match stored release objects`);
+
+  if (!existsSync(redisInstallerPackage)) {
+    throw new Error(`Missing Redis installer package ${redisInstallerPackage}; run npm run redis:generate-package`);
+  }
+  const workDir = join(tempRoot, `installer-work-${variant.name}`);
+
+  console.log("Rendering the same Redis package with cub install setup...");
+  const setupOutput = execFileSync(
+    "cub",
+    [
+      "install",
+      "setup",
+      "--pull",
+      redisInstallerPackage,
+      "--base",
+      variant.base,
+      "--work-dir",
+      workDir,
+      "--non-interactive",
+      "--namespace",
+      namespace,
+    ],
+    { encoding: "utf8", env, stdio: ["ignore", "pipe", "inherit"] },
+  );
+  process.stdout.write(setupOutput);
+
+  const helmObjects = objectKeySetFromYaml(helmYaml);
+  const cubObjectFiles = objectFilesFromDirs([join(workDir, "out/manifests"), join(workDir, "out/secrets")]);
+  const cubYaml = cubObjectFiles.map((file) => file.yaml).join("\n---\n");
+  const semantic = canonicalObjectMaps(helmYaml, cubYaml);
+  const cubObjects = new Set(Object.keys(semantic.cub));
+
+  const missingFromCub = difference(helmObjects, cubObjects);
+  if (missingFromCub.length) {
+    throw new Error(`cub install output is missing Helm object(s):\n${missingFromCub.join("\n")}`);
+  }
+
+  const extraInCub = difference(cubObjects, helmObjects);
+  assertEqual(
+    JSON.stringify(extraInCub),
+    JSON.stringify(["v1|Namespace||redis"]),
+    `${variant.name} cub install may add only the explicit namespace support object`,
+  );
+
+  const semanticDiffs = [];
+  for (const key of helmObjects) {
+    if (semantic.helm[key] !== semantic.cub[key]) semanticDiffs.push(key);
+  }
+  if (semanticDiffs.length) {
+    throw new Error(`cub install output differs semantically from Helm object(s):\n${semanticDiffs.join("\n")}`);
+  }
+
+  const manifestFiles = listYamlFiles(join(workDir, "out/manifests"));
+  const secretFiles = listYamlFiles(join(workDir, "out/secrets"));
+
+  console.log("\nComparison passed.");
+  console.log(`Variant: ${variant.name}`);
+  console.log(`Helm render SHA256: ${helmSHA}`);
+  console.log(`Helm objects: ${helmObjects.size}`);
+  console.log(`cub install objects: ${cubObjects.size}`);
+  console.log(`semantic object matches: ${helmObjects.size}/${helmObjects.size}`);
+  console.log(`cub uploaded-manifest files: ${manifestFiles.length}`);
+  console.log(`cub separated-secret files: ${secretFiles.length}`);
+  console.log("Allowed cub-only object: v1|Namespace||redis");
+}
+
+function renderHelm(valuesText) {
+  const variantRoot = mkdtempSync(join(tempRoot, "values-"));
+  const valuesPath = join(variantRoot, "values.yaml");
+  writeFileSync(valuesPath, valuesText);
+  return execFileSync(
+    "helm",
+    [
+      "template",
+      releaseName,
+      chartRef,
+      "--version",
+      chartVersion,
+      "--namespace",
+      namespace,
+      "--values",
+      valuesPath,
+      "--kube-version",
+      kubeVersion,
+      "--include-crds",
+      "--skip-tests",
+      "--no-hooks",
+    ],
+    { encoding: "utf8", env, stdio: ["ignore", "pipe", "inherit"], maxBuffer: 1024 * 1024 * 100 },
+  );
+}
+
 function sha256(text) {
   return createHash("sha256").update(text).digest("hex");
+}
+
+function stripTrailingWhitespace(text) {
+  return text
+    .split("\n")
+    .map((line) => line.trimEnd())
+    .join("\n");
 }
 
 function assertEqual(actual, expected, message) {

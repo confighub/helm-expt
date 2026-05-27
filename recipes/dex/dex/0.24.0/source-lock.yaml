@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "dex-dex-0-24-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "dex"
+  repositoryURL: "https://charts.dexidp.io"
+  chart: "dex"
+  ref: "dex/dex"
+  version: "0.24.0"
+  appVersion: "2.44.0"
+  packageSHA256: "24d486ac2182b919483a9840339997443793ce637e3f10d37ab3284eaa229d33"
+  packageBytes: 16493
+  capturedAt: "generated-by-next80-full-proof-harness"

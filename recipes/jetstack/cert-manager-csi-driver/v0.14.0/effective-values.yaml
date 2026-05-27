@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "jetstack-cert-manager-csi-driver-v0-14-0-default"
+  labels:
+    confighub.io/chart-ref: "jetstack/cert-manager-csi-driver"
+    confighub.io/chart-version: "v0.14.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "3558431cdb6d5a11afcfb7a307256112c2a98cdcc0701af76122ce3f010ddda7"
+  mergedValuesCaptured: false
+  values:
+    {}

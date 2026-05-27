@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "nats-surveyor"
+  version: "0.20.9"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "nats/surveyor default variant rendered from nats/surveyor@0.20.9"

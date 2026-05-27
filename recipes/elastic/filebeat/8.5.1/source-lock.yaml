@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "elastic-filebeat-8-5-1"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "elastic"
+  repositoryURL: "https://helm.elastic.co"
+  chart: "filebeat"
+  ref: "elastic/filebeat"
+  version: "8.5.1"
+  appVersion: "8.5.1"
+  packageSHA256: "a705f1aacc5dffbcb6f817acb2f7613a5e6e74eb68a66fdbcbfbb37bde55bd4d"
+  packageBytes: 12918
+  capturedAt: "generated-by-next80-full-proof-harness"

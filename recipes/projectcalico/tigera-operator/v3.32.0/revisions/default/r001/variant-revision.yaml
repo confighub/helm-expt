@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "projectcalico/tigera-operator"
+    confighub.io/chart-version: "v3.32.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "8abc7074cbf61a78fbd594cfc8386e8dd43f4825ac9617e2ee087433f33d3ab3"
+  digestInputs:
+    recipeSHA256: "f2a0b06d3120d274e02c6a326d238b86500919ee7eaae19f657703ec392e715f"
+    variantSHA256: "4d04a5332aba492c9decaedbeb710013af5dca9fad76047e85328d186f04471a"
+    effectiveValuesSHA256: "66cdc3b1a47d761538e6487671c7d49221133f0154c521cddf2fac0b6c7cd55a"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "9ce56a65a1b0ca63aec202cb662a5389fe6a6a55e6d4b9db9920febcc5b2b350"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 10

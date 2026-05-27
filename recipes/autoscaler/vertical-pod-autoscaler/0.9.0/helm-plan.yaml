@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "autoscaler-vertical-pod-autoscaler-0-9-0"
+  labels:
+    confighub.io/chart-ref: "autoscaler/vertical-pod-autoscaler"
+    confighub.io/chart-version: "0.9.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "autoscaler/vertical-pod-autoscaler"
+    version: "0.9.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 39
+    cubInstallObjectsByVariant:
+      default: 40
+    helmMatchByVariant:
+      default: "39/39"
+    renderedObjectSetSHA256: "9d7307f629bdc478fa0c9bc6646359976b96d0cfd549bd66c13442facfa57490"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

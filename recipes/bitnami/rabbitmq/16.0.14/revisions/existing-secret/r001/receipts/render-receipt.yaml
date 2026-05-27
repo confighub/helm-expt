@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "rabbitmq-existing-secret-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "5fa8dff3109514e51d6438e15d2cf45920b28846b9ac7a1c2219e992de12bf95"
+    dependencyLockSHA256: "75d255da05ae9641fb0911bbc5b1a0504055a56d22a4278821dbcd120dd0d1a2"
+    effectiveValuesSHA256: "b064c515f9fa314daff5c662dbafb9c52909b0ac211febd1d58aa3f95abaf665"
+  outputs:
+    renderedObjectSetSHA256: "d508ba5a873dbb2e1fa08b6bc227b1177d84fc1285b1aac974d59d28e9645d63"
+    renderedObjectInventorySHA256: "c0c793343582859272568edccd6493786a9c6e71543168303ca7b1c30ef4da6e"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 9
+    renderedSecretCount: 1
+    secretCountSeparatedByCubInstall: 1

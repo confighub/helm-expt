@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "consul-default-control-plane-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "467ec5aadeb6aee76362da376763563d7a1ea4146f5b5098cfdaa0784c961e3f"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for default-control-plane"
+    - "Consul TLS, ACL, gossip, gateway, CRD, and UI posture are explicit variant choices"
+    - "Helm hook behavior needs explicit lifecycle policy before production"
+    - "Consul CRDs, cluster RBAC, injector webhooks, StatefulSet storage, gateway topology, UI ingress, ACL init Job, and extension slots need production review"
+    - "uses chart-default Consul control-plane posture; TLS and ACLs are disabled and must be policy-reviewed before production"

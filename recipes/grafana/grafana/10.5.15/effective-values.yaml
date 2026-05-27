@@ -1,0 +1,13 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "grafana-grafana-10.5.15-generated-passwords"
+spec:
+  files:
+    -
+      path: "effective-values.yaml"
+      source: "inline-proof"
+      sha256: "ec0a5750181cb20cd7b9e86020395156ed6569a5bac5be6ddd1da461231add69"
+  mergedValuesCaptured: false
+  values:
+    adminPassword: "confighub-grafana-admin-password"

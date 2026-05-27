@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "aqua/trivy-operator"
+    confighub.io/chart-version: "0.32.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "081b6a7123204015bf5b972d7be7539f946ce988cfc670ff8a11926d5f005fe4"
+  digestInputs:
+    recipeSHA256: "f05d1ae29d3ef88087bfe95835134ad86b0442bff664a17b18036229ec6fbb77"
+    variantSHA256: "54ffe913cffb6516db28f040c1734c54aa53030683139169578cb7371d75b01a"
+    effectiveValuesSHA256: "46d4b0552e6d7489f90123600b314fc322b6d1a18981aff6ca99a22f8018c9ac"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "4728643a42924d6af2c0b2b4f1f616938c31b6271ed7e32bac2ce36e5e339a25"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 33

@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "nats-nack-0-34-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "nats/nack"
+    confighub.io/chart-version: "0.34.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "2ae217ed2d503769e7a887f8ad706073c79c1ae26ce5cb05740bebffbffbed2c"
+    dependencyLockSHA256: "b9fb5890a4bb9d6e25c3ae185b8f95d57a64fc0f00d146b2ca1a4faca75a169c"
+    effectiveValuesSHA256: "6eace24ca763340bddd72d8b43aaf58d965156730cadefb86754deb87bdbffdf"
+  outputs:
+    renderedObjectSetSHA256: "3578a1e913da259083e95b1bca9492a5e1aac8ae270e2871eb05c5f0c5f6c3c9"
+    renderedObjectInventorySHA256: "25906cba505bcfe7d17ffd4df0955a2a860ebcc85f44b5a85f70855ecbfdb3d2"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 10
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

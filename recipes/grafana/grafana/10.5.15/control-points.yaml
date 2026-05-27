@@ -1,0 +1,54 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ControlPoints"
+metadata:
+  name: "grafana-grafana-10.5.15"
+spec:
+  points:
+    -
+      category: "source-lock"
+      status: "handled"
+      evidence: "source-lock.yaml"
+    -
+      category: "dependency-lock"
+      status: "handled"
+      evidence: "dependency-lock.yaml"
+      note: "chart declares no subchart dependencies; the empty closure is recorded explicitly."
+    -
+      category: "capability-profile"
+      status: "handled"
+      kubeVersion: "1.30.0"
+      note: "Kubernetes API and version branches are bound to the named Kubernetes capability profile."
+    -
+      category: "generated-facts"
+      status: "variant-controlled"
+      evidence: "adminPassword"
+      note: "The generated-passwords variant binds the generated Grafana admin password before render so Helm output is deterministic."
+    -
+      category: "target-facts"
+      status: "variant-controlled"
+      evidence: "admin.existingSecret"
+      note: "The existing-secret-ingress variant declares the target Secret instead of rendering one."
+    -
+      category: "deployment-workload"
+      status: "scan-and-review"
+      object: "apps/v1|Deployment|grafana|grafana"
+    -
+      category: "ui-ingress-policy"
+      status: "variant-controlled"
+      object: "networking.k8s.io/v1|Ingress|grafana|grafana"
+    -
+      category: "cluster-rbac"
+      status: "scan-and-review"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||grafana-clusterrole"
+    -
+      category: "extension-slots"
+      status: "controlled-by-empty-defaults"
+      note: "datasource, dashboard, plugin, sidecar, and Secret/env slots are empty in promoted variants."
+    -
+      category: "chart-deprecation"
+      status: "noted"
+      note: "Chart.yaml marks this chart version as deprecated; the proof records the fact but still verifies the public chart output."
+    -
+      category: "installer-support-object"
+      status: "handled"
+      object: "v1|Namespace||grafana"

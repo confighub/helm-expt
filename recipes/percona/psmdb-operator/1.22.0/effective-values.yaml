@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "percona-psmdb-operator-1-22-0-default"
+  labels:
+    confighub.io/chart-ref: "percona/psmdb-operator"
+    confighub.io/chart-version: "1.22.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "db1e5ed344cb9e6c8dddab9d974cc5e97756d851af8e3fa232f300ebe23e82a0"
+  mergedValuesCaptured: false
+  values:
+    {}

@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "vault-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "a2e1b05945bf52e50d934fa147e46f4f2671deca0cb5c989d92302a3df5a8b8e"
+    dependencyLockSHA256: "9433720294172da44f6e0074daae489ad2f3d802f418a0ef105a1d76c45f1179"
+    effectiveValuesSHA256: "9e4afed5be87389e7094891545e22415e88542dd74c72fb3ca435c5008645749"
+  outputs:
+    renderedObjectSetSHA256: "6de2d61c8de0c21faa951e89ec16658bcdff22e69d78075fdd394d895a5e6978"
+    renderedObjectInventorySHA256: "c468abf3aa1de855bbb3c27458f71290f0e548a72358a65d1ce00f4834de5f8b"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 12
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

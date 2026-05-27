@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "istio-istiod-1-30-0"
+spec:
+  chart:
+    repository: "istio"
+    name: "istiod"
+    version: "1.30.0"
+  package:
+    path: "packages/istio/istiod/1.30.0"
+    name: "istio-istiod"
+    version: "1.30.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "88319e19dd0d13270b676c263f4d252801125d1f55f1d8051ceff0648f2f5e77"
+        bytes: 193
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "53385181293dd9a8228f37a370148dde3cc77acecf5a3a8539fa1b8eb0f9afdf"
+        bytes: 147073
+      -
+        path: "installer.yaml"
+        sha256: "9e75b47b38e4ac4a50f21cc04809610ed9d4189cbaf5cc61405cb110ee2e5907"
+        bytes: 291
+  deterministicBundle:
+    command: "cub install package packages/istio/istiod/1.30.0 -o <tmp>/istio-istiod-1-30-0.tgz"
+    sha256: "4df6dad3315bc5087397f208dd1f1f0b0c128e4e63f998747cd1d3c9fc654c7e"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/istio/istiod/1.30.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 17
+      cubInstallObjectCountIncludingSupport: 18
+      semanticObjectMatches: "17/17"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

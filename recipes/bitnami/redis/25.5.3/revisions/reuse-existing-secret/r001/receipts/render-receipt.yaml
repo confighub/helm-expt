@@ -1,0 +1,24 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: RenderReceipt
+metadata:
+  name: bitnami-redis-reuse-existing-secret-r001
+spec:
+  variantRevision: ../variant-revision.yaml
+  renderer:
+    name: helm
+    version: "v4.1.4 05fa37973dc9e42b76e1d2883494c87174b6074f go1.26.2"
+    kubeVersion: "1.30.0"
+    flags:
+      - --include-crds
+      - --skip-tests
+      - --no-hooks
+  inputs:
+    sourceLockSHA256: "24523c6e3da890114f3d24280e369c9d434c9b28e4b42766648f5267c1e80899"
+    dependencyLockSHA256: "c5d2d5077bc368b981bd8b8543c2ac0a456cdb0ae451aab24ef748b15f009c62"
+    effectiveValuesSHA256: "6fa6bf0963e7c0097f89a2b3709dc8ee43551198ba9d13420f3f8f9401311a26"
+  outputs:
+    renderedObjectSetSHA256: "a90dda4885fb97749e2c222f1abd840f49dcf6eafa953ea6ea2dbc6ba565fe53"
+    renderedObjectInventorySHA256: "b62612df068da92a09e05ddc8da76f612a223ba2d913558490c1a5d2934b48d5"
+    objectCount: 13
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

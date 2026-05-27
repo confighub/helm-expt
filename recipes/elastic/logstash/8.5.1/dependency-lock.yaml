@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "elastic-logstash-8-5-1"
+spec:
+  chart: "elastic/logstash"
+  version: "8.5.1"
+  dependencies:
+    []

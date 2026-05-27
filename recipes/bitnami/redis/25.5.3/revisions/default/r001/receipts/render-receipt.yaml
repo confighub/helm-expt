@@ -1,0 +1,24 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: RenderReceipt
+metadata:
+  name: bitnami-redis-default-r001
+spec:
+  variantRevision: ../variant-revision.yaml
+  renderer:
+    name: helm
+    version: "v4.1.4 05fa37973dc9e42b76e1d2883494c87174b6074f go1.26.2"
+    kubeVersion: "1.30.0"
+    flags:
+      - --include-crds
+      - --skip-tests
+      - --no-hooks
+  inputs:
+    sourceLockSHA256: "24523c6e3da890114f3d24280e369c9d434c9b28e4b42766648f5267c1e80899"
+    dependencyLockSHA256: "c5d2d5077bc368b981bd8b8543c2ac0a456cdb0ae451aab24ef748b15f009c62"
+    effectiveValuesSHA256: "6bc24e0e8d87584cdd3b7cc83f61841dc4f00b06724c70a2c9029ae3f2e2c3f6"
+  outputs:
+    renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+    renderedObjectInventorySHA256: "c32083a3b3f105717e7938aa19ff2e983682b1f34693b5e0ba9eecfadaf5bee9"
+    objectCount: 14
+    renderedSecretCount: 1
+    secretCountSeparatedByCubInstall: 1

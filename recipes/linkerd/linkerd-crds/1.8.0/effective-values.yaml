@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "linkerd-linkerd-crds-1-8-0-default"
+  labels:
+    confighub.io/chart-ref: "linkerd/linkerd-crds"
+    confighub.io/chart-version: "1.8.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "9db952131f61206b450f28a276cb2f6e29f67d6b0f9400acf051b3a480b52288"
+  mergedValuesCaptured: false
+  values:
+    {}

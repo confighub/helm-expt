@@ -1,0 +1,109 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HarnessRenderReceipt"
+metadata:
+  name: "grafana-loki-7.0.0-default"
+spec:
+  corpus: "../corpus.yaml"
+  chartRef:
+    rank: 7
+    repository: "grafana"
+    repositoryURL: "https://grafana.github.io/helm-charts"
+    chart: "loki"
+    version: "7.0.0"
+    appVersion: "3.6.7"
+    releaseName: "loki"
+    namespace: "loki"
+    packageSHA256: "5eaa28e3535069de2a7ac1f7087ff558e5b4b4a24f0e158072a97e2391132f81"
+    packageBytes: 170255
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    command:
+      - "helm"
+      - "template"
+      - "loki"
+      - "grafana/loki"
+      - "--version"
+      - "7.0.0"
+      - "--namespace"
+      - "loki"
+      - "--kube-version"
+      - "1.30.0"
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  renderContext:
+    kubeVersion: "1.30.0"
+    includeCRDs: true
+    skipTests: true
+    noHooks: true
+    valuesProfile: "chart-defaults"
+  outputs:
+    status: "render-failed"
+    deterministicAcrossTwoLocalRenders: false
+    firstRenderSHA256: null
+    secondRenderSHA256: null
+    renderedManifestPath: null
+    renderedManifestBytes: 0
+    objectInventoryPath: "rendered/object-inventory.yaml"
+    resourceCount: 0
+    errorSHA256: "c69f5c654b645a5ed2ef267a957f1d3ad597aab070771897701087e36b36f0d4"
+    errorExcerpt: "Error: execution error at (loki/templates/write/statefulset-write.yaml:50:28): Please define loki.storage.bucketNames.chunks\n\nUse --debug flag to render out invalid YAML\n"
+  sourceFeatures:
+    lookup: true
+    generatedFacts: false
+    capabilities: true
+    tpl: true
+    hooks: true
+    required: true
+    extensionSlots: true
+    crdFiles: 0
+    crdTemplates: 0
+    dependencyCount: 3
+  renderedFeatures:
+    crdCount: 0
+    clusterRBAC: false
+    webhooks: false
+    apiService: false
+    stateful: false
+    pvc: false
+    kindCounts:
+      {}
+  proofReadiness: "blocked-needs-values-or-policy"
+  controlPoints:
+    - 
+      id: "render-failed"
+      severity: "P0"
+      controlPoint: "recipe-import"
+      evidence: "Helm could not render the chart default values profile."
+      mitigation: "Create a minimal Install Variant with required values or mark the chart blocked for this corpus."
+    - 
+      id: "lookup-target-facts"
+      severity: "P0"
+      controlPoint: "recipe-target-facts"
+      evidence: "Chart source calls Helm lookup."
+      mitigation: "Declare target fact requirements in the recipe and bind collected or synthetic facts per variant revision."
+    - 
+      id: "capability-branching"
+      severity: "P0"
+      controlPoint: "capability-profile"
+      evidence: "Chart source branches on .Capabilities."
+      mitigation: "Render against a named, digest-bound Kubernetes capability profile."
+    - 
+      id: "helm-hooks"
+      severity: "P0"
+      controlPoint: "lifecycle-policy"
+      evidence: "Chart source defines Helm hook annotations."
+      mitigation: "Classify hooks as lifecycle phases, tests, GitOps-compatible hooks, or unsupported blockers."
+    - 
+      id: "template-extension-slots"
+      severity: "P1"
+      controlPoint: "extension-slot-policy"
+      evidence: "Chart exposes tpl/raw/extra manifest behavior."
+      mitigation: "Treat extension inputs as explicit slots with provenance, scan coverage, and rendered-object diff checks."
+    - 
+      id: "dependencies"
+      severity: "P1"
+      controlPoint: "dependency-lock"
+      evidence: "Chart declares 3 dependencies."
+      mitigation: "Lock dependency names, versions, repositories, and package digests before variant publication."

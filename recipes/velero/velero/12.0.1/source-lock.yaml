@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "velero-velero-12-0-1"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "velero"
+  repositoryURL: "https://vmware-tanzu.github.io/helm-charts"
+  chart: "velero"
+  ref: "velero/velero"
+  version: "12.0.1"
+  appVersion: "1.18.0"
+  packageSHA256: "d6281a4a722870881c2312ac4814b9d545839a1a74908c4a2aec3dc75483382e"
+  packageBytes: 41895
+  capturedAt: "generated-by-next80-full-proof-harness"

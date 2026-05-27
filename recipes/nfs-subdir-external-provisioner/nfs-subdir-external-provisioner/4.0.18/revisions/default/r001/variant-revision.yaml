@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner"
+    confighub.io/chart-version: "4.0.18"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "e518dc96bc16b557b6786b5a2d5b453d2f8fd1c39f24993274518eb4651b9c9c"
+  digestInputs:
+    recipeSHA256: "453895d104c08f173a6d4667199f4cc27ab8b6c39cb7b3fed9a5608677c6c9d0"
+    variantSHA256: "76fa2469b07365d70365f16f209af22c88b327642f2ffa2f9d0dd7eaa2e279d4"
+    effectiveValuesSHA256: "fb9c08bc36edceab0d03a97469c85dc5ca5630a67559e9c852f184ae01292058"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "448129b8cf526e0fb240e23fc1cbddd1b6cd994158faa60904f7db5b1c10eb28"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 7

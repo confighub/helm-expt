@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "bitnami-elasticsearch-22-1-6"
+spec:
+  chart:
+    repository: "bitnami"
+    name: "elasticsearch"
+    version: "22.1.6"
+  package:
+    path: "packages/bitnami/elasticsearch/22.1.6"
+    name: "bitnami-elasticsearch"
+    version: "22.1.6"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "7ea757c964d7100b3951c07545ae801ff5b3dd1ae17a74f14df08212c9b8f3c5"
+        bytes: 202
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "2dea059172595f3477271eadd1aea69c4274d15a8029a55afb176cb5ffd66217"
+        bytes: 42475
+      -
+        path: "installer.yaml"
+        sha256: "a4a2d91b3219223a687dd85fea4b7e802df8d7fe044b0ddd34d25487b578b09a"
+        bytes: 318
+  deterministicBundle:
+    command: "cub install package packages/bitnami/elasticsearch/22.1.6 -o <tmp>/bitnami-elasticsearch-22-1-6.tgz"
+    sha256: "ed2ac25a86cee7ef69f1843a08427f704560c5a31cd327daae11fa0cfffb7b41"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/bitnami/elasticsearch/22.1.6 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 21
+      cubInstallObjectCountIncludingSupport: 22
+      semanticObjectMatches: "21/21"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

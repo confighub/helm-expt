@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "mongodb-generated-passwords-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "2c12bada6945cb5fa4bb344a95951f478e90b20e0cf64da70c1ce972db2b3023"
+    dependencyLockSHA256: "f1c7660e256b49d7cdbe7d73d61e981f8ad6257fb871c14d671753fadc713564"
+    effectiveValuesSHA256: "3f31695fe43f344c6dcac0fc9d0fcbebc31b5f05ca596226c44ea36bfe44c0dc"
+  outputs:
+    renderedObjectSetSHA256: "187a27077a6c1924669172528109b878e4d9c7759689a2f52826be8dfbc30f1e"
+    renderedObjectInventorySHA256: "c6251bdb4086c2557f9bd3595a1d46d6d79906a9133e0c56e9d6938339e3f669"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 8
+    renderedSecretCount: 1
+    secretCountSeparatedByCubInstall: 1

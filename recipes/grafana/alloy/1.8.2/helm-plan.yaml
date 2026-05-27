@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "grafana-alloy-1-8-2"
+  labels:
+    confighub.io/chart-ref: "grafana/alloy"
+    confighub.io/chart-version: "1.8.2"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "grafana/alloy"
+    version: "1.8.2"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 7
+    cubInstallObjectsByVariant:
+      default: 8
+    helmMatchByVariant:
+      default: "7/7"
+    renderedObjectSetSHA256: "984319325f620b099f091df4c45ef851f0dd7593526f146d5271dbf477f7f37b"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

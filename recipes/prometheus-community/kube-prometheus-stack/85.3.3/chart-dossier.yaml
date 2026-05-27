@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "kube-prometheus-stack-kube-prometheus-stack-85.3.3"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "85.3.3"
+  maintainedNotes:
+    - "Default chart render is nondeterministic unless grafana.adminPassword is bound before render."
+    - "default variant binds grafana.adminPassword and renders 10 Prometheus Operator CRDs."
+    - "no-crds variant omits CRDs for clusters that manage CRDs separately."
+    - "Chart declares CRD, kube-state-metrics, node-exporter, Grafana, and windows-exporter dependencies and records them in dependency-lock.yaml."
+    - "Admission webhook readiness must be observed after apply because rendered objects alone do not prove webhook health."
+    - "CRD manifests include YAML enum scalars such as bare equals signs; the proof parser handles these as scalar strings."
+    - "Rules, scrape configs, datasource config, and extraManifests are tpl/raw extension slots; promoted variants keep raw slots empty."
+  knownControlPoints:
+    - "capability-profile"
+    - "crd-lifecycle-policy"
+    - "generated-facts"
+    - "dependency-lock"
+    - "admission-webhook-observation"
+    - "cluster-rbac-scan"
+    - "tpl-extension-slot"

@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "elastic-eck-operator-3-4-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "elastic/eck-operator"
+    confighub.io/chart-version: "3.4.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "11bd8f291f9da0611bf6795dbbbe41a9e4e5ae9fe4cd58e9bad69dd883aee278"
+    objectCount: 22
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 23
+    uploadedManifestFiles: 23
+    separatedSecretFiles: 1
+    semanticObjectMatches: "22/22"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

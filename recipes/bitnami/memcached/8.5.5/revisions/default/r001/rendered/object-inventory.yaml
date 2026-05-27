@@ -1,0 +1,44 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "bitnami-memcached-8-5-5-default-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/memcached"
+    confighub.io/chart-version: "8.5.5"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "8cd477e08d9fdd2d56df7832f901d773af4f4313a405330180d7068cd7751558"
+  objectCount: 5
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|memcached"
+      kind: "Deployment"
+      name: "memcached"
+      namespace: "default"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|NetworkPolicy|default|memcached"
+      kind: "NetworkPolicy"
+      name: "memcached"
+      namespace: "default"
+    -
+      apiVersion: "policy/v1"
+      identity: "policy/v1|PodDisruptionBudget|default|memcached"
+      kind: "PodDisruptionBudget"
+      name: "memcached"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|memcached"
+      kind: "ServiceAccount"
+      name: "memcached"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|memcached"
+      kind: "Service"
+      name: "memcached"
+      namespace: "default"

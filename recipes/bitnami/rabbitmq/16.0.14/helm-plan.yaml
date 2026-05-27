@@ -1,0 +1,32 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "bitnami-rabbitmq-16.0.14"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "bitnami/rabbitmq"
+    version: "16.0.14"
+    variants:
+      - "generated-passwords"
+      - "existing-secret"
+    helmObjectsByVariant:
+      generated-passwords: 10
+      existing-secret: 9
+    cubInstallObjectsByVariant:
+      generated-passwords: 11
+      existing-secret: 10
+    helmMatchByVariant:
+      generated-passwords: "10/10"
+      existing-secret: "9/9"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish only after generated fact or target fact binding, dependency lock review, StatefulSet/PVC policy, clustering policy, and extension-slot review are satisfied"
+  receipts:
+    - "revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/generated-passwords/r001/receipts/render-receipt.yaml"
+    - "revisions/generated-passwords/r001/receipts/scan-receipt.yaml"
+    - "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+    - "revisions/existing-secret/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/existing-secret/r001/receipts/render-receipt.yaml"
+    - "revisions/existing-secret/r001/receipts/scan-receipt.yaml"
+    - "revisions/existing-secret/r001/receipts/install-gate.yaml"

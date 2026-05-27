@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ControlPoints"
+metadata:
+  name: "percona-pxc-operator-1-19-1"
+spec:
+  points:
+    -
+      category: "source-lock"
+      status: "handled"
+      evidence: "source-lock.yaml"
+    -
+      category: "dependency-lock"
+      status: "handled"
+      evidence: "dependency-lock.yaml"
+      dependencyCount: 0
+    -
+      category: "capability-profile"
+      status: "handled"
+      kubeVersion: "1.30.0"
+    -
+      category: "variant-revision"
+      status: "handled"
+      evidence: "revisions/default/r001/variant-revision.yaml"
+    -
+      category: "rendered-manifest-scan"
+      status: "handled"
+      evidence: "revisions/default/r001/receipts/scan-receipt.yaml"
+    -
+      category: "helm-equivalence"
+      status: "handled"
+      evidence: "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    -
+      category: "target-facts"
+      status: "source-signal-recorded"
+      note: "default proof render was deterministic under pinned inputs; future variants must bind lookup-driven facts explicitly"
+    -
+      category: "extension-slots"
+      status: "source-signal-recorded"
+      note: "raw/extra manifest knobs require explicit variant ownership before promotion"
+    -
+      category: "crds"
+      status: "review-required"
+      count: 3

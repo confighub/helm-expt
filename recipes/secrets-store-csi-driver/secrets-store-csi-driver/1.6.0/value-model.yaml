@@ -1,0 +1,39 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "secrets-store-csi-driver-1.6.0"
+spec:
+  checkedValues:
+    -
+      path: "linux.crds.enabled"
+      variant: "all"
+      disposition: "variant-controlled"
+      reason: "the promoted variants install the SecretProviderClass CRDs and bind that choice in the rendered object set"
+    -
+      path: "syncSecret.enabled"
+      variant: "sync-secret-rotation"
+      disposition: "variant-controlled"
+      reason: "the sync variant deliberately adds RBAC for synced Kubernetes Secrets"
+    -
+      path: "enableSecretRotation / rotationPollInterval"
+      variant: "sync-secret-rotation"
+      disposition: "variant-controlled"
+      reason: "Secret rotation is enabled only by an explicit variant and appears in driver args"
+    -
+      path: "providerHealthCheck"
+      variant: "sync-secret-rotation"
+      disposition: "variant-controlled"
+      reason: "provider health checks are enabled only by an explicit variant and appear in driver args"
+    -
+      path: "linux.enabled / windows.enabled"
+      variant: "all"
+      disposition: "platform-variant"
+      reason: "promoted variants install the Linux DaemonSet only; Windows support becomes a separate variant"
+    -
+      path: "tokenRequests / linux.nodeSelector / linux.tolerations / linux.priorityClassName"
+      variant: "all"
+      disposition: "extension-slot"
+      reason: "provider identity, scheduling, and token-request knobs must be explicit before production promotion"
+  unknownValues: "not-checked"
+  deadValues: "not-checked"
+  ignoredValues: "not-checked"

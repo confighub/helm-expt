@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "open-telemetry-opentelemetry-operator-0-114-0-default"
+  labels:
+    confighub.io/chart-ref: "open-telemetry/opentelemetry-operator"
+    confighub.io/chart-version: "0.114.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "e1f0517329e0118dddffeac82fb9162108be748268f556220ff2ba33eee5d7cf"
+  mergedValuesCaptured: false
+  values:
+    {}

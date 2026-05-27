@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "prometheus-community-kube-state-metrics-7-4-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "prometheus-community"
+  repositoryURL: "https://prometheus-community.github.io/helm-charts"
+  chart: "kube-state-metrics"
+  ref: "prometheus-community/kube-state-metrics"
+  version: "7.4.0"
+  appVersion: "2.19.0"
+  packageSHA256: "1cb1b6ac50b02a2ae691f895358959d61d377168c820cf51f2d0ea8a739e1b7f"
+  packageBytes: 15042
+  capturedAt: "generated-by-next80-full-proof-harness"

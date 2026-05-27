@@ -1,0 +1,14 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "bitnami-zookeeper-13-8-7"
+spec:
+  chart: "bitnami/zookeeper"
+  version: "13.8.7"
+  dependencies:
+    -
+      name: "common"
+      version: "2.x.x"
+      repository: "oci://registry-1.docker.io/bitnamicharts"
+      tags:
+        - "bitnami-common"

@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "falcosecurity-falco-9-0-0"
+  labels:
+    confighub.io/chart-ref: "falcosecurity/falco"
+    confighub.io/chart-version: "9.0.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "falcosecurity/falco"
+    version: "9.0.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 6
+    cubInstallObjectsByVariant:
+      default: 7
+    helmMatchByVariant:
+      default: "6/6"
+    renderedObjectSetSHA256: "e417f53227667413d5d51b89157f00c603af2cd613e282816c27df69408f7648"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

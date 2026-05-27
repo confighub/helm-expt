@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "ingress-nginx-ingress-nginx-4.15.1"
+spec:
+  chart: "ingress-nginx/ingress-nginx"
+  version: "4.15.1"
+  maintainedNotes:
+    - "Default chart renders an admission Service and ValidatingWebhookConfiguration."
+    - "Admission certificate create/patch Jobs are Helm hooks and are excluded from the rendered revision by --no-hooks."
+    - "admission-disabled variant removes the admission Service and ValidatingWebhookConfiguration from the rendered revision."
+    - "Admission webhook readiness must be observed after apply because a rendered object alone does not prove webhook health."
+  knownControlPoints:
+    - "capability-profile"
+    - "hook-lifecycle-policy"
+    - "admission-webhook-observation"
+    - "cluster-rbac-scan"
+    - "tpl-extension-slot"

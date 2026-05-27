@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "grafana-loki-7.0.0"
+spec:
+  chart: "grafana/loki"
+  version: "7.0.0"
+  objectCount: 0
+  kindCounts:
+    {}
+  objects:
+    []

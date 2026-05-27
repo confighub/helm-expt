@@ -1,0 +1,32 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "ingress-nginx-ingress-nginx-4.15.1"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "ingress-nginx/ingress-nginx"
+    version: "4.15.1"
+    variants:
+      - "default"
+      - "admission-disabled"
+    helmObjectsByVariant:
+      default: 11
+      admission-disabled: 9
+    cubInstallObjectsByVariant:
+      default: 12
+      admission-disabled: 10
+    helmMatchByVariant:
+      default: "11/11"
+      admission-disabled: "9/9"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish only after admission webhook lifecycle/observation policy and cluster RBAC review are satisfied"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "revisions/admission-disabled/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/admission-disabled/r001/receipts/render-receipt.yaml"
+    - "revisions/admission-disabled/r001/receipts/scan-receipt.yaml"
+    - "revisions/admission-disabled/r001/receipts/install-gate.yaml"

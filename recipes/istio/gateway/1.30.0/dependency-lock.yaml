@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "istio-gateway-1-30-0"
+spec:
+  chart: "istio/gateway"
+  version: "1.30.0"
+  dependencies:
+    []

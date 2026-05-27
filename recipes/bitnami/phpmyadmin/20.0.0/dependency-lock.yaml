@@ -1,0 +1,21 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "bitnami-phpmyadmin-20-0-0"
+spec:
+  chart: "bitnami/phpmyadmin"
+  version: "20.0.0"
+  dependencies:
+    -
+      name: "mariadb"
+      version: "22.x.x"
+      repository: "oci://registry-1.docker.io/bitnamicharts"
+      condition: "db.bundleTestDB"
+      tags:
+        - "phpmyadmin-database"
+    -
+      name: "common"
+      version: "2.x.x"
+      repository: "oci://registry-1.docker.io/bitnamicharts"
+      tags:
+        - "bitnami-common"

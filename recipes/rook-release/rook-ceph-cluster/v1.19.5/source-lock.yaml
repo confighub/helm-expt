@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "rook-release-rook-ceph-cluster-v1-19-5"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "rook-release"
+  repositoryURL: "https://charts.rook.io/release"
+  chart: "rook-ceph-cluster"
+  ref: "rook-release/rook-ceph-cluster"
+  version: "v1.19.5"
+  appVersion: "v1.19.5"
+  packageSHA256: "9320ece3729bd49fbddddb85e49931a7c81adaea5a1cf6cda1f280000eacc2d9"
+  packageBytes: 29343
+  capturedAt: "generated-by-next80-full-proof-harness"

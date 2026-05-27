@@ -1,0 +1,22 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default-r001"
+  labels:
+    confighub.io/chart-ref: "aws-ebs-csi-driver/aws-ebs-csi-driver"
+    confighub.io/chart-version: "2.60.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "ae9f0b30339870e7bab818ea4eb299e5393416b5efd5053dd5800017373bb3a7"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+    - "review"
+  blockedScopes:
+    - "production-without-review"
+  reasons:
+    - "regular Helm output matches cub install setup for aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1"
+    - "19 Helm objects are bound to renderedObjectSetSHA256"
+    - "rendered-object scan has review findings; see scan-receipt.yaml"

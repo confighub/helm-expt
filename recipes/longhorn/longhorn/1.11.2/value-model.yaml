@@ -1,0 +1,44 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "longhorn-longhorn-1.11.2"
+spec:
+  checkedValues:
+    -
+      path: "crds/*"
+      variant: "default"
+      disposition: "crds-included"
+      reason: "Longhorn chart ships 22 CRDs and the proof renders them as ordinary objects with --include-crds"
+    -
+      path: "ingress.enabled / ingress.host / ingress.ingressClassName / ingress.tls"
+      variant: "ui-ingress"
+      disposition: "ui-exposure-bound"
+      reason: "UI exposure is only added by an explicit variant with host, ingress class, and TLS posture captured"
+    -
+      path: "preUpgradeChecker.jobEnabled"
+      variant: "all"
+      disposition: "hook-excluded-by-render-policy"
+      reason: "Longhorn pre-upgrade check is a Helm hook path and is excluded from rendered revisions by --no-hooks"
+    -
+      path: "persistence.*"
+      variant: "all"
+      disposition: "storageclass-policy"
+      reason: "default StorageClass, replica count, reclaim policy, and data engine settings are install-impacting inputs"
+    -
+      path: "defaultSettings.*"
+      variant: "all"
+      disposition: "target-storage-policy"
+      reason: "host paths, replica scheduling, backup targets, and node policies affect live storage behavior after install"
+    -
+      path: "privateRegistry.*"
+      variant: "all"
+      disposition: "secret-or-target-fact-slot"
+      reason: "registry credentials can create or reference Secrets and must be explicit in production variants"
+    -
+      path: "longhornManager / longhornDriver / longhornUI tolerations and nodeSelectors"
+      variant: "all"
+      disposition: "target-placement-policy"
+      reason: "storage components need target node readiness, toleration, and placement policy"
+  unknownValues: "not-checked"
+  deadValues: "not-checked"
+  ignoredValues: "not-checked"

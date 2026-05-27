@@ -1,0 +1,80 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "argo-cd-argocd-image-updater-1-2-2-default-r001"
+  labels:
+    confighub.io/chart-ref: "argo-cd/argocd-image-updater"
+    confighub.io/chart-version: "1.2.2"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "0b3646b69dab9a21cad5cbc550a95ffb9ac4be833cc2d076b1fd12cbe4e4eaf2"
+  objectCount: 11
+  objects:
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||imageupdaters.argocd-image-updater.argoproj.io"
+      kind: "CustomResourceDefinition"
+      name: "imageupdaters.argocd-image-updater.argoproj.io"
+      namespace: ""
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|argocd-image-updater-controller"
+      kind: "Deployment"
+      name: "argocd-image-updater-controller"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||argocd-image-updater"
+      kind: "ClusterRoleBinding"
+      name: "argocd-image-updater"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||argocd-image-updater"
+      kind: "ClusterRole"
+      name: "argocd-image-updater"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|default|argocd-image-updater"
+      kind: "RoleBinding"
+      name: "argocd-image-updater"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|default|argocd-image-updater-leader-election-rolebinding"
+      kind: "RoleBinding"
+      name: "argocd-image-updater-leader-election-rolebinding"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role|default|argocd-image-updater"
+      kind: "Role"
+      name: "argocd-image-updater"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role|default|argocd-image-updater-leader-election-role"
+      kind: "Role"
+      name: "argocd-image-updater-leader-election-role"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|default|argocd-image-updater-config"
+      kind: "ConfigMap"
+      name: "argocd-image-updater-config"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|default|argocd-image-updater-ssh-config"
+      kind: "ConfigMap"
+      name: "argocd-image-updater-ssh-config"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|argocd-image-updater"
+      kind: "ServiceAccount"
+      name: "argocd-image-updater"
+      namespace: "default"

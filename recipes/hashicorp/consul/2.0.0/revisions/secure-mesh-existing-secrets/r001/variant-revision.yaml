@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "secure-mesh-existing-secrets-r001"
+spec:
+  variant: "../../../variants/secure-mesh-existing-secrets/variant.yaml"
+  revision: "r001"
+  digest: "07bc87e27fadefca1e02ee528b1038b62ec258962e76100c67c38a3b34748e79"
+  digestInputs:
+    recipeSHA256: "4a6667a911c80202bdbb4c7bf98fb323c742f2f9c635995c06c1e42a911dabdf"
+    variantSHA256: "d38cf3579ff0a855bb44b31ab9a18b8eae2d18edfb3dce95ceb7ca0d83c638da"
+    effectiveValuesSHA256: "1356169544ca10ffe4f2053e55a1210d46169456f9b14e5e00bc69ecc98ae1df"
+    rendererSHA256: "802e90ca6f4d3538badc3879a237ce00b5725f3eae315323fde3254df3c9759e"
+    renderedObjectSetSHA256: "f44c496151f7893383bbc25e4c0b4f8bcb5ce62136d3d0e3df84d846e2506dd1"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 99

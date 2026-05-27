@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "loki-single-binary-filesystem-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for single-binary-filesystem"
+    - "Default chart render blocker is recorded and avoided by this bounded variant"
+    - "Loki storage, schema, object-store, and StatefulSet policies need production review"
+    - "Any future hook or test enablement needs explicit lifecycle policy before production"
+    - "Raw/tpl extension slots must remain empty or be scanned as first-class variant inputs"
+    - "avoids object storage by selecting SingleBinary with filesystem storage and a bounded local schema config"

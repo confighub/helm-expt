@@ -1,0 +1,14 @@
+apiVersion: installer.confighub.com/v1alpha1
+kind: Package
+metadata:
+  name: bitnami-redis
+  version: "25.5.3"
+spec:
+  bases:
+    - name: default
+      path: bases/default
+      default: true
+      description: "Redis default variant rendered from bitnami/redis@25.5.3"
+    - name: reuse-existing-secret
+      path: bases/reuse-existing-secret
+      description: "Redis variant that uses an existing Secret target fact"

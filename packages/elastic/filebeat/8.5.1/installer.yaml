@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "elastic-filebeat"
+  version: "8.5.1"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "elastic/filebeat default variant rendered from elastic/filebeat@8.5.1"

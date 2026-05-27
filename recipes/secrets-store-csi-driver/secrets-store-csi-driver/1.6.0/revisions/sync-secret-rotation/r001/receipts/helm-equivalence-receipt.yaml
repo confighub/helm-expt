@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "secrets-store-csi-driver-sync-secret-rotation-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "3667c16d411f773ef20e51c9980d484eb770c1173092878f1b018f5b4377a182"
+    objectCount: 12
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 13
+    uploadedManifestFiles: 13
+    separatedSecretFiles: 0
+    semanticObjectMatches: "12/12"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||kube-system"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run secrets-store-csi-driver:compare"

@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "dex-dex-0-24-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "dex/dex"
+    confighub.io/chart-version: "0.24.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "52220fbde681bbfea8e9d69556415a440f7b13fb952857318162ed373caec145"
+    dependencyLockSHA256: "c23be0dd60ca361ac04d4c3600533a2bd28a3f076d3db89a3cc036df1aba1d30"
+    effectiveValuesSHA256: "4ff17c6f286b06589aeea974a86c56238e990d8c0065163717bfd57079a08b53"
+  outputs:
+    renderedObjectSetSHA256: "5461ff32d1a2a157fd54a958809a06aa73938f52efc8c97f40e866cbc070b2f5"
+    renderedObjectInventorySHA256: "3581877390aaf85342fa9c0cf01023c988d6721bede6a1470e9caf5714514476"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 8
+    renderedSecretCount: 1
+    secretCountSeparatedByCubInstall: 1

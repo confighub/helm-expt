@@ -1,0 +1,116 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "istio-istiod-1-30-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "istio/istiod"
+    confighub.io/chart-version: "1.30.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "53385181293dd9a8228f37a370148dde3cc77acecf5a3a8539fa1b8eb0f9afdf"
+  objectCount: 17
+  objects:
+    -
+      apiVersion: "admissionregistration.k8s.io/v1"
+      identity: "admissionregistration.k8s.io/v1|MutatingWebhookConfiguration||istio-sidecar-injector-default"
+      kind: "MutatingWebhookConfiguration"
+      name: "istio-sidecar-injector-default"
+      namespace: ""
+    -
+      apiVersion: "admissionregistration.k8s.io/v1"
+      identity: "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||istio-validator-istio-system"
+      kind: "ValidatingWebhookConfiguration"
+      name: "istio-validator-istio-system"
+      namespace: ""
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|istiod"
+      kind: "Deployment"
+      name: "istiod"
+      namespace: "default"
+    -
+      apiVersion: "autoscaling/v2"
+      identity: "autoscaling/v2|HorizontalPodAutoscaler|default|istiod"
+      kind: "HorizontalPodAutoscaler"
+      name: "istiod"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||istio-reader-clusterrole-default"
+      kind: "ClusterRoleBinding"
+      name: "istio-reader-clusterrole-default"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||istiod-clusterrole-default"
+      kind: "ClusterRoleBinding"
+      name: "istiod-clusterrole-default"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||istiod-gateway-controller-default"
+      kind: "ClusterRoleBinding"
+      name: "istiod-gateway-controller-default"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||istio-reader-clusterrole-default"
+      kind: "ClusterRole"
+      name: "istio-reader-clusterrole-default"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||istiod-clusterrole-default"
+      kind: "ClusterRole"
+      name: "istiod-clusterrole-default"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||istiod-gateway-controller-default"
+      kind: "ClusterRole"
+      name: "istiod-gateway-controller-default"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|istio-system|istiod"
+      kind: "RoleBinding"
+      name: "istiod"
+      namespace: "istio-system"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role|istio-system|istiod"
+      kind: "Role"
+      name: "istiod"
+      namespace: "istio-system"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|default|istio"
+      kind: "ConfigMap"
+      name: "istio"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|default|istio-sidecar-injector"
+      kind: "ConfigMap"
+      name: "istio-sidecar-injector"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|default|values"
+      kind: "ConfigMap"
+      name: "values"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|istio-system|istiod"
+      kind: "ServiceAccount"
+      name: "istiod"
+      namespace: "istio-system"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|istiod"
+      kind: "Service"
+      name: "istiod"
+      namespace: "default"

@@ -1,0 +1,63 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "bitnami-rabbitmq-16.0.14-existing-secret-r001"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "d508ba5a873dbb2e1fa08b6bc227b1177d84fc1285b1aac974d59d28e9645d63"
+  objectCount: 9
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|StatefulSet|rabbitmq|rabbitmq"
+      kind: "StatefulSet"
+      name: "rabbitmq"
+      namespace: "rabbitmq"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|NetworkPolicy|rabbitmq|rabbitmq"
+      kind: "NetworkPolicy"
+      name: "rabbitmq"
+      namespace: "rabbitmq"
+    -
+      apiVersion: "policy/v1"
+      identity: "policy/v1|PodDisruptionBudget|rabbitmq|rabbitmq"
+      kind: "PodDisruptionBudget"
+      name: "rabbitmq"
+      namespace: "rabbitmq"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|rabbitmq|rabbitmq-endpoint-reader"
+      kind: "RoleBinding"
+      name: "rabbitmq-endpoint-reader"
+      namespace: "rabbitmq"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role|rabbitmq|rabbitmq-endpoint-reader"
+      kind: "Role"
+      name: "rabbitmq-endpoint-reader"
+      namespace: "rabbitmq"
+    -
+      apiVersion: "v1"
+      identity: "v1|Secret|rabbitmq|rabbitmq-config"
+      kind: "Secret"
+      name: "rabbitmq-config"
+      namespace: "rabbitmq"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|rabbitmq|rabbitmq"
+      kind: "ServiceAccount"
+      name: "rabbitmq"
+      namespace: "rabbitmq"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|rabbitmq|rabbitmq"
+      kind: "Service"
+      name: "rabbitmq"
+      namespace: "rabbitmq"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|rabbitmq|rabbitmq-headless"
+      kind: "Service"
+      name: "rabbitmq-headless"
+      namespace: "rabbitmq"

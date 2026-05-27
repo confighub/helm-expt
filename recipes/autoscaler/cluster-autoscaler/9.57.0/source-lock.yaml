@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "autoscaler-cluster-autoscaler-9-57-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "autoscaler"
+  repositoryURL: "https://kubernetes.github.io/autoscaler"
+  chart: "cluster-autoscaler"
+  ref: "autoscaler/cluster-autoscaler"
+  version: "9.57.0"
+  appVersion: "1.35.0"
+  packageSHA256: "d1cc7757b42bcc61e2ff70087552d95c33f74a43c04779bf258d29485f882e45"
+  packageBytes: 32358
+  capturedAt: "generated-by-next80-full-proof-harness"

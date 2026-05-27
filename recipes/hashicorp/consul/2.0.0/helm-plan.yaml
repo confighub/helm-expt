@@ -1,0 +1,32 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "hashicorp-consul-2.0.0"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "hashicorp/consul"
+    version: "2.0.0"
+    variants:
+      - "default-control-plane"
+      - "secure-mesh-existing-secrets"
+    helmObjectsByVariant:
+      default-control-plane: 70
+      secure-mesh-existing-secrets: 99
+    cubInstallObjectsByVariant:
+      default-control-plane: 71
+      secure-mesh-existing-secrets: 100
+    helmMatchByVariant:
+      default-control-plane: "70/70"
+      secure-mesh-existing-secrets: "99/99"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish only after TLS/ACL/gossip Secret ownership, CRD ownership, cluster RBAC, admission webhook, StatefulSet storage, gateway topology, UI ingress, hook/lifecycle, and raw/template extension-slot review are satisfied"
+  receipts:
+    - "revisions/default-control-plane/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default-control-plane/r001/receipts/render-receipt.yaml"
+    - "revisions/default-control-plane/r001/receipts/scan-receipt.yaml"
+    - "revisions/default-control-plane/r001/receipts/install-gate.yaml"
+    - "revisions/secure-mesh-existing-secrets/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/secure-mesh-existing-secrets/r001/receipts/render-receipt.yaml"
+    - "revisions/secure-mesh-existing-secrets/r001/receipts/scan-receipt.yaml"
+    - "revisions/secure-mesh-existing-secrets/r001/receipts/install-gate.yaml"

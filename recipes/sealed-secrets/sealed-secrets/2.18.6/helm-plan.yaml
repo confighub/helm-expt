@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "sealed-secrets-sealed-secrets-2-18-6"
+  labels:
+    confighub.io/chart-ref: "sealed-secrets/sealed-secrets"
+    confighub.io/chart-version: "2.18.6"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "sealed-secrets/sealed-secrets"
+    version: "2.18.6"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 11
+    cubInstallObjectsByVariant:
+      default: 12
+    helmMatchByVariant:
+      default: "11/11"
+    renderedObjectSetSHA256: "096c66f4ea312aa7c3a4fc2be815b64271c3f1c829c8914b5c96c190aa22a83e"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

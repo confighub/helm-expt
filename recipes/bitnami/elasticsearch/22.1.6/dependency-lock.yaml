@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "bitnami-elasticsearch-22-1-6"
+spec:
+  chart: "bitnami/elasticsearch"
+  version: "22.1.6"
+  dependencies:
+    -
+      name: "kibana"
+      version: "12.x.x"
+      repository: "oci://registry-1.docker.io/bitnamicharts"
+      condition: "global.kibanaEnabled"
+    -
+      name: "common"
+      version: "2.x.x"
+      repository: "oci://registry-1.docker.io/bitnamicharts"
+      tags:
+        - "bitnami-common"

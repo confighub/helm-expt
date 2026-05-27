@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "open-telemetry-opentelemetry-operator-0-114-0"
+spec:
+  chart:
+    repository: "open-telemetry"
+    name: "opentelemetry-operator"
+    version: "0.114.0"
+  package:
+    path: "packages/open-telemetry/opentelemetry-operator/0.114.0"
+    name: "open-telemetry-opentelemetry-operator"
+    version: "0.114.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "198afd800ee7bdd24b140af53fd329cbab6c5fe4b3abbc7839a4e2ceedc592d7"
+        bytes: 219
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "68dd01565796d137e5dea26e1db02ef3e0d99bbbafd000ec3663680b5bbda873"
+        bytes: 767271
+      -
+        path: "installer.yaml"
+        sha256: "f0314c383d2722a07c85184eb69c4f68265f923043bec6620bfc12fe6fe67c71"
+        bytes: 368
+  deterministicBundle:
+    command: "cub install package packages/open-telemetry/opentelemetry-operator/0.114.0 -o <tmp>/open-telemetry-opentelemetry-operator-0-114-0.tgz"
+    sha256: "46a4466f21a9076cfb231b02a2309c526136ca3903e50c17348f1e3e87b8f5dc"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/open-telemetry/opentelemetry-operator/0.114.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 17
+      cubInstallObjectCountIncludingSupport: 18
+      semanticObjectMatches: "17/17"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

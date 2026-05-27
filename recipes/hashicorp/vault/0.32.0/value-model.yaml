@@ -1,0 +1,39 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "hashicorp-vault-0.32.0"
+spec:
+  checkedValues:
+    -
+      path: "server.ha.enabled / server.ha.raft.enabled"
+      variant: "ha-raft-ui"
+      disposition: "variant-controlled"
+      reason: "the HA variant deliberately changes Vault from standalone file storage to integrated Raft storage"
+    -
+      path: "ui.enabled"
+      variant: "ha-raft-ui"
+      disposition: "service-exposure-bound"
+      reason: "UI exposure is added only by an explicit variant and appears as a rendered Service"
+    -
+      path: "global.tlsDisable / server.standalone.config / server.ha.config"
+      variant: "all"
+      disposition: "security-posture-review"
+      reason: "the rendered Vault listener TLS posture must be reviewed before production promotion"
+    -
+      path: "server.dataStorage.enabled / server.auditStorage.enabled"
+      variant: "all"
+      disposition: "stateful-storage-review"
+      reason: "Vault storage, audit storage, and PVC behavior are part of the variant and install gate"
+    -
+      path: "server.extraEnvironmentVars / server.extraSecretEnvironmentVars / server.extraVolumes / server.extraInitContainers"
+      variant: "all"
+      disposition: "extension-slot"
+      reason: "Vault extension and Secret injection slots must be explicit before production promotion"
+    -
+      path: "injector.enabled / injector.failurePolicy"
+      variant: "all"
+      disposition: "admission-webhook-review"
+      reason: "the injector admission webhook is rendered by default and must be reviewed as an operating control point"
+  unknownValues: "not-checked"
+  deadValues: "not-checked"
+  ignoredValues: "not-checked"

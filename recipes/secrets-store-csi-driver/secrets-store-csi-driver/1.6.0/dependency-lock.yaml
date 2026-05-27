@@ -1,0 +1,10 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "secrets-store-csi-driver-1.6.0"
+spec:
+  chart: "secrets-store-csi-driver/secrets-store-csi-driver"
+  version: "1.6.0"
+  dependencies:
+    []
+  chartLockDigest: null

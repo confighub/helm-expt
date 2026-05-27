@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "falcosecurity-falcosidekick-0-13-1"
+spec:
+  chart: "falcosecurity/falcosidekick"
+  version: "0.13.1"
+  dependencies:
+    []

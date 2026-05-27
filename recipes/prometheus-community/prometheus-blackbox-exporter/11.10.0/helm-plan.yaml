@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "prometheus-community-prometheus-blackbox-exporter-11-10-0"
+  labels:
+    confighub.io/chart-ref: "prometheus-community/prometheus-blackbox-exporter"
+    confighub.io/chart-version: "11.10.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "prometheus-community/prometheus-blackbox-exporter"
+    version: "11.10.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 4
+    cubInstallObjectsByVariant:
+      default: 5
+    helmMatchByVariant:
+      default: "4/4"
+    renderedObjectSetSHA256: "43dbd48cda5a6f5aa85365fdba15a04cb328d513a0123983ec943c505a01730c"
+    scanGate: "allow"
+    nextAction: "promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

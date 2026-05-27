@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "jetstack-cert-manager-csi-driver-v0-14-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "jetstack"
+  repositoryURL: "https://charts.jetstack.io"
+  chart: "cert-manager-csi-driver"
+  ref: "jetstack/cert-manager-csi-driver"
+  version: "v0.14.0"
+  appVersion: "v0.14.0"
+  packageSHA256: "4760d964978c96c535dbc17cb23174692565b15832d4abf7343f3bf7fe8e0be7"
+  packageBytes: 9600
+  capturedAt: "generated-by-next80-full-proof-harness"

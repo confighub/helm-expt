@@ -1,0 +1,85 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "mongodb-existing-secret-replicaset-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "85bcba9d441796846c8452331d94210c5d3b7d8fb5e5969044741cd5c678372c"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.1.0"
+  policyBundleDigest: "99e1e78593c8364ddf7f0c3f9aa47ed6fe4bd54733c92b1a18720f152e6a32be"
+  findingCounts:
+    critical: 0
+    high: 3
+    medium: 8
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "dependency-lock-review:common"
+      rule: "dependency-lock-review"
+      severity: "medium"
+      object: "dependency|common|2.39.0"
+      message: "Bitnami common dependency metadata is locked before recipe publication"
+    -
+      id: "extension-slot-review:initdb-configuration"
+      rule: "extension-slot-review"
+      severity: "medium"
+      object: "values|primary.initdb.scripts"
+      message: "initdb and extended configuration slots must be scanned when populated"
+    -
+      id: "helm-hook-lifecycle-policy:source"
+      rule: "helm-hook-lifecycle-policy"
+      severity: "medium"
+      object: "source|helm-hooks"
+      message: "Chart source contains Helm hooks; rendered proof excludes hooks and production needs lifecycle policy"
+    -
+      id: "mutable-image-tag:apps/v1|StatefulSet|mongodb|mongodb-arbiter:mongodb-arbiter"
+      rule: "mutable-image-tag"
+      severity: "high"
+      object: "apps/v1|StatefulSet|mongodb|mongodb-arbiter"
+      message: "container mongodb-arbiter uses mutable image registry-1.docker.io/bitnami/mongodb:latest"
+    -
+      id: "mutable-image-tag:apps/v1|StatefulSet|mongodb|mongodb:log-dir"
+      rule: "mutable-image-tag"
+      severity: "high"
+      object: "apps/v1|StatefulSet|mongodb|mongodb"
+      message: "container log-dir uses mutable image registry-1.docker.io/bitnami/mongodb:latest"
+    -
+      id: "mutable-image-tag:apps/v1|StatefulSet|mongodb|mongodb:mongodb"
+      rule: "mutable-image-tag"
+      severity: "high"
+      object: "apps/v1|StatefulSet|mongodb|mongodb"
+      message: "container mongodb uses mutable image registry-1.docker.io/bitnami/mongodb:latest"
+    -
+      id: "stateful-workload-review:apps/v1|StatefulSet|mongodb|mongodb"
+      rule: "stateful-workload-review"
+      severity: "medium"
+      object: "apps/v1|StatefulSet|mongodb|mongodb"
+      message: "MongoDB workload requires storage, upgrade, and rollback policy"
+    -
+      id: "stateful-workload-review:apps/v1|StatefulSet|mongodb|mongodb-arbiter"
+      rule: "stateful-workload-review"
+      severity: "medium"
+      object: "apps/v1|StatefulSet|mongodb|mongodb-arbiter"
+      message: "MongoDB workload requires storage, upgrade, and rollback policy"
+    -
+      id: "workload-policy:networking.k8s.io/v1|NetworkPolicy|mongodb|mongodb"
+      rule: "stateful-workload-review"
+      severity: "medium"
+      object: "networking.k8s.io/v1|NetworkPolicy|mongodb|mongodb"
+      message: "MongoDB storage, network, and disruption policy require production review"
+    -
+      id: "workload-policy:policy/v1|PodDisruptionBudget|mongodb|mongodb"
+      rule: "stateful-workload-review"
+      severity: "medium"
+      object: "policy/v1|PodDisruptionBudget|mongodb|mongodb"
+      message: "MongoDB storage, network, and disruption policy require production review"
+    -
+      id: "workload-policy:policy/v1|PodDisruptionBudget|mongodb|mongodb-arbiter"
+      rule: "stateful-workload-review"
+      severity: "medium"
+      object: "policy/v1|PodDisruptionBudget|mongodb|mongodb-arbiter"
+      message: "MongoDB storage, network, and disruption policy require production review"

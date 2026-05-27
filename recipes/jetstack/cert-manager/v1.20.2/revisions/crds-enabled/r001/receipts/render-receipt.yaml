@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "cert-manager-crds-enabled-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "48b86111b7310a4f281adc92d8f2d10a167260d030a40976b3eb7fbc6b7b0458"
+    dependencyLockSHA256: "5c7d38e98a6339566259a776fe08b682d6c9cbfba5317075849a38115a6fdd73"
+    effectiveValuesSHA256: "0624eb38e8c43a216587456d8b037011bd72830e75a2b72601b75cdc08bfdf86"
+  outputs:
+    renderedObjectSetSHA256: "e288b2413bd1919173bee6afcd823be61399f101cfe2cf61f8e0df56740fefe0"
+    renderedObjectInventorySHA256: "30d62ee67f1116cbb5b525765fcfb5a9e7e795c4cf8c3414ac8d487beb554442"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 48
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

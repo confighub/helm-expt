@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "grafana-loki-7.0.0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "grafana"
+  repositoryURL: "https://grafana.github.io/helm-charts"
+  chart: "loki"
+  version: "7.0.0"
+  appVersion: "3.6.7"
+  packageSHA256: "5eaa28e3535069de2a7ac1f7087ff558e5b4b4a24f0e158072a97e2391132f81"
+  packageBytes: 170255
+  evidence:
+    harnessReceipt: "../../../../data/adversarial10/charts/grafana-loki-7.0.0/render-receipt.yaml"

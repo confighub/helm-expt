@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "tempo-s3-query-observability-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+    apiVersions:
+      - "networking.k8s.io/v1"
+      - "monitoring.coreos.com/v1"
+  inputs:
+    sourceLockSHA256: "eb70200122f8fbc77b922c7786c15e059fd6fd2345d3e232bbae568075bfc952"
+    dependencyLockSHA256: "433e2ce251e742ae83f3f00054013bc69dd56d8c31f5fe96041604a1ecb19641"
+    effectiveValuesSHA256: "e4ab2578ef9c6163e1f0a9f88f0f2e2fdedca3b1a7f1c35af47f5d532e3164a6"
+  outputs:
+    renderedObjectSetSHA256: "6fb9e1726fb68d7e7e251420e9c5761e078cd38f508fa87af7759e0b302017a4"
+    renderedObjectInventorySHA256: "eb0d203a8b7209df70d2d3f1810bf2fad14f6a307d2ced8582d6818bf5f1c54b"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 8
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

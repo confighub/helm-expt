@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "crossplane-stable/crossplane"
+    confighub.io/chart-version: "2.3.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "0bf41f4414f233ce8e995637c500d2e46c326af789b84ee8be23bd62ad1cf1c4"
+  digestInputs:
+    recipeSHA256: "39a707c01514c5fb4f491929bea5c989c9a533186a881eb42a5b67b73a5c6b49"
+    variantSHA256: "fab63213e07e62fdcab371f19752dce866b033ce7befae8eac655d23b53c024f"
+    effectiveValuesSHA256: "cd6232df092df91692db7b31c616951d1cafdb90a0a3c7ddd2fb242eabcc9ca3"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "917b3dc2a52c16f26cefebe2b580889944e23461d95d1fbe912e0c7a451fd996"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 23

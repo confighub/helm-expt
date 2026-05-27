@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "elastic-metricbeat-8-5-1-default-r001"
+  labels:
+    confighub.io/chart-ref: "elastic/metricbeat"
+    confighub.io/chart-version: "8.5.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "805a258f07a07f1cdef0ee45ee427a06e28cc18380e52368840efeb7b672e939"
+    objectCount: 14
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 15
+    uploadedManifestFiles: 15
+    separatedSecretFiles: 0
+    semanticObjectMatches: "14/14"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

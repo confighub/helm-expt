@@ -1,0 +1,98 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "jetstack-trust-manager-v0-22-1-default-r001"
+  labels:
+    confighub.io/chart-ref: "jetstack/trust-manager"
+    confighub.io/chart-version: "v0.22.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "50eb2239a5db07734497711c4e812eb111d231852c2f614e5b0a1faec7bab683"
+  objectCount: 14
+  objects:
+    -
+      apiVersion: "admissionregistration.k8s.io/v1"
+      identity: "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||trust-manager"
+      kind: "ValidatingWebhookConfiguration"
+      name: "trust-manager"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||bundles.trust.cert-manager.io"
+      kind: "CustomResourceDefinition"
+      name: "bundles.trust.cert-manager.io"
+      namespace: ""
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|trust-manager"
+      kind: "Deployment"
+      name: "trust-manager"
+      namespace: "default"
+    -
+      apiVersion: "cert-manager.io/v1"
+      identity: "cert-manager.io/v1|Certificate|default|trust-manager"
+      kind: "Certificate"
+      name: "trust-manager"
+      namespace: "default"
+    -
+      apiVersion: "cert-manager.io/v1"
+      identity: "cert-manager.io/v1|Issuer|default|trust-manager"
+      kind: "Issuer"
+      name: "trust-manager"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||trust-manager"
+      kind: "ClusterRoleBinding"
+      name: "trust-manager"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||trust-manager"
+      kind: "ClusterRole"
+      name: "trust-manager"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|cert-manager|trust-manager"
+      kind: "RoleBinding"
+      name: "trust-manager"
+      namespace: "cert-manager"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|default|trust-manager:leaderelection"
+      kind: "RoleBinding"
+      name: "trust-manager:leaderelection"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role|cert-manager|trust-manager"
+      kind: "Role"
+      name: "trust-manager"
+      namespace: "cert-manager"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role|default|trust-manager:leaderelection"
+      kind: "Role"
+      name: "trust-manager:leaderelection"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|trust-manager"
+      kind: "ServiceAccount"
+      name: "trust-manager"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|trust-manager"
+      kind: "Service"
+      name: "trust-manager"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|trust-manager-metrics"
+      kind: "Service"
+      name: "trust-manager-metrics"
+      namespace: "default"

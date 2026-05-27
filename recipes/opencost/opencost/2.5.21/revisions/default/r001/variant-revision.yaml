@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "opencost/opencost"
+    confighub.io/chart-version: "2.5.21"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "97573d32f4ca5bdd024f31bdf651f35ab1e39e6580b2428f1f172c19a8fed036"
+  digestInputs:
+    recipeSHA256: "e4f4842d11eb204f60acbf3d1b8bd06ab37b29476999c90f70342ef159088f1b"
+    variantSHA256: "734beaeaea7dae16f50c3233aa136f02089a8f57650da8c63a0b6ee23e7f51e1"
+    effectiveValuesSHA256: "b919b89ae3599c09deb4870f235203a25a703b2ea11e2826215ab6d7a755f7eb"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "3cf0267ce7b5173e0c514fad903e559129d63d2f9a6bb83da681dcff1f7977dc"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 6

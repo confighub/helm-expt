@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "prometheus-community-prometheus-pushgateway-3-6-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "prometheus-community/prometheus-pushgateway"
+    confighub.io/chart-version: "3.6.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "80cb018f0b277814e17ca7208be55ef10ed74288a258a6519e7bbcf088a9f450"
+    objectCount: 3
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 4
+    uploadedManifestFiles: 4
+    separatedSecretFiles: 0
+    semanticObjectMatches: "3/3"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

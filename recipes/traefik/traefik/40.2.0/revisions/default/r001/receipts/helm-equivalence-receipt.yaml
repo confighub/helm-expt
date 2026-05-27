@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "traefik-traefik-40-2-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "traefik/traefik"
+    confighub.io/chart-version: "40.2.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "84b1e950901024fda7bb0be73aba239015712ae0c3d4cb0ecabcb091abc53c09"
+    objectCount: 31
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 32
+    uploadedManifestFiles: 32
+    separatedSecretFiles: 0
+    semanticObjectMatches: "31/31"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

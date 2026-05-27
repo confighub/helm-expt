@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "ui-ingress-r001"
+spec:
+  variant: "../../../variants/ui-ingress/variant.yaml"
+  revision: "r001"
+  digest: "1069fea32675f30aedba7d7678d756e05855ac2e60eeffaa673f5684e566d917"
+  digestInputs:
+    recipeSHA256: "7f19f949c892c05bcedbb4bf17973a3e1f62cf3d077abcf43a04ae17d0ae163e"
+    variantSHA256: "ddb37e0b6eb29980681155029dfdc90f315d94de62136c5702e75acf036c9f87"
+    effectiveValuesSHA256: "1646cd4a3965a2dba5b5e2a63d8a3e63e8050cce9f5a2bbcb123e99dcd89290f"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "2f6508c2bc3f2a09e1ffcb8ec71282b3e2dd52e69fe8ca80fc90ab756f9b9298"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 42

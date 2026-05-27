@@ -1,0 +1,29 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "fluent-fluent-bit-0-57-6"
+  labels:
+    confighub.io/chart-ref: "fluent/fluent-bit"
+    confighub.io/chart-version: "0.57.6"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chart: "fluent/fluent-bit"
+  version: "0.57.6"
+  maintainedNotes:
+    - "fluent/fluent-bit@0.57.6 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+    - "Chart source contains Helm hooks; the proof revision uses no-hooks so hook lifecycle must be handled separately before production."
+    - "Chart source contains tpl; raw templating extension slots need explicit ownership and review."
+    - "Rendered output includes cluster-scoped RBAC; production promotion needs RBAC review."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "variant-revision"
+    - "rendered-manifest-scan"
+    - "helm-equivalence"
+    - "tpl-extension-slots"
+    - "lifecycle-policy"
+    - "extension-slots"
+    - "cluster-rbac"
+  proofFocus: "DaemonSet, host mounts, log collection"

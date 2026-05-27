@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "bitnami-memcached-8-5-5-default"
+  labels:
+    confighub.io/chart-ref: "bitnami/memcached"
+    confighub.io/chart-version: "8.5.5"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "f76b987085ae5b8160cd827742a316d543cbc62418d6d07633b47bbd7110247d"
+  mergedValuesCaptured: false
+  values:
+    {}

@@ -1,0 +1,13 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "grafana-rollout-operator-0-49-0"
+spec:
+  chart: "grafana/rollout-operator"
+  version: "0.49.0"
+  dependencies:
+    -
+      name: "crds"
+      version: "0.0.0"
+      repository: ""
+      condition: "crds.enabled"

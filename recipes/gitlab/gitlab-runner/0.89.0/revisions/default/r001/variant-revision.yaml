@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "gitlab/gitlab-runner"
+    confighub.io/chart-version: "0.89.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "4bc2da6b8dd76be52d58a638724a529d7dd3be4a787933bf7c0bbe3d0ecbbc7a"
+  digestInputs:
+    recipeSHA256: "766012b55435dc3b94066092e90bbf4c4d22cbdee02216011245ff9fdaa66de2"
+    variantSHA256: "e6fc02fdc42feb43e5ce3da873e45a1971977f8f439c7e740e5ce90e0cb623b3"
+    effectiveValuesSHA256: "b2e452a1e542ff4eb3dc03453dd7bfbd3194efd12d0af54977a0d159676ce604"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "ad0d78b72ba8c9c6d896ee2faf620db82e9c52d2794f3dbbcbe6f3705c43d95e"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 2

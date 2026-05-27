@@ -1,0 +1,118 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HarnessRenderReceipt"
+metadata:
+  name: "external-secrets-external-secrets-2.5.0-default"
+spec:
+  corpus: "../corpus.yaml"
+  chartRef:
+    rank: 4
+    repository: "external-secrets"
+    repositoryURL: "https://charts.external-secrets.io"
+    chart: "external-secrets"
+    version: "2.5.0"
+    appVersion: "v2.5.0"
+    releaseName: "external-secrets"
+    namespace: "external-secrets"
+    packageSHA256: "7f8cb50cd236cc0f8476b333119cb507a3becdc896fdb7ab16329e521911018f"
+    packageBytes: 185739
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    command:
+      - "helm"
+      - "template"
+      - "external-secrets"
+      - "external-secrets/external-secrets"
+      - "--version"
+      - "2.5.0"
+      - "--namespace"
+      - "external-secrets"
+      - "--kube-version"
+      - "1.30.0"
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  renderContext:
+    kubeVersion: "1.30.0"
+    includeCRDs: true
+    skipTests: true
+    noHooks: true
+    valuesProfile: "chart-defaults"
+  outputs:
+    status: "rendered"
+    deterministicAcrossTwoLocalRenders: true
+    firstRenderSHA256: "a1c1a8ff5ba4930b0e3f6758299aa4860eb3f9c5b5b9b91fabc3f0c68965e5bf"
+    secondRenderSHA256: "a1c1a8ff5ba4930b0e3f6758299aa4860eb3f9c5b5b9b91fabc3f0c68965e5bf"
+    renderedManifestPath: "rendered/default.yaml"
+    renderedManifestBytes: 1818888
+    objectInventoryPath: "rendered/object-inventory.yaml"
+    resourceCount: 42
+    errorSHA256: null
+    errorExcerpt: null
+  sourceFeatures:
+    lookup: false
+    generatedFacts: false
+    capabilities: true
+    tpl: true
+    hooks: false
+    required: true
+    extensionSlots: true
+    crdFiles: 0
+    crdTemplates: 23
+    dependencyCount: 1
+  renderedFeatures:
+    crdCount: 23
+    clusterRBAC: true
+    webhooks: true
+    apiService: false
+    stateful: false
+    pvc: false
+    kindCounts:
+      ClusterRole: 5
+      ClusterRoleBinding: 2
+      CustomResourceDefinition: 23
+      Deployment: 3
+      Role: 1
+      RoleBinding: 1
+      Secret: 1
+      Service: 1
+      ServiceAccount: 3
+      ValidatingWebhookConfiguration: 2
+  proofReadiness: "rendered-needs-control-points"
+  controlPoints:
+    - 
+      id: "capability-branching"
+      severity: "P0"
+      controlPoint: "capability-profile"
+      evidence: "Chart source branches on .Capabilities."
+      mitigation: "Render against a named, digest-bound Kubernetes capability profile."
+    - 
+      id: "crds"
+      severity: "P0"
+      controlPoint: "crd-policy"
+      evidence: "0 CRD source file(s), 23 CRD template(s), 23 rendered CRD object(s)."
+      mitigation: "Split CRD readiness, ordering, schema validation, and upgrade compatibility from ordinary object apply."
+    - 
+      id: "template-extension-slots"
+      severity: "P1"
+      controlPoint: "extension-slot-policy"
+      evidence: "Chart exposes tpl/raw/extra manifest behavior."
+      mitigation: "Treat extension inputs as explicit slots with provenance, scan coverage, and rendered-object diff checks."
+    - 
+      id: "dependencies"
+      severity: "P1"
+      controlPoint: "dependency-lock"
+      evidence: "Chart declares 1 dependency."
+      mitigation: "Lock dependency names, versions, repositories, and package digests before variant publication."
+    - 
+      id: "admission-or-apiservice"
+      severity: "P1"
+      controlPoint: "operate-policy"
+      evidence: "Rendered objects include admission webhooks or APIService resources."
+      mitigation: "Require readiness observations and freshness receipts after apply."
+    - 
+      id: "cluster-rbac"
+      severity: "P1"
+      controlPoint: "rendered-manifest-scan"
+      evidence: "Rendered objects include cluster-scoped RBAC."
+      mitigation: "Scan exact rendered objects for least privilege and policy violations."

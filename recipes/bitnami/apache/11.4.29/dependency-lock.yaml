@@ -1,0 +1,14 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "bitnami-apache-11-4-29"
+spec:
+  chart: "bitnami/apache"
+  version: "11.4.29"
+  dependencies:
+    -
+      name: "common"
+      version: "2.x.x"
+      repository: "oci://registry-1.docker.io/bitnamicharts"
+      tags:
+        - "bitnami-common"

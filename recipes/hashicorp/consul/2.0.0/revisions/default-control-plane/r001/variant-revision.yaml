@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-control-plane-r001"
+spec:
+  variant: "../../../variants/default-control-plane/variant.yaml"
+  revision: "r001"
+  digest: "89aa622bef303e369b1f2de7c24b4efdda46a823fd7b2d91f1ede608a6deff98"
+  digestInputs:
+    recipeSHA256: "4a6667a911c80202bdbb4c7bf98fb323c742f2f9c635995c06c1e42a911dabdf"
+    variantSHA256: "531ff8ab5a0231b02fd1db36691f9bc7870962c567737b31ad8bede3f48b89f3"
+    effectiveValuesSHA256: "1c97c273f8d41abaa5140d0bc6118ce45ffb5b9b36f24ef238fae54c9d08d225"
+    rendererSHA256: "802e90ca6f4d3538badc3879a237ce00b5725f3eae315323fde3254df3c9759e"
+    renderedObjectSetSHA256: "467ec5aadeb6aee76362da376763563d7a1ea4146f5b5098cfdaa0784c961e3f"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 70

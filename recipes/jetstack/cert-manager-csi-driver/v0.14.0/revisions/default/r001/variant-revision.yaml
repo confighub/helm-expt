@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "jetstack/cert-manager-csi-driver"
+    confighub.io/chart-version: "v0.14.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "9d14ba2db88889bbef70caf5419a3ad88e80c0a32fd95198904165b8cb5ff6cb"
+  digestInputs:
+    recipeSHA256: "3cd58116e5fdaf6a9eefb38425730b28fbd40848df27d10093ccbd00151e1013"
+    variantSHA256: "ea26e41a536c855a58928ea5a68edd9a36f53e726b0f476b60ec17eb56b3c023"
+    effectiveValuesSHA256: "4d6d7feb2d029339b4a2aae256e0df604747f7902c3d8c7ce430b8b0fd665e72"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "2fa28f4f4c912710babcc4f46818889df3c51396a400dbce6c0245afc20056f3"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 5

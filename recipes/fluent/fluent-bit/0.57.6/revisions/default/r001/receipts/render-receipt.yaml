@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "fluent-fluent-bit-0-57-6-default-r001"
+  labels:
+    confighub.io/chart-ref: "fluent/fluent-bit"
+    confighub.io/chart-version: "0.57.6"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "30f9404b48f4d41de7552c3b4009c7c8ffd01460829961a468809560c7d71518"
+    dependencyLockSHA256: "bb884c391b67079154e25d998b779744ad51df8f874beef9ef140f801061ec82"
+    effectiveValuesSHA256: "9c416f044ad3c164e04473a4cc9a1efcc2bfa4d0c397476d480f7523932485e7"
+  outputs:
+    renderedObjectSetSHA256: "464d9136c0ba9e845fd81c1dbea556e717d47930d7cb58755de67ead7f8f2a2b"
+    renderedObjectInventorySHA256: "d01647b9d23ea7ec2efe0a56336df3fab7c856bbbf08e6ebb61b5f5ecd2939a0"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 6
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

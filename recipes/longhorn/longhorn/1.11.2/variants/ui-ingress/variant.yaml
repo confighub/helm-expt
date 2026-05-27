@@ -1,0 +1,14 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "ui-ingress"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "longhorn-system"
+  releaseName: "longhorn"
+  valuesProfile: "../../effective-values-ui-ingress.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"

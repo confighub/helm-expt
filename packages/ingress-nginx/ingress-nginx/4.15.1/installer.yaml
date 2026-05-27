@@ -1,0 +1,16 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "ingress-nginx-ingress-nginx"
+  version: "4.15.1"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "ingress-nginx default variant rendered from ingress-nginx/ingress-nginx@4.15.1"
+    -
+      name: "admission-disabled"
+      path: "bases/admission-disabled"
+      description: "ingress-nginx admission webhook disabled variant rendered from ingress-nginx/ingress-nginx@4.15.1"

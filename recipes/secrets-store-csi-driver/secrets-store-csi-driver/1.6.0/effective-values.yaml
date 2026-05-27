@@ -1,0 +1,10 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "secrets-store-csi-driver-1.6.0-default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "3142fb663b2153e00a3e97a312d7ee5c6bb5a0c9db421024d68da6f5a9035fdd"
+  mergedValuesCaptured: false
+  values:
+    {}

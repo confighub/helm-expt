@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "percona-pxc-operator-1-19-1-default"
+  labels:
+    confighub.io/chart-ref: "percona/pxc-operator"
+    confighub.io/chart-version: "1.19.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "d2de74994b74c0d349d20251385881bbac39324ed44b658ee18778a22ab1d03b"
+  mergedValuesCaptured: false
+  values:
+    {}

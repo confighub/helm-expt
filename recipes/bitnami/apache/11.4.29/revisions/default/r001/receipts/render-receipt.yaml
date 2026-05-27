@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "bitnami-apache-11-4-29-default-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/apache"
+    confighub.io/chart-version: "11.4.29"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "4c65aef42c51db90d16cd7ae14d8888764111f42e53b5b48b7431fb667025ad7"
+    dependencyLockSHA256: "a45cabe6426eda7c6079a538750941d56a5e0d8f70de6c90e6fceb05bcf72b25"
+    effectiveValuesSHA256: "99a998eb7d2154f7a96bd93451c98cd8ef4ce73f6109c136ee1fe1e3b39b4d56"
+  outputs:
+    renderedObjectSetSHA256: "0b37f6d8ae27b5b341860619b89aa3d78e02d7bd01a2271fab216d4e65be047c"
+    renderedObjectInventorySHA256: "6be4096e55050cd126faa6086f17b7e1109fdd3e3fe9eb6d09abc7e04181f9af"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 5
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

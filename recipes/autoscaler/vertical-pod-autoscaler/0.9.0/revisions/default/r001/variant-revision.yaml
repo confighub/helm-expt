@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "autoscaler/vertical-pod-autoscaler"
+    confighub.io/chart-version: "0.9.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "18615de8df98ce553dea90bb4d7b5c5bd7b3ffbf9c9c51a7e85293d14b1ccf51"
+  digestInputs:
+    recipeSHA256: "5cce9c60aa936e6254839fa4295327113dbfab27815f223a7af95b365f9c5f56"
+    variantSHA256: "db65ac873d198b2e2df12279cc9bb1e8db23a1c6b79cedad34b81917f2d26ffb"
+    effectiveValuesSHA256: "808217c9110f754450e3c11f76d24d48f3de217b6f0d82fd50363bdd23ed65ea"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "9d7307f629bdc478fa0c9bc6646359976b96d0cfd549bd66c13442facfa57490"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 39

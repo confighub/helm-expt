@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "argo-cd-argo-rollouts-2-40-9"
+  labels:
+    confighub.io/chart-ref: "argo-cd/argo-rollouts"
+    confighub.io/chart-version: "2.40.9"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "argo-cd/argo-rollouts"
+    version: "2.40.9"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 14
+    cubInstallObjectsByVariant:
+      default: 15
+    helmMatchByVariant:
+      default: "14/14"
+    renderedObjectSetSHA256: "cd696130d24a1a676d5bc1abb9978ff10d6d4e6e072655c6ef275453b1e85e47"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

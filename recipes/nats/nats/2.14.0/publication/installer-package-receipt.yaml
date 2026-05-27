@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "nats-nats-2-14-0"
+spec:
+  chart:
+    repository: "nats"
+    name: "nats"
+    version: "2.14.0"
+  package:
+    path: "packages/nats/nats/2.14.0"
+    name: "nats-nats"
+    version: "2.14.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "b582ea21825d6751b7c8eb417218d17653890a558e672cd13750603f94dfe6e5"
+        bytes: 190
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "395344e7541927ec138080eda2a92f6ce69532966040ce5d689f9852a4cee8da"
+        bytes: 7360
+      -
+        path: "installer.yaml"
+        sha256: "cdbd8ef813455f4309000ddfac216e08c564b6168166460747f3d7b1f8f95d6c"
+        bytes: 282
+  deterministicBundle:
+    command: "cub install package packages/nats/nats/2.14.0 -o <tmp>/nats-nats-2-14-0.tgz"
+    sha256: "584668d683b7645e0226bacdcee8b936734be3bbbc3d36ee8aafc1b2b298695d"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/nats/nats/2.14.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 7
+      cubInstallObjectCountIncludingSupport: 8
+      semanticObjectMatches: "7/7"
+      separatedSecretCount: 1
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

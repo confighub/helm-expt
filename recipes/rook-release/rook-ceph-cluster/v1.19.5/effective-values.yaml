@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "rook-release-rook-ceph-cluster-v1-19-5-default"
+  labels:
+    confighub.io/chart-ref: "rook-release/rook-ceph-cluster"
+    confighub.io/chart-version: "v1.19.5"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "fec18db3d2f36b91496fa82381347629f7b783a42553660d8f63586cee04e9ca"
+  mergedValuesCaptured: false
+  values:
+    {}

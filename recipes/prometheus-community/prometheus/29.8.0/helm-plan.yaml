@@ -1,0 +1,32 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "prometheus-29.8.0"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "prometheus-community/prometheus"
+    version: "29.8.0"
+    variants:
+      - "default"
+      - "server-only-ephemeral"
+    helmObjectsByVariant:
+      default: 23
+      server-only-ephemeral: 6
+    cubInstallObjectsByVariant:
+      default: 24
+      server-only-ephemeral: 7
+    helmMatchByVariant:
+      default: "23/23"
+      server-only-ephemeral: "6/6"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish only after component selection, scrape config, storage/retention, RBAC, workload exposure, and remote read/write policies are satisfied"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "revisions/server-only-ephemeral/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/server-only-ephemeral/r001/receipts/render-receipt.yaml"
+    - "revisions/server-only-ephemeral/r001/receipts/scan-receipt.yaml"
+    - "revisions/server-only-ephemeral/r001/receipts/install-gate.yaml"

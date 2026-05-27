@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "vault-ha-raft-ui-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "a2e1b05945bf52e50d934fa147e46f4f2671deca0cb5c989d92302a3df5a8b8e"
+    dependencyLockSHA256: "9433720294172da44f6e0074daae489ad2f3d802f418a0ef105a1d76c45f1179"
+    effectiveValuesSHA256: "228847bb6cfda44ca51b1144969e495bc9d76aa7581746b55f901fb372635449"
+  outputs:
+    renderedObjectSetSHA256: "734a212cbb2e8d11ed288d32bc8b709e859248ef5587090b04e0fa407b248b5f"
+    renderedObjectInventorySHA256: "e5eb8aae00f02b85b93c8c66b252e515548ba06884cfd1ad4cef8bfd287d6376"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 18
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

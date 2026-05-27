@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "prometheus-community-prometheus-blackbox-exporter-11-10-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "prometheus-community/prometheus-blackbox-exporter"
+    confighub.io/chart-version: "11.10.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "43dbd48cda5a6f5aa85365fdba15a04cb328d513a0123983ec943c505a01730c"
+    objectCount: 4
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 5
+    uploadedManifestFiles: 5
+    separatedSecretFiles: 0
+    semanticObjectMatches: "4/4"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

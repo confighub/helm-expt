@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "strimzi-strimzi-kafka-operator-1-0-0"
+spec:
+  chart: "strimzi/strimzi-kafka-operator"
+  version: "1.0.0"
+  dependencies:
+    []

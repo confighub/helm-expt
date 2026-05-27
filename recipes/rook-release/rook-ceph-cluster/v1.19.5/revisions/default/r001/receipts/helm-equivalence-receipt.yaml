@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "rook-release-rook-ceph-cluster-v1-19-5-default-r001"
+  labels:
+    confighub.io/chart-ref: "rook-release/rook-ceph-cluster"
+    confighub.io/chart-version: "v1.19.5"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "5ac8f526459d6393552b66ab60f690c6c85a1e86bba45ea82d5bbf219694b010"
+    objectCount: 27
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 28
+    uploadedManifestFiles: 28
+    separatedSecretFiles: 0
+    semanticObjectMatches: "27/27"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

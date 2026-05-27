@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "elastic-eck-operator-3-4-0"
+  labels:
+    confighub.io/chart-ref: "elastic/eck-operator"
+    confighub.io/chart-version: "3.4.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "elastic/eck-operator"
+    version: "3.4.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 22
+    cubInstallObjectsByVariant:
+      default: 23
+    helmMatchByVariant:
+      default: "22/22"
+    renderedObjectSetSHA256: "11bd8f291f9da0611bf6795dbbbe41a9e4e5ae9fe4cd58e9bad69dd883aee278"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "falcosecurity-falco-9-0-0"
+spec:
+  chart: "falcosecurity/falco"
+  version: "9.0.0"
+  dependencies:
+    -
+      name: "falcosidekick"
+      version: "0.12.*"
+      repository: "https://falcosecurity.github.io/charts"
+      condition: "falcosidekick.enabled"
+    -
+      name: "k8s-metacollector"
+      version: "0.1.*"
+      repository: "https://falcosecurity.github.io/charts"
+      condition: "collectors.kubernetes.enabled"
+    -
+      name: "falco-talon"
+      version: "0.3.*"
+      repository: "https://falcosecurity.github.io/charts"
+      condition: "responseActions.enabled"

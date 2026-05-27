@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "bitnami-memcached-8-5-5"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "bitnami"
+  repositoryURL: "https://charts.bitnami.com/bitnami"
+  chart: "memcached"
+  ref: "bitnami/memcached"
+  version: "8.5.5"
+  appVersion: "1.6.42"
+  packageSHA256: "a4e93ca0fd99b523a52b3c388421330a7cbdc47efc860aff79fba775be240047"
+  packageBytes: 50525
+  capturedAt: "generated-by-next80-full-proof-harness"

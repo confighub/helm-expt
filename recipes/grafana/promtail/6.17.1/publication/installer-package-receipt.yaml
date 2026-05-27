@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "grafana-promtail-6-17-1"
+spec:
+  chart:
+    repository: "grafana"
+    name: "promtail"
+    version: "6.17.1"
+  package:
+    path: "packages/grafana/promtail/6.17.1"
+    name: "grafana-promtail"
+    version: "6.17.1"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "1f972a994044e25b45299f481ef304ed6145de3999b7096b98b1089a58fbaa32"
+        bytes: 197
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "06ff3623536aeca2cb083040a0b0c22d6627e57cd6600f3f3482dd1e7d56eb35"
+        bytes: 7446
+      -
+        path: "installer.yaml"
+        sha256: "535e6725a7f45e2fca198c76bd81607efe23142c9cdcc83e8bdbcb1d1548745f"
+        bytes: 303
+  deterministicBundle:
+    command: "cub install package packages/grafana/promtail/6.17.1 -o <tmp>/grafana-promtail-6-17-1.tgz"
+    sha256: "9188545be328ef5274745f362eede9cf1610a38ca13ade9a254f613a5bee4f62"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/grafana/promtail/6.17.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 5
+      cubInstallObjectCountIncludingSupport: 6
+      semanticObjectMatches: "5/5"
+      separatedSecretCount: 1
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

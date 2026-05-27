@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "bitnami-opensearch-2-0-10"
+  labels:
+    confighub.io/chart-ref: "bitnami/opensearch"
+    confighub.io/chart-version: "2.0.10"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "bitnami/opensearch"
+    version: "2.0.10"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 18
+    cubInstallObjectsByVariant:
+      default: 19
+    helmMatchByVariant:
+      default: "18/18"
+    renderedObjectSetSHA256: "99c0b24ee1850d1f5a4da323e9924a8a1f9d93a34a97a985d92c954836747afd"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

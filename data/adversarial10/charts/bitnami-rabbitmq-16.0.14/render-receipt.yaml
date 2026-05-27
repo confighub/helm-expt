@@ -1,0 +1,116 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HarnessRenderReceipt"
+metadata:
+  name: "bitnami-rabbitmq-16.0.14-default"
+spec:
+  corpus: "../corpus.yaml"
+  chartRef:
+    rank: 10
+    repository: "bitnami"
+    repositoryURL: "https://charts.bitnami.com/bitnami"
+    chart: "rabbitmq"
+    version: "16.0.14"
+    appVersion: "4.1.3"
+    releaseName: "rabbitmq"
+    namespace: "rabbitmq"
+    packageSHA256: "df625220cafdfe892e68c1b3f1a5500049acd227fe90b2deca04df13190a176b"
+    packageBytes: 73978
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    command:
+      - "helm"
+      - "template"
+      - "rabbitmq"
+      - "bitnami/rabbitmq"
+      - "--version"
+      - "16.0.14"
+      - "--namespace"
+      - "rabbitmq"
+      - "--kube-version"
+      - "1.30.0"
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  renderContext:
+    kubeVersion: "1.30.0"
+    includeCRDs: true
+    skipTests: true
+    noHooks: true
+    valuesProfile: "chart-defaults"
+  outputs:
+    status: "rendered"
+    deterministicAcrossTwoLocalRenders: false
+    firstRenderSHA256: "3e62e9c1190360d24596d8dba02b0be280a8146b79188917010ef4c1bddf0a97"
+    secondRenderSHA256: "2507afbcba1188da1601445eeeb8f53c6f8dc092e0b5f7c729e6f087888426cb"
+    renderedManifestPath: "rendered/default.yaml"
+    renderedManifestBytes: 15267
+    objectInventoryPath: "rendered/object-inventory.yaml"
+    resourceCount: 10
+    errorSHA256: null
+    errorExcerpt: null
+  sourceFeatures:
+    lookup: true
+    generatedFacts: true
+    capabilities: false
+    tpl: true
+    hooks: false
+    required: true
+    extensionSlots: true
+    crdFiles: 0
+    crdTemplates: 0
+    dependencyCount: 1
+  renderedFeatures:
+    crdCount: 0
+    clusterRBAC: false
+    webhooks: false
+    apiService: false
+    stateful: true
+    pvc: true
+    kindCounts:
+      NetworkPolicy: 1
+      PodDisruptionBudget: 1
+      Role: 1
+      RoleBinding: 1
+      Secret: 2
+      Service: 2
+      ServiceAccount: 1
+      StatefulSet: 1
+  proofReadiness: "needs-generated-fact-binding"
+  controlPoints:
+    - 
+      id: "nondeterministic-render"
+      severity: "P0"
+      controlPoint: "generated-facts"
+      evidence: "Two local Helm renders produced different manifest bytes."
+      mitigation: "Generate once, persist the generated fact binding, and render the approved variant revision from that binding."
+    - 
+      id: "generated-fact-candidates"
+      severity: "P0"
+      controlPoint: "generated-facts"
+      evidence: "Chart source contains random, cert, password, UUID, or time helpers."
+      mitigation: "Record generated fact requirements in the recipe and bind generated facts before publication."
+    - 
+      id: "lookup-target-facts"
+      severity: "P0"
+      controlPoint: "recipe-target-facts"
+      evidence: "Chart source calls Helm lookup."
+      mitigation: "Declare target fact requirements in the recipe and bind collected or synthetic facts per variant revision."
+    - 
+      id: "template-extension-slots"
+      severity: "P1"
+      controlPoint: "extension-slot-policy"
+      evidence: "Chart exposes tpl/raw/extra manifest behavior."
+      mitigation: "Treat extension inputs as explicit slots with provenance, scan coverage, and rendered-object diff checks."
+    - 
+      id: "dependencies"
+      severity: "P1"
+      controlPoint: "dependency-lock"
+      evidence: "Chart declares 1 dependency."
+      mitigation: "Lock dependency names, versions, repositories, and package digests before variant publication."
+    - 
+      id: "stateful-storage"
+      severity: "P1"
+      controlPoint: "storage-and-upgrade-policy"
+      evidence: "Rendered objects include stateful workloads or PVC claims/templates."
+      mitigation: "Record storage policy, retention expectations, and upgrade/rollback simulation receipts."

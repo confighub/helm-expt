@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "argo-cd-argo-workflows-1-0-14"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "argo-cd"
+  repositoryURL: "https://argoproj.github.io/argo-helm"
+  chart: "argo-workflows"
+  ref: "argo-cd/argo-workflows"
+  version: "1.0.14"
+  appVersion: "v4.0.5"
+  packageSHA256: "552fd9548aa107cd495a5e1277c4995b0389591ce945537a356863bfc791c339"
+  packageBytes: 86056
+  capturedAt: "generated-by-next80-full-proof-harness"

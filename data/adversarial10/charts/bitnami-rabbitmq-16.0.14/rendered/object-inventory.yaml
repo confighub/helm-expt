@@ -1,0 +1,78 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "bitnami-rabbitmq-16.0.14"
+spec:
+  chart: "bitnami/rabbitmq"
+  version: "16.0.14"
+  objectCount: 10
+  kindCounts:
+    NetworkPolicy: 1
+    PodDisruptionBudget: 1
+    Role: 1
+    RoleBinding: 1
+    Secret: 2
+    Service: 2
+    ServiceAccount: 1
+    StatefulSet: 1
+  objects:
+    - 
+      apiVersion: "apps/v1"
+      kind: "StatefulSet"
+      namespace: "rabbitmq"
+      name: "rabbitmq"
+      identity: "apps/v1|StatefulSet|rabbitmq|rabbitmq"
+    - 
+      apiVersion: "networking.k8s.io/v1"
+      kind: "NetworkPolicy"
+      namespace: "rabbitmq"
+      name: "rabbitmq"
+      identity: "networking.k8s.io/v1|NetworkPolicy|rabbitmq|rabbitmq"
+    - 
+      apiVersion: "policy/v1"
+      kind: "PodDisruptionBudget"
+      namespace: "rabbitmq"
+      name: "rabbitmq"
+      identity: "policy/v1|PodDisruptionBudget|rabbitmq|rabbitmq"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "RoleBinding"
+      namespace: "rabbitmq"
+      name: "rabbitmq-endpoint-reader"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|rabbitmq|rabbitmq-endpoint-reader"
+    - 
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      kind: "Role"
+      namespace: "rabbitmq"
+      name: "rabbitmq-endpoint-reader"
+      identity: "rbac.authorization.k8s.io/v1|Role|rabbitmq|rabbitmq-endpoint-reader"
+    - 
+      apiVersion: "v1"
+      kind: "Secret"
+      namespace: "rabbitmq"
+      name: "rabbitmq"
+      identity: "v1|Secret|rabbitmq|rabbitmq"
+    - 
+      apiVersion: "v1"
+      kind: "Secret"
+      namespace: "rabbitmq"
+      name: "rabbitmq-config"
+      identity: "v1|Secret|rabbitmq|rabbitmq-config"
+    - 
+      apiVersion: "v1"
+      kind: "ServiceAccount"
+      namespace: "rabbitmq"
+      name: "rabbitmq"
+      identity: "v1|ServiceAccount|rabbitmq|rabbitmq"
+    - 
+      apiVersion: "v1"
+      kind: "Service"
+      namespace: "rabbitmq"
+      name: "rabbitmq"
+      identity: "v1|Service|rabbitmq|rabbitmq"
+    - 
+      apiVersion: "v1"
+      kind: "Service"
+      namespace: "rabbitmq"
+      name: "rabbitmq-headless"
+      identity: "v1|Service|rabbitmq|rabbitmq-headless"

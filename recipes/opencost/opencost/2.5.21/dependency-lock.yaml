@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "opencost-opencost-2-5-21"
+spec:
+  chart: "opencost/opencost"
+  version: "2.5.21"
+  dependencies:
+    []

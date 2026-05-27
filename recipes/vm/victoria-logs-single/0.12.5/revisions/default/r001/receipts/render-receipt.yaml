@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "vm-victoria-logs-single-0-12-5-default-r001"
+  labels:
+    confighub.io/chart-ref: "vm/victoria-logs-single"
+    confighub.io/chart-version: "0.12.5"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "e1de5a1d273becaa356b32d5cefa0b14ab6f776d3f8666e2301aa97247f1c91e"
+    dependencyLockSHA256: "fcca081ca74f54116a401416b65cfe8862efa49a2f41f4a36be43fb390be03c6"
+    effectiveValuesSHA256: "8d47b63dd42483722ed553dfbb6b24269bf5244cf1a27408805d0983ec2365e2"
+  outputs:
+    renderedObjectSetSHA256: "edbf6e7dd31e9a1d0686592e7c1f050b04f5d780bdc33bb34fb3ddbfdfedde04"
+    renderedObjectInventorySHA256: "4746869f57afba773c3d63afc11e5644918bf4db62f1f915fff03bda0c50ff28"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 2
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "minio-operator-operator-7-1-1"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "minio-operator"
+  repositoryURL: "https://operator.min.io"
+  chart: "operator"
+  ref: "minio-operator/operator"
+  version: "7.1.1"
+  appVersion: "v7.1.1"
+  packageSHA256: "94f8124e2ecbc62f9cdcbe0519e8980f5992073638f5f63bd2b3ecac4f0ce7ca"
+  packageBytes: 20010
+  capturedAt: "generated-by-next80-full-proof-harness"

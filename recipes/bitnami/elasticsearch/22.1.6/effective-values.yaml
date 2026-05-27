@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "bitnami-elasticsearch-22-1-6-default"
+  labels:
+    confighub.io/chart-ref: "bitnami/elasticsearch"
+    confighub.io/chart-version: "22.1.6"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "5c1b064eb17b957d902a40215ffb689431959e56eadd369658163913ee196948"
+  mergedValuesCaptured: false
+  values:
+    {}

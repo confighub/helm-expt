@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "simple-scalable-minio-r001"
+spec:
+  variant: "../../../variants/simple-scalable-minio/variant.yaml"
+  revision: "r001"
+  digest: "00f69dc5367a311620114b6772ea74b2d7626cdb100252746c207645d1db8710"
+  digestInputs:
+    recipeSHA256: "26eb105affe70018240d03c23426fce451115134b03d6fc25612d66bd5e5d6e2"
+    variantSHA256: "18c0be6df652e7b585172b9473fca7af8f8d709cd17cba0bdfb7f68e1eb1f62e"
+    effectiveValuesSHA256: "45c8e2f2983d654149176406ff46d2c488f78ddec2f8c9932669562f36c450a1"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "8c4176621cdd67670d41b1689de1bcaa74854e40fb8170070606f794d0fc36ab"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 36

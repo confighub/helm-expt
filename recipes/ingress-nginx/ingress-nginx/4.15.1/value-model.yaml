@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "ingress-nginx-ingress-nginx-4.15.1"
+spec:
+  checkedValues:
+    -
+      path: "controller.admissionWebhooks.enabled"
+      variant: "default"
+      disposition: "admission-webhook-enabled"
+      reason: "default chart renders ValidatingWebhookConfiguration and admission Service"
+    -
+      path: "controller.admissionWebhooks.enabled"
+      variant: "admission-disabled"
+      disposition: "admission-webhook-disabled"
+      reason: "removes admission Service and ValidatingWebhookConfiguration from the rendered revision"
+    -
+      path: "controller.image.digest"
+      variant: "all"
+      disposition: "immutable-image-reference"
+      reason: "default image includes registry, tag, and digest"
+  unknownValues: "not-checked"
+  deadValues: "not-checked"
+  ignoredValues: "not-checked"

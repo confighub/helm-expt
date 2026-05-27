@@ -1,0 +1,32 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "jaegertracing-jaeger-4-8-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "jaegertracing/jaeger"
+    confighub.io/chart-version: "4.8.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "da24b2c05d1c43492627f3d01b0d675ea01bb2acb38017a18dec5a70c55b7939"
+  objectCount: 3
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment||jaeger"
+      kind: "Deployment"
+      name: "jaeger"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount||jaeger"
+      kind: "ServiceAccount"
+      name: "jaeger"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|Service||jaeger"
+      kind: "Service"
+      name: "jaeger"
+      namespace: ""

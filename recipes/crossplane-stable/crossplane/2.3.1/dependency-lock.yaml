@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "crossplane-stable-crossplane-2-3-1"
+spec:
+  chart: "crossplane-stable/crossplane"
+  version: "2.3.1"
+  dependencies:
+    []

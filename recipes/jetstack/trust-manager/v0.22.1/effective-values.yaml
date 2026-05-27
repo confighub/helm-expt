@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "jetstack-trust-manager-v0-22-1-default"
+  labels:
+    confighub.io/chart-ref: "jetstack/trust-manager"
+    confighub.io/chart-version: "v0.22.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "ddb2726e4fcf5f63db14d067c806f5a5093172112e349df593142b234ac8c31b"
+  mergedValuesCaptured: false
+  values:
+    {}

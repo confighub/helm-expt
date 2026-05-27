@@ -1,0 +1,73 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "vault-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "6de2d61c8de0c21faa951e89ec16658bcdff22e69d78075fdd394d895a5e6978"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.1.0"
+  policyBundleDigest: "262ab1f3bdfc94020877161cfa435dccfebcca91d3b7e6c3979ed9e09861b361"
+  findingCounts:
+    critical: 0
+    high: 0
+    medium: 9
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "admission-webhook-review:admissionregistration.k8s.io/v1|MutatingWebhookConfiguration||vault-agent-injector-cfg"
+      rule: "admission-webhook-review"
+      severity: "medium"
+      object: "admissionregistration.k8s.io/v1|MutatingWebhookConfiguration||vault-agent-injector-cfg"
+      message: "Vault injector admission webhook requires certificate, failure policy, and observation review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||vault-agent-injector-clusterrole"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||vault-agent-injector-clusterrole"
+      message: "Vault RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||vault-agent-injector-binding"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||vault-agent-injector-binding"
+      message: "Vault RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||vault-server-binding"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||vault-server-binding"
+      message: "Vault RBAC requires production review"
+    -
+      id: "extension-slot-review:vault-values"
+      rule: "extension-slot-review"
+      severity: "medium"
+      object: "values|server.extraEnvironmentVars|server.extraSecretEnvironmentVars|server.extraVolumes|server.extraInitContainers|server.sidecarContainers"
+      message: "Vault Secret/env, volume, plugin, init, and sidecar extension slots must be scanned when populated"
+    -
+      id: "service-exposure-review:v1|Service|vault|vault"
+      rule: "service-exposure-review"
+      severity: "medium"
+      object: "v1|Service|vault|vault"
+      message: "Vault API/UI service exposure requires explicit network and TLS policy"
+    -
+      id: "vault-tls-posture-review:v1|ConfigMap|vault|vault-config"
+      rule: "vault-tls-posture-review"
+      severity: "medium"
+      object: "v1|ConfigMap|vault|vault-config"
+      message: "Vault listener TLS is disabled in rendered config and must be explicitly approved before production promotion"
+    -
+      id: "vault-workload-operate-review:apps/v1|Deployment|vault|vault-agent-injector"
+      rule: "vault-workload-operate-review"
+      severity: "medium"
+      object: "apps/v1|Deployment|vault|vault-agent-injector"
+      message: "Vault workload rollout, storage, init/unseal, and rollback policy require production review"
+    -
+      id: "vault-workload-operate-review:apps/v1|StatefulSet|vault|vault"
+      rule: "vault-workload-operate-review"
+      severity: "medium"
+      object: "apps/v1|StatefulSet|vault|vault"
+      message: "Vault workload rollout, storage, init/unseal, and rollback policy require production review"

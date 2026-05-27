@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "velero/velero"
+    confighub.io/chart-version: "12.0.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "12f87f14fed242c5a31222d7bcd2c1ff26489d97e18746b909a941c8aea89790"
+  digestInputs:
+    recipeSHA256: "cc4e9e571ad9b51c684fb8ed80d422b373c6e98dd722b9b75b7ab138654d71f4"
+    variantSHA256: "b8f1f72d1c7514be8e24fdd6c1711bf4031d29bb8403d82911d27a310c434028"
+    effectiveValuesSHA256: "3a4fa40cf3fa6146c6efc9a2f3970c00b42f1b9506f38b552f21f61a82fd2f3c"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "3fc8afa5a2077710e8e9a49df435b234925b373cdaf2209e66fada0044ef2c1b"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 23

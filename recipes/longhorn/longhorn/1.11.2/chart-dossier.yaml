@@ -1,0 +1,22 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "longhorn-longhorn-1.11.2"
+spec:
+  chart: "longhorn/longhorn"
+  version: "1.11.2"
+  maintainedNotes:
+    - "Default chart renders 22 Longhorn CRDs as ordinary rendered objects with --include-crds."
+    - "default variant keeps UI ingress disabled and captures the storage control plane baseline."
+    - "ui-ingress variant adds Longhorn UI exposure with host and ingress class explicitly captured."
+    - "Longhorn pre-upgrade checks are hook paths and are excluded from rendered revisions by --no-hooks."
+    - "Longhorn manager, driver deployer, admission/recovery services, StorageClass/default settings, and CRDs require target readiness and observation policy."
+  knownControlPoints:
+    - "capability-profile"
+    - "crd-lifecycle-policy"
+    - "hook-lifecycle-policy"
+    - "admission-recovery-observation"
+    - "privileged-storage-workload"
+    - "storageclass-policy"
+    - "ui-ingress-policy"
+    - "cluster-rbac-scan"

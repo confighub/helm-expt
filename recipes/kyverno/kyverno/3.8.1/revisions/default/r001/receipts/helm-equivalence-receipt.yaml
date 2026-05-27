@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "kyverno-kyverno-3-8-1-default-r001"
+  labels:
+    confighub.io/chart-ref: "kyverno/kyverno"
+    confighub.io/chart-version: "3.8.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "00df8d584a2b69683a7895eff47d5a2bd6c1947827272bc518b0b79bbba80884"
+    objectCount: 69
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 70
+    uploadedManifestFiles: 70
+    separatedSecretFiles: 0
+    semanticObjectMatches: "69/69"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run next80:verify-packages"

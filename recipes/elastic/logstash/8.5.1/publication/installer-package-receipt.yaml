@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "elastic-logstash-8-5-1"
+spec:
+  chart:
+    repository: "elastic"
+    name: "logstash"
+    version: "8.5.1"
+  package:
+    path: "packages/elastic/logstash/8.5.1"
+    name: "elastic-logstash"
+    version: "8.5.1"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "aa4306771c94c30f7d433ffbdaac01af2a97bbf3e503e6f56a2f8922099d49a1"
+        bytes: 196
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "1bb5971d54f2bb9fd05ffe69b339261a9c31e8b81eeba48064a9dbc337fe5ecd"
+        bytes: 2874
+      -
+        path: "installer.yaml"
+        sha256: "e81d2c7ca8f017bc924758cf739b86d1f472209c24b378096e0b85f397158e10"
+        bytes: 301
+  deterministicBundle:
+    command: "cub install package packages/elastic/logstash/8.5.1 -o <tmp>/elastic-logstash-8-5-1.tgz"
+    sha256: "cc907ba593e2d2e0d750a5c4310ee8d9bb37383807a51d43f30b1ebf47a5e779"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/elastic/logstash/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 3
+      cubInstallObjectCountIncludingSupport: 4
+      semanticObjectMatches: "3/3"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

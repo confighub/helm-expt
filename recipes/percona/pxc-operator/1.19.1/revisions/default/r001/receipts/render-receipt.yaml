@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "percona-pxc-operator-1-19-1-default-r001"
+  labels:
+    confighub.io/chart-ref: "percona/pxc-operator"
+    confighub.io/chart-version: "1.19.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "8fc4f2a9a5049a44bcc6eac6714504b5ed7f551b318d4a8453c41d6b8336885c"
+    dependencyLockSHA256: "3cb071f344fb44613e8f7df0cffc7a66da15aaa3dcd4061064e9fbb2041321cc"
+    effectiveValuesSHA256: "9ac72eb64137df7a6471a85e464ae64b36e82b7bf5f06337122b7ff00a13de74"
+  outputs:
+    renderedObjectSetSHA256: "769b3b65e8543cd4ae04c498b6793f5f9e84b611bff8ec07b7fbaa5efaac8dc6"
+    renderedObjectInventorySHA256: "a9c9f924be3f32f2483f90918998104fd75e52bdef30d6a20d59c85c4c5ccc0c"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 7
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

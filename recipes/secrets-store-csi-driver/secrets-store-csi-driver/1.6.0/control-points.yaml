@@ -1,0 +1,56 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ControlPoints"
+metadata:
+  name: "secrets-store-csi-driver-1.6.0"
+spec:
+  points:
+    -
+      category: "source-lock"
+      status: "handled"
+      evidence: "source-lock.yaml"
+    -
+      category: "dependency-lock"
+      status: "handled"
+      evidence: "dependency-lock.yaml"
+      note: "chart declares no subchart dependencies; the empty closure is recorded explicitly."
+    -
+      category: "capability-profile"
+      status: "handled"
+      kubeVersion: "1.30.0"
+      note: "Kubernetes API and version branches are bound to the named Kubernetes capability profile."
+    -
+      category: "crd-lifecycle"
+      status: "scan-and-review"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||secretproviderclasses.secrets-store.csi.x-k8s.io"
+    -
+      category: "csi-driver"
+      status: "scan-and-review"
+      object: "storage.k8s.io/v1|CSIDriver||secrets-store.csi.k8s.io"
+    -
+      category: "daemonset-workload"
+      status: "scan-and-review"
+      object: "apps/v1|DaemonSet|kube-system|secrets-store-csi-driver"
+    -
+      category: "cluster-rbac"
+      status: "scan-and-review"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||secretproviderclasses-role"
+    -
+      category: "sync-secret-rotation"
+      status: "variant-controlled"
+      evidence: "syncSecret.enabled / enableSecretRotation / providerHealthCheck"
+    -
+      category: "provider-integration"
+      status: "needs-target-decision"
+      note: "SecretProviderClass provider identity, token requests, and synced Secret ownership are post-render integration controls."
+    -
+      category: "platform-variant"
+      status: "controlled-by-values"
+      note: "promoted variants install Linux DaemonSet only; Windows support is a future variant."
+    -
+      category: "extension-slots"
+      status: "controlled-by-empty-defaults"
+      note: "provider identity, token request, scheduling, and provider path knobs are explicit variant inputs."
+    -
+      category: "installer-support-object"
+      status: "handled"
+      object: "v1|Namespace||kube-system"

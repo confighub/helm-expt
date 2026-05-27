@@ -1,0 +1,22 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "grafana-pyroscope-2-0-2-default-r001"
+  labels:
+    confighub.io/chart-ref: "grafana/pyroscope"
+    confighub.io/chart-version: "2.0.2"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "24d78308d5476731eefba9ac71cee442cf9aeb21f16443557d9a6d9574449df5"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+    - "review"
+  blockedScopes:
+    - "production-without-review"
+  reasons:
+    - "regular Helm output matches cub install setup for grafana/pyroscope@2.0.2"
+    - "18 Helm objects are bound to renderedObjectSetSHA256"
+    - "rendered-object scan has review findings; see scan-receipt.yaml"

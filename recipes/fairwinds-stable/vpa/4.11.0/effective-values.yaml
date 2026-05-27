@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "fairwinds-stable-vpa-4-11-0-default"
+  labels:
+    confighub.io/chart-ref: "fairwinds-stable/vpa"
+    confighub.io/chart-version: "4.11.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "46c6b472d38ea3441be1ec757efb27ad01ab6172bcf01db70a6d8d6016c0e394"
+  mergedValuesCaptured: false
+  values:
+    {}

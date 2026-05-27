@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "bitnami-mysql-14.0.3"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "bitnami"
+  repositoryURL: "https://charts.bitnami.com/bitnami"
+  chart: "mysql"
+  version: "14.0.3"
+  appVersion: "9.4.0"
+  packageSHA256: "fc7c297ce7e2953190e313d4afc4f3093a9f8d47e82d15e6c933982c0d0b8ac2"
+  packageBytes: 69215
+  evidence:
+    harnessReceipt: "../../../../data/adversarial10/charts/bitnami-mysql-14.0.3/render-receipt.yaml"

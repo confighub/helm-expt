@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "aqua-trivy-operator-0-32-1"
+spec:
+  chart:
+    repository: "aqua"
+    name: "trivy-operator"
+    version: "0.32.1"
+  package:
+    path: "packages/aqua/trivy-operator/0.32.1"
+    name: "aqua-trivy-operator"
+    version: "0.32.1"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "81dbde44bd27a08603a4e615a4d57f5357c65f7039575a94eaa8beb1dc8f7f62"
+        bytes: 200
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "4728643a42924d6af2c0b2b4f1f616938c31b6271ed7e32bac2ce36e5e339a25"
+        bytes: 180135
+      -
+        path: "installer.yaml"
+        sha256: "91c21d9282a76871a223925081757eb18ff6cb2a4590b772d4f5e9958760d2bd"
+        bytes: 312
+  deterministicBundle:
+    command: "cub install package packages/aqua/trivy-operator/0.32.1 -o <tmp>/aqua-trivy-operator-0-32-1.tgz"
+    sha256: "8c555a67346fd06cc31082171c3ee830bf55710e20c9e7737e4c10f189011e9b"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/aqua/trivy-operator/0.32.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 33
+      cubInstallObjectCountIncludingSupport: 34
+      semanticObjectMatches: "33/33"
+      separatedSecretCount: 2
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

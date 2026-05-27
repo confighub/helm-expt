@@ -1,0 +1,48 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "bitnami-elasticsearch-22-1-6-default-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/elasticsearch"
+    confighub.io/chart-version: "22.1.6"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "2dea059172595f3477271eadd1aea69c4274d15a8029a55afb176cb5ffd66217"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.2.0"
+  policyBundleDigest: "d4913c44f60cee40b376761c82c0c5b84e3f65043012ae875d8f376330dabc35"
+  findingCounts:
+    critical: 0
+    high: 0
+    medium: 4
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "privileged-container-review:apps/v1|StatefulSet|default|elasticsearch-coordinating:sysctl"
+      rule: "privileged-container-review"
+      severity: "medium"
+      object: "apps/v1|StatefulSet|default|elasticsearch-coordinating"
+      message: "container sysctl is privileged"
+    -
+      id: "privileged-container-review:apps/v1|StatefulSet|default|elasticsearch-data:sysctl"
+      rule: "privileged-container-review"
+      severity: "medium"
+      object: "apps/v1|StatefulSet|default|elasticsearch-data"
+      message: "container sysctl is privileged"
+    -
+      id: "privileged-container-review:apps/v1|StatefulSet|default|elasticsearch-ingest:sysctl"
+      rule: "privileged-container-review"
+      severity: "medium"
+      object: "apps/v1|StatefulSet|default|elasticsearch-ingest"
+      message: "container sysctl is privileged"
+    -
+      id: "privileged-container-review:apps/v1|StatefulSet|default|elasticsearch-master:sysctl"
+      rule: "privileged-container-review"
+      severity: "medium"
+      object: "apps/v1|StatefulSet|default|elasticsearch-master"
+      message: "container sysctl is privileged"

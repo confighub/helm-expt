@@ -1,0 +1,74 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ConfigHubUploadOCIReceipt
+metadata:
+  name: bitnami-redis-25.5.3-kubara
+spec:
+  observedAt: "2026-05-26T12:22:45Z"
+  context:
+    cubContext: tree-paw
+    server: https://hub.confighub.com
+    organization: Kubara
+    ociHost: oci.hub.confighub.com
+  package:
+    path: packages/bitnami/redis/25.5.3
+    name: bitnami-redis
+    version: "25.5.3"
+  upload:
+    commandShape: "cub install setup --pull packages/bitnami/redis/25.5.3 --base <variant> --work-dir <tmp> --non-interactive --namespace redis && cub install upload --work-dir <tmp> --space <space>"
+    nestedCubConfigWorkaround: "Temporary local wrapper set CUB_CONFIG=$HOME/.confighub/config.yaml for installer-spawned cub commands."
+    spaces:
+      - variant: default
+        space: helm-redis-default
+        unitCount: 15
+        variantLabeledUnitCount: 14
+        installerRecordPresent: true
+        renderedSecretUploaded: false
+        expectedExternalReferences:
+          - unit: statefulset-redis-redis-master
+            reference: v1/Secret redis/redis
+            reason: "Rendered Secret was separated by cub install and intentionally not uploaded."
+          - unit: statefulset-redis-redis-replicas
+            reference: v1/Secret redis/redis
+            reason: "Rendered Secret was separated by cub install and intentionally not uploaded."
+      - variant: reuse-existing-secret
+        space: helm-redis-reuse-existing-secret
+        unitCount: 15
+        variantLabeledUnitCount: 14
+        installerRecordPresent: true
+        renderedSecretUploaded: false
+        expectedExternalReferences:
+          - unit: statefulset-redis-redis-master
+            reference: v1/Secret redis/redis-existing-secret
+            reason: "This variant requires the target Secret as a target fact."
+          - unit: statefulset-redis-redis-replicas
+            reference: v1/Secret redis/redis-existing-secret
+            reason: "This variant requires the target Secret as a target fact."
+  ociReadProof:
+    auth:
+      method: worker-token
+      workerSlug: oci-proof-reader
+      permission: ViewChildren
+      secretRecorded: false
+      bearerTokenRecorded: false
+    checks:
+      - variant: default
+        space: helm-redis-default
+        unit: statefulset-redis-redis-master
+        ref: https://oci.hub.confighub.com/v2/unit/helm-redis-default/statefulset-redis-redis-master/manifests/head
+        httpStatus: 200
+        mediaType: application/vnd.oci.image.manifest.v1+json
+        manifestDigest: sha256:fa684793048249f4149500da75223e185c847f3c126a94c670e5b00d87bc6e26
+        layerCount: 1
+        layerDigest: sha256:e8dff3ea1c017ba1eb8f708aed6978549076a58885587681b124ca9f0e78df69
+      - variant: reuse-existing-secret
+        space: helm-redis-reuse-existing-secret
+        unit: statefulset-redis-redis-master
+        ref: https://oci.hub.confighub.com/v2/unit/helm-redis-reuse-existing-secret/statefulset-redis-redis-master/manifests/head
+        httpStatus: 200
+        mediaType: application/vnd.oci.image.manifest.v1+json
+        manifestDigest: sha256:d042ad70da7dd8d80423926a2285d2b249feb3e8256b36f81f18eff19473e322
+        layerCount: 1
+        layerDigest: sha256:836ba1f2858ac562280d45bc2dab930d4519fd445c06c90c7614e10bdb586029
+  knownIssues:
+    - issue: "cub install upload spawned nested cub with CUB_CONFIG pointing at ~/.confighub as a directory."
+      status: "worked around locally with .tmp/cub-wrapper/cub; should be fixed in confighub/installer or Cub plugin env handling."

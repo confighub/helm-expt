@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "open-telemetry/opentelemetry-operator"
+    confighub.io/chart-version: "0.114.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "797b4cd079028aee9f5f62340506590fe0c656f24188170da684b5b1d936baca"
+  digestInputs:
+    recipeSHA256: "f1c329351a0203553e603d29d3cfd97fdf97c4dde7a0c9af3c16372589678e46"
+    variantSHA256: "0549c522abf1531ea3fdb170537211717d82ceee38a0b455336ef46420ae5376"
+    effectiveValuesSHA256: "584d4e1b5d512a36b5120957fb4e265211a1de0eeb10ad19b00a677a78f47768"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "68dd01565796d137e5dea26e1db02ef3e0d99bbbafd000ec3663680b5bbda873"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 17

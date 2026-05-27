@@ -1,0 +1,44 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "grafana-grafana-10.5.15"
+spec:
+  checkedValues:
+    -
+      path: "adminPassword"
+      variant: "generated-passwords"
+      disposition: "generated-fact-bound"
+      reason: "default chart uses random admin password generation; this variant persists the generated value before render"
+    -
+      path: "admin.existingSecret / admin.userKey / admin.passwordKey"
+      variant: "existing-secret-ingress"
+      disposition: "target-fact-bound"
+      reason: "externalizes Grafana admin credentials into a declared target Secret"
+    -
+      path: "ingress.enabled / ingress.hosts / ingress.ingressClassName"
+      variant: "existing-secret-ingress"
+      disposition: "ui-exposure-bound"
+      reason: "UI exposure is only added by an explicit variant with host and ingress class captured"
+    -
+      path: "persistence.enabled"
+      variant: "all"
+      disposition: "deployment-storage-disabled"
+      reason: "promoted variants keep persistence disabled; PVC-backed Grafana becomes a later variant"
+    -
+      path: "datasources / dashboardProviders / dashboards / plugins"
+      variant: "all"
+      disposition: "extension-slot"
+      reason: "Grafana provisioning and plugin slots are powerful config surfaces; promoted variants keep them empty"
+    -
+      path: "sidecar.*"
+      variant: "all"
+      disposition: "collector-disabled"
+      reason: "sidecar collectors can read ConfigMaps/Secrets; promoted variants keep sidecars disabled"
+    -
+      path: "envRenderSecret / extraSecretMounts / envFromSecret"
+      variant: "all"
+      disposition: "secret-extension-slot"
+      reason: "Grafana exposes additional Secret/env injection paths that must be explicit before production"
+  unknownValues: "not-checked"
+  deadValues: "not-checked"
+  ignoredValues: "not-checked"

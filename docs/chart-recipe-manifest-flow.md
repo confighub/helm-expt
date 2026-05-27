@@ -149,10 +149,10 @@ That is already better than Helm failing late, silently ignoring values, or hidi
 
 The simple path stays simple:
 
-```sh
-cub install nginx
-cub diff
-cub apply
+```text
+install
+review/plan
+publish
 ```
 
 Receipts, scans, and variant records are produced automatically. Teams can add approvals, variant matrices, initiatives, and promotion workflows when they need them.
@@ -286,16 +286,27 @@ file must not be bypassed by the flow; they are gates before credible
 20/100/500 chart proof.
 
 The detailed execution contract is in `docs/agreed-execution-plan.md`. Treat
-the commands below as target product UX: during implementation the proof repo
-may expose more explicit commands, but every durable chart input, recipe,
-variant, revision, scan, gate, apply, and observation must map back to one of
-these execution surfaces and produce an addressable artifact or receipt.
+the shorthand below as candidate future porcelain, not current executable CLI.
+If needed, those verbs should be proposed explicitly as Cub plugins/extensions.
+The current executable installer surface includes `cub install setup`,
+`cub install upload`, `cub install plan`, `cub install package`,
+`cub install push`, `cub install pull`, `cub install doc`,
+`cub install render`, `cub install wizard`, `cub install vet`, and
+`cub install verify`. During implementation the proof repo may expose more
+explicit commands, but every durable chart input, recipe, variant, revision,
+scan, gate, publish/apply action, and observation must map back to one of the
+real execution surfaces and produce an addressable artifact or receipt.
+
+The upstream installer docs usually write these as `installer ...` commands.
+Here they are written as `cub install ...` because the installer is used through
+the Cub plugin.
 
 Target happy path:
 
-```sh
-cub install redis
-cub apply redis
+```text
+install redis
+review/plan redis
+publish redis
 ```
 
 The first command should quietly:
@@ -310,22 +321,25 @@ prepare a Verified Install Gate
 write receipts
 ```
 
-The second command should apply the approved revision and write an operation
-receipt.
+The publish command should publish the approved revision through ConfigHub's
+OCI endpoint for GitOps pickup and write an OCI artifact receipt. Direct apply
+can exist for local kind tests or explicit customer choice, but it is not the
+default public handoff.
 
 Easy variant path:
 
-```sh
-cub variant redis ha
-cub diff redis redis-ha
-cub apply redis-ha
+```text
+create redis HA variant
+review/plan redis HA against default
+publish approved HA revision
 ```
 
 or:
 
-```sh
-cub variant redis reuse-existing-secret --secret redis-password
-cub apply redis-existing-secret
+```text
+create redis reuse-existing-secret variant
+bind redis-password fact or secret handle
+publish approved reuse-existing-secret revision
 ```
 
 Implementation may initially expose more explicit `cub install ...` subcommands
@@ -656,6 +670,10 @@ Checks:
 
 - Run two-render determinism checks for the same inputs.
 - Store manifest digest.
+- Canonicalize rendered manifests before digesting: parse YAML documents,
+  normalize to canonical JSON with sorted object keys, keep list order, remove
+  empty documents, and preserve Kubernetes object identity as
+  `apiVersion|kind|namespace|name`.
 - Store render command/options.
 - Store tool versions.
 - Separate normal manifests, secrets, CRDs, hooks, and tests where useful.
@@ -663,7 +681,27 @@ Checks:
 - If Helm's post-renderer mechanism is supported, represent it as a named,
   pinned recipe/function stage. Otherwise reject it.
 
-This is the point where standard Kubernetes policy scanners become most useful, because the output is actual Kubernetes YAML.
+This is the point where standard Kubernetes policy scanners become most useful,
+because the output is actual Kubernetes YAML.
+
+Expected digest formula for proof artifacts:
+
+```text
+variantRevision.digest =
+  sha256(
+    recipe.digest,
+    effectiveValues.digest,
+    capabilityProfile.digest,
+    factBindings.digest,
+    generatedFacts.digest,
+    renderer.digest,
+    renderedManifestSet.digest
+  )
+```
+
+`helm-expt` defines and verifies this contract. `confighub/installer` may later
+emit native receipts, but installer implementation is an upstream dependency,
+not code owned by this repo.
 
 ### Step 7: Kustomize, Overlays, and ConfigHub Functions
 
@@ -1073,7 +1111,7 @@ There should be two result levels:
 
 This lets ConfigHub answer both questions:
 
-- "Is this exact variant revision safe to apply?"
+- "Is this exact variant revision safe to publish or apply?"
 - "How healthy is our Redis/Ingress/Monitoring initiative across all standard variants?"
 
 Market scanners belong mostly after render. ConfigHub scan belongs both before and after render:

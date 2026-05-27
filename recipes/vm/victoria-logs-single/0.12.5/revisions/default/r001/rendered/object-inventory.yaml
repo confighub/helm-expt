@@ -1,0 +1,26 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "vm-victoria-logs-single-0-12-5-default-r001"
+  labels:
+    confighub.io/chart-ref: "vm/victoria-logs-single"
+    confighub.io/chart-version: "0.12.5"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "edbf6e7dd31e9a1d0686592e7c1f050b04f5d780bdc33bb34fb3ddbfdfedde04"
+  objectCount: 2
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|StatefulSet|default|victoria-logs-single-server"
+      kind: "StatefulSet"
+      name: "victoria-logs-single-server"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|victoria-logs-single-server"
+      kind: "Service"
+      name: "victoria-logs-single-server"
+      namespace: "default"

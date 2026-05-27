@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "s3-query-observability"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "tempo"
+  releaseName: "tempo"
+  valuesProfile: "../../effective-values-s3-query-observability.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      - "networking.k8s.io/v1"
+      - "monitoring.coreos.com/v1"
+  hookPolicy: "no-hooks"
+  targetFacts:
+    requiredSecrets:
+      -
+        namespace: "tempo"
+        name: "tempo-s3-credentials"
+        keys:
+          - "access_key"
+          - "secret_key"
+        purpose: "S3 access credentials referenced by Tempo environment variables"

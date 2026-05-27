@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "rook-release-rook-ceph-cluster-v1-19-5"
+  labels:
+    confighub.io/chart-ref: "rook-release/rook-ceph-cluster"
+    confighub.io/chart-version: "v1.19.5"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chart: "rook-release/rook-ceph-cluster"
+  version: "v1.19.5"
+  maintainedNotes:
+    - "rook-release/rook-ceph-cluster@v1.19.5 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+    - "Chart source contains generated/random/time helpers; generated values must be captured before approval if activated by a variant."
+    - "Chart source contains tpl; raw templating extension slots need explicit ownership and review."
+    - "Rendered output includes cluster-scoped RBAC; production promotion needs RBAC review."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "variant-revision"
+    - "rendered-manifest-scan"
+    - "helm-equivalence"
+    - "generated-facts"
+    - "tpl-extension-slots"
+    - "cluster-rbac"
+  proofFocus: "Ceph cluster custom resources and storage lifecycle"

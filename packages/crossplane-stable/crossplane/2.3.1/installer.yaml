@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "crossplane-stable-crossplane"
+  version: "2.3.1"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "crossplane-stable/crossplane default variant rendered from crossplane-stable/crossplane@2.3.1"

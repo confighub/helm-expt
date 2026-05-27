@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "fairwinds-stable-goldilocks-10-3-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "fairwinds-stable"
+  repositoryURL: "https://charts.fairwinds.com/stable"
+  chart: "goldilocks"
+  ref: "fairwinds-stable/goldilocks"
+  version: "10.3.0"
+  appVersion: "v4.14.1"
+  packageSHA256: "9498a6f49cdea77f8777e9f8640a7711c63644fd1d5f7c8c81c313902190f2fd"
+  packageBytes: 56672
+  capturedAt: "generated-by-next80-full-proof-harness"

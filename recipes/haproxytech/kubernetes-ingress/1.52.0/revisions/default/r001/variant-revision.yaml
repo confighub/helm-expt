@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "haproxytech/kubernetes-ingress"
+    confighub.io/chart-version: "1.52.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "3e41229b4e62ca37c89acc31102d97429ca55671d8b90fc507bc982ae5043cf0"
+  digestInputs:
+    recipeSHA256: "883582e05a15e5ce913ffcfb250e7d1cf5ccdddf6cc23927c2ec93859c0f2869"
+    variantSHA256: "2c3bb04b3d13d2250c32f6ee6ddbeca18e19631ad774b5a74f72d3c802fd9df1"
+    effectiveValuesSHA256: "bddc28e4c814d2bd2f7613934f7663bd39aa40ac0b7beacad9677f209e8c636c"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "d04b79ade525cfe276e761918d319794e8e662ef896ae3418a42e7c781ded544"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 7

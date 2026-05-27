@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "elastic-eck-operator-3-4-0"
+spec:
+  chart:
+    repository: "elastic"
+    name: "eck-operator"
+    version: "3.4.0"
+  package:
+    path: "packages/elastic/eck-operator/3.4.0"
+    name: "elastic-eck-operator"
+    version: "3.4.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "148a16adf29d2ae16236f724b413db6595b06fc24f0e09e4629a94cb2e462282"
+        bytes: 200
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "11bd8f291f9da0611bf6795dbbbe41a9e4e5ae9fe4cd58e9bad69dd883aee278"
+        bytes: 798868
+      -
+        path: "installer.yaml"
+        sha256: "57c5f551a7c9e4aaa0ef809b97bda2ab7b159a45767da497a8e9571ed0500b0f"
+        bytes: 313
+  deterministicBundle:
+    command: "cub install package packages/elastic/eck-operator/3.4.0 -o <tmp>/elastic-eck-operator-3-4-0.tgz"
+    sha256: "566ea129866cc8879a72df241a89369fa27df5eceae92113572a056faa7fce68"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/elastic/eck-operator/3.4.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 22
+      cubInstallObjectCountIncludingSupport: 23
+      semanticObjectMatches: "22/22"
+      separatedSecretCount: 1
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

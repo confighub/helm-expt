@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "opencost-opencost"
+  version: "2.5.21"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "opencost/opencost default variant rendered from opencost/opencost@2.5.21"

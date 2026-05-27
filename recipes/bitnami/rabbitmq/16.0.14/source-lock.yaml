@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "bitnami-rabbitmq-16.0.14"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "bitnami"
+  repositoryURL: "https://charts.bitnami.com/bitnami"
+  chart: "rabbitmq"
+  version: "16.0.14"
+  appVersion: "4.1.3"
+  packageSHA256: "df625220cafdfe892e68c1b3f1a5500049acd227fe90b2deca04df13190a176b"
+  packageBytes: 73978
+  evidence:
+    harnessReceipt: "../../../../data/adversarial10/charts/bitnami-rabbitmq-16.0.14/render-receipt.yaml"

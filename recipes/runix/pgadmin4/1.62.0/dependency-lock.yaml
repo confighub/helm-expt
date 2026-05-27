@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "runix-pgadmin4-1-62-0"
+spec:
+  chart: "runix/pgadmin4"
+  version: "1.62.0"
+  dependencies:
+    []

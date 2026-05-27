@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "velero-velero-12-0-1"
+spec:
+  chart:
+    repository: "velero"
+    name: "velero"
+    version: "12.0.1"
+  package:
+    path: "packages/velero/velero/12.0.1"
+    name: "velero-velero"
+    version: "12.0.1"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "aebf233654e9256114822fb31f43d9e2e7e305f2f14f0410800dc3773baab744"
+        bytes: 194
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "3fc8afa5a2077710e8e9a49df435b234925b373cdaf2209e66fada0044ef2c1b"
+        bytes: 166788
+      -
+        path: "installer.yaml"
+        sha256: "93f42556a6e3546c54664ecdb28f5604fae82623e629a0001339f57cdaf3a28a"
+        bytes: 294
+  deterministicBundle:
+    command: "cub install package packages/velero/velero/12.0.1 -o <tmp>/velero-velero-12-0-1.tgz"
+    sha256: "1f69f1815b610cc65e7200041007ab16404ef11dfbe9758dd7ee01bfde5e0c96"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/velero/velero/12.0.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 23
+      cubInstallObjectCountIncludingSupport: 24
+      semanticObjectMatches: "23/23"
+      separatedSecretCount: 1
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

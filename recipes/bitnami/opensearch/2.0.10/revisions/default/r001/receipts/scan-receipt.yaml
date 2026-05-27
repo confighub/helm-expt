@@ -1,0 +1,72 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "bitnami-opensearch-2-0-10-default-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/opensearch"
+    confighub.io/chart-version: "2.0.10"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "99c0b24ee1850d1f5a4da323e9924a8a1f9d93a34a97a985d92c954836747afd"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.2.0"
+  policyBundleDigest: "d4913c44f60cee40b376761c82c0c5b84e3f65043012ae875d8f376330dabc35"
+  findingCounts:
+    critical: 0
+    high: 4
+    medium: 4
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "privileged-container-review:apps/v1|StatefulSet|default|opensearch-coordinating:sysctl"
+      rule: "privileged-container-review"
+      severity: "medium"
+      object: "apps/v1|StatefulSet|default|opensearch-coordinating"
+      message: "container sysctl is privileged"
+    -
+      id: "privileged-container-review:apps/v1|StatefulSet|default|opensearch-data:sysctl"
+      rule: "privileged-container-review"
+      severity: "medium"
+      object: "apps/v1|StatefulSet|default|opensearch-data"
+      message: "container sysctl is privileged"
+    -
+      id: "privileged-container-review:apps/v1|StatefulSet|default|opensearch-ingest:sysctl"
+      rule: "privileged-container-review"
+      severity: "medium"
+      object: "apps/v1|StatefulSet|default|opensearch-ingest"
+      message: "container sysctl is privileged"
+    -
+      id: "privileged-container-review:apps/v1|StatefulSet|default|opensearch-master:sysctl"
+      rule: "privileged-container-review"
+      severity: "medium"
+      object: "apps/v1|StatefulSet|default|opensearch-master"
+      message: "container sysctl is privileged"
+    -
+      id: "workload-service-account-exists:apps/v1|StatefulSet|default|opensearch-coordinating"
+      rule: "workload-service-account-exists"
+      severity: "high"
+      object: "apps/v1|StatefulSet|default|opensearch-coordinating"
+      message: "workload references missing ServiceAccount default/default"
+    -
+      id: "workload-service-account-exists:apps/v1|StatefulSet|default|opensearch-data"
+      rule: "workload-service-account-exists"
+      severity: "high"
+      object: "apps/v1|StatefulSet|default|opensearch-data"
+      message: "workload references missing ServiceAccount default/default"
+    -
+      id: "workload-service-account-exists:apps/v1|StatefulSet|default|opensearch-ingest"
+      rule: "workload-service-account-exists"
+      severity: "high"
+      object: "apps/v1|StatefulSet|default|opensearch-ingest"
+      message: "workload references missing ServiceAccount default/default"
+    -
+      id: "workload-service-account-exists:apps/v1|StatefulSet|default|opensearch-master"
+      rule: "workload-service-account-exists"
+      severity: "high"
+      object: "apps/v1|StatefulSet|default|opensearch-master"
+      message: "workload references missing ServiceAccount default/default"

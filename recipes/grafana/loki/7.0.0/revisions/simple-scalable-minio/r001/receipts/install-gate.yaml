@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "loki-simple-scalable-minio-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "8c4176621cdd67670d41b1689de1bcaa74854e40fb8170070606f794d0fc36ab"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for simple-scalable-minio"
+    - "Default chart render blocker is recorded and avoided by this bounded variant"
+    - "Loki storage, schema, object-store, and StatefulSet policies need production review"
+    - "Any future hook or test enablement needs explicit lifecycle policy before production"
+    - "Raw/tpl extension slots must remain empty or be scanned as first-class variant inputs"
+    - "satisfies required bucket names and renders the MinIO Secret as chart-owned test storage material"

@@ -1,0 +1,22 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "descheduler-descheduler-0-36-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "descheduler/descheduler"
+    confighub.io/chart-version: "0.36.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "23cfd1f815897db367d88feb42f54c765ed17f435cb779cd8dec5ecb196da707"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+    - "review"
+  blockedScopes:
+    - "production-without-review"
+  reasons:
+    - "regular Helm output matches cub install setup for descheduler/descheduler@0.36.0"
+    - "5 Helm objects are bound to renderedObjectSetSHA256"
+    - "rendered-object scan has review findings; see scan-receipt.yaml"

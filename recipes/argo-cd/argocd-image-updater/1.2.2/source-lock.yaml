@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "argo-cd-argocd-image-updater-1-2-2"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "argo-cd"
+  repositoryURL: "https://argoproj.github.io/argo-helm"
+  chart: "argocd-image-updater"
+  ref: "argo-cd/argocd-image-updater"
+  version: "1.2.2"
+  appVersion: "v1.2.1"
+  packageSHA256: "d4e6d359a0ed6ad3cc3c8432acf81e128441ff2a7ce47c168eece9e2915ed704"
+  packageBytes: 19709
+  capturedAt: "generated-by-next80-full-proof-harness"

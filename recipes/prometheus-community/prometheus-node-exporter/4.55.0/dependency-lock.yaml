@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "prometheus-community-prometheus-node-exporter-4-55-0"
+spec:
+  chart: "prometheus-community/prometheus-node-exporter"
+  version: "4.55.0"
+  dependencies:
+    []

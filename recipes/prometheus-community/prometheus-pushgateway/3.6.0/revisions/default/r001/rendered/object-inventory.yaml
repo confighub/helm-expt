@@ -1,0 +1,32 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "prometheus-community-prometheus-pushgateway-3-6-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "prometheus-community/prometheus-pushgateway"
+    confighub.io/chart-version: "3.6.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "80cb018f0b277814e17ca7208be55ef10ed74288a258a6519e7bbcf088a9f450"
+  objectCount: 3
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|prometheus-pushgateway"
+      kind: "Deployment"
+      name: "prometheus-pushgateway"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|prometheus-pushgateway"
+      kind: "ServiceAccount"
+      name: "prometheus-pushgateway"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|prometheus-pushgateway"
+      kind: "Service"
+      name: "prometheus-pushgateway"
+      namespace: "default"

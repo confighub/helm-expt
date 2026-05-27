@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "bitnami-contour-21-1-4"
+spec:
+  chart:
+    repository: "bitnami"
+    name: "contour"
+    version: "21.1.4"
+  package:
+    path: "packages/bitnami/contour/21.1.4"
+    name: "bitnami-contour"
+    version: "21.1.4"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "a79f77dbe58d1c1ab59b6fda92078238a2eba588b6ea0da9965cb81dd9fbc314"
+        bytes: 196
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "f28ab1558939812f833981bce56dfdbd7030428a4bcdd816b0eedb1bd13ffd53"
+        bytes: 566543
+      -
+        path: "installer.yaml"
+        sha256: "a38594b2ffcc88b208c15d814b05c4d8781e76cc64e09e07d572f8535ae5706a"
+        bytes: 300
+  deterministicBundle:
+    command: "cub install package packages/bitnami/contour/21.1.4 -o <tmp>/bitnami-contour-21-1-4.tgz"
+    sha256: "5e67b1ce17d70d900dec3ce52346570f1c983d1e238e7b15ab0add62c04af529"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/bitnami/contour/21.1.4 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 20
+      cubInstallObjectCountIncludingSupport: 21
+      semanticObjectMatches: "20/20"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

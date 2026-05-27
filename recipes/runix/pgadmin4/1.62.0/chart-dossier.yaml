@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "runix-pgadmin4-1-62-0"
+  labels:
+    confighub.io/chart-ref: "runix/pgadmin4"
+    confighub.io/chart-version: "1.62.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  chart: "runix/pgadmin4"
+  version: "1.62.0"
+  maintainedNotes:
+    - "runix/pgadmin4@1.62.0 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+    - "Chart source contains Helm hooks; the proof revision uses no-hooks so hook lifecycle must be handled separately before production."
+    - "Chart source contains tpl; raw templating extension slots need explicit ownership and review."
+    - "Rendered output has stateful/storage behavior; rollback and upgrade plans must be explicit."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "variant-revision"
+    - "rendered-manifest-scan"
+    - "helm-equivalence"
+    - "tpl-extension-slots"
+    - "lifecycle-policy"
+    - "extension-slots"
+    - "stateful-storage"
+    - "secret-material"
+  proofFocus: "database UI workload, Secret handling, ingress options"

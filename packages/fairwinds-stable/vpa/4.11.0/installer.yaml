@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "fairwinds-stable-vpa"
+  version: "4.11.0"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "fairwinds-stable/vpa default variant rendered from fairwinds-stable/vpa@4.11.0"

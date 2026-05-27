@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "dex-dex-0-24-0"
+spec:
+  chart:
+    repository: "dex"
+    name: "dex"
+    version: "0.24.0"
+  package:
+    path: "packages/dex/dex/0.24.0"
+    name: "dex-dex"
+    version: "0.24.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "afbde6a517b97a80a64ae1224204084f20a310740c79aa8f63bab12d28438e34"
+        bytes: 188
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "5461ff32d1a2a157fd54a958809a06aa73938f52efc8c97f40e866cbc070b2f5"
+        bytes: 4834
+      -
+        path: "installer.yaml"
+        sha256: "87e5eba998a688aebc6a2dead55787ba785415d3ae35c99405373414b2bdf26f"
+        bytes: 276
+  deterministicBundle:
+    command: "cub install package packages/dex/dex/0.24.0 -o <tmp>/dex-dex-0-24-0.tgz"
+    sha256: "61f72819c33fc6b8c388808c061dc9686cbd6d96432fce8fe2b3eb319e968ab1"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/dex/dex/0.24.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 8
+      cubInstallObjectCountIncludingSupport: 9
+      semanticObjectMatches: "8/8"
+      separatedSecretCount: 1
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

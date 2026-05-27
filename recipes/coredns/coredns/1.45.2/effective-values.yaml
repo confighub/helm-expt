@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "coredns-coredns-1-45-2-default"
+  labels:
+    confighub.io/chart-ref: "coredns/coredns"
+    confighub.io/chart-version: "1.45.2"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "178840c666a126861796affc23aa455edbe84cda3425aaf9c4e60d0444d7889d"
+  mergedValuesCaptured: false
+  values:
+    {}

@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "bitnami-spark-10-0-3-default-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/spark"
+    confighub.io/chart-version: "10.0.3"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "96005f77471c6caa2d85cc765d677ad56e167827d5949f39e1181a2c1aaf9ec7"
+    dependencyLockSHA256: "937273ab1a287a464108b0b8322c96725f7ef4e20b4fa10bc51774d3010c1e1b"
+    effectiveValuesSHA256: "ee71dc9b45b8c51735f851640030445e745b76442aa76eb83a66defc528d66ec"
+  outputs:
+    renderedObjectSetSHA256: "bec034832a7f2a6c1d2f05aa7bfcf0ce4562dbb274e7b760170df3e80e1ced55"
+    renderedObjectInventorySHA256: "33552d7eed0934bd0efd3588bfc8e757bbca30d0a91f16df681b400abf224f2f"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 10
+    renderedSecretCount: 1
+    secretCountSeparatedByCubInstall: 1

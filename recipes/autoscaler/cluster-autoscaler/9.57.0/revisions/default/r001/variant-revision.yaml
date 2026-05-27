@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "autoscaler/cluster-autoscaler"
+    confighub.io/chart-version: "9.57.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "6a55f2c4fd83486a2e2748500379d64292afc84a5def6f856263f321ee1b557a"
+  digestInputs:
+    recipeSHA256: "0d54dad514d00ad11ce973a39e77653c34bf762543a73b2c36070686662158b0"
+    variantSHA256: "6b36b0f580e9b35f735f4752b2dfe5c49a03f1d9861eb34eec07e8293ac3403b"
+    effectiveValuesSHA256: "113e07dfc00d72e2ada3f023494eb86a730cdab522073025a12ac2a64db11ef0"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "9e67f520b5c65ff34d72f8c85e4245c2d9d238b6da336112dfa272a060d69446"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 7

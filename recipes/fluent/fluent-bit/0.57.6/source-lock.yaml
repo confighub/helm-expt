@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "fluent-fluent-bit-0-57-6"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "fluent"
+  repositoryURL: "https://fluent.github.io/helm-charts"
+  chart: "fluent-bit"
+  ref: "fluent/fluent-bit"
+  version: "0.57.6"
+  appVersion: "5.0.6"
+  packageSHA256: "dba34ec5f57a69a91b391077fefc58db7431e5fe30c4da25df8b65240abb30f8"
+  packageBytes: 18506
+  capturedAt: "generated-by-next80-full-proof-harness"

@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "argo-cd-argocd-image-updater-1-2-2"
+spec:
+  chart:
+    repository: "argo-cd"
+    name: "argocd-image-updater"
+    version: "1.2.2"
+  package:
+    path: "packages/argo-cd/argocd-image-updater/1.2.2"
+    name: "argo-cd-argocd-image-updater"
+    version: "1.2.2"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "5bc754907bed07becc898bbcf878bf4cd04de58dd6b1dedfdde307deefcb1814"
+        bytes: 208
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "0b3646b69dab9a21cad5cbc550a95ffb9ac4be833cc2d076b1fd12cbe4e4eaf2"
+        bytes: 49657
+      -
+        path: "installer.yaml"
+        sha256: "d8025690ef916fedc798ed332a79510df549e934a9bd0cd353c7907555d8d320"
+        bytes: 337
+  deterministicBundle:
+    command: "cub install package packages/argo-cd/argocd-image-updater/1.2.2 -o <tmp>/argo-cd-argocd-image-updater-1-2-2.tgz"
+    sha256: "f70d38a4c6aeef745a46bc7a8c679b566ce8540aecf2bcf1ba30e883a7e8f718"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/argo-cd/argocd-image-updater/1.2.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 11
+      cubInstallObjectCountIncludingSupport: 12
+      semanticObjectMatches: "11/11"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

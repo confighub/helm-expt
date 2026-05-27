@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "bitnami-elasticsearch-22-1-6-default-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/elasticsearch"
+    confighub.io/chart-version: "22.1.6"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "b0808b58ab04ea5fd9a2107dd90be04a29be307ab52ccf6100e3d11dea74e3be"
+    dependencyLockSHA256: "d55daed68bbb2b30e107f130673614dc5c4f80230848767dd8a60b6bfd3f059a"
+    effectiveValuesSHA256: "1fb6292fc3488692804b3d902997e418f84d5404f00ce9f9f0dc37951193af0b"
+  outputs:
+    renderedObjectSetSHA256: "2dea059172595f3477271eadd1aea69c4274d15a8029a55afb176cb5ffd66217"
+    renderedObjectInventorySHA256: "3a2e3fa3805ad802ff2b9072244be14ef231cfe13b20460cc0220872f5f1e3ad"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 21
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "nats-surveyor-0-20-9"
+spec:
+  chart:
+    repository: "nats"
+    name: "surveyor"
+    version: "0.20.9"
+  package:
+    path: "packages/nats/surveyor/0.20.9"
+    name: "nats-surveyor"
+    version: "0.20.9"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "9530894467fc1026f1600d9a927340e10d1fcad6a824cd944a1cc87a05264c15"
+        bytes: 194
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1"
+        bytes: 2294
+      -
+        path: "installer.yaml"
+        sha256: "5d24c2a6d938841fa9bfe02b4b8d2de297cb2705589336abe641feefc8d2afcf"
+        bytes: 294
+  deterministicBundle:
+    command: "cub install package packages/nats/surveyor/0.20.9 -o <tmp>/nats-surveyor-0-20-9.tgz"
+    sha256: "7b5991c8dfec43a534076acc00b8944f0c10c859e77705bd525ac9068ae75e33"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/nats/surveyor/0.20.9 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 3
+      cubInstallObjectCountIncludingSupport: 4
+      semanticObjectMatches: "3/3"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

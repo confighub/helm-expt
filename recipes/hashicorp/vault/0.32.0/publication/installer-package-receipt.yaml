@@ -1,0 +1,63 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "hashicorp-vault-0.32.0"
+spec:
+  chart:
+    repository: "hashicorp"
+    name: "vault"
+    version: "0.32.0"
+  package:
+    path: "packages/hashicorp/vault/0.32.0"
+    name: "hashicorp-vault"
+    version: "0.32.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "408e259d2dc4a0071fb5050fa19e825d551a0450e0a68b4d3d63cf0ba57b302d"
+        bytes: 173
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "6de2d61c8de0c21faa951e89ec16658bcdff22e69d78075fdd394d895a5e6978"
+        bytes: 15346
+      -
+        path: "bases/ha-raft-ui/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/ha-raft-ui/upstream.yaml"
+        sha256: "734a212cbb2e8d11ed288d32bc8b709e859248ef5587090b04e0fa407b248b5f"
+        bytes: 18113
+      -
+        path: "installer.yaml"
+        sha256: "9e57f04591bc84758c145d910eef4d9149a3882f9cd799ef310810c0c8988f1a"
+        bytes: 461
+  deterministicBundle:
+    command: "cub install package packages/hashicorp/vault/0.32.0 -o <tmp>/vault-0.32.0.tgz"
+    sha256: "a942c0f6db2bc98fcbd9c4dbabb194f037828a99e967fd74dc16ec97d498cc93"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/hashicorp/vault/0.32.0 --base default --work-dir <tmp> --non-interactive --namespace vault"
+      helmReleaseObjectCount: 12
+      cubInstallObjectCountIncludingSupport: 13
+      semanticObjectMatches: "12/12"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||vault"
+    -
+      variant: "ha-raft-ui"
+      base: "ha-raft-ui"
+      command: "cub install setup --pull packages/hashicorp/vault/0.32.0 --base ha-raft-ui --work-dir <tmp> --non-interactive --namespace vault"
+      helmReleaseObjectCount: 18
+      cubInstallObjectCountIncludingSupport: 19
+      semanticObjectMatches: "18/18"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||vault"

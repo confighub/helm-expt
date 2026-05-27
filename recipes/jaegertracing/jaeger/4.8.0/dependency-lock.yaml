@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "jaegertracing-jaeger-4-8-0"
+spec:
+  chart: "jaegertracing/jaeger"
+  version: "4.8.0"
+  dependencies:
+    -
+      name: "common"
+      version: "2.x.x"
+      repository: "https://charts.bitnami.com/bitnami"

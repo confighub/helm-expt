@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "elastic/eck-operator"
+    confighub.io/chart-version: "3.4.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "e438fa78c3d1d5409957800533d207317b82ac4c36ee0c4a314196c8c9d6d53e"
+  digestInputs:
+    recipeSHA256: "903ccab73f971066d627797307869aa50596a9022a40fd65aad34b020da47f57"
+    variantSHA256: "bd6c99843ca9b6e570d37f93de140f9ae418adabe98647f6974d4e5d62e32b12"
+    effectiveValuesSHA256: "aaf3306fb33a8da472a6e427061acc76d3fda950b9ad727440fdaaa31747640f"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "11bd8f291f9da0611bf6795dbbbe41a9e4e5ae9fe4cd58e9bad69dd883aee278"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 22

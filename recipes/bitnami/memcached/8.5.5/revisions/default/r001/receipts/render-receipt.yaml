@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "bitnami-memcached-8-5-5-default-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/memcached"
+    confighub.io/chart-version: "8.5.5"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "fc957f3feed585cec7b8bb51bb8c14bfe0ab6b5a8f08c035d3a85e18b53cadef"
+    dependencyLockSHA256: "acebeab6787b55a4a71359f78f85f13c2155ae3176bdf9f33daf5abe4bdf5392"
+    effectiveValuesSHA256: "2931692007d905da826a697ffeb8feaaf62e21ed209ae9bb4d31064887c0836d"
+  outputs:
+    renderedObjectSetSHA256: "8cd477e08d9fdd2d56df7832f901d773af4f4313a405330180d7068cd7751558"
+    renderedObjectInventorySHA256: "a974b1891b2b8287881b140d6457fb343ded2f71715103079bd80def06149d58"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 5
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

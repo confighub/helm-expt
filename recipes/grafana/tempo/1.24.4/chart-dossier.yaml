@@ -1,0 +1,26 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "grafana-tempo-1.24.4"
+spec:
+  chart: "grafana/tempo"
+  version: "1.24.4"
+  successorChart:
+    note: "The literal grafana/tempo chart is deprecated; grafana-community/tempo is the maintained successor noted for future catalog work."
+    chart: "grafana-community/tempo"
+  maintainedNotes:
+    - "Chart.yaml marks this chart version deprecated, and the proof records that status."
+    - "local-persistent uses local Tempo storage and explicit PVC settings."
+    - "s3-query-observability switches to S3 storage, nulls local storage to avoid Helm merge residue, and references S3 credentials from a target Secret."
+    - "s3-query-observability adds Tempo Query ingress, NetworkPolicy, and ServiceMonitor behind explicit capability and policy checks."
+    - "The chart StatefulSet references serviceName tempo-headless, but these variants render no headless Service; the proof records this as an upstream/runtime risk."
+    - "config, structuredConfig, extra volumes/mounts, and tpl-controlled strings are powerful extension surfaces; promoted variants keep them controlled."
+  knownControlPoints:
+    - "chart-deprecation"
+    - "target-facts"
+    - "storage-backend-policy"
+    - "query-ingress-policy"
+    - "network-policy"
+    - "servicemonitor-capability"
+    - "statefulset-runtime-risk"
+    - "raw-template-extension-slots"

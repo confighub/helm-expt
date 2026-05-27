@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "falcosecurity-falcosidekick"
+  version: "0.13.1"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "falcosecurity/falcosidekick default variant rendered from falcosecurity/falcosidekick@0.13.1"

@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "metrics-server-metrics-server-3.13.0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "metrics-server"
+  repositoryURL: "https://kubernetes-sigs.github.io/metrics-server/"
+  chart: "metrics-server"
+  version: "3.13.0"
+  appVersion: "0.8.0"
+  packageSHA256: "fb929902e3b7565663cdd1734f31d63735c932be1541a7228b5aeef6d2348a1f"
+  packageBytes: 13979
+  evidence:
+    harnessReceipt: "../../../../data/adversarial10/charts/metrics-server-metrics-server-3.13.0/render-receipt.yaml"

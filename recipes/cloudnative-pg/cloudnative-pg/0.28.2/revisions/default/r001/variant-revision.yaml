@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "cloudnative-pg/cloudnative-pg"
+    confighub.io/chart-version: "0.28.2"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "4d7ff0bf073976ebdefa3cf56e5ab45d27e6a6517e003b7f760221b33103d90d"
+  digestInputs:
+    recipeSHA256: "74f25908752debd2551d89083e922e686b7e227b3e6792065b8afffacfc6cfb3"
+    variantSHA256: "da69e7a0ca0202a3c27766211d54e2de680b0585147750b44e319542e71c0d24"
+    effectiveValuesSHA256: "fe47d85f63de179715271d1e77b65b66cc01aba91522321610a4de59870b7477"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "67190a176fe9539df56c63c033cfffb1538a06bc47d8624532a0a980fe50bd46"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 21

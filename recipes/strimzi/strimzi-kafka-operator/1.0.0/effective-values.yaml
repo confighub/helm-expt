@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "strimzi-strimzi-kafka-operator-1-0-0-default"
+  labels:
+    confighub.io/chart-ref: "strimzi/strimzi-kafka-operator"
+    confighub.io/chart-version: "1.0.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "1d9a455badb57d1ab0f3b0348d3bbcf64d9e69b41c3788b461473ed8063a5a3f"
+  mergedValuesCaptured: false
+  values:
+    {}

@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "kube-prometheus-stack-kube-prometheus-stack-85.3.3"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "prometheus-community"
+  repositoryURL: "https://prometheus-community.github.io/helm-charts"
+  chart: "kube-prometheus-stack"
+  version: "85.3.3"
+  appVersion: "v0.90.1"
+  packageSHA256: "ec622442bef2379e170ba0fdc90231d30f8f2886e3414813fe4ae1086779601e"
+  packageBytes: 874778
+  evidence:
+    harnessReceipt: "../../../../data/adversarial10/charts/kube-prometheus-stack-kube-prometheus-stack-85.3.3/render-receipt.yaml"

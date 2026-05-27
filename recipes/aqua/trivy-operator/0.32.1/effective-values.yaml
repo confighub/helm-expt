@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "aqua-trivy-operator-0-32-1-default"
+  labels:
+    confighub.io/chart-ref: "aqua/trivy-operator"
+    confighub.io/chart-version: "0.32.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "6e6935187cd2dae50c9738d5b416b978ef707a3af2ac55f399af366ac862e139"
+  mergedValuesCaptured: false
+  values:
+    {}

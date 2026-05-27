@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "prometheus-community-alertmanager-1-37-0"
+spec:
+  chart:
+    repository: "prometheus-community"
+    name: "alertmanager"
+    version: "1.37.0"
+  package:
+    path: "packages/prometheus-community/alertmanager/1.37.0"
+    name: "prometheus-community-alertmanager"
+    version: "1.37.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "8107c0bb1fff0ee2d8474fa98deb6c46073ce827cb214e5322761ca25c18d01d"
+        bytes: 214
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "fc6c693435a12f92b94f3f59435e1e23af1cf4b87fc4564cda64ea502e7e1dc6"
+        bytes: 4393
+      -
+        path: "installer.yaml"
+        sha256: "ef9359da33bf038d603a452d06b0ff662e9172e78b8a53283bc9d4ad46c58b85"
+        bytes: 354
+  deterministicBundle:
+    command: "cub install package packages/prometheus-community/alertmanager/1.37.0 -o <tmp>/prometheus-community-alertmanager-1-37-0.tgz"
+    sha256: "4135cbfb366e18e54ceac0adf78ee7ff29c5d907075ee6138964d609a3d7fe65"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/prometheus-community/alertmanager/1.37.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 5
+      cubInstallObjectCountIncludingSupport: 6
+      semanticObjectMatches: "5/5"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

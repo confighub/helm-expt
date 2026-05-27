@@ -1,0 +1,14 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "fairwinds-stable-vpa-4-11-0"
+spec:
+  chart: "fairwinds-stable/vpa"
+  version: "4.11.0"
+  dependencies:
+    -
+      name: "metrics-server"
+      version: "3.11.0"
+      repository: "https://kubernetes-sigs.github.io/metrics-server/"
+      condition: "metrics-server.enabled"
+      alias: "metrics-server"

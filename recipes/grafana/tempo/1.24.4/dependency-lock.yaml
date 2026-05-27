@@ -1,0 +1,10 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "grafana-tempo-1.24.4"
+spec:
+  chart: "grafana/tempo"
+  version: "1.24.4"
+  dependencies:
+    []
+  chartLockDigest: null

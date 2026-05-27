@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "runix-pgadmin4"
+  version: "1.62.0"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "runix/pgadmin4 default variant rendered from runix/pgadmin4@1.62.0"

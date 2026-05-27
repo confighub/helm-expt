@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1"
+spec:
+  chart:
+    repository: "aws-ebs-csi-driver"
+    name: "aws-ebs-csi-driver"
+    version: "2.60.1"
+  package:
+    path: "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1"
+    name: "aws-ebs-csi-driver-aws-ebs-csi-driver"
+    version: "2.60.1"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "ad35536548e138eca08059567b5a7d71b6cd860acf6c97ddc894afb0ead4dea3"
+        bytes: 218
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "ae9f0b30339870e7bab818ea4eb299e5393416b5efd5053dd5800017373bb3a7"
+        bytes: 35480
+      -
+        path: "installer.yaml"
+        sha256: "db4f8847dc049642585455bfccba718c293b98b622b1c0d78c73f801156a83d2"
+        bytes: 366
+  deterministicBundle:
+    command: "cub install package packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 -o <tmp>/aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1.tgz"
+    sha256: "9ca191f2dd963b333198c82c2cf0e91629d4f79c6ad4dccf5d464afaa7e05624"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub install setup --pull packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 19
+      cubInstallObjectCountIncludingSupport: 20
+      semanticObjectMatches: "19/19"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

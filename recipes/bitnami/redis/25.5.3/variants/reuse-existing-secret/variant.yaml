@@ -1,0 +1,20 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: Variant
+metadata:
+  name: reuse-existing-secret
+spec:
+  recipe: ../../recipe.yaml
+  namespace: redis
+  releaseName: redis
+  valuesProfile: ../../effective-values-reuse-existing-secret.yaml
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions: []
+  hookPolicy: no-hooks
+  targetFacts:
+    requiredSecrets:
+      - namespace: "redis"
+        name: "redis-existing-secret"
+        keys:
+          - "redis-password"
+        purpose: "Redis authentication password"

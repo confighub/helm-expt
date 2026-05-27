@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "bitnami-memcached-8-5-5-default-r001"
+  labels:
+    confighub.io/chart-ref: "bitnami/memcached"
+    confighub.io/chart-version: "8.5.5"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "8cd477e08d9fdd2d56df7832f901d773af4f4313a405330180d7068cd7751558"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.2.0"
+  policyBundleDigest: "d4913c44f60cee40b376761c82c0c5b84e3f65043012ae875d8f376330dabc35"
+  findingCounts:
+    critical: 0
+    high: 1
+    medium: 0
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "mutable-image-tag:apps/v1|Deployment|default|memcached:memcached"
+      rule: "mutable-image-tag"
+      severity: "high"
+      object: "apps/v1|Deployment|default|memcached"
+      message: "container memcached uses mutable image registry-1.docker.io/bitnami/memcached:latest"

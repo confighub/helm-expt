@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "open-telemetry-opentelemetry-operator-0-114-0"
+  labels:
+    confighub.io/chart-ref: "open-telemetry/opentelemetry-operator"
+    confighub.io/chart-version: "0.114.0"
+    confighub.io/proof-tier: "next80-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "open-telemetry/opentelemetry-operator"
+    version: "0.114.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 17
+    cubInstallObjectsByVariant:
+      default: 18
+    helmMatchByVariant:
+      default: "17/17"
+    renderedObjectSetSHA256: "68dd01565796d137e5dea26e1db02ef3e0d99bbbafd000ec3663680b5bbda873"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

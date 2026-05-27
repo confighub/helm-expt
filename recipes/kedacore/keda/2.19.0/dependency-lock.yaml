@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "kedacore-keda-2-19-0"
+spec:
+  chart: "kedacore/keda"
+  version: "2.19.0"
+  dependencies:
+    []

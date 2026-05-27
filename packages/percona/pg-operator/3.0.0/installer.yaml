@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "percona-pg-operator"
+  version: "3.0.0"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "percona/pg-operator default variant rendered from percona/pg-operator@3.0.0"

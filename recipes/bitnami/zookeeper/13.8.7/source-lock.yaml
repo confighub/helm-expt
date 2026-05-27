@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "bitnami-zookeeper-13-8-7"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "bitnami"
+  repositoryURL: "https://charts.bitnami.com/bitnami"
+  chart: "zookeeper"
+  ref: "bitnami/zookeeper"
+  version: "13.8.7"
+  appVersion: "3.9.3"
+  packageSHA256: "2bc9869d780095693effb093f6ed934426907fb33e6c8946cbfffe1f30d902f7"
+  packageBytes: 55335
+  capturedAt: "generated-by-next80-full-proof-harness"

@@ -1,0 +1,116 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "open-telemetry-opentelemetry-operator-0-114-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "open-telemetry/opentelemetry-operator"
+    confighub.io/chart-version: "0.114.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "68dd01565796d137e5dea26e1db02ef3e0d99bbbafd000ec3663680b5bbda873"
+  objectCount: 17
+  objects:
+    -
+      apiVersion: "admissionregistration.k8s.io/v1"
+      identity: "admissionregistration.k8s.io/v1|MutatingWebhookConfiguration||opentelemetry-operator-mutation"
+      kind: "MutatingWebhookConfiguration"
+      name: "opentelemetry-operator-mutation"
+      namespace: ""
+    -
+      apiVersion: "admissionregistration.k8s.io/v1"
+      identity: "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||opentelemetry-operator-validation"
+      kind: "ValidatingWebhookConfiguration"
+      name: "opentelemetry-operator-validation"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||instrumentations.opentelemetry.io"
+      kind: "CustomResourceDefinition"
+      name: "instrumentations.opentelemetry.io"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||opampbridges.opentelemetry.io"
+      kind: "CustomResourceDefinition"
+      name: "opampbridges.opentelemetry.io"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||opentelemetrycollectors.opentelemetry.io"
+      kind: "CustomResourceDefinition"
+      name: "opentelemetrycollectors.opentelemetry.io"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||targetallocators.opentelemetry.io"
+      kind: "CustomResourceDefinition"
+      name: "targetallocators.opentelemetry.io"
+      namespace: ""
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|opentelemetry-operator"
+      kind: "Deployment"
+      name: "opentelemetry-operator"
+      namespace: "default"
+    -
+      apiVersion: "cert-manager.io/v1"
+      identity: "cert-manager.io/v1|Certificate|default|opentelemetry-operator-serving-cert"
+      kind: "Certificate"
+      name: "opentelemetry-operator-serving-cert"
+      namespace: "default"
+    -
+      apiVersion: "cert-manager.io/v1"
+      identity: "cert-manager.io/v1|Issuer|default|opentelemetry-operator-selfsigned-issuer"
+      kind: "Issuer"
+      name: "opentelemetry-operator-selfsigned-issuer"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||opentelemetry-operator-manager"
+      kind: "ClusterRoleBinding"
+      name: "opentelemetry-operator-manager"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||opentelemetry-operator-manager"
+      kind: "ClusterRole"
+      name: "opentelemetry-operator-manager"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||opentelemetry-operator-metrics"
+      kind: "ClusterRole"
+      name: "opentelemetry-operator-metrics"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|default|opentelemetry-operator-leader-election"
+      kind: "RoleBinding"
+      name: "opentelemetry-operator-leader-election"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role|default|opentelemetry-operator-leader-election"
+      kind: "Role"
+      name: "opentelemetry-operator-leader-election"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|opentelemetry-operator"
+      kind: "ServiceAccount"
+      name: "opentelemetry-operator"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|opentelemetry-operator"
+      kind: "Service"
+      name: "opentelemetry-operator"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|opentelemetry-operator-webhook"
+      kind: "Service"
+      name: "opentelemetry-operator-webhook"
+      namespace: "default"

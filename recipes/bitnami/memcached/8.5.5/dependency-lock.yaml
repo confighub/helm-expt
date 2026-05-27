@@ -1,0 +1,14 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "bitnami-memcached-8-5-5"
+spec:
+  chart: "bitnami/memcached"
+  version: "8.5.5"
+  dependencies:
+    -
+      name: "common"
+      version: "2.39.0"
+      repository: "oci://registry-1.docker.io/bitnamicharts"
+      tags:
+        - "bitnami-common"
