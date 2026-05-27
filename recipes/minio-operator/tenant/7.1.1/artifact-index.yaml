@@ -1,0 +1,121 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "minio-operator-tenant-7.1.1"
+  chart: "minio-operator/tenant"
+  version: "7.1.1"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "minio-operator/tenant"
+    version: "7.1.1"
+    appVersion: "v7.1.1"
+    sourceLock: "recipes/minio-operator/tenant/7.1.1/source-lock.yaml"
+    dependencyLock: "recipes/minio-operator/tenant/7.1.1/dependency-lock.yaml"
+    repository: "https://operator.min.io"
+    packageSHA256: "931dfbbf19871ffd687b4eca1ed23b977928b52fc9710bb3250cb381716fc0ea"
+  recipe:
+    path: "recipes/minio-operator/tenant/7.1.1/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/minio-operator/tenant/7.1.1/helm-plan.yaml"
+    chartDossier: "recipes/minio-operator/tenant/7.1.1/chart-dossier.yaml"
+    controlPoints: "recipes/minio-operator/tenant/7.1.1/control-points.yaml"
+    valueModel: "recipes/minio-operator/tenant/7.1.1/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "dependency-lock"
+      - "helm-equivalence"
+      - "rendered-manifest-scan"
+      - "secret-material"
+      - "source-lock"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/minio-operator/tenant/7.1.1/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/minio-operator/tenant/7.1.1"
+    installer: "packages/minio-operator/tenant/7.1.1/installer.yaml"
+    receipt: "recipes/minio-operator/tenant/7.1.1/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "7a10ca850b10f4b0d7c766397449b88636eb6f798ddf606da6d89b0b2b4e3d42"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/minio-operator/tenant/7.1.1/bases/default"
+        default: true
+        description: "minio-operator/tenant default variant rendered from minio-operator/tenant@7.1.1"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/minio-operator/tenant/7.1.1/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "tenant"
+      valuesProfile: "recipes/minio-operator/tenant/7.1.1/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/minio-operator/tenant/7.1.1/bases/default"
+        default: true
+        description: "minio-operator/tenant default variant rendered from minio-operator/tenant@7.1.1"
+      setupCheck:
+        command: "cub install setup --pull packages/minio-operator/tenant/7.1.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 2
+        cubInstallObjectCountIncludingSupport: 3
+        semanticObjectMatches: "2/2"
+        separatedSecretCount: 1
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/minio-operator/tenant/7.1.1/revisions/default/r001/variant-revision.yaml"
+          digest: "9357bee0a8525bd7869a7027d5fb94d37af03d0d3fdeb1996af9a92b5715fcca"
+          renderedObjectSetSHA256: "4577edd3c6c83479b029c32a8e41e966b19ef3810e062c156c5c54850c4ab32a"
+          renderedObjects: "recipes/minio-operator/tenant/7.1.1/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/minio-operator/tenant/7.1.1/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 2
+          helmObjectCount: 2
+          cubInstallObjectCountIncludingSupport: 3
+          semanticObjectMatches: "2/2"
+          separatedSecretFiles: 1
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/minio-operator/tenant/7.1.1/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "4577edd3c6c83479b029c32a8e41e966b19ef3810e062c156c5c54850c4ab32a"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/minio-operator/tenant/7.1.1/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "4577edd3c6c83479b029c32a8e41e966b19ef3810e062c156c5c54850c4ab32a"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/minio-operator/tenant/7.1.1/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "4577edd3c6c83479b029c32a8e41e966b19ef3810e062c156c5c54850c4ab32a"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/minio-operator/tenant/7.1.1/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "4577edd3c6c83479b029c32a8e41e966b19ef3810e062c156c5c54850c4ab32a"

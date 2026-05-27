@@ -1,0 +1,123 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "argo-cd-argo-events-2.4.21"
+  chart: "argo-cd/argo-events"
+  version: "2.4.21"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "argo-cd/argo-events"
+    version: "2.4.21"
+    appVersion: "v1.9.10"
+    sourceLock: "recipes/argo-cd/argo-events/2.4.21/source-lock.yaml"
+    dependencyLock: "recipes/argo-cd/argo-events/2.4.21/dependency-lock.yaml"
+    repository: "https://argoproj.github.io/argo-helm"
+    packageSHA256: "b325ca4569aa43b6bef3bb0065bb997727124017b307491a731e47cf527b69c7"
+  recipe:
+    path: "recipes/argo-cd/argo-events/2.4.21/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/argo-cd/argo-events/2.4.21/helm-plan.yaml"
+    chartDossier: "recipes/argo-cd/argo-events/2.4.21/chart-dossier.yaml"
+    controlPoints: "recipes/argo-cd/argo-events/2.4.21/control-points.yaml"
+    valueModel: "recipes/argo-cd/argo-events/2.4.21/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "cluster-rbac"
+      - "crds"
+      - "dependency-lock"
+      - "extension-slots"
+      - "helm-equivalence"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/argo-cd/argo-events/2.4.21/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/argo-cd/argo-events/2.4.21"
+    installer: "packages/argo-cd/argo-events/2.4.21/installer.yaml"
+    receipt: "recipes/argo-cd/argo-events/2.4.21/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "088dbe2f4c9f8098dbb475e100c4db458d7bc6de2e9be5171af478bfebbacbe5"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/argo-cd/argo-events/2.4.21/bases/default"
+        default: true
+        description: "argo-cd/argo-events default variant rendered from argo-cd/argo-events@2.4.21"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/argo-cd/argo-events/2.4.21/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "argo-events"
+      valuesProfile: "recipes/argo-cd/argo-events/2.4.21/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/argo-cd/argo-events/2.4.21/bases/default"
+        default: true
+        description: "argo-cd/argo-events default variant rendered from argo-cd/argo-events@2.4.21"
+      setupCheck:
+        command: "cub install setup --pull packages/argo-cd/argo-events/2.4.21 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 9
+        cubInstallObjectCountIncludingSupport: 10
+        semanticObjectMatches: "9/9"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/variant-revision.yaml"
+          digest: "e2477b480724b8af1d4ad07dac29be619cf606e7849d8dd5fe5becb2dbd6ac3d"
+          renderedObjectSetSHA256: "fe5c705f2f03410df75055542a79619c82947dafbf3f1c01c05eca2fc197503b"
+          renderedObjects: "recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 9
+          helmObjectCount: 9
+          cubInstallObjectCountIncludingSupport: 10
+          semanticObjectMatches: "9/9"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "fe5c705f2f03410df75055542a79619c82947dafbf3f1c01c05eca2fc197503b"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "fe5c705f2f03410df75055542a79619c82947dafbf3f1c01c05eca2fc197503b"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "fe5c705f2f03410df75055542a79619c82947dafbf3f1c01c05eca2fc197503b"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "fe5c705f2f03410df75055542a79619c82947dafbf3f1c01c05eca2fc197503b"

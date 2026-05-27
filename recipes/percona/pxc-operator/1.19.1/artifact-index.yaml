@@ -1,0 +1,122 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "percona-pxc-operator-1.19.1"
+  chart: "percona/pxc-operator"
+  version: "1.19.1"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "percona/pxc-operator"
+    version: "1.19.1"
+    appVersion: "1.19.1"
+    sourceLock: "recipes/percona/pxc-operator/1.19.1/source-lock.yaml"
+    dependencyLock: "recipes/percona/pxc-operator/1.19.1/dependency-lock.yaml"
+    repository: "https://percona.github.io/percona-helm-charts/"
+    packageSHA256: "3b61a8f61af9fdbb9c39bd089a0707680d6a3b89eb8ddba6b9ec588ed161298c"
+  recipe:
+    path: "recipes/percona/pxc-operator/1.19.1/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/percona/pxc-operator/1.19.1/helm-plan.yaml"
+    chartDossier: "recipes/percona/pxc-operator/1.19.1/chart-dossier.yaml"
+    controlPoints: "recipes/percona/pxc-operator/1.19.1/control-points.yaml"
+    valueModel: "recipes/percona/pxc-operator/1.19.1/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "crds"
+      - "dependency-lock"
+      - "extension-slots"
+      - "helm-equivalence"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "target-facts"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/percona/pxc-operator/1.19.1/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/percona/pxc-operator/1.19.1"
+    installer: "packages/percona/pxc-operator/1.19.1/installer.yaml"
+    receipt: "recipes/percona/pxc-operator/1.19.1/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "a5f564adac9a648746ac698b59877f98cb01475221906349a4e4e62e18655bbb"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/percona/pxc-operator/1.19.1/bases/default"
+        default: true
+        description: "percona/pxc-operator default variant rendered from percona/pxc-operator@1.19.1"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/percona/pxc-operator/1.19.1/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "pxc-operator"
+      valuesProfile: "recipes/percona/pxc-operator/1.19.1/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/percona/pxc-operator/1.19.1/bases/default"
+        default: true
+        description: "percona/pxc-operator default variant rendered from percona/pxc-operator@1.19.1"
+      setupCheck:
+        command: "cub install setup --pull packages/percona/pxc-operator/1.19.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 7
+        cubInstallObjectCountIncludingSupport: 8
+        semanticObjectMatches: "7/7"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/percona/pxc-operator/1.19.1/revisions/default/r001/variant-revision.yaml"
+          digest: "198ea46bf181803a130b8face0c72f08cf2faaf29d92fea31232ff028f0148e0"
+          renderedObjectSetSHA256: "769b3b65e8543cd4ae04c498b6793f5f9e84b611bff8ec07b7fbaa5efaac8dc6"
+          renderedObjects: "recipes/percona/pxc-operator/1.19.1/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/percona/pxc-operator/1.19.1/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 7
+          helmObjectCount: 7
+          cubInstallObjectCountIncludingSupport: 8
+          semanticObjectMatches: "7/7"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/percona/pxc-operator/1.19.1/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "769b3b65e8543cd4ae04c498b6793f5f9e84b611bff8ec07b7fbaa5efaac8dc6"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/percona/pxc-operator/1.19.1/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "769b3b65e8543cd4ae04c498b6793f5f9e84b611bff8ec07b7fbaa5efaac8dc6"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/percona/pxc-operator/1.19.1/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "769b3b65e8543cd4ae04c498b6793f5f9e84b611bff8ec07b7fbaa5efaac8dc6"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/percona/pxc-operator/1.19.1/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "769b3b65e8543cd4ae04c498b6793f5f9e84b611bff8ec07b7fbaa5efaac8dc6"

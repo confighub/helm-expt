@@ -1,0 +1,121 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "percona-pg-operator-3.0.0"
+  chart: "percona/pg-operator"
+  version: "3.0.0"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "percona/pg-operator"
+    version: "3.0.0"
+    appVersion: "3.0.0"
+    sourceLock: "recipes/percona/pg-operator/3.0.0/source-lock.yaml"
+    dependencyLock: "recipes/percona/pg-operator/3.0.0/dependency-lock.yaml"
+    repository: "https://percona.github.io/percona-helm-charts/"
+    packageSHA256: "795b9924089cc9f088d47fbf13cc94f0207c84629d69b581f504a6d1fbeefc92"
+  recipe:
+    path: "recipes/percona/pg-operator/3.0.0/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/percona/pg-operator/3.0.0/helm-plan.yaml"
+    chartDossier: "recipes/percona/pg-operator/3.0.0/chart-dossier.yaml"
+    controlPoints: "recipes/percona/pg-operator/3.0.0/control-points.yaml"
+    valueModel: "recipes/percona/pg-operator/3.0.0/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "crds"
+      - "dependency-lock"
+      - "helm-equivalence"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "target-facts"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/percona/pg-operator/3.0.0/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/percona/pg-operator/3.0.0"
+    installer: "packages/percona/pg-operator/3.0.0/installer.yaml"
+    receipt: "recipes/percona/pg-operator/3.0.0/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "6abea18a1b37e68ac97e76cb918ab35da5e851069e9c05e6f0e1f7bbedb88ecc"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/percona/pg-operator/3.0.0/bases/default"
+        default: true
+        description: "percona/pg-operator default variant rendered from percona/pg-operator@3.0.0"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/percona/pg-operator/3.0.0/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "pg-operator"
+      valuesProfile: "recipes/percona/pg-operator/3.0.0/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/percona/pg-operator/3.0.0/bases/default"
+        default: true
+        description: "percona/pg-operator default variant rendered from percona/pg-operator@3.0.0"
+      setupCheck:
+        command: "cub install setup --pull packages/percona/pg-operator/3.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 12
+        cubInstallObjectCountIncludingSupport: 13
+        semanticObjectMatches: "12/12"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/percona/pg-operator/3.0.0/revisions/default/r001/variant-revision.yaml"
+          digest: "f2a192ad34eefd277962ba266d3a14d55551cab1041158e0379b7b71a9897f74"
+          renderedObjectSetSHA256: "bf309d7e26c9351501282530b3707719d97e87593333150163c468461725a8ff"
+          renderedObjects: "recipes/percona/pg-operator/3.0.0/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/percona/pg-operator/3.0.0/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 12
+          helmObjectCount: 12
+          cubInstallObjectCountIncludingSupport: 13
+          semanticObjectMatches: "12/12"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/percona/pg-operator/3.0.0/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "bf309d7e26c9351501282530b3707719d97e87593333150163c468461725a8ff"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/percona/pg-operator/3.0.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "bf309d7e26c9351501282530b3707719d97e87593333150163c468461725a8ff"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/percona/pg-operator/3.0.0/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "bf309d7e26c9351501282530b3707719d97e87593333150163c468461725a8ff"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/percona/pg-operator/3.0.0/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "bf309d7e26c9351501282530b3707719d97e87593333150163c468461725a8ff"

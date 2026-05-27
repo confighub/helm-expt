@@ -1,0 +1,125 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "jetstack-trust-manager-v0.22.1"
+  chart: "jetstack/trust-manager"
+  version: "v0.22.1"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "jetstack/trust-manager"
+    version: "v0.22.1"
+    appVersion: "v0.22.1"
+    sourceLock: "recipes/jetstack/trust-manager/v0.22.1/source-lock.yaml"
+    dependencyLock: "recipes/jetstack/trust-manager/v0.22.1/dependency-lock.yaml"
+    repository: "https://charts.jetstack.io"
+    packageSHA256: "7fac0640b4c58424ca7589a91dfdc2f79a3cd490c0b2b5b8d4cfea2654e9133f"
+  recipe:
+    path: "recipes/jetstack/trust-manager/v0.22.1/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/jetstack/trust-manager/v0.22.1/helm-plan.yaml"
+    chartDossier: "recipes/jetstack/trust-manager/v0.22.1/chart-dossier.yaml"
+    controlPoints: "recipes/jetstack/trust-manager/v0.22.1/control-points.yaml"
+    valueModel: "recipes/jetstack/trust-manager/v0.22.1/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "cluster-rbac"
+      - "crds"
+      - "dependency-lock"
+      - "extension-slots"
+      - "generated-facts"
+      - "helm-equivalence"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "tpl-extension-slots"
+      - "variant-revision"
+      - "webhooks"
+  catalogStatus:
+    path: "recipes/jetstack/trust-manager/v0.22.1/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/jetstack/trust-manager/v0.22.1"
+    installer: "packages/jetstack/trust-manager/v0.22.1/installer.yaml"
+    receipt: "recipes/jetstack/trust-manager/v0.22.1/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "28d1e52412a879f370505b15c9edced5fdeb1a9cf04e6159b925001b3027cac6"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/jetstack/trust-manager/v0.22.1/bases/default"
+        default: true
+        description: "jetstack/trust-manager default variant rendered from jetstack/trust-manager@v0.22.1"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/jetstack/trust-manager/v0.22.1/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "trust-manager"
+      valuesProfile: "recipes/jetstack/trust-manager/v0.22.1/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/jetstack/trust-manager/v0.22.1/bases/default"
+        default: true
+        description: "jetstack/trust-manager default variant rendered from jetstack/trust-manager@v0.22.1"
+      setupCheck:
+        command: "cub install setup --pull packages/jetstack/trust-manager/v0.22.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 14
+        cubInstallObjectCountIncludingSupport: 15
+        semanticObjectMatches: "14/14"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/variant-revision.yaml"
+          digest: "b2230146b96c81c8d8d8f7f031d90a72915b599d62d8dcf4ef304a08b290cb57"
+          renderedObjectSetSHA256: "50eb2239a5db07734497711c4e812eb111d231852c2f614e5b0a1faec7bab683"
+          renderedObjects: "recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 14
+          helmObjectCount: 14
+          cubInstallObjectCountIncludingSupport: 15
+          semanticObjectMatches: "14/14"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "50eb2239a5db07734497711c4e812eb111d231852c2f614e5b0a1faec7bab683"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "50eb2239a5db07734497711c4e812eb111d231852c2f614e5b0a1faec7bab683"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "50eb2239a5db07734497711c4e812eb111d231852c2f614e5b0a1faec7bab683"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "50eb2239a5db07734497711c4e812eb111d231852c2f614e5b0a1faec7bab683"

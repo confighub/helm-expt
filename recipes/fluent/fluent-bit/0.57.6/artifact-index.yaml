@@ -1,0 +1,123 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "fluent-fluent-bit-0.57.6"
+  chart: "fluent/fluent-bit"
+  version: "0.57.6"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "fluent/fluent-bit"
+    version: "0.57.6"
+    appVersion: "5.0.6"
+    sourceLock: "recipes/fluent/fluent-bit/0.57.6/source-lock.yaml"
+    dependencyLock: "recipes/fluent/fluent-bit/0.57.6/dependency-lock.yaml"
+    repository: "https://fluent.github.io/helm-charts"
+    packageSHA256: "dba34ec5f57a69a91b391077fefc58db7431e5fe30c4da25df8b65240abb30f8"
+  recipe:
+    path: "recipes/fluent/fluent-bit/0.57.6/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/fluent/fluent-bit/0.57.6/helm-plan.yaml"
+    chartDossier: "recipes/fluent/fluent-bit/0.57.6/chart-dossier.yaml"
+    controlPoints: "recipes/fluent/fluent-bit/0.57.6/control-points.yaml"
+    valueModel: "recipes/fluent/fluent-bit/0.57.6/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "cluster-rbac"
+      - "dependency-lock"
+      - "extension-slots"
+      - "helm-equivalence"
+      - "lifecycle-policy"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/fluent/fluent-bit/0.57.6/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/fluent/fluent-bit/0.57.6"
+    installer: "packages/fluent/fluent-bit/0.57.6/installer.yaml"
+    receipt: "recipes/fluent/fluent-bit/0.57.6/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "927d51336074709b3466f6ec458392d5b590073ff38953c4b7a524e65a63a90d"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/fluent/fluent-bit/0.57.6/bases/default"
+        default: true
+        description: "fluent/fluent-bit default variant rendered from fluent/fluent-bit@0.57.6"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/fluent/fluent-bit/0.57.6/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "fluent-bit"
+      valuesProfile: "recipes/fluent/fluent-bit/0.57.6/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/fluent/fluent-bit/0.57.6/bases/default"
+        default: true
+        description: "fluent/fluent-bit default variant rendered from fluent/fluent-bit@0.57.6"
+      setupCheck:
+        command: "cub install setup --pull packages/fluent/fluent-bit/0.57.6 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 6
+        cubInstallObjectCountIncludingSupport: 7
+        semanticObjectMatches: "6/6"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/variant-revision.yaml"
+          digest: "7a0afff1b91c5f0be50f51448c412666791343ae14237ff12fdee8b5dc3e3724"
+          renderedObjectSetSHA256: "464d9136c0ba9e845fd81c1dbea556e717d47930d7cb58755de67ead7f8f2a2b"
+          renderedObjects: "recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 6
+          helmObjectCount: 6
+          cubInstallObjectCountIncludingSupport: 7
+          semanticObjectMatches: "6/6"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "464d9136c0ba9e845fd81c1dbea556e717d47930d7cb58755de67ead7f8f2a2b"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "464d9136c0ba9e845fd81c1dbea556e717d47930d7cb58755de67ead7f8f2a2b"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "464d9136c0ba9e845fd81c1dbea556e717d47930d7cb58755de67ead7f8f2a2b"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "464d9136c0ba9e845fd81c1dbea556e717d47930d7cb58755de67ead7f8f2a2b"

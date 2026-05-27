@@ -1,0 +1,123 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "argo-cd-argo-workflows-1.0.14"
+  chart: "argo-cd/argo-workflows"
+  version: "1.0.14"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "argo-cd/argo-workflows"
+    version: "1.0.14"
+    appVersion: "v4.0.5"
+    sourceLock: "recipes/argo-cd/argo-workflows/1.0.14/source-lock.yaml"
+    dependencyLock: "recipes/argo-cd/argo-workflows/1.0.14/dependency-lock.yaml"
+    repository: "https://argoproj.github.io/argo-helm"
+    packageSHA256: "552fd9548aa107cd495a5e1277c4995b0389591ce945537a356863bfc791c339"
+  recipe:
+    path: "recipes/argo-cd/argo-workflows/1.0.14/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/argo-cd/argo-workflows/1.0.14/helm-plan.yaml"
+    chartDossier: "recipes/argo-cd/argo-workflows/1.0.14/chart-dossier.yaml"
+    controlPoints: "recipes/argo-cd/argo-workflows/1.0.14/control-points.yaml"
+    valueModel: "recipes/argo-cd/argo-workflows/1.0.14/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "cluster-rbac"
+      - "dependency-lock"
+      - "extension-slots"
+      - "helm-equivalence"
+      - "lifecycle-policy"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/argo-cd/argo-workflows/1.0.14/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/argo-cd/argo-workflows/1.0.14"
+    installer: "packages/argo-cd/argo-workflows/1.0.14/installer.yaml"
+    receipt: "recipes/argo-cd/argo-workflows/1.0.14/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "03c25e6e332632cc9f283859ea7746b0df907243637dcafc4b19e7bb96d4ec18"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/argo-cd/argo-workflows/1.0.14/bases/default"
+        default: true
+        description: "argo-cd/argo-workflows default variant rendered from argo-cd/argo-workflows@1.0.14"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/argo-cd/argo-workflows/1.0.14/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "argo-workflows"
+      valuesProfile: "recipes/argo-cd/argo-workflows/1.0.14/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/argo-cd/argo-workflows/1.0.14/bases/default"
+        default: true
+        description: "argo-cd/argo-workflows default variant rendered from argo-cd/argo-workflows@1.0.14"
+      setupCheck:
+        command: "cub install setup --pull packages/argo-cd/argo-workflows/1.0.14 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 19
+        cubInstallObjectCountIncludingSupport: 20
+        semanticObjectMatches: "19/19"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/variant-revision.yaml"
+          digest: "c93eb1562544760545df133017d35193cb658beb743356d2e9933adc65cd9e8d"
+          renderedObjectSetSHA256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
+          renderedObjects: "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 19
+          helmObjectCount: 19
+          cubInstallObjectCountIncludingSupport: 20
+          semanticObjectMatches: "19/19"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"

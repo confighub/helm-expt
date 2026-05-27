@@ -1,0 +1,123 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "bitnami-apache-11.4.29"
+  chart: "bitnami/apache"
+  version: "11.4.29"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "bitnami/apache"
+    version: "11.4.29"
+    appVersion: "2.4.65"
+    sourceLock: "recipes/bitnami/apache/11.4.29/source-lock.yaml"
+    dependencyLock: "recipes/bitnami/apache/11.4.29/dependency-lock.yaml"
+    repository: "https://charts.bitnami.com/bitnami"
+    packageSHA256: "be58086b03bfa4f0a96a9254fa4e623bd36cdb3baa87e6cdbb7e6135a259087e"
+  recipe:
+    path: "recipes/bitnami/apache/11.4.29/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/bitnami/apache/11.4.29/helm-plan.yaml"
+    chartDossier: "recipes/bitnami/apache/11.4.29/chart-dossier.yaml"
+    controlPoints: "recipes/bitnami/apache/11.4.29/control-points.yaml"
+    valueModel: "recipes/bitnami/apache/11.4.29/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "dependency-lock"
+      - "extension-slots"
+      - "generated-facts"
+      - "helm-equivalence"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "target-facts"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/bitnami/apache/11.4.29/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/bitnami/apache/11.4.29"
+    installer: "packages/bitnami/apache/11.4.29/installer.yaml"
+    receipt: "recipes/bitnami/apache/11.4.29/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "0d97fbe6c57b4b8f47d7f4c163e1db33a0558dea2e1d879f8004e3440f53687f"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/bitnami/apache/11.4.29/bases/default"
+        default: true
+        description: "bitnami/apache default variant rendered from bitnami/apache@11.4.29"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/bitnami/apache/11.4.29/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "apache"
+      valuesProfile: "recipes/bitnami/apache/11.4.29/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/bitnami/apache/11.4.29/bases/default"
+        default: true
+        description: "bitnami/apache default variant rendered from bitnami/apache@11.4.29"
+      setupCheck:
+        command: "cub install setup --pull packages/bitnami/apache/11.4.29 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 5
+        cubInstallObjectCountIncludingSupport: 6
+        semanticObjectMatches: "5/5"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/bitnami/apache/11.4.29/revisions/default/r001/variant-revision.yaml"
+          digest: "23eadb0e0776f75f2fc35b47dec09cf6aa977f525a336ffc186940ec433890e8"
+          renderedObjectSetSHA256: "0b37f6d8ae27b5b341860619b89aa3d78e02d7bd01a2271fab216d4e65be047c"
+          renderedObjects: "recipes/bitnami/apache/11.4.29/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/apache/11.4.29/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 5
+          helmObjectCount: 5
+          cubInstallObjectCountIncludingSupport: 6
+          semanticObjectMatches: "5/5"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/bitnami/apache/11.4.29/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "0b37f6d8ae27b5b341860619b89aa3d78e02d7bd01a2271fab216d4e65be047c"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/bitnami/apache/11.4.29/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "0b37f6d8ae27b5b341860619b89aa3d78e02d7bd01a2271fab216d4e65be047c"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/bitnami/apache/11.4.29/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "0b37f6d8ae27b5b341860619b89aa3d78e02d7bd01a2271fab216d4e65be047c"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/bitnami/apache/11.4.29/revisions/default/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "0b37f6d8ae27b5b341860619b89aa3d78e02d7bd01a2271fab216d4e65be047c"

@@ -1,0 +1,192 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "prometheus-community-prometheus-29.8.0"
+  chart: "prometheus-community/prometheus"
+  version: "29.8.0"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "prometheus-community/prometheus"
+    version: "29.8.0"
+    appVersion: "v3.11.3"
+    sourceLock: "recipes/prometheus-community/prometheus/29.8.0/source-lock.yaml"
+    dependencyLock: "recipes/prometheus-community/prometheus/29.8.0/dependency-lock.yaml"
+    repository: "https://prometheus-community.github.io/helm-charts"
+    packageSHA256: "daba2821dd7c0d29267c8be5056cfbb7ebbf8784cb3159fa55f266615df68e3d"
+  recipe:
+    path: "recipes/prometheus-community/prometheus/29.8.0/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/prometheus-community/prometheus/29.8.0/helm-plan.yaml"
+    chartDossier: "recipes/prometheus-community/prometheus/29.8.0/chart-dossier.yaml"
+    controlPoints: "recipes/prometheus-community/prometheus/29.8.0/control-points.yaml"
+    valueModel: "recipes/prometheus-community/prometheus/29.8.0/value-model.yaml"
+    controlPointCategories:
+      - "bundle-dependencies"
+      - "capability-profile"
+      - "cluster-rbac"
+      - "component-selection"
+      - "dependency-lock"
+      - "extension-slots"
+      - "installer-support-object"
+      - "monitoring-workloads"
+      - "scrape-config"
+      - "source-lock"
+      - "storage-retention"
+  catalogStatus:
+    path: "recipes/prometheus-community/prometheus/29.8.0/catalog-status.yaml"
+    status: "catalog-candidate"
+    supportLevel: "promotion-review-needed"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+      - "server-only-ephemeral"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/prometheus-community/prometheus/29.8.0"
+    installer: "packages/prometheus-community/prometheus/29.8.0/installer.yaml"
+    receipt: "recipes/prometheus-community/prometheus/29.8.0/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "6ca5329f1a665aab8e8cab7e5cfd7c9b5ceadef36942c320105f29d5b4950a68"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/prometheus-community/prometheus/29.8.0/bases/default"
+        default: true
+        description: "prometheus default monitoring stack variant rendered from prometheus-community/prometheus@29.8.0"
+      -
+        name: "server-only-ephemeral"
+        path: "packages/prometheus-community/prometheus/29.8.0/bases/server-only-ephemeral"
+        default: false
+        description: "prometheus server only without persistence variant rendered from prometheus-community/prometheus@29.8.0"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/prometheus-community/prometheus/29.8.0/variants/default/variant.yaml"
+      namespace: "monitoring"
+      releaseName: "prometheus"
+      valuesProfile: "recipes/prometheus-community/prometheus/29.8.0/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/prometheus-community/prometheus/29.8.0/bases/default"
+        default: true
+        description: "prometheus default monitoring stack variant rendered from prometheus-community/prometheus@29.8.0"
+      setupCheck:
+        command: "cub install setup --pull packages/prometheus-community/prometheus/29.8.0 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
+        helmReleaseObjectCount: 23
+        cubInstallObjectCountIncludingSupport: 24
+        semanticObjectMatches: "23/23"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||monitoring"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/variant-revision.yaml"
+          digest: "6e2bda6fa0ba0314da74cfe139630ec34f2a95da1c10a57c45a48a47615d54fb"
+          renderedObjectSetSHA256: "c11349803ddbb44562066474dd04d47d7c5c75d083dbc96162224573f949c11b"
+          renderedObjects: "recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 23
+          helmObjectCount: 23
+          cubInstallObjectCountIncludingSupport: 24
+          semanticObjectMatches: "23/23"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "c11349803ddbb44562066474dd04d47d7c5c75d083dbc96162224573f949c11b"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "c11349803ddbb44562066474dd04d47d7c5c75d083dbc96162224573f949c11b"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "c11349803ddbb44562066474dd04d47d7c5c75d083dbc96162224573f949c11b"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "c11349803ddbb44562066474dd04d47d7c5c75d083dbc96162224573f949c11b"
+    -
+      name: "server-only-ephemeral"
+      variant: "recipes/prometheus-community/prometheus/29.8.0/variants/server-only-ephemeral/variant.yaml"
+      namespace: "monitoring"
+      releaseName: "prometheus"
+      valuesProfile: "recipes/prometheus-community/prometheus/29.8.0/effective-values-server-only-ephemeral.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "server-only-ephemeral"
+        path: "packages/prometheus-community/prometheus/29.8.0/bases/server-only-ephemeral"
+        default: false
+        description: "prometheus server only without persistence variant rendered from prometheus-community/prometheus@29.8.0"
+      setupCheck:
+        command: "cub install setup --pull packages/prometheus-community/prometheus/29.8.0 --base server-only-ephemeral --work-dir <tmp> --non-interactive --namespace monitoring"
+        helmReleaseObjectCount: 6
+        cubInstallObjectCountIncludingSupport: 7
+        semanticObjectMatches: "6/6"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||monitoring"
+      revisions:
+        -
+          name: "server-only-ephemeral-r001"
+          revision: "r001"
+          variantRevision: "recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/variant-revision.yaml"
+          digest: "5c943a249ba70681b117981dd109e59b8be537df7148c3e5d37b6e5c9711bddc"
+          renderedObjectSetSHA256: "174e1729753ef551fa059f86111cfd87653ea2380dc879238cf5cc4987e78812"
+          renderedObjects: "recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/rendered/object-inventory.yaml"
+          objectCount: 6
+          helmObjectCount: 6
+          cubInstallObjectCountIncludingSupport: 7
+          semanticObjectMatches: "6/6"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "174e1729753ef551fa059f86111cfd87653ea2380dc879238cf5cc4987e78812"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "174e1729753ef551fa059f86111cfd87653ea2380dc879238cf5cc4987e78812"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "174e1729753ef551fa059f86111cfd87653ea2380dc879238cf5cc4987e78812"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "174e1729753ef551fa059f86111cfd87653ea2380dc879238cf5cc4987e78812"

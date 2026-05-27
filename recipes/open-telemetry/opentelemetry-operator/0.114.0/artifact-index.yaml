@@ -1,0 +1,127 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "open-telemetry-opentelemetry-operator-0.114.0"
+  chart: "open-telemetry/opentelemetry-operator"
+  version: "0.114.0"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "open-telemetry/opentelemetry-operator"
+    version: "0.114.0"
+    appVersion: "0.152.0"
+    sourceLock: "recipes/open-telemetry/opentelemetry-operator/0.114.0/source-lock.yaml"
+    dependencyLock: "recipes/open-telemetry/opentelemetry-operator/0.114.0/dependency-lock.yaml"
+    repository: "https://open-telemetry.github.io/opentelemetry-helm-charts"
+    packageSHA256: "450c24e9d279534413860d9fb4dbe2609f8c32b8a3e2990833ee4f53d0e8546e"
+  recipe:
+    path: "recipes/open-telemetry/opentelemetry-operator/0.114.0/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/open-telemetry/opentelemetry-operator/0.114.0/helm-plan.yaml"
+    chartDossier: "recipes/open-telemetry/opentelemetry-operator/0.114.0/chart-dossier.yaml"
+    controlPoints: "recipes/open-telemetry/opentelemetry-operator/0.114.0/control-points.yaml"
+    valueModel: "recipes/open-telemetry/opentelemetry-operator/0.114.0/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "cluster-rbac"
+      - "crds"
+      - "dependency-lock"
+      - "extension-slots"
+      - "generated-facts"
+      - "helm-equivalence"
+      - "lifecycle-policy"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "target-facts"
+      - "tpl-extension-slots"
+      - "variant-revision"
+      - "webhooks"
+  catalogStatus:
+    path: "recipes/open-telemetry/opentelemetry-operator/0.114.0/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/open-telemetry/opentelemetry-operator/0.114.0"
+    installer: "packages/open-telemetry/opentelemetry-operator/0.114.0/installer.yaml"
+    receipt: "recipes/open-telemetry/opentelemetry-operator/0.114.0/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "46a4466f21a9076cfb231b02a2309c526136ca3903e50c17348f1e3e87b8f5dc"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/open-telemetry/opentelemetry-operator/0.114.0/bases/default"
+        default: true
+        description: "open-telemetry/opentelemetry-operator default variant rendered from open-telemetry/opentelemetry-operator@0.114.0"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "opentelemetry-operator"
+      valuesProfile: "recipes/open-telemetry/opentelemetry-operator/0.114.0/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/open-telemetry/opentelemetry-operator/0.114.0/bases/default"
+        default: true
+        description: "open-telemetry/opentelemetry-operator default variant rendered from open-telemetry/opentelemetry-operator@0.114.0"
+      setupCheck:
+        command: "cub install setup --pull packages/open-telemetry/opentelemetry-operator/0.114.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 17
+        cubInstallObjectCountIncludingSupport: 18
+        semanticObjectMatches: "17/17"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/variant-revision.yaml"
+          digest: "797b4cd079028aee9f5f62340506590fe0c656f24188170da684b5b1d936baca"
+          renderedObjectSetSHA256: "68dd01565796d137e5dea26e1db02ef3e0d99bbbafd000ec3663680b5bbda873"
+          renderedObjects: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 17
+          helmObjectCount: 17
+          cubInstallObjectCountIncludingSupport: 18
+          semanticObjectMatches: "17/17"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "68dd01565796d137e5dea26e1db02ef3e0d99bbbafd000ec3663680b5bbda873"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "68dd01565796d137e5dea26e1db02ef3e0d99bbbafd000ec3663680b5bbda873"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "68dd01565796d137e5dea26e1db02ef3e0d99bbbafd000ec3663680b5bbda873"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "68dd01565796d137e5dea26e1db02ef3e0d99bbbafd000ec3663680b5bbda873"

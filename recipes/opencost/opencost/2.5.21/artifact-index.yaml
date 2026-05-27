@@ -1,0 +1,122 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "opencost-opencost-2.5.21"
+  chart: "opencost/opencost"
+  version: "2.5.21"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "opencost/opencost"
+    version: "2.5.21"
+    appVersion: "1.120.2"
+    sourceLock: "recipes/opencost/opencost/2.5.21/source-lock.yaml"
+    dependencyLock: "recipes/opencost/opencost/2.5.21/dependency-lock.yaml"
+    repository: "https://opencost.github.io/opencost-helm-chart"
+    packageSHA256: "5f346f7e81d145b6e9d7f8217d1dafa3e31650a3c71b021274f6143220888649"
+  recipe:
+    path: "recipes/opencost/opencost/2.5.21/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/opencost/opencost/2.5.21/helm-plan.yaml"
+    chartDossier: "recipes/opencost/opencost/2.5.21/chart-dossier.yaml"
+    controlPoints: "recipes/opencost/opencost/2.5.21/control-points.yaml"
+    valueModel: "recipes/opencost/opencost/2.5.21/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "cluster-rbac"
+      - "dependency-lock"
+      - "extension-slots"
+      - "helm-equivalence"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/opencost/opencost/2.5.21/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/opencost/opencost/2.5.21"
+    installer: "packages/opencost/opencost/2.5.21/installer.yaml"
+    receipt: "recipes/opencost/opencost/2.5.21/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "1a2e3a5b840d37e61e62ed20879cd39aa5254168e58db07e15e5fabc345f2b47"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/opencost/opencost/2.5.21/bases/default"
+        default: true
+        description: "opencost/opencost default variant rendered from opencost/opencost@2.5.21"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/opencost/opencost/2.5.21/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "opencost"
+      valuesProfile: "recipes/opencost/opencost/2.5.21/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/opencost/opencost/2.5.21/bases/default"
+        default: true
+        description: "opencost/opencost default variant rendered from opencost/opencost@2.5.21"
+      setupCheck:
+        command: "cub install setup --pull packages/opencost/opencost/2.5.21 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 6
+        cubInstallObjectCountIncludingSupport: 7
+        semanticObjectMatches: "6/6"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/opencost/opencost/2.5.21/revisions/default/r001/variant-revision.yaml"
+          digest: "97573d32f4ca5bdd024f31bdf651f35ab1e39e6580b2428f1f172c19a8fed036"
+          renderedObjectSetSHA256: "3cf0267ce7b5173e0c514fad903e559129d63d2f9a6bb83da681dcff1f7977dc"
+          renderedObjects: "recipes/opencost/opencost/2.5.21/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/opencost/opencost/2.5.21/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 6
+          helmObjectCount: 6
+          cubInstallObjectCountIncludingSupport: 7
+          semanticObjectMatches: "6/6"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/opencost/opencost/2.5.21/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "3cf0267ce7b5173e0c514fad903e559129d63d2f9a6bb83da681dcff1f7977dc"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/opencost/opencost/2.5.21/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "3cf0267ce7b5173e0c514fad903e559129d63d2f9a6bb83da681dcff1f7977dc"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/opencost/opencost/2.5.21/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "3cf0267ce7b5173e0c514fad903e559129d63d2f9a6bb83da681dcff1f7977dc"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/opencost/opencost/2.5.21/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "3cf0267ce7b5173e0c514fad903e559129d63d2f9a6bb83da681dcff1f7977dc"

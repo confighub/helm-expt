@@ -1,0 +1,123 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "bitnami-memcached-8.5.5"
+  chart: "bitnami/memcached"
+  version: "8.5.5"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "bitnami/memcached"
+    version: "8.5.5"
+    appVersion: "1.6.42"
+    sourceLock: "recipes/bitnami/memcached/8.5.5/source-lock.yaml"
+    dependencyLock: "recipes/bitnami/memcached/8.5.5/dependency-lock.yaml"
+    repository: "https://charts.bitnami.com/bitnami"
+    packageSHA256: "a4e93ca0fd99b523a52b3c388421330a7cbdc47efc860aff79fba775be240047"
+  recipe:
+    path: "recipes/bitnami/memcached/8.5.5/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/bitnami/memcached/8.5.5/helm-plan.yaml"
+    chartDossier: "recipes/bitnami/memcached/8.5.5/chart-dossier.yaml"
+    controlPoints: "recipes/bitnami/memcached/8.5.5/control-points.yaml"
+    valueModel: "recipes/bitnami/memcached/8.5.5/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "dependency-lock"
+      - "extension-slots"
+      - "generated-facts"
+      - "helm-equivalence"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "target-facts"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/bitnami/memcached/8.5.5/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/bitnami/memcached/8.5.5"
+    installer: "packages/bitnami/memcached/8.5.5/installer.yaml"
+    receipt: "recipes/bitnami/memcached/8.5.5/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "60da1ada3bc125fae54ba7c330bcc9fb7074793ee7b9a6f0ee38594fa39a61d9"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/bitnami/memcached/8.5.5/bases/default"
+        default: true
+        description: "bitnami/memcached default variant rendered from bitnami/memcached@8.5.5"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/bitnami/memcached/8.5.5/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "memcached"
+      valuesProfile: "recipes/bitnami/memcached/8.5.5/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/bitnami/memcached/8.5.5/bases/default"
+        default: true
+        description: "bitnami/memcached default variant rendered from bitnami/memcached@8.5.5"
+      setupCheck:
+        command: "cub install setup --pull packages/bitnami/memcached/8.5.5 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 5
+        cubInstallObjectCountIncludingSupport: 6
+        semanticObjectMatches: "5/5"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/bitnami/memcached/8.5.5/revisions/default/r001/variant-revision.yaml"
+          digest: "f2585d5ddb8397b359357847a9d806e940d5e58d33fbc4f6888162dac7969926"
+          renderedObjectSetSHA256: "8cd477e08d9fdd2d56df7832f901d773af4f4313a405330180d7068cd7751558"
+          renderedObjects: "recipes/bitnami/memcached/8.5.5/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/memcached/8.5.5/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 5
+          helmObjectCount: 5
+          cubInstallObjectCountIncludingSupport: 6
+          semanticObjectMatches: "5/5"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/bitnami/memcached/8.5.5/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "8cd477e08d9fdd2d56df7832f901d773af4f4313a405330180d7068cd7751558"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/bitnami/memcached/8.5.5/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "8cd477e08d9fdd2d56df7832f901d773af4f4313a405330180d7068cd7751558"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/bitnami/memcached/8.5.5/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "8cd477e08d9fdd2d56df7832f901d773af4f4313a405330180d7068cd7751558"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/bitnami/memcached/8.5.5/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "8cd477e08d9fdd2d56df7832f901d773af4f4313a405330180d7068cd7751558"

@@ -1,0 +1,123 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "argo-cd-argo-rollouts-2.40.9"
+  chart: "argo-cd/argo-rollouts"
+  version: "2.40.9"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "argo-cd/argo-rollouts"
+    version: "2.40.9"
+    appVersion: "v1.9.0"
+    sourceLock: "recipes/argo-cd/argo-rollouts/2.40.9/source-lock.yaml"
+    dependencyLock: "recipes/argo-cd/argo-rollouts/2.40.9/dependency-lock.yaml"
+    repository: "https://argoproj.github.io/argo-helm"
+    packageSHA256: "9028af96514d3e7443b68c56ecf17beae279e73982ffd6ee33bfeb6c70d42f22"
+  recipe:
+    path: "recipes/argo-cd/argo-rollouts/2.40.9/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/argo-cd/argo-rollouts/2.40.9/helm-plan.yaml"
+    chartDossier: "recipes/argo-cd/argo-rollouts/2.40.9/chart-dossier.yaml"
+    controlPoints: "recipes/argo-cd/argo-rollouts/2.40.9/control-points.yaml"
+    valueModel: "recipes/argo-cd/argo-rollouts/2.40.9/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "cluster-rbac"
+      - "crds"
+      - "dependency-lock"
+      - "extension-slots"
+      - "helm-equivalence"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/argo-cd/argo-rollouts/2.40.9/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/argo-cd/argo-rollouts/2.40.9"
+    installer: "packages/argo-cd/argo-rollouts/2.40.9/installer.yaml"
+    receipt: "recipes/argo-cd/argo-rollouts/2.40.9/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "e32df3c5aa79f2ad8cc9ac7c59132e59e793602a337a540e346493d678fdb909"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/argo-cd/argo-rollouts/2.40.9/bases/default"
+        default: true
+        description: "argo-cd/argo-rollouts default variant rendered from argo-cd/argo-rollouts@2.40.9"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/argo-cd/argo-rollouts/2.40.9/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "argo-rollouts"
+      valuesProfile: "recipes/argo-cd/argo-rollouts/2.40.9/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/argo-cd/argo-rollouts/2.40.9/bases/default"
+        default: true
+        description: "argo-cd/argo-rollouts default variant rendered from argo-cd/argo-rollouts@2.40.9"
+      setupCheck:
+        command: "cub install setup --pull packages/argo-cd/argo-rollouts/2.40.9 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 14
+        cubInstallObjectCountIncludingSupport: 15
+        semanticObjectMatches: "14/14"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/argo-cd/argo-rollouts/2.40.9/revisions/default/r001/variant-revision.yaml"
+          digest: "1f6a9d11dfbd60d65ad0885b7edee4f3fd1aca64eb9dccea42e570923e063a6d"
+          renderedObjectSetSHA256: "cd696130d24a1a676d5bc1abb9978ff10d6d4e6e072655c6ef275453b1e85e47"
+          renderedObjects: "recipes/argo-cd/argo-rollouts/2.40.9/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/argo-cd/argo-rollouts/2.40.9/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 14
+          helmObjectCount: 14
+          cubInstallObjectCountIncludingSupport: 15
+          semanticObjectMatches: "14/14"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/argo-cd/argo-rollouts/2.40.9/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "cd696130d24a1a676d5bc1abb9978ff10d6d4e6e072655c6ef275453b1e85e47"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/argo-cd/argo-rollouts/2.40.9/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "cd696130d24a1a676d5bc1abb9978ff10d6d4e6e072655c6ef275453b1e85e47"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/argo-cd/argo-rollouts/2.40.9/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "cd696130d24a1a676d5bc1abb9978ff10d6d4e6e072655c6ef275453b1e85e47"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/argo-cd/argo-rollouts/2.40.9/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "cd696130d24a1a676d5bc1abb9978ff10d6d4e6e072655c6ef275453b1e85e47"

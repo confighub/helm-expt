@@ -1,0 +1,193 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "grafana-loki-7.0.0"
+  chart: "grafana/loki"
+  version: "7.0.0"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "grafana/loki"
+    version: "7.0.0"
+    appVersion: "3.6.7"
+    sourceLock: "recipes/grafana/loki/7.0.0/source-lock.yaml"
+    dependencyLock: "recipes/grafana/loki/7.0.0/dependency-lock.yaml"
+    repository: "https://grafana.github.io/helm-charts"
+    packageSHA256: "5eaa28e3535069de2a7ac1f7087ff558e5b4b4a24f0e158072a97e2391132f81"
+  recipe:
+    path: "recipes/grafana/loki/7.0.0/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/grafana/loki/7.0.0/helm-plan.yaml"
+    chartDossier: "recipes/grafana/loki/7.0.0/chart-dossier.yaml"
+    controlPoints: "recipes/grafana/loki/7.0.0/control-points.yaml"
+    valueModel: "recipes/grafana/loki/7.0.0/value-model.yaml"
+    controlPointCategories:
+      - "blocked-default-render"
+      - "capability-profile"
+      - "cluster-rbac"
+      - "dependency-lock"
+      - "installer-support-object"
+      - "lifecycle-policy"
+      - "object-storage-policy"
+      - "pvc-policy"
+      - "source-lock"
+      - "stateful-workload"
+      - "storage-config"
+      - "tpl"
+  catalogStatus:
+    path: "recipes/grafana/loki/7.0.0/catalog-status.yaml"
+    status: "catalog-candidate"
+    supportLevel: "promotion-review-needed"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "single-binary-filesystem"
+      - "simple-scalable-minio"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/grafana/loki/7.0.0"
+    installer: "packages/grafana/loki/7.0.0/installer.yaml"
+    receipt: "recipes/grafana/loki/7.0.0/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "67c9172a7400c4b175236c300106540837399255845180c5258cbb4cb632661b"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "single-binary-filesystem"
+        path: "packages/grafana/loki/7.0.0/bases/single-binary-filesystem"
+        default: true
+        description: "loki single binary filesystem variant rendered from grafana/loki@7.0.0"
+      -
+        name: "simple-scalable-minio"
+        path: "packages/grafana/loki/7.0.0/bases/simple-scalable-minio"
+        default: false
+        description: "loki simple scalable with MinIO variant rendered from grafana/loki@7.0.0"
+  variants:
+    -
+      name: "single-binary-filesystem"
+      variant: "recipes/grafana/loki/7.0.0/variants/single-binary-filesystem/variant.yaml"
+      namespace: "loki"
+      releaseName: "loki"
+      valuesProfile: "recipes/grafana/loki/7.0.0/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "single-binary-filesystem"
+        path: "packages/grafana/loki/7.0.0/bases/single-binary-filesystem"
+        default: true
+        description: "loki single binary filesystem variant rendered from grafana/loki@7.0.0"
+      setupCheck:
+        command: "cub install setup --pull packages/grafana/loki/7.0.0 --base single-binary-filesystem --work-dir <tmp> --non-interactive --namespace loki"
+        helmReleaseObjectCount: 19
+        cubInstallObjectCountIncludingSupport: 20
+        semanticObjectMatches: "19/19"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||loki"
+      revisions:
+        -
+          name: "single-binary-filesystem-r001"
+          revision: "r001"
+          variantRevision: "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/variant-revision.yaml"
+          digest: "535f5a7c93112bcdb440aeaae9c90bdaacc22c276d8a7c12d24eed95fda9b15b"
+          renderedObjectSetSHA256: "6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30"
+          renderedObjects: "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/object-inventory.yaml"
+          objectCount: 19
+          helmObjectCount: 19
+          cubInstallObjectCountIncludingSupport: 20
+          semanticObjectMatches: "19/19"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30"
+    -
+      name: "simple-scalable-minio"
+      variant: "recipes/grafana/loki/7.0.0/variants/simple-scalable-minio/variant.yaml"
+      namespace: "loki"
+      releaseName: "loki"
+      valuesProfile: "recipes/grafana/loki/7.0.0/effective-values-simple-scalable-minio.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "simple-scalable-minio"
+        path: "packages/grafana/loki/7.0.0/bases/simple-scalable-minio"
+        default: false
+        description: "loki simple scalable with MinIO variant rendered from grafana/loki@7.0.0"
+      setupCheck:
+        command: "cub install setup --pull packages/grafana/loki/7.0.0 --base simple-scalable-minio --work-dir <tmp> --non-interactive --namespace loki"
+        helmReleaseObjectCount: 36
+        cubInstallObjectCountIncludingSupport: 37
+        semanticObjectMatches: "36/36"
+        separatedSecretCount: 1
+        allowedCubOnlyObjects:
+          - "v1|Namespace||loki"
+      revisions:
+        -
+          name: "simple-scalable-minio-r001"
+          revision: "r001"
+          variantRevision: "recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/variant-revision.yaml"
+          digest: "00f69dc5367a311620114b6772ea74b2d7626cdb100252746c207645d1db8710"
+          renderedObjectSetSHA256: "8c4176621cdd67670d41b1689de1bcaa74854e40fb8170070606f794d0fc36ab"
+          renderedObjects: "recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/rendered/object-inventory.yaml"
+          objectCount: 36
+          helmObjectCount: 36
+          cubInstallObjectCountIncludingSupport: 37
+          semanticObjectMatches: "36/36"
+          separatedSecretFiles: 1
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "8c4176621cdd67670d41b1689de1bcaa74854e40fb8170070606f794d0fc36ab"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "8c4176621cdd67670d41b1689de1bcaa74854e40fb8170070606f794d0fc36ab"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "8c4176621cdd67670d41b1689de1bcaa74854e40fb8170070606f794d0fc36ab"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "8c4176621cdd67670d41b1689de1bcaa74854e40fb8170070606f794d0fc36ab"

@@ -1,0 +1,124 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "bitnami-zookeeper-13.8.7"
+  chart: "bitnami/zookeeper"
+  version: "13.8.7"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "bitnami/zookeeper"
+    version: "13.8.7"
+    appVersion: "3.9.3"
+    sourceLock: "recipes/bitnami/zookeeper/13.8.7/source-lock.yaml"
+    dependencyLock: "recipes/bitnami/zookeeper/13.8.7/dependency-lock.yaml"
+    repository: "https://charts.bitnami.com/bitnami"
+    packageSHA256: "2bc9869d780095693effb093f6ed934426907fb33e6c8946cbfffe1f30d902f7"
+  recipe:
+    path: "recipes/bitnami/zookeeper/13.8.7/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/bitnami/zookeeper/13.8.7/helm-plan.yaml"
+    chartDossier: "recipes/bitnami/zookeeper/13.8.7/chart-dossier.yaml"
+    controlPoints: "recipes/bitnami/zookeeper/13.8.7/control-points.yaml"
+    valueModel: "recipes/bitnami/zookeeper/13.8.7/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "dependency-lock"
+      - "extension-slots"
+      - "generated-facts"
+      - "helm-equivalence"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "stateful-storage"
+      - "target-facts"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/bitnami/zookeeper/13.8.7/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/bitnami/zookeeper/13.8.7"
+    installer: "packages/bitnami/zookeeper/13.8.7/installer.yaml"
+    receipt: "recipes/bitnami/zookeeper/13.8.7/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "3973a58ed6b58954bfefb4b51c54b1ed59773f3d682eb3b073f131715d1e2813"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/bitnami/zookeeper/13.8.7/bases/default"
+        default: true
+        description: "bitnami/zookeeper default variant rendered from bitnami/zookeeper@13.8.7"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/bitnami/zookeeper/13.8.7/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "zookeeper"
+      valuesProfile: "recipes/bitnami/zookeeper/13.8.7/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/bitnami/zookeeper/13.8.7/bases/default"
+        default: true
+        description: "bitnami/zookeeper default variant rendered from bitnami/zookeeper@13.8.7"
+      setupCheck:
+        command: "cub install setup --pull packages/bitnami/zookeeper/13.8.7 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 7
+        cubInstallObjectCountIncludingSupport: 8
+        semanticObjectMatches: "7/7"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/bitnami/zookeeper/13.8.7/revisions/default/r001/variant-revision.yaml"
+          digest: "2016aa05828162ac062e268af8a992ab41e7687d5d6144eacd7c8eb9e4521f50"
+          renderedObjectSetSHA256: "67672a9bfa85db38f8485736cd19f80ccec599fc17c2c5bb154e3c2feeb54bdb"
+          renderedObjects: "recipes/bitnami/zookeeper/13.8.7/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/zookeeper/13.8.7/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 7
+          helmObjectCount: 7
+          cubInstallObjectCountIncludingSupport: 8
+          semanticObjectMatches: "7/7"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/bitnami/zookeeper/13.8.7/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "67672a9bfa85db38f8485736cd19f80ccec599fc17c2c5bb154e3c2feeb54bdb"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/bitnami/zookeeper/13.8.7/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "67672a9bfa85db38f8485736cd19f80ccec599fc17c2c5bb154e3c2feeb54bdb"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/bitnami/zookeeper/13.8.7/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "67672a9bfa85db38f8485736cd19f80ccec599fc17c2c5bb154e3c2feeb54bdb"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/bitnami/zookeeper/13.8.7/revisions/default/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "67672a9bfa85db38f8485736cd19f80ccec599fc17c2c5bb154e3c2feeb54bdb"

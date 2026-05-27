@@ -1,0 +1,189 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "ingress-nginx-ingress-nginx-4.15.1"
+  chart: "ingress-nginx/ingress-nginx"
+  version: "4.15.1"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "ingress-nginx/ingress-nginx"
+    version: "4.15.1"
+    appVersion: "1.15.1"
+    sourceLock: "recipes/ingress-nginx/ingress-nginx/4.15.1/source-lock.yaml"
+    dependencyLock: "recipes/ingress-nginx/ingress-nginx/4.15.1/dependency-lock.yaml"
+    repository: "https://kubernetes.github.io/ingress-nginx"
+    packageSHA256: "3eff0bd18151d6e6b1c441463410571443dda1ac78292cb189346628de784f0c"
+  recipe:
+    path: "recipes/ingress-nginx/ingress-nginx/4.15.1/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/ingress-nginx/ingress-nginx/4.15.1/helm-plan.yaml"
+    chartDossier: "recipes/ingress-nginx/ingress-nginx/4.15.1/chart-dossier.yaml"
+    controlPoints: "recipes/ingress-nginx/ingress-nginx/4.15.1/control-points.yaml"
+    valueModel: "recipes/ingress-nginx/ingress-nginx/4.15.1/value-model.yaml"
+    controlPointCategories:
+      - "admission-webhook"
+      - "capability-profile"
+      - "cluster-rbac"
+      - "dependency-lock"
+      - "hook-policy"
+      - "installer-support-object"
+      - "source-lock"
+      - "tpl"
+  catalogStatus:
+    path: "recipes/ingress-nginx/ingress-nginx/4.15.1/catalog-status.yaml"
+    status: "catalog-candidate"
+    supportLevel: "promotion-review-needed"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+      - "admission-disabled"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/ingress-nginx/ingress-nginx/4.15.1"
+    installer: "packages/ingress-nginx/ingress-nginx/4.15.1/installer.yaml"
+    receipt: "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "67696880ec9c64ef02f0759fdd67e2423d478f9fedcd70bbe45b5edd71336f46"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/ingress-nginx/ingress-nginx/4.15.1/bases/default"
+        default: true
+        description: "ingress-nginx default variant rendered from ingress-nginx/ingress-nginx@4.15.1"
+      -
+        name: "admission-disabled"
+        path: "packages/ingress-nginx/ingress-nginx/4.15.1/bases/admission-disabled"
+        default: false
+        description: "ingress-nginx admission webhook disabled variant rendered from ingress-nginx/ingress-nginx@4.15.1"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/ingress-nginx/ingress-nginx/4.15.1/variants/default/variant.yaml"
+      namespace: "ingress-nginx"
+      releaseName: "ingress-nginx"
+      valuesProfile: "recipes/ingress-nginx/ingress-nginx/4.15.1/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/ingress-nginx/ingress-nginx/4.15.1/bases/default"
+        default: true
+        description: "ingress-nginx default variant rendered from ingress-nginx/ingress-nginx@4.15.1"
+      setupCheck:
+        command: "cub install setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base default --work-dir <tmp> --non-interactive --namespace ingress-nginx"
+        helmReleaseObjectCount: 11
+        cubInstallObjectCountIncludingSupport: 12
+        semanticObjectMatches: "11/11"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||ingress-nginx"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/variant-revision.yaml"
+          digest: "2f70f5420db713ff0ad3ac1dbd440ddb6be2ae0390a04404fc0c744fb51e1ecb"
+          renderedObjectSetSHA256: "257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d"
+          renderedObjects: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 11
+          helmObjectCount: 11
+          cubInstallObjectCountIncludingSupport: 12
+          semanticObjectMatches: "11/11"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d"
+    -
+      name: "admission-disabled"
+      variant: "recipes/ingress-nginx/ingress-nginx/4.15.1/variants/admission-disabled/variant.yaml"
+      namespace: "ingress-nginx"
+      releaseName: "ingress-nginx"
+      valuesProfile: "recipes/ingress-nginx/ingress-nginx/4.15.1/effective-values-admission-disabled.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "admission-disabled"
+        path: "packages/ingress-nginx/ingress-nginx/4.15.1/bases/admission-disabled"
+        default: false
+        description: "ingress-nginx admission webhook disabled variant rendered from ingress-nginx/ingress-nginx@4.15.1"
+      setupCheck:
+        command: "cub install setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base admission-disabled --work-dir <tmp> --non-interactive --namespace ingress-nginx"
+        helmReleaseObjectCount: 9
+        cubInstallObjectCountIncludingSupport: 10
+        semanticObjectMatches: "9/9"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||ingress-nginx"
+      revisions:
+        -
+          name: "admission-disabled-r001"
+          revision: "r001"
+          variantRevision: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/variant-revision.yaml"
+          digest: "df9ec5e51d2774d3ee7f68ecfb00c3388d1c2face4a4f6665d5905a40d667588"
+          renderedObjectSetSHA256: "ad133758fa1985241f9dd1fe766f6ca9f17e199bf7562e37b3c2834a6588c25e"
+          renderedObjects: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/object-inventory.yaml"
+          objectCount: 9
+          helmObjectCount: 9
+          cubInstallObjectCountIncludingSupport: 10
+          semanticObjectMatches: "9/9"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "ad133758fa1985241f9dd1fe766f6ca9f17e199bf7562e37b3c2834a6588c25e"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "ad133758fa1985241f9dd1fe766f6ca9f17e199bf7562e37b3c2834a6588c25e"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "ad133758fa1985241f9dd1fe766f6ca9f17e199bf7562e37b3c2834a6588c25e"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "ad133758fa1985241f9dd1fe766f6ca9f17e199bf7562e37b3c2834a6588c25e"

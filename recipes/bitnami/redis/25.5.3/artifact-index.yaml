@@ -1,0 +1,195 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "bitnami-redis-25.5.3"
+  chart: "bitnami/redis"
+  version: "25.5.3"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "bitnami/redis"
+    version: "25.5.3"
+    appVersion: "8.6.3"
+    sourceLock: "recipes/bitnami/redis/25.5.3/source-lock.yaml"
+    dependencyLock: "recipes/bitnami/redis/25.5.3/dependency-lock.yaml"
+    repository: "https://charts.bitnami.com/bitnami"
+    packageSHA256: "aa5360967bc1adadf69f0ce91d762f0bb4d80ca36758b37d7d8f1ef981257baf"
+  recipe:
+    path: "recipes/bitnami/redis/25.5.3/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/bitnami/redis/25.5.3/helm-plan.yaml"
+    chartDossier: "recipes/bitnami/redis/25.5.3/chart-dossier.yaml"
+    controlPoints: "recipes/bitnami/redis/25.5.3/control-points.yaml"
+    valueModel: "recipes/bitnami/redis/25.5.3/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "dependency-lock"
+      - "generated-facts"
+      - "hook-policy"
+      - "installer-support-object"
+      - "secret-handling"
+      - "source-lock"
+      - "target-facts"
+  catalogStatus:
+    path: "recipes/bitnami/redis/25.5.3/catalog-status.yaml"
+    status: "catalog-supported"
+    supportLevel: "supported-for-declared-scopes"
+    supportedScopes:
+      - "local-test"
+    productionReadiness: "blocked-by-current-scan-gate"
+    supportedVariants:
+      - "default"
+      - "reuse-existing-secret"
+    candidateVariants:
+      []
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/bitnami/redis/25.5.3"
+    installer: "packages/bitnami/redis/25.5.3/installer.yaml"
+    receipt: "recipes/bitnami/redis/25.5.3/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "89eb9393284843be8778a3cedf2e65a7c23197fd66c03bba98b6c5ba8e88abf4"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/bitnami/redis/25.5.3/bases/default"
+        default: true
+        description: "Redis default variant rendered from bitnami/redis@25.5.3"
+      -
+        name: "reuse-existing-secret"
+        path: "packages/bitnami/redis/25.5.3/bases/reuse-existing-secret"
+        default: false
+        description: "Redis variant that uses an existing Secret target fact"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/bitnami/redis/25.5.3/variants/default/variant.yaml"
+      namespace: "redis"
+      releaseName: "redis"
+      valuesProfile: "recipes/bitnami/redis/25.5.3/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/bitnami/redis/25.5.3/bases/default"
+        default: true
+        description: "Redis default variant rendered from bitnami/redis@25.5.3"
+      setupCheck:
+        command: "cub install setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir <tmp> --non-interactive --namespace redis"
+        helmReleaseObjectCount: 14
+        cubInstallObjectCountIncludingSupport: 15
+        semanticObjectMatches: "14/14"
+        separatedSecretCount: 1
+        allowedCubOnlyObjects:
+          - "v1|Namespace||redis"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml"
+          digest: "e51d44a74db116790294ae6574ff7f8c896695dca27951c283133338ea3564e2"
+          renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+          renderedObjects: "recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 14
+          helmObjectCount: 14
+          cubInstallObjectCountIncludingSupport: 15
+          semanticObjectMatches: "14/14"
+          separatedSecretFiles: 1
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+    -
+      name: "reuse-existing-secret"
+      variant: "recipes/bitnami/redis/25.5.3/variants/reuse-existing-secret/variant.yaml"
+      namespace: "redis"
+      releaseName: "redis"
+      valuesProfile: "recipes/bitnami/redis/25.5.3/effective-values-reuse-existing-secret.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredSecrets:
+          -
+            keys:
+              - "redis-password"
+            name: "redis-existing-secret"
+            namespace: "redis"
+            purpose: "Redis authentication password"
+      targetFactSummary: "required Secret redis/redis-existing-secret keys redis-password"
+      packageBase:
+        name: "reuse-existing-secret"
+        path: "packages/bitnami/redis/25.5.3/bases/reuse-existing-secret"
+        default: false
+        description: "Redis variant that uses an existing Secret target fact"
+      setupCheck:
+        command: "cub install setup --pull packages/bitnami/redis/25.5.3 --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace redis"
+        helmReleaseObjectCount: 13
+        cubInstallObjectCountIncludingSupport: 14
+        semanticObjectMatches: "13/13"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||redis"
+      revisions:
+        -
+          name: "reuse-existing-secret-r001"
+          revision: "r001"
+          variantRevision: "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/variant-revision.yaml"
+          digest: "964efba731ca5cc276c42fff4adb10d0b940e3ff9a4a3d5195d95646e1c80801"
+          renderedObjectSetSHA256: "a90dda4885fb97749e2c222f1abd840f49dcf6eafa953ea6ea2dbc6ba565fe53"
+          renderedObjects: "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/object-inventory.yaml"
+          objectCount: 13
+          helmObjectCount: 13
+          cubInstallObjectCountIncludingSupport: 14
+          semanticObjectMatches: "13/13"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "a90dda4885fb97749e2c222f1abd840f49dcf6eafa953ea6ea2dbc6ba565fe53"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "a90dda4885fb97749e2c222f1abd840f49dcf6eafa953ea6ea2dbc6ba565fe53"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "a90dda4885fb97749e2c222f1abd840f49dcf6eafa953ea6ea2dbc6ba565fe53"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "a90dda4885fb97749e2c222f1abd840f49dcf6eafa953ea6ea2dbc6ba565fe53"

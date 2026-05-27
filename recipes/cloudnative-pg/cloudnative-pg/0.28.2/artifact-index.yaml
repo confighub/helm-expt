@@ -1,0 +1,125 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "cloudnative-pg-cloudnative-pg-0.28.2"
+  chart: "cloudnative-pg/cloudnative-pg"
+  version: "0.28.2"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "cloudnative-pg/cloudnative-pg"
+    version: "0.28.2"
+    appVersion: "1.29.1"
+    sourceLock: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/source-lock.yaml"
+    dependencyLock: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/dependency-lock.yaml"
+    repository: "https://cloudnative-pg.github.io/charts"
+    packageSHA256: "43c8029e2c88527cfde8dd19d88fd120f67565f5788b213a37de43ee96f64e64"
+  recipe:
+    path: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/helm-plan.yaml"
+    chartDossier: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/chart-dossier.yaml"
+    controlPoints: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/control-points.yaml"
+    valueModel: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "cluster-rbac"
+      - "crds"
+      - "dependency-lock"
+      - "generated-facts"
+      - "helm-equivalence"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "target-facts"
+      - "tpl-extension-slots"
+      - "variant-revision"
+      - "webhooks"
+  catalogStatus:
+    path: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/cloudnative-pg/cloudnative-pg/0.28.2"
+    installer: "packages/cloudnative-pg/cloudnative-pg/0.28.2/installer.yaml"
+    receipt: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "bc8ebb61ab6cf462360109e5ab322814bf6b440111b664e708b8cd95f171be2a"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/cloudnative-pg/cloudnative-pg/0.28.2/bases/default"
+        default: true
+        description: "cloudnative-pg/cloudnative-pg default variant rendered from cloudnative-pg/cloudnative-pg@0.28.2"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "cloudnative-pg"
+      valuesProfile: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/cloudnative-pg/cloudnative-pg/0.28.2/bases/default"
+        default: true
+        description: "cloudnative-pg/cloudnative-pg default variant rendered from cloudnative-pg/cloudnative-pg@0.28.2"
+      setupCheck:
+        command: "cub install setup --pull packages/cloudnative-pg/cloudnative-pg/0.28.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 21
+        cubInstallObjectCountIncludingSupport: 22
+        semanticObjectMatches: "21/21"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/variant-revision.yaml"
+          digest: "4d7ff0bf073976ebdefa3cf56e5ab45d27e6a6517e003b7f760221b33103d90d"
+          renderedObjectSetSHA256: "67190a176fe9539df56c63c033cfffb1538a06bc47d8624532a0a980fe50bd46"
+          renderedObjects: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 21
+          helmObjectCount: 21
+          cubInstallObjectCountIncludingSupport: 22
+          semanticObjectMatches: "21/21"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "67190a176fe9539df56c63c033cfffb1538a06bc47d8624532a0a980fe50bd46"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "67190a176fe9539df56c63c033cfffb1538a06bc47d8624532a0a980fe50bd46"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "67190a176fe9539df56c63c033cfffb1538a06bc47d8624532a0a980fe50bd46"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "67190a176fe9539df56c63c033cfffb1538a06bc47d8624532a0a980fe50bd46"

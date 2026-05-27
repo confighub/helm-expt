@@ -1,0 +1,125 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "gatekeeper-gatekeeper-3.22.2"
+  chart: "gatekeeper/gatekeeper"
+  version: "3.22.2"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "gatekeeper/gatekeeper"
+    version: "3.22.2"
+    appVersion: "v3.22.2"
+    sourceLock: "recipes/gatekeeper/gatekeeper/3.22.2/source-lock.yaml"
+    dependencyLock: "recipes/gatekeeper/gatekeeper/3.22.2/dependency-lock.yaml"
+    repository: "https://open-policy-agent.github.io/gatekeeper/charts"
+    packageSHA256: "aadb0419b4e85feaa838de14a2f51342543047e20f9e3d2920f83244e10bc801"
+  recipe:
+    path: "recipes/gatekeeper/gatekeeper/3.22.2/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/gatekeeper/gatekeeper/3.22.2/helm-plan.yaml"
+    chartDossier: "recipes/gatekeeper/gatekeeper/3.22.2/chart-dossier.yaml"
+    controlPoints: "recipes/gatekeeper/gatekeeper/3.22.2/control-points.yaml"
+    valueModel: "recipes/gatekeeper/gatekeeper/3.22.2/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "cluster-rbac"
+      - "crds"
+      - "dependency-lock"
+      - "extension-slots"
+      - "helm-equivalence"
+      - "lifecycle-policy"
+      - "rendered-manifest-scan"
+      - "secret-material"
+      - "source-lock"
+      - "variant-revision"
+      - "webhooks"
+  catalogStatus:
+    path: "recipes/gatekeeper/gatekeeper/3.22.2/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/gatekeeper/gatekeeper/3.22.2"
+    installer: "packages/gatekeeper/gatekeeper/3.22.2/installer.yaml"
+    receipt: "recipes/gatekeeper/gatekeeper/3.22.2/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "c39fb953ee81bfd9cac2ad1263c970c80874b701ab1c5a89d582eba91f9d0cdf"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/gatekeeper/gatekeeper/3.22.2/bases/default"
+        default: true
+        description: "gatekeeper/gatekeeper default variant rendered from gatekeeper/gatekeeper@3.22.2"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/gatekeeper/gatekeeper/3.22.2/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "gatekeeper"
+      valuesProfile: "recipes/gatekeeper/gatekeeper/3.22.2/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/gatekeeper/gatekeeper/3.22.2/bases/default"
+        default: true
+        description: "gatekeeper/gatekeeper default variant rendered from gatekeeper/gatekeeper@3.22.2"
+      setupCheck:
+        command: "cub install setup --pull packages/gatekeeper/gatekeeper/3.22.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 30
+        cubInstallObjectCountIncludingSupport: 31
+        semanticObjectMatches: "30/30"
+        separatedSecretCount: 1
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/variant-revision.yaml"
+          digest: "57649ce2ff654a2900d594b5aac09186f35e6349fd72d333922229b7d2c6e49a"
+          renderedObjectSetSHA256: "757e7fe97f5331bd964463ed228d147bdc090f3bb6d7c34b319522124efd2e5d"
+          renderedObjects: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 30
+          helmObjectCount: 30
+          cubInstallObjectCountIncludingSupport: 31
+          semanticObjectMatches: "30/30"
+          separatedSecretFiles: 1
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "757e7fe97f5331bd964463ed228d147bdc090f3bb6d7c34b319522124efd2e5d"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "757e7fe97f5331bd964463ed228d147bdc090f3bb6d7c34b319522124efd2e5d"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "757e7fe97f5331bd964463ed228d147bdc090f3bb6d7c34b319522124efd2e5d"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "757e7fe97f5331bd964463ed228d147bdc090f3bb6d7c34b319522124efd2e5d"

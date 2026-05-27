@@ -1,0 +1,122 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "elastic-kibana-8.5.1"
+  chart: "elastic/kibana"
+  version: "8.5.1"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "elastic/kibana"
+    version: "8.5.1"
+    appVersion: "8.5.1"
+    sourceLock: "recipes/elastic/kibana/8.5.1/source-lock.yaml"
+    dependencyLock: "recipes/elastic/kibana/8.5.1/dependency-lock.yaml"
+    repository: "https://helm.elastic.co"
+    packageSHA256: "dab5f50a4f66a3a62529c336db0df732358c5bac405a17efee1572127b895acf"
+  recipe:
+    path: "recipes/elastic/kibana/8.5.1/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/elastic/kibana/8.5.1/helm-plan.yaml"
+    chartDossier: "recipes/elastic/kibana/8.5.1/chart-dossier.yaml"
+    controlPoints: "recipes/elastic/kibana/8.5.1/control-points.yaml"
+    valueModel: "recipes/elastic/kibana/8.5.1/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "dependency-lock"
+      - "extension-slots"
+      - "helm-equivalence"
+      - "lifecycle-policy"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/elastic/kibana/8.5.1/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/elastic/kibana/8.5.1"
+    installer: "packages/elastic/kibana/8.5.1/installer.yaml"
+    receipt: "recipes/elastic/kibana/8.5.1/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "d5b3718e4dfcbd0e0aa19b7e9924711311eb4904ca20d321a188f2d1044a92d9"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/elastic/kibana/8.5.1/bases/default"
+        default: true
+        description: "elastic/kibana default variant rendered from elastic/kibana@8.5.1"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/elastic/kibana/8.5.1/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "kibana"
+      valuesProfile: "recipes/elastic/kibana/8.5.1/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/elastic/kibana/8.5.1/bases/default"
+        default: true
+        description: "elastic/kibana default variant rendered from elastic/kibana@8.5.1"
+      setupCheck:
+        command: "cub install setup --pull packages/elastic/kibana/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 2
+        cubInstallObjectCountIncludingSupport: 3
+        semanticObjectMatches: "2/2"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/elastic/kibana/8.5.1/revisions/default/r001/variant-revision.yaml"
+          digest: "666d47b71fb1f9cfe3e5197e5884044c8b93609ff9ca07d1a800f9d235dfdea4"
+          renderedObjectSetSHA256: "3c0e03c571ed6c5635edd63244a0085634a30bd73e011e2db802c9d1c63b0cb3"
+          renderedObjects: "recipes/elastic/kibana/8.5.1/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/elastic/kibana/8.5.1/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 2
+          helmObjectCount: 2
+          cubInstallObjectCountIncludingSupport: 3
+          semanticObjectMatches: "2/2"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/elastic/kibana/8.5.1/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "3c0e03c571ed6c5635edd63244a0085634a30bd73e011e2db802c9d1c63b0cb3"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/elastic/kibana/8.5.1/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "3c0e03c571ed6c5635edd63244a0085634a30bd73e011e2db802c9d1c63b0cb3"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/elastic/kibana/8.5.1/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "3c0e03c571ed6c5635edd63244a0085634a30bd73e011e2db802c9d1c63b0cb3"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/elastic/kibana/8.5.1/revisions/default/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "3c0e03c571ed6c5635edd63244a0085634a30bd73e011e2db802c9d1c63b0cb3"

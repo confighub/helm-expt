@@ -1,0 +1,122 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "elastic-metricbeat-8.5.1"
+  chart: "elastic/metricbeat"
+  version: "8.5.1"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "elastic/metricbeat"
+    version: "8.5.1"
+    appVersion: "8.5.1"
+    sourceLock: "recipes/elastic/metricbeat/8.5.1/source-lock.yaml"
+    dependencyLock: "recipes/elastic/metricbeat/8.5.1/dependency-lock.yaml"
+    repository: "https://helm.elastic.co"
+    packageSHA256: "b19a8af7f34e7bd9eeaea9c425cf1272efe2edac0f073e1cd42690be6dd463ad"
+  recipe:
+    path: "recipes/elastic/metricbeat/8.5.1/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/elastic/metricbeat/8.5.1/helm-plan.yaml"
+    chartDossier: "recipes/elastic/metricbeat/8.5.1/chart-dossier.yaml"
+    controlPoints: "recipes/elastic/metricbeat/8.5.1/control-points.yaml"
+    valueModel: "recipes/elastic/metricbeat/8.5.1/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "cluster-rbac"
+      - "dependency-lock"
+      - "extension-slots"
+      - "helm-equivalence"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/elastic/metricbeat/8.5.1/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/elastic/metricbeat/8.5.1"
+    installer: "packages/elastic/metricbeat/8.5.1/installer.yaml"
+    receipt: "recipes/elastic/metricbeat/8.5.1/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "99ede039ded16519984ee38269155919b83d30384905e7ba5e79bfd69e16efa6"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/elastic/metricbeat/8.5.1/bases/default"
+        default: true
+        description: "elastic/metricbeat default variant rendered from elastic/metricbeat@8.5.1"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/elastic/metricbeat/8.5.1/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "metricbeat"
+      valuesProfile: "recipes/elastic/metricbeat/8.5.1/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/elastic/metricbeat/8.5.1/bases/default"
+        default: true
+        description: "elastic/metricbeat default variant rendered from elastic/metricbeat@8.5.1"
+      setupCheck:
+        command: "cub install setup --pull packages/elastic/metricbeat/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 14
+        cubInstallObjectCountIncludingSupport: 15
+        semanticObjectMatches: "14/14"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/elastic/metricbeat/8.5.1/revisions/default/r001/variant-revision.yaml"
+          digest: "ace18fc8d71b8f719d7cb3374613766f39a6ed935d3b7cd4fcdf67a917d8424a"
+          renderedObjectSetSHA256: "805a258f07a07f1cdef0ee45ee427a06e28cc18380e52368840efeb7b672e939"
+          renderedObjects: "recipes/elastic/metricbeat/8.5.1/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/elastic/metricbeat/8.5.1/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 14
+          helmObjectCount: 14
+          cubInstallObjectCountIncludingSupport: 15
+          semanticObjectMatches: "14/14"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/elastic/metricbeat/8.5.1/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "805a258f07a07f1cdef0ee45ee427a06e28cc18380e52368840efeb7b672e939"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/elastic/metricbeat/8.5.1/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "805a258f07a07f1cdef0ee45ee427a06e28cc18380e52368840efeb7b672e939"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/elastic/metricbeat/8.5.1/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "805a258f07a07f1cdef0ee45ee427a06e28cc18380e52368840efeb7b672e939"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/elastic/metricbeat/8.5.1/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "805a258f07a07f1cdef0ee45ee427a06e28cc18380e52368840efeb7b672e939"

@@ -83,6 +83,8 @@ The next-80 lane is not a loose chart list. Each chart has:
 
 - a recipe directory under `recipes/<repo>/<chart>/<version>/`;
 - a `cub install` package under `packages/<repo>/<chart>/<version>/`;
+- a generated `CATALOG.md` and `artifact-index.yaml` that link chart ->
+  recipe -> variants -> revisions -> package bases -> receipts;
 - a HelmPlan, ChartDossier, source lock, dependency lock, value model, and
   control-point file;
 - a default Variant and digest-bound VariantRevision;
@@ -119,6 +121,8 @@ docs/repo-consistency-review.md
 Verification:
 
 ```sh
+npm run catalog:maps
+npm run catalog:maps:verify
 npm run catalog:status
 npm run catalog:status:verify
 npm run catalog:review
