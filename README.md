@@ -1,160 +1,219 @@
 # ConfigHub Helm Proof
 
-This repo is trying to prove a simple thing:
+This project proves a simple idea:
 
 ```text
 Use Helm charts.
 Ship ConfigHub variants.
-Keep the proof.
+Keep immediate proof.
 ```
 
-Helm is good at turning charts into Kubernetes YAML. The pain starts after
-that: which values were used, what changed between environments, what was
-approved, what was scanned, what was actually applied, and whether the same
-thing can be promoted again without guessing.
+Helm is good at producing Kubernetes objects. The pain usually comes after
+that: values are hard to reason about, environments drift, scans happen in
+different places, approvals are vague, and nobody is completely sure whether
+production received the same objects that were reviewed.
 
-The ConfigHub story is not "learn a new templating religion". The story is:
+This repo shows a better path for popular public Helm charts:
+
+1. start with a real Helm chart;
+2. create a `cub install` package from it;
+3. render the exact Kubernetes objects;
+4. compare those objects with regular Helm output;
+5. store named variants and receipts;
+6. scan and gate the rendered objects;
+7. upload the objects to ConfigHub where they can be reviewed and varied.
+
+In plain English:
 
 ```text
-take the Helm chart
-turn it into an installer recipe
-render the exact objects
-compare them with regular Helm
-scan and review them
-upload them to ConfigHub
-make variants safely
-keep receipts
+ConfigHub does not ask Helm users to trust magic.
+It shows the objects, the variants, the diffs, the scans, and the receipts.
 ```
 
-In one line:
+We use AI to accelerate Helm chart analysis and recipe creation. We use
+`cub install` to prove the resulting recipes produce correct,
+Helm-equivalent, reviewable ConfigHub variants.
+
+## What This Repo Is For
+
+Use this repo to answer four questions:
+
+| Question | Where to look |
+| --- | --- |
+| Can ConfigHub produce the same objects as Helm? | `recipes/*/*/*/revisions/*/r001/receipts/helm-equivalence-receipt.yaml` |
+| Can the result be installed with `cub install`? | `packages/*/*/*/installer.yaml` |
+| Can users choose sensible variants? | `recipes/*/*/*/CATALOG.md` |
+| Can we prove the path works? | `runs/*/latest/*.yaml`, `data/live-e2e/summary.md` |
+
+The important claim is:
 
 ```text
 correct variants, safe operations, immediate proof
 ```
 
-## What We Have Proved
+## Current Proof
 
-We now have:
+The repo currently contains:
 
 ```text
-20 bespoke public-chart proofs
-80 generated full public-chart proofs
+20 top-chart catalog entries with bespoke variants
+20/20 local kind live/e2e receipts
+20 ConfigHub use-more-now receipt sets
+80 additional generated full proofs
 100 cub install packages
-20 live use-more-now receipt sets
+1 top-500 catalog analysis
 ```
 
-The core check is deliberately boring:
+The top-20 charts are mandatory catalog entries because Helm users will expect
+to find them. They are catalog-supported for the declared local/test scope.
+Production support is tracked separately and remains blocked until the
+production dispositions are closed.
+
+Start with the top-20 live proof summary:
 
 ```text
-regular helm template output
-  == cub install setup output
-  plus any explained support object, such as a Namespace
+data/live-e2e/summary.md
+data/live-e2e/top20-local-kind.csv
 ```
 
-That matters. It means we are not waving our hands and saying "AI made a
-recipe, trust us". We use AI to speed up chart analysis and recipe creation.
-Then we use `cub install` and verifier scripts to prove the generated recipe
-still produces the Helm-equivalent Kubernetes objects.
+## Quick Start
 
-The current public proof set includes:
+Run the full repo verifier:
 
-```text
-Redis
-Metrics Server
-Ingress NGINX
-cert-manager
-External Secrets
-Argo CD
-PostgreSQL
-RabbitMQ
-kube-prometheus-stack
-Loki
-Longhorn
-MySQL
-Grafana
-Vault
-Secrets Store CSI Driver
-Prometheus
-MongoDB
-NGINX
-Tempo
-Consul
+```sh
+npm run verify
 ```
 
-The top-20 set is not just a spreadsheet. Each chart has a recipe, package,
-variants, rendered objects, receipts, and a human-readable proof page.
+That checks the recipe/package chain, Helm equivalence, rendered object
+digests, receipts, catalog status, target facts, local e2e receipts, and the
+generated top-500 analysis.
 
-Start here:
+For just the top-20 live/e2e receipts:
 
-```text
-docs/top20-full-proof-target.md
-docs/demo/<chart>/use-more-now.md
-docs/demo/<chart>/use-more-now-transcript.md
-runs/<chart>-use-more-now/latest/use-more-now-receipt.yaml
-runs/<chart>-use-more-now/latest/function-scan-receipt.yaml
-runs/<chart>-use-more-now/latest/safe-ops-receipt.yaml
+```sh
+npm run top20:verify-local-e2e
 ```
 
-## What The Flow Is
+For just the top-20 ConfigHub use-more-now receipts:
 
-The model is:
+```sh
+npm run top20:verify-use-more-now
+```
+
+To rebuild the top-20 local kind evidence, use:
+
+```sh
+npm run top20:local-e2e
+```
+
+That requires local Kubernetes tooling such as kind, kubectl, and Helm.
+
+## Five-Minute Demo
+
+Use Redis for the happy path.
+
+1. Open the catalog page:
+
+   ```text
+   recipes/bitnami/redis/25.5.3/CATALOG.md
+   ```
+
+2. Show the available variants:
+
+   ```text
+   default
+   reuse-existing-secret
+   ```
+
+3. Show the executable `cub install` package:
+
+   ```text
+   packages/bitnami/redis/25.5.3/installer.yaml
+   ```
+
+4. Show the exact rendered objects:
+
+   ```text
+   recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/object-inventory.yaml
+   recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml
+   ```
+
+5. Show proof that the objects match regular Helm:
+
+   ```text
+   recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml
+   ```
+
+6. Show the local live/e2e receipt:
+
+   ```text
+   runs/redis-local-kind/latest/observation-receipt.yaml
+   ```
+
+Then close with one harder chart, such as cert-manager,
+kube-prometheus-stack, Vault, or Consul. The point is not that hard charts are
+risk-free. The point is that ConfigHub makes their risks visible as control
+points, receipts, scans, and production dispositions.
+
+## How A Chart Is Organized
+
+For each chart, the path is:
 
 ```text
 Helm chart
-  -> ConfigHub recipe
-  -> installer package
-  -> install variant / package base
+  -> recipe
+  -> cub install package
+  -> named variants
   -> rendered object set
+  -> receipts and scans
   -> ConfigHub Units
-  -> server-side variants when useful
-  -> scans, gates, operations, receipts
 ```
 
-The full internal model has more nouns, but this is the shape that should be
-visible to a Helm user:
+The matching folders are:
 
 ```text
-install it
-see exactly what it creates
-vary it safely
-prove what happened
+recipes/<repo>/<chart>/<version>/
+packages/<repo>/<chart>/<version>/
+runs/<chart>-use-more-now/latest/
 ```
 
-Recipe/package variants are used when the chart must be rendered differently:
+The easiest file to read first is always:
 
 ```text
-generated Secret vs existing Secret
-CRDs on or off
-HA mode
-storage mode
-ingress/TLS shape
-cloud-specific values
+recipes/<repo>/<chart>/<version>/CATALOG.md
 ```
 
-`cub variant create` is used after upload when it is simpler to clone a
-reviewed ConfigHub space and vary the server-side operating context:
+That file links the chart, recipe, variants, package, rendered objects, and
+receipts.
+
+## What The Main Folders Mean
 
 ```text
-staging vs prod
-region
-target
-metadata
-gates
-post-clone changes
+recipes/
+  Human and machine-readable chart proofs.
+
+packages/
+  Executable cub install packages.
+
+docs/demo/
+  Plain-English per-chart walkthroughs.
+
+runs/
+  Receipts from ConfigHub, local kind, and proof runs.
+
+data/live-e2e/
+  Top-20 local kind live/e2e summary.
+
+data/production-disposition/
+  What is still required before production support.
+
+data/top500-catalog-analysis/
+  Current top-500 analysis and proof index.
 ```
 
-So there are two kinds of variation, and we should keep them separate:
+## Real Commands Used Here
 
-```text
-render-time variation: recipe/package base
-server-side variation: cub variant create
-```
-
-## What Commands Are Real Today
-
-The proof uses current `cub` and ConfigHub commands only.
-
-Useful installer commands:
+The proof uses current `cub` and ConfigHub commands. Useful examples include:
 
 ```text
 cub install doc
@@ -162,210 +221,72 @@ cub install setup
 cub install render
 cub install package
 cub install vet
-cub install upload
 cub install plan
-```
-
-Useful ConfigHub commands in the proof:
-
-```text
+cub install upload
 cub variant create
 cub unit list
 cub unit data
 cub unit diff
-cub unit approve
-cub unit apply --dry-run
-cub unit cancel
 cub function vet
 cub changeset create
-cub changeset update
 ```
 
-Do not read this repo as claiming future shorthand commands already exist.
-For example, these are product ideas, not current executable proof commands:
+This repo also proposes future product shortcuts, but they are not used as
+proof. Examples of future asks include:
 
 ```text
-cub install redis
+cub install import helm
 cub install analyze
 cub install compare
 cub install scan
 cub variant promote
 ```
 
-If we want those verbs, they should be proposed clearly as product asks.
+## Catalog Status
 
-## How To Verify The Repo
-
-The main verification command is:
-
-```sh
-npm run verify
-```
-
-It checks the artifact chain, Helm equivalence, installer packages, target
-facts, top-20 proof scripts, next-80 generated proofs, catalog maps, catalog
-status, promotion review, and legacy patch review.
-
-To check the live use-more-now receipts:
-
-```sh
-npm run top20:verify-use-more-now
-```
-
-To rerun the live use-more-now lane for missing charts:
-
-```sh
-npm run top20:use-more-now
-```
-
-For the Kubara demo org, large chart runs may need:
-
-```sh
-npm run top20:use-more-now -- --cleanup-spaces
-```
-
-That still runs the real ConfigHub path. It uploads Units, creates the
-server-side variant, runs function checks, records safe-ops behavior, writes
-receipts, and then deletes temporary live proof spaces so the demo org does not
-hit its Link quota.
-
-## What We Learned
-
-The good news:
+Do not confuse catalog presence with production support.
 
 ```text
-Public Helm charts can be turned into usable cub install packages.
-The generated packages can be checked against regular Helm output.
-ConfigHub can store the resulting objects as reviewable Units.
-Server-side variants work for staging-style clones.
-Function checks and safe-operation receipts can be applied at scale.
+catalog entry
+  The chart is visible because users will look for it.
+
+proof-grade
+  Machine proof passes for recorded variants.
+
+catalog-supported
+  ConfigHub recommends the declared variants for the declared scope.
+
+production-supported
+  Production dispositions are closed.
 ```
 
-The honest caveats:
+Today:
 
 ```text
-Top-20 catalog inclusion is mandatory because these charts are too popular to hide.
-Machine proof decides the support scope, not whether a top-20 chart appears.
-A recipe can be Helm-equivalent and still need production dispositions.
-Secrets are separated from ConfigHub Units and need an operating policy.
-CRDs, hooks, webhooks, RBAC, PVCs, generated credentials, and target facts still need explicit disposition.
-Very large charts can stress ConfigHub link quotas and upload/link performance.
+top-20 catalog entries: 20
+top-20 local/test supported: 20
+top-20 production-supported: 0
 ```
 
-That is fine. Those are the control points we wanted to expose.
+That is intentional. We are proving the path first, then closing production
+dispositions chart by chart.
 
-## Catalog Support
-
-For the top-20, catalog inclusion is not optional. Their upstream charts are
-popular enough that the catalog must show a clear ConfigHub path, even when the
-production answer is still "supported for local/test only".
-
-Do not confuse these three ideas:
-
-```text
-catalog entry: visible in the catalog because users will look for it
-proof-grade: the machine proof passes for recorded variants
-catalog-supported: explicitly approved support scope and variants
-```
-
-Today all top-20 bespoke recipes are catalog-supported for the declared
-`local-test` scope. Production support is still deliberately blocked until the
-scan, gate, and operating-policy findings have dispositions.
-
-The catalog review docs are:
-
-```text
-docs/catalog-promotion-review.md
-docs/catalog-promotion-next-candidates.md
-docs/maintenance-sla.md
-```
-
-## Current Folder Map
-
-The important folders are:
-
-```text
-recipes/
-  human and machine-readable chart proofs
-
-packages/
-  executable cub install packages
-
-docs/demo/
-  per-chart human walkthroughs
-
-runs/
-  receipts from live or local proof runs
-
-data/next80-full-proofs/
-  generated proof index for the next 80 charts
-
-data/top500-catalog-analysis/
-  current top-500 catalog proof index and source-scan input
-```
-
-For a chart, the easiest way to understand the chain is:
-
-```text
-recipes/<repo>/<chart>/<version>/CATALOG.md
-recipes/<repo>/<chart>/<version>/artifact-index.yaml
-packages/<repo>/<chart>/<version>/installer.yaml
-docs/demo/<chart>/use-more-now.md
-runs/<chart>-use-more-now/latest/*.yaml
-```
-
-## Work Done So Far
-
-In this phase we:
-
-```text
-removed the old top-20 render-and-vendor archive from the active pathway
-made chart -> recipe -> variant -> package -> receipt easier to trace
-created 100 recipe/package proof chains
-added catalog status files and promotion review
-added installer-native target-fact synchronization where available
-updated local cub so cub variant create is available
-proved Redis, NGINX, Metrics Server, and PostgreSQL through live ConfigHub lanes
-expanded the live use-more-now lane to all 20 top charts
-added a reusable top-20 runner and verifier
-captured the Kubara Link quota issue and added quota-aware cleanup
-kept npm run verify green
-```
+## Why This Matters
 
 The short version for a Helm user:
 
 ```text
-We can take public Helm charts, turn them into ConfigHub installer recipes,
-prove the output matches Helm, upload the objects into ConfigHub, vary them,
-scan them, and keep receipts for what happened.
+You can keep using public Helm charts,
+but stop approving guesses.
+
+ConfigHub gives you named variants,
+exact rendered objects,
+checks,
+receipts,
+and a safer path from test to production.
 ```
 
-## Next Tasks
-
-The next useful work is:
-
-1. Promote the first few catalog candidates properly, not just mechanically.
-   Good next candidates are NGINX, PostgreSQL, Metrics Server, Ingress NGINX,
-   and cert-manager.
-2. Tighten the "best, simplest, safest" review so a recipe is judged as a
-   product recommendation, not merely a successful render.
-3. Rebuild the old top-500 spreadsheet in the new shape: proof status,
-   catalog status, risk disposition, variants, receipts, and next action.
-4. Improve target facts and preflight behavior as soon as installer support
-   exists.
-5. Add richer external scanner lanes for rendered objects, alongside the
-   current ConfigHub function checks.
-6. Add more live e2e tests for the promoted charts, starting with local kind
-   where that is cheap and safe.
-7. Turn repeated script patterns into product asks for Brian:
-   `cub install import helm`, `cub install analyze`, `cub install compare`,
-   `cub install scan`, and fuller `cub variant` lifecycle verbs.
-8. Build the old-version patch lane, because maintaining safe recipes for old
-   chart versions is likely commercially valuable.
-
-## The Sales Pitch
-
-This is the line we should keep coming back to:
+The sales line:
 
 ```text
 Helm gives you charts.
