@@ -433,6 +433,8 @@ Five-minute demo artifacts:
 docs/demo/redis/demo-script.md
 docs/demo/redis/cli-transcript.txt
 docs/demo/redis/ux-acceptance.md
+docs/demo/redis/use-more-now.md
+docs/demo/redis/use-more-now-transcript.md
 ```
 
 It contains Redis readiness cards for the `default` and
