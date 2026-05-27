@@ -10,6 +10,8 @@
     "redis:local-e2e": "node scripts/redis-local-e2e.mjs",
     "redis:local-e2e:reuse-existing-secret": "node scripts/redis-local-e2e.mjs --variant reuse-existing-secret",
     "top20:local-e2e": "node scripts/run-top20-local-e2e.mjs --run --all",
+    "top20:local-e2e:charts-3-20": "node scripts/run-top20-local-e2e.mjs --run --from-rank 3 --to-rank 20 --continue-on-fail",
+    "top20:local-e2e:summary": "node scripts/run-top20-local-e2e.mjs --summary",
     "top20:verify-local-e2e": "node scripts/run-top20-local-e2e.mjs --verify",
     "redis:publish-package": "node scripts/publish-redis-installer-package.mjs",
     "redis:verify-local-e2e": "node scripts/verify-redis-local-e2e.mjs",

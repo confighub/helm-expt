@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub install package packages/bitnami/rabbitmq/16.0.14 -o <tmp>/rabbitmq-16.0.14.tgz"
-    sha256: "00a46e601b59c275891f631e5e78cf573f634e47329cb51622c60dbe934db1e0"
+    sha256: "79b7e20cbc7db6bb130a4bed764a2103902ae0b2f5f1fdbb5b4e10098b539148"
   package:
     name: "bitnami-rabbitmq"
     path: "packages/bitnami/rabbitmq/16.0.14"
@@ -25,23 +25,23 @@ spec:
         bytes: 99
       -
         path: "bases/existing-secret/upstream.yaml"
-        sha256: "d508ba5a873dbb2e1fa08b6bc227b1177d84fc1285b1aac974d59d28e9645d63"
-        bytes: 14710
+        sha256: "cdff3262264844b099e7f4421f1bbd5027360c2d23ba34667506d85255c4b6f2"
+        bytes: 14722
       -
         path: "bases/generated-passwords/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
         bytes: 99
       -
         path: "bases/generated-passwords/upstream.yaml"
-        sha256: "7177256a1ef16d1ad91727d3d03ecd0b8cf23da5a3444ba3dd010f4963085fe1"
-        bytes: 15253
+        sha256: "81187ce4367f5196ddbaa35ea55b972698f8a474d78a2cdc2908b12290c89f31"
+        bytes: 15265
       -
         path: "collector/target-facts.sh"
         sha256: "39190a6592f919ffc85244852ecf9730260d0a6554723ab5fa21a97fc4668124"
         bytes: 1561
       -
         path: "installer.yaml"
-        sha256: "cbaa09d758633375e2fa0337a0a54f81267671f41d5b55eb3a4cae2d29071b58"
+        sha256: "a61955dd9460a8e4220373ac7292b4baa5f52236dcfd4206665ff0e4fe9d17e7"
         bytes: 1271
     version: "16.0.14"
   setupChecks:
@@ -54,9 +54,9 @@ spec:
       helmReleaseObjectCount: 10
       semanticObjectMatches: "10/10"
       separatedSecretCount: 2
+      variant: "generated-passwords"
       targetFactMode: "not-required"
       targetFactsBound: false
-      variant: "generated-passwords"
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||rabbitmq"
@@ -66,6 +66,6 @@ spec:
       helmReleaseObjectCount: 9
       semanticObjectMatches: "9/9"
       separatedSecretCount: 1
+      variant: "existing-secret"
       targetFactMode: "collector-facts"
       targetFactsBound: true
-      variant: "existing-secret"

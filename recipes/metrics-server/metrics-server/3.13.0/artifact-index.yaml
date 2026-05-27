@@ -52,7 +52,7 @@ spec:
     path: "packages/metrics-server/metrics-server/3.13.0"
     installer: "packages/metrics-server/metrics-server/3.13.0/installer.yaml"
     receipt: "recipes/metrics-server/metrics-server/3.13.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "40f5cf32954c5162a1fcc98985582652b2ae3122a88b48f19e41df21b46bc72d"
+    deterministicBundleSHA256: "a3a3ed2c49dbb5e99333faee2f676394f0d182a41ba8db9a2d37aab493e9c2dc"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -98,8 +98,8 @@ spec:
           name: "default-r001"
           revision: "r001"
           variantRevision: "recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/variant-revision.yaml"
-          digest: "b3d41eaa0323b91e7ae33f8a65c2a6b33ca5c3af5eca4ad17d37b184f1fd9de0"
-          renderedObjectSetSHA256: "22dc022aedee5c41c2eac80d4ff8b849a123931e9d3f2914b14951aec38b057e"
+          digest: "ce7820206eb0de9519f879faaee7706370462e0789bffdc057b001a844fff2fd"
+          renderedObjectSetSHA256: "97514966a1917b1ae3b597ec3a32216d0a650db7cb56d472f4e722c69c869b51"
           renderedObjects: "recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/rendered/object-inventory.yaml"
           objectCount: 9
@@ -112,22 +112,22 @@ spec:
               kind: "RenderReceipt"
               path: "recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/receipts/render-receipt.yaml"
               result: "recorded"
-              renderedObjectSetSHA256: "22dc022aedee5c41c2eac80d4ff8b849a123931e9d3f2914b14951aec38b057e"
+              renderedObjectSetSHA256: "97514966a1917b1ae3b597ec3a32216d0a650db7cb56d472f4e722c69c869b51"
             helmEquivalence:
               kind: "HelmEquivalenceReceipt"
               path: "recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
               result: "pass"
-              renderedObjectSetSHA256: "22dc022aedee5c41c2eac80d4ff8b849a123931e9d3f2914b14951aec38b057e"
+              renderedObjectSetSHA256: "97514966a1917b1ae3b597ec3a32216d0a650db7cb56d472f4e722c69c869b51"
             scan:
               kind: "ScanReceipt"
               path: "recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/receipts/scan-receipt.yaml"
               result: "warn"
-              renderedObjectSetSHA256: "22dc022aedee5c41c2eac80d4ff8b849a123931e9d3f2914b14951aec38b057e"
+              renderedObjectSetSHA256: "97514966a1917b1ae3b597ec3a32216d0a650db7cb56d472f4e722c69c869b51"
             installGate:
               kind: "InstallGate"
               path: "recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
-              renderedObjectSetSHA256: "22dc022aedee5c41c2eac80d4ff8b849a123931e9d3f2914b14951aec38b057e"
+              renderedObjectSetSHA256: "97514966a1917b1ae3b597ec3a32216d0a650db7cb56d472f4e722c69c869b51"
     -
       name: "external-tls-ca"
       variant: "recipes/metrics-server/metrics-server/3.13.0/variants/external-tls-ca/variant.yaml"

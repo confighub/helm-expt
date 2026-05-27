@@ -49,12 +49,17 @@ const variants = [
     base: "generated-passwords",
     displayName: "generated passwords",
     valuesFile: "effective-values.yaml",
-    valuesText: `auth:
+    valuesText: `global:
+  security:
+    allowInsecureImages: true
+auth:
   rootPassword: confighub-mysql-root-password
   password: confighub-mysql-user-password
   replicationPassword: confighub-mysql-replication-password
+image:
+  repository: bitnamilegacy/mysql
 `,
-    valuesSummary: "MySQL root, user, and replication passwords bound as generated facts",
+    valuesSummary: "MySQL root, user, and replication passwords bound as generated facts; image repository pinned to the still-pullable Bitnami legacy mirror with explicit image-substitution policy",
     expectedObjectCount: 8,
     expectedCRDCount: 0,
     expectedSecretCount: 1,
@@ -65,10 +70,15 @@ const variants = [
     base: "existing-secret",
     displayName: "existing Secret",
     valuesFile: "effective-values-existing-secret.yaml",
-    valuesText: `auth:
+    valuesText: `global:
+  security:
+    allowInsecureImages: true
+auth:
   existingSecret: mysql-auth
+image:
+  repository: bitnamilegacy/mysql
 `,
-    valuesSummary: "target Secret supplies MySQL credentials",
+    valuesSummary: "target Secret supplies MySQL credentials; image repository pinned to the still-pullable Bitnami legacy mirror with explicit image-substitution policy",
     expectedObjectCount: 7,
     expectedCRDCount: 0,
     expectedSecretCount: 0,

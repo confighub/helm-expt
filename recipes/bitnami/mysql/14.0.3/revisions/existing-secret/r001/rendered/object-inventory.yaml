@@ -4,7 +4,7 @@ metadata:
   name: "bitnami-mysql-14.0.3-existing-secret-r001"
 spec:
   source: "rendered/release-objects.yaml"
-  sourceSHA256: "3df11b8cf513ef85c4c2c921d7ae5f31e61d3a7e98a46ca7fc6ff2cc7c02c0b2"
+  sourceSHA256: "024c04f020fbe5cc7af518d743a68e055f999e88a6633b278adccc769c1b7fa8"
   objectCount: 7
   objects:
     -

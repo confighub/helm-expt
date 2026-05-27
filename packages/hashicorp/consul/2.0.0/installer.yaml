@@ -12,6 +12,8 @@ spec:
       path: "bases/default-control-plane"
     -
       description: "consul secure mesh with existing Secrets variant rendered from hashicorp/consul@2.0.0"
+      name: "secure-mesh-existing-secrets"
+      path: "bases/secure-mesh-existing-secrets"
       externalRequires:
         -
           kind: "ClusterFeature"
@@ -33,8 +35,6 @@ spec:
           name: "Secret consul/consul-bootstrap-acl-token key token"
           namespace: "consul"
           suggestedSource: "kubectl -n consul create secret generic consul-bootstrap-acl-token --from-literal=token=<value>"
-      name: "secure-mesh-existing-secrets"
-      path: "bases/secure-mesh-existing-secrets"
   collector:
     command: "/bin/sh"
     args:

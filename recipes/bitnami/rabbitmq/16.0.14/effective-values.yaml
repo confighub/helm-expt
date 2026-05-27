@@ -7,9 +7,14 @@ spec:
     -
       path: "effective-values.yaml"
       source: "inline-proof"
-      sha256: "3acdd157fd3dd030a160b73e6671b6c7ead1a7fba57acd6f3ac5577940de3646"
+      sha256: "7fb59ce4d5f18e0f0c9de7db02e575110099de0a887bb6f995eaeac95964f30f"
   mergedValuesCaptured: false
   values:
     auth:
       erlangCookie: "confighub-rabbitmq-erlang-cookie"
       password: "confighub-rabbitmq-password"
+    global:
+      security:
+        allowInsecureImages: true
+    image:
+      repository: "bitnamilegacy/rabbitmq"

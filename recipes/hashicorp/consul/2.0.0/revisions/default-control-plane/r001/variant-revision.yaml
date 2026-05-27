@@ -5,14 +5,14 @@ metadata:
 spec:
   variant: "../../../variants/default-control-plane/variant.yaml"
   revision: "r001"
-  digest: "89aa622bef303e369b1f2de7c24b4efdda46a823fd7b2d91f1ede608a6deff98"
+  digest: "62f352d18f2246e1d0cf76328ea6b7dc4be7e9407c37e601b2f11412c37753bd"
   digestInputs:
     recipeSHA256: "4a6667a911c80202bdbb4c7bf98fb323c742f2f9c635995c06c1e42a911dabdf"
     variantSHA256: "531ff8ab5a0231b02fd1db36691f9bc7870962c567737b31ad8bede3f48b89f3"
-    effectiveValuesSHA256: "1c97c273f8d41abaa5140d0bc6118ce45ffb5b9b36f24ef238fae54c9d08d225"
+    effectiveValuesSHA256: "7474c564afb46c7bfb9fc27178cc6a9879cbe3daee2bb2dadba6441e4d1219c4"
     rendererSHA256: "802e90ca6f4d3538badc3879a237ce00b5725f3eae315323fde3254df3c9759e"
-    renderedObjectSetSHA256: "467ec5aadeb6aee76362da376763563d7a1ea4146f5b5098cfdaa0784c961e3f"
+    renderedObjectSetSHA256: "7efa3e8b59c702c8b8fa744a0ff91198e09ad8ba0fb93a86b50c3fd9e39d29f7"
   rendered:
     releaseObjects: "rendered/release-objects.yaml"
     objectInventory: "rendered/object-inventory.yaml"
-    objectCount: 70
+    objectCount: 68

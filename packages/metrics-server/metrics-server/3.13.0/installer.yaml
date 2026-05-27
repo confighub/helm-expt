@@ -12,14 +12,14 @@ spec:
       path: "bases/default"
     -
       description: "metrics-server external TLS with explicit CA variant rendered from metrics-server/metrics-server@3.13.0"
+      name: "external-tls-ca"
+      path: "bases/external-tls-ca"
       externalRequires:
         -
           kind: "ClusterFeature"
           name: "Secret kube-system/metrics-server-tls keys tls.crt,tls.key"
           namespace: "kube-system"
           suggestedSource: "kubectl -n kube-system create secret generic metrics-server-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value>"
-      name: "external-tls-ca"
-      path: "bases/external-tls-ca"
   collector:
     command: "/bin/sh"
     args:

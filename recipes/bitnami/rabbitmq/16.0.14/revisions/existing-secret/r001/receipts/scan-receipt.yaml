@@ -4,7 +4,7 @@ metadata:
   name: "rabbitmq-existing-secret-r001"
 spec:
   variantRevision: "../variant-revision.yaml"
-  renderedObjectSetSHA256: "d508ba5a873dbb2e1fa08b6bc227b1177d84fc1285b1aac974d59d28e9645d63"
+  renderedObjectSetSHA256: "cdff3262264844b099e7f4421f1bbd5027360c2d23ba34667506d85255c4b6f2"
   result: "warn"
   scanner:
     name: "helm-expt-local-rendered-object-scan"

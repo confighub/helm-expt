@@ -49,8 +49,10 @@ const variants = [
     base: "default",
     displayName: "default",
     valuesFile: "effective-values.yaml",
-    valuesText: "",
-    valuesSummary: "chart defaults",
+    valuesText: `args:
+  - --kubelet-insecure-tls
+`,
+    valuesSummary: "chart defaults plus explicit kind-compatible kubelet TLS flag",
     expectedObjectCount: 9,
     targetFactNote: "uses metrics-server runtime-generated serving cert; Helm generated-cert path is inactive",
   },

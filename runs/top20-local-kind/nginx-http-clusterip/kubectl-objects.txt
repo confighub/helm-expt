@@ -1,21 +1,21 @@
-NAME                         READY   STATUS    RESTARTS   AGE   IP            NODE                            NOMINATED NODE   READINESS GATES
-pod/nginx-7c7d7d7875-n9gtf   1/1     Running   0          10s   10.244.0.26   helm-expt-redis-control-plane   <none>           <none>
+NAME                         READY   STATUS    RESTARTS   AGE     IP            NODE                            NOMINATED NODE   READINESS GATES
+pod/nginx-7c7d7d7875-n9gtf   1/1     Running   0          3h12m   10.244.0.26   helm-expt-redis-control-plane   <none>           <none>
 
-NAME            TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE   SELECTOR
-service/nginx   ClusterIP   10.96.32.116   <none>        80/TCP,443/TCP   10s   app.kubernetes.io/instance=nginx,app.kubernetes.io/name=nginx
+NAME            TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE     SELECTOR
+service/nginx   ClusterIP   10.96.32.116   <none>        80/TCP,443/TCP   3h12m   app.kubernetes.io/instance=nginx,app.kubernetes.io/name=nginx
 
-NAME                    READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                                      SELECTOR
-deployment.apps/nginx   1/1     1            1           10s   nginx        registry-1.docker.io/bitnami/nginx:latest   app.kubernetes.io/instance=nginx,app.kubernetes.io/name=nginx
+NAME                    READY   UP-TO-DATE   AVAILABLE   AGE     CONTAINERS   IMAGES                                      SELECTOR
+deployment.apps/nginx   1/1     1            1           3h12m   nginx        registry-1.docker.io/bitnami/nginx:latest   app.kubernetes.io/instance=nginx,app.kubernetes.io/name=nginx
 
-NAME                               DESIRED   CURRENT   READY   AGE   CONTAINERS   IMAGES                                      SELECTOR
-replicaset.apps/nginx-7c7d7d7875   1         1         1       10s   nginx        registry-1.docker.io/bitnami/nginx:latest   app.kubernetes.io/instance=nginx,app.kubernetes.io/name=nginx,pod-template-hash=7c7d7d7875
+NAME                               DESIRED   CURRENT   READY   AGE     CONTAINERS   IMAGES                                      SELECTOR
+replicaset.apps/nginx-7c7d7d7875   1         1         1       3h12m   nginx        registry-1.docker.io/bitnami/nginx:latest   app.kubernetes.io/instance=nginx,app.kubernetes.io/name=nginx,pod-template-hash=7c7d7d7875
 
 NAME                               MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
-poddisruptionbudget.policy/nginx   N/A             1                 1                     10s
+poddisruptionbudget.policy/nginx   N/A             1                 1                     3h12m
 
 NAME                         DATA   AGE
-configmap/kube-root-ca.crt   1      10s
+configmap/kube-root-ca.crt   1      3h12m
 
 NAME                     SECRETS   AGE
-serviceaccount/default   0         10s
-serviceaccount/nginx     0         10s
+serviceaccount/default   0         3h12m
+serviceaccount/nginx     0         3h12m

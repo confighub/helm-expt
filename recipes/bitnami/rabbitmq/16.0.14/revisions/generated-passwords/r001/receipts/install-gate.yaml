@@ -4,7 +4,7 @@ metadata:
   name: "rabbitmq-generated-passwords-r001"
 spec:
   variantRevision: "../variant-revision.yaml"
-  renderedObjectSetSHA256: "7177256a1ef16d1ad91727d3d03ecd0b8cf23da5a3444ba3dd010f4963085fe1"
+  renderedObjectSetSHA256: "81187ce4367f5196ddbaa35ea55b972698f8a474d78a2cdc2908b12290c89f31"
   decision: "warn"
   allowedScopes:
     - "local-test"

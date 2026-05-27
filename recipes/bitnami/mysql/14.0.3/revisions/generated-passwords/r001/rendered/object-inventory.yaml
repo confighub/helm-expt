@@ -4,7 +4,7 @@ metadata:
   name: "bitnami-mysql-14.0.3-generated-passwords-r001"
 spec:
   source: "rendered/release-objects.yaml"
-  sourceSHA256: "d479b1df24670a9ca28e7fa2b1d487f63f17a20baa8080ff0b48cd75abce2bdd"
+  sourceSHA256: "04e856bfa75859dc9d8e45c61d49ad566494a7f66c257da9113ad26ca1696380"
   objectCount: 8
   objects:
     -

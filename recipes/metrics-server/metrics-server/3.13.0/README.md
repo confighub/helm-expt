@@ -4,7 +4,7 @@ This is the promoted proof slice for the metrics-server public Helm chart.
 
 Variants:
 
-- `default`: chart defaults; 9 Helm objects, 10 cub install objects including Namespace.
+- `default`: chart defaults plus explicit kind-compatible kubelet TLS flag; 9 Helm objects, 10 cub install objects including Namespace.
 - `external-tls-ca`: target Secret plus explicit APIService CA bundle; 9 Helm objects, 10 cub install objects including Namespace.
 
 What this proves:

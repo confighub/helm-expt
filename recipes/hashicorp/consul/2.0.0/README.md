@@ -4,8 +4,8 @@ This is the promoted proof slice for the Consul public Helm chart.
 
 Variants:
 
-- `default-control-plane`: chart-default control plane with server, injector, webhook cert manager, CRDs, and RBAC; 70 Helm objects, 71 cub install objects including Namespace.
-- `secure-mesh-existing-secrets`: TLS, ACLs, gossip encryption, mesh gateways, and UI ingress with existing Secrets; 99 Helm objects, 100 cub install objects including Namespace.
+- `default-control-plane`: chart-default control plane with Kubernetes 1.30-compatible PDBs disabled, server, injector, webhook cert manager, CRDs, and RBAC; 68 Helm objects, 69 cub install objects including Namespace.
+- `secure-mesh-existing-secrets`: TLS, ACLs, gossip encryption, mesh gateways, and UI ingress with existing Secrets; 97 Helm objects, 98 cub install objects including Namespace.
 
 What this proves:
 
