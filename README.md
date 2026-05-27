@@ -265,6 +265,26 @@ The plugin also exposes package-authoring and registry helper commands such as
 `preflight` appears in help as not yet implemented, so do not use it in proof
 docs until it ships.
 
+As of May 27, 2026, `cub variant create` is available in the local `cub`
+binary. It is a ConfigHub server-side operation:
+
+```text
+cub variant create <variant-name> <upstream-space>
+```
+
+It clones an upstream space and its units into a downstream space, stamps the
+`Variant` label, can set `Environment`, `Region`, target annotation, space
+metadata, and unit gates, and preserves links to the upstream units.
+
+This is expected to be part of the Helm recipe workflow. Use Helm-derived
+recipe variants and `cub install` package bases when the chart must be rendered
+differently, such as CRDs on/off, generated Secret vs existing Secret, HA mode,
+storage mode, ingress/TLS shape, or other values that change the Kubernetes
+object set. Use `cub variant create` after upload when the efficient move is to
+clone a reviewed ConfigHub space and vary server-side metadata, target,
+environment, region, gates, or post-clone customizations without inventing a
+new package base.
+
 Do not present shorthand such as `cub install redis`, `cub diff redis`,
 `cub publish redis`, or `cub variant redis ha` as current executable commands.
 Those are candidate future porcelain verbs, not the current CLI. If we need

@@ -167,7 +167,7 @@ Acceptance:
 - At least one promoted candidate uses installer-native inputs or components,
   not only bases.
 
-### P0.5 Upgrade / Verify `cub variant`
+### P0.5 Integrate Real `cub variant`
 
 Finding:
 
@@ -178,28 +178,66 @@ PR #4444: feat(cli): add cub variant create
 PR #4450: scope cub variant create metadata flags
 ```
 
-But the local installed CLI is old and currently reports:
+Status:
 
 ```text
-unknown command "variant" for "cub"
+completed locally on 2026-05-27
 ```
 
-Action:
+Evidence:
 
-Upgrade or rebuild `cub`, then verify:
+- `cub` was rebuilt from `origin/main` commit
+  `f5e876f123bdd963baaf50b99a6a388f854cd92f`
+- local installed binary is now `~/.confighub/bin/cub`
+- `cub variant --help` works
+- `cub variant create --help` works
 
-```sh
-cub variant --help
-cub variant create --help
+Recomputed meaning:
+
+`cub variant create` is a ConfigHub server-side operation. It clones an
+upstream space and its units into a downstream space, applies a `Variant`
+label, can set `Environment`, `Region`, target annotation, space metadata, and
+unit gates, and preserves links to the upstream units.
+
+It is an expected part of the workflow when it is the simpler path. It does not
+replace Helm-derived recipe variants for changes that require a different Helm
+render, but it should be preferred for downstream operational variation when a
+reviewed ConfigHub space can be cloned safely.
+
+The model is now:
+
+```text
+Helm chart version
+  -> recipe
+  -> install variants / package bases
+  -> rendered variant revisions
+  -> ConfigHub spaces and units
+  -> cub variant create for downstream server-side space variants when useful
+```
+
+Decision rule:
+
+```text
+Use recipe/package variants for render-time choices:
+  CRDs on/off, generated Secret vs existing Secret, HA mode, storage mode,
+  ingress/TLS shape, cloud-specific values, or anything that changes the
+  Kubernetes object set.
+
+Use cub variant create for server-side choices:
+  staging/prod clone, region clone, target binding, space metadata, gates,
+  policy labels, post-clone trigger inputs, or other changes that can be made
+  after a reviewed rendered revision has become ConfigHub units.
 ```
 
 Acceptance:
 
-- local `cub` exposes `variant`
-- docs distinguish:
-  - chart import variants in `helm-expt`
-  - ConfigHub server variants created by `cub variant create`
-- Redis/ConfigHub demo can show a simple server-side variant clone when useful.
+- Keep chart-import variants in `helm-expt` as recipe/package-base variants.
+- Use `cub variant create <variant-name> <upstream-space>` when the upstream
+  ConfigHub space exists and server-side cloning is the easiest safe path.
+- Redis/ConfigHub demo should include a simple server-side clone when useful,
+  for example from a reviewed Redis base space to a staging or regional space.
+- Catalog maps should continue linking pre-publish recipe variants separately
+  from post-upload ConfigHub server variants.
 
 ### P0.6 Recalculate The Top-500 Matrix In The New Shape
 
@@ -435,5 +473,6 @@ artifacts that do not prove the user-facing claim.
 1. Merge the archive-cleanup/catalog-status PR.
 2. Add Redis `CATALOG.md` + `artifact-index.yaml` to make the chart -> recipe
    -> variant path obvious.
-3. Upgrade local `cub` and verify `cub variant create`, then decide how it fits
-   the Redis/ConfigHub demo.
+3. Use the now-available `cub variant create` in the Redis/ConfigHub demo after
+   a reviewed upstream Redis space exists, so users can see when server-side
+   cloning is simpler than another Helm-derived package base.

@@ -576,6 +576,26 @@ those commands exist. If the short UX is needed, propose those verbs
 deliberately as Cub plugins/extensions; do not write them as current executable
 docs.
 
+As of May 27, 2026, `cub variant create <variant-name> <upstream-space>` is a
+real ConfigHub server-side command. It clones an upstream space and its units
+into a downstream space, stamps the `Variant` label, can set environment,
+region, target, space metadata, and unit gates, and preserves links to the
+upstream units. This is the post-upload/server-side variant layer.
+
+We expect users of `cub install` recipes to use ConfigHub server-side variants
+when that is simpler and safer than making another package base. The decision
+rule is:
+
+```text
+Use recipe/package variants when a Helm render input changes the object set.
+Use cub variant create when a reviewed ConfigHub space should be cloned and
+varied by target, environment, region, metadata, gates, or post-clone actions.
+```
+
+In other words, server-side variants do not replace Helm-derived recipe
+variants; they sit above them and should be preferred for downstream
+operational variation when no new Helm render is needed.
+
 The upstream installer docs usually show the standalone binary name
 `installer`. In this repo, those commands are written as `cub install ...`
 because the installer is used through the Cub plugin.
