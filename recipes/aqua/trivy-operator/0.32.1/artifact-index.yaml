@@ -1,0 +1,125 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "aqua-trivy-operator-0.32.1"
+  chart: "aqua/trivy-operator"
+  version: "0.32.1"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "aqua/trivy-operator"
+    version: "0.32.1"
+    appVersion: "0.30.1"
+    sourceLock: "recipes/aqua/trivy-operator/0.32.1/source-lock.yaml"
+    dependencyLock: "recipes/aqua/trivy-operator/0.32.1/dependency-lock.yaml"
+    repository: "https://aquasecurity.github.io/helm-charts/"
+    packageSHA256: "2dfb5c7f8a2b8cd338208c362b88e4eae607b24f199226c31a6f5bb76c7ace08"
+  recipe:
+    path: "recipes/aqua/trivy-operator/0.32.1/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/aqua/trivy-operator/0.32.1/helm-plan.yaml"
+    chartDossier: "recipes/aqua/trivy-operator/0.32.1/chart-dossier.yaml"
+    controlPoints: "recipes/aqua/trivy-operator/0.32.1/control-points.yaml"
+    valueModel: "recipes/aqua/trivy-operator/0.32.1/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "cluster-rbac"
+      - "crds"
+      - "dependency-lock"
+      - "extension-slots"
+      - "helm-equivalence"
+      - "rendered-manifest-scan"
+      - "secret-material"
+      - "source-lock"
+      - "target-facts"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/aqua/trivy-operator/0.32.1/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/aqua/trivy-operator/0.32.1"
+    installer: "packages/aqua/trivy-operator/0.32.1/installer.yaml"
+    receipt: "recipes/aqua/trivy-operator/0.32.1/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "8c555a67346fd06cc31082171c3ee830bf55710e20c9e7737e4c10f189011e9b"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/aqua/trivy-operator/0.32.1/bases/default"
+        default: true
+        description: "aqua/trivy-operator default variant rendered from aqua/trivy-operator@0.32.1"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/aqua/trivy-operator/0.32.1/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "trivy-operator"
+      valuesProfile: "recipes/aqua/trivy-operator/0.32.1/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/aqua/trivy-operator/0.32.1/bases/default"
+        default: true
+        description: "aqua/trivy-operator default variant rendered from aqua/trivy-operator@0.32.1"
+      setupCheck:
+        command: "cub install setup --pull packages/aqua/trivy-operator/0.32.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 33
+        cubInstallObjectCountIncludingSupport: 34
+        semanticObjectMatches: "33/33"
+        separatedSecretCount: 2
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/aqua/trivy-operator/0.32.1/revisions/default/r001/variant-revision.yaml"
+          digest: "081b6a7123204015bf5b972d7be7539f946ce988cfc670ff8a11926d5f005fe4"
+          renderedObjectSetSHA256: "4728643a42924d6af2c0b2b4f1f616938c31b6271ed7e32bac2ce36e5e339a25"
+          renderedObjects: "recipes/aqua/trivy-operator/0.32.1/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/aqua/trivy-operator/0.32.1/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 33
+          helmObjectCount: 33
+          cubInstallObjectCountIncludingSupport: 34
+          semanticObjectMatches: "33/33"
+          separatedSecretFiles: 2
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/aqua/trivy-operator/0.32.1/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "4728643a42924d6af2c0b2b4f1f616938c31b6271ed7e32bac2ce36e5e339a25"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/aqua/trivy-operator/0.32.1/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "4728643a42924d6af2c0b2b4f1f616938c31b6271ed7e32bac2ce36e5e339a25"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/aqua/trivy-operator/0.32.1/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "4728643a42924d6af2c0b2b4f1f616938c31b6271ed7e32bac2ce36e5e339a25"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/aqua/trivy-operator/0.32.1/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "4728643a42924d6af2c0b2b4f1f616938c31b6271ed7e32bac2ce36e5e339a25"

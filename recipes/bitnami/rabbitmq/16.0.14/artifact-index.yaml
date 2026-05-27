@@ -1,0 +1,203 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "bitnami-rabbitmq-16.0.14"
+  chart: "bitnami/rabbitmq"
+  version: "16.0.14"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "bitnami/rabbitmq"
+    version: "16.0.14"
+    appVersion: "4.1.3"
+    sourceLock: "recipes/bitnami/rabbitmq/16.0.14/source-lock.yaml"
+    dependencyLock: "recipes/bitnami/rabbitmq/16.0.14/dependency-lock.yaml"
+    repository: "https://charts.bitnami.com/bitnami"
+    packageSHA256: "df625220cafdfe892e68c1b3f1a5500049acd227fe90b2deca04df13190a176b"
+  recipe:
+    path: "recipes/bitnami/rabbitmq/16.0.14/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/bitnami/rabbitmq/16.0.14/helm-plan.yaml"
+    chartDossier: "recipes/bitnami/rabbitmq/16.0.14/chart-dossier.yaml"
+    controlPoints: "recipes/bitnami/rabbitmq/16.0.14/control-points.yaml"
+    valueModel: "recipes/bitnami/rabbitmq/16.0.14/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "dependency-lock"
+      - "generated-facts"
+      - "hook-policy"
+      - "installer-support-object"
+      - "pvc-policy"
+      - "source-lock"
+      - "stateful-workload"
+      - "target-facts"
+      - "tpl"
+  catalogStatus:
+    path: "recipes/bitnami/rabbitmq/16.0.14/catalog-status.yaml"
+    status: "catalog-candidate"
+    supportLevel: "promotion-review-needed"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "generated-passwords"
+      - "existing-secret"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/bitnami/rabbitmq/16.0.14"
+    installer: "packages/bitnami/rabbitmq/16.0.14/installer.yaml"
+    receipt: "recipes/bitnami/rabbitmq/16.0.14/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "00a46e601b59c275891f631e5e78cf573f634e47329cb51622c60dbe934db1e0"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "generated-passwords"
+        path: "packages/bitnami/rabbitmq/16.0.14/bases/generated-passwords"
+        default: true
+        description: "rabbitmq generated passwords variant rendered from bitnami/rabbitmq@16.0.14"
+      -
+        name: "existing-secret"
+        path: "packages/bitnami/rabbitmq/16.0.14/bases/existing-secret"
+        default: false
+        description: "rabbitmq existing Secret variant rendered from bitnami/rabbitmq@16.0.14"
+  variants:
+    -
+      name: "generated-passwords"
+      variant: "recipes/bitnami/rabbitmq/16.0.14/variants/generated-passwords/variant.yaml"
+      namespace: "rabbitmq"
+      releaseName: "rabbitmq"
+      valuesProfile: "recipes/bitnami/rabbitmq/16.0.14/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "generated-passwords"
+        path: "packages/bitnami/rabbitmq/16.0.14/bases/generated-passwords"
+        default: true
+        description: "rabbitmq generated passwords variant rendered from bitnami/rabbitmq@16.0.14"
+      setupCheck:
+        command: "cub install setup --pull packages/bitnami/rabbitmq/16.0.14 --base generated-passwords --work-dir <tmp> --non-interactive --namespace rabbitmq"
+        helmReleaseObjectCount: 10
+        cubInstallObjectCountIncludingSupport: 11
+        semanticObjectMatches: "10/10"
+        separatedSecretCount: 2
+        allowedCubOnlyObjects:
+          - "v1|Namespace||rabbitmq"
+      revisions:
+        -
+          name: "generated-passwords-r001"
+          revision: "r001"
+          variantRevision: "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/variant-revision.yaml"
+          digest: "da1a2278560858e7e1cbf99a2b1138ba58f9fda2431bc9524b7c0599de9d9062"
+          renderedObjectSetSHA256: "7177256a1ef16d1ad91727d3d03ecd0b8cf23da5a3444ba3dd010f4963085fe1"
+          renderedObjects: "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/rendered/object-inventory.yaml"
+          objectCount: 10
+          helmObjectCount: 10
+          cubInstallObjectCountIncludingSupport: 11
+          semanticObjectMatches: "10/10"
+          separatedSecretFiles: 2
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "7177256a1ef16d1ad91727d3d03ecd0b8cf23da5a3444ba3dd010f4963085fe1"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "7177256a1ef16d1ad91727d3d03ecd0b8cf23da5a3444ba3dd010f4963085fe1"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "7177256a1ef16d1ad91727d3d03ecd0b8cf23da5a3444ba3dd010f4963085fe1"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "7177256a1ef16d1ad91727d3d03ecd0b8cf23da5a3444ba3dd010f4963085fe1"
+    -
+      name: "existing-secret"
+      variant: "recipes/bitnami/rabbitmq/16.0.14/variants/existing-secret/variant.yaml"
+      namespace: "rabbitmq"
+      releaseName: "rabbitmq"
+      valuesProfile: "recipes/bitnami/rabbitmq/16.0.14/effective-values-existing-secret.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredSecrets:
+          -
+            keys:
+              - "rabbitmq-password"
+            name: "rabbitmq-auth"
+            namespace: "rabbitmq"
+            purpose: "RabbitMQ administrator password"
+          -
+            keys:
+              - "rabbitmq-erlang-cookie"
+            name: "rabbitmq-erlang-cookie"
+            namespace: "rabbitmq"
+            purpose: "RabbitMQ Erlang cookie for node clustering"
+      targetFactSummary: "required Secret rabbitmq/rabbitmq-auth keys rabbitmq-password; required Secret rabbitmq/rabbitmq-erlang-cookie keys rabbitmq-erlang-cookie"
+      packageBase:
+        name: "existing-secret"
+        path: "packages/bitnami/rabbitmq/16.0.14/bases/existing-secret"
+        default: false
+        description: "rabbitmq existing Secret variant rendered from bitnami/rabbitmq@16.0.14"
+      setupCheck:
+        command: "cub install setup --pull packages/bitnami/rabbitmq/16.0.14 --base existing-secret --work-dir <tmp> --non-interactive --namespace rabbitmq"
+        helmReleaseObjectCount: 9
+        cubInstallObjectCountIncludingSupport: 10
+        semanticObjectMatches: "9/9"
+        separatedSecretCount: 1
+        allowedCubOnlyObjects:
+          - "v1|Namespace||rabbitmq"
+      revisions:
+        -
+          name: "existing-secret-r001"
+          revision: "r001"
+          variantRevision: "recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/variant-revision.yaml"
+          digest: "b9522a75bdcd15a7693daa2fd3c44d41d96a0a6f4f4ff6428a1b44d6a957a78b"
+          renderedObjectSetSHA256: "d508ba5a873dbb2e1fa08b6bc227b1177d84fc1285b1aac974d59d28e9645d63"
+          renderedObjects: "recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/rendered/object-inventory.yaml"
+          objectCount: 9
+          helmObjectCount: 9
+          cubInstallObjectCountIncludingSupport: 10
+          semanticObjectMatches: "9/9"
+          separatedSecretFiles: 1
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "d508ba5a873dbb2e1fa08b6bc227b1177d84fc1285b1aac974d59d28e9645d63"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "d508ba5a873dbb2e1fa08b6bc227b1177d84fc1285b1aac974d59d28e9645d63"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "d508ba5a873dbb2e1fa08b6bc227b1177d84fc1285b1aac974d59d28e9645d63"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "d508ba5a873dbb2e1fa08b6bc227b1177d84fc1285b1aac974d59d28e9645d63"

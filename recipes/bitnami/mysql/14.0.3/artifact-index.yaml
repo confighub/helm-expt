@@ -1,0 +1,199 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "bitnami-mysql-14.0.3"
+  chart: "bitnami/mysql"
+  version: "14.0.3"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "bitnami/mysql"
+    version: "14.0.3"
+    appVersion: "9.4.0"
+    sourceLock: "recipes/bitnami/mysql/14.0.3/source-lock.yaml"
+    dependencyLock: "recipes/bitnami/mysql/14.0.3/dependency-lock.yaml"
+    repository: "https://charts.bitnami.com/bitnami"
+    packageSHA256: "fc7c297ce7e2953190e313d4afc4f3093a9f8d47e82d15e6c933982c0d0b8ac2"
+  recipe:
+    path: "recipes/bitnami/mysql/14.0.3/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/bitnami/mysql/14.0.3/helm-plan.yaml"
+    chartDossier: "recipes/bitnami/mysql/14.0.3/chart-dossier.yaml"
+    controlPoints: "recipes/bitnami/mysql/14.0.3/control-points.yaml"
+    valueModel: "recipes/bitnami/mysql/14.0.3/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "dependency-lock"
+      - "generated-facts"
+      - "hook-policy"
+      - "installer-support-object"
+      - "pvc-policy"
+      - "source-lock"
+      - "stateful-workload"
+      - "target-facts"
+      - "tpl"
+  catalogStatus:
+    path: "recipes/bitnami/mysql/14.0.3/catalog-status.yaml"
+    status: "catalog-candidate"
+    supportLevel: "promotion-review-needed"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "generated-passwords"
+      - "existing-secret"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/bitnami/mysql/14.0.3"
+    installer: "packages/bitnami/mysql/14.0.3/installer.yaml"
+    receipt: "recipes/bitnami/mysql/14.0.3/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "8534d63c67cbc647c8ab6dab1899dc008838e9cb679561a7c79d7083e5405890"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "generated-passwords"
+        path: "packages/bitnami/mysql/14.0.3/bases/generated-passwords"
+        default: true
+        description: "mysql generated passwords variant rendered from bitnami/mysql@14.0.3"
+      -
+        name: "existing-secret"
+        path: "packages/bitnami/mysql/14.0.3/bases/existing-secret"
+        default: false
+        description: "mysql existing Secret variant rendered from bitnami/mysql@14.0.3"
+  variants:
+    -
+      name: "generated-passwords"
+      variant: "recipes/bitnami/mysql/14.0.3/variants/generated-passwords/variant.yaml"
+      namespace: "mysql"
+      releaseName: "mysql"
+      valuesProfile: "recipes/bitnami/mysql/14.0.3/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "generated-passwords"
+        path: "packages/bitnami/mysql/14.0.3/bases/generated-passwords"
+        default: true
+        description: "mysql generated passwords variant rendered from bitnami/mysql@14.0.3"
+      setupCheck:
+        command: "cub install setup --pull packages/bitnami/mysql/14.0.3 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mysql"
+        helmReleaseObjectCount: 8
+        cubInstallObjectCountIncludingSupport: 9
+        semanticObjectMatches: "8/8"
+        separatedSecretCount: 1
+        allowedCubOnlyObjects:
+          - "v1|Namespace||mysql"
+      revisions:
+        -
+          name: "generated-passwords-r001"
+          revision: "r001"
+          variantRevision: "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/variant-revision.yaml"
+          digest: "45be1f993e2ee560fadd9761e71787bf939cb1e471c85f7960667ea094d07849"
+          renderedObjectSetSHA256: "d479b1df24670a9ca28e7fa2b1d487f63f17a20baa8080ff0b48cd75abce2bdd"
+          renderedObjects: "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/rendered/object-inventory.yaml"
+          objectCount: 8
+          helmObjectCount: 8
+          cubInstallObjectCountIncludingSupport: 9
+          semanticObjectMatches: "8/8"
+          separatedSecretFiles: 1
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "d479b1df24670a9ca28e7fa2b1d487f63f17a20baa8080ff0b48cd75abce2bdd"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "d479b1df24670a9ca28e7fa2b1d487f63f17a20baa8080ff0b48cd75abce2bdd"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "d479b1df24670a9ca28e7fa2b1d487f63f17a20baa8080ff0b48cd75abce2bdd"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "d479b1df24670a9ca28e7fa2b1d487f63f17a20baa8080ff0b48cd75abce2bdd"
+    -
+      name: "existing-secret"
+      variant: "recipes/bitnami/mysql/14.0.3/variants/existing-secret/variant.yaml"
+      namespace: "mysql"
+      releaseName: "mysql"
+      valuesProfile: "recipes/bitnami/mysql/14.0.3/effective-values-existing-secret.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredSecrets:
+          -
+            keys:
+              - "mysql-root-password"
+              - "mysql-password"
+              - "mysql-replication-password"
+            name: "mysql-auth"
+            namespace: "mysql"
+            purpose: "MySQL root, user, and replication passwords"
+      targetFactSummary: "required Secret mysql/mysql-auth keys mysql-root-password,mysql-password,mysql-replication-password"
+      packageBase:
+        name: "existing-secret"
+        path: "packages/bitnami/mysql/14.0.3/bases/existing-secret"
+        default: false
+        description: "mysql existing Secret variant rendered from bitnami/mysql@14.0.3"
+      setupCheck:
+        command: "cub install setup --pull packages/bitnami/mysql/14.0.3 --base existing-secret --work-dir <tmp> --non-interactive --namespace mysql"
+        helmReleaseObjectCount: 7
+        cubInstallObjectCountIncludingSupport: 8
+        semanticObjectMatches: "7/7"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||mysql"
+      revisions:
+        -
+          name: "existing-secret-r001"
+          revision: "r001"
+          variantRevision: "recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/variant-revision.yaml"
+          digest: "ec4cedd05a0749c7cab7d90909a221f7457e3b716dcfcebac9181653f4ba8ba7"
+          renderedObjectSetSHA256: "3df11b8cf513ef85c4c2c921d7ae5f31e61d3a7e98a46ca7fc6ff2cc7c02c0b2"
+          renderedObjects: "recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/rendered/object-inventory.yaml"
+          objectCount: 7
+          helmObjectCount: 7
+          cubInstallObjectCountIncludingSupport: 8
+          semanticObjectMatches: "7/7"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "3df11b8cf513ef85c4c2c921d7ae5f31e61d3a7e98a46ca7fc6ff2cc7c02c0b2"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "3df11b8cf513ef85c4c2c921d7ae5f31e61d3a7e98a46ca7fc6ff2cc7c02c0b2"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "3df11b8cf513ef85c4c2c921d7ae5f31e61d3a7e98a46ca7fc6ff2cc7c02c0b2"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "3df11b8cf513ef85c4c2c921d7ae5f31e61d3a7e98a46ca7fc6ff2cc7c02c0b2"

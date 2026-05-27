@@ -1,0 +1,199 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "grafana-grafana-10.5.15"
+  chart: "grafana/grafana"
+  version: "10.5.15"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "grafana/grafana"
+    version: "10.5.15"
+    appVersion: "12.3.1"
+    sourceLock: "recipes/grafana/grafana/10.5.15/source-lock.yaml"
+    dependencyLock: "recipes/grafana/grafana/10.5.15/dependency-lock.yaml"
+    repository: "https://grafana.github.io/helm-charts"
+    packageSHA256: "c08c87969270402e7d5227edb8385af67cc32ee34817bff89773ad02303b5d79"
+  recipe:
+    path: "recipes/grafana/grafana/10.5.15/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/grafana/grafana/10.5.15/helm-plan.yaml"
+    chartDossier: "recipes/grafana/grafana/10.5.15/chart-dossier.yaml"
+    controlPoints: "recipes/grafana/grafana/10.5.15/control-points.yaml"
+    valueModel: "recipes/grafana/grafana/10.5.15/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "chart-deprecation"
+      - "cluster-rbac"
+      - "dependency-lock"
+      - "deployment-workload"
+      - "extension-slots"
+      - "generated-facts"
+      - "installer-support-object"
+      - "source-lock"
+      - "target-facts"
+      - "ui-ingress-policy"
+  catalogStatus:
+    path: "recipes/grafana/grafana/10.5.15/catalog-status.yaml"
+    status: "catalog-candidate"
+    supportLevel: "promotion-review-needed"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "generated-passwords"
+      - "existing-secret-ingress"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/grafana/grafana/10.5.15"
+    installer: "packages/grafana/grafana/10.5.15/installer.yaml"
+    receipt: "recipes/grafana/grafana/10.5.15/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "43807f506a77b54b43bfd37ff8634652b8b7dc8d70078342f5036fe645a7b350"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "generated-passwords"
+        path: "packages/grafana/grafana/10.5.15/bases/generated-passwords"
+        default: true
+        description: "grafana generated passwords variant rendered from grafana/grafana@10.5.15"
+      -
+        name: "existing-secret-ingress"
+        path: "packages/grafana/grafana/10.5.15/bases/existing-secret-ingress"
+        default: false
+        description: "grafana existing Secret with ingress variant rendered from grafana/grafana@10.5.15"
+  variants:
+    -
+      name: "generated-passwords"
+      variant: "recipes/grafana/grafana/10.5.15/variants/generated-passwords/variant.yaml"
+      namespace: "grafana"
+      releaseName: "grafana"
+      valuesProfile: "recipes/grafana/grafana/10.5.15/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "generated-passwords"
+        path: "packages/grafana/grafana/10.5.15/bases/generated-passwords"
+        default: true
+        description: "grafana generated passwords variant rendered from grafana/grafana@10.5.15"
+      setupCheck:
+        command: "cub install setup --pull packages/grafana/grafana/10.5.15 --base generated-passwords --work-dir <tmp> --non-interactive --namespace grafana"
+        helmReleaseObjectCount: 9
+        cubInstallObjectCountIncludingSupport: 10
+        semanticObjectMatches: "9/9"
+        separatedSecretCount: 1
+        allowedCubOnlyObjects:
+          - "v1|Namespace||grafana"
+      revisions:
+        -
+          name: "generated-passwords-r001"
+          revision: "r001"
+          variantRevision: "recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/variant-revision.yaml"
+          digest: "af8b2f7687eba631899ec64b6b64fc05422e5402eaad15f698cfe883f90a9b4e"
+          renderedObjectSetSHA256: "893351c9b8cad0a10b0176a946bf514a76c5895bdb2d88a31bdd53a94288066d"
+          renderedObjects: "recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/rendered/object-inventory.yaml"
+          objectCount: 9
+          helmObjectCount: 9
+          cubInstallObjectCountIncludingSupport: 10
+          semanticObjectMatches: "9/9"
+          separatedSecretFiles: 1
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "893351c9b8cad0a10b0176a946bf514a76c5895bdb2d88a31bdd53a94288066d"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "893351c9b8cad0a10b0176a946bf514a76c5895bdb2d88a31bdd53a94288066d"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "893351c9b8cad0a10b0176a946bf514a76c5895bdb2d88a31bdd53a94288066d"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "893351c9b8cad0a10b0176a946bf514a76c5895bdb2d88a31bdd53a94288066d"
+    -
+      name: "existing-secret-ingress"
+      variant: "recipes/grafana/grafana/10.5.15/variants/existing-secret-ingress/variant.yaml"
+      namespace: "grafana"
+      releaseName: "grafana"
+      valuesProfile: "recipes/grafana/grafana/10.5.15/effective-values-existing-secret-ingress.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredSecrets:
+          -
+            keys:
+              - "admin-user"
+              - "admin-password"
+            name: "grafana-admin"
+            namespace: "grafana"
+            purpose: "Grafana administrator username and password"
+      targetFactSummary: "required Secret grafana/grafana-admin keys admin-user,admin-password"
+      packageBase:
+        name: "existing-secret-ingress"
+        path: "packages/grafana/grafana/10.5.15/bases/existing-secret-ingress"
+        default: false
+        description: "grafana existing Secret with ingress variant rendered from grafana/grafana@10.5.15"
+      setupCheck:
+        command: "cub install setup --pull packages/grafana/grafana/10.5.15 --base existing-secret-ingress --work-dir <tmp> --non-interactive --namespace grafana"
+        helmReleaseObjectCount: 9
+        cubInstallObjectCountIncludingSupport: 10
+        semanticObjectMatches: "9/9"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||grafana"
+      revisions:
+        -
+          name: "existing-secret-ingress-r001"
+          revision: "r001"
+          variantRevision: "recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/variant-revision.yaml"
+          digest: "e09cf943695cd0a968513386e745382ef0dc99be69991e6021ed56c9d0bf1488"
+          renderedObjectSetSHA256: "04b1fc4abd47d12c2eef1e06e7f4dc7cb2dd6ffd639a7a8967bda1c98a00fb60"
+          renderedObjects: "recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/rendered/object-inventory.yaml"
+          objectCount: 9
+          helmObjectCount: 9
+          cubInstallObjectCountIncludingSupport: 10
+          semanticObjectMatches: "9/9"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "04b1fc4abd47d12c2eef1e06e7f4dc7cb2dd6ffd639a7a8967bda1c98a00fb60"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "04b1fc4abd47d12c2eef1e06e7f4dc7cb2dd6ffd639a7a8967bda1c98a00fb60"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "04b1fc4abd47d12c2eef1e06e7f4dc7cb2dd6ffd639a7a8967bda1c98a00fb60"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "04b1fc4abd47d12c2eef1e06e7f4dc7cb2dd6ffd639a7a8967bda1c98a00fb60"

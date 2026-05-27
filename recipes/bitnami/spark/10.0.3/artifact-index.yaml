@@ -1,0 +1,125 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "bitnami-spark-10.0.3"
+  chart: "bitnami/spark"
+  version: "10.0.3"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "bitnami/spark"
+    version: "10.0.3"
+    appVersion: "4.0.0"
+    sourceLock: "recipes/bitnami/spark/10.0.3/source-lock.yaml"
+    dependencyLock: "recipes/bitnami/spark/10.0.3/dependency-lock.yaml"
+    repository: "https://charts.bitnami.com/bitnami"
+    packageSHA256: "6d551a4f745c89d0b1cbfe8569dbb8bd93ec9d7e4704dab2cc86177a3a5359dc"
+  recipe:
+    path: "recipes/bitnami/spark/10.0.3/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/bitnami/spark/10.0.3/helm-plan.yaml"
+    chartDossier: "recipes/bitnami/spark/10.0.3/chart-dossier.yaml"
+    controlPoints: "recipes/bitnami/spark/10.0.3/control-points.yaml"
+    valueModel: "recipes/bitnami/spark/10.0.3/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "dependency-lock"
+      - "extension-slots"
+      - "generated-facts"
+      - "helm-equivalence"
+      - "rendered-manifest-scan"
+      - "secret-material"
+      - "source-lock"
+      - "stateful-storage"
+      - "target-facts"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/bitnami/spark/10.0.3/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/bitnami/spark/10.0.3"
+    installer: "packages/bitnami/spark/10.0.3/installer.yaml"
+    receipt: "recipes/bitnami/spark/10.0.3/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "2bca4e36fa16ed907936cc1e575101e009d3cd86c348bafcff183b5e4154bfce"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/bitnami/spark/10.0.3/bases/default"
+        default: true
+        description: "bitnami/spark default variant rendered from bitnami/spark@10.0.3"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/bitnami/spark/10.0.3/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "spark"
+      valuesProfile: "recipes/bitnami/spark/10.0.3/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/bitnami/spark/10.0.3/bases/default"
+        default: true
+        description: "bitnami/spark default variant rendered from bitnami/spark@10.0.3"
+      setupCheck:
+        command: "cub install setup --pull packages/bitnami/spark/10.0.3 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 10
+        cubInstallObjectCountIncludingSupport: 11
+        semanticObjectMatches: "10/10"
+        separatedSecretCount: 1
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/bitnami/spark/10.0.3/revisions/default/r001/variant-revision.yaml"
+          digest: "f38b69257036d8bd6d2d255d7cf1685b6ec1d23fea1325550c832be705640bdd"
+          renderedObjectSetSHA256: "bec034832a7f2a6c1d2f05aa7bfcf0ce4562dbb274e7b760170df3e80e1ced55"
+          renderedObjects: "recipes/bitnami/spark/10.0.3/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/spark/10.0.3/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 10
+          helmObjectCount: 10
+          cubInstallObjectCountIncludingSupport: 11
+          semanticObjectMatches: "10/10"
+          separatedSecretFiles: 1
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/bitnami/spark/10.0.3/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "bec034832a7f2a6c1d2f05aa7bfcf0ce4562dbb274e7b760170df3e80e1ced55"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/bitnami/spark/10.0.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "bec034832a7f2a6c1d2f05aa7bfcf0ce4562dbb274e7b760170df3e80e1ced55"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/bitnami/spark/10.0.3/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "bec034832a7f2a6c1d2f05aa7bfcf0ce4562dbb274e7b760170df3e80e1ced55"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/bitnami/spark/10.0.3/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "bec034832a7f2a6c1d2f05aa7bfcf0ce4562dbb274e7b760170df3e80e1ced55"

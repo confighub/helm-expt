@@ -1,0 +1,125 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "sealed-secrets-sealed-secrets-2.18.6"
+  chart: "sealed-secrets/sealed-secrets"
+  version: "2.18.6"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "sealed-secrets/sealed-secrets"
+    version: "2.18.6"
+    appVersion: "0.37.0"
+    sourceLock: "recipes/sealed-secrets/sealed-secrets/2.18.6/source-lock.yaml"
+    dependencyLock: "recipes/sealed-secrets/sealed-secrets/2.18.6/dependency-lock.yaml"
+    repository: "https://bitnami-labs.github.io/sealed-secrets"
+    packageSHA256: "4af8cb2b150b83460f15242e36706159cb77f6ba834f79a7bd172cb2f5debc72"
+  recipe:
+    path: "recipes/sealed-secrets/sealed-secrets/2.18.6/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/sealed-secrets/sealed-secrets/2.18.6/helm-plan.yaml"
+    chartDossier: "recipes/sealed-secrets/sealed-secrets/2.18.6/chart-dossier.yaml"
+    controlPoints: "recipes/sealed-secrets/sealed-secrets/2.18.6/control-points.yaml"
+    valueModel: "recipes/sealed-secrets/sealed-secrets/2.18.6/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "cluster-rbac"
+      - "crds"
+      - "dependency-lock"
+      - "extension-slots"
+      - "generated-facts"
+      - "helm-equivalence"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "target-facts"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/sealed-secrets/sealed-secrets/2.18.6/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/sealed-secrets/sealed-secrets/2.18.6"
+    installer: "packages/sealed-secrets/sealed-secrets/2.18.6/installer.yaml"
+    receipt: "recipes/sealed-secrets/sealed-secrets/2.18.6/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "ebdde8af99c2b4df925428f3e30d0c1cae02fec87cc62023bf0af742221db9c6"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/sealed-secrets/sealed-secrets/2.18.6/bases/default"
+        default: true
+        description: "sealed-secrets/sealed-secrets default variant rendered from sealed-secrets/sealed-secrets@2.18.6"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/sealed-secrets/sealed-secrets/2.18.6/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "sealed-secrets"
+      valuesProfile: "recipes/sealed-secrets/sealed-secrets/2.18.6/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/sealed-secrets/sealed-secrets/2.18.6/bases/default"
+        default: true
+        description: "sealed-secrets/sealed-secrets default variant rendered from sealed-secrets/sealed-secrets@2.18.6"
+      setupCheck:
+        command: "cub install setup --pull packages/sealed-secrets/sealed-secrets/2.18.6 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 11
+        cubInstallObjectCountIncludingSupport: 12
+        semanticObjectMatches: "11/11"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/default/r001/variant-revision.yaml"
+          digest: "830ce0d08a78cac87fd631790131d77ff469a2cb1070f35cbdbc41918155fc1d"
+          renderedObjectSetSHA256: "096c66f4ea312aa7c3a4fc2be815b64271c3f1c829c8914b5c96c190aa22a83e"
+          renderedObjects: "recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 11
+          helmObjectCount: 11
+          cubInstallObjectCountIncludingSupport: 12
+          semanticObjectMatches: "11/11"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "096c66f4ea312aa7c3a4fc2be815b64271c3f1c829c8914b5c96c190aa22a83e"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "096c66f4ea312aa7c3a4fc2be815b64271c3f1c829c8914b5c96c190aa22a83e"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "096c66f4ea312aa7c3a4fc2be815b64271c3f1c829c8914b5c96c190aa22a83e"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "096c66f4ea312aa7c3a4fc2be815b64271c3f1c829c8914b5c96c190aa22a83e"

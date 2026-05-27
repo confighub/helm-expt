@@ -1,0 +1,123 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "coredns-coredns-1.45.2"
+  chart: "coredns/coredns"
+  version: "1.45.2"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "coredns/coredns"
+    version: "1.45.2"
+    appVersion: "1.13.1"
+    sourceLock: "recipes/coredns/coredns/1.45.2/source-lock.yaml"
+    dependencyLock: "recipes/coredns/coredns/1.45.2/dependency-lock.yaml"
+    repository: "https://coredns.github.io/helm"
+    packageSHA256: "fc1919f05b8640862d86965a2ee7065f2ddf0d4b39b94627263bb8ab490d678d"
+  recipe:
+    path: "recipes/coredns/coredns/1.45.2/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/coredns/coredns/1.45.2/helm-plan.yaml"
+    chartDossier: "recipes/coredns/coredns/1.45.2/chart-dossier.yaml"
+    controlPoints: "recipes/coredns/coredns/1.45.2/control-points.yaml"
+    valueModel: "recipes/coredns/coredns/1.45.2/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "cluster-rbac"
+      - "dependency-lock"
+      - "extension-slots"
+      - "generated-facts"
+      - "helm-equivalence"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/coredns/coredns/1.45.2/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/coredns/coredns/1.45.2"
+    installer: "packages/coredns/coredns/1.45.2/installer.yaml"
+    receipt: "recipes/coredns/coredns/1.45.2/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "795878a5ee157ca65dab8859d5dcb51dffeb6ef89b0979cdc6497a06b600a87e"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/coredns/coredns/1.45.2/bases/default"
+        default: true
+        description: "coredns/coredns default variant rendered from coredns/coredns@1.45.2"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/coredns/coredns/1.45.2/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "coredns"
+      valuesProfile: "recipes/coredns/coredns/1.45.2/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/coredns/coredns/1.45.2/bases/default"
+        default: true
+        description: "coredns/coredns default variant rendered from coredns/coredns@1.45.2"
+      setupCheck:
+        command: "cub install setup --pull packages/coredns/coredns/1.45.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 5
+        cubInstallObjectCountIncludingSupport: 6
+        semanticObjectMatches: "5/5"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/coredns/coredns/1.45.2/revisions/default/r001/variant-revision.yaml"
+          digest: "a47a5e89780ae851620bf6d227f5f5dfe79afbdf5771e6fea3c8f8ed2445e631"
+          renderedObjectSetSHA256: "e9d0e20ceb7a6ec8e8189aa63d5fcba50be11360c7b734e57b84ad0556b1ca34"
+          renderedObjects: "recipes/coredns/coredns/1.45.2/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/coredns/coredns/1.45.2/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 5
+          helmObjectCount: 5
+          cubInstallObjectCountIncludingSupport: 6
+          semanticObjectMatches: "5/5"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/coredns/coredns/1.45.2/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "e9d0e20ceb7a6ec8e8189aa63d5fcba50be11360c7b734e57b84ad0556b1ca34"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/coredns/coredns/1.45.2/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "e9d0e20ceb7a6ec8e8189aa63d5fcba50be11360c7b734e57b84ad0556b1ca34"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/coredns/coredns/1.45.2/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "e9d0e20ceb7a6ec8e8189aa63d5fcba50be11360c7b734e57b84ad0556b1ca34"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/coredns/coredns/1.45.2/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "e9d0e20ceb7a6ec8e8189aa63d5fcba50be11360c7b734e57b84ad0556b1ca34"

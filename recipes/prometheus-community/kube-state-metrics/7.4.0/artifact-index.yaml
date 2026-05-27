@@ -1,0 +1,123 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "prometheus-community-kube-state-metrics-7.4.0"
+  chart: "prometheus-community/kube-state-metrics"
+  version: "7.4.0"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "prometheus-community/kube-state-metrics"
+    version: "7.4.0"
+    appVersion: "2.19.0"
+    sourceLock: "recipes/prometheus-community/kube-state-metrics/7.4.0/source-lock.yaml"
+    dependencyLock: "recipes/prometheus-community/kube-state-metrics/7.4.0/dependency-lock.yaml"
+    repository: "https://prometheus-community.github.io/helm-charts"
+    packageSHA256: "1cb1b6ac50b02a2ae691f895358959d61d377168c820cf51f2d0ea8a739e1b7f"
+  recipe:
+    path: "recipes/prometheus-community/kube-state-metrics/7.4.0/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/prometheus-community/kube-state-metrics/7.4.0/helm-plan.yaml"
+    chartDossier: "recipes/prometheus-community/kube-state-metrics/7.4.0/chart-dossier.yaml"
+    controlPoints: "recipes/prometheus-community/kube-state-metrics/7.4.0/control-points.yaml"
+    valueModel: "recipes/prometheus-community/kube-state-metrics/7.4.0/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "cluster-rbac"
+      - "dependency-lock"
+      - "extension-slots"
+      - "generated-facts"
+      - "helm-equivalence"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/prometheus-community/kube-state-metrics/7.4.0/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/prometheus-community/kube-state-metrics/7.4.0"
+    installer: "packages/prometheus-community/kube-state-metrics/7.4.0/installer.yaml"
+    receipt: "recipes/prometheus-community/kube-state-metrics/7.4.0/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "c9c96969e7b0ebbeaea78b7bcf6b2856225715610ddf7edf9ab3b845d23826af"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/prometheus-community/kube-state-metrics/7.4.0/bases/default"
+        default: true
+        description: "prometheus-community/kube-state-metrics default variant rendered from prometheus-community/kube-state-metrics@7.4.0"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/prometheus-community/kube-state-metrics/7.4.0/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "kube-state-metrics"
+      valuesProfile: "recipes/prometheus-community/kube-state-metrics/7.4.0/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/prometheus-community/kube-state-metrics/7.4.0/bases/default"
+        default: true
+        description: "prometheus-community/kube-state-metrics default variant rendered from prometheus-community/kube-state-metrics@7.4.0"
+      setupCheck:
+        command: "cub install setup --pull packages/prometheus-community/kube-state-metrics/7.4.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 5
+        cubInstallObjectCountIncludingSupport: 6
+        semanticObjectMatches: "5/5"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/default/r001/variant-revision.yaml"
+          digest: "8d1ccc9d232b53495874312d2cca7ee5863a259f283db072cdece033e8addb5f"
+          renderedObjectSetSHA256: "b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc"
+          renderedObjects: "recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 5
+          helmObjectCount: 5
+          cubInstallObjectCountIncludingSupport: 6
+          semanticObjectMatches: "5/5"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc"

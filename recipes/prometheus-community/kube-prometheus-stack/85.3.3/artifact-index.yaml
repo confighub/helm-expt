@@ -1,0 +1,190 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "prometheus-community-kube-prometheus-stack-85.3.3"
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "85.3.3"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "prometheus-community/kube-prometheus-stack"
+    version: "85.3.3"
+    appVersion: "v0.90.1"
+    sourceLock: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/source-lock.yaml"
+    dependencyLock: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/dependency-lock.yaml"
+    repository: "https://prometheus-community.github.io/helm-charts"
+    packageSHA256: "ec622442bef2379e170ba0fdc90231d30f8f2886e3414813fe4ae1086779601e"
+  recipe:
+    path: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-plan.yaml"
+    chartDossier: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/chart-dossier.yaml"
+    controlPoints: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/control-points.yaml"
+    valueModel: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-model.yaml"
+    controlPointCategories:
+      - "admission-webhook"
+      - "capability-profile"
+      - "cluster-rbac"
+      - "crd-policy"
+      - "dependency-lock"
+      - "generated-facts"
+      - "installer-support-object"
+      - "source-lock"
+      - "tpl"
+  catalogStatus:
+    path: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/catalog-status.yaml"
+    status: "catalog-candidate"
+    supportLevel: "promotion-review-needed"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+      - "no-crds"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/prometheus-community/kube-prometheus-stack/85.3.3"
+    installer: "packages/prometheus-community/kube-prometheus-stack/85.3.3/installer.yaml"
+    receipt: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "f331a763a43363fafd5d0d55d14450e7ac02c3cd6a4bcd3fed2947043d78f7fd"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/default"
+        default: true
+        description: "kube-prometheus-stack default with Grafana password bound variant rendered from prometheus-community/kube-prometheus-stack@85.3.3"
+      -
+        name: "no-crds"
+        path: "packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/no-crds"
+        default: false
+        description: "kube-prometheus-stack CRDs disabled variant rendered from prometheus-community/kube-prometheus-stack@85.3.3"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml"
+      namespace: "monitoring"
+      releaseName: "kube-prometheus-stack"
+      valuesProfile: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/default"
+        default: true
+        description: "kube-prometheus-stack default with Grafana password bound variant rendered from prometheus-community/kube-prometheus-stack@85.3.3"
+      setupCheck:
+        command: "cub install setup --pull packages/prometheus-community/kube-prometheus-stack/85.3.3 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
+        helmReleaseObjectCount: 124
+        cubInstallObjectCountIncludingSupport: 125
+        semanticObjectMatches: "124/124"
+        separatedSecretCount: 2
+        allowedCubOnlyObjects:
+          - "v1|Namespace||monitoring"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/variant-revision.yaml"
+          digest: "74af42a1e8f21b147498d6d036e6a17520748228b37f3ced638418d3798ccc27"
+          renderedObjectSetSHA256: "9fac2a0e4140eee298c84ce61f13dd8ca392bb92e2037d0ef0aaa4d8015ee491"
+          renderedObjects: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 124
+          helmObjectCount: 124
+          cubInstallObjectCountIncludingSupport: 125
+          semanticObjectMatches: "124/124"
+          separatedSecretFiles: 2
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "9fac2a0e4140eee298c84ce61f13dd8ca392bb92e2037d0ef0aaa4d8015ee491"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "9fac2a0e4140eee298c84ce61f13dd8ca392bb92e2037d0ef0aaa4d8015ee491"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "9fac2a0e4140eee298c84ce61f13dd8ca392bb92e2037d0ef0aaa4d8015ee491"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "9fac2a0e4140eee298c84ce61f13dd8ca392bb92e2037d0ef0aaa4d8015ee491"
+    -
+      name: "no-crds"
+      variant: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml"
+      namespace: "monitoring"
+      releaseName: "kube-prometheus-stack"
+      valuesProfile: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/effective-values-no-crds.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "no-crds"
+        path: "packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/no-crds"
+        default: false
+        description: "kube-prometheus-stack CRDs disabled variant rendered from prometheus-community/kube-prometheus-stack@85.3.3"
+      setupCheck:
+        command: "cub install setup --pull packages/prometheus-community/kube-prometheus-stack/85.3.3 --base no-crds --work-dir <tmp> --non-interactive --namespace monitoring"
+        helmReleaseObjectCount: 114
+        cubInstallObjectCountIncludingSupport: 115
+        semanticObjectMatches: "114/114"
+        separatedSecretCount: 2
+        allowedCubOnlyObjects:
+          - "v1|Namespace||monitoring"
+      revisions:
+        -
+          name: "no-crds-r001"
+          revision: "r001"
+          variantRevision: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/variant-revision.yaml"
+          digest: "9edb216e7a03b5b56ac2061234fcbb703f474afefa2a65bccda60045f866f2f1"
+          renderedObjectSetSHA256: "3f6049fc2b7a40bbfb009b347880e3f319a87c9b60a6fd274220287a10167fc2"
+          renderedObjects: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          objectCount: 114
+          helmObjectCount: 114
+          cubInstallObjectCountIncludingSupport: 115
+          semanticObjectMatches: "114/114"
+          separatedSecretFiles: 2
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "3f6049fc2b7a40bbfb009b347880e3f319a87c9b60a6fd274220287a10167fc2"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "3f6049fc2b7a40bbfb009b347880e3f319a87c9b60a6fd274220287a10167fc2"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "3f6049fc2b7a40bbfb009b347880e3f319a87c9b60a6fd274220287a10167fc2"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "3f6049fc2b7a40bbfb009b347880e3f319a87c9b60a6fd274220287a10167fc2"

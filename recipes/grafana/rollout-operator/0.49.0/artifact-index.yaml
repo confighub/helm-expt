@@ -1,0 +1,123 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "grafana-rollout-operator-0.49.0"
+  chart: "grafana/rollout-operator"
+  version: "0.49.0"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "grafana/rollout-operator"
+    version: "0.49.0"
+    appVersion: "v0.36.2"
+    sourceLock: "recipes/grafana/rollout-operator/0.49.0/source-lock.yaml"
+    dependencyLock: "recipes/grafana/rollout-operator/0.49.0/dependency-lock.yaml"
+    repository: "https://grafana.github.io/helm-charts"
+    packageSHA256: "681cff1dc555168c658f3c0deaa23b99273dfd08c6a64bc9da6c3afd8f75a079"
+  recipe:
+    path: "recipes/grafana/rollout-operator/0.49.0/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/grafana/rollout-operator/0.49.0/helm-plan.yaml"
+    chartDossier: "recipes/grafana/rollout-operator/0.49.0/chart-dossier.yaml"
+    controlPoints: "recipes/grafana/rollout-operator/0.49.0/control-points.yaml"
+    valueModel: "recipes/grafana/rollout-operator/0.49.0/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "cluster-rbac"
+      - "crds"
+      - "dependency-lock"
+      - "extension-slots"
+      - "helm-equivalence"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "variant-revision"
+      - "webhooks"
+  catalogStatus:
+    path: "recipes/grafana/rollout-operator/0.49.0/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/grafana/rollout-operator/0.49.0"
+    installer: "packages/grafana/rollout-operator/0.49.0/installer.yaml"
+    receipt: "recipes/grafana/rollout-operator/0.49.0/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "8e77d0f50cb850b97f84c02bf96caea1189500729a5aeab63d3e9c3a615a7e53"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/grafana/rollout-operator/0.49.0/bases/default"
+        default: true
+        description: "grafana/rollout-operator default variant rendered from grafana/rollout-operator@0.49.0"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/grafana/rollout-operator/0.49.0/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "rollout-operator"
+      valuesProfile: "recipes/grafana/rollout-operator/0.49.0/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/grafana/rollout-operator/0.49.0/bases/default"
+        default: true
+        description: "grafana/rollout-operator default variant rendered from grafana/rollout-operator@0.49.0"
+      setupCheck:
+        command: "cub install setup --pull packages/grafana/rollout-operator/0.49.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 15
+        cubInstallObjectCountIncludingSupport: 16
+        semanticObjectMatches: "15/15"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/variant-revision.yaml"
+          digest: "b608def0b2aa3fb67360e919b132e0552bae164c60a54ab270f1945ba6e8d1b6"
+          renderedObjectSetSHA256: "dc6b652767aec075b147247c38dbce391bb86750a54e749a45576fd6791d4763"
+          renderedObjects: "recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 15
+          helmObjectCount: 15
+          cubInstallObjectCountIncludingSupport: 16
+          semanticObjectMatches: "15/15"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "dc6b652767aec075b147247c38dbce391bb86750a54e749a45576fd6791d4763"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "dc6b652767aec075b147247c38dbce391bb86750a54e749a45576fd6791d4763"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "dc6b652767aec075b147247c38dbce391bb86750a54e749a45576fd6791d4763"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "dc6b652767aec075b147247c38dbce391bb86750a54e749a45576fd6791d4763"

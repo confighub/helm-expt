@@ -1,0 +1,121 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "linkerd-linkerd-crds-1.8.0"
+  chart: "linkerd/linkerd-crds"
+  version: "1.8.0"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "linkerd/linkerd-crds"
+    version: "1.8.0"
+    appVersion: ""
+    sourceLock: "recipes/linkerd/linkerd-crds/1.8.0/source-lock.yaml"
+    dependencyLock: "recipes/linkerd/linkerd-crds/1.8.0/dependency-lock.yaml"
+    repository: "https://helm.linkerd.io/stable"
+    packageSHA256: "516789ccd8116f5f7ddd69ad2368be6f3c26cb53eae94f3950061592c0074991"
+  recipe:
+    path: "recipes/linkerd/linkerd-crds/1.8.0/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/linkerd/linkerd-crds/1.8.0/helm-plan.yaml"
+    chartDossier: "recipes/linkerd/linkerd-crds/1.8.0/chart-dossier.yaml"
+    controlPoints: "recipes/linkerd/linkerd-crds/1.8.0/control-points.yaml"
+    valueModel: "recipes/linkerd/linkerd-crds/1.8.0/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "crds"
+      - "dependency-lock"
+      - "generated-facts"
+      - "helm-equivalence"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/linkerd/linkerd-crds/1.8.0/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/linkerd/linkerd-crds/1.8.0"
+    installer: "packages/linkerd/linkerd-crds/1.8.0/installer.yaml"
+    receipt: "recipes/linkerd/linkerd-crds/1.8.0/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "770b6955ef2813a73f01b4641cfe80c890918cefeb0f0b29d546e63d9a3c5b42"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/linkerd/linkerd-crds/1.8.0/bases/default"
+        default: true
+        description: "linkerd/linkerd-crds default variant rendered from linkerd/linkerd-crds@1.8.0"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/linkerd/linkerd-crds/1.8.0/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "linkerd-crds"
+      valuesProfile: "recipes/linkerd/linkerd-crds/1.8.0/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/linkerd/linkerd-crds/1.8.0/bases/default"
+        default: true
+        description: "linkerd/linkerd-crds default variant rendered from linkerd/linkerd-crds@1.8.0"
+      setupCheck:
+        command: "cub install setup --pull packages/linkerd/linkerd-crds/1.8.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 8
+        cubInstallObjectCountIncludingSupport: 9
+        semanticObjectMatches: "8/8"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/variant-revision.yaml"
+          digest: "13837b92c4feda268fdeeb08dfd92c1adf95a7656211f963d8ae76de3a2f94b0"
+          renderedObjectSetSHA256: "af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b"
+          renderedObjects: "recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 8
+          helmObjectCount: 8
+          cubInstallObjectCountIncludingSupport: 9
+          semanticObjectMatches: "8/8"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b"

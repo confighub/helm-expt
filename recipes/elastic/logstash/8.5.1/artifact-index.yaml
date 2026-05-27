@@ -1,0 +1,122 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "elastic-logstash-8.5.1"
+  chart: "elastic/logstash"
+  version: "8.5.1"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "elastic/logstash"
+    version: "8.5.1"
+    appVersion: "8.5.1"
+    sourceLock: "recipes/elastic/logstash/8.5.1/source-lock.yaml"
+    dependencyLock: "recipes/elastic/logstash/8.5.1/dependency-lock.yaml"
+    repository: "https://helm.elastic.co"
+    packageSHA256: "70aace1eb5ecb759942e60ffd192a849330582900658a6b306055a9530adb44b"
+  recipe:
+    path: "recipes/elastic/logstash/8.5.1/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/elastic/logstash/8.5.1/helm-plan.yaml"
+    chartDossier: "recipes/elastic/logstash/8.5.1/chart-dossier.yaml"
+    controlPoints: "recipes/elastic/logstash/8.5.1/control-points.yaml"
+    valueModel: "recipes/elastic/logstash/8.5.1/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "dependency-lock"
+      - "extension-slots"
+      - "helm-equivalence"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "stateful-storage"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/elastic/logstash/8.5.1/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/elastic/logstash/8.5.1"
+    installer: "packages/elastic/logstash/8.5.1/installer.yaml"
+    receipt: "recipes/elastic/logstash/8.5.1/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "cc907ba593e2d2e0d750a5c4310ee8d9bb37383807a51d43f30b1ebf47a5e779"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/elastic/logstash/8.5.1/bases/default"
+        default: true
+        description: "elastic/logstash default variant rendered from elastic/logstash@8.5.1"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/elastic/logstash/8.5.1/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "logstash"
+      valuesProfile: "recipes/elastic/logstash/8.5.1/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/elastic/logstash/8.5.1/bases/default"
+        default: true
+        description: "elastic/logstash default variant rendered from elastic/logstash@8.5.1"
+      setupCheck:
+        command: "cub install setup --pull packages/elastic/logstash/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 3
+        cubInstallObjectCountIncludingSupport: 4
+        semanticObjectMatches: "3/3"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/elastic/logstash/8.5.1/revisions/default/r001/variant-revision.yaml"
+          digest: "193c1ae729570ac87f0f0987283a2cbb552c02f82a99fba0aeb906175a88c7bb"
+          renderedObjectSetSHA256: "1bb5971d54f2bb9fd05ffe69b339261a9c31e8b81eeba48064a9dbc337fe5ecd"
+          renderedObjects: "recipes/elastic/logstash/8.5.1/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/elastic/logstash/8.5.1/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 3
+          helmObjectCount: 3
+          cubInstallObjectCountIncludingSupport: 4
+          semanticObjectMatches: "3/3"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/elastic/logstash/8.5.1/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "1bb5971d54f2bb9fd05ffe69b339261a9c31e8b81eeba48064a9dbc337fe5ecd"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/elastic/logstash/8.5.1/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "1bb5971d54f2bb9fd05ffe69b339261a9c31e8b81eeba48064a9dbc337fe5ecd"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/elastic/logstash/8.5.1/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "1bb5971d54f2bb9fd05ffe69b339261a9c31e8b81eeba48064a9dbc337fe5ecd"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/elastic/logstash/8.5.1/revisions/default/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "1bb5971d54f2bb9fd05ffe69b339261a9c31e8b81eeba48064a9dbc337fe5ecd"

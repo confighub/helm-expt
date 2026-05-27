@@ -1,0 +1,121 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "hashicorp-terraform-1.1.2"
+  chart: "hashicorp/terraform"
+  version: "1.1.2"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "hashicorp/terraform"
+    version: "1.1.2"
+    appVersion: ""
+    sourceLock: "recipes/hashicorp/terraform/1.1.2/source-lock.yaml"
+    dependencyLock: "recipes/hashicorp/terraform/1.1.2/dependency-lock.yaml"
+    repository: "https://helm.releases.hashicorp.com"
+    packageSHA256: "9115fecf667f3d41a5a1c5833de948ef699321a6165be7bebe4976a7279702d5"
+  recipe:
+    path: "recipes/hashicorp/terraform/1.1.2/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/hashicorp/terraform/1.1.2/helm-plan.yaml"
+    chartDossier: "recipes/hashicorp/terraform/1.1.2/chart-dossier.yaml"
+    controlPoints: "recipes/hashicorp/terraform/1.1.2/control-points.yaml"
+    valueModel: "recipes/hashicorp/terraform/1.1.2/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "crds"
+      - "dependency-lock"
+      - "helm-equivalence"
+      - "lifecycle-policy"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/hashicorp/terraform/1.1.2/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/hashicorp/terraform/1.1.2"
+    installer: "packages/hashicorp/terraform/1.1.2/installer.yaml"
+    receipt: "recipes/hashicorp/terraform/1.1.2/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "e7bc73a3884298093d9087061e47d138e6bcb4a89f976e2380811aa69a34cf7d"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/hashicorp/terraform/1.1.2/bases/default"
+        default: true
+        description: "hashicorp/terraform default variant rendered from hashicorp/terraform@1.1.2"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "terraform"
+      valuesProfile: "recipes/hashicorp/terraform/1.1.2/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/hashicorp/terraform/1.1.2/bases/default"
+        default: true
+        description: "hashicorp/terraform default variant rendered from hashicorp/terraform@1.1.2"
+      setupCheck:
+        command: "cub install setup --pull packages/hashicorp/terraform/1.1.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 5
+        cubInstallObjectCountIncludingSupport: 6
+        semanticObjectMatches: "5/5"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/variant-revision.yaml"
+          digest: "40c409175a95558a0683036dc80b3b7877540cfc68ea6eceeae017c731fd5b95"
+          renderedObjectSetSHA256: "5cc2a190066cc639af6f8856b1ff8e28a40e61546d53cd04f19c5b14d6c37d3b"
+          renderedObjects: "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 5
+          helmObjectCount: 5
+          cubInstallObjectCountIncludingSupport: 6
+          semanticObjectMatches: "5/5"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "5cc2a190066cc639af6f8856b1ff8e28a40e61546d53cd04f19c5b14d6c37d3b"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "5cc2a190066cc639af6f8856b1ff8e28a40e61546d53cd04f19c5b14d6c37d3b"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "5cc2a190066cc639af6f8856b1ff8e28a40e61546d53cd04f19c5b14d6c37d3b"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "5cc2a190066cc639af6f8856b1ff8e28a40e61546d53cd04f19c5b14d6c37d3b"

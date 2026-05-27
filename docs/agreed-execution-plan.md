@@ -90,6 +90,20 @@ The model is complex.
 The UX must not be.
 ```
 
+Capability doctrine:
+
+```text
+Use real installer, cub, and ConfigHub capabilities wherever they exist,
+fit the chart behavior, and make the result simpler, safer, or more provable
+than a document-only note.
+```
+
+This is a standing acceptance rule for the project. Docs explain the
+executable path, record chart weirdness, capture human/catalog decisions, and
+name missing capabilities. They should not be the primary home for a control
+point when `cub install`, `cub`, ConfigHub Server, or ConfigHub OCI can carry
+that control point more cleanly and verify it.
+
 ## Adoption Ladder
 
 The current product proof is not a pure serverless architecture. The fast path
@@ -505,6 +519,23 @@ blocker.
 | Admission behavior | target admission/dry-run receipt | target gate or block |
 | Live state | observation receipt policy | stale/unknown until observed |
 
+Current executable target-fact invariant:
+
+```text
+recipe variant targetFacts.requiredSecrets
+  -> matching installer package base externalRequires
+  -> package collector records targetFacts into out/spec/facts.yaml
+  -> installer package receipt records targetFactMode/targetFactsBound
+  -> npm run installer:target-facts:verify runs cub install setup and checks facts
+```
+
+This applies to every current chart variant that declares target facts, not just
+Redis. The first implemented class is required Kubernetes Secrets: those are
+encoded as installer `externalRequires` with `ClusterFeature` requirements and
+as collector facts persisted in `out/spec/facts.yaml`. Future target-fact
+classes must map to installer-native `externalRequires`, `provides`,
+`clusterSingleton`, collector facts, or an explicit blocked status.
+
 The `HelmPlan` should report every detected pain point and its disposition:
 
 ```text
@@ -576,12 +607,53 @@ those commands exist. If the short UX is needed, propose those verbs
 deliberately as Cub plugins/extensions; do not write them as current executable
 docs.
 
+As of May 27, 2026, `cub variant create <variant-name> <upstream-space>` is a
+real ConfigHub server-side command. It clones an upstream space and its units
+into a downstream space, stamps the `Variant` label, can set environment,
+region, target, space metadata, and unit gates, and preserves links to the
+upstream units. This is the post-upload/server-side variant layer.
+
+We expect users of `cub install` recipes to use ConfigHub server-side variants
+when that is simpler and safer than making another package base. The decision
+rule is:
+
+```text
+Use recipe/package variants when a Helm render input changes the object set.
+Use cub variant create when a reviewed ConfigHub space should be cloned and
+varied by target, environment, region, metadata, gates, or post-clone actions.
+```
+
+In other words, server-side variants do not replace Helm-derived recipe
+variants; they sit above them and should be preferred for downstream
+operational variation when no new Helm render is needed.
+
 The upstream installer docs usually show the standalone binary name
 `installer`. In this repo, those commands are written as `cub install ...`
 because the installer is used through the Cub plugin.
 The important rule is that every durable input, decision, output, and
 observation is produced by one of the supported surfaces and leaves a receipt
 or addressable artifact.
+
+Existing ConfigHub and `cub` verbs should be used before inventing new scripts
+or settling for prose:
+
+| Capability lane | Existing surface to use now |
+| --- | --- |
+| Installer proof | `cub install doc/setup/render/package/push/sign/verify/vet/plan/upload/inspect/list` |
+| Server-side variants | `cub variant create` |
+| Review and diff | `cub unit diff`, `cub revision data/list`, `cub unit data/tree/list` |
+| Safe operations | `cub changeset create/list/update`, `cub unit approve/apply/destroy/cancel` |
+| Scanning and misconfiguration | `cub function vet`, `cub function get/set`, `cub run ...` |
+| Target and live facts | `cub target create/get/list`, `cub k8s collect`, `cub k8s source`, `cub unit livestate/livedata/refresh` |
+| GitOps adoption | `cub gitops discover/import` |
+| Metadata model | `cub tag`, `cub attribute`, `cub filter`, `cub view`, `cub link` |
+
+Missing product verbs should be requested deliberately, not smuggled into docs
+as if they already exist. The current asks are `cub install import helm`,
+`cub install analyze`, implemented `cub install preflight`,
+`cub install compare/prove`, `cub install scan`,
+`cub variant list/diff/promote/update`, `cub observe` or
+`cub target observe`, and `cub catalog search/show/install`.
 
 | Flow step | Primary execution surface | Durable output |
 | --- | --- | --- |

@@ -1,0 +1,123 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "grafana-promtail-6.17.1"
+  chart: "grafana/promtail"
+  version: "6.17.1"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "grafana/promtail"
+    version: "6.17.1"
+    appVersion: "3.5.1"
+    sourceLock: "recipes/grafana/promtail/6.17.1/source-lock.yaml"
+    dependencyLock: "recipes/grafana/promtail/6.17.1/dependency-lock.yaml"
+    repository: "https://grafana.github.io/helm-charts"
+    packageSHA256: "12115103a3b94932473fb3873aa670a68da9504e2f323c03790257088b479d9f"
+  recipe:
+    path: "recipes/grafana/promtail/6.17.1/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/grafana/promtail/6.17.1/helm-plan.yaml"
+    chartDossier: "recipes/grafana/promtail/6.17.1/chart-dossier.yaml"
+    controlPoints: "recipes/grafana/promtail/6.17.1/control-points.yaml"
+    valueModel: "recipes/grafana/promtail/6.17.1/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "cluster-rbac"
+      - "dependency-lock"
+      - "extension-slots"
+      - "helm-equivalence"
+      - "rendered-manifest-scan"
+      - "secret-material"
+      - "source-lock"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/grafana/promtail/6.17.1/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/grafana/promtail/6.17.1"
+    installer: "packages/grafana/promtail/6.17.1/installer.yaml"
+    receipt: "recipes/grafana/promtail/6.17.1/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "9188545be328ef5274745f362eede9cf1610a38ca13ade9a254f613a5bee4f62"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/grafana/promtail/6.17.1/bases/default"
+        default: true
+        description: "grafana/promtail default variant rendered from grafana/promtail@6.17.1"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/grafana/promtail/6.17.1/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "promtail"
+      valuesProfile: "recipes/grafana/promtail/6.17.1/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/grafana/promtail/6.17.1/bases/default"
+        default: true
+        description: "grafana/promtail default variant rendered from grafana/promtail@6.17.1"
+      setupCheck:
+        command: "cub install setup --pull packages/grafana/promtail/6.17.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 5
+        cubInstallObjectCountIncludingSupport: 6
+        semanticObjectMatches: "5/5"
+        separatedSecretCount: 1
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/grafana/promtail/6.17.1/revisions/default/r001/variant-revision.yaml"
+          digest: "1e6ae5d174e1afc3eb7fe873f759fa33355584538d34b30327736f6a384ce430"
+          renderedObjectSetSHA256: "06ff3623536aeca2cb083040a0b0c22d6627e57cd6600f3f3482dd1e7d56eb35"
+          renderedObjects: "recipes/grafana/promtail/6.17.1/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/grafana/promtail/6.17.1/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 5
+          helmObjectCount: 5
+          cubInstallObjectCountIncludingSupport: 6
+          semanticObjectMatches: "5/5"
+          separatedSecretFiles: 1
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/grafana/promtail/6.17.1/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "06ff3623536aeca2cb083040a0b0c22d6627e57cd6600f3f3482dd1e7d56eb35"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/grafana/promtail/6.17.1/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "06ff3623536aeca2cb083040a0b0c22d6627e57cd6600f3f3482dd1e7d56eb35"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/grafana/promtail/6.17.1/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "06ff3623536aeca2cb083040a0b0c22d6627e57cd6600f3f3482dd1e7d56eb35"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/grafana/promtail/6.17.1/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "06ff3623536aeca2cb083040a0b0c22d6627e57cd6600f3f3482dd1e7d56eb35"

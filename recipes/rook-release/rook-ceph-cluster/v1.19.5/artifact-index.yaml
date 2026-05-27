@@ -1,0 +1,122 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "rook-release-rook-ceph-cluster-v1.19.5"
+  chart: "rook-release/rook-ceph-cluster"
+  version: "v1.19.5"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "rook-release/rook-ceph-cluster"
+    version: "v1.19.5"
+    appVersion: "v1.19.5"
+    sourceLock: "recipes/rook-release/rook-ceph-cluster/v1.19.5/source-lock.yaml"
+    dependencyLock: "recipes/rook-release/rook-ceph-cluster/v1.19.5/dependency-lock.yaml"
+    repository: "https://charts.rook.io/release"
+    packageSHA256: "9320ece3729bd49fbddddb85e49931a7c81adaea5a1cf6cda1f280000eacc2d9"
+  recipe:
+    path: "recipes/rook-release/rook-ceph-cluster/v1.19.5/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/rook-release/rook-ceph-cluster/v1.19.5/helm-plan.yaml"
+    chartDossier: "recipes/rook-release/rook-ceph-cluster/v1.19.5/chart-dossier.yaml"
+    controlPoints: "recipes/rook-release/rook-ceph-cluster/v1.19.5/control-points.yaml"
+    valueModel: "recipes/rook-release/rook-ceph-cluster/v1.19.5/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "cluster-rbac"
+      - "dependency-lock"
+      - "generated-facts"
+      - "helm-equivalence"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/rook-release/rook-ceph-cluster/v1.19.5/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/rook-release/rook-ceph-cluster/v1.19.5"
+    installer: "packages/rook-release/rook-ceph-cluster/v1.19.5/installer.yaml"
+    receipt: "recipes/rook-release/rook-ceph-cluster/v1.19.5/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "d05b8045a23ebd2fdab186de3485c7eed5a40e6c6b7c66b44de14c8c35209176"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/rook-release/rook-ceph-cluster/v1.19.5/bases/default"
+        default: true
+        description: "rook-release/rook-ceph-cluster default variant rendered from rook-release/rook-ceph-cluster@v1.19.5"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "rook-ceph-cluster"
+      valuesProfile: "recipes/rook-release/rook-ceph-cluster/v1.19.5/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/rook-release/rook-ceph-cluster/v1.19.5/bases/default"
+        default: true
+        description: "rook-release/rook-ceph-cluster default variant rendered from rook-release/rook-ceph-cluster@v1.19.5"
+      setupCheck:
+        command: "cub install setup --pull packages/rook-release/rook-ceph-cluster/v1.19.5 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 27
+        cubInstallObjectCountIncludingSupport: 28
+        semanticObjectMatches: "27/27"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/variant-revision.yaml"
+          digest: "1271579e77bf408c1e8dbdc549a04cb876c2dd6e4855640472f2a43ae6bf2d7f"
+          renderedObjectSetSHA256: "5ac8f526459d6393552b66ab60f690c6c85a1e86bba45ea82d5bbf219694b010"
+          renderedObjects: "recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 27
+          helmObjectCount: 27
+          cubInstallObjectCountIncludingSupport: 28
+          semanticObjectMatches: "27/27"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "5ac8f526459d6393552b66ab60f690c6c85a1e86bba45ea82d5bbf219694b010"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "5ac8f526459d6393552b66ab60f690c6c85a1e86bba45ea82d5bbf219694b010"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "5ac8f526459d6393552b66ab60f690c6c85a1e86bba45ea82d5bbf219694b010"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "5ac8f526459d6393552b66ab60f690c6c85a1e86bba45ea82d5bbf219694b010"

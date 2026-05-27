@@ -1,0 +1,201 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "grafana-tempo-1.24.4"
+  chart: "grafana/tempo"
+  version: "1.24.4"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "grafana/tempo"
+    version: "1.24.4"
+    appVersion: "2.9.0"
+    sourceLock: "recipes/grafana/tempo/1.24.4/source-lock.yaml"
+    dependencyLock: "recipes/grafana/tempo/1.24.4/dependency-lock.yaml"
+    repository: "https://grafana.github.io/helm-charts"
+    packageSHA256: "f1f6e318d5bca3b5097cb676077796cdf8135beb2c1f71c4d14614ccf9b0081b"
+  recipe:
+    path: "recipes/grafana/tempo/1.24.4/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/grafana/tempo/1.24.4/helm-plan.yaml"
+    chartDossier: "recipes/grafana/tempo/1.24.4/chart-dossier.yaml"
+    controlPoints: "recipes/grafana/tempo/1.24.4/control-points.yaml"
+    valueModel: "recipes/grafana/tempo/1.24.4/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "chart-deprecation"
+      - "dependency-lock"
+      - "extension-slots"
+      - "installer-support-object"
+      - "network-policy"
+      - "query-ingress-policy"
+      - "servicemonitor-capability"
+      - "source-lock"
+      - "stateful-workload"
+      - "target-facts"
+      - "upstream-runtime-risk"
+  catalogStatus:
+    path: "recipes/grafana/tempo/1.24.4/catalog-status.yaml"
+    status: "catalog-candidate"
+    supportLevel: "promotion-review-needed"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "local-persistent"
+      - "s3-query-observability"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/grafana/tempo/1.24.4"
+    installer: "packages/grafana/tempo/1.24.4/installer.yaml"
+    receipt: "recipes/grafana/tempo/1.24.4/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "1d0726aae56de97cd3c9f501dcffdbc5746b46de731accf95bedaf90b3c38911"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "local-persistent"
+        path: "packages/grafana/tempo/1.24.4/bases/local-persistent"
+        default: true
+        description: "tempo local persistent single-binary variant rendered from grafana/tempo@1.24.4"
+      -
+        name: "s3-query-observability"
+        path: "packages/grafana/tempo/1.24.4/bases/s3-query-observability"
+        default: false
+        description: "tempo S3 query and observability variant rendered from grafana/tempo@1.24.4"
+  variants:
+    -
+      name: "local-persistent"
+      variant: "recipes/grafana/tempo/1.24.4/variants/local-persistent/variant.yaml"
+      namespace: "tempo"
+      releaseName: "tempo"
+      valuesProfile: "recipes/grafana/tempo/1.24.4/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          - "networking.k8s.io/v1"
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "local-persistent"
+        path: "packages/grafana/tempo/1.24.4/bases/local-persistent"
+        default: true
+        description: "tempo local persistent single-binary variant rendered from grafana/tempo@1.24.4"
+      setupCheck:
+        command: "cub install setup --pull packages/grafana/tempo/1.24.4 --base local-persistent --work-dir <tmp> --non-interactive --namespace tempo"
+        helmReleaseObjectCount: 4
+        cubInstallObjectCountIncludingSupport: 5
+        semanticObjectMatches: "4/4"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||tempo"
+      revisions:
+        -
+          name: "local-persistent-r001"
+          revision: "r001"
+          variantRevision: "recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/variant-revision.yaml"
+          digest: "a2bac6b313b2df276b8bfdda46133f2adc573631e209be98898868c9142b4adc"
+          renderedObjectSetSHA256: "4a18b354ff67e98d84f6d89ce16b973396c9c30bf3c121f4ef146886151c44be"
+          renderedObjects: "recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/rendered/object-inventory.yaml"
+          objectCount: 4
+          helmObjectCount: 4
+          cubInstallObjectCountIncludingSupport: 5
+          semanticObjectMatches: "4/4"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "4a18b354ff67e98d84f6d89ce16b973396c9c30bf3c121f4ef146886151c44be"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "4a18b354ff67e98d84f6d89ce16b973396c9c30bf3c121f4ef146886151c44be"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "4a18b354ff67e98d84f6d89ce16b973396c9c30bf3c121f4ef146886151c44be"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "4a18b354ff67e98d84f6d89ce16b973396c9c30bf3c121f4ef146886151c44be"
+    -
+      name: "s3-query-observability"
+      variant: "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
+      namespace: "tempo"
+      releaseName: "tempo"
+      valuesProfile: "recipes/grafana/tempo/1.24.4/effective-values-s3-query-observability.yaml"
+      capabilityProfile:
+        apiVersions:
+          - "networking.k8s.io/v1"
+          - "monitoring.coreos.com/v1"
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredSecrets:
+          -
+            keys:
+              - "access_key"
+              - "secret_key"
+            name: "tempo-s3-credentials"
+            namespace: "tempo"
+            purpose: "S3 access credentials referenced by Tempo environment variables"
+      targetFactSummary: "required Secret tempo/tempo-s3-credentials keys access_key,secret_key"
+      packageBase:
+        name: "s3-query-observability"
+        path: "packages/grafana/tempo/1.24.4/bases/s3-query-observability"
+        default: false
+        description: "tempo S3 query and observability variant rendered from grafana/tempo@1.24.4"
+      setupCheck:
+        command: "cub install setup --pull packages/grafana/tempo/1.24.4 --base s3-query-observability --work-dir <tmp> --non-interactive --namespace tempo"
+        helmReleaseObjectCount: 8
+        cubInstallObjectCountIncludingSupport: 9
+        semanticObjectMatches: "8/8"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||tempo"
+      revisions:
+        -
+          name: "s3-query-observability-r001"
+          revision: "r001"
+          variantRevision: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml"
+          digest: "60bd1d7d364dc0dc0bdab3ea1268c3ad83a3f2e4a6724dedbf6ef2290117f1ec"
+          renderedObjectSetSHA256: "6fb9e1726fb68d7e7e251420e9c5761e078cd38f508fa87af7759e0b302017a4"
+          renderedObjects: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/object-inventory.yaml"
+          objectCount: 8
+          helmObjectCount: 8
+          cubInstallObjectCountIncludingSupport: 9
+          semanticObjectMatches: "8/8"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "6fb9e1726fb68d7e7e251420e9c5761e078cd38f508fa87af7759e0b302017a4"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "6fb9e1726fb68d7e7e251420e9c5761e078cd38f508fa87af7759e0b302017a4"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "6fb9e1726fb68d7e7e251420e9c5761e078cd38f508fa87af7759e0b302017a4"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "6fb9e1726fb68d7e7e251420e9c5761e078cd38f508fa87af7759e0b302017a4"

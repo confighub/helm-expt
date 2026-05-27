@@ -1,0 +1,126 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "bitnami-contour-21.1.4"
+  chart: "bitnami/contour"
+  version: "21.1.4"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "bitnami/contour"
+    version: "21.1.4"
+    appVersion: "1.32.1"
+    sourceLock: "recipes/bitnami/contour/21.1.4/source-lock.yaml"
+    dependencyLock: "recipes/bitnami/contour/21.1.4/dependency-lock.yaml"
+    repository: "https://charts.bitnami.com/bitnami"
+    packageSHA256: "dbb32d59417cb5800a337509521cce5ab2d37dac6e72e451190ced31b27986f8"
+  recipe:
+    path: "recipes/bitnami/contour/21.1.4/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/bitnami/contour/21.1.4/helm-plan.yaml"
+    chartDossier: "recipes/bitnami/contour/21.1.4/chart-dossier.yaml"
+    controlPoints: "recipes/bitnami/contour/21.1.4/control-points.yaml"
+    valueModel: "recipes/bitnami/contour/21.1.4/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "cluster-rbac"
+      - "crds"
+      - "dependency-lock"
+      - "extension-slots"
+      - "generated-facts"
+      - "helm-equivalence"
+      - "lifecycle-policy"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "target-facts"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/bitnami/contour/21.1.4/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/bitnami/contour/21.1.4"
+    installer: "packages/bitnami/contour/21.1.4/installer.yaml"
+    receipt: "recipes/bitnami/contour/21.1.4/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "5e67b1ce17d70d900dec3ce52346570f1c983d1e238e7b15ab0add62c04af529"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/bitnami/contour/21.1.4/bases/default"
+        default: true
+        description: "bitnami/contour default variant rendered from bitnami/contour@21.1.4"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/bitnami/contour/21.1.4/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "contour"
+      valuesProfile: "recipes/bitnami/contour/21.1.4/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/bitnami/contour/21.1.4/bases/default"
+        default: true
+        description: "bitnami/contour default variant rendered from bitnami/contour@21.1.4"
+      setupCheck:
+        command: "cub install setup --pull packages/bitnami/contour/21.1.4 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 20
+        cubInstallObjectCountIncludingSupport: 21
+        semanticObjectMatches: "20/20"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/bitnami/contour/21.1.4/revisions/default/r001/variant-revision.yaml"
+          digest: "5ce1cb8433b22f562e69e090ce4733a2e32c78c54675f8113a4c789bdca2436f"
+          renderedObjectSetSHA256: "f28ab1558939812f833981bce56dfdbd7030428a4bcdd816b0eedb1bd13ffd53"
+          renderedObjects: "recipes/bitnami/contour/21.1.4/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/contour/21.1.4/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 20
+          helmObjectCount: 20
+          cubInstallObjectCountIncludingSupport: 21
+          semanticObjectMatches: "20/20"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/bitnami/contour/21.1.4/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "f28ab1558939812f833981bce56dfdbd7030428a4bcdd816b0eedb1bd13ffd53"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/bitnami/contour/21.1.4/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "f28ab1558939812f833981bce56dfdbd7030428a4bcdd816b0eedb1bd13ffd53"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/bitnami/contour/21.1.4/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "f28ab1558939812f833981bce56dfdbd7030428a4bcdd816b0eedb1bd13ffd53"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/bitnami/contour/21.1.4/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "f28ab1558939812f833981bce56dfdbd7030428a4bcdd816b0eedb1bd13ffd53"

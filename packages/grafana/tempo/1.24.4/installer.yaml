@@ -6,11 +6,22 @@ metadata:
 spec:
   bases:
     -
-      name: "local-persistent"
-      path: "bases/local-persistent"
       default: true
       description: "tempo local persistent single-binary variant rendered from grafana/tempo@1.24.4"
+      name: "local-persistent"
+      path: "bases/local-persistent"
     -
+      description: "tempo S3 query and observability variant rendered from grafana/tempo@1.24.4"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "Secret tempo/tempo-s3-credentials keys access_key,secret_key"
+          namespace: "tempo"
+          suggestedSource: "kubectl -n tempo create secret generic tempo-s3-credentials --from-literal=access_key=<value> --from-literal=secret_key=<value>"
       name: "s3-query-observability"
       path: "bases/s3-query-observability"
-      description: "tempo S3 query and observability variant rendered from grafana/tempo@1.24.4"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check existing Secret requirements."

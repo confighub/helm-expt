@@ -4,13 +4,16 @@ metadata:
   name: "grafana-grafana-10.5.15"
 spec:
   chart:
-    repository: "grafana"
     name: "grafana"
+    repository: "grafana"
     version: "10.5.15"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub install package packages/grafana/grafana/10.5.15 -o <tmp>/grafana-10.5.15.tgz"
+    sha256: "43807f506a77b54b43bfd37ff8634652b8b7dc8d70078342f5036fe645a7b350"
   package:
-    path: "packages/grafana/grafana/10.5.15"
     name: "grafana-grafana"
-    version: "10.5.15"
+    path: "packages/grafana/grafana/10.5.15"
     sourceFiles:
       -
         path: "README.md"
@@ -33,31 +36,36 @@ spec:
         sha256: "893351c9b8cad0a10b0176a946bf514a76c5895bdb2d88a31bdd53a94288066d"
         bytes: 7240
       -
+        path: "collector/target-facts.sh"
+        sha256: "6fbba697862283e74a941b79a7b60e823f8792bb5bbe3953a4e809b369f495b6"
+        bytes: 1424
+      -
         path: "installer.yaml"
-        sha256: "cfd8fc30fb572d399765a62d4852903dd89eee4e7d9b25fa3f0a9ec021e94764"
-        bytes: 522
-  deterministicBundle:
-    command: "cub install package packages/grafana/grafana/10.5.15 -o <tmp>/grafana-10.5.15.tgz"
-    sha256: "00b2a381a8250a2e590eee85f17005601bafac729a0f4ef7f6e4e4cb1bb8edb7"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "6fe2aae7a7e12aba2387c3ce2cbfdaa5acc0f7cba0b6aafde2f0834c45b98ef2"
+        bytes: 1033
+    version: "10.5.15"
   setupChecks:
     -
-      variant: "generated-passwords"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||grafana"
       base: "generated-passwords"
       command: "cub install setup --pull packages/grafana/grafana/10.5.15 --base generated-passwords --work-dir <tmp> --non-interactive --namespace grafana"
-      helmReleaseObjectCount: 9
       cubInstallObjectCountIncludingSupport: 10
+      helmReleaseObjectCount: 9
       semanticObjectMatches: "9/9"
       separatedSecretCount: 1
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      variant: "generated-passwords"
+    -
       allowedCubOnlyObjects:
         - "v1|Namespace||grafana"
-    -
-      variant: "existing-secret-ingress"
       base: "existing-secret-ingress"
       command: "cub install setup --pull packages/grafana/grafana/10.5.15 --base existing-secret-ingress --work-dir <tmp> --non-interactive --namespace grafana"
-      helmReleaseObjectCount: 9
       cubInstallObjectCountIncludingSupport: 10
+      helmReleaseObjectCount: 9
       semanticObjectMatches: "9/9"
       separatedSecretCount: 0
-      allowedCubOnlyObjects:
-        - "v1|Namespace||grafana"
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "existing-secret-ingress"

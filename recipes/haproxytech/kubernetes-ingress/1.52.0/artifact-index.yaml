@@ -1,0 +1,125 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "haproxytech-kubernetes-ingress-1.52.0"
+  chart: "haproxytech/kubernetes-ingress"
+  version: "1.52.0"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "haproxytech/kubernetes-ingress"
+    version: "1.52.0"
+    appVersion: "3.2.9"
+    sourceLock: "recipes/haproxytech/kubernetes-ingress/1.52.0/source-lock.yaml"
+    dependencyLock: "recipes/haproxytech/kubernetes-ingress/1.52.0/dependency-lock.yaml"
+    repository: "https://haproxytech.github.io/helm-charts"
+    packageSHA256: "90920ec938be27e638b86e8267bde75d90058e61ca8c3c64ad27f05d0d5a73f1"
+  recipe:
+    path: "recipes/haproxytech/kubernetes-ingress/1.52.0/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/haproxytech/kubernetes-ingress/1.52.0/helm-plan.yaml"
+    chartDossier: "recipes/haproxytech/kubernetes-ingress/1.52.0/chart-dossier.yaml"
+    controlPoints: "recipes/haproxytech/kubernetes-ingress/1.52.0/control-points.yaml"
+    valueModel: "recipes/haproxytech/kubernetes-ingress/1.52.0/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "cluster-rbac"
+      - "dependency-lock"
+      - "extension-slots"
+      - "generated-facts"
+      - "helm-equivalence"
+      - "lifecycle-policy"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "target-facts"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/haproxytech/kubernetes-ingress/1.52.0/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/haproxytech/kubernetes-ingress/1.52.0"
+    installer: "packages/haproxytech/kubernetes-ingress/1.52.0/installer.yaml"
+    receipt: "recipes/haproxytech/kubernetes-ingress/1.52.0/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "3ca92559aab90884de3ab47d16970bab11f25951ca605a076b940cbbe1760a0f"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/haproxytech/kubernetes-ingress/1.52.0/bases/default"
+        default: true
+        description: "haproxytech/kubernetes-ingress default variant rendered from haproxytech/kubernetes-ingress@1.52.0"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/haproxytech/kubernetes-ingress/1.52.0/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "kubernetes-ingress"
+      valuesProfile: "recipes/haproxytech/kubernetes-ingress/1.52.0/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/haproxytech/kubernetes-ingress/1.52.0/bases/default"
+        default: true
+        description: "haproxytech/kubernetes-ingress default variant rendered from haproxytech/kubernetes-ingress@1.52.0"
+      setupCheck:
+        command: "cub install setup --pull packages/haproxytech/kubernetes-ingress/1.52.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 7
+        cubInstallObjectCountIncludingSupport: 8
+        semanticObjectMatches: "7/7"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/haproxytech/kubernetes-ingress/1.52.0/revisions/default/r001/variant-revision.yaml"
+          digest: "3e41229b4e62ca37c89acc31102d97429ca55671d8b90fc507bc982ae5043cf0"
+          renderedObjectSetSHA256: "d04b79ade525cfe276e761918d319794e8e662ef896ae3418a42e7c781ded544"
+          renderedObjects: "recipes/haproxytech/kubernetes-ingress/1.52.0/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/haproxytech/kubernetes-ingress/1.52.0/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 7
+          helmObjectCount: 7
+          cubInstallObjectCountIncludingSupport: 8
+          semanticObjectMatches: "7/7"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/haproxytech/kubernetes-ingress/1.52.0/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "d04b79ade525cfe276e761918d319794e8e662ef896ae3418a42e7c781ded544"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/haproxytech/kubernetes-ingress/1.52.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "d04b79ade525cfe276e761918d319794e8e662ef896ae3418a42e7c781ded544"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/haproxytech/kubernetes-ingress/1.52.0/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "d04b79ade525cfe276e761918d319794e8e662ef896ae3418a42e7c781ded544"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/haproxytech/kubernetes-ingress/1.52.0/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "d04b79ade525cfe276e761918d319794e8e662ef896ae3418a42e7c781ded544"

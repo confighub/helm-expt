@@ -1,0 +1,125 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "bitnami-elasticsearch-22.1.6"
+  chart: "bitnami/elasticsearch"
+  version: "22.1.6"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "bitnami/elasticsearch"
+    version: "22.1.6"
+    appVersion: "9.1.2"
+    sourceLock: "recipes/bitnami/elasticsearch/22.1.6/source-lock.yaml"
+    dependencyLock: "recipes/bitnami/elasticsearch/22.1.6/dependency-lock.yaml"
+    repository: "https://charts.bitnami.com/bitnami"
+    packageSHA256: "5c9db533f891fc52fbea44bd15d2782b38c78ad943b80e9afff35103daf10e6a"
+  recipe:
+    path: "recipes/bitnami/elasticsearch/22.1.6/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/bitnami/elasticsearch/22.1.6/helm-plan.yaml"
+    chartDossier: "recipes/bitnami/elasticsearch/22.1.6/chart-dossier.yaml"
+    controlPoints: "recipes/bitnami/elasticsearch/22.1.6/control-points.yaml"
+    valueModel: "recipes/bitnami/elasticsearch/22.1.6/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "dependency-lock"
+      - "extension-slots"
+      - "generated-facts"
+      - "helm-equivalence"
+      - "lifecycle-policy"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "stateful-storage"
+      - "target-facts"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/bitnami/elasticsearch/22.1.6/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/bitnami/elasticsearch/22.1.6"
+    installer: "packages/bitnami/elasticsearch/22.1.6/installer.yaml"
+    receipt: "recipes/bitnami/elasticsearch/22.1.6/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "ed2ac25a86cee7ef69f1843a08427f704560c5a31cd327daae11fa0cfffb7b41"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/bitnami/elasticsearch/22.1.6/bases/default"
+        default: true
+        description: "bitnami/elasticsearch default variant rendered from bitnami/elasticsearch@22.1.6"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/bitnami/elasticsearch/22.1.6/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "elasticsearch"
+      valuesProfile: "recipes/bitnami/elasticsearch/22.1.6/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/bitnami/elasticsearch/22.1.6/bases/default"
+        default: true
+        description: "bitnami/elasticsearch default variant rendered from bitnami/elasticsearch@22.1.6"
+      setupCheck:
+        command: "cub install setup --pull packages/bitnami/elasticsearch/22.1.6 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 21
+        cubInstallObjectCountIncludingSupport: 22
+        semanticObjectMatches: "21/21"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/bitnami/elasticsearch/22.1.6/revisions/default/r001/variant-revision.yaml"
+          digest: "8d292151f332f34736127c59e38079e1664338994e1659100a11da7e2e6bc2d6"
+          renderedObjectSetSHA256: "2dea059172595f3477271eadd1aea69c4274d15a8029a55afb176cb5ffd66217"
+          renderedObjects: "recipes/bitnami/elasticsearch/22.1.6/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/elasticsearch/22.1.6/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 21
+          helmObjectCount: 21
+          cubInstallObjectCountIncludingSupport: 22
+          semanticObjectMatches: "21/21"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/bitnami/elasticsearch/22.1.6/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "2dea059172595f3477271eadd1aea69c4274d15a8029a55afb176cb5ffd66217"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/bitnami/elasticsearch/22.1.6/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "2dea059172595f3477271eadd1aea69c4274d15a8029a55afb176cb5ffd66217"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/bitnami/elasticsearch/22.1.6/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "2dea059172595f3477271eadd1aea69c4274d15a8029a55afb176cb5ffd66217"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/bitnami/elasticsearch/22.1.6/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "2dea059172595f3477271eadd1aea69c4274d15a8029a55afb176cb5ffd66217"

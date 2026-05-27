@@ -1,0 +1,124 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "vm-victoria-logs-single-0.12.5"
+  chart: "vm/victoria-logs-single"
+  version: "0.12.5"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "vm/victoria-logs-single"
+    version: "0.12.5"
+    appVersion: "v1.50.0"
+    sourceLock: "recipes/vm/victoria-logs-single/0.12.5/source-lock.yaml"
+    dependencyLock: "recipes/vm/victoria-logs-single/0.12.5/dependency-lock.yaml"
+    repository: "https://victoriametrics.github.io/helm-charts"
+    packageSHA256: "7aa80fab4c3744c6972059eb079788ffd87fe739923bf3e63d307b7dd0954ac6"
+  recipe:
+    path: "recipes/vm/victoria-logs-single/0.12.5/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/vm/victoria-logs-single/0.12.5/helm-plan.yaml"
+    chartDossier: "recipes/vm/victoria-logs-single/0.12.5/chart-dossier.yaml"
+    controlPoints: "recipes/vm/victoria-logs-single/0.12.5/control-points.yaml"
+    valueModel: "recipes/vm/victoria-logs-single/0.12.5/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "dependency-lock"
+      - "extension-slots"
+      - "generated-facts"
+      - "helm-equivalence"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "stateful-storage"
+      - "target-facts"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/vm/victoria-logs-single/0.12.5/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/vm/victoria-logs-single/0.12.5"
+    installer: "packages/vm/victoria-logs-single/0.12.5/installer.yaml"
+    receipt: "recipes/vm/victoria-logs-single/0.12.5/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "7f78b08d88a7500bb6a629d439bea515895dc0f4e21575b000226d9146885406"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/vm/victoria-logs-single/0.12.5/bases/default"
+        default: true
+        description: "vm/victoria-logs-single default variant rendered from vm/victoria-logs-single@0.12.5"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/vm/victoria-logs-single/0.12.5/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "victoria-logs-single"
+      valuesProfile: "recipes/vm/victoria-logs-single/0.12.5/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/vm/victoria-logs-single/0.12.5/bases/default"
+        default: true
+        description: "vm/victoria-logs-single default variant rendered from vm/victoria-logs-single@0.12.5"
+      setupCheck:
+        command: "cub install setup --pull packages/vm/victoria-logs-single/0.12.5 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 2
+        cubInstallObjectCountIncludingSupport: 3
+        semanticObjectMatches: "2/2"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/vm/victoria-logs-single/0.12.5/revisions/default/r001/variant-revision.yaml"
+          digest: "9e2678385c7c4b2ba0bdc7ac9c0a12216d140cba8dfb52ecb07123bb34caa478"
+          renderedObjectSetSHA256: "edbf6e7dd31e9a1d0686592e7c1f050b04f5d780bdc33bb34fb3ddbfdfedde04"
+          renderedObjects: "recipes/vm/victoria-logs-single/0.12.5/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/vm/victoria-logs-single/0.12.5/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 2
+          helmObjectCount: 2
+          cubInstallObjectCountIncludingSupport: 3
+          semanticObjectMatches: "2/2"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/vm/victoria-logs-single/0.12.5/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "edbf6e7dd31e9a1d0686592e7c1f050b04f5d780bdc33bb34fb3ddbfdfedde04"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/vm/victoria-logs-single/0.12.5/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "edbf6e7dd31e9a1d0686592e7c1f050b04f5d780bdc33bb34fb3ddbfdfedde04"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/vm/victoria-logs-single/0.12.5/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "edbf6e7dd31e9a1d0686592e7c1f050b04f5d780bdc33bb34fb3ddbfdfedde04"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/vm/victoria-logs-single/0.12.5/revisions/default/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "edbf6e7dd31e9a1d0686592e7c1f050b04f5d780bdc33bb34fb3ddbfdfedde04"

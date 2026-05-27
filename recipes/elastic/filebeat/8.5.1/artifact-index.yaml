@@ -1,0 +1,122 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "elastic-filebeat-8.5.1"
+  chart: "elastic/filebeat"
+  version: "8.5.1"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "elastic/filebeat"
+    version: "8.5.1"
+    appVersion: "8.5.1"
+    sourceLock: "recipes/elastic/filebeat/8.5.1/source-lock.yaml"
+    dependencyLock: "recipes/elastic/filebeat/8.5.1/dependency-lock.yaml"
+    repository: "https://helm.elastic.co"
+    packageSHA256: "a705f1aacc5dffbcb6f817acb2f7613a5e6e74eb68a66fdbcbfbb37bde55bd4d"
+  recipe:
+    path: "recipes/elastic/filebeat/8.5.1/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/elastic/filebeat/8.5.1/helm-plan.yaml"
+    chartDossier: "recipes/elastic/filebeat/8.5.1/chart-dossier.yaml"
+    controlPoints: "recipes/elastic/filebeat/8.5.1/control-points.yaml"
+    valueModel: "recipes/elastic/filebeat/8.5.1/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "cluster-rbac"
+      - "dependency-lock"
+      - "extension-slots"
+      - "helm-equivalence"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/elastic/filebeat/8.5.1/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/elastic/filebeat/8.5.1"
+    installer: "packages/elastic/filebeat/8.5.1/installer.yaml"
+    receipt: "recipes/elastic/filebeat/8.5.1/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "c31d6c291caaf2bb4942f058051bdf1df44c14762599d9123124be6d7bc6257a"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/elastic/filebeat/8.5.1/bases/default"
+        default: true
+        description: "elastic/filebeat default variant rendered from elastic/filebeat@8.5.1"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/elastic/filebeat/8.5.1/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "filebeat"
+      valuesProfile: "recipes/elastic/filebeat/8.5.1/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/elastic/filebeat/8.5.1/bases/default"
+        default: true
+        description: "elastic/filebeat default variant rendered from elastic/filebeat@8.5.1"
+      setupCheck:
+        command: "cub install setup --pull packages/elastic/filebeat/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 7
+        cubInstallObjectCountIncludingSupport: 8
+        semanticObjectMatches: "7/7"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/elastic/filebeat/8.5.1/revisions/default/r001/variant-revision.yaml"
+          digest: "d89f17439a842df3491b3d343ebec283e4a7f7b0feeecec8815abeaf33283025"
+          renderedObjectSetSHA256: "690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020"
+          renderedObjects: "recipes/elastic/filebeat/8.5.1/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/elastic/filebeat/8.5.1/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 7
+          helmObjectCount: 7
+          cubInstallObjectCountIncludingSupport: 8
+          semanticObjectMatches: "7/7"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/elastic/filebeat/8.5.1/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/elastic/filebeat/8.5.1/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/elastic/filebeat/8.5.1/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/elastic/filebeat/8.5.1/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020"

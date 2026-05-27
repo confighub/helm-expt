@@ -1,0 +1,123 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "crossplane-stable-crossplane-2.3.1"
+  chart: "crossplane-stable/crossplane"
+  version: "2.3.1"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "crossplane-stable/crossplane"
+    version: "2.3.1"
+    appVersion: "2.3.1"
+    sourceLock: "recipes/crossplane-stable/crossplane/2.3.1/source-lock.yaml"
+    dependencyLock: "recipes/crossplane-stable/crossplane/2.3.1/dependency-lock.yaml"
+    repository: "https://charts.crossplane.io/stable"
+    packageSHA256: "6c1ecc2bca352819ec0bcd4fdfea492a41eeed9f7ade190bc8e9835aa901f65b"
+  recipe:
+    path: "recipes/crossplane-stable/crossplane/2.3.1/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/crossplane-stable/crossplane/2.3.1/helm-plan.yaml"
+    chartDossier: "recipes/crossplane-stable/crossplane/2.3.1/chart-dossier.yaml"
+    controlPoints: "recipes/crossplane-stable/crossplane/2.3.1/control-points.yaml"
+    valueModel: "recipes/crossplane-stable/crossplane/2.3.1/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "cluster-rbac"
+      - "dependency-lock"
+      - "extension-slots"
+      - "helm-equivalence"
+      - "rendered-manifest-scan"
+      - "secret-material"
+      - "source-lock"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/crossplane-stable/crossplane/2.3.1/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/crossplane-stable/crossplane/2.3.1"
+    installer: "packages/crossplane-stable/crossplane/2.3.1/installer.yaml"
+    receipt: "recipes/crossplane-stable/crossplane/2.3.1/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "243510bb37b6cd6117298450387d7966f5637b30ebcae192ab3b9848d072d016"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/crossplane-stable/crossplane/2.3.1/bases/default"
+        default: true
+        description: "crossplane-stable/crossplane default variant rendered from crossplane-stable/crossplane@2.3.1"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/crossplane-stable/crossplane/2.3.1/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "crossplane"
+      valuesProfile: "recipes/crossplane-stable/crossplane/2.3.1/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/crossplane-stable/crossplane/2.3.1/bases/default"
+        default: true
+        description: "crossplane-stable/crossplane default variant rendered from crossplane-stable/crossplane@2.3.1"
+      setupCheck:
+        command: "cub install setup --pull packages/crossplane-stable/crossplane/2.3.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 23
+        cubInstallObjectCountIncludingSupport: 24
+        semanticObjectMatches: "23/23"
+        separatedSecretCount: 3
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/crossplane-stable/crossplane/2.3.1/revisions/default/r001/variant-revision.yaml"
+          digest: "0bf41f4414f233ce8e995637c500d2e46c326af789b84ee8be23bd62ad1cf1c4"
+          renderedObjectSetSHA256: "917b3dc2a52c16f26cefebe2b580889944e23461d95d1fbe912e0c7a451fd996"
+          renderedObjects: "recipes/crossplane-stable/crossplane/2.3.1/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/crossplane-stable/crossplane/2.3.1/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 23
+          helmObjectCount: 23
+          cubInstallObjectCountIncludingSupport: 24
+          semanticObjectMatches: "23/23"
+          separatedSecretFiles: 3
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/crossplane-stable/crossplane/2.3.1/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "917b3dc2a52c16f26cefebe2b580889944e23461d95d1fbe912e0c7a451fd996"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/crossplane-stable/crossplane/2.3.1/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "917b3dc2a52c16f26cefebe2b580889944e23461d95d1fbe912e0c7a451fd996"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/crossplane-stable/crossplane/2.3.1/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "917b3dc2a52c16f26cefebe2b580889944e23461d95d1fbe912e0c7a451fd996"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/crossplane-stable/crossplane/2.3.1/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "917b3dc2a52c16f26cefebe2b580889944e23461d95d1fbe912e0c7a451fd996"

@@ -1,0 +1,122 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "fluent-fluentd-0.5.3"
+  chart: "fluent/fluentd"
+  version: "0.5.3"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "fluent/fluentd"
+    version: "0.5.3"
+    appVersion: "v1.17.1"
+    sourceLock: "recipes/fluent/fluentd/0.5.3/source-lock.yaml"
+    dependencyLock: "recipes/fluent/fluentd/0.5.3/dependency-lock.yaml"
+    repository: "https://fluent.github.io/helm-charts"
+    packageSHA256: "3e506454cfa06d696e07cdc499eaa5f4dc2a119c4e6f28969430528467e3bf82"
+  recipe:
+    path: "recipes/fluent/fluentd/0.5.3/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/fluent/fluentd/0.5.3/helm-plan.yaml"
+    chartDossier: "recipes/fluent/fluentd/0.5.3/chart-dossier.yaml"
+    controlPoints: "recipes/fluent/fluentd/0.5.3/control-points.yaml"
+    valueModel: "recipes/fluent/fluentd/0.5.3/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "cluster-rbac"
+      - "dependency-lock"
+      - "helm-equivalence"
+      - "lifecycle-policy"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/fluent/fluentd/0.5.3/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/fluent/fluentd/0.5.3"
+    installer: "packages/fluent/fluentd/0.5.3/installer.yaml"
+    receipt: "recipes/fluent/fluentd/0.5.3/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "73e36b924e73bb87db5c7c1fbac81cb593724cbde6618c7cd6c20aef3a2ce8c9"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/fluent/fluentd/0.5.3/bases/default"
+        default: true
+        description: "fluent/fluentd default variant rendered from fluent/fluentd@0.5.3"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/fluent/fluentd/0.5.3/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "fluentd"
+      valuesProfile: "recipes/fluent/fluentd/0.5.3/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/fluent/fluentd/0.5.3/bases/default"
+        default: true
+        description: "fluent/fluentd default variant rendered from fluent/fluentd@0.5.3"
+      setupCheck:
+        command: "cub install setup --pull packages/fluent/fluentd/0.5.3 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 10
+        cubInstallObjectCountIncludingSupport: 11
+        semanticObjectMatches: "10/10"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/fluent/fluentd/0.5.3/revisions/default/r001/variant-revision.yaml"
+          digest: "da0c89124a9c013296402d55cfce0dfe18732e5d0b166bdd81d0da8658736db0"
+          renderedObjectSetSHA256: "9d7c1ec5d0f201623aa61a0fa2adcb477bac4b7366f5a9b87d9b4a3754c2491a"
+          renderedObjects: "recipes/fluent/fluentd/0.5.3/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/fluent/fluentd/0.5.3/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 10
+          helmObjectCount: 10
+          cubInstallObjectCountIncludingSupport: 11
+          semanticObjectMatches: "10/10"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/fluent/fluentd/0.5.3/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "9d7c1ec5d0f201623aa61a0fa2adcb477bac4b7366f5a9b87d9b4a3754c2491a"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/fluent/fluentd/0.5.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "9d7c1ec5d0f201623aa61a0fa2adcb477bac4b7366f5a9b87d9b4a3754c2491a"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/fluent/fluentd/0.5.3/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "9d7c1ec5d0f201623aa61a0fa2adcb477bac4b7366f5a9b87d9b4a3754c2491a"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/fluent/fluentd/0.5.3/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "9d7c1ec5d0f201623aa61a0fa2adcb477bac4b7366f5a9b87d9b4a3754c2491a"

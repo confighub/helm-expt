@@ -1,0 +1,192 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "longhorn-longhorn-1.11.2"
+  chart: "longhorn/longhorn"
+  version: "1.11.2"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "longhorn/longhorn"
+    version: "1.11.2"
+    appVersion: "v1.11.2"
+    sourceLock: "recipes/longhorn/longhorn/1.11.2/source-lock.yaml"
+    dependencyLock: "recipes/longhorn/longhorn/1.11.2/dependency-lock.yaml"
+    repository: "https://charts.longhorn.io"
+    packageSHA256: "a70272c83683923ed9cafa07fe1e4f3a6e7d5d74874111b3a8ad421e64102a77"
+  recipe:
+    path: "recipes/longhorn/longhorn/1.11.2/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/longhorn/longhorn/1.11.2/helm-plan.yaml"
+    chartDossier: "recipes/longhorn/longhorn/1.11.2/chart-dossier.yaml"
+    controlPoints: "recipes/longhorn/longhorn/1.11.2/control-points.yaml"
+    valueModel: "recipes/longhorn/longhorn/1.11.2/value-model.yaml"
+    controlPointCategories:
+      - "admission-webhook"
+      - "capability-profile"
+      - "cluster-rbac"
+      - "crd-policy"
+      - "dependency-lock"
+      - "hook-policy"
+      - "installer-support-object"
+      - "privileged-storage-workload"
+      - "source-lock"
+      - "storageclass-policy"
+      - "ui-ingress-policy"
+  catalogStatus:
+    path: "recipes/longhorn/longhorn/1.11.2/catalog-status.yaml"
+    status: "catalog-candidate"
+    supportLevel: "promotion-review-needed"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+      - "ui-ingress"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/longhorn/longhorn/1.11.2"
+    installer: "packages/longhorn/longhorn/1.11.2/installer.yaml"
+    receipt: "recipes/longhorn/longhorn/1.11.2/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "b204441cb21bc29ac21ba5fa10c45f8ac8176c4d13b375edd2129d01481c58ea"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/longhorn/longhorn/1.11.2/bases/default"
+        default: true
+        description: "Longhorn default storage control plane variant rendered from longhorn/longhorn@1.11.2"
+      -
+        name: "ui-ingress"
+        path: "packages/longhorn/longhorn/1.11.2/bases/ui-ingress"
+        default: false
+        description: "Longhorn UI ingress enabled variant rendered from longhorn/longhorn@1.11.2"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/longhorn/longhorn/1.11.2/variants/default/variant.yaml"
+      namespace: "longhorn-system"
+      releaseName: "longhorn"
+      valuesProfile: "recipes/longhorn/longhorn/1.11.2/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/longhorn/longhorn/1.11.2/bases/default"
+        default: true
+        description: "Longhorn default storage control plane variant rendered from longhorn/longhorn@1.11.2"
+      setupCheck:
+        command: "cub install setup --pull packages/longhorn/longhorn/1.11.2 --base default --work-dir <tmp> --non-interactive --namespace longhorn-system"
+        helmReleaseObjectCount: 41
+        cubInstallObjectCountIncludingSupport: 42
+        semanticObjectMatches: "41/41"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||longhorn-system"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/variant-revision.yaml"
+          digest: "9e6c451504370e5485db7acdfa4fbfc25f9df0b5a03d6f4d159a4df7dfa57fd3"
+          renderedObjectSetSHA256: "4a2f739775a696f5d67db6adf1f99473c60a3f5adf308ceb3ccbf222435acd90"
+          renderedObjects: "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 41
+          helmObjectCount: 41
+          cubInstallObjectCountIncludingSupport: 42
+          semanticObjectMatches: "41/41"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "4a2f739775a696f5d67db6adf1f99473c60a3f5adf308ceb3ccbf222435acd90"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "4a2f739775a696f5d67db6adf1f99473c60a3f5adf308ceb3ccbf222435acd90"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "4a2f739775a696f5d67db6adf1f99473c60a3f5adf308ceb3ccbf222435acd90"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "4a2f739775a696f5d67db6adf1f99473c60a3f5adf308ceb3ccbf222435acd90"
+    -
+      name: "ui-ingress"
+      variant: "recipes/longhorn/longhorn/1.11.2/variants/ui-ingress/variant.yaml"
+      namespace: "longhorn-system"
+      releaseName: "longhorn"
+      valuesProfile: "recipes/longhorn/longhorn/1.11.2/effective-values-ui-ingress.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "ui-ingress"
+        path: "packages/longhorn/longhorn/1.11.2/bases/ui-ingress"
+        default: false
+        description: "Longhorn UI ingress enabled variant rendered from longhorn/longhorn@1.11.2"
+      setupCheck:
+        command: "cub install setup --pull packages/longhorn/longhorn/1.11.2 --base ui-ingress --work-dir <tmp> --non-interactive --namespace longhorn-system"
+        helmReleaseObjectCount: 42
+        cubInstallObjectCountIncludingSupport: 43
+        semanticObjectMatches: "42/42"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||longhorn-system"
+      revisions:
+        -
+          name: "ui-ingress-r001"
+          revision: "r001"
+          variantRevision: "recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/variant-revision.yaml"
+          digest: "1069fea32675f30aedba7d7678d756e05855ac2e60eeffaa673f5684e566d917"
+          renderedObjectSetSHA256: "2f6508c2bc3f2a09e1ffcb8ec71282b3e2dd52e69fe8ca80fc90ab756f9b9298"
+          renderedObjects: "recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/rendered/object-inventory.yaml"
+          objectCount: 42
+          helmObjectCount: 42
+          cubInstallObjectCountIncludingSupport: 43
+          semanticObjectMatches: "42/42"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "2f6508c2bc3f2a09e1ffcb8ec71282b3e2dd52e69fe8ca80fc90ab756f9b9298"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "2f6508c2bc3f2a09e1ffcb8ec71282b3e2dd52e69fe8ca80fc90ab756f9b9298"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "2f6508c2bc3f2a09e1ffcb8ec71282b3e2dd52e69fe8ca80fc90ab756f9b9298"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "2f6508c2bc3f2a09e1ffcb8ec71282b3e2dd52e69fe8ca80fc90ab756f9b9298"

@@ -1,0 +1,123 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "nats-nack-0.34.0"
+  chart: "nats/nack"
+  version: "0.34.0"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "nats/nack"
+    version: "0.34.0"
+    appVersion: "0.23.0"
+    sourceLock: "recipes/nats/nack/0.34.0/source-lock.yaml"
+    dependencyLock: "recipes/nats/nack/0.34.0/dependency-lock.yaml"
+    repository: "https://nats-io.github.io/k8s/helm/charts/"
+    packageSHA256: "e4a713e6e76f3df1e63a4db8d4c47d41ee35c927cd56e75ff8b2296fd85dfc2c"
+  recipe:
+    path: "recipes/nats/nack/0.34.0/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/nats/nack/0.34.0/helm-plan.yaml"
+    chartDossier: "recipes/nats/nack/0.34.0/chart-dossier.yaml"
+    controlPoints: "recipes/nats/nack/0.34.0/control-points.yaml"
+    valueModel: "recipes/nats/nack/0.34.0/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "cluster-rbac"
+      - "crds"
+      - "dependency-lock"
+      - "generated-facts"
+      - "helm-equivalence"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/nats/nack/0.34.0/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/nats/nack/0.34.0"
+    installer: "packages/nats/nack/0.34.0/installer.yaml"
+    receipt: "recipes/nats/nack/0.34.0/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "bc3a9cf2f7b64b6a01b7d904d7a4224f5391ff0a3c66163ce0e0b8ac5af0588c"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/nats/nack/0.34.0/bases/default"
+        default: true
+        description: "nats/nack default variant rendered from nats/nack@0.34.0"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/nats/nack/0.34.0/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "nack"
+      valuesProfile: "recipes/nats/nack/0.34.0/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/nats/nack/0.34.0/bases/default"
+        default: true
+        description: "nats/nack default variant rendered from nats/nack@0.34.0"
+      setupCheck:
+        command: "cub install setup --pull packages/nats/nack/0.34.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 10
+        cubInstallObjectCountIncludingSupport: 11
+        semanticObjectMatches: "10/10"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/nats/nack/0.34.0/revisions/default/r001/variant-revision.yaml"
+          digest: "1d1fd00a7f6111d03babd0a988a718e1acc1842684313b79f4ac87e1e9cf3bcc"
+          renderedObjectSetSHA256: "3578a1e913da259083e95b1bca9492a5e1aac8ae270e2871eb05c5f0c5f6c3c9"
+          renderedObjects: "recipes/nats/nack/0.34.0/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/nats/nack/0.34.0/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 10
+          helmObjectCount: 10
+          cubInstallObjectCountIncludingSupport: 11
+          semanticObjectMatches: "10/10"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/nats/nack/0.34.0/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "3578a1e913da259083e95b1bca9492a5e1aac8ae270e2871eb05c5f0c5f6c3c9"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/nats/nack/0.34.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "3578a1e913da259083e95b1bca9492a5e1aac8ae270e2871eb05c5f0c5f6c3c9"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/nats/nack/0.34.0/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "3578a1e913da259083e95b1bca9492a5e1aac8ae270e2871eb05c5f0c5f6c3c9"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/nats/nack/0.34.0/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "3578a1e913da259083e95b1bca9492a5e1aac8ae270e2871eb05c5f0c5f6c3c9"

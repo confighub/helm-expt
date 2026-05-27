@@ -6,11 +6,37 @@ metadata:
 spec:
   bases:
     -
-      name: "default-control-plane"
-      path: "bases/default-control-plane"
       default: true
       description: "consul default control plane variant rendered from hashicorp/consul@2.0.0"
+      name: "default-control-plane"
+      path: "bases/default-control-plane"
     -
+      description: "consul secure mesh with existing Secrets variant rendered from hashicorp/consul@2.0.0"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "Secret consul/consul-ca-cert key tls.crt"
+          namespace: "consul"
+          suggestedSource: "kubectl -n consul create secret generic consul-ca-cert --from-literal=tls.crt=<value>"
+        -
+          kind: "ClusterFeature"
+          name: "Secret consul/consul-server-cert keys tls.crt,tls.key"
+          namespace: "consul"
+          suggestedSource: "kubectl -n consul create secret generic consul-server-cert --from-literal=tls.crt=<value> --from-literal=tls.key=<value>"
+        -
+          kind: "ClusterFeature"
+          name: "Secret consul/consul-gossip-encryption-key key key"
+          namespace: "consul"
+          suggestedSource: "kubectl -n consul create secret generic consul-gossip-encryption-key --from-literal=key=<value>"
+        -
+          kind: "ClusterFeature"
+          name: "Secret consul/consul-bootstrap-acl-token key token"
+          namespace: "consul"
+          suggestedSource: "kubectl -n consul create secret generic consul-bootstrap-acl-token --from-literal=token=<value>"
       name: "secure-mesh-existing-secrets"
       path: "bases/secure-mesh-existing-secrets"
-      description: "consul secure mesh with existing Secrets variant rendered from hashicorp/consul@2.0.0"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check existing Secret requirements."

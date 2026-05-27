@@ -35,6 +35,20 @@ We use AI to accelerate Helm chart analysis and recipe creation. We use
 `cub install` to prove the resulting recipes produce correct, Helm-equivalent,
 reviewable ConfigHub variants.
 
+Capability doctrine:
+
+```text
+Use real installer, cub, and ConfigHub capabilities wherever they exist,
+fit the chart behavior, and make the result simpler, safer, or more provable
+than a document-only note.
+```
+
+Docs are still required, but their job is to explain the executable path,
+record chart weirdness, capture human/catalog decisions, and mark capability
+gaps. If a real `cub install`, `cub`, or ConfigHub Server/OCI feature can carry
+the requirement better than prose, the proof should use the feature and verify
+it.
+
 The product promise is:
 
 ```text
@@ -83,6 +97,8 @@ The next-80 lane is not a loose chart list. Each chart has:
 
 - a recipe directory under `recipes/<repo>/<chart>/<version>/`;
 - a `cub install` package under `packages/<repo>/<chart>/<version>/`;
+- a generated `CATALOG.md` and `artifact-index.yaml` that link chart ->
+  recipe -> variants -> revisions -> package bases -> receipts;
 - a HelmPlan, ChartDossier, source lock, dependency lock, value model, and
   control-point file;
 - a default Variant and digest-bound VariantRevision;
@@ -119,6 +135,10 @@ docs/repo-consistency-review.md
 Verification:
 
 ```sh
+npm run installer:target-facts
+npm run installer:target-facts:verify
+npm run catalog:maps
+npm run catalog:maps:verify
 npm run catalog:status
 npm run catalog:status:verify
 npm run catalog:review
@@ -261,6 +281,26 @@ The plugin also exposes package-authoring and registry helper commands such as
 `preflight` appears in help as not yet implemented, so do not use it in proof
 docs until it ships.
 
+As of May 27, 2026, `cub variant create` is available in the local `cub`
+binary. It is a ConfigHub server-side operation:
+
+```text
+cub variant create <variant-name> <upstream-space>
+```
+
+It clones an upstream space and its units into a downstream space, stamps the
+`Variant` label, can set `Environment`, `Region`, target annotation, space
+metadata, and unit gates, and preserves links to the upstream units.
+
+This is expected to be part of the Helm recipe workflow. Use Helm-derived
+recipe variants and `cub install` package bases when the chart must be rendered
+differently, such as CRDs on/off, generated Secret vs existing Secret, HA mode,
+storage mode, ingress/TLS shape, or other values that change the Kubernetes
+object set. Use `cub variant create` after upload when the efficient move is to
+clone a reviewed ConfigHub space and vary server-side metadata, target,
+environment, region, gates, or post-clone customizations without inventing a
+new package base.
+
 Do not present shorthand such as `cub install redis`, `cub diff redis`,
 `cub publish redis`, or `cub variant redis ha` as current executable commands.
 Those are candidate future porcelain verbs, not the current CLI. If we need
@@ -375,8 +415,9 @@ Helm-equivalence evidence, scan/gate receipts, variant diff evidence, promoted
 metrics-server, ingress-nginx, cert-manager, external-secrets, Argo CD,
 PostgreSQL, RabbitMQ, kube-prometheus-stack, Loki, Longhorn, MySQL, Grafana,
 Vault, Secrets Store CSI Driver, Prometheus, MongoDB, Nginx, Tempo, and Consul
-proof/package artifacts, deterministic `cub install` packaging, and negative
-golden self-tests.
+proof/package artifacts, executable installer target-fact bindings for every
+variant that declares `targetFacts`, deterministic `cub install` packaging,
+and negative golden self-tests.
 
 ## Redis Proof
 

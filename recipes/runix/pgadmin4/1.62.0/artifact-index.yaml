@@ -1,0 +1,124 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "runix-pgadmin4-1.62.0"
+  chart: "runix/pgadmin4"
+  version: "1.62.0"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "runix/pgadmin4"
+    version: "1.62.0"
+    appVersion: "9.13"
+    sourceLock: "recipes/runix/pgadmin4/1.62.0/source-lock.yaml"
+    dependencyLock: "recipes/runix/pgadmin4/1.62.0/dependency-lock.yaml"
+    repository: "https://helm.runix.net"
+    packageSHA256: "6f615ad016402c4413845d2c2d020b5a0a0e71d21cd8b80ef63a1feeace972d5"
+  recipe:
+    path: "recipes/runix/pgadmin4/1.62.0/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/runix/pgadmin4/1.62.0/helm-plan.yaml"
+    chartDossier: "recipes/runix/pgadmin4/1.62.0/chart-dossier.yaml"
+    controlPoints: "recipes/runix/pgadmin4/1.62.0/control-points.yaml"
+    valueModel: "recipes/runix/pgadmin4/1.62.0/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "dependency-lock"
+      - "extension-slots"
+      - "helm-equivalence"
+      - "lifecycle-policy"
+      - "rendered-manifest-scan"
+      - "secret-material"
+      - "source-lock"
+      - "stateful-storage"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/runix/pgadmin4/1.62.0/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/runix/pgadmin4/1.62.0"
+    installer: "packages/runix/pgadmin4/1.62.0/installer.yaml"
+    receipt: "recipes/runix/pgadmin4/1.62.0/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "a7ebe7db9ddd892a94b0038baf48ab9900c59f3f959a55a59599fb248724aef2"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/runix/pgadmin4/1.62.0/bases/default"
+        default: true
+        description: "runix/pgadmin4 default variant rendered from runix/pgadmin4@1.62.0"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/runix/pgadmin4/1.62.0/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "pgadmin4"
+      valuesProfile: "recipes/runix/pgadmin4/1.62.0/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/runix/pgadmin4/1.62.0/bases/default"
+        default: true
+        description: "runix/pgadmin4 default variant rendered from runix/pgadmin4@1.62.0"
+      setupCheck:
+        command: "cub install setup --pull packages/runix/pgadmin4/1.62.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 5
+        cubInstallObjectCountIncludingSupport: 6
+        semanticObjectMatches: "5/5"
+        separatedSecretCount: 1
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/runix/pgadmin4/1.62.0/revisions/default/r001/variant-revision.yaml"
+          digest: "fa823b56740dd7c854c54d5f23a14c6d471fae708f132a6b32c420472f5349c8"
+          renderedObjectSetSHA256: "78528d11d3b5ea8cf8c03e43834edbe87a944df1593c516867cc4e0389ba1565"
+          renderedObjects: "recipes/runix/pgadmin4/1.62.0/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/runix/pgadmin4/1.62.0/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 5
+          helmObjectCount: 5
+          cubInstallObjectCountIncludingSupport: 6
+          semanticObjectMatches: "5/5"
+          separatedSecretFiles: 1
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/runix/pgadmin4/1.62.0/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "78528d11d3b5ea8cf8c03e43834edbe87a944df1593c516867cc4e0389ba1565"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/runix/pgadmin4/1.62.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "78528d11d3b5ea8cf8c03e43834edbe87a944df1593c516867cc4e0389ba1565"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/runix/pgadmin4/1.62.0/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "78528d11d3b5ea8cf8c03e43834edbe87a944df1593c516867cc4e0389ba1565"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/runix/pgadmin4/1.62.0/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "78528d11d3b5ea8cf8c03e43834edbe87a944df1593c516867cc4e0389ba1565"

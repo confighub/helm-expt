@@ -1,0 +1,127 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "grafana-pyroscope-2.0.2"
+  chart: "grafana/pyroscope"
+  version: "2.0.2"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "grafana/pyroscope"
+    version: "2.0.2"
+    appVersion: "2.0.2"
+    sourceLock: "recipes/grafana/pyroscope/2.0.2/source-lock.yaml"
+    dependencyLock: "recipes/grafana/pyroscope/2.0.2/dependency-lock.yaml"
+    repository: "https://grafana.github.io/helm-charts"
+    packageSHA256: "2ef4155c4952f4427964273e4bd9bc81bb3356083dc43d28665979d2359f172f"
+  recipe:
+    path: "recipes/grafana/pyroscope/2.0.2/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/grafana/pyroscope/2.0.2/helm-plan.yaml"
+    chartDossier: "recipes/grafana/pyroscope/2.0.2/chart-dossier.yaml"
+    controlPoints: "recipes/grafana/pyroscope/2.0.2/control-points.yaml"
+    valueModel: "recipes/grafana/pyroscope/2.0.2/value-model.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "cluster-rbac"
+      - "crds"
+      - "dependency-lock"
+      - "extension-slots"
+      - "generated-facts"
+      - "helm-equivalence"
+      - "lifecycle-policy"
+      - "rendered-manifest-scan"
+      - "source-lock"
+      - "stateful-storage"
+      - "target-facts"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/grafana/pyroscope/2.0.2/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  installerPackage:
+    path: "packages/grafana/pyroscope/2.0.2"
+    installer: "packages/grafana/pyroscope/2.0.2/installer.yaml"
+    receipt: "recipes/grafana/pyroscope/2.0.2/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "bd83d3e6b19f182fac1a04e2d27f49feda6074f3c5d26cd7f77a9afc33c6f648"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/grafana/pyroscope/2.0.2/bases/default"
+        default: true
+        description: "grafana/pyroscope default variant rendered from grafana/pyroscope@2.0.2"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/grafana/pyroscope/2.0.2/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "pyroscope"
+      valuesProfile: "recipes/grafana/pyroscope/2.0.2/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/grafana/pyroscope/2.0.2/bases/default"
+        default: true
+        description: "grafana/pyroscope default variant rendered from grafana/pyroscope@2.0.2"
+      setupCheck:
+        command: "cub install setup --pull packages/grafana/pyroscope/2.0.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 18
+        cubInstallObjectCountIncludingSupport: 19
+        semanticObjectMatches: "18/18"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/grafana/pyroscope/2.0.2/revisions/default/r001/variant-revision.yaml"
+          digest: "b997f5f154951092ba2d583bce6a1f00e8ff89ae2c0dfd28b096df2fbfe99945"
+          renderedObjectSetSHA256: "24d78308d5476731eefba9ac71cee442cf9aeb21f16443557d9a6d9574449df5"
+          renderedObjects: "recipes/grafana/pyroscope/2.0.2/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/grafana/pyroscope/2.0.2/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 18
+          helmObjectCount: 18
+          cubInstallObjectCountIncludingSupport: 19
+          semanticObjectMatches: "18/18"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/grafana/pyroscope/2.0.2/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "24d78308d5476731eefba9ac71cee442cf9aeb21f16443557d9a6d9574449df5"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/grafana/pyroscope/2.0.2/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "24d78308d5476731eefba9ac71cee442cf9aeb21f16443557d9a6d9574449df5"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/grafana/pyroscope/2.0.2/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "24d78308d5476731eefba9ac71cee442cf9aeb21f16443557d9a6d9574449df5"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/grafana/pyroscope/2.0.2/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "24d78308d5476731eefba9ac71cee442cf9aeb21f16443557d9a6d9574449df5"
