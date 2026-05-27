@@ -4,6 +4,8 @@
 
 NGINX is the next live evidence target after Redis.
 
+Status: completed for the `http-clusterip` baseline on 2026-05-27.
+
 ## Why NGINX
 
 NGINX is the right next chart because it is the easiest happy-path contrast
@@ -46,6 +48,19 @@ http-clusterip: 5 Helm objects, 6 cub install objects including Namespace
 existing-tls-ingress: 6 Helm objects, 7 cub install objects including Namespace
 ```
 
-The next PR should repeat the Redis use-more-now transcript shape for NGINX,
+The Redis use-more-now transcript shape has now been repeated for NGINX,
 starting with `http-clusterip`.
+
+Evidence:
+
+```text
+docs/demo/nginx/use-more-now.md
+docs/demo/nginx/use-more-now-transcript.md
+runs/nginx-use-more-now/latest/use-more-now-receipt.yaml
+runs/nginx-use-more-now/latest/function-scan-receipt.yaml
+runs/nginx-use-more-now/latest/safe-ops-receipt.yaml
+```
+
+Recommended next chart target: Metrics Server, because it is still small but
+exercises APIService and target-fact/capability behavior that NGINX does not.
 

@@ -1,0 +1,63 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ConfigHubFunctionScanReceipt
+metadata:
+  name: nginx-function-scan-20260527
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: Kubara
+    server: https://hub.confighub.com
+    space: helm-nginx-use-more-now
+    selector: "Labels.Proof = 'nginx-use-more-now'"
+  subject:
+    chart: bitnami/nginx
+    chartVersion: 24.0.2
+    packagePath: packages/bitnami/nginx/24.0.2
+    variant: http-clusterip
+    configHubUnitCount: 6
+  unitRevisionBindings:
+    - slug: deployment-nginx-nginx
+      headRevisionNum: 2
+      dataHash: b157b215e631d215a00b441b0b5cb4a90debb519e04df333781bce3603478385
+    - slug: namespace-nginx
+      headRevisionNum: 2
+      dataHash: 35bf9291f08ffb8c71623eb534ab5f465dc4f920510ca6640f8580a2b0c478f0
+    - slug: networkpolicy-nginx-nginx
+      headRevisionNum: 2
+      dataHash: 4e9c3f2811d4b56793e3dfe9a7c7f21b0ef18880b66a923d8cc6af269590fb64
+    - slug: poddisruptionbudget-nginx-nginx
+      headRevisionNum: 2
+      dataHash: 8669397642838e5c8bf9638f444ccad307d3c1ce9c4c78be576bbd98086d654d
+    - slug: serviceaccount-nginx-nginx
+      headRevisionNum: 2
+      dataHash: d71e5e3a30483ed40bff11b902b5428709969651c4609d2b34a455b9b4b94b16
+    - slug: service-nginx-nginx
+      headRevisionNum: 2
+      dataHash: c87d6d391c5e82a0748ab064ad36a65434942ae371b0fb1c431130a0176ff5f7
+  validations:
+    - function: vet-format
+      toolchain: Kubernetes/YAML
+      hermetic: true
+      idempotent: true
+      result: pass
+      scannedUnits: 6
+      failedUnits: 0
+    - function: vet-placeholders
+      toolchain: Kubernetes/YAML
+      hermetic: true
+      idempotent: true
+      result: pass
+      scannedUnits: 6
+      failedUnits: 0
+    - function: vet-merge-keys
+      toolchain: Kubernetes/YAML
+      hermetic: true
+      idempotent: true
+      result: pass
+      scannedUnits: 6
+      failedUnits: 0
+  result: pass
+  limitations:
+    - This is a ConfigHub-native validation receipt, not a full external vulnerability scan.
+    - Production readiness still depends on policy disposition in the recipe scan and install gate.
+

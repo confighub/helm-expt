@@ -1059,6 +1059,8 @@ The next live evidence target after Redis is documented here:
 
 ```text
 docs/demo/nginx/use-more-now-plan.md
+docs/demo/nginx/use-more-now.md
+docs/demo/nginx/use-more-now-transcript.md
 ```
 
 The proof shows that regular Helm output is preserved by real
@@ -1075,6 +1077,7 @@ npm run nginx:generate-proof
 npm run nginx:generate-package
 npm run nginx:verify-proof
 npm run nginx:verify-package
+npm run nginx:verify-use-more-now
 npm run nginx:compare
 ```
 

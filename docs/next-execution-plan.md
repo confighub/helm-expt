@@ -524,8 +524,8 @@ Acceptance:
 Status:
 
 ```text
-complete for the Redis baseline; repeat with a target-backed local-kind lane
-before claiming live deploy proof
+complete for the Redis and NGINX baselines; repeat with a target-backed
+local-kind lane before claiming live deploy proof
 ```
 
 Action:
@@ -548,13 +548,17 @@ Acceptance:
 - Current Redis evidence lives in:
   - `docs/demo/redis/safe-ops-lane.md`
   - `runs/redis-use-more-now/latest/safe-ops-receipt.yaml`
+- Current NGINX evidence lives in:
+  - `docs/demo/nginx/use-more-now-transcript.md`
+  - `runs/nginx-use-more-now/latest/safe-ops-receipt.yaml`
 
 ### P1.8 Add ConfigHub Function Scan Lane
 
 Status:
 
 ```text
-complete for the Redis baseline; expand to NGINX and other catalog candidates
+complete for the Redis and NGINX baselines; expand to Metrics Server and other
+catalog candidates
 ```
 
 Action:
@@ -579,6 +583,10 @@ Acceptance:
   passing `vet-format`, `vet-placeholders`, and `vet-merge-keys` results:
   - `docs/demo/redis/function-scan-lane.md`
   - `runs/redis-use-more-now/latest/function-scan-receipt.yaml`
+- Current NGINX evidence binds 6 uploaded NGINX Unit heads and DataHashes to
+  passing `vet-format`, `vet-placeholders`, and `vet-merge-keys` results:
+  - `docs/demo/nginx/use-more-now-transcript.md`
+  - `runs/nginx-use-more-now/latest/function-scan-receipt.yaml`
 
 ### P1.9 Add Catalog Metadata And Views
 
@@ -693,8 +701,8 @@ artifacts that do not prove the user-facing claim.
 
 ## Immediate Next Three Moves
 
-1. Repeat the Redis use-more-now transcript shape for NGINX `http-clusterip`.
-2. Add the NGINX ConfigHub function scan and safe-ops receipts.
-3. Decide whether PostgreSQL or Metrics Server should be the next target after
-   NGINX, based on whether we want the next proof to emphasize stateful data or
-   APIService/target-fact behavior.
+1. Repeat the use-more-now transcript shape for Metrics Server.
+2. Add the Metrics Server ConfigHub function scan and safe-ops receipts.
+3. After Metrics Server, choose PostgreSQL if the next proof should emphasize
+   stateful data and upgrade/rollback concerns, or ingress-nginx if the next
+   proof should emphasize hooks, webhooks, and cluster RBAC.
