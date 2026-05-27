@@ -244,8 +244,9 @@ Function checks and safe-operation receipts can be applied at scale.
 The honest caveats:
 
 ```text
-Machine proof is not catalog support.
-A recipe can be Helm-equivalent and still need human product review.
+Top-20 catalog inclusion is mandatory because these charts are too popular to hide.
+Machine proof decides the support scope, not whether a top-20 chart appears.
+A recipe can be Helm-equivalent and still need production dispositions.
 Secrets are separated from ConfigHub Units and need an operating policy.
 CRDs, hooks, webhooks, RBAC, PVCs, generated credentials, and target facts still need explicit disposition.
 Very large charts can stress ConfigHub link quotas and upload/link performance.
@@ -255,12 +256,16 @@ That is fine. Those are the control points we wanted to expose.
 
 ## Catalog Support
 
-Do not confuse these three statuses:
+For the top-20, catalog inclusion is not optional. Their upstream charts are
+popular enough that the catalog must show a clear ConfigHub path, even when the
+production answer is still "supported for local/test only".
+
+Do not confuse these three ideas:
 
 ```text
-proof-grade: the machine proof passes
-catalog-candidate: worth human review
-catalog-supported: explicitly approved support scope
+catalog entry: visible in the catalog because users will look for it
+proof-grade: the machine proof passes for recorded variants
+catalog-supported: explicitly approved support scope and variants
 ```
 
 Today all top-20 bespoke recipes are catalog-supported for the declared

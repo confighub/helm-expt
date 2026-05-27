@@ -28,7 +28,8 @@ It is also not trivial. The current recipe has two candidate variants:
 
 ## Acceptance Contract
 
-Before NGINX can become catalog-supported, the live evidence lane should prove:
+Before NGINX can move beyond local/test support, the live evidence lane should
+prove:
 
 - `cub install doc/setup/render/package/vet/plan/upload` for `http-clusterip`;
 - ConfigHub function scan over uploaded Units;
@@ -40,8 +41,8 @@ Before NGINX can become catalog-supported, the live evidence lane should prove:
 
 ## Current Status
 
-NGINX is currently a `catalog-candidate`, not catalog-supported. The machine
-proof already shows Helm equivalence:
+NGINX is a top-20 catalog entry and is `catalog-supported` for the declared
+local/test scope. The machine proof shows Helm equivalence:
 
 ```text
 http-clusterip: 5 Helm objects, 6 cub install objects including Namespace
@@ -63,4 +64,3 @@ runs/nginx-use-more-now/latest/safe-ops-receipt.yaml
 
 Recommended next chart target: Metrics Server, because it is still small but
 exercises APIService and target-fact/capability behavior that NGINX does not.
-

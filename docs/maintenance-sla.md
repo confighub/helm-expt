@@ -1,10 +1,11 @@
 # Maintenance SLA
 
-This repo separates proof from recommendation.
+This repo separates catalog presence, proof, and production recommendation.
 
 ```text
-Proof-grade recipes prove correctness.
-Catalog-supported recipes are the recipes we recommend to Helm users.
+Popular charts must be visible in the catalog.
+Proof-grade recipes prove correctness for recorded variants.
+Catalog-supported recipes declare the scopes and variants we recommend.
 ```
 
 ## Supported Artifact Levels
@@ -13,9 +14,14 @@ Catalog-supported recipes are the recipes we recommend to Helm users.
 | --- | --- | --- |
 | `proof-grade` | Helm equivalence and receipts pass for tested variants. | Keep verification runnable and digest-bound. |
 | `catalog-candidate` | Useful shape, but not yet fully promoted. | Review obvious variants, UX, and upgrade behavior before recommendation. |
-| `catalog-supported` | Recommended install path for Helm users. | Re-test on chart updates and keep supported variants current. |
+| `catalog-supported` | Recommended install path for the declared scope. | Re-test on chart updates and keep supported variants current. |
 | `deprecated` | Still recorded, no longer recommended. | Preserve receipts; avoid new adoption. |
 | `blocked` | Known unsafe, ambiguous, or non-equivalent. | Keep blocker reason and mitigation path visible. |
+
+For the top-20 public Helm charts, the catalog entry itself is mandatory because
+users will expect to find those charts. The support level may still be narrow:
+today the top-20 are `catalog-supported` for local/test proof paths, while
+production support remains blocked until each production disposition is closed.
 
 ## Chart Updates
 
@@ -103,7 +109,8 @@ Allowed:
 
 ```text
 This recipe is proof-grade.
-This variant is catalog-supported.
+This top-20 chart has a catalog entry.
+This variant is catalog-supported for local/test.
 This rendered revision is Helm-equivalent under the recorded inputs.
 This scan/gate result applies to this exact rendered object digest.
 ```

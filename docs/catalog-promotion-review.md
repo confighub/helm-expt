@@ -1,7 +1,11 @@
 # Catalog Promotion Review
 
-Catalog promotion is the repeatable review that decides whether a proof-grade
-recipe is good enough to recommend to Helm users.
+Catalog promotion is the repeatable review that decides the support scope for a
+proof-grade recipe.
+
+For the top-20 public Helm charts, catalog presence is mandatory because their
+upstream charts are so popular. Promotion decides what we can honestly support:
+local/test, production with caveats, production-ready, deprecated, or blocked.
 
 It is both:
 
@@ -76,7 +80,7 @@ blocked
 ```
 
 `proof-grade` means the mechanics work. `catalog-supported` means we recommend
-the recipe and its supported variants to Helm users.
+the recipe and its supported variants for the declared scope.
 
 ## Promotion Decision
 
