@@ -524,8 +524,8 @@ Acceptance:
 Status:
 
 ```text
-complete for the Redis, NGINX, and Metrics Server baselines; repeat with a
-target-backed local-kind lane before claiming live deploy proof
+complete for the Redis, NGINX, Metrics Server, and PostgreSQL baselines; repeat
+with a target-backed local-kind lane before claiming live deploy proof
 ```
 
 Action:
@@ -554,14 +554,17 @@ Acceptance:
 - Current Metrics Server evidence lives in:
   - `docs/demo/metrics-server/use-more-now-transcript.md`
   - `runs/metrics-server-use-more-now/latest/safe-ops-receipt.yaml`
+- Current PostgreSQL evidence lives in:
+  - `docs/demo/postgresql/use-more-now-transcript.md`
+  - `runs/postgresql-use-more-now/latest/safe-ops-receipt.yaml`
 
 ### P1.8 Add ConfigHub Function Scan Lane
 
 Status:
 
 ```text
-complete for the Redis, NGINX, and Metrics Server baselines; expand to
-PostgreSQL and other catalog candidates
+complete for the Redis, NGINX, Metrics Server, and PostgreSQL baselines; expand
+to ingress-nginx, cert-manager, and other catalog candidates
 ```
 
 Action:
@@ -595,6 +598,11 @@ Acceptance:
   `vet-merge-keys` results:
   - `docs/demo/metrics-server/use-more-now-transcript.md`
   - `runs/metrics-server-use-more-now/latest/function-scan-receipt.yaml`
+- Current PostgreSQL evidence binds 7 uploaded PostgreSQL Unit heads and
+  DataHashes to passing `vet-format`, `vet-placeholders`, and
+  `vet-merge-keys` results:
+  - `docs/demo/postgresql/use-more-now-transcript.md`
+  - `runs/postgresql-use-more-now/latest/function-scan-receipt.yaml`
 
 ### P1.9 Add Catalog Metadata And Views
 
@@ -709,8 +717,6 @@ artifacts that do not prove the user-facing claim.
 
 ## Immediate Next Three Moves
 
-1. Repeat the use-more-now transcript shape for PostgreSQL.
-2. Add the PostgreSQL ConfigHub function scan and safe-ops receipts.
-3. After PostgreSQL, use ingress-nginx if the next proof should emphasize
-   hooks, webhooks, and cluster RBAC, or cert-manager if the next proof should
-   emphasize CRD and webhook lifecycle.
+1. Repeat the use-more-now transcript shape for ingress-nginx.
+2. Add the ingress-nginx ConfigHub function scan and safe-ops receipts.
+3. Then use cert-manager to emphasize CRD and webhook lifecycle.

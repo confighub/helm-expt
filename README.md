@@ -702,6 +702,13 @@ generated-passwords
 existing-secret
 ```
 
+The live use-more-now proof is documented here:
+
+```text
+docs/demo/postgresql/use-more-now.md
+docs/demo/postgresql/use-more-now-transcript.md
+```
+
 The proof shows that regular Helm output is preserved by real
 `cub install setup`, plus the explained Namespace support object. It also makes
 the chart's awkward parts visible: default Helm password generation,
@@ -716,6 +723,7 @@ npm run postgresql:generate-proof
 npm run postgresql:generate-package
 npm run postgresql:verify-proof
 npm run postgresql:verify-package
+npm run postgresql:verify-use-more-now
 npm run postgresql:compare
 ```
 
