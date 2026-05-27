@@ -52,7 +52,7 @@ spec:
     path: "packages/bitnami/mysql/14.0.3"
     installer: "packages/bitnami/mysql/14.0.3/installer.yaml"
     receipt: "recipes/bitnami/mysql/14.0.3/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "8534d63c67cbc647c8ab6dab1899dc008838e9cb679561a7c79d7083e5405890"
+    deterministicBundleSHA256: "62da1710f140f346e481d43753f1d3d1e4e4e6fa458d6532bd81cdfb20ea35df"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -98,8 +98,8 @@ spec:
           name: "generated-passwords-r001"
           revision: "r001"
           variantRevision: "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/variant-revision.yaml"
-          digest: "45be1f993e2ee560fadd9761e71787bf939cb1e471c85f7960667ea094d07849"
-          renderedObjectSetSHA256: "d479b1df24670a9ca28e7fa2b1d487f63f17a20baa8080ff0b48cd75abce2bdd"
+          digest: "15fa29928ceaab56173e94fc971318f96650e29f391a74f5b8fd7a298fd9f6ae"
+          renderedObjectSetSHA256: "04e856bfa75859dc9d8e45c61d49ad566494a7f66c257da9113ad26ca1696380"
           renderedObjects: "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/rendered/object-inventory.yaml"
           objectCount: 8
@@ -112,22 +112,22 @@ spec:
               kind: "RenderReceipt"
               path: "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/receipts/render-receipt.yaml"
               result: "recorded"
-              renderedObjectSetSHA256: "d479b1df24670a9ca28e7fa2b1d487f63f17a20baa8080ff0b48cd75abce2bdd"
+              renderedObjectSetSHA256: "04e856bfa75859dc9d8e45c61d49ad566494a7f66c257da9113ad26ca1696380"
             helmEquivalence:
               kind: "HelmEquivalenceReceipt"
               path: "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml"
               result: "pass"
-              renderedObjectSetSHA256: "d479b1df24670a9ca28e7fa2b1d487f63f17a20baa8080ff0b48cd75abce2bdd"
+              renderedObjectSetSHA256: "04e856bfa75859dc9d8e45c61d49ad566494a7f66c257da9113ad26ca1696380"
             scan:
               kind: "ScanReceipt"
               path: "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/receipts/scan-receipt.yaml"
               result: "warn"
-              renderedObjectSetSHA256: "d479b1df24670a9ca28e7fa2b1d487f63f17a20baa8080ff0b48cd75abce2bdd"
+              renderedObjectSetSHA256: "04e856bfa75859dc9d8e45c61d49ad566494a7f66c257da9113ad26ca1696380"
             installGate:
               kind: "InstallGate"
               path: "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/receipts/install-gate.yaml"
               result: "warn"
-              renderedObjectSetSHA256: "d479b1df24670a9ca28e7fa2b1d487f63f17a20baa8080ff0b48cd75abce2bdd"
+              renderedObjectSetSHA256: "04e856bfa75859dc9d8e45c61d49ad566494a7f66c257da9113ad26ca1696380"
     -
       name: "existing-secret"
       variant: "recipes/bitnami/mysql/14.0.3/variants/existing-secret/variant.yaml"
@@ -168,8 +168,8 @@ spec:
           name: "existing-secret-r001"
           revision: "r001"
           variantRevision: "recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/variant-revision.yaml"
-          digest: "ec4cedd05a0749c7cab7d90909a221f7457e3b716dcfcebac9181653f4ba8ba7"
-          renderedObjectSetSHA256: "3df11b8cf513ef85c4c2c921d7ae5f31e61d3a7e98a46ca7fc6ff2cc7c02c0b2"
+          digest: "8a16853a4edb47cda3f2e834967646b20d425a9497df51a98017a37c04f1620c"
+          renderedObjectSetSHA256: "024c04f020fbe5cc7af518d743a68e055f999e88a6633b278adccc769c1b7fa8"
           renderedObjects: "recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/rendered/object-inventory.yaml"
           objectCount: 7
@@ -182,19 +182,19 @@ spec:
               kind: "RenderReceipt"
               path: "recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/receipts/render-receipt.yaml"
               result: "recorded"
-              renderedObjectSetSHA256: "3df11b8cf513ef85c4c2c921d7ae5f31e61d3a7e98a46ca7fc6ff2cc7c02c0b2"
+              renderedObjectSetSHA256: "024c04f020fbe5cc7af518d743a68e055f999e88a6633b278adccc769c1b7fa8"
             helmEquivalence:
               kind: "HelmEquivalenceReceipt"
               path: "recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/receipts/helm-equivalence-receipt.yaml"
               result: "pass"
-              renderedObjectSetSHA256: "3df11b8cf513ef85c4c2c921d7ae5f31e61d3a7e98a46ca7fc6ff2cc7c02c0b2"
+              renderedObjectSetSHA256: "024c04f020fbe5cc7af518d743a68e055f999e88a6633b278adccc769c1b7fa8"
             scan:
               kind: "ScanReceipt"
               path: "recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/receipts/scan-receipt.yaml"
               result: "warn"
-              renderedObjectSetSHA256: "3df11b8cf513ef85c4c2c921d7ae5f31e61d3a7e98a46ca7fc6ff2cc7c02c0b2"
+              renderedObjectSetSHA256: "024c04f020fbe5cc7af518d743a68e055f999e88a6633b278adccc769c1b7fa8"
             installGate:
               kind: "InstallGate"
               path: "recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/receipts/install-gate.yaml"
               result: "warn"
-              renderedObjectSetSHA256: "3df11b8cf513ef85c4c2c921d7ae5f31e61d3a7e98a46ca7fc6ff2cc7c02c0b2"
+              renderedObjectSetSHA256: "024c04f020fbe5cc7af518d743a68e055f999e88a6633b278adccc769c1b7fa8"

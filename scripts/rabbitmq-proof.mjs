@@ -49,11 +49,16 @@ const variants = [
     base: "generated-passwords",
     displayName: "generated passwords",
     valuesFile: "effective-values.yaml",
-    valuesText: `auth:
+    valuesText: `global:
+  security:
+    allowInsecureImages: true
+auth:
   password: confighub-rabbitmq-password
   erlangCookie: confighub-rabbitmq-erlang-cookie
+image:
+  repository: bitnamilegacy/rabbitmq
 `,
-    valuesSummary: "RabbitMQ password and Erlang cookie bound as generated facts",
+    valuesSummary: "RabbitMQ password and Erlang cookie bound as generated facts; image repository pinned to the still-pullable Bitnami legacy mirror with explicit image-substitution policy",
     expectedObjectCount: 10,
     expectedCRDCount: 0,
     expectedSecretCount: 2,
@@ -64,11 +69,16 @@ const variants = [
     base: "existing-secret",
     displayName: "existing Secret",
     valuesFile: "effective-values-existing-secret.yaml",
-    valuesText: `auth:
+    valuesText: `global:
+  security:
+    allowInsecureImages: true
+auth:
   existingPasswordSecret: rabbitmq-auth
   existingErlangSecret: rabbitmq-erlang-cookie
+image:
+  repository: bitnamilegacy/rabbitmq
 `,
-    valuesSummary: "target Secrets supply RabbitMQ password and Erlang cookie",
+    valuesSummary: "target Secrets supply RabbitMQ password and Erlang cookie; image repository pinned to the still-pullable Bitnami legacy mirror with explicit image-substitution policy",
     expectedObjectCount: 9,
     expectedCRDCount: 0,
     expectedSecretCount: 1,

@@ -7,7 +7,12 @@ spec:
     -
       path: "effective-values.yaml"
       source: "inline-proof"
-      sha256: "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+      sha256: "1948ee1a70d7517be36f9a026b5c44c8417ff711f7217f8c4f432cbcd659b285"
   mergedValuesCaptured: false
   values:
-    {}
+    connectInject:
+      disruptionBudget:
+        enabled: false
+    server:
+      disruptionBudget:
+        enabled: false

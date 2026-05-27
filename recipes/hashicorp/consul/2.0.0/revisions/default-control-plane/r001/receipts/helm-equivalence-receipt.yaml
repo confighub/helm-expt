@@ -5,13 +5,13 @@ metadata:
 spec:
   variantRevision: "../variant-revision.yaml"
   regularHelm:
-    renderedSHA256: "467ec5aadeb6aee76362da376763563d7a1ea4146f5b5098cfdaa0784c961e3f"
-    objectCount: 70
+    renderedSHA256: "7efa3e8b59c702c8b8fa744a0ff91198e09ad8ba0fb93a86b50c3fd9e39d29f7"
+    objectCount: 68
   cubInstall:
-    objectCountIncludingSecretsAndSupportObjects: 71
-    uploadedManifestFiles: 71
+    objectCountIncludingSecretsAndSupportObjects: 69
+    uploadedManifestFiles: 69
     separatedSecretFiles: 0
-    semanticObjectMatches: "70/70"
+    semanticObjectMatches: "68/68"
   semanticNormalizations:
     - "prune-null-fields"
     - "trim-leading-command-block-newline"

@@ -5,26 +5,26 @@ exactly what must be closed before production support can be claimed.
 
 | Chart | Local-test variants | Production state | Required disposition count | Live/e2e receipts |
 | --- | --- | --- | ---: | --- |
-| `argo-cd/argo-cd@9.5.15` | default, no-crds | production-blocked | 6 | 0 |
-| `bitnami/mongodb@19.0.7` | generated-passwords, existing-secret-replicaset | production-blocked | 5 | 0 |
-| `bitnami/mysql@14.0.3` | generated-passwords, existing-secret | production-blocked | 6 | 0 |
+| `argo-cd/argo-cd@9.5.15` | default, no-crds | production-blocked | 6 | 1 |
+| `bitnami/mongodb@19.0.7` | generated-passwords, existing-secret-replicaset | production-blocked | 5 | 1 |
+| `bitnami/mysql@14.0.3` | generated-passwords, existing-secret | production-blocked | 6 | 1 |
 | `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | production-blocked | 4 | 1 |
-| `bitnami/postgresql@18.6.7` | generated-passwords, existing-secret | production-blocked | 6 | 0 |
-| `bitnami/rabbitmq@16.0.14` | generated-passwords, existing-secret | production-blocked | 6 | 0 |
+| `bitnami/postgresql@18.6.7` | generated-passwords, existing-secret | production-blocked | 6 | 1 |
+| `bitnami/rabbitmq@16.0.14` | generated-passwords, existing-secret | production-blocked | 6 | 1 |
 | `bitnami/redis@25.5.3` | default, reuse-existing-secret | production-blocked | 4 | 0 |
-| `external-secrets/external-secrets@2.5.0` | default, no-crds | production-blocked | 5 | 0 |
-| `grafana/grafana@10.5.15` | generated-passwords, existing-secret-ingress | production-blocked | 5 | 0 |
-| `grafana/loki@7.0.0` | single-binary-filesystem, simple-scalable-minio | production-blocked | 5 | 0 |
-| `grafana/tempo@1.24.4` | local-persistent, s3-query-observability | production-blocked | 4 | 0 |
-| `hashicorp/consul@2.0.0` | default-control-plane, secure-mesh-existing-secrets | production-blocked | 8 | 0 |
-| `hashicorp/vault@0.32.0` | default, ha-raft-ui | production-blocked | 5 | 0 |
-| `ingress-nginx/ingress-nginx@4.15.1` | default, admission-disabled | production-blocked | 5 | 0 |
-| `jetstack/cert-manager@v1.20.2` | default, crds-enabled | production-blocked | 6 | 0 |
-| `longhorn/longhorn@1.11.2` | default, ui-ingress | production-blocked | 5 | 0 |
-| `metrics-server/metrics-server@3.13.0` | default, external-tls-ca | production-blocked | 5 | 0 |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | default, no-crds | production-blocked | 6 | 0 |
-| `prometheus-community/prometheus@29.8.0` | default, server-only-ephemeral | production-blocked | 3 | 0 |
-| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default, sync-secret-rotation | production-blocked | 4 | 0 |
+| `external-secrets/external-secrets@2.5.0` | default, no-crds | production-blocked | 5 | 1 |
+| `grafana/grafana@10.5.15` | generated-passwords, existing-secret-ingress | production-blocked | 5 | 1 |
+| `grafana/loki@7.0.0` | single-binary-filesystem, simple-scalable-minio | production-blocked | 5 | 1 |
+| `grafana/tempo@1.24.4` | local-persistent, s3-query-observability | production-blocked | 4 | 1 |
+| `hashicorp/consul@2.0.0` | default-control-plane, secure-mesh-existing-secrets | production-blocked | 8 | 1 |
+| `hashicorp/vault@0.32.0` | default, ha-raft-ui | production-blocked | 5 | 1 |
+| `ingress-nginx/ingress-nginx@4.15.1` | default, admission-disabled | production-blocked | 5 | 1 |
+| `jetstack/cert-manager@v1.20.2` | default, crds-enabled | production-blocked | 6 | 1 |
+| `longhorn/longhorn@1.11.2` | default, ui-ingress | production-blocked | 5 | 1 |
+| `metrics-server/metrics-server@3.13.0` | default, external-tls-ca | production-blocked | 5 | 1 |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | default, no-crds | production-blocked | 6 | 1 |
+| `prometheus-community/prometheus@29.8.0` | default, server-only-ephemeral | production-blocked | 3 | 1 |
+| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default, sync-secret-rotation | production-blocked | 4 | 1 |
 
 ## Standard Disposition Types
 

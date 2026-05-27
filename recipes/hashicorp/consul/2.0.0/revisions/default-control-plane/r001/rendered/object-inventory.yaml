@@ -4,8 +4,8 @@ metadata:
   name: "hashicorp-consul-2.0.0-default-control-plane-r001"
 spec:
   source: "rendered/release-objects.yaml"
-  sourceSHA256: "467ec5aadeb6aee76362da376763563d7a1ea4146f5b5098cfdaa0784c961e3f"
-  objectCount: 70
+  sourceSHA256: "7efa3e8b59c702c8b8fa744a0ff91198e09ad8ba0fb93a86b50c3fd9e39d29f7"
+  objectCount: 68
   objects:
     -
       apiVersion: "admissionregistration.k8s.io/v1"
@@ -203,18 +203,6 @@ spec:
       apiVersion: "apps/v1"
       identity: "apps/v1|StatefulSet|consul|consul-consul-server"
       kind: "StatefulSet"
-      name: "consul-consul-server"
-      namespace: "consul"
-    -
-      apiVersion: "policy/v1beta1"
-      identity: "policy/v1beta1|PodDisruptionBudget|consul|consul-consul-connect-injector"
-      kind: "PodDisruptionBudget"
-      name: "consul-consul-connect-injector"
-      namespace: "consul"
-    -
-      apiVersion: "policy/v1beta1"
-      identity: "policy/v1beta1|PodDisruptionBudget|consul|consul-consul-server"
-      kind: "PodDisruptionBudget"
       name: "consul-consul-server"
       namespace: "consul"
     -

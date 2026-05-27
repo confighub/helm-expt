@@ -7,10 +7,15 @@ spec:
     -
       path: "effective-values.yaml"
       source: "inline-proof"
-      sha256: "45b928624798abee606d7b5b2e954237198821767cffb5767aa05c6f3052a091"
+      sha256: "e30fa54a5b3fe6b18b1585ec025a433cec3d901b6a67555ce909d7ea71d2c257"
   mergedValuesCaptured: false
   values:
     auth:
       password: "confighub-mysql-user-password"
       replicationPassword: "confighub-mysql-replication-password"
       rootPassword: "confighub-mysql-root-password"
+    global:
+      security:
+        allowInsecureImages: true
+    image:
+      repository: "bitnamilegacy/mysql"

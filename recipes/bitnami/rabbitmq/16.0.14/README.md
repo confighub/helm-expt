@@ -4,8 +4,8 @@ This is the promoted proof slice for the RabbitMQ public Helm chart.
 
 Variants:
 
-- `generated-passwords`: RabbitMQ password and Erlang cookie bound as generated facts; 10 Helm objects, 11 cub install objects including Namespace.
-- `existing-secret`: target Secrets supply RabbitMQ password and Erlang cookie; 9 Helm objects, 10 cub install objects including Namespace.
+- `generated-passwords`: RabbitMQ password and Erlang cookie bound as generated facts; image repository pinned to the still-pullable Bitnami legacy mirror with explicit image-substitution policy; 10 Helm objects, 11 cub install objects including Namespace.
+- `existing-secret`: target Secrets supply RabbitMQ password and Erlang cookie; image repository pinned to the still-pullable Bitnami legacy mirror with explicit image-substitution policy; 9 Helm objects, 10 cub install objects including Namespace.
 
 What this proves:
 

@@ -11,14 +11,14 @@ spec:
       - "default-control-plane"
       - "secure-mesh-existing-secrets"
     helmObjectsByVariant:
-      default-control-plane: 70
-      secure-mesh-existing-secrets: 99
+      default-control-plane: 68
+      secure-mesh-existing-secrets: 97
     cubInstallObjectsByVariant:
-      default-control-plane: 71
-      secure-mesh-existing-secrets: 100
+      default-control-plane: 69
+      secure-mesh-existing-secrets: 98
     helmMatchByVariant:
-      default-control-plane: "70/70"
-      secure-mesh-existing-secrets: "99/99"
+      default-control-plane: "68/68"
+      secure-mesh-existing-secrets: "97/97"
     scanGate: "warn-production-blocked"
     nextAction: "publish only after TLS/ACL/gossip Secret ownership, CRD ownership, cluster RBAC, admission webhook, StatefulSet storage, gateway topology, UI ingress, hook/lifecycle, and raw/template extension-slot review are satisfied"
   receipts:

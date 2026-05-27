@@ -49,10 +49,15 @@ const variants = [
     base: "default-control-plane",
     displayName: "default control plane",
     valuesFile: "effective-values.yaml",
-    valuesText: `{}
+    valuesText: `server:
+  disruptionBudget:
+    enabled: false
+connectInject:
+  disruptionBudget:
+    enabled: false
 `,
-    valuesSummary: "chart-default control plane with server, injector, webhook cert manager, CRDs, and RBAC",
-    expectedObjectCount: 70,
+    valuesSummary: "chart-default control plane with Kubernetes 1.30-compatible PDBs disabled, server, injector, webhook cert manager, CRDs, and RBAC",
+    expectedObjectCount: 68,
     expectedCRDCount: 28,
     expectedSecretCount: 0,
     apiVersions: [],
@@ -79,10 +84,15 @@ const variants = [
       secretName: consul-bootstrap-acl-token
       secretKey: token
 server:
+  disruptionBudget:
+    enabled: false
   replicas: 3
   bootstrapExpect: 3
   serverCert:
     secretName: consul-server-cert
+connectInject:
+  disruptionBudget:
+    enabled: false
 meshGateway:
   enabled: true
   service:
@@ -103,7 +113,7 @@ ui:
           - /
 `,
     valuesSummary: "TLS, ACLs, gossip encryption, mesh gateways, and UI ingress with existing Secrets",
-    expectedObjectCount: 99,
+    expectedObjectCount: 97,
     expectedCRDCount: 28,
     expectedSecretCount: 1,
     apiVersions: [],

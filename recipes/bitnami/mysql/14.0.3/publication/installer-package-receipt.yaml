@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub install package packages/bitnami/mysql/14.0.3 -o <tmp>/mysql-14.0.3.tgz"
-    sha256: "8534d63c67cbc647c8ab6dab1899dc008838e9cb679561a7c79d7083e5405890"
+    sha256: "62da1710f140f346e481d43753f1d3d1e4e4e6fa458d6532bd81cdfb20ea35df"
   package:
     name: "bitnami-mysql"
     path: "packages/bitnami/mysql/14.0.3"
@@ -25,23 +25,23 @@ spec:
         bytes: 99
       -
         path: "bases/existing-secret/upstream.yaml"
-        sha256: "3df11b8cf513ef85c4c2c921d7ae5f31e61d3a7e98a46ca7fc6ff2cc7c02c0b2"
-        bytes: 11918
+        sha256: "024c04f020fbe5cc7af518d743a68e055f999e88a6633b278adccc769c1b7fa8"
+        bytes: 11930
       -
         path: "bases/generated-passwords/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
         bytes: 99
       -
         path: "bases/generated-passwords/upstream.yaml"
-        sha256: "d479b1df24670a9ca28e7fa2b1d487f63f17a20baa8080ff0b48cd75abce2bdd"
-        bytes: 12397
+        sha256: "04e856bfa75859dc9d8e45c61d49ad566494a7f66c257da9113ad26ca1696380"
+        bytes: 12409
       -
         path: "collector/target-facts.sh"
         sha256: "8b524b4b9072c1beade2933a0ad0e6912a12c1170cf81c5c82b926a7b19d7da1"
         bytes: 1518
       -
         path: "installer.yaml"
-        sha256: "395a9a2e8cab669e1b0a53bf85123928d5441402ec7eb8cb5b7a7f1208cf06f7"
+        sha256: "737790c5615e7e8c66efa56713f44131a5e358ba741d8b4cd95b820ff40ab35e"
         bytes: 1074
     version: "14.0.3"
   setupChecks:
@@ -54,9 +54,9 @@ spec:
       helmReleaseObjectCount: 8
       semanticObjectMatches: "8/8"
       separatedSecretCount: 1
+      variant: "generated-passwords"
       targetFactMode: "not-required"
       targetFactsBound: false
-      variant: "generated-passwords"
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||mysql"
@@ -66,6 +66,6 @@ spec:
       helmReleaseObjectCount: 7
       semanticObjectMatches: "7/7"
       separatedSecretCount: 0
+      variant: "existing-secret"
       targetFactMode: "collector-facts"
       targetFactsBound: true
-      variant: "existing-secret"

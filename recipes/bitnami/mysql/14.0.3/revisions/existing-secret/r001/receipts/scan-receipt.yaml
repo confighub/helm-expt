@@ -4,7 +4,7 @@ metadata:
   name: "mysql-existing-secret-r001"
 spec:
   variantRevision: "../variant-revision.yaml"
-  renderedObjectSetSHA256: "3df11b8cf513ef85c4c2c921d7ae5f31e61d3a7e98a46ca7fc6ff2cc7c02c0b2"
+  renderedObjectSetSHA256: "024c04f020fbe5cc7af518d743a68e055f999e88a6633b278adccc769c1b7fa8"
   result: "warn"
   scanner:
     name: "helm-expt-local-rendered-object-scan"

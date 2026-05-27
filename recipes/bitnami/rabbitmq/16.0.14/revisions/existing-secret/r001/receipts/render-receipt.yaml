@@ -15,10 +15,10 @@ spec:
   inputs:
     sourceLockSHA256: "5fa8dff3109514e51d6438e15d2cf45920b28846b9ac7a1c2219e992de12bf95"
     dependencyLockSHA256: "75d255da05ae9641fb0911bbc5b1a0504055a56d22a4278821dbcd120dd0d1a2"
-    effectiveValuesSHA256: "b064c515f9fa314daff5c662dbafb9c52909b0ac211febd1d58aa3f95abaf665"
+    effectiveValuesSHA256: "ef34694d22e2046a6c5722c63141c702975f685c102b12f9da48aa6519c3b4ec"
   outputs:
-    renderedObjectSetSHA256: "d508ba5a873dbb2e1fa08b6bc227b1177d84fc1285b1aac974d59d28e9645d63"
-    renderedObjectInventorySHA256: "c0c793343582859272568edccd6493786a9c6e71543168303ca7b1c30ef4da6e"
+    renderedObjectSetSHA256: "cdff3262264844b099e7f4421f1bbd5027360c2d23ba34667506d85255c4b6f2"
+    renderedObjectInventorySHA256: "474e3fa5e54b6f651ca3acfd31715d79fdce03aecb811ec1899d555bc9854f8d"
     deterministicAcrossTwoLocalRenders: true
     objectCount: 9
     renderedSecretCount: 1

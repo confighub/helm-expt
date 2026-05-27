@@ -4,8 +4,8 @@ metadata:
   name: "hashicorp-consul-2.0.0-secure-mesh-existing-secrets-r001"
 spec:
   source: "rendered/release-objects.yaml"
-  sourceSHA256: "f44c496151f7893383bbc25e4c0b4f8bcb5ce62136d3d0e3df84d846e2506dd1"
-  objectCount: 99
+  sourceSHA256: "0acc8c339c2965446b754c3a9c948c4f154ca6e47b074ddc3b8d315e2cb7c468"
+  objectCount: 97
   objects:
     -
       apiVersion: "admissionregistration.k8s.io/v1"
@@ -234,18 +234,6 @@ spec:
       identity: "networking.k8s.io/v1|Ingress|consul|consul-consul-ui"
       kind: "Ingress"
       name: "consul-consul-ui"
-      namespace: "consul"
-    -
-      apiVersion: "policy/v1beta1"
-      identity: "policy/v1beta1|PodDisruptionBudget|consul|consul-consul-connect-injector"
-      kind: "PodDisruptionBudget"
-      name: "consul-consul-connect-injector"
-      namespace: "consul"
-    -
-      apiVersion: "policy/v1beta1"
-      identity: "policy/v1beta1|PodDisruptionBudget|consul|consul-consul-server"
-      kind: "PodDisruptionBudget"
-      name: "consul-consul-server"
       namespace: "consul"
     -
       apiVersion: "rbac.authorization.k8s.io/v1"

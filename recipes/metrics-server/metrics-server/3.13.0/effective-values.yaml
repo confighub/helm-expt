@@ -3,8 +3,12 @@ kind: "EffectiveValues"
 metadata:
   name: "metrics-server-metrics-server-3.13.0-default"
 spec:
-  profile: "chart-defaults"
-  defaultValuesSHA256: "683ed81c6074e7b49f732ab37168e316767e9782f0560ed905ad521d0b0e5b0d"
+  files:
+    -
+      path: "effective-values.yaml"
+      source: "inline-proof"
+      sha256: "d75711265610cd715f04f18238a58a2dfeaa9877f8a99081f6a9acf046c875d2"
   mergedValuesCaptured: false
   values:
-    {}
+    args:
+      - "--kubelet-insecure-tls"

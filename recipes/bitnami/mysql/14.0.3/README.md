@@ -4,8 +4,8 @@ This is the promoted proof slice for the MySQL public Helm chart.
 
 Variants:
 
-- `generated-passwords`: MySQL root, user, and replication passwords bound as generated facts; 8 Helm objects, 9 cub install objects including Namespace.
-- `existing-secret`: target Secret supplies MySQL credentials; 7 Helm objects, 8 cub install objects including Namespace.
+- `generated-passwords`: MySQL root, user, and replication passwords bound as generated facts; image repository pinned to the still-pullable Bitnami legacy mirror with explicit image-substitution policy; 8 Helm objects, 9 cub install objects including Namespace.
+- `existing-secret`: target Secret supplies MySQL credentials; image repository pinned to the still-pullable Bitnami legacy mirror with explicit image-substitution policy; 7 Helm objects, 8 cub install objects including Namespace.
 
 What this proves:
 

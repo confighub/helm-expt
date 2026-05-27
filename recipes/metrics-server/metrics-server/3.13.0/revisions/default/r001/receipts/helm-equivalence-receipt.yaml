@@ -5,7 +5,7 @@ metadata:
 spec:
   variantRevision: "../variant-revision.yaml"
   regularHelm:
-    renderedSHA256: "22dc022aedee5c41c2eac80d4ff8b849a123931e9d3f2914b14951aec38b057e"
+    renderedSHA256: "97514966a1917b1ae3b597ec3a32216d0a650db7cb56d472f4e722c69c869b51"
     objectCount: 9
   cubInstall:
     objectCountIncludingSecretsAndSupportObjects: 10

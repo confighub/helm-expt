@@ -4,7 +4,7 @@ metadata:
   name: "consul-default-control-plane-r001"
 spec:
   variantRevision: "../variant-revision.yaml"
-  renderedObjectSetSHA256: "467ec5aadeb6aee76362da376763563d7a1ea4146f5b5098cfdaa0784c961e3f"
+  renderedObjectSetSHA256: "7efa3e8b59c702c8b8fa744a0ff91198e09ad8ba0fb93a86b50c3fd9e39d29f7"
   result: "warn"
   scanner:
     name: "helm-expt-local-rendered-object-scan"
@@ -13,7 +13,7 @@ spec:
   findingCounts:
     critical: 0
     high: 0
-    medium: 53
+    medium: 51
     low: 0
     info: 0
   findings:
@@ -29,18 +29,6 @@ spec:
       severity: "medium"
       object: "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration|consul|consul-consul-connect-injector"
       message: "Consul injector webhook failure policy, certificates, and rollout impact require production review"
-    -
-      id: "availability-policy-review:policy/v1beta1|PodDisruptionBudget|consul|consul-consul-connect-injector"
-      rule: "deployment-workload-review"
-      severity: "medium"
-      object: "policy/v1beta1|PodDisruptionBudget|consul|consul-consul-connect-injector"
-      message: "PodDisruptionBudget needs production availability and rollout policy review"
-    -
-      id: "availability-policy-review:policy/v1beta1|PodDisruptionBudget|consul|consul-consul-server"
-      rule: "deployment-workload-review"
-      severity: "medium"
-      object: "policy/v1beta1|PodDisruptionBudget|consul|consul-consul-server"
-      message: "PodDisruptionBudget needs production availability and rollout policy review"
     -
       id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||consul-consul-connect-injector"
       rule: "cluster-rbac-review"
