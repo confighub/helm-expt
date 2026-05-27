@@ -1,3 +1,0 @@
-auth:
-  password: "confighub-rabbitmq-password"
-  erlangCookie: "confighub-rabbitmq-erlang-cookie"

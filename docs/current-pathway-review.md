@@ -1,14 +1,14 @@
 # Current Pathway Review
 
-This review intentionally excludes legacy reference artifacts:
+This review intentionally excludes the legacy source-feature matrix:
 
 ```text
-archive/render-and-vendor-top20/
 outputs/helm_top500_matrix/
 ```
 
-Those files are useful history. They are not on the main pathway for executing
-the current Helm mission.
+The old render-and-vendor top-20 payload has been removed from the active tree.
+The remaining matrix is useful history, not the main pathway for executing the
+current Helm mission.
 
 ## Verdict
 
@@ -153,9 +153,8 @@ proof/package artifacts, cert-manager proof/package artifacts,
 external-secrets proof/package artifacts, Argo CD proof/package artifacts,
 PostgreSQL proof/package artifacts, RabbitMQ proof/package artifacts,
 kube-prometheus-stack proof/package artifacts, Loki proof/package artifacts,
-Longhorn proof/package artifacts, MySQL proof/package artifacts, the archived
-reference corpus, and the
-first adversarial harness. It still needs formal schemas and broader
+Longhorn proof/package artifacts, MySQL proof/package artifacts, and the
+adversarial harnesses. It still needs formal schemas and broader
 publication traceability before 20/100/500 claims are credible.
 
 The Redis proof artifacts now exist:

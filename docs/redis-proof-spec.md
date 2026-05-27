@@ -3,9 +3,10 @@
 This spec defines the first main-path Redis proof. It must be agreed before
 creating `recipes/bitnami/redis/25.5.3/` artifacts.
 
-The purpose is not to prove the old top-20 archive. The archive may be used as
-a compatibility fixture and golden comparison input, but the proof artifacts
-must live under the new recipe/variant/revision path.
+The purpose is not to prove the old top-20 archive. The old payload has been
+removed from the active tree. This proof renders Redis with regular Helm under
+pinned inputs, then verifies the current `cub install` package against that
+baseline.
 
 ## Product Claim
 

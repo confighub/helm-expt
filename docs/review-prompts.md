@@ -14,7 +14,8 @@ Primary source:
 
 Scope exclusions:
 
-- `archive/render-and-vendor-top20/` is legacy reference only.
+- The old `archive/render-and-vendor-top20/` payload has been removed from the
+  active tree.
 - `outputs/helm_top500_matrix/` is an old source-feature spreadsheet and is
   legacy reference only.
 - Do not judge the current plan by whether those old artifacts prove it. They
@@ -120,10 +121,10 @@ Target repo state:
   scans, gates, OCI artifact receipts, and generated evidence spreadsheets.
 ```
 
-Do not treat archived top-20 folders or the old top-500 spreadsheet as the main
-pathway. They are already archived/reference-only. The useful review is: are
-the new pathway, required artifacts, acceptance criteria, and proof strategy
-clear enough for independent implementation and verification?
+Do not treat the removed top-20 payload or the old top-500 spreadsheet as the
+main pathway. The useful review is: are the new pathway, required artifacts,
+acceptance criteria, and proof strategy clear enough for independent
+implementation and verification?
 
 The proposed repo rewrite matches the whole plan if it answers these questions clearly:
 
@@ -254,11 +255,11 @@ Read:
 
 Explicitly exclude from current-pathway proof review:
 
-- archive/render-and-vendor-top20/charts/
 - outputs/helm_top500_matrix/
 
-Those are legacy/reference artifacts only. Mention them only if current docs
-still accidentally present them as the main execution path.
+The old render-and-vendor top-20 payload has been removed from the active tree.
+The remaining old matrix is legacy/reference only. Mention it only if current
+docs still accidentally present it as the main execution path.
 
 The intended repo story is:
 

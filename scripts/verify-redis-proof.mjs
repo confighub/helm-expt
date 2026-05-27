@@ -194,11 +194,28 @@ function verifyProof(root) {
     "source content URL mismatch",
   );
   check(Boolean(sourceLock.spec.archiveSHA256), "source archive SHA must be present");
-  const archiveReceiptPath = existingRelative(root, sourceLock.spec.evidence?.archiveReceipt, "source evidence archiveReceipt");
-  const archiveReceipt = parseYamlFile(archiveReceiptPath);
+  const packageReceiptPath = existingRelative(
+    root,
+    sourceLock.spec.evidence?.installerPackageReceipt,
+    "source evidence installerPackageReceipt",
+  );
+  const packageReceipt = parseYamlFile(packageReceiptPath);
+  check(packageReceipt.kind === "InstallerPackageReceipt", "source evidence must be an InstallerPackageReceipt");
   check(
-    archiveReceipt.spec.chart.archiveSHA256 === sourceLock.spec.archiveSHA256,
-    "source lock archive SHA must match archive receipt",
+    packageReceipt.spec.chart?.repository === sourceLock.spec.repositoryName,
+    "source lock repository must match installer package receipt",
+  );
+  check(
+    packageReceipt.spec.chart?.name === sourceLock.spec.chart,
+    "source lock chart name must match installer package receipt",
+  );
+  check(
+    String(packageReceipt.spec.chart?.version) === String(sourceLock.spec.version),
+    "source lock version must match installer package receipt",
+  );
+  check(
+    packageReceipt.spec.package?.path === "packages/bitnami/redis/25.5.3",
+    "installer package receipt must point at current packages/ path",
   );
 
   check(dependencyLock.kind === "DependencyLock", "dependency-lock.yaml must be DependencyLock");
@@ -237,8 +254,15 @@ function verifyProof(root) {
 
   const effectiveValuesFile = effectiveValues.spec.files?.[0];
   check(effectiveValuesFile?.sha256, "effective values SHA must be present");
-  const effectiveValuesSource = existingRelative(root, effectiveValuesFile?.sourcePath, "effective values source");
-  check(effectiveValuesFile.sha256 === sha256File(effectiveValuesSource), "effective values source SHA mismatch");
+  check(effectiveValuesFile?.source === "inline-proof", "default values must be inline proof values");
+  check(
+    effectiveValuesFile.sha256 === sha256('auth:\n  password: "confighub-redis-password"\n'),
+    "default inline values SHA mismatch",
+  );
+  check(
+    effectiveValues.spec.values?.auth?.password === "confighub-redis-password",
+    "default value auth.password mismatch",
+  );
   const reuseEffectiveValuesFile = reuseEffectiveValues.spec.files?.[0];
   check(reuseEffectiveValuesFile?.source === "inline-proof", "reuse-existing-secret values must be inline proof values");
   check(

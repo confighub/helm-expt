@@ -46,21 +46,19 @@ It did not exercise `confighub/installer`:
 - no installer upload/reconcile record
 - no clear package boundary for later variants
 
-That is why the archived reference path uses:
+That is why the current proof path uses:
 
 ```text
-Helm-rendered Redis package -> cub install setup -> rendered objects -> cub install upload -> ConfigHub Units
+Helm-rendered Redis package -> cub install setup -> rendered objects -> ConfigHub OCI/package publication
 ```
 
-That archived reference is intentionally modest: it uses a render-and-vendor
-Redis installer package from the archive. It is not the main pathway for the
-current Helm mission, and it is not proof of recipe candidates, managed
-variants, immutable variant revisions, scan gates, OCI receipts, or the new
-spreadsheet proof system.
+The old archived top-20 payload has been removed from the active tree. The
+current Redis proof uses `packages/bitnami/redis/25.5.3` plus recipe, variant,
+revision, scan, gate, and equivalence receipts.
 
-## Archived Render-And-Vendor Reference
+## Current Redis Compatibility Check
 
-These commands are retained only for reproducing the old Redis reference:
+Use these commands to reproduce the current Redis compatibility check:
 
 ```sh
 go install sigs.k8s.io/kustomize/kustomize/v5@v5.8.1
@@ -68,7 +66,7 @@ export PATH="$PATH:$(go env GOPATH)/bin"
 cub plugin install confighub/installer --source-repo --name install --force
 make -C ~/.confighub/plugins/install build
 
-export REDIS_PACKAGE=./archive/render-and-vendor-top20/charts/06-bitnami-redis
+export REDIS_PACKAGE=./packages/bitnami/redis/25.5.3
 export WORK_DIR=/tmp/confighub-helm-redis
 
 cub install doc "$REDIS_PACKAGE"
@@ -79,16 +77,7 @@ cub install setup \
   --namespace redis
 
 npm run redis:compare
-
-cub auth login \
-  --server https://hub.confighub.com \
-  --organization "ConfigHub Helm"
-cub install upload \
-  --work-dir "$WORK_DIR" \
-  --space helm-redis-proof \
-  --component Redis \
-  --environment Demo \
-  --variant default
 ```
 
-Again: this is historical compatibility evidence, not the current proof path.
+The comparison verifies the `cub install` output against the regular Helm
+baseline and explains the intentional Namespace support object.

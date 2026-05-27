@@ -2,31 +2,30 @@
 
 This is the executable proof contract for `helm-expt`.
 
-The verifier started with archived render-and-vendor Helm import receipts, but
-the current default `npm run verify` also checks the Redis
+The verifier checks the current recipe/package artifact chain, the Redis
 recipe/variant/revision proof, the durable Redis installer package proof, the
 promoted metrics-server, ingress-nginx, cert-manager, external-secrets, Argo CD,
 PostgreSQL, RabbitMQ, kube-prometheus-stack, Loki, Longhorn, MySQL, Grafana,
-Vault, Secrets Store CSI Driver, Prometheus, and MongoDB proofs, and the first
-adversarial public-chart harness.
+Vault, Secrets Store CSI Driver, Prometheus, MongoDB, Nginx, Tempo, and Consul
+proofs, and the adversarial public-chart harnesses.
 
 ## Scope
 
-The legacy reference verifier checks:
+The current artifact-chain verifier checks every recipe/package pair:
 
 ```text
-archive/render-and-vendor-top20/charts/index.yaml
-archive/render-and-vendor-top20/charts/*/helm-import.receipt.yaml
-archive/render-and-vendor-top20/charts/*/helm-import.spec.yaml
-archive/render-and-vendor-top20/charts/*/installer.yaml
-archive/render-and-vendor-top20/charts/*/values.yaml
-archive/render-and-vendor-top20/charts/*/base/upstream.yaml
-archive/render-and-vendor-top20/charts/*/base/kustomization.yaml
+recipes/*/*/*/recipe.yaml
+recipes/*/*/*/publication/installer-package-receipt.yaml
+packages/*/*/*/installer.yaml
+packages/*/*/*/bases/*/upstream.yaml
+recipes/*/*/*/revisions/*/r001/rendered/release-objects.yaml
+recipes/*/*/*/revisions/*/r001/receipts/*.yaml
 ```
 
-This is legacy evidence, not the main product pathway. It is still useful as
-the first golden corpus because it has 20 deterministic chart imports and one
-negative-control shape we can corrupt in a self-test.
+It proves that current executable fixtures point at `packages/`, package
+receipts match package source files by SHA256/byte length, rendered revision
+digests bind to inventories, equivalence receipts, scan receipts, and install
+gates, and negative self-tests catch tampering.
 
 The Redis proof verifier checks:
 
@@ -336,34 +335,22 @@ handling, and deterministic `cub install` package/setup behavior.
 
 ## Required Invariants
 
-For every archived chart directory:
+For every current recipe/package directory:
 
-1. Required files exist.
-2. `helm-import.receipt.yaml` has `kind: HelmImportReceipt`.
-3. `helm-import.spec.yaml` has `kind: HelmImportSpec`.
-4. `installer.yaml` has `kind: Package`.
-5. `installer.yaml` has one default base at `base`.
-6. `base/kustomization.yaml` references `upstream.yaml`.
-7. The receipt chart identity matches the import spec chart identity.
-8. The receipt render context matches the import spec render context.
-9. The receipt value-file path exists and is `values.yaml`.
-10. The receipt value-file SHA256 equals the actual `values.yaml` SHA256.
-11. The receipt import-spec SHA256 equals the actual `helm-import.spec.yaml`
-    SHA256.
-12. The receipt upstream YAML SHA256 equals the actual `base/upstream.yaml`
-    SHA256.
-13. The receipt upstream YAML byte count equals the actual `base/upstream.yaml`
-    byte count.
-14. The receipt resource count equals the number of Kubernetes objects parsed
-    from `base/upstream.yaml`.
-15. Every parsed Kubernetes object has a stable identity:
-    `apiVersion|kind|namespace|name`.
-16. No rendered object identities are duplicated.
-17. For successful renders, `secondRenderSHA256` equals `upstreamYAMLSHA256`
-    and `deterministicAcrossTwoLocalRenders` is `true`.
-18. For failed renders, resource count is `0`.
-19. The index row for the chart matches the receipt for rank, path, chart
-    identity, status, determinism, resource count, and upstream YAML digest.
+1. Required recipe files exist: HelmPlan, ChartDossier, source/dependency locks,
+   control points, value model, recipe, and installer package receipt.
+2. `recipe.spec.currentExecutableFixture.installerPackage` points at the
+   current `packages/` tree.
+3. The installer package receipt points at the same package path.
+4. Every package source file listed in the receipt exists and matches its
+   SHA256 and byte count.
+5. Every recipe variant path exists.
+6. Every variant revision has rendered objects, object inventory, Helm
+   equivalence receipt, render receipt, scan receipt, and install gate.
+7. Rendered object SHA256 is identical across the variant revision digest
+   inputs, object inventory, render receipt, scan receipt, and install gate.
+8. Helm equivalence receipt result is `pass` and points at the same rendered
+   object SHA256.
 
 For the adversarial public-chart harness:
 
@@ -738,7 +725,8 @@ verification fails for the expected reason.
 
 Current self-tests include:
 
-- corrupt archived Redis `values.yaml` and require a value SHA mismatch;
+- corrupt the Redis installer package source and require a package source SHA
+  mismatch;
 - corrupt the Redis rendered object digest and require rejection;
 - remove the namespace support classification and require rejection;
 - claim false scan success and require rejection;
@@ -782,8 +770,8 @@ The Redis installer package verifier must also prove:
 
 The current verifier does not prove:
 
-- source archive bytes for legacy artifacts, because those archives are not
-  stored in this repo;
+- source chart archive bytes beyond the recorded source locks and package
+  receipts;
 - hosted ConfigHub upload/OCI state in the default local `npm run verify`, even
   though the latest remote receipt is recorded under
   `runs/redis-confighub/latest/upload-oci-receipt.yaml`;
