@@ -4,13 +4,16 @@ metadata:
   name: "bitnami-rabbitmq-16.0.14"
 spec:
   chart:
-    repository: "bitnami"
     name: "rabbitmq"
+    repository: "bitnami"
     version: "16.0.14"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub install package packages/bitnami/rabbitmq/16.0.14 -o <tmp>/rabbitmq-16.0.14.tgz"
+    sha256: "00a46e601b59c275891f631e5e78cf573f634e47329cb51622c60dbe934db1e0"
   package:
-    path: "packages/bitnami/rabbitmq/16.0.14"
     name: "bitnami-rabbitmq"
-    version: "16.0.14"
+    path: "packages/bitnami/rabbitmq/16.0.14"
     sourceFiles:
       -
         path: "README.md"
@@ -33,31 +36,36 @@ spec:
         sha256: "7177256a1ef16d1ad91727d3d03ecd0b8cf23da5a3444ba3dd010f4963085fe1"
         bytes: 15253
       -
+        path: "collector/target-facts.sh"
+        sha256: "39190a6592f919ffc85244852ecf9730260d0a6554723ab5fa21a97fc4668124"
+        bytes: 1561
+      -
         path: "installer.yaml"
-        sha256: "06925521eaacba6f2206cde750f2f36dfde733df0cb609b3ada43828f7bfa9d4"
-        bytes: 498
-  deterministicBundle:
-    command: "cub install package packages/bitnami/rabbitmq/16.0.14 -o <tmp>/rabbitmq-16.0.14.tgz"
-    sha256: "6a4b5fcb30d765e4bd4a30397ae7237c78c13cac3a6730dd4f013e4a1eaac637"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "cbaa09d758633375e2fa0337a0a54f81267671f41d5b55eb3a4cae2d29071b58"
+        bytes: 1271
+    version: "16.0.14"
   setupChecks:
     -
-      variant: "generated-passwords"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||rabbitmq"
       base: "generated-passwords"
       command: "cub install setup --pull packages/bitnami/rabbitmq/16.0.14 --base generated-passwords --work-dir <tmp> --non-interactive --namespace rabbitmq"
-      helmReleaseObjectCount: 10
       cubInstallObjectCountIncludingSupport: 11
+      helmReleaseObjectCount: 10
       semanticObjectMatches: "10/10"
       separatedSecretCount: 2
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      variant: "generated-passwords"
+    -
       allowedCubOnlyObjects:
         - "v1|Namespace||rabbitmq"
-    -
-      variant: "existing-secret"
       base: "existing-secret"
       command: "cub install setup --pull packages/bitnami/rabbitmq/16.0.14 --base existing-secret --work-dir <tmp> --non-interactive --namespace rabbitmq"
-      helmReleaseObjectCount: 9
       cubInstallObjectCountIncludingSupport: 10
+      helmReleaseObjectCount: 9
       semanticObjectMatches: "9/9"
       separatedSecretCount: 1
-      allowedCubOnlyObjects:
-        - "v1|Namespace||rabbitmq"
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "existing-secret"

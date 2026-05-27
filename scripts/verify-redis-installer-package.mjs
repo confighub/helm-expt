@@ -66,6 +66,12 @@ function verifyPackage() {
   check(installer.kind === "Package", "installer.yaml must be a Package");
   check(installer.metadata?.name === "bitnami-redis", "package metadata.name must be bitnami-redis");
   check(String(installer.metadata?.version) === "25.5.3", "package metadata.version must be 25.5.3");
+  check(installer.spec?.collector?.command === "/bin/sh", "package must declare the Redis target-facts collector");
+  check(
+    JSON.stringify(installer.spec?.collector?.args ?? []) === JSON.stringify(["collector/target-facts.sh"]),
+    "package collector must run collector/target-facts.sh",
+  );
+  check(existsSync(join(packageRoot, "collector", "target-facts.sh")), "missing Redis target-facts collector script");
   check(receipt.kind === "InstallerPackageReceipt", "publication receipt must be InstallerPackageReceipt");
   check(receipt.spec?.package?.path === packageRelative, "receipt package path mismatch");
 
@@ -76,6 +82,19 @@ function verifyPackage() {
     const base = bases.find((candidate) => candidate.name === variant.base);
     check(Boolean(base), `missing base ${variant.base}`);
     check(base.path === `bases/${variant.base}`, `base ${variant.base} path mismatch`);
+    if (variant.name === "reuse-existing-secret") {
+      const requirements = base.externalRequires ?? [];
+      check(requirements.length === 1, "reuse-existing-secret base must declare one target-fact precondition");
+      const requirement = requirements[0];
+      check(requirement.kind === "ClusterFeature", "reuse-existing-secret requirement must be installer-native ClusterFeature");
+      check(
+        requirement.name === "Secret redis/redis-existing-secret key redis-password",
+        "reuse-existing-secret requirement must name the Redis Secret target fact",
+      );
+      check(requirement.namespace === "redis", "reuse-existing-secret requirement namespace mismatch");
+    } else {
+      check((base.externalRequires ?? []).length === 0, "default base must not require the existing Redis Secret");
+    }
     check(existsSync(join(packageRoot, base.path, "kustomization.yaml")), `base ${variant.base} missing kustomization`);
     check(existsSync(join(packageRoot, base.path, "upstream.yaml")), `base ${variant.base} missing upstream.yaml`);
     check(
@@ -143,6 +162,14 @@ function verifySetupVariant(tempRoot, variant, receipt) {
     checkReceipt.separatedSecretCount === variant.separatedSecretCount,
     `${variant.name} receipt separated secret count mismatch`,
   );
+  check(
+    checkReceipt.targetFactMode === (variant.name === "reuse-existing-secret" ? "collector-facts" : "not-required"),
+    `${variant.name} receipt target fact mode mismatch`,
+  );
+  check(
+    checkReceipt.targetFactsBound === (variant.name === "reuse-existing-secret"),
+    `${variant.name} receipt target fact binding mismatch`,
+  );
 
   const workDir = join(tempRoot, `work-${variant.name}`);
   runCub([
@@ -187,6 +214,38 @@ function verifySetupVariant(tempRoot, variant, receipt) {
 
   const secretFiles = listYamlFiles(join(workDir, "out", "secrets"));
   check(secretFiles.length === variant.separatedSecretCount, `${variant.name} separated secret count mismatch`);
+  verifyTargetFacts(workDir, variant);
+}
+
+function verifyTargetFacts(workDir, variant) {
+  const factsPath = join(workDir, "out", "spec", "facts.yaml");
+  check(existsSync(factsPath), `${variant.name} setup must write collector facts`);
+  const facts = parseYamlFile(factsPath);
+  const values = facts.spec?.values ?? {};
+  check(facts.kind === "Facts", `${variant.name} collector output must be persisted as Facts`);
+  check(values.targetFactChecks?.base === variant.base, `${variant.name} target fact check base mismatch`);
+  if (variant.name === "reuse-existing-secret") {
+    check(values.targetFactChecks?.mode === "record", "reuse-existing-secret target fact check mode must default to record");
+    check(
+      values.targetFactChecks?.result === "recorded",
+      "reuse-existing-secret target fact check result must be recorded",
+    );
+    const requiredSecrets = values.targetFacts?.requiredSecrets ?? [];
+    check(requiredSecrets.length === 1, "reuse-existing-secret setup must bind one required Secret fact");
+    const secret = requiredSecrets[0];
+    check(secret.namespace === "redis", "reuse-existing-secret target Secret namespace mismatch");
+    check(secret.name === "redis-existing-secret", "reuse-existing-secret target Secret name mismatch");
+    check(
+      JSON.stringify(secret.keys ?? []) === JSON.stringify(["redis-password"]),
+      "reuse-existing-secret target Secret keys mismatch",
+    );
+  } else {
+    check(values.targetFactChecks?.mode === "not-required", "default target fact mode must be not-required");
+    check(
+      JSON.stringify(values.targetFacts?.requiredSecrets ?? []) === JSON.stringify([]),
+      "default setup must not bind required Secret facts",
+    );
+  }
 }
 
 function runCub(args) {

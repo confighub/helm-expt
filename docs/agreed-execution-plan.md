@@ -505,6 +505,23 @@ blocker.
 | Admission behavior | target admission/dry-run receipt | target gate or block |
 | Live state | observation receipt policy | stale/unknown until observed |
 
+Current executable target-fact invariant:
+
+```text
+recipe variant targetFacts.requiredSecrets
+  -> matching installer package base externalRequires
+  -> package collector records targetFacts into out/spec/facts.yaml
+  -> installer package receipt records targetFactMode/targetFactsBound
+  -> npm run installer:target-facts:verify runs cub install setup and checks facts
+```
+
+This applies to every current chart variant that declares target facts, not just
+Redis. The first implemented class is required Kubernetes Secrets: those are
+encoded as installer `externalRequires` with `ClusterFeature` requirements and
+as collector facts persisted in `out/spec/facts.yaml`. Future target-fact
+classes must map to installer-native `externalRequires`, `provides`,
+`clusterSingleton`, collector facts, or an explicit blocked status.
+
 The `HelmPlan` should report every detected pain point and its disposition:
 
 ```text

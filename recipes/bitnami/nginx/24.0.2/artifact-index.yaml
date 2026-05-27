@@ -52,7 +52,7 @@ spec:
     path: "packages/bitnami/nginx/24.0.2"
     installer: "packages/bitnami/nginx/24.0.2/installer.yaml"
     receipt: "recipes/bitnami/nginx/24.0.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "a076eef4a69cd5972baebe56f3ee5543e1fa3bd737eaa2c0675bc56b91d6116a"
+    deterministicBundleSHA256: "bd5cb61027cf975d700d8b0cb7aba4b1b64f076368bd087328385f31ffc0eefb"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

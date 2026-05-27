@@ -340,26 +340,50 @@ Acceptance:
 
 Current state:
 
-Target facts exist in proof artifacts, for example Redis
-`reuse-existing-secret`, but they are not yet fully installer-native.
+Target facts are now synchronized into executable installer packages for every
+current chart variant that declares `targetFacts`.
 
-Action:
-
-Define a canonical mapping:
+Implemented invariant:
 
 ```text
-Helm lookup / existing Secret / existing CRD / API availability
-  -> recipe target-fact requirement
-  -> installer externalRequires or collector fact
-  -> variant fact binding
-  -> render receipt
+recipe variant targetFacts.requiredSecrets
+  -> matching installer package base externalRequires
+  -> package collector records targetFacts into out/spec/facts.yaml
+  -> installer package receipt records targetFactMode/targetFactsBound
+  -> npm run installer:target-facts:verify runs cub install setup and checks facts
+```
+
+Current coverage:
+
+```text
+10 charts
+10 target-fact variants
+all current target facts are required Secret facts
+```
+
+The 10 charts are Redis, MongoDB, MySQL, NGINX, PostgreSQL, RabbitMQ, Grafana,
+Tempo, Consul, and Metrics Server.
+
+Next action:
+
+Extend the canonical mapping beyond required Secrets:
+
+```text
+existing CRD
+API availability
+namespace exists
+storage class exists
+ingress class exists
+runtime class exists
 ```
 
 Acceptance:
 
 - top 10 target facts are documented
-- Redis existing-secret variant uses the canonical form
-- Metrics Server and Cert Manager use the same pattern where relevant
+- required Secret target facts stay represented by installer
+  `externalRequires` plus collector facts in every current package
+- non-Secret target facts map to installer-native `externalRequires`,
+  `provides`, `clusterSingleton`, collector facts, or explicit blocked status
 
 ### P1.4 Add Live E2E Confidence For Promoted Charts
 

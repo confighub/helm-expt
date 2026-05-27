@@ -121,6 +121,8 @@ docs/repo-consistency-review.md
 Verification:
 
 ```sh
+npm run installer:target-facts
+npm run installer:target-facts:verify
 npm run catalog:maps
 npm run catalog:maps:verify
 npm run catalog:status
@@ -399,8 +401,9 @@ Helm-equivalence evidence, scan/gate receipts, variant diff evidence, promoted
 metrics-server, ingress-nginx, cert-manager, external-secrets, Argo CD,
 PostgreSQL, RabbitMQ, kube-prometheus-stack, Loki, Longhorn, MySQL, Grafana,
 Vault, Secrets Store CSI Driver, Prometheus, MongoDB, Nginx, Tempo, and Consul
-proof/package artifacts, deterministic `cub install` packaging, and negative
-golden self-tests.
+proof/package artifacts, executable installer target-fact bindings for every
+variant that declares `targetFacts`, deterministic `cub install` packaging,
+and negative golden self-tests.
 
 ## Redis Proof
 
