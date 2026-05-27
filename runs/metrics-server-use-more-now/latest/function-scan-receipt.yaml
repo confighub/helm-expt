@@ -1,0 +1,75 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ConfigHubFunctionScanReceipt
+metadata:
+  name: metrics-server-function-scan-20260527
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: Kubara
+    server: https://hub.confighub.com
+    space: helm-metrics-server-use-more-now
+    selector: "Labels.Proof = 'metrics-server-use-more-now'"
+  subject:
+    chart: metrics-server/metrics-server
+    chartVersion: 3.13.0
+    packagePath: packages/metrics-server/metrics-server/3.13.0
+    variant: default
+    configHubUnitCount: 10
+  unitRevisionBindings:
+    - slug: apiservice-v1beta1-metrics-k8s-io
+      headRevisionNum: 2
+      dataHash: a58d21293bf732a82e84c1d162b27cd4f71e82549216b5a0878ce343a2b9a207
+    - slug: clusterrolebinding-metrics-serversystemauth-delegator
+      headRevisionNum: 2
+      dataHash: ebddb8a03459eff94464eff4834d56e56ab0b8f316c51e77f6890f48ff663877
+    - slug: clusterrolebinding-systemmetrics-server
+      headRevisionNum: 2
+      dataHash: 0fd78e3b155c917bee03bf8842b081a70afe0b43250ad4c99cd09c830a4c7923
+    - slug: clusterrole-systemmetrics-server
+      headRevisionNum: 2
+      dataHash: 80d41fd6d6260add2f0a7361c575bbe7938b8053cf8892c95b6b0eba50e68e38
+    - slug: clusterrole-systemmetrics-server-aggregated-reader
+      headRevisionNum: 2
+      dataHash: ab8f4ec0b4a76cb3579fe64ec616b00ac3f2ea848152f4569dbebabf86303ffc
+    - slug: deployment-kube-system-metrics-server
+      headRevisionNum: 2
+      dataHash: 79ca045cefaa2046f5163b6dde97f8afae1e2b6ee975140a826f9353c2e6ce39
+    - slug: namespace-kube-system
+      headRevisionNum: 2
+      dataHash: 1f5c6ed82fd17fea661500a08f30258f3bdebc2b95d23a1dbc3fe769998271ba
+    - slug: rolebinding-kube-system-metrics-server-auth-reader
+      headRevisionNum: 2
+      dataHash: df8c31778aaaacdfe50da6b3424aab1331503a19e42df5bf423d5574cb21a1ac
+    - slug: serviceaccount-kube-system-metrics-server
+      headRevisionNum: 2
+      dataHash: ec041b642337b2b4aee616ab9e0957a140e697b25d8829e8db73999e113ce515
+    - slug: service-kube-system-metrics-server
+      headRevisionNum: 2
+      dataHash: 5bc83f238df02cf75a96c47c42b71b98913bace68d75605e83c6a253da244cc8
+  validations:
+    - function: vet-format
+      toolchain: Kubernetes/YAML
+      hermetic: true
+      idempotent: true
+      result: pass
+      scannedUnits: 10
+      failedUnits: 0
+    - function: vet-placeholders
+      toolchain: Kubernetes/YAML
+      hermetic: true
+      idempotent: true
+      result: pass
+      scannedUnits: 10
+      failedUnits: 0
+    - function: vet-merge-keys
+      toolchain: Kubernetes/YAML
+      hermetic: true
+      idempotent: true
+      result: pass
+      scannedUnits: 10
+      failedUnits: 0
+  result: pass
+  limitations:
+    - This is a ConfigHub-native validation receipt, not a full external vulnerability scan.
+    - Production readiness still depends on policy disposition in the recipe scan and install gate.
+

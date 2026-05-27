@@ -524,8 +524,8 @@ Acceptance:
 Status:
 
 ```text
-complete for the Redis and NGINX baselines; repeat with a target-backed
-local-kind lane before claiming live deploy proof
+complete for the Redis, NGINX, Metrics Server, and PostgreSQL baselines; repeat
+with a target-backed local-kind lane before claiming live deploy proof
 ```
 
 Action:
@@ -551,14 +551,20 @@ Acceptance:
 - Current NGINX evidence lives in:
   - `docs/demo/nginx/use-more-now-transcript.md`
   - `runs/nginx-use-more-now/latest/safe-ops-receipt.yaml`
+- Current Metrics Server evidence lives in:
+  - `docs/demo/metrics-server/use-more-now-transcript.md`
+  - `runs/metrics-server-use-more-now/latest/safe-ops-receipt.yaml`
+- Current PostgreSQL evidence lives in:
+  - `docs/demo/postgresql/use-more-now-transcript.md`
+  - `runs/postgresql-use-more-now/latest/safe-ops-receipt.yaml`
 
 ### P1.8 Add ConfigHub Function Scan Lane
 
 Status:
 
 ```text
-complete for the Redis and NGINX baselines; expand to Metrics Server and other
-catalog candidates
+complete for the Redis, NGINX, Metrics Server, and PostgreSQL baselines; expand
+to ingress-nginx, cert-manager, and other catalog candidates
 ```
 
 Action:
@@ -587,6 +593,16 @@ Acceptance:
   passing `vet-format`, `vet-placeholders`, and `vet-merge-keys` results:
   - `docs/demo/nginx/use-more-now-transcript.md`
   - `runs/nginx-use-more-now/latest/function-scan-receipt.yaml`
+- Current Metrics Server evidence binds 10 uploaded Metrics Server Unit heads
+  and DataHashes to passing `vet-format`, `vet-placeholders`, and
+  `vet-merge-keys` results:
+  - `docs/demo/metrics-server/use-more-now-transcript.md`
+  - `runs/metrics-server-use-more-now/latest/function-scan-receipt.yaml`
+- Current PostgreSQL evidence binds 7 uploaded PostgreSQL Unit heads and
+  DataHashes to passing `vet-format`, `vet-placeholders`, and
+  `vet-merge-keys` results:
+  - `docs/demo/postgresql/use-more-now-transcript.md`
+  - `runs/postgresql-use-more-now/latest/function-scan-receipt.yaml`
 
 ### P1.9 Add Catalog Metadata And Views
 
@@ -701,8 +717,6 @@ artifacts that do not prove the user-facing claim.
 
 ## Immediate Next Three Moves
 
-1. Repeat the use-more-now transcript shape for Metrics Server.
-2. Add the Metrics Server ConfigHub function scan and safe-ops receipts.
-3. After Metrics Server, choose PostgreSQL if the next proof should emphasize
-   stateful data and upgrade/rollback concerns, or ingress-nginx if the next
-   proof should emphasize hooks, webhooks, and cluster RBAC.
+1. Repeat the use-more-now transcript shape for ingress-nginx.
+2. Add the ingress-nginx ConfigHub function scan and safe-ops receipts.
+3. Then use cert-manager to emphasize CRD and webhook lifecycle.

@@ -1,0 +1,91 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: UseMoreNowReceipt
+metadata:
+  name: metrics-server-use-more-now-20260527
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: Kubara
+      server: https://hub.confighub.com
+      cubClientVersion: dev
+      cubServerVersion: v0.1.49
+  package:
+    path: packages/metrics-server/metrics-server/3.13.0
+    name: metrics-server-metrics-server
+    chart: metrics-server/metrics-server
+    chartVersion: 3.13.0
+    bases:
+      - default
+      - external-tls-ca
+    docVerified: true
+    targetFactRequirementVerified:
+      base: external-tls-ca
+      externalRequireKind: ClusterFeature
+      requirements:
+        - Secret kube-system/metrics-server-tls keys tls.crt,tls.key
+  render:
+    command: cub install setup --pull packages/metrics-server/metrics-server/3.13.0 --base default --work-dir .tmp/use-more-now/metrics-server-default --non-interactive --namespace kube-system
+    result: pass
+    manifestCount: 10
+    separatedSecretCount: 0
+    facts:
+      targetFactChecks:
+        base: default
+        mode: not-required
+        result: pass
+      requiredSecrets: []
+  rerender:
+    command: cub install render --work-dir .tmp/use-more-now/metrics-server-default
+    result: pass
+    manifestCount: 10
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: cub install package packages/metrics-server/metrics-server/3.13.0 -o .tmp/use-more-now/metrics-server-archives/metrics-server-a.tgz
+    sha256: 40f5cf32954c5162a1fcc98985582652b2ae3122a88b48f19e41df21b46bc72d
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: cub install vet --work-dir .tmp/use-more-now/metrics-server-default
+    result: pass
+    note: Package declares no validators.
+  upload:
+    command: cub install upload --work-dir .tmp/use-more-now/metrics-server-default --space helm-metrics-server-use-more-now
+    result: pass
+    workaround: CUB_CONFIG=/Users/alexis/.confighub/config.yaml
+    uploadedAt: "2026-05-27T08:26:09Z"
+    space: helm-metrics-server-use-more-now
+    unitCount: 11
+    metricsServerKubernetesUnitCount: 10
+    installerRecordUnitCount: 1
+    inferredLinkCount: 14
+    unresolvedClusterReferences:
+      - unit: deployment-kube-system-metrics-server
+        reference: scheduling.k8s.io/v1/PriorityClass system-cluster-critical
+        reason: Cluster-provided priority class must exist or be explicitly accepted before live apply.
+      - unit: rolebinding-kube-system-metrics-server-auth-reader
+        reference: rbac.authorization.k8s.io/v1/Role extension-apiserver-authentication-reader
+        reason: Cluster-provided auth-reader Role must exist or be explicitly accepted before live apply.
+  plan:
+    command: cub install plan --work-dir .tmp/use-more-now/metrics-server-default
+    result: pass
+    summary: No changes.
+    images:
+      - Deployment/metrics-server [metrics-server] registry.k8s.io/metrics-server/metrics-server:v0.8.0
+  serverSideVariant:
+    command: cub variant create staging helm-metrics-server-use-more-now --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}}
+    result: pass
+    upstreamSpace: helm-metrics-server-use-more-now
+    downstreamSpace: helm-metrics-server-use-more-now-staging
+    clonedUnitCount: 11
+  review:
+    unitList: pass
+    cloneTree: pass
+    unitData: pass
+    revisionList: pass
+    revisionDiff: pass
+    representativeUnit: apiservice-v1beta1-metrics-k8s-io
+  observedFriction:
+    - cub install upload needs explicit CUB_CONFIG in this local setup.
+    - dry-run apply is blocked until a target is attached, which is the correct safe boundary.
+    - upload identified cluster-provided references that require target checks before live apply.
+
