@@ -7,7 +7,7 @@ It does not claim old-version support yet.
 
 ```text
 recipes reviewed: 100
-legacy patch lanes open: 1
+legacy patch lanes open: 6
 old versions selected: 0
 ```
 
@@ -15,7 +15,12 @@ old versions selected: 0
 
 | Chart | Status | Next action |
 | --- | --- | --- |
-| `bitnami/redis@25.5.3` | review-lane-open | Select old Redis versions worth paid patch support and generate first upgrade/patch scenario. |
+| `bitnami/nginx@24.0.2` | review-lane-open | Select old chart versions worth paid patch support and generate the first upgrade/patch scenario. |
+| `bitnami/postgresql@18.6.7` | review-lane-open | Select old chart versions worth paid patch support and generate the first upgrade/patch scenario. |
+| `bitnami/redis@25.5.3` | review-lane-open | Select old chart versions worth paid patch support and generate the first upgrade/patch scenario. |
+| `ingress-nginx/ingress-nginx@4.15.1` | review-lane-open | Select old chart versions worth paid patch support and generate the first upgrade/patch scenario. |
+| `jetstack/cert-manager@v1.20.2` | review-lane-open | Select old chart versions worth paid patch support and generate the first upgrade/patch scenario. |
+| `metrics-server/metrics-server@3.13.0` | review-lane-open | Select old chart versions worth paid patch support and generate the first upgrade/patch scenario. |
 
 ## Required Proof Before Selling Old-Version Patches
 

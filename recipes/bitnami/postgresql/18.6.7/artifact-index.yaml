@@ -35,16 +35,16 @@ spec:
       - "tpl"
   catalogStatus:
     path: "recipes/bitnami/postgresql/18.6.7/catalog-status.yaml"
-    status: "catalog-candidate"
-    supportLevel: "promotion-review-needed"
+    status: "catalog-supported"
+    supportLevel: "supported-for-declared-scopes"
     supportedScopes:
-      []
-    productionReadiness: "not-reviewed-for-production"
+      - "local-test"
+    productionReadiness: "blocked-by-current-scan-gate"
     supportedVariants:
-      []
-    candidateVariants:
       - "generated-passwords"
       - "existing-secret"
+    candidateVariants:
+      []
     deferredVariants:
       []
   installerPackage:

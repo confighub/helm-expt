@@ -1,17 +1,32 @@
 # Catalog Promotion Next Candidates
 
-Redis is the first explicit `catalog-supported` entry. The next promotion
-reviews should prove breadth without making the happy path feel heavy.
+Six recipes are now explicit `catalog-supported` entries for the declared
+`local-test` scope:
 
-Recommended next five:
+```text
+bitnami/redis
+bitnami/nginx
+bitnami/postgresql
+metrics-server/metrics-server
+ingress-nginx/ingress-nginx
+jetstack/cert-manager
+```
+
+They are not production-supported yet. Production remains blocked until the
+scan, gate, and operating-policy findings have dispositions.
+
+The next promotion reviews should prove breadth without making the happy path
+feel heavy.
+
+Recommended next candidates:
 
 | Chart | Why it matters | Review focus |
 | --- | --- | --- |
-| `bitnami/nginx` | Simple, familiar workload | Prove shortest possible happy path and low ceremony. |
-| `bitnami/postgresql` | Stateful chart | Storage, secrets, upgrade/rollback, and backup expectations. |
-| `metrics-server/metrics-server` | Small cluster component | APIService, target facts, and production readiness. |
-| `ingress-nginx/ingress-nginx` | Common edge component | Webhooks, hooks, cluster RBAC, and admission-disabled variant. |
-| `jetstack/cert-manager` | CRD-heavy infrastructure | CRD lifecycle, webhook readiness, and hook policy. |
+| `argo-cd/argo-cd` | Common GitOps control plane | Raw/tpl slots, RBAC, CRDs, and GitOps compatibility story. |
+| `external-secrets/external-secrets` | Secret integration chart | CRDs, webhooks, SecretStore expectations, and target facts. |
+| `grafana/grafana` | Familiar app with many knobs | Ingress/TLS, persistence, dashboards, and admin Secret handling. |
+| `hashicorp/vault` | Security-sensitive stateful chart | Seal/init expectations, storage, RBAC, and production blockers. |
+| `prometheus-community/prometheus` | Monitoring baseline | RBAC, PVCs, alerting config, scrape extensions, and safe variants. |
 
 Promotion review should answer:
 

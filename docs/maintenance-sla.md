@@ -125,7 +125,10 @@ The repo currently has:
 100 proof-grade recipes/packages
 20 bespoke proofs with richer variants
 80 generated full proofs with default variants
+6 catalog-supported recipes for local-test scope
+14 catalog candidates
 ```
 
-The next maintenance milestone is to promote selected proof-grade recipes to
-catalog-supported recipes using `docs/catalog-promotion-review.md`.
+The next maintenance milestones are to promote selected remaining candidates
+using `docs/catalog-promotion-review.md`, add production dispositions for the
+supported local-test recipes, and keep old-version patch reviews repeatable.

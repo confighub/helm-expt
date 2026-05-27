@@ -13,12 +13,12 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Field | Value |
 | --- | --- |
 | Chart | bitnami/postgresql@18.6.7 |
-| Catalog status | catalog-candidate |
-| Support level | promotion-review-needed |
-| Supported scopes | none |
-| Production readiness | not-reviewed-for-production |
-| Supported variants | none |
-| Candidate variants | generated-passwords, existing-secret |
+| Catalog status | catalog-supported |
+| Support level | supported-for-declared-scopes |
+| Supported scopes | local-test |
+| Production readiness | blocked-by-current-scan-gate |
+| Supported variants | generated-passwords, existing-secret |
+| Candidate variants | none |
 | Control points | capability-profile, dependency-lock, generated-facts, hook-policy, installer-support-object, pvc-policy, source-lock, stateful-workload, target-facts, tpl |
 
 ## Artifact Chain

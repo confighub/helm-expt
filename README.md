@@ -263,8 +263,10 @@ catalog-candidate: worth human review
 catalog-supported: explicitly approved support scope
 ```
 
-Today Redis is the first catalog-supported recipe. The rest of the top-20 are
-proof-grade or candidates until the promotion review says otherwise.
+Today six recipes are catalog-supported for the declared `local-test` scope:
+Redis, NGINX, PostgreSQL, Metrics Server, Ingress NGINX, and cert-manager.
+Production support is still deliberately blocked until the scan, gate, and
+operating-policy findings have dispositions.
 
 The catalog review docs are:
 

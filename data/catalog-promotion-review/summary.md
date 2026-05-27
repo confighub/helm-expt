@@ -19,8 +19,8 @@ recipes reviewed: 100
 machine checks pass: 100
 machine checks fail: 0
 proof-grade: 80
-catalog-candidate: 19
-catalog-supported: 1
+catalog-candidate: 14
+catalog-supported: 6
 blocked: 0
 default-only recipes: 80
 multi-variant recipes: 20
@@ -36,8 +36,8 @@ recipes with non-current executable fixture path: 0
 ## Support Levels
 
 - `machine-proof-only`: 80
-- `promotion-review-needed`: 19
-- `supported-for-declared-scopes`: 1
+- `promotion-review-needed`: 14
+- `supported-for-declared-scopes`: 6
 
 ## Catalog Candidates
 
@@ -50,8 +50,6 @@ proof work.
 | `argo-cd/argo-cd@9.5.15` | 2 | warn | run human catalog promotion review |
 | `bitnami/mongodb@19.0.7` | 2 | warn | run human catalog promotion review |
 | `bitnami/mysql@14.0.3` | 2 | warn | run human catalog promotion review |
-| `bitnami/nginx@24.0.2` | 2 | warn | run human catalog promotion review |
-| `bitnami/postgresql@18.6.7` | 2 | warn | run human catalog promotion review |
 | `bitnami/rabbitmq@16.0.14` | 2 | warn | run human catalog promotion review |
 | `external-secrets/external-secrets@2.5.0` | 2 | warn | run human catalog promotion review |
 | `grafana/grafana@10.5.15` | 2 | warn | run human catalog promotion review |
@@ -59,10 +57,7 @@ proof work.
 | `grafana/tempo@1.24.4` | 2 | warn | run human catalog promotion review |
 | `hashicorp/consul@2.0.0` | 2 | warn | run human catalog promotion review |
 | `hashicorp/vault@0.32.0` | 2 | warn | run human catalog promotion review |
-| `ingress-nginx/ingress-nginx@4.15.1` | 2 | warn | run human catalog promotion review |
-| `jetstack/cert-manager@v1.20.2` | 2 | warn | run human catalog promotion review |
 | `longhorn/longhorn@1.11.2` | 2 | warn | run human catalog promotion review |
-| `metrics-server/metrics-server@3.13.0` | 2 | warn | run human catalog promotion review |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | 2 | warn | run human catalog promotion review |
 | `prometheus-community/prometheus@29.8.0` | 2 | warn | run human catalog promotion review |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | 2 | warn | run human catalog promotion review |

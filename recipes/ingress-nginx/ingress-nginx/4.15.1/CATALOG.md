@@ -13,12 +13,12 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Field | Value |
 | --- | --- |
 | Chart | ingress-nginx/ingress-nginx@4.15.1 |
-| Catalog status | catalog-candidate |
-| Support level | promotion-review-needed |
-| Supported scopes | none |
-| Production readiness | not-reviewed-for-production |
-| Supported variants | none |
-| Candidate variants | default, admission-disabled |
+| Catalog status | catalog-supported |
+| Support level | supported-for-declared-scopes |
+| Supported scopes | local-test |
+| Production readiness | blocked-by-current-scan-gate |
+| Supported variants | default, admission-disabled |
+| Candidate variants | none |
 | Control points | admission-webhook, capability-profile, cluster-rbac, dependency-lock, hook-policy, installer-support-object, source-lock, tpl |
 
 ## Artifact Chain

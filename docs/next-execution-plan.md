@@ -36,8 +36,8 @@ The repo now has:
 100 cub install packages
 20 bespoke multi-variant proofs
 80 generated full default proofs
-1 explicit catalog-supported recipe: bitnami/redis@25.5.3
-19 catalog candidates
+6 explicit catalog-supported recipes for local-test scope
+14 catalog candidates
 80 proof-grade recipes
 ```
 
@@ -115,7 +115,7 @@ Acceptance:
 - `npm run verify` passes
 - `data/catalog-promotion-review/summary.md` reports:
   - `machine checks pass: 100`
-  - `catalog-supported: 1`
+  - `catalog-supported: 6`
   - `recipes with non-current executable fixture path: 0`
 
 ### P0.2 Make Chart -> Recipe -> Variant Obvious
@@ -350,9 +350,15 @@ What remains risky or unreviewed?
 
 ## P1 Execution
 
-### P1.1 Promote The Next Five Catalog Candidates
+### P1.1 Promote The First Five Catalog Candidates
 
-Recommended order:
+Status:
+
+```text
+complete for local-test scope
+```
+
+Promoted after Redis:
 
 ```text
 bitnami/nginx
@@ -378,6 +384,9 @@ Acceptance per chart:
 - supported variants and deferred variants are explicit
 - Helm-vs-`cub install` comparison passes
 - scan/gate warnings have production or local-test disposition
+
+Production support is still blocked for these recipes until scan, gate, and
+operating-policy findings have explicit dispositions.
 
 ### P1.2 Generate Per-Chart Weirdness And Mitigations
 
@@ -532,8 +541,9 @@ Acceptance:
 Status:
 
 ```text
-complete for the Redis, NGINX, Metrics Server, and PostgreSQL baselines; repeat
-with a target-backed local-kind lane before claiming live deploy proof
+complete for the Redis, NGINX, Metrics Server, PostgreSQL, Ingress NGINX, and
+cert-manager baselines; repeat with a target-backed local-kind lane before
+claiming live deploy proof
 ```
 
 Action:
@@ -565,14 +575,20 @@ Acceptance:
 - Current PostgreSQL evidence lives in:
   - `docs/demo/postgresql/use-more-now-transcript.md`
   - `runs/postgresql-use-more-now/latest/safe-ops-receipt.yaml`
+- Current Ingress NGINX evidence lives in:
+  - `docs/demo/ingress-nginx/use-more-now-transcript.md`
+  - `runs/ingress-nginx-use-more-now/latest/safe-ops-receipt.yaml`
+- Current cert-manager evidence lives in:
+  - `docs/demo/cert-manager/use-more-now-transcript.md`
+  - `runs/cert-manager-use-more-now/latest/safe-ops-receipt.yaml`
 
 ### P1.8 Add ConfigHub Function Scan Lane
 
 Status:
 
 ```text
-complete for the Redis, NGINX, Metrics Server, and PostgreSQL baselines; expand
-to ingress-nginx, cert-manager, and other catalog candidates
+complete for the Redis, NGINX, Metrics Server, PostgreSQL, Ingress NGINX, and
+cert-manager baselines; expand to other catalog candidates
 ```
 
 Action:
@@ -611,6 +627,16 @@ Acceptance:
   `vet-merge-keys` results:
   - `docs/demo/postgresql/use-more-now-transcript.md`
   - `runs/postgresql-use-more-now/latest/function-scan-receipt.yaml`
+- Current Ingress NGINX evidence binds uploaded Ingress NGINX Unit heads and
+  DataHashes to passing `vet-format`, `vet-placeholders`, and
+  `vet-merge-keys` results:
+  - `docs/demo/ingress-nginx/use-more-now-transcript.md`
+  - `runs/ingress-nginx-use-more-now/latest/function-scan-receipt.yaml`
+- Current cert-manager evidence binds uploaded cert-manager Unit heads and
+  DataHashes to passing `vet-format`, `vet-placeholders`, and
+  `vet-merge-keys` results:
+  - `docs/demo/cert-manager/use-more-now-transcript.md`
+  - `runs/cert-manager-use-more-now/latest/function-scan-receipt.yaml`
 
 ### P1.9 Add Catalog Metadata And Views
 
@@ -725,6 +751,7 @@ artifacts that do not prove the user-facing claim.
 
 ## Immediate Next Three Moves
 
-1. Repeat the use-more-now transcript shape for ingress-nginx.
-2. Add the ingress-nginx ConfigHub function scan and safe-ops receipts.
-3. Then use cert-manager to emphasize CRD and webhook lifecycle.
+1. Promote the next 3-5 catalog candidates from the remaining 14.
+2. Generate per-chart weirdness-and-mitigations notes for every supported and
+   candidate chart.
+3. Start the new top-500 catalog-analysis output shape.
