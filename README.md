@@ -435,6 +435,8 @@ docs/demo/redis/cli-transcript.txt
 docs/demo/redis/ux-acceptance.md
 docs/demo/redis/use-more-now.md
 docs/demo/redis/use-more-now-transcript.md
+docs/demo/redis/function-scan-lane.md
+docs/demo/redis/safe-ops-lane.md
 ```
 
 It contains Redis readiness cards for the `default` and
@@ -450,6 +452,7 @@ npm run redis:generate-proof
 npm run redis:generate-package
 npm run redis:verify-proof
 npm run redis:verify-package
+npm run redis:verify-use-more-now
 npm run redis:compare
 ```
 
@@ -1050,6 +1053,12 @@ It has two install variants:
 ```text
 http-clusterip
 existing-tls-ingress
+```
+
+The next live evidence target after Redis is documented here:
+
+```text
+docs/demo/nginx/use-more-now-plan.md
 ```
 
 The proof shows that regular Helm output is preserved by real

@@ -521,6 +521,13 @@ Acceptance:
 
 ### P1.7 Add Safe Operation Lane
 
+Status:
+
+```text
+complete for the Redis baseline; repeat with a target-backed local-kind lane
+before claiming live deploy proof
+```
+
 Action:
 
 Use existing safe-operation verbs in local/test scope:
@@ -538,8 +545,17 @@ Acceptance:
 - Approval and apply intent are recorded.
 - Gated or unsafe operations are shown as blocked/cancelled rather than
   silently skipped.
+- Current Redis evidence lives in:
+  - `docs/demo/redis/safe-ops-lane.md`
+  - `runs/redis-use-more-now/latest/safe-ops-receipt.yaml`
 
 ### P1.8 Add ConfigHub Function Scan Lane
+
+Status:
+
+```text
+complete for the Redis baseline; expand to NGINX and other catalog candidates
+```
 
 Action:
 
@@ -559,6 +575,10 @@ Acceptance:
   receipt.
 - Scan/gate results are bound to the rendered object set or Unit revision.
 - This lane coexists with external scanners such as Trivy/Snyk/kube-linter.
+- Current Redis evidence binds 14 uploaded Redis Unit heads and DataHashes to
+  passing `vet-format`, `vet-placeholders`, and `vet-merge-keys` results:
+  - `docs/demo/redis/function-scan-lane.md`
+  - `runs/redis-use-more-now/latest/function-scan-receipt.yaml`
 
 ### P1.9 Add Catalog Metadata And Views
 
@@ -673,9 +693,8 @@ artifacts that do not prove the user-facing claim.
 
 ## Immediate Next Three Moves
 
-1. Add the ConfigHub function scan lane for Redis or the next promoted
-   candidate using `cub function vet` / `cub run vet-*`.
-2. Add a local/test safe-operation lane with `cub changeset`, `cub unit
-   approve`, and a gated or dry-run apply path.
-3. Decide whether the next live evidence target is NGINX, PostgreSQL, or
-   Metrics Server, then repeat the use-more-now transcript for that chart.
+1. Repeat the Redis use-more-now transcript shape for NGINX `http-clusterip`.
+2. Add the NGINX ConfigHub function scan and safe-ops receipts.
+3. Decide whether PostgreSQL or Metrics Server should be the next target after
+   NGINX, based on whether we want the next proof to emphasize stateful data or
+   APIService/target-fact behavior.
