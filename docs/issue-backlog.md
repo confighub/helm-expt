@@ -4,7 +4,7 @@ This document mirrors the GitHub issues that must not be lost in the planning
 docs. GitHub remains the execution tracker; this file keeps reviewers aligned
 with the written plan.
 
-Last synced: 2026-05-26.
+Last synced: 2026-05-27.
 
 ## Rule
 
@@ -16,6 +16,38 @@ P2 issues preserve important design depth without blocking the first proof.
 
 The current plan is not credible at 20/100/500 chart scale until every open P0
 is either completed or deliberately reclassified.
+
+## Capability Roadmap
+
+The active roadmap now separates existing `cub` / ConfigHub capabilities from
+missing product verbs. These lanes should become GitHub issues when they move
+from roadmap shape to implementation work.
+
+Existing capabilities to use more now:
+
+| Lane | Existing verbs | Roadmap home |
+| --- | --- | --- |
+| Installer proof | `cub install doc/setup/render/package/push/sign/verify/vet/plan/upload/inspect/list` | P0.4, P1.1 |
+| Server variants | `cub variant create` | P0.5 |
+| Review and diff | `cub unit diff`, `cub revision data/list`, `cub unit data/tree/list` | P1.6 |
+| Safe operations | `cub changeset create/list/update`, `cub unit approve/apply/destroy/cancel` | P1.7 |
+| Scanning and misconfig | `cub function vet`, `cub function get/set`, `cub run ...` | P1.8 |
+| Target and live facts | `cub target create/get/list`, `cub k8s collect`, `cub k8s source`, `cub unit livestate/livedata/refresh` | P1.3, P1.4 |
+| GitOps adoption | `cub gitops discover/import` | P2.5 |
+| Metadata model | `cub tag`, `cub attribute`, `cub filter`, `cub view`, `cub link` | P1.9 |
+
+Missing verbs to ask Brian for:
+
+| Priority | Ask |
+| --- | --- |
+| P0 ask | `cub install import helm` |
+| P0 ask | `cub install analyze` |
+| P0 ask | implemented `cub install preflight` |
+| P0 ask | `cub install compare` or `cub install prove` |
+| P1 ask | `cub install scan` |
+| P1 ask | `cub variant list/diff/promote/update` |
+| P1 ask | `cub observe` or `cub target observe` |
+| P2 ask | `cub catalog search/show/install` |
 
 ## Completed Redis Proof Gates
 

@@ -634,6 +634,27 @@ The important rule is that every durable input, decision, output, and
 observation is produced by one of the supported surfaces and leaves a receipt
 or addressable artifact.
 
+Existing ConfigHub and `cub` verbs should be used before inventing new scripts
+or settling for prose:
+
+| Capability lane | Existing surface to use now |
+| --- | --- |
+| Installer proof | `cub install doc/setup/render/package/push/sign/verify/vet/plan/upload/inspect/list` |
+| Server-side variants | `cub variant create` |
+| Review and diff | `cub unit diff`, `cub revision data/list`, `cub unit data/tree/list` |
+| Safe operations | `cub changeset create/list/update`, `cub unit approve/apply/destroy/cancel` |
+| Scanning and misconfiguration | `cub function vet`, `cub function get/set`, `cub run ...` |
+| Target and live facts | `cub target create/get/list`, `cub k8s collect`, `cub k8s source`, `cub unit livestate/livedata/refresh` |
+| GitOps adoption | `cub gitops discover/import` |
+| Metadata model | `cub tag`, `cub attribute`, `cub filter`, `cub view`, `cub link` |
+
+Missing product verbs should be requested deliberately, not smuggled into docs
+as if they already exist. The current asks are `cub install import helm`,
+`cub install analyze`, implemented `cub install preflight`,
+`cub install compare/prove`, `cub install scan`,
+`cub variant list/diff/promote/update`, `cub observe` or
+`cub target observe`, and `cub catalog search/show/install`.
+
 | Flow step | Primary execution surface | Durable output |
 | --- | --- | --- |
 | Resolve chart source | `cub` / installer | `SourceLock`, chart digest |
