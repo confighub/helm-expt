@@ -139,12 +139,16 @@ Acceptance:
 
 Problem:
 
-Current packages mostly use installer bases. They prove `cub install setup`
-against Helm output, but they do not yet use the full installer package model.
+The proof must not leave Helm pain in prose when a real installer, `cub`, or
+ConfigHub capability can carry it better. Current packages prove
+`cub install setup` against Helm output and now synchronize required Secret
+target facts into installer packages, but the catalog must keep moving toward
+executable capabilities instead of documentation-only notes.
 
 Action:
 
-For Redis and the next five candidates, review whether the package should use:
+For Redis and each promoted catalog candidate, review whether the package
+should use:
 
 ```text
 components
@@ -158,6 +162,11 @@ collector facts
 preflight, when implemented
 ```
 
+Use the capability when it exists, fits the chart behavior, and makes the
+result simpler, safer, or more provable. If no suitable product capability
+exists yet, mark the control point as a capability gap and link it to an issue
+instead of pretending the docs solved it.
+
 Acceptance:
 
 - Redis has an installer-capability gap review.
@@ -166,6 +175,8 @@ Acceptance:
   - explicitly documented as proof-layer-only pending installer support.
 - At least one promoted candidate uses installer-native inputs or components,
   not only bases.
+- Documentation-only mitigations are allowed only when the matching product
+  capability is missing, inferior, or would make the happy path harder.
 
 ### P0.5 Integrate Real `cub variant`
 

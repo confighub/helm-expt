@@ -90,6 +90,20 @@ The model is complex.
 The UX must not be.
 ```
 
+Capability doctrine:
+
+```text
+Use real installer, cub, and ConfigHub capabilities wherever they exist,
+fit the chart behavior, and make the result simpler, safer, or more provable
+than a document-only note.
+```
+
+This is a standing acceptance rule for the project. Docs explain the
+executable path, record chart weirdness, capture human/catalog decisions, and
+name missing capabilities. They should not be the primary home for a control
+point when `cub install`, `cub`, ConfigHub Server, or ConfigHub OCI can carry
+that control point more cleanly and verify it.
+
 ## Adoption Ladder
 
 The current product proof is not a pure serverless architecture. The fast path

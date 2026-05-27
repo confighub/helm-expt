@@ -35,6 +35,9 @@ Helm renders and `cub install`.
 
 - The public claim is stable: correct variants, safe operations, immediate
   proof.
+- The written doctrine now favors executable installer, `cub`, and ConfigHub
+  capabilities over documentation-only mitigations whenever those capabilities
+  exist, fit the chart behavior, and improve simplicity, safety, or proof.
 - Redis, the promoted top-20 recipes, and the next-80 recipes all use current
   `packages/` executable fixtures.
 - `npm run verify` checks current artifact chains instead of obsolete archive

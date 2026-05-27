@@ -35,6 +35,20 @@ We use AI to accelerate Helm chart analysis and recipe creation. We use
 `cub install` to prove the resulting recipes produce correct, Helm-equivalent,
 reviewable ConfigHub variants.
 
+Capability doctrine:
+
+```text
+Use real installer, cub, and ConfigHub capabilities wherever they exist,
+fit the chart behavior, and make the result simpler, safer, or more provable
+than a document-only note.
+```
+
+Docs are still required, but their job is to explain the executable path,
+record chart weirdness, capture human/catalog decisions, and mark capability
+gaps. If a real `cub install`, `cub`, or ConfigHub Server/OCI feature can carry
+the requirement better than prose, the proof should use the feature and verify
+it.
+
 The product promise is:
 
 ```text
