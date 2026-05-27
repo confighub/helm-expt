@@ -104,6 +104,14 @@ The generated proof index is:
 data/next80-full-proofs/proof-index.csv
 ```
 
+The docs that separate proof from recommended catalog support are:
+
+```text
+docs/customization-algorithm.md
+docs/catalog-promotion-review.md
+docs/maintenance-sla.md
+```
+
 Verification:
 
 ```sh
