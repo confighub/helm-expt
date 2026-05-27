@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/gitlab/gitlab-runner/0.89.0/chart-dossier.yaml"
     controlPoints: "recipes/gitlab/gitlab-runner/0.89.0/control-points.yaml"
     valueModel: "recipes/gitlab/gitlab-runner/0.89.0/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/bitnami/spark/10.0.3/chart-dossier.yaml"
     controlPoints: "recipes/bitnami/spark/10.0.3/control-points.yaml"
     valueModel: "recipes/bitnami/spark/10.0.3/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

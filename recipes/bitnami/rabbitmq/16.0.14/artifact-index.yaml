@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/bitnami/rabbitmq/16.0.14/chart-dossier.yaml"
     controlPoints: "recipes/bitnami/rabbitmq/16.0.14/control-points.yaml"
     valueModel: "recipes/bitnami/rabbitmq/16.0.14/value-model.yaml"
+    weirdnessAndMitigations: "recipes/bitnami/rabbitmq/16.0.14/weirdness-and-mitigations.md"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

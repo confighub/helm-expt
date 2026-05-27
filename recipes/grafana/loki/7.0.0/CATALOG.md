@@ -32,6 +32,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Chart dossier | [recipes/grafana/loki/7.0.0/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/grafana/loki/7.0.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/grafana/loki/7.0.0/value-model.yaml](value-model.yaml) |
+| Weirdness and mitigations | [recipes/grafana/loki/7.0.0/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/grafana/loki/7.0.0/catalog-status.yaml](catalog-status.yaml) |
 | Installer package | [packages/grafana/loki/7.0.0](../../../../packages/grafana/loki/7.0.0) |
 | Installer package receipt | [recipes/grafana/loki/7.0.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |

@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/fluent/fluentd/0.5.3/chart-dossier.yaml"
     controlPoints: "recipes/fluent/fluentd/0.5.3/control-points.yaml"
     valueModel: "recipes/fluent/fluentd/0.5.3/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

@@ -32,6 +32,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Chart dossier | [recipes/bitnami/rabbitmq/16.0.14/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/bitnami/rabbitmq/16.0.14/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/bitnami/rabbitmq/16.0.14/value-model.yaml](value-model.yaml) |
+| Weirdness and mitigations | [recipes/bitnami/rabbitmq/16.0.14/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/bitnami/rabbitmq/16.0.14/catalog-status.yaml](catalog-status.yaml) |
 | Installer package | [packages/bitnami/rabbitmq/16.0.14](../../../../packages/bitnami/rabbitmq/16.0.14) |
 | Installer package receipt | [recipes/bitnami/rabbitmq/16.0.14/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |

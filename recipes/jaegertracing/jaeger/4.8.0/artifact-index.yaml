@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/jaegertracing/jaeger/4.8.0/chart-dossier.yaml"
     controlPoints: "recipes/jaegertracing/jaeger/4.8.0/control-points.yaml"
     valueModel: "recipes/jaegertracing/jaeger/4.8.0/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

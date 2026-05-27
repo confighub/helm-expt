@@ -32,6 +32,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Chart dossier | [recipes/grafana/tempo/1.24.4/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/grafana/tempo/1.24.4/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/grafana/tempo/1.24.4/value-model.yaml](value-model.yaml) |
+| Weirdness and mitigations | [recipes/grafana/tempo/1.24.4/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/grafana/tempo/1.24.4/catalog-status.yaml](catalog-status.yaml) |
 | Installer package | [packages/grafana/tempo/1.24.4](../../../../packages/grafana/tempo/1.24.4) |
 | Installer package receipt | [recipes/grafana/tempo/1.24.4/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |

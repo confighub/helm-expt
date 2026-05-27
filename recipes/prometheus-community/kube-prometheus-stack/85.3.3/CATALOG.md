@@ -32,6 +32,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Chart dossier | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-model.yaml](value-model.yaml) |
+| Weirdness and mitigations | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/catalog-status.yaml](catalog-status.yaml) |
 | Installer package | [packages/prometheus-community/kube-prometheus-stack/85.3.3](../../../../packages/prometheus-community/kube-prometheus-stack/85.3.3) |
 | Installer package receipt | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |

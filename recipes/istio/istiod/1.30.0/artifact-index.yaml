@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/istio/istiod/1.30.0/chart-dossier.yaml"
     controlPoints: "recipes/istio/istiod/1.30.0/control-points.yaml"
     valueModel: "recipes/istio/istiod/1.30.0/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

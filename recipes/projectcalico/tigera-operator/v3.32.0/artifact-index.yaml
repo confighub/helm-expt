@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/projectcalico/tigera-operator/v3.32.0/chart-dossier.yaml"
     controlPoints: "recipes/projectcalico/tigera-operator/v3.32.0/control-points.yaml"
     valueModel: "recipes/projectcalico/tigera-operator/v3.32.0/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

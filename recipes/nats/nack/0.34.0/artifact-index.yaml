@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/nats/nack/0.34.0/chart-dossier.yaml"
     controlPoints: "recipes/nats/nack/0.34.0/control-points.yaml"
     valueModel: "recipes/nats/nack/0.34.0/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

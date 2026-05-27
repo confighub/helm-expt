@@ -32,6 +32,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Chart dossier | [recipes/external-secrets/external-secrets/2.5.0/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/external-secrets/external-secrets/2.5.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/external-secrets/external-secrets/2.5.0/value-model.yaml](value-model.yaml) |
+| Weirdness and mitigations | [recipes/external-secrets/external-secrets/2.5.0/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/external-secrets/external-secrets/2.5.0/catalog-status.yaml](catalog-status.yaml) |
 | Installer package | [packages/external-secrets/external-secrets/2.5.0](../../../../packages/external-secrets/external-secrets/2.5.0) |
 | Installer package receipt | [recipes/external-secrets/external-secrets/2.5.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |

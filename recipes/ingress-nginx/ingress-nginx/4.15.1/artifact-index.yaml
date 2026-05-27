@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/ingress-nginx/ingress-nginx/4.15.1/chart-dossier.yaml"
     controlPoints: "recipes/ingress-nginx/ingress-nginx/4.15.1/control-points.yaml"
     valueModel: "recipes/ingress-nginx/ingress-nginx/4.15.1/value-model.yaml"
+    weirdnessAndMitigations: "recipes/ingress-nginx/ingress-nginx/4.15.1/weirdness-and-mitigations.md"
     controlPointCategories:
       - "admission-webhook"
       - "capability-profile"

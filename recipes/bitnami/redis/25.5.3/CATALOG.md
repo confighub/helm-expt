@@ -32,6 +32,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Chart dossier | [recipes/bitnami/redis/25.5.3/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/bitnami/redis/25.5.3/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/bitnami/redis/25.5.3/value-model.yaml](value-model.yaml) |
+| Weirdness and mitigations | [recipes/bitnami/redis/25.5.3/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/bitnami/redis/25.5.3/catalog-status.yaml](catalog-status.yaml) |
 | Installer package | [packages/bitnami/redis/25.5.3](../../../../packages/bitnami/redis/25.5.3) |
 | Installer package receipt | [recipes/bitnami/redis/25.5.3/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |

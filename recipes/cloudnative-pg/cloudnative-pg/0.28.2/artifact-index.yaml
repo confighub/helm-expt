@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/chart-dossier.yaml"
     controlPoints: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/control-points.yaml"
     valueModel: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

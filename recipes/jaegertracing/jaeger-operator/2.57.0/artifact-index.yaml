@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/jaegertracing/jaeger-operator/2.57.0/chart-dossier.yaml"
     controlPoints: "recipes/jaegertracing/jaeger-operator/2.57.0/control-points.yaml"
     valueModel: "recipes/jaegertracing/jaeger-operator/2.57.0/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "crds"

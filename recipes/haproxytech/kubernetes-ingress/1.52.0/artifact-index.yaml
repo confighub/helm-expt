@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/haproxytech/kubernetes-ingress/1.52.0/chart-dossier.yaml"
     controlPoints: "recipes/haproxytech/kubernetes-ingress/1.52.0/control-points.yaml"
     valueModel: "recipes/haproxytech/kubernetes-ingress/1.52.0/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

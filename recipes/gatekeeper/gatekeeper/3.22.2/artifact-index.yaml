@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/gatekeeper/gatekeeper/3.22.2/chart-dossier.yaml"
     controlPoints: "recipes/gatekeeper/gatekeeper/3.22.2/control-points.yaml"
     valueModel: "recipes/gatekeeper/gatekeeper/3.22.2/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

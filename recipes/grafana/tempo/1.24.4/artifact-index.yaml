@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/grafana/tempo/1.24.4/chart-dossier.yaml"
     controlPoints: "recipes/grafana/tempo/1.24.4/control-points.yaml"
     valueModel: "recipes/grafana/tempo/1.24.4/value-model.yaml"
+    weirdnessAndMitigations: "recipes/grafana/tempo/1.24.4/weirdness-and-mitigations.md"
     controlPointCategories:
       - "capability-profile"
       - "chart-deprecation"

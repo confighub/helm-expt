@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/chart-dossier.yaml"
     controlPoints: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/control-points.yaml"
     valueModel: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-model.yaml"
+    weirdnessAndMitigations: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/weirdness-and-mitigations.md"
     controlPointCategories:
       - "admission-webhook"
       - "capability-profile"

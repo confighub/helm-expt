@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/falcosecurity/falco/9.0.0/chart-dossier.yaml"
     controlPoints: "recipes/falcosecurity/falco/9.0.0/control-points.yaml"
     valueModel: "recipes/falcosecurity/falco/9.0.0/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

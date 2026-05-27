@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/descheduler/descheduler/0.36.0/chart-dossier.yaml"
     controlPoints: "recipes/descheduler/descheduler/0.36.0/control-points.yaml"
     valueModel: "recipes/descheduler/descheduler/0.36.0/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

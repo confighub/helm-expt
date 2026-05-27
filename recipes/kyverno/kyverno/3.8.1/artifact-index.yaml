@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/kyverno/kyverno/3.8.1/chart-dossier.yaml"
     controlPoints: "recipes/kyverno/kyverno/3.8.1/control-points.yaml"
     valueModel: "recipes/kyverno/kyverno/3.8.1/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

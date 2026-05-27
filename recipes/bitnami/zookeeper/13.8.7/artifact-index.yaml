@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/bitnami/zookeeper/13.8.7/chart-dossier.yaml"
     controlPoints: "recipes/bitnami/zookeeper/13.8.7/control-points.yaml"
     valueModel: "recipes/bitnami/zookeeper/13.8.7/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/prometheus-community/alertmanager/1.37.0/chart-dossier.yaml"
     controlPoints: "recipes/prometheus-community/alertmanager/1.37.0/control-points.yaml"
     valueModel: "recipes/prometheus-community/alertmanager/1.37.0/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

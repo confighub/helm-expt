@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/bitnami/memcached/8.5.5/chart-dossier.yaml"
     controlPoints: "recipes/bitnami/memcached/8.5.5/control-points.yaml"
     valueModel: "recipes/bitnami/memcached/8.5.5/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

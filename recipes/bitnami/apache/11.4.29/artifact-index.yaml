@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/bitnami/apache/11.4.29/chart-dossier.yaml"
     controlPoints: "recipes/bitnami/apache/11.4.29/control-points.yaml"
     valueModel: "recipes/bitnami/apache/11.4.29/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

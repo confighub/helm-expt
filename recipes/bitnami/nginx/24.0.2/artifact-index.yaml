@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/bitnami/nginx/24.0.2/chart-dossier.yaml"
     controlPoints: "recipes/bitnami/nginx/24.0.2/control-points.yaml"
     valueModel: "recipes/bitnami/nginx/24.0.2/value-model.yaml"
+    weirdnessAndMitigations: "recipes/bitnami/nginx/24.0.2/weirdness-and-mitigations.md"
     controlPointCategories:
       - "availability-policy"
       - "capability-profile"

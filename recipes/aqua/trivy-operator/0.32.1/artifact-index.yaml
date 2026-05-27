@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/aqua/trivy-operator/0.32.1/chart-dossier.yaml"
     controlPoints: "recipes/aqua/trivy-operator/0.32.1/control-points.yaml"
     valueModel: "recipes/aqua/trivy-operator/0.32.1/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

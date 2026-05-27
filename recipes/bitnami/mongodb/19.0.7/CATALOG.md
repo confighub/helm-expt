@@ -32,6 +32,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Chart dossier | [recipes/bitnami/mongodb/19.0.7/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/bitnami/mongodb/19.0.7/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/bitnami/mongodb/19.0.7/value-model.yaml](value-model.yaml) |
+| Weirdness and mitigations | [recipes/bitnami/mongodb/19.0.7/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/bitnami/mongodb/19.0.7/catalog-status.yaml](catalog-status.yaml) |
 | Installer package | [packages/bitnami/mongodb/19.0.7](../../../../packages/bitnami/mongodb/19.0.7) |
 | Installer package receipt | [recipes/bitnami/mongodb/19.0.7/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |

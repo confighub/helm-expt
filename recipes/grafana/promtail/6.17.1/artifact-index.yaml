@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/grafana/promtail/6.17.1/chart-dossier.yaml"
     controlPoints: "recipes/grafana/promtail/6.17.1/control-points.yaml"
     valueModel: "recipes/grafana/promtail/6.17.1/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

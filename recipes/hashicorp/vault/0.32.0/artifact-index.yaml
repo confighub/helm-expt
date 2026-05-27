@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/hashicorp/vault/0.32.0/chart-dossier.yaml"
     controlPoints: "recipes/hashicorp/vault/0.32.0/control-points.yaml"
     valueModel: "recipes/hashicorp/vault/0.32.0/value-model.yaml"
+    weirdnessAndMitigations: "recipes/hashicorp/vault/0.32.0/weirdness-and-mitigations.md"
     controlPointCategories:
       - "admission-webhook"
       - "capability-profile"

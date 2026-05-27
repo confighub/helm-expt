@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/argo-cd/argo-workflows/1.0.14/chart-dossier.yaml"
     controlPoints: "recipes/argo-cd/argo-workflows/1.0.14/control-points.yaml"
     valueModel: "recipes/argo-cd/argo-workflows/1.0.14/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

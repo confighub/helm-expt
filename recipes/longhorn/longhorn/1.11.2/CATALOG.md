@@ -32,6 +32,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Chart dossier | [recipes/longhorn/longhorn/1.11.2/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/longhorn/longhorn/1.11.2/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/longhorn/longhorn/1.11.2/value-model.yaml](value-model.yaml) |
+| Weirdness and mitigations | [recipes/longhorn/longhorn/1.11.2/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/longhorn/longhorn/1.11.2/catalog-status.yaml](catalog-status.yaml) |
 | Installer package | [packages/longhorn/longhorn/1.11.2](../../../../packages/longhorn/longhorn/1.11.2) |
 | Installer package receipt | [recipes/longhorn/longhorn/1.11.2/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |

@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/longhorn/longhorn/1.11.2/chart-dossier.yaml"
     controlPoints: "recipes/longhorn/longhorn/1.11.2/control-points.yaml"
     valueModel: "recipes/longhorn/longhorn/1.11.2/value-model.yaml"
+    weirdnessAndMitigations: "recipes/longhorn/longhorn/1.11.2/weirdness-and-mitigations.md"
     controlPointCategories:
       - "admission-webhook"
       - "capability-profile"

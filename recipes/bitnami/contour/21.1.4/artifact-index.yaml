@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/bitnami/contour/21.1.4/chart-dossier.yaml"
     controlPoints: "recipes/bitnami/contour/21.1.4/control-points.yaml"
     valueModel: "recipes/bitnami/contour/21.1.4/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

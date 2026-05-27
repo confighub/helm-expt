@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/open-telemetry/opentelemetry-operator/0.114.0/chart-dossier.yaml"
     controlPoints: "recipes/open-telemetry/opentelemetry-operator/0.114.0/control-points.yaml"
     valueModel: "recipes/open-telemetry/opentelemetry-operator/0.114.0/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

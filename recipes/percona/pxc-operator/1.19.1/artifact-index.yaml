@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/percona/pxc-operator/1.19.1/chart-dossier.yaml"
     controlPoints: "recipes/percona/pxc-operator/1.19.1/control-points.yaml"
     valueModel: "recipes/percona/pxc-operator/1.19.1/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "crds"

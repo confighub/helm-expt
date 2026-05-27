@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/bitnami/mongodb/19.0.7/chart-dossier.yaml"
     controlPoints: "recipes/bitnami/mongodb/19.0.7/control-points.yaml"
     valueModel: "recipes/bitnami/mongodb/19.0.7/value-model.yaml"
+    weirdnessAndMitigations: "recipes/bitnami/mongodb/19.0.7/weirdness-and-mitigations.md"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

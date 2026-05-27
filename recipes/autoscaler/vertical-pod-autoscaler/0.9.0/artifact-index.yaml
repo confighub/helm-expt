@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/chart-dossier.yaml"
     controlPoints: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/control-points.yaml"
     valueModel: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

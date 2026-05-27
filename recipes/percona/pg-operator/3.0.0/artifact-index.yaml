@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/percona/pg-operator/3.0.0/chart-dossier.yaml"
     controlPoints: "recipes/percona/pg-operator/3.0.0/control-points.yaml"
     valueModel: "recipes/percona/pg-operator/3.0.0/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "crds"

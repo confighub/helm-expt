@@ -32,6 +32,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Chart dossier | [recipes/hashicorp/vault/0.32.0/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/hashicorp/vault/0.32.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/hashicorp/vault/0.32.0/value-model.yaml](value-model.yaml) |
+| Weirdness and mitigations | [recipes/hashicorp/vault/0.32.0/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/hashicorp/vault/0.32.0/catalog-status.yaml](catalog-status.yaml) |
 | Installer package | [packages/hashicorp/vault/0.32.0](../../../../packages/hashicorp/vault/0.32.0) |
 | Installer package receipt | [recipes/hashicorp/vault/0.32.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |

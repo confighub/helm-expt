@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/grafana/grafana/10.5.15/chart-dossier.yaml"
     controlPoints: "recipes/grafana/grafana/10.5.15/control-points.yaml"
     valueModel: "recipes/grafana/grafana/10.5.15/value-model.yaml"
+    weirdnessAndMitigations: "recipes/grafana/grafana/10.5.15/weirdness-and-mitigations.md"
     controlPointCategories:
       - "capability-profile"
       - "chart-deprecation"

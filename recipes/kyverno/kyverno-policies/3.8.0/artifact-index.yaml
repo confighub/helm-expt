@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/kyverno/kyverno-policies/3.8.0/chart-dossier.yaml"
     controlPoints: "recipes/kyverno/kyverno-policies/3.8.0/control-points.yaml"
     valueModel: "recipes/kyverno/kyverno-policies/3.8.0/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

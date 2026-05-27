@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/elastic/metricbeat/8.5.1/chart-dossier.yaml"
     controlPoints: "recipes/elastic/metricbeat/8.5.1/control-points.yaml"
     valueModel: "recipes/elastic/metricbeat/8.5.1/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/chart-dossier.yaml"
     controlPoints: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/control-points.yaml"
     valueModel: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/value-model.yaml"
+    weirdnessAndMitigations: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/weirdness-and-mitigations.md"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

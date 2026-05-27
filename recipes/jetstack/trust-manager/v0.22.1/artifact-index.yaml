@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/jetstack/trust-manager/v0.22.1/chart-dossier.yaml"
     controlPoints: "recipes/jetstack/trust-manager/v0.22.1/control-points.yaml"
     valueModel: "recipes/jetstack/trust-manager/v0.22.1/value-model.yaml"
+    weirdnessAndMitigations: ""
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"
