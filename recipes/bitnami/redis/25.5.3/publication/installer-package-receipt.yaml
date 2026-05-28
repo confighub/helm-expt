@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub install package packages/bitnami/redis/25.5.3 -o <tmp>/bitnami-redis-25.5.3.tgz"
-    sha256: "33d75e4443ef0ca2d42d79049074f89e25de740bdc677f2451010024ab035550"
+    sha256: "e10b703aab658e6423260bfcbc9620c7f16058d1ca21e3855dd4a9f64a1d07b3"
   ociPublication:
     command: "REDIS_INSTALLER_OCI_REF=oci://<registry>/<repo>:<tag> npm run redis:publish-package"
     reason: "No registry ref is supplied by default; publication is verified only against an explicit OCI endpoint."
@@ -21,8 +21,8 @@ spec:
     sourceFiles:
       -
         path: "README.md"
-        sha256: "e245bc5ef99d452a29134bd77eb13480644d6bdcc4ecf127c67383c7a26ea729"
-        bytes: 812
+        sha256: "42ff8e9b2beb5b5562aa0c153f57c2e1ccf0c0ad7de89a87f9602aba921ffd49"
+        bytes: 1398
       -
         path: "bases/default/kustomization.yaml"
         sha256: "2fa9e5ecea086feda6e54659db22423415c4c80d5818d4b126856a6b08b49d05"

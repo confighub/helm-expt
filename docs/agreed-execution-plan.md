@@ -104,6 +104,10 @@ name missing capabilities. They should not be the primary home for a control
 point when `cub install`, `cub`, ConfigHub Server, or ConfigHub OCI can carry
 that control point more cleanly and verify it.
 
+The canonical explanation of how a chart becomes a recipe, how AI is used, and
+where each piece of Helm behavior belongs is
+[Introduction To The Harness](introduction-to-the-harness.md).
+
 ## Adoption Ladder
 
 The current product proof is not a pure serverless architecture. The fast path

@@ -51,7 +51,7 @@ spec:
     path: "packages/bitnami/redis/25.5.3"
     installer: "packages/bitnami/redis/25.5.3/installer.yaml"
     receipt: "recipes/bitnami/redis/25.5.3/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "33d75e4443ef0ca2d42d79049074f89e25de740bdc677f2451010024ab035550"
+    deterministicBundleSHA256: "e10b703aab658e6423260bfcbc9620c7f16058d1ca21e3855dd4a9f64a1d07b3"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

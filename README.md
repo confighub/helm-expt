@@ -67,6 +67,11 @@ We use AI to accelerate Helm chart analysis and recipe creation. We use
 `cub install` to prove the resulting recipes produce correct, Helm-equivalent,
 reviewable ConfigHub variants.
 
+This is not a single magic prompt. It is an AI-assisted harness with explicit
+decision points and mechanical checks. For the recipe-generation workflow and
+the "where pieces go" table, see
+[Introduction To The Harness](docs/introduction-to-the-harness.md).
+
 ## What Is Proven Today
 
 ```text
@@ -331,6 +336,10 @@ packages/
 
 docs/demo/
   Plain-English per-chart walkthroughs and transcripts.
+
+docs/introduction-to-the-harness.md
+  How recipes are generated and how chart behavior is placed into recipes,
+  variants, facts, profiles, gates, receipts, or live observations.
 
 runs/
   Receipts from ConfigHub, local kind, and proof runs.
