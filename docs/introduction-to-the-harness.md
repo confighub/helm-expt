@@ -106,6 +106,63 @@ The goal is to absorb Helm weirdness into the model, not hide it in prose. If
 the chart does something unusual, it should have a named home, a policy, a
 status, and a proof artifact.
 
+## Helm Hook Doctrine
+
+Helm hooks are cluster-dependent lifecycle actions. They are not ordinary
+configuration objects.
+
+The hard boundary is:
+
+```text
+Chart -> recipe -> variant -> rendered normal objects can be deterministic.
+Hook execution depends on the live target cluster.
+```
+
+That dependency is expected. Hook Jobs and hook-managed objects can depend on
+RBAC, CRDs, admission webhooks, existing Secrets or ConfigMaps, StorageClasses,
+PVCs, API versions, release history, upgrade/install phase, and delete policy.
+ConfigHub does not pretend that live execution is deterministic. It makes that
+cluster dependence explicit before install.
+
+During import, the harness must not execute hooks. It should inventory hook
+templates and record:
+
+```text
+hook phase
+hook weight/order
+hook object kind/name
+hook delete policy
+required RBAC / APIs / CRDs / Secrets / storage
+expected side effect
+safe-to-automate decision
+required observation
+```
+
+Each hook then receives a disposition:
+
+| Hook behavior | ConfigHub disposition |
+| --- | --- |
+| Helm test hook | explicit post-install test/check |
+| pre-install setup | preflight, target fact requirement, or install phase action |
+| post-install readiness/bootstrap | readiness gate or observation requirement |
+| pre-upgrade / post-upgrade | upgrade lifecycle action with upgrade receipt |
+| cleanup/delete policy | rollback/delete lifecycle policy |
+| CRD/webhook bootstrap | CRD/webhook lifecycle gate plus live observation |
+| unclear or unsafe procedure | production blocker until reviewed |
+
+The proof claim must stay precise:
+
+```text
+Helm equivalence proves the selected rendered object set.
+It does not prove hook execution unless there is a hook/lifecycle receipt.
+```
+
+So a production-ready chart with hooks needs at least a hook inventory,
+lifecycle policy, target-fact/preflight decision, execution-or-skip receipt,
+and observation receipt. A chart can still have a deterministic recipe and
+rendered object proof while its hook execution lane is blocked or not yet
+supported.
+
 ## Recipe Or Variant?
 
 Use this split:
