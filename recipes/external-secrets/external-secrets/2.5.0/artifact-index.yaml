@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/external-secrets/external-secrets/2.5.0/control-points.yaml"
     valueModel: "recipes/external-secrets/external-secrets/2.5.0/value-model.yaml"
     weirdnessAndMitigations: "recipes/external-secrets/external-secrets/2.5.0/weirdness-and-mitigations.md"
+    helmPainReport: "recipes/external-secrets/external-secrets/2.5.0/helm-pain-report.yaml"
     controlPointCategories:
       - "admission-webhook"
       - "capability-profile"

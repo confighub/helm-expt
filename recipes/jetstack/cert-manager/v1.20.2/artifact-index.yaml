@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/jetstack/cert-manager/v1.20.2/control-points.yaml"
     valueModel: "recipes/jetstack/cert-manager/v1.20.2/value-model.yaml"
     weirdnessAndMitigations: "recipes/jetstack/cert-manager/v1.20.2/weirdness-and-mitigations.md"
+    helmPainReport: "recipes/jetstack/cert-manager/v1.20.2/helm-pain-report.yaml"
     controlPointCategories:
       - "admission-webhook"
       - "capability-profile"

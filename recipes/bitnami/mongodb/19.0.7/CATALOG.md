@@ -34,6 +34,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Value model | [recipes/bitnami/mongodb/19.0.7/value-model.yaml](value-model.yaml) |
 | Weirdness and mitigations | [recipes/bitnami/mongodb/19.0.7/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/bitnami/mongodb/19.0.7/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/bitnami/mongodb/19.0.7/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/bitnami/mongodb/19.0.7](../../../../packages/bitnami/mongodb/19.0.7) |
 | Installer package receipt | [recipes/bitnami/mongodb/19.0.7/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/bitnami/mongodb/19.0.7/artifact-index.yaml](artifact-index.yaml) |

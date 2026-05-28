@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/bitnami/nginx/24.0.2/control-points.yaml"
     valueModel: "recipes/bitnami/nginx/24.0.2/value-model.yaml"
     weirdnessAndMitigations: "recipes/bitnami/nginx/24.0.2/weirdness-and-mitigations.md"
+    helmPainReport: "recipes/bitnami/nginx/24.0.2/helm-pain-report.yaml"
     controlPointCategories:
       - "availability-policy"
       - "capability-profile"

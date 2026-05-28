@@ -1,5 +1,5 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
-import { join, relative } from "node:path";
+import { dirname, join, relative } from "node:path";
 import { readYaml, repoRoot, sha256, sha256File } from "./lib/proof-common.mjs";
 
 const requiredSchemas = [
@@ -161,6 +161,10 @@ function verifyCorpusContracts() {
     path.endsWith("/upgrade-simulation-receipt.yaml") || path.endsWith("/rollback-simulation-receipt.yaml"),
   );
   const liveReceipts = walk(repoPath("runs"), (path) => /observation-receipt\.(yaml|json)$/.test(path));
+  const catalogStatuses = walk(repoPath("recipes"), (path) => path.endsWith("/catalog-status.yaml"));
+  const supportedCatalogCharts = catalogStatuses
+    .map((path) => ({ path, root: dirname(path), status: readYaml(path) }))
+    .filter((item) => item.status.spec?.status === "catalog-supported");
 
   check(helmPlans.length >= 100, `expected at least 100 HelmPlan artifacts, found ${helmPlans.length}`);
   check(valueModels.length >= 100, `expected at least 100 value models, found ${valueModels.length}`);
@@ -172,6 +176,7 @@ function verifyCorpusContracts() {
   check(liveReceipts.length >= 20, `expected at least 20 live observation receipts, found ${liveReceipts.length}`);
   check(generatedFactReceipts.length >= 1, "expected at least one generated fact receipt");
   check(upgradeRollbackReceipts.length >= 2, "expected Redis upgrade and rollback simulation receipts");
+  check(supportedCatalogCharts.length === 20, `expected 20 catalog-supported charts, found ${supportedCatalogCharts.length}`);
 
   for (const path of helmPlans) verifyArtifactKind(path, "HelmPlan");
   for (const path of effectiveValues) verifyArtifactKind(path, "EffectiveValues");
@@ -183,6 +188,37 @@ function verifyCorpusContracts() {
   for (const path of generatedFactReceipts) verifyArtifactKind(path, "GeneratedFactReceipt");
   for (const path of upgradeRollbackReceipts) verifyArtifactKind(path, ["UpgradeSimulationReceipt", "RollbackSimulationReceipt"]);
   for (const path of liveReceipts) verifyArtifactKind(path, "ObservationReceipt");
+
+  for (const item of supportedCatalogCharts) {
+    const reportPath = join(item.root, "helm-pain-report.yaml");
+    check(existsSync(reportPath), `${rel(reportPath)} missing Helm pain report`);
+    const report = verifyArtifactKind(reportPath, "HelmPainReport");
+    check(report.spec?.chart?.name === item.status.spec?.chart, `${rel(reportPath)} chart name does not match catalog status`);
+    check(String(report.spec?.chart?.version) === String(item.status.spec?.version), `${rel(reportPath)} chart version does not match catalog status`);
+    check(
+      report.spec?.supportedScopeStatus === "no-unhandled-pain-points-for-supported-scopes",
+      `${rel(reportPath)} must state supported scope pain status`,
+    );
+    for (const variant of item.status.spec?.supportedVariants ?? []) {
+      check((report.spec?.supportedVariants ?? []).includes(variant), `${rel(reportPath)} missing supported variant ${variant}`);
+    }
+    const reportPainPoints = report.spec?.painPoints ?? [];
+    check(reportPainPoints.length > 0, `${rel(reportPath)} must enumerate Helm pain points`);
+    check(report.spec?.answerForSkepticalHelmUser, `${rel(reportPath)} missing skeptical Helm user answer`);
+    const painPointIds = new Set();
+    for (const point of reportPainPoints) {
+      check(point.id, `${rel(reportPath)} has pain point without id`);
+      check(!painPointIds.has(point.id), `${rel(reportPath)} has duplicate pain point id ${point.id}`);
+      painPointIds.add(point.id);
+      for (const field of ["detectedPainPoint", "configHubHome", "disposition", "linkedReceipt"]) {
+        check(point[field], `${rel(reportPath)} pain point ${point.id} missing ${field}`);
+      }
+      check(
+        existsSync(join(item.root, point.linkedReceipt)) || existsSync(repoPath(point.linkedReceipt)),
+        `${rel(reportPath)} pain point ${point.id} links missing artifact ${point.linkedReceipt}`,
+      );
+    }
+  }
 
   const profiles = capabilityProfilesByName();
   for (const path of renderReceipts) {

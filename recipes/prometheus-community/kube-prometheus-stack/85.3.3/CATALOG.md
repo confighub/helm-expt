@@ -34,6 +34,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Value model | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-model.yaml](value-model.yaml) |
 | Weirdness and mitigations | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/prometheus-community/kube-prometheus-stack/85.3.3](../../../../packages/prometheus-community/kube-prometheus-stack/85.3.3) |
 | Installer package receipt | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/artifact-index.yaml](artifact-index.yaml) |

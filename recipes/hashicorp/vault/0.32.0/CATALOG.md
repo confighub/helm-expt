@@ -34,6 +34,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Value model | [recipes/hashicorp/vault/0.32.0/value-model.yaml](value-model.yaml) |
 | Weirdness and mitigations | [recipes/hashicorp/vault/0.32.0/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/hashicorp/vault/0.32.0/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/hashicorp/vault/0.32.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/hashicorp/vault/0.32.0](../../../../packages/hashicorp/vault/0.32.0) |
 | Installer package receipt | [recipes/hashicorp/vault/0.32.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/hashicorp/vault/0.32.0/artifact-index.yaml](artifact-index.yaml) |

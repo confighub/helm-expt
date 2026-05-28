@@ -34,6 +34,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Value model | [recipes/ingress-nginx/ingress-nginx/4.15.1/value-model.yaml](value-model.yaml) |
 | Weirdness and mitigations | [recipes/ingress-nginx/ingress-nginx/4.15.1/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/ingress-nginx/ingress-nginx/4.15.1/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/ingress-nginx/ingress-nginx/4.15.1/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/ingress-nginx/ingress-nginx/4.15.1](../../../../packages/ingress-nginx/ingress-nginx/4.15.1) |
 | Installer package receipt | [recipes/ingress-nginx/ingress-nginx/4.15.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/ingress-nginx/ingress-nginx/4.15.1/artifact-index.yaml](artifact-index.yaml) |

@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/bitnami/redis/25.5.3/control-points.yaml"
     valueModel: "recipes/bitnami/redis/25.5.3/value-model.yaml"
     weirdnessAndMitigations: "recipes/bitnami/redis/25.5.3/weirdness-and-mitigations.md"
+    helmPainReport: "recipes/bitnami/redis/25.5.3/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/grafana/loki/7.0.0/control-points.yaml"
     valueModel: "recipes/grafana/loki/7.0.0/value-model.yaml"
     weirdnessAndMitigations: "recipes/grafana/loki/7.0.0/weirdness-and-mitigations.md"
+    helmPainReport: "recipes/grafana/loki/7.0.0/helm-pain-report.yaml"
     controlPointCategories:
       - "blocked-default-render"
       - "capability-profile"

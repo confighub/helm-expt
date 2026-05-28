@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/grafana/grafana/10.5.15/control-points.yaml"
     valueModel: "recipes/grafana/grafana/10.5.15/value-model.yaml"
     weirdnessAndMitigations: "recipes/grafana/grafana/10.5.15/weirdness-and-mitigations.md"
+    helmPainReport: "recipes/grafana/grafana/10.5.15/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "chart-deprecation"

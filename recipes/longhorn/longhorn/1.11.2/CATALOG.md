@@ -34,6 +34,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Value model | [recipes/longhorn/longhorn/1.11.2/value-model.yaml](value-model.yaml) |
 | Weirdness and mitigations | [recipes/longhorn/longhorn/1.11.2/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/longhorn/longhorn/1.11.2/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/longhorn/longhorn/1.11.2/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/longhorn/longhorn/1.11.2](../../../../packages/longhorn/longhorn/1.11.2) |
 | Installer package receipt | [recipes/longhorn/longhorn/1.11.2/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/longhorn/longhorn/1.11.2/artifact-index.yaml](artifact-index.yaml) |

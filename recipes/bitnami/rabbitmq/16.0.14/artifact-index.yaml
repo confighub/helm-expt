@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/bitnami/rabbitmq/16.0.14/control-points.yaml"
     valueModel: "recipes/bitnami/rabbitmq/16.0.14/value-model.yaml"
     weirdnessAndMitigations: "recipes/bitnami/rabbitmq/16.0.14/weirdness-and-mitigations.md"
+    helmPainReport: "recipes/bitnami/rabbitmq/16.0.14/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

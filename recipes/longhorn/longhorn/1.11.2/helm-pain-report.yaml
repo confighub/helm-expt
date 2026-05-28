@@ -1,0 +1,144 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPainReport"
+metadata:
+  name: "longhorn-longhorn-1.11.2"
+spec:
+  chart:
+    name: "longhorn/longhorn"
+    version: "1.11.2"
+    source: "https://charts.longhorn.io"
+    digest: "a70272c83683923ed9cafa07fe1e4f3a6e7d5d74874111b3a8ad421e64102a77"
+  supportedScopeStatus: "no-unhandled-pain-points-for-supported-scopes"
+  supportedScopes:
+    - "local-test"
+  supportedVariants:
+    - "default"
+    - "ui-ingress"
+  productionReadiness: "blocked-by-current-scan-gate"
+  notes:
+    - "Default chart renders 22 Longhorn CRDs as ordinary rendered objects with --include-crds."
+    - "default variant keeps UI ingress disabled and captures the storage control plane baseline."
+    - "ui-ingress variant adds Longhorn UI exposure with host and ingress class explicitly captured."
+    - "Longhorn pre-upgrade checks are hook paths and are excluded from rendered revisions by --no-hooks."
+    - "Longhorn manager, driver deployer, admission/recovery services, StorageClass/default settings, and CRDs require target readiness and observation policy."
+  painPoints:
+    -
+      id: "source-lock"
+      detectedPainPoint: "source-lock requires source-lock.yaml"
+      evidence:
+        - "source-lock.yaml"
+      configHubHome: "source-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "source-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "dependency-lock"
+      detectedPainPoint: "chart has no subchart dependencies"
+      evidence:
+        - "dependency-lock.yaml"
+      configHubHome: "dependency-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "dependency-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "capability-profile"
+      detectedPainPoint: "render is bound to the named Kubernetes capability profile."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "capability-profile"
+      disposition: "handled-by-capability-profile"
+      linkedReceipt: "revisions/default/r001/receipts/render-receipt.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "crd-policy"
+      detectedPainPoint: "Longhorn CRDs are ordinary rendered objects in both promoted variants and still need lifecycle/upgrade policy."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "variant-controlled"
+    -
+      id: "hook-policy"
+      detectedPainPoint: "pre-upgrade checker hooks are excluded from the render proof; lifecycle policy must handle them before production."
+      evidence:
+        - "no-hooks"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-lifecycle-policy"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled-for-render"
+    -
+      id: "admission-webhook"
+      detectedPainPoint: "admission-webhook is detected in this chart and mapped to a ConfigHub control point"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "scan-and-observe"
+    -
+      id: "cluster-rbac"
+      detectedPainPoint: "cluster-rbac affects rbac.authorization.k8s.io/v1|ClusterRole||longhorn-role"
+      evidence:
+        - "rbac.authorization.k8s.io/v1|ClusterRole||longhorn-role"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/scan-receipt.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "privileged-storage-workload"
+      detectedPainPoint: "privileged-storage-workload affects apps/v1|DaemonSet|longhorn-system|longhorn-manager"
+      evidence:
+        - "apps/v1|DaemonSet|longhorn-system|longhorn-manager"
+      configHubHome: "operate-policy"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "storageclass-policy"
+      detectedPainPoint: "storageclass-policy affects v1|ConfigMap|longhorn-system|longhorn-storageclass"
+      evidence:
+        - "v1|ConfigMap|longhorn-system|longhorn-storageclass"
+      configHubHome: "operate-policy"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "ui-ingress-policy"
+      detectedPainPoint: "ui-ingress-policy affects networking.k8s.io/v1|Ingress|longhorn-system|longhorn-ingress"
+      evidence:
+        - "networking.k8s.io/v1|Ingress|longhorn-system|longhorn-ingress"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "variant-controlled"
+    -
+      id: "installer-support-object"
+      detectedPainPoint: "installer-support-object affects v1|Namespace||longhorn-system"
+      evidence:
+        - "v1|Namespace||longhorn-system"
+      configHubHome: "recipe"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "scan-gate"
+      detectedPainPoint: "Current scan gate is warn-production-blocked"
+      evidence:
+        - "helm-plan.yaml"
+        - "scan receipts"
+        - "install gates"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "warn-production-blocked"
+    -
+      id: "value-model-diagnostics"
+      detectedPainPoint: "Helm values can be unknown, dead, misspelled, shadowed, or ignored unless the values model records the analysis boundary."
+      evidence:
+        - "value-model.yaml"
+      configHubHome: "value-model"
+      disposition: "absorbed-into-value-model"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
+  answerForSkepticalHelmUser: "longhorn/longhorn@1.11.2 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, lifecycle-policy, scan-gate, operate-policy, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains blocked-by-current-scan-gate."

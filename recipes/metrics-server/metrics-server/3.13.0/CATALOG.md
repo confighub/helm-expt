@@ -34,6 +34,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Value model | [recipes/metrics-server/metrics-server/3.13.0/value-model.yaml](value-model.yaml) |
 | Weirdness and mitigations | [recipes/metrics-server/metrics-server/3.13.0/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/metrics-server/metrics-server/3.13.0/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/metrics-server/metrics-server/3.13.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/metrics-server/metrics-server/3.13.0](../../../../packages/metrics-server/metrics-server/3.13.0) |
 | Installer package receipt | [recipes/metrics-server/metrics-server/3.13.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/metrics-server/metrics-server/3.13.0/artifact-index.yaml](artifact-index.yaml) |

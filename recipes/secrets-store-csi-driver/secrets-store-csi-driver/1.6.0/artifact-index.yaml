@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/control-points.yaml"
     valueModel: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/value-model.yaml"
     weirdnessAndMitigations: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/weirdness-and-mitigations.md"
+    helmPainReport: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

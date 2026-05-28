@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/control-points.yaml"
     valueModel: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-model.yaml"
     weirdnessAndMitigations: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/weirdness-and-mitigations.md"
+    helmPainReport: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml"
     controlPointCategories:
       - "admission-webhook"
       - "capability-profile"

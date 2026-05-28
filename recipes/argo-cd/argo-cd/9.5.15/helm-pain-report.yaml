@@ -1,0 +1,137 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPainReport"
+metadata:
+  name: "argo-cd-argo-cd-9.5.15"
+spec:
+  chart:
+    name: "argo-cd/argo-cd"
+    version: "9.5.15"
+    source: "https://argoproj.github.io/argo-helm"
+    digest: "95502bea856e2e1e9bfbb7a5ab90d309970b4ffd098ff3dadb99188350768b9e"
+  supportedScopeStatus: "no-unhandled-pain-points-for-supported-scopes"
+  supportedScopes:
+    - "local-test"
+  supportedVariants:
+    - "default"
+    - "no-crds"
+  productionReadiness: "blocked-by-current-scan-gate"
+  notes:
+    - "Default chart renders the three Argo CD CRDs because crds.install defaults to true."
+    - "no-crds variant omits CRDs for clusters that manage CRDs separately."
+    - "Chart declares a redis-ha dependency that remains disabled in promoted variants but is recorded in dependency-lock.yaml."
+    - "Chart source contains Helm hook annotations; the rendered proof excludes hooks and keeps lifecycle policy explicit."
+    - "Argo CD renders Secrets for application state and notifications; ownership and freshness need operation receipts."
+    - "The application controller is a StatefulSet and needs storage/upgrade/rollback policy even without PVC templates."
+    - "extraObjects is a tpl-powered extension slot; promoted variants keep it empty."
+  painPoints:
+    -
+      id: "source-lock"
+      detectedPainPoint: "source-lock requires source-lock.yaml"
+      evidence:
+        - "source-lock.yaml"
+      configHubHome: "source-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "source-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "dependency-lock"
+      detectedPainPoint: "chart declares redis-ha dependency; promoted variants keep it disabled but lock its metadata."
+      evidence:
+        - "dependency-lock.yaml"
+      configHubHome: "dependency-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "dependency-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "capability-profile"
+      detectedPainPoint: "Kubernetes API and version branches are bound to the named Kubernetes capability profile."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "capability-profile"
+      disposition: "handled-by-capability-profile"
+      linkedReceipt: "revisions/default/r001/receipts/render-receipt.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "crd-policy"
+      detectedPainPoint: "CRDs are ordinary rendered objects in the default variant and still need lifecycle/upgrade policy."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "variant-controlled"
+    -
+      id: "hook-policy"
+      detectedPainPoint: "Chart source contains Helm hooks; the proof render excludes hooks and lifecycle policy must handle them before production."
+      evidence:
+        - "no-hooks"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-lifecycle-policy"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled-for-render"
+    -
+      id: "cluster-rbac"
+      detectedPainPoint: "cluster-rbac requires scan receipts"
+      evidence:
+        - "scan receipts"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/scan-receipt.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "stateful-workload"
+      detectedPainPoint: "stateful-workload affects apps/v1|StatefulSet|argocd|argo-cd-argocd-application-controller"
+      evidence:
+        - "apps/v1|StatefulSet|argocd|argo-cd-argocd-application-controller"
+      configHubHome: "operate-policy"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "tpl"
+      detectedPainPoint: "extraObjects uses tpl; promoted variants do not set that value."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "extension-slot"
+      disposition: "handled-by-variant"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "controlled-by-empty-defaults"
+    -
+      id: "gitops-handoff"
+      detectedPainPoint: "Argo CD is itself a GitOps controller; ConfigHub OCI publication remains the default handoff pattern for this project."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "documented"
+    -
+      id: "installer-support-object"
+      detectedPainPoint: "installer-support-object affects v1|Namespace||argocd"
+      evidence:
+        - "v1|Namespace||argocd"
+      configHubHome: "recipe"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "scan-gate"
+      detectedPainPoint: "Current scan gate is warn-production-blocked"
+      evidence:
+        - "helm-plan.yaml"
+        - "scan receipts"
+        - "install gates"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "warn-production-blocked"
+    -
+      id: "value-model-diagnostics"
+      detectedPainPoint: "Helm values can be unknown, dead, misspelled, shadowed, or ignored unless the values model records the analysis boundary."
+      evidence:
+        - "value-model.yaml"
+      configHubHome: "value-model"
+      disposition: "absorbed-into-value-model"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
+  answerForSkepticalHelmUser: "argo-cd/argo-cd@9.5.15 maps its detected Helm pain to 9 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, lifecycle-policy, scan-gate, operate-policy, extension-slot, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains blocked-by-current-scan-gate."

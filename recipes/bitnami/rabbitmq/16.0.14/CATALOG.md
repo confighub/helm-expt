@@ -34,6 +34,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Value model | [recipes/bitnami/rabbitmq/16.0.14/value-model.yaml](value-model.yaml) |
 | Weirdness and mitigations | [recipes/bitnami/rabbitmq/16.0.14/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/bitnami/rabbitmq/16.0.14/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/bitnami/rabbitmq/16.0.14/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/bitnami/rabbitmq/16.0.14](../../../../packages/bitnami/rabbitmq/16.0.14) |
 | Installer package receipt | [recipes/bitnami/rabbitmq/16.0.14/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/bitnami/rabbitmq/16.0.14/artifact-index.yaml](artifact-index.yaml) |

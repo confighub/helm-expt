@@ -34,6 +34,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Value model | [recipes/prometheus-community/prometheus/29.8.0/value-model.yaml](value-model.yaml) |
 | Weirdness and mitigations | [recipes/prometheus-community/prometheus/29.8.0/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/prometheus-community/prometheus/29.8.0/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/prometheus-community/prometheus/29.8.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/prometheus-community/prometheus/29.8.0](../../../../packages/prometheus-community/prometheus/29.8.0) |
 | Installer package receipt | [recipes/prometheus-community/prometheus/29.8.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/prometheus-community/prometheus/29.8.0/artifact-index.yaml](artifact-index.yaml) |

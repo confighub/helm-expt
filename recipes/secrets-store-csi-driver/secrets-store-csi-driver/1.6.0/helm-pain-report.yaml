@@ -1,0 +1,154 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPainReport"
+metadata:
+  name: "secrets-store-csi-driver-secrets-store-csi-driver-1.6.0"
+spec:
+  chart:
+    name: "secrets-store-csi-driver/secrets-store-csi-driver"
+    version: "1.6.0"
+    source: "https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts"
+    digest: "63a35e803d78a07df990411fc2df66d1f9426ed4508cc5794b5b4f125bb50744"
+  supportedScopeStatus: "no-unhandled-pain-points-for-supported-scopes"
+  supportedScopes:
+    - "local-test"
+  supportedVariants:
+    - "default"
+    - "sync-secret-rotation"
+  productionReadiness: "blocked-by-current-scan-gate"
+  notes:
+    - "The chart renders deterministically under pinned Helm, chart version, kube version, and values."
+    - "The default variant installs the Linux CSI DaemonSet, CSIDriver, SecretProviderClass CRDs, and cluster RBAC."
+    - "The sync-secret-rotation variant adds synced Secret RBAC and driver args for rotation and provider health checks."
+    - "The chart does not install a cloud or vault provider; SecretProviderClass provider identity and token requests are integration controls after render."
+    - "CRD lifecycle, CSI driver lifecycle, privileged-node DaemonSet behavior, cluster RBAC, synced Secret ownership, and rotation are scan/gate review points."
+    - "Windows DaemonSet support and provider-specific identity inputs are future variants, not hidden defaults."
+  painPoints:
+    -
+      id: "source-lock"
+      detectedPainPoint: "source-lock requires source-lock.yaml"
+      evidence:
+        - "source-lock.yaml"
+      configHubHome: "source-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "source-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "dependency-lock"
+      detectedPainPoint: "chart declares no subchart dependencies; the empty closure is recorded explicitly."
+      evidence:
+        - "dependency-lock.yaml"
+      configHubHome: "dependency-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "dependency-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "capability-profile"
+      detectedPainPoint: "Kubernetes API and version branches are bound to the named Kubernetes capability profile."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "capability-profile"
+      disposition: "handled-by-capability-profile"
+      linkedReceipt: "revisions/default/r001/receipts/render-receipt.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "crd-lifecycle"
+      detectedPainPoint: "crd-lifecycle affects apiextensions.k8s.io/v1|CustomResourceDefinition||secretproviderclasses.secrets-store.csi.x-k8s.io"
+      evidence:
+        - "apiextensions.k8s.io/v1|CustomResourceDefinition||secretproviderclasses.secrets-store.csi.x-k8s.io"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "csi-driver"
+      detectedPainPoint: "csi-driver affects storage.k8s.io/v1|CSIDriver||secrets-store.csi.k8s.io"
+      evidence:
+        - "storage.k8s.io/v1|CSIDriver||secrets-store.csi.k8s.io"
+      configHubHome: "recipe"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "daemonset-workload"
+      detectedPainPoint: "daemonset-workload affects apps/v1|DaemonSet|kube-system|secrets-store-csi-driver"
+      evidence:
+        - "apps/v1|DaemonSet|kube-system|secrets-store-csi-driver"
+      configHubHome: "recipe"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "cluster-rbac"
+      detectedPainPoint: "cluster-rbac affects rbac.authorization.k8s.io/v1|ClusterRole||secretproviderclasses-role"
+      evidence:
+        - "rbac.authorization.k8s.io/v1|ClusterRole||secretproviderclasses-role"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/scan-receipt.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "sync-secret-rotation"
+      detectedPainPoint: "sync-secret-rotation requires syncSecret.enabled / enableSecretRotation / providerHealthCheck"
+      evidence:
+        - "syncSecret.enabled / enableSecretRotation / providerHealthCheck"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "variant-controlled"
+    -
+      id: "provider-integration"
+      detectedPainPoint: "SecretProviderClass provider identity, token requests, and synced Secret ownership are post-render integration controls."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "needs-target-decision"
+    -
+      id: "platform-variant"
+      detectedPainPoint: "promoted variants install Linux DaemonSet only; Windows support is a future variant."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "controlled-by-values"
+    -
+      id: "extension-slots"
+      detectedPainPoint: "provider identity, token request, scheduling, and provider path knobs are explicit variant inputs."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "extension-slot"
+      disposition: "handled-by-variant"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "controlled-by-empty-defaults"
+    -
+      id: "installer-support-object"
+      detectedPainPoint: "installer-support-object affects v1|Namespace||kube-system"
+      evidence:
+        - "v1|Namespace||kube-system"
+      configHubHome: "recipe"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "scan-gate"
+      detectedPainPoint: "Current scan gate is warn-production-blocked"
+      evidence:
+        - "helm-plan.yaml"
+        - "scan receipts"
+        - "install gates"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "warn-production-blocked"
+    -
+      id: "value-model-diagnostics"
+      detectedPainPoint: "Helm values can be unknown, dead, misspelled, shadowed, or ignored unless the values model records the analysis boundary."
+      evidence:
+        - "value-model.yaml"
+      configHubHome: "value-model"
+      disposition: "absorbed-into-value-model"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
+  answerForSkepticalHelmUser: "secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, lifecycle-policy, recipe, scan-gate, extension-slot, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains blocked-by-current-scan-gate."
