@@ -1,0 +1,89 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: CapabilityProfileCatalog
+spec:
+  profiles:
+    - name: k8s-1.30-default
+      description: "Default public Kubernetes 1.30 API surface used by the top-20 render proofs."
+      kubeVersion: "1.30.0"
+      apiVersions:
+        - admissionregistration.k8s.io/v1
+        - apiextensions.k8s.io/v1
+        - apiregistration.k8s.io/v1
+        - apps/v1
+        - autoscaling/v2
+        - batch/v1
+        - networking.k8s.io/v1
+        - policy/v1
+        - rbac.authorization.k8s.io/v1
+        - storage.k8s.io/v1
+      digest: "sha256:c1f8a4eb20154228a391f2a61565160634fbeb5dcf1079065543dd0a2ff3dfbf"
+    - name: k8s-1.30-monitoring-operator
+      description: "Kubernetes 1.30 plus Prometheus Operator APIs for ServiceMonitor and Prometheus-family charts."
+      kubeVersion: "1.30.0"
+      apiVersions:
+        - admissionregistration.k8s.io/v1
+        - apiextensions.k8s.io/v1
+        - apiregistration.k8s.io/v1
+        - apps/v1
+        - autoscaling/v2
+        - batch/v1
+        - monitoring.coreos.com/v1
+        - monitoring.coreos.com/v1alpha1
+        - networking.k8s.io/v1
+        - policy/v1
+        - rbac.authorization.k8s.io/v1
+        - storage.k8s.io/v1
+      digest: "sha256:999b1e42757c6b5d9a6cb6fb502aa63725e5604dd18fac96cb891715e847b800"
+    - name: k8s-1.30-external-secrets
+      description: "Kubernetes 1.30 plus External Secrets Operator CRDs used by external-secrets variants."
+      kubeVersion: "1.30.0"
+      apiVersions:
+        - admissionregistration.k8s.io/v1
+        - apiextensions.k8s.io/v1
+        - apiregistration.k8s.io/v1
+        - apps/v1
+        - autoscaling/v2
+        - batch/v1
+        - external-secrets.io/v1
+        - generators.external-secrets.io/v1alpha1
+        - networking.k8s.io/v1
+        - policy/v1
+        - rbac.authorization.k8s.io/v1
+        - storage.k8s.io/v1
+      digest: "sha256:4c3758ab070e626681f45fa6be9c16b2c3ef3d4af7f7f0a1079faad28444ee16"
+    - name: k8s-1.30-gateway-api
+      description: "Kubernetes 1.30 plus Gateway API resources used by service mesh and ingress variants."
+      kubeVersion: "1.30.0"
+      apiVersions:
+        - admissionregistration.k8s.io/v1
+        - apiextensions.k8s.io/v1
+        - apiregistration.k8s.io/v1
+        - apps/v1
+        - autoscaling/v2
+        - batch/v1
+        - gateway.networking.k8s.io/v1
+        - gateway.networking.k8s.io/v1beta1
+        - networking.k8s.io/v1
+        - policy/v1
+        - rbac.authorization.k8s.io/v1
+        - storage.k8s.io/v1
+      digest: "sha256:57610306df60227729fc5e8fadd2ef4ec0213bec4e9691bb0f369332a9cc049e"
+    - name: openshift-4.14-default
+      description: "OpenShift 4.14-style Kubernetes API profile for charts with OpenShift-specific render branches."
+      kubeVersion: "1.27.0"
+      apiVersions:
+        - admissionregistration.k8s.io/v1
+        - apiextensions.k8s.io/v1
+        - apiregistration.k8s.io/v1
+        - apps.openshift.io/v1
+        - apps/v1
+        - autoscaling/v2
+        - batch/v1
+        - networking.k8s.io/v1
+        - policy/v1
+        - project.openshift.io/v1
+        - rbac.authorization.k8s.io/v1
+        - route.openshift.io/v1
+        - security.openshift.io/v1
+        - storage.k8s.io/v1
+      digest: "sha256:ab38b754d9675471171fc89ff0bddda0ab01303c12edb0de1ca78e42ed27834f"

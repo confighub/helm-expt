@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://confighub.com/helm-expt/schemas/common-defs.schema.json",
+  "title": "Helm Experiment Common Definitions",
+  "type": "object",
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^(sha256:)?[a-f0-9]{64}$"
+    },
+    "relativePath": {
+      "type": "string",
+      "minLength": 1
+    },
+    "apiVersion": {
+      "const": "helm-expt.confighub.com/v1alpha1"
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": true
+    },
+    "result": {
+      "enum": ["pass", "warn", "fail", "blocked", "unknown"]
+    }
+  }
+}

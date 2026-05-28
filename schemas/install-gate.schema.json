@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://confighub.com/helm-expt/schemas/install-gate.schema.json",
+  "title": "Install Gate",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": { "$ref": "common-defs.schema.json#/$defs/apiVersion" },
+    "kind": { "const": "InstallGate" },
+    "metadata": { "$ref": "common-defs.schema.json#/$defs/metadata" },
+    "spec": {
+      "type": "object",
+      "required": ["variantRevision", "renderedObjectSetSHA256", "decision", "reasons"],
+      "properties": {
+        "variantRevision": { "$ref": "common-defs.schema.json#/$defs/relativePath" },
+        "renderedObjectSetSHA256": { "$ref": "common-defs.schema.json#/$defs/sha256" },
+        "decision": { "enum": ["allow", "warn", "block"] },
+        "inputs": { "type": "object" },
+        "reasons": { "type": "array" }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://confighub.com/helm-expt/schemas/generated-fact-receipt.schema.json",
+  "title": "Generated Fact Receipt",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": { "$ref": "common-defs.schema.json#/$defs/apiVersion" },
+    "kind": { "const": "GeneratedFactReceipt" },
+    "metadata": { "$ref": "common-defs.schema.json#/$defs/metadata" },
+    "spec": {
+      "type": "object",
+      "required": ["variantRevision", "facts", "materialPolicy", "result"],
+      "properties": {
+        "variantRevision": { "$ref": "common-defs.schema.json#/$defs/relativePath" },
+        "facts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "kind", "digest", "storedAs"],
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "kind": { "type": "string", "minLength": 1 },
+              "digest": { "$ref": "common-defs.schema.json#/$defs/sha256" },
+              "storedAs": { "enum": ["plain", "secret-ref", "opaque-handle", "not-stored"] }
+            },
+            "additionalProperties": true
+          }
+        },
+        "materialPolicy": { "enum": ["persisted", "secret-ref", "opaque-handle", "not-stored"] },
+        "result": { "$ref": "common-defs.schema.json#/$defs/result" }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

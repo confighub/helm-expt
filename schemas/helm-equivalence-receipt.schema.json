@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://confighub.com/helm-expt/schemas/helm-equivalence-receipt.schema.json",
+  "title": "Helm Equivalence Receipt",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": { "$ref": "common-defs.schema.json#/$defs/apiVersion" },
+    "kind": { "const": "HelmEquivalenceReceipt" },
+    "metadata": { "$ref": "common-defs.schema.json#/$defs/metadata" },
+    "spec": {
+      "type": "object",
+      "required": ["variantRevision", "regularHelm", "cubInstall", "classifications", "result"],
+      "properties": {
+        "variantRevision": { "$ref": "common-defs.schema.json#/$defs/relativePath" },
+        "regularHelm": { "type": "object", "required": ["renderedSHA256", "objectCount"], "additionalProperties": true },
+        "cubInstall": { "type": "object", "required": ["semanticObjectMatches"], "additionalProperties": true },
+        "classifications": { "type": "array" },
+        "result": { "$ref": "common-defs.schema.json#/$defs/result" }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}
