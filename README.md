@@ -13,6 +13,7 @@ Helm chart
 -> cub install recipe/package
 -> named ConfigHub variants
 -> exact rendered Kubernetes objects
+-> hook/lifecycle policy for cluster-dependent Helm behavior
 -> Helm-equivalence proof, scans, gates, receipts
 -> ConfigHub / OCI / GitOps handoff
 ```
