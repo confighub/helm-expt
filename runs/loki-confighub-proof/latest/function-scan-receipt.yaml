@@ -1,0 +1,127 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "loki-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-loki-confighub-proof"
+    selector: "Labels.Proof = 'loki-confighub-proof'"
+  subject:
+    chart: "grafana/loki"
+    chartVersion: "7.0.0"
+    packagePath: "packages/grafana/loki/7.0.0"
+    variant: "single-binary-filesystem"
+    configHubUnitCount: 20
+  unitRevisionBindings:
+    -
+      slug: "clusterrolebinding-loki-clusterrolebinding"
+      headRevisionNum: 2
+      dataHash: "00ab3a778a4017a2d027bdc290e8ffd389c04b07975f635644c8ce383cafdafa"
+    -
+      slug: "configmap-loki-loki"
+      headRevisionNum: 2
+      dataHash: "e4bb02a74ea5ed64955121ab1c073e994b67c00c309b06f1700c758fccf55a5c"
+    -
+      slug: "configmap-loki-loki-gateway"
+      headRevisionNum: 2
+      dataHash: "4127a18744f96b4ab4fc5783602f5cf259757dbb0691fd5f2f7e904b4fb8564a"
+    -
+      slug: "configmap-loki-loki-runtime"
+      headRevisionNum: 2
+      dataHash: "2a5fb5343d6ced2bb10883e633b1df21873e1651c68f244990077c232c4406e9"
+    -
+      slug: "daemonset-loki-loki-canary"
+      headRevisionNum: 2
+      dataHash: "581fb5b245e9f5b7b4485366a24025cb42e22bf30d1f664f3f6d67b05ecd9a4c"
+    -
+      slug: "service-loki-loki"
+      headRevisionNum: 2
+      dataHash: "7f15855d0260200edb97518ec4c133eb081e566e0a86a348779a349505b4a703"
+    -
+      slug: "service-loki-loki-canary"
+      headRevisionNum: 2
+      dataHash: "c60f7ace181c9632ba359ebcaecf2014e002d2afde1eb5ab9999db9edf66ed46"
+    -
+      slug: "service-loki-loki-headless"
+      headRevisionNum: 2
+      dataHash: "0460663de5f660c18799bed52ab5cd41ae31f47c223736de685a328ab201cf7c"
+    -
+      slug: "clusterrole-loki-clusterrole"
+      headRevisionNum: 2
+      dataHash: "f9f47544add32c89a4cfac81d4456708864e73e60632c5e953e19fb58109c492"
+    -
+      slug: "service-loki-loki-memberlist"
+      headRevisionNum: 2
+      dataHash: "19a948bbff9bb7d4755082fb19265a11e6ebe65cbef69f1439c4b61fbf76f573"
+    -
+      slug: "serviceaccount-loki-loki"
+      headRevisionNum: 2
+      dataHash: "d93d2b6910f0f6551ed87c08dca8837db9d19f7dcc456c523771465ad00d20d5"
+    -
+      slug: "deployment-loki-loki-gateway"
+      headRevisionNum: 2
+      dataHash: "b3b76f598de828e09fab93fe74abc55fd51fe1d9d15705097e9dfb89bfdd1c29"
+    -
+      slug: "statefulset-loki-loki"
+      headRevisionNum: 2
+      dataHash: "aebda195dd74734f21b39059225bf1842aaec439343d8759ea940630868eec34"
+    -
+      slug: "namespace-loki"
+      headRevisionNum: 2
+      dataHash: "4fa65f9b0a303e2dbcbbab974423ae144aee9b29256394910a8bbc3da20e96d1"
+    -
+      slug: "service-loki-loki-chunks-cache"
+      headRevisionNum: 2
+      dataHash: "138c24b470ecedc9203db7bbe0b2ffb16adb9074008aee2aaef52ef1fe36e2eb"
+    -
+      slug: "service-loki-loki-gateway"
+      headRevisionNum: 2
+      dataHash: "72e7a4e2f525bd0a6aebdfce05880407d868c3a0ef581cdc29a312c95542fcd8"
+    -
+      slug: "service-loki-loki-results-cache"
+      headRevisionNum: 2
+      dataHash: "61592c95f7d55b8da0c46c78a5f66f2804a079040a67049b6c4640400cc548d2"
+    -
+      slug: "serviceaccount-loki-loki-canary"
+      headRevisionNum: 2
+      dataHash: "c40d04f0433e6edb27102c8b2248baafde276c328258a30cfc548b162458e22d"
+    -
+      slug: "statefulset-loki-loki-chunks-cache"
+      headRevisionNum: 2
+      dataHash: "223e3cee7b4ad5ee674a610cfa0760115a39e36d97168b4b1763e7d5674162d8"
+    -
+      slug: "statefulset-loki-loki-results-cache"
+      headRevisionNum: 2
+      dataHash: "f9939bf0f5aa118e9766741436993153f98005b5cde9bf61aa4c0838a7f0129f"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 20
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 20
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 20
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

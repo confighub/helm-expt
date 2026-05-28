@@ -1,0 +1,79 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "mongodb-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-mongodb-confighub-proof"
+    selector: "Labels.Proof = 'mongodb-confighub-proof'"
+  subject:
+    chart: "bitnami/mongodb"
+    chartVersion: "19.0.7"
+    packagePath: "packages/bitnami/mongodb/19.0.7"
+    variant: "generated-passwords"
+    configHubUnitCount: 8
+  unitRevisionBindings:
+    -
+      slug: "configmap-mongodb-mongodb-common-scripts"
+      headRevisionNum: 2
+      dataHash: "94003cff34517d7cb25be2d201777e4a8c2ddf40992282efa2ca0e859ef41583"
+    -
+      slug: "deployment-mongodb-mongodb"
+      headRevisionNum: 2
+      dataHash: "f5712389237a355bfa44d59627e86885f8045947d3ad2d1bd79ac7c97d446109"
+    -
+      slug: "namespace-mongodb"
+      headRevisionNum: 2
+      dataHash: "c72466458cb74726c7bf6b8ec9768ab9ad916ba5becb5d2d28bb82ec177d5472"
+    -
+      slug: "networkpolicy-mongodb-mongodb"
+      headRevisionNum: 2
+      dataHash: "98c6fb0b96f15033b720f383fc4eacd0dfb68bc31c85d13128356ad1f2c14342"
+    -
+      slug: "persistentvolumeclaim-mongodb-mongodb"
+      headRevisionNum: 2
+      dataHash: "4f3b19a7d0b9f33cd3464b94842c4edb668283f8fbdfd6b3ad350892a018d1aa"
+    -
+      slug: "poddisruptionbudget-mongodb-mongodb"
+      headRevisionNum: 2
+      dataHash: "9249929e78225b5b2c8c50026dae051ac30b33fdcead49c7c368def83d0a227f"
+    -
+      slug: "serviceaccount-mongodb-mongodb"
+      headRevisionNum: 2
+      dataHash: "cf205980b97d4636675278e17a30acf0a240536cf041d9e548aaef4634ecd4d4"
+    -
+      slug: "service-mongodb-mongodb"
+      headRevisionNum: 2
+      dataHash: "dca72ae7ca604ed1d037d8f6f70c7a5615dccc89e8c150df75f8c23550000752"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 8
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 8
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 8
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

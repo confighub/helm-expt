@@ -1,0 +1,83 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "loki-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.49"
+  package:
+    path: "packages/grafana/loki/7.0.0"
+    name: "grafana-loki"
+    chart: "grafana/loki"
+    chartVersion: "7.0.0"
+    bases:
+      - "single-binary-filesystem"
+      - "simple-scalable-minio"
+    selectedBase: "single-binary-filesystem"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub install setup --pull packages/grafana/loki/7.0.0 --base single-binary-filesystem --work-dir .tmp/confighub-proof/loki-single-binary-filesystem --non-interactive --namespace loki"
+    result: "pass"
+    manifestCount: 20
+    separatedSecretCount: 0
+    facts:
+      {}
+  rerender:
+    command: "cub install render --work-dir .tmp/confighub-proof/loki-single-binary-filesystem"
+    result: "pass"
+    manifestCount: 20
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub install package packages/grafana/loki/7.0.0 -o .tmp/confighub-proof/loki-archives/loki-a.tgz"
+    sha256: "67c9172a7400c4b175236c300106540837399255845180c5258cbb4cb632661b"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub install vet --work-dir .tmp/confighub-proof/loki-single-binary-filesystem"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub install upload --work-dir .tmp/confighub-proof/loki-single-binary-filesystem --space helm-loki-confighub-proof --component Loki --layer App --environment Demo --owner ConfigHubHelm --variant single-binary-filesystem --unit-label Component=Loki --unit-label HelmChart=grafana-loki --unit-label HelmChartVersion=7.0.0 --unit-label Variant=single-binary-filesystem --unit-label Proof=loki-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-loki-confighub-proof"
+    unitCount: 21
+    kubernetesUnitCount: 20
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub install plan --work-dir .tmp/confighub-proof/loki-single-binary-filesystem"
+      result: "expected-missing-upload-state"
+    command: "cub install plan --work-dir .tmp/confighub-proof/loki-single-binary-filesystem"
+    result: "pass"
+    summary: "No changes.\nImages in helm-loki-confighub-proof (post-render):\n      DaemonSet/loki-canary [loki-canary] docker.io/grafana/loki-canary:3.6.7\n      Deployment/loki-gateway [nginx] docker.io/nginxinc/nginx-unprivileged:1.29-alpine\n      StatefulSet/loki [loki] docker.io/grafana/loki:3.6.7\n      StatefulSet/loki [loki-sc-rules] docker.io/kiwigrid/k8s-sidecar:2.5.0\n      StatefulSet/loki-chunks-cache [exporter] prom/memcached-exporter:v0.15.4\n      StatefulSet/loki-chunks-cache [memcached] memcached:1.6.39-alpine\n      StatefulSet/loki-results-cache [exporter] prom/memcached-exporter:v0.15.4\n      StatefulSet/loki-results-cache [memcached] memcached:1.6.39-alpine"
+  serverSideVariant:
+    command: "cub variant create staging helm-loki-confighub-proof --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}} --allow-exists"
+    result: "pass"
+    upstreamSpace: "helm-loki-confighub-proof"
+    downstreamSpace: "helm-loki-confighub-proof-staging"
+    clonedUnitCount: 21
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "statefulset-loki-loki"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-loki-confighub-proof"
+      - "helm-loki-confighub-proof-staging"
+  observedFriction:
+    - "cub install upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub install plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 
-import { TOP20_USE_MORE_NOW_CHARTS } from "./lib/top20-use-more-now.mjs";
+import { TOP20_CONFIGHUB_PROOF_CHARTS } from "./lib/top20-confighub-proof.mjs";
 import { check, listFiles, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--generate";
@@ -26,7 +26,7 @@ if (mode === "--generate") {
 function buildMarkdown() {
   const entries = artifactIndexes().map(buildEntry);
   const byChart = new Map(entries.map((entry) => [entry.chart, entry]));
-  const liveTested = TOP20_USE_MORE_NOW_CHARTS.map((chart) => byChart.get(chart.chart)).filter(Boolean);
+  const liveTested = TOP20_CONFIGHUB_PROOF_CHARTS.map((chart) => byChart.get(chart.chart)).filter(Boolean);
   const remaining = entries.filter((entry) => !liveTested.some((live) => live.chart === entry.chart));
   const lines = [
     generatedNotice(),

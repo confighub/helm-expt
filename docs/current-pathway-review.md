@@ -112,11 +112,10 @@ The next step is to close production dispositions for the mandatory top-20
 catalog entries and then promote more top-500 rows from analysis into
 receipt-backed recipe/variant/revision proofs.
 
-Council consensus:
+Earlier council concerns to keep guarding against:
 
 - Product: the first demo must feel simpler than Helm. Hide the noun ladder.
-- Operator: real Helm pains are named correctly, but not yet proven with
-  artifacts.
+- Operator: real Helm pains must stay tied to receipts and runnable artifacts.
 - Architecture: build schemas and verifier first, or the repo will produce
   decorative evidence.
 - Benchmark: top-500 is reconnaissance, not certification. A spreadsheet

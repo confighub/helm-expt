@@ -116,7 +116,7 @@ PASS verify-install:cluster bitnami/redis/25.5.3 default
 checks: statefulsets, PVCs, Redis PING
 ```
 
-6. Upload/publish to ConfigHub:
+6. Upload to ConfigHub:
 
 ```sh
 cub install upload \
@@ -131,7 +131,7 @@ cub install upload \
   --unit-label HelmChart=bitnami-redis \
   --unit-label HelmChartVersion=25.5.3 \
   --unit-label Variant=default \
-  --unit-label Proof=redis-installer-package
+  --unit-label Proof=redis-confighub-proof
 ```
 
 Current implementation note: during the Kubara proof run, `cub install upload`

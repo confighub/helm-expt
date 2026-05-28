@@ -33,15 +33,15 @@ if (mode === "--generate") {
 }
 
 function buildReport() {
-  const useMoreNow = useMoreNowIndex();
+  const configHubProof = configHubProofIndex();
   const liveE2E = liveE2EIndex();
   const rows = recipeRoots()
-    .map((root) => productionRow(root, useMoreNow, liveE2E))
+    .map((root) => productionRow(root, configHubProof, liveE2E))
     .filter(Boolean)
     .sort((left, right) => left.chart.localeCompare(right.chart));
   check(rows.length === 20, `expected 20 catalog-supported rows, found ${rows.length}`);
   check(rows.every((row) => row.local_test_support === "catalog-supported"), "all top20 rows must be catalog-supported");
-  check(rows.every((row) => row.confighub_use_more_now === "pass"), "all top20 rows must have passing ConfigHub use-more-now receipts");
+  check(rows.every((row) => row.confighub_proof === "pass"), "all top20 rows must have passing ConfigHub proof receipts");
   check(rows.every((row) => row.production_support === "blocked"), "production support should remain explicitly blocked");
   check(rows.some((row) => row.live_e2e === "local-kind-observed"), "at least one supported chart needs a live/e2e observation receipt");
   return { rows, csv: toCsv(rows), summary: toSummary(rows) };
@@ -54,15 +54,15 @@ function recipeRoots() {
     .sort();
 }
 
-function productionRow(root, useMoreNow, liveE2E) {
+function productionRow(root, configHubProof, liveE2E) {
   const catalog = readYaml(join(root, "catalog-status.yaml"));
   if (catalog.spec?.status !== "catalog-supported") return null;
   const index = readYaml(join(root, "artifact-index.yaml"));
   const controls = readYaml(join(root, "control-points.yaml"));
   const chart = catalog.spec.chart;
   const version = String(catalog.spec.version);
-  const receipt = useMoreNow.get(chart);
-  const useMoreNowStatus = receipt?.status ?? "missing";
+  const receipt = configHubProof.get(chart);
+  const configHubProofStatus = receipt?.status ?? "missing";
   const live = liveStatus(chart, liveE2E);
   const requiredDispositions = dispositionList({
     controls: controls.spec?.points ?? [],
@@ -74,7 +74,7 @@ function productionRow(root, useMoreNow, liveE2E) {
     version,
     local_test_support: catalog.spec.status,
     supported_variants: (catalog.spec.supportedVariants ?? []).join(";"),
-    confighub_use_more_now: useMoreNowStatus,
+    confighub_proof: configHubProofStatus,
     live_e2e: live.status,
     live_e2e_receipts: live.receipts.join(";"),
     production_support: catalog.spec.productionReadiness === "blocked-by-current-scan-gate" ? "blocked" : "review",
@@ -82,13 +82,13 @@ function productionRow(root, useMoreNow, liveE2E) {
     next_action: nextAction(requiredDispositions, live.status),
     recipe_path: relativeRepo(root),
     package_path: index.spec?.installerPackage?.path ?? "",
-    use_more_now_receipt: receipt?.path ?? "",
+    confighub_proof_receipt: receipt?.path ?? "",
   };
 }
 
-function useMoreNowIndex() {
+function configHubProofIndex() {
   const result = new Map();
-  for (const receiptPath of listFiles(join(repoRoot, "runs")).filter((file) => file.endsWith("/latest/use-more-now-receipt.yaml"))) {
+  for (const receiptPath of listFiles(join(repoRoot, "runs")).filter((file) => file.endsWith("/latest/confighub-proof-receipt.yaml"))) {
     const receipt = readYaml(receiptPath);
     const chart = receipt.spec?.package?.chart;
     if (!chart) continue;
@@ -180,14 +180,14 @@ function toCsv(rows) {
     "version",
     "local_test_support",
     "supported_variants",
-    "confighub_use_more_now",
+    "confighub_proof",
     "live_e2e",
     "production_support",
     "required_dispositions",
     "next_action",
     "recipe_path",
     "package_path",
-    "use_more_now_receipt",
+    "confighub_proof_receipt",
     "live_e2e_receipts",
   ];
   return `${[headers.join(","), ...rows.map((row) => headers.map((header) => csvEscape(row[header])).join(","))].join("\n")}\n`;
@@ -195,7 +195,7 @@ function toCsv(rows) {
 
 function toSummary(rows) {
   const localSupported = rows.filter((row) => row.local_test_support === "catalog-supported").length;
-  const useMoreNowPass = rows.filter((row) => row.confighub_use_more_now === "pass").length;
+  const configHubProofPass = rows.filter((row) => row.confighub_proof === "pass").length;
   const liveObserved = rows.filter((row) => row.live_e2e === "local-kind-observed").length;
   const productionBlocked = rows.filter((row) => row.production_support === "blocked").length;
   return `# Production Disposition And Live/E2E Lane
@@ -210,7 +210,7 @@ It does **not** claim production readiness yet.
 
 \`\`\`text
 catalog-supported local-test charts: ${localSupported}
-ConfigHub use-more-now receipts passing: ${useMoreNowPass}
+ConfigHub proof receipts passing: ${configHubProofPass}
 live/e2e observed charts: ${liveObserved}
 production-supported charts: 0
 production-blocked pending disposition: ${productionBlocked}
@@ -220,7 +220,7 @@ production-blocked pending disposition: ${productionBlocked}
 
 | Chart | Variants | ConfigHub proof | Live/e2e | Production status | Required dispositions |
 | --- | --- | --- | --- | --- | --- |
-${rows.map((row) => `| \`${row.chart}@${row.version}\` | ${row.supported_variants.replaceAll(";", ", ")} | ${row.confighub_use_more_now} | ${row.live_e2e} | ${row.production_support} | ${row.required_dispositions.replaceAll(";", ", ")} |`).join("\n")}
+${rows.map((row) => `| \`${row.chart}@${row.version}\` | ${row.supported_variants.replaceAll(";", ", ")} | ${row.confighub_proof} | ${row.live_e2e} | ${row.production_support} | ${row.required_dispositions.replaceAll(";", ", ")} |`).join("\n")}
 
 ## Doctrine
 

@@ -10,7 +10,7 @@ It does **not** claim production readiness yet.
 
 ```text
 catalog-supported local-test charts: 20
-ConfigHub use-more-now receipts passing: 20
+ConfigHub proof receipts passing: 20
 live/e2e observed charts: 20
 production-supported charts: 0
 production-blocked pending disposition: 20
