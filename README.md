@@ -72,9 +72,10 @@ reviewable ConfigHub variants.
 ```text
 20 popular Helm charts have catalog entries.
 20/20 have passing local kind live/e2e receipts.
-20/20 have ConfigHub use-more-now proof receipts.
+20/20 have ConfigHub upload, scan, and safe-ops proof receipts.
 100 charts have recipe/package proof artifacts.
-Top-500 chart analysis exists as catalog-planning data.
+Top-500 source/catalog analysis exists as catalog-planning data for future
+recipe promotion work.
 ```
 
 The current top-20 live proof means:
@@ -99,10 +100,13 @@ Start here:
 
 ```text
 data/live-e2e/summary.md
+  The top-20 live-test status table.
+
 data/production-disposition/summary.md
+  What still has to be resolved before each chart can be production-promoted.
 ```
 
-## Try It
+## Quick Verify
 
 You need Node.js to run the proof scripts. There are no npm dependencies and no
 `npm install` step.
@@ -129,10 +133,22 @@ That checks recipe/package structure, Helm equivalence, rendered object
 digests, receipts, catalog status, target facts, local live/e2e receipts,
 production disposition, and top-500 analysis.
 
-## Five-Minute Redis Demo
+Tested proof context:
+
+```text
+Helm renderer: v4.1.4+g05fa379
+Kubernetes capability profile: 1.30.0
+Local kind live-test image: kindest/node:v1.30.0
+```
+
+The `cub`, `kind`, and `kubectl` CLI versions are environment-dependent today;
+the receipts record the rendered inputs and verified outputs.
+
+## Redis ConfigHub Demo
 
 Redis is the happy-path demo because it is small, familiar, and still exercises
-the important proof chain.
+the important proof chain. The local verification path above does not need a
+ConfigHub account. The upload part of this demo does.
 
 Read the runnable script:
 
@@ -229,7 +245,10 @@ public Argo CD / Flux live proof is still a separate lane to add.
 
 ## Current Commands Used
 
-These are real commands used by the current proof path:
+These are real commands used somewhere in the current proof path. The Redis
+quick path mainly uses `cub install setup`, `npm run redis:compare`, and
+`npm run verify`; the broader catalog, ConfigHub, scan, and safe-ops lanes use
+more of the surface area below.
 
 ```text
 cub install doc
