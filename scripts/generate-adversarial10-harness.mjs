@@ -23,6 +23,7 @@ const chartsRoot = join(outputRoot, "charts");
 const args = process.argv.slice(2);
 const verifyOnly = args.includes("--verify");
 const selfTest = args.includes("--self-test");
+const refreshMatrix = args.includes("--refresh-matrix");
 
 function sha256(data) {
   return createHash("sha256").update(data).digest("hex");
@@ -168,8 +169,8 @@ function csvEscape(value) {
   return text;
 }
 
-function writeCsv(path, rows) {
-  const headers = [
+function proofReadinessHeaders() {
+  return [
     "rank",
     "id",
     "chart",
@@ -197,11 +198,208 @@ function writeCsv(path, rows) {
     "render_receipt_path",
     "rendered_manifest_sha256",
   ];
+}
+
+function writeCsv(path, rows, headers = proofReadinessHeaders()) {
   const lines = [headers.join(",")];
   for (const row of rows) {
     lines.push(headers.map((header) => csvEscape(row[header])).join(","));
   }
   writeFileSync(path, `${lines.join("\n")}\n`);
+}
+
+const crcTable = new Uint32Array(256).map((_, tableIndex) => {
+  let value = tableIndex;
+  for (let bit = 0; bit < 8; bit += 1) value = value & 1 ? 0xedb88320 ^ (value >>> 1) : value >>> 1;
+  return value >>> 0;
+});
+
+function crc32(buffer) {
+  let crc = 0xffffffff;
+  for (const byte of buffer) crc = crcTable[(crc ^ byte) & 0xff] ^ (crc >>> 8);
+  return (crc ^ 0xffffffff) >>> 0;
+}
+
+function xmlEscape(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+function columnName(index) {
+  let value = index + 1;
+  let result = "";
+  while (value > 0) {
+    value -= 1;
+    result = String.fromCharCode(65 + (value % 26)) + result;
+    value = Math.floor(value / 26);
+  }
+  return result;
+}
+
+function worksheetXml(rows) {
+  const xmlRows = rows
+    .map((row, rowIndex) => {
+      const cells = row
+        .map((value, columnIndex) => {
+          const ref = `${columnName(columnIndex)}${rowIndex + 1}`;
+          if (typeof value === "number" && Number.isFinite(value)) return `<c r="${ref}"><v>${value}</v></c>`;
+          return `<c r="${ref}" t="inlineStr"><is><t>${xmlEscape(value)}</t></is></c>`;
+        })
+        .join("");
+      return `<row r="${rowIndex + 1}">${cells}</row>`;
+    })
+    .join("");
+  return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetData>${xmlRows}</sheetData></worksheet>`;
+}
+
+function zipStore(files) {
+  const localParts = [];
+  const centralParts = [];
+  let offset = 0;
+  for (const file of files) {
+    const name = Buffer.from(file.name, "utf8");
+    const data = Buffer.from(file.data, "utf8");
+    const crc = crc32(data);
+    const local = Buffer.alloc(30);
+    local.writeUInt32LE(0x04034b50, 0);
+    local.writeUInt16LE(20, 4);
+    local.writeUInt32LE(0, 6);
+    local.writeUInt32LE(0, 10);
+    local.writeUInt32LE(crc, 14);
+    local.writeUInt32LE(data.length, 18);
+    local.writeUInt32LE(data.length, 22);
+    local.writeUInt16LE(name.length, 26);
+    localParts.push(local, name, data);
+    const central = Buffer.alloc(46);
+    central.writeUInt32LE(0x02014b50, 0);
+    central.writeUInt16LE(20, 4);
+    central.writeUInt16LE(20, 6);
+    central.writeUInt32LE(0, 8);
+    central.writeUInt32LE(0, 12);
+    central.writeUInt32LE(crc, 16);
+    central.writeUInt32LE(data.length, 20);
+    central.writeUInt32LE(data.length, 24);
+    central.writeUInt16LE(name.length, 28);
+    central.writeUInt32LE(0, 30);
+    central.writeUInt32LE(0, 34);
+    central.writeUInt32LE(0, 38);
+    central.writeUInt32LE(offset, 42);
+    centralParts.push(central, name);
+    offset += local.length + name.length + data.length;
+  }
+  const centralOffset = offset;
+  const centralBuffer = Buffer.concat(centralParts);
+  const end = Buffer.alloc(22);
+  end.writeUInt32LE(0x06054b50, 0);
+  end.writeUInt32LE(0, 4);
+  end.writeUInt16LE(files.length, 8);
+  end.writeUInt16LE(files.length, 10);
+  end.writeUInt32LE(centralBuffer.length, 12);
+  end.writeUInt32LE(centralOffset, 16);
+  writeFileSync(files.outputPath, Buffer.concat([...localParts, centralBuffer, end]));
+}
+
+function writeXlsx(path, sheets) {
+  const files = [
+    {
+      name: "[Content_Types].xml",
+      data: `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>${sheets.map((_, index) => `<Override PartName="/xl/worksheets/sheet${index + 1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join("")}</Types>`,
+    },
+    {
+      name: "_rels/.rels",
+      data: `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>`,
+    },
+    {
+      name: "xl/workbook.xml",
+      data: `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>${sheets.map((sheet, index) => `<sheet name="${xmlEscape(sheet.name)}" sheetId="${index + 1}" r:id="rId${index + 1}"/>`).join("")}</sheets></workbook>`,
+    },
+    {
+      name: "xl/_rels/workbook.xml.rels",
+      data: `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${sheets.map((_, index) => `<Relationship Id="rId${index + 1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${index + 1}.xml"/>`).join("")}</Relationships>`,
+    },
+    ...sheets.map((sheet, index) => ({ name: `xl/worksheets/sheet${index + 1}.xml`, data: worksheetXml(sheet.rows) })),
+  ];
+  files.outputPath = path;
+  zipStore(files);
+}
+
+function controlPointSummaryRows(rows) {
+  const groups = new Map();
+  for (const row of rows) {
+    const key = row.primary.controlPoint;
+    const current = groups.get(key) ?? {
+      primary_control_point: key,
+      chart_count: 0,
+      rendered_count: 0,
+      non_deterministic_count: 0,
+      blocked_count: 0,
+      charts: [],
+      mitigation_summary: row.primary.mitigation,
+    };
+    current.chart_count += 1;
+    if (row.render.renderStatus === "rendered") current.rendered_count += 1;
+    if (row.render.renderStatus !== "rendered") current.blocked_count += 1;
+    if (row.render.renderStatus === "rendered" && row.render.deterministic === false) current.non_deterministic_count += 1;
+    current.charts.push(`${row.chart.repository}/${row.chart.chart}@${row.chart.version}`);
+    groups.set(key, current);
+  }
+  return [...groups.values()]
+    .sort((left, right) => left.primary_control_point.localeCompare(right.primary_control_point))
+    .map((row) => ({ ...row, charts: row.charts.join("; ") }));
+}
+
+function controlPointSummaryRowsFromCsv(rows) {
+  const groups = new Map();
+  for (const row of rows) {
+    const key = row.primary_control_point;
+    const current = groups.get(key) ?? {
+      primary_control_point: key,
+      chart_count: 0,
+      rendered_count: 0,
+      non_deterministic_count: 0,
+      blocked_count: 0,
+      charts: [],
+      mitigation_summary: row.next_action,
+    };
+    current.chart_count += 1;
+    if (row.render_status === "rendered") current.rendered_count += 1;
+    if (row.render_status !== "rendered") current.blocked_count += 1;
+    if (row.render_status === "rendered" && row.deterministic === "false") current.non_deterministic_count += 1;
+    current.charts.push(`${row.chart}@${row.version}`);
+    groups.set(key, current);
+  }
+  return [...groups.values()]
+    .sort((left, right) => left.primary_control_point.localeCompare(right.primary_control_point))
+    .map((row) => ({ ...row, charts: row.charts.join("; ") }));
+}
+
+function matrixRows(headers, rows) {
+  return [headers, ...rows.map((row) => headers.map((header) => row[header] ?? ""))];
+}
+
+function controlHeaders() {
+  return [
+    "primary_control_point",
+    "chart_count",
+    "rendered_count",
+    "non_deterministic_count",
+    "blocked_count",
+    "charts",
+    "mitigation_summary",
+  ];
+}
+
+function refreshMatrixOutputs(root = outputRoot) {
+  const csvRows = parseCsv(join(root, "proof-readiness.csv"));
+  const controlRows = controlPointSummaryRowsFromCsv(csvRows);
+  writeCsv(join(root, "control-point-summary.csv"), controlRows, controlHeaders());
+  writeXlsx(join(root, "matrix.xlsx"), [
+    { name: "proof-readiness", rows: matrixRows(proofReadinessHeaders(), csvRows) },
+    { name: "control-points", rows: matrixRows(controlHeaders(), controlRows) },
+  ]);
 }
 
 function run(command, commandArgs, options = {}) {
@@ -724,6 +922,12 @@ function generate() {
     },
   });
   writeCsv(join(outputRoot, "proof-readiness.csv"), csvRows);
+  const controlRows = controlPointSummaryRows(summaryRows);
+  writeCsv(join(outputRoot, "control-point-summary.csv"), controlRows, controlHeaders());
+  writeXlsx(join(outputRoot, "matrix.xlsx"), [
+    { name: "proof-readiness", rows: matrixRows(proofReadinessHeaders(), csvRows) },
+    { name: "control-points", rows: matrixRows(controlHeaders(), controlRows) },
+  ]);
   writeSummary(join(outputRoot, "summary.md"), summaryRows, helm, corpus);
   console.log(`generated adversarial10 harness for ${lockRows.length} chart(s)`);
 }
@@ -763,6 +967,14 @@ function writeSummary(path, rows, helm, corpus) {
     );
   }
   lines.push(
+    "",
+    "## Generated Files",
+    "",
+    "| File | Use |",
+    "| --- | --- |",
+    "| `proof-readiness.csv` | One row per chart with render, determinism, feature, and proof-readiness status. |",
+    "| `control-point-summary.csv` | Counts by primary ConfigHub control point. |",
+    "| `matrix.xlsx` | Spreadsheet workbook with proof-readiness and control-point sheets. |",
     "",
     "## Doctrine",
     "",
@@ -828,6 +1040,8 @@ function verify(root = outputRoot) {
   const corpus = parseYamlFile(resolve(root, "corpus.yaml"));
   const lock = parseYamlFile(resolve(root, "corpus.lock.yaml"));
   const csvRows = parseCsv(resolve(root, "proof-readiness.csv"));
+  const controlRows = parseCsv(resolve(root, "control-point-summary.csv"));
+  const matrixPath = resolve(root, "matrix.xlsx");
   const failures = [];
   const failSoft = (message) => failures.push(message);
   const chartRows = corpus.spec.charts ?? [];
@@ -838,6 +1052,17 @@ function verify(root = outputRoot) {
   if (lock.kind !== "AdversarialCorpusLock") failSoft("corpus.lock.yaml kind must be AdversarialCorpusLock");
   if (lock.spec.chartCount !== chartRows.length) failSoft("corpus lock chartCount must match corpus");
   if (csvRows.length !== chartRows.length) failSoft("proof-readiness.csv row count must match corpus");
+  if (!controlRows.length) failSoft("control-point-summary.csv must have rows");
+  if (!existsSync(matrixPath)) failSoft("matrix.xlsx must exist");
+  if (existsSync(matrixPath)) {
+    const matrix = readFileSync(matrixPath);
+    if (matrix[0] !== 0x50 || matrix[1] !== 0x4b) failSoft("matrix.xlsx must be a ZIP/XLSX file");
+  }
+  const csvControlPoints = new Set(csvRows.map((row) => row.primary_control_point).filter(Boolean));
+  const summaryControlPoints = new Set(controlRows.map((row) => row.primary_control_point).filter(Boolean));
+  for (const point of csvControlPoints) {
+    if (!summaryControlPoints.has(point)) failSoft(`control-point-summary.csv missing ${point}`);
+  }
 
   for (const chart of chartRows) {
     const lockRow = lockById.get(chart.id);
@@ -996,6 +1221,9 @@ if (selfTest) {
 } else if (verifyOnly) {
   const result = verify();
   console.log(`verified adversarial10 harness for ${result.chartCount} chart(s)`);
+} else if (refreshMatrix) {
+  refreshMatrixOutputs();
+  console.log("refreshed adversarial10 control-point summary and matrix workbook");
 } else {
   generate();
 }

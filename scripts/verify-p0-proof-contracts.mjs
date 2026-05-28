@@ -343,6 +343,8 @@ function verifyAdversarialAndScaleData() {
   for (const path of [
     repoPath("data", "adversarial10", "corpus.yaml"),
     repoPath("data", "adversarial10", "proof-readiness.csv"),
+    repoPath("data", "adversarial10", "control-point-summary.csv"),
+    repoPath("data", "adversarial10", "matrix.xlsx"),
     repoPath("data", "adversarial10", "summary.md"),
     repoPath("data", "top500-catalog-analysis", "review.csv"),
     repoPath("data", "top500-catalog-analysis", "summary.md"),
@@ -351,6 +353,10 @@ function verifyAdversarialAndScaleData() {
   }
   const adversarialCsv = readFileSync(repoPath("data", "adversarial10", "proof-readiness.csv"), "utf8").trim().split("\n");
   check(adversarialCsv.length >= 11, "adversarial10 proof-readiness should include header plus 10 rows");
+  const controlCsv = readFileSync(repoPath("data", "adversarial10", "control-point-summary.csv"), "utf8").trim().split("\n");
+  check(controlCsv.length >= 2, "adversarial10 control-point summary should include at least one control point");
+  const matrix = readFileSync(repoPath("data", "adversarial10", "matrix.xlsx"));
+  check(matrix[0] === 0x50 && matrix[1] === 0x4b, "adversarial10 matrix.xlsx must be a ZIP/XLSX file");
   const top500Review = readFileSync(repoPath("data", "top500-catalog-analysis", "review.csv"), "utf8").trim().split("\n");
   check(top500Review.length >= 501, "top500 catalog analysis should include header plus 500 rows");
 }

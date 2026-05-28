@@ -35,6 +35,14 @@ where Helm pain appears and which ConfigHub control point absorbs it.
 | 9 | `bitnami/postgresql` | `18.6.7` | needs-generated-fact-binding | false | 7 | 0 | generated-facts |
 | 10 | `bitnami/rabbitmq` | `16.0.14` | needs-generated-fact-binding | false | 10 | 0 | generated-facts |
 
+## Generated Files
+
+| File | Use |
+| --- | --- |
+| `proof-readiness.csv` | One row per chart with render, determinism, feature, and proof-readiness status. |
+| `control-point-summary.csv` | Counts by primary ConfigHub control point. |
+| `matrix.xlsx` | Spreadsheet workbook with proof-readiness and control-point sheets. |
+
 ## Doctrine
 
 Rows marked as blocked or not deterministic are not failures of the mission.

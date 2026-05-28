@@ -141,6 +141,7 @@
     "consul:verify-package": "node scripts/consul-proof.mjs --verify-package",
     "consul:compare": "node scripts/consul-proof.mjs --compare",
     "adversarial10:generate": "node scripts/generate-adversarial10-harness.mjs",
+    "adversarial10:matrix": "node scripts/generate-adversarial10-harness.mjs --refresh-matrix",
     "adversarial10:verify": "node scripts/generate-adversarial10-harness.mjs --verify",
     "adversarial10:verify:self-test": "node scripts/generate-adversarial10-harness.mjs --self-test",
     "catalog:status": "node scripts/generate-catalog-status.mjs --generate",

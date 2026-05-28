@@ -1,0 +1,5 @@
+primary_control_point,chart_count,rendered_count,non_deterministic_count,blocked_count,charts,mitigation_summary
+capability-profile,3,3,0,0,ingress-nginx/ingress-nginx@4.15.1; external-secrets/external-secrets@2.5.0; argo-cd/argo-cd@9.5.15,"Render against a named, digest-bound Kubernetes capability profile."
+crd-policy,1,1,0,0,jetstack/cert-manager@v1.20.2,"Split CRD readiness, ordering, schema validation, and upgrade compatibility from ordinary object apply."
+generated-facts,5,5,4,0,bitnami/redis@25.5.3; prometheus-community/kube-prometheus-stack@85.3.3; metrics-server/metrics-server@3.13.0; bitnami/postgresql@18.6.7; bitnami/rabbitmq@16.0.14,"Generate once, persist the generated fact binding, and render the approved variant revision from that binding."
+recipe-import,1,0,0,1,grafana/loki@7.0.0,Create a minimal Install Variant with required values or mark the chart blocked for this corpus.
