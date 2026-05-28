@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://confighub.com/helm-expt/schemas/variant-revision.schema.json",
+  "title": "Variant Revision",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": { "$ref": "common-defs.schema.json#/$defs/apiVersion" },
+    "kind": { "const": "VariantRevision" },
+    "metadata": { "$ref": "common-defs.schema.json#/$defs/metadata" },
+    "spec": {
+      "type": "object",
+      "required": ["variant", "revision", "digest", "digestInputs", "rendered"],
+      "properties": {
+        "variant": { "$ref": "common-defs.schema.json#/$defs/relativePath" },
+        "revision": { "type": "string", "minLength": 1 },
+        "digest": { "$ref": "common-defs.schema.json#/$defs/sha256" },
+        "digestInputs": { "type": "object" },
+        "rendered": { "type": "object" }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

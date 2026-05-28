@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://confighub.com/helm-expt/schemas/render-receipt.schema.json",
+  "title": "Render Receipt",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": { "$ref": "common-defs.schema.json#/$defs/apiVersion" },
+    "kind": { "const": "RenderReceipt" },
+    "metadata": { "$ref": "common-defs.schema.json#/$defs/metadata" },
+    "spec": {
+      "type": "object",
+      "required": ["variantRevision", "renderer", "inputs", "outputs"],
+      "properties": {
+        "variantRevision": { "$ref": "common-defs.schema.json#/$defs/relativePath" },
+        "renderer": { "type": "object", "required": ["name", "version"], "additionalProperties": true },
+        "inputs": { "type": "object" },
+        "outputs": {
+          "type": "object",
+          "required": ["renderedObjectSetSHA256", "objectCount"],
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

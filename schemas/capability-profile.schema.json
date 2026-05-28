@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://confighub.com/helm-expt/schemas/capability-profile.schema.json",
+  "title": "Capability Profile Catalog",
+  "type": "object",
+  "required": ["apiVersion", "kind", "spec"],
+  "properties": {
+    "apiVersion": { "$ref": "common-defs.schema.json#/$defs/apiVersion" },
+    "kind": { "const": "CapabilityProfileCatalog" },
+    "spec": {
+      "type": "object",
+      "required": ["profiles"],
+      "properties": {
+        "profiles": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["name", "kubeVersion", "apiVersions", "digest"],
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "kubeVersion": { "type": "string", "minLength": 1 },
+              "apiVersions": {
+                "type": "array",
+                "items": { "type": "string" },
+                "uniqueItems": true
+              },
+              "digest": { "$ref": "common-defs.schema.json#/$defs/sha256" },
+              "description": { "type": "string" }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

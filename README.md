@@ -140,6 +140,16 @@ That checks recipe/package structure, Helm equivalence, rendered object
 digests, receipts, catalog status, target facts, local live/e2e receipts,
 production disposition, and top-500 analysis.
 
+For the proof contracts specifically:
+
+```sh
+npm run p0:contracts
+```
+
+That checks the schema directory, bounded Kubernetes capability profiles,
+observation freshness SLO, top-20 live receipts, top-500 analysis, and the
+minimum P0 corpus invariants.
+
 Tested proof context:
 
 ```text

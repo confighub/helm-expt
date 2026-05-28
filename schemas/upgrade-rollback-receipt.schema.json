@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://confighub.com/helm-expt/schemas/upgrade-rollback-receipt.schema.json",
+  "title": "Upgrade Or Rollback Simulation Receipt",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": { "$ref": "common-defs.schema.json#/$defs/apiVersion" },
+    "kind": { "enum": ["UpgradeSimulationReceipt", "RollbackSimulationReceipt"] },
+    "metadata": { "$ref": "common-defs.schema.json#/$defs/metadata" },
+    "spec": {
+      "type": "object",
+      "required": ["fromRevision", "toRevision", "diffDigest", "conflicts", "result"],
+      "properties": {
+        "fromRevision": { "$ref": "common-defs.schema.json#/$defs/relativePath" },
+        "toRevision": { "$ref": "common-defs.schema.json#/$defs/relativePath" },
+        "diffDigest": { "$ref": "common-defs.schema.json#/$defs/sha256" },
+        "conflicts": { "type": "array" },
+        "result": { "$ref": "common-defs.schema.json#/$defs/result" }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

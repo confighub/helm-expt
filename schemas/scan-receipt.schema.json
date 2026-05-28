@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://confighub.com/helm-expt/schemas/scan-receipt.schema.json",
+  "title": "Scan Receipt",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": { "$ref": "common-defs.schema.json#/$defs/apiVersion" },
+    "kind": { "const": "ScanReceipt" },
+    "metadata": { "$ref": "common-defs.schema.json#/$defs/metadata" },
+    "spec": {
+      "type": "object",
+      "required": ["variantRevision", "renderedObjectSetSHA256", "scanner", "result"],
+      "properties": {
+        "variantRevision": { "$ref": "common-defs.schema.json#/$defs/relativePath" },
+        "renderedObjectSetSHA256": { "$ref": "common-defs.schema.json#/$defs/sha256" },
+        "scanner": { "type": "object", "required": ["name"], "additionalProperties": true },
+        "result": { "$ref": "common-defs.schema.json#/$defs/result" },
+        "findingCounts": { "type": "object" }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}
