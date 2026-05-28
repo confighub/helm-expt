@@ -134,8 +134,26 @@ A customization request can arrive from:
 | Add raw manifests | Extension slot | Allowed only when the recipe declares the slot and scan/gate checks run. |
 | Use `tpl` content | Extension slot | Treated as code-like input and reviewed before promotion. |
 | Add Kustomize patch | Variant overlay | Patch must be explicit, digest-bound, and included in the diff. |
-| Helm hook behavior | Lifecycle policy | Hooks are mapped to supported lifecycle phases or blocked. |
+| Helm hook behavior | Lifecycle policy plus hook/lifecycle receipt | Hook templates can be inventoried deterministically, but hook execution depends on the target cluster. Map to tests, preflight, lifecycle action, observation, explicit skip, or blocker. |
 | Cluster lookup | Recipe fact requirement plus variant fact binding | Cluster-sourced data must not silently change the approved render. |
+
+## Hook Customization Rule
+
+A request to enable, disable, replace, or rely on Helm hook behavior is not a
+normal values-only customization.
+
+Treat it as:
+
+```text
+lifecycle / hook policy
+target fact or preflight requirement
+execution-or-skip decision
+observation requirement
+```
+
+The rendered normal object set can still be deterministic. The hook action is
+not proven until a lifecycle receipt records whether it ran, was skipped, was
+converted into a test/check, or was blocked.
 
 ## Confidence Labels
 

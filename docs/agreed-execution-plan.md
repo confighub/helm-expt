@@ -803,6 +803,10 @@ but with more ceremony":
 8. **Make Helm weirdness explicit.** `lookup`, hooks, generated values,
    `.Capabilities`, `tpl`, CRDs, raw manifests, post-renderers, and umbrella
    value propagation must map to control points or blockers.
+   Hook execution is a separate lifecycle proof lane: detecting/rendering hook
+   templates can be deterministic, but executing hook behavior depends on the
+   live cluster and requires target facts, preflight/lifecycle policy, and
+   observation receipts.
 9. **Treat Secrets as a policy boundary.** Secret material should be separated
    by default. Receipts record secret shape, handling policy, and apply outcome
    without casually uploading secret values.
@@ -867,7 +871,7 @@ for the next proof increments:
 | Intended/applied/live freshness | Workerless ConfigHub cannot imply live truth. | Store intended state, apply receipts, and external observation receipts with observer, method, timestamp, and freshness. |
 | GitOps handoff | Users should not have to abandon Argo CD, Flux, Git, OCI, or YAML. | Emit handoff artifacts while preserving ConfigHub variant/revision/receipt identity. |
 | Field ownership conflicts | Helm, GitOps controllers, operators, and ConfigHub edits can fight over fields. | Add ownership/conflict checks to operate/reconcile policy, separate intended/applied/observed diffs. |
-| CRD and hook lifecycle | CRDs and hooks are procedural and cluster-impacting. | Map CRDs to phase/ownership/schema policy; map hooks to test actions, install phases, or unsupported blockers. |
+| CRD and hook lifecycle | CRDs and hooks are procedural and cluster-impacting. Hook execution is cluster-dependent even when hook templates are deterministic. | Map CRDs to phase/ownership/schema policy; map hooks to test actions, install phases, lifecycle receipts, or unsupported blockers. |
 
 This list is not the full edge-case universe. The broader watchlist remains:
 
@@ -1232,6 +1236,50 @@ Examples:
 
 Do not encode proof as labels. Do not encode rendered-manifest facts manually as
 labels. Labels are navigation; attributes are analysis; receipts are trust.
+
+### Hook Lifecycle Proof Boundary
+
+Hooks have a stricter doctrine than normal rendered objects:
+
+```text
+Do not execute Helm hooks during recipe import.
+Do not hide hooks in the normal manifest proof.
+Do not claim hook execution is deterministic.
+```
+
+The deterministic part is the source/template analysis and, where useful, the
+rendered hook-object inventory. The non-deterministic part is execution against
+a live cluster. That execution can depend on RBAC, CRDs, admission webhooks,
+existing Secrets/ConfigMaps, StorageClasses, PVCs, API versions, release
+history, install versus upgrade phase, and hook delete policy.
+
+Every hook must therefore be classified before production support:
+
+| Hook class | Required disposition |
+| --- | --- |
+| test hook | post-install test/check action |
+| pre-install or post-install hook | install lifecycle action, preflight, target fact, readiness gate, or blocker |
+| pre-upgrade or post-upgrade hook | upgrade lifecycle action and upgrade receipt |
+| delete/cleanup hook | delete/rollback lifecycle policy |
+| CRD/webhook/bootstrap hook | CRD/webhook lifecycle gate plus live observation |
+| unclear procedural hook | unsupported blocker until reviewed |
+
+Hook-capable proof requires:
+
+```text
+hook inventory
+lifecycle policy
+target facts / preflight decision
+execution-or-explicit-skip receipt
+fresh observation receipt when live behavior matters
+```
+
+This is the claim boundary:
+
+```text
+Helm equivalence proves selected rendered objects.
+Hook execution is proven only by hook/lifecycle receipts and live observations.
+```
 
 ## Workerless Server Rule
 

@@ -842,7 +842,7 @@ Checks:
 | Capabilities | kube version, API versions | Capability profile | named profile digest |
 | Release object | name, namespace, install/upgrade, revision | Variant/render phase | explicit render parameter |
 | Random/cert/time funcs | `randAlphaNum`, `genCA`, `now`, `uuidv4` | Generated facts | generate once and persist |
-| Hooks | pre-install jobs, test hooks, weights, delete policies | Lifecycle policy | map to phases/tests or fail |
+| Hooks | pre-install jobs, test hooks, weights, delete policies | Lifecycle policy and hook receipt | inventory deterministically; execute only through target-aware lifecycle proof |
 | CRDs | `crds/`, CRD templates | Operate policy | CRD phase, ownership, ordering |
 | Raw manifest escape hatches | `extraObjects`, `extraManifests` | Late/literal policy | scan, constrain, or disable |
 | Kustomize bases | selected top-level base | Variant definition | base selection receipt |
@@ -874,7 +874,7 @@ Checks:
 | Required/fail | render fails only after late values | recipe input validation |
 | `tpl` escape hatch | values become code | bound evaluation, explicit allowed fields, or reject |
 | Raw manifests | arbitrary resource injection | explicit extension slot plus scanning |
-| Hooks | procedural lifecycle hidden in chart | map to phases/tests or fail |
+| Hooks | procedural lifecycle hidden in chart; execution depends on live cluster facts | map to phases/tests, target-aware lifecycle receipts, explicit skip, or fail |
 | CRDs/webhooks/APIService | ordering and cluster-wide blast radius | operate policy and install phases |
 | Kustomize remote base | remote content changes | vendor or pin digest |
 | Kustomize generator | name/content changes unexpectedly | deterministic generator options and input digests |
@@ -1227,7 +1227,10 @@ Start with these defaults:
 - Random/time/cert/password generation must become generated facts or secrets.
 - `tpl` is allowed only for declared values paths and is visible in diagnostics.
 - Raw manifest injection is disabled by default for trusted base variants, allowed only in explicit extension variants.
-- Hooks are split into test hooks, install-phase hooks, and unsupported procedural hooks.
+- Hooks are split into test hooks, install-phase hooks, upgrade/delete lifecycle
+  actions, explicit skips, and unsupported procedural hooks. Hook templates can
+  be inventoried deterministically; hook execution is proven only by
+  target-aware lifecycle receipts and live observations.
 - Capability profiles are named and finite for scanning.
 - Every standard variant is rendered and scanned in bulk.
 - Install is gated on the exact selected variant revision and its rendered manifest set.
