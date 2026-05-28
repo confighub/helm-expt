@@ -5,9 +5,9 @@ metadata:
 spec:
   checkedValues:
     - path: auth.password
-      disposition: intentional-deterministic-placeholder
+      disposition: generated-fact-bound
       variant: default
-      reason: avoids chart-generated random password during deterministic default proof
+      reason: binds the Redis password before render so Helm output is deterministic and the generated fact can be reviewed by digest
     - path: auth.existingSecret
       disposition: target-secret-reference
       variant: reuse-existing-secret
@@ -16,6 +16,8 @@ spec:
       disposition: target-secret-key-reference
       variant: reuse-existing-secret
       reason: records the required key shape without storing secret material
-  unknownValues: not-checked
-  deadValues: not-checked
-  ignoredValues: not-checked
+  unknownValues: checked-for-proof-path
+  deadValues: checked-for-proof-path
+  ignoredValues: checked-for-proof-path
+  diagnostics: values-diagnostics.yaml
+  valueSourceMap: value-source-map.yaml

@@ -10,10 +10,12 @@
     "metadata": { "$ref": "common-defs.schema.json#/$defs/metadata" },
     "spec": {
       "type": "object",
-      "required": ["fromRevision", "toRevision", "diffDigest", "conflicts", "result"],
+      "required": ["fromRevision", "toRevision", "fromRenderedObjectSetSHA256", "toRenderedObjectSetSHA256", "diffDigest", "conflicts", "result"],
       "properties": {
         "fromRevision": { "$ref": "common-defs.schema.json#/$defs/relativePath" },
         "toRevision": { "$ref": "common-defs.schema.json#/$defs/relativePath" },
+        "fromRenderedObjectSetSHA256": { "$ref": "common-defs.schema.json#/$defs/sha256" },
+        "toRenderedObjectSetSHA256": { "$ref": "common-defs.schema.json#/$defs/sha256" },
         "diffDigest": { "$ref": "common-defs.schema.json#/$defs/sha256" },
         "conflicts": { "type": "array" },
         "result": { "$ref": "common-defs.schema.json#/$defs/result" }

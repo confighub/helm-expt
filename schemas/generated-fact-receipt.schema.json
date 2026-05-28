@@ -10,9 +10,10 @@
     "metadata": { "$ref": "common-defs.schema.json#/$defs/metadata" },
     "spec": {
       "type": "object",
-      "required": ["variantRevision", "facts", "materialPolicy", "result"],
+      "required": ["variantRevision", "generatedFactsSHA256", "facts", "materialPolicy", "result"],
       "properties": {
         "variantRevision": { "$ref": "common-defs.schema.json#/$defs/relativePath" },
+        "generatedFactsSHA256": { "$ref": "common-defs.schema.json#/$defs/sha256" },
         "facts": {
           "type": "array",
           "items": {
@@ -20,7 +21,7 @@
             "required": ["name", "kind", "digest", "storedAs"],
             "properties": {
               "name": { "type": "string", "minLength": 1 },
-              "kind": { "type": "string", "minLength": 1 },
+              "kind": { "enum": ["password", "token", "cert-key", "timestamp", "uuid", "opaque-secret-handle"] },
               "digest": { "$ref": "common-defs.schema.json#/$defs/sha256" },
               "storedAs": { "enum": ["plain", "secret-ref", "opaque-handle", "not-stored"] }
             },

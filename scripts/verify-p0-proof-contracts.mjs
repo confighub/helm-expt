@@ -1,6 +1,6 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join, relative } from "node:path";
-import { readYaml, repoRoot, sha256 } from "./lib/proof-common.mjs";
+import { readYaml, repoRoot, sha256, sha256File } from "./lib/proof-common.mjs";
 
 const requiredSchemas = [
   "common-defs.schema.json",
@@ -142,13 +142,55 @@ function verifyCorpusContracts() {
   check(liveReceipts.length >= 20, `expected at least 20 live observation receipts, found ${liveReceipts.length}`);
 
   const redisPlan = readYaml(repoPath("recipes", "bitnami", "redis", "25.5.3", "helm-plan.yaml"));
+  const redisPainReport = readYaml(repoPath("recipes", "bitnami", "redis", "25.5.3", "helm-pain-report.yaml"));
+  const redisDiagnostics = readYaml(repoPath("recipes", "bitnami", "redis", "25.5.3", "values-diagnostics.yaml"));
+  const redisValueSourceMap = readYaml(repoPath("recipes", "bitnami", "redis", "25.5.3", "value-source-map.yaml"));
+  const redisGeneratedFact = readYaml(
+    repoPath("recipes", "bitnami", "redis", "25.5.3", "revisions", "default", "r001", "receipts", "generated-fact-receipt.yaml"),
+  );
+  const redisDefaultRevision = readYaml(
+    repoPath("recipes", "bitnami", "redis", "25.5.3", "revisions", "default", "r001", "variant-revision.yaml"),
+  );
+  const redisDefaultRender = readYaml(
+    repoPath("recipes", "bitnami", "redis", "25.5.3", "revisions", "default", "r001", "receipts", "render-receipt.yaml"),
+  );
+  const redisReuseRevision = readYaml(
+    repoPath("recipes", "bitnami", "redis", "25.5.3", "revisions", "reuse-existing-secret", "r001", "variant-revision.yaml"),
+  );
+  const redisUpgradeReceipt = readYaml(
+    repoPath(
+      "recipes",
+      "bitnami",
+      "redis",
+      "25.5.3",
+      "operations",
+      "default-to-reuse-existing-secret",
+      "upgrade-simulation-receipt.yaml",
+    ),
+  );
+  const redisRollbackReceipt = readYaml(
+    repoPath(
+      "recipes",
+      "bitnami",
+      "redis",
+      "25.5.3",
+      "operations",
+      "reuse-existing-secret-to-default",
+      "rollback-simulation-receipt.yaml",
+    ),
+  );
+
   check(redisPlan.kind === "HelmPlan", "Redis helm-plan kind mismatch");
   check(redisPlan.spec?.readiness?.variants?.includes("default"), "Redis HelmPlan missing default variant");
   check(redisPlan.spec?.readiness?.variants?.includes("reuse-existing-secret"), "Redis HelmPlan missing reuse-existing-secret variant");
+  check(redisPlan.spec?.reports?.painReport === "helm-pain-report.yaml", "Redis HelmPlan must link pain report");
+  check(redisPlan.spec?.reports?.valuesDiagnostics === "values-diagnostics.yaml", "Redis HelmPlan must link values diagnostics");
+  check(redisPlan.spec?.reports?.valueSourceMap === "value-source-map.yaml", "Redis HelmPlan must link value source map");
 
   const redisValues = readYaml(repoPath("recipes", "bitnami", "redis", "25.5.3", "effective-values.yaml"));
   check(redisValues.kind === "EffectiveValues", "Redis effective-values kind mismatch");
   check(redisValues.spec?.files?.[0]?.sha256, "Redis effective-values missing file sha");
+  check(redisValues.spec?.provenance?.some((entry) => entry.path === "auth.password"), "Redis effective-values must explain auth.password provenance");
 
   const redisValueModel = readYaml(repoPath("recipes", "bitnami", "redis", "25.5.3", "value-model.yaml"));
   check(redisValueModel.kind === "ValueModel", "Redis value-model kind mismatch");
@@ -156,6 +198,72 @@ function verifyCorpusContracts() {
   for (const field of ["unknownValues", "deadValues", "ignoredValues"]) {
     check(redisValueModel.spec?.[field], `Redis value-model missing ${field}`);
   }
+  check(redisValueModel.spec?.diagnostics === "values-diagnostics.yaml", "Redis value-model must link values diagnostics");
+  check(redisValueModel.spec?.valueSourceMap === "value-source-map.yaml", "Redis value-model must link value source map");
+
+  check(redisPainReport.kind === "HelmPainReport", "Redis pain report kind mismatch");
+  check(redisPainReport.spec?.defaultPathStatus === "no-unhandled-pain-points", "Redis pain report must have no default unhandled pain points");
+  const painPoints = redisPainReport.spec?.painPoints ?? [];
+  check(painPoints.length >= 7, "Redis pain report should enumerate the first proof pain points");
+  for (const point of painPoints) {
+    check(point.detectedPainPoint, `Redis pain point ${point.id} missing detectedPainPoint`);
+    check(point.configHubHome, `Redis pain point ${point.id} missing configHubHome`);
+    check(point.disposition, `Redis pain point ${point.id} missing disposition`);
+    check(point.linkedReceipt, `Redis pain point ${point.id} missing linkedReceipt`);
+  }
+
+  check(redisDiagnostics.kind === "ValuesDiagnostics", "Redis values diagnostics kind mismatch");
+  const wrongKeyFinding = redisDiagnostics.spec?.deadIgnoredUnknownValues?.findings?.find((finding) => finding.path === "auth.passwrod");
+  check(wrongKeyFinding?.classification === "unknown-value-path", "Redis diagnostics must flag synthetic wrong value path");
+  check(redisDiagnostics.spec?.syntheticTests?.[0]?.result === "pass", "Redis diagnostics synthetic test must pass");
+
+  check(redisValueSourceMap.kind === "ValueSourceMap", "Redis value source map kind mismatch");
+  const sourceIds = new Set((redisValueSourceMap.spec?.entries ?? []).map((entry) => entry.id));
+  for (const required of ["replica-count", "release-name", "namespace", "redis-password"]) {
+    check(sourceIds.has(required), `Redis value source map missing ${required}`);
+  }
+
+  const generatedFacts = (redisGeneratedFact.spec?.facts ?? []).map((fact) => ({
+    name: fact.name,
+    kind: fact.kind,
+    digest: fact.digest,
+    storedAs: fact.storedAs,
+    valuePath: fact.valuePath,
+  }));
+  const generatedFactsDigest = sha256(canonicalText(generatedFacts));
+  check(redisGeneratedFact.kind === "GeneratedFactReceipt", "Redis generated fact receipt kind mismatch");
+  check(
+    redisGeneratedFact.spec?.generatedFactsSHA256 === generatedFactsDigest,
+    `Redis generated fact bundle digest mismatch: expected ${generatedFactsDigest}`,
+  );
+  check(
+    redisDefaultRevision.spec?.digestInputs?.generatedFactsSHA256 === generatedFactsDigest,
+    "Redis default variant revision must bind generated facts",
+  );
+  check(
+    redisDefaultRender.spec?.inputs?.generatedFactsSHA256 === generatedFactsDigest,
+    "Redis default render receipt must bind generated facts",
+  );
+  check(
+    redisDefaultRender.spec?.inputs?.capabilityProfileRef === "data/capability-profiles/catalog.yaml#k8s-1.30-default",
+    "Redis render receipt must bind named capability profile",
+  );
+  check(
+    redisDefaultRevision.spec?.digestInputs?.capabilityProfileSHA256 === "sha256:c1f8a4eb20154228a391f2a61565160634fbeb5dcf1079065543dd0a2ff3dfbf",
+    "Redis default variant revision must bind capability profile digest",
+  );
+  check(
+    redisReuseRevision.spec?.digestInputs?.capabilityProfileSHA256 === "sha256:c1f8a4eb20154228a391f2a61565160634fbeb5dcf1079065543dd0a2ff3dfbf",
+    "Redis reuse variant revision must bind capability profile digest",
+  );
+
+  const diffDigest = `sha256:${sha256File(repoPath("recipes", "bitnami", "redis", "25.5.3", "diffs", "default-to-reuse-existing-secret.yaml"))}`;
+  check(redisUpgradeReceipt.kind === "UpgradeSimulationReceipt", "Redis upgrade simulation receipt kind mismatch");
+  check(redisRollbackReceipt.kind === "RollbackSimulationReceipt", "Redis rollback simulation receipt kind mismatch");
+  check(redisUpgradeReceipt.spec?.diffDigest === diffDigest, "Redis upgrade simulation diff digest mismatch");
+  check(redisRollbackReceipt.spec?.diffDigest === diffDigest, "Redis rollback simulation diff digest mismatch");
+  check((redisUpgradeReceipt.spec?.requiredOperatorDecisions ?? []).length > 0, "Redis upgrade simulation must record operator decisions");
+  check((redisRollbackReceipt.spec?.requiredOperatorDecisions ?? []).length > 0, "Redis rollback simulation must record operator decisions");
 }
 
 function verifyAdversarialAndScaleData() {

@@ -1,0 +1,28 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: RollbackSimulationReceipt
+metadata:
+  name: bitnami-redis-reuse-existing-secret-to-default
+spec:
+  scope: variant-transition-rollback
+  chartVersions:
+    from: 25.5.3
+    to: 25.5.3
+  fromRevision: ../../revisions/reuse-existing-secret/r001/variant-revision.yaml
+  toRevision: ../../revisions/default/r001/variant-revision.yaml
+  fromRenderedObjectSetSHA256: "0086a3d5f1b87c1107465940c49adf19187c784d1fd901c7fc7cc53dd504cb4b"
+  toRenderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+  diffDigest: "sha256:41fd22bd59c5cc683e6a52d1871ea9ed80503f314961a82816bd7494de5398a9"
+  preservedChanges:
+    - "Release name, namespace, Services, StatefulSets, and PVC templates stay stable."
+  droppedChanges:
+    - "Target Secret dependency is no longer required by the default revision."
+  requiredOperatorDecisions:
+    - "Decide whether the target-provided Secret remains as a live object after rollback."
+    - "Confirm the generated-fact password is the intended rollback credential."
+  risks:
+    hooks: "no Helm hooks are executed in this proof path"
+    crds: "none"
+    pvc: "PVCs remain attached by StatefulSet identity; rollback does not delete PVCs."
+    generatedFacts: "rollback reintroduces the bound generated auth.password fact."
+  conflicts: []
+  result: warn

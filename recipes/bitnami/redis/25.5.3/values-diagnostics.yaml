@@ -1,0 +1,37 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ValuesDiagnostics
+metadata:
+  name: bitnami-redis-25.5.3
+spec:
+  chart: bitnami/redis
+  version: 25.5.3
+  valueModel: value-model.yaml
+  variants:
+    - default
+    - reuse-existing-secret
+  deadIgnoredUnknownValues:
+    status: checked-for-proof-path
+    findings:
+      - path: auth.passwrod
+        classification: unknown-value-path
+        certainty: definite
+        severity: high
+        message: "Synthetic misspelling of auth.password is accepted by Helm input parsing but does not change the rendered Redis Secret password."
+        configHubHome: value-model
+        disposition: handled-by-value-diagnostics
+        evidence:
+          syntheticTest: redis-wrong-password-key
+          baselineRenderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+          mutatedRenderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+          diffResult: no-rendered-change
+  syntheticTests:
+    - name: redis-wrong-password-key
+      variant: default
+      injectedValues:
+        auth:
+          passwrod: "wrong-key-is-ignored"
+      expectedResult: "no rendered object change because the chart does not read auth.passwrod"
+      actualResult: "no rendered object change"
+      result: pass
+  limits:
+    - "This diagnostic proves the first Redis path and one synthetic wrong-key case. Full static coverage for every Helm values path remains a broader chart-analysis task."
