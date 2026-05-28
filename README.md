@@ -99,6 +99,9 @@ before we claim it as tested end to end.
 Start here:
 
 ```text
+CATALOG.md
+  The top-level chart catalog: charts first, variants underneath.
+
 data/live-e2e/summary.md
   The top-20 live-test status table.
 
@@ -253,10 +256,13 @@ runs/redis-local-kind/latest/observation-receipt.yaml
 For every chart, read the catalog page first:
 
 ```text
+CATALOG.md
 recipes/<repo>/<chart>/<version>/CATALOG.md
 ```
 
-That page links the chart source, recipe, variants, package, rendered objects,
+The root `CATALOG.md` is the shelf: charts first, variants underneath, with the
+recommended first variant and `cub install setup` package path visible. Then
+open the per-chart `CATALOG.md` for the chart source, recipe, rendered objects,
 receipts, scans, and current support status.
 
 The main folders are:
