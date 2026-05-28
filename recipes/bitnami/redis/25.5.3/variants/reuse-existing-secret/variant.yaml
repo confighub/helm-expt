@@ -8,6 +8,9 @@ spec:
   releaseName: redis
   valuesProfile: ../../effective-values-reuse-existing-secret.yaml
   capabilityProfile:
+    name: k8s-1.30-default
+    catalog: ../../../../data/capability-profiles/catalog.yaml
+    digest: "sha256:c1f8a4eb20154228a391f2a61565160634fbeb5dcf1079065543dd0a2ff3dfbf"
     kubeVersion: "1.30.0"
     apiVersions: []
   hookPolicy: no-hooks

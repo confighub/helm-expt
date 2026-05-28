@@ -1,0 +1,74 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: HelmPainReport
+metadata:
+  name: bitnami-redis-25.5.3
+spec:
+  chart:
+    name: bitnami/redis
+    version: 25.5.3
+    source: oci://registry-1.docker.io/bitnamicharts/redis:25.5.3
+    digest: "aa5360967bc1adadf69f0ce91d762f0bb4d80ca36758b37d7d8f1ef981257baf"
+  defaultPathStatus: no-unhandled-pain-points
+  painPoints:
+    - id: generated-redis-password
+      detectedPainPoint: "chart can generate or render Redis credentials"
+      evidence:
+        - chart-dossier.yaml
+        - value-model.yaml
+        - effective-values.yaml
+        - revisions/default/r001/receipts/generated-fact-receipt.yaml
+      configHubHome: generated-fact
+      disposition: handled-by-generated-facts
+      linkedReceipt: revisions/default/r001/receipts/generated-fact-receipt.yaml
+      defaultVariantStatus: handled
+    - id: reuse-existing-secret-target-fact
+      detectedPainPoint: "existing Secret installs require a target-side Secret and key"
+      evidence:
+        - variants/reuse-existing-secret/variant.yaml
+        - diffs/default-to-reuse-existing-secret.yaml
+      configHubHome: target-fact-requirement
+      disposition: absorbed-into-recipe-target-facts
+      linkedReceipt: diffs/default-to-reuse-existing-secret.yaml
+      defaultVariantStatus: not-applicable
+    - id: capability-branching
+      detectedPainPoint: "Helm render can branch on Kubernetes capabilities"
+      evidence:
+        - data/capability-profiles/catalog.yaml#k8s-1.30-default
+        - revisions/default/r001/receipts/render-receipt.yaml
+      configHubHome: capability-profile
+      disposition: handled-by-capability-profile
+      linkedReceipt: revisions/default/r001/receipts/render-receipt.yaml
+      defaultVariantStatus: handled
+    - id: helm-hooks
+      detectedPainPoint: "Helm hooks can add procedural install behavior"
+      evidence:
+        - control-points.yaml
+      configHubHome: lifecycle-policy
+      disposition: handled-by-lifecycle-policy
+      linkedReceipt: revisions/default/r001/receipts/install-gate.yaml
+      defaultVariantStatus: handled
+    - id: rendered-secret-separation
+      detectedPainPoint: "default chart render includes a Secret object"
+      evidence:
+        - revisions/default/r001/receipts/helm-equivalence-receipt.yaml
+      configHubHome: recipe
+      disposition: absorbed-into-recipe
+      linkedReceipt: revisions/default/r001/receipts/helm-equivalence-receipt.yaml
+      defaultVariantStatus: handled
+    - id: mutable-image-tags
+      detectedPainPoint: "chart renders mutable latest image tags"
+      evidence:
+        - revisions/default/r001/receipts/scan-receipt.yaml
+      configHubHome: scan-gate
+      disposition: handled-by-scan-or-gate
+      linkedReceipt: revisions/default/r001/receipts/install-gate.yaml
+      defaultVariantStatus: handled-with-warning
+    - id: unknown-or-ignored-values
+      detectedPainPoint: "a user can set a misspelled value path and Helm will ignore it"
+      evidence:
+        - values-diagnostics.yaml
+      configHubHome: value-model
+      disposition: absorbed-into-value-model
+      linkedReceipt: values-diagnostics.yaml
+      defaultVariantStatus: handled
+  answerForSkepticalHelmUser: "For Redis default, ConfigHub found generated credential risk, capability branching, hook policy, rendered Secret handling, mutable image scan findings, and ignored-value risk. Each one is mapped to a recipe artifact, generated fact, capability profile, lifecycle policy, scan/gate, or value diagnostic. There are no unhandled pain points on the default proof path."

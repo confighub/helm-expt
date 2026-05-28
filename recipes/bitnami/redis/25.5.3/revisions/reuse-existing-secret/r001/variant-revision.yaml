@@ -8,8 +8,9 @@ spec:
   digest: "964efba731ca5cc276c42fff4adb10d0b940e3ff9a4a3d5195d95646e1c80801"
   digestInputs:
     recipeSHA256: "fdc8c3ccba9baa7411f8b8fcda69575bd05fd8eeade8a77e85a0ec42191dcb89"
-    variantSHA256: "b2791265c12cb27ceed9ddebe676e48b572020cbe8a3f812d09a591c8af77edd"
-    effectiveValuesSHA256: "6fa6bf0963e7c0097f89a2b3709dc8ee43551198ba9d13420f3f8f9401311a26"
+    variantSHA256: "a59e00b50b62e17990acbe560cee630d0aeb75e1a74402fb997676c0f940d047"
+    effectiveValuesSHA256: "d7fac307c70da898e1eee9a2799f0951aaea56a0414f2a58e3163667943332ed"
+    capabilityProfileSHA256: "sha256:c1f8a4eb20154228a391f2a61565160634fbeb5dcf1079065543dd0a2ff3dfbf"
     rendererSHA256: "eeed52df580bde704c2d46939dfd052dc9ef146932dc72678095deb732000021"
     renderedObjectSetSHA256: "a90dda4885fb97749e2c222f1abd840f49dcf6eafa953ea6ea2dbc6ba565fe53"
 

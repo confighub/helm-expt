@@ -8,6 +8,14 @@ spec:
       source: inline-proof
       sha256: "e876580b22aa7d60397e273e06bdf91fd9d301388ae22c902b17679e7b3213f2"
   mergedValuesCaptured: false
+  valueTreeSHA256: "sha256:e876580b22aa7d60397e273e06bdf91fd9d301388ae22c902b17679e7b3213f2"
+  provenance:
+    - path: auth.password
+      source: generated-fact-receipt
+      sourceRef: revisions/default/r001/receipts/generated-fact-receipt.yaml
+      valueDigest: "sha256:6486a1dce90d013579f3b52d6939524b23b3ca00c5702e409348e6c0ba782349"
+      redaction: digest-in-reports
+      note: "The proof fixture binds this credential before render so Helm output is deterministic."
   values:
     auth:
       password: "confighub-redis-password"

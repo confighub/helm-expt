@@ -13,9 +13,12 @@ spec:
       - --skip-tests
       - --no-hooks
   inputs:
+    capabilityProfileRef: data/capability-profiles/catalog.yaml#k8s-1.30-default
+    capabilityProfileSHA256: "sha256:c1f8a4eb20154228a391f2a61565160634fbeb5dcf1079065543dd0a2ff3dfbf"
     sourceLockSHA256: "4dbf2dba4b26a59aef54ca94992e3b83ece64ebbeb7300ff8205895ee88af636"
     dependencyLockSHA256: "c5d2d5077bc368b981bd8b8543c2ac0a456cdb0ae451aab24ef748b15f009c62"
-    effectiveValuesSHA256: "a0fa8de8fae3f41c4b380b47234740dae0f475651adc494554f7a8b09827dd99"
+    effectiveValuesSHA256: "02a65bd7e43a6e3c26adba437e2039172883f3629accf21eb2dc12d8e3db4080"
+    generatedFactsSHA256: "cd7bfad5181e2a1ed64ecc24c4aac04b86cc90e01da81868cf699bb1dbb1358f"
   outputs:
     renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
     renderedObjectInventorySHA256: "c32083a3b3f105717e7938aa19ff2e983682b1f34693b5e0ba9eecfadaf5bee9"
