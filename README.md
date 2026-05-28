@@ -144,6 +144,68 @@ Local kind live-test image: kindest/node:v1.30.0
 The `cub`, `kind`, and `kubectl` CLI versions are environment-dependent today;
 the receipts record the rendered inputs and verified outputs.
 
+## Verify Your Install
+
+The `Quick Verify` and `npm run verify` paths above check this repo's canonical
+artifacts. To check that your own install matches them, run one command per
+stage of the Redis demo.
+
+After `cub install setup`, check the rendered objects:
+
+```sh
+npm run verify-install:render -- \
+  --chart bitnami/redis/25.5.3 \
+  --base default \
+  --work-dir .tmp/demo/redis-default \
+  --namespace redis
+```
+
+Expected result:
+
+```text
+PASS verify-install:render bitnami/redis/25.5.3 default
+semantic object matches: 14/14
+```
+
+After `kubectl apply`, check the live cluster:
+
+```sh
+npm run verify-install:cluster -- \
+  --chart bitnami/redis/25.5.3 \
+  --base default \
+  --context <your-kubectl-context> \
+  --namespace redis
+```
+
+Expected result:
+
+```text
+PASS verify-install:cluster bitnami/redis/25.5.3 default
+checks: statefulsets, PVCs, Redis PING
+```
+
+After `cub install upload`, check the ConfigHub Units and labels:
+
+```sh
+npm run verify-install:confighub -- \
+  --chart bitnami/redis/25.5.3 \
+  --base default \
+  --space <your-space>
+```
+
+Expected result:
+
+```text
+PASS verify-install:confighub bitnami/redis/25.5.3 default
+units: 15
+variant-labeled units: 14
+```
+
+Each command writes a receipt under `.tmp/verify-install/`. That receipt is the
+user-side proof: what you rendered, what namespace/context you checked, what
+matched, and which checks passed. Today these checks ship for Redis only. Other
+charts should follow the same pattern as `install-checks.yaml` lands per chart.
+
 ## Redis ConfigHub Demo
 
 Redis is the happy-path demo because it is small, familiar, and still exercises
@@ -168,6 +230,8 @@ cub install setup \
 
 npm run redis:compare
 npm run verify
+npm run verify-install:render -- --chart bitnami/redis/25.5.3 --base default --work-dir .tmp/demo/redis-default --namespace redis
+npm run verify-install:confighub -- --chart bitnami/redis/25.5.3 --base default --space <your-space>
 ```
 
 The full ConfigHub upload command is in `docs/demo/redis/demo-script.md`; it is
