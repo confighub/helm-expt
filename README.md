@@ -87,7 +87,7 @@ rendered ConfigHub/cub-install objects
 -> observation receipt is committed and verified
 ```
 
-GitOps/OCI delivery is exercised in a separate live lane:
+GitOps/OCI runtime verification lives in a separate live lane:
 
 ```text
 ConfigHub OCI
@@ -96,9 +96,9 @@ ConfigHub OCI
 -> live observation through cub-scout / controller evidence
 ```
 
-That lane depends on a live GitOps controller and cluster, so it is not folded
-into the pure local `npm run verify` corpus. See "Additional Options For Live
-Cluster Verification" below for the runtime proof path.
+That lane depends on a live GitOps controller and cluster, so it is documented
+and exercised outside the pure local `npm run verify` corpus. See "Additional
+Options For Live Cluster Verification" below for the runtime proof path.
 
 Start here:
 
@@ -111,6 +111,22 @@ data/live-e2e/summary.md
 
 data/production-disposition/summary.md
   What still has to be resolved before each chart can be production-promoted.
+```
+
+## Pick Your Path
+
+```text
+I want to check the repo quickly.
+  Run Quick Verify.
+
+I want to see what charts and variants exist.
+  Open CATALOG.md.
+
+I installed Redis and want proof it matches the catalog.
+  Run Verify Your Install.
+
+I want the full ConfigHub walkthrough.
+  Follow Redis ConfigHub Demo.
 ```
 
 ## Quick Verify
@@ -265,6 +281,19 @@ recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/helm-equivalence-re
 runs/redis-local-kind/latest/observation-receipt.yaml
 ```
 
+## Redis Secret Handling
+
+Redis has two supported secret models in this catalog.
+
+| Variant | Secret model | What ConfigHub records | Cluster requirement |
+| --- | --- | --- | --- |
+| `default` | Helm renders `Secret redis/redis` from the pinned demo password in `effective-values.yaml`. `cub install` separates that Secret into `out/secrets`. | The rendered Secret is part of the proof, but it is not uploaded as a ConfigHub Unit/OCI artifact. Workloads record an expected external reference to `v1/Secret redis/redis`. | For direct local tests, apply `out/secrets` before `out/manifests`. |
+| `reuse-existing-secret` | Helm renders no Redis Secret. Workloads reference `redis/redis-existing-secret` key `redis-password`. | The recipe records this as an installer `externalRequires` and variant `targetFacts.requiredSecrets` requirement. No secret material is stored. | Pre-stage `Secret redis/redis-existing-secret` with key `redis-password`; the verifier checks it exists. |
+
+The point is deliberate: ConfigHub should carry proof, references, labels,
+target-fact requirements, and receipts. It should not silently become the place
+where generated Redis credentials are hidden.
+
 ## How A Chart Is Organized
 
 For every chart, read the catalog page first:
@@ -387,8 +416,8 @@ Once the Units are in ConfigHub, the intended GitOps path is:
 
 Today this repo proves the chart -> recipe -> variant -> rendered objects path
 for the top 20, and proves local kind deployment for those rendered objects.
-The Argo CD / Flux OCI path is exercised as a separate live verification lane
-because it needs a running GitOps controller and cluster.
+The Argo CD / Flux OCI path is the intended delivery path and is verified in a
+separate live lane because it needs a running GitOps controller and cluster.
 
 ## Current Commands Used
 
@@ -447,11 +476,11 @@ Use this when you want a stronger live-cluster claim than the local Redis
 smoke check: object-set receipts, drift checks, source-truth checks, ownership
 graphs, snapshots, and GitOps convergence evidence.
 
-## Talking About This
+## Background Reading
 
-The proposed public article sequence is in `docs/blog-posts.md`. It keeps the
-story aligned with the proof: Helm pain, Redis, top-20 receipts, variants, live
-truth, hard charts, catalog maintenance, and the GitOps/OCI lane.
+For the longer narrative behind this experiment, see `docs/blog-posts.md`. The
+README stays focused on why the project exists, what is proven, and how to try
+it.
 
 ## The Pitch
 

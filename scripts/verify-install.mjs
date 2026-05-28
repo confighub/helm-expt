@@ -17,20 +17,38 @@ import {
 } from "./lib/proof-common.mjs";
 import { loadInstallChecks } from "./lib/install-checks.mjs";
 
+class UsageError extends Error {}
+
 const args = process.argv.slice(2);
-const stage = requiredOption("--stage");
-const chart = requiredOption("--chart");
+const stage = optionValue("--stage");
+const chart = optionValue("--chart");
 const base = optionValue("--base") ?? "default";
 const outputDir = resolve(repoRoot, optionValue("--output-dir") ?? ".tmp/verify-install");
 
+if (args.includes("--help") || args.includes("-h")) {
+  printUsage();
+  process.exit(0);
+}
+
 try {
-  check(["render", "cluster", "confighub"].includes(stage), `unsupported verify-install stage: ${stage}`);
+  requiredOption("--stage");
+  requiredOption("--chart");
+  if (!["render", "cluster", "confighub"].includes(stage)) {
+    throw new UsageError(`unsupported verify-install stage: ${stage}`);
+  }
   const { spec, variant } = loadInstallChecks(chart, base);
 
   if (stage === "render") verifyRender({ spec, variant });
   if (stage === "cluster") verifyCluster({ spec, variant });
   if (stage === "confighub") verifyConfigHub({ variant });
 } catch (error) {
+  if (error instanceof UsageError) {
+    console.error(error.message);
+    console.error("");
+    printUsage();
+    process.exitCode = 1;
+    process.exit();
+  }
   writeFailureReceipt(error);
   console.error(`FAIL verify-install:${stage} ${chart} ${base}`);
   console.error(error.message);
@@ -567,6 +585,23 @@ function optionValue(name) {
 
 function requiredOption(name) {
   const value = optionValue(name);
-  check(Boolean(value), `missing required option ${name}`);
+  if (!value) throw new UsageError(`missing required option ${name}`);
   return value;
+}
+
+function printUsage() {
+  console.error(`Usage:
+  npm run verify-install:render -- --chart bitnami/redis/25.5.3 --base default --work-dir <cub-install-work-dir> --namespace redis
+  npm run verify-install:cluster -- --chart bitnami/redis/25.5.3 --base default --context <kubectl-context> --namespace redis
+  npm run verify-install:confighub -- --chart bitnami/redis/25.5.3 --base default --space <confighub-space>
+
+Options:
+  --chart       Chart/version to verify. Today: bitnami/redis/25.5.3
+  --base        Catalog variant/package base. Default: default
+  --work-dir    Required for render. Directory produced by cub install setup
+  --namespace   Required for cluster; optional for render namespace remapping
+  --context     Optional kubectl context for cluster checks
+  --space       Required for ConfigHub Unit checks
+  --output-dir  Receipt output directory. Default: .tmp/verify-install
+`);
 }
