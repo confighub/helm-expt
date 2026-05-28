@@ -1,116 +1,56 @@
-# ConfigHub Helm Proof
+# ConfigHub Helm Experiment
 
-This project proves a simple idea:
+This project shows how standard Helm charts map into ConfigHub
 
 ```text
-Use Helm charts.
-Ship ConfigHub variants.
-Keep immediate proof.
+Upstream Helm charts map into installer recipes
+ConfigHub creates a set of usable variants
+Deploy these using Argo or Flux
 ```
 
-Helm is good at producing Kubernetes objects. The pain usually comes after
-that: values are hard to reason about, environments drift, scans happen in
-different places, approvals are vague, and nobody is completely sure whether
-production received the same objects that were reviewed.
+Helm is good at producing Kubernetes objects. Any pain usually comes after
+that: people make changes, values may be hard to reason about, environments drift, 
+and more.  Suddenly nobody is completely sure whether production received the same 
+objects that were reviewed.
 
-This repo shows a better path for popular public Helm charts:
+ConfigHub provides a place to store configs that can be customised, reasoned about
+and changed into 'variants' for specific deployment scenarios.  In this repo we
+use AI to analyse public Helm charts and create a deterministic installation.
+
+We use https://github.com/confighub/installer 
 
 1. start with a real Helm chart;
-2. create a `cub install` package from it;
+2. we create a `cub install` package from it;
 3. render the exact Kubernetes objects;
 4. compare those objects with regular Helm output;
 5. store named variants and receipts;
 6. scan and gate the rendered objects;
 7. upload the objects to ConfigHub where they can be reviewed and varied.
 
-In plain English:
+In plain English: a non-magical way to use Helm safely, even if you want
+to make custom changes, explicitly showing the objects, the diffs and more.
 
-```text
-ConfigHub does not ask Helm users to trust magic.
-It shows the objects, the variants, the diffs, the scans, and the receipts.
-```
+We have used AI for Helm chart analysis and recipe creation. We use
+`cub install` to prove the resulting recipes produce correct, safe and
+Helm-equivalent, reviewable ConfigHub variants for 'correct operations'.
 
-We use AI to accelerate Helm chart analysis and recipe creation. We use
-`cub install` to prove the resulting recipes produce correct,
-Helm-equivalent, reviewable ConfigHub variants.
+## Key Areas of Work
 
-## What This Repo Is For
-
-Use this repo to answer four questions:
+We try to answer four questions:
 
 | Question | Where to look |
 | --- | --- |
 | Can ConfigHub produce the same objects as Helm? | `recipes/*/*/*/revisions/*/r001/receipts/helm-equivalence-receipt.yaml` |
 | Can the result be installed with `cub install`? | `packages/*/*/*/installer.yaml` |
-| Can users choose sensible variants? | `recipes/*/*/*/CATALOG.md` |
-| Can we prove the path works? | `runs/*/latest/*.yaml`, `data/live-e2e/summary.md` |
+| Can users choose sensible, usable, realistic variants? | `recipes/*/*/*/CATALOG.md` |
+| Can we prove the Helm-ConfigHub-K8s path works? | `runs/*/latest/*.yaml`, `data/live-e2e/summary.md` |
 
-The important claim is:
-
-```text
-correct variants, safe operations, immediate proof
-```
-
-## Current Proof
-
-The repo currently contains:
-
-```text
-20 top-chart catalog entries with bespoke variants
-20/20 local kind live/e2e receipts
-20 ConfigHub use-more-now receipt sets
-80 additional generated full proofs
-100 cub install packages
-1 top-500 catalog analysis
-```
-
-The top-20 charts are mandatory catalog entries because Helm users will expect
-to find them. They are catalog-supported for the declared local/test scope.
-Production support is tracked separately and remains blocked until the
-production dispositions are closed.
-
-Start with the top-20 live proof summary:
-
-```text
-data/live-e2e/summary.md
-data/live-e2e/top20-local-kind.csv
-```
-
-## Quick Start
-
-Run the full repo verifier:
-
-```sh
-npm run verify
-```
-
-That checks the recipe/package chain, Helm equivalence, rendered object
-digests, receipts, catalog status, target facts, local e2e receipts, and the
-generated top-500 analysis.
-
-For just the top-20 live/e2e receipts:
-
-```sh
-npm run top20:verify-local-e2e
-```
-
-For just the top-20 ConfigHub use-more-now receipts:
-
-```sh
-npm run top20:verify-use-more-now
-```
-
-To rebuild the top-20 local kind evidence, use:
-
-```sh
-npm run top20:local-e2e
-```
-
-That requires local Kubernetes tooling such as kind, kubectl, and Helm.
 
 ## Five-Minute Demo
 
-Use Redis for the happy path.
+Requires local Kubernetes tooling such as kind, kubectl, and Helm.
+
+Example: Use Redis for the happy path.
 
 1. Open the catalog page:
 
@@ -186,6 +126,37 @@ recipes/<repo>/<chart>/<version>/CATALOG.md
 That file links the chart, recipe, variants, package, rendered objects, and
 receipts.
 
+## Verifying Helm is correctly used and deployed
+
+Run the full repo verifier:
+
+```sh
+npm run verify
+```
+
+That checks the recipe/package chain, Helm equivalence, rendered object
+digests, receipts, catalog status, target facts, local e2e receipts, and the
+generated top-500 analysis.
+
+For just the top-20 live/e2e receipts:
+
+```sh
+npm run top20:verify-local-e2e
+```
+
+For just the top-20 ConfigHub use-more-now receipts:
+
+```sh
+npm run top20:verify-use-more-now
+```
+
+To rebuild the top-20 local kind evidence, use:
+
+```sh
+npm run top20:local-e2e
+```
+That requires local Kubernetes tooling such as kind, kubectl, and Helm.
+
 ## What The Main Folders Mean
 
 ```text
@@ -211,9 +182,9 @@ data/top500-catalog-analysis/
   Current top-500 analysis and proof index.
 ```
 
-## Real Commands Used Here
+## How it works (state today)
 
-The proof uses current `cub` and ConfigHub commands. Useful examples include:
+We use current `cub` and ConfigHub commands:
 
 ```text
 cub install doc
@@ -231,8 +202,7 @@ cub function vet
 cub changeset create
 ```
 
-This repo also proposes future product shortcuts, but they are not used as
-proof. Examples of future asks include:
+Potential future commands might be:
 
 ```text
 cub install import helm
@@ -242,38 +212,19 @@ cub install scan
 cub variant promote
 ```
 
-## Catalog Status
 
-Do not confuse catalog presence with production support.
+## Current Repo
 
-```text
-catalog entry
-  The chart is visible because users will look for it.
+The repo currently contains 20 top-chart catalog entries with bespoke variants which have been live tested.  
 
-proof-grade
-  Machine proof passes for recorded variants.
-
-catalog-supported
-  ConfigHub recommends the declared variants for the declared scope.
-
-production-supported
-  Production dispositions are closed.
-```
-
-Today:
+Start with the top-20 live proof summary:
 
 ```text
-top-20 catalog entries: 20
-top-20 local/test supported: 20
-top-20 production-supported: 0
+data/live-e2e/summary.md
+data/live-e2e/top20-local-kind.csv
 ```
 
-That is intentional. We are proving the path first, then closing production
-dispositions chart by chart.
-
-## Why This Matters
-
-The short version for a Helm user:
+Tell your friends:
 
 ```text
 You can keep using public Helm charts,
@@ -286,14 +237,10 @@ receipts,
 and a safer path from test to production.
 ```
 
-The sales line:
-
 ```text
 Helm gives you charts.
 ConfigHub gives you managed, reviewable, scannable, promotable variants from those charts.
 ```
-
-Or shorter:
 
 ```text
 Use Helm charts. Ship ConfigHub variants.
