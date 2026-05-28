@@ -1,0 +1,224 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "ObservationReceipt",
+  "metadata": {
+    "name": "kube-prometheus-stack-default-local-kind"
+  },
+  "spec": {
+    "variantRevision": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/variant-revision.yaml",
+    "renderedObjectSetSHA256": "9fac2a0e4140eee298c84ce61f13dd8ca392bb92e2037d0ef0aaa4d8015ee491",
+    "observer": {
+      "name": "top20-local-e2e",
+      "version": "0.2.0",
+      "method": "kubectl-kind"
+    },
+    "target": {
+      "kind": "kind",
+      "name": "helm-expt-redis",
+      "context": "kind-helm-expt-redis",
+      "namespace": "monitoring"
+    },
+    "observedAt": "2026-05-28T08:15:01.844Z",
+    "freshnessTTL": "1h",
+    "result": "pass",
+    "chart": "prometheus-community/kube-prometheus-stack",
+    "chartVersion": "85.3.3",
+    "rank": 7,
+    "variant": "default",
+    "renderedObjectCount": 124,
+    "checks": [
+      {
+        "name": "support-secret-kube-prometheus-stack-admission",
+        "result": "pass",
+        "reason": "Prometheus Operator admission webhook TLS Secret is normally created by Helm hook lifecycle",
+        "evidencePath": "support-secret-kube-prometheus-stack-admission.txt",
+        "evidenceSHA256": "e61ba539f94e4afa24fc5f39c2a3ff674d4b77fa6b0f65c6c7bb2ea3547b3a68"
+      },
+      {
+        "name": "crd-bootstrap-apply",
+        "result": "pass",
+        "count": 10,
+        "evidencePath": "crd-bootstrap-apply.txt",
+        "evidenceSHA256": "b216176e6b6297f328533407f27ed249c1405b2375605f9338de3b6c3ac9ed9b"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/alertmanagerconfigs.monitoring.coreos.com",
+        "evidencePath": "crd-alertmanagerconfigs.monitoring.coreos.com-established.txt",
+        "evidenceSHA256": "eb3d5d36ea23b87c55f1243c5f6360a31cdf0d97c7e5146f92c14288ec6547f5"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/alertmanagers.monitoring.coreos.com",
+        "evidencePath": "crd-alertmanagers.monitoring.coreos.com-established.txt",
+        "evidenceSHA256": "67fc8502c4c6c3337b8899ff9928348f67ae7365c8f71e7b924151219bf05014"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/podmonitors.monitoring.coreos.com",
+        "evidencePath": "crd-podmonitors.monitoring.coreos.com-established.txt",
+        "evidenceSHA256": "26d0602c0e76d5ffebe58942beab0de257b6040b414c0599b877e4d5fc642d5c"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/probes.monitoring.coreos.com",
+        "evidencePath": "crd-probes.monitoring.coreos.com-established.txt",
+        "evidenceSHA256": "3b3d19188eeef40fcd33a289509a4491872242d436bbdf93036ec7f5dd2f7adc"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/prometheusagents.monitoring.coreos.com",
+        "evidencePath": "crd-prometheusagents.monitoring.coreos.com-established.txt",
+        "evidenceSHA256": "850b52240051e5123d9c1f6dba325fa31cd2f008f7dc8846cea8042baafe949c"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/prometheuses.monitoring.coreos.com",
+        "evidencePath": "crd-prometheuses.monitoring.coreos.com-established.txt",
+        "evidenceSHA256": "c542841b1eed56424ca88409dc87d5793ea44ad4e4c9c711aa7eb72c95d65d8a"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/prometheusrules.monitoring.coreos.com",
+        "evidencePath": "crd-prometheusrules.monitoring.coreos.com-established.txt",
+        "evidenceSHA256": "5b277b6cafb19cec84eb376907d8ae0a870d9b83992f8728b42945969f66b74f"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/scrapeconfigs.monitoring.coreos.com",
+        "evidencePath": "crd-scrapeconfigs.monitoring.coreos.com-established.txt",
+        "evidenceSHA256": "64e6f19443b74f3f92c7c6b0e441301be85a6fc8647a28de44efa7f6407453dc"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/servicemonitors.monitoring.coreos.com",
+        "evidencePath": "crd-servicemonitors.monitoring.coreos.com-established.txt",
+        "evidenceSHA256": "a95d92cfd28c3129561484e5f1c80e5b54422669a5eb1e47f93e2a8d691f7818"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/thanosrulers.monitoring.coreos.com",
+        "evidencePath": "crd-thanosrulers.monitoring.coreos.com-established.txt",
+        "evidenceSHA256": "83918e1c7f36a166b45296f01806c4623519a58f8219cefc2d49fee55f80be06"
+      },
+      {
+        "name": "server-side-apply",
+        "result": "pass",
+        "evidencePath": "kubectl-apply.txt",
+        "evidenceSHA256": "f20d9195b60c1ac3d05a97c478990f0a1527d2b905e80529f509e2f2a6382cea"
+      },
+      {
+        "name": "daemonset-kube-prometheus-stack-prometheus-node-exporter-rollout",
+        "result": "pass",
+        "object": "daemonset/kube-prometheus-stack-prometheus-node-exporter",
+        "evidencePath": "daemonset-kube-prometheus-stack-prometheus-node-exporter-rollout.txt",
+        "evidenceSHA256": "ea419de6c91b897268f8dd01c0383ae44892aee0a9fa00de533b0f7ccb068f11"
+      },
+      {
+        "name": "deployment-kube-prometheus-stack-grafana-rollout",
+        "result": "pass",
+        "object": "deployment/kube-prometheus-stack-grafana",
+        "evidencePath": "deployment-kube-prometheus-stack-grafana-rollout.txt",
+        "evidenceSHA256": "daa7aab9ac8b66f779b15b008ceff148b8124d8eda0c1be715066607062c5e35"
+      },
+      {
+        "name": "deployment-kube-prometheus-stack-kube-state-metrics-rollout",
+        "result": "pass",
+        "object": "deployment/kube-prometheus-stack-kube-state-metrics",
+        "evidencePath": "deployment-kube-prometheus-stack-kube-state-metrics-rollout.txt",
+        "evidenceSHA256": "38afc2b117e70b6260311c25f70dd825c5077e90841b5b57ea23a6f046e5a1c9"
+      },
+      {
+        "name": "deployment-kube-prometheus-stack-operator-rollout",
+        "result": "pass",
+        "object": "deployment/kube-prometheus-stack-operator",
+        "evidencePath": "deployment-kube-prometheus-stack-operator-rollout.txt",
+        "evidenceSHA256": "60042991b8fc238246ef1913d78939b554a24abf6a75c148f7e768bc996a90a7"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/alertmanagerconfigs.monitoring.coreos.com",
+        "evidencePath": "crd-alertmanagerconfigs.monitoring.coreos.com.txt",
+        "evidenceSHA256": "c51f92bf6614fb6cc12b471a08826346163fc21d403ab9d53e5a0645717070c1"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/alertmanagers.monitoring.coreos.com",
+        "evidencePath": "crd-alertmanagers.monitoring.coreos.com.txt",
+        "evidenceSHA256": "c08d6b129fd77071102d469066b5729b85df2a33cf36157738386cf9b57a345a"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/podmonitors.monitoring.coreos.com",
+        "evidencePath": "crd-podmonitors.monitoring.coreos.com.txt",
+        "evidenceSHA256": "d5e8236e4a22ca203def1d9564d58271c4f597a384e6db16eede59d8e849d3ba"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/probes.monitoring.coreos.com",
+        "evidencePath": "crd-probes.monitoring.coreos.com.txt",
+        "evidenceSHA256": "8ecc18bf1a38dd97e40f220f5000569b04c90af8f75c3b43bba1989f0fba3bc9"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/prometheusagents.monitoring.coreos.com",
+        "evidencePath": "crd-prometheusagents.monitoring.coreos.com.txt",
+        "evidenceSHA256": "a8153d3ed045effab35e12f22e5d3a4908d6ceb97519593ee338740b8a7cdebb"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/prometheuses.monitoring.coreos.com",
+        "evidencePath": "crd-prometheuses.monitoring.coreos.com.txt",
+        "evidenceSHA256": "d5747a81c5e75e72684325e99fdbbf8e7a94b18ea0f423f96f3d14371a885544"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/prometheusrules.monitoring.coreos.com",
+        "evidencePath": "crd-prometheusrules.monitoring.coreos.com.txt",
+        "evidenceSHA256": "2a609704e250eddbf5b68eb566c9b71f951ae33f1697df0ccb448700be274177"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/scrapeconfigs.monitoring.coreos.com",
+        "evidencePath": "crd-scrapeconfigs.monitoring.coreos.com.txt",
+        "evidenceSHA256": "ff524411389fcc699489c849e3a48ebcbe32b4fcebbd53fa54be59731b88aad6"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/servicemonitors.monitoring.coreos.com",
+        "evidencePath": "crd-servicemonitors.monitoring.coreos.com.txt",
+        "evidenceSHA256": "4222a326009f89703da4c4bf9b1cb864d7ba5e76d427589863a1d11b4c9da76c"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/thanosrulers.monitoring.coreos.com",
+        "evidencePath": "crd-thanosrulers.monitoring.coreos.com.txt",
+        "evidenceSHA256": "617fb11352388cd23e38b99d438a76ac541d1bebd1de55465630bbf310942b36"
+      }
+    ],
+    "kubectlObjects": {
+      "path": "kubectl-objects.txt",
+      "sha256": "62d10e9ac412b7befa075af0435d8641ee594a61791b56c905e57ade7f8bd164"
+    }
+  }
+}

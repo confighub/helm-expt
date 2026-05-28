@@ -35,6 +35,12 @@ We have used AI for Helm chart analysis and recipe creation. We use
 `cub install` to prove the resulting recipes produce correct, safe and
 Helm-equivalent, reviewable ConfigHub variants for 'correct operations'.
 
+Doctrine: we test live. For the current top-20 proof, that means the rendered
+ConfigHub/cub-install output was applied to local kind clusters with `kubectl`,
+then observed with live rollout/object checks and recorded as receipts. GitOps
+sync through Argo CD or Flux from ConfigHub OCI is the intended delivery path,
+but it needs its own live proof lane before we claim it as tested.
+
 See `data/live-e2e/summary.md` for the 20 charts and live/e2e status.
 
 ## Key Areas of Work
@@ -53,11 +59,22 @@ We try to answer four questions:
 
 To run the full demo yourself, you need:
 
-1. a ConfigHub account and organization;
-2. the `cub` CLI authenticated to ConfigHub;
-3. local Kubernetes tooling such as kind, kubectl, and Helm;
-4. for GitOps deployment, Argo CD or Flux already running in the cluster and
+1. this repo cloned locally;
+2. Node.js for the proof scripts, with no `npm install` required;
+3. a ConfigHub account and organization;
+4. the `cub` CLI authenticated to ConfigHub;
+5. local Kubernetes tooling such as kind, kubectl, and Helm;
+6. for live proof, enough local CPU/memory to run kind charts;
+7. for GitOps deployment, Argo CD or Flux already running in the cluster and
    configured to pull the published OCI artifact from ConfigHub.
+
+Start with:
+
+```sh
+git clone https://github.com/confighub/helm-expt.git
+cd helm-expt
+npm run top20:verify-local-e2e
+```
 
 Login with:
 
@@ -177,6 +194,9 @@ For just the top-20 live/e2e receipts:
 npm run top20:verify-local-e2e
 ```
 
+That command is intentionally strict: a fresh clone must contain and verify all
+20 live receipts, or the command fails.
+
 For just the top-20 ConfigHub use-more-now receipts:
 
 ```sh
@@ -249,6 +269,21 @@ cub variant promote
 ## Current Repo
 
 The repo currently contains 20 top-chart catalog entries with bespoke variants which have been live tested.  
+
+In this repo, "live tested" currently means:
+
+```text
+rendered ConfigHub/cub-install objects
+-> kubectl apply to local kind
+-> rollout/object checks pass
+-> observation receipt is written
+```
+
+It does not yet mean:
+
+```text
+Argo CD or Flux pulled ConfigHub OCI and synced the cluster
+```
 
 Start with the top-20 live proof summary:
 

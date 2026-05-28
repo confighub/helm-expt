@@ -1,0 +1,31 @@
+NAME                                           READY   STATUS    RESTARTS   AGE   IP            NODE                            NOMINATED NODE   READINESS GATES
+pod/cert-manager-5fc8564cb8-ndwxq              1/1     Running   0          20s   10.244.0.16   helm-expt-redis-control-plane   <none>           <none>
+pod/cert-manager-cainjector-69c5ccb4c7-6qgmw   1/1     Running   0          20s   10.244.0.15   helm-expt-redis-control-plane   <none>           <none>
+pod/cert-manager-webhook-7f8cc9d46b-7pnbx      1/1     Running   0          20s   10.244.0.17   helm-expt-redis-control-plane   <none>           <none>
+
+NAME                              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)            AGE   SELECTOR
+service/cert-manager              ClusterIP   10.96.178.225   <none>        9402/TCP           20s   app.kubernetes.io/component=controller,app.kubernetes.io/instance=cert-manager,app.kubernetes.io/name=cert-manager
+service/cert-manager-cainjector   ClusterIP   10.96.114.15    <none>        9402/TCP           20s   app.kubernetes.io/component=cainjector,app.kubernetes.io/instance=cert-manager,app.kubernetes.io/name=cainjector
+service/cert-manager-webhook      ClusterIP   10.96.156.107   <none>        443/TCP,9402/TCP   20s   app.kubernetes.io/component=webhook,app.kubernetes.io/instance=cert-manager,app.kubernetes.io/name=webhook
+
+NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS                IMAGES                                             SELECTOR
+deployment.apps/cert-manager              1/1     1            1           20s   cert-manager-controller   quay.io/jetstack/cert-manager-controller:v1.20.2   app.kubernetes.io/component=controller,app.kubernetes.io/instance=cert-manager,app.kubernetes.io/name=cert-manager
+deployment.apps/cert-manager-cainjector   1/1     1            1           20s   cert-manager-cainjector   quay.io/jetstack/cert-manager-cainjector:v1.20.2   app.kubernetes.io/component=cainjector,app.kubernetes.io/instance=cert-manager,app.kubernetes.io/name=cainjector
+deployment.apps/cert-manager-webhook      1/1     1            1           20s   cert-manager-webhook      quay.io/jetstack/cert-manager-webhook:v1.20.2      app.kubernetes.io/component=webhook,app.kubernetes.io/instance=cert-manager,app.kubernetes.io/name=webhook
+
+NAME                                                 DESIRED   CURRENT   READY   AGE   CONTAINERS                IMAGES                                             SELECTOR
+replicaset.apps/cert-manager-5fc8564cb8              1         1         1       20s   cert-manager-controller   quay.io/jetstack/cert-manager-controller:v1.20.2   app.kubernetes.io/component=controller,app.kubernetes.io/instance=cert-manager,app.kubernetes.io/name=cert-manager,pod-template-hash=5fc8564cb8
+replicaset.apps/cert-manager-cainjector-69c5ccb4c7   1         1         1       20s   cert-manager-cainjector   quay.io/jetstack/cert-manager-cainjector:v1.20.2   app.kubernetes.io/component=cainjector,app.kubernetes.io/instance=cert-manager,app.kubernetes.io/name=cainjector,pod-template-hash=69c5ccb4c7
+replicaset.apps/cert-manager-webhook-7f8cc9d46b      1         1         1       20s   cert-manager-webhook      quay.io/jetstack/cert-manager-webhook:v1.20.2      app.kubernetes.io/component=webhook,app.kubernetes.io/instance=cert-manager,app.kubernetes.io/name=webhook,pod-template-hash=7f8cc9d46b
+
+NAME                         DATA   AGE
+configmap/kube-root-ca.crt   1      22s
+
+NAME                             TYPE     DATA   AGE
+secret/cert-manager-webhook-ca   Opaque   3      8s
+
+NAME                                     SECRETS   AGE
+serviceaccount/cert-manager              0         21s
+serviceaccount/cert-manager-cainjector   0         21s
+serviceaccount/cert-manager-webhook      0         21s
+serviceaccount/default                   0         22s

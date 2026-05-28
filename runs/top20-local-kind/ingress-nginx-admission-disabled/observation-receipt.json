@@ -1,0 +1,49 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "ObservationReceipt",
+  "metadata": {
+    "name": "ingress-nginx-admission-disabled-local-kind"
+  },
+  "spec": {
+    "variantRevision": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/variant-revision.yaml",
+    "renderedObjectSetSHA256": "ad133758fa1985241f9dd1fe766f6ca9f17e199bf7562e37b3c2834a6588c25e",
+    "observer": {
+      "name": "top20-local-e2e",
+      "version": "0.2.0",
+      "method": "kubectl-kind"
+    },
+    "target": {
+      "kind": "kind",
+      "name": "helm-expt-redis",
+      "context": "kind-helm-expt-redis",
+      "namespace": "ingress-nginx"
+    },
+    "observedAt": "2026-05-28T08:11:01.047Z",
+    "freshnessTTL": "1h",
+    "result": "pass",
+    "chart": "ingress-nginx/ingress-nginx",
+    "chartVersion": "4.15.1",
+    "rank": 3,
+    "variant": "admission-disabled",
+    "renderedObjectCount": 9,
+    "checks": [
+      {
+        "name": "server-side-apply",
+        "result": "pass",
+        "evidencePath": "kubectl-apply.txt",
+        "evidenceSHA256": "a4e850526b3d5e51d350c0e4705455712ea9a66b2a495868fd528a1b09b1eb18"
+      },
+      {
+        "name": "deployment-ingress-nginx-controller-rollout",
+        "result": "pass",
+        "object": "deployment/ingress-nginx-controller",
+        "evidencePath": "deployment-ingress-nginx-controller-rollout.txt",
+        "evidenceSHA256": "d951e44f1a230f0d490acd51c39a89f7a6e5559db321ae3fff9fd394d8ed5d4c"
+      }
+    ],
+    "kubectlObjects": {
+      "path": "kubectl-objects.txt",
+      "sha256": "c9a25e45b0af7d0e73ea6f299efe646183a87f600f591b46e14f750fa5c420af"
+    }
+  }
+}

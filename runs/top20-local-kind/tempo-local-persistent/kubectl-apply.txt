@@ -1,0 +1,4 @@
+serviceaccount/tempo serverside-applied
+configmap/tempo serverside-applied
+service/tempo serverside-applied
+statefulset.apps/tempo serverside-applied

@@ -1,0 +1,22 @@
+NAME                           READY   STATUS    RESTARTS   AGE   IP            NODE                                NOMINATED NODE   READINESS GATES
+pod/grafana-555d6f99fd-lv92c   1/1     Running   0          30s   10.244.0.10   helm-expt-live-tail-control-plane   <none>           <none>
+
+NAME              TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE   SELECTOR
+service/grafana   ClusterIP   10.96.41.14   <none>        80/TCP    31s   app.kubernetes.io/instance=grafana,app.kubernetes.io/name=grafana
+
+NAME                      READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                             SELECTOR
+deployment.apps/grafana   1/1     1            1           31s   grafana      docker.io/grafana/grafana:12.3.1   app.kubernetes.io/instance=grafana,app.kubernetes.io/name=grafana
+
+NAME                                 DESIRED   CURRENT   READY   AGE   CONTAINERS   IMAGES                             SELECTOR
+replicaset.apps/grafana-555d6f99fd   1         1         1       31s   grafana      docker.io/grafana/grafana:12.3.1   app.kubernetes.io/instance=grafana,app.kubernetes.io/name=grafana,pod-template-hash=555d6f99fd
+
+NAME                         DATA   AGE
+configmap/grafana            1      31s
+configmap/kube-root-ca.crt   1      31s
+
+NAME             TYPE     DATA   AGE
+secret/grafana   Opaque   3      31s
+
+NAME                     SECRETS   AGE
+serviceaccount/default   0         31s
+serviceaccount/grafana   0         31s

@@ -1,0 +1,29 @@
+NAME                                                    READY   STATUS    RESTARTS   AGE    IP            NODE                            NOMINATED NODE   READINESS GATES
+pod/external-secrets-6fcb676b9-lqcgx                    1/1     Running   0          111s   10.244.0.20   helm-expt-redis-control-plane   <none>           <none>
+pod/external-secrets-cert-controller-5d6674c5d5-jb7gt   1/1     Running   0          111s   10.244.0.19   helm-expt-redis-control-plane   <none>           <none>
+pod/external-secrets-webhook-67dc57478f-tkj7q           1/1     Running   0          111s   10.244.0.18   helm-expt-redis-control-plane   <none>           <none>
+
+NAME                               TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE    SELECTOR
+service/external-secrets-webhook   ClusterIP   10.96.178.235   <none>        443/TCP   111s   app.kubernetes.io/instance=external-secrets,app.kubernetes.io/name=external-secrets-webhook
+
+NAME                                               READY   UP-TO-DATE   AVAILABLE   AGE    CONTAINERS         IMAGES                                             SELECTOR
+deployment.apps/external-secrets                   1/1     1            1           111s   external-secrets   ghcr.io/external-secrets/external-secrets:v2.5.0   app.kubernetes.io/instance=external-secrets,app.kubernetes.io/name=external-secrets
+deployment.apps/external-secrets-cert-controller   1/1     1            1           111s   cert-controller    ghcr.io/external-secrets/external-secrets:v2.5.0   app.kubernetes.io/instance=external-secrets,app.kubernetes.io/name=external-secrets-cert-controller
+deployment.apps/external-secrets-webhook           1/1     1            1           111s   webhook            ghcr.io/external-secrets/external-secrets:v2.5.0   app.kubernetes.io/instance=external-secrets,app.kubernetes.io/name=external-secrets-webhook
+
+NAME                                                          DESIRED   CURRENT   READY   AGE    CONTAINERS         IMAGES                                             SELECTOR
+replicaset.apps/external-secrets-6fcb676b9                    1         1         1       111s   external-secrets   ghcr.io/external-secrets/external-secrets:v2.5.0   app.kubernetes.io/instance=external-secrets,app.kubernetes.io/name=external-secrets,pod-template-hash=6fcb676b9
+replicaset.apps/external-secrets-cert-controller-5d6674c5d5   1         1         1       111s   cert-controller    ghcr.io/external-secrets/external-secrets:v2.5.0   app.kubernetes.io/instance=external-secrets,app.kubernetes.io/name=external-secrets-cert-controller,pod-template-hash=5d6674c5d5
+replicaset.apps/external-secrets-webhook-67dc57478f           1         1         1       111s   webhook            ghcr.io/external-secrets/external-secrets:v2.5.0   app.kubernetes.io/instance=external-secrets,app.kubernetes.io/name=external-secrets-webhook,pod-template-hash=67dc57478f
+
+NAME                         DATA   AGE
+configmap/kube-root-ca.crt   1      115s
+
+NAME                              TYPE     DATA   AGE
+secret/external-secrets-webhook   Opaque   4      111s
+
+NAME                                              SECRETS   AGE
+serviceaccount/default                            0         115s
+serviceaccount/external-secrets                   0         111s
+serviceaccount/external-secrets-cert-controller   0         111s
+serviceaccount/external-secrets-webhook           0         111s

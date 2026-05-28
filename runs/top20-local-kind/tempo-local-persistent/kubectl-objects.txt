@@ -1,0 +1,19 @@
+NAME          READY   STATUS    RESTARTS   AGE   IP            NODE                                NOMINATED NODE   READINESS GATES
+pod/tempo-0   1/1     Running   0          53s   10.244.0.17   helm-expt-live-tail-control-plane   <none>           <none>
+
+NAME            TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)                                                                                                   AGE   SELECTOR
+service/tempo   ClusterIP   10.96.96.97   <none>        6831/UDP,6832/UDP,3200/TCP,14268/TCP,14250/TCP,9411/TCP,55680/TCP,55681/TCP,4317/TCP,4318/TCP,55678/TCP   53s   app.kubernetes.io/instance=tempo,app.kubernetes.io/name=tempo
+
+NAME                     READY   AGE   CONTAINERS   IMAGES
+statefulset.apps/tempo   1/1     53s   tempo        docker.io/grafana/tempo:2.9.0
+
+NAME                                    STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE   VOLUMEMODE
+persistentvolumeclaim/storage-tempo-0   Bound    pvc-d43ae11a-5294-497f-b68d-74f7c698e3d4   10Gi       RWO            local-path     <unset>                 53s   Filesystem
+
+NAME                         DATA   AGE
+configmap/kube-root-ca.crt   1      53s
+configmap/tempo              2      53s
+
+NAME                     SECRETS   AGE
+serviceaccount/default   0         53s
+serviceaccount/tempo     0         53s

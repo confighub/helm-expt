@@ -1,0 +1,77 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "ObservationReceipt",
+  "metadata": {
+    "name": "loki-single-binary-filesystem-local-kind"
+  },
+  "spec": {
+    "variantRevision": "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/variant-revision.yaml",
+    "renderedObjectSetSHA256": "6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30",
+    "observer": {
+      "name": "top20-local-e2e",
+      "version": "0.2.0",
+      "method": "kubectl-kind"
+    },
+    "target": {
+      "kind": "kind",
+      "name": "helm-expt-redis",
+      "context": "kind-helm-expt-redis",
+      "namespace": "loki"
+    },
+    "observedAt": "2026-05-28T08:17:35.514Z",
+    "freshnessTTL": "1h",
+    "result": "pass",
+    "chart": "grafana/loki",
+    "chartVersion": "7.0.0",
+    "rank": 10,
+    "variant": "single-binary-filesystem",
+    "renderedObjectCount": 19,
+    "checks": [
+      {
+        "name": "server-side-apply",
+        "result": "pass",
+        "evidencePath": "kubectl-apply.txt",
+        "evidenceSHA256": "66aa09050b08a58299268badd16b559a5a0a3c2258779adb134fcf74fc9150e9"
+      },
+      {
+        "name": "daemonset-loki-canary-rollout",
+        "result": "pass",
+        "object": "daemonset/loki-canary",
+        "evidencePath": "daemonset-loki-canary-rollout.txt",
+        "evidenceSHA256": "34b30aebbd003d9bf900299eb03f84694d2f9b2479acc61b7d18b101a9f8c39c"
+      },
+      {
+        "name": "deployment-loki-gateway-rollout",
+        "result": "pass",
+        "object": "deployment/loki-gateway",
+        "evidencePath": "deployment-loki-gateway-rollout.txt",
+        "evidenceSHA256": "57d8055039ae25e8555e2f1159b686370db29794f8ab17a336341c27fe0f8e97"
+      },
+      {
+        "name": "statefulset-loki-chunks-cache-rollout",
+        "result": "pass",
+        "object": "statefulset/loki-chunks-cache",
+        "evidencePath": "statefulset-loki-chunks-cache-rollout.txt",
+        "evidenceSHA256": "c60dd030f1237d33cec1b10cb231ed4ed81cdb7aef4d250fb86d2bc7fd14a612"
+      },
+      {
+        "name": "statefulset-loki-results-cache-rollout",
+        "result": "pass",
+        "object": "statefulset/loki-results-cache",
+        "evidencePath": "statefulset-loki-results-cache-rollout.txt",
+        "evidenceSHA256": "b62b33920271e8e8ce7b7b51ce8109a31134302ac6b37dcccc20d900c94d2883"
+      },
+      {
+        "name": "statefulset-loki-rollout",
+        "result": "pass",
+        "object": "statefulset/loki",
+        "evidencePath": "statefulset-loki-rollout.txt",
+        "evidenceSHA256": "ed5b84bcca146527296068824610b6e880fa6b3496574c64be5774e5f939e141"
+      }
+    ],
+    "kubectlObjects": {
+      "path": "kubectl-objects.txt",
+      "sha256": "3d2c2cb526a487f361b9282796eb36d923f818dfe43e97b23b3afe0e54d67289"
+    }
+  }
+}

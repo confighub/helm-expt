@@ -1,0 +1,84 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "ObservationReceipt",
+  "metadata": {
+    "name": "secrets-store-csi-driver-default-local-kind"
+  },
+  "spec": {
+    "variantRevision": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/default/r001/variant-revision.yaml",
+    "renderedObjectSetSHA256": "2490f14dd08f7e309f8f78cd1c2f1b05eb5b8995343b33ad6b3b243401a39ead",
+    "observer": {
+      "name": "top20-local-e2e",
+      "version": "0.2.0",
+      "method": "kubectl-kind"
+    },
+    "target": {
+      "kind": "kind",
+      "name": "helm-expt-live-tail",
+      "context": "kind-helm-expt-live-tail",
+      "namespace": "kube-system"
+    },
+    "observedAt": "2026-05-28T08:25:11.024Z",
+    "freshnessTTL": "1h",
+    "result": "pass",
+    "chart": "secrets-store-csi-driver/secrets-store-csi-driver",
+    "chartVersion": "1.6.0",
+    "rank": 13,
+    "variant": "default",
+    "renderedObjectCount": 10,
+    "checks": [
+      {
+        "name": "crd-bootstrap-apply",
+        "result": "pass",
+        "count": 2,
+        "evidencePath": "crd-bootstrap-apply.txt",
+        "evidenceSHA256": "98faac79e56c63613bcf0c19903cfdc9208bc0553c2f4a798f7e94b182279328"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/secretproviderclasses.secrets-store.csi.x-k8s.io",
+        "evidencePath": "crd-secretproviderclasses.secrets-store.csi.x-k8s.io-established.txt",
+        "evidenceSHA256": "746de181f0197e8bcb61a00d51bcdc588671b607ac493ffde80bd6408d92822a"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/secretproviderclasspodstatuses.secrets-store.csi.x-k8s.io",
+        "evidencePath": "crd-secretproviderclasspodstatuses.secrets-store.csi.x-k8s.io-established.txt",
+        "evidenceSHA256": "9ee9726210d88896c6f88d4726e79ebffa9745c651e8a521dfa8d9a5936ddd48"
+      },
+      {
+        "name": "server-side-apply",
+        "result": "pass",
+        "evidencePath": "kubectl-apply.txt",
+        "evidenceSHA256": "c010453e0c5c32336637851ed81b14e563479f97dfdf062408f49931c2a3ce27"
+      },
+      {
+        "name": "daemonset-secrets-store-csi-driver-rollout",
+        "result": "pass",
+        "object": "daemonset/secrets-store-csi-driver",
+        "evidencePath": "daemonset-secrets-store-csi-driver-rollout.txt",
+        "evidenceSHA256": "39a1941196009e2e4a6bca32082c60aa8402a0f86c3ab252877ba28a5d15e281"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/secretproviderclasses.secrets-store.csi.x-k8s.io",
+        "evidencePath": "crd-secretproviderclasses.secrets-store.csi.x-k8s.io.txt",
+        "evidenceSHA256": "badba82d82bcb4e0c8e15a06e24dab3f22816d59912895aaafa36a38e18f9ef8"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/secretproviderclasspodstatuses.secrets-store.csi.x-k8s.io",
+        "evidencePath": "crd-secretproviderclasspodstatuses.secrets-store.csi.x-k8s.io.txt",
+        "evidenceSHA256": "964d8c0043341d4538e511214b8a76e1e7329d0678fb41a88115a72c005668c0"
+      }
+    ],
+    "kubectlObjects": {
+      "path": "kubectl-objects.txt",
+      "sha256": "25cae09c055e72faf05c95d901c6fba8c6cd0518a99d6a2545244825e37c7992"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+networkpolicy.networking.k8s.io/rabbitmq serverside-applied
+poddisruptionbudget.policy/rabbitmq serverside-applied
+serviceaccount/rabbitmq serverside-applied
+secret/rabbitmq-config serverside-applied
+secret/rabbitmq serverside-applied
+role.rbac.authorization.k8s.io/rabbitmq-endpoint-reader serverside-applied
+rolebinding.rbac.authorization.k8s.io/rabbitmq-endpoint-reader serverside-applied
+service/rabbitmq-headless serverside-applied
+service/rabbitmq serverside-applied
+statefulset.apps/rabbitmq serverside-applied

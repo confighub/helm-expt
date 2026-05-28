@@ -1,0 +1,56 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "ObservationReceipt",
+  "metadata": {
+    "name": "metrics-server-default-local-kind"
+  },
+  "spec": {
+    "variantRevision": "recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/variant-revision.yaml",
+    "renderedObjectSetSHA256": "97514966a1917b1ae3b597ec3a32216d0a650db7cb56d472f4e722c69c869b51",
+    "observer": {
+      "name": "top20-local-e2e",
+      "version": "0.2.0",
+      "method": "kubectl-kind"
+    },
+    "target": {
+      "kind": "kind",
+      "name": "helm-expt-redis",
+      "context": "kind-helm-expt-redis",
+      "namespace": "kube-system"
+    },
+    "observedAt": "2026-05-28T08:10:30.352Z",
+    "freshnessTTL": "1h",
+    "result": "pass",
+    "chart": "metrics-server/metrics-server",
+    "chartVersion": "3.13.0",
+    "rank": 2,
+    "variant": "default",
+    "renderedObjectCount": 9,
+    "checks": [
+      {
+        "name": "server-side-apply",
+        "result": "pass",
+        "evidencePath": "kubectl-apply.txt",
+        "evidenceSHA256": "1b5813b03b1030df7ae12019433ef621198b4c62869822e354df257796c0b9cf"
+      },
+      {
+        "name": "deployment-metrics-server-rollout",
+        "result": "pass",
+        "object": "deployment/metrics-server",
+        "evidencePath": "deployment-metrics-server-rollout.txt",
+        "evidenceSHA256": "da307494f461e3b669dddd63834be14bae8be35cd49e6e98827e6d1857605433"
+      },
+      {
+        "name": "apiservice-v1beta1.metrics.k8s.io-exists",
+        "result": "pass",
+        "object": "apiservice/v1beta1.metrics.k8s.io",
+        "evidencePath": "apiservice-v1beta1.metrics.k8s.io.txt",
+        "evidenceSHA256": "e0d78cd785ef8146ef7e9f7faf1ccbd76e6b6ad7c4a52ce324143fe90b33cb41"
+      }
+    ],
+    "kubectlObjects": {
+      "path": "kubectl-objects.txt",
+      "sha256": "c84e629bc65b6b160fda0acf2c2218c871714c913590b6f184419b2287d43841"
+    }
+  }
+}

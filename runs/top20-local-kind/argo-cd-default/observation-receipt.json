@@ -1,0 +1,147 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "ObservationReceipt",
+  "metadata": {
+    "name": "argo-cd-default-local-kind"
+  },
+  "spec": {
+    "variantRevision": "recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/variant-revision.yaml",
+    "renderedObjectSetSHA256": "e52ddef5e56e347a8959dd1e8591e116479bf8aa8682c83e3753fe7355a38cc0",
+    "observer": {
+      "name": "top20-local-e2e",
+      "version": "0.2.0",
+      "method": "kubectl-kind"
+    },
+    "target": {
+      "kind": "kind",
+      "name": "helm-expt-redis",
+      "context": "kind-helm-expt-redis",
+      "namespace": "argocd"
+    },
+    "observedAt": "2026-05-28T08:14:04.409Z",
+    "freshnessTTL": "1h",
+    "result": "pass",
+    "chart": "argo-cd/argo-cd",
+    "chartVersion": "9.5.15",
+    "rank": 6,
+    "variant": "default",
+    "renderedObjectCount": 49,
+    "checks": [
+      {
+        "name": "support-secret-argocd-redis",
+        "result": "pass",
+        "reason": "Argo CD built-in Redis expects the hard-coded argocd-redis Secret when hooks are excluded",
+        "evidencePath": "support-secret-argocd-redis.txt",
+        "evidenceSHA256": "e5d950bf86e8e4f9beb7bbd2735913b773c621a23bf3f1dd87b44dd1d3594893"
+      },
+      {
+        "name": "crd-bootstrap-apply",
+        "result": "pass",
+        "count": 3,
+        "evidencePath": "crd-bootstrap-apply.txt",
+        "evidenceSHA256": "cd0fb23ebbadabd7db0d68c3b67ae02a2652b8d076c570742878063f93486d34"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/applications.argoproj.io",
+        "evidencePath": "crd-applications.argoproj.io-established.txt",
+        "evidenceSHA256": "a509b3b7ea7350212f6f1a4bf5ce2468ebabb7b544918f8183b6520925e9cf4d"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/applicationsets.argoproj.io",
+        "evidencePath": "crd-applicationsets.argoproj.io-established.txt",
+        "evidenceSHA256": "d191b12e1ea413a20b6c68f3daba8a00fe73448cd233c613f9e46d98d5303f93"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/appprojects.argoproj.io",
+        "evidencePath": "crd-appprojects.argoproj.io-established.txt",
+        "evidenceSHA256": "c0687e12ab03c1a004b4d4110585e9dc95fb2bd667b81fb179f6d6d1c21a31c8"
+      },
+      {
+        "name": "server-side-apply",
+        "result": "pass",
+        "evidencePath": "kubectl-apply.txt",
+        "evidenceSHA256": "e9738946bc9b155106c2176c3d1b28d396efe0ecf5e608ab63a7933e3bd0d6ba"
+      },
+      {
+        "name": "deployment-argo-cd-argocd-applicationset-controller-rollout",
+        "result": "pass",
+        "object": "deployment/argo-cd-argocd-applicationset-controller",
+        "evidencePath": "deployment-argo-cd-argocd-applicationset-controller-rollout.txt",
+        "evidenceSHA256": "00b2f61ee318af4261fe505361c6f2a4b9fa6e988fb1ae78ace92edec9cb60d2"
+      },
+      {
+        "name": "deployment-argo-cd-argocd-notifications-controller-rollout",
+        "result": "pass",
+        "object": "deployment/argo-cd-argocd-notifications-controller",
+        "evidencePath": "deployment-argo-cd-argocd-notifications-controller-rollout.txt",
+        "evidenceSHA256": "85948c3aeeef5c6b48cfbda65811d2de181269fdfa3b1b23849745958df0ada2"
+      },
+      {
+        "name": "deployment-argo-cd-argocd-repo-server-rollout",
+        "result": "pass",
+        "object": "deployment/argo-cd-argocd-repo-server",
+        "evidencePath": "deployment-argo-cd-argocd-repo-server-rollout.txt",
+        "evidenceSHA256": "44bb02b1b311fe05d5902e1b33c53b18fdea8e3c797e4db2ba610cbd7692736b"
+      },
+      {
+        "name": "deployment-argo-cd-argocd-server-rollout",
+        "result": "pass",
+        "object": "deployment/argo-cd-argocd-server",
+        "evidencePath": "deployment-argo-cd-argocd-server-rollout.txt",
+        "evidenceSHA256": "acef864ce7045e36f600acd186cb8e1815442e80c567d33795ba84f3094d6205"
+      },
+      {
+        "name": "deployment-argo-cd-argocd-dex-server-rollout",
+        "result": "pass",
+        "object": "deployment/argo-cd-argocd-dex-server",
+        "evidencePath": "deployment-argo-cd-argocd-dex-server-rollout.txt",
+        "evidenceSHA256": "788471b7b21a4f215fdcf1ff6893f1a666bee818c482da51e539c4428c182204"
+      },
+      {
+        "name": "deployment-argo-cd-argocd-redis-rollout",
+        "result": "pass",
+        "object": "deployment/argo-cd-argocd-redis",
+        "evidencePath": "deployment-argo-cd-argocd-redis-rollout.txt",
+        "evidenceSHA256": "a0a0f1d5fc4934dd13149a5451a808532ca880b01b8c813e4523379cbf5204cf"
+      },
+      {
+        "name": "statefulset-argo-cd-argocd-application-controller-rollout",
+        "result": "pass",
+        "object": "statefulset/argo-cd-argocd-application-controller",
+        "evidencePath": "statefulset-argo-cd-argocd-application-controller-rollout.txt",
+        "evidenceSHA256": "36da818e2e5135cf9f3e7dae3dd24592e2df502a120d303298ccf32677ceb031"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/applications.argoproj.io",
+        "evidencePath": "crd-applications.argoproj.io.txt",
+        "evidenceSHA256": "54c31dc0026189f14d9972682cbde71cf8122243c3746ece5e68a33fd7c38903"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/applicationsets.argoproj.io",
+        "evidencePath": "crd-applicationsets.argoproj.io.txt",
+        "evidenceSHA256": "52c6fbf215b098ddfe5a6f40da81cf7bb43bd857bd7ace99bb9ba6a22759a784"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/appprojects.argoproj.io",
+        "evidencePath": "crd-appprojects.argoproj.io.txt",
+        "evidenceSHA256": "af37122715eb9481dfb140e1a0d7bcc0db1d23bc94ef7199260c45936cda2f61"
+      }
+    ],
+    "kubectlObjects": {
+      "path": "kubectl-objects.txt",
+      "sha256": "13ef22c91c217b6df525c947d7372b6911810c061da3715b34cd5a47ded8d55a"
+    }
+  }
+}

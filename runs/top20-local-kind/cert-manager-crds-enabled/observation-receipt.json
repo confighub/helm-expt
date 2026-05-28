@@ -1,0 +1,154 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "ObservationReceipt",
+  "metadata": {
+    "name": "cert-manager-crds-enabled-local-kind"
+  },
+  "spec": {
+    "variantRevision": "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/variant-revision.yaml",
+    "renderedObjectSetSHA256": "e288b2413bd1919173bee6afcd823be61399f101cfe2cf61f8e0df56740fefe0",
+    "observer": {
+      "name": "top20-local-e2e",
+      "version": "0.2.0",
+      "method": "kubectl-kind"
+    },
+    "target": {
+      "kind": "kind",
+      "name": "helm-expt-redis",
+      "context": "kind-helm-expt-redis",
+      "namespace": "cert-manager"
+    },
+    "observedAt": "2026-05-28T08:11:23.768Z",
+    "freshnessTTL": "1h",
+    "result": "pass",
+    "chart": "jetstack/cert-manager",
+    "chartVersion": "v1.20.2",
+    "rank": 4,
+    "variant": "crds-enabled",
+    "renderedObjectCount": 48,
+    "checks": [
+      {
+        "name": "crd-bootstrap-apply",
+        "result": "pass",
+        "count": 6,
+        "evidencePath": "crd-bootstrap-apply.txt",
+        "evidenceSHA256": "718b6854e2bf8d0cd8e6de04a962cc90fa28e10087968339fae052e07288a89d"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/challenges.acme.cert-manager.io",
+        "evidencePath": "crd-challenges.acme.cert-manager.io-established.txt",
+        "evidenceSHA256": "fc470a0cf5ebda7777dff14d27c043cd195843c2c1622c93eaffcc52dc8f5ed6"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/orders.acme.cert-manager.io",
+        "evidencePath": "crd-orders.acme.cert-manager.io-established.txt",
+        "evidenceSHA256": "dc17d0ba46c51300bb501f6d689487e416ba58d9d2ca8d738c61460e9b5d1456"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/certificaterequests.cert-manager.io",
+        "evidencePath": "crd-certificaterequests.cert-manager.io-established.txt",
+        "evidenceSHA256": "692a6f2322f944e170e2748ae95d1d80cdb54473e3e2499c7533b6e61e8bf948"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/certificates.cert-manager.io",
+        "evidencePath": "crd-certificates.cert-manager.io-established.txt",
+        "evidenceSHA256": "0f19eb0d6610ffd2e5f2bf253b5bf18d306d148e42f035ef9d421c8d8ff343ae"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/clusterissuers.cert-manager.io",
+        "evidencePath": "crd-clusterissuers.cert-manager.io-established.txt",
+        "evidenceSHA256": "828ad64a2d043101ef89bd1e93e4683b9cd060c5a77c51bf5d79348a6479631d"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/issuers.cert-manager.io",
+        "evidencePath": "crd-issuers.cert-manager.io-established.txt",
+        "evidenceSHA256": "ff3efebafcb8cccbd01c78aa251c96ac5943490f3d69e5c18dba9c8e54ae90f8"
+      },
+      {
+        "name": "server-side-apply",
+        "result": "pass",
+        "evidencePath": "kubectl-apply.txt",
+        "evidenceSHA256": "55560d737ff43510c80360490d37ddeb0305d9b1d050e6f394c1b3c855e2d56f"
+      },
+      {
+        "name": "deployment-cert-manager-rollout",
+        "result": "pass",
+        "object": "deployment/cert-manager",
+        "evidencePath": "deployment-cert-manager-rollout.txt",
+        "evidenceSHA256": "2cad51da8dca6c834d3e65ba5961e24e388798439639dc73d660bc44f59bb4ca"
+      },
+      {
+        "name": "deployment-cert-manager-cainjector-rollout",
+        "result": "pass",
+        "object": "deployment/cert-manager-cainjector",
+        "evidencePath": "deployment-cert-manager-cainjector-rollout.txt",
+        "evidenceSHA256": "17981919ea558c0a29c78df611b3b82e67dfb7563329bde450ac8fede6c713b4"
+      },
+      {
+        "name": "deployment-cert-manager-webhook-rollout",
+        "result": "pass",
+        "object": "deployment/cert-manager-webhook",
+        "evidencePath": "deployment-cert-manager-webhook-rollout.txt",
+        "evidenceSHA256": "8860ddbf43337c947f4aa4afd96f0d4194848d879c30f76086857cc87161c2ea"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/challenges.acme.cert-manager.io",
+        "evidencePath": "crd-challenges.acme.cert-manager.io.txt",
+        "evidenceSHA256": "7e8f076445b1396b3acd891209786e9bba44ec3d4cb10114ea3d6222d984a951"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/orders.acme.cert-manager.io",
+        "evidencePath": "crd-orders.acme.cert-manager.io.txt",
+        "evidenceSHA256": "c587dcbdad37db821800d532d5b94110515d0bdf6edbc7f536727a4b29c3923e"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/certificaterequests.cert-manager.io",
+        "evidencePath": "crd-certificaterequests.cert-manager.io.txt",
+        "evidenceSHA256": "342fbc2100c5e717f37dcab32843d2a776431d0729ef94cac375070609df51f2"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/certificates.cert-manager.io",
+        "evidencePath": "crd-certificates.cert-manager.io.txt",
+        "evidenceSHA256": "00d25f44fe50d65a8d978a09f7ae6f6916ef7ed22d595bc4792e754b09fa68a6"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/clusterissuers.cert-manager.io",
+        "evidencePath": "crd-clusterissuers.cert-manager.io.txt",
+        "evidenceSHA256": "70c6459ebc5e9a2749b76330163e3302b51bcd76faa61dbb78941daac5013483"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/issuers.cert-manager.io",
+        "evidencePath": "crd-issuers.cert-manager.io.txt",
+        "evidenceSHA256": "f56d65e5e89be22801c5988898eea3c9c036c7a81bda6822dbc9e577da5f84bb"
+      }
+    ],
+    "kubectlObjects": {
+      "path": "kubectl-objects.txt",
+      "sha256": "19ef3c675ea3e5270b4da48a79970990735c27099a2ab15e0af405c2496c2708"
+    }
+  }
+}

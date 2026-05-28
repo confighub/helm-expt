@@ -1,0 +1,392 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "ObservationReceipt",
+  "metadata": {
+    "name": "external-secrets-default-local-kind"
+  },
+  "spec": {
+    "variantRevision": "recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/variant-revision.yaml",
+    "renderedObjectSetSHA256": "f1c832a9af788c9d2a7a0b066d76a7d8af253d83f5b0fa39c1aa91271230d3db",
+    "observer": {
+      "name": "top20-local-e2e",
+      "version": "0.2.0",
+      "method": "kubectl-kind"
+    },
+    "target": {
+      "kind": "kind",
+      "name": "helm-expt-redis",
+      "context": "kind-helm-expt-redis",
+      "namespace": "external-secrets"
+    },
+    "observedAt": "2026-05-28T08:13:20.601Z",
+    "freshnessTTL": "1h",
+    "result": "pass",
+    "chart": "external-secrets/external-secrets",
+    "chartVersion": "2.5.0",
+    "rank": 5,
+    "variant": "default",
+    "renderedObjectCount": 42,
+    "checks": [
+      {
+        "name": "crd-bootstrap-apply",
+        "result": "pass",
+        "count": 23,
+        "evidencePath": "crd-bootstrap-apply.txt",
+        "evidenceSHA256": "acb5a2c9bda78cf1e7f484188a808bdad055ca09a08f193e897846f6dc262dc1"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/acraccesstokens.generators.external-secrets.io",
+        "evidencePath": "crd-acraccesstokens.generators.external-secrets.io-established.txt",
+        "evidenceSHA256": "6b8897e435f14b4055ef7055ea0bb898b6302f3d6480a3edb8713b1de39286a0"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/cloudsmithaccesstokens.generators.external-secrets.io",
+        "evidencePath": "crd-cloudsmithaccesstokens.generators.external-secrets.io-established.txt",
+        "evidenceSHA256": "03dd0cc3fa73d50709cd9c96464a4598fb1d28b6fa229bb217703d365bfc58f3"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/clusterexternalsecrets.external-secrets.io",
+        "evidencePath": "crd-clusterexternalsecrets.external-secrets.io-established.txt",
+        "evidenceSHA256": "2a3188ea2fe1441c2a9c428df73c8c9187776585ba6a731fdbbc454a40fb964a"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/clustergenerators.generators.external-secrets.io",
+        "evidencePath": "crd-clustergenerators.generators.external-secrets.io-established.txt",
+        "evidenceSHA256": "50f20e2c1a7881562a7d46ffb0a9023d632a6a86981481cc4fd7228c45c12d00"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/clusterpushsecrets.external-secrets.io",
+        "evidencePath": "crd-clusterpushsecrets.external-secrets.io-established.txt",
+        "evidenceSHA256": "97beebd44d3825a1616ab49b01bd63aa942213ad28682f27daeb756a0858a984"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/clustersecretstores.external-secrets.io",
+        "evidencePath": "crd-clustersecretstores.external-secrets.io-established.txt",
+        "evidenceSHA256": "9a260dd63894f7e25b05448166bd494d73f1575b85adfef1bf98cd73298941be"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/ecrauthorizationtokens.generators.external-secrets.io",
+        "evidencePath": "crd-ecrauthorizationtokens.generators.external-secrets.io-established.txt",
+        "evidenceSHA256": "f543147affd808d5e57d28638078b7e5503ec984dcc443c866d57b786886058c"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/externalsecrets.external-secrets.io",
+        "evidencePath": "crd-externalsecrets.external-secrets.io-established.txt",
+        "evidenceSHA256": "d898dd3a368770c5e56b8c740eee05e9dfca79b8bcaf7411e26748153956ef87"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/fakes.generators.external-secrets.io",
+        "evidencePath": "crd-fakes.generators.external-secrets.io-established.txt",
+        "evidenceSHA256": "e568129b7dc941ef53031ffef3268962dcecf10a9a112d18288f9c92443fe55f"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/gcraccesstokens.generators.external-secrets.io",
+        "evidencePath": "crd-gcraccesstokens.generators.external-secrets.io-established.txt",
+        "evidenceSHA256": "0998c70adb8678e6e1a6343178e897f66bcde9c27e95d15c1c14ede412c3e948"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/generatorstates.generators.external-secrets.io",
+        "evidencePath": "crd-generatorstates.generators.external-secrets.io-established.txt",
+        "evidenceSHA256": "6a814e53cf737e637559ef6b1aa0a45a16a32b3c6877cb7202484fb9136a6170"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/githubaccesstokens.generators.external-secrets.io",
+        "evidencePath": "crd-githubaccesstokens.generators.external-secrets.io-established.txt",
+        "evidenceSHA256": "782d296e6cda4aff2e3a3d5f636699f711b9c29f5830032674663ea4161801c3"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/grafanas.generators.external-secrets.io",
+        "evidencePath": "crd-grafanas.generators.external-secrets.io-established.txt",
+        "evidenceSHA256": "a265cafc14b4cbf41d1d25c1de28be6416dcb36e8d98cada7bc1e5ad50b2f526"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/mfas.generators.external-secrets.io",
+        "evidencePath": "crd-mfas.generators.external-secrets.io-established.txt",
+        "evidenceSHA256": "aad1c8f74f0f4b91d6b75ae335a70f41e4b9ff05c024d6524440a32130d9a845"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/passwords.generators.external-secrets.io",
+        "evidencePath": "crd-passwords.generators.external-secrets.io-established.txt",
+        "evidenceSHA256": "33f6fa16209198cafc56c272050fe9253c342948c85588aa56251e51c925b3a0"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/pushsecrets.external-secrets.io",
+        "evidencePath": "crd-pushsecrets.external-secrets.io-established.txt",
+        "evidenceSHA256": "581d8b94ffa1b93f531fb99f0f5e9b0153b3bf9818a65b4c22e6ddebdb2725e5"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/quayaccesstokens.generators.external-secrets.io",
+        "evidencePath": "crd-quayaccesstokens.generators.external-secrets.io-established.txt",
+        "evidenceSHA256": "f4c2be289b5c7e593d0a37a82c83021ea4b8064bd4d01e53a278e98bb0ebebbb"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/secretstores.external-secrets.io",
+        "evidencePath": "crd-secretstores.external-secrets.io-established.txt",
+        "evidenceSHA256": "d68dc2f4278651a871a5d44c24f51c185447f5ce8f40483d7d0fed422f0b5ec0"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/sshkeys.generators.external-secrets.io",
+        "evidencePath": "crd-sshkeys.generators.external-secrets.io-established.txt",
+        "evidenceSHA256": "5c29b7ec17a043f1d8bc0592f06e604e682d2dd71c4825427a6df7de62f795e3"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/stssessiontokens.generators.external-secrets.io",
+        "evidencePath": "crd-stssessiontokens.generators.external-secrets.io-established.txt",
+        "evidenceSHA256": "2963b9a186e6a6f4213845babc2a36116f3a948805c948da4101198bc1beb844"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/uuids.generators.external-secrets.io",
+        "evidencePath": "crd-uuids.generators.external-secrets.io-established.txt",
+        "evidenceSHA256": "ee8b6e50867c6e3868d33e63c0f07398738ff7474db548ec40b5fb1dc5c25212"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/vaultdynamicsecrets.generators.external-secrets.io",
+        "evidencePath": "crd-vaultdynamicsecrets.generators.external-secrets.io-established.txt",
+        "evidenceSHA256": "7d22379cc3f570803ecfbeb5661af54146a6a58c85c3ae0276039fcd3fc7eaca"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/webhooks.generators.external-secrets.io",
+        "evidencePath": "crd-webhooks.generators.external-secrets.io-established.txt",
+        "evidenceSHA256": "5403c12bfd05461d905fe1f0727a8db7b2400eb430cc44e7eb3da4c0d047658b"
+      },
+      {
+        "name": "server-side-apply",
+        "result": "pass",
+        "evidencePath": "kubectl-apply.txt",
+        "evidenceSHA256": "523aaa58955402ae8f73d1d14a2c8cb1ffc924f3b139d9d7d1ae036ce0086a11"
+      },
+      {
+        "name": "deployment-external-secrets-cert-controller-rollout",
+        "result": "pass",
+        "object": "deployment/external-secrets-cert-controller",
+        "evidencePath": "deployment-external-secrets-cert-controller-rollout.txt",
+        "evidenceSHA256": "07fba6566ebdd6d32febd15ac5a3905d12211a6bf8f5e229c1fde43ae31d072c"
+      },
+      {
+        "name": "deployment-external-secrets-rollout",
+        "result": "pass",
+        "object": "deployment/external-secrets",
+        "evidencePath": "deployment-external-secrets-rollout.txt",
+        "evidenceSHA256": "f9204eb7e4f29cfcd701b9725bb158cf09171af61a5178c6541a8884d2685e3f"
+      },
+      {
+        "name": "deployment-external-secrets-webhook-rollout",
+        "result": "pass",
+        "object": "deployment/external-secrets-webhook",
+        "evidencePath": "deployment-external-secrets-webhook-rollout.txt",
+        "evidenceSHA256": "c59320ff0c97958b2f63258aa3a4f19da29731a8e55355aa42818214d083edfd"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/acraccesstokens.generators.external-secrets.io",
+        "evidencePath": "crd-acraccesstokens.generators.external-secrets.io.txt",
+        "evidenceSHA256": "3d2b977da54a0e0bc398fafc4f73f2eb88959bb56b20a57f1c69a0e999758e32"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/cloudsmithaccesstokens.generators.external-secrets.io",
+        "evidencePath": "crd-cloudsmithaccesstokens.generators.external-secrets.io.txt",
+        "evidenceSHA256": "b0459fad9d7f676c06c48892ff1c9314629def170b225e95687bc639e0f3b1fe"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/clusterexternalsecrets.external-secrets.io",
+        "evidencePath": "crd-clusterexternalsecrets.external-secrets.io.txt",
+        "evidenceSHA256": "4e13f402a2210e38d504eb5cd0652f7a4bfd1317a505f91cde52713b19fe0015"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/clustergenerators.generators.external-secrets.io",
+        "evidencePath": "crd-clustergenerators.generators.external-secrets.io.txt",
+        "evidenceSHA256": "4cf78a3ae4faab0f4651ebebb7b42bbeea46866ec1c0f90ad941acc1c64799bd"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/clusterpushsecrets.external-secrets.io",
+        "evidencePath": "crd-clusterpushsecrets.external-secrets.io.txt",
+        "evidenceSHA256": "115c08fe1501b3bd76ec05f2e98277df86576aa743899c920c8eb4755bc72b1b"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/clustersecretstores.external-secrets.io",
+        "evidencePath": "crd-clustersecretstores.external-secrets.io.txt",
+        "evidenceSHA256": "584c564b9689ee0285486a97cb729a02ca9a320e687c9a3dc16e12b86df1f249"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/ecrauthorizationtokens.generators.external-secrets.io",
+        "evidencePath": "crd-ecrauthorizationtokens.generators.external-secrets.io.txt",
+        "evidenceSHA256": "c50914db0ab69f42cca4aeef08ac84b960c0780b02aa8deeb0967db9a4739dd8"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/externalsecrets.external-secrets.io",
+        "evidencePath": "crd-externalsecrets.external-secrets.io.txt",
+        "evidenceSHA256": "43c7e0ab395dd345a129de985d8fe8dd6342234f0371909ce896dad656fc7a25"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/fakes.generators.external-secrets.io",
+        "evidencePath": "crd-fakes.generators.external-secrets.io.txt",
+        "evidenceSHA256": "a1b871d8d3cb22b32482fe7cd0311fa4af83b78adf4e324e13be100f6526121c"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/gcraccesstokens.generators.external-secrets.io",
+        "evidencePath": "crd-gcraccesstokens.generators.external-secrets.io.txt",
+        "evidenceSHA256": "e9f8e20e0365f81f182edfb683998160398481ceda4b1a66abeb1fbba3644a9c"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/generatorstates.generators.external-secrets.io",
+        "evidencePath": "crd-generatorstates.generators.external-secrets.io.txt",
+        "evidenceSHA256": "65371cdea33d57211d430ee42fe53a9f2f64ebace64296ac571028df73cf41c5"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/githubaccesstokens.generators.external-secrets.io",
+        "evidencePath": "crd-githubaccesstokens.generators.external-secrets.io.txt",
+        "evidenceSHA256": "857bd2cc2cece2dd788c4652f3ba333a5b45d54fbe54ae58f28a58643e9a6c60"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/grafanas.generators.external-secrets.io",
+        "evidencePath": "crd-grafanas.generators.external-secrets.io.txt",
+        "evidenceSHA256": "c40d6414a7aac6ed15501f0f4e5c7e8cad8820117bd0447e5db3fb376e549296"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/mfas.generators.external-secrets.io",
+        "evidencePath": "crd-mfas.generators.external-secrets.io.txt",
+        "evidenceSHA256": "fdad5dbd5ff24b4b9bfc439bb7af0a3cd59058c2106f6280da151a2885f08c80"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/passwords.generators.external-secrets.io",
+        "evidencePath": "crd-passwords.generators.external-secrets.io.txt",
+        "evidenceSHA256": "48f4c624dddf547a0a8cad4dd172ba528b8d2294b9b3c755ef497cf6b924fa4a"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/pushsecrets.external-secrets.io",
+        "evidencePath": "crd-pushsecrets.external-secrets.io.txt",
+        "evidenceSHA256": "00326c5efd4853bf2fa67caa750fa2d700173e811e2a7d5c512bc881ba47ee1c"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/quayaccesstokens.generators.external-secrets.io",
+        "evidencePath": "crd-quayaccesstokens.generators.external-secrets.io.txt",
+        "evidenceSHA256": "9b15176fba9692df79745175ba41f1e7931cc2a262585dbd1674bb5784dcfe36"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/secretstores.external-secrets.io",
+        "evidencePath": "crd-secretstores.external-secrets.io.txt",
+        "evidenceSHA256": "a2a173211890e849460ca287945fc44e4922d63284bac872894153a08e39d2b3"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/sshkeys.generators.external-secrets.io",
+        "evidencePath": "crd-sshkeys.generators.external-secrets.io.txt",
+        "evidenceSHA256": "8d669e03c22cb9029a844ae26c4bae0f34b9370235ffb771084c615deb067e82"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/stssessiontokens.generators.external-secrets.io",
+        "evidencePath": "crd-stssessiontokens.generators.external-secrets.io.txt",
+        "evidenceSHA256": "58bea385b49454a4a7bb17a9a0159114c5012c9105a06c229bde029388d979da"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/uuids.generators.external-secrets.io",
+        "evidencePath": "crd-uuids.generators.external-secrets.io.txt",
+        "evidenceSHA256": "48e76d32eb2da4ee53bcb63f92dcab6e9a84ec8901e786848e64f188897c1dc8"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/vaultdynamicsecrets.generators.external-secrets.io",
+        "evidencePath": "crd-vaultdynamicsecrets.generators.external-secrets.io.txt",
+        "evidenceSHA256": "284d4c43441ea3ed304c41b58d4218d2863fdc9cb0e7c9b6ba30a1d2fa4fa295"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/webhooks.generators.external-secrets.io",
+        "evidencePath": "crd-webhooks.generators.external-secrets.io.txt",
+        "evidenceSHA256": "b9d699fd3caeea7fa74f8b7025e77f3a84c565d465a34c90b23bbe6802c69cfc"
+      }
+    ],
+    "kubectlObjects": {
+      "path": "kubectl-objects.txt",
+      "sha256": "52c7f90d5abb6f8b7fa1b310b09dbcbc7158dd3af5e71f8ed64a5f2951b41125"
+    }
+  }
+}

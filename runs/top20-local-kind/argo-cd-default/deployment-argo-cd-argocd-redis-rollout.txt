@@ -1,0 +1,1 @@
+deployment "argo-cd-argocd-redis" successfully rolled out

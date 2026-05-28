@@ -14,11 +14,11 @@
     },
     "target": {
       "kind": "kind",
-      "name": "helm-expt-redis",
-      "context": "kind-helm-expt-redis",
+      "name": "helm-expt-live-tail",
+      "context": "kind-helm-expt-live-tail",
       "namespace": "nginx"
     },
-    "observedAt": "2026-05-27T17:00:05.120Z",
+    "observedAt": "2026-05-28T08:28:07.106Z",
     "freshnessTTL": "1h",
     "result": "pass",
     "chart": "bitnami/nginx",
@@ -38,12 +38,12 @@
         "result": "pass",
         "object": "deployment/nginx",
         "evidencePath": "deployment-nginx-rollout.txt",
-        "evidenceSHA256": "4072dfa6966115ca557ab2a6dfbace9a424a1498c60e433ce79519d5fe0075f5"
+        "evidenceSHA256": "355a2289b91e2eeccc838991769fd467e9a1b99465ac80abd972afdc4fc9533d"
       }
     ],
     "kubectlObjects": {
       "path": "kubectl-objects.txt",
-      "sha256": "a06c084179d40bf42e39d0ad41eca24e110c4311fda9ae982ccde8d04f2e4733"
+      "sha256": "e3e1116dafb912d85d938405ea6fb52c28f7bfdc248c99d5bd71091ecbc56ad5"
     }
   }
 }

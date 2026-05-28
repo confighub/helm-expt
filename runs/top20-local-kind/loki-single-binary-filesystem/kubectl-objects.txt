@@ -1,0 +1,43 @@
+NAME                               READY   STATUS    RESTARTS   AGE   IP            NODE                            NOMINATED NODE   READINESS GATES
+pod/loki-0                         2/2     Running   0          54s   10.244.0.42   helm-expt-redis-control-plane   <none>           <none>
+pod/loki-canary-jk64j              1/1     Running   0          55s   10.244.0.37   helm-expt-redis-control-plane   <none>           <none>
+pod/loki-chunks-cache-0            2/2     Running   0          55s   10.244.0.39   helm-expt-redis-control-plane   <none>           <none>
+pod/loki-gateway-97c5dd858-m75vd   1/1     Running   0          55s   10.244.0.38   helm-expt-redis-control-plane   <none>           <none>
+pod/loki-results-cache-0           2/2     Running   0          55s   10.244.0.40   helm-expt-redis-control-plane   <none>           <none>
+
+NAME                         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)              AGE   SELECTOR
+service/loki                 ClusterIP   10.96.52.144   <none>        3100/TCP,9095/TCP    55s   app.kubernetes.io/component=single-binary,app.kubernetes.io/instance=loki,app.kubernetes.io/name=loki
+service/loki-canary          ClusterIP   10.96.35.41    <none>        3500/TCP             55s   app.kubernetes.io/component=canary,app.kubernetes.io/instance=loki,app.kubernetes.io/name=loki
+service/loki-chunks-cache    ClusterIP   None           <none>        11211/TCP,9150/TCP   55s   app.kubernetes.io/component=memcached-chunks-cache,app.kubernetes.io/instance=loki,app.kubernetes.io/name=loki
+service/loki-gateway         ClusterIP   10.96.60.80    <none>        80/TCP               55s   app.kubernetes.io/component=gateway,app.kubernetes.io/instance=loki,app.kubernetes.io/name=loki
+service/loki-headless        ClusterIP   None           <none>        3100/TCP             55s   app.kubernetes.io/instance=loki,app.kubernetes.io/name=loki
+service/loki-memberlist      ClusterIP   None           <none>        7946/TCP             55s   app.kubernetes.io/instance=loki,app.kubernetes.io/name=loki,app.kubernetes.io/part-of=memberlist
+service/loki-results-cache   ClusterIP   None           <none>        11211/TCP,9150/TCP   55s   app.kubernetes.io/component=memcached-results-cache,app.kubernetes.io/instance=loki,app.kubernetes.io/name=loki
+
+NAME                         DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE   CONTAINERS    IMAGES                                SELECTOR
+daemonset.apps/loki-canary   1         1         1       1            1           <none>          55s   loki-canary   docker.io/grafana/loki-canary:3.6.7   app.kubernetes.io/component=canary,app.kubernetes.io/instance=loki,app.kubernetes.io/name=loki
+
+NAME                           READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                                              SELECTOR
+deployment.apps/loki-gateway   1/1     1            1           55s   nginx        docker.io/nginxinc/nginx-unprivileged:1.29-alpine   app.kubernetes.io/component=gateway,app.kubernetes.io/instance=loki,app.kubernetes.io/name=loki
+
+NAME                                     DESIRED   CURRENT   READY   AGE   CONTAINERS   IMAGES                                              SELECTOR
+replicaset.apps/loki-gateway-97c5dd858   1         1         1       55s   nginx        docker.io/nginxinc/nginx-unprivileged:1.29-alpine   app.kubernetes.io/component=gateway,app.kubernetes.io/instance=loki,app.kubernetes.io/name=loki,pod-template-hash=97c5dd858
+
+NAME                                  READY   AGE   CONTAINERS           IMAGES
+statefulset.apps/loki                 1/1     55s   loki,loki-sc-rules   docker.io/grafana/loki:3.6.7,docker.io/kiwigrid/k8s-sidecar:2.5.0
+statefulset.apps/loki-chunks-cache    1/1     55s   memcached,exporter   memcached:1.6.39-alpine,prom/memcached-exporter:v0.15.4
+statefulset.apps/loki-results-cache   1/1     55s   memcached,exporter   memcached:1.6.39-alpine,prom/memcached-exporter:v0.15.4
+
+NAME                                   STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE   VOLUMEMODE
+persistentvolumeclaim/storage-loki-0   Bound    pvc-f8285801-4864-4fef-905e-547d3d1b3379   10Gi       RWO            standard       <unset>                 55s   Filesystem
+
+NAME                         DATA   AGE
+configmap/kube-root-ca.crt   1      55s
+configmap/loki               1      55s
+configmap/loki-gateway       1      55s
+configmap/loki-runtime       1      55s
+
+NAME                         SECRETS   AGE
+serviceaccount/default       0         55s
+serviceaccount/loki          0         55s
+serviceaccount/loki-canary   0         55s

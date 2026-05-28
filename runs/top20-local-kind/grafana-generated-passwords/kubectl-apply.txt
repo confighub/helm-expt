@@ -1,0 +1,9 @@
+serviceaccount/grafana serverside-applied
+secret/grafana serverside-applied
+configmap/grafana serverside-applied
+clusterrole.rbac.authorization.k8s.io/grafana-clusterrole serverside-applied
+clusterrolebinding.rbac.authorization.k8s.io/grafana-clusterrolebinding serverside-applied
+role.rbac.authorization.k8s.io/grafana serverside-applied
+rolebinding.rbac.authorization.k8s.io/grafana serverside-applied
+service/grafana serverside-applied
+deployment.apps/grafana serverside-applied

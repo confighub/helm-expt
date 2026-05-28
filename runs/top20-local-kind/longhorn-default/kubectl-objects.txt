@@ -1,0 +1,40 @@
+NAME                                            READY   STATUS              RESTARTS   AGE   IP            NODE                            NOMINATED NODE   READINESS GATES
+pod/engine-image-ei-c9fa6d45-xx64s              0/1     ContainerCreating   0          5s    <none>        helm-expt-redis-control-plane   <none>           <none>
+pod/longhorn-driver-deployer-78f696759f-mnd5j   1/1     Running             0          37s   10.244.0.44   helm-expt-redis-control-plane   <none>           <none>
+pod/longhorn-manager-frrc6                      2/2     Running             0          37s   10.244.0.43   helm-expt-redis-control-plane   <none>           <none>
+pod/longhorn-ui-bccd6d85f-ctzdl                 1/1     Running             0          37s   10.244.0.46   helm-expt-redis-control-plane   <none>           <none>
+pod/longhorn-ui-bccd6d85f-j6nvq                 1/1     Running             0          37s   10.244.0.45   helm-expt-redis-control-plane   <none>           <none>
+
+NAME                                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE   SELECTOR
+service/longhorn-admission-webhook   ClusterIP   10.96.235.197   <none>        9502/TCP   37s   longhorn.io/admission-webhook=longhorn-admission-webhook
+service/longhorn-backend             ClusterIP   10.96.177.200   <none>        9500/TCP   37s   app=longhorn-manager
+service/longhorn-frontend            ClusterIP   10.96.205.31    <none>        80/TCP     37s   app=longhorn-ui
+service/longhorn-recovery-backend    ClusterIP   10.96.184.182   <none>        9503/TCP   37s   longhorn.io/recovery-backend=longhorn-recovery-backend
+
+NAME                                      DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE   CONTAINERS                                      IMAGES                                                                                              SELECTOR
+daemonset.apps/engine-image-ei-c9fa6d45   1         1         0       1            0           <none>          5s    engine-image-ei-c9fa6d45                        docker.io/longhornio/longhorn-engine:v1.11.2                                                        longhorn.io/component=engine-image,longhorn.io/engine-image=ei-c9fa6d45
+daemonset.apps/longhorn-manager           1         1         1       1            1           <none>          37s   longhorn-manager,pre-pull-share-manager-image   docker.io/longhornio/longhorn-manager:v1.11.2,docker.io/longhornio/longhorn-share-manager:v1.11.2   app=longhorn-manager
+
+NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS                 IMAGES                                          SELECTOR
+deployment.apps/longhorn-driver-deployer   1/1     1            1           37s   longhorn-driver-deployer   docker.io/longhornio/longhorn-manager:v1.11.2   app=longhorn-driver-deployer
+deployment.apps/longhorn-ui                2/2     2            2           37s   longhorn-ui                docker.io/longhornio/longhorn-ui:v1.11.2        app=longhorn-ui
+
+NAME                                                  DESIRED   CURRENT   READY   AGE   CONTAINERS                 IMAGES                                          SELECTOR
+replicaset.apps/longhorn-driver-deployer-78f696759f   1         1         1       37s   longhorn-driver-deployer   docker.io/longhornio/longhorn-manager:v1.11.2   app=longhorn-driver-deployer,pod-template-hash=78f696759f
+replicaset.apps/longhorn-ui-bccd6d85f                 2         2         2       37s   longhorn-ui                docker.io/longhornio/longhorn-ui:v1.11.2        app=longhorn-ui,pod-template-hash=bccd6d85f
+
+NAME                                  DATA   AGE
+configmap/kube-root-ca.crt            1      41s
+configmap/longhorn-default-resource   1      37s
+configmap/longhorn-default-setting    1      37s
+configmap/longhorn-storageclass       1      37s
+
+NAME                          TYPE                DATA   AGE
+secret/longhorn-webhook-ca    kubernetes.io/tls   2      24s
+secret/longhorn-webhook-tls   kubernetes.io/tls   2      24s
+
+NAME                                         SECRETS   AGE
+serviceaccount/default                       0         41s
+serviceaccount/longhorn-service-account      0         37s
+serviceaccount/longhorn-support-bundle       0         37s
+serviceaccount/longhorn-ui-service-account   0         37s
