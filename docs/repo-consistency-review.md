@@ -6,7 +6,7 @@ The repo now has a clearer shape:
 
 ```text
 README -> current mission and simple UX claim
-docs/ -> doctrine, maintenance, customization, promotion review
+docs/ -> doctrine, harness introduction, maintenance, customization, promotion review
 recipes/ -> chart proof artifacts
 packages/ -> executable cub installer packages
 data/ -> generated review outputs

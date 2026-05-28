@@ -3,6 +3,9 @@
 This document defines how a Helm-user customization becomes a ConfigHub
 variant, and where each piece of new information belongs.
 
+For the full chart-to-recipe harness, including the canonical "where pieces go"
+table, see [Introduction To The Harness](introduction-to-the-harness.md).
+
 The product rule is:
 
 ```text
