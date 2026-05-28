@@ -26,6 +26,32 @@ default
 reuse-existing-secret
 ```
 
+Secret handling is intentionally different between the two bases:
+
+```text
+default
+  Helm renders Secret redis/redis.
+  cub install separates it to out/secrets.
+  Apply out/secrets for a direct local test; ConfigHub records references,
+  not the rendered secret material.
+
+reuse-existing-secret
+  Helm renders no Redis Secret.
+  The workloads reference Secret redis/redis-existing-secret key redis-password.
+  The installer package declares that Secret as an external requirement and
+  the variant records it as a target fact.
+```
+
+For the existing-Secret path, stage the target Secret before applying the
+rendered manifests:
+
+```sh
+kubectl --context <your-context> create namespace redis --dry-run=client -o yaml | kubectl --context <your-context> apply -f -
+kubectl --context <your-context> -n redis create secret generic redis-existing-secret \
+  --from-literal=redis-password=confighub-redis-password \
+  --dry-run=client -o yaml | kubectl --context <your-context> apply -f -
+```
+
 ## Path
 
 1. Render one variant with the current installer package:
@@ -115,6 +141,10 @@ Expected result:
 PASS verify-install:cluster bitnami/redis/25.5.3 default
 checks: statefulsets, PVCs, Redis PING
 ```
+
+For `reuse-existing-secret`, do not apply `out/secrets`; that variant renders
+none. Pre-stage `redis/redis-existing-secret` as shown above, then apply the
+manifest directory and verify with `--base reuse-existing-secret`.
 
 6. Upload to ConfigHub:
 

@@ -126,7 +126,7 @@ I installed Redis and want proof it matches the catalog.
   Run Verify Your Install.
 
 I want the full ConfigHub walkthrough.
-  Follow Redis ConfigHub Demo.
+  Follow Quick Start With Redis.
 ```
 
 ## Quick Verify
@@ -239,7 +239,7 @@ user-side proof: what you rendered, what namespace/context you checked, what
 matched, and which checks passed. Today these checks ship for Redis only. Other
 charts should follow the same pattern as `install-checks.yaml` lands per chart.
 
-## Redis ConfigHub Demo
+## Quick Start With Redis
 
 Redis is the happy-path demo because it is small, familiar, and still exercises
 the important proof chain. The local verification path above does not need a
@@ -271,6 +271,18 @@ The full ConfigHub upload command is in `docs/demo/redis/demo-script.md`; it is
 longer because it records labels such as component, layer, owner, chart version,
 variant, and proof.
 
+Redis has two catalog variants:
+
+```text
+default
+  Renders Secret redis/redis from the pinned demo password.
+  cub install separates that Secret into out/secrets.
+
+reuse-existing-secret
+  Renders no Redis Secret.
+  Requires pre-staged Secret redis/redis-existing-secret key redis-password.
+```
+
 The key Redis proof files are:
 
 ```text
@@ -281,7 +293,7 @@ recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/helm-equivalence-re
 runs/redis-local-kind/latest/observation-receipt.yaml
 ```
 
-## Redis Secret Handling
+### Redis Secret Handling
 
 Redis has two supported secret models in this catalog.
 
