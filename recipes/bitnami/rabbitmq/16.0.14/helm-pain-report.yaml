@@ -1,0 +1,139 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPainReport"
+metadata:
+  name: "bitnami-rabbitmq-16.0.14"
+spec:
+  chart:
+    name: "bitnami/rabbitmq"
+    version: "16.0.14"
+    source: "https://charts.bitnami.com/bitnami"
+    digest: "df625220cafdfe892e68c1b3f1a5500049acd227fe90b2deca04df13190a176b"
+  supportedScopeStatus: "no-unhandled-pain-points-for-supported-scopes"
+  supportedScopes:
+    - "local-test"
+  supportedVariants:
+    - "generated-passwords"
+    - "existing-secret"
+  productionReadiness: "blocked-by-current-scan-gate"
+  notes:
+    - "Default chart rendering is nondeterministic unless auth.password is bound before render."
+    - "Default chart rendering is also nondeterministic unless auth.erlangCookie is bound before render."
+    - "generated-passwords variant persists auth.password and auth.erlangCookie as generated facts and renders chart Secrets deterministically."
+    - "existing-secret variant does not render the credential Secret and instead declares rabbitmq/rabbitmq-auth and rabbitmq/rabbitmq-erlang-cookie as target facts."
+    - "existing-secret variant still renders rabbitmq-config because configuration is chart-owned in both promoted variants."
+    - "Chart declares the Bitnami common dependency and records it in dependency-lock.yaml."
+    - "Promoted variants render no hook objects; future hook-producing values must map to lifecycle policy."
+    - "RabbitMQ renders a StatefulSet with volumeClaimTemplates and needs storage/upgrade/rollback policy."
+    - "configuration, advancedConfiguration, initScripts, secret names, and extraDeploy are template-powered extension slots; promoted variants keep raw slots empty."
+  painPoints:
+    -
+      id: "source-lock"
+      detectedPainPoint: "source-lock requires source-lock.yaml"
+      evidence:
+        - "source-lock.yaml"
+      configHubHome: "source-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "source-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "dependency-lock"
+      detectedPainPoint: "chart declares the Bitnami common dependency; promoted variants lock its metadata."
+      evidence:
+        - "dependency-lock.yaml"
+      configHubHome: "dependency-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "dependency-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "capability-profile"
+      detectedPainPoint: "Kubernetes API and version branches are bound to the named Kubernetes capability profile."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "capability-profile"
+      disposition: "handled-by-capability-profile"
+      linkedReceipt: "revisions/generated-passwords/r001/receipts/render-receipt.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "generated-facts"
+      detectedPainPoint: "The generated-passwords variant binds the generated password and Erlang cookie before render so Helm output is deterministic."
+      evidence:
+        - "auth.password + auth.erlangCookie"
+      configHubHome: "generated-fact"
+      disposition: "handled-by-generated-facts"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "variant-controlled"
+    -
+      id: "target-facts"
+      detectedPainPoint: "The existing-secret variant declares target Secrets for password and Erlang cookie; it still renders the configuration Secret."
+      evidence:
+        - "auth.existingPasswordSecret + auth.existingErlangSecret"
+      configHubHome: "target-fact-requirement"
+      disposition: "handled-by-target-fact-values"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "variant-controlled"
+    -
+      id: "hook-policy"
+      detectedPainPoint: "Promoted RabbitMQ variants render no hook objects with the pinned inputs; if enabled by future values, hooks must map to lifecycle policy before production."
+      evidence:
+        - "no-hooks"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-lifecycle-policy"
+      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "not-present-in-promoted-render"
+    -
+      id: "stateful-workload"
+      detectedPainPoint: "stateful-workload affects apps/v1|StatefulSet|rabbitmq|rabbitmq"
+      evidence:
+        - "apps/v1|StatefulSet|rabbitmq|rabbitmq"
+      configHubHome: "operate-policy"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "pvc-policy"
+      detectedPainPoint: "StatefulSet volumeClaimTemplates need storage, retention, upgrade, and rollback policy."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "operate-policy"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "tpl"
+      detectedPainPoint: "configuration, advancedConfiguration, initScripts, secret names, and extraDeploy can use templating; promoted variants keep raw extension slots empty."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "extension-slot"
+      disposition: "handled-by-variant"
+      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "controlled-by-empty-defaults"
+    -
+      id: "installer-support-object"
+      detectedPainPoint: "installer-support-object affects v1|Namespace||rabbitmq"
+      evidence:
+        - "v1|Namespace||rabbitmq"
+      configHubHome: "recipe"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "scan-gate"
+      detectedPainPoint: "Current scan gate is warn-production-blocked"
+      evidence:
+        - "helm-plan.yaml"
+        - "scan receipts"
+        - "install gates"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "warn-production-blocked"
+    -
+      id: "value-model-diagnostics"
+      detectedPainPoint: "Helm values can be unknown, dead, misspelled, shadowed, or ignored unless the values model records the analysis boundary."
+      evidence:
+        - "value-model.yaml"
+      configHubHome: "value-model"
+      disposition: "absorbed-into-value-model"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
+  answerForSkepticalHelmUser: "bitnami/rabbitmq@16.0.14 maps its detected Helm pain to 11 ConfigHub control areas: source-lock, dependency-lock, capability-profile, generated-fact, target-fact-requirement, lifecycle-policy, operate-policy, extension-slot, recipe, scan-gate, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains blocked-by-current-scan-gate."

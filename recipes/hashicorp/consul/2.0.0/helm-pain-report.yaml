@@ -1,0 +1,163 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPainReport"
+metadata:
+  name: "hashicorp-consul-2.0.0"
+spec:
+  chart:
+    name: "hashicorp/consul"
+    version: "2.0.0"
+    source: "https://helm.releases.hashicorp.com"
+    digest: "41d0b30408cd3dbbfdafe5207f85d29111636d105dd17dba005ff5c857647dc0"
+  supportedScopeStatus: "no-unhandled-pain-points-for-supported-scopes"
+  supportedScopes:
+    - "local-test"
+  supportedVariants:
+    - "default-control-plane"
+    - "secure-mesh-existing-secrets"
+  productionReadiness: "blocked-by-current-scan-gate"
+  notes:
+    - "default-control-plane records the chart-default posture: TLS and ACLs disabled, server StatefulSet, injector webhook, webhook cert manager, 28 CRDs, and broad RBAC."
+    - "secure-mesh-existing-secrets enables TLS, ACL management, gossip encryption, mesh/ingress/terminating gateways, and UI ingress using declared target Secrets."
+    - "The secure variant disables gossip auto-generation and uses existing Secrets for CA, server cert, gossip key, and ACL bootstrap token."
+    - "Both variants render 28 CRDs, including Gateway API CRDs that can conflict with cluster-managed CRD ownership."
+    - "Helm hooks are excluded from proof renders, while the secure variant's normal ACL init Job remains visible as an install lifecycle object."
+    - "server extra config, injector, controller, gateway, and tpl-controlled strings are powerful extension surfaces; promoted variants keep them controlled."
+  painPoints:
+    -
+      id: "source-lock"
+      detectedPainPoint: "source-lock requires source-lock.yaml"
+      evidence:
+        - "source-lock.yaml"
+      configHubHome: "source-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "source-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "dependency-lock"
+      detectedPainPoint: "chart declares no subchart dependencies; the empty closure is recorded explicitly."
+      evidence:
+        - "dependency-lock.yaml"
+      configHubHome: "dependency-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "dependency-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "capability-profile"
+      detectedPainPoint: "Kubernetes API and version branches are bound to the named Kubernetes capability profile."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "capability-profile"
+      disposition: "handled-by-capability-profile"
+      linkedReceipt: "revisions/default-control-plane/r001/receipts/render-receipt.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "target-facts"
+      detectedPainPoint: "The secure-mesh-existing-secrets variant declares target Secrets for TLS, gossip encryption, and ACL bootstrap material."
+      evidence:
+        - "global.tls.caCert / server.serverCert / gossipEncryption / acl bootstrap token"
+      configHubHome: "target-fact-requirement"
+      disposition: "handled-by-target-fact-values"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "variant-controlled"
+    -
+      id: "crd-ownership"
+      detectedPainPoint: "The chart templates 28 CRDs, including Gateway API CRDs that may already be cluster-managed."
+      evidence:
+        - "28 rendered CRDs"
+      configHubHome: "recipe"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default-control-plane/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "stateful-workload"
+      detectedPainPoint: "stateful-workload affects apps/v1|StatefulSet|consul|consul-consul-server"
+      evidence:
+        - "apps/v1|StatefulSet|consul|consul-consul-server"
+      configHubHome: "operate-policy"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default-control-plane/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "admission-webhook"
+      detectedPainPoint: "admission-webhook affects admissionregistration.k8s.io/v1|MutatingWebhookConfiguration|consul|consul-consul-connect-injector"
+      evidence:
+        - "admissionregistration.k8s.io/v1|MutatingWebhookConfiguration|consul|consul-consul-connect-injector"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default-control-plane/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "cluster-rbac"
+      detectedPainPoint: "Default and secure variants render broad cluster RBAC for server, injector, gateway resources, and webhook certificate manager."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default-control-plane/r001/receipts/scan-receipt.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "mesh-gateway-policy"
+      detectedPainPoint: "The secure-mesh-existing-secrets variant enables mesh, ingress, and terminating gateways with ClusterIP services."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default-control-plane/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "variant-controlled"
+    -
+      id: "ui-ingress-policy"
+      detectedPainPoint: "ui-ingress-policy affects networking.k8s.io/v1|Ingress|consul|consul-consul-ui"
+      evidence:
+        - "networking.k8s.io/v1|Ingress|consul|consul-consul-ui"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default-control-plane/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "variant-controlled"
+    -
+      id: "lifecycle-policy"
+      detectedPainPoint: "Hooks are disabled in the proof render, while normal ACL init Job remains visible in the secure variant."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default-control-plane/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "extension-slots"
+      detectedPainPoint: "server extra config, injector, controller, gateway, and tpl-controlled strings are controlled in promoted variants."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "extension-slot"
+      disposition: "handled-by-variant"
+      linkedReceipt: "revisions/default-control-plane/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "controlled-by-empty-defaults"
+    -
+      id: "installer-support-object"
+      detectedPainPoint: "installer-support-object affects v1|Namespace||consul"
+      evidence:
+        - "v1|Namespace||consul"
+      configHubHome: "recipe"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/default-control-plane/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "scan-gate"
+      detectedPainPoint: "Current scan gate is warn-production-blocked"
+      evidence:
+        - "helm-plan.yaml"
+        - "scan receipts"
+        - "install gates"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default-control-plane/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "warn-production-blocked"
+    -
+      id: "value-model-diagnostics"
+      detectedPainPoint: "Helm values can be unknown, dead, misspelled, shadowed, or ignored unless the values model records the analysis boundary."
+      evidence:
+        - "value-model.yaml"
+      configHubHome: "value-model"
+      disposition: "absorbed-into-value-model"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
+  answerForSkepticalHelmUser: "hashicorp/consul@2.0.0 maps its detected Helm pain to 10 ConfigHub control areas: source-lock, dependency-lock, capability-profile, target-fact-requirement, recipe, operate-policy, lifecycle-policy, scan-gate, extension-slot, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains blocked-by-current-scan-gate."

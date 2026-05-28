@@ -34,6 +34,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Value model | [recipes/argo-cd/argo-cd/9.5.15/value-model.yaml](value-model.yaml) |
 | Weirdness and mitigations | [recipes/argo-cd/argo-cd/9.5.15/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/argo-cd/argo-cd/9.5.15/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/argo-cd/argo-cd/9.5.15/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/argo-cd/argo-cd/9.5.15](../../../../packages/argo-cd/argo-cd/9.5.15) |
 | Installer package receipt | [recipes/argo-cd/argo-cd/9.5.15/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/argo-cd/argo-cd/9.5.15/artifact-index.yaml](artifact-index.yaml) |

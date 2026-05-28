@@ -34,6 +34,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Value model | [recipes/jetstack/cert-manager/v1.20.2/value-model.yaml](value-model.yaml) |
 | Weirdness and mitigations | [recipes/jetstack/cert-manager/v1.20.2/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/jetstack/cert-manager/v1.20.2/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/jetstack/cert-manager/v1.20.2/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/jetstack/cert-manager/v1.20.2](../../../../packages/jetstack/cert-manager/v1.20.2) |
 | Installer package receipt | [recipes/jetstack/cert-manager/v1.20.2/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/jetstack/cert-manager/v1.20.2/artifact-index.yaml](artifact-index.yaml) |

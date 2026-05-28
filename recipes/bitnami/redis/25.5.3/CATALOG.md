@@ -34,6 +34,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Value model | [recipes/bitnami/redis/25.5.3/value-model.yaml](value-model.yaml) |
 | Weirdness and mitigations | [recipes/bitnami/redis/25.5.3/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/bitnami/redis/25.5.3/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/bitnami/redis/25.5.3/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/bitnami/redis/25.5.3](../../../../packages/bitnami/redis/25.5.3) |
 | Installer package receipt | [recipes/bitnami/redis/25.5.3/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/bitnami/redis/25.5.3/artifact-index.yaml](artifact-index.yaml) |

@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/grafana/tempo/1.24.4/control-points.yaml"
     valueModel: "recipes/grafana/tempo/1.24.4/value-model.yaml"
     weirdnessAndMitigations: "recipes/grafana/tempo/1.24.4/weirdness-and-mitigations.md"
+    helmPainReport: "recipes/grafana/tempo/1.24.4/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "chart-deprecation"

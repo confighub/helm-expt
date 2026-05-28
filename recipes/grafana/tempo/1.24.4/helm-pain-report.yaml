@@ -1,0 +1,163 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPainReport"
+metadata:
+  name: "grafana-tempo-1.24.4"
+spec:
+  chart:
+    name: "grafana/tempo"
+    version: "1.24.4"
+    source: "https://grafana.github.io/helm-charts"
+    digest: "f1f6e318d5bca3b5097cb676077796cdf8135beb2c1f71c4d14614ccf9b0081b"
+  supportedScopeStatus: "no-unhandled-pain-points-for-supported-scopes"
+  supportedScopes:
+    - "local-test"
+  supportedVariants:
+    - "local-persistent"
+    - "s3-query-observability"
+  productionReadiness: "blocked-by-current-scan-gate"
+  notes:
+    - "Chart.yaml marks this chart version deprecated, and the proof records that status."
+    - "local-persistent uses local Tempo storage and explicit PVC settings."
+    - "s3-query-observability switches to S3 storage, nulls local storage to avoid Helm merge residue, and references S3 credentials from a target Secret."
+    - "s3-query-observability adds Tempo Query ingress, NetworkPolicy, and ServiceMonitor behind explicit capability and policy checks."
+    - "The chart StatefulSet references serviceName tempo-headless, but these variants render no headless Service; the proof records this as an upstream/runtime risk."
+    - "config, structuredConfig, extra volumes/mounts, and tpl-controlled strings are powerful extension surfaces; promoted variants keep them controlled."
+  painPoints:
+    -
+      id: "source-lock"
+      detectedPainPoint: "source-lock requires source-lock.yaml"
+      evidence:
+        - "source-lock.yaml"
+      configHubHome: "source-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "source-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "dependency-lock"
+      detectedPainPoint: "chart declares no subchart dependencies; the empty closure is recorded explicitly."
+      evidence:
+        - "dependency-lock.yaml"
+      configHubHome: "dependency-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "dependency-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "capability-profile"
+      detectedPainPoint: "Kubernetes API and version branches are bound to the named Kubernetes capability profile."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "capability-profile"
+      disposition: "handled-by-capability-profile"
+      linkedReceipt: "revisions/local-persistent/r001/receipts/render-receipt.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "chart-deprecation"
+      detectedPainPoint: "The literal grafana/tempo chart is deprecated; the proof records that status and notes the maintained successor chart separately."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/local-persistent/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "noted"
+    -
+      id: "target-facts"
+      detectedPainPoint: "The s3-query-observability variant declares the target Secret for S3 credentials instead of embedding access keys in rendered ConfigMaps."
+      evidence:
+        - "tempo.extraEnv secretKeyRef"
+      configHubHome: "target-fact-requirement"
+      disposition: "handled-by-target-fact-values"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "variant-controlled"
+    -
+      id: "capability-profile-2"
+      detectedPainPoint: "The ServiceMonitor variant records the Prometheus Operator API as an explicit target capability."
+      evidence:
+        - "monitoring.coreos.com/v1"
+      configHubHome: "capability-profile"
+      disposition: "handled-by-capability-profile"
+      linkedReceipt: "revisions/local-persistent/r001/receipts/render-receipt.yaml"
+      supportedVariantStatus: "variant-controlled"
+    -
+      id: "stateful-workload"
+      detectedPainPoint: "stateful-workload affects apps/v1|StatefulSet|tempo|tempo"
+      evidence:
+        - "apps/v1|StatefulSet|tempo|tempo"
+      configHubHome: "operate-policy"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/local-persistent/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "query-ingress-policy"
+      detectedPainPoint: "query-ingress-policy affects networking.k8s.io/v1|Ingress|tempo|tempo"
+      evidence:
+        - "networking.k8s.io/v1|Ingress|tempo|tempo"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/local-persistent/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "variant-controlled"
+    -
+      id: "network-policy"
+      detectedPainPoint: "network-policy affects networking.k8s.io/v1|NetworkPolicy|tempo|tempo"
+      evidence:
+        - "networking.k8s.io/v1|NetworkPolicy|tempo|tempo"
+      configHubHome: "recipe"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/local-persistent/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "servicemonitor-capability"
+      detectedPainPoint: "servicemonitor-capability affects monitoring.coreos.com/v1|ServiceMonitor|tempo|tempo"
+      evidence:
+        - "monitoring.coreos.com/v1|ServiceMonitor|tempo|tempo"
+      configHubHome: "capability-profile"
+      disposition: "handled-by-capability-profile"
+      linkedReceipt: "revisions/local-persistent/r001/receipts/render-receipt.yaml"
+      supportedVariantStatus: "variant-controlled"
+    -
+      id: "upstream-runtime-risk"
+      detectedPainPoint: "The chart StatefulSet references serviceName tempo-headless, but the chart renders no headless Service in these variants."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/local-persistent/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "extension-slots"
+      detectedPainPoint: "config, structuredConfig, extra volume/mount, and tpl-controlled strings are controlled in promoted variants."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "extension-slot"
+      disposition: "handled-by-variant"
+      linkedReceipt: "revisions/local-persistent/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "controlled-by-empty-defaults"
+    -
+      id: "installer-support-object"
+      detectedPainPoint: "installer-support-object affects v1|Namespace||tempo"
+      evidence:
+        - "v1|Namespace||tempo"
+      configHubHome: "recipe"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/local-persistent/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "scan-gate"
+      detectedPainPoint: "Current scan gate is warn-production-blocked"
+      evidence:
+        - "helm-plan.yaml"
+        - "scan receipts"
+        - "install gates"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/local-persistent/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "warn-production-blocked"
+    -
+      id: "value-model-diagnostics"
+      detectedPainPoint: "Helm values can be unknown, dead, misspelled, shadowed, or ignored unless the values model records the analysis boundary."
+      evidence:
+        - "value-model.yaml"
+      configHubHome: "value-model"
+      disposition: "absorbed-into-value-model"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
+  answerForSkepticalHelmUser: "grafana/tempo@1.24.4 maps its detected Helm pain to 9 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, target-fact-requirement, operate-policy, extension-slot, scan-gate, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains blocked-by-current-scan-gate."

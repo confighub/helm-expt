@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/ingress-nginx/ingress-nginx/4.15.1/control-points.yaml"
     valueModel: "recipes/ingress-nginx/ingress-nginx/4.15.1/value-model.yaml"
     weirdnessAndMitigations: "recipes/ingress-nginx/ingress-nginx/4.15.1/weirdness-and-mitigations.md"
+    helmPainReport: "recipes/ingress-nginx/ingress-nginx/4.15.1/helm-pain-report.yaml"
     controlPointCategories:
       - "admission-webhook"
       - "capability-profile"

@@ -1,0 +1,156 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPainReport"
+metadata:
+  name: "bitnami-mongodb-19.0.7"
+spec:
+  chart:
+    name: "bitnami/mongodb"
+    version: "19.0.7"
+    source: "https://charts.bitnami.com/bitnami"
+    digest: "b683020c57f26be88e47ab9f837f1a68dc9c0076e40f5eb50fde54d29a5888ea"
+  supportedScopeStatus: "no-unhandled-pain-points-for-supported-scopes"
+  supportedScopes:
+    - "local-test"
+  supportedVariants:
+    - "generated-passwords"
+    - "existing-secret-replicaset"
+  productionReadiness: "blocked-by-current-scan-gate"
+  notes:
+    - "Default chart rendering is nondeterministic unless auth.rootPassword is bound before render."
+    - "generated-passwords variant persists auth.rootPassword as a generated fact and renders the Secret deterministically."
+    - "existing-secret-replicaset variant does not render a Secret and instead declares mongodb/mongodb-auth as a target fact."
+    - "existing-secret-replicaset variant changes architecture to replicaset and renders primary plus arbiter StatefulSets."
+    - "Chart declares the Bitnami common dependency and records it in dependency-lock.yaml."
+    - "Chart source contains Helm hook annotations; the rendered proof excludes hooks and keeps lifecycle policy explicit."
+    - "MongoDB renders persistent storage, NetworkPolicy, and PDB objects that need production policy."
+    - "initdb and extended configuration are template-powered extension slots; promoted variants keep them empty."
+  painPoints:
+    -
+      id: "source-lock"
+      detectedPainPoint: "source-lock requires source-lock.yaml"
+      evidence:
+        - "source-lock.yaml"
+      configHubHome: "source-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "source-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "dependency-lock"
+      detectedPainPoint: "chart declares the Bitnami common dependency; promoted variants lock its metadata."
+      evidence:
+        - "dependency-lock.yaml"
+      configHubHome: "dependency-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "dependency-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "capability-profile"
+      detectedPainPoint: "Kubernetes API and version branches are bound to the named Kubernetes capability profile."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "capability-profile"
+      disposition: "handled-by-capability-profile"
+      linkedReceipt: "revisions/generated-passwords/r001/receipts/render-receipt.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "generated-facts"
+      detectedPainPoint: "The generated-passwords variant binds the generated root password before render so Helm output is deterministic."
+      evidence:
+        - "auth.rootPassword"
+      configHubHome: "generated-fact"
+      disposition: "handled-by-generated-facts"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "variant-controlled"
+    -
+      id: "target-facts"
+      detectedPainPoint: "The existing-secret-replicaset variant declares the target Secret instead of rendering one."
+      evidence:
+        - "auth.existingSecret"
+      configHubHome: "target-fact-requirement"
+      disposition: "handled-by-target-fact-values"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "variant-controlled"
+    -
+      id: "hook-policy"
+      detectedPainPoint: "Chart source contains Helm hooks; the proof render excludes hooks and lifecycle policy must handle them before production."
+      evidence:
+        - "no-hooks"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-lifecycle-policy"
+      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled-for-render"
+    -
+      id: "replicaset-topology"
+      detectedPainPoint: "replicaset-topology affects apps/v1|StatefulSet|mongodb|mongodb"
+      evidence:
+        - "apps/v1|StatefulSet|mongodb|mongodb"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "variant-controlled"
+    -
+      id: "workload-policy"
+      detectedPainPoint: "Deployment/StatefulSet workloads need storage, retention, upgrade, and rollback policy."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "network-policy"
+      detectedPainPoint: "network-policy affects networking.k8s.io/v1|NetworkPolicy|mongodb|mongodb"
+      evidence:
+        - "networking.k8s.io/v1|NetworkPolicy|mongodb|mongodb"
+      configHubHome: "recipe"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "pdb-policy"
+      detectedPainPoint: "pdb-policy affects policy/v1|PodDisruptionBudget|mongodb|mongodb"
+      evidence:
+        - "policy/v1|PodDisruptionBudget|mongodb|mongodb"
+      configHubHome: "recipe"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "tpl"
+      detectedPainPoint: "initdb and extended configuration slots use templating; promoted variants do not populate them."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "extension-slot"
+      disposition: "handled-by-variant"
+      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "controlled-by-empty-defaults"
+    -
+      id: "installer-support-object"
+      detectedPainPoint: "installer-support-object affects v1|Namespace||mongodb"
+      evidence:
+        - "v1|Namespace||mongodb"
+      configHubHome: "recipe"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "scan-gate"
+      detectedPainPoint: "Current scan gate is warn-production-blocked"
+      evidence:
+        - "helm-plan.yaml"
+        - "scan receipts"
+        - "install gates"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "warn-production-blocked"
+    -
+      id: "value-model-diagnostics"
+      detectedPainPoint: "Helm values can be unknown, dead, misspelled, shadowed, or ignored unless the values model records the analysis boundary."
+      evidence:
+        - "value-model.yaml"
+      configHubHome: "value-model"
+      disposition: "absorbed-into-value-model"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
+  answerForSkepticalHelmUser: "bitnami/mongodb@19.0.7 maps its detected Helm pain to 10 ConfigHub control areas: source-lock, dependency-lock, capability-profile, generated-fact, target-fact-requirement, lifecycle-policy, recipe, extension-slot, scan-gate, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains blocked-by-current-scan-gate."

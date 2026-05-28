@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/hashicorp/consul/2.0.0/control-points.yaml"
     valueModel: "recipes/hashicorp/consul/2.0.0/value-model.yaml"
     weirdnessAndMitigations: "recipes/hashicorp/consul/2.0.0/weirdness-and-mitigations.md"
+    helmPainReport: "recipes/hashicorp/consul/2.0.0/helm-pain-report.yaml"
     controlPointCategories:
       - "admission-webhook"
       - "capability-profile"

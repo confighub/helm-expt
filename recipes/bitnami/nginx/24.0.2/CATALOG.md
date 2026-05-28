@@ -34,6 +34,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Value model | [recipes/bitnami/nginx/24.0.2/value-model.yaml](value-model.yaml) |
 | Weirdness and mitigations | [recipes/bitnami/nginx/24.0.2/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/bitnami/nginx/24.0.2/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/bitnami/nginx/24.0.2/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/bitnami/nginx/24.0.2](../../../../packages/bitnami/nginx/24.0.2) |
 | Installer package receipt | [recipes/bitnami/nginx/24.0.2/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/bitnami/nginx/24.0.2/artifact-index.yaml](artifact-index.yaml) |

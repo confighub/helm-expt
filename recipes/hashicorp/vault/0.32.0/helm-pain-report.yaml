@@ -1,0 +1,145 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPainReport"
+metadata:
+  name: "hashicorp-vault-0.32.0"
+spec:
+  chart:
+    name: "hashicorp/vault"
+    version: "0.32.0"
+    source: "https://helm.releases.hashicorp.com"
+    digest: "e31ddf3f6dd031c0f5407dd6b63361ea5ff655f89c781049b39f4c2a95a6f88a"
+  supportedScopeStatus: "no-unhandled-pain-points-for-supported-scopes"
+  supportedScopes:
+    - "local-test"
+  supportedVariants:
+    - "default"
+    - "ha-raft-ui"
+  productionReadiness: "blocked-by-current-scan-gate"
+  notes:
+    - "The chart renders deterministically under pinned Helm, chart version, kube version, and values."
+    - "The default variant keeps the chart defaults: standalone Vault server, injector webhook, and TLS disabled in the rendered Vault config."
+    - "The ha-raft-ui variant enables integrated Raft HA and the UI Service as deliberate variant-controlled outputs."
+    - "The chart does not initialize or unseal Vault; init/unseal and recovery material are operating controls, not hidden render inputs."
+    - "Injector webhook, cluster RBAC, TLS posture, storage, and service exposure are scan/gate review points."
+    - "extra environment, Secret, volume, plugin, init, and sidecar extension slots are powerful config surfaces; promoted variants keep them empty."
+  painPoints:
+    -
+      id: "source-lock"
+      detectedPainPoint: "source-lock requires source-lock.yaml"
+      evidence:
+        - "source-lock.yaml"
+      configHubHome: "source-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "source-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "dependency-lock"
+      detectedPainPoint: "chart declares no subchart dependencies; the empty closure is recorded explicitly."
+      evidence:
+        - "dependency-lock.yaml"
+      configHubHome: "dependency-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "dependency-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "capability-profile"
+      detectedPainPoint: "Kubernetes API and version branches are bound to the named Kubernetes capability profile."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "capability-profile"
+      disposition: "handled-by-capability-profile"
+      linkedReceipt: "revisions/default/r001/receipts/render-receipt.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "stateful-workload"
+      detectedPainPoint: "stateful-workload affects apps/v1|StatefulSet|vault|vault"
+      evidence:
+        - "apps/v1|StatefulSet|vault|vault"
+      configHubHome: "operate-policy"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "admission-webhook"
+      detectedPainPoint: "admission-webhook affects admissionregistration.k8s.io/v1|MutatingWebhookConfiguration||vault-agent-injector-cfg"
+      evidence:
+        - "admissionregistration.k8s.io/v1|MutatingWebhookConfiguration||vault-agent-injector-cfg"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "service-exposure"
+      detectedPainPoint: "service-exposure affects v1|Service|vault|vault-ui"
+      evidence:
+        - "v1|Service|vault|vault-ui"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "variant-controlled"
+    -
+      id: "tls-posture"
+      detectedPainPoint: "tls-posture requires v1|ConfigMap|vault|vault-config"
+      evidence:
+        - "v1|ConfigMap|vault|vault-config"
+      configHubHome: "recipe"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "cluster-rbac"
+      detectedPainPoint: "cluster-rbac affects rbac.authorization.k8s.io/v1|ClusterRole||vault-agent-injector-clusterrole"
+      evidence:
+        - "rbac.authorization.k8s.io/v1|ClusterRole||vault-agent-injector-clusterrole"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/scan-receipt.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "operate-policy"
+      detectedPainPoint: "Vault init, unseal, seal migration, and recovery material are post-render operating controls."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "extension-slots"
+      detectedPainPoint: "extra environment, Secret, volume, plugin, init, and sidecar slots are empty in promoted variants."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "extension-slot"
+      disposition: "handled-by-variant"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "controlled-by-empty-defaults"
+    -
+      id: "installer-support-object"
+      detectedPainPoint: "installer-support-object affects v1|Namespace||vault"
+      evidence:
+        - "v1|Namespace||vault"
+      configHubHome: "recipe"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "scan-gate"
+      detectedPainPoint: "Current scan gate is warn-production-blocked"
+      evidence:
+        - "helm-plan.yaml"
+        - "scan receipts"
+        - "install gates"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "warn-production-blocked"
+    -
+      id: "value-model-diagnostics"
+      detectedPainPoint: "Helm values can be unknown, dead, misspelled, shadowed, or ignored unless the values model records the analysis boundary."
+      evidence:
+        - "value-model.yaml"
+      configHubHome: "value-model"
+      disposition: "absorbed-into-value-model"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
+  answerForSkepticalHelmUser: "hashicorp/vault@0.32.0 maps its detected Helm pain to 9 ConfigHub control areas: source-lock, dependency-lock, capability-profile, operate-policy, lifecycle-policy, recipe, scan-gate, extension-slot, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains blocked-by-current-scan-gate."

@@ -34,6 +34,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Value model | [recipes/bitnami/mysql/14.0.3/value-model.yaml](value-model.yaml) |
 | Weirdness and mitigations | [recipes/bitnami/mysql/14.0.3/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/bitnami/mysql/14.0.3/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/bitnami/mysql/14.0.3/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/bitnami/mysql/14.0.3](../../../../packages/bitnami/mysql/14.0.3) |
 | Installer package receipt | [recipes/bitnami/mysql/14.0.3/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/bitnami/mysql/14.0.3/artifact-index.yaml](artifact-index.yaml) |

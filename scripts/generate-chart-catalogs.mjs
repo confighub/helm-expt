@@ -85,6 +85,7 @@ function buildChartCatalog(root) {
   const packageRoot = join(repoRoot, packagePath);
   const installerPath = join(packageRoot, "installer.yaml");
   const weirdnessPath = join(root, "weirdness-and-mitigations.md");
+  const painReportPath = join(root, "helm-pain-report.yaml");
   check(existsSync(installerPath), `${relativeRepo(root)} package installer missing: ${packagePath}/installer.yaml`);
   const installer = readYaml(installerPath);
   const packageBases = (installer.spec?.bases ?? []).map((base) => ({
@@ -136,6 +137,7 @@ function buildChartCatalog(root) {
         controlPoints: relativeRepo(join(root, "control-points.yaml")),
         valueModel: relativeRepo(join(root, "value-model.yaml")),
         weirdnessAndMitigations: existsSync(weirdnessPath) ? relativeRepo(weirdnessPath) : "",
+        ...(existsSync(painReportPath) ? { helmPainReport: relativeRepo(painReportPath) } : {}),
         controlPointCategories,
       },
       catalogStatus: {
@@ -368,7 +370,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | ${linkFrom(root, recipe.controlPoints)} |
 | Value model | ${linkFrom(root, recipe.valueModel)} |
 ${recipe.weirdnessAndMitigations ? `| Weirdness and mitigations | ${linkFrom(root, recipe.weirdnessAndMitigations)} |\n` : ""}| Catalog status | ${linkFrom(root, status.path)} |
-| Installer package | ${linkFrom(root, packageInfo.path)} |
+${recipe.helmPainReport ? `| Helm pain report | ${linkFrom(root, recipe.helmPainReport)} |\n` : ""}| Installer package | ${linkFrom(root, packageInfo.path)} |
 | Installer package receipt | ${linkFrom(root, packageInfo.receipt)} |
 | Machine index | ${linkFrom(root, relativeRepo(join(root, "artifact-index.yaml")))} |
 

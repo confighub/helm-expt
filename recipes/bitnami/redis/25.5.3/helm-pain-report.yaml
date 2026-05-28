@@ -1,74 +1,117 @@
-apiVersion: helm-expt.confighub.com/v1alpha1
-kind: HelmPainReport
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPainReport"
 metadata:
-  name: bitnami-redis-25.5.3
+  name: "bitnami-redis-25.5.3"
 spec:
   chart:
-    name: bitnami/redis
-    version: 25.5.3
-    source: oci://registry-1.docker.io/bitnamicharts/redis:25.5.3
+    name: "bitnami/redis"
+    version: "25.5.3"
+    source: "oci://registry-1.docker.io/bitnamicharts/redis:25.5.3"
     digest: "aa5360967bc1adadf69f0ce91d762f0bb4d80ca36758b37d7d8f1ef981257baf"
-  defaultPathStatus: no-unhandled-pain-points
+  supportedScopeStatus: "no-unhandled-pain-points-for-supported-scopes"
+  defaultPathStatus: "no-unhandled-pain-points"
+  supportedScopes:
+    - "local-test"
+  supportedVariants:
+    - "default"
+    - "reuse-existing-secret"
+  productionReadiness: "blocked-by-current-scan-gate"
+  notes:
+    - "Redis is stateful; PVC and credential behavior require explicit variant policy."
+    - "Bitnami Redis can generate credentials unless a password/existing secret path is provided."
+    - "Default and reuse-existing-secret are the first proof variants; HA is a later slice."
   painPoints:
-    - id: generated-redis-password
-      detectedPainPoint: "chart can generate or render Redis credentials"
+    -
+      id: "source-lock"
+      detectedPainPoint: "source-lock requires source-lock.yaml"
       evidence:
-        - chart-dossier.yaml
-        - value-model.yaml
-        - effective-values.yaml
-        - revisions/default/r001/receipts/generated-fact-receipt.yaml
-      configHubHome: generated-fact
-      disposition: handled-by-generated-facts
-      linkedReceipt: revisions/default/r001/receipts/generated-fact-receipt.yaml
-      defaultVariantStatus: handled
-    - id: reuse-existing-secret-target-fact
-      detectedPainPoint: "existing Secret installs require a target-side Secret and key"
+        - "source-lock.yaml"
+      configHubHome: "source-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "source-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "dependency-lock"
+      detectedPainPoint: "dependency-lock requires dependency-lock.yaml"
       evidence:
-        - variants/reuse-existing-secret/variant.yaml
-        - diffs/default-to-reuse-existing-secret.yaml
-      configHubHome: target-fact-requirement
-      disposition: absorbed-into-recipe-target-facts
-      linkedReceipt: diffs/default-to-reuse-existing-secret.yaml
-      defaultVariantStatus: not-applicable
-    - id: capability-branching
-      detectedPainPoint: "Helm render can branch on Kubernetes capabilities"
+        - "dependency-lock.yaml"
+      configHubHome: "dependency-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "dependency-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "generated-facts"
+      detectedPainPoint: "auth.password is deterministic in this proof; future generated-fact receipt should own this."
       evidence:
-        - data/capability-profiles/catalog.yaml#k8s-1.30-default
-        - revisions/default/r001/receipts/render-receipt.yaml
-      configHubHome: capability-profile
-      disposition: handled-by-capability-profile
-      linkedReceipt: revisions/default/r001/receipts/render-receipt.yaml
-      defaultVariantStatus: handled
-    - id: helm-hooks
-      detectedPainPoint: "Helm hooks can add procedural install behavior"
+        - "effective-values.yaml"
+      configHubHome: "generated-fact"
+      disposition: "handled-by-generated-facts"
+      linkedReceipt: "revisions/default/r001/receipts/generated-fact-receipt.yaml"
+      supportedVariantStatus: "handled-for-default-proof"
+    -
+      id: "target-facts"
+      detectedPainPoint: "target-facts requires variants/reuse-existing-secret/variant.yaml"
       evidence:
-        - control-points.yaml
-      configHubHome: lifecycle-policy
-      disposition: handled-by-lifecycle-policy
-      linkedReceipt: revisions/default/r001/receipts/install-gate.yaml
-      defaultVariantStatus: handled
-    - id: rendered-secret-separation
-      detectedPainPoint: "default chart render includes a Secret object"
+        - "variants/reuse-existing-secret/variant.yaml"
+        - "declared-required-target-facts"
+      configHubHome: "target-fact-requirement"
+      disposition: "handled-by-target-fact-values"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "required-for-reuse-existing-secret"
+    -
+      id: "capability-profile"
+      detectedPainPoint: "capability-profile is detected in this chart and mapped to a ConfigHub control point"
       evidence:
-        - revisions/default/r001/receipts/helm-equivalence-receipt.yaml
-      configHubHome: recipe
-      disposition: absorbed-into-recipe
-      linkedReceipt: revisions/default/r001/receipts/helm-equivalence-receipt.yaml
-      defaultVariantStatus: handled
-    - id: mutable-image-tags
-      detectedPainPoint: "chart renders mutable latest image tags"
+        - "control-points.yaml"
+      configHubHome: "capability-profile"
+      disposition: "handled-by-capability-profile"
+      linkedReceipt: "revisions/default/r001/receipts/render-receipt.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "hook-policy"
+      detectedPainPoint: "hook-policy is detected in this chart and mapped to a ConfigHub control point"
       evidence:
-        - revisions/default/r001/receipts/scan-receipt.yaml
-      configHubHome: scan-gate
-      disposition: handled-by-scan-or-gate
-      linkedReceipt: revisions/default/r001/receipts/install-gate.yaml
-      defaultVariantStatus: handled-with-warning
-    - id: unknown-or-ignored-values
-      detectedPainPoint: "a user can set a misspelled value path and Helm will ignore it"
+        - "no-hooks"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-lifecycle-policy"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "secret-handling"
+      detectedPainPoint: "cub install separates one rendered Secret from uploaded manifests."
       evidence:
-        - values-diagnostics.yaml
-      configHubHome: value-model
-      disposition: absorbed-into-value-model
-      linkedReceipt: values-diagnostics.yaml
-      defaultVariantStatus: handled
-  answerForSkepticalHelmUser: "For Redis default, ConfigHub found generated credential risk, capability branching, hook policy, rendered Secret handling, mutable image scan findings, and ignored-value risk. Each one is mapped to a recipe artifact, generated fact, capability profile, lifecycle policy, scan/gate, or value diagnostic. There are no unhandled pain points on the default proof path."
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "installer-support-object"
+      detectedPainPoint: "installer-support-object affects v1|Namespace||redis"
+      evidence:
+        - "v1|Namespace||redis"
+      configHubHome: "recipe"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "scan-gate"
+      detectedPainPoint: "Current scan gate is warn-production-blocked"
+      evidence:
+        - "helm-plan.yaml"
+        - "scan receipts"
+        - "install gates"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "warn-production-blocked"
+    -
+      id: "value-model-diagnostics"
+      detectedPainPoint: "Helm values can be unknown, dead, misspelled, shadowed, or ignored unless the values model records the analysis boundary."
+      evidence:
+        - "value-model.yaml"
+      configHubHome: "value-model"
+      disposition: "absorbed-into-value-model"
+      linkedReceipt: "values-diagnostics.yaml"
+      supportedVariantStatus: "unknown=checked-for-proof-path; dead=checked-for-proof-path; ignored=checked-for-proof-path"
+  answerForSkepticalHelmUser: "bitnami/redis@25.5.3 maps its detected Helm pain to 9 ConfigHub control areas: source-lock, dependency-lock, generated-fact, target-fact-requirement, capability-profile, lifecycle-policy, recipe, scan-gate, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains blocked-by-current-scan-gate."

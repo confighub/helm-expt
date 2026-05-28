@@ -34,6 +34,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Value model | [recipes/grafana/tempo/1.24.4/value-model.yaml](value-model.yaml) |
 | Weirdness and mitigations | [recipes/grafana/tempo/1.24.4/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/grafana/tempo/1.24.4/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/grafana/tempo/1.24.4/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/grafana/tempo/1.24.4](../../../../packages/grafana/tempo/1.24.4) |
 | Installer package receipt | [recipes/grafana/tempo/1.24.4/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/grafana/tempo/1.24.4/artifact-index.yaml](artifact-index.yaml) |

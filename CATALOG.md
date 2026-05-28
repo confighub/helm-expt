@@ -85,6 +85,7 @@ Status: catalog-supported
 Production readiness: blocked-by-current-scan-gate
 Package: [packages/bitnami/redis/25.5.3](packages/bitnami/redis/25.5.3)
 Per-chart catalog: [CATALOG.md](recipes/bitnami/redis/25.5.3/CATALOG.md)
+Helm pain report: [helm-pain-report.yaml](recipes/bitnami/redis/25.5.3/helm-pain-report.yaml)
 
 Start here:
 
@@ -123,6 +124,7 @@ Status: catalog-supported
 Production readiness: blocked-by-current-scan-gate
 Package: [packages/metrics-server/metrics-server/3.13.0](packages/metrics-server/metrics-server/3.13.0)
 Per-chart catalog: [CATALOG.md](recipes/metrics-server/metrics-server/3.13.0/CATALOG.md)
+Helm pain report: [helm-pain-report.yaml](recipes/metrics-server/metrics-server/3.13.0/helm-pain-report.yaml)
 
 Start here:
 
@@ -161,6 +163,7 @@ Status: catalog-supported
 Production readiness: blocked-by-current-scan-gate
 Package: [packages/ingress-nginx/ingress-nginx/4.15.1](packages/ingress-nginx/ingress-nginx/4.15.1)
 Per-chart catalog: [CATALOG.md](recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.md)
+Helm pain report: [helm-pain-report.yaml](recipes/ingress-nginx/ingress-nginx/4.15.1/helm-pain-report.yaml)
 
 Start here:
 
@@ -199,6 +202,7 @@ Status: catalog-supported
 Production readiness: blocked-by-current-scan-gate
 Package: [packages/jetstack/cert-manager/v1.20.2](packages/jetstack/cert-manager/v1.20.2)
 Per-chart catalog: [CATALOG.md](recipes/jetstack/cert-manager/v1.20.2/CATALOG.md)
+Helm pain report: [helm-pain-report.yaml](recipes/jetstack/cert-manager/v1.20.2/helm-pain-report.yaml)
 
 Start here:
 
@@ -237,6 +241,7 @@ Status: catalog-supported
 Production readiness: blocked-by-current-scan-gate
 Package: [packages/external-secrets/external-secrets/2.5.0](packages/external-secrets/external-secrets/2.5.0)
 Per-chart catalog: [CATALOG.md](recipes/external-secrets/external-secrets/2.5.0/CATALOG.md)
+Helm pain report: [helm-pain-report.yaml](recipes/external-secrets/external-secrets/2.5.0/helm-pain-report.yaml)
 
 Start here:
 
@@ -275,6 +280,7 @@ Status: catalog-supported
 Production readiness: blocked-by-current-scan-gate
 Package: [packages/argo-cd/argo-cd/9.5.15](packages/argo-cd/argo-cd/9.5.15)
 Per-chart catalog: [CATALOG.md](recipes/argo-cd/argo-cd/9.5.15/CATALOG.md)
+Helm pain report: [helm-pain-report.yaml](recipes/argo-cd/argo-cd/9.5.15/helm-pain-report.yaml)
 
 Start here:
 
@@ -313,6 +319,7 @@ Status: catalog-supported
 Production readiness: blocked-by-current-scan-gate
 Package: [packages/bitnami/postgresql/18.6.7](packages/bitnami/postgresql/18.6.7)
 Per-chart catalog: [CATALOG.md](recipes/bitnami/postgresql/18.6.7/CATALOG.md)
+Helm pain report: [helm-pain-report.yaml](recipes/bitnami/postgresql/18.6.7/helm-pain-report.yaml)
 
 Start here:
 
@@ -351,6 +358,7 @@ Status: catalog-supported
 Production readiness: blocked-by-current-scan-gate
 Package: [packages/bitnami/rabbitmq/16.0.14](packages/bitnami/rabbitmq/16.0.14)
 Per-chart catalog: [CATALOG.md](recipes/bitnami/rabbitmq/16.0.14/CATALOG.md)
+Helm pain report: [helm-pain-report.yaml](recipes/bitnami/rabbitmq/16.0.14/helm-pain-report.yaml)
 
 Start here:
 
@@ -389,6 +397,7 @@ Status: catalog-supported
 Production readiness: blocked-by-current-scan-gate
 Package: [packages/prometheus-community/kube-prometheus-stack/85.3.3](packages/prometheus-community/kube-prometheus-stack/85.3.3)
 Per-chart catalog: [CATALOG.md](recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md)
+Helm pain report: [helm-pain-report.yaml](recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml)
 
 Start here:
 
@@ -427,6 +436,7 @@ Status: catalog-supported
 Production readiness: blocked-by-current-scan-gate
 Package: [packages/grafana/loki/7.0.0](packages/grafana/loki/7.0.0)
 Per-chart catalog: [CATALOG.md](recipes/grafana/loki/7.0.0/CATALOG.md)
+Helm pain report: [helm-pain-report.yaml](recipes/grafana/loki/7.0.0/helm-pain-report.yaml)
 
 Start here:
 
@@ -465,6 +475,7 @@ Status: catalog-supported
 Production readiness: blocked-by-current-scan-gate
 Package: [packages/longhorn/longhorn/1.11.2](packages/longhorn/longhorn/1.11.2)
 Per-chart catalog: [CATALOG.md](recipes/longhorn/longhorn/1.11.2/CATALOG.md)
+Helm pain report: [helm-pain-report.yaml](recipes/longhorn/longhorn/1.11.2/helm-pain-report.yaml)
 
 Start here:
 
@@ -503,6 +514,7 @@ Status: catalog-supported
 Production readiness: blocked-by-current-scan-gate
 Package: [packages/bitnami/mysql/14.0.3](packages/bitnami/mysql/14.0.3)
 Per-chart catalog: [CATALOG.md](recipes/bitnami/mysql/14.0.3/CATALOG.md)
+Helm pain report: [helm-pain-report.yaml](recipes/bitnami/mysql/14.0.3/helm-pain-report.yaml)
 
 Start here:
 
@@ -541,6 +553,7 @@ Status: catalog-supported
 Production readiness: blocked-by-current-scan-gate
 Package: [packages/grafana/grafana/10.5.15](packages/grafana/grafana/10.5.15)
 Per-chart catalog: [CATALOG.md](recipes/grafana/grafana/10.5.15/CATALOG.md)
+Helm pain report: [helm-pain-report.yaml](recipes/grafana/grafana/10.5.15/helm-pain-report.yaml)
 
 Start here:
 
@@ -579,6 +592,7 @@ Status: catalog-supported
 Production readiness: blocked-by-current-scan-gate
 Package: [packages/hashicorp/vault/0.32.0](packages/hashicorp/vault/0.32.0)
 Per-chart catalog: [CATALOG.md](recipes/hashicorp/vault/0.32.0/CATALOG.md)
+Helm pain report: [helm-pain-report.yaml](recipes/hashicorp/vault/0.32.0/helm-pain-report.yaml)
 
 Start here:
 
@@ -617,6 +631,7 @@ Status: catalog-supported
 Production readiness: blocked-by-current-scan-gate
 Package: [packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0](packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0)
 Per-chart catalog: [CATALOG.md](recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.md)
+Helm pain report: [helm-pain-report.yaml](recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/helm-pain-report.yaml)
 
 Start here:
 
@@ -655,6 +670,7 @@ Status: catalog-supported
 Production readiness: blocked-by-current-scan-gate
 Package: [packages/prometheus-community/prometheus/29.8.0](packages/prometheus-community/prometheus/29.8.0)
 Per-chart catalog: [CATALOG.md](recipes/prometheus-community/prometheus/29.8.0/CATALOG.md)
+Helm pain report: [helm-pain-report.yaml](recipes/prometheus-community/prometheus/29.8.0/helm-pain-report.yaml)
 
 Start here:
 
@@ -693,6 +709,7 @@ Status: catalog-supported
 Production readiness: blocked-by-current-scan-gate
 Package: [packages/bitnami/mongodb/19.0.7](packages/bitnami/mongodb/19.0.7)
 Per-chart catalog: [CATALOG.md](recipes/bitnami/mongodb/19.0.7/CATALOG.md)
+Helm pain report: [helm-pain-report.yaml](recipes/bitnami/mongodb/19.0.7/helm-pain-report.yaml)
 
 Start here:
 
@@ -731,6 +748,7 @@ Status: catalog-supported
 Production readiness: blocked-by-current-scan-gate
 Package: [packages/bitnami/nginx/24.0.2](packages/bitnami/nginx/24.0.2)
 Per-chart catalog: [CATALOG.md](recipes/bitnami/nginx/24.0.2/CATALOG.md)
+Helm pain report: [helm-pain-report.yaml](recipes/bitnami/nginx/24.0.2/helm-pain-report.yaml)
 
 Start here:
 
@@ -769,6 +787,7 @@ Status: catalog-supported
 Production readiness: blocked-by-current-scan-gate
 Package: [packages/grafana/tempo/1.24.4](packages/grafana/tempo/1.24.4)
 Per-chart catalog: [CATALOG.md](recipes/grafana/tempo/1.24.4/CATALOG.md)
+Helm pain report: [helm-pain-report.yaml](recipes/grafana/tempo/1.24.4/helm-pain-report.yaml)
 
 Start here:
 
@@ -807,6 +826,7 @@ Status: catalog-supported
 Production readiness: blocked-by-current-scan-gate
 Package: [packages/hashicorp/consul/2.0.0](packages/hashicorp/consul/2.0.0)
 Per-chart catalog: [CATALOG.md](recipes/hashicorp/consul/2.0.0/CATALOG.md)
+Helm pain report: [helm-pain-report.yaml](recipes/hashicorp/consul/2.0.0/helm-pain-report.yaml)
 
 Start here:
 

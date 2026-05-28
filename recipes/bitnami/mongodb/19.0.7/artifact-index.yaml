@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/bitnami/mongodb/19.0.7/control-points.yaml"
     valueModel: "recipes/bitnami/mongodb/19.0.7/value-model.yaml"
     weirdnessAndMitigations: "recipes/bitnami/mongodb/19.0.7/weirdness-and-mitigations.md"
+    helmPainReport: "recipes/bitnami/mongodb/19.0.7/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"
