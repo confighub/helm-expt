@@ -15,7 +15,8 @@ objects that were reviewed.
 
 ConfigHub provides a place to store configs that can be customised, reasoned about
 and changed into 'variants' for specific deployment scenarios.  In this repo we
-use AI to analyse public Helm charts and create a deterministic installation.
+use AI to analyse public Helm charts and create a deterministic installation.  
+We have live tested these ie. deployed and observed on local kind.
 
 We use https://github.com/confighub/installer 
 
@@ -33,6 +34,8 @@ to make custom changes, explicitly showing the objects, the diffs and more.
 We have used AI for Helm chart analysis and recipe creation. We use
 `cub install` to prove the resulting recipes produce correct, safe and
 Helm-equivalent, reviewable ConfigHub variants for 'correct operations'.
+
+See `data/live-e2e/summary.md` for the 20 charts and live/e2e status.
 
 ## Key Areas of Work
 
