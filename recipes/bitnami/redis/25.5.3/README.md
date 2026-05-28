@@ -18,6 +18,18 @@
 | Next action | resolve or waive local scan findings, then publish through ConfigHub OCI |
 | Proof | equivalence, render, scan, and gate receipts |
 
+## Variant Secret Handling
+
+The `default` variant renders `Secret redis/redis` from the pinned demo
+`auth.password`. `cub install` separates that rendered Secret from normal
+manifests, so direct local tests apply `out/secrets`, while ConfigHub upload
+records workload references instead of storing the rendered Secret as a Unit.
+
+The `reuse-existing-secret` variant renders no Redis Secret. It retargets the
+Redis StatefulSets to `Secret redis/redis-existing-secret` key
+`redis-password`, records that requirement as a variant target fact, and the
+installer package exposes it as an external requirement.
+
 ## Current Proof Commands
 
 ```sh
