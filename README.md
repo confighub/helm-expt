@@ -48,46 +48,76 @@ We try to answer four questions:
 
 ## Five-Minute Demo
 
-Requires local Kubernetes tooling such as kind, kubectl, and Helm.
+To run the full demo yourself, you need:
+
+1. a ConfigHub account and organization;
+2. the `cub` CLI authenticated to ConfigHub;
+3. local Kubernetes tooling such as kind, kubectl, and Helm;
+4. for GitOps deployment, Argo CD or Flux already running in the cluster and
+   configured to pull the published OCI artifact from ConfigHub.
+
+Login with:
+
+```sh
+cub auth login --server https://hub.confighub.com
+```
+
+The repo can still be inspected without an account. A ConfigHub account is
+needed when you want to upload rendered objects, create ConfigHub variants, or
+run the ConfigHub proof path. Argo CD or Flux is only needed for the GitOps
+deployment path; local proof and receipt verification can run without a GitOps
+controller.
 
 Example: Use Redis for the happy path.
 
-1. Open the catalog page:
+1. Check the top-20 live proof summary:
+
+   ```text
+   data/live-e2e/summary.md
+   ```
+
+2. Open the Redis catalog page:
 
    ```text
    recipes/bitnami/redis/25.5.3/CATALOG.md
    ```
 
-2. Show the available variants:
+3. Show the available variants:
 
    ```text
    default
    reuse-existing-secret
    ```
 
-3. Show the executable `cub install` package:
+4. Show the executable `cub install` package:
 
    ```text
    packages/bitnami/redis/25.5.3/installer.yaml
    ```
 
-4. Show the exact rendered objects:
+5. Show the exact rendered objects:
 
    ```text
    recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/object-inventory.yaml
    recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml
    ```
 
-5. Show proof that the objects match regular Helm:
+6. Show proof that the objects match regular Helm:
 
    ```text
    recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml
    ```
 
-6. Show the local live/e2e receipt:
+7. Show the local live/e2e receipt:
 
    ```text
    runs/redis-local-kind/latest/observation-receipt.yaml
+   ```
+
+8. Verify the proof:
+
+   ```sh
+   npm run top20:verify-local-e2e
    ```
 
 Then close with one harder chart, such as cert-manager,
@@ -236,6 +266,22 @@ checks,
 receipts,
 and a safer path from test to production.
 ```
+
+## Deploying With GitOps
+
+The intended GitOps path is:
+
+1. choose a chart from `recipes/*/*/*/CATALOG.md`;
+2. choose a supported variant;
+3. verify the rendered objects and receipts;
+4. upload or publish the rendered ConfigHub objects to ConfigHub OCI;
+5. point Argo CD or Flux at that ConfigHub OCI artifact;
+6. let GitOps sync the cluster;
+7. record or inspect the observation receipt.
+
+This repo proves the chart -> recipe -> variant -> rendered objects path for
+20 charts today. The next public examples should show the exact Argo CD and
+Flux handoff for one small chart, probably Redis or NGINX.
 
 ```text
 Helm gives you charts.
