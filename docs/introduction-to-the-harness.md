@@ -90,17 +90,18 @@ checks steps 8-12.
 | chart URL/version/digest | source lock / recipe |
 | chart dependencies | dependency lock / recipe |
 | known value paths/schema | value model / recipe |
-| required Secret/ConfigMap/API/StorageClass | recipe requirement + variant target fact binding |
+| pre-install required Secret/ConfigMap/API/StorageClass | recipe requirement, variant target fact binding, and preflight receipt |
+| pre-install hook, CRD, webhook, or bootstrap ordering | lifecycle policy, install gate, or blocker |
 | generated password/cert/time | generated fact binding before render |
 | kube version/API branching | capability profile |
-| hooks/CRDs/install phases | lifecycle policy / gate |
 | raw manifests, `tpl`, extra deploy | explicit extension slot, scan/gate, or block |
 | replica count, HA, ingress, TLS choice | variant values |
 | namespace/release name | variant |
 | rendered Kubernetes YAML | immutable variant revision |
 | scan result | scan receipt bound to rendered digest |
 | install approval | install gate |
-| live cluster result | observation receipt from cub-scout/GitOps/etc. |
+| post-install test hook or smoke check | test/check action plus hook or observation receipt |
+| post-install readiness, Job result, webhook health, PVC binding, drift | observation receipt from cub-scout/GitOps/etc. |
 
 The goal is to absorb Helm weirdness into the model, not hide it in prose. If
 the chart does something unusual, it should have a named home, a policy, a
