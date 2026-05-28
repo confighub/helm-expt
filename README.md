@@ -1,74 +1,82 @@
 # ConfigHub Helm Experiment
 
-This project shows how 20 standard Helm charts map into ConfigHub
+Use Helm charts. Ship ConfigHub variants.
+
+This repo shows how popular public Helm charts can become `cub install`
+packages with named variants, exact rendered Kubernetes objects, scans, gates,
+receipts, and live proof.
+
+The short version:
 
 ```text
-Upstream Helm charts map into installer recipes
-ConfigHub creates a set of usable variants
-Deploy these using Argo or Flux
+Helm chart
+-> cub install recipe/package
+-> named ConfigHub variants
+-> exact rendered Kubernetes objects
+-> Helm-equivalence proof, scans, gates, receipts
+-> ConfigHub / OCI / GitOps handoff
 ```
 
-Helm is good at producing Kubernetes objects. Any pain usually comes after
-that: people make changes, values may be hard to reason about, environments drift, 
-and more.  Suddenly nobody is completely sure whether production received the same 
-objects that were reviewed.
+## Why
 
-ConfigHub provides a place to store configs that can be customised, reasoned about
-and changed into 'variants' for specific deployment scenarios.  In this repo we
-use AI to analyse public Helm charts and create a deterministic installation.  
-We have live tested these ie. deployed and observed on local kind.
+Helm is good at producing Kubernetes objects. The pain starts when teams need
+to answer ordinary operational questions:
 
-We use https://github.com/confighub/installer 
+```text
+What exactly did this values file produce?
+Is prod getting the same objects that staging reviewed?
+Which variant changed, and why?
+Did we scan the exact objects we are about to deploy?
+Can we prove what was rendered, checked, uploaded, and observed?
+```
 
-1. start with a real Helm chart;
-2. we create a `cub install` package from it;
-3. render the exact Kubernetes objects;
-4. compare those objects with regular Helm output;
-5. store named variants and receipts;
-6. scan and gate the rendered objects;
-7. upload the objects to ConfigHub where they can be reviewed and varied.
+ConfigHub is the proof and variant layer around those Helm-generated objects.
+The goal is not to replace Helm. The goal is to make Helm output reviewable,
+comparable, scannable, promotable, and auditable.
 
-In plain English: a non-magical way to use Helm safely, even if you want
-to make custom changes, explicitly showing the objects, the diffs and more.
+We use AI to accelerate Helm chart analysis and recipe creation. We use
+`cub install` to prove the resulting recipes produce correct, Helm-equivalent,
+reviewable ConfigHub variants.
 
-We have used AI for Helm chart analysis and recipe creation. We use
-`cub install` to prove the resulting recipes produce correct, safe and
-Helm-equivalent, reviewable ConfigHub variants for 'correct operations'.
+## What Is Proven Today
 
-Doctrine: we test live. For the current top-20 proof, that means the rendered
-ConfigHub/cub-install output was applied to local kind clusters with `kubectl`,
-then observed with live rollout/object checks and recorded as receipts. GitOps
-sync through Argo CD or Flux from ConfigHub OCI is the intended delivery path,
-but it needs its own live proof lane before we claim it as tested.
+```text
+20 popular Helm charts have catalog entries.
+20/20 have passing local kind live/e2e receipts.
+20/20 have ConfigHub use-more-now proof receipts.
+100 charts have recipe/package proof artifacts.
+Top-500 chart analysis exists as catalog-planning data.
+```
 
-See `data/live-e2e/summary.md` for the 20 charts and live/e2e status.
+The current top-20 live proof means:
 
-## Key Areas of Work
+```text
+rendered ConfigHub/cub-install objects
+-> kubectl apply to local kind
+-> rollout/object checks pass
+-> observation receipt is committed and verified
+```
 
-We try to answer four questions:
+It does not yet mean:
 
-| Question | Where to look |
-| --- | --- |
-| Can ConfigHub produce the same objects as Helm? | `recipes/*/*/*/revisions/*/r001/receipts/helm-equivalence-receipt.yaml` |
-| Can the result be installed with `cub install`? | `packages/*/*/*/installer.yaml` |
-| Can users choose sensible, usable, realistic variants? | `recipes/*/*/*/CATALOG.md` |
-| Can we prove the Helm-ConfigHub-K8s path works? | `runs/*/latest/*.yaml`, `data/live-e2e/summary.md` |
+```text
+Argo CD or Flux pulled ConfigHub OCI and synced the cluster
+```
 
+That GitOps lane is the intended delivery path, but it needs its own live proof
+before we claim it as tested end to end.
 
-## Five-Minute Demo
+Start here:
 
-To run the full demo yourself, you need:
+```text
+data/live-e2e/summary.md
+data/production-disposition/summary.md
+```
 
-1. this repo cloned locally;
-2. Node.js for the proof scripts, with no `npm install` required;
-3. a ConfigHub account and organization;
-4. the `cub` CLI authenticated to ConfigHub;
-5. local Kubernetes tooling such as kind, kubectl, and Helm;
-6. for live proof, enough local CPU/memory to run kind charts;
-7. for GitOps deployment, Argo CD or Flux already running in the cluster and
-   configured to pull the published OCI artifact from ConfigHub.
+## Try It
 
-Start with:
+You need Node.js to run the proof scripts. There are no npm dependencies and no
+`npm install` step.
 
 ```sh
 git clone https://github.com/confighub/helm-expt.git
@@ -76,151 +84,83 @@ cd helm-expt
 npm run top20:verify-local-e2e
 ```
 
-Login with:
-
-```sh
-cub auth login --server https://hub.confighub.com
-```
-
-The repo can still be inspected without an account. A ConfigHub account is
-needed when you want to upload rendered objects, create ConfigHub variants, or
-run the ConfigHub proof path. Argo CD or Flux is only needed for the GitOps
-deployment path; local proof and receipt verification can run without a GitOps
-controller.
-
-Example: Use Redis for the happy path.
-
-1. Check the top-20 live proof summary:
-
-   ```text
-   data/live-e2e/summary.md
-   ```
-
-2. Open the Redis catalog page:
-
-   ```text
-   recipes/bitnami/redis/25.5.3/CATALOG.md
-   ```
-
-3. Show the available variants:
-
-   ```text
-   default
-   reuse-existing-secret
-   ```
-
-4. Show the executable `cub install` package:
-
-   ```text
-   packages/bitnami/redis/25.5.3/installer.yaml
-   ```
-
-5. Show the exact rendered objects:
-
-   ```text
-   recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/object-inventory.yaml
-   recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml
-   ```
-
-6. Show proof that the objects match regular Helm:
-
-   ```text
-   recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml
-   ```
-
-7. Show the local live/e2e receipt:
-
-   ```text
-   runs/redis-local-kind/latest/observation-receipt.yaml
-   ```
-
-8. Verify the proof:
-
-   ```sh
-   npm run top20:verify-local-e2e
-   ```
-
-Then close with one harder chart, such as cert-manager,
-kube-prometheus-stack, Vault, or Consul. The point is not that hard charts are
-risk-free. The point is that ConfigHub makes their risks visible as control
-points, receipts, scans, and production dispositions.
-
-## How A Chart Is Organized
-
-For each chart, the path is:
+Expected result:
 
 ```text
-Helm chart
-  -> recipe
-  -> cub install package
-  -> named variants
-  -> rendered object set
-  -> receipts and scans
-  -> ConfigHub Units
+verified 20 top20 local kind e2e receipt(s)
 ```
 
-The matching folders are:
-
-```text
-recipes/<repo>/<chart>/<version>/
-packages/<repo>/<chart>/<version>/
-runs/<chart>-use-more-now/latest/
-```
-
-The easiest file to read first is always:
-
-```text
-recipes/<repo>/<chart>/<version>/CATALOG.md
-```
-
-That file links the chart, recipe, variants, package, rendered objects, and
-receipts.
-
-## Verifying Helm is correctly used and deployed
-
-Run the full repo verifier:
+Run the full repository verifier:
 
 ```sh
 npm run verify
 ```
 
-That checks the recipe/package chain, Helm equivalence, rendered object
-digests, receipts, catalog status, target facts, local e2e receipts, and the
-generated top-500 analysis.
+That checks recipe/package structure, Helm equivalence, rendered object
+digests, receipts, catalog status, target facts, local live/e2e receipts,
+production disposition, and top-500 analysis.
 
-For just the top-20 live/e2e receipts:
+## Five-Minute Redis Demo
 
-```sh
-npm run top20:verify-local-e2e
+Redis is the happy-path demo because it is small, familiar, and still exercises
+the important proof chain.
+
+Read the runnable script:
+
+```text
+docs/demo/redis/demo-script.md
 ```
 
-That command is intentionally strict: a fresh clone must contain and verify all
-20 live receipts, or the command fails.
-
-For just the top-20 ConfigHub use-more-now receipts:
+The demo uses real commands, including:
 
 ```sh
-npm run top20:verify-use-more-now
+cub install setup \
+  --pull packages/bitnami/redis/25.5.3 \
+  --base default \
+  --work-dir .tmp/demo/redis-default \
+  --non-interactive \
+  --namespace redis
+
+npm run redis:compare
+npm run verify
 ```
 
-To rebuild the top-20 local kind evidence, use:
+The full ConfigHub upload command is in `docs/demo/redis/demo-script.md`; it is
+longer because it records labels such as component, layer, owner, chart version,
+variant, and proof.
 
-```sh
-npm run top20:local-e2e
+The key Redis proof files are:
+
+```text
+recipes/bitnami/redis/25.5.3/CATALOG.md
+packages/bitnami/redis/25.5.3/installer.yaml
+recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml
+recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml
+runs/redis-local-kind/latest/observation-receipt.yaml
 ```
-That requires local Kubernetes tooling such as kind, kubectl, and Helm.
 
-## What The Main Folders Mean
+## How A Chart Is Organized
+
+For every chart, read the catalog page first:
+
+```text
+recipes/<repo>/<chart>/<version>/CATALOG.md
+```
+
+That page links the chart source, recipe, variants, package, rendered objects,
+receipts, scans, and current support status.
+
+The main folders are:
 
 ```text
 recipes/
-  Human and machine-readable chart proofs.
+  Chart analysis, variants, rendered objects, receipts, and catalogs.
 
 packages/
   Executable cub install packages.
 
 docs/demo/
-  Plain-English per-chart walkthroughs.
+  Plain-English per-chart walkthroughs and transcripts.
 
 runs/
   Receipts from ConfigHub, local kind, and proof runs.
@@ -235,9 +175,32 @@ data/top500-catalog-analysis/
   Current top-500 analysis and proof index.
 ```
 
-## How it works (state today)
+## ConfigHub And GitOps
 
-We use current `cub` and ConfigHub commands:
+To use the ConfigHub proof path, you need a ConfigHub account, an organization,
+and an authenticated `cub` CLI:
+
+```sh
+cub auth login --server https://hub.confighub.com
+```
+
+The intended GitOps path is:
+
+1. Choose a chart from `recipes/*/*/*/CATALOG.md`.
+2. Choose a catalog variant.
+3. Verify the rendered objects and receipts.
+4. Upload or publish the rendered ConfigHub objects to ConfigHub OCI.
+5. Point Argo CD or Flux at that ConfigHub OCI artifact.
+6. Let GitOps sync the cluster.
+7. Record or inspect an observation receipt.
+
+Today this repo proves the chart -> recipe -> variant -> rendered objects path
+for the top 20, and proves local kind deployment for those rendered objects. A
+public Argo CD / Flux live proof is still a separate lane to add.
+
+## Current Commands Used
+
+These are real commands used by the current proof path:
 
 ```text
 cub install doc
@@ -255,44 +218,7 @@ cub function vet
 cub changeset create
 ```
 
-Potential future commands might be:
-
-```text
-cub install import helm
-cub install analyze
-cub install compare
-cub install scan
-cub variant promote
-```
-
-
-## Current Repo
-
-The repo currently contains 20 top-chart catalog entries with bespoke variants which have been live tested.  
-
-In this repo, "live tested" currently means:
-
-```text
-rendered ConfigHub/cub-install objects
--> kubectl apply to local kind
--> rollout/object checks pass
--> observation receipt is written
-```
-
-It does not yet mean:
-
-```text
-Argo CD or Flux pulled ConfigHub OCI and synced the cluster
-```
-
-Start with the top-20 live proof summary:
-
-```text
-data/live-e2e/summary.md
-data/live-e2e/top20-local-kind.csv
-```
-
-Tell your friends:
+## The Pitch
 
 ```text
 You can keep using public Helm charts,
@@ -305,27 +231,5 @@ receipts,
 and a safer path from test to production.
 ```
 
-## Deploying With GitOps
-
-The intended GitOps path is:
-
-1. choose a chart from `recipes/*/*/*/CATALOG.md`;
-2. choose a supported variant;
-3. verify the rendered objects and receipts;
-4. upload or publish the rendered ConfigHub objects to ConfigHub OCI;
-5. point Argo CD or Flux at that ConfigHub OCI artifact;
-6. let GitOps sync the cluster;
-7. record or inspect the observation receipt.
-
-This repo proves the chart -> recipe -> variant -> rendered objects path for
-20 charts today. The next public examples should show the exact Argo CD and
-Flux handoff for one small chart, probably Redis or NGINX.
-
-```text
-Helm gives you charts.
-ConfigHub gives you managed, reviewable, scannable, promotable variants from those charts.
-```
-
-```text
-Use Helm charts. Ship ConfigHub variants.
-```
+Helm gives you charts. ConfigHub gives you managed, reviewable, scannable,
+promotable variants from those charts.
