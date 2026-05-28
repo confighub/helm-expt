@@ -17,6 +17,35 @@ Helm chart
 -> ConfigHub / OCI / GitOps handoff
 ```
 
+## The Idea
+
+Pre-rendering Helm makes the real deployment object set visible before anyone
+has to approve, promote, or operate it.
+
+In this experiment, AI helps analyze public Helm charts and draft deterministic
+`cub install` recipes. The proof pipeline then checks the work mechanically:
+
+```text
+public Helm chart
+-> deterministic installer recipe
+-> deterministic rendered object set
+-> ConfigHub variants
+-> scans, gates, receipts, and live observations
+```
+
+That matters because many Helm problems are not just install-time problems.
+They show up later as upgrade surprises, hidden value interactions, environment
+drift, unclear ownership, unreviewed YAML changes, or uncertainty about what
+actually reached a cluster.
+
+The catalog is meant to show a better path:
+
+```text
+Day 0: install from a known recipe and inspect the exact objects.
+Day 1: create variants deliberately and compare the rendered results.
+Day 2: scan, promote, observe, upgrade, and audit with receipts.
+```
+
 ## Why
 
 Helm is good at producing Kubernetes objects. The pain starts when teams need
