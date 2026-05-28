@@ -14,10 +14,10 @@ spec:
     name: "helm-expt-redis"
     context: "kind-helm-expt-redis"
     namespace: "redis"
-  observedAt: "2026-05-26T11:28:15.429Z"
+  observedAt: "2026-05-28T08:09:54.421Z"
   freshnessTTL: 1h
   result: pass
-  clusterStatus: "existing"
+  clusterStatus: "created"
   variant: "default"
   targetFacts:
     defaultStorageClass:
@@ -43,4 +43,4 @@ spec:
       count: 4
   kubectlObjects:
     path: kubectl-objects.txt
-    sha256: "62bd4ffe526f08cd77ad1d92198fba027c8ac8ff24e37a0baabb9b1dbbd49113"
+    sha256: "4738f9f49a356ab2140f3884effcf27e07549c81c20486f956cea06afe1640f1"
