@@ -12,6 +12,7 @@ Every live observation receipt must record:
 - `target.kind`, `target.name`, and, where applicable, context and namespace
 - `variantRevision`
 - `renderedObjectSetSHA256`
+- payload digest or check evidence digest
 - `observedAt`
 - `freshnessTTL`
 - `result`

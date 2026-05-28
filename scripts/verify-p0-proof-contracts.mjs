@@ -84,6 +84,16 @@ function verifySchemas() {
   }
 }
 
+function verifyArtifactKind(path, expectedKinds) {
+  const doc = readYaml(path);
+  const expected = Array.isArray(expectedKinds) ? expectedKinds : [expectedKinds];
+  check(doc.apiVersion === "helm-expt.confighub.com/v1alpha1", `${rel(path)} apiVersion mismatch`);
+  check(expected.includes(doc.kind), `${rel(path)} kind ${doc.kind} not in ${expected.join(", ")}`);
+  check(doc.metadata?.name, `${rel(path)} missing metadata.name`);
+  check(doc.spec, `${rel(path)} missing spec`);
+  return doc;
+}
+
 function verifyCapabilityProfiles() {
   const catalogPath = repoPath("data", "capability-profiles", "catalog.yaml");
   check(existsSync(catalogPath), `missing capability profile catalog: ${rel(catalogPath)}`);
@@ -107,14 +117,29 @@ function verifyCapabilityProfiles() {
   }
 }
 
+function capabilityProfilesByName() {
+  const catalog = readYaml(repoPath("data", "capability-profiles", "catalog.yaml"));
+  return new Map((catalog.spec?.profiles ?? []).map((profile) => [profile.name, profile]));
+}
+
 function verifyDocs() {
   const freshnessPath = repoPath("docs", "observation-freshness-slo.md");
   const p0Path = repoPath("docs", "p0-major-issue-status.md");
+  const capabilityPath = repoPath("docs", "capability-profile-catalog.md");
+  const generatedFactPath = repoPath("docs", "generated-fact-receipts.md");
+  const upgradePath = repoPath("docs", "upgrade-rollback-receipts.md");
   check(existsSync(freshnessPath), "missing observation freshness SLO doc");
   check(existsSync(p0Path), "missing P0 major issue status doc");
+  check(existsSync(capabilityPath), "missing capability profile catalog doc");
+  check(existsSync(generatedFactPath), "missing generated fact receipt doc");
+  check(existsSync(upgradePath), "missing upgrade/rollback receipt doc");
   const freshness = readFileSync(freshnessPath, "utf8");
-  for (const phrase of ["fresh", "stale", "failed", "unknown", "not-observed", "drifted", "observedAt", "freshnessTTL"]) {
+  for (const phrase of ["fresh", "stale", "failed", "unknown", "not-observed", "drifted", "observedAt", "freshnessTTL", "payload digest"]) {
     check(freshness.includes(phrase), `freshness SLO missing ${phrase}`);
+  }
+  const capabilityDoc = readFileSync(capabilityPath, "utf8").toLowerCase();
+  for (const phrase of ["synthetic profiles", "bulk", "adversarial", "unknown profile", "stored digest"]) {
+    check(capabilityDoc.includes(phrase), `capability profile doc missing ${phrase}`);
   }
   const p0Status = readFileSync(p0Path, "utf8");
   for (const issue of p0Issues) {
@@ -130,6 +155,11 @@ function verifyCorpusContracts() {
   const helmEquivalenceReceipts = walk(repoPath("recipes"), (path) => path.endsWith("/receipts/helm-equivalence-receipt.yaml"));
   const scanReceipts = walk(repoPath("recipes"), (path) => path.endsWith("/receipts/scan-receipt.yaml"));
   const installGates = walk(repoPath("recipes"), (path) => path.endsWith("/receipts/install-gate.yaml"));
+  const variantRevisions = walk(repoPath("recipes"), (path) => path.endsWith("/variant-revision.yaml"));
+  const generatedFactReceipts = walk(repoPath("recipes"), (path) => path.endsWith("/receipts/generated-fact-receipt.yaml"));
+  const upgradeRollbackReceipts = walk(repoPath("recipes"), (path) =>
+    path.endsWith("/upgrade-simulation-receipt.yaml") || path.endsWith("/rollback-simulation-receipt.yaml"),
+  );
   const liveReceipts = walk(repoPath("runs"), (path) => /observation-receipt\.(yaml|json)$/.test(path));
 
   check(helmPlans.length >= 100, `expected at least 100 HelmPlan artifacts, found ${helmPlans.length}`);
@@ -140,6 +170,49 @@ function verifyCorpusContracts() {
   check(scanReceipts.length >= 120, `expected at least 120 scan receipts, found ${scanReceipts.length}`);
   check(installGates.length >= 120, `expected at least 120 install gates, found ${installGates.length}`);
   check(liveReceipts.length >= 20, `expected at least 20 live observation receipts, found ${liveReceipts.length}`);
+  check(generatedFactReceipts.length >= 1, "expected at least one generated fact receipt");
+  check(upgradeRollbackReceipts.length >= 2, "expected Redis upgrade and rollback simulation receipts");
+
+  for (const path of helmPlans) verifyArtifactKind(path, "HelmPlan");
+  for (const path of effectiveValues) verifyArtifactKind(path, "EffectiveValues");
+  for (const path of variantRevisions) verifyArtifactKind(path, "VariantRevision");
+  for (const path of renderReceipts) verifyArtifactKind(path, "RenderReceipt");
+  for (const path of helmEquivalenceReceipts) verifyArtifactKind(path, "HelmEquivalenceReceipt");
+  for (const path of scanReceipts) verifyArtifactKind(path, "ScanReceipt");
+  for (const path of installGates) verifyArtifactKind(path, "InstallGate");
+  for (const path of generatedFactReceipts) verifyArtifactKind(path, "GeneratedFactReceipt");
+  for (const path of upgradeRollbackReceipts) verifyArtifactKind(path, ["UpgradeSimulationReceipt", "RollbackSimulationReceipt"]);
+  for (const path of liveReceipts) verifyArtifactKind(path, "ObservationReceipt");
+
+  const profiles = capabilityProfilesByName();
+  for (const path of renderReceipts) {
+    const receipt = readYaml(path);
+    const ref = receipt.spec?.inputs?.capabilityProfileRef;
+    if (!ref) continue;
+    const profileName = ref.split("#")[1];
+    const profile = profiles.get(profileName);
+    check(profile, `${rel(path)} references unknown capability profile ${profileName}`);
+    check(receipt.spec?.inputs?.capabilityProfileSHA256 === profile.digest, `${rel(path)} capability profile digest mismatch`);
+  }
+
+  for (const path of liveReceipts) {
+    const receipt = readYaml(path);
+    check(receipt.spec?.observer?.name, `${rel(path)} missing observer.name`);
+    check(receipt.spec?.observer?.method, `${rel(path)} missing observer.method`);
+    check(receipt.spec?.target?.kind, `${rel(path)} missing target.kind`);
+    check(receipt.spec?.target?.name, `${rel(path)} missing target.name`);
+    check(receipt.spec?.observedAt, `${rel(path)} missing observedAt`);
+    check(receipt.spec?.freshnessTTL, `${rel(path)} missing freshnessTTL`);
+    check(receipt.spec?.result, `${rel(path)} missing result`);
+    check(receipt.spec?.renderedObjectSetSHA256, `${rel(path)} missing renderedObjectSetSHA256`);
+    const checks = receipt.spec?.checks ?? [];
+    check(checks.length > 0, `${rel(path)} missing checks`);
+    const hasPayloadDigest =
+      Boolean(receipt.spec?.payloadDigest) ||
+      Boolean(receipt.spec?.kubectlObjects?.sha256) ||
+      checks.some((item) => item.evidenceSHA256);
+    check(hasPayloadDigest, `${rel(path)} missing payload/check evidence digest`);
+  }
 
   const redisPlan = readYaml(repoPath("recipes", "bitnami", "redis", "25.5.3", "helm-plan.yaml"));
   const redisPainReport = readYaml(repoPath("recipes", "bitnami", "redis", "25.5.3", "helm-pain-report.yaml"));
