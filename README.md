@@ -34,6 +34,12 @@ We have used AI for Helm chart analysis and recipe creation. We use
 `cub install` to prove the resulting recipes produce correct, safe and
 Helm-equivalent, reviewable ConfigHub variants for 'correct operations'.
 
+Doctrine: we test live. For the current top-20 proof, that means the rendered
+ConfigHub/cub-install output was applied to local kind clusters with `kubectl`,
+then observed with live rollout/object checks and recorded as receipts. GitOps
+sync through Argo CD or Flux from ConfigHub OCI is the intended delivery path,
+but it needs its own live proof lane before we claim it as tested.
+
 ## Key Areas of Work
 
 We try to answer four questions:
@@ -246,6 +252,21 @@ cub variant promote
 ## Current Repo
 
 The repo currently contains 20 top-chart catalog entries with bespoke variants which have been live tested.  
+
+In this repo, "live tested" currently means:
+
+```text
+rendered ConfigHub/cub-install objects
+-> kubectl apply to local kind
+-> rollout/object checks pass
+-> observation receipt is written
+```
+
+It does not yet mean:
+
+```text
+Argo CD or Flux pulled ConfigHub OCI and synced the cluster
+```
 
 Start with the top-20 live proof summary:
 
