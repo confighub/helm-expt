@@ -1,6 +1,6 @@
 # ConfigHub Helm Experiment
 
-This project shows how standard Helm charts map into ConfigHub
+This project shows how 20 standard Helm charts map into ConfigHub
 
 ```text
 Upstream Helm charts map into installer recipes
