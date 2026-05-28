@@ -1,0 +1,331 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "consul-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-consul-confighub-proof"
+    selector: "Labels.Proof = 'consul-confighub-proof'"
+  subject:
+    chart: "hashicorp/consul"
+    chartVersion: "2.0.0"
+    packagePath: "packages/hashicorp/consul/2.0.0"
+    variant: "default-control-plane"
+    configHubUnitCount: 71
+  unitRevisionBindings:
+    -
+      slug: "clusterrole-consul-consul-connect-injector"
+      headRevisionNum: 2
+      dataHash: "5e520ee8a5bcbeb7847b13f5fb90847c756ce39edab3dbcd19d98f0695ca72db"
+    -
+      slug: "clusterrole-consul-consul-consul-server"
+      headRevisionNum: 2
+      dataHash: "c4a8a4333d62a5de58a92cd535542b0172f42a4150c129496e09f8e8ba1fd021"
+    -
+      slug: "clusterrole-consul-consul-gateway-cleanup-custom"
+      headRevisionNum: 2
+      dataHash: "59df7a4113c777dca7ead31dd9a6760ab9f08b87d42750f30ac6c55e22cb19b1"
+    -
+      slug: "clusterrole-consul-consul-gateway-cleanup"
+      headRevisionNum: 2
+      dataHash: "d7ef63b1720f1d1c2173586e5284cb426f7dad84873c86abd7b367d3477fdd81"
+    -
+      slug: "clusterrole-consul-consul-gateway-resources-custom"
+      headRevisionNum: 2
+      dataHash: "b888a40e9b89bf26ff2b05705eea8ca413eb1339834061939435856909752478"
+    -
+      slug: "clusterrole-consul-consul-gateway-resources"
+      headRevisionNum: 2
+      dataHash: "05bd746aabca0d3f1e5765ec614c197e74cee3b371a4833cf175e5bbd2e53dfe"
+    -
+      slug: "clusterrole-consul-consul-webhook-cert-manager"
+      headRevisionNum: 2
+      dataHash: "2a310573f2801de05e0a1c3cda9daa0d48c089949e9cc692115f3998f6d1444e"
+    -
+      slug: "clusterrolebinding-consul-consul-gateway-resources-custom"
+      headRevisionNum: 2
+      dataHash: "917ba237ebeb171018b9b0c20c3c3bd57cc4257d8645352b2ee5ea8c38460ed6"
+    -
+      slug: "clusterrolebinding-consul-consul-gateway-resources"
+      headRevisionNum: 2
+      dataHash: "2215ed9b36e18905ad132b70f26c6184828286392e4e62ca87d0a27b9022b869"
+    -
+      slug: "configmap-consul-consul-consul-gateway-resources-config-custom"
+      headRevisionNum: 2
+      dataHash: "c0f21da36c22567564ed86f4cc9da25c136d836dcff36edd3ac8984fbef46872"
+    -
+      slug: "configmap-consul-consul-consul-gateway-resources-config"
+      headRevisionNum: 2
+      dataHash: "80b15e0be33968109aa741b85d18a910adb43ff0489360f6b3aa7aad5b7f592b"
+    -
+      slug: "configmap-consul-consul-consul-server-config"
+      headRevisionNum: 2
+      dataHash: "ccefe271ade4437d29c4ccc3322a502482cbf03cce09ec8d61f1ba354396b8e8"
+    -
+      slug: "configmap-consul-consul-consul-webhook-cert-manager-config"
+      headRevisionNum: 2
+      dataHash: "c3d833f552bb7e0af7d27fc58a72ef2602dfa1f538073a0291743cb8d8ec1581"
+    -
+      slug: "customresourcedefinition-controlplanerequestlimits-consul-hashicorp-com"
+      headRevisionNum: 2
+      dataHash: "719b6a13dec93c707c70ea4d2ef389bfca3380b8131e4c23c8b34c32fa58b5d6"
+    -
+      slug: "customresourcedefinition-exportedservices-consul-hashicorp-com"
+      headRevisionNum: 2
+      dataHash: "044592b40cee3675147da9af991d4c07f4a5634d217095118f14af5ed9744e23"
+    -
+      slug: "customresourcedefinition-gatewayclassconfigs-consul-hashicorp-com"
+      headRevisionNum: 2
+      dataHash: "a5963779dd58e19f70fec3d159702b25da68543920f17cd9dea356b3d2dc0926"
+    -
+      slug: "customresourcedefinition-gatewayclasses-gateway-networking-k8s-io"
+      headRevisionNum: 2
+      dataHash: "e0ef7d90a40ae75b65b51fc55450c6250ebcf4478833e2d978aa97db3706e592"
+    -
+      slug: "customresourcedefinition-gatewaypolicies-consul-hashicorp-com"
+      headRevisionNum: 2
+      dataHash: "bb974b8668ff3b9360525416d4a053a990f7d266a3a8e12c199484ce0c6a9f80"
+    -
+      slug: "customresourcedefinition-gateways-gateway-networking-k8s-io"
+      headRevisionNum: 2
+      dataHash: "813598441056a011134a36fdc35b7d67a685b615bc39d073d5273c854087ef8b"
+    -
+      slug: "customresourcedefinition-httproutes-gateway-networking-k8s-io"
+      headRevisionNum: 2
+      dataHash: "944f3bc2079412af5fb1a2e3df074c6abe68fda36baaa9411192daa9e40703ab"
+    -
+      slug: "customresourcedefinition-ingressgateways-consul-hashicorp-com"
+      headRevisionNum: 2
+      dataHash: "0f9016b23346da119b502898f949d4a914b4f02fea1f4bb268be4447131b7360"
+    -
+      slug: "customresourcedefinition-jwtproviders-consul-hashicorp-com"
+      headRevisionNum: 2
+      dataHash: "b8d33e2f8013925ccbaad45769231f4fdf4d7026288e5c8019ace0328a8c0145"
+    -
+      slug: "customresourcedefinition-meshes-consul-hashicorp-com"
+      headRevisionNum: 2
+      dataHash: "afd190c52213236241de741e27175ec0fbfd201158ee4dace2cc41d8b8c290d6"
+    -
+      slug: "customresourcedefinition-meshservices-consul-hashicorp-com"
+      headRevisionNum: 2
+      dataHash: "c5aaa5bc3bc3a7cac5bc90c704f4f16ce894e3c56ebe4c69b4659f6d2241f918"
+    -
+      slug: "customresourcedefinition-proxydefaults-consul-hashicorp-com"
+      headRevisionNum: 2
+      dataHash: "52048e6bf8bcd378cc0176e21c45b5345342a000e8d9510cd873709199570dc4"
+    -
+      slug: "customresourcedefinition-ratelimits-consul-hashicorp-com"
+      headRevisionNum: 2
+      dataHash: "c5ec861a823d4d12640d55405ae24ab8a973c34b3681b50fb73ca9571e965dec"
+    -
+      slug: "customresourcedefinition-referencegrants-gateway-networking-k8s-io"
+      headRevisionNum: 2
+      dataHash: "826f8785d29c706152d5dfb971b341190052ada7626fbf085a951fce3084f41f"
+    -
+      slug: "customresourcedefinition-registrations-consul-hashicorp-com"
+      headRevisionNum: 2
+      dataHash: "334b2796b4b047bbee6b1c1b06cd7a902f3a06c9926ceed3a9304c8ffa0f1bac"
+    -
+      slug: "customresourcedefinition-routeauthfilters-consul-hashicorp-com"
+      headRevisionNum: 2
+      dataHash: "94d45e14ca92f1d5c070bcaa3feb4f80e44a347f719cfdfd9188c2ded653878a"
+    -
+      slug: "customresourcedefinition-routeretryfilters-consul-hashicorp-com"
+      headRevisionNum: 2
+      dataHash: "5502848572e984a913c9f52b63326590c75087846f135047096c38627c88f687"
+    -
+      slug: "customresourcedefinition-routetimeoutfilters-consul-hashicorp-com"
+      headRevisionNum: 2
+      dataHash: "aed8c3dc671fb46127b7e1c3e10a05c8cb8f67cce56679b161738f6edf3136db"
+    -
+      slug: "customresourcedefinition-routetlssdsfilters-consul-hashicorp-com"
+      headRevisionNum: 2
+      dataHash: "1f9960d44a1b300851b1d9241904de7684c3e82df019ac0e5b868fbfcd4de218"
+    -
+      slug: "customresourcedefinition-samenessgroups-consul-hashicorp-com"
+      headRevisionNum: 2
+      dataHash: "beb13ca4033f646a71b274e6ff6baa8939770c4218d3c5be622400e2e443f918"
+    -
+      slug: "customresourcedefinition-servicedefaults-consul-hashicorp-com"
+      headRevisionNum: 2
+      dataHash: "83e5b877aa2418bfe802ac2ea1d7c8d2b9fce2b0dce2007b0755086d24315f63"
+    -
+      slug: "customresourcedefinition-serviceintentions-consul-hashicorp-com"
+      headRevisionNum: 2
+      dataHash: "802ca592f6790626cca4a41a3f445a6e8fb2eb4c94a26653b1846bdaec384fb8"
+    -
+      slug: "customresourcedefinition-serviceresolvers-consul-hashicorp-com"
+      headRevisionNum: 2
+      dataHash: "a796af0cff7e666f2c46ec7676c2b61fddd3a2bf8ed364105ecf2b8cd59b8c94"
+    -
+      slug: "customresourcedefinition-servicerouters-consul-hashicorp-com"
+      headRevisionNum: 2
+      dataHash: "f77e4584e753aa36ae164678763863309e30a1c58e39d1443a03d395602ee2f1"
+    -
+      slug: "customresourcedefinition-servicesplitters-consul-hashicorp-com"
+      headRevisionNum: 2
+      dataHash: "b40503e09dee1ade9368cb18e66659a4800a06d3c38721c8eb17e39cfe07036c"
+    -
+      slug: "customresourcedefinition-tcproutes-gateway-networking-k8s-io"
+      headRevisionNum: 2
+      dataHash: "0f09e5fe85512fc5dbb430c8be0350da7bf80f9a2332aa95e780d5e52eb7ae80"
+    -
+      slug: "customresourcedefinition-terminatinggateways-consul-hashicorp-com"
+      headRevisionNum: 2
+      dataHash: "d5928d9123712bc5f7594f1c7e9d52f51196662622bbc244400c544b4b702044"
+    -
+      slug: "customresourcedefinition-trafficpermissions-auth-consul-hashicorp-com"
+      headRevisionNum: 2
+      dataHash: "3c8b4083b89d6e5bbc09e3354423c4e3ddd9adc12a4c73f02faf2487e426782c"
+    -
+      slug: "deployment-consul-consul-consul-connect-injector"
+      headRevisionNum: 2
+      dataHash: "8121852c861ecbc8622f3a276ac845a68d2c6d1231e2d900a6469306ef344a2d"
+    -
+      slug: "mutatingwebhookconfiguration-consul-consul-consul-connect-injector"
+      headRevisionNum: 2
+      dataHash: "370074cbf97fa1a54c2adda59fe1fd3ed315f6e415c8d554237e5d80f3f7b186"
+    -
+      slug: "namespace-consul"
+      headRevisionNum: 2
+      dataHash: "f51ac429c272bb7d539c14416638500eed0e705e03d6122599f94c54709ab58e"
+    -
+      slug: "poddisruptionbudget-consul-consul-consul-server"
+      headRevisionNum: 2
+      dataHash: "fddd3fd3df1702e44ddee3caf69a1966b95d3c5b24296976bae9de22bd39dcba"
+    -
+      slug: "role-consul-consul-consul-connect-inject-leader-election"
+      headRevisionNum: 2
+      dataHash: "6020f8ee0bd3427cecf031780250428405b5d09eba20a5e88e99e47f6550dc89"
+    -
+      slug: "role-consul-consul-consul-server"
+      headRevisionNum: 2
+      dataHash: "aa9c52148aada834972f8145faba104ccde7cfa4f5f14fb5f44c90cb999db09f"
+    -
+      slug: "rolebinding-consul-consul-consul-connect-inject-leader-election"
+      headRevisionNum: 2
+      dataHash: "c53a9373ac570d2876d57a67314d9a37b6f9982e4041ef2618164d273051bb6b"
+    -
+      slug: "serviceaccount-consul-consul-consul-gateway-cleanup"
+      headRevisionNum: 2
+      dataHash: "6f40bac0c0cc89cb13db06830a30409ed17961aa7c09ad4f33aea458bb3c4969"
+    -
+      slug: "serviceaccount-consul-consul-consul-gateway-resources"
+      headRevisionNum: 2
+      dataHash: "595b5ff7381de2aaf36f02c1aee303687686c4e3f501ac3a0eb9040811a4a269"
+    -
+      slug: "validatingwebhookconfiguration-consul-consul-consul-connect-injector"
+      headRevisionNum: 2
+      dataHash: "2d4026b3b43e2dfb60c2c851566c4f3204ce0c43ba1dd385da64432b6cc1d1a9"
+    -
+      slug: "clusterrolebinding-consul-consul-connect-injector"
+      headRevisionNum: 2
+      dataHash: "b08ac204d45219b127857a6f3f0914549d177f5b16210ced1692215ce1fffc32"
+    -
+      slug: "clusterrolebinding-consul-consul-gateway-cleanup"
+      headRevisionNum: 2
+      dataHash: "d6f877b999db45d6c3aa5783c890e4fcebc1cbc548d2975f2f6b71bc46c5639b"
+    -
+      slug: "clusterrolebinding-consul-consul-gateway-cleanup-custom"
+      headRevisionNum: 2
+      dataHash: "94a0c41248d922ba4041d7e96ccc25695131f4acb2aa93fcb87d2474b5e4af9d"
+    -
+      slug: "clusterrolebinding-consul-consul-server"
+      headRevisionNum: 2
+      dataHash: "0be1796b6608a4e61873327858d2b390dd949400516b1b99817995f84788934c"
+    -
+      slug: "clusterrolebinding-consul-consul-webhook-cert-manager"
+      headRevisionNum: 2
+      dataHash: "9356aa980730078411e17eacd1a6b0b1641efc22f6a03fd30481977ca24545c5"
+    -
+      slug: "configmap-consul-consul-consul-connect-inject-config"
+      headRevisionNum: 2
+      dataHash: "203121845c9d37eea21e9d18fb2425c227e6ae6f1f569e9cf7953375152963c9"
+    -
+      slug: "configmap-consul-consul-consul-server-tmp-extra-config"
+      headRevisionNum: 2
+      dataHash: "b7f45a7490406b69bc411cab266e85142837675a7623593d5197c0d12bf2b97c"
+    -
+      slug: "deployment-consul-consul-consul-webhook-cert-manager"
+      headRevisionNum: 2
+      dataHash: "9edea1f4651d39dfdcc18aed9e4057796e276c18796d5fcd6dbd2b7362964fb6"
+    -
+      slug: "poddisruptionbudget-consul-consul-consul-connect-injector"
+      headRevisionNum: 2
+      dataHash: "41fcfc7b326bf8abc31b1003621ccd422014c5f9a8741844181415d880c870f0"
+    -
+      slug: "rolebinding-consul-consul-consul-server"
+      headRevisionNum: 2
+      dataHash: "4e08c4958deae22a0f4feafed6093bf8f4821cc27add4975b7215acaa70ee3b6"
+    -
+      slug: "service-consul-consul-consul-connect-injector"
+      headRevisionNum: 2
+      dataHash: "634f691f49ce350e6d1f7f2e39c28f526fef233997823e9fbc4e1bd0e9d831e0"
+    -
+      slug: "service-consul-consul-consul-dns"
+      headRevisionNum: 2
+      dataHash: "e2b3445dbf27ffcbfdca9e4f7433fb0a40430ae1d574130c5ed87809171d7e23"
+    -
+      slug: "service-consul-consul-consul-server"
+      headRevisionNum: 2
+      dataHash: "4ff19df9446bd2c3cad3f9b8b2f78c17b3e4d228152db6f4742ce1d9a6ea0820"
+    -
+      slug: "service-consul-consul-consul-ui"
+      headRevisionNum: 2
+      dataHash: "6aa978031a6a6f94bab10b9459aeb9512d759a1927aabdf045aa830a8b1b6955"
+    -
+      slug: "serviceaccount-consul-consul-consul-connect-injector"
+      headRevisionNum: 2
+      dataHash: "38634de59c5f45a020a216ace33d9e62635921d3df4f28900a2c0a46a64b700a"
+    -
+      slug: "serviceaccount-consul-consul-consul-gateway-cleanup-custom"
+      headRevisionNum: 2
+      dataHash: "96dcec89abbff92d8860202180838406a2a969ea81f27e9847bef523aff5a1c0"
+    -
+      slug: "serviceaccount-consul-consul-consul-gateway-resources-custom"
+      headRevisionNum: 2
+      dataHash: "f5fee19282c4ff396ec842759984ac56d2cdd667966c90f7563b78bd232514e1"
+    -
+      slug: "serviceaccount-consul-consul-consul-server"
+      headRevisionNum: 2
+      dataHash: "3a32871d1823d580d3dbc9c811b8cb6b284ce9bef2de6371bc231b06bc7f92fa"
+    -
+      slug: "serviceaccount-consul-consul-consul-webhook-cert-manager"
+      headRevisionNum: 2
+      dataHash: "f7c790305fe9fe70711aa511386ca850560753a912fbc01dd7bdbd2ec297708a"
+    -
+      slug: "statefulset-consul-consul-consul-server"
+      headRevisionNum: 2
+      dataHash: "c2ac8c7902b47ba936abc349a8c4495279b804cbd065d3ac9b1ad4c709ef9375"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 71
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 71
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 71
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

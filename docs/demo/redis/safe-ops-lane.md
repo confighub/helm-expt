@@ -26,8 +26,8 @@ Context:
 ```text
 Organization: Kubara
 Server: https://hub.confighub.com
-Space: helm-redis-use-more-now
-Selector: Labels.Proof = 'redis-use-more-now'
+Space: helm-redis-confighub-proof
+Selector: Labels.Proof = 'redis-confighub-proof'
 ```
 
 Create the operation record:
@@ -35,9 +35,9 @@ Create the operation record:
 ```sh
 CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub changeset create \
   redis-safe-ops-20260527 \
-  --space helm-redis-use-more-now \
-  --description "Redis use-more-now safe operation proof lane" \
-  --label Proof=redis-use-more-now \
+  --space helm-redis-confighub-proof \
+  --description "Redis ConfigHub proof safe operation lane" \
+  --label Proof=redis-confighub-proof \
   --label Lane=safe-ops \
   --allow-exists
 ```
@@ -47,7 +47,7 @@ Update it with the proof scope:
 ```sh
 CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub changeset update \
   redis-safe-ops-20260527 \
-  --space helm-redis-use-more-now \
+  --space helm-redis-confighub-proof \
   --description "Redis safe-ops proof: approve reviewed revisions, dry-run apply only" \
   --annotation proof.confighub.com/scope=local-test \
   --annotation proof.confighub.com/live-apply=false
@@ -58,7 +58,7 @@ Approve a representative reviewed Unit:
 ```sh
 CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub unit approve \
   statefulset-redis-redis-master \
-  --space helm-redis-use-more-now \
+  --space helm-redis-confighub-proof \
   --revision HeadRevisionNum \
   --verbose \
   --wait
@@ -75,8 +75,8 @@ Attempt dry-run apply:
 
 ```sh
 CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub unit apply \
-  --space helm-redis-use-more-now \
-  --where "Labels.Proof = 'redis-use-more-now'" \
+  --space helm-redis-confighub-proof \
+  --where "Labels.Proof = 'redis-confighub-proof'" \
   --dry-run \
   --wait \
   --timeout 2m
@@ -92,8 +92,8 @@ Cancel is safe:
 
 ```sh
 CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub unit cancel \
-  --space helm-redis-use-more-now \
-  --where "Labels.Proof = 'redis-use-more-now'"
+  --space helm-redis-confighub-proof \
+  --where "Labels.Proof = 'redis-confighub-proof'"
 ```
 
 Result:
@@ -105,7 +105,7 @@ No units found matching the filter
 Receipt:
 
 ```text
-runs/redis-use-more-now/latest/safe-ops-receipt.yaml
+runs/redis-confighub-proof/latest/safe-ops-receipt.yaml
 ```
 
 ## Interpretation
@@ -120,4 +120,3 @@ no target or observation receipt -> no claim that anything was deployed
 
 The next live-safe step is to attach a disposable local target and repeat this
 lane with a dry-run or local-kind apply receipt.
-

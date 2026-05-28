@@ -21,12 +21,12 @@ Each chart in this target must have:
 The target count includes Redis because it is the first public-chart full
 proof.
 
-## Live Use-More-Now Status
+## Live ConfigHub Proof Status
 
-The top-20 set also has current ConfigHub use-more-now evidence:
+The top-20 set also has current ConfigHub proof evidence:
 
 ```text
-20 / 20 use-more-now receipt sets verified
+20 / 20 ConfigHub proof receipt sets verified
 ```
 
 Each receipt set proves the current command path:

@@ -96,7 +96,7 @@ function buildReport() {
       evidence: {
         recipe: row.recipePath,
         package: row.packagePath,
-        useMoreNowReceipt: row.useMoreNowReceipt,
+        configHubProofReceipt: row.configHubProofReceipt,
         externalScanVariants: externalScan.get(row.chart) ?? [],
         liveE2EReceipts: liveE2E.get(row.chart) ?? [],
       },
@@ -150,7 +150,7 @@ function catalogSupportedRows() {
       supportedVariants: status.spec.supportedVariants ?? [],
       recipePath: relativeRepo(root),
       packagePath: index.spec?.installerPackage?.path ?? "",
-      useMoreNowReceipt: `runs/${slugFor(status.spec.chart)}-use-more-now/latest/use-more-now-receipt.yaml`,
+      configHubProofReceipt: `runs/${slugFor(status.spec.chart)}-confighub-proof/latest/confighub-proof-receipt.yaml`,
       requiredDispositions: requiredDispositions(controls.spec?.points ?? [], index.spec?.variants ?? []),
     });
   }

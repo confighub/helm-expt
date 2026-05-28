@@ -1,0 +1,95 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallChecks
+metadata:
+  name: bitnami-redis-25.5.3
+spec:
+  chart: bitnami/redis/25.5.3
+  canonicalNamespace: redis
+  releaseName: redis
+  receiptRoot: .tmp/verify-install
+  variants:
+    - name: default
+      base: default
+      variantRevision: recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml
+      renderedObjects: recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml
+      helmEquivalenceReceipt: recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml
+      expected:
+        helmObjects: 14
+        cubInstallObjectsIncludingSupport: 15
+        semanticObjectMatches: 14/14
+        allowedCubOnlyObjects:
+          - apiVersion: v1
+            kind: Namespace
+            namespace: ""
+            name: redis
+      clusterChecks:
+        statefulsets:
+          - name: redis-master
+            readyReplicas: 1
+          - name: redis-replicas
+            readyReplicas: 3
+        persistentVolumeClaims:
+          selector: app.kubernetes.io/instance=redis
+          boundCount: 4
+        redisPing:
+          statefulset: redis-master
+          passwordDefault: confighub-redis-password
+        redisAuthSecretName: redis
+        inventoryResources: all,pvc,pdb,networkpolicy,secret,configmap,serviceaccount
+      confighubChecks:
+        expectedUnitCount: 15
+        expectedVariantLabeledUnitCount: 14
+        installerRecordRequired: true
+        requiredLabels:
+          Component: Redis
+          HelmChart: bitnami-redis
+          HelmChartVersion: "25.5.3"
+          Variant: default
+    - name: reuse-existing-secret
+      base: reuse-existing-secret
+      variantRevision: recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/variant-revision.yaml
+      renderedObjects: recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml
+      helmEquivalenceReceipt: recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/receipts/helm-equivalence-receipt.yaml
+      targetFacts:
+        requiredSecrets:
+          - namespace: redis
+            name: redis-existing-secret
+            keys:
+              - redis-password
+      expected:
+        helmObjects: 13
+        cubInstallObjectsIncludingSupport: 14
+        semanticObjectMatches: 13/13
+        allowedCubOnlyObjects:
+          - apiVersion: v1
+            kind: Namespace
+            namespace: ""
+            name: redis
+      clusterChecks:
+        statefulsets:
+          - name: redis-master
+            readyReplicas: 1
+          - name: redis-replicas
+            readyReplicas: 3
+        persistentVolumeClaims:
+          selector: app.kubernetes.io/instance=redis
+          boundCount: 4
+        redisPing:
+          statefulset: redis-master
+          passwordDefault: confighub-redis-password
+        redisAuthSecretName: redis-existing-secret
+        forbiddenObjects:
+          - apiVersion: v1
+            kind: Secret
+            namespace: redis
+            name: redis
+        inventoryResources: all,pvc,pdb,networkpolicy,secret,configmap,serviceaccount
+      confighubChecks:
+        expectedUnitCount: 15
+        expectedVariantLabeledUnitCount: 14
+        installerRecordRequired: true
+        requiredLabels:
+          Component: Redis
+          HelmChart: bitnami-redis
+          HelmChartVersion: "25.5.3"
+          Variant: reuse-existing-secret

@@ -65,7 +65,24 @@ semantic object matches: 13/13
 Allowed cub-only object: v1|Namespace||redis
 ```
 
-3. Verify receipts and package determinism:
+3. Prove your rendered work directory matches the cataloged Redis variant:
+
+```sh
+npm run verify-install:render -- \
+  --chart bitnami/redis/25.5.3 \
+  --base default \
+  --work-dir .tmp/demo/redis-default \
+  --namespace redis
+```
+
+Expected result:
+
+```text
+PASS verify-install:render bitnami/redis/25.5.3 default
+semantic object matches: 14/14
+```
+
+4. Verify receipts and package determinism:
 
 ```sh
 npm run verify
@@ -78,7 +95,28 @@ verified Redis default and reuse-existing-secret proof artifacts
 Redis installer package verification passed.
 ```
 
-4. Upload/publish to ConfigHub:
+5. Optional local live check:
+
+```sh
+kubectl --context <your-context> apply -f .tmp/demo/redis-default/out/manifests/namespace-redis.yaml
+kubectl --context <your-context> apply -f .tmp/demo/redis-default/out/secrets
+kubectl --context <your-context> apply -f .tmp/demo/redis-default/out/manifests
+
+npm run verify-install:cluster -- \
+  --chart bitnami/redis/25.5.3 \
+  --base default \
+  --context <your-context> \
+  --namespace redis
+```
+
+Expected result:
+
+```text
+PASS verify-install:cluster bitnami/redis/25.5.3 default
+checks: statefulsets, PVCs, Redis PING
+```
+
+6. Upload to ConfigHub:
 
 ```sh
 cub install upload \
@@ -93,7 +131,7 @@ cub install upload \
   --unit-label HelmChart=bitnami-redis \
   --unit-label HelmChartVersion=25.5.3 \
   --unit-label Variant=default \
-  --unit-label Proof=redis-installer-package
+  --unit-label Proof=redis-confighub-proof
 ```
 
 Current implementation note: during the Kubara proof run, `cub install upload`
@@ -101,12 +139,17 @@ needed a temporary local wrapper so installer-spawned `cub` commands used
 `CUB_CONFIG=$HOME/.confighub/config.yaml`. That is recorded as a known issue in
 the receipt, not hidden from the proof.
 
-5. Show the result in ConfigHub:
+7. Show the result in ConfigHub:
 
 ```sh
 cub space list --where "Slug LIKE 'helm-redis-%'"
 cub unit list --space helm-redis-default \
   --columns Unit.Slug,Unit.Labels.Component,Unit.Labels.HelmChartVersion,Unit.Labels.Variant
+
+npm run verify-install:confighub -- \
+  --chart bitnami/redis/25.5.3 \
+  --base default \
+  --space helm-redis-default
 ```
 
 Expected result:
@@ -117,9 +160,11 @@ helm-redis-reuse-existing-secret: 15 Units
 
 14 Kubernetes Units are labeled as the Redis variant.
 1 installer-record Unit records the installer operation.
+
+PASS verify-install:confighub bitnami/redis/25.5.3 default
 ```
 
-6. Show hosted ConfigHub OCI proof:
+8. Show hosted ConfigHub OCI proof:
 
 ```text
 runs/redis-confighub/latest/upload-oci-receipt.yaml

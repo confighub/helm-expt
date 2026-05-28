@@ -87,18 +87,25 @@ rendered ConfigHub/cub-install objects
 -> observation receipt is committed and verified
 ```
 
-It does not yet mean:
+GitOps/OCI delivery is exercised in a separate live lane:
 
 ```text
-Argo CD or Flux pulled ConfigHub OCI and synced the cluster
+ConfigHub OCI
+-> Argo CD or Flux
+-> cluster sync
+-> live observation through cub-scout / controller evidence
 ```
 
-That GitOps lane is the intended delivery path, but it needs its own live proof
-before we claim it as tested end to end.
+That lane depends on a live GitOps controller and cluster, so it is not folded
+into the pure local `npm run verify` corpus. See "Additional Options For Live
+Cluster Verification" below for the runtime proof path.
 
 Start here:
 
 ```text
+CATALOG.md
+  The top-level chart catalog: charts first, variants underneath.
+
 data/live-e2e/summary.md
   The top-20 live-test status table.
 
@@ -144,6 +151,68 @@ Local kind live-test image: kindest/node:v1.30.0
 The `cub`, `kind`, and `kubectl` CLI versions are environment-dependent today;
 the receipts record the rendered inputs and verified outputs.
 
+## Verify Your Install
+
+The `Quick Verify` and `npm run verify` paths above check this repo's canonical
+artifacts. To check that your own install matches them, run one command per
+stage of the Redis demo.
+
+After `cub install setup`, check the rendered objects:
+
+```sh
+npm run verify-install:render -- \
+  --chart bitnami/redis/25.5.3 \
+  --base default \
+  --work-dir .tmp/demo/redis-default \
+  --namespace redis
+```
+
+Expected result:
+
+```text
+PASS verify-install:render bitnami/redis/25.5.3 default
+semantic object matches: 14/14
+```
+
+After `kubectl apply`, check the live cluster:
+
+```sh
+npm run verify-install:cluster -- \
+  --chart bitnami/redis/25.5.3 \
+  --base default \
+  --context <your-kubectl-context> \
+  --namespace redis
+```
+
+Expected result:
+
+```text
+PASS verify-install:cluster bitnami/redis/25.5.3 default
+checks: statefulsets, PVCs, Redis PING
+```
+
+After `cub install upload`, check the ConfigHub Units and labels:
+
+```sh
+npm run verify-install:confighub -- \
+  --chart bitnami/redis/25.5.3 \
+  --base default \
+  --space <your-space>
+```
+
+Expected result:
+
+```text
+PASS verify-install:confighub bitnami/redis/25.5.3 default
+units: 15
+variant-labeled units: 14
+```
+
+Each command writes a receipt under `.tmp/verify-install/`. That receipt is the
+user-side proof: what you rendered, what namespace/context you checked, what
+matched, and which checks passed. Today these checks ship for Redis only. Other
+charts should follow the same pattern as `install-checks.yaml` lands per chart.
+
 ## Redis ConfigHub Demo
 
 Redis is the happy-path demo because it is small, familiar, and still exercises
@@ -168,6 +237,8 @@ cub install setup \
 
 npm run redis:compare
 npm run verify
+npm run verify-install:render -- --chart bitnami/redis/25.5.3 --base default --work-dir .tmp/demo/redis-default --namespace redis
+npm run verify-install:confighub -- --chart bitnami/redis/25.5.3 --base default --space <your-space>
 ```
 
 The full ConfigHub upload command is in `docs/demo/redis/demo-script.md`; it is
@@ -189,10 +260,13 @@ runs/redis-local-kind/latest/observation-receipt.yaml
 For every chart, read the catalog page first:
 
 ```text
+CATALOG.md
 recipes/<repo>/<chart>/<version>/CATALOG.md
 ```
 
-That page links the chart source, recipe, variants, package, rendered objects,
+The root `CATALOG.md` is the shelf: charts first, variants underneath, with the
+recommended first variant and `cub install setup` package path visible. Then
+open the per-chart `CATALOG.md` for the chart source, recipe, rendered objects,
 receipts, scans, and current support status.
 
 The main folders are:
@@ -220,28 +294,91 @@ data/top500-catalog-analysis/
   Current top-500 analysis and proof index.
 ```
 
-## ConfigHub And GitOps
+## Viewing And Operating On Configs In ConfigHub
 
-To use the ConfigHub proof path, you need a ConfigHub account, an organization,
-and an authenticated `cub` CLI:
+After `cub install upload`, the rendered objects become ConfigHub Units. This
+is where the proof stops being a pile of YAML and becomes something a team can
+inspect, compare, scan, approve, and operate.
+
+You need a ConfigHub account, an organization, and an authenticated `cub` CLI:
 
 ```sh
 cub auth login --server https://hub.confighub.com
 ```
 
-The intended GitOps path is:
+Useful first commands:
 
-1. Choose a chart from `recipes/*/*/*/CATALOG.md`.
+```sh
+# Find uploaded Helm experiment spaces.
+cub space list --where "Slug LIKE 'helm-%'"
+
+# Open matching spaces in the ConfigHub web UI.
+cub space list --where "Slug LIKE 'helm-%'" --web
+
+# List the Units for one uploaded chart variant.
+cub unit list --space <space> \
+  --columns Unit.Slug,Unit.Labels.Component,Unit.Labels.HelmChartVersion,Unit.Labels.Variant
+
+# Open the Units for one space in the ConfigHub web UI.
+cub unit list --space <space> --web
+
+# Inspect the stored config for one Unit.
+cub unit data <unit> --space <space>
+
+# Compare revisions of one Unit.
+cub unit diff <unit> --space <space>
+
+# Run a ConfigHub function scan over the uploaded Units.
+cub function vet <function> --space <space>
+
+# Create a controlled operation path.
+cub changeset create --space <space> helm-review --description "Review rendered Helm variant"
+
+# Approve the checked revision for the uploaded variant.
+cub unit approve --space <space> --where "Labels.Variant = 'default'"
+
+# Dry-run an apply when the Units are attached to a target and worker path.
+cub unit apply --space <space> --where "Labels.Variant = 'default'" --dry-run
+
+# Clone a reviewed ConfigHub space into an environment/region variant.
+cub variant create staging <upstream-space> --environment Staging --region us-east2
+```
+
+The expected label model is visible in the Redis demo:
+
+```text
+Component=Redis
+HelmChart=bitnami-redis
+HelmChartVersion=25.5.3
+Variant=default
+Proof=redis-confighub-proof
+```
+
+The important split is:
+
+```text
+helm-expt proves the recipe and rendered objects.
+cub install upload stores those objects as ConfigHub Units.
+ConfigHub lets you view, diff, scan, approve, and hand off those Units.
+Live cluster truth needs a fresh observation receipt from a cluster-side tool.
+```
+
+## ConfigHub And GitOps
+
+Once the Units are in ConfigHub, the intended GitOps path is:
+
+1. Choose a chart from `CATALOG.md`.
 2. Choose a catalog variant.
 3. Verify the rendered objects and receipts.
-4. Upload or publish the rendered ConfigHub objects to ConfigHub OCI.
+4. Upload to ConfigHub, then publish the reviewed object set to ConfigHub OCI.
 5. Point Argo CD or Flux at that ConfigHub OCI artifact.
 6. Let GitOps sync the cluster.
 7. Record or inspect an observation receipt.
 
 Today this repo proves the chart -> recipe -> variant -> rendered objects path
-for the top 20, and proves local kind deployment for those rendered objects. A
-public Argo CD / Flux live proof is still a separate lane to add.
+for the top 20, and proves local kind deployment for those rendered objects.
+The Argo CD / Flux OCI path is exercised as a separate live verification lane
+because it needs a running GitOps controller and cluster.
 
 ## Current Commands Used
 
@@ -258,13 +395,53 @@ cub install package
 cub install vet
 cub install plan
 cub install upload
+cub space list
 cub variant create
 cub unit list
 cub unit data
 cub unit diff
+cub unit approve
+cub unit apply
 cub function vet
 cub changeset create
 ```
+
+## Additional Options For Live Cluster Verification
+
+The built-in `verify-install:cluster` command is intentionally small. It proves
+the Redis happy path with rollout, PVC, Secret, and Redis PING checks.
+
+For deeper runtime proof, use the
+[cub-scout helm-expt example](https://github.com/confighub/cub-scout/tree/main/examples/helm-expt).
+
+That example adds the cluster-side half of the proof:
+
+```text
+helm-expt proves:   Helm render == cub install render
+installer proves:   package/spec -> rendered objects -> ConfigHub Units/OCI
+cub-scout proves:   rendered objects are present and matching in the live cluster
+```
+
+Typical cub-scout checks include:
+
+```sh
+./cub-scout map status --namespace "$NS" --json
+./cub-scout doctor --namespace "$NS" --format json
+./cub-scout compare drift --file "$MANIFESTS" -n "$NS" --format json --fail-on warning
+./cub-scout receipt verify --file "$MANIFESTS" --scope namespace/"$NS" \
+  --format json --out "$RUN_DIR/cub-scout-object-set.receipt.json" \
+  --fail-on any-non-pass
+```
+
+Use this when you want a stronger live-cluster claim than the local Redis
+smoke check: object-set receipts, drift checks, source-truth checks, ownership
+graphs, snapshots, and GitOps convergence evidence.
+
+## Talking About This
+
+The proposed public article sequence is in `docs/blog-posts.md`. It keeps the
+story aligned with the proof: Helm pain, Redis, top-20 receipts, variants, live
+truth, hard charts, catalog maintenance, and the GitOps/OCI lane.
 
 ## The Pitch
 

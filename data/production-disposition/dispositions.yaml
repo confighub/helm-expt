@@ -16,7 +16,7 @@ spec:
       evidence:
         recipe: "recipes/argo-cd/argo-cd/9.5.15"
         package: "packages/argo-cd/argo-cd/9.5.15"
-        useMoreNowReceipt: "runs/argo-cd-use-more-now/latest/use-more-now-receipt.yaml"
+        configHubProofReceipt: "runs/argo-cd-confighub-proof/latest/confighub-proof-receipt.yaml"
         externalScanVariants:
           -
             variant: "default"
@@ -100,7 +100,7 @@ spec:
       evidence:
         recipe: "recipes/bitnami/mongodb/19.0.7"
         package: "packages/bitnami/mongodb/19.0.7"
-        useMoreNowReceipt: "runs/mongodb-use-more-now/latest/use-more-now-receipt.yaml"
+        configHubProofReceipt: "runs/mongodb-confighub-proof/latest/confighub-proof-receipt.yaml"
         externalScanVariants:
           -
             variant: "existing-secret-replicaset"
@@ -175,7 +175,7 @@ spec:
       evidence:
         recipe: "recipes/bitnami/mysql/14.0.3"
         package: "packages/bitnami/mysql/14.0.3"
-        useMoreNowReceipt: "runs/mysql-use-more-now/latest/use-more-now-receipt.yaml"
+        configHubProofReceipt: "runs/mysql-confighub-proof/latest/confighub-proof-receipt.yaml"
         externalScanVariants:
           -
             variant: "existing-secret"
@@ -259,7 +259,7 @@ spec:
       evidence:
         recipe: "recipes/bitnami/nginx/24.0.2"
         package: "packages/bitnami/nginx/24.0.2"
-        useMoreNowReceipt: "runs/nginx-use-more-now/latest/use-more-now-receipt.yaml"
+        configHubProofReceipt: "runs/nginx-confighub-proof/latest/confighub-proof-receipt.yaml"
         externalScanVariants:
           -
             variant: "existing-tls-ingress"
@@ -325,7 +325,7 @@ spec:
       evidence:
         recipe: "recipes/bitnami/postgresql/18.6.7"
         package: "packages/bitnami/postgresql/18.6.7"
-        useMoreNowReceipt: "runs/postgresql-use-more-now/latest/use-more-now-receipt.yaml"
+        configHubProofReceipt: "runs/postgresql-confighub-proof/latest/confighub-proof-receipt.yaml"
         externalScanVariants:
           -
             variant: "existing-secret"
@@ -409,7 +409,7 @@ spec:
       evidence:
         recipe: "recipes/bitnami/rabbitmq/16.0.14"
         package: "packages/bitnami/rabbitmq/16.0.14"
-        useMoreNowReceipt: "runs/rabbitmq-use-more-now/latest/use-more-now-receipt.yaml"
+        configHubProofReceipt: "runs/rabbitmq-confighub-proof/latest/confighub-proof-receipt.yaml"
         externalScanVariants:
           -
             variant: "existing-secret"
@@ -493,7 +493,7 @@ spec:
       evidence:
         recipe: "recipes/bitnami/redis/25.5.3"
         package: "packages/bitnami/redis/25.5.3"
-        useMoreNowReceipt: "runs/redis-use-more-now/latest/use-more-now-receipt.yaml"
+        configHubProofReceipt: "runs/redis-confighub-proof/latest/confighub-proof-receipt.yaml"
         externalScanVariants:
           -
             variant: "default"
@@ -559,7 +559,7 @@ spec:
       evidence:
         recipe: "recipes/external-secrets/external-secrets/2.5.0"
         package: "packages/external-secrets/external-secrets/2.5.0"
-        useMoreNowReceipt: "runs/external-secrets-use-more-now/latest/use-more-now-receipt.yaml"
+        configHubProofReceipt: "runs/external-secrets-confighub-proof/latest/confighub-proof-receipt.yaml"
         externalScanVariants:
           -
             variant: "default"
@@ -634,7 +634,7 @@ spec:
       evidence:
         recipe: "recipes/grafana/grafana/10.5.15"
         package: "packages/grafana/grafana/10.5.15"
-        useMoreNowReceipt: "runs/grafana-use-more-now/latest/use-more-now-receipt.yaml"
+        configHubProofReceipt: "runs/grafana-confighub-proof/latest/confighub-proof-receipt.yaml"
         externalScanVariants:
           -
             variant: "existing-secret-ingress"
@@ -709,7 +709,7 @@ spec:
       evidence:
         recipe: "recipes/grafana/loki/7.0.0"
         package: "packages/grafana/loki/7.0.0"
-        useMoreNowReceipt: "runs/loki-use-more-now/latest/use-more-now-receipt.yaml"
+        configHubProofReceipt: "runs/loki-confighub-proof/latest/confighub-proof-receipt.yaml"
         externalScanVariants:
           -
             variant: "simple-scalable-minio"
@@ -784,7 +784,7 @@ spec:
       evidence:
         recipe: "recipes/grafana/tempo/1.24.4"
         package: "packages/grafana/tempo/1.24.4"
-        useMoreNowReceipt: "runs/tempo-use-more-now/latest/use-more-now-receipt.yaml"
+        configHubProofReceipt: "runs/tempo-confighub-proof/latest/confighub-proof-receipt.yaml"
         externalScanVariants:
           -
             variant: "local-persistent"
@@ -850,7 +850,7 @@ spec:
       evidence:
         recipe: "recipes/hashicorp/consul/2.0.0"
         package: "packages/hashicorp/consul/2.0.0"
-        useMoreNowReceipt: "runs/consul-use-more-now/latest/use-more-now-receipt.yaml"
+        configHubProofReceipt: "runs/consul-confighub-proof/latest/confighub-proof-receipt.yaml"
         externalScanVariants:
           -
             variant: "default-control-plane"
@@ -952,7 +952,7 @@ spec:
       evidence:
         recipe: "recipes/hashicorp/vault/0.32.0"
         package: "packages/hashicorp/vault/0.32.0"
-        useMoreNowReceipt: "runs/vault-use-more-now/latest/use-more-now-receipt.yaml"
+        configHubProofReceipt: "runs/vault-confighub-proof/latest/confighub-proof-receipt.yaml"
         externalScanVariants:
           -
             variant: "default"
@@ -1027,7 +1027,7 @@ spec:
       evidence:
         recipe: "recipes/ingress-nginx/ingress-nginx/4.15.1"
         package: "packages/ingress-nginx/ingress-nginx/4.15.1"
-        useMoreNowReceipt: "runs/ingress-nginx-use-more-now/latest/use-more-now-receipt.yaml"
+        configHubProofReceipt: "runs/ingress-nginx-confighub-proof/latest/confighub-proof-receipt.yaml"
         externalScanVariants:
           -
             variant: "admission-disabled"
@@ -1102,7 +1102,7 @@ spec:
       evidence:
         recipe: "recipes/jetstack/cert-manager/v1.20.2"
         package: "packages/jetstack/cert-manager/v1.20.2"
-        useMoreNowReceipt: "runs/cert-manager-use-more-now/latest/use-more-now-receipt.yaml"
+        configHubProofReceipt: "runs/cert-manager-confighub-proof/latest/confighub-proof-receipt.yaml"
         externalScanVariants:
           -
             variant: "crds-enabled"
@@ -1186,7 +1186,7 @@ spec:
       evidence:
         recipe: "recipes/longhorn/longhorn/1.11.2"
         package: "packages/longhorn/longhorn/1.11.2"
-        useMoreNowReceipt: "runs/longhorn-use-more-now/latest/use-more-now-receipt.yaml"
+        configHubProofReceipt: "runs/longhorn-confighub-proof/latest/confighub-proof-receipt.yaml"
         externalScanVariants:
           -
             variant: "default"
@@ -1261,7 +1261,7 @@ spec:
       evidence:
         recipe: "recipes/metrics-server/metrics-server/3.13.0"
         package: "packages/metrics-server/metrics-server/3.13.0"
-        useMoreNowReceipt: "runs/metrics-server-use-more-now/latest/use-more-now-receipt.yaml"
+        configHubProofReceipt: "runs/metrics-server-confighub-proof/latest/confighub-proof-receipt.yaml"
         externalScanVariants:
           -
             variant: "default"
@@ -1336,7 +1336,7 @@ spec:
       evidence:
         recipe: "recipes/prometheus-community/kube-prometheus-stack/85.3.3"
         package: "packages/prometheus-community/kube-prometheus-stack/85.3.3"
-        useMoreNowReceipt: "runs/kube-prometheus-stack-use-more-now/latest/use-more-now-receipt.yaml"
+        configHubProofReceipt: "runs/kube-prometheus-stack-confighub-proof/latest/confighub-proof-receipt.yaml"
         externalScanVariants:
           -
             variant: "default"
@@ -1420,7 +1420,7 @@ spec:
       evidence:
         recipe: "recipes/prometheus-community/prometheus/29.8.0"
         package: "packages/prometheus-community/prometheus/29.8.0"
-        useMoreNowReceipt: "runs/prometheus-use-more-now/latest/use-more-now-receipt.yaml"
+        configHubProofReceipt: "runs/prometheus-confighub-proof/latest/confighub-proof-receipt.yaml"
         externalScanVariants:
           -
             variant: "default"
@@ -1477,7 +1477,7 @@ spec:
       evidence:
         recipe: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0"
         package: "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0"
-        useMoreNowReceipt: "runs/secrets-store-csi-driver-use-more-now/latest/use-more-now-receipt.yaml"
+        configHubProofReceipt: "runs/secrets-store-csi-driver-confighub-proof/latest/confighub-proof-receipt.yaml"
         externalScanVariants:
           -
             variant: "default"

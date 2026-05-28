@@ -23,7 +23,7 @@ The active roadmap now separates existing `cub` / ConfigHub capabilities from
 missing product verbs. These lanes should become GitHub issues when they move
 from roadmap shape to implementation work.
 
-Existing capabilities to use more now:
+Existing ConfigHub capabilities to use now:
 
 | Lane | Existing verbs | Roadmap home |
 | --- | --- | --- |
@@ -59,7 +59,7 @@ the evidence regresses:
 | [#8](https://github.com/confighub/helm-expt/issues/8) Prove Helm equivalence for Redis and classify every ConfigHub difference | `npm run redis:compare`, Helm equivalence receipts, and namespace/secret classifications. |
 | [#9](https://github.com/confighub/helm-expt/issues/9) Bind rendered-object scans and install gates to exact manifest digests | Redis scan receipts and install gates are digest-bound and verified by `npm run verify`. |
 | [#10](https://github.com/confighub/helm-expt/issues/10) Create complete Redis HelmPlan and ChartDossier artifacts | `recipes/bitnami/redis/25.5.3/`, durable installer package, upload/OCI receipt. |
-| [#26](https://github.com/confighub/helm-expt/issues/26) Prove simple UX is easier, safer, and correct versus Helm | `docs/demo/redis/` demo script, transcript, UX acceptance note, and use-more-now transcript with real `cub install`, `cub variant create`, and ConfigHub review verbs. |
+| [#26](https://github.com/confighub/helm-expt/issues/26) Prove simple UX is easier, safer, and correct versus Helm | `docs/demo/redis/` demo script, transcript, UX acceptance note, and ConfigHub proof transcript with real `cub install`, `cub variant create`, and ConfigHub review verbs. |
 
 ## Current Adversarial Harness Slice
 

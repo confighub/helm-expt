@@ -1,0 +1,83 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "vault-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.49"
+  package:
+    path: "packages/hashicorp/vault/0.32.0"
+    name: "hashicorp-vault"
+    chart: "hashicorp/vault"
+    chartVersion: "0.32.0"
+    bases:
+      - "default"
+      - "ha-raft-ui"
+    selectedBase: "default"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub install setup --pull packages/hashicorp/vault/0.32.0 --base default --work-dir .tmp/confighub-proof/vault-default --non-interactive --namespace vault"
+    result: "pass"
+    manifestCount: 13
+    separatedSecretCount: 0
+    facts:
+      {}
+  rerender:
+    command: "cub install render --work-dir .tmp/confighub-proof/vault-default"
+    result: "pass"
+    manifestCount: 13
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub install package packages/hashicorp/vault/0.32.0 -o .tmp/confighub-proof/vault-archives/vault-a.tgz"
+    sha256: "a942c0f6db2bc98fcbd9c4dbabb194f037828a99e967fd74dc16ec97d498cc93"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub install vet --work-dir .tmp/confighub-proof/vault-default"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub install upload --work-dir .tmp/confighub-proof/vault-default --space helm-vault-confighub-proof --component Vault --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=Vault --unit-label HelmChart=hashicorp-vault --unit-label HelmChartVersion=0.32.0 --unit-label Variant=default --unit-label Proof=vault-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-vault-confighub-proof"
+    unitCount: 14
+    kubernetesUnitCount: 13
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub install plan --work-dir .tmp/confighub-proof/vault-default"
+      result: "expected-missing-upload-state"
+    command: "cub install plan --work-dir .tmp/confighub-proof/vault-default"
+    result: "pass"
+    summary: "No changes.\nImages in helm-vault-confighub-proof (post-render):\n      Deployment/vault-agent-injector [sidecar-injector] hashicorp/vault-k8s:1.7.2\n      StatefulSet/vault [vault] hashicorp/vault:1.21.2"
+  serverSideVariant:
+    command: "cub variant create staging helm-vault-confighub-proof --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}} --allow-exists"
+    result: "pass"
+    upstreamSpace: "helm-vault-confighub-proof"
+    downstreamSpace: "helm-vault-confighub-proof-staging"
+    clonedUnitCount: 14
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "statefulset-vault-vault"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-vault-confighub-proof"
+      - "helm-vault-confighub-proof-staging"
+  observedFriction:
+    - "cub install upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub install plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

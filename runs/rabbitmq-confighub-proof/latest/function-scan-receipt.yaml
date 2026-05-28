@@ -1,0 +1,83 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "rabbitmq-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-rabbitmq-confighub-proof"
+    selector: "Labels.Proof = 'rabbitmq-confighub-proof'"
+  subject:
+    chart: "bitnami/rabbitmq"
+    chartVersion: "16.0.14"
+    packagePath: "packages/bitnami/rabbitmq/16.0.14"
+    variant: "generated-passwords"
+    configHubUnitCount: 9
+  unitRevisionBindings:
+    -
+      slug: "namespace-rabbitmq"
+      headRevisionNum: 2
+      dataHash: "7c22abf3932b0b578c6e929129f604bde18f491a2481dde560e80d31b1eba511"
+    -
+      slug: "networkpolicy-rabbitmq-rabbitmq"
+      headRevisionNum: 2
+      dataHash: "49ae07425aaf54fe7d1e38a40842d8c13bfe57c18445751a651ec664b9f3a5fd"
+    -
+      slug: "poddisruptionbudget-rabbitmq-rabbitmq"
+      headRevisionNum: 2
+      dataHash: "afa931f2824fa578b3669e4a03aa63b3b53275aedb818356f290148e1679b047"
+    -
+      slug: "rolebinding-rabbitmq-rabbitmq-endpoint-reader"
+      headRevisionNum: 2
+      dataHash: "621c0e3d8dfc009a9f2d4663364941e65b959db40337cc2990d204fae8881929"
+    -
+      slug: "role-rabbitmq-rabbitmq-endpoint-reader"
+      headRevisionNum: 2
+      dataHash: "824cb0d2c3562791b4f99f2e339998da358e49eb66eef10307248d9985e12687"
+    -
+      slug: "serviceaccount-rabbitmq-rabbitmq"
+      headRevisionNum: 2
+      dataHash: "87e4fdd004de0bcd6ac4a39b909c51fb9f315dc4d06fae0027007a3fe30b262b"
+    -
+      slug: "service-rabbitmq-rabbitmq"
+      headRevisionNum: 2
+      dataHash: "23a030fcf57b87c066bc161ca844c84a4d614efa29f7f02fb5688ce918e24414"
+    -
+      slug: "service-rabbitmq-rabbitmq-headless"
+      headRevisionNum: 2
+      dataHash: "bf4c9b2d124ddc34797db295d408078efe6e1643ee3ada6009e463c480b35520"
+    -
+      slug: "statefulset-rabbitmq-rabbitmq"
+      headRevisionNum: 2
+      dataHash: "de0eb51373f9db680da630df64bc5d6f818f934c0f12c6e63060bf806e9f4b23"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 9
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 9
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 9
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

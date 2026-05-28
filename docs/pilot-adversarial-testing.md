@@ -67,11 +67,13 @@ ConfigHub upload/proof, OCI/GitOps, GUI, and Kubernetes runtime receipts
 package shape and is correctly refusing to claim live success until the live
 proof receipts exist.
 
-This is **not** a live e2e test. It is the offline Pilot gate before live e2e:
+This step is **not** a live e2e test. It is the offline Pilot gate before a
+live run:
 
 ```text
 current step: package inspection + render preview + e2e proof gate
-not yet: ConfigHub upload, OCI/GitOps handoff, Kubernetes apply, runtime observation
+separate live lane: ConfigHub upload, OCI/GitOps handoff, Kubernetes apply,
+runtime observation
 ```
 
 Call a run "live e2e" only after it includes target-access proof, a disposable

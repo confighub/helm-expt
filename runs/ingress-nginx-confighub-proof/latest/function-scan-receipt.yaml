@@ -1,0 +1,95 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "ingress-nginx-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-ingress-nginx-confighub-proof"
+    selector: "Labels.Proof = 'ingress-nginx-confighub-proof'"
+  subject:
+    chart: "ingress-nginx/ingress-nginx"
+    chartVersion: "4.15.1"
+    packagePath: "packages/ingress-nginx/ingress-nginx/4.15.1"
+    variant: "default"
+    configHubUnitCount: 12
+  unitRevisionBindings:
+    -
+      slug: "clusterrolebinding-ingress-nginx"
+      headRevisionNum: 2
+      dataHash: "79e669104c6ffc3178322f2ce4ee916891d1daa599a74a41412200c0d873f827"
+    -
+      slug: "configmap-ingress-nginx-ingress-nginx-controller"
+      headRevisionNum: 2
+      dataHash: "b092e19571bf6f2968f64be607467649523e6b05b994711d293df5339c5bc634"
+    -
+      slug: "deployment-ingress-nginx-ingress-nginx-controller"
+      headRevisionNum: 2
+      dataHash: "654dca9e90e73db08e9461c852d6b0e7373e4b62fb442d641f1364f751b4bab9"
+    -
+      slug: "role-ingress-nginx-ingress-nginx"
+      headRevisionNum: 2
+      dataHash: "1d172fb8ea4941b156900e234a1cbde27f569710a0417b17585ef8c50a7c75b2"
+    -
+      slug: "rolebinding-ingress-nginx-ingress-nginx"
+      headRevisionNum: 2
+      dataHash: "77b3313f338209c470b04972330d1c98cd3d72419c2cb5dea1ff7746d4214096"
+    -
+      slug: "serviceaccount-ingress-nginx-ingress-nginx"
+      headRevisionNum: 2
+      dataHash: "c7da6db5d614dbdc04e1822c06b0e4fa46c2ddd398041ef1cbb832e967c861c2"
+    -
+      slug: "clusterrole-ingress-nginx"
+      headRevisionNum: 2
+      dataHash: "9c01d12371f47d80ccbd3874865b8da52d9d34c457e7c2973f13cb5b5b2485a6"
+    -
+      slug: "ingressclass-nginx"
+      headRevisionNum: 2
+      dataHash: "5099ad846f5f31fbbbc67d261dda9253ae8a9531a25c364437d6a49487cd3076"
+    -
+      slug: "namespace-ingress-nginx"
+      headRevisionNum: 2
+      dataHash: "b33468710f3d2913e3190199e73953732db5e55b6fdd5a938da6c47cfb95a769"
+    -
+      slug: "service-ingress-nginx-ingress-nginx-controller-admission"
+      headRevisionNum: 2
+      dataHash: "639ca83a0b66ee752a72553d149761adedf59f6659e94f9453be57d686532e17"
+    -
+      slug: "service-ingress-nginx-ingress-nginx-controller"
+      headRevisionNum: 2
+      dataHash: "ba4ee1d1912cd4026e0571eda1d7e92bb72e04d3fc901f67a0a9efae029f27c7"
+    -
+      slug: "validatingwebhookconfiguration-ingress-nginx-admission"
+      headRevisionNum: 2
+      dataHash: "e9bc4428cd49bb80e6a4e40b4eaffbb640d75f9eb0226a6c154cecd18ea6b7a6"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 12
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 12
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 12
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

@@ -1,0 +1,99 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "vault-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-vault-confighub-proof"
+    selector: "Labels.Proof = 'vault-confighub-proof'"
+  subject:
+    chart: "hashicorp/vault"
+    chartVersion: "0.32.0"
+    packagePath: "packages/hashicorp/vault/0.32.0"
+    variant: "default"
+    configHubUnitCount: 13
+  unitRevisionBindings:
+    -
+      slug: "clusterrolebinding-vault-agent-injector-binding"
+      headRevisionNum: 2
+      dataHash: "e8e936dbe452d7214b5f754ad9b49f03fcc32a560d83f748278bd7e6d1f69325"
+    -
+      slug: "clusterrolebinding-vault-server-binding"
+      headRevisionNum: 2
+      dataHash: "4f8e33b0db22fdbfedf6777bdb4cb7a3ea85da387452c98194f5d4c6ddf5051f"
+    -
+      slug: "clusterrole-vault-agent-injector-clusterrole"
+      headRevisionNum: 2
+      dataHash: "101c7b28302b492845f2172252880ca8a969626de57f8f0d1d516194481208b1"
+    -
+      slug: "configmap-vault-vault-config"
+      headRevisionNum: 2
+      dataHash: "affb0d77867b4f8dc439a024301fc0d6a62d0d645059cbc366d13fc8fafcf063"
+    -
+      slug: "deployment-vault-vault-agent-injector"
+      headRevisionNum: 2
+      dataHash: "fcfb075bec9a7a16106f668d1d9d4ac70d3a06938e531cf0e726101666a3b8e3"
+    -
+      slug: "mutatingwebhookconfiguration-vault-agent-injector-cfg"
+      headRevisionNum: 2
+      dataHash: "6b625c52274b65011190d6dd1ad8d838a6913fab2bf11b9eceabd98ae5898f32"
+    -
+      slug: "namespace-vault"
+      headRevisionNum: 2
+      dataHash: "6971ab19beba10109f2a7b5477c278cbc1138948fc976df36ec69bcf4196de96"
+    -
+      slug: "serviceaccount-vault-vault"
+      headRevisionNum: 2
+      dataHash: "3d7e8036cacd2a39cde1915ed54aefaefc36b50095ca4ffd58e300e160907e17"
+    -
+      slug: "serviceaccount-vault-vault-agent-injector"
+      headRevisionNum: 2
+      dataHash: "bd8b4db13f26af8c88054600702d6a1b0080e683649355c24c9c145a90b212d2"
+    -
+      slug: "service-vault-vault"
+      headRevisionNum: 2
+      dataHash: "ae6179bfb2bf2dff59c156904509c0da7a95b7d9077790ca516e1d129761303c"
+    -
+      slug: "service-vault-vault-agent-injector-svc"
+      headRevisionNum: 2
+      dataHash: "377e4b4b3f4d213d9bbdd763bfbfe5b3eb7a7c926c62d7b2d29eb26a1d7a4782"
+    -
+      slug: "service-vault-vault-internal"
+      headRevisionNum: 2
+      dataHash: "d233e07866063bb79aa9099b7f00e884b031a247429eb09f6ed6bbee7543c5fa"
+    -
+      slug: "statefulset-vault-vault"
+      headRevisionNum: 2
+      dataHash: "9b60d46d36450160acb4d1abaa4531b01f42ed4427f7de5fb4b718c0c15a3304"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 13
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 13
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 13
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

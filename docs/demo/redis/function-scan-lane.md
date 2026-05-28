@@ -12,7 +12,7 @@ the ConfigHub-native scan layer that runs against uploaded Units.
 Accepted when:
 
 - the scan runs against ConfigHub Units, not only local files;
-- the selected Units are the Redis Units from the `helm-redis-use-more-now`
+- the selected Units are the Redis Units from the `helm-redis-confighub-proof`
   proof space;
 - every scanned Unit is bound by `HeadRevisionNum` and `DataHash`;
 - at least three current validating functions pass;
@@ -27,28 +27,28 @@ Context:
 ```text
 Organization: Kubara
 Server: https://hub.confighub.com
-Space: helm-redis-use-more-now
-Selector: Labels.Proof = 'redis-use-more-now'
+Space: helm-redis-confighub-proof
+Selector: Labels.Proof = 'redis-confighub-proof'
 ```
 
 Commands:
 
 ```sh
 CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub function vet vet-format \
-  --space helm-redis-use-more-now \
-  --where "Labels.Proof = 'redis-use-more-now'" \
+  --space helm-redis-confighub-proof \
+  --where "Labels.Proof = 'redis-confighub-proof'" \
   --output json \
   --wait
 
 CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub function vet vet-placeholders \
-  --space helm-redis-use-more-now \
-  --where "Labels.Proof = 'redis-use-more-now'" \
+  --space helm-redis-confighub-proof \
+  --where "Labels.Proof = 'redis-confighub-proof'" \
   --output json \
   --wait
 
 CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub function vet vet-merge-keys \
-  --space helm-redis-use-more-now \
-  --where "Labels.Proof = 'redis-use-more-now'" \
+  --space helm-redis-confighub-proof \
+  --where "Labels.Proof = 'redis-confighub-proof'" \
   --output json \
   --wait
 ```
@@ -64,7 +64,7 @@ Result:
 Receipt:
 
 ```text
-runs/redis-use-more-now/latest/function-scan-receipt.yaml
+runs/redis-confighub-proof/latest/function-scan-receipt.yaml
 ```
 
 ## Interpretation

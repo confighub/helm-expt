@@ -1,0 +1,44 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ConfigHubSafeOpsReceipt
+metadata:
+  name: metrics-server-safe-ops-20260527
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: Kubara
+    server: https://hub.confighub.com
+    space: helm-metrics-server-confighub-proof
+    selector: "Labels.Proof = 'metrics-server-confighub-proof'"
+  subject:
+    chart: metrics-server/metrics-server
+    chartVersion: 3.13.0
+    packagePath: packages/metrics-server/metrics-server/3.13.0
+    variant: default
+  changeset:
+    slug: metrics-server-safe-ops-20260527
+    createResult: pass
+    updateResult: pass
+    description: "Metrics Server safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: metrics-server-confighub-proof
+      Lane: safe-ops
+    annotations:
+      proof.confighub.com/scope: local-test
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: cub unit approve apiservice-v1beta1-metrics-k8s-io --space helm-metrics-server-confighub-proof --revision HeadRevisionNum --verbose --wait
+    result: pass
+    representativeUnit: apiservice-v1beta1-metrics-k8s-io
+    output: "Unit apiservice-v1beta1-metrics-k8s-io has been approved; awaiting triggers."
+  applyDryRun:
+    command: cub unit apply --space helm-metrics-server-confighub-proof --where "Labels.Proof = 'metrics-server-confighub-proof'" --dry-run --wait --timeout 2m
+    result: blocked-no-target
+    expected: true
+    message: "cannot invoke action on a unit without a target"
+  cancel:
+    command: cub unit cancel --space helm-metrics-server-confighub-proof --where "Labels.Proof = 'metrics-server-confighub-proof'"
+    result: pass
+    message: "No units found matching the filter"
+  safetyResult: pass
+  interpretation: "The reviewed Metrics Server Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."
+

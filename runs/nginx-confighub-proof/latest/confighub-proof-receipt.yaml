@@ -1,0 +1,86 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ConfigHubProofReceipt
+metadata:
+  name: nginx-confighub-proof-20260527
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: Kubara
+      server: https://hub.confighub.com
+      cubClientVersion: dev
+      cubServerVersion: v0.1.49
+  package:
+    path: packages/bitnami/nginx/24.0.2
+    name: bitnami-nginx
+    chart: bitnami/nginx
+    chartVersion: 24.0.2
+    bases:
+      - http-clusterip
+      - existing-tls-ingress
+    docVerified: true
+    targetFactRequirementVerified:
+      base: existing-tls-ingress
+      externalRequireKind: ClusterFeature
+      requirements:
+        - Secret nginx/nginx-backend-tls keys tls.crt,tls.key,ca.crt
+        - Secret nginx/nginx-ingress-tls keys tls.crt,tls.key
+  render:
+    command: cub install setup --pull packages/bitnami/nginx/24.0.2 --base http-clusterip --work-dir .tmp/confighub-proof/nginx-http-clusterip --non-interactive --namespace nginx
+    result: pass
+    manifestCount: 6
+    separatedSecretCount: 0
+    facts:
+      targetFactChecks:
+        base: http-clusterip
+        mode: not-required
+        result: pass
+      requiredSecrets: []
+  rerender:
+    command: cub install render --work-dir .tmp/confighub-proof/nginx-http-clusterip
+    result: pass
+    manifestCount: 6
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: cub install package packages/bitnami/nginx/24.0.2 -o .tmp/confighub-proof/nginx-archives/nginx-a.tgz
+    sha256: bd5cb61027cf975d700d8b0cb7aba4b1b64f076368bd087328385f31ffc0eefb
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: cub install vet --work-dir .tmp/confighub-proof/nginx-http-clusterip
+    result: pass
+    note: Package declares no validators.
+  upload:
+    command: cub install upload --work-dir .tmp/confighub-proof/nginx-http-clusterip --space helm-nginx-confighub-proof
+    result: pass
+    workaround: CUB_CONFIG=/Users/alexis/.confighub/config.yaml
+    uploadedAt: "2026-05-27T08:09:11Z"
+    space: helm-nginx-confighub-proof
+    unitCount: 7
+    nginxKubernetesUnitCount: 6
+    installerRecordUnitCount: 1
+    inferredLinkCount: 9
+    separatedSecretsNotUploaded: []
+  plan:
+    command: cub install plan --work-dir .tmp/confighub-proof/nginx-http-clusterip
+    result: pass
+    summary: No changes.
+    images:
+      - init Deployment/nginx [preserve-logs-symlinks] registry-1.docker.io/bitnami/nginx:latest
+      - Deployment/nginx [nginx] registry-1.docker.io/bitnami/nginx:latest
+  serverSideVariant:
+    command: cub variant create staging helm-nginx-confighub-proof --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}}
+    result: pass
+    upstreamSpace: helm-nginx-confighub-proof
+    downstreamSpace: helm-nginx-confighub-proof-staging
+    clonedUnitCount: 7
+  review:
+    unitList: pass
+    cloneTree: pass
+    unitData: pass
+    revisionList: pass
+    revisionDiff: pass
+    note: Current diff proof uses Unit revision diff; richer variant diff remains a product ask.
+  observedFriction:
+    - cub install upload needs explicit CUB_CONFIG in this local setup.
+    - dry-run apply is blocked until a target is attached, which is the correct safe boundary.
+
