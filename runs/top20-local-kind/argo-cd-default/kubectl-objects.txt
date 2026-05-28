@@ -1,0 +1,60 @@
+NAME                                                            READY   STATUS    RESTARTS   AGE   IP            NODE                            NOMINATED NODE   READINESS GATES
+pod/argo-cd-argocd-application-controller-0                     1/1     Running   0          41s   10.244.0.27   helm-expt-redis-control-plane   <none>           <none>
+pod/argo-cd-argocd-applicationset-controller-769f7947dd-hw2bs   1/1     Running   0          41s   10.244.0.21   helm-expt-redis-control-plane   <none>           <none>
+pod/argo-cd-argocd-dex-server-867899fbf7-t2dj5                  1/1     Running   0          41s   10.244.0.25   helm-expt-redis-control-plane   <none>           <none>
+pod/argo-cd-argocd-notifications-controller-55854d5bd-8qkkv     1/1     Running   0          41s   10.244.0.22   helm-expt-redis-control-plane   <none>           <none>
+pod/argo-cd-argocd-redis-5df655cd96-nbqxg                       1/1     Running   0          41s   10.244.0.26   helm-expt-redis-control-plane   <none>           <none>
+pod/argo-cd-argocd-repo-server-bd7755cb6-562vk                  1/1     Running   0          41s   10.244.0.23   helm-expt-redis-control-plane   <none>           <none>
+pod/argo-cd-argocd-server-945876749-57d7m                       1/1     Running   0          41s   10.244.0.24   helm-expt-redis-control-plane   <none>           <none>
+
+NAME                                               TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE   SELECTOR
+service/argo-cd-argocd-applicationset-controller   ClusterIP   10.96.196.182   <none>        7000/TCP            41s   app.kubernetes.io/instance=argo-cd,app.kubernetes.io/name=argocd-applicationset-controller
+service/argo-cd-argocd-dex-server                  ClusterIP   10.96.37.235    <none>        5556/TCP,5557/TCP   41s   app.kubernetes.io/instance=argo-cd,app.kubernetes.io/name=argocd-dex-server
+service/argo-cd-argocd-redis                       ClusterIP   10.96.110.202   <none>        6379/TCP            41s   app.kubernetes.io/instance=argo-cd,app.kubernetes.io/name=argocd-redis
+service/argo-cd-argocd-repo-server                 ClusterIP   10.96.156.108   <none>        8081/TCP            41s   app.kubernetes.io/instance=argo-cd,app.kubernetes.io/name=argocd-repo-server
+service/argo-cd-argocd-server                      ClusterIP   10.96.202.33    <none>        80/TCP,443/TCP      41s   app.kubernetes.io/instance=argo-cd,app.kubernetes.io/name=argocd-server
+
+NAME                                                       READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS                  IMAGES                                                 SELECTOR
+deployment.apps/argo-cd-argocd-applicationset-controller   1/1     1            1           41s   applicationset-controller   quay.io/argoproj/argocd:v3.4.2                         app.kubernetes.io/instance=argo-cd,app.kubernetes.io/name=argocd-applicationset-controller
+deployment.apps/argo-cd-argocd-dex-server                  1/1     1            1           41s   dex-server                  ghcr.io/dexidp/dex:v2.45.1                             app.kubernetes.io/instance=argo-cd,app.kubernetes.io/name=argocd-dex-server
+deployment.apps/argo-cd-argocd-notifications-controller    1/1     1            1           41s   notifications-controller    quay.io/argoproj/argocd:v3.4.2                         app.kubernetes.io/instance=argo-cd,app.kubernetes.io/name=argocd-notifications-controller
+deployment.apps/argo-cd-argocd-redis                       1/1     1            1           41s   redis                       ecr-public.aws.com/docker/library/redis:8.2.3-alpine   app.kubernetes.io/name=argocd-redis
+deployment.apps/argo-cd-argocd-repo-server                 1/1     1            1           41s   repo-server                 quay.io/argoproj/argocd:v3.4.2                         app.kubernetes.io/instance=argo-cd,app.kubernetes.io/name=argocd-repo-server
+deployment.apps/argo-cd-argocd-server                      1/1     1            1           41s   server                      quay.io/argoproj/argocd:v3.4.2                         app.kubernetes.io/instance=argo-cd,app.kubernetes.io/name=argocd-server
+
+NAME                                                                  DESIRED   CURRENT   READY   AGE   CONTAINERS                  IMAGES                                                 SELECTOR
+replicaset.apps/argo-cd-argocd-applicationset-controller-769f7947dd   1         1         1       41s   applicationset-controller   quay.io/argoproj/argocd:v3.4.2                         app.kubernetes.io/instance=argo-cd,app.kubernetes.io/name=argocd-applicationset-controller,pod-template-hash=769f7947dd
+replicaset.apps/argo-cd-argocd-dex-server-867899fbf7                  1         1         1       41s   dex-server                  ghcr.io/dexidp/dex:v2.45.1                             app.kubernetes.io/instance=argo-cd,app.kubernetes.io/name=argocd-dex-server,pod-template-hash=867899fbf7
+replicaset.apps/argo-cd-argocd-notifications-controller-55854d5bd     1         1         1       41s   notifications-controller    quay.io/argoproj/argocd:v3.4.2                         app.kubernetes.io/instance=argo-cd,app.kubernetes.io/name=argocd-notifications-controller,pod-template-hash=55854d5bd
+replicaset.apps/argo-cd-argocd-redis-5df655cd96                       1         1         1       41s   redis                       ecr-public.aws.com/docker/library/redis:8.2.3-alpine   app.kubernetes.io/name=argocd-redis,pod-template-hash=5df655cd96
+replicaset.apps/argo-cd-argocd-repo-server-bd7755cb6                  1         1         1       41s   repo-server                 quay.io/argoproj/argocd:v3.4.2                         app.kubernetes.io/instance=argo-cd,app.kubernetes.io/name=argocd-repo-server,pod-template-hash=bd7755cb6
+replicaset.apps/argo-cd-argocd-server-945876749                       1         1         1       41s   server                      quay.io/argoproj/argocd:v3.4.2                         app.kubernetes.io/instance=argo-cd,app.kubernetes.io/name=argocd-server,pod-template-hash=945876749
+
+NAME                                                     READY   AGE   CONTAINERS               IMAGES
+statefulset.apps/argo-cd-argocd-application-controller   1/1     41s   application-controller   quay.io/argoproj/argocd:v3.4.2
+
+NAME                                              DATA   AGE
+configmap/argo-cd-argocd-redis-health-configmap   2      41s
+configmap/argocd-cm                               18     41s
+configmap/argocd-cmd-params-cm                    20     41s
+configmap/argocd-gpg-keys-cm                      0      41s
+configmap/argocd-notifications-cm                 1      41s
+configmap/argocd-rbac-cm                          4      41s
+configmap/argocd-ssh-known-hosts-cm               1      41s
+configmap/argocd-tls-certs-cm                     0      41s
+configmap/kube-root-ca.crt                        1      42s
+
+NAME                                 TYPE     DATA   AGE
+secret/argocd-initial-admin-secret   Opaque   1      17s
+secret/argocd-notifications-secret   Opaque   0      41s
+secret/argocd-redis                  Opaque   1      42s
+secret/argocd-secret                 Opaque   5      41s
+
+NAME                                              SECRETS   AGE
+serviceaccount/argo-cd-argocd-repo-server         0         41s
+serviceaccount/argocd-application-controller      0         41s
+serviceaccount/argocd-applicationset-controller   0         41s
+serviceaccount/argocd-dex-server                  0         41s
+serviceaccount/argocd-notifications-controller    0         41s
+serviceaccount/argocd-server                      0         41s
+serviceaccount/default                            0         42s

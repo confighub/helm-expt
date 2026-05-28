@@ -1,0 +1,8 @@
+networkpolicy.networking.k8s.io/mysql serverside-applied
+poddisruptionbudget.policy/mysql serverside-applied
+serviceaccount/mysql serverside-applied
+secret/mysql serverside-applied
+configmap/mysql serverside-applied
+service/mysql-headless serverside-applied
+service/mysql serverside-applied
+statefulset.apps/mysql serverside-applied

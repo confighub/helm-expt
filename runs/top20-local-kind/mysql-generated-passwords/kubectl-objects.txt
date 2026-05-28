@@ -1,0 +1,26 @@
+NAME          READY   STATUS    RESTARTS   AGE   IP            NODE                                NOMINATED NODE   READINESS GATES
+pod/mysql-0   1/1     Running   0          45s   10.244.0.12   helm-expt-live-tail-control-plane   <none>           <none>
+
+NAME                     TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE   SELECTOR
+service/mysql            ClusterIP   10.96.204.43   <none>        3306/TCP   45s   app.kubernetes.io/component=primary,app.kubernetes.io/instance=mysql,app.kubernetes.io/name=mysql,app.kubernetes.io/part-of=mysql
+service/mysql-headless   ClusterIP   None           <none>        3306/TCP   45s   app.kubernetes.io/component=primary,app.kubernetes.io/instance=mysql,app.kubernetes.io/name=mysql
+
+NAME                     READY   AGE   CONTAINERS   IMAGES
+statefulset.apps/mysql   1/1     45s   mysql        docker.io/bitnamilegacy/mysql:9.4.0-debian-12-r1
+
+NAME                                 STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE   VOLUMEMODE
+persistentvolumeclaim/data-mysql-0   Bound    pvc-b6170909-b97a-4c8d-a102-59273262e03c   8Gi        RWO            standard       <unset>                 45s   Filesystem
+
+NAME                               MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
+poddisruptionbudget.policy/mysql   N/A             1                 1                     45s
+
+NAME                         DATA   AGE
+configmap/kube-root-ca.crt   1      45s
+configmap/mysql              1      45s
+
+NAME           TYPE     DATA   AGE
+secret/mysql   Opaque   2      45s
+
+NAME                     SECRETS   AGE
+serviceaccount/default   0         45s
+serviceaccount/mysql     1         45s

@@ -1,0 +1,12 @@
+serviceaccount/vault-agent-injector serverside-applied
+serviceaccount/vault serverside-applied
+configmap/vault-config serverside-applied
+clusterrole.rbac.authorization.k8s.io/vault-agent-injector-clusterrole serverside-applied
+clusterrolebinding.rbac.authorization.k8s.io/vault-agent-injector-binding serverside-applied
+clusterrolebinding.rbac.authorization.k8s.io/vault-server-binding serverside-applied
+service/vault-agent-injector-svc serverside-applied
+service/vault-internal serverside-applied
+service/vault serverside-applied
+deployment.apps/vault-agent-injector serverside-applied
+statefulset.apps/vault serverside-applied
+mutatingwebhookconfiguration.admissionregistration.k8s.io/vault-agent-injector-cfg serverside-applied

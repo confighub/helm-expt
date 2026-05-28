@@ -1,0 +1,49 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "ObservationReceipt",
+  "metadata": {
+    "name": "tempo-local-persistent-local-kind"
+  },
+  "spec": {
+    "variantRevision": "recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/variant-revision.yaml",
+    "renderedObjectSetSHA256": "4a18b354ff67e98d84f6d89ce16b973396c9c30bf3c121f4ef146886151c44be",
+    "observer": {
+      "name": "top20-local-e2e",
+      "version": "0.2.0",
+      "method": "kubectl-kind"
+    },
+    "target": {
+      "kind": "kind",
+      "name": "helm-expt-live-tail",
+      "context": "kind-helm-expt-live-tail",
+      "namespace": "tempo"
+    },
+    "observedAt": "2026-05-28T08:29:00.879Z",
+    "freshnessTTL": "1h",
+    "result": "pass",
+    "chart": "grafana/tempo",
+    "chartVersion": "1.24.4",
+    "rank": 19,
+    "variant": "local-persistent",
+    "renderedObjectCount": 4,
+    "checks": [
+      {
+        "name": "server-side-apply",
+        "result": "pass",
+        "evidencePath": "kubectl-apply.txt",
+        "evidenceSHA256": "085163720842cec2ddb41b7026ca9725a537f355d006cfd2f0af70177f2d771c"
+      },
+      {
+        "name": "statefulset-tempo-rollout",
+        "result": "pass",
+        "object": "statefulset/tempo",
+        "evidencePath": "statefulset-tempo-rollout.txt",
+        "evidenceSHA256": "c0bf676483792baec37d10ee260cccbe7b2e55e8cb905576f86b9807e0905a9f"
+      }
+    ],
+    "kubectlObjects": {
+      "path": "kubectl-objects.txt",
+      "sha256": "fc9bb82c8f211f7490e6c448ae5d7654e38cd53bcb8d83a511653eb8855f4572"
+    }
+  }
+}

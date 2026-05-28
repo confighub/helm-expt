@@ -1,0 +1,46 @@
+NAME                                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                NOMINATED NODE   READINESS GATES
+pod/consul-consul-connect-injector-7495c7d444-k9q5v       1/1     Running   0          46s   10.244.0.21   helm-expt-live-tail-control-plane   <none>           <none>
+pod/consul-consul-server-0                                1/1     Running   0          46s   10.244.0.20   helm-expt-live-tail-control-plane   <none>           <none>
+pod/consul-consul-webhook-cert-manager-5f76564bf4-vhx5q   1/1     Running   0          46s   10.244.0.18   helm-expt-live-tail-control-plane   <none>           <none>
+
+NAME                                     TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)                                                                            AGE   SELECTOR
+service/consul-consul-connect-injector   ClusterIP   10.96.44.2    <none>        443/TCP                                                                            46s   app=consul,component=connect-injector,release=consul
+service/consul-consul-dns                ClusterIP   10.96.30.54   <none>        53/TCP,53/UDP                                                                      46s   app=consul,hasDNS=true,release=consul
+service/consul-consul-server             ClusterIP   None          <none>        8500/TCP,8502/TCP,8301/TCP,8301/UDP,8302/TCP,8302/UDP,8300/TCP,8600/TCP,8600/UDP   46s   app=consul,component=server,release=consul
+service/consul-consul-ui                 ClusterIP   10.96.8.203   <none>        80/TCP                                                                             46s   app=consul,component=server,release=consul
+
+NAME                                                 READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS             IMAGES                                     SELECTOR
+deployment.apps/consul-consul-connect-injector       1/1     1            1           46s   sidecar-injector       hashicorp/consul-k8s-control-plane:2.0.0   app=consul,chart=consul-helm,component=connect-injector,release=consul
+deployment.apps/consul-consul-webhook-cert-manager   1/1     1            1           46s   webhook-cert-manager   hashicorp/consul-k8s-control-plane:2.0.0   app=consul,chart=consul-helm,component=webhook-cert-manager,heritage=Helm,release=consul
+
+NAME                                                            DESIRED   CURRENT   READY   AGE   CONTAINERS             IMAGES                                     SELECTOR
+replicaset.apps/consul-consul-connect-injector-7495c7d444       1         1         1       46s   sidecar-injector       hashicorp/consul-k8s-control-plane:2.0.0   app=consul,chart=consul-helm,component=connect-injector,pod-template-hash=7495c7d444,release=consul
+replicaset.apps/consul-consul-webhook-cert-manager-5f76564bf4   1         1         1       46s   webhook-cert-manager   hashicorp/consul-k8s-control-plane:2.0.0   app=consul,chart=consul-helm,component=webhook-cert-manager,heritage=Helm,pod-template-hash=5f76564bf4,release=consul
+
+NAME                                    READY   AGE   CONTAINERS   IMAGES
+statefulset.apps/consul-consul-server   1/1     46s   consul       hashicorp/consul:2.0.0
+
+NAME                                                       STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE   VOLUMEMODE
+persistentvolumeclaim/data-consul-consul-consul-server-0   Bound    pvc-dc9cf0cb-c833-47e0-98a9-9d9985333c87   10Gi       RWO            standard       <unset>                 46s   Filesystem
+
+NAME                                                      DATA   AGE
+configmap/consul-consul-connect-inject-config             1      47s
+configmap/consul-consul-gateway-resources-config          1      47s
+configmap/consul-consul-gateway-resources-config-custom   1      47s
+configmap/consul-consul-server-config                     3      47s
+configmap/consul-consul-server-tmp-extra-config           1      47s
+configmap/consul-consul-webhook-cert-manager-config       1      47s
+configmap/kube-root-ca.crt                                1      51s
+
+NAME                                               TYPE                DATA   AGE
+secret/consul-consul-connect-inject-webhook-cert   kubernetes.io/tls   2      34s
+
+NAME                                                    SECRETS   AGE
+serviceaccount/consul-consul-connect-injector           0         47s
+serviceaccount/consul-consul-gateway-cleanup            0         47s
+serviceaccount/consul-consul-gateway-cleanup-custom     0         47s
+serviceaccount/consul-consul-gateway-resources          0         47s
+serviceaccount/consul-consul-gateway-resources-custom   0         47s
+serviceaccount/consul-consul-server                     0         47s
+serviceaccount/consul-consul-webhook-cert-manager       0         47s
+serviceaccount/default                                  0         51s

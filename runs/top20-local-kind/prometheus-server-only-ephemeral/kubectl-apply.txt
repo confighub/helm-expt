@@ -1,0 +1,6 @@
+serviceaccount/prometheus-server serverside-applied
+configmap/prometheus-server serverside-applied
+clusterrole.rbac.authorization.k8s.io/prometheus-server serverside-applied
+clusterrolebinding.rbac.authorization.k8s.io/prometheus-server serverside-applied
+service/prometheus-server serverside-applied
+deployment.apps/prometheus-server serverside-applied

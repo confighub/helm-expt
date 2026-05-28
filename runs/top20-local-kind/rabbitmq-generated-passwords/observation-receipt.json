@@ -1,0 +1,56 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "ObservationReceipt",
+  "metadata": {
+    "name": "rabbitmq-generated-passwords-local-kind"
+  },
+  "spec": {
+    "variantRevision": "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/variant-revision.yaml",
+    "renderedObjectSetSHA256": "81187ce4367f5196ddbaa35ea55b972698f8a474d78a2cdc2908b12290c89f31",
+    "observer": {
+      "name": "top20-local-e2e",
+      "version": "0.2.0",
+      "method": "kubectl-kind"
+    },
+    "target": {
+      "kind": "kind",
+      "name": "helm-expt-redis",
+      "context": "kind-helm-expt-redis",
+      "namespace": "rabbitmq"
+    },
+    "observedAt": "2026-05-28T08:16:40.606Z",
+    "freshnessTTL": "1h",
+    "result": "pass",
+    "chart": "bitnami/rabbitmq",
+    "chartVersion": "16.0.14",
+    "rank": 9,
+    "variant": "generated-passwords",
+    "renderedObjectCount": 10,
+    "checks": [
+      {
+        "name": "server-side-apply",
+        "result": "pass",
+        "evidencePath": "kubectl-apply.txt",
+        "evidenceSHA256": "96e968865d39474c2e343086346f9cd9fd162bfa5685bbe67cf8851bc5fbec18"
+      },
+      {
+        "name": "statefulset-rabbitmq-rollout",
+        "result": "pass",
+        "object": "statefulset/rabbitmq",
+        "evidencePath": "statefulset-rabbitmq-rollout.txt",
+        "evidenceSHA256": "77d53cbb613acaa9ed6188d58c190327578544be2cfb0208b35818f84aea2de3"
+      },
+      {
+        "name": "pvc-bound",
+        "result": "pass",
+        "count": 1,
+        "evidencePath": "pvc-status.json",
+        "evidenceSHA256": "0d8aeadf17f750ddc217afdf7eaaf5a64f78211d6b72e202369e31fd3c12fc32"
+      }
+    ],
+    "kubectlObjects": {
+      "path": "kubectl-objects.txt",
+      "sha256": "3f9e6a38da30b8fc2ddc9c86deae26df3a41a6a9609d3b2bd7fa49edffbc76b6"
+    }
+  }
+}

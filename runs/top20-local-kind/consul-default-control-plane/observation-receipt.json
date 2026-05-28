@@ -1,0 +1,462 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "ObservationReceipt",
+  "metadata": {
+    "name": "consul-default-control-plane-local-kind"
+  },
+  "spec": {
+    "variantRevision": "recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/variant-revision.yaml",
+    "renderedObjectSetSHA256": "7efa3e8b59c702c8b8fa744a0ff91198e09ad8ba0fb93a86b50c3fd9e39d29f7",
+    "observer": {
+      "name": "top20-local-e2e",
+      "version": "0.2.0",
+      "method": "kubectl-kind"
+    },
+    "target": {
+      "kind": "kind",
+      "name": "helm-expt-live-tail",
+      "context": "kind-helm-expt-live-tail",
+      "namespace": "consul"
+    },
+    "observedAt": "2026-05-28T08:29:52.972Z",
+    "freshnessTTL": "1h",
+    "result": "pass",
+    "chart": "hashicorp/consul",
+    "chartVersion": "2.0.0",
+    "rank": 20,
+    "variant": "default-control-plane",
+    "renderedObjectCount": 68,
+    "checks": [
+      {
+        "name": "crd-bootstrap-apply",
+        "result": "pass",
+        "count": 28,
+        "evidencePath": "crd-bootstrap-apply.txt",
+        "evidenceSHA256": "4f4c0f48f552090716992f281f69f0c141a91f566544a1a8434afd02ef256308"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/controlplanerequestlimits.consul.hashicorp.com",
+        "evidencePath": "crd-controlplanerequestlimits.consul.hashicorp.com-established.txt",
+        "evidenceSHA256": "e61fda3d5ed503b745a853b3b98b7a451fa6cdf737f70cbf5bc241999e1fbe33"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/exportedservices.consul.hashicorp.com",
+        "evidencePath": "crd-exportedservices.consul.hashicorp.com-established.txt",
+        "evidenceSHA256": "e8c2963f76f1e34c07cfef2512f9b2c3d6708b7905ffa8be66a6bfed6e59b201"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/gatewayclassconfigs.consul.hashicorp.com",
+        "evidencePath": "crd-gatewayclassconfigs.consul.hashicorp.com-established.txt",
+        "evidenceSHA256": "111d51c36f92c5afcd23adfdd8e78f62a304527b23f395964604a10251680f98"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/gatewayclasses.gateway.networking.k8s.io",
+        "evidencePath": "crd-gatewayclasses.gateway.networking.k8s.io-established.txt",
+        "evidenceSHA256": "ba3abfe073f0b4e14bf492780e544ade24522113c266271ca386ccc4e323353d"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/gatewaypolicies.consul.hashicorp.com",
+        "evidencePath": "crd-gatewaypolicies.consul.hashicorp.com-established.txt",
+        "evidenceSHA256": "b9c88581d37a0123df1ba20652e3015473d71f4d5af4e54728a7b7f4c3e83b60"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/gateways.gateway.networking.k8s.io",
+        "evidencePath": "crd-gateways.gateway.networking.k8s.io-established.txt",
+        "evidenceSHA256": "f484bf785cf93f4e9a2455b8d3ac6fcde8a84d4f596c2b725287e28431b3547a"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/httproutes.gateway.networking.k8s.io",
+        "evidencePath": "crd-httproutes.gateway.networking.k8s.io-established.txt",
+        "evidenceSHA256": "d59ae17210e9ee41b87a7acf7fa1be87f84a7ac07b0824a8ac6a04ba5e6107ad"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/ingressgateways.consul.hashicorp.com",
+        "evidencePath": "crd-ingressgateways.consul.hashicorp.com-established.txt",
+        "evidenceSHA256": "308fb050767407bd87d6b104fe96dcc0d177ef39784fffe68f427d91f89d2933"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/jwtproviders.consul.hashicorp.com",
+        "evidencePath": "crd-jwtproviders.consul.hashicorp.com-established.txt",
+        "evidenceSHA256": "278350611e98e2c8a9fb7c9c44aeaa44e0fc43f27d9490aee2a537ed4261cb0c"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/meshes.consul.hashicorp.com",
+        "evidencePath": "crd-meshes.consul.hashicorp.com-established.txt",
+        "evidenceSHA256": "e9851a3bbb67a3c23addf98c9ddc5784cbe8e24ebb08775ad7ee7284e59cd53e"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/meshservices.consul.hashicorp.com",
+        "evidencePath": "crd-meshservices.consul.hashicorp.com-established.txt",
+        "evidenceSHA256": "3b21f959d6a4f492ecda81c92792abab4a41002ca41499623d2f0570461c764f"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/proxydefaults.consul.hashicorp.com",
+        "evidencePath": "crd-proxydefaults.consul.hashicorp.com-established.txt",
+        "evidenceSHA256": "a5768239cc09eda2fb43e1d05642fccd076fc10ce18a6f17a999a610f3444ed5"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/ratelimits.consul.hashicorp.com",
+        "evidencePath": "crd-ratelimits.consul.hashicorp.com-established.txt",
+        "evidenceSHA256": "2c7c3c43635150987da3c376c46956e977ebee2a49d042b3c62b2c6611d8efe7"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/referencegrants.gateway.networking.k8s.io",
+        "evidencePath": "crd-referencegrants.gateway.networking.k8s.io-established.txt",
+        "evidenceSHA256": "bd507099efef2ffdd9a43464c0df5f16d846eb72b8d927e9aa606ae838b8ba6c"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/registrations.consul.hashicorp.com",
+        "evidencePath": "crd-registrations.consul.hashicorp.com-established.txt",
+        "evidenceSHA256": "1048f8afbd42dd017dbe42a8e4321304a0aa9fc7dd7c2e6b97896acb2383473e"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/routeauthfilters.consul.hashicorp.com",
+        "evidencePath": "crd-routeauthfilters.consul.hashicorp.com-established.txt",
+        "evidenceSHA256": "0680aee440780a010b372e02fe922a5cd6dc2bd441394ffd0b053d563b5242c0"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/routeretryfilters.consul.hashicorp.com",
+        "evidencePath": "crd-routeretryfilters.consul.hashicorp.com-established.txt",
+        "evidenceSHA256": "a0d7901bfe39fc76fed03ab0e6756f55ba962e9dfd441a8ef5c5ce5a5e2e883c"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/routetimeoutfilters.consul.hashicorp.com",
+        "evidencePath": "crd-routetimeoutfilters.consul.hashicorp.com-established.txt",
+        "evidenceSHA256": "8b0e68cce566659c65ef6593c5353b55834061c0f19186093e02f8287b1d4c97"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/routetlssdsfilters.consul.hashicorp.com",
+        "evidencePath": "crd-routetlssdsfilters.consul.hashicorp.com-established.txt",
+        "evidenceSHA256": "6905373f41043d613ef7760861a1a74981d8cecbb6e9baff5c0e36b697505619"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/samenessgroups.consul.hashicorp.com",
+        "evidencePath": "crd-samenessgroups.consul.hashicorp.com-established.txt",
+        "evidenceSHA256": "f0ec69f12568353e97f31880c39c7ecccb864ec01a0e06a2dad08e6be0244272"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/servicedefaults.consul.hashicorp.com",
+        "evidencePath": "crd-servicedefaults.consul.hashicorp.com-established.txt",
+        "evidenceSHA256": "135142e92c6db52f74ab008d735bf5994d1d572ee168a5ad305927eabaa7d34a"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/serviceintentions.consul.hashicorp.com",
+        "evidencePath": "crd-serviceintentions.consul.hashicorp.com-established.txt",
+        "evidenceSHA256": "4d82d1b086482855690fd12a281209542e801a6f01f9deb91d1fc12bae434597"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/serviceresolvers.consul.hashicorp.com",
+        "evidencePath": "crd-serviceresolvers.consul.hashicorp.com-established.txt",
+        "evidenceSHA256": "8762d12187923d1d204eb0266ad6a48872a6a13959025161b284daa41249280c"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/servicerouters.consul.hashicorp.com",
+        "evidencePath": "crd-servicerouters.consul.hashicorp.com-established.txt",
+        "evidenceSHA256": "549c8fbac839e5d9ba1e5758f6821d004db8ec521817b78f4da38ead2411d1a3"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/servicesplitters.consul.hashicorp.com",
+        "evidencePath": "crd-servicesplitters.consul.hashicorp.com-established.txt",
+        "evidenceSHA256": "853c3f9b7274cdb95aec0d200d7220039a584226404832d12cc7dcb3be2a2684"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/tcproutes.gateway.networking.k8s.io",
+        "evidencePath": "crd-tcproutes.gateway.networking.k8s.io-established.txt",
+        "evidenceSHA256": "9114ecc7cd68178bbb629807fb83802bb17754533f4cc37b7b72d89b72586b9b"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/terminatinggateways.consul.hashicorp.com",
+        "evidencePath": "crd-terminatinggateways.consul.hashicorp.com-established.txt",
+        "evidenceSHA256": "f4468e730f3c531aa73f764e70f74b18e9cda53fe98ae497a5fa1e279dd55f1e"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/trafficpermissions.auth.consul.hashicorp.com",
+        "evidencePath": "crd-trafficpermissions.auth.consul.hashicorp.com-established.txt",
+        "evidenceSHA256": "79fc83dcb0ecbc0721418de445aca55a6a50a20b94668fa6a052920932b3c615"
+      },
+      {
+        "name": "server-side-apply",
+        "result": "pass",
+        "evidencePath": "kubectl-apply.txt",
+        "evidenceSHA256": "2c526ae95343ed25aff52ca9d888c4516ec9b16df265fd040f5e5b794abf0649"
+      },
+      {
+        "name": "deployment-consul-consul-connect-injector-rollout",
+        "result": "pass",
+        "object": "deployment/consul-consul-connect-injector",
+        "evidencePath": "deployment-consul-consul-connect-injector-rollout.txt",
+        "evidenceSHA256": "9b5f8822c4a05c665a16231be99dc1ef69800db02bc59dd6600d5d4ce4e59193"
+      },
+      {
+        "name": "deployment-consul-consul-webhook-cert-manager-rollout",
+        "result": "pass",
+        "object": "deployment/consul-consul-webhook-cert-manager",
+        "evidencePath": "deployment-consul-consul-webhook-cert-manager-rollout.txt",
+        "evidenceSHA256": "48acf3cec792aa227212aedd9a16a53115db52572c8f1709194b1572e6669f31"
+      },
+      {
+        "name": "statefulset-consul-consul-server-rollout",
+        "result": "pass",
+        "object": "statefulset/consul-consul-server",
+        "evidencePath": "statefulset-consul-consul-server-rollout.txt",
+        "evidenceSHA256": "36da818e2e5135cf9f3e7dae3dd24592e2df502a120d303298ccf32677ceb031"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/controlplanerequestlimits.consul.hashicorp.com",
+        "evidencePath": "crd-controlplanerequestlimits.consul.hashicorp.com.txt",
+        "evidenceSHA256": "e736e3f80f18533e87389fdd33831ac58f9e6c3a95db19243aa503933bb703c9"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/exportedservices.consul.hashicorp.com",
+        "evidencePath": "crd-exportedservices.consul.hashicorp.com.txt",
+        "evidenceSHA256": "55c7378a13cd59affdae96eb31751ca6c74964b22b1680147ef864fd10c4f604"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/gatewayclassconfigs.consul.hashicorp.com",
+        "evidencePath": "crd-gatewayclassconfigs.consul.hashicorp.com.txt",
+        "evidenceSHA256": "246425e8a5ef4201e2fa3cb84c9ba1d7192d8bc0ec4c1cf66bad6cb8a718c124"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/gatewayclasses.gateway.networking.k8s.io",
+        "evidencePath": "crd-gatewayclasses.gateway.networking.k8s.io.txt",
+        "evidenceSHA256": "2be3110380c5dce38bf723fa2c2cc40749c667edbef991b34f699d40d51bca23"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/gatewaypolicies.consul.hashicorp.com",
+        "evidencePath": "crd-gatewaypolicies.consul.hashicorp.com.txt",
+        "evidenceSHA256": "22da10e3e7a07f902aa6f43081b05c98178c98c78bd563eaa51dfb5094c22fb1"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/gateways.gateway.networking.k8s.io",
+        "evidencePath": "crd-gateways.gateway.networking.k8s.io.txt",
+        "evidenceSHA256": "5df00d6f9c8b9ff4633b2862c7f59e4cfa862d76e5b2fa289aca12fc96f5aa8b"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/httproutes.gateway.networking.k8s.io",
+        "evidencePath": "crd-httproutes.gateway.networking.k8s.io.txt",
+        "evidenceSHA256": "d54fceaba00ecd30f2c8f0ed9af9013f05dcec6fc4b8de66f52d6690d93066a0"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/ingressgateways.consul.hashicorp.com",
+        "evidencePath": "crd-ingressgateways.consul.hashicorp.com.txt",
+        "evidenceSHA256": "1311b999a24d5e75d600cabc9f4ce8bd22b4b8cbae08890fd6f81eba525e203f"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/jwtproviders.consul.hashicorp.com",
+        "evidencePath": "crd-jwtproviders.consul.hashicorp.com.txt",
+        "evidenceSHA256": "6c56646fca518a838a4410a84d9c57024a69adbf2350c37f6e6a65902f0e5f53"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/meshes.consul.hashicorp.com",
+        "evidencePath": "crd-meshes.consul.hashicorp.com.txt",
+        "evidenceSHA256": "d70b8506770f255e896f1cf9081ed684ba20531b45c5071c08d780a7edbefeec"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/meshservices.consul.hashicorp.com",
+        "evidencePath": "crd-meshservices.consul.hashicorp.com.txt",
+        "evidenceSHA256": "228262a7feb16986b2bd6d055a7ca49138af73c0cddef0a7d11f38434bb28923"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/proxydefaults.consul.hashicorp.com",
+        "evidencePath": "crd-proxydefaults.consul.hashicorp.com.txt",
+        "evidenceSHA256": "cbd213ea5b18774682d235e8efe48cdad88f3e74e7c7dc22a6833683809a743c"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/ratelimits.consul.hashicorp.com",
+        "evidencePath": "crd-ratelimits.consul.hashicorp.com.txt",
+        "evidenceSHA256": "266390f561f2a2b9041971886375a508008cb3df0c965e21b425dd1f67f15f6c"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/referencegrants.gateway.networking.k8s.io",
+        "evidencePath": "crd-referencegrants.gateway.networking.k8s.io.txt",
+        "evidenceSHA256": "ac9ff06d80805a7b4c47d78574ac134495ad32e999bc20bbb73b5a3ec89ccafb"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/registrations.consul.hashicorp.com",
+        "evidencePath": "crd-registrations.consul.hashicorp.com.txt",
+        "evidenceSHA256": "de724f19fa4761e79601265d4f1998cb47435c3b47bab3da8cd4e41f9056cd52"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/routeauthfilters.consul.hashicorp.com",
+        "evidencePath": "crd-routeauthfilters.consul.hashicorp.com.txt",
+        "evidenceSHA256": "184695fd8386ae3523264fa652e295c3070534db1771ee1e9e072902c20a6c4e"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/routeretryfilters.consul.hashicorp.com",
+        "evidencePath": "crd-routeretryfilters.consul.hashicorp.com.txt",
+        "evidenceSHA256": "51fbe0298713fc5eb7206e2bfb8a3631da62b644a0ec3f48f920b968ce998418"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/routetimeoutfilters.consul.hashicorp.com",
+        "evidencePath": "crd-routetimeoutfilters.consul.hashicorp.com.txt",
+        "evidenceSHA256": "530d9e29696801b9f987aa4b458b33b5c2e782bc194944c0db2ccd2fa8e0a723"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/routetlssdsfilters.consul.hashicorp.com",
+        "evidencePath": "crd-routetlssdsfilters.consul.hashicorp.com.txt",
+        "evidenceSHA256": "f69d3aa9fb85e2f027d0824bdbaa92224db776dd47b75fe23f1526af0b3fb392"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/samenessgroups.consul.hashicorp.com",
+        "evidencePath": "crd-samenessgroups.consul.hashicorp.com.txt",
+        "evidenceSHA256": "49d46d831bd745a15312bf51918368baced4ef2c1e90b087f65631ac477d6342"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/servicedefaults.consul.hashicorp.com",
+        "evidencePath": "crd-servicedefaults.consul.hashicorp.com.txt",
+        "evidenceSHA256": "993c9d6866e83d72350bc16b2c30654c1d692e3108b33cc39945bc1a41266c3d"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/serviceintentions.consul.hashicorp.com",
+        "evidencePath": "crd-serviceintentions.consul.hashicorp.com.txt",
+        "evidenceSHA256": "e054f816de51fd117197da00d34f1b139033819a372eaf9754e88be220fe27da"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/serviceresolvers.consul.hashicorp.com",
+        "evidencePath": "crd-serviceresolvers.consul.hashicorp.com.txt",
+        "evidenceSHA256": "1e96ad5f903361814fcc05404bd86ef54d9ac96bea3770fd2605622235648ed1"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/servicerouters.consul.hashicorp.com",
+        "evidencePath": "crd-servicerouters.consul.hashicorp.com.txt",
+        "evidenceSHA256": "62fe5b3e5a1f9e02e30e825b8ac4064714fe8548bf5ca19af760dfc3a0a2c799"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/servicesplitters.consul.hashicorp.com",
+        "evidencePath": "crd-servicesplitters.consul.hashicorp.com.txt",
+        "evidenceSHA256": "72efe536a424ee152a71185c51042c604e6ed157a735423eb4891f768bc1fc19"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/tcproutes.gateway.networking.k8s.io",
+        "evidencePath": "crd-tcproutes.gateway.networking.k8s.io.txt",
+        "evidenceSHA256": "1d8e3877a3a7a0b9559d10820c342fd8bff47097596791e006d0bd46c48f82cc"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/terminatinggateways.consul.hashicorp.com",
+        "evidencePath": "crd-terminatinggateways.consul.hashicorp.com.txt",
+        "evidenceSHA256": "b4b9497b9d8b6835e34e92ecb40fb893ff3bb065c4a3778281d347a3498fd298"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/trafficpermissions.auth.consul.hashicorp.com",
+        "evidencePath": "crd-trafficpermissions.auth.consul.hashicorp.com.txt",
+        "evidenceSHA256": "b87e97d8e3341b402c372e57d28c818e7d9be0985ba0041bf482f0a80d2c43fd"
+      }
+    ],
+    "kubectlObjects": {
+      "path": "kubectl-objects.txt",
+      "sha256": "5659e6df98c8274880aa570773e6a575db1ba4c1634c147194caa80852f2e46d"
+    }
+  }
+}

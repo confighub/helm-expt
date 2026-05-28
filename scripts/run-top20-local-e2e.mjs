@@ -278,7 +278,7 @@ if (mode === "--run") {
   for (const target of selected) runTarget(target);
   writeSummary();
 } else if (mode === "--verify") {
-  const selected = selectedTargets({ onlyPassingReceiptsByDefault: true });
+  const selected = selectedTargets({ requireAllByDefault: true });
   if (shouldIncludeRedis()) verifyRedisTop20();
   for (const target of selected) verifyTarget(target);
   console.log(`verified ${selected.length + (shouldIncludeRedis() ? 1 : 0)} top20 local kind e2e receipt(s)`);
@@ -303,7 +303,7 @@ function numberOption(name) {
   return value === null ? null : Number(value);
 }
 
-function selectedTargets({ onlyPassingReceiptsByDefault = false } = {}) {
+function selectedTargets({ onlyPassingReceiptsByDefault = false, requireAllByDefault = false } = {}) {
   let selected = targets;
   if (process.argv.includes("--all")) return targets;
   if (selectedSlug) {
@@ -315,6 +315,7 @@ function selectedTargets({ onlyPassingReceiptsByDefault = false } = {}) {
   if (selectedFromRank !== null) selected = selected.filter((target) => target.rank >= selectedFromRank);
   if (selectedToRank !== null) selected = selected.filter((target) => target.rank <= selectedToRank);
   if (selectedFromRank !== null || selectedToRank !== null) return selected;
+  if (requireAllByDefault) return targets;
   if (onlyPassingReceiptsByDefault) return targets.filter((target) => existingPassReceiptPath(target));
   return targets.filter((target) => existingReceiptPath(target));
 }

@@ -1,0 +1,77 @@
+NAME                                                            READY   STATUS    RESTARTS   AGE   IP             NODE                                NOMINATED NODE   READINESS GATES
+pod/coredns-7db6d8ff4d-p6bbc                                    1/1     Running   0          41s   10.244.0.2     helm-expt-live-tail-control-plane   <none>           <none>
+pod/coredns-7db6d8ff4d-z4htt                                    1/1     Running   0          41s   10.244.0.4     helm-expt-live-tail-control-plane   <none>           <none>
+pod/etcd-helm-expt-live-tail-control-plane                      1/1     Running   0          57s   192.168.97.4   helm-expt-live-tail-control-plane   <none>           <none>
+pod/kindnet-hkzwz                                               1/1     Running   0          41s   192.168.97.4   helm-expt-live-tail-control-plane   <none>           <none>
+pod/kube-apiserver-helm-expt-live-tail-control-plane            1/1     Running   0          57s   192.168.97.4   helm-expt-live-tail-control-plane   <none>           <none>
+pod/kube-controller-manager-helm-expt-live-tail-control-plane   1/1     Running   0          56s   192.168.97.4   helm-expt-live-tail-control-plane   <none>           <none>
+pod/kube-proxy-72cbl                                            1/1     Running   0          41s   192.168.97.4   helm-expt-live-tail-control-plane   <none>           <none>
+pod/kube-scheduler-helm-expt-live-tail-control-plane            1/1     Running   0          56s   192.168.97.4   helm-expt-live-tail-control-plane   <none>           <none>
+pod/secrets-store-csi-driver-2r5vv                              3/3     Running   0          14s   10.244.0.8     helm-expt-live-tail-control-plane   <none>           <none>
+
+NAME               TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)                  AGE   SELECTOR
+service/kube-dns   ClusterIP   10.96.0.10   <none>        53/UDP,53/TCP,9153/TCP   55s   k8s-app=kube-dns
+
+NAME                                      DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR            AGE   CONTAINERS                                           IMAGES                                                                                                                                                            SELECTOR
+daemonset.apps/kindnet                    1         1         1       1            1           kubernetes.io/os=linux   54s   kindnet-cni                                          docker.io/kindest/kindnetd:v20240202-8f1494ea                                                                                                                     app=kindnet
+daemonset.apps/kube-proxy                 1         1         1       1            1           kubernetes.io/os=linux   55s   kube-proxy                                           registry.k8s.io/kube-proxy:v1.30.0                                                                                                                                k8s-app=kube-proxy
+daemonset.apps/secrets-store-csi-driver   1         1         1       1            1           kubernetes.io/os=linux   14s   node-driver-registrar,secrets-store,liveness-probe   registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.16.0,registry.k8s.io/csi-secrets-store/driver:v1.6.0,registry.k8s.io/sig-storage/livenessprobe:v2.18.0   app=secrets-store-csi-driver
+
+NAME                      READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                                    SELECTOR
+deployment.apps/coredns   2/2     2            2           55s   coredns      registry.k8s.io/coredns/coredns:v1.11.1   k8s-app=kube-dns
+
+NAME                                 DESIRED   CURRENT   READY   AGE   CONTAINERS   IMAGES                                    SELECTOR
+replicaset.apps/coredns-7db6d8ff4d   2         2         2       41s   coredns      registry.k8s.io/coredns/coredns:v1.11.1   k8s-app=kube-dns,pod-template-hash=7db6d8ff4d
+
+NAME                                                             DATA   AGE
+configmap/coredns                                                1      56s
+configmap/extension-apiserver-authentication                     6      58s
+configmap/kube-apiserver-legacy-service-account-token-tracking   1      58s
+configmap/kube-proxy                                             2      55s
+configmap/kube-root-ca.crt                                       1      41s
+configmap/kubeadm-config                                         1      56s
+configmap/kubelet-config                                         1      56s
+
+NAME                            TYPE                            DATA   AGE
+secret/bootstrap-token-abcdef   bootstrap.kubernetes.io/token   6      56s
+
+NAME                                                         SECRETS   AGE
+serviceaccount/attachdetach-controller                       0         43s
+serviceaccount/bootstrap-signer                              0         43s
+serviceaccount/certificate-controller                        0         55s
+serviceaccount/clusterrole-aggregation-controller            0         54s
+serviceaccount/coredns                                       0         55s
+serviceaccount/cronjob-controller                            0         42s
+serviceaccount/daemon-set-controller                         0         43s
+serviceaccount/default                                       0         41s
+serviceaccount/deployment-controller                         0         53s
+serviceaccount/disruption-controller                         0         55s
+serviceaccount/endpoint-controller                           0         43s
+serviceaccount/endpointslice-controller                      0         55s
+serviceaccount/endpointslicemirroring-controller             0         54s
+serviceaccount/ephemeral-volume-controller                   0         43s
+serviceaccount/expand-controller                             0         55s
+serviceaccount/generic-garbage-collector                     0         43s
+serviceaccount/horizontal-pod-autoscaler                     0         42s
+serviceaccount/job-controller                                0         54s
+serviceaccount/kindnet                                       0         54s
+serviceaccount/kube-proxy                                    0         55s
+serviceaccount/legacy-service-account-token-cleaner          0         43s
+serviceaccount/namespace-controller                          0         43s
+serviceaccount/node-controller                               0         55s
+serviceaccount/persistent-volume-binder                      0         43s
+serviceaccount/pod-garbage-collector                         0         43s
+serviceaccount/pv-protection-controller                      0         54s
+serviceaccount/pvc-protection-controller                     0         54s
+serviceaccount/replicaset-controller                         0         55s
+serviceaccount/replication-controller                        0         43s
+serviceaccount/resourcequota-controller                      0         55s
+serviceaccount/root-ca-cert-publisher                        0         55s
+serviceaccount/secrets-store-csi-driver                      0         14s
+serviceaccount/service-account-controller                    0         55s
+serviceaccount/service-controller                            0         54s
+serviceaccount/statefulset-controller                        0         43s
+serviceaccount/token-cleaner                                 0         55s
+serviceaccount/ttl-after-finished-controller                 0         55s
+serviceaccount/ttl-controller                                0         55s
+serviceaccount/validatingadmissionpolicy-status-controller   0         43s

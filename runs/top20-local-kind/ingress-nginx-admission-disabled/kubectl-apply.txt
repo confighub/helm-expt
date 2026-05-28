@@ -1,0 +1,9 @@
+serviceaccount/ingress-nginx serverside-applied
+configmap/ingress-nginx-controller serverside-applied
+clusterrole.rbac.authorization.k8s.io/ingress-nginx serverside-applied
+clusterrolebinding.rbac.authorization.k8s.io/ingress-nginx serverside-applied
+role.rbac.authorization.k8s.io/ingress-nginx serverside-applied
+rolebinding.rbac.authorization.k8s.io/ingress-nginx serverside-applied
+service/ingress-nginx-controller serverside-applied
+deployment.apps/ingress-nginx-controller serverside-applied
+ingressclass.networking.k8s.io/nginx serverside-applied

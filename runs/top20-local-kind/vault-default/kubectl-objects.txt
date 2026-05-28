@@ -1,0 +1,29 @@
+NAME                                       READY   STATUS    RESTARTS   AGE   IP           NODE                                NOMINATED NODE   READINESS GATES
+pod/vault-0                                0/1     Running   0          25s   10.244.0.7   helm-expt-live-tail-control-plane   <none>           <none>
+pod/vault-agent-injector-b4dc855fb-bk6sb   1/1     Running   0          25s   10.244.0.5   helm-expt-live-tail-control-plane   <none>           <none>
+
+NAME                               TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)             AGE   SELECTOR
+service/vault                      ClusterIP   10.96.16.245   <none>        8200/TCP,8201/TCP   25s   app.kubernetes.io/instance=vault,app.kubernetes.io/name=vault,component=server
+service/vault-agent-injector-svc   ClusterIP   10.96.34.146   <none>        443/TCP             25s   app.kubernetes.io/instance=vault,app.kubernetes.io/name=vault-agent-injector,component=webhook
+service/vault-internal             ClusterIP   None           <none>        8200/TCP,8201/TCP   25s   app.kubernetes.io/instance=vault,app.kubernetes.io/name=vault,component=server
+
+NAME                                   READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS         IMAGES                      SELECTOR
+deployment.apps/vault-agent-injector   1/1     1            1           25s   sidecar-injector   hashicorp/vault-k8s:1.7.2   app.kubernetes.io/instance=vault,app.kubernetes.io/name=vault-agent-injector,component=webhook
+
+NAME                                             DESIRED   CURRENT   READY   AGE   CONTAINERS         IMAGES                      SELECTOR
+replicaset.apps/vault-agent-injector-b4dc855fb   1         1         1       25s   sidecar-injector   hashicorp/vault-k8s:1.7.2   app.kubernetes.io/instance=vault,app.kubernetes.io/name=vault-agent-injector,component=webhook,pod-template-hash=b4dc855fb
+
+NAME                     READY   AGE   CONTAINERS   IMAGES
+statefulset.apps/vault   0/1     25s   vault        hashicorp/vault:1.21.2
+
+NAME                                 STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE   VOLUMEMODE
+persistentvolumeclaim/data-vault-0   Bound    pvc-0e970908-88ca-4302-98f0-ccb18a1140e2   10Gi       RWO            standard       <unset>                 25s   Filesystem
+
+NAME                         DATA   AGE
+configmap/kube-root-ca.crt   1      25s
+configmap/vault-config       1      25s
+
+NAME                                  SECRETS   AGE
+serviceaccount/default                0         25s
+serviceaccount/vault                  0         25s
+serviceaccount/vault-agent-injector   0         25s

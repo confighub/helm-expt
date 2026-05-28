@@ -59,11 +59,22 @@ We try to answer four questions:
 
 To run the full demo yourself, you need:
 
-1. a ConfigHub account and organization;
-2. the `cub` CLI authenticated to ConfigHub;
-3. local Kubernetes tooling such as kind, kubectl, and Helm;
-4. for GitOps deployment, Argo CD or Flux already running in the cluster and
+1. this repo cloned locally;
+2. Node.js for the proof scripts, with no `npm install` required;
+3. a ConfigHub account and organization;
+4. the `cub` CLI authenticated to ConfigHub;
+5. local Kubernetes tooling such as kind, kubectl, and Helm;
+6. for live proof, enough local CPU/memory to run kind charts;
+7. for GitOps deployment, Argo CD or Flux already running in the cluster and
    configured to pull the published OCI artifact from ConfigHub.
+
+Start with:
+
+```sh
+git clone https://github.com/confighub/helm-expt.git
+cd helm-expt
+npm run top20:verify-local-e2e
+```
 
 Login with:
 
@@ -182,6 +193,9 @@ For just the top-20 live/e2e receipts:
 ```sh
 npm run top20:verify-local-e2e
 ```
+
+That command is intentionally strict: a fresh clone must contain and verify all
+20 live receipts, or the command fails.
 
 For just the top-20 ConfigHub use-more-now receipts:
 

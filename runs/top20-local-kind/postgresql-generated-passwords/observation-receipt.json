@@ -1,0 +1,56 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "ObservationReceipt",
+  "metadata": {
+    "name": "postgresql-generated-passwords-local-kind"
+  },
+  "spec": {
+    "variantRevision": "recipes/bitnami/postgresql/18.6.7/revisions/generated-passwords/r001/variant-revision.yaml",
+    "renderedObjectSetSHA256": "5ddff6ac6f2de4b98f6fce9d482167f300406c3ff738317e34b322522465ea72",
+    "observer": {
+      "name": "top20-local-e2e",
+      "version": "0.2.0",
+      "method": "kubectl-kind"
+    },
+    "target": {
+      "kind": "kind",
+      "name": "helm-expt-redis",
+      "context": "kind-helm-expt-redis",
+      "namespace": "postgresql"
+    },
+    "observedAt": "2026-05-28T08:15:36.623Z",
+    "freshnessTTL": "1h",
+    "result": "pass",
+    "chart": "bitnami/postgresql",
+    "chartVersion": "18.6.7",
+    "rank": 8,
+    "variant": "generated-passwords",
+    "renderedObjectCount": 7,
+    "checks": [
+      {
+        "name": "server-side-apply",
+        "result": "pass",
+        "evidencePath": "kubectl-apply.txt",
+        "evidenceSHA256": "b03b7a4719bbffc714917beb3bfff9b74f475d7792b9f46f719fec6101bb18bf"
+      },
+      {
+        "name": "statefulset-postgresql-rollout",
+        "result": "pass",
+        "object": "statefulset/postgresql",
+        "evidencePath": "statefulset-postgresql-rollout.txt",
+        "evidenceSHA256": "ed5b84bcca146527296068824610b6e880fa6b3496574c64be5774e5f939e141"
+      },
+      {
+        "name": "pvc-bound",
+        "result": "pass",
+        "count": 1,
+        "evidencePath": "pvc-status.json",
+        "evidenceSHA256": "7f51d691eb9d0792b8892681212294cf35cdc336551596ec961b43e234d18e15"
+      }
+    ],
+    "kubectlObjects": {
+      "path": "kubectl-objects.txt",
+      "sha256": "d213435f54e022d3c1fc790ff2dbccbc60da4987dfd60960f8577c75b8a9909d"
+    }
+  }
+}

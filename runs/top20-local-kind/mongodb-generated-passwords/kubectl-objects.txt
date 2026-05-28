@@ -1,0 +1,28 @@
+NAME                           READY   STATUS    RESTARTS   AGE   IP            NODE                                NOMINATED NODE   READINESS GATES
+pod/mongodb-7bfc6675bb-xnvh2   1/1     Running   0          34s   10.244.0.14   helm-expt-live-tail-control-plane   <none>           <none>
+
+NAME              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)     AGE   SELECTOR
+service/mongodb   ClusterIP   10.96.255.237   <none>        27017/TCP   34s   app.kubernetes.io/component=mongodb,app.kubernetes.io/instance=mongodb,app.kubernetes.io/name=mongodb
+
+NAME                      READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                                        SELECTOR
+deployment.apps/mongodb   1/1     1            1           34s   mongodb      registry-1.docker.io/bitnami/mongodb:latest   app.kubernetes.io/component=mongodb,app.kubernetes.io/instance=mongodb,app.kubernetes.io/name=mongodb
+
+NAME                                 DESIRED   CURRENT   READY   AGE   CONTAINERS   IMAGES                                        SELECTOR
+replicaset.apps/mongodb-7bfc6675bb   1         1         1       34s   mongodb      registry-1.docker.io/bitnami/mongodb:latest   app.kubernetes.io/component=mongodb,app.kubernetes.io/instance=mongodb,app.kubernetes.io/name=mongodb,pod-template-hash=7bfc6675bb
+
+NAME                            STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE   VOLUMEMODE
+persistentvolumeclaim/mongodb   Bound    pvc-01063420-102a-4070-9f25-cc1f98f63819   8Gi        RWO            standard       <unset>                 34s   Filesystem
+
+NAME                                 MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
+poddisruptionbudget.policy/mongodb   N/A             1                 1                     34s
+
+NAME                               DATA   AGE
+configmap/kube-root-ca.crt         1      34s
+configmap/mongodb-common-scripts   3      34s
+
+NAME             TYPE     DATA   AGE
+secret/mongodb   Opaque   1      34s
+
+NAME                     SECRETS   AGE
+serviceaccount/default   0         34s
+serviceaccount/mongodb   1         34s

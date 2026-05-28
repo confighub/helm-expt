@@ -1,0 +1,56 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "ObservationReceipt",
+  "metadata": {
+    "name": "vault-default-local-kind"
+  },
+  "spec": {
+    "variantRevision": "recipes/hashicorp/vault/0.32.0/revisions/default/r001/variant-revision.yaml",
+    "renderedObjectSetSHA256": "6de2d61c8de0c21faa951e89ec16658bcdff22e69d78075fdd394d895a5e6978",
+    "observer": {
+      "name": "top20-local-e2e",
+      "version": "0.2.0",
+      "method": "kubectl-kind"
+    },
+    "target": {
+      "kind": "kind",
+      "name": "helm-expt-live-tail",
+      "context": "kind-helm-expt-live-tail",
+      "namespace": "vault"
+    },
+    "observedAt": "2026-05-28T08:24:56.924Z",
+    "freshnessTTL": "1h",
+    "result": "pass",
+    "chart": "hashicorp/vault",
+    "chartVersion": "0.32.0",
+    "rank": 12,
+    "variant": "default",
+    "renderedObjectCount": 12,
+    "checks": [
+      {
+        "name": "server-side-apply",
+        "result": "pass",
+        "evidencePath": "kubectl-apply.txt",
+        "evidenceSHA256": "acbdbf7ac71656bea148421c99434f0ecb0fb19e65e87e60011f607d71212c51"
+      },
+      {
+        "name": "deployment-vault-agent-injector-rollout",
+        "result": "pass",
+        "object": "deployment/vault-agent-injector",
+        "evidencePath": "deployment-vault-agent-injector-rollout.txt",
+        "evidenceSHA256": "5ad1d0e523d902dbcc63891ae7f9d7abfe8704c7128bf44e1912df3856032b83"
+      },
+      {
+        "name": "pod-vault-server-pod-phase",
+        "result": "pass",
+        "object": "pod/app.kubernetes.io/instance=vault,component=server",
+        "evidencePath": "pod-vault-server-pod-phase.txt",
+        "evidenceSHA256": "ce5835ec23ab05bd9ecec62e6dc893be2482271a4a10977ad46de38c5c49a22a"
+      }
+    ],
+    "kubectlObjects": {
+      "path": "kubectl-objects.txt",
+      "sha256": "c154bbc0a26074c0eab8387b8108ed3a2a1369629414ab6638f1b439b217081e"
+    }
+  }
+}

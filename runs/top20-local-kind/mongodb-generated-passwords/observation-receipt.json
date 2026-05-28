@@ -1,0 +1,49 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "ObservationReceipt",
+  "metadata": {
+    "name": "mongodb-generated-passwords-local-kind"
+  },
+  "spec": {
+    "variantRevision": "recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/variant-revision.yaml",
+    "renderedObjectSetSHA256": "187a27077a6c1924669172528109b878e4d9c7759689a2f52826be8dfbc30f1e",
+    "observer": {
+      "name": "top20-local-e2e",
+      "version": "0.2.0",
+      "method": "kubectl-kind"
+    },
+    "target": {
+      "kind": "kind",
+      "name": "helm-expt-live-tail",
+      "context": "kind-helm-expt-live-tail",
+      "namespace": "mongodb"
+    },
+    "observedAt": "2026-05-28T08:27:51.408Z",
+    "freshnessTTL": "1h",
+    "result": "pass",
+    "chart": "bitnami/mongodb",
+    "chartVersion": "19.0.7",
+    "rank": 17,
+    "variant": "generated-passwords",
+    "renderedObjectCount": 8,
+    "checks": [
+      {
+        "name": "server-side-apply",
+        "result": "pass",
+        "evidencePath": "kubectl-apply.txt",
+        "evidenceSHA256": "aa02059db0932a632f931c85651ccbf4fa0c968a932bddad6d58c4019a23a672"
+      },
+      {
+        "name": "deployment-mongodb-rollout",
+        "result": "pass",
+        "object": "deployment/mongodb",
+        "evidencePath": "deployment-mongodb-rollout.txt",
+        "evidenceSHA256": "8a1f35f3a781989f6b3e61c269020a86fb996fb5e23290e5a542ca70b4cacaf3"
+      }
+    ],
+    "kubectlObjects": {
+      "path": "kubectl-objects.txt",
+      "sha256": "6046e1ac5dbcae0663e060ec13a8c1e6066fdc0545c8ffe473de4e7c9ace76ad"
+    }
+  }
+}

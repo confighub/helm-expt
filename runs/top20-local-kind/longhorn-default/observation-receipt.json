@@ -1,0 +1,378 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "ObservationReceipt",
+  "metadata": {
+    "name": "longhorn-default-local-kind"
+  },
+  "spec": {
+    "variantRevision": "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/variant-revision.yaml",
+    "renderedObjectSetSHA256": "4a2f739775a696f5d67db6adf1f99473c60a3f5adf308ceb3ccbf222435acd90",
+    "observer": {
+      "name": "top20-local-e2e",
+      "version": "0.2.0",
+      "method": "kubectl-kind"
+    },
+    "target": {
+      "kind": "kind",
+      "name": "helm-expt-redis",
+      "context": "kind-helm-expt-redis",
+      "namespace": "longhorn-system"
+    },
+    "observedAt": "2026-05-28T08:18:16.104Z",
+    "freshnessTTL": "1h",
+    "result": "pass",
+    "chart": "longhorn/longhorn",
+    "chartVersion": "1.11.2",
+    "rank": 11,
+    "variant": "default",
+    "renderedObjectCount": 41,
+    "checks": [
+      {
+        "name": "crd-bootstrap-apply",
+        "result": "pass",
+        "count": 22,
+        "evidencePath": "crd-bootstrap-apply.txt",
+        "evidenceSHA256": "516ff0434fe94487a5fa047d69e5424aa66d1b4bde02c1effd7a4143fb036909"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/backingimagedatasources.longhorn.io",
+        "evidencePath": "crd-backingimagedatasources.longhorn.io-established.txt",
+        "evidenceSHA256": "1d8c567786f8471b5405188479de65a8ed928f3b8cd3619d524a93f51c2f1577"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/backingimagemanagers.longhorn.io",
+        "evidencePath": "crd-backingimagemanagers.longhorn.io-established.txt",
+        "evidenceSHA256": "a5871d76c3e93ad54bec1a8c1766a3900a964dff6d45b7aca39cd1098f6ee314"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/backingimages.longhorn.io",
+        "evidencePath": "crd-backingimages.longhorn.io-established.txt",
+        "evidenceSHA256": "e4aa0619002df66ef8cfa59eab4e7205320d8eaf078200ea68ce9ab9b0a4b827"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/backupbackingimages.longhorn.io",
+        "evidencePath": "crd-backupbackingimages.longhorn.io-established.txt",
+        "evidenceSHA256": "bddfc2bfe90584cf84e0673042407e81e776996283d564561c16325eb54d522f"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/backups.longhorn.io",
+        "evidencePath": "crd-backups.longhorn.io-established.txt",
+        "evidenceSHA256": "f254834047086075455c0068136aaff419e9ee81c469a68fd3d99895047e6974"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/backuptargets.longhorn.io",
+        "evidencePath": "crd-backuptargets.longhorn.io-established.txt",
+        "evidenceSHA256": "c6d3d0ddfe81c34f73faa458096bb2e8214d5a924eec2d73cc3c8cda667673e3"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/backupvolumes.longhorn.io",
+        "evidencePath": "crd-backupvolumes.longhorn.io-established.txt",
+        "evidenceSHA256": "ac1cd58a074b07a2ec2fbb0c69bca97f6525895cff341a93dcae3f0f1a8daacc"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/engineimages.longhorn.io",
+        "evidencePath": "crd-engineimages.longhorn.io-established.txt",
+        "evidenceSHA256": "62b9f228bc01255b1993ce91589b8edd657203e2f674c86d57fc8b5a440ef3bd"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/engines.longhorn.io",
+        "evidencePath": "crd-engines.longhorn.io-established.txt",
+        "evidenceSHA256": "5da1751597e275bd1609eb0afcacd58b23a558c0bd85cb2f34778e1a9c563b27"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/instancemanagers.longhorn.io",
+        "evidencePath": "crd-instancemanagers.longhorn.io-established.txt",
+        "evidenceSHA256": "e6c7ae3fc51a71663ba05fc05ca90d22fd0c3a46d96bce2bd9a1d6a2115fabd2"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/nodes.longhorn.io",
+        "evidencePath": "crd-nodes.longhorn.io-established.txt",
+        "evidenceSHA256": "d006d9d41b39f6e19665901b10daed91a752d687d6bb62c72a035852e1424daa"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/orphans.longhorn.io",
+        "evidencePath": "crd-orphans.longhorn.io-established.txt",
+        "evidenceSHA256": "38a95cb3beef28b492521929289ff0d4326e562f321f14a786f7d0b72160ea4d"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/recurringjobs.longhorn.io",
+        "evidencePath": "crd-recurringjobs.longhorn.io-established.txt",
+        "evidenceSHA256": "1cc680db85fe53ee6e9ed636630e1c0ecbfab77ab13614347a39828f5ee8469f"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/replicas.longhorn.io",
+        "evidencePath": "crd-replicas.longhorn.io-established.txt",
+        "evidenceSHA256": "589c16f97cc5f29f82b37d0f70dc8a6f65616cbdac22a450763e432109643402"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/settings.longhorn.io",
+        "evidencePath": "crd-settings.longhorn.io-established.txt",
+        "evidenceSHA256": "e1eeed3eaac5decde9d76017cc6f2ecfae68e638e087d8059c3597c0b0997a62"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/sharemanagers.longhorn.io",
+        "evidencePath": "crd-sharemanagers.longhorn.io-established.txt",
+        "evidenceSHA256": "588718ea6fcd199567fcd91aeb5742cfb6fbf2d3c429bd8c413e0f6eee2e4c99"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/snapshots.longhorn.io",
+        "evidencePath": "crd-snapshots.longhorn.io-established.txt",
+        "evidenceSHA256": "b0133ba5e34782b9d6a54c6a59adc207e6998f00d5989a39786102f17cdb4aeb"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/supportbundles.longhorn.io",
+        "evidencePath": "crd-supportbundles.longhorn.io-established.txt",
+        "evidenceSHA256": "a87ec47c2b10a6aa7a0fdc8fc1db8ef8ac14f479dffe7fb0863d51b230a025fe"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/systembackups.longhorn.io",
+        "evidencePath": "crd-systembackups.longhorn.io-established.txt",
+        "evidenceSHA256": "7e2ede541d999c2248a5a8dde3e2ee546d06e7c16473fee64b1c40480e9f1178"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/systemrestores.longhorn.io",
+        "evidencePath": "crd-systemrestores.longhorn.io-established.txt",
+        "evidenceSHA256": "9e0f1b7daa807d04f3fd143a524118f0d50a00ddc5fce1d45cfb8917088ecbb2"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/volumeattachments.longhorn.io",
+        "evidencePath": "crd-volumeattachments.longhorn.io-established.txt",
+        "evidenceSHA256": "512acf994439d401c56b9049f01cf213daa5e1e0e330f409ce632fadad04f33e"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/volumes.longhorn.io",
+        "evidencePath": "crd-volumes.longhorn.io-established.txt",
+        "evidenceSHA256": "02b647e0d780b46bf893859eea5f2b62bf1cc67ef0874caf8dd2d2d6c37379ed"
+      },
+      {
+        "name": "server-side-apply",
+        "result": "pass",
+        "evidencePath": "kubectl-apply.txt",
+        "evidenceSHA256": "4abbe3796162a056e16ee56e435aa2219c381faaa2a3ac90a079361de4c98db9"
+      },
+      {
+        "name": "daemonset-longhorn-manager-rollout",
+        "result": "pass",
+        "object": "daemonset/longhorn-manager",
+        "evidencePath": "daemonset-longhorn-manager-rollout.txt",
+        "evidenceSHA256": "f34891983d76ec8640080f71f86bce3de655b39af91e5f645024e474580c9de6"
+      },
+      {
+        "name": "deployment-longhorn-driver-deployer-rollout",
+        "result": "pass",
+        "object": "deployment/longhorn-driver-deployer",
+        "evidencePath": "deployment-longhorn-driver-deployer-rollout.txt",
+        "evidenceSHA256": "1120b0e4316c0f81bad0b9293fe414d9aa076d78e933a4e6200cf2c537a117f2"
+      },
+      {
+        "name": "deployment-longhorn-ui-rollout",
+        "result": "pass",
+        "object": "deployment/longhorn-ui",
+        "evidencePath": "deployment-longhorn-ui-rollout.txt",
+        "evidenceSHA256": "b212a5cea64e79145290d8d7e90e07a30f26ea6e3e8ce2b07fc3edb727a36e19"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/backingimagedatasources.longhorn.io",
+        "evidencePath": "crd-backingimagedatasources.longhorn.io.txt",
+        "evidenceSHA256": "b468e15f472fcdb23a3a506f31ce9920f0fedbfd9b314d50a4b9608d5e19adf3"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/backingimagemanagers.longhorn.io",
+        "evidencePath": "crd-backingimagemanagers.longhorn.io.txt",
+        "evidenceSHA256": "ba9d3ad367c829e620f626c8c25fdf8e48d3f692c5a5dbab1513ce9d79f26f89"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/backingimages.longhorn.io",
+        "evidencePath": "crd-backingimages.longhorn.io.txt",
+        "evidenceSHA256": "b44b942f5c9227518d220468ae37e41b7e78bb2b66244d72d004ff1605ab97ac"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/backupbackingimages.longhorn.io",
+        "evidencePath": "crd-backupbackingimages.longhorn.io.txt",
+        "evidenceSHA256": "bfca956a23f21df8793090b6ed9e6b2087c6ddd91af1611598c033aa7647e84b"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/backups.longhorn.io",
+        "evidencePath": "crd-backups.longhorn.io.txt",
+        "evidenceSHA256": "fda85df7018de608cd7b1b3d0c36d8cc2769d22eb1b71d1051c2d7d9cee38436"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/backuptargets.longhorn.io",
+        "evidencePath": "crd-backuptargets.longhorn.io.txt",
+        "evidenceSHA256": "c9c03d9ab544b49f47cfc28298449ee695499e0b8dcca85195c8733d624adfa3"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/backupvolumes.longhorn.io",
+        "evidencePath": "crd-backupvolumes.longhorn.io.txt",
+        "evidenceSHA256": "ad210fd71d286924afcbc7d9d0a3ffb9f6cc5678740697c7abc9b157083b7a67"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/engineimages.longhorn.io",
+        "evidencePath": "crd-engineimages.longhorn.io.txt",
+        "evidenceSHA256": "1435c6233ff821857af0a870267670f835251b546d3cf2979904c5870494841d"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/engines.longhorn.io",
+        "evidencePath": "crd-engines.longhorn.io.txt",
+        "evidenceSHA256": "577251e72006ef5a36176a71987e7ac8ce5d028bb613f17585801d85130d4384"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/instancemanagers.longhorn.io",
+        "evidencePath": "crd-instancemanagers.longhorn.io.txt",
+        "evidenceSHA256": "54c2a8b7e3feae69dd02264a2e629abb5b64067fb848f4fd5464238a55efae8b"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/nodes.longhorn.io",
+        "evidencePath": "crd-nodes.longhorn.io.txt",
+        "evidenceSHA256": "55dbbd06224ff404c59476b2977e454ebaf13f759c12e27e3da06fed0ad43fd0"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/orphans.longhorn.io",
+        "evidencePath": "crd-orphans.longhorn.io.txt",
+        "evidenceSHA256": "f565ecec8504e6a7781d7db28678cc4537f8cfed6e0f012957fe6e6cac9b3f73"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/recurringjobs.longhorn.io",
+        "evidencePath": "crd-recurringjobs.longhorn.io.txt",
+        "evidenceSHA256": "2d813f3f942c6440e4f2d88496d58938bfac95e7006900f030e42914b0eff4d8"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/replicas.longhorn.io",
+        "evidencePath": "crd-replicas.longhorn.io.txt",
+        "evidenceSHA256": "43f7fdcb2de5a93b6774d7dd9d4c68627281f97a80f608cd28fecfe6a23859a7"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/settings.longhorn.io",
+        "evidencePath": "crd-settings.longhorn.io.txt",
+        "evidenceSHA256": "7f6eeb0e798758001b08853d7270883f4ef495135ec30135f033a03084a4e48c"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/sharemanagers.longhorn.io",
+        "evidencePath": "crd-sharemanagers.longhorn.io.txt",
+        "evidenceSHA256": "23d0dc5bcdc410b458f0d8d2c4e8d75f5fd2935a16884cb61294a194e176ee35"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/snapshots.longhorn.io",
+        "evidencePath": "crd-snapshots.longhorn.io.txt",
+        "evidenceSHA256": "1370cebaa076d560a8633265d7a223716c51f4c83e90366a5d50fdf1d8e57b83"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/supportbundles.longhorn.io",
+        "evidencePath": "crd-supportbundles.longhorn.io.txt",
+        "evidenceSHA256": "c7aab92f79d5a13f89fa0a1ec5648e0ed9fcae317cbfd1dfca9508407fc5aded"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/systembackups.longhorn.io",
+        "evidencePath": "crd-systembackups.longhorn.io.txt",
+        "evidenceSHA256": "d88d35af13b042e4d343e31c024d06b469859e831e6003b0fe3ee281df53b022"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/systemrestores.longhorn.io",
+        "evidencePath": "crd-systemrestores.longhorn.io.txt",
+        "evidenceSHA256": "73d9a9edc8dd78bf2bac0831de83587fadfde10473883fa44405a5b0401f6078"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/volumeattachments.longhorn.io",
+        "evidencePath": "crd-volumeattachments.longhorn.io.txt",
+        "evidenceSHA256": "5b2a97168fe24e5f10119c2df9a392c1fae1c764c28803c557ad98d14ce3fa2c"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/volumes.longhorn.io",
+        "evidencePath": "crd-volumes.longhorn.io.txt",
+        "evidenceSHA256": "d6b3bab807fb58d2d5b14b9bab212477a9e96137e36d8030ee863d994f8b2cf8"
+      }
+    ],
+    "kubectlObjects": {
+      "path": "kubectl-objects.txt",
+      "sha256": "95d1ad2b68692f128a5292cd2d4c49e74eaae32d62675ff410d14bf618ebf4b7"
+    }
+  }
+}

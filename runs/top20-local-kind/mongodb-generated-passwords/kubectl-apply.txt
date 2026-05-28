@@ -1,0 +1,8 @@
+networkpolicy.networking.k8s.io/mongodb serverside-applied
+poddisruptionbudget.policy/mongodb serverside-applied
+serviceaccount/mongodb serverside-applied
+secret/mongodb serverside-applied
+configmap/mongodb-common-scripts serverside-applied
+persistentvolumeclaim/mongodb serverside-applied
+service/mongodb serverside-applied
+deployment.apps/mongodb serverside-applied
