@@ -4,12 +4,12 @@ This is the promoted proof slice for the Longhorn public Helm chart.
 
 Variants:
 
-- `default`: chart defaults with CRDs, manager DaemonSet, driver deployer, UI, and storage settings; 41 Helm objects, 42 cub install objects including Namespace.
-- `ui-ingress`: default Longhorn plus an explicit UI Ingress; 42 Helm objects, 43 cub install objects including Namespace.
+- `default`: chart defaults with CRDs, manager DaemonSet, driver deployer, UI, and storage settings; 41 Helm objects, 42 cub installer objects including Namespace.
+- `ui-ingress`: default Longhorn plus an explicit UI Ingress; 42 Helm objects, 43 cub installer objects including Namespace.
 
 What this proves:
 
-- regular Helm output is preserved by `cub install setup`, plus the explained Namespace support object;
+- regular Helm output is preserved by `cub installer setup`, plus the explained Namespace support object;
 - default chart render is deterministic under the pinned Kubernetes capability profile;
 - both variants render the 22 Longhorn CRDs as ordinary, digest-bound objects;
 - the ui-ingress variant deliberately adds Longhorn UI exposure with host and ingress class captured before render;

@@ -389,11 +389,11 @@ ${receiptTable(root, variants)}
 ## Current Install Shape
 
 \`\`\`sh
-cub install setup --pull ${packageInfo.path} --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull ${packageInfo.path} --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 \`\`\`
 
 Use the variant table above to choose the package base. The proof path compares
-regular Helm output with real \`cub install setup\` output and explains every
+regular Helm output with real \`cub installer setup\` output and explains every
 intentional difference, such as the Namespace support object or separated
 Secrets.
 `;
@@ -426,7 +426,7 @@ function variantTable(root, variants) {
       "Package base",
       "Revision",
       "Helm objects",
-      "cub install objects",
+      "cub installer objects",
       "Match",
       "Helm equivalence",
       "Scan",

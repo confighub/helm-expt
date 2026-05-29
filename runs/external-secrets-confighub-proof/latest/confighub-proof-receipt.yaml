@@ -23,27 +23,27 @@ spec:
     targetFactRequirements:
       []
   render:
-    command: "cub install setup --pull packages/external-secrets/external-secrets/2.5.0 --base default --work-dir .tmp/confighub-proof/external-secrets-default --non-interactive --namespace external-secrets"
+    command: "cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base default --work-dir .tmp/confighub-proof/external-secrets-default --non-interactive --namespace external-secrets"
     result: "pass"
     manifestCount: 42
     separatedSecretCount: 1
     facts:
       {}
   rerender:
-    command: "cub install render --work-dir .tmp/confighub-proof/external-secrets-default"
+    command: "cub installer render --work-dir .tmp/confighub-proof/external-secrets-default"
     result: "pass"
     manifestCount: 42
     separatedSecretCount: 1
   deterministicPackage:
-    command: "cub install package packages/external-secrets/external-secrets/2.5.0 -o .tmp/confighub-proof/external-secrets-archives/external-secrets-a.tgz"
+    command: "cub installer package packages/external-secrets/external-secrets/2.5.0 -o .tmp/confighub-proof/external-secrets-archives/external-secrets-a.tgz"
     sha256: "0a8f6642c21088b0e4e01686cee44979f947656d7b56f03820c1d9b10d77bcc9"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
-    command: "cub install vet --work-dir .tmp/confighub-proof/external-secrets-default"
+    command: "cub installer vet --work-dir .tmp/confighub-proof/external-secrets-default"
     result: "pass"
     note: "Package declares no validators (spec.validators is empty)."
   upload:
-    command: "cub install upload --work-dir .tmp/confighub-proof/external-secrets-default --space helm-external-secrets-confighub-proof --component ExternalSecrets --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=ExternalSecrets --unit-label HelmChart=external-secrets-external-secrets --unit-label HelmChartVersion=2.5.0 --unit-label Variant=default --unit-label Proof=external-secrets-confighub-proof --retry"
+    command: "cub installer upload --work-dir .tmp/confighub-proof/external-secrets-default --space helm-external-secrets-confighub-proof --component ExternalSecrets --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=ExternalSecrets --unit-label HelmChart=external-secrets-external-secrets --unit-label HelmChartVersion=2.5.0 --unit-label Variant=default --unit-label Proof=external-secrets-confighub-proof --retry"
     result: "pass"
     workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
     space: "helm-external-secrets-confighub-proof"
@@ -54,9 +54,9 @@ spec:
       - "v1/Secret external-secrets/external-secrets-webhook"
   plan:
     preUpload:
-      command: "cub install plan --work-dir .tmp/confighub-proof/external-secrets-default"
+      command: "cub installer plan --work-dir .tmp/confighub-proof/external-secrets-default"
       result: "expected-missing-upload-state"
-    command: "cub install plan --work-dir .tmp/confighub-proof/external-secrets-default"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/external-secrets-default"
     result: "pass"
     summary: "No changes.\nImages in helm-external-secrets-confighub-proof (post-render):\n      Deployment/external-secrets [external-secrets] ghcr.io/external-secrets/external-secrets:v2.5.0\n      Deployment/external-secrets-cert-controller [cert-controller] ghcr.io/external-secrets/external-secrets:v2.5.0\n      Deployment/external-secrets-webhook [webhook] ghcr.io/external-secrets/external-secrets:v2.5.0"
   serverSideVariant:
@@ -78,7 +78,7 @@ spec:
       - "helm-external-secrets-confighub-proof"
       - "helm-external-secrets-confighub-proof-staging"
   observedFriction:
-    - "cub install upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
-    - "pre-upload cub install plan is expected to fail until upload state exists."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

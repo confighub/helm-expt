@@ -81,7 +81,7 @@ spec:
         default: true
         description: "argo-cd/argocd-image-updater default variant rendered from argo-cd/argocd-image-updater@1.2.2"
       setupCheck:
-        command: "cub install setup --pull packages/argo-cd/argocd-image-updater/1.2.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/argo-cd/argocd-image-updater/1.2.2 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 11
         cubInstallObjectCountIncludingSupport: 12
         semanticObjectMatches: "11/11"

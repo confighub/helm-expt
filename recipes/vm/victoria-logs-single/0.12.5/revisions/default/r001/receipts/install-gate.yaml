@@ -18,6 +18,6 @@ spec:
   blockedScopes:
     []
   reasons:
-    - "regular Helm output matches cub install setup for vm/victoria-logs-single@0.12.5"
+    - "regular Helm output matches cub installer setup for vm/victoria-logs-single@0.12.5"
     - "2 Helm objects are bound to renderedObjectSetSHA256"
     - "rendered-object scan produced no findings in the local proof policy"

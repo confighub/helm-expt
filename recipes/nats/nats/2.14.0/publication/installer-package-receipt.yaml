@@ -29,14 +29,14 @@ spec:
         sha256: "cdbd8ef813455f4309000ddfac216e08c564b6168166460747f3d7b1f8f95d6c"
         bytes: 282
   deterministicBundle:
-    command: "cub install package packages/nats/nats/2.14.0 -o <tmp>/nats-nats-2-14-0.tgz"
+    command: "cub installer package packages/nats/nats/2.14.0 -o <tmp>/nats-nats-2-14-0.tgz"
     sha256: "584668d683b7645e0226bacdcee8b936734be3bbbc3d36ee8aafc1b2b298695d"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/nats/nats/2.14.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/nats/nats/2.14.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 7
       cubInstallObjectCountIncludingSupport: 8
       semanticObjectMatches: "7/7"

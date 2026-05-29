@@ -218,7 +218,7 @@ metrics-server/metrics-server@3.13.0
 
 It proves the next reusable shape after Redis: a public chart row can become a
 recipe, two variants, rendered revisions, target fact requirements, scan/gate
-receipts, and a deterministic `cub install` package/setup proof.
+receipts, and a deterministic `cub installer` package/setup proof.
 
 The second promoted row is:
 
@@ -229,7 +229,7 @@ ingress-nginx/ingress-nginx@4.15.1
 It proves the admission-webhook chart shape: a default variant with admission
 Service and ValidatingWebhookConfiguration, an `admission-disabled` variant
 that deliberately removes those objects, admission webhook and Helm hook
-lifecycle gates, cluster RBAC gates, and deterministic `cub install`
+lifecycle gates, cluster RBAC gates, and deterministic `cub installer`
 package/setup proof.
 
 The third promoted row is:
@@ -241,7 +241,7 @@ jetstack/cert-manager@v1.20.2
 It proves the CRD-heavy control-plane chart shape: a default variant with zero
 CRDs, a `crds-enabled` variant with the six cert-manager CRDs, CRD lifecycle and
 upgrade gates, admission webhook observation gates, Helm startup hook lifecycle
-gates, cluster RBAC gates, and deterministic `cub install` package/setup proof.
+gates, cluster RBAC gates, and deterministic `cub installer` package/setup proof.
 
 The fourth promoted row is:
 
@@ -253,7 +253,7 @@ It proves the CRD-heavy controller chart shape: a default variant with 23 CRDs,
 a `no-crds` variant with zero CRDs, source and dependency locks including the
 disabled `bitwarden-sdk-server` dependency, admission webhook observation
 gates, webhook Secret/cert-controller observation, cluster RBAC gates, and
-deterministic `cub install` package/setup proof.
+deterministic `cub installer` package/setup proof.
 
 The fifth promoted row is:
 
@@ -265,7 +265,7 @@ It proves the GitOps controller chart shape: a default variant with three CRDs,
 a `no-crds` variant with zero CRDs, source and dependency locks including the
 disabled `redis-ha` dependency, Helm hook lifecycle gates, generated Secret
 ownership gates, StatefulSet policy, GitOps handoff policy, cluster RBAC gates,
-and deterministic `cub install` package/setup proof.
+and deterministic `cub installer` package/setup proof.
 
 The sixth promoted row is:
 
@@ -278,7 +278,7 @@ It proves the generated-credential stateful chart shape: a
 `existing-secret` variant that declares target Secret
 `postgresql/postgresql-auth`, source and dependency locks including the Bitnami
 `common` dependency, hook lifecycle gates, StatefulSet/PVC policy, extension
-slot review, and deterministic `cub install` package/setup proof.
+slot review, and deterministic `cub installer` package/setup proof.
 
 The seventh promoted row is:
 
@@ -291,7 +291,7 @@ material: a `generated-passwords` variant that binds `auth.password` and
 `auth.erlangCookie`, an `existing-secret` variant that declares target Secrets
 `rabbitmq/rabbitmq-auth` and `rabbitmq/rabbitmq-erlang-cookie`, source and
 dependency locks including the Bitnami `common` dependency, StatefulSet/PVC and
-clustering policy, extension-slot review, and deterministic `cub install`
+clustering policy, extension-slot review, and deterministic `cub installer`
 package/setup proof.
 
 The eighth promoted row is:
@@ -305,7 +305,7 @@ binds Grafana admin password and renders 10 Prometheus Operator CRDs, a
 `no-crds` variant that omits CRDs, source and dependency locks for the CRD,
 kube-state-metrics, node-exporter, Grafana, and windows-exporter dependencies,
 admission webhook observation gates, cluster RBAC gates, dashboard ConfigMap
-normalization, extension-slot review, and deterministic `cub install`
+normalization, extension-slot review, and deterministic `cub installer`
 package/setup proof.
 
 The ninth promoted row is:
@@ -319,7 +319,7 @@ missing `loki.storage.bucketNames.chunks`, `single-binary-filesystem` and
 `simple-scalable-minio` variants, source and dependency locks for MinIO,
 grafana-agent-operator, and rollout-operator, storage/schema binding, MinIO
 object-store fixture, cluster RBAC, StatefulSet/PVC policy, Loki ConfigMap
-normalization, extension-slot review, and deterministic `cub install`
+normalization, extension-slot review, and deterministic `cub installer`
 package/setup proof.
 
 The tenth promoted row is:
@@ -332,7 +332,7 @@ It proves the storage control-plane chart shape: `default` and `ui-ingress`
 variants, 22 Longhorn CRDs, pre-upgrade hook policy, admission/recovery
 observation, cluster RBAC gates, privileged storage workload policy,
 StorageClass/default-setting policy, UI ingress policy, and deterministic
-`cub install` package/setup proof.
+`cub installer` package/setup proof.
 
 The eleventh promoted row is:
 
@@ -345,7 +345,7 @@ It proves the generated-credential stateful chart shape for MySQL:
 for root/user/replication passwords, target Secret binding for
 `mysql/mysql-auth`, Bitnami `common` dependency lock, hook lifecycle policy,
 StatefulSet/PVC policy, extension-slot review, and deterministic
-`cub install` package/setup proof.
+`cub installer` package/setup proof.
 
 The twelfth promoted row is:
 
@@ -358,7 +358,7 @@ marker in the source lock, `generated-passwords` and `existing-secret-ingress`
 variants, generated Grafana admin credential binding, target Secret binding
 for `grafana/grafana-admin`, UI ingress policy, cluster RBAC review,
 deployment/provisioning/sidecar/Secret extension gates, and deterministic
-`cub install` package/setup proof.
+`cub installer` package/setup proof.
 
 The thirteenth full proof row is:
 
@@ -370,7 +370,7 @@ It proves the security-sensitive stateful control-plane chart shape: `default`
 and `ha-raft-ui` variants, TLS posture review, injector admission webhook
 review, StatefulSet storage and HA Raft policy, init/unseal operate-policy
 gates, service exposure review, cluster RBAC review, Secret/env extension
-gates, and deterministic `cub install` package/setup proof.
+gates, and deterministic `cub installer` package/setup proof.
 
 The fourteenth full proof row is:
 
@@ -382,7 +382,7 @@ It proves the node-level CSI driver chart shape: `default` and
 `sync-secret-rotation` variants, SecretProviderClass CRD lifecycle, CSIDriver
 kubelet integration, Linux DaemonSet and hostPath policy, cluster RBAC review,
 synced Secret ownership, rotation/provider-health policy, provider identity
-integration gates, and deterministic `cub install` package/setup proof.
+integration gates, and deterministic `cub installer` package/setup proof.
 
 The fifteenth full proof row is:
 
@@ -394,7 +394,7 @@ It proves the bundled monitoring stack chart shape: `default` and
 `server-only-ephemeral` variants, Alertmanager/exporter/pushgateway component
 selection, Prometheus scrape ConfigMap review, server PVC/storage retention
 policy, cluster RBAC review, remote read/write and exposure extension slots,
-and deterministic `cub install` package/setup proof.
+and deterministic `cub installer` package/setup proof.
 
 The sixteenth full proof row is:
 
@@ -406,7 +406,7 @@ It proves the stateful database topology chart shape: `generated-passwords` and
 `existing-secret-replicaset` variants, generated root password binding, target
 Secret binding, replica-set and arbiter StatefulSets, persistent storage,
 NetworkPolicy/PDB policy, hook lifecycle review, `tpl` configuration slots, and
-deterministic `cub install` package/setup proof.
+deterministic `cub installer` package/setup proof.
 
 The seventeenth full proof row is:
 
@@ -420,7 +420,7 @@ chart can hide Helm pain: default self-signed TLS generation is controlled,
 `existing-tls-ingress` declares backend and ingress TLS Secrets, and the proof
 records ingress exposure, NetworkPolicy, PDB, service exposure, static-site
 supply-chain slots, metrics add-ons, raw/template extension slots, and
-deterministic `cub install` package/setup proof.
+deterministic `cub installer` package/setup proof.
 
 The eighteenth full proof row is:
 
@@ -433,7 +433,7 @@ is recorded, `local-persistent` captures local WAL/traces PVC settings,
 `s3-query-observability` moves S3 credentials to a target Secret and adds query
 ingress, NetworkPolicy, and ServiceMonitor, and the proof records the required
 Prometheus Operator API capability, StatefulSet/headless-Service runtime risk,
-raw/template extension slots, and deterministic `cub install` package/setup
+raw/template extension slots, and deterministic `cub installer` package/setup
 proof.
 
 The nineteenth full proof row is:
@@ -448,7 +448,7 @@ It completes the 20-chart target with the service-mesh/control-plane shape:
 gateways, and UI ingress using declared target Secrets. The proof records 28
 CRDs, cluster RBAC, injector webhooks, lifecycle Jobs, rendered Secrets,
 StatefulSet storage, gateway topology, raw/template extension slots, and
-deterministic `cub install` package/setup proof.
+deterministic `cub installer` package/setup proof.
 
 The Redis proof now contains the first courtroom-grade slice. Remaining Redis
 day-2 extensions still include:
@@ -462,9 +462,9 @@ Current Redis package proof status:
 
 ```text
 packages/bitnami/redis/25.5.3 exists
-cub install package is byte-deterministic across two local runs
-cub install setup --base default matches Helm semantically, plus Namespace
-cub install setup --base reuse-existing-secret matches Helm semantically, plus Namespace
+cub installer package is byte-deterministic across two local runs
+cub installer setup --base default matches Helm semantically, plus Namespace
+cub installer setup --base reuse-existing-secret matches Helm semantically, plus Namespace
 Kubara spaces helm-redis-default and helm-redis-reuse-existing-secret exist
 ConfigHub hosted OCI returns unit-level manifests for representative StatefulSets
 ```
@@ -517,7 +517,7 @@ For 20 charts, prove depth with 20 full public-chart proof slices:
 - require at least the default variant per chart;
 - require at least one second meaningful variant where relevant;
 - run deterministic render checks;
-- run `cub install package` and `cub install setup`;
+- run `cub installer package` and `cub installer setup`;
 - produce a Helm equivalence report;
 - produce scan receipt and install gate per rendered revision;
 - include explicit CRD-heavy charts in the set;

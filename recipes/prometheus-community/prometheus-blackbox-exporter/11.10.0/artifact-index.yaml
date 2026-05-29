@@ -78,7 +78,7 @@ spec:
         default: true
         description: "prometheus-community/prometheus-blackbox-exporter default variant rendered from prometheus-community/prometheus-blackbox-exporter@11.10.0"
       setupCheck:
-        command: "cub install setup --pull packages/prometheus-community/prometheus-blackbox-exporter/11.10.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/prometheus-community/prometheus-blackbox-exporter/11.10.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 4
         cubInstallObjectCountIncludingSupport: 5
         semanticObjectMatches: "4/4"

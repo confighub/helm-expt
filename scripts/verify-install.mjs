@@ -598,7 +598,7 @@ function printUsage() {
 Options:
   --chart       Chart/version to verify. Today: bitnami/redis/25.5.3
   --base        Catalog variant/package base. Default: default
-  --work-dir    Required for render. Directory produced by cub install setup
+  --work-dir    Required for render. Directory produced by cub installer setup
   --namespace   Required for cluster; optional for render namespace remapping
   --context     Optional kubectl context for cluster checks
   --space       Required for ConfigHub Unit checks

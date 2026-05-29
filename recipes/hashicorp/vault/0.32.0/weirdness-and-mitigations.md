@@ -3,7 +3,7 @@
 # hashicorp/vault 0.32.0 Weirdness And Mitigations
 
 This note records the Helm pain surfaced during catalog review and where the
-current ConfigHub/cub install proof absorbs it.
+current ConfigHub/cub installer proof absorbs it.
 
 ## Support Boundary
 
@@ -30,7 +30,7 @@ or operating-policy dispositions.
 
 ## Catalog Mitigations
 
-- Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.
+- Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
 - default is the simplest local Vault chart path.
 - ha-raft-ui is supported as a richer local HA-shape proof, not a production readiness claim.
 - Production remains blocked until seal/init, storage, recovery, unseal workflow, and scan/gate findings have dispositions.

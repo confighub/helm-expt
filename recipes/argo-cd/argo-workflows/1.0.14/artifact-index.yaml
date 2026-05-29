@@ -80,7 +80,7 @@ spec:
         default: true
         description: "argo-cd/argo-workflows default variant rendered from argo-cd/argo-workflows@1.0.14"
       setupCheck:
-        command: "cub install setup --pull packages/argo-cd/argo-workflows/1.0.14 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/argo-cd/argo-workflows/1.0.14 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 19
         cubInstallObjectCountIncludingSupport: 20
         semanticObjectMatches: "19/19"

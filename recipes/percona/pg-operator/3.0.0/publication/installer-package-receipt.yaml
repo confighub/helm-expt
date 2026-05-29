@@ -29,14 +29,14 @@ spec:
         sha256: "0cfb412c3aa63c3e1eac9c2085bbe84903439aaa086b5fa26eeea779c50cd501"
         bytes: 310
   deterministicBundle:
-    command: "cub install package packages/percona/pg-operator/3.0.0 -o <tmp>/percona-pg-operator-3-0-0.tgz"
+    command: "cub installer package packages/percona/pg-operator/3.0.0 -o <tmp>/percona-pg-operator-3-0-0.tgz"
     sha256: "6abea18a1b37e68ac97e76cb918ab35da5e851069e9c05e6f0e1f7bbedb88ecc"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/percona/pg-operator/3.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/percona/pg-operator/3.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 12
       cubInstallObjectCountIncludingSupport: 13
       semanticObjectMatches: "12/12"

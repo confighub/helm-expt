@@ -80,7 +80,7 @@ spec:
         default: true
         description: "crossplane-stable/crossplane default variant rendered from crossplane-stable/crossplane@2.3.1"
       setupCheck:
-        command: "cub install setup --pull packages/crossplane-stable/crossplane/2.3.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/crossplane-stable/crossplane/2.3.1 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 23
         cubInstallObjectCountIncludingSupport: 24
         semanticObjectMatches: "23/23"

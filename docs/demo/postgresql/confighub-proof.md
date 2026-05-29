@@ -16,13 +16,13 @@ The PostgreSQL lane is accepted when it proves:
 
 | Capability | Command surface | Acceptance |
 | --- | --- | --- |
-| Package explanation | `cub install doc` | Shows bases and target-fact requirements. |
-| Deterministic setup | `cub install setup` | Renders `generated-passwords` into a fresh work directory. |
-| Re-render | `cub install render` | Re-renders the same work directory successfully. |
-| Package determinism | `cub install package` | Builds byte-identical package archives. |
-| Validator path | `cub install vet` | Runs successfully, or records that the package has no validators. |
-| Upload plan | `cub install plan` | Produces a read-only plan after upload state exists. |
-| ConfigHub upload | `cub install upload` | Creates ConfigHub Units for the non-secret rendered output and records the separated Secret. |
+| Package explanation | `cub installer doc` | Shows bases and target-fact requirements. |
+| Deterministic setup | `cub installer setup` | Renders `generated-passwords` into a fresh work directory. |
+| Re-render | `cub installer render` | Re-renders the same work directory successfully. |
+| Package determinism | `cub installer package` | Builds byte-identical package archives. |
+| Validator path | `cub installer vet` | Runs successfully, or records that the package has no validators. |
+| Upload plan | `cub installer plan` | Produces a read-only plan after upload state exists. |
+| ConfigHub upload | `cub installer upload` | Creates ConfigHub Units for the non-secret rendered output and records the separated Secret. |
 | Server-side variant | `cub variant create` | Clones a reviewed uploaded PostgreSQL space. |
 | Review/diff | `cub unit tree`, `cub unit data`, `cub revision list`, `cub unit diff` | Shows StatefulSet data, revision history, and a Unit diff. |
 | ConfigHub function scan | `cub function vet` | Runs validating functions against uploaded Units. |

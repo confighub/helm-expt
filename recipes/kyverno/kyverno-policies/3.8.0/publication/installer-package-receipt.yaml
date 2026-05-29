@@ -29,14 +29,14 @@ spec:
         sha256: "4e71bfdf132d62a98218d4be3d658b56c8f6041acf21899b1b6906772e2f4b6b"
         bytes: 325
   deterministicBundle:
-    command: "cub install package packages/kyverno/kyverno-policies/3.8.0 -o <tmp>/kyverno-kyverno-policies-3-8-0.tgz"
+    command: "cub installer package packages/kyverno/kyverno-policies/3.8.0 -o <tmp>/kyverno-kyverno-policies-3-8-0.tgz"
     sha256: "579a286684a64a6fc737f08913b47b1963e2ee87049881a214fa05e742b2a46e"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/kyverno/kyverno-policies/3.8.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/kyverno/kyverno-policies/3.8.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 11
       cubInstallObjectCountIncludingSupport: 12
       semanticObjectMatches: "11/11"

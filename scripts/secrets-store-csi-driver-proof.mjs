@@ -585,12 +585,12 @@ npm run secrets-store-csi-driver:verify-package
   try {
     const firstPackage = join(tempRoot, "secrets-store-csi-driver-1.6.0-a.tgz");
     const secondPackage = join(tempRoot, "secrets-store-csi-driver-1.6.0-b.tgz");
-    runCub(["install", "package", packageRoot, "-o", firstPackage]);
-    runCub(["install", "package", packageRoot, "-o", secondPackage]);
+    runCub(["installer", "package", packageRoot, "-o", firstPackage]);
+    runCub(["installer", "package", packageRoot, "-o", secondPackage]);
     const firstSHA = sha256File(firstPackage);
     const secondSHA = sha256File(secondPackage);
     if (firstSHA !== secondSHA || !readFileSync(firstPackage).equals(readFileSync(secondPackage))) {
-      throw new Error("cub install package did not produce byte-identical bundles");
+      throw new Error("cub installer package did not produce byte-identical bundles");
     }
     mkdirSync(dirname(receiptPath), { recursive: true });
     writeYaml(receiptPath, {
@@ -606,14 +606,14 @@ npm run secrets-store-csi-driver:verify-package
           sourceFiles: files,
         },
         deterministicBundle: {
-          command: `cub install package ${packageRelative} -o <tmp>/secrets-store-csi-driver-1.6.0.tgz`,
+          command: `cub installer package ${packageRelative} -o <tmp>/secrets-store-csi-driver-1.6.0.tgz`,
           sha256: firstSHA,
           byteIdenticalAcrossTwoLocalBundles: true,
         },
         setupChecks: variants.map((variant) => ({
           variant: variant.name,
           base: variant.base,
-          command: `cub install setup --pull ${packageRelative} --base ${variant.base} --work-dir <tmp> --non-interactive --namespace kube-system`,
+          command: `cub installer setup --pull ${packageRelative} --base ${variant.base} --work-dir <tmp> --non-interactive --namespace kube-system`,
           helmReleaseObjectCount: variant.expectedObjectCount,
           cubInstallObjectCountIncludingSupport: variant.expectedObjectCount + 1,
           semanticObjectMatches: `${variant.expectedObjectCount}/${variant.expectedObjectCount}`,
@@ -803,8 +803,8 @@ function verifyPackage() {
   try {
     const firstPackage = join(tempRoot, "secrets-store-csi-driver-a.tgz");
     const secondPackage = join(tempRoot, "secrets-store-csi-driver-b.tgz");
-    runCub(["install", "package", packageRoot, "-o", firstPackage]);
-    runCub(["install", "package", packageRoot, "-o", secondPackage]);
+    runCub(["installer", "package", packageRoot, "-o", firstPackage]);
+    runCub(["installer", "package", packageRoot, "-o", secondPackage]);
     const firstSHA = sha256File(firstPackage);
     const secondSHA = sha256File(secondPackage);
     check(firstSHA === secondSHA, "package SHA changed across two local bundles");
@@ -1072,13 +1072,13 @@ Variants:
 
 ${summaries
   .map(
-    (summary) => `- \`${summary.name}\`: ${summary.valuesSummary}; ${summary.objects.length} Helm objects, ${summary.objects.length + 1} cub install objects including Namespace.`,
+    (summary) => `- \`${summary.name}\`: ${summary.valuesSummary}; ${summary.objects.length} Helm objects, ${summary.objects.length + 1} cub installer objects including Namespace.`,
   )
   .join("\n")}
 
 What this proves:
 
-- regular Helm output is preserved by \`cub install setup\`, plus the explained Namespace support object;
+- regular Helm output is preserved by \`cub installer setup\`, plus the explained Namespace support object;
 - the default variant keeps the chart defaults visible: SecretProviderClass CRDs, Linux DaemonSet, CSIDriver object, and cluster RBAC;
 - the sync-secret-rotation variant deliberately adds synced Secret RBAC and driver flags for rotation and provider health checks;
 - cloud/provider identity and SecretProviderClass behavior are not hidden Helm render inputs; they are explicit integration gates after render;

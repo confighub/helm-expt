@@ -84,7 +84,7 @@ spec:
         default: true
         description: "open-telemetry/opentelemetry-operator default variant rendered from open-telemetry/opentelemetry-operator@0.114.0"
       setupCheck:
-        command: "cub install setup --pull packages/open-telemetry/opentelemetry-operator/0.114.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/open-telemetry/opentelemetry-operator/0.114.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 17
         cubInstallObjectCountIncludingSupport: 18
         semanticObjectMatches: "17/17"

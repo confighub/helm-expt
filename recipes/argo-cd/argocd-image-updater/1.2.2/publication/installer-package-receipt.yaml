@@ -29,14 +29,14 @@ spec:
         sha256: "d8025690ef916fedc798ed332a79510df549e934a9bd0cd353c7907555d8d320"
         bytes: 337
   deterministicBundle:
-    command: "cub install package packages/argo-cd/argocd-image-updater/1.2.2 -o <tmp>/argo-cd-argocd-image-updater-1-2-2.tgz"
+    command: "cub installer package packages/argo-cd/argocd-image-updater/1.2.2 -o <tmp>/argo-cd-argocd-image-updater-1-2-2.tgz"
     sha256: "f70d38a4c6aeef745a46bc7a8c679b566ce8540aecf2bcf1ba30e883a7e8f718"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/argo-cd/argocd-image-updater/1.2.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/argo-cd/argocd-image-updater/1.2.2 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 11
       cubInstallObjectCountIncludingSupport: 12
       semanticObjectMatches: "11/11"

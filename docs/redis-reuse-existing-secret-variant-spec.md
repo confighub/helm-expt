@@ -48,8 +48,8 @@ variant metadata.name == reuse-existing-secret
 rendered Helm object count == 13
 rendered Secret count == 0
 target secret requirement is recorded
-regular Helm output and cub install setup output are semantically equivalent
-cub install adds only the Namespace support object
+regular Helm output and cub installer setup output are semantically equivalent
+cub installer adds only the Namespace support object
 ```
 
 The proof must make the happy path visible:

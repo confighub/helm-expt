@@ -29,14 +29,14 @@ spec:
         sha256: "20736fa57df32a5ebc7a3d092616cdb49e22882a4c6dd0ea09b3d04f201dde88"
         bytes: 322
   deterministicBundle:
-    command: "cub install package packages/minio-operator/operator/7.1.1 -o <tmp>/minio-operator-operator-7-1-1.tgz"
+    command: "cub installer package packages/minio-operator/operator/7.1.1 -o <tmp>/minio-operator-operator-7-1-1.tgz"
     sha256: "030f54948db823e7cfce72fbcfabcbf331c14562d1efa4e06006866094c8895c"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/minio-operator/operator/7.1.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/minio-operator/operator/7.1.1 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 8
       cubInstallObjectCountIncludingSupport: 9
       semanticObjectMatches: "8/8"

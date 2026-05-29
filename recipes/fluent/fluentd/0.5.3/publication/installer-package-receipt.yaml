@@ -29,14 +29,14 @@ spec:
         sha256: "ef852341f60ee73d3bda696dfa8f4d4136363cc66b0c218f66407dadccbcfa97"
         bytes: 295
   deterministicBundle:
-    command: "cub install package packages/fluent/fluentd/0.5.3 -o <tmp>/fluent-fluentd-0-5-3.tgz"
+    command: "cub installer package packages/fluent/fluentd/0.5.3 -o <tmp>/fluent-fluentd-0-5-3.tgz"
     sha256: "73e36b924e73bb87db5c7c1fbac81cb593724cbde6618c7cd6c20aef3a2ce8c9"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/fluent/fluentd/0.5.3 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/fluent/fluentd/0.5.3 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 10
       cubInstallObjectCountIncludingSupport: 11
       semanticObjectMatches: "10/10"

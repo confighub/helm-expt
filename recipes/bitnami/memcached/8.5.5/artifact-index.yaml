@@ -80,7 +80,7 @@ spec:
         default: true
         description: "bitnami/memcached default variant rendered from bitnami/memcached@8.5.5"
       setupCheck:
-        command: "cub install setup --pull packages/bitnami/memcached/8.5.5 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/bitnami/memcached/8.5.5 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"

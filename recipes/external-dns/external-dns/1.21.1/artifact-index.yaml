@@ -81,7 +81,7 @@ spec:
         default: true
         description: "external-dns/external-dns default variant rendered from external-dns/external-dns@1.21.1"
       setupCheck:
-        command: "cub install setup --pull packages/external-dns/external-dns/1.21.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/external-dns/external-dns/1.21.1 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

@@ -88,7 +88,7 @@ spec:
         default: true
         description: "grafana generated passwords variant rendered from grafana/grafana@10.5.15"
       setupCheck:
-        command: "cub install setup --pull packages/grafana/grafana/10.5.15 --base generated-passwords --work-dir <tmp> --non-interactive --namespace grafana"
+        command: "cub installer setup --pull packages/grafana/grafana/10.5.15 --base generated-passwords --work-dir <tmp> --non-interactive --namespace grafana"
         helmReleaseObjectCount: 9
         cubInstallObjectCountIncludingSupport: 10
         semanticObjectMatches: "9/9"
@@ -157,7 +157,7 @@ spec:
         default: false
         description: "grafana existing Secret with ingress variant rendered from grafana/grafana@10.5.15"
       setupCheck:
-        command: "cub install setup --pull packages/grafana/grafana/10.5.15 --base existing-secret-ingress --work-dir <tmp> --non-interactive --namespace grafana"
+        command: "cub installer setup --pull packages/grafana/grafana/10.5.15 --base existing-secret-ingress --work-dir <tmp> --non-interactive --namespace grafana"
         helmReleaseObjectCount: 9
         cubInstallObjectCountIncludingSupport: 10
         semanticObjectMatches: "9/9"

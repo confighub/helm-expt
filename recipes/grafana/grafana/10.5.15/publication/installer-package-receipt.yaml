@@ -9,7 +9,7 @@ spec:
     version: "10.5.15"
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
-    command: "cub install package packages/grafana/grafana/10.5.15 -o <tmp>/grafana-10.5.15.tgz"
+    command: "cub installer package packages/grafana/grafana/10.5.15 -o <tmp>/grafana-10.5.15.tgz"
     sha256: "43807f506a77b54b43bfd37ff8634652b8b7dc8d70078342f5036fe645a7b350"
   package:
     name: "grafana-grafana"
@@ -49,7 +49,7 @@ spec:
       allowedCubOnlyObjects:
         - "v1|Namespace||grafana"
       base: "generated-passwords"
-      command: "cub install setup --pull packages/grafana/grafana/10.5.15 --base generated-passwords --work-dir <tmp> --non-interactive --namespace grafana"
+      command: "cub installer setup --pull packages/grafana/grafana/10.5.15 --base generated-passwords --work-dir <tmp> --non-interactive --namespace grafana"
       cubInstallObjectCountIncludingSupport: 10
       helmReleaseObjectCount: 9
       semanticObjectMatches: "9/9"
@@ -61,7 +61,7 @@ spec:
       allowedCubOnlyObjects:
         - "v1|Namespace||grafana"
       base: "existing-secret-ingress"
-      command: "cub install setup --pull packages/grafana/grafana/10.5.15 --base existing-secret-ingress --work-dir <tmp> --non-interactive --namespace grafana"
+      command: "cub installer setup --pull packages/grafana/grafana/10.5.15 --base existing-secret-ingress --work-dir <tmp> --non-interactive --namespace grafana"
       cubInstallObjectCountIncludingSupport: 10
       helmReleaseObjectCount: 9
       semanticObjectMatches: "9/9"

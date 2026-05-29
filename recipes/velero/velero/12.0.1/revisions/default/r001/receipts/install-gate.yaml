@@ -17,6 +17,6 @@ spec:
   blockedScopes:
     - "production-without-review"
   reasons:
-    - "regular Helm output matches cub install setup for velero/velero@12.0.1"
+    - "regular Helm output matches cub installer setup for velero/velero@12.0.1"
     - "23 Helm objects are bound to renderedObjectSetSHA256"
     - "rendered-object scan has review findings; see scan-receipt.yaml"

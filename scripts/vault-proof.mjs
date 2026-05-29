@@ -587,12 +587,12 @@ npm run vault:verify-package
   try {
     const firstPackage = join(tempRoot, "vault-0.32.0-a.tgz");
     const secondPackage = join(tempRoot, "vault-0.32.0-b.tgz");
-    runCub(["install", "package", packageRoot, "-o", firstPackage]);
-    runCub(["install", "package", packageRoot, "-o", secondPackage]);
+    runCub(["installer", "package", packageRoot, "-o", firstPackage]);
+    runCub(["installer", "package", packageRoot, "-o", secondPackage]);
     const firstSHA = sha256File(firstPackage);
     const secondSHA = sha256File(secondPackage);
     if (firstSHA !== secondSHA || !readFileSync(firstPackage).equals(readFileSync(secondPackage))) {
-      throw new Error("cub install package did not produce byte-identical bundles");
+      throw new Error("cub installer package did not produce byte-identical bundles");
     }
     mkdirSync(dirname(receiptPath), { recursive: true });
     writeYaml(receiptPath, {
@@ -608,14 +608,14 @@ npm run vault:verify-package
           sourceFiles: files,
         },
         deterministicBundle: {
-          command: `cub install package ${packageRelative} -o <tmp>/vault-0.32.0.tgz`,
+          command: `cub installer package ${packageRelative} -o <tmp>/vault-0.32.0.tgz`,
           sha256: firstSHA,
           byteIdenticalAcrossTwoLocalBundles: true,
         },
         setupChecks: variants.map((variant) => ({
           variant: variant.name,
           base: variant.base,
-          command: `cub install setup --pull ${packageRelative} --base ${variant.base} --work-dir <tmp> --non-interactive --namespace vault`,
+          command: `cub installer setup --pull ${packageRelative} --base ${variant.base} --work-dir <tmp> --non-interactive --namespace vault`,
           helmReleaseObjectCount: variant.expectedObjectCount,
           cubInstallObjectCountIncludingSupport: variant.expectedObjectCount + 1,
           semanticObjectMatches: `${variant.expectedObjectCount}/${variant.expectedObjectCount}`,
@@ -812,8 +812,8 @@ function verifyPackage() {
   try {
     const firstPackage = join(tempRoot, "vault-a.tgz");
     const secondPackage = join(tempRoot, "vault-b.tgz");
-    runCub(["install", "package", packageRoot, "-o", firstPackage]);
-    runCub(["install", "package", packageRoot, "-o", secondPackage]);
+    runCub(["installer", "package", packageRoot, "-o", firstPackage]);
+    runCub(["installer", "package", packageRoot, "-o", secondPackage]);
     const firstSHA = sha256File(firstPackage);
     const secondSHA = sha256File(secondPackage);
     check(firstSHA === secondSHA, "package SHA changed across two local bundles");
@@ -1092,13 +1092,13 @@ Variants:
 
 ${summaries
   .map(
-    (summary) => `- \`${summary.name}\`: ${summary.valuesSummary}; ${summary.objects.length} Helm objects, ${summary.objects.length + 1} cub install objects including Namespace.`,
+    (summary) => `- \`${summary.name}\`: ${summary.valuesSummary}; ${summary.objects.length} Helm objects, ${summary.objects.length + 1} cub installer objects including Namespace.`,
   )
   .join("\n")}
 
 What this proves:
 
-- regular Helm output is preserved by \`cub install setup\`, plus the explained Namespace support object;
+- regular Helm output is preserved by \`cub installer setup\`, plus the explained Namespace support object;
 - the default variant keeps the chart defaults visible: Vault StatefulSet, injector webhook, ClusterRole permissions, services, and TLS-disabled listener config;
 - the ha-raft-ui variant deliberately adds HA Raft discovery, PDB, active/standby services, and UI service exposure;
 - Vault init/unseal and recovery material are not hidden Helm render inputs; they are explicit operate-policy gates after render;

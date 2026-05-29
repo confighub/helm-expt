@@ -29,14 +29,14 @@ spec:
         sha256: "5eff7a7aba384a6ada34725797c88587fa8466e74763f90a09fe87f9e70d4112"
         bytes: 295
   deterministicBundle:
-    command: "cub install package packages/elastic/kibana/8.5.1 -o <tmp>/elastic-kibana-8-5-1.tgz"
+    command: "cub installer package packages/elastic/kibana/8.5.1 -o <tmp>/elastic-kibana-8-5-1.tgz"
     sha256: "d5b3718e4dfcbd0e0aa19b7e9924711311eb4904ca20d321a188f2d1044a92d9"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/elastic/kibana/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/elastic/kibana/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 2
       cubInstallObjectCountIncludingSupport: 3
       semanticObjectMatches: "2/2"

@@ -41,7 +41,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 
 ## Variants
 
-| Variant | Variant file | Package base | Revision | Helm objects | cub install objects | Match | Helm equivalence | Scan | Gate | Target facts |
+| Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | generated-passwords | [recipes/grafana/grafana/10.5.15/variants/generated-passwords/variant.yaml](variants/generated-passwords/variant.yaml) | [packages/grafana/grafana/10.5.15/bases/generated-passwords](../../../../packages/grafana/grafana/10.5.15/bases/generated-passwords) | [recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/variant-revision.yaml](revisions/generated-passwords/r001/variant-revision.yaml) | 9 | 10 | 9/9 | pass | warn | warn | none |
 | existing-secret-ingress | [recipes/grafana/grafana/10.5.15/variants/existing-secret-ingress/variant.yaml](variants/existing-secret-ingress/variant.yaml) | [packages/grafana/grafana/10.5.15/bases/existing-secret-ingress](../../../../packages/grafana/grafana/10.5.15/bases/existing-secret-ingress) | [recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/variant-revision.yaml](revisions/existing-secret-ingress/r001/variant-revision.yaml) | 9 | 10 | 9/9 | pass | warn | warn | required Secret grafana/grafana-admin keys admin-user,admin-password |
@@ -69,10 +69,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 ## Current Install Shape
 
 ```sh
-cub install setup --pull packages/grafana/grafana/10.5.15 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull packages/grafana/grafana/10.5.15 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The proof path compares
-regular Helm output with real `cub install setup` output and explains every
+regular Helm output with real `cub installer setup` output and explains every
 intentional difference, such as the Namespace support object or separated
 Secrets.

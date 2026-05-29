@@ -87,7 +87,7 @@ spec:
         default: true
         description: "argo-cd default variant rendered from argo-cd/argo-cd@9.5.15"
       setupCheck:
-        command: "cub install setup --pull packages/argo-cd/argo-cd/9.5.15 --base default --work-dir <tmp> --non-interactive --namespace argocd"
+        command: "cub installer setup --pull packages/argo-cd/argo-cd/9.5.15 --base default --work-dir <tmp> --non-interactive --namespace argocd"
         helmReleaseObjectCount: 49
         cubInstallObjectCountIncludingSupport: 50
         semanticObjectMatches: "49/49"
@@ -149,7 +149,7 @@ spec:
         default: false
         description: "argo-cd CRDs disabled variant rendered from argo-cd/argo-cd@9.5.15"
       setupCheck:
-        command: "cub install setup --pull packages/argo-cd/argo-cd/9.5.15 --base no-crds --work-dir <tmp> --non-interactive --namespace argocd"
+        command: "cub installer setup --pull packages/argo-cd/argo-cd/9.5.15 --base no-crds --work-dir <tmp> --non-interactive --namespace argocd"
         helmReleaseObjectCount: 46
         cubInstallObjectCountIncludingSupport: 47
         semanticObjectMatches: "46/46"

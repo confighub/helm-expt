@@ -344,7 +344,7 @@ function main() {
       releaseObjects: defaultReleaseObjects,
       expectedObjectCount: 14,
       expectedSecretCount: 1,
-      targetFactNote: "renders Redis Secret; cub install separates it from uploaded manifests",
+      targetFactNote: "renders Redis Secret; cub installer separates it from uploaded manifests",
     },
     {
       name: "reuse-existing-secret",
@@ -461,7 +461,7 @@ spec:
       policy: no-hooks
     - category: secret-handling
       status: handled
-      note: cub install separates one rendered Secret from uploaded manifests.
+      note: cub installer separates one rendered Secret from uploaded manifests.
     - category: installer-support-object
       status: handled
       object: v1|Namespace||redis
@@ -816,7 +816,7 @@ spec:
   weirdnessNotes:
     - deterministic proof pins auth.password in effective-values.yaml
     - reuse-existing-secret records redis-existing-secret/redis-password as a target fact requirement
-    - cub install separates rendered Secret resources from uploaded manifests
+    - cub installer separates rendered Secret resources from uploaded manifests
 `;
   write(join(proofRoot, "chart-dossier.yaml"), chartDossier);
 
@@ -830,7 +830,7 @@ spec:
 | Variants | default, reuse-existing-secret |
 | Status | usable with controls |
 | Helm objects | default: 14; reuse-existing-secret: 13 |
-| ConfigHub/cub install objects | default: 15; reuse-existing-secret: 14 |
+| ConfigHub/cub installer objects | default: 15; reuse-existing-secret: 14 |
 | Explained difference | installer namespace support object; default also separates rendered Secret |
 | Helm match | default: 14/14; reuse-existing-secret: 13/13 semantic object matches |
 | Secrets | default renders 1 Secret; reuse-existing-secret renders 0 Secrets and requires target Secret redis-existing-secret/redis-password |

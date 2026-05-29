@@ -80,7 +80,7 @@ spec:
         default: true
         description: "istio/istiod default variant rendered from istio/istiod@1.30.0"
       setupCheck:
-        command: "cub install setup --pull packages/istio/istiod/1.30.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/istio/istiod/1.30.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 17
         cubInstallObjectCountIncludingSupport: 18
         semanticObjectMatches: "17/17"

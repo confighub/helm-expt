@@ -17,6 +17,6 @@ spec:
   blockedScopes:
     - "production-without-review"
   reasons:
-    - "regular Helm output matches cub install setup for nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18"
+    - "regular Helm output matches cub installer setup for nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18"
     - "7 Helm objects are bound to renderedObjectSetSHA256"
     - "rendered-object scan has review findings; see scan-receipt.yaml"

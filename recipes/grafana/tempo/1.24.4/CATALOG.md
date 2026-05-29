@@ -41,7 +41,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 
 ## Variants
 
-| Variant | Variant file | Package base | Revision | Helm objects | cub install objects | Match | Helm equivalence | Scan | Gate | Target facts |
+| Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | local-persistent | [recipes/grafana/tempo/1.24.4/variants/local-persistent/variant.yaml](variants/local-persistent/variant.yaml) | [packages/grafana/tempo/1.24.4/bases/local-persistent](../../../../packages/grafana/tempo/1.24.4/bases/local-persistent) | [recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/variant-revision.yaml](revisions/local-persistent/r001/variant-revision.yaml) | 4 | 5 | 4/4 | pass | warn | warn | none |
 | s3-query-observability | [recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml](variants/s3-query-observability/variant.yaml) | [packages/grafana/tempo/1.24.4/bases/s3-query-observability](../../../../packages/grafana/tempo/1.24.4/bases/s3-query-observability) | [recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml](revisions/s3-query-observability/r001/variant-revision.yaml) | 8 | 9 | 8/8 | pass | warn | warn | required Secret tempo/tempo-s3-credentials keys access_key,secret_key |
@@ -69,10 +69,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 ## Current Install Shape
 
 ```sh
-cub install setup --pull packages/grafana/tempo/1.24.4 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull packages/grafana/tempo/1.24.4 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The proof path compares
-regular Helm output with real `cub install setup` output and explains every
+regular Helm output with real `cub installer setup` output and explains every
 intentional difference, such as the Namespace support object or separated
 Secrets.

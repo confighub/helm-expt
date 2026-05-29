@@ -82,7 +82,7 @@ spec:
         default: true
         description: "bitnami/spark default variant rendered from bitnami/spark@10.0.3"
       setupCheck:
-        command: "cub install setup --pull packages/bitnami/spark/10.0.3 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/bitnami/spark/10.0.3 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"

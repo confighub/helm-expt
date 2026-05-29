@@ -29,14 +29,14 @@ spec:
         sha256: "ef9359da33bf038d603a452d06b0ff662e9172e78b8a53283bc9d4ad46c58b85"
         bytes: 354
   deterministicBundle:
-    command: "cub install package packages/prometheus-community/alertmanager/1.37.0 -o <tmp>/prometheus-community-alertmanager-1-37-0.tgz"
+    command: "cub installer package packages/prometheus-community/alertmanager/1.37.0 -o <tmp>/prometheus-community-alertmanager-1-37-0.tgz"
     sha256: "4135cbfb366e18e54ceac0adf78ee7ff29c5d907075ee6138964d609a3d7fe65"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/prometheus-community/alertmanager/1.37.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/prometheus-community/alertmanager/1.37.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 5
       cubInstallObjectCountIncludingSupport: 6
       semanticObjectMatches: "5/5"

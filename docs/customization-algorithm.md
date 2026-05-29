@@ -94,7 +94,7 @@ A customization request can arrive from:
 
    ```text
    regular helm template output
-     == cub install setup output
+     == cub installer setup output
      plus allowed installer support objects
    ```
 

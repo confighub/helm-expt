@@ -97,11 +97,11 @@ Execution boundary:
 ```text
 The current fast install story uses ConfigHub's OCI endpoint.
 GitHub is the public catalog/proof surface, currently confighub/helm-expt.
-A pure serverless cub install path is deferred and should be tracked as an
+A pure serverless cub installer path is deferred and should be tracked as an
 issue, not reviewed as part of the current proof plan.
 ```
 
-Installer is the substrate for `cub install`, `installer.yaml`, Kustomize
+Installer is the substrate for `cub installer`, `installer.yaml`, Kustomize
 bases/components, inputs, selection, `out/spec/`, collector facts, function
 chains, validators, dependency locks, OCI artifacts, sign/verify, render,
 upload, and day-2 lifecycle. Helm import should add chart-to-recipe import,
@@ -170,7 +170,7 @@ confighub/installer:
 
   https://github.com/confighub/installer
 
-Installer already provides cub install, installer.yaml packages, Kustomize
+Installer already provides cub installer, installer.yaml packages, Kustomize
 bases/components, inputs, selection, out/spec state, collector facts, function
 chains, validators, dependency locks, OCI packaging, sign/verify, render,
 upload, and day-2 lifecycle.

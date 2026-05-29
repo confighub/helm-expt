@@ -29,14 +29,14 @@ spec:
         sha256: "f1adda91f5cebb45d1b33e1cef21162f9bd1ac73a02512cc0280352c04ac6c52"
         bytes: 342
   deterministicBundle:
-    command: "cub install package packages/cloudnative-pg/cloudnative-pg/0.28.2 -o <tmp>/cloudnative-pg-cloudnative-pg-0-28-2.tgz"
+    command: "cub installer package packages/cloudnative-pg/cloudnative-pg/0.28.2 -o <tmp>/cloudnative-pg-cloudnative-pg-0-28-2.tgz"
     sha256: "bc8ebb61ab6cf462360109e5ab322814bf6b440111b664e708b8cd95f171be2a"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/cloudnative-pg/cloudnative-pg/0.28.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/cloudnative-pg/cloudnative-pg/0.28.2 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 21
       cubInstallObjectCountIncludingSupport: 22
       semanticObjectMatches: "21/21"

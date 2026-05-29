@@ -84,7 +84,7 @@ spec:
         default: true
         description: "grafana/pyroscope default variant rendered from grafana/pyroscope@2.0.2"
       setupCheck:
-        command: "cub install setup --pull packages/grafana/pyroscope/2.0.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/grafana/pyroscope/2.0.2 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 18
         cubInstallObjectCountIncludingSupport: 19
         semanticObjectMatches: "18/18"

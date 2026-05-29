@@ -82,7 +82,7 @@ spec:
         default: true
         description: "bitnami/opensearch default variant rendered from bitnami/opensearch@2.0.10"
       setupCheck:
-        command: "cub install setup --pull packages/bitnami/opensearch/2.0.10 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/bitnami/opensearch/2.0.10 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 18
         cubInstallObjectCountIncludingSupport: 19
         semanticObjectMatches: "18/18"

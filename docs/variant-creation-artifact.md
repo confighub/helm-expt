@@ -59,7 +59,7 @@ model, see [ConfigHub Promotion Mapping Doctrine](confighub-promotion-mapping.md
 
 ## Why This Exists
 
-`cub install` recipes answer:
+`cub installer` recipes answer:
 
 ```text
 How do we turn a chart/component source into reviewed ConfigHub Units?
@@ -113,7 +113,7 @@ Do not mix the two unless the flow explicitly crosses the render boundary.
 
 | Existing concept | Role |
 | --- | --- |
-| `cub install` package | Produces the base ConfigHub Units from a component source. |
+| `cub installer` package | Produces the base ConfigHub Units from a component source. |
 | ConfigHub space | The component base or already-reviewed source variant. |
 | `cub variant create` | Clones the source space, units, links, triggers, permissions, target, labels, and selected metadata. |
 | Placeholders | Mark values that must be supplied or resolved in the variant. |

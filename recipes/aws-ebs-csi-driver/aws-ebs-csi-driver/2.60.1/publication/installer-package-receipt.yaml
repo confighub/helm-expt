@@ -29,14 +29,14 @@ spec:
         sha256: "db4f8847dc049642585455bfccba718c293b98b622b1c0d78c73f801156a83d2"
         bytes: 366
   deterministicBundle:
-    command: "cub install package packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 -o <tmp>/aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1.tgz"
+    command: "cub installer package packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 -o <tmp>/aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1.tgz"
     sha256: "9ca191f2dd963b333198c82c2cf0e91629d4f79c6ad4dccf5d464afaa7e05624"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 19
       cubInstallObjectCountIncludingSupport: 20
       semanticObjectMatches: "19/19"

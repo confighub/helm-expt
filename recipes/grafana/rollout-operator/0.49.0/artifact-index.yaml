@@ -80,7 +80,7 @@ spec:
         default: true
         description: "grafana/rollout-operator default variant rendered from grafana/rollout-operator@0.49.0"
       setupCheck:
-        command: "cub install setup --pull packages/grafana/rollout-operator/0.49.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/grafana/rollout-operator/0.49.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 15
         cubInstallObjectCountIncludingSupport: 16
         semanticObjectMatches: "15/15"

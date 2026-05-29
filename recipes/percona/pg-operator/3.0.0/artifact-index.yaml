@@ -78,7 +78,7 @@ spec:
         default: true
         description: "percona/pg-operator default variant rendered from percona/pg-operator@3.0.0"
       setupCheck:
-        command: "cub install setup --pull packages/percona/pg-operator/3.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/percona/pg-operator/3.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 12
         cubInstallObjectCountIncludingSupport: 13
         semanticObjectMatches: "12/12"

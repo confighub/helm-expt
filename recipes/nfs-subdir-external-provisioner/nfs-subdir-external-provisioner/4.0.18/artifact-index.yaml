@@ -77,7 +77,7 @@ spec:
         default: true
         description: "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner default variant rendered from nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18"
       setupCheck:
-        command: "cub install setup --pull packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"

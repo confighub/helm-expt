@@ -217,31 +217,31 @@ full recipe/variant/revision proofs.
 
 `metrics-server/metrics-server@3.13.0` is the first row promoted from that
 harness. Review whether its target fact, APIService, RBAC, scan/gate, and
-`cub install` package evidence are convincing enough to serve as the repeatable
+`cub installer` package evidence are convincing enough to serve as the repeatable
 pattern after Redis.
 
 `ingress-nginx/ingress-nginx@4.15.1` is the second row promoted from that
 harness. Review whether its `default` and `admission-disabled` variants,
-admission webhook, Helm hook lifecycle, RBAC, scan/gate, and `cub install`
+admission webhook, Helm hook lifecycle, RBAC, scan/gate, and `cub installer`
 package evidence are convincing enough to serve as the repeatable pattern for
 admission-webhook charts.
 
 `jetstack/cert-manager@v1.20.2` is the third row promoted from that harness.
 Review whether its `default` and `crds-enabled` variants, CRD lifecycle,
 admission webhook, Helm startup hook lifecycle, RBAC, scan/gate, and
-`cub install` package evidence are convincing enough to serve as the repeatable
+`cub installer` package evidence are convincing enough to serve as the repeatable
 pattern for CRD-heavy control-plane charts.
 
 `external-secrets/external-secrets@2.5.0` is the fourth row promoted from that
 harness. Review whether its `default` and `no-crds` variants, 23-CRD default
 render, disabled dependency lock, admission webhook, webhook Secret/cert
-controller, RBAC, scan/gate, and `cub install` package evidence are convincing
+controller, RBAC, scan/gate, and `cub installer` package evidence are convincing
 enough to serve as the repeatable pattern for CRD-heavy controller charts.
 
 `argo-cd/argo-cd@9.5.15` is the fifth row promoted from that harness. Review
 whether its `default` and `no-crds` variants, three-CRD default render, disabled
 `redis-ha` dependency lock, hook lifecycle policy, generated Secret ownership,
-StatefulSet policy, GitOps handoff, RBAC, scan/gate, and `cub install` package
+StatefulSet policy, GitOps handoff, RBAC, scan/gate, and `cub installer` package
 evidence are convincing enough to serve as the repeatable pattern for GitOps
 controller charts.
 
@@ -249,14 +249,14 @@ controller charts.
 whether its `generated-passwords` and `existing-secret` variants, generated
 fact binding, target Secret binding, Bitnami `common` dependency lock, hook
 lifecycle policy, StatefulSet/PVC policy, extension-slot review, scan/gate, and
-`cub install` package evidence are convincing enough to serve as the repeatable
+`cub installer` package evidence are convincing enough to serve as the repeatable
 pattern for stateful generated-credential charts.
 
 `bitnami/rabbitmq@16.0.14` is the seventh row promoted from that harness.
 Review whether its `generated-passwords` and `existing-secret` variants,
 generated fact binding for password and Erlang cookie, target Secret binding
 for both external Secrets, Bitnami `common` dependency lock, StatefulSet/PVC
-policy, clustering policy, extension-slot review, scan/gate, and `cub install`
+policy, clustering policy, extension-slot review, scan/gate, and `cub installer`
 package evidence are convincing enough to serve as the repeatable pattern for
 stateful generated-credential charts with clustering material.
 
@@ -265,14 +265,14 @@ from that harness. Review whether its `default` and `no-crds` variants,
 generated fact binding for Grafana admin password, 10-CRD default render,
 umbrella dependency lock, admission webhook observation gates, cluster RBAC,
 dashboard ConfigMap normalization, extension-slot review, scan/gate, and
-`cub install` package evidence are convincing enough to serve as the repeatable
+`cub installer` package evidence are convincing enough to serve as the repeatable
 pattern for large umbrella monitoring charts.
 
 `grafana/loki@7.0.0` is the ninth row promoted from that harness. Review
 whether its blocked default render, `single-binary-filesystem` and
 `simple-scalable-minio` variants, storage/schema binding, MinIO object-store
 fixture, dependency lock, cluster RBAC, StatefulSet/PVC policy, Loki ConfigMap
-normalization, extension-slot review, scan/gate, and `cub install` package
+normalization, extension-slot review, scan/gate, and `cub installer` package
 evidence are convincing enough to serve as the repeatable pattern for charts
 that cannot render safely from defaults.
 
@@ -280,14 +280,14 @@ that cannot render safely from defaults.
 whether its `default` and `ui-ingress` variants, 22 Longhorn CRDs, pre-upgrade
 hook policy, admission/recovery observation, cluster RBAC, privileged storage
 workload policy, StorageClass/default-setting policy, UI ingress policy,
-scan/gate, and `cub install` package evidence are convincing enough to serve as
+scan/gate, and `cub installer` package evidence are convincing enough to serve as
 the repeatable pattern for storage control-plane charts.
 
 `bitnami/mysql@14.0.3` is the eleventh row promoted from that harness. Review
 whether its `generated-passwords` and `existing-secret` variants, generated
 fact binding for root/user/replication passwords, target Secret binding,
 Bitnami `common` dependency lock, hook lifecycle policy, StatefulSet/PVC
-policy, extension-slot review, scan/gate, and `cub install` package evidence
+policy, extension-slot review, scan/gate, and `cub installer` package evidence
 are convincing enough to serve as the repeatable pattern for stateful
 generated-credential charts.
 
@@ -295,7 +295,7 @@ generated-credential charts.
 whether its chart-deprecation marker, `generated-passwords` and
 `existing-secret-ingress` variants, generated admin credential binding, target
 Secret binding, UI ingress policy, cluster RBAC review, deployment and
-extension-slot gates, scan/gate, and `cub install` package evidence are
+extension-slot gates, scan/gate, and `cub installer` package evidence are
 convincing enough to serve as the repeatable pattern for dashboard/control-plane
 application charts.
 
@@ -303,7 +303,7 @@ application charts.
 whether its `default` and `ha-raft-ui` variants, TLS posture review, injector
 admission webhook review, StatefulSet storage and HA Raft policy, init/unseal
 operate-policy gates, service exposure review, RBAC review, Secret/env
-extension-slot gates, scan/gate, and `cub install` package evidence are
+extension-slot gates, scan/gate, and `cub installer` package evidence are
 convincing enough to serve as the repeatable pattern for security-sensitive
 stateful control-plane charts.
 
@@ -312,7 +312,7 @@ full public-chart proof row. Review whether its `default` and
 `sync-secret-rotation` variants, SecretProviderClass CRD lifecycle, CSIDriver
 kubelet integration, Linux DaemonSet and hostPath policy, cluster RBAC review,
 synced Secret ownership, rotation/provider-health policy, provider identity
-integration gates, scan/gate, and `cub install` package evidence are
+integration gates, scan/gate, and `cub installer` package evidence are
 convincing enough to serve as the repeatable pattern for node-level CSI driver
 charts.
 
@@ -321,14 +321,14 @@ proof row. Review whether its `default` and `server-only-ephemeral` variants,
 bundled dependency lock, Alertmanager/exporter/pushgateway component
 selection, scrape ConfigMap review, server PVC/storage retention policy,
 cluster RBAC review, remote read/write and exposure extension slots, scan/gate,
-and `cub install` package evidence are convincing enough to serve as the
+and `cub installer` package evidence are convincing enough to serve as the
 repeatable pattern for bundled monitoring stack charts.
 
 `bitnami/mongodb@19.0.7` is the sixteenth full public-chart proof row. Review
 whether its `generated-passwords` and `existing-secret-replicaset` variants,
 generated root password binding, target Secret binding, replica-set and arbiter
 StatefulSets, persistent storage, NetworkPolicy/PDB policy, hook lifecycle
-review, `tpl` configuration slots, scan/gate, and `cub install` package
+review, `tpl` configuration slots, scan/gate, and `cub installer` package
 evidence are convincing enough to serve as the repeatable pattern for stateful
 database topology charts.
 
@@ -336,7 +336,7 @@ database topology charts.
 whether its `http-clusterip` and `existing-tls-ingress` variants, generated TLS
 mitigation, declared TLS target Secrets, ingress exposure, NetworkPolicy, PDB,
 service exposure, static-site supply-chain slots, metrics add-ons, raw/template
-extension slots, scan/gate, and `cub install` package evidence are convincing
+extension slots, scan/gate, and `cub installer` package evidence are convincing
 enough to serve as the repeatable pattern for simple web-service charts.
 
 `grafana/tempo@1.24.4` is the eighteenth full public-chart proof row. Review
@@ -344,7 +344,7 @@ whether its deprecated-chart marker, `local-persistent` and
 `s3-query-observability` variants, local/S3 storage backend policy, target S3
 credential Secret, query ingress, ServiceMonitor capability, NetworkPolicy,
 StatefulSet/headless-Service runtime risk, raw/template extension slots,
-scan/gate, and `cub install` package evidence are convincing enough to serve
+scan/gate, and `cub installer` package evidence are convincing enough to serve
 as the repeatable pattern for observability storage charts.
 
 `hashicorp/consul@2.0.0` is the nineteenth full public-chart proof row and
@@ -352,7 +352,7 @@ twentieth target chart. Review whether its `default-control-plane` and
 `secure-mesh-existing-secrets` variants, 28 CRDs, cluster RBAC, injector
 webhooks, TLS/ACL/gossip target Secrets, gateway topology, UI ingress,
 lifecycle Jobs, rendered Secrets, StatefulSet storage, raw/template extension
-slots, scan/gate, and `cub install` package evidence are convincing enough to
+slots, scan/gate, and `cub installer` package evidence are convincing enough to
 serve as the repeatable pattern for service-mesh/control-plane charts.
 
 Every happy-path demo must also pass the simple UX test:

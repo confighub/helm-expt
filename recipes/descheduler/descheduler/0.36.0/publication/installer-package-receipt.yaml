@@ -29,14 +29,14 @@ spec:
         sha256: "6b60942f4b287d035bc5045689237911bba1c79ac3a671aa33c7f093680b98ef"
         bytes: 324
   deterministicBundle:
-    command: "cub install package packages/descheduler/descheduler/0.36.0 -o <tmp>/descheduler-descheduler-0-36-0.tgz"
+    command: "cub installer package packages/descheduler/descheduler/0.36.0 -o <tmp>/descheduler-descheduler-0-36-0.tgz"
     sha256: "ade98781bd54405308961ca0d1b29646d425e6e3624819cee5c095418ea30490"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/descheduler/descheduler/0.36.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/descheduler/descheduler/0.36.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 5
       cubInstallObjectCountIncludingSupport: 6
       semanticObjectMatches: "5/5"

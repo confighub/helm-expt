@@ -29,14 +29,14 @@ spec:
         sha256: "9921d31b71bd4b4b31e46b14b98dad3bfdbc1c0a8a3c59437cd6d59e7ce57897"
         bytes: 318
   deterministicBundle:
-    command: "cub install package packages/argo-cd/argo-rollouts/2.40.9 -o <tmp>/argo-cd-argo-rollouts-2-40-9.tgz"
+    command: "cub installer package packages/argo-cd/argo-rollouts/2.40.9 -o <tmp>/argo-cd-argo-rollouts-2-40-9.tgz"
     sha256: "e32df3c5aa79f2ad8cc9ac7c59132e59e793602a337a540e346493d678fdb909"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/argo-cd/argo-rollouts/2.40.9 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/argo-cd/argo-rollouts/2.40.9 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 14
       cubInstallObjectCountIncludingSupport: 15
       semanticObjectMatches: "14/14"

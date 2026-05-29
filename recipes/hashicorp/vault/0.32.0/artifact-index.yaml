@@ -88,7 +88,7 @@ spec:
         default: true
         description: "vault default server with injector variant rendered from hashicorp/vault@0.32.0"
       setupCheck:
-        command: "cub install setup --pull packages/hashicorp/vault/0.32.0 --base default --work-dir <tmp> --non-interactive --namespace vault"
+        command: "cub installer setup --pull packages/hashicorp/vault/0.32.0 --base default --work-dir <tmp> --non-interactive --namespace vault"
         helmReleaseObjectCount: 12
         cubInstallObjectCountIncludingSupport: 13
         semanticObjectMatches: "12/12"
@@ -150,7 +150,7 @@ spec:
         default: false
         description: "vault HA Raft with UI variant rendered from hashicorp/vault@0.32.0"
       setupCheck:
-        command: "cub install setup --pull packages/hashicorp/vault/0.32.0 --base ha-raft-ui --work-dir <tmp> --non-interactive --namespace vault"
+        command: "cub installer setup --pull packages/hashicorp/vault/0.32.0 --base ha-raft-ui --work-dir <tmp> --non-interactive --namespace vault"
         helmReleaseObjectCount: 18
         cubInstallObjectCountIncludingSupport: 19
         semanticObjectMatches: "18/18"

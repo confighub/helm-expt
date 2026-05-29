@@ -89,7 +89,7 @@ spec:
         default: true
         description: "loki single binary filesystem variant rendered from grafana/loki@7.0.0"
       setupCheck:
-        command: "cub install setup --pull packages/grafana/loki/7.0.0 --base single-binary-filesystem --work-dir <tmp> --non-interactive --namespace loki"
+        command: "cub installer setup --pull packages/grafana/loki/7.0.0 --base single-binary-filesystem --work-dir <tmp> --non-interactive --namespace loki"
         helmReleaseObjectCount: 19
         cubInstallObjectCountIncludingSupport: 20
         semanticObjectMatches: "19/19"
@@ -151,7 +151,7 @@ spec:
         default: false
         description: "loki simple scalable with MinIO variant rendered from grafana/loki@7.0.0"
       setupCheck:
-        command: "cub install setup --pull packages/grafana/loki/7.0.0 --base simple-scalable-minio --work-dir <tmp> --non-interactive --namespace loki"
+        command: "cub installer setup --pull packages/grafana/loki/7.0.0 --base simple-scalable-minio --work-dir <tmp> --non-interactive --namespace loki"
         helmReleaseObjectCount: 36
         cubInstallObjectCountIncludingSupport: 37
         semanticObjectMatches: "36/36"

@@ -78,7 +78,7 @@ spec:
       supportedVariantStatus: "handled"
     -
       id: "secret-handling"
-      detectedPainPoint: "cub install separates one rendered Secret from uploaded manifests."
+      detectedPainPoint: "cub installer separates one rendered Secret from uploaded manifests."
       evidence:
         - "control-points.yaml"
       configHubHome: "recipe"

@@ -81,7 +81,7 @@ spec:
         default: true
         description: "bitnami/zookeeper default variant rendered from bitnami/zookeeper@13.8.7"
       setupCheck:
-        command: "cub install setup --pull packages/bitnami/zookeeper/13.8.7 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/bitnami/zookeeper/13.8.7 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"

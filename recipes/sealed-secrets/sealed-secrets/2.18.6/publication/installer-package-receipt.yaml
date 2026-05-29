@@ -29,14 +29,14 @@ spec:
         sha256: "423ff0ee99b56db9a1c18f541310895450feab0dc7a2c207d861ff187c6d6d22"
         bytes: 342
   deterministicBundle:
-    command: "cub install package packages/sealed-secrets/sealed-secrets/2.18.6 -o <tmp>/sealed-secrets-sealed-secrets-2-18-6.tgz"
+    command: "cub installer package packages/sealed-secrets/sealed-secrets/2.18.6 -o <tmp>/sealed-secrets-sealed-secrets-2-18-6.tgz"
     sha256: "ebdde8af99c2b4df925428f3e30d0c1cae02fec87cc62023bf0af742221db9c6"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/sealed-secrets/sealed-secrets/2.18.6 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/sealed-secrets/sealed-secrets/2.18.6 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 11
       cubInstallObjectCountIncludingSupport: 12
       semanticObjectMatches: "11/11"

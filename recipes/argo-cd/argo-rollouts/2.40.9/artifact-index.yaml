@@ -80,7 +80,7 @@ spec:
         default: true
         description: "argo-cd/argo-rollouts default variant rendered from argo-cd/argo-rollouts@2.40.9"
       setupCheck:
-        command: "cub install setup --pull packages/argo-cd/argo-rollouts/2.40.9 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/argo-cd/argo-rollouts/2.40.9 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 14
         cubInstallObjectCountIncludingSupport: 15
         semanticObjectMatches: "14/14"

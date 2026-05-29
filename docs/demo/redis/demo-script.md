@@ -1,7 +1,7 @@
 # Redis Five-Minute Demo Script
 
 This is the current Redis happy path using only real commands. It does not use
-future shorthand such as `cub install redis`.
+future shorthand such as `cub installer redis`.
 
 ## Claim
 
@@ -31,7 +31,7 @@ Secret handling is intentionally different between the two bases:
 ```text
 default
   Helm renders Secret redis/redis.
-  cub install separates it to out/secrets.
+  cub installer separates it to out/secrets.
   Apply out/secrets for a direct local test; ConfigHub records references,
   not the rendered secret material.
 
@@ -57,7 +57,7 @@ kubectl --context <your-context> -n redis create secret generic redis-existing-s
 1. Render one variant with the current installer package:
 
 ```sh
-cub install setup \
+cub installer setup \
   --pull packages/bitnami/redis/25.5.3 \
   --base default \
   --work-dir .tmp/demo/redis-default \
@@ -82,11 +82,11 @@ npm run redis:compare
 Expected result:
 
 ```text
-default: Helm objects 14, cub install objects 15
+default: Helm objects 14, cub installer objects 15
 semantic object matches: 14/14
 Allowed cub-only object: v1|Namespace||redis
 
-reuse-existing-secret: Helm objects 13, cub install objects 14
+reuse-existing-secret: Helm objects 13, cub installer objects 14
 semantic object matches: 13/13
 Allowed cub-only object: v1|Namespace||redis
 ```
@@ -149,7 +149,7 @@ manifest directory and verify with `--base reuse-existing-secret`.
 6. Upload to ConfigHub:
 
 ```sh
-cub install upload \
+cub installer upload \
   --work-dir .tmp/demo/redis-default \
   --space helm-redis-default \
   --component Redis \
@@ -164,7 +164,7 @@ cub install upload \
   --unit-label Proof=redis-confighub-proof
 ```
 
-Current implementation note: during the Kubara proof run, `cub install upload`
+Current implementation note: during the Kubara proof run, `cub installer upload`
 needed a temporary local wrapper so installer-spawned `cub` commands used
 `CUB_CONFIG=$HOME/.confighub/config.yaml`. That is recorded as a known issue in
 the receipt, not hidden from the proof.

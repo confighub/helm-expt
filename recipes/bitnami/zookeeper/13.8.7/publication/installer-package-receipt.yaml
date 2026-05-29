@@ -29,14 +29,14 @@ spec:
         sha256: "6c3ce051306f91f6287d688e362b05f224cdd1f17c7273b953262c7b676425e7"
         bytes: 306
   deterministicBundle:
-    command: "cub install package packages/bitnami/zookeeper/13.8.7 -o <tmp>/bitnami-zookeeper-13-8-7.tgz"
+    command: "cub installer package packages/bitnami/zookeeper/13.8.7 -o <tmp>/bitnami-zookeeper-13-8-7.tgz"
     sha256: "3973a58ed6b58954bfefb4b51c54b1ed59773f3d682eb3b073f131715d1e2813"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/bitnami/zookeeper/13.8.7 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/bitnami/zookeeper/13.8.7 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 7
       cubInstallObjectCountIncludingSupport: 8
       semanticObjectMatches: "7/7"

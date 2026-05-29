@@ -29,14 +29,14 @@ spec:
         sha256: "0f5416bada72a4a6a2ede8c0b919942de27a57522e2d0f6d3284dd6f6229593e"
         bytes: 342
   deterministicBundle:
-    command: "cub install package packages/jaegertracing/jaeger-operator/2.57.0 -o <tmp>/jaegertracing-jaeger-operator-2-57-0.tgz"
+    command: "cub installer package packages/jaegertracing/jaeger-operator/2.57.0 -o <tmp>/jaegertracing-jaeger-operator-2-57-0.tgz"
     sha256: "38a49e9cf25c53ee3e95ea834ec8f6bdc3d6e7c61b039869436d17c33240aceb"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/jaegertracing/jaeger-operator/2.57.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/jaegertracing/jaeger-operator/2.57.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 11
       cubInstallObjectCountIncludingSupport: 12
       semanticObjectMatches: "11/11"

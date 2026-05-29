@@ -20,8 +20,8 @@ Server version: v0.1.49
 ```
 
 This transcript uses current commands only. It does not use proposed future
-porcelain such as `cub install import helm`, `cub install analyze`,
-`cub install compare`, `cub install scan`, `cub variant diff`, or
+porcelain such as `cub installer import helm`, `cub installer analyze`,
+`cub installer compare`, `cub installer scan`, `cub variant diff`, or
 `cub catalog install`.
 
 ## 1. Package Explanation
@@ -29,7 +29,7 @@ porcelain such as `cub install import helm`, `cub install analyze`,
 Command:
 
 ```sh
-cub install doc packages/metrics-server/metrics-server/3.13.0 --json
+cub installer doc packages/metrics-server/metrics-server/3.13.0 --json
 ```
 
 Result:
@@ -55,7 +55,7 @@ Secret kube-system/metrics-server-tls keys tls.crt,tls.key
 Command:
 
 ```sh
-PATH="$PATH:$(go env GOPATH)/bin" cub install setup \
+PATH="$PATH:$(go env GOPATH)/bin" cub installer setup \
   --pull packages/metrics-server/metrics-server/3.13.0 \
   --base default \
   --work-dir .tmp/confighub-proof/metrics-server-default \
@@ -94,7 +94,7 @@ spec:
 Re-render:
 
 ```sh
-PATH="$PATH:$(go env GOPATH)/bin" cub install render \
+PATH="$PATH:$(go env GOPATH)/bin" cub installer render \
   --work-dir .tmp/confighub-proof/metrics-server-default
 ```
 
@@ -123,9 +123,9 @@ ServiceAccount
 Package determinism:
 
 ```sh
-cub install package packages/metrics-server/metrics-server/3.13.0 \
+cub installer package packages/metrics-server/metrics-server/3.13.0 \
   -o .tmp/confighub-proof/metrics-server-archives/metrics-server-a.tgz
-cub install package packages/metrics-server/metrics-server/3.13.0 \
+cub installer package packages/metrics-server/metrics-server/3.13.0 \
   -o .tmp/confighub-proof/metrics-server-archives/metrics-server-b.tgz
 ```
 
@@ -139,7 +139,7 @@ byte-identical across two local package bundles
 Vet:
 
 ```sh
-PATH="$PATH:$(go env GOPATH)/bin" cub install vet \
+PATH="$PATH:$(go env GOPATH)/bin" cub installer vet \
   --work-dir .tmp/confighub-proof/metrics-server-default
 ```
 
@@ -151,7 +151,7 @@ Package declares no validators (spec.validators is empty).
 
 ## 4. Plan And Upload
 
-Before upload, `cub install plan` correctly fails because there is no upload
+Before upload, `cub installer plan` correctly fails because there is no upload
 state yet:
 
 ```text
@@ -162,7 +162,7 @@ run cub installer upload --work-dir ... --space <slug> first
 Upload:
 
 ```sh
-CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub install upload \
+CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub installer upload \
   --work-dir .tmp/confighub-proof/metrics-server-default \
   --space helm-metrics-server-confighub-proof \
   --component MetricsServer \
@@ -198,7 +198,7 @@ before live apply.
 Post-upload plan:
 
 ```sh
-CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub install plan \
+CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub installer plan \
   --work-dir .tmp/confighub-proof/metrics-server-default
 ```
 

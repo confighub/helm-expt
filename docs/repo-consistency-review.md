@@ -15,7 +15,7 @@ data/top500-catalog-analysis/ -> current top-500 proof index and source-scan inp
 
 The old top-20 render-and-vendor payload is removed from the active tree. The
 current proof path is `recipes/` plus `packages/`, verified against regular
-Helm renders and `cub install`.
+Helm renders and `cub installer`.
 
 ## Current Logical Flow
 
@@ -26,8 +26,8 @@ Helm renders and `cub install`.
 4. Create one or more install variants.
 5. Store immutable variant revisions with rendered release objects.
 6. Run scans and install gates against the exact rendered objects.
-7. Build an executable `cub install` package under `packages/`.
-8. Compare `cub install setup` output with the regular Helm baseline.
+7. Build an executable `cub installer` package under `packages/`.
+8. Compare `cub installer setup` output with the regular Helm baseline.
 9. Generate catalog-promotion review output.
 10. Promote only after human/product review assigns explicit catalog status.
 
@@ -60,4 +60,4 @@ Helm renders and `cub install`.
 Do not use the removed top-20 archive or the old matrix to judge the current
 plan. They explain how we learned the control points. The current plan is
 judged by current recipes, current packages, current receipts, generated
-reviews, and repeatable Helm-vs-`cub install` comparisons.
+reviews, and repeatable Helm-vs-`cub installer` comparisons.

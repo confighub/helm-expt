@@ -41,7 +41,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 
 ## Variants
 
-| Variant | Variant file | Package base | Revision | Helm objects | cub install objects | Match | Helm equivalence | Scan | Gate | Target facts |
+| Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | generated-passwords | [recipes/bitnami/rabbitmq/16.0.14/variants/generated-passwords/variant.yaml](variants/generated-passwords/variant.yaml) | [packages/bitnami/rabbitmq/16.0.14/bases/generated-passwords](../../../../packages/bitnami/rabbitmq/16.0.14/bases/generated-passwords) | [recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/variant-revision.yaml](revisions/generated-passwords/r001/variant-revision.yaml) | 10 | 11 | 10/10 | pass | warn | warn | none |
 | existing-secret | [recipes/bitnami/rabbitmq/16.0.14/variants/existing-secret/variant.yaml](variants/existing-secret/variant.yaml) | [packages/bitnami/rabbitmq/16.0.14/bases/existing-secret](../../../../packages/bitnami/rabbitmq/16.0.14/bases/existing-secret) | [recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/variant-revision.yaml](revisions/existing-secret/r001/variant-revision.yaml) | 9 | 10 | 9/9 | pass | warn | warn | required Secret rabbitmq/rabbitmq-auth keys rabbitmq-password; required Secret rabbitmq/rabbitmq-erlang-cookie keys rabbitmq-erlang-cookie |
@@ -69,10 +69,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 ## Current Install Shape
 
 ```sh
-cub install setup --pull packages/bitnami/rabbitmq/16.0.14 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull packages/bitnami/rabbitmq/16.0.14 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The proof path compares
-regular Helm output with real `cub install setup` output and explains every
+regular Helm output with real `cub installer setup` output and explains every
 intentional difference, such as the Namespace support object or separated
 Secrets.

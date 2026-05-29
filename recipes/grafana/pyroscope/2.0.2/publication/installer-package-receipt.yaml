@@ -29,14 +29,14 @@ spec:
         sha256: "66180ac18f4dec0924776817aff5def319bab0e9d62ce13e88ded394772cad54"
         bytes: 304
   deterministicBundle:
-    command: "cub install package packages/grafana/pyroscope/2.0.2 -o <tmp>/grafana-pyroscope-2-0-2.tgz"
+    command: "cub installer package packages/grafana/pyroscope/2.0.2 -o <tmp>/grafana-pyroscope-2-0-2.tgz"
     sha256: "bd83d3e6b19f182fac1a04e2d27f49feda6074f3c5d26cd7f77a9afc33c6f648"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/grafana/pyroscope/2.0.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/grafana/pyroscope/2.0.2 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 18
       cubInstallObjectCountIncludingSupport: 19
       semanticObjectMatches: "18/18"

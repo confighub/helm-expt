@@ -78,7 +78,7 @@ spec:
         default: true
         description: "minio-operator/tenant default variant rendered from minio-operator/tenant@7.1.1"
       setupCheck:
-        command: "cub install setup --pull packages/minio-operator/tenant/7.1.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/minio-operator/tenant/7.1.1 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 2
         cubInstallObjectCountIncludingSupport: 3
         semanticObjectMatches: "2/2"

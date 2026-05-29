@@ -29,14 +29,14 @@ spec:
         sha256: "cd7d42fc8a553f90ec604dfbb784a503ef5c8bb31964b7f9a0b62aed75c55f7d"
         bytes: 307
   deterministicBundle:
-    command: "cub install package packages/elastic/metricbeat/8.5.1 -o <tmp>/elastic-metricbeat-8-5-1.tgz"
+    command: "cub installer package packages/elastic/metricbeat/8.5.1 -o <tmp>/elastic-metricbeat-8-5-1.tgz"
     sha256: "99ede039ded16519984ee38269155919b83d30384905e7ba5e79bfd69e16efa6"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/elastic/metricbeat/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/elastic/metricbeat/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 14
       cubInstallObjectCountIncludingSupport: 15
       semanticObjectMatches: "14/14"

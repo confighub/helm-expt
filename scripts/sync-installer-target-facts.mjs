@@ -304,8 +304,8 @@ function deterministicBundle(packageRoot, packageRelative) {
   try {
     const first = join(tempRoot, "a.tgz");
     const second = join(tempRoot, "b.tgz");
-    runCub(["install", "package", packageRoot, "-o", first]);
-    runCub(["install", "package", packageRoot, "-o", second]);
+    runCub(["installer", "package", packageRoot, "-o", first]);
+    runCub(["installer", "package", packageRoot, "-o", second]);
     check(sha256File(first) === sha256File(second), `${packageRelative} package SHA changed between runs`);
     check(readFileSync(first).equals(readFileSync(second)), `${packageRelative} package bytes changed between runs`);
     return { sha256: sha256File(first) };

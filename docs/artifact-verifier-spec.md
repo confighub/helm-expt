@@ -70,7 +70,7 @@ That proof is the first promoted row from the adversarial harness. It checks two
 variants, `default` and `external-tls-ca`, including source/dependency locks,
 control points, effective values, target fact requirements, rendered object
 inventories, render receipts, Helm equivalence receipts, scan receipts, install
-gates, and deterministic `cub install` package/setup behavior.
+gates, and deterministic `cub installer` package/setup behavior.
 
 The ingress-nginx proof verifier checks:
 
@@ -83,7 +83,7 @@ That proof is the second promoted row from the adversarial harness. It checks
 two variants, `default` and `admission-disabled`, including source/dependency
 locks, control points, effective values, rendered object inventories, render
 receipts, Helm equivalence receipts, scan receipts, install gates, and
-deterministic `cub install` package/setup behavior.
+deterministic `cub installer` package/setup behavior.
 
 The cert-manager proof verifier checks:
 
@@ -96,7 +96,7 @@ That proof is the third promoted row from the adversarial harness. It checks two
 variants, `default` and `crds-enabled`, including source/dependency locks,
 control points, effective values, rendered object inventories, render receipts,
 Helm equivalence receipts, scan receipts, install gates, and deterministic
-`cub install` package/setup behavior.
+`cub installer` package/setup behavior.
 
 The external-secrets proof verifier checks:
 
@@ -109,7 +109,7 @@ That proof is the fourth promoted row from the adversarial harness. It checks
 two variants, `default` and `no-crds`, including source/dependency locks,
 control points, effective values, rendered object inventories, render receipts,
 Helm equivalence receipts, scan receipts, install gates, separated Secret
-handling, and deterministic `cub install` package/setup behavior.
+handling, and deterministic `cub installer` package/setup behavior.
 
 The Longhorn proof verifier checks:
 
@@ -124,7 +124,7 @@ Longhorn CRDs, pre-upgrade hook policy, admission/recovery observation, cluster
 RBAC, privileged storage workload policy, StorageClass/default-setting policy,
 UI ingress exposure, rendered object inventories, render receipts, Helm
 equivalence receipts, scan receipts, install gates, and deterministic
-`cub install` package/setup behavior.
+`cub installer` package/setup behavior.
 
 The MySQL proof verifier checks:
 
@@ -138,7 +138,7 @@ two variants, `generated-passwords` and `existing-secret`, including
 source/dependency locks, generated fact binding for root, user, and replication
 passwords, target Secret binding, rendered object inventories, render receipts,
 Helm equivalence receipts, scan receipts, install gates, separated Secret
-handling, and deterministic `cub install` package/setup behavior.
+handling, and deterministic `cub installer` package/setup behavior.
 
 The Grafana proof verifier checks:
 
@@ -152,7 +152,7 @@ two variants, `generated-passwords` and `existing-secret-ingress`, including
 source/dependency locks, upstream deprecation status, generated admin password
 binding, target Secret binding, UI ingress exposure, rendered object
 inventories, render receipts, Helm equivalence receipts, scan receipts,
-install gates, separated Secret handling, and deterministic `cub install`
+install gates, separated Secret handling, and deterministic `cub installer`
 package/setup behavior.
 
 The Vault proof verifier checks:
@@ -167,7 +167,7 @@ variants, `default` and `ha-raft-ui`, including source/dependency locks, TLS
 posture, injector admission webhook, StatefulSet storage, init/unseal
 operating policy, HA Raft and UI service exposure, rendered object
 inventories, render receipts, Helm equivalence receipts, scan receipts,
-install gates, and deterministic `cub install` package/setup behavior.
+install gates, and deterministic `cub installer` package/setup behavior.
 
 The Secrets Store CSI Driver proof verifier checks:
 
@@ -182,7 +182,7 @@ locks, SecretProviderClass CRDs, CSIDriver kubelet integration, Linux DaemonSet
 workload policy, cluster RBAC, synced Secret ownership, rotation/provider
 health settings, rendered object inventories, render receipts, Helm
 equivalence receipts, scan receipts, install gates, and deterministic
-`cub install` package/setup behavior.
+`cub installer` package/setup behavior.
 
 The Prometheus proof verifier checks:
 
@@ -197,7 +197,7 @@ locks for the bundled monitoring subcharts, Prometheus server scrape config,
 Alertmanager/exporter/pushgateway component selection, server PVC/storage
 policy, cluster RBAC, rendered object inventories, render receipts, Helm
 equivalence receipts, scan receipts, install gates, and deterministic
-`cub install` package/setup behavior.
+`cub installer` package/setup behavior.
 
 The MongoDB proof verifier checks:
 
@@ -212,7 +212,7 @@ source/dependency locks, generated root password binding, target Secret
 binding, replica-set and arbiter StatefulSets, persistent storage,
 NetworkPolicy/PDB policy, Helm hook lifecycle review, rendered object
 inventories, render receipts, Helm equivalence receipts, scan receipts,
-install gates, and deterministic `cub install` package/setup behavior.
+install gates, and deterministic `cub installer` package/setup behavior.
 
 The Nginx proof verifier checks:
 
@@ -227,7 +227,7 @@ dependency locks, generated TLS mitigation, declared backend and ingress TLS
 target Secrets, ingress exposure, NetworkPolicy/PDB policy, service exposure,
 static-site supply-chain slots, metrics add-ons, raw/template extension-slot
 review, rendered object inventories, render receipts, Helm equivalence
-receipts, scan receipts, install gates, and deterministic `cub install`
+receipts, scan receipts, install gates, and deterministic `cub installer`
 package/setup behavior.
 
 The Tempo proof verifier checks:
@@ -244,7 +244,7 @@ policy, target S3 credential Secret, query ingress, ServiceMonitor target
 capability, NetworkPolicy, StatefulSet/headless-Service runtime risk,
 raw/template extension-slot review, rendered object inventories, render
 receipts, Helm equivalence receipts, scan receipts, install gates, and
-deterministic `cub install` package/setup behavior.
+deterministic `cub installer` package/setup behavior.
 
 The Consul proof verifier checks:
 
@@ -261,7 +261,7 @@ target Secret binding, gateway topology, UI ingress, lifecycle Job policy,
 rendered Secret ownership, StatefulSet/storage policy, raw/template
 extension-slot review, rendered object inventories, render receipts, Helm
 equivalence receipts, scan receipts, install gates, and deterministic
-`cub install` package/setup behavior.
+`cub installer` package/setup behavior.
 
 The Argo CD proof verifier checks:
 
@@ -274,7 +274,7 @@ That proof is the fifth promoted row from the adversarial harness. It checks
 two variants, `default` and `no-crds`, including source/dependency locks,
 control points, effective values, rendered object inventories, render receipts,
 Helm equivalence receipts, scan receipts, install gates, separated Secret
-handling, and deterministic `cub install` package/setup behavior.
+handling, and deterministic `cub installer` package/setup behavior.
 
 The PostgreSQL proof verifier checks:
 
@@ -287,7 +287,7 @@ That proof is the sixth promoted row from the adversarial harness. It checks
 two variants, `generated-passwords` and `existing-secret`, including
 source/dependency locks, generated fact binding, target fact binding, rendered
 object inventories, render receipts, Helm equivalence receipts, scan receipts,
-install gates, separated Secret handling, and deterministic `cub install`
+install gates, separated Secret handling, and deterministic `cub installer`
 package/setup behavior.
 
 The RabbitMQ proof verifier checks:
@@ -302,7 +302,7 @@ two variants, `generated-passwords` and `existing-secret`, including
 source/dependency locks, generated fact binding for password and Erlang cookie,
 target fact binding for both Secrets, rendered object inventories, render
 receipts, Helm equivalence receipts, scan receipts, install gates, separated
-Secret handling, and deterministic `cub install` package/setup behavior.
+Secret handling, and deterministic `cub installer` package/setup behavior.
 
 The kube-prometheus-stack proof verifier checks:
 
@@ -316,7 +316,7 @@ two variants, `default` and `no-crds`, including umbrella dependency locks,
 generated fact binding for Grafana admin password, rendered object inventories,
 render receipts, Helm equivalence receipts, scan receipts, install gates,
 separated Secret handling, dashboard ConfigMap normalization, and deterministic
-`cub install` package/setup behavior.
+`cub installer` package/setup behavior.
 
 The Loki proof verifier checks:
 
@@ -331,7 +331,7 @@ the blocked default render receipt, source/dependency locks, required
 storage/schema values, bundled MinIO object-store fixture, rendered object
 inventories, render receipts, Helm equivalence receipts, scan receipts,
 install gates, classified Loki ConfigMap normalization, separated Secret
-handling, and deterministic `cub install` package/setup behavior.
+handling, and deterministic `cub installer` package/setup behavior.
 
 ## Required Invariants
 
@@ -374,11 +374,11 @@ For the promoted metrics-server proof:
    `apiService.caBundle`, and the target Secret requirement
    `kube-system/metrics-server-tls`.
 3. Each variant has exactly 9 Helm objects and a rendered APIService.
-4. `cub install package` produces byte-identical bundles across two local runs.
-5. `cub install setup --base default` and
-   `cub install setup --base external-tls-ca` match Helm semantically, plus only
+4. `cub installer package` produces byte-identical bundles across two local runs.
+5. `cub installer setup --base default` and
+   `cub installer setup --base external-tls-ca` match Helm semantically, plus only
    `v1|Namespace||kube-system`.
-6. Semantic comparison prunes null fields, because `cub install`/kustomize
+6. Semantic comparison prunes null fields, because `cub installer`/kustomize
    drops `metadata.annotations: null` from the APIService.
 
 For the promoted ingress-nginx proof:
@@ -390,9 +390,9 @@ For the promoted ingress-nginx proof:
 3. `admission-disabled` renders exactly 9 Helm objects and deliberately omits
    the admission Service and ValidatingWebhookConfiguration.
 4. Both variants render the controller Deployment and `nginx` IngressClass.
-5. `cub install package` produces byte-identical bundles across two local runs.
-6. `cub install setup --base default` and
-   `cub install setup --base admission-disabled` match Helm semantically, plus
+5. `cub installer package` produces byte-identical bundles across two local runs.
+6. `cub installer setup --base default` and
+   `cub installer setup --base admission-disabled` match Helm semantically, plus
    only `v1|Namespace||ingress-nginx`.
 7. Scan/gate receipts flag admission webhook observation, Helm hook lifecycle
    policy, and cluster RBAC where applicable.
@@ -406,9 +406,9 @@ For the promoted cert-manager proof:
    cert-manager CRDs.
 4. Both variants render the controller, cainjector, webhook Deployment, webhook
    Service, MutatingWebhookConfiguration, and ValidatingWebhookConfiguration.
-5. `cub install package` produces byte-identical bundles across two local runs.
-6. `cub install setup --base default` and
-   `cub install setup --base crds-enabled` match Helm semantically, plus only
+5. `cub installer package` produces byte-identical bundles across two local runs.
+6. `cub installer setup --base default` and
+   `cub installer setup --base crds-enabled` match Helm semantically, plus only
    `v1|Namespace||cert-manager`.
 7. Scan/gate receipts flag CRD lifecycle, admission webhook observation, Helm
    startup hook lifecycle policy, and cluster RBAC.
@@ -425,9 +425,9 @@ For the promoted external-secrets proof:
    webhook Service, and both ValidatingWebhookConfigurations.
 5. The disabled `bitwarden-sdk-server` dependency is recorded in
    `dependency-lock.yaml`.
-6. `cub install package` produces byte-identical bundles across two local runs.
-7. `cub install setup --base default` and
-   `cub install setup --base no-crds` match Helm semantically, plus only
+6. `cub installer package` produces byte-identical bundles across two local runs.
+7. `cub installer setup --base default` and
+   `cub installer setup --base no-crds` match Helm semantically, plus only
    `v1|Namespace||external-secrets`, while preserving the separated webhook
    Secret.
 8. Scan/gate receipts flag CRD lifecycle, admission webhook observation,
@@ -446,9 +446,9 @@ For the promoted Argo CD proof:
    Redis Deployment, application-controller StatefulSet, server Service, Redis
    Service, `argocd-secret`, and `argocd-notifications-secret`.
 5. The disabled `redis-ha` dependency is recorded in `dependency-lock.yaml`.
-6. `cub install package` produces byte-identical bundles across two local runs.
-7. `cub install setup --base default` and
-   `cub install setup --base no-crds` match Helm semantically, plus only
+6. `cub installer package` produces byte-identical bundles across two local runs.
+7. `cub installer setup --base default` and
+   `cub installer setup --base no-crds` match Helm semantically, plus only
    `v1|Namespace||argocd`, while preserving separated Secrets.
 8. Scan/gate receipts flag CRD lifecycle, Helm hook lifecycle, generated Secret
    ownership, dependency lock review, StatefulSet policy, GitOps handoff, and
@@ -465,8 +465,8 @@ For the promoted PostgreSQL proof:
 4. `generated-passwords` binds `auth.postgresPassword` before render.
 5. `existing-secret` declares target Secret `postgresql/postgresql-auth`.
 6. The Bitnami `common` dependency is recorded in `dependency-lock.yaml`.
-7. `cub install package` produces byte-identical bundles across two local runs.
-8. `cub install setup` matches Helm semantically, plus only
+7. `cub installer package` produces byte-identical bundles across two local runs.
+8. `cub installer setup` matches Helm semantically, plus only
    `v1|Namespace||postgresql`, while preserving separated Secret behavior.
 9. Scan/gate receipts flag generated facts, target facts, Helm hook lifecycle,
    dependency lock review, StatefulSet/PVC policy, and extension-slot review.
@@ -484,8 +484,8 @@ For the promoted RabbitMQ proof:
 5. `existing-secret` declares target Secrets `rabbitmq/rabbitmq-auth` and
    `rabbitmq/rabbitmq-erlang-cookie`.
 6. The Bitnami `common` dependency is recorded in `dependency-lock.yaml`.
-7. `cub install package` produces byte-identical bundles across two local runs.
-8. `cub install setup` matches Helm semantically, plus only
+7. `cub installer package` produces byte-identical bundles across two local runs.
+8. `cub installer setup` matches Helm semantically, plus only
    `v1|Namespace||rabbitmq`, while preserving separated Secret behavior.
 9. Scan/gate receipts flag generated facts, target facts, dependency lock
    review, StatefulSet/PVC policy, clustering policy, and extension-slot
@@ -501,11 +501,11 @@ For the promoted kube-prometheus-stack proof:
 4. Both variants bind `grafana.adminPassword` before render.
 5. The CRD, kube-state-metrics, node-exporter, Grafana, and windows-exporter
    dependencies are recorded in `dependency-lock.yaml`.
-6. `cub install package` produces byte-identical bundles across two local runs.
-7. `cub install setup` matches Helm semantically, plus only
+6. `cub installer package` produces byte-identical bundles across two local runs.
+7. `cub installer setup` matches Helm semantically, plus only
    `v1|Namespace||monitoring`, while preserving separated Secret behavior.
 8. Semantic comparison prunes null fields and empty metadata maps, because
-   `cub install`/kustomize drops empty annotations on Grafana dashboard
+   `cub installer`/kustomize drops empty annotations on Grafana dashboard
    ConfigMaps.
 9. Scan/gate receipts flag CRD lifecycle, admission webhook observation,
    generated Grafana credential ownership, umbrella dependency review, cluster
@@ -523,11 +523,11 @@ For the promoted Loki proof:
    write, backend, cache, and MinIO workloads plus one rendered Secret.
 5. The MinIO, grafana-agent-operator, and rollout-operator dependencies are
    recorded in `dependency-lock.yaml`.
-6. `cub install package` produces byte-identical bundles across two local runs.
-7. `cub install setup` matches Helm semantically, plus only
+6. `cub installer package` produces byte-identical bundles across two local runs.
+7. `cub installer setup` matches Helm semantically, plus only
    `v1|Namespace||loki`, while preserving separated Secret behavior.
 8. Semantic comparison classifies the single Loki ConfigMap leading blank-line
-   normalization introduced by `cub install`/kustomize.
+   normalization introduced by `cub installer`/kustomize.
 9. Scan/gate receipts flag blocked default render, storage/schema selection,
    object-store Secret ownership, dependency review, cluster RBAC, StatefulSet
    policy, lifecycle policy, and extension-slot review.
@@ -542,8 +542,8 @@ For the promoted Longhorn proof:
 3. `ui-ingress` renders exactly 42 Helm objects by adding
    `networking.k8s.io/v1|Ingress|longhorn-system|longhorn-ingress`.
 4. Both variants render the Longhorn CRDs as ordinary digest-bound objects.
-5. `cub install package` produces byte-identical bundles across two local runs.
-6. `cub install setup` matches Helm semantically, plus only
+5. `cub installer package` produces byte-identical bundles across two local runs.
+6. `cub installer setup` matches Helm semantically, plus only
    `v1|Namespace||longhorn-system`.
 7. Scan/gate receipts flag CRD lifecycle, pre-upgrade hook lifecycle,
    admission/recovery observation, cluster RBAC, privileged storage workload
@@ -561,8 +561,8 @@ For the promoted MySQL proof:
    `auth.replicationPassword` before render.
 5. `existing-secret` declares target Secret `mysql/mysql-auth`.
 6. The Bitnami `common` dependency is recorded in `dependency-lock.yaml`.
-7. `cub install package` produces byte-identical bundles across two local runs.
-8. `cub install setup` matches Helm semantically, plus only
+7. `cub installer package` produces byte-identical bundles across two local runs.
+8. `cub installer setup` matches Helm semantically, plus only
    `v1|Namespace||mysql`, while preserving separated Secret behavior.
 9. Scan/gate receipts flag generated facts, target facts, dependency lock
    review, hook lifecycle, StatefulSet/PVC policy, and extension-slot review.
@@ -579,8 +579,8 @@ For the promoted Grafana proof:
 5. `existing-secret-ingress` declares target Secret `grafana/grafana-admin`.
 6. The chart has no subchart dependencies and records an empty dependency
    closure.
-7. `cub install package` produces byte-identical bundles across two local runs.
-8. `cub install setup` matches Helm semantically, plus only
+7. `cub installer package` produces byte-identical bundles across two local runs.
+8. `cub installer setup` matches Helm semantically, plus only
    `v1|Namespace||grafana`, while preserving separated Secret behavior.
 9. Scan/gate receipts flag generated facts, target facts, deprecated chart
    status, RBAC review, UI ingress policy, deployment policy, and
@@ -599,8 +599,8 @@ For the promoted Vault proof:
    and non-deprecated upstream status.
 5. The chart has no subchart dependencies and records an empty dependency
    closure.
-6. `cub install package` produces byte-identical bundles across two local runs.
-7. `cub install setup` matches Helm semantically, plus only
+6. `cub installer package` produces byte-identical bundles across two local runs.
+7. `cub installer setup` matches Helm semantically, plus only
    `v1|Namespace||vault`, while preserving separated Secret behavior.
 8. Scan/gate receipts flag TLS posture, injector webhook, RBAC, service
    exposure, Vault StatefulSet storage/init/unseal operations, and Secret/env
@@ -618,8 +618,8 @@ For the promoted Secrets Store CSI Driver proof:
    app `1.6.0`, package SHA, and non-deprecated upstream status.
 5. The chart has no subchart dependencies and records an empty dependency
    closure.
-6. `cub install package` produces byte-identical bundles across two local runs.
-7. `cub install setup` matches Helm semantically, plus only
+6. `cub installer package` produces byte-identical bundles across two local runs.
+7. `cub installer setup` matches Helm semantically, plus only
    `v1|Namespace||kube-system`, while preserving separated Secret behavior.
 8. Scan/gate receipts flag CRD lifecycle, CSIDriver lifecycle, privileged-node
    DaemonSet behavior, RBAC, synced Secret ownership, rotation, provider health
@@ -638,8 +638,8 @@ For the promoted Prometheus proof:
    `v3.11.3`, package SHA, and non-deprecated upstream status.
 5. Dependency lock records the four bundled subcharts: alertmanager,
    kube-state-metrics, prometheus-node-exporter, and prometheus-pushgateway.
-6. `cub install package` produces byte-identical bundles across two local runs.
-7. `cub install setup` matches Helm semantically, plus only
+6. `cub installer package` produces byte-identical bundles across two local runs.
+7. `cub installer setup` matches Helm semantically, plus only
    `v1|Namespace||monitoring`, while preserving separated Secret behavior.
 8. Scan/gate receipts flag bundled component ownership, scrape config, storage
    retention, workload rollout, cluster RBAC, remote read/write, ingress,
@@ -654,8 +654,8 @@ For the promoted MongoDB proof:
 3. `existing-secret-replicaset` renders exactly 10 Helm objects, including no
    Secret, a primary StatefulSet, an arbiter StatefulSet, and headless services.
 4. Dependency lock records the Bitnami `common` subchart.
-5. `cub install package` produces byte-identical bundles across two local runs.
-6. `cub install setup` matches Helm semantically, plus only
+5. `cub installer package` produces byte-identical bundles across two local runs.
+6. `cub installer setup` matches Helm semantically, plus only
    `v1|Namespace||mongodb`, while preserving separated Secret behavior.
 7. Scan/gate receipts flag generated facts, target facts, replica-set topology,
    storage, NetworkPolicy/PDB, hook lifecycle, dependency lock, and extension
@@ -670,8 +670,8 @@ For the promoted Nginx proof:
 3. `existing-tls-ingress` renders exactly 6 Helm objects, adding Ingress while
    still rendering no Secret because TLS material is a target fact.
 4. Dependency lock records the Bitnami `common` subchart.
-5. `cub install package` produces byte-identical bundles across two local runs.
-6. `cub install setup` matches Helm semantically, plus only
+5. `cub installer package` produces byte-identical bundles across two local runs.
+6. `cub installer setup` matches Helm semantically, plus only
    `v1|Namespace||nginx`.
 7. Scan/gate receipts flag generated TLS handling, target TLS Secrets, ingress
    exposure, NetworkPolicy/PDB, service exposure, static-site supply-chain,
@@ -689,8 +689,8 @@ For the promoted Tempo proof:
 4. Source lock records `grafana/tempo@1.24.4`, app `2.9.0`, package SHA, and
    deprecated upstream status.
 5. Dependency lock records an empty dependency closure.
-6. `cub install package` produces byte-identical bundles across two local runs.
-7. `cub install setup` matches Helm semantically, plus only
+6. `cub installer package` produces byte-identical bundles across two local runs.
+7. `cub installer setup` matches Helm semantically, plus only
    `v1|Namespace||tempo`.
 8. Scan/gate receipts flag chart deprecation, storage backend policy, target
    S3 credentials, query ingress, ServiceMonitor capability, NetworkPolicy,
@@ -709,8 +709,8 @@ For the promoted Consul proof:
 4. Source lock records `hashicorp/consul@2.0.0`, app `2.0.0`, package SHA, and
    non-deprecated upstream status.
 5. Dependency lock records an empty dependency closure.
-6. `cub install package` produces byte-identical bundles across two local runs.
-7. `cub install setup` matches Helm semantically, plus only
+6. `cub installer package` produces byte-identical bundles across two local runs.
+7. `cub installer setup` matches Helm semantically, plus only
    `v1|Namespace||consul`, with the explicit scalar normalization
    `trim-leading-command-block-newline`.
 8. Scan/gate receipts flag CRD ownership, cluster RBAC, admission webhooks,
@@ -759,11 +759,11 @@ Current self-tests include:
 The Redis installer package verifier must also prove:
 
 - every package source file SHA and byte count matches the package receipt;
-- `cub install package` produces byte-identical bundles across two local runs;
+- `cub installer package` produces byte-identical bundles across two local runs;
 - the package bundle SHA matches the receipt;
-- `cub install setup --base default` matches the default Helm-equivalent
+- `cub installer setup --base default` matches the default Helm-equivalent
   variant, plus only `v1|Namespace||redis`;
-- `cub install setup --base reuse-existing-secret` matches the existing-secret
+- `cub installer setup --base reuse-existing-secret` matches the existing-secret
   Helm-equivalent variant, plus only `v1|Namespace||redis`.
 
 ## Non-Scope For V0

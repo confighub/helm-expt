@@ -78,7 +78,7 @@ spec:
         default: true
         description: "minio-operator/operator default variant rendered from minio-operator/operator@7.1.1"
       setupCheck:
-        command: "cub install setup --pull packages/minio-operator/operator/7.1.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/minio-operator/operator/7.1.1 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 8
         cubInstallObjectCountIncludingSupport: 9
         semanticObjectMatches: "8/8"

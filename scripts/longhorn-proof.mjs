@@ -581,12 +581,12 @@ npm run longhorn:verify-package
   try {
     const firstPackage = join(tempRoot, "longhorn-1.11.2-a.tgz");
     const secondPackage = join(tempRoot, "longhorn-1.11.2-b.tgz");
-    runCub(["install", "package", packageRoot, "-o", firstPackage]);
-    runCub(["install", "package", packageRoot, "-o", secondPackage]);
+    runCub(["installer", "package", packageRoot, "-o", firstPackage]);
+    runCub(["installer", "package", packageRoot, "-o", secondPackage]);
     const firstSHA = sha256File(firstPackage);
     const secondSHA = sha256File(secondPackage);
     if (firstSHA !== secondSHA || !readFileSync(firstPackage).equals(readFileSync(secondPackage))) {
-      throw new Error("cub install package did not produce byte-identical bundles");
+      throw new Error("cub installer package did not produce byte-identical bundles");
     }
     mkdirSync(dirname(receiptPath), { recursive: true });
     writeYaml(receiptPath, {
@@ -602,14 +602,14 @@ npm run longhorn:verify-package
           sourceFiles: files,
         },
         deterministicBundle: {
-          command: `cub install package ${packageRelative} -o <tmp>/longhorn-1.11.2.tgz`,
+          command: `cub installer package ${packageRelative} -o <tmp>/longhorn-1.11.2.tgz`,
           sha256: firstSHA,
           byteIdenticalAcrossTwoLocalBundles: true,
         },
         setupChecks: variants.map((variant) => ({
           variant: variant.name,
           base: variant.base,
-          command: `cub install setup --pull ${packageRelative} --base ${variant.base} --work-dir <tmp> --non-interactive --namespace longhorn-system`,
+          command: `cub installer setup --pull ${packageRelative} --base ${variant.base} --work-dir <tmp> --non-interactive --namespace longhorn-system`,
           helmReleaseObjectCount: variant.expectedObjectCount,
           cubInstallObjectCountIncludingSupport: variant.expectedObjectCount + 1,
           semanticObjectMatches: `${variant.expectedObjectCount}/${variant.expectedObjectCount}`,
@@ -800,8 +800,8 @@ function verifyPackage() {
   try {
     const firstPackage = join(tempRoot, "longhorn-a.tgz");
     const secondPackage = join(tempRoot, "longhorn-b.tgz");
-    runCub(["install", "package", packageRoot, "-o", firstPackage]);
-    runCub(["install", "package", packageRoot, "-o", secondPackage]);
+    runCub(["installer", "package", packageRoot, "-o", firstPackage]);
+    runCub(["installer", "package", packageRoot, "-o", secondPackage]);
     const firstSHA = sha256File(firstPackage);
     const secondSHA = sha256File(secondPackage);
     check(firstSHA === secondSHA, "package SHA changed across two local bundles");
@@ -1072,13 +1072,13 @@ Variants:
 
 ${summaries
   .map(
-    (summary) => `- \`${summary.name}\`: ${summary.valuesSummary}; ${summary.objects.length} Helm objects, ${summary.objects.length + 1} cub install objects including Namespace.`,
+    (summary) => `- \`${summary.name}\`: ${summary.valuesSummary}; ${summary.objects.length} Helm objects, ${summary.objects.length + 1} cub installer objects including Namespace.`,
   )
   .join("\n")}
 
 What this proves:
 
-- regular Helm output is preserved by \`cub install setup\`, plus the explained Namespace support object;
+- regular Helm output is preserved by \`cub installer setup\`, plus the explained Namespace support object;
 - default chart render is deterministic under the pinned Kubernetes capability profile;
 - both variants render the 22 Longhorn CRDs as ordinary, digest-bound objects;
 - the ui-ingress variant deliberately adds Longhorn UI exposure with host and ingress class captured before render;

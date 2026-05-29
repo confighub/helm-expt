@@ -32,7 +32,7 @@ spec:
       - target Secret requirement -> target facts
       - Kubernetes capability branching -> named capability profile
       - Helm hooks -> no-hooks lifecycle policy for render proof
-      - rendered Secret handling -> cub install secret separation
+      - rendered Secret handling -> cub installer secret separation
       - mutable image findings -> scan receipt and install gate
       - ignored value risk -> values diagnostics
   receipts:

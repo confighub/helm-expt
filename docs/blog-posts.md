@@ -34,17 +34,17 @@ Audience: practical users asking "what do I run?"
 Core claim:
 
 ```text
-Start from a public Redis chart, render through cub install, upload to
+Start from a public Redis chart, render through cub installer, upload to
 ConfigHub, inspect Units, and verify your own install with receipts.
 ```
 
 Show:
 
-- `cub install setup`;
+- `cub installer setup`;
 - `npm run verify-install:render`;
 - `kubectl apply`;
 - `npm run verify-install:cluster`;
-- `cub install upload`;
+- `cub installer upload`;
 - `npm run verify-install:confighub`;
 - ConfigHub Unit list, labels, data, diff, scan, approval, and dry-run apply.
 

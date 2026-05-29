@@ -29,14 +29,14 @@ spec:
         sha256: "fcc4b25f9f608b4ce582cb92e17ced6e8c06a7ff41799039c6dc99381ee1fa56"
         bytes: 321
   deterministicBundle:
-    command: "cub install package packages/percona/psmdb-operator/1.22.0 -o <tmp>/percona-psmdb-operator-1-22-0.tgz"
+    command: "cub installer package packages/percona/psmdb-operator/1.22.0 -o <tmp>/percona-psmdb-operator-1-22-0.tgz"
     sha256: "61d4425d9c1abed3976853c3d5c0da63a09962642be53e3e63a7fe3c09fa594e"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/percona/psmdb-operator/1.22.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/percona/psmdb-operator/1.22.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 7
       cubInstallObjectCountIncludingSupport: 8
       semanticObjectMatches: "7/7"

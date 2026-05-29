@@ -82,7 +82,7 @@ spec:
         default: true
         description: "autoscaler/vertical-pod-autoscaler default variant rendered from autoscaler/vertical-pod-autoscaler@0.9.0"
       setupCheck:
-        command: "cub install setup --pull packages/autoscaler/vertical-pod-autoscaler/0.9.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/autoscaler/vertical-pod-autoscaler/0.9.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 39
         cubInstallObjectCountIncludingSupport: 40
         semanticObjectMatches: "39/39"

@@ -2,7 +2,7 @@
 
 Use Helm charts. Ship ConfigHub variants.
 
-This repo shows how popular public Helm charts can become `cub install`
+This repo shows how popular public Helm charts can become `cub installer`
 packages with named variants, exact rendered Kubernetes objects, scans, gates,
 receipts, and live proof.
 
@@ -10,7 +10,7 @@ The short version:
 
 ```text
 Helm chart
--> cub install recipe/package
+-> cub installer recipe/package
 -> named ConfigHub variants
 -> exact rendered Kubernetes objects
 -> hook/lifecycle policy for cluster-dependent Helm behavior
@@ -24,7 +24,7 @@ Pre-rendering Helm makes the real deployment object set visible before anyone
 has to approve, promote, or operate it.
 
 In this experiment, AI helps analyze public Helm charts and draft deterministic
-`cub install` recipes. The proof pipeline then checks the work mechanically:
+`cub installer` recipes. The proof pipeline then checks the work mechanically:
 
 ```text
 public Helm chart
@@ -65,7 +65,7 @@ The goal is not to replace Helm. The goal is to make Helm output reviewable,
 comparable, scannable, promotable, and auditable.
 
 We use AI to accelerate Helm chart analysis and recipe creation. We use
-`cub install` to prove the resulting recipes produce correct, Helm-equivalent,
+`cub installer` to prove the resulting recipes produce correct, Helm-equivalent,
 reviewable ConfigHub variants.
 
 This is not a single magic prompt. It is an AI-assisted harness with explicit
@@ -189,7 +189,7 @@ The `Quick Verify` and `npm run verify` paths above check this repo's canonical
 artifacts. To check that your own install matches them, run one command per
 stage of the Redis demo.
 
-After `cub install setup`, check the rendered objects:
+After `cub installer setup`, check the rendered objects:
 
 ```sh
 npm run verify-install:render -- \
@@ -223,7 +223,7 @@ PASS verify-install:cluster bitnami/redis/25.5.3 default
 checks: statefulsets, PVCs, Redis PING
 ```
 
-After `cub install upload`, check the ConfigHub Units and labels:
+After `cub installer upload`, check the ConfigHub Units and labels:
 
 ```sh
 npm run verify-install:confighub -- \
@@ -260,7 +260,7 @@ docs/demo/redis/demo-script.md
 The demo uses real commands, including:
 
 ```sh
-cub install setup \
+cub installer setup \
   --pull packages/bitnami/redis/25.5.3 \
   --base default \
   --work-dir .tmp/demo/redis-default \
@@ -282,7 +282,7 @@ Redis has two catalog variants:
 ```text
 default
   Renders Secret redis/redis from the pinned demo password.
-  cub install separates that Secret into out/secrets.
+  cub installer separates that Secret into out/secrets.
 
 reuse-existing-secret
   Renders no Redis Secret.
@@ -305,7 +305,7 @@ Redis has two supported secret models in this catalog.
 
 | Variant | Secret model | What ConfigHub records | Cluster requirement |
 | --- | --- | --- | --- |
-| `default` | Helm renders `Secret redis/redis` from the pinned demo password in `effective-values.yaml`. `cub install` separates that Secret into `out/secrets`. | The rendered Secret is part of the proof, but it is not uploaded as a ConfigHub Unit/OCI artifact. Workloads record an expected external reference to `v1/Secret redis/redis`. | For direct local tests, apply `out/secrets` before `out/manifests`. |
+| `default` | Helm renders `Secret redis/redis` from the pinned demo password in `effective-values.yaml`. `cub installer` separates that Secret into `out/secrets`. | The rendered Secret is part of the proof, but it is not uploaded as a ConfigHub Unit/OCI artifact. Workloads record an expected external reference to `v1/Secret redis/redis`. | For direct local tests, apply `out/secrets` before `out/manifests`. |
 | `reuse-existing-secret` | Helm renders no Redis Secret. Workloads reference `redis/redis-existing-secret` key `redis-password`. | The recipe records this as an installer `externalRequires` and variant `targetFacts.requiredSecrets` requirement. No secret material is stored. | Pre-stage `Secret redis/redis-existing-secret` with key `redis-password`; the verifier checks it exists. |
 
 The point is deliberate: ConfigHub should carry proof, references, labels,
@@ -322,7 +322,7 @@ recipes/<repo>/<chart>/<version>/CATALOG.md
 ```
 
 The root `CATALOG.md` is the shelf: charts first, variants underneath, with the
-recommended first variant and `cub install setup` package path visible. Then
+recommended first variant and `cub installer setup` package path visible. Then
 open the per-chart `CATALOG.md` for the chart source, recipe, rendered objects,
 receipts, scans, and current support status.
 
@@ -333,7 +333,7 @@ recipes/
   Chart analysis, variants, rendered objects, receipts, and catalogs.
 
 packages/
-  Executable cub install packages.
+  Executable cub installer packages.
 
 docs/demo/
   Plain-English per-chart walkthroughs and transcripts.
@@ -357,7 +357,7 @@ data/top500-catalog-analysis/
 
 ## Viewing And Operating On Configs In ConfigHub
 
-After `cub install upload`, the rendered objects become ConfigHub Units. This
+After `cub installer upload`, the rendered objects become ConfigHub Units. This
 is where the proof stops being a pile of YAML and becomes something a team can
 inspect, compare, scan, approve, and operate.
 
@@ -419,7 +419,7 @@ The important split is:
 
 ```text
 helm-expt proves the recipe and rendered objects.
-cub install upload stores those objects as ConfigHub Units.
+cub installer upload stores those objects as ConfigHub Units.
 ConfigHub lets you view, diff, scan, approve, and hand off those Units.
 Live cluster truth needs a fresh observation receipt from a cluster-side tool.
 ```
@@ -444,18 +444,18 @@ separate live lane because it needs a running GitOps controller and cluster.
 ## Current Commands Used
 
 These are real commands used somewhere in the current proof path. The Redis
-quick path mainly uses `cub install setup`, `npm run redis:compare`, and
+quick path mainly uses `cub installer setup`, `npm run redis:compare`, and
 `npm run verify`; the broader catalog, ConfigHub, scan, and safe-ops lanes use
 more of the surface area below.
 
 ```text
-cub install doc
-cub install setup
-cub install render
-cub install package
-cub install vet
-cub install plan
-cub install upload
+cub installer doc
+cub installer setup
+cub installer render
+cub installer package
+cub installer vet
+cub installer plan
+cub installer upload
 cub space list
 cub variant create
 cub unit list
@@ -478,7 +478,7 @@ For deeper runtime proof, use the
 That example adds the cluster-side half of the proof:
 
 ```text
-helm-expt proves:   Helm render == cub install render
+helm-expt proves:   Helm render == cub installer render
 installer proves:   package/spec -> rendered objects -> ConfigHub Units/OCI
 cub-scout proves:   rendered objects are present and matching in the live cluster
 ```

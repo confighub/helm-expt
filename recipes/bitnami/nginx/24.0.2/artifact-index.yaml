@@ -88,7 +88,7 @@ spec:
         default: true
         description: "nginx plain HTTP ClusterIP variant rendered from bitnami/nginx@24.0.2"
       setupCheck:
-        command: "cub install setup --pull packages/bitnami/nginx/24.0.2 --base http-clusterip --work-dir <tmp> --non-interactive --namespace nginx"
+        command: "cub installer setup --pull packages/bitnami/nginx/24.0.2 --base http-clusterip --work-dir <tmp> --non-interactive --namespace nginx"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"
@@ -165,7 +165,7 @@ spec:
         default: false
         description: "nginx existing TLS with ingress variant rendered from bitnami/nginx@24.0.2"
       setupCheck:
-        command: "cub install setup --pull packages/bitnami/nginx/24.0.2 --base existing-tls-ingress --work-dir <tmp> --non-interactive --namespace nginx"
+        command: "cub installer setup --pull packages/bitnami/nginx/24.0.2 --base existing-tls-ingress --work-dir <tmp> --non-interactive --namespace nginx"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

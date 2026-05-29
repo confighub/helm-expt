@@ -3,7 +3,7 @@
 # metrics-server/metrics-server 3.13.0 Weirdness And Mitigations
 
 This note records the Helm pain surfaced during catalog review and where the
-current ConfigHub/cub install proof absorbs it.
+current ConfigHub/cub installer proof absorbs it.
 
 ## Support Boundary
 
@@ -28,7 +28,7 @@ or operating-policy dispositions.
 
 ## Catalog Mitigations
 
-- Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.
+- Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
 - default is the expected quick path for a standard metrics-server install.
 - external-tls-ca is supported when the declared metrics-server-tls target fact is satisfied.
 - Production remains blocked until APIService readiness, cluster RBAC, and scan/gate findings have dispositions.

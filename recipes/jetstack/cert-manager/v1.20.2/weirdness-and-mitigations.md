@@ -3,7 +3,7 @@
 # jetstack/cert-manager v1.20.2 Weirdness And Mitigations
 
 This note records the Helm pain surfaced during catalog review and where the
-current ConfigHub/cub install proof absorbs it.
+current ConfigHub/cub installer proof absorbs it.
 
 ## Support Boundary
 
@@ -29,7 +29,7 @@ or operating-policy dispositions.
 
 ## Catalog Mitigations
 
-- Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.
+- Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
 - default preserves the normal cert-manager controller/webhook install shape.
 - crds-enabled is supported when CRD lifecycle ownership is intentionally accepted for the local-test scope.
 - Production remains blocked until CRD lifecycle/upgrade, webhook readiness, cluster RBAC, and scan/gate findings have dispositions.

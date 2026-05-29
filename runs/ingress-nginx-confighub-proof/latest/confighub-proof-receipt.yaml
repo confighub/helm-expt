@@ -23,27 +23,27 @@ spec:
     targetFactRequirements:
       []
   render:
-    command: "cub install setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base default --work-dir .tmp/confighub-proof/ingress-nginx-default --non-interactive --namespace ingress-nginx"
+    command: "cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base default --work-dir .tmp/confighub-proof/ingress-nginx-default --non-interactive --namespace ingress-nginx"
     result: "pass"
     manifestCount: 12
     separatedSecretCount: 0
     facts:
       {}
   rerender:
-    command: "cub install render --work-dir .tmp/confighub-proof/ingress-nginx-default"
+    command: "cub installer render --work-dir .tmp/confighub-proof/ingress-nginx-default"
     result: "pass"
     manifestCount: 12
     separatedSecretCount: 0
   deterministicPackage:
-    command: "cub install package packages/ingress-nginx/ingress-nginx/4.15.1 -o .tmp/confighub-proof/ingress-nginx-archives/ingress-nginx-a.tgz"
+    command: "cub installer package packages/ingress-nginx/ingress-nginx/4.15.1 -o .tmp/confighub-proof/ingress-nginx-archives/ingress-nginx-a.tgz"
     sha256: "67696880ec9c64ef02f0759fdd67e2423d478f9fedcd70bbe45b5edd71336f46"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
-    command: "cub install vet --work-dir .tmp/confighub-proof/ingress-nginx-default"
+    command: "cub installer vet --work-dir .tmp/confighub-proof/ingress-nginx-default"
     result: "pass"
     note: "Package declares no validators (spec.validators is empty)."
   upload:
-    command: "cub install upload --work-dir .tmp/confighub-proof/ingress-nginx-default --space helm-ingress-nginx-confighub-proof --component IngressNGINX --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=IngressNGINX --unit-label HelmChart=ingress-nginx-ingress-nginx --unit-label HelmChartVersion=4.15.1 --unit-label Variant=default --unit-label Proof=ingress-nginx-confighub-proof --retry"
+    command: "cub installer upload --work-dir .tmp/confighub-proof/ingress-nginx-default --space helm-ingress-nginx-confighub-proof --component IngressNGINX --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=IngressNGINX --unit-label HelmChart=ingress-nginx-ingress-nginx --unit-label HelmChartVersion=4.15.1 --unit-label Variant=default --unit-label Proof=ingress-nginx-confighub-proof --retry"
     result: "pass"
     workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
     space: "helm-ingress-nginx-confighub-proof"
@@ -54,9 +54,9 @@ spec:
       []
   plan:
     preUpload:
-      command: "cub install plan --work-dir .tmp/confighub-proof/ingress-nginx-default"
+      command: "cub installer plan --work-dir .tmp/confighub-proof/ingress-nginx-default"
       result: "expected-missing-upload-state"
-    command: "cub install plan --work-dir .tmp/confighub-proof/ingress-nginx-default"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/ingress-nginx-default"
     result: "pass"
     summary: "No changes.\nImages in helm-ingress-nginx-confighub-proof (post-render):\n      Deployment/ingress-nginx-controller [controller] registry.k8s.io/ingress-nginx/controller:v1.15.1@sha256:594ceea76b01c592858f803f9ff4d2cb40542cae2060410b2c95f75907d659e1"
   serverSideVariant:
@@ -78,6 +78,6 @@ spec:
       - "helm-ingress-nginx-confighub-proof"
       - "helm-ingress-nginx-confighub-proof-staging"
   observedFriction:
-    - "cub install upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
-    - "pre-upload cub install plan is expected to fail until upload state exists."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

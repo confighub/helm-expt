@@ -41,7 +41,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 
 ## Variants
 
-| Variant | Variant file | Package base | Revision | Helm objects | cub install objects | Match | Helm equivalence | Scan | Gate | Target facts |
+| Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/jetstack/cert-manager/v1.20.2/bases/default](../../../../packages/jetstack/cert-manager/v1.20.2/bases/default) | [recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 42 | 43 | 42/42 | pass | warn | warn | none |
 | crds-enabled | [recipes/jetstack/cert-manager/v1.20.2/variants/crds-enabled/variant.yaml](variants/crds-enabled/variant.yaml) | [packages/jetstack/cert-manager/v1.20.2/bases/crds-enabled](../../../../packages/jetstack/cert-manager/v1.20.2/bases/crds-enabled) | [recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/variant-revision.yaml](revisions/crds-enabled/r001/variant-revision.yaml) | 48 | 49 | 48/48 | pass | warn | warn | none |
@@ -69,10 +69,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 ## Current Install Shape
 
 ```sh
-cub install setup --pull packages/jetstack/cert-manager/v1.20.2 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull packages/jetstack/cert-manager/v1.20.2 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The proof path compares
-regular Helm output with real `cub install setup` output and explains every
+regular Helm output with real `cub installer setup` output and explains every
 intentional difference, such as the Namespace support object or separated
 Secrets.

@@ -87,7 +87,7 @@ spec:
         default: true
         description: "metrics-server default variant rendered from metrics-server/metrics-server@3.13.0"
       setupCheck:
-        command: "cub install setup --pull packages/metrics-server/metrics-server/3.13.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system"
+        command: "cub installer setup --pull packages/metrics-server/metrics-server/3.13.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system"
         helmReleaseObjectCount: 9
         cubInstallObjectCountIncludingSupport: 10
         semanticObjectMatches: "9/9"
@@ -156,7 +156,7 @@ spec:
         default: false
         description: "metrics-server external TLS with explicit CA variant rendered from metrics-server/metrics-server@3.13.0"
       setupCheck:
-        command: "cub install setup --pull packages/metrics-server/metrics-server/3.13.0 --base external-tls-ca --work-dir <tmp> --non-interactive --namespace kube-system"
+        command: "cub installer setup --pull packages/metrics-server/metrics-server/3.13.0 --base external-tls-ca --work-dir <tmp> --non-interactive --namespace kube-system"
         helmReleaseObjectCount: 9
         cubInstallObjectCountIncludingSupport: 10
         semanticObjectMatches: "9/9"

@@ -79,7 +79,7 @@ spec:
         default: true
         description: "prometheus-community/prometheus-operator-crds default variant rendered from prometheus-community/prometheus-operator-crds@29.0.0"
       setupCheck:
-        command: "cub install setup --pull packages/prometheus-community/prometheus-operator-crds/29.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/prometheus-community/prometheus-operator-crds/29.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"

@@ -29,14 +29,14 @@ spec:
         sha256: "9115befd7c8c22bd52b43ac8861a2386d6be881785b6f3ec94dd2eb591925125"
         bytes: 315
   deterministicBundle:
-    command: "cub install package packages/percona/pxc-operator/1.19.1 -o <tmp>/percona-pxc-operator-1-19-1.tgz"
+    command: "cub installer package packages/percona/pxc-operator/1.19.1 -o <tmp>/percona-pxc-operator-1-19-1.tgz"
     sha256: "a5f564adac9a648746ac698b59877f98cb01475221906349a4e4e62e18655bbb"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/percona/pxc-operator/1.19.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/percona/pxc-operator/1.19.1 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 7
       cubInstallObjectCountIncludingSupport: 8
       semanticObjectMatches: "7/7"

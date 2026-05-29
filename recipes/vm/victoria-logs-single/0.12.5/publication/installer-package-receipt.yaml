@@ -29,14 +29,14 @@ spec:
         sha256: "18916e700db59250dc29e757bfd50e6f6dffcab3bc39e34eb90966968874634f"
         bytes: 324
   deterministicBundle:
-    command: "cub install package packages/vm/victoria-logs-single/0.12.5 -o <tmp>/vm-victoria-logs-single-0-12-5.tgz"
+    command: "cub installer package packages/vm/victoria-logs-single/0.12.5 -o <tmp>/vm-victoria-logs-single-0-12-5.tgz"
     sha256: "7f78b08d88a7500bb6a629d439bea515895dc0f4e21575b000226d9146885406"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/vm/victoria-logs-single/0.12.5 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/vm/victoria-logs-single/0.12.5 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 2
       cubInstallObjectCountIncludingSupport: 3
       semanticObjectMatches: "2/2"

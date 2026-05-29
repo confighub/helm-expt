@@ -4,12 +4,12 @@ This is the promoted proof slice for the NGINX public Helm chart.
 
 Variants:
 
-- `http-clusterip`: TLS generation disabled and service exposure kept internal; 5 Helm objects, 6 cub install objects including Namespace.
-- `existing-tls-ingress`: target TLS Secrets supply backend and ingress certificates; 6 Helm objects, 7 cub install objects including Namespace.
+- `http-clusterip`: TLS generation disabled and service exposure kept internal; 5 Helm objects, 6 cub installer objects including Namespace.
+- `existing-tls-ingress`: target TLS Secrets supply backend and ingress certificates; 6 Helm objects, 7 cub installer objects including Namespace.
 
 What this proves:
 
-- regular Helm output is preserved by `cub install setup`, plus the explained Namespace support object;
+- regular Helm output is preserved by `cub installer setup`, plus the explained Namespace support object;
 - default chart rendering is nondeterministic because Helm generates self-signed TLS material;
 - `http-clusterip` disables generated TLS and renders a small internal service;
 - `existing-tls-ingress` uses declared target TLS Secrets, does not render a Secret, and adds explicit ingress exposure;

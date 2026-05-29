@@ -9,7 +9,7 @@ evidence.
 Current proof claim:
 
 ```text
-Public Helm charts can be rendered into cub install packages with clear
+Public Helm charts can be rendered into cub installer packages with clear
 variants, receipts, scans/gates, deterministic checks, and Helm-equivalent
 output where equivalence is expected.
 ```
@@ -177,9 +177,9 @@ Then attack the proof in four passes:
 
 1. Offline proof integrity:
    - Run every chart's compare/verify command.
-   - Confirm cub install setup output matches regular Helm output plus only
+   - Confirm cub installer setup output matches regular Helm output plus only
      documented intentional differences.
-   - Confirm deterministic cub install package receipts are still true.
+   - Confirm deterministic cub installer package receipts are still true.
 
 2. Negative proof attacks:
    - Copy one or more chart proof directories into a temp run folder.
@@ -189,7 +189,7 @@ Then attack the proof in four passes:
    - Report any false pass as P0.
 
 3. Live dry-run attacks:
-   - For each selected variant, run cub install setup into a temp work dir.
+   - For each selected variant, run cub installer setup into a temp work dir.
    - Run kubectl server-side dry-run on manifests/secrets in an isolated
      namespace.
    - Classify failures as missing CRD, missing target Secret, admission issue,
@@ -261,7 +261,7 @@ RUN_ID="$(date +%Y%m%d-%H%M%S)"
 WORK_DIR="runs/pilot/$RUN_ID/<chart>/<variant>"
 mkdir -p "$WORK_DIR"
 
-cub install setup \
+cub installer setup \
   --pull packages/<repo>/<chart>/<version> \
   --base <variant> \
   --work-dir "$WORK_DIR/work" \
@@ -296,7 +296,7 @@ Pilot should actively try to break these claims:
 
 | Claim | Attack |
 | --- | --- |
-| Helm equivalence is true | Compare every Helm object with cub install output; fail on unexplained object drift. |
+| Helm equivalence is true | Compare every Helm object with cub installer output; fail on unexplained object drift. |
 | Receipts bind to artifacts | Tamper rendered manifests, values, receipts, and package files; verifier must reject. |
 | Variants are meaningful | Check each variant changes real objects or target facts, not just labels. |
 | Target facts are explicit | Remove or omit required Secrets/CRDs and verify failure is predicted by HelmPlan/ChartDossier. |

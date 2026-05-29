@@ -29,14 +29,14 @@ spec:
         sha256: "ed6dfe0b86cbfaf5112ea50c5e94d6e599fb8135347d7798e76c569f22067a72"
         bytes: 310
   deterministicBundle:
-    command: "cub install package packages/hashicorp/terraform/1.1.2 -o <tmp>/hashicorp-terraform-1-1-2.tgz"
+    command: "cub installer package packages/hashicorp/terraform/1.1.2 -o <tmp>/hashicorp-terraform-1-1-2.tgz"
     sha256: "e7bc73a3884298093d9087061e47d138e6bcb4a89f976e2380811aa69a34cf7d"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/hashicorp/terraform/1.1.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/hashicorp/terraform/1.1.2 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 5
       cubInstallObjectCountIncludingSupport: 6
       semanticObjectMatches: "5/5"

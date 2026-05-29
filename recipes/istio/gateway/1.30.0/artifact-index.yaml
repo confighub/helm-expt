@@ -76,7 +76,7 @@ spec:
         default: true
         description: "istio/gateway default variant rendered from istio/gateway@1.30.0"
       setupCheck:
-        command: "cub install setup --pull packages/istio/gateway/1.30.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/istio/gateway/1.30.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

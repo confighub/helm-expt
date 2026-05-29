@@ -29,14 +29,14 @@ spec:
         sha256: "5d86ed7c28c79b098fad17dd19ac26b2d8cf26cf9410846c946b5278497a6492"
         bytes: 347
   deterministicBundle:
-    command: "cub install package packages/rook-release/rook-ceph-cluster/v1.19.5 -o <tmp>/rook-release-rook-ceph-cluster-v1-19-5.tgz"
+    command: "cub installer package packages/rook-release/rook-ceph-cluster/v1.19.5 -o <tmp>/rook-release-rook-ceph-cluster-v1-19-5.tgz"
     sha256: "d05b8045a23ebd2fdab186de3485c7eed5a40e6c6b7c66b44de14c8c35209176"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/rook-release/rook-ceph-cluster/v1.19.5 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/rook-release/rook-ceph-cluster/v1.19.5 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 27
       cubInstallObjectCountIncludingSupport: 28
       semanticObjectMatches: "27/27"

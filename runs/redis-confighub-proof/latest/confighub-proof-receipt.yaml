@@ -24,7 +24,7 @@ spec:
       externalRequireKind: ClusterFeature
       requirement: Secret redis/redis-existing-secret key redis-password
   render:
-    command: cub install setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/confighub-proof/redis-default --non-interactive --namespace redis
+    command: cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/confighub-proof/redis-default --non-interactive --namespace redis
     result: pass
     manifestCount: 14
     separatedSecretCount: 1
@@ -35,20 +35,20 @@ spec:
         result: pass
       requiredSecrets: []
   rerender:
-    command: cub install render --work-dir .tmp/confighub-proof/redis-default
+    command: cub installer render --work-dir .tmp/confighub-proof/redis-default
     result: pass
     manifestCount: 14
     separatedSecretCount: 1
   deterministicPackage:
-    command: cub install package packages/bitnami/redis/25.5.3 -o .tmp/confighub-proof/archives/redis-a.tgz
+    command: cub installer package packages/bitnami/redis/25.5.3 -o .tmp/confighub-proof/archives/redis-a.tgz
     sha256: 33d75e4443ef0ca2d42d79049074f89e25de740bdc677f2451010024ab035550
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
-    command: cub install vet --work-dir .tmp/confighub-proof/redis-default
+    command: cub installer vet --work-dir .tmp/confighub-proof/redis-default
     result: pass
     note: Package declares no validators.
   upload:
-    command: cub install upload --work-dir .tmp/confighub-proof/redis-default --space helm-redis-confighub-proof
+    command: cub installer upload --work-dir .tmp/confighub-proof/redis-default --space helm-redis-confighub-proof
     result: pass
     workaround: CUB_CONFIG=/Users/alexis/.confighub/config.yaml
     uploadedAt: "2026-05-27T07:33:57Z"
@@ -60,7 +60,7 @@ spec:
     separatedSecretsNotUploaded:
       - v1/Secret redis/redis
   plan:
-    command: cub install plan --work-dir .tmp/confighub-proof/redis-default
+    command: cub installer plan --work-dir .tmp/confighub-proof/redis-default
     result: pass
     summary: No changes.
     images:
@@ -88,5 +88,5 @@ spec:
     note: Current diff proof uses Unit revision diff; richer variant diff remains a product ask.
   observedFriction:
     - kustomize was present in $(go env GOPATH)/bin but not on the default shell PATH.
-    - cub install upload needs explicit CUB_CONFIG in this local setup.
+    - cub installer upload needs explicit CUB_CONFIG in this local setup.
     - broad cub unit tree --edge link for the Redis space was too slow; narrower clone tree and unit review commands worked.

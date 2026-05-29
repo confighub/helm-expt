@@ -17,6 +17,6 @@ spec:
   blockedScopes:
     - "production-without-review"
   reasons:
-    - "regular Helm output matches cub install setup for opencost/opencost@2.5.21"
+    - "regular Helm output matches cub installer setup for opencost/opencost@2.5.21"
     - "6 Helm objects are bound to renderedObjectSetSHA256"
     - "rendered-object scan has review findings; see scan-receipt.yaml"

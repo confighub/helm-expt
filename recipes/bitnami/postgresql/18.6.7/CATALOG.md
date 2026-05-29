@@ -41,7 +41,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 
 ## Variants
 
-| Variant | Variant file | Package base | Revision | Helm objects | cub install objects | Match | Helm equivalence | Scan | Gate | Target facts |
+| Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | generated-passwords | [recipes/bitnami/postgresql/18.6.7/variants/generated-passwords/variant.yaml](variants/generated-passwords/variant.yaml) | [packages/bitnami/postgresql/18.6.7/bases/generated-passwords](../../../../packages/bitnami/postgresql/18.6.7/bases/generated-passwords) | [recipes/bitnami/postgresql/18.6.7/revisions/generated-passwords/r001/variant-revision.yaml](revisions/generated-passwords/r001/variant-revision.yaml) | 7 | 8 | 7/7 | pass | warn | warn | none |
 | existing-secret | [recipes/bitnami/postgresql/18.6.7/variants/existing-secret/variant.yaml](variants/existing-secret/variant.yaml) | [packages/bitnami/postgresql/18.6.7/bases/existing-secret](../../../../packages/bitnami/postgresql/18.6.7/bases/existing-secret) | [recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/variant-revision.yaml](revisions/existing-secret/r001/variant-revision.yaml) | 6 | 7 | 6/6 | pass | warn | warn | required Secret postgresql/postgresql-auth keys postgres-password |
@@ -69,10 +69,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 ## Current Install Shape
 
 ```sh
-cub install setup --pull packages/bitnami/postgresql/18.6.7 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull packages/bitnami/postgresql/18.6.7 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The proof path compares
-regular Helm output with real `cub install setup` output and explains every
+regular Helm output with real `cub installer setup` output and explains every
 intentional difference, such as the Namespace support object or separated
 Secrets.

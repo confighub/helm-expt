@@ -82,7 +82,7 @@ spec:
         default: true
         description: "aqua/trivy-operator default variant rendered from aqua/trivy-operator@0.32.1"
       setupCheck:
-        command: "cub install setup --pull packages/aqua/trivy-operator/0.32.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/aqua/trivy-operator/0.32.1 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 33
         cubInstallObjectCountIncludingSupport: 34
         semanticObjectMatches: "33/33"

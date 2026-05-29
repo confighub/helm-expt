@@ -14,4 +14,4 @@ spec:
     - local scan found 2 high and 2 medium finding(s)
     - production publish is blocked until high findings are resolved or explicitly waived
     - Helm equivalence passed for default variant
-    - renders Redis Secret; cub install separates it from uploaded manifests
+    - renders Redis Secret; cub installer separates it from uploaded manifests

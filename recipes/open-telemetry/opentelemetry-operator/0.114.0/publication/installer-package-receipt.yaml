@@ -29,14 +29,14 @@ spec:
         sha256: "f0314c383d2722a07c85184eb69c4f68265f923043bec6620bfc12fe6fe67c71"
         bytes: 368
   deterministicBundle:
-    command: "cub install package packages/open-telemetry/opentelemetry-operator/0.114.0 -o <tmp>/open-telemetry-opentelemetry-operator-0-114-0.tgz"
+    command: "cub installer package packages/open-telemetry/opentelemetry-operator/0.114.0 -o <tmp>/open-telemetry-opentelemetry-operator-0-114-0.tgz"
     sha256: "46a4466f21a9076cfb231b02a2309c526136ca3903e50c17348f1e3e87b8f5dc"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/open-telemetry/opentelemetry-operator/0.114.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/open-telemetry/opentelemetry-operator/0.114.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 17
       cubInstallObjectCountIncludingSupport: 18
       semanticObjectMatches: "17/17"

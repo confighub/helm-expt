@@ -37,14 +37,14 @@ spec:
         sha256: "1986d77a14a7a17093a6da8309935eff8f00ca5efd22a2541485240024d7d93e"
         bytes: 476
   deterministicBundle:
-    command: "cub install package packages/jetstack/cert-manager/v1.20.2 -o <tmp>/cert-manager-v1.20.2.tgz"
+    command: "cub installer package packages/jetstack/cert-manager/v1.20.2 -o <tmp>/cert-manager-v1.20.2.tgz"
     sha256: "79ae248a548e647adfa660412021cae0237955bb77a719f516987c33cc06266f"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/jetstack/cert-manager/v1.20.2 --base default --work-dir <tmp> --non-interactive --namespace cert-manager"
+      command: "cub installer setup --pull packages/jetstack/cert-manager/v1.20.2 --base default --work-dir <tmp> --non-interactive --namespace cert-manager"
       helmReleaseObjectCount: 42
       cubInstallObjectCountIncludingSupport: 43
       semanticObjectMatches: "42/42"
@@ -54,7 +54,7 @@ spec:
     -
       variant: "crds-enabled"
       base: "crds-enabled"
-      command: "cub install setup --pull packages/jetstack/cert-manager/v1.20.2 --base crds-enabled --work-dir <tmp> --non-interactive --namespace cert-manager"
+      command: "cub installer setup --pull packages/jetstack/cert-manager/v1.20.2 --base crds-enabled --work-dir <tmp> --non-interactive --namespace cert-manager"
       helmReleaseObjectCount: 48
       cubInstallObjectCountIncludingSupport: 49
       semanticObjectMatches: "48/48"

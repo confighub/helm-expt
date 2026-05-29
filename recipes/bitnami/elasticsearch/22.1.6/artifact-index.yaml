@@ -82,7 +82,7 @@ spec:
         default: true
         description: "bitnami/elasticsearch default variant rendered from bitnami/elasticsearch@22.1.6"
       setupCheck:
-        command: "cub install setup --pull packages/bitnami/elasticsearch/22.1.6 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/bitnami/elasticsearch/22.1.6 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 21
         cubInstallObjectCountIncludingSupport: 22
         semanticObjectMatches: "21/21"

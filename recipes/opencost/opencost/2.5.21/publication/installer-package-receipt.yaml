@@ -29,14 +29,14 @@ spec:
         sha256: "adbddb0f1ef596e082de058fb523480a8e9aa7b2968bb78606d331cb45e5f942"
         bytes: 306
   deterministicBundle:
-    command: "cub install package packages/opencost/opencost/2.5.21 -o <tmp>/opencost-opencost-2-5-21.tgz"
+    command: "cub installer package packages/opencost/opencost/2.5.21 -o <tmp>/opencost-opencost-2-5-21.tgz"
     sha256: "1a2e3a5b840d37e61e62ed20879cd39aa5254168e58db07e15e5fabc345f2b47"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/opencost/opencost/2.5.21 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/opencost/opencost/2.5.21 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 6
       cubInstallObjectCountIncludingSupport: 7
       semanticObjectMatches: "6/6"

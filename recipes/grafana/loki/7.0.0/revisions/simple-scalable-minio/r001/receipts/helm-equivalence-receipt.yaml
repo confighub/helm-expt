@@ -24,6 +24,6 @@ spec:
       identity: "v1|ConfigMap|loki|loki"
       classification: "serialization-normalization"
       disposition: "allowed"
-      note: "cub install/kustomize removes one leading blank line from Loki config.yaml; parsed Loki config content is otherwise identical."
+      note: "cub installer/kustomize removes one leading blank line from Loki config.yaml; parsed Loki config content is otherwise identical."
   result: "pass"
   evidenceCommand: "npm run loki:compare"

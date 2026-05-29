@@ -29,14 +29,14 @@ spec:
         sha256: "cb672bbaebd4ac895873cf77e0f72f222d8f95c07c3b38be105e952da5140122"
         bytes: 297
   deterministicBundle:
-    command: "cub install package packages/runix/pgadmin4/1.62.0 -o <tmp>/runix-pgadmin4-1-62-0.tgz"
+    command: "cub installer package packages/runix/pgadmin4/1.62.0 -o <tmp>/runix-pgadmin4-1-62-0.tgz"
     sha256: "a7ebe7db9ddd892a94b0038baf48ab9900c59f3f959a55a59599fb248724aef2"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/runix/pgadmin4/1.62.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/runix/pgadmin4/1.62.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 5
       cubInstallObjectCountIncludingSupport: 6
       semanticObjectMatches: "5/5"

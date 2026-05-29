@@ -3,7 +3,7 @@
 ## Purpose
 
 This proof lane shows the current ConfigHub path for `argo-cd/argo-cd@9.5.15`
-using real commands only: `cub install`, `cub variant`, `cub unit`,
+using real commands only: `cub installer`, `cub variant`, `cub unit`,
 `cub function`, and `cub changeset`.
 
 The selected happy-path install variant is `default`.

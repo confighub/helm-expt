@@ -81,7 +81,7 @@ spec:
         default: true
         description: "runix/pgadmin4 default variant rendered from runix/pgadmin4@1.62.0"
       setupCheck:
-        command: "cub install setup --pull packages/runix/pgadmin4/1.62.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/runix/pgadmin4/1.62.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"

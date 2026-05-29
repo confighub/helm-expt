@@ -29,14 +29,14 @@ spec:
         sha256: "87e5eba998a688aebc6a2dead55787ba785415d3ae35c99405373414b2bdf26f"
         bytes: 276
   deterministicBundle:
-    command: "cub install package packages/dex/dex/0.24.0 -o <tmp>/dex-dex-0-24-0.tgz"
+    command: "cub installer package packages/dex/dex/0.24.0 -o <tmp>/dex-dex-0-24-0.tgz"
     sha256: "61f72819c33fc6b8c388808c061dc9686cbd6d96432fce8fe2b3eb319e968ab1"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/dex/dex/0.24.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/dex/dex/0.24.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 8
       cubInstallObjectCountIncludingSupport: 9
       semanticObjectMatches: "8/8"

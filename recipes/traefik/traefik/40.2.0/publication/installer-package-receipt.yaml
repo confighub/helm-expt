@@ -29,14 +29,14 @@ spec:
         sha256: "2e29e532424d4c7612e220f306ef0003a197a514a637db64b2c3a30eed9bb1f7"
         bytes: 300
   deterministicBundle:
-    command: "cub install package packages/traefik/traefik/40.2.0 -o <tmp>/traefik-traefik-40-2-0.tgz"
+    command: "cub installer package packages/traefik/traefik/40.2.0 -o <tmp>/traefik-traefik-40-2-0.tgz"
     sha256: "d4c7df2e2383c00ea04011aacb8bcf6728944031baf38692828b79f6d5d13057"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/traefik/traefik/40.2.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/traefik/traefik/40.2.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 31
       cubInstallObjectCountIncludingSupport: 32
       semanticObjectMatches: "31/31"

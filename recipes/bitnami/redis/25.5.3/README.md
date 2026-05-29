@@ -8,7 +8,7 @@
 | Variants | default, reuse-existing-secret |
 | Status | usable with controls |
 | Helm objects | default: 14; reuse-existing-secret: 13 |
-| ConfigHub/cub install objects | default: 15; reuse-existing-secret: 14 |
+| ConfigHub/cub installer objects | default: 15; reuse-existing-secret: 14 |
 | Explained difference | installer namespace support object; default also separates rendered Secret |
 | Helm match | default: 14/14; reuse-existing-secret: 13/13 semantic object matches |
 | Secrets | default renders 1 Secret; reuse-existing-secret renders 0 Secrets and requires target Secret redis-existing-secret/redis-password |
@@ -21,7 +21,7 @@
 ## Variant Secret Handling
 
 The `default` variant renders `Secret redis/redis` from the pinned demo
-`auth.password`. `cub install` separates that rendered Secret from normal
+`auth.password`. `cub installer` separates that rendered Secret from normal
 manifests, so direct local tests apply `out/secrets`, while ConfigHub upload
 records workload references instead of storing the rendered Secret as a Unit.
 

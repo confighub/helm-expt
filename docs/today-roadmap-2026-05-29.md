@@ -13,7 +13,7 @@ The product story stays:
 
 ```text
 Use Helm charts.
-Create durable cub install recipes.
+Create durable cub installer recipes.
 Ship safe ConfigHub variants.
 Prove the exact configs before and after deployment.
 ```
@@ -23,7 +23,7 @@ for Brian, Jesper, and a skeptical Helm user:
 
 ```text
 cub helm install = quick one-shot render into ConfigHub Units.
-cub install recipe = maintained, verified, variant-aware catalog artifact.
+cub installer recipe = maintained, verified, variant-aware catalog artifact.
 cub variant create = post-render ConfigHub variant creation from a reviewed base.
 ConfigHub Promotion = review and advance changes across those variants.
 ```
@@ -33,7 +33,7 @@ ConfigHub Promotion = review and advance changes across those variants.
 Issue:
 
 ```text
-#76 Define Helm import path from cub helm install to cub install recipes
+#76 Define Helm import path from cub helm install to cub installer recipes
 ```
 
 PR:
@@ -103,7 +103,7 @@ Three variant creation modes to keep aligned:
 
 | Mode | User shape | Product surface |
 | --- | --- | --- |
-| Base variant | `redis/default`, `redis/reuse-existing-secret` | `cub install setup --base ...` |
+| Base variant | `redis/default`, `redis/reuse-existing-secret` | `cub installer setup --base ...` |
 | Guided variant | `Create prod-us-east from redis/default` | Variant Creator / `cub variant create` porcelain |
 | Fleet variant | `create 100 variants from a matrix` | Same blueprint as a function over rows |
 
@@ -181,7 +181,7 @@ Acceptance:
 - The promotion story can be explained in one minute:
 
 ```text
-cub install uploads a reviewed Redis base.
+cub installer uploads a reviewed Redis base.
 cub variant create clones it into prod-us-east.
 ConfigHub Promotion shows the relationship and the diff.
 Future base changes can be reviewed and promoted into prod-us-east.
@@ -277,7 +277,7 @@ https://github.com/confighub/helm-expt/issues/76
 
 Use this issue for:
 
-- `cub helm install` versus `cub install` recipe positioning.
+- `cub helm install` versus `cub installer` recipe positioning.
 - The import bridge from quick render to maintained catalog artifact.
 - Redis as the first golden class.
 - Kubara wrapper chart + overlay values as the second golden class.
@@ -286,7 +286,7 @@ Use this issue for:
 Do not use this issue to:
 
 - Track implementation in another repo.
-- Claim `cub install import helm` exists.
+- Claim `cub installer import helm` exists.
 - Demand a new backend engine.
 - Hide hooks, target facts, generated secrets, or customer overlay values.
 
@@ -306,7 +306,7 @@ Careful suggestions that are currently justified:
 | Variant Creator UX | Users need an easy way to create prod/region/customer variants from a base. | `cub variant create`, bulk clone, labels, targets, gates |
 | Blueprint/Creator contract | Human, agent, and fleet workflows need the same plan. | Units, placeholders, TransformPaths, functions, gates |
 | Promotion clarity | Helm-derived bases should appear as components with variant nodes. | `Component`/`Variant` labels, `Unit.UpstreamUnitID`, Promotion UI |
-| Import bridge | One-shot Helm render should graduate into maintained recipe/package artifacts. | `cub helm install`, `cub install` package path |
+| Import bridge | One-shot Helm render should graduate into maintained recipe/package artifacts. | `cub helm install`, `cub installer` package path |
 | Target facts in variants | Post-render variants still need target-specific values and checks. | target facts, triggers/functions, checks |
 
 Suggestions that are not justified yet:
@@ -314,7 +314,7 @@ Suggestions that are not justified yet:
 - A new standalone per-chart promotion-map YAML batch.
 - A new backend variant system.
 - A claim that all Kubara apps are fully imported.
-- A claim that `cub install import helm` exists.
+- A claim that `cub installer import helm` exists.
 - External project issues without explicit approval.
 
 ## Sequence For Today

@@ -3,7 +3,7 @@
 # prometheus-community/prometheus 29.8.0 Weirdness And Mitigations
 
 This note records the Helm pain surfaced during catalog review and where the
-current ConfigHub/cub install proof absorbs it.
+current ConfigHub/cub installer proof absorbs it.
 
 ## Support Boundary
 
@@ -30,7 +30,7 @@ or operating-policy dispositions.
 
 ## Catalog Mitigations
 
-- Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.
+- Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
 - default preserves the normal Prometheus chart install shape.
 - server-only-ephemeral is supported as the simplest short-lived local proof path.
 - Production remains blocked until retention, storage, RBAC, scrape extension, and scan/gate findings have dispositions.

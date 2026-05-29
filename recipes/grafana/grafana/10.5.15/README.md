@@ -4,12 +4,12 @@ This is the promoted proof slice for the Grafana public Helm chart.
 
 Variants:
 
-- `generated-passwords`: Grafana admin password bound as a generated fact; 9 Helm objects, 10 cub install objects including Namespace.
-- `existing-secret-ingress`: target Secret supplies Grafana admin credentials and UI ingress is explicit; 9 Helm objects, 10 cub install objects including Namespace.
+- `generated-passwords`: Grafana admin password bound as a generated fact; 9 Helm objects, 10 cub installer objects including Namespace.
+- `existing-secret-ingress`: target Secret supplies Grafana admin credentials and UI ingress is explicit; 9 Helm objects, 10 cub installer objects including Namespace.
 
 What this proves:
 
-- regular Helm output is preserved by `cub install setup`, plus the explained Namespace support object;
+- regular Helm output is preserved by `cub installer setup`, plus the explained Namespace support object;
 - this chart version is marked deprecated upstream, and the proof records that risk explicitly;
 - default chart rendering is nondeterministic until the admin password is bound;
 - the generated-passwords variant persists adminPassword before render;

@@ -85,7 +85,7 @@ spec:
         default: true
         description: "ingress-nginx default variant rendered from ingress-nginx/ingress-nginx@4.15.1"
       setupCheck:
-        command: "cub install setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base default --work-dir <tmp> --non-interactive --namespace ingress-nginx"
+        command: "cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base default --work-dir <tmp> --non-interactive --namespace ingress-nginx"
         helmReleaseObjectCount: 11
         cubInstallObjectCountIncludingSupport: 12
         semanticObjectMatches: "11/11"
@@ -147,7 +147,7 @@ spec:
         default: false
         description: "ingress-nginx admission webhook disabled variant rendered from ingress-nginx/ingress-nginx@4.15.1"
       setupCheck:
-        command: "cub install setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base admission-disabled --work-dir <tmp> --non-interactive --namespace ingress-nginx"
+        command: "cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base admission-disabled --work-dir <tmp> --non-interactive --namespace ingress-nginx"
         helmReleaseObjectCount: 9
         cubInstallObjectCountIncludingSupport: 10
         semanticObjectMatches: "9/9"

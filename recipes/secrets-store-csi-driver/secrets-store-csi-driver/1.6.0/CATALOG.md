@@ -41,7 +41,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 
 ## Variants
 
-| Variant | Variant file | Package base | Revision | Helm objects | cub install objects | Match | Helm equivalence | Scan | Gate | Target facts |
+| Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/bases/default](../../../../packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/bases/default) | [recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 10 | 11 | 10/10 | pass | warn | warn | none |
 | sync-secret-rotation | [recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/variants/sync-secret-rotation/variant.yaml](variants/sync-secret-rotation/variant.yaml) | [packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/bases/sync-secret-rotation](../../../../packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/bases/sync-secret-rotation) | [recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/variant-revision.yaml](revisions/sync-secret-rotation/r001/variant-revision.yaml) | 12 | 13 | 12/12 | pass | warn | warn | none |
@@ -69,10 +69,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 ## Current Install Shape
 
 ```sh
-cub install setup --pull packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The proof path compares
-regular Helm output with real `cub install setup` output and explains every
+regular Helm output with real `cub installer setup` output and explains every
 intentional difference, such as the Namespace support object or separated
 Secrets.

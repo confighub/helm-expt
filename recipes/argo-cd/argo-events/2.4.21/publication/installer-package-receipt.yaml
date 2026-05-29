@@ -29,14 +29,14 @@ spec:
         sha256: "3927c052e2247be77c31b5773f39698be2c07a0cab43d12274089102885c9f98"
         bytes: 312
   deterministicBundle:
-    command: "cub install package packages/argo-cd/argo-events/2.4.21 -o <tmp>/argo-cd-argo-events-2-4-21.tgz"
+    command: "cub installer package packages/argo-cd/argo-events/2.4.21 -o <tmp>/argo-cd-argo-events-2-4-21.tgz"
     sha256: "088dbe2f4c9f8098dbb475e100c4db458d7bc6de2e9be5171af478bfebbacbe5"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/argo-cd/argo-events/2.4.21 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/argo-cd/argo-events/2.4.21 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 9
       cubInstallObjectCountIncludingSupport: 10
       semanticObjectMatches: "9/9"

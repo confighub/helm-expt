@@ -29,14 +29,14 @@ spec:
         sha256: "f76cf1788d914cfcdfd79abbd159cc35a500bca195aa4c62c4f0c499fa38d370"
         bytes: 321
   deterministicBundle:
-    command: "cub install package packages/argo-cd/argo-workflows/1.0.14 -o <tmp>/argo-cd-argo-workflows-1-0-14.tgz"
+    command: "cub installer package packages/argo-cd/argo-workflows/1.0.14 -o <tmp>/argo-cd-argo-workflows-1-0-14.tgz"
     sha256: "03c25e6e332632cc9f283859ea7746b0df907243637dcafc4b19e7bb96d4ec18"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/argo-cd/argo-workflows/1.0.14 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/argo-cd/argo-workflows/1.0.14 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 19
       cubInstallObjectCountIncludingSupport: 20
       semanticObjectMatches: "19/19"

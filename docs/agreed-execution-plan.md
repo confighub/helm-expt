@@ -101,7 +101,7 @@ than a document-only note.
 This is a standing acceptance rule for the project. Docs explain the
 executable path, record chart weirdness, capture human/catalog decisions, and
 name missing capabilities. They should not be the primary home for a control
-point when `cub install`, `cub`, ConfigHub Server, or ConfigHub OCI can carry
+point when `cub installer`, `cub`, ConfigHub Server, or ConfigHub OCI can carry
 that control point more cleanly and verify it.
 
 The canonical explanation of how a chart becomes a recipe, how AI is used, and
@@ -111,7 +111,7 @@ where each piece of Helm behavior belongs is
 ## Adoption Ladder
 
 The current product proof is not a pure serverless architecture. The fast path
-uses real `cub install`, the real ConfigHub service, and ConfigHub's OCI
+uses real `cub installer`, the real ConfigHub service, and ConfigHub's OCI
 endpoint for publishable install artifacts.
 
 Current ladder:
@@ -119,9 +119,9 @@ Current ladder:
 | Stage | Status | Shape |
 | --- | --- | --- |
 | Public catalog and proof repo | Current focus | Recipes, HelmPlans, dossiers, examples, top-500 evidence, and reproducible scripts live on the public ConfigHub GitHub surface, currently `confighub/helm-expt`. |
-| Fast install | Current focus | `cub install` uses verified catalog content and ConfigHub's OCI endpoint to create/publish install artifacts that existing delivery tools can consume. |
+| Fast install | Current focus | `cub installer` uses verified catalog content and ConfigHub's OCI endpoint to create/publish install artifacts that existing delivery tools can consume. |
 | Managed variants | Current focus | ConfigHub Server stores and governs recipes, variants, variant revisions, receipts, approvals, scans, gates, and operation history. |
-| Pure serverless `cub install` | Deferred option | A future/no-commitment path where the full install chain runs client-side without ConfigHub Server. Track as an issue; do not execute it in this proof. |
+| Pure serverless `cub installer` | Deferred option | A future/no-commitment path where the full install chain runs client-side without ConfigHub Server. Track as an issue; do not execute it in this proof. |
 
 This keeps the demo honest:
 
@@ -190,7 +190,7 @@ Immediate execution order:
 4. **Scale to 20 full public-chart proofs**:
    [#25](https://github.com/confighub/helm-expt/issues/25).
    The target is not a spreadsheet plus selected deep dives. It is 20 full
-   recipe/variant/revision proof slices with `cub install` package/setup,
+   recipe/variant/revision proof slices with `cub installer` package/setup,
    Helm equivalence, scans, gates, and receipts.
 
 Current execution status:
@@ -231,26 +231,26 @@ live in [top20-full-proof-target.md](top20-full-proof-target.md).
 The first such promotion is metrics-server. It adds the repeatable pattern for a
 small but non-trivial public chart: source/dependency locks, two variants,
 target Secret facts, APIService and cluster RBAC gates, Helm equivalence
-receipts, and deterministic `cub install` package/setup proof.
+receipts, and deterministic `cub installer` package/setup proof.
 
 The second such promotion is ingress-nginx. It adds the repeatable pattern for
 an admission-webhook chart: source/dependency locks, `default` and
 `admission-disabled` variants, admission webhook and Helm hook lifecycle gates,
 cluster RBAC gates, Helm equivalence receipts, and deterministic
-`cub install` package/setup proof.
+`cub installer` package/setup proof.
 
 The third such promotion is cert-manager. It adds the repeatable pattern for a
 CRD-heavy control-plane chart: source/dependency locks, `default` and
 `crds-enabled` variants, CRD lifecycle and upgrade gates, admission webhook
 observation gates, Helm startup hook lifecycle gates, cluster RBAC gates, Helm
-equivalence receipts, and deterministic `cub install` package/setup proof.
+equivalence receipts, and deterministic `cub installer` package/setup proof.
 
 The fourth such promotion is external-secrets. It adds the repeatable pattern
 for a CRD-heavy controller chart with a disabled dependency and separated
 webhook Secret: source/dependency locks, `default` and `no-crds` variants,
 capability profile gates, CRD lifecycle and upgrade gates, admission webhook
 observation gates, webhook Secret/cert-controller observation, cluster RBAC
-gates, Helm equivalence receipts, and deterministic `cub install`
+gates, Helm equivalence receipts, and deterministic `cub installer`
 package/setup proof.
 
 The fifth such promotion is Argo CD. It adds the repeatable pattern for a
@@ -258,14 +258,14 @@ GitOps controller chart: source/dependency locks, `default` and `no-crds`
 variants, capability profile gates, CRD lifecycle and upgrade gates, Helm hook
 lifecycle gates, generated Secret ownership gates, StatefulSet policy, GitOps
 handoff policy, cluster RBAC gates, Helm equivalence receipts, and
-deterministic `cub install` package/setup proof.
+deterministic `cub installer` package/setup proof.
 
 The sixth such promotion is PostgreSQL. It adds the repeatable pattern for a
 nondeterministic generated-credential chart: source/dependency locks,
 `generated-passwords` and `existing-secret` variants, generated fact binding,
 target fact binding, Helm hook lifecycle gates, StatefulSet/PVC policy, `tpl`
 extension-slot review, Helm equivalence receipts, and deterministic
-`cub install` package/setup proof.
+`cub installer` package/setup proof.
 
 The seventh such promotion is RabbitMQ. It adds the repeatable pattern for a
 stateful generated-credential chart with RabbitMQ-specific clustering material:
@@ -273,7 +273,7 @@ source/dependency locks, `generated-passwords` and `existing-secret` variants,
 generated fact binding for password and Erlang cookie, target fact binding for
 both external Secrets, StatefulSet/PVC policy, clustering policy, `tpl`/raw
 extension-slot review, Helm equivalence receipts, and deterministic
-`cub install` package/setup proof.
+`cub installer` package/setup proof.
 
 The eighth such promotion is kube-prometheus-stack. It adds the repeatable
 pattern for a large umbrella monitoring stack: source/dependency locks,
@@ -281,7 +281,7 @@ pattern for a large umbrella monitoring stack: source/dependency locks,
 password, 10 Prometheus Operator CRDs, admission webhook observation gates,
 cluster RBAC gates, dashboard ConfigMap normalization, `tpl`/raw monitoring
 extension-slot review, Helm equivalence receipts, and deterministic
-`cub install` package/setup proof.
+`cub installer` package/setup proof.
 
 The ninth such promotion is Loki. It adds the repeatable pattern for a chart
 whose default path is blocked before render: source/dependency locks,
@@ -289,14 +289,14 @@ whose default path is blocked before render: source/dependency locks,
 storage/schema binding, bundled MinIO object-store fixture, cluster RBAC gates,
 StatefulSet/PVC policy, classified Loki ConfigMap normalization, `tpl`/raw
 extension-slot review, Helm equivalence receipts, and deterministic
-`cub install` package/setup proof.
+`cub installer` package/setup proof.
 
 The tenth such promotion is Longhorn. It adds the repeatable pattern for a
 storage control-plane chart: source/dependency locks, `default` and
 `ui-ingress` variants, 22 Longhorn CRDs, pre-upgrade hook policy,
 admission/recovery observation, cluster RBAC gates, privileged storage workload
 policy, StorageClass/default-setting policy, UI ingress policy, Helm
-equivalence receipts, and deterministic `cub install` package/setup proof.
+equivalence receipts, and deterministic `cub installer` package/setup proof.
 
 The eleventh such promotion is MySQL. It adds the repeatable pattern for
 another stateful generated-credential chart: source/dependency locks,
@@ -304,14 +304,14 @@ another stateful generated-credential chart: source/dependency locks,
 for root/user/replication passwords, target fact binding for external Secret,
 StatefulSet/PVC policy, hook lifecycle policy, `tpl`/configuration
 extension-slot review, Helm equivalence receipts, and deterministic
-`cub install` package/setup proof.
+`cub installer` package/setup proof.
 
 The twelfth such promotion is Grafana. It adds the repeatable pattern for a
 dashboard/control-plane app chart with a deprecated upstream chart marker:
 source/dependency locks, `generated-passwords` and `existing-secret-ingress`
 variants, generated admin password binding, target Secret binding, UI ingress
 policy, RBAC review, provisioning/dashboard/plugin/sidecar extension-slot
-review, Helm equivalence receipts, and deterministic `cub install`
+review, Helm equivalence receipts, and deterministic `cub installer`
 package/setup proof.
 
 The thirteenth such promotion is Vault. It adds the repeatable pattern for a
@@ -320,7 +320,7 @@ security-sensitive stateful control-plane chart: source/dependency locks,
 webhook review, Vault StatefulSet storage and HA Raft policy, init/unseal
 operate-policy gates, service exposure review, RBAC review, Secret/env
 extension-slot review, Helm equivalence receipts, and deterministic
-`cub install` package/setup proof.
+`cub installer` package/setup proof.
 
 The fourteenth such promotion is Secrets Store CSI Driver. It adds the
 repeatable pattern for a node-level CSI driver chart: source/dependency locks,
@@ -328,21 +328,21 @@ repeatable pattern for a node-level CSI driver chart: source/dependency locks,
 lifecycle, CSIDriver kubelet integration, Linux DaemonSet and hostPath policy,
 cluster RBAC review, synced Secret ownership, rotation/provider-health policy,
 provider identity integration gates, Helm equivalence receipts, and
-deterministic `cub install` package/setup proof.
+deterministic `cub installer` package/setup proof.
 
 The fifteenth such promotion is Prometheus. It adds the repeatable pattern for
 a bundled monitoring stack chart: source/dependency locks, `default` and
 `server-only-ephemeral` variants, Alertmanager/exporter/pushgateway component
 selection, Prometheus scrape ConfigMap review, server PVC/storage retention
 policy, cluster RBAC review, remote read/write and exposure extension slots,
-Helm equivalence receipts, and deterministic `cub install` package/setup proof.
+Helm equivalence receipts, and deterministic `cub installer` package/setup proof.
 
 The sixteenth such promotion is MongoDB. It adds the repeatable pattern for a
 stateful database chart with topology variants: source/dependency locks,
 `generated-passwords` and `existing-secret-replicaset` variants, generated root
 password binding, target Secret binding, replica-set and arbiter StatefulSets,
 persistent storage, NetworkPolicy/PDB policy, Helm hook lifecycle review, `tpl`
-configuration slots, Helm equivalence receipts, and deterministic `cub install`
+configuration slots, Helm equivalence receipts, and deterministic `cub installer`
 package/setup proof.
 
 The seventeenth such promotion is Nginx. It adds the repeatable pattern for a
@@ -351,7 +351,7 @@ dependency locks, `http-clusterip` and `existing-tls-ingress` variants,
 self-signed TLS generation made explicit, declared backend and ingress TLS
 target Secrets, ingress exposure, NetworkPolicy/PDB policy, static-site
 supply-chain slots, metrics add-ons, raw/template extension-slot review, Helm
-equivalence receipts, and deterministic `cub install` package/setup proof.
+equivalence receipts, and deterministic `cub installer` package/setup proof.
 
 The eighteenth such promotion is Tempo. It adds the repeatable pattern for a
 deprecated-but-still-public observability chart: source and empty dependency
@@ -360,7 +360,7 @@ S3 storage backend policy, target Secret binding for S3 credentials, query
 ingress policy, ServiceMonitor target capability, NetworkPolicy review,
 StatefulSet/headless-Service runtime risk, chart deprecation review,
 raw/template extension-slot review, Helm equivalence receipts, and
-deterministic `cub install` package/setup proof.
+deterministic `cub installer` package/setup proof.
 
 The nineteenth such promotion is Consul, completing the 20-chart milestone. It
 adds the repeatable pattern for a service-mesh/control-plane chart: source and
@@ -369,7 +369,7 @@ empty dependency locks, `default-control-plane` and
 injector admission webhooks, TLS/ACL/gossip target Secret binding, gateway
 topology, UI ingress, lifecycle Job policy, rendered Secret ownership,
 StatefulSet/storage policy, raw/template extension-slot review, Helm
-equivalence receipts, and deterministic `cub install` package/setup proof.
+equivalence receipts, and deterministic `cub installer` package/setup proof.
 
 ## Installer Boundary
 
@@ -432,7 +432,7 @@ Third screen: Raw receipts.
 It must be both human-readable and machine-executable enough to drive:
 
 - a future chart-analysis UX
-- `cub install plan ...`
+- `cub installer plan ...`
 - repo scripts and CI checks
 - ConfigHub GUI/porcelain journeys
 - AI/council instructions
@@ -450,7 +450,7 @@ Canonical journey stages:
 | Variant catalog | Define bounded install shapes. | `Variant` records |
 | Render context selection | Bind values, overlays, facts, capability profile, phase. | render context receipt |
 | Variant revision render | Produce exact rendered object set. | `VariantRevision`, render receipt |
-| Helm equivalence check | Compare regular Helm output to `cub install` output. | equivalence receipt |
+| Helm equivalence check | Compare regular Helm output to `cub installer` output. | equivalence receipt |
 | Output correctness checks | Validate schema, graph, intent, policies, scans. | scan/check receipts |
 | Install gate | Decide whether exact revision can apply. | `InstallGate` |
 | ConfigHub upload | Store Units, attributes, labels, receipts. | upload/operation receipt |
@@ -531,7 +531,7 @@ recipe variant targetFacts.requiredSecrets
   -> matching installer package base externalRequires
   -> package collector records targetFacts into out/spec/facts.yaml
   -> installer package receipt records targetFactMode/targetFactsBound
-  -> npm run installer:target-facts:verify runs cub install setup and checks facts
+  -> npm run installer:target-facts:verify runs cub installer setup and checks facts
 ```
 
 This applies to every current chart variant that declares target facts, not just
@@ -570,7 +570,7 @@ pain points.
 
 | Repo / system | Role |
 | --- | --- |
-| `confighub/installer` | Implementation substrate for `cub install`: packages, `installer.yaml`, Kustomize bases/components, inputs, selection, facts, function chains, validators, dependency locks, OCI artifacts, sign/verify, render/upload/day-2 lifecycle. |
+| `confighub/installer` | Implementation substrate for `cub installer`: packages, `installer.yaml`, Kustomize bases/components, inputs, selection, facts, function chains, validators, dependency locks, OCI artifacts, sign/verify, render/upload/day-2 lifecycle. |
 | `confighub/helm-expt` | Current public GitHub catalog/proof surface: Redis end-to-end proof, top-500 control-point matrix, example schemas, HelmPlans, dossiers, receipts, rendered objects, scan/gate examples, and reproducible scripts. |
 | ConfigHub Server | Workerless system of record for recipes, variants, variant revisions, target assignments, desired state, operation records, receipts, approvals, initiatives, scan/gate result aggregation, and the OCI endpoint used by the fast install path. |
 | `cub-scout` / external observers | Live observation receipts with observer, method, timestamp, result, and freshness. |
@@ -602,11 +602,11 @@ No step should require a hand-maintained spreadsheet, a Slack instruction, or
 an undocumented CI script.
 
 This is the target execution contract. The current executable installer CLI
-includes real subcommands such as `cub install setup`, `cub install upload`,
-`cub install plan`, `cub install package`, `cub install push`,
-`cub install pull`, `cub install doc`, `cub install render`,
-`cub install wizard`, `cub install vet`, and `cub install verify`. Shorter
-phrases such as `cub install redis`, `cub diff redis`, `cub publish redis`,
+includes real subcommands such as `cub installer setup`, `cub installer upload`,
+`cub installer plan`, `cub installer package`, `cub installer push`,
+`cub installer pull`, `cub installer doc`, `cub installer render`,
+`cub installer wizard`, `cub installer vet`, and `cub installer verify`. Shorter
+phrases such as `cub installer redis`, `cub diff redis`, `cub publish redis`,
 and `cub variant redis ha` are candidate future porcelain verbs only until
 those commands exist. If the short UX is needed, propose those verbs
 deliberately as Cub plugins/extensions; do not write them as current executable
@@ -618,7 +618,7 @@ into a downstream space, stamps the `Variant` label, can set environment,
 region, target, space metadata, and unit gates, and preserves links to the
 upstream units. This is the post-upload/server-side variant layer.
 
-We expect users of `cub install` recipes to use ConfigHub server-side variants
+We expect users of `cub installer` recipes to use ConfigHub server-side variants
 when that is simpler and safer than making another package base. The decision
 rule is:
 
@@ -721,7 +721,7 @@ back to the recipe/package base path instead of hiding a rerender inside a
 post-render variant.
 
 The upstream installer docs usually show the standalone binary name
-`installer`. In this repo, those commands are written as `cub install ...`
+`installer`. In this repo, those commands are written as `cub installer ...`
 because the installer is used through the Cub plugin.
 The important rule is that every durable input, decision, output, and
 observation is produced by one of the supported surfaces and leaves a receipt
@@ -732,7 +732,7 @@ or settling for prose:
 
 | Capability lane | Existing surface to use now |
 | --- | --- |
-| Installer proof | `cub install doc/setup/render/package/push/sign/verify/vet/plan/upload/inspect/list` |
+| Installer proof | `cub installer doc/setup/render/package/push/sign/verify/vet/plan/upload/inspect/list` |
 | Server-side variants | `cub variant create` |
 | Review and diff | `cub unit diff`, `cub revision data/list`, `cub unit data/tree/list` |
 | Safe operations | `cub changeset create/list/update`, `cub unit approve/apply/destroy/cancel` |
@@ -742,9 +742,9 @@ or settling for prose:
 | Metadata model | `cub tag`, `cub attribute`, `cub filter`, `cub view`, `cub link` |
 
 Missing product verbs should be requested deliberately, not smuggled into docs
-as if they already exist. The current asks are `cub install import helm`,
-`cub install analyze`, implemented `cub install preflight`,
-`cub install compare/prove`, `cub install scan`,
+as if they already exist. The current asks are `cub installer import helm`,
+`cub installer analyze`, implemented `cub installer preflight`,
+`cub installer compare/prove`, `cub installer scan`,
 `cub variant list/diff/promote/update`, `cub observe` or
 `cub target observe`, and `cub catalog search/show/install`.
 
@@ -789,13 +789,13 @@ publish to ConfigHub OCI for GitOps pickup
 The current executable Redis proof uses the real installer surface:
 
 ```sh
-cub install setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir <work> --non-interactive --namespace redis
-cub install setup --pull packages/bitnami/redis/25.5.3 --base reuse-existing-secret --work-dir <work> --non-interactive --namespace redis
-cub install package packages/bitnami/redis/25.5.3 -o <tmp>/bitnami-redis-25.5.3.tgz
+cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir <work> --non-interactive --namespace redis
+cub installer setup --pull packages/bitnami/redis/25.5.3 --base reuse-existing-secret --work-dir <work> --non-interactive --namespace redis
+cub installer package packages/bitnami/redis/25.5.3 -o <tmp>/bitnami-redis-25.5.3.tgz
 ```
 
 Shorter porcelain may be proposed later, but current executable docs must use
-real `cub install` commands until those verbs exist.
+real `cub installer` commands until those verbs exist.
 
 The hidden work should be automatic:
 
@@ -904,7 +904,7 @@ but with more ceremony":
    submitted receipts. It does not imply fresh live state without a current
    observation receipt.
 12. **Prove Helm equivalence first.** For every Helm-derived proof, compare
-    regular Helm output to `cub install` output and classify every difference.
+    regular Helm output to `cub installer` output and classify every difference.
 
 ## First-Two-Problems Coverage
 
@@ -919,7 +919,7 @@ show:
 
 - exact rendered Kubernetes objects, not just values files
 - dead or ignored values detected where possible
-- regular Helm output compared to `cub install` output
+- regular Helm output compared to `cub installer` output
 - source/dependency locks and importer receipts
 - explicit handling for generated facts, recipe-declared target fact
   requirements, bound target fact values, capabilities, hooks, CRDs, Secrets,
@@ -1230,7 +1230,7 @@ Spreadsheet quality rules:
 ## Complete Chart Analysis
 
 A complete chart analysis should be easy for a user to request, but the current
-`cub install` plugin does not have a chart-analysis command. Until it does, the
+`cub installer` plugin does not have a chart-analysis command. Until it does, the
 executable proof should use repo scripts and real installer subcommands, then
 produce the same human-readable explanation plus machine-readable artifacts. To
 make that possible, keep richer internal representations than the spreadsheet
@@ -1405,23 +1405,23 @@ changed content.
 ## Legacy Reference Redis Demo
 
 `docs/old-cub-helm-model.md` retains a legacy reference script that uses real
-`cub install` commands from `confighub/installer`, not target command names.
+`cub installer` commands from `confighub/installer`, not target command names.
 
 This path is retained for reference only:
 
 ```sh
 go install sigs.k8s.io/kustomize/kustomize/v5@v5.8.1
 export PATH="$PATH:$(go env GOPATH)/bin"
-cub plugin install confighub/installer --source-repo --name install --force
-make -C ~/.confighub/plugins/install build
-cub install doc ./packages/bitnami/redis/25.5.3
-cub install setup \
+cub plugin install confighub/installer --source-repo --name installer --force
+make -C ~/.confighub/plugins/installer build
+cub installer doc ./packages/bitnami/redis/25.5.3
+cub installer setup \
   --pull ./packages/bitnami/redis/25.5.3 \
   --work-dir /tmp/confighub-helm-redis \
   --non-interactive \
   --namespace redis
 npm run redis:compare
-cub install upload \
+cub installer upload \
   --work-dir /tmp/confighub-helm-redis \
   --space helm-redis-proof \
   --component Redis \
@@ -1429,13 +1429,13 @@ cub install upload \
   --variant default
 ```
 
-This demo proves the current Redis `cub install` compatibility path:
+This demo proves the current Redis `cub installer` compatibility path:
 
 ```text
 Helm render
   -> Redis installer package
   -> installer.yaml package
-  -> cub install setup
+  -> cub installer setup
   -> exact rendered Kubernetes objects
   -> ConfigHub package/OCI publication path
   -> ConfigHub Units, revisions, and diffs
@@ -1457,11 +1457,11 @@ Known-good deterministic cases must prove:
 
 - Regular Helm renders from captured inputs.
 - The Helm render matches the recorded import receipt.
-- `cub install setup` preserves every Helm object.
+- `cub installer setup` preserves every Helm object.
 - Any installer normalization is semantic-only, not object-changing.
 - Secret handling is explicit and verified.
 - Installer-added support objects are listed and justified.
-- After `cub install upload`, ConfigHub Units match the local installer output.
+- After `cub installer upload`, ConfigHub Units match the local installer output.
 
 Other paths must not be waved through. They need a diff/risk classification:
 
@@ -1485,7 +1485,7 @@ several checks rather than treated as one vague claim:
 | Correctness layer | Question | Check |
 | --- | --- | --- |
 | Source correctness | Did we render the intended chart bytes and dependency closure? | source lock, dependency lock, digest verification |
-| Helm equivalence | Did `cub install` preserve regular Helm output? | object inventory comparison and semantic YAML diff |
+| Helm equivalence | Did `cub installer` preserve regular Helm output? | object inventory comparison and semantic YAML diff |
 | Variant intent | Did the chosen values, facts, overlays, and policies produce the intended fields? | values validation, dead-key checks, field provenance, variant diff |
 | Kubernetes validity | Are the rendered objects valid for the selected API profile? | kubeconform/schema validation, CRD schema sources, capability profile |
 | Object graph | Do references resolve within the set or to declared external facts? | ConfigHub links, Secret/PVC/ServiceAccount/IngressClass/RBAC graph checks |

@@ -3,7 +3,7 @@
 # ingress-nginx/ingress-nginx 4.15.1 Weirdness And Mitigations
 
 This note records the Helm pain surfaced during catalog review and where the
-current ConfigHub/cub install proof absorbs it.
+current ConfigHub/cub installer proof absorbs it.
 
 ## Support Boundary
 
@@ -28,7 +28,7 @@ or operating-policy dispositions.
 
 ## Catalog Mitigations
 
-- Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.
+- Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
 - default preserves the normal ingress-nginx admission-webhook install shape.
 - admission-disabled is supported as the simpler webhook-free variant.
 - Production remains blocked until admission webhook lifecycle, cluster RBAC, and scan/gate findings have dispositions.

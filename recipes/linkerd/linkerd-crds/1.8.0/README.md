@@ -4,14 +4,14 @@ This is one of the next 80 public-chart full proofs.
 
 Variant:
 
-- `default`: chart defaults under Kubernetes 1.30.0; 8 Helm objects, 9 `cub install` objects including allowed support objects.
+- `default`: chart defaults under Kubernetes 1.30.0; 8 Helm objects, 9 `cub installer` objects including allowed support objects.
 
 What this proves:
 
-- regular Helm output is preserved by `cub install setup`;
+- regular Helm output is preserved by `cub installer setup`;
 - the rendered object set is digest-bound in the variant revision and receipts;
 - scan/gate findings are attached to the exact rendered object digest;
-- the installer package bundles deterministically with `cub install package`.
+- the installer package bundles deterministically with `cub installer package`.
 
 Current gate:
 

@@ -78,7 +78,7 @@ spec:
         default: true
         description: "kyverno/kyverno-policies default variant rendered from kyverno/kyverno-policies@3.8.0"
       setupCheck:
-        command: "cub install setup --pull packages/kyverno/kyverno-policies/3.8.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/kyverno/kyverno-policies/3.8.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 11
         cubInstallObjectCountIncludingSupport: 12
         semanticObjectMatches: "11/11"

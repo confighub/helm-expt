@@ -37,14 +37,14 @@ spec:
         sha256: "e7f71ad9302647941a736a44f048f3271ebd9d5a7daaff3e1c4ad2700b5b7219"
         bytes: 436
   deterministicBundle:
-    command: "cub install package packages/argo-cd/argo-cd/9.5.15 -o <tmp>/argo-cd-9.5.15.tgz"
+    command: "cub installer package packages/argo-cd/argo-cd/9.5.15 -o <tmp>/argo-cd-9.5.15.tgz"
     sha256: "81ed5b2990f073077db412185261c8db639bb8bd73b27764a6a5d8db870ff559"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/argo-cd/argo-cd/9.5.15 --base default --work-dir <tmp> --non-interactive --namespace argocd"
+      command: "cub installer setup --pull packages/argo-cd/argo-cd/9.5.15 --base default --work-dir <tmp> --non-interactive --namespace argocd"
       helmReleaseObjectCount: 49
       cubInstallObjectCountIncludingSupport: 50
       semanticObjectMatches: "49/49"
@@ -54,7 +54,7 @@ spec:
     -
       variant: "no-crds"
       base: "no-crds"
-      command: "cub install setup --pull packages/argo-cd/argo-cd/9.5.15 --base no-crds --work-dir <tmp> --non-interactive --namespace argocd"
+      command: "cub installer setup --pull packages/argo-cd/argo-cd/9.5.15 --base no-crds --work-dir <tmp> --non-interactive --namespace argocd"
       helmReleaseObjectCount: 46
       cubInstallObjectCountIncludingSupport: 47
       semanticObjectMatches: "46/46"

@@ -116,8 +116,8 @@ function runChart(chart) {
   rmSync(workDir, { recursive: true, force: true });
   if (cleanupSpaces) deleteProofSpaces({ space, stagingSpace, logRoot, name: "00-space-cleanup-pre" });
 
-  const docRun = run("cub", ["install", "doc", chart.packagePath, "--json"], { logRoot, name: "01-install-doc" });
-  check(docRun.status === 0, `${chart.slug} cub install doc failed`);
+  const docRun = run("cub", ["installer", "doc", chart.packagePath, "--json"], { logRoot, name: "01-install-doc" });
+  check(docRun.status === 0, `${chart.slug} cub installer doc failed`);
   const doc = JSON.parse(docRun.stdout);
   const docBases = doc.spec?.bases ?? [];
   check(docBases.some((base) => base.name === defaultBase), `${chart.slug} doc does not expose default base`);
@@ -136,11 +136,11 @@ function runChart(chart) {
     chart.namespace,
   ];
   const setupRun = run("cub", setupArgs, { logRoot, name: "02-install-setup" });
-  check(setupRun.status === 0, `${chart.slug} cub install setup failed`);
+  check(setupRun.status === 0, `${chart.slug} cub installer setup failed`);
 
-  const renderArgs = ["install", "render", "--work-dir", relativeRepo(workDir)];
+  const renderArgs = ["installer", "render", "--work-dir", relativeRepo(workDir)];
   const renderRun = run("cub", renderArgs, { logRoot, name: "03-install-render" });
-  check(renderRun.status === 0, `${chart.slug} cub install render failed`);
+  check(renderRun.status === 0, `${chart.slug} cub installer render failed`);
 
   const manifestObjects = renderedObjects(join(workDir, "out", "manifests"));
   const separatedSecrets = renderedObjects(join(workDir, "out", "secrets"));
@@ -148,23 +148,23 @@ function runChart(chart) {
 
   const packageA = join(archiveRoot, `${chart.slug}-a.tgz`);
   const packageB = join(archiveRoot, `${chart.slug}-b.tgz`);
-  const packageArgsA = ["install", "package", chart.packagePath, "-o", relativeRepo(packageA)];
-  const packageArgsB = ["install", "package", chart.packagePath, "-o", relativeRepo(packageB)];
+  const packageArgsA = ["installer", "package", chart.packagePath, "-o", relativeRepo(packageA)];
+  const packageArgsB = ["installer", "package", chart.packagePath, "-o", relativeRepo(packageB)];
   const packageRunA = run("cub", packageArgsA, { logRoot, name: "04-install-package-a" });
-  check(packageRunA.status === 0, `${chart.slug} first cub install package failed`);
+  check(packageRunA.status === 0, `${chart.slug} first cub installer package failed`);
   const packageRunB = run("cub", packageArgsB, { logRoot, name: "05-install-package-b" });
-  check(packageRunB.status === 0, `${chart.slug} second cub install package failed`);
+  check(packageRunB.status === 0, `${chart.slug} second cub installer package failed`);
   const packageShaA = sha256File(packageA);
   const packageShaB = sha256File(packageB);
   check(packageShaA === packageShaB, `${chart.slug} package archives are not byte-identical`);
 
-  const vetRun = run("cub", ["install", "vet", "--work-dir", relativeRepo(workDir)], {
+  const vetRun = run("cub", ["installer", "vet", "--work-dir", relativeRepo(workDir)], {
     logRoot,
     name: "06-install-vet",
   });
-  check(vetRun.status === 0, `${chart.slug} cub install vet failed`);
+  check(vetRun.status === 0, `${chart.slug} cub installer vet failed`);
 
-  const prePlanRun = run("cub", ["install", "plan", "--work-dir", relativeRepo(workDir)], {
+  const prePlanRun = run("cub", ["installer", "plan", "--work-dir", relativeRepo(workDir)], {
     logRoot,
     name: "07-install-plan-pre-upload",
     allowFailure: true,
@@ -200,13 +200,13 @@ function runChart(chart) {
     "--retry",
   ];
   const uploadRun = run("cub", uploadArgs, { logRoot, name: "08-install-upload" });
-  check(uploadRun.status === 0, `${chart.slug} cub install upload failed`);
+  check(uploadRun.status === 0, `${chart.slug} cub installer upload failed`);
 
-  const postPlanRun = run("cub", ["install", "plan", "--work-dir", relativeRepo(workDir)], {
+  const postPlanRun = run("cub", ["installer", "plan", "--work-dir", relativeRepo(workDir)], {
     logRoot,
     name: "09-install-plan-post-upload",
   });
-  check(postPlanRun.status === 0, `${chart.slug} post-upload cub install plan failed`);
+  check(postPlanRun.status === 0, `${chart.slug} post-upload cub installer plan failed`);
 
   const variantRun = run(
     "cub",
@@ -305,7 +305,7 @@ function runChart(chart) {
         byteIdenticalAcrossTwoLocalBundles: true,
       },
       vet: {
-        command: "cub install vet --work-dir " + relativeRepo(workDir),
+        command: "cub installer vet --work-dir " + relativeRepo(workDir),
         result: "pass",
         note: vetRun.stdout.trim() || "completed",
       },
@@ -321,10 +321,10 @@ function runChart(chart) {
       },
       plan: {
         preUpload: {
-          command: "cub install plan --work-dir " + relativeRepo(workDir),
+          command: "cub installer plan --work-dir " + relativeRepo(workDir),
           result: prePlanRun.status === 0 ? "pass" : "expected-missing-upload-state",
         },
-        command: "cub install plan --work-dir " + relativeRepo(workDir),
+        command: "cub installer plan --work-dir " + relativeRepo(workDir),
         result: "pass",
         summary: shortSummary(postPlanRun.stdout),
       },
@@ -737,9 +737,9 @@ function runContext() {
 }
 
 function observedFriction({ separatedSecrets, prePlanRun }) {
-  const friction = [`cub install upload needs explicit CUB_CONFIG in this local setup (${cubConfig}).`];
+  const friction = [`cub installer upload needs explicit CUB_CONFIG in this local setup (${cubConfig}).`];
   if (prePlanRun.status !== 0) {
-    friction.push("pre-upload cub install plan is expected to fail until upload state exists.");
+    friction.push("pre-upload cub installer plan is expected to fail until upload state exists.");
   }
   if (separatedSecrets.length > 0) {
     friction.push("rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band.");
@@ -786,7 +786,7 @@ function writeDemoDocs({ chart, bases, defaultBase, receipt, functionReceipt, sa
 ## Purpose
 
 This proof lane shows the current ConfigHub path for \`${chart.chart}@${chart.chartVersion}\`
-using real commands only: \`cub install\`, \`cub variant\`, \`cub unit\`,
+using real commands only: \`cub installer\`, \`cub variant\`, \`cub unit\`,
 \`cub function\`, and \`cub changeset\`.
 
 The selected happy-path install variant is \`${defaultBase}\`.
@@ -829,12 +829,12 @@ runs/${chart.slug}-confighub-proof/latest/safe-ops-receipt.yaml
 ## Commands
 
 \`\`\`sh
-${receipt.spec.package.path && `cub install doc ${chart.packagePath} --json`}
+${receipt.spec.package.path && `cub installer doc ${chart.packagePath} --json`}
 ${receipt.spec.render.command}
-cub install render --work-dir .tmp/confighub-proof/${chart.slug}-${defaultBase}
+cub installer render --work-dir .tmp/confighub-proof/${chart.slug}-${defaultBase}
 ${receipt.spec.deterministicPackage.command}
 ${receipt.spec.upload.command}
-cub install plan --work-dir .tmp/confighub-proof/${chart.slug}-${defaultBase}
+cub installer plan --work-dir .tmp/confighub-proof/${chart.slug}-${defaultBase}
 ${receipt.spec.serverSideVariant.command}
 cub unit list --space ${receipt.spec.upload.space} --where "Labels.Proof = '${chart.slug}-confighub-proof'"
 cub function vet vet-format --space ${receipt.spec.upload.space} --where "Labels.Proof = '${chart.slug}-confighub-proof'"

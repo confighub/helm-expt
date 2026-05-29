@@ -23,27 +23,27 @@ spec:
     targetFactRequirements:
       []
   render:
-    command: "cub install setup --pull packages/hashicorp/vault/0.32.0 --base default --work-dir .tmp/confighub-proof/vault-default --non-interactive --namespace vault"
+    command: "cub installer setup --pull packages/hashicorp/vault/0.32.0 --base default --work-dir .tmp/confighub-proof/vault-default --non-interactive --namespace vault"
     result: "pass"
     manifestCount: 13
     separatedSecretCount: 0
     facts:
       {}
   rerender:
-    command: "cub install render --work-dir .tmp/confighub-proof/vault-default"
+    command: "cub installer render --work-dir .tmp/confighub-proof/vault-default"
     result: "pass"
     manifestCount: 13
     separatedSecretCount: 0
   deterministicPackage:
-    command: "cub install package packages/hashicorp/vault/0.32.0 -o .tmp/confighub-proof/vault-archives/vault-a.tgz"
+    command: "cub installer package packages/hashicorp/vault/0.32.0 -o .tmp/confighub-proof/vault-archives/vault-a.tgz"
     sha256: "a942c0f6db2bc98fcbd9c4dbabb194f037828a99e967fd74dc16ec97d498cc93"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
-    command: "cub install vet --work-dir .tmp/confighub-proof/vault-default"
+    command: "cub installer vet --work-dir .tmp/confighub-proof/vault-default"
     result: "pass"
     note: "Package declares no validators (spec.validators is empty)."
   upload:
-    command: "cub install upload --work-dir .tmp/confighub-proof/vault-default --space helm-vault-confighub-proof --component Vault --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=Vault --unit-label HelmChart=hashicorp-vault --unit-label HelmChartVersion=0.32.0 --unit-label Variant=default --unit-label Proof=vault-confighub-proof --retry"
+    command: "cub installer upload --work-dir .tmp/confighub-proof/vault-default --space helm-vault-confighub-proof --component Vault --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=Vault --unit-label HelmChart=hashicorp-vault --unit-label HelmChartVersion=0.32.0 --unit-label Variant=default --unit-label Proof=vault-confighub-proof --retry"
     result: "pass"
     workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
     space: "helm-vault-confighub-proof"
@@ -54,9 +54,9 @@ spec:
       []
   plan:
     preUpload:
-      command: "cub install plan --work-dir .tmp/confighub-proof/vault-default"
+      command: "cub installer plan --work-dir .tmp/confighub-proof/vault-default"
       result: "expected-missing-upload-state"
-    command: "cub install plan --work-dir .tmp/confighub-proof/vault-default"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/vault-default"
     result: "pass"
     summary: "No changes.\nImages in helm-vault-confighub-proof (post-render):\n      Deployment/vault-agent-injector [sidecar-injector] hashicorp/vault-k8s:1.7.2\n      StatefulSet/vault [vault] hashicorp/vault:1.21.2"
   serverSideVariant:
@@ -78,6 +78,6 @@ spec:
       - "helm-vault-confighub-proof"
       - "helm-vault-confighub-proof-staging"
   observedFriction:
-    - "cub install upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
-    - "pre-upload cub install plan is expected to fail until upload state exists."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

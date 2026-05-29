@@ -82,7 +82,7 @@ spec:
         default: true
         description: "haproxytech/kubernetes-ingress default variant rendered from haproxytech/kubernetes-ingress@1.52.0"
       setupCheck:
-        command: "cub install setup --pull packages/haproxytech/kubernetes-ingress/1.52.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/haproxytech/kubernetes-ingress/1.52.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"

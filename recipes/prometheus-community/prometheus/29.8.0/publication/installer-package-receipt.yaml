@@ -37,14 +37,14 @@ spec:
         sha256: "94eb4c1d801b10b1be437d776b906f34fa5322a87bcb842f893a7f6707acde1b"
         bytes: 532
   deterministicBundle:
-    command: "cub install package packages/prometheus-community/prometheus/29.8.0 -o <tmp>/prometheus-29.8.0.tgz"
+    command: "cub installer package packages/prometheus-community/prometheus/29.8.0 -o <tmp>/prometheus-29.8.0.tgz"
     sha256: "6ca5329f1a665aab8e8cab7e5cfd7c9b5ceadef36942c320105f29d5b4950a68"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/prometheus-community/prometheus/29.8.0 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
+      command: "cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
       helmReleaseObjectCount: 23
       cubInstallObjectCountIncludingSupport: 24
       semanticObjectMatches: "23/23"
@@ -54,7 +54,7 @@ spec:
     -
       variant: "server-only-ephemeral"
       base: "server-only-ephemeral"
-      command: "cub install setup --pull packages/prometheus-community/prometheus/29.8.0 --base server-only-ephemeral --work-dir <tmp> --non-interactive --namespace monitoring"
+      command: "cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 --base server-only-ephemeral --work-dir <tmp> --non-interactive --namespace monitoring"
       helmReleaseObjectCount: 6
       cubInstallObjectCountIncludingSupport: 7
       semanticObjectMatches: "6/6"

@@ -39,7 +39,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 
 ## Variants
 
-| Variant | Variant file | Package base | Revision | Helm objects | cub install objects | Match | Helm equivalence | Scan | Gate | Target facts |
+| Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/runix/pgadmin4/1.62.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/runix/pgadmin4/1.62.0/bases/default](../../../../packages/runix/pgadmin4/1.62.0/bases/default) | [recipes/runix/pgadmin4/1.62.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 5 | 6 | 5/5 | pass | warn | warn | none |
 
@@ -61,10 +61,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 ## Current Install Shape
 
 ```sh
-cub install setup --pull packages/runix/pgadmin4/1.62.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull packages/runix/pgadmin4/1.62.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The proof path compares
-regular Helm output with real `cub install setup` output and explains every
+regular Helm output with real `cub installer setup` output and explains every
 intentional difference, such as the Namespace support object or separated
 Secrets.

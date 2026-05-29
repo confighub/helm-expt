@@ -29,14 +29,14 @@ spec:
         sha256: "9cf29c3fa6abf28e3793aba72618982ea79ff3b2dda551ea08093ae8c4f9d165"
         bytes: 294
   deterministicBundle:
-    command: "cub install package packages/kedacore/keda/2.19.0 -o <tmp>/kedacore-keda-2-19-0.tgz"
+    command: "cub installer package packages/kedacore/keda/2.19.0 -o <tmp>/kedacore-keda-2-19-0.tgz"
     sha256: "b0fd493d6e7c5155b08fb298a6213b0a3c5862451ab2723a92def9ae02d197d4"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/kedacore/keda/2.19.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/kedacore/keda/2.19.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 29
       cubInstallObjectCountIncludingSupport: 30
       semanticObjectMatches: "29/29"

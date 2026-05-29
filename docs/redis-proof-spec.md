@@ -5,7 +5,7 @@ creating `recipes/bitnami/redis/25.5.3/` artifacts.
 
 The purpose is not to prove the old top-20 archive. The old payload has been
 removed from the active tree. This proof renders Redis with regular Helm under
-pinned inputs, then verifies the current `cub install` package against that
+pinned inputs, then verifies the current `cub installer` package against that
 baseline.
 
 ## Product Claim
@@ -88,12 +88,12 @@ Chart: bitnami/redis 25.5.3
 Variants: default, reuse-existing-secret
 Status: usable with controls
 Helm objects: default 14; reuse-existing-secret 13
-ConfigHub/cub install objects: default 15; reuse-existing-secret 14
+ConfigHub/cub installer objects: default 15; reuse-existing-secret 14
 Explained difference: installer namespace support object
 Helm match: default 14/14; reuse-existing-secret 13/13 semantic object matches
 Secrets: default renders 1 Secret; reuse-existing-secret requires target Secret
 Scan/gate: exact rendered object digest bound; result explicit
-Installer package: deterministic cub install package with two bases
+Installer package: deterministic cub installer package with two bases
 Next action: publish via configured ConfigHub OCI, or direct apply only for local/test
 Proof: equivalence, render, scan/gate, package, upload/OCI receipts
 Variant diff: default -> reuse-existing-secret explains removed Secret, changed
@@ -161,7 +161,7 @@ which scopes are blocked. It must not imply a pass.
     - regular Helm render SHA256:
       `362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d`
     - regular Helm object count: `14`
-    - `cub install setup` object count including secrets/support objects: `15`
+    - `cub installer setup` object count including secrets/support objects: `15`
     - semantic object matches: `14/14`
     - allowed ConfigHub/cub-only object: `v1|Namespace||redis`
     - separated secret count: `1`
@@ -173,7 +173,7 @@ which scopes are blocked. It must not imply a pass.
     - `blocked`
 13b. The `reuse-existing-secret` equivalence receipt must prove:
     - regular Helm object count: `13`
-    - `cub install setup` object count including support objects: `14`
+    - `cub installer setup` object count including support objects: `14`
     - semantic object matches: `13/13`
     - separated secret count: `0`
     - target Secret requirement recorded separately from rendered output
@@ -189,17 +189,17 @@ which scopes are blocked. It must not imply a pass.
 
 13d. `packages/bitnami/redis/25.5.3/installer.yaml` must declare a real
      installer `Package` with bases `default` and `reuse-existing-secret`.
-13e. `cub install package packages/bitnami/redis/25.5.3` must produce
+13e. `cub installer package packages/bitnami/redis/25.5.3` must produce
      byte-identical `.tgz` files across two local runs.
-13f. `cub install setup --base default` must render the default variant and
+13f. `cub installer setup --base default` must render the default variant and
      match Helm semantically, with only the namespace support object added.
-13g. `cub install setup --base reuse-existing-secret` must render the
+13g. `cub installer setup --base reuse-existing-secret` must render the
      existing-secret variant and match Helm semantically, with only the
      namespace support object added.
 
 ### ConfigHub Upload And OCI
 
-13h. `cub install upload` must create one visible ConfigHub Space per current
+13h. `cub installer upload` must create one visible ConfigHub Space per current
      Redis variant in the configured demo org.
 13i. Each variant Space must contain 14 variant-labeled Kubernetes Units plus
      an `installer-record` Unit.
@@ -249,7 +249,7 @@ The Redis proof verifier must fail if:
 - scan/gate status is missing or falsely implies success;
 - any required file is absent.
 - the durable Redis installer package changes without receipt update;
-- `cub install package` stops being byte-deterministic;
+- `cub installer package` stops being byte-deterministic;
 - either package base stops matching the corresponding Helm-equivalent variant
   revision.
 

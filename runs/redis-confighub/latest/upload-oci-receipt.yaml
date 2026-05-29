@@ -14,7 +14,7 @@ spec:
     name: bitnami-redis
     version: "25.5.3"
   upload:
-    commandShape: "cub install setup --pull packages/bitnami/redis/25.5.3 --base <variant> --work-dir <tmp> --non-interactive --namespace redis && cub install upload --work-dir <tmp> --space <space>"
+    commandShape: "cub installer setup --pull packages/bitnami/redis/25.5.3 --base <variant> --work-dir <tmp> --non-interactive --namespace redis && cub installer upload --work-dir <tmp> --space <space>"
     nestedCubConfigWorkaround: "Temporary local wrapper set CUB_CONFIG=$HOME/.confighub/config.yaml for installer-spawned cub commands."
     spaces:
       - variant: default
@@ -26,10 +26,10 @@ spec:
         expectedExternalReferences:
           - unit: statefulset-redis-redis-master
             reference: v1/Secret redis/redis
-            reason: "Rendered Secret was separated by cub install and intentionally not uploaded."
+            reason: "Rendered Secret was separated by cub installer and intentionally not uploaded."
           - unit: statefulset-redis-redis-replicas
             reference: v1/Secret redis/redis
-            reason: "Rendered Secret was separated by cub install and intentionally not uploaded."
+            reason: "Rendered Secret was separated by cub installer and intentionally not uploaded."
       - variant: reuse-existing-secret
         space: helm-redis-reuse-existing-secret
         unitCount: 15
@@ -70,5 +70,5 @@ spec:
         layerCount: 1
         layerDigest: sha256:836ba1f2858ac562280d45bc2dab930d4519fd445c06c90c7614e10bdb586029
   knownIssues:
-    - issue: "cub install upload spawned nested cub with CUB_CONFIG pointing at ~/.confighub as a directory."
+    - issue: "cub installer upload spawned nested cub with CUB_CONFIG pointing at ~/.confighub as a directory."
       status: "worked around locally with .tmp/cub-wrapper/cub; should be fixed in confighub/installer or Cub plugin env handling."

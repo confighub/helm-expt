@@ -88,7 +88,7 @@ spec:
         default: true
         description: "Redis default variant rendered from bitnami/redis@25.5.3"
       setupCheck:
-        command: "cub install setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir <tmp> --non-interactive --namespace redis"
+        command: "cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir <tmp> --non-interactive --namespace redis"
         helmReleaseObjectCount: 14
         cubInstallObjectCountIncludingSupport: 15
         semanticObjectMatches: "14/14"
@@ -159,7 +159,7 @@ spec:
         default: false
         description: "Redis variant that uses an existing Secret target fact"
       setupCheck:
-        command: "cub install setup --pull packages/bitnami/redis/25.5.3 --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace redis"
+        command: "cub installer setup --pull packages/bitnami/redis/25.5.3 --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace redis"
         helmReleaseObjectCount: 13
         cubInstallObjectCountIncludingSupport: 14
         semanticObjectMatches: "13/13"

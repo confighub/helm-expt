@@ -92,7 +92,7 @@ write(
 
 This is the current executable Redis installer package proof.
 
-It contains two real \`cub install setup --base\` variants:
+It contains two real \`cub installer setup --base\` variants:
 
 - \`default\`
 - \`reuse-existing-secret\`, which declares the existing Redis Secret through
@@ -177,7 +177,7 @@ targetFactChecks:
   mode: "$check_mode"
   result: "$result"
   liveCheck:
-    command: "TARGET_FACT_CHECK_MODE=live cub install setup --pull packages/bitnami/redis/25.5.3 --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace redis"
+    command: "TARGET_FACT_CHECK_MODE=live cub installer setup --pull packages/bitnami/redis/25.5.3 --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace redis"
 YAML
 `,
 );
@@ -207,13 +207,13 @@ let ok = false;
 try {
   const firstPackage = join(tempRoot, "bitnami-redis-25.5.3-a.tgz");
   const secondPackage = join(tempRoot, "bitnami-redis-25.5.3-b.tgz");
-  runCub(["install", "package", packageRoot, "-o", firstPackage]);
-  runCub(["install", "package", packageRoot, "-o", secondPackage]);
+  runCub(["installer", "package", packageRoot, "-o", firstPackage]);
+  runCub(["installer", "package", packageRoot, "-o", secondPackage]);
   const firstSHA = sha256File(firstPackage);
   const secondSHA = sha256File(secondPackage);
   const byteIdentical = readFileSync(firstPackage).equals(readFileSync(secondPackage));
   if (!byteIdentical || firstSHA !== secondSHA) {
-    throw new Error("cub install package did not produce byte-identical bundles");
+    throw new Error("cub installer package did not produce byte-identical bundles");
   }
 
   mkdirSync(dirname(receiptPath), { recursive: true });
@@ -235,7 +235,7 @@ spec:
     sourceFiles:
 ${files.map((file) => `      - path: ${file.path}\n        sha256: ${file.sha256}\n        bytes: ${file.bytes}`).join("\n")}
   deterministicBundle:
-    command: "cub install package ${packageRelative} -o <tmp>/bitnami-redis-25.5.3.tgz"
+    command: "cub installer package ${packageRelative} -o <tmp>/bitnami-redis-25.5.3.tgz"
     sha256: ${firstSHA}
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
@@ -243,7 +243,7 @@ ${variants
   .map(
     (variant) => `    - variant: ${variant.name}
       base: ${variant.base}
-      command: "cub install setup --pull ${packageRelative} --base ${variant.base} --work-dir <tmp> --non-interactive --namespace redis"
+      command: "cub installer setup --pull ${packageRelative} --base ${variant.base} --work-dir <tmp> --non-interactive --namespace redis"
       helmReleaseObjectCount: ${variant.helmObjectCount}
       cubInstallObjectCountIncludingSupport: ${variant.cubObjectCount}
       semanticObjectMatches: ${variant.helmObjectCount}/${variant.helmObjectCount}

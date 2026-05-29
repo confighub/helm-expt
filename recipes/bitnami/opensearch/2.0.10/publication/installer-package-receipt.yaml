@@ -29,14 +29,14 @@ spec:
         sha256: "13aa14d9b3d4e61aef2681d601a53184be97113c9ae0ba734c3d30fe8fe0ef14"
         bytes: 309
   deterministicBundle:
-    command: "cub install package packages/bitnami/opensearch/2.0.10 -o <tmp>/bitnami-opensearch-2-0-10.tgz"
+    command: "cub installer package packages/bitnami/opensearch/2.0.10 -o <tmp>/bitnami-opensearch-2-0-10.tgz"
     sha256: "b2b1f3d2359d4ee073ad371c0f5fa8291a387c50142f0d5cebef9c29eab9b553"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/bitnami/opensearch/2.0.10 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/bitnami/opensearch/2.0.10 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 18
       cubInstallObjectCountIncludingSupport: 19
       semanticObjectMatches: "18/18"

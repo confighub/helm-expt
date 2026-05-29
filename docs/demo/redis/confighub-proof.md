@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This proof lane exercises existing `cub install`, `cub`, and ConfigHub
+This proof lane exercises existing `cub installer`, `cub`, and ConfigHub
 capabilities before asking for new porcelain verbs. It is deliberately based on
 real current commands, not future shorthand.
 
@@ -12,13 +12,13 @@ The Redis lane is accepted when it proves:
 
 | Capability | Command surface | Acceptance |
 | --- | --- | --- |
-| Package explanation | `cub install doc` | Shows Redis package bases and target-fact requirements from `installer.yaml`. |
-| Deterministic setup | `cub install setup` | Renders the Redis default base into a fresh work directory. |
-| Re-render | `cub install render` | Re-renders the same work directory successfully. |
-| Package determinism | `cub install package` | Builds a deterministic package archive. |
-| Validator path | `cub install vet` | Runs successfully when validators are present, or records that the package has no validators. |
-| Upload plan | `cub install plan` | Produces a read-only plan after upload state exists, or records the missing upload state before first upload. |
-| ConfigHub upload | `cub install upload` | Creates or reconciles ConfigHub Units for the rendered Redis output when the local server/auth surface is available. |
+| Package explanation | `cub installer doc` | Shows Redis package bases and target-fact requirements from `installer.yaml`. |
+| Deterministic setup | `cub installer setup` | Renders the Redis default base into a fresh work directory. |
+| Re-render | `cub installer render` | Re-renders the same work directory successfully. |
+| Package determinism | `cub installer package` | Builds a deterministic package archive. |
+| Validator path | `cub installer vet` | Runs successfully when validators are present, or records that the package has no validators. |
+| Upload plan | `cub installer plan` | Produces a read-only plan after upload state exists, or records the missing upload state before first upload. |
+| ConfigHub upload | `cub installer upload` | Creates or reconciles ConfigHub Units for the rendered Redis output when the local server/auth surface is available. |
 | Server-side variant | `cub variant create` | Clones a reviewed uploaded Redis space when server-side variation is simpler than another Helm render. |
 | Review/diff | `cub unit tree`, `cub unit data`, `cub revision list`, `cub unit diff` | Shows ConfigHub-side object data, revision history, and a diff where possible. |
 

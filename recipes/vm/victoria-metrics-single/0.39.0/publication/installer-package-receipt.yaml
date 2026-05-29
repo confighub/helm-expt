@@ -29,14 +29,14 @@ spec:
         sha256: "3496d61d9adb2dfe69f9ccad02af67e29ec2dff421a715ba1c0340a7115dfc84"
         bytes: 333
   deterministicBundle:
-    command: "cub install package packages/vm/victoria-metrics-single/0.39.0 -o <tmp>/vm-victoria-metrics-single-0-39-0.tgz"
+    command: "cub installer package packages/vm/victoria-metrics-single/0.39.0 -o <tmp>/vm-victoria-metrics-single-0-39-0.tgz"
     sha256: "01890722a8e0d0af6563e442dca4e68ec02cdf51ba26d3e74f5c2cad9a5c2575"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/vm/victoria-metrics-single/0.39.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/vm/victoria-metrics-single/0.39.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 3
       cubInstallObjectCountIncludingSupport: 4
       semanticObjectMatches: "3/3"

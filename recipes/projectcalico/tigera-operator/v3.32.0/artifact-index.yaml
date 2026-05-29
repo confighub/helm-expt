@@ -79,7 +79,7 @@ spec:
         default: true
         description: "projectcalico/tigera-operator default variant rendered from projectcalico/tigera-operator@v3.32.0"
       setupCheck:
-        command: "cub install setup --pull packages/projectcalico/tigera-operator/v3.32.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/projectcalico/tigera-operator/v3.32.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"

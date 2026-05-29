@@ -12,7 +12,7 @@ promotion model.
 The short version:
 
 ```text
-cub install creates reviewed ConfigHub component bases.
+cub installer creates reviewed ConfigHub component bases.
 cub variant create creates downstream ConfigHub variants from those bases.
 ConfigHub Promotion shows and advances changes across those variants.
 ```
@@ -25,7 +25,7 @@ The same component should be traceable through every layer:
 
 ```text
 Helm chart / wrapper release
--> cub install package base
+-> cub installer package base
 -> rendered Kubernetes objects
 -> ConfigHub Units in a base Space
 -> ConfigHub variant Spaces
@@ -51,7 +51,7 @@ machine-checkable.
 | --- | --- | --- |
 | Chart or wrapper chart | Component identity | Space and Unit label `Component=<name>` |
 | Package base | Base Space | Space label `Variant=<base>` and no production target unless deliberately assigned |
-| Package variant that changes render inputs | New rendered base | New `cub install` render/upload, not a post-render clone |
+| Package variant that changes render inputs | New rendered base | New `cub installer` render/upload, not a post-render clone |
 | Reviewed rendered object | Unit | One Unit per rendered object, plus installer record where present |
 | Server-side variant | Downstream Space | Created by `cub variant create`, with `Variant`, `Environment`, `Region`, target, gates, and metadata |
 | Promotion edge | Upstream Unit link | Downstream Units have `UpstreamUnitID` pointing to source Units |
@@ -250,7 +250,7 @@ install-checks.yaml
 
 ### 2. `installer`: preserve component identity at upload time
 
-`cub install upload` already supports labels. The next step is to make the
+`cub installer upload` already supports labels. The next step is to make the
 catalog path harder to get wrong:
 
 ```text

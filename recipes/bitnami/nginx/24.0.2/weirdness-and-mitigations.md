@@ -3,7 +3,7 @@
 # bitnami/nginx 24.0.2 Weirdness And Mitigations
 
 This note records the Helm pain surfaced during catalog review and where the
-current ConfigHub/cub install proof absorbs it.
+current ConfigHub/cub installer proof absorbs it.
 
 ## Support Boundary
 
@@ -29,7 +29,7 @@ or operating-policy dispositions.
 
 ## Catalog Mitigations
 
-- Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.
+- Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
 - http-clusterip is the simplest low-friction happy path.
 - existing-tls-ingress is supported when the declared TLS Secret target facts are satisfied.
 - Production remains blocked until ingress exposure, NetworkPolicy, PDB, and scan/gate findings have dispositions.
