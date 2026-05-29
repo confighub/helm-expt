@@ -676,6 +676,15 @@ The user-facing path should be simpler than the artifact name:
 Pick chart -> pick base -> create variant from blueprint -> preview -> check -> create
 ```
 
+This requires product code beyond the current `cub variant create` primitive.
+The current command provides the core server-side clone operation. The remaining
+work is CLI/API/GUI/agent/fleet porcelain that reads a Variant Blueprint,
+previews the changes, runs required checks, creates the variant, and shows the
+receipts. That code should compose existing ConfigHub primitives such as bulk
+clone, labels, annotations, targets, PostClone triggers, placeholders,
+TransformPaths, functions, gates, receipts, and MutationSources. It should not
+invent a new backend variant engine.
+
 For a concrete Redis promotion flow, see
 [Variant Promotion Worked Example](variant-promotion-worked-example.md).
 

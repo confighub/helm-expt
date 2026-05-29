@@ -287,6 +287,47 @@ Agent: structured create_variant task with required checks and receipts.
 Function: VariantBlueprint(parameters) -> ConfigHubVariant + receipts.
 ```
 
+Implementation boundary:
+
+```text
+cub variant create exists today.
+The full Variant Creator UX still needs CLI and GUI porcelain.
+That porcelain should wire existing ConfigHub primitives together, not create a
+new backend variant engine.
+```
+
+What still needs code:
+
+| Surface | Work |
+| --- | --- |
+| CLI | Add blueprint-aware porcelain around the existing operation, such as `cub variant create --blueprint redis-prod ...`. |
+| CLI | Add preview/check surfaces, such as `cub variant preview ...` and `cub variant check ...`, so users can see diffs and required checks before create/apply. |
+| GUI | Add a Variant Creator flow: select source base, select blueprint, fill fields, preview diffs/checks, create variant, show receipts. |
+| API/server | Store or load the formal `VariantCreationPlan` / Variant Blueprint and expose enough metadata for UI, CLI, agents, and fleet runners to use the same plan. |
+| Agent/fleet | Accept structured `create_variant` tasks and matrix inputs, then run the same checks and receipt expectations as the human workflow. |
+
+The implementation should compose existing primitives:
+
+```text
+bulk clone
+labels / annotations / targets
+PostClone triggers
+placeholders
+TransformPaths links
+functions / checks
+gates
+receipts / MutationSources
+```
+
+This keeps the system honest:
+
+```text
+cub variant create = the operation
+Variant Creator = the guided UX around the operation
+Variant Blueprint = the reusable component-author guidance
+VariantCreationPlan = the formal machine-readable plan underneath
+```
+
 Example first-use path:
 
 ```text
