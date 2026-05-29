@@ -52,6 +52,24 @@ shell scripts, Git checkout state, or out-of-band imperative code.
 
 ## Relationship To Existing Concepts
 
+`VariantCreationPlan` uses Brian's ConfigHub server-side primitives, not the
+installer recipe primitives. It is not a competing engine. It is a
+component-author blueprint that says how to use the existing ConfigHub
+primitives safely and repeatably for one chart or component.
+
+The boundary is:
+
+```text
+Use installer recipe primitives before render.
+Use ConfigHub variant primitives after render.
+Do not mix the two unless the flow explicitly crosses the render boundary.
+```
+
+| Layer | Primary primitives |
+| --- | --- |
+| Installer recipe / pre-render | package, base, component, input, collector, facts, validators, rendered output |
+| ConfigHub variant / post-render | space, unit, placeholder, link, NeedsProvides, TransformPaths, invocation, filter, view, target, gate, MutationSources, receipt |
+
 | Existing concept | Role |
 | --- | --- |
 | `cub install` package | Produces the base ConfigHub Units from a component source. |
@@ -65,6 +83,19 @@ shell scripts, Git checkout state, or out-of-band imperative code.
 | Target facts | Target-specific facts available to triggers, functions, parameters, and gates. |
 | MutationSources | Proof of which paths were changed by a function/link/dry run. |
 | Gates / checks | Proof that placeholders are filled, schemas validate, policies pass, and target requirements are satisfied. |
+
+In short:
+
+```text
+Brian's primitives = what ConfigHub can do.
+Variant Blueprint = the component author saying how to use those primitives
+                    for this chart.
+```
+
+`VariantCreationPlan` is the formal machine-readable plan underneath the UX.
+Most users should see "Create variant from blueprint", not the internal kind.
+The formal plan exists so the UI, API, CLI, agents, and fleet runners all use
+the same source of truth for what to ask, change, check, and record.
 
 ## Artifact Shape
 
@@ -243,6 +274,35 @@ For external values such as AWS account IDs, bucket names, KMS keys, database
 endpoints, or secret-manager references, prefer typed ConfigHub Units or
 target facts over package-specific values.
 
+## Target Facts Across The Boundary
+
+A variant can need target facts. The distinction is what owns which part:
+
+```text
+recipe declares fact requirements
+variant binds or uses fact values
+target/observer proves current fact state
+revision or receipt records what happened
+```
+
+Examples:
+
+| Fact use | Home | Proof |
+| --- | --- | --- |
+| Chart requires an existing Secret if this install shape is selected | recipe/package variant requirement | recipe, package base, `externalRequires` |
+| A selected variant says which Secret, StorageClass, IngressClass, API, or endpoint it expects | variant binding or parameter Unit | variant record, parameter Unit, TransformPaths link |
+| A render uses a fact value to produce Kubernetes objects | render-time variant revision | render receipt binds fact digest |
+| A server-side variant uses a fact to fill or transform already-rendered Units | `VariantCreationPlan` plus TransformPaths/function mutation | MutationSources, Unit diff, check receipt |
+| A fact is only a preflight condition, such as "Secret exists" or "API available" | target/preflight gate | target-fact receipt or observation receipt |
+
+So the rule is not "variants do not know target facts." The rule is:
+
+```text
+If a target fact changes rendered objects, go through the recipe/package render path.
+If a target fact customizes already-rendered ConfigHub Units, use the variant blueprint.
+If a target fact only proves target readiness, record it as preflight or observation.
+```
+
 ## Proof And Safety
 
 A server-side variant is credible only if ConfigHub can show:
@@ -304,6 +364,124 @@ post-clone Unit mutations
 component-specific views/functions/checks
 ```
 
+## UX, AX, And FX
+
+The kind should be mostly hidden from users. The user experience should ask for
+intent and show proof.
+
+Doctrine:
+
+```text
+One artifact, three surfaces:
+human wizard
+agent task
+fleet function
+```
+
+This is deliberately better than inventing separate mechanisms for UI, AI, and
+batch operations.
+
+First variant UX:
+
+```text
+Pick chart: Redis
+Pick base: default
+Create from blueprint:
+  dev
+  prod
+  eu-region
+  customer-acme
+Preview changes
+Run checks
+Create
+```
+
+The simple mental model is:
+
+```text
+base variant = the install shape
+blueprint = a repeatable way to create an operational variant from that base
+```
+
+For Redis, `redis/default` is the base install shape. A `dev`, `prod`,
+`eu-region`, or `customer-acme` blueprint clones and refines the already
+rendered ConfigHub Units: namespace, target, labels, links, placeholders,
+target facts, checks, receipts, and approvals.
+
+Blueprints may be composed, but composition must be explicit and checked. A
+user should be able to choose one friendly intent, such as "EU production
+Redis", and let the blueprint resolve the ordered steps behind it.
+
+Human UX:
+
+```text
+Create variant
+From: redis/default
+Blueprint: Environment clone
+Target: prod-us-east
+Fill: namespace, target, Redis secret reference
+Preview: 14 Units, 3 changed paths, 1 link changed
+Checks: placeholders pass, schema pass, target facts pass
+Create
+```
+
+Agent experience:
+
+```yaml
+task: create_variant
+fromSpace: helm-redis-default
+blueprint: environment-clone
+parameters:
+  environment: prod
+  region: us-east
+  namespace: redis-prod
+requiredChecks:
+  - no-unresolved-placeholders
+  - target-facts-satisfied
+  - unit-diff-reviewed
+expectedReceipts:
+  - clone
+  - transformPaths
+  - functionMutations
+  - checks
+```
+
+Functional/fleet experience:
+
+```text
+VariantBlueprint(parameters) -> ConfigHubVariant + receipts
+```
+
+Example:
+
+```yaml
+blueprint: redis-environment-clone
+matrix:
+  - environment: prod
+    region: us-east
+    namespace: redis-prod-use1
+  - environment: prod
+    region: eu-west
+    namespace: redis-prod-euw1
+```
+
+The same blueprint should work as:
+
+```text
+one guided wizard
+one structured agent task
+one function mapped over many parameter rows
+```
+
+Fleet execution should be:
+
+```text
+map VariantBlueprint over matrix
+verify each result
+summarize fleet receipts
+promote in waves
+```
+
 ## Open Questions For Brian And Jesper
 
 1. Should `VariantCreationPlan` be a first-class kind, or an AppConfig Unit with
@@ -318,6 +496,8 @@ component-specific views/functions/checks
 7. How do we distinguish optional helper functions from required validation
    functions?
 8. What receipt object records clone-time choices and post-clone mutations?
+9. Should the user-facing name be "Variant Blueprint" while the internal kind
+   stays `VariantCreationPlan`?
 
 ## Short Pitch
 

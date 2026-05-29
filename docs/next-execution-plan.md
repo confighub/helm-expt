@@ -276,6 +276,22 @@ The next product artifact for this lane is
 guide placeholders, TransformPaths links, saved functions, filters, views,
 target facts, and required checks after clone.
 
+UX/AX/FX target:
+
+```text
+Human: pick chart -> pick base -> choose blueprint -> preview diffs/checks -> create.
+Agent: structured create_variant task with required checks and receipts.
+Function: VariantBlueprint(parameters) -> ConfigHubVariant + receipts.
+```
+
+Example first-use path:
+
+```text
+Redis/default -> dev
+Redis/default -> EU production
+Redis/default -> customer-acme
+```
+
 It is an expected part of the workflow when it is the simpler path. It does not
 replace Helm-derived recipe variants for changes that require a different Helm
 render, but it should be preferred for downstream operational variation when a
