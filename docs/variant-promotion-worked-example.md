@@ -12,6 +12,9 @@ Function: blueprint mapped over one row or many rows
 This is about post-render ConfigHub variant promotion. It is not chart catalog
 promotion, and it is not a hidden Helm rerender.
 
+For the canonical mapping into ConfigHub's component/space/unit/promotion
+model, see [ConfigHub Promotion Mapping Doctrine](confighub-promotion-mapping.md).
+
 ## Scenario
 
 We start with a reviewed Redis base:

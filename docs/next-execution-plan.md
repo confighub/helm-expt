@@ -284,6 +284,10 @@ target facts, and required checks after clone.
 The first worked promotion walkthrough is
 [Variant Promotion Worked Example](variant-promotion-worked-example.md).
 
+The mapping contract that connects Helm-derived bases to ConfigHub components,
+spaces, variants, promotion edges, and code work is
+[ConfigHub Promotion Mapping Doctrine](confighub-promotion-mapping.md).
+
 The continuous testing doctrine for this lane is
 [Variant Creator Verification Doctrine](variant-creator-verification.md). It
 defines the invariants, goldens, and verification gates that keep UX, AX, and
@@ -313,9 +317,11 @@ What still needs code:
 | CLI | Add blueprint-aware porcelain around the existing operation, such as `cub variant create --blueprint redis-prod ...`. |
 | CLI | Add preview/check surfaces, such as `cub variant preview ...` and `cub variant check ...`, so users can see diffs and required checks before create/apply. |
 | GUI | Add a Variant Creator flow: select source base, select blueprint, fill fields, preview diffs/checks, create variant, show receipts. |
+| GUI | Ensure Helm-derived catalog bases appear in the existing component Promotion page by using `Component`, `Variant`, `Environment`, `Region`, target, and upstream-link conventions consistently. |
 | API/server | Store or load the formal `VariantCreationPlan` / Variant Blueprint and expose enough metadata for UI, CLI, agents, and fleet runners to use the same plan. |
 | Agent/fleet | Accept structured `create_variant` tasks and matrix inputs, then run the same checks and receipt expectations as the human workflow. |
 | Verification | Add invariants, goldens, and a `variant-creator:verify`-style command so each surface proves it follows the same blueprint and produces comparable receipts. |
+| Catalog proof | Generate and verify per-chart ConfigHub promotion mapping artifacts so recipe/base identity, upload labels, upstream links, and expected Promotion graph are not hand-waved. |
 
 The implementation should compose existing primitives:
 
