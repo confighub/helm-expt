@@ -16,6 +16,41 @@ Public phrase:
 variant blueprint
 ```
 
+## Plain-English Use Case
+
+Start with a reviewed base, such as `redis/default`. Open the **Variant
+Creator**, choose a blueprint, fill the few fields that are specific to the
+new environment or customer, preview the exact changes, run checks, then
+create.
+
+Example:
+
+```text
+Variant Creator
+From: redis/default
+Blueprint: Environment clone
+Target: prod-us-east
+Fill: namespace, Redis secret reference
+Preview: 14 Units, 3 changed paths, 1 link changed
+Checks: pass
+Create
+```
+
+The doctrine is:
+
+```text
+One artifact, three surfaces:
+human wizard
+agent task
+fleet function
+```
+
+Human UX gets a guided creator. AX gets a structured task with required checks
+and receipts. FX gets a parameterized blueprint that can be mapped over one row
+or many rows.
+
+For promotion, see [Variant Promotion Worked Example](variant-promotion-worked-example.md).
+
 ## Why This Exists
 
 `cub install` recipes answer:
@@ -93,9 +128,10 @@ Variant Blueprint = the component author saying how to use those primitives
 ```
 
 `VariantCreationPlan` is the formal machine-readable plan underneath the UX.
-Most users should see "Create variant from blueprint", not the internal kind.
-The formal plan exists so the UI, API, CLI, agents, and fleet runners all use
-the same source of truth for what to ask, change, check, and record.
+Most users should see "Variant Creator" or "Create variant from blueprint",
+not the internal kind. The formal plan exists so the UI, API, CLI, agents, and
+fleet runners all use the same source of truth for what to ask, change, check,
+and record.
 
 ## Artifact Shape
 
@@ -369,6 +405,18 @@ component-specific views/functions/checks
 The kind should be mostly hidden from users. The user experience should ask for
 intent and show proof.
 
+Naming:
+
+```text
+Variant Creator = the user-facing guided workflow for variant create
+Variant Blueprint = the reusable component-author template
+VariantCreationPlan = the formal machine-readable artifact underneath
+variant create = an operation on variants
+```
+
+The operation is the thing that runs. The blueprint is the reusable guidance.
+The creator is the user experience that makes the operation easy.
+
 Doctrine:
 
 ```text
@@ -415,13 +463,13 @@ Redis", and let the blueprint resolve the ordered steps behind it.
 Human UX:
 
 ```text
-Create variant
+Variant Creator
 From: redis/default
 Blueprint: Environment clone
 Target: prod-us-east
-Fill: namespace, target, Redis secret reference
+Fill: namespace, Redis secret reference
 Preview: 14 Units, 3 changed paths, 1 link changed
-Checks: placeholders pass, schema pass, target facts pass
+Checks: pass
 Create
 ```
 
@@ -496,7 +544,8 @@ promote in waves
 7. How do we distinguish optional helper functions from required validation
    functions?
 8. What receipt object records clone-time choices and post-clone mutations?
-9. Should the user-facing name be "Variant Blueprint" while the internal kind
+9. Should the user-facing names be "Variant Creator" for the guided workflow
+   and "Variant Blueprint" for the reusable template while the internal kind
    stays `VariantCreationPlan`?
 
 ## Short Pitch
