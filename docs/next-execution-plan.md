@@ -27,6 +27,11 @@ Install and vary them with less pain.
 See exactly what changed and why before you ship.
 ```
 
+## Today's Roadmap
+
+For the current tactical plan, see
+[Today Roadmap - 2026-05-29](today-roadmap-2026-05-29.md).
+
 ## Current Baseline
 
 The repo now has:
