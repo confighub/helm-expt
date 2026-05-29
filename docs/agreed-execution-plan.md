@@ -632,6 +632,12 @@ In other words, server-side variants do not replace Helm-derived recipe
 variants; they sit above them and should be preferred for downstream
 operational variation when no new Helm render is needed.
 
+The proposed component-author artifact for this server-side layer is
+[Variant Creation Artifact](variant-creation-artifact.md). It describes a
+`VariantCreationPlan`: a ConfigHub-native blueprint that tells the UI/API/CLI
+which placeholders, links, TransformPaths, functions, filters, views, target
+facts, checks, and gates should guide post-clone customization.
+
 The upstream installer docs usually show the standalone binary name
 `installer`. In this repo, those commands are written as `cub install ...`
 because the installer is used through the Cub plugin.
