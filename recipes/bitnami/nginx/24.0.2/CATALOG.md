@@ -41,7 +41,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 
 ## Variants
 
-| Variant | Variant file | Package base | Revision | Helm objects | cub install objects | Match | Helm equivalence | Scan | Gate | Target facts |
+| Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | http-clusterip | [recipes/bitnami/nginx/24.0.2/variants/http-clusterip/variant.yaml](variants/http-clusterip/variant.yaml) | [packages/bitnami/nginx/24.0.2/bases/http-clusterip](../../../../packages/bitnami/nginx/24.0.2/bases/http-clusterip) | [recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml](revisions/http-clusterip/r001/variant-revision.yaml) | 5 | 6 | 5/5 | pass | warn | warn | none |
 | existing-tls-ingress | [recipes/bitnami/nginx/24.0.2/variants/existing-tls-ingress/variant.yaml](variants/existing-tls-ingress/variant.yaml) | [packages/bitnami/nginx/24.0.2/bases/existing-tls-ingress](../../../../packages/bitnami/nginx/24.0.2/bases/existing-tls-ingress) | [recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/variant-revision.yaml](revisions/existing-tls-ingress/r001/variant-revision.yaml) | 6 | 7 | 6/6 | pass | warn | warn | required Secret nginx/nginx-backend-tls keys tls.crt,tls.key,ca.crt; required Secret nginx/nginx-ingress-tls keys tls.crt,tls.key |
@@ -69,10 +69,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 ## Current Install Shape
 
 ```sh
-cub install setup --pull packages/bitnami/nginx/24.0.2 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull packages/bitnami/nginx/24.0.2 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The proof path compares
-regular Helm output with real `cub install setup` output and explains every
+regular Helm output with real `cub installer setup` output and explains every
 intentional difference, such as the Namespace support object or separated
 Secrets.

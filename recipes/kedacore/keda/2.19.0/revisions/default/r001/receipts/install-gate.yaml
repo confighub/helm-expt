@@ -17,6 +17,6 @@ spec:
   blockedScopes:
     - "production-without-review"
   reasons:
-    - "regular Helm output matches cub install setup for kedacore/keda@2.19.0"
+    - "regular Helm output matches cub installer setup for kedacore/keda@2.19.0"
     - "29 Helm objects are bound to renderedObjectSetSHA256"
     - "rendered-object scan has review findings; see scan-receipt.yaml"

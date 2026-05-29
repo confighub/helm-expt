@@ -29,14 +29,14 @@ spec:
         sha256: "737f0dd81c120e662be06e65e567c93c7c388db1cc36c1a63393838a627cfea0"
         bytes: 327
   deterministicBundle:
-    command: "cub install package packages/grafana/rollout-operator/0.49.0 -o <tmp>/grafana-rollout-operator-0-49-0.tgz"
+    command: "cub installer package packages/grafana/rollout-operator/0.49.0 -o <tmp>/grafana-rollout-operator-0-49-0.tgz"
     sha256: "8e77d0f50cb850b97f84c02bf96caea1189500729a5aeab63d3e9c3a615a7e53"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/grafana/rollout-operator/0.49.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/grafana/rollout-operator/0.49.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 15
       cubInstallObjectCountIncludingSupport: 16
       semanticObjectMatches: "15/15"

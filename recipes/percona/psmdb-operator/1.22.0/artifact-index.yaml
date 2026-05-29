@@ -78,7 +78,7 @@ spec:
         default: true
         description: "percona/psmdb-operator default variant rendered from percona/psmdb-operator@1.22.0"
       setupCheck:
-        command: "cub install setup --pull packages/percona/psmdb-operator/1.22.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/percona/psmdb-operator/1.22.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"

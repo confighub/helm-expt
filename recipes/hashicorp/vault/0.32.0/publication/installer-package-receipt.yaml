@@ -37,14 +37,14 @@ spec:
         sha256: "9e57f04591bc84758c145d910eef4d9149a3882f9cd799ef310810c0c8988f1a"
         bytes: 461
   deterministicBundle:
-    command: "cub install package packages/hashicorp/vault/0.32.0 -o <tmp>/vault-0.32.0.tgz"
+    command: "cub installer package packages/hashicorp/vault/0.32.0 -o <tmp>/vault-0.32.0.tgz"
     sha256: "a942c0f6db2bc98fcbd9c4dbabb194f037828a99e967fd74dc16ec97d498cc93"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/hashicorp/vault/0.32.0 --base default --work-dir <tmp> --non-interactive --namespace vault"
+      command: "cub installer setup --pull packages/hashicorp/vault/0.32.0 --base default --work-dir <tmp> --non-interactive --namespace vault"
       helmReleaseObjectCount: 12
       cubInstallObjectCountIncludingSupport: 13
       semanticObjectMatches: "12/12"
@@ -54,7 +54,7 @@ spec:
     -
       variant: "ha-raft-ui"
       base: "ha-raft-ui"
-      command: "cub install setup --pull packages/hashicorp/vault/0.32.0 --base ha-raft-ui --work-dir <tmp> --non-interactive --namespace vault"
+      command: "cub installer setup --pull packages/hashicorp/vault/0.32.0 --base ha-raft-ui --work-dir <tmp> --non-interactive --namespace vault"
       helmReleaseObjectCount: 18
       cubInstallObjectCountIncludingSupport: 19
       semanticObjectMatches: "18/18"

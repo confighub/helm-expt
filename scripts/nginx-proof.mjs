@@ -613,12 +613,12 @@ npm run nginx:verify-package
   try {
     const firstPackage = join(tempRoot, "nginx-24.0.2-a.tgz");
     const secondPackage = join(tempRoot, "nginx-24.0.2-b.tgz");
-    runCub(["install", "package", packageRoot, "-o", firstPackage]);
-    runCub(["install", "package", packageRoot, "-o", secondPackage]);
+    runCub(["installer", "package", packageRoot, "-o", firstPackage]);
+    runCub(["installer", "package", packageRoot, "-o", secondPackage]);
     const firstSHA = sha256File(firstPackage);
     const secondSHA = sha256File(secondPackage);
     if (firstSHA !== secondSHA || !readFileSync(firstPackage).equals(readFileSync(secondPackage))) {
-      throw new Error("cub install package did not produce byte-identical bundles");
+      throw new Error("cub installer package did not produce byte-identical bundles");
     }
     mkdirSync(dirname(receiptPath), { recursive: true });
     writeYaml(receiptPath, {
@@ -634,14 +634,14 @@ npm run nginx:verify-package
           sourceFiles: files,
         },
         deterministicBundle: {
-          command: `cub install package ${packageRelative} -o <tmp>/nginx-24.0.2.tgz`,
+          command: `cub installer package ${packageRelative} -o <tmp>/nginx-24.0.2.tgz`,
           sha256: firstSHA,
           byteIdenticalAcrossTwoLocalBundles: true,
         },
         setupChecks: variants.map((variant) => ({
           variant: variant.name,
           base: variant.base,
-          command: `cub install setup --pull ${packageRelative} --base ${variant.base} --work-dir <tmp> --non-interactive --namespace nginx`,
+          command: `cub installer setup --pull ${packageRelative} --base ${variant.base} --work-dir <tmp> --non-interactive --namespace nginx`,
           helmReleaseObjectCount: variant.expectedObjectCount,
           cubInstallObjectCountIncludingSupport: variant.expectedObjectCount + 1,
           semanticObjectMatches: `${variant.expectedObjectCount}/${variant.expectedObjectCount}`,
@@ -825,8 +825,8 @@ function verifyPackage() {
   try {
     const firstPackage = join(tempRoot, "nginx-a.tgz");
     const secondPackage = join(tempRoot, "nginx-b.tgz");
-    runCub(["install", "package", packageRoot, "-o", firstPackage]);
-    runCub(["install", "package", packageRoot, "-o", secondPackage]);
+    runCub(["installer", "package", packageRoot, "-o", firstPackage]);
+    runCub(["installer", "package", packageRoot, "-o", secondPackage]);
     const firstSHA = sha256File(firstPackage);
     const secondSHA = sha256File(secondPackage);
     check(firstSHA === secondSHA, "package SHA changed across two local bundles");
@@ -1118,13 +1118,13 @@ Variants:
 
 ${summaries
   .map(
-    (summary) => `- \`${summary.name}\`: ${summary.valuesSummary}; ${summary.objects.length} Helm objects, ${summary.objects.length + 1} cub install objects including Namespace.`,
+    (summary) => `- \`${summary.name}\`: ${summary.valuesSummary}; ${summary.objects.length} Helm objects, ${summary.objects.length + 1} cub installer objects including Namespace.`,
   )
   .join("\n")}
 
 What this proves:
 
-- regular Helm output is preserved by \`cub install setup\`, plus the explained Namespace support object;
+- regular Helm output is preserved by \`cub installer setup\`, plus the explained Namespace support object;
 - default chart rendering is nondeterministic because Helm generates self-signed TLS material;
 - \`http-clusterip\` disables generated TLS and renders a small internal service;
 - \`existing-tls-ingress\` uses declared target TLS Secrets, does not render a Secret, and adds explicit ingress exposure;

@@ -82,7 +82,7 @@ spec:
         default: true
         description: "sealed-secrets/sealed-secrets default variant rendered from sealed-secrets/sealed-secrets@2.18.6"
       setupCheck:
-        command: "cub install setup --pull packages/sealed-secrets/sealed-secrets/2.18.6 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/sealed-secrets/sealed-secrets/2.18.6 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 11
         cubInstallObjectCountIncludingSupport: 12
         semanticObjectMatches: "11/11"

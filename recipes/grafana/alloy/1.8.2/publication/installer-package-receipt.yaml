@@ -29,14 +29,14 @@ spec:
         sha256: "0027bc06ad9a2507a62b5c025c3425bc0f1364b598cf2371d15d8d0e5709e6bf"
         bytes: 292
   deterministicBundle:
-    command: "cub install package packages/grafana/alloy/1.8.2 -o <tmp>/grafana-alloy-1-8-2.tgz"
+    command: "cub installer package packages/grafana/alloy/1.8.2 -o <tmp>/grafana-alloy-1-8-2.tgz"
     sha256: "1df1c252c85c3e7686ebfd299f8ded19c41b1880ef4de87374a5e4bfae2c7fd4"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/grafana/alloy/1.8.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/grafana/alloy/1.8.2 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 7
       cubInstallObjectCountIncludingSupport: 8
       semanticObjectMatches: "7/7"

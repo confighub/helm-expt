@@ -29,14 +29,14 @@ spec:
         sha256: "bc5f53657b2bbe858c3a294c7a8d384f8f6a5eca0db73a00bc2c122ffebafd03"
         bytes: 370
   deterministicBundle:
-    command: "cub install package packages/prometheus-community/kube-state-metrics/7.4.0 -o <tmp>/prometheus-community-kube-state-metrics-7-4-0.tgz"
+    command: "cub installer package packages/prometheus-community/kube-state-metrics/7.4.0 -o <tmp>/prometheus-community-kube-state-metrics-7-4-0.tgz"
     sha256: "c9c96969e7b0ebbeaea78b7bcf6b2856225715610ddf7edf9ab3b845d23826af"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/prometheus-community/kube-state-metrics/7.4.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/prometheus-community/kube-state-metrics/7.4.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 5
       cubInstallObjectCountIncludingSupport: 6
       semanticObjectMatches: "5/5"

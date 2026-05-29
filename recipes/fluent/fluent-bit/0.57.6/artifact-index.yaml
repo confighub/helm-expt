@@ -80,7 +80,7 @@ spec:
         default: true
         description: "fluent/fluent-bit default variant rendered from fluent/fluent-bit@0.57.6"
       setupCheck:
-        command: "cub install setup --pull packages/fluent/fluent-bit/0.57.6 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/fluent/fluent-bit/0.57.6 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

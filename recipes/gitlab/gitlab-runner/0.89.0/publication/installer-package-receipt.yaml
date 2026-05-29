@@ -29,14 +29,14 @@ spec:
         sha256: "ae5eb793e1e9a2fee203816266476a628c6b39ad5674f53b1ee6b55b9f75b2e1"
         bytes: 315
   deterministicBundle:
-    command: "cub install package packages/gitlab/gitlab-runner/0.89.0 -o <tmp>/gitlab-gitlab-runner-0-89-0.tgz"
+    command: "cub installer package packages/gitlab/gitlab-runner/0.89.0 -o <tmp>/gitlab-gitlab-runner-0-89-0.tgz"
     sha256: "e14db565ea0b5e569dcb29d5854158da33e0c003bb46a61af64596dc14232d4e"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/gitlab/gitlab-runner/0.89.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/gitlab/gitlab-runner/0.89.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 2
       cubInstallObjectCountIncludingSupport: 3
       semanticObjectMatches: "2/2"

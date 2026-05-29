@@ -17,6 +17,6 @@ spec:
   blockedScopes:
     - "production-without-review"
   reasons:
-    - "regular Helm output matches cub install setup for strimzi/strimzi-kafka-operator@1.0.0"
+    - "regular Helm output matches cub installer setup for strimzi/strimzi-kafka-operator@1.0.0"
     - "27 Helm objects are bound to renderedObjectSetSHA256"
     - "rendered-object scan has review findings; see scan-receipt.yaml"

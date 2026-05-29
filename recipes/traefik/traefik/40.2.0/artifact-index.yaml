@@ -82,7 +82,7 @@ spec:
         default: true
         description: "traefik/traefik default variant rendered from traefik/traefik@40.2.0"
       setupCheck:
-        command: "cub install setup --pull packages/traefik/traefik/40.2.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/traefik/traefik/40.2.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 31
         cubInstallObjectCountIncludingSupport: 32
         semanticObjectMatches: "31/31"

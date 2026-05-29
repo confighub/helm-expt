@@ -80,7 +80,7 @@ spec:
         default: true
         description: "prometheus-community/alertmanager default variant rendered from prometheus-community/alertmanager@1.37.0"
       setupCheck:
-        command: "cub install setup --pull packages/prometheus-community/alertmanager/1.37.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/prometheus-community/alertmanager/1.37.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"

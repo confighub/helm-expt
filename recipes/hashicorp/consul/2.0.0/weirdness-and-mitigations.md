@@ -3,7 +3,7 @@
 # hashicorp/consul 2.0.0 Weirdness And Mitigations
 
 This note records the Helm pain surfaced during catalog review and where the
-current ConfigHub/cub install proof absorbs it.
+current ConfigHub/cub installer proof absorbs it.
 
 ## Support Boundary
 
@@ -30,7 +30,7 @@ or operating-policy dispositions.
 
 ## Catalog Mitigations
 
-- Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.
+- Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
 - default-control-plane is the simplest local Consul control-plane path.
 - secure-mesh-existing-secrets is supported when the declared Secret target facts are satisfied.
 - Production remains blocked until gossip/TLS secret ownership, mesh policy, upgrade safety, and scan/gate findings have dispositions.

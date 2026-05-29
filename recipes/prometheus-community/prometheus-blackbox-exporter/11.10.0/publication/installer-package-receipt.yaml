@@ -29,14 +29,14 @@ spec:
         sha256: "90cb0aebecc58ae058b9f6580108d65347e6016708a064a742ef1b6f99ce623e"
         bytes: 404
   deterministicBundle:
-    command: "cub install package packages/prometheus-community/prometheus-blackbox-exporter/11.10.0 -o <tmp>/prometheus-community-prometheus-blackbox-exporter-11-10-0.tgz"
+    command: "cub installer package packages/prometheus-community/prometheus-blackbox-exporter/11.10.0 -o <tmp>/prometheus-community-prometheus-blackbox-exporter-11-10-0.tgz"
     sha256: "84c4f51468f7364252143d6322bbf3d955bf094c8b08cf999dcbe8aa3d667b45"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/prometheus-community/prometheus-blackbox-exporter/11.10.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/prometheus-community/prometheus-blackbox-exporter/11.10.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 4
       cubInstallObjectCountIncludingSupport: 5
       semanticObjectMatches: "4/4"

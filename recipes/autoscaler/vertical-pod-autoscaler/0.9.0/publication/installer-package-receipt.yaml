@@ -29,14 +29,14 @@ spec:
         sha256: "cfc643e858f4aa4dada3396b1cb8d8b0bb348da276989efd456c8090029ef69c"
         bytes: 355
   deterministicBundle:
-    command: "cub install package packages/autoscaler/vertical-pod-autoscaler/0.9.0 -o <tmp>/autoscaler-vertical-pod-autoscaler-0-9-0.tgz"
+    command: "cub installer package packages/autoscaler/vertical-pod-autoscaler/0.9.0 -o <tmp>/autoscaler-vertical-pod-autoscaler-0-9-0.tgz"
     sha256: "32bb288a89456ae4daef2a6043ccaaf4c9a2c36ae3f9dc89209493a426a94c0a"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/autoscaler/vertical-pod-autoscaler/0.9.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/autoscaler/vertical-pod-autoscaler/0.9.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 39
       cubInstallObjectCountIncludingSupport: 40
       semanticObjectMatches: "39/39"

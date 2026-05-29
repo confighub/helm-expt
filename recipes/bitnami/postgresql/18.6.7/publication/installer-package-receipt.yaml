@@ -9,7 +9,7 @@ spec:
     version: "18.6.7"
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
-    command: "cub install package packages/bitnami/postgresql/18.6.7 -o <tmp>/postgresql-18.6.7.tgz"
+    command: "cub installer package packages/bitnami/postgresql/18.6.7 -o <tmp>/postgresql-18.6.7.tgz"
     sha256: "75a3049026248392bc194051e2cb57d01d67cb4eb7c586b597762c60049cf18a"
   package:
     name: "bitnami-postgresql"
@@ -49,7 +49,7 @@ spec:
       allowedCubOnlyObjects:
         - "v1|Namespace||postgresql"
       base: "generated-passwords"
-      command: "cub install setup --pull packages/bitnami/postgresql/18.6.7 --base generated-passwords --work-dir <tmp> --non-interactive --namespace postgresql"
+      command: "cub installer setup --pull packages/bitnami/postgresql/18.6.7 --base generated-passwords --work-dir <tmp> --non-interactive --namespace postgresql"
       cubInstallObjectCountIncludingSupport: 8
       helmReleaseObjectCount: 7
       semanticObjectMatches: "7/7"
@@ -61,7 +61,7 @@ spec:
       allowedCubOnlyObjects:
         - "v1|Namespace||postgresql"
       base: "existing-secret"
-      command: "cub install setup --pull packages/bitnami/postgresql/18.6.7 --base existing-secret --work-dir <tmp> --non-interactive --namespace postgresql"
+      command: "cub installer setup --pull packages/bitnami/postgresql/18.6.7 --base existing-secret --work-dir <tmp> --non-interactive --namespace postgresql"
       cubInstallObjectCountIncludingSupport: 7
       helmReleaseObjectCount: 6
       semanticObjectMatches: "6/6"

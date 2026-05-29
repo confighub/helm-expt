@@ -86,7 +86,7 @@ spec:
         default: true
         description: "cert-manager default variant rendered from jetstack/cert-manager@v1.20.2"
       setupCheck:
-        command: "cub install setup --pull packages/jetstack/cert-manager/v1.20.2 --base default --work-dir <tmp> --non-interactive --namespace cert-manager"
+        command: "cub installer setup --pull packages/jetstack/cert-manager/v1.20.2 --base default --work-dir <tmp> --non-interactive --namespace cert-manager"
         helmReleaseObjectCount: 42
         cubInstallObjectCountIncludingSupport: 43
         semanticObjectMatches: "42/42"
@@ -148,7 +148,7 @@ spec:
         default: false
         description: "cert-manager CRDs enabled variant rendered from jetstack/cert-manager@v1.20.2"
       setupCheck:
-        command: "cub install setup --pull packages/jetstack/cert-manager/v1.20.2 --base crds-enabled --work-dir <tmp> --non-interactive --namespace cert-manager"
+        command: "cub installer setup --pull packages/jetstack/cert-manager/v1.20.2 --base crds-enabled --work-dir <tmp> --non-interactive --namespace cert-manager"
         helmReleaseObjectCount: 48
         cubInstallObjectCountIncludingSupport: 49
         semanticObjectMatches: "48/48"

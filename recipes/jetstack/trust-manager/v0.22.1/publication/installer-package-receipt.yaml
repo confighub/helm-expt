@@ -29,14 +29,14 @@ spec:
         sha256: "3ce84920dd9979789ae824458475a1393b4545c3503b14ab06652a896942316f"
         bytes: 323
   deterministicBundle:
-    command: "cub install package packages/jetstack/trust-manager/v0.22.1 -o <tmp>/jetstack-trust-manager-v0-22-1.tgz"
+    command: "cub installer package packages/jetstack/trust-manager/v0.22.1 -o <tmp>/jetstack-trust-manager-v0-22-1.tgz"
     sha256: "28d1e52412a879f370505b15c9edced5fdeb1a9cf04e6159b925001b3027cac6"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/jetstack/trust-manager/v0.22.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/jetstack/trust-manager/v0.22.1 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 14
       cubInstallObjectCountIncludingSupport: 15
       semanticObjectMatches: "14/14"

@@ -20,8 +20,8 @@ Server version: v0.1.49
 ```
 
 This transcript uses current commands only. It does not use proposed future
-porcelain such as `cub install import helm`, `cub install analyze`,
-`cub install compare`, `cub install scan`, `cub variant diff`, or
+porcelain such as `cub installer import helm`, `cub installer analyze`,
+`cub installer compare`, `cub installer scan`, `cub variant diff`, or
 `cub catalog install`.
 
 ## 1. Package Explanation
@@ -29,7 +29,7 @@ porcelain such as `cub install import helm`, `cub install analyze`,
 Command:
 
 ```sh
-cub install doc packages/bitnami/nginx/24.0.2 --json
+cub installer doc packages/bitnami/nginx/24.0.2 --json
 ```
 
 Result:
@@ -52,7 +52,7 @@ the executable package.
 Command:
 
 ```sh
-PATH="$PATH:$(go env GOPATH)/bin" cub install setup \
+PATH="$PATH:$(go env GOPATH)/bin" cub installer setup \
   --pull packages/bitnami/nginx/24.0.2 \
   --base http-clusterip \
   --work-dir .tmp/confighub-proof/nginx-http-clusterip \
@@ -91,7 +91,7 @@ spec:
 Re-render:
 
 ```sh
-PATH="$PATH:$(go env GOPATH)/bin" cub install render \
+PATH="$PATH:$(go env GOPATH)/bin" cub installer render \
   --work-dir .tmp/confighub-proof/nginx-http-clusterip
 ```
 
@@ -107,9 +107,9 @@ Spec docs written to out/spec
 Package determinism:
 
 ```sh
-cub install package packages/bitnami/nginx/24.0.2 \
+cub installer package packages/bitnami/nginx/24.0.2 \
   -o .tmp/confighub-proof/nginx-archives/nginx-a.tgz
-cub install package packages/bitnami/nginx/24.0.2 \
+cub installer package packages/bitnami/nginx/24.0.2 \
   -o .tmp/confighub-proof/nginx-archives/nginx-b.tgz
 ```
 
@@ -123,7 +123,7 @@ byte-identical across two local package bundles
 Vet:
 
 ```sh
-PATH="$PATH:$(go env GOPATH)/bin" cub install vet \
+PATH="$PATH:$(go env GOPATH)/bin" cub installer vet \
   --work-dir .tmp/confighub-proof/nginx-http-clusterip
 ```
 
@@ -135,7 +135,7 @@ Package declares no validators (spec.validators is empty).
 
 ## 4. Plan And Upload
 
-Before upload, `cub install plan` correctly fails because there is no upload
+Before upload, `cub installer plan` correctly fails because there is no upload
 state yet:
 
 ```text
@@ -146,7 +146,7 @@ run cub installer upload --work-dir ... --space <slug> first
 Upload:
 
 ```sh
-CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub install upload \
+CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub installer upload \
   --work-dir .tmp/confighub-proof/nginx-http-clusterip \
   --space helm-nginx-confighub-proof \
   --component NGINX \
@@ -173,7 +173,7 @@ No rendered Secret was separated or uploaded for this variant
 Post-upload plan:
 
 ```sh
-CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub install plan \
+CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub installer plan \
   --work-dir .tmp/confighub-proof/nginx-http-clusterip
 ```
 

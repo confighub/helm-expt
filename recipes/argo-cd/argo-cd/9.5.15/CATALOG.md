@@ -41,7 +41,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 
 ## Variants
 
-| Variant | Variant file | Package base | Revision | Helm objects | cub install objects | Match | Helm equivalence | Scan | Gate | Target facts |
+| Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/argo-cd/argo-cd/9.5.15/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/argo-cd/argo-cd/9.5.15/bases/default](../../../../packages/argo-cd/argo-cd/9.5.15/bases/default) | [recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 49 | 50 | 49/49 | pass | warn | warn | none |
 | no-crds | [recipes/argo-cd/argo-cd/9.5.15/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/argo-cd/argo-cd/9.5.15/bases/no-crds](../../../../packages/argo-cd/argo-cd/9.5.15/bases/no-crds) | [recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 46 | 47 | 46/46 | pass | warn | warn | none |
@@ -69,10 +69,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 ## Current Install Shape
 
 ```sh
-cub install setup --pull packages/argo-cd/argo-cd/9.5.15 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull packages/argo-cd/argo-cd/9.5.15 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The proof path compares
-regular Helm output with real `cub install setup` output and explains every
+regular Helm output with real `cub installer setup` output and explains every
 intentional difference, such as the Namespace support object or separated
 Secrets.

@@ -10,4 +10,4 @@ spec:
   weirdnessNotes:
     - deterministic proof pins auth.password in effective-values.yaml
     - reuse-existing-secret records redis-existing-secret/redis-password as a target fact requirement
-    - cub install separates rendered Secret resources from uploaded manifests
+    - cub installer separates rendered Secret resources from uploaded manifests

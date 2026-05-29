@@ -17,6 +17,6 @@ spec:
   blockedScopes:
     - "production-without-review"
   reasons:
-    - "regular Helm output matches cub install setup for traefik/traefik@40.2.0"
+    - "regular Helm output matches cub installer setup for traefik/traefik@40.2.0"
     - "31 Helm objects are bound to renderedObjectSetSHA256"
     - "rendered-object scan has review findings; see scan-receipt.yaml"

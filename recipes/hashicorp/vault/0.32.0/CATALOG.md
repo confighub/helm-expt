@@ -41,7 +41,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 
 ## Variants
 
-| Variant | Variant file | Package base | Revision | Helm objects | cub install objects | Match | Helm equivalence | Scan | Gate | Target facts |
+| Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/hashicorp/vault/0.32.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/hashicorp/vault/0.32.0/bases/default](../../../../packages/hashicorp/vault/0.32.0/bases/default) | [recipes/hashicorp/vault/0.32.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 12 | 13 | 12/12 | pass | warn | warn | none |
 | ha-raft-ui | [recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml](variants/ha-raft-ui/variant.yaml) | [packages/hashicorp/vault/0.32.0/bases/ha-raft-ui](../../../../packages/hashicorp/vault/0.32.0/bases/ha-raft-ui) | [recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/variant-revision.yaml](revisions/ha-raft-ui/r001/variant-revision.yaml) | 18 | 19 | 18/18 | pass | warn | warn | none |
@@ -69,10 +69,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 ## Current Install Shape
 
 ```sh
-cub install setup --pull packages/hashicorp/vault/0.32.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull packages/hashicorp/vault/0.32.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The proof path compares
-regular Helm output with real `cub install setup` output and explains every
+regular Helm output with real `cub installer setup` output and explains every
 intentional difference, such as the Namespace support object or separated
 Secrets.

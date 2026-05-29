@@ -29,14 +29,14 @@ spec:
         sha256: "d6bdce5e56fb4571a14d37f6f4a6a3fb8b85053d327542a8a6f9d78e955657d3"
         bytes: 342
   deterministicBundle:
-    command: "cub install package packages/autoscaler/cluster-autoscaler/9.57.0 -o <tmp>/autoscaler-cluster-autoscaler-9-57-0.tgz"
+    command: "cub installer package packages/autoscaler/cluster-autoscaler/9.57.0 -o <tmp>/autoscaler-cluster-autoscaler-9-57-0.tgz"
     sha256: "53c288d91500c85560161b78f6c05f493ad2c67e213e203f75053cdb8caafeb3"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/autoscaler/cluster-autoscaler/9.57.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/autoscaler/cluster-autoscaler/9.57.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 7
       cubInstallObjectCountIncludingSupport: 8
       semanticObjectMatches: "7/7"

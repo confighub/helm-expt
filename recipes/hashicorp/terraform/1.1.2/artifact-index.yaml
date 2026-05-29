@@ -78,7 +78,7 @@ spec:
         default: true
         description: "hashicorp/terraform default variant rendered from hashicorp/terraform@1.1.2"
       setupCheck:
-        command: "cub install setup --pull packages/hashicorp/terraform/1.1.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/hashicorp/terraform/1.1.2 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"

@@ -89,7 +89,7 @@ spec:
         default: true
         description: "secrets-store-csi-driver default Linux driver variant rendered from secrets-store-csi-driver/secrets-store-csi-driver@1.6.0"
       setupCheck:
-        command: "cub install setup --pull packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system"
+        command: "cub installer setup --pull packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"
@@ -151,7 +151,7 @@ spec:
         default: false
         description: "secrets-store-csi-driver sync Secret and rotation variant rendered from secrets-store-csi-driver/secrets-store-csi-driver@1.6.0"
       setupCheck:
-        command: "cub install setup --pull packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 --base sync-secret-rotation --work-dir <tmp> --non-interactive --namespace kube-system"
+        command: "cub installer setup --pull packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 --base sync-secret-rotation --work-dir <tmp> --non-interactive --namespace kube-system"
         helmReleaseObjectCount: 12
         cubInstallObjectCountIncludingSupport: 13
         semanticObjectMatches: "12/12"

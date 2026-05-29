@@ -9,7 +9,7 @@ spec:
     version: "14.0.3"
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
-    command: "cub install package packages/bitnami/mysql/14.0.3 -o <tmp>/mysql-14.0.3.tgz"
+    command: "cub installer package packages/bitnami/mysql/14.0.3 -o <tmp>/mysql-14.0.3.tgz"
     sha256: "62da1710f140f346e481d43753f1d3d1e4e4e6fa458d6532bd81cdfb20ea35df"
   package:
     name: "bitnami-mysql"
@@ -49,7 +49,7 @@ spec:
       allowedCubOnlyObjects:
         - "v1|Namespace||mysql"
       base: "generated-passwords"
-      command: "cub install setup --pull packages/bitnami/mysql/14.0.3 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mysql"
+      command: "cub installer setup --pull packages/bitnami/mysql/14.0.3 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mysql"
       cubInstallObjectCountIncludingSupport: 9
       helmReleaseObjectCount: 8
       semanticObjectMatches: "8/8"
@@ -61,7 +61,7 @@ spec:
       allowedCubOnlyObjects:
         - "v1|Namespace||mysql"
       base: "existing-secret"
-      command: "cub install setup --pull packages/bitnami/mysql/14.0.3 --base existing-secret --work-dir <tmp> --non-interactive --namespace mysql"
+      command: "cub installer setup --pull packages/bitnami/mysql/14.0.3 --base existing-secret --work-dir <tmp> --non-interactive --namespace mysql"
       cubInstallObjectCountIncludingSupport: 8
       helmReleaseObjectCount: 7
       semanticObjectMatches: "7/7"

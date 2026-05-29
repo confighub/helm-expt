@@ -29,14 +29,14 @@ spec:
         sha256: "b0314cc41d01948e2032afaaee49dd8fe2f2e0e99ceccc8456edc2e27cb8f01c"
         bytes: 304
   deterministicBundle:
-    command: "cub install package packages/bitnami/memcached/8.5.5 -o <tmp>/bitnami-memcached-8-5-5.tgz"
+    command: "cub installer package packages/bitnami/memcached/8.5.5 -o <tmp>/bitnami-memcached-8-5-5.tgz"
     sha256: "60da1ada3bc125fae54ba7c330bcc9fb7074793ee7b9a6f0ee38594fa39a61d9"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/bitnami/memcached/8.5.5 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/bitnami/memcached/8.5.5 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 5
       cubInstallObjectCountIncludingSupport: 6
       semanticObjectMatches: "5/5"

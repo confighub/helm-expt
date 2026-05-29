@@ -29,14 +29,14 @@ spec:
         sha256: "f3aaf1674ec4bea38b14fd604e79f993f4dcfd34bf3286060b38ee81c22427c6"
         bytes: 344
   deterministicBundle:
-    command: "cub install package packages/projectcalico/tigera-operator/v3.32.0 -o <tmp>/projectcalico-tigera-operator-v3-32-0.tgz"
+    command: "cub installer package packages/projectcalico/tigera-operator/v3.32.0 -o <tmp>/projectcalico-tigera-operator-v3-32-0.tgz"
     sha256: "87e3c40bc33a18859fdb678939791bfc5738c1788bc2cafad58011b8c63c1076"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/projectcalico/tigera-operator/v3.32.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/projectcalico/tigera-operator/v3.32.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 10
       cubInstallObjectCountIncludingSupport: 11
       semanticObjectMatches: "10/10"

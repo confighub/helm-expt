@@ -39,7 +39,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 
 ## Variants
 
-| Variant | Variant file | Package base | Revision | Helm objects | cub install objects | Match | Helm equivalence | Scan | Gate | Target facts |
+| Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/bitnami/elasticsearch/22.1.6/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/bitnami/elasticsearch/22.1.6/bases/default](../../../../packages/bitnami/elasticsearch/22.1.6/bases/default) | [recipes/bitnami/elasticsearch/22.1.6/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 21 | 22 | 21/21 | pass | warn | warn | none |
 
@@ -61,10 +61,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 ## Current Install Shape
 
 ```sh
-cub install setup --pull packages/bitnami/elasticsearch/22.1.6 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull packages/bitnami/elasticsearch/22.1.6 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The proof path compares
-regular Helm output with real `cub install setup` output and explains every
+regular Helm output with real `cub installer setup` output and explains every
 intentional difference, such as the Namespace support object or separated
 Secrets.

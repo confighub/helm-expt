@@ -31,7 +31,7 @@ It is also not trivial. The current recipe has two candidate variants:
 Before NGINX can move beyond local/test support, the live evidence lane should
 prove:
 
-- `cub install doc/setup/render/package/vet/plan/upload` for `http-clusterip`;
+- `cub installer doc/setup/render/package/vet/plan/upload` for `http-clusterip`;
 - ConfigHub function scan over uploaded Units;
 - safe-ops lane with changeset, approval, and blocked/no-target apply behavior;
 - target-fact visibility for `existing-tls-ingress`;
@@ -45,8 +45,8 @@ NGINX is a top-20 catalog entry and is `catalog-supported` for the declared
 local/test scope. The machine proof shows Helm equivalence:
 
 ```text
-http-clusterip: 5 Helm objects, 6 cub install objects including Namespace
-existing-tls-ingress: 6 Helm objects, 7 cub install objects including Namespace
+http-clusterip: 5 Helm objects, 6 cub installer objects including Namespace
+existing-tls-ingress: 6 Helm objects, 7 cub installer objects including Namespace
 ```
 
 The Redis ConfigHub proof transcript shape has now been repeated for NGINX,

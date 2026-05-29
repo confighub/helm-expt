@@ -94,7 +94,7 @@ function compareVariant(variant) {
   }
   const workDir = join(tempRoot, `installer-work-${variant.name}`);
 
-  console.log("Rendering the same Redis package with cub install setup...");
+  console.log("Rendering the same Redis package with cub installer setup...");
   const setupOutput = execFileSync(
     "cub",
     [
@@ -122,14 +122,14 @@ function compareVariant(variant) {
 
   const missingFromCub = difference(helmObjects, cubObjects);
   if (missingFromCub.length) {
-    throw new Error(`cub install output is missing Helm object(s):\n${missingFromCub.join("\n")}`);
+    throw new Error(`cub installer output is missing Helm object(s):\n${missingFromCub.join("\n")}`);
   }
 
   const extraInCub = difference(cubObjects, helmObjects);
   assertEqual(
     JSON.stringify(extraInCub),
     JSON.stringify(["v1|Namespace||redis"]),
-    `${variant.name} cub install may add only the explicit namespace support object`,
+    `${variant.name} cub installer may add only the explicit namespace support object`,
   );
 
   const semanticDiffs = [];
@@ -137,7 +137,7 @@ function compareVariant(variant) {
     if (semantic.helm[key] !== semantic.cub[key]) semanticDiffs.push(key);
   }
   if (semanticDiffs.length) {
-    throw new Error(`cub install output differs semantically from Helm object(s):\n${semanticDiffs.join("\n")}`);
+    throw new Error(`cub installer output differs semantically from Helm object(s):\n${semanticDiffs.join("\n")}`);
   }
 
   const manifestFiles = listYamlFiles(join(workDir, "out/manifests"));
@@ -147,7 +147,7 @@ function compareVariant(variant) {
   console.log(`Variant: ${variant.name}`);
   console.log(`Helm render SHA256: ${helmSHA}`);
   console.log(`Helm objects: ${helmObjects.size}`);
-  console.log(`cub install objects: ${cubObjects.size}`);
+  console.log(`cub installer objects: ${cubObjects.size}`);
   console.log(`semantic object matches: ${helmObjects.size}/${helmObjects.size}`);
   console.log(`cub uploaded-manifest files: ${manifestFiles.length}`);
   console.log(`cub separated-secret files: ${secretFiles.length}`);

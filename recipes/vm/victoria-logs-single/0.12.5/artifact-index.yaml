@@ -81,7 +81,7 @@ spec:
         default: true
         description: "vm/victoria-logs-single default variant rendered from vm/victoria-logs-single@0.12.5"
       setupCheck:
-        command: "cub install setup --pull packages/vm/victoria-logs-single/0.12.5 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/vm/victoria-logs-single/0.12.5 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 2
         cubInstallObjectCountIncludingSupport: 3
         semanticObjectMatches: "2/2"

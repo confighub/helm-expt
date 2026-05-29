@@ -29,14 +29,14 @@ spec:
         sha256: "eb7a503d3243099908b75061e5cce6538911bd4d699994a46106ee241054b7d8"
         bytes: 299
   deterministicBundle:
-    command: "cub install package packages/bitnami/apache/11.4.29 -o <tmp>/bitnami-apache-11-4-29.tgz"
+    command: "cub installer package packages/bitnami/apache/11.4.29 -o <tmp>/bitnami-apache-11-4-29.tgz"
     sha256: "0d97fbe6c57b4b8f47d7f4c163e1db33a0558dea2e1d879f8004e3440f53687f"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/bitnami/apache/11.4.29 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/bitnami/apache/11.4.29 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 5
       cubInstallObjectCountIncludingSupport: 6
       semanticObjectMatches: "5/5"

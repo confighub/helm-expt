@@ -23,4 +23,4 @@ spec:
   notes:
     - "First deliberately supported catalog entry."
     - "Supported scope is local-test until scan findings have production dispositions."
-    - "Both variants are Helm-equivalent through cub install setup."
+    - "Both variants are Helm-equivalent through cub installer setup."

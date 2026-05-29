@@ -3,7 +3,7 @@
 # grafana/loki 7.0.0 Weirdness And Mitigations
 
 This note records the Helm pain surfaced during catalog review and where the
-current ConfigHub/cub install proof absorbs it.
+current ConfigHub/cub installer proof absorbs it.
 
 ## Support Boundary
 
@@ -31,7 +31,7 @@ or operating-policy dispositions.
 
 ## Catalog Mitigations
 
-- Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.
+- Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
 - single-binary-filesystem is the simplest local Loki path.
 - simple-scalable-minio is supported as the local multi-component object-store variant.
 - Production remains blocked until object storage, retention, compactor, storage migration, and scan/gate findings have dispositions.

@@ -29,14 +29,14 @@ spec:
         sha256: "e41473c0336b80cacd09061cad0a42467c90ff58beb359da00d89f4a25416feb"
         bytes: 300
   deterministicBundle:
-    command: "cub install package packages/coredns/coredns/1.45.2 -o <tmp>/coredns-coredns-1-45-2.tgz"
+    command: "cub installer package packages/coredns/coredns/1.45.2 -o <tmp>/coredns-coredns-1-45-2.tgz"
     sha256: "795878a5ee157ca65dab8859d5dcb51dffeb6ef89b0979cdc6497a06b600a87e"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/coredns/coredns/1.45.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/coredns/coredns/1.45.2 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 5
       cubInstallObjectCountIncludingSupport: 6
       semanticObjectMatches: "5/5"

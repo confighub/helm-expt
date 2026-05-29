@@ -401,7 +401,7 @@ npm run next80:verify-packages
         sourceFiles,
       },
       deterministicBundle: {
-        command: `cub install package ${relativeRepo(paths.packageRoot)} -o <tmp>/${artifactName(chart)}.tgz`,
+        command: `cub installer package ${relativeRepo(paths.packageRoot)} -o <tmp>/${artifactName(chart)}.tgz`,
         sha256: packageCheck.bundleSHA256,
         byteIdenticalAcrossTwoLocalBundles: true,
       },
@@ -409,7 +409,7 @@ npm run next80:verify-packages
         {
           variant: "default",
           base: "default",
-          command: `cub install setup --pull ${relativeRepo(paths.packageRoot)} --base default --work-dir <tmp> --non-interactive --namespace ${chart.namespace}`,
+          command: `cub installer setup --pull ${relativeRepo(paths.packageRoot)} --base default --work-dir <tmp> --non-interactive --namespace ${chart.namespace}`,
           helmReleaseObjectCount: objects.length,
           cubInstallObjectCountIncludingSupport: packageCheck.cubObjectCount,
           semanticObjectMatches: packageCheck.semanticObjectMatches,
@@ -558,7 +558,7 @@ function writeRevisionArtifacts(chart, paths, context) {
       allowedScopes: context.scanFindings.length ? ["local-test", "review"] : ["local-test", "review", "production-candidate"],
       blockedScopes: context.scanFindings.length ? ["production-without-review"] : [],
       reasons: [
-        `regular Helm output matches cub install setup for ${chart.ref}@${chart.version}`,
+        `regular Helm output matches cub installer setup for ${chart.ref}@${chart.version}`,
         `${context.objects.length} Helm objects are bound to renderedObjectSetSHA256`,
         context.scanFindings.length
           ? "rendered-object scan has review findings; see scan-receipt.yaml"
@@ -622,14 +622,14 @@ This is one of the next 80 public-chart full proofs.
 
 Variant:
 
-- \`default\`: chart defaults under Kubernetes ${kubeVersion}; ${objects.length} Helm objects, ${packageResult.cubObjectCount} \`cub install\` objects including allowed support objects.
+- \`default\`: chart defaults under Kubernetes ${kubeVersion}; ${objects.length} Helm objects, ${packageResult.cubObjectCount} \`cub installer\` objects including allowed support objects.
 
 What this proves:
 
-- regular Helm output is preserved by \`cub install setup\`;
+- regular Helm output is preserved by \`cub installer setup\`;
 - the rendered object set is digest-bound in the variant revision and receipts;
 - scan/gate findings are attached to the exact rendered object digest;
-- the installer package bundles deterministically with \`cub install package\`.
+- the installer package bundles deterministically with \`cub installer package\`.
 
 Current gate:
 
@@ -655,8 +655,8 @@ function packageAndSetupCheck(chart, paths, releaseObjects, expectedObjectCount)
   try {
     const firstPackage = join(tempRoot, `${artifactName(chart)}-a.tgz`);
     const secondPackage = join(tempRoot, `${artifactName(chart)}-b.tgz`);
-    runCub(["install", "package", paths.packageRoot, "-o", firstPackage]);
-    runCub(["install", "package", paths.packageRoot, "-o", secondPackage]);
+    runCub(["installer", "package", paths.packageRoot, "-o", firstPackage]);
+    runCub(["installer", "package", paths.packageRoot, "-o", secondPackage]);
     const firstSHA = sha256File(firstPackage);
     const secondSHA = sha256File(secondPackage);
     check(firstSHA === secondSHA, `${chart.ref} package SHA changed across two local bundles`);
@@ -786,8 +786,8 @@ function verifyChart(chart, options) {
     try {
       const firstPackage = join(tempRoot, `${artifactName(chart)}-a.tgz`);
       const secondPackage = join(tempRoot, `${artifactName(chart)}-b.tgz`);
-      runCub(["install", "package", paths.packageRoot, "-o", firstPackage]);
-      runCub(["install", "package", paths.packageRoot, "-o", secondPackage]);
+      runCub(["installer", "package", paths.packageRoot, "-o", firstPackage]);
+      runCub(["installer", "package", paths.packageRoot, "-o", secondPackage]);
       check(sha256File(firstPackage) === sha256File(secondPackage), `${chart.ref} package SHA changed across verify bundles`);
       check(sha256File(firstPackage) === packageReceipt.spec.deterministicBundle.sha256, `${chart.ref} package receipt bundle SHA mismatch`);
       const setup = runSetupAndCompare(chart, paths, tempRoot, readFileSync(releasePath, "utf8"), objects.length);
@@ -884,15 +884,15 @@ This corpus adds 80 public Helm charts beyond the first 20 bespoke proofs.
 Each row has:
 
 - \`recipes/<repo>/<chart>/<version>/\` with Recipe, HelmPlan, ChartDossier, control points, Variant, VariantRevision, rendered objects, and receipts.
-- \`packages/<repo>/<chart>/<version>/\` with a \`cub install\` package.
-- A Helm equivalence receipt proving regular Helm output matches \`cub install setup\`, aside from allowed installer support objects.
+- \`packages/<repo>/<chart>/<version>/\` with a \`cub installer\` package.
+- A Helm equivalence receipt proving regular Helm output matches \`cub installer setup\`, aside from allowed installer support objects.
 - A render receipt, scan receipt, install gate, and installer package receipt.
 
 Selection rule:
 
 \`\`\`text
 regular helm template output
-  == cub install setup output
+  == cub installer setup output
   plus the allowed Namespace support object
 \`\`\`
 

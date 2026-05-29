@@ -4,12 +4,12 @@ This is the promoted proof slice for the Vault public Helm chart.
 
 Variants:
 
-- `default`: chart defaults with server StatefulSet and injector webhook; 12 Helm objects, 13 cub install objects including Namespace.
-- `ha-raft-ui`: HA Raft storage and UI service are explicit; 18 Helm objects, 19 cub install objects including Namespace.
+- `default`: chart defaults with server StatefulSet and injector webhook; 12 Helm objects, 13 cub installer objects including Namespace.
+- `ha-raft-ui`: HA Raft storage and UI service are explicit; 18 Helm objects, 19 cub installer objects including Namespace.
 
 What this proves:
 
-- regular Helm output is preserved by `cub install setup`, plus the explained Namespace support object;
+- regular Helm output is preserved by `cub installer setup`, plus the explained Namespace support object;
 - the default variant keeps the chart defaults visible: Vault StatefulSet, injector webhook, ClusterRole permissions, services, and TLS-disabled listener config;
 - the ha-raft-ui variant deliberately adds HA Raft discovery, PDB, active/standby services, and UI service exposure;
 - Vault init/unseal and recovery material are not hidden Helm render inputs; they are explicit operate-policy gates after render;

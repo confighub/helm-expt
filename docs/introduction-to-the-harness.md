@@ -22,7 +22,7 @@ Say this:
 ```text
 We do not generate recipes from one prompt. We use AI as an analyst and code
 assistant inside a deterministic recipe-construction workflow. The workflow
-decides where each Helm behavior belongs, then cub install and verifiers prove
+decides where each Helm behavior belongs, then cub installer and verifiers prove
 the result against regular Helm output.
 ```
 
@@ -74,7 +74,7 @@ Receipt = proof of what happened.
 5. Draft the core recipe and value model.
 6. Choose a small set of useful install variants.
 7. Render immutable variant revisions.
-8. Compare `cub install setup` output to regular Helm output.
+8. Compare `cub installer setup` output to regular Helm output.
 9. Scan and gate the exact rendered objects.
 10. Upload or publish through ConfigHub paths when that lane is being proven.
 11. Record receipts and live observations.
@@ -205,7 +205,7 @@ source lock exists and has stable digest
 dependency lock exists
 recipe and variant artifacts exist
 variant revision binds recipe/effective values/facts/capability/renderer/output
-regular Helm render semantically matches cub install setup output
+regular Helm render semantically matches cub installer setup output
 allowed differences are classified
 exact rendered objects are scanned
 install gate records allow/warn/block decision
@@ -215,7 +215,7 @@ live observation receipt records what reached a cluster
 
 For Redis, an allowed difference is the installer Namespace support object. For
 the Redis `default` variant, the rendered Secret is classified as separated by
-`cub install`; for `reuse-existing-secret`, the Secret becomes a target fact
+`cub installer`; for `reuse-existing-secret`, the Secret becomes a target fact
 requirement instead of rendered secret material.
 
 ## What The Harness Produces

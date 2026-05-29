@@ -77,7 +77,7 @@ spec:
         default: true
         description: "jetstack/cert-manager-csi-driver default variant rendered from jetstack/cert-manager-csi-driver@v0.14.0"
       setupCheck:
-        command: "cub install setup --pull packages/jetstack/cert-manager-csi-driver/v0.14.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/jetstack/cert-manager-csi-driver/v0.14.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"

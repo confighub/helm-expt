@@ -21,7 +21,7 @@ spec:
     humanReviewRequired: false
     productReviewRequired: false
   notes:
-    - "Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts."
+    - "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts."
     - "default preserves the normal Longhorn install shape."
     - "ui-ingress is supported when ingress exposure assumptions are declared."
     - "Production remains blocked until storage-class ownership, node prerequisites, backup targets, and scan/gate findings have dispositions."

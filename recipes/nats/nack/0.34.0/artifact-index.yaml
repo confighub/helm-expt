@@ -80,7 +80,7 @@ spec:
         default: true
         description: "nats/nack default variant rendered from nats/nack@0.34.0"
       setupCheck:
-        command: "cub install setup --pull packages/nats/nack/0.34.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/nats/nack/0.34.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"

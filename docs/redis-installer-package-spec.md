@@ -1,7 +1,7 @@
 # Redis Installer Package Spec
 
 This spec defines the next executable Redis proof slice: turn the existing
-Redis variant revisions into a real `cub install` package, then verify that the
+Redis variant revisions into a real `cub installer` package, then verify that the
 package remains deterministic and Helm-equivalent.
 
 This is not the old archived top-20 pathway. The package source is generated
@@ -37,8 +37,8 @@ reuse-existing-secret
 The current executable selection UX is:
 
 ```sh
-cub install setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir <work> --non-interactive --namespace redis
-cub install setup --pull packages/bitnami/redis/25.5.3 --base reuse-existing-secret --work-dir <work> --non-interactive --namespace redis
+cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir <work> --non-interactive --namespace redis
+cub installer setup --pull packages/bitnami/redis/25.5.3 --base reuse-existing-secret --work-dir <work> --non-interactive --namespace redis
 ```
 
 ## Required Files
@@ -64,16 +64,16 @@ recipes/bitnami/redis/25.5.3/publication/
 4. The `default` base points at the default Redis rendered object set.
 5. The `reuse-existing-secret` base points at the existing-secret rendered
    object set.
-6. `cub install package` produces byte-identical `.tgz` files across two local
+6. `cub installer package` produces byte-identical `.tgz` files across two local
    runs from the same source tree.
 7. The package receipt records every package source file and SHA256.
 8. The package receipt records the deterministic `.tgz` SHA256.
-9. `cub install setup --base default` renders all 14 Helm Redis objects, plus
+9. `cub installer setup --base default` renders all 14 Helm Redis objects, plus
    only the installer namespace support object and one separated Secret.
-10. `cub install setup --base reuse-existing-secret` renders all 13 Helm Redis
+10. `cub installer setup --base reuse-existing-secret` renders all 13 Helm Redis
     objects, plus only the installer namespace support object and no separated
     Secret.
-11. Every `cub install` difference from Helm is semantic-equivalent or
+11. Every `cub installer` difference from Helm is semantic-equivalent or
     explicitly classified as the namespace support object.
 12. OCI publication is a real gated command, not a fake transcript. It runs only
     when a registry ref is supplied:

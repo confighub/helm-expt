@@ -29,14 +29,14 @@ spec:
         sha256: "59853259ac978ade7b55bdce3715268ae8d8c636bb7232cf00ff4fcd85422cb7"
         bytes: 382
   deterministicBundle:
-    command: "cub install package packages/prometheus-community/prometheus-pushgateway/3.6.0 -o <tmp>/prometheus-community-prometheus-pushgateway-3-6-0.tgz"
+    command: "cub installer package packages/prometheus-community/prometheus-pushgateway/3.6.0 -o <tmp>/prometheus-community-prometheus-pushgateway-3-6-0.tgz"
     sha256: "11684fe4f6cce5d4a032e5c1ddbbba4dde86fd5e12c933dc411add7ee38020a2"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/prometheus-community/prometheus-pushgateway/3.6.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/prometheus-community/prometheus-pushgateway/3.6.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 3
       cubInstallObjectCountIncludingSupport: 4
       semanticObjectMatches: "3/3"

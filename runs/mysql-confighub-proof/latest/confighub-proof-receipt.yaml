@@ -30,7 +30,7 @@ spec:
             namespace: "mysql"
             suggestedSource: "kubectl -n mysql create secret generic mysql-auth --from-literal=mysql-root-password=<value> --from-literal=mysql-password=<value> --from-literal=mysql-replication-password=<value>"
   render:
-    command: "cub install setup --pull packages/bitnami/mysql/14.0.3 --base generated-passwords --work-dir .tmp/confighub-proof/mysql-generated-passwords --non-interactive --namespace mysql"
+    command: "cub installer setup --pull packages/bitnami/mysql/14.0.3 --base generated-passwords --work-dir .tmp/confighub-proof/mysql-generated-passwords --non-interactive --namespace mysql"
     result: "pass"
     manifestCount: 8
     separatedSecretCount: 1
@@ -43,20 +43,20 @@ spec:
         requiredSecrets:
           []
   rerender:
-    command: "cub install render --work-dir .tmp/confighub-proof/mysql-generated-passwords"
+    command: "cub installer render --work-dir .tmp/confighub-proof/mysql-generated-passwords"
     result: "pass"
     manifestCount: 8
     separatedSecretCount: 1
   deterministicPackage:
-    command: "cub install package packages/bitnami/mysql/14.0.3 -o .tmp/confighub-proof/mysql-archives/mysql-a.tgz"
+    command: "cub installer package packages/bitnami/mysql/14.0.3 -o .tmp/confighub-proof/mysql-archives/mysql-a.tgz"
     sha256: "8534d63c67cbc647c8ab6dab1899dc008838e9cb679561a7c79d7083e5405890"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
-    command: "cub install vet --work-dir .tmp/confighub-proof/mysql-generated-passwords"
+    command: "cub installer vet --work-dir .tmp/confighub-proof/mysql-generated-passwords"
     result: "pass"
     note: "Package declares no validators (spec.validators is empty)."
   upload:
-    command: "cub install upload --work-dir .tmp/confighub-proof/mysql-generated-passwords --space helm-mysql-confighub-proof --component MySQL --layer App --environment Demo --owner ConfigHubHelm --variant generated-passwords --unit-label Component=MySQL --unit-label HelmChart=bitnami-mysql --unit-label HelmChartVersion=14.0.3 --unit-label Variant=generated-passwords --unit-label Proof=mysql-confighub-proof --retry"
+    command: "cub installer upload --work-dir .tmp/confighub-proof/mysql-generated-passwords --space helm-mysql-confighub-proof --component MySQL --layer App --environment Demo --owner ConfigHubHelm --variant generated-passwords --unit-label Component=MySQL --unit-label HelmChart=bitnami-mysql --unit-label HelmChartVersion=14.0.3 --unit-label Variant=generated-passwords --unit-label Proof=mysql-confighub-proof --retry"
     result: "pass"
     workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
     space: "helm-mysql-confighub-proof"
@@ -67,9 +67,9 @@ spec:
       - "v1/Secret mysql/mysql"
   plan:
     preUpload:
-      command: "cub install plan --work-dir .tmp/confighub-proof/mysql-generated-passwords"
+      command: "cub installer plan --work-dir .tmp/confighub-proof/mysql-generated-passwords"
       result: "expected-missing-upload-state"
-    command: "cub install plan --work-dir .tmp/confighub-proof/mysql-generated-passwords"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/mysql-generated-passwords"
     result: "pass"
     summary: "No changes.\nImages in helm-mysql-confighub-proof (post-render):\n  init  StatefulSet/mysql [preserve-logs-symlinks] docker.io/bitnami/mysql:9.4.0-debian-12-r1\n      StatefulSet/mysql [mysql] docker.io/bitnami/mysql:9.4.0-debian-12-r1"
   serverSideVariant:
@@ -91,7 +91,7 @@ spec:
       - "helm-mysql-confighub-proof"
       - "helm-mysql-confighub-proof-staging"
   observedFriction:
-    - "cub install upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
-    - "pre-upload cub install plan is expected to fail until upload state exists."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

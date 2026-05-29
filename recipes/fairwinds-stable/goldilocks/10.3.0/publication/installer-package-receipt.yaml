@@ -29,14 +29,14 @@ spec:
         sha256: "3fd69b017401fa6939ec62cdea6ccf783087df01533aa7b167f83b5cab8eb8b7"
         bytes: 336
   deterministicBundle:
-    command: "cub install package packages/fairwinds-stable/goldilocks/10.3.0 -o <tmp>/fairwinds-stable-goldilocks-10-3-0.tgz"
+    command: "cub installer package packages/fairwinds-stable/goldilocks/10.3.0 -o <tmp>/fairwinds-stable-goldilocks-10-3-0.tgz"
     sha256: "1ccb876ce49d490494141334c674ec6da4f46accbea5f1bdda5f59a20454b68a"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/fairwinds-stable/goldilocks/10.3.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/fairwinds-stable/goldilocks/10.3.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 9
       cubInstallObjectCountIncludingSupport: 10
       semanticObjectMatches: "9/9"

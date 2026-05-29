@@ -5,15 +5,15 @@ This corpus adds 80 public Helm charts beyond the first 20 bespoke proofs.
 Each row has:
 
 - `recipes/<repo>/<chart>/<version>/` with Recipe, HelmPlan, ChartDossier, control points, Variant, VariantRevision, rendered objects, and receipts.
-- `packages/<repo>/<chart>/<version>/` with a `cub install` package.
-- A Helm equivalence receipt proving regular Helm output matches `cub install setup`, aside from allowed installer support objects.
+- `packages/<repo>/<chart>/<version>/` with a `cub installer` package.
+- A Helm equivalence receipt proving regular Helm output matches `cub installer setup`, aside from allowed installer support objects.
 - A render receipt, scan receipt, install gate, and installer package receipt.
 
 Selection rule:
 
 ```text
 regular helm template output
-  == cub install setup output
+  == cub installer setup output
   plus the allowed Namespace support object
 ```
 

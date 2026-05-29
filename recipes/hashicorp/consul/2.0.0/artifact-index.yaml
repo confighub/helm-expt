@@ -90,7 +90,7 @@ spec:
         default: true
         description: "consul default control plane variant rendered from hashicorp/consul@2.0.0"
       setupCheck:
-        command: "cub install setup --pull packages/hashicorp/consul/2.0.0 --base default-control-plane --work-dir <tmp> --non-interactive --namespace consul"
+        command: "cub installer setup --pull packages/hashicorp/consul/2.0.0 --base default-control-plane --work-dir <tmp> --non-interactive --namespace consul"
         helmReleaseObjectCount: 68
         cubInstallObjectCountIncludingSupport: 69
         semanticObjectMatches: "68/68"
@@ -177,7 +177,7 @@ spec:
         default: false
         description: "consul secure mesh with existing Secrets variant rendered from hashicorp/consul@2.0.0"
       setupCheck:
-        command: "cub install setup --pull packages/hashicorp/consul/2.0.0 --base secure-mesh-existing-secrets --work-dir <tmp> --non-interactive --namespace consul"
+        command: "cub installer setup --pull packages/hashicorp/consul/2.0.0 --base secure-mesh-existing-secrets --work-dir <tmp> --non-interactive --namespace consul"
         helmReleaseObjectCount: 97
         cubInstallObjectCountIncludingSupport: 98
         semanticObjectMatches: "97/97"

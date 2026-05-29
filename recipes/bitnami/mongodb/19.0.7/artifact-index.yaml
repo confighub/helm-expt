@@ -89,7 +89,7 @@ spec:
         default: true
         description: "mongodb generated passwords variant rendered from bitnami/mongodb@19.0.7"
       setupCheck:
-        command: "cub install setup --pull packages/bitnami/mongodb/19.0.7 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mongodb"
+        command: "cub installer setup --pull packages/bitnami/mongodb/19.0.7 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mongodb"
         helmReleaseObjectCount: 8
         cubInstallObjectCountIncludingSupport: 9
         semanticObjectMatches: "8/8"
@@ -158,7 +158,7 @@ spec:
         default: false
         description: "mongodb existing Secret replica set variant rendered from bitnami/mongodb@19.0.7"
       setupCheck:
-        command: "cub install setup --pull packages/bitnami/mongodb/19.0.7 --base existing-secret-replicaset --work-dir <tmp> --non-interactive --namespace mongodb"
+        command: "cub installer setup --pull packages/bitnami/mongodb/19.0.7 --base existing-secret-replicaset --work-dir <tmp> --non-interactive --namespace mongodb"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"

@@ -29,14 +29,14 @@ spec:
         sha256: "a4a2d91b3219223a687dd85fea4b7e802df8d7fe044b0ddd34d25487b578b09a"
         bytes: 318
   deterministicBundle:
-    command: "cub install package packages/bitnami/elasticsearch/22.1.6 -o <tmp>/bitnami-elasticsearch-22-1-6.tgz"
+    command: "cub installer package packages/bitnami/elasticsearch/22.1.6 -o <tmp>/bitnami-elasticsearch-22-1-6.tgz"
     sha256: "ed2ac25a86cee7ef69f1843a08427f704560c5a31cd327daae11fa0cfffb7b41"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/bitnami/elasticsearch/22.1.6 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/bitnami/elasticsearch/22.1.6 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 21
       cubInstallObjectCountIncludingSupport: 22
       semanticObjectMatches: "21/21"

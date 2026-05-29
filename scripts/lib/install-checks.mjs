@@ -14,7 +14,7 @@ spec:
   receiptRoot: .tmp/verify-install
   variants:
     - name: <variant name>
-      base: <cub install package base>
+      base: <cub installer package base>
       variantRevision: <path>
       renderedObjects: <canonical rendered release object YAML path>
       helmEquivalenceReceipt: <receipt path with spec.regularHelm.renderedSHA256>
@@ -25,7 +25,7 @@ spec:
             keys: [<key>]
       expected:
         helmObjects: <canonical Helm object count>
-        cubInstallObjectsIncludingSupport: <cub install object count>
+        cubInstallObjectsIncludingSupport: <cub installer object count>
         semanticObjectMatches: <n/n>
         allowedCubOnlyObjects:
           - {apiVersion, kind, namespace, name}

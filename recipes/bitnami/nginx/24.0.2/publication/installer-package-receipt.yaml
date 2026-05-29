@@ -9,7 +9,7 @@ spec:
     version: "24.0.2"
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
-    command: "cub install package packages/bitnami/nginx/24.0.2 -o <tmp>/nginx-24.0.2.tgz"
+    command: "cub installer package packages/bitnami/nginx/24.0.2 -o <tmp>/nginx-24.0.2.tgz"
     sha256: "bd5cb61027cf975d700d8b0cb7aba4b1b64f076368bd087328385f31ffc0eefb"
   package:
     name: "bitnami-nginx"
@@ -49,7 +49,7 @@ spec:
       allowedCubOnlyObjects:
         - "v1|Namespace||nginx"
       base: "http-clusterip"
-      command: "cub install setup --pull packages/bitnami/nginx/24.0.2 --base http-clusterip --work-dir <tmp> --non-interactive --namespace nginx"
+      command: "cub installer setup --pull packages/bitnami/nginx/24.0.2 --base http-clusterip --work-dir <tmp> --non-interactive --namespace nginx"
       cubInstallObjectCountIncludingSupport: 6
       helmReleaseObjectCount: 5
       semanticObjectMatches: "5/5"
@@ -61,7 +61,7 @@ spec:
       allowedCubOnlyObjects:
         - "v1|Namespace||nginx"
       base: "existing-tls-ingress"
-      command: "cub install setup --pull packages/bitnami/nginx/24.0.2 --base existing-tls-ingress --work-dir <tmp> --non-interactive --namespace nginx"
+      command: "cub installer setup --pull packages/bitnami/nginx/24.0.2 --base existing-tls-ingress --work-dir <tmp> --non-interactive --namespace nginx"
       cubInstallObjectCountIncludingSupport: 7
       helmReleaseObjectCount: 6
       semanticObjectMatches: "6/6"

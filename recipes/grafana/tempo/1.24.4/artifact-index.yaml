@@ -89,7 +89,7 @@ spec:
         default: true
         description: "tempo local persistent single-binary variant rendered from grafana/tempo@1.24.4"
       setupCheck:
-        command: "cub install setup --pull packages/grafana/tempo/1.24.4 --base local-persistent --work-dir <tmp> --non-interactive --namespace tempo"
+        command: "cub installer setup --pull packages/grafana/tempo/1.24.4 --base local-persistent --work-dir <tmp> --non-interactive --namespace tempo"
         helmReleaseObjectCount: 4
         cubInstallObjectCountIncludingSupport: 5
         semanticObjectMatches: "4/4"
@@ -159,7 +159,7 @@ spec:
         default: false
         description: "tempo S3 query and observability variant rendered from grafana/tempo@1.24.4"
       setupCheck:
-        command: "cub install setup --pull packages/grafana/tempo/1.24.4 --base s3-query-observability --work-dir <tmp> --non-interactive --namespace tempo"
+        command: "cub installer setup --pull packages/grafana/tempo/1.24.4 --base s3-query-observability --work-dir <tmp> --non-interactive --namespace tempo"
         helmReleaseObjectCount: 8
         cubInstallObjectCountIncludingSupport: 9
         semanticObjectMatches: "8/8"

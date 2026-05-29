@@ -6,15 +6,15 @@ with a few deep examples.
 Each chart in this target must have:
 
 - a recipe directory under `recipes/<repo>/<chart>/<version>/`;
-- a `cub install` package directory under `packages/<repo>/<chart>/<version>/`;
+- a `cub installer` package directory under `packages/<repo>/<chart>/<version>/`;
 - source and dependency locks;
 - HelmPlan and ChartDossier artifacts;
 - at least one install variant, plus a second meaningful variant when the chart
   exposes one naturally;
 - rendered release objects and object inventory per variant revision;
 - render, Helm-equivalence, scan, install-gate, and installer-package receipts;
-- deterministic `cub install package` proof;
-- `cub install setup` output compared against regular Helm output;
+- deterministic `cub installer package` proof;
+- `cub installer setup` output compared against regular Helm output;
 - verifier coverage wired into `npm run verify`;
 - a row in the generated proof spreadsheet that links back to receipts.
 
@@ -32,7 +32,7 @@ The top-20 set also has current ConfigHub proof evidence:
 Each receipt set proves the current command path:
 
 ```text
-cub install doc/setup/render/package/vet/plan/upload
+cub installer doc/setup/render/package/vet/plan/upload
 ConfigHub Unit inventory and representative data/revision review
 cub variant create staging clone
 cub function vet checks
@@ -92,7 +92,7 @@ That brings the public proof surface to:
 ```text
 20 bespoke proofs
 80 generated full proofs
-100 total recipes and cub install packages
+100 total recipes and cub installer packages
 ```
 
 The completed set alternates between deterministic rendered charts,
@@ -111,7 +111,7 @@ Every row should answer, in plain English:
 Can I install this safely?
 What variants exist?
 What did Helm render?
-What did cub install produce?
+What did cub installer produce?
 What differences are intentional?
 What scans/gates ran?
 What remains risky or blocked?

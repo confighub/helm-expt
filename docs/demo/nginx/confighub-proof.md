@@ -7,7 +7,7 @@ This proof lane repeats the Redis ConfigHub proof shape for
 `http-clusterip`.
 
 It uses current commands only. It does not rely on future shorthand such as
-`cub install nginx`, `cub install compare`, `cub install scan`, or
+`cub installer nginx`, `cub installer compare`, `cub installer scan`, or
 `cub variant diff`.
 
 ## Acceptance Contract
@@ -16,13 +16,13 @@ The NGINX lane is accepted when it proves:
 
 | Capability | Command surface | Acceptance |
 | --- | --- | --- |
-| Package explanation | `cub install doc` | Shows NGINX package bases and target-fact requirements. |
-| Deterministic setup | `cub install setup` | Renders `http-clusterip` into a fresh work directory. |
-| Re-render | `cub install render` | Re-renders the same work directory successfully. |
-| Package determinism | `cub install package` | Builds byte-identical package archives. |
-| Validator path | `cub install vet` | Runs successfully, or records that the package has no validators. |
-| Upload plan | `cub install plan` | Produces a read-only plan after upload state exists. |
-| ConfigHub upload | `cub install upload` | Creates or reconciles ConfigHub Units for the rendered NGINX output. |
+| Package explanation | `cub installer doc` | Shows NGINX package bases and target-fact requirements. |
+| Deterministic setup | `cub installer setup` | Renders `http-clusterip` into a fresh work directory. |
+| Re-render | `cub installer render` | Re-renders the same work directory successfully. |
+| Package determinism | `cub installer package` | Builds byte-identical package archives. |
+| Validator path | `cub installer vet` | Runs successfully, or records that the package has no validators. |
+| Upload plan | `cub installer plan` | Produces a read-only plan after upload state exists. |
+| ConfigHub upload | `cub installer upload` | Creates or reconciles ConfigHub Units for the rendered NGINX output. |
 | Server-side variant | `cub variant create` | Clones a reviewed uploaded NGINX space. |
 | Review/diff | `cub unit tree`, `cub unit data`, `cub revision list`, `cub unit diff` | Shows ConfigHub-side object data, revision history, and a Unit diff. |
 | ConfigHub function scan | `cub function vet` | Runs validating functions against uploaded Units. |

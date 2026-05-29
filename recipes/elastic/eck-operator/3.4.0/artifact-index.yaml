@@ -84,7 +84,7 @@ spec:
         default: true
         description: "elastic/eck-operator default variant rendered from elastic/eck-operator@3.4.0"
       setupCheck:
-        command: "cub install setup --pull packages/elastic/eck-operator/3.4.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/elastic/eck-operator/3.4.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 22
         cubInstallObjectCountIncludingSupport: 23
         semanticObjectMatches: "22/22"

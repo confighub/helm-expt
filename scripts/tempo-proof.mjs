@@ -671,12 +671,12 @@ npm run tempo:verify-package
   try {
     const firstPackage = join(tempRoot, "tempo-1.24.4-a.tgz");
     const secondPackage = join(tempRoot, "tempo-1.24.4-b.tgz");
-    runCub(["install", "package", packageRoot, "-o", firstPackage]);
-    runCub(["install", "package", packageRoot, "-o", secondPackage]);
+    runCub(["installer", "package", packageRoot, "-o", firstPackage]);
+    runCub(["installer", "package", packageRoot, "-o", secondPackage]);
     const firstSHA = sha256File(firstPackage);
     const secondSHA = sha256File(secondPackage);
     if (firstSHA !== secondSHA || !readFileSync(firstPackage).equals(readFileSync(secondPackage))) {
-      throw new Error("cub install package did not produce byte-identical bundles");
+      throw new Error("cub installer package did not produce byte-identical bundles");
     }
     mkdirSync(dirname(receiptPath), { recursive: true });
     writeYaml(receiptPath, {
@@ -692,14 +692,14 @@ npm run tempo:verify-package
           sourceFiles: files,
         },
         deterministicBundle: {
-          command: `cub install package ${packageRelative} -o <tmp>/tempo-1.24.4.tgz`,
+          command: `cub installer package ${packageRelative} -o <tmp>/tempo-1.24.4.tgz`,
           sha256: firstSHA,
           byteIdenticalAcrossTwoLocalBundles: true,
         },
         setupChecks: variants.map((variant) => ({
           variant: variant.name,
           base: variant.base,
-          command: `cub install setup --pull ${packageRelative} --base ${variant.base} --work-dir <tmp> --non-interactive --namespace tempo`,
+          command: `cub installer setup --pull ${packageRelative} --base ${variant.base} --work-dir <tmp> --non-interactive --namespace tempo`,
           helmReleaseObjectCount: variant.expectedObjectCount,
           cubInstallObjectCountIncludingSupport: variant.expectedObjectCount + 1,
           semanticObjectMatches: `${variant.expectedObjectCount}/${variant.expectedObjectCount}`,
@@ -886,8 +886,8 @@ function verifyPackage() {
   try {
     const firstPackage = join(tempRoot, "tempo-a.tgz");
     const secondPackage = join(tempRoot, "tempo-b.tgz");
-    runCub(["install", "package", packageRoot, "-o", firstPackage]);
-    runCub(["install", "package", packageRoot, "-o", secondPackage]);
+    runCub(["installer", "package", packageRoot, "-o", firstPackage]);
+    runCub(["installer", "package", packageRoot, "-o", secondPackage]);
     const firstSHA = sha256File(firstPackage);
     const secondSHA = sha256File(secondPackage);
     check(firstSHA === secondSHA, "package SHA changed across two local bundles");
@@ -1209,13 +1209,13 @@ Variants:
 
 ${summaries
   .map(
-    (summary) => `- \`${summary.name}\`: ${summary.valuesSummary}; ${summary.objects.length} Helm objects, ${summary.objects.length + 1} cub install objects including Namespace.`,
+    (summary) => `- \`${summary.name}\`: ${summary.valuesSummary}; ${summary.objects.length} Helm objects, ${summary.objects.length + 1} cub installer objects including Namespace.`,
   )
   .join("\n")}
 
 What this proves:
 
-- regular Helm output is preserved by \`cub install setup\`, plus the explained Namespace support object;
+- regular Helm output is preserved by \`cub installer setup\`, plus the explained Namespace support object;
 - the literal \`grafana/tempo\` chart is deprecated, and the proof records that fact instead of hiding it;
 - \`local-persistent\` captures local single-binary storage and PVC settings;
 - \`s3-query-observability\` uses a declared target Secret for S3 credentials, does not render a Secret, and adds query ingress, NetworkPolicy, and ServiceMonitor;

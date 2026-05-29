@@ -29,14 +29,14 @@ spec:
         sha256: "90bf904f92f81a47bad6800456dc3f144ca054821343d6f6fc9563099ad14e80"
         bytes: 337
   deterministicBundle:
-    command: "cub install package packages/crossplane-stable/crossplane/2.3.1 -o <tmp>/crossplane-stable-crossplane-2-3-1.tgz"
+    command: "cub installer package packages/crossplane-stable/crossplane/2.3.1 -o <tmp>/crossplane-stable-crossplane-2-3-1.tgz"
     sha256: "243510bb37b6cd6117298450387d7966f5637b30ebcae192ab3b9848d072d016"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/crossplane-stable/crossplane/2.3.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/crossplane-stable/crossplane/2.3.1 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 23
       cubInstallObjectCountIncludingSupport: 24
       semanticObjectMatches: "23/23"

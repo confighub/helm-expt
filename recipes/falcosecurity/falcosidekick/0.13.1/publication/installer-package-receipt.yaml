@@ -29,14 +29,14 @@ spec:
         sha256: "8f82cdb03806d4fc3305d4bc97d00d6c2d1ee481c91cc916951cf89ea362b7da"
         bytes: 336
   deterministicBundle:
-    command: "cub install package packages/falcosecurity/falcosidekick/0.13.1 -o <tmp>/falcosecurity-falcosidekick-0-13-1.tgz"
+    command: "cub installer package packages/falcosecurity/falcosidekick/0.13.1 -o <tmp>/falcosecurity-falcosidekick-0-13-1.tgz"
     sha256: "f4aef20f7e695a5fc58795613158b54bda2fd086357d8d7cf353caab4a612047"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/falcosecurity/falcosidekick/0.13.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/falcosecurity/falcosidekick/0.13.1 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 6
       cubInstallObjectCountIncludingSupport: 7
       semanticObjectMatches: "6/6"

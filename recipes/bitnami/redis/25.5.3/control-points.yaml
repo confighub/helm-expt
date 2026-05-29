@@ -31,7 +31,7 @@ spec:
       policy: no-hooks
     - category: secret-handling
       status: handled
-      note: cub install separates one rendered Secret from uploaded manifests.
+      note: cub installer separates one rendered Secret from uploaded manifests.
     - category: installer-support-object
       status: handled
       object: v1|Namespace||redis

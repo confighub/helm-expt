@@ -29,14 +29,14 @@ spec:
         sha256: "535e6725a7f45e2fca198c76bd81607efe23142c9cdcc83e8bdbcb1d1548745f"
         bytes: 303
   deterministicBundle:
-    command: "cub install package packages/grafana/promtail/6.17.1 -o <tmp>/grafana-promtail-6-17-1.tgz"
+    command: "cub installer package packages/grafana/promtail/6.17.1 -o <tmp>/grafana-promtail-6-17-1.tgz"
     sha256: "9188545be328ef5274745f362eede9cf1610a38ca13ade9a254f613a5bee4f62"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/grafana/promtail/6.17.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/grafana/promtail/6.17.1 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 5
       cubInstallObjectCountIncludingSupport: 6
       semanticObjectMatches: "5/5"

@@ -32,7 +32,7 @@ try {
   });
 
   const packageFile = join(tempRoot, "bitnami-redis-25.5.3.tgz");
-  const packageOutput = execFileSync("cub", ["install", "package", packageRoot, "-o", packageFile], {
+  const packageOutput = execFileSync("cub", ["installer", "package", packageRoot, "-o", packageFile], {
     cwd: repoRoot,
     encoding: "utf8",
     stdio: ["ignore", "pipe", "inherit"],
@@ -40,14 +40,14 @@ try {
     maxBuffer: 1024 * 1024 * 100,
   });
   const packageSHA = sha256File(packageFile);
-  const pushOutput = execFileSync("cub", ["install", "push", packageFile, ociRef], {
+  const pushOutput = execFileSync("cub", ["installer", "push", packageFile, ociRef], {
     cwd: repoRoot,
     encoding: "utf8",
     stdio: ["ignore", "pipe", "inherit"],
     env: { ...process.env, CONFIGHUB_AGENT: "1" },
     maxBuffer: 1024 * 1024 * 100,
   });
-  const inspectOutput = execFileSync("cub", ["install", "inspect", ociRef, "--json"], {
+  const inspectOutput = execFileSync("cub", ["installer", "inspect", ociRef, "--json"], {
     cwd: repoRoot,
     encoding: "utf8",
     stdio: ["ignore", "pipe", "inherit"],
@@ -67,9 +67,9 @@ spec:
     path: ${relative(repoRoot, packageRoot)}
     sha256: ${packageSHA}
   commands:
-    package: "cub install package ${relative(repoRoot, packageRoot)} -o <tmp>/bitnami-redis-25.5.3.tgz"
-    push: "cub install push <tmp>/bitnami-redis-25.5.3.tgz ${ociRef}"
-    inspect: "cub install inspect ${ociRef} --json"
+    package: "cub installer package ${relative(repoRoot, packageRoot)} -o <tmp>/bitnami-redis-25.5.3.tgz"
+    push: "cub installer push <tmp>/bitnami-redis-25.5.3.tgz ${ociRef}"
+    inspect: "cub installer inspect ${ociRef} --json"
   outputs:
     package: |
 ${indentBlock(packageOutput.trimEnd(), 6)}

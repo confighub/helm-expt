@@ -29,14 +29,14 @@ spec:
         sha256: "e81d2c7ca8f017bc924758cf739b86d1f472209c24b378096e0b85f397158e10"
         bytes: 301
   deterministicBundle:
-    command: "cub install package packages/elastic/logstash/8.5.1 -o <tmp>/elastic-logstash-8-5-1.tgz"
+    command: "cub installer package packages/elastic/logstash/8.5.1 -o <tmp>/elastic-logstash-8-5-1.tgz"
     sha256: "cc907ba593e2d2e0d750a5c4310ee8d9bb37383807a51d43f30b1ebf47a5e779"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/elastic/logstash/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/elastic/logstash/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 3
       cubInstallObjectCountIncludingSupport: 4
       semanticObjectMatches: "3/3"

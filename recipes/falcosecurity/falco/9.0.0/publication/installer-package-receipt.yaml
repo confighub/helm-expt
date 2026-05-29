@@ -29,14 +29,14 @@ spec:
         sha256: "0fa807b165ad90f353b544ee6c3bf896b92d3eeda8d438d6f8cb69d33f6f8434"
         bytes: 310
   deterministicBundle:
-    command: "cub install package packages/falcosecurity/falco/9.0.0 -o <tmp>/falcosecurity-falco-9-0-0.tgz"
+    command: "cub installer package packages/falcosecurity/falco/9.0.0 -o <tmp>/falcosecurity-falco-9-0-0.tgz"
     sha256: "a519fcb3bb6edf83336ad98da88745645597448bd6514358b40993ba4eb6ee9b"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/falcosecurity/falco/9.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/falcosecurity/falco/9.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 6
       cubInstallObjectCountIncludingSupport: 7
       semanticObjectMatches: "6/6"

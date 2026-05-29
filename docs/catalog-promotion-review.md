@@ -25,8 +25,8 @@ Every promoted catalog variant must pass:
 
 - source lock and dependency lock verification;
 - deterministic regular Helm render under the declared capability profile;
-- `cub install package` deterministic bundle verification;
-- `cub install setup` semantic equivalence against regular Helm output;
+- `cub installer package` deterministic bundle verification;
+- `cub installer setup` semantic equivalence against regular Helm output;
 - rendered object inventory verification;
 - digest-bound VariantRevision verification;
 - render receipt verification;

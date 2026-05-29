@@ -82,7 +82,7 @@ spec:
         default: true
         description: "gatekeeper/gatekeeper default variant rendered from gatekeeper/gatekeeper@3.22.2"
       setupCheck:
-        command: "cub install setup --pull packages/gatekeeper/gatekeeper/3.22.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/gatekeeper/gatekeeper/3.22.2 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 30
         cubInstallObjectCountIncludingSupport: 31
         semanticObjectMatches: "30/30"

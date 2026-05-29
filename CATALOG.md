@@ -10,7 +10,7 @@ Use this page when you want to answer:
 What can I install?
 Which variant should I start with?
 Which variant needs existing Secrets or other target facts?
-Where is the executable cub install package?
+Where is the executable cub installer package?
 Where are the proof receipts?
 ```
 
@@ -19,13 +19,13 @@ Where are the proof receipts?
 ```text
 chart
   variant
-    cub install package base
+    cub installer package base
     rendered objects
     receipts and checks
 ```
 
 The root catalog is the entry point. The per-chart `CATALOG.md` is the
-evidence folder. The `packages/` path is what `cub install setup` uses.
+evidence folder. The `packages/` path is what `cub installer setup` uses.
 
 ## Folder Map
 
@@ -37,7 +37,7 @@ recipes/<repo>/<chart>/<version>/CATALOG.md
   Per-chart recipe, variants, rendered objects, receipts, and status.
 
 packages/<repo>/<chart>/<version>/
-  Executable cub install package with one base per variant.
+  Executable cub installer package with one base per variant.
 
 runs/
   Receipts from live, ConfigHub, scan, and safe-ops proof runs.
@@ -90,7 +90,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/bitnami/redis/25.5.3/helm-pain
 Start here:
 
 ```sh
-cub install setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir <tmp> --non-interactive --namespace redis
+cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir <tmp> --non-interactive --namespace redis
 ```
 
 Variants:
@@ -129,7 +129,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/metrics-server/metrics-server/
 Start here:
 
 ```sh
-cub install setup --pull packages/metrics-server/metrics-server/3.13.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system
+cub installer setup --pull packages/metrics-server/metrics-server/3.13.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system
 ```
 
 Variants:
@@ -168,7 +168,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/ingress-nginx/ingress-nginx/4.
 Start here:
 
 ```sh
-cub install setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base default --work-dir <tmp> --non-interactive --namespace ingress-nginx
+cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base default --work-dir <tmp> --non-interactive --namespace ingress-nginx
 ```
 
 Variants:
@@ -207,7 +207,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/jetstack/cert-manager/v1.20.2/
 Start here:
 
 ```sh
-cub install setup --pull packages/jetstack/cert-manager/v1.20.2 --base default --work-dir <tmp> --non-interactive --namespace cert-manager
+cub installer setup --pull packages/jetstack/cert-manager/v1.20.2 --base default --work-dir <tmp> --non-interactive --namespace cert-manager
 ```
 
 Variants:
@@ -246,7 +246,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/external-secrets/external-secr
 Start here:
 
 ```sh
-cub install setup --pull packages/external-secrets/external-secrets/2.5.0 --base default --work-dir <tmp> --non-interactive --namespace external-secrets
+cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base default --work-dir <tmp> --non-interactive --namespace external-secrets
 ```
 
 Variants:
@@ -285,7 +285,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/argo-cd/argo-cd/9.5.15/helm-pa
 Start here:
 
 ```sh
-cub install setup --pull packages/argo-cd/argo-cd/9.5.15 --base default --work-dir <tmp> --non-interactive --namespace argocd
+cub installer setup --pull packages/argo-cd/argo-cd/9.5.15 --base default --work-dir <tmp> --non-interactive --namespace argocd
 ```
 
 Variants:
@@ -324,7 +324,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/bitnami/postgresql/18.6.7/helm
 Start here:
 
 ```sh
-cub install setup --pull packages/bitnami/postgresql/18.6.7 --base generated-passwords --work-dir <tmp> --non-interactive --namespace postgresql
+cub installer setup --pull packages/bitnami/postgresql/18.6.7 --base generated-passwords --work-dir <tmp> --non-interactive --namespace postgresql
 ```
 
 Variants:
@@ -363,7 +363,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/bitnami/rabbitmq/16.0.14/helm-
 Start here:
 
 ```sh
-cub install setup --pull packages/bitnami/rabbitmq/16.0.14 --base generated-passwords --work-dir <tmp> --non-interactive --namespace rabbitmq
+cub installer setup --pull packages/bitnami/rabbitmq/16.0.14 --base generated-passwords --work-dir <tmp> --non-interactive --namespace rabbitmq
 ```
 
 Variants:
@@ -402,7 +402,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/prometheus-community/kube-prom
 Start here:
 
 ```sh
-cub install setup --pull packages/prometheus-community/kube-prometheus-stack/85.3.3 --base default --work-dir <tmp> --non-interactive --namespace monitoring
+cub installer setup --pull packages/prometheus-community/kube-prometheus-stack/85.3.3 --base default --work-dir <tmp> --non-interactive --namespace monitoring
 ```
 
 Variants:
@@ -441,7 +441,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/grafana/loki/7.0.0/helm-pain-r
 Start here:
 
 ```sh
-cub install setup --pull packages/grafana/loki/7.0.0 --base single-binary-filesystem --work-dir <tmp> --non-interactive --namespace loki
+cub installer setup --pull packages/grafana/loki/7.0.0 --base single-binary-filesystem --work-dir <tmp> --non-interactive --namespace loki
 ```
 
 Variants:
@@ -480,7 +480,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/longhorn/longhorn/1.11.2/helm-
 Start here:
 
 ```sh
-cub install setup --pull packages/longhorn/longhorn/1.11.2 --base default --work-dir <tmp> --non-interactive --namespace longhorn-system
+cub installer setup --pull packages/longhorn/longhorn/1.11.2 --base default --work-dir <tmp> --non-interactive --namespace longhorn-system
 ```
 
 Variants:
@@ -519,7 +519,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/bitnami/mysql/14.0.3/helm-pain
 Start here:
 
 ```sh
-cub install setup --pull packages/bitnami/mysql/14.0.3 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mysql
+cub installer setup --pull packages/bitnami/mysql/14.0.3 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mysql
 ```
 
 Variants:
@@ -558,7 +558,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/grafana/grafana/10.5.15/helm-p
 Start here:
 
 ```sh
-cub install setup --pull packages/grafana/grafana/10.5.15 --base generated-passwords --work-dir <tmp> --non-interactive --namespace grafana
+cub installer setup --pull packages/grafana/grafana/10.5.15 --base generated-passwords --work-dir <tmp> --non-interactive --namespace grafana
 ```
 
 Variants:
@@ -597,7 +597,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/hashicorp/vault/0.32.0/helm-pa
 Start here:
 
 ```sh
-cub install setup --pull packages/hashicorp/vault/0.32.0 --base default --work-dir <tmp> --non-interactive --namespace vault
+cub installer setup --pull packages/hashicorp/vault/0.32.0 --base default --work-dir <tmp> --non-interactive --namespace vault
 ```
 
 Variants:
@@ -636,7 +636,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/secrets-store-csi-driver/secre
 Start here:
 
 ```sh
-cub install setup --pull packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system
+cub installer setup --pull packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system
 ```
 
 Variants:
@@ -675,7 +675,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/prometheus-community/prometheu
 Start here:
 
 ```sh
-cub install setup --pull packages/prometheus-community/prometheus/29.8.0 --base default --work-dir <tmp> --non-interactive --namespace monitoring
+cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 --base default --work-dir <tmp> --non-interactive --namespace monitoring
 ```
 
 Variants:
@@ -714,7 +714,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/bitnami/mongodb/19.0.7/helm-pa
 Start here:
 
 ```sh
-cub install setup --pull packages/bitnami/mongodb/19.0.7 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mongodb
+cub installer setup --pull packages/bitnami/mongodb/19.0.7 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mongodb
 ```
 
 Variants:
@@ -753,7 +753,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/bitnami/nginx/24.0.2/helm-pain
 Start here:
 
 ```sh
-cub install setup --pull packages/bitnami/nginx/24.0.2 --base http-clusterip --work-dir <tmp> --non-interactive --namespace nginx
+cub installer setup --pull packages/bitnami/nginx/24.0.2 --base http-clusterip --work-dir <tmp> --non-interactive --namespace nginx
 ```
 
 Variants:
@@ -792,7 +792,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/grafana/tempo/1.24.4/helm-pain
 Start here:
 
 ```sh
-cub install setup --pull packages/grafana/tempo/1.24.4 --base local-persistent --work-dir <tmp> --non-interactive --namespace tempo
+cub installer setup --pull packages/grafana/tempo/1.24.4 --base local-persistent --work-dir <tmp> --non-interactive --namespace tempo
 ```
 
 Variants:
@@ -831,7 +831,7 @@ Helm pain report: [helm-pain-report.yaml](recipes/hashicorp/consul/2.0.0/helm-pa
 Start here:
 
 ```sh
-cub install setup --pull packages/hashicorp/consul/2.0.0 --base default-control-plane --work-dir <tmp> --non-interactive --namespace consul
+cub installer setup --pull packages/hashicorp/consul/2.0.0 --base default-control-plane --work-dir <tmp> --non-interactive --namespace consul
 ```
 
 Variants:

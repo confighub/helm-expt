@@ -29,14 +29,14 @@ spec:
         sha256: "65799464b453aadffe3b66b76799e777e9c47d3fe8e9c6f5064fb6b51bdd15bf"
         bytes: 301
   deterministicBundle:
-    command: "cub install package packages/elastic/filebeat/8.5.1 -o <tmp>/elastic-filebeat-8-5-1.tgz"
+    command: "cub installer package packages/elastic/filebeat/8.5.1 -o <tmp>/elastic-filebeat-8-5-1.tgz"
     sha256: "c31d6c291caaf2bb4942f058051bdf1df44c14762599d9123124be6d7bc6257a"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/elastic/filebeat/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/elastic/filebeat/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 7
       cubInstallObjectCountIncludingSupport: 8
       semanticObjectMatches: "7/7"

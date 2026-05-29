@@ -7,7 +7,7 @@ Command:
 Key output:
   Comparing Redis variant: default
   Rendering Redis with Helm using the captured variant inputs...
-  Rendering the same Redis package with cub install setup...
+  Rendering the same Redis package with cub installer setup...
   Base: default; components: []
   Namespace: redis
   Rendered 14 manifest(s)
@@ -17,7 +17,7 @@ Key output:
   Variant: default
   Helm render SHA256: 362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d
   Helm objects: 14
-  cub install objects: 15
+  cub installer objects: 15
   semantic object matches: 14/14
   cub uploaded-manifest files: 14
   cub separated-secret files: 1
@@ -25,7 +25,7 @@ Key output:
 
   Comparing Redis variant: reuse-existing-secret
   Rendering Redis with Helm using the captured variant inputs...
-  Rendering the same Redis package with cub install setup...
+  Rendering the same Redis package with cub installer setup...
   Base: reuse-existing-secret; components: []
   Namespace: redis
   Rendered 14 manifest(s)
@@ -34,7 +34,7 @@ Key output:
   Variant: reuse-existing-secret
   Helm render SHA256: a90dda4885fb97749e2c222f1abd840f49dcf6eafa953ea6ea2dbc6ba565fe53
   Helm objects: 13
-  cub install objects: 14
+  cub installer objects: 14
   semantic object matches: 13/13
   cub uploaded-manifest files: 14
   cub separated-secret files: 0
@@ -56,7 +56,7 @@ Key output:
   Redis installer package verification passed.
 
 Command:
-  cub install upload --work-dir .tmp/confighub-upload/redis-default --space helm-redis-default ...
+  cub installer upload --work-dir .tmp/confighub-upload/redis-default --space helm-redis-default ...
 
 Key output:
   Plan: 14 to add, 0 to change, 0 to delete.
@@ -80,7 +80,7 @@ Key output:
   Note: 1 rendered Secret(s) were NOT uploaded to ConfigHub.
 
 Command:
-  cub install upload --work-dir .tmp/confighub-upload/redis-reuse-existing-secret --space helm-redis-reuse-existing-secret ...
+  cub installer upload --work-dir .tmp/confighub-upload/redis-reuse-existing-secret --space helm-redis-reuse-existing-secret ...
 
 Key output:
   Successfully created 14 Redis Kubernetes Units.

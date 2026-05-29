@@ -17,7 +17,7 @@ safe operations
 immediate proof
 ```
 
-The remaining UX problem is the command shape. The proof uses real `cub install`
+The remaining UX problem is the command shape. The proof uses real `cub installer`
 commands, but the demo still exposes more flags than the final product should.
 
 ## Easier Than Helm
@@ -33,7 +33,7 @@ What is better now:
 What is not yet easy enough:
 
 ```text
-cub install setup --pull ... --base ... --work-dir ... --namespace ...
+cub installer setup --pull ... --base ... --work-dir ... --namespace ...
 ```
 
 This is real, but not the final happy path. The future porcelain can be shorter
@@ -60,7 +60,7 @@ production until findings are resolved or explicitly waived.
 
 The current proof shows:
 
-| Variant | Helm objects | cub install objects | Explanation |
+| Variant | Helm objects | cub installer objects | Explanation |
 | --- | ---: | ---: | --- |
 | default | 14 | 15 | All Helm objects match; cub adds Namespace support object and separates one Secret. |
 | reuse-existing-secret | 13 | 14 | All Helm objects match; cub adds Namespace support object; target Secret is required externally. |
@@ -84,9 +84,9 @@ ConfigHub exposed OCI-readable proof for the uploaded Units.
 
 | Requirement | Status |
 | --- | --- |
-| One install/render action | Pass, using current `cub install setup`. |
+| One install/render action | Pass, using current `cub installer setup`. |
 | One review/proof action | Pass, using `npm run redis:compare` and `npm run verify`. |
-| One publish/upload action | Pass, using `cub install upload`. |
+| One publish/upload action | Pass, using `cub installer upload`. |
 | Exact object proof | Pass. |
 | Helm equivalence | Pass. |
 | Intentional differences explained | Pass. |

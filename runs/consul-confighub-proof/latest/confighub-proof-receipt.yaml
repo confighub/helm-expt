@@ -45,7 +45,7 @@ spec:
             namespace: "consul"
             suggestedSource: "kubectl -n consul create secret generic consul-bootstrap-acl-token --from-literal=token=<value>"
   render:
-    command: "cub install setup --pull packages/hashicorp/consul/2.0.0 --base default-control-plane --work-dir .tmp/confighub-proof/consul-default-control-plane --non-interactive --namespace consul"
+    command: "cub installer setup --pull packages/hashicorp/consul/2.0.0 --base default-control-plane --work-dir .tmp/confighub-proof/consul-default-control-plane --non-interactive --namespace consul"
     result: "pass"
     manifestCount: 71
     separatedSecretCount: 0
@@ -58,20 +58,20 @@ spec:
         requiredSecrets:
           []
   rerender:
-    command: "cub install render --work-dir .tmp/confighub-proof/consul-default-control-plane"
+    command: "cub installer render --work-dir .tmp/confighub-proof/consul-default-control-plane"
     result: "pass"
     manifestCount: 71
     separatedSecretCount: 0
   deterministicPackage:
-    command: "cub install package packages/hashicorp/consul/2.0.0 -o .tmp/confighub-proof/consul-archives/consul-a.tgz"
+    command: "cub installer package packages/hashicorp/consul/2.0.0 -o .tmp/confighub-proof/consul-archives/consul-a.tgz"
     sha256: "42422d943b0580fc76e76a6038f1811160cd5b1687edae1dff66b219abc2fa73"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
-    command: "cub install vet --work-dir .tmp/confighub-proof/consul-default-control-plane"
+    command: "cub installer vet --work-dir .tmp/confighub-proof/consul-default-control-plane"
     result: "pass"
     note: "Package declares no validators (spec.validators is empty)."
   upload:
-    command: "cub install upload --work-dir .tmp/confighub-proof/consul-default-control-plane --space helm-consul-confighub-proof --component Consul --layer App --environment Demo --owner ConfigHubHelm --variant default-control-plane --unit-label Component=Consul --unit-label HelmChart=hashicorp-consul --unit-label HelmChartVersion=2.0.0 --unit-label Variant=default-control-plane --unit-label Proof=consul-confighub-proof --retry"
+    command: "cub installer upload --work-dir .tmp/confighub-proof/consul-default-control-plane --space helm-consul-confighub-proof --component Consul --layer App --environment Demo --owner ConfigHubHelm --variant default-control-plane --unit-label Component=Consul --unit-label HelmChart=hashicorp-consul --unit-label HelmChartVersion=2.0.0 --unit-label Variant=default-control-plane --unit-label Proof=consul-confighub-proof --retry"
     result: "pass"
     workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
     space: "helm-consul-confighub-proof"
@@ -82,9 +82,9 @@ spec:
       []
   plan:
     preUpload:
-      command: "cub install plan --work-dir .tmp/confighub-proof/consul-default-control-plane"
+      command: "cub installer plan --work-dir .tmp/confighub-proof/consul-default-control-plane"
       result: "expected-missing-upload-state"
-    command: "cub install plan --work-dir .tmp/confighub-proof/consul-default-control-plane"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/consul-default-control-plane"
     result: "pass"
     summary: "Plan: 0 to add, 3 to change, 0 to delete.\nSpace helm-consul-confighub-proof:\n  ~ service-consul-consul-consul-dns\n      New changes from update from /Users/alexis/code/helm-expt/.tmp/confighub-proof/consul-default-control-plane/out/manifests/service-consul-consul-consul-dns.yaml:\n      Resource: v1/Service consul/consul-consul-dns\n        - [Delete] spec.ports.?port=53;@0  (#3)\n          name: dns-tcp\n          port: 53\n          protocol: TCP\n          targetPort: dns-tcp"
   serverSideVariant:
@@ -106,6 +106,6 @@ spec:
       - "helm-consul-confighub-proof"
       - "helm-consul-confighub-proof-staging"
   observedFriction:
-    - "cub install upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
-    - "pre-upload cub install plan is expected to fail until upload state exists."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

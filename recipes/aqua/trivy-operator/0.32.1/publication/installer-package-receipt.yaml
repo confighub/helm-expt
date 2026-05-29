@@ -29,14 +29,14 @@ spec:
         sha256: "91c21d9282a76871a223925081757eb18ff6cb2a4590b772d4f5e9958760d2bd"
         bytes: 312
   deterministicBundle:
-    command: "cub install package packages/aqua/trivy-operator/0.32.1 -o <tmp>/aqua-trivy-operator-0-32-1.tgz"
+    command: "cub installer package packages/aqua/trivy-operator/0.32.1 -o <tmp>/aqua-trivy-operator-0-32-1.tgz"
     sha256: "8c555a67346fd06cc31082171c3ee830bf55710e20c9e7737e4c10f189011e9b"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/aqua/trivy-operator/0.32.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/aqua/trivy-operator/0.32.1 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 33
       cubInstallObjectCountIncludingSupport: 34
       semanticObjectMatches: "33/33"

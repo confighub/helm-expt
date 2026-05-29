@@ -29,14 +29,14 @@ spec:
         sha256: "12a13fe2e0fb9a241308659d45321bf8b155f83feec3cbf1483da7c248c41b18"
         bytes: 353
   deterministicBundle:
-    command: "cub install package packages/jetstack/cert-manager-csi-driver/v0.14.0 -o <tmp>/jetstack-cert-manager-csi-driver-v0-14-0.tgz"
+    command: "cub installer package packages/jetstack/cert-manager-csi-driver/v0.14.0 -o <tmp>/jetstack-cert-manager-csi-driver-v0-14-0.tgz"
     sha256: "3791114cef219f7dcb44933aa4129c7e87e63f856a87186f22af9918ec0a0951"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/jetstack/cert-manager-csi-driver/v0.14.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/jetstack/cert-manager-csi-driver/v0.14.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 5
       cubInstallObjectCountIncludingSupport: 6
       semanticObjectMatches: "5/5"

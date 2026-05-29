@@ -79,7 +79,7 @@ spec:
         default: true
         description: "elastic/kibana default variant rendered from elastic/kibana@8.5.1"
       setupCheck:
-        command: "cub install setup --pull packages/elastic/kibana/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/elastic/kibana/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 2
         cubInstallObjectCountIncludingSupport: 3
         semanticObjectMatches: "2/2"

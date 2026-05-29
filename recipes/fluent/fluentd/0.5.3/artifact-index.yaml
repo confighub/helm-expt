@@ -79,7 +79,7 @@ spec:
         default: true
         description: "fluent/fluentd default variant rendered from fluent/fluentd@0.5.3"
       setupCheck:
-        command: "cub install setup --pull packages/fluent/fluentd/0.5.3 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/fluent/fluentd/0.5.3 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"

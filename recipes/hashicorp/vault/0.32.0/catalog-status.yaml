@@ -21,7 +21,7 @@ spec:
     humanReviewRequired: false
     productReviewRequired: false
   notes:
-    - "Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts."
+    - "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts."
     - "default is the simplest local Vault chart path."
     - "ha-raft-ui is supported as a richer local HA-shape proof, not a production readiness claim."
     - "Production remains blocked until seal/init, storage, recovery, unseal workflow, and scan/gate findings have dispositions."

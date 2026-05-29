@@ -9,7 +9,7 @@ spec:
     version: "3.13.0"
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
-    command: "cub install package packages/metrics-server/metrics-server/3.13.0 -o <tmp>/metrics-server-3.13.0.tgz"
+    command: "cub installer package packages/metrics-server/metrics-server/3.13.0 -o <tmp>/metrics-server-3.13.0.tgz"
     sha256: "a3a3ed2c49dbb5e99333faee2f676394f0d182a41ba8db9a2d37aab493e9c2dc"
   package:
     name: "metrics-server-metrics-server"
@@ -49,7 +49,7 @@ spec:
       allowedCubOnlyObjects:
         - "v1|Namespace||kube-system"
       base: "default"
-      command: "cub install setup --pull packages/metrics-server/metrics-server/3.13.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system"
+      command: "cub installer setup --pull packages/metrics-server/metrics-server/3.13.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system"
       cubInstallObjectCountIncludingSupport: 10
       helmReleaseObjectCount: 9
       semanticObjectMatches: "9/9"
@@ -61,7 +61,7 @@ spec:
       allowedCubOnlyObjects:
         - "v1|Namespace||kube-system"
       base: "external-tls-ca"
-      command: "cub install setup --pull packages/metrics-server/metrics-server/3.13.0 --base external-tls-ca --work-dir <tmp> --non-interactive --namespace kube-system"
+      command: "cub installer setup --pull packages/metrics-server/metrics-server/3.13.0 --base external-tls-ca --work-dir <tmp> --non-interactive --namespace kube-system"
       cubInstallObjectCountIncludingSupport: 10
       helmReleaseObjectCount: 9
       semanticObjectMatches: "9/9"

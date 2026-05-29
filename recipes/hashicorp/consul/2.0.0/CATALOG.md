@@ -41,7 +41,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 
 ## Variants
 
-| Variant | Variant file | Package base | Revision | Helm objects | cub install objects | Match | Helm equivalence | Scan | Gate | Target facts |
+| Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default-control-plane | [recipes/hashicorp/consul/2.0.0/variants/default-control-plane/variant.yaml](variants/default-control-plane/variant.yaml) | [packages/hashicorp/consul/2.0.0/bases/default-control-plane](../../../../packages/hashicorp/consul/2.0.0/bases/default-control-plane) | [recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/variant-revision.yaml](revisions/default-control-plane/r001/variant-revision.yaml) | 68 | 69 | 68/68 | pass | warn | warn | none |
 | secure-mesh-existing-secrets | [recipes/hashicorp/consul/2.0.0/variants/secure-mesh-existing-secrets/variant.yaml](variants/secure-mesh-existing-secrets/variant.yaml) | [packages/hashicorp/consul/2.0.0/bases/secure-mesh-existing-secrets](../../../../packages/hashicorp/consul/2.0.0/bases/secure-mesh-existing-secrets) | [recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/variant-revision.yaml](revisions/secure-mesh-existing-secrets/r001/variant-revision.yaml) | 97 | 98 | 97/97 | pass | warn | warn | required Secret consul/consul-ca-cert keys tls.crt; required Secret consul/consul-server-cert keys tls.crt,tls.key; required Secret consul/consul-gossip-encryption-key keys key; required Secret consul/consul-bootstrap-acl-token keys token |
@@ -69,10 +69,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 ## Current Install Shape
 
 ```sh
-cub install setup --pull packages/hashicorp/consul/2.0.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull packages/hashicorp/consul/2.0.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The proof path compares
-regular Helm output with real `cub install setup` output and explains every
+regular Helm output with real `cub installer setup` output and explains every
 intentional difference, such as the Namespace support object or separated
 Secrets.

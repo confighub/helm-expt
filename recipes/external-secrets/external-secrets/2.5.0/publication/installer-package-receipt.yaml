@@ -37,14 +37,14 @@ spec:
         sha256: "275da2afe29b043c672c265a6a36d8f772bc6d22312b16fb922ee69a1229dd20"
         bytes: 505
   deterministicBundle:
-    command: "cub install package packages/external-secrets/external-secrets/2.5.0 -o <tmp>/external-secrets-2.5.0.tgz"
+    command: "cub installer package packages/external-secrets/external-secrets/2.5.0 -o <tmp>/external-secrets-2.5.0.tgz"
     sha256: "0a8f6642c21088b0e4e01686cee44979f947656d7b56f03820c1d9b10d77bcc9"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/external-secrets/external-secrets/2.5.0 --base default --work-dir <tmp> --non-interactive --namespace external-secrets"
+      command: "cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base default --work-dir <tmp> --non-interactive --namespace external-secrets"
       helmReleaseObjectCount: 42
       cubInstallObjectCountIncludingSupport: 43
       semanticObjectMatches: "42/42"
@@ -54,7 +54,7 @@ spec:
     -
       variant: "no-crds"
       base: "no-crds"
-      command: "cub install setup --pull packages/external-secrets/external-secrets/2.5.0 --base no-crds --work-dir <tmp> --non-interactive --namespace external-secrets"
+      command: "cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base no-crds --work-dir <tmp> --non-interactive --namespace external-secrets"
       helmReleaseObjectCount: 19
       cubInstallObjectCountIncludingSupport: 20
       semanticObjectMatches: "19/19"

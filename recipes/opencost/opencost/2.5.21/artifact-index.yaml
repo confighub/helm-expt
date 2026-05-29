@@ -79,7 +79,7 @@ spec:
         default: true
         description: "opencost/opencost default variant rendered from opencost/opencost@2.5.21"
       setupCheck:
-        command: "cub install setup --pull packages/opencost/opencost/2.5.21 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/opencost/opencost/2.5.21 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

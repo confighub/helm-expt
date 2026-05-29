@@ -3,7 +3,7 @@
 ## Purpose
 
 This proof lane shows the current ConfigHub path for `bitnami/mongodb@19.0.7`
-using real commands only: `cub install`, `cub variant`, `cub unit`,
+using real commands only: `cub installer`, `cub variant`, `cub unit`,
 `cub function`, and `cub changeset`.
 
 The selected happy-path install variant is `generated-passwords`.

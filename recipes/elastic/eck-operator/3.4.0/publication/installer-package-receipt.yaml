@@ -29,14 +29,14 @@ spec:
         sha256: "57c5f551a7c9e4aaa0ef809b97bda2ab7b159a45767da497a8e9571ed0500b0f"
         bytes: 313
   deterministicBundle:
-    command: "cub install package packages/elastic/eck-operator/3.4.0 -o <tmp>/elastic-eck-operator-3-4-0.tgz"
+    command: "cub installer package packages/elastic/eck-operator/3.4.0 -o <tmp>/elastic-eck-operator-3-4-0.tgz"
     sha256: "566ea129866cc8879a72df241a89369fa27df5eceae92113572a056faa7fce68"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/elastic/eck-operator/3.4.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/elastic/eck-operator/3.4.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 22
       cubInstallObjectCountIncludingSupport: 23
       semanticObjectMatches: "22/22"

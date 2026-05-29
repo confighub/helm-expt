@@ -29,14 +29,14 @@ spec:
         sha256: "e33a73d8b09ec0740deeda3f504364182a18e7f303a2ebddc38bc67523129309"
         bytes: 315
   deterministicBundle:
-    command: "cub install package packages/fairwinds-stable/vpa/4.11.0 -o <tmp>/fairwinds-stable-vpa-4-11-0.tgz"
+    command: "cub installer package packages/fairwinds-stable/vpa/4.11.0 -o <tmp>/fairwinds-stable-vpa-4-11-0.tgz"
     sha256: "0d86322bfd30a794da09bb5cca158eefba28b67f0d2498ad17ce2431bc8863f7"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/fairwinds-stable/vpa/4.11.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/fairwinds-stable/vpa/4.11.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 28
       cubInstallObjectCountIncludingSupport: 29
       semanticObjectMatches: "28/28"

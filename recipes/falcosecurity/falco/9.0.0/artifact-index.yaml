@@ -81,7 +81,7 @@ spec:
         default: true
         description: "falcosecurity/falco default variant rendered from falcosecurity/falco@9.0.0"
       setupCheck:
-        command: "cub install setup --pull packages/falcosecurity/falco/9.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/falcosecurity/falco/9.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

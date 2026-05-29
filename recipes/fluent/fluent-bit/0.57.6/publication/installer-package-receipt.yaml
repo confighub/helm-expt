@@ -29,14 +29,14 @@ spec:
         sha256: "676ea0cb1bff224a6b3531f821ac3b138b0d3c06d78b5ef2f079a2c63fb4a483"
         bytes: 306
   deterministicBundle:
-    command: "cub install package packages/fluent/fluent-bit/0.57.6 -o <tmp>/fluent-fluent-bit-0-57-6.tgz"
+    command: "cub installer package packages/fluent/fluent-bit/0.57.6 -o <tmp>/fluent-fluent-bit-0-57-6.tgz"
     sha256: "927d51336074709b3466f6ec458392d5b590073ff38953c4b7a524e65a63a90d"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/fluent/fluent-bit/0.57.6 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/fluent/fluent-bit/0.57.6 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 6
       cubInstallObjectCountIncludingSupport: 7
       semanticObjectMatches: "6/6"

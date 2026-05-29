@@ -41,7 +41,7 @@ It did not exercise `confighub/installer`:
 
 - no `installer.yaml`
 - no installer package work directory
-- no `cub install setup`
+- no `cub installer setup`
 - no installer render lifecycle
 - no installer upload/reconcile record
 - no clear package boundary for later variants
@@ -49,7 +49,7 @@ It did not exercise `confighub/installer`:
 That is why the current proof path uses:
 
 ```text
-Helm-rendered Redis package -> cub install setup -> rendered objects -> ConfigHub OCI/package publication
+Helm-rendered Redis package -> cub installer setup -> rendered objects -> ConfigHub OCI/package publication
 ```
 
 The old archived top-20 payload has been removed from the active tree. The
@@ -63,14 +63,14 @@ Use these commands to reproduce the current Redis compatibility check:
 ```sh
 go install sigs.k8s.io/kustomize/kustomize/v5@v5.8.1
 export PATH="$PATH:$(go env GOPATH)/bin"
-cub plugin install confighub/installer --source-repo --name install --force
-make -C ~/.confighub/plugins/install build
+cub plugin install confighub/installer --source-repo --name installer --force
+make -C ~/.confighub/plugins/installer build
 
 export REDIS_PACKAGE=./packages/bitnami/redis/25.5.3
 export WORK_DIR=/tmp/confighub-helm-redis
 
-cub install doc "$REDIS_PACKAGE"
-cub install setup \
+cub installer doc "$REDIS_PACKAGE"
+cub installer setup \
   --pull "$REDIS_PACKAGE" \
   --work-dir "$WORK_DIR" \
   --non-interactive \
@@ -79,5 +79,5 @@ cub install setup \
 npm run redis:compare
 ```
 
-The comparison verifies the `cub install` output against the regular Helm
+The comparison verifies the `cub installer` output against the regular Helm
 baseline and explains the intentional Namespace support object.

@@ -81,7 +81,7 @@ spec:
         default: true
         description: "strimzi/strimzi-kafka-operator default variant rendered from strimzi/strimzi-kafka-operator@1.0.0"
       setupCheck:
-        command: "cub install setup --pull packages/strimzi/strimzi-kafka-operator/1.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/strimzi/strimzi-kafka-operator/1.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 27
         cubInstallObjectCountIncludingSupport: 28
         semanticObjectMatches: "27/27"

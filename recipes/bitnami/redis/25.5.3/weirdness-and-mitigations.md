@@ -3,7 +3,7 @@
 # bitnami/redis 25.5.3 Weirdness And Mitigations
 
 This note records the Helm pain surfaced during catalog review and where the
-current ConfigHub/cub install proof absorbs it.
+current ConfigHub/cub installer proof absorbs it.
 
 ## Support Boundary
 
@@ -29,7 +29,7 @@ or operating-policy dispositions.
 
 - First deliberately supported catalog entry.
 - Supported scope is local-test until scan findings have production dispositions.
-- Both variants are Helm-equivalent through cub install setup.
+- Both variants are Helm-equivalent through cub installer setup.
 
 ## Control Points
 
@@ -41,7 +41,7 @@ or operating-policy dispositions.
 | target-facts | required-for-reuse-existing-secret | variants/reuse-existing-secret/variant.yaml |
 | capability-profile | handled | recorded in control-points.yaml |
 | hook-policy | handled | no-hooks |
-| secret-handling | handled | cub install separates one rendered Secret from uploaded manifests. |
+| secret-handling | handled | cub installer separates one rendered Secret from uploaded manifests. |
 | installer-support-object | handled | v1\|Namespace\|\|redis |
 
 ## Control Point Index

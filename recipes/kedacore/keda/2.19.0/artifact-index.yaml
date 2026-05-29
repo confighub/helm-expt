@@ -83,7 +83,7 @@ spec:
         default: true
         description: "kedacore/keda default variant rendered from kedacore/keda@2.19.0"
       setupCheck:
-        command: "cub install setup --pull packages/kedacore/keda/2.19.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/kedacore/keda/2.19.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 29
         cubInstallObjectCountIncludingSupport: 30
         semanticObjectMatches: "29/29"

@@ -44,6 +44,6 @@ production-blocked pending disposition: 20
 ## Doctrine
 
 The top-20 must be in the catalog. Their local-test paths are easy to try
-because they have passing ConfigHub/cub install receipts. They are not
+because they have passing ConfigHub/cub installer receipts. They are not
 production-supported until their scan/gate warnings, lifecycle risks, target
 facts, and live/e2e observation requirements have explicit dispositions.

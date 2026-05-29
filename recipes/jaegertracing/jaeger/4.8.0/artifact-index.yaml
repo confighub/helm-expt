@@ -81,7 +81,7 @@ spec:
         default: true
         description: "jaegertracing/jaeger default variant rendered from jaegertracing/jaeger@4.8.0"
       setupCheck:
-        command: "cub install setup --pull packages/jaegertracing/jaeger/4.8.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/jaegertracing/jaeger/4.8.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 3
         cubInstallObjectCountIncludingSupport: 4
         semanticObjectMatches: "3/3"

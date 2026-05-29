@@ -9,7 +9,7 @@ spec:
     version: "25.5.3"
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
-    command: "cub install package packages/bitnami/redis/25.5.3 -o <tmp>/bitnami-redis-25.5.3.tgz"
+    command: "cub installer package packages/bitnami/redis/25.5.3 -o <tmp>/bitnami-redis-25.5.3.tgz"
     sha256: "e10b703aab658e6423260bfcbc9620c7f16058d1ca21e3855dd4a9f64a1d07b3"
   ociPublication:
     command: "REDIS_INSTALLER_OCI_REF=oci://<registry>/<repo>:<tag> npm run redis:publish-package"
@@ -53,7 +53,7 @@ spec:
       allowedCubOnlyObjects:
         - "v1|Namespace||redis"
       base: "default"
-      command: "cub install setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir <tmp> --non-interactive --namespace redis"
+      command: "cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir <tmp> --non-interactive --namespace redis"
       cubInstallObjectCountIncludingSupport: 15
       helmReleaseObjectCount: 14
       semanticObjectMatches: "14/14"
@@ -65,7 +65,7 @@ spec:
       allowedCubOnlyObjects:
         - "v1|Namespace||redis"
       base: "reuse-existing-secret"
-      command: "cub install setup --pull packages/bitnami/redis/25.5.3 --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace redis"
+      command: "cub installer setup --pull packages/bitnami/redis/25.5.3 --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace redis"
       cubInstallObjectCountIncludingSupport: 14
       helmReleaseObjectCount: 13
       semanticObjectMatches: "13/13"

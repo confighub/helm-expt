@@ -81,7 +81,7 @@ spec:
         default: true
         description: "bitnami/phpmyadmin default variant rendered from bitnami/phpmyadmin@20.0.0"
       setupCheck:
-        command: "cub install setup --pull packages/bitnami/phpmyadmin/20.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/bitnami/phpmyadmin/20.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"

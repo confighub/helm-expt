@@ -88,7 +88,7 @@ spec:
         default: true
         description: "Longhorn default storage control plane variant rendered from longhorn/longhorn@1.11.2"
       setupCheck:
-        command: "cub install setup --pull packages/longhorn/longhorn/1.11.2 --base default --work-dir <tmp> --non-interactive --namespace longhorn-system"
+        command: "cub installer setup --pull packages/longhorn/longhorn/1.11.2 --base default --work-dir <tmp> --non-interactive --namespace longhorn-system"
         helmReleaseObjectCount: 41
         cubInstallObjectCountIncludingSupport: 42
         semanticObjectMatches: "41/41"
@@ -150,7 +150,7 @@ spec:
         default: false
         description: "Longhorn UI ingress enabled variant rendered from longhorn/longhorn@1.11.2"
       setupCheck:
-        command: "cub install setup --pull packages/longhorn/longhorn/1.11.2 --base ui-ingress --work-dir <tmp> --non-interactive --namespace longhorn-system"
+        command: "cub installer setup --pull packages/longhorn/longhorn/1.11.2 --base ui-ingress --work-dir <tmp> --non-interactive --namespace longhorn-system"
         helmReleaseObjectCount: 42
         cubInstallObjectCountIncludingSupport: 43
         semanticObjectMatches: "42/42"

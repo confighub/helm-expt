@@ -4,12 +4,12 @@ This is the promoted proof slice for the Loki public Helm chart.
 
 Variants:
 
-- `single-binary-filesystem`: single-binary Loki with filesystem storage and explicit schema config; 19 Helm objects, 20 cub install objects including Namespace.
-- `simple-scalable-minio`: simple scalable Loki with explicit object-storage buckets and MinIO enabled; 36 Helm objects, 37 cub install objects including Namespace.
+- `single-binary-filesystem`: single-binary Loki with filesystem storage and explicit schema config; 19 Helm objects, 20 cub installer objects including Namespace.
+- `simple-scalable-minio`: simple scalable Loki with explicit object-storage buckets and MinIO enabled; 36 Helm objects, 37 cub installer objects including Namespace.
 
 What this proves:
 
-- regular Helm output is preserved by `cub install setup`, plus the explained Namespace support object;
+- regular Helm output is preserved by `cub installer setup`, plus the explained Namespace support object;
 - default chart rendering is blocked until Loki storage bucket/schema values are supplied, and that blocker is recorded;
 - the single-binary-filesystem variant provides the smallest local-test topology with filesystem storage;
 - the simple-scalable-minio variant provides an object-storage path with explicit bucket names and a chart-owned MinIO fixture;

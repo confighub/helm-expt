@@ -6,7 +6,7 @@ It combines two kinds of evidence:
 
 ```text
 source-feature reconnaissance
-  + current ConfigHub/cub install recipe evidence
+  + current ConfigHub/cub installer recipe evidence
 ```
 
 The source scan tells us what Helm complexity exists in popular charts. The

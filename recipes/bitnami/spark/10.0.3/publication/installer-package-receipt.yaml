@@ -29,14 +29,14 @@ spec:
         sha256: "6778d14738ceb0c2e62a4227f34fbb90caf24c7272c0e1485f2f3b6c5fd3b581"
         bytes: 294
   deterministicBundle:
-    command: "cub install package packages/bitnami/spark/10.0.3 -o <tmp>/bitnami-spark-10-0-3.tgz"
+    command: "cub installer package packages/bitnami/spark/10.0.3 -o <tmp>/bitnami-spark-10-0-3.tgz"
     sha256: "2bca4e36fa16ed907936cc1e575101e009d3cd86c348bafcff183b5e4154bfce"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/bitnami/spark/10.0.3 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/bitnami/spark/10.0.3 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 10
       cubInstallObjectCountIncludingSupport: 11
       semanticObjectMatches: "10/10"

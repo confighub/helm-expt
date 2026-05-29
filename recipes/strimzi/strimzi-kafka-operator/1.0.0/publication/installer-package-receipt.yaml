@@ -29,14 +29,14 @@ spec:
         sha256: "861758f40db2f6ca5922305f4ef855daaa0e050dc6ce0dd198a590da7feeba6e"
         bytes: 343
   deterministicBundle:
-    command: "cub install package packages/strimzi/strimzi-kafka-operator/1.0.0 -o <tmp>/strimzi-strimzi-kafka-operator-1-0-0.tgz"
+    command: "cub installer package packages/strimzi/strimzi-kafka-operator/1.0.0 -o <tmp>/strimzi-strimzi-kafka-operator-1-0-0.tgz"
     sha256: "d0aac3dacbd08095f408dbf0b2b92ac4b1b97ecee494c9acb24db7d882515cc2"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/strimzi/strimzi-kafka-operator/1.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/strimzi/strimzi-kafka-operator/1.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 27
       cubInstallObjectCountIncludingSupport: 28
       semanticObjectMatches: "27/27"

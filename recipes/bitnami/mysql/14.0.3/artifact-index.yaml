@@ -87,7 +87,7 @@ spec:
         default: true
         description: "mysql generated passwords variant rendered from bitnami/mysql@14.0.3"
       setupCheck:
-        command: "cub install setup --pull packages/bitnami/mysql/14.0.3 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mysql"
+        command: "cub installer setup --pull packages/bitnami/mysql/14.0.3 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mysql"
         helmReleaseObjectCount: 8
         cubInstallObjectCountIncludingSupport: 9
         semanticObjectMatches: "8/8"
@@ -157,7 +157,7 @@ spec:
         default: false
         description: "mysql existing Secret variant rendered from bitnami/mysql@14.0.3"
       setupCheck:
-        command: "cub install setup --pull packages/bitnami/mysql/14.0.3 --base existing-secret --work-dir <tmp> --non-interactive --namespace mysql"
+        command: "cub installer setup --pull packages/bitnami/mysql/14.0.3 --base existing-secret --work-dir <tmp> --non-interactive --namespace mysql"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"

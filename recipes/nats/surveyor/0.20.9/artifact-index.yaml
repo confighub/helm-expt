@@ -77,7 +77,7 @@ spec:
         default: true
         description: "nats/surveyor default variant rendered from nats/surveyor@0.20.9"
       setupCheck:
-        command: "cub install setup --pull packages/nats/surveyor/0.20.9 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/nats/surveyor/0.20.9 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 3
         cubInstallObjectCountIncludingSupport: 4
         semanticObjectMatches: "3/3"

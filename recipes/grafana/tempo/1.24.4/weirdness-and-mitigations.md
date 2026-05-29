@@ -3,7 +3,7 @@
 # grafana/tempo 1.24.4 Weirdness And Mitigations
 
 This note records the Helm pain surfaced during catalog review and where the
-current ConfigHub/cub install proof absorbs it.
+current ConfigHub/cub installer proof absorbs it.
 
 ## Support Boundary
 
@@ -30,7 +30,7 @@ or operating-policy dispositions.
 
 ## Catalog Mitigations
 
-- Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.
+- Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
 - local-persistent is the simplest local Tempo path.
 - s3-query-observability is supported when object-store and query-path assumptions are declared.
 - Production remains blocked until object storage, retention, PVC, and scan/gate findings have dispositions.

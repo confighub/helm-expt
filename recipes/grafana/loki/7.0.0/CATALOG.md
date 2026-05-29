@@ -41,7 +41,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 
 ## Variants
 
-| Variant | Variant file | Package base | Revision | Helm objects | cub install objects | Match | Helm equivalence | Scan | Gate | Target facts |
+| Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | single-binary-filesystem | [recipes/grafana/loki/7.0.0/variants/single-binary-filesystem/variant.yaml](variants/single-binary-filesystem/variant.yaml) | [packages/grafana/loki/7.0.0/bases/single-binary-filesystem](../../../../packages/grafana/loki/7.0.0/bases/single-binary-filesystem) | [recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/variant-revision.yaml](revisions/single-binary-filesystem/r001/variant-revision.yaml) | 19 | 20 | 19/19 | pass | warn | warn | none |
 | simple-scalable-minio | [recipes/grafana/loki/7.0.0/variants/simple-scalable-minio/variant.yaml](variants/simple-scalable-minio/variant.yaml) | [packages/grafana/loki/7.0.0/bases/simple-scalable-minio](../../../../packages/grafana/loki/7.0.0/bases/simple-scalable-minio) | [recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/variant-revision.yaml](revisions/simple-scalable-minio/r001/variant-revision.yaml) | 36 | 37 | 36/36 | pass | warn | warn | none |
@@ -69,10 +69,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 ## Current Install Shape
 
 ```sh
-cub install setup --pull packages/grafana/loki/7.0.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull packages/grafana/loki/7.0.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The proof path compares
-regular Helm output with real `cub install setup` output and explains every
+regular Helm output with real `cub installer setup` output and explains every
 intentional difference, such as the Namespace support object or separated
 Secrets.

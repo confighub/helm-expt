@@ -29,14 +29,14 @@ spec:
         sha256: "1d0e242f416ebf56776cdc7b01823865c97a1fcd66776546e12f1f2f65058e3f"
         bytes: 444
   deterministicBundle:
-    command: "cub install package packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 -o <tmp>/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18.tgz"
+    command: "cub installer package packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 -o <tmp>/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18.tgz"
     sha256: "c34aaf40e578bf4557a032c6869ac3f3001d1489b23d140f972c7b3004e5f6de"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 7
       cubInstallObjectCountIncludingSupport: 8
       semanticObjectMatches: "7/7"

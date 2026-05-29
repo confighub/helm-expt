@@ -18,15 +18,15 @@ Server version: v0.1.49
 ```
 
 This transcript uses current commands only. It does not use proposed future
-porcelain such as `cub install import helm`, `cub install analyze`,
-`cub install compare`, `cub variant diff`, or `cub catalog install`.
+porcelain such as `cub installer import helm`, `cub installer analyze`,
+`cub installer compare`, `cub variant diff`, or `cub catalog install`.
 
 ## 1. Package Explanation
 
 Command:
 
 ```sh
-cub install doc packages/bitnami/redis/25.5.3 --json
+cub installer doc packages/bitnami/redis/25.5.3 --json
 ```
 
 Result:
@@ -58,7 +58,7 @@ Error: kustomize build ... exec: "kustomize": executable file not found in $PATH
 Rerun with Go bin on PATH:
 
 ```sh
-PATH="$PATH:$(go env GOPATH)/bin" cub install setup \
+PATH="$PATH:$(go env GOPATH)/bin" cub installer setup \
   --pull packages/bitnami/redis/25.5.3 \
   --base default \
   --work-dir .tmp/confighub-proof/redis-default \
@@ -98,7 +98,7 @@ spec:
 Re-render:
 
 ```sh
-PATH="$PATH:$(go env GOPATH)/bin" cub install render \
+PATH="$PATH:$(go env GOPATH)/bin" cub installer render \
   --work-dir .tmp/confighub-proof/redis-default
 ```
 
@@ -115,9 +115,9 @@ Spec docs written to out/spec
 Package determinism:
 
 ```sh
-cub install package packages/bitnami/redis/25.5.3 \
+cub installer package packages/bitnami/redis/25.5.3 \
   -o .tmp/confighub-proof/archives/redis-a.tgz
-cub install package packages/bitnami/redis/25.5.3 \
+cub installer package packages/bitnami/redis/25.5.3 \
   -o .tmp/confighub-proof/archives/redis-b.tgz
 ```
 
@@ -131,7 +131,7 @@ byte-identical across two local package bundles
 Vet:
 
 ```sh
-PATH="$PATH:$(go env GOPATH)/bin" cub install vet \
+PATH="$PATH:$(go env GOPATH)/bin" cub installer vet \
   --work-dir .tmp/confighub-proof/redis-default
 ```
 
@@ -147,7 +147,7 @@ improvement.
 
 ## 4. Plan And Upload
 
-Before upload, `cub install plan` correctly fails because there is no upload
+Before upload, `cub installer plan` correctly fails because there is no upload
 state yet:
 
 ```text
@@ -165,7 +165,7 @@ Failed: read /Users/alexis/.confighub: is a directory
 Rerun with the explicit config file:
 
 ```sh
-CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub install upload \
+CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub installer upload \
   --work-dir .tmp/confighub-proof/redis-default \
   --space helm-redis-confighub-proof \
   --component Redis \
@@ -200,7 +200,7 @@ not uploaded to ConfigHub
 Post-upload plan:
 
 ```sh
-CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub install plan \
+CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub installer plan \
   --work-dir .tmp/confighub-proof/redis-default
 ```
 
@@ -354,9 +354,9 @@ between server-side variants directly.
 
 These are not hidden:
 
-1. `kustomize` must be on PATH for local `cub install setup/render`. In this
+1. `kustomize` must be on PATH for local `cub installer setup/render`. In this
    run, adding `$(go env GOPATH)/bin` fixed it.
-2. `cub install upload` still needs
+2. `cub installer upload` still needs
    `CUB_CONFIG=/Users/alexis/.confighub/config.yaml` in this local setup so
    installer-spawned `cub` commands do not try to read `/Users/alexis/.confighub`
    as a file.

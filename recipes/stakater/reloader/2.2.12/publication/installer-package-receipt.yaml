@@ -29,14 +29,14 @@ spec:
         sha256: "647898377e271b3692b951b7fe33251f118669a4ff45f98ef32257e9db532876"
         bytes: 306
   deterministicBundle:
-    command: "cub install package packages/stakater/reloader/2.2.12 -o <tmp>/stakater-reloader-2-2-12.tgz"
+    command: "cub installer package packages/stakater/reloader/2.2.12 -o <tmp>/stakater-reloader-2-2-12.tgz"
     sha256: "6b6facb3366b616b523a5fd81ed41620e108e418104619646255e756344c537d"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/stakater/reloader/2.2.12 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/stakater/reloader/2.2.12 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 6
       cubInstallObjectCountIncludingSupport: 7
       semanticObjectMatches: "6/6"

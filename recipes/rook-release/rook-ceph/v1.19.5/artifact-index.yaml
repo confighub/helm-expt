@@ -79,7 +79,7 @@ spec:
         default: true
         description: "rook-release/rook-ceph default variant rendered from rook-release/rook-ceph@v1.19.5"
       setupCheck:
-        command: "cub install setup --pull packages/rook-release/rook-ceph/v1.19.5 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/rook-release/rook-ceph/v1.19.5 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 133
         cubInstallObjectCountIncludingSupport: 134
         semanticObjectMatches: "133/133"

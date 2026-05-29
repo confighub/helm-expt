@@ -29,14 +29,14 @@ spec:
         sha256: "5b4a19f52228176ed230aa0ba7ad475141c1f7f2c67b7166441ad4f96aab5910"
         bytes: 318
   deterministicBundle:
-    command: "cub install package packages/gatekeeper/gatekeeper/3.22.2 -o <tmp>/gatekeeper-gatekeeper-3-22-2.tgz"
+    command: "cub installer package packages/gatekeeper/gatekeeper/3.22.2 -o <tmp>/gatekeeper-gatekeeper-3-22-2.tgz"
     sha256: "c39fb953ee81bfd9cac2ad1263c970c80874b701ab1c5a89d582eba91f9d0cdf"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/gatekeeper/gatekeeper/3.22.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/gatekeeper/gatekeeper/3.22.2 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 30
       cubInstallObjectCountIncludingSupport: 31
       semanticObjectMatches: "30/30"

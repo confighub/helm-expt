@@ -87,7 +87,7 @@ spec:
         default: true
         description: "postgresql generated passwords variant rendered from bitnami/postgresql@18.6.7"
       setupCheck:
-        command: "cub install setup --pull packages/bitnami/postgresql/18.6.7 --base generated-passwords --work-dir <tmp> --non-interactive --namespace postgresql"
+        command: "cub installer setup --pull packages/bitnami/postgresql/18.6.7 --base generated-passwords --work-dir <tmp> --non-interactive --namespace postgresql"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"
@@ -155,7 +155,7 @@ spec:
         default: false
         description: "postgresql existing Secret variant rendered from bitnami/postgresql@18.6.7"
       setupCheck:
-        command: "cub install setup --pull packages/bitnami/postgresql/18.6.7 --base existing-secret --work-dir <tmp> --non-interactive --namespace postgresql"
+        command: "cub installer setup --pull packages/bitnami/postgresql/18.6.7 --base existing-secret --work-dir <tmp> --non-interactive --namespace postgresql"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

@@ -78,7 +78,7 @@ spec:
         default: true
         description: "linkerd/linkerd-crds default variant rendered from linkerd/linkerd-crds@1.8.0"
       setupCheck:
-        command: "cub install setup --pull packages/linkerd/linkerd-crds/1.8.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/linkerd/linkerd-crds/1.8.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 8
         cubInstallObjectCountIncludingSupport: 9
         semanticObjectMatches: "8/8"

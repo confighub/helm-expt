@@ -29,14 +29,14 @@ spec:
         sha256: "01e836bff0b5b9fd8385689e6bca1b0ccb2cf493ef8ce87d766552b56e338de3"
         bytes: 345
   deterministicBundle:
-    command: "cub install package packages/haproxytech/kubernetes-ingress/1.52.0 -o <tmp>/haproxytech-kubernetes-ingress-1-52-0.tgz"
+    command: "cub installer package packages/haproxytech/kubernetes-ingress/1.52.0 -o <tmp>/haproxytech-kubernetes-ingress-1-52-0.tgz"
     sha256: "3ca92559aab90884de3ab47d16970bab11f25951ca605a076b940cbbe1760a0f"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/haproxytech/kubernetes-ingress/1.52.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/haproxytech/kubernetes-ingress/1.52.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 7
       cubInstallObjectCountIncludingSupport: 8
       semanticObjectMatches: "7/7"

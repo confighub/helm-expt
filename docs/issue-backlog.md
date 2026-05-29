@@ -27,7 +27,7 @@ Existing ConfigHub capabilities to use now:
 
 | Lane | Existing verbs | Roadmap home |
 | --- | --- | --- |
-| Installer proof | `cub install doc/setup/render/package/push/sign/verify/vet/plan/upload/inspect/list` | P0.4, P1.1 |
+| Installer proof | `cub installer doc/setup/render/package/push/sign/verify/vet/plan/upload/inspect/list` | P0.4, P1.1 |
 | Server variants | `cub variant create` | P0.5 |
 | Review and diff | `cub unit diff`, `cub revision data/list`, `cub unit data/tree/list` | P1.6 |
 | Safe operations | `cub changeset create/list/update`, `cub unit approve/apply/destroy/cancel` | P1.7 |
@@ -40,11 +40,11 @@ Missing verbs to ask Brian for:
 
 | Priority | Ask |
 | --- | --- |
-| P0 ask | `cub install import helm` |
-| P0 ask | `cub install analyze` |
-| P0 ask | implemented `cub install preflight` |
-| P0 ask | `cub install compare` or `cub install prove` |
-| P1 ask | `cub install scan` |
+| P0 ask | `cub installer import helm` |
+| P0 ask | `cub installer analyze` |
+| P0 ask | implemented `cub installer preflight` |
+| P0 ask | `cub installer compare` or `cub installer prove` |
+| P1 ask | `cub installer scan` |
 | P1 ask | `cub variant list/diff/promote/update` |
 | P1 ask | `cub observe` or `cub target observe` |
 | P2 ask | `cub catalog search/show/install` |
@@ -59,7 +59,7 @@ the evidence regresses:
 | [#8](https://github.com/confighub/helm-expt/issues/8) Prove Helm equivalence for Redis and classify every ConfigHub difference | `npm run redis:compare`, Helm equivalence receipts, and namespace/secret classifications. |
 | [#9](https://github.com/confighub/helm-expt/issues/9) Bind rendered-object scans and install gates to exact manifest digests | Redis scan receipts and install gates are digest-bound and verified by `npm run verify`. |
 | [#10](https://github.com/confighub/helm-expt/issues/10) Create complete Redis HelmPlan and ChartDossier artifacts | `recipes/bitnami/redis/25.5.3/`, durable installer package, upload/OCI receipt. |
-| [#26](https://github.com/confighub/helm-expt/issues/26) Prove simple UX is easier, safer, and correct versus Helm | `docs/demo/redis/` demo script, transcript, UX acceptance note, and ConfigHub proof transcript with real `cub install`, `cub variant create`, and ConfigHub review verbs. |
+| [#26](https://github.com/confighub/helm-expt/issues/26) Prove simple UX is easier, safer, and correct versus Helm | `docs/demo/redis/` demo script, transcript, UX acceptance note, and ConfigHub proof transcript with real `cub installer`, `cub variant create`, and ConfigHub review verbs. |
 
 ## Current Adversarial Harness Slice
 
@@ -98,25 +98,25 @@ Rows promoted from readiness evidence into full proof slices:
 | Chart | Evidence | Status |
 | --- | --- | --- |
 | `bitnami/redis@25.5.3` | `recipes/bitnami/redis/25.5.3/`, `packages/bitnami/redis/25.5.3/` | First complete proof slice with ConfigHub upload/OCI evidence. |
-| `metrics-server/metrics-server@3.13.0` | `recipes/metrics-server/metrics-server/3.13.0/`, `packages/metrics-server/metrics-server/3.13.0/` | First promoted adversarial row: default and `external-tls-ca` variants, target Secret fact, APIService/RBAC gates, deterministic `cub install` package/setup proof. |
-| `ingress-nginx/ingress-nginx@4.15.1` | `recipes/ingress-nginx/ingress-nginx/4.15.1/`, `packages/ingress-nginx/ingress-nginx/4.15.1/` | Second promoted adversarial row: default and `admission-disabled` variants, admission webhook/hook lifecycle/RBAC gates, deterministic `cub install` package/setup proof. |
-| `jetstack/cert-manager@v1.20.2` | `recipes/jetstack/cert-manager/v1.20.2/`, `packages/jetstack/cert-manager/v1.20.2/` | Third promoted adversarial row: default and `crds-enabled` variants, CRD lifecycle/webhook/hook/RBAC gates, deterministic `cub install` package/setup proof. |
-| `external-secrets/external-secrets@2.5.0` | `recipes/external-secrets/external-secrets/2.5.0/`, `packages/external-secrets/external-secrets/2.5.0/` | Fourth promoted adversarial row: default and `no-crds` variants, capability/CRD/dependency/webhook/Secret/RBAC gates, deterministic `cub install` package/setup proof. |
-| `argo-cd/argo-cd@9.5.15` | `recipes/argo-cd/argo-cd/9.5.15/`, `packages/argo-cd/argo-cd/9.5.15/` | Fifth promoted adversarial row: default and `no-crds` variants, CRD/hook/dependency/Secret/StatefulSet/GitOps/RBAC gates, deterministic `cub install` package/setup proof. |
-| `bitnami/postgresql@18.6.7` | `recipes/bitnami/postgresql/18.6.7/`, `packages/bitnami/postgresql/18.6.7/` | Sixth promoted adversarial row: `generated-passwords` and `existing-secret` variants, generated fact/target fact/hook/dependency/StatefulSet/PVC gates, deterministic `cub install` package/setup proof. |
-| `bitnami/rabbitmq@16.0.14` | `recipes/bitnami/rabbitmq/16.0.14/`, `packages/bitnami/rabbitmq/16.0.14/` | Seventh promoted adversarial row: `generated-passwords` and `existing-secret` variants, password/Erlang-cookie generated facts, target Secret facts, dependency/StatefulSet/PVC/clustering gates, deterministic `cub install` package/setup proof. |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/`, `packages/prometheus-community/kube-prometheus-stack/85.3.3/` | Eighth promoted adversarial row: `default` and `no-crds` variants, generated Grafana credential, 10 CRDs, umbrella dependencies, admission webhook/RBAC/extension gates, deterministic `cub install` package/setup proof. |
-| `grafana/loki@7.0.0` | `recipes/grafana/loki/7.0.0/`, `packages/grafana/loki/7.0.0/` | Ninth promoted adversarial row: blocked default render, `single-binary-filesystem` and `simple-scalable-minio` variants, storage/schema/object-store gates, dependency/RBAC/StatefulSet/PVC/extension gates, deterministic `cub install` package/setup proof. |
-| `longhorn/longhorn@1.11.2` | `recipes/longhorn/longhorn/1.11.2/`, `packages/longhorn/longhorn/1.11.2/` | Tenth promoted adversarial row: `default` and `ui-ingress` variants, 22 CRDs, pre-upgrade hook/admission-recovery/RBAC/privileged-storage/StorageClass/UI ingress gates, deterministic `cub install` package/setup proof. |
-| `bitnami/mysql@14.0.3` | `recipes/bitnami/mysql/14.0.3/`, `packages/bitnami/mysql/14.0.3/` | Eleventh promoted adversarial row: `generated-passwords` and `existing-secret` variants, root/user/replication generated facts, target Secret facts, dependency/hook/StatefulSet/PVC/extension gates, deterministic `cub install` package/setup proof. |
-| `grafana/grafana@10.5.15` | `recipes/grafana/grafana/10.5.15/`, `packages/grafana/grafana/10.5.15/` | Twelfth promoted adversarial row: chart-deprecation marker, `generated-passwords` and `existing-secret-ingress` variants, generated admin credential, target Secret facts, UI ingress, RBAC/deployment/provisioning/sidecar/Secret extension gates, deterministic `cub install` package/setup proof. |
-| `hashicorp/vault@0.32.0` | `recipes/hashicorp/vault/0.32.0/`, `packages/hashicorp/vault/0.32.0/` | Thirteenth full public-chart proof row: `default` and `ha-raft-ui` variants, TLS posture, injector webhook, StatefulSet/HA Raft, init/unseal operate policy, service exposure, RBAC/Secret/env extension gates, deterministic `cub install` package/setup proof. |
-| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | `recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/`, `packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/` | Fourteenth full public-chart proof row: `default` and `sync-secret-rotation` variants, SecretProviderClass CRDs, CSIDriver, Linux DaemonSet/hostPath, cluster RBAC, sync Secret/rotation/provider-health gates, deterministic `cub install` package/setup proof. |
-| `prometheus-community/prometheus@29.8.0` | `recipes/prometheus-community/prometheus/29.8.0/`, `packages/prometheus-community/prometheus/29.8.0/` | Fifteenth full public-chart proof row: `default` and `server-only-ephemeral` variants, bundled dependencies, scrape ConfigMap, server PVC/storage, component selection, cluster RBAC, remote read/write/exposure extension gates, deterministic `cub install` package/setup proof. |
-| `bitnami/mongodb@19.0.7` | `recipes/bitnami/mongodb/19.0.7/`, `packages/bitnami/mongodb/19.0.7/` | Sixteenth full public-chart proof row: `generated-passwords` and `existing-secret-replicaset` variants, generated root password, target Secret, replica-set/arbiter StatefulSets, storage/PDB/NetworkPolicy/extension gates, deterministic `cub install` package/setup proof. |
-| `bitnami/nginx@24.0.2` | `recipes/bitnami/nginx/24.0.2/`, `packages/bitnami/nginx/24.0.2/` | Seventeenth full public-chart proof row: `http-clusterip` and `existing-tls-ingress` variants, default generated TLS mitigation, target TLS Secrets, ingress, NetworkPolicy, PDB, service exposure, static-site/metrics/raw-template extension gates, deterministic `cub install` package/setup proof. |
-| `grafana/tempo@1.24.4` | `recipes/grafana/tempo/1.24.4/`, `packages/grafana/tempo/1.24.4/` | Eighteenth full public-chart proof row: deprecated chart marker, `local-persistent` and `s3-query-observability` variants, local/S3 storage, target S3 credential Secret, query ingress, ServiceMonitor capability, NetworkPolicy, StatefulSet runtime risk, deterministic `cub install` package/setup proof. |
-| `hashicorp/consul@2.0.0` | `recipes/hashicorp/consul/2.0.0/`, `packages/hashicorp/consul/2.0.0/` | Nineteenth full public-chart proof row and twentieth target chart: `default-control-plane` and `secure-mesh-existing-secrets` variants, 28 CRDs, cluster RBAC, injector webhooks, TLS/ACL/gossip target Secrets, gateway topology, UI ingress, lifecycle Job, rendered Secret, deterministic `cub install` package/setup proof. |
+| `metrics-server/metrics-server@3.13.0` | `recipes/metrics-server/metrics-server/3.13.0/`, `packages/metrics-server/metrics-server/3.13.0/` | First promoted adversarial row: default and `external-tls-ca` variants, target Secret fact, APIService/RBAC gates, deterministic `cub installer` package/setup proof. |
+| `ingress-nginx/ingress-nginx@4.15.1` | `recipes/ingress-nginx/ingress-nginx/4.15.1/`, `packages/ingress-nginx/ingress-nginx/4.15.1/` | Second promoted adversarial row: default and `admission-disabled` variants, admission webhook/hook lifecycle/RBAC gates, deterministic `cub installer` package/setup proof. |
+| `jetstack/cert-manager@v1.20.2` | `recipes/jetstack/cert-manager/v1.20.2/`, `packages/jetstack/cert-manager/v1.20.2/` | Third promoted adversarial row: default and `crds-enabled` variants, CRD lifecycle/webhook/hook/RBAC gates, deterministic `cub installer` package/setup proof. |
+| `external-secrets/external-secrets@2.5.0` | `recipes/external-secrets/external-secrets/2.5.0/`, `packages/external-secrets/external-secrets/2.5.0/` | Fourth promoted adversarial row: default and `no-crds` variants, capability/CRD/dependency/webhook/Secret/RBAC gates, deterministic `cub installer` package/setup proof. |
+| `argo-cd/argo-cd@9.5.15` | `recipes/argo-cd/argo-cd/9.5.15/`, `packages/argo-cd/argo-cd/9.5.15/` | Fifth promoted adversarial row: default and `no-crds` variants, CRD/hook/dependency/Secret/StatefulSet/GitOps/RBAC gates, deterministic `cub installer` package/setup proof. |
+| `bitnami/postgresql@18.6.7` | `recipes/bitnami/postgresql/18.6.7/`, `packages/bitnami/postgresql/18.6.7/` | Sixth promoted adversarial row: `generated-passwords` and `existing-secret` variants, generated fact/target fact/hook/dependency/StatefulSet/PVC gates, deterministic `cub installer` package/setup proof. |
+| `bitnami/rabbitmq@16.0.14` | `recipes/bitnami/rabbitmq/16.0.14/`, `packages/bitnami/rabbitmq/16.0.14/` | Seventh promoted adversarial row: `generated-passwords` and `existing-secret` variants, password/Erlang-cookie generated facts, target Secret facts, dependency/StatefulSet/PVC/clustering gates, deterministic `cub installer` package/setup proof. |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/`, `packages/prometheus-community/kube-prometheus-stack/85.3.3/` | Eighth promoted adversarial row: `default` and `no-crds` variants, generated Grafana credential, 10 CRDs, umbrella dependencies, admission webhook/RBAC/extension gates, deterministic `cub installer` package/setup proof. |
+| `grafana/loki@7.0.0` | `recipes/grafana/loki/7.0.0/`, `packages/grafana/loki/7.0.0/` | Ninth promoted adversarial row: blocked default render, `single-binary-filesystem` and `simple-scalable-minio` variants, storage/schema/object-store gates, dependency/RBAC/StatefulSet/PVC/extension gates, deterministic `cub installer` package/setup proof. |
+| `longhorn/longhorn@1.11.2` | `recipes/longhorn/longhorn/1.11.2/`, `packages/longhorn/longhorn/1.11.2/` | Tenth promoted adversarial row: `default` and `ui-ingress` variants, 22 CRDs, pre-upgrade hook/admission-recovery/RBAC/privileged-storage/StorageClass/UI ingress gates, deterministic `cub installer` package/setup proof. |
+| `bitnami/mysql@14.0.3` | `recipes/bitnami/mysql/14.0.3/`, `packages/bitnami/mysql/14.0.3/` | Eleventh promoted adversarial row: `generated-passwords` and `existing-secret` variants, root/user/replication generated facts, target Secret facts, dependency/hook/StatefulSet/PVC/extension gates, deterministic `cub installer` package/setup proof. |
+| `grafana/grafana@10.5.15` | `recipes/grafana/grafana/10.5.15/`, `packages/grafana/grafana/10.5.15/` | Twelfth promoted adversarial row: chart-deprecation marker, `generated-passwords` and `existing-secret-ingress` variants, generated admin credential, target Secret facts, UI ingress, RBAC/deployment/provisioning/sidecar/Secret extension gates, deterministic `cub installer` package/setup proof. |
+| `hashicorp/vault@0.32.0` | `recipes/hashicorp/vault/0.32.0/`, `packages/hashicorp/vault/0.32.0/` | Thirteenth full public-chart proof row: `default` and `ha-raft-ui` variants, TLS posture, injector webhook, StatefulSet/HA Raft, init/unseal operate policy, service exposure, RBAC/Secret/env extension gates, deterministic `cub installer` package/setup proof. |
+| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | `recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/`, `packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/` | Fourteenth full public-chart proof row: `default` and `sync-secret-rotation` variants, SecretProviderClass CRDs, CSIDriver, Linux DaemonSet/hostPath, cluster RBAC, sync Secret/rotation/provider-health gates, deterministic `cub installer` package/setup proof. |
+| `prometheus-community/prometheus@29.8.0` | `recipes/prometheus-community/prometheus/29.8.0/`, `packages/prometheus-community/prometheus/29.8.0/` | Fifteenth full public-chart proof row: `default` and `server-only-ephemeral` variants, bundled dependencies, scrape ConfigMap, server PVC/storage, component selection, cluster RBAC, remote read/write/exposure extension gates, deterministic `cub installer` package/setup proof. |
+| `bitnami/mongodb@19.0.7` | `recipes/bitnami/mongodb/19.0.7/`, `packages/bitnami/mongodb/19.0.7/` | Sixteenth full public-chart proof row: `generated-passwords` and `existing-secret-replicaset` variants, generated root password, target Secret, replica-set/arbiter StatefulSets, storage/PDB/NetworkPolicy/extension gates, deterministic `cub installer` package/setup proof. |
+| `bitnami/nginx@24.0.2` | `recipes/bitnami/nginx/24.0.2/`, `packages/bitnami/nginx/24.0.2/` | Seventeenth full public-chart proof row: `http-clusterip` and `existing-tls-ingress` variants, default generated TLS mitigation, target TLS Secrets, ingress, NetworkPolicy, PDB, service exposure, static-site/metrics/raw-template extension gates, deterministic `cub installer` package/setup proof. |
+| `grafana/tempo@1.24.4` | `recipes/grafana/tempo/1.24.4/`, `packages/grafana/tempo/1.24.4/` | Eighteenth full public-chart proof row: deprecated chart marker, `local-persistent` and `s3-query-observability` variants, local/S3 storage, target S3 credential Secret, query ingress, ServiceMonitor capability, NetworkPolicy, StatefulSet runtime risk, deterministic `cub installer` package/setup proof. |
+| `hashicorp/consul@2.0.0` | `recipes/hashicorp/consul/2.0.0/`, `packages/hashicorp/consul/2.0.0/` | Nineteenth full public-chart proof row and twentieth target chart: `default-control-plane` and `secure-mesh-existing-secrets` variants, 28 CRDs, cluster RBAC, injector webhooks, TLS/ACL/gossip target Secrets, gateway topology, UI ingress, lifecycle Job, rendered Secret, deterministic `cub installer` package/setup proof. |
 
 ## Execution Order
 
@@ -178,7 +178,7 @@ The council review made the first implementation slice explicit:
 | [#20](https://github.com/confighub/helm-expt/issues/20) Model lifecycle contracts for migrations, readiness, and rollback | Lifecycle | Captures complex day-2 behavior. |
 | [#21](https://github.com/confighub/helm-expt/issues/21) Explore typed/enriched value model beyond Helm values | Value model | May improve explainability beyond raw values. |
 | [#22](https://github.com/confighub/helm-expt/issues/22) Design cross-controller consequence engine | Operations | Supports deeper multi-controller reasoning. |
-| [#23](https://github.com/confighub/helm-expt/issues/23) Track pure serverless cub install as deferred option | Deferred option | Preserves the idea without putting it on the current proof path. |
+| [#23](https://github.com/confighub/helm-expt/issues/23) Track pure serverless cub installer as deferred option | Deferred option | Preserves the idea without putting it on the current proof path. |
 
 ## Planning Sync Checklist
 

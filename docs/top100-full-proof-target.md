@@ -28,8 +28,8 @@ Every next-80 chart must prove:
 - a default Variant and digest-bound VariantRevision;
 - rendered release objects and object inventory;
 - render, Helm-equivalence, scan, install-gate, and installer-package receipts;
-- deterministic `cub install package` output;
-- `cub install setup` output semantically matching regular Helm output, aside
+- deterministic `cub installer package` output;
+- `cub installer setup` output semantically matching regular Helm output, aside
   from the allowed Namespace support object.
 
 Verification:

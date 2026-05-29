@@ -82,7 +82,7 @@ spec:
         default: true
         description: "jetstack/trust-manager default variant rendered from jetstack/trust-manager@v0.22.1"
       setupCheck:
-        command: "cub install setup --pull packages/jetstack/trust-manager/v0.22.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/jetstack/trust-manager/v0.22.1 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 14
         cubInstallObjectCountIncludingSupport: 15
         semanticObjectMatches: "14/14"

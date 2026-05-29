@@ -17,6 +17,6 @@ spec:
   blockedScopes:
     - "production-without-review"
   reasons:
-    - "regular Helm output matches cub install setup for projectcalico/tigera-operator@v3.32.0"
+    - "regular Helm output matches cub installer setup for projectcalico/tigera-operator@v3.32.0"
     - "10 Helm objects are bound to renderedObjectSetSHA256"
     - "rendered-object scan has review findings; see scan-receipt.yaml"

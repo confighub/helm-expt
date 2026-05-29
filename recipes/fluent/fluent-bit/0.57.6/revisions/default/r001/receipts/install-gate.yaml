@@ -17,6 +17,6 @@ spec:
   blockedScopes:
     - "production-without-review"
   reasons:
-    - "regular Helm output matches cub install setup for fluent/fluent-bit@0.57.6"
+    - "regular Helm output matches cub installer setup for fluent/fluent-bit@0.57.6"
     - "6 Helm objects are bound to renderedObjectSetSHA256"
     - "rendered-object scan has review findings; see scan-receipt.yaml"

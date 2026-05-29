@@ -124,12 +124,12 @@ function verifyPackage() {
   try {
     const firstPackage = join(tempRoot, "bitnami-redis-25.5.3-a.tgz");
     const secondPackage = join(tempRoot, "bitnami-redis-25.5.3-b.tgz");
-    runCub(["install", "package", packageRoot, "-o", firstPackage]);
-    runCub(["install", "package", packageRoot, "-o", secondPackage]);
+    runCub(["installer", "package", packageRoot, "-o", firstPackage]);
+    runCub(["installer", "package", packageRoot, "-o", secondPackage]);
     const firstSHA = sha256File(firstPackage);
     const secondSHA = sha256File(secondPackage);
-    check(firstSHA === secondSHA, "cub install package SHA changed between two runs");
-    check(readFileSync(firstPackage).equals(readFileSync(secondPackage)), "cub install package output is not byte-identical");
+    check(firstSHA === secondSHA, "cub installer package SHA changed between two runs");
+    check(readFileSync(firstPackage).equals(readFileSync(secondPackage)), "cub installer package output is not byte-identical");
     check(firstSHA === receipt.spec?.deterministicBundle?.sha256, "deterministic package SHA mismatch");
     check(
       receipt.spec?.deterministicBundle?.byteIdenticalAcrossTwoLocalBundles === true,

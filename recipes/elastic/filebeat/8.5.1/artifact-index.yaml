@@ -79,7 +79,7 @@ spec:
         default: true
         description: "elastic/filebeat default variant rendered from elastic/filebeat@8.5.1"
       setupCheck:
-        command: "cub install setup --pull packages/elastic/filebeat/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/elastic/filebeat/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"

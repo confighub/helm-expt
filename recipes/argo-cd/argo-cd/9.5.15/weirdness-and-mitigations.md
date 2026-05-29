@@ -3,7 +3,7 @@
 # argo-cd/argo-cd 9.5.15 Weirdness And Mitigations
 
 This note records the Helm pain surfaced during catalog review and where the
-current ConfigHub/cub install proof absorbs it.
+current ConfigHub/cub installer proof absorbs it.
 
 ## Support Boundary
 
@@ -31,7 +31,7 @@ or operating-policy dispositions.
 
 ## Catalog Mitigations
 
-- Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.
+- Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
 - default preserves the normal Argo CD install shape.
 - no-crds is supported when CRD lifecycle is owned outside this package.
 - Production remains blocked until RBAC, CRD ownership, raw extension slots, and scan/gate findings have dispositions.

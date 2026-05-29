@@ -21,7 +21,7 @@ spec:
     humanReviewRequired: false
     productReviewRequired: false
   notes:
-    - "Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts."
+    - "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts."
     - "local-persistent is the simplest local Tempo path."
     - "s3-query-observability is supported when object-store and query-path assumptions are declared."
     - "Production remains blocked until object storage, retention, PVC, and scan/gate findings have dispositions."

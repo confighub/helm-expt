@@ -35,7 +35,7 @@ Is this the best, simplest, safest way for a Helm user to install and vary it?
 Are the supported variants obvious?
 Are deferred variants explicit?
 Are scan/gate warnings acceptable for the declared support scope?
-Can cub install output be compared cleanly with regular Helm output?
+Can cub installer output be compared cleanly with regular Helm output?
 ```
 
 Alternates if a selected chart is delayed:

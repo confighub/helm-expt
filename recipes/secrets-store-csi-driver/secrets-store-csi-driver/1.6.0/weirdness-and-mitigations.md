@@ -3,7 +3,7 @@
 # secrets-store-csi-driver/secrets-store-csi-driver 1.6.0 Weirdness And Mitigations
 
 This note records the Helm pain surfaced during catalog review and where the
-current ConfigHub/cub install proof absorbs it.
+current ConfigHub/cub installer proof absorbs it.
 
 ## Support Boundary
 
@@ -30,7 +30,7 @@ or operating-policy dispositions.
 
 ## Catalog Mitigations
 
-- Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.
+- Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
 - default preserves the normal CSI driver install shape.
 - sync-secret-rotation is supported when Secret sync and rotation assumptions are declared.
 - Production remains blocked until provider integration, node DaemonSet policy, rotation expectations, and scan/gate findings have dispositions.

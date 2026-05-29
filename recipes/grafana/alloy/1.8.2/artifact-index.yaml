@@ -80,7 +80,7 @@ spec:
         default: true
         description: "grafana/alloy default variant rendered from grafana/alloy@1.8.2"
       setupCheck:
-        command: "cub install setup --pull packages/grafana/alloy/1.8.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull packages/grafana/alloy/1.8.2 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"

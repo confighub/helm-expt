@@ -29,14 +29,14 @@ spec:
         sha256: "a46716f3da9ec4b6781add7bc63a1c23baf0acc19b65958b6472a13151491b60"
         bytes: 313
   deterministicBundle:
-    command: "cub install package packages/linkerd/linkerd-crds/1.8.0 -o <tmp>/linkerd-linkerd-crds-1-8-0.tgz"
+    command: "cub installer package packages/linkerd/linkerd-crds/1.8.0 -o <tmp>/linkerd-linkerd-crds-1-8-0.tgz"
     sha256: "770b6955ef2813a73f01b4641cfe80c890918cefeb0f0b29d546e63d9a3c5b42"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
       variant: "default"
       base: "default"
-      command: "cub install setup --pull packages/linkerd/linkerd-crds/1.8.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      command: "cub installer setup --pull packages/linkerd/linkerd-crds/1.8.0 --base default --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 8
       cubInstallObjectCountIncludingSupport: 9
       semanticObjectMatches: "8/8"

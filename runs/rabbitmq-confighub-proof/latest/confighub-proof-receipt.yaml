@@ -35,7 +35,7 @@ spec:
             namespace: "rabbitmq"
             suggestedSource: "kubectl -n rabbitmq create secret generic rabbitmq-erlang-cookie --from-literal=rabbitmq-erlang-cookie=<value>"
   render:
-    command: "cub install setup --pull packages/bitnami/rabbitmq/16.0.14 --base generated-passwords --work-dir .tmp/confighub-proof/rabbitmq-generated-passwords --non-interactive --namespace rabbitmq"
+    command: "cub installer setup --pull packages/bitnami/rabbitmq/16.0.14 --base generated-passwords --work-dir .tmp/confighub-proof/rabbitmq-generated-passwords --non-interactive --namespace rabbitmq"
     result: "pass"
     manifestCount: 9
     separatedSecretCount: 2
@@ -48,20 +48,20 @@ spec:
         requiredSecrets:
           []
   rerender:
-    command: "cub install render --work-dir .tmp/confighub-proof/rabbitmq-generated-passwords"
+    command: "cub installer render --work-dir .tmp/confighub-proof/rabbitmq-generated-passwords"
     result: "pass"
     manifestCount: 9
     separatedSecretCount: 2
   deterministicPackage:
-    command: "cub install package packages/bitnami/rabbitmq/16.0.14 -o .tmp/confighub-proof/rabbitmq-archives/rabbitmq-a.tgz"
+    command: "cub installer package packages/bitnami/rabbitmq/16.0.14 -o .tmp/confighub-proof/rabbitmq-archives/rabbitmq-a.tgz"
     sha256: "00a46e601b59c275891f631e5e78cf573f634e47329cb51622c60dbe934db1e0"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
-    command: "cub install vet --work-dir .tmp/confighub-proof/rabbitmq-generated-passwords"
+    command: "cub installer vet --work-dir .tmp/confighub-proof/rabbitmq-generated-passwords"
     result: "pass"
     note: "Package declares no validators (spec.validators is empty)."
   upload:
-    command: "cub install upload --work-dir .tmp/confighub-proof/rabbitmq-generated-passwords --space helm-rabbitmq-confighub-proof --component RabbitMQ --layer App --environment Demo --owner ConfigHubHelm --variant generated-passwords --unit-label Component=RabbitMQ --unit-label HelmChart=bitnami-rabbitmq --unit-label HelmChartVersion=16.0.14 --unit-label Variant=generated-passwords --unit-label Proof=rabbitmq-confighub-proof --retry"
+    command: "cub installer upload --work-dir .tmp/confighub-proof/rabbitmq-generated-passwords --space helm-rabbitmq-confighub-proof --component RabbitMQ --layer App --environment Demo --owner ConfigHubHelm --variant generated-passwords --unit-label Component=RabbitMQ --unit-label HelmChart=bitnami-rabbitmq --unit-label HelmChartVersion=16.0.14 --unit-label Variant=generated-passwords --unit-label Proof=rabbitmq-confighub-proof --retry"
     result: "pass"
     workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
     space: "helm-rabbitmq-confighub-proof"
@@ -73,9 +73,9 @@ spec:
       - "v1/Secret rabbitmq/rabbitmq"
   plan:
     preUpload:
-      command: "cub install plan --work-dir .tmp/confighub-proof/rabbitmq-generated-passwords"
+      command: "cub installer plan --work-dir .tmp/confighub-proof/rabbitmq-generated-passwords"
       result: "expected-missing-upload-state"
-    command: "cub install plan --work-dir .tmp/confighub-proof/rabbitmq-generated-passwords"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/rabbitmq-generated-passwords"
     result: "pass"
     summary: "No changes.\nImages in helm-rabbitmq-confighub-proof (post-render):\n  init  StatefulSet/rabbitmq [prepare-plugins-dir] docker.io/bitnami/rabbitmq:4.1.3-debian-12-r1\n      StatefulSet/rabbitmq [rabbitmq] docker.io/bitnami/rabbitmq:4.1.3-debian-12-r1"
   serverSideVariant:
@@ -97,7 +97,7 @@ spec:
       - "helm-rabbitmq-confighub-proof"
       - "helm-rabbitmq-confighub-proof-staging"
   observedFriction:
-    - "cub install upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
-    - "pre-upload cub install plan is expected to fail until upload state exists."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

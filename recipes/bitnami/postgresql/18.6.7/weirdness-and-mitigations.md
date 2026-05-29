@@ -3,7 +3,7 @@
 # bitnami/postgresql 18.6.7 Weirdness And Mitigations
 
 This note records the Helm pain surfaced during catalog review and where the
-current ConfigHub/cub install proof absorbs it.
+current ConfigHub/cub installer proof absorbs it.
 
 ## Support Boundary
 
@@ -31,7 +31,7 @@ or operating-policy dispositions.
 
 ## Catalog Mitigations
 
-- Supported for local-test and proof-demo usage through real cub install and ConfigHub receipts.
+- Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
 - generated-passwords is the simplest install path and records generated Secret separation.
 - existing-secret is supported when the declared postgresql-auth target fact is satisfied.
 - Production remains blocked until StatefulSet/PVC, backup/restore, generated fact, and scan/gate findings have dispositions.
