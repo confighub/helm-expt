@@ -13,11 +13,15 @@ The short version:
 
 ```text
 cub installer creates reviewed ConfigHub component bases.
-cub variant create creates downstream ConfigHub variants from those bases.
+The Variant Creator artifact describes downstream ConfigHub variants from those bases.
 ConfigHub Promotion shows and advances changes across those variants.
 ```
 
 This is the bridge between the Helm catalog and the existing ConfigHub GUI.
+For concrete examples, see
+[Variant Promotion Worked Example](variant-promotion-worked-example.md). For
+the first Kubara-style managed overlay analysis, see
+[Kubara Customized Overlay Analysis](kubara-customized-overlays.md).
 
 ## Doctrine
 
@@ -53,7 +57,7 @@ machine-checkable.
 | Package base | Base Space | Space label `Variant=<base>` and no production target unless deliberately assigned |
 | Package variant that changes render inputs | New rendered base | New `cub installer` render/upload, not a post-render clone |
 | Reviewed rendered object | Unit | One Unit per rendered object, plus installer record where present |
-| Server-side variant | Downstream Space | Created by `cub variant create`, with `Variant`, `Environment`, `Region`, target, gates, and metadata |
+| Server-side variant | Downstream Space | Described by the Variant Creator artifact and created through ConfigHub primitives or future `cub variant create` porcelain, with `Variant`, `Environment`, `Region`, target, gates, and metadata |
 | Promotion edge | Upstream Unit link | Downstream Units have `UpstreamUnitID` pointing to source Units |
 | Production target | Target assignment | Units have `TargetID`; Space may carry the target annotation for UX |
 | Variant customization | Post-render mutation | Placeholders, TransformPaths, functions, links, MutationSources, and receipts |
@@ -100,7 +104,33 @@ Units:
   Variant=default
 ```
 
-Create a production variant:
+Recorded Kubara org example from the roadmap:
+
+```text
+base Space: helm-redis-mapping-default
+variant Space: helm-redis-mapping-prod-us-east
+component: Redis
+base units: 15
+variant units: 15
+clone edge: statefulset-redis-redis-master default -> prod-us-east
+```
+
+That maps to ConfigHub as:
+
+| ConfigHub object | Base | Variant |
+| --- | --- | --- |
+| Space | `helm-redis-mapping-default` | `helm-redis-mapping-prod-us-east` |
+| Space label `Component` | `Redis` | `Redis` |
+| Space label `Variant` | `default` | `prod-us-east` |
+| Unit count | 15 | 15 |
+| Promotion edge | source Unit | downstream Unit with `UpstreamUnitID` |
+
+Product nuance to inspect: the downstream Space can carry
+`Variant=prod-us-east` while cloned Units may still carry the source base
+`Variant=default` label unless clone also patches Unit labels. That should be
+treated as a UX/product question, not as proof of a broken backend.
+
+Proposed production variant command shape:
 
 ```sh
 cub variant create prod-us-east helm-redis-default \
@@ -162,16 +192,19 @@ observation requirements
 ```
 
 If a requested Variant Creator choice would require a different rendered object
-set, the Creator must route the user back to the recipe/package path. It should
-not hide a Helm rerender inside a post-render promotion.
+set, the request must route back to the recipe/package path. It should not
+hide a Helm rerender inside a post-render promotion.
 
 ## Current ConfigHub Fit
 
-Current ConfigHub already has the main substrate:
+Current ConfigHub already has the main substrate. The local `cub` command does
+not currently expose a top-level `cub variant` command, so `cub variant create`
+below means proposed porcelain over these primitives:
 
 | Existing piece | What it contributes |
 | --- | --- |
-| `cub variant create` | Clones a source Space into a downstream Space, copies Units, sets labels/target/metadata/gates, and preserves upstream links. |
+| Space and Unit create/update APIs | Can create the downstream Space and Units that represent the variant. |
+| Unit upstream linkage | Can preserve the source-to-downstream promotion edge used by the UI. |
 | `Space.Labels.Component` | Groups spaces into one component in the Promotion UI. |
 | `Space.Labels.Variant` | Names the node shown in the Promotion UI. |
 | `Unit.UpstreamUnitID` | Creates the promotion edge and lets the UI compute upgradeability. |
@@ -205,7 +238,7 @@ That contract may eventually live in one of three places:
 
 ```text
 existing artifact-index.yaml fields
-a formal Variant Blueprint / VariantCreationPlan
+the Variant Creator artifact
 ConfigHub metadata stored with the component/base Space
 ```
 
@@ -223,8 +256,8 @@ sourceSpace:
 requiredUnitLabels:
   HelmChart: bitnami-redis
   HelmChartVersion: 25.5.3
-variantBlueprints:
-  - name: promote-to-production
+variantCreators:
+  - blueprint: promote-to-production
     allowedFromBases: [default]
     requiredParameters:
       - environment
@@ -263,14 +296,15 @@ verification fails if required labels are missing or inconsistent
 This keeps the Promotion UI from depending on hand-written label flags in every
 demo transcript.
 
-### 3. `confighub` CLI: add blueprint-aware variant porcelain
+### 3. `confighub` CLI: add Variant Creator-aware porcelain
 
-`cub variant create` exists. Add optional blueprint-aware commands around it:
+Add optional porcelain around the existing lower-level ConfigHub primitives.
+The exact flag names are not decided; this is the shape of the operation:
 
-```sh
-cub variant preview --blueprint redis-promote-to-production ...
-cub variant check --blueprint redis-promote-to-production ...
-cub variant create prod-us-east helm-redis-default --blueprint redis-promote-to-production ...
+```text
+preview variant creation from a source base
+check required fill values, facts, links, and gates
+create the downstream Space and cloned Units with receipts
 ```
 
 The first implementation can call existing APIs:
@@ -287,7 +321,7 @@ write receipts
 
 No new variant backend is required for v1.
 
-### 4. `confighub` API/server: expose a Variant Blueprint object or unit convention
+### 4. `confighub` API/server: expose the Variant Creator artifact or unit convention
 
 The UI, CLI, agents, and fleet runners need the same formal plan. Store it as
 either:
@@ -315,15 +349,18 @@ gates
 required receipts
 ```
 
-### 5. `confighub` GUI: add Variant Creator entry points
+### 5. `confighub` UX: expose user-led variant creation
 
-Add a guided flow over the current Promotion/Components surface:
+The product needs a user-led expression of the same Variant Creator artifact.
+That does not mean a separate GUI named Variant Creator has been agreed.
+
+When the product chooses a user-facing surface, it should expose the same
+creation shape over existing ConfigHub component, space, and promotion
+primitives:
 
 ```text
-Open component
-Select base or existing variant
-Create variant
-Select blueprint
+View component/base
+Choose creation pattern
 Fill fields
 Preview Units, changed paths, links, gates, target facts
 Run checks
@@ -331,8 +368,9 @@ Create
 Show receipts
 ```
 
-The Promotion page should then show the new Space automatically because it is
-already grouped by `Component` and named by `Variant`.
+The Promotion page should then be able to show the new Space because it is
+grouped by `Component`, named by `Variant`, and linked through
+`Unit.UpstreamUnitID`.
 
 ### 6. `confighub` GUI: strengthen promotion review
 
@@ -351,21 +389,22 @@ inspection, overridden-upstream indicators, inline field editing, and target
 deep links. That work should land only once it passes build/tests and preserves
 the mapping contract above.
 
-### 7. Verification: add goldens for UX, AX, and FX
+### 7. Verification: add goldens
 
-One blueprint must behave the same across:
+One Variant Creator artifact must behave the same across:
 
 ```text
-Human wizard
-Agent task
-Fleet function
+UX user-led creation
+AX agent-based creation
+FX function-based creation
 ```
 
 Minimum golden:
 
 ```text
-source: Redis/default
-blueprint: promote-to-production
+Variant Creator
+From: Redis/default
+Blueprint: promote-to-production
 parameters: prod-us-east, namespace, target, redisSecretRef
 expected preview: unit count, changed paths, link changes, gates
 expected receipts: clone, mutation, checks, approval/apply/observation when used

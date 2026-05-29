@@ -1,108 +1,30 @@
-# Variant Creator Verification Doctrine
+# Variant Creator Artifact Verification
 
-This document explains how we should use invariants, goldens, and verification
-to keep the Variant Creator reliable as we build CLI, GUI, API, agent, and fleet
-surfaces.
+This document describes how to verify the proposed
+[Variant Creator artifact](variant-creation-artifact.md) and its formal
+underpinning, currently described as `VariantCreationPlan`.
 
 The goal is simple:
 
 ```text
-The same Variant Blueprint must produce the same safe, reviewable result
-whether it is driven by a human, an agent, or a fleet function.
+The same Variant Creator artifact should produce the same preview, checks, and
+receipts whether it is read by a person, an AX agent, a CLI/API flow, or an FX
+fleet runner.
 ```
 
-## What We Are Testing
-
-The Variant Creator is the guided UX around the `variant create` operation.
-The Variant Blueprint is reusable component-author guidance. The
-`VariantCreationPlan` is the formal machine-readable plan underneath.
-
-That gives us three surfaces to test continuously:
+Doctrine:
 
 ```text
-UX: human wizard
-AX: structured agent task
-FX: parameterized fleet function
+UX is the foundational user-led way to make a variant.
+AX is the agent-based way to make the same variant.
+FX is the function-based way to make the same variant from one row or many rows.
 ```
 
-They must all follow the same plan, run the same required checks, and produce
-comparable receipts.
+Verification exists to prove those three ways stay equivalent.
 
-## Invariants
+## Canonical Creation Shape
 
-Invariants are rules that must stay true across every implementation surface.
-
-| Invariant | Why it matters |
-| --- | --- |
-| Same blueprint, same source, same parameters produce the same planned changes. | Prevents UI, CLI, agent, and fleet drift. |
-| Preview happens before create/apply. | Users and agents approve exact changes, not guesses. |
-| Changes are limited to blueprint-allowed paths, links, labels, annotations, targets, triggers, and gates. | Prevents hidden broad mutation. |
-| No unresolved required placeholders. | Prevents half-created variants. |
-| Required target facts are bound, checked, or explicitly deferred with a receipt. | Prevents target-specific non-determinism from being invisible. |
-| If a change would alter rendered Kubernetes objects, the workflow goes back to the recipe/package base path. | Prevents hidden Helm rerenders inside post-render variants. |
-| Every mutation has a MutationSources-style explanation. | Makes "what changed and why" reviewable. |
-| Every successful run leaves receipts for clone, checks, and approval/apply/publish/observe as applicable. | Makes the operation auditable. |
-| Failed runs explain the failing check and do not leave a trusted variant. | Keeps failure safe and usable. |
-| Human, agent, and fleet paths use the same schema and checks. | Avoids separate mechanisms for UI, AI, and batch operations. |
-
-## Goldens
-
-Goldens are small canonical examples that prove the intended behavior. They
-should be committed and reviewed like product fixtures.
-
-The first golden should be Redis:
-
-```text
-source: redis/default
-blueprint: environment-clone
-target: prod-us-east
-fill: namespace, Redis secret reference
-expected preview: 14 Units, 3 changed paths, 1 link changed
-expected checks: pass
-expected outcome: created ConfigHub variant with receipts
-```
-
-We should keep matching goldens for all three surfaces:
-
-| Surface | Golden artifact |
-| --- | --- |
-| UX | A short transcript or screenshot flow: choose source, choose blueprint, fill fields, preview, checks, create, receipts. |
-| AX | A `create_variant` task YAML plus expected planned changes and receipt list. |
-| FX | A matrix YAML plus expected per-row receipts and fleet summary. |
-
-Golden outputs should include:
-
-```text
-planned changes
-unit diff summary
-allowed path list
-target-fact bindings/checks
-required check results
-receipt set
-failure examples
-```
-
-The goldens are not only for correctness. They are also product UX tests: if
-the golden flow feels harder than Helm, the implementation is wrong even if the
-backend succeeds.
-
-## Verification Gates
-
-Every Variant Creator implementation lane should add machine checks.
-
-| Layer | Verification |
-| --- | --- |
-| Plan/schema | `VariantCreationPlan` validates; required fields and supported operations are explicit. |
-| CLI | `cub variant create --blueprint ... --dry-run` or equivalent produces the golden preview; bad input exits non-zero with a useful message. |
-| GUI | Browser/Playwright flow follows the golden UX and shows source, blueprint, fields, preview, checks, create, and receipts. |
-| API/server | Same request produces the same planned changes and receipts as CLI and GUI. |
-| Agent | Structured `create_variant` task produces the same plan and check results as the human path. |
-| Fleet | Matrix run produces per-row receipts, fleet summary, and wave promotion behavior; one bad row does not silently poison the whole fleet. |
-| Tamper tests | Edited blueprint, changed source digest, missing target fact, or unexpected path mutation must fail verification. |
-
-## Redis Golden Checks
-
-The Redis golden should prove:
+First golden:
 
 ```text
 Variant Creator
@@ -115,15 +37,72 @@ Checks: pass
 Create
 ```
 
-And the same intent as AX:
+This is an artifact shape, not proof that a GUI named Variant Creator or a
+current `cub variant` command exists.
+
+The verification target is the creation lifecycle:
+
+```text
+From -> Blueprint -> Target -> Fill -> Preview -> Checks -> Create
+```
+
+## Invariants
+
+| Invariant | Why it matters |
+| --- | --- |
+| Same `From`, `Blueprint`, `Target`, and `Fill` values produce the same preview. | Prevents product, agent, and fleet drift. |
+| Preview happens before create/apply. | Review is over exact changes, not guesses. |
+| Changes stay inside allowed Units, paths, links, labels, annotations, targets, and gates. | Prevents hidden broad mutation. |
+| Required fill values are resolved. | Prevents half-created variants. |
+| Required target facts are bound, checked, or explicitly deferred with a receipt. | Keeps target-specific assumptions visible. |
+| If a choice changes rendered Kubernetes objects, the request routes back to `cub installer`. | Prevents hidden Helm rerenders in post-render variant creation. |
+| Every mutation has a path-level explanation. | Makes "what changed and why" reviewable. |
+| Successful runs leave clone, mutation, check, and approval/apply/observation receipts as applicable. | Makes the operation auditable. |
+| Failed runs explain the failing check and do not leave a trusted variant. | Keeps failure safe and usable. |
+
+## Formal Contract Checks
+
+`VariantCreationPlan` should be verified as the machine-readable underpinning
+for the artifact shape.
+
+It should make these things explicit:
+
+```text
+source selector
+blueprint name
+required fill values
+allowed mutations
+preview contract
+required checks
+receipt contract
+```
+
+Verification should fail if the plan omits one of those concerns, permits an
+unexpected mutation, skips preview/checks, or cannot produce receipts.
+
+## UX, AX, And FX Goldens
+
+UX user-led form:
+
+```text
+Variant Creator
+From: redis/default
+Blueprint: Environment clone
+Target: prod-us-east
+Fill: namespace, Redis secret reference
+Preview: 14 Units, 3 changed paths, 1 link changed
+Checks: pass
+Create
+```
+
+AX agent-based form:
 
 ```yaml
 task: create_variant
-fromSpace: helm-redis-default
+from: redis/default
 blueprint: environment-clone
-parameters:
-  environment: prod
-  region: us-east
+target: prod-us-east
+fill:
   namespace: redis-prod
   redisSecretRef: redis-existing-secret
 requiredChecks:
@@ -132,70 +111,71 @@ requiredChecks:
   - unit-diff-reviewed
 expectedReceipts:
   - clone
-  - transformPaths
-  - functionMutations
+  - mutations
   - checks
 ```
 
-And the same intent as FX:
+FX function-based form:
 
 ```yaml
-blueprint: redis-environment-clone
-matrix:
-  - environment: prod
-    region: us-east
+from: redis/default
+blueprint: environment-clone
+rows:
+  - target: prod-us-east
     namespace: redis-prod-use1
     redisSecretRef: redis-existing-secret
-  - environment: prod
-    region: eu-west
+  - target: prod-eu-west
     namespace: redis-prod-euw1
     redisSecretRef: redis-existing-secret
 ```
 
-Expected fleet verification:
+The field names may change later. The verification requirement should not:
+equivalent inputs must produce equivalent previews, checks, and receipts.
 
-```text
-map VariantBlueprint over matrix
-verify each result
-summarize fleet receipts
-promote in waves
-```
+## Verification Gates
+
+| Layer | Verification |
+| --- | --- |
+| Artifact/schema | Required fields are present and supported operations are explicit. |
+| CLI/API, when available | Dry-run returns the golden preview and rejects bad input with useful errors. |
+| UX | User-led flow shows source, creation pattern, fill values, preview, checks, create action, and receipts. |
+| AX | Agent task produces the same preview and check results as UX. |
+| FX | Function run produces equivalent per-row receipts and a summary; one bad row fails clearly. |
+| Tamper tests | Changed source digest, missing target fact, unexpected path mutation, or skipped check fails verification. |
 
 ## Continuous Test Shape
 
-As the code appears, the repo should grow a dedicated verification command,
-for example:
+As code appears, add a command such as:
 
 ```text
 npm run variant-creator:verify
 ```
 
-That command should eventually check:
+It should eventually check:
 
 ```text
-schema validity
-golden UX transcript metadata
-CLI dry-run output
-AX task output
-FX matrix output
+artifact/schema validity
+VariantCreationPlan formal contract
+golden preview
+UX/AX/FX equivalence
 receipt binding
 tamper failures
 docs freshness
 ```
 
-Until that command exists, every implementation PR should state which pieces of
-this doctrine are covered and which remain manual.
+Until that command exists, implementation PRs should state which parts are
+covered and which remain manual.
 
 ## Acceptance Standard
 
-A Variant Creator feature is not done when it creates a variant once. It is
-done when we can prove:
+A Variant Creator artifact is not proven when it creates one variant once. It
+is proven when we can show:
 
 ```text
-same blueprint
-same inputs
+same source
+same creation pattern
+same fill values
 same preview
 same checks
 same receipts
-across UX, AX, and FX
 ```

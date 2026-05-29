@@ -24,7 +24,7 @@ for Brian, Jesper, and a skeptical Helm user:
 ```text
 cub helm install = quick one-shot render into ConfigHub Units.
 cub installer recipe = maintained, verified, variant-aware catalog artifact.
-cub variant create = post-render ConfigHub variant creation from a reviewed base.
+Variant Creator artifact / proposed cub variant create = post-render ConfigHub variant creation from a reviewed base.
 ConfigHub Promotion = review and advance changes across those variants.
 ```
 
@@ -46,7 +46,7 @@ Verification before this handoff:
 
 ```text
 git diff --check: pass
-npm run verify: pass
+npm run verify: needs rerun before claiming pass for this handoff
 ```
 
 Important correction made today:
@@ -104,23 +104,18 @@ Three variant creation modes to keep aligned:
 | Mode | User shape | Product surface |
 | --- | --- | --- |
 | Base variant | `redis/default`, `redis/reuse-existing-secret` | `cub installer setup --base ...` |
-| Guided variant | `Create prod-us-east from redis/default` | Variant Creator / `cub variant create` porcelain |
-| Fleet variant | `create 100 variants from a matrix` | Same blueprint as a function over rows |
-
-One artifact with three surfaces:
-
-```text
-UX: guided human wizard
-AX: structured agent task with checks and receipts
-FX: parameterized fleet function over one row or many rows
-```
+| UX-created variant | `Variant Creator / From: redis/default / Blueprint: Environment clone / Target: prod-us-east` | Foundational user-led expression of the Variant Creator artifact |
+| AX-created variant | structured `create_variant` task | Agent-based expression of the same artifact |
+| FX-created variants | `create 100 variants from a matrix` | Function-based expression of the same artifact over rows |
 
 Today's concrete output:
 
 - Keep [variant-creation-artifact.md](variant-creation-artifact.md) focused on
-  this doctrine.
+  the Variant Creator artifact shape.
+- Settle the formal underpinning, currently described as
+  `VariantCreationPlan`, before treating the examples as product proof.
 - Keep [variant-creator-verification.md](variant-creator-verification.md)
-  focused on invariants, goldens, and proof across UX/AX/FX.
+  focused on verifying the artifact fields, previews, checks, and receipts.
 - Do not add a new artifact unless the plan says who consumes it.
 
 Acceptance:
@@ -128,8 +123,8 @@ Acceptance:
 - A reader can answer: "When do I create a new base versus clone a ConfigHub
   variant?"
 - A reader can answer: "Why would a variant need target facts?"
-- A reader can answer: "What does the user see, what does an agent see, and
-  what does a fleet function execute?"
+- A reader can answer: "How does the same variant get made through UX, AX, and
+  FX?"
 
 ## Workstream 2 - Test Case A: Promotions
 
@@ -146,7 +141,7 @@ Primary example:
 Redis default base -> prod-us-east variant
 ```
 
-Current live ConfigHub example in the Kubara org:
+Recorded ConfigHub example from the Kubara org:
 
 ```text
 base Space: helm-redis-mapping-default
@@ -170,10 +165,13 @@ Today's concrete output:
 
 - Keep [confighub-promotion-mapping.md](confighub-promotion-mapping.md) as the
   doctrine document.
+- Keep [variant-promotion-worked-example.md](variant-promotion-worked-example.md)
+  as the two-example explainer: Redis default -> prod-us-east, and
+  external-dns managed base -> customer overlay variant.
 - Make no more promotion-map artifact batches today.
 - If adding an artifact, first decide whether the product home is:
   - existing `artifact-index.yaml` fields
-  - a formal Variant Blueprint / VariantCreationPlan
+  - the Variant Creator artifact
   - ConfigHub metadata stored with the component/base Space
 
 Acceptance:
@@ -182,7 +180,7 @@ Acceptance:
 
 ```text
 cub installer uploads a reviewed Redis base.
-cub variant create clones it into prod-us-east.
+Variant Creator artifact / proposed cub variant create describes and creates prod-us-east.
 ConfigHub Promotion shows the relationship and the diff.
 Future base changes can be reviewed and promoted into prod-us-east.
 ```
@@ -247,6 +245,9 @@ accidental details. They are part of the managed release recipe.
 Today's concrete output:
 
 - Add or update a Kubara mapping note only if it records real inspected inputs.
+- Current note: [kubara-customized-overlays.md](kubara-customized-overlays.md)
+  records inspected `external-dns/external-dns@1.21.1` inputs and classifies
+  what a managed wrapper/customer overlay import would need to capture.
 - Classify each required value into one of:
   - source lock
   - dependency lock
@@ -303,8 +304,8 @@ Careful suggestions that are currently justified:
 
 | Suggestion | Why it is justified | Existing primitive |
 | --- | --- | --- |
-| Variant Creator UX | Users need an easy way to create prod/region/customer variants from a base. | `cub variant create`, bulk clone, labels, targets, gates |
-| Blueprint/Creator contract | Human, agent, and fleet workflows need the same plan. | Units, placeholders, TransformPaths, functions, gates |
+| Variant Creator artifact | Users need a clear way to describe prod/region/customer variants from a base. | space/unit clone substrate, upstream links, labels, targets, gates; proposed `cub variant create` porcelain |
+| Shared artifact shape | UX, AX, and FX paths need the same fields. | Units, placeholders, TransformPaths, functions, gates |
 | Promotion clarity | Helm-derived bases should appear as components with variant nodes. | `Component`/`Variant` labels, `Unit.UpstreamUnitID`, Promotion UI |
 | Import bridge | One-shot Helm render should graduate into maintained recipe/package artifacts. | `cub helm install`, `cub installer` package path |
 | Target facts in variants | Post-render variants still need target-specific values and checks. | target facts, triggers/functions, checks |
@@ -319,12 +320,14 @@ Suggestions that are not justified yet:
 
 ## Sequence For Today
 
-1. **Land the doctrine cleanup.**
+1. **Land the creation explanation.**
    - PR #77 should remain small and readable.
-   - It should contain doctrine, not a large new artifact family.
+   - It should explain how variants get created before leaning on examples.
+   - It should define the `VariantCreationPlan` role without treating the name
+     as user-facing product language.
    - Validate with `git diff --check` and `npm run verify`.
 
-2. **Make the promotion example crisp.**
+2. **Then make the promotion examples crisp.**
    - Summarize the Redis default -> prod-us-east Kubara org example.
    - Record the Unit-label nuance as a product question, not a conclusion.
    - Do not add product asks until the example is written clearly.
@@ -343,7 +346,7 @@ Suggestions that are not justified yet:
 5. **Choose the next implementation step.**
    - If the product home is existing catalog metadata, extend
      `artifact-index.yaml` carefully.
-   - If the product home is Variant Blueprint, refine
+   - If the product home is Variant Creator artifact, refine
      `variant-creation-artifact.md`.
    - If the product home is ConfigHub metadata, write the smallest product ask
      as a helm-expt issue first.
