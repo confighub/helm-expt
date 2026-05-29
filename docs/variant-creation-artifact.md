@@ -1,98 +1,90 @@
-# Variant Creator: How Variants Get Created
+# Creating Custom Variants
 
-This document explains how ConfigHub variants get created.
+This document explains how custom ConfigHub variants get created.
 
-The working artifact shape is:
+## The Starting Point
 
-```text
-Variant Creator
-From: redis/default
-Blueprint: Environment clone
-Target: prod-us-east
-Fill: namespace, Redis secret reference
-Preview: 14 Units, 3 changed paths, 1 link changed
-Checks: pass
-Create
-```
+First we make durable `cub installer` recipes and base variants.
 
-Important: **Variant Creator** here means the artifact/proposal shape. It does
-not mean we have agreed on a separate GUI that a user opens, a new backend
-engine, or a current `cub variant` command.
+A recipe/package base is the reviewed install shape for a component. It says:
 
-## Core Doctrine
+- which chart or wrapper chart was used;
+- which values were rendered;
+- which Kubernetes objects were produced;
+- which facts, checks, and receipts prove the base.
 
-Every variant should be expressible in three ways of being made:
-
-| Way | Meaning |
-| --- | --- |
-| UX | The foundational user-led way. A person reviews the source, chooses the creation pattern, fills required values, inspects preview/checks, and creates. |
-| AX | The agent-based way. An agent receives the same intent as a structured task with required checks and receipts. |
-| FX | The function-based way. A function maps the same creation intent over one row or many rows. |
-
-These are not three different variant models. They are three expressions of the
-same variant-making intent:
+Examples:
 
 ```text
-From + Blueprint + Target + Fill + Preview + Checks + Create
+redis/default
+redis/reuse-existing-secret
+external-dns/managed-aws
 ```
 
-## Creation Lifecycle
+Those bases are important because they are reviewed. They are the trusted
+starting point for later variants.
 
-A variant is created in seven steps.
+## Why We Need Custom Variants
 
-| Step | What happens | What must be reviewable |
-| --- | --- | --- |
-| `From` | Select a reviewed source base or variant. | Source Space, source Units, source revision/digest, existing labels and links. |
-| `Blueprint` | Select the creation pattern. | Which kind of variant is being made and which changes are allowed. |
-| `Target` | Name the downstream variant and, when applicable, choose its target. | Space name/labels, target assignment, environment/region/customer identity. |
-| `Fill` | Supply, select, link, or bind required values. | Required inputs, target facts, placeholders, links, field paths. |
-| `Preview` | Compute the exact planned changes before writing trusted state. | Unit count, path diffs, label/target/gate changes, link changes. |
-| `Checks` | Run required validations and gates. | No unresolved required values, target facts satisfied or deferred, schema/policy checks, diff reviewed. |
-| `Create` | Write the downstream ConfigHub state and receipts. | Created Space, cloned Units, upstream links, mutation receipts, check receipts. |
-
-The key property is that `Create` happens after `Preview` and `Checks`, not
-before.
-
-## What Gets Created
-
-Creating a variant should create or update ConfigHub state, not rerender Helm.
-
-Expected ConfigHub state:
-
-| ConfigHub object | Purpose |
-| --- | --- |
-| Downstream Space | The new variant node, such as `prod-us-east`. |
-| Space labels | Component and variant identity, such as `Component=Redis`, `Variant=prod-us-east`. |
-| Cloned Units | The reviewed source Units copied into the downstream Space. |
-| `Unit.UpstreamUnitID` links | Promotion edges from source Units to downstream Units. |
-| Target assignment | The deployment/apply destination when the variant is deployable. |
-| Gates/checks | Required approval, policy, schema, fact, and diff checks. |
-| Receipts | Evidence for clone, fill/mutation, checks, approval/apply/publish/observation as applicable. |
-
-This is why Variant Creator is post-render ConfigHub variant creation.
-
-## Boundary With `cub installer`
-
-There are two different jobs:
-
-| Job | Example | Home |
-| --- | --- | --- |
-| Change the rendered install shape | generated Secret vs existing Secret, CRDs on/off, HA/storage mode, provider values that change Deployment args/env, wrapper chart overlay values | `cub installer` recipe/package/base |
-| Create a downstream operational variant from reviewed Units | target, environment, region, namespace field, labels, gates, fact bindings, approvals, links, receipts | Variant Creator / ConfigHub variant creation |
-
-Rule:
+After a base exists, teams still need real operational variants:
 
 ```text
-If the choice changes Helm-rendered objects, go through cub installer.
-If the choice customizes already-rendered ConfigHub Units, use Variant Creator.
+redis/prod-us-east
+redis/prod-eu-west
+external-dns/customer-acme-prod
 ```
 
-This prevents variant creation from hiding a Helm rerender.
+These variants usually should not rerender Helm. They start from a reviewed
+ConfigHub base or from another existing ConfigHub variant, then apply the
+differences that are specific to an environment, region, target, or customer.
 
-## Formal Underpinning
+That is custom variant creation.
 
-Once the creation shape feels right, it needs a formal underpinning so UX, AX,
-and FX all run the same operation.
+Simple version:
+
+```text
+Create prod-us-east from redis/default.
+```
+
+Before ConfigHub creates it, the user should see:
+
+- the reviewed base that will be copied;
+- the new variant name, labels, and target;
+- the environment, region, customer, or fact values being supplied;
+- the Units, links, gates, and fields that will change;
+- the checks that must pass;
+- the receipts that will prove what happened.
+
+Then ConfigHub creates the downstream Space, clones the Units, preserves the
+promotion links, applies the allowed changes, runs the checks, and records the
+receipts.
+
+The rule is: preview first, check first, then create.
+
+## Recipe Base Or Custom Variant?
+
+Use a recipe/package base when the choice changes the rendered Kubernetes
+objects.
+
+Use custom variant creation when the choice customizes an already-rendered
+ConfigHub object set.
+
+Examples:
+
+- Generated Redis Secret versus existing Redis Secret changes the rendered
+  chart shape. That belongs in a recipe/package base.
+- Binding the name of an existing Secret can be a custom variant input if the
+  reviewed base already has a field for that reference.
+- ExternalDNS provider, sources, registry mode, domain filters, and TXT owner
+  behavior usually change rendered args or env. Those belong in the installer
+  base.
+- Target, namespace, labels, approvals, gates, links, and observation policy
+  are post-render ConfigHub concerns. Those belong in custom variant creation.
+
+## VariantCreationPlan
+
+The simple story above needs a formal underpinning so every creation path uses
+the same rules.
 
 Working name:
 
@@ -100,59 +92,65 @@ Working name:
 VariantCreationPlan
 ```
 
-`VariantCreationPlan` should be an internal machine-readable contract for the
-Variant Creator artifact. It is not necessarily a public noun.
+`VariantCreationPlan` is not necessarily a public product noun. It is the
+machine-readable plan underneath custom variant creation.
 
-It should specify:
+The first concrete example is
+[redis-variant-creation-plan.yaml](redis-variant-creation-plan.yaml).
 
-| Part | Purpose |
-| --- | --- |
-| source selector | Which base/variant may be used as `From`. |
-| blueprint name | Which creation pattern is being used. |
-| required fill values | Values, target facts, links, or placeholders that must be supplied or resolved. |
-| allowed mutations | Paths, labels, annotations, targets, links, gates, or functions the creation may change. |
-| preview contract | The expected diff summary and what must be shown before create. |
-| required checks | Validations and gates required before trusted creation. |
-| receipt contract | Evidence that must be written after clone, mutation/fill, checks, approval, apply/publish, or observation. |
+It answers:
 
-Possible storage homes:
+- which reviewed bases or existing variants can be used as the source;
+- what kind of custom variant can be created;
+- which values, target facts, links, or placeholders must be filled;
+- which paths, labels, annotations, targets, gates, links, or functions may
+  change;
+- what the preview must show before creation;
+- which checks must pass;
+- which receipts must be written.
+
+The storage home can be decided later. It might live as metadata on the base
+Space, an AppConfig Unit in the base Space, catalog metadata, or a future typed
+ConfigHub object.
+
+The important point is that the plan gives ConfigHub one shared contract for
+creating the custom variant.
+
+## CLI+UI, AX, And FX
+
+Custom variants should be creatable in three ways:
+
+- CLI+UI: the user-led product experience;
+- AX: an agent performs the same creation task;
+- FX: a function creates one or many variants from rows of input.
+
+These should not produce three different experiences. They should all get the
+user to the same UX: the same source, the same requested variant, the same
+preview, the same checks, the same created ConfigHub state, and the same
+receipts.
+
+CLI+UI shape:
 
 ```text
-metadata on the base Space
-an AppConfig Unit in the base Space
-fields in existing catalog/artifact metadata
-a future typed ConfigHub object
-```
-
-The product can choose the storage home later. The important thing now is the
-shape of creation and the equivalence of UX, AX, and FX.
-
-## UX, AX, And FX Forms
-
-The same `VariantCreationPlan` / Variant Creator artifact should have
-equivalent UX, AX, and FX forms.
-
-UX user-led form:
-
-```text
-Variant Creator
+Create custom variant
 From: redis/default
-Blueprint: Environment clone
+Name: prod-us-east
 Target: prod-us-east
-Fill: namespace, Redis secret reference
+Values: namespace, Redis secret reference
 Preview: 14 Units, 3 changed paths, 1 link changed
 Checks: pass
 Create
 ```
 
-AX agent-based form:
+AX shape:
 
 ```yaml
 task: create_variant
 from: redis/default
-blueprint: environment-clone
+plan: environment-clone
+name: prod-us-east
 target: prod-us-east
-fill:
+values:
   namespace: redis-prod
   redisSecretRef: redis-existing-secret
 requiredChecks:
@@ -165,53 +163,53 @@ expectedReceipts:
   - checks
 ```
 
-FX function-based form:
+FX shape:
 
 ```yaml
 function: create_variant
 from: redis/default
-blueprint: environment-clone
+plan: environment-clone
 rows:
-  - target: prod-us-east
+  - name: prod-us-east
+    target: prod-us-east
     namespace: redis-prod-use1
     redisSecretRef: redis-existing-secret
-  - target: prod-eu-west
+  - name: prod-eu-west
+    target: prod-eu-west
     namespace: redis-prod-euw1
     redisSecretRef: redis-existing-secret
 ```
 
-The exact field names can change. The doctrine should not:
+The field names can change. The product rule should not: one creation model,
+three ways to invoke it.
+
+## Two Important Examples
+
+There are two important examples.
+
+### 1. Promotion
+
+[Variant Promotion Worked Example](variant-promotion-worked-example.md) shows
+`redis/default` becoming a downstream `prod-us-east` ConfigHub variant.
+
+This is the straightforward promotion case:
 
 ```text
-same variant intent
-same preview
-same checks
-same receipts
+reviewed recipe/package base
+  -> custom ConfigHub variant
+  -> future base changes can be reviewed and promoted downstream
 ```
 
-## Target Facts
+The custom variant does not rerender Redis. It clones the reviewed ConfigHub
+Units, gives the downstream Space its production identity, binds the target and
+environment-specific values, runs checks, and leaves receipts.
 
-A created variant can need target facts. The route depends on how the fact is
-used.
+### 2. Kubara Customer Overlays
 
-| Fact use | Correct route |
-| --- | --- |
-| Fact changes rendered Kubernetes objects | `cub installer` recipe/base render |
-| Fact fills or links an already-rendered Unit field | Variant Creator |
-| Fact only proves target readiness | Gate or observation receipt |
+[Kubara Customized Overlay Analysis](kubara-customized-overlays.md) shows how
+a managed app becomes a reviewed base before custom variants are created.
 
-Examples:
-
-| Fact | Usually means |
-| --- | --- |
-| Existing Redis Secret reference | Variant Creator if the field already exists; installer base if the rendered Secret model changes. |
-| StorageClass or IngressClass | Variant Creator if it is only a field value; installer base if it changes object shape. |
-| DNS provider credentials for ExternalDNS | Installer base if it changes args/env/volumes; Variant Creator if it only binds a declared reference. |
-| Cluster API or CRD availability | Gate or observation receipt. |
-
-## Kubara Wrapper And Overlay Rule
-
-For Kubara-style managed apps, the import unit is often:
+For Kubara-style managed apps, the reviewed base may be:
 
 ```text
 managed wrapper chart
@@ -221,49 +219,15 @@ managed wrapper chart
   + render context
 ```
 
-Those inputs belong to the maintained `cub installer` recipe/package when they
-affect rendered output.
+That example tests a harder boundary. Some customer choices change rendered
+Kubernetes objects, so they belong in the maintained `cub installer`
+recipe/package. Other customer choices only select target, region, labels,
+fact bindings, gates, links, or already-rendered field values, so they belong
+in custom ConfigHub variants.
 
-Variant Creator starts after that reviewed base is uploaded to ConfigHub. It is
-for customer, environment, region, target, gate, link, and receipt refinement
-of the reviewed object set.
+Together, the two examples test the same rule from different directions:
 
-## Where The Examples Go
-
-After we like the creation shape and its formal underpinning, the next step is
-to show two examples:
-
-| Example | Purpose |
-| --- | --- |
-| Redis default -> prod-us-east | Shows a reviewed Helm-derived base becoming a downstream ConfigHub variant. |
-| Kubara-style ExternalDNS overlay | Shows wrapper chart plus platform/customer overlay boundaries and target facts. |
-
-The examples should demonstrate the doctrine rather than define it.
-
-See:
-
-- [Variant Promotion Worked Example](variant-promotion-worked-example.md)
-- [Kubara Customized Overlay Analysis](kubara-customized-overlays.md)
-
-## Acceptance Checks
-
-A reader should be able to answer:
-
-- How does a variant get created from a reviewed base?
-- What happens in `From`, `Blueprint`, `Target`, `Fill`, `Preview`, `Checks`, and `Create`?
-- What ConfigHub state is created or updated?
-- When does the request go back to `cub installer`?
-- How does the same variant get made through UX, AX, and FX?
-- What would `VariantCreationPlan` formalize?
-- Which receipts prove the result?
-
-## What Not To Claim Yet
-
-Do not claim:
-
-- `cub variant create` exists in the current local CLI;
-- a GUI named Variant Creator exists;
-- the storage home for `VariantCreationPlan` has been chosen;
-- all Kubara apps are imported;
-- `cub installer import helm` exists;
-- post-render variant creation may rerender Helm invisibly.
+```text
+Use installer bases for render-time choices.
+Use custom variants for post-render ConfigHub variation.
+```

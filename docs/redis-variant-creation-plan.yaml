@@ -1,0 +1,71 @@
+apiVersion: confighub.com/v1alpha1
+kind: VariantCreationPlan
+metadata:
+  name: redis-server-side-variants
+spec:
+  source:
+    spaceSelector:
+      labels:
+        Component: Redis
+        Variant: default
+
+  clone:
+    copyUnits: true
+    copyLinks: true
+    copyOutgoingLinks: ask
+    copyIncomingLinks: false
+    copyTriggers: true
+    copyPermissions: true
+    setTarget: ask
+    labels:
+      Variant: required
+      Environment: optional
+      Region: optional
+
+  parameters:
+    unit: redis-variant-parameters
+    schemaRef: confighub.redis.variant-parameters/v1
+    placeholdersMustBeResolved: true
+
+  placeholders:
+    - unitSelector:
+        labels:
+          Component: Redis
+      paths:
+        - metadata.namespace
+        - spec.template.spec.containers.?name:container=redis.image
+
+  transformPaths:
+    - name: namespace-from-parameters
+      from:
+        unit: redis-variant-parameters
+        path: spec.namespace
+      to:
+        unitSelector:
+          labels:
+            Component: Redis
+        path: metadata.namespace
+      expression:
+        type: go-template
+        value: "{{ .value }}"
+
+  functions:
+    optional:
+      - set-resource-requests
+      - set-image-tag
+    requiredChecks:
+      - vet-format
+      - vet-placeholders
+      - vet-jsonschema
+
+  views:
+    - redis-customization
+    - redis-secrets
+    - redis-networking
+
+  gates:
+    beforeApprove:
+      - no-unresolved-placeholders
+      - schema-valid
+      - links-resolved
+      - target-facts-satisfied
