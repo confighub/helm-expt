@@ -54,6 +54,9 @@ For continuous testing, see
 
 For promotion, see [Variant Promotion Worked Example](variant-promotion-worked-example.md).
 
+For the concrete mapping into ConfigHub's current component and Promotion UI
+model, see [ConfigHub Promotion Mapping Doctrine](confighub-promotion-mapping.md).
+
 ## Why This Exists
 
 `cub install` recipes answer:
@@ -121,6 +124,16 @@ Do not mix the two unless the flow explicitly crosses the render boundary.
 | Target facts | Target-specific facts available to triggers, functions, parameters, and gates. |
 | MutationSources | Proof of which paths were changed by a function/link/dry run. |
 | Gates / checks | Proof that placeholders are filled, schemas validate, policies pass, and target requirements are satisfied. |
+
+The promotion mapping relies on the same labels and links the current ConfigHub
+Promotion UI already understands:
+
+```text
+Space.Labels.Component groups spaces into one component.
+Space.Labels.Variant names the node.
+Unit.UpstreamUnitID creates the promotion edge.
+Unit.TargetID makes a node deployable and applicable.
+```
 
 In short:
 

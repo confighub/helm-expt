@@ -702,6 +702,10 @@ See [Variant Creator Verification Doctrine](variant-creator-verification.md).
 For a concrete Redis promotion flow, see
 [Variant Promotion Worked Example](variant-promotion-worked-example.md).
 
+For the canonical mapping from Helm-derived recipe bases into ConfigHub
+components, spaces, variants, promotion edges, and GUI/code requirements, see
+[ConfigHub Promotion Mapping Doctrine](confighub-promotion-mapping.md).
+
 Example:
 
 ```text
