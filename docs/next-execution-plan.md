@@ -270,6 +270,12 @@ upstream space and its units into a downstream space, applies a `Variant`
 label, can set `Environment`, `Region`, target annotation, space metadata, and
 unit gates, and preserves links to the upstream units.
 
+The next product artifact for this lane is
+[Variant Creation Artifact](variant-creation-artifact.md): a
+`VariantCreationPlan` that a component author can publish in the base space to
+guide placeholders, TransformPaths links, saved functions, filters, views,
+target facts, and required checks after clone.
+
 It is an expected part of the workflow when it is the simpler path. It does not
 replace Helm-derived recipe variants for changes that require a different Helm
 render, but it should be preferred for downstream operational variation when a
