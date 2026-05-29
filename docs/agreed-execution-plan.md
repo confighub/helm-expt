@@ -612,11 +612,12 @@ those commands exist. If the short UX is needed, propose those verbs
 deliberately as Cub plugins/extensions; do not write them as current executable
 docs.
 
-As of May 27, 2026, `cub variant create <variant-name> <upstream-space>` is a
-real ConfigHub server-side command. It clones an upstream space and its units
-into a downstream space, stamps the `Variant` label, can set environment,
-region, target, space metadata, and unit gates, and preserves links to the
-upstream units. This is the post-upload/server-side variant layer.
+As of the May 29, 2026 recheck in this repo, the local `cub` binary does not
+expose a top-level `variant` command. Treat `cub variant create` as proposed
+porcelain unless current CLI help or source proves otherwise. The underlying
+product operation is still useful: create a downstream Space from a reviewed
+source, clone Units, apply variant identity and target metadata, preserve
+upstream links, run checks, and write receipts.
 
 We expect users of `cub installer` recipes to use ConfigHub server-side variants
 when that is simpler and safer than making another package base. The decision
@@ -624,8 +625,9 @@ rule is:
 
 ```text
 Use recipe/package variants when a Helm render input changes the object set.
-Use cub variant create when a reviewed ConfigHub space should be cloned and
-varied by target, environment, region, metadata, gates, or post-clone actions.
+Use ConfigHub variant creation when a reviewed ConfigHub space should be cloned
+and varied by target, environment, region, metadata, gates, or post-clone
+actions.
 ```
 
 In other words, server-side variants do not replace Helm-derived recipe
@@ -657,39 +659,40 @@ receipts.
 
 The proposed component-author artifact for this server-side layer is
 [Variant Creation Artifact](variant-creation-artifact.md). It describes a
-`VariantCreationPlan`: a ConfigHub-native blueprint that tells the UI/API/CLI
-which placeholders, links, TransformPaths, functions, filters, views, target
-facts, checks, and gates should guide post-clone customization.
+`VariantCreationPlan`: a ConfigHub-native plan underneath the Variant Creator
+artifact shape. It tells the product UX, API/CLI, agents, and functions which
+placeholders, links, TransformPaths, functions, filters, views, target facts,
+checks, and gates should guide post-clone customization.
 
 The UX names should stay plain:
 
 ```text
-Variant Creator = the guided workflow for variant create
-Variant Blueprint = the reusable component-author template
-VariantCreationPlan = the formal machine-readable artifact underneath
-variant create = an operation on variants
+Variant Creator = the artifact/proposal shape
+VariantCreationPlan = the formal machine-readable plan underneath
+UX = foundational user-led expression
+AX = agent-based expression
+FX = function-based expression over one row or many rows
 ```
 
 The user-facing path should be simpler than the artifact name:
 
 ```text
-Pick chart -> pick base -> create variant from blueprint -> preview -> check -> create
+Pick chart -> pick base -> choose creation pattern -> preview -> check -> create
 ```
 
-This requires product code beyond the current `cub variant create` primitive.
-The current command provides the core server-side clone operation. The remaining
-work is CLI/API/GUI/agent/fleet porcelain that reads a Variant Blueprint,
-previews the changes, runs required checks, creates the variant, and shows the
-receipts. That code should compose existing ConfigHub primitives such as bulk
-clone, labels, annotations, targets, PostClone triggers, placeholders,
-TransformPaths, functions, gates, receipts, and MutationSources. It should not
-invent a new backend variant engine.
+This requires product code beyond today's local CLI. The remaining work is
+product UX, CLI/API, AX, and FX plumbing that reads the same
+`VariantCreationPlan`, previews the changes, runs required checks, creates the
+variant, and shows the receipts. That code should compose existing ConfigHub
+primitives such as bulk clone, labels, annotations, targets, PostClone
+triggers, placeholders, TransformPaths, functions, gates, receipts, and
+MutationSources. It should not invent a new backend variant engine.
 
 That implementation must be tested continuously with invariants, goldens, and
 verification gates. The target is:
 
 ```text
-same blueprint
+same creation plan
 same inputs
 same preview
 same checks
@@ -697,7 +700,7 @@ same receipts
 across UX, AX, and FX
 ```
 
-See [Variant Creator Verification Doctrine](variant-creator-verification.md).
+See [Variant Creator Artifact Verification](variant-creator-verification.md).
 
 For a concrete Redis promotion flow, see
 [Variant Promotion Worked Example](variant-promotion-worked-example.md).
@@ -733,7 +736,7 @@ or settling for prose:
 | Capability lane | Existing surface to use now |
 | --- | --- |
 | Installer proof | `cub installer doc/setup/render/package/push/sign/verify/vet/plan/upload/inspect/list` |
-| Server-side variants | `cub variant create` |
+| Server-side variants | ConfigHub variant creation / proposed `cub variant create` porcelain |
 | Review and diff | `cub unit diff`, `cub revision data/list`, `cub unit data/tree/list` |
 | Safe operations | `cub changeset create/list/update`, `cub unit approve/apply/destroy/cancel` |
 | Scanning and misconfiguration | `cub function vet`, `cub function get/set`, `cub run ...` |
