@@ -661,11 +661,23 @@ The proposed component-author artifact for this server-side layer is
 which placeholders, links, TransformPaths, functions, filters, views, target
 facts, checks, and gates should guide post-clone customization.
 
+The UX names should stay plain:
+
+```text
+Variant Creator = the guided workflow for variant create
+Variant Blueprint = the reusable component-author template
+VariantCreationPlan = the formal machine-readable artifact underneath
+variant create = an operation on variants
+```
+
 The user-facing path should be simpler than the artifact name:
 
 ```text
 Pick chart -> pick base -> create variant from blueprint -> preview -> check -> create
 ```
+
+For a concrete Redis promotion flow, see
+[Variant Promotion Worked Example](variant-promotion-worked-example.md).
 
 Example:
 

@@ -276,6 +276,9 @@ The next product artifact for this lane is
 guide placeholders, TransformPaths links, saved functions, filters, views,
 target facts, and required checks after clone.
 
+The first worked promotion walkthrough is
+[Variant Promotion Worked Example](variant-promotion-worked-example.md).
+
 UX/AX/FX target:
 
 ```text
