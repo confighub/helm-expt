@@ -685,6 +685,20 @@ clone, labels, annotations, targets, PostClone triggers, placeholders,
 TransformPaths, functions, gates, receipts, and MutationSources. It should not
 invent a new backend variant engine.
 
+That implementation must be tested continuously with invariants, goldens, and
+verification gates. The target is:
+
+```text
+same blueprint
+same inputs
+same preview
+same checks
+same receipts
+across UX, AX, and FX
+```
+
+See [Variant Creator Verification Doctrine](variant-creator-verification.md).
+
 For a concrete Redis promotion flow, see
 [Variant Promotion Worked Example](variant-promotion-worked-example.md).
 

@@ -49,6 +49,9 @@ Human UX gets a guided creator. AX gets a structured task with required checks
 and receipts. FX gets a parameterized blueprint that can be mapped over one row
 or many rows.
 
+For continuous testing, see
+[Variant Creator Verification Doctrine](variant-creator-verification.md).
+
 For promotion, see [Variant Promotion Worked Example](variant-promotion-worked-example.md).
 
 ## Why This Exists

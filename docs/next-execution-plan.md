@@ -279,6 +279,11 @@ target facts, and required checks after clone.
 The first worked promotion walkthrough is
 [Variant Promotion Worked Example](variant-promotion-worked-example.md).
 
+The continuous testing doctrine for this lane is
+[Variant Creator Verification Doctrine](variant-creator-verification.md). It
+defines the invariants, goldens, and verification gates that keep UX, AX, and
+FX aligned as the CLI, GUI, API, agent, and fleet surfaces are implemented.
+
 UX/AX/FX target:
 
 ```text
@@ -305,6 +310,7 @@ What still needs code:
 | GUI | Add a Variant Creator flow: select source base, select blueprint, fill fields, preview diffs/checks, create variant, show receipts. |
 | API/server | Store or load the formal `VariantCreationPlan` / Variant Blueprint and expose enough metadata for UI, CLI, agents, and fleet runners to use the same plan. |
 | Agent/fleet | Accept structured `create_variant` tasks and matrix inputs, then run the same checks and receipt expectations as the human workflow. |
+| Verification | Add invariants, goldens, and a `variant-creator:verify`-style command so each surface proves it follows the same blueprint and produces comparable receipts. |
 
 The implementation should compose existing primitives:
 
@@ -326,6 +332,17 @@ cub variant create = the operation
 Variant Creator = the guided UX around the operation
 Variant Blueprint = the reusable component-author guidance
 VariantCreationPlan = the formal machine-readable plan underneath
+```
+
+Continuous proof target:
+
+```text
+same blueprint
+same inputs
+same preview
+same checks
+same receipts
+across UX, AX, and FX
 ```
 
 Example first-use path:
