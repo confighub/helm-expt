@@ -4,6 +4,62 @@ This is the focused handoff plan for another AI or teammate to lead today.
 It turns the current thread into executable work without requiring the full
 conversation history.
 
+## Codex Pickup Update - 2026-05-30
+
+Use GitHub `origin/main` as the source of truth for the variant docs. A local
+worktree may contain stale generated recipe/script changes from earlier proof
+runs; do not treat those as part of the variant proposal unless Alexis asks.
+
+Latest merged variant work:
+
+| PR | Status | What changed |
+| --- | --- | --- |
+| [#79](https://github.com/confighub/helm-expt/pull/79) | merged | Cleaned up the variant creation doctrine and removed the misleading "open a Variant Creator" framing. |
+| [#80](https://github.com/confighub/helm-expt/pull/80) | merged | Made custom variant creation readable and added the concrete `VariantCreationPlan` YAML link. |
+
+Start by reading these files, in this order:
+
+1. [Creating Custom Variants](variant-creation-artifact.md)
+2. [Redis VariantCreationPlan YAML](redis-variant-creation-plan.yaml)
+3. [Variant Promotion Worked Example](variant-promotion-worked-example.md)
+4. [Kubara Customized Overlay Analysis](kubara-customized-overlays.md)
+5. [ConfigHub Promotion Mapping Doctrine](confighub-promotion-mapping.md)
+
+Settled language:
+
+```text
+We make durable cub installer recipes and reviewed base variants first.
+Then we create custom ConfigHub variants from those reviewed bases.
+Simple story: Create prod-us-east from redis/default.
+Formal underpinning: VariantCreationPlan.
+Creation paths: CLI+UI, AX, and FX all produce the same preview, checks, state, and receipts.
+Examples: Redis promotion and Kubara-style managed ExternalDNS/customer overlay.
+```
+
+Do not reopen these settled points:
+
+- "Variant Creator" is an artifact/proposal shape, not an agreed separate GUI
+  that a user opens.
+- AX and FX are not deleted. They are alternate creation paths over the same
+  creation contract.
+- Custom variant creation is post-render ConfigHub work. It must not hide a
+  Helm rerender.
+- `cub variant create` is proposed porcelain only. Do not claim the current
+  local `cub` exposes that command.
+- Do not create batches of one-off promotion-map artifacts unless a consumer is
+  named first.
+
+Useful next work:
+
+- Tighten [variant-creator-verification.md](variant-creator-verification.md)
+  so it verifies the `VariantCreationPlan` fields, preview, checks, and
+  receipts without turning into process theatre.
+- Make the Redis example and Kubara ExternalDNS example use the same names and
+  field concepts as `redis-variant-creation-plan.yaml`.
+- If product asks become concrete, express them as small gaps over existing
+  ConfigHub primitives: Space/Unit clone, `Unit.UpstreamUnitID`, labels,
+  targets, gates, TransformPaths/functions, MutationSources, and receipts.
+
 ## Mission For Today
 
 Help the ConfigHub team get to a better product by making careful,
