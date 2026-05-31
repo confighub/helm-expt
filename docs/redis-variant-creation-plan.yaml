@@ -1,71 +1,124 @@
-apiVersion: confighub.com/v1alpha1
-kind: VariantCreationPlan
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: VariantCreatorContract
 metadata:
-  name: redis-server-side-variants
+  name: redis-creator-contract
+  component: Redis
 spec:
+  doctrine:
+    renderBoundary: >-
+      Choices that change the rendered Kubernetes object set go back to the
+      cub installer recipe/package path.
+    postRenderBoundary: >-
+      Choices that refine already-rendered ConfigHub Units use cub variant
+      create plus ConfigHub primitives.
+    userNoun: Creator
+
   source:
-    spaceSelector:
-      labels:
-        Component: Redis
-        Variant: default
-
-  clone:
-    copyUnits: true
-    copyLinks: true
-    copyOutgoingLinks: ask
-    copyIncomingLinks: false
-    copyTriggers: true
-    copyPermissions: true
-    setTarget: ask
-    labels:
-      Variant: required
-      Environment: optional
-      Region: optional
-
-  parameters:
-    unit: redis-variant-parameters
-    schemaRef: confighub.redis.variant-parameters/v1
-    placeholdersMustBeResolved: true
-
-  placeholders:
-    - unitSelector:
+    reviewedBase:
+      name: redis/default
+      packageRef: packages/bitnami/redis/25.5.3
+      variantRevisionRef: recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml
+      spaceSelector:
         labels:
           Component: Redis
-      paths:
-        - metadata.namespace
-        - spec.template.spec.containers.?name:container=redis.image
+          Variant: default
 
-  transformPaths:
-    - name: namespace-from-parameters
-      from:
-        unit: redis-variant-parameters
-        path: spec.namespace
-      to:
-        unitSelector:
-          labels:
-            Component: Redis
-        path: metadata.namespace
-      expression:
-        type: go-template
-        value: "{{ .value }}"
+  primitives:
+    clone:
+      commandShape: cub variant create <variant-name> <upstream-space>
+      mapsTo:
+        - cloned Space
+        - cloned Units
+        - upstream Unit links
+        - inherited labels
+        - optional target assignment
+        - copied triggers, permissions, and gates
+      usefulFlags:
+        - --environment
+        - --region
+        - --target
+        - --variant-labels
+        - --space-annotation
+        - --unit-annotation
+        - --unit-delete-gate
+        - --unit-destroy-gate
+        - --space-name-pattern
+    customization:
+      - placeholders
+      - TransformPaths links
+      - NeedsProvides links
+      - PostClone triggers
+      - functions and checks
+      - target facts
+      - MutationSources
+      - receipts
 
-  functions:
-    optional:
-      - set-resource-requests
-      - set-image-tag
-    requiredChecks:
-      - vet-format
-      - vet-placeholders
-      - vet-jsonschema
+  blueprints:
+    - name: promote-to-production
+      description: >-
+        Create a production Redis ConfigHub variant from the reviewed default
+        base without rerendering Helm.
+      from: redis/default
+      create:
+        commandShape: >-
+          cub variant create <variant-name> <upstream-space>
+          --environment Prod --region <region> --target <target>
+      requiredFill:
+        - variantName
+        - environment
+        - region
+        - target
+        - namespace
+        - redisSecretRef
+      allowedPostRenderChanges:
+        - Space Variant, Environment, and Region labels
+        - target assignment
+        - namespace fields when represented as post-render Unit fields
+        - Redis Secret reference fields already present in the rendered base
+        - gates and annotations
+        - outgoing links selected for review
+      forbiddenChanges:
+        - generated Secret versus existing Secret mode
+        - Redis HA or storage mode that changes rendered objects
+        - CRDs on/off
+        - ingress/TLS shape that changes rendered objects
+        - any hidden Helm rerender
+      preview:
+        expectedUnitCount: 15
+        mustShow:
+          - source Space
+          - downstream Space labels
+          - target assignment
+          - changed paths
+          - changed links
+          - gates
+      checks:
+        - no-unresolved-placeholders
+        - schema-valid
+        - target-facts-satisfied-or-deferred-with-receipt
+        - unit-diff-reviewed
+        - scan-pass-or-approved-exception
+      receipts:
+        - clone
+        - transformPaths
+        - functionMutations
+        - checks
+        - approval
 
-  views:
-    - redis-customization
-    - redis-secrets
-    - redis-networking
-
-  gates:
-    beforeApprove:
-      - no-unresolved-placeholders
-      - schema-valid
-      - links-resolved
-      - target-facts-satisfied
+  uxAxFx:
+    ux:
+      shape: >-
+        From redis/default, choose Promote to production, fill namespace,
+        Redis secret reference, target, environment, and region, preview
+        changes, run checks, create.
+    ax:
+      task: create_variant
+      requiredInputs:
+        - fromSpace
+        - blueprint
+        - parameters
+        - requiredChecks
+        - expectedReceipts
+    fx:
+      function: VariantCreatorContract(parameters) -> ConfigHubVariant + receipts
+      supportsMatrix: true

@@ -72,7 +72,7 @@ result simpler, safer, or more provable.
 | Lane | Existing verbs | Roadmap home | Acceptance |
 | --- | --- | --- | --- |
 | Installer proof | `cub installer doc/setup/render/package/push/sign/verify/vet/plan/upload/inspect/list` | P0.4, P1.1 | Redis and each promoted catalog candidate shows package docs, deterministic setup/render, deterministic bundle, vet/plan output where useful, upload or publish evidence, and ConfigHub Unit reconciliation where available. |
-| Server variants | ConfigHub space/unit primitives; proposed `cub variant create` porcelain | P0.5 | Redis demo shape describes cloning a reviewed uploaded base space when server-side variation is simpler than another Helm render. |
+| Server variants | `cub variant create` clone/link substrate plus Creator contract over ConfigHub primitives | P0.5 | Redis demo shape describes cloning a reviewed uploaded base space when server-side variation is simpler than another Helm render. |
 | Review and diff | `cub unit diff`, `cub revision data/list`, `cub unit data/tree/list` | P1.6 | Demo shows exact Unit data, revision history, tree view, and object-level differences for at least Redis. |
 | Safe operations | `cub changeset create/list/update`, `cub unit approve/apply/destroy/cancel` | P1.7 | Local/test operation lane creates a changeset, records approval/apply intent, and shows how unsafe operations are gated or cancelled. |
 | Scanning and misconfig | `cub function vet`, `cub function get/set`, `cub run ...` | P1.8 | Rendered objects or uploaded Units get ConfigHub function checks with scan/gate receipts. |
@@ -93,7 +93,7 @@ into a reusable `cub` capability.
 | P0 ask | implemented `cub installer preflight` | Turns target facts and `externalRequires` into live checks. |
 | P0 ask | `cub installer compare` or `cub installer prove` | Turns Helm-vs-`cub installer` equivalence into a product receipt. |
 | P1 ask | `cub installer scan` | Gives rendered-object scan receipts without hand-wiring scripts. |
-| P1 ask | `cub variant create/list/diff/promote/update` | Gives the server-side variant lifecycle first-class porcelain once the creation contract is settled. |
+| P1 ask | `cub variant list/diff/promote/update` and Creator-aware preview/check surfaces over `cub variant create` | Completes the server-side variant lifecycle around the existing clone/link command. |
 | P1 ask | `cub observe` or `cub target observe` | Gives workerless ConfigHub a clean observation receipt path. |
 | P2 ask | `cub catalog search/show/install` | Makes the public catalog first-run UX simple after the proof shape is stable. |
 
@@ -243,38 +243,39 @@ Acceptance:
 - Documentation-only mitigations are allowed only when the matching product
   capability is missing, inferior, or would make the happy path harder.
 
-### P0.5 Define Variant Creation Without Assuming `cub variant`
+### P0.5 Define Creator UX On Top Of `cub variant create`
 
 Finding:
 
-Earlier notes said `cub variant create` had landed. The current local `cub`
-binary in this checkout does not expose a top-level `variant` command, so this
-plan must treat `cub variant create` as proposed porcelain unless current CLI
-help or source proves otherwise.
+`cub variant create` now exists locally. It creates a downstream Space from a
+reviewed source, clones Units, sets the downstream Space `Variant` label,
+optionally sets environment/region/target metadata, copies selected triggers,
+permissions, and gates, and preserves upstream Unit links.
 
 Status:
 
 ```text
-reverified locally on 2026-05-29
+reverified locally on 2026-05-31
 ```
 
 Evidence:
 
 - local binary: `/usr/local/bin/cub`
-- `cub variant --help` returns `Failed: unknown command "variant" for "cub"`
-- `cub --help` lists no `variant` command
+- `cub variant create --help` describes the clone/link operation and flags such
+  as `--environment`, `--region`, `--target`, `--variant-labels`,
+  `--space-annotation`, `--unit-annotation`, and Unit gates
 
 Recomputed meaning:
 
-Variant creation should still be described as a ConfigHub operation: create a
-downstream Space from a reviewed source, clone Units, apply identity labels and
-target metadata, preserve upstream links, run checks, and write receipts.
+Variant creation is no longer hypothetical. The remaining work is product
+porcelain over the current primitive: blueprint selection, required fill values,
+preview, checks, receipts, and UX/AX/FX equivalence.
 
-The next product artifact for this lane is
-[Variant Creation Artifact](variant-creation-artifact.md): a
-`VariantCreationPlan` underneath the Variant Creator artifact shape. It should
-guide placeholders, TransformPaths links, saved functions, filters, views,
-target facts, and required checks after clone.
+The next product contract for this lane is
+[Variant Creation Artifact](variant-creation-artifact.md): a Variant Creator
+contract over Brian's existing ConfigHub primitives. Earlier notes called this
+formal shape `VariantCreationPlan`; treat that as the old working name, not as
+a new backend engine.
 
 The first worked promotion walkthrough is
 [Variant Promotion Worked Example](variant-promotion-worked-example.md).
@@ -291,7 +292,7 @@ FX aligned as product, CLI/API, agent, and function surfaces are implemented.
 UX/AX/FX target:
 
 ```text
-UX: Variant Creator artifact with From -> Blueprint -> Target -> Fill -> Preview -> Checks -> Create.
+UX: Creator with From -> Blueprint -> Target -> Fill -> Preview -> Checks -> Create.
 Agent: structured create_variant task with required checks and receipts.
 Function: create_variant(plan, row) -> ConfigHub variant + receipts.
 ```
@@ -299,8 +300,8 @@ Function: create_variant(plan, row) -> ConfigHub variant + receipts.
 Implementation boundary:
 
 ```text
-`cub variant create` is proposed porcelain, not available in the current local CLI.
-Variant Creator is the artifact/proposal shape, not an agreed separate GUI.
+`cub variant create` is available for clone/link.
+Creator UX/AX/FX porcelain is not complete yet.
 The operation should wire existing ConfigHub primitives together, not create a
 new backend variant engine.
 ```
@@ -312,7 +313,7 @@ What still needs code:
 | CLI/API | Add porcelain and dry-run/check surfaces around existing primitives once the product contract is settled. |
 | UX | Expose the user-led form through an existing or chosen product surface without assuming a separate GUI named Variant Creator. |
 | UX | Ensure Helm-derived catalog bases appear in the existing component Promotion page by using `Component`, `Variant`, `Environment`, `Region`, target, and upstream-link conventions consistently. |
-| API/server | Store or load the formal `VariantCreationPlan` / Variant Creator artifact and expose enough metadata for product UX, CLI/API, agents, and functions to use the same plan. |
+| API/server | Store or load the formal Variant Creator contract and expose enough metadata for product UX, CLI/API, agents, and functions to use the same plan. |
 | AX/FX | Accept structured `create_variant` tasks and matrix inputs, then run the same checks and receipt expectations as the UX form. |
 | Verification | Add invariants, goldens, and a `variant-creator:verify`-style command so each surface proves it follows the same creation plan and produces comparable receipts. |
 | Catalog proof | Add generated mapping artifacts only if they are consumed by product code, a verifier, an agent workflow, or ConfigHub UI/CLI. |
@@ -333,8 +334,9 @@ receipts / MutationSources
 This keeps the system honest:
 
 ```text
-Variant Creator = the artifact/proposal shape
-VariantCreationPlan = the formal machine-readable plan underneath
+Creator = the user-facing product flow
+Variant Creator contract = the formal machine-readable contract underneath
+Blueprint = a named creation pattern inside the contract
 UX = foundational user-led expression
 AX = agent-based expression
 FX = function-based expression over one row or many rows
@@ -372,7 +374,7 @@ Helm chart version
   -> install variants / package bases
   -> rendered variant revisions
   -> ConfigHub spaces and units
-  -> Variant Creator artifact / future porcelain for downstream variants when useful
+  -> cub variant create plus Creator contract for downstream variants when useful
 ```
 
 Decision rule:
@@ -392,7 +394,7 @@ Use ConfigHub variant creation for server-side choices:
 Acceptance:
 
 - Keep chart-import variants in `helm-expt` as recipe/package-base variants.
-- Use the Variant Creator artifact / future porcelain when the upstream
+- Use `cub variant create` plus the Creator contract when the upstream
   ConfigHub space exists and server-side cloning is the easiest safe path.
 - Redis and proof lanes should include simple server-side clone evidence from
   reviewed uploaded spaces to staging spaces once the operation is available.

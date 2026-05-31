@@ -13,7 +13,7 @@ The short version:
 
 ```text
 cub installer creates reviewed ConfigHub component bases.
-The Variant Creator artifact describes downstream ConfigHub variants from those bases.
+The Variant Creator contract describes downstream ConfigHub variants from those bases.
 ConfigHub Promotion shows and advances changes across those variants.
 ```
 
@@ -57,7 +57,7 @@ machine-checkable.
 | Package base | Base Space | Space label `Variant=<base>` and no production target unless deliberately assigned |
 | Package variant that changes render inputs | New rendered base | New `cub installer` render/upload, not a post-render clone |
 | Reviewed rendered object | Unit | One Unit per rendered object, plus installer record where present |
-| Server-side variant | Downstream Space | Described by the Variant Creator artifact and created through ConfigHub primitives or future `cub variant create` porcelain, with `Variant`, `Environment`, `Region`, target, gates, and metadata |
+| Server-side variant | Downstream Space | Created with `cub variant create` for clone/link, then refined by the Variant Creator contract using ConfigHub primitives such as labels, targets, placeholders, TransformPaths, functions, gates, and receipts |
 | Promotion edge | Upstream Unit link | Downstream Units have `UpstreamUnitID` pointing to source Units |
 | Production target | Target assignment | Units have `TargetID`; Space may carry the target annotation for UX |
 | Variant customization | Post-render mutation | Placeholders, TransformPaths, functions, links, MutationSources, and receipts |
@@ -197,9 +197,21 @@ hide a Helm rerender inside a post-render promotion.
 
 ## Current ConfigHub Fit
 
-Current ConfigHub already has the main substrate. The local `cub` command does
-not currently expose a top-level `cub variant` command, so `cub variant create`
-below means proposed porcelain over these primitives:
+Current ConfigHub already has the main substrate, and the current local `cub`
+now exposes `cub variant create` for the basic clone/link operation:
+
+```text
+create downstream Space
+clone every Unit
+set Variant label on the new Space
+preserve upstream Unit links
+copy selected triggers, permissions, and gates
+optionally set environment, region, target, annotations, and Unit gates
+```
+
+That command does not replace the full Creator UX. The remaining product work
+is blueprint selection, fill-value guidance, preview, checks, and receipt
+presentation over these primitives:
 
 | Existing piece | What it contributes |
 | --- | --- |
@@ -216,7 +228,7 @@ below means proposed porcelain over these primitives:
 | Target facts | Provide target-specific data to trigger/function parameters and checks. |
 | MutationSources | Explain which paths functions or links changed. |
 
-The missing product work is porcelain and proof around these primitives.
+The missing product work is Creator porcelain and proof around these primitives.
 
 ## Code Changes Needed
 
@@ -238,7 +250,7 @@ That contract may eventually live in one of three places:
 
 ```text
 existing artifact-index.yaml fields
-the Variant Creator artifact
+the Variant Creator contract
 ConfigHub metadata stored with the component/base Space
 ```
 
@@ -296,10 +308,10 @@ verification fails if required labels are missing or inconsistent
 This keeps the Promotion UI from depending on hand-written label flags in every
 demo transcript.
 
-### 3. `confighub` CLI: add Variant Creator-aware porcelain
+### 3. `confighub` CLI: add Creator-aware porcelain
 
-Add optional porcelain around the existing lower-level ConfigHub primitives.
-The exact flag names are not decided; this is the shape of the operation:
+Build on the current `cub variant create` clone/link command. The exact flag
+names are not decided; this is the shape of the higher-level operation:
 
 ```text
 preview variant creation from a source base
@@ -321,9 +333,9 @@ write receipts
 
 No new variant backend is required for v1.
 
-### 4. `confighub` API/server: expose the Variant Creator artifact or unit convention
+### 4. `confighub` API/server: expose the Variant Creator contract or Unit convention
 
-The UI, CLI, agents, and fleet runners need the same formal plan. Store it as
+The UI, CLI, agents, and fleet runners need the same formal contract. Store it as
 either:
 
 ```text
@@ -351,7 +363,7 @@ required receipts
 
 ### 5. `confighub` UX: expose user-led variant creation
 
-The product needs a user-led expression of the same Variant Creator artifact.
+The product needs a user-led expression of the same Variant Creator contract.
 That does not mean a separate GUI named Variant Creator has been agreed.
 
 When the product chooses a user-facing surface, it should expose the same
@@ -391,7 +403,7 @@ the mapping contract above.
 
 ### 7. Verification: add goldens
 
-One Variant Creator artifact must behave the same across:
+One Variant Creator contract must behave the same across:
 
 ```text
 UX user-led creation

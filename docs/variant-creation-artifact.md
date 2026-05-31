@@ -81,19 +81,41 @@ Examples:
 - Target, namespace, labels, approvals, gates, links, and observation policy
   are post-render ConfigHub concerns. Those belong in custom variant creation.
 
-## VariantCreationPlan
+## Variant Creator Contract
 
 The simple story above needs a formal underpinning so every creation path uses
-the same rules.
+the same rules, but that underpinning should not become a new variant backend.
 
 Working name:
 
 ```text
-VariantCreationPlan
+Variant Creator contract
 ```
 
-`VariantCreationPlan` is not necessarily a public product noun. It is the
-machine-readable plan underneath custom variant creation.
+The earlier notes used the name `VariantCreationPlan`. Read that as the old
+working name for this contract, not as a separate engine we tried to build.
+In this repo it was documentation only: no script, verifier, CLI, or backend
+code consumes it.
+
+The contract is product/catalog metadata over Brian's existing ConfigHub
+primitives:
+
+```text
+cub variant create
+cloned Spaces and Units
+upstream Unit links
+labels, annotations, targets, gates, and permissions
+placeholders
+TransformPaths and NeedsProvides links
+PostClone triggers
+functions and checks
+target facts
+MutationSources and receipts
+```
+
+A **blueprint** is a named creation pattern inside the contract, such as
+`environment-clone`, `promote-to-production`, or
+`customer-production-overlay`.
 
 The first concrete example is
 [redis-variant-creation-plan.yaml](redis-variant-creation-plan.yaml).
@@ -101,7 +123,7 @@ The first concrete example is
 It answers:
 
 - which reviewed bases or existing variants can be used as the source;
-- what kind of custom variant can be created;
+- which blueprints can be used;
 - which values, target facts, links, or placeholders must be filled;
 - which paths, labels, annotations, targets, gates, links, or functions may
   change;
@@ -110,11 +132,38 @@ It answers:
 - which receipts must be written.
 
 The storage home can be decided later. It might live as metadata on the base
-Space, an AppConfig Unit in the base Space, catalog metadata, or a future typed
-ConfigHub object.
+Space, an AppConfig/Text Unit in the base Space, catalog metadata, or eventually
+a typed ConfigHub object.
 
-The important point is that the plan gives ConfigHub one shared contract for
-creating the custom variant.
+In Brian's current model, the best near-term interpretation is:
+
+```text
+Variant Creator contract = catalog/base-Space guidance that tells cub variant
+create, PostClone triggers, TransformPaths, functions, gates, and the UX which
+existing ConfigHub primitives to use.
+```
+
+It is not itself a TransformPaths link, a trigger, a function, or a new variant
+engine. It is the shared contract that selects and wires those pieces together.
+
+The important point is that the contract gives ConfigHub one shared way to
+drive a human wizard, an agent task, and a fleet function while still composing
+existing ConfigHub primitives.
+
+## How This Maps To Brian's Primitives
+
+| Creator concern | ConfigHub primitive |
+| --- | --- |
+| Create downstream variant | `cub variant create` over bulk Space and Unit clone |
+| Preserve promotion graph | cloned Units with upstream Unit links |
+| Set identity | Space labels such as `Component`, `Variant`, `Environment`, `Region` |
+| Bind a target | `--target` plus target annotation and Unit target assignment |
+| Fill parameters | placeholder Units, AppConfig Units, or explicit fields |
+| Move values into objects | TransformPaths, NeedsProvides, or functions |
+| Run customization after clone | PostClone triggers selected by the source Space |
+| Explain mutations | MutationSources and path-level diff output |
+| Enforce safety | gates, function checks, schema checks, target-fact checks |
+| Prove the operation | clone, mutation, check, approval/apply, and observation receipts |
 
 ## CLI+UI, AX, And FX
 

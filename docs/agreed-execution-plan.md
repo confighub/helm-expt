@@ -612,12 +612,12 @@ those commands exist. If the short UX is needed, propose those verbs
 deliberately as Cub plugins/extensions; do not write them as current executable
 docs.
 
-As of the May 29, 2026 recheck in this repo, the local `cub` binary does not
-expose a top-level `variant` command. Treat `cub variant create` as proposed
-porcelain unless current CLI help or source proves otherwise. The underlying
-product operation is still useful: create a downstream Space from a reviewed
-source, clone Units, apply variant identity and target metadata, preserve
-upstream links, run checks, and write receipts.
+As of the May 31, 2026 recheck in this repo, the local `cub` binary exposes
+`cub variant create`. That command provides the current clone/link substrate:
+create a downstream Space from a reviewed source, clone Units, set the Variant
+label on the new Space, optionally set environment/region/target metadata,
+copy selected triggers/gates/permissions, preserve upstream links, and wait
+for clone triggers. It is not the full Creator UX yet.
 
 We expect users of `cub installer` recipes to use ConfigHub server-side variants
 when that is simpler and safer than making another package base. The decision
@@ -657,18 +657,20 @@ server-side variant plan with TransformPaths/functions and MutationSources. If
 it only proves target readiness, it belongs in preflight or observation
 receipts.
 
-The proposed component-author artifact for this server-side layer is
-[Variant Creation Artifact](variant-creation-artifact.md). It describes a
-`VariantCreationPlan`: a ConfigHub-native plan underneath the Variant Creator
-artifact shape. It tells the product UX, API/CLI, agents, and functions which
-placeholders, links, TransformPaths, functions, filters, views, target facts,
-checks, and gates should guide post-clone customization.
+The component-author contract for this server-side layer is
+[Variant Creation Artifact](variant-creation-artifact.md). Earlier notes called
+the formal shape `VariantCreationPlan`; treat that as the old working name for
+the **Variant Creator contract**, not a new backend variant engine. The contract
+tells the product UX, API/CLI, agents, and functions which placeholders, links,
+TransformPaths, functions, filters, views, target facts, checks, and gates
+should guide post-clone customization on top of existing ConfigHub primitives.
 
 The UX names should stay plain:
 
 ```text
-Variant Creator = the artifact/proposal shape
-VariantCreationPlan = the formal machine-readable plan underneath
+Creator = the user-facing product flow
+Variant Creator contract = the formal machine-readable contract underneath
+Blueprint = a named creation pattern inside the contract
 UX = foundational user-led expression
 AX = agent-based expression
 FX = function-based expression over one row or many rows
@@ -680,13 +682,14 @@ The user-facing path should be simpler than the artifact name:
 Pick chart -> pick base -> choose creation pattern -> preview -> check -> create
 ```
 
-This requires product code beyond today's local CLI. The remaining work is
-product UX, CLI/API, AX, and FX plumbing that reads the same
-`VariantCreationPlan`, previews the changes, runs required checks, creates the
+This requires product code beyond today's clone/link command. The remaining
+work is product UX, CLI/API, AX, and FX plumbing that reads the same Variant
+Creator contract, previews the changes, runs required checks, creates the
 variant, and shows the receipts. That code should compose existing ConfigHub
-primitives such as bulk clone, labels, annotations, targets, PostClone
-triggers, placeholders, TransformPaths, functions, gates, receipts, and
-MutationSources. It should not invent a new backend variant engine.
+primitives such as `cub variant create`, bulk clone, labels, annotations,
+targets, PostClone triggers, placeholders, TransformPaths, functions, gates,
+receipts, and MutationSources. It should not invent a new backend variant
+engine.
 
 That implementation must be tested continuously with invariants, goldens, and
 verification gates. The target is:
@@ -736,7 +739,7 @@ or settling for prose:
 | Capability lane | Existing surface to use now |
 | --- | --- |
 | Installer proof | `cub installer doc/setup/render/package/push/sign/verify/vet/plan/upload/inspect/list` |
-| Server-side variants | ConfigHub variant creation / proposed `cub variant create` porcelain |
+| Server-side variants | `cub variant create` for clone/link plus Creator-aware porcelain for preview/checks/receipts |
 | Review and diff | `cub unit diff`, `cub revision data/list`, `cub unit data/tree/list` |
 | Safe operations | `cub changeset create/list/update`, `cub unit approve/apply/destroy/cancel` |
 | Scanning and misconfiguration | `cub function vet`, `cub function get/set`, `cub run ...` |

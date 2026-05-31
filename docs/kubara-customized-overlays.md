@@ -67,11 +67,11 @@ installer` recipe/package must capture the durable import unit above.
 | Wrapper chart URL/version/digest | source lock | `cub installer` recipe/package |
 | Chart dependencies and wrapper dependencies | dependency lock | `cub installer` recipe/package |
 | Platform defaults such as sources, policy, registry mode, default provider | managed default | `cub installer` recipe/base |
-| Customer domain filters, TXT owner ID, provider account, IAM role, hosted zone | customer overlay value / target fact | Recipe/base if rendered into args/env; Variant Creator artifact only if binding an existing placeholder or Unit field |
-| DNS credential Secret or ExternalSecret reference | target fact | Recipe/base if it changes rendered env/volume shape; Variant Creator artifact if the rendered object already has a bindable reference |
+| Customer domain filters, TXT owner ID, provider account, IAM role, hosted zone | customer overlay value / target fact | Recipe/base if rendered into args/env; Creator contract only if binding an existing placeholder or Unit field |
+| DNS credential Secret or ExternalSecret reference | target fact | Recipe/base if it changes rendered env/volume shape; Creator contract if the rendered object already has a bindable reference |
 | CRD ownership | lifecycle policy / CRD disposition | Recipe/base proof plus promotion gate |
 | ClusterRole and ClusterRoleBinding acceptance | lifecycle policy / RBAC disposition | Scan/gate and approval receipt |
-| Namespace, target, customer, environment, region labels | post-render ConfigHub variant field | Variant Creator artifact / proposed `cub variant create` porcelain |
+| Namespace, target, customer, environment, region labels | post-render ConfigHub variant field | `cub variant create` plus Creator contract over ConfigHub primitives |
 | Observation freshness policy | post-render ConfigHub variant field | Variant Creator gate/receipt |
 
 ## Promotion Shape
@@ -124,7 +124,7 @@ Smallest product gap:
 ```text
 An import/recipe contract that names wrapper source, platform values, customer
 overlay values, target facts, and render context before upload, then exposes a
-safe post-render Variant Creator artifact for customer spaces.
+safe post-render Creator contract for customer spaces.
 ```
 
 Suggested UX:
