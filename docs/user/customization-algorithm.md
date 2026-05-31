@@ -68,6 +68,17 @@ flattening them into one vague "variant" bucket.
 
 3. Decide whether it belongs in the recipe or the variant.
 
+   The user-facing decision should be phrased simply:
+
+   ```text
+   This changes the Kubernetes objects, so it needs a cub installer base.
+   This only changes how an uploaded base is operated, so it can be a
+   ConfigHub variant.
+   ```
+
+   The supporting proof can record the exact digests, paths, facts, checks, and
+   receipts behind that decision.
+
    Recipe-level:
 
    ```text

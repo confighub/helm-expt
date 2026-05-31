@@ -149,6 +149,39 @@ The important point is that the contract gives ConfigHub one shared way to
 drive a human wizard, an agent task, and a fleet function while still composing
 existing ConfigHub primitives.
 
+## UX, AX, FX, And Proof Placement
+
+The human product flow should stay simple:
+
+```text
+choose the reviewed source
+choose the destination variant
+fill the values that matter to the user
+review the visible changes
+see whether creation is ready
+create the variant
+```
+
+The same operation still needs machine-readable proof:
+
+```text
+route check
+rendered object digest check
+Unit count check
+upstream link check
+target-fact check
+scan and gate disposition
+clone, mutation, check, approval, apply, and observation receipts
+```
+
+Those details should be available in expandable UI, audit views, receipts, CI,
+and agent output. They should not be the first-screen vocabulary for a user
+creating their first variant.
+
+AX and FX can ask for the proof targets directly because agents and fleet
+functions need structured contracts. The product rule is still one model with
+three surfaces: a simple human flow, an agent task, and a fleet function.
+
 ## How This Maps To ConfigHub Primitives
 
 | Creator concern | ConfigHub primitive |
@@ -185,10 +218,14 @@ From: redis/default
 Name: prod-us-east
 Target: redis-targets/prod-us-east
 Values: namespace, Redis secret reference
-Preview: 14 Units, 3 changed paths, 1 link changed
-Checks: pass
+Review: target, namespace, Secret reference, and production policy
+Status: ready to create
 Create
 ```
+
+The review can include a details panel with Unit counts, changed paths, link
+changes, checks, and receipt links. The default view should explain the
+operation in product terms.
 
 AX shape:
 
