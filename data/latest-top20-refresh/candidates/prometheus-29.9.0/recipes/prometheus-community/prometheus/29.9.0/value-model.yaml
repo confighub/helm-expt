@@ -1,0 +1,39 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "prometheus-29.9.0"
+spec:
+  checkedValues:
+    -
+      path: "alertmanager.enabled / kube-state-metrics.enabled / prometheus-node-exporter.enabled / prometheus-pushgateway.enabled"
+      variant: "server-only-ephemeral"
+      disposition: "variant-controlled"
+      reason: "the server-only variant deliberately removes bundled components and their RBAC/workloads"
+    -
+      path: "server.persistentVolume.enabled"
+      variant: "server-only-ephemeral"
+      disposition: "variant-controlled"
+      reason: "the server-only variant deliberately disables the Prometheus server PVC"
+    -
+      path: "serverFiles / scrapeConfigs / extraScrapeConfigs"
+      variant: "all"
+      disposition: "scrape-config-review"
+      reason: "scrape configuration is rendered into ConfigMaps and must be reviewable by variant"
+    -
+      path: "server.remoteWrite / server.remoteRead"
+      variant: "all"
+      disposition: "data-egress-review"
+      reason: "remote read/write endpoints must be explicit before production promotion"
+    -
+      path: "server.statefulSet.enabled / server.replicaCount"
+      variant: "all"
+      disposition: "workload-shape-review"
+      reason: "Deployment versus StatefulSet and replica count are core operational choices"
+    -
+      path: "server.ingress.enabled / networkPolicy.enabled / server.podDisruptionBudget.enabled"
+      variant: "all"
+      disposition: "production-hardening-review"
+      reason: "exposure, network, and disruption policy should be deliberate variants"
+  unknownValues: "not-checked"
+  deadValues: "not-checked"
+  ignoredValues: "not-checked"

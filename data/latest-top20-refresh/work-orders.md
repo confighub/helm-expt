@@ -34,7 +34,7 @@ The new version becomes supported only after it has:
 
 ## Latest Chart Version Wave
 
-Create new proof paths for:
+Candidate proof paths have been created for:
 
 | Chart | Current proof | Latest chart |
 | --- | --- | --- |
@@ -44,6 +44,18 @@ Create new proof paths for:
 | `bitnami/postgresql` | `18.6.7` | `18.6.10` |
 | `prometheus-community/kube-prometheus-stack` | `85.3.3` | `86.1.0` |
 | `prometheus-community/prometheus` | `29.8.0` | `29.9.0` |
+
+Candidate status:
+
+```text
+data/latest-top20-refresh/candidates/
+npm run top20:latest-candidates:verify
+```
+
+These latest candidates pass the recipe/package/render/compare lane. They still
+need ConfigHub proof receipts, live e2e receipts, catalog status, production
+disposition, and top-100/top-500 regeneration before replacing the supported
+catalog rows.
 
 ## Redis Promotion Variants
 

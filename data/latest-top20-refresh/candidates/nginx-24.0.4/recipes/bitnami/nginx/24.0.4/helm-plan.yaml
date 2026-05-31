@@ -1,0 +1,32 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "bitnami-nginx-24.0.4"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "bitnami/nginx"
+    version: "24.0.4"
+    variants:
+      - "http-clusterip"
+      - "existing-tls-ingress"
+    helmObjectsByVariant:
+      http-clusterip: 5
+      existing-tls-ingress: 6
+    cubInstallObjectsByVariant:
+      http-clusterip: 6
+      existing-tls-ingress: 7
+    helmMatchByVariant:
+      http-clusterip: "5/5"
+      existing-tls-ingress: "6/6"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish only after TLS Secret ownership, ingress exposure, NetworkPolicy, PDB, deployment rollout, and raw/template extension-slot review are satisfied"
+  receipts:
+    - "revisions/http-clusterip/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/http-clusterip/r001/receipts/render-receipt.yaml"
+    - "revisions/http-clusterip/r001/receipts/scan-receipt.yaml"
+    - "revisions/http-clusterip/r001/receipts/install-gate.yaml"
+    - "revisions/existing-tls-ingress/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/existing-tls-ingress/r001/receipts/render-receipt.yaml"
+    - "revisions/existing-tls-ingress/r001/receipts/scan-receipt.yaml"
+    - "revisions/existing-tls-ingress/r001/receipts/install-gate.yaml"

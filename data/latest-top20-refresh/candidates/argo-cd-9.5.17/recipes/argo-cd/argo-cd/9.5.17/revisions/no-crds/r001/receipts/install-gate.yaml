@@ -1,0 +1,21 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "argo-cd-no-crds-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "58d54d31b7e52f80c4a352f48a8828fc62fc31b8e2c8aea497f756ae5ce0f9ec"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for no-crds"
+    - "CRD install/upgrade behavior needs explicit lifecycle policy before production"
+    - "Helm hook behavior needs explicit lifecycle policy before production"
+    - "Argo CD generated/operational Secrets need ownership and observation policy"
+    - "Argo CD StatefulSet behavior needs storage, upgrade, and rollback policy"
+    - "Cluster-scoped RBAC needs production review"
+    - "GitOps handoff should use the ConfigHub OCI path for this project"
+    - "omits the three Argo CD CRDs while preserving the control-plane workloads, built-in Redis, Secrets, and RBAC objects"

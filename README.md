@@ -6,7 +6,7 @@ This repo shows how popular public Helm charts can become `cub installer`
 packages with named variants, exact rendered Kubernetes objects, scans, gates,
 receipts, and live proof.
 
-The short version:
+Core flow:
 
 ```text
 Helm chart
@@ -88,10 +88,10 @@ We use AI to accelerate Helm chart analysis and recipe creation. We use
 `cub installer` to prove the resulting recipes produce correct, Helm-equivalent,
 reviewable ConfigHub variants.
 
-This is not a single magic prompt. It is an AI-assisted harness with explicit
+This is not a single prompt. It is an AI-assisted harness with explicit
 decision points and mechanical checks. For the recipe-generation workflow and
 the "where pieces go" table, see
-[Introduction To The Harness](docs/introduction-to-the-harness.md).
+[Introduction To The Harness](./docs/user/introduction-to-the-harness.md).
 
 ## How Values And Overlays Are Supported
 
@@ -118,11 +118,11 @@ Examples:
 | Wrapper chart plus platform values plus customer overlay values | managed overlay import; usually needs ConfigHub Server |
 
 For the detailed algorithm, see
-[Customization Algorithm](docs/customization-algorithm.md). For the product
+[Customization Algorithm](./docs/user/customization-algorithm.md). For the product
 tier boundaries, see
-[Product Support Tiers For Helm Scenarios](docs/product-support-tiers.md).
+[Product Support Tiers For Helm Scenarios](./docs/user/product-support-tiers.md).
 For Helm hooks specifically, see
-[Hook Lifecycle Strategy](docs/hook-lifecycle-strategy.md).
+[Hook Lifecycle Strategy](./docs/user/hook-lifecycle-strategy.md).
 
 ## What Is Proven Today
 
@@ -162,6 +162,9 @@ Start here:
 ```text
 CATALOG.md
   The top-level chart catalog: charts first, variants underneath.
+
+docs/README.md
+  The documentation map: what each doc family is for.
 
 data/live-e2e/summary.md
   The top-20 live-test status table.
@@ -392,7 +395,7 @@ packages/
 docs/demo/
   Plain-English per-chart walkthroughs and transcripts.
 
-docs/introduction-to-the-harness.md
+docs/user/introduction-to-the-harness.md
   How recipes are generated and how chart behavior is placed into recipes,
   variants, facts, profiles, gates, receipts, or live observations.
 
@@ -558,9 +561,9 @@ graphs, snapshots, and GitOps convergence evidence.
 
 ## Background Reading
 
-For the longer narrative behind this experiment, see `docs/blog-posts.md`. For
-the latest refresh plan, see `docs/latest-top20-refresh-plan.md`. For the shape
-of a dedicated public site, see `docs/dedicated-website-plan.md`. The README
+For the longer narrative behind this experiment, see `docs/planning/blog-posts.md`. For
+the latest refresh plan, see `docs/planning/latest-top20-refresh-plan.md`. For the shape
+of a dedicated public site, see `docs/planning/dedicated-website-plan.md`. The README
 stays focused on why the project exists, what is proven, and how to try it.
 
 ## The Pitch

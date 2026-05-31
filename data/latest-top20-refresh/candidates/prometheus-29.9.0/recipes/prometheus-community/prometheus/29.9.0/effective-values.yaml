@@ -1,0 +1,10 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "prometheus-29.9.0-default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "b3c9a7bb78952d93870f7f73bd6dffeb0bda93f9ccfd79622075f54719891236"
+  mergedValuesCaptured: false
+  values:
+    {}

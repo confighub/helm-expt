@@ -123,11 +123,11 @@ function capabilityProfilesByName() {
 }
 
 function verifyDocs() {
-  const freshnessPath = repoPath("docs", "observation-freshness-slo.md");
-  const p0Path = repoPath("docs", "p0-major-issue-status.md");
-  const capabilityPath = repoPath("docs", "capability-profile-catalog.md");
-  const generatedFactPath = repoPath("docs", "generated-fact-receipts.md");
-  const upgradePath = repoPath("docs", "upgrade-rollback-receipts.md");
+  const freshnessPath = repoPath("docs", "reference", "observation-freshness-slo.md");
+  const p0Path = repoPath("docs", "planning", "p0-major-issue-status.md");
+  const capabilityPath = repoPath("docs", "reference", "capability-profile-catalog.md");
+  const generatedFactPath = repoPath("docs", "reference", "generated-fact-receipts.md");
+  const upgradePath = repoPath("docs", "reference", "upgrade-rollback-receipts.md");
   check(existsSync(freshnessPath), "missing observation freshness SLO doc");
   check(existsSync(p0Path), "missing P0 major issue status doc");
   check(existsSync(capabilityPath), "missing capability profile catalog doc");

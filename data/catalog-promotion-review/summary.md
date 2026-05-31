@@ -2,7 +2,7 @@
 
 This report is generated from the recipe, variant, receipt, and package
 artifacts. It executes the machine-readable part of
-`docs/catalog-promotion-review.md` and identifies the human/product review
+`docs/planning/catalog-promotion-review.md` and identifies the human/product review
 gaps that remain before any recipe can be called catalog-supported.
 
 Important boundary:

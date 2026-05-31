@@ -1,0 +1,16 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "bitnami-mongodb"
+  version: "19.0.9"
+spec:
+  bases:
+    -
+      name: "generated-passwords"
+      path: "bases/generated-passwords"
+      default: true
+      description: "mongodb generated passwords variant rendered from bitnami/mongodb@19.0.9"
+    -
+      name: "existing-secret-replicaset"
+      path: "bases/existing-secret-replicaset"
+      description: "mongodb existing Secret replica set variant rendered from bitnami/mongodb@19.0.9"

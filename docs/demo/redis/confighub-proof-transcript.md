@@ -347,8 +347,8 @@ YAML list formatting normalization
 ```
 
 The current `cub unit diff` path is useful for Unit revision history. A richer
-`cub variant diff` remains a Brian/product ask for explaining differences
-between server-side variants directly.
+`cub variant diff` remains a product gap for explaining differences between
+server-side variants directly.
 
 ## Observed Friction
 

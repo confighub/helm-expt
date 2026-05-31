@@ -1,0 +1,16 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "bitnami-postgresql"
+  version: "18.6.10"
+spec:
+  bases:
+    -
+      name: "generated-passwords"
+      path: "bases/generated-passwords"
+      default: true
+      description: "postgresql generated passwords variant rendered from bitnami/postgresql@18.6.10"
+    -
+      name: "existing-secret"
+      path: "bases/existing-secret"
+      description: "postgresql existing Secret variant rendered from bitnami/postgresql@18.6.10"
