@@ -17,6 +17,8 @@ data/latest-top20-refresh/summary.md
 data/latest-top20-refresh/work-orders.md
 data/latest-top20-refresh/variant-work-orders.yaml
 data/latest-top20-refresh/candidates/
+data/latest-top20-refresh/promotion-readiness.md
+data/latest-top20-refresh/promotion-readiness.csv
 ```
 
 ## What The Snapshot Means
@@ -68,12 +70,18 @@ Verify them with:
 
 ```sh
 npm run top20:latest-candidates:verify
+npm run top20:latest-promotion-readiness:verify
 ```
 
 These candidate artifacts prove the updated chart versions still pass the
 recipe/package/render/compare path. They are not catalog-supported replacements
 until ConfigHub proof receipts, live e2e observation receipts, catalog status,
 production disposition, and top-100/top-500 outputs are regenerated.
+
+The promotion-readiness output is the handoff checklist for those remaining
+lanes. It checks that the candidate artifacts are complete, confirms that the
+root catalog paths still point at the current supported versions, and lists the
+proof lanes that must run before any supported version changes.
 
 ## Promotion Rule
 
@@ -167,6 +175,7 @@ uses private overlay values, target facts, approvals, gates, and receipts.
 ```sh
 npm run top20:latest-refresh
 npm run top20:latest-refresh:verify
+npm run top20:latest-promotion-readiness:verify
 ```
 
 The refresh command depends on the locally configured Helm repositories and
