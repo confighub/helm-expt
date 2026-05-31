@@ -60,7 +60,7 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-vault-confighub-proof (post-render):\n      Deployment/vault-agent-injector [sidecar-injector] hashicorp/vault-k8s:1.7.2\n      StatefulSet/vault [vault] hashicorp/vault:1.21.2"
   serverSideVariant:
-    command: "cub variant create staging helm-vault-confighub-proof --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}} --allow-exists"
+    command: "cub variant create staging helm-vault-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists"
     result: "pass"
     upstreamSpace: "helm-vault-confighub-proof"
     downstreamSpace: "helm-vault-confighub-proof-staging"

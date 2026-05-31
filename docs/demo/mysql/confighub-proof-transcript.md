@@ -19,7 +19,7 @@ cub installer render --work-dir .tmp/confighub-proof/mysql-generated-passwords
 cub installer package packages/bitnami/mysql/14.0.3 -o .tmp/confighub-proof/mysql-archives/mysql-a.tgz
 cub installer upload --work-dir .tmp/confighub-proof/mysql-generated-passwords --space helm-mysql-confighub-proof --component MySQL --layer App --environment Demo --owner ConfigHubHelm --variant generated-passwords --unit-label Component=MySQL --unit-label HelmChart=bitnami-mysql --unit-label HelmChartVersion=14.0.3 --unit-label Variant=generated-passwords --unit-label Proof=mysql-confighub-proof --retry
 cub installer plan --work-dir .tmp/confighub-proof/mysql-generated-passwords
-cub variant create staging helm-mysql-confighub-proof --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}} --allow-exists
+cub variant create staging helm-mysql-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists
 cub unit list --space helm-mysql-confighub-proof --where "Labels.Proof = 'mysql-confighub-proof'"
 cub function vet vet-format --space helm-mysql-confighub-proof --where "Labels.Proof = 'mysql-confighub-proof'"
 cub unit apply --space helm-mysql-confighub-proof --where "Labels.Proof = 'mysql-confighub-proof'" --dry-run

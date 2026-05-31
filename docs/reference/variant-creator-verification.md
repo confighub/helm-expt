@@ -31,7 +31,7 @@ First golden:
 Variant Creator
 From: redis/default
 Blueprint: Environment clone
-Target: prod-us-east
+Target variant: prod-us-east
 Fill: namespace, target, Redis Secret mode
 Preview: 15 Units, 3 changed paths, 1 link changed
 Checks: pass with carried scan warning
@@ -92,8 +92,8 @@ UX user-led form:
 Variant Creator
 From: redis/default
 Blueprint: Environment clone
-Target: prod-us-east
-Fill: environment=prod, region=us-east, namespace=redis-prod, target=prod-us-east
+Target variant: prod-us-east
+Fill: environment=prod, region=us-east, namespace=redis-prod, target=redis-targets/prod-us-east
 Preview: 15 Units, 3 changed paths, 1 link changed
 Checks: pass with carried Redis scan warning
 Create
@@ -105,9 +105,10 @@ AX agent-based form:
 task: create_variant
 from: redis/default
 blueprint: environment-clone
-target: prod-us-east
+variant: prod-us-east
 fill:
   namespace: redis-prod
+  target: redis-targets/prod-us-east
   redisSecretMode: preserve-generated-secret-reference
 requiredChecks:
   - source-revision-bound
@@ -128,10 +129,10 @@ FX function-based form:
 from: redis/default
 blueprint: environment-clone
 rows:
-  - target: prod-us-east
+  - target: redis-targets/prod-us-east
     namespace: redis-prod-use1
     redisSecretMode: preserve-generated-secret-reference
-  - target: prod-eu-west
+  - target: redis-targets/prod-eu-west
     namespace: redis-prod-euw1
     redisSecretMode: preserve-generated-secret-reference
 ```

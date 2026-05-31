@@ -84,13 +84,13 @@ function redisGolden() {
         downstreamSpace: "helm-redis-prod-us-east",
         environment: "prod",
         region: "us-east",
-        target: "prod-us-east",
+        target: "redis-targets/prod-us-east",
         namespace: "redis-prod",
       },
       commandSurface: {
         primitive: "cub variant create",
         example:
-          "cub variant create prod-us-east helm-redis-confighub-proof --environment Prod --region us-east --target prod-us-east --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}}",
+          "cub variant create prod-us-east helm-redis-confighub-proof --environment Prod --region us-east --target redis-targets/prod-us-east --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}}",
         porcelainNeeded: ["preview", "checks", "receipt display"],
       },
       confighubPromotionModel: {
@@ -675,8 +675,8 @@ function redisUxPreview(preview) {
 Create variant
 From: redis/default
 Blueprint: Environment clone
-Target: prod-us-east
-Fill: environment=prod, region=us-east, namespace=redis-prod, target=prod-us-east
+Target variant: prod-us-east
+Fill: environment=prod, region=us-east, namespace=redis-prod, target=redis-targets/prod-us-east
 Preview: ${preview.spec.unitSummary.clonedUnits} Units, ${preview.spec.mutationPreview.changedPathCount} changed paths, ${preview.spec.mutationPreview.linkChangeCount} link change
 Checks: pass with carried Redis scan warning
 Create

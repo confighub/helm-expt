@@ -4,8 +4,8 @@
 Create variant
 From: redis/default
 Blueprint: Environment clone
-Target: prod-us-east
-Fill: environment=prod, region=us-east, namespace=redis-prod, target=prod-us-east
+Target variant: prod-us-east
+Fill: environment=prod, region=us-east, namespace=redis-prod, target=redis-targets/prod-us-east
 Preview: 15 Units, 3 changed paths, 1 link change
 Checks: pass with carried Redis scan warning
 Create

@@ -195,7 +195,7 @@ Command:
 cub variant create staging helm-nginx-confighub-proof \
   --environment Staging \
   --region local \
-  --space-name-pattern 'template:{{.SourceEntitySlug}}-{{.Labels.Variant}}' \
+  --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' \
   --wait \
   --timeout 2m
 ```

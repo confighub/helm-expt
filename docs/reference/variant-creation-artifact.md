@@ -183,7 +183,7 @@ CLI+UI shape:
 Create custom variant
 From: redis/default
 Name: prod-us-east
-Target: prod-us-east
+Target: redis-targets/prod-us-east
 Values: namespace, Redis secret reference
 Preview: 14 Units, 3 changed paths, 1 link changed
 Checks: pass
@@ -197,7 +197,7 @@ task: create_variant
 from: redis/default
 plan: environment-clone
 name: prod-us-east
-target: prod-us-east
+target: redis-targets/prod-us-east
 values:
   namespace: redis-prod
   redisSecretRef: redis-existing-secret
@@ -219,11 +219,11 @@ from: redis/default
 plan: environment-clone
 rows:
   - name: prod-us-east
-    target: prod-us-east
+    target: redis-targets/prod-us-east
     namespace: redis-prod-use1
     redisSecretRef: redis-existing-secret
   - name: prod-eu-west
-    target: prod-eu-west
+    target: redis-targets/prod-eu-west
     namespace: redis-prod-euw1
     redisSecretRef: redis-existing-secret
 ```

@@ -67,7 +67,7 @@ spec:
       - StatefulSet/redis-master [redis] registry-1.docker.io/bitnami/redis:latest
       - StatefulSet/redis-replicas [redis] registry-1.docker.io/bitnami/redis:latest
   serverSideVariant:
-    command: cub variant create staging helm-redis-confighub-proof --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}}
+    command: cub variant create staging helm-redis-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}}
     result: pass
     upstreamSpace: helm-redis-confighub-proof
     downstreamSpace: helm-redis-confighub-proof-staging

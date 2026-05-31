@@ -19,7 +19,7 @@ cub installer render --work-dir .tmp/confighub-proof/consul-default-control-plan
 cub installer package packages/hashicorp/consul/2.0.0 -o .tmp/confighub-proof/consul-archives/consul-a.tgz
 cub installer upload --work-dir .tmp/confighub-proof/consul-default-control-plane --space helm-consul-confighub-proof --component Consul --layer App --environment Demo --owner ConfigHubHelm --variant default-control-plane --unit-label Component=Consul --unit-label HelmChart=hashicorp-consul --unit-label HelmChartVersion=2.0.0 --unit-label Variant=default-control-plane --unit-label Proof=consul-confighub-proof --retry
 cub installer plan --work-dir .tmp/confighub-proof/consul-default-control-plane
-cub variant create staging helm-consul-confighub-proof --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}} --allow-exists
+cub variant create staging helm-consul-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists
 cub unit list --space helm-consul-confighub-proof --where "Labels.Proof = 'consul-confighub-proof'"
 cub function vet vet-format --space helm-consul-confighub-proof --where "Labels.Proof = 'consul-confighub-proof'"
 cub unit apply --space helm-consul-confighub-proof --where "Labels.Proof = 'consul-confighub-proof'" --dry-run

@@ -104,8 +104,8 @@ data/variant-goldens/redis-prod-us-east/receipts/clone-receipt.yaml
 Variant Creator
 From: redis/default
 Blueprint: Promote to production
-Target: prod-us-east
-Fill: environment=prod, region=us-east, namespace=redis-prod, target=prod-us-east
+Target variant: prod-us-east
+Fill: environment=prod, region=us-east, namespace=redis-prod, target=redis-targets/prod-us-east
 Preview: 15 Units, 3 changed paths, 1 link changed
 Checks: pass with carried scan warning
 Create

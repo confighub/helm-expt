@@ -73,7 +73,7 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-mysql-confighub-proof (post-render):\n  init  StatefulSet/mysql [preserve-logs-symlinks] docker.io/bitnami/mysql:9.4.0-debian-12-r1\n      StatefulSet/mysql [mysql] docker.io/bitnami/mysql:9.4.0-debian-12-r1"
   serverSideVariant:
-    command: "cub variant create staging helm-mysql-confighub-proof --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}} --allow-exists"
+    command: "cub variant create staging helm-mysql-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists"
     result: "pass"
     upstreamSpace: "helm-mysql-confighub-proof"
     downstreamSpace: "helm-mysql-confighub-proof-staging"

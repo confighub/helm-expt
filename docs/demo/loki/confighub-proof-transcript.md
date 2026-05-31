@@ -19,7 +19,7 @@ cub installer render --work-dir .tmp/confighub-proof/loki-single-binary-filesyst
 cub installer package packages/grafana/loki/7.0.0 -o .tmp/confighub-proof/loki-archives/loki-a.tgz
 cub installer upload --work-dir .tmp/confighub-proof/loki-single-binary-filesystem --space helm-loki-confighub-proof --component Loki --layer App --environment Demo --owner ConfigHubHelm --variant single-binary-filesystem --unit-label Component=Loki --unit-label HelmChart=grafana-loki --unit-label HelmChartVersion=7.0.0 --unit-label Variant=single-binary-filesystem --unit-label Proof=loki-confighub-proof --retry
 cub installer plan --work-dir .tmp/confighub-proof/loki-single-binary-filesystem
-cub variant create staging helm-loki-confighub-proof --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}} --allow-exists
+cub variant create staging helm-loki-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists
 cub unit list --space helm-loki-confighub-proof --where "Labels.Proof = 'loki-confighub-proof'"
 cub function vet vet-format --space helm-loki-confighub-proof --where "Labels.Proof = 'loki-confighub-proof'"
 cub unit apply --space helm-loki-confighub-proof --where "Labels.Proof = 'loki-confighub-proof'" --dry-run

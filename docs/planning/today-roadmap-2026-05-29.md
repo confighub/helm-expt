@@ -105,7 +105,7 @@ Three variant creation modes to keep aligned:
 | Mode | User shape | Product surface |
 | --- | --- | --- |
 | Base variant | `redis/default`, `redis/reuse-existing-secret` | `cub installer setup --base ...` |
-| UX-created variant | `Creator / From: redis/default / Blueprint: Environment clone / Target: prod-us-east` | Foundational user-led expression of the Variant Creator contract |
+| UX-created variant | `Creator / From: redis/default / Blueprint: Environment clone / Target variant: prod-us-east` | Foundational user-led expression of the Variant Creator contract |
 | AX-created variant | structured `create_variant` task | Agent-based expression of the same artifact |
 | FX-created variants | `create 100 variants from a matrix` | Function-based expression of the same artifact over rows |
 

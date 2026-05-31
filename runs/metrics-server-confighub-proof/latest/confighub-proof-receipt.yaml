@@ -72,7 +72,7 @@ spec:
     images:
       - Deployment/metrics-server [metrics-server] registry.k8s.io/metrics-server/metrics-server:v0.8.0
   serverSideVariant:
-    command: cub variant create staging helm-metrics-server-confighub-proof --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}}
+    command: cub variant create staging helm-metrics-server-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}}
     result: pass
     upstreamSpace: helm-metrics-server-confighub-proof
     downstreamSpace: helm-metrics-server-confighub-proof-staging
