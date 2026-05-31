@@ -1,5 +1,7 @@
 # Introduction To The Harness
 
+**UNOFFICIAL/EXPERIMENTAL**
+
 This document explains how a new Helm chart becomes a ConfigHub `cub installer`
 recipe in this repo, and how decisions are made about where each part of the
 install and customization process belongs.

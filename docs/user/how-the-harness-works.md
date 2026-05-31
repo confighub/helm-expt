@@ -1,5 +1,7 @@
 # How The Harness Works
 
+**UNOFFICIAL/EXPERIMENTAL**
+
 The Helm experiment harness turns public Helm charts into reviewed `cub
 installer` packages, checks the rendered Kubernetes objects against regular
 Helm output, and records the evidence needed to manage those objects in

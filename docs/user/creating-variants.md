@@ -1,5 +1,7 @@
 # Creating Variants
 
+**UNOFFICIAL/EXPERIMENTAL**
+
 This guide explains how a Helm user should think about variants in this
 project.
 

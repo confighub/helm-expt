@@ -1,5 +1,7 @@
 # Custom Overlay Example
 
+**UNOFFICIAL/EXPERIMENTAL**
+
 This is the custom overlay case in its simplest form.
 
 ## Example

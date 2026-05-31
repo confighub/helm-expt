@@ -1,5 +1,7 @@
 # Choosing Base Variants, Derived Variants, And Delivery Changes
 
+**UNOFFICIAL/EXPERIMENTAL**
+
 This document explains which changes belong in a `cub installer` base variant,
 which changes belong in a derived ConfigHub variant, and which checks or
 bindings must be completed before publishing an OCI artifact for Kubernetes
