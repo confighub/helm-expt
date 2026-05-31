@@ -22,4 +22,12 @@ top-100/top-500 outputs.
 
 ```sh
 npm run top20:latest-candidates:verify
+npm run top20:latest-promotion-readiness:verify
+```
+
+The promotion-readiness output is:
+
+```text
+data/latest-top20-refresh/promotion-readiness.md
+data/latest-top20-refresh/promotion-readiness.csv
 ```

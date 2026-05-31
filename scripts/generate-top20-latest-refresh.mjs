@@ -105,12 +105,16 @@ Verify them with:
 
 \`\`\`sh
 npm run top20:latest-candidates:verify
+npm run top20:latest-promotion-readiness:verify
 \`\`\`
 
 These candidate proofs show that the latest chart versions can still pass the
 recipe/package/render/compare lane. They are not catalog-supported replacements
 until ConfigHub proof receipts, live e2e receipts, catalog status, production
 disposition, and top-100/top-500 outputs are regenerated.
+
+The promotion-readiness output records that the candidate artifacts are complete
+and lists the remaining lanes before any public catalog row can move.
 
 `
     : "";
