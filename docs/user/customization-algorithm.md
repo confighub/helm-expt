@@ -1,5 +1,7 @@
 # Customization Algorithm
 
+**UNOFFICIAL/EXPERIMENTAL**
+
 This document defines how a Helm-user customization becomes a ConfigHub
 variant, and where each piece of new information belongs.
 

@@ -1,5 +1,7 @@
 # Hook Lifecycle Strategy
 
+**UNOFFICIAL/EXPERIMENTAL**
+
 Helm hooks are not ordinary rendered configuration. They are lifecycle actions
 that Helm may run before, during, or after install, upgrade, test, rollback, or
 delete phases.

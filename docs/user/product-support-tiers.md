@@ -1,5 +1,7 @@
 # Product Support Tiers For Helm Scenarios
 
+**UNOFFICIAL/EXPERIMENTAL**
+
 This document explains which Helm scenarios this project is trying to support
 at which product tier. Names may change; the boundary matters more than the
 labels.

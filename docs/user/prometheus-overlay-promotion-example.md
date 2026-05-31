@@ -1,5 +1,7 @@
 # Prometheus Promotion Example
 
+**UNOFFICIAL/EXPERIMENTAL**
+
 This example shows how to promote a reviewed Prometheus base into a production
 variant without rerendering Helm.
 
