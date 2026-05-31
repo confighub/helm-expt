@@ -60,7 +60,7 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-external-secrets-confighub-proof (post-render):\n      Deployment/external-secrets [external-secrets] ghcr.io/external-secrets/external-secrets:v2.5.0\n      Deployment/external-secrets-cert-controller [cert-controller] ghcr.io/external-secrets/external-secrets:v2.5.0\n      Deployment/external-secrets-webhook [webhook] ghcr.io/external-secrets/external-secrets:v2.5.0"
   serverSideVariant:
-    command: "cub variant create staging helm-external-secrets-confighub-proof --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}} --allow-exists"
+    command: "cub variant create staging helm-external-secrets-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists"
     result: "pass"
     upstreamSpace: "helm-external-secrets-confighub-proof"
     downstreamSpace: "helm-external-secrets-confighub-proof-staging"

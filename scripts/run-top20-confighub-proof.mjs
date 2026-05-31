@@ -105,7 +105,8 @@ function runChart(chart) {
   const archiveRoot = join(repoRoot, ".tmp", "confighub-proof", `${chart.slug}-archives`);
   const logRoot = join(runRoot, "logs");
   const space = `helm-${chart.slug}-confighub-proof`;
-  const stagingSpace = `${space}-staging`;
+  const stagingVariant = "staging";
+  const stagingSpace = `${chart.component}-${stagingVariant}`;
   const proofLabel = `${chart.slug}-confighub-proof`;
   const selector = `Labels.Proof = '${proofLabel}'`;
 
@@ -213,14 +214,14 @@ function runChart(chart) {
     [
       "variant",
       "create",
-      "staging",
+      stagingVariant,
       space,
       "--environment",
       "Staging",
       "--region",
       "local",
       "--space-name-pattern",
-      "template:{{.SourceEntitySlug}}-{{.Labels.Variant}}",
+      "template:{{.Labels.Component}}-{{.Labels.Variant}}",
       "--allow-exists",
       "--wait",
       "--timeout",
@@ -330,16 +331,16 @@ function runChart(chart) {
       },
       serverSideVariant: {
         command: commandText("cub", [
-          "variant",
-          "create",
-          "staging",
-          space,
+      "variant",
+      "create",
+      stagingVariant,
+      space,
           "--environment",
           "Staging",
           "--region",
           "local",
           "--space-name-pattern",
-          "template:{{.SourceEntitySlug}}-{{.Labels.Variant}}",
+          "template:{{.Labels.Component}}-{{.Labels.Variant}}",
           "--allow-exists",
         ]),
         result: "pass",

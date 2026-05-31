@@ -60,7 +60,7 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-longhorn-confighub-proof (post-render):\n      DaemonSet/longhorn-manager [longhorn-manager] docker.io/longhornio/longhorn-manager:v1.11.2\n      DaemonSet/longhorn-manager [pre-pull-share-manager-image] docker.io/longhornio/longhorn-share-manager:v1.11.2\n  init  Deployment/longhorn-driver-deployer [wait-longhorn-manager] docker.io/longhornio/longhorn-manager:v1.11.2\n      Deployment/longhorn-driver-deployer [longhorn-driver-deployer] docker.io/longhornio/longhorn-manager:v1.11.2\n      Deployment/longhorn-ui [longhorn-ui] docker.io/longhornio/longhorn-ui:v1.11.2"
   serverSideVariant:
-    command: "cub variant create staging helm-longhorn-confighub-proof --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}} --allow-exists"
+    command: "cub variant create staging helm-longhorn-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists"
     result: "pass"
     upstreamSpace: "helm-longhorn-confighub-proof"
     downstreamSpace: "helm-longhorn-confighub-proof-staging"

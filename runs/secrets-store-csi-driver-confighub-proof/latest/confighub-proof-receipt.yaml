@@ -60,7 +60,7 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-secrets-store-csi-driver-confighub-proof (post-render):\n      DaemonSet/secrets-store-csi-driver [liveness-probe] registry.k8s.io/sig-storage/livenessprobe:v2.18.0\n      DaemonSet/secrets-store-csi-driver [node-driver-registrar] registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.16.0\n      DaemonSet/secrets-store-csi-driver [secrets-store] registry.k8s.io/csi-secrets-store/driver:v1.6.0"
   serverSideVariant:
-    command: "cub variant create staging helm-secrets-store-csi-driver-confighub-proof --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}} --allow-exists"
+    command: "cub variant create staging helm-secrets-store-csi-driver-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists"
     result: "pass"
     upstreamSpace: "helm-secrets-store-csi-driver-confighub-proof"
     downstreamSpace: "helm-secrets-store-csi-driver-confighub-proof-staging"

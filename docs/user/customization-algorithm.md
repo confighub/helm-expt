@@ -5,6 +5,8 @@ variant, and where each piece of new information belongs.
 
 For the full chart-to-recipe harness, including the canonical "where pieces go"
 table, see [Introduction To The Harness](./introduction-to-the-harness.md).
+For a concrete chart walkthrough, see
+[Prometheus Overlay And Promotion Example](./prometheus-overlay-promotion-example.md).
 
 The product rule is:
 

@@ -10,7 +10,7 @@ spec:
   parameters:
     environment: "prod"
     region: "us-east"
-    target: "prod-us-east"
+    target: "redis-targets/prod-us-east"
     namespace: "redis-prod"
     redisSecretMode: "preserve-generated-secret-reference"
   requiredChecks:

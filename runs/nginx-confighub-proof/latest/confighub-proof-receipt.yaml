@@ -68,7 +68,7 @@ spec:
       - init Deployment/nginx [preserve-logs-symlinks] registry-1.docker.io/bitnami/nginx:latest
       - Deployment/nginx [nginx] registry-1.docker.io/bitnami/nginx:latest
   serverSideVariant:
-    command: cub variant create staging helm-nginx-confighub-proof --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}}
+    command: cub variant create staging helm-nginx-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}}
     result: pass
     upstreamSpace: helm-nginx-confighub-proof
     downstreamSpace: helm-nginx-confighub-proof-staging

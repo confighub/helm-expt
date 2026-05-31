@@ -88,7 +88,7 @@ spec:
     result: "pass"
     summary: "Plan: 0 to add, 3 to change, 0 to delete.\nSpace helm-consul-confighub-proof:\n  ~ service-consul-consul-consul-dns\n      New changes from update from /Users/alexis/code/helm-expt/.tmp/confighub-proof/consul-default-control-plane/out/manifests/service-consul-consul-consul-dns.yaml:\n      Resource: v1/Service consul/consul-consul-dns\n        - [Delete] spec.ports.?port=53;@0  (#3)\n          name: dns-tcp\n          port: 53\n          protocol: TCP\n          targetPort: dns-tcp"
   serverSideVariant:
-    command: "cub variant create staging helm-consul-confighub-proof --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}} --allow-exists"
+    command: "cub variant create staging helm-consul-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists"
     result: "pass"
     upstreamSpace: "helm-consul-confighub-proof"
     downstreamSpace: "helm-consul-confighub-proof-staging"

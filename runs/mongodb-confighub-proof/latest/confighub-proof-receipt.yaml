@@ -73,7 +73,7 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-mongodb-confighub-proof (post-render):\n  init  Deployment/mongodb [log-dir] registry-1.docker.io/bitnami/mongodb:latest\n      Deployment/mongodb [mongodb] registry-1.docker.io/bitnami/mongodb:latest"
   serverSideVariant:
-    command: "cub variant create staging helm-mongodb-confighub-proof --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}} --allow-exists"
+    command: "cub variant create staging helm-mongodb-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists"
     result: "pass"
     upstreamSpace: "helm-mongodb-confighub-proof"
     downstreamSpace: "helm-mongodb-confighub-proof-staging"

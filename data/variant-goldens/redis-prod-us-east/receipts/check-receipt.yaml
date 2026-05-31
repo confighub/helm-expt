@@ -4,7 +4,7 @@ metadata:
   name: "redis-prod-us-east-checks"
 spec:
   sourceRevision: "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml"
-  contractDigest: "sha256:5a3cb41bd575d316c785f1fd0b8515c7b35f917dbe12639bca54d236241ac2fc"
+  contractDigest: "sha256:7e25838e4c8f1e425860ff99fff37f8cd7183131a5f0cb0c9dbac7fd353f54e3"
   checks:
     -
       name: "source-revision-bound"

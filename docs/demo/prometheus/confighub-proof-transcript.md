@@ -19,7 +19,7 @@ cub installer render --work-dir .tmp/confighub-proof/prometheus-default
 cub installer package packages/prometheus-community/prometheus/29.8.0 -o .tmp/confighub-proof/prometheus-archives/prometheus-a.tgz
 cub installer upload --work-dir .tmp/confighub-proof/prometheus-default --space helm-prometheus-confighub-proof --component Prometheus --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=Prometheus --unit-label HelmChart=prometheus-community-prometheus --unit-label HelmChartVersion=29.8.0 --unit-label Variant=default --unit-label Proof=prometheus-confighub-proof --retry
 cub installer plan --work-dir .tmp/confighub-proof/prometheus-default
-cub variant create staging helm-prometheus-confighub-proof --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}} --allow-exists
+cub variant create staging helm-prometheus-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists
 cub unit list --space helm-prometheus-confighub-proof --where "Labels.Proof = 'prometheus-confighub-proof'"
 cub function vet vet-format --space helm-prometheus-confighub-proof --where "Labels.Proof = 'prometheus-confighub-proof'"
 cub unit apply --space helm-prometheus-confighub-proof --where "Labels.Proof = 'prometheus-confighub-proof'" --dry-run

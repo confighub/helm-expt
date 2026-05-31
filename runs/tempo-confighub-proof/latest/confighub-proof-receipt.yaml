@@ -73,7 +73,7 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-tempo-confighub-proof (post-render):\n      StatefulSet/tempo [tempo] docker.io/grafana/tempo:2.9.0"
   serverSideVariant:
-    command: "cub variant create staging helm-tempo-confighub-proof --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}} --allow-exists"
+    command: "cub variant create staging helm-tempo-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists"
     result: "pass"
     upstreamSpace: "helm-tempo-confighub-proof"
     downstreamSpace: "helm-tempo-confighub-proof-staging"

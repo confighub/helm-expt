@@ -60,7 +60,7 @@ spec:
     result: "pass"
     summary: "No changes.\nImages in helm-loki-confighub-proof (post-render):\n      DaemonSet/loki-canary [loki-canary] docker.io/grafana/loki-canary:3.6.7\n      Deployment/loki-gateway [nginx] docker.io/nginxinc/nginx-unprivileged:1.29-alpine\n      StatefulSet/loki [loki] docker.io/grafana/loki:3.6.7\n      StatefulSet/loki [loki-sc-rules] docker.io/kiwigrid/k8s-sidecar:2.5.0\n      StatefulSet/loki-chunks-cache [exporter] prom/memcached-exporter:v0.15.4\n      StatefulSet/loki-chunks-cache [memcached] memcached:1.6.39-alpine\n      StatefulSet/loki-results-cache [exporter] prom/memcached-exporter:v0.15.4\n      StatefulSet/loki-results-cache [memcached] memcached:1.6.39-alpine"
   serverSideVariant:
-    command: "cub variant create staging helm-loki-confighub-proof --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}} --allow-exists"
+    command: "cub variant create staging helm-loki-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists"
     result: "pass"
     upstreamSpace: "helm-loki-confighub-proof"
     downstreamSpace: "helm-loki-confighub-proof-staging"

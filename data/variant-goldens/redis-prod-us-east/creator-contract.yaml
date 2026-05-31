@@ -20,11 +20,11 @@ spec:
     downstreamSpace: "helm-redis-prod-us-east"
     environment: "prod"
     region: "us-east"
-    target: "prod-us-east"
+    target: "redis-targets/prod-us-east"
     namespace: "redis-prod"
   commandSurface:
     primitive: "cub variant create"
-    example: "cub variant create prod-us-east helm-redis-confighub-proof --environment Prod --region us-east --target prod-us-east --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}}"
+    example: "cub variant create prod-us-east helm-redis-confighub-proof --environment Prod --region us-east --target redis-targets/prod-us-east --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}}"
     porcelainNeeded:
       - "preview"
       - "checks"
@@ -71,11 +71,11 @@ spec:
       []
     note: "The default base includes a Redis Secret in Helm output and separates it during cub installer handling. A request to use redis-existing-secret must start from the reuse-existing-secret base or go back through cub installer."
   proof:
-    contractDigest: "sha256:5a3cb41bd575d316c785f1fd0b8515c7b35f917dbe12639bca54d236241ac2fc"
+    contractDigest: "sha256:7e25838e4c8f1e425860ff99fff37f8cd7183131a5f0cb0c9dbac7fd353f54e3"
     sourceFiles:
       recipe: "recipes/bitnami/redis/25.5.3/recipe.yaml"
       package: "packages/bitnami/redis/25.5.3"
       variant: "recipes/bitnami/redis/25.5.3/variants/default/variant.yaml"
       variantRevision: "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml"
       renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
-      confighubProofSHA256: "b12e4390f43adf758688036a0784b8b4dfe5c5420a043e2373fc7dc49525d658"
+      confighubProofSHA256: "0a913add67ccf4965847a90fabfd2cab328d7cde4a0cafa87aee27322116604f"

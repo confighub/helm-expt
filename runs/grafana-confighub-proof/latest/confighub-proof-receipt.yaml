@@ -73,7 +73,7 @@ spec:
     result: "pass"
     summary: "Plan: 0 to add, 1 to change, 0 to delete.\nSpace helm-grafana-confighub-proof:\n  ~ deployment-grafana-grafana\n      New changes from update from /Users/alexis/code/helm-expt/.tmp/confighub-proof/grafana-generated-passwords/out/manifests/deployment-grafana-grafana.yaml:\n      Resource: apps/v1/Deployment grafana/grafana\n        - [Delete] spec.template.spec.containers.?name=grafana;@0.ports.?containerPort=9094;@1  (#3)\n          containerPort: 9094\n          name: gossip-tcp\n          protocol: TCP\n        ~ [Update] spec.template.spec.containers.?name=grafana;@0.ports.?containerPort=9094;@1.name  (#3)"
   serverSideVariant:
-    command: "cub variant create staging helm-grafana-confighub-proof --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}} --allow-exists"
+    command: "cub variant create staging helm-grafana-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists"
     result: "pass"
     upstreamSpace: "helm-grafana-confighub-proof"
     downstreamSpace: "helm-grafana-confighub-proof-staging"

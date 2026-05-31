@@ -19,7 +19,7 @@ cub installer render --work-dir .tmp/confighub-proof/longhorn-default
 cub installer package packages/longhorn/longhorn/1.11.2 -o .tmp/confighub-proof/longhorn-archives/longhorn-a.tgz
 cub installer upload --work-dir .tmp/confighub-proof/longhorn-default --space helm-longhorn-confighub-proof --component Longhorn --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=Longhorn --unit-label HelmChart=longhorn-longhorn --unit-label HelmChartVersion=1.11.2 --unit-label Variant=default --unit-label Proof=longhorn-confighub-proof --retry
 cub installer plan --work-dir .tmp/confighub-proof/longhorn-default
-cub variant create staging helm-longhorn-confighub-proof --environment Staging --region local --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}} --allow-exists
+cub variant create staging helm-longhorn-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists
 cub unit list --space helm-longhorn-confighub-proof --where "Labels.Proof = 'longhorn-confighub-proof'"
 cub function vet vet-format --space helm-longhorn-confighub-proof --where "Labels.Proof = 'longhorn-confighub-proof'"
 cub unit apply --space helm-longhorn-confighub-proof --where "Labels.Proof = 'longhorn-confighub-proof'" --dry-run
