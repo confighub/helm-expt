@@ -12,7 +12,7 @@ spec:
     installerPackage: "../../../../packages/prometheus-community/prometheus/29.8.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "../../../../packages/prometheus-community/prometheus/29.8.0"

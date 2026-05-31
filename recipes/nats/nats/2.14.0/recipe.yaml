@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/nats/nats/2.14.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/nats/nats/2.14.0"

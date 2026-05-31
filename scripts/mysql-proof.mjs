@@ -338,7 +338,7 @@ function generateProof() {
         installerPackage: "../../../../packages/bitnami/mysql/14.0.3",
         setupCommand: [
           "cub",
-          "install",
+          "installer",
           "setup",
           "--pull",
           "../../../../packages/bitnami/mysql/14.0.3",
@@ -852,7 +852,7 @@ function verifySetupVariant(tempRoot, variant, receipt) {
   check(Boolean(checkReceipt), `receipt missing setup check for ${variant.name}`);
   const workDir = join(tempRoot, `work-${variant.name}`);
   runCub([
-    "install",
+    "installer",
     "setup",
     "--pull",
     packageRoot,

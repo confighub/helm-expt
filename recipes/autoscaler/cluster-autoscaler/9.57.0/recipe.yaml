@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/autoscaler/cluster-autoscaler/9.57.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/autoscaler/cluster-autoscaler/9.57.0"

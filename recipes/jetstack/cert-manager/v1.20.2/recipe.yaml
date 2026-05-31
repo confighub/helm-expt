@@ -12,7 +12,7 @@ spec:
     installerPackage: "../../../../packages/jetstack/cert-manager/v1.20.2"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "../../../../packages/jetstack/cert-manager/v1.20.2"

@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/linkerd/linkerd-crds/1.8.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/linkerd/linkerd-crds/1.8.0"

@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/traefik/traefik/40.2.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/traefik/traefik/40.2.0"

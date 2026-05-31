@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/grafana/pyroscope/2.0.2"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/grafana/pyroscope/2.0.2"

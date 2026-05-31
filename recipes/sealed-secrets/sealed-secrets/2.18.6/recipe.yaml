@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/sealed-secrets/sealed-secrets/2.18.6"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/sealed-secrets/sealed-secrets/2.18.6"

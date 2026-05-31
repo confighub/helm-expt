@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/bitnami/opensearch/2.0.10"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/bitnami/opensearch/2.0.10"

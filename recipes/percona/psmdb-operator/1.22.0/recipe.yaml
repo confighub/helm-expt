@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/percona/psmdb-operator/1.22.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/percona/psmdb-operator/1.22.0"

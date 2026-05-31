@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/nats/nack/0.34.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/nats/nack/0.34.0"

@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/bitnami/apache/11.4.29"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/bitnami/apache/11.4.29"

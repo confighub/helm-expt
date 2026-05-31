@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/prometheus-community/prometheus-pushgateway/3.6.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/prometheus-community/prometheus-pushgateway/3.6.0"

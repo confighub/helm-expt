@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/strimzi/strimzi-kafka-operator/1.0.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/strimzi/strimzi-kafka-operator/1.0.0"

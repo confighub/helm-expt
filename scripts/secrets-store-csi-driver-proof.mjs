@@ -301,7 +301,7 @@ function generateProof() {
         installerPackage: "../../../../packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0",
         setupCommand: [
           "cub",
-          "install",
+          "installer",
           "setup",
           "--pull",
           "../../../../packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0",
@@ -822,7 +822,7 @@ function verifySetupVariant(tempRoot, variant, receipt) {
   check(Boolean(checkReceipt), `receipt missing setup check for ${variant.name}`);
   const workDir = join(tempRoot, `work-${variant.name}`);
   runCub([
-    "install",
+    "installer",
     "setup",
     "--pull",
     packageRoot,

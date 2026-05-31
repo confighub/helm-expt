@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/opencost/opencost/2.5.21"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/opencost/opencost/2.5.21"

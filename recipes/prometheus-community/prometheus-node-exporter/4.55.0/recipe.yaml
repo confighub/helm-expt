@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/prometheus-community/prometheus-node-exporter/4.55.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/prometheus-community/prometheus-node-exporter/4.55.0"

@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/fairwinds-stable/vpa/4.11.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/fairwinds-stable/vpa/4.11.0"

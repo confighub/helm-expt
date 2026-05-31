@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/stakater/reloader/2.2.12"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/stakater/reloader/2.2.12"

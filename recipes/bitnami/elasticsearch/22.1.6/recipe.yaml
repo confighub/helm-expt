@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/bitnami/elasticsearch/22.1.6"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/bitnami/elasticsearch/22.1.6"

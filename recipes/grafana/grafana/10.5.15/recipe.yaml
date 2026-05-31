@@ -12,7 +12,7 @@ spec:
     installerPackage: "../../../../packages/grafana/grafana/10.5.15"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "../../../../packages/grafana/grafana/10.5.15"

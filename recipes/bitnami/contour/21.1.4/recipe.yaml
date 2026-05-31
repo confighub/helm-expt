@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/bitnami/contour/21.1.4"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/bitnami/contour/21.1.4"

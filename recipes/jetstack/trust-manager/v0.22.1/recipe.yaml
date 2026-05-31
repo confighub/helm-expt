@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/jetstack/trust-manager/v0.22.1"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/jetstack/trust-manager/v0.22.1"

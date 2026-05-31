@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1"

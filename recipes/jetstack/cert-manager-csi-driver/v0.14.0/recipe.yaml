@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/jetstack/cert-manager-csi-driver/v0.14.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/jetstack/cert-manager-csi-driver/v0.14.0"

@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/minio-operator/operator/7.1.1"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/minio-operator/operator/7.1.1"

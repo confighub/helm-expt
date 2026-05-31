@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/open-telemetry/opentelemetry-operator/0.114.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/open-telemetry/opentelemetry-operator/0.114.0"

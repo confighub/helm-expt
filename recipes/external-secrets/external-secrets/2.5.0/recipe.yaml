@@ -12,7 +12,7 @@ spec:
     installerPackage: "../../../../packages/external-secrets/external-secrets/2.5.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "../../../../packages/external-secrets/external-secrets/2.5.0"

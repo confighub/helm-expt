@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/elastic/eck-operator/3.4.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/elastic/eck-operator/3.4.0"

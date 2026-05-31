@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/jaegertracing/jaeger-operator/2.57.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/jaegertracing/jaeger-operator/2.57.0"

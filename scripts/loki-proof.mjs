@@ -383,7 +383,7 @@ function generateProof() {
         installerPackage: "../../../../packages/grafana/loki/7.0.0",
         setupCommand: [
           "cub",
-          "install",
+          "installer",
           "setup",
           "--pull",
           "../../../../packages/grafana/loki/7.0.0",
@@ -938,7 +938,7 @@ function verifySetupVariant(tempRoot, variant, receipt) {
   check(Boolean(checkReceipt), `receipt missing setup check for ${variant.name}`);
   const workDir = join(tempRoot, `work-${variant.name}`);
   runCub([
-    "install",
+    "installer",
     "setup",
     "--pull",
     packageRoot,

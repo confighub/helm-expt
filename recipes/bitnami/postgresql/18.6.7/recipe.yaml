@@ -12,7 +12,7 @@ spec:
     installerPackage: "../../../../packages/bitnami/postgresql/18.6.7"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "../../../../packages/bitnami/postgresql/18.6.7"

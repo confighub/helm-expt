@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/jaegertracing/jaeger/4.8.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/jaegertracing/jaeger/4.8.0"

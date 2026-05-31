@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/runix/pgadmin4/1.62.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/runix/pgadmin4/1.62.0"

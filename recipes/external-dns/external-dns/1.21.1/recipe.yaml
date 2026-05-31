@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/external-dns/external-dns/1.21.1"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/external-dns/external-dns/1.21.1"

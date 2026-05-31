@@ -318,7 +318,7 @@ function generateProof() {
         installerPackage: "../../../../packages/grafana/grafana/10.5.15",
         setupCommand: [
           "cub",
-          "install",
+          "installer",
           "setup",
           "--pull",
           "../../../../packages/grafana/grafana/10.5.15",
@@ -835,7 +835,7 @@ function verifySetupVariant(tempRoot, variant, receipt) {
   check(Boolean(checkReceipt), `receipt missing setup check for ${variant.name}`);
   const workDir = join(tempRoot, `work-${variant.name}`);
   runCub([
-    "install",
+    "installer",
     "setup",
     "--pull",
     packageRoot,

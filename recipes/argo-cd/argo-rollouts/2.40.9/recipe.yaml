@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/argo-cd/argo-rollouts/2.40.9"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/argo-cd/argo-rollouts/2.40.9"

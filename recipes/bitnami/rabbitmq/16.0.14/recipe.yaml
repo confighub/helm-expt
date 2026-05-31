@@ -12,7 +12,7 @@ spec:
     installerPackage: "../../../../packages/bitnami/rabbitmq/16.0.14"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "../../../../packages/bitnami/rabbitmq/16.0.14"

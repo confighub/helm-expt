@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/argo-cd/argocd-image-updater/1.2.2"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/argo-cd/argocd-image-updater/1.2.2"

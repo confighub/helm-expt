@@ -305,7 +305,7 @@ function writeSourceArtifacts(chart, source, features, objectFeatures, paths) {
         installerPackage: relativeRepo(paths.packageRoot),
         setupCommand: [
           "cub",
-          "install",
+          "installer",
           "setup",
           "--pull",
           relativeRepo(paths.packageRoot),
@@ -671,7 +671,7 @@ function packageAndSetupCheck(chart, paths, releaseObjects, expectedObjectCount)
 function runSetupAndCompare(chart, paths, tempRoot, releaseObjects, expectedObjectCount) {
   const workDir = join(tempRoot, "work");
   runCub([
-    "install",
+    "installer",
     "setup",
     "--pull",
     paths.packageRoot,

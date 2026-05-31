@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/gitlab/gitlab-runner/0.89.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/gitlab/gitlab-runner/0.89.0"

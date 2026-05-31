@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/kyverno/kyverno-policies/3.8.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/kyverno/kyverno-policies/3.8.0"

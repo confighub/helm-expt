@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/prometheus-community/prometheus-operator-crds/29.0.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/prometheus-community/prometheus-operator-crds/29.0.0"
