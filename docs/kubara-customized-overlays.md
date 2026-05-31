@@ -14,6 +14,12 @@ needs ConfigHub Server because it has private/customer inputs, target facts,
 approvals, gates, and downstream managed variants. It is a candidate for
 managed or commercial product workflows, not just a free static catalog entry.
 
+The current work order for this lane is recorded in:
+
+```text
+data/latest-top20-refresh/variant-work-orders.yaml
+```
+
 ## Why ExternalDNS
 
 `external-dns` is a good first case because provider configuration, DNS

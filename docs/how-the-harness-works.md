@@ -318,6 +318,7 @@ top500 catalog analysis
 catalog promotion review
 production disposition lane
 legacy patch review
+latest top-20 refresh snapshot
 wave-2 variant work orders
 commercial support-tier doctrine
 ```
@@ -327,6 +328,7 @@ Current harness mechanics:
 ```text
 generated and verified corpus outputs
 top-20 supported for local/test scope
+latest-version refresh before catalog roll-forward
 100 proof-grade packages
 top-500 planning analysis
 ```

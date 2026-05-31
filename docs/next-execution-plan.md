@@ -37,6 +37,17 @@ For the reviewer-facing harness explanation, see
 explanation for Brian/Jesper: how the harness proves chart behavior today, what
 product capabilities are still missing, and where each issue fits.
 
+For the current top-20 chart-version refresh, Redis promotion variant work, and
+Kubara overlay golden, see
+[Latest Top-20 Refresh Plan](latest-top20-refresh-plan.md) and:
+
+```text
+data/latest-top20-refresh/
+```
+
+For the first dedicated website shape, see
+[Dedicated Website Plan](dedicated-website-plan.md).
+
 ## Current Baseline
 
 The repo now has:
@@ -49,6 +60,8 @@ The repo now has:
 20 explicit catalog-supported recipes for local-test scope
 0 top-20 catalog candidates remaining
 80 proof-grade recipes
+14 top-20 proofs on the latest chart version
+6 top-20 proofs needing latest-version refresh
 ```
 
 Important boundary:

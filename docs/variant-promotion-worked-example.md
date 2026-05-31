@@ -19,6 +19,8 @@ For the canonical mapping into ConfigHub's component/space/unit/promotion
 model, see [ConfigHub Promotion Mapping Doctrine](confighub-promotion-mapping.md).
 For the Kubara-style overlay analysis behind the ExternalDNS example, see
 [Kubara Customized Overlay Analysis](kubara-customized-overlays.md).
+For the current refresh work orders that turn these examples into executable
+proof work, see `data/latest-top20-refresh/variant-work-orders.yaml`.
 
 ## Example 1 - Redis Production Region
 

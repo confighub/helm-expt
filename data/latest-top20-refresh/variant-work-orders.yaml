@@ -1,0 +1,154 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LatestTop20RefreshWorkOrders
+metadata:
+  generatedFrom: data/latest-top20-refresh/review.csv
+  generatedAt: "2026-05-31"
+spec:
+  doctrine:
+    - >-
+      Public catalog entries do not roll forward just because a newer Helm chart
+      exists. New chart versions need new recipe/package/proof artifacts.
+    - >-
+      Redis promotion variants are post-render ConfigHub variants. They use the
+      Creator contract over cub variant create and ConfigHub primitives; they do
+      not rerender Helm.
+    - >-
+      Kubara-style customer overlays split first: choices that change rendered
+      Kubernetes objects go through cub installer recipe/package bases; choices
+      that refine already-rendered Units go through ConfigHub variants.
+  chartVersionRefresh:
+    updateCandidates:
+      - chart: argo-cd/argo-cd
+        currentVersion: 9.5.15
+        latestVersion: 9.5.17
+        requiredWork:
+          - create recipes/argo-cd/argo-cd/9.5.17
+          - create packages/argo-cd/argo-cd/9.5.17
+          - preserve default and no-crds variants unless new chart behavior requires a clearer variant
+          - rerun Helm equivalence, scan/gate, ConfigHub proof, and live e2e lanes
+      - chart: bitnami/mongodb
+        currentVersion: 19.0.7
+        latestVersion: 19.0.9
+        requiredWork:
+          - create recipes/bitnami/mongodb/19.0.9
+          - create packages/bitnami/mongodb/19.0.9
+          - preserve generated-passwords and existing-secret-replicaset variants
+          - rerun generated-fact, target-fact, storage, scan/gate, ConfigHub proof, and live e2e lanes
+      - chart: bitnami/nginx
+        currentVersion: 24.0.2
+        latestVersion: 24.0.4
+        requiredWork:
+          - create recipes/bitnami/nginx/24.0.4
+          - create packages/bitnami/nginx/24.0.4
+          - preserve http-clusterip and existing-tls-ingress variants
+          - rerun ingress/TLS, NetworkPolicy/PDB, scan/gate, ConfigHub proof, and live e2e lanes
+      - chart: bitnami/postgresql
+        currentVersion: 18.6.7
+        latestVersion: 18.6.10
+        requiredWork:
+          - create recipes/bitnami/postgresql/18.6.10
+          - create packages/bitnami/postgresql/18.6.10
+          - preserve generated-passwords and existing-secret variants
+          - rerun generated-fact, target-fact, storage, scan/gate, ConfigHub proof, and live e2e lanes
+      - chart: prometheus-community/kube-prometheus-stack
+        currentVersion: 85.3.3
+        latestVersion: 86.1.0
+        requiredWork:
+          - create recipes/prometheus-community/kube-prometheus-stack/86.1.0
+          - create packages/prometheus-community/kube-prometheus-stack/86.1.0
+          - preserve default and no-crds variants unless CRD lifecycle changes require a new supported base
+          - rerun umbrella dependency, CRD, webhook, generated-secret, scan/gate, ConfigHub proof, and live e2e lanes
+      - chart: prometheus-community/prometheus
+        currentVersion: 29.8.0
+        latestVersion: 29.9.0
+        requiredWork:
+          - create recipes/prometheus-community/prometheus/29.9.0
+          - create packages/prometheus-community/prometheus/29.9.0
+          - preserve default and server-only-ephemeral variants
+          - rerun scrape/RBAC/PVC, scan/gate, ConfigHub proof, and live e2e lanes
+  redisPromotionVariants:
+    source:
+      chart: bitnami/redis
+      version: 25.5.3
+      recipePath: recipes/bitnami/redis/25.5.3
+      packagePath: packages/bitnami/redis/25.5.3
+      baseVariant: default
+    creatorBlueprint: promote-to-production
+    workOrders:
+      - name: redis-prod-us-east
+        from: redis/default
+        route: post-render-configHub-variant
+        expectedCommandShape: >-
+          cub variant create prod-us-east <redis-default-space>
+          --environment Prod --region us-east --target <redis-prod-us-east-target>
+        fill:
+          namespace: redis-prod-use1
+          redisSecretRef: redis-existing-secret
+        previewMustShow:
+          - source Space and downstream Space
+          - 15 cloned Units including installer record
+          - upstream Unit links
+          - target assignment
+          - changed labels and allowed changed paths
+          - target-fact status for the Redis Secret reference
+        requiredReceipts:
+          - clone
+          - mutationSources
+          - checks
+          - approval
+      - name: redis-prod-eu-west
+        from: redis/default
+        route: post-render-configHub-variant
+        expectedCommandShape: >-
+          cub variant create prod-eu-west <redis-default-space>
+          --environment Prod --region eu-west --target <redis-prod-eu-west-target>
+        fill:
+          namespace: redis-prod-euw1
+          redisSecretRef: redis-existing-secret
+        previewMustShow:
+          - source Space and downstream Space
+          - 15 cloned Units including installer record
+          - upstream Unit links
+          - target assignment
+          - changed labels and allowed changed paths
+          - target-fact status for the Redis Secret reference
+        requiredReceipts:
+          - clone
+          - mutationSources
+          - checks
+          - approval
+  kubaraOverlayExample:
+    name: external-dns-managed-aws-to-customer-acme-prod
+    status: planned-golden
+    route: managed-overlay-import-plus-post-render-creator
+    publicStandIn:
+      chart: external-dns/external-dns
+      version: 1.21.1
+      recipePath: recipes/external-dns/external-dns/1.21.1
+    importUnit:
+      - managed wrapper chart
+      - platform values
+      - customer overlay values
+      - dependency closure
+      - render context
+      - target facts for DNS credential, hosted zone, and IAM role
+    renderTimeChoices:
+      - provider mode
+      - source list
+      - registry mode
+      - TXT owner behavior
+      - domain filters rendered into args or env
+      - credential wiring that changes env, volumes, or ExternalSecret objects
+      - CRD/RBAC/webhook ownership
+    postRenderChoices:
+      - target
+      - customer, environment, and region labels
+      - approval gates
+      - observation freshness policy
+      - binding an already-rendered Secret or ExternalSecret reference
+    acceptance:
+      - managed-aws base is digest-bound and reviewable
+      - customer-acme-prod variant is created without hidden rerender
+      - every customer overlay value is classified before creation
+      - ConfigHub Promotion shows ExternalDNS/managed-aws -> ExternalDNS/customer-acme-prod
+      - receipts explain rendered-object changes versus post-render refinements
