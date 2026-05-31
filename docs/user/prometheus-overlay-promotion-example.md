@@ -152,6 +152,11 @@ source Units, and ConfigHub can show the relationship as a promotion graph:
 Prometheus/server-only-ephemeral -> Prometheus/prod-us-east
 ```
 
+This production variant can be created before OCI delivery if `prod-us-east` is
+the exact operating context that Argo CD, Flux, or another delivery path should
+consume. In that case the reviewed downstream variant, not the generic base,
+is the thing to publish or apply for production.
+
 The exact presentation below is a proposed UX shape for ConfigHub's component
 and promotion views. It is not a claim that the product already displays this
 table.
@@ -188,6 +193,25 @@ audit views.
 
 The primitive exists today. The guided preview/check/receipt experience is
 product porcelain that still needs implementation.
+
+## Before OCI Delivery
+
+For this Prometheus example, the delivery route is:
+
+```text
+server-only-ephemeral changes rendered objects
+-> use cub installer base variant
+-> upload reviewed base to ConfigHub
+-> create prod-us-east as a derived ConfigHub variant
+-> set target, labels, gates, and observation policy
+-> publish or apply the reviewed prod-us-east variant
+```
+
+Do not publish `server-only-ephemeral` and then rely on an untracked GitOps
+patch to turn it into production. If production needs different Kubernetes
+objects, create another `cub installer` base. If production only needs
+different operating context, create a derived ConfigHub variant first and use
+that reviewed variant for delivery.
 
 ## Proposed AX Shape
 

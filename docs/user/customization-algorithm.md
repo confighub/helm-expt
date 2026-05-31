@@ -7,6 +7,8 @@ For the full chart-to-recipe harness, including the canonical "where pieces go"
 table, see [Introduction To The Harness](./introduction-to-the-harness.md).
 For a concrete chart walkthrough, see
 [Prometheus Overlay And Promotion Example](./prometheus-overlay-promotion-example.md).
+For the delivery boundary, see
+[Choosing Base Variants, Derived Variants, And Delivery Changes](./change-routing-before-oci.md).
 
 The product rule is:
 
@@ -149,19 +151,41 @@ flattening them into one vague "variant" bucket.
    organization-specific, it remains a private/local variant. If unsafe or
    ambiguous, it is blocked with a reason.
 
+9. Settle delivery prerequisites before OCI handoff.
+
+   OCI delivery should publish the reviewed object set that Kubernetes or
+   GitOps will consume. Before that handoff, the route must be explicit:
+
+   ```text
+   base variant selected
+   derived ConfigHub variant selected, if needed
+   target facts bound or deferred with a receipt
+   generated facts bound
+   scans and gates complete
+   hook/CRD/lifecycle decision recorded
+   approval state known
+   OCI digest, signature, and access method recorded
+   ```
+
+   If a late change would mutate Kubernetes objects, it routes back to the
+   `cub installer` base path. If it only changes operating context, it can be a
+   derived ConfigHub variant before publication or apply.
+
 ## Where Common Customizations Go
 
 | Customization | ConfigHub Location | Notes |
 | --- | --- | --- |
-| Change replica count | Variant values | Re-render and diff exact workloads. |
-| Use existing Secret | Variant target facts | Secret name and keys are recorded; secret material is not stored in the public proof. |
-| Generate password/cert once | Generated fact binding | Generation happens before approval, then the rendered revision is immutable. |
-| Enable ingress/TLS | Variant values plus target facts | TLS Secret and ingress class become explicit facts. |
-| Disable CRDs | Variant lifecycle policy | Common for GitOps/controller-owned CRD installs. |
-| Enable CRDs | Variant plus CRD review gate | CRD lifecycle and upgrade risk must be visible. |
-| Add raw manifests | Extension slot | Allowed only when the recipe declares the slot and scan/gate checks run. |
-| Use `tpl` content | Extension slot | Treated as code-like input and reviewed before promotion. |
-| Add Kustomize patch | Variant overlay | Patch must be explicit, digest-bound, and included in the diff. |
+| Change replica count | `cub installer` base variant | Re-render and diff exact workloads. |
+| Use existing Secret | Base variant if object shape changes; derived ConfigHub variant only if the base already exposes the reference | Secret name and keys are recorded; secret material is not stored in the public proof. |
+| Generate password/cert once | Generated fact binding before render | Generation happens before approval, then the rendered revision is immutable. |
+| Enable ingress/TLS | Base variant plus target facts | TLS Secret and ingress class become explicit facts. |
+| Disable CRDs | Base variant lifecycle policy | Common for GitOps/controller-owned CRD installs. |
+| Enable CRDs | Base variant plus CRD review gate | CRD lifecycle and upgrade risk must be visible. |
+| Add raw manifests | Recipe/base extension slot | Allowed only when the recipe declares the slot and scan/gate checks run. |
+| Use `tpl` content | Recipe/base extension slot | Treated as code-like input and reviewed before promotion. |
+| Add Kustomize patch | Base overlay when it mutates objects; ConfigHub function only for narrow approved post-render edits | Patch must be explicit, digest-bound, and included in the diff. |
+| Set target/environment/region/customer | Derived ConfigHub variant | Clone reviewed Units, preserve upstream links, set operating context. |
+| Set approval gates or observation policy | Derived ConfigHub variant | Must be set before the reviewed object set is delivered or applied for that target. |
 | Helm hook behavior | Lifecycle policy plus hook/lifecycle receipt | Hook templates can be inventoried deterministically, but hook execution depends on the target cluster. Map to tests, preflight, lifecycle action, observation, explicit skip, or blocker. |
 | Cluster lookup | Recipe fact requirement plus variant fact binding | Cluster-sourced data must not silently change the approved render. |
 
