@@ -27,6 +27,21 @@ A customization request can arrive from:
 - an operator lifecycle requirement;
 - a user-submitted use case not already in the catalog.
 
+## Supported Overlay Modes
+
+This project must support all common Helm customization inputs, but not by
+flattening them into one vague "variant" bucket.
+
+| Input style | Supported route | Proof requirement |
+| --- | --- | --- |
+| Helm values file or `--set` | Recipe/base variant when it changes rendered objects; ConfigHub variant only when it fills an already-rendered field | effective values digest, render diff, Helm equivalence receipt when expected |
+| Umbrella chart or wrapper chart | Recipe import unit | source/dependency locks for wrapper and subcharts |
+| Platform values | Managed default in the recipe/base | effective values digest and field provenance |
+| Customer overlay values | Recipe/base if rendered into objects; Creator contract if binding already-rendered placeholders/fields | overlay digest, target-fact binding, or mutation receipt |
+| Kustomize overlay/patch | Recipe/base overlay when it changes install shape; post-render ConfigHub mutation only for narrow editable fields | overlay digest, object diff, MutationSources |
+| Post-renderer/script | Pinned function stage or reject | tool digest, function-chain receipt, diff |
+| Live cluster input | target fact, preflight, or observation receipt | fact snapshot/digest and freshness |
+
 ## Algorithm
 
 1. Start from the chart recipe.
@@ -136,6 +151,20 @@ A customization request can arrive from:
 | Add Kustomize patch | Variant overlay | Patch must be explicit, digest-bound, and included in the diff. |
 | Helm hook behavior | Lifecycle policy plus hook/lifecycle receipt | Hook templates can be inventoried deterministically, but hook execution depends on the target cluster. Map to tests, preflight, lifecycle action, observation, explicit skip, or blocker. |
 | Cluster lookup | Recipe fact requirement plus variant fact binding | Cluster-sourced data must not silently change the approved render. |
+
+## Product Tier Routing
+
+The same algorithm applies across product tiers, but the required product
+surface changes.
+
+| Scenario | Product tier | Why |
+| --- | --- | --- |
+| Public chart with supported base variants | Public catalog proof | The repo can publish recipe/package artifacts, receipts, and local live proof. |
+| Environment or region clone from a reviewed uploaded base | ConfigHub managed variants | Needs ConfigHub Spaces, Units, upstream links, gates, and receipts. |
+| Wrapper chart plus platform values plus customer overlay values | Managed overlay import | Needs private/customer inputs, render context capture, ConfigHub Server, and usually managed/commercial workflows. |
+| Fleet of many customer/environment variants | Enterprise fleet operations | Needs Creator contract over a matrix, promotion waves, checks, observations, and support disposition. |
+
+See [Product Support Tiers For Helm Scenarios](product-support-tiers.md).
 
 ## Hook Customization Rule
 

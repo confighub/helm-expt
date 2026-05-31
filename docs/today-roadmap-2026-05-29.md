@@ -221,6 +221,15 @@ provider settings, cluster issuer settings, storage buckets, external secrets,
 ingress classes, CRDs, and dependency assumptions.
 ```
 
+Product tier:
+
+```text
+Kubara-style wrapper chart + platform values + customer overlay values is
+Tier 3 managed overlay import, not merely the public catalog proof.
+It needs ConfigHub Server, target facts, approvals, gates, variant creation,
+and receipts. It may become a managed/commercial lane.
+```
+
 Recommended first candidates:
 
 | Candidate | Why |
@@ -337,7 +346,9 @@ Suggestions that are not justified yet:
    - Pick `external-dns` unless a better small case is found.
    - Identify wrapper chart, platform values, customer overlay values,
      dependency closure, and target facts.
-   - Classify which choices are recipe/base inputs versus post-render variants.
+- Classify which choices are recipe/base inputs versus post-render variants.
+- State which product tier the example belongs to and why it is beyond a
+  simple public/free catalog proof.
 
 4. **Update #76 only with concrete evidence.**
    - Add a comment if the Kubara analysis lands.

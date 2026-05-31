@@ -131,6 +131,12 @@ GitHub is the public catalog/proof surface.
 Pure serverless is optional future work, not part of the current proof.
 ```
 
+Product tiering is explicit. Public chart recipes and local proof are the open
+catalog lane. ConfigHub managed variants require ConfigHub Server. Kubara-style
+wrapper charts plus customer overlays are a managed overlay import lane and
+may become commercial/managed product work. See
+[Product Support Tiers For Helm Scenarios](product-support-tiers.md).
+
 ## Main Pathway Boundary
 
 The current plan does not execute through the removed top-20 render-and-vendor
@@ -761,7 +767,8 @@ as if they already exist. The current asks are `cub installer import helm`,
 | Import chart to recipe | `cub` / installer | `Recipe` |
 | Classify Helm complexity | `cub` / installer | `ControlPoints` |
 | Create/edit install variant | `cub` or ConfigHub Server UI/API | `Variant` |
-| Provide overlays, values, umbrella selections, or Kustomize pieces | `cub` or ConfigHub Server UI/API | explicit variant inputs / extension slots |
+| Provide values, umbrella selections, wrapper charts, or overlays that change rendered objects | `cub` / installer | recipe/base variant input, overlay digest, render receipt |
+| Provide post-render labels, targets, namespace edits, secret references, gates, or narrow Kustomize-like edits | ConfigHub Server UI/API, `cub variant create`, TransformPaths/functions | ConfigHub variant mutation receipt / MutationSources |
 | Bind capability profile and target/generated fact values | `cub`, installer collectors, ConfigHub Server UI/API, or observer integration | fact profiles / fact receipts satisfying recipe requirements |
 | Render exact objects | `cub` / installer | `VariantRevision`, `RenderedReleaseObjects`, `RenderReceipt` |
 | Scan rendered objects | `cub` function chain, CI, or ConfigHub initiative | `ScanReceipt` |

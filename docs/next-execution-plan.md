@@ -64,6 +64,17 @@ Ask Brian for missing verbs only where the current product surface is awkward,
 manual, or script-only.
 ```
 
+The overlay doctrine adds one more roadmap constraint:
+
+```text
+Public chart base variants stay in the public catalog proof.
+Post-render environment/customer variants require ConfigHub Server.
+Wrapper charts plus customer overlays are managed overlay imports and are not
+claimed as solved by the free/static proof alone.
+```
+
+See [Product Support Tiers For Helm Scenarios](product-support-tiers.md).
+
 ### Use Current ConfigHub Capabilities
 
 These existing verbs should move into the proof path wherever they make the
@@ -402,6 +413,35 @@ Acceptance:
   `npm run top20:verify-confighub-proof`.
 - Catalog maps should continue linking pre-publish recipe variants separately
   from post-upload ConfigHub server variants.
+
+### P0.5b Support Values, Kustomize, Wrapper, And Customer Overlays Deliberately
+
+Problem:
+
+Helm users customize with values files, `--set`, wrapper charts, umbrella
+charts, Kustomize overlays, customer overlays, and private platform defaults.
+If the docs only say "variants", readers will not know which route is safe.
+
+Decision:
+
+```text
+values/wrapper/Kustomize/custom overlay changes rendered objects
+  -> cub installer recipe/base
+
+post-render target/metadata/links/gates/fill-values
+  -> ConfigHub variant via cub variant create plus Creator contract
+```
+
+Acceptance:
+
+- README explains the rule in plain English.
+- [Customization Algorithm](customization-algorithm.md) lists supported overlay
+  modes and proof requirements.
+- [Kubara Customized Overlay Analysis](kubara-customized-overlays.md) defines
+  the first managed overlay golden and its tier.
+- [Product Support Tiers For Helm Scenarios](product-support-tiers.md) states
+  which scenarios are public proof, ConfigHub managed variants, managed overlay
+  import, and enterprise/fleet work.
 
 ### P0.6 Recalculate The Top-500 Matrix In The New Shape
 

@@ -73,6 +73,35 @@ decision points and mechanical checks. For the recipe-generation workflow and
 the "where pieces go" table, see
 [Introduction To The Harness](docs/introduction-to-the-harness.md).
 
+## How Values And Overlays Are Supported
+
+Helm users already customize charts with values files, `--set` flags,
+umbrella charts, wrapper charts, and sometimes Kustomize overlays. The rule in
+this repo is not "stop doing that." The rule is:
+
+```text
+If a customization changes rendered Kubernetes objects, make it a reviewed
+cub installer recipe/package base.
+
+If it refines already-rendered ConfigHub Units, make it a ConfigHub variant
+using cub variant create plus the Creator contract.
+```
+
+Examples:
+
+| Customization | Route |
+| --- | --- |
+| Helm values file that changes replicas, storage, ingress, CRDs, RBAC, args, env, or object count | new `cub installer` base / rendered revision |
+| Kustomize overlay that changes the install shape | explicit recipe/base overlay with digest and diff |
+| Namespace, target, labels, approval gates, observation policy | ConfigHub variant |
+| Existing Secret reference already represented in the rendered objects | ConfigHub variant with target fact/check |
+| Wrapper chart plus platform values plus customer overlay values | managed overlay import; usually needs ConfigHub Server |
+
+For the detailed algorithm, see
+[Customization Algorithm](docs/customization-algorithm.md). For the product
+tier boundaries, see
+[Product Support Tiers For Helm Scenarios](docs/product-support-tiers.md).
+
 ## What Is Proven Today
 
 ```text
