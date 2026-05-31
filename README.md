@@ -4,7 +4,7 @@ Use Helm charts. Ship ConfigHub variants.
 
 This repo shows how popular public Helm charts can become `cub installer`
 packages with named variants, exact rendered Kubernetes objects, scans, gates,
-receipts, and live proof.
+receipts, and live proof.   ALL CONTENTS ARE EXPERIMENTAL & UNOFFICIAL.
 
 Core flow:
 
