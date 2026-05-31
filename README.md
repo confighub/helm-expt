@@ -88,7 +88,7 @@ We use AI to accelerate Helm chart analysis and recipe creation. We use
 `cub installer` to prove the resulting recipes produce correct, Helm-equivalent,
 reviewable ConfigHub variants.
 
-This is not a single prompt. It is an AI-assisted harness with explicit
+This is not a single prompt. It is an AI-assisted workflow with explicit
 decision points and mechanical checks. For the recipe-generation workflow and
 the "where pieces go" table, see
 [Introduction To The Harness](./docs/user/introduction-to-the-harness.md).
@@ -104,7 +104,7 @@ If a customization changes rendered Kubernetes objects, make it a reviewed
 cub installer recipe/package base.
 
 If it refines already-rendered ConfigHub Units, make it a ConfigHub variant
-using cub variant create plus the Creator contract.
+using `cub variant create` plus guided review.
 ```
 
 Before OCI delivery, users need to make three separate decisions:
@@ -129,6 +129,10 @@ For the detailed algorithm, see
 [Customization Algorithm](./docs/user/customization-algorithm.md). For the product
 tier boundaries, see
 [Product Support Tiers For Helm Scenarios](./docs/user/product-support-tiers.md).
+For the simple variant creation guide, see
+[Creating Variants](./docs/user/creating-variants.md).
+For wrapper charts and customer overlays, see
+[Custom Overlays](./docs/user/custom-overlays.md).
 For the OCI delivery boundary, see
 [Choosing Base Variants, Derived Variants, And Delivery Changes](./docs/user/change-routing-before-oci.md).
 For Helm hooks specifically, see
@@ -197,6 +201,12 @@ I want to check the repo quickly.
 
 I want to see what charts and variants exist.
   Open CATALOG.md.
+
+I want to understand how to create variants.
+  Read docs/user/creating-variants.md.
+
+I have wrapper chart, platform, or customer overlay values.
+  Read docs/user/custom-overlays.md.
 
 I installed Redis and want proof it matches the catalog.
   Run Verify Your Install.

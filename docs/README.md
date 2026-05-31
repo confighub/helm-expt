@@ -15,7 +15,9 @@ whole repo:
 | [../CATALOG.md](../CATALOG.md) | Generated chart catalog: charts first, recommended variants underneath. |
 | [how-the-harness-works.md](./user/how-the-harness-works.md) | Short technical explanation of the harness lifecycle and where user value is created. |
 | [introduction-to-the-harness.md](./user/introduction-to-the-harness.md) | Detailed recipe-generation workflow and the table for where Helm pieces belong. |
+| [creating-variants.md](./user/creating-variants.md) | Simple guide to base variants, derived ConfigHub variants, AI assistant tasks, and bulk creation. |
 | [change-routing-before-oci.md](./user/change-routing-before-oci.md) | Short guide for choosing a base variant, derived ConfigHub variant, or delivery prerequisite before OCI handoff. |
+| [custom-overlays.md](./user/custom-overlays.md) | Plain-English ExternalDNS example for wrapper charts, platform values, customer overlay values, and target facts. |
 | [customization-algorithm.md](./user/customization-algorithm.md) | How values files, overlays, wrapper charts, and post-render variants are routed. |
 | [prometheus-overlay-promotion-example.md](./user/prometheus-overlay-promotion-example.md) | Worked Prometheus example for a values overlay and a ConfigHub-only promotion variant. |
 | [product-support-tiers.md](./user/product-support-tiers.md) | Which Helm scenarios fit the public catalog, managed imports, or commercial support. |
@@ -55,8 +57,10 @@ Do not hand-edit generated Markdown unless the generator is also updated.
 | --- | --- |
 | [chart-recipe-manifest-flow.md](./reference/chart-recipe-manifest-flow.md) | Canonical object model: chart, recipe, variant, revision, rendered objects, receipts. |
 | [how-the-harness-works.md](./user/how-the-harness-works.md) | Lifecycle-stage explanation of the harness. |
-| [introduction-to-the-harness.md](./user/introduction-to-the-harness.md) | Detailed import workflow, recipe decisions, and hook doctrine. |
+| [introduction-to-the-harness.md](./user/introduction-to-the-harness.md) | Detailed import workflow, recipe decisions, and hook policy. |
+| [creating-variants.md](./user/creating-variants.md) | Simple user guide for base variants, derived ConfigHub variants, AI assistant tasks, and bulk creation. |
 | [change-routing-before-oci.md](./user/change-routing-before-oci.md) | User-facing routing guide for base variants, derived variants, and delivery prerequisites before OCI handoff. |
+| [custom-overlays.md](./user/custom-overlays.md) | ExternalDNS managed overlay example with wrapper chart, platform values, customer values, target facts, and ConfigHub variant routing. |
 | [customization-algorithm.md](./user/customization-algorithm.md) | Rules for values files, overlays, wrapper charts, and post-render variants. |
 | [prometheus-overlay-promotion-example.md](./user/prometheus-overlay-promotion-example.md) | Concrete Prometheus example showing when an overlay becomes an installer base and when a change is ConfigHub-only. |
 | [product-support-tiers.md](./user/product-support-tiers.md) | Free, public, managed, and commercial support boundaries. |
@@ -68,7 +72,7 @@ Do not hand-edit generated Markdown unless the generator is also updated.
 | --- | --- |
 | [artifact-verifier-spec.md](./reference/artifact-verifier-spec.md) | What the artifact verifier must check. |
 | [capability-profile-catalog.md](./reference/capability-profile-catalog.md) | Named Kubernetes capability profiles used during render. |
-| [generated-fact-receipts.md](./reference/generated-fact-receipts.md) | Generated secrets, certs, random values, and time-value receipt contract. |
+| [generated-fact-receipts.md](./reference/generated-fact-receipts.md) | Generated secrets, certs, random values, and time-value receipt specification. |
 | [observation-freshness-slo.md](./reference/observation-freshness-slo.md) | Freshness states for live observations in a workerless ConfigHub model. |
 | [upgrade-rollback-receipts.md](./reference/upgrade-rollback-receipts.md) | Upgrade and rollback receipt shape. |
 | [hook-lifecycle-strategy.md](./user/hook-lifecycle-strategy.md) | How Helm hooks are inventoried, classified, translated, or blocked. |
@@ -78,8 +82,8 @@ Do not hand-edit generated Markdown unless the generator is also updated.
 
 | File | Role |
 | --- | --- |
-| [variant-creation-artifact.md](./reference/variant-creation-artifact.md) | Variant Creator contract over existing ConfigHub primitives. |
-| [redis-variant-creation-plan.yaml](./reference/redis-variant-creation-plan.yaml) | Concrete Redis Creator blueprint used by the variant contract. |
+| [variant-creation-artifact.md](./reference/variant-creation-artifact.md) | Reference design for guided variant creation over existing ConfigHub capabilities. |
+| [redis-variant-creation-plan.yaml](./reference/redis-variant-creation-plan.yaml) | Concrete Redis variant creation blueprint. |
 | [variant-creator-verification.md](./reference/variant-creator-verification.md) | How Creator previews, checks, receipts, UX, agent, and fleet paths are verified. |
 | [variant-promotion-worked-example.md](./reference/variant-promotion-worked-example.md) | Worked promotion examples for Redis and managed overlays. |
 | [confighub-promotion-mapping.md](./reference/confighub-promotion-mapping.md) | Mapping between Helm-derived bases, ConfigHub variants, and promotion concepts. |
@@ -89,8 +93,8 @@ Generated proof data for this section lives in:
 
 | Location | Role |
 | --- | --- |
-| `data/variant-goldens/redis-prod-us-east/` | Redis Creator golden: `redis/default` to `prod-us-east` with preview, checks, and receipts. |
-| `data/managed-overlay-goldens/external-dns-customer-acme-prod/` | Managed overlay golden: wrapper chart plus platform/customer overlay values and route classification. |
+| `data/variant-goldens/redis-prod-us-east/` | Generated Redis example: `redis/default` to `prod-us-east` with preview, checks, and receipts. |
+| `data/managed-overlay-goldens/external-dns-customer-acme-prod/` | Generated ExternalDNS managed overlay example: wrapper chart plus platform/customer overlay values and route classification. |
 
 ### Catalog, Scale, And Refresh
 
@@ -112,13 +116,13 @@ Redis demo:
 
 | File | Role |
 | --- | --- |
-| [redis-proof-spec.md](./reference/redis-proof-spec.md) | Overall Redis proof contract. |
+| [redis-proof-spec.md](./reference/redis-proof-spec.md) | Overall Redis proof specification. |
 | [redis-installer-package-spec.md](./reference/redis-installer-package-spec.md) | Redis `cub installer` package requirements. |
 | [redis-default-variant-spec.md](./reference/redis-default-variant-spec.md) | Default Redis variant requirements. |
 | [redis-reuse-existing-secret-variant-spec.md](./reference/redis-reuse-existing-secret-variant-spec.md) | Redis existing-Secret variant requirements. |
 | [redis-variant-diff-spec.md](./reference/redis-variant-diff-spec.md) | Expected differences between Redis variants. |
-| [redis-local-e2e-spec.md](./reference/redis-local-e2e-spec.md) | Local kind live/e2e proof contract. |
-| [redis-local-scan-spec.md](./reference/redis-local-scan-spec.md) | Local scan proof contract. |
+| [redis-local-e2e-spec.md](./reference/redis-local-e2e-spec.md) | Local kind live/e2e proof specification. |
+| [redis-local-scan-spec.md](./reference/redis-local-scan-spec.md) | Local scan proof specification. |
 
 ### Demo Docs
 
@@ -137,7 +141,7 @@ not the primary user path.
 
 | File | Role |
 | --- | --- |
-| [agreed-execution-plan.md](./planning/agreed-execution-plan.md) | Consolidated execution plan and doctrine. |
+| [agreed-execution-plan.md](./planning/agreed-execution-plan.md) | Consolidated execution plan and project guidance. |
 | [current-pathway-review.md](./planning/current-pathway-review.md) | Snapshot review of the current pathway and remaining gaps. |
 | [next-execution-plan.md](./planning/next-execution-plan.md) | Current execution plan and near-term backlog. |
 | [today-roadmap-2026-05-29.md](./planning/today-roadmap-2026-05-29.md) | Dated handoff snapshot retained for historical context. |
@@ -162,4 +166,4 @@ not the primary user path.
 - Recipe-level docs belong under `recipes/`.
 - Executable package docs belong under `packages/`.
 - Proof summaries and matrix outputs belong under `data/`.
-- Product doctrine and implementation plans belong under `docs/`.
+- Product guidance and implementation plans belong under `docs/`.

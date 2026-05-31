@@ -1,18 +1,16 @@
 # Introduction To The Harness
 
-This document explains how a new Helm chart becomes a ConfigHub/cub installer
+This document explains how a new Helm chart becomes a ConfigHub `cub installer`
 recipe in this repo, and how decisions are made about where each part of the
 install and customization process belongs.
 
-The important point:
-
 ```text
 This is not one prompt.
-It is an AI-assisted engineering harness with mechanical proof.
+It is an AI-assisted engineering workflow with mechanical proof.
 ```
 
 AI helps analyze public Helm charts, draft artifacts, and spot control points.
-The harness decides whether the result is believable by comparing outputs,
+The workflow decides whether the result is believable by comparing outputs,
 binding digests, running scans, checking gates, and recording receipts.
 
 ## What To Say When Someone Asks "What Prompt Did You Use?"
@@ -29,7 +27,7 @@ the result against regular Helm output.
 Or shorter:
 
 ```text
-The prompt is less important than the harness. The AI follows a chart-import
+The prompt is less important than the workflow. The AI follows a chart-import
 checklist, classifies Helm behavior into installer/ConfigHub control points,
 drafts recipe and variant artifacts, then the repo proves or rejects them with
 Helm equivalence, digest checks, scans, gates, and live receipts.
@@ -37,7 +35,7 @@ Helm equivalence, digest checks, scans, gates, and live receipts.
 
 ## Core Flow
 
-The harness turns this:
+The workflow turns this:
 
 ```text
 public Helm chart
@@ -56,7 +54,7 @@ into this:
 The default rule is:
 
 ```text
-Recipe = reusable chart contract.
+Recipe = reusable chart definition.
 Variant = chosen install shape.
 Revision = exact rendered object set.
 ConfigHub server variant = post-upload operational clone when no new Helm render is needed.
@@ -80,7 +78,7 @@ Receipt = proof of what happened.
 11. Record receipts and live observations.
 12. Promote only when the variant is simple, useful, and mechanically proven.
 
-The AI can help with steps 4-7 and with writing artifacts, but the harness
+The AI can help with steps 4-7 and with writing artifacts, but the workflow
 checks steps 8-12.
 
 ## Where Pieces Go
@@ -111,7 +109,7 @@ The goal is to absorb Helm weirdness into the model, not hide it in prose. If
 the chart does something unusual, it should have a named home, a policy, a
 status, and a proof artifact.
 
-## Helm Hook Doctrine
+## Helm Hook Policy
 
 Helm hooks are cluster-dependent lifecycle actions. They are not ordinary
 configuration objects.
@@ -287,9 +285,9 @@ human entry point for choosing charts and variants.
 ## Related Docs
 
 - Public mission and quick start: [README.md](../README.md)
-- Reviewer-facing short explanation: [how-the-harness-works.md](./how-the-harness-works.md)
+- Short explanation: [how-the-harness-works.md](./how-the-harness-works.md)
 - Customization placement algorithm: [customization-algorithm.md](./customization-algorithm.md)
 - Current pathway review: [current-pathway-review.md](../planning/current-pathway-review.md)
 - Repo consistency review: [repo-consistency-review.md](../planning/repo-consistency-review.md)
-- Full execution plan and doctrine: [agreed-execution-plan.md](../planning/agreed-execution-plan.md)
-- Artifact verifier contract: [artifact-verifier-spec.md](../reference/artifact-verifier-spec.md)
+- Full execution plan: [agreed-execution-plan.md](../planning/agreed-execution-plan.md)
+- Artifact verifier specification: [artifact-verifier-spec.md](../reference/artifact-verifier-spec.md)
