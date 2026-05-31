@@ -47,3 +47,28 @@ The first adversarial public chart set must include:
 
 Rows in generated spreadsheets should point back to the chart's readiness card,
 control points, rendered object digest, scan/gate result, and proof receipts.
+
+## Hook-Heavy Coverage
+
+The top-500 source scan found 54 charts with Helm hooks. A first-pass risk pass
+classified 42 as likely problematic for production lifecycle support, because
+they include non-test lifecycle phases, hook ordering/delete policy, Jobs,
+cluster RBAC, CRDs, webhooks, APIServices, `lookup`, or generated-fact signals.
+
+Keep these public examples in adversarial coverage:
+
+| Chart | Why |
+| --- | --- |
+| `prometheus-community/kube-prometheus-stack` | post/pre lifecycle hooks, CRDs, webhooks, RBAC, lookup, generated facts. |
+| `jetstack/cert-manager` | post-install startup API check, CRDs, admission webhooks, cluster RBAC. |
+| `kyverno/kyverno` | post-upgrade/pre-delete hooks, hook weights/delete policy, admission/CRD risk. |
+| `kubernetes-dashboard/kubernetes-dashboard` | upgrade hooks, generated facts, RBAC, APIService. |
+| `kong/kong` | pre/post-upgrade hooks, CRDs, webhooks, RBAC. |
+| `ory/hydra` / `ory/kratos` | pre-install/pre-upgrade hooks with migration-style lifecycle concerns. |
+
+For each, the proof target is not "run Helm hooks invisibly." The target is:
+
+```text
+hook inventory -> lifecycle disposition -> safe translation or blocker ->
+receipt / observation
+```

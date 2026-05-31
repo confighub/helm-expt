@@ -32,6 +32,11 @@ See exactly what changed and why before you ship.
 For the current tactical plan, see
 [Today Roadmap - 2026-05-29](today-roadmap-2026-05-29.md).
 
+For the reviewer-facing harness explanation, see
+[How The Harness Works](how-the-harness-works.md). That is the shortest
+explanation for Brian/Jesper: how the harness proves chart behavior today, what
+product capabilities are still missing, and where each issue fits.
+
 ## Current Baseline
 
 The repo now has:
@@ -52,6 +57,15 @@ Important boundary:
 Top-20 catalog presence is mandatory because these charts are popular.
 Machine proof decides support scope; it does not erase production review.
 Catalog support scope must be explicit in catalog-status.yaml.
+```
+
+Issue baseline:
+
+```text
+Original proof P0s are closed and verified by npm run verify.
+The remaining open P0 is #76: define the Helm import path from cub helm install
+to durable cub installer recipes.
+Issue #82 is the current user-facing explanation work for the Helm pain table.
 ```
 
 ## Roadmap Integration: Real Cub And ConfigHub Capabilities
@@ -75,6 +89,20 @@ claimed as solved by the free/static proof alone.
 ```
 
 See [Product Support Tiers For Helm Scenarios](product-support-tiers.md).
+
+The hook doctrine adds a lifecycle constraint:
+
+```text
+Helm hooks are source-visible but execution-dependent.
+The public catalog must inventory and classify them.
+Production support needs lifecycle receipts and observations, or an explicit
+blocker.
+```
+
+The current top-500 source scan found 54 hook-using charts among 495 scanned
+charts. A first-pass risk estimate classifies 42 as likely problematic, 6 as
+needs-review, and 6 as probably benign/test-only. See
+[Hook Lifecycle Strategy](hook-lifecycle-strategy.md).
 
 ### Use Current ConfigHub Capabilities
 
@@ -148,6 +176,38 @@ Acceptance:
   signature expectations.
 - GitOps/OCI examples stay honest about what is local proof, what is live
   controller proof, and what requires ConfigHub Server.
+
+### Hook And Lifecycle Intelligence Lane
+
+Hooks and other lifecycle-sensitive chart behavior should become a proof lane,
+not a hidden exception.
+
+Action:
+
+```text
+turn hook scan evidence into per-chart hook disposition
+map test-only hooks to explicit checks
+map safe lifecycle hooks to Argo/GitOps lifecycle actions where possible
+block unsafe or unclear hooks before production support
+record execution-or-skip and observation receipts
+```
+
+Commercial direction:
+
+```text
+public catalog = hook inventory and support-scope honesty
+managed tier = private hook analysis, lifecycle translation, upgrade/rollback
+receipts, and evidence packs
+```
+
+Acceptance:
+
+- top-500 catalog analysis exposes hook risk buckets;
+- `helm-pain-report.yaml` records hook disposition for catalog-supported charts;
+- production disposition cannot mark a hook-using chart production-ready without
+  lifecycle receipt or explicit safe skip/test disposition;
+- managed/commercial docs explain hook translation as lifecycle intelligence,
+  not as automatic hook execution.
 
 ## P0 Gates
 

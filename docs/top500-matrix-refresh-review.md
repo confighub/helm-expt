@@ -79,6 +79,39 @@ vendored subcharts: 244
 non-exact dependency constraints: 152
 ```
 
+Hook-specific detail retained in the source scan:
+
+```text
+charts with Helm hooks: 54
+total hook templates found: 176
+likely problematic hook charts: 42
+needs review: 6
+probably benign/test-only: 6
+
+non-test lifecycle hooks: 42
+post-* hooks: 26
+pre-* hooks: 26
+hook weights/order: 21
+hook delete policies: 44
+hook charts with Jobs: 46
+hook charts with cluster RBAC: 35
+hook charts with CRDs: 22
+hook charts with webhooks: 15
+hook charts with APIService: 6
+hook charts with lookup / cluster facts: 41
+```
+
+Interpretation:
+
+```text
+Helm hooks appear in about 11% of scanned public charts.
+Most hook charts are not just harmless test hooks.
+They need lifecycle policy, GitOps/Argo translation where safe, or an explicit
+production blocker.
+```
+
+See [Hook Lifecycle Strategy](hook-lifecycle-strategy.md).
+
 ## Why It Should Be Recalculated
 
 The old matrix answers:
@@ -134,6 +167,9 @@ capability_profile
 target_fact_requirements
 generated_fact_requirements
 hook_policy
+hook_risk_bucket
+hook_phases
+hook_lifecycle_disposition
 crd_policy
 webhook_policy
 rbac_policy

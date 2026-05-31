@@ -121,6 +121,8 @@ For the detailed algorithm, see
 [Customization Algorithm](docs/customization-algorithm.md). For the product
 tier boundaries, see
 [Product Support Tiers For Helm Scenarios](docs/product-support-tiers.md).
+For Helm hooks specifically, see
+[Hook Lifecycle Strategy](docs/hook-lifecycle-strategy.md).
 
 ## What Is Proven Today
 

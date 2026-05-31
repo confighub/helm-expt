@@ -4,18 +4,37 @@ This document mirrors the GitHub issues that must not be lost in the planning
 docs. GitHub remains the execution tracker; this file keeps reviewers aligned
 with the written plan.
 
-Last synced: 2026-05-27.
+Last synced: 2026-05-31.
 
 ## Rule
 
 ```text
-P0 issues are gates.
+P0 issues are gates for the scope they name.
 P1 issues strengthen the proof after P0.
 P2 issues preserve important design depth without blocking the first proof.
 ```
 
-The current plan is not credible at 20/100/500 chart scale until every open P0
-is either completed or deliberately reclassified.
+The original P0 proof gates are now closed and verified by the harness. The
+remaining open P0 is a productization/design gate, not evidence that the current
+proof corpus is broken:
+
+```text
+#76 Define Helm import path from cub helm install to cub installer recipes.
+```
+
+That issue matters because the repo-proven import workflow needs a clear product
+path. The public proof can remain valid while #76 is open; the product story is
+not complete until it is resolved.
+
+Current open issue shape:
+
+```text
+open P0: 1
+open P1: 6
+open P2: 7
+open content/story issues: 8
+open unlabelled docs issue: #82
+```
 
 ## Capability Roadmap
 
@@ -61,35 +80,63 @@ the evidence regresses:
 | [#10](https://github.com/confighub/helm-expt/issues/10) Create complete Redis HelmPlan and ChartDossier artifacts | `recipes/bitnami/redis/25.5.3/`, durable installer package, upload/OCI receipt. |
 | [#26](https://github.com/confighub/helm-expt/issues/26) Prove simple UX is easier, safer, and correct versus Helm | `docs/demo/redis/` demo script, transcript, UX acceptance note, and ConfigHub proof transcript with real `cub installer`, `cub variant create`, and ConfigHub review verbs. |
 
-## Current Adversarial Harness Slice
+## Current Harness Proof Slice
 
-The first scale-out harness exists under:
+The scale-out harness now exists across:
 
 ```text
+recipes/
+packages/
+runs/
 data/adversarial10/
+data/top500-catalog-analysis/
+data/production-disposition/
 ```
 
-It partially advances [#24](https://github.com/confighub/helm-expt/issues/24),
+It closes the original proof gates
+[#24](https://github.com/confighub/helm-expt/issues/24),
 [#25](https://github.com/confighub/helm-expt/issues/25), and
 [#4](https://github.com/confighub/helm-expt/issues/4):
 
-- 10 pinned public charts in `corpus.yaml`;
-- chart package SHA and render status in `corpus.lock.yaml`;
-- one generated `helm-plan.yaml` and `render-receipt.yaml` per chart;
-- stored rendered manifests and object inventories for successful render
-  attempts;
-- blocker receipt for the Loki default-values render failure;
-- `proof-readiness.csv` generated from receipts;
-- verifier and negative golden check through
-  `npm run adversarial10:verify` and
-  `npm run adversarial10:verify:self-test`.
+- 100 proof-grade recipe/package artifacts;
+- 20 top-chart catalog entries with bespoke variants;
+- 20/20 local kind live/e2e receipts;
+- 20/20 ConfigHub proof receipt sets;
+- 20 catalog-supported Helm pain reports;
+- 80 generated full default proofs;
+- adversarial10 and next80 tamper-detection self-tests;
+- top-500 catalog analysis outputs;
+- production disposition and legacy patch review outputs;
+- verifier and negative golden checks through `npm run verify`.
 
-This is not enough to close those P0s. It is the first foundation for them.
-The next harness step is to turn enough rows into complete
-recipe/variant/revision proofs to reach the 20 full public-chart proof target,
-add formal schemas, and make spreadsheet rows trace all the way to scans,
-gates, and publication receipts. The target list and acceptance contract live
-in [top20-full-proof-target.md](top20-full-proof-target.md).
+The next harness step is not "prove that anything exists." It is to make how the
+harness works easier to explain and productize. The compact explanation lives in
+[How The Harness Works](how-the-harness-works.md).
+
+## Hook / Lifecycle Risk Lane
+
+The top-500 source scan found 54 hook-using charts among 495 scanned charts. A
+first-pass risk estimate classifies 42 as likely problematic, 6 as needs-review,
+and 6 as probably benign/test-only. This should remain visible in planning
+because hook execution is cluster-dependent and cannot be hidden inside normal
+render equivalence.
+
+Current planning home:
+
+```text
+docs/hook-lifecycle-strategy.md
+```
+
+Execution tracker to create when this becomes implementation work:
+
+```text
+Add hook risk buckets and lifecycle dispositions to top-500 catalog analysis.
+Add hook/lifecycle receipt expectations for catalog-supported hook charts.
+Add safe Argo/GitOps lifecycle translation proof for at least one hook-heavy chart.
+```
+
+Do not make this a P0 gate for all public-catalog work. Make it a production
+support gate for hook-using charts.
 
 ## Current Promoted Chart Proofs
 
@@ -142,9 +189,12 @@ The council review made the first implementation slice explicit:
    public charts that exercise CRDs, hooks, generated facts, capabilities,
    `tpl`, raw manifests, RBAC/webhooks/APIService, and stateful behavior.
 
-## P0 Gates
+## Closed P0 Proof Gates
 
-| Issue | Area | Why it is a gate |
+These issues are closed. Keep them listed because they define what the current
+proof corpus must continue to satisfy.
+
+| Issue | Area | Why it was a gate |
 | --- | --- | --- |
 | [#24](https://github.com/confighub/helm-expt/issues/24) Add artifact schema and receipt verifier | Proof integrity | Reviewers need machine verification that artifacts, hashes, and receipts are consistent. |
 | [#4](https://github.com/confighub/helm-expt/issues/4) Emit a HelmPlan pain report for each analyzed chart | HelmPlan | Every chart needs a visible pain/mitigation report before it can be trusted. |
@@ -190,3 +240,5 @@ When a GitHub issue is added, closed, or reclassified:
 - update `docs/independent-review-brief.md` if it changes review scope
 
 Do not let the written plan describe a proof path that ignores open P0 gates.
+When a P0 is about productization rather than current proof validity, say that
+explicitly rather than letting reviewers infer the proof corpus is broken.
