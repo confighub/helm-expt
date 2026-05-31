@@ -129,6 +129,20 @@ PVCs, API versions, release history, upgrade/install phase, and delete policy.
 ConfigHub does not pretend that live execution is deterministic. It makes that
 cluster dependence explicit before install.
 
+The top-500 source scan makes this concrete:
+
+```text
+54 / 495 scanned public charts use Helm hooks.
+42 / 54 hook charts look likely problematic for production lifecycle support.
+6 / 54 need review.
+6 / 54 look probably benign/test-only.
+```
+
+The risk estimate comes from stored hook details: phase, weight, delete policy,
+Jobs, CRDs, cluster RBAC, webhooks, APIServices, `lookup`, and generated-fact
+signals. The detailed strategy lives in
+[Hook Lifecycle Strategy](hook-lifecycle-strategy.md).
+
 During import, the harness must not execute hooks. It should inventory hook
 templates and record:
 
@@ -167,6 +181,11 @@ lifecycle policy, target-fact/preflight decision, execution-or-skip receipt,
 and observation receipt. A chart can still have a deterministic recipe and
 rendered object proof while its hook execution lane is blocked or not yet
 supported.
+
+For GitOps delivery, safe hook-like behavior may be translated into Argo CD
+sync hooks or sync waves, but only when the semantics match and the translation
+gets its own lifecycle receipt. Unsafe or unclear procedural hooks remain
+blockers.
 
 ## Recipe Or Variant?
 
@@ -268,6 +287,7 @@ human entry point for choosing charts and variants.
 ## Related Docs
 
 - Public mission and quick start: [README.md](../README.md)
+- Reviewer-facing short explanation: [how-the-harness-works.md](how-the-harness-works.md)
 - Customization placement algorithm: [customization-algorithm.md](customization-algorithm.md)
 - Current pathway review: [current-pathway-review.md](current-pathway-review.md)
 - Repo consistency review: [repo-consistency-review.md](repo-consistency-review.md)

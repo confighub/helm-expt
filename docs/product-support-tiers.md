@@ -115,6 +115,15 @@ metrics-server/default
 This tier should be easy to try without a private customer repository. It can
 prove the catalog recipe, package, rendered objects, and local live checks.
 
+Hook boundary:
+
+```text
+public catalog can inventory hooks and record disposition
+public catalog can support test-only hooks as explicit checks
+public catalog must block or defer unsafe lifecycle hooks until there is a
+hook/lifecycle receipt and observation strategy
+```
+
 What it does not try to absorb:
 
 ```text
@@ -198,6 +207,17 @@ This is the likely home for commercial or managed features: private chart
 analysis, customer overlay import, fleet variants, old-version patch support,
 custom scans, production dispositions, and operational receipts.
 
+This is also the likely home for managed hook and lifecycle work:
+
+```text
+private hook inventory
+install/upgrade/delete side-effect classification
+safe Argo/GitOps lifecycle translation where possible
+preflight and target-fact requirements
+upgrade/rollback receipts
+fresh observations after lifecycle execution
+```
+
 ## Tier 4 - Enterprise Fleet And Patch Operations
 
 This tier is not the current public proof, but it is part of the longer-term
@@ -226,6 +246,24 @@ Creator contract for preview/checks/receipts
 ConfigHub functions and gates for policy
 observation receipts for runtime truth
 ```
+
+Commercial lifecycle intelligence can sit here as a higher-level offer over the
+same artifacts:
+
+```text
+chart/version inventory
+known-risk and breaking-change analysis
+annotated rendered-object diffs
+upgrade project templates
+agent-ready remediation tasks
+policy and misconfiguration findings
+freshness-aware runtime observations
+audit-ready receipts
+```
+
+The key ConfigHub distinction is that the intelligence attaches to exact
+rendered variants and receipts, not only to abstract chart names or release
+notes.
 
 ## Decision Rule
 

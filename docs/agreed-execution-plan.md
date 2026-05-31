@@ -178,13 +178,15 @@ The written plan is tied to the GitHub backlog in
 Rules:
 
 ```text
-P0 issues are gates before credible 20/100/500 chart proof.
+P0 issues are gates for the scope they name.
 P1 issues are strong next proof.
 P2 issues preserve important design depth without blocking the first proof.
 ```
 
-Do not judge the plan as ready for at-scale proof while open P0 gates remain.
-Do not let planning docs hide or bypass open P0 issues.
+The original proof P0s are closed and verified. The current open P0 is about
+productizing Helm import into durable `cub installer` recipes. Do not let
+planning docs hide open P0s, but also do not let productization P0s imply that
+the current proof corpus is broken.
 
 Immediate execution order:
 
@@ -1359,6 +1361,14 @@ a live cluster. That execution can depend on RBAC, CRDs, admission webhooks,
 existing Secrets/ConfigMaps, StorageClasses, PVCs, API versions, release
 history, install versus upgrade phase, and hook delete policy.
 
+The top-500 source scan confirms this is a real, bounded category rather than a
+theoretical objection. Among 495 scanned charts, 54 used Helm hooks. A first-pass
+risk estimate puts 42 of those 54 in the likely-problematic lifecycle bucket, 6
+in needs-review, and 6 as probably benign/test-only. The stored evidence includes
+hook phases, weights, delete policies, Jobs, CRDs, cluster RBAC, webhooks,
+APIServices, `lookup`, and generated-fact signals. See
+[Hook Lifecycle Strategy](hook-lifecycle-strategy.md).
+
 Every hook must therefore be classified before production support:
 
 | Hook class | Required disposition |
@@ -1386,6 +1396,13 @@ This is the claim boundary:
 Helm equivalence proves selected rendered objects.
 Hook execution is proven only by hook/lifecycle receipts and live observations.
 ```
+
+Commercially, hooks are not a magic paid "execute hooks safely" feature. The paid
+value is managed lifecycle intelligence: hook inventories for private or old
+chart versions, install/upgrade/delete side-effect classification, safe
+Argo/GitOps lifecycle mapping where possible, preflight and target-fact
+requirements, upgrade/rollback receipts, observation evidence, and audit-ready
+explanations when behavior is blocked.
 
 ## Workerless Server Rule
 
@@ -1596,7 +1613,9 @@ Minimum docs:
 
 1. Redis is the first detailed, usable proof of concept.
 2. The old top-500 matrix stays as background design input only.
-3. The implementation should extend `confighub/installer`.
+3. The implementation path should use `cub installer` packages and the
+   `confighub/installer` substrate wherever those capabilities are genuinely
+   superior to docs or ad hoc scripts.
 4. The happy path should be `cub`-first and simple.
 5. ConfigHub variants are the product spine.
 6. Variant revision is the object users approve, scan, promote, deploy, and roll back.
@@ -1609,8 +1628,9 @@ Minimum docs:
     them.
 12. The new top-100/top-500 spreadsheets must be generated proof
     indexes / evidence maps, not proof by themselves.
-13. The P0 gates in `docs/issue-backlog.md` must be complete or deliberately
-    reclassified before claiming credible 20/100/500 chart proof.
+13. The original proof P0 gates are closed and verified. The remaining open P0
+    is the productization path for Helm import into durable `cub installer`
+    recipes; do not confuse that product gap with a broken proof corpus.
 14. The target proof is:
 
 ```text
