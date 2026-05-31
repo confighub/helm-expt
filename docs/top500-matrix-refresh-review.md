@@ -149,6 +149,8 @@ Recommended front-sheet columns:
 rank
 chart
 version
+latest_version
+currentness_status
 source_status
 recipe_status
 package_status
@@ -191,6 +193,43 @@ recipe_path
 package_path
 receipts_path
 ```
+
+The top-500 analysis should also record which lifecycle stage a chart has
+reached:
+
+```text
+source-scanned
+recipe-candidate
+package-generated
+variant-defined
+render-proved
+confighub-proved
+live-observed
+catalog-supported
+latest-refresh-needed
+```
+
+This keeps the public story honest. A chart can be interesting, popular, and
+source-scanned without being a supported ConfigHub catalog entry.
+
+## Website / Public Catalog Shape
+
+The top-500 data should become website input, not a raw spreadsheet-first
+experience. The website can show:
+
+```text
+chart
+supported proof version
+latest upstream version
+recommended first variant
+proof stage
+known Helm pain
+remaining production dispositions
+links to receipts
+```
+
+The raw matrix remains useful for reviewers and agents. Humans should see chart
+pages and variant pages generated from the same data.
 
 ## Rule
 

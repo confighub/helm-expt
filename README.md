@@ -168,6 +168,9 @@ data/live-e2e/summary.md
 
 data/production-disposition/summary.md
   What still has to be resolved before each chart can be production-promoted.
+
+data/latest-top20-refresh/summary.md
+  Which supported top-20 charts are current and which need new proof paths.
 ```
 
 ## Pick Your Path
@@ -402,6 +405,10 @@ data/live-e2e/
 data/production-disposition/
   What is still required before production support.
 
+data/latest-top20-refresh/
+  Latest top-20 version refresh snapshot plus Redis promotion and Kubara overlay
+  work orders.
+
 data/top500-catalog-analysis/
   Current top-500 analysis and proof index.
 ```
@@ -551,9 +558,10 @@ graphs, snapshots, and GitOps convergence evidence.
 
 ## Background Reading
 
-For the longer narrative behind this experiment, see `docs/blog-posts.md`. The
-README stays focused on why the project exists, what is proven, and how to try
-it.
+For the longer narrative behind this experiment, see `docs/blog-posts.md`. For
+the latest refresh plan, see `docs/latest-top20-refresh-plan.md`. For the shape
+of a dedicated public site, see `docs/dedicated-website-plan.md`. The README
+stays focused on why the project exists, what is proven, and how to try it.
 
 ## The Pitch
 
