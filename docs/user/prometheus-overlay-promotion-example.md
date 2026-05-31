@@ -1,30 +1,30 @@
-# Prometheus Overlay And Promotion Example
+# Prometheus Promotion Example
 
-This example shows how a Helm user can turn a standard Prometheus chart into
-reviewable variants.
+This example shows how to promote a reviewed Prometheus base into a production
+variant without rerendering Helm.
 
-The chart is already in the catalog:
-
-```text
-prometheus-community/prometheus@29.8.0
-```
-
-Catalog page:
+## Example
 
 ```text
-recipes/prometheus-community/prometheus/29.8.0/CATALOG.md
+Component: Prometheus
+Source chart: prometheus-community/prometheus@29.8.0
+Base variant: server-only-ephemeral
+Promotion variant: prod-us-east
+Target: monitoring-targets/prod-us-east
 ```
 
-The supported variants are:
+## Base Variant
 
-| Variant | Use |
-| --- | --- |
-| `default` | Full default Prometheus chart shape. |
-| `server-only-ephemeral` | Prometheus server only, with bundled components and persistence disabled. |
+The base variant is:
 
-## Overlay That Changes Rendered Objects
+```text
+Prometheus/server-only-ephemeral
+```
 
-The `server-only-ephemeral` variant is created from Helm-style values:
+It is produced by `cub installer`.
+
+It changes the rendered Kubernetes objects by disabling bundled components and
+persistence:
 
 ```yaml
 alertmanager:
@@ -40,12 +40,9 @@ server:
     enabled: false
 ```
 
-Those values change the rendered Kubernetes object set. Alertmanager,
-kube-state-metrics, node-exporter, pushgateway, and the server PVC disappear
-from the rendered output.
-
-That means this is a `cub installer` base variant, not a post-render ConfigHub
-clone.
+Those values remove Alertmanager, kube-state-metrics, node-exporter,
+pushgateway, and the server PVC from the rendered output. Because the YAML
+changes, this is a base variant.
 
 Run it:
 
@@ -58,14 +55,7 @@ cub installer setup \
   --namespace monitoring
 ```
 
-Inspect the exact objects:
-
-```sh
-ls .tmp/prometheus-server-only
-kubectl apply -f .tmp/prometheus-server-only/release/release-objects.yaml
-```
-
-When ConfigHub is available, upload the reviewed base:
+Upload the reviewed base when ConfigHub is available:
 
 ```sh
 cub installer upload \
@@ -73,7 +63,7 @@ cub installer upload \
   --space helm-prometheus-server-only
 ```
 
-The catalog proof records:
+The checked catalog proof records:
 
 ```text
 regular Helm objects: 6
@@ -81,58 +71,34 @@ cub installer objects: 7, including Namespace
 semantic object match: 6/6
 ```
 
-The important rule is:
+## Promotion Variant
+
+The promotion variant is:
 
 ```text
-Helm values overlay changes rendered objects
--> make or reuse a cub installer base variant
+Prometheus/prod-us-east
 ```
 
-Examples for Prometheus:
-
-| Change | Route |
-| --- | --- |
-| Disable bundled components | `cub installer` base variant |
-| Disable persistence | `cub installer` base variant |
-| Add remote write | usually `cub installer` base variant |
-| Change scrape config | usually `cub installer` base variant |
-| Change RBAC or ingress shape | `cub installer` base variant |
-
-## ConfigHub-Only Promotion Variant
-
-After the reviewed Prometheus base is uploaded, a user may need a production
-region variant without changing the rendered Kubernetes objects.
-
-Example:
+It is created from:
 
 ```text
-From: prometheus/server-only-ephemeral
-Create: prometheus/prod-us-east
-Change only:
-  target = monitoring-targets/prod-us-east
-  environment label = prod
-  region label = us-east
-  approval gate = production-review
-  observation freshness = 15m
-Do not change:
-  Prometheus components
-  persistence
-  scrape config
-  RBAC
-  rendered Kubernetes objects
+Prometheus/server-only-ephemeral
 ```
 
-The current real primitive is `cub variant create`.
+It changes only the operating context:
 
-The thing being varied is the uploaded ConfigHub Space:
-
-```text
-upstream space: helm-prometheus-server-only
-source variant: prometheus/server-only-ephemeral
+```yaml
+environment: Prod
+region: us-east
+target: monitoring-targets/prod-us-east
+approvalGate: production-review
+observationFreshness: PT15M
 ```
 
-If the target is not in the current space, use the explicit
-`<space-slug>/<target-slug>` form for `--target`.
+It does not rerender Helm. It does not change Prometheus components,
+persistence, scrape config, RBAC, ingress, or object count.
+
+The current command shape is:
 
 ```sh
 cub variant create prod-us-east helm-prometheus-server-only \
@@ -144,180 +110,49 @@ cub variant create prod-us-east helm-prometheus-server-only \
   --unit-destroy-gate production-review
 ```
 
-This clones the upstream Space and Units into a downstream Space. The new Space
-gets `Variant=prod-us-east`, the cloned Units keep upstream links back to the
-source Units, and ConfigHub can show the relationship as a promotion graph:
+## User UX
 
-```text
-Prometheus/server-only-ephemeral -> Prometheus/prod-us-east
-```
-
-This production variant can be created before OCI delivery if `prod-us-east` is
-the exact operating context that Argo CD, Flux, or another delivery path should
-consume. In that case the reviewed downstream variant, not the generic base,
-is the thing to publish or apply for production.
-
-The exact presentation below is a proposed UX shape for ConfigHub's component
-and promotion views. It is not a claim that the product already displays this
-table.
-
-| ConfigHub object | Source base | Production variant |
-| --- | --- | --- |
-| Space | `helm-prometheus-server-only` | derived from `Component` and `Variant` labels, for example `prometheus-prod-us-east` |
-| Component label | `Prometheus` | `Prometheus` |
-| Variant label | `server-only-ephemeral` | `prod-us-east` |
-| Units | same rendered object set | cloned Units |
-| Promotion edge | source Unit | cloned Unit with `UpstreamUnitID` |
-| Target | none or validation target | `prod-us-east` |
-| Gates | source gates | production delete/destroy gates |
-
-The proposed higher-level Creator UX should sit on top of the real
-`cub variant create` primitive:
+The user should see something like this:
 
 ```text
 Create variant
-From: prometheus/server-only-ephemeral
+From: Prometheus/server-only-ephemeral
 For: prod-us-east
 Change: target, environment, region, production gates, observation policy
-Review: same Prometheus install shape, new production operating context
+Review: same Prometheus object set, new production operating context
 Status: ready to create
 Create
 ```
 
-The first screen should stay close to the user's intent. It should not require
-the user to understand receipt types, object digests, or internal check names.
-The system still checks that the rendered object set did not change, the Unit
-count is preserved, upstream links remain intact, and scan disposition is
-carried forward. Those details belong in expandable details, receipts, CI, and
-audit views.
+That is the whole user story.
 
-The primitive exists today. The guided preview/check/receipt experience is
-product porcelain that still needs implementation.
-
-## Before OCI Delivery
-
-For this Prometheus example, the delivery route is:
+The detailed checks can stay in the review details, CI, receipts, or audit
+views:
 
 ```text
-server-only-ephemeral changes rendered objects
--> use cub installer base variant
--> upload reviewed base to ConfigHub
--> create prod-us-east as a derived ConfigHub variant
--> set target, labels, gates, and observation policy
--> publish or apply the reviewed prod-us-east variant
+same rendered object digest
+same Unit count
+upstream links preserved
+scan warning carried forward
+production gate applied
 ```
 
-Do not publish `server-only-ephemeral` and then rely on an untracked GitOps
-patch to turn it into production. If production needs different Kubernetes
-objects, create another `cub installer` base. If production only needs
-different operating context, create a derived ConfigHub variant first and use
-that reviewed variant for delivery.
+## Delivery
 
-## Proposed AX Shape
-
-An agent should receive the same scenario as structured work, not as a loose
-prompt. This is a proposal for the agent-facing contract over the same
-primitive:
-
-```yaml
-task: create_config_only_variant
-from:
-  component: Prometheus
-  variant: server-only-ephemeral
-  space: helm-prometheus-server-only
-blueprint: environment-clone
-parameters:
-  variant: prod-us-east
-  environment: Prod
-  region: us-east
-  target: monitoring-targets/prod-us-east
-  approvalGate: production-review
-  observationFreshness: PT15M
-allowedChanges:
-  - space labels
-  - target assignment
-  - unit delete gates
-  - unit destroy gates
-  - observation policy metadata
-requiredChecks:
-  - no-helm-rerender
-  - rendered-object-digest-unchanged
-  - upstream-links-preserved
-  - unit-count-preserved
-  - scan-warning-carried-forward
-expectedReceipts:
-  - clone
-  - mutation
-  - checks
-```
-
-The agent must route the request back to `cub installer` if the requested
-change touches Prometheus components, persistence, scrape config, RBAC, ingress,
-or any other rendered object field.
-
-## Proposed FX Shape
-
-The same Creator contract should also work as a function over one row or many
-rows. This is a proposal for a fleet-oriented form:
-
-```yaml
-function: ConfigHubVariantCreator(parameters) -> ConfigHubVariant + receipts
-from:
-  component: Prometheus
-  variant: server-only-ephemeral
-  space: helm-prometheus-server-only
-matrix:
-  - variant: prod-us-east
-    environment: Prod
-    region: us-east
-    target: monitoring-targets/prod-us-east
-    approvalGate: production-review
-    observationFreshness: PT15M
-  - variant: prod-eu-west
-    environment: Prod
-    region: eu-west
-    target: monitoring-targets/prod-eu-west
-    approvalGate: production-review
-    observationFreshness: PT15M
-invariants:
-  - rendered object digest is unchanged for every row
-  - each downstream Space keeps Component=Prometheus
-  - each downstream Space gets its own Variant label
-  - cloned Units keep upstream links to source Units
-  - failed rows do not create trusted variants
-summary:
-  output: fleet receipt with one result per row
-```
-
-This keeps UX, AX, and FX aligned:
+For production delivery, use the reviewed production variant:
 
 ```text
-Human: guided Creator flow
-Agent: structured task with required checks
-Function: same contract mapped over a matrix
+Prometheus/server-only-ephemeral
+  -> Prometheus/prod-us-east
+  -> publish or apply prod-us-east
 ```
 
-## Promotion After The Base Changes
+Do not publish the generic base and rely on an untracked GitOps patch to turn
+it into production.
 
-Later, the source base may change. For example, a new reviewed Prometheus base
-revision may update a Deployment image, ConfigMap, RBAC rule, or scan
-disposition.
+## When To Go Back To The Base
 
-ConfigHub can then show:
-
-```text
-prod-us-east is behind server-only-ephemeral
-upstream Unit revisions are available
-local production differences are visible
-production-review gate is required
-```
-
-The user reviews exact Unit diffs and promotes approved upstream revisions into
-`prod-us-east`. This is different from running Helm again in production.
-
-## Boundary
-
-Use `cub installer` when the requested change affects the rendered object set:
+If the request changes any of these, create or update a base variant:
 
 ```text
 Prometheus components
@@ -330,8 +165,7 @@ network policy
 object count
 ```
 
-Use ConfigHub variants when the requested change refines already-rendered
-Units:
+If the request changes any of these, create a derived ConfigHub variant:
 
 ```text
 target
@@ -344,5 +178,33 @@ observation policy
 promotion relationship
 ```
 
-This keeps Helm-style customization available while making each overlay
-explicit, reviewable, scannable, and provable.
+## Bulk Promotion Shape
+
+The same pattern can be repeated for several production targets:
+
+```yaml
+from:
+  component: Prometheus
+  variant: server-only-ephemeral
+rows:
+  - variant: prod-us-east
+    environment: Prod
+    region: us-east
+    target: monitoring-targets/prod-us-east
+  - variant: prod-eu-west
+    environment: Prod
+    region: eu-west
+    target: monitoring-targets/prod-eu-west
+checks:
+  - rendered object set is unchanged
+  - each row has a target
+  - each row has production gates
+```
+
+## Checked Files
+
+The checked Prometheus catalog page is:
+
+```text
+recipes/prometheus-community/prometheus/29.8.0/CATALOG.md
+```

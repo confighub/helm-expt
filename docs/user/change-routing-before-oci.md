@@ -5,6 +5,10 @@ which changes belong in a derived ConfigHub variant, and which checks or
 bindings must be completed before publishing an OCI artifact for Kubernetes
 delivery.
 
+For the short guide to creating variants through human, AI assistant, and bulk
+flows, see
+[Creating Variants](./creating-variants.md).
+
 ## Three Decisions
 
 Before delivery, ask three questions in order.
@@ -61,8 +65,8 @@ Use a derived variant for:
 - observation policy and freshness expectations;
 - links between Units and external inputs;
 - placeholder or TransformPaths fills where the rendered fields already exist;
-- narrow ConfigHub function mutations that are part of the approved Creator
-  contract and do not change the install shape unexpectedly.
+- narrow ConfigHub function changes that are approved for this component and do
+  not change the install shape unexpectedly.
 
 The output is a downstream ConfigHub Space and Unit set that can be reviewed,
 published, approved, applied, and observed.
@@ -151,4 +155,3 @@ or:
 This is a delivery prerequisite. It must be satisfied or recorded before the
 OCI artifact is used by Kubernetes.
 ```
-

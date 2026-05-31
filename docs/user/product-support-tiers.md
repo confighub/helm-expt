@@ -44,7 +44,7 @@ no private repo, org, or production-state upload required
 ```
 
 The user should not need to create an org, upload private data, or onboard to
-ConfigHub just to try Redis. But the gateway can still require authenticated
+ConfigHub to try Redis. The gateway can still require authenticated
 pulls, quotas, and signatures.
 
 Practical access model:
@@ -58,7 +58,7 @@ Practical access model:
 | Use Argo CD / Flux | user creates a Kubernetes pull Secret from the read-only token | controller can authenticate to OCI without a browser cookie |
 | Create private variants or production records | full ConfigHub account/org | managed variants, approvals, receipts, scans, audit, support |
 
-Why not just a browser cookie? It helps the web flow, but OCI clients and
+Why not only a browser cookie? It helps the web flow, but OCI clients and
 GitOps controllers usually need registry credentials or a Kubernetes pull
 Secret. So the low-friction path can start anonymously in the browser, but the
 actual artifact pull should use a scoped, read-only credential when ConfigHub is
@@ -145,7 +145,7 @@ Supported shape:
 reviewed cub installer base
 uploaded ConfigHub Units
 cub variant create downstream clone/link
-Creator contract for fill values, preview, checks, and receipts
+guided variant creation for fill values, review, checks, and receipts
 ConfigHub functions, gates, approvals, changesets, and observations
 ```
 
@@ -161,12 +161,12 @@ policy gates
 approval and observation requirements
 ```
 
-This tier is where the Creator UX/AX/FX belongs:
+This tier is where guided variant creation belongs:
 
 ```text
-Human: guided Creator flow
-Agent: structured create_variant task
-Fleet: blueprint over a parameter matrix
+Human: guided create flow
+AI assistant: structured create_variant task
+Bulk job: one creation pattern over many rows
 ```
 
 ## Tier 3 - Managed Overlay Import
@@ -242,7 +242,7 @@ This tier should still use the same primitives:
 ```text
 cub installer for render-time truth
 cub variant create for clone/link
-Creator contract for preview/checks/receipts
+guided variant creation for preview/checks/receipts
 ConfigHub functions and gates for policy
 observation receipts for runtime truth
 ```

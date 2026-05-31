@@ -3,10 +3,15 @@
 This document defines how a Helm-user customization becomes a ConfigHub
 variant, and where each piece of new information belongs.
 
-For the full chart-to-recipe harness, including the canonical "where pieces go"
+For the full chart-to-recipe workflow, including the main "where pieces go"
 table, see [Introduction To The Harness](./introduction-to-the-harness.md).
+For the short guide to variant creation through human, AI assistant, and bulk
+flows, see
+[Creating Variants](./creating-variants.md).
 For a concrete chart walkthrough, see
 [Prometheus Overlay And Promotion Example](./prometheus-overlay-promotion-example.md).
+For wrapper charts, platform values, and customer values, see
+[Custom Overlays](./custom-overlays.md).
 For the delivery boundary, see
 [Choosing Base Variants, Derived Variants, And Delivery Changes](./change-routing-before-oci.md).
 
@@ -36,12 +41,12 @@ A customization request can arrive from:
 This project must support all common Helm customization inputs, but not by
 flattening them into one vague "variant" bucket.
 
-| Input style | Supported route | Proof requirement |
+| Input style | Supported route | What gets checked |
 | --- | --- | --- |
 | Helm values file or `--set` | Recipe/base variant when it changes rendered objects; ConfigHub variant only when it fills an already-rendered field | effective values digest, render diff, Helm equivalence receipt when expected |
 | Umbrella chart or wrapper chart | Recipe import unit | source/dependency locks for wrapper and subcharts |
 | Platform values | Managed default in the recipe/base | effective values digest and field provenance |
-| Customer overlay values | Recipe/base if rendered into objects; Creator contract if binding already-rendered placeholders/fields | overlay digest, target-fact binding, or mutation receipt |
+| Customer overlay values | Recipe/base if rendered into objects; ConfigHub variant if binding already-rendered placeholders/fields | overlay digest, target-fact binding, or mutation receipt |
 | Kustomize overlay/patch | Recipe/base overlay when it changes install shape; post-render ConfigHub mutation only for narrow editable fields | overlay digest, object diff, MutationSources |
 | Post-renderer/script | Pinned function stage or reject | tool digest, function-chain receipt, diff |
 | Live cluster input | target fact, preflight, or observation receipt | fact snapshot/digest and freshness |
@@ -199,7 +204,7 @@ surface changes.
 | Public chart with supported base variants | Public catalog proof | The repo can publish recipe/package artifacts, receipts, and local live proof. |
 | Environment or region clone from a reviewed uploaded base | ConfigHub managed variants | Needs ConfigHub Spaces, Units, upstream links, gates, and receipts. |
 | Wrapper chart plus platform values plus customer overlay values | Managed overlay import | Needs private/customer inputs, render context capture, ConfigHub Server, and usually managed/commercial workflows. |
-| Fleet of many customer/environment variants | Enterprise fleet operations | Needs Creator contract over a matrix, promotion waves, checks, observations, and support disposition. |
+| Fleet of many customer/environment variants | Enterprise fleet operations | Needs bulk creation, promotion waves, checks, observations, and support disposition. |
 
 See [Product Support Tiers For Helm Scenarios](./product-support-tiers.md).
 

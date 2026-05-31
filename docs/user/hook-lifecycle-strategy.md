@@ -4,7 +4,7 @@ Helm hooks are not ordinary rendered configuration. They are lifecycle actions
 that Helm may run before, during, or after install, upgrade, test, rollback, or
 delete phases.
 
-The doctrine is:
+The rule is:
 
 ```text
 Do not execute Helm hooks during recipe import.
@@ -118,8 +118,8 @@ Suggested mapping:
 | hook delete policy | Argo hook delete policy or explicit cleanup/rollback policy. |
 | unsafe side effect | Block until reviewed. |
 
-Argo translation is not automatic doctrine. It is one implementation strategy
-that must produce lifecycle receipts and observations.
+Argo translation is not automatic. It is one implementation strategy that must
+produce lifecycle receipts and observations.
 
 ## Managed / Commercial Strategy
 
@@ -172,4 +172,3 @@ For any catalog-supported chart with hooks:
   blocked, or supported by live lifecycle receipts.
 - if translated to Argo/GitOps lifecycle, the mapping has its own receipt and
   live observation when cluster behavior matters.
-

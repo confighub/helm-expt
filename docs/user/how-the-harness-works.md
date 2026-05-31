@@ -25,7 +25,7 @@ reviewed and checked.
 | Compare | Teams often review values instead of exact objects. | Helm-equivalence receipt and classified differences. | Approval is based on Kubernetes objects. |
 | Review and scan | YAML review is noisy and scans can drift from the install output. | Object inventory, rendered scans, gates bound to manifest digests. | Misconfig checks run on the exact output. |
 | Upload and manage | Helm release history is limited as a governance record. | ConfigHub Units, labels, revisions, links, receipts. | Teams can diff, search, approve, and audit config. |
-| Create downstream variants | Copying values files across environments loses provenance. | `cub variant create` clone/link plus the Creator contract. | Environment, region, and customer variants can be previewed and checked. |
+| Create downstream variants | Copying values files across environments loses provenance. | `cub variant create` clone/link plus guided variant creation. | Environment, region, and customer variants can be previewed and checked. |
 | Deploy or hand off to GitOps | Desired, applied, and live state blur together. | OCI/GitOps handoff plus apply, publish, and observation receipts. | Teams know what was handed off and what was observed. |
 | Observe live state | Observation freshness decays. | cub-scout, GitOps, or controller receipts with timestamps and TTL. | Evidence has an explicit freshness boundary. |
 | Upgrade, patch, or roll back | Chart drift and release-state coupling make day-2 changes risky. | Upgrade/rollback receipts, production dispositions, legacy patch review. | Change is managed as a proven variant revision. |
@@ -189,7 +189,7 @@ upload receipts
 function-scan receipts
 safe-ops receipts
 server-side variant clone receipts
-Variant Creator contract docs
+variant creation guidance
 ```
 
 Current implementation:
@@ -234,7 +234,7 @@ Current implementation:
 
 ```text
 local kind live/e2e receipts for top-20
-workerless observation doctrine
+workerless observation guidance
 additional cub-scout lane referenced for deeper runtime proof
 ```
 
@@ -269,7 +269,7 @@ legacy patch review
 latest top-20 refresh snapshot
 latest top-20 candidate proofs
 wave-2 variant work orders
-commercial support-tier doctrine
+commercial support-tier guidance
 ```
 
 Current implementation:
@@ -347,9 +347,9 @@ support in `cub installer` and Creator flows over `cub variant create`.
 ```text
 If it changes rendered Kubernetes objects, route through cub installer.
 If it refines already-rendered ConfigHub Units, use cub variant create plus the
-Creator contract.
+guided variant creation.
 If it depends on live cluster state, require target facts, preflight,
 lifecycle receipts, or fresh observations.
 If it is chart-specific pain, record it in helm-pain-report.yaml.
-If it is a general pattern, put it in the harness/product doctrine.
+If it is a general pattern, put it in the maintained product guidance.
 ```
