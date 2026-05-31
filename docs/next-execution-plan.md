@@ -67,7 +67,7 @@ manual, or script-only.
 The overlay doctrine adds one more roadmap constraint:
 
 ```text
-First try should be possible without signup for public signed artifacts.
+First try should be possible without full product signup for public signed artifacts.
 Public chart base variants stay in the public catalog proof.
 Post-render environment/customer variants require ConfigHub Server.
 Wrapper charts plus customer overlays are managed overlay imports and are not
@@ -109,7 +109,7 @@ into a reusable `cub` capability.
 | P1 ask | `cub observe` or `cub target observe` | Gives workerless ConfigHub a clean observation receipt path. |
 | P2 ask | `cub catalog search/show/install` | Makes the public catalog first-run UX simple after the proof shape is stable. |
 
-### No-Signup Standalone Lane
+### Low-Friction Standalone Lane
 
 Ilya's feedback adds a top-of-funnel requirement:
 
@@ -122,24 +122,30 @@ Target:
 ```text
 public catalog entry
 public signed package / OCI artifact
+authenticated or rate-limited public pull
 user-owned cluster
 optional Argo CD or Flux OCI sync
 local verification receipt
 ```
 
-Signup boundary:
+Signup and auth boundary:
 
 ```text
-No signup for trying public catalog artifacts.
-Signup for private charts, private overlays, server-side variants, production
-approvals, managed receipts, fleet operations, and patch/support workflows.
+No full product signup for trying public catalog artifacts.
+Authenticated/rate-limited public pulls are acceptable for abuse prevention.
+Artifact signatures and digest verification are required for trust.
+Browser cookies help the web catalog, but OCI/GitOps needs pull credentials.
+Full signup for private charts, private overlays, server-side variants,
+production approvals, managed receipts, fleet operations, and patch/support
+workflows.
 ```
 
 Acceptance:
 
-- README explains the no-signup path as a product target without overclaiming
-  current automation.
-- Product tiers include a Tier 0 standalone try path.
+- README explains the low-friction path as a product target without overclaiming
+  current automation or promising an unauthenticated gateway.
+- Product tiers include a Tier 0 standalone try path with auth/rate-limit and
+  signature expectations.
 - GitOps/OCI examples stay honest about what is local proof, what is live
   controller proof, and what requires ConfigHub Server.
 

@@ -47,7 +47,7 @@ Day 1: create variants deliberately and compare the rendered results.
 Day 2: scan, promote, observe, upgrade, and audit with receipts.
 ```
 
-The first experience should not require a signup. The target shape is:
+The first experience should not require full product signup. The target shape is:
 
 ```text
 public chart
@@ -56,9 +56,16 @@ public chart
 -> local verification receipt
 ```
 
-Sign up becomes useful when the user wants private charts, private overlays,
-server-side variants, production approvals, managed receipts, or fleet
-operations.
+If ConfigHub provides the public OCI gateway, public pulls may still be
+authenticated, rate-limited, and signature-verified so the service is not an
+unauthenticated firehose. Full signup becomes useful when the user wants
+private charts, private overlays, server-side variants, production approvals,
+managed receipts, or fleet operations.
+
+In practice: browse the catalog anonymously; use a lightweight read-only pull
+token for public OCI artifacts; verify signatures and digests locally; create a
+full ConfigHub account only when you want ConfigHub to manage private or
+production state.
 
 ## Why
 

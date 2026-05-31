@@ -4,7 +4,7 @@ This document explains which Helm scenarios this project is trying to support
 at which product tier. Names may change; the boundary matters more than the
 labels.
 
-## Tier 0 - No-Signup Standalone Try
+## Tier 0 - Low-Friction Standalone Try
 
 This is the desired first user experience: closer to `helm install redis` than
 to "sign up for a platform."
@@ -14,7 +14,7 @@ Supported shape:
 ```text
 public chart catalog
 public signed OCI artifact or package
-no ConfigHub account required
+lightweight authenticated or rate-limited public pull
 user-owned Kubernetes cluster
 optional Argo CD or Flux OCI sync
 local proof receipts
@@ -28,6 +28,41 @@ inspect the rendered objects before apply
 sync through an in-cluster OCI-capable GitOps controller
 run local verification against the user's cluster
 ```
+
+Low-friction does **not** mean an unauthenticated public firehose. If ConfigHub
+provides the OCI gateway, it should protect the service from spam, scraping,
+and DDoS:
+
+```text
+read-only public tokens or lightweight login
+rate limits and abuse controls
+short-lived credentials where practical
+artifact digests pinned in the public catalog
+signatures on published artifacts
+client-side signature verification
+no private repo, org, or production-state upload required
+```
+
+The user should not need to create an org, upload private data, or onboard to
+ConfigHub just to try Redis. But the gateway can still require authenticated
+pulls, quotas, and signatures.
+
+Practical access model:
+
+| Step | UX | Control |
+| --- | --- | --- |
+| Browse catalog | anonymous web access | CDN/WAF/IP rate limits, crawler controls |
+| Copy first command | anonymous session cookie is OK for web UX | cookie only protects the website, not OCI clients |
+| Pull public OCI artifact | read-only public pull token, device-code login, or email magic-link token | registry auth, quotas, revocation, abuse detection |
+| Verify artifact | client checks digest/signature from public catalog | signature and digest proof, no trust in transport alone |
+| Use Argo CD / Flux | user creates a Kubernetes pull Secret from the read-only token | controller can authenticate to OCI without a browser cookie |
+| Create private variants or production records | full ConfigHub account/org | managed variants, approvals, receipts, scans, audit, support |
+
+Why not just a browser cookie? It helps the web flow, but OCI clients and
+GitOps controllers usually need registry credentials or a Kubernetes pull
+Secret. So the low-friction path can start anonymously in the browser, but the
+actual artifact pull should use a scoped, read-only credential when ConfigHub is
+paying for the gateway.
 
 This tier is for first contact and trust building. It should answer:
 
@@ -49,8 +84,8 @@ managed patch SLAs
 fleet operations
 ```
 
-Account signup begins to make sense when the user wants ConfigHub to store and
-govern private variants, receipts, target assignments, approvals, scans,
+Full product signup begins to make sense when the user wants ConfigHub to store
+and govern private variants, receipts, target assignments, approvals, scans,
 production history, or team/fleet workflows.
 
 ## Tier 1 - Public Catalog Proof
