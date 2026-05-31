@@ -107,6 +107,14 @@ If it refines already-rendered ConfigHub Units, make it a ConfigHub variant
 using cub variant create plus the Creator contract.
 ```
 
+Before OCI delivery, users need to make three separate decisions:
+
+| Question | Use | Examples |
+| --- | --- | --- |
+| Does this change rendered Kubernetes objects? | `cub installer` base variant | values files, component on/off, storage, ingress, CRDs, RBAC, Kustomize patches that change objects |
+| Does this only change how a reviewed object set is operated? | derived ConfigHub variant | target, environment, region, labels, gates, observation policy, links, allowed placeholder fills |
+| Is this required before Kubernetes or GitOps can use the artifact? | delivery prerequisite or receipt | existing Secret, StorageClass, IngressClass, CRD owner, GitOps pull secret, OCI digest/signature, hook/lifecycle decision |
+
 Examples:
 
 | Customization | Route |
@@ -121,6 +129,8 @@ For the detailed algorithm, see
 [Customization Algorithm](./docs/user/customization-algorithm.md). For the product
 tier boundaries, see
 [Product Support Tiers For Helm Scenarios](./docs/user/product-support-tiers.md).
+For the OCI delivery boundary, see
+[Choosing Base Variants, Derived Variants, And Delivery Changes](./docs/user/change-routing-before-oci.md).
 For Helm hooks specifically, see
 [Hook Lifecycle Strategy](./docs/user/hook-lifecycle-strategy.md).
 
@@ -138,7 +148,7 @@ recipe promotion work.
 The current top-20 live proof means:
 
 ```text
-rendered ConfigHub/cub-install objects
+rendered cub installer objects
 -> kubectl apply to local kind
 -> rollout/object checks pass
 -> observation receipt is committed and verified
