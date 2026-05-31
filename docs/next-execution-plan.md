@@ -67,6 +67,7 @@ manual, or script-only.
 The overlay doctrine adds one more roadmap constraint:
 
 ```text
+First try should be possible without signup for public signed artifacts.
 Public chart base variants stay in the public catalog proof.
 Post-render environment/customer variants require ConfigHub Server.
 Wrapper charts plus customer overlays are managed overlay imports and are not
@@ -107,6 +108,40 @@ into a reusable `cub` capability.
 | P1 ask | `cub variant list/diff/promote/update` and Creator-aware preview/check surfaces over `cub variant create` | Completes the server-side variant lifecycle around the existing clone/link command. |
 | P1 ask | `cub observe` or `cub target observe` | Gives workerless ConfigHub a clean observation receipt path. |
 | P2 ask | `cub catalog search/show/install` | Makes the public catalog first-run UX simple after the proof shape is stable. |
+
+### No-Signup Standalone Lane
+
+Ilya's feedback adds a top-of-funnel requirement:
+
+```text
+Make the first experience feel like helm install redis, not platform signup.
+```
+
+Target:
+
+```text
+public catalog entry
+public signed package / OCI artifact
+user-owned cluster
+optional Argo CD or Flux OCI sync
+local verification receipt
+```
+
+Signup boundary:
+
+```text
+No signup for trying public catalog artifacts.
+Signup for private charts, private overlays, server-side variants, production
+approvals, managed receipts, fleet operations, and patch/support workflows.
+```
+
+Acceptance:
+
+- README explains the no-signup path as a product target without overclaiming
+  current automation.
+- Product tiers include a Tier 0 standalone try path.
+- GitOps/OCI examples stay honest about what is local proof, what is live
+  controller proof, and what requires ConfigHub Server.
 
 ## P0 Gates
 

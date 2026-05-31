@@ -4,6 +4,55 @@ This document explains which Helm scenarios this project is trying to support
 at which product tier. Names may change; the boundary matters more than the
 labels.
 
+## Tier 0 - No-Signup Standalone Try
+
+This is the desired first user experience: closer to `helm install redis` than
+to "sign up for a platform."
+
+Supported shape:
+
+```text
+public chart catalog
+public signed OCI artifact or package
+no ConfigHub account required
+user-owned Kubernetes cluster
+optional Argo CD or Flux OCI sync
+local proof receipts
+```
+
+Good examples:
+
+```text
+try Redis from a public signed artifact
+inspect the rendered objects before apply
+sync through an in-cluster OCI-capable GitOps controller
+run local verification against the user's cluster
+```
+
+This tier is for first contact and trust building. It should answer:
+
+```text
+Can I try this as easily as Helm?
+Can I see exactly what it will install?
+Can I verify it without giving ConfigHub my private repo or production state?
+```
+
+What it should not try to absorb:
+
+```text
+private charts
+private values files
+server-side variant creation
+team approvals
+production audit history
+managed patch SLAs
+fleet operations
+```
+
+Account signup begins to make sense when the user wants ConfigHub to store and
+govern private variants, receipts, target assignments, approvals, scans,
+production history, or team/fleet workflows.
+
 ## Tier 1 - Public Catalog Proof
 
 This is the current public `helm-expt` proof.

@@ -118,6 +118,7 @@ Current ladder:
 
 | Stage | Status | Shape |
 | --- | --- | --- |
+| No-signup standalone try | Near-term product target | Public signed package or OCI artifact can be pulled by a user into their own cluster or OCI-capable GitOps controller without a ConfigHub account. Local verification receipts prove what happened. |
 | Public catalog and proof repo | Current focus | Recipes, HelmPlans, dossiers, examples, top-500 evidence, and reproducible scripts live on the public ConfigHub GitHub surface, currently `confighub/helm-expt`. |
 | Fast install | Current focus | `cub installer` uses verified catalog content and ConfigHub's OCI endpoint to create/publish install artifacts that existing delivery tools can consume. |
 | Managed variants | Current focus | ConfigHub Server stores and governs recipes, variants, variant revisions, receipts, approvals, scans, gates, and operation history. |
@@ -126,15 +127,17 @@ Current ladder:
 This keeps the demo honest:
 
 ```text
+First try should not require signup.
 Fast install depends on ConfigHub's OCI endpoint.
 GitHub is the public catalog/proof surface.
 Pure serverless is optional future work, not part of the current proof.
 ```
 
-Product tiering is explicit. Public chart recipes and local proof are the open
-catalog lane. ConfigHub managed variants require ConfigHub Server. Kubara-style
-wrapper charts plus customer overlays are a managed overlay import lane and
-may become commercial/managed product work. See
+Product tiering is explicit. No-signup standalone try is the top-of-funnel
+lane for public signed artifacts. Public chart recipes and local proof are the
+open catalog lane. ConfigHub managed variants require ConfigHub Server.
+Kubara-style wrapper charts plus customer overlays are a managed overlay import
+lane and may become commercial/managed product work. See
 [Product Support Tiers For Helm Scenarios](product-support-tiers.md).
 
 ## Main Pathway Boundary
