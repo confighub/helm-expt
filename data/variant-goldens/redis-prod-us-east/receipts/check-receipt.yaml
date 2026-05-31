@@ -1,0 +1,35 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantCreatorCheckReceipt"
+metadata:
+  name: "redis-prod-us-east-checks"
+spec:
+  sourceRevision: "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml"
+  contractDigest: "sha256:5a3cb41bd575d316c785f1fd0b8515c7b35f917dbe12639bca54d236241ac2fc"
+  checks:
+    -
+      name: "source-revision-bound"
+      result: "pass"
+      evidence: "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml"
+    -
+      name: "no-hidden-helm-rerender"
+      result: "pass"
+      evidence: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+    -
+      name: "unit-count-preserved"
+      result: "pass"
+      expected: 15
+      observed: 15
+    -
+      name: "redis-secret-mode-preserved"
+      result: "pass"
+      expected: "generated-secret"
+      observed: "generated-secret"
+    -
+      name: "existing-secret-request-routes-back-to-installer"
+      result: "pass"
+      evidence: "receipts/route-back-receipt.yaml"
+    -
+      name: "scan-disposition-carried-forward"
+      result: "warn"
+      evidence: "recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/scan-receipt.yaml"
+  result: "golden-pass-with-carried-scan-warning"

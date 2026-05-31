@@ -32,9 +32,9 @@ Variant Creator
 From: redis/default
 Blueprint: Environment clone
 Target: prod-us-east
-Fill: namespace, Redis secret reference
-Preview: 14 Units, 3 changed paths, 1 link changed
-Checks: pass
+Fill: namespace, target, Redis Secret mode
+Preview: 15 Units, 3 changed paths, 1 link changed
+Checks: pass with carried scan warning
 Create
 ```
 
@@ -58,7 +58,7 @@ From -> Blueprint -> Target -> Fill -> Preview -> Checks -> Create
 | Changes stay inside allowed Units, paths, links, labels, annotations, targets, and gates. | Prevents hidden broad mutation. |
 | Required fill values are resolved. | Prevents half-created variants. |
 | Required target facts are bound, checked, or explicitly deferred with a receipt. | Keeps target-specific assumptions visible. |
-| If a choice changes rendered Kubernetes objects, the request routes back to `cub installer`. | Prevents hidden Helm rerenders in post-render variant creation. |
+| If a choice requires a different Helm render, the request routes back to `cub installer`. | Prevents hidden Helm rerenders in post-render variant creation. |
 | Every mutation has a path-level explanation. | Makes "what changed and why" reviewable. |
 | Successful runs leave clone, mutation, check, and approval/apply/observation receipts as applicable. | Makes the operation auditable. |
 | Failed runs explain the failing check and do not leave a trusted variant. | Keeps failure safe and usable. |
@@ -93,9 +93,9 @@ Variant Creator
 From: redis/default
 Blueprint: Environment clone
 Target: prod-us-east
-Fill: namespace, Redis secret reference
-Preview: 14 Units, 3 changed paths, 1 link changed
-Checks: pass
+Fill: environment=prod, region=us-east, namespace=redis-prod, target=prod-us-east
+Preview: 15 Units, 3 changed paths, 1 link changed
+Checks: pass with carried Redis scan warning
 Create
 ```
 
@@ -108,15 +108,18 @@ blueprint: environment-clone
 target: prod-us-east
 fill:
   namespace: redis-prod
-  redisSecretRef: redis-existing-secret
+  redisSecretMode: preserve-generated-secret-reference
 requiredChecks:
-  - no-unresolved-placeholders
-  - target-facts-satisfied
-  - unit-diff-reviewed
+  - source-revision-bound
+  - no-hidden-helm-rerender
+  - unit-count-preserved
+  - redis-secret-mode-preserved
+  - existing-secret-request-routes-back-to-installer
 expectedReceipts:
   - clone
   - mutations
   - checks
+  - route-back
 ```
 
 FX function-based form:
@@ -127,14 +130,33 @@ blueprint: environment-clone
 rows:
   - target: prod-us-east
     namespace: redis-prod-use1
-    redisSecretRef: redis-existing-secret
+    redisSecretMode: preserve-generated-secret-reference
   - target: prod-eu-west
     namespace: redis-prod-euw1
-    redisSecretRef: redis-existing-secret
+    redisSecretMode: preserve-generated-secret-reference
 ```
 
 The field names may change later. The verification requirement should not:
 equivalent inputs must produce equivalent previews, checks, and receipts.
+
+The Redis default base must not silently become the existing-Secret base. A
+request to use `redis-existing-secret` routes back to the maintained
+`reuse-existing-secret` base or to a new `cub installer` render.
+
+## Generated Goldens
+
+The current generated goldens are:
+
+| Golden | Path | What it proves |
+| --- | --- | --- |
+| Redis production variant | `data/variant-goldens/redis-prod-us-east/` | `redis/default` can be cloned into `prod-us-east` with preview, checks, and receipts. |
+| Managed overlay import | `data/managed-overlay-goldens/external-dns-customer-acme-prod/` | Wrapper chart, platform values, customer overlay values, target facts, and post-render Creator choices are separated before use. |
+
+Verification command:
+
+```sh
+npm run variant-goldens:verify
+```
 
 ## Verification Gates
 
@@ -149,26 +171,25 @@ equivalent inputs must produce equivalent previews, checks, and receipts.
 
 ## Continuous Test Shape
 
-As code appears, add a command such as:
+The current command is:
 
-```text
-npm run variant-creator:verify
+```sh
+npm run variant-goldens:verify
 ```
 
-It should eventually check:
+It checks:
 
 ```text
-artifact/schema validity
-Variant Creator contract
-golden preview
+generated artifact freshness
+Redis Creator contract
+Redis preview and receipts
+managed overlay classification
+render boundary checks
 UX/AX/FX equivalence
-receipt binding
-tamper failures
-docs freshness
 ```
 
-Until that command exists, implementation PRs should state which parts are
-covered and which remain manual.
+Future product implementation should extend the same command or a successor to
+cover CLI/API dry-runs, GUI preview data, and tamper failures.
 
 ## Acceptance Standard
 

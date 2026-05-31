@@ -81,6 +81,13 @@ Do not hand-edit generated Markdown unless the generator is also updated.
 | [confighub-promotion-mapping.md](./reference/confighub-promotion-mapping.md) | Mapping between Helm-derived bases, ConfigHub variants, and promotion concepts. |
 | [kubara-customized-overlays.md](./corpus/kubara-customized-overlays.md) | Managed wrapper chart plus customer overlay test case. |
 
+Generated proof data for this section lives in:
+
+| Location | Role |
+| --- | --- |
+| `data/variant-goldens/redis-prod-us-east/` | Redis Creator golden: `redis/default` to `prod-us-east` with preview, checks, and receipts. |
+| `data/managed-overlay-goldens/external-dns-customer-acme-prod/` | Managed overlay golden: wrapper chart plus platform/customer overlay values and route classification. |
+
 ### Catalog, Scale, And Refresh
 
 | File | Role |

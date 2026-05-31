@@ -1,0 +1,27 @@
+domainFilters:
+  - "acme.example.com"
+txtOwnerId: "acme-prod-us-east"
+aws:
+  region: "us-east-1"
+  zoneType: "public"
+serviceAccount:
+  annotations:
+    eks.amazonaws.com/role-arn: "arn:aws:iam::123456789012:role/external-dns-acme-prod"
+targetFacts:
+  requiredHostedZones:
+    -
+      name: "acme.example.com"
+      provider: "aws"
+      visibility: "public"
+  requiredSecrets:
+    -
+      namespace: "external-dns"
+      name: "external-dns-aws"
+      keys:
+        - "credentials"
+confighub:
+  customer: "acme"
+  environment: "prod"
+  region: "us-east"
+  target: "prod-us-east"
+  observationFreshness: "PT15M"

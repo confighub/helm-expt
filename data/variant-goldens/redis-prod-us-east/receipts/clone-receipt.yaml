@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantCloneReceipt"
+metadata:
+  name: "redis-prod-us-east-clone"
+spec:
+  sourceSpace: "helm-redis-confighub-proof"
+  downstreamSpace: "helm-redis-prod-us-east"
+  sourceUnits: 15
+  clonedUnits: 15
+  upstreamLinks: "preserved"
+  labels:
+    Component: "Redis"
+    Environment: "Prod"
+    Layer: "App"
+    Owner: "ConfigHubHelm"
+    Region: "us-east"
+    Variant: "prod-us-east"
+  promotionGraph:
+    implementation: "Units plus labels plus upstream links"
+    componentLabel: "Redis"
+    sourceVariantLabel: "default"
+    downstreamVariantLabel: "prod-us-east"
+    edgeField: "Unit.UpstreamUnitID"
+  result: "golden-pass"

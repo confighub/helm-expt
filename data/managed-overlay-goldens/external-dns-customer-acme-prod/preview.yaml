@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ManagedOverlayPreview"
+metadata:
+  name: "external-dns-customer-acme-prod-preview"
+spec:
+  sourceChart: "external-dns/external-dns"
+  sourceVersion: "1.21.1"
+  sourceObjects:
+    kubernetesObjects: 6
+    cubInstallerObjectsIncludingSupport: 7
+    renderedObjectSetSHA256: "764caa006e0e36ed1ad27659090d71a9ca5ff4d671962684b49500971c57ee74"
+  overlayInputs:
+    wrapperChart: "wrapper-chart/Chart.yaml"
+    platformValues: "values/platform-values.yaml"
+    customerValues: "values/customer-acme-prod-values.yaml"
+  classificationSummary:
+    totalRoutes: 6
+    installerRoutes: 4
+    creatorRoutes: 1
+    lifecycleRoutes: 1
+  checks:
+    -
+      name: "wrapper-chart-present"
+      result: "pass"
+    -
+      name: "platform-values-present"
+      result: "pass"
+    -
+      name: "customer-values-present"
+      result: "pass"
+    -
+      name: "all-overlay-keys-classified"
+      result: "pass"
+    -
+      name: "render-time-values-route-to-installer"
+      result: "pass"
+    -
+      name: "target-facts-declared"
+      result: "pass"
+    -
+      name: "no-secret-material"
+      result: "pass"
+    -
+      name: "rbac-crd-disposition-present"
+      result: "pass"

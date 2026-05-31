@@ -1,0 +1,32 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantMutationReceipt"
+metadata:
+  name: "redis-prod-us-east-mutations"
+spec:
+  sourceBase: "redis/default"
+  downstreamVariant: "redis/prod-us-east"
+  mutationSources:
+    -
+      path: "Space.Labels.Environment"
+      from: "Demo"
+      to: "Prod"
+      primitive: "bulk clone label patch"
+    -
+      path: "Space.Labels.Region"
+      from: "local"
+      to: "us-east"
+      primitive: "bulk clone label patch"
+    -
+      path: "metadata.namespace"
+      from: "redis"
+      to: "redis-prod"
+      primitive: "TransformPaths over namespace-scoped Kubernetes Units"
+  affectedObjectScope:
+    namespaceScopedObjects: 14
+    clusterScopedObjects: 0
+  forbiddenMutations:
+    -
+      request: "set Redis existingSecret to redis-existing-secret"
+      result: "blocked"
+      reason: "This changes the Helm-rendered Secret model and must use the reuse-existing-secret base or a new cub installer render."
+  result: "golden-pass"

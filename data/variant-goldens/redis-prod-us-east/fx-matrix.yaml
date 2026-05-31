@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "FleetFunctionGolden"
+metadata:
+  name: "redis-environment-clone-matrix"
+spec:
+  function: "VariantCreatorContract(parameters) -> ConfigHubVariant + receipts"
+  sourceBase: "redis/default"
+  matrix:
+    -
+      variant: "prod-us-east"
+      environment: "prod"
+      region: "us-east"
+      target: "prod-us-east"
+      namespace: "redis-prod"
+      redisSecretMode: "preserve-generated-secret-reference"
+    -
+      variant: "staging-us-east"
+      environment: "staging"
+      region: "us-east"
+      target: "staging-us-east"
+      namespace: "redis-staging"
+      redisSecretMode: "preserve-generated-secret-reference"
+  invariant: "Every row preserves the Redis Secret mode of the source base unless the row routes back to a cub installer base."

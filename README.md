@@ -163,6 +163,9 @@ Start here:
 CATALOG.md
   The top-level chart catalog: charts first, variants underneath.
 
+site/index.html
+  Generated static catalog view for a lightweight website slice.
+
 docs/README.md
   The documentation map: what each doc family is for.
 

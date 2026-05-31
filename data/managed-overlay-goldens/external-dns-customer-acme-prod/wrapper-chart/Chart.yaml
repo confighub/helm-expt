@@ -1,0 +1,11 @@
+apiVersion: "v2"
+name: "kubara-external-dns-managed"
+description: "Managed wrapper chart for an ExternalDNS catalog import golden."
+type: "application"
+version: "0.1.0"
+appVersion: "0.21.0"
+dependencies:
+  -
+    name: "external-dns"
+    version: "1.21.1"
+    repository: "https://kubernetes-sigs.github.io/external-dns/"

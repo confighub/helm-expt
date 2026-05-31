@@ -15,12 +15,30 @@ create` command provides the clone/link substrate. The richer Creator UX below
 is product porcelain over that substrate: blueprint selection, fill-value
 guidance, preview, checks, and receipts.
 
+The promotion model follows ConfigHub's existing promotions example: Spaces and
+Units carry component and variant labels, and cloned Units keep upstream links
+back to the source Units. The graph is built from those primitives, not from a
+separate promotion artifact introduced by this repo.
+
 For the canonical mapping into ConfigHub's component/space/unit/promotion
 model, see [ConfigHub Promotion Mapping Doctrine](./confighub-promotion-mapping.md).
 For the Kubara-style overlay analysis behind the ExternalDNS example, see
 [Kubara Customized Overlay Analysis](../corpus/kubara-customized-overlays.md).
 For the current refresh work orders that turn these examples into executable
 proof work, see `data/latest-top20-refresh/variant-work-orders.yaml`.
+
+Generated goldens now exist for both examples:
+
+| Example | Generated golden |
+| --- | --- |
+| Redis production region | `data/variant-goldens/redis-prod-us-east/` |
+| ExternalDNS managed overlay | `data/managed-overlay-goldens/external-dns-customer-acme-prod/` |
+
+They are verified with:
+
+```sh
+npm run variant-goldens:verify
+```
 
 ## Example 1 - Redis Production Region
 
@@ -72,6 +90,14 @@ The product question is whether cloned Units should also have their Unit-level
 identify the downstream node, while Unit labels may preserve source identity
 unless clone-time relabeling is explicit.
 
+The generated Redis golden records this substrate in:
+
+```text
+data/variant-goldens/redis-prod-us-east/creator-contract.yaml
+data/variant-goldens/redis-prod-us-east/preview.yaml
+data/variant-goldens/redis-prod-us-east/receipts/clone-receipt.yaml
+```
+
 ## UX: Variant Creator
 
 ```text
@@ -79,14 +105,17 @@ Variant Creator
 From: redis/default
 Blueprint: Promote to production
 Target: prod-us-east
-Fill: namespace, Redis secret reference
-Preview: 14 Units, 3 changed paths, 1 link changed
-Checks: pass
+Fill: environment=prod, region=us-east, namespace=redis-prod, target=prod-us-east
+Preview: 15 Units, 3 changed paths, 1 link changed
+Checks: pass with carried scan warning
 Create
 ```
 
 The Creator asks only for the values needed to make this production variant
-real.
+real. The source base determines the Redis Secret model. Starting from
+`redis/default` preserves the generated-Secret mode. A request to bind
+`redis-existing-secret` routes back to the `reuse-existing-secret` base or to a
+new `cub installer` render.
 
 ## What The Creator Contract Describes
 
@@ -96,7 +125,7 @@ The Creator contract tells ConfigHub how to use its existing primitives:
 | --- | --- | --- |
 | Clone reviewed source | `variant create` / bulk clone | New prod space with copied Units, links, triggers, permissions, and metadata. |
 | Set identity | labels and target metadata | `Variant=prod-us-east`, environment/region labels, target selection. |
-| Fill required values | placeholders, parameter Unit, TransformPaths | Namespace and Redis secret reference land in the right paths. |
+| Fill required values | placeholders, parameter Unit, TransformPaths | Namespace, target, and operating labels land in the right paths. |
 | Review relationships | links, NeedsProvides, outgoing link review | Cross-Unit bindings are preserved or deliberately changed. |
 | Check safety | schema checks, function checks, target facts, gates | No unresolved placeholders, facts satisfied, diff reviewed. |
 | Record proof | receipts, MutationSources, scan/apply/observe receipts | The promotion is explainable and repeatable. |
@@ -113,10 +142,11 @@ parameters:
   environment: prod
   region: us-east
   namespace: redis-prod
-  redisSecretRef: redis-existing-secret
+  redisSecretMode: preserve-generated-secret-reference
 requiredChecks:
-  - no-unresolved-placeholders
-  - target-facts-satisfied
+  - source-revision-bound
+  - no-hidden-helm-rerender
+  - redis-secret-mode-preserved
   - unit-diff-reviewed
   - scan-pass-or-approved-exception
 expectedReceipts:
@@ -124,6 +154,7 @@ expectedReceipts:
   - transformPaths
   - functionMutations
   - checks
+  - route-back
   - approval
 ```
 
@@ -140,11 +171,11 @@ matrix:
   - environment: prod
     region: us-east
     namespace: redis-prod-use1
-    redisSecretRef: redis-existing-secret
+    redisSecretMode: preserve-generated-secret-reference
   - environment: prod
     region: eu-west
     namespace: redis-prod-euw1
-    redisSecretRef: redis-existing-secret
+    redisSecretMode: preserve-generated-secret-reference
 ```
 
 Fleet execution:
@@ -159,9 +190,10 @@ promote in waves
 ## Example 2 - ExternalDNS Managed Customer Overlay
 
 This example uses the inspected `external-dns/external-dns@1.21.1` proof as a
-Kubara-style stand-in for a managed platform app. It is not a full Kubara
-golden yet because there is no checked-in wrapper chart plus customer overlay
-render/comparison receipt.
+Kubara-style stand-in for a managed platform app. The generated golden now
+includes a wrapper chart, platform values, customer overlay values,
+classification, preview, and receipts. It is still not a claim that all Kubara
+applications are imported or production-ready.
 
 Inspected inputs in this repo:
 
@@ -173,6 +205,7 @@ Inspected inputs in this repo:
 | Rendered controller args | `--source=service`, `--source=ingress`, `--policy=upsert-only`, `--registry=txt`, `--provider=aws`. |
 | Rendered image | `registry.k8s.io/external-dns/external-dns:v0.21.0`. |
 | Control points | generated facts, `tpl`, extension slots, one CRD, and cluster-scoped RBAC are recorded. |
+| Generated managed overlay golden | `data/managed-overlay-goldens/external-dns-customer-acme-prod/` |
 
 A realistic managed import unit is not just the public chart:
 
@@ -207,7 +240,7 @@ The key product lesson is the boundary:
 | Customer choice | Classification | Route |
 | --- | --- | --- |
 | DNS provider, sources, registry mode, TXT owner ID, domain filters | customer overlay value / base variant selection | Recipe/base render path, because these usually change container args or rendered objects. |
-| DNS credential Secret or ExternalSecret reference | target fact | Recipe/base when it changes rendered env/volume shape; Creator contract when it only binds an existing rendered placeholder/reference. |
+| DNS credential Secret or ExternalSecret reference | target fact | Recipe/base when it changes rendered env/volume shape; Creator contract only when it binds an existing rendered placeholder/reference. |
 | Namespace, target, approval gates, region/customer labels | post-render ConfigHub variant field | `cub variant create` plus Creator contract over ConfigHub primitives. |
 | CRD ownership and RBAC review | lifecycle policy / CRD disposition | Recipe/base proof plus promotion gates. |
 | Provider account ID, hosted zone ID, IAM role ARN | target fact | Bind/check during variant creation; rerender only if those facts become Helm-rendered args/env. |

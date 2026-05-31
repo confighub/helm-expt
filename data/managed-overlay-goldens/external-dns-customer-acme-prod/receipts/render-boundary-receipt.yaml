@@ -1,0 +1,16 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ManagedOverlayRenderBoundaryReceipt"
+metadata:
+  name: "external-dns-customer-acme-prod-render-boundary"
+spec:
+  renderTime:
+    - "wrapper chart dependency"
+    - "provider/sources/registry"
+    - "domain filters"
+    - "TXT owner ID"
+    - "credential Secret env/volume binding when rendered"
+  postRender:
+    - "customer/environment/region/target labels"
+    - "approval gates"
+    - "observation freshness"
+  result: "golden-pass"

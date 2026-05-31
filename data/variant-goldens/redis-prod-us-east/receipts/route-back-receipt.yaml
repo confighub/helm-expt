@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRouteBackReceipt"
+metadata:
+  name: "redis-default-existing-secret-route-back"
+spec:
+  sourceBase: "redis/default"
+  requestedChange: "use existing Redis Secret redis/redis-existing-secret"
+  decision: "route-back-to-installer-base"
+  correctBase: "redis/reuse-existing-secret"
+  evidence:
+    defaultTargetFacts:
+      {}
+    reuseExistingSecretTargetFacts:
+      requiredSecrets:
+        -
+          keys:
+            - "redis-password"
+          name: "redis-existing-secret"
+          namespace: "redis"
+          purpose: "Redis authentication password"
+    defaultRenderedObjects: "recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml"
+    reuseExistingSecretRenderedObjects: "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml"
+  result: "pass"

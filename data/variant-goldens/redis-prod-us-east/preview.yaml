@@ -1,0 +1,78 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantCreatorPreview"
+metadata:
+  name: "redis-prod-us-east-preview"
+spec:
+  from: "redis/default"
+  blueprint: "environment-clone"
+  creates: "redis/prod-us-east"
+  unitSummary:
+    sourceUnits: 15
+    clonedUnits: 15
+    kubernetesUnits: 14
+    installerRecordUnits: 1
+  mutationPreview:
+    changedPathCount: 3
+    changedPaths:
+      -
+        path: "Space.Labels.Environment"
+        from: "Demo"
+        to: "Prod"
+        primitive: "bulk clone label patch"
+      -
+        path: "Space.Labels.Region"
+        from: "local"
+        to: "us-east"
+        primitive: "bulk clone label patch"
+      -
+        path: "metadata.namespace"
+        from: "redis"
+        to: "redis-prod"
+        primitive: "TransformPaths over namespace-scoped Kubernetes Units"
+    linkChangeCount: 1
+    linkChanges:
+      -
+        kind: "upstream-unit-links"
+        action: "preserved-for-cloned-units"
+        source: "helm-redis-confighub-proof"
+        target: "helm-redis-prod-us-east"
+  promotionGraphPreview:
+    implementation: "Units plus labels plus upstream links"
+    sourceNode:
+      space: "helm-redis-confighub-proof"
+      labels:
+        Component: "Redis"
+        Variant: "default"
+    downstreamNode:
+      space: "helm-redis-prod-us-east"
+      labels:
+        Component: "Redis"
+        Variant: "prod-us-east"
+    edge: "cloned Units keep UpstreamUnitID pointing at source Units"
+  checks:
+    -
+      name: "source-revision-bound"
+      result: "pass"
+      evidence: "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml"
+    -
+      name: "no-hidden-helm-rerender"
+      result: "pass"
+      evidence: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+    -
+      name: "unit-count-preserved"
+      result: "pass"
+      expected: 15
+      observed: 15
+    -
+      name: "redis-secret-mode-preserved"
+      result: "pass"
+      expected: "generated-secret"
+      observed: "generated-secret"
+    -
+      name: "existing-secret-request-routes-back-to-installer"
+      result: "pass"
+      evidence: "receipts/route-back-receipt.yaml"
+    -
+      name: "scan-disposition-carried-forward"
+      result: "warn"
+      evidence: "recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/scan-receipt.yaml"

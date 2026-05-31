@@ -1,0 +1,47 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ManagedOverlayClassification"
+metadata:
+  name: "external-dns-customer-acme-prod"
+  generatedBy: "scripts/generate-variant-goldens.mjs"
+spec:
+  managedImportUnit: "managed wrapper chart + platform values + customer overlay values + dependency closure + render context"
+  source:
+    chart: "external-dns/external-dns"
+    chartVersion: "1.21.1"
+    recipe: "recipes/external-dns/external-dns/1.21.1/recipe.yaml"
+    package: "packages/external-dns/external-dns/1.21.1"
+    renderedObjectSetSHA256: "764caa006e0e36ed1ad27659090d71a9ca5ff4d671962684b49500971c57ee74"
+  routes:
+    -
+      input: "wrapper chart dependency"
+      example: "external-dns@1.21.1"
+      route: "cub installer recipe source/dependency lock"
+      reason: "Changes the chart dependency closure."
+    -
+      input: "platform provider/sources/registry"
+      example: "provider=aws, sources=service/ingress, registry=txt"
+      route: "cub installer recipe/base"
+      reason: "These values are rendered into controller arguments, RBAC, labels, or other Kubernetes objects."
+    -
+      input: "customer domain filters and TXT owner ID"
+      example: "domainFilters=acme.example.com, txtOwnerId=acme-prod-us-east"
+      route: "cub installer managed base unless an existing rendered placeholder is explicitly bound"
+      reason: "ExternalDNS reads these from rendered arguments. Changing them post-render is allowed only when the Unit contains a deliberate bindable field."
+    -
+      input: "credential Secret, hosted zone, and IAM role"
+      example: "external-dns-aws Secret, acme.example.com hosted zone, IAM role ARN"
+      route: "target facts plus installer/base binding when rendered"
+      reason: "The values come from the target environment and must be recorded as facts rather than hidden inside ad-hoc scripts."
+    -
+      input: "customer, environment, region, target, approval, observation freshness"
+      example: "acme prod us-east prod-us-east PT15M"
+      route: "post-render ConfigHub variant Creator"
+      reason: "These are operating attributes of the cloned ConfigHub variant."
+    -
+      input: "RBAC and CRD lifecycle"
+      example: "ClusterRole, ClusterRoleBinding, CRD"
+      route: "lifecycle policy and gates"
+      reason: "Cluster-wide resources need explicit operator review and production disposition."
+  productTier:
+    suggestedTier: "managed"
+    reason: "Wrapper charts, customer overlays, private targets, and target facts require ConfigHub Server features and support policy."
