@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/gatekeeper/gatekeeper/3.22.2"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/gatekeeper/gatekeeper/3.22.2"

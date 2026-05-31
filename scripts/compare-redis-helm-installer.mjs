@@ -98,7 +98,7 @@ function compareVariant(variant) {
   const setupOutput = execFileSync(
     "cub",
     [
-      "install",
+      "installer",
       "setup",
       "--pull",
       redisInstallerPackage,

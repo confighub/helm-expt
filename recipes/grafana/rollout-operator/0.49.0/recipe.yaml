@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/grafana/rollout-operator/0.49.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/grafana/rollout-operator/0.49.0"

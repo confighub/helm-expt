@@ -12,7 +12,7 @@ spec:
     installerPackage: "../../../../packages/grafana/loki/7.0.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "../../../../packages/grafana/loki/7.0.0"

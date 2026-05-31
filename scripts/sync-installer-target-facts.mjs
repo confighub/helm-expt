@@ -137,7 +137,7 @@ function verifySetupFacts(packageRoot, variantName, targetFacts) {
   try {
     const namespace = firstNamespace(targetFacts) ?? "default";
     runCub([
-      "install",
+      "installer",
       "setup",
       "--pull",
       packageRoot,

@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/fluent/fluentd/0.5.3"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/fluent/fluentd/0.5.3"

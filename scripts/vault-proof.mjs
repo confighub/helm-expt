@@ -303,7 +303,7 @@ function generateProof() {
         installerPackage: "../../../../packages/hashicorp/vault/0.32.0",
         setupCommand: [
           "cub",
-          "install",
+          "installer",
           "setup",
           "--pull",
           "../../../../packages/hashicorp/vault/0.32.0",
@@ -831,7 +831,7 @@ function verifySetupVariant(tempRoot, variant, receipt) {
   check(Boolean(checkReceipt), `receipt missing setup check for ${variant.name}`);
   const workDir = join(tempRoot, `work-${variant.name}`);
   runCub([
-    "install",
+    "installer",
     "setup",
     "--pull",
     packageRoot,

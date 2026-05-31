@@ -173,7 +173,7 @@ function verifySetupVariant(tempRoot, variant, receipt) {
 
   const workDir = join(tempRoot, `work-${variant.name}`);
   runCub([
-    "install",
+    "installer",
     "setup",
     "--pull",
     packageRoot,

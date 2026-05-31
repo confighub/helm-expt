@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/falcosecurity/falcosidekick/0.13.1"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/falcosecurity/falcosidekick/0.13.1"

@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/descheduler/descheduler/0.36.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/descheduler/descheduler/0.36.0"

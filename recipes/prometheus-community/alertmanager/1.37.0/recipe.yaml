@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/prometheus-community/alertmanager/1.37.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/prometheus-community/alertmanager/1.37.0"

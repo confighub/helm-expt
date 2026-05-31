@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/haproxytech/kubernetes-ingress/1.52.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/haproxytech/kubernetes-ingress/1.52.0"

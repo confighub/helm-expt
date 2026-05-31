@@ -12,7 +12,7 @@ spec:
     installerPackage: "../../../../packages/prometheus-community/kube-prometheus-stack/85.3.3"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "../../../../packages/prometheus-community/kube-prometheus-stack/85.3.3"

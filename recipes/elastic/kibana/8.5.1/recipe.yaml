@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/elastic/kibana/8.5.1"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/elastic/kibana/8.5.1"

@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/kedacore/keda/2.19.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/kedacore/keda/2.19.0"

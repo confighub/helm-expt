@@ -12,7 +12,7 @@ spec:
     installerPackage: "../../../../packages/ingress-nginx/ingress-nginx/4.15.1"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "../../../../packages/ingress-nginx/ingress-nginx/4.15.1"

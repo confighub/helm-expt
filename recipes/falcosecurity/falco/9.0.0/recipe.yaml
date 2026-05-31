@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/falcosecurity/falco/9.0.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/falcosecurity/falco/9.0.0"

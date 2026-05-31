@@ -12,7 +12,7 @@ spec:
     installerPackage: "../../../../packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "../../../../packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0"

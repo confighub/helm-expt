@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/projectcalico/tigera-operator/v3.32.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/projectcalico/tigera-operator/v3.32.0"

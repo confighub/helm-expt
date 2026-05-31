@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/dex/dex/0.24.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/dex/dex/0.24.0"

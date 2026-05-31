@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/bitnami/zookeeper/13.8.7"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/bitnami/zookeeper/13.8.7"

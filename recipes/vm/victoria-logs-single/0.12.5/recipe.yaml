@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/vm/victoria-logs-single/0.12.5"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/vm/victoria-logs-single/0.12.5"

@@ -265,7 +265,7 @@ function generateProof() {
         installerPackage: "../../../../packages/metrics-server/metrics-server/3.13.0",
         setupCommand: [
           "cub",
-          "install",
+          "installer",
           "setup",
           "--pull",
           "../../../../packages/metrics-server/metrics-server/3.13.0",
@@ -761,7 +761,7 @@ function verifySetupVariant(tempRoot, variant, receipt) {
   check(Boolean(checkReceipt), `receipt missing setup check for ${variant.name}`);
   const workDir = join(tempRoot, `work-${variant.name}`);
   runCub([
-    "install",
+    "installer",
     "setup",
     "--pull",
     packageRoot,

@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/rook-release/rook-ceph/v1.19.5"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/rook-release/rook-ceph/v1.19.5"

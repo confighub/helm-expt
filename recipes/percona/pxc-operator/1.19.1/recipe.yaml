@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/percona/pxc-operator/1.19.1"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/percona/pxc-operator/1.19.1"

@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/bitnami/spark/10.0.3"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/bitnami/spark/10.0.3"

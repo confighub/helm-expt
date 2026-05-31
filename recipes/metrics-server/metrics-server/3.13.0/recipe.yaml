@@ -12,7 +12,7 @@ spec:
     installerPackage: "../../../../packages/metrics-server/metrics-server/3.13.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "../../../../packages/metrics-server/metrics-server/3.13.0"

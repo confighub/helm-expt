@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/grafana/promtail/6.17.1"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/grafana/promtail/6.17.1"

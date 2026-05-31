@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/bitnami/phpmyadmin/20.0.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/bitnami/phpmyadmin/20.0.0"

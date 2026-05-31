@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/istio/gateway/1.30.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/istio/gateway/1.30.0"

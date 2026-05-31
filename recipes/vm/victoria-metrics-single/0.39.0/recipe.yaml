@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/vm/victoria-metrics-single/0.39.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/vm/victoria-metrics-single/0.39.0"

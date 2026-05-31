@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/bitnami/memcached/8.5.5"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/bitnami/memcached/8.5.5"

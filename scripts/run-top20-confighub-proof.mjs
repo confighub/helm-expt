@@ -123,7 +123,7 @@ function runChart(chart) {
   check(docBases.some((base) => base.name === defaultBase), `${chart.slug} doc does not expose default base`);
 
   const setupArgs = [
-    "install",
+    "installer",
     "setup",
     "--pull",
     chart.packagePath,
@@ -171,7 +171,7 @@ function runChart(chart) {
   });
 
   const uploadArgs = [
-    "install",
+    "installer",
     "upload",
     "--work-dir",
     relativeRepo(workDir),

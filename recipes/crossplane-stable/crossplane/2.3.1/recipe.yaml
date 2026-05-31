@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/crossplane-stable/crossplane/2.3.1"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/crossplane-stable/crossplane/2.3.1"

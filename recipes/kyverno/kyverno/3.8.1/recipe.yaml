@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/kyverno/kyverno/3.8.1"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/kyverno/kyverno/3.8.1"

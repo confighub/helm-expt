@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/nats/surveyor/0.20.9"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/nats/surveyor/0.20.9"

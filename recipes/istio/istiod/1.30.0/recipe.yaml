@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/istio/istiod/1.30.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/istio/istiod/1.30.0"

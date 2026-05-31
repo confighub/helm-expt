@@ -16,7 +16,7 @@ spec:
     installerPackage: "packages/prometheus-community/prometheus-adapter/5.3.0"
     setupCommand:
       - "cub"
-      - "install"
+      - "installer"
       - "setup"
       - "--pull"
       - "packages/prometheus-community/prometheus-adapter/5.3.0"
