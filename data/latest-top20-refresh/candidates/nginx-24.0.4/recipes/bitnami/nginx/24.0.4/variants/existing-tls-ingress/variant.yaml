@@ -1,0 +1,31 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "existing-tls-ingress"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "nginx"
+  releaseName: "nginx"
+  valuesProfile: "../../effective-values-existing-tls-ingress.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"
+  targetFacts:
+    requiredSecrets:
+      -
+        namespace: "nginx"
+        name: "nginx-backend-tls"
+        keys:
+          - "tls.crt"
+          - "tls.key"
+          - "ca.crt"
+        purpose: "TLS certificate material mounted by the NGINX pod"
+      -
+        namespace: "nginx"
+        name: "nginx-ingress-tls"
+        keys:
+          - "tls.crt"
+          - "tls.key"
+        purpose: "TLS certificate material referenced by the Ingress"

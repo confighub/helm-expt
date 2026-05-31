@@ -1,0 +1,16 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "bitnami-nginx"
+  version: "24.0.4"
+spec:
+  bases:
+    -
+      name: "http-clusterip"
+      path: "bases/http-clusterip"
+      default: true
+      description: "nginx plain HTTP ClusterIP variant rendered from bitnami/nginx@24.0.4"
+    -
+      name: "existing-tls-ingress"
+      path: "bases/existing-tls-ingress"
+      description: "nginx existing TLS with ingress variant rendered from bitnami/nginx@24.0.4"

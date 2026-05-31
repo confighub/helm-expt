@@ -1,0 +1,14 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "no-crds"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "monitoring"
+  releaseName: "kube-prometheus-stack"
+  valuesProfile: "../../effective-values-no-crds.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"

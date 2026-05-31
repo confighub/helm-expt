@@ -29,15 +29,22 @@ import {
   writeYaml,
 } from "./lib/proof-common.mjs";
 
-const proofRoot = join(repoRoot, "recipes", "argo-cd", "argo-cd", "9.5.15");
-const packageRoot = join(repoRoot, "packages", "argo-cd", "argo-cd", "9.5.15");
+const supportedChartVersion = "9.5.15";
+const chartVersion = process.env.HELM_EXPT_CHART_VERSION ?? supportedChartVersion;
+const outputRoot = process.env.HELM_EXPT_PROOF_OUTPUT_ROOT
+  ? join(repoRoot, process.env.HELM_EXPT_PROOF_OUTPUT_ROOT)
+  : repoRoot;
+const proofRoot = join(outputRoot, "recipes", "argo-cd", "argo-cd", chartVersion);
+const packageRoot = join(outputRoot, "packages", "argo-cd", "argo-cd", chartVersion);
 const receiptPath = join(proofRoot, "publication", "installer-package-receipt.yaml");
 const packageRelative = relativeRepo(packageRoot);
+const chartArtifactName = `argo-cd-argo-cd-${chartVersion}`;
+const packageReference = `../../../../packages/argo-cd/argo-cd/${chartVersion}`;
 const chart = {
   repository: "argo-cd",
   repositoryURL: "https://argoproj.github.io/argo-helm",
   name: "argo-cd",
-  version: "9.5.15",
+  version: chartVersion,
   releaseName: "argo-cd",
   namespace: "argocd",
   kubeVersion: "1.30.0",
@@ -163,7 +170,7 @@ function generateProof() {
   writeYaml(join(proofRoot, "source-lock.yaml"), {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "SourceLock",
-    metadata: { name: "argo-cd-argo-cd-9.5.15" },
+    metadata: { name: chartArtifactName },
     spec: {
       sourceType: "HelmChart",
       repositoryName: chart.repository,
@@ -174,7 +181,7 @@ function generateProof() {
       packageSHA256: source.packageSHA256,
       packageBytes: source.packageBytes,
       evidence: {
-        harnessReceipt: "../../../../data/adversarial10/charts/argo-cd-argo-cd-9.5.15/render-receipt.yaml",
+        harnessReceipt: `../../../../data/adversarial10/charts/${chartArtifactName}/render-receipt.yaml`,
       },
     },
   });
@@ -182,7 +189,7 @@ function generateProof() {
   writeYaml(join(proofRoot, "dependency-lock.yaml"), {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "DependencyLock",
-    metadata: { name: "argo-cd-argo-cd-9.5.15" },
+    metadata: { name: chartArtifactName },
     spec: {
       chart: "argo-cd/argo-cd",
       version: chart.version,
@@ -194,7 +201,7 @@ function generateProof() {
   writeYaml(join(proofRoot, "value-model.yaml"), {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "ValueModel",
-    metadata: { name: "argo-cd-argo-cd-9.5.15" },
+    metadata: { name: chartArtifactName },
     spec: {
       checkedValues: [
         {
@@ -249,7 +256,7 @@ function generateProof() {
   writeYaml(join(proofRoot, "control-points.yaml"), {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "ControlPoints",
-    metadata: { name: "argo-cd-argo-cd-9.5.15" },
+    metadata: { name: chartArtifactName },
     spec: {
       points: [
         { category: "source-lock", status: "handled", evidence: "source-lock.yaml" },
@@ -294,13 +301,13 @@ function generateProof() {
       chartRef: { sourceLock: "source-lock.yaml", dependencyLock: "dependency-lock.yaml" },
       importMode: "render-and-vendor",
       currentExecutableFixture: {
-        installerPackage: "../../../../packages/argo-cd/argo-cd/9.5.15",
+        installerPackage: packageReference,
         setupCommand: [
           "cub",
-          "install",
+          "installer",
           "setup",
           "--pull",
-          "../../../../packages/argo-cd/argo-cd/9.5.15",
+          packageReference,
           "--non-interactive",
           "--namespace",
           "argocd",
@@ -479,7 +486,7 @@ function generateProof() {
   writeYaml(join(proofRoot, "helm-plan.yaml"), {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "HelmPlan",
-    metadata: { name: "argo-cd-argo-cd-9.5.15" },
+    metadata: { name: chartArtifactName },
     spec: {
       readiness: {
         status: "usable-with-controls",
@@ -503,7 +510,7 @@ function generateProof() {
   writeYaml(join(proofRoot, "chart-dossier.yaml"), {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "ChartDossier",
-    metadata: { name: "argo-cd-argo-cd-9.5.15" },
+    metadata: { name: chartArtifactName },
     spec: {
       chart: "argo-cd/argo-cd",
       version: chart.version,
@@ -583,8 +590,8 @@ npm run argo-cd:verify-package
   }));
   const tempRoot = mkdtempSync(join(tmpdir(), "argo-cd-installer-package-"));
   try {
-    const firstPackage = join(tempRoot, "argo-cd-9.5.15-a.tgz");
-    const secondPackage = join(tempRoot, "argo-cd-9.5.15-b.tgz");
+    const firstPackage = join(tempRoot, `argo-cd-${chart.version}-a.tgz`);
+    const secondPackage = join(tempRoot, `argo-cd-${chart.version}-b.tgz`);
     runCub(["installer", "package", packageRoot, "-o", firstPackage]);
     runCub(["installer", "package", packageRoot, "-o", secondPackage]);
     const firstSHA = sha256File(firstPackage);
@@ -596,7 +603,7 @@ npm run argo-cd:verify-package
     writeYaml(receiptPath, {
       apiVersion: "helm-expt.confighub.com/v1alpha1",
       kind: "InstallerPackageReceipt",
-      metadata: { name: "argo-cd-argo-cd-9.5.15" },
+      metadata: { name: chartArtifactName },
       spec: {
         chart: { repository: chart.repository, name: chart.name, version: chart.version },
         package: {
@@ -606,7 +613,7 @@ npm run argo-cd:verify-package
           sourceFiles: files,
         },
         deterministicBundle: {
-          command: `cub installer package ${packageRelative} -o <tmp>/argo-cd-9.5.15.tgz`,
+          command: `cub installer package ${packageRelative} -o <tmp>/argo-cd-${chart.version}.tgz`,
           sha256: firstSHA,
           byteIdenticalAcrossTwoLocalBundles: true,
         },
@@ -670,7 +677,7 @@ function verifyProof(root = proofRoot) {
   check(sourceLock.kind === "SourceLock", "source-lock.yaml must be SourceLock");
   check(sourceLock.spec.repositoryName === "argo-cd", "source repository mismatch");
   check(sourceLock.spec.chart === "argo-cd", "source chart mismatch");
-  check(sourceLock.spec.version === "9.5.15", "source version mismatch");
+  check(sourceLock.spec.version === chart.version, "source version mismatch");
   check(Boolean(sourceLock.spec.packageSHA256), "source package SHA must be present");
   check(dependencyLock.kind === "DependencyLock", "dependency-lock.yaml must be DependencyLock");
   check((dependencyLock.spec.dependencies ?? []).length === 1, "argo-cd dependency lock must record redis-ha");
@@ -824,7 +831,7 @@ function verifySetupVariant(tempRoot, variant, receipt) {
   check(Boolean(checkReceipt), `receipt missing setup check for ${variant.name}`);
   const workDir = join(tempRoot, `work-${variant.name}`);
   runCub([
-    "install",
+    "installer",
     "setup",
     "--pull",
     packageRoot,
@@ -917,7 +924,7 @@ function effectiveValuesDoc(variant, defaultValuesSHA256) {
     return {
       apiVersion: "helm-expt.confighub.com/v1alpha1",
       kind: "EffectiveValues",
-      metadata: { name: "argo-cd-argo-cd-9.5.15-default" },
+      metadata: { name: `${chartArtifactName}-default` },
       spec: {
         profile: "chart-defaults",
         defaultValuesSHA256,
@@ -929,7 +936,7 @@ function effectiveValuesDoc(variant, defaultValuesSHA256) {
   return {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "EffectiveValues",
-    metadata: { name: `argo-cd-argo-cd-9.5.15-${variant.name}` },
+    metadata: { name: `${chartArtifactName}-${variant.name}` },
     spec: {
       files: [{ path: variant.valuesFile, source: "inline-proof", sha256: sha256(variant.valuesText) }],
       mergedValuesCaptured: false,

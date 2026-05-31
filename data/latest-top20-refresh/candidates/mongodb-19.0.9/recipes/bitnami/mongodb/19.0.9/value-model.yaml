@@ -1,0 +1,49 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "bitnami-mongodb-19.0.9"
+spec:
+  checkedValues:
+    -
+      path: "auth.rootPassword"
+      variant: "generated-passwords"
+      disposition: "generated-fact-bound"
+      reason: "default chart uses random root password generation; this variant persists the generated value before render"
+    -
+      path: "auth.existingSecret"
+      variant: "existing-secret-replicaset"
+      disposition: "target-fact-bound"
+      reason: "externalizes root password and replica-set key into a declared target Secret instead of rendering a Secret"
+    -
+      path: "architecture"
+      variant: "existing-secret-replicaset"
+      disposition: "replicaset-variant"
+      reason: "replica-set topology is explicit and visible as StatefulSet/headless Service outputs"
+    -
+      path: "auth.existingSecret keys"
+      variant: "existing-secret-replicaset"
+      disposition: "target-secret-key"
+      reason: "documents the expected root password and replica-set key in the target Secret"
+    -
+      path: "persistence.enabled"
+      variant: "all"
+      disposition: "storage-enabled"
+      reason: "promoted variants render persistent storage and must bind storage/retention policy"
+    -
+      path: "networkPolicy.enabled / podDisruptionBudget.enabled"
+      variant: "all"
+      disposition: "production-hardening-enabled"
+      reason: "network policy and disruption controls are visible rendered objects"
+    -
+      path: "common"
+      variant: "all"
+      disposition: "locked-dependency"
+      reason: "chart declares the Bitnami common dependency and records it in dependency-lock.yaml"
+    -
+      path: "primary.initdb.scripts / primary.extendedConfiguration"
+      variant: "all"
+      disposition: "empty-extension-slot"
+      reason: "MongoDB exposes tpl/config extension slots; promoted variants keep them empty"
+  unknownValues: "not-checked"
+  deadValues: "not-checked"
+  ignoredValues: "not-checked"

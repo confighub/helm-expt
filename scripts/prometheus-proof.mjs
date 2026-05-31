@@ -29,15 +29,22 @@ import {
   writeYaml,
 } from "./lib/proof-common.mjs";
 
-const proofRoot = join(repoRoot, "recipes", "prometheus-community", "prometheus", "29.8.0");
-const packageRoot = join(repoRoot, "packages", "prometheus-community", "prometheus", "29.8.0");
+const supportedChartVersion = "29.8.0";
+const chartVersion = process.env.HELM_EXPT_CHART_VERSION ?? supportedChartVersion;
+const outputRoot = process.env.HELM_EXPT_PROOF_OUTPUT_ROOT
+  ? join(repoRoot, process.env.HELM_EXPT_PROOF_OUTPUT_ROOT)
+  : repoRoot;
+const proofRoot = join(outputRoot, "recipes", "prometheus-community", "prometheus", chartVersion);
+const packageRoot = join(outputRoot, "packages", "prometheus-community", "prometheus", chartVersion);
 const receiptPath = join(proofRoot, "publication", "installer-package-receipt.yaml");
 const packageRelative = relativeRepo(packageRoot);
+const chartArtifactName = `prometheus-${chartVersion}`;
+const packageReference = `../../../../packages/prometheus-community/prometheus/${chartVersion}`;
 const chart = {
   repository: "prometheus-community",
   repositoryURL: "https://prometheus-community.github.io/helm-charts",
   name: "prometheus",
-  version: "29.8.0",
+  version: chartVersion,
   releaseName: "prometheus",
   namespace: "monitoring",
   kubeVersion: "1.30.0",
@@ -187,7 +194,7 @@ function generateProof() {
   writeYaml(join(proofRoot, "source-lock.yaml"), {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "SourceLock",
-    metadata: { name: "prometheus-29.8.0" },
+    metadata: { name: chartArtifactName },
     spec: {
       sourceType: "HelmChart",
       repositoryName: chart.repository,
@@ -199,7 +206,7 @@ function generateProof() {
       packageSHA256: source.packageSHA256,
       packageBytes: source.packageBytes,
       evidence: {
-        sourceCommand: "helm pull prometheus-community/prometheus --version 29.8.0",
+        sourceCommand: `helm pull prometheus-community/prometheus --version ${chart.version}`,
       },
     },
   });
@@ -207,7 +214,7 @@ function generateProof() {
   writeYaml(join(proofRoot, "dependency-lock.yaml"), {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "DependencyLock",
-    metadata: { name: "prometheus-29.8.0" },
+    metadata: { name: chartArtifactName },
     spec: {
       chart: "prometheus-community/prometheus",
       version: chart.version,
@@ -219,7 +226,7 @@ function generateProof() {
   writeYaml(join(proofRoot, "value-model.yaml"), {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "ValueModel",
-    metadata: { name: "prometheus-29.8.0" },
+    metadata: { name: chartArtifactName },
     spec: {
       checkedValues: [
         {
@@ -268,7 +275,7 @@ function generateProof() {
   writeYaml(join(proofRoot, "control-points.yaml"), {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "ControlPoints",
-    metadata: { name: "prometheus-29.8.0" },
+    metadata: { name: chartArtifactName },
     spec: {
       points: [
         { category: "source-lock", status: "handled", evidence: "source-lock.yaml" },
@@ -304,13 +311,13 @@ function generateProof() {
       chartRef: { sourceLock: "source-lock.yaml", dependencyLock: "dependency-lock.yaml" },
       importMode: "render-and-vendor",
       currentExecutableFixture: {
-        installerPackage: "../../../../packages/prometheus-community/prometheus/29.8.0",
+        installerPackage: packageReference,
         setupCommand: [
           "cub",
-          "install",
+          "installer",
           "setup",
           "--pull",
-          "../../../../packages/prometheus-community/prometheus/29.8.0",
+          packageReference,
           "--non-interactive",
           "--namespace",
           "monitoring",
@@ -488,7 +495,7 @@ function generateProof() {
   writeYaml(join(proofRoot, "helm-plan.yaml"), {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "HelmPlan",
-    metadata: { name: "prometheus-29.8.0" },
+    metadata: { name: chartArtifactName },
     spec: {
       readiness: {
         status: "usable-with-controls",
@@ -512,7 +519,7 @@ function generateProof() {
   writeYaml(join(proofRoot, "chart-dossier.yaml"), {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "ChartDossier",
-    metadata: { name: "prometheus-29.8.0" },
+    metadata: { name: chartArtifactName },
     spec: {
       chart: "prometheus-community/prometheus",
       version: chart.version,
@@ -589,8 +596,8 @@ npm run prometheus:verify-package
   }));
   const tempRoot = mkdtempSync(join(tmpdir(), "prometheus-installer-package-"));
   try {
-    const firstPackage = join(tempRoot, "prometheus-29.8.0-a.tgz");
-    const secondPackage = join(tempRoot, "prometheus-29.8.0-b.tgz");
+    const firstPackage = join(tempRoot, `prometheus-${chart.version}-a.tgz`);
+    const secondPackage = join(tempRoot, `prometheus-${chart.version}-b.tgz`);
     runCub(["installer", "package", packageRoot, "-o", firstPackage]);
     runCub(["installer", "package", packageRoot, "-o", secondPackage]);
     const firstSHA = sha256File(firstPackage);
@@ -602,7 +609,7 @@ npm run prometheus:verify-package
     writeYaml(receiptPath, {
       apiVersion: "helm-expt.confighub.com/v1alpha1",
       kind: "InstallerPackageReceipt",
-      metadata: { name: "prometheus-29.8.0" },
+      metadata: { name: chartArtifactName },
       spec: {
         chart: { repository: chart.repository, name: chart.name, version: chart.version },
         package: {
@@ -612,7 +619,7 @@ npm run prometheus:verify-package
           sourceFiles: files,
         },
         deterministicBundle: {
-          command: `cub installer package ${packageRelative} -o <tmp>/prometheus-29.8.0.tgz`,
+          command: `cub installer package ${packageRelative} -o <tmp>/prometheus-${chart.version}.tgz`,
           sha256: firstSHA,
           byteIdenticalAcrossTwoLocalBundles: true,
         },
@@ -676,7 +683,7 @@ function verifyProof(root = proofRoot) {
   check(sourceLock.kind === "SourceLock", "source-lock.yaml must be SourceLock");
   check(sourceLock.spec.repositoryName === "prometheus-community", "source repository mismatch");
   check(sourceLock.spec.chart === "prometheus", "source chart mismatch");
-  check(sourceLock.spec.version === "29.8.0", "source version mismatch");
+  check(sourceLock.spec.version === chart.version, "source version mismatch");
   check(sourceLock.spec.deprecated === false, "source deprecation marker must be recorded");
   check(Boolean(sourceLock.spec.packageSHA256), "source package SHA must be present");
   check(dependencyLock.kind === "DependencyLock", "dependency-lock.yaml must be DependencyLock");
@@ -828,7 +835,7 @@ function verifySetupVariant(tempRoot, variant, receipt) {
   check(Boolean(checkReceipt), `receipt missing setup check for ${variant.name}`);
   const workDir = join(tempRoot, `work-${variant.name}`);
   runCub([
-    "install",
+    "installer",
     "setup",
     "--pull",
     packageRoot,
@@ -923,7 +930,7 @@ function effectiveValuesDoc(variant, defaultValuesSHA256) {
     return {
       apiVersion: "helm-expt.confighub.com/v1alpha1",
       kind: "EffectiveValues",
-      metadata: { name: "prometheus-29.8.0-default" },
+      metadata: { name: `${chartArtifactName}-default` },
       spec: {
         profile: "chart-defaults",
         defaultValuesSHA256,
@@ -935,7 +942,7 @@ function effectiveValuesDoc(variant, defaultValuesSHA256) {
   return {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "EffectiveValues",
-    metadata: { name: `prometheus-29.8.0-${variant.name}` },
+    metadata: { name: `${chartArtifactName}-${variant.name}` },
     spec: {
       files: [{ path: variant.valuesFile, source: "inline-proof", sha256: sha256(variant.valuesText) }],
       mergedValuesCaptured: false,

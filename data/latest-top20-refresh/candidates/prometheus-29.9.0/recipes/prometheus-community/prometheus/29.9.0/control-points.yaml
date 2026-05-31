@@ -1,0 +1,52 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ControlPoints"
+metadata:
+  name: "prometheus-29.9.0"
+spec:
+  points:
+    -
+      category: "source-lock"
+      status: "handled"
+      evidence: "source-lock.yaml"
+    -
+      category: "dependency-lock"
+      status: "handled"
+      evidence: "dependency-lock.yaml"
+      note: "chart dependencies are locked and reviewed, including alertmanager, kube-state-metrics, node-exporter, and pushgateway."
+    -
+      category: "capability-profile"
+      status: "handled"
+      kubeVersion: "1.30.0"
+      note: "Kubernetes API and version branches are bound to the named Kubernetes capability profile."
+    -
+      category: "bundle-dependencies"
+      status: "scan-and-review"
+      evidence: "dependency-lock.yaml"
+    -
+      category: "monitoring-workloads"
+      status: "scan-and-review"
+      object: "apps/v1|Deployment|monitoring|prometheus-server"
+    -
+      category: "storage-retention"
+      status: "variant-controlled"
+      object: "v1|PersistentVolumeClaim|monitoring|prometheus-server"
+    -
+      category: "scrape-config"
+      status: "scan-and-review"
+      object: "v1|ConfigMap|monitoring|prometheus-server"
+    -
+      category: "cluster-rbac"
+      status: "scan-and-review"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||prometheus-server"
+    -
+      category: "component-selection"
+      status: "variant-controlled"
+      evidence: "alertmanager/kube-state-metrics/node-exporter/pushgateway values"
+    -
+      category: "extension-slots"
+      status: "controlled-by-empty-defaults"
+      note: "extra scrape configs, remote read/write, ingress, network policy, PDB, and extra manifests are explicit variant inputs."
+    -
+      category: "installer-support-object"
+      status: "handled"
+      object: "v1|Namespace||monitoring"

@@ -91,6 +91,29 @@ function command(name, commandArgs) {
 function summary(rows, { generatedAt, helmVersion }) {
   const current = rows.filter((row) => row.status === "current");
   const updates = rows.filter((row) => row.status === "update-available");
+  const candidateStatusPath = join(outputRoot, "candidates", "candidate-status.csv");
+  const candidateSection = existsSync(candidateStatusPath)
+    ? `## Candidate Proofs
+
+The six update candidates now have generated candidate artifacts under:
+
+\`\`\`text
+data/latest-top20-refresh/candidates/
+\`\`\`
+
+Verify them with:
+
+\`\`\`sh
+npm run top20:latest-candidates:verify
+\`\`\`
+
+These candidate proofs show that the latest chart versions can still pass the
+recipe/package/render/compare lane. They are not catalog-supported replacements
+until ConfigHub proof receipts, live e2e receipts, catalog status, production
+disposition, and top-100/top-500 outputs are regenerated.
+
+`
+    : "";
   const updateTable =
     updates.length === 0
       ? "No updates available in the current Helm repo indexes.\n"
@@ -134,16 +157,14 @@ e2e evidence.
 No public catalog row should silently roll forward from the current proof version
 to the latest chart version.
 
+${candidateSection}
 ## Next Work
 
-1. Regenerate or create proof artifacts for every update candidate under a new
-   versioned recipe/package path.
-2. Re-run regular Helm versus \`cub installer\` comparison for the new version.
-3. Re-run ConfigHub upload, function scan, safe-ops, server-side variant, and
+1. Re-run ConfigHub upload, function scan, safe-ops, server-side variant, and
    live e2e proof lanes.
-4. Re-run catalog status, production disposition, root catalog, top-100, and
+2. Re-run catalog status, production disposition, root catalog, top-100, and
    top-500 analysis after the new versions are promoted.
-5. Keep the previous chart version available for legacy patch and rollback
+3. Keep the previous chart version available for legacy patch and rollback
    review until the new version is production-dispositioned.
 `;
 }

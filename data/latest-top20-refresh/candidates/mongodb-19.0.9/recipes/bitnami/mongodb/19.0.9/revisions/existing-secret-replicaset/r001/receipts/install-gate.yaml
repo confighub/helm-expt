@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "mongodb-existing-secret-replicaset-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "186e18cde7306766da04e9bfd6c72520e0ff46694cb7998732f99fe713504da8"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for existing-secret-replicaset"
+    - "Generated credential handling needs explicit generated fact or target fact policy before production"
+    - "Helm hook behavior needs explicit lifecycle policy before production"
+    - "MongoDB Deployment/StatefulSet storage, upgrade, and rollback policy need production review"
+    - "Replica-set topology, arbiter behavior, NetworkPolicy, and PDB need production review"
+    - "requires target Secret mongodb/mongodb-auth with root password and replica-set key before apply"

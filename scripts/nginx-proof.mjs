@@ -29,15 +29,22 @@ import {
   writeYaml,
 } from "./lib/proof-common.mjs";
 
-const proofRoot = join(repoRoot, "recipes", "bitnami", "nginx", "24.0.2");
-const packageRoot = join(repoRoot, "packages", "bitnami", "nginx", "24.0.2");
+const supportedChartVersion = "24.0.2";
+const chartVersion = process.env.HELM_EXPT_CHART_VERSION ?? supportedChartVersion;
+const outputRoot = process.env.HELM_EXPT_PROOF_OUTPUT_ROOT
+  ? join(repoRoot, process.env.HELM_EXPT_PROOF_OUTPUT_ROOT)
+  : repoRoot;
+const proofRoot = join(outputRoot, "recipes", "bitnami", "nginx", chartVersion);
+const packageRoot = join(outputRoot, "packages", "bitnami", "nginx", chartVersion);
 const receiptPath = join(proofRoot, "publication", "installer-package-receipt.yaml");
 const packageRelative = relativeRepo(packageRoot);
+const chartArtifactName = `bitnami-nginx-${chartVersion}`;
+const packageReference = `../../../../packages/bitnami/nginx/${chartVersion}`;
 const chart = {
   repository: "bitnami",
   repositoryURL: "https://charts.bitnami.com/bitnami",
   name: "nginx",
-  version: "24.0.2",
+  version: chartVersion,
   releaseName: "nginx",
   namespace: "nginx",
   kubeVersion: "1.30.0",
@@ -195,7 +202,7 @@ function generateProof() {
   writeYaml(join(proofRoot, "source-lock.yaml"), {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "SourceLock",
-    metadata: { name: "bitnami-nginx-24.0.2" },
+    metadata: { name: chartArtifactName },
     spec: {
       sourceType: "HelmChart",
       repositoryName: chart.repository,
@@ -207,7 +214,7 @@ function generateProof() {
       packageSHA256: source.packageSHA256,
       packageBytes: source.packageBytes,
       evidence: {
-        harnessReceipt: "../../../../data/adversarial10/charts/bitnami-nginx-24.0.2/render-receipt.yaml",
+        harnessReceipt: `../../../../data/adversarial10/charts/${chartArtifactName}/render-receipt.yaml`,
       },
     },
   });
@@ -215,7 +222,7 @@ function generateProof() {
   writeYaml(join(proofRoot, "dependency-lock.yaml"), {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "DependencyLock",
-    metadata: { name: "bitnami-nginx-24.0.2" },
+    metadata: { name: chartArtifactName },
     spec: {
       chart: "bitnami/nginx",
       version: chart.version,
@@ -227,7 +234,7 @@ function generateProof() {
   writeYaml(join(proofRoot, "value-model.yaml"), {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "ValueModel",
-    metadata: { name: "bitnami-nginx-24.0.2" },
+    metadata: { name: chartArtifactName },
     spec: {
       checkedValues: [
         {
@@ -282,7 +289,7 @@ function generateProof() {
   writeYaml(join(proofRoot, "control-points.yaml"), {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "ControlPoints",
-    metadata: { name: "bitnami-nginx-24.0.2" },
+    metadata: { name: chartArtifactName },
     spec: {
       points: [
         { category: "source-lock", status: "handled", evidence: "source-lock.yaml" },
@@ -328,13 +335,13 @@ function generateProof() {
       chartRef: { sourceLock: "source-lock.yaml", dependencyLock: "dependency-lock.yaml" },
       importMode: "render-and-vendor",
       currentExecutableFixture: {
-        installerPackage: "../../../../packages/bitnami/nginx/24.0.2",
+        installerPackage: packageReference,
         setupCommand: [
           "cub",
-          "install",
+          "installer",
           "setup",
           "--pull",
-          "../../../../packages/bitnami/nginx/24.0.2",
+          packageReference,
           "--non-interactive",
           "--namespace",
           "nginx",
@@ -510,7 +517,7 @@ function generateProof() {
   writeYaml(join(proofRoot, "helm-plan.yaml"), {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "HelmPlan",
-    metadata: { name: "bitnami-nginx-24.0.2" },
+    metadata: { name: chartArtifactName },
     spec: {
       readiness: {
         status: "usable-with-controls",
@@ -534,7 +541,7 @@ function generateProof() {
   writeYaml(join(proofRoot, "chart-dossier.yaml"), {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "ChartDossier",
-    metadata: { name: "bitnami-nginx-24.0.2" },
+    metadata: { name: chartArtifactName },
     spec: {
       chart: "bitnami/nginx",
       version: chart.version,
@@ -611,8 +618,8 @@ npm run nginx:verify-package
   }));
   const tempRoot = mkdtempSync(join(tmpdir(), "nginx-installer-package-"));
   try {
-    const firstPackage = join(tempRoot, "nginx-24.0.2-a.tgz");
-    const secondPackage = join(tempRoot, "nginx-24.0.2-b.tgz");
+    const firstPackage = join(tempRoot, `nginx-${chart.version}-a.tgz`);
+    const secondPackage = join(tempRoot, `nginx-${chart.version}-b.tgz`);
     runCub(["installer", "package", packageRoot, "-o", firstPackage]);
     runCub(["installer", "package", packageRoot, "-o", secondPackage]);
     const firstSHA = sha256File(firstPackage);
@@ -624,7 +631,7 @@ npm run nginx:verify-package
     writeYaml(receiptPath, {
       apiVersion: "helm-expt.confighub.com/v1alpha1",
       kind: "InstallerPackageReceipt",
-      metadata: { name: "bitnami-nginx-24.0.2" },
+      metadata: { name: chartArtifactName },
       spec: {
         chart: { repository: chart.repository, name: chart.name, version: chart.version },
         package: {
@@ -634,7 +641,7 @@ npm run nginx:verify-package
           sourceFiles: files,
         },
         deterministicBundle: {
-          command: `cub installer package ${packageRelative} -o <tmp>/nginx-24.0.2.tgz`,
+          command: `cub installer package ${packageRelative} -o <tmp>/nginx-${chart.version}.tgz`,
           sha256: firstSHA,
           byteIdenticalAcrossTwoLocalBundles: true,
         },
@@ -698,7 +705,7 @@ function verifyProof(root = proofRoot) {
   check(sourceLock.kind === "SourceLock", "source-lock.yaml must be SourceLock");
   check(sourceLock.spec.repositoryName === "bitnami", "source repository mismatch");
   check(sourceLock.spec.chart === "nginx", "source chart mismatch");
-  check(sourceLock.spec.version === "24.0.2", "source version mismatch");
+  check(sourceLock.spec.version === chart.version, "source version mismatch");
   check(sourceLock.spec.deprecated === false, "source deprecation marker must be recorded");
   check(Boolean(sourceLock.spec.packageSHA256), "source package SHA must be present");
   check(dependencyLock.kind === "DependencyLock", "dependency-lock.yaml must be DependencyLock");
@@ -844,7 +851,7 @@ function verifySetupVariant(tempRoot, variant, receipt) {
   check(Boolean(checkReceipt), `receipt missing setup check for ${variant.name}`);
   const workDir = join(tempRoot, `work-${variant.name}`);
   runCub([
-    "install",
+    "installer",
     "setup",
     "--pull",
     packageRoot,
@@ -939,7 +946,7 @@ function effectiveValuesDoc(variant, defaultValuesSHA256) {
     return {
       apiVersion: "helm-expt.confighub.com/v1alpha1",
       kind: "EffectiveValues",
-      metadata: { name: "bitnami-nginx-24.0.2-default" },
+      metadata: { name: `${chartArtifactName}-default` },
       spec: {
         profile: "chart-defaults",
         defaultValuesSHA256,
@@ -951,7 +958,7 @@ function effectiveValuesDoc(variant, defaultValuesSHA256) {
   return {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "EffectiveValues",
-    metadata: { name: `bitnami-nginx-24.0.2-${variant.name}` },
+    metadata: { name: `${chartArtifactName}-${variant.name}` },
     spec: {
       files: [{ path: variant.valuesFile, source: "inline-proof", sha256: sha256(variant.valuesText) }],
       mergedValuesCaptured: false,
