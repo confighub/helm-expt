@@ -5,9 +5,16 @@ roadmap. It uses the checked-in `external-dns/external-dns@1.21.1` proof as the
 smallest useful stand-in for a managed platform app with customer overlay
 values.
 
-It is not a full Kubara golden yet. A full golden still needs an inspected
-wrapper chart, platform values, customer overlay values, render comparison, and
-verification receipts.
+The first generated golden now lives at:
+
+```text
+data/managed-overlay-goldens/external-dns-customer-acme-prod/
+```
+
+It includes a wrapper chart, platform values, customer overlay values,
+classification, preview, and receipts. It is a boundary and classification
+golden, not a claim that all Kubara applications are imported or
+production-ready.
 
 This is intentionally beyond the public catalog proof. A Kubara-style case
 needs ConfigHub Server because it has private/customer inputs, target facts,
@@ -52,8 +59,8 @@ The checked-in public-chart proof records:
 | Rendered support objects | ServiceAccount, ClusterRole, ClusterRoleBinding, Service, Deployment, and one CRD |
 | Recorded control points | generated-facts, `tpl`, extension slots, CRDs, cluster RBAC |
 
-That is enough to classify the missing managed-overlay work. It is not enough
-to claim Kubara import support.
+That is enough to classify the managed-overlay work and generate the first
+golden. It is not enough to claim broad Kubara import support.
 
 ## Real Import Unit
 
@@ -206,13 +213,19 @@ Do not hide customer overlay rerenders inside post-render promotion.
 
 ## Planned Kubara Golden
 
-The first useful golden should prove one managed app end to end, not all
-Kubara apps.
+The first useful golden proves the managed-overlay boundary for one app. It
+does not prove every Kubara app.
 
 Candidate:
 
 ```text
 external-dns managed AWS
+```
+
+Current generated path:
+
+```text
+data/managed-overlay-goldens/external-dns-customer-acme-prod/
 ```
 
 Required inputs:
@@ -232,32 +245,31 @@ render context
 Required artifacts:
 
 ```text
-source-lock.yaml
-dependency-lock.yaml
-effective-values.yaml
-overlay-lock.yaml
-control-points.yaml
-catalog-status.yaml
-managed-aws package base
-customer-acme-prod Creator contract or blueprint
-rendered objects
-Helm equivalence or intentional-difference receipt
-scan/gate receipts
-ConfigHub upload receipt
-variant clone/mutation/check receipts
-observation freshness requirement
+wrapper-chart/Chart.yaml
+values/platform-values.yaml
+values/customer-acme-prod-values.yaml
+overlay-classification.yaml
+creator-contract.yaml
+preview.yaml
+overlay classification receipt
+render boundary receipt
+check receipt
 ```
 
 Acceptance:
 
 ```text
-The managed-aws base is digest-bound and reviewable.
-The customer-acme-prod variant is created from the base without hidden rerender.
+The managed import unit is explicit.
 Every customer overlay value is classified as render-time, post-render, target
 fact, generated fact, or lifecycle policy.
-ConfigHub Promotion shows ExternalDNS/managed-aws -> ExternalDNS/customer-acme-prod.
-Receipts explain what changed and what remains target/live dependent.
+Render-time values route to cub installer.
+Post-render operating values route to the Creator contract.
+Receipts explain the boundary and required checks.
 ```
+
+Later live proof should add a digest-bound managed-aws package base, ConfigHub
+upload receipt, variant clone/mutation/check receipts, and observation
+freshness evidence.
 
 Product tier:
 

@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ConfigHub Helm Catalog</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172026;
+      --muted: #5b6872;
+      --line: #d9e0e6;
+      --panel: #f7f9fb;
+      --accent: #0b6bcb;
+      --good: #16794c;
+      --warn: #a05a00;
+      --surface: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.45;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 28px 20px; }
+    header { padding-top: 44px; border-bottom: 1px solid var(--line); }
+    h1 { margin: 0 0 12px; font-size: clamp(2rem, 4vw, 4rem); line-height: 1.02; letter-spacing: 0; }
+    h2 { margin: 36px 0 12px; font-size: 1.45rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1.02rem; letter-spacing: 0; }
+    p { max-width: 820px; color: var(--muted); }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    pre {
+      overflow-x: auto;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #0f1720;
+      color: #e9f2ff;
+    }
+    .tagline { font-size: 1.2rem; color: var(--ink); }
+    .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric strong { display: block; font-size: 2rem; line-height: 1; color: var(--accent); }
+    .metric span { display: block; margin-top: 8px; color: var(--muted); font-size: .92rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .82rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lanes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 8px; border-radius: 999px; background: #dfe7ee; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--accent); }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 36px; }
+    @media (max-width: 900px) {
+      .grid, .catalog, .lanes { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Use Helm charts. Ship ConfigHub variants.</h1>
+    <p class="tagline">The catalog turns popular public Helm charts into reviewed cub installer packages, named variants, rendered objects, checks, and proof receipts.</p>
+    <pre>cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/redis --non-interactive --namespace redis</pre>
+  </header>
+  <main>
+    <section aria-labelledby="proof-counters">
+      <h2 id="proof-counters">Proof Counters</h2>
+      <div class="grid">
+        <div class="metric"><strong>20</strong><span>Catalog-supported charts</span></div>
+        <div class="metric"><strong>80</strong><span>Proof-grade recipes</span></div>
+        <div class="metric"><strong>500</strong><span>Top-500 rows analyzed</span></div>
+        <div class="metric"><strong>6</strong><span>Latest candidates</span></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="how-it-works">
+      <h2 id="how-it-works">How It Works</h2>
+      <div class="lanes">
+        <div class="lane">
+          <h3>1. Render</h3>
+          <p>Helm output is captured as a cub installer package and compared with regular Helm output.</p>
+          <div class="bar"><span style="width: 100%"></span></div>
+        </div>
+        <div class="lane">
+          <h3>2. Vary</h3>
+          <p>Supported variants make common choices explicit: default, existing Secret, no CRDs, local storage, ingress, and similar paths.</p>
+          <div class="bar"><span style="width: 100%"></span></div>
+        </div>
+        <div class="lane">
+          <h3>3. Prove</h3>
+          <p>Receipts record equivalence, scans, gates, ConfigHub upload, local live evidence, and latest-version promotion readiness.</p>
+          <div class="bar"><span style="width: 100%"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="catalog">
+      <h2 id="catalog">Catalog-Supported Charts</h2>
+      <p>These entries are supported for the declared local-test scope. Production support remains blocked until the listed dispositions are closed.</p>
+      <div class="catalog">
+        <article class="card">
+          <h3>argo-cd/argo-cd</h3>
+          <span class="status good">catalog-supported</span>
+          <span class="status warn">candidate 9.5.17</span>
+          <dl>
+            <dt>Supported version</dt><dd>9.5.15</dd>
+            <dt>Start variant</dt><dd>default</dd>
+            <dt>Variants</dt><dd>default;no-crds</dd>
+            <dt>Package</dt><dd><a href="../packages/argo-cd/argo-cd/9.5.15">packages/argo-cd/argo-cd/9.5.15</a></dd>
+            <dt>Chart proof</dt><dd><a href="../recipes/argo-cd/argo-cd/9.5.15/CATALOG.md">CATALOG.md</a></dd>
+          </dl>
+        </article>
+        <article class="card">
+          <h3>bitnami/mongodb</h3>
+          <span class="status good">catalog-supported</span>
+          <span class="status warn">candidate 19.0.9</span>
+          <dl>
+            <dt>Supported version</dt><dd>19.0.7</dd>
+            <dt>Start variant</dt><dd>generated-passwords</dd>
+            <dt>Variants</dt><dd>generated-passwords;existing-secret-replicaset</dd>
+            <dt>Package</dt><dd><a href="../packages/bitnami/mongodb/19.0.7">packages/bitnami/mongodb/19.0.7</a></dd>
+            <dt>Chart proof</dt><dd><a href="../recipes/bitnami/mongodb/19.0.7/CATALOG.md">CATALOG.md</a></dd>
+          </dl>
+        </article>
+        <article class="card">
+          <h3>bitnami/mysql</h3>
+          <span class="status good">catalog-supported</span>
+          <span class="status good">current</span>
+          <dl>
+            <dt>Supported version</dt><dd>14.0.3</dd>
+            <dt>Start variant</dt><dd>generated-passwords</dd>
+            <dt>Variants</dt><dd>generated-passwords;existing-secret</dd>
+            <dt>Package</dt><dd><a href="../packages/bitnami/mysql/14.0.3">packages/bitnami/mysql/14.0.3</a></dd>
+            <dt>Chart proof</dt><dd><a href="../recipes/bitnami/mysql/14.0.3/CATALOG.md">CATALOG.md</a></dd>
+          </dl>
+        </article>
+        <article class="card">
+          <h3>bitnami/nginx</h3>
+          <span class="status good">catalog-supported</span>
+          <span class="status warn">candidate 24.0.4</span>
+          <dl>
+            <dt>Supported version</dt><dd>24.0.2</dd>
+            <dt>Start variant</dt><dd>http-clusterip</dd>
+            <dt>Variants</dt><dd>http-clusterip;existing-tls-ingress</dd>
+            <dt>Package</dt><dd><a href="../packages/bitnami/nginx/24.0.2">packages/bitnami/nginx/24.0.2</a></dd>
+            <dt>Chart proof</dt><dd><a href="../recipes/bitnami/nginx/24.0.2/CATALOG.md">CATALOG.md</a></dd>
+          </dl>
+        </article>
+        <article class="card">
+          <h3>bitnami/postgresql</h3>
+          <span class="status good">catalog-supported</span>
+          <span class="status warn">candidate 18.6.10</span>
+          <dl>
+            <dt>Supported version</dt><dd>18.6.7</dd>
+            <dt>Start variant</dt><dd>generated-passwords</dd>
+            <dt>Variants</dt><dd>generated-passwords;existing-secret</dd>
+            <dt>Package</dt><dd><a href="../packages/bitnami/postgresql/18.6.7">packages/bitnami/postgresql/18.6.7</a></dd>
+            <dt>Chart proof</dt><dd><a href="../recipes/bitnami/postgresql/18.6.7/CATALOG.md">CATALOG.md</a></dd>
+          </dl>
+        </article>
+        <article class="card">
+          <h3>bitnami/rabbitmq</h3>
+          <span class="status good">catalog-supported</span>
+          <span class="status good">current</span>
+          <dl>
+            <dt>Supported version</dt><dd>16.0.14</dd>
+            <dt>Start variant</dt><dd>generated-passwords</dd>
+            <dt>Variants</dt><dd>generated-passwords;existing-secret</dd>
+            <dt>Package</dt><dd><a href="../packages/bitnami/rabbitmq/16.0.14">packages/bitnami/rabbitmq/16.0.14</a></dd>
+            <dt>Chart proof</dt><dd><a href="../recipes/bitnami/rabbitmq/16.0.14/CATALOG.md">CATALOG.md</a></dd>
+          </dl>
+        </article>
+        <article class="card">
+          <h3>bitnami/redis</h3>
+          <span class="status good">catalog-supported</span>
+          <span class="status good">current</span>
+          <dl>
+            <dt>Supported version</dt><dd>25.5.3</dd>
+            <dt>Start variant</dt><dd>default</dd>
+            <dt>Variants</dt><dd>default;reuse-existing-secret</dd>
+            <dt>Package</dt><dd><a href="../packages/bitnami/redis/25.5.3">packages/bitnami/redis/25.5.3</a></dd>
+            <dt>Chart proof</dt><dd><a href="../recipes/bitnami/redis/25.5.3/CATALOG.md">CATALOG.md</a></dd>
+          </dl>
+        </article>
+        <article class="card">
+          <h3>external-secrets/external-secrets</h3>
+          <span class="status good">catalog-supported</span>
+          <span class="status good">current</span>
+          <dl>
+            <dt>Supported version</dt><dd>2.5.0</dd>
+            <dt>Start variant</dt><dd>default</dd>
+            <dt>Variants</dt><dd>default;no-crds</dd>
+            <dt>Package</dt><dd><a href="../packages/external-secrets/external-secrets/2.5.0">packages/external-secrets/external-secrets/2.5.0</a></dd>
+            <dt>Chart proof</dt><dd><a href="../recipes/external-secrets/external-secrets/2.5.0/CATALOG.md">CATALOG.md</a></dd>
+          </dl>
+        </article>
+        <article class="card">
+          <h3>grafana/grafana</h3>
+          <span class="status good">catalog-supported</span>
+          <span class="status good">current</span>
+          <dl>
+            <dt>Supported version</dt><dd>10.5.15</dd>
+            <dt>Start variant</dt><dd>generated-passwords</dd>
+            <dt>Variants</dt><dd>generated-passwords;existing-secret-ingress</dd>
+            <dt>Package</dt><dd><a href="../packages/grafana/grafana/10.5.15">packages/grafana/grafana/10.5.15</a></dd>
+            <dt>Chart proof</dt><dd><a href="../recipes/grafana/grafana/10.5.15/CATALOG.md">CATALOG.md</a></dd>
+          </dl>
+        </article>
+        <article class="card">
+          <h3>grafana/loki</h3>
+          <span class="status good">catalog-supported</span>
+          <span class="status good">current</span>
+          <dl>
+            <dt>Supported version</dt><dd>7.0.0</dd>
+            <dt>Start variant</dt><dd>single-binary-filesystem</dd>
+            <dt>Variants</dt><dd>single-binary-filesystem;simple-scalable-minio</dd>
+            <dt>Package</dt><dd><a href="../packages/grafana/loki/7.0.0">packages/grafana/loki/7.0.0</a></dd>
+            <dt>Chart proof</dt><dd><a href="../recipes/grafana/loki/7.0.0/CATALOG.md">CATALOG.md</a></dd>
+          </dl>
+        </article>
+        <article class="card">
+          <h3>grafana/tempo</h3>
+          <span class="status good">catalog-supported</span>
+          <span class="status good">current</span>
+          <dl>
+            <dt>Supported version</dt><dd>1.24.4</dd>
+            <dt>Start variant</dt><dd>local-persistent</dd>
+            <dt>Variants</dt><dd>local-persistent;s3-query-observability</dd>
+            <dt>Package</dt><dd><a href="../packages/grafana/tempo/1.24.4">packages/grafana/tempo/1.24.4</a></dd>
+            <dt>Chart proof</dt><dd><a href="../recipes/grafana/tempo/1.24.4/CATALOG.md">CATALOG.md</a></dd>
+          </dl>
+        </article>
+        <article class="card">
+          <h3>hashicorp/consul</h3>
+          <span class="status good">catalog-supported</span>
+          <span class="status good">current</span>
+          <dl>
+            <dt>Supported version</dt><dd>2.0.0</dd>
+            <dt>Start variant</dt><dd>default-control-plane</dd>
+            <dt>Variants</dt><dd>default-control-plane;secure-mesh-existing-secrets</dd>
+            <dt>Package</dt><dd><a href="../packages/hashicorp/consul/2.0.0">packages/hashicorp/consul/2.0.0</a></dd>
+            <dt>Chart proof</dt><dd><a href="../recipes/hashicorp/consul/2.0.0/CATALOG.md">CATALOG.md</a></dd>
+          </dl>
+        </article>
+        <article class="card">
+          <h3>hashicorp/vault</h3>
+          <span class="status good">catalog-supported</span>
+          <span class="status good">current</span>
+          <dl>
+            <dt>Supported version</dt><dd>0.32.0</dd>
+            <dt>Start variant</dt><dd>default</dd>
+            <dt>Variants</dt><dd>default;ha-raft-ui</dd>
+            <dt>Package</dt><dd><a href="../packages/hashicorp/vault/0.32.0">packages/hashicorp/vault/0.32.0</a></dd>
+            <dt>Chart proof</dt><dd><a href="../recipes/hashicorp/vault/0.32.0/CATALOG.md">CATALOG.md</a></dd>
+          </dl>
+        </article>
+        <article class="card">
+          <h3>ingress-nginx/ingress-nginx</h3>
+          <span class="status good">catalog-supported</span>
+          <span class="status good">current</span>
+          <dl>
+            <dt>Supported version</dt><dd>4.15.1</dd>
+            <dt>Start variant</dt><dd>default</dd>
+            <dt>Variants</dt><dd>default;admission-disabled</dd>
+            <dt>Package</dt><dd><a href="../packages/ingress-nginx/ingress-nginx/4.15.1">packages/ingress-nginx/ingress-nginx/4.15.1</a></dd>
+            <dt>Chart proof</dt><dd><a href="../recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.md">CATALOG.md</a></dd>
+          </dl>
+        </article>
+        <article class="card">
+          <h3>jetstack/cert-manager</h3>
+          <span class="status good">catalog-supported</span>
+          <span class="status good">current</span>
+          <dl>
+            <dt>Supported version</dt><dd>v1.20.2</dd>
+            <dt>Start variant</dt><dd>default</dd>
+            <dt>Variants</dt><dd>default;crds-enabled</dd>
+            <dt>Package</dt><dd><a href="../packages/jetstack/cert-manager/v1.20.2">packages/jetstack/cert-manager/v1.20.2</a></dd>
+            <dt>Chart proof</dt><dd><a href="../recipes/jetstack/cert-manager/v1.20.2/CATALOG.md">CATALOG.md</a></dd>
+          </dl>
+        </article>
+        <article class="card">
+          <h3>longhorn/longhorn</h3>
+          <span class="status good">catalog-supported</span>
+          <span class="status good">current</span>
+          <dl>
+            <dt>Supported version</dt><dd>1.11.2</dd>
+            <dt>Start variant</dt><dd>default</dd>
+            <dt>Variants</dt><dd>default;ui-ingress</dd>
+            <dt>Package</dt><dd><a href="../packages/longhorn/longhorn/1.11.2">packages/longhorn/longhorn/1.11.2</a></dd>
+            <dt>Chart proof</dt><dd><a href="../recipes/longhorn/longhorn/1.11.2/CATALOG.md">CATALOG.md</a></dd>
+          </dl>
+        </article>
+        <article class="card">
+          <h3>metrics-server/metrics-server</h3>
+          <span class="status good">catalog-supported</span>
+          <span class="status good">current</span>
+          <dl>
+            <dt>Supported version</dt><dd>3.13.0</dd>
+            <dt>Start variant</dt><dd>default</dd>
+            <dt>Variants</dt><dd>default;external-tls-ca</dd>
+            <dt>Package</dt><dd><a href="../packages/metrics-server/metrics-server/3.13.0">packages/metrics-server/metrics-server/3.13.0</a></dd>
+            <dt>Chart proof</dt><dd><a href="../recipes/metrics-server/metrics-server/3.13.0/CATALOG.md">CATALOG.md</a></dd>
+          </dl>
+        </article>
+        <article class="card">
+          <h3>prometheus-community/kube-prometheus-stack</h3>
+          <span class="status good">catalog-supported</span>
+          <span class="status warn">candidate 86.1.0</span>
+          <dl>
+            <dt>Supported version</dt><dd>85.3.3</dd>
+            <dt>Start variant</dt><dd>default</dd>
+            <dt>Variants</dt><dd>default;no-crds</dd>
+            <dt>Package</dt><dd><a href="../packages/prometheus-community/kube-prometheus-stack/85.3.3">packages/prometheus-community/kube-prometheus-stack/85.3.3</a></dd>
+            <dt>Chart proof</dt><dd><a href="../recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md">CATALOG.md</a></dd>
+          </dl>
+        </article>
+        <article class="card">
+          <h3>prometheus-community/prometheus</h3>
+          <span class="status good">catalog-supported</span>
+          <span class="status warn">candidate 29.9.0</span>
+          <dl>
+            <dt>Supported version</dt><dd>29.8.0</dd>
+            <dt>Start variant</dt><dd>default</dd>
+            <dt>Variants</dt><dd>default;server-only-ephemeral</dd>
+            <dt>Package</dt><dd><a href="../packages/prometheus-community/prometheus/29.8.0">packages/prometheus-community/prometheus/29.8.0</a></dd>
+            <dt>Chart proof</dt><dd><a href="../recipes/prometheus-community/prometheus/29.8.0/CATALOG.md">CATALOG.md</a></dd>
+          </dl>
+        </article>
+        <article class="card">
+          <h3>secrets-store-csi-driver/secrets-store-csi-driver</h3>
+          <span class="status good">catalog-supported</span>
+          <span class="status good">current</span>
+          <dl>
+            <dt>Supported version</dt><dd>1.6.0</dd>
+            <dt>Start variant</dt><dd>default</dd>
+            <dt>Variants</dt><dd>default;sync-secret-rotation</dd>
+            <dt>Package</dt><dd><a href="../packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0">packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0</a></dd>
+            <dt>Chart proof</dt><dd><a href="../recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.md">CATALOG.md</a></dd>
+          </dl>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="latest">
+      <h2 id="latest">Latest-Version Candidates</h2>
+      <p>New upstream versions are candidates until their ConfigHub proof, live e2e, catalog status, production disposition, top-100, and top-500 lanes are regenerated.</p>
+      <div class="card"><table>
+        <thead><tr><th>Chart</th><th>Supported</th><th>Candidate</th><th>Status</th></tr></thead>
+        <tbody><tr><td>argo-cd/argo-cd</td><td>9.5.15</td><td>9.5.17</td><td>ready-for-full-lane-promotion</td></tr><tr><td>bitnami/mongodb</td><td>19.0.7</td><td>19.0.9</td><td>ready-for-full-lane-promotion</td></tr><tr><td>bitnami/nginx</td><td>24.0.2</td><td>24.0.4</td><td>ready-for-full-lane-promotion</td></tr><tr><td>bitnami/postgresql</td><td>18.6.7</td><td>18.6.10</td><td>ready-for-full-lane-promotion</td></tr><tr><td>prometheus-community/kube-prometheus-stack</td><td>85.3.3</td><td>86.1.0</td><td>ready-for-full-lane-promotion</td></tr><tr><td>prometheus-community/prometheus</td><td>29.8.0</td><td>29.9.0</td><td>ready-for-full-lane-promotion</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+
+    <section aria-labelledby="variants">
+      <h2 id="variants">Variant Examples</h2>
+      <p>These generated goldens show how catalog bases become downstream ConfigHub variants without hiding a Helm rerender.</p>
+      <div class="catalog">
+        <article class="card">
+          <h3>Redis production variant</h3>
+          <dl>
+            <dt>From</dt><dd>redis/default</dd>
+            <dt>Creates</dt><dd>redis/prod-us-east</dd>
+            <dt>Model</dt><dd>Spaces, Units, labels, upstream links</dd>
+            <dt>Proof</dt><dd><a href="../data/variant-goldens/redis-prod-us-east/README.md">Redis Creator golden</a></dd>
+          </dl>
+        </article>
+        <article class="card">
+          <h3>Managed overlay</h3>
+          <dl>
+            <dt>Chart</dt><dd>external-dns/external-dns</dd>
+            <dt>Input</dt><dd>wrapper chart + platform values + customer overlay</dd>
+            <dt>Model</dt><dd>render-time choices route to cub installer; post-render choices route to Creator</dd>
+            <dt>Proof</dt><dd><a href="../data/managed-overlay-goldens/external-dns-customer-acme-prod/README.md">ExternalDNS overlay golden</a></dd>
+          </dl>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="data">
+      <h2 id="data">Generated Data</h2>
+      <p>This static view is generated from repo artifacts. The machine-readable catalog is <a href="./catalog.json">catalog.json</a>.</p>
+      <ul>
+        <li><a href="../CATALOG.md">Root catalog</a></li>
+        <li><a href="../data/top100-catalog-analysis/summary.md">Top-100 catalog analysis</a></li>
+        <li><a href="../data/top500-catalog-analysis/summary.md">Top-500 catalog analysis</a></li>
+        <li><a href="../data/latest-top20-refresh/promotion-readiness.md">Latest candidate promotion readiness</a></li>
+      </ul>
+    </section>
+  </main>
+  <footer>
+    Generated from helm-expt proof data. Latest available chart versions and supported proof versions are intentionally shown separately.
+  </footer>
+</body>
+</html>

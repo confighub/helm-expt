@@ -1,0 +1,81 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantCreatorGolden"
+metadata:
+  name: "redis-default-to-prod-us-east"
+  generatedBy: "scripts/generate-variant-goldens.mjs"
+spec:
+  purpose: "Golden for creating a production ConfigHub variant from the reviewed Redis default base."
+  source:
+    chart: "bitnami/redis"
+    chartVersion: "25.5.3"
+    recipe: "recipes/bitnami/redis/25.5.3/recipe.yaml"
+    package: "packages/bitnami/redis/25.5.3"
+    base: "default"
+    sourceVariant: "recipes/bitnami/redis/25.5.3/variants/default/variant.yaml"
+    sourceRevision: "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml"
+    renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+    objectCount: 14
+    cubInstallerObjectCountIncludingSupport: 15
+  target:
+    downstreamSpace: "helm-redis-prod-us-east"
+    environment: "prod"
+    region: "us-east"
+    target: "prod-us-east"
+    namespace: "redis-prod"
+  commandSurface:
+    primitive: "cub variant create"
+    example: "cub variant create prod-us-east helm-redis-confighub-proof --environment Prod --region us-east --target prod-us-east --space-name-pattern template:{{.SourceEntitySlug}}-{{.Labels.Variant}}"
+    porcelainNeeded:
+      - "preview"
+      - "checks"
+      - "receipt display"
+  confighubPromotionModel:
+    implementation: "spaces-units-labels-upstream-links"
+    reason: "ConfigHub Promotion examples use Units and labels to form the component graph. The Creator golden must preserve that model."
+    componentIdentity:
+      spaceLabel: "Component=Redis"
+      unitLabel: "Component=Redis"
+    variantIdentity:
+      sourceSpaceLabel: "Variant=default"
+      downstreamSpaceLabel: "Variant=prod-us-east"
+    promotionEdge:
+      source: "source Unit in helm-redis-confighub-proof"
+      downstream: "cloned Unit in helm-redis-prod-us-east"
+      field: "Unit.UpstreamUnitID"
+    labelContract:
+      - "Component"
+      - "Variant"
+      - "Environment"
+      - "Region"
+      - "Owner"
+      - "HelmChart"
+      - "HelmChartVersion"
+  boundary:
+    mode: "post-render ConfigHub refinement"
+    allowed:
+      - "clone the reviewed ConfigHub Space and Units"
+      - "set environment, region, target, and variant labels"
+      - "apply a namespace TransformPaths mutation across namespace-scoped Units"
+      - "preserve upstream links from source Units to cloned Units"
+      - "run checks and write receipts"
+    routeBackToInstaller:
+      - "switch Redis from generated Secret mode to existing Secret mode"
+      - "enable or disable chart components"
+      - "change storage or HA topology"
+      - "change Helm values that alter the rendered template structure"
+  secretHandling:
+    sourceBase: "default"
+    mode: "preserve-generated-secret-reference"
+    renderedSecret: "v1|Secret|redis|redis"
+    targetFactsRequired:
+      []
+    note: "The default base includes a Redis Secret in Helm output and separates it during cub installer handling. A request to use redis-existing-secret must start from the reuse-existing-secret base or go back through cub installer."
+  proof:
+    contractDigest: "sha256:5a3cb41bd575d316c785f1fd0b8515c7b35f917dbe12639bca54d236241ac2fc"
+    sourceFiles:
+      recipe: "recipes/bitnami/redis/25.5.3/recipe.yaml"
+      package: "packages/bitnami/redis/25.5.3"
+      variant: "recipes/bitnami/redis/25.5.3/variants/default/variant.yaml"
+      variantRevision: "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml"
+      renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+      confighubProofSHA256: "b12e4390f43adf758688036a0784b8b4dfe5c5420a043e2373fc7dc49525d658"

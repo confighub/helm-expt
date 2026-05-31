@@ -1,0 +1,27 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "AgentTaskGolden"
+metadata:
+  name: "redis-prod-us-east-agent-task"
+spec:
+  task: "create_variant"
+  fromSpace: "helm-redis-confighub-proof"
+  fromBase: "redis/default"
+  blueprint: "environment-clone"
+  parameters:
+    environment: "prod"
+    region: "us-east"
+    target: "prod-us-east"
+    namespace: "redis-prod"
+    redisSecretMode: "preserve-generated-secret-reference"
+  requiredChecks:
+    - "source-revision-bound"
+    - "no-hidden-helm-rerender"
+    - "unit-count-preserved"
+    - "redis-secret-mode-preserved"
+    - "existing-secret-request-routes-back-to-installer"
+    - "scan-disposition-carried-forward"
+  expectedReceipts:
+    - "receipts/clone-receipt.yaml"
+    - "receipts/mutation-receipt.yaml"
+    - "receipts/check-receipt.yaml"
+    - "receipts/route-back-receipt.yaml"

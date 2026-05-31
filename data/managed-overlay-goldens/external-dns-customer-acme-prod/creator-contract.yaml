@@ -1,0 +1,44 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ManagedOverlayCreatorGolden"
+metadata:
+  name: "external-dns-customer-acme-prod"
+  generatedBy: "scripts/generate-variant-goldens.mjs"
+spec:
+  from: "external-dns/managed-aws"
+  creates: "external-dns/customer-acme-prod"
+  doctrine: "Customer overlay values are classified before render. Render-time choices go through cub installer. Post-render operating choices go through the Variant Creator contract."
+  ux:
+    from: "ExternalDNS managed AWS"
+    blueprint: "Customer overlay"
+    fill:
+      - "customer"
+      - "environment"
+      - "region"
+      - "target"
+      - "domain filters"
+      - "hosted zone fact"
+      - "credential Secret fact"
+    preview: "6 Kubernetes Units, 1 Namespace support object, render-time overlay values bound to installer inputs, post-render labels/target bound by Creator."
+    checks:
+      - "overlay classified"
+      - "target facts named"
+      - "no secret material in overlay"
+      - "RBAC/CRD disposition required"
+  ax:
+    task: "create_managed_overlay_variant"
+    requiredChecks:
+      - "all-overlay-keys-classified"
+      - "render-time-values-route-to-installer"
+      - "target-facts-declared"
+      - "no-secret-material"
+      - "rbac-crd-disposition-present"
+  fx:
+    function: "ManagedOverlayCreatorContract(parameters) -> ConfigHubVariant + receipts"
+    matrixColumns:
+      - "customer"
+      - "environment"
+      - "region"
+      - "target"
+      - "domainFilters"
+      - "hostedZoneFact"
+      - "credentialSecretFact"

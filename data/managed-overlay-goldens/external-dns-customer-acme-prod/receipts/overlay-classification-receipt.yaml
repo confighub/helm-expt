@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ManagedOverlayClassificationReceipt"
+metadata:
+  name: "external-dns-customer-acme-prod-overlay-classification"
+spec:
+  classification: "overlay-classification.yaml"
+  result: "golden-pass"
+  routeCounts:
+    totalRoutes: 6
+    installerRoutes: 4
+    creatorRoutes: 1
+    lifecycleRoutes: 1

@@ -1,0 +1,11 @@
+provider: "aws"
+policy: "upsert-only"
+registry: "txt"
+txtPrefix: "kubara-"
+sources:
+  - "service"
+  - "ingress"
+serviceAccount:
+  create: true
+rbac:
+  create: true

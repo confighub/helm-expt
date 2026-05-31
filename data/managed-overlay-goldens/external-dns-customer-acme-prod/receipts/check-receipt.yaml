@@ -1,0 +1,31 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ManagedOverlayCheckReceipt"
+metadata:
+  name: "external-dns-customer-acme-prod-checks"
+spec:
+  checks:
+    -
+      name: "wrapper-chart-present"
+      result: "pass"
+    -
+      name: "platform-values-present"
+      result: "pass"
+    -
+      name: "customer-values-present"
+      result: "pass"
+    -
+      name: "all-overlay-keys-classified"
+      result: "pass"
+    -
+      name: "render-time-values-route-to-installer"
+      result: "pass"
+    -
+      name: "target-facts-declared"
+      result: "pass"
+    -
+      name: "no-secret-material"
+      result: "pass"
+    -
+      name: "rbac-crd-disposition-present"
+      result: "pass"
+  result: "golden-pass"

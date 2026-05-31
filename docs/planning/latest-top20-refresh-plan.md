@@ -164,8 +164,8 @@ uses private overlay values, target facts, approvals, gates, and receipts.
 1. Promote the six latest-version candidate proofs through ConfigHub proof,
    live e2e, catalog status, and production-disposition lanes.
 2. Keep previous chart versions available for legacy patch and rollback review.
-3. Add Redis promotion Creator golden and receipts.
-4. Add the ExternalDNS/Kubara managed overlay golden.
+3. Generate and verify the Redis promotion Creator golden and receipts.
+4. Generate and verify the ExternalDNS/Kubara managed overlay golden.
 5. Recalculate top-100 and top-500 data from the promoted catalog state.
 6. Publish the website/catalog view from the generated chart catalog and proof
    data.
@@ -176,6 +176,10 @@ uses private overlay values, target facts, approvals, gates, and receipts.
 npm run top20:latest-refresh
 npm run top20:latest-refresh:verify
 npm run top20:latest-promotion-readiness:verify
+npm run variant-goldens:verify
+npm run top100:catalog:verify
+npm run top500:catalog:verify
+npm run site:verify
 ```
 
 The refresh command depends on the locally configured Helm repositories and
