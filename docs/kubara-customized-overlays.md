@@ -9,6 +9,11 @@ It is not a full Kubara golden yet. A full golden still needs an inspected
 wrapper chart, platform values, customer overlay values, render comparison, and
 verification receipts.
 
+This is intentionally beyond the public catalog proof. A Kubara-style case
+needs ConfigHub Server because it has private/customer inputs, target facts,
+approvals, gates, and downstream managed variants. It is a candidate for
+managed or commercial product workflows, not just a free static catalog entry.
+
 ## Why ExternalDNS
 
 `external-dns` is a good first case because provider configuration, DNS
@@ -59,6 +64,44 @@ managed wrapper chart
 `cub helm install` can be the quick one-shot render path. A maintained `cub
 installer` recipe/package must capture the durable import unit above.
 
+## Overlay Decision Rule
+
+Kubara customer choices must be split before rendering:
+
+```text
+render-time choice
+  -> cub installer recipe/base
+
+post-render choice
+  -> cub variant create plus Creator contract
+```
+
+Render-time examples:
+
+```text
+provider mode
+domain filters rendered into args/env
+credential wiring that changes env/volumes
+CRDs/RBAC/webhooks
+storage/HA/topology
+Kustomize overlays that add/remove/change resources materially
+```
+
+Post-render examples:
+
+```text
+target
+environment/customer/region labels
+approval gates
+observation policy
+existing Secret reference when the field already exists
+namespace when represented as an editable Unit field
+```
+
+The Creator must not hide a Helm rerender. If the customer overlay changes
+rendered objects, the workflow goes back to the maintained `cub installer`
+recipe/base path.
+
 ## Value Classification
 
 | Value or decision | Classification | Product route |
@@ -67,11 +110,11 @@ installer` recipe/package must capture the durable import unit above.
 | Wrapper chart URL/version/digest | source lock | `cub installer` recipe/package |
 | Chart dependencies and wrapper dependencies | dependency lock | `cub installer` recipe/package |
 | Platform defaults such as sources, policy, registry mode, default provider | managed default | `cub installer` recipe/base |
-| Customer domain filters, TXT owner ID, provider account, IAM role, hosted zone | customer overlay value / target fact | Recipe/base if rendered into args/env; Variant Creator artifact only if binding an existing placeholder or Unit field |
-| DNS credential Secret or ExternalSecret reference | target fact | Recipe/base if it changes rendered env/volume shape; Variant Creator artifact if the rendered object already has a bindable reference |
+| Customer domain filters, TXT owner ID, provider account, IAM role, hosted zone | customer overlay value / target fact | Recipe/base if rendered into args/env; Creator contract only if binding an existing placeholder or Unit field |
+| DNS credential Secret or ExternalSecret reference | target fact | Recipe/base if it changes rendered env/volume shape; Creator contract if the rendered object already has a bindable reference |
 | CRD ownership | lifecycle policy / CRD disposition | Recipe/base proof plus promotion gate |
 | ClusterRole and ClusterRoleBinding acceptance | lifecycle policy / RBAC disposition | Scan/gate and approval receipt |
-| Namespace, target, customer, environment, region labels | post-render ConfigHub variant field | Variant Creator artifact / proposed `cub variant create` porcelain |
+| Namespace, target, customer, environment, region labels | post-render ConfigHub variant field | `cub variant create` plus Creator contract over ConfigHub primitives |
 | Observation freshness policy | post-render ConfigHub variant field | Variant Creator gate/receipt |
 
 ## Promotion Shape
@@ -124,7 +167,7 @@ Smallest product gap:
 ```text
 An import/recipe contract that names wrapper source, platform values, customer
 overlay values, target facts, and render context before upload, then exposes a
-safe post-render Variant Creator artifact for customer spaces.
+safe post-render Creator contract for customer spaces.
 ```
 
 Suggested UX:
@@ -153,4 +196,74 @@ Do not claim all Kubara apps are imported.
 Do not invent cub installer import helm as an available command.
 Do not create a batch of standalone per-chart promotion-map files.
 Do not hide customer overlay rerenders inside post-render promotion.
+```
+
+## Planned Kubara Golden
+
+The first useful golden should prove one managed app end to end, not all
+Kubara apps.
+
+Candidate:
+
+```text
+external-dns managed AWS
+```
+
+Required inputs:
+
+```text
+wrapper chart source and digest
+public chart source and digest
+dependency closure
+platform values
+one customer overlay values file
+capability profile
+target fact requirements for DNS credentials / hosted zone / IAM role
+CRD and RBAC disposition
+render context
+```
+
+Required artifacts:
+
+```text
+source-lock.yaml
+dependency-lock.yaml
+effective-values.yaml
+overlay-lock.yaml
+control-points.yaml
+catalog-status.yaml
+managed-aws package base
+customer-acme-prod Creator contract or blueprint
+rendered objects
+Helm equivalence or intentional-difference receipt
+scan/gate receipts
+ConfigHub upload receipt
+variant clone/mutation/check receipts
+observation freshness requirement
+```
+
+Acceptance:
+
+```text
+The managed-aws base is digest-bound and reviewable.
+The customer-acme-prod variant is created from the base without hidden rerender.
+Every customer overlay value is classified as render-time, post-render, target
+fact, generated fact, or lifecycle policy.
+ConfigHub Promotion shows ExternalDNS/managed-aws -> ExternalDNS/customer-acme-prod.
+Receipts explain what changed and what remains target/live dependent.
+```
+
+Product tier:
+
+```text
+Tier 3 - Managed Overlay Import
+```
+
+Rationale:
+
+```text
+This requires private inputs, customer facts, ConfigHub Server state, gates,
+variant creation, and operational receipts. It is more complex than the public
+catalog proof and should be treated as a managed/commercial product lane until
+the experience is stable enough to package more broadly.
 ```

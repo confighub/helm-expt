@@ -10,9 +10,10 @@ FX: function-based creation
 ```
 
 This is about post-render ConfigHub variant promotion. It is not chart catalog
-promotion, and it is not a hidden Helm rerender. Any `cub variant create`
-syntax in this document is proposed porcelain; the local `cub` CLI does not
-currently expose a top-level `cub variant` command.
+promotion, and it is not a hidden Helm rerender. The current `cub variant
+create` command provides the clone/link substrate. The richer Creator UX below
+is product porcelain over that substrate: blueprint selection, fill-value
+guidance, preview, checks, and receipts.
 
 For the canonical mapping into ConfigHub's component/space/unit/promotion
 model, see [ConfigHub Promotion Mapping Doctrine](confighub-promotion-mapping.md).
@@ -69,7 +70,7 @@ The product question is whether cloned Units should also have their Unit-level
 identify the downstream node, while Unit labels may preserve source identity
 unless clone-time relabeling is explicit.
 
-## UX: Variant Creator Artifact
+## UX: Variant Creator
 
 ```text
 Variant Creator
@@ -82,12 +83,12 @@ Checks: pass
 Create
 ```
 
-The artifact asks only for the values needed to make this production variant
+The Creator asks only for the values needed to make this production variant
 real.
 
-## What The Artifact Describes
+## What The Creator Contract Describes
 
-The artifact tells ConfigHub how to use its existing primitives:
+The Creator contract tells ConfigHub how to use its existing primitives:
 
 | Step | Primitive | Result |
 | --- | --- | --- |
@@ -147,7 +148,7 @@ matrix:
 Fleet execution:
 
 ```text
-map the Variant Creator artifact over the matrix
+map the Variant Creator contract over the matrix
 verify each result
 summarize fleet receipts
 promote in waves
@@ -204,12 +205,12 @@ The key product lesson is the boundary:
 | Customer choice | Classification | Route |
 | --- | --- | --- |
 | DNS provider, sources, registry mode, TXT owner ID, domain filters | customer overlay value / base variant selection | Recipe/base render path, because these usually change container args or rendered objects. |
-| DNS credential Secret or ExternalSecret reference | target fact | Recipe/base when it changes rendered env/volume shape; Variant Creator artifact when it only binds an existing rendered placeholder/reference. |
-| Namespace, target, approval gates, region/customer labels | post-render ConfigHub variant field | Variant Creator artifact / proposed `cub variant create` porcelain. |
+| DNS credential Secret or ExternalSecret reference | target fact | Recipe/base when it changes rendered env/volume shape; Creator contract when it only binds an existing rendered placeholder/reference. |
+| Namespace, target, approval gates, region/customer labels | post-render ConfigHub variant field | `cub variant create` plus Creator contract over ConfigHub primitives. |
 | CRD ownership and RBAC review | lifecycle policy / CRD disposition | Recipe/base proof plus promotion gates. |
 | Provider account ID, hosted zone ID, IAM role ARN | target fact | Bind/check during variant creation; rerender only if those facts become Helm-rendered args/env. |
 
-Variant Creator artifact:
+Variant Creator:
 
 ```text
 Variant Creator
@@ -249,7 +250,7 @@ render.
 
 ## Promotion Rules
 
-Use the Variant Creator artifact when the change is post-render:
+Use the Variant Creator contract when the change is post-render:
 
 ```text
 target

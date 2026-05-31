@@ -1,13 +1,14 @@
-# Variant Creator Artifact Verification
+# Variant Creator Contract Verification
 
-This document describes how to verify the proposed
-[Variant Creator artifact](variant-creation-artifact.md) and its formal
-underpinning, currently described as `VariantCreationPlan`.
+This document describes how to verify the
+[Variant Creator contract](variant-creation-artifact.md): the formal product,
+agent, and fleet contract for creating post-render ConfigHub variants from a
+reviewed base.
 
 The goal is simple:
 
 ```text
-The same Variant Creator artifact should produce the same preview, checks, and
+The same Variant Creator contract should produce the same preview, checks, and
 receipts whether it is read by a person, an AX agent, a CLI/API flow, or an FX
 fleet runner.
 ```
@@ -37,8 +38,10 @@ Checks: pass
 Create
 ```
 
-This is an artifact shape, not proof that a GUI named Variant Creator or a
-current `cub variant` command exists.
+This is a Creator UX shape, not proof that a polished GUI flow already exists.
+The current `cub variant create` command provides the clone/link substrate; the
+full Creator experience still needs porcelain for blueprint selection, preview,
+checks, and receipts.
 
 The verification target is the creation lifecycle:
 
@@ -62,8 +65,8 @@ From -> Blueprint -> Target -> Fill -> Preview -> Checks -> Create
 
 ## Formal Contract Checks
 
-`VariantCreationPlan` should be verified as the machine-readable underpinning
-for the artifact shape.
+The Variant Creator contract should be verified as the machine-readable
+underpinning for the UX/AX/FX shape.
 
 It should make these things explicit:
 
@@ -72,13 +75,14 @@ source selector
 blueprint name
 required fill values
 allowed mutations
+ConfigHub primitives used
 preview contract
 required checks
 receipt contract
 ```
 
-Verification should fail if the plan omits one of those concerns, permits an
-unexpected mutation, skips preview/checks, or cannot produce receipts.
+Verification should fail if the contract omits one of those concerns, permits
+an unexpected mutation, skips preview/checks, or cannot produce receipts.
 
 ## UX, AX, And FX Goldens
 
@@ -155,7 +159,7 @@ It should eventually check:
 
 ```text
 artifact/schema validity
-VariantCreationPlan formal contract
+Variant Creator contract
 golden preview
 UX/AX/FX equivalence
 receipt binding
@@ -168,8 +172,8 @@ covered and which remain manual.
 
 ## Acceptance Standard
 
-A Variant Creator artifact is not proven when it creates one variant once. It
-is proven when we can show:
+A Variant Creator contract is not proven when one person creates one variant
+once. It is proven when we can show:
 
 ```text
 same source

@@ -96,6 +96,10 @@ checks steps 8-12.
 | kube version/API branching | capability profile |
 | raw manifests, `tpl`, extra deploy | explicit extension slot, scan/gate, or block |
 | replica count, HA, ingress, TLS choice | variant values |
+| values file / `--set` overlay | recipe/base variant when it changes rendered objects; ConfigHub variant only when filling existing fields |
+| wrapper chart + platform/customer values | managed overlay import with source/dependency/effective-values locks |
+| Kustomize overlay that changes resources | recipe/base overlay with digest and rendered diff |
+| Kustomize-like small edit to existing Units | ConfigHub function, TransformPaths, MutationSources, and receipt |
 | namespace/release name | variant |
 | rendered Kubernetes YAML | immutable variant revision |
 | scan result | scan receipt bound to rendered digest |
@@ -178,7 +182,7 @@ Recipe-level:
   lifecycle policy
   forbidden or review-only mechanisms
 
-Variant-level:
+Recipe/base variant-level:
   chosen values
   selected components
   target fact bindings
@@ -186,12 +190,27 @@ Variant-level:
   generated fact bindings
   explicit overlays
   namespace and release name
+
+ConfigHub server variant-level:
+  target / environment / region / customer identity
+  labels and annotations
+  gates and approvals
+  links
+  placeholders and TransformPaths
+  existing rendered field values
+  observation policy
 ```
 
-Normal changes such as namespace, replica count, HA mode, TLS posture,
-cloud/provider settings, or existing-Secret use become variants. Create another
-recipe only when the chart source, chart version, umbrella composition, import
-strategy, or recipe semantics materially differ.
+Normal Helm-rendered changes such as replica count, HA mode, TLS posture,
+cloud/provider settings, CRD posture, or existing-Secret mode become
+recipe/base variants. Normal operational changes such as target, environment,
+region, labels, gates, links, and already-rendered editable fields become
+ConfigHub server variants. Create another recipe only when the chart source,
+chart version, umbrella composition, import strategy, or recipe semantics
+materially differ.
+
+For product-tier boundaries, see
+[Product Support Tiers For Helm Scenarios](product-support-tiers.md).
 
 ## How Decisions Are Checked
 

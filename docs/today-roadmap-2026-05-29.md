@@ -24,7 +24,8 @@ for Brian, Jesper, and a skeptical Helm user:
 ```text
 cub helm install = quick one-shot render into ConfigHub Units.
 cub installer recipe = maintained, verified, variant-aware catalog artifact.
-Variant Creator artifact / proposed cub variant create = post-render ConfigHub variant creation from a reviewed base.
+cub variant create = current clone/link primitive for post-render ConfigHub variants.
+Creator contract = blueprint, preview, checks, and receipts over that primitive.
 ConfigHub Promotion = review and advance changes across those variants.
 ```
 
@@ -104,16 +105,16 @@ Three variant creation modes to keep aligned:
 | Mode | User shape | Product surface |
 | --- | --- | --- |
 | Base variant | `redis/default`, `redis/reuse-existing-secret` | `cub installer setup --base ...` |
-| UX-created variant | `Variant Creator / From: redis/default / Blueprint: Environment clone / Target: prod-us-east` | Foundational user-led expression of the Variant Creator artifact |
+| UX-created variant | `Creator / From: redis/default / Blueprint: Environment clone / Target: prod-us-east` | Foundational user-led expression of the Variant Creator contract |
 | AX-created variant | structured `create_variant` task | Agent-based expression of the same artifact |
 | FX-created variants | `create 100 variants from a matrix` | Function-based expression of the same artifact over rows |
 
 Today's concrete output:
 
 - Keep [variant-creation-artifact.md](variant-creation-artifact.md) focused on
-  the Variant Creator artifact shape.
-- Settle the formal underpinning, currently described as
-  `VariantCreationPlan`, before treating the examples as product proof.
+  the Variant Creator contract over current ConfigHub primitives.
+- Treat the old `VariantCreationPlan` name as a working-name ancestor, not as a
+  new backend entity.
 - Keep [variant-creator-verification.md](variant-creator-verification.md)
   focused on verifying the artifact fields, previews, checks, and receipts.
 - Do not add a new artifact unless the plan says who consumes it.
@@ -171,7 +172,7 @@ Today's concrete output:
 - Make no more promotion-map artifact batches today.
 - If adding an artifact, first decide whether the product home is:
   - existing `artifact-index.yaml` fields
-  - the Variant Creator artifact
+  - the Variant Creator contract
   - ConfigHub metadata stored with the component/base Space
 
 Acceptance:
@@ -180,7 +181,7 @@ Acceptance:
 
 ```text
 cub installer uploads a reviewed Redis base.
-Variant Creator artifact / proposed cub variant create describes and creates prod-us-east.
+cub variant create clones the base, and the Creator contract describes preview/checks/fill values for prod-us-east.
 ConfigHub Promotion shows the relationship and the diff.
 Future base changes can be reviewed and promoted into prod-us-east.
 ```
@@ -218,6 +219,15 @@ Public charts prove breadth.
 Kubara wrapper charts prove whether the model survives real platform choices:
 provider settings, cluster issuer settings, storage buckets, external secrets,
 ingress classes, CRDs, and dependency assumptions.
+```
+
+Product tier:
+
+```text
+Kubara-style wrapper chart + platform values + customer overlay values is
+Tier 3 managed overlay import, not merely the public catalog proof.
+It needs ConfigHub Server, target facts, approvals, gates, variant creation,
+and receipts. It may become a managed/commercial lane.
 ```
 
 Recommended first candidates:
@@ -304,7 +314,7 @@ Careful suggestions that are currently justified:
 
 | Suggestion | Why it is justified | Existing primitive |
 | --- | --- | --- |
-| Variant Creator artifact | Users need a clear way to describe prod/region/customer variants from a base. | space/unit clone substrate, upstream links, labels, targets, gates; proposed `cub variant create` porcelain |
+| Variant Creator contract | Users need a clear way to describe prod/region/customer variants from a base. | `cub variant create`, space/unit clone substrate, upstream links, labels, targets, gates, placeholders, TransformPaths, functions |
 | Shared artifact shape | UX, AX, and FX paths need the same fields. | Units, placeholders, TransformPaths, functions, gates |
 | Promotion clarity | Helm-derived bases should appear as components with variant nodes. | `Component`/`Variant` labels, `Unit.UpstreamUnitID`, Promotion UI |
 | Import bridge | One-shot Helm render should graduate into maintained recipe/package artifacts. | `cub helm install`, `cub installer` package path |
@@ -323,8 +333,8 @@ Suggestions that are not justified yet:
 1. **Land the creation explanation.**
    - PR #77 should remain small and readable.
    - It should explain how variants get created before leaning on examples.
-   - It should define the `VariantCreationPlan` role without treating the name
-     as user-facing product language.
+   - It should define the Creator contract role without treating the old
+     `VariantCreationPlan` name as user-facing product language.
    - Validate with `git diff --check` and `npm run verify`.
 
 2. **Then make the promotion examples crisp.**
@@ -336,7 +346,9 @@ Suggestions that are not justified yet:
    - Pick `external-dns` unless a better small case is found.
    - Identify wrapper chart, platform values, customer overlay values,
      dependency closure, and target facts.
-   - Classify which choices are recipe/base inputs versus post-render variants.
+- Classify which choices are recipe/base inputs versus post-render variants.
+- State which product tier the example belongs to and why it is beyond a
+  simple public/free catalog proof.
 
 4. **Update #76 only with concrete evidence.**
    - Add a comment if the Kubara analysis lands.
@@ -346,7 +358,7 @@ Suggestions that are not justified yet:
 5. **Choose the next implementation step.**
    - If the product home is existing catalog metadata, extend
      `artifact-index.yaml` carefully.
-   - If the product home is Variant Creator artifact, refine
+   - If the product home is Variant Creator contract, refine
      `variant-creation-artifact.md`.
    - If the product home is ConfigHub metadata, write the smallest product ask
      as a helm-expt issue first.

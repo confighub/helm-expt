@@ -47,6 +47,26 @@ Day 1: create variants deliberately and compare the rendered results.
 Day 2: scan, promote, observe, upgrade, and audit with receipts.
 ```
 
+The first experience should not require full product signup. The target shape is:
+
+```text
+public chart
+-> public signed package / OCI artifact
+-> user's cluster or GitOps controller
+-> local verification receipt
+```
+
+If ConfigHub provides the public OCI gateway, public pulls may still be
+authenticated, rate-limited, and signature-verified so the service is not an
+unauthenticated firehose. Full signup becomes useful when the user wants
+private charts, private overlays, server-side variants, production approvals,
+managed receipts, or fleet operations.
+
+In practice: browse the catalog anonymously; use a lightweight read-only pull
+token for public OCI artifacts; verify signatures and digests locally; create a
+full ConfigHub account only when you want ConfigHub to manage private or
+production state.
+
 ## Why
 
 Helm is good at producing Kubernetes objects. The pain starts when teams need
@@ -72,6 +92,35 @@ This is not a single magic prompt. It is an AI-assisted harness with explicit
 decision points and mechanical checks. For the recipe-generation workflow and
 the "where pieces go" table, see
 [Introduction To The Harness](docs/introduction-to-the-harness.md).
+
+## How Values And Overlays Are Supported
+
+Helm users already customize charts with values files, `--set` flags,
+umbrella charts, wrapper charts, and sometimes Kustomize overlays. The rule in
+this repo is not "stop doing that." The rule is:
+
+```text
+If a customization changes rendered Kubernetes objects, make it a reviewed
+cub installer recipe/package base.
+
+If it refines already-rendered ConfigHub Units, make it a ConfigHub variant
+using cub variant create plus the Creator contract.
+```
+
+Examples:
+
+| Customization | Route |
+| --- | --- |
+| Helm values file that changes replicas, storage, ingress, CRDs, RBAC, args, env, or object count | new `cub installer` base / rendered revision |
+| Kustomize overlay that changes the install shape | explicit recipe/base overlay with digest and diff |
+| Namespace, target, labels, approval gates, observation policy | ConfigHub variant |
+| Existing Secret reference already represented in the rendered objects | ConfigHub variant with target fact/check |
+| Wrapper chart plus platform values plus customer overlay values | managed overlay import; usually needs ConfigHub Server |
+
+For the detailed algorithm, see
+[Customization Algorithm](docs/customization-algorithm.md). For the product
+tier boundaries, see
+[Product Support Tiers For Helm Scenarios](docs/product-support-tiers.md).
 
 ## What Is Proven Today
 
