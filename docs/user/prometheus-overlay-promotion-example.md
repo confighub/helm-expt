@@ -172,13 +172,19 @@ The proposed higher-level Creator UX should sit on top of the real
 ```text
 Create variant
 From: prometheus/server-only-ephemeral
-Blueprint: Environment clone
-Target variant: prod-us-east
-Fill: region, environment, target, approval policy, observation freshness
-Preview: same Units, same rendered object digest, labels/target/gates changed
-Checks: no Helm rerender, upstream links preserved, scan warning carried forward
+For: prod-us-east
+Change: target, environment, region, production gates, observation policy
+Review: same Prometheus install shape, new production operating context
+Status: ready to create
 Create
 ```
+
+The first screen should stay close to the user's intent. It should not require
+the user to understand receipt types, object digests, or internal check names.
+The system still checks that the rendered object set did not change, the Unit
+count is preserved, upstream links remain intact, and scan disposition is
+carried forward. Those details belong in expandable details, receipts, CI, and
+audit views.
 
 The primitive exists today. The guided preview/check/receipt experience is
 product porcelain that still needs implementation.

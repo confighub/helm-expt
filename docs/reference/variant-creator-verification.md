@@ -21,7 +21,8 @@ AX is the agent-based way to make the same variant.
 FX is the function-based way to make the same variant from one row or many rows.
 ```
 
-Verification exists to prove those three ways stay equivalent.
+Verification exists to prove those three ways stay equivalent. The proof does
+not need to become the first-screen product language.
 
 ## Canonical Creation Shape
 
@@ -33,15 +34,15 @@ From: redis/default
 Blueprint: Environment clone
 Target variant: prod-us-east
 Fill: namespace, target, Redis Secret mode
-Preview: 15 Units, 3 changed paths, 1 link changed
-Checks: pass with carried scan warning
+Review: target, namespace, Redis Secret mode, and production policy
+Status: ready to create
 Create
 ```
 
 This is a Creator UX shape, not proof that a polished GUI flow already exists.
 The current `cub variant create` command provides the clone/link substrate; the
-full Creator experience still needs porcelain for blueprint selection, preview,
-checks, and receipts.
+full Creator experience still needs porcelain for blueprint selection, review,
+readiness, and access to proof details.
 
 The verification target is the creation lifecycle:
 
@@ -94,10 +95,14 @@ From: redis/default
 Blueprint: Environment clone
 Target variant: prod-us-east
 Fill: environment=prod, region=us-east, namespace=redis-prod, target=redis-targets/prod-us-east
-Preview: 15 Units, 3 changed paths, 1 link changed
-Checks: pass with carried Redis scan warning
+Review: target, namespace, environment, region, and production policy
+Status: ready to create
 Create
 ```
+
+The user-led form can expose Unit counts, changed paths, links, scan warnings,
+and receipts in details views. The primary path should present the route,
+visible changes, readiness, and create action.
 
 AX agent-based form:
 
@@ -165,8 +170,8 @@ npm run variant-goldens:verify
 | --- | --- |
 | Artifact/schema | Required fields are present and supported operations are explicit. |
 | CLI/API, when available | Dry-run returns the golden preview and rejects bad input with useful errors. |
-| UX | User-led flow shows source, creation pattern, fill values, preview, checks, create action, and receipts. |
-| AX | Agent task produces the same preview and check results as UX. |
+| UX | User-led flow shows source, creation pattern, fill values, visible changes, readiness, and create action; proof details remain available. |
+| AX | Agent task produces the same underlying preview and check results as the user-led flow. |
 | FX | Function run produces equivalent per-row receipts and a summary; one bad row fails clearly. |
 | Tamper tests | Changed source digest, missing target fact, unexpected path mutation, or skipped check fails verification. |
 
