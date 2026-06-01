@@ -140,6 +140,11 @@ For Helm hooks specifically, see
 
 ## What Is Proven Today
 
+> **What a full test run verifies — and what you can expect to be true:** see
+> [`docs/verification-properties.md`](docs/verification-properties.md) for the
+> acceptance contract — the verified properties, current coverage, and the
+> honest limitations.
+
 ```text
 20 popular Helm charts have catalog entries.
 20/20 have passing local kind live/e2e receipts.
