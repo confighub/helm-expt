@@ -14,3 +14,13 @@ spec:
       name: "no-crds"
       path: "bases/no-crds"
       description: "kube-prometheus-stack CRDs disabled variant rendered from prometheus-community/kube-prometheus-stack@85.3.3"
+  transformers:
+    # F1 fix: honour `cub installer --namespace X` instead of the frozen upstream
+    # literal — set metadata.namespace on every namespaced resource and rename
+    # the Namespace object. Pattern: installer examples/hello-app/installer.yaml.
+    - toolchain: "Kubernetes/YAML"
+      whereResource: ""
+      description: "Set the namespace on every namespaced resource."
+      invocations:
+        - name: "set-namespace"
+          args: ["{{ .Namespace }}"]
