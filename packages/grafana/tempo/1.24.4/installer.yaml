@@ -20,6 +20,16 @@ spec:
           suggestedSource: "kubectl -n tempo create secret generic tempo-s3-credentials --from-literal=access_key=<value> --from-literal=secret_key=<value>"
       name: "s3-query-observability"
       path: "bases/s3-query-observability"
+  transformers:
+    # F1 fix: honour `cub installer --namespace X` instead of the frozen upstream
+    # literal — set metadata.namespace on every namespaced resource and rename
+    # the Namespace object. Pattern: installer examples/hello-app/installer.yaml.
+    - toolchain: "Kubernetes/YAML"
+      whereResource: ""
+      description: "Set the namespace on every namespaced resource."
+      invocations:
+        - name: "set-namespace"
+          args: ["{{ .Namespace }}"]
   collector:
     command: "/bin/sh"
     args:
