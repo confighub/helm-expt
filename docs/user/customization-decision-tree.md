@@ -14,6 +14,32 @@ demonstrated live this campaign · **[observed]** · **[design]** = still to dec
 > variants with receipts. **The package source tree (`./package/`) is read-only
 > to consumers** — never `kustomize edit` it; the next `setup --pull` overwrites it.
 
+## The model behind the menu (chart → recipes → base variants → derived variants)
+```
+1 Helm chart
+ └─ N recipes  (incl. a default recipe)                     — the cub installer mapping(s)        [helm-expt]
+      └─ N base variants, placeholdered  (incl. a default)  — render-time shapes; placeholders    [helm-expt]
+         │                                                     are the fill surface. Each base is
+         │                                                     rendered, Helm-equivalent, pinned.
+         │                                                     (no-crds · existing-secret · ha · ingress-tls · …)
+         └─ N×M derived variants                            — env / region / customer fills on a   [ConfigHub only]
+                                                              chosen base (cub variant create;
+                                                              no re-render). NAMED, LISTED, and
+                                                              TESTED in helm-expt; instances live
+                                                              in ConfigHub.
+```
+- **helm-expt owns** the recipes + base variants (rendered, equivalence-proven, placeholdered) and the *names / list / tests* of the derived variants.
+- **ConfigHub owns** the derived-variant *instances* (the long tail).
+- **The render boundary is the rule:** changes the rendered object set → a new **base variant** (re-render + Helm-equivalence); only changes operating context (target/env/region/gates/fills) → a **derived ConfigHub variant** (no re-render). This is Lens B below.
+
+### "100% supported" = every quirk accounted-for (Level 2)
+A chart is **supported** when every Helm quirk it uses — `lookup`, hooks, `.Capabilities`, generated
+secrets, `tpl`, raw / post-renderers, CRDs / webhooks — is either **modeled** (static: declared fact ·
+named capability profile · generated-fact receipt) or **explicitly disclosed** (operator-decision · honest
+blocker). **Zero silent gaps.** That faithful disclosure *is* the support — not a claim that runtime
+behavior was statically replicated. **Live proof (Level 3)** is layered on where it earns trust, not
+required everywhere. Variant richness (more base/derived variants) is an **enhancement**, not the support bar.
+
 ## Two complementary lenses (read both)
 The consumer guide and the routing doc answer different questions. Use them together.
 
