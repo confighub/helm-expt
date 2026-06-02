@@ -71,8 +71,9 @@ function dispositionFor(point, reviewed = true) {
   // Hooks/lifecycle: handled-by-lifecycle-policy catalog-wide. Helm hooks are EXECUTED by the delivery path —
   // ConfigHub applies the hook resources; on cluster delivery the GitOps controller runs them (Flux's
   // helm-controller runs Helm hooks with full lifecycle, incl. the dummy-chart wrap of rendered output;
-  // Argo via its Helm source). The live-proof receipt is the Level-3 validation — so hooks are NOT a
-  // per-chart judgment call.
+  // or Argo's equivalent: it converts Helm hook annotations into its sync phases, and has native
+  // resource hooks (PreSync/Sync/PostSync/SyncFail) for rendered manifests). The live-proof receipt is
+  // the Level-3 validation — so hooks are NOT a per-chart judgment call.
   // tpl/extension slots: open, arbitrary injection points (extraManifests, raw manifests, tpl live-code)
   // whose content changes shape and can't be pre-blessed — only a reviewed chart may assert "handled";
   // unreviewed proof-grade charts disclose them as needs-operator-decision (zero silent gaps, flagged).
