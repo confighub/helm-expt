@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/cloudnative-pg/cloudnative-pg/0.28.2](../../../../packages/cloudnative-pg/cloudnative-pg/0.28.2) |
 | Installer package receipt | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/artifact-index.yaml](artifact-index.yaml) |

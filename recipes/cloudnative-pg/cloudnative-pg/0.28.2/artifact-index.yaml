@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/control-points.yaml"
     valueModel: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

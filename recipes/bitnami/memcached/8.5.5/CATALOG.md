@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/bitnami/memcached/8.5.5/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/bitnami/memcached/8.5.5/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/bitnami/memcached/8.5.5/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/bitnami/memcached/8.5.5/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/bitnami/memcached/8.5.5](../../../../packages/bitnami/memcached/8.5.5) |
 | Installer package receipt | [recipes/bitnami/memcached/8.5.5/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/bitnami/memcached/8.5.5/artifact-index.yaml](artifact-index.yaml) |

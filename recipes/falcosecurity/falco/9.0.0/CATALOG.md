@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/falcosecurity/falco/9.0.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/falcosecurity/falco/9.0.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/falcosecurity/falco/9.0.0/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/falcosecurity/falco/9.0.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/falcosecurity/falco/9.0.0](../../../../packages/falcosecurity/falco/9.0.0) |
 | Installer package receipt | [recipes/falcosecurity/falco/9.0.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/falcosecurity/falco/9.0.0/artifact-index.yaml](artifact-index.yaml) |

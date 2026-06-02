@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/descheduler/descheduler/0.36.0/control-points.yaml"
     valueModel: "recipes/descheduler/descheduler/0.36.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/descheduler/descheduler/0.36.0/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

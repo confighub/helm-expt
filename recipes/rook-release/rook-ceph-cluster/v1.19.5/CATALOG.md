@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/rook-release/rook-ceph-cluster/v1.19.5/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/rook-release/rook-ceph-cluster/v1.19.5/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/rook-release/rook-ceph-cluster/v1.19.5/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/rook-release/rook-ceph-cluster/v1.19.5/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/rook-release/rook-ceph-cluster/v1.19.5](../../../../packages/rook-release/rook-ceph-cluster/v1.19.5) |
 | Installer package receipt | [recipes/rook-release/rook-ceph-cluster/v1.19.5/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/rook-release/rook-ceph-cluster/v1.19.5/artifact-index.yaml](artifact-index.yaml) |

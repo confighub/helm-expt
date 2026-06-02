@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/gatekeeper/gatekeeper/3.22.2/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/gatekeeper/gatekeeper/3.22.2/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/gatekeeper/gatekeeper/3.22.2/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/gatekeeper/gatekeeper/3.22.2](../../../../packages/gatekeeper/gatekeeper/3.22.2) |
 | Installer package receipt | [recipes/gatekeeper/gatekeeper/3.22.2/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/gatekeeper/gatekeeper/3.22.2/artifact-index.yaml](artifact-index.yaml) |

@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/prometheus-community/prometheus-blackbox-exporter/11.10.0](../../../../packages/prometheus-community/prometheus-blackbox-exporter/11.10.0) |
 | Installer package receipt | [recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/artifact-index.yaml](artifact-index.yaml) |

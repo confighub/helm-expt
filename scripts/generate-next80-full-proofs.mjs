@@ -314,7 +314,13 @@ function writeSourceArtifacts(chart, source, features, objectFeatures, paths) {
           chart.namespace,
         ],
       },
-      variants: ["variants/default/variant.yaml"],
+      // Preserve promoted (non-default) variants when regenerating the default proof — no clobber on re-gen.
+      variants: (() => {
+        const existingPath = join(paths.proofRoot, "recipe.yaml");
+        const existing = existsSync(existingPath) ? (readYaml(existingPath).spec?.variants ?? []) : [];
+        const extra = existing.filter((v) => !String(v).includes("variants/default/"));
+        return ["variants/default/variant.yaml", ...extra];
+      })(),
     },
   });
 }
@@ -751,7 +757,10 @@ function verifyChart(chart, options) {
   check(sourceLock.spec.ref === chart.ref, `${chart.ref} source lock ref mismatch`);
   check(sourceLock.spec.version === chart.version, `${chart.ref} source lock version mismatch`);
   check(recipe.kind === "Recipe", `${chart.ref} recipe kind mismatch`);
-  check(recipe.spec.variants?.length === 1, `${chart.ref} recipe must have one default variant`);
+  check(
+    (recipe.spec.variants?.length ?? 0) >= 1 && recipe.spec.variants.some((v) => String(v).includes("variants/default/")),
+    `${chart.ref} recipe must include the default variant (promoted charts may add more)`,
+  );
   check(inventory.spec.sourceSHA256 === releaseDigest, `${chart.ref} inventory source digest mismatch`);
   check(inventory.spec.objectCount === objects.length, `${chart.ref} inventory object count mismatch`);
   check(revision.spec.digestInputs.renderedObjectSetSHA256 === releaseDigest, `${chart.ref} revision rendered digest mismatch`);

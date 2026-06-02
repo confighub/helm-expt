@@ -11,7 +11,7 @@ part of the support verdict (per `docs/user/customization-decision-tree.md`: var
 charts: 100
 supported (Level 2, all 6): 100
 not yet supported: 0
-variant-rich (enhancement, >1 variant): 20
+variant-rich (enhancement, >1 variant): 21
 ```
 
 ## Per-criterion coverage (the 6 support criteria)
@@ -22,7 +22,7 @@ variant-rich (enhancement, >1 variant): 20
 - `usable`: 100/100
 - `verifiable`: 100/100
 - `honestly_scoped`: 100/100
-- _enhancement_ `variant_complete`: 20/100  (not a support criterion)
+- _enhancement_ `variant_complete`: 21/100  (not a support criterion)
 
 ## Gap by criterion (how many charts each one blocks)
 

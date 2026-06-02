@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/kyverno/kyverno/3.8.1/control-points.yaml"
     valueModel: "recipes/kyverno/kyverno/3.8.1/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

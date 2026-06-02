@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/nats/surveyor/0.20.9/control-points.yaml"
     valueModel: "recipes/nats/surveyor/0.20.9/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/nats/surveyor/0.20.9/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

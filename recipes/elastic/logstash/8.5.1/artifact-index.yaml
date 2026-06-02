@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/elastic/logstash/8.5.1/control-points.yaml"
     valueModel: "recipes/elastic/logstash/8.5.1/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/elastic/logstash/8.5.1/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

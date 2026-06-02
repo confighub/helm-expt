@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/bitnami/zookeeper/13.8.7/control-points.yaml"
     valueModel: "recipes/bitnami/zookeeper/13.8.7/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/bitnami/zookeeper/13.8.7/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

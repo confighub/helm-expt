@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/grafana/rollout-operator/0.49.0/control-points.yaml"
     valueModel: "recipes/grafana/rollout-operator/0.49.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/grafana/rollout-operator/0.49.0/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

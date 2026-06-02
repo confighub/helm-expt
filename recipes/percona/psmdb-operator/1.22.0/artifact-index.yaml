@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/percona/psmdb-operator/1.22.0/control-points.yaml"
     valueModel: "recipes/percona/psmdb-operator/1.22.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/percona/psmdb-operator/1.22.0/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "crds"

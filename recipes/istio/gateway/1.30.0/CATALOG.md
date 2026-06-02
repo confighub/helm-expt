@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/istio/gateway/1.30.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/istio/gateway/1.30.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/istio/gateway/1.30.0/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/istio/gateway/1.30.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/istio/gateway/1.30.0](../../../../packages/istio/gateway/1.30.0) |
 | Installer package receipt | [recipes/istio/gateway/1.30.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/istio/gateway/1.30.0/artifact-index.yaml](artifact-index.yaml) |

@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "kedacore/keda"
+    confighub.io/version: "2.19.0"
+    confighub.io/variant: "no-crds"
+spec:
+  result: "pass"
+  regularHelm:
+    renderedSHA256: "c5a9b4bf0a0eb7786a206b54365e8ad632e96bb3f4796a51f41621fea1f276a7"
+    objectCount: 23
+  cubInstall:
+    objectCountIncludingSupport: 24
+    semanticObjectMatches: "23/23"
+    allowedCubOnlyObjects:
+      - "v1|Namespace||default"

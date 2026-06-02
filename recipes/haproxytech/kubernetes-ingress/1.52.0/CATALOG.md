@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/haproxytech/kubernetes-ingress/1.52.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/haproxytech/kubernetes-ingress/1.52.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/haproxytech/kubernetes-ingress/1.52.0/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/haproxytech/kubernetes-ingress/1.52.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/haproxytech/kubernetes-ingress/1.52.0](../../../../packages/haproxytech/kubernetes-ingress/1.52.0) |
 | Installer package receipt | [recipes/haproxytech/kubernetes-ingress/1.52.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/haproxytech/kubernetes-ingress/1.52.0/artifact-index.yaml](artifact-index.yaml) |

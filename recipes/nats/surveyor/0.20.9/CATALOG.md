@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/nats/surveyor/0.20.9/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/nats/surveyor/0.20.9/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/nats/surveyor/0.20.9/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/nats/surveyor/0.20.9/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/nats/surveyor/0.20.9](../../../../packages/nats/surveyor/0.20.9) |
 | Installer package receipt | [recipes/nats/surveyor/0.20.9/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/nats/surveyor/0.20.9/artifact-index.yaml](artifact-index.yaml) |

@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/fluent/fluent-bit/0.57.6/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/fluent/fluent-bit/0.57.6/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/fluent/fluent-bit/0.57.6/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/fluent/fluent-bit/0.57.6/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/fluent/fluent-bit/0.57.6](../../../../packages/fluent/fluent-bit/0.57.6) |
 | Installer package receipt | [recipes/fluent/fluent-bit/0.57.6/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/fluent/fluent-bit/0.57.6/artifact-index.yaml](artifact-index.yaml) |

@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/external-dns/external-dns/1.21.1/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/external-dns/external-dns/1.21.1/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/external-dns/external-dns/1.21.1/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/external-dns/external-dns/1.21.1/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/external-dns/external-dns/1.21.1](../../../../packages/external-dns/external-dns/1.21.1) |
 | Installer package receipt | [recipes/external-dns/external-dns/1.21.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/external-dns/external-dns/1.21.1/artifact-index.yaml](artifact-index.yaml) |

@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/minio-operator/tenant/7.1.1/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/minio-operator/tenant/7.1.1/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/minio-operator/tenant/7.1.1/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/minio-operator/tenant/7.1.1/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/minio-operator/tenant/7.1.1](../../../../packages/minio-operator/tenant/7.1.1) |
 | Installer package receipt | [recipes/minio-operator/tenant/7.1.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/minio-operator/tenant/7.1.1/artifact-index.yaml](artifact-index.yaml) |

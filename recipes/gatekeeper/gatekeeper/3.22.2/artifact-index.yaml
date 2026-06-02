@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/gatekeeper/gatekeeper/3.22.2/control-points.yaml"
     valueModel: "recipes/gatekeeper/gatekeeper/3.22.2/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

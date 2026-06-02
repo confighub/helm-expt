@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/bitnami/opensearch/2.0.10/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/bitnami/opensearch/2.0.10/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/bitnami/opensearch/2.0.10/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/bitnami/opensearch/2.0.10/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/bitnami/opensearch/2.0.10](../../../../packages/bitnami/opensearch/2.0.10) |
 | Installer package receipt | [recipes/bitnami/opensearch/2.0.10/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/bitnami/opensearch/2.0.10/artifact-index.yaml](artifact-index.yaml) |

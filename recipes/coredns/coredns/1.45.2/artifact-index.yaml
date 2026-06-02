@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/coredns/coredns/1.45.2/control-points.yaml"
     valueModel: "recipes/coredns/coredns/1.45.2/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/coredns/coredns/1.45.2/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

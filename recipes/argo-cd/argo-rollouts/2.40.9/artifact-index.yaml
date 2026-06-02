@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/argo-cd/argo-rollouts/2.40.9/control-points.yaml"
     valueModel: "recipes/argo-cd/argo-rollouts/2.40.9/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/argo-cd/argo-rollouts/2.40.9/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

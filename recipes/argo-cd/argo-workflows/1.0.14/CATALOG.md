@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/argo-cd/argo-workflows/1.0.14/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/argo-cd/argo-workflows/1.0.14/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/argo-cd/argo-workflows/1.0.14/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/argo-cd/argo-workflows/1.0.14/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/argo-cd/argo-workflows/1.0.14](../../../../packages/argo-cd/argo-workflows/1.0.14) |
 | Installer package receipt | [recipes/argo-cd/argo-workflows/1.0.14/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/argo-cd/argo-workflows/1.0.14/artifact-index.yaml](artifact-index.yaml) |

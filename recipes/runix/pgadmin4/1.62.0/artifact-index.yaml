@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/runix/pgadmin4/1.62.0/control-points.yaml"
     valueModel: "recipes/runix/pgadmin4/1.62.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/runix/pgadmin4/1.62.0/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

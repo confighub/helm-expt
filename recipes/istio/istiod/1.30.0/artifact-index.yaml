@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/istio/istiod/1.30.0/control-points.yaml"
     valueModel: "recipes/istio/istiod/1.30.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/istio/istiod/1.30.0/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

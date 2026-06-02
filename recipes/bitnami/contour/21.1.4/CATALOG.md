@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/bitnami/contour/21.1.4/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/bitnami/contour/21.1.4/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/bitnami/contour/21.1.4/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/bitnami/contour/21.1.4/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/bitnami/contour/21.1.4](../../../../packages/bitnami/contour/21.1.4) |
 | Installer package receipt | [recipes/bitnami/contour/21.1.4/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/bitnami/contour/21.1.4/artifact-index.yaml](artifact-index.yaml) |

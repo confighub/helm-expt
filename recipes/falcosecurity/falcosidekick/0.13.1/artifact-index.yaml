@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/falcosecurity/falcosidekick/0.13.1/control-points.yaml"
     valueModel: "recipes/falcosecurity/falcosidekick/0.13.1/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/falcosecurity/falcosidekick/0.13.1/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/bitnami/spark/10.0.3/control-points.yaml"
     valueModel: "recipes/bitnami/spark/10.0.3/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/bitnami/spark/10.0.3/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

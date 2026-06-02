@@ -9,15 +9,15 @@ bespoke per chart — see `data/catalog-promotion-wave2/variant-work-orders.yaml
 
 ```text
 charts: 100
-charts needing variant work: 74
-charts already variant-complete: 26
-total variants to build: 106
+charts needing variant work: 73
+charts already variant-complete: 27
+total variants to build: 105
 ```
 
 ## Build volume by dimension (highest-leverage first)
 
 - `existing-secret`: 47 charts
-- `no-crds`: 35 charts
+- `no-crds`: 34 charts
 - `ha`: 20 charts
 - `ingress-tls`: 3 charts
 - `tls`: 1 charts
@@ -71,7 +71,6 @@ total variants to build: 106
 | `jaegertracing/jaeger-operator@2.57.0` | 1 | no-crds |
 | `jaegertracing/jaeger@4.8.0` | 1 | existing-secret |
 | `jetstack/trust-manager@v0.22.1` | 1 | existing-secret, no-crds |
-| `kedacore/keda@2.19.0` | 1 | no-crds |
 | `kyverno/kyverno@3.8.1` | 1 | existing-secret, no-crds |
 | `linkerd/linkerd-crds@1.8.0` | 1 | existing-secret, no-crds |
 | `longhorn/longhorn@1.11.2` | 2 | no-crds, ha |

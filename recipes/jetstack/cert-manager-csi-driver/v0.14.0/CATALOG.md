@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/jetstack/cert-manager-csi-driver/v0.14.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/jetstack/cert-manager-csi-driver/v0.14.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/jetstack/cert-manager-csi-driver/v0.14.0/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/jetstack/cert-manager-csi-driver/v0.14.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/jetstack/cert-manager-csi-driver/v0.14.0](../../../../packages/jetstack/cert-manager-csi-driver/v0.14.0) |
 | Installer package receipt | [recipes/jetstack/cert-manager-csi-driver/v0.14.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/jetstack/cert-manager-csi-driver/v0.14.0/artifact-index.yaml](artifact-index.yaml) |

@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/jaegertracing/jaeger-operator/2.57.0/control-points.yaml"
     valueModel: "recipes/jaegertracing/jaeger-operator/2.57.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/jaegertracing/jaeger-operator/2.57.0/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "crds"

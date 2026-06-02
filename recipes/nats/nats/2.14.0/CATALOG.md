@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/nats/nats/2.14.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/nats/nats/2.14.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/nats/nats/2.14.0/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/nats/nats/2.14.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/nats/nats/2.14.0](../../../../packages/nats/nats/2.14.0) |
 | Installer package receipt | [recipes/nats/nats/2.14.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/nats/nats/2.14.0/artifact-index.yaml](artifact-index.yaml) |

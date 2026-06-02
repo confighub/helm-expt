@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/control-points.yaml"
     valueModel: "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

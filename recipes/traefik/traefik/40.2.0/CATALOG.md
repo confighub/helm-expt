@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/traefik/traefik/40.2.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/traefik/traefik/40.2.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/traefik/traefik/40.2.0/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/traefik/traefik/40.2.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/traefik/traefik/40.2.0](../../../../packages/traefik/traefik/40.2.0) |
 | Installer package receipt | [recipes/traefik/traefik/40.2.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/traefik/traefik/40.2.0/artifact-index.yaml](artifact-index.yaml) |

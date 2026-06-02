@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/prometheus-community/kube-state-metrics/7.4.0/control-points.yaml"
     valueModel: "recipes/prometheus-community/kube-state-metrics/7.4.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/prometheus-community/kube-state-metrics/7.4.0/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

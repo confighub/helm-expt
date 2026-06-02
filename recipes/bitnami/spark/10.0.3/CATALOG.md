@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/bitnami/spark/10.0.3/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/bitnami/spark/10.0.3/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/bitnami/spark/10.0.3/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/bitnami/spark/10.0.3/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/bitnami/spark/10.0.3](../../../../packages/bitnami/spark/10.0.3) |
 | Installer package receipt | [recipes/bitnami/spark/10.0.3/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/bitnami/spark/10.0.3/artifact-index.yaml](artifact-index.yaml) |

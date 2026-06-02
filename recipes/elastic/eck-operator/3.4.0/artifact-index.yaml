@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/elastic/eck-operator/3.4.0/control-points.yaml"
     valueModel: "recipes/elastic/eck-operator/3.4.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/elastic/eck-operator/3.4.0/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

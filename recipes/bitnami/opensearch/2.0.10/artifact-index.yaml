@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/bitnami/opensearch/2.0.10/control-points.yaml"
     valueModel: "recipes/bitnami/opensearch/2.0.10/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/bitnami/opensearch/2.0.10/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/jetstack/trust-manager/v0.22.1/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/jetstack/trust-manager/v0.22.1/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/jetstack/trust-manager/v0.22.1/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/jetstack/trust-manager/v0.22.1/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/jetstack/trust-manager/v0.22.1](../../../../packages/jetstack/trust-manager/v0.22.1) |
 | Installer package receipt | [recipes/jetstack/trust-manager/v0.22.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/jetstack/trust-manager/v0.22.1/artifact-index.yaml](artifact-index.yaml) |

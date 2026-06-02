@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/bitnami/apache/11.4.29/control-points.yaml"
     valueModel: "recipes/bitnami/apache/11.4.29/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/bitnami/apache/11.4.29/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/stakater/reloader/2.2.12/control-points.yaml"
     valueModel: "recipes/stakater/reloader/2.2.12/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/stakater/reloader/2.2.12/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

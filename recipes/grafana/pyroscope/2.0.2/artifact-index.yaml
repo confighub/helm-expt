@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/grafana/pyroscope/2.0.2/control-points.yaml"
     valueModel: "recipes/grafana/pyroscope/2.0.2/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/grafana/pyroscope/2.0.2/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

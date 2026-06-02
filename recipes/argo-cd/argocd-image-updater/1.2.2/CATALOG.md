@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/argo-cd/argocd-image-updater/1.2.2/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/argo-cd/argocd-image-updater/1.2.2/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/argo-cd/argocd-image-updater/1.2.2/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/argo-cd/argocd-image-updater/1.2.2/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/argo-cd/argocd-image-updater/1.2.2](../../../../packages/argo-cd/argocd-image-updater/1.2.2) |
 | Installer package receipt | [recipes/argo-cd/argocd-image-updater/1.2.2/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/argo-cd/argocd-image-updater/1.2.2/artifact-index.yaml](artifact-index.yaml) |

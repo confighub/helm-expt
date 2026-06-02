@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/vm/victoria-metrics-single/0.39.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/vm/victoria-metrics-single/0.39.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/vm/victoria-metrics-single/0.39.0/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/vm/victoria-metrics-single/0.39.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/vm/victoria-metrics-single/0.39.0](../../../../packages/vm/victoria-metrics-single/0.39.0) |
 | Installer package receipt | [recipes/vm/victoria-metrics-single/0.39.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/vm/victoria-metrics-single/0.39.0/artifact-index.yaml](artifact-index.yaml) |

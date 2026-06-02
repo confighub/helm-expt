@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/velero/velero/12.0.1/control-points.yaml"
     valueModel: "recipes/velero/velero/12.0.1/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/velero/velero/12.0.1/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

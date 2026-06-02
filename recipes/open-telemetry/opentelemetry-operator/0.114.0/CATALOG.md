@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/open-telemetry/opentelemetry-operator/0.114.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/open-telemetry/opentelemetry-operator/0.114.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/open-telemetry/opentelemetry-operator/0.114.0/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/open-telemetry/opentelemetry-operator/0.114.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/open-telemetry/opentelemetry-operator/0.114.0](../../../../packages/open-telemetry/opentelemetry-operator/0.114.0) |
 | Installer package receipt | [recipes/open-telemetry/opentelemetry-operator/0.114.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/open-telemetry/opentelemetry-operator/0.114.0/artifact-index.yaml](artifact-index.yaml) |

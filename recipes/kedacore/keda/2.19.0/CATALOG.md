@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default |
+| Candidate variants | default, no-crds |
 | Control points | apiservice, capability-profile, cluster-rbac, crds, dependency-lock, extension-slots, helm-equivalence, rendered-manifest-scan, source-lock, target-facts, tpl-extension-slots, variant-revision, webhooks |
 
 ## Artifact Chain
@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/kedacore/keda/2.19.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/kedacore/keda/2.19.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/kedacore/keda/2.19.0/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/kedacore/keda/2.19.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/kedacore/keda/2.19.0](../../../../packages/kedacore/keda/2.19.0) |
 | Installer package receipt | [recipes/kedacore/keda/2.19.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/kedacore/keda/2.19.0/artifact-index.yaml](artifact-index.yaml) |
@@ -42,12 +43,14 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/kedacore/keda/2.19.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/kedacore/keda/2.19.0/bases/default](../../../../packages/kedacore/keda/2.19.0/bases/default) | [recipes/kedacore/keda/2.19.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 29 | 30 | 29/29 | pass | warn | warn | none |
+| no-crds | [recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/kedacore/keda/2.19.0/bases/no-crds](../../../../packages/kedacore/keda/2.19.0/bases/no-crds) | [recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 23 |  | 23/23 | pass |  | allow | none |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
 | default | [packages/kedacore/keda/2.19.0/bases/default](../../../../packages/kedacore/keda/2.19.0/bases/default) | yes | kedacore/keda default variant rendered from kedacore/keda@2.19.0 |
+| no-crds | [packages/kedacore/keda/2.19.0/bases/no-crds](../../../../packages/kedacore/keda/2.19.0/bases/no-crds) | no | kedacore/keda no-crds variant rendered from kedacore/keda@2.19.0 |
 
 ## Receipts
 
@@ -57,6 +60,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | default | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/kedacore/keda/2.19.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](revisions/default/r001/receipts/helm-equivalence-receipt.yaml) |
 | default | r001 | scan | ScanReceipt | warn | [recipes/kedacore/keda/2.19.0/revisions/default/r001/receipts/scan-receipt.yaml](revisions/default/r001/receipts/scan-receipt.yaml) |
 | default | r001 | installGate | InstallGate | warn | [recipes/kedacore/keda/2.19.0/revisions/default/r001/receipts/install-gate.yaml](revisions/default/r001/receipts/install-gate.yaml) |
+| no-crds | r001 | render | RenderReceipt | recorded | [recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/receipts/render-receipt.yaml](revisions/no-crds/r001/receipts/render-receipt.yaml) |
+| no-crds | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml](revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml) |
+| no-crds | r001 | scan | ScanReceipt |  | [recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/receipts/scan-receipt.yaml](revisions/no-crds/r001/receipts/scan-receipt.yaml) |
+| no-crds | r001 | installGate | InstallGate | allow | [recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/receipts/install-gate.yaml](revisions/no-crds/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

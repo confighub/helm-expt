@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/control-points.yaml"
     valueModel: "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

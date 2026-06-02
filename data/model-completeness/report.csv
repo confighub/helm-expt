@@ -61,7 +61,7 @@ jaegertracing/jaeger@4.8.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-
 jetstack/cert-manager-csi-driver@v0.14.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/jetstack/cert-manager-csi-driver/v0.14.0
 jetstack/cert-manager@v1.20.2,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,blocked-by-current-scan-gate,none,recipes/jetstack/cert-manager/v1.20.2
 jetstack/trust-manager@v0.22.1,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/jetstack/trust-manager/v0.22.1
-kedacore/keda@2.19.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/kedacore/keda/2.19.0
+kedacore/keda@2.19.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/kedacore/keda/2.19.0
 kyverno/kyverno-policies@3.8.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/kyverno/kyverno-policies/3.8.0
 kyverno/kyverno@3.8.1,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/kyverno/kyverno/3.8.1
 linkerd/linkerd-crds@1.8.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/linkerd/linkerd-crds/1.8.0

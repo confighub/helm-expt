@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/linkerd/linkerd-crds/1.8.0/control-points.yaml"
     valueModel: "recipes/linkerd/linkerd-crds/1.8.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/linkerd/linkerd-crds/1.8.0/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "crds"

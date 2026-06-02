@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/open-telemetry/opentelemetry-operator/0.114.0/control-points.yaml"
     valueModel: "recipes/open-telemetry/opentelemetry-operator/0.114.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/open-telemetry/opentelemetry-operator/0.114.0/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

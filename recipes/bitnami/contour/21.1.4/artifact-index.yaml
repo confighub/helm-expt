@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/bitnami/contour/21.1.4/control-points.yaml"
     valueModel: "recipes/bitnami/contour/21.1.4/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/bitnami/contour/21.1.4/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

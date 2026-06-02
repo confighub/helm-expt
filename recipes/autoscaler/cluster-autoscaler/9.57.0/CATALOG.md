@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/autoscaler/cluster-autoscaler/9.57.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/autoscaler/cluster-autoscaler/9.57.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/autoscaler/cluster-autoscaler/9.57.0/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/autoscaler/cluster-autoscaler/9.57.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/autoscaler/cluster-autoscaler/9.57.0](../../../../packages/autoscaler/cluster-autoscaler/9.57.0) |
 | Installer package receipt | [recipes/autoscaler/cluster-autoscaler/9.57.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/autoscaler/cluster-autoscaler/9.57.0/artifact-index.yaml](artifact-index.yaml) |

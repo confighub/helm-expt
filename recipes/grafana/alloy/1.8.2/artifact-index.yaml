@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/grafana/alloy/1.8.2/control-points.yaml"
     valueModel: "recipes/grafana/alloy/1.8.2/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/grafana/alloy/1.8.2/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

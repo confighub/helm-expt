@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/nats/nack/0.34.0/control-points.yaml"
     valueModel: "recipes/nats/nack/0.34.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/nats/nack/0.34.0/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

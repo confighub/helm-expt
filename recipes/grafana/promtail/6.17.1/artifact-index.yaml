@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/grafana/promtail/6.17.1/control-points.yaml"
     valueModel: "recipes/grafana/promtail/6.17.1/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/grafana/promtail/6.17.1/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/argo-cd/argo-events/2.4.21/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/argo-cd/argo-events/2.4.21/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/argo-cd/argo-events/2.4.21/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/argo-cd/argo-events/2.4.21/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/argo-cd/argo-events/2.4.21](../../../../packages/argo-cd/argo-events/2.4.21) |
 | Installer package receipt | [recipes/argo-cd/argo-events/2.4.21/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/argo-cd/argo-events/2.4.21/artifact-index.yaml](artifact-index.yaml) |
