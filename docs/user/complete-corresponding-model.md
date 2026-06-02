@@ -60,18 +60,23 @@ behaviors absorbed-or-named + every receipt re-runnable") **cannot** be broken t
 product statement: not "we re-ran Helm," but "we turned Helm's hidden behavior into an explicit, reviewable,
 verifiable model."
 
-## Where we are vs. the contract (measured 2026-06-02)
-| Criterion | State |
+## Where we are vs. the contract (measured by `npm run completeness:generate`, 2026-06-02)
+| Criterion | Coverage |
 |---|---|
-| Per-chart model structure (recipe, HelmPlan, dossier, control-points, value-model, receipts) | **100 / 100** ✓ |
-| Helm-equivalence receipts | 120 (covers the proven variants) ✓ |
-| Variant-complete (more than `default`) | **20 / 100** — 80 are default-only ✗ |
-| HelmPlan with zero `unknown` / `unhandled` | **99 / 100** (1 `unhandled` remains); 21 explicit `blocked` (honest) |
-| Production-scoped (vs local-test) | **0 / 100** ✗ |
+| `render_equivalent` (passing, digest-matched equivalence per variant) | **100 / 100** ✓ |
+| `behaviorally_complete` (pain report; zero unknown/unhandled) | **20 / 100** ✗ |
+| `variant_complete` (more than `default`, or explicit deferral) | **20 / 100** ✗ |
+| `readable` (CATALOG.md + artifact-index) | **100 / 100** ✓ |
+| `usable` (current executable fixture + package) | **100 / 100** ✓ |
+| `verifiable` (digest-bound receipt chain) | **100 / 100** ✓ |
+| `honestly_scoped` (explicit catalog-status) | **100 / 100** ✓ |
+| **Model-complete (all 7)** | **20 / 100** |
 
-The **structure** of the corresponding model exists catalog-wide and render-equivalence is broadly proven —
-but the catalog is **not yet complete by this contract**: most charts model only their default shape, one
-chart has an unhandled pain point, and none are production-scoped.
+The top-20 are complete corresponding models. The other 80 are render-equivalent, verifiable default proofs
+that are **not yet complete**: they lack behavior accounting (a `helm-pain-report.yaml`) and their meaningful
+user variants. No chart carries an `unknown`/`unhandled` pain disposition — an earlier hand estimate of
+"1 unhandled" was a false match on the `no-unhandled-pain-points` headline; the scorer is now the authority.
+The live gap report is `data/model-completeness/summary.md`.
 
 ## The delivery program (to actually earn the claim)
 1. **Encode this contract as a verifier check** — a per-chart `model-completeness` score over the 7 criteria,

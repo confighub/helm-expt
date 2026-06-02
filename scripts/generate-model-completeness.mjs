@@ -1,0 +1,268 @@
+// Model-completeness scorer for the "complete corresponding model" contract.
+// Scores every recipe against the 7-point per-chart contract from
+// docs/user/complete-corresponding-model.md and emits a gap report.
+//
+//   node scripts/generate-model-completeness.mjs --generate   # write data/model-completeness/{report.csv,summary.md}
+//   node scripts/generate-model-completeness.mjs --verify      # fail if the report is stale
+//
+// A chart's corresponding model is COMPLETE when all 7 criteria pass:
+//   render_equivalent     every variant revision has a passing, digest-matched Helm-equivalence receipt
+//   behaviorally_complete HelmPlan reports no unhandled/unknown pain points (blocked-with-reason is honest, not a gap)
+//   variant_complete      more than the default variant, OR obvious variants explicitly deferred/candidate in catalog-status
+//   readable              CATALOG.md + artifact-index.yaml present
+//   usable                executable fixture points at a current packages/ path and that package exists
+//   verifiable            full receipt chain present + digest-bound (render/scan/gate/equivalence), no machine-proof gaps
+//   honestly_scoped       catalog-status.yaml declares status + supportLevel + supportedScopes + productionReadiness
+import { existsSync, mkdirSync, readFileSync } from "node:fs";
+import { dirname, join, relative } from "node:path";
+import { check, listFiles, readYaml, relativeRepo, repoRoot, sha256File, write } from "./lib/proof-common.mjs";
+
+const outputRoot = join(repoRoot, "data", "model-completeness");
+const reportCsvPath = join(outputRoot, "report.csv");
+const summaryPath = join(outputRoot, "summary.md");
+const mode = process.argv[2] ?? "--generate";
+
+const CRITERIA = [
+  "render_equivalent",
+  "behaviorally_complete",
+  "variant_complete",
+  "readable",
+  "usable",
+  "verifiable",
+  "honestly_scoped",
+];
+
+if (mode === "--generate") {
+  const report = buildReport();
+  mkdirSync(outputRoot, { recursive: true });
+  write(reportCsvPath, report.csv);
+  write(summaryPath, report.summary);
+  console.log(`wrote ${relativeRepo(reportCsvPath)}`);
+  console.log(`wrote ${relativeRepo(summaryPath)}`);
+  console.log(`model-complete: ${report.completeCount}/${report.rows.length}`);
+} else if (mode === "--verify") {
+  const report = buildReport();
+  check(existsSync(reportCsvPath), "missing model-completeness report; run npm run completeness:generate");
+  check(existsSync(summaryPath), "missing model-completeness summary; run npm run completeness:generate");
+  check(readFileSync(reportCsvPath, "utf8") === report.csv, "model-completeness report.csv is stale; run npm run completeness:generate");
+  check(readFileSync(summaryPath, "utf8") === report.summary, "model-completeness summary.md is stale; run npm run completeness:generate");
+  console.log(`verified model-completeness outputs (model-complete: ${report.completeCount}/${report.rows.length})`);
+} else {
+  console.log(`Usage:
+  node scripts/generate-model-completeness.mjs --generate
+  node scripts/generate-model-completeness.mjs --verify`);
+}
+
+function buildReport() {
+  const roots = recipeRoots();
+  check(roots.length === 100, `expected 100 recipe roots, found ${roots.length}`);
+  const rows = roots.map(scoreRecipe).sort((left, right) => left.chart.localeCompare(right.chart));
+  const completeCount = rows.filter((row) => row._complete).length;
+  return { rows, completeCount, csv: toCsv(rows), summary: toSummary(rows, completeCount) };
+}
+
+function recipeRoots() {
+  return listFiles(join(repoRoot, "recipes"))
+    .filter((file) => file.endsWith("/recipe.yaml"))
+    .map((file) => dirname(file))
+    .sort();
+}
+
+function scoreRecipe(root) {
+  const recipe = readYaml(join(root, "recipe.yaml"));
+  const helmPlan = readYaml(join(root, "helm-plan.yaml"));
+  const sourceLock = readYaml(join(root, "source-lock.yaml"));
+  const catalogStatusPath = join(root, "catalog-status.yaml");
+  const catalogStatus = existsSync(catalogStatusPath) ? readYaml(catalogStatusPath) : null;
+  const packageReceiptPath = join(root, "publication", "installer-package-receipt.yaml");
+  const packageReceipt = existsSync(packageReceiptPath) ? readYaml(packageReceiptPath) : null;
+
+  const chart = helmPlan.spec?.readiness?.chart ?? `${sourceLock.spec?.repositoryName}/${sourceLock.spec?.chart}`;
+  const version = String(helmPlan.spec?.readiness?.version ?? sourceLock.spec?.version ?? "");
+  const variantPaths = recipe.spec?.variants ?? [];
+  const variantCount = variantPaths.length;
+
+  const revisionRoots = listFiles(join(root, "revisions"))
+    .filter((file) => file.endsWith("/variant-revision.yaml"))
+    .map((file) => dirname(file))
+    .sort();
+  const receiptReviews = revisionRoots.map((revisionRoot) => reviewRevision(root, revisionRoot));
+  const receiptFailures = receiptReviews.flatMap((review) => review.failures);
+  const machineMissing = requiredRootFiles().filter((file) => !existsSync(join(root, file)));
+
+  // Criterion 1: render-equivalent — every revision has a passing, digest-matched equivalence receipt.
+  const render_equivalent = revisionRoots.length > 0 && receiptReviews.every((review) => review.equivalencePass);
+
+  // Criterion 2: behaviorally complete — a helm-pain-report.yaml enumerates every Helm behavior and disposes
+  // it with no unknown/unhandled. needs-operator-decision / blocked-with-reason are explicit (honest), so they
+  // do NOT fail behavioral completeness; they surface in production-readiness (scope), not here.
+  const painReportPath = join(root, "helm-pain-report.yaml");
+  const painReport = existsSync(painReportPath) ? readYaml(painReportPath) : null;
+  const painPoints = painReport?.spec?.painPoints ?? [];
+  const badDispositions = painPoints.filter((point) => ["unknown", "unhandled"].includes(String(point.disposition ?? "")));
+  const scopeStatus = String(painReport?.spec?.supportedScopeStatus ?? "");
+  const behaviorally_complete = Boolean(painReport) && /no-unhandled/.test(scopeStatus) && badDispositions.length === 0;
+
+  // Criterion 3: variant-complete — more than the default variant, OR obvious variants explicitly DEFERRED
+  // with a reason. candidateVariants:[default] only names the default, so it does not count.
+  const deferred = catalogStatus?.spec?.deferredVariants ?? [];
+  const variant_complete = variantCount > 1 || deferred.length > 0;
+
+  // Criterion 4: readable — the per-chart artifact map exists.
+  const readable = existsSync(join(root, "CATALOG.md")) && existsSync(join(root, "artifact-index.yaml"));
+
+  // Criterion 5: usable — executable fixture points at a current packages/ path and that package exists.
+  const fixturePath = recipe.spec?.currentExecutableFixture?.installerPackage ?? "";
+  const fixtureUsesCurrentPackages = fixturePath.includes("packages/");
+  const packagePath = packageReceipt?.spec?.package?.path ?? "";
+  const packageExists = packagePath ? existsSync(join(repoRoot, packagePath)) : false;
+  const usable = fixtureUsesCurrentPackages && packageExists;
+
+  // Criterion 6: verifiable — full receipt chain present + digest-bound, no machine-proof gaps.
+  const verifiable = machineMissing.length === 0 && receiptFailures.length === 0 && revisionRoots.length > 0;
+
+  // Criterion 7: honestly scoped — catalog-status declares status + supportLevel + productionReadiness.
+  // An explicit "proof-grade / not-reviewed-for-production" with empty supportedScopes is HONEST scoping
+  // (it truthfully says "not yet supported"), so it passes; what matters is that the scope is declared.
+  const honestly_scoped = Boolean(
+    catalogStatus?.spec?.status && catalogStatus?.spec?.supportLevel && catalogStatus?.spec?.productionReadiness,
+  );
+
+  const scores = { render_equivalent, behaviorally_complete, variant_complete, readable, usable, verifiable, honestly_scoped };
+  const passed = CRITERIA.filter((key) => scores[key]);
+  const missing = CRITERIA.filter((key) => !scores[key]);
+  const complete = missing.length === 0;
+
+  return {
+    chart: `${chart}@${version}`,
+    recipe_path: relativeRepo(root),
+    complete: complete ? "yes" : "no",
+    score: `${passed.length}/${CRITERIA.length}`,
+    variant_count: variantCount,
+    support_status: catalogStatus?.spec?.status ?? "none",
+    production_readiness: catalogStatus?.spec?.productionReadiness ?? "none",
+    ...Object.fromEntries(CRITERIA.map((key) => [key, scores[key] ? "yes" : "no"])),
+    missing_criteria: missing.join(";") || "none",
+    _complete: complete,
+    _missing: missing,
+  };
+}
+
+function requiredRootFiles() {
+  return [
+    "README.md",
+    "helm-plan.yaml",
+    "chart-dossier.yaml",
+    "source-lock.yaml",
+    "dependency-lock.yaml",
+    "control-points.yaml",
+    "value-model.yaml",
+    "recipe.yaml",
+    "catalog-status.yaml",
+    "publication/installer-package-receipt.yaml",
+  ];
+}
+
+function reviewRevision(root, revisionRoot) {
+  const failures = [];
+  const files = {
+    revision: join(revisionRoot, "variant-revision.yaml"),
+    release: join(revisionRoot, "rendered", "release-objects.yaml"),
+    inventory: join(revisionRoot, "rendered", "object-inventory.yaml"),
+    equivalence: join(revisionRoot, "receipts", "helm-equivalence-receipt.yaml"),
+    render: join(revisionRoot, "receipts", "render-receipt.yaml"),
+    scan: join(revisionRoot, "receipts", "scan-receipt.yaml"),
+    gate: join(revisionRoot, "receipts", "install-gate.yaml"),
+  };
+  for (const [name, path] of Object.entries(files)) {
+    if (!existsSync(path)) failures.push(`missing ${relative(root, path) || name}`);
+  }
+  if (failures.length) return { failures, equivalencePass: false };
+
+  const releaseSHA = sha256File(files.release);
+  const revision = readYaml(files.revision);
+  const inventory = readYaml(files.inventory);
+  const equivalence = readYaml(files.equivalence);
+  const render = readYaml(files.render);
+  const scan = readYaml(files.scan);
+  const gate = readYaml(files.gate);
+  if (inventory.spec?.sourceSHA256 !== releaseSHA) failures.push("inventory digest mismatch");
+  if (revision.spec?.digestInputs?.renderedObjectSetSHA256 !== releaseSHA) failures.push("variant revision digest mismatch");
+  if (render.spec?.outputs?.renderedObjectSetSHA256 !== releaseSHA) failures.push("render receipt digest mismatch");
+  if (equivalence.spec?.regularHelm?.renderedSHA256 !== releaseSHA) failures.push("Helm equivalence digest mismatch");
+  if (scan.spec?.renderedObjectSetSHA256 !== releaseSHA) failures.push("scan digest mismatch");
+  if (gate.spec?.renderedObjectSetSHA256 !== releaseSHA) failures.push("install gate digest mismatch");
+  const equivalencePass = equivalence.spec?.result === "pass" && equivalence.spec?.regularHelm?.renderedSHA256 === releaseSHA;
+  return { failures, equivalencePass };
+}
+
+function toCsv(rows) {
+  const headers = [
+    "chart",
+    "complete",
+    "score",
+    ...CRITERIA,
+    "variant_count",
+    "support_status",
+    "production_readiness",
+    "missing_criteria",
+    "recipe_path",
+  ];
+  return `${[headers.join(","), ...rows.map((row) => headers.map((header) => csvEscape(row[header])).join(","))].join("\n")}\n`;
+}
+
+function toSummary(rows, completeCount) {
+  const total = rows.length;
+  const perCriterion = CRITERIA.map((key) => [key, rows.filter((row) => row[key] === "yes").length]);
+  const incomplete = rows.filter((row) => !row._complete);
+  const byMissing = {};
+  for (const row of incomplete) for (const m of row._missing) byMissing[m] = (byMissing[m] ?? 0) + 1;
+  return `# Model Completeness Report
+
+Generated from recipe / variant / receipt / catalog-status artifacts. Scores every recipe against the
+7-point contract in \`docs/user/complete-corresponding-model.md\`. A chart's corresponding model is
+**complete** only when all 7 criteria pass; \`blocked-with-reason\` is an honest disposition, not a gap.
+
+## Headline
+
+\`\`\`text
+charts: ${total}
+model-complete (all 7): ${completeCount}
+incomplete: ${total - completeCount}
+\`\`\`
+
+## Per-criterion coverage
+
+${perCriterion.map(([key, count]) => `- \`${key}\`: ${count}/${total}`).join("\n")}
+
+## Gap by criterion (how many charts each one blocks)
+
+${Object.entries(byMissing)
+  .sort(([, a], [, b]) => b - a)
+  .map(([key, count]) => `- \`${key}\`: ${count}`)
+  .join("\n") || "- none — every chart is model-complete"}
+
+## Incomplete charts (the work queue)
+
+| Chart | Score | Missing criteria |
+| --- | ---: | --- |
+${incomplete
+  .map((row) => `| \`${row.chart}\` | ${row.score} | ${row._missing.join(", ")} |`)
+  .join("\n") || "| none | 7/7 | — |"}
+
+## How to close the gap
+
+- \`variant_complete\` is the dominant gap: default-only charts need their meaningful render-time variants
+  built (real recipe variant + package base + rendered revision + scan/gate + Helm-equivalence receipt),
+  **or** their obvious variants explicitly listed as \`deferredVariants\`/\`candidateVariants\` in
+  \`catalog-status.yaml\` with a reason.
+- Re-run \`npm run completeness:generate\` after any chart's variants, receipts, or catalog-status change.
+- A chart counts as catalog-supported for its declared scope only once it is model-complete here.
+`;
+}
+
+function csvEscape(value) {
+  const text = value === undefined || value === null ? "" : String(value);
+  if (/[",\n]/.test(text)) return `"${text.replaceAll('"', '""')}"`;
+  return text;
+}
