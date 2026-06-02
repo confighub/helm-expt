@@ -1,0 +1,104 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPainReport"
+metadata:
+  name: "nats-surveyor-0.20.9"
+spec:
+  chart:
+    name: "nats/surveyor"
+    version: "0.20.9"
+    source: "https://nats-io.github.io/k8s/helm/charts/"
+    digest: "599f8f6b403dcd38f710e7db149eda13494df00b20474815a5340af780b23e6d"
+  supportedScopeStatus: "no-unhandled-pain-points-for-supported-scopes"
+  supportedScopes:
+    []
+  supportedVariants:
+    []
+  productionReadiness: "not-reviewed-for-production"
+  notes:
+    - "nats/surveyor@0.20.9 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+  painPoints:
+    -
+      id: "source-lock"
+      detectedPainPoint: "source-lock requires source-lock.yaml"
+      evidence:
+        - "source-lock.yaml"
+      configHubHome: "source-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "source-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "dependency-lock"
+      detectedPainPoint: "dependency-lock requires dependency-lock.yaml"
+      evidence:
+        - "dependency-lock.yaml"
+      configHubHome: "dependency-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "dependency-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "capability-profile"
+      detectedPainPoint: "capability-profile is detected in this chart and mapped to a ConfigHub control point"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "capability-profile"
+      disposition: "handled-by-capability-profile"
+      linkedReceipt: "revisions/default/r001/receipts/render-receipt.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "variant-revision"
+      detectedPainPoint: "variant-revision requires revisions/default/r001/variant-revision.yaml"
+      evidence:
+        - "revisions/default/r001/variant-revision.yaml"
+      configHubHome: "recipe"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "rendered-manifest-scan"
+      detectedPainPoint: "rendered-manifest-scan requires revisions/default/r001/receipts/scan-receipt.yaml"
+      evidence:
+        - "revisions/default/r001/receipts/scan-receipt.yaml"
+      configHubHome: "scan-gate"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/default/r001/receipts/scan-receipt.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "helm-equivalence"
+      detectedPainPoint: "helm-equivalence requires revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+      evidence:
+        - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+      configHubHome: "recipe"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "extension-slots"
+      detectedPainPoint: "raw/extra manifest knobs require explicit variant ownership before promotion"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "extension-slot"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "source-signal-recorded"
+    -
+      id: "scan-gate"
+      detectedPainPoint: "Current scan gate is allow"
+      evidence:
+        - "helm-plan.yaml"
+        - "scan receipts"
+        - "install gates"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "allow"
+    -
+      id: "value-model-diagnostics"
+      detectedPainPoint: "Helm values can be unknown, dead, misspelled, shadowed, or ignored unless the values model records the analysis boundary."
+      evidence:
+        - "value-model.yaml"
+      configHubHome: "value-model"
+      disposition: "absorbed-into-value-model"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "unknown=not-exhaustively-checked-in-next80-lane; dead=not-exhaustively-checked-in-next80-lane; ignored=not-exhaustively-checked-in-next80-lane"
+  answerForSkepticalHelmUser: "nats/surveyor@0.20.9 maps its detected Helm pain to 7 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, scan-gate, extension-slot, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains not-reviewed-for-production."

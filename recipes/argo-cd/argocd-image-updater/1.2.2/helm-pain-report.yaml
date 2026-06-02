@@ -1,0 +1,144 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPainReport"
+metadata:
+  name: "argo-cd-argocd-image-updater-1.2.2"
+spec:
+  chart:
+    name: "argo-cd/argocd-image-updater"
+    version: "1.2.2"
+    source: "https://argoproj.github.io/argo-helm"
+    digest: "d4e6d359a0ed6ad3cc3c8432acf81e128441ff2a7ce47c168eece9e2915ed704"
+  supportedScopeStatus: "no-unhandled-pain-points-for-supported-scopes"
+  supportedScopes:
+    []
+  supportedVariants:
+    []
+  productionReadiness: "not-reviewed-for-production"
+  notes:
+    - "argo-cd/argocd-image-updater@1.2.2 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+    - "Chart source contains generated/random/time helpers; generated values must be captured before approval if activated by a variant."
+    - "Chart source contains tpl; raw templating extension slots need explicit ownership and review."
+    - "Rendered output includes 1 CRDs; CRD lifecycle must be reviewed before upgrade/promotion."
+    - "Rendered output includes cluster-scoped RBAC; production promotion needs RBAC review."
+  painPoints:
+    -
+      id: "source-lock"
+      detectedPainPoint: "source-lock requires source-lock.yaml"
+      evidence:
+        - "source-lock.yaml"
+      configHubHome: "source-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "source-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "dependency-lock"
+      detectedPainPoint: "dependency-lock requires dependency-lock.yaml"
+      evidence:
+        - "dependency-lock.yaml"
+      configHubHome: "dependency-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "dependency-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "capability-profile"
+      detectedPainPoint: "capability-profile is detected in this chart and mapped to a ConfigHub control point"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "capability-profile"
+      disposition: "handled-by-capability-profile"
+      linkedReceipt: "revisions/default/r001/receipts/render-receipt.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "variant-revision"
+      detectedPainPoint: "variant-revision requires revisions/default/r001/variant-revision.yaml"
+      evidence:
+        - "revisions/default/r001/variant-revision.yaml"
+      configHubHome: "recipe"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "rendered-manifest-scan"
+      detectedPainPoint: "rendered-manifest-scan requires revisions/default/r001/receipts/scan-receipt.yaml"
+      evidence:
+        - "revisions/default/r001/receipts/scan-receipt.yaml"
+      configHubHome: "scan-gate"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/default/r001/receipts/scan-receipt.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "helm-equivalence"
+      detectedPainPoint: "helm-equivalence requires revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+      evidence:
+        - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+      configHubHome: "recipe"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "generated-facts"
+      detectedPainPoint: "default proof render was deterministic; future generated material must be captured before approval"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "generated-fact"
+      disposition: "handled-by-generated-facts"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "source-signal-recorded"
+    -
+      id: "tpl-extension-slots"
+      detectedPainPoint: "tpl use is recorded for review and variant analysis"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "extension-slot"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "source-signal-recorded"
+    -
+      id: "extension-slots"
+      detectedPainPoint: "raw/extra manifest knobs require explicit variant ownership before promotion"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "extension-slot"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "source-signal-recorded"
+    -
+      id: "crds"
+      detectedPainPoint: "crds is detected in this chart and mapped to a ConfigHub control point"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "review-required"
+    -
+      id: "cluster-rbac"
+      detectedPainPoint: "cluster-rbac is detected in this chart and mapped to a ConfigHub control point"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/scan-receipt.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "scan-gate"
+      detectedPainPoint: "Current scan gate is warn-review-before-production"
+      evidence:
+        - "helm-plan.yaml"
+        - "scan receipts"
+        - "install gates"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "warn-review-before-production"
+    -
+      id: "value-model-diagnostics"
+      detectedPainPoint: "Helm values can be unknown, dead, misspelled, shadowed, or ignored unless the values model records the analysis boundary."
+      evidence:
+        - "value-model.yaml"
+      configHubHome: "value-model"
+      disposition: "absorbed-into-value-model"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "unknown=not-exhaustively-checked-in-next80-lane; dead=not-exhaustively-checked-in-next80-lane; ignored=not-exhaustively-checked-in-next80-lane"
+  answerForSkepticalHelmUser: "argo-cd/argocd-image-updater@1.2.2 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, scan-gate, generated-fact, extension-slot, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains not-reviewed-for-production."
