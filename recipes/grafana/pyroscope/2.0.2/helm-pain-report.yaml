@@ -112,7 +112,7 @@ spec:
       evidence:
         - "no-hooks"
       configHubHome: "lifecycle-policy"
-      disposition: "needs-operator-decision"
+      disposition: "handled-by-lifecycle-policy"
       linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "handled-by-no-hooks-proof"
     -

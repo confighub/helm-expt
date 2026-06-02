@@ -128,7 +128,7 @@ spec:
       evidence:
         - "control-points.yaml"
       configHubHome: "lifecycle-policy"
-      disposition: "needs-operator-decision"
+      disposition: "handled-by-scan-or-gate"
       linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "scan-and-observe"
     -
