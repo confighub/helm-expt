@@ -61,3 +61,35 @@ node scripts/generate-root-catalog.mjs --generate
       multi-variant count (20→ now higher), fold in hook policy / Level-2 / placeholder-vs-extension
       / variant generator / #113 / #114 / waves narrative; `top500:catalog` + verify.
 - [x] ~~ingress-tls / tls waves~~ — all 3 candidates (vault, tempo, consul) are curated → defer.
+
+---
+
+## Final status (end of overnight session)
+
+**variant-rich 30 → 54/100. supported (Level 2) 100/100 throughout. 5 PRs merged, 1 issue filed, 1 updated.**
+
+| PR | Wave / change | Result |
+|----|---------------|--------|
+| #115, #116 | Hook policy -> `handled-by-lifecycle-policy` | residue 239->201 |
+| #117 | HA wave | +9 (alertmanager, zookeeper, spark, elasticsearch, opensearch, logstash, eck-operator, pyroscope, nats) |
+| #119 | no-crds wave 2 (`--no-include-crds`) | +9 (trivy-operator, vpa, external-dns, gatekeeper, pyroscope, nack, sealed-secrets, traefik, velero) |
+| #121 | no-crds wave 3 (chart CRD toggles) | +8 (argo-events, argo-rollouts, contour, cloudnative-pg, eck-operator, trust-manager, kyverno, otel-operator) |
+| #120 | top-500 refresh + learnings | multi-variant 20->43 |
+| #118 (issue) | Systemic curated-lane installer.yaml SHA drift | filed, NOT fixed (needs human call) |
+| #114 (updated) | template-CRD class expanded 5->17 | commented |
+
+**Tooling:** `scripts/run-variant-wave.mjs` (resumable wave driver); `generate-variant-proof.mjs` hardened (`--base`, `ref` fallback, no-crds 0-CRD invariant for any build method).
+
+### Generic enhancement waves are substantially exhausted
+The cleanly-buildable generic variants are done. The remaining **70 backlog variants across 60
+charts** are gated by documented constraints, NOT more generic waves:
+- existing-secret (~47): secret-delivery product gap (#113); charts ship no toggle.
+- curated proof lanes (6 ha + 3 ingress-tls): need bespoke `<chart>-proof.mjs` teaching AND are blocked by #118.
+- template-baked CRDs with no toggle: rook-ceph (partial), argocd-image-updater, minio-operator, linkerd-crds.
+
+### Gated next steps (need a human decision — did NOT do autonomously)
+1. Fix #118 — re-sync 20 curated package receipts to current (target-facts) installer.yaml. Un-reds `npm run verify`. Confirm installer.yaml is canonical first.
+2. Teach the 6 curated lanes their HA variant (after #118).
+3. Secret-delivery (#113) — product decision.
+
+Stopped here rather than manufacture waves (Reality Rule). Resume from this file.
