@@ -68,11 +68,15 @@ function dispositionFor(point, reviewed = true) {
   const status = String(point.status ?? "");
   const category = String(point.category ?? "");
   if (status.includes("blocked")) return "blocked";
-  // Judgment quirks (hooks/lifecycle/tpl/extension): only an explicitly reviewed (catalog-supported)
-  // chart may assert these are "handled". For unreviewed proof-grade charts they are DISCLOSED as
-  // needs-operator-decision — accounted-for with zero silent gaps, flagged for a human call. Honest
-  // Level-2, not cosmetic.
-  const judgment = category.includes("hook") || category.includes("lifecycle") || category.includes("tpl") || category.includes("extension");
+  // Hooks/lifecycle: handled-by-lifecycle-policy catalog-wide. Helm hooks are EXECUTED by the delivery path —
+  // ConfigHub applies the hook resources; on cluster delivery the GitOps controller runs them (Flux's
+  // helm-controller runs Helm hooks with full lifecycle, incl. the dummy-chart wrap of rendered output;
+  // Argo via its Helm source). The live-proof receipt is the Level-3 validation — so hooks are NOT a
+  // per-chart judgment call.
+  // tpl/extension slots: open, arbitrary injection points (extraManifests, raw manifests, tpl live-code)
+  // whose content changes shape and can't be pre-blessed — only a reviewed chart may assert "handled";
+  // unreviewed proof-grade charts disclose them as needs-operator-decision (zero silent gaps, flagged).
+  const judgment = category.includes("tpl") || category.includes("extension");
   if (judgment && !reviewed) return "needs-operator-decision";
   if (status.includes("scan") || category.includes("rbac") || category.includes("webhook")) return "handled-by-scan-or-gate";
   if (category.includes("capability")) return "handled-by-capability-profile";
