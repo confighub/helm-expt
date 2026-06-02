@@ -1,0 +1,233 @@
+#!/usr/bin/env python3
+"""Helm-expt Wave-1 work unit: install ONE catalog package at its default base
+via `cub installer`, deliver it through ConfigHub -> OCI -> Argo on a cub-lk rig,
+verify it, and emit a structured receipt.
+
+Rig-agnostic: it operates on an existing cub-lk cluster (passed via --rig); the
+caller owns `cub lk up`/`down`. That keeps this the parallel/agentic atom — a
+coordinator can hand each agent its own rig (one cluster per agent) and shard the
+charts. See pilot/HELM_EXPT_TEST_STRATEGY.md.
+
+Reality Rule: status comes from real command output, never a label. Pairs Argo
+health with exact runtime field proof. Includes the F1 namespace-coherence guard.
+"""
+from __future__ import annotations
+import argparse, json, re, subprocess, sys, time
+from pathlib import Path
+
+
+def sh(cmd: list[str] | str, timeout: int = 120) -> tuple[int, str, str]:
+    shell = isinstance(cmd, str)
+    try:
+        p = subprocess.run(cmd, shell=shell, text=True, capture_output=True, timeout=timeout)
+        return p.returncode, p.stdout.strip(), p.stderr.strip()
+    except subprocess.TimeoutExpired:
+        return 124, "", f"timeout after {timeout}s"
+
+
+def resolve_helm_expt(explicit: str | None) -> Path:
+    if explicit:
+        return Path(explicit).expanduser().resolve()
+    here = Path(__file__).resolve().parents[1]
+    for c in [here,
+              Path("/Users/alexis/Public/github-repos/helm-expt"),
+              Path("/Users/alexis/code/helm-expt")]:
+        if c.exists():
+            return c
+    return here
+
+
+def default_base(pkg: Path) -> str | None:
+    """Resolve the default:true base via `cub installer doc` — robust to the
+    real base names (e.g. `generated-passwords`, `single-binary-filesystem`)
+    and to key ordering in installer.yaml, which a regex got wrong."""
+    rc, o, _ = sh(["cub", "installer", "doc", str(pkg)], timeout=60)
+    if rc != 0:
+        return None
+    m = re.search(r"^\s*-\s*([\w.-]+)\s*\(default\)", o, re.M)
+    return m.group(1) if m else None
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--package", required=True, help="package path relative to helm-expt root, e.g. packages/bitnami/nginx/24.0.2")
+    ap.add_argument("--slug", required=True, help="short id for spaces/receipt, e.g. nginx")
+    ap.add_argument("--namespace", required=True, help="install namespace (use the TOP20 entry's namespace = the package's frozen ns)")
+    ap.add_argument("--rig", required=True, help="cub-lk cluster name (must already be `cub lk up`)")
+    ap.add_argument("--base", default=None, help="base to render; default = the package's default:true base")
+    ap.add_argument("--helm-expt", default=None)
+    ap.add_argument("--wait", type=int, default=180, help="seconds to wait for Argo app Healthy")
+    ap.add_argument("--keep", action="store_true", help="do not delete the workload space + app afterwards")
+    ap.add_argument("--json", action="store_true")
+    args = ap.parse_args()
+
+    he = resolve_helm_expt(args.helm_expt)
+    pkg = he / args.package
+    rig = args.rig
+    space_cluster = f"{rig}-cluster"
+    target = f"{space_cluster}/oci"
+    wspace = f"{rig}-{args.slug}"
+    kubeconfig = str(Path.home() / ".confighub" / "lk" / f"{rig}.kubeconfig")
+    kctx = f"kind-{rig}"
+    workdir = f"/tmp/helm-wave-{rig}-{args.slug}"
+    ns = args.namespace
+
+    receipt: dict = {"slug": args.slug, "package": args.package, "namespace": ns,
+                     "rig": rig, "base": None, "status": "BLOCK",
+                     "proof_rows": [], "findings": [], "steps": []}
+
+    def step(name, rc, detail):
+        receipt["steps"].append({"step": name, "rc": rc, "detail": detail[:300]})
+        return rc == 0
+
+    def fail(msg):
+        receipt["findings"].append(msg)
+        receipt["status"] = "BLOCK"
+        out()
+        return 1
+
+    def out():
+        if args.json:
+            print(json.dumps(receipt, indent=2))
+        else:
+            print(f"[{receipt['status']}] {args.slug}: {'; '.join(receipt['findings']) or 'ok'}")
+
+    if not pkg.exists():
+        return fail(f"package not found: {pkg}")
+
+    base = args.base or default_base(pkg)
+    receipt["base"] = base
+    if not base:
+        return fail("could not resolve default base")
+
+    # 0. clean any stale work-dir so `installer setup` starts fresh rather than
+    #    re-entering reconcile mode from a prior (possibly failed) run's state.
+    sh(["rm", "-rf", workdir])
+
+    # 1. render
+    rc, o, e = sh(["cub", "installer", "setup", "--pull", str(pkg), "--base", base,
+                   "--work-dir", workdir, "--non-interactive", "--namespace", ns],
+                  timeout=180)
+    if not step("setup", rc, o + e):
+        return fail(f"installer setup failed: {(e or o)[:160]}")
+
+    # 1b. F1 coherence guard
+    man = Path(workdir) / "out" / "manifests"
+    nslist = set()
+    for f in man.glob("*.yaml"):
+        for line in f.read_text().splitlines():
+            m = re.match(r"\s*namespace:\s*\"?([\w.-]+)\"?", line)
+            if m:
+                nslist.add(m.group(1))
+    receipt["proof_rows"].append({"layer": "render", "result": "PASS" if len(nslist) <= 1 else "BLOCK",
+                                  "detail": f"namespaces in render: {sorted(nslist) or ['(none)']}"})
+    if len(nslist) > 1:
+        return fail(f"F1 incoherent render: multiple namespaces {sorted(nslist)} (expected just {ns})")
+
+    # 2. upload
+    rc, o, e = sh(["cub", "installer", "upload", "--work-dir", workdir,
+                   "--space", wspace, "--target", target], timeout=420)
+    if not step("upload", rc, o + e):
+        return fail(f"installer upload failed: {(e or o)[:160]}")
+    receipt["proof_rows"].append({"layer": "confighub", "result": "PASS", "detail": f"units uploaded to {wspace}"})
+
+    # 3. apply targeted units (Noop -> populate OCI bundle). Explicit list, excluding
+    #    the untargeted installer-record and any header line.
+    rc, names, e = sh(["cub", "unit", "list", "--space", wspace], timeout=60)
+    units = []
+    for ln in names.splitlines():
+        tok = ln.split()
+        if not tok:
+            continue
+        n = tok[0]
+        if n in ("NAME", "installer-record"):
+            continue
+        units.append(n)
+    if not units:
+        return fail(f"no workload units found to apply in {wspace}")
+    rc, o, e = sh(["cub", "unit", "apply", "--space", wspace, "--unit", ",".join(units)], timeout=180)
+    if not step("apply-units", rc, o + e):
+        return fail(f"unit apply failed: {(e or o)[:160]}")
+
+    # 4. author + apply the Argo Application unit in the cluster space
+    app = {"apiVersion": "argoproj.io/v1alpha1", "kind": "Application",
+           "metadata": {"name": args.slug, "namespace": "argocd"},
+           "spec": {"project": "default",
+                    "source": {"repoURL": f"oci://oci.hub.confighub.com:443/target/{space_cluster}/oci",
+                               "targetRevision": "latest", "path": f"./{wspace}"},
+                    "destination": {"server": "https://kubernetes.default.svc", "namespace": ns},
+                    "syncPolicy": {"automated": {"selfHeal": True, "prune": True},
+                                   "syncOptions": ["ServerSideApply=true", "CreateNamespace=true"]}}}
+    appfile = f"/tmp/app-{rig}-{args.slug}.yaml"
+    Path(appfile).write_text(json.dumps(app))
+    rc, o, e = sh(["cub", "unit", "create", "--space", space_cluster, f"{args.slug}-app", appfile, "--target", target], timeout=120)
+    step("app-create", rc, o + e)  # tolerate already-exists on re-run
+    rc, o, e = sh(["cub", "unit", "apply", "--space", space_cluster, "--unit", f"{args.slug}-app"], timeout=120)
+    if not step("app-apply", rc, o + e):
+        return fail(f"application apply failed: {(e or o)[:160]}")
+
+    # 5. wait for Argo app Healthy + Synced (bounded poll)
+    deadline = args.wait
+    waited, sync, health = 0, "", ""
+    while waited < deadline:
+        rc, o, e = sh(["kubectl", "--kubeconfig", kubeconfig, "--context", kctx, "get", "application",
+                       args.slug, "-n", "argocd",
+                       "-o", "jsonpath={.status.sync.status}|{.status.health.status}|{.status.sync.revision}"], timeout=30)
+        if "|" in o:
+            sync, health, rev = (o.split("|") + ["", "", ""])[:3]
+            receipt["oci_revision"] = rev
+            if sync == "Synced" and health == "Healthy":
+                break
+        time.sleep(10)
+        waited += 10
+    receipt["proof_rows"].append({"layer": "argo", "result": "PASS" if (sync == "Synced" and health == "Healthy") else "WATCH",
+                                  "detail": f"app {args.slug}: sync={sync or '?'} health={health or '?'} after {waited}s"})
+
+    # 6. exact runtime proof: workloads AND pod readiness in the namespace
+    rc, o, e = sh(["kubectl", "--kubeconfig", kubeconfig, "--context", kctx, "get", "deploy,statefulset,daemonset",
+                   "-n", ns, "--no-headers"], timeout=30)
+    rc2, pods, _ = sh(["kubectl", "--kubeconfig", kubeconfig, "--context", kctx, "get", "pods",
+                       "-n", ns, "--no-headers"], timeout=30)
+    not_ready = []
+    for ln in pods.splitlines():
+        f = ln.split()
+        if len(f) < 3:
+            continue
+        ready, status = f[1], f[2]
+        ok = status in ("Running", "Completed")
+        if "/" in ready:
+            a, b = (ready.split("/") + ["", ""])[:2]
+            ok = ok and a == b
+        if not ok:
+            not_ready.append((f[0], f"{status} {ready}"))
+    runtime_ready = bool(o) and not not_ready
+    nr_detail = "; ".join(f"{n}:{s}" for n, s in not_ready[:5])
+    receipt["proof_rows"].append({"layer": "runtime",
+                                  "result": "PASS" if runtime_ready else "WATCH",
+                                  "detail": ((o[:240] or "no workloads found in namespace")
+                                             + (f" | NOT-READY: {nr_detail}" if nr_detail else ""))})
+
+    # status: PASS only if Argo Synced/Healthy AND workloads actually Ready AND coherent render
+    argo_ok = (sync == "Synced" and health == "Healthy")
+    if argo_ok and runtime_ready:
+        receipt["status"] = "PASS"
+    elif sync == "Synced":
+        receipt["status"] = "WATCH"
+        receipt["findings"].append(f"delivered but workload not Ready in {deadline}s (sync={sync} health={health}); not-ready: {nr_detail or 'see runtime row'} — likely a missing Secret/PVC/CRD (may be a permanent gap, not just slow)")
+    else:
+        receipt["status"] = "WATCH"
+        receipt["findings"].append(f"Argo did not reach Synced in {deadline}s (sync={sync or '?'} health={health or '?'})")
+
+    # 7. optional cleanup of the workload (leave the rig up)
+    if not args.keep:
+        # `cub unit apply --destroy` was removed; the destroy verb is now `cub unit destroy`.
+        sh(["cub", "unit", "destroy", "--space", space_cluster, "--unit", f"{args.slug}-app", "--wait"], timeout=180)
+        sh(["cub", "space", "delete", wspace, "--recursive"], timeout=120)
+        sh(["cub", "unit", "delete", "--space", space_cluster, f"{args.slug}-app"], timeout=60)
+
+    out()
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

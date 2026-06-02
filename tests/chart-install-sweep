@@ -1,0 +1,99 @@
+#!/usr/bin/env python3
+"""Phase-1 driver: run the 20-chart DEFAULT-path Wave 1 across the TOP20 proof
+charts by calling the per-(chart,base) work unit (scripts/pilot-helm-chart-test)
+and aggregating the receipts into a campaign scorecard.
+
+Built to shard for parallel, agentic testing: each agent runs `cub lk up` for its
+own rig, then runs this with its `--shard i/n` against that rig. On one machine
+use `--slugs` (a light subset) or run sequentially. The rig lifecycle (cub lk
+up/down) is the caller's job — this driver is rig-agnostic, like the work unit.
+
+Usage:
+  pilot-helm-wave1-sweep --rig <cub-lk-cluster> [--shard i/n] [--slugs a,b,c]
+                         [--helm-expt <path>] [--keep] [--out <dir>]
+
+See pilot/HELM_EXPT_TEST_STRATEGY.md.
+"""
+from __future__ import annotations
+import argparse, json, re, subprocess, sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+WORK_UNIT = ROOT / "tests" / "chart-install-test"
+
+
+def resolve_helm_expt(explicit):
+    if explicit:
+        return Path(explicit).expanduser().resolve()
+    for c in [ROOT,
+              Path("/Users/alexis/Public/github-repos/helm-expt"),
+              Path("/Users/alexis/code/helm-expt")]:
+        if c.exists():
+            return c
+    return ROOT
+
+
+def load_top20(he: Path):
+    mjs = he / "scripts" / "lib" / "top20-confighub-proof.mjs"
+    txt = mjs.read_text()
+    body = txt.split("TOP20_CONFIGHUB_PROOF_CHARTS = [", 1)[1].split("\n];", 1)[0]
+    rows = []
+    for o in re.findall(r"\{(.*?)\}", body, re.S):
+        g = lambda k: (re.search(rf'{k}:\s*"([^"]*)"', o) or [None, None])[1]
+        rows.append({"slug": g("slug"), "packagePath": g("packagePath"), "namespace": g("namespace")})
+    return [r for r in rows if r["slug"] and r["packagePath"]]
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--rig", required=True)
+    ap.add_argument("--shard", help="i/n — run shard i of n (1-indexed)")
+    ap.add_argument("--slugs", help="comma-separated subset of slugs")
+    ap.add_argument("--helm-expt", default=None)
+    ap.add_argument("--keep", action="store_true")
+    ap.add_argument("--out", default=None)
+    args = ap.parse_args()
+
+    he = resolve_helm_expt(args.helm_expt)
+    charts = load_top20(he)
+    if args.slugs:
+        want = {s.strip() for s in args.slugs.split(",")}
+        charts = [c for c in charts if c["slug"] in want]
+    if args.shard:
+        i, n = (int(x) for x in args.shard.split("/"))
+        charts = [c for idx, c in enumerate(charts) if idx % n == (i - 1)]
+
+    out_dir = Path(args.out) if args.out else (ROOT / "tests" / "results" / args.rig)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    receipts = []
+    for c in charts:
+        cmd = [sys.executable, str(WORK_UNIT), "--package", c["packagePath"], "--slug", c["slug"],
+               "--namespace", c["namespace"], "--rig", args.rig, "--helm-expt", str(he), "--json"]
+        if args.keep:
+            cmd.append("--keep")
+        print(f"… {c['slug']} (ns={c['namespace']})", file=sys.stderr)
+        p = subprocess.run(cmd, text=True, capture_output=True, timeout=600)
+        try:
+            r = json.loads(p.stdout)
+        except Exception:
+            r = {"slug": c["slug"], "status": "BLOCK", "findings": [f"work-unit no JSON: {(p.stderr or p.stdout)[-200:]}"]}
+        receipts.append(r)
+        (out_dir / f"receipt-{c['slug']}.json").write_text(json.dumps(r, indent=2))
+        print(f"  [{r.get('status')}] {c['slug']}: {'; '.join(r.get('findings', [])) or 'ok'}", file=sys.stderr)
+
+    counts = {}
+    for r in receipts:
+        counts[r.get("status", "?")] = counts.get(r.get("status", "?"), 0) + 1
+    scorecard = {"rig": args.rig, "shard": args.shard, "total": len(receipts), "counts": counts,
+                 "rows": [{"slug": r.get("slug"), "status": r.get("status"),
+                           "findings": r.get("findings", [])} for r in receipts]}
+    (out_dir / "scorecard.json").write_text(json.dumps(scorecard, indent=2))
+
+    print(json.dumps({"total": len(receipts), "counts": counts,
+                      "out": str(out_dir)}, indent=2))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
