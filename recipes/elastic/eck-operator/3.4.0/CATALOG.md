@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/elastic/eck-operator/3.4.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/elastic/eck-operator/3.4.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/elastic/eck-operator/3.4.0/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/elastic/eck-operator/3.4.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/elastic/eck-operator/3.4.0](../../../../packages/elastic/eck-operator/3.4.0) |
 | Installer package receipt | [recipes/elastic/eck-operator/3.4.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/elastic/eck-operator/3.4.0/artifact-index.yaml](artifact-index.yaml) |

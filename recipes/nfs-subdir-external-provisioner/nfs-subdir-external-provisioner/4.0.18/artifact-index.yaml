@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/control-points.yaml"
     valueModel: "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

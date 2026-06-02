@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/opencost/opencost/2.5.21/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/opencost/opencost/2.5.21/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/opencost/opencost/2.5.21/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/opencost/opencost/2.5.21/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/opencost/opencost/2.5.21](../../../../packages/opencost/opencost/2.5.21) |
 | Installer package receipt | [recipes/opencost/opencost/2.5.21/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/opencost/opencost/2.5.21/artifact-index.yaml](artifact-index.yaml) |

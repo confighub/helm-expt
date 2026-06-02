@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/elastic/filebeat/8.5.1/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/elastic/filebeat/8.5.1/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/elastic/filebeat/8.5.1/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/elastic/filebeat/8.5.1/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/elastic/filebeat/8.5.1](../../../../packages/elastic/filebeat/8.5.1) |
 | Installer package receipt | [recipes/elastic/filebeat/8.5.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/elastic/filebeat/8.5.1/artifact-index.yaml](artifact-index.yaml) |

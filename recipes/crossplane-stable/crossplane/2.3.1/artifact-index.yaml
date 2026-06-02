@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/crossplane-stable/crossplane/2.3.1/control-points.yaml"
     valueModel: "recipes/crossplane-stable/crossplane/2.3.1/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/crossplane-stable/crossplane/2.3.1/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

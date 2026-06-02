@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/aqua/trivy-operator/0.32.1/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/aqua/trivy-operator/0.32.1/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/aqua/trivy-operator/0.32.1/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/aqua/trivy-operator/0.32.1/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/aqua/trivy-operator/0.32.1](../../../../packages/aqua/trivy-operator/0.32.1) |
 | Installer package receipt | [recipes/aqua/trivy-operator/0.32.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/aqua/trivy-operator/0.32.1/artifact-index.yaml](artifact-index.yaml) |

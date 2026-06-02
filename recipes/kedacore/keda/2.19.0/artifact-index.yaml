@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/kedacore/keda/2.19.0/control-points.yaml"
     valueModel: "recipes/kedacore/keda/2.19.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/kedacore/keda/2.19.0/helm-pain-report.yaml"
     controlPointCategories:
       - "apiservice"
       - "capability-profile"
@@ -48,13 +49,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "no-crds"
     deferredVariants:
       []
   installerPackage:
     path: "packages/kedacore/keda/2.19.0"
     installer: "packages/kedacore/keda/2.19.0/installer.yaml"
     receipt: "recipes/kedacore/keda/2.19.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "b0fd493d6e7c5155b08fb298a6213b0a3c5862451ab2723a92def9ae02d197d4"
+    deterministicBundleSHA256: "850da6e9804c46cb6742812b986c0d9e76efa6f88198321ad10b0bae7813f59d"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -62,6 +64,11 @@ spec:
         path: "packages/kedacore/keda/2.19.0/bases/default"
         default: true
         description: "kedacore/keda default variant rendered from kedacore/keda@2.19.0"
+      -
+        name: "no-crds"
+        path: "packages/kedacore/keda/2.19.0/bases/no-crds"
+        default: false
+        description: "kedacore/keda no-crds variant rendered from kedacore/keda@2.19.0"
   variants:
     -
       name: "default"
@@ -125,3 +132,65 @@ spec:
               path: "recipes/kedacore/keda/2.19.0/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "95bac2eeb03cdf4d0392ed7d66c37c81db91beeba346752f932abef73d26db1f"
+    -
+      name: "no-crds"
+      variant: "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+      namespace: "default"
+      releaseName: "keda"
+      valuesProfile: "recipes/kedacore/keda/2.19.0/effective-values-no-crds.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "no-crds"
+        path: "packages/kedacore/keda/2.19.0/bases/no-crds"
+        default: false
+        description: "kedacore/keda no-crds variant rendered from kedacore/keda@2.19.0"
+      setupCheck:
+        command: "cub installer setup --pull packages/kedacore/keda/2.19.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 23
+        cubInstallObjectCountIncludingSupport: 24
+        semanticObjectMatches: "23/23"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "no-crds-r001"
+          revision: "r001"
+          variantRevision: "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "c5a9b4bf0a0eb7786a206b54365e8ad632e96bb3f4796a51f41621fea1f276a7"
+          renderedObjects: "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          objectCount: 23
+          helmObjectCount: 23
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "23/23"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "c5a9b4bf0a0eb7786a206b54365e8ad632e96bb3f4796a51f41621fea1f276a7"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "c5a9b4bf0a0eb7786a206b54365e8ad632e96bb3f4796a51f41621fea1f276a7"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "c5a9b4bf0a0eb7786a206b54365e8ad632e96bb3f4796a51f41621fea1f276a7"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "c5a9b4bf0a0eb7786a206b54365e8ad632e96bb3f4796a51f41621fea1f276a7"

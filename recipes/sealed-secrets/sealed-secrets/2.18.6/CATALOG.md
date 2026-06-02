@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/sealed-secrets/sealed-secrets/2.18.6/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/sealed-secrets/sealed-secrets/2.18.6/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/sealed-secrets/sealed-secrets/2.18.6/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/sealed-secrets/sealed-secrets/2.18.6/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/sealed-secrets/sealed-secrets/2.18.6](../../../../packages/sealed-secrets/sealed-secrets/2.18.6) |
 | Installer package receipt | [recipes/sealed-secrets/sealed-secrets/2.18.6/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/sealed-secrets/sealed-secrets/2.18.6/artifact-index.yaml](artifact-index.yaml) |

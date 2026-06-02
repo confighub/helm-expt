@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/coredns/coredns/1.45.2/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/coredns/coredns/1.45.2/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/coredns/coredns/1.45.2/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/coredns/coredns/1.45.2/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/coredns/coredns/1.45.2](../../../../packages/coredns/coredns/1.45.2) |
 | Installer package receipt | [recipes/coredns/coredns/1.45.2/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/coredns/coredns/1.45.2/artifact-index.yaml](artifact-index.yaml) |

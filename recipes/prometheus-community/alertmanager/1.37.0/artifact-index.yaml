@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/prometheus-community/alertmanager/1.37.0/control-points.yaml"
     valueModel: "recipes/prometheus-community/alertmanager/1.37.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/prometheus-community/alertmanager/1.37.0/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

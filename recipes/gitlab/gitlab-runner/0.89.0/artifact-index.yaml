@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/gitlab/gitlab-runner/0.89.0/control-points.yaml"
     valueModel: "recipes/gitlab/gitlab-runner/0.89.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/gitlab/gitlab-runner/0.89.0/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

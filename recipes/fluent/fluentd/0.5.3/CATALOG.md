@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/fluent/fluentd/0.5.3/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/fluent/fluentd/0.5.3/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/fluent/fluentd/0.5.3/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/fluent/fluentd/0.5.3/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/fluent/fluentd/0.5.3](../../../../packages/fluent/fluentd/0.5.3) |
 | Installer package receipt | [recipes/fluent/fluentd/0.5.3/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/fluent/fluentd/0.5.3/artifact-index.yaml](artifact-index.yaml) |

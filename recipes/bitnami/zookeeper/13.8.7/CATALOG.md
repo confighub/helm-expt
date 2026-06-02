@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/bitnami/zookeeper/13.8.7/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/bitnami/zookeeper/13.8.7/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/bitnami/zookeeper/13.8.7/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/bitnami/zookeeper/13.8.7/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/bitnami/zookeeper/13.8.7](../../../../packages/bitnami/zookeeper/13.8.7) |
 | Installer package receipt | [recipes/bitnami/zookeeper/13.8.7/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/bitnami/zookeeper/13.8.7/artifact-index.yaml](artifact-index.yaml) |

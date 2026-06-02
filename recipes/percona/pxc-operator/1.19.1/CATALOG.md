@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/percona/pxc-operator/1.19.1/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/percona/pxc-operator/1.19.1/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/percona/pxc-operator/1.19.1/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/percona/pxc-operator/1.19.1/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/percona/pxc-operator/1.19.1](../../../../packages/percona/pxc-operator/1.19.1) |
 | Installer package receipt | [recipes/percona/pxc-operator/1.19.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/percona/pxc-operator/1.19.1/artifact-index.yaml](artifact-index.yaml) |

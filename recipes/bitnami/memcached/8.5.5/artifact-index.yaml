@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/bitnami/memcached/8.5.5/control-points.yaml"
     valueModel: "recipes/bitnami/memcached/8.5.5/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/bitnami/memcached/8.5.5/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

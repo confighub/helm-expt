@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/dex/dex/0.24.0/control-points.yaml"
     valueModel: "recipes/dex/dex/0.24.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/dex/dex/0.24.0/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

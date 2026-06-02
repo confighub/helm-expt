@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/aqua/trivy-operator/0.32.1/control-points.yaml"
     valueModel: "recipes/aqua/trivy-operator/0.32.1/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/aqua/trivy-operator/0.32.1/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

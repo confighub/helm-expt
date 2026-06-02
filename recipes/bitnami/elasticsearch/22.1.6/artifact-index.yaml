@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/bitnami/elasticsearch/22.1.6/control-points.yaml"
     valueModel: "recipes/bitnami/elasticsearch/22.1.6/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/bitnami/elasticsearch/22.1.6/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

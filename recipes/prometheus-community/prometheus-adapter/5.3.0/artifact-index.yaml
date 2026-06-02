@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/prometheus-community/prometheus-adapter/5.3.0/control-points.yaml"
     valueModel: "recipes/prometheus-community/prometheus-adapter/5.3.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/prometheus-community/prometheus-adapter/5.3.0/helm-pain-report.yaml"
     controlPointCategories:
       - "apiservice"
       - "capability-profile"

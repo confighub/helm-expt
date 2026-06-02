@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/runix/pgadmin4/1.62.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/runix/pgadmin4/1.62.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/runix/pgadmin4/1.62.0/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/runix/pgadmin4/1.62.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/runix/pgadmin4/1.62.0](../../../../packages/runix/pgadmin4/1.62.0) |
 | Installer package receipt | [recipes/runix/pgadmin4/1.62.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/runix/pgadmin4/1.62.0/artifact-index.yaml](artifact-index.yaml) |

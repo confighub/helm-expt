@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/bitnami/elasticsearch/22.1.6/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/bitnami/elasticsearch/22.1.6/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/bitnami/elasticsearch/22.1.6/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/bitnami/elasticsearch/22.1.6/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/bitnami/elasticsearch/22.1.6](../../../../packages/bitnami/elasticsearch/22.1.6) |
 | Installer package receipt | [recipes/bitnami/elasticsearch/22.1.6/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/bitnami/elasticsearch/22.1.6/artifact-index.yaml](artifact-index.yaml) |

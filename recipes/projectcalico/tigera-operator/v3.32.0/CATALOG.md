@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/projectcalico/tigera-operator/v3.32.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/projectcalico/tigera-operator/v3.32.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/projectcalico/tigera-operator/v3.32.0/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/projectcalico/tigera-operator/v3.32.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/projectcalico/tigera-operator/v3.32.0](../../../../packages/projectcalico/tigera-operator/v3.32.0) |
 | Installer package receipt | [recipes/projectcalico/tigera-operator/v3.32.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/projectcalico/tigera-operator/v3.32.0/artifact-index.yaml](artifact-index.yaml) |

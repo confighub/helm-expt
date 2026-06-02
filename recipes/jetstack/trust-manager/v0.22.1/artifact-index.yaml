@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/jetstack/trust-manager/v0.22.1/control-points.yaml"
     valueModel: "recipes/jetstack/trust-manager/v0.22.1/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/jetstack/trust-manager/v0.22.1/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

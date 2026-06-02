@@ -935,7 +935,7 @@ still need catalog promotion review before support is claimed.
 | jaegertracing/jaeger@4.8.0 | proof-grade | default | default | [packages/jaegertracing/jaeger/4.8.0](packages/jaegertracing/jaeger/4.8.0) | [CATALOG.md](recipes/jaegertracing/jaeger/4.8.0/CATALOG.md) |
 | jetstack/cert-manager-csi-driver@v0.14.0 | proof-grade | default | default | [packages/jetstack/cert-manager-csi-driver/v0.14.0](packages/jetstack/cert-manager-csi-driver/v0.14.0) | [CATALOG.md](recipes/jetstack/cert-manager-csi-driver/v0.14.0/CATALOG.md) |
 | jetstack/trust-manager@v0.22.1 | proof-grade | default | default | [packages/jetstack/trust-manager/v0.22.1](packages/jetstack/trust-manager/v0.22.1) | [CATALOG.md](recipes/jetstack/trust-manager/v0.22.1/CATALOG.md) |
-| kedacore/keda@2.19.0 | proof-grade | default | default | [packages/kedacore/keda/2.19.0](packages/kedacore/keda/2.19.0) | [CATALOG.md](recipes/kedacore/keda/2.19.0/CATALOG.md) |
+| kedacore/keda@2.19.0 | proof-grade | default | default, no-crds | [packages/kedacore/keda/2.19.0](packages/kedacore/keda/2.19.0) | [CATALOG.md](recipes/kedacore/keda/2.19.0/CATALOG.md) |
 | kyverno/kyverno-policies@3.8.0 | proof-grade | default | default | [packages/kyverno/kyverno-policies/3.8.0](packages/kyverno/kyverno-policies/3.8.0) | [CATALOG.md](recipes/kyverno/kyverno-policies/3.8.0/CATALOG.md) |
 | kyverno/kyverno@3.8.1 | proof-grade | default | default | [packages/kyverno/kyverno/3.8.1](packages/kyverno/kyverno/3.8.1) | [CATALOG.md](recipes/kyverno/kyverno/3.8.1/CATALOG.md) |
 | linkerd/linkerd-crds@1.8.0 | proof-grade | default | default | [packages/linkerd/linkerd-crds/1.8.0](packages/linkerd/linkerd-crds/1.8.0) | [CATALOG.md](recipes/linkerd/linkerd-crds/1.8.0/CATALOG.md) |

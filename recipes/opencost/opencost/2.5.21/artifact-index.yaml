@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/opencost/opencost/2.5.21/control-points.yaml"
     valueModel: "recipes/opencost/opencost/2.5.21/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/opencost/opencost/2.5.21/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

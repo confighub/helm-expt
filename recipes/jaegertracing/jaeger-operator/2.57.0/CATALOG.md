@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/jaegertracing/jaeger-operator/2.57.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/jaegertracing/jaeger-operator/2.57.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/jaegertracing/jaeger-operator/2.57.0/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/jaegertracing/jaeger-operator/2.57.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/jaegertracing/jaeger-operator/2.57.0](../../../../packages/jaegertracing/jaeger-operator/2.57.0) |
 | Installer package receipt | [recipes/jaegertracing/jaeger-operator/2.57.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/jaegertracing/jaeger-operator/2.57.0/artifact-index.yaml](artifact-index.yaml) |

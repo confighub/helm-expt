@@ -61,7 +61,7 @@ jaegertracing/jaeger@4.8.0,1,default,existing-secret,existing-secret,1,recipes/j
 jetstack/cert-manager-csi-driver@v0.14.0,1,default,,none,0,recipes/jetstack/cert-manager-csi-driver/v0.14.0
 jetstack/cert-manager@v1.20.2,2,default;crds-enabled,no-crds,none,0,recipes/jetstack/cert-manager/v1.20.2
 jetstack/trust-manager@v0.22.1,1,default,existing-secret;no-crds,existing-secret;no-crds,2,recipes/jetstack/trust-manager/v0.22.1
-kedacore/keda@2.19.0,1,default,no-crds,no-crds,1,recipes/kedacore/keda/2.19.0
+kedacore/keda@2.19.0,2,default;no-crds,no-crds,none,0,recipes/kedacore/keda/2.19.0
 kyverno/kyverno-policies@3.8.0,1,default,,none,0,recipes/kyverno/kyverno-policies/3.8.0
 kyverno/kyverno@3.8.1,1,default,existing-secret;no-crds,existing-secret;no-crds,2,recipes/kyverno/kyverno/3.8.1
 linkerd/linkerd-crds@1.8.0,1,default,existing-secret;no-crds,existing-secret;no-crds,2,recipes/linkerd/linkerd-crds/1.8.0

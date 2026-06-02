@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/elastic/kibana/8.5.1/control-points.yaml"
     valueModel: "recipes/elastic/kibana/8.5.1/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/elastic/kibana/8.5.1/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/hashicorp/terraform/1.1.2/control-points.yaml"
     valueModel: "recipes/hashicorp/terraform/1.1.2/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/hashicorp/terraform/1.1.2/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "crds"

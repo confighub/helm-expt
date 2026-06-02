@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/kyverno/kyverno/3.8.1/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/kyverno/kyverno/3.8.1/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/kyverno/kyverno/3.8.1/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/kyverno/kyverno/3.8.1](../../../../packages/kyverno/kyverno/3.8.1) |
 | Installer package receipt | [recipes/kyverno/kyverno/3.8.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/kyverno/kyverno/3.8.1/artifact-index.yaml](artifact-index.yaml) |

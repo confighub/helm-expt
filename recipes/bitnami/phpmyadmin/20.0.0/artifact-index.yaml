@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/bitnami/phpmyadmin/20.0.0/control-points.yaml"
     valueModel: "recipes/bitnami/phpmyadmin/20.0.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/bitnami/phpmyadmin/20.0.0/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

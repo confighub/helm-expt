@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "kedacore-keda-2.19.0-no-crds"
+  labels:
+    confighub.io/chart: "kedacore/keda"
+    confighub.io/version: "2.19.0"
+    confighub.io/variant: "no-crds"
+spec:
+  profile: "no-crds"
+  renderDelta: "crds.install=false"
+  mergedValuesCaptured: false

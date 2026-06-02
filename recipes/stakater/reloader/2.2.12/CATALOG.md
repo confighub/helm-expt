@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/stakater/reloader/2.2.12/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/stakater/reloader/2.2.12/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/stakater/reloader/2.2.12/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/stakater/reloader/2.2.12/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/stakater/reloader/2.2.12](../../../../packages/stakater/reloader/2.2.12) |
 | Installer package receipt | [recipes/stakater/reloader/2.2.12/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/stakater/reloader/2.2.12/artifact-index.yaml](artifact-index.yaml) |

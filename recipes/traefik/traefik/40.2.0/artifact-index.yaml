@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/traefik/traefik/40.2.0/control-points.yaml"
     valueModel: "recipes/traefik/traefik/40.2.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/traefik/traefik/40.2.0/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

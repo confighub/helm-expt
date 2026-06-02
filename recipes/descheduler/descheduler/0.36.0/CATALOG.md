@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/descheduler/descheduler/0.36.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/descheduler/descheduler/0.36.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/descheduler/descheduler/0.36.0/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/descheduler/descheduler/0.36.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/descheduler/descheduler/0.36.0](../../../../packages/descheduler/descheduler/0.36.0) |
 | Installer package receipt | [recipes/descheduler/descheduler/0.36.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/descheduler/descheduler/0.36.0/artifact-index.yaml](artifact-index.yaml) |

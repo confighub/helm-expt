@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/fluent/fluent-bit/0.57.6/control-points.yaml"
     valueModel: "recipes/fluent/fluent-bit/0.57.6/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/fluent/fluent-bit/0.57.6/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

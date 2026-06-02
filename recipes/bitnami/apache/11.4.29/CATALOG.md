@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/bitnami/apache/11.4.29/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/bitnami/apache/11.4.29/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/bitnami/apache/11.4.29/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/bitnami/apache/11.4.29/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/bitnami/apache/11.4.29](../../../../packages/bitnami/apache/11.4.29) |
 | Installer package receipt | [recipes/bitnami/apache/11.4.29/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/bitnami/apache/11.4.29/artifact-index.yaml](artifact-index.yaml) |

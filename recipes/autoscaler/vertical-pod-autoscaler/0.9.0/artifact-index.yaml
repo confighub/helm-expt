@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/control-points.yaml"
     valueModel: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/rook-release/rook-ceph-cluster/v1.19.5/control-points.yaml"
     valueModel: "recipes/rook-release/rook-ceph-cluster/v1.19.5/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/rook-release/rook-ceph-cluster/v1.19.5/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

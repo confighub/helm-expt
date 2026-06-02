@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/jaegertracing/jaeger/4.8.0/control-points.yaml"
     valueModel: "recipes/jaegertracing/jaeger/4.8.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/jaegertracing/jaeger/4.8.0/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

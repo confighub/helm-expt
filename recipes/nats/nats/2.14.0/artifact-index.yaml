@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/nats/nats/2.14.0/control-points.yaml"
     valueModel: "recipes/nats/nats/2.14.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/nats/nats/2.14.0/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

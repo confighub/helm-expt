@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/fairwinds-stable/goldilocks/10.3.0/control-points.yaml"
     valueModel: "recipes/fairwinds-stable/goldilocks/10.3.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/fairwinds-stable/goldilocks/10.3.0/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18](../../../../packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18) |
 | Installer package receipt | [recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/artifact-index.yaml](artifact-index.yaml) |

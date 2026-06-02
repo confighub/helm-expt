@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/fairwinds-stable/goldilocks/10.3.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/fairwinds-stable/goldilocks/10.3.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/fairwinds-stable/goldilocks/10.3.0/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/fairwinds-stable/goldilocks/10.3.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/fairwinds-stable/goldilocks/10.3.0](../../../../packages/fairwinds-stable/goldilocks/10.3.0) |
 | Installer package receipt | [recipes/fairwinds-stable/goldilocks/10.3.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/fairwinds-stable/goldilocks/10.3.0/artifact-index.yaml](artifact-index.yaml) |

@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/projectcalico/tigera-operator/v3.32.0/control-points.yaml"
     valueModel: "recipes/projectcalico/tigera-operator/v3.32.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/projectcalico/tigera-operator/v3.32.0/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

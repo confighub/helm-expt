@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/grafana/pyroscope/2.0.2/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/grafana/pyroscope/2.0.2/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/grafana/pyroscope/2.0.2/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/grafana/pyroscope/2.0.2/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/grafana/pyroscope/2.0.2](../../../../packages/grafana/pyroscope/2.0.2) |
 | Installer package receipt | [recipes/grafana/pyroscope/2.0.2/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/grafana/pyroscope/2.0.2/artifact-index.yaml](artifact-index.yaml) |

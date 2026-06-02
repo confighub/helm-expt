@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/minio-operator/operator/7.1.1/control-points.yaml"
     valueModel: "recipes/minio-operator/operator/7.1.1/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/minio-operator/operator/7.1.1/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

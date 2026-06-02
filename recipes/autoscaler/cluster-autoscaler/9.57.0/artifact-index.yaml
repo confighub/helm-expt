@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/autoscaler/cluster-autoscaler/9.57.0/control-points.yaml"
     valueModel: "recipes/autoscaler/cluster-autoscaler/9.57.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/autoscaler/cluster-autoscaler/9.57.0/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"

@@ -33,6 +33,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Control points | [recipes/prometheus-community/alertmanager/1.37.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/prometheus-community/alertmanager/1.37.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/prometheus-community/alertmanager/1.37.0/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/prometheus-community/alertmanager/1.37.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/prometheus-community/alertmanager/1.37.0](../../../../packages/prometheus-community/alertmanager/1.37.0) |
 | Installer package receipt | [recipes/prometheus-community/alertmanager/1.37.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/prometheus-community/alertmanager/1.37.0/artifact-index.yaml](artifact-index.yaml) |
