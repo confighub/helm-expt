@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "percona-pg-operator-3.0.0-no-crds"
+  labels:
+    confighub.io/chart: "percona/pg-operator"
+    confighub.io/version: "3.0.0"
+    confighub.io/variant: "no-crds"
+spec:
+  profile: "no-crds"
+  renderDelta: ""
+  mergedValuesCaptured: false

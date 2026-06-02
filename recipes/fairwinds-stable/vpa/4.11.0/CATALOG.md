@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default |
+| Candidate variants | default, no-crds |
 | Control points | capability-profile, cluster-rbac, crds, dependency-lock, helm-equivalence, lifecycle-policy, rendered-manifest-scan, source-lock, target-facts, tpl-extension-slots, variant-revision, webhooks |
 
 ## Artifact Chain
@@ -43,12 +43,14 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/fairwinds-stable/vpa/4.11.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/fairwinds-stable/vpa/4.11.0/bases/default](../../../../packages/fairwinds-stable/vpa/4.11.0/bases/default) | [recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 28 | 29 | 28/28 | pass | warn | warn | none |
+| no-crds | [recipes/fairwinds-stable/vpa/4.11.0/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/fairwinds-stable/vpa/4.11.0/bases/no-crds](../../../../packages/fairwinds-stable/vpa/4.11.0/bases/no-crds) | [recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 26 |  | 26/26 | pass |  | allow | none |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
 | default | [packages/fairwinds-stable/vpa/4.11.0/bases/default](../../../../packages/fairwinds-stable/vpa/4.11.0/bases/default) | yes | fairwinds-stable/vpa default variant rendered from fairwinds-stable/vpa@4.11.0 |
+| no-crds | [packages/fairwinds-stable/vpa/4.11.0/bases/no-crds](../../../../packages/fairwinds-stable/vpa/4.11.0/bases/no-crds) | no | fairwinds-stable/vpa no-crds variant rendered from fairwinds-stable/vpa@4.11.0 |
 
 ## Receipts
 
@@ -58,6 +60,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | default | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](revisions/default/r001/receipts/helm-equivalence-receipt.yaml) |
 | default | r001 | scan | ScanReceipt | warn | [recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/receipts/scan-receipt.yaml](revisions/default/r001/receipts/scan-receipt.yaml) |
 | default | r001 | installGate | InstallGate | warn | [recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/receipts/install-gate.yaml](revisions/default/r001/receipts/install-gate.yaml) |
+| no-crds | r001 | render | RenderReceipt | recorded | [recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/receipts/render-receipt.yaml](revisions/no-crds/r001/receipts/render-receipt.yaml) |
+| no-crds | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml](revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml) |
+| no-crds | r001 | scan | ScanReceipt |  | [recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/receipts/scan-receipt.yaml](revisions/no-crds/r001/receipts/scan-receipt.yaml) |
+| no-crds | r001 | installGate | InstallGate | allow | [recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/receipts/install-gate.yaml](revisions/no-crds/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

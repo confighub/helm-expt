@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "percona/psmdb-operator"
+    confighub.io/version: "1.22.0"
+    confighub.io/variant: "no-crds"
+spec:
+  result: "pass"
+  regularHelm:
+    renderedSHA256: "583396c1666b921931627a8a24a0dcb5a6d4859dd5fbd1ee350a1dfec44daffb"
+    objectCount: 4
+  cubInstall:
+    objectCountIncludingSupport: 5
+    semanticObjectMatches: "4/4"
+    allowedCubOnlyObjects:
+      - "v1|Namespace||default"

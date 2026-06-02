@@ -44,13 +44,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "no-crds"
     deferredVariants:
       []
   installerPackage:
     path: "packages/percona/psmdb-operator/1.22.0"
     installer: "packages/percona/psmdb-operator/1.22.0/installer.yaml"
     receipt: "recipes/percona/psmdb-operator/1.22.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "61d4425d9c1abed3976853c3d5c0da63a09962642be53e3e63a7fe3c09fa594e"
+    deterministicBundleSHA256: "29e16c7492a6e7b679cc4d756ea198c719da6cf787f61b75d8264592f47583d8"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -58,6 +59,11 @@ spec:
         path: "packages/percona/psmdb-operator/1.22.0/bases/default"
         default: true
         description: "percona/psmdb-operator default variant rendered from percona/psmdb-operator@1.22.0"
+      -
+        name: "no-crds"
+        path: "packages/percona/psmdb-operator/1.22.0/bases/no-crds"
+        default: false
+        description: "percona/psmdb-operator no-crds variant rendered from percona/psmdb-operator@1.22.0"
   variants:
     -
       name: "default"
@@ -121,3 +127,65 @@ spec:
               path: "recipes/percona/psmdb-operator/1.22.0/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "a9ae26e197ef3e108ecab8c30f630ce24004a29b670916169ae6634198b96936"
+    -
+      name: "no-crds"
+      variant: "recipes/percona/psmdb-operator/1.22.0/variants/no-crds/variant.yaml"
+      namespace: "default"
+      releaseName: "psmdb-operator"
+      valuesProfile: "recipes/percona/psmdb-operator/1.22.0/effective-values-no-crds.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "no-crds"
+        path: "packages/percona/psmdb-operator/1.22.0/bases/no-crds"
+        default: false
+        description: "percona/psmdb-operator no-crds variant rendered from percona/psmdb-operator@1.22.0"
+      setupCheck:
+        command: "cub installer setup --pull packages/percona/psmdb-operator/1.22.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 4
+        cubInstallObjectCountIncludingSupport: 5
+        semanticObjectMatches: "4/4"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "no-crds-r001"
+          revision: "r001"
+          variantRevision: "recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "583396c1666b921931627a8a24a0dcb5a6d4859dd5fbd1ee350a1dfec44daffb"
+          renderedObjects: "recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          objectCount: 4
+          helmObjectCount: 4
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "4/4"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "583396c1666b921931627a8a24a0dcb5a6d4859dd5fbd1ee350a1dfec44daffb"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "583396c1666b921931627a8a24a0dcb5a6d4859dd5fbd1ee350a1dfec44daffb"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "583396c1666b921931627a8a24a0dcb5a6d4859dd5fbd1ee350a1dfec44daffb"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "583396c1666b921931627a8a24a0dcb5a6d4859dd5fbd1ee350a1dfec44daffb"

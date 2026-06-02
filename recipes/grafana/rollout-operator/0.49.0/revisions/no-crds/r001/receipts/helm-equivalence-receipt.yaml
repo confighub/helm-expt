@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "grafana/rollout-operator"
+    confighub.io/version: "0.49.0"
+    confighub.io/variant: "no-crds"
+spec:
+  result: "pass"
+  regularHelm:
+    renderedSHA256: "ae6b9000b84edf8a5ad01c4399619b76ad28b808486d623fc482035ed5e3b403"
+    objectCount: 13
+  cubInstall:
+    objectCountIncludingSupport: 14
+    semanticObjectMatches: "13/13"
+    allowedCubOnlyObjects:
+      - "v1|Namespace||default"

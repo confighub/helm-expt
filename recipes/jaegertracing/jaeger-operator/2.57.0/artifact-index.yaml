@@ -45,13 +45,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "no-crds"
     deferredVariants:
       []
   installerPackage:
     path: "packages/jaegertracing/jaeger-operator/2.57.0"
     installer: "packages/jaegertracing/jaeger-operator/2.57.0/installer.yaml"
     receipt: "recipes/jaegertracing/jaeger-operator/2.57.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "38a49e9cf25c53ee3e95ea834ec8f6bdc3d6e7c61b039869436d17c33240aceb"
+    deterministicBundleSHA256: "98780a2b5ca0546b5824def5ada44accfdd3af6d228b5991bef4db542f4c2e1d"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -59,6 +60,11 @@ spec:
         path: "packages/jaegertracing/jaeger-operator/2.57.0/bases/default"
         default: true
         description: "jaegertracing/jaeger-operator default variant rendered from jaegertracing/jaeger-operator@2.57.0"
+      -
+        name: "no-crds"
+        path: "packages/jaegertracing/jaeger-operator/2.57.0/bases/no-crds"
+        default: false
+        description: "jaegertracing/jaeger-operator no-crds variant rendered from jaegertracing/jaeger-operator@2.57.0"
   variants:
     -
       name: "default"
@@ -122,3 +128,65 @@ spec:
               path: "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "c17323ac7d71b000b42732323a79731fe3d9244ba4e641d8349a73a71b8807ab"
+    -
+      name: "no-crds"
+      variant: "recipes/jaegertracing/jaeger-operator/2.57.0/variants/no-crds/variant.yaml"
+      namespace: "default"
+      releaseName: "jaeger-operator"
+      valuesProfile: "recipes/jaegertracing/jaeger-operator/2.57.0/effective-values-no-crds.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "no-crds"
+        path: "packages/jaegertracing/jaeger-operator/2.57.0/bases/no-crds"
+        default: false
+        description: "jaegertracing/jaeger-operator no-crds variant rendered from jaegertracing/jaeger-operator@2.57.0"
+      setupCheck:
+        command: "cub installer setup --pull packages/jaegertracing/jaeger-operator/2.57.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 10
+        cubInstallObjectCountIncludingSupport: 11
+        semanticObjectMatches: "10/10"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "no-crds-r001"
+          revision: "r001"
+          variantRevision: "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/no-crds/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "14755312bc08dd5aad02a12a16f32a04e54adad141a93cb28ff42b2e49066975"
+          renderedObjects: "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          objectCount: 10
+          helmObjectCount: 10
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "10/10"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/no-crds/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "14755312bc08dd5aad02a12a16f32a04e54adad141a93cb28ff42b2e49066975"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "14755312bc08dd5aad02a12a16f32a04e54adad141a93cb28ff42b2e49066975"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/no-crds/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "14755312bc08dd5aad02a12a16f32a04e54adad141a93cb28ff42b2e49066975"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/no-crds/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "14755312bc08dd5aad02a12a16f32a04e54adad141a93cb28ff42b2e49066975"

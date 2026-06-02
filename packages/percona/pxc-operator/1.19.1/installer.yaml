@@ -6,7 +6,11 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "percona/pxc-operator default variant rendered from percona/pxc-operator@1.19.1"
+      name: "default"
+      path: "bases/default"
+    -
+      name: "no-crds"
+      path: "bases/no-crds"
+      description: "percona/pxc-operator no-crds variant rendered from percona/pxc-operator@1.19.1"

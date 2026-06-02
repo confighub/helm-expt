@@ -7,6 +7,10 @@ spec:
     repository: "percona"
     name: "psmdb-operator"
     version: "1.22.0"
+  deterministicBundle:
+    command: "cub installer package packages/percona/psmdb-operator/1.22.0 -o <tmp>/percona-psmdb-operator-1.22.0.tgz"
+    sha256: "29e16c7492a6e7b679cc4d756ea198c719da6cf787f61b75d8264592f47583d8"
+    byteIdenticalAcrossTwoLocalBundles: true
   package:
     path: "packages/percona/psmdb-operator/1.22.0"
     name: "percona-psmdb-operator"
@@ -25,21 +29,35 @@ spec:
         sha256: "a9ae26e197ef3e108ecab8c30f630ce24004a29b670916169ae6634198b96936"
         bytes: 1348924
       -
+        path: "bases/no-crds/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/no-crds/upstream.yaml"
+        sha256: "583396c1666b921931627a8a24a0dcb5a6d4859dd5fbd1ee350a1dfec44daffb"
+        bytes: 5135
+      -
         path: "installer.yaml"
-        sha256: "fcc4b25f9f608b4ce582cb92e17ced6e8c06a7ff41799039c6dc99381ee1fa56"
-        bytes: 321
-  deterministicBundle:
-    command: "cub installer package packages/percona/psmdb-operator/1.22.0 -o <tmp>/percona-psmdb-operator-1-22-0.tgz"
-    sha256: "61d4425d9c1abed3976853c3d5c0da63a09962642be53e3e63a7fe3c09fa594e"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "27852d6ba1be318e7f47221cd86d8a550561d428c8080c66f0ae041a098d1dc5"
+        bytes: 481
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
       base: "default"
       command: "cub installer setup --pull packages/percona/psmdb-operator/1.22.0 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 7
       cubInstallObjectCountIncludingSupport: 8
+      helmReleaseObjectCount: 7
       semanticObjectMatches: "7/7"
+      separatedSecretCount: 0
+      variant: "default"
+    -
+      variant: "no-crds"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/percona/psmdb-operator/1.22.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 4
+      cubInstallObjectCountIncludingSupport: 5
+      semanticObjectMatches: "4/4"
       separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"

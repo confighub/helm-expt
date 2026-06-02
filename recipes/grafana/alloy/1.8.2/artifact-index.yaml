@@ -46,13 +46,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "no-crds"
     deferredVariants:
       []
   installerPackage:
     path: "packages/grafana/alloy/1.8.2"
     installer: "packages/grafana/alloy/1.8.2/installer.yaml"
     receipt: "recipes/grafana/alloy/1.8.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "1df1c252c85c3e7686ebfd299f8ded19c41b1880ef4de87374a5e4bfae2c7fd4"
+    deterministicBundleSHA256: "ca3141104f9da7a56a4b5ac332ea2018dd73309c7bf448e99221fd2b4c92a725"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -60,6 +61,11 @@ spec:
         path: "packages/grafana/alloy/1.8.2/bases/default"
         default: true
         description: "grafana/alloy default variant rendered from grafana/alloy@1.8.2"
+      -
+        name: "no-crds"
+        path: "packages/grafana/alloy/1.8.2/bases/no-crds"
+        default: false
+        description: "grafana/alloy no-crds variant rendered from grafana/alloy@1.8.2"
   variants:
     -
       name: "default"
@@ -123,3 +129,65 @@ spec:
               path: "recipes/grafana/alloy/1.8.2/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "984319325f620b099f091df4c45ef851f0dd7593526f146d5271dbf477f7f37b"
+    -
+      name: "no-crds"
+      variant: "recipes/grafana/alloy/1.8.2/variants/no-crds/variant.yaml"
+      namespace: "default"
+      releaseName: "alloy"
+      valuesProfile: "recipes/grafana/alloy/1.8.2/effective-values-no-crds.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "no-crds"
+        path: "packages/grafana/alloy/1.8.2/bases/no-crds"
+        default: false
+        description: "grafana/alloy no-crds variant rendered from grafana/alloy@1.8.2"
+      setupCheck:
+        command: "cub installer setup --pull packages/grafana/alloy/1.8.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 6
+        cubInstallObjectCountIncludingSupport: 7
+        semanticObjectMatches: "6/6"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "no-crds-r001"
+          revision: "r001"
+          variantRevision: "recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "3284915e4cee6101e8279e10a5ef11937e6d860b01b95549079d809f64a17e22"
+          renderedObjects: "recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          objectCount: 6
+          helmObjectCount: 6
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "6/6"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "3284915e4cee6101e8279e10a5ef11937e6d860b01b95549079d809f64a17e22"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "3284915e4cee6101e8279e10a5ef11937e6d860b01b95549079d809f64a17e22"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "3284915e4cee6101e8279e10a5ef11937e6d860b01b95549079d809f64a17e22"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "3284915e4cee6101e8279e10a5ef11937e6d860b01b95549079d809f64a17e22"

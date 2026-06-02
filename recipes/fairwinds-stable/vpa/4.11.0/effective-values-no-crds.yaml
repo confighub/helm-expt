@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "fairwinds-stable-vpa-4.11.0-no-crds"
+  labels:
+    confighub.io/chart: "fairwinds-stable/vpa"
+    confighub.io/version: "4.11.0"
+    confighub.io/variant: "no-crds"
+spec:
+  profile: "no-crds"
+  renderDelta: ""
+  mergedValuesCaptured: false

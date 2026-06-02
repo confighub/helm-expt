@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default |
+| Candidate variants | default, no-crds |
 | Control points | capability-profile, cluster-rbac, crds, dependency-lock, extension-slots, helm-equivalence, rendered-manifest-scan, source-lock, target-facts, tpl-extension-slots, variant-revision |
 
 ## Artifact Chain
@@ -43,12 +43,14 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/strimzi/strimzi-kafka-operator/1.0.0/bases/default](../../../../packages/strimzi/strimzi-kafka-operator/1.0.0/bases/default) | [recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 27 | 28 | 27/27 | pass | warn | warn | none |
+| no-crds | [recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/strimzi/strimzi-kafka-operator/1.0.0/bases/no-crds](../../../../packages/strimzi/strimzi-kafka-operator/1.0.0/bases/no-crds) | [recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 17 |  | 17/17 | pass |  | allow | none |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
 | default | [packages/strimzi/strimzi-kafka-operator/1.0.0/bases/default](../../../../packages/strimzi/strimzi-kafka-operator/1.0.0/bases/default) | yes | strimzi/strimzi-kafka-operator default variant rendered from strimzi/strimzi-kafka-operator@1.0.0 |
+| no-crds | [packages/strimzi/strimzi-kafka-operator/1.0.0/bases/no-crds](../../../../packages/strimzi/strimzi-kafka-operator/1.0.0/bases/no-crds) | no | strimzi/strimzi-kafka-operator no-crds variant rendered from strimzi/strimzi-kafka-operator@1.0.0 |
 
 ## Receipts
 
@@ -58,6 +60,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | default | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](revisions/default/r001/receipts/helm-equivalence-receipt.yaml) |
 | default | r001 | scan | ScanReceipt | warn | [recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/receipts/scan-receipt.yaml](revisions/default/r001/receipts/scan-receipt.yaml) |
 | default | r001 | installGate | InstallGate | warn | [recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/receipts/install-gate.yaml](revisions/default/r001/receipts/install-gate.yaml) |
+| no-crds | r001 | render | RenderReceipt | recorded | [recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/receipts/render-receipt.yaml](revisions/no-crds/r001/receipts/render-receipt.yaml) |
+| no-crds | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml](revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml) |
+| no-crds | r001 | scan | ScanReceipt |  | [recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/receipts/scan-receipt.yaml](revisions/no-crds/r001/receipts/scan-receipt.yaml) |
+| no-crds | r001 | installGate | InstallGate | allow | [recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/receipts/install-gate.yaml](revisions/no-crds/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

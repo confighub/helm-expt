@@ -7,6 +7,10 @@ spec:
     repository: "grafana"
     name: "alloy"
     version: "1.8.2"
+  deterministicBundle:
+    command: "cub installer package packages/grafana/alloy/1.8.2 -o <tmp>/grafana-alloy-1.8.2.tgz"
+    sha256: "ca3141104f9da7a56a4b5ac332ea2018dd73309c7bf448e99221fd2b4c92a725"
+    byteIdenticalAcrossTwoLocalBundles: true
   package:
     path: "packages/grafana/alloy/1.8.2"
     name: "grafana-alloy"
@@ -25,21 +29,35 @@ spec:
         sha256: "984319325f620b099f091df4c45ef851f0dd7593526f146d5271dbf477f7f37b"
         bytes: 16691
       -
+        path: "bases/no-crds/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/no-crds/upstream.yaml"
+        sha256: "3284915e4cee6101e8279e10a5ef11937e6d860b01b95549079d809f64a17e22"
+        bytes: 6922
+      -
         path: "installer.yaml"
-        sha256: "0027bc06ad9a2507a62b5c025c3425bc0f1364b598cf2371d15d8d0e5709e6bf"
-        bytes: 292
-  deterministicBundle:
-    command: "cub installer package packages/grafana/alloy/1.8.2 -o <tmp>/grafana-alloy-1-8-2.tgz"
-    sha256: "1df1c252c85c3e7686ebfd299f8ded19c41b1880ef4de87374a5e4bfae2c7fd4"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "7285a00edeb31d962ce88a9fefcb459f216f469d2bafc407293524dd35c4a4bb"
+        bytes: 433
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
       base: "default"
       command: "cub installer setup --pull packages/grafana/alloy/1.8.2 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 7
       cubInstallObjectCountIncludingSupport: 8
+      helmReleaseObjectCount: 7
       semanticObjectMatches: "7/7"
+      separatedSecretCount: 0
+      variant: "default"
+    -
+      variant: "no-crds"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/grafana/alloy/1.8.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 6
+      cubInstallObjectCountIncludingSupport: 7
+      semanticObjectMatches: "6/6"
       separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
