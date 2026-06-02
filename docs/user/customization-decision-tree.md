@@ -118,7 +118,7 @@ START — pull a public package → setup → upload → ConfigHub → OCI → A
 | CRDs enable/disable | base lifecycle policy (enable → + CRD review gate; CRD before CR) |
 | Kustomize patch | base overlay if it mutates objects; narrow approved cub function only post-render |
 | Target / env / region / labels / gates / observation | derived ConfigHub variant |
-| Helm hook | `handled-by-lifecycle-policy`: hooks have an execution home, not a per-chart judgment call. ConfigHub applies the hook resources; on cluster delivery the GitOps controller runs them (Flux's helm-controller runs Helm hooks with full lifecycle, incl. the dummy-chart wrap of rendered output; Argo via its Helm source). The live-run receipt is the Level-3 proof of the chosen path. |
+| Helm hook | `handled-by-lifecycle-policy`: hooks have an execution home, not a per-chart judgment call. ConfigHub applies the hook resources; on cluster delivery the GitOps controller runs them (Flux's helm-controller runs Helm hooks with full lifecycle, incl. the dummy-chart wrap of rendered output; or Argo's equivalent — it converts Helm hook annotations into its sync phases (Helm source) and has native resource hooks (`PreSync`/`Sync`/`PostSync`/`SyncFail`) for rendered manifests). The live-run receipt is the Level-3 proof of the chosen path. |
 | Cluster lookup | recipe fact requirement + variant fact binding |
 
 ## Day-2 lifecycle (from the consumer guide)
