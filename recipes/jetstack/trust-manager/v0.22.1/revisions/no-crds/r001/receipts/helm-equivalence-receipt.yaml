@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "jetstack/trust-manager"
+    confighub.io/version: "v0.22.1"
+    confighub.io/variant: "no-crds"
+spec:
+  result: "pass"
+  regularHelm:
+    renderedSHA256: "5d0b08f8abda179089de0d4acead48bd8a3752c16766ed8ef1b95478065e9250"
+    objectCount: 13
+  cubInstall:
+    objectCountIncludingSupport: 14
+    semanticObjectMatches: "13/13"
+    allowedCubOnlyObjects:
+      - "v1|Namespace||default"

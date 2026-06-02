@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "argo-cd/argo-rollouts"
+    confighub.io/version: "2.40.9"
+    confighub.io/variant: "no-crds"
+spec:
+  variant: "../../../variants/no-crds/variant.yaml"
+  revision: "r001"
+  digestInputs:
+    rendererSHA256: "ba79fcab7c93c102de93969d97ccfcd4b6e07b1276ab45f2fc137c239dce0631"
+    renderedObjectSetSHA256: "6facde581531cc4995b342bf9b3614f4c73f5c8d9ba057ae92895db6c3813dd7"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"

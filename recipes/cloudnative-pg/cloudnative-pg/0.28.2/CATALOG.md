@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default |
+| Candidate variants | default, no-crds |
 | Control points | capability-profile, cluster-rbac, crds, dependency-lock, generated-facts, helm-equivalence, rendered-manifest-scan, source-lock, target-facts, tpl-extension-slots, variant-revision, webhooks |
 
 ## Artifact Chain
@@ -43,12 +43,14 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/cloudnative-pg/cloudnative-pg/0.28.2/bases/default](../../../../packages/cloudnative-pg/cloudnative-pg/0.28.2/bases/default) | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 21 | 22 | 21/21 | pass | warn | warn | none |
+| no-crds | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/cloudnative-pg/cloudnative-pg/0.28.2/bases/no-crds](../../../../packages/cloudnative-pg/cloudnative-pg/0.28.2/bases/no-crds) | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 11 |  | 11/11 | pass |  | allow | none |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
 | default | [packages/cloudnative-pg/cloudnative-pg/0.28.2/bases/default](../../../../packages/cloudnative-pg/cloudnative-pg/0.28.2/bases/default) | yes | cloudnative-pg/cloudnative-pg default variant rendered from cloudnative-pg/cloudnative-pg@0.28.2 |
+| no-crds | [packages/cloudnative-pg/cloudnative-pg/0.28.2/bases/no-crds](../../../../packages/cloudnative-pg/cloudnative-pg/0.28.2/bases/no-crds) | no | cloudnative-pg/cloudnative-pg no-crds variant rendered from cloudnative-pg/cloudnative-pg@0.28.2 |
 
 ## Receipts
 
@@ -58,6 +60,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | default | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](revisions/default/r001/receipts/helm-equivalence-receipt.yaml) |
 | default | r001 | scan | ScanReceipt | warn | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/receipts/scan-receipt.yaml](revisions/default/r001/receipts/scan-receipt.yaml) |
 | default | r001 | installGate | InstallGate | warn | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/receipts/install-gate.yaml](revisions/default/r001/receipts/install-gate.yaml) |
+| no-crds | r001 | render | RenderReceipt | recorded | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/receipts/render-receipt.yaml](revisions/no-crds/r001/receipts/render-receipt.yaml) |
+| no-crds | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml](revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml) |
+| no-crds | r001 | scan | ScanReceipt |  | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/receipts/scan-receipt.yaml](revisions/no-crds/r001/receipts/scan-receipt.yaml) |
+| no-crds | r001 | installGate | InstallGate | allow | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/receipts/install-gate.yaml](revisions/no-crds/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

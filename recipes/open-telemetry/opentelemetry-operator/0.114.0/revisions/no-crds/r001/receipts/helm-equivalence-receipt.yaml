@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "open-telemetry/opentelemetry-operator"
+    confighub.io/version: "0.114.0"
+    confighub.io/variant: "no-crds"
+spec:
+  result: "pass"
+  regularHelm:
+    renderedSHA256: "6ca1e737e9540f4b6a2d6e19fa83fa580cb407942b78ed53f9604aa46b662ea1"
+    objectCount: 13
+  cubInstall:
+    objectCountIncludingSupport: 14
+    semanticObjectMatches: "13/13"
+    allowedCubOnlyObjects:
+      - "v1|Namespace||default"

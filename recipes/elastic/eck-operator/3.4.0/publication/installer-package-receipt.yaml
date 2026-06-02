@@ -9,7 +9,7 @@ spec:
     version: "3.4.0"
   deterministicBundle:
     command: "cub installer package packages/elastic/eck-operator/3.4.0 -o <tmp>/elastic-eck-operator-3.4.0.tgz"
-    sha256: "81d0665d54f2fd91692454c5f6006a8ed8354e694c3fde6a8c455f18189df2f1"
+    sha256: "cd2b877729df1a9078e0613afd43eebbc5093cb4040dc975d6ba6295155d073d"
     byteIdenticalAcrossTwoLocalBundles: true
   package:
     path: "packages/elastic/eck-operator/3.4.0"
@@ -37,9 +37,17 @@ spec:
         sha256: "20bc4c9cdd28f35aa9c1f646c0af7bc092faac39f8ce3e3606861b98789ee54a"
         bytes: 798868
       -
+        path: "bases/no-crds/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/no-crds/upstream.yaml"
+        sha256: "6da1150ac5e27b67009e5c20dddf061a5a92af72adfc4551a866fa0d28e23a87"
+        bytes: 23917
+      -
         path: "installer.yaml"
-        sha256: "b969581be8cc6d20c1bfae92310ac2d152e142b4e1c1fd41e9881db770d64b29"
-        bytes: 453
+        sha256: "b9f4af1803e210909700ae74b0fee79a5d962466802aec2d24721806b5eed408"
+        bytes: 608
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -52,12 +60,22 @@ spec:
       separatedSecretCount: 1
       variant: "default"
     -
-      variant: "ha"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
       base: "ha"
       command: "cub installer setup --pull packages/elastic/eck-operator/3.4.0 --base ha --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 22
       cubInstallObjectCountIncludingSupport: 23
+      helmReleaseObjectCount: 22
       semanticObjectMatches: "22/22"
+      separatedSecretCount: 1
+      variant: "ha"
+    -
+      variant: "no-crds"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/elastic/eck-operator/3.4.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 10
+      cubInstallObjectCountIncludingSupport: 11
+      semanticObjectMatches: "10/10"
       separatedSecretCount: 1
       allowedCubOnlyObjects:
         - "v1|Namespace||default"

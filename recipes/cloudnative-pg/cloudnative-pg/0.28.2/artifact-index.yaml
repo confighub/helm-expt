@@ -48,13 +48,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "no-crds"
     deferredVariants:
       []
   installerPackage:
     path: "packages/cloudnative-pg/cloudnative-pg/0.28.2"
     installer: "packages/cloudnative-pg/cloudnative-pg/0.28.2/installer.yaml"
     receipt: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "bc8ebb61ab6cf462360109e5ab322814bf6b440111b664e708b8cd95f171be2a"
+    deterministicBundleSHA256: "a3460212e4810a3fb20b55146bdbd6ebb499b3ed0e05c6f3bd7242baa0c7a7ec"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -62,6 +63,11 @@ spec:
         path: "packages/cloudnative-pg/cloudnative-pg/0.28.2/bases/default"
         default: true
         description: "cloudnative-pg/cloudnative-pg default variant rendered from cloudnative-pg/cloudnative-pg@0.28.2"
+      -
+        name: "no-crds"
+        path: "packages/cloudnative-pg/cloudnative-pg/0.28.2/bases/no-crds"
+        default: false
+        description: "cloudnative-pg/cloudnative-pg no-crds variant rendered from cloudnative-pg/cloudnative-pg@0.28.2"
   variants:
     -
       name: "default"
@@ -125,3 +131,65 @@ spec:
               path: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "67190a176fe9539df56c63c033cfffb1538a06bc47d8624532a0a980fe50bd46"
+    -
+      name: "no-crds"
+      variant: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
+      namespace: "default"
+      releaseName: "cloudnative-pg"
+      valuesProfile: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/effective-values-no-crds.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "no-crds"
+        path: "packages/cloudnative-pg/cloudnative-pg/0.28.2/bases/no-crds"
+        default: false
+        description: "cloudnative-pg/cloudnative-pg no-crds variant rendered from cloudnative-pg/cloudnative-pg@0.28.2"
+      setupCheck:
+        command: "cub installer setup --pull packages/cloudnative-pg/cloudnative-pg/0.28.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 11
+        cubInstallObjectCountIncludingSupport: 12
+        semanticObjectMatches: "11/11"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "no-crds-r001"
+          revision: "r001"
+          variantRevision: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d"
+          renderedObjects: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          objectCount: 11
+          helmObjectCount: 11
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "11/11"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d"

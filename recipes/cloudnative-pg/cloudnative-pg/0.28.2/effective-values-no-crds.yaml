@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "cloudnative-pg-cloudnative-pg-0.28.2-no-crds"
+  labels:
+    confighub.io/chart: "cloudnative-pg/cloudnative-pg"
+    confighub.io/version: "0.28.2"
+    confighub.io/variant: "no-crds"
+spec:
+  profile: "no-crds"
+  renderDelta: "crds.create=false"
+  mergedValuesCaptured: false

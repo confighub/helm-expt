@@ -7,6 +7,10 @@ spec:
     repository: "kyverno"
     name: "kyverno"
     version: "3.8.1"
+  deterministicBundle:
+    command: "cub installer package packages/kyverno/kyverno/3.8.1 -o <tmp>/kyverno-kyverno-3.8.1.tgz"
+    sha256: "870c7579ffef1a15847aca668fd5b1ae00ddbf6306593e9371b69dc9f069ad5b"
+    byteIdenticalAcrossTwoLocalBundles: true
   package:
     path: "packages/kyverno/kyverno/3.8.1"
     name: "kyverno-kyverno"
@@ -25,21 +29,35 @@ spec:
         sha256: "00df8d584a2b69683a7895eff47d5a2bd6c1947827272bc518b0b79bbba80884"
         bytes: 5708782
       -
+        path: "bases/no-crds/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/no-crds/upstream.yaml"
+        sha256: "3a1b0dd0d65607586ee0a3ace591e776a0a13c8047cb31b43f7128febcd93227"
+        bytes: 69444
+      -
         path: "installer.yaml"
-        sha256: "bac76899c13fef67eb48c75be35ab0a53643da9f631cac57b9923a0d04c300b1"
-        bytes: 298
-  deterministicBundle:
-    command: "cub installer package packages/kyverno/kyverno/3.8.1 -o <tmp>/kyverno-kyverno-3-8-1.tgz"
-    sha256: "85cab75275c963c8d86c05066d5c3767be05354cef5080ccbfc129a9bfbc734c"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "5ce822d42494957ea3625d14b626d7ef2a042a206ec742312b6d197b12ffcd9a"
+        bytes: 443
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
       base: "default"
       command: "cub installer setup --pull packages/kyverno/kyverno/3.8.1 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 69
       cubInstallObjectCountIncludingSupport: 70
+      helmReleaseObjectCount: 69
       semanticObjectMatches: "69/69"
+      separatedSecretCount: 0
+      variant: "default"
+    -
+      variant: "no-crds"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/kyverno/kyverno/3.8.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 47
+      cubInstallObjectCountIncludingSupport: 48
+      semanticObjectMatches: "47/47"
       separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"

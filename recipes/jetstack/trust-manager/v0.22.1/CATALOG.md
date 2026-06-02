@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default |
+| Candidate variants | default, no-crds |
 | Control points | capability-profile, cluster-rbac, crds, dependency-lock, extension-slots, generated-facts, helm-equivalence, rendered-manifest-scan, source-lock, tpl-extension-slots, variant-revision, webhooks |
 
 ## Artifact Chain
@@ -43,12 +43,14 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/jetstack/trust-manager/v0.22.1/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/jetstack/trust-manager/v0.22.1/bases/default](../../../../packages/jetstack/trust-manager/v0.22.1/bases/default) | [recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 14 | 15 | 14/14 | pass | warn | warn | none |
+| no-crds | [recipes/jetstack/trust-manager/v0.22.1/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/jetstack/trust-manager/v0.22.1/bases/no-crds](../../../../packages/jetstack/trust-manager/v0.22.1/bases/no-crds) | [recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 13 |  | 13/13 | pass |  | allow | none |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
 | default | [packages/jetstack/trust-manager/v0.22.1/bases/default](../../../../packages/jetstack/trust-manager/v0.22.1/bases/default) | yes | jetstack/trust-manager default variant rendered from jetstack/trust-manager@v0.22.1 |
+| no-crds | [packages/jetstack/trust-manager/v0.22.1/bases/no-crds](../../../../packages/jetstack/trust-manager/v0.22.1/bases/no-crds) | no | jetstack/trust-manager no-crds variant rendered from jetstack/trust-manager@v0.22.1 |
 
 ## Receipts
 
@@ -58,6 +60,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | default | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](revisions/default/r001/receipts/helm-equivalence-receipt.yaml) |
 | default | r001 | scan | ScanReceipt | warn | [recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/receipts/scan-receipt.yaml](revisions/default/r001/receipts/scan-receipt.yaml) |
 | default | r001 | installGate | InstallGate | warn | [recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/receipts/install-gate.yaml](revisions/default/r001/receipts/install-gate.yaml) |
+| no-crds | r001 | render | RenderReceipt | recorded | [recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/receipts/render-receipt.yaml](revisions/no-crds/r001/receipts/render-receipt.yaml) |
+| no-crds | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml](revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml) |
+| no-crds | r001 | scan | ScanReceipt |  | [recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/receipts/scan-receipt.yaml](revisions/no-crds/r001/receipts/scan-receipt.yaml) |
+| no-crds | r001 | installGate | InstallGate | allow | [recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/receipts/install-gate.yaml](revisions/no-crds/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

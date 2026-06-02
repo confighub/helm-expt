@@ -6,7 +6,11 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "kyverno/kyverno default variant rendered from kyverno/kyverno@3.8.1"
+      name: "default"
+      path: "bases/default"
+    -
+      name: "no-crds"
+      path: "bases/no-crds"
+      description: "kyverno/kyverno no-crds variant rendered from kyverno/kyverno@3.8.1"

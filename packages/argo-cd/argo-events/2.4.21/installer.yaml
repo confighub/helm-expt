@@ -6,7 +6,11 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "argo-cd/argo-events default variant rendered from argo-cd/argo-events@2.4.21"
+      name: "default"
+      path: "bases/default"
+    -
+      name: "no-crds"
+      path: "bases/no-crds"
+      description: "argo-cd/argo-events no-crds variant rendered from argo-cd/argo-events@2.4.21"

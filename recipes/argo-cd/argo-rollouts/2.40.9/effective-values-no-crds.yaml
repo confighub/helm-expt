@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "argo-cd-argo-rollouts-2.40.9-no-crds"
+  labels:
+    confighub.io/chart: "argo-cd/argo-rollouts"
+    confighub.io/version: "2.40.9"
+    confighub.io/variant: "no-crds"
+spec:
+  profile: "no-crds"
+  renderDelta: "installCRDs=false"
+  mergedValuesCaptured: false

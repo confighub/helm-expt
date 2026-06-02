@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "cloudnative-pg/cloudnative-pg"
+    confighub.io/version: "0.28.2"
+    confighub.io/variant: "no-crds"
+spec:
+  renderedObjectSetSHA256: "2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d"
+  decision: "allow"
+  separatedSecretCount: 0

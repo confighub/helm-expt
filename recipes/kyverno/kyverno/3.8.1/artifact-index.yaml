@@ -49,13 +49,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "no-crds"
     deferredVariants:
       []
   installerPackage:
     path: "packages/kyverno/kyverno/3.8.1"
     installer: "packages/kyverno/kyverno/3.8.1/installer.yaml"
     receipt: "recipes/kyverno/kyverno/3.8.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "85cab75275c963c8d86c05066d5c3767be05354cef5080ccbfc129a9bfbc734c"
+    deterministicBundleSHA256: "870c7579ffef1a15847aca668fd5b1ae00ddbf6306593e9371b69dc9f069ad5b"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -63,6 +64,11 @@ spec:
         path: "packages/kyverno/kyverno/3.8.1/bases/default"
         default: true
         description: "kyverno/kyverno default variant rendered from kyverno/kyverno@3.8.1"
+      -
+        name: "no-crds"
+        path: "packages/kyverno/kyverno/3.8.1/bases/no-crds"
+        default: false
+        description: "kyverno/kyverno no-crds variant rendered from kyverno/kyverno@3.8.1"
   variants:
     -
       name: "default"
@@ -126,3 +132,65 @@ spec:
               path: "recipes/kyverno/kyverno/3.8.1/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "00df8d584a2b69683a7895eff47d5a2bd6c1947827272bc518b0b79bbba80884"
+    -
+      name: "no-crds"
+      variant: "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
+      namespace: "default"
+      releaseName: "kyverno"
+      valuesProfile: "recipes/kyverno/kyverno/3.8.1/effective-values-no-crds.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "no-crds"
+        path: "packages/kyverno/kyverno/3.8.1/bases/no-crds"
+        default: false
+        description: "kyverno/kyverno no-crds variant rendered from kyverno/kyverno@3.8.1"
+      setupCheck:
+        command: "cub installer setup --pull packages/kyverno/kyverno/3.8.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 47
+        cubInstallObjectCountIncludingSupport: 48
+        semanticObjectMatches: "47/47"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "no-crds-r001"
+          revision: "r001"
+          variantRevision: "recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "3a1b0dd0d65607586ee0a3ace591e776a0a13c8047cb31b43f7128febcd93227"
+          renderedObjects: "recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          objectCount: 47
+          helmObjectCount: 47
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "47/47"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "3a1b0dd0d65607586ee0a3ace591e776a0a13c8047cb31b43f7128febcd93227"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "3a1b0dd0d65607586ee0a3ace591e776a0a13c8047cb31b43f7128febcd93227"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "3a1b0dd0d65607586ee0a3ace591e776a0a13c8047cb31b43f7128febcd93227"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "3a1b0dd0d65607586ee0a3ace591e776a0a13c8047cb31b43f7128febcd93227"

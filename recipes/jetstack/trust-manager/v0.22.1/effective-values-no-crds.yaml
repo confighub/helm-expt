@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "jetstack-trust-manager-v0.22.1-no-crds"
+  labels:
+    confighub.io/chart: "jetstack/trust-manager"
+    confighub.io/version: "v0.22.1"
+    confighub.io/variant: "no-crds"
+spec:
+  profile: "no-crds"
+  renderDelta: "crds.enabled=false"
+  mergedValuesCaptured: false

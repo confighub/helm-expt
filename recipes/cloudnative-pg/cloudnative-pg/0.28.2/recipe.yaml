@@ -1,17 +1,16 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "Recipe"
 metadata:
-  name: "cloudnative-pg-cloudnative-pg"
-  version: "0.28.2"
   labels:
     confighub.io/chart-ref: "cloudnative-pg/cloudnative-pg"
     confighub.io/chart-version: "0.28.2"
     confighub.io/proof-tier: "next80-full"
+  name: "cloudnative-pg-cloudnative-pg"
+  version: "0.28.2"
 spec:
   chartRef:
-    sourceLock: "source-lock.yaml"
     dependencyLock: "dependency-lock.yaml"
-  importMode: "render-and-vendor"
+    sourceLock: "source-lock.yaml"
   currentExecutableFixture:
     installerPackage: "packages/cloudnative-pg/cloudnative-pg/0.28.2"
     setupCommand:
@@ -23,5 +22,7 @@ spec:
       - "--non-interactive"
       - "--namespace"
       - "default"
+  importMode: "render-and-vendor"
   variants:
     - "variants/default/variant.yaml"
+    - "variants/no-crds/variant.yaml"

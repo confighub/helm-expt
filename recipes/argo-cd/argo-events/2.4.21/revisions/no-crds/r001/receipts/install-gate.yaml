@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "argo-cd/argo-events"
+    confighub.io/version: "2.4.21"
+    confighub.io/variant: "no-crds"
+spec:
+  renderedObjectSetSHA256: "4858a0854eb393c136be157686a7417478ee33c88428452eaa21ad3fed65ad49"
+  decision: "allow"
+  separatedSecretCount: 0

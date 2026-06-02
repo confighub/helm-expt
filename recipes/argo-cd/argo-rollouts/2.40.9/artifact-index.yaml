@@ -46,13 +46,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "no-crds"
     deferredVariants:
       []
   installerPackage:
     path: "packages/argo-cd/argo-rollouts/2.40.9"
     installer: "packages/argo-cd/argo-rollouts/2.40.9/installer.yaml"
     receipt: "recipes/argo-cd/argo-rollouts/2.40.9/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "e32df3c5aa79f2ad8cc9ac7c59132e59e793602a337a540e346493d678fdb909"
+    deterministicBundleSHA256: "ad3399a8f53042aae44ace370e703813511b22602a78a8987ca33d7c0c460d39"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -60,6 +61,11 @@ spec:
         path: "packages/argo-cd/argo-rollouts/2.40.9/bases/default"
         default: true
         description: "argo-cd/argo-rollouts default variant rendered from argo-cd/argo-rollouts@2.40.9"
+      -
+        name: "no-crds"
+        path: "packages/argo-cd/argo-rollouts/2.40.9/bases/no-crds"
+        default: false
+        description: "argo-cd/argo-rollouts no-crds variant rendered from argo-cd/argo-rollouts@2.40.9"
   variants:
     -
       name: "default"
@@ -123,3 +129,65 @@ spec:
               path: "recipes/argo-cd/argo-rollouts/2.40.9/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "cd696130d24a1a676d5bc1abb9978ff10d6d4e6e072655c6ef275453b1e85e47"
+    -
+      name: "no-crds"
+      variant: "recipes/argo-cd/argo-rollouts/2.40.9/variants/no-crds/variant.yaml"
+      namespace: "default"
+      releaseName: "argo-rollouts"
+      valuesProfile: "recipes/argo-cd/argo-rollouts/2.40.9/effective-values-no-crds.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "no-crds"
+        path: "packages/argo-cd/argo-rollouts/2.40.9/bases/no-crds"
+        default: false
+        description: "argo-cd/argo-rollouts no-crds variant rendered from argo-cd/argo-rollouts@2.40.9"
+      setupCheck:
+        command: "cub installer setup --pull packages/argo-cd/argo-rollouts/2.40.9 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 9
+        cubInstallObjectCountIncludingSupport: 10
+        semanticObjectMatches: "9/9"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "no-crds-r001"
+          revision: "r001"
+          variantRevision: "recipes/argo-cd/argo-rollouts/2.40.9/revisions/no-crds/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "6facde581531cc4995b342bf9b3614f4c73f5c8d9ba057ae92895db6c3813dd7"
+          renderedObjects: "recipes/argo-cd/argo-rollouts/2.40.9/revisions/no-crds/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/argo-cd/argo-rollouts/2.40.9/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          objectCount: 9
+          helmObjectCount: 9
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "9/9"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/argo-cd/argo-rollouts/2.40.9/revisions/no-crds/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "6facde581531cc4995b342bf9b3614f4c73f5c8d9ba057ae92895db6c3813dd7"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/argo-cd/argo-rollouts/2.40.9/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "6facde581531cc4995b342bf9b3614f4c73f5c8d9ba057ae92895db6c3813dd7"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/argo-cd/argo-rollouts/2.40.9/revisions/no-crds/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "6facde581531cc4995b342bf9b3614f4c73f5c8d9ba057ae92895db6c3813dd7"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/argo-cd/argo-rollouts/2.40.9/revisions/no-crds/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "6facde581531cc4995b342bf9b3614f4c73f5c8d9ba057ae92895db6c3813dd7"

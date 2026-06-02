@@ -114,9 +114,12 @@ function main() {
   const docs = parseDocs(releaseObjects);
   const objects = parseObjects(releaseObjects);
   check(objects.length > 0, `${chart.ref} ${variant} rendered zero objects`);
-  if (noIncludeCrds) {
+  // A variant named "no-crds" must render zero CRDs, however it was built (--no-include-crds OR a chart
+  // --set toggle). This catches template-baked CRDs that --no-include-crds can't strip AND partial/wrong
+  // --set toggles that leave some CRDs behind — so the variant name never overstates what it delivers.
+  if (noIncludeCrds || variant.includes("no-crds")) {
     const crdCount = docs.filter((d) => d.kind === "CustomResourceDefinition").length;
-    check(crdCount === 0, `${chart.ref} ${variant}: --no-include-crds still left ${crdCount} CRD(s) (chart has template-rendered CRDs — use a --set flag instead)`);
+    check(crdCount === 0, `${chart.ref} ${variant}: still rendered ${crdCount} CRD(s) — a no-crds variant must render zero (template-baked CRDs, or a --set CRD toggle that did not strip them)`);
   }
 
   // 2. Capture as the package base.

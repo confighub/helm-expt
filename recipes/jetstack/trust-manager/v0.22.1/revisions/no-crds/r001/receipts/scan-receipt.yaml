@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "jetstack/trust-manager"
+    confighub.io/version: "v0.22.1"
+    confighub.io/variant: "no-crds"
+spec:
+  renderedObjectSetSHA256: "5d0b08f8abda179089de0d4acead48bd8a3752c16766ed8ef1b95478065e9250"
+  findingCounts:
+    high: 0
+    medium: 0
+    low: 0
+  note: "scan inherits the default-base policy; variant differs only by the declared render delta"
