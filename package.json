@@ -160,6 +160,8 @@
     "catalog:review:verify": "node scripts/run-catalog-promotion-review.mjs --verify",
     "completeness:generate": "node scripts/generate-model-completeness.mjs --generate",
     "completeness:verify": "node scripts/generate-model-completeness.mjs --verify",
+    "variant-backlog:generate": "node scripts/generate-variant-backlog.mjs --generate",
+    "variant-backlog:verify": "node scripts/generate-variant-backlog.mjs --verify",
     "catalog:weirdness": "node scripts/generate-weirdness-notes.mjs --generate",
     "catalog:weirdness:verify": "node scripts/generate-weirdness-notes.mjs --verify",
     "catalog:pain-reports": "node scripts/generate-helm-pain-reports.mjs --generate",
