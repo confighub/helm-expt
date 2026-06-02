@@ -374,6 +374,31 @@ supported but production-blocked: ${summary.productionBlockedSupported}
   charts, add production dispositions to local-test supported charts, and
   create recipes for high-rank rows with no current proof.
 
+## Recent Catalog Learnings (2026-06)
+
+- **"Supported" means Level 2.** A chart is supported when every Helm quirk it uses is
+  either modeled or explicitly disclosed (operator-decision / blocker) with zero silent
+  gaps. Variant richness is an *enhancement* on top of that bar, not the bar itself — all
+  ${summary.currentProofsTotal} current proof recipes are Level-2 supported.
+- **A deterministic variant generator now promotes enhancement variants.**
+  \`scripts/generate-variant-proof.mjs\` captures a \`helm template\` render as a package
+  base, proves Helm-equivalence (\`cub installer setup\` re-emits it), and regenerates all
+  bookkeeping; \`scripts/run-variant-wave.mjs\` drives it in resumable waves. Three waves
+  (no-crds ×2, ha) lifted multi-variant proofs in this matrix to ${summary.multiVariantProofs}.
+- **Hooks are handled by lifecycle policy, not flagged.** Helm hooks have an execution
+  home — ConfigHub applies the hook resources, or the GitOps controller runs them (Flux's
+  helm-controller, or Argo's equivalent). Not a per-chart judgment call.
+- **Placeholders ≠ extension slots.** Safe, bounded fill-fields (image, replicas, hostname)
+  are *placeholders* — filled on derived ConfigHub variants with no re-render. Open
+  injection points (\`extraManifests\`, \`tpl\`) are *extension slots* — arbitrary,
+  shape-changing, flagged for per-use review. Governed differently.
+- **Honest gaps, disclosed not hidden:** secret-delivery (many secret-rendering charts ship
+  no \`existing-secret\` toggle, so that variant isn't buildable); template-rendered CRDs
+  (17 charts bake CRDs in \`templates/\` not \`crds/\`, so a clean no-crds variant needs a
+  chart-specific \`--set\` toggle or isn't available); curated proof-lane drift (the 20
+  curated per-chart lanes carry a pre-existing \`installer.yaml\` source-SHA mismatch from
+  target-facts / namespace-transformer changes — tracked separately).
+
 ## How To Read The Files
 
 | File | Use |

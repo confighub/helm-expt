@@ -32,8 +32,8 @@ current recipe version differs from old source row: 21
 no current recipe proof: 409
 catalog-supported: 20
 proof-grade: 71
-multi-variant proofs: 20
-default-only proofs: 71
+multi-variant proofs: 43
+default-only proofs: 48
 supported but production-blocked: 20
 ```
 
@@ -57,6 +57,31 @@ supported but production-blocked: 20
 - The practical next work is visible: add variants to high-rank proof-grade
   charts, add production dispositions to local-test supported charts, and
   create recipes for high-rank rows with no current proof.
+
+## Recent Catalog Learnings (2026-06)
+
+- **"Supported" means Level 2.** A chart is supported when every Helm quirk it uses is
+  either modeled or explicitly disclosed (operator-decision / blocker) with zero silent
+  gaps. Variant richness is an *enhancement* on top of that bar, not the bar itself — all
+  100 current proof recipes are Level-2 supported.
+- **A deterministic variant generator now promotes enhancement variants.**
+  `scripts/generate-variant-proof.mjs` captures a `helm template` render as a package
+  base, proves Helm-equivalence (`cub installer setup` re-emits it), and regenerates all
+  bookkeeping; `scripts/run-variant-wave.mjs` drives it in resumable waves. Three waves
+  (no-crds ×2, ha) lifted multi-variant proofs in this matrix to 43.
+- **Hooks are handled by lifecycle policy, not flagged.** Helm hooks have an execution
+  home — ConfigHub applies the hook resources, or the GitOps controller runs them (Flux's
+  helm-controller, or Argo's equivalent). Not a per-chart judgment call.
+- **Placeholders ≠ extension slots.** Safe, bounded fill-fields (image, replicas, hostname)
+  are *placeholders* — filled on derived ConfigHub variants with no re-render. Open
+  injection points (`extraManifests`, `tpl`) are *extension slots* — arbitrary,
+  shape-changing, flagged for per-use review. Governed differently.
+- **Honest gaps, disclosed not hidden:** secret-delivery (many secret-rendering charts ship
+  no `existing-secret` toggle, so that variant isn't buildable); template-rendered CRDs
+  (17 charts bake CRDs in `templates/` not `crds/`, so a clean no-crds variant needs a
+  chart-specific `--set` toggle or isn't available); curated proof-lane drift (the 20
+  curated per-chart lanes carry a pre-existing `installer.yaml` source-SHA mismatch from
+  target-facts / namespace-transformer changes — tracked separately).
 
 ## How To Read The Files
 
@@ -84,16 +109,16 @@ These are high-rank proof-grade rows that need real variants before promotion.
 
 | Rank | Chart | Current version | Source features | Next action |
 | ---: | --- | --- | --- | --- |
-| 8 | `traefik/traefik` | 40.2.0 | lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage | add user-shaped variants before catalog promotion |
-| 18 | `external-dns/external-dns` | 1.21.1 | tpl;crds;cluster-rbac | add user-shaped variants before catalog promotion |
 | 21 | `gitlab/gitlab-runner` | 0.89.0 | generated-facts;tpl;capabilities | add user-shaped variants before catalog promotion |
-| 30 | `vmware-tanzu/velero` | 12.0.1 | tpl;capabilities;crds;cluster-rbac | add user-shaped variants before catalog promotion |
 | 33 | `cluster-autoscaler/cluster-autoscaler` | 9.57.0 | tpl;capabilities;cluster-rbac | add user-shaped variants before catalog promotion |
 | 35 | `istio-official/istiod` | 1.30.0 | tpl;cluster-rbac;webhooks | add user-shaped variants before catalog promotion |
 | 36 | `argo/argo-workflows` | 1.0.14 | tpl;capabilities;crds;cluster-rbac | add user-shaped variants before catalog promotion |
 | 38 | `kyverno/kyverno` | 3.8.1 | lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage | add user-shaped variants before catalog promotion |
 | 41 | `cloudnative-pg/cloudnative-pg` | 0.28.2 | generated-facts;tpl;crds;cluster-rbac;webhooks | add user-shaped variants before catalog promotion |
 | 42 | `fluent/fluent-bit` | 0.57.6 | tpl;capabilities;hooks;cluster-rbac | add user-shaped variants before catalog promotion |
+| 45 | `runix/pgadmin4` | 1.62.0 | tpl;capabilities;stateful-storage | add user-shaped variants before catalog promotion |
+| 51 | `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner` | 4.0.18 | capabilities;cluster-rbac;stateful-storage | add user-shaped variants before catalog promotion |
+| 58 | `prometheus-community/kube-state-metrics` | 7.4.0 | generated-facts;tpl;capabilities;cluster-rbac;stateful-storage | add user-shaped variants before catalog promotion |
 
 ## First Rows Without Current Proof
 
