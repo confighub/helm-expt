@@ -1,0 +1,115 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPainReport"
+metadata:
+  name: "percona-pg-operator-3.0.0"
+spec:
+  chart:
+    name: "percona/pg-operator"
+    version: "3.0.0"
+    source: "https://percona.github.io/percona-helm-charts/"
+    digest: "795b9924089cc9f088d47fbf13cc94f0207c84629d69b581f504a6d1fbeefc92"
+  supportedScopeStatus: "no-unhandled-pain-points-for-supported-scopes"
+  supportedScopes:
+    []
+  supportedVariants:
+    []
+  productionReadiness: "not-reviewed-for-production"
+  notes:
+    - "percona/pg-operator@3.0.0 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+    - "Chart source contains lookup; future variants using lookup paths must bind target facts in the recipe."
+    - "Rendered output includes 8 CRDs; CRD lifecycle must be reviewed before upgrade/promotion."
+  painPoints:
+    -
+      id: "source-lock"
+      detectedPainPoint: "source-lock requires source-lock.yaml"
+      evidence:
+        - "source-lock.yaml"
+      configHubHome: "source-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "source-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "dependency-lock"
+      detectedPainPoint: "dependency-lock requires dependency-lock.yaml"
+      evidence:
+        - "dependency-lock.yaml"
+      configHubHome: "dependency-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "dependency-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "capability-profile"
+      detectedPainPoint: "capability-profile is detected in this chart and mapped to a ConfigHub control point"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "capability-profile"
+      disposition: "handled-by-capability-profile"
+      linkedReceipt: "revisions/default/r001/receipts/render-receipt.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "variant-revision"
+      detectedPainPoint: "variant-revision requires revisions/default/r001/variant-revision.yaml"
+      evidence:
+        - "revisions/default/r001/variant-revision.yaml"
+      configHubHome: "recipe"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "rendered-manifest-scan"
+      detectedPainPoint: "rendered-manifest-scan requires revisions/default/r001/receipts/scan-receipt.yaml"
+      evidence:
+        - "revisions/default/r001/receipts/scan-receipt.yaml"
+      configHubHome: "scan-gate"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/default/r001/receipts/scan-receipt.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "helm-equivalence"
+      detectedPainPoint: "helm-equivalence requires revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+      evidence:
+        - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+      configHubHome: "recipe"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "target-facts"
+      detectedPainPoint: "default proof render was deterministic under pinned inputs; future variants must bind lookup-driven facts explicitly"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "target-fact-requirement"
+      disposition: "handled-by-target-fact-values"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "source-signal-recorded"
+    -
+      id: "crds"
+      detectedPainPoint: "crds is detected in this chart and mapped to a ConfigHub control point"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "review-required"
+    -
+      id: "scan-gate"
+      detectedPainPoint: "Current scan gate is warn-review-before-production"
+      evidence:
+        - "helm-plan.yaml"
+        - "scan receipts"
+        - "install gates"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "warn-review-before-production"
+    -
+      id: "value-model-diagnostics"
+      detectedPainPoint: "Helm values can be unknown, dead, misspelled, shadowed, or ignored unless the values model records the analysis boundary."
+      evidence:
+        - "value-model.yaml"
+      configHubHome: "value-model"
+      disposition: "absorbed-into-value-model"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "unknown=not-exhaustively-checked-in-next80-lane; dead=not-exhaustively-checked-in-next80-lane; ignored=not-exhaustively-checked-in-next80-lane"
+  answerForSkepticalHelmUser: "percona/pg-operator@3.0.0 maps its detected Helm pain to 7 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, scan-gate, target-fact-requirement, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains not-reviewed-for-production."
