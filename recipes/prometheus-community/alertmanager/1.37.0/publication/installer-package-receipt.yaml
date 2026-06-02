@@ -7,6 +7,10 @@ spec:
     repository: "prometheus-community"
     name: "alertmanager"
     version: "1.37.0"
+  deterministicBundle:
+    command: "cub installer package packages/prometheus-community/alertmanager/1.37.0 -o <tmp>/prometheus-community-alertmanager-1.37.0.tgz"
+    sha256: "beec8632d1ef811a83b81ea07825946022bb2ade2129b3727d18bce2c5ccc47e"
+    byteIdenticalAcrossTwoLocalBundles: true
   package:
     path: "packages/prometheus-community/alertmanager/1.37.0"
     name: "prometheus-community-alertmanager"
@@ -25,18 +29,32 @@ spec:
         sha256: "fc6c693435a12f92b94f3f59435e1e23af1cf4b87fc4564cda64ea502e7e1dc6"
         bytes: 4393
       -
+        path: "bases/ha/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/ha/upstream.yaml"
+        sha256: "a016dbf7647ff32935788288023d6dbd78b924f6cca645ef2081fe1d8856f8b4"
+        bytes: 5103
+      -
         path: "installer.yaml"
-        sha256: "ef9359da33bf038d603a452d06b0ff662e9172e78b8a53283bc9d4ad46c58b85"
-        bytes: 354
-  deterministicBundle:
-    command: "cub installer package packages/prometheus-community/alertmanager/1.37.0 -o <tmp>/prometheus-community-alertmanager-1-37-0.tgz"
-    sha256: "4135cbfb366e18e54ceac0adf78ee7ff29c5d907075ee6138964d609a3d7fe65"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "57f304437cd7ce6daceb955098e2d1eaec14b0385b33777f9f04ada887572b01"
+        bytes: 521
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
       base: "default"
       command: "cub installer setup --pull packages/prometheus-community/alertmanager/1.37.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 6
+      helmReleaseObjectCount: 5
+      semanticObjectMatches: "5/5"
+      separatedSecretCount: 0
+      variant: "default"
+    -
+      variant: "ha"
+      base: "ha"
+      command: "cub installer setup --pull packages/prometheus-community/alertmanager/1.37.0 --base ha --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 5
       cubInstallObjectCountIncludingSupport: 6
       semanticObjectMatches: "5/5"

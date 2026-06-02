@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "elastic-logstash-8.5.1-ha"
+  labels:
+    confighub.io/chart: "elastic/logstash"
+    confighub.io/version: "8.5.1"
+    confighub.io/variant: "ha"
+spec:
+  profile: "ha"
+  renderDelta: "replicas=3"
+  mergedValuesCaptured: false

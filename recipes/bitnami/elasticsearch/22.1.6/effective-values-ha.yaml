@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "bitnami-elasticsearch-22.1.6-ha"
+  labels:
+    confighub.io/chart: "bitnami/elasticsearch"
+    confighub.io/version: "22.1.6"
+    confighub.io/variant: "ha"
+spec:
+  profile: "ha"
+  renderDelta: "master.replicaCount=3,data.replicaCount=3"
+  mergedValuesCaptured: false

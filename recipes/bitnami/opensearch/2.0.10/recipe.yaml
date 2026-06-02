@@ -1,17 +1,16 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "Recipe"
 metadata:
-  name: "bitnami-opensearch"
-  version: "2.0.10"
   labels:
     confighub.io/chart-ref: "bitnami/opensearch"
     confighub.io/chart-version: "2.0.10"
     confighub.io/proof-tier: "next80-full"
+  name: "bitnami-opensearch"
+  version: "2.0.10"
 spec:
   chartRef:
-    sourceLock: "source-lock.yaml"
     dependencyLock: "dependency-lock.yaml"
-  importMode: "render-and-vendor"
+    sourceLock: "source-lock.yaml"
   currentExecutableFixture:
     installerPackage: "packages/bitnami/opensearch/2.0.10"
     setupCommand:
@@ -23,5 +22,7 @@ spec:
       - "--non-interactive"
       - "--namespace"
       - "default"
+  importMode: "render-and-vendor"
   variants:
     - "variants/default/variant.yaml"
+    - "variants/ha/variant.yaml"

@@ -48,13 +48,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "ha"
     deferredVariants:
       []
   installerPackage:
     path: "packages/bitnami/opensearch/2.0.10"
     installer: "packages/bitnami/opensearch/2.0.10/installer.yaml"
     receipt: "recipes/bitnami/opensearch/2.0.10/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "b2b1f3d2359d4ee073ad371c0f5fa8291a387c50142f0d5cebef9c29eab9b553"
+    deterministicBundleSHA256: "a4d64a3569ce5187989d12d86a764de64dee1664f60f21acd860b41448c658a6"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -62,6 +63,11 @@ spec:
         path: "packages/bitnami/opensearch/2.0.10/bases/default"
         default: true
         description: "bitnami/opensearch default variant rendered from bitnami/opensearch@2.0.10"
+      -
+        name: "ha"
+        path: "packages/bitnami/opensearch/2.0.10/bases/ha"
+        default: false
+        description: "bitnami/opensearch ha variant rendered from bitnami/opensearch@2.0.10"
   variants:
     -
       name: "default"
@@ -125,3 +131,65 @@ spec:
               path: "recipes/bitnami/opensearch/2.0.10/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "99c0b24ee1850d1f5a4da323e9924a8a1f9d93a34a97a985d92c954836747afd"
+    -
+      name: "ha"
+      variant: "recipes/bitnami/opensearch/2.0.10/variants/ha/variant.yaml"
+      namespace: "default"
+      releaseName: "opensearch"
+      valuesProfile: "recipes/bitnami/opensearch/2.0.10/effective-values-ha.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "ha"
+        path: "packages/bitnami/opensearch/2.0.10/bases/ha"
+        default: false
+        description: "bitnami/opensearch ha variant rendered from bitnami/opensearch@2.0.10"
+      setupCheck:
+        command: "cub installer setup --pull packages/bitnami/opensearch/2.0.10 --base ha --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 18
+        cubInstallObjectCountIncludingSupport: 19
+        semanticObjectMatches: "18/18"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "ha-r001"
+          revision: "r001"
+          variantRevision: "recipes/bitnami/opensearch/2.0.10/revisions/ha/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "c419606d1875905b2e84126b7b1d5d33c18f7cf34c0dd8048ba6e9221db36564"
+          renderedObjects: "recipes/bitnami/opensearch/2.0.10/revisions/ha/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/opensearch/2.0.10/revisions/ha/r001/rendered/object-inventory.yaml"
+          objectCount: 18
+          helmObjectCount: 18
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "18/18"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/bitnami/opensearch/2.0.10/revisions/ha/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "c419606d1875905b2e84126b7b1d5d33c18f7cf34c0dd8048ba6e9221db36564"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/bitnami/opensearch/2.0.10/revisions/ha/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "c419606d1875905b2e84126b7b1d5d33c18f7cf34c0dd8048ba6e9221db36564"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/bitnami/opensearch/2.0.10/revisions/ha/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "c419606d1875905b2e84126b7b1d5d33c18f7cf34c0dd8048ba6e9221db36564"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/bitnami/opensearch/2.0.10/revisions/ha/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "c419606d1875905b2e84126b7b1d5d33c18f7cf34c0dd8048ba6e9221db36564"

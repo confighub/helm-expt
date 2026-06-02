@@ -6,7 +6,11 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "grafana/pyroscope default variant rendered from grafana/pyroscope@2.0.2"
+      name: "default"
+      path: "bases/default"
+    -
+      name: "ha"
+      path: "bases/ha"
+      description: "grafana/pyroscope ha variant rendered from grafana/pyroscope@2.0.2"

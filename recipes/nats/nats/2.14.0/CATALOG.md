@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default |
+| Candidate variants | default, ha |
 | Control points | capability-profile, dependency-lock, helm-equivalence, lifecycle-policy, rendered-manifest-scan, secret-material, source-lock, stateful-storage, tpl-extension-slots, variant-revision |
 
 ## Artifact Chain
@@ -43,12 +43,14 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/nats/nats/2.14.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/nats/nats/2.14.0/bases/default](../../../../packages/nats/nats/2.14.0/bases/default) | [recipes/nats/nats/2.14.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 7 | 8 | 7/7 | pass | warn | warn | none |
+| ha | [recipes/nats/nats/2.14.0/variants/ha/variant.yaml](variants/ha/variant.yaml) | [packages/nats/nats/2.14.0/bases/ha](../../../../packages/nats/nats/2.14.0/bases/ha) | [recipes/nats/nats/2.14.0/revisions/ha/r001/variant-revision.yaml](revisions/ha/r001/variant-revision.yaml) | 7 |  | 7/7 | pass |  | allow | none |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
 | default | [packages/nats/nats/2.14.0/bases/default](../../../../packages/nats/nats/2.14.0/bases/default) | yes | nats/nats default variant rendered from nats/nats@2.14.0 |
+| ha | [packages/nats/nats/2.14.0/bases/ha](../../../../packages/nats/nats/2.14.0/bases/ha) | no | nats/nats ha variant rendered from nats/nats@2.14.0 |
 
 ## Receipts
 
@@ -58,6 +60,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | default | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/nats/nats/2.14.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](revisions/default/r001/receipts/helm-equivalence-receipt.yaml) |
 | default | r001 | scan | ScanReceipt | warn | [recipes/nats/nats/2.14.0/revisions/default/r001/receipts/scan-receipt.yaml](revisions/default/r001/receipts/scan-receipt.yaml) |
 | default | r001 | installGate | InstallGate | warn | [recipes/nats/nats/2.14.0/revisions/default/r001/receipts/install-gate.yaml](revisions/default/r001/receipts/install-gate.yaml) |
+| ha | r001 | render | RenderReceipt | recorded | [recipes/nats/nats/2.14.0/revisions/ha/r001/receipts/render-receipt.yaml](revisions/ha/r001/receipts/render-receipt.yaml) |
+| ha | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/nats/nats/2.14.0/revisions/ha/r001/receipts/helm-equivalence-receipt.yaml](revisions/ha/r001/receipts/helm-equivalence-receipt.yaml) |
+| ha | r001 | scan | ScanReceipt |  | [recipes/nats/nats/2.14.0/revisions/ha/r001/receipts/scan-receipt.yaml](revisions/ha/r001/receipts/scan-receipt.yaml) |
+| ha | r001 | installGate | InstallGate | allow | [recipes/nats/nats/2.14.0/revisions/ha/r001/receipts/install-gate.yaml](revisions/ha/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

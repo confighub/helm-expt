@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default |
+| Candidate variants | default, ha |
 | Control points | capability-profile, dependency-lock, extension-slots, helm-equivalence, rendered-manifest-scan, source-lock, stateful-storage, tpl-extension-slots, variant-revision |
 
 ## Artifact Chain
@@ -43,12 +43,14 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/elastic/logstash/8.5.1/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/elastic/logstash/8.5.1/bases/default](../../../../packages/elastic/logstash/8.5.1/bases/default) | [recipes/elastic/logstash/8.5.1/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 3 | 4 | 3/3 | pass | pass | allow | none |
+| ha | [recipes/elastic/logstash/8.5.1/variants/ha/variant.yaml](variants/ha/variant.yaml) | [packages/elastic/logstash/8.5.1/bases/ha](../../../../packages/elastic/logstash/8.5.1/bases/ha) | [recipes/elastic/logstash/8.5.1/revisions/ha/r001/variant-revision.yaml](revisions/ha/r001/variant-revision.yaml) | 3 |  | 3/3 | pass |  | allow | none |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
 | default | [packages/elastic/logstash/8.5.1/bases/default](../../../../packages/elastic/logstash/8.5.1/bases/default) | yes | elastic/logstash default variant rendered from elastic/logstash@8.5.1 |
+| ha | [packages/elastic/logstash/8.5.1/bases/ha](../../../../packages/elastic/logstash/8.5.1/bases/ha) | no | elastic/logstash ha variant rendered from elastic/logstash@8.5.1 |
 
 ## Receipts
 
@@ -58,6 +60,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | default | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/elastic/logstash/8.5.1/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](revisions/default/r001/receipts/helm-equivalence-receipt.yaml) |
 | default | r001 | scan | ScanReceipt | pass | [recipes/elastic/logstash/8.5.1/revisions/default/r001/receipts/scan-receipt.yaml](revisions/default/r001/receipts/scan-receipt.yaml) |
 | default | r001 | installGate | InstallGate | allow | [recipes/elastic/logstash/8.5.1/revisions/default/r001/receipts/install-gate.yaml](revisions/default/r001/receipts/install-gate.yaml) |
+| ha | r001 | render | RenderReceipt | recorded | [recipes/elastic/logstash/8.5.1/revisions/ha/r001/receipts/render-receipt.yaml](revisions/ha/r001/receipts/render-receipt.yaml) |
+| ha | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/elastic/logstash/8.5.1/revisions/ha/r001/receipts/helm-equivalence-receipt.yaml](revisions/ha/r001/receipts/helm-equivalence-receipt.yaml) |
+| ha | r001 | scan | ScanReceipt |  | [recipes/elastic/logstash/8.5.1/revisions/ha/r001/receipts/scan-receipt.yaml](revisions/ha/r001/receipts/scan-receipt.yaml) |
+| ha | r001 | installGate | InstallGate | allow | [recipes/elastic/logstash/8.5.1/revisions/ha/r001/receipts/install-gate.yaml](revisions/ha/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

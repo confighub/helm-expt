@@ -1,17 +1,16 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "Recipe"
 metadata:
-  name: "bitnami-spark"
-  version: "10.0.3"
   labels:
     confighub.io/chart-ref: "bitnami/spark"
     confighub.io/chart-version: "10.0.3"
     confighub.io/proof-tier: "next80-full"
+  name: "bitnami-spark"
+  version: "10.0.3"
 spec:
   chartRef:
-    sourceLock: "source-lock.yaml"
     dependencyLock: "dependency-lock.yaml"
-  importMode: "render-and-vendor"
+    sourceLock: "source-lock.yaml"
   currentExecutableFixture:
     installerPackage: "packages/bitnami/spark/10.0.3"
     setupCommand:
@@ -23,5 +22,7 @@ spec:
       - "--non-interactive"
       - "--namespace"
       - "default"
+  importMode: "render-and-vendor"
   variants:
     - "variants/default/variant.yaml"
+    - "variants/ha/variant.yaml"

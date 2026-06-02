@@ -48,13 +48,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "ha"
     deferredVariants:
       []
   installerPackage:
     path: "packages/bitnami/spark/10.0.3"
     installer: "packages/bitnami/spark/10.0.3/installer.yaml"
     receipt: "recipes/bitnami/spark/10.0.3/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "2bca4e36fa16ed907936cc1e575101e009d3cd86c348bafcff183b5e4154bfce"
+    deterministicBundleSHA256: "4cf8194410dbb69e797932629d6fc3296bf52f8e68ebacc512af4de208c66f64"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -62,6 +63,11 @@ spec:
         path: "packages/bitnami/spark/10.0.3/bases/default"
         default: true
         description: "bitnami/spark default variant rendered from bitnami/spark@10.0.3"
+      -
+        name: "ha"
+        path: "packages/bitnami/spark/10.0.3/bases/ha"
+        default: false
+        description: "bitnami/spark ha variant rendered from bitnami/spark@10.0.3"
   variants:
     -
       name: "default"
@@ -125,3 +131,65 @@ spec:
               path: "recipes/bitnami/spark/10.0.3/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "bec034832a7f2a6c1d2f05aa7bfcf0ce4562dbb274e7b760170df3e80e1ced55"
+    -
+      name: "ha"
+      variant: "recipes/bitnami/spark/10.0.3/variants/ha/variant.yaml"
+      namespace: "default"
+      releaseName: "spark"
+      valuesProfile: "recipes/bitnami/spark/10.0.3/effective-values-ha.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "ha"
+        path: "packages/bitnami/spark/10.0.3/bases/ha"
+        default: false
+        description: "bitnami/spark ha variant rendered from bitnami/spark@10.0.3"
+      setupCheck:
+        command: "cub installer setup --pull packages/bitnami/spark/10.0.3 --base ha --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 10
+        cubInstallObjectCountIncludingSupport: 11
+        semanticObjectMatches: "10/10"
+        separatedSecretCount: 1
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "ha-r001"
+          revision: "r001"
+          variantRevision: "recipes/bitnami/spark/10.0.3/revisions/ha/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "55b44c0927f07867cba166634cbf1440028df42dabc48870953a2ddc6c2fbe75"
+          renderedObjects: "recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/object-inventory.yaml"
+          objectCount: 10
+          helmObjectCount: 10
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "10/10"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/bitnami/spark/10.0.3/revisions/ha/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "55b44c0927f07867cba166634cbf1440028df42dabc48870953a2ddc6c2fbe75"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/bitnami/spark/10.0.3/revisions/ha/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "55b44c0927f07867cba166634cbf1440028df42dabc48870953a2ddc6c2fbe75"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/bitnami/spark/10.0.3/revisions/ha/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "55b44c0927f07867cba166634cbf1440028df42dabc48870953a2ddc6c2fbe75"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/bitnami/spark/10.0.3/revisions/ha/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "55b44c0927f07867cba166634cbf1440028df42dabc48870953a2ddc6c2fbe75"

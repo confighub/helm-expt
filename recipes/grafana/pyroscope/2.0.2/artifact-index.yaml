@@ -50,13 +50,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "ha"
     deferredVariants:
       []
   installerPackage:
     path: "packages/grafana/pyroscope/2.0.2"
     installer: "packages/grafana/pyroscope/2.0.2/installer.yaml"
     receipt: "recipes/grafana/pyroscope/2.0.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "bd83d3e6b19f182fac1a04e2d27f49feda6074f3c5d26cd7f77a9afc33c6f648"
+    deterministicBundleSHA256: "a89ea05745292795473b8accfbad8cd6033ef7bb52ac8e3d9b68d98985770cf5"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -64,6 +65,11 @@ spec:
         path: "packages/grafana/pyroscope/2.0.2/bases/default"
         default: true
         description: "grafana/pyroscope default variant rendered from grafana/pyroscope@2.0.2"
+      -
+        name: "ha"
+        path: "packages/grafana/pyroscope/2.0.2/bases/ha"
+        default: false
+        description: "grafana/pyroscope ha variant rendered from grafana/pyroscope@2.0.2"
   variants:
     -
       name: "default"
@@ -127,3 +133,65 @@ spec:
               path: "recipes/grafana/pyroscope/2.0.2/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "24d78308d5476731eefba9ac71cee442cf9aeb21f16443557d9a6d9574449df5"
+    -
+      name: "ha"
+      variant: "recipes/grafana/pyroscope/2.0.2/variants/ha/variant.yaml"
+      namespace: "default"
+      releaseName: "pyroscope"
+      valuesProfile: "recipes/grafana/pyroscope/2.0.2/effective-values-ha.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "ha"
+        path: "packages/grafana/pyroscope/2.0.2/bases/ha"
+        default: false
+        description: "grafana/pyroscope ha variant rendered from grafana/pyroscope@2.0.2"
+      setupCheck:
+        command: "cub installer setup --pull packages/grafana/pyroscope/2.0.2 --base ha --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 18
+        cubInstallObjectCountIncludingSupport: 19
+        semanticObjectMatches: "18/18"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "ha-r001"
+          revision: "r001"
+          variantRevision: "recipes/grafana/pyroscope/2.0.2/revisions/ha/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "4525b9a04718d1de62dbc12a161ec2f0cd119a36d68f69c0f481400d43e031cf"
+          renderedObjects: "recipes/grafana/pyroscope/2.0.2/revisions/ha/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/grafana/pyroscope/2.0.2/revisions/ha/r001/rendered/object-inventory.yaml"
+          objectCount: 18
+          helmObjectCount: 18
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "18/18"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/grafana/pyroscope/2.0.2/revisions/ha/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "4525b9a04718d1de62dbc12a161ec2f0cd119a36d68f69c0f481400d43e031cf"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/grafana/pyroscope/2.0.2/revisions/ha/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "4525b9a04718d1de62dbc12a161ec2f0cd119a36d68f69c0f481400d43e031cf"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/grafana/pyroscope/2.0.2/revisions/ha/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "4525b9a04718d1de62dbc12a161ec2f0cd119a36d68f69c0f481400d43e031cf"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/grafana/pyroscope/2.0.2/revisions/ha/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "4525b9a04718d1de62dbc12a161ec2f0cd119a36d68f69c0f481400d43e031cf"

@@ -1,0 +1,55 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "nats-nats-2.14.0-ha-r001"
+  labels:
+    confighub.io/chart: "nats/nats"
+    confighub.io/version: "2.14.0"
+    confighub.io/variant: "ha"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "2d8fcfe5bea7f482e322fdba1cf800faedf835a13eef32d042e43ae6254d0a96"
+  objectCount: 7
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment||nats-box"
+      kind: "Deployment"
+      name: "nats-box"
+      namespace: ""
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|StatefulSet||nats"
+      kind: "StatefulSet"
+      name: "nats"
+      namespace: ""
+    -
+      apiVersion: "policy/v1"
+      identity: "policy/v1|PodDisruptionBudget||nats"
+      kind: "PodDisruptionBudget"
+      name: "nats"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap||nats-config"
+      kind: "ConfigMap"
+      name: "nats-config"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|Secret||nats-box-contexts"
+      kind: "Secret"
+      name: "nats-box-contexts"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|Service||nats"
+      kind: "Service"
+      name: "nats"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|Service||nats-headless"
+      kind: "Service"
+      name: "nats-headless"
+      namespace: ""

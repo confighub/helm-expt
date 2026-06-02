@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "bitnami-zookeeper-13.8.7-ha"
+  labels:
+    confighub.io/chart: "bitnami/zookeeper"
+    confighub.io/version: "13.8.7"
+    confighub.io/variant: "ha"
+spec:
+  profile: "ha"
+  renderDelta: "replicaCount=3"
+  mergedValuesCaptured: false

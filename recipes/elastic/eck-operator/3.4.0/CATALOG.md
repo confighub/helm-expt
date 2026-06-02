@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default |
+| Candidate variants | default, ha |
 | Control points | capability-profile, cluster-rbac, crds, dependency-lock, extension-slots, generated-facts, helm-equivalence, rendered-manifest-scan, secret-material, source-lock, stateful-storage, tpl-extension-slots, variant-revision, webhooks |
 
 ## Artifact Chain
@@ -43,12 +43,14 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/elastic/eck-operator/3.4.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/elastic/eck-operator/3.4.0/bases/default](../../../../packages/elastic/eck-operator/3.4.0/bases/default) | [recipes/elastic/eck-operator/3.4.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 22 | 23 | 22/22 | pass | warn | warn | none |
+| ha | [recipes/elastic/eck-operator/3.4.0/variants/ha/variant.yaml](variants/ha/variant.yaml) | [packages/elastic/eck-operator/3.4.0/bases/ha](../../../../packages/elastic/eck-operator/3.4.0/bases/ha) | [recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/variant-revision.yaml](revisions/ha/r001/variant-revision.yaml) | 22 |  | 22/22 | pass |  | allow | none |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
 | default | [packages/elastic/eck-operator/3.4.0/bases/default](../../../../packages/elastic/eck-operator/3.4.0/bases/default) | yes | elastic/eck-operator default variant rendered from elastic/eck-operator@3.4.0 |
+| ha | [packages/elastic/eck-operator/3.4.0/bases/ha](../../../../packages/elastic/eck-operator/3.4.0/bases/ha) | no | elastic/eck-operator ha variant rendered from elastic/eck-operator@3.4.0 |
 
 ## Receipts
 
@@ -58,6 +60,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | default | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/elastic/eck-operator/3.4.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](revisions/default/r001/receipts/helm-equivalence-receipt.yaml) |
 | default | r001 | scan | ScanReceipt | warn | [recipes/elastic/eck-operator/3.4.0/revisions/default/r001/receipts/scan-receipt.yaml](revisions/default/r001/receipts/scan-receipt.yaml) |
 | default | r001 | installGate | InstallGate | warn | [recipes/elastic/eck-operator/3.4.0/revisions/default/r001/receipts/install-gate.yaml](revisions/default/r001/receipts/install-gate.yaml) |
+| ha | r001 | render | RenderReceipt | recorded | [recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/receipts/render-receipt.yaml](revisions/ha/r001/receipts/render-receipt.yaml) |
+| ha | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/receipts/helm-equivalence-receipt.yaml](revisions/ha/r001/receipts/helm-equivalence-receipt.yaml) |
+| ha | r001 | scan | ScanReceipt |  | [recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/receipts/scan-receipt.yaml](revisions/ha/r001/receipts/scan-receipt.yaml) |
+| ha | r001 | installGate | InstallGate | allow | [recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/receipts/install-gate.yaml](revisions/ha/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

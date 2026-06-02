@@ -7,6 +7,10 @@ spec:
     repository: "elastic"
     name: "logstash"
     version: "8.5.1"
+  deterministicBundle:
+    command: "cub installer package packages/elastic/logstash/8.5.1 -o <tmp>/elastic-logstash-8.5.1.tgz"
+    sha256: "bc30315bed50eda7f5684ff7bb3bfa43daca0f9ebac8f0634f1ce0cdd311ff56"
+    byteIdenticalAcrossTwoLocalBundles: true
   package:
     path: "packages/elastic/logstash/8.5.1"
     name: "elastic-logstash"
@@ -25,18 +29,32 @@ spec:
         sha256: "1bb5971d54f2bb9fd05ffe69b339261a9c31e8b81eeba48064a9dbc337fe5ecd"
         bytes: 2874
       -
+        path: "bases/ha/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/ha/upstream.yaml"
+        sha256: "d65903a7c75f9e3cdaed333b6a2daddcca45d3cc7f80ff09e6b7972a90c3aa70"
+        bytes: 2874
+      -
         path: "installer.yaml"
-        sha256: "e81d2c7ca8f017bc924758cf739b86d1f472209c24b378096e0b85f397158e10"
-        bytes: 301
-  deterministicBundle:
-    command: "cub installer package packages/elastic/logstash/8.5.1 -o <tmp>/elastic-logstash-8-5-1.tgz"
-    sha256: "cc907ba593e2d2e0d750a5c4310ee8d9bb37383807a51d43f30b1ebf47a5e779"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "d12609177a0c23573cf2f97b730a14f4998ff0689c941a72b6284bd993413df3"
+        bytes: 433
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
       base: "default"
       command: "cub installer setup --pull packages/elastic/logstash/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 4
+      helmReleaseObjectCount: 3
+      semanticObjectMatches: "3/3"
+      separatedSecretCount: 0
+      variant: "default"
+    -
+      variant: "ha"
+      base: "ha"
+      command: "cub installer setup --pull packages/elastic/logstash/8.5.1 --base ha --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 3
       cubInstallObjectCountIncludingSupport: 4
       semanticObjectMatches: "3/3"

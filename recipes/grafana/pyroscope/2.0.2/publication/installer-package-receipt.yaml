@@ -7,6 +7,10 @@ spec:
     repository: "grafana"
     name: "pyroscope"
     version: "2.0.2"
+  deterministicBundle:
+    command: "cub installer package packages/grafana/pyroscope/2.0.2 -o <tmp>/grafana-pyroscope-2.0.2.tgz"
+    sha256: "a89ea05745292795473b8accfbad8cd6033ef7bb52ac8e3d9b68d98985770cf5"
+    byteIdenticalAcrossTwoLocalBundles: true
   package:
     path: "packages/grafana/pyroscope/2.0.2"
     name: "grafana-pyroscope"
@@ -25,18 +29,32 @@ spec:
         sha256: "24d78308d5476731eefba9ac71cee442cf9aeb21f16443557d9a6d9574449df5"
         bytes: 50797
       -
+        path: "bases/ha/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/ha/upstream.yaml"
+        sha256: "4525b9a04718d1de62dbc12a161ec2f0cd119a36d68f69c0f481400d43e031cf"
+        bytes: 50797
+      -
         path: "installer.yaml"
-        sha256: "66180ac18f4dec0924776817aff5def319bab0e9d62ce13e88ded394772cad54"
-        bytes: 304
-  deterministicBundle:
-    command: "cub installer package packages/grafana/pyroscope/2.0.2 -o <tmp>/grafana-pyroscope-2-0-2.tgz"
-    sha256: "bd83d3e6b19f182fac1a04e2d27f49feda6074f3c5d26cd7f77a9afc33c6f648"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "74e6fcef925c870ec5422ec35231316c7b1f025fafa9e78b97a14ac9d1206b3b"
+        bytes: 438
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
       base: "default"
       command: "cub installer setup --pull packages/grafana/pyroscope/2.0.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 19
+      helmReleaseObjectCount: 18
+      semanticObjectMatches: "18/18"
+      separatedSecretCount: 0
+      variant: "default"
+    -
+      variant: "ha"
+      base: "ha"
+      command: "cub installer setup --pull packages/grafana/pyroscope/2.0.2 --base ha --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 18
       cubInstallObjectCountIncludingSupport: 19
       semanticObjectMatches: "18/18"

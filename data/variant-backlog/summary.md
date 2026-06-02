@@ -9,16 +9,16 @@ bespoke per chart — see `data/catalog-promotion-wave2/variant-work-orders.yaml
 
 ```text
 charts: 100
-charts needing variant work: 64
-charts already variant-complete: 36
-total variants to build: 96
+charts needing variant work: 62
+charts already variant-complete: 38
+total variants to build: 87
 ```
 
 ## Build volume by dimension (highest-leverage first)
 
 - `existing-secret`: 47 charts
 - `no-crds`: 25 charts
-- `ha`: 20 charts
+- `ha`: 11 charts
 - `ingress-tls`: 3 charts
 - `tls`: 1 charts
 
@@ -34,22 +34,21 @@ total variants to build: 96
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | 1 | existing-secret, no-crds |
 | `bitnami/apache@11.4.29` | 1 | existing-secret |
 | `bitnami/contour@21.1.4` | 1 | existing-secret, no-crds |
-| `bitnami/elasticsearch@22.1.6` | 1 | existing-secret, ha |
+| `bitnami/elasticsearch@22.1.6` | 2 | existing-secret |
 | `bitnami/memcached@8.5.5` | 1 | existing-secret |
 | `bitnami/mysql@14.0.3` | 2 | ha |
 | `bitnami/nginx@24.0.2` | 2 | existing-secret |
-| `bitnami/opensearch@2.0.10` | 1 | existing-secret, ha |
+| `bitnami/opensearch@2.0.10` | 2 | existing-secret |
 | `bitnami/phpmyadmin@20.0.0` | 1 | existing-secret |
 | `bitnami/postgresql@18.6.7` | 2 | ha |
 | `bitnami/rabbitmq@16.0.14` | 2 | ha |
-| `bitnami/spark@10.0.3` | 1 | existing-secret, ha |
-| `bitnami/zookeeper@13.8.7` | 1 | existing-secret, ha |
+| `bitnami/spark@10.0.3` | 2 | existing-secret |
+| `bitnami/zookeeper@13.8.7` | 2 | existing-secret |
 | `cloudnative-pg/cloudnative-pg@0.28.2` | 1 | existing-secret, no-crds |
 | `coredns/coredns@1.45.2` | 1 | existing-secret |
 | `crossplane-stable/crossplane@2.3.1` | 1 | existing-secret |
 | `dex/dex@0.24.0` | 1 | existing-secret |
-| `elastic/eck-operator@3.4.0` | 1 | existing-secret, no-crds, ha |
-| `elastic/logstash@8.5.1` | 1 | ha |
+| `elastic/eck-operator@3.4.0` | 2 | existing-secret, no-crds |
 | `external-dns/external-dns@1.21.1` | 1 | existing-secret, no-crds |
 | `external-secrets/external-secrets@2.5.0` | 2 | existing-secret |
 | `fairwinds-stable/goldilocks@10.3.0` | 1 | existing-secret |
@@ -58,7 +57,7 @@ total variants to build: 96
 | `gatekeeper/gatekeeper@3.22.2` | 1 | existing-secret, no-crds |
 | `gitlab/gitlab-runner@0.89.0` | 1 | existing-secret |
 | `grafana/promtail@6.17.1` | 1 | existing-secret |
-| `grafana/pyroscope@2.0.2` | 1 | existing-secret, no-crds, ha |
+| `grafana/pyroscope@2.0.2` | 2 | existing-secret, no-crds |
 | `grafana/tempo@1.24.4` | 2 | ha, ingress-tls |
 | `haproxytech/kubernetes-ingress@1.52.0` | 1 | existing-secret |
 | `hashicorp/consul@2.0.0` | 2 | no-crds, ha, ingress-tls |
@@ -73,9 +72,8 @@ total variants to build: 96
 | `minio-operator/operator@7.1.1` | 1 | no-crds |
 | `minio-operator/tenant@7.1.1` | 1 | existing-secret |
 | `nats/nack@0.34.0` | 1 | existing-secret, no-crds |
-| `nats/nats@2.14.0` | 1 | existing-secret, ha |
+| `nats/nats@2.14.0` | 2 | existing-secret |
 | `open-telemetry/opentelemetry-operator@0.114.0` | 1 | existing-secret, no-crds |
-| `prometheus-community/alertmanager@1.37.0` | 1 | ha |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | 2 | existing-secret |
 | `prometheus-community/kube-state-metrics@7.4.0` | 1 | existing-secret |
 | `prometheus-community/prometheus-node-exporter@4.55.0` | 1 | existing-secret |

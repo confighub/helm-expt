@@ -1,0 +1,14 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "ha-r001"
+  labels:
+    confighub.io/chart: "elastic/logstash"
+    confighub.io/version: "8.5.1"
+    confighub.io/variant: "ha"
+spec:
+  renderer: "helm"
+  outputs:
+    renderedObjectSetSHA256: "d65903a7c75f9e3cdaed333b6a2daddcca45d3cc7f80ff09e6b7972a90c3aa70"
+    objectCount: 3
+    deterministicAcrossTwoLocalRenders: true

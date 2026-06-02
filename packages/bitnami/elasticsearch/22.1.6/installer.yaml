@@ -6,7 +6,11 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "bitnami/elasticsearch default variant rendered from bitnami/elasticsearch@22.1.6"
+      name: "default"
+      path: "bases/default"
+    -
+      name: "ha"
+      path: "bases/ha"
+      description: "bitnami/elasticsearch ha variant rendered from bitnami/elasticsearch@22.1.6"

@@ -7,6 +7,10 @@ spec:
     repository: "bitnami"
     name: "elasticsearch"
     version: "22.1.6"
+  deterministicBundle:
+    command: "cub installer package packages/bitnami/elasticsearch/22.1.6 -o <tmp>/bitnami-elasticsearch-22.1.6.tgz"
+    sha256: "feb192f28429e4d48cce9f582db0661c8ed74d5d578612853e5bf0305da1569e"
+    byteIdenticalAcrossTwoLocalBundles: true
   package:
     path: "packages/bitnami/elasticsearch/22.1.6"
     name: "bitnami-elasticsearch"
@@ -25,18 +29,32 @@ spec:
         sha256: "2dea059172595f3477271eadd1aea69c4274d15a8029a55afb176cb5ffd66217"
         bytes: 42475
       -
+        path: "bases/ha/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/ha/upstream.yaml"
+        sha256: "9ae3685e24863d4a3e6b8af8a7c2613d6123c927f9518be12d68370e2d0c3db4"
+        bytes: 42567
+      -
         path: "installer.yaml"
-        sha256: "a4a2d91b3219223a687dd85fea4b7e802df8d7fe044b0ddd34d25487b578b09a"
-        bytes: 318
-  deterministicBundle:
-    command: "cub installer package packages/bitnami/elasticsearch/22.1.6 -o <tmp>/bitnami-elasticsearch-22-1-6.tgz"
-    sha256: "ed2ac25a86cee7ef69f1843a08427f704560c5a31cd327daae11fa0cfffb7b41"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "ff2c7550f6dce283412b22e5cf8b9f12e4025809f0911a874932953b3074fd33"
+        bytes: 461
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
       base: "default"
       command: "cub installer setup --pull packages/bitnami/elasticsearch/22.1.6 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 22
+      helmReleaseObjectCount: 21
+      semanticObjectMatches: "21/21"
+      separatedSecretCount: 0
+      variant: "default"
+    -
+      variant: "ha"
+      base: "ha"
+      command: "cub installer setup --pull packages/bitnami/elasticsearch/22.1.6 --base ha --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 21
       cubInstallObjectCountIncludingSupport: 22
       semanticObjectMatches: "21/21"

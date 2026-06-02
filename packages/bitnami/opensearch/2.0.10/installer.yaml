@@ -6,7 +6,11 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "bitnami/opensearch default variant rendered from bitnami/opensearch@2.0.10"
+      name: "default"
+      path: "bases/default"
+    -
+      name: "ha"
+      path: "bases/ha"
+      description: "bitnami/opensearch ha variant rendered from bitnami/opensearch@2.0.10"

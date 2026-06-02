@@ -1,0 +1,24 @@
+[
+  { "chart": "prometheus-community/alertmanager/1.37.0", "set": ["replicaCount=3"] },
+  { "chart": "bitnami/zookeeper/13.8.7", "set": ["replicaCount=3"] },
+  { "chart": "bitnami/spark/10.0.3", "set": ["worker.replicaCount=3"] },
+  { "chart": "bitnami/elasticsearch/22.1.6", "set": ["master.replicaCount=3", "data.replicaCount=3"] },
+  { "chart": "bitnami/opensearch/2.0.10", "set": ["master.replicaCount=3", "data.replicaCount=3"] },
+  { "chart": "elastic/logstash/8.5.1", "set": ["replicas=3"] },
+  { "chart": "elastic/eck-operator/3.4.0", "set": ["replicaCount=2"] },
+  { "chart": "grafana/pyroscope/2.0.2", "set": ["pyroscope.replicaCount=2"] },
+  { "chart": "nats/nats/2.14.0", "set": ["config.cluster.enabled=true", "config.cluster.replicas=3"] },
+
+  { "chart": "argo-cd/argo-cd/9.5.15", "decline": "curated proof lane (argo-cd-proof.mjs) — bespoke per-variant object/base/receipt checks; ha belongs in that script's --generate path, not the generic generator" },
+  { "chart": "prometheus-community/prometheus/29.8.0", "decline": "curated proof lane (prometheus-proof.mjs) — bespoke per-variant checks; ha belongs in that script's --generate path, not the generic generator" },
+  { "chart": "bitnami/mysql/14.0.3", "decline": "curated proof lane (mysql-proof.mjs) — bespoke checks assert exact variants/bases and single-StatefulSet topology; HA replication changes topology, must be taught to the lane" },
+  { "chart": "bitnami/postgresql/18.6.7", "decline": "curated proof lane (postgresql-proof.mjs) — bespoke checks; HA replication topology must be taught to the lane, not added by the generic generator" },
+  { "chart": "bitnami/rabbitmq/16.0.14", "decline": "curated proof lane (rabbitmq-proof.mjs); also hits a cub-setup equivalence diff on RoleBinding rabbitmq-endpoint-reader — needs per-chart investigation" },
+  { "chart": "hashicorp/consul/2.0.0", "decline": "curated proof lane (consul-proof.mjs); also hits a cub-setup equivalence diff on StatefulSet + RoleBinding consul-consul-server — needs per-chart investigation" },
+
+  { "chart": "grafana/tempo/1.24.4", "decline": "tempo single-binary chart; HA is the separate tempo-distributed chart" },
+  { "chart": "longhorn/longhorn/1.11.2", "decline": "longhorn HA is data-plane (per-volume replica count via defaultSettings), not a control-plane pod-replica toggle" },
+  { "chart": "runix/pgadmin4/1.62.0", "decline": "pgadmin4 is a single stateful instance; replicaCount>1 shares no backing state — not a supported HA topology" },
+  { "chart": "vm/victoria-logs-single/0.12.5", "decline": "victoria-logs-single is single-node by design; HA is the separate victoria-logs-cluster chart" },
+  { "chart": "vm/victoria-metrics-single/0.39.0", "decline": "victoria-metrics-single is single-node by design; HA is the separate victoria-metrics-cluster chart" }
+]

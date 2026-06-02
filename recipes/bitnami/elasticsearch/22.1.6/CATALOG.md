@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default |
+| Candidate variants | default, ha |
 | Control points | capability-profile, dependency-lock, extension-slots, generated-facts, helm-equivalence, lifecycle-policy, rendered-manifest-scan, source-lock, stateful-storage, target-facts, tpl-extension-slots, variant-revision |
 
 ## Artifact Chain
@@ -43,12 +43,14 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/bitnami/elasticsearch/22.1.6/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/bitnami/elasticsearch/22.1.6/bases/default](../../../../packages/bitnami/elasticsearch/22.1.6/bases/default) | [recipes/bitnami/elasticsearch/22.1.6/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 21 | 22 | 21/21 | pass | warn | warn | none |
+| ha | [recipes/bitnami/elasticsearch/22.1.6/variants/ha/variant.yaml](variants/ha/variant.yaml) | [packages/bitnami/elasticsearch/22.1.6/bases/ha](../../../../packages/bitnami/elasticsearch/22.1.6/bases/ha) | [recipes/bitnami/elasticsearch/22.1.6/revisions/ha/r001/variant-revision.yaml](revisions/ha/r001/variant-revision.yaml) | 21 |  | 21/21 | pass |  | allow | none |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
 | default | [packages/bitnami/elasticsearch/22.1.6/bases/default](../../../../packages/bitnami/elasticsearch/22.1.6/bases/default) | yes | bitnami/elasticsearch default variant rendered from bitnami/elasticsearch@22.1.6 |
+| ha | [packages/bitnami/elasticsearch/22.1.6/bases/ha](../../../../packages/bitnami/elasticsearch/22.1.6/bases/ha) | no | bitnami/elasticsearch ha variant rendered from bitnami/elasticsearch@22.1.6 |
 
 ## Receipts
 
@@ -58,6 +60,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | default | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/bitnami/elasticsearch/22.1.6/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](revisions/default/r001/receipts/helm-equivalence-receipt.yaml) |
 | default | r001 | scan | ScanReceipt | warn | [recipes/bitnami/elasticsearch/22.1.6/revisions/default/r001/receipts/scan-receipt.yaml](revisions/default/r001/receipts/scan-receipt.yaml) |
 | default | r001 | installGate | InstallGate | warn | [recipes/bitnami/elasticsearch/22.1.6/revisions/default/r001/receipts/install-gate.yaml](revisions/default/r001/receipts/install-gate.yaml) |
+| ha | r001 | render | RenderReceipt | recorded | [recipes/bitnami/elasticsearch/22.1.6/revisions/ha/r001/receipts/render-receipt.yaml](revisions/ha/r001/receipts/render-receipt.yaml) |
+| ha | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/bitnami/elasticsearch/22.1.6/revisions/ha/r001/receipts/helm-equivalence-receipt.yaml](revisions/ha/r001/receipts/helm-equivalence-receipt.yaml) |
+| ha | r001 | scan | ScanReceipt |  | [recipes/bitnami/elasticsearch/22.1.6/revisions/ha/r001/receipts/scan-receipt.yaml](revisions/ha/r001/receipts/scan-receipt.yaml) |
+| ha | r001 | installGate | InstallGate | allow | [recipes/bitnami/elasticsearch/22.1.6/revisions/ha/r001/receipts/install-gate.yaml](revisions/ha/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

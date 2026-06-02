@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "grafana-pyroscope-2.0.2-ha"
+  labels:
+    confighub.io/chart: "grafana/pyroscope"
+    confighub.io/version: "2.0.2"
+    confighub.io/variant: "ha"
+spec:
+  profile: "ha"
+  renderDelta: "pyroscope.replicaCount=2"
+  mergedValuesCaptured: false

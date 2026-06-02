@@ -45,13 +45,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "ha"
     deferredVariants:
       []
   installerPackage:
     path: "packages/elastic/logstash/8.5.1"
     installer: "packages/elastic/logstash/8.5.1/installer.yaml"
     receipt: "recipes/elastic/logstash/8.5.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "cc907ba593e2d2e0d750a5c4310ee8d9bb37383807a51d43f30b1ebf47a5e779"
+    deterministicBundleSHA256: "bc30315bed50eda7f5684ff7bb3bfa43daca0f9ebac8f0634f1ce0cdd311ff56"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -59,6 +60,11 @@ spec:
         path: "packages/elastic/logstash/8.5.1/bases/default"
         default: true
         description: "elastic/logstash default variant rendered from elastic/logstash@8.5.1"
+      -
+        name: "ha"
+        path: "packages/elastic/logstash/8.5.1/bases/ha"
+        default: false
+        description: "elastic/logstash ha variant rendered from elastic/logstash@8.5.1"
   variants:
     -
       name: "default"
@@ -122,3 +128,65 @@ spec:
               path: "recipes/elastic/logstash/8.5.1/revisions/default/r001/receipts/install-gate.yaml"
               result: "allow"
               renderedObjectSetSHA256: "1bb5971d54f2bb9fd05ffe69b339261a9c31e8b81eeba48064a9dbc337fe5ecd"
+    -
+      name: "ha"
+      variant: "recipes/elastic/logstash/8.5.1/variants/ha/variant.yaml"
+      namespace: "default"
+      releaseName: "logstash"
+      valuesProfile: "recipes/elastic/logstash/8.5.1/effective-values-ha.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "ha"
+        path: "packages/elastic/logstash/8.5.1/bases/ha"
+        default: false
+        description: "elastic/logstash ha variant rendered from elastic/logstash@8.5.1"
+      setupCheck:
+        command: "cub installer setup --pull packages/elastic/logstash/8.5.1 --base ha --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 3
+        cubInstallObjectCountIncludingSupport: 4
+        semanticObjectMatches: "3/3"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "ha-r001"
+          revision: "r001"
+          variantRevision: "recipes/elastic/logstash/8.5.1/revisions/ha/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "d65903a7c75f9e3cdaed333b6a2daddcca45d3cc7f80ff09e6b7972a90c3aa70"
+          renderedObjects: "recipes/elastic/logstash/8.5.1/revisions/ha/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/elastic/logstash/8.5.1/revisions/ha/r001/rendered/object-inventory.yaml"
+          objectCount: 3
+          helmObjectCount: 3
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "3/3"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/elastic/logstash/8.5.1/revisions/ha/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "d65903a7c75f9e3cdaed333b6a2daddcca45d3cc7f80ff09e6b7972a90c3aa70"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/elastic/logstash/8.5.1/revisions/ha/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "d65903a7c75f9e3cdaed333b6a2daddcca45d3cc7f80ff09e6b7972a90c3aa70"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/elastic/logstash/8.5.1/revisions/ha/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "d65903a7c75f9e3cdaed333b6a2daddcca45d3cc7f80ff09e6b7972a90c3aa70"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/elastic/logstash/8.5.1/revisions/ha/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "d65903a7c75f9e3cdaed333b6a2daddcca45d3cc7f80ff09e6b7972a90c3aa70"
