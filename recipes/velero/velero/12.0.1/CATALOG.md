@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default |
+| Candidate variants | default, no-crds |
 | Control points | capability-profile, cluster-rbac, crds, dependency-lock, extension-slots, generated-facts, helm-equivalence, lifecycle-policy, rendered-manifest-scan, secret-material, source-lock, tpl-extension-slots, variant-revision |
 
 ## Artifact Chain
@@ -43,12 +43,14 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/velero/velero/12.0.1/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/velero/velero/12.0.1/bases/default](../../../../packages/velero/velero/12.0.1/bases/default) | [recipes/velero/velero/12.0.1/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 23 | 24 | 23/23 | pass | warn | warn | none |
+| no-crds | [recipes/velero/velero/12.0.1/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/velero/velero/12.0.1/bases/no-crds](../../../../packages/velero/velero/12.0.1/bases/no-crds) | [recipes/velero/velero/12.0.1/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 10 |  | 10/10 | pass |  | allow | none |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
 | default | [packages/velero/velero/12.0.1/bases/default](../../../../packages/velero/velero/12.0.1/bases/default) | yes | velero/velero default variant rendered from velero/velero@12.0.1 |
+| no-crds | [packages/velero/velero/12.0.1/bases/no-crds](../../../../packages/velero/velero/12.0.1/bases/no-crds) | no | velero/velero no-crds variant rendered from velero/velero@12.0.1 |
 
 ## Receipts
 
@@ -58,6 +60,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | default | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/velero/velero/12.0.1/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](revisions/default/r001/receipts/helm-equivalence-receipt.yaml) |
 | default | r001 | scan | ScanReceipt | warn | [recipes/velero/velero/12.0.1/revisions/default/r001/receipts/scan-receipt.yaml](revisions/default/r001/receipts/scan-receipt.yaml) |
 | default | r001 | installGate | InstallGate | warn | [recipes/velero/velero/12.0.1/revisions/default/r001/receipts/install-gate.yaml](revisions/default/r001/receipts/install-gate.yaml) |
+| no-crds | r001 | render | RenderReceipt | recorded | [recipes/velero/velero/12.0.1/revisions/no-crds/r001/receipts/render-receipt.yaml](revisions/no-crds/r001/receipts/render-receipt.yaml) |
+| no-crds | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/velero/velero/12.0.1/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml](revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml) |
+| no-crds | r001 | scan | ScanReceipt |  | [recipes/velero/velero/12.0.1/revisions/no-crds/r001/receipts/scan-receipt.yaml](revisions/no-crds/r001/receipts/scan-receipt.yaml) |
+| no-crds | r001 | installGate | InstallGate | allow | [recipes/velero/velero/12.0.1/revisions/no-crds/r001/receipts/install-gate.yaml](revisions/no-crds/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

@@ -7,6 +7,10 @@ spec:
     repository: "autoscaler"
     name: "vertical-pod-autoscaler"
     version: "0.9.0"
+  deterministicBundle:
+    command: "cub installer package packages/autoscaler/vertical-pod-autoscaler/0.9.0 -o <tmp>/autoscaler-vertical-pod-autoscaler-0.9.0.tgz"
+    sha256: "1e97af1177a68059070b1f0f2c6f9b61a324734aa312715f228ae2e0ee379542"
+    byteIdenticalAcrossTwoLocalBundles: true
   package:
     path: "packages/autoscaler/vertical-pod-autoscaler/0.9.0"
     name: "autoscaler-vertical-pod-autoscaler"
@@ -25,21 +29,35 @@ spec:
         sha256: "9d7307f629bdc478fa0c9bc6646359976b96d0cfd549bd66c13442facfa57490"
         bytes: 84972
       -
+        path: "bases/no-crds/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/no-crds/upstream.yaml"
+        sha256: "874f8d5277136c7721ff190fc6993d2f3d4de6c990ca7828c5f5e3a08d48ccf6"
+        bytes: 35787
+      -
         path: "installer.yaml"
-        sha256: "cfc643e858f4aa4dada3396b1cb8d8b0bb348da276989efd456c8090029ef69c"
-        bytes: 355
-  deterministicBundle:
-    command: "cub installer package packages/autoscaler/vertical-pod-autoscaler/0.9.0 -o <tmp>/autoscaler-vertical-pod-autoscaler-0-9-0.tgz"
-    sha256: "32bb288a89456ae4daef2a6043ccaaf4c9a2c36ae3f9dc89209493a426a94c0a"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "c42c59806cafb0cf4e743e45205732cc11b166cc3b3a95d9bd506042667e304f"
+        bytes: 538
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
       base: "default"
       command: "cub installer setup --pull packages/autoscaler/vertical-pod-autoscaler/0.9.0 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 39
       cubInstallObjectCountIncludingSupport: 40
+      helmReleaseObjectCount: 39
       semanticObjectMatches: "39/39"
+      separatedSecretCount: 0
+      variant: "default"
+    -
+      variant: "no-crds"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/autoscaler/vertical-pod-autoscaler/0.9.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 37
+      cubInstallObjectCountIncludingSupport: 38
+      semanticObjectMatches: "37/37"
       separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"

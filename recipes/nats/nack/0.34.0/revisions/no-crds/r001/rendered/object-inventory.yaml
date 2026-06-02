@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "nats-nack-0.34.0-no-crds-r001"
+  labels:
+    confighub.io/chart: "nats/nack"
+    confighub.io/version: "0.34.0"
+    confighub.io/variant: "no-crds"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "2a0e96ea4834808a0b66545eb50b94c4dc773572f699c3acad3ef2d6649a152d"
+  objectCount: 4
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|nack"
+      kind: "Deployment"
+      name: "nack"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||jetstream-controller-cluster-role-binding"
+      kind: "ClusterRoleBinding"
+      name: "jetstream-controller-cluster-role-binding"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||jetstream-controller-cluster-role"
+      kind: "ClusterRole"
+      name: "jetstream-controller-cluster-role"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|jetstream-controller"
+      kind: "ServiceAccount"
+      name: "jetstream-controller"
+      namespace: "default"

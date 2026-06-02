@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "aqua/trivy-operator"
+    confighub.io/version: "0.32.1"
+    confighub.io/variant: "no-crds"
+spec:
+  variant: "../../../variants/no-crds/variant.yaml"
+  revision: "r001"
+  digestInputs:
+    rendererSHA256: "ba79fcab7c93c102de93969d97ccfcd4b6e07b1276ab45f2fc137c239dce0631"
+    renderedObjectSetSHA256: "875c8aa838c2841aeda6fbd5ffe95e4f7e2c6a36d64194715bb4039aff0ed492"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"

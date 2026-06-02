@@ -1,0 +1,14 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "grafana/pyroscope"
+    confighub.io/version: "2.0.2"
+    confighub.io/variant: "no-crds"
+spec:
+  renderer: "helm"
+  outputs:
+    renderedObjectSetSHA256: "bd128b8d66e06802da2e56a74216e817033ebe8ed59abe878df05886ec008086"
+    objectCount: 17
+    deterministicAcrossTwoLocalRenders: true

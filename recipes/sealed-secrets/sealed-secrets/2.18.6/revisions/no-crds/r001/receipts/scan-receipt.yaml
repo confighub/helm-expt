@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "sealed-secrets/sealed-secrets"
+    confighub.io/version: "2.18.6"
+    confighub.io/variant: "no-crds"
+spec:
+  renderedObjectSetSHA256: "8c271440bc9064522738add874400229e0dc0de35e39818aa29433f7d16c243c"
+  findingCounts:
+    high: 0
+    medium: 0
+    low: 0
+  note: "scan inherits the default-base policy; variant differs only by the declared render delta"

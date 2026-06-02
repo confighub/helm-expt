@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "autoscaler/vertical-pod-autoscaler"
+    confighub.io/version: "0.9.0"
+    confighub.io/variant: "no-crds"
+spec:
+  variant: "../../../variants/no-crds/variant.yaml"
+  revision: "r001"
+  digestInputs:
+    rendererSHA256: "ba79fcab7c93c102de93969d97ccfcd4b6e07b1276ab45f2fc137c239dce0631"
+    renderedObjectSetSHA256: "874f8d5277136c7721ff190fc6993d2f3d4de6c990ca7828c5f5e3a08d48ccf6"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"

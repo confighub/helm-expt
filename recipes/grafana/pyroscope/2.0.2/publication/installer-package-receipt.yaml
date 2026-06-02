@@ -9,7 +9,7 @@ spec:
     version: "2.0.2"
   deterministicBundle:
     command: "cub installer package packages/grafana/pyroscope/2.0.2 -o <tmp>/grafana-pyroscope-2.0.2.tgz"
-    sha256: "a89ea05745292795473b8accfbad8cd6033ef7bb52ac8e3d9b68d98985770cf5"
+    sha256: "993552c3be87a9fa2aa9f2d1d644caab64b0a4a0ca6c1c844e9814910bfabd04"
     byteIdenticalAcrossTwoLocalBundles: true
   package:
     path: "packages/grafana/pyroscope/2.0.2"
@@ -37,9 +37,17 @@ spec:
         sha256: "4525b9a04718d1de62dbc12a161ec2f0cd119a36d68f69c0f481400d43e031cf"
         bytes: 50797
       -
+        path: "bases/no-crds/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/no-crds/upstream.yaml"
+        sha256: "bd128b8d66e06802da2e56a74216e817033ebe8ed59abe878df05886ec008086"
+        bytes: 41011
+      -
         path: "installer.yaml"
-        sha256: "74e6fcef925c870ec5422ec35231316c7b1f025fafa9e78b97a14ac9d1206b3b"
-        bytes: 438
+        sha256: "b654538c777a061ad0fc843d819fe6c0c4da46c17a74f062006ec49ce887c2d1"
+        bytes: 587
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -52,12 +60,22 @@ spec:
       separatedSecretCount: 0
       variant: "default"
     -
-      variant: "ha"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
       base: "ha"
       command: "cub installer setup --pull packages/grafana/pyroscope/2.0.2 --base ha --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 18
       cubInstallObjectCountIncludingSupport: 19
+      helmReleaseObjectCount: 18
       semanticObjectMatches: "18/18"
+      separatedSecretCount: 0
+      variant: "ha"
+    -
+      variant: "no-crds"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/grafana/pyroscope/2.0.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 17
+      cubInstallObjectCountIncludingSupport: 18
+      semanticObjectMatches: "17/17"
       separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"

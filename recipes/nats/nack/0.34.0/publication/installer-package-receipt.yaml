@@ -7,6 +7,10 @@ spec:
     repository: "nats"
     name: "nack"
     version: "0.34.0"
+  deterministicBundle:
+    command: "cub installer package packages/nats/nack/0.34.0 -o <tmp>/nats-nack-0.34.0.tgz"
+    sha256: "25239640536d4bce099cfa7600aca615d2b5df946f31979b2c3babe9dbe0f83f"
+    byteIdenticalAcrossTwoLocalBundles: true
   package:
     path: "packages/nats/nack/0.34.0"
     name: "nats-nack"
@@ -25,21 +29,35 @@ spec:
         sha256: "3578a1e913da259083e95b1bca9492a5e1aac8ae270e2871eb05c5f0c5f6c3c9"
         bytes: 60286
       -
+        path: "bases/no-crds/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/no-crds/upstream.yaml"
+        sha256: "2a0e96ea4834808a0b66545eb50b94c4dc773572f699c3acad3ef2d6649a152d"
+        bytes: 2501
+      -
         path: "installer.yaml"
-        sha256: "41086585b5cc0f0e6cb7524311abf2bac8492bc948ad3944b090f490e721102e"
-        bytes: 282
-  deterministicBundle:
-    command: "cub installer package packages/nats/nack/0.34.0 -o <tmp>/nats-nack-0-34-0.tgz"
-    sha256: "bc3a9cf2f7b64b6a01b7d904d7a4224f5391ff0a3c66163ce0e0b8ac5af0588c"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "84d40e38c2147dc01941c71f41c839db27015f671fbb5448264fb0e2fa4e97ce"
+        bytes: 416
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
       base: "default"
       command: "cub installer setup --pull packages/nats/nack/0.34.0 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 10
       cubInstallObjectCountIncludingSupport: 11
+      helmReleaseObjectCount: 10
       semanticObjectMatches: "10/10"
+      separatedSecretCount: 0
+      variant: "default"
+    -
+      variant: "no-crds"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/nats/nack/0.34.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 4
+      cubInstallObjectCountIncludingSupport: 5
+      semanticObjectMatches: "4/4"
       separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"

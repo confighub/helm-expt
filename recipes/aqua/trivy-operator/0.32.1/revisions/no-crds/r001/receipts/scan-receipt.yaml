@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "aqua/trivy-operator"
+    confighub.io/version: "0.32.1"
+    confighub.io/variant: "no-crds"
+spec:
+  renderedObjectSetSHA256: "875c8aa838c2841aeda6fbd5ffe95e4f7e2c6a36d64194715bb4039aff0ed492"
+  findingCounts:
+    high: 0
+    medium: 0
+    low: 0
+  note: "scan inherits the default-base policy; variant differs only by the declared render delta"

@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "external-dns/external-dns"
+    confighub.io/version: "1.21.1"
+    confighub.io/variant: "no-crds"
+spec:
+  renderedObjectSetSHA256: "1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf"
+  findingCounts:
+    high: 0
+    medium: 0
+    low: 0
+  note: "scan inherits the default-base policy; variant differs only by the declared render delta"

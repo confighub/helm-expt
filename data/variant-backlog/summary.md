@@ -11,13 +11,13 @@ bespoke per chart — see `data/catalog-promotion-wave2/variant-work-orders.yaml
 charts: 100
 charts needing variant work: 62
 charts already variant-complete: 38
-total variants to build: 87
+total variants to build: 78
 ```
 
 ## Build volume by dimension (highest-leverage first)
 
 - `existing-secret`: 47 charts
-- `no-crds`: 25 charts
+- `no-crds`: 16 charts
 - `ha`: 11 charts
 - `ingress-tls`: 3 charts
 - `tls`: 1 charts
@@ -26,12 +26,12 @@ total variants to build: 87
 
 | Chart | Has | Build next |
 | --- | ---: | --- |
-| `aqua/trivy-operator@0.32.1` | 1 | existing-secret, no-crds |
+| `aqua/trivy-operator@0.32.1` | 2 | existing-secret |
 | `argo-cd/argo-cd@9.5.15` | 2 | ha |
 | `argo-cd/argo-events@2.4.21` | 1 | no-crds |
 | `argo-cd/argo-rollouts@2.40.9` | 1 | no-crds |
 | `argo-cd/argocd-image-updater@1.2.2` | 1 | existing-secret, no-crds |
-| `autoscaler/vertical-pod-autoscaler@0.9.0` | 1 | existing-secret, no-crds |
+| `autoscaler/vertical-pod-autoscaler@0.9.0` | 2 | existing-secret |
 | `bitnami/apache@11.4.29` | 1 | existing-secret |
 | `bitnami/contour@21.1.4` | 1 | existing-secret, no-crds |
 | `bitnami/elasticsearch@22.1.6` | 2 | existing-secret |
@@ -49,15 +49,15 @@ total variants to build: 87
 | `crossplane-stable/crossplane@2.3.1` | 1 | existing-secret |
 | `dex/dex@0.24.0` | 1 | existing-secret |
 | `elastic/eck-operator@3.4.0` | 2 | existing-secret, no-crds |
-| `external-dns/external-dns@1.21.1` | 1 | existing-secret, no-crds |
+| `external-dns/external-dns@1.21.1` | 2 | existing-secret |
 | `external-secrets/external-secrets@2.5.0` | 2 | existing-secret |
 | `fairwinds-stable/goldilocks@10.3.0` | 1 | existing-secret |
 | `falcosecurity/falco@9.0.0` | 1 | existing-secret |
 | `falcosecurity/falcosidekick@0.13.1` | 1 | existing-secret |
-| `gatekeeper/gatekeeper@3.22.2` | 1 | existing-secret, no-crds |
+| `gatekeeper/gatekeeper@3.22.2` | 2 | existing-secret |
 | `gitlab/gitlab-runner@0.89.0` | 1 | existing-secret |
 | `grafana/promtail@6.17.1` | 1 | existing-secret |
-| `grafana/pyroscope@2.0.2` | 2 | existing-secret, no-crds |
+| `grafana/pyroscope@2.0.2` | 3 | existing-secret |
 | `grafana/tempo@1.24.4` | 2 | ha, ingress-tls |
 | `haproxytech/kubernetes-ingress@1.52.0` | 1 | existing-secret |
 | `hashicorp/consul@2.0.0` | 2 | no-crds, ha, ingress-tls |
@@ -71,7 +71,7 @@ total variants to build: 87
 | `metrics-server/metrics-server@3.13.0` | 2 | existing-secret |
 | `minio-operator/operator@7.1.1` | 1 | no-crds |
 | `minio-operator/tenant@7.1.1` | 1 | existing-secret |
-| `nats/nack@0.34.0` | 1 | existing-secret, no-crds |
+| `nats/nack@0.34.0` | 2 | existing-secret |
 | `nats/nats@2.14.0` | 2 | existing-secret |
 | `open-telemetry/opentelemetry-operator@0.114.0` | 1 | existing-secret, no-crds |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | 2 | existing-secret |
@@ -82,10 +82,10 @@ total variants to build: 87
 | `rook-release/rook-ceph-cluster@v1.19.5` | 1 | existing-secret |
 | `rook-release/rook-ceph@v1.19.5` | 1 | no-crds |
 | `runix/pgadmin4@1.62.0` | 1 | existing-secret, ha |
-| `sealed-secrets/sealed-secrets@2.18.6` | 1 | existing-secret, no-crds |
+| `sealed-secrets/sealed-secrets@2.18.6` | 2 | existing-secret |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | 2 | no-crds |
-| `traefik/traefik@40.2.0` | 1 | existing-secret, no-crds |
-| `velero/velero@12.0.1` | 1 | existing-secret, no-crds |
+| `traefik/traefik@40.2.0` | 2 | existing-secret |
+| `velero/velero@12.0.1` | 2 | existing-secret |
 | `vm/victoria-logs-single@0.12.5` | 1 | existing-secret, ha |
 | `vm/victoria-metrics-single@0.39.0` | 1 | ha |
 

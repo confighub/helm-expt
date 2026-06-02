@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "aqua/trivy-operator"
+    confighub.io/version: "0.32.1"
+    confighub.io/variant: "no-crds"
+spec:
+  result: "pass"
+  regularHelm:
+    renderedSHA256: "875c8aa838c2841aeda6fbd5ffe95e4f7e2c6a36d64194715bb4039aff0ed492"
+    objectCount: 21
+  cubInstall:
+    objectCountIncludingSupport: 22
+    semanticObjectMatches: "21/21"
+    allowedCubOnlyObjects:
+      - "v1|Namespace||default"

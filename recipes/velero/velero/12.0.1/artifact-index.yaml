@@ -49,13 +49,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "no-crds"
     deferredVariants:
       []
   installerPackage:
     path: "packages/velero/velero/12.0.1"
     installer: "packages/velero/velero/12.0.1/installer.yaml"
     receipt: "recipes/velero/velero/12.0.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "1f69f1815b610cc65e7200041007ab16404ef11dfbe9758dd7ee01bfde5e0c96"
+    deterministicBundleSHA256: "4aee03aca286f427e63a4c5604f03e0a649acc0a89c245e24b7017cb4fd15058"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -63,6 +64,11 @@ spec:
         path: "packages/velero/velero/12.0.1/bases/default"
         default: true
         description: "velero/velero default variant rendered from velero/velero@12.0.1"
+      -
+        name: "no-crds"
+        path: "packages/velero/velero/12.0.1/bases/no-crds"
+        default: false
+        description: "velero/velero no-crds variant rendered from velero/velero@12.0.1"
   variants:
     -
       name: "default"
@@ -126,3 +132,65 @@ spec:
               path: "recipes/velero/velero/12.0.1/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "3fc8afa5a2077710e8e9a49df435b234925b373cdaf2209e66fada0044ef2c1b"
+    -
+      name: "no-crds"
+      variant: "recipes/velero/velero/12.0.1/variants/no-crds/variant.yaml"
+      namespace: "default"
+      releaseName: "velero"
+      valuesProfile: "recipes/velero/velero/12.0.1/effective-values-no-crds.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "no-crds"
+        path: "packages/velero/velero/12.0.1/bases/no-crds"
+        default: false
+        description: "velero/velero no-crds variant rendered from velero/velero@12.0.1"
+      setupCheck:
+        command: "cub installer setup --pull packages/velero/velero/12.0.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 10
+        cubInstallObjectCountIncludingSupport: 11
+        semanticObjectMatches: "10/10"
+        separatedSecretCount: 1
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "no-crds-r001"
+          revision: "r001"
+          variantRevision: "recipes/velero/velero/12.0.1/revisions/no-crds/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "8ae294dd0418f586f2ea4ba66660384f28cacb0ceed6124ac0a0b1c8b4c1d933"
+          renderedObjects: "recipes/velero/velero/12.0.1/revisions/no-crds/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/velero/velero/12.0.1/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          objectCount: 10
+          helmObjectCount: 10
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "10/10"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/velero/velero/12.0.1/revisions/no-crds/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "8ae294dd0418f586f2ea4ba66660384f28cacb0ceed6124ac0a0b1c8b4c1d933"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/velero/velero/12.0.1/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "8ae294dd0418f586f2ea4ba66660384f28cacb0ceed6124ac0a0b1c8b4c1d933"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/velero/velero/12.0.1/revisions/no-crds/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "8ae294dd0418f586f2ea4ba66660384f28cacb0ceed6124ac0a0b1c8b4c1d933"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/velero/velero/12.0.1/revisions/no-crds/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "8ae294dd0418f586f2ea4ba66660384f28cacb0ceed6124ac0a0b1c8b4c1d933"

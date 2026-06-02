@@ -48,13 +48,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "no-crds"
     deferredVariants:
       []
   installerPackage:
     path: "packages/autoscaler/vertical-pod-autoscaler/0.9.0"
     installer: "packages/autoscaler/vertical-pod-autoscaler/0.9.0/installer.yaml"
     receipt: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "32bb288a89456ae4daef2a6043ccaaf4c9a2c36ae3f9dc89209493a426a94c0a"
+    deterministicBundleSHA256: "1e97af1177a68059070b1f0f2c6f9b61a324734aa312715f228ae2e0ee379542"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -62,6 +63,11 @@ spec:
         path: "packages/autoscaler/vertical-pod-autoscaler/0.9.0/bases/default"
         default: true
         description: "autoscaler/vertical-pod-autoscaler default variant rendered from autoscaler/vertical-pod-autoscaler@0.9.0"
+      -
+        name: "no-crds"
+        path: "packages/autoscaler/vertical-pod-autoscaler/0.9.0/bases/no-crds"
+        default: false
+        description: "autoscaler/vertical-pod-autoscaler no-crds variant rendered from autoscaler/vertical-pod-autoscaler@0.9.0"
   variants:
     -
       name: "default"
@@ -125,3 +131,65 @@ spec:
               path: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "9d7307f629bdc478fa0c9bc6646359976b96d0cfd549bd66c13442facfa57490"
+    -
+      name: "no-crds"
+      variant: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/variants/no-crds/variant.yaml"
+      namespace: "default"
+      releaseName: "vertical-pod-autoscaler"
+      valuesProfile: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/effective-values-no-crds.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "no-crds"
+        path: "packages/autoscaler/vertical-pod-autoscaler/0.9.0/bases/no-crds"
+        default: false
+        description: "autoscaler/vertical-pod-autoscaler no-crds variant rendered from autoscaler/vertical-pod-autoscaler@0.9.0"
+      setupCheck:
+        command: "cub installer setup --pull packages/autoscaler/vertical-pod-autoscaler/0.9.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 37
+        cubInstallObjectCountIncludingSupport: 38
+        semanticObjectMatches: "37/37"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "no-crds-r001"
+          revision: "r001"
+          variantRevision: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "874f8d5277136c7721ff190fc6993d2f3d4de6c990ca7828c5f5e3a08d48ccf6"
+          renderedObjects: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          objectCount: 37
+          helmObjectCount: 37
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "37/37"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "874f8d5277136c7721ff190fc6993d2f3d4de6c990ca7828c5f5e3a08d48ccf6"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "874f8d5277136c7721ff190fc6993d2f3d4de6c990ca7828c5f5e3a08d48ccf6"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "874f8d5277136c7721ff190fc6993d2f3d4de6c990ca7828c5f5e3a08d48ccf6"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "874f8d5277136c7721ff190fc6993d2f3d4de6c990ca7828c5f5e3a08d48ccf6"

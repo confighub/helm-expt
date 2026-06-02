@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "nats/nack"
+    confighub.io/version: "0.34.0"
+    confighub.io/variant: "no-crds"
+spec:
+  renderedObjectSetSHA256: "2a0e96ea4834808a0b66545eb50b94c4dc773572f699c3acad3ef2d6649a152d"
+  decision: "allow"
+  separatedSecretCount: 0

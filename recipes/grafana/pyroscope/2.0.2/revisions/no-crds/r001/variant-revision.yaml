@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "grafana/pyroscope"
+    confighub.io/version: "2.0.2"
+    confighub.io/variant: "no-crds"
+spec:
+  variant: "../../../variants/no-crds/variant.yaml"
+  revision: "r001"
+  digestInputs:
+    rendererSHA256: "ba79fcab7c93c102de93969d97ccfcd4b6e07b1276ab45f2fc137c239dce0631"
+    renderedObjectSetSHA256: "bd128b8d66e06802da2e56a74216e817033ebe8ed59abe878df05886ec008086"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"

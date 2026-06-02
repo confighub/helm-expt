@@ -48,13 +48,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "no-crds"
     deferredVariants:
       []
   installerPackage:
     path: "packages/gatekeeper/gatekeeper/3.22.2"
     installer: "packages/gatekeeper/gatekeeper/3.22.2/installer.yaml"
     receipt: "recipes/gatekeeper/gatekeeper/3.22.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "c39fb953ee81bfd9cac2ad1263c970c80874b701ab1c5a89d582eba91f9d0cdf"
+    deterministicBundleSHA256: "bb507b5109358e57ef8eb5d69ab0b35792dbd2c2f7c9c9b6923b3ff13a301531"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -62,6 +63,11 @@ spec:
         path: "packages/gatekeeper/gatekeeper/3.22.2/bases/default"
         default: true
         description: "gatekeeper/gatekeeper default variant rendered from gatekeeper/gatekeeper@3.22.2"
+      -
+        name: "no-crds"
+        path: "packages/gatekeeper/gatekeeper/3.22.2/bases/no-crds"
+        default: false
+        description: "gatekeeper/gatekeeper no-crds variant rendered from gatekeeper/gatekeeper@3.22.2"
   variants:
     -
       name: "default"
@@ -125,3 +131,65 @@ spec:
               path: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "757e7fe97f5331bd964463ed228d147bdc090f3bb6d7c34b319522124efd2e5d"
+    -
+      name: "no-crds"
+      variant: "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
+      namespace: "default"
+      releaseName: "gatekeeper"
+      valuesProfile: "recipes/gatekeeper/gatekeeper/3.22.2/effective-values-no-crds.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "no-crds"
+        path: "packages/gatekeeper/gatekeeper/3.22.2/bases/no-crds"
+        default: false
+        description: "gatekeeper/gatekeeper no-crds variant rendered from gatekeeper/gatekeeper@3.22.2"
+      setupCheck:
+        command: "cub installer setup --pull packages/gatekeeper/gatekeeper/3.22.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 13
+        cubInstallObjectCountIncludingSupport: 14
+        semanticObjectMatches: "13/13"
+        separatedSecretCount: 1
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "no-crds-r001"
+          revision: "r001"
+          variantRevision: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "ab5488411d047ab53e8c5c5cece3730c66ce7c8f9cb3ff9da1135d64eca97e1c"
+          renderedObjects: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          objectCount: 13
+          helmObjectCount: 13
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "13/13"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "ab5488411d047ab53e8c5c5cece3730c66ce7c8f9cb3ff9da1135d64eca97e1c"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "ab5488411d047ab53e8c5c5cece3730c66ce7c8f9cb3ff9da1135d64eca97e1c"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "ab5488411d047ab53e8c5c5cece3730c66ce7c8f9cb3ff9da1135d64eca97e1c"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "ab5488411d047ab53e8c5c5cece3730c66ce7c8f9cb3ff9da1135d64eca97e1c"

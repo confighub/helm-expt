@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "velero/velero"
+    confighub.io/version: "12.0.1"
+    confighub.io/variant: "no-crds"
+spec:
+  renderedObjectSetSHA256: "8ae294dd0418f586f2ea4ba66660384f28cacb0ceed6124ac0a0b1c8b4c1d933"
+  decision: "allow"
+  separatedSecretCount: 1

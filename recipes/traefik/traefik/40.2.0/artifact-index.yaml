@@ -48,13 +48,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "no-crds"
     deferredVariants:
       []
   installerPackage:
     path: "packages/traefik/traefik/40.2.0"
     installer: "packages/traefik/traefik/40.2.0/installer.yaml"
     receipt: "recipes/traefik/traefik/40.2.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "d4c7df2e2383c00ea04011aacb8bcf6728944031baf38692828b79f6d5d13057"
+    deterministicBundleSHA256: "5d9c0bdf6306b0c196fbee35312d89a6df807bbbae4c64f49f831b8f8959eaa9"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -62,6 +63,11 @@ spec:
         path: "packages/traefik/traefik/40.2.0/bases/default"
         default: true
         description: "traefik/traefik default variant rendered from traefik/traefik@40.2.0"
+      -
+        name: "no-crds"
+        path: "packages/traefik/traefik/40.2.0/bases/no-crds"
+        default: false
+        description: "traefik/traefik no-crds variant rendered from traefik/traefik@40.2.0"
   variants:
     -
       name: "default"
@@ -125,3 +131,65 @@ spec:
               path: "recipes/traefik/traefik/40.2.0/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "84b1e950901024fda7bb0be73aba239015712ae0c3d4cb0ecabcb091abc53c09"
+    -
+      name: "no-crds"
+      variant: "recipes/traefik/traefik/40.2.0/variants/no-crds/variant.yaml"
+      namespace: "default"
+      releaseName: "traefik"
+      valuesProfile: "recipes/traefik/traefik/40.2.0/effective-values-no-crds.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "no-crds"
+        path: "packages/traefik/traefik/40.2.0/bases/no-crds"
+        default: false
+        description: "traefik/traefik no-crds variant rendered from traefik/traefik@40.2.0"
+      setupCheck:
+        command: "cub installer setup --pull packages/traefik/traefik/40.2.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 6
+        cubInstallObjectCountIncludingSupport: 7
+        semanticObjectMatches: "6/6"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "no-crds-r001"
+          revision: "r001"
+          variantRevision: "recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "9db056bdffd213bbce847b96122b40e879d0e47f7b8d57074f62a020ed89c9ce"
+          renderedObjects: "recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          objectCount: 6
+          helmObjectCount: 6
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "6/6"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "9db056bdffd213bbce847b96122b40e879d0e47f7b8d57074f62a020ed89c9ce"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "9db056bdffd213bbce847b96122b40e879d0e47f7b8d57074f62a020ed89c9ce"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "9db056bdffd213bbce847b96122b40e879d0e47f7b8d57074f62a020ed89c9ce"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "9db056bdffd213bbce847b96122b40e879d0e47f7b8d57074f62a020ed89c9ce"

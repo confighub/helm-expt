@@ -1,0 +1,91 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "gatekeeper-gatekeeper-3.22.2-no-crds-r001"
+  labels:
+    confighub.io/chart: "gatekeeper/gatekeeper"
+    confighub.io/version: "3.22.2"
+    confighub.io/variant: "no-crds"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "ab5488411d047ab53e8c5c5cece3730c66ce7c8f9cb3ff9da1135d64eca97e1c"
+  objectCount: 13
+  objects:
+    -
+      apiVersion: "admissionregistration.k8s.io/v1"
+      identity: "admissionregistration.k8s.io/v1|MutatingWebhookConfiguration||gatekeeper-mutating-webhook-configuration"
+      kind: "MutatingWebhookConfiguration"
+      name: "gatekeeper-mutating-webhook-configuration"
+      namespace: ""
+    -
+      apiVersion: "admissionregistration.k8s.io/v1"
+      identity: "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||gatekeeper-validating-webhook-configuration"
+      kind: "ValidatingWebhookConfiguration"
+      name: "gatekeeper-validating-webhook-configuration"
+      namespace: ""
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|gatekeeper-audit"
+      kind: "Deployment"
+      name: "gatekeeper-audit"
+      namespace: "default"
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|gatekeeper-controller-manager"
+      kind: "Deployment"
+      name: "gatekeeper-controller-manager"
+      namespace: "default"
+    -
+      apiVersion: "policy/v1"
+      identity: "policy/v1|PodDisruptionBudget|default|gatekeeper-controller-manager"
+      kind: "PodDisruptionBudget"
+      name: "gatekeeper-controller-manager"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||gatekeeper-manager-rolebinding"
+      kind: "ClusterRoleBinding"
+      name: "gatekeeper-manager-rolebinding"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||gatekeeper-manager-role"
+      kind: "ClusterRole"
+      name: "gatekeeper-manager-role"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|default|gatekeeper-manager-rolebinding"
+      kind: "RoleBinding"
+      name: "gatekeeper-manager-rolebinding"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role|default|gatekeeper-manager-role"
+      kind: "Role"
+      name: "gatekeeper-manager-role"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ResourceQuota|default|gatekeeper-critical-pods"
+      kind: "ResourceQuota"
+      name: "gatekeeper-critical-pods"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Secret|default|gatekeeper-webhook-server-cert"
+      kind: "Secret"
+      name: "gatekeeper-webhook-server-cert"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|gatekeeper-admin"
+      kind: "ServiceAccount"
+      name: "gatekeeper-admin"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|gatekeeper-webhook-service"
+      kind: "Service"
+      name: "gatekeeper-webhook-service"
+      namespace: "default"

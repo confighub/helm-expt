@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default |
+| Candidate variants | default, no-crds |
 | Control points | capability-profile, cluster-rbac, crds, dependency-lock, extension-slots, generated-facts, helm-equivalence, rendered-manifest-scan, source-lock, target-facts, tpl-extension-slots, variant-revision |
 
 ## Artifact Chain
@@ -43,12 +43,14 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/sealed-secrets/sealed-secrets/2.18.6/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/sealed-secrets/sealed-secrets/2.18.6/bases/default](../../../../packages/sealed-secrets/sealed-secrets/2.18.6/bases/default) | [recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 11 | 12 | 11/11 | pass | warn | warn | none |
+| no-crds | [recipes/sealed-secrets/sealed-secrets/2.18.6/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/sealed-secrets/sealed-secrets/2.18.6/bases/no-crds](../../../../packages/sealed-secrets/sealed-secrets/2.18.6/bases/no-crds) | [recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 10 |  | 10/10 | pass |  | allow | none |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
 | default | [packages/sealed-secrets/sealed-secrets/2.18.6/bases/default](../../../../packages/sealed-secrets/sealed-secrets/2.18.6/bases/default) | yes | sealed-secrets/sealed-secrets default variant rendered from sealed-secrets/sealed-secrets@2.18.6 |
+| no-crds | [packages/sealed-secrets/sealed-secrets/2.18.6/bases/no-crds](../../../../packages/sealed-secrets/sealed-secrets/2.18.6/bases/no-crds) | no | sealed-secrets/sealed-secrets no-crds variant rendered from sealed-secrets/sealed-secrets@2.18.6 |
 
 ## Receipts
 
@@ -58,6 +60,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | default | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](revisions/default/r001/receipts/helm-equivalence-receipt.yaml) |
 | default | r001 | scan | ScanReceipt | warn | [recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/default/r001/receipts/scan-receipt.yaml](revisions/default/r001/receipts/scan-receipt.yaml) |
 | default | r001 | installGate | InstallGate | warn | [recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/default/r001/receipts/install-gate.yaml](revisions/default/r001/receipts/install-gate.yaml) |
+| no-crds | r001 | render | RenderReceipt | recorded | [recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/no-crds/r001/receipts/render-receipt.yaml](revisions/no-crds/r001/receipts/render-receipt.yaml) |
+| no-crds | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml](revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml) |
+| no-crds | r001 | scan | ScanReceipt |  | [recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/no-crds/r001/receipts/scan-receipt.yaml](revisions/no-crds/r001/receipts/scan-receipt.yaml) |
+| no-crds | r001 | installGate | InstallGate | allow | [recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/no-crds/r001/receipts/install-gate.yaml](revisions/no-crds/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

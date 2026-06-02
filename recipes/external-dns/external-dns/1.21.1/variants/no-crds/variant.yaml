@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "no-crds"
+  labels:
+    confighub.io/chart: "external-dns/external-dns"
+    confighub.io/version: "1.21.1"
+    confighub.io/variant: "no-crds"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "default"
+  releaseName: "external-dns"
+  valuesProfile: "../../effective-values-no-crds.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"

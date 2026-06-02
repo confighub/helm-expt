@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "traefik-traefik-40.2.0-no-crds"
+  labels:
+    confighub.io/chart: "traefik/traefik"
+    confighub.io/version: "40.2.0"
+    confighub.io/variant: "no-crds"
+spec:
+  profile: "no-crds"
+  renderDelta: ""
+  mergedValuesCaptured: false

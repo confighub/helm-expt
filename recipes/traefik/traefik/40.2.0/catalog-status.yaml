@@ -1,23 +1,25 @@
-apiVersion: helm-expt.confighub.com/v1alpha1
-kind: CatalogStatus
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "CatalogStatus"
 metadata:
   name: "traefik-traefik-40.2.0"
 spec:
+  candidateVariants:
+    - "default"
+    - "no-crds"
   chart: "traefik/traefik"
-  version: "40.2.0"
+  deferredVariants:
+    []
+  notes:
+    - "Machine proof exists; catalog support is not claimed until variant and product review are complete."
+  productionReadiness: "not-reviewed-for-production"
+  review:
+    humanReviewRequired: true
+    lastReviewed: "2026-05-27"
+    productReviewRequired: true
   status: "proof-grade"
   supportLevel: "machine-proof-only"
   supportedScopes:
     []
-  productionReadiness: "not-reviewed-for-production"
   supportedVariants:
     []
-  candidateVariants:
-    - "default"
-  deferredVariants: []
-  review:
-    lastReviewed: "2026-05-27"
-    humanReviewRequired: true
-    productReviewRequired: true
-  notes:
-    - "Machine proof exists; catalog support is not claimed until variant and product review are complete."
+  version: "40.2.0"

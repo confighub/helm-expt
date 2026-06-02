@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "autoscaler-vertical-pod-autoscaler-0.9.0-no-crds"
+  labels:
+    confighub.io/chart: "autoscaler/vertical-pod-autoscaler"
+    confighub.io/version: "0.9.0"
+    confighub.io/variant: "no-crds"
+spec:
+  profile: "no-crds"
+  renderDelta: ""
+  mergedValuesCaptured: false

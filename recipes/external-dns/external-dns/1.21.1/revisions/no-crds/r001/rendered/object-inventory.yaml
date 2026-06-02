@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "external-dns-external-dns-1.21.1-no-crds-r001"
+  labels:
+    confighub.io/chart: "external-dns/external-dns"
+    confighub.io/version: "1.21.1"
+    confighub.io/variant: "no-crds"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf"
+  objectCount: 5
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|external-dns"
+      kind: "Deployment"
+      name: "external-dns"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||external-dns-viewer"
+      kind: "ClusterRoleBinding"
+      name: "external-dns-viewer"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||external-dns"
+      kind: "ClusterRole"
+      name: "external-dns"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|external-dns"
+      kind: "ServiceAccount"
+      name: "external-dns"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|external-dns"
+      kind: "Service"
+      name: "external-dns"
+      namespace: "default"

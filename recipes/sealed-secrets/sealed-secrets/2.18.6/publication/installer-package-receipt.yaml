@@ -7,6 +7,10 @@ spec:
     repository: "sealed-secrets"
     name: "sealed-secrets"
     version: "2.18.6"
+  deterministicBundle:
+    command: "cub installer package packages/sealed-secrets/sealed-secrets/2.18.6 -o <tmp>/sealed-secrets-sealed-secrets-2.18.6.tgz"
+    sha256: "a08f22c8743f84b212c686caf18c1d213662d30b2f1f99712b76887a243d9508"
+    byteIdenticalAcrossTwoLocalBundles: true
   package:
     path: "packages/sealed-secrets/sealed-secrets/2.18.6"
     name: "sealed-secrets-sealed-secrets"
@@ -25,21 +29,35 @@ spec:
         sha256: "096c66f4ea312aa7c3a4fc2be815b64271c3f1c829c8914b5c96c190aa22a83e"
         bytes: 15104
       -
+        path: "bases/no-crds/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/no-crds/upstream.yaml"
+        sha256: "8c271440bc9064522738add874400229e0dc0de35e39818aa29433f7d16c243c"
+        bytes: 8379
+      -
         path: "installer.yaml"
-        sha256: "423ff0ee99b56db9a1c18f541310895450feab0dc7a2c207d861ff187c6d6d22"
-        bytes: 342
-  deterministicBundle:
-    command: "cub installer package packages/sealed-secrets/sealed-secrets/2.18.6 -o <tmp>/sealed-secrets-sealed-secrets-2-18-6.tgz"
-    sha256: "ebdde8af99c2b4df925428f3e30d0c1cae02fec87cc62023bf0af742221db9c6"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "f7fc6d35e3a66780d735c6f990245a1830bd6f521cb78abaa5da0026f99005f2"
+        bytes: 516
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
       base: "default"
       command: "cub installer setup --pull packages/sealed-secrets/sealed-secrets/2.18.6 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 11
       cubInstallObjectCountIncludingSupport: 12
+      helmReleaseObjectCount: 11
       semanticObjectMatches: "11/11"
+      separatedSecretCount: 0
+      variant: "default"
+    -
+      variant: "no-crds"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/sealed-secrets/sealed-secrets/2.18.6 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 10
+      cubInstallObjectCountIncludingSupport: 11
+      semanticObjectMatches: "10/10"
       separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
