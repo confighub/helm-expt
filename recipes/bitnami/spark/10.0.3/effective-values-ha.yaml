@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "bitnami-spark-10.0.3-ha"
+  labels:
+    confighub.io/chart: "bitnami/spark"
+    confighub.io/version: "10.0.3"
+    confighub.io/variant: "ha"
+spec:
+  profile: "ha"
+  renderDelta: "worker.replicaCount=3"
+  mergedValuesCaptured: false

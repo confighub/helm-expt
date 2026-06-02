@@ -1,0 +1,113 @@
+[
+  {
+    "chart": "prometheus-community/alertmanager/1.37.0",
+    "variant": "ha",
+    "status": "already"
+  },
+  {
+    "chart": "bitnami/zookeeper/13.8.7",
+    "variant": "ha",
+    "status": "already"
+  },
+  {
+    "chart": "bitnami/spark/10.0.3",
+    "variant": "ha",
+    "status": "already"
+  },
+  {
+    "chart": "bitnami/elasticsearch/22.1.6",
+    "variant": "ha",
+    "status": "already"
+  },
+  {
+    "chart": "bitnami/opensearch/2.0.10",
+    "variant": "ha",
+    "status": "already"
+  },
+  {
+    "chart": "elastic/logstash/8.5.1",
+    "variant": "ha",
+    "status": "already"
+  },
+  {
+    "chart": "elastic/eck-operator/3.4.0",
+    "variant": "ha",
+    "status": "already"
+  },
+  {
+    "chart": "grafana/pyroscope/2.0.2",
+    "variant": "ha",
+    "status": "already"
+  },
+  {
+    "chart": "nats/nats/2.14.0",
+    "variant": "ha",
+    "status": "already"
+  },
+  {
+    "chart": "argo-cd/argo-cd/9.5.15",
+    "variant": "ha",
+    "status": "declined",
+    "reason": "curated proof lane (argo-cd-proof.mjs) — bespoke per-variant object/base/receipt checks; ha belongs in that script's --generate path, not the generic generator"
+  },
+  {
+    "chart": "prometheus-community/prometheus/29.8.0",
+    "variant": "ha",
+    "status": "declined",
+    "reason": "curated proof lane (prometheus-proof.mjs) — bespoke per-variant checks; ha belongs in that script's --generate path, not the generic generator"
+  },
+  {
+    "chart": "bitnami/mysql/14.0.3",
+    "variant": "ha",
+    "status": "declined",
+    "reason": "curated proof lane (mysql-proof.mjs) — bespoke checks assert exact variants/bases and single-StatefulSet topology; HA replication changes topology, must be taught to the lane"
+  },
+  {
+    "chart": "bitnami/postgresql/18.6.7",
+    "variant": "ha",
+    "status": "declined",
+    "reason": "curated proof lane (postgresql-proof.mjs) — bespoke checks; HA replication topology must be taught to the lane, not added by the generic generator"
+  },
+  {
+    "chart": "bitnami/rabbitmq/16.0.14",
+    "variant": "ha",
+    "status": "declined",
+    "reason": "curated proof lane (rabbitmq-proof.mjs); also hits a cub-setup equivalence diff on RoleBinding rabbitmq-endpoint-reader — needs per-chart investigation"
+  },
+  {
+    "chart": "hashicorp/consul/2.0.0",
+    "variant": "ha",
+    "status": "declined",
+    "reason": "curated proof lane (consul-proof.mjs); also hits a cub-setup equivalence diff on StatefulSet + RoleBinding consul-consul-server — needs per-chart investigation"
+  },
+  {
+    "chart": "grafana/tempo/1.24.4",
+    "variant": "ha",
+    "status": "declined",
+    "reason": "tempo single-binary chart; HA is the separate tempo-distributed chart"
+  },
+  {
+    "chart": "longhorn/longhorn/1.11.2",
+    "variant": "ha",
+    "status": "declined",
+    "reason": "longhorn HA is data-plane (per-volume replica count via defaultSettings), not a control-plane pod-replica toggle"
+  },
+  {
+    "chart": "runix/pgadmin4/1.62.0",
+    "variant": "ha",
+    "status": "declined",
+    "reason": "pgadmin4 is a single stateful instance; replicaCount>1 shares no backing state — not a supported HA topology"
+  },
+  {
+    "chart": "vm/victoria-logs-single/0.12.5",
+    "variant": "ha",
+    "status": "declined",
+    "reason": "victoria-logs-single is single-node by design; HA is the separate victoria-logs-cluster chart"
+  },
+  {
+    "chart": "vm/victoria-metrics-single/0.39.0",
+    "variant": "ha",
+    "status": "declined",
+    "reason": "victoria-metrics-single is single-node by design; HA is the separate victoria-metrics-cluster chart"
+  }
+]

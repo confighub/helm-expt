@@ -6,7 +6,11 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "nats/nats default variant rendered from nats/nats@2.14.0"
+      name: "default"
+      path: "bases/default"
+    -
+      name: "ha"
+      path: "bases/ha"
+      description: "nats/nats ha variant rendered from nats/nats@2.14.0"

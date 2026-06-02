@@ -8,7 +8,7 @@
 //
 // Equivalence holds by construction: the base IS the captured `helm template` output, and
 // `cub installer setup --base <variant>` re-emits it (plus one explained Namespace).
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, relative } from "node:path";
 import {
@@ -37,7 +37,9 @@ const RENDER_FLAGS = ["--kube-version", kubeVersion, "--include-crds", "--skip-t
 function usage() {
   console.log(`usage:
   node scripts/generate-variant-proof.mjs <repo>/<chart>/<version> <variant> --set k=v[,k2=v2]
-  node scripts/generate-variant-proof.mjs <repo>/<chart>/<version> <variant> --values <file>`);
+  node scripts/generate-variant-proof.mjs <repo>/<chart>/<version> <variant> --values <file>
+    [--base <variant>]    derive render context (namespace/releaseName) from this base variant (default: default)
+    [--no-include-crds]   render without --include-crds (for charts that ship CRDs in crds/)`);
 }
 
 function parseArgs(argv) {
@@ -45,13 +47,15 @@ function parseArgs(argv) {
   const variant = argv[1];
   if (!chartPath || !variant) return null;
   const noIncludeCrds = argv.includes("--no-include-crds");
+  let baseVariant = "default";
   const valuesArgs = [];
   for (let i = 2; i < argv.length; i++) {
     if (argv[i] === "--set") valuesArgs.push("--set", argv[++i]);
     else if (argv[i] === "--values" || argv[i] === "-f") valuesArgs.push("--values", argv[++i]);
+    else if (argv[i] === "--base") baseVariant = argv[++i];
   }
   check(valuesArgs.length > 0 || noIncludeCrds, "provide --set/--values, or --no-include-crds (for charts that ship CRDs in crds/)");
-  return { chartPath, variant, valuesArgs, noIncludeCrds };
+  return { chartPath, variant, valuesArgs, noIncludeCrds, baseVariant };
 }
 
 function ensureRepo(repository, repositoryURL) {
@@ -66,7 +70,7 @@ function normalizeRelease(text) {
 function main() {
   const args = parseArgs(process.argv.slice(2));
   if (!args) return usage();
-  const { chartPath, variant, valuesArgs, noIncludeCrds } = args;
+  const { chartPath, variant, valuesArgs, noIncludeCrds, baseVariant } = args;
 
   const recipeRoot = join(repoRoot, "recipes", chartPath);
   const packageRoot = join(repoRoot, "packages", chartPath);
@@ -74,12 +78,19 @@ function main() {
   check(existsSync(join(packageRoot, "installer.yaml")), `no package at packages/${chartPath}`);
 
   const sourceLock = readYaml(join(recipeRoot, "source-lock.yaml"));
-  const defaultVariant = readYaml(join(recipeRoot, "variants", "default", "variant.yaml"));
+  const baseVariantPath = join(recipeRoot, "variants", baseVariant, "variant.yaml");
+  check(
+    existsSync(baseVariantPath),
+    `no base variant at recipes/${chartPath}/variants/${baseVariant} (available: ${
+      existsSync(join(recipeRoot, "variants")) ? readdirSync(join(recipeRoot, "variants")).join(", ") : "none"
+    }) — pass --base <name>`,
+  );
+  const defaultVariant = readYaml(baseVariantPath);
   const chart = {
     repository: sourceLock.spec.repositoryName,
     repositoryURL: sourceLock.spec.repositoryURL,
     chart: sourceLock.spec.chart,
-    ref: sourceLock.spec.ref,
+    ref: sourceLock.spec.ref ?? `${sourceLock.spec.repositoryName}/${sourceLock.spec.chart}`,
     version: String(sourceLock.spec.version),
     namespace: defaultVariant.spec?.namespace ?? "default",
     releaseName: defaultVariant.spec?.releaseName ?? sourceLock.spec.chart,

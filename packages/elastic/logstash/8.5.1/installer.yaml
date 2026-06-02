@@ -6,7 +6,11 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "elastic/logstash default variant rendered from elastic/logstash@8.5.1"
+      name: "default"
+      path: "bases/default"
+    -
+      name: "ha"
+      path: "bases/ha"
+      description: "elastic/logstash ha variant rendered from elastic/logstash@8.5.1"

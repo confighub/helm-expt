@@ -1,0 +1,55 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "bitnami-zookeeper-13.8.7-ha-r001"
+  labels:
+    confighub.io/chart: "bitnami/zookeeper"
+    confighub.io/version: "13.8.7"
+    confighub.io/variant: "ha"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "ac9d09d452d221cb673fcdbc07767e7440402161c0e3a41811db20192768b01f"
+  objectCount: 7
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|StatefulSet|default|zookeeper"
+      kind: "StatefulSet"
+      name: "zookeeper"
+      namespace: "default"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|NetworkPolicy|default|zookeeper"
+      kind: "NetworkPolicy"
+      name: "zookeeper"
+      namespace: "default"
+    -
+      apiVersion: "policy/v1"
+      identity: "policy/v1|PodDisruptionBudget|default|zookeeper"
+      kind: "PodDisruptionBudget"
+      name: "zookeeper"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|default|zookeeper-scripts"
+      kind: "ConfigMap"
+      name: "zookeeper-scripts"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|zookeeper"
+      kind: "ServiceAccount"
+      name: "zookeeper"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|zookeeper"
+      kind: "Service"
+      name: "zookeeper"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|zookeeper-headless"
+      kind: "Service"
+      name: "zookeeper-headless"
+      namespace: "default"

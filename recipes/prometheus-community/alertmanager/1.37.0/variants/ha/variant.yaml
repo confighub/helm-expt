@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "ha"
+  labels:
+    confighub.io/chart: "prometheus-community/alertmanager"
+    confighub.io/version: "1.37.0"
+    confighub.io/variant: "ha"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "default"
+  releaseName: "alertmanager"
+  valuesProfile: "../../effective-values-ha.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"

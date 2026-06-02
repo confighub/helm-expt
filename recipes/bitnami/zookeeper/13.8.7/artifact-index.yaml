@@ -47,13 +47,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "ha"
     deferredVariants:
       []
   installerPackage:
     path: "packages/bitnami/zookeeper/13.8.7"
     installer: "packages/bitnami/zookeeper/13.8.7/installer.yaml"
     receipt: "recipes/bitnami/zookeeper/13.8.7/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "3973a58ed6b58954bfefb4b51c54b1ed59773f3d682eb3b073f131715d1e2813"
+    deterministicBundleSHA256: "b5607b35b457faecf1abe73ccf4a5d6b1d78d1de6f963ef866385aa80380cdeb"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -61,6 +62,11 @@ spec:
         path: "packages/bitnami/zookeeper/13.8.7/bases/default"
         default: true
         description: "bitnami/zookeeper default variant rendered from bitnami/zookeeper@13.8.7"
+      -
+        name: "ha"
+        path: "packages/bitnami/zookeeper/13.8.7/bases/ha"
+        default: false
+        description: "bitnami/zookeeper ha variant rendered from bitnami/zookeeper@13.8.7"
   variants:
     -
       name: "default"
@@ -124,3 +130,65 @@ spec:
               path: "recipes/bitnami/zookeeper/13.8.7/revisions/default/r001/receipts/install-gate.yaml"
               result: "allow"
               renderedObjectSetSHA256: "67672a9bfa85db38f8485736cd19f80ccec599fc17c2c5bb154e3c2feeb54bdb"
+    -
+      name: "ha"
+      variant: "recipes/bitnami/zookeeper/13.8.7/variants/ha/variant.yaml"
+      namespace: "default"
+      releaseName: "zookeeper"
+      valuesProfile: "recipes/bitnami/zookeeper/13.8.7/effective-values-ha.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "ha"
+        path: "packages/bitnami/zookeeper/13.8.7/bases/ha"
+        default: false
+        description: "bitnami/zookeeper ha variant rendered from bitnami/zookeeper@13.8.7"
+      setupCheck:
+        command: "cub installer setup --pull packages/bitnami/zookeeper/13.8.7 --base ha --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 7
+        cubInstallObjectCountIncludingSupport: 8
+        semanticObjectMatches: "7/7"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "ha-r001"
+          revision: "r001"
+          variantRevision: "recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "ac9d09d452d221cb673fcdbc07767e7440402161c0e3a41811db20192768b01f"
+          renderedObjects: "recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/rendered/object-inventory.yaml"
+          objectCount: 7
+          helmObjectCount: 7
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "7/7"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "ac9d09d452d221cb673fcdbc07767e7440402161c0e3a41811db20192768b01f"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "ac9d09d452d221cb673fcdbc07767e7440402161c0e3a41811db20192768b01f"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "ac9d09d452d221cb673fcdbc07767e7440402161c0e3a41811db20192768b01f"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "ac9d09d452d221cb673fcdbc07767e7440402161c0e3a41811db20192768b01f"

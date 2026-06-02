@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default |
+| Candidate variants | default, ha |
 | Control points | capability-profile, cluster-rbac, crds, dependency-lock, extension-slots, generated-facts, helm-equivalence, lifecycle-policy, rendered-manifest-scan, source-lock, stateful-storage, target-facts, tpl-extension-slots, variant-revision |
 
 ## Artifact Chain
@@ -43,12 +43,14 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/grafana/pyroscope/2.0.2/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/grafana/pyroscope/2.0.2/bases/default](../../../../packages/grafana/pyroscope/2.0.2/bases/default) | [recipes/grafana/pyroscope/2.0.2/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 18 | 19 | 18/18 | pass | warn | warn | none |
+| ha | [recipes/grafana/pyroscope/2.0.2/variants/ha/variant.yaml](variants/ha/variant.yaml) | [packages/grafana/pyroscope/2.0.2/bases/ha](../../../../packages/grafana/pyroscope/2.0.2/bases/ha) | [recipes/grafana/pyroscope/2.0.2/revisions/ha/r001/variant-revision.yaml](revisions/ha/r001/variant-revision.yaml) | 18 |  | 18/18 | pass |  | allow | none |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
 | default | [packages/grafana/pyroscope/2.0.2/bases/default](../../../../packages/grafana/pyroscope/2.0.2/bases/default) | yes | grafana/pyroscope default variant rendered from grafana/pyroscope@2.0.2 |
+| ha | [packages/grafana/pyroscope/2.0.2/bases/ha](../../../../packages/grafana/pyroscope/2.0.2/bases/ha) | no | grafana/pyroscope ha variant rendered from grafana/pyroscope@2.0.2 |
 
 ## Receipts
 
@@ -58,6 +60,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | default | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/grafana/pyroscope/2.0.2/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](revisions/default/r001/receipts/helm-equivalence-receipt.yaml) |
 | default | r001 | scan | ScanReceipt | warn | [recipes/grafana/pyroscope/2.0.2/revisions/default/r001/receipts/scan-receipt.yaml](revisions/default/r001/receipts/scan-receipt.yaml) |
 | default | r001 | installGate | InstallGate | warn | [recipes/grafana/pyroscope/2.0.2/revisions/default/r001/receipts/install-gate.yaml](revisions/default/r001/receipts/install-gate.yaml) |
+| ha | r001 | render | RenderReceipt | recorded | [recipes/grafana/pyroscope/2.0.2/revisions/ha/r001/receipts/render-receipt.yaml](revisions/ha/r001/receipts/render-receipt.yaml) |
+| ha | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/grafana/pyroscope/2.0.2/revisions/ha/r001/receipts/helm-equivalence-receipt.yaml](revisions/ha/r001/receipts/helm-equivalence-receipt.yaml) |
+| ha | r001 | scan | ScanReceipt |  | [recipes/grafana/pyroscope/2.0.2/revisions/ha/r001/receipts/scan-receipt.yaml](revisions/ha/r001/receipts/scan-receipt.yaml) |
+| ha | r001 | installGate | InstallGate | allow | [recipes/grafana/pyroscope/2.0.2/revisions/ha/r001/receipts/install-gate.yaml](revisions/ha/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

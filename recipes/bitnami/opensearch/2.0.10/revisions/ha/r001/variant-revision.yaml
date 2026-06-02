@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "ha-r001"
+  labels:
+    confighub.io/chart: "bitnami/opensearch"
+    confighub.io/version: "2.0.10"
+    confighub.io/variant: "ha"
+spec:
+  variant: "../../../variants/ha/variant.yaml"
+  revision: "r001"
+  digestInputs:
+    rendererSHA256: "ba79fcab7c93c102de93969d97ccfcd4b6e07b1276ab45f2fc137c239dce0631"
+    renderedObjectSetSHA256: "c419606d1875905b2e84126b7b1d5d33c18f7cf34c0dd8048ba6e9221db36564"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"

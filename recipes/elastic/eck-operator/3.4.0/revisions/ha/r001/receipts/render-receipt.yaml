@@ -1,0 +1,14 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "ha-r001"
+  labels:
+    confighub.io/chart: "elastic/eck-operator"
+    confighub.io/version: "3.4.0"
+    confighub.io/variant: "ha"
+spec:
+  renderer: "helm"
+  outputs:
+    renderedObjectSetSHA256: "20bc4c9cdd28f35aa9c1f646c0af7bc092faac39f8ce3e3606861b98789ee54a"
+    objectCount: 22
+    deterministicAcrossTwoLocalRenders: true

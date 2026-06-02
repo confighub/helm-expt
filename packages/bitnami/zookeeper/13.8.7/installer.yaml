@@ -6,7 +6,11 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "bitnami/zookeeper default variant rendered from bitnami/zookeeper@13.8.7"
+      name: "default"
+      path: "bases/default"
+    -
+      name: "ha"
+      path: "bases/ha"
+      description: "bitnami/zookeeper ha variant rendered from bitnami/zookeeper@13.8.7"

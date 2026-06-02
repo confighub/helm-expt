@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "ha-r001"
+  labels:
+    confighub.io/chart: "bitnami/spark"
+    confighub.io/version: "10.0.3"
+    confighub.io/variant: "ha"
+spec:
+  variant: "../../../variants/ha/variant.yaml"
+  revision: "r001"
+  digestInputs:
+    rendererSHA256: "ba79fcab7c93c102de93969d97ccfcd4b6e07b1276ab45f2fc137c239dce0631"
+    renderedObjectSetSHA256: "55b44c0927f07867cba166634cbf1440028df42dabc48870953a2ddc6c2fbe75"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"

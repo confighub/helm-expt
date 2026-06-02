@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "elastic-eck-operator-3.4.0-ha"
+  labels:
+    confighub.io/chart: "elastic/eck-operator"
+    confighub.io/version: "3.4.0"
+    confighub.io/variant: "ha"
+spec:
+  profile: "ha"
+  renderDelta: "replicaCount=2"
+  mergedValuesCaptured: false

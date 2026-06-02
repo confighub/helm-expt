@@ -48,13 +48,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "ha"
     deferredVariants:
       []
   installerPackage:
     path: "packages/bitnami/elasticsearch/22.1.6"
     installer: "packages/bitnami/elasticsearch/22.1.6/installer.yaml"
     receipt: "recipes/bitnami/elasticsearch/22.1.6/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "ed2ac25a86cee7ef69f1843a08427f704560c5a31cd327daae11fa0cfffb7b41"
+    deterministicBundleSHA256: "feb192f28429e4d48cce9f582db0661c8ed74d5d578612853e5bf0305da1569e"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -62,6 +63,11 @@ spec:
         path: "packages/bitnami/elasticsearch/22.1.6/bases/default"
         default: true
         description: "bitnami/elasticsearch default variant rendered from bitnami/elasticsearch@22.1.6"
+      -
+        name: "ha"
+        path: "packages/bitnami/elasticsearch/22.1.6/bases/ha"
+        default: false
+        description: "bitnami/elasticsearch ha variant rendered from bitnami/elasticsearch@22.1.6"
   variants:
     -
       name: "default"
@@ -125,3 +131,65 @@ spec:
               path: "recipes/bitnami/elasticsearch/22.1.6/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "2dea059172595f3477271eadd1aea69c4274d15a8029a55afb176cb5ffd66217"
+    -
+      name: "ha"
+      variant: "recipes/bitnami/elasticsearch/22.1.6/variants/ha/variant.yaml"
+      namespace: "default"
+      releaseName: "elasticsearch"
+      valuesProfile: "recipes/bitnami/elasticsearch/22.1.6/effective-values-ha.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "ha"
+        path: "packages/bitnami/elasticsearch/22.1.6/bases/ha"
+        default: false
+        description: "bitnami/elasticsearch ha variant rendered from bitnami/elasticsearch@22.1.6"
+      setupCheck:
+        command: "cub installer setup --pull packages/bitnami/elasticsearch/22.1.6 --base ha --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 21
+        cubInstallObjectCountIncludingSupport: 22
+        semanticObjectMatches: "21/21"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "ha-r001"
+          revision: "r001"
+          variantRevision: "recipes/bitnami/elasticsearch/22.1.6/revisions/ha/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "9ae3685e24863d4a3e6b8af8a7c2613d6123c927f9518be12d68370e2d0c3db4"
+          renderedObjects: "recipes/bitnami/elasticsearch/22.1.6/revisions/ha/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/elasticsearch/22.1.6/revisions/ha/r001/rendered/object-inventory.yaml"
+          objectCount: 21
+          helmObjectCount: 21
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "21/21"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/bitnami/elasticsearch/22.1.6/revisions/ha/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "9ae3685e24863d4a3e6b8af8a7c2613d6123c927f9518be12d68370e2d0c3db4"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/bitnami/elasticsearch/22.1.6/revisions/ha/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "9ae3685e24863d4a3e6b8af8a7c2613d6123c927f9518be12d68370e2d0c3db4"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/bitnami/elasticsearch/22.1.6/revisions/ha/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "9ae3685e24863d4a3e6b8af8a7c2613d6123c927f9518be12d68370e2d0c3db4"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/bitnami/elasticsearch/22.1.6/revisions/ha/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "9ae3685e24863d4a3e6b8af8a7c2613d6123c927f9518be12d68370e2d0c3db4"

@@ -6,7 +6,11 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "bitnami/spark default variant rendered from bitnami/spark@10.0.3"
+      name: "default"
+      path: "bases/default"
+    -
+      name: "ha"
+      path: "bases/ha"
+      description: "bitnami/spark ha variant rendered from bitnami/spark@10.0.3"

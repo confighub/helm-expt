@@ -1,17 +1,16 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "Recipe"
 metadata:
-  name: "nats-nats"
-  version: "2.14.0"
   labels:
     confighub.io/chart-ref: "nats/nats"
     confighub.io/chart-version: "2.14.0"
     confighub.io/proof-tier: "next80-full"
+  name: "nats-nats"
+  version: "2.14.0"
 spec:
   chartRef:
-    sourceLock: "source-lock.yaml"
     dependencyLock: "dependency-lock.yaml"
-  importMode: "render-and-vendor"
+    sourceLock: "source-lock.yaml"
   currentExecutableFixture:
     installerPackage: "packages/nats/nats/2.14.0"
     setupCommand:
@@ -23,5 +22,7 @@ spec:
       - "--non-interactive"
       - "--namespace"
       - "default"
+  importMode: "render-and-vendor"
   variants:
     - "variants/default/variant.yaml"
+    - "variants/ha/variant.yaml"

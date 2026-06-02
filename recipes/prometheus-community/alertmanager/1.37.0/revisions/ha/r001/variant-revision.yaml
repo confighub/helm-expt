@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "ha-r001"
+  labels:
+    confighub.io/chart: "prometheus-community/alertmanager"
+    confighub.io/version: "1.37.0"
+    confighub.io/variant: "ha"
+spec:
+  variant: "../../../variants/ha/variant.yaml"
+  revision: "r001"
+  digestInputs:
+    rendererSHA256: "ba79fcab7c93c102de93969d97ccfcd4b6e07b1276ab45f2fc137c239dce0631"
+    renderedObjectSetSHA256: "a016dbf7647ff32935788288023d6dbd78b924f6cca645ef2081fe1d8856f8b4"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"

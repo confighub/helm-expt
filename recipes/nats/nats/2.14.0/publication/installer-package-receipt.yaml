@@ -7,6 +7,10 @@ spec:
     repository: "nats"
     name: "nats"
     version: "2.14.0"
+  deterministicBundle:
+    command: "cub installer package packages/nats/nats/2.14.0 -o <tmp>/nats-nats-2.14.0.tgz"
+    sha256: "61a48732e9ae3cd77b6c4f5649eb506a2ea99ec528787138eed297ae5c3f685b"
+    byteIdenticalAcrossTwoLocalBundles: true
   package:
     path: "packages/nats/nats/2.14.0"
     name: "nats-nats"
@@ -25,18 +29,32 @@ spec:
         sha256: "395344e7541927ec138080eda2a92f6ce69532966040ce5d689f9852a4cee8da"
         bytes: 7360
       -
+        path: "bases/ha/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/ha/upstream.yaml"
+        sha256: "2d8fcfe5bea7f482e322fdba1cf800faedf835a13eef32d042e43ae6254d0a96"
+        bytes: 7763
+      -
         path: "installer.yaml"
-        sha256: "cdbd8ef813455f4309000ddfac216e08c564b6168166460747f3d7b1f8f95d6c"
-        bytes: 282
-  deterministicBundle:
-    command: "cub installer package packages/nats/nats/2.14.0 -o <tmp>/nats-nats-2-14-0.tgz"
-    sha256: "584668d683b7645e0226bacdcee8b936734be3bbbc3d36ee8aafc1b2b298695d"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "5498789c5f95d4ce3e88408c1328ff7da48ce4061fafae211c3229d430457cf7"
+        bytes: 401
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
       base: "default"
       command: "cub installer setup --pull packages/nats/nats/2.14.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 8
+      helmReleaseObjectCount: 7
+      semanticObjectMatches: "7/7"
+      separatedSecretCount: 1
+      variant: "default"
+    -
+      variant: "ha"
+      base: "ha"
+      command: "cub installer setup --pull packages/nats/nats/2.14.0 --base ha --work-dir <tmp> --non-interactive --namespace default"
       helmReleaseObjectCount: 7
       cubInstallObjectCountIncludingSupport: 8
       semanticObjectMatches: "7/7"

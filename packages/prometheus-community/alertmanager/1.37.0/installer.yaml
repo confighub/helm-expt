@@ -6,7 +6,11 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "prometheus-community/alertmanager default variant rendered from prometheus-community/alertmanager@1.37.0"
+      name: "default"
+      path: "bases/default"
+    -
+      name: "ha"
+      path: "bases/ha"
+      description: "prometheus-community/alertmanager ha variant rendered from prometheus-community/alertmanager@1.37.0"

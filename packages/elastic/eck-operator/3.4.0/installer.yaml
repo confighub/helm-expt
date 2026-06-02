@@ -6,7 +6,11 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "elastic/eck-operator default variant rendered from elastic/eck-operator@3.4.0"
+      name: "default"
+      path: "bases/default"
+    -
+      name: "ha"
+      path: "bases/ha"
+      description: "elastic/eck-operator ha variant rendered from elastic/eck-operator@3.4.0"
