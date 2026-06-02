@@ -47,13 +47,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "no-crds"
     deferredVariants:
       []
   installerPackage:
     path: "packages/external-dns/external-dns/1.21.1"
     installer: "packages/external-dns/external-dns/1.21.1/installer.yaml"
     receipt: "recipes/external-dns/external-dns/1.21.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "8daed864e059a43c682dc97afd3820c577e2ecb1364e6bd2b4933beedac600c5"
+    deterministicBundleSHA256: "15bedfd89d5eeacf58f69a357920d25ebc1e1805516f56789744f5791b36e68c"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -61,6 +62,11 @@ spec:
         path: "packages/external-dns/external-dns/1.21.1/bases/default"
         default: true
         description: "external-dns/external-dns default variant rendered from external-dns/external-dns@1.21.1"
+      -
+        name: "no-crds"
+        path: "packages/external-dns/external-dns/1.21.1/bases/no-crds"
+        default: false
+        description: "external-dns/external-dns no-crds variant rendered from external-dns/external-dns@1.21.1"
   variants:
     -
       name: "default"
@@ -124,3 +130,65 @@ spec:
               path: "recipes/external-dns/external-dns/1.21.1/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "764caa006e0e36ed1ad27659090d71a9ca5ff4d671962684b49500971c57ee74"
+    -
+      name: "no-crds"
+      variant: "recipes/external-dns/external-dns/1.21.1/variants/no-crds/variant.yaml"
+      namespace: "default"
+      releaseName: "external-dns"
+      valuesProfile: "recipes/external-dns/external-dns/1.21.1/effective-values-no-crds.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "no-crds"
+        path: "packages/external-dns/external-dns/1.21.1/bases/no-crds"
+        default: false
+        description: "external-dns/external-dns no-crds variant rendered from external-dns/external-dns@1.21.1"
+      setupCheck:
+        command: "cub installer setup --pull packages/external-dns/external-dns/1.21.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 5
+        cubInstallObjectCountIncludingSupport: 6
+        semanticObjectMatches: "5/5"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "no-crds-r001"
+          revision: "r001"
+          variantRevision: "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf"
+          renderedObjects: "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          objectCount: 5
+          helmObjectCount: 5
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "5/5"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf"

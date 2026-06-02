@@ -6,7 +6,11 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "nats/nack default variant rendered from nats/nack@0.34.0"
+      name: "default"
+      path: "bases/default"
+    -
+      name: "no-crds"
+      path: "bases/no-crds"
+      description: "nats/nack no-crds variant rendered from nats/nack@0.34.0"

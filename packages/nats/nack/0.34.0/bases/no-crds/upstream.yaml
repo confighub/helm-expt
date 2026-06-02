@@ -1,0 +1,127 @@
+---
+# Source: nack/templates/rbac-jetstream-controller.yml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: jetstream-controller
+  namespace: default
+  labels:
+    app: nack
+    chart: nack-0.34.0
+---
+# Source: nack/templates/rbac-jetstream-controller.yml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: jetstream-controller-cluster-role
+  labels:
+    app: nack
+    chart: nack-0.34.0
+rules:
+- apiGroups:
+  - ''
+  resources:
+  - events
+  verbs:
+  - create
+  - update
+  - patch
+- apiGroups:
+  - ''
+  resources:
+  - secrets
+  verbs:
+  - get
+  - watch
+  - list
+- apiGroups:
+  - jetstream.nats.io
+  resources:
+  - streams
+  - streams/status
+  - objectstores
+  - objectstores/status
+  - keyvalues
+  - keyvalues/status
+  - consumers
+  - consumers/status
+  - streamtemplates
+  - streamtemplates/status
+  - accounts
+  - accounts/status
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - patch
+  - update
+  - delete
+---
+# Source: nack/templates/rbac-jetstream-controller.yml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: jetstream-controller-cluster-role-binding
+  labels:
+    app: nack
+    chart: nack-0.34.0
+subjects:
+- kind: ServiceAccount
+  name: jetstream-controller
+  namespace: default
+roleRef:
+  kind: ClusterRole
+  name: jetstream-controller-cluster-role
+  apiGroup: rbac.authorization.k8s.io
+---
+# Source: nack/templates/deployment-jetstream-controller.yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nack
+  namespace: default
+  labels:
+    app: nack
+    chart: nack-0.34.0
+spec:
+  selector:
+    matchLabels:
+      app: nack
+
+  # Singleton Replica per JetStream controller
+  replicas: 1
+
+  template:
+    metadata:
+      labels:
+        app: nack
+        chart: nack-0.34.0
+    spec:
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name : runtime
+        emptyDir : {}
+
+      serviceAccountName: jetstream-controller
+      containers:
+        - name: jsc
+          image: natsio/jetstream-controller:0.23.0
+          imagePullPolicy: IfNotPresent
+          workingDir: /nack
+          command:
+          - /jetstream-controller
+          args:
+          - -crd-connect
+          env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          volumeMounts:
+          - name: runtime
+            mountPath: /nack

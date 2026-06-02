@@ -7,6 +7,10 @@ spec:
     repository: "traefik"
     name: "traefik"
     version: "40.2.0"
+  deterministicBundle:
+    command: "cub installer package packages/traefik/traefik/40.2.0 -o <tmp>/traefik-traefik-40.2.0.tgz"
+    sha256: "5d9c0bdf6306b0c196fbee35312d89a6df807bbbae4c64f49f831b8f8959eaa9"
+    byteIdenticalAcrossTwoLocalBundles: true
   package:
     path: "packages/traefik/traefik/40.2.0"
     name: "traefik-traefik"
@@ -25,21 +29,35 @@ spec:
         sha256: "84b1e950901024fda7bb0be73aba239015712ae0c3d4cb0ecabcb091abc53c09"
         bytes: 428713
       -
+        path: "bases/no-crds/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/no-crds/upstream.yaml"
+        sha256: "9db056bdffd213bbce847b96122b40e879d0e47f7b8d57074f62a020ed89c9ce"
+        bytes: 6938
+      -
         path: "installer.yaml"
-        sha256: "2e29e532424d4c7612e220f306ef0003a197a514a637db64b2c3a30eed9bb1f7"
-        bytes: 300
-  deterministicBundle:
-    command: "cub installer package packages/traefik/traefik/40.2.0 -o <tmp>/traefik-traefik-40-2-0.tgz"
-    sha256: "d4c7df2e2383c00ea04011aacb8bcf6728944031baf38692828b79f6d5d13057"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "f3689d76fe8d3ae0211a7125b70e7a261eb3d1d487aecc5b55f6afee885753fc"
+        bytes: 446
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
       base: "default"
       command: "cub installer setup --pull packages/traefik/traefik/40.2.0 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 31
       cubInstallObjectCountIncludingSupport: 32
+      helmReleaseObjectCount: 31
       semanticObjectMatches: "31/31"
+      separatedSecretCount: 0
+      variant: "default"
+    -
+      variant: "no-crds"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/traefik/traefik/40.2.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 6
+      cubInstallObjectCountIncludingSupport: 7
+      semanticObjectMatches: "6/6"
       separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"

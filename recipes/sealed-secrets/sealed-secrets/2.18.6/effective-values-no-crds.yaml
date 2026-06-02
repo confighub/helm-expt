@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "sealed-secrets-sealed-secrets-2.18.6-no-crds"
+  labels:
+    confighub.io/chart: "sealed-secrets/sealed-secrets"
+    confighub.io/version: "2.18.6"
+    confighub.io/variant: "no-crds"
+spec:
+  profile: "no-crds"
+  renderDelta: ""
+  mergedValuesCaptured: false

@@ -48,13 +48,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "no-crds"
     deferredVariants:
       []
   installerPackage:
     path: "packages/sealed-secrets/sealed-secrets/2.18.6"
     installer: "packages/sealed-secrets/sealed-secrets/2.18.6/installer.yaml"
     receipt: "recipes/sealed-secrets/sealed-secrets/2.18.6/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "ebdde8af99c2b4df925428f3e30d0c1cae02fec87cc62023bf0af742221db9c6"
+    deterministicBundleSHA256: "a08f22c8743f84b212c686caf18c1d213662d30b2f1f99712b76887a243d9508"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -62,6 +63,11 @@ spec:
         path: "packages/sealed-secrets/sealed-secrets/2.18.6/bases/default"
         default: true
         description: "sealed-secrets/sealed-secrets default variant rendered from sealed-secrets/sealed-secrets@2.18.6"
+      -
+        name: "no-crds"
+        path: "packages/sealed-secrets/sealed-secrets/2.18.6/bases/no-crds"
+        default: false
+        description: "sealed-secrets/sealed-secrets no-crds variant rendered from sealed-secrets/sealed-secrets@2.18.6"
   variants:
     -
       name: "default"
@@ -125,3 +131,65 @@ spec:
               path: "recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "096c66f4ea312aa7c3a4fc2be815b64271c3f1c829c8914b5c96c190aa22a83e"
+    -
+      name: "no-crds"
+      variant: "recipes/sealed-secrets/sealed-secrets/2.18.6/variants/no-crds/variant.yaml"
+      namespace: "default"
+      releaseName: "sealed-secrets"
+      valuesProfile: "recipes/sealed-secrets/sealed-secrets/2.18.6/effective-values-no-crds.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "no-crds"
+        path: "packages/sealed-secrets/sealed-secrets/2.18.6/bases/no-crds"
+        default: false
+        description: "sealed-secrets/sealed-secrets no-crds variant rendered from sealed-secrets/sealed-secrets@2.18.6"
+      setupCheck:
+        command: "cub installer setup --pull packages/sealed-secrets/sealed-secrets/2.18.6 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 10
+        cubInstallObjectCountIncludingSupport: 11
+        semanticObjectMatches: "10/10"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "no-crds-r001"
+          revision: "r001"
+          variantRevision: "recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/no-crds/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "8c271440bc9064522738add874400229e0dc0de35e39818aa29433f7d16c243c"
+          renderedObjects: "recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/no-crds/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          objectCount: 10
+          helmObjectCount: 10
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "10/10"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/no-crds/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "8c271440bc9064522738add874400229e0dc0de35e39818aa29433f7d16c243c"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "8c271440bc9064522738add874400229e0dc0de35e39818aa29433f7d16c243c"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/no-crds/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "8c271440bc9064522738add874400229e0dc0de35e39818aa29433f7d16c243c"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/no-crds/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "8c271440bc9064522738add874400229e0dc0de35e39818aa29433f7d16c243c"

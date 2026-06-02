@@ -48,13 +48,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "no-crds"
     deferredVariants:
       []
   installerPackage:
     path: "packages/aqua/trivy-operator/0.32.1"
     installer: "packages/aqua/trivy-operator/0.32.1/installer.yaml"
     receipt: "recipes/aqua/trivy-operator/0.32.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "8c555a67346fd06cc31082171c3ee830bf55710e20c9e7737e4c10f189011e9b"
+    deterministicBundleSHA256: "debcc8623ee9a61303bdb7df297c62f46ba17dc85355b7d35f0bd5257e000ef5"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -62,6 +63,11 @@ spec:
         path: "packages/aqua/trivy-operator/0.32.1/bases/default"
         default: true
         description: "aqua/trivy-operator default variant rendered from aqua/trivy-operator@0.32.1"
+      -
+        name: "no-crds"
+        path: "packages/aqua/trivy-operator/0.32.1/bases/no-crds"
+        default: false
+        description: "aqua/trivy-operator no-crds variant rendered from aqua/trivy-operator@0.32.1"
   variants:
     -
       name: "default"
@@ -125,3 +131,65 @@ spec:
               path: "recipes/aqua/trivy-operator/0.32.1/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "4728643a42924d6af2c0b2b4f1f616938c31b6271ed7e32bac2ce36e5e339a25"
+    -
+      name: "no-crds"
+      variant: "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
+      namespace: "default"
+      releaseName: "trivy-operator"
+      valuesProfile: "recipes/aqua/trivy-operator/0.32.1/effective-values-no-crds.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "no-crds"
+        path: "packages/aqua/trivy-operator/0.32.1/bases/no-crds"
+        default: false
+        description: "aqua/trivy-operator no-crds variant rendered from aqua/trivy-operator@0.32.1"
+      setupCheck:
+        command: "cub installer setup --pull packages/aqua/trivy-operator/0.32.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 21
+        cubInstallObjectCountIncludingSupport: 22
+        semanticObjectMatches: "21/21"
+        separatedSecretCount: 2
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "no-crds-r001"
+          revision: "r001"
+          variantRevision: "recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "875c8aa838c2841aeda6fbd5ffe95e4f7e2c6a36d64194715bb4039aff0ed492"
+          renderedObjects: "recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          objectCount: 21
+          helmObjectCount: 21
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "21/21"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "875c8aa838c2841aeda6fbd5ffe95e4f7e2c6a36d64194715bb4039aff0ed492"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "875c8aa838c2841aeda6fbd5ffe95e4f7e2c6a36d64194715bb4039aff0ed492"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "875c8aa838c2841aeda6fbd5ffe95e4f7e2c6a36d64194715bb4039aff0ed492"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "875c8aa838c2841aeda6fbd5ffe95e4f7e2c6a36d64194715bb4039aff0ed492"

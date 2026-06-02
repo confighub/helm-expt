@@ -1,0 +1,1203 @@
+---
+# Source: vertical-pod-autoscaler/templates/admission-controller-pdb.yaml
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: vertical-pod-autoscaler-admission-controller
+  namespace: default
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: admission-controller
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-admission-controller
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: vertical-pod-autoscaler
+      app.kubernetes.io/instance: vertical-pod-autoscaler
+      app.kubernetes.io/component: admission-controller
+  minAvailable: 1
+---
+# Source: vertical-pod-autoscaler/templates/recommender-pdb.yaml
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: vertical-pod-autoscaler-recommender
+  namespace: default
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: recommender
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-recommender
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: vertical-pod-autoscaler
+      app.kubernetes.io/instance: vertical-pod-autoscaler
+      app.kubernetes.io/component: recommender
+  minAvailable: 1
+---
+# Source: vertical-pod-autoscaler/templates/updater-pdb.yaml
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: vertical-pod-autoscaler-updater
+  namespace: default
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: updater
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-updater
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: vertical-pod-autoscaler
+      app.kubernetes.io/instance: vertical-pod-autoscaler
+      app.kubernetes.io/component: updater
+  minAvailable: 1
+---
+# Source: vertical-pod-autoscaler/templates/admission-contoller-serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: vertical-pod-autoscaler-admission-controller
+  namespace: default
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: admission-controller
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-admission-controller
+---
+# Source: vertical-pod-autoscaler/templates/recommender-serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: vertical-pod-autoscaler-recommender
+  namespace: default
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: recommender
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-recommender
+---
+# Source: vertical-pod-autoscaler/templates/updater-serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: vertical-pod-autoscaler-updater
+  namespace: default
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: updater
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-updater
+---
+# Source: vertical-pod-autoscaler/templates/admission-controller-clusterrole.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: vertical-pod-autoscaler-admission-controller
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: admission-controller
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-admission-controller
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+      - configmaps
+      - nodes
+      - limitranges
+      - replicationcontrollers
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - apps
+    resources:
+      - deployments
+      - replicasets
+      - daemonsets
+      - statefulsets
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - batch
+    resources:
+      - jobs
+      - cronjobs
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - autoscaling.k8s.io
+    resources:
+      - verticalpodautoscalers
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    verbs:
+      - create
+      - update
+      - get
+      - list
+      - watch
+  # Allow access to scale subresources for resolving target selectors
+  - apiGroups:
+      - "*"
+    resources:
+      - "*/scale"
+    verbs:
+      - get
+      - watch
+---
+# Source: vertical-pod-autoscaler/templates/recommender-clusterroles.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: vertical-pod-autoscaler-recommender-metrics-reader
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: recommender
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-recommender
+rules:
+  - apiGroups:
+      - "metrics.k8s.io"
+    resources:
+      - pods
+    verbs:
+      - get
+      - list
+---
+# Source: vertical-pod-autoscaler/templates/recommender-clusterroles.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: vertical-pod-autoscaler-recommender-actor
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: recommender
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-recommender
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+      - nodes
+      - limitranges
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ""
+      - events.k8s.io
+    resources:
+      - events
+    verbs:
+      - create
+      - get
+      - list
+      - watch
+      - patch
+      - update
+  - apiGroups:
+      - "poc.autoscaling.k8s.io"
+    resources:
+      - verticalpodautoscalers
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - "autoscaling.k8s.io"
+    resources:
+      - verticalpodautoscalers
+    verbs:
+      - get
+      - list
+      - watch
+---
+# Source: vertical-pod-autoscaler/templates/recommender-clusterroles.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: vertical-pod-autoscaler-recommender-status-actor
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: recommender
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-recommender
+rules:
+  - apiGroups:
+      - "autoscaling.k8s.io"
+    resources:
+      - verticalpodautoscalers/status
+    verbs:
+      - get
+      - patch
+---
+# Source: vertical-pod-autoscaler/templates/recommender-clusterroles.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: vertical-pod-autoscaler-recommender-checkpoint-actor
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: recommender
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-recommender
+rules:
+  - apiGroups:
+      - "poc.autoscaling.k8s.io"
+    resources:
+      - verticalpodautoscalercheckpoints
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - patch
+      - delete
+  - apiGroups:
+      - "autoscaling.k8s.io"
+    resources:
+      - verticalpodautoscalercheckpoints
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - namespaces
+    verbs:
+      - get
+      - list
+---
+# Source: vertical-pod-autoscaler/templates/recommender-clusterroles.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: vertical-pod-autoscaler-recommender-target-reader
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: recommender
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-recommender
+rules:
+  - apiGroups:
+      - '*'
+    resources:
+      - '*/scale'
+    verbs:
+      - get
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - replicationcontrollers
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - apps
+    resources:
+      - daemonsets
+      - deployments
+      - replicasets
+      - statefulsets
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - batch
+    resources:
+      - jobs
+      - cronjobs
+    verbs:
+      - get
+      - list
+      - watch
+---
+# Source: vertical-pod-autoscaler/templates/updater-clusterrole.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: vertical-pod-autoscaler-updater-in-place
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: updater
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-updater
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods/resize
+      - pods
+    verbs:
+    - patch
+---
+# Source: vertical-pod-autoscaler/templates/updater-clusterrole.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: vertical-pod-autoscaler-updater-actor
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+      - nodes
+      - limitranges
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ""
+      - events.k8s.io
+    resources:
+      - events
+    verbs:
+      - create
+      - get
+      - list
+      - watch
+      - patch
+      - update
+  - apiGroups:
+      - "poc.autoscaling.k8s.io"
+    resources:
+      - verticalpodautoscalers
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - "autoscaling.k8s.io"
+    resources:
+      - verticalpodautoscalers
+    verbs:
+      - get
+      - list
+      - watch
+---
+# Source: vertical-pod-autoscaler/templates/updater-clusterrole.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: vertical-pod-autoscaler-updater-evictioner
+rules:
+  - apiGroups:
+      - "apps"
+      - "extensions"
+    resources:
+      - replicasets
+    verbs:
+      - get
+  - apiGroups:
+      - ""
+    resources:
+      - pods/eviction
+    verbs:
+      - create
+---
+# Source: vertical-pod-autoscaler/templates/updater-clusterrole.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: vertical-pod-autoscaler-updater-target-reader
+rules:
+  - apiGroups:
+      - '*'
+    resources:
+      - '*/scale'
+    verbs:
+      - get
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - replicationcontrollers
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - apps
+    resources:
+      - daemonsets
+      - deployments
+      - replicasets
+      - statefulsets
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - batch
+    resources:
+      - jobs
+      - cronjobs
+    verbs:
+      - get
+      - list
+      - watch
+---
+# Source: vertical-pod-autoscaler/templates/updater-clusterrole.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: vertical-pod-autoscaler-updater-status-reader
+rules:
+  - apiGroups:
+      - "coordination.k8s.io"
+    resources:
+      - leases
+    verbs:
+      - get
+      - list
+      - watch
+---
+# Source: vertical-pod-autoscaler/templates/admission-controller-clusterrolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: vertical-pod-autoscaler-admission-controller
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: admission-controller
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-admission-controller
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: vertical-pod-autoscaler-admission-controller
+subjects:
+  - kind: ServiceAccount
+    name: vertical-pod-autoscaler-admission-controller
+    namespace: default
+---
+# Source: vertical-pod-autoscaler/templates/recommender-clusterrolebindings.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: vertical-pod-autoscaler-recommender-metrics-reader
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: recommender
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-recommender
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: vertical-pod-autoscaler-recommender-metrics-reader
+subjects:
+  - kind: ServiceAccount
+    name: vertical-pod-autoscaler-recommender
+    namespace: default
+---
+# Source: vertical-pod-autoscaler/templates/recommender-clusterrolebindings.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: vertical-pod-autoscaler-recommender-actor
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: recommender
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-recommender
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: vertical-pod-autoscaler-recommender-actor
+subjects:
+  - kind: ServiceAccount
+    name: vertical-pod-autoscaler-recommender
+    namespace: default
+---
+# Source: vertical-pod-autoscaler/templates/recommender-clusterrolebindings.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: vertical-pod-autoscaler-recommender-status-actor
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: recommender
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-recommender
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: vertical-pod-autoscaler-recommender-status-actor
+subjects:
+  - kind: ServiceAccount
+    name: vertical-pod-autoscaler-recommender
+    namespace: default
+---
+# Source: vertical-pod-autoscaler/templates/recommender-clusterrolebindings.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: vertical-pod-autoscaler-recommender-checkpoint-actor
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: recommender
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-recommender
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: vertical-pod-autoscaler-recommender-checkpoint-actor
+subjects:
+  - kind: ServiceAccount
+    name: vertical-pod-autoscaler-recommender
+    namespace: default
+---
+# Source: vertical-pod-autoscaler/templates/recommender-clusterrolebindings.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: vertical-pod-autoscaler-recommender-target-reader
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: recommender
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-recommender
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: vertical-pod-autoscaler-recommender-target-reader
+subjects:
+  - kind: ServiceAccount
+    name: vertical-pod-autoscaler-recommender
+    namespace: default
+---
+# Source: vertical-pod-autoscaler/templates/updater-clusterrolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: vertical-pod-autoscaler-updater-in-place-binding
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: updater
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-updater
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: vertical-pod-autoscaler-updater-in-place
+subjects:
+  - kind: ServiceAccount
+    name: vertical-pod-autoscaler-updater
+    namespace: default
+---
+# Source: vertical-pod-autoscaler/templates/updater-clusterrolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: vertical-pod-autoscaler-updater-actor-binding
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: updater
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-updater
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: vertical-pod-autoscaler-updater-actor
+subjects:
+  - kind: ServiceAccount
+    name: vertical-pod-autoscaler-updater
+    namespace: default
+---
+# Source: vertical-pod-autoscaler/templates/updater-clusterrolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: vertical-pod-autoscaler-updater-target-reader-binding
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: updater
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-updater
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: vertical-pod-autoscaler-updater-target-reader
+subjects:
+  - kind: ServiceAccount
+    name: vertical-pod-autoscaler-updater
+    namespace: default
+---
+# Source: vertical-pod-autoscaler/templates/updater-clusterrolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: vertical-pod-autoscaler-updater-evictioner-binding
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: updater
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-updater
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: vertical-pod-autoscaler-updater-evictioner
+subjects:
+  - kind: ServiceAccount
+    name: vertical-pod-autoscaler-updater
+    namespace: default
+---
+# Source: vertical-pod-autoscaler/templates/updater-clusterrolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: vertical-pod-autoscaler-updater-status-reader-binding
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: updater
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-updater
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: vertical-pod-autoscaler-updater-status-reader
+subjects:
+  - kind: ServiceAccount
+    name: vertical-pod-autoscaler-updater
+    namespace: default
+---
+# Source: vertical-pod-autoscaler/templates/recommender-leader-election-rbac.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: vertical-pod-autoscaler-recommender-leader-locking
+  namespace: default
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: recommender
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-recommender
+rules:
+  - apiGroups:
+      - "coordination.k8s.io"
+    resources:
+      - leases
+    verbs:
+      - create
+  - apiGroups:
+      - "coordination.k8s.io"
+    resourceNames:
+      - vpa-recommender-lease
+    resources:
+      - leases
+    verbs:
+      - get
+      - watch
+      - update
+---
+# Source: vertical-pod-autoscaler/templates/updater-role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: vertical-pod-autoscaler-updater-leader-locking
+  namespace: default
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: updater
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-updater
+rules:
+  - apiGroups:
+      - "coordination.k8s.io"
+    resources:
+      - leases
+    verbs:
+      - create
+  - apiGroups:
+      - "coordination.k8s.io"
+    resourceNames:
+      - vpa-updater-lease
+    resources:
+      - leases
+    verbs:
+      - get
+      - watch
+      - update
+---
+# Source: vertical-pod-autoscaler/templates/recommender-leader-election-rbac.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: vertical-pod-autoscaler-recommender-leader-locking
+  namespace: default
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: recommender
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-recommender
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: vertical-pod-autoscaler-recommender-leader-locking
+subjects:
+  - kind: ServiceAccount
+    name: vertical-pod-autoscaler-recommender
+    namespace: default
+---
+# Source: vertical-pod-autoscaler/templates/updater-rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: vertical-pod-autoscaler-updater-leader-locking-binding
+  namespace: default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: vertical-pod-autoscaler-updater-leader-locking
+subjects:
+  - kind: ServiceAccount
+    name: vertical-pod-autoscaler-updater
+    namespace: default
+---
+# Source: vertical-pod-autoscaler/templates/admission-controller-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: vpa-webhook
+  namespace: default
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: admission-controller
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-admission-controller
+spec:
+  type: ClusterIP
+  ports:
+    - port: 443
+      protocol: TCP
+      targetPort: 8000
+  selector:
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/component: admission-controller
+---
+# Source: vertical-pod-autoscaler/templates/admission-controller-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vertical-pod-autoscaler-admission-controller
+  namespace: default
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: admission-controller
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-admission-controller
+spec:
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: vertical-pod-autoscaler
+      app.kubernetes.io/instance: vertical-pod-autoscaler
+      app.kubernetes.io/component: admission-controller
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: vertical-pod-autoscaler
+        app.kubernetes.io/instance: vertical-pod-autoscaler
+        app.kubernetes.io/component: admission-controller
+    spec:
+      serviceAccountName:  vertical-pod-autoscaler-admission-controller
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app.kubernetes.io/component
+                  operator: In
+                  values:
+                  - admission-controller
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+      containers:
+        - name: admission-controller
+          image: registry.k8s.io/autoscaling/vpa-admission-controller:1.6.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          args:
+            - --v=4
+            - --stderrthreshold=info
+            - --register-webhook=false
+            - --webhook-service=vpa-webhook
+          ports:
+            - containerPort: 8000
+              protocol: TCP
+            - containerPort: 8944
+              name: prometheus
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health-check
+              port: prometheus
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health-check
+              port: prometheus
+              scheme: HTTP
+            periodSeconds: 10
+            failureThreshold: 3
+          volumeMounts:
+            - mountPath: /etc/tls-certs
+              name: tls-certs
+              readOnly: true
+      volumes:
+        - name: tls-certs
+          secret:
+            defaultMode: 420
+            items:
+            - key: ca
+              path: caCert.pem
+            - key: cert
+              path: serverCert.pem
+            - key: key
+              path: serverKey.pem
+            secretName: vpa-tls-certs
+---
+# Source: vertical-pod-autoscaler/templates/recommender-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vertical-pod-autoscaler-recommender
+  namespace: default
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: recommender
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-recommender
+spec:
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: vertical-pod-autoscaler
+      app.kubernetes.io/instance: vertical-pod-autoscaler
+      app.kubernetes.io/component: recommender
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: vertical-pod-autoscaler
+        app.kubernetes.io/instance: vertical-pod-autoscaler
+        app.kubernetes.io/component: recommender
+    spec:
+      serviceAccountName: vertical-pod-autoscaler-recommender
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+      containers:
+        - name: recommender
+          image: registry.k8s.io/autoscaling/vpa-recommender:1.6.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          args:
+            - --v=4
+            - --stderrthreshold=info
+            - --leader-elect=true
+            - --leader-elect-resource-namespace=default
+            - --leader-elect-resource-name=vpa-recommender-lease
+            - --leader-elect-lease-duration=15s
+            - --leader-elect-renew-deadline=10s
+            - --leader-elect-retry-period=2s
+          ports:
+            - name: prometheus
+              containerPort: 8942
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health-check
+              port: prometheus
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health-check
+              port: prometheus
+              scheme: HTTP
+            periodSeconds: 10
+            failureThreshold: 3
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app.kubernetes.io/component
+                  operator: In
+                  values:
+                  - recommender
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+---
+# Source: vertical-pod-autoscaler/templates/updater-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vertical-pod-autoscaler-updater
+  namespace: default
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: updater
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-updater
+spec:
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: vertical-pod-autoscaler
+      app.kubernetes.io/instance: vertical-pod-autoscaler
+      app.kubernetes.io/component: updater
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: vertical-pod-autoscaler
+        app.kubernetes.io/instance: vertical-pod-autoscaler
+        app.kubernetes.io/component: updater
+    spec:
+      serviceAccountName: vertical-pod-autoscaler-updater
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app.kubernetes.io/component
+                  operator: In
+                  values:
+                  - updater
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+      containers:
+        - name: updater
+          image: registry.k8s.io/autoscaling/vpa-updater:1.6.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          args:
+            - --v=4
+            - --stderrthreshold=info
+            - --leader-elect=true
+            - --leader-elect-resource-namespace=default
+            - --leader-elect-resource-name=vpa-updater-lease
+            - --leader-elect-lease-duration=15s
+            - --leader-elect-renew-deadline=10s
+            - --leader-elect-retry-period=2s
+          ports:
+            - name: prometheus
+              containerPort: 8943
+          livenessProbe:
+            httpGet:
+              path: /health-check
+              port: prometheus
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health-check
+              port: prometheus
+              scheme: HTTP
+            periodSeconds: 10
+            failureThreshold: 3
+---
+# Source: vertical-pod-autoscaler/templates/admission-controller-webhook.yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: vertical-pod-autoscaler-webhook-config
+  labels:
+    helm.sh/chart: vertical-pod-autoscaler-0.9.0
+    app.kubernetes.io/name: vertical-pod-autoscaler
+    app.kubernetes.io/instance: vertical-pod-autoscaler
+    app.kubernetes.io/version: "1.6.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: admission-controller
+    app.kubernetes.io/component-instance: vertical-pod-autoscaler-admission-controller
+webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    # caBundle will be injected by the certgen patch job (post-install/post-upgrade hook)
+    service:
+      name: vpa-webhook
+      namespace: default
+      port: 443
+  failurePolicy: Ignore
+  matchPolicy: Equivalent
+  name: vpa.k8s.io
+  namespaceSelector:
+    {}
+  objectSelector:
+    {}
+  reinvocationPolicy: Never
+  rules:
+  - apiGroups:
+    - ""
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    resources:
+    - pods
+    scope: '*'
+  - apiGroups:
+    - autoscaling.k8s.io
+    apiVersions:
+    - '*'
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - verticalpodautoscalers
+    scope: '*'
+  sideEffects: None
+  timeoutSeconds: 5

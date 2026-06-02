@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "gatekeeper/gatekeeper"
+    confighub.io/version: "3.22.2"
+    confighub.io/variant: "no-crds"
+spec:
+  renderedObjectSetSHA256: "ab5488411d047ab53e8c5c5cece3730c66ce7c8f9cb3ff9da1135d64eca97e1c"
+  decision: "allow"
+  separatedSecretCount: 1

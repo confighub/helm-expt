@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "autoscaler/vertical-pod-autoscaler"
+    confighub.io/version: "0.9.0"
+    confighub.io/variant: "no-crds"
+spec:
+  result: "pass"
+  regularHelm:
+    renderedSHA256: "874f8d5277136c7721ff190fc6993d2f3d4de6c990ca7828c5f5e3a08d48ccf6"
+    objectCount: 37
+  cubInstall:
+    objectCountIncludingSupport: 38
+    semanticObjectMatches: "37/37"
+    allowedCubOnlyObjects:
+      - "v1|Namespace||default"

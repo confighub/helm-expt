@@ -7,6 +7,10 @@ spec:
     repository: "aqua"
     name: "trivy-operator"
     version: "0.32.1"
+  deterministicBundle:
+    command: "cub installer package packages/aqua/trivy-operator/0.32.1 -o <tmp>/aqua-trivy-operator-0.32.1.tgz"
+    sha256: "debcc8623ee9a61303bdb7df297c62f46ba17dc85355b7d35f0bd5257e000ef5"
+    byteIdenticalAcrossTwoLocalBundles: true
   package:
     path: "packages/aqua/trivy-operator/0.32.1"
     name: "aqua-trivy-operator"
@@ -25,21 +29,35 @@ spec:
         sha256: "4728643a42924d6af2c0b2b4f1f616938c31b6271ed7e32bac2ce36e5e339a25"
         bytes: 180135
       -
+        path: "bases/no-crds/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/no-crds/upstream.yaml"
+        sha256: "875c8aa838c2841aeda6fbd5ffe95e4f7e2c6a36d64194715bb4039aff0ed492"
+        bytes: 66741
+      -
         path: "installer.yaml"
-        sha256: "91c21d9282a76871a223925081757eb18ff6cb2a4590b772d4f5e9958760d2bd"
-        bytes: 312
-  deterministicBundle:
-    command: "cub installer package packages/aqua/trivy-operator/0.32.1 -o <tmp>/aqua-trivy-operator-0-32-1.tgz"
-    sha256: "8c555a67346fd06cc31082171c3ee830bf55710e20c9e7737e4c10f189011e9b"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "f69ea5d8631853d475bd68a367985ba47528079a1e500349e8f9134a71357427"
+        bytes: 466
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
       base: "default"
       command: "cub installer setup --pull packages/aqua/trivy-operator/0.32.1 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 33
       cubInstallObjectCountIncludingSupport: 34
+      helmReleaseObjectCount: 33
       semanticObjectMatches: "33/33"
+      separatedSecretCount: 2
+      variant: "default"
+    -
+      variant: "no-crds"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/aqua/trivy-operator/0.32.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 21
+      cubInstallObjectCountIncludingSupport: 22
+      semanticObjectMatches: "21/21"
       separatedSecretCount: 2
       allowedCubOnlyObjects:
         - "v1|Namespace||default"

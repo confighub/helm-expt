@@ -11,6 +11,10 @@ spec:
       name: "default"
       path: "bases/default"
     -
+      description: "grafana/pyroscope ha variant rendered from grafana/pyroscope@2.0.2"
       name: "ha"
       path: "bases/ha"
-      description: "grafana/pyroscope ha variant rendered from grafana/pyroscope@2.0.2"
+    -
+      name: "no-crds"
+      path: "bases/no-crds"
+      description: "grafana/pyroscope no-crds variant rendered from grafana/pyroscope@2.0.2"

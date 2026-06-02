@@ -1,17 +1,16 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "Recipe"
 metadata:
-  name: "sealed-secrets-sealed-secrets"
-  version: "2.18.6"
   labels:
     confighub.io/chart-ref: "sealed-secrets/sealed-secrets"
     confighub.io/chart-version: "2.18.6"
     confighub.io/proof-tier: "next80-full"
+  name: "sealed-secrets-sealed-secrets"
+  version: "2.18.6"
 spec:
   chartRef:
-    sourceLock: "source-lock.yaml"
     dependencyLock: "dependency-lock.yaml"
-  importMode: "render-and-vendor"
+    sourceLock: "source-lock.yaml"
   currentExecutableFixture:
     installerPackage: "packages/sealed-secrets/sealed-secrets/2.18.6"
     setupCommand:
@@ -23,5 +22,7 @@ spec:
       - "--non-interactive"
       - "--namespace"
       - "default"
+  importMode: "render-and-vendor"
   variants:
     - "variants/default/variant.yaml"
+    - "variants/no-crds/variant.yaml"

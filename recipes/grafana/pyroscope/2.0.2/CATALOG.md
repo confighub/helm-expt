@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default, ha |
+| Candidate variants | default, ha, no-crds |
 | Control points | capability-profile, cluster-rbac, crds, dependency-lock, extension-slots, generated-facts, helm-equivalence, lifecycle-policy, rendered-manifest-scan, source-lock, stateful-storage, target-facts, tpl-extension-slots, variant-revision |
 
 ## Artifact Chain
@@ -44,6 +44,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/grafana/pyroscope/2.0.2/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/grafana/pyroscope/2.0.2/bases/default](../../../../packages/grafana/pyroscope/2.0.2/bases/default) | [recipes/grafana/pyroscope/2.0.2/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 18 | 19 | 18/18 | pass | warn | warn | none |
 | ha | [recipes/grafana/pyroscope/2.0.2/variants/ha/variant.yaml](variants/ha/variant.yaml) | [packages/grafana/pyroscope/2.0.2/bases/ha](../../../../packages/grafana/pyroscope/2.0.2/bases/ha) | [recipes/grafana/pyroscope/2.0.2/revisions/ha/r001/variant-revision.yaml](revisions/ha/r001/variant-revision.yaml) | 18 |  | 18/18 | pass |  | allow | none |
+| no-crds | [recipes/grafana/pyroscope/2.0.2/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/grafana/pyroscope/2.0.2/bases/no-crds](../../../../packages/grafana/pyroscope/2.0.2/bases/no-crds) | [recipes/grafana/pyroscope/2.0.2/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 17 |  | 17/17 | pass |  | allow | none |
 
 ## Package Bases
 
@@ -51,6 +52,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | --- | --- | --- | --- |
 | default | [packages/grafana/pyroscope/2.0.2/bases/default](../../../../packages/grafana/pyroscope/2.0.2/bases/default) | yes | grafana/pyroscope default variant rendered from grafana/pyroscope@2.0.2 |
 | ha | [packages/grafana/pyroscope/2.0.2/bases/ha](../../../../packages/grafana/pyroscope/2.0.2/bases/ha) | no | grafana/pyroscope ha variant rendered from grafana/pyroscope@2.0.2 |
+| no-crds | [packages/grafana/pyroscope/2.0.2/bases/no-crds](../../../../packages/grafana/pyroscope/2.0.2/bases/no-crds) | no | grafana/pyroscope no-crds variant rendered from grafana/pyroscope@2.0.2 |
 
 ## Receipts
 
@@ -64,6 +66,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | ha | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/grafana/pyroscope/2.0.2/revisions/ha/r001/receipts/helm-equivalence-receipt.yaml](revisions/ha/r001/receipts/helm-equivalence-receipt.yaml) |
 | ha | r001 | scan | ScanReceipt |  | [recipes/grafana/pyroscope/2.0.2/revisions/ha/r001/receipts/scan-receipt.yaml](revisions/ha/r001/receipts/scan-receipt.yaml) |
 | ha | r001 | installGate | InstallGate | allow | [recipes/grafana/pyroscope/2.0.2/revisions/ha/r001/receipts/install-gate.yaml](revisions/ha/r001/receipts/install-gate.yaml) |
+| no-crds | r001 | render | RenderReceipt | recorded | [recipes/grafana/pyroscope/2.0.2/revisions/no-crds/r001/receipts/render-receipt.yaml](revisions/no-crds/r001/receipts/render-receipt.yaml) |
+| no-crds | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/grafana/pyroscope/2.0.2/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml](revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml) |
+| no-crds | r001 | scan | ScanReceipt |  | [recipes/grafana/pyroscope/2.0.2/revisions/no-crds/r001/receipts/scan-receipt.yaml](revisions/no-crds/r001/receipts/scan-receipt.yaml) |
+| no-crds | r001 | installGate | InstallGate | allow | [recipes/grafana/pyroscope/2.0.2/revisions/no-crds/r001/receipts/install-gate.yaml](revisions/no-crds/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

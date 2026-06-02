@@ -1,0 +1,115 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "grafana-pyroscope-2.0.2-no-crds-r001"
+  labels:
+    confighub.io/chart: "grafana/pyroscope"
+    confighub.io/version: "2.0.2"
+    confighub.io/variant: "no-crds"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "bd128b8d66e06802da2e56a74216e817033ebe8ed59abe878df05886ec008086"
+  objectCount: 17
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|StatefulSet|default|pyroscope"
+      kind: "StatefulSet"
+      name: "pyroscope"
+      namespace: "default"
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|StatefulSet|default|pyroscope-alloy"
+      kind: "StatefulSet"
+      name: "pyroscope-alloy"
+      namespace: "default"
+    -
+      apiVersion: "policy/v1"
+      identity: "policy/v1|PodDisruptionBudget|default|pyroscope"
+      kind: "PodDisruptionBudget"
+      name: "pyroscope"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||pyroscope-alloy"
+      kind: "ClusterRoleBinding"
+      name: "pyroscope-alloy"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||pyroscope-alloy"
+      kind: "ClusterRole"
+      name: "pyroscope-alloy"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding||pyroscope-discovery"
+      kind: "RoleBinding"
+      name: "pyroscope-discovery"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role||pyroscope-discovery"
+      kind: "Role"
+      name: "pyroscope-discovery"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|default|alloy-config-pyroscope"
+      kind: "ConfigMap"
+      name: "alloy-config-pyroscope"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|default|pyroscope-config"
+      kind: "ConfigMap"
+      name: "pyroscope-config"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|default|pyroscope-overrides-config"
+      kind: "ConfigMap"
+      name: "pyroscope-overrides-config"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|pyroscope"
+      kind: "ServiceAccount"
+      name: "pyroscope"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|pyroscope-alloy"
+      kind: "ServiceAccount"
+      name: "pyroscope-alloy"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|pyroscope"
+      kind: "Service"
+      name: "pyroscope"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|pyroscope-alloy"
+      kind: "Service"
+      name: "pyroscope-alloy"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|pyroscope-alloy-cluster"
+      kind: "Service"
+      name: "pyroscope-alloy-cluster"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|pyroscope-headless"
+      kind: "Service"
+      name: "pyroscope-headless"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|pyroscope-memberlist"
+      kind: "Service"
+      name: "pyroscope-memberlist"
+      namespace: "default"

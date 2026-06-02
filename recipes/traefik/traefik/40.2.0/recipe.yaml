@@ -1,17 +1,16 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "Recipe"
 metadata:
-  name: "traefik-traefik"
-  version: "40.2.0"
   labels:
     confighub.io/chart-ref: "traefik/traefik"
     confighub.io/chart-version: "40.2.0"
     confighub.io/proof-tier: "next80-full"
+  name: "traefik-traefik"
+  version: "40.2.0"
 spec:
   chartRef:
-    sourceLock: "source-lock.yaml"
     dependencyLock: "dependency-lock.yaml"
-  importMode: "render-and-vendor"
+    sourceLock: "source-lock.yaml"
   currentExecutableFixture:
     installerPackage: "packages/traefik/traefik/40.2.0"
     setupCommand:
@@ -23,5 +22,7 @@ spec:
       - "--non-interactive"
       - "--namespace"
       - "default"
+  importMode: "render-and-vendor"
   variants:
     - "variants/default/variant.yaml"
+    - "variants/no-crds/variant.yaml"

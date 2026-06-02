@@ -1,0 +1,49 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "traefik-traefik-40.2.0-no-crds-r001"
+  labels:
+    confighub.io/chart: "traefik/traefik"
+    confighub.io/version: "40.2.0"
+    confighub.io/variant: "no-crds"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "9db056bdffd213bbce847b96122b40e879d0e47f7b8d57074f62a020ed89c9ce"
+  objectCount: 6
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|traefik"
+      kind: "Deployment"
+      name: "traefik"
+      namespace: "default"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|IngressClass||traefik"
+      kind: "IngressClass"
+      name: "traefik"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||traefik-default"
+      kind: "ClusterRoleBinding"
+      name: "traefik-default"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||traefik-default"
+      kind: "ClusterRole"
+      name: "traefik-default"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|traefik"
+      kind: "ServiceAccount"
+      name: "traefik"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|traefik"
+      kind: "Service"
+      name: "traefik"
+      namespace: "default"
