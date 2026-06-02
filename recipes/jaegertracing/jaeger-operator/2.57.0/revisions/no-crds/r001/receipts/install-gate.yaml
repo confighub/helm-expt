@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "jaegertracing/jaeger-operator"
+    confighub.io/version: "2.57.0"
+    confighub.io/variant: "no-crds"
+spec:
+  renderedObjectSetSHA256: "14755312bc08dd5aad02a12a16f32a04e54adad141a93cb28ff42b2e49066975"
+  decision: "allow"
+  separatedSecretCount: 0

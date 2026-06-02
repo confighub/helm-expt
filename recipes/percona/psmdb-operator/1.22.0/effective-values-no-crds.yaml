@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "percona-psmdb-operator-1.22.0-no-crds"
+  labels:
+    confighub.io/chart: "percona/psmdb-operator"
+    confighub.io/version: "1.22.0"
+    confighub.io/variant: "no-crds"
+spec:
+  profile: "no-crds"
+  renderDelta: ""
+  mergedValuesCaptured: false

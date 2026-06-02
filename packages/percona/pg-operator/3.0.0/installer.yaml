@@ -6,7 +6,11 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "percona/pg-operator default variant rendered from percona/pg-operator@3.0.0"
+      name: "default"
+      path: "bases/default"
+    -
+      name: "no-crds"
+      path: "bases/no-crds"
+      description: "percona/pg-operator no-crds variant rendered from percona/pg-operator@3.0.0"

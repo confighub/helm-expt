@@ -44,13 +44,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "no-crds"
     deferredVariants:
       []
   installerPackage:
     path: "packages/hashicorp/terraform/1.1.2"
     installer: "packages/hashicorp/terraform/1.1.2/installer.yaml"
     receipt: "recipes/hashicorp/terraform/1.1.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "e7bc73a3884298093d9087061e47d138e6bcb4a89f976e2380811aa69a34cf7d"
+    deterministicBundleSHA256: "737667648f89276c77a2268dd67e52b33ed27b88add655c7aea2232f12ab8ef0"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -58,6 +59,11 @@ spec:
         path: "packages/hashicorp/terraform/1.1.2/bases/default"
         default: true
         description: "hashicorp/terraform default variant rendered from hashicorp/terraform@1.1.2"
+      -
+        name: "no-crds"
+        path: "packages/hashicorp/terraform/1.1.2/bases/no-crds"
+        default: false
+        description: "hashicorp/terraform no-crds variant rendered from hashicorp/terraform@1.1.2"
   variants:
     -
       name: "default"
@@ -121,3 +127,65 @@ spec:
               path: "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "5cc2a190066cc639af6f8856b1ff8e28a40e61546d53cd04f19c5b14d6c37d3b"
+    -
+      name: "no-crds"
+      variant: "recipes/hashicorp/terraform/1.1.2/variants/no-crds/variant.yaml"
+      namespace: "default"
+      releaseName: "terraform"
+      valuesProfile: "recipes/hashicorp/terraform/1.1.2/effective-values-no-crds.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "no-crds"
+        path: "packages/hashicorp/terraform/1.1.2/bases/no-crds"
+        default: false
+        description: "hashicorp/terraform no-crds variant rendered from hashicorp/terraform@1.1.2"
+      setupCheck:
+        command: "cub installer setup --pull packages/hashicorp/terraform/1.1.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 4
+        cubInstallObjectCountIncludingSupport: 5
+        semanticObjectMatches: "4/4"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "no-crds-r001"
+          revision: "r001"
+          variantRevision: "recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "a8b9e5e6ce83d71e19d70e4695bdda1a2cb28c26e094a0f28b70b58a3fc6a50a"
+          renderedObjects: "recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          objectCount: 4
+          helmObjectCount: 4
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "4/4"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "a8b9e5e6ce83d71e19d70e4695bdda1a2cb28c26e094a0f28b70b58a3fc6a50a"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "a8b9e5e6ce83d71e19d70e4695bdda1a2cb28c26e094a0f28b70b58a3fc6a50a"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "a8b9e5e6ce83d71e19d70e4695bdda1a2cb28c26e094a0f28b70b58a3fc6a50a"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "a8b9e5e6ce83d71e19d70e4695bdda1a2cb28c26e094a0f28b70b58a3fc6a50a"

@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "hashicorp-terraform-1.1.2-no-crds-r001"
+  labels:
+    confighub.io/chart: "hashicorp/terraform"
+    confighub.io/version: "1.1.2"
+    confighub.io/variant: "no-crds"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "a8b9e5e6ce83d71e19d70e4695bdda1a2cb28c26e094a0f28b70b58a3fc6a50a"
+  objectCount: 4
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|terraform-terraform-sync-workspace"
+      kind: "Deployment"
+      name: "terraform-terraform-sync-workspace"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding||terraform-terraform-sync-workspace"
+      kind: "RoleBinding"
+      name: "terraform-terraform-sync-workspace"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role||terraform-terraform-sync-workspace"
+      kind: "Role"
+      name: "terraform-terraform-sync-workspace"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount||terraform-terraform-sync-workspace"
+      kind: "ServiceAccount"
+      name: "terraform-terraform-sync-workspace"
+      namespace: ""

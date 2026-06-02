@@ -1,0 +1,115 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "strimzi-strimzi-kafka-operator-1.0.0-no-crds-r001"
+  labels:
+    confighub.io/chart: "strimzi/strimzi-kafka-operator"
+    confighub.io/version: "1.0.0"
+    confighub.io/variant: "no-crds"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "c074a6281dddbc35ec340c8efcce77b1875ed5c3432cc54c651a7976304ef43d"
+  objectCount: 17
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|strimzi-cluster-operator"
+      kind: "Deployment"
+      name: "strimzi-cluster-operator"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||strimzi-cluster-operator"
+      kind: "ClusterRoleBinding"
+      name: "strimzi-cluster-operator"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||strimzi-cluster-operator-kafka-broker-delegation"
+      kind: "ClusterRoleBinding"
+      name: "strimzi-cluster-operator-kafka-broker-delegation"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||strimzi-cluster-operator-kafka-client-delegation"
+      kind: "ClusterRoleBinding"
+      name: "strimzi-cluster-operator-kafka-client-delegation"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||strimzi-cluster-operator-global"
+      kind: "ClusterRole"
+      name: "strimzi-cluster-operator-global"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||strimzi-cluster-operator-leader-election"
+      kind: "ClusterRole"
+      name: "strimzi-cluster-operator-leader-election"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||strimzi-cluster-operator-namespaced"
+      kind: "ClusterRole"
+      name: "strimzi-cluster-operator-namespaced"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||strimzi-cluster-operator-watched"
+      kind: "ClusterRole"
+      name: "strimzi-cluster-operator-watched"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||strimzi-entity-operator"
+      kind: "ClusterRole"
+      name: "strimzi-entity-operator"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||strimzi-kafka-broker"
+      kind: "ClusterRole"
+      name: "strimzi-kafka-broker"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||strimzi-kafka-client"
+      kind: "ClusterRole"
+      name: "strimzi-kafka-client"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|default|strimzi-cluster-operator"
+      kind: "RoleBinding"
+      name: "strimzi-cluster-operator"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|default|strimzi-cluster-operator-entity-operator-delegation"
+      kind: "RoleBinding"
+      name: "strimzi-cluster-operator-entity-operator-delegation"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|default|strimzi-cluster-operator-leader-election"
+      kind: "RoleBinding"
+      name: "strimzi-cluster-operator-leader-election"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|default|strimzi-cluster-operator-watched"
+      kind: "RoleBinding"
+      name: "strimzi-cluster-operator-watched"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|default|strimzi-cluster-operator"
+      kind: "ConfigMap"
+      name: "strimzi-cluster-operator"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|strimzi-cluster-operator"
+      kind: "ServiceAccount"
+      name: "strimzi-cluster-operator"
+      namespace: "default"

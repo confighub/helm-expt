@@ -45,13 +45,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "no-crds"
     deferredVariants:
       []
   installerPackage:
     path: "packages/percona/pxc-operator/1.19.1"
     installer: "packages/percona/pxc-operator/1.19.1/installer.yaml"
     receipt: "recipes/percona/pxc-operator/1.19.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "a5f564adac9a648746ac698b59877f98cb01475221906349a4e4e62e18655bbb"
+    deterministicBundleSHA256: "e6a54a2226a9e2535362eec21d5213ff58f73de33e4fce0911239198cb9ef38d"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -59,6 +60,11 @@ spec:
         path: "packages/percona/pxc-operator/1.19.1/bases/default"
         default: true
         description: "percona/pxc-operator default variant rendered from percona/pxc-operator@1.19.1"
+      -
+        name: "no-crds"
+        path: "packages/percona/pxc-operator/1.19.1/bases/no-crds"
+        default: false
+        description: "percona/pxc-operator no-crds variant rendered from percona/pxc-operator@1.19.1"
   variants:
     -
       name: "default"
@@ -122,3 +128,65 @@ spec:
               path: "recipes/percona/pxc-operator/1.19.1/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "769b3b65e8543cd4ae04c498b6793f5f9e84b611bff8ec07b7fbaa5efaac8dc6"
+    -
+      name: "no-crds"
+      variant: "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
+      namespace: "default"
+      releaseName: "pxc-operator"
+      valuesProfile: "recipes/percona/pxc-operator/1.19.1/effective-values-no-crds.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "no-crds"
+        path: "packages/percona/pxc-operator/1.19.1/bases/no-crds"
+        default: false
+        description: "percona/pxc-operator no-crds variant rendered from percona/pxc-operator@1.19.1"
+      setupCheck:
+        command: "cub installer setup --pull packages/percona/pxc-operator/1.19.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 4
+        cubInstallObjectCountIncludingSupport: 5
+        semanticObjectMatches: "4/4"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "no-crds-r001"
+          revision: "r001"
+          variantRevision: "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "ee1aa1c285ef83592cb2488116b126c13c4b3311f0e8a153b9bd6699ae566488"
+          renderedObjects: "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          objectCount: 4
+          helmObjectCount: 4
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "4/4"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "ee1aa1c285ef83592cb2488116b126c13c4b3311f0e8a153b9bd6699ae566488"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "ee1aa1c285ef83592cb2488116b126c13c4b3311f0e8a153b9bd6699ae566488"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "ee1aa1c285ef83592cb2488116b126c13c4b3311f0e8a153b9bd6699ae566488"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "ee1aa1c285ef83592cb2488116b126c13c4b3311f0e8a153b9bd6699ae566488"

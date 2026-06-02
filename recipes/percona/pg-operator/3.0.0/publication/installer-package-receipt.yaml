@@ -7,6 +7,10 @@ spec:
     repository: "percona"
     name: "pg-operator"
     version: "3.0.0"
+  deterministicBundle:
+    command: "cub installer package packages/percona/pg-operator/3.0.0 -o <tmp>/percona-pg-operator-3.0.0.tgz"
+    sha256: "f35783bc9bec8ca739768c54c7fe382b4bcd6308955a83d3a0affab78f270604"
+    byteIdenticalAcrossTwoLocalBundles: true
   package:
     path: "packages/percona/pg-operator/3.0.0"
     name: "percona-pg-operator"
@@ -25,21 +29,35 @@ spec:
         sha256: "bf309d7e26c9351501282530b3707719d97e87593333150163c468461725a8ff"
         bytes: 1583600
       -
+        path: "bases/no-crds/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/no-crds/upstream.yaml"
+        sha256: "b74ec3d7caff70a013e25ff922dc6ead03c37f01193f603f63a1f6686e59f8d2"
+        bytes: 7959
+      -
         path: "installer.yaml"
-        sha256: "0cfb412c3aa63c3e1eac9c2085bbe84903439aaa086b5fa26eeea779c50cd501"
-        bytes: 310
-  deterministicBundle:
-    command: "cub installer package packages/percona/pg-operator/3.0.0 -o <tmp>/percona-pg-operator-3-0-0.tgz"
-    sha256: "6abea18a1b37e68ac97e76cb918ab35da5e851069e9c05e6f0e1f7bbedb88ecc"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "7d308b7b9e58375de5bb43bbaa0afe6a66cb01a05f2aa5a2467e3483d2941e5d"
+        bytes: 463
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
       base: "default"
       command: "cub installer setup --pull packages/percona/pg-operator/3.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 12
       cubInstallObjectCountIncludingSupport: 13
+      helmReleaseObjectCount: 12
       semanticObjectMatches: "12/12"
+      separatedSecretCount: 0
+      variant: "default"
+    -
+      variant: "no-crds"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/percona/pg-operator/3.0.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 4
+      cubInstallObjectCountIncludingSupport: 5
+      semanticObjectMatches: "4/4"
       separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"

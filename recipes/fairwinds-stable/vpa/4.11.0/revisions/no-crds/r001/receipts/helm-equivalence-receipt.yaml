@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "fairwinds-stable/vpa"
+    confighub.io/version: "4.11.0"
+    confighub.io/variant: "no-crds"
+spec:
+  result: "pass"
+  regularHelm:
+    renderedSHA256: "bf99b3e1df92e9ba5da5ab284c98749da9618c5c55358dff3021639057119187"
+    objectCount: 26
+  cubInstall:
+    objectCountIncludingSupport: 27
+    semanticObjectMatches: "26/26"
+    allowedCubOnlyObjects:
+      - "v1|Namespace||default"

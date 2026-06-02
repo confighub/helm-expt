@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "percona/pg-operator"
+    confighub.io/version: "3.0.0"
+    confighub.io/variant: "no-crds"
+spec:
+  renderedObjectSetSHA256: "b74ec3d7caff70a013e25ff922dc6ead03c37f01193f603f63a1f6686e59f8d2"
+  findingCounts:
+    high: 0
+    medium: 0
+    low: 0
+  note: "scan inherits the default-base policy; variant differs only by the declared render delta"

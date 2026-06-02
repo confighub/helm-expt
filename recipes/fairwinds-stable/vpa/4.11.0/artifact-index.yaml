@@ -48,13 +48,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "no-crds"
     deferredVariants:
       []
   installerPackage:
     path: "packages/fairwinds-stable/vpa/4.11.0"
     installer: "packages/fairwinds-stable/vpa/4.11.0/installer.yaml"
     receipt: "recipes/fairwinds-stable/vpa/4.11.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "0d86322bfd30a794da09bb5cca158eefba28b67f0d2498ad17ce2431bc8863f7"
+    deterministicBundleSHA256: "46a65dee2bb14f813e99a120331d8c6f2c437bdc805d57c506b3e6b3ce974504"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -62,6 +63,11 @@ spec:
         path: "packages/fairwinds-stable/vpa/4.11.0/bases/default"
         default: true
         description: "fairwinds-stable/vpa default variant rendered from fairwinds-stable/vpa@4.11.0"
+      -
+        name: "no-crds"
+        path: "packages/fairwinds-stable/vpa/4.11.0/bases/no-crds"
+        default: false
+        description: "fairwinds-stable/vpa no-crds variant rendered from fairwinds-stable/vpa@4.11.0"
   variants:
     -
       name: "default"
@@ -125,3 +131,65 @@ spec:
               path: "recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "9fc49375853347271950b87624ed5215a97a56370dc361b14d22f7efb157a48b"
+    -
+      name: "no-crds"
+      variant: "recipes/fairwinds-stable/vpa/4.11.0/variants/no-crds/variant.yaml"
+      namespace: "default"
+      releaseName: "vpa"
+      valuesProfile: "recipes/fairwinds-stable/vpa/4.11.0/effective-values-no-crds.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "no-crds"
+        path: "packages/fairwinds-stable/vpa/4.11.0/bases/no-crds"
+        default: false
+        description: "fairwinds-stable/vpa no-crds variant rendered from fairwinds-stable/vpa@4.11.0"
+      setupCheck:
+        command: "cub installer setup --pull packages/fairwinds-stable/vpa/4.11.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 26
+        cubInstallObjectCountIncludingSupport: 27
+        semanticObjectMatches: "26/26"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "no-crds-r001"
+          revision: "r001"
+          variantRevision: "recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "bf99b3e1df92e9ba5da5ab284c98749da9618c5c55358dff3021639057119187"
+          renderedObjects: "recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          objectCount: 26
+          helmObjectCount: 26
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "26/26"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "bf99b3e1df92e9ba5da5ab284c98749da9618c5c55358dff3021639057119187"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "bf99b3e1df92e9ba5da5ab284c98749da9618c5c55358dff3021639057119187"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "bf99b3e1df92e9ba5da5ab284c98749da9618c5c55358dff3021639057119187"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "bf99b3e1df92e9ba5da5ab284c98749da9618c5c55358dff3021639057119187"

@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "percona-pxc-operator-1.19.1-no-crds-r001"
+  labels:
+    confighub.io/chart: "percona/pxc-operator"
+    confighub.io/version: "1.19.1"
+    confighub.io/variant: "no-crds"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "ee1aa1c285ef83592cb2488116b126c13c4b3311f0e8a153b9bd6699ae566488"
+  objectCount: 4
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|pxc-operator"
+      kind: "Deployment"
+      name: "pxc-operator"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|default|pxc-operator"
+      kind: "RoleBinding"
+      name: "pxc-operator"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role|default|pxc-operator"
+      kind: "Role"
+      name: "pxc-operator"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|pxc-operator"
+      kind: "ServiceAccount"
+      name: "pxc-operator"
+      namespace: "default"

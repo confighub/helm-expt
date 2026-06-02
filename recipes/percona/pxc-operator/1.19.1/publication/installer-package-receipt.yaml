@@ -7,6 +7,10 @@ spec:
     repository: "percona"
     name: "pxc-operator"
     version: "1.19.1"
+  deterministicBundle:
+    command: "cub installer package packages/percona/pxc-operator/1.19.1 -o <tmp>/percona-pxc-operator-1.19.1.tgz"
+    sha256: "e6a54a2226a9e2535362eec21d5213ff58f73de33e4fce0911239198cb9ef38d"
+    byteIdenticalAcrossTwoLocalBundles: true
   package:
     path: "packages/percona/pxc-operator/1.19.1"
     name: "percona-pxc-operator"
@@ -25,21 +29,35 @@ spec:
         sha256: "769b3b65e8543cd4ae04c498b6793f5f9e84b611bff8ec07b7fbaa5efaac8dc6"
         bytes: 558003
       -
+        path: "bases/no-crds/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/no-crds/upstream.yaml"
+        sha256: "ee1aa1c285ef83592cb2488116b126c13c4b3311f0e8a153b9bd6699ae566488"
+        bytes: 4841
+      -
         path: "installer.yaml"
-        sha256: "9115befd7c8c22bd52b43ac8861a2386d6be881785b6f3ec94dd2eb591925125"
-        bytes: 315
-  deterministicBundle:
-    command: "cub installer package packages/percona/pxc-operator/1.19.1 -o <tmp>/percona-pxc-operator-1-19-1.tgz"
-    sha256: "a5f564adac9a648746ac698b59877f98cb01475221906349a4e4e62e18655bbb"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "da38a0008f32e5f970479af6f689b980d6ea7ed3b5812c73f7c3524d8808ca93"
+        bytes: 471
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
       base: "default"
       command: "cub installer setup --pull packages/percona/pxc-operator/1.19.1 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 7
       cubInstallObjectCountIncludingSupport: 8
+      helmReleaseObjectCount: 7
       semanticObjectMatches: "7/7"
+      separatedSecretCount: 0
+      variant: "default"
+    -
+      variant: "no-crds"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/percona/pxc-operator/1.19.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 4
+      cubInstallObjectCountIncludingSupport: 5
+      semanticObjectMatches: "4/4"
       separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"

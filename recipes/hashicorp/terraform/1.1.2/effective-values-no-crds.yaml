@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "hashicorp-terraform-1.1.2-no-crds"
+  labels:
+    confighub.io/chart: "hashicorp/terraform"
+    confighub.io/version: "1.1.2"
+    confighub.io/variant: "no-crds"
+spec:
+  profile: "no-crds"
+  renderDelta: ""
+  mergedValuesCaptured: false

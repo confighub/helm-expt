@@ -44,13 +44,14 @@ function parseArgs(argv) {
   const chartPath = argv[0];
   const variant = argv[1];
   if (!chartPath || !variant) return null;
+  const noIncludeCrds = argv.includes("--no-include-crds");
   const valuesArgs = [];
   for (let i = 2; i < argv.length; i++) {
     if (argv[i] === "--set") valuesArgs.push("--set", argv[++i]);
     else if (argv[i] === "--values" || argv[i] === "-f") valuesArgs.push("--values", argv[++i]);
   }
-  check(valuesArgs.length > 0, "provide --set or --values to define the variant's render delta");
-  return { chartPath, variant, valuesArgs };
+  check(valuesArgs.length > 0 || noIncludeCrds, "provide --set/--values, or --no-include-crds (for charts that ship CRDs in crds/)");
+  return { chartPath, variant, valuesArgs, noIncludeCrds };
 }
 
 function ensureRepo(repository, repositoryURL) {
@@ -65,7 +66,7 @@ function normalizeRelease(text) {
 function main() {
   const args = parseArgs(process.argv.slice(2));
   if (!args) return usage();
-  const { chartPath, variant, valuesArgs } = args;
+  const { chartPath, variant, valuesArgs, noIncludeCrds } = args;
 
   const recipeRoot = join(repoRoot, "recipes", chartPath);
   const packageRoot = join(repoRoot, "packages", chartPath);
@@ -92,7 +93,8 @@ function main() {
   } catch {
     /* repo may already exist */
   }
-  const renderArgs = ["template", chart.releaseName, chart.ref, "--version", chart.version, "--namespace", chart.namespace, ...RENDER_FLAGS, ...valuesArgs];
+  const renderFlags = noIncludeCrds ? RENDER_FLAGS.filter((f) => f !== "--include-crds") : RENDER_FLAGS;
+  const renderArgs = ["template", chart.releaseName, chart.ref, "--version", chart.version, "--namespace", chart.namespace, ...renderFlags, ...valuesArgs];
   const first = normalizeRelease(command("helm", renderArgs));
   const second = normalizeRelease(command("helm", renderArgs));
   check(first === second, `${chart.ref} ${variant} did not render deterministically`);
@@ -101,6 +103,10 @@ function main() {
   const docs = parseDocs(releaseObjects);
   const objects = parseObjects(releaseObjects);
   check(objects.length > 0, `${chart.ref} ${variant} rendered zero objects`);
+  if (noIncludeCrds) {
+    const crdCount = docs.filter((d) => d.kind === "CustomResourceDefinition").length;
+    check(crdCount === 0, `${chart.ref} ${variant}: --no-include-crds still left ${crdCount} CRD(s) (chart has template-rendered CRDs — use a --set flag instead)`);
+  }
 
   // 2. Capture as the package base.
   const baseDir = join(packageRoot, "bases", variant);

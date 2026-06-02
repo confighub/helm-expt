@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "no-crds"
+  labels:
+    confighub.io/chart: "jaegertracing/jaeger-operator"
+    confighub.io/version: "2.57.0"
+    confighub.io/variant: "no-crds"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "default"
+  releaseName: "jaeger-operator"
+  valuesProfile: "../../effective-values-no-crds.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"

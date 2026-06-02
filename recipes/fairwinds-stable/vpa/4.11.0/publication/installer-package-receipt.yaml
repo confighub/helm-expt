@@ -7,6 +7,10 @@ spec:
     repository: "fairwinds-stable"
     name: "vpa"
     version: "4.11.0"
+  deterministicBundle:
+    command: "cub installer package packages/fairwinds-stable/vpa/4.11.0 -o <tmp>/fairwinds-stable-vpa-4.11.0.tgz"
+    sha256: "46a65dee2bb14f813e99a120331d8c6f2c437bdc805d57c506b3e6b3ce974504"
+    byteIdenticalAcrossTwoLocalBundles: true
   package:
     path: "packages/fairwinds-stable/vpa/4.11.0"
     name: "fairwinds-stable-vpa"
@@ -25,21 +29,35 @@ spec:
         sha256: "9fc49375853347271950b87624ed5215a97a56370dc361b14d22f7efb157a48b"
         bytes: 59745
       -
+        path: "bases/no-crds/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/no-crds/upstream.yaml"
+        sha256: "bf99b3e1df92e9ba5da5ab284c98749da9618c5c55358dff3021639057119187"
+        bytes: 17274
+      -
         path: "installer.yaml"
-        sha256: "e33a73d8b09ec0740deeda3f504364182a18e7f303a2ebddc38bc67523129309"
-        bytes: 315
-  deterministicBundle:
-    command: "cub installer package packages/fairwinds-stable/vpa/4.11.0 -o <tmp>/fairwinds-stable-vpa-4-11-0.tgz"
-    sha256: "0d86322bfd30a794da09bb5cca158eefba28b67f0d2498ad17ce2431bc8863f7"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "1eb0eeaa416aee6628cab0d02fd5cb13e7cc348713a5f1e5dd4cef7c5b99cd8b"
+        bytes: 471
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
       base: "default"
       command: "cub installer setup --pull packages/fairwinds-stable/vpa/4.11.0 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 28
       cubInstallObjectCountIncludingSupport: 29
+      helmReleaseObjectCount: 28
       semanticObjectMatches: "28/28"
+      separatedSecretCount: 0
+      variant: "default"
+    -
+      variant: "no-crds"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/fairwinds-stable/vpa/4.11.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 26
+      cubInstallObjectCountIncludingSupport: 27
+      semanticObjectMatches: "26/26"
       separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"

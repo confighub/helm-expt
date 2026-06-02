@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "percona-psmdb-operator-1.22.0-no-crds-r001"
+  labels:
+    confighub.io/chart: "percona/psmdb-operator"
+    confighub.io/version: "1.22.0"
+    confighub.io/variant: "no-crds"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "583396c1666b921931627a8a24a0dcb5a6d4859dd5fbd1ee350a1dfec44daffb"
+  objectCount: 4
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|psmdb-operator"
+      kind: "Deployment"
+      name: "psmdb-operator"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|default|service-account-psmdb-operator"
+      kind: "RoleBinding"
+      name: "service-account-psmdb-operator"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role|default|psmdb-operator"
+      kind: "Role"
+      name: "psmdb-operator"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|psmdb-operator"
+      kind: "ServiceAccount"
+      name: "psmdb-operator"
+      namespace: "default"

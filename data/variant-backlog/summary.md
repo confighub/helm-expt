@@ -9,15 +9,15 @@ bespoke per chart — see `data/catalog-promotion-wave2/variant-work-orders.yaml
 
 ```text
 charts: 100
-charts needing variant work: 73
-charts already variant-complete: 27
-total variants to build: 105
+charts needing variant work: 64
+charts already variant-complete: 36
+total variants to build: 96
 ```
 
 ## Build volume by dimension (highest-leverage first)
 
 - `existing-secret`: 47 charts
-- `no-crds`: 34 charts
+- `no-crds`: 25 charts
 - `ha`: 20 charts
 - `ingress-tls`: 3 charts
 - `tls`: 1 charts
@@ -53,22 +53,17 @@ total variants to build: 105
 | `external-dns/external-dns@1.21.1` | 1 | existing-secret, no-crds |
 | `external-secrets/external-secrets@2.5.0` | 2 | existing-secret |
 | `fairwinds-stable/goldilocks@10.3.0` | 1 | existing-secret |
-| `fairwinds-stable/vpa@4.11.0` | 1 | no-crds |
 | `falcosecurity/falco@9.0.0` | 1 | existing-secret |
 | `falcosecurity/falcosidekick@0.13.1` | 1 | existing-secret |
 | `gatekeeper/gatekeeper@3.22.2` | 1 | existing-secret, no-crds |
 | `gitlab/gitlab-runner@0.89.0` | 1 | existing-secret |
-| `grafana/alloy@1.8.2` | 1 | no-crds |
 | `grafana/promtail@6.17.1` | 1 | existing-secret |
 | `grafana/pyroscope@2.0.2` | 1 | existing-secret, no-crds, ha |
-| `grafana/rollout-operator@0.49.0` | 1 | no-crds |
 | `grafana/tempo@1.24.4` | 2 | ha, ingress-tls |
 | `haproxytech/kubernetes-ingress@1.52.0` | 1 | existing-secret |
 | `hashicorp/consul@2.0.0` | 2 | no-crds, ha, ingress-tls |
-| `hashicorp/terraform@1.1.2` | 1 | no-crds |
 | `hashicorp/vault@0.32.0` | 2 | ingress-tls, tls |
 | `istio/istiod@1.30.0` | 1 | existing-secret |
-| `jaegertracing/jaeger-operator@2.57.0` | 1 | no-crds |
 | `jaegertracing/jaeger@4.8.0` | 1 | existing-secret |
 | `jetstack/trust-manager@v0.22.1` | 1 | existing-secret, no-crds |
 | `kyverno/kyverno@3.8.1` | 1 | existing-secret, no-crds |
@@ -80,9 +75,6 @@ total variants to build: 105
 | `nats/nack@0.34.0` | 1 | existing-secret, no-crds |
 | `nats/nats@2.14.0` | 1 | existing-secret, ha |
 | `open-telemetry/opentelemetry-operator@0.114.0` | 1 | existing-secret, no-crds |
-| `percona/pg-operator@3.0.0` | 1 | no-crds |
-| `percona/psmdb-operator@1.22.0` | 1 | no-crds |
-| `percona/pxc-operator@1.19.1` | 1 | no-crds |
 | `prometheus-community/alertmanager@1.37.0` | 1 | ha |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | 2 | existing-secret |
 | `prometheus-community/kube-state-metrics@7.4.0` | 1 | existing-secret |
@@ -94,7 +86,6 @@ total variants to build: 105
 | `runix/pgadmin4@1.62.0` | 1 | existing-secret, ha |
 | `sealed-secrets/sealed-secrets@2.18.6` | 1 | existing-secret, no-crds |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | 2 | no-crds |
-| `strimzi/strimzi-kafka-operator@1.0.0` | 1 | no-crds |
 | `traefik/traefik@40.2.0` | 1 | existing-secret, no-crds |
 | `velero/velero@12.0.1` | 1 | existing-secret, no-crds |
 | `vm/victoria-logs-single@0.12.5` | 1 | existing-secret, ha |

@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "grafana/alloy"
+    confighub.io/version: "1.8.2"
+    confighub.io/variant: "no-crds"
+spec:
+  renderedObjectSetSHA256: "3284915e4cee6101e8279e10a5ef11937e6d860b01b95549079d809f64a17e22"
+  decision: "allow"
+  separatedSecretCount: 0

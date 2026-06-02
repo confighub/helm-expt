@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "strimzi/strimzi-kafka-operator"
+    confighub.io/version: "1.0.0"
+    confighub.io/variant: "no-crds"
+spec:
+  renderedObjectSetSHA256: "c074a6281dddbc35ec340c8efcce77b1875ed5c3432cc54c651a7976304ef43d"
+  findingCounts:
+    high: 0
+    medium: 0
+    low: 0
+  note: "scan inherits the default-base policy; variant differs only by the declared render delta"
