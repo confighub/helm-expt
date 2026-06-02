@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default |
+| Candidate variants | default, no-crds |
 | Control points | capability-profile, cluster-rbac, crds, dependency-lock, extension-slots, helm-equivalence, rendered-manifest-scan, source-lock, tpl-extension-slots, variant-revision |
 
 ## Artifact Chain
@@ -43,12 +43,14 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/argo-cd/argo-events/2.4.21/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/argo-cd/argo-events/2.4.21/bases/default](../../../../packages/argo-cd/argo-events/2.4.21/bases/default) | [recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 9 | 10 | 9/9 | pass | warn | warn | none |
+| no-crds | [recipes/argo-cd/argo-events/2.4.21/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/argo-cd/argo-events/2.4.21/bases/no-crds](../../../../packages/argo-cd/argo-events/2.4.21/bases/no-crds) | [recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 6 |  | 6/6 | pass |  | allow | none |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
 | default | [packages/argo-cd/argo-events/2.4.21/bases/default](../../../../packages/argo-cd/argo-events/2.4.21/bases/default) | yes | argo-cd/argo-events default variant rendered from argo-cd/argo-events@2.4.21 |
+| no-crds | [packages/argo-cd/argo-events/2.4.21/bases/no-crds](../../../../packages/argo-cd/argo-events/2.4.21/bases/no-crds) | no | argo-cd/argo-events no-crds variant rendered from argo-cd/argo-events@2.4.21 |
 
 ## Receipts
 
@@ -58,6 +60,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | default | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](revisions/default/r001/receipts/helm-equivalence-receipt.yaml) |
 | default | r001 | scan | ScanReceipt | warn | [recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/receipts/scan-receipt.yaml](revisions/default/r001/receipts/scan-receipt.yaml) |
 | default | r001 | installGate | InstallGate | warn | [recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/receipts/install-gate.yaml](revisions/default/r001/receipts/install-gate.yaml) |
+| no-crds | r001 | render | RenderReceipt | recorded | [recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/receipts/render-receipt.yaml](revisions/no-crds/r001/receipts/render-receipt.yaml) |
+| no-crds | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml](revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml) |
+| no-crds | r001 | scan | ScanReceipt |  | [recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/receipts/scan-receipt.yaml](revisions/no-crds/r001/receipts/scan-receipt.yaml) |
+| no-crds | r001 | installGate | InstallGate | allow | [recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/receipts/install-gate.yaml](revisions/no-crds/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

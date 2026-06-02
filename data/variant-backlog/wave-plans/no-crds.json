@@ -9,16 +9,17 @@
   { "chart": "traefik/traefik/40.2.0", "noIncludeCrds": true },
   { "chart": "velero/velero/12.0.1", "noIncludeCrds": true },
 
-  { "chart": "argo-cd/argo-events/2.4.21", "decline": "template-rendered CRDs (3) — --no-include-crds can't strip CRDs baked in templates/ rather than crds/; #114-class" },
-  { "chart": "argo-cd/argo-rollouts/2.40.9", "decline": "template-rendered CRDs (5) — #114-class" },
-  { "chart": "argo-cd/argocd-image-updater/1.2.2", "decline": "template-rendered CRDs (1) — #114-class" },
-  { "chart": "bitnami/contour/21.1.4", "decline": "template-rendered CRDs (5) — #114-class" },
-  { "chart": "cloudnative-pg/cloudnative-pg/0.28.2", "decline": "template-rendered CRDs (10) — #114-class" },
-  { "chart": "elastic/eck-operator/3.4.0", "decline": "template-rendered CRDs (12) — #114-class" },
-  { "chart": "jetstack/trust-manager/v0.22.1", "decline": "template-rendered CRDs (1) — #114-class" },
-  { "chart": "kyverno/kyverno/3.8.1", "decline": "template-rendered CRDs (22) — #114-class" },
-  { "chart": "linkerd/linkerd-crds/1.8.0", "decline": "chart IS the CRD set (8 template CRDs) — no-crds would render ~nothing; #114-class" },
-  { "chart": "minio-operator/operator/7.1.1", "decline": "template-rendered CRDs (2) — #114-class" },
-  { "chart": "open-telemetry/opentelemetry-operator/0.114.0", "decline": "template-rendered CRDs (4) — #114-class" },
-  { "chart": "rook-release/rook-ceph/v1.19.5", "decline": "template-rendered CRDs (25) — #114-class" }
+  { "chart": "argo-cd/argo-events/2.4.21", "set": ["crds.install=false"] },
+  { "chart": "argo-cd/argo-rollouts/2.40.9", "set": ["installCRDs=false"] },
+  { "chart": "bitnami/contour/21.1.4", "set": ["contour.manageCRDs=false", "gatewayAPI.manageCRDs=false"] },
+  { "chart": "cloudnative-pg/cloudnative-pg/0.28.2", "set": ["crds.create=false"] },
+  { "chart": "elastic/eck-operator/3.4.0", "set": ["installCRDs=false"] },
+  { "chart": "jetstack/trust-manager/v0.22.1", "set": ["crds.enabled=false"] },
+  { "chart": "kyverno/kyverno/3.8.1", "set": ["crds.install=false"] },
+  { "chart": "open-telemetry/opentelemetry-operator/0.114.0", "set": ["crds.create=false"] },
+  { "chart": "rook-release/rook-ceph/v1.19.5", "decline": "crds.enabled=false reduces 25->5 CRDs but some are unconditionally template-baked; a no-crds variant must render zero — defer" },
+
+  { "chart": "argo-cd/argocd-image-updater/1.2.2", "decline": "1 template CRD, no chart CRD toggle found — defer" },
+  { "chart": "linkerd/linkerd-crds/1.8.0", "decline": "chart IS the CRD set — a no-crds variant would render ~nothing" },
+  { "chart": "minio-operator/operator/7.1.1", "decline": "template-rendered CRDs (2), no chart CRD toggle — defer" }
 ]

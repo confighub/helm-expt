@@ -50,13 +50,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "no-crds"
     deferredVariants:
       []
   installerPackage:
     path: "packages/open-telemetry/opentelemetry-operator/0.114.0"
     installer: "packages/open-telemetry/opentelemetry-operator/0.114.0/installer.yaml"
     receipt: "recipes/open-telemetry/opentelemetry-operator/0.114.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "46a4466f21a9076cfb231b02a2309c526136ca3903e50c17348f1e3e87b8f5dc"
+    deterministicBundleSHA256: "3608f56044757a16e773312bb3c46f5bdb31d014e8c78480b1d7c93ea0659311"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -64,6 +65,11 @@ spec:
         path: "packages/open-telemetry/opentelemetry-operator/0.114.0/bases/default"
         default: true
         description: "open-telemetry/opentelemetry-operator default variant rendered from open-telemetry/opentelemetry-operator@0.114.0"
+      -
+        name: "no-crds"
+        path: "packages/open-telemetry/opentelemetry-operator/0.114.0/bases/no-crds"
+        default: false
+        description: "open-telemetry/opentelemetry-operator no-crds variant rendered from open-telemetry/opentelemetry-operator@0.114.0"
   variants:
     -
       name: "default"
@@ -127,3 +133,65 @@ spec:
               path: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "68dd01565796d137e5dea26e1db02ef3e0d99bbbafd000ec3663680b5bbda873"
+    -
+      name: "no-crds"
+      variant: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
+      namespace: "default"
+      releaseName: "opentelemetry-operator"
+      valuesProfile: "recipes/open-telemetry/opentelemetry-operator/0.114.0/effective-values-no-crds.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "no-crds"
+        path: "packages/open-telemetry/opentelemetry-operator/0.114.0/bases/no-crds"
+        default: false
+        description: "open-telemetry/opentelemetry-operator no-crds variant rendered from open-telemetry/opentelemetry-operator@0.114.0"
+      setupCheck:
+        command: "cub installer setup --pull packages/open-telemetry/opentelemetry-operator/0.114.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 13
+        cubInstallObjectCountIncludingSupport: 14
+        semanticObjectMatches: "13/13"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "no-crds-r001"
+          revision: "r001"
+          variantRevision: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "6ca1e737e9540f4b6a2d6e19fa83fa580cb407942b78ed53f9604aa46b662ea1"
+          renderedObjects: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          objectCount: 13
+          helmObjectCount: 13
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "13/13"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "6ca1e737e9540f4b6a2d6e19fa83fa580cb407942b78ed53f9604aa46b662ea1"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "6ca1e737e9540f4b6a2d6e19fa83fa580cb407942b78ed53f9604aa46b662ea1"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "6ca1e737e9540f4b6a2d6e19fa83fa580cb407942b78ed53f9604aa46b662ea1"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "6ca1e737e9540f4b6a2d6e19fa83fa580cb407942b78ed53f9604aa46b662ea1"

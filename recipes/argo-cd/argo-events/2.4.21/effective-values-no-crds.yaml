@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "argo-cd-argo-events-2.4.21-no-crds"
+  labels:
+    confighub.io/chart: "argo-cd/argo-events"
+    confighub.io/version: "2.4.21"
+    confighub.io/variant: "no-crds"
+spec:
+  profile: "no-crds"
+  renderDelta: "crds.install=false"
+  mergedValuesCaptured: false

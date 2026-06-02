@@ -49,13 +49,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "no-crds"
     deferredVariants:
       []
   installerPackage:
     path: "packages/bitnami/contour/21.1.4"
     installer: "packages/bitnami/contour/21.1.4/installer.yaml"
     receipt: "recipes/bitnami/contour/21.1.4/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "5e67b1ce17d70d900dec3ce52346570f1c983d1e238e7b15ab0add62c04af529"
+    deterministicBundleSHA256: "70d216ab590c865e0ffeaff17382cb24379a141f05499e85c99c1f0466bb31ac"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -63,6 +64,11 @@ spec:
         path: "packages/bitnami/contour/21.1.4/bases/default"
         default: true
         description: "bitnami/contour default variant rendered from bitnami/contour@21.1.4"
+      -
+        name: "no-crds"
+        path: "packages/bitnami/contour/21.1.4/bases/no-crds"
+        default: false
+        description: "bitnami/contour no-crds variant rendered from bitnami/contour@21.1.4"
   variants:
     -
       name: "default"
@@ -126,3 +132,65 @@ spec:
               path: "recipes/bitnami/contour/21.1.4/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "f28ab1558939812f833981bce56dfdbd7030428a4bcdd816b0eedb1bd13ffd53"
+    -
+      name: "no-crds"
+      variant: "recipes/bitnami/contour/21.1.4/variants/no-crds/variant.yaml"
+      namespace: "default"
+      releaseName: "contour"
+      valuesProfile: "recipes/bitnami/contour/21.1.4/effective-values-no-crds.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "no-crds"
+        path: "packages/bitnami/contour/21.1.4/bases/no-crds"
+        default: false
+        description: "bitnami/contour no-crds variant rendered from bitnami/contour@21.1.4"
+      setupCheck:
+        command: "cub installer setup --pull packages/bitnami/contour/21.1.4 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 15
+        cubInstallObjectCountIncludingSupport: 16
+        semanticObjectMatches: "15/15"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "no-crds-r001"
+          revision: "r001"
+          variantRevision: "recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f"
+          renderedObjects: "recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          objectCount: 15
+          helmObjectCount: 15
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "15/15"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f"

@@ -51,13 +51,14 @@ spec:
     candidateVariants:
       - "default"
       - "ha"
+      - "no-crds"
     deferredVariants:
       []
   installerPackage:
     path: "packages/elastic/eck-operator/3.4.0"
     installer: "packages/elastic/eck-operator/3.4.0/installer.yaml"
     receipt: "recipes/elastic/eck-operator/3.4.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "81d0665d54f2fd91692454c5f6006a8ed8354e694c3fde6a8c455f18189df2f1"
+    deterministicBundleSHA256: "cd2b877729df1a9078e0613afd43eebbc5093cb4040dc975d6ba6295155d073d"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -70,6 +71,11 @@ spec:
         path: "packages/elastic/eck-operator/3.4.0/bases/ha"
         default: false
         description: "elastic/eck-operator ha variant rendered from elastic/eck-operator@3.4.0"
+      -
+        name: "no-crds"
+        path: "packages/elastic/eck-operator/3.4.0/bases/no-crds"
+        default: false
+        description: "elastic/eck-operator no-crds variant rendered from elastic/eck-operator@3.4.0"
   variants:
     -
       name: "default"
@@ -195,3 +201,65 @@ spec:
               path: "recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/receipts/install-gate.yaml"
               result: "allow"
               renderedObjectSetSHA256: "20bc4c9cdd28f35aa9c1f646c0af7bc092faac39f8ce3e3606861b98789ee54a"
+    -
+      name: "no-crds"
+      variant: "recipes/elastic/eck-operator/3.4.0/variants/no-crds/variant.yaml"
+      namespace: "default"
+      releaseName: "eck-operator"
+      valuesProfile: "recipes/elastic/eck-operator/3.4.0/effective-values-no-crds.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "no-crds"
+        path: "packages/elastic/eck-operator/3.4.0/bases/no-crds"
+        default: false
+        description: "elastic/eck-operator no-crds variant rendered from elastic/eck-operator@3.4.0"
+      setupCheck:
+        command: "cub installer setup --pull packages/elastic/eck-operator/3.4.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 10
+        cubInstallObjectCountIncludingSupport: 11
+        semanticObjectMatches: "10/10"
+        separatedSecretCount: 1
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "no-crds-r001"
+          revision: "r001"
+          variantRevision: "recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "6da1150ac5e27b67009e5c20dddf061a5a92af72adfc4551a866fa0d28e23a87"
+          renderedObjects: "recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          objectCount: 10
+          helmObjectCount: 10
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "10/10"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "6da1150ac5e27b67009e5c20dddf061a5a92af72adfc4551a866fa0d28e23a87"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "6da1150ac5e27b67009e5c20dddf061a5a92af72adfc4551a866fa0d28e23a87"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "6da1150ac5e27b67009e5c20dddf061a5a92af72adfc4551a866fa0d28e23a87"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "6da1150ac5e27b67009e5c20dddf061a5a92af72adfc4551a866fa0d28e23a87"

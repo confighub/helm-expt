@@ -1,0 +1,103 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "bitnami-contour-21.1.4-no-crds-r001"
+  labels:
+    confighub.io/chart: "bitnami/contour"
+    confighub.io/version: "21.1.4"
+    confighub.io/variant: "no-crds"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f"
+  objectCount: 15
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|DaemonSet|default|contour-envoy"
+      kind: "DaemonSet"
+      name: "contour-envoy"
+      namespace: "default"
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|contour-contour"
+      kind: "Deployment"
+      name: "contour-contour"
+      namespace: "default"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|IngressClass||contour"
+      kind: "IngressClass"
+      name: "contour"
+      namespace: ""
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|NetworkPolicy|default|contour-contour"
+      kind: "NetworkPolicy"
+      name: "contour-contour"
+      namespace: "default"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|NetworkPolicy|default|contour-contour-certgen"
+      kind: "NetworkPolicy"
+      name: "contour-contour-certgen"
+      namespace: "default"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|NetworkPolicy|default|contour-envoy"
+      kind: "NetworkPolicy"
+      name: "contour-envoy"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||contour-contour"
+      kind: "ClusterRoleBinding"
+      name: "contour-contour"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||contour-contour"
+      kind: "ClusterRole"
+      name: "contour-contour"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|default|contour-contour-role"
+      kind: "RoleBinding"
+      name: "contour-contour-role"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role|default|contour-contour"
+      kind: "Role"
+      name: "contour-contour"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|default|contour"
+      kind: "ConfigMap"
+      name: "contour"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|contour-contour"
+      kind: "ServiceAccount"
+      name: "contour-contour"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|contour-envoy"
+      kind: "ServiceAccount"
+      name: "contour-envoy"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|contour"
+      kind: "Service"
+      name: "contour"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|contour-envoy"
+      kind: "Service"
+      name: "contour-envoy"
+      namespace: "default"

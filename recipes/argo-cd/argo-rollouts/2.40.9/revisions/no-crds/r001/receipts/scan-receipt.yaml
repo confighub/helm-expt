@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "argo-cd/argo-rollouts"
+    confighub.io/version: "2.40.9"
+    confighub.io/variant: "no-crds"
+spec:
+  renderedObjectSetSHA256: "6facde581531cc4995b342bf9b3614f4c73f5c8d9ba057ae92895db6c3813dd7"
+  findingCounts:
+    high: 0
+    medium: 0
+    low: 0
+  note: "scan inherits the default-base policy; variant differs only by the declared render delta"

@@ -11,6 +11,10 @@ spec:
       name: "default"
       path: "bases/default"
     -
+      description: "elastic/eck-operator ha variant rendered from elastic/eck-operator@3.4.0"
       name: "ha"
       path: "bases/ha"
-      description: "elastic/eck-operator ha variant rendered from elastic/eck-operator@3.4.0"
+    -
+      name: "no-crds"
+      path: "bases/no-crds"
+      description: "elastic/eck-operator no-crds variant rendered from elastic/eck-operator@3.4.0"

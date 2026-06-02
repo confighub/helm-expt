@@ -46,13 +46,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "no-crds"
     deferredVariants:
       []
   installerPackage:
     path: "packages/argo-cd/argo-events/2.4.21"
     installer: "packages/argo-cd/argo-events/2.4.21/installer.yaml"
     receipt: "recipes/argo-cd/argo-events/2.4.21/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "088dbe2f4c9f8098dbb475e100c4db458d7bc6de2e9be5171af478bfebbacbe5"
+    deterministicBundleSHA256: "305f63669cfe2d1fb456b90bb025043320cb214ec3e023db16547106b6454848"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -60,6 +61,11 @@ spec:
         path: "packages/argo-cd/argo-events/2.4.21/bases/default"
         default: true
         description: "argo-cd/argo-events default variant rendered from argo-cd/argo-events@2.4.21"
+      -
+        name: "no-crds"
+        path: "packages/argo-cd/argo-events/2.4.21/bases/no-crds"
+        default: false
+        description: "argo-cd/argo-events no-crds variant rendered from argo-cd/argo-events@2.4.21"
   variants:
     -
       name: "default"
@@ -123,3 +129,65 @@ spec:
               path: "recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "fe5c705f2f03410df75055542a79619c82947dafbf3f1c01c05eca2fc197503b"
+    -
+      name: "no-crds"
+      variant: "recipes/argo-cd/argo-events/2.4.21/variants/no-crds/variant.yaml"
+      namespace: "default"
+      releaseName: "argo-events"
+      valuesProfile: "recipes/argo-cd/argo-events/2.4.21/effective-values-no-crds.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "no-crds"
+        path: "packages/argo-cd/argo-events/2.4.21/bases/no-crds"
+        default: false
+        description: "argo-cd/argo-events no-crds variant rendered from argo-cd/argo-events@2.4.21"
+      setupCheck:
+        command: "cub installer setup --pull packages/argo-cd/argo-events/2.4.21 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 6
+        cubInstallObjectCountIncludingSupport: 7
+        semanticObjectMatches: "6/6"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "no-crds-r001"
+          revision: "r001"
+          variantRevision: "recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "4858a0854eb393c136be157686a7417478ee33c88428452eaa21ad3fed65ad49"
+          renderedObjects: "recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          objectCount: 6
+          helmObjectCount: 6
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "6/6"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "4858a0854eb393c136be157686a7417478ee33c88428452eaa21ad3fed65ad49"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "4858a0854eb393c136be157686a7417478ee33c88428452eaa21ad3fed65ad49"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "4858a0854eb393c136be157686a7417478ee33c88428452eaa21ad3fed65ad49"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "4858a0854eb393c136be157686a7417478ee33c88428452eaa21ad3fed65ad49"

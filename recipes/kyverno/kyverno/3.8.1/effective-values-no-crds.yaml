@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "kyverno-kyverno-3.8.1-no-crds"
+  labels:
+    confighub.io/chart: "kyverno/kyverno"
+    confighub.io/version: "3.8.1"
+    confighub.io/variant: "no-crds"
+spec:
+  profile: "no-crds"
+  renderDelta: "crds.install=false"
+  mergedValuesCaptured: false

@@ -47,73 +47,65 @@
   {
     "chart": "argo-cd/argo-events/2.4.21",
     "variant": "no-crds",
-    "status": "declined",
-    "reason": "template-rendered CRDs (3) — --no-include-crds can't strip CRDs baked in templates/ rather than crds/; #114-class"
+    "status": "already"
   },
   {
     "chart": "argo-cd/argo-rollouts/2.40.9",
     "variant": "no-crds",
-    "status": "declined",
-    "reason": "template-rendered CRDs (5) — #114-class"
-  },
-  {
-    "chart": "argo-cd/argocd-image-updater/1.2.2",
-    "variant": "no-crds",
-    "status": "declined",
-    "reason": "template-rendered CRDs (1) — #114-class"
+    "status": "already"
   },
   {
     "chart": "bitnami/contour/21.1.4",
     "variant": "no-crds",
-    "status": "declined",
-    "reason": "template-rendered CRDs (5) — #114-class"
+    "status": "already"
   },
   {
     "chart": "cloudnative-pg/cloudnative-pg/0.28.2",
     "variant": "no-crds",
-    "status": "declined",
-    "reason": "template-rendered CRDs (10) — #114-class"
+    "status": "already"
   },
   {
     "chart": "elastic/eck-operator/3.4.0",
     "variant": "no-crds",
-    "status": "declined",
-    "reason": "template-rendered CRDs (12) — #114-class"
+    "status": "already"
   },
   {
     "chart": "jetstack/trust-manager/v0.22.1",
     "variant": "no-crds",
-    "status": "declined",
-    "reason": "template-rendered CRDs (1) — #114-class"
+    "status": "already"
   },
   {
     "chart": "kyverno/kyverno/3.8.1",
     "variant": "no-crds",
-    "status": "declined",
-    "reason": "template-rendered CRDs (22) — #114-class"
-  },
-  {
-    "chart": "linkerd/linkerd-crds/1.8.0",
-    "variant": "no-crds",
-    "status": "declined",
-    "reason": "chart IS the CRD set (8 template CRDs) — no-crds would render ~nothing; #114-class"
-  },
-  {
-    "chart": "minio-operator/operator/7.1.1",
-    "variant": "no-crds",
-    "status": "declined",
-    "reason": "template-rendered CRDs (2) — #114-class"
+    "status": "already"
   },
   {
     "chart": "open-telemetry/opentelemetry-operator/0.114.0",
     "variant": "no-crds",
-    "status": "declined",
-    "reason": "template-rendered CRDs (4) — #114-class"
+    "status": "already"
   },
   {
     "chart": "rook-release/rook-ceph/v1.19.5",
     "variant": "no-crds",
     "status": "declined",
-    "reason": "template-rendered CRDs (25) — #114-class"
+    "reason": "crds.enabled=false reduces 25->5 CRDs but some are unconditionally template-baked; a no-crds variant must render zero — defer"
+  },
+  {
+    "chart": "argo-cd/argocd-image-updater/1.2.2",
+    "variant": "no-crds",
+    "status": "declined",
+    "reason": "1 template CRD, no chart CRD toggle found — defer"
+  },
+  {
+    "chart": "linkerd/linkerd-crds/1.8.0",
+    "variant": "no-crds",
+    "status": "declined",
+    "reason": "chart IS the CRD set — a no-crds variant would render ~nothing"
+  },
+  {
+    "chart": "minio-operator/operator/7.1.1",
+    "variant": "no-crds",
+    "status": "declined",
+    "reason": "template-rendered CRDs (2), no chart CRD toggle — defer"
   }
 ]

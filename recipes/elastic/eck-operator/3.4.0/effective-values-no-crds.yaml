@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "elastic-eck-operator-3.4.0-no-crds"
+  labels:
+    confighub.io/chart: "elastic/eck-operator"
+    confighub.io/version: "3.4.0"
+    confighub.io/variant: "no-crds"
+spec:
+  profile: "no-crds"
+  renderDelta: "installCRDs=false"
+  mergedValuesCaptured: false

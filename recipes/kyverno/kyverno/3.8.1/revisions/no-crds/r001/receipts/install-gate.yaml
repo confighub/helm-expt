@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "kyverno/kyverno"
+    confighub.io/version: "3.8.1"
+    confighub.io/variant: "no-crds"
+spec:
+  renderedObjectSetSHA256: "3a1b0dd0d65607586ee0a3ace591e776a0a13c8047cb31b43f7128febcd93227"
+  decision: "allow"
+  separatedSecretCount: 0

@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "bitnami-contour-21.1.4-no-crds"
+  labels:
+    confighub.io/chart: "bitnami/contour"
+    confighub.io/version: "21.1.4"
+    confighub.io/variant: "no-crds"
+spec:
+  profile: "no-crds"
+  renderDelta: "contour.manageCRDs=false; gatewayAPI.manageCRDs=false"
+  mergedValuesCaptured: false

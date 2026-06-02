@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default |
+| Candidate variants | default, no-crds |
 | Control points | capability-profile, cluster-rbac, crds, dependency-lock, extension-slots, generated-facts, helm-equivalence, lifecycle-policy, rendered-manifest-scan, source-lock, target-facts, tpl-extension-slots, variant-revision |
 
 ## Artifact Chain
@@ -43,12 +43,14 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/kyverno/kyverno/3.8.1/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/kyverno/kyverno/3.8.1/bases/default](../../../../packages/kyverno/kyverno/3.8.1/bases/default) | [recipes/kyverno/kyverno/3.8.1/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 69 | 70 | 69/69 | pass | warn | warn | none |
+| no-crds | [recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/kyverno/kyverno/3.8.1/bases/no-crds](../../../../packages/kyverno/kyverno/3.8.1/bases/no-crds) | [recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 47 |  | 47/47 | pass |  | allow | none |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
 | default | [packages/kyverno/kyverno/3.8.1/bases/default](../../../../packages/kyverno/kyverno/3.8.1/bases/default) | yes | kyverno/kyverno default variant rendered from kyverno/kyverno@3.8.1 |
+| no-crds | [packages/kyverno/kyverno/3.8.1/bases/no-crds](../../../../packages/kyverno/kyverno/3.8.1/bases/no-crds) | no | kyverno/kyverno no-crds variant rendered from kyverno/kyverno@3.8.1 |
 
 ## Receipts
 
@@ -58,6 +60,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | default | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/kyverno/kyverno/3.8.1/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](revisions/default/r001/receipts/helm-equivalence-receipt.yaml) |
 | default | r001 | scan | ScanReceipt | warn | [recipes/kyverno/kyverno/3.8.1/revisions/default/r001/receipts/scan-receipt.yaml](revisions/default/r001/receipts/scan-receipt.yaml) |
 | default | r001 | installGate | InstallGate | warn | [recipes/kyverno/kyverno/3.8.1/revisions/default/r001/receipts/install-gate.yaml](revisions/default/r001/receipts/install-gate.yaml) |
+| no-crds | r001 | render | RenderReceipt | recorded | [recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/receipts/render-receipt.yaml](revisions/no-crds/r001/receipts/render-receipt.yaml) |
+| no-crds | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml](revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml) |
+| no-crds | r001 | scan | ScanReceipt |  | [recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/receipts/scan-receipt.yaml](revisions/no-crds/r001/receipts/scan-receipt.yaml) |
+| no-crds | r001 | installGate | InstallGate | allow | [recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/receipts/install-gate.yaml](revisions/no-crds/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

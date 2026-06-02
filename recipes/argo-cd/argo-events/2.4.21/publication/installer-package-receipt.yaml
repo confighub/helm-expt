@@ -7,6 +7,10 @@ spec:
     repository: "argo-cd"
     name: "argo-events"
     version: "2.4.21"
+  deterministicBundle:
+    command: "cub installer package packages/argo-cd/argo-events/2.4.21 -o <tmp>/argo-cd-argo-events-2.4.21.tgz"
+    sha256: "305f63669cfe2d1fb456b90bb025043320cb214ec3e023db16547106b6454848"
+    byteIdenticalAcrossTwoLocalBundles: true
   package:
     path: "packages/argo-cd/argo-events/2.4.21"
     name: "argo-cd-argo-events"
@@ -25,21 +29,35 @@ spec:
         sha256: "fe5c705f2f03410df75055542a79619c82947dafbf3f1c01c05eca2fc197503b"
         bytes: 12065
       -
+        path: "bases/no-crds/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/no-crds/upstream.yaml"
+        sha256: "4858a0854eb393c136be157686a7417478ee33c88428452eaa21ad3fed65ad49"
+        bytes: 9227
+      -
         path: "installer.yaml"
-        sha256: "3927c052e2247be77c31b5773f39698be2c07a0cab43d12274089102885c9f98"
-        bytes: 312
-  deterministicBundle:
-    command: "cub installer package packages/argo-cd/argo-events/2.4.21 -o <tmp>/argo-cd-argo-events-2-4-21.tgz"
-    sha256: "088dbe2f4c9f8098dbb475e100c4db458d7bc6de2e9be5171af478bfebbacbe5"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "a31aed7ea0c15ae3244b97cd377dda1ded13149f4d8489fa37a3073a586d496e"
+        bytes: 466
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
       base: "default"
       command: "cub installer setup --pull packages/argo-cd/argo-events/2.4.21 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 9
       cubInstallObjectCountIncludingSupport: 10
+      helmReleaseObjectCount: 9
       semanticObjectMatches: "9/9"
+      separatedSecretCount: 0
+      variant: "default"
+    -
+      variant: "no-crds"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/argo-cd/argo-events/2.4.21 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 6
+      cubInstallObjectCountIncludingSupport: 7
+      semanticObjectMatches: "6/6"
       separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"

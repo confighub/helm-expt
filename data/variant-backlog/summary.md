@@ -9,16 +9,16 @@ bespoke per chart — see `data/catalog-promotion-wave2/variant-work-orders.yaml
 
 ```text
 charts: 100
-charts needing variant work: 62
-charts already variant-complete: 38
-total variants to build: 78
+charts needing variant work: 60
+charts already variant-complete: 40
+total variants to build: 70
 ```
 
 ## Build volume by dimension (highest-leverage first)
 
 - `existing-secret`: 47 charts
-- `no-crds`: 16 charts
 - `ha`: 11 charts
+- `no-crds`: 8 charts
 - `ingress-tls`: 3 charts
 - `tls`: 1 charts
 
@@ -28,12 +28,10 @@ total variants to build: 78
 | --- | ---: | --- |
 | `aqua/trivy-operator@0.32.1` | 2 | existing-secret |
 | `argo-cd/argo-cd@9.5.15` | 2 | ha |
-| `argo-cd/argo-events@2.4.21` | 1 | no-crds |
-| `argo-cd/argo-rollouts@2.40.9` | 1 | no-crds |
 | `argo-cd/argocd-image-updater@1.2.2` | 1 | existing-secret, no-crds |
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | 2 | existing-secret |
 | `bitnami/apache@11.4.29` | 1 | existing-secret |
-| `bitnami/contour@21.1.4` | 1 | existing-secret, no-crds |
+| `bitnami/contour@21.1.4` | 2 | existing-secret |
 | `bitnami/elasticsearch@22.1.6` | 2 | existing-secret |
 | `bitnami/memcached@8.5.5` | 1 | existing-secret |
 | `bitnami/mysql@14.0.3` | 2 | ha |
@@ -44,11 +42,11 @@ total variants to build: 78
 | `bitnami/rabbitmq@16.0.14` | 2 | ha |
 | `bitnami/spark@10.0.3` | 2 | existing-secret |
 | `bitnami/zookeeper@13.8.7` | 2 | existing-secret |
-| `cloudnative-pg/cloudnative-pg@0.28.2` | 1 | existing-secret, no-crds |
+| `cloudnative-pg/cloudnative-pg@0.28.2` | 2 | existing-secret |
 | `coredns/coredns@1.45.2` | 1 | existing-secret |
 | `crossplane-stable/crossplane@2.3.1` | 1 | existing-secret |
 | `dex/dex@0.24.0` | 1 | existing-secret |
-| `elastic/eck-operator@3.4.0` | 2 | existing-secret, no-crds |
+| `elastic/eck-operator@3.4.0` | 3 | existing-secret |
 | `external-dns/external-dns@1.21.1` | 2 | existing-secret |
 | `external-secrets/external-secrets@2.5.0` | 2 | existing-secret |
 | `fairwinds-stable/goldilocks@10.3.0` | 1 | existing-secret |
@@ -64,8 +62,8 @@ total variants to build: 78
 | `hashicorp/vault@0.32.0` | 2 | ingress-tls, tls |
 | `istio/istiod@1.30.0` | 1 | existing-secret |
 | `jaegertracing/jaeger@4.8.0` | 1 | existing-secret |
-| `jetstack/trust-manager@v0.22.1` | 1 | existing-secret, no-crds |
-| `kyverno/kyverno@3.8.1` | 1 | existing-secret, no-crds |
+| `jetstack/trust-manager@v0.22.1` | 2 | existing-secret |
+| `kyverno/kyverno@3.8.1` | 2 | existing-secret |
 | `linkerd/linkerd-crds@1.8.0` | 1 | existing-secret, no-crds |
 | `longhorn/longhorn@1.11.2` | 2 | no-crds, ha |
 | `metrics-server/metrics-server@3.13.0` | 2 | existing-secret |
@@ -73,7 +71,7 @@ total variants to build: 78
 | `minio-operator/tenant@7.1.1` | 1 | existing-secret |
 | `nats/nack@0.34.0` | 2 | existing-secret |
 | `nats/nats@2.14.0` | 2 | existing-secret |
-| `open-telemetry/opentelemetry-operator@0.114.0` | 1 | existing-secret, no-crds |
+| `open-telemetry/opentelemetry-operator@0.114.0` | 2 | existing-secret |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | 2 | existing-secret |
 | `prometheus-community/kube-state-metrics@7.4.0` | 1 | existing-secret |
 | `prometheus-community/prometheus-node-exporter@4.55.0` | 1 | existing-secret |

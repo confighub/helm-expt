@@ -1,0 +1,79 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "cloudnative-pg-cloudnative-pg-0.28.2-no-crds-r001"
+  labels:
+    confighub.io/chart: "cloudnative-pg/cloudnative-pg"
+    confighub.io/version: "0.28.2"
+    confighub.io/variant: "no-crds"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d"
+  objectCount: 11
+  objects:
+    -
+      apiVersion: "admissionregistration.k8s.io/v1"
+      identity: "admissionregistration.k8s.io/v1|MutatingWebhookConfiguration||cnpg-mutating-webhook-configuration"
+      kind: "MutatingWebhookConfiguration"
+      name: "cnpg-mutating-webhook-configuration"
+      namespace: ""
+    -
+      apiVersion: "admissionregistration.k8s.io/v1"
+      identity: "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||cnpg-validating-webhook-configuration"
+      kind: "ValidatingWebhookConfiguration"
+      name: "cnpg-validating-webhook-configuration"
+      namespace: ""
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|cloudnative-pg"
+      kind: "Deployment"
+      name: "cloudnative-pg"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||cloudnative-pg"
+      kind: "ClusterRoleBinding"
+      name: "cloudnative-pg"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||cloudnative-pg"
+      kind: "ClusterRole"
+      name: "cloudnative-pg"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||cloudnative-pg-edit"
+      kind: "ClusterRole"
+      name: "cloudnative-pg-edit"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||cloudnative-pg-view"
+      kind: "ClusterRole"
+      name: "cloudnative-pg-view"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|default|cnpg-controller-manager-config"
+      kind: "ConfigMap"
+      name: "cnpg-controller-manager-config"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|default|cnpg-default-monitoring"
+      kind: "ConfigMap"
+      name: "cnpg-default-monitoring"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|cloudnative-pg"
+      kind: "ServiceAccount"
+      name: "cloudnative-pg"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|cnpg-webhook-service"
+      kind: "Service"
+      name: "cnpg-webhook-service"
+      namespace: "default"

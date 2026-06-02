@@ -1,17 +1,16 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "Recipe"
 metadata:
-  name: "argo-cd-argo-events"
-  version: "2.4.21"
   labels:
     confighub.io/chart-ref: "argo-cd/argo-events"
     confighub.io/chart-version: "2.4.21"
     confighub.io/proof-tier: "next80-full"
+  name: "argo-cd-argo-events"
+  version: "2.4.21"
 spec:
   chartRef:
-    sourceLock: "source-lock.yaml"
     dependencyLock: "dependency-lock.yaml"
-  importMode: "render-and-vendor"
+    sourceLock: "source-lock.yaml"
   currentExecutableFixture:
     installerPackage: "packages/argo-cd/argo-events/2.4.21"
     setupCommand:
@@ -23,5 +22,7 @@ spec:
       - "--non-interactive"
       - "--namespace"
       - "default"
+  importMode: "render-and-vendor"
   variants:
     - "variants/default/variant.yaml"
+    - "variants/no-crds/variant.yaml"

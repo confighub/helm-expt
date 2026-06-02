@@ -1,17 +1,16 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "Recipe"
 metadata:
-  name: "argo-cd-argo-rollouts"
-  version: "2.40.9"
   labels:
     confighub.io/chart-ref: "argo-cd/argo-rollouts"
     confighub.io/chart-version: "2.40.9"
     confighub.io/proof-tier: "next80-full"
+  name: "argo-cd-argo-rollouts"
+  version: "2.40.9"
 spec:
   chartRef:
-    sourceLock: "source-lock.yaml"
     dependencyLock: "dependency-lock.yaml"
-  importMode: "render-and-vendor"
+    sourceLock: "source-lock.yaml"
   currentExecutableFixture:
     installerPackage: "packages/argo-cd/argo-rollouts/2.40.9"
     setupCommand:
@@ -23,5 +22,7 @@ spec:
       - "--non-interactive"
       - "--namespace"
       - "default"
+  importMode: "render-and-vendor"
   variants:
     - "variants/default/variant.yaml"
+    - "variants/no-crds/variant.yaml"

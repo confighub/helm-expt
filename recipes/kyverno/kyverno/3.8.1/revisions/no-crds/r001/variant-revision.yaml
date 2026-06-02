@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "kyverno/kyverno"
+    confighub.io/version: "3.8.1"
+    confighub.io/variant: "no-crds"
+spec:
+  variant: "../../../variants/no-crds/variant.yaml"
+  revision: "r001"
+  digestInputs:
+    rendererSHA256: "ba79fcab7c93c102de93969d97ccfcd4b6e07b1276ab45f2fc137c239dce0631"
+    renderedObjectSetSHA256: "3a1b0dd0d65607586ee0a3ace591e776a0a13c8047cb31b43f7128febcd93227"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"

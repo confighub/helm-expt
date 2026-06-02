@@ -1,0 +1,14 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "no-crds-r001"
+  labels:
+    confighub.io/chart: "elastic/eck-operator"
+    confighub.io/version: "3.4.0"
+    confighub.io/variant: "no-crds"
+spec:
+  renderer: "helm"
+  outputs:
+    renderedObjectSetSHA256: "6da1150ac5e27b67009e5c20dddf061a5a92af72adfc4551a866fa0d28e23a87"
+    objectCount: 10
+    deterministicAcrossTwoLocalRenders: true

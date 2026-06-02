@@ -48,13 +48,14 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "no-crds"
     deferredVariants:
       []
   installerPackage:
     path: "packages/jetstack/trust-manager/v0.22.1"
     installer: "packages/jetstack/trust-manager/v0.22.1/installer.yaml"
     receipt: "recipes/jetstack/trust-manager/v0.22.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "28d1e52412a879f370505b15c9edced5fdeb1a9cf04e6159b925001b3027cac6"
+    deterministicBundleSHA256: "e0f077d0158b34447fbc29a05f0cb94eb7d63127f8ac60d2a9806c54d5b4e9ce"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -62,6 +63,11 @@ spec:
         path: "packages/jetstack/trust-manager/v0.22.1/bases/default"
         default: true
         description: "jetstack/trust-manager default variant rendered from jetstack/trust-manager@v0.22.1"
+      -
+        name: "no-crds"
+        path: "packages/jetstack/trust-manager/v0.22.1/bases/no-crds"
+        default: false
+        description: "jetstack/trust-manager no-crds variant rendered from jetstack/trust-manager@v0.22.1"
   variants:
     -
       name: "default"
@@ -125,3 +131,65 @@ spec:
               path: "recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "50eb2239a5db07734497711c4e812eb111d231852c2f614e5b0a1faec7bab683"
+    -
+      name: "no-crds"
+      variant: "recipes/jetstack/trust-manager/v0.22.1/variants/no-crds/variant.yaml"
+      namespace: "default"
+      releaseName: "trust-manager"
+      valuesProfile: "recipes/jetstack/trust-manager/v0.22.1/effective-values-no-crds.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "no-crds"
+        path: "packages/jetstack/trust-manager/v0.22.1/bases/no-crds"
+        default: false
+        description: "jetstack/trust-manager no-crds variant rendered from jetstack/trust-manager@v0.22.1"
+      setupCheck:
+        command: "cub installer setup --pull packages/jetstack/trust-manager/v0.22.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 13
+        cubInstallObjectCountIncludingSupport: 14
+        semanticObjectMatches: "13/13"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "no-crds-r001"
+          revision: "r001"
+          variantRevision: "recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/variant-revision.yaml"
+          digest: ""
+          renderedObjectSetSHA256: "5d0b08f8abda179089de0d4acead48bd8a3752c16766ed8ef1b95478065e9250"
+          renderedObjects: "recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          objectCount: 13
+          helmObjectCount: 13
+          cubInstallObjectCountIncludingSupport: ""
+          semanticObjectMatches: "13/13"
+          separatedSecretFiles: ""
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "5d0b08f8abda179089de0d4acead48bd8a3752c16766ed8ef1b95478065e9250"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "5d0b08f8abda179089de0d4acead48bd8a3752c16766ed8ef1b95478065e9250"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/receipts/scan-receipt.yaml"
+              result: ""
+              renderedObjectSetSHA256: "5d0b08f8abda179089de0d4acead48bd8a3752c16766ed8ef1b95478065e9250"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "5d0b08f8abda179089de0d4acead48bd8a3752c16766ed8ef1b95478065e9250"
