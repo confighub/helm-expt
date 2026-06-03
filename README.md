@@ -247,6 +247,10 @@ That checks recipe/package structure, Helm equivalence, rendered object
 digests, receipts, catalog status, target facts, local live/e2e receipts,
 production disposition, and top-500 analysis.
 
+Some chart-specific package-equivalence diagnostics are currently still red
+because they expose declared hard gaps in the top-100 data. The test-script map
+lists those commands and explains how to read them.
+
 For the proof contracts specifically:
 
 ```sh
@@ -267,6 +271,13 @@ Local kind live-test image: kindest/node:v1.30.0
 
 The `cub`, `kind`, and `kubectl` CLI versions are environment-dependent today;
 the receipts record the rendered inputs and verified outputs.
+
+For the full test-script map, including what each `npm run ...` family checks
+and which commands write files, see:
+
+```text
+tests/npm-scripts.md
+```
 
 ## Verify Your Install
 

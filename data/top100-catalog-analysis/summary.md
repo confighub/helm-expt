@@ -24,6 +24,8 @@ top-20 current with latest upstream: 14
 top-20 update candidates: 6
 production-blocked entries: 20
 entries matched to top-500 source rows: 65
+no hard gap in chart-facts: 71
+hard gap for at least one recommended capability: 29
 ```
 
 ## Interpretation
@@ -36,6 +38,42 @@ entries matched to top-500 source rows: 65
 - Latest-version currentness is tracked only for the top-20 catalog-supported
   lane at the moment. The broader top-100 currentness lane should wait until
   the current top-20 update candidates are promoted or explicitly deferred.
+
+## Readiness Tiers
+
+The top-100 should be read as four overlapping readiness views, not one blanket
+claim.
+
+| Tier | Count | Meaning |
+| --- | ---: | --- |
+| Recipe/package proof exists | 100 | The chart has a maintained recipe and executable `cub installer` package with proof artifacts. |
+| Catalog-supported for local-test | 20 | The chart is in the public top-20 lane with local kind live/e2e and ConfigHub proof receipts. |
+| Proof-grade, not catalog-supported | 80 | The chart has deterministic proof artifacts but still needs user-shaped variants and promotion review. |
+| Variant-rich | 54 | The chart has more than one base variant. |
+| Default-only | 46 | The chart has a proof path, but not enough variants for common user choices. |
+| No hard gap in chart-facts | 71 | Recommended capabilities are built, not applicable, or have a known path. |
+| Hard gap for a recommended capability | 29 | The core recipe may still work, but at least one useful capability is not yet enabled. See `data/chart-facts/summary.md`. |
+
+In plain English:
+
+```text
+works now under declared proof scope
+  100 charts have recipe/package proof artifacts.
+
+works for the public local-test catalog
+  20 charts have top-20 catalog support and live/e2e receipts.
+
+works, but still needs user-shaped product review
+  80 charts are proof-grade but not catalog-supported.
+
+works only with a named limitation or user/operator help
+  29 charts have at least one hard gap for a recommended extra capability.
+```
+
+The hard-gap column is about missing recommended capabilities, not total chart
+failure. For example, a chart may have a working default recipe while still
+lacking an `existing-secret`, `no-crds`, HA, or full-equivalence path for a
+specific variant.
 
 ## Top-20 Update Candidates
 
