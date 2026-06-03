@@ -51,7 +51,7 @@ YAML.
 
 ## Overlay Variant
 
-The overlay variant is the customer production operating context.
+The overlay variant is the customer production ConfigHub variant.
 
 ```text
 ExternalDNS/customer-acme-prod
@@ -63,7 +63,8 @@ It is created from:
 ExternalDNS/managed-aws-acme
 ```
 
-It changes only ConfigHub operating information:
+It applies customer production refinements after the reviewed base has been
+uploaded:
 
 ```yaml
 customer: acme
@@ -84,7 +85,9 @@ targetFacts:
 ```
 
 It does not rerender Helm. It does not change the ExternalDNS Deployment,
-ServiceAccount, RBAC, or CRD shape.
+ServiceAccount, RBAC, or CRD shape. It can still bind target facts and fill
+approved existing fields when the Creator contract allows those changes and
+records checks and mutation receipts.
 
 ## User UX
 
@@ -96,7 +99,7 @@ From: ExternalDNS/managed-aws-acme
 For: customer-acme-prod
 Change: customer, environment, region, target, observation policy
 Require: hosted zone acme.example.com, Secret external-dns/external-dns-aws
-Review: same ExternalDNS object set, new customer production context
+Review: same ExternalDNS install shape, approved customer production refinements
 Status: ready when target facts are confirmed
 Create
 ```
@@ -132,9 +135,11 @@ approval gates
 observation freshness
 required hosted zone
 required external Secret reference
+approved placeholder or TransformPaths fills
 ```
 
-Those values affect where and how the reviewed objects are operated.
+Those values refine the reviewed object set after upload without rerendering
+Helm.
 
 ## Checked Example Files
 
@@ -154,4 +159,3 @@ overlay-classification.yaml
 preview.yaml
 receipts/*.yaml
 ```
-

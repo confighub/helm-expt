@@ -5,13 +5,23 @@
 This guide explains how a Helm user should think about variants in this
 project.
 
+There are two variant stages. A **base variant** is the rendered install shape
+created by `cub installer`. A **derived ConfigHub variant** starts from a
+reviewed uploaded base and applies approved post-render refinements without
+running Helm again. If those names feel similar, use this rule first:
+
+```text
+Helm render inputs or object shape change -> base variant.
+Approved post-render fields, facts, links, targets, gates, or checks change -> derived ConfigHub variant.
+```
+
 There are three common situations:
 
 ```text
-The Kubernetes objects need to change.
+Helm needs to render a different object set or lifecycle shape.
   Use a cub installer base variant.
 
-The Kubernetes objects stay the same, but the target or operating rules change.
+The reviewed object set is being refined after render.
   Use a derived ConfigHub variant.
 
 The artifact is ready, but Kubernetes or GitOps needs something else first.
@@ -34,7 +44,8 @@ belongs.
 
 A base variant is a reviewed install shape produced by `cub installer`.
 
-Use a base variant when Helm must render different Kubernetes objects.
+Use a base variant when Helm must render a different object set, object shape,
+or lifecycle behavior.
 
 Common examples:
 
@@ -42,10 +53,12 @@ Common examples:
 - change replicas, storage, ingress, TLS, CRDs, RBAC, webhooks, args, or env;
 - switch between generated Secret mode and existing Secret mode when the
   rendered references differ;
-- apply a Helm values file or `--set` flag that changes the rendered YAML;
-- apply a Kustomize overlay or post-renderer that changes the rendered YAML;
+- apply a Helm values file or `--set` flag that changes Helm template output
+  or object shape;
+- apply a Kustomize overlay or post-renderer that materially changes the
+  install shape;
 - use a wrapper chart, umbrella chart, platform values, or customer overlay
-  values that change the rendered YAML.
+  values that change the Helm-rendered object set.
 
 Examples:
 
@@ -56,7 +69,8 @@ prometheus/default
 prometheus/server-only-ephemeral
 ```
 
-The important point is simple: if the YAML Kubernetes will receive is different,
+The important point is simple: if Helm needs to re-evaluate chart templates, or
+if the object count, object shape, dependencies, or lifecycle behavior changes,
 make that difference visible in a base variant.
 
 ## Derived ConfigHub Variants
@@ -64,16 +78,21 @@ make that difference visible in a base variant.
 A derived ConfigHub variant starts from a reviewed uploaded base. It does not
 run Helm again.
 
-Use a derived variant when the Kubernetes object shape stays the same and the
-change is about where or how the reviewed objects are operated.
+Use a derived variant when the reviewed object set can be cloned and refined
+with approved post-render changes over ConfigHub Units.
 
 Common examples:
 
 - environment, region, customer, or target;
+- namespace when the base exposes it as a post-render field;
 - ConfigHub labels, annotations, views, links, and ownership;
 - approval gates and operation policy;
 - observation policy and freshness expectations;
-- filling an existing field that the reviewed base already exposes.
+- target fact bindings such as Secret names, hosted zones, endpoint IDs, or
+  account IDs when the base already exposes those references;
+- placeholder, parameter Unit, or TransformPaths fills over existing fields;
+- PostClone trigger or function mutations selected by the source Space, with
+  checks and MutationSources receipts.
 
 Example:
 
@@ -82,8 +101,9 @@ prometheus/server-only-ephemeral
 -> prometheus/prod-us-east
 ```
 
-The production variant keeps the same Prometheus install shape. It changes the
-target, labels, gates, and observation policy.
+The production variant keeps the same Prometheus install shape. It may change
+target, labels, namespace fields, fact bindings, gates, links, checks, and
+observation policy through the Creator contract.
 
 ## Delivery Prerequisites
 
@@ -117,7 +137,7 @@ Create variant
 From: prometheus/server-only-ephemeral
 For: prod-us-east
 Change: target, environment, region, production gates, observation policy
-Review: same Prometheus install shape, new production operating context
+Review: same Prometheus install shape, approved post-render production refinements
 Status: ready to create
 Create
 ```
@@ -145,7 +165,7 @@ An AI assistant should receive the same request as structured work.
 Example:
 
 ```yaml
-task: create_config_only_variant
+task: create_derived_variant
 from:
   component: Prometheus
   variant: server-only-ephemeral
@@ -160,16 +180,21 @@ allowedChanges:
   - space labels
   - target assignment
   - approval gates
+  - target fact bindings
+  - allowed TransformPaths fills
   - observation policy metadata
 checks:
   - no Helm rerender
-  - rendered object digest unchanged
+  - install shape preserved
+  - mutation paths reviewed
   - upstream links preserved
   - Unit count preserved
 ```
 
-If the requested change touches rendered Kubernetes fields, the assistant should
-route the work back to the `cub installer` base path.
+If the requested change requires Helm to re-evaluate templates, changes the
+object count or install shape, or touches fields outside the approved
+post-render contract, the assistant should route the work back to the
+`cub installer` base path.
 
 ## Bulk Creation Flow
 
@@ -193,7 +218,8 @@ rows:
     region: eu-west
     target: monitoring-targets/prod-eu-west
 checks:
-  - rendered object digest is unchanged for every row
+  - no Helm rerender for every row
+  - every mutation path is allowed by the Creator contract
   - each downstream Space keeps Component=Prometheus
   - every row has a target and observation policy
 ```
@@ -210,6 +236,7 @@ making the human flow complicated.
 | "Promote Prometheus server-only to prod-us-east." | Create a derived ConfigHub variant from `prometheus/server-only-ephemeral`. |
 | "Disable Prometheus Alertmanager." | Create or select a `cub installer` base variant. |
 | "Add production approval gates." | Create a derived ConfigHub variant. |
+| "Fill a namespace or Secret reference already exposed by the base." | Create a derived ConfigHub variant with target facts, TransformPaths, checks, and receipts. |
 | "Change the StorageClass." | Usually create a base variant and record the target fact. |
 | "Use customer overlay values for a wrapper chart." | Follow the custom overlay flow: classify values, create a reviewed base, then derive environment or customer variants. |
 | "Point Argo CD or Flux at the result." | Configure delivery after the reviewed base or derived variant is ready. |

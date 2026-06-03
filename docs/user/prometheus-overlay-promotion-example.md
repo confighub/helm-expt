@@ -87,18 +87,21 @@ It is created from:
 Prometheus/server-only-ephemeral
 ```
 
-It changes only the operating context:
+It applies production refinements after the reviewed base has been uploaded:
 
 ```yaml
 environment: Prod
 region: us-east
 target: monitoring-targets/prod-us-east
+namespace: monitoring-prod
 approvalGate: production-review
 observationFreshness: PT15M
 ```
 
 It does not rerender Helm. It does not change Prometheus components,
-persistence, scrape config, RBAC, ingress, or object count.
+persistence, scrape config, RBAC, ingress, or object count. Any namespace or
+target-specific field fill must be allowed by the Creator contract and recorded
+with mutation receipts.
 
 The current command shape is:
 
@@ -121,7 +124,7 @@ Create variant
 From: Prometheus/server-only-ephemeral
 For: prod-us-east
 Change: target, environment, region, production gates, observation policy
-Review: same Prometheus object set, new production operating context
+Review: same Prometheus install shape, approved post-render production refinements
 Status: ready to create
 Create
 ```
@@ -132,7 +135,8 @@ The detailed checks can stay in the review details, CI, receipts, or audit
 views:
 
 ```text
-same rendered object digest
+no Helm rerender
+approved mutation paths only
 same Unit count
 upstream links preserved
 scan warning carried forward
@@ -177,6 +181,9 @@ labels
 annotations
 approval gates
 observation policy
+namespace fields when exposed by the base
+target facts
+allowed TransformPaths or function fills
 promotion relationship
 ```
 
@@ -198,7 +205,9 @@ rows:
     region: eu-west
     target: monitoring-targets/prod-eu-west
 checks:
-  - rendered object set is unchanged
+  - no Helm rerender
+  - install shape is unchanged
+  - mutation paths are allowed
   - each row has a target
   - each row has production gates
 ```

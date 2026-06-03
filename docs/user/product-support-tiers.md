@@ -202,8 +202,9 @@ Kustomize overlays that add/remove/change resources materially
 ```
 
 These choices go through the `cub installer` recipe/package path first. After
-the reviewed base is uploaded, ConfigHub variants can refine targets, labels,
-links, gates, facts, and already-rendered editable fields.
+the reviewed base is uploaded, derived ConfigHub variants can refine targets,
+labels, links, gates, facts, placeholders, TransformPaths, function-selected
+fields, and already-rendered editable fields.
 
 This is the likely home for commercial or managed features: private chart
 analysis, customer overlay import, fleet variants, old-version patch support,
@@ -270,8 +271,11 @@ notes.
 ## Decision Rule
 
 ```text
-If it changes rendered Kubernetes objects, it is an installer recipe/base input.
-If it refines already-rendered ConfigHub Units, it is a ConfigHub variant input.
+If it changes Helm render inputs, object shape, object count, or lifecycle
+semantics, it is an installer recipe/base input.
+If it refines already-rendered ConfigHub Units through approved post-render
+fields, facts, links, targets, gates, functions, or checks, it is a derived
+ConfigHub variant input.
 If it depends on live cluster state, it needs target facts, preflight, or
 observation receipts.
 If it is private/customer-specific, it belongs in ConfigHub managed tiers, not
