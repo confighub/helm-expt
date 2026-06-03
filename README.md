@@ -247,10 +247,6 @@ That checks recipe/package structure, Helm equivalence, rendered object
 digests, receipts, catalog status, target facts, local live/e2e receipts,
 production disposition, and top-500 analysis.
 
-Some chart-specific package-equivalence diagnostics are currently still red
-because they expose declared hard gaps in the top-100 data. The test-script map
-lists those commands and explains how to read them.
-
 For the proof contracts specifically:
 
 ```sh

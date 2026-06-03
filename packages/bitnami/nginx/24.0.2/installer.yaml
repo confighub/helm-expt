@@ -25,18 +25,18 @@ spec:
           suggestedSource: "kubectl -n nginx create secret generic nginx-ingress-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value>"
       name: "existing-tls-ingress"
       path: "bases/existing-tls-ingress"
-  transformers:
-    # F1 fix: honour `cub installer --namespace X` instead of the frozen upstream
-    # literal — set metadata.namespace on every namespaced resource and rename
-    # the Namespace object. Pattern: installer examples/hello-app/installer.yaml.
-    - toolchain: "Kubernetes/YAML"
-      whereResource: ""
-      description: "Set the namespace on every namespaced resource."
-      invocations:
-        - name: "set-namespace"
-          args: ["{{ .Namespace }}"]
   collector:
     command: "/bin/sh"
     args:
       - "collector/target-facts.sh"
     description: "Records target-fact bindings and can live-check existing Secret requirements."
+  transformers:
+    -
+      description: "Set the namespace on every namespaced resource."
+      invocations:
+        -
+          args:
+            - "{{ .Namespace }}"
+          name: "set-namespace"
+      toolchain: "Kubernetes/YAML"
+      whereResource: ""

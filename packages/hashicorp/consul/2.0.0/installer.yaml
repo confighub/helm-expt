@@ -12,8 +12,6 @@ spec:
       path: "bases/default-control-plane"
     -
       description: "consul secure mesh with existing Secrets variant rendered from hashicorp/consul@2.0.0"
-      name: "secure-mesh-existing-secrets"
-      path: "bases/secure-mesh-existing-secrets"
       externalRequires:
         -
           kind: "ClusterFeature"
@@ -35,16 +33,8 @@ spec:
           name: "Secret consul/consul-bootstrap-acl-token key token"
           namespace: "consul"
           suggestedSource: "kubectl -n consul create secret generic consul-bootstrap-acl-token --from-literal=token=<value>"
-  transformers:
-    # F1 fix: honour `cub installer --namespace X` instead of the frozen upstream
-    # literal — set metadata.namespace on every namespaced resource and rename
-    # the Namespace object. Pattern: installer examples/hello-app/installer.yaml.
-    - toolchain: "Kubernetes/YAML"
-      whereResource: ""
-      description: "Set the namespace on every namespaced resource."
-      invocations:
-        - name: "set-namespace"
-          args: ["{{ .Namespace }}"]
+      name: "secure-mesh-existing-secrets"
+      path: "bases/secure-mesh-existing-secrets"
   collector:
     command: "/bin/sh"
     args:

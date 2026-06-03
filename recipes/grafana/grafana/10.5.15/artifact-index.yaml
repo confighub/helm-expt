@@ -54,7 +54,7 @@ spec:
     path: "packages/grafana/grafana/10.5.15"
     installer: "packages/grafana/grafana/10.5.15/installer.yaml"
     receipt: "recipes/grafana/grafana/10.5.15/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "b3b99dc1b9cece1d16448ebaefe19496805f047f752fab26dd383a0fad2ae5e4"
+    deterministicBundleSHA256: "bbf658cc190c376cb7aa41140eb419490f5d005b4c76018db926f9836f4395fc"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

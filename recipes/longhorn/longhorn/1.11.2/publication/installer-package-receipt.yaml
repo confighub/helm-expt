@@ -4,16 +4,13 @@ metadata:
   name: "longhorn-longhorn-1.11.2"
 spec:
   chart:
-    name: "longhorn"
     repository: "longhorn"
+    name: "longhorn"
     version: "1.11.2"
-  deterministicBundle:
-    byteIdenticalAcrossTwoLocalBundles: true
-    command: "cub installer package packages/longhorn/longhorn/1.11.2 -o <tmp>/longhorn-1.11.2.tgz"
-    sha256: "cbffd4ad1643bdf664d003c8da0a9376ea53e7fcb9bcb8ac6a29c22b02f0f0aa"
   package:
-    name: "longhorn-longhorn"
     path: "packages/longhorn/longhorn/1.11.2"
+    name: "longhorn-longhorn"
+    version: "1.11.2"
     sourceFiles:
       -
         path: "README.md"
@@ -37,27 +34,30 @@ spec:
         bytes: 163180
       -
         path: "installer.yaml"
-        sha256: "2dfc4e40bc7e182ebf832e6a624940866798c168855bbac7721ad51f8c7f201c"
-        bytes: 954
-    version: "1.11.2"
+        sha256: "091f3b2fe4c63b1317ca757b678c6b44bb1774ee39a9da6a10814b080c901bde"
+        bytes: 477
+  deterministicBundle:
+    command: "cub installer package packages/longhorn/longhorn/1.11.2 -o <tmp>/longhorn-1.11.2.tgz"
+    sha256: "b204441cb21bc29ac21ba5fa10c45f8ac8176c4d13b375edd2129d01481c58ea"
+    byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
-      allowedCubOnlyObjects:
-        - "v1|Namespace||longhorn-system"
+      variant: "default"
       base: "default"
       command: "cub installer setup --pull packages/longhorn/longhorn/1.11.2 --base default --work-dir <tmp> --non-interactive --namespace longhorn-system"
-      cubInstallObjectCountIncludingSupport: 42
       helmReleaseObjectCount: 41
+      cubInstallObjectCountIncludingSupport: 42
       semanticObjectMatches: "41/41"
       separatedSecretCount: 0
-      variant: "default"
-    -
       allowedCubOnlyObjects:
         - "v1|Namespace||longhorn-system"
+    -
+      variant: "ui-ingress"
       base: "ui-ingress"
       command: "cub installer setup --pull packages/longhorn/longhorn/1.11.2 --base ui-ingress --work-dir <tmp> --non-interactive --namespace longhorn-system"
-      cubInstallObjectCountIncludingSupport: 43
       helmReleaseObjectCount: 42
+      cubInstallObjectCountIncludingSupport: 43
       semanticObjectMatches: "42/42"
       separatedSecretCount: 0
-      variant: "ui-ingress"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||longhorn-system"

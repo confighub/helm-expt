@@ -8,8 +8,8 @@ spec:
   doctrine: "A chart is not catalog-supported merely because default Helm output is deterministic; it needs obvious user-shaped variants and production dispositions."
   acceptance:
     - "Each selected chart must already have proof-grade package/proof artifacts."
-    - "Each selected chart must be default-only today so the next work is genuinely variant promotion."
-    - "Each proposed variant must become an actual recipe variant, package base, rendered revision, scan/gate receipt, and Helm-equivalence receipt before support is claimed."
+    - "Each selected chart must still be machine-proof-only, with no catalog-supported variants yet."
+    - "Each proposed user-shaped variant must become an actual recipe variant, package base, rendered revision, scan/gate receipt, and Helm-equivalence receipt before support is claimed."
     - "Production support remains blocked until production dispositions and live/e2e observation requirements are recorded."
   candidates:
     -

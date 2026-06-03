@@ -14,13 +14,3 @@ spec:
       name: "ui-ingress"
       path: "bases/ui-ingress"
       description: "Longhorn UI ingress enabled variant rendered from longhorn/longhorn@1.11.2"
-  transformers:
-    # F1 fix: honour `cub installer --namespace X` instead of the frozen upstream
-    # literal — set metadata.namespace on every namespaced resource and rename
-    # the Namespace object. Pattern: installer examples/hello-app/installer.yaml.
-    - toolchain: "Kubernetes/YAML"
-      whereResource: ""
-      description: "Set the namespace on every namespaced resource."
-      invocations:
-        - name: "set-namespace"
-          args: ["{{ .Namespace }}"]

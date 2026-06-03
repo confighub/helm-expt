@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/mysql/14.0.3 -o <tmp>/mysql-14.0.3.tgz"
-    sha256: "b041088c37725af2a81fdf2c3611f5861de66a9814ef1c5ad866a0a1f9bb04ca"
+    sha256: "be4019f4dd61c810734b3fff065f928fd4d676a52efd5231d2daaa9608bf2a7a"
   package:
     name: "bitnami-mysql"
     path: "packages/bitnami/mysql/14.0.3"
@@ -41,8 +41,8 @@ spec:
         bytes: 1518
       -
         path: "installer.yaml"
-        sha256: "7a9ede2d9f8608fd6eb626bc84ec689a576796e177ca81871f3e7b79a7e885b5"
-        bytes: 1551
+        sha256: "8d1249f4426376be88fe90cb3d3c56ee96c9db6b5f81542aae989d4d9a7ab6c8"
+        bytes: 1334
     version: "14.0.3"
   setupChecks:
     -

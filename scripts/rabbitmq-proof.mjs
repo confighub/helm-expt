@@ -596,9 +596,16 @@ function generatePackage() {
         path: `bases/${variant.base}`,
         default: index === 0 ? true : undefined,
         description: `rabbitmq ${variant.displayName} variant rendered from bitnami/rabbitmq@${chart.version}`,
+        externalRequires: externalRequiresForVariant(variant),
       })),
+      collector: {
+        command: "/bin/sh",
+        args: ["collector/target-facts.sh"],
+        description: "Records target-fact bindings and can live-check existing Secret requirements.",
+      },
     },
   });
+  write(join(packageRoot, "collector", "target-facts.sh"), rabbitmqTargetFactsCollectorScript());
   write(
     join(packageRoot, "README.md"),
     `# bitnami/rabbitmq ${chart.version} Installer Package
@@ -677,6 +684,91 @@ npm run rabbitmq:verify-package
   verifyPackage();
   console.log(`Wrote ${packageRelative}`);
   console.log(`Wrote ${relativeRepo(receiptPath)}`);
+}
+
+function externalRequiresForVariant(variant) {
+  const requiredSecrets = variant.targetFacts?.requiredSecrets ?? [];
+  if (requiredSecrets.length === 0) return undefined;
+  return requiredSecrets.flatMap((secret) =>
+    secret.keys.map((key) => ({
+      kind: "ClusterFeature",
+      name: `Secret ${secret.namespace}/${secret.name} key ${key}`,
+      namespace: secret.namespace,
+      suggestedSource: `kubectl -n ${secret.namespace} create secret generic ${secret.name} --from-literal=${key}=<value>`,
+    })),
+  );
+}
+
+function rabbitmqTargetFactsCollectorScript() {
+  return `#!/bin/sh
+set -eu
+
+base="\${INSTALLER_BASE:-default}"
+check_mode="\${TARGET_FACT_CHECK_MODE:-record}"
+
+emit_empty() {
+  cat <<YAML
+targetFacts:
+  requiredSecrets: []
+targetFactChecks:
+  base: "$base"
+  mode: not-required
+  result: pass
+YAML
+}
+
+live_check_secret() {
+  namespace="$1"
+  name="$2"
+  key="$3"
+  if ! command -v kubectl >/dev/null 2>&1; then
+    echo "kubectl is required for TARGET_FACT_CHECK_MODE=live" >&2
+    exit 1
+  fi
+  if ! kubectl -n "$namespace" get secret "$name" >/dev/null 2>&1; then
+    echo "required Secret $namespace/$name was not found" >&2
+    exit 1
+  fi
+  if ! kubectl -n "$namespace" get secret "$name" -o yaml | awk -v key="$key" '$1 == key ":" { found=1 } END { exit found ? 0 : 1 }'; then
+    echo "required Secret $namespace/$name is missing key $key" >&2
+    exit 1
+  fi
+}
+
+case "$base" in
+  'existing-secret')
+    if [ "$check_mode" = "live" ]; then
+      live_check_secret 'rabbitmq' 'rabbitmq-auth' 'rabbitmq-password'
+      live_check_secret 'rabbitmq' 'rabbitmq-erlang-cookie' 'rabbitmq-erlang-cookie'
+      result="pass"
+    else
+      result="recorded"
+    fi
+    cat <<YAML
+targetFacts:
+  requiredSecrets:
+  - keys:
+    - rabbitmq-password
+    name: rabbitmq-auth
+    namespace: rabbitmq
+    purpose: RabbitMQ administrator password
+  - keys:
+    - rabbitmq-erlang-cookie
+    name: rabbitmq-erlang-cookie
+    namespace: rabbitmq
+    purpose: RabbitMQ Erlang cookie for node clustering
+
+targetFactChecks:
+  base: "existing-secret"
+  mode: "$check_mode"
+  result: "$result"
+YAML
+    ;;
+  *)
+    emit_empty
+    ;;
+esac
+`;
 }
 
 function verifyProof(root = proofRoot) {

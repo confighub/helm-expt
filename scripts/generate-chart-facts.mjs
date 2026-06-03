@@ -7,7 +7,7 @@
 //   - admission webhooks? open extension slots (tpl / extraManifests) the user must review?
 //   - which variants are built today
 //   - NOT YET ENABLED: the honest per-chart gap — recommended capabilities we cannot yet build
-//     because no solution/workaround exists yet, each annotated with the reason (#113 / #114 / #124 /
+//     because no solution/workaround exists yet, each annotated with the reason (#113 / #114 /
 //     curated-lane). Empty means every recommended capability is built and the quirks are modeled.
 //
 // Sources: per-chart helm-pain-report.yaml (dispositions), the source-feature scan (hook types,
@@ -24,17 +24,6 @@ const mode = process.argv[2] ?? "--generate";
 const outDir = join(repoRoot, "data", "chart-facts");
 const csvPath = join(outDir, "chart-facts.csv");
 const summaryPath = join(outDir, "summary.md");
-
-// Charts where cub installer setup emits fewer objects than helm (cross-namespace / cluster-scoped /
-// sub-chart / RoleBinding) — the F4 equivalence caveat, tracked in #124. Keyed by "<repo>/<chart>".
-const F4_EQUIVALENCE_GAP = {
-  "jetstack/cert-manager": "cross-namespace kube-system RBAC dropped",
-  "bitnami/rabbitmq": "RoleBinding rabbitmq-endpoint-reader differs",
-  "prometheus-community/kube-prometheus-stack": "cross-namespace kube-system Services dropped",
-  "grafana/loki": "minio sub-chart objects dropped",
-  "longhorn/longhorn": "cluster-scoped PriorityClass dropped",
-  "hashicorp/consul": "RoleBinding consul-consul-server differs",
-};
 
 function csv(value) {
   const s = String(value ?? "");
@@ -182,7 +171,6 @@ function buildRows() {
     const classified = rec.filter((v) => !hasVariant(v)).map((v) => ({ v, ...classifyGap(v, declined[v], secretsGen) }));
     const hardGaps = classified.filter((c) => c.kind === "hard").map((c) => c.label);
     const softBacklog = classified.filter((c) => c.kind === "soft").map((c) => c.label);
-    if (F4_EQUIVALENCE_GAP[ref]) hardGaps.push(`full Helm-equivalence — ${F4_EQUIVALENCE_GAP[ref]} (#124)`);
 
     const esc = classified.find((c) => c.v === "existing-secret");
     let existingSecret;
@@ -261,9 +249,8 @@ charts with buildable backlog (path exists): ${buildable.length}
 \`\`\`text
 existing-secret — chart ships no Secret toggle (#113):  ${tally(/#113/)}
 no-crds — template-baked CRDs, no toggle (#114):        ${tally(/#114/)}
-Helm-equivalence — cub drops objects (#124):            ${tally(/#124/)}
 curated proof lane — needs bespoke teaching:            ${tally(/curated proof lane/)}
-other hard gap:                                         ${withGaps.filter((r) => !/#11[34]|#124|curated proof lane/.test(r.not_yet_enabled)).length}
+other hard gap:                                         ${withGaps.filter((r) => !/#11[34]|curated proof lane/.test(r.not_yet_enabled)).length}
 \`\`\`
 
 ## How to read a row
