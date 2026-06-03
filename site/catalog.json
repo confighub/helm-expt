@@ -3,14 +3,20 @@
   "source": {
     "top100": "data/top100-catalog-analysis/raw.json",
     "top500": "data/top500-catalog-analysis/raw.json",
-    "latestCandidates": "data/latest-top20-refresh/promotion-readiness.csv"
+    "latestCandidates": "data/latest-top20-refresh/promotion-readiness.csv",
+    "runtimeWave": "data/runtime-gitops/wave1.csv",
+    "imageDigestSubjects": "data/image-digest-workdown/all-subjects.csv",
+    "nextTenGaps": "data/next-ten-waves/gap-review-wave.csv"
   },
   "summary": {
     "catalogSupported": 20,
     "proofGrade": 80,
     "top500Rows": 500,
     "top500MatchedProofs": 91,
-    "latestCandidates": 6
+    "latestCandidates": 6,
+    "runtimeGitopsWave": 10,
+    "imageSubjectsNeedingResolution": 149,
+    "nextTenGapRows": 9
   },
   "catalogEntries": [
     {

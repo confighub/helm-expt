@@ -35,6 +35,12 @@ Start with [npm-scripts.md](npm-scripts.md) when you want to know what each
 - `../data/attack-plan-workdown/summary.md` — generated workdown that ties the
   test lanes to import, gap, variant, production, latest-candidate, and image
   digest next actions.
+- `../data/runtime-gitops/summary.md` — first Argo/Flux OCI live-proof wave and
+  the required receipt index.
+- `../data/image-digest-workdown/summary.md` — rendered image digest review
+  queue for production OCI support.
+- `../data/next-ten-waves/summary.md` — compact next rows for the current
+  execution queue.
 - `runbook.md` — exact reproducible per-chart procedure.
 - `findings.md` — F1–F4 (namespace, `:latest`, secret delivery, proof-SHA).
 - `adversarial-strategy.md` — the adversarial multi-persona, tier-aware usage
