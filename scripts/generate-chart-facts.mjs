@@ -133,6 +133,14 @@ function generatesSecrets(scan) {
   return n("randFuncs") + n("certFuncs") + n("hashPasswordFuncs") > 0;
 }
 
+// True if the source scan recorded a non-zero count for a feature field (fields are {count, examples}).
+function scanHas(scan, field) {
+  const v = scan?.[field];
+  if (v && typeof v === "object") return (v.count ?? 0) > 0;
+  if (typeof v === "number") return v > 0;
+  return Boolean(v);
+}
+
 function buildRows() {
   const scan = loadSourceScan();
   const backlog = loadBacklog();
@@ -207,6 +215,10 @@ function buildRows() {
       crds: crdCount > 0 ? String(crdCount) : hasCrds ? "yes" : "—",
       no_crds_variant: noCrds,
       webhooks: webhooks > 0 ? String(webhooks) : "—",
+      required_values: scanHas(s, "requiredOrFail") ? "yes — mandatory inputs (required/fail)" : "—",
+      values_schema: scanHas(s, "valuesSchema") ? "yes — values.schema.json" : "—",
+      install_vs_upgrade: scanHas(s, "releaseModeBranching") ? "yes — renders differ install vs upgrade" : "—",
+      notes: scanHas(s, "notesFiles") ? "yes — NOTES.txt" : "—",
       extension_slots: extensionSlots ? "yes — per-use review" : "—",
       variants_built: variants.join("+"),
       buildable_not_yet_run: buildableBacklog,
@@ -219,7 +231,8 @@ function buildRows() {
 function render(rows) {
   const cols = [
     "chart", "version", "post_deploy_hooks", "other_hooks", "hook_status", "generates_secrets",
-    "existing_secret", "crds", "no_crds_variant", "webhooks", "extension_slots", "variants_built",
+    "existing_secret", "crds", "no_crds_variant", "webhooks", "required_values", "values_schema",
+    "install_vs_upgrade", "notes", "extension_slots", "variants_built",
     "buildable_not_yet_run", "not_yet_enabled",
   ];
   const csvOut = [cols.join(","), ...rows.map((r) => cols.map((c) => csv(r[c])).join(","))].join("\n") + "\n";
@@ -263,6 +276,11 @@ other hard gap:                                         ${withGaps.filter((r) =>
 | \`generates_secrets\` | chart generates secret material (random / cert / password funcs) |
 | \`existing_secret\` | bring-your-own-Secret path: built, a known gap, or n/a |
 | \`no_crds_variant\` | a CRDs-off variant: built, a known gap, or n/a |
+| \`webhooks\` | validating + mutating admission webhooks |
+| \`required_values\` | chart uses \`required\`/\`fail\` — some inputs are mandatory or the render aborts |
+| \`values_schema\` | chart ships \`values.schema.json\` — a machine-checked contract for user inputs |
+| \`install_vs_upgrade\` | chart branches on \`.Release.IsInstall\`/\`.IsUpgrade\` — upgrade render differs from the captured install render |
+| \`notes\` | chart ships \`NOTES.txt\` post-install guidance |
 | \`extension_slots\` | open tpl / extraManifests injection points — safe to fill but need per-use review |
 | \`buildable_not_yet_run\` | recommended variants with a known build path, just not run through the generator yet |
 | \`not_yet_enabled\` | **the honest hard gap**: recommended capability with no solution/workaround yet, + reason |

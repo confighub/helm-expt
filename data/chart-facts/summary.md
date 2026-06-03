@@ -34,6 +34,11 @@ other hard gap:                                         1
 | `generates_secrets` | chart generates secret material (random / cert / password funcs) |
 | `existing_secret` | bring-your-own-Secret path: built, a known gap, or n/a |
 | `no_crds_variant` | a CRDs-off variant: built, a known gap, or n/a |
+| `webhooks` | validating + mutating admission webhooks |
+| `required_values` | chart uses `required`/`fail` — some inputs are mandatory or the render aborts |
+| `values_schema` | chart ships `values.schema.json` — a machine-checked contract for user inputs |
+| `install_vs_upgrade` | chart branches on `.Release.IsInstall`/`.IsUpgrade` — upgrade render differs from the captured install render |
+| `notes` | chart ships `NOTES.txt` post-install guidance |
 | `extension_slots` | open tpl / extraManifests injection points — safe to fill but need per-use review |
 | `buildable_not_yet_run` | recommended variants with a known build path, just not run through the generator yet |
 | `not_yet_enabled` | **the honest hard gap**: recommended capability with no solution/workaround yet, + reason |

@@ -141,7 +141,7 @@ For Helm hooks specifically, see
 ## What Is Proven Today
 
 > **What a full test run verifies — and what you can expect to be true:** see
-> [`docs/verification-properties.md`](docs/verification-properties.md) for the
+> [`docs/reference/verification-properties.md`](docs/reference/verification-properties.md) for the
 > acceptance contract — the verified properties, current coverage, and the
 > honest limitations.
 
