@@ -2385,7 +2385,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "no-crds (template-baked CRDs, no toggle — #114)",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/linkerd/linkerd-crds/1.8.0",
       "recipe_path": "recipes/linkerd/linkerd-crds/1.8.0/recipe.yaml",
       "catalog_path": "recipes/linkerd/linkerd-crds/1.8.0/CATALOG.md",

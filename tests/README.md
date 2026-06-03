@@ -32,6 +32,9 @@ Start with [npm-scripts.md](npm-scripts.md) when you want to know what each
 - `strategy.md` — long-term catalog test strategy (coverage matrix, lanes).
 - `top100-runtime-gitops.md` — top-100 runtime/GitOps sweep plan, pass bars,
   and required receipt outputs.
+- `../data/attack-plan-workdown/summary.md` — generated workdown that ties the
+  test lanes to import, gap, variant, production, latest-candidate, and image
+  digest next actions.
 - `runbook.md` — exact reproducible per-chart procedure.
 - `findings.md` — F1–F4 (namespace, `:latest`, secret delivery, proof-SHA).
 - `adversarial-strategy.md` — the adversarial multi-persona, tier-aware usage

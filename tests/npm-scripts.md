@@ -100,6 +100,7 @@ These keep the generated catalog/data surfaces current.
 | `npm run completeness:generate` / `completeness:verify` | Level-2 support and variant-rich counts. |
 | `npm run variant-backlog:generate` / `variant-backlog:verify` | Recommended-but-not-built variant backlog. |
 | `npm run quirk-queue:generate` / `quirk-queue:verify` | Quirks disclosed but still needing review or follow-up. |
+| `npm run attack-plan:generate` / `attack-plan:verify` | Generated workdown for import, gaps, variants, production, runtime/GitOps, latest candidates, and image digests. |
 | `npm run catalog:index` / `catalog:index:verify` | Root `CATALOG.md`. |
 | `npm run catalog:maps` / `catalog:maps:verify` | Per-chart catalog and artifact index maps. |
 
@@ -135,7 +136,7 @@ verification and artifact-generation layer.
 | Change | Minimum checks |
 | --- | --- |
 | Documentation only | `npm run docs:verify` and `npm run installer:command-surface:verify` |
-| Generated data or catalog | Relevant `*:verify`, then `npm run site:verify` if the site reads it |
+| Generated data or catalog | Relevant `*:verify`, `npm run attack-plan:verify` if workdown inputs changed, then `npm run site:verify` if the site reads it |
 | Recipe or package | Chart-specific verify scripts if curated, plus `npm run verify:artifact-chain` |
 | Top-20 chart proof | `<chart>:compare`, `<chart>:verify-proof`, `<chart>:verify-package`, and `npm run top20:verify-local-e2e` if receipts changed |
 | Chart-facts/top100/top500 data | `npm run chart-facts:verify`, `npm run top100:catalog:verify`, `npm run top500:catalog:verify` |
@@ -151,7 +152,7 @@ The top-100 is not a single readiness state.
 80 charts are proof-grade, but not yet catalog-supported.
 54 charts are variant-rich.
 46 charts are default-only.
-26 charts have at least one hard gap for a recommended extra capability.
+25 charts have at least one hard gap for a recommended extra capability.
 37 charts have buildable variant backlog where the path is known but not run.
 ```
 

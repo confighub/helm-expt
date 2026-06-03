@@ -1,0 +1,101 @@
+chart,version,catalog_status,selected_bases,current_runtime_evidence,gitops_oci_status,controllers,next_action
+argo-cd/argo-cd,9.5.15,catalog-supported,default;no-crds,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+bitnami/mongodb,19.0.7,catalog-supported,generated-passwords;existing-secret-replicaset,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+bitnami/mysql,14.0.3,catalog-supported,generated-passwords;existing-secret,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+bitnami/nginx,24.0.2,catalog-supported,http-clusterip;existing-tls-ingress,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+bitnami/postgresql,18.6.7,catalog-supported,generated-passwords;existing-secret,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+bitnami/rabbitmq,16.0.14,catalog-supported,generated-passwords;existing-secret,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+bitnami/redis,25.5.3,catalog-supported,default;reuse-existing-secret,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+external-secrets/external-secrets,2.5.0,catalog-supported,default;no-crds,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+grafana/grafana,10.5.15,catalog-supported,generated-passwords;existing-secret-ingress,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+grafana/loki,7.0.0,catalog-supported,single-binary-filesystem;simple-scalable-minio,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+grafana/tempo,1.24.4,catalog-supported,local-persistent;s3-query-observability,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+hashicorp/consul,2.0.0,catalog-supported,default-control-plane;secure-mesh-existing-secrets,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+hashicorp/vault,0.32.0,catalog-supported,default;ha-raft-ui,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+ingress-nginx/ingress-nginx,4.15.1,catalog-supported,default;admission-disabled,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+jetstack/cert-manager,v1.20.2,catalog-supported,default;crds-enabled,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+longhorn/longhorn,1.11.2,catalog-supported,default;ui-ingress,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+metrics-server/metrics-server,3.13.0,catalog-supported,default;external-tls-ca,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+prometheus-community/kube-prometheus-stack,85.3.3,catalog-supported,default;no-crds,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+prometheus-community/prometheus,29.8.0,catalog-supported,default;server-only-ephemeral,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+secrets-store-csi-driver/secrets-store-csi-driver,1.6.0,catalog-supported,default;sync-secret-rotation,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+traefik/traefik,40.2.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+external-dns/external-dns,1.21.1,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+gitlab/gitlab-runner,0.89.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+kyverno/kyverno,3.8.1,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+cloudnative-pg/cloudnative-pg,0.28.2,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+fluent/fluent-bit,0.57.6,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+runix/pgadmin4,1.62.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+nfs-subdir-external-provisioner/nfs-subdir-external-provisioner,4.0.18,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+kedacore/keda,2.19.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+prometheus-community/kube-state-metrics,7.4.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+elastic/eck-operator,3.4.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+elastic/kibana,8.5.1,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+descheduler/descheduler,0.36.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+prometheus-community/prometheus-blackbox-exporter,11.10.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+bitnami/elasticsearch,22.1.6,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+stakater/reloader,2.2.12,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+jaegertracing/jaeger,4.8.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+grafana/alloy,1.8.2,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+nats/nats,2.14.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+dex/dex,0.24.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+prometheus-community/alertmanager,1.37.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+falcosecurity/falco,9.0.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+prometheus-community/prometheus-node-exporter,4.55.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+bitnami/spark,10.0.3,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+elastic/logstash,8.5.1,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+prometheus-community/prometheus-adapter,5.3.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+projectcalico/tigera-operator,v3.32.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+fairwinds-stable/goldilocks,10.3.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+prometheus-community/prometheus-operator-crds,29.0.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+bitnami/zookeeper,13.8.7,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+elastic/filebeat,8.5.1,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+hashicorp/terraform,1.1.2,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+coredns/coredns,1.45.2,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+fairwinds-stable/vpa,4.11.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+bitnami/phpmyadmin,20.0.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+prometheus-community/prometheus-pushgateway,3.6.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+fluent/fluentd,0.5.3,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+jaegertracing/jaeger-operator,2.57.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+bitnami/memcached,8.5.5,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+strimzi/strimzi-kafka-operator,1.0.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+opencost/opencost,2.5.21,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+gatekeeper/gatekeeper,3.22.2,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+bitnami/contour,21.1.4,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+kyverno/kyverno-policies,3.8.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+elastic/metricbeat,8.5.1,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+minio-operator/operator,7.1.1,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+percona/pxc-operator,1.19.1,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+bitnami/apache,11.4.29,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+grafana/pyroscope,2.0.2,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+aws-ebs-csi-driver/aws-ebs-csi-driver,2.60.1,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+falcosecurity/falcosidekick,0.13.1,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+aqua/trivy-operator,0.32.1,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+argo-cd/argo-events,2.4.21,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+argo-cd/argo-rollouts,2.40.9,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+argo-cd/argo-workflows,1.0.14,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+argo-cd/argocd-image-updater,1.2.2,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+autoscaler/cluster-autoscaler,9.57.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+autoscaler/vertical-pod-autoscaler,0.9.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+bitnami/opensearch,2.0.10,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+crossplane-stable/crossplane,2.3.1,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+grafana/promtail,6.17.1,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+grafana/rollout-operator,0.49.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+haproxytech/kubernetes-ingress,1.52.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+istio/gateway,1.30.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+istio/istiod,1.30.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+jetstack/cert-manager-csi-driver,v0.14.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+jetstack/trust-manager,v0.22.1,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+linkerd/linkerd-crds,1.8.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+minio-operator/tenant,7.1.1,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+nats/nack,0.34.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+nats/surveyor,0.20.9,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+open-telemetry/opentelemetry-operator,0.114.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+percona/pg-operator,3.0.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+percona/psmdb-operator,1.22.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+rook-release/rook-ceph,v1.19.5,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+rook-release/rook-ceph-cluster,v1.19.5,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+sealed-secrets/sealed-secrets,2.18.6,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+velero/velero,12.0.1,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+vm/victoria-logs-single,0.12.5,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
+vm/victoria-metrics-single,0.39.0,proof-grade,default,not-started,planned,Argo CD OCI;Flux OCI,"run package setup/upload/publish, GitOps sync, and runtime observation for selected bases"
