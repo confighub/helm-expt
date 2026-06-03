@@ -108,7 +108,7 @@ runtime field proof (no false-green).
 4. Phase-2 equivalence: drove helm-expt's `npm run <chart>:compare` → **20/20
    helm-equivalent** (pristine tree). ✓
 5. **Acceptance contract published (user-facing):** helm-expt
-   `docs/verification-properties.md` (PR #98) — what a full run verifies / what a
+   `docs/reference/verification-properties.md` (PR #98) — what a full run verifies / what a
    user can expect to be true. This plan is the engineering counterpart (how we
    verify it at scale).
 

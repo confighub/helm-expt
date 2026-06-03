@@ -25,6 +25,11 @@ whole repo:
 | [product-support-tiers.md](./user/product-support-tiers.md) | Which Helm scenarios fit the public catalog, managed imports, or commercial support. |
 | [hook-lifecycle-strategy.md](./user/hook-lifecycle-strategy.md) | How Helm hooks are inventoried, classified, translated, or blocked. |
 | [maintenance-sla.md](./user/maintenance-sla.md) | How catalog entries are refreshed, patched, and supported. |
+| [catalog-doctrine.md](./user/catalog-doctrine.md) | The catalog model: chart → recipes → placeholdered base variants → derived ConfigHub variants. |
+| [customization-decision-tree.md](./user/customization-decision-tree.md) | Routing a customization to a base or derived variant; the Level-2 support definition. |
+| [complete-corresponding-model.md](./user/complete-corresponding-model.md) | The completeness contract a supported chart must satisfy. |
+| [per-chart-recipes.md](./user/per-chart-recipes.md) | Method for recommending per-chart recipe + variant counts. |
+| [fork-vocabulary.md](./user/fork-vocabulary.md) | Shared vocabulary for base vs derived variants and how names map. |
 | [demo/redis/demo-script.md](demo/redis/demo-script.md) | Runnable Redis walkthrough. |
 | [demo/redis/ux-acceptance.md](demo/redis/ux-acceptance.md) | Redis demo acceptance criteria. |
 | [demo/redis/function-scan-lane.md](demo/redis/function-scan-lane.md) | Redis ConfigHub function scan lane. |
@@ -110,6 +115,9 @@ Generated proof data for this section lives in:
 | [latest-top20-refresh-plan.md](./planning/latest-top20-refresh-plan.md) | Latest-version refresh plan for the supported top-20 charts. |
 | [legacy-patch-review.md](./planning/legacy-patch-review.md) | Review lane for older chart versions and patch support. |
 | [known-adversarial-charts.md](./corpus/known-adversarial-charts.md) | Public chart set used to exercise difficult Helm behaviors. |
+| [quirk-coverage.md](./reference/quirk-coverage.md) | Which Helm quirks we track, scan-but-don't-surface, or don't track yet — the honest taxonomy audit. |
+| [verification-properties.md](./reference/verification-properties.md) | The catalog's acceptance contract: properties every proven chart must satisfy. |
+| [next-20-tasks.md](./planning/next-20-tasks.md) | Distilled near-term catalog task queue. |
 
 ### Redis Proof Specs
 
