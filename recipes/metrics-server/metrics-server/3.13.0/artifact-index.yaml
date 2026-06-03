@@ -53,7 +53,7 @@ spec:
     path: "packages/metrics-server/metrics-server/3.13.0"
     installer: "packages/metrics-server/metrics-server/3.13.0/installer.yaml"
     receipt: "recipes/metrics-server/metrics-server/3.13.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "3c4656f9982e34640179b22bb4b1fec0ed94722b431558341d9a3dd079cbf2d0"
+    deterministicBundleSHA256: "aa82cad7e324ff8687d765622f04f970a66b37ef282ef54b3e5dc00841f9d608"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

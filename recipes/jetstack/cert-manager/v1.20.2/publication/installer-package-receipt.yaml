@@ -4,16 +4,13 @@ metadata:
   name: "jetstack-cert-manager-v1.20.2"
 spec:
   chart:
-    name: "cert-manager"
     repository: "jetstack"
+    name: "cert-manager"
     version: "v1.20.2"
-  deterministicBundle:
-    byteIdenticalAcrossTwoLocalBundles: true
-    command: "cub installer package packages/jetstack/cert-manager/v1.20.2 -o <tmp>/cert-manager-v1.20.2.tgz"
-    sha256: "08c776113b33e0a6ef568df54d46181e47b23b188337df6fc03c656481db0bd9"
   package:
-    name: "jetstack-cert-manager"
     path: "packages/jetstack/cert-manager/v1.20.2"
+    name: "jetstack-cert-manager"
+    version: "v1.20.2"
     sourceFiles:
       -
         path: "README.md"
@@ -37,27 +34,30 @@ spec:
         bytes: 41880
       -
         path: "installer.yaml"
-        sha256: "de9c3bb95ca28805caaa4b6b91badb1a236374fbc3d0cfbfb0c427c044d81b06"
-        bytes: 953
-    version: "v1.20.2"
+        sha256: "1986d77a14a7a17093a6da8309935eff8f00ca5efd22a2541485240024d7d93e"
+        bytes: 476
+  deterministicBundle:
+    command: "cub installer package packages/jetstack/cert-manager/v1.20.2 -o <tmp>/cert-manager-v1.20.2.tgz"
+    sha256: "79ae248a548e647adfa660412021cae0237955bb77a719f516987c33cc06266f"
+    byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
-      allowedCubOnlyObjects:
-        - "v1|Namespace||cert-manager"
+      variant: "default"
       base: "default"
       command: "cub installer setup --pull packages/jetstack/cert-manager/v1.20.2 --base default --work-dir <tmp> --non-interactive --namespace cert-manager"
-      cubInstallObjectCountIncludingSupport: 43
       helmReleaseObjectCount: 42
+      cubInstallObjectCountIncludingSupport: 43
       semanticObjectMatches: "42/42"
       separatedSecretCount: 0
-      variant: "default"
-    -
       allowedCubOnlyObjects:
         - "v1|Namespace||cert-manager"
+    -
+      variant: "crds-enabled"
       base: "crds-enabled"
       command: "cub installer setup --pull packages/jetstack/cert-manager/v1.20.2 --base crds-enabled --work-dir <tmp> --non-interactive --namespace cert-manager"
-      cubInstallObjectCountIncludingSupport: 49
       helmReleaseObjectCount: 48
+      cubInstallObjectCountIncludingSupport: 49
       semanticObjectMatches: "48/48"
       separatedSecretCount: 0
-      variant: "crds-enabled"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||cert-manager"

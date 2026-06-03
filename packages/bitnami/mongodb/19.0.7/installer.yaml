@@ -20,18 +20,18 @@ spec:
           suggestedSource: "kubectl -n mongodb create secret generic mongodb-auth --from-literal=mongodb-root-password=<value> --from-literal=mongodb-replica-set-key=<value>"
       name: "existing-secret-replicaset"
       path: "bases/existing-secret-replicaset"
-  transformers:
-    # F1 fix: honour `cub installer --namespace X` instead of the frozen upstream
-    # literal — set metadata.namespace on every namespaced resource and rename
-    # the Namespace object. Pattern: installer examples/hello-app/installer.yaml.
-    - toolchain: "Kubernetes/YAML"
-      whereResource: ""
-      description: "Set the namespace on every namespaced resource."
-      invocations:
-        - name: "set-namespace"
-          args: ["{{ .Namespace }}"]
   collector:
     command: "/bin/sh"
     args:
       - "collector/target-facts.sh"
     description: "Records target-fact bindings and can live-check existing Secret requirements."
+  transformers:
+    -
+      description: "Set the namespace on every namespaced resource."
+      invocations:
+        -
+          args:
+            - "{{ .Namespace }}"
+          name: "set-namespace"
+      toolchain: "Kubernetes/YAML"
+      whereResource: ""

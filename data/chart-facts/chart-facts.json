@@ -96,7 +96,7 @@
   },
   "bitnami/rabbitmq": {
     "version": "16.0.14",
-    "not_yet_enabled": "ha (curated proof lane — bespoke teaching needed); full Helm-equivalence — RoleBinding rabbitmq-endpoint-reader differs (#124)",
+    "not_yet_enabled": "ha (curated proof lane — bespoke teaching needed)",
     "buildable_not_yet_run": "—"
   },
   "bitnami/redis": {
@@ -226,7 +226,7 @@
   },
   "grafana/loki": {
     "version": "7.0.0",
-    "not_yet_enabled": "full Helm-equivalence — minio sub-chart objects dropped (#124)",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
     "buildable_not_yet_run": "—"
   },
   "grafana/promtail": {
@@ -256,7 +256,7 @@
   },
   "hashicorp/consul": {
     "version": "2.0.0",
-    "not_yet_enabled": "ha (curated proof lane — bespoke teaching needed); full Helm-equivalence — RoleBinding consul-consul-server differs (#124)",
+    "not_yet_enabled": "ha (curated proof lane — bespoke teaching needed)",
     "buildable_not_yet_run": "no-crds (buildable — not yet run); ingress-tls (buildable — not yet run)"
   },
   "hashicorp/terraform": {
@@ -301,7 +301,7 @@
   },
   "jetstack/cert-manager": {
     "version": "v1.20.2",
-    "not_yet_enabled": "full Helm-equivalence — cross-namespace kube-system RBAC dropped (#124)",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
     "buildable_not_yet_run": "—"
   },
   "jetstack/trust-manager": {
@@ -331,7 +331,7 @@
   },
   "longhorn/longhorn": {
     "version": "1.11.2",
-    "not_yet_enabled": "full Helm-equivalence — cluster-scoped PriorityClass dropped (#124)",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
     "buildable_not_yet_run": "no-crds (buildable — not yet run)"
   },
   "metrics-server/metrics-server": {
@@ -406,7 +406,7 @@
   },
   "prometheus-community/kube-prometheus-stack": {
     "version": "85.3.3",
-    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113); full Helm-equivalence — cross-namespace kube-system Services dropped (#124)",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
     "buildable_not_yet_run": "—"
   },
   "prometheus-community/kube-state-metrics": {

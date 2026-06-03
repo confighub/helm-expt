@@ -6,6 +6,9 @@ support pass.
 The point is not to declare these charts supported yet. The point is to choose
 five proof-grade/default charts where adding real user-shaped variants will
 test whether the catalog is actually simpler and safer than plain Helm.
+Some already have basic machine-generated variants such as default/no-crds.
+Wave 2 is about promoting useful user-shaped variants, not merely counting
+rendered bases.
 
 ## Selected Charts
 

@@ -55,7 +55,7 @@ spec:
     path: "packages/grafana/loki/7.0.0"
     installer: "packages/grafana/loki/7.0.0/installer.yaml"
     receipt: "recipes/grafana/loki/7.0.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "238b14766eba0c3f259160e63dbc78eb4a4063ed5114c41daef3d8fa46657dbe"
+    deterministicBundleSHA256: "67c9172a7400c4b175236c300106540837399255845180c5258cbb4cb632661b"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

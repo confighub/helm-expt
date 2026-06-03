@@ -1,6 +1,6 @@
 # Latest Top-20 Refresh
 
-Generated: 2026-05-31T12:18:50.933Z
+Generated: 2026-06-03T08:38:14.910Z
 
 Helm client: `v4.1.4+g05fa379`
 

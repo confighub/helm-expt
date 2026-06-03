@@ -9,8 +9,8 @@ haven't been run through the variant generator.
 
 ```text
 charts with a recipe:                       100
-no open gap (built or n/a; modeled L2):     71
-charts with a hard gap (no workaround yet):  29
+no open gap (built or n/a; modeled L2):     74
+charts with a hard gap (no workaround yet):  26
 charts with buildable backlog (path exists): 37
 ```
 
@@ -19,7 +19,6 @@ charts with buildable backlog (path exists): 37
 ```text
 existing-secret — chart ships no Secret toggle (#113):  15
 no-crds — template-baked CRDs, no toggle (#114):        4
-Helm-equivalence — cub drops objects (#124):            6
 curated proof lane — needs bespoke teaching:            6
 other hard gap:                                         1
 ```
@@ -57,22 +56,19 @@ other hard gap:                                         1
 | `bitnami/nginx` | existing-secret (chart ships no Secret toggle — #113) |
 | `bitnami/phpmyadmin` | existing-secret (chart ships no Secret toggle — #113) |
 | `bitnami/postgresql` | ha (curated proof lane — bespoke teaching needed) |
-| `bitnami/rabbitmq` | ha (curated proof lane — bespoke teaching needed); full Helm-equivalence — RoleBinding rabbitmq-endpoint-reader differs (#124) |
+| `bitnami/rabbitmq` | ha (curated proof lane — bespoke teaching needed) |
 | `bitnami/spark` | existing-secret (chart ships no Secret toggle — #113) |
 | `bitnami/zookeeper` | existing-secret (chart ships no Secret toggle — #113) |
 | `fairwinds-stable/goldilocks` | existing-secret (chart ships no Secret toggle — #113) |
-| `grafana/loki` | full Helm-equivalence — minio sub-chart objects dropped (#124) |
 | `grafana/pyroscope` | existing-secret (chart ships no Secret toggle — #113) |
 | `grafana/tempo` | ha (tempo single-binary chart; HA is the separate t…) |
-| `hashicorp/consul` | ha (curated proof lane — bespoke teaching needed); full Helm-equivalence — RoleBinding consul-consul-server differs (#124) |
+| `hashicorp/consul` | ha (curated proof lane — bespoke teaching needed) |
 | `jaegertracing/jaeger` | existing-secret (chart ships no Secret toggle — #113) |
-| `jetstack/cert-manager` | full Helm-equivalence — cross-namespace kube-system RBAC dropped (#124) |
 | `kyverno/kyverno` | existing-secret (chart ships no Secret toggle — #113) |
 | `linkerd/linkerd-crds` | no-crds (template-baked CRDs, no toggle — #114) |
-| `longhorn/longhorn` | full Helm-equivalence — cluster-scoped PriorityClass dropped (#124) |
 | `metrics-server/metrics-server` | existing-secret (chart ships no Secret toggle — #113) |
 | `minio-operator/operator` | no-crds (template-baked CRDs, no toggle — #114) |
-| `prometheus-community/kube-prometheus-stack` | existing-secret (chart ships no Secret toggle — #113); full Helm-equivalence — cross-namespace kube-system Services dropped (#124) |
+| `prometheus-community/kube-prometheus-stack` | existing-secret (chart ships no Secret toggle — #113) |
 | `prometheus-community/prometheus` | ha (curated proof lane — bespoke teaching needed) |
 | `rook-release/rook-ceph` | no-crds (template-baked CRDs, no toggle — #114) |
 | `traefik/traefik` | existing-secret (chart ships no Secret toggle — #113) |

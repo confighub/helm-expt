@@ -30,7 +30,7 @@ when they are exercising installer, upload, or live-cluster paths.
 | Command | What it checks | When to run |
 | --- | --- | --- |
 | `npm run top20:verify-local-e2e` | The committed top-20 local-kind observation receipts exist and pass schema/content checks. | Quick public proof check. |
-| `npm run verify` | Full repository verification chain: proof contracts, docs, command surface, recipes, packages, receipts, catalog data, site data, scans, and model completeness. Current caveat: it still reaches declared #124 package-equivalence diagnostics unless those are fixed or classified in the verifier. | Before merging broad changes, with the known-red caveat below understood. |
+| `npm run verify` | Full repository verification chain: proof contracts, docs, command surface, recipes, packages, receipts, catalog data, site data, scans, and model completeness. | Before merging broad changes. |
 | `npm run p0:contracts` | P0 proof contracts: schemas, capability profiles, freshness SLO, corpus invariants, and scale data. | When changing schemas, proof model, or scale/corpus data. |
 | `npm run docs:verify` | Markdown files live in expected locations and links resolve. | When adding, moving, or renaming docs. |
 | `npm run installer:command-surface:verify` | Docs and scripts use `cub installer`, not stale `cub install` language or old variant space patterns. | When touching docs/scripts with CLI examples. |
@@ -80,28 +80,7 @@ npm run next80:verify:self-test
 npm run verify:artifact-chain
 ```
 
-## Known Red Package-Equivalence Diagnostics
-
-Some chart-specific `:verify-package` commands currently fail because they
-expose declared hard gaps in `data/chart-facts/summary.md` and
-`data/top100-catalog-analysis/review.csv`. These are not doc failures. They are
-evidence that the package path and regular Helm output do not yet match for a
-specific capability.
-
-| Command | Current hard gap |
-| --- | --- |
-| `npm run cert-manager:verify-package` | Cross-namespace kube-system leader-election RBAC is dropped. |
-| `npm run rabbitmq:verify-package` | RoleBinding semantic difference. |
-| `npm run loki:verify-package` | MinIO sub-chart objects are dropped in the simple-scalable variant. |
-| `npm run consul:verify-package` | RoleBinding semantic difference. |
-| `npm run longhorn:verify-package` | Cluster-scoped PriorityClass is dropped. |
-| `npm run kube-prometheus-stack:verify-package` | Cross-namespace kube-system Service objects are dropped. |
-
-These checks should either be fixed in the package/model or converted into
-explicit "declared gap" verifier expectations. Until then, use them as
-diagnostics, not as evidence that the whole catalog is broken.
-
-This is why the top-100 data has two separate columns:
+The top-100 data keeps proof state separate from remaining capability work:
 
 ```text
 catalog_status       whether the chart has a maintained proof surface
@@ -160,7 +139,7 @@ verification and artifact-generation layer.
 | Recipe or package | Chart-specific verify scripts if curated, plus `npm run verify:artifact-chain` |
 | Top-20 chart proof | `<chart>:compare`, `<chart>:verify-proof`, `<chart>:verify-package`, and `npm run top20:verify-local-e2e` if receipts changed |
 | Chart-facts/top100/top500 data | `npm run chart-facts:verify`, `npm run top100:catalog:verify`, `npm run top500:catalog:verify` |
-| Broad proof-model change | `npm run p0:contracts`, focused `*:verify` checks for changed surfaces, and `npm run verify` once the known-red #124 diagnostics are fixed or classified |
+| Broad proof-model change | `npm run p0:contracts`, focused `*:verify` checks for changed surfaces, and `npm run verify` |
 
 ## Current Top-100 Reading
 
@@ -172,7 +151,7 @@ The top-100 is not a single readiness state.
 80 charts are proof-grade, but not yet catalog-supported.
 54 charts are variant-rich.
 46 charts are default-only.
-29 charts have at least one hard gap for a recommended extra capability.
+26 charts have at least one hard gap for a recommended extra capability.
 37 charts have buildable variant backlog where the path is known but not run.
 ```
 

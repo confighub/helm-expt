@@ -108,8 +108,8 @@ function buildReport() {
         "A chart is not catalog-supported merely because default Helm output is deterministic; it needs obvious user-shaped variants and production dispositions.",
       acceptance: [
         "Each selected chart must already have proof-grade package/proof artifacts.",
-        "Each selected chart must be default-only today so the next work is genuinely variant promotion.",
-        "Each proposed variant must become an actual recipe variant, package base, rendered revision, scan/gate receipt, and Helm-equivalence receipt before support is claimed.",
+        "Each selected chart must still be machine-proof-only, with no catalog-supported variants yet.",
+        "Each proposed user-shaped variant must become an actual recipe variant, package base, rendered revision, scan/gate receipt, and Helm-equivalence receipt before support is claimed.",
         "Production support remains blocked until production dispositions and live/e2e observation requirements are recorded.",
       ],
       candidates: rows.map((row) => ({
@@ -142,9 +142,17 @@ function rowFor(candidate, rows) {
   check(row, `selected wave-2 candidate ${candidate.chart} is not present in top500 matrix`);
   check(row.recipe_status === "current-recipe-exact-version", `${candidate.chart} must have exact current recipe proof`);
   check(row.package_status === "package-proof-exists", `${candidate.chart} must have a package proof`);
-  check(row.variant_status === "default-only", `${candidate.chart} must be default-only before wave-2 promotion`);
+  check(
+    ["default-only", "multi-variant"].includes(row.variant_status),
+    `${candidate.chart} must have default-only or machine-generated variants before wave-2 promotion`,
+  );
   check(row.catalog_status === "proof-grade", `${candidate.chart} must be proof-grade, found ${row.catalog_status}`);
-  check(row.next_action === "add user-shaped variants before catalog promotion", `${candidate.chart} has unexpected next action`);
+  check(row.support_level === "machine-proof-only", `${candidate.chart} must still be machine-proof-only`);
+  check(row.supported_variants === "", `${candidate.chart} must not already have catalog-supported variants`);
+  check(
+    ["run catalog promotion review", "add user-shaped variants before catalog promotion"].includes(row.next_action),
+    `${candidate.chart} has unexpected next action`,
+  );
   return {
     rank: row.rank,
     chart: row.chart,
@@ -183,6 +191,9 @@ support pass.
 The point is not to declare these charts supported yet. The point is to choose
 five proof-grade/default charts where adding real user-shaped variants will
 test whether the catalog is actually simpler and safer than plain Helm.
+Some already have basic machine-generated variants such as default/no-crds.
+Wave 2 is about promoting useful user-shaped variants, not merely counting
+rendered bases.
 
 ## Selected Charts
 

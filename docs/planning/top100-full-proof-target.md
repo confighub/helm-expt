@@ -5,6 +5,21 @@ The current public proof surface is **100 public Helm charts**:
 - 20 bespoke proofs with chart-specific variants and mitigations;
 - 80 generated full proofs with the same minimum artifact contract.
 
+Current generated status:
+
+```text
+recipe/package proof artifacts: 100 / 100
+supported at Level 2:           100 / 100
+variant-rich:                    54 / 100
+default-only:                    46 / 100
+hard gap in chart facts:         26 / 100
+```
+
+Level-2 support means the chart has a render-equivalent, readable, usable,
+verifiable, honestly scoped model with quirks accounted for. It does not mean
+every useful base variant has already been built, and it does not mean
+production support.
+
 The next-80 lane is generated from:
 
 ```text
@@ -45,6 +60,11 @@ semantics through the installer/Kustomize round trip do not count as passing
 full proofs. They belong in the adversarial backlog until the difference is
 classified and mitigated.
 
+The current corpus has no known package-equivalence hard gap. The former six
+#124 failures were fixed by regenerating the affected packages without the
+post-render namespace transformer and preserving target-facts collectors where
+needed.
+
 ## Currentness And Promotion
 
 The top-100 proof surface has two different maturity levels:
@@ -53,6 +73,11 @@ The top-100 proof surface has two different maturity levels:
 top-20: catalog-supported public entries with bespoke variants and live proof
 next-80: generated proof-grade artifacts
 ```
+
+The next-80 entries are not all default-only anymore. Some already have basic
+machine-generated variants such as `default`/`no-crds`. Promotion work should
+focus on useful user-shaped variants and production dispositions, not merely on
+increasing the variant count.
 
 The top-20 set now has a latest-version refresh lane:
 

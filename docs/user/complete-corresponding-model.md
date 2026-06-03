@@ -85,7 +85,7 @@ The current top-100 should be read like this:
 | Are all charts rich enough for common user variants? | 54 / 100 are variant-rich | `data/model-completeness/summary.md` |
 | Are all top-20 public catalog charts live/e2e tested locally? | 20 / 20 | `data/live-e2e/summary.md` |
 | Are any top-20 charts production-supported today? | 0 / 20 | `data/production-disposition/summary.md` |
-| Do any charts have hard gaps for recommended extra capabilities? | 29 / 100 | `data/chart-facts/summary.md` |
+| Do any charts have hard gaps for recommended extra capabilities? | 26 / 100 | `data/chart-facts/summary.md` |
 
 So the catalog is no longer "20 complete and 80 incomplete." A more accurate
 reading is:
@@ -95,14 +95,14 @@ reading is:
 20 charts are public catalog-supported for local-test.
 54 charts have more than one base variant.
 46 charts are still default-only.
-29 charts have a hard gap for at least one recommended extra capability.
+26 charts have a hard gap for at least one recommended extra capability.
 0 charts are production-supported yet.
 ```
 
 The hard-gap count is about missing recommended capabilities, not total chart
 failure. A chart can have a working, supported default recipe while still
-missing a useful `existing-secret`, `no-crds`, HA, or full-equivalence path for
-a specific variant.
+missing a useful `existing-secret`, `no-crds`, or HA path for a specific
+variant.
 
 ## The delivery program (to actually earn the claim)
 1. **Keep the verifier check green** — `npm run completeness:verify` scores the

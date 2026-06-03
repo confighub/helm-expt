@@ -52,7 +52,7 @@ spec:
     path: "packages/jetstack/cert-manager/v1.20.2"
     installer: "packages/jetstack/cert-manager/v1.20.2/installer.yaml"
     receipt: "recipes/jetstack/cert-manager/v1.20.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "08c776113b33e0a6ef568df54d46181e47b23b188337df6fc03c656481db0bd9"
+    deterministicBundleSHA256: "79ae248a548e647adfa660412021cae0237955bb77a719f516987c33cc06266f"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

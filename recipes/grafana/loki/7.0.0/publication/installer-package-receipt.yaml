@@ -4,16 +4,13 @@ metadata:
   name: "grafana-loki-7.0.0"
 spec:
   chart:
-    name: "loki"
     repository: "grafana"
+    name: "loki"
     version: "7.0.0"
-  deterministicBundle:
-    byteIdenticalAcrossTwoLocalBundles: true
-    command: "cub installer package packages/grafana/loki/7.0.0 -o <tmp>/loki-7.0.0.tgz"
-    sha256: "238b14766eba0c3f259160e63dbc78eb4a4063ed5114c41daef3d8fa46657dbe"
   package:
-    name: "grafana-loki"
     path: "packages/grafana/loki/7.0.0"
+    name: "grafana-loki"
+    version: "7.0.0"
     sourceFiles:
       -
         path: "README.md"
@@ -37,27 +34,30 @@ spec:
         bytes: 32177
       -
         path: "installer.yaml"
-        sha256: "f58ed129f6457089f360431a43cf207d28f4bc5ec4c36253c866021a43649f2b"
-        bytes: 987
-    version: "7.0.0"
+        sha256: "5b93a4e38d437cdf1f848d6a8392019848515c5b9a468640fa4ebaecaa818814"
+        bytes: 510
+  deterministicBundle:
+    command: "cub installer package packages/grafana/loki/7.0.0 -o <tmp>/loki-7.0.0.tgz"
+    sha256: "67c9172a7400c4b175236c300106540837399255845180c5258cbb4cb632661b"
+    byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
-      allowedCubOnlyObjects:
-        - "v1|Namespace||loki"
+      variant: "single-binary-filesystem"
       base: "single-binary-filesystem"
       command: "cub installer setup --pull packages/grafana/loki/7.0.0 --base single-binary-filesystem --work-dir <tmp> --non-interactive --namespace loki"
-      cubInstallObjectCountIncludingSupport: 20
       helmReleaseObjectCount: 19
+      cubInstallObjectCountIncludingSupport: 20
       semanticObjectMatches: "19/19"
       separatedSecretCount: 0
-      variant: "single-binary-filesystem"
-    -
       allowedCubOnlyObjects:
         - "v1|Namespace||loki"
+    -
+      variant: "simple-scalable-minio"
       base: "simple-scalable-minio"
       command: "cub installer setup --pull packages/grafana/loki/7.0.0 --base simple-scalable-minio --work-dir <tmp> --non-interactive --namespace loki"
-      cubInstallObjectCountIncludingSupport: 37
       helmReleaseObjectCount: 36
+      cubInstallObjectCountIncludingSupport: 37
       semanticObjectMatches: "36/36"
       separatedSecretCount: 1
-      variant: "simple-scalable-minio"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||loki"

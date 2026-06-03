@@ -7,7 +7,13 @@ data. It does not replace them; it is the executive work queue over them.
 
 ## Where we actually are (so the queue is honest)
 - 100 proof-grade recipes + packages; **20 top charts catalog-supported (local-test)** with bespoke variants;
-  80 generated default proofs (`next80`); 20/20 local-kind e2e + ConfigHub proof receipts; top-500 analysis done.
+  80 generated proofs (`next80`); 20/20 local-kind e2e + ConfigHub proof receipts; top-500 analysis done.
+- `npm run verify` is green. The former #124 package-equivalence failures were fixed by regenerating packages
+  without the post-render namespace transformer while preserving target-facts collectors.
+- 100/100 charts are supported at Level 2; 54/100 are variant-rich. The remaining catalog work is user-shaped
+  variants, production dispositions, and runtime/GitOps evidence, not basic proof creation.
+- Current chart facts show 26 hard gaps for recommended extra capabilities: 15 existing-secret gaps (#113), 4
+  template-CRD/no-crds gaps (#114), 6 curated-variant lanes, and 1 other gap.
 - **0 production-supported** (20 production-blocked pending disposition). Open **P0 #76** (Helm import path).
 - So the next 20 are about **depth (local-test → production), real variants, day-2, and adoption** —
   not building the catalog from scratch (that breadth largely exists).
@@ -19,7 +25,8 @@ data. It does not replace them; it is the executive work queue over them.
 2. **Per-chart weirdness-and-mitigations notes** for every catalog-supported chart (hooks, CRDs, webhooks,
    lookup, generated secrets, required values, RBAC, stateful storage, upgrade/rollback). *(P1.2)*
 3. **Close open P0 #76** — define + prove the Helm import path from `cub helm install` to durable
-   `cub installer` recipes (the one remaining open P0; the product story isn't complete until it lands).
+   `cub installer` recipes. The current import contract should cover public charts, wrapper charts,
+   platform values, customer overlays, dependency closure, and render context.
 
 ## Next — take the top-20 from local-test toward production
 4. **Production disposition for the top-20** — give every scan/gate/operating-policy finding an explicit
@@ -45,7 +52,8 @@ data. It does not replace them; it is the executive work queue over them.
 
 ## Breadth + honesty
 11. **Promote high-value `next80` charts** from default-only → user-shaped variants (same bar as wave-2,
-    applied to the 80 generated proofs).
+    applied to the 80 generated proofs). Prioritize the 46 default-only charts and the five selected wave-2
+    charts before broadening the campaign.
 12. **Hook lifecycle lane** — turn the 54 hook-using charts' scan into per-chart dispositions; production gate
     for hook charts; one safe Argo/GitOps lifecycle-translation proof. *(hook-lifecycle-strategy.md)*
 13. **Image digest resolution (F2)** — pin mutable tags (e.g. bitnami `:latest`) to digests with a receipt,

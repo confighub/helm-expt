@@ -205,7 +205,7 @@ works, but still needs user-shaped product review
   80 charts are proof-grade but not catalog-supported.
 
 works only with a named limitation or user/operator help
-  29 charts have at least one hard gap for a recommended extra capability.
+  ${summary.hardGap} charts have at least one hard gap for a recommended extra capability.
 \`\`\`
 
 The hard-gap column is about missing recommended capabilities, not total chart
