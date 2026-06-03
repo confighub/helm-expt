@@ -59,7 +59,7 @@ The default rule is:
 Recipe = reusable chart definition.
 Variant = chosen install shape.
 Revision = exact rendered object set.
-ConfigHub server variant = post-upload operational clone when no new Helm render is needed.
+Derived ConfigHub variant = post-upload clone/refinement when no new Helm render is needed.
 Receipt = proof of what happened.
 ```
 
@@ -96,7 +96,7 @@ checks steps 8-12.
 | kube version/API branching | capability profile |
 | raw manifests, `tpl`, extra deploy | explicit extension slot, scan/gate, or block |
 | replica count, HA, ingress, TLS choice | variant values |
-| values file / `--set` overlay | recipe/base variant when it changes rendered objects; ConfigHub variant only when filling existing fields |
+| values file / `--set` overlay | recipe/base variant when it changes Helm render inputs or object shape; derived ConfigHub variant only when filling approved existing fields |
 | wrapper chart + platform/customer values | managed overlay import with source/dependency/effective-values locks |
 | Kustomize overlay that changes resources | recipe/base overlay with digest and rendered diff |
 | Kustomize-like small edit to existing Units | ConfigHub function, TransformPaths, MutationSources, and receipt |
@@ -210,7 +210,7 @@ Recipe/base variant-level:
   explicit overlays
   namespace and release name
 
-ConfigHub server variant-level:
+Derived ConfigHub variant-level:
   target / environment / region / customer identity
   labels and annotations
   gates and approvals
@@ -222,9 +222,10 @@ ConfigHub server variant-level:
 
 Normal Helm-rendered changes such as replica count, HA mode, TLS posture,
 cloud/provider settings, CRD posture, or existing-Secret mode become
-recipe/base variants. Normal operational changes such as target, environment,
-region, labels, gates, links, and already-rendered editable fields become
-ConfigHub server variants. Create another recipe only when the chart source,
+recipe/base variants. Approved post-render changes such as target,
+environment, region, labels, gates, links, target facts, placeholders,
+TransformPaths, functions, checks, and already-rendered editable fields become
+derived ConfigHub variants. Create another recipe only when the chart source,
 chart version, umbrella composition, import strategy, or recipe semantics
 materially differ.
 

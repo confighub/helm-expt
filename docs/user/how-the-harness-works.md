@@ -7,10 +7,11 @@ installer` packages, checks the rendered Kubernetes objects against regular
 Helm output, and records the evidence needed to manage those objects in
 ConfigHub.
 
-The useful unit is the rendered object set for a named variant. A user can
+The useful unit is the rendered object set for a named base variant. A user can
 inspect that object set, compare it with Helm, scan it, upload it to ConfigHub,
-create downstream ConfigHub variants, and attach receipts for what was rendered,
-approved, applied, or observed.
+create derived ConfigHub variants with approved post-render refinements, and
+attach receipts for what was rendered, mutated, checked, approved, applied, or
+observed.
 
 ## User Value
 
@@ -22,12 +23,12 @@ reviewed and checked.
 | --- | --- | --- | --- |
 | Discover chart | Popular charts still hide behavior. | Catalog entry, chart dossier, pain report, support scope. | Known risks are visible before install. |
 | Choose install shape | Values files hide intent and variants are ad hoc. | Named installer bases such as `default`, `existing-secret`, `no-crds`, or HA. | The install shape is explicit. |
-| Add values or overlays | It is unclear whether a change needs a new render. | Rendered-object changes go through `cub installer`; post-render refinements go through ConfigHub variants. | Customization has a clear route. |
+| Add values or overlays | It is unclear whether a change needs a new render. | Helm render and object-shape changes go through `cub installer`; approved post-render refinements go through derived ConfigHub variants. | Customization has a clear route. |
 | Render | Templates, capabilities, `lookup`, generated values, and dependencies are implicit. | Source locks, dependency locks, effective values, capability profile, target facts, generated facts. | The render can be reproduced and explained. |
 | Compare | Teams often review values instead of exact objects. | Helm-equivalence receipt and classified differences. | Approval is based on Kubernetes objects. |
 | Review and scan | YAML review is noisy and scans can drift from the install output. | Object inventory, rendered scans, gates bound to manifest digests. | Misconfig checks run on the exact output. |
 | Upload and manage | Helm release history is limited as a governance record. | ConfigHub Units, labels, revisions, links, receipts. | Teams can diff, search, approve, and audit config. |
-| Create downstream variants | Copying values files across environments loses provenance. | `cub variant create` clone/link plus guided variant creation. | Environment, region, and customer variants can be previewed and checked. |
+| Create derived variants | Copying values files across environments loses provenance. | `cub variant create` clone/link plus guided variant creation. | Environment, region, and customer variants can be previewed and checked. |
 | Deploy or hand off to GitOps | Desired, applied, and live state blur together. | OCI/GitOps handoff plus apply, publish, and observation receipts. | Teams know what was handed off and what was observed. |
 | Observe live state | Observation freshness decays. | cub-scout, GitOps, or controller receipts with timestamps and TTL. | Evidence has an explicit freshness boundary. |
 | Upgrade, patch, or roll back | Chart drift and release-state coupling make day-2 changes risky. | Upgrade/rollback receipts, production dispositions, legacy patch review. | Change is managed as a proven variant revision. |
@@ -38,12 +39,12 @@ The pattern is:
 ```text
 chart
 -> cub installer recipe/package
--> named variants
--> exact rendered objects
--> scans, gates, and receipts
--> ConfigHub Units
--> server-side variants where useful
--> live or GitOps observations
+    -> named base variants
+    -> exact rendered objects
+    -> scans, gates, and receipts
+    -> ConfigHub Units
+    -> derived ConfigHub variants with approved post-render fields, facts, targets, gates, links, and checks
+    -> live or GitOps observations
 ```
 
 ## Current Evidence
@@ -54,7 +55,7 @@ The current repo verifies:
 100 recipe/package proof artifacts
 20 top-chart catalog entries with bespoke variants
 20/20 local kind live/e2e receipts
-20/20 ConfigHub upload, scan, safe-ops, and server-side variant receipts
+20/20 ConfigHub upload, scan, safe-ops, and derived variant receipts
 20 per-chart Helm pain reports
 top-500 catalog analysis
 hook/lifecycle risk estimate for the top-500 scan
@@ -178,7 +179,7 @@ cub installer scan
 
 The proof unit is the exact rendered object set.
 
-## Stage 4 - ConfigHub Upload, Governance, And Server-Side Variants
+## Stage 4 - ConfigHub Upload, Governance, And Derived Variants
 
 After rendered objects are reviewed, ConfigHub stores them as Units and gives
 teams revision history, labels, links, approvals, scans, and variant operations.
@@ -347,9 +348,11 @@ support in `cub installer` and Creator flows over `cub variant create`.
 ## Doctrine Checkpoints
 
 ```text
-If it changes rendered Kubernetes objects, route through cub installer.
-If it refines already-rendered ConfigHub Units, use cub variant create plus the
-guided variant creation.
+If it changes Helm render inputs, object shape, object count, or lifecycle
+semantics, route through cub installer.
+If it refines already-rendered ConfigHub Units through approved post-render
+fields, facts, links, targets, gates, functions, or checks, use cub variant
+create plus guided variant creation.
 If it depends on live cluster state, require target facts, preflight,
 lifecycle receipts, or fresh observations.
 If it is chart-specific pain, record it in helm-pain-report.yaml.

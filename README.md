@@ -3,16 +3,18 @@
 Use Helm charts. Ship ConfigHub variants.
 
 This repo shows how popular public Helm charts can become `cub installer`
-packages with named variants, exact rendered Kubernetes objects, scans, gates,
-receipts, and live proof.   ALL CONTENTS ARE EXPERIMENTAL & UNOFFICIAL.
+packages with named base variants, exact rendered Kubernetes objects, optional
+derived ConfigHub variants, scans, gates, receipts, and live proof.   ALL
+CONTENTS ARE EXPERIMENTAL & UNOFFICIAL.
 
 Core flow:
 
 ```text
 Helm chart
 -> cub installer recipe/package
--> named ConfigHub variants
+-> named base variants that select or change the Helm-rendered object set
 -> exact rendered Kubernetes objects
+-> optional derived ConfigHub variants for approved post-render fields, facts, targets, gates, links, and observation policy
 -> hook/lifecycle policy for cluster-dependent Helm behavior
 -> Helm-equivalence proof, scans, gates, receipts
 -> ConfigHub / OCI / GitOps handoff
@@ -30,7 +32,7 @@ In this experiment, AI helps analyze public Helm charts and draft deterministic
 public Helm chart
 -> deterministic installer recipe
 -> deterministic rendered object set
--> ConfigHub variants
+-> base variants and optional derived ConfigHub variants
 -> scans, gates, receipts, and live observations
 ```
 
@@ -59,8 +61,8 @@ public chart
 If ConfigHub provides the public OCI gateway, public pulls may still be
 authenticated, rate-limited, and signature-verified so the service is not an
 unauthenticated firehose. Full signup becomes useful when the user wants
-private charts, private overlays, server-side variants, production approvals,
-managed receipts, or fleet operations.
+private charts, private overlays, derived ConfigHub variants, production
+approvals, managed receipts, or fleet operations.
 
 In practice: browse the catalog anonymously; use a lightweight read-only pull
 token for public OCI artifacts; verify signatures and digests locally; create a
@@ -86,7 +88,7 @@ comparable, scannable, promotable, and auditable.
 
 We use AI to accelerate Helm chart analysis and recipe creation. We use
 `cub installer` to prove the resulting recipes produce correct, Helm-equivalent,
-reviewable ConfigHub variants.
+reviewable base variants and derived ConfigHub variants.
 
 This is not a single prompt. It is an AI-assisted workflow with explicit
 decision points and mechanical checks. For the recipe-generation workflow and
@@ -100,19 +102,20 @@ umbrella charts, wrapper charts, and sometimes Kustomize overlays. The rule in
 this repo is not "stop doing that." The rule is:
 
 ```text
-If a customization changes rendered Kubernetes objects, make it a reviewed
-cub installer recipe/package base.
+If a customization changes Helm render inputs, object count, object shape, or
+lifecycle semantics, make it a reviewed cub installer recipe/package base.
 
-If it refines already-rendered ConfigHub Units, make it a ConfigHub variant
-using `cub variant create` plus guided review.
+If it refines already-rendered ConfigHub Units through approved post-render
+fields, facts, links, targets, gates, functions, or checks, make it a derived
+ConfigHub variant using `cub variant create` plus guided review.
 ```
 
 Before OCI delivery, users need to make three separate decisions:
 
 | Question | Use | Examples |
 | --- | --- | --- |
-| Does this change rendered Kubernetes objects? | `cub installer` base variant | values files, component on/off, storage, ingress, CRDs, RBAC, Kustomize patches that change objects |
-| Does this only change how a reviewed object set is operated? | derived ConfigHub variant | target, environment, region, labels, gates, observation policy, links, allowed placeholder fills |
+| Does this change Helm render inputs, object count, object shape, or lifecycle semantics? | `cub installer` base variant | values files, component on/off, storage, ingress, CRDs, RBAC, Kustomize patches that change object shape |
+| Does this refine an already-reviewed ConfigHub object set after render? | derived ConfigHub variant | target, environment, region, namespace when represented, labels, gates, observation policy, links, target facts, allowed placeholder or TransformPaths fills |
 | Is this required before Kubernetes or GitOps can use the artifact? | delivery prerequisite or receipt | existing Secret, StorageClass, IngressClass, CRD owner, GitOps pull secret, OCI digest/signature, hook/lifecycle decision |
 
 Examples:
@@ -121,8 +124,9 @@ Examples:
 | --- | --- |
 | Helm values file that changes replicas, storage, ingress, CRDs, RBAC, args, env, or object count | new `cub installer` base / rendered revision |
 | Kustomize overlay that changes the install shape | explicit recipe/base overlay with digest and diff |
-| Namespace, target, labels, approval gates, observation policy | ConfigHub variant |
-| Existing Secret reference already represented in the rendered objects | ConfigHub variant with target fact/check |
+| Namespace, target, labels, approval gates, observation policy | derived ConfigHub variant |
+| Existing Secret reference already represented in the rendered objects | derived ConfigHub variant with target fact/check |
+| Approved post-clone function or TransformPaths fill over existing fields | derived ConfigHub variant with mutation receipt |
 | Wrapper chart plus platform values plus customer overlay values | managed overlay import; usually needs ConfigHub Server |
 
 For the detailed algorithm, see
@@ -607,7 +611,7 @@ stays focused on why the project exists, what is proven, and how to try it.
 You can keep using public Helm charts,
 but stop approving guesses.
 
-ConfigHub gives you named variants,
+ConfigHub gives you named base and derived variants,
 exact rendered objects,
 checks,
 receipts,
@@ -615,4 +619,4 @@ and a safer path from test to production.
 ```
 
 Helm gives you charts. ConfigHub gives you managed, reviewable, scannable,
-promotable variants from those charts.
+promotable base and derived variants from those charts.

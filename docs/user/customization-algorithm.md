@@ -45,10 +45,10 @@ flattening them into one vague "variant" bucket.
 
 | Input style | Supported route | What gets checked |
 | --- | --- | --- |
-| Helm values file or `--set` | Recipe/base variant when it changes rendered objects; ConfigHub variant only when it fills an already-rendered field | effective values digest, render diff, Helm equivalence receipt when expected |
+| Helm values file or `--set` | Recipe/base variant when it changes Helm render inputs, object shape, object count, or lifecycle behavior; derived ConfigHub variant only when it fills already-rendered fields | effective values digest, render diff, Helm equivalence receipt when expected |
 | Umbrella chart or wrapper chart | Recipe import unit | source/dependency locks for wrapper and subcharts |
 | Platform values | Managed default in the recipe/base | effective values digest and field provenance |
-| Customer overlay values | Recipe/base if rendered into objects; ConfigHub variant if binding already-rendered placeholders/fields | overlay digest, target-fact binding, or mutation receipt |
+| Customer overlay values | Recipe/base if rendered into objects; derived ConfigHub variant if binding already-rendered placeholders/fields | overlay digest, target-fact binding, or mutation receipt |
 | Kustomize overlay/patch | Recipe/base overlay when it changes install shape; post-render ConfigHub mutation only for narrow editable fields | overlay digest, object diff, MutationSources |
 | Post-renderer/script | Pinned function stage or reject | tool digest, function-chain receipt, diff |
 | Live cluster input | target fact, preflight, or observation receipt | fact snapshot/digest and freshness |
@@ -80,9 +80,10 @@ flattening them into one vague "variant" bucket.
    The user-facing decision should be phrased simply:
 
    ```text
-   This changes the Kubernetes objects, so it needs a cub installer base.
-   This only changes how an uploaded base is operated, so it can be a
-   ConfigHub variant.
+   This changes Helm render inputs or object shape, so it needs a cub installer
+   base.
+   This is an approved post-render refinement of an uploaded base, so it can be
+   a derived ConfigHub variant.
    ```
 
    The supporting proof can record the exact digests, paths, facts, checks, and
@@ -174,9 +175,11 @@ flattening them into one vague "variant" bucket.
    OCI digest, signature, and access method recorded
    ```
 
-   If a late change would mutate Kubernetes objects, it routes back to the
-   `cub installer` base path. If it only changes operating context, it can be a
-   derived ConfigHub variant before publication or apply.
+   If a late change requires Helm to rerender, changes object count or install
+   shape, or touches fields outside the approved post-render contract, it routes
+   back to the `cub installer` base path. If it is an approved post-render
+   refinement, it can be a derived ConfigHub variant before publication or
+   apply.
 
 ## Where Common Customizations Go
 
@@ -190,8 +193,9 @@ flattening them into one vague "variant" bucket.
 | Enable CRDs | Base variant plus CRD review gate | CRD lifecycle and upgrade risk must be visible. |
 | Add raw manifests | Recipe/base extension slot | Allowed only when the recipe declares the slot and scan/gate checks run. |
 | Use `tpl` content | Recipe/base extension slot | Treated as code-like input and reviewed before promotion. |
-| Add Kustomize patch | Base overlay when it mutates objects; ConfigHub function only for narrow approved post-render edits | Patch must be explicit, digest-bound, and included in the diff. |
-| Set target/environment/region/customer | Derived ConfigHub variant | Clone reviewed Units, preserve upstream links, set operating context. |
+| Add Kustomize patch | Base overlay when it changes object shape; ConfigHub function only for narrow approved post-render edits | Patch must be explicit, digest-bound, and included in the diff or MutationSources. |
+| Set target/environment/region/customer | Derived ConfigHub variant | Clone reviewed Units, preserve upstream links, set identity and target context. |
+| Fill namespace, Secret reference, hosted zone, account ID, or endpoint already exposed by the base | Derived ConfigHub variant | Bind target facts, fill approved fields, run checks, and write mutation receipts. |
 | Set approval gates or observation policy | Derived ConfigHub variant | Must be set before the reviewed object set is delivered or applied for that target. |
 | Helm hook behavior | Lifecycle policy plus hook/lifecycle receipt | Hook templates can be inventoried deterministically, but hook execution depends on the target cluster. Map to tests, preflight, lifecycle action, observation, explicit skip, or blocker. |
 | Cluster lookup | Recipe fact requirement plus variant fact binding | Cluster-sourced data must not silently change the approved render. |
