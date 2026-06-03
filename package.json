@@ -186,6 +186,8 @@
     "legacy-patch:review:verify": "node scripts/run-legacy-patch-review.mjs --verify",
     "installer:target-facts": "node scripts/sync-installer-target-facts.mjs --generate",
     "installer:target-facts:verify": "node scripts/sync-installer-target-facts.mjs --verify",
+    "receipts:resync": "node scripts/resync-package-receipts.mjs",
+    "receipts:resync:check": "node scripts/resync-package-receipts.mjs --check",
     "next80:generate": "node scripts/generate-next80-full-proofs.mjs --generate",
     "next80:verify": "node scripts/generate-next80-full-proofs.mjs --verify",
     "next80:verify:packages": "node scripts/generate-next80-full-proofs.mjs --verify-packages",

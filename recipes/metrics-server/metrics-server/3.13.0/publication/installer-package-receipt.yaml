@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/metrics-server/metrics-server/3.13.0 -o <tmp>/metrics-server-3.13.0.tgz"
-    sha256: "a3a3ed2c49dbb5e99333faee2f676394f0d182a41ba8db9a2d37aab493e9c2dc"
+    sha256: "3c4656f9982e34640179b22bb4b1fec0ed94722b431558341d9a3dd079cbf2d0"
   package:
     name: "metrics-server-metrics-server"
     path: "packages/metrics-server/metrics-server/3.13.0"
@@ -41,8 +41,8 @@ spec:
         bytes: 1406
       -
         path: "installer.yaml"
-        sha256: "5754b263821b9594496d883a2682f11605c9479ebe9be1ae334d50f3d254bcbc"
-        bytes: 1037
+        sha256: "220d191fddcf280414bd09e3eb8954879d71e9c38896512218f2d9051c86e4da"
+        bytes: 1514
     version: "3.13.0"
   setupChecks:
     -
@@ -54,9 +54,9 @@ spec:
       helmReleaseObjectCount: 9
       semanticObjectMatches: "9/9"
       separatedSecretCount: 0
-      variant: "default"
       targetFactMode: "not-required"
       targetFactsBound: false
+      variant: "default"
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||kube-system"
@@ -66,6 +66,6 @@ spec:
       helmReleaseObjectCount: 9
       semanticObjectMatches: "9/9"
       separatedSecretCount: 0
-      variant: "external-tls-ca"
       targetFactMode: "collector-facts"
       targetFactsBound: true
+      variant: "external-tls-ca"

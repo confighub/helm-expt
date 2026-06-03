@@ -4,13 +4,16 @@ metadata:
   name: "ingress-nginx-ingress-nginx-4.15.1"
 spec:
   chart:
-    repository: "ingress-nginx"
     name: "ingress-nginx"
+    repository: "ingress-nginx"
     version: "4.15.1"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/ingress-nginx/ingress-nginx/4.15.1 -o <tmp>/ingress-nginx-4.15.1.tgz"
+    sha256: "aad707111eb404ae4c1b3ccf5da69375fe9daf539f0ddf9fefab5683d552c2b2"
   package:
-    path: "packages/ingress-nginx/ingress-nginx/4.15.1"
     name: "ingress-nginx-ingress-nginx"
-    version: "4.15.1"
+    path: "packages/ingress-nginx/ingress-nginx/4.15.1"
     sourceFiles:
       -
         path: "README.md"
@@ -34,30 +37,27 @@ spec:
         bytes: 13119
       -
         path: "installer.yaml"
-        sha256: "ab553fd1821c4b490616ff106377a19efcf3d072d8b3104f11c0d34e361c6a9e"
-        bytes: 519
-  deterministicBundle:
-    command: "cub installer package packages/ingress-nginx/ingress-nginx/4.15.1 -o <tmp>/ingress-nginx-4.15.1.tgz"
-    sha256: "67696880ec9c64ef02f0759fdd67e2423d478f9fedcd70bbe45b5edd71336f46"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "2c207aed348f4ba1002d70894b39b1c8854a44bbe2bd3aec8201caf0ece9953e"
+        bytes: 996
+    version: "4.15.1"
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||ingress-nginx"
       base: "default"
       command: "cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base default --work-dir <tmp> --non-interactive --namespace ingress-nginx"
-      helmReleaseObjectCount: 11
       cubInstallObjectCountIncludingSupport: 12
+      helmReleaseObjectCount: 11
       semanticObjectMatches: "11/11"
       separatedSecretCount: 0
+      variant: "default"
+    -
       allowedCubOnlyObjects:
         - "v1|Namespace||ingress-nginx"
-    -
-      variant: "admission-disabled"
       base: "admission-disabled"
       command: "cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base admission-disabled --work-dir <tmp> --non-interactive --namespace ingress-nginx"
-      helmReleaseObjectCount: 9
       cubInstallObjectCountIncludingSupport: 10
+      helmReleaseObjectCount: 9
       semanticObjectMatches: "9/9"
       separatedSecretCount: 0
-      allowedCubOnlyObjects:
-        - "v1|Namespace||ingress-nginx"
+      variant: "admission-disabled"

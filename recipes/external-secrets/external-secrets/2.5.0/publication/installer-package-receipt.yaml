@@ -4,13 +4,16 @@ metadata:
   name: "external-secrets-external-secrets-2.5.0"
 spec:
   chart:
-    repository: "external-secrets"
     name: "external-secrets"
+    repository: "external-secrets"
     version: "2.5.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/external-secrets/external-secrets/2.5.0 -o <tmp>/external-secrets-2.5.0.tgz"
+    sha256: "3c3a7b86739c4c1d546d33377aaeb753a3c73b17fcfee7eb79a9121bb5b3d9cc"
   package:
-    path: "packages/external-secrets/external-secrets/2.5.0"
     name: "external-secrets-external-secrets"
-    version: "2.5.0"
+    path: "packages/external-secrets/external-secrets/2.5.0"
     sourceFiles:
       -
         path: "README.md"
@@ -34,30 +37,27 @@ spec:
         bytes: 21792
       -
         path: "installer.yaml"
-        sha256: "275da2afe29b043c672c265a6a36d8f772bc6d22312b16fb922ee69a1229dd20"
-        bytes: 505
-  deterministicBundle:
-    command: "cub installer package packages/external-secrets/external-secrets/2.5.0 -o <tmp>/external-secrets-2.5.0.tgz"
-    sha256: "0a8f6642c21088b0e4e01686cee44979f947656d7b56f03820c1d9b10d77bcc9"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "3c9928560c43d969f920d1a1d4f07eef14fd2ad9335d558b7e6fcbdbd3554a8e"
+        bytes: 982
+    version: "2.5.0"
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||external-secrets"
       base: "default"
       command: "cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base default --work-dir <tmp> --non-interactive --namespace external-secrets"
-      helmReleaseObjectCount: 42
       cubInstallObjectCountIncludingSupport: 43
+      helmReleaseObjectCount: 42
       semanticObjectMatches: "42/42"
       separatedSecretCount: 1
+      variant: "default"
+    -
       allowedCubOnlyObjects:
         - "v1|Namespace||external-secrets"
-    -
-      variant: "no-crds"
       base: "no-crds"
       command: "cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base no-crds --work-dir <tmp> --non-interactive --namespace external-secrets"
-      helmReleaseObjectCount: 19
       cubInstallObjectCountIncludingSupport: 20
+      helmReleaseObjectCount: 19
       semanticObjectMatches: "19/19"
       separatedSecretCount: 1
-      allowedCubOnlyObjects:
-        - "v1|Namespace||external-secrets"
+      variant: "no-crds"

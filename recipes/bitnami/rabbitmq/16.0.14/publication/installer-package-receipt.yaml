@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/rabbitmq/16.0.14 -o <tmp>/rabbitmq-16.0.14.tgz"
-    sha256: "79b7e20cbc7db6bb130a4bed764a2103902ae0b2f5f1fdbb5b4e10098b539148"
+    sha256: "c6c6a4eaea1ef6972fd6058c7536412be959acf799e9598a88c83c63059cd8ef"
   package:
     name: "bitnami-rabbitmq"
     path: "packages/bitnami/rabbitmq/16.0.14"
@@ -41,8 +41,8 @@ spec:
         bytes: 1561
       -
         path: "installer.yaml"
-        sha256: "a61955dd9460a8e4220373ac7292b4baa5f52236dcfd4206665ff0e4fe9d17e7"
-        bytes: 1271
+        sha256: "309654fa4765d3650df68a27d5140d7f933d7fda850694566dc7d42ffab5e306"
+        bytes: 1748
     version: "16.0.14"
   setupChecks:
     -
@@ -54,9 +54,9 @@ spec:
       helmReleaseObjectCount: 10
       semanticObjectMatches: "10/10"
       separatedSecretCount: 2
-      variant: "generated-passwords"
       targetFactMode: "not-required"
       targetFactsBound: false
+      variant: "generated-passwords"
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||rabbitmq"
@@ -66,6 +66,6 @@ spec:
       helmReleaseObjectCount: 9
       semanticObjectMatches: "9/9"
       separatedSecretCount: 1
-      variant: "existing-secret"
       targetFactMode: "collector-facts"
       targetFactsBound: true
+      variant: "existing-secret"
