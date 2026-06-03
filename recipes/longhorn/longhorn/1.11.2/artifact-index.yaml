@@ -54,7 +54,7 @@ spec:
     path: "packages/longhorn/longhorn/1.11.2"
     installer: "packages/longhorn/longhorn/1.11.2/installer.yaml"
     receipt: "recipes/longhorn/longhorn/1.11.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "b204441cb21bc29ac21ba5fa10c45f8ac8176c4d13b375edd2129d01481c58ea"
+    deterministicBundleSHA256: "cbffd4ad1643bdf664d003c8da0a9376ea53e7fcb9bcb8ac6a29c22b02f0f0aa"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

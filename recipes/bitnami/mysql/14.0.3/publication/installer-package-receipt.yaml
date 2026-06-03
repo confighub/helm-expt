@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/mysql/14.0.3 -o <tmp>/mysql-14.0.3.tgz"
-    sha256: "62da1710f140f346e481d43753f1d3d1e4e4e6fa458d6532bd81cdfb20ea35df"
+    sha256: "b041088c37725af2a81fdf2c3611f5861de66a9814ef1c5ad866a0a1f9bb04ca"
   package:
     name: "bitnami-mysql"
     path: "packages/bitnami/mysql/14.0.3"
@@ -41,8 +41,8 @@ spec:
         bytes: 1518
       -
         path: "installer.yaml"
-        sha256: "737790c5615e7e8c66efa56713f44131a5e358ba741d8b4cd95b820ff40ab35e"
-        bytes: 1074
+        sha256: "7a9ede2d9f8608fd6eb626bc84ec689a576796e177ca81871f3e7b79a7e885b5"
+        bytes: 1551
     version: "14.0.3"
   setupChecks:
     -
@@ -54,9 +54,9 @@ spec:
       helmReleaseObjectCount: 8
       semanticObjectMatches: "8/8"
       separatedSecretCount: 1
-      variant: "generated-passwords"
       targetFactMode: "not-required"
       targetFactsBound: false
+      variant: "generated-passwords"
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||mysql"
@@ -66,6 +66,6 @@ spec:
       helmReleaseObjectCount: 7
       semanticObjectMatches: "7/7"
       separatedSecretCount: 0
-      variant: "existing-secret"
       targetFactMode: "collector-facts"
       targetFactsBound: true
+      variant: "existing-secret"

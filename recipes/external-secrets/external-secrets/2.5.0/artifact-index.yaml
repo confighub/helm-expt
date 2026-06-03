@@ -52,7 +52,7 @@ spec:
     path: "packages/external-secrets/external-secrets/2.5.0"
     installer: "packages/external-secrets/external-secrets/2.5.0/installer.yaml"
     receipt: "recipes/external-secrets/external-secrets/2.5.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "0a8f6642c21088b0e4e01686cee44979f947656d7b56f03820c1d9b10d77bcc9"
+    deterministicBundleSHA256: "3c3a7b86739c4c1d546d33377aaeb753a3c73b17fcfee7eb79a9121bb5b3d9cc"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

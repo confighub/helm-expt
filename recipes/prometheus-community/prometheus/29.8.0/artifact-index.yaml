@@ -54,7 +54,7 @@ spec:
     path: "packages/prometheus-community/prometheus/29.8.0"
     installer: "packages/prometheus-community/prometheus/29.8.0/installer.yaml"
     receipt: "recipes/prometheus-community/prometheus/29.8.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "6ca5329f1a665aab8e8cab7e5cfd7c9b5ceadef36942c320105f29d5b4950a68"
+    deterministicBundleSHA256: "ac86e0bf7ec6ab8d8e8c66298fb32791be696756480116fe833a4459e5bcc9e1"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

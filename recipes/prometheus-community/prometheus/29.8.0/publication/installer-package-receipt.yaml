@@ -4,13 +4,16 @@ metadata:
   name: "prometheus-29.8.0"
 spec:
   chart:
+    name: "prometheus"
     repository: "prometheus-community"
-    name: "prometheus"
     version: "29.8.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/prometheus-community/prometheus/29.8.0 -o <tmp>/prometheus-29.8.0.tgz"
+    sha256: "ac86e0bf7ec6ab8d8e8c66298fb32791be696756480116fe833a4459e5bcc9e1"
   package:
-    path: "packages/prometheus-community/prometheus/29.8.0"
     name: "prometheus"
-    version: "29.8.0"
+    path: "packages/prometheus-community/prometheus/29.8.0"
     sourceFiles:
       -
         path: "README.md"
@@ -34,30 +37,27 @@ spec:
         bytes: 16492
       -
         path: "installer.yaml"
-        sha256: "94eb4c1d801b10b1be437d776b906f34fa5322a87bcb842f893a7f6707acde1b"
-        bytes: 532
-  deterministicBundle:
-    command: "cub installer package packages/prometheus-community/prometheus/29.8.0 -o <tmp>/prometheus-29.8.0.tgz"
-    sha256: "6ca5329f1a665aab8e8cab7e5cfd7c9b5ceadef36942c320105f29d5b4950a68"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "9b5a295c50132357c6f8c6420104b77aaa922c929f89f83511835116730a4495"
+        bytes: 1009
+    version: "29.8.0"
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||monitoring"
       base: "default"
       command: "cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
-      helmReleaseObjectCount: 23
       cubInstallObjectCountIncludingSupport: 24
+      helmReleaseObjectCount: 23
       semanticObjectMatches: "23/23"
       separatedSecretCount: 0
+      variant: "default"
+    -
       allowedCubOnlyObjects:
         - "v1|Namespace||monitoring"
-    -
-      variant: "server-only-ephemeral"
       base: "server-only-ephemeral"
       command: "cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 --base server-only-ephemeral --work-dir <tmp> --non-interactive --namespace monitoring"
-      helmReleaseObjectCount: 6
       cubInstallObjectCountIncludingSupport: 7
+      helmReleaseObjectCount: 6
       semanticObjectMatches: "6/6"
       separatedSecretCount: 0
-      allowedCubOnlyObjects:
-        - "v1|Namespace||monitoring"
+      variant: "server-only-ephemeral"

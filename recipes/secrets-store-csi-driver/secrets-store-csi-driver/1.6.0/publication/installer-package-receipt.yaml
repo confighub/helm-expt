@@ -4,13 +4,16 @@ metadata:
   name: "secrets-store-csi-driver-1.6.0"
 spec:
   chart:
+    name: "secrets-store-csi-driver"
     repository: "secrets-store-csi-driver"
-    name: "secrets-store-csi-driver"
     version: "1.6.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 -o <tmp>/secrets-store-csi-driver-1.6.0.tgz"
+    sha256: "3ad024cf7279287f499854f611cb2d83d60bf6abc925848ca96d4bdb4f9768ed"
   package:
-    path: "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0"
     name: "secrets-store-csi-driver"
-    version: "1.6.0"
+    path: "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0"
     sourceFiles:
       -
         path: "README.md"
@@ -34,30 +37,27 @@ spec:
         bytes: 24168
       -
         path: "installer.yaml"
-        sha256: "7bed977cfb84d6b643735bcd63d75ff54b25804be4791dda6d8488809a0153b4"
-        bytes: 594
-  deterministicBundle:
-    command: "cub installer package packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 -o <tmp>/secrets-store-csi-driver-1.6.0.tgz"
-    sha256: "f9996d7c744f87c3988cacd5e6c65edc88de2596c6f3cc61505ce132a82873a1"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "cd2abe8662151963af893ed48229db03622805117b76488a361ee19a167ea16e"
+        bytes: 1071
+    version: "1.6.0"
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||kube-system"
       base: "default"
       command: "cub installer setup --pull packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system"
-      helmReleaseObjectCount: 10
       cubInstallObjectCountIncludingSupport: 11
+      helmReleaseObjectCount: 10
       semanticObjectMatches: "10/10"
       separatedSecretCount: 0
+      variant: "default"
+    -
       allowedCubOnlyObjects:
         - "v1|Namespace||kube-system"
-    -
-      variant: "sync-secret-rotation"
       base: "sync-secret-rotation"
       command: "cub installer setup --pull packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 --base sync-secret-rotation --work-dir <tmp> --non-interactive --namespace kube-system"
-      helmReleaseObjectCount: 12
       cubInstallObjectCountIncludingSupport: 13
+      helmReleaseObjectCount: 12
       semanticObjectMatches: "12/12"
       separatedSecretCount: 0
-      allowedCubOnlyObjects:
-        - "v1|Namespace||kube-system"
+      variant: "sync-secret-rotation"

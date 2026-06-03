@@ -55,7 +55,7 @@ spec:
     path: "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0"
     installer: "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/installer.yaml"
     receipt: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "f9996d7c744f87c3988cacd5e6c65edc88de2596c6f3cc61505ce132a82873a1"
+    deterministicBundleSHA256: "3ad024cf7279287f499854f611cb2d83d60bf6abc925848ca96d4bdb4f9768ed"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
