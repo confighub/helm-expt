@@ -67,6 +67,9 @@ npm run top100:catalog && npm run top100:catalog:verify
 | `data/variant-backlog/wave-results/<wave>.json` | per-wave results (promoted / declined + reason) | `node scripts/run-variant-wave.mjs <wave>` |
 | `data/quirk-review-queue/` | the Level-2 residue, made actionable | `npm run quirk-queue:generate` |
 | `data/attack-plan-workdown/` | generated next-action index for import, gaps, variants, production, runtime/GitOps, latest candidates, and image digests | `npm run attack-plan:generate` |
+| `data/runtime-gitops/` | first-wave Argo/Flux OCI live-proof plan and required receipt index | `npm run runtime-gitops:wave` |
+| `data/image-digest-workdown/` | rendered image digest review queue by chart and variant | `npm run image-digests:workdown` |
+| `data/next-ten-waves/` | compact first rows for gaps, latest promotion, variants, production disposition, and import examples | `npm run next-ten:waves` |
 
 Per-chart dispositions live next to each recipe: `recipes/<chart>/helm-pain-report.yaml`
 (`npm run catalog:pain-reports`) and `recipes/<chart>/control-points.yaml`.
@@ -84,6 +87,9 @@ npm run top500:catalog              # reads chart-facts.json
 npm run top100:catalog              # reads top500 + chart-facts.json
 npm run catalog:index               # CATALOG.md
 npm run attack-plan:generate        # reads the refreshed data and emits the workdown index
+npm run runtime-gitops:wave         # first GitOps/OCI receipt wave from the sweep
+npm run image-digests:workdown      # image pinning review queue
+npm run next-ten:waves              # compact execution queues for the next work
 ```
 
 The dependency that matters most: **`chart-facts` before `top500`/`top100`** (they read

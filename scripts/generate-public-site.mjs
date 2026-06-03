@@ -10,6 +10,9 @@ const readmePath = join(siteRoot, "README.md");
 const top100Path = join(repoRoot, "data", "top100-catalog-analysis", "raw.json");
 const top500Path = join(repoRoot, "data", "top500-catalog-analysis", "raw.json");
 const latestReadinessPath = join(repoRoot, "data", "latest-top20-refresh", "promotion-readiness.csv");
+const runtimeWavePath = join(repoRoot, "data", "runtime-gitops", "wave1.csv");
+const imageDigestSubjectsPath = join(repoRoot, "data", "image-digest-workdown", "all-subjects.csv");
+const nextTenGapsPath = join(repoRoot, "data", "next-ten-waves", "gap-review-wave.csv");
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -37,6 +40,9 @@ function buildSite() {
   const top100 = JSON.parse(readFileSync(top100Path, "utf8"));
   const top500 = JSON.parse(readFileSync(top500Path, "utf8"));
   const readiness = parseCsv(readFileSync(latestReadinessPath, "utf8"));
+  const runtimeWave = parseCsv(readFileSync(runtimeWavePath, "utf8"));
+  const imageSubjects = parseCsv(readFileSync(imageDigestSubjectsPath, "utf8"));
+  const nextTenGaps = parseCsv(readFileSync(nextTenGapsPath, "utf8"));
   const catalogEntries = top100.entries.filter((entry) => entry.proof_surface === "top20-catalog-supported");
   const proofGrade = top100.entries.filter((entry) => entry.proof_surface === "next80-proof-grade");
   const latestCandidates = readiness.map((row) => ({
@@ -52,6 +58,9 @@ function buildSite() {
       top100: "data/top100-catalog-analysis/raw.json",
       top500: "data/top500-catalog-analysis/raw.json",
       latestCandidates: "data/latest-top20-refresh/promotion-readiness.csv",
+      runtimeWave: "data/runtime-gitops/wave1.csv",
+      imageDigestSubjects: "data/image-digest-workdown/all-subjects.csv",
+      nextTenGaps: "data/next-ten-waves/gap-review-wave.csv",
     },
     summary: {
       catalogSupported: catalogEntries.length,
@@ -59,6 +68,9 @@ function buildSite() {
       top500Rows: top500.summary.rows,
       top500MatchedProofs: top500.summary.currentRecipeRows,
       latestCandidates: latestCandidates.length,
+      runtimeGitopsWave: runtimeWave.length,
+      imageSubjectsNeedingResolution: imageSubjects.filter((row) => row.needs_resolution === "yes").length,
+      nextTenGapRows: nextTenGaps.length,
     },
     catalogEntries,
     proofGradeEntries: proofGrade,
@@ -78,6 +90,8 @@ function html(catalog) {
     ["Proof-grade recipes", catalog.summary.proofGrade],
     ["Top-500 rows analyzed", catalog.summary.top500Rows],
     ["Latest candidates", catalog.summary.latestCandidates],
+    ["Runtime/GitOps wave", catalog.summary.runtimeGitopsWave],
+    ["Image subjects to pin", catalog.summary.imageSubjectsNeedingResolution],
   ];
   return `<!doctype html>
 <html lang="en">
@@ -234,6 +248,9 @@ function html(catalog) {
         <li><a href="../data/top100-catalog-analysis/summary.md">Top-100 catalog analysis</a></li>
         <li><a href="../data/top500-catalog-analysis/summary.md">Top-500 catalog analysis</a></li>
         <li><a href="../data/latest-top20-refresh/promotion-readiness.md">Latest candidate promotion readiness</a></li>
+        <li><a href="../data/runtime-gitops/summary.md">Runtime/GitOps first wave</a></li>
+        <li><a href="../data/image-digest-workdown/summary.md">Image digest workdown</a></li>
+        <li><a href="../data/next-ten-waves/summary.md">Next-ten execution waves</a></li>
       </ul>
     </section>
   </main>
@@ -297,6 +314,9 @@ Data source:
 - \`data/top100-catalog-analysis/raw.json\`
 - \`data/top500-catalog-analysis/raw.json\`
 - \`data/latest-top20-refresh/promotion-readiness.csv\`
+- \`data/runtime-gitops/wave1.csv\`
+- \`data/image-digest-workdown/all-subjects.csv\`
+- \`data/next-ten-waves/gap-review-wave.csv\`
 - \`data/variant-goldens/redis-prod-us-east/\`
 - \`data/managed-overlay-goldens/external-dns-customer-acme-prod/\`
 
