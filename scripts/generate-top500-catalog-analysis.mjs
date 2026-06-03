@@ -14,6 +14,15 @@ const rawPath = join(outputRoot, "raw.json");
 const reviewCsvPath = join(outputRoot, "review.csv");
 const drilldownCsvPath = join(outputRoot, "drilldown.csv");
 const summaryPath = join(outputRoot, "summary.md");
+
+// Per-chart "what we can't yet easily enable" gap, from generate-chart-facts.mjs (graceful if absent).
+const chartFactsPath = join(repoRoot, "data", "chart-facts", "chart-facts.json");
+const chartFacts = existsSync(chartFactsPath) ? JSON.parse(readFileSync(chartFactsPath, "utf8")) : {};
+function notYetEnabledFor(chart, hasProof) {
+  const ref = String(chart).split("@")[0].split("/").slice(0, 2).join("/");
+  if (chartFacts[ref]) return chartFacts[ref].not_yet_enabled;
+  return hasProof ? "" : "no recipe yet (source-recon only)";
+}
 const sourceScanPath = join(repoRoot, "data", "top500-catalog-analysis", "source", "source-feature-scan.raw.json");
 const mode = process.argv[2] ?? "--generate";
 
@@ -198,6 +207,7 @@ function buildRow(source, proof, matchBasis) {
     supported_variants: (proof?.supportedVariants ?? []).join(";"),
     candidate_variants: (proof?.candidateVariants ?? []).join(";"),
     next_action: nextAction,
+    not_yet_enabled: notYetEnabledFor(source.chart, hasProof),
     current_risk: currentRisk,
     source_classification: source.classification ?? "",
     source_problem_score: source.problemScore ?? "",
@@ -463,6 +473,7 @@ function reviewHeaders() {
     "production_readiness",
     "supported_variants",
     "next_action",
+    "not_yet_enabled",
     "source_features",
     "recipe_path",
     "package_path",

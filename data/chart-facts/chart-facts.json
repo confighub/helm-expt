@@ -1,0 +1,502 @@
+{
+  "aqua/trivy-operator": {
+    "version": "0.32.1",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "argo-cd/argo-cd": {
+    "version": "9.5.15",
+    "not_yet_enabled": "ha (curated proof lane — bespoke teaching needed)",
+    "buildable_not_yet_run": "—"
+  },
+  "argo-cd/argo-events": {
+    "version": "2.4.21",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "argo-cd/argo-rollouts": {
+    "version": "2.40.9",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "argo-cd/argo-workflows": {
+    "version": "1.0.14",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "argo-cd/argocd-image-updater": {
+    "version": "1.2.2",
+    "not_yet_enabled": "no-crds (template-baked CRDs, no toggle — #114)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "autoscaler/cluster-autoscaler": {
+    "version": "9.57.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "autoscaler/vertical-pod-autoscaler": {
+    "version": "0.9.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "aws-ebs-csi-driver/aws-ebs-csi-driver": {
+    "version": "2.60.1",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "bitnami/apache": {
+    "version": "11.4.29",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "buildable_not_yet_run": "—"
+  },
+  "bitnami/contour": {
+    "version": "21.1.4",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "buildable_not_yet_run": "—"
+  },
+  "bitnami/elasticsearch": {
+    "version": "22.1.6",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "buildable_not_yet_run": "—"
+  },
+  "bitnami/memcached": {
+    "version": "8.5.5",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "buildable_not_yet_run": "—"
+  },
+  "bitnami/mongodb": {
+    "version": "19.0.7",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "bitnami/mysql": {
+    "version": "14.0.3",
+    "not_yet_enabled": "ha (curated proof lane — bespoke teaching needed)",
+    "buildable_not_yet_run": "—"
+  },
+  "bitnami/nginx": {
+    "version": "24.0.2",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "buildable_not_yet_run": "—"
+  },
+  "bitnami/opensearch": {
+    "version": "2.0.10",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "bitnami/phpmyadmin": {
+    "version": "20.0.0",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "buildable_not_yet_run": "—"
+  },
+  "bitnami/postgresql": {
+    "version": "18.6.7",
+    "not_yet_enabled": "ha (curated proof lane — bespoke teaching needed)",
+    "buildable_not_yet_run": "—"
+  },
+  "bitnami/rabbitmq": {
+    "version": "16.0.14",
+    "not_yet_enabled": "ha (curated proof lane — bespoke teaching needed); full Helm-equivalence — RoleBinding rabbitmq-endpoint-reader differs (#124)",
+    "buildable_not_yet_run": "—"
+  },
+  "bitnami/redis": {
+    "version": "25.5.3",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "bitnami/spark": {
+    "version": "10.0.3",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "buildable_not_yet_run": "—"
+  },
+  "bitnami/zookeeper": {
+    "version": "13.8.7",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "buildable_not_yet_run": "—"
+  },
+  "cloudnative-pg/cloudnative-pg": {
+    "version": "0.28.2",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "coredns/coredns": {
+    "version": "1.45.2",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "crossplane-stable/crossplane": {
+    "version": "2.3.1",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "descheduler/descheduler": {
+    "version": "0.36.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "dex/dex": {
+    "version": "0.24.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "elastic/eck-operator": {
+    "version": "3.4.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "elastic/filebeat": {
+    "version": "8.5.1",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "elastic/kibana": {
+    "version": "8.5.1",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "elastic/logstash": {
+    "version": "8.5.1",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "elastic/metricbeat": {
+    "version": "8.5.1",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "external-dns/external-dns": {
+    "version": "1.21.1",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "external-secrets/external-secrets": {
+    "version": "2.5.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "fairwinds-stable/goldilocks": {
+    "version": "10.3.0",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "buildable_not_yet_run": "—"
+  },
+  "fairwinds-stable/vpa": {
+    "version": "4.11.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "falcosecurity/falco": {
+    "version": "9.0.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "falcosecurity/falcosidekick": {
+    "version": "0.13.1",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "fluent/fluent-bit": {
+    "version": "0.57.6",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "fluent/fluentd": {
+    "version": "0.5.3",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "gatekeeper/gatekeeper": {
+    "version": "3.22.2",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "gitlab/gitlab-runner": {
+    "version": "0.89.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "grafana/alloy": {
+    "version": "1.8.2",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "grafana/grafana": {
+    "version": "10.5.15",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "grafana/loki": {
+    "version": "7.0.0",
+    "not_yet_enabled": "full Helm-equivalence — minio sub-chart objects dropped (#124)",
+    "buildable_not_yet_run": "—"
+  },
+  "grafana/promtail": {
+    "version": "6.17.1",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "grafana/pyroscope": {
+    "version": "2.0.2",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "buildable_not_yet_run": "—"
+  },
+  "grafana/rollout-operator": {
+    "version": "0.49.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "grafana/tempo": {
+    "version": "1.24.4",
+    "not_yet_enabled": "ha (tempo single-binary chart; HA is the separate t…)",
+    "buildable_not_yet_run": "ingress-tls (buildable — not yet run)"
+  },
+  "haproxytech/kubernetes-ingress": {
+    "version": "1.52.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "hashicorp/consul": {
+    "version": "2.0.0",
+    "not_yet_enabled": "ha (curated proof lane — bespoke teaching needed); full Helm-equivalence — RoleBinding consul-consul-server differs (#124)",
+    "buildable_not_yet_run": "no-crds (buildable — not yet run); ingress-tls (buildable — not yet run)"
+  },
+  "hashicorp/terraform": {
+    "version": "1.1.2",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "hashicorp/vault": {
+    "version": "0.32.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "ingress-tls (buildable — not yet run); tls (buildable — not yet run)"
+  },
+  "ingress-nginx/ingress-nginx": {
+    "version": "4.15.1",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "istio/gateway": {
+    "version": "1.30.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "istio/istiod": {
+    "version": "1.30.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "jaegertracing/jaeger-operator": {
+    "version": "2.57.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "jaegertracing/jaeger": {
+    "version": "4.8.0",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "buildable_not_yet_run": "—"
+  },
+  "jetstack/cert-manager-csi-driver": {
+    "version": "v0.14.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "jetstack/cert-manager": {
+    "version": "v1.20.2",
+    "not_yet_enabled": "full Helm-equivalence — cross-namespace kube-system RBAC dropped (#124)",
+    "buildable_not_yet_run": "—"
+  },
+  "jetstack/trust-manager": {
+    "version": "v0.22.1",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "kedacore/keda": {
+    "version": "2.19.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "kyverno/kyverno-policies": {
+    "version": "3.8.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "kyverno/kyverno": {
+    "version": "3.8.1",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "buildable_not_yet_run": "—"
+  },
+  "linkerd/linkerd-crds": {
+    "version": "1.8.0",
+    "not_yet_enabled": "no-crds (template-baked CRDs, no toggle — #114)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "longhorn/longhorn": {
+    "version": "1.11.2",
+    "not_yet_enabled": "full Helm-equivalence — cluster-scoped PriorityClass dropped (#124)",
+    "buildable_not_yet_run": "no-crds (buildable — not yet run)"
+  },
+  "metrics-server/metrics-server": {
+    "version": "3.13.0",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "buildable_not_yet_run": "—"
+  },
+  "minio-operator/operator": {
+    "version": "7.1.1",
+    "not_yet_enabled": "no-crds (template-baked CRDs, no toggle — #114)",
+    "buildable_not_yet_run": "—"
+  },
+  "minio-operator/tenant": {
+    "version": "7.1.1",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "nats/nack": {
+    "version": "0.34.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "nats/nats": {
+    "version": "2.14.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "nats/surveyor": {
+    "version": "0.20.9",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner": {
+    "version": "4.0.18",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "open-telemetry/opentelemetry-operator": {
+    "version": "0.114.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "opencost/opencost": {
+    "version": "2.5.21",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "percona/pg-operator": {
+    "version": "3.0.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "percona/psmdb-operator": {
+    "version": "1.22.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "percona/pxc-operator": {
+    "version": "1.19.1",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "projectcalico/tigera-operator": {
+    "version": "v3.32.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "prometheus-community/alertmanager": {
+    "version": "1.37.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "prometheus-community/kube-prometheus-stack": {
+    "version": "85.3.3",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113); full Helm-equivalence — cross-namespace kube-system Services dropped (#124)",
+    "buildable_not_yet_run": "—"
+  },
+  "prometheus-community/kube-state-metrics": {
+    "version": "7.4.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "prometheus-community/prometheus-adapter": {
+    "version": "5.3.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "prometheus-community/prometheus-blackbox-exporter": {
+    "version": "11.10.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "prometheus-community/prometheus-node-exporter": {
+    "version": "4.55.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "prometheus-community/prometheus-operator-crds": {
+    "version": "29.0.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run); no-crds (buildable — not yet run)"
+  },
+  "prometheus-community/prometheus-pushgateway": {
+    "version": "3.6.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "prometheus-community/prometheus": {
+    "version": "29.8.0",
+    "not_yet_enabled": "ha (curated proof lane — bespoke teaching needed)",
+    "buildable_not_yet_run": "—"
+  },
+  "rook-release/rook-ceph-cluster": {
+    "version": "v1.19.5",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "rook-release/rook-ceph": {
+    "version": "v1.19.5",
+    "not_yet_enabled": "no-crds (template-baked CRDs, no toggle — #114)",
+    "buildable_not_yet_run": "—"
+  },
+  "runix/pgadmin4": {
+    "version": "1.62.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "sealed-secrets/sealed-secrets": {
+    "version": "2.18.6",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "secrets-store-csi-driver/secrets-store-csi-driver": {
+    "version": "1.6.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "no-crds (buildable — not yet run)"
+  },
+  "stakater/reloader": {
+    "version": "2.2.12",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "strimzi/strimzi-kafka-operator": {
+    "version": "1.0.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  },
+  "traefik/traefik": {
+    "version": "40.2.0",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "buildable_not_yet_run": "—"
+  },
+  "velero/velero": {
+    "version": "12.0.1",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "vm/victoria-logs-single": {
+    "version": "0.12.5",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+  },
+  "vm/victoria-metrics-single": {
+    "version": "0.39.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—"
+  }
+}

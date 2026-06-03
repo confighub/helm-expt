@@ -6,8 +6,8 @@
     "next80ProofGrade": 80,
     "catalogSupported": 20,
     "proofGrade": 80,
-    "multiVariant": 20,
-    "defaultOnly": 80,
+    "multiVariant": 54,
+    "defaultOnly": 46,
     "latestCurrent": 14,
     "latestUpdateAvailable": 6,
     "productionBlocked": 20,
@@ -35,6 +35,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "ha (curated proof lane — bespoke teaching needed)",
       "package_path": "packages/argo-cd/argo-cd/9.5.15",
       "recipe_path": "recipes/argo-cd/argo-cd/9.5.15/recipe.yaml",
       "catalog_path": "recipes/argo-cd/argo-cd/9.5.15/CATALOG.md",
@@ -61,6 +62,7 @@
       "source_features": "lookup;generated-facts;tpl;capabilities;cluster-rbac;stateful-storage",
       "source_classification": "P1 compiler policy needed",
       "top500_next_action": "review source/current-version drift and refresh recipe if needed",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/bitnami/mongodb/19.0.7",
       "recipe_path": "recipes/bitnami/mongodb/19.0.7/recipe.yaml",
       "catalog_path": "recipes/bitnami/mongodb/19.0.7/CATALOG.md",
@@ -87,6 +89,7 @@
       "source_features": "lookup;generated-facts;tpl;capabilities;stateful-storage",
       "source_classification": "P0 source/dependency risk",
       "top500_next_action": "add production dispositions and live/e2e observation lane",
+      "not_yet_enabled": "ha (curated proof lane — bespoke teaching needed)",
       "package_path": "packages/bitnami/mysql/14.0.3",
       "recipe_path": "recipes/bitnami/mysql/14.0.3/recipe.yaml",
       "catalog_path": "recipes/bitnami/mysql/14.0.3/CATALOG.md",
@@ -113,6 +116,7 @@
       "source_features": "lookup;generated-facts;tpl;capabilities",
       "source_classification": "P1 compiler policy needed",
       "top500_next_action": "add production dispositions and live/e2e observation lane",
+      "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
       "package_path": "packages/bitnami/nginx/24.0.2",
       "recipe_path": "recipes/bitnami/nginx/24.0.2/recipe.yaml",
       "catalog_path": "recipes/bitnami/nginx/24.0.2/CATALOG.md",
@@ -139,6 +143,7 @@
       "source_features": "lookup;generated-facts;tpl;capabilities;stateful-storage",
       "source_classification": "P1 compiler policy needed",
       "top500_next_action": "add production dispositions and live/e2e observation lane",
+      "not_yet_enabled": "ha (curated proof lane — bespoke teaching needed)",
       "package_path": "packages/bitnami/postgresql/18.6.7",
       "recipe_path": "recipes/bitnami/postgresql/18.6.7/recipe.yaml",
       "catalog_path": "recipes/bitnami/postgresql/18.6.7/CATALOG.md",
@@ -165,6 +170,7 @@
       "source_features": "lookup;generated-facts;tpl;capabilities;stateful-storage",
       "source_classification": "P0 source/dependency risk",
       "top500_next_action": "add production dispositions and live/e2e observation lane",
+      "not_yet_enabled": "ha (curated proof lane — bespoke teaching needed); full Helm-equivalence — RoleBinding rabbitmq-endpoint-reader differs (#124)",
       "package_path": "packages/bitnami/rabbitmq/16.0.14",
       "recipe_path": "recipes/bitnami/rabbitmq/16.0.14/recipe.yaml",
       "catalog_path": "recipes/bitnami/rabbitmq/16.0.14/CATALOG.md",
@@ -191,6 +197,7 @@
       "source_features": "lookup;generated-facts;tpl;capabilities;stateful-storage",
       "source_classification": "P1 compiler policy needed",
       "top500_next_action": "add production dispositions and live/e2e observation lane",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/bitnami/redis/25.5.3",
       "recipe_path": "recipes/bitnami/redis/25.5.3/recipe.yaml",
       "catalog_path": "recipes/bitnami/redis/25.5.3/CATALOG.md",
@@ -217,6 +224,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/external-secrets/external-secrets/2.5.0",
       "recipe_path": "recipes/external-secrets/external-secrets/2.5.0/recipe.yaml",
       "catalog_path": "recipes/external-secrets/external-secrets/2.5.0/CATALOG.md",
@@ -243,6 +251,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/grafana/grafana/10.5.15",
       "recipe_path": "recipes/grafana/grafana/10.5.15/recipe.yaml",
       "catalog_path": "recipes/grafana/grafana/10.5.15/CATALOG.md",
@@ -269,6 +278,7 @@
       "source_features": "lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage",
       "source_classification": "P1 compiler policy needed",
       "top500_next_action": "add production dispositions and live/e2e observation lane",
+      "not_yet_enabled": "full Helm-equivalence — minio sub-chart objects dropped (#124)",
       "package_path": "packages/grafana/loki/7.0.0",
       "recipe_path": "recipes/grafana/loki/7.0.0/recipe.yaml",
       "catalog_path": "recipes/grafana/loki/7.0.0/CATALOG.md",
@@ -295,6 +305,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "ha (tempo single-binary chart; HA is the separate t…)",
       "package_path": "packages/grafana/tempo/1.24.4",
       "recipe_path": "recipes/grafana/tempo/1.24.4/recipe.yaml",
       "catalog_path": "recipes/grafana/tempo/1.24.4/CATALOG.md",
@@ -321,6 +332,7 @@
       "source_features": "tpl;capabilities;cluster-rbac;webhooks;stateful-storage",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "review source/current-version drift and refresh recipe if needed",
+      "not_yet_enabled": "ha (curated proof lane — bespoke teaching needed); full Helm-equivalence — RoleBinding consul-consul-server differs (#124)",
       "package_path": "packages/hashicorp/consul/2.0.0",
       "recipe_path": "recipes/hashicorp/consul/2.0.0/recipe.yaml",
       "catalog_path": "recipes/hashicorp/consul/2.0.0/CATALOG.md",
@@ -347,6 +359,7 @@
       "source_features": "tpl;capabilities;cluster-rbac;webhooks;stateful-storage",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "add production dispositions and live/e2e observation lane",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/hashicorp/vault/0.32.0",
       "recipe_path": "recipes/hashicorp/vault/0.32.0/recipe.yaml",
       "catalog_path": "recipes/hashicorp/vault/0.32.0/CATALOG.md",
@@ -373,6 +386,7 @@
       "source_features": "tpl;capabilities;cluster-rbac;webhooks",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "add production dispositions and live/e2e observation lane",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/ingress-nginx/ingress-nginx/4.15.1",
       "recipe_path": "recipes/ingress-nginx/ingress-nginx/4.15.1/recipe.yaml",
       "catalog_path": "recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.md",
@@ -399,6 +413,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "full Helm-equivalence — cross-namespace kube-system RBAC dropped (#124)",
       "package_path": "packages/jetstack/cert-manager/v1.20.2",
       "recipe_path": "recipes/jetstack/cert-manager/v1.20.2/recipe.yaml",
       "catalog_path": "recipes/jetstack/cert-manager/v1.20.2/CATALOG.md",
@@ -425,6 +440,7 @@
       "source_features": "generated-facts;tpl;cluster-rbac",
       "source_classification": "P1 compiler policy needed",
       "top500_next_action": "add production dispositions and live/e2e observation lane",
+      "not_yet_enabled": "full Helm-equivalence — cluster-scoped PriorityClass dropped (#124)",
       "package_path": "packages/longhorn/longhorn/1.11.2",
       "recipe_path": "recipes/longhorn/longhorn/1.11.2/recipe.yaml",
       "catalog_path": "recipes/longhorn/longhorn/1.11.2/CATALOG.md",
@@ -451,6 +467,7 @@
       "source_features": "lookup;generated-facts;capabilities;cluster-rbac",
       "source_classification": "P1 compiler policy needed",
       "top500_next_action": "add production dispositions and live/e2e observation lane",
+      "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
       "package_path": "packages/metrics-server/metrics-server/3.13.0",
       "recipe_path": "recipes/metrics-server/metrics-server/3.13.0/recipe.yaml",
       "catalog_path": "recipes/metrics-server/metrics-server/3.13.0/CATALOG.md",
@@ -477,6 +494,7 @@
       "source_features": "lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;webhooks;stateful-storage",
       "source_classification": "P0 source/dependency risk",
       "top500_next_action": "review source/current-version drift and refresh recipe if needed",
+      "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113); full Helm-equivalence — cross-namespace kube-system Services dropped (#124)",
       "package_path": "packages/prometheus-community/kube-prometheus-stack/85.3.3",
       "recipe_path": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/recipe.yaml",
       "catalog_path": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md",
@@ -503,6 +521,7 @@
       "source_features": "generated-facts;tpl;capabilities;cluster-rbac;stateful-storage",
       "source_classification": "P0 source/dependency risk",
       "top500_next_action": "add production dispositions and live/e2e observation lane",
+      "not_yet_enabled": "ha (curated proof lane — bespoke teaching needed)",
       "package_path": "packages/prometheus-community/prometheus/29.8.0",
       "recipe_path": "recipes/prometheus-community/prometheus/29.8.0/recipe.yaml",
       "catalog_path": "recipes/prometheus-community/prometheus/29.8.0/CATALOG.md",
@@ -529,6 +548,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0",
       "recipe_path": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/recipe.yaml",
       "catalog_path": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.md",
@@ -548,17 +568,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;no-crds",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage",
       "source_classification": "P1 compiler policy needed",
-      "top500_next_action": "add user-shaped variants before catalog promotion",
+      "top500_next_action": "run catalog promotion review",
+      "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
       "package_path": "packages/traefik/traefik/40.2.0",
       "recipe_path": "recipes/traefik/traefik/40.2.0/recipe.yaml",
       "catalog_path": "recipes/traefik/traefik/40.2.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/traefik/traefik/40.2.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -574,17 +595,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;no-crds",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "tpl;crds;cluster-rbac",
       "source_classification": "P2 recipe/render/install policy",
-      "top500_next_action": "add user-shaped variants before catalog promotion",
+      "top500_next_action": "run catalog promotion review",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/external-dns/external-dns/1.21.1",
       "recipe_path": "recipes/external-dns/external-dns/1.21.1/recipe.yaml",
       "catalog_path": "recipes/external-dns/external-dns/1.21.1/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/external-dns/external-dns/1.21.1/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -607,10 +629,11 @@
       "source_features": "generated-facts;tpl;capabilities",
       "source_classification": "P0 source/dependency risk",
       "top500_next_action": "add user-shaped variants before catalog promotion",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/gitlab/gitlab-runner/0.89.0",
       "recipe_path": "recipes/gitlab/gitlab-runner/0.89.0/recipe.yaml",
       "catalog_path": "recipes/gitlab/gitlab-runner/0.89.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/gitlab/gitlab-runner/0.89.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -626,17 +649,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;no-crds",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage",
       "source_classification": "P0 source/dependency risk",
-      "top500_next_action": "add user-shaped variants before catalog promotion",
+      "top500_next_action": "run catalog promotion review",
+      "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
       "package_path": "packages/kyverno/kyverno/3.8.1",
       "recipe_path": "recipes/kyverno/kyverno/3.8.1/recipe.yaml",
       "catalog_path": "recipes/kyverno/kyverno/3.8.1/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -652,17 +676,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;no-crds",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "generated-facts;tpl;crds;cluster-rbac;webhooks",
       "source_classification": "P0 source/dependency risk",
-      "top500_next_action": "add user-shaped variants before catalog promotion",
+      "top500_next_action": "run catalog promotion review",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/cloudnative-pg/cloudnative-pg/0.28.2",
       "recipe_path": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/recipe.yaml",
       "catalog_path": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -685,10 +710,11 @@
       "source_features": "tpl;capabilities;hooks;cluster-rbac",
       "source_classification": "P1 compiler policy needed",
       "top500_next_action": "add user-shaped variants before catalog promotion",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/fluent/fluent-bit/0.57.6",
       "recipe_path": "recipes/fluent/fluent-bit/0.57.6/recipe.yaml",
       "catalog_path": "recipes/fluent/fluent-bit/0.57.6/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/fluent/fluent-bit/0.57.6/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -711,10 +737,11 @@
       "source_features": "tpl;capabilities;stateful-storage",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "add user-shaped variants before catalog promotion",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/runix/pgadmin4/1.62.0",
       "recipe_path": "recipes/runix/pgadmin4/1.62.0/recipe.yaml",
       "catalog_path": "recipes/runix/pgadmin4/1.62.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/runix/pgadmin4/1.62.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -737,10 +764,11 @@
       "source_features": "capabilities;cluster-rbac;stateful-storage",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "add user-shaped variants before catalog promotion",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18",
       "recipe_path": "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/recipe.yaml",
       "catalog_path": "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -756,17 +784,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;no-crds",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "tpl;capabilities;crds;cluster-rbac;webhooks",
       "source_classification": "P2 recipe/render/install policy",
-      "top500_next_action": "add user-shaped variants before catalog promotion",
+      "top500_next_action": "run catalog promotion review",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/kedacore/keda/2.19.0",
       "recipe_path": "recipes/kedacore/keda/2.19.0/recipe.yaml",
       "catalog_path": "recipes/kedacore/keda/2.19.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/kedacore/keda/2.19.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -789,10 +818,11 @@
       "source_features": "generated-facts;tpl;capabilities;cluster-rbac;stateful-storage",
       "source_classification": "P1 compiler policy needed",
       "top500_next_action": "add user-shaped variants before catalog promotion",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/prometheus-community/kube-state-metrics/7.4.0",
       "recipe_path": "recipes/prometheus-community/kube-state-metrics/7.4.0/recipe.yaml",
       "catalog_path": "recipes/prometheus-community/kube-state-metrics/7.4.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/prometheus-community/kube-state-metrics/7.4.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -808,17 +838,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;ha;no-crds",
+      "variant_count": 3,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "tpl;capabilities;cluster-rbac;webhooks;stateful-storage",
       "source_classification": "P2 recipe/render/install policy",
-      "top500_next_action": "add user-shaped variants before catalog promotion",
+      "top500_next_action": "run catalog promotion review",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/elastic/eck-operator/3.4.0",
       "recipe_path": "recipes/elastic/eck-operator/3.4.0/recipe.yaml",
       "catalog_path": "recipes/elastic/eck-operator/3.4.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/elastic/eck-operator/3.4.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -841,10 +872,11 @@
       "source_features": "tpl",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "add user-shaped variants before catalog promotion",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/elastic/kibana/8.5.1",
       "recipe_path": "recipes/elastic/kibana/8.5.1/recipe.yaml",
       "catalog_path": "recipes/elastic/kibana/8.5.1/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/elastic/kibana/8.5.1/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -867,10 +899,11 @@
       "source_features": "tpl;cluster-rbac",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "add user-shaped variants before catalog promotion",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/descheduler/descheduler/0.36.0",
       "recipe_path": "recipes/descheduler/descheduler/0.36.0/recipe.yaml",
       "catalog_path": "recipes/descheduler/descheduler/0.36.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/descheduler/descheduler/0.36.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -893,10 +926,11 @@
       "source_features": "tpl;capabilities",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "add user-shaped variants before catalog promotion",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/prometheus-community/prometheus-blackbox-exporter/11.10.0",
       "recipe_path": "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/recipe.yaml",
       "catalog_path": "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -912,17 +946,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;ha",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "lookup;generated-facts;tpl;capabilities;stateful-storage",
       "source_classification": "P0 source/dependency risk",
       "top500_next_action": "create recipe, package, variants, rendered digest, scans, and receipts",
+      "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
       "package_path": "packages/bitnami/elasticsearch/22.1.6",
       "recipe_path": "recipes/bitnami/elasticsearch/22.1.6/recipe.yaml",
       "catalog_path": "recipes/bitnami/elasticsearch/22.1.6/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/bitnami/elasticsearch/22.1.6/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -945,10 +980,11 @@
       "source_features": "tpl;capabilities;cluster-rbac",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "review source/current-version drift and refresh recipe if needed",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/stakater/reloader/2.2.12",
       "recipe_path": "recipes/stakater/reloader/2.2.12/recipe.yaml",
       "catalog_path": "recipes/stakater/reloader/2.2.12/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/stakater/reloader/2.2.12/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -971,10 +1007,11 @@
       "source_features": "lookup;generated-facts;tpl;capabilities",
       "source_classification": "P0 source/dependency risk",
       "top500_next_action": "add user-shaped variants before catalog promotion",
+      "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
       "package_path": "packages/jaegertracing/jaeger/4.8.0",
       "recipe_path": "recipes/jaegertracing/jaeger/4.8.0/recipe.yaml",
       "catalog_path": "recipes/jaegertracing/jaeger/4.8.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/jaegertracing/jaeger/4.8.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -990,17 +1027,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;no-crds",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "tpl;capabilities;crds;cluster-rbac;stateful-storage",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "review source/current-version drift and refresh recipe if needed",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/grafana/alloy/1.8.2",
       "recipe_path": "recipes/grafana/alloy/1.8.2/recipe.yaml",
       "catalog_path": "recipes/grafana/alloy/1.8.2/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/grafana/alloy/1.8.2/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1016,17 +1054,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;ha",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "tpl",
       "source_classification": "P2 recipe/render/install policy",
-      "top500_next_action": "add user-shaped variants before catalog promotion",
+      "top500_next_action": "run catalog promotion review",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/nats/nats/2.14.0",
       "recipe_path": "recipes/nats/nats/2.14.0/recipe.yaml",
       "catalog_path": "recipes/nats/nats/2.14.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/nats/nats/2.14.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1049,10 +1088,11 @@
       "source_features": "tpl;capabilities;cluster-rbac",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "add user-shaped variants before catalog promotion",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/dex/dex/0.24.0",
       "recipe_path": "recipes/dex/dex/0.24.0/recipe.yaml",
       "catalog_path": "recipes/dex/dex/0.24.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/dex/dex/0.24.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1068,17 +1108,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;ha",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "tpl;stateful-storage",
       "source_classification": "P2 recipe/render/install policy",
-      "top500_next_action": "add user-shaped variants before catalog promotion",
+      "top500_next_action": "run catalog promotion review",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/prometheus-community/alertmanager/1.37.0",
       "recipe_path": "recipes/prometheus-community/alertmanager/1.37.0/recipe.yaml",
       "catalog_path": "recipes/prometheus-community/alertmanager/1.37.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/prometheus-community/alertmanager/1.37.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1101,10 +1142,11 @@
       "source_features": "lookup;tpl;capabilities;cluster-rbac;stateful-storage",
       "source_classification": "P0 source/dependency risk",
       "top500_next_action": "review source/current-version drift and refresh recipe if needed",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/falcosecurity/falco/9.0.0",
       "recipe_path": "recipes/falcosecurity/falco/9.0.0/recipe.yaml",
       "catalog_path": "recipes/falcosecurity/falco/9.0.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/falcosecurity/falco/9.0.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1127,10 +1169,11 @@
       "source_features": "generated-facts;tpl;capabilities;cluster-rbac",
       "source_classification": "P1 compiler policy needed",
       "top500_next_action": "add user-shaped variants before catalog promotion",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/prometheus-community/prometheus-node-exporter/4.55.0",
       "recipe_path": "recipes/prometheus-community/prometheus-node-exporter/4.55.0/recipe.yaml",
       "catalog_path": "recipes/prometheus-community/prometheus-node-exporter/4.55.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/prometheus-community/prometheus-node-exporter/4.55.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1146,17 +1189,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;ha",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "lookup;generated-facts;tpl;capabilities;stateful-storage",
       "source_classification": "P0 source/dependency risk",
-      "top500_next_action": "add user-shaped variants before catalog promotion",
+      "top500_next_action": "run catalog promotion review",
+      "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
       "package_path": "packages/bitnami/spark/10.0.3",
       "recipe_path": "recipes/bitnami/spark/10.0.3/recipe.yaml",
       "catalog_path": "recipes/bitnami/spark/10.0.3/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/bitnami/spark/10.0.3/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1172,17 +1216,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;ha",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "tpl;capabilities;stateful-storage",
       "source_classification": "P2 recipe/render/install policy",
-      "top500_next_action": "add user-shaped variants before catalog promotion",
+      "top500_next_action": "run catalog promotion review",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/elastic/logstash/8.5.1",
       "recipe_path": "recipes/elastic/logstash/8.5.1/recipe.yaml",
       "catalog_path": "recipes/elastic/logstash/8.5.1/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/elastic/logstash/8.5.1/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1205,10 +1250,11 @@
       "source_features": "tpl;capabilities;cluster-rbac",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "add user-shaped variants before catalog promotion",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/prometheus-community/prometheus-adapter/5.3.0",
       "recipe_path": "recipes/prometheus-community/prometheus-adapter/5.3.0/recipe.yaml",
       "catalog_path": "recipes/prometheus-community/prometheus-adapter/5.3.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/prometheus-community/prometheus-adapter/5.3.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1231,10 +1277,11 @@
       "source_features": "lookup;hooks;cluster-rbac",
       "source_classification": "P1 compiler policy needed",
       "top500_next_action": "add user-shaped variants before catalog promotion",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/projectcalico/tigera-operator/v3.32.0",
       "recipe_path": "recipes/projectcalico/tigera-operator/v3.32.0/recipe.yaml",
       "catalog_path": "recipes/projectcalico/tigera-operator/v3.32.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/projectcalico/tigera-operator/v3.32.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1257,10 +1304,11 @@
       "source_features": "lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks",
       "source_classification": "P0 source/dependency risk",
       "top500_next_action": "add user-shaped variants before catalog promotion",
+      "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
       "package_path": "packages/fairwinds-stable/goldilocks/10.3.0",
       "recipe_path": "recipes/fairwinds-stable/goldilocks/10.3.0/recipe.yaml",
       "catalog_path": "recipes/fairwinds-stable/goldilocks/10.3.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/fairwinds-stable/goldilocks/10.3.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1283,10 +1331,11 @@
       "source_features": "generated-facts;crds",
       "source_classification": "P1 compiler policy needed",
       "top500_next_action": "add user-shaped variants before catalog promotion",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/prometheus-community/prometheus-operator-crds/29.0.0",
       "recipe_path": "recipes/prometheus-community/prometheus-operator-crds/29.0.0/recipe.yaml",
       "catalog_path": "recipes/prometheus-community/prometheus-operator-crds/29.0.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/prometheus-community/prometheus-operator-crds/29.0.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1302,17 +1351,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;ha",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "lookup;generated-facts;tpl;capabilities;stateful-storage",
       "source_classification": "P0 source/dependency risk",
-      "top500_next_action": "add user-shaped variants before catalog promotion",
+      "top500_next_action": "run catalog promotion review",
+      "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
       "package_path": "packages/bitnami/zookeeper/13.8.7",
       "recipe_path": "recipes/bitnami/zookeeper/13.8.7/recipe.yaml",
       "catalog_path": "recipes/bitnami/zookeeper/13.8.7/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/bitnami/zookeeper/13.8.7/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1335,10 +1385,11 @@
       "source_features": "tpl;cluster-rbac",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "add user-shaped variants before catalog promotion",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/elastic/filebeat/8.5.1",
       "recipe_path": "recipes/elastic/filebeat/8.5.1/recipe.yaml",
       "catalog_path": "recipes/elastic/filebeat/8.5.1/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/elastic/filebeat/8.5.1/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1354,17 +1405,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;no-crds",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "crds",
       "source_classification": "P2 recipe/render/install policy",
-      "top500_next_action": "add user-shaped variants before catalog promotion",
+      "top500_next_action": "run catalog promotion review",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/hashicorp/terraform/1.1.2",
       "recipe_path": "recipes/hashicorp/terraform/1.1.2/recipe.yaml",
       "catalog_path": "recipes/hashicorp/terraform/1.1.2/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/hashicorp/terraform/1.1.2/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1387,10 +1439,11 @@
       "source_features": "generated-facts;tpl;capabilities;cluster-rbac",
       "source_classification": "P1 compiler policy needed",
       "top500_next_action": "add user-shaped variants before catalog promotion",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/coredns/coredns/1.45.2",
       "recipe_path": "recipes/coredns/coredns/1.45.2/recipe.yaml",
       "catalog_path": "recipes/coredns/coredns/1.45.2/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/coredns/coredns/1.45.2/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1406,17 +1459,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;no-crds",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "lookup;tpl;capabilities;crds;cluster-rbac;webhooks",
       "source_classification": "P1 compiler policy needed",
-      "top500_next_action": "add user-shaped variants before catalog promotion",
+      "top500_next_action": "run catalog promotion review",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/fairwinds-stable/vpa/4.11.0",
       "recipe_path": "recipes/fairwinds-stable/vpa/4.11.0/recipe.yaml",
       "catalog_path": "recipes/fairwinds-stable/vpa/4.11.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/fairwinds-stable/vpa/4.11.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1439,10 +1493,11 @@
       "source_features": "lookup;generated-facts;tpl;capabilities;stateful-storage",
       "source_classification": "P0 source/dependency risk",
       "top500_next_action": "add user-shaped variants before catalog promotion",
+      "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
       "package_path": "packages/bitnami/phpmyadmin/20.0.0",
       "recipe_path": "recipes/bitnami/phpmyadmin/20.0.0/recipe.yaml",
       "catalog_path": "recipes/bitnami/phpmyadmin/20.0.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/bitnami/phpmyadmin/20.0.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1465,10 +1520,11 @@
       "source_features": "tpl;stateful-storage",
       "source_classification": "P1 compiler policy needed",
       "top500_next_action": "add user-shaped variants before catalog promotion",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/prometheus-community/prometheus-pushgateway/3.6.0",
       "recipe_path": "recipes/prometheus-community/prometheus-pushgateway/3.6.0/recipe.yaml",
       "catalog_path": "recipes/prometheus-community/prometheus-pushgateway/3.6.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/prometheus-community/prometheus-pushgateway/3.6.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1491,10 +1547,11 @@
       "source_features": "tpl;capabilities;cluster-rbac;stateful-storage",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "create recipe, package, variants, rendered digest, scans, and receipts",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/fluent/fluentd/0.5.3",
       "recipe_path": "recipes/fluent/fluentd/0.5.3/recipe.yaml",
       "catalog_path": "recipes/fluent/fluentd/0.5.3/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/fluent/fluentd/0.5.3/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1510,17 +1567,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;no-crds",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "crds;webhooks",
       "source_classification": "P2 recipe/render/install policy",
-      "top500_next_action": "add user-shaped variants before catalog promotion",
+      "top500_next_action": "run catalog promotion review",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/jaegertracing/jaeger-operator/2.57.0",
       "recipe_path": "recipes/jaegertracing/jaeger-operator/2.57.0/recipe.yaml",
       "catalog_path": "recipes/jaegertracing/jaeger-operator/2.57.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/jaegertracing/jaeger-operator/2.57.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1543,10 +1601,11 @@
       "source_features": "lookup;generated-facts;tpl;capabilities;stateful-storage",
       "source_classification": "P1 compiler policy needed",
       "top500_next_action": "add user-shaped variants before catalog promotion",
+      "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
       "package_path": "packages/bitnami/memcached/8.5.5",
       "recipe_path": "recipes/bitnami/memcached/8.5.5/recipe.yaml",
       "catalog_path": "recipes/bitnami/memcached/8.5.5/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/bitnami/memcached/8.5.5/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1562,17 +1621,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;no-crds",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "tpl;capabilities;crds;cluster-rbac",
       "source_classification": "P2 recipe/render/install policy",
-      "top500_next_action": "add user-shaped variants before catalog promotion",
+      "top500_next_action": "run catalog promotion review",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/strimzi/strimzi-kafka-operator/1.0.0",
       "recipe_path": "recipes/strimzi/strimzi-kafka-operator/1.0.0/recipe.yaml",
       "catalog_path": "recipes/strimzi/strimzi-kafka-operator/1.0.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/strimzi/strimzi-kafka-operator/1.0.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1595,10 +1655,11 @@
       "source_features": "tpl;capabilities;cluster-rbac;stateful-storage",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "review source/current-version drift and refresh recipe if needed",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/opencost/opencost/2.5.21",
       "recipe_path": "recipes/opencost/opencost/2.5.21/recipe.yaml",
       "catalog_path": "recipes/opencost/opencost/2.5.21/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/opencost/opencost/2.5.21/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1614,17 +1675,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;no-crds",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "capabilities;hooks;crds;cluster-rbac;webhooks",
       "source_classification": "P1 compiler policy needed",
       "top500_next_action": "review source/current-version drift and refresh recipe if needed",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/gatekeeper/gatekeeper/3.22.2",
       "recipe_path": "recipes/gatekeeper/gatekeeper/3.22.2/recipe.yaml",
       "catalog_path": "recipes/gatekeeper/gatekeeper/3.22.2/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1640,17 +1702,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;no-crds",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "lookup;generated-facts;tpl;capabilities;crds;cluster-rbac",
       "source_classification": "P0 source/dependency risk",
-      "top500_next_action": "add user-shaped variants before catalog promotion",
+      "top500_next_action": "run catalog promotion review",
+      "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
       "package_path": "packages/bitnami/contour/21.1.4",
       "recipe_path": "recipes/bitnami/contour/21.1.4/recipe.yaml",
       "catalog_path": "recipes/bitnami/contour/21.1.4/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/bitnami/contour/21.1.4/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1673,10 +1736,11 @@
       "source_features": "lookup;tpl",
       "source_classification": "P1 compiler policy needed",
       "top500_next_action": "review source/current-version drift and refresh recipe if needed",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/kyverno/kyverno-policies/3.8.0",
       "recipe_path": "recipes/kyverno/kyverno-policies/3.8.0/recipe.yaml",
       "catalog_path": "recipes/kyverno/kyverno-policies/3.8.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/kyverno/kyverno-policies/3.8.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1699,10 +1763,11 @@
       "source_features": "tpl;capabilities;cluster-rbac;stateful-storage",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "add user-shaped variants before catalog promotion",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/elastic/metricbeat/8.5.1",
       "recipe_path": "recipes/elastic/metricbeat/8.5.1/recipe.yaml",
       "catalog_path": "recipes/elastic/metricbeat/8.5.1/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/elastic/metricbeat/8.5.1/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1725,10 +1790,11 @@
       "source_features": "cluster-rbac",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "add user-shaped variants before catalog promotion",
+      "not_yet_enabled": "no-crds (template-baked CRDs, no toggle — #114)",
       "package_path": "packages/minio-operator/operator/7.1.1",
       "recipe_path": "recipes/minio-operator/operator/7.1.1/recipe.yaml",
       "catalog_path": "recipes/minio-operator/operator/7.1.1/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/minio-operator/operator/7.1.1/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1744,17 +1810,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;no-crds",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "lookup;crds;cluster-rbac",
       "source_classification": "P1 compiler policy needed",
-      "top500_next_action": "add user-shaped variants before catalog promotion",
+      "top500_next_action": "run catalog promotion review",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/percona/pxc-operator/1.19.1",
       "recipe_path": "recipes/percona/pxc-operator/1.19.1/recipe.yaml",
       "catalog_path": "recipes/percona/pxc-operator/1.19.1/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/percona/pxc-operator/1.19.1/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1777,10 +1844,11 @@
       "source_features": "lookup;generated-facts;tpl;capabilities",
       "source_classification": "P0 source/dependency risk",
       "top500_next_action": "add user-shaped variants before catalog promotion",
+      "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
       "package_path": "packages/bitnami/apache/11.4.29",
       "recipe_path": "recipes/bitnami/apache/11.4.29/recipe.yaml",
       "catalog_path": "recipes/bitnami/apache/11.4.29/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/bitnami/apache/11.4.29/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1796,17 +1864,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;ha;no-crds",
+      "variant_count": 3,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage",
       "source_classification": "P1 compiler policy needed",
-      "top500_next_action": "add user-shaped variants before catalog promotion",
+      "top500_next_action": "run catalog promotion review",
+      "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
       "package_path": "packages/grafana/pyroscope/2.0.2",
       "recipe_path": "recipes/grafana/pyroscope/2.0.2/recipe.yaml",
       "catalog_path": "recipes/grafana/pyroscope/2.0.2/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/grafana/pyroscope/2.0.2/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1829,10 +1898,11 @@
       "source_features": "tpl;capabilities;cluster-rbac",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "add user-shaped variants before catalog promotion",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1",
       "recipe_path": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/recipe.yaml",
       "catalog_path": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1855,10 +1925,11 @@
       "source_features": "capabilities;cluster-rbac;stateful-storage",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "add user-shaped variants before catalog promotion",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/falcosecurity/falcosidekick/0.13.1",
       "recipe_path": "recipes/falcosecurity/falcosidekick/0.13.1/recipe.yaml",
       "catalog_path": "recipes/falcosecurity/falcosidekick/0.13.1/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/falcosecurity/falcosidekick/0.13.1/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1874,17 +1945,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;no-crds",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/aqua/trivy-operator/0.32.1",
       "recipe_path": "recipes/aqua/trivy-operator/0.32.1/recipe.yaml",
       "catalog_path": "recipes/aqua/trivy-operator/0.32.1/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/aqua/trivy-operator/0.32.1/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1900,17 +1972,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;no-crds",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/argo-cd/argo-events/2.4.21",
       "recipe_path": "recipes/argo-cd/argo-events/2.4.21/recipe.yaml",
       "catalog_path": "recipes/argo-cd/argo-events/2.4.21/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/argo-cd/argo-events/2.4.21/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1926,17 +1999,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;no-crds",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/argo-cd/argo-rollouts/2.40.9",
       "recipe_path": "recipes/argo-cd/argo-rollouts/2.40.9/recipe.yaml",
       "catalog_path": "recipes/argo-cd/argo-rollouts/2.40.9/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/argo-cd/argo-rollouts/2.40.9/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1959,10 +2033,11 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/argo-cd/argo-workflows/1.0.14",
       "recipe_path": "recipes/argo-cd/argo-workflows/1.0.14/recipe.yaml",
       "catalog_path": "recipes/argo-cd/argo-workflows/1.0.14/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/argo-cd/argo-workflows/1.0.14/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1985,10 +2060,11 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "no-crds (template-baked CRDs, no toggle — #114)",
       "package_path": "packages/argo-cd/argocd-image-updater/1.2.2",
       "recipe_path": "recipes/argo-cd/argocd-image-updater/1.2.2/recipe.yaml",
       "catalog_path": "recipes/argo-cd/argocd-image-updater/1.2.2/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/argo-cd/argocd-image-updater/1.2.2/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2011,10 +2087,11 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/autoscaler/cluster-autoscaler/9.57.0",
       "recipe_path": "recipes/autoscaler/cluster-autoscaler/9.57.0/recipe.yaml",
       "catalog_path": "recipes/autoscaler/cluster-autoscaler/9.57.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/autoscaler/cluster-autoscaler/9.57.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2030,17 +2107,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;no-crds",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/autoscaler/vertical-pod-autoscaler/0.9.0",
       "recipe_path": "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/recipe.yaml",
       "catalog_path": "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2056,17 +2134,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;ha",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/bitnami/opensearch/2.0.10",
       "recipe_path": "recipes/bitnami/opensearch/2.0.10/recipe.yaml",
       "catalog_path": "recipes/bitnami/opensearch/2.0.10/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/bitnami/opensearch/2.0.10/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2089,10 +2168,11 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/crossplane-stable/crossplane/2.3.1",
       "recipe_path": "recipes/crossplane-stable/crossplane/2.3.1/recipe.yaml",
       "catalog_path": "recipes/crossplane-stable/crossplane/2.3.1/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/crossplane-stable/crossplane/2.3.1/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2115,10 +2195,11 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/grafana/promtail/6.17.1",
       "recipe_path": "recipes/grafana/promtail/6.17.1/recipe.yaml",
       "catalog_path": "recipes/grafana/promtail/6.17.1/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/grafana/promtail/6.17.1/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2134,17 +2215,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;no-crds",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/grafana/rollout-operator/0.49.0",
       "recipe_path": "recipes/grafana/rollout-operator/0.49.0/recipe.yaml",
       "catalog_path": "recipes/grafana/rollout-operator/0.49.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/grafana/rollout-operator/0.49.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2167,10 +2249,11 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/haproxytech/kubernetes-ingress/1.52.0",
       "recipe_path": "recipes/haproxytech/kubernetes-ingress/1.52.0/recipe.yaml",
       "catalog_path": "recipes/haproxytech/kubernetes-ingress/1.52.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/haproxytech/kubernetes-ingress/1.52.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2193,10 +2276,11 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/istio/gateway/1.30.0",
       "recipe_path": "recipes/istio/gateway/1.30.0/recipe.yaml",
       "catalog_path": "recipes/istio/gateway/1.30.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/istio/gateway/1.30.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2219,10 +2303,11 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/istio/istiod/1.30.0",
       "recipe_path": "recipes/istio/istiod/1.30.0/recipe.yaml",
       "catalog_path": "recipes/istio/istiod/1.30.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/istio/istiod/1.30.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2245,10 +2330,11 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/jetstack/cert-manager-csi-driver/v0.14.0",
       "recipe_path": "recipes/jetstack/cert-manager-csi-driver/v0.14.0/recipe.yaml",
       "catalog_path": "recipes/jetstack/cert-manager-csi-driver/v0.14.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/jetstack/cert-manager-csi-driver/v0.14.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2264,17 +2350,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;no-crds",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/jetstack/trust-manager/v0.22.1",
       "recipe_path": "recipes/jetstack/trust-manager/v0.22.1/recipe.yaml",
       "catalog_path": "recipes/jetstack/trust-manager/v0.22.1/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/jetstack/trust-manager/v0.22.1/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2297,10 +2384,11 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "no-crds (template-baked CRDs, no toggle — #114)",
       "package_path": "packages/linkerd/linkerd-crds/1.8.0",
       "recipe_path": "recipes/linkerd/linkerd-crds/1.8.0/recipe.yaml",
       "catalog_path": "recipes/linkerd/linkerd-crds/1.8.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/linkerd/linkerd-crds/1.8.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2323,10 +2411,11 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/minio-operator/tenant/7.1.1",
       "recipe_path": "recipes/minio-operator/tenant/7.1.1/recipe.yaml",
       "catalog_path": "recipes/minio-operator/tenant/7.1.1/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/minio-operator/tenant/7.1.1/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2342,17 +2431,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;no-crds",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/nats/nack/0.34.0",
       "recipe_path": "recipes/nats/nack/0.34.0/recipe.yaml",
       "catalog_path": "recipes/nats/nack/0.34.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/nats/nack/0.34.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2375,10 +2465,11 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/nats/surveyor/0.20.9",
       "recipe_path": "recipes/nats/surveyor/0.20.9/recipe.yaml",
       "catalog_path": "recipes/nats/surveyor/0.20.9/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/nats/surveyor/0.20.9/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2394,17 +2485,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;no-crds",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/open-telemetry/opentelemetry-operator/0.114.0",
       "recipe_path": "recipes/open-telemetry/opentelemetry-operator/0.114.0/recipe.yaml",
       "catalog_path": "recipes/open-telemetry/opentelemetry-operator/0.114.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/open-telemetry/opentelemetry-operator/0.114.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2420,17 +2512,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;no-crds",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/percona/pg-operator/3.0.0",
       "recipe_path": "recipes/percona/pg-operator/3.0.0/recipe.yaml",
       "catalog_path": "recipes/percona/pg-operator/3.0.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/percona/pg-operator/3.0.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2446,17 +2539,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;no-crds",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/percona/psmdb-operator/1.22.0",
       "recipe_path": "recipes/percona/psmdb-operator/1.22.0/recipe.yaml",
       "catalog_path": "recipes/percona/psmdb-operator/1.22.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/percona/psmdb-operator/1.22.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2479,10 +2573,11 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "no-crds (template-baked CRDs, no toggle — #114)",
       "package_path": "packages/rook-release/rook-ceph/v1.19.5",
       "recipe_path": "recipes/rook-release/rook-ceph/v1.19.5/recipe.yaml",
       "catalog_path": "recipes/rook-release/rook-ceph/v1.19.5/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/rook-release/rook-ceph/v1.19.5/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2505,10 +2600,11 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/rook-release/rook-ceph-cluster/v1.19.5",
       "recipe_path": "recipes/rook-release/rook-ceph-cluster/v1.19.5/recipe.yaml",
       "catalog_path": "recipes/rook-release/rook-ceph-cluster/v1.19.5/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/rook-release/rook-ceph-cluster/v1.19.5/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2524,17 +2620,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;no-crds",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/sealed-secrets/sealed-secrets/2.18.6",
       "recipe_path": "recipes/sealed-secrets/sealed-secrets/2.18.6/recipe.yaml",
       "catalog_path": "recipes/sealed-secrets/sealed-secrets/2.18.6/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/sealed-secrets/sealed-secrets/2.18.6/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2550,17 +2647,18 @@
       "production_readiness": "not-reviewed-for-production",
       "supported_scopes": "",
       "supported_variants": "",
-      "candidate_variants": "default",
-      "variant_count": 1,
+      "candidate_variants": "default;no-crds",
+      "variant_count": 2,
       "start_variant": "default",
       "namespace": "default",
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/velero/velero/12.0.1",
       "recipe_path": "recipes/velero/velero/12.0.1/recipe.yaml",
       "catalog_path": "recipes/velero/velero/12.0.1/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/velero/velero/12.0.1/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2583,10 +2681,11 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/vm/victoria-logs-single/0.12.5",
       "recipe_path": "recipes/vm/victoria-logs-single/0.12.5/recipe.yaml",
       "catalog_path": "recipes/vm/victoria-logs-single/0.12.5/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/vm/victoria-logs-single/0.12.5/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2609,10 +2708,11 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "package_path": "packages/vm/victoria-metrics-single/0.39.0",
       "recipe_path": "recipes/vm/victoria-metrics-single/0.39.0/recipe.yaml",
       "catalog_path": "recipes/vm/victoria-metrics-single/0.39.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/vm/victoria-metrics-single/0.39.0/helm-pain-report.yaml"
     }
   ]
 }

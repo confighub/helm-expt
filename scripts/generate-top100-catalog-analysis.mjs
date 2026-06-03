@@ -10,6 +10,9 @@ const summaryPath = join(outputRoot, "summary.md");
 const top500RawPath = join(repoRoot, "data", "top500-catalog-analysis", "raw.json");
 const productionDispositionPath = join(repoRoot, "data", "production-disposition", "top20.csv");
 const latestRefreshPath = join(repoRoot, "data", "latest-top20-refresh", "review.csv");
+const chartFactsPath = join(repoRoot, "data", "chart-facts", "chart-facts.json");
+const chartFacts = existsSync(chartFactsPath) ? JSON.parse(readFileSync(chartFactsPath, "utf8")) : {};
+const notYetEnabledFor = (chart) => chartFacts[String(chart).split("@")[0].split("/").slice(0, 2).join("/")]?.not_yet_enabled ?? "";
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -92,6 +95,7 @@ function artifactEntries({ top500ByChart, productionByChart, latestByChart }) {
         source_features: top500Row?.source_features ?? "",
         source_classification: top500Row?.source_classification ?? "",
         top500_next_action: top500Row?.next_action ?? "",
+        not_yet_enabled: notYetEnabledFor(chart),
         package_path: spec.installerPackage?.path ?? "",
         recipe_path: spec.recipe?.path ?? relativeRepo(root),
         catalog_path: relativeRepo(join(root, "CATALOG.md")),
@@ -214,6 +218,7 @@ function reviewHeaders() {
     "source_features",
     "source_classification",
     "top500_next_action",
+    "not_yet_enabled",
     "recipe_path",
     "package_path",
     "catalog_path",

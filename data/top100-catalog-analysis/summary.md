@@ -18,8 +18,8 @@ top-20 catalog-supported entries: 20
 next-80 proof-grade entries: 80
 catalog-supported: 20
 proof-grade: 80
-multi-variant entries: 20
-default-only entries: 80
+multi-variant entries: 54
+default-only entries: 46
 top-20 current with latest upstream: 14
 top-20 update candidates: 6
 production-blocked entries: 20
