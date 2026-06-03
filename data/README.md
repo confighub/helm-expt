@@ -43,6 +43,16 @@ npm run top500:catalog:verify
 `data/top100-catalog-analysis/{review.csv,summary.md,raw.json}` — the proof-surface ranking of the
 100 charts with recipes (also carries `not_yet_enabled`).
 
+Use this with `data/chart-facts/summary.md` when asking "what works, what works
+with help, and what is not enabled yet":
+
+```text
+top100 summary       proof surface and catalog status
+chart facts          per-chart quirks and hard gaps
+model completeness   Level-2 support under declared scope
+variant backlog      recommended variants still to build
+```
+
 ```bash
 npm run top100:catalog && npm run top100:catalog:verify
 ```

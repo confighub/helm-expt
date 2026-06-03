@@ -60,31 +60,63 @@ behaviors absorbed-or-named + every receipt re-runnable") **cannot** be broken t
 product statement: not "we re-ran Helm," but "we turned Helm's hidden behavior into an explicit, reviewable,
 verifiable model."
 
-## Where we are vs. the contract (measured by `npm run completeness:generate`, 2026-06-02)
-| Criterion | Coverage |
-|---|---|
-| `render_equivalent` (passing, digest-matched equivalence per variant) | **100 / 100** ✓ |
-| `behaviorally_complete` (pain report; zero unknown/unhandled) | **20 / 100** ✗ |
-| `variant_complete` (more than `default`, or explicit deferral) | **20 / 100** ✗ |
-| `readable` (CATALOG.md + artifact-index) | **100 / 100** ✓ |
-| `usable` (current executable fixture + package) | **100 / 100** ✓ |
-| `verifiable` (digest-bound receipt chain) | **100 / 100** ✓ |
-| `honestly_scoped` (explicit catalog-status) | **100 / 100** ✓ |
-| **Model-complete (all 7)** | **20 / 100** |
+## Where we are vs. the contract
 
-The top-20 are complete corresponding models. The other 80 are render-equivalent, verifiable default proofs
-that are **not yet complete**: they lack behavior accounting (a `helm-pain-report.yaml`) and their meaningful
-user variants. No chart carries an `unknown`/`unhandled` pain disposition — an earlier hand estimate of
-"1 unhandled" was a false match on the `no-unhandled-pain-points` headline; the scorer is now the authority.
-The live gap report is `data/model-completeness/summary.md`.
+The current measured state is in `data/model-completeness/summary.md`.
+
+Current headline:
+
+```text
+supported (Level 2): 100 / 100
+variant-rich:        54 / 100
+```
+
+`supported (Level 2)` means the six support criteria pass for the declared
+scope: render equivalent, behavior accounted for, readable, usable, verifiable,
+and honestly scoped. Variant richness is now reported as an enhancement metric,
+not as the support gate.
+
+The current top-100 should be read like this:
+
+| Question | Current answer | Source |
+| --- | --- | --- |
+| Does every maintained chart have a recipe/package proof path? | 100 / 100 | `data/top100-catalog-analysis/summary.md` |
+| Are all maintained charts Level-2 supported for their declared scope? | 100 / 100 | `data/model-completeness/summary.md` |
+| Are all charts rich enough for common user variants? | 54 / 100 are variant-rich | `data/model-completeness/summary.md` |
+| Are all top-20 public catalog charts live/e2e tested locally? | 20 / 20 | `data/live-e2e/summary.md` |
+| Are any top-20 charts production-supported today? | 0 / 20 | `data/production-disposition/summary.md` |
+| Do any charts have hard gaps for recommended extra capabilities? | 29 / 100 | `data/chart-facts/summary.md` |
+
+So the catalog is no longer "20 complete and 80 incomplete." A more accurate
+reading is:
+
+```text
+100 charts have a supported proof model for their declared scope.
+20 charts are public catalog-supported for local-test.
+54 charts have more than one base variant.
+46 charts are still default-only.
+29 charts have a hard gap for at least one recommended extra capability.
+0 charts are production-supported yet.
+```
+
+The hard-gap count is about missing recommended capabilities, not total chart
+failure. A chart can have a working, supported default recipe while still
+missing a useful `existing-secret`, `no-crds`, HA, or full-equivalence path for
+a specific variant.
 
 ## The delivery program (to actually earn the claim)
-1. **Encode this contract as a verifier check** — a per-chart `model-completeness` score over the 7 criteria,
-   rolled up catalog-wide, failing CI when a chart regresses or a HelmPlan carries `unknown` / `unhandled`.
-2. **Audit + gap report** — every chart scored against the contract; the gap list becomes the work queue.
-3. **Close the gap** — variant-complete the 80 default-only charts (their meaningful render-time variants),
-   resolve the 1 unhandled, and give every chart a production or honest-scope disposition.
-4. **User-verifiable surface** — each chart's map carries the exact `cub installer` commands plus the
+1. **Keep the verifier check green** — `npm run completeness:verify` scores the
+   100 charts and fails if support criteria regress.
+2. **Use the gap reports as work queues** — `data/chart-facts/summary.md`,
+   `data/variant-backlog/summary.md`, and `data/quirk-review-queue/summary.md`
+   explain which charts need capability, variant, or review work.
+3. **Build variant richness deliberately** — close the 46 default-only entries
+   and the 29 hard-gap entries without treating every possible Helm value as a
+   catalog promise.
+4. **Add production dispositions** — local-test support is not production
+   support. The production lane is tracked in
+   `data/production-disposition/summary.md`.
+5. **User-verifiable surface** — each chart's map carries the exact `cub installer` commands plus the
    re-runnable equivalence check, so a user can read → use → verify the corresponding model themselves.
 
 **Completeness is the admission bar:** a chart is `catalog-supported` only when it meets this contract for its

@@ -11,7 +11,9 @@
     "latestCurrent": 14,
     "latestUpdateAvailable": 6,
     "productionBlocked": 20,
-    "top500Matched": 65
+    "top500Matched": 65,
+    "noHardGap": 71,
+    "hardGap": 29
   },
   "entries": [
     {

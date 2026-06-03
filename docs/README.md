@@ -34,6 +34,8 @@ whole repo:
 | [demo/redis/ux-acceptance.md](demo/redis/ux-acceptance.md) | Redis demo acceptance criteria. |
 | [demo/redis/function-scan-lane.md](demo/redis/function-scan-lane.md) | Redis ConfigHub function scan lane. |
 | [demo/redis/safe-ops-lane.md](demo/redis/safe-ops-lane.md) | Redis safe operation lane. |
+| [../tests/README.md](../tests/README.md) | Test directory map: npm verification scripts and portable runtime tests. |
+| [../tests/npm-scripts.md](../tests/npm-scripts.md) | What each npm script family checks, why it exists, and when to run it. |
 
 This list is the intended public reading path. Generated package docs, recipe
 catalog pages, data summaries, and per-chart proof transcripts are corpus
@@ -143,6 +145,17 @@ Redis demo:
 | [demo/redis/safe-ops-lane.md](demo/redis/safe-ops-lane.md) | Redis safe operation lane. |
 | [demo/redis/ux-acceptance.md](demo/redis/ux-acceptance.md) | Redis UX acceptance criteria. |
 | [demo/nginx/confighub-proof-plan.md](demo/nginx/confighub-proof-plan.md) | NGINX proof target plan. |
+
+### Tests
+
+| Location | Role |
+| --- | --- |
+| [../tests/README.md](../tests/README.md) | Entry point for the repo's test material. |
+| [../tests/npm-scripts.md](../tests/npm-scripts.md) | NPM script guide: what, why, how, mutability, and recommended checks by change type. |
+| [../tests/strategy.md](../tests/strategy.md) | Long-term catalog testing strategy. |
+| [../tests/runbook.md](../tests/runbook.md) | Reproducible per-chart runtime test procedure. |
+| [../tests/findings.md](../tests/findings.md) | Current runtime findings and guardrails. |
+| [../tests/adversarial-strategy.md](../tests/adversarial-strategy.md) | Adversarial usage-test methodology. |
 
 ### Planning, Review, And Communications
 

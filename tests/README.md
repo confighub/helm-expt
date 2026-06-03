@@ -1,22 +1,44 @@
-# helm-expt catalog tests
+# helm-expt Catalog Tests
 
-Standard, **portable** tests for the catalog — run them with `cub` + a cluster.
-**No Pilot / confighub-ai-demo required.** Pilot orchestrates these same tests at
-scale via its agentic workflow, but the tests live here so any helm-expt user can run them.
+This directory contains the portable test material for the catalog.
+
+There are two related surfaces:
+
+```text
+npm scripts
+  Repository verification, artifact generation, stale-file checks, and
+  user-side Redis install checks.
+
+tests/* executables
+  Cluster/runtime tests that run with cub, cub-lk, ConfigHub, OCI, Argo, and
+  Kubernetes.
+```
+
+Start with [npm-scripts.md](npm-scripts.md) when you want to know what each
+`npm run ...` command checks, why it exists, and whether it writes files.
 
 ## Scripts (resolve the repo from their own location)
-- `chart-install-test` — install ONE (chart, base) via `cub installer` → ConfigHub → OCI → Argo on a cub-lk rig; verify runtime + three-way; emit a receipt.
-- `chart-install-sweep` — shardable TOP20 driver (`--rig <cub-lk> [--shard i/n] [--slugs a,b]`).
-- `existing-secret-proof` — the F3 fix-path: pre-provision the Secret out-of-band, install the existing-secret base, confirm Ready.
+
+- `chart-install-test` — install one chart/base via `cub installer` →
+  ConfigHub → OCI → Argo on a cub-lk rig; verify runtime and three-way
+  agreement; emit a receipt.
+- `chart-install-sweep` — shardable top-20 driver:
+  `--rig <cub-lk> [--shard i/n] [--slugs a,b]`.
+- `existing-secret-proof` — the F3 fix path: pre-provision the Secret
+  out-of-band, install the existing-secret base, and confirm Ready.
 
 ## Strategy & findings
+
 - `strategy.md` — long-term catalog test strategy (coverage matrix, lanes).
 - `runbook.md` — exact reproducible per-chart procedure.
 - `findings.md` — F1–F4 (namespace, `:latest`, secret delivery, proof-SHA).
-- `adversarial-strategy.md` — the adversarial multi-persona, tier-aware **usage** probe (methodology; Pilot implements it as a multi-agent workflow).
+- `adversarial-strategy.md` — the adversarial multi-persona, tier-aware usage
+  probe. Pilot can implement this as a multi-agent workflow; the method lives
+  here.
 
 ## Run (standalone)
-```
+
+```sh
 cub auth login                      # verify: cub organization list (NOT cub info)
 cub plugin install jesperfj/cub-lk  # verify: cub lk version
 cub lk up --name myrig
