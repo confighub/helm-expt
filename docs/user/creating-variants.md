@@ -18,6 +18,18 @@ The artifact is ready, but Kubernetes or GitOps needs something else first.
   Record or satisfy the delivery prerequisite before OCI delivery.
 ```
 
+## Choose The Path First
+
+| What the user wants | Use | Example |
+| --- | --- | --- |
+| a different Kubernetes object set | `cub installer` base variant | `prometheus/server-only-ephemeral`, `redis/reuse-existing-secret` |
+| the same reviewed objects in a new operating context | derived ConfigHub variant | `prometheus/server-only-ephemeral -> prod-us-east` |
+| something Kubernetes needs before it can use the artifact | delivery prerequisite | existing Secret, CRD owner, StorageClass, Argo/Flux pull credentials |
+
+This choice should be visible before the user sees detailed receipts or proof
+data. Receipts matter, but the first UX question is simply where the change
+belongs.
+
 ## Base Variants
 
 A base variant is a reviewed install shape produced by `cub installer`.

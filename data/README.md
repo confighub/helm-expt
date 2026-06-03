@@ -66,6 +66,7 @@ npm run top100:catalog && npm run top100:catalog:verify
 | `data/variant-backlog/wave-plans/<wave>.json` | per-wave build plan (ha, no-crds, …) | hand-authored |
 | `data/variant-backlog/wave-results/<wave>.json` | per-wave results (promoted / declined + reason) | `node scripts/run-variant-wave.mjs <wave>` |
 | `data/quirk-review-queue/` | the Level-2 residue, made actionable | `npm run quirk-queue:generate` |
+| `data/attack-plan-workdown/` | generated next-action index for import, gaps, variants, production, runtime/GitOps, latest candidates, and image digests | `npm run attack-plan:generate` |
 
 Per-chart dispositions live next to each recipe: `recipes/<chart>/helm-pain-report.yaml`
 (`npm run catalog:pain-reports`) and `recipes/<chart>/control-points.yaml`.
@@ -82,6 +83,7 @@ npm run catalog:status && npm run catalog:maps   # catalog-status + per-chart ar
 npm run top500:catalog              # reads chart-facts.json
 npm run top100:catalog              # reads top500 + chart-facts.json
 npm run catalog:index               # CATALOG.md
+npm run attack-plan:generate        # reads the refreshed data and emits the workdown index
 ```
 
 The dependency that matters most: **`chart-facts` before `top500`/`top100`** (they read

@@ -9,8 +9,8 @@ haven't been run through the variant generator.
 
 ```text
 charts with a recipe:                       100
-no open gap (built or n/a; modeled L2):     74
-charts with a hard gap (no workaround yet):  26
+no open gap (built or n/a; modeled L2):     75
+charts with a hard gap (no workaround yet):  25
 charts with buildable backlog (path exists): 37
 ```
 
@@ -18,7 +18,7 @@ charts with buildable backlog (path exists): 37
 
 ```text
 existing-secret — chart ships no Secret toggle (#113):  15
-no-crds — template-baked CRDs, no toggle (#114):        4
+no-crds — template-baked CRDs, no toggle (#114):        3
 curated proof lane — needs bespoke teaching:            6
 other hard gap:                                         1
 ```
@@ -65,7 +65,6 @@ other hard gap:                                         1
 | `hashicorp/consul` | ha (curated proof lane — bespoke teaching needed) |
 | `jaegertracing/jaeger` | existing-secret (chart ships no Secret toggle — #113) |
 | `kyverno/kyverno` | existing-secret (chart ships no Secret toggle — #113) |
-| `linkerd/linkerd-crds` | no-crds (template-baked CRDs, no toggle — #114) |
 | `metrics-server/metrics-server` | existing-secret (chart ships no Secret toggle — #113) |
 | `minio-operator/operator` | no-crds (template-baked CRDs, no toggle — #114) |
 | `prometheus-community/kube-prometheus-stack` | existing-secret (chart ships no Secret toggle — #113) |

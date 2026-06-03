@@ -326,7 +326,7 @@
   },
   "linkerd/linkerd-crds": {
     "version": "1.8.0",
-    "not_yet_enabled": "no-crds (template-baked CRDs, no toggle — #114)",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
     "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
   },
   "longhorn/longhorn": {
@@ -432,7 +432,7 @@
   "prometheus-community/prometheus-operator-crds": {
     "version": "29.0.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run); no-crds (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
   },
   "prometheus-community/prometheus-pushgateway": {
     "version": "3.6.0",

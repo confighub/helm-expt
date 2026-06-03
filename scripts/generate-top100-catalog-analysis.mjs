@@ -210,8 +210,7 @@ works only with a named limitation or user/operator help
 
 The hard-gap column is about missing recommended capabilities, not total chart
 failure. For example, a chart may have a working default recipe while still
-lacking an \`existing-secret\`, \`no-crds\`, HA, or full-equivalence path for a
-specific variant.
+lacking an \`existing-secret\`, \`no-crds\`, or HA path for a specific variant.
 
 ## Top-20 Update Candidates
 

@@ -12,7 +12,7 @@ recipe/package proof artifacts: 100 / 100
 supported at Level 2:           100 / 100
 variant-rich:                    54 / 100
 default-only:                    46 / 100
-hard gap in chart facts:         26 / 100
+hard gap in chart facts:         25 / 100
 ```
 
 Level-2 support means the chart has a render-equivalent, readable, usable,

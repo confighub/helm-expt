@@ -88,9 +88,10 @@ function loadWaveDeclines() {
 
 // Classify an unbuilt recommended variant. "hard" = no solution/workaround yet (the real gap);
 // "soft" = a known build path exists, just not run yet; "na" = doesn't apply to this chart.
-function classifyGap(variant, reason, secretsGen) {
+function classifyGap(ref, variant, reason, secretsGen) {
   const r = String(reason ?? "");
   if (/single-node|single binary|data-plane|not a supported HA|not applicable/i.test(r)) return { kind: "na" };
+  if (variant === "no-crds" && isCrdPublicationChart(ref)) return { kind: "na" };
   // template-baked CRDs first (these declines often also say "no chart CRD toggle")
   if (/#114|template-rendered|template-baked|template CRD|CRD set/i.test(r)) {
     return { kind: "hard", label: `${variant} (template-baked CRDs, no toggle — #114)` };
@@ -105,6 +106,10 @@ function classifyGap(variant, reason, secretsGen) {
   if (!reason) return { kind: "soft", label: `${variant} (buildable — not yet run)` };
   const short = r.length > 50 ? `${r.slice(0, 47)}…` : r;
   return { kind: "hard", label: `${variant} (${short})` };
+}
+
+function isCrdPublicationChart(ref) {
+  return /(?:^|\/)(?:[^/]+-)?crds?$/.test(ref);
 }
 
 function hookFacts(scan) {
@@ -168,7 +173,7 @@ function buildRows() {
 
     // Classify every recommended-but-unbuilt variant into hard gap (no solution yet) / soft backlog
     // (known build path, not yet run) / na (doesn't apply).
-    const classified = rec.filter((v) => !hasVariant(v)).map((v) => ({ v, ...classifyGap(v, declined[v], secretsGen) }));
+    const classified = rec.filter((v) => !hasVariant(v)).map((v) => ({ v, ...classifyGap(ref, v, declined[v], secretsGen) }));
     const hardGaps = classified.filter((c) => c.kind === "hard").map((c) => c.label);
     const softBacklog = classified.filter((c) => c.kind === "soft").map((c) => c.label);
 

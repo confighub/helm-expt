@@ -12,7 +12,7 @@ data. It does not replace them; it is the executive work queue over them.
   without the post-render namespace transformer while preserving target-facts collectors.
 - 100/100 charts are supported at Level 2; 54/100 are variant-rich. The remaining catalog work is user-shaped
   variants, production dispositions, and runtime/GitOps evidence, not basic proof creation.
-- Current chart facts show 26 hard gaps for recommended extra capabilities: 15 existing-secret gaps (#113), 4
+- Current chart facts show 25 hard gaps for recommended extra capabilities: 15 existing-secret gaps (#113), 3
   template-CRD/no-crds gaps (#114), 6 curated-variant lanes, and 1 other gap.
 - **0 production-supported** (20 production-blocked pending disposition). Open **P0 #76** (Helm import path).
 - So the next 20 are about **depth (local-test → production), real variants, day-2, and adoption** —
