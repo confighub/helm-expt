@@ -168,6 +168,7 @@ not the primary user path.
 | --- | --- |
 | [agreed-execution-plan.md](./planning/agreed-execution-plan.md) | Consolidated execution plan and project guidance. |
 | [current-pathway-review.md](./planning/current-pathway-review.md) | Snapshot review of the current pathway and remaining gaps. |
+| [current-handover.md](./planning/current-handover.md) | Current handover for another engineer or agent picking up from public `main`. |
 | [next-execution-plan.md](./planning/next-execution-plan.md) | Current execution plan and near-term backlog. |
 | [today-roadmap-2026-05-29.md](./planning/today-roadmap-2026-05-29.md) | Dated handoff snapshot retained for historical context. |
 | [p0-major-issue-status.md](./planning/p0-major-issue-status.md) | Status of original P0 proof issues. |
