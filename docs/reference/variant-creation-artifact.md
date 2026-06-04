@@ -61,6 +61,31 @@ receipts.
 
 The rule is: preview first, check first, then create.
 
+## Creator Status
+
+The formal thing underneath the user experience is the Variant Creator
+contract: machine-readable intent, allowed changes, preview, checks, gates,
+receipts, and UX/AX/FX equivalence.
+
+Use these terms carefully:
+
+| Term | Status |
+| --- | --- |
+| Creator | Product/UX concept for the human creation flow. |
+| Variant Creator contract | Formal artifact that describes the creation plan and proof requirements. |
+| `cub variant create` | Current implementation substrate for clone/link creation of downstream ConfigHub variants. |
+
+The practical meaning is:
+
+```text
+Creator = product/UX concept.
+Variant Creator contract = formal artifact.
+cub variant create = current implementation substrate.
+```
+
+So user-facing docs can show a future or polished Creator flow, but should not
+claim that a finished GUI named Variant Creator already exists.
+
 ## Recipe Base Or Custom Variant?
 
 Use a recipe/package base when the choice changes the rendered Kubernetes

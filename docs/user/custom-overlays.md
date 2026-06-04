@@ -91,7 +91,8 @@ records checks and mutation receipts.
 
 ## User UX
 
-The user should see something like this:
+A future/polished [Creator flow](../reference/variant-creation-artifact.md#creator-status)
+should present this as:
 
 ```text
 Create variant

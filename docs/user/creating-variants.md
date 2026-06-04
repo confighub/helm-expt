@@ -171,8 +171,9 @@ links the cloned Units back to their upstream Units. Add `--target
 source base labels unless a post-clone trigger or later bulk update changes
 them.
 
-The polished Creator flow should make those building blocks easy to use. It
-should not introduce a separate variant system.
+A future/polished [Creator flow](../reference/variant-creation-artifact.md#creator-status)
+should make those building blocks easy to use. It should not introduce a
+separate variant system.
 
 ## AI Assistant Flow
 
