@@ -549,7 +549,7 @@ post-render target/metadata/links/gates/fill-values
 Acceptance:
 
 - README explains the rule in plain English.
-- [Customization Algorithm](../user/customization-algorithm.md) lists supported overlay
+- [Customization Algorithm](../reference/customization-algorithm.md) lists supported overlay
   modes and proof requirements.
 - [Kubara Customized Overlay Analysis](../corpus/kubara-customized-overlays.md) defines
   the first managed overlay golden and its tier.

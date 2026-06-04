@@ -40,6 +40,46 @@ This choice should be visible before the user sees detailed receipts or proof
 data. Receipts matter, but the first UX question is simply where the change
 belongs.
 
+## Variant File And Values Profile
+
+A base variant usually has two related files:
+
+| File | Meaning |
+| --- | --- |
+| `variants/<name>/variant.yaml` | The named install shape: recipe pointer, namespace, release name, values profile, capability profile, hook policy, and other variant-level controls. |
+| `effective-values*.yaml` | The captured Helm values profile used to render that install shape. |
+
+For example, Prometheus `server-only-ephemeral` is split like this:
+
+```text
+recipes/prometheus-community/prometheus/29.8.0/
+  effective-values-server-only-ephemeral.yaml
+  variants/server-only-ephemeral/variant.yaml
+```
+
+The `variant.yaml` file points at the values profile:
+
+```yaml
+spec:
+  valuesProfile: "../../effective-values-server-only-ephemeral.yaml"
+```
+
+The values profile contains the Helm inputs that make this install shape
+different from the default Prometheus render, such as disabling Alertmanager,
+exporters, pushgateway, and persistence. The variant file gives that rendered
+shape a name and records the surrounding render controls.
+
+The files live in different folders because values profiles are recipe-level
+proof artifacts. A recipe can hash, compare, reuse, and cite them across
+variants and revisions. The variant directory is for the named variant's
+control file and variant-specific artifacts.
+
+Derived ConfigHub variants usually should not create a new `effective-values`
+file, because they do not rerender Helm. If the user needs different Helm
+values, route back to a base variant. If the user keeps the same reviewed
+object set and changes target, labels, gates, fact bindings, or approved
+post-render fields, use a derived ConfigHub variant.
+
 ## Base Variants
 
 A base variant is a reviewed install shape produced by `cub installer`.
@@ -266,8 +306,9 @@ making the human flow complicated.
 ## What To Read Next
 
 - [Choosing Base Variants, Derived Variants, And Delivery Changes](./change-routing-before-oci.md)
+- [cub Variant Command Surface](./cub-variant-command-surface.md)
 - [Custom Overlays](./custom-overlays.md)
-- [Customization Algorithm](./customization-algorithm.md)
+- [Customization Algorithm](../reference/customization-algorithm.md)
 - [Prometheus Overlay And Promotion Example](./prometheus-overlay-promotion-example.md)
 - [Product Support Tiers For Helm Scenarios](./product-support-tiers.md)
 - [Variant Creator Reference](../reference/variant-creation-artifact.md)

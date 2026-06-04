@@ -4,7 +4,7 @@ metadata:
   name: "external-dns-customer-acme-prod"
   generatedBy: "scripts/generate-variant-goldens.mjs"
 spec:
-  from: "external-dns/managed-aws"
+  from: "external-dns/managed-aws-acme"
   creates: "external-dns/customer-acme-prod"
   doctrine: "Customer overlay values are classified before render. Render-time choices go through cub installer. Post-render operating choices go through the Variant Creator contract."
   ux:

@@ -15,6 +15,7 @@ spec:
     name: bitnami-redis
     chart: bitnami/redis
     chartVersion: 25.5.3
+    selectedBase: default
     bases:
       - default
       - reuse-existing-secret

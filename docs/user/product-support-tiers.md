@@ -6,6 +6,21 @@ This document explains which Helm scenarios this project is trying to support
 at which product tier. Names may change; the boundary matters more than the
 labels.
 
+## Three Product Questions
+
+Keep these questions separate when explaining the project:
+
+| Question | Product lane | What users should expect |
+| --- | --- | --- |
+| How many useful configs are free or out of the box? | public catalog bases | a curated set of reviewed, Helm-equivalent install shapes for common chart needs |
+| What can users customize in ConfigHub after choosing a reviewed base? | derived ConfigHub variants | environment, region, customer, target, gates, facts, links, observations, and approved post-render field fills |
+| Which cases are more complex and potentially commercial? | managed import, GitOps import, private overlays, and stacks | private values, wrapper charts, fleet variants, full stacks, old-version support, production receipts, and patch SLAs |
+
+The catalog should be generous enough that users can try useful non-default
+cases without starting from scratch. ConfigHub customization should then make
+those reviewed bases fit real environments. Managed import and stack workflows
+are the higher-complexity lane for private or production-specific cases.
+
 ## Tier 0 - Low-Friction Standalone Try
 
 This is the desired first user experience: closer to `helm install redis` than
@@ -114,6 +129,12 @@ nginx/http-clusterip
 metrics-server/default
 ```
 
+The open question for this tier is coverage: how many free out-of-box bases are
+enough to feel useful without turning the public catalog into an unmanaged
+matrix. The target is not every possible values combination. It is the smallest
+reviewed set that covers common defaults, high-value non-defaults, and routes
+remaining changes cleanly into derived variants or managed import.
+
 This tier should be easy to try without a private customer repository. It can
 prove the catalog recipe, package, rendered objects, and local live checks.
 
@@ -170,6 +191,11 @@ Human: guided create flow
 AI assistant: structured create_variant task
 Bulk job: one creation pattern over many rows
 ```
+
+This is the lane for "take this base and extend it with x and y." It should
+cover many real customer and environment differences without requiring a new
+Helm render, as long as the source base exposes the allowed paths and the
+checks can prove that the install shape stayed reviewed.
 
 ## Tier 3 - Managed Overlay Import
 

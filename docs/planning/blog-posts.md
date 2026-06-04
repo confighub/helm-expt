@@ -105,7 +105,7 @@ Show:
 Proof links:
 
 - `CATALOG.md`
-- `docs/user/customization-algorithm.md`
+- `docs/reference/customization-algorithm.md`
 - `docs/user/maintenance-sla.md`
 
 ## 5. Live Truth Without A Magic Worker

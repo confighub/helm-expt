@@ -6,16 +6,16 @@ This document defines how a Helm-user customization becomes a ConfigHub
 variant, and where each piece of new information belongs.
 
 For the full chart-to-recipe workflow, including the main "where pieces go"
-table, see [Introduction To The Harness](./introduction-to-the-harness.md).
+table, see [Introduction To The Harness](../user/introduction-to-the-harness.md).
 For the short guide to variant creation through human, AI assistant, and bulk
 flows, see
-[Creating Variants](./creating-variants.md).
+[Creating Variants](../user/creating-variants.md).
 For a concrete chart walkthrough, see
-[Prometheus Overlay And Promotion Example](./prometheus-overlay-promotion-example.md).
+[Prometheus Overlay And Promotion Example](../user/prometheus-overlay-promotion-example.md).
 For wrapper charts, platform values, and customer values, see
-[Custom Overlays](./custom-overlays.md).
+[Custom Overlays](../user/custom-overlays.md).
 For the delivery boundary, see
-[Choosing Base Variants, Derived Variants, And Delivery Changes](./change-routing-before-oci.md).
+[Choosing Base Variants, Derived Variants, And Delivery Changes](../user/change-routing-before-oci.md).
 
 The product rule is:
 
@@ -212,7 +212,7 @@ surface changes.
 | Wrapper chart plus platform values plus customer overlay values | Managed overlay import | Needs private/customer inputs, render context capture, ConfigHub Server, and usually managed/commercial workflows. |
 | Fleet of many customer/environment variants | Enterprise fleet operations | Needs bulk creation, promotion waves, checks, observations, and support disposition. |
 
-See [Product Support Tiers For Helm Scenarios](./product-support-tiers.md).
+See [Product Support Tiers For Helm Scenarios](../user/product-support-tiers.md).
 
 ## Hook Customization Rule
 

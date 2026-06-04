@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DerivedVariantExpansionCheckReceipt"
+metadata:
+  name: "derived-variant-expansion-wave-001-checks"
+spec:
+  sourceBaseCount: 5
+  derivedVariantCount: 10
+  checks:
+    -
+      name: "at-least-five-source-bases"
+      result: "pass"
+    -
+      name: "at-least-ten-derived-variants"
+      result: "pass"
+    -
+      name: "all-use-current-command-surface"
+      result: "pass"
+    -
+      name: "all-bind-source-rendered-digest"
+      result: "pass"
+    -
+      name: "all-have-route-back-guidance"
+      result: "pass"
+  result: "golden-pass"

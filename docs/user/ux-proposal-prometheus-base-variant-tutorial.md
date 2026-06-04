@@ -8,6 +8,16 @@ This is a UX proposal, not a shipped GUI. It shows how a values choice that
 changes the Prometheus install shape can be presented as a base-variant
 creation flow.
 
+## Shared Mapping
+
+All tutorial UX proposals use the same map:
+
+```text
+Human: express the desired base, environment, region, customer, delivery, or operation.
+CLI: use cub installer for render/base work; use cub variant create for derived ConfigHub variants.
+Proof: run checks, gates, and receipts before the change is called ready.
+```
+
 ## Current CLI Friction
 
 The CLI path asks the user to reason through:

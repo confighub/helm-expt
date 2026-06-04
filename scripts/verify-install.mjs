@@ -15,7 +15,7 @@ import {
   sha256File,
   writeYaml,
 } from "./lib/proof-common.mjs";
-import { loadInstallChecks } from "./lib/install-checks.mjs";
+import { loadInstallChecks, supportedInstallCheckCharts } from "./lib/install-checks.mjs";
 
 class UsageError extends Error {}
 
@@ -562,7 +562,7 @@ function writeFailureReceipt(error) {
     writeYaml(join(receiptDir, `${stage || "unknown"}-receipt.yaml`), {
       apiVersion: "helm-expt.confighub.com/v1alpha1",
       kind: "UserInstallFailureReceipt",
-      metadata: { name: `bitnami-redis-${variantName}-user-${stage || "unknown"}-failed` },
+      metadata: { name: `${chart.replaceAll("/", "-")}-${variantName}-user-${stage || "unknown"}-failed` },
       spec: {
         chart,
         variant: variantName,
@@ -590,13 +590,15 @@ function requiredOption(name) {
 }
 
 function printUsage() {
+  const supported = supportedInstallCheckCharts();
   console.error(`Usage:
   npm run verify-install:render -- --chart bitnami/redis/25.5.3 --base default --work-dir <cub-install-work-dir> --namespace redis
   npm run verify-install:cluster -- --chart bitnami/redis/25.5.3 --base default --context <kubectl-context> --namespace redis
   npm run verify-install:confighub -- --chart bitnami/redis/25.5.3 --base default --space <confighub-space>
 
 Options:
-  --chart       Chart/version to verify. Today: bitnami/redis/25.5.3
+  --chart       Chart/version to verify. Requires recipes/<repo>/<chart>/<version>/install-checks.yaml.
+                Currently available: ${supported.length ? supported.join(", ") : "none"}
   --base        Catalog variant/package base. Default: default
   --work-dir    Required for render. Directory produced by cub installer setup
   --namespace   Required for cluster; optional for render namespace remapping

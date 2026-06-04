@@ -4,14 +4,16 @@ import { dirname, join } from "node:path";
 import { check, readYaml, relativeRepo, repoRoot, sha256, toYaml, write } from "./lib/proof-common.mjs";
 
 const redisRoot = join(repoRoot, "data", "variant-goldens", "redis-prod-us-east");
+const expansionRoot = join(repoRoot, "data", "variant-goldens", "derived-expansion-wave");
 const kubaraRoot = join(repoRoot, "data", "managed-overlay-goldens", "external-dns-customer-acme-prod");
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
-  for (const root of [redisRoot, kubaraRoot]) rmSync(root, { recursive: true, force: true });
+  for (const root of [redisRoot, expansionRoot, kubaraRoot]) rmSync(root, { recursive: true, force: true });
   const outputs = buildOutputs();
   for (const [path, contents] of outputs) write(path, contents);
   console.log(`wrote ${relativeRepo(redisRoot)}`);
+  console.log(`wrote ${relativeRepo(expansionRoot)}`);
   console.log(`wrote ${relativeRepo(kubaraRoot)}`);
 } else if (mode === "--verify") {
   const outputs = buildOutputs();
@@ -20,8 +22,9 @@ if (mode === "--generate") {
     check(readFileSync(path, "utf8") === contents, `${relativeRepo(path)} is stale`);
   }
   verifyRedisGolden();
+  verifyExpansionWave();
   verifyKubaraGolden();
-  console.log("verified Redis Creator and Kubara managed-overlay goldens");
+  console.log("verified Redis Creator, derived-variant expansion, and Kubara managed-overlay goldens");
 } else {
   console.log(`Usage:
   node scripts/generate-variant-goldens.mjs --generate
@@ -31,6 +34,7 @@ if (mode === "--generate") {
 function buildOutputs() {
   const outputs = new Map();
   for (const [path, value] of Object.entries(redisGolden())) outputs.set(join(redisRoot, path), value);
+  for (const [path, value] of Object.entries(derivedExpansionWave())) outputs.set(join(expansionRoot, path), value);
   for (const [path, value] of Object.entries(kubaraGolden())) outputs.set(join(kubaraRoot, path), value);
   return outputs;
 }
@@ -315,6 +319,268 @@ function redisGolden() {
   };
 }
 
+function derivedExpansionWave() {
+  const sources = derivedExpansionSources().map((source) => enrichDerivedSource(source));
+  const workOrders = sources.flatMap((source) =>
+    source.variants.map((variant) => buildDerivedWorkOrder(source, variant)),
+  );
+
+  const wave = {
+    apiVersion: "helm-expt.confighub.com/v1alpha1",
+    kind: "DerivedVariantExpansionWave",
+    metadata: {
+      name: "derived-variant-expansion-wave-001",
+      generatedBy: "scripts/generate-variant-goldens.mjs",
+      issue: "https://github.com/confighub/helm-expt/issues/144",
+    },
+    spec: {
+      purpose:
+        "Make derived ConfigHub variants visible across multiple proven chart bases before broadening catalog metrics.",
+      commandSurface: {
+        current: "cub variant create",
+        notCurrent: ["cub variant upload", "cub variant promote", "cub variant release"],
+      },
+      summary: {
+        sourceBaseCount: sources.length,
+        derivedVariantCount: workOrders.length,
+        charts: sources.map((source) => source.chart),
+      },
+      sourceBases: sources.map((source) => ({
+        id: source.id,
+        chart: source.chart,
+        chartVersion: source.chartVersion,
+        base: source.base,
+        package: source.package,
+        sourceSpace: source.sourceSpace,
+        sourceRevision: source.sourceRevision,
+        renderedObjectSetSHA256: source.renderedObjectSetSHA256,
+        uploadedUnitCount: source.uploadedUnitCount,
+      })),
+      workOrders,
+    },
+  };
+
+  const checkReceipt = {
+    apiVersion: "helm-expt.confighub.com/v1alpha1",
+    kind: "DerivedVariantExpansionCheckReceipt",
+    metadata: {
+      name: "derived-variant-expansion-wave-001-checks",
+    },
+    spec: {
+      sourceBaseCount: sources.length,
+      derivedVariantCount: workOrders.length,
+      checks: [
+        { name: "at-least-five-source-bases", result: sources.length >= 5 ? "pass" : "fail" },
+        { name: "at-least-ten-derived-variants", result: workOrders.length >= 10 ? "pass" : "fail" },
+        {
+          name: "all-use-current-command-surface",
+          result: workOrders.every((order) => order.create.command.startsWith("cub variant create ")) ? "pass" : "fail",
+        },
+        {
+          name: "all-bind-source-rendered-digest",
+          result: workOrders.every((order) => Boolean(order.source.renderedObjectSetSHA256)) ? "pass" : "fail",
+        },
+        {
+          name: "all-have-route-back-guidance",
+          result: workOrders.every((order) => order.routeBackToInstaller.length > 0) ? "pass" : "fail",
+        },
+      ],
+      result: "golden-pass",
+    },
+  };
+
+  return {
+    "README.md": derivedExpansionReadme(wave),
+    "work-orders.yaml": yaml(wave),
+    "work-orders.csv": derivedExpansionCsv(workOrders),
+    "receipts/wave-check-receipt.yaml": yaml(checkReceipt),
+  };
+}
+
+function derivedExpansionSources() {
+  return [
+    {
+      id: "redis-default",
+      component: "Redis",
+      componentSlug: "redis",
+      recipeRoot: "recipes/bitnami/redis/25.5.3",
+      base: "default",
+      proofPath: "runs/redis-confighub-proof/latest/confighub-proof-receipt.yaml",
+      namespace: "redis",
+      targetPrefix: "redis-targets",
+      routeBackToInstaller: [
+        "switch to existing Secret mode",
+        "change Redis storage or HA topology",
+        "change Helm values that alter StatefulSet or Service shape",
+      ],
+      variants: [
+        { variant: "prod-us-east", environment: "Prod", region: "us-east", namespace: "redis-prod", gates: true },
+        { variant: "staging-eu-west", environment: "Staging", region: "eu-west", namespace: "redis-staging", gates: false },
+      ],
+    },
+    {
+      id: "prometheus-default",
+      component: "Prometheus",
+      componentSlug: "prometheus",
+      recipeRoot: "recipes/prometheus-community/prometheus/29.8.0",
+      base: "default",
+      proofPath: "runs/prometheus-confighub-proof/latest/confighub-proof-receipt.yaml",
+      namespace: "monitoring",
+      targetPrefix: "monitoring-targets",
+      routeBackToInstaller: [
+        "disable Alertmanager, node-exporter, kube-state-metrics, or pushgateway",
+        "switch to server-only-ephemeral",
+        "change storage topology or rendered scrape object shape",
+      ],
+      variants: [
+        { variant: "prod-us-east", environment: "Prod", region: "us-east", namespace: "monitoring-prod", gates: true },
+        { variant: "staging-eu-west", environment: "Staging", region: "eu-west", namespace: "monitoring-staging", gates: false },
+      ],
+    },
+    {
+      id: "nginx-http-clusterip",
+      component: "NGINX",
+      componentSlug: "nginx",
+      recipeRoot: "recipes/bitnami/nginx/24.0.2",
+      base: "http-clusterip",
+      proofPath: "runs/nginx-confighub-proof/latest/confighub-proof-receipt.yaml",
+      namespace: "nginx",
+      targetPrefix: "web-targets",
+      routeBackToInstaller: [
+        "add TLS ingress",
+        "switch to existing-tls-ingress",
+        "change Service type or rendered NetworkPolicy/PDB shape",
+      ],
+      variants: [
+        { variant: "prod-us-east", environment: "Prod", region: "us-east", namespace: "nginx-prod", gates: true },
+        { variant: "customer-acme-prod", environment: "Prod", region: "us-west", namespace: "nginx-acme", gates: true },
+      ],
+    },
+    {
+      id: "grafana-generated-passwords",
+      component: "Grafana",
+      componentSlug: "grafana",
+      recipeRoot: "recipes/grafana/grafana/10.5.15",
+      base: "generated-passwords",
+      proofPath: "runs/grafana-confighub-proof/latest/confighub-proof-receipt.yaml",
+      namespace: "grafana",
+      targetPrefix: "observability-targets",
+      routeBackToInstaller: [
+        "switch to existing admin Secret",
+        "add ingress TLS",
+        "change sidecar or provisioning rendered object shape",
+      ],
+      variants: [
+        { variant: "prod-us-east", environment: "Prod", region: "us-east", namespace: "grafana-prod", gates: true },
+        { variant: "customer-acme-prod", environment: "Prod", region: "us-east", namespace: "grafana-acme", gates: true },
+      ],
+    },
+    {
+      id: "vault-default",
+      component: "Vault",
+      componentSlug: "vault",
+      recipeRoot: "recipes/hashicorp/vault/0.32.0",
+      base: "default",
+      proofPath: "runs/vault-confighub-proof/latest/confighub-proof-receipt.yaml",
+      namespace: "vault",
+      targetPrefix: "security-targets",
+      routeBackToInstaller: [
+        "switch to HA raft UI",
+        "change injector webhook or StatefulSet topology",
+        "change TLS, unseal, or storage rendered object shape",
+      ],
+      variants: [
+        { variant: "regulated-prod-us-east", environment: "Prod", region: "us-east", namespace: "vault-prod", gates: true },
+        { variant: "staging-us-east", environment: "Staging", region: "us-east", namespace: "vault-staging", gates: false },
+      ],
+    },
+  ];
+}
+
+function enrichDerivedSource(source) {
+  const index = readYaml(join(repoRoot, source.recipeRoot, "artifact-index.yaml"));
+  const variant = index.spec.variants.find((item) => item.name === source.base);
+  check(variant, `${source.id} missing base ${source.base}`);
+  const revision = variant.revisions[0];
+  const proof = readYaml(join(repoRoot, source.proofPath));
+  return {
+    ...source,
+    chart: index.spec.chart.ref,
+    chartVersion: index.spec.chart.version,
+    package: index.spec.installerPackage.path,
+    sourceVariant: variant.variant,
+    sourceRevision: revision.variantRevision,
+    renderedObjectSetSHA256: revision.renderedObjectSetSHA256,
+    objectCount: revision.objectCount,
+    cubInstallerObjectCountIncludingSupport: revision.cubInstallObjectCountIncludingSupport,
+    sourceSpace: proof.spec.upload.space,
+    uploadedUnitCount: proof.spec.upload.unitCount,
+  };
+}
+
+function buildDerivedWorkOrder(source, variant) {
+  const target = `${source.targetPrefix}/${variant.variant}`;
+  const downstreamSpace = `${source.sourceSpace}-${variant.variant}`;
+  const gateArgs = variant.gates ? " --unit-delete-gate production-review --unit-destroy-gate production-review" : "";
+  const command = [
+    `cub variant create ${variant.variant} ${source.sourceSpace}`,
+    `--environment ${variant.environment}`,
+    `--region ${variant.region}`,
+    `--target ${target}`,
+    "--space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}'",
+  ].join(" ");
+
+  const changedFields = [
+    "Space.Labels.Variant",
+    "Space.Labels.Environment",
+    "Space.Labels.Region",
+    "Space.Annotations.TargetID",
+    "metadata.namespace when the base exposes namespace as an approved post-render field",
+    "observation policy metadata",
+  ];
+  if (variant.gates) changedFields.push("Unit.DeleteGates", "Unit.DestroyGates");
+
+  return {
+    id: `${source.componentSlug}-${variant.variant}`,
+    issue: "https://github.com/confighub/helm-expt/issues/144",
+    source: {
+      component: source.component,
+      chart: source.chart,
+      chartVersion: source.chartVersion,
+      base: source.base,
+      sourceSpace: source.sourceSpace,
+      sourceRevision: source.sourceRevision,
+      renderedObjectSetSHA256: source.renderedObjectSetSHA256,
+      objectCount: source.objectCount,
+      uploadedUnitCount: source.uploadedUnitCount,
+    },
+    create: {
+      variant: variant.variant,
+      downstreamSpace,
+      environment: variant.environment,
+      region: variant.region,
+      namespace: variant.namespace,
+      target,
+      command: `${command}${gateArgs}`,
+    },
+    review: {
+      installShape: `same ${source.component} ${source.base} rendered object set`,
+      changedFieldsOnly: changedFields,
+      upstreamLinks: "preserved",
+      noHelmRerender: true,
+    },
+    checks: [
+      "source-revision-bound",
+      "same-rendered-object-set",
+      "allowed-mutation-paths-only",
+      "upstream-links-preserved",
+      "target-facts-available",
+      "production-gates-present-when-prod",
+    ],
+    routeBackToInstaller: source.routeBackToInstaller,
+  };
+}
+
 function kubaraGolden() {
   const recipeRoot = "recipes/external-dns/external-dns/1.21.1";
   const indexPath = join(repoRoot, recipeRoot, "artifact-index.yaml");
@@ -448,7 +714,7 @@ function kubaraGolden() {
       generatedBy: "scripts/generate-variant-goldens.mjs",
     },
     spec: {
-      from: "external-dns/managed-aws",
+      from: "external-dns/managed-aws-acme",
       creates: "external-dns/customer-acme-prod",
       doctrine:
         "Customer overlay values are classified before render. Render-time choices go through cub installer. Post-render operating choices go through the Variant Creator contract.",
@@ -706,8 +972,23 @@ The golden separates two decisions before rendering:
 - operating labels, targets, approvals, and observation requirements go through
   the post-render Variant Creator contract.
 
+Product support split:
+
+- free/out-of-box catalog configs are reviewed base shapes that are common
+  enough to publish;
+- ConfigHub customization creates derived variants over a reviewed base;
+- managed or potentially paid complexity includes private wrapper charts,
+  private values, GitOps import, fleet variants, full stacks, production
+  receipts, support SLAs, and old-version patch work.
+
 This is not a claim that all Kubara applications are imported. It is a
 verification target for the managed-overlay boundary.
+
+Status: current generated classification golden. It is not a live import,
+ConfigHub delivery, or production-readiness receipt.
+
+Source base: ExternalDNS/managed-aws-acme.
+Derived operating variant: ExternalDNS/customer-acme-prod.
 
 Generated files:
 
@@ -723,6 +1004,85 @@ Generated files:
 `;
 }
 
+function derivedExpansionReadme(wave) {
+  const rows = wave.spec.workOrders
+    .map(
+      (order) =>
+        `| ${order.id} | ${order.source.component}/${order.source.base} | ${order.create.variant} | ${order.create.environment} | ${order.create.region} | ${order.create.target} |`,
+    )
+    .join("\n");
+  return `# Derived Variant Expansion Wave
+
+This generated wave starts the work tracked in
+[helm-expt#144](https://github.com/confighub/helm-expt/issues/144): derived
+ConfigHub variants need to be visible across the catalog, not only Redis.
+
+The wave uses only the current command surface:
+
+\`\`\`text
+cub variant create
+\`\`\`
+
+Each work order starts from a reviewed uploaded base Space, creates a downstream
+Space and cloned Units, preserves upstream links, and records route-back
+guidance for changes that must return to \`cub installer\`.
+
+Summary:
+
+\`\`\`text
+source bases: ${wave.spec.summary.sourceBaseCount}
+derived variants: ${wave.spec.summary.derivedVariantCount}
+current command: ${wave.spec.commandSurface.current}
+\`\`\`
+
+| Work order | Source base | Derived variant | Environment | Region | Target |
+| --- | --- | --- | --- | --- | --- |
+${rows}
+
+Generated files:
+
+- \`work-orders.yaml\`
+- \`work-orders.csv\`
+- \`receipts/wave-check-receipt.yaml\`
+`;
+}
+
+function derivedExpansionCsv(workOrders) {
+  const headers = [
+    "id",
+    "component",
+    "chart",
+    "base",
+    "variant",
+    "environment",
+    "region",
+    "target",
+    "source_space",
+    "downstream_space",
+    "rendered_object_set_sha256",
+    "command",
+  ];
+  const rows = workOrders.map((order) => [
+    order.id,
+    order.source.component,
+    order.source.chart,
+    order.source.base,
+    order.create.variant,
+    order.create.environment,
+    order.create.region,
+    order.create.target,
+    order.source.sourceSpace,
+    order.create.downstreamSpace,
+    order.source.renderedObjectSetSHA256,
+    order.create.command,
+  ]);
+  return `${[headers, ...rows].map((row) => row.map(csvCell).join(",")).join("\n")}\n`;
+}
+
+function csvCell(value) {
+  return `"${String(value).replaceAll('"', '""')}"`;
+}
+
 function verifyRedisGolden() {
   const contract = readYaml(join(redisRoot, "creator-contract.yaml"));
   const preview = readYaml(join(redisRoot, "preview.yaml"));
@@ -733,6 +1093,25 @@ function verifyRedisGolden() {
   check(contract.spec.secretHandling.mode === "preserve-generated-secret-reference", "Redis default golden must preserve generated Secret mode");
   check(routeBack.spec.decision === "route-back-to-installer-base", "Redis existing-secret change must route back to installer base");
   check(routeBack.spec.correctBase === "redis/reuse-existing-secret", "Redis route-back must point at reuse-existing-secret base");
+}
+
+function verifyExpansionWave() {
+  const wave = readYaml(join(expansionRoot, "work-orders.yaml"));
+  const receipt = readYaml(join(expansionRoot, "receipts", "wave-check-receipt.yaml"));
+  check(wave.kind === "DerivedVariantExpansionWave", "Derived expansion wave has wrong kind");
+  check(wave.spec.summary.sourceBaseCount >= 5, "Derived expansion wave must cover at least 5 source bases");
+  check(wave.spec.summary.derivedVariantCount >= 10, "Derived expansion wave must cover at least 10 derived variants");
+  check(wave.spec.workOrders.length === wave.spec.summary.derivedVariantCount, "Derived expansion count mismatch");
+  for (const order of wave.spec.workOrders) {
+    check(order.create.command.startsWith("cub variant create "), `${order.id} must use cub variant create`);
+    check(!order.create.command.includes(" --extends"), `${order.id} must not use --extends`);
+    check(!order.create.command.includes(" --space "), `${order.id} must not use --space`);
+    check(order.review.noHelmRerender === true, `${order.id} must prove no Helm rerender`);
+    check(order.review.upstreamLinks === "preserved", `${order.id} must preserve upstream links`);
+    check(order.routeBackToInstaller.length > 0, `${order.id} must include route-back guidance`);
+    check(order.checks.includes("same-rendered-object-set"), `${order.id} must check rendered object set preservation`);
+  }
+  check(receipt.spec.result === "golden-pass", "Derived expansion check receipt must pass");
 }
 
 function verifyKubaraGolden() {

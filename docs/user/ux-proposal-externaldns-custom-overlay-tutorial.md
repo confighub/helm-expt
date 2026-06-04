@@ -8,6 +8,37 @@ This is a UX proposal, not a shipped GUI. It shows how a managed/customer
 overlay can be split into render-time base choices and post-render Creator
 choices without making the user learn that split from raw CLI steps.
 
+## Product Support Split
+
+The UI should make three lanes visible without making the first screen heavy:
+
+```text
+Free/out-of-box:
+  pick a reviewed ExternalDNS base shape when the catalog supports it.
+
+Customize in ConfigHub:
+  extend that base for Acme prod with target, region, gates, facts, and
+  observation policy.
+
+Managed/paid complexity:
+  import private wrapper charts or values, run GitOps import, create fleet
+  variants, assemble stacks, and carry production support receipts.
+```
+
+That prevents "render-time overlay values" from sounding like one generic
+bucket. Some values create or update a base; some become derived variant input;
+some belong in a managed import workflow.
+
+## Shared Mapping
+
+All tutorial UX proposals use the same map:
+
+```text
+Human: express the desired base, environment, region, customer, delivery, or operation.
+CLI: use cub installer for render/base work; use cub variant create for derived ConfigHub variants.
+Proof: run checks, gates, and receipts before the change is called ready.
+```
+
 ## Current CLI Friction
 
 The current explanation asks the user to classify many details:

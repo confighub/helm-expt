@@ -31,6 +31,25 @@ recipe ─┬─ default base            (concrete, zero placeholders, works OOT
                                    each a real, rendered, Helm-equivalent, pinned shape
 ```
 
+## Outcome Bar
+
+The outcome is not "we generated chart files." The outcome is:
+
+```text
+Every catalog-supported chart default and declared main choice is
+reproducible, Helm-equivalent, live-cluster verified, and tied to receipts.
+```
+
+The default base and every declared fork count separately. If a chart advertises
+`existing-secret`, `ingress-tls`, `ha`, `no-crds`, `server-only`, or another
+main choice, that choice needs its own reproducibility and live-lane evidence.
+Default-only proof does not cover a non-default fork.
+
+Derived ConfigHub variants count as supported only when the uploaded
+base-plus-derived-variant path is receipted: clone, allowed mutation, checks,
+gates or target facts where applicable, and live observation when the variant is
+presented as deployable.
+
 ## Load-bearing invariants
 - **Honest default:** reaches Ready, OR declares required fills + refuses silently-broken (#1132 required-secret gate).
 - **Fork = shape change; fill = slot binding.** A value change that alters the rendered object set is a *base fork* (re-render, Helm-equivalent, digest-pinned). A value bound into an already-rendered field is a *fill* (derived variant, no re-render). Never blur this — it is what preserves Helm-equivalence + digest-pinning.
@@ -45,7 +64,7 @@ recipe ─┬─ default base            (concrete, zero placeholders, works OOT
 ## Admission check (what makes a chart "catalog-supported")
 1. `installer.yaml` declares exactly one `default: true` base.
 2. The default installs to Ready (live e2e) **or** trips a required-input/secret gate (no silent green).
-3. Each declared fork renders coherently (single-namespace), is Helm-equivalent, and pins images.
+3. Each declared fork renders coherently (single-namespace), is Helm-equivalent, pins images, and has lane-tracked live evidence or an explicit `missing` backlog before any broader support claim.
 4. Fork names come from the shared vocabulary.
 5. Where a parameterized base exists: `parameterized + default fills ≡ default`.
 Charts not meeting this are **catalog-candidates** (analysis tier), not catalog-supported.
@@ -61,5 +80,5 @@ Charts not meeting this are **catalog-candidates** (analysis tier), not catalog-
 - The shared fork vocabulary needs defining + a migration of the current inconsistent fork names.
 
 ## Sources
-helm-expt `docs/user/customization-algorithm.md`, `change-routing-before-oci.md`, `principles.md`;
+helm-expt `docs/reference/customization-algorithm.md`, `docs/user/change-routing-before-oci.md`, `principles.md`;
 campaign findings F1–F4 + `reports/pilot-helm-sweep/SCORECARD.md`; the #1133 decision tree.
