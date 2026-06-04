@@ -161,13 +161,15 @@ The current CLI primitive is:
 cub variant create prod-us-east helm-prometheus-server-only \
   --environment Prod \
   --region us-east \
-  --target monitoring-targets/prod-us-east \
   --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}'
 ```
 
-That command clones the upstream Space and Units, sets the downstream Variant
-label to `prod-us-east`, stamps environment/region/target metadata, and links
-the cloned Units back to their upstream Units.
+That command clones the upstream Space and Units, sets the downstream Space
+labels to `Variant=prod-us-east`, `Environment=Prod`, and `Region=us-east`, and
+links the cloned Units back to their upstream Units. Add `--target
+<target-slug>` only when the target already exists. Cloned Units keep their
+source base labels unless a post-clone trigger or later bulk update changes
+them.
 
 The polished Creator flow should make those building blocks easy to use. It
 should not introduce a separate variant system.

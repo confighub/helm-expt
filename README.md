@@ -288,6 +288,10 @@ The `Quick Verify` and `npm run verify` paths above check this repo's canonical
 artifacts. To check that your own install matches them, run one command per
 stage of the Redis demo.
 
+For `cub installer setup` and `cub installer upload`, use an authenticated
+`cub` CLI and keep `helm` and `kustomize` on your `PATH`. For live cluster
+checks, use a Kubernetes context you are comfortable applying test resources to.
+
 After `cub installer setup`, check the rendered objects:
 
 ```sh

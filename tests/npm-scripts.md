@@ -33,7 +33,7 @@ when they are exercising installer, upload, or live-cluster paths.
 | `npm run verify` | Full repository verification chain: proof contracts, docs, command surface, recipes, packages, receipts, catalog data, site data, scans, and model completeness. | Before merging broad changes. |
 | `npm run p0:contracts` | P0 proof contracts: schemas, capability profiles, freshness SLO, corpus invariants, and scale data. | When changing schemas, proof model, or scale/corpus data. |
 | `npm run docs:verify` | Markdown files live in expected locations and links resolve. | When adding, moving, or renaming docs. |
-| `npm run installer:command-surface:verify` | Docs and scripts use `cub installer`, not stale `cub install` language or old variant space patterns. | When touching docs/scripts with CLI examples. |
+| `npm run installer:command-surface:verify` | Static stale-command check: rejects old `cub install` wording, old command-array forms, and known stale variant examples. It does not compare every flag against live `cub --help`. | When touching docs/scripts with CLI examples. |
 | `npm run site:verify` | Generated static site files match current catalog data. | When changing catalog data surfaced by `site/`. |
 
 ## User-Install Verification
