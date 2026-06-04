@@ -164,10 +164,9 @@ cub installer upload \
   --unit-label Proof=redis-confighub-proof
 ```
 
-Current implementation note: during the Kubara proof run, `cub installer upload`
-needed a temporary local wrapper so installer-spawned `cub` commands used
-`CUB_CONFIG=$HOME/.confighub/config.yaml`. That is recorded as a known issue in
-the receipt, not hidden from the proof.
+Use an authenticated `cub` CLI in the organization where you want the demo Space
+to be created. If `helm-redis-default` already exists, choose a unique Space slug
+or rerun from the same work directory to reconcile the existing upload.
 
 7. Show the result in ConfigHub:
 

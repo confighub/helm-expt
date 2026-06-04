@@ -28,6 +28,11 @@ Helm chart
 
 Run it:
 
+The first two commands are local. The upload and ConfigHub verification require
+an authenticated `cub` CLI in the organization where you want the demo Space to
+be created. If `helm-redis-default` already exists, choose a unique Space slug or
+reuse the same work directory to reconcile the existing upload.
+
 ```sh
 cub installer setup \
   --pull packages/bitnami/redis/25.5.3 \
@@ -89,6 +94,11 @@ redis/reuse-existing-secret
 ```
 
 Run the existing-Secret path:
+
+This tutorial is written for the catalog namespace `redis`. Redis embeds that
+namespace in service DNS values, so changing the namespace changes rendered
+object data. Treat a different namespace as a separate render choice and review
+the diff deliberately.
 
 ```sh
 kubectl --context <your-context> create namespace redis \
@@ -189,15 +199,38 @@ Prometheus/server-only-ephemeral
 
 Current CLI primitive:
 
+First upload the reviewed base Space if it does not already exist:
+
+```sh
+cub installer upload \
+  --work-dir .tmp/demo/prometheus-server-only \
+  --space helm-prometheus-server-only \
+  --component Prometheus \
+  --layer App \
+  --environment Demo \
+  --owner ConfigHubHelm \
+  --variant server-only-ephemeral \
+  --unit-label Component=Prometheus \
+  --unit-label HelmChart=prometheus-community-prometheus \
+  --unit-label HelmChartVersion=29.8.0 \
+  --unit-label Variant=server-only-ephemeral
+```
+
+Then clone the Space into a derived ConfigHub variant:
+
 ```sh
 cub variant create prod-us-east helm-prometheus-server-only \
   --environment Prod \
   --region us-east \
-  --target monitoring-targets/prod-us-east \
   --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' \
   --unit-delete-gate production-review \
   --unit-destroy-gate production-review
 ```
+
+Add `--target <target-slug>` only when the target already exists. The command
+sets the downstream Space labels such as `Variant=prod-us-east`,
+`Environment=Prod`, and `Region=us-east`. Cloned Units keep the source base
+labels unless a post-clone trigger or later bulk update changes them.
 
 The user-facing Creator should make that look like:
 
@@ -517,13 +550,12 @@ cub function vet vet-format \
   --output wide
 ```
 
-Bulk approve the reviewed changeset revision:
+Bulk approve the reviewed current revisions:
 
 ```sh
 cub unit approve \
   --space helm-nginx-http-clusterip \
-  --where "Labels.Component = 'NGINX' AND Labels.Variant = 'http-clusterip'" \
-  --revision ChangeSet:nginx-bulk-hardening
+  --where "Labels.Component = 'NGINX' AND Labels.Variant = 'http-clusterip'"
 ```
 
 Expected result:

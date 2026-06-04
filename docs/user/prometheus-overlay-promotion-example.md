@@ -12,7 +12,7 @@ Component: Prometheus
 Source chart: prometheus-community/prometheus@29.8.0
 Base variant: server-only-ephemeral
 Promotion variant: prod-us-east
-Target: monitoring-targets/prod-us-east
+Optional target: monitoring-targets/prod-us-east
 ```
 
 ## Base Variant
@@ -62,7 +62,16 @@ Upload the reviewed base when ConfigHub is available:
 ```sh
 cub installer upload \
   --work-dir .tmp/prometheus-server-only \
-  --space helm-prometheus-server-only
+  --space helm-prometheus-server-only \
+  --component Prometheus \
+  --layer App \
+  --environment Demo \
+  --owner ConfigHubHelm \
+  --variant server-only-ephemeral \
+  --unit-label Component=Prometheus \
+  --unit-label HelmChart=prometheus-community-prometheus \
+  --unit-label HelmChartVersion=29.8.0 \
+  --unit-label Variant=server-only-ephemeral
 ```
 
 The checked catalog proof records:
@@ -92,7 +101,7 @@ It applies production refinements after the reviewed base has been uploaded:
 ```yaml
 environment: Prod
 region: us-east
-target: monitoring-targets/prod-us-east
+target: monitoring-targets/prod-us-east # optional; requires an existing target
 namespace: monitoring-prod
 approvalGate: production-review
 observationFreshness: PT15M
@@ -109,11 +118,15 @@ The current command shape is:
 cub variant create prod-us-east helm-prometheus-server-only \
   --environment Prod \
   --region us-east \
-  --target monitoring-targets/prod-us-east \
   --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' \
   --unit-delete-gate production-review \
   --unit-destroy-gate production-review
 ```
+
+Add `--target monitoring-targets/prod-us-east` only after that target exists.
+The command sets the downstream Space labels and gates the cloned Units. The
+cloned Units keep their source base labels unless a post-clone trigger or a
+later bulk update changes them.
 
 ## User UX
 
