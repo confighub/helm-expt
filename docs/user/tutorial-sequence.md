@@ -75,6 +75,21 @@ ConfigHub stores the rendered objects as labeled Units.
 The user can verify the render and the uploaded Units.
 ```
 
+Check:
+
+```sh
+cub unit list --space helm-redis-default \
+  --columns Unit.Slug,Unit.Labels.Component,Unit.Labels.Variant
+```
+
+Expect 15 Units: 14 Redis Kubernetes objects plus `installer-record`.
+
+UI:
+
+```text
+ConfigHub -> Space helm-redis-default -> Units
+```
+
 Full script: [docs/demo/redis/demo-script.md](../demo/redis/demo-script.md).
 
 ## Tutorial 2: Redis Secret Modes
@@ -140,6 +155,18 @@ Expected result:
 default and reuse-existing-secret are different base variants because Helm
 renders different Kubernetes object references.
 ```
+
+Check:
+
+```sh
+npm run verify-install:cluster -- \
+  --chart bitnami/redis/25.5.3 \
+  --base reuse-existing-secret \
+  --context <your-context> \
+  --namespace redis
+```
+
+Expect StatefulSets, PVCs, Redis PING, and target Secret checks to pass.
 
 ## Tutorial 3: Prometheus Base Variant
 
@@ -252,6 +279,23 @@ It does not create a new Helm render unless the requested change alters the
 Kubernetes object set.
 ```
 
+Check:
+
+```sh
+cub space get Prometheus-prod-us-east
+cub unit list --space Prometheus-prod-us-east \
+  --columns Unit.Slug,Unit.Labels.Variant,Unit.DeleteGates,Unit.DestroyGates
+```
+
+Expect 8 cloned Units. The Space carries `Variant=prod-us-east`; Units keep the
+source base label unless a post-clone operation changes them.
+
+UI:
+
+```text
+ConfigHub -> Space Prometheus-prod-us-east -> Units
+```
+
 Worked example:
 [Prometheus Promotion Example](./prometheus-overlay-promotion-example.md).
 
@@ -332,10 +376,69 @@ Plain example:
 Golden data:
 [data/managed-overlay-goldens/external-dns-customer-acme-prod/README.md](../../data/managed-overlay-goldens/external-dns-customer-acme-prod/README.md).
 
+## Before Live GitOps Runs: Bring Kubernetes And Argo CD
+
+The live GitOps tutorial needs a Kubernetes cluster with Argo CD installed and
+able to pull from the ConfigHub OCI gateway.
+
+Recommended local setup:
+
+```sh
+cub plugin install jesperfj/cub-lk
+cub lk version
+cub lk up --name helm-expt-oci-demo
+```
+
+`cub lk up` creates a disposable kind cluster, installs Argo CD, creates a
+dedicated kubeconfig at:
+
+```text
+$HOME/.confighub/lk/helm-expt-oci-demo.kubeconfig
+```
+
+It also creates the ConfigHub pieces used by the tutorial:
+
+```text
+helm-expt-oci-demo-cluster        cluster/root Space
+helm-expt-oci-demo-cluster/oci    OCI target
+helm-expt-oci-demo-cluster/root   root Argo Application Unit
+```
+
+If you bring your own cluster instead, set up the same contract:
+
+```text
+Kubernetes cluster is reachable with kubectl.
+Argo CD is installed in the cluster.
+Argo can reach oci.hub.confighub.com:443.
+Argo has any pull secret/token required for the ConfigHub OCI gateway.
+ConfigHub has a cluster Space with an OCI target.
+Workload Units are uploaded to a workload Space and targeted at that OCI target.
+An Argo Application points at the ConfigHub OCI repo, targetRevision latest,
+and path ./<workload-space>.
+```
+
+For this tutorial, the Argo Application source looks like:
+
+```yaml
+repoURL: oci://oci.hub.confighub.com:443/target/<cluster-space>/oci
+targetRevision: latest
+path: ./<workload-space>
+```
+
+When new Units are applied to the OCI target, ConfigHub publishes a new OCI
+revision. Argo reconciles that revision and applies the objects to the cluster.
+If you need to force Argo to poll immediately, refresh the Application:
+
+```sh
+kubectl -n argocd annotate application nginx \
+  argocd.argoproj.io/refresh=hard \
+  --overwrite
+```
+
 ## Tutorial 6: GitOps And Runtime Proof
 
-This shows the next live proof lane after local render and ConfigHub upload
-proof.
+This runs the OCI/GitOps path with a local kind cluster, ConfigHub OCI, and
+Argo CD.
 
 ```text
 ConfigHub OCI artifact
@@ -344,7 +447,80 @@ ConfigHub OCI artifact
 -> runtime observation receipt records digest, sync result, checks, and freshness
 ```
 
-The current generated first wave is:
+Run the first live example:
+
+```sh
+python3 tests/chart-install-test \
+  --package packages/bitnami/nginx/24.0.2 \
+  --slug nginx \
+  --namespace nginx \
+  --rig helm-expt-oci-demo \
+  --base http-clusterip \
+  --helm-expt "$PWD" \
+  --wait 240 \
+  --keep \
+  --json
+```
+
+Expected result:
+
+```text
+render: PASS
+confighub: PASS
+argo: PASS, nginx Synced/Healthy
+runtime: PASS, deployment.apps/nginx 1/1
+```
+
+Check the controller:
+
+```sh
+KUBECONFIG="$HOME/.confighub/lk/helm-expt-oci-demo.kubeconfig" \
+kubectl --context kind-helm-expt-oci-demo get applications -n argocd \
+  -o custom-columns='NAME:.metadata.name,SYNC:.status.sync.status,HEALTH:.status.health.status,REV:.status.sync.revision'
+```
+
+Expected result:
+
+```text
+helm-expt-oci-demo-cluster   Synced   Healthy   sha256:...
+nginx                        Synced   Healthy   sha256:...
+```
+
+Check the workload:
+
+```sh
+KUBECONFIG="$HOME/.confighub/lk/helm-expt-oci-demo.kubeconfig" \
+kubectl --context kind-helm-expt-oci-demo get deploy,pods,svc -n nginx -o wide
+```
+
+Expected result:
+
+```text
+deployment.apps/nginx   1/1
+pod/nginx-...           1/1 Running
+service/nginx           ClusterIP
+```
+
+Check ConfigHub:
+
+```sh
+cub unit list --space helm-expt-oci-demo-nginx \
+  --columns Unit.Slug,Target.Slug,UnitStatus.Status,Unit.LiveRevisionNum,Unit.LastAppliedRevisionNum
+```
+
+Expected result:
+
+```text
+6 workload Units are Ready on target oci.
+installer-record is NotLive.
+```
+
+In the ConfigHub UI, open space `helm-expt-oci-demo-cluster` to see `root` and
+`nginx-app`. Open space `helm-expt-oci-demo-nginx` to see the workload Units.
+In Argo CD, open `http://localhost:30010` and check that `root` and `nginx` are
+both `Synced` and `Healthy`.
+
+Verify the committed first-wave receipt index:
 
 ```sh
 npm run runtime-gitops:wave:verify
@@ -361,8 +537,8 @@ data/runtime-gitops/receipt-index.csv
 Expected result today:
 
 ```text
-The repo identifies the first ten chart/base/controller pairs and required
-receipt paths. A row is not GitOps-proven until the receipt exists.
+The first-wave index validates the committed NGINX Argo/OCI receipt and lists
+the remaining chart/base/controller pairs that still need receipts.
 ```
 
 ## Tutorial 7: Hook Lifecycle Proof
@@ -485,6 +661,15 @@ cub installer upload \
   --unit-label Variant=http-clusterip
 ```
 
+Check:
+
+```sh
+cub unit list --space helm-nginx-http-clusterip \
+  --columns Unit.Slug,Unit.Labels.Component,Unit.Labels.Variant
+```
+
+Expect 7 Units: 6 NGINX Kubernetes objects plus `installer-record`.
+
 Bulk scan the uploaded Units:
 
 ```sh
@@ -494,6 +679,8 @@ cub function vet vet-format \
   --output wide
 ```
 
+Expect `Passed: true` for the 6 selected NGINX Units.
+
 Create a changeset for the patch:
 
 ```sh
@@ -502,6 +689,14 @@ cub changeset create \
   nginx-bulk-hardening \
   --description "Bulk hardening patch after scan"
 ```
+
+Check:
+
+```sh
+cub changeset get --space helm-nginx-http-clusterip nginx-bulk-hardening
+```
+
+Expect the changeset to exist in `helm-nginx-http-clusterip`.
 
 Bulk patch metadata and gates for every matching Unit:
 
@@ -517,6 +712,16 @@ cub unit update --patch \
   --destroy-gate production-review
 ```
 
+Check:
+
+```sh
+cub unit list --space helm-nginx-http-clusterip \
+  --where "Labels.Component = 'NGINX' AND Labels.Variant = 'http-clusterip'" \
+  --columns Unit.Slug,Unit.Labels.ScanDisposition,Unit.DeleteGates,Unit.DestroyGates
+```
+
+Expect 6 Units with `ScanDisposition=reviewed` and `production-review` gates.
+
 If there is an approved mutating function for the field you want to change, use
 `cub function set` instead of ad hoc file editing. Always dry-run first:
 
@@ -529,6 +734,9 @@ cub function set --dry-run \
   set-image nginx nginx:1.25.5
 ```
 
+Expect one changed path on `deployment-nginx-nginx`:
+`spec.template.spec.containers.?name=nginx.image`.
+
 Apply the same function after reviewing the mutation output:
 
 ```sh
@@ -540,6 +748,14 @@ cub function set \
   set-image nginx nginx:1.25.5
 ```
 
+Check:
+
+```sh
+cub unit data deployment-nginx-nginx --space helm-nginx-http-clusterip
+```
+
+Expect the main `nginx` container image to be `nginx:1.25.5`.
+
 Re-scan the changed Units:
 
 ```sh
@@ -550,12 +766,40 @@ cub function vet vet-format \
   --output wide
 ```
 
+Expect `Passed: true` for the 6 selected NGINX Units.
+
 Bulk approve the reviewed current revisions:
 
 ```sh
 cub unit approve \
   --space helm-nginx-http-clusterip \
   --where "Labels.Component = 'NGINX' AND Labels.Variant = 'http-clusterip'"
+```
+
+Verify the whole bulk-ops result:
+
+```sh
+npm run verify-bulk-ops:nginx -- \
+  --space helm-nginx-http-clusterip \
+  --changeset nginx-bulk-hardening
+```
+
+Expected result:
+
+```text
+PASS verify-bulk-ops:nginx helm-nginx-http-clusterip
+units: 6
+approved units: 6
+deployment image: nginx:1.25.5
+vet-format passes: 6
+```
+
+UI:
+
+```text
+ConfigHub -> Space helm-nginx-http-clusterip -> Units
+ConfigHub -> Space helm-nginx-http-clusterip -> Changesets -> nginx-bulk-hardening
+ConfigHub -> Unit deployment-nginx-nginx -> Data / Revisions
 ```
 
 Expected result:

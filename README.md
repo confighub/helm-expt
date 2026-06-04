@@ -177,8 +177,10 @@ ConfigHub OCI
 ```
 
 That lane depends on a live GitOps controller and cluster, so it is documented
-and exercised outside the pure local `npm run verify` corpus. See "Additional
-Options For Live Cluster Verification" below for the runtime proof path.
+and exercised outside the pure local `npm run verify` corpus. The first
+committed live receipt is NGINX through Argo CD pulling ConfigHub OCI. See
+"Additional Options For Live Cluster Verification" below for the runtime proof
+path.
 
 Start here:
 
@@ -347,6 +349,14 @@ Each command writes a receipt under `.tmp/verify-install/`. That receipt is the
 user-side proof: what you rendered, what namespace/context you checked, what
 matched, and which checks passed. Today these checks ship for Redis only. Other
 charts should follow the same pattern as `install-checks.yaml` lands per chart.
+
+The NGINX bulk-ops tutorial has a separate live ConfigHub verifier:
+
+```sh
+npm run verify-bulk-ops:nginx -- \
+  --space helm-nginx-http-clusterip \
+  --changeset nginx-bulk-hardening
+```
 
 ## Quick Start With Redis
 
@@ -545,8 +555,10 @@ Once the Units are in ConfigHub, the intended GitOps path is:
 
 Today this repo proves the chart -> recipe -> variant -> rendered objects path
 for the top 20, and proves local kind deployment for those rendered objects.
-The Argo CD / Flux OCI path is the intended delivery path and is verified in a
-separate live lane because it needs a running GitOps controller and cluster.
+The Argo CD / Flux OCI path is verified in a separate live lane because it needs
+a running GitOps controller and cluster. The first committed receipt is NGINX
+through Argo CD pulling ConfigHub OCI; the runtime/GitOps wave tracks the next
+chart/base/controller pairs.
 
 ## Current Commands Used
 

@@ -13,7 +13,7 @@ top-100 rows with local evidence: 20
 first-wave chart/base pairs:      10
 Argo CD OCI lanes:                5
 Flux OCI lanes:                   5
-first-wave receipts present:      0
+first-wave receipts present:      1
 ```
 
 ## Files

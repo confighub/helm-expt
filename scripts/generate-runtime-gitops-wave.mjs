@@ -9,7 +9,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { check, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
+import { check, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const outputRoot = join(repoRoot, "data", "runtime-gitops");
@@ -86,24 +86,28 @@ function buildReport() {
     };
   });
 
-  const receiptRows = waveRows.map((row) => ({
-    chart: row.chart,
-    version: row.version,
-    base: row.base,
-    controller: row.controller,
-    required_receipt: row.required_receipt,
-    receipt_status: existsSync(join(repoRoot, row.required_receipt)) ? "present" : "not-yet-written",
-    minimum_checks: [
-      "ConfigHub OCI artifact digest recorded",
-      "GitOps controller observed synced revision",
-      "Kubernetes resources ready",
-      "workload-specific smoke check passes where applicable",
-      "freshness timestamp recorded",
-    ].join(";"),
-  }));
+  const receiptRows = waveRows.map((row) => {
+    const receiptAbs = join(repoRoot, row.required_receipt);
+    const receiptStatus = existsSync(receiptAbs) ? "present" : "not-yet-written";
+    if (receiptStatus === "present") validateRuntimeGitOpsReceipt(row, receiptAbs);
+    return {
+      chart: row.chart,
+      version: row.version,
+      base: row.base,
+      controller: row.controller,
+      required_receipt: row.required_receipt,
+      receipt_status: receiptStatus,
+      minimum_checks: [
+        "ConfigHub OCI artifact digest recorded",
+        "GitOps controller observed synced revision",
+        "Kubernetes resources ready",
+        "workload-specific smoke check passes where applicable",
+        "freshness timestamp recorded",
+      ].join(";"),
+    };
+  });
 
   check(waveRows.length === 10, `expected 10 runtime/GitOps first-wave rows; found ${waveRows.length}`);
-  check(receiptRows.every((row) => row.receipt_status === "not-yet-written"), "runtime/GitOps wave receipts should not be pre-claimed");
 
   const outputs = {
     wave1: csv(waveRows),
@@ -112,6 +116,25 @@ function buildReport() {
   };
 
   return { outputs, waveRows };
+}
+
+function validateRuntimeGitOpsReceipt(row, receiptPath) {
+  const receipt = readYaml(receiptPath);
+  const spec = receipt.spec ?? {};
+  check(receipt.kind === "RuntimeGitOpsReceipt", `${relativeRepo(receiptPath)} kind must be RuntimeGitOpsReceipt`);
+  check(spec.chart === row.chart, `${relativeRepo(receiptPath)} chart does not match ${row.chart}`);
+  check(spec.version === row.version, `${relativeRepo(receiptPath)} version does not match ${row.version}`);
+  check(spec.base === row.base, `${relativeRepo(receiptPath)} base does not match ${row.base}`);
+  check(spec.controller === row.controller, `${relativeRepo(receiptPath)} controller does not match ${row.controller}`);
+  check(spec.packagePath === row.package_path, `${relativeRepo(receiptPath)} packagePath does not match ${row.package_path}`);
+  check(spec.recipePath === row.recipe_path, `${relativeRepo(receiptPath)} recipePath does not match ${row.recipe_path}`);
+  check(spec.result === "pass", `${relativeRepo(receiptPath)} result must be pass`);
+  check(/^sha256:[0-9a-f]{64}$/.test(spec.oci?.revision ?? ""), `${relativeRepo(receiptPath)} must record an OCI sha256 revision`);
+  check(spec.observedAt, `${relativeRepo(receiptPath)} must record observedAt`);
+  check(Array.isArray(spec.checks) && spec.checks.length >= 4, `${relativeRepo(receiptPath)} must include checks`);
+  for (const item of spec.checks) {
+    check(item.result === "pass", `${relativeRepo(receiptPath)} check ${item.name ?? "(unnamed)"} must pass`);
+  }
 }
 
 function summary(waveRows, receiptRows, sweepRows) {

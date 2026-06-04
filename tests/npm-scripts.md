@@ -24,6 +24,7 @@ when they are exercising installer, upload, or live-cluster paths.
 | `<chart>:generate-*` | Rebuild one chart's proof or package artifacts. | Yes |
 | `top20:local-e2e` | Run live local-kind tests and write receipts. | Yes |
 | `verify-install:*` | Check a user's own Redis install. | Writes receipts under `.tmp/` |
+| `verify-bulk-ops:*` | Check a user's own ConfigHub bulk-ops tutorial state. | Writes receipts under `.tmp/` |
 
 ## Common Commands
 
@@ -49,6 +50,16 @@ prove their own result matches the catalog.
 
 These currently ship for Redis only. Other charts should get the same user-side
 checks after their own `install-checks.yaml` files are added.
+
+## User Bulk-Ops Verification
+
+This script is for a user who followed the NGINX bulk scan and patch tutorial.
+It talks to the current ConfigHub organization, so it is not part of the
+offline `npm run verify` chain.
+
+| Command | Stage | What it proves |
+| --- | --- | --- |
+| `npm run verify-bulk-ops:nginx -- --space helm-nginx-http-clusterip --changeset nginx-bulk-hardening` | After the NGINX bulk-ops tutorial | The changeset exists, 6 NGINX Units are selected, production gates are present, Units are approved, the Deployment image is `nginx:1.25.5`, and `vet-format` passes. |
 
 ## Per-Chart Proof Scripts
 

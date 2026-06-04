@@ -1,6 +1,9 @@
 # Helm Mission — Wave 1 Runbook (reproducible on any machine)
 
 Status: **PASS** first run 2026-06-01 (rig `pilot-helm-w1`, org Cubby AI Inc).
+Repeated 2026-06-04 with rig `helm-expt-oci-0604`, NGINX `http-clusterip`,
+Argo CD OCI revision
+`sha256:98ec5a4bfccb925381b1ec304dcb4a9e884bbe06ac1bb5d69d34076a791a7f72`.
 
 Wave 1 = a newcomer installs a **vanilla public chart at its default base**,
 entirely via `cub installer` (never the helm CLI), onto a BYO cluster whose Argo
