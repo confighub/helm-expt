@@ -13,7 +13,8 @@ what the tutorial proves
 ```
 
 The first tutorials use Redis because it is small and familiar. The later
-tutorials show promotion, custom overlays, and the GitOps/runtime proof lane.
+tutorials show promotion, custom overlays, the GitOps/runtime proof lane, and
+bulk operations over uploaded ConfigHub Units.
 
 ## Run From The Repo Root
 
@@ -61,7 +62,7 @@ reachable cluster context. Tutorial 6 can create a disposable local rig with
 
 ## Picking A Path
 
-For a quick outside-eyes test, run Tutorial 1 and Tutorial 9 first. Tutorial 9 is
+For a quick outside-eyes test, run Tutorial 1 and Tutorial 7 first. Tutorial 7 is
 the most self-contained operating demo after the NGINX base is uploaded.
 
 Tutorials 2 and 6 touch live Kubernetes. Tutorial 6 also depends on Argo CD and
@@ -606,82 +607,7 @@ The first-wave index validates the committed NGINX Argo/OCI receipt and lists
 the remaining chart/base/controller pairs that still need receipts.
 ```
 
-## Tutorial 7: Hook Lifecycle Proof
-
-This shows how the project treats Helm hooks.
-
-```text
-Helm hook in source chart
--> hook resources are made explicit by render/proof
--> choose a lifecycle route
--> run that route with a controller or operator action
--> commit lifecycle or observation receipt
-```
-
-Run the current hook lifecycle index:
-
-```sh
-npm run hooks:lifecycle:verify
-```
-
-Open the generated hook lifecycle files:
-
-```text
-data/hook-lifecycle/summary.md
-data/hook-lifecycle/top100-hooks.csv
-data/hook-lifecycle/receipt-index.csv
-```
-
-What the hook index should tell you:
-
-```text
-54 top-500 charts use Helm hooks.
-5 maintained top-100 charts use Helm hooks.
-0 hook lifecycle receipts are claimed yet.
-```
-
-The rule is simple: render equivalence does not prove hook execution.
-Production support needs a chosen route and a lifecycle or observation receipt.
-
-## Tutorial 8: Top-100 Status
-
-This shows the current catalog readiness picture.
-
-```text
-top-100 recipe/package proofs
--> catalog-supported top-20
--> proof-grade next-80
--> variant richness and hard gaps
-```
-
-Verify the Top-100 status report:
-
-```sh
-npm run top100:catalog:verify
-```
-
-Open the report:
-
-```text
-data/top100-catalog-analysis/summary.md
-```
-
-Current status:
-
-```text
-100/100 have recipe/package proof artifacts.
-20/100 are catalog-supported for local-test.
-80/100 are proof-grade but not catalog-supported.
-54/100 have multiple base variants.
-46/100 are default-only.
-25/100 have at least one named hard gap for a recommended capability.
-```
-
-This is the clean status line for a colleague: the catalog proof machinery is
-real, but production support still depends on promotion review, image digest
-work, GitOps/runtime receipts, hook receipts, and per-chart gaps.
-
-## Tutorial 9: Bulk Scan And Bulk Patch
+## Tutorial 7: Bulk Scan And Bulk Patch
 
 This shows the operating value once Helm output has become ConfigHub Units.
 
