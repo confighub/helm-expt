@@ -146,6 +146,9 @@ ConfigHub -> Space helm-redis-default -> Units
 
 Full script: [docs/demo/redis/demo-script.md](../demo/redis/demo-script.md).
 
+You can see a UX proposal for this stage here:
+[Redis Quick Start UX Proposal](./ux-proposal-redis-quick-start-tutorial.md).
+
 ## Tutorial 2: Redis Secret Modes
 
 This proves why some choices are base variants, not post-render edits.
@@ -222,6 +225,9 @@ npm run verify-install:cluster -- \
 
 Expect StatefulSets, PVCs, Redis PING, and target Secret checks to pass.
 
+You can see a UX proposal for this stage here:
+[Redis Secret Modes UX Proposal](./ux-proposal-redis-secret-modes-tutorial.md).
+
 ## Tutorial 3: Prometheus Base Variant
 
 This proves how a values choice becomes a reviewed base variant when it changes
@@ -264,6 +270,9 @@ It changes the rendered YAML, so it belongs in the cub installer base path.
 
 Catalog page:
 [recipes/prometheus-community/prometheus/29.8.0/CATALOG.md](../../recipes/prometheus-community/prometheus/29.8.0/CATALOG.md).
+
+You can see a UX proposal for this stage here:
+[Prometheus Base Variant UX Proposal](./ux-proposal-prometheus-base-variant-tutorial.md).
 
 ## Tutorial 4: Prometheus Promotion Variant
 
@@ -353,6 +362,9 @@ to see `server-only-ephemeral` and `prod-us-east` side by side, both showing 8 u
 Worked example:
 [Prometheus Promotion Example](./prometheus-overlay-promotion-example.md).
 
+You can see a UX proposal for this stage here:
+[Prometheus Promotion UX Proposal](./ux-proposal-prometheus-promotion-tutorial.md).
+
 ## Tutorial 5: ExternalDNS Custom Overlay
 
 This shows how a managed or customer overlay is routed.
@@ -429,6 +441,9 @@ Plain example:
 
 Golden data:
 [data/managed-overlay-goldens/external-dns-customer-acme-prod/README.md](../../data/managed-overlay-goldens/external-dns-customer-acme-prod/README.md).
+
+You can see a UX proposal for this stage here:
+[ExternalDNS Custom Overlay UX Proposal](./ux-proposal-externaldns-custom-overlay-tutorial.md).
 
 ## Before Live GitOps Runs: Bring Kubernetes And Argo CD
 
@@ -606,6 +621,9 @@ What the receipt index should tell you:
 The first-wave index validates the committed NGINX Argo/OCI receipt and lists
 the remaining chart/base/controller pairs that still need receipts.
 ```
+
+You can see a UX proposal for this stage here:
+[GitOps And Runtime Proof UX Proposal](./ux-proposal-gitops-runtime-proof-tutorial.md).
 
 ## Tutorial 7: Bulk Scan And Bulk Patch
 
@@ -810,6 +828,9 @@ Helm gives you a rendered release.
 ConfigHub gives you a searchable object set you can scan, patch, review,
 approve, and audit as a group.
 ```
+
+You can see a UX proposal for this stage here:
+[Bulk Scan And Bulk Patch UX Proposal](./ux-proposal-bulk-scan-patch-tutorial.md).
 
 ## See what you built
 
