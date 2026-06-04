@@ -313,7 +313,8 @@ sets the downstream Space labels such as `Variant=prod-us-east`,
 `Environment=Prod`, and `Region=us-east`. Cloned Units keep the source base
 labels unless a post-clone trigger or later bulk update changes them.
 
-The user-facing Creator should make that look like:
+A future/polished [Creator flow](../reference/variant-creation-artifact.md#creator-status)
+should present this as:
 
 ```text
 Create variant

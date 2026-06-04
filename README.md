@@ -142,6 +142,9 @@ For the OCI delivery boundary, see
 For Helm hooks specifically, see
 [Hook Lifecycle Strategy](./docs/user/hook-lifecycle-strategy.md).
 
+For a single serial order through the user docs, see
+[User Docs Reading Order](./docs/user/README.md).
+
 ## What Is Proven Today
 
 > **What a full test run verifies — and what you can expect to be true:** see
@@ -215,6 +218,9 @@ I want to see what charts and variants exist.
 
 I want a short show-and-tell sequence.
   Read docs/user/tutorial-sequence.md.
+
+I want the user docs in order.
+  Read docs/user/README.md.
 
 I want to understand how to create variants.
   Read docs/user/creating-variants.md.
