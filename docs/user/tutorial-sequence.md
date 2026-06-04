@@ -840,3 +840,5 @@ After completing the tutorials, browse the configurations you created in the Con
   `server-only-ephemeral` and `prod-us-east` side by side with their cloned units and sync status
   (produced by Tutorials 3 and 4).
 - Use the left-hand component tree to navigate to Redis, NGINX, and other components you uploaded.
+
+![ConfigHub Promotion view showing server-only-ephemeral promoting to prod-us-east](../images/promotion-ui.png)
