@@ -139,7 +139,6 @@ The new top-500 outputs should live under a new path, for example:
 data/top500-catalog-analysis/
   raw.json
   review.csv
-  review.xlsx
   summary.md
 ```
 

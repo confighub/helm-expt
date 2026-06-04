@@ -37,6 +37,9 @@ Start with [npm-scripts.md](npm-scripts.md) when you want to know what each
   digest next actions.
 - `../data/runtime-gitops/summary.md` — first Argo/Flux OCI live-proof wave and
   the required receipt index.
+- `../data/hook-lifecycle/summary.md` — maintained charts with Helm hooks and
+  the lifecycle receipt paths needed before production support can claim hook
+  execution evidence.
 - `../data/image-digest-workdown/summary.md` — rendered image digest review
   queue for production OCI support.
 - `../data/next-ten-waves/summary.md` — compact next rows for the current

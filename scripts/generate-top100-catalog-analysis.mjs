@@ -31,6 +31,9 @@ if (mode === "--generate") {
   check(readFileSync(rawPath, "utf8") === report.rawJson, "top100 catalog analysis raw JSON is stale");
   check(readFileSync(reviewCsvPath, "utf8") === report.reviewCsv, "top100 catalog analysis review CSV is stale");
   check(readFileSync(summaryPath, "utf8") === report.summaryText, "top100 catalog analysis summary is stale");
+  for (const output of advertisedOutputs(report.summaryText)) {
+    check(existsSync(join(repoRoot, output)), `top100 catalog analysis summary advertises missing output: ${output}`);
+  }
   console.log("verified top100 catalog analysis outputs");
 } else {
   console.log(`Usage:
@@ -212,6 +215,18 @@ The hard-gap column is about missing recommended capabilities, not total chart
 failure. For example, a chart may have a working default recipe while still
 lacking an \`existing-secret\`, \`no-crds\`, or HA path for a specific variant.
 
+## Current User Answer
+
+| Question | Count | Answer |
+| --- | ---: | --- |
+| Can the repo prove a maintained recipe/package path exists? | ${summary.rows} | Yes. Every top-100 entry has recipe/package proof artifacts. |
+| Can a user try it through the public local-test catalog lane today? | ${summary.top20CatalogSupported} | Yes, for the top-20 declared local-test scope. |
+| Does it still need catalog promotion review before support is claimed? | ${summary.next80ProofGrade} | Yes. These entries are proof-grade, not catalog-supported. |
+| Does it already have more than one base variant? | ${summary.multiVariant} | Yes. These entries cover more than the default shape. |
+| Is it still default-only? | ${summary.defaultOnly} | Yes. These entries need user-shaped variants before a strong catalog recommendation. |
+| Does it have a named hard gap for at least one recommended capability? | ${summary.hardGap} | Yes. The core recipe may work, but one useful variant or capability is missing or blocked. |
+| Is a supported top-20 chart behind the latest upstream version? | ${summary.latestUpdateAvailable} | Yes. These need promotion proof before the catalog points at the newer chart. |
+
 ## Top-20 Update Candidates
 
 | Chart | Supported version | Latest version | Variants | Required action |
@@ -263,6 +278,15 @@ function reviewHeaders() {
     "catalog_path",
     "helm_pain_report",
   ];
+}
+
+function advertisedOutputs(summaryText) {
+  const match = summaryText.match(/## Outputs\n\n```text\n([\s\S]*?)\n```/);
+  check(match, "top100 catalog analysis summary must contain an Outputs block");
+  return match[1]
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
 }
 
 function toCsv(rows, headers) {
