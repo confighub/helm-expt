@@ -211,6 +211,9 @@ I want to check the repo quickly.
 I want to see what charts and variants exist.
   Open CATALOG.md.
 
+I want a short show-and-tell sequence.
+  Read docs/user/tutorial-sequence.md.
+
 I want to understand how to create variants.
   Read docs/user/creating-variants.md.
 
