@@ -34,9 +34,7 @@ npm run top500:catalog        # regenerate (reads chart-facts.json — run chart
 npm run top500:catalog:verify
 ```
 
-> No `.xlsx` here on purpose: `review.csv` is the canonical front sheet. The old `review.xlsx`
-> export depended on a workbook builder that isn't in this repo's toolchain, so it drifted stale and
-> was removed. Open `review.csv` in any spreadsheet; rebuild a workbook from it if you need `.xlsx`.
+`review.csv` is the canonical front sheet and can be opened in any spreadsheet.
 
 ## Top-100 proof surface
 
@@ -68,6 +66,7 @@ npm run top100:catalog && npm run top100:catalog:verify
 | `data/quirk-review-queue/` | the Level-2 residue, made actionable | `npm run quirk-queue:generate` |
 | `data/attack-plan-workdown/` | generated next-action index for import, gaps, variants, production, runtime/GitOps, latest candidates, and image digests | `npm run attack-plan:generate` |
 | `data/runtime-gitops/` | first-wave Argo/Flux OCI live-proof plan and required receipt index | `npm run runtime-gitops:wave` |
+| `data/hook-lifecycle/` | maintained hook-bearing charts and required lifecycle receipt paths | `npm run hooks:lifecycle` |
 | `data/image-digest-workdown/` | rendered image digest review queue by chart and variant | `npm run image-digests:workdown` |
 | `data/next-ten-waves/` | compact first rows for gaps, latest promotion, variants, production disposition, and import examples | `npm run next-ten:waves` |
 
@@ -88,6 +87,7 @@ npm run top100:catalog              # reads top500 + chart-facts.json
 npm run catalog:index               # CATALOG.md
 npm run attack-plan:generate        # reads the refreshed data and emits the workdown index
 npm run runtime-gitops:wave         # first GitOps/OCI receipt wave from the sweep
+npm run hooks:lifecycle             # hook-bearing maintained charts and receipt index
 npm run image-digests:workdown      # image pinning review queue
 npm run next-ten:waves              # compact execution queues for the next work
 ```

@@ -572,7 +572,6 @@ data/top500-catalog-analysis/
   raw.json
   review.csv
   drilldown.csv
-  review.xlsx
   summary.md
 ```
 

@@ -74,6 +74,18 @@ The hard-gap column is about missing recommended capabilities, not total chart
 failure. For example, a chart may have a working default recipe while still
 lacking an `existing-secret`, `no-crds`, or HA path for a specific variant.
 
+## Current User Answer
+
+| Question | Count | Answer |
+| --- | ---: | --- |
+| Can the repo prove a maintained recipe/package path exists? | 100 | Yes. Every top-100 entry has recipe/package proof artifacts. |
+| Can a user try it through the public local-test catalog lane today? | 20 | Yes, for the top-20 declared local-test scope. |
+| Does it still need catalog promotion review before support is claimed? | 80 | Yes. These entries are proof-grade, not catalog-supported. |
+| Does it already have more than one base variant? | 54 | Yes. These entries cover more than the default shape. |
+| Is it still default-only? | 46 | Yes. These entries need user-shaped variants before a strong catalog recommendation. |
+| Does it have a named hard gap for at least one recommended capability? | 25 | Yes. The core recipe may work, but one useful variant or capability is missing or blocked. |
+| Is a supported top-20 chart behind the latest upstream version? | 6 | Yes. These need promotion proof before the catalog points at the newer chart. |
+
 ## Top-20 Update Candidates
 
 | Chart | Supported version | Latest version | Variants | Required action |

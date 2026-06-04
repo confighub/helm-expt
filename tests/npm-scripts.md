@@ -102,6 +102,7 @@ These keep the generated catalog/data surfaces current.
 | `npm run quirk-queue:generate` / `quirk-queue:verify` | Quirks disclosed but still needing review or follow-up. |
 | `npm run attack-plan:generate` / `attack-plan:verify` | Generated workdown for import, gaps, variants, production, runtime/GitOps, latest candidates, and image digests. |
 | `npm run runtime-gitops:wave` / `runtime-gitops:wave:verify` | First Argo/Flux OCI live-proof wave and required receipt paths. |
+| `npm run hooks:lifecycle` / `hooks:lifecycle:verify` | Maintained charts with Helm hooks and required lifecycle receipt paths. |
 | `npm run image-digests:workdown` / `image-digests:workdown:verify` | Rendered image digest review queue by chart and variant. |
 | `npm run next-ten:waves` / `next-ten:waves:verify` | Compact next work rows for gaps, latest promotion, variants, production disposition, and import examples. |
 | `npm run catalog:index` / `catalog:index:verify` | Root `CATALOG.md`. |
@@ -139,7 +140,7 @@ verification and artifact-generation layer.
 | Change | Minimum checks |
 | --- | --- |
 | Documentation only | `npm run docs:verify` and `npm run installer:command-surface:verify` |
-| Generated data or catalog | Relevant `*:verify`, `npm run attack-plan:verify` if workdown inputs changed, then `npm run runtime-gitops:wave:verify`, `npm run image-digests:workdown:verify`, `npm run next-ten:waves:verify`, and `npm run site:verify` if the site reads it |
+| Generated data or catalog | Relevant `*:verify`, `npm run attack-plan:verify` if workdown inputs changed, then `npm run runtime-gitops:wave:verify`, `npm run hooks:lifecycle:verify`, `npm run image-digests:workdown:verify`, `npm run next-ten:waves:verify`, and `npm run site:verify` if the site reads it |
 | Recipe or package | Chart-specific verify scripts if curated, plus `npm run verify:artifact-chain` |
 | Top-20 chart proof | `<chart>:compare`, `<chart>:verify-proof`, `<chart>:verify-package`, and `npm run top20:verify-local-e2e` if receipts changed |
 | Chart-facts/top100/top500 data | `npm run chart-facts:verify`, `npm run top100:catalog:verify`, `npm run top500:catalog:verify` |

@@ -69,9 +69,10 @@ supported but production-blocked: 20
   base, proves Helm-equivalence (`cub installer setup` re-emits it), and regenerates all
   bookkeeping; `scripts/run-variant-wave.mjs` drives it in resumable waves. Three waves
   (no-crds ×2, ha) lifted multi-variant proofs in this matrix to 50.
-- **Hooks are handled by lifecycle policy, not flagged.** Helm hooks have an execution
-  home — ConfigHub applies the hook resources, or the GitOps controller runs them (Flux's
-  helm-controller, or Argo's equivalent). Not a per-chart judgment call.
+- **Hooks are routed through lifecycle policy.** Render equivalence does not prove hook
+  execution. A chart with hooks still needs a lifecycle disposition for the chosen route,
+  such as plain applied resources, GitOps-controller behavior, or an operator-reviewed
+  action, plus lifecycle or observation receipts before production support.
 - **Placeholders ≠ extension slots.** Safe, bounded fill-fields (image, replicas, hostname)
   are *placeholders* — filled on derived ConfigHub variants with no re-render. Open
   injection points (`extraManifests`, `tpl`) are *extension slots* — arbitrary,
@@ -88,7 +89,7 @@ supported but production-blocked: 20
 | File | Use |
 | --- | --- |
 | `summary.md` | Human summary and next actions. |
-| `review.csv` / `review.xlsx` | Short front sheet: one row per top-500 chart with proof/catalog status. |
+| `review.csv` | Short front sheet: one row per top-500 chart with proof/catalog status. |
 | `drilldown.csv` | Wider evidence table for control points and source features. |
 | `raw.json` | Machine-readable generated report. |
 | `source/source-feature-scan.raw.json` | Historical source scan input used to build the current catalog analysis. |
@@ -142,6 +143,5 @@ data/top500-catalog-analysis/raw.json
 data/top500-catalog-analysis/review.csv
 data/top500-catalog-analysis/drilldown.csv
 data/top500-catalog-analysis/summary.md
-data/top500-catalog-analysis/review.xlsx
 data/top500-catalog-analysis/source/source-feature-scan.raw.json
 ```

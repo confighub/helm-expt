@@ -155,6 +155,20 @@ cub variant create
 ConfigHub Units, Spaces, labels, links, gates, functions, and receipts
 ```
 
+The current CLI primitive is:
+
+```sh
+cub variant create prod-us-east helm-prometheus-server-only \
+  --environment Prod \
+  --region us-east \
+  --target monitoring-targets/prod-us-east \
+  --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}'
+```
+
+That command clones the upstream Space and Units, sets the downstream Variant
+label to `prod-us-east`, stamps environment/region/target metadata, and links
+the cloned Units back to their upstream Units.
+
 The polished Creator flow should make those building blocks easy to use. It
 should not introduce a separate variant system.
 
