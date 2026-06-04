@@ -9,6 +9,10 @@ through the manual user docs.
 You do not need every document on a first pass. Stop after step 6 if you only
 want the practical user flow.
 
+The [Tutorial Sequence](./tutorial-sequence.md) also links each stage to a
+companion UX proposal. Those proposal files are product sketches, not extra
+required reading for the first pass.
+
 | Step | File | Read It For |
 | --- | --- | --- |
 | 1 | [Tutorial Sequence](./tutorial-sequence.md) | A short show-and-tell path with commands, checks, and expected results. |
