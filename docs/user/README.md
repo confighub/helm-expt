@@ -13,6 +13,9 @@ The [Tutorial Sequence](./tutorial-sequence.md) also links each stage to a
 companion UX proposal. Those proposal files are product sketches, not extra
 required reading for the first pass.
 
+If your first question is "why is this better than `cub helm install` or
+`cub gitops import`?", read [Brian Entry: Why This Exists](./brian-entry.md).
+
 | Step | File | Read It For |
 | --- | --- | --- |
 | 1 | [Tutorial Sequence](./tutorial-sequence.md) | A short show-and-tell path with commands, checks, and expected results. |

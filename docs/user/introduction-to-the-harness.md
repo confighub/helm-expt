@@ -95,7 +95,8 @@ checks steps 8-12.
 | generated password/cert/time | generated fact binding before render |
 | kube version/API branching | capability profile |
 | raw manifests, `tpl`, extra deploy | explicit extension slot, scan/gate, or block |
-| replica count, HA, ingress, TLS choice | variant values |
+| replica count over an existing workload field | approved post-render field, derived variant, or Day-2 operation |
+| HA, ingress, TLS choice, or replica/topology mode | variant values when it changes chart branches, object shape, or lifecycle behavior |
 | values file / `--set` overlay | recipe/base variant when it changes Helm render inputs or object shape; derived ConfigHub variant only when filling approved existing fields |
 | wrapper chart + platform/customer values | managed overlay import with source/dependency/effective-values locks |
 | Kustomize overlay that changes resources | recipe/base overlay with digest and rendered diff |
@@ -220,14 +221,15 @@ Derived ConfigHub variant-level:
   observation policy
 ```
 
-Normal Helm-rendered changes such as replica count, HA mode, TLS posture,
-cloud/provider settings, CRD posture, or existing-Secret mode become
-recipe/base variants. Approved post-render changes such as target,
-environment, region, labels, gates, links, target facts, placeholders,
+Normal Helm-rendered changes such as HA mode, TLS posture, cloud/provider
+settings, CRD posture, existing-Secret mode, or replica/topology modes that
+change chart branches or object shape become recipe/base variants. Approved
+post-render changes such as target, environment, region, replica count over an
+existing workload field, labels, gates, links, target facts, placeholders,
 TransformPaths, functions, checks, and already-rendered editable fields become
-derived ConfigHub variants. Create another recipe only when the chart source,
-chart version, umbrella composition, import strategy, or recipe semantics
-materially differ.
+derived ConfigHub variants or Day-2 operations. Create another recipe only
+when the chart source, chart version, umbrella composition, import strategy, or
+recipe semantics materially differ.
 
 For product-tier boundaries, see
 [Product Support Tiers For Helm Scenarios](./product-support-tiers.md).

@@ -122,7 +122,8 @@ Examples:
 
 | Customization | Route |
 | --- | --- |
-| Helm values file that changes replicas, storage, ingress, CRDs, RBAC, args, env, or object count | new `cub installer` base / rendered revision |
+| Helm values file that changes storage, ingress, CRDs, RBAC, args, env, object count, topology, or lifecycle behavior | new `cub installer` base / rendered revision |
+| Replica count over an already-rendered workload field | derived ConfigHub variant or Day-2 operation when the base allows that path; base variant only when it changes topology or chart branches |
 | Kustomize overlay that changes the install shape | explicit recipe/base overlay with digest and diff |
 | Namespace, target, labels, approval gates, observation policy | derived ConfigHub variant |
 | Existing Secret reference already represented in the rendered objects | derived ConfigHub variant with target fact/check |
@@ -144,6 +145,8 @@ For Helm hooks specifically, see
 
 For a single serial order through the user docs, see
 [User Docs Reading Order](./docs/user/README.md).
+If you are asking why this is not just `cub helm install`, start with
+[Brian Entry: Why This Exists](./docs/user/brian-entry.md).
 
 ## What Is Proven Today
 
