@@ -133,6 +133,7 @@
     "nginx:verify-proof:self-test": "node scripts/nginx-proof.mjs --verify-proof-self-test",
     "nginx:verify-package": "node scripts/nginx-proof.mjs --verify-package",
     "nginx:verify-confighub-proof": "node scripts/verify-nginx-confighub-proof-lanes.mjs",
+    "verify-bulk-ops:nginx": "node scripts/verify-nginx-bulk-ops-live.mjs",
     "nginx:compare": "node scripts/nginx-proof.mjs --compare",
     "tempo:generate-proof": "node scripts/tempo-proof.mjs --generate-proof",
     "tempo:generate-package": "node scripts/tempo-proof.mjs --generate-package",
