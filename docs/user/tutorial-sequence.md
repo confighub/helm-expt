@@ -347,9 +347,8 @@ source base label unless a post-clone operation changes them.
 
 Where to look in the UI:
 
-```text
-ConfigHub -> Space Prometheus-prod-us-east -> Units
-```
+Open the [ConfigHub Promotion view for Prometheus](https://auth.confighub.com/x/promotion?app=Prometheus)
+to see `server-only-ephemeral` and `prod-us-east` side by side, both showing 8 units in sync.
 
 Worked example:
 [Prometheus Promotion Example](./prometheus-overlay-promotion-example.md).
@@ -811,3 +810,12 @@ Helm gives you a rendered release.
 ConfigHub gives you a searchable object set you can scan, patch, review,
 approve, and audit as a group.
 ```
+
+## See what you built
+
+After completing the tutorials, browse the configurations you created in the ConfigHub UI:
+
+- [Promotion view — Prometheus](https://auth.confighub.com/x/promotion?app=Prometheus) — shows
+  `server-only-ephemeral` and `prod-us-east` side by side with their cloned units and sync status
+  (produced by Tutorials 3 and 4).
+- Use the left-hand component tree to navigate to Redis, NGINX, and other components you uploaded.
