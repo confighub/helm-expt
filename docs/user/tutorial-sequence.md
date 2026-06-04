@@ -406,3 +406,140 @@ Current status:
 This is the clean status line for a colleague: the catalog proof machinery is
 real, but production support still depends on promotion review, image digest
 work, GitOps/runtime receipts, hook receipts, and per-chart gaps.
+
+## Tutorial 9: Bulk Scan And Bulk Patch
+
+This shows the operating value once Helm output has become ConfigHub Units.
+
+```text
+uploaded ConfigHub Units
+-> bulk scan the selected Units
+-> create a changeset
+-> bulk patch metadata, gates, or approved fields
+-> re-scan
+-> bulk approve the reviewed revision
+```
+
+Use NGINX as the small example:
+
+```text
+Component: NGINX
+Base variant: http-clusterip
+Space: helm-nginx-http-clusterip
+```
+
+Upload or select the reviewed base first:
+
+```sh
+cub installer setup \
+  --pull packages/bitnami/nginx/24.0.2 \
+  --base http-clusterip \
+  --work-dir .tmp/demo/nginx-http \
+  --non-interactive \
+  --namespace nginx
+
+cub installer upload \
+  --work-dir .tmp/demo/nginx-http \
+  --space helm-nginx-http-clusterip \
+  --component NGINX \
+  --layer App \
+  --environment Demo \
+  --owner ConfigHubHelm \
+  --variant http-clusterip \
+  --unit-label Component=NGINX \
+  --unit-label HelmChart=bitnami-nginx \
+  --unit-label HelmChartVersion=24.0.2 \
+  --unit-label Variant=http-clusterip
+```
+
+Bulk scan the uploaded Units:
+
+```sh
+cub function vet vet-format \
+  --space helm-nginx-http-clusterip \
+  --where "Labels.Component = 'NGINX' AND Labels.Variant = 'http-clusterip'" \
+  --output wide
+```
+
+Create a changeset for the patch:
+
+```sh
+cub changeset create \
+  --space helm-nginx-http-clusterip \
+  nginx-bulk-hardening \
+  --description "Bulk hardening patch after scan"
+```
+
+Bulk patch metadata and gates for every matching Unit:
+
+```sh
+cub unit update --patch \
+  --space helm-nginx-http-clusterip \
+  --where "Labels.Component = 'NGINX' AND Labels.Variant = 'http-clusterip'" \
+  --changeset nginx-bulk-hardening \
+  --change-desc "Mark NGINX Units as scanned and production-review gated" \
+  --label ScanDisposition=reviewed \
+  --label Operation=bulk-scan-patch \
+  --delete-gate production-review \
+  --destroy-gate production-review
+```
+
+If there is an approved mutating function for the field you want to change, use
+`cub function set` instead of ad hoc file editing. Always dry-run first:
+
+```sh
+cub function set --dry-run \
+  --space helm-nginx-http-clusterip \
+  --where "Labels.Component = 'NGINX' AND Labels.Variant = 'http-clusterip'" \
+  --changeset nginx-bulk-hardening \
+  --output mutations \
+  set-image nginx nginx:1.25.5
+```
+
+Apply the same function after reviewing the mutation output:
+
+```sh
+cub function set \
+  --space helm-nginx-http-clusterip \
+  --where "Labels.Component = 'NGINX' AND Labels.Variant = 'http-clusterip'" \
+  --changeset nginx-bulk-hardening \
+  --change-desc "Set reviewed NGINX image" \
+  set-image nginx nginx:1.25.5
+```
+
+Re-scan the changed Units:
+
+```sh
+cub function vet vet-format \
+  --space helm-nginx-http-clusterip \
+  --where "Labels.Component = 'NGINX' AND Labels.Variant = 'http-clusterip'" \
+  --changeset nginx-bulk-hardening \
+  --output wide
+```
+
+Bulk approve the reviewed changeset revision:
+
+```sh
+cub unit approve \
+  --space helm-nginx-http-clusterip \
+  --where "Labels.Component = 'NGINX' AND Labels.Variant = 'http-clusterip'" \
+  --revision ChangeSet:nginx-bulk-hardening
+```
+
+Expected result:
+
+```text
+The scan targets a labeled set of rendered Units.
+The patch is tied to a changeset.
+Metadata and gates can be patched in bulk with cub unit update --patch.
+Data changes use approved mutating functions such as cub function set.
+Approval is also bulk and selector-based.
+```
+
+This is the bulk-ops story we want to demonstrate:
+
+```text
+Helm gives you a rendered release.
+ConfigHub gives you a searchable object set you can scan, patch, review,
+approve, and audit as a group.
+```
