@@ -185,7 +185,7 @@ flattening them into one vague "variant" bucket.
 
 | Customization | ConfigHub Location | Notes |
 | --- | --- | --- |
-| Change replica count | `cub installer` base variant | Re-render and diff exact workloads. |
+| Change replica count | Derived ConfigHub variant or Day-2 operation when it edits an already-rendered workload field allowed by the base; `cub installer` base variant when it changes topology, object count, storage, chart branches, or lifecycle behavior | Trivial scale changes should not force a new installer base. HA/topology changes still need render proof. |
 | Use existing Secret | Base variant if object shape changes; derived ConfigHub variant only if the base already exposes the reference | Secret name and keys are recorded; secret material is not stored in the public proof. |
 | Generate password/cert once | Generated fact binding before render | Generation happens before approval, then the rendered revision is immutable. |
 | Enable ingress/TLS | Base variant plus target facts | TLS Secret and ingress class become explicit facts. |

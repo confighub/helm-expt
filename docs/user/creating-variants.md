@@ -50,7 +50,10 @@ or lifecycle behavior.
 Common examples:
 
 - turn chart components on or off;
-- change replicas, storage, ingress, TLS, CRDs, RBAC, webhooks, args, or env;
+- change storage, ingress, TLS, CRDs, RBAC, webhooks, args, env, object count,
+  or topology;
+- change replica or HA settings when they alter topology, chart branches,
+  services, PDBs, storage, or lifecycle behavior;
 - switch between generated Secret mode and existing Secret mode when the
   rendered references differ;
 - apply a Helm values file or `--set` flag that changes Helm template output
@@ -84,6 +87,8 @@ with approved post-render changes over ConfigHub Units.
 Common examples:
 
 - environment, region, customer, or target;
+- replica count when it is an approved edit to an already-rendered workload
+  field;
 - namespace when the base exposes it as a post-render field;
 - ConfigHub labels, annotations, views, links, and ownership;
 - approval gates and operation policy;

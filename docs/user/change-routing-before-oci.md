@@ -26,8 +26,10 @@ and lifecycle policy. They produce a new reviewed rendered object set.
 Use a base variant for:
 
 - enabling or disabling chart components;
-- changing replicas, storage, ingress, TLS, RBAC, CRDs, webhooks, args, env, or
-  object count;
+- changing storage, ingress, TLS, RBAC, CRDs, webhooks, args, env, object count,
+  topology, or lifecycle behavior;
+- changing replica or HA settings when they alter topology, chart branches,
+  services, PDBs, storage, or lifecycle behavior;
 - choosing generated Secret versus existing Secret mode when the Helm render or
   object shape differs;
 - applying a Helm values file or `--set` input that changes chart branches,
@@ -65,6 +67,8 @@ the changed paths, facts, functions, and checks.
 Use a derived variant for:
 
 - environment, region, customer, or target assignment;
+- replica count when it is an approved edit to an already-rendered workload
+  field;
 - namespace or release-name fields when the base exposes them for post-render
   fill;
 - labels and annotations used by ConfigHub views, filters, ownership, or
