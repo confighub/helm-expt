@@ -409,7 +409,7 @@ Example base:
 ExternalDNS/managed-aws-acme
 ```
 
-Render-time overlay values:
+Installer/base values that change rendered Kubernetes YAML:
 
 ```yaml
 provider: aws
