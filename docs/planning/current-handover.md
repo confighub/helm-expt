@@ -206,9 +206,20 @@ ConfigHub proof lane. The Redis-specific verifier now checks the common
 `upload.kubernetesUnitCount` and `serverSideVariant.downstreamSpace` fields, so
 Redis no longer preserves the older receipt schema as a special case.
 
-The next derived-variant step is target-bound live apply: create or select the
-desired targets, attach them to a subset of these derived Spaces, and record
-live Kubernetes receipts. The Grafana placeholder drift is tracked in
+The first target-bound derived-variant receipt now exists for
+`NGINX-prod-us-east`:
+
+```text
+runs/derived-variant-target-bound/nginx-prod-us-east/receipt.yaml
+npm run derived-variants:target-bound:verify
+```
+
+It proves `cub variant create --target`, target-bound cloned workload Units,
+ConfigHub OCI publication, Argo CD reconciliation, Kubernetes runtime readiness,
+and cleanup for one small chart. The next derived-variant step is to repeat the
+same target-bound live path for a stateful chart such as
+`Redis-staging-eu-west`, then for a larger observability chart such as
+`Prometheus-staging-eu-west`. The Grafana placeholder drift is tracked in
 [#156](https://github.com/confighub/helm-expt/issues/156) as a follow-up issue
 against clone/upgrade behavior.
 
@@ -411,8 +422,8 @@ headline order is:
 
 1. Make `cub variant create` current and explicit in docs, Tutorial 4, UX
    proposals, and command-surface verification (#143).
-2. Build the derived-variant expansion wave so derived ConfigHub variants get
-   real use across multiple charts (#144).
+2. Extend the target-bound derived-variant lane beyond the first NGINX live
+   receipt, starting with Redis and Prometheus (#144).
 3. Prove promotion and environment management with derived ConfigHub variants
    (#145).
 4. Close the open Helm import path P0 (#76).

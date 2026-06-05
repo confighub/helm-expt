@@ -73,6 +73,18 @@ Live Helm-vs-ConfigHub parity has started:
 - Remaining chart-recipe-variant rows are backlog until they have committed
   receipts.
 
+Target-bound derived ConfigHub variant proof has started:
+
+- `NGINX-prod-us-east` was created from a clean uploaded NGINX
+  `http-clusterip` base with `cub variant create --target`, applied to a
+  ConfigHub OCI target, reconciled by Argo CD, and observed as a live NGINX
+  Deployment in Kubernetes.
+- This proves the derived-variant operating path for one small chart: clone the
+  reviewed base, bind a real target, apply the cloned workload Units, and record
+  Argo/runtime evidence.
+- The other derived-variant receipts remain intended-state clone/link evidence
+  until they have target-bound live receipts.
+
 For the details, read the generated summaries rather than copying numbers from
 this page.
 

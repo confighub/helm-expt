@@ -3,7 +3,7 @@
 Updated: 2026-06-05
 
 This is the handover for a Codex instance with enough local resources to run
-cluster and GitOps tests. It starts from public `main` after PRs #155 and #157.
+cluster and GitOps tests. It starts from public `main` after PR #162.
 
 ## First Principle
 
@@ -20,7 +20,7 @@ Use these words precisely:
 | `GitOps live` | ConfigHub Units were published through OCI and reconciled by Argo or Flux, with sync and runtime evidence. |
 | `live parity` | A live Helm deployment was compared against both ConfigHub delivery paths: controller-driven OCI and kubectl/apply. |
 | `derived variant proof` | A downstream ConfigHub Space was created from an uploaded reviewed base, with clone/link/gate/check evidence. |
-| `target-bound derived variant` | A derived variant has a real target attached and live apply evidence. Current first-wave receipts are not target-bound. |
+| `target-bound derived variant` | A derived variant has a real target attached and live apply evidence. |
 
 The repo has useful proof. It does not yet have complete live proof.
 
@@ -48,7 +48,8 @@ Also true:
 20 top-20 chart-level ConfigHub proof receipt sets exist.
 20 top-20 local-kind receipt sets exist for selected supported scope.
 10 derived ConfigHub variants have live intended-state receipts.
-0 derived variants have target-bound live apply receipts.
+1 derived ConfigHub variant has a target-bound live apply receipt:
+`NGINX-prod-us-east`.
 10 rows have committed GitOps/OCI live receipts:
 `bitnami/redis@25.5.3 / reuse-existing-secret`,
 `prometheus-community/prometheus@29.8.0 / server-only-ephemeral`, and
@@ -105,6 +106,20 @@ PR #155 and PR #157 added:
 Important limitation: all 10 derived receipts intentionally stop before target
 binding and live apply. They prove ConfigHub intended state, not runtime.
 
+The first target-bound derived variant receipt is:
+
+```text
+runs/derived-variant-target-bound/nginx-prod-us-east/receipt.yaml
+npm run derived-variants:target-bound:verify
+```
+
+That receipt proves a clean uploaded NGINX `http-clusterip` base was cloned with
+`cub variant create --target`, the cloned workload Units were applied to a
+ConfigHub OCI target, Argo CD reconciled the derived Space, and Kubernetes
+reported the NGINX Deployment ready. It also records a product detail: the
+derived Space label changes to `Variant=prod-us-east`, while cloned Unit labels
+still preserve the source base label unless a post-clone mutation changes them.
+
 ## Known Sharp Edge
 
 Grafana generated-passwords derived variants initially cloned
@@ -137,6 +152,7 @@ npm run docs:verify
 npm run lane-tests:verify
 npm run top20:verify-confighub-proof
 npm run derived-variants:verify
+npm run derived-variants:target-bound:verify
 npm run completeness:verify
 cub version
 cub context get -o json
@@ -221,6 +237,7 @@ New users need to know what each verifier proves:
 | `npm run lane-tests:verify` | Lane matrix is current and missing/pass states are generated from evidence. | That missing lanes have been run. |
 | `npm run top20:verify-confighub-proof` | Top-20 ConfigHub proof receipt sets are present and schema-valid. | Every variant row has ConfigHub proof, or any row is live. |
 | `npm run derived-variants:verify` | Ten derived intended-state receipts exist and match expected clone/link/gate evidence. | Target-bound live apply. |
+| `npm run derived-variants:target-bound:verify` | Target-bound derived variant receipts exist and pass schema/content checks. | More than the exact committed receipts. |
 | `npm run variant-goldens:verify` | Creator and derived-variant golden files are current. | Live execution unless a separate receipt exists. |
 | `npm run completeness:verify` | Model-completeness generated outputs are current. | Runtime correctness. |
 | `npm run docs:verify` | Markdown doc map and links are internally consistent. | Docs are understandable or complete. |
