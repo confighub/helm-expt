@@ -144,8 +144,12 @@ ConfigHub variants with execution receipts. Issue #144 now has a generated
 starting wave under
 [data/variant-goldens/derived-expansion-wave/](../../data/variant-goldens/derived-expansion-wave/):
 10 derived-variant work orders across Redis, Prometheus, NGINX, Grafana, and
-Vault. The next step is to execute or deepen those work orders into full
-per-variant clone/check/mutation receipts.
+Vault. Each work order now has golden clone, mutation, and check receipt targets
+under `receipts/<work-order>/`. These are explicit proof targets, not live
+execution receipts. The next step is to run selected `cub variant create`
+commands against real reviewed Spaces and replace or supplement the golden
+targets with live clone/link, allowed-mutation, target-fact, gate, and
+observation receipts.
 
 ## 2026-06-03 Variant And Spreadsheet Findings
 
