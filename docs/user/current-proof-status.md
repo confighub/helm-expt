@@ -62,8 +62,14 @@ GitOps/OCI live proof has started:
   OCI artifact, but the selected secure mesh base needs a multi-node target for
   the three-server topology and anti-affinity rules.
 
-Live Helm-vs-ConfigHub parity remains backlog until a receipt-producing harness
-exists.
+Live Helm-vs-ConfigHub parity has started:
+
+- NGINX `http-clusterip` passes a live comparison between regular Helm,
+  ConfigHub kubectl/apply delivery, and ConfigHub OCI/Argo delivery.
+- The comparison found the expected installer-added Namespace object and no
+  semantic object diffs for the shared Kubernetes objects.
+- Remaining chart-recipe-variant rows are backlog until they have committed
+  receipts.
 
 For the details, read the generated summaries rather than copying numbers from
 this page.

@@ -25,7 +25,7 @@ delivery, or a LoadBalancer-capable cluster.
 | `confighub_upload_variant_scan_safe_ops` | The rendered objects upload to ConfigHub Units and have scan/safe-operation receipts. | A GitOps controller or cluster applied them. |
 | `local_kind_kubectl_apply` | The rendered objects were applied to a local Kubernetes cluster and workload checks passed. | Argo or Flux pulled from ConfigHub OCI. |
 | `confighub_oci_argo_live` | ConfigHub Units were published through OCI and reconciled by Argo CD, with runtime evidence. | Regular Helm was deployed side by side for parity. |
-| `live_helm_vs_confighub_dual_compare` | A live Helm deployment was compared against ConfigHub delivery paths. | This lane is still backlog until receipts exist. |
+| `live_helm_vs_confighub_dual_compare` | A live Helm deployment was compared against ConfigHub delivery paths. | Only exact rows with committed receipts pass. The lane matrix shows which rows still need evidence. |
 
 ## Commands
 
