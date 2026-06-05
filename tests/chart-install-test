@@ -166,6 +166,16 @@ def main() -> int:
     if not step("app-apply", rc, o + e):
         return fail(f"application apply failed: {(e or o)[:160]}")
 
+    # The root Argo Application watches the cluster-space OCI artifact. Force a
+    # refresh after adding the child Application Unit so the bounded wait below
+    # observes the new child promptly instead of depending on Argo's poll window.
+    rc, o, e = sh([
+        "kubectl", "--kubeconfig", kubeconfig, "--context", kctx,
+        "annotate", "application", space_cluster, "-n", "argocd",
+        "argocd.argoproj.io/refresh=hard", "--overwrite",
+    ], timeout=30)
+    step("root-refresh", rc, o + e)
+
     # 5. wait for Argo app Healthy + Synced (bounded poll)
     deadline = args.wait
     waited, sync, health = 0, "", ""

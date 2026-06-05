@@ -15,8 +15,8 @@ cluster.
 
 ```text
 chart-recipe-variant rows: 156
-complete core lane set: 0
-incomplete core lane set: 156
+complete core lane set: 1
+incomplete core lane set: 155
 ```
 
 ## Core Lane Counts
@@ -27,7 +27,7 @@ incomplete core lane set: 156
 | confighub_upload_variant_scan_safe_ops | 18 | 138 | 0 |
 | local_kind_kubectl_apply | 21 | 135 | 0 |
 | confighub_oci_argo_live | 5 | 146 | 5 |
-| live_helm_vs_confighub_dual_compare | 0 | 156 | 0 |
+| live_helm_vs_confighub_dual_compare | 1 | 155 | 0 |
 
 ## Lane Definitions
 
@@ -37,14 +37,12 @@ incomplete core lane set: 156
 | `confighub_upload_variant_scan_safe_ops` | `runs/<slug>-confighub-proof/latest/confighub-proof-receipt.yaml`, function scan receipt, and safe-ops receipt. |
 | `local_kind_kubectl_apply` | `runs/top20-local-kind/<chart>-<variant>/observation-receipt.json` or equivalent Redis local-kind receipt. |
 | `confighub_oci_argo_live` | `data/runtime-gitops/receipts/**/latest.yaml` or `tests/chart-install-test` / `tests/chart-install-sweep` receipt proving ConfigHub Units were applied to OCI and reconciled by Argo. |
-| `live_helm_vs_confighub_dual_compare` | Future receipt comparing a live `helm install` deployment against two live ConfigHub deployments: Argo/OCI or Flux, and kubectl/apply. |
+| `live_helm_vs_confighub_dual_compare` | Receipt comparing a live `helm install` deployment against live ConfigHub delivery paths: OCI/GitOps and kubectl/apply. |
 
 ## Current Gaps
 
-The live Helm-vs-ConfigHub dual comparison lane is intentionally all backlog
-until the receipt-producing harness exists. The ConfigHub OCI/Argo live lane has
-a harness, but this repo currently has no committed PASS receipts for every
-chart-recipe-variant row.
+The live Helm-vs-ConfigHub dual comparison lane has 1 PASS receipt(s) and 155 missing row(s). The ConfigHub OCI/Argo live lane has a harness, but this repo
+currently has no committed PASS receipts for every chart-recipe-variant row.
 
 ### First Missing ConfigHub Proof Rows
 

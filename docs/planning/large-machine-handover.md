@@ -37,8 +37,8 @@ helm_template_vs_installer_setup: 156 pass, 0 missing
 confighub_upload_variant_scan_safe_ops: 18 pass, 138 missing
 local_kind_kubectl_apply: 21 pass, 135 missing
 confighub_oci_argo_live: 5 pass, 146 missing, 5 fail
-live_helm_vs_confighub_dual_compare: 0 pass, 156 missing
-complete core lane set: 0
+live_helm_vs_confighub_dual_compare: 1 pass, 155 missing
+complete core lane set: 1
 ```
 
 Also true:
@@ -70,7 +70,11 @@ multi-node target for its three-server topology and anti-affinity rules.
 Argo synced the OCI artifact and the controller Deployment became Ready, but
 the kind target has no LoadBalancer external IP so Argo health stayed
 Progressing.
-0 rows have committed live Helm-vs-ConfigHub parity receipts.
+1 row has a committed live Helm-vs-ConfigHub parity receipt:
+`bitnami/nginx@24.0.2 / http-clusterip` passes regular Helm, ConfigHub
+kubectl/apply, and ConfigHub OCI/Argo delivery. The shared rendered object sets
+match semantically; the only expected difference is the installer-added
+Namespace object.
 ```
 
 The apparent tension between "20 top-20 receipt sets" and "18 row-level
@@ -175,12 +179,14 @@ day-2 upgrade and rollback for stateful or hook-heavy charts
 Use [large-machine-roadmap.md](./large-machine-roadmap.md) as the active
 roadmap. The shortest useful path is:
 
-1. Build one live parity canary for NGINX `http-clusterip`.
-2. Build one stateful/secret live parity canary for Redis `default`.
-3. Attach targets to one prod and one staging derived variant and produce
+1. Build one stateful/secret live parity canary for Redis `default`.
+2. Attach targets to one prod and one staging derived variant and produce
    target-bound live apply receipts.
-4. Add the receipt schema and verifier before expanding to more charts.
-5. Update the lane matrix to show exactly which rows moved from missing to pass.
+3. Expand the live Helm-vs-ConfigHub parity canary to a second simple chart if
+   the Redis stateful path exposes unrelated target setup problems.
+4. Keep the receipt schema and verifier as the gate before expanding to more
+   charts.
+5. Update the lane matrix after every exact row moves from missing to pass.
 
 If any part fails, record a blocked receipt or issue with the exact command,
 environment, and observed failure. A failed or blocked lane is valuable evidence

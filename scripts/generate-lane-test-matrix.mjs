@@ -259,6 +259,11 @@ function toSummary(rows) {
   const missingLive = rows.filter((row) => row.live_helm_vs_confighub_dual_compare !== "pass").slice(0, 25);
   const missingConfigHub = rows.filter((row) => row.confighub_upload_variant_scan_safe_ops !== "pass").slice(0, 25);
   const missingLocal = rows.filter((row) => row.local_kind_kubectl_apply !== "pass").slice(0, 25);
+  const liveDual = counts.live_helm_vs_confighub_dual_compare;
+  const liveDualStatus =
+    liveDual.pass === 0
+      ? "The live Helm-vs-ConfigHub dual comparison lane has no PASS receipts yet."
+      : `The live Helm-vs-ConfigHub dual comparison lane has ${liveDual.pass} PASS receipt(s) and ${liveDual.missing} missing row(s).`;
 
   return `# Lane Test Matrix
 
@@ -295,14 +300,12 @@ ${CORE_LANES.map((lane) => `| ${lane} | ${counts[lane].pass} | ${counts[lane].mi
 | \`confighub_upload_variant_scan_safe_ops\` | \`runs/<slug>-confighub-proof/latest/confighub-proof-receipt.yaml\`, function scan receipt, and safe-ops receipt. |
 | \`local_kind_kubectl_apply\` | \`runs/top20-local-kind/<chart>-<variant>/observation-receipt.json\` or equivalent Redis local-kind receipt. |
 | \`confighub_oci_argo_live\` | \`data/runtime-gitops/receipts/**/latest.yaml\` or \`tests/chart-install-test\` / \`tests/chart-install-sweep\` receipt proving ConfigHub Units were applied to OCI and reconciled by Argo. |
-| \`live_helm_vs_confighub_dual_compare\` | Future receipt comparing a live \`helm install\` deployment against two live ConfigHub deployments: Argo/OCI or Flux, and kubectl/apply. |
+| \`live_helm_vs_confighub_dual_compare\` | Receipt comparing a live \`helm install\` deployment against live ConfigHub delivery paths: OCI/GitOps and kubectl/apply. |
 
 ## Current Gaps
 
-The live Helm-vs-ConfigHub dual comparison lane is intentionally all backlog
-until the receipt-producing harness exists. The ConfigHub OCI/Argo live lane has
-a harness, but this repo currently has no committed PASS receipts for every
-chart-recipe-variant row.
+${liveDualStatus} The ConfigHub OCI/Argo live lane has a harness, but this repo
+currently has no committed PASS receipts for every chart-recipe-variant row.
 
 ### First Missing ConfigHub Proof Rows
 

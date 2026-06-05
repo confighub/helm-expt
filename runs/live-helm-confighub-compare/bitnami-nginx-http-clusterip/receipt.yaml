@@ -1,0 +1,104 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: bitnami-nginx-24.0.2-http-clusterip-live-parity-20260605
+spec:
+  chart: bitnami/nginx
+  version: 24.0.2
+  base: http-clusterip
+  result: pass
+  observedAt: "2026-06-05T12:06:00Z"
+  package:
+    path: packages/bitnami/nginx/24.0.2
+  recipe:
+    path: recipes/bitnami/nginx/24.0.2
+  variantRevision: recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml
+  run:
+    rig: helm-expt-parity-nginx-0605
+    kubeContext: kind-helm-expt-parity-nginx-0605
+    namespace: nginx
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-nginx-0605
+      result: pass
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install nginx bitnami/nginx --version 24.0.2 --namespace nginx --create-namespace --set tls.enabled=false --set service.type=ClusterIP --wait --timeout 5m
+      kubeconfigMode: explicit KUBECONFIG for the parity rig
+      manifestSHA256: bf188b8275254919e7b72b34c4e652add014d76faf779c1dfa94d43f5b444c03
+      objectCount: 5
+      runtime:
+        deployment: nginx
+        ready: "1/1"
+        serviceType: ClusterIP
+        podStatus: Running
+        image: registry-1.docker.io/bitnami/nginx:latest
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull packages/bitnami/nginx/24.0.2 --base http-clusterip --work-dir /tmp/helm-expt-parity-nginx-0605-nginx-apply --non-interactive --namespace nginx
+      applyMode: namespace-first kubectl apply
+      manifestSHA256: 920bf32e322f637e6abb1f5ccefaa0a8cdce7c56a71c913b1e2e7c3fee336583
+      objectCount: 6
+      runtime:
+        deployment: nginx
+        ready: "1/1"
+        serviceType: ClusterIP
+        podStatus: Running
+        image: registry-1.docker.io/bitnami/nginx:latest
+      note: Applying the whole manifest directory at once initially raced Namespace creation. The passing run applied the Namespace first, then the namespaced objects.
+    configHubOciArgo:
+      result: pass
+      harness: tests/chart-install-test
+      harnessPatch: root Argo Application hard refresh after child Application Unit apply
+      workloadSpace: helm-expt-parity-nginx-0605-nginx-parity-pass
+      controller: Argo CD OCI
+      app: nginx-parity-pass
+      manifestSHA256: 920bf32e322f637e6abb1f5ccefaa0a8cdce7c56a71c913b1e2e7c3fee336583
+      objectCount: 6
+      ociRevision: sha256:063d8869c4abc48c3e62e78e825a94ff24677e65efc06c73d1bfe874a50b8723
+      sync: Synced
+      health: Healthy
+      runtime:
+        deployment: nginx
+        ready: "1/1"
+        serviceType: ClusterIP
+        podStatus: Running
+        image: registry-1.docker.io/bitnami/nginx:latest
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+      - v1|Namespace||nginx
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 5
+      configHubObjectCount: 6
+      missingFromConfigHub: []
+      extraInConfigHub:
+        - v1|Namespace||nginx
+      semanticDiffs: []
+      comparisonSHA256: fbf328c3fa7a6f23ac2365c73fd4ae3ad59ebc3b9e88b0b11184c03dad03209e
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 5
+      configHubObjectCount: 6
+      missingFromConfigHub: []
+      extraInConfigHub:
+        - v1|Namespace||nginx
+      semanticDiffs: []
+      comparisonSHA256: 3b6ccfb57ff976a647e2ede2bdbc842051049ed0ee3c164e72d35cf11c417ab0
+  checks:
+    - name: regular-helm-live
+      result: pass
+      detail: Helm install reached Deployment 1/1, Service ClusterIP, pod Running.
+    - name: confighub-kubectl-apply-live
+      result: pass
+      detail: cub installer rendered objects applied with namespace-first ordering and reached Deployment 1/1.
+    - name: confighub-oci-argo-live
+      result: pass
+      detail: Argo synced the ConfigHub OCI artifact and reported the child app Healthy after 30s.
+    - name: semantic-object-parity
+      result: pass
+      detail: Both ConfigHub paths matched the Helm workload objects; the only extra object was the installer-managed Namespace.
+    - name: cleanup
+      result: pass
+      detail: cub lk down removed the parity rig and ConfigHub cluster space.

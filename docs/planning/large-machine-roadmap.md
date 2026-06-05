@@ -74,10 +74,10 @@ Outcome: one simple and one stateful chart prove live Helm-vs-ConfigHub parity.
 
 Recommended canaries:
 
-| Chart | Why |
-| --- | --- |
-| `bitnami/nginx@24.0.2 / http-clusterip` | Small object set, already has derived receipts, good first live parity lane. |
-| `bitnami/redis@25.5.3 / default` | Stateful, generated/separated Secret behavior, useful for real-world trust. |
+| Chart | Status | Why |
+| --- | --- | --- |
+| `bitnami/nginx@24.0.2 / http-clusterip` | pass | Small object set; first live parity lane with regular Helm, ConfigHub kubectl/apply, and ConfigHub OCI/Argo. |
+| `bitnami/redis@25.5.3 / default` | next | Stateful, generated/separated Secret behavior, useful for real-world trust. |
 
 For each canary, run and receipt:
 
@@ -246,7 +246,7 @@ Done when:
 
 1. Add a user-facing verification-lanes page.
 2. Add a current proof status page generated or verified from the lane matrix.
-3. Build NGINX live Helm-vs-ConfigHub parity canary.
+3. Keep the NGINX live Helm-vs-ConfigHub parity canary green.
 4. Build Redis live Helm-vs-ConfigHub parity canary.
 5. Add target-bound live receipt schema for derived variants.
 6. Target-bind and live-apply `NGINX-prod-us-east`.
