@@ -1,0 +1,118 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: TargetBoundDerivedVariantReceipt
+metadata:
+  name: nginx-customer-acme-prod-target-bound-derived-variant-20260605
+spec:
+  result: pass
+  run:
+    date: '2026-06-05'
+    observedAt: '2026-06-05T14:40:21Z'
+    organization: kubara
+    server: https://hub.confighub.com
+    kube:
+      rig: helm-expt-derived-nginx-cust-0605
+      context: kind-helm-expt-derived-nginx-cust-0605
+  source:
+    component: NGINX
+    chart: bitnami/nginx
+    chartVersion: 24.0.2
+    base: http-clusterip
+    package: packages/bitnami/nginx/24.0.2
+    sourceSpace: helm-expt-derived-nginx-customer-base-0605
+    sourceSpaceID: 2af0f3bf-5fd6-4150-aff4-9a659778312c
+  create:
+    variant: customer-acme-prod
+    downstreamSpace: NGINX-customer-acme-prod
+    environment: Prod
+    region: us-east
+    command: cub variant create customer-acme-prod helm-expt-derived-nginx-customer-base-0605
+      --environment Prod --region us-east --target helm-expt-derived-nginx-cust-0605-cluster/oci
+      --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists
+      --wait --timeout 10m -o json --unit-delete-gate production-review --unit-destroy-gate
+      production-review
+    result: pass
+    downstreamSpaceID: e7e70388-8051-4841-a641-5f699dccd2de
+    spaceLabels:
+      Component: NGINX
+      Environment: Prod
+      Layer: App
+      Owner: ConfigHubHelm
+      Region: us-east
+      Variant: customer-acme-prod
+  target:
+    slug: helm-expt-derived-nginx-cust-0605-cluster/oci
+    targetID: 0f53fbb7-851f-4488-9ff6-a5f9eb18c162
+    targetSpace: helm-expt-derived-nginx-cust-0605-cluster
+    bound: true
+  cleanup:
+    result: pass
+  clone:
+    unitCount: 7
+    workloadUnitCount: 6
+    targetBoundUnitCount: 7
+    targetBoundWorkloadUnitCount: 6
+    upstreamLinkedWorkloadUnitCount: 6
+    copiedSupportUnit:
+    - installer-record
+    productFinding:
+      unitLabelsPreserveSourceBaseVariant: true
+      note: The derived Space carries the new Variant label. Cloned workload Units
+        preserve source base labels unless post-clone mutation changes them.
+  apply:
+    result: pass
+    command: cub unit apply --space NGINX-customer-acme-prod --unit deployment-nginx-nginx,namespace-nginx,networkpolicy-nginx-nginx,poddisruptionbudget-nginx-nginx,serviceaccount-nginx-nginx,service-nginx-nginx
+    appliedUnitCount: 6
+    excludedUnits:
+    - installer-record
+    reasonForExclusion: installer-record is ConfigHub/installer support metadata,
+      not a Kubernetes resource for the workload OCI artifact.
+  argo:
+    result: pass
+    rootApplication: helm-expt-derived-nginx-cust-0605-cluster
+    childApplication: nginx-customer-acme-prod
+    repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-derived-nginx-cust-0605-cluster/oci
+    path: ./NGINX-customer-acme-prod
+    destinationNamespace: nginx
+    syncStatus: Synced
+    healthStatus: Healthy
+    revision: sha256:5868de5f6a191a140d8383766cc4fd2d5fa695548d191fa4584bb07c51734adb
+    resourceCount: 6
+  runtime:
+    result: pass
+    namespace: nginx
+    deployment:
+      name: nginx
+      ready: 1/1
+      availableReplicas: 1
+      observedGenerationMatches: true
+      rollout: pass
+    pod:
+      name: nginx-76d8f8fd77-fwbg7
+      status: Running
+      ready: 1/1
+    service:
+      name: nginx
+      type: ClusterIP
+      ports:
+      - 80/TCP
+      - 443/TCP
+  review:
+    noHelmRerender: true
+    sameInstallShape: true
+    derivedChanges:
+    - Space.Labels.Variant
+    - Space.Labels.Environment
+    - Space.Labels.Region
+    - Space.Annotations.TargetID
+    - Unit.TargetID
+    - child Argo Application Unit in the target cluster Space
+    routeBackToInstaller:
+    - change Helm values that alter rendered Kubernetes objects
+    - change component topology, storage, CRDs, Secrets, or lifecycle behavior
+  evidenceSHA256:
+    argoApplicationYaml: dddbbfb8bb4d08ecc1221a290c832c30d98bf206c1e8321664cd372ebc86445e
+    runtimeYaml: f56ceccc1132129440a3d43e2576177b91307a4b5328ea4021a24ba30b4a40a4
+    downstreamUnitsJson: 27498590682617ef6b594f27a40acf17b5c14a14d91df1f014daa4287dd9db45
+    sourceUnitsJson: e383dbf6f066c6e9f122500e35d4e8eeca8aec0a0c7073b431ebb2c69f193939
+    downstreamSpaceJson: f6b6e2c1d12d8746771085e6d35670ca714b11dd16de46c4e0a0e5ef34fc77b6
+    targetJson: 14bede451eaa27c08bba7c033228a1fd1d3fb00d6d5fb4bd859bcd233ba509d8

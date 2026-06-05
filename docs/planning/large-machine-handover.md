@@ -48,9 +48,9 @@ Also true:
 20 top-20 chart-level ConfigHub proof receipt sets exist.
 20 top-20 local-kind receipt sets exist for selected supported scope.
 10 derived ConfigHub variants have live intended-state receipts.
-3 derived ConfigHub variants have target-bound live apply PASS receipts:
-`NGINX-prod-us-east`, `Prometheus-prod-us-east`, and
-`Prometheus-staging-eu-west`.
+4 derived ConfigHub variants have target-bound live apply PASS receipts:
+`NGINX-prod-us-east`, `NGINX-customer-acme-prod`,
+`Prometheus-prod-us-east`, and `Prometheus-staging-eu-west`.
 1 derived ConfigHub variant has a target-bound blocked receipt:
 `Redis-staging-eu-west`.
 The generated target-bound derived variant summary is:
@@ -115,6 +115,7 @@ The current target-bound derived variant receipts are:
 
 ```text
 runs/derived-variant-target-bound/nginx-prod-us-east/receipt.yaml
+runs/derived-variant-target-bound/nginx-customer-acme-prod/receipt.yaml
 runs/derived-variant-target-bound/prometheus-server-only-prod-us-east/receipt.yaml
 runs/derived-variant-target-bound/prometheus-server-only-staging-eu-west/receipt.yaml
 npm run derived-variants:target-bound:verify

@@ -221,6 +221,7 @@ Current live target-bound example:
 ```text
 nginx/http-clusterip
 -> NGINX-prod-us-east
+-> NGINX-customer-acme-prod
 
 prometheus/server-only-ephemeral
 -> Prometheus-prod-us-east
@@ -234,6 +235,7 @@ receipts are:
 
 ```text
 runs/derived-variant-target-bound/nginx-prod-us-east/receipt.yaml
+runs/derived-variant-target-bound/nginx-customer-acme-prod/receipt.yaml
 runs/derived-variant-target-bound/prometheus-server-only-prod-us-east/receipt.yaml
 runs/derived-variant-target-bound/prometheus-server-only-staging-eu-west/receipt.yaml
 ```
