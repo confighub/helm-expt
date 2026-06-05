@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 
 import { check, listFiles, relativeRepo, repoRoot } from "./lib/proof-common.mjs";
 
-const roots = ["README.md", "CATALOG.md", "docs", "scripts", "recipes", "data", "runs"];
+const roots = ["README.md", "CATALOG.md", "docs", "scripts", "recipes", "packages", "data", "runs"];
 const files = roots.flatMap((root) => {
   const path = `${repoRoot}/${root}`;
   return root.endsWith(".md") ? [path] : listFiles(path);

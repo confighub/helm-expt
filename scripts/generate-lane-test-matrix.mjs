@@ -200,6 +200,20 @@ function ociArgoIndex() {
       note: relativeRepo(receiptPath),
     });
   }
+  for (const receiptPath of listFiles(join(repoRoot, "runs", "live-helm-confighub-compare")).filter((file) =>
+    /receipt\.(json|ya?ml)$/.test(file)
+  )) {
+    const receipt = readYaml(receiptPath);
+    const spec = receipt.spec ?? {};
+    const packagePath = spec.package?.path;
+    const base = spec.base;
+    const ociLegResult = spec.legs?.configHubOciArgo?.result;
+    if (!packagePath || !base || !ociLegResult) continue;
+    index.set(`${packagePath}|${base}`, {
+      status: ociLegResult === "pass" ? "pass" : "fail",
+      note: `${relativeRepo(receiptPath)}#configHubOciArgo`,
+    });
+  }
   return index;
 }
 

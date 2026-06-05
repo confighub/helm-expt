@@ -106,6 +106,17 @@ Secret redis/redis-existing-secret
 key redis-password
 \`\`\`
 
+Secret handling is intentionally explicit:
+
+- \`default\` renders \`Secret redis/redis\`, but \`cub installer setup\` writes
+  it to \`out/secrets\` and \`cub installer upload\` does not upload it as a
+  ConfigHub Unit or OCI artifact. Stage it in the target cluster through your
+  normal secret path before applying the rendered workload objects.
+- \`reuse-existing-secret\` renders no Redis Secret. The target cluster must
+  already contain \`Secret redis/redis-existing-secret\` with key
+  \`redis-password\`; ConfigHub records that requirement as external evidence,
+  not as stored secret material.
+
 By default the collector records this binding without probing a live cluster,
 so deterministic render tests still work offline. To force a live check during
 setup, set:

@@ -66,6 +66,8 @@ Live Helm-vs-ConfigHub parity has started:
 
 - NGINX `http-clusterip` passes a live comparison between regular Helm,
   ConfigHub kubectl/apply delivery, and ConfigHub OCI/Argo delivery.
+- Redis `default` passes the same live comparison, including separated Secret
+  staging, four Bound PVCs, StatefulSets Ready, and Redis PONG.
 - The comparison found the expected installer-added Namespace object and no
   semantic object diffs for the shared Kubernetes objects.
 - Remaining chart-recipe-variant rows are backlog until they have committed

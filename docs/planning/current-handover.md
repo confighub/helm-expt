@@ -113,7 +113,7 @@ render reproducibility: complete for current recipe variants
 ConfigHub proof: partial by exact chart-recipe-variant row
 local live cluster proof: partial by exact chart-recipe-variant row
 GitOps/OCI live proof: five exact rows pass, five exact rows are non-pass, remaining rows backlog
-live Helm-vs-ConfigHub parity proof: one exact row passes, remaining rows backlog
+live Helm-vs-ConfigHub parity proof: two exact rows pass, remaining rows backlog
 ```
 
 The top-level public entry points are [README.md](../../README.md),
