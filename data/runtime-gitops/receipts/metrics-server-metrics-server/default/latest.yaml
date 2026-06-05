@@ -1,0 +1,77 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: RuntimeGitOpsReceipt
+metadata:
+  name: metrics-server-default-argo-oci-helm-expt-oci-0605
+spec:
+  chart: metrics-server/metrics-server
+  version: 3.13.0
+  base: default
+  packagePath: packages/metrics-server/metrics-server/3.13.0
+  recipePath: recipes/metrics-server/metrics-server/3.13.0
+  controller: Argo CD OCI
+  observedAt: "2026-06-05T09:42:20Z"
+  result: pass
+  run:
+    rig: helm-expt-oci-0605
+    clusterSpace: helm-expt-oci-0605-cluster
+    workloadSpace: helm-expt-oci-0605-metrics-server
+    target: helm-expt-oci-0605-cluster/oci
+    namespace: metrics-server
+    kubeContext: kind-helm-expt-oci-0605
+    keptForInspection: true
+  oci:
+    repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-oci-0605-cluster/oci
+    path: ./helm-expt-oci-0605-metrics-server
+    revision: sha256:34716a4697a7f05c4ebde2587d1666fe0e0b47978c7fdbc2b3efb1ab42de1465
+  notes:
+    initialHarnessStatus: WATCH
+    initialHarnessDetail: "Argo was Synced but health was Progressing at 240s; follow-up observation found the app Healthy, Deployment Ready, APIService Available, and kubectl top nodes working."
+  checks:
+    - name: render
+      result: pass
+      detail: "namespaces in render: ['metrics-server']"
+    - name: confighub-upload
+      result: pass
+      detail: units uploaded to helm-expt-oci-0605-metrics-server
+    - name: argo-sync-followup
+      result: pass
+      detail: "app metrics-server: sync=Synced health=Healthy"
+    - name: runtime
+      result: pass
+      detail: "deployment.apps/metrics-server 1/1 1 1"
+    - name: apiservice
+      result: pass
+      detail: "v1beta1.metrics.k8s.io Available=True"
+    - name: metrics-api
+      result: pass
+      detail: "kubectl top nodes returned metrics for helm-expt-oci-0605-control-plane"
+  gitops:
+    applications:
+      - name: metrics-server
+        namespace: argocd
+        sync: Synced
+        health: Healthy
+        revision: sha256:34716a4697a7f05c4ebde2587d1666fe0e0b47978c7fdbc2b3efb1ab42de1465
+  runtime:
+    namespace: metrics-server
+    deployment:
+      name: metrics-server
+      ready: "1/1"
+      updated: 1
+      available: 1
+      image: registry.k8s.io/metrics-server/metrics-server:v0.8.0
+    pod:
+      ready: "1/1"
+      status: Running
+    service:
+      name: metrics-server
+      type: ClusterIP
+      ports: "443/TCP"
+    apiService:
+      name: v1beta1.metrics.k8s.io
+      available: true
+  confighub:
+    workloadSpace: helm-expt-oci-0605-metrics-server
+    workloadUnitsReady: 10
+    appUnitsReady: 1
+    installerRecordStatus: NotLive

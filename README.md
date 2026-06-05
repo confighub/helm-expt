@@ -198,16 +198,25 @@ ConfigHub OCI
 ```
 
 That lane depends on a live GitOps controller and cluster, so it is documented
-and exercised outside the pure local `npm run verify` corpus. The first
-committed live receipt is NGINX through Argo CD pulling ConfigHub OCI. See
-"Additional Options For Live Cluster Verification" below for the runtime proof
-path.
+and exercised outside the pure local `npm run verify` corpus. The current
+committed receipts show Redis, Prometheus, and PostgreSQL passing through Flux
+OCI, and NGINX and Metrics Server passing through Argo CD pulling ConfigHub OCI.
+ingress-nginx has a watch receipt because the kind target has no LoadBalancer
+external IP. External Secrets and kube-prometheus-stack have blocked receipts
+that record missing CRD and separated Secret prerequisites. See "Additional
+Options For Live Cluster Verification" below for the runtime proof path.
 
 Start here:
 
 ```text
 CATALOG.md
   The top-level chart catalog: charts first, variants underneath.
+
+docs/user/current-proof-status.md
+  What is proven now, and which generated summaries are authoritative.
+
+docs/user/verification-lanes.md
+  What each proof lane means, and what it does not prove.
 
 site/index.html
   Generated static catalog view for a lightweight website slice.
@@ -593,9 +602,12 @@ Once the Units are in ConfigHub, the intended GitOps path is:
 Today this repo proves the chart -> recipe -> variant -> rendered objects path
 for the top 20, and proves local kind deployment for those rendered objects.
 The Argo CD / Flux OCI path is verified in a separate live lane because it needs
-a running GitOps controller and cluster. The first committed receipt is NGINX
-through Argo CD pulling ConfigHub OCI; the runtime/GitOps wave tracks the next
-chart/base/controller pairs.
+a running GitOps controller and cluster. Current committed receipts show Redis,
+Prometheus, and PostgreSQL passing through Flux OCI, and NGINX and Metrics
+Server passing through Argo CD pulling ConfigHub OCI. ingress-nginx has a watch
+receipt because the kind target has no LoadBalancer external IP. External
+Secrets and kube-prometheus-stack have blocked receipts because the target still
+needs CRDs and separated Secret delivery.
 
 ## Current Commands Used
 

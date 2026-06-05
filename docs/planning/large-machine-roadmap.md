@@ -259,7 +259,7 @@ Done when:
 13. Add a docs inventory table by audience and purpose.
 14. Expand ConfigHub proof row coverage for top-20 non-default main choices.
 15. Expand local-kind row coverage for top-20 non-default main choices.
-16. Add first OCI/Argo live receipt to the lane matrix.
+16. Expand OCI/Argo live receipts beyond the first NGINX row in the lane matrix.
 17. Add first live dual-compare receipt to the lane matrix.
 18. Add blocked-receipt handling for live harness failures.
 19. Update `README.md` to lead with value and current proof status.

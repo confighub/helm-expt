@@ -1,0 +1,92 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: RuntimeGitOpsReceipt
+metadata:
+  name: bitnami-redis-reuse-existing-secret-flux-oci-helm-expt-oci-0605
+spec:
+  chart: bitnami/redis
+  version: 25.5.3
+  base: reuse-existing-secret
+  packagePath: packages/bitnami/redis/25.5.3
+  recipePath: recipes/bitnami/redis/25.5.3
+  controller: Flux OCI
+  observedAt: "2026-06-05T10:23:30Z"
+  result: pass
+  run:
+    rig: helm-expt-oci-0605
+    clusterSpace: helm-expt-oci-0605-cluster
+    workloadSpace: helm-expt-oci-0605-redis-flux
+    target: helm-expt-oci-0605-cluster/oci
+    namespace: redis
+    kubeContext: kind-helm-expt-oci-0605
+    kubeconfig: /Users/alexis/.confighub/lk/helm-expt-oci-0605.kubeconfig
+    keptForInspection: true
+  oci:
+    repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-oci-0605-cluster/oci
+    path: ./helm-expt-oci-0605-redis-flux
+    revision: sha256:800fa47d22c99a250a8f3f4bed3004c334c2c1818cb6f1805e1cb892d490c1e2
+    fluxArtifactDigest: sha256:bedb263790846e85d0ec2ee3aec203dbf9c45320872f8bbf64617bc5b29b50bc
+  notes:
+    targetFact: "The redis/redis-existing-secret Secret was staged before Flux reconciliation."
+    finding: "Flux pulled the ConfigHub OCI artifact, applied the Redis reuse-existing-secret base, and Redis responded to PING using the existing Secret password."
+  checks:
+    - name: render
+      result: pass
+      detail: "namespaces in render: ['redis']; collector produced 2 fact(s)"
+    - name: target-fact-secret
+      result: pass
+      detail: "redis/redis-existing-secret exists with key redis-password"
+    - name: confighub-upload
+      result: pass
+      detail: units uploaded to helm-expt-oci-0605-redis-flux
+    - name: flux-source
+      result: pass
+      detail: "OCIRepository helm-expt-oci-0605-redis-flux ready at latest@sha256:800fa47d22c99a250a8f3f4bed3004c334c2c1818cb6f1805e1cb892d490c1e2"
+    - name: flux-kustomization
+      result: pass
+      detail: "Kustomization redis-flux ready at latest@sha256:800fa47d22c99a250a8f3f4bed3004c334c2c1818cb6f1805e1cb892d490c1e2"
+    - name: runtime
+      result: pass
+      detail: "statefulset redis-master 1/1 and redis-replicas 3/3"
+    - name: pvc
+      result: pass
+      detail: "4 Redis PVCs Bound"
+    - name: redis-ping
+      result: pass
+      detail: "redis-cli -a confighub-redis-password PING returned PONG"
+  gitops:
+    flux:
+      namespace: flux-system
+      source:
+        kind: OCIRepository
+        name: helm-expt-oci-0605-redis-flux
+        ready: true
+        revision: latest@sha256:800fa47d22c99a250a8f3f4bed3004c334c2c1818cb6f1805e1cb892d490c1e2
+      kustomization:
+        name: redis-flux
+        ready: true
+        lastAppliedRevision: latest@sha256:800fa47d22c99a250a8f3f4bed3004c334c2c1818cb6f1805e1cb892d490c1e2
+  runtime:
+    namespace: redis
+    statefulSets:
+      - name: redis-master
+        ready: "1/1"
+        image: registry-1.docker.io/bitnami/redis:latest
+      - name: redis-replicas
+        ready: "3/3"
+        image: registry-1.docker.io/bitnami/redis:latest
+    pods:
+      running: 4
+      ready: 4
+    persistentVolumeClaims:
+      bound: 4
+    secret:
+      name: redis-existing-secret
+      keys:
+        - redis-password
+  confighub:
+    workloadSpace: helm-expt-oci-0605-redis-flux
+    unitCount: 15
+    unitStatusCounts:
+      Ready: 6
+      NotLive: 9
+    note: "Units were applied to the OCI target; Flux performed the Kubernetes reconciliation."

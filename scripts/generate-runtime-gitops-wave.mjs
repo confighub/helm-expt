@@ -89,7 +89,7 @@ function buildReport() {
   const receiptRows = waveRows.map((row) => {
     const receiptAbs = join(repoRoot, row.required_receipt);
     const receiptStatus = existsSync(receiptAbs) ? "present" : "not-yet-written";
-    if (receiptStatus === "present") validateRuntimeGitOpsReceipt(row, receiptAbs);
+    const receipt = receiptStatus === "present" ? validateRuntimeGitOpsReceipt(row, receiptAbs) : null;
     return {
       chart: row.chart,
       version: row.version,
@@ -97,6 +97,7 @@ function buildReport() {
       controller: row.controller,
       required_receipt: row.required_receipt,
       receipt_status: receiptStatus,
+      receipt_result: receipt?.spec?.result ?? "",
       minimum_checks: [
         "ConfigHub OCI artifact digest recorded",
         "GitOps controller observed synced revision",
@@ -128,19 +129,23 @@ function validateRuntimeGitOpsReceipt(row, receiptPath) {
   check(spec.controller === row.controller, `${relativeRepo(receiptPath)} controller does not match ${row.controller}`);
   check(spec.packagePath === row.package_path, `${relativeRepo(receiptPath)} packagePath does not match ${row.package_path}`);
   check(spec.recipePath === row.recipe_path, `${relativeRepo(receiptPath)} recipePath does not match ${row.recipe_path}`);
-  check(spec.result === "pass", `${relativeRepo(receiptPath)} result must be pass`);
+  check(["pass", "watch", "blocked"].includes(spec.result), `${relativeRepo(receiptPath)} result must be pass, watch, or blocked`);
   check(/^sha256:[0-9a-f]{64}$/.test(spec.oci?.revision ?? ""), `${relativeRepo(receiptPath)} must record an OCI sha256 revision`);
   check(spec.observedAt, `${relativeRepo(receiptPath)} must record observedAt`);
   check(Array.isArray(spec.checks) && spec.checks.length >= 4, `${relativeRepo(receiptPath)} must include checks`);
   for (const item of spec.checks) {
-    check(item.result === "pass", `${relativeRepo(receiptPath)} check ${item.name ?? "(unnamed)"} must pass`);
+    check(["pass", "watch", "blocked"].includes(item.result), `${relativeRepo(receiptPath)} check ${item.name ?? "(unnamed)"} must be pass, watch, or blocked`);
   }
+  return receipt;
 }
 
 function summary(waveRows, receiptRows, sweepRows) {
   const localTop100 = sweepRows.filter((row) => row.current_runtime_evidence === "local-kind-observed").length;
   const argo = waveRows.filter((row) => row.controller === "Argo CD OCI").length;
   const flux = waveRows.filter((row) => row.controller === "Flux OCI").length;
+  const present = receiptRows.filter((row) => row.receipt_status === "present");
+  const pass = present.filter((row) => row.receipt_result === "pass");
+  const nonPass = present.filter((row) => row.receipt_result && row.receipt_result !== "pass");
   return `# Runtime/GitOps Wave
 
 This generated file selects the first runtime/GitOps live-proof wave. The
@@ -156,8 +161,15 @@ top-100 rows with local evidence: ${localTop100}
 first-wave chart/base pairs:      ${waveRows.length}
 Argo CD OCI lanes:                ${argo}
 Flux OCI lanes:                   ${flux}
-first-wave receipts present:      ${receiptRows.filter((row) => row.receipt_status === "present").length}
+first-wave receipts present:      ${present.length}
+first-wave pass receipts:         ${pass.length}
+first-wave non-pass receipts:     ${nonPass.length}
 \`\`\`
+
+Non-pass receipts are still useful evidence. \`watch\` means the controller
+delivered the artifact but a target condition still needs attention.
+\`blocked\` means the run exposed a prerequisite that must be satisfied before
+the selected base can be called live-ready on that target.
 
 ## Files
 

@@ -187,6 +187,19 @@ function ociArgoIndex() {
       note: relativeRepo(receiptPath),
     });
   }
+  for (const receiptPath of listFiles(join(repoRoot, "data", "runtime-gitops", "receipts")).filter((file) =>
+    /latest\.ya?ml$/.test(file)
+  )) {
+    const receipt = readYaml(receiptPath);
+    const spec = receipt.spec ?? {};
+    const packagePath = spec.packagePath;
+    const base = spec.base;
+    if (!packagePath || !base) continue;
+    index.set(`${packagePath}|${base}`, {
+      status: spec.result === "pass" ? "pass" : "fail",
+      note: relativeRepo(receiptPath),
+    });
+  }
   return index;
 }
 
@@ -255,6 +268,11 @@ observation receipts, and live-test receipt locations.
 This is a corpus control surface. A lane can be \`missing\` without making this
 generated report stale; the missing state is the backlog.
 
+A lane marked \`fail\` means a committed receipt exists and the lane did not
+pass. For live lanes, this can be a useful target-fit finding such as missing
+CRDs, separated Secret delivery, or a LoadBalancer requirement on a local kind
+cluster.
+
 ## Headline
 
 \`\`\`text
@@ -276,7 +294,7 @@ ${CORE_LANES.map((lane) => `| ${lane} | ${counts[lane].pass} | ${counts[lane].mi
 | \`helm_template_vs_installer_setup\` | \`revisions/<variant>/r001/receipts/helm-equivalence-receipt.yaml\` plus matching \`publication/installer-package-receipt.yaml.spec.setupChecks[]\`. |
 | \`confighub_upload_variant_scan_safe_ops\` | \`runs/<slug>-confighub-proof/latest/confighub-proof-receipt.yaml\`, function scan receipt, and safe-ops receipt. |
 | \`local_kind_kubectl_apply\` | \`runs/top20-local-kind/<chart>-<variant>/observation-receipt.json\` or equivalent Redis local-kind receipt. |
-| \`confighub_oci_argo_live\` | \`tests/chart-install-test\` / \`tests/chart-install-sweep\` receipt proving ConfigHub Units were applied to OCI and reconciled by Argo. |
+| \`confighub_oci_argo_live\` | \`data/runtime-gitops/receipts/**/latest.yaml\` or \`tests/chart-install-test\` / \`tests/chart-install-sweep\` receipt proving ConfigHub Units were applied to OCI and reconciled by Argo. |
 | \`live_helm_vs_confighub_dual_compare\` | Future receipt comparing a live \`helm install\` deployment against two live ConfigHub deployments: Argo/OCI or Flux, and kubectl/apply. |
 
 ## Current Gaps
