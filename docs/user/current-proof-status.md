@@ -52,9 +52,15 @@ GitOps/OCI live proof has started:
 - External Secrets `no-crds` has a blocked receipt. Argo synced the OCI
   artifact, but the target cluster still needed CRDs and the rendered webhook
   Secret delivered outside the workload OCI path.
+- Argo CD `no-crds` has a blocked receipt. Argo synced the OCI artifact, but
+  runtime Secret requirements were incomplete: `argocd-redis` was absent and
+  `argocd-secret` did not contain `server.secretkey`.
 - kube-prometheus-stack `no-crds` has a blocked receipt. Flux pulled the OCI
   artifact, but reconciliation failed because Prometheus Operator CRDs were
   absent and separated Secrets were not delivered.
+- Consul `secure-mesh-existing-secrets` has a blocked receipt. Flux pulled the
+  OCI artifact, but the selected secure mesh base needs a multi-node target for
+  the three-server topology and anti-affinity rules.
 
 Live Helm-vs-ConfigHub parity remains backlog until a receipt-producing harness
 exists.

@@ -13,9 +13,9 @@ top-100 rows with local evidence: 20
 first-wave chart/base pairs:      10
 Argo CD OCI lanes:                5
 Flux OCI lanes:                   5
-first-wave receipts present:      8
+first-wave receipts present:      10
 first-wave pass receipts:         5
-first-wave non-pass receipts:     3
+first-wave non-pass receipts:     5
 ```
 
 Non-pass receipts are still useful evidence. `watch` means the controller
