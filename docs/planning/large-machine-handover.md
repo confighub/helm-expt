@@ -52,6 +52,8 @@ Also true:
 `NGINX-prod-us-east` and `Prometheus-prod-us-east`.
 1 derived ConfigHub variant has a target-bound blocked receipt:
 `Redis-staging-eu-west`.
+The generated target-bound derived variant summary is:
+`data/derived-variant-target-bound/summary.md`.
 10 rows have committed GitOps/OCI live receipts:
 `bitnami/redis@25.5.3 / reuse-existing-secret`,
 `prometheus-community/prometheus@29.8.0 / server-only-ephemeral`, and
@@ -168,6 +170,7 @@ npm run lane-tests:verify
 npm run top20:verify-confighub-proof
 npm run derived-variants:verify
 npm run derived-variants:target-bound:verify
+npm run derived-variants:target-bound:summary:verify
 npm run completeness:verify
 cub version
 cub context get -o json
@@ -253,6 +256,7 @@ New users need to know what each verifier proves:
 | `npm run top20:verify-confighub-proof` | Top-20 ConfigHub proof receipt sets are present and schema-valid. | Every variant row has ConfigHub proof, or any row is live. |
 | `npm run derived-variants:verify` | Ten derived intended-state receipts exist and match expected clone/link/gate evidence. | Target-bound live apply. |
 | `npm run derived-variants:target-bound:verify` | Target-bound derived variant receipts exist and pass schema/content checks. | More than the exact committed receipts. |
+| `npm run derived-variants:target-bound:summary:verify` | The generated target-bound derived variant table is current with the receipts. | Fresh live execution. |
 | `npm run variant-goldens:verify` | Creator and derived-variant golden files are current. | Live execution unless a separate receipt exists. |
 | `npm run completeness:verify` | Model-completeness generated outputs are current. | Runtime correctness. |
 | `npm run docs:verify` | Markdown doc map and links are internally consistent. | Docs are understandable or complete. |

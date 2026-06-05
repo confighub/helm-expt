@@ -55,11 +55,15 @@ Check derived ConfigHub variants:
 ```sh
 npm run derived-variants:verify
 npm run derived-variants:target-bound:verify
+npm run derived-variants:target-bound:summary:verify
 ```
 
 The first command checks intended-state clone/link/gate receipts. The second
 checks receipts where a derived variant was bound to a real target, applied to
-OCI, reconciled by Argo, and observed in Kubernetes.
+OCI, reconciled by Argo, and observed in Kubernetes. The third command checks
+the generated human-readable table:
+
+[Target-Bound Derived Variants](../../data/derived-variant-target-bound/summary.md)
 
 ## Rule
 

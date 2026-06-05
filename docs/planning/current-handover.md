@@ -211,9 +211,11 @@ The first target-bound derived-variant receipt now exists for
 `Prometheus-prod-us-east` from the Prometheus `server-only-ephemeral` base:
 
 ```text
+data/derived-variant-target-bound/summary.md
 runs/derived-variant-target-bound/nginx-prod-us-east/receipt.yaml
 runs/derived-variant-target-bound/prometheus-server-only-prod-us-east/receipt.yaml
 npm run derived-variants:target-bound:verify
+npm run derived-variants:target-bound:summary:verify
 ```
 
 They prove `cub variant create --target`, target-bound cloned workload Units,
