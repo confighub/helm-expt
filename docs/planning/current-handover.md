@@ -3,6 +3,17 @@
 This is the current handover for the `helm-expt` repository. It is intended for
 another engineer or agent picking up the work from public `main`.
 
+For the next Codex running on a machine that can perform live Kubernetes and
+GitOps testing, start with:
+
+```text
+docs/planning/large-machine-handover.md
+docs/planning/large-machine-roadmap.md
+```
+
+Those files are stricter than this rolling handover about what "verified",
+"live", "all charts", and "derived variant" mean.
+
 ## Repository State
 
 The repository is a public proof corpus for turning popular public Helm charts
