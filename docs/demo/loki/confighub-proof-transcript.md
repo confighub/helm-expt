@@ -30,7 +30,9 @@ cub unit apply --space helm-loki-confighub-proof --where "Labels.Proof = 'loki-c
 ```text
 rendered objects: 20
 separated secrets: 0
-ConfigHub proof Units: 20
+ConfigHub Units: 21
+Kubernetes Units: 20
+installer record Units: 1
 staging clone Units: 21
 function scan: pass
 safe ops: pass

@@ -30,7 +30,9 @@ cub unit apply --space helm-grafana-confighub-proof --where "Labels.Proof = 'gra
 ```text
 rendered objects: 9
 separated secrets: 1
-ConfigHub proof Units: 9
+ConfigHub Units: 10
+Kubernetes Units: 9
+installer record Units: 1
 staging clone Units: 10
 function scan: pass
 safe ops: pass

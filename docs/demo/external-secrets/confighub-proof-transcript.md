@@ -30,7 +30,9 @@ cub unit apply --space helm-external-secrets-confighub-proof --where "Labels.Pro
 ```text
 rendered objects: 42
 separated secrets: 1
-ConfigHub proof Units: 42
+ConfigHub Units: 43
+Kubernetes Units: 42
+installer record Units: 1
 staging clone Units: 43
 function scan: pass
 safe ops: pass

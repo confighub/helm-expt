@@ -8,8 +8,8 @@ spec:
     context:
       organization: "Kubara"
       server: "https://hub.confighub.com"
-      cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.49"
+      cubClientVersion: "Version:    v0.1.71"
+      cubServerVersion: "v0.1.74"
   package:
     path: "packages/grafana/grafana/10.5.15"
     name: "grafana-grafana"
@@ -49,7 +49,7 @@ spec:
     separatedSecretCount: 1
   deterministicPackage:
     command: "cub installer package packages/grafana/grafana/10.5.15 -o .tmp/confighub-proof/grafana-archives/grafana-a.tgz"
-    sha256: "43807f506a77b54b43bfd37ff8634652b8b7dc8d70078342f5036fe645a7b350"
+    sha256: "bbf658cc190c376cb7aa41140eb419490f5d005b4c76018db926f9836f4395fc"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/grafana-generated-passwords"
@@ -71,12 +71,12 @@ spec:
       result: "expected-missing-upload-state"
     command: "cub installer plan --work-dir .tmp/confighub-proof/grafana-generated-passwords"
     result: "pass"
-    summary: "Plan: 0 to add, 1 to change, 0 to delete.\nSpace helm-grafana-confighub-proof:\n  ~ deployment-grafana-grafana\n      New changes from update from /Users/alexis/code/helm-expt/.tmp/confighub-proof/grafana-generated-passwords/out/manifests/deployment-grafana-grafana.yaml:\n      Resource: apps/v1/Deployment grafana/grafana\n        - [Delete] spec.template.spec.containers.?name=grafana;@0.ports.?containerPort=9094;@1  (#3)\n          containerPort: 9094\n          name: gossip-tcp\n          protocol: TCP\n        ~ [Update] spec.template.spec.containers.?name=grafana;@0.ports.?containerPort=9094;@1.name  (#3)"
+    summary: "Plan: 0 to add, 1 to change, 0 to delete.\nSpace helm-grafana-confighub-proof:\n  ~ deployment-grafana-grafana\n      New changes from update from /Users/alexis/Public/github-repos/helm-expt/.tmp/confighub-proof/grafana-generated-passwords/out/manifests/deployment-grafana-grafana.yaml:\n      Resource: apps/v1/Deployment grafana/grafana\n        - [Delete] spec.template.spec.containers.?name=grafana;@0.ports.?containerPort=9094;@1  (#3)\n          containerPort: 9094\n          name: gossip-tcp\n          protocol: TCP\n        ~ [Update] spec.template.spec.containers.?name=grafana;@0.ports.?containerPort=9094;@1.name  (#3)"
   serverSideVariant:
     command: "cub variant create staging helm-grafana-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists"
     result: "pass"
     upstreamSpace: "helm-grafana-confighub-proof"
-    downstreamSpace: "helm-grafana-confighub-proof-staging"
+    downstreamSpace: "Grafana-staging"
     clonedUnitCount: 10
   review:
     unitList: "pass"
@@ -85,11 +85,10 @@ spec:
     revisionDiff: "pass"
     representativeUnit: "deployment-grafana-grafana"
   retention:
-    liveSpacesDeletedAfterProof: true
-    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    liveSpacesDeletedAfterProof: false
     spaces:
       - "helm-grafana-confighub-proof"
-      - "helm-grafana-confighub-proof-staging"
+      - "Grafana-staging"
   observedFriction:
     - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."

@@ -30,7 +30,9 @@ cub unit apply --space helm-consul-confighub-proof --where "Labels.Proof = 'cons
 ```text
 rendered objects: 71
 separated secrets: 0
-ConfigHub proof Units: 71
+ConfigHub Units: 72
+Kubernetes Units: 71
+installer record Units: 1
 staging clone Units: 72
 function scan: pass
 safe ops: pass

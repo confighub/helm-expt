@@ -30,7 +30,9 @@ cub unit apply --space helm-argo-cd-confighub-proof --where "Labels.Proof = 'arg
 ```text
 rendered objects: 48
 separated secrets: 2
-ConfigHub proof Units: 48
+ConfigHub Units: 49
+Kubernetes Units: 48
+installer record Units: 1
 staging clone Units: 49
 function scan: pass
 safe ops: pass

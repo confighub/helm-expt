@@ -30,7 +30,9 @@ cub unit apply --space helm-mongodb-confighub-proof --where "Labels.Proof = 'mon
 ```text
 rendered objects: 8
 separated secrets: 1
-ConfigHub proof Units: 8
+ConfigHub Units: 9
+Kubernetes Units: 8
+installer record Units: 1
 staging clone Units: 9
 function scan: pass
 safe ops: pass

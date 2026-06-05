@@ -30,7 +30,9 @@ cub unit apply --space helm-nginx-confighub-proof --where "Labels.Proof = 'nginx
 ```text
 rendered objects: 6
 separated secrets: 0
-ConfigHub proof Units: 6
+ConfigHub Units: 7
+Kubernetes Units: 6
+installer record Units: 1
 staging clone Units: 7
 function scan: pass
 safe ops: pass

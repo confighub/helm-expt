@@ -24,7 +24,7 @@ The selected happy-path install variant is `local-persistent`.
 | Re-render | Pass |
 | Package determinism | Pass |
 | Validator path | pass |
-| ConfigHub upload | Pass; 5 proof Units |
+| ConfigHub upload | Pass; 6 ConfigHub Units (5 Kubernetes Units plus installer record) |
 | Server-side variant | Pass; 6 cloned Units |
 | ConfigHub function scan | pass |
 | Safe operations | pass |

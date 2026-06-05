@@ -30,7 +30,9 @@ cub unit apply --space helm-secrets-store-csi-driver-confighub-proof --where "La
 ```text
 rendered objects: 11
 separated secrets: 0
-ConfigHub proof Units: 11
+ConfigHub Units: 12
+Kubernetes Units: 11
+installer record Units: 1
 staging clone Units: 12
 function scan: pass
 safe ops: pass

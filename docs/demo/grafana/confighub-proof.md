@@ -24,7 +24,7 @@ The selected happy-path install variant is `generated-passwords`.
 | Re-render | Pass |
 | Package determinism | Pass |
 | Validator path | pass |
-| ConfigHub upload | Pass; 9 proof Units |
+| ConfigHub upload | Pass; 10 ConfigHub Units (9 Kubernetes Units plus installer record) |
 | Server-side variant | Pass; 10 cloned Units |
 | ConfigHub function scan | pass |
 | Safe operations | pass |

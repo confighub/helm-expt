@@ -1,0 +1,58 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DerivedVariantExecutionReceipt"
+metadata:
+  name: "vault-regulated-prod-us-east-derived-variant-20260605"
+spec:
+  run:
+    date: "2026-06-05"
+    context:
+      contextName: "honey-moon"
+      organization: "Cubby AI Inc"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "v0.1.71"
+      cubServerVersion: "v0.1.74"
+  source:
+    component: "Vault"
+    chart: "hashicorp/vault"
+    chartVersion: "0.32.0"
+    base: "default"
+    sourceSpace: "helm-vault-confighub-proof"
+    sourceSpaceID: "b831ae1e-c976-4e14-9d8b-250924938972"
+    proofReceipt: "runs/vault-confighub-proof/latest/confighub-proof-receipt.yaml"
+    workOrder: "data/variant-goldens/derived-expansion-wave/work-orders.yaml#vault-regulated-prod-us-east"
+  create:
+    command: "cub variant create regulated-prod-us-east helm-vault-confighub-proof --environment Prod --region us-east --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review --allow-exists --wait --timeout 10m -o json"
+    result: "pass"
+    variant: "regulated-prod-us-east"
+    downstreamSpace: "Vault-regulated-prod-us-east"
+    downstreamSpaceID: "2e2a997d-f9df-4c3e-b536-bec9d6bc88c0"
+    environment: "Prod"
+    region: "us-east"
+  target:
+    desired: "security-targets/regulated-prod-us-east"
+    bound: false
+    targetBoundUnitCount: 0
+    status: "target-omitted-in-current-context"
+    reason: "The desired work-order target is not present in the active ConfigHub context, so this receipt proves clone/link/gate intended state only."
+  clone:
+    unitCount: 14
+    upstreamLinkedUnitCount: 14
+    sourceDataHashCount: 14
+    downstreamDataHashCount: 14
+    sameDataHashSetAsSource: true
+  gates:
+    deleteGate: "production-review"
+    deleteGateUnitCount: 14
+    destroyGate: "production-review"
+    destroyGateUnitCount: 14
+  review:
+    sameInstallShape: true
+    noHelmRerender: true
+    routeBackToInstaller:
+      - "change HA, storage, or injector topology"
+      - "change seal or auth integration"
+      - "change rendered StatefulSet, RBAC, or webhook shape"
+  liveApply:
+    result: "not-attempted"
+    reason: "No target was attached; this is a ConfigHub intended-state proof, not a live cluster deployment."
+  result: "pass"

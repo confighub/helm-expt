@@ -24,7 +24,7 @@ The selected happy-path install variant is `http-clusterip`.
 | Re-render | Pass |
 | Package determinism | Pass |
 | Validator path | pass |
-| ConfigHub upload | Pass; 6 proof Units |
+| ConfigHub upload | Pass; 7 ConfigHub Units (6 Kubernetes Units plus installer record) |
 | Server-side variant | Pass; 7 cloned Units |
 | ConfigHub function scan | pass |
 | Safe operations | pass |

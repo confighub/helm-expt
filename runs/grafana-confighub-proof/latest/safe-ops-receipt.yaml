@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-grafana-grafana --space helm-grafana-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-grafana-grafana"
-    output: "Unit deployment-grafana-grafana (ef597ef3-88ce-4ff9-9c0c-4d5b8d666745) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-grafana-grafana (e36b8ed8-a708-4029-b0dd-b71689e6ff9a) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-grafana-confighub-proof --where \"Labels.Proof = 'grafana-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req FsIqRuAUMrRcCZlVhomkiVVogjhGQjJV: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req JvZGdTQixRypGlwCreTcPeZQQDoSXRMc: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-grafana-confighub-proof --where \"Labels.Proof = 'grafana-confighub-proof'\""
     result: "pass"
