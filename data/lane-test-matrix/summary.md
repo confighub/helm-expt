@@ -15,8 +15,8 @@ cluster.
 
 ```text
 chart-recipe-variant rows: 156
-complete core lane set: 1
-incomplete core lane set: 155
+complete core lane set: 2
+incomplete core lane set: 154
 ```
 
 ## Core Lane Counts
@@ -26,8 +26,8 @@ incomplete core lane set: 155
 | helm_template_vs_installer_setup | 156 | 0 | 0 |
 | confighub_upload_variant_scan_safe_ops | 18 | 138 | 0 |
 | local_kind_kubectl_apply | 21 | 135 | 0 |
-| confighub_oci_argo_live | 5 | 146 | 5 |
-| live_helm_vs_confighub_dual_compare | 1 | 155 | 0 |
+| confighub_oci_argo_live | 6 | 145 | 5 |
+| live_helm_vs_confighub_dual_compare | 2 | 154 | 0 |
 
 ## Lane Definitions
 
@@ -41,7 +41,7 @@ incomplete core lane set: 155
 
 ## Current Gaps
 
-The live Helm-vs-ConfigHub dual comparison lane has 1 PASS receipt(s) and 155 missing row(s). The ConfigHub OCI/Argo live lane has a harness, but this repo
+The live Helm-vs-ConfigHub dual comparison lane has 2 PASS receipt(s) and 154 missing row(s). The ConfigHub OCI/Argo live lane has a harness, but this repo
 currently has no committed PASS receipts for every chart-recipe-variant row.
 
 ### First Missing ConfigHub Proof Rows

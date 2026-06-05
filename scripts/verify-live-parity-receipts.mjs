@@ -32,8 +32,7 @@ function verifyPassingReceipt(spec, context) {
     check(legs[leg]?.result === "pass", `${context}: ${leg} must pass`);
     check(Boolean(legs[leg]?.manifestSHA256), `${context}: ${leg} missing manifest SHA`);
     check(Number(legs[leg]?.objectCount ?? 0) > 0, `${context}: ${leg} object count missing`);
-    check(legs[leg]?.runtime?.ready === "1/1", `${context}: ${leg} runtime readiness mismatch`);
-    check(legs[leg]?.runtime?.podStatus === "Running", `${context}: ${leg} pod status mismatch`);
+    verifyRuntime(legs[leg]?.runtime, `${context}: ${leg}`);
   }
 
   const comparison = spec.semanticComparison ?? {};
@@ -53,4 +52,23 @@ function verifyPassingReceipt(spec, context) {
 
   const cleanup = spec.run?.cleanup ?? {};
   check(cleanup.result === "pass", `${context}: cleanup must pass for non-retained parity rig`);
+}
+
+function verifyRuntime(runtime, context) {
+  check(Boolean(runtime), `${context} missing runtime proof`);
+
+  if (Array.isArray(runtime.checks)) {
+    check(runtime.checks.length > 0, `${context} runtime checks must not be empty`);
+    for (const item of runtime.checks) {
+      check(item.result === "pass", `${context} runtime check did not pass: ${item.name ?? "unnamed"}`);
+    }
+  } else {
+    check(runtime.ready === "1/1", `${context} runtime readiness mismatch`);
+    check(runtime.podStatus === "Running", `${context} pod status mismatch`);
+  }
+
+  if (runtime.redisPong) {
+    check(runtime.redisPong.result === "pass", `${context} Redis PING must pass`);
+    check(Boolean(runtime.redisPong.evidenceSHA256), `${context} Redis PING missing evidence hash`);
+  }
 }

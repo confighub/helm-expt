@@ -2,7 +2,7 @@
 
 This is the current executable Redis installer package proof.
 
-It contains two real `cub install setup --base` variants:
+It contains two real `cub installer setup --base` variants:
 
 - `default`
 - `reuse-existing-secret`, which declares the existing Redis Secret through
@@ -18,10 +18,10 @@ key redis-password
 
 Secret handling is intentionally explicit:
 
-- `default` renders `Secret redis/redis`, but `cub install setup` writes it to
-  `out/secrets` and `cub installer upload` does not upload it as a ConfigHub
-  Unit or OCI artifact. Stage it in the target cluster through your normal
-  secret path before applying the rendered workload objects.
+- `default` renders `Secret redis/redis`, but `cub installer setup` writes
+  it to `out/secrets` and `cub installer upload` does not upload it as a
+  ConfigHub Unit or OCI artifact. Stage it in the target cluster through your
+  normal secret path before applying the rendered workload objects.
 - `reuse-existing-secret` renders no Redis Secret. The target cluster must
   already contain `Secret redis/redis-existing-secret` with key
   `redis-password`; ConfigHub records that requirement as external evidence,

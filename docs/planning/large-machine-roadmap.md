@@ -77,7 +77,7 @@ Recommended canaries:
 | Chart | Status | Why |
 | --- | --- | --- |
 | `bitnami/nginx@24.0.2 / http-clusterip` | pass | Small object set; first live parity lane with regular Helm, ConfigHub kubectl/apply, and ConfigHub OCI/Argo. |
-| `bitnami/redis@25.5.3 / default` | next | Stateful, generated/separated Secret behavior, useful for real-world trust. |
+| `bitnami/redis@25.5.3 / default` | pass | Stateful run with separated Secret staging, four Bound PVCs, StatefulSets Ready, and Redis PONG. |
 
 For each canary, run and receipt:
 
@@ -247,7 +247,7 @@ Done when:
 1. Add a user-facing verification-lanes page.
 2. Add a current proof status page generated or verified from the lane matrix.
 3. Keep the NGINX live Helm-vs-ConfigHub parity canary green.
-4. Build Redis live Helm-vs-ConfigHub parity canary.
+4. Keep the Redis live Helm-vs-ConfigHub parity canary green.
 5. Add target-bound live receipt schema for derived variants.
 6. Target-bind and live-apply `NGINX-prod-us-east`.
 7. Target-bind and live-apply `Redis-staging-eu-west`.
@@ -281,4 +281,5 @@ NGINX http-clusterip:
   lane matrix update
 ```
 
-Once that pattern is correct and honest, repeat it for Redis.
+Once that pattern is correct and honest, repeat it for the next selected
+top-20 row.

@@ -1,0 +1,141 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: bitnami-redis-25.5.3-default-live-parity-20260605
+spec:
+  chart: bitnami/redis
+  version: 25.5.3
+  base: default
+  result: pass
+  observedAt: "2026-06-05T12:40:11Z"
+  package:
+    path: packages/bitnami/redis/25.5.3
+  recipe:
+    path: recipes/bitnami/redis/25.5.3
+  variantRevision: recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml
+  run:
+    rig: helm-expt-parity-redis-0605
+    kubeContext: kind-helm-expt-parity-redis-0605
+    namespace: redis
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-redis-0605
+      result: pass
+  setupFindings:
+    - name: stale-test-space-quota-cleanup
+      result: handled
+      detail: First OCI upload attempt hit ConfigHub Link quota from old helm-expt test spaces; old test spaces were deleted and the retry passed.
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install redis bitnami/redis --version 25.5.3 --namespace redis --create-namespace --set auth.password=confighub-redis-password --wait --timeout 10m
+      kubeconfigMode: explicit KUBECONFIG for the parity rig
+      manifestSHA256: 1c0c9077df04438c99842007edb022e050fa9d9c0c5205f995799245dfe951e1
+      objectCount: 14
+      runtime:
+        checks:
+          - name: redis-master-statefulset-ready
+            result: pass
+            ready: "1/1"
+          - name: redis-replicas-statefulset-ready
+            result: pass
+            ready: "3/3"
+          - name: redis-pvcs-bound
+            result: pass
+            count: 4
+        redisPong:
+          result: pass
+          evidenceSHA256: 9597e5d74f44f182ebb56b65a79c6b1b84829735af1ff583d44c3384d8a0a45e
+        runtimeSHA256: e3aec2fe1eb0b6d103c073adae90105e26f9fd0583a219565b8767a8cd74199c
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir /tmp/helm-expt-parity-redis-0605-redis-apply --non-interactive --namespace redis
+      applyMode: namespace-first kubectl apply, separated Secret staged before workload objects
+      manifestSHA256: b7096ac72441a1b4160ec820c5332a6b964a12eadd5ff268669b8a4f9a8a128c
+      objectCount: 15
+      separatedSecrets:
+        - v1|Secret|redis|redis
+      runtime:
+        checks:
+          - name: redis-master-statefulset-ready
+            result: pass
+            ready: "1/1"
+          - name: redis-replicas-statefulset-ready
+            result: pass
+            ready: "3/3"
+          - name: redis-pvcs-bound
+            result: pass
+            count: 4
+        redisPong:
+          result: pass
+          evidenceSHA256: 9597e5d74f44f182ebb56b65a79c6b1b84829735af1ff583d44c3384d8a0a45e
+        runtimeSHA256: aa6f0a1885e991c7f326380e9e316bf63ca51460a8961e24042060562ed435a7
+    configHubOciArgo:
+      result: pass
+      harness: tests/chart-install-test
+      workloadSpace: helm-expt-parity-redis-0605-redis-parity-pass
+      controller: Argo CD OCI
+      app: redis-parity-pass
+      manifestSHA256: b7096ac72441a1b4160ec820c5332a6b964a12eadd5ff268669b8a4f9a8a128c
+      objectCount: 15
+      ociRevision: sha256:960aa50316e83a8a896c82e2cc9dafe8aa90dedff0c8510068116ab34eab1bfe
+      sync: Synced
+      health: Healthy
+      argoHealthyAfter: 100s
+      externalSecret:
+        object: v1|Secret|redis|redis
+        stagedBeforeSync: true
+        reason: Redis default separates the rendered Secret from the workload OCI artifact.
+      runtime:
+        checks:
+          - name: redis-master-statefulset-ready
+            result: pass
+            ready: "1/1"
+          - name: redis-replicas-statefulset-ready
+            result: pass
+            ready: "3/3"
+          - name: redis-pvcs-bound
+            result: pass
+            count: 4
+        redisPong:
+          result: pass
+          evidenceSHA256: 9597e5d74f44f182ebb56b65a79c6b1b84829735af1ff583d44c3384d8a0a45e
+        runtimeSHA256: 505a6d3df7e0b711aa8f5514194e27882b7f0d33bdaf4372ff4fe5f84834b4fb
+        harnessReceiptSHA256: 134b6ab3de7a37470a80828a15a6cfd8794978355f3d357bdc63e4f2a0e7d91c
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+      - v1|Namespace||redis
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 14
+      configHubObjectCount: 15
+      missingFromConfigHub: []
+      extraInConfigHub:
+        - v1|Namespace||redis
+      semanticDiffs: []
+      comparisonSHA256: 6e488887f3c0bf7c6d4698022f7f5f7c9b72fc0d0e6459247f290e6787f2108d
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 14
+      configHubObjectCount: 15
+      missingFromConfigHub: []
+      extraInConfigHub:
+        - v1|Namespace||redis
+      semanticDiffs: []
+      comparisonSHA256: 427d1407eb7a4fb1deca8a7452bfdc4a8aa90ca4f56cd41420c5a8f470c377b5
+  checks:
+    - name: regular-helm-live
+      result: pass
+      detail: Helm install reached Redis master 1/1, replicas 3/3, four Bound PVCs, and Redis PONG.
+    - name: confighub-kubectl-apply-live
+      result: pass
+      detail: cub installer rendered workload plus separated Secret applied with namespace-first ordering and reached Redis PONG.
+    - name: confighub-oci-argo-live
+      result: pass
+      detail: Argo synced the ConfigHub OCI artifact, reported Healthy after 100s, and the externally staged Redis Secret allowed Redis PONG.
+    - name: semantic-object-parity
+      result: pass
+      detail: Both ConfigHub paths matched the Helm workload objects; the only extra object was the installer-managed Namespace.
+    - name: cleanup
+      result: pass
+      detail: cub lk down removed the parity rig and ConfigHub cluster space; the harness removed the workload space.
