@@ -207,23 +207,26 @@ ConfigHub proof lane. The Redis-specific verifier now checks the common
 Redis no longer preserves the older receipt schema as a special case.
 
 The first target-bound derived-variant receipt now exists for
-`NGINX-prod-us-east`:
+`NGINX-prod-us-east`; a second pass receipt exists for
+`Prometheus-prod-us-east` from the Prometheus `server-only-ephemeral` base:
 
 ```text
 runs/derived-variant-target-bound/nginx-prod-us-east/receipt.yaml
+runs/derived-variant-target-bound/prometheus-server-only-prod-us-east/receipt.yaml
 npm run derived-variants:target-bound:verify
 ```
 
-It proves `cub variant create --target`, target-bound cloned workload Units,
+They prove `cub variant create --target`, target-bound cloned workload Units,
 ConfigHub OCI publication, Argo CD reconciliation, Kubernetes runtime readiness,
-and cleanup for one small chart. A blocked target-bound receipt also exists for
+and cleanup for a small web chart and a server-only observability chart. A
+blocked target-bound receipt also exists for
 `Redis-staging-eu-west`; it records that the Redis staging work order needs
 checked namespace mutation and Redis Secret delivery before it can honestly be
 called target-bound live. The next derived-variant implementation step is to
 add those post-clone mutation/secret checks, or pick a derived variant whose
 declared operating change does not require them. After that, repeat the same
-target-bound live path for Redis or for a larger observability chart such as
-`Prometheus-staging-eu-west`. The Grafana placeholder drift is tracked in
+target-bound live path for Redis or for additional derived operating variants.
+The Grafana placeholder drift is tracked in
 [#156](https://github.com/confighub/helm-expt/issues/156) as a follow-up issue
 against clone/upgrade behavior.
 

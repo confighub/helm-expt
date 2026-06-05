@@ -1,0 +1,135 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "TargetBoundDerivedVariantReceipt"
+metadata:
+  name: "prometheus-server-only-prod-us-east-target-bound-derived-variant-20260605"
+spec:
+  result: "pass"
+  run:
+    date: "2026-06-05"
+    observedAt: "2026-06-05T13:43:23Z"
+    organization: "kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "dev"
+    cubServerVersion: "v0.1.74"
+    kube:
+      rig: "helm-expt-derived-prometheus-0605"
+      context: "kind-helm-expt-derived-prometheus-0605"
+  source:
+    component: "Prometheus"
+    chart: "prometheus-community/prometheus"
+    chartVersion: "29.8.0"
+    base: "server-only-ephemeral"
+    package: "packages/prometheus-community/prometheus/29.8.0"
+    sourceSpace: "helm-expt-derived-prometheus-server-only-base-0605"
+    sourceSpaceID: "659d72fa-73bc-40a2-896f-2d34915c33f2"
+    proofReceipt: "runs/prometheus-confighub-proof/latest/confighub-proof-receipt.yaml"
+    sourceVariantRevision: "recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/variant-revision.yaml"
+  create:
+    command: "cub variant create prod-us-east helm-expt-derived-prometheus-server-only-base-0605 --environment Prod --region us-east --target helm-expt-derived-prometheus-0605-cluster/oci --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review --allow-exists --wait --timeout 10m -o json"
+    result: "pass"
+    variant: "prod-us-east"
+    downstreamSpace: "Prometheus-prod-us-east"
+    downstreamSpaceID: "4880dbf6-9f82-4487-a12b-755b2636d847"
+    environment: "Prod"
+    region: "us-east"
+    spaceLabels:
+      Component: "Prometheus"
+      Environment: "Prod"
+      Layer: "App"
+      Owner: "ConfigHubHelm"
+      Region: "us-east"
+      Variant: "prod-us-east"
+  target:
+    slug: "helm-expt-derived-prometheus-0605-cluster/oci"
+    targetID: "56472c6a-c364-4024-8b9a-8eccfc87705a"
+    targetSpace: "helm-expt-derived-prometheus-0605-cluster"
+    targetSpaceID: "ff72cf22-a76f-4e93-a33b-58f1ab0097c5"
+    bridgeWorkerCondition: "Ready"
+    bound: true
+  clone:
+    unitCount: 8
+    workloadUnitCount: 7
+    targetBoundUnitCount: 8
+    targetBoundWorkloadUnitCount: 7
+    upstreamLinkedWorkloadUnitCount: 7
+    linkCount: 18
+    copiedSupportUnit:
+      - "installer-record"
+    productFinding:
+      unitLabelsPreserveSourceBaseVariant: true
+      note: "The derived Space has Variant=prod-us-east. The cloned workload Units still carry the source base label Variant=server-only-ephemeral unless a post-clone trigger, TransformPaths fill, or later bulk update changes Unit labels."
+  apply:
+    result: "pass"
+    command: "cub unit apply --space Prometheus-prod-us-east --unit clusterrolebinding-prometheus-server,clusterrole-prometheus-server,configmap-monitoring-prometheus-server,deployment-monitoring-prometheus-server,namespace-monitoring,serviceaccount-monitoring-prometheus-server,service-monitoring-prometheus-server"
+    appliedUnitCount: 7
+    excludedUnits:
+      - "installer-record"
+    reasonForExclusion: "installer-record is ConfigHub/installer support metadata, not a Kubernetes resource for the workload OCI artifact."
+    unitStatuses:
+      ReadySynced: 7
+      NotLiveSupportUnits: 1
+  argo:
+    result: "pass"
+    rootApplication: "helm-expt-derived-prometheus-0605-cluster"
+    childApplication: "prometheus-prod-us-east"
+    repoURL: "oci://oci.hub.confighub.com:443/target/helm-expt-derived-prometheus-0605-cluster/oci"
+    path: "./Prometheus-prod-us-east"
+    destinationNamespace: "monitoring"
+    syncStatus: "Synced"
+    healthStatus: "Healthy"
+    revision: "sha256:fa275d65f918b7964ca8f7e1e3501450f2940c8d4dfed366382a1fa3565e8b02"
+    resourceCount: 7
+  runtime:
+    result: "pass"
+    namespace: "monitoring"
+    deployment:
+      name: "prometheus-server"
+      ready: "1/1"
+      availableReplicas: 1
+      observedGenerationMatches: true
+      rollout: "pass"
+    pod:
+      name: "prometheus-server-766fbf4f7-76768"
+      status: "Running"
+      ready: "2/2"
+    service:
+      name: "prometheus-server"
+      type: "ClusterIP"
+      ports:
+        - "80/TCP"
+    clusterRBAC:
+      result: "pass"
+      objects:
+        - "rbac.authorization.k8s.io/v1|ClusterRole||prometheus-server"
+        - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||prometheus-server"
+  review:
+    noHelmRerender: true
+    sameInstallShape: true
+    derivedChanges:
+      - "Space.Labels.Variant"
+      - "Space.Labels.Environment"
+      - "Space.Labels.Region"
+      - "Space.Annotations.TargetID"
+      - "Unit.TargetID"
+      - "Unit.DeleteGates"
+      - "Unit.DestroyGates"
+      - "child Argo Application Unit in the target cluster Space"
+    routeBackToInstaller:
+      - "switch Prometheus back to default full-stack topology"
+      - "enable persistence or change storage topology"
+      - "enable Alertmanager, node-exporter, kube-state-metrics, or pushgateway"
+      - "change Helm values that alter rendered Kubernetes objects"
+  evidenceSHA256:
+    argoApplicationYaml: "d58d086c19642da9ac09bb61af0f35142753fadbb3e3618669af4d04c995cb35"
+    runtimeYaml: "97fb125657a5a49286bb24290336d71500be1ab8bf615d98caaf67696fe73306"
+    clusterRbacYaml: "0117c21bf2690c0f9c514ce4c71a165c404b286b0ba60842077605da6532841f"
+    downstreamUnitsJson: "cc8238df7b256e46ed1e605f848d14c0df67f152bc6b56a225243c844b877a64"
+    sourceUnitsJson: "88a0180d7e3b7c2973757f3535534ec5a12b29f531ac10dad94ab9cac26f7a7a"
+    downstreamSpaceJson: "29526a5bdf1833fb662e139ba992edb2e05ba9c4eb375572efdc661e06e29b5b"
+    targetJson: "7008e1b44816889afaceb13e42ae2067de7d8017e1fde7d2a2a06bb0a65c7727"
+  cleanup:
+    result: "pass"
+    appDestroy: "pass"
+    downstreamSpaceDelete: "pass"
+    sourceSpaceDelete: "pass"
+    rigDown: "pass"

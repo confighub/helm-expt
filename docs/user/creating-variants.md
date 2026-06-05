@@ -221,15 +221,19 @@ Current live target-bound example:
 ```text
 nginx/http-clusterip
 -> NGINX-prod-us-east
+
+prometheus/server-only-ephemeral
+-> Prometheus-prod-us-east
 ```
 
-That example starts from a clean uploaded NGINX base Space, runs
-`cub variant create --target`, applies the cloned workload Units to a ConfigHub
-OCI target, and lets Argo CD reconcile the derived Space into Kubernetes. The
-receipt is:
+These examples start from clean uploaded base Spaces, run
+`cub variant create --target`, apply the cloned workload Units to ConfigHub OCI
+targets, and let Argo CD reconcile the derived Spaces into Kubernetes. The
+receipts are:
 
 ```text
 runs/derived-variant-target-bound/nginx-prod-us-east/receipt.yaml
+runs/derived-variant-target-bound/prometheus-server-only-prod-us-east/receipt.yaml
 ```
 
 The example deliberately excludes `installer-record` from the workload apply.

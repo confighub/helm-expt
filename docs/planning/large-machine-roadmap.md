@@ -104,7 +104,7 @@ Start with:
 | --- | --- | --- |
 | `NGINX-prod-us-east` | pass | Small prod-style gate and target story. |
 | `Redis-staging-eu-west` | blocked | Stateful target-bound non-prod story; needs namespace mutation and Redis Secret delivery modeled before live apply. |
-| `Prometheus-staging-eu-west` | next | Observability workload with larger object set. |
+| `Prometheus-prod-us-east` | pass | Server-only observability workload with cluster RBAC and production-style gates. |
 
 Tasks:
 
@@ -253,7 +253,8 @@ Done when:
 6. Keep the `NGINX-prod-us-east` target-bound live receipt green.
 7. Implement the namespace mutation and Redis Secret/fact handling needed for
    `Redis-staging-eu-west`.
-8. Target-bind and live-apply `Prometheus-staging-eu-west`.
+8. Pick the next target-bound derived variant after Redis's mutation/secret
+   blocker is resolved.
 9. Fix or explain Grafana placeholder drift (#156).
 10. Add per-chart "what am I getting?" cards for the top-20.
 11. Add per-chart "quirks checked / missing" sections.
