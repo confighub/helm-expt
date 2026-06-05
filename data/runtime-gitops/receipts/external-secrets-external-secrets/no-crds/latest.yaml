@@ -1,0 +1,87 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: RuntimeGitOpsReceipt
+metadata:
+  name: external-secrets-no-crds-argo-oci-helm-expt-oci-0605
+spec:
+  chart: external-secrets/external-secrets
+  version: 2.5.0
+  base: no-crds
+  packagePath: packages/external-secrets/external-secrets/2.5.0
+  recipePath: recipes/external-secrets/external-secrets/2.5.0
+  controller: Argo CD OCI
+  observedAt: "2026-06-05T09:53:58Z"
+  result: blocked
+  run:
+    rig: helm-expt-oci-0605
+    clusterSpace: helm-expt-oci-0605-cluster
+    workloadSpace: helm-expt-oci-0605-external-secrets
+    target: helm-expt-oci-0605-cluster/oci
+    namespace: external-secrets
+    kubeContext: kind-helm-expt-oci-0605
+    kubeconfig: /Users/alexis/.confighub/lk/helm-expt-oci-0605.kubeconfig
+    keptForInspection: true
+  oci:
+    repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-oci-0605-cluster/oci
+    path: ./helm-expt-oci-0605-external-secrets
+    revision: sha256:9d6050df91f6c7be4549a7a32daa0c924c0f5a855050e87fd880e28701df13e6
+  notes:
+    harnessStatus: WATCH
+    finding: "Argo synced the OCI artifact, but this base did not become healthy because CRDs were absent and the webhook Secret was rendered as separated secret material rather than delivered through the workload OCI path."
+  checks:
+    - name: render
+      result: pass
+      detail: "namespaces in render: ['external-secrets']"
+    - name: confighub-upload
+      result: pass
+      detail: units uploaded to helm-expt-oci-0605-external-secrets
+    - name: argo-sync
+      result: watch
+      detail: "app external-secrets: sync=Synced health=Progressing after 300s"
+    - name: crd-prerequisite
+      result: blocked
+      detail: "controller log: no matches for kind ExternalSecret in version external-secrets.io/v1"
+    - name: separated-secret-prerequisite
+      result: blocked
+      detail: "out/secrets/secret-external-secrets-external-secrets-webhook.yaml was rendered, but Kubernetes namespace external-secrets has no external-secrets-webhook Secret"
+    - name: runtime
+      result: blocked
+      detail: "deployments external-secrets, external-secrets-cert-controller, and external-secrets-webhook stayed at 0/1"
+  gitops:
+    applications:
+      - name: external-secrets
+        namespace: argocd
+        sync: Synced
+        health: Progressing
+        revision: sha256:9d6050df91f6c7be4549a7a32daa0c924c0f5a855050e87fd880e28701df13e6
+  runtime:
+    namespace: external-secrets
+    deployments:
+      - name: external-secrets
+        ready: "0/1"
+        updated: 1
+        available: 0
+        status: Error
+      - name: external-secrets-cert-controller
+        ready: "0/1"
+        updated: 1
+        available: 0
+        status: RunningNotReady
+      - name: external-secrets-webhook
+        ready: "0/1"
+        updated: 1
+        available: 0
+        status: ContainerCreating
+        blockedReason: secret external-secrets-webhook not found
+    service:
+      name: external-secrets-webhook
+      type: ClusterIP
+      ports: "443/TCP"
+    missing:
+      crds:
+        - external-secrets.io/v1 ExternalSecret
+      secrets:
+        - external-secrets/external-secrets-webhook
+  confighub:
+    workloadSpace: helm-expt-oci-0605-external-secrets
+    workloadUnitsReady: 19
+    installerRecordStatus: NotLive

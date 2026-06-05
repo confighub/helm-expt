@@ -1,7 +1,7 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: RuntimeGitOpsReceipt
 metadata:
-  name: bitnami-nginx-http-clusterip-argo-oci-helm-expt-oci-0604
+  name: bitnami-nginx-http-clusterip-argo-oci-helm-expt-oci-0605
 spec:
   chart: bitnami/nginx
   version: 24.0.2
@@ -9,45 +9,45 @@ spec:
   packagePath: packages/bitnami/nginx/24.0.2
   recipePath: recipes/bitnami/nginx/24.0.2
   controller: Argo CD OCI
-  observedAt: "2026-06-04T07:46:18Z"
+  observedAt: "2026-06-05T09:33:34Z"
   result: pass
   run:
-    rig: helm-expt-oci-0604
-    clusterSpace: helm-expt-oci-0604-cluster
-    workloadSpace: helm-expt-oci-0604-nginx
-    target: helm-expt-oci-0604-cluster/oci
+    rig: helm-expt-oci-0605
+    clusterSpace: helm-expt-oci-0605-cluster
+    workloadSpace: helm-expt-oci-0605-nginx
+    target: helm-expt-oci-0605-cluster/oci
     namespace: nginx
-    kubeContext: kind-helm-expt-oci-0604
+    kubeContext: kind-helm-expt-oci-0605
     keptForInspection: true
   oci:
-    repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-oci-0604-cluster/oci
-    path: ./helm-expt-oci-0604-nginx
-    revision: sha256:98ec5a4bfccb925381b1ec304dcb4a9e884bbe06ac1bb5d69d34076a791a7f72
+    repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-oci-0605-cluster/oci
+    path: ./helm-expt-oci-0605-nginx
+    revision: sha256:0dc30c7049393a17fa7575bd45bad0918f5162d4014f80228010b8e914b49bf5
   checks:
     - name: render
       result: pass
       detail: "namespaces in render: ['nginx']"
     - name: confighub-upload
       result: pass
-      detail: units uploaded to helm-expt-oci-0604-nginx
+      detail: units uploaded to helm-expt-oci-0605-nginx
     - name: argo-sync
       result: pass
-      detail: "app nginx: sync=Synced health=Healthy after 200s"
+      detail: "app nginx: sync=Synced health=Healthy after 120s"
     - name: runtime
       result: pass
       detail: "deployment.apps/nginx 1/1 1 1"
   gitops:
     applications:
-      - name: helm-expt-oci-0604-cluster
+      - name: helm-expt-oci-0605-cluster
         namespace: argocd
         sync: Synced
         health: Healthy
-        revision: sha256:98ec5a4bfccb925381b1ec304dcb4a9e884bbe06ac1bb5d69d34076a791a7f72
+        revision: sha256:0dc30c7049393a17fa7575bd45bad0918f5162d4014f80228010b8e914b49bf5
       - name: nginx
         namespace: argocd
         sync: Synced
         health: Healthy
-        revision: sha256:98ec5a4bfccb925381b1ec304dcb4a9e884bbe06ac1bb5d69d34076a791a7f72
+        revision: sha256:0dc30c7049393a17fa7575bd45bad0918f5162d4014f80228010b8e914b49bf5
   runtime:
     namespace: nginx
     deployment:
@@ -64,7 +64,7 @@ spec:
       type: ClusterIP
       ports: "80/TCP,443/TCP"
   confighub:
-    workloadSpace: helm-expt-oci-0604-nginx
+    workloadSpace: helm-expt-oci-0605-nginx
     workloadUnitsReady: 6
     appUnitsReady: 2
     installerRecordStatus: NotLive

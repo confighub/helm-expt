@@ -1,0 +1,75 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: RuntimeGitOpsReceipt
+metadata:
+  name: ingress-nginx-admission-disabled-argo-oci-helm-expt-oci-0605
+spec:
+  chart: ingress-nginx/ingress-nginx
+  version: 4.15.1
+  base: admission-disabled
+  packagePath: packages/ingress-nginx/ingress-nginx/4.15.1
+  recipePath: recipes/ingress-nginx/ingress-nginx/4.15.1
+  controller: Argo CD OCI
+  observedAt: "2026-06-05T10:02:28Z"
+  result: watch
+  run:
+    rig: helm-expt-oci-0605
+    clusterSpace: helm-expt-oci-0605-cluster
+    workloadSpace: helm-expt-oci-0605-ingress-nginx
+    target: helm-expt-oci-0605-cluster/oci
+    namespace: ingress-nginx
+    kubeContext: kind-helm-expt-oci-0605
+    kubeconfig: /Users/alexis/.confighub/lk/helm-expt-oci-0605.kubeconfig
+    keptForInspection: true
+  oci:
+    repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-oci-0605-cluster/oci
+    path: ./helm-expt-oci-0605-ingress-nginx
+    revision: sha256:9672fd1b2da39cffada83cfa7b4cc8610ff65c7bbc2e2ba68dd3a20a1dc10960
+  notes:
+    harnessStatus: WATCH
+    finding: "Argo synced the OCI artifact and the controller Deployment became Ready, but Argo health stayed Progressing because the LoadBalancer Service has no external IP on this kind rig."
+  checks:
+    - name: render
+      result: pass
+      detail: "namespaces in render: ['ingress-nginx']"
+    - name: confighub-upload
+      result: pass
+      detail: units uploaded to helm-expt-oci-0605-ingress-nginx
+    - name: argo-sync
+      result: watch
+      detail: "app ingress-nginx: sync=Synced health=Progressing after 300s"
+    - name: runtime
+      result: pass
+      detail: "deployment.apps/ingress-nginx-controller 1/1 1 1"
+    - name: target-fit
+      result: watch
+      detail: "service/ingress-nginx-controller type LoadBalancer has EXTERNAL-IP <pending> on kind"
+  gitops:
+    applications:
+      - name: ingress-nginx
+        namespace: argocd
+        sync: Synced
+        health: Progressing
+        revision: sha256:9672fd1b2da39cffada83cfa7b4cc8610ff65c7bbc2e2ba68dd3a20a1dc10960
+  runtime:
+    namespace: ingress-nginx
+    deployment:
+      name: ingress-nginx-controller
+      ready: "1/1"
+      updated: 1
+      available: 1
+      image: registry.k8s.io/ingress-nginx/controller:v1.15.1@sha256:594ceea76b01c592858f803f9ff4d2cb40542cae2060410b2c95f75907d659e1
+    pod:
+      ready: "1/1"
+      status: Running
+    service:
+      name: ingress-nginx-controller
+      type: LoadBalancer
+      externalIP: "<pending>"
+      ports: "80:31724/TCP,443:32432/TCP"
+    ingressClass:
+      name: nginx
+      controller: k8s.io/ingress-nginx
+  confighub:
+    workloadSpace: helm-expt-oci-0605-ingress-nginx
+    workloadUnitsReady: 10
+    installerRecordStatus: NotLive

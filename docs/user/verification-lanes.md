@@ -1,0 +1,65 @@
+# Verification Lanes
+
+**UNOFFICIAL/EXPERIMENTAL**
+
+The repo uses several verification lanes because one test cannot prove the
+whole Helm-to-ConfigHub lifecycle.
+
+The generated lane matrix is the numeric source of truth:
+
+[Lane Test Matrix](../../data/lane-test-matrix/summary.md)
+
+Each row is one chart, version, and base variant. A chart can have one lane
+passing and another lane missing.
+
+A `fail` lane means a receipt exists and the result was not pass. For live
+lanes, this can be useful evidence about a target prerequisite rather than a
+broken test. For example, a chart may need CRDs preinstalled, separated Secret
+delivery, or a LoadBalancer-capable cluster.
+
+## Core Lanes
+
+| Lane | What it proves | What it does not prove |
+| --- | --- | --- |
+| `helm_template_vs_installer_setup` | `cub installer` renders the same Kubernetes object set as regular Helm for that base variant. | The objects work in a cluster. |
+| `confighub_upload_variant_scan_safe_ops` | The rendered objects upload to ConfigHub Units and have scan/safe-operation receipts. | A GitOps controller or cluster applied them. |
+| `local_kind_kubectl_apply` | The rendered objects were applied to a local Kubernetes cluster and workload checks passed. | Argo or Flux pulled from ConfigHub OCI. |
+| `confighub_oci_argo_live` | ConfigHub Units were published through OCI and reconciled by Argo CD, with runtime evidence. | Regular Helm was deployed side by side for parity. |
+| `live_helm_vs_confighub_dual_compare` | A live Helm deployment was compared against ConfigHub delivery paths. | This lane is still backlog until receipts exist. |
+
+## Commands
+
+Check the generated matrix:
+
+```sh
+npm run lane-tests:verify
+```
+
+Check the selected GitOps/OCI wave:
+
+```sh
+npm run runtime-gitops:wave:verify
+```
+
+Check the complete repository corpus:
+
+```sh
+npm run verify
+```
+
+`npm run verify` is useful, but it is not a fresh live test. It checks that the
+committed artifacts, receipts, generated data, and docs are self-consistent.
+
+## Rule
+
+Use the narrowest true claim:
+
+```text
+render verified
+ConfigHub proof
+local live
+GitOps live
+live parity
+```
+
+Do not collapse them into "tested" without naming the lane.

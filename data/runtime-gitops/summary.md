@@ -13,8 +13,15 @@ top-100 rows with local evidence: 20
 first-wave chart/base pairs:      10
 Argo CD OCI lanes:                5
 Flux OCI lanes:                   5
-first-wave receipts present:      1
+first-wave receipts present:      4
+first-wave pass receipts:         2
+first-wave non-pass receipts:     2
 ```
+
+Non-pass receipts are still useful evidence. `watch` means the controller
+delivered the artifact but a target condition still needs attention.
+`blocked` means the run exposed a prerequisite that must be satisfied before
+the selected base can be called live-ready on that target.
 
 ## Files
 

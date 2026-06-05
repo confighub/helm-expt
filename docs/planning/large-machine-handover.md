@@ -36,7 +36,7 @@ chart-recipe-variant rows: 156
 helm_template_vs_installer_setup: 156 pass, 0 missing
 confighub_upload_variant_scan_safe_ops: 18 pass, 138 missing
 local_kind_kubectl_apply: 21 pass, 135 missing
-confighub_oci_argo_live: 0 pass, 156 missing
+confighub_oci_argo_live: 2 pass, 152 missing, 2 fail
 live_helm_vs_confighub_dual_compare: 0 pass, 156 missing
 complete core lane set: 0
 ```
@@ -49,7 +49,16 @@ Also true:
 20 top-20 local-kind receipt sets exist for selected supported scope.
 10 derived ConfigHub variants have live intended-state receipts.
 0 derived variants have target-bound live apply receipts.
-0 rows have committed GitOps/OCI live receipts.
+4 rows have committed GitOps/OCI live receipts:
+`bitnami/nginx@24.0.2 / http-clusterip` and
+`metrics-server/metrics-server@3.13.0 / default` pass.
+`external-secrets/external-secrets@2.5.0 / no-crds` has a blocked receipt:
+Argo synced the OCI artifact, but the workload needs CRDs already present and
+the webhook Secret delivered outside the current workload OCI path.
+`ingress-nginx/ingress-nginx@4.15.1 / admission-disabled` has a watch receipt:
+Argo synced the OCI artifact and the controller Deployment became Ready, but
+the kind target has no LoadBalancer external IP so Argo health stayed
+Progressing.
 0 rows have committed live Helm-vs-ConfigHub parity receipts.
 ```
 

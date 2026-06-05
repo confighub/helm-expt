@@ -4,6 +4,19 @@ Status: **PASS** first run 2026-06-01 (rig `pilot-helm-w1`, org Cubby AI Inc).
 Repeated 2026-06-04 with rig `helm-expt-oci-0604`, NGINX `http-clusterip`,
 Argo CD OCI revision
 `sha256:98ec5a4bfccb925381b1ec304dcb4a9e884bbe06ac1bb5d69d34076a791a7f72`.
+Repeated 2026-06-05 with rig `helm-expt-oci-0605`, NGINX `http-clusterip`,
+Argo CD OCI revision
+`sha256:0dc30c7049393a17fa7575bd45bad0918f5162d4014f80228010b8e914b49bf5`.
+The same retained rig was then used for three more first-wave rows:
+Metrics Server `default` passed after follow-up observation
+(`sha256:34716a4697a7f05c4ebde2587d1666fe0e0b47978c7fdbc2b3efb1ab42de1465`);
+External Secrets `no-crds` blocked on missing CRDs and separated webhook Secret
+delivery
+(`sha256:9d6050df91f6c7be4549a7a32daa0c924c0f5a855050e87fd880e28701df13e6`);
+ingress-nginx `admission-disabled` synced and reached Deployment readiness but
+remained Argo `Progressing` because the kind target has no LoadBalancer external
+IP
+(`sha256:9672fd1b2da39cffada83cfa7b4cc8610ff65c7bbc2e2ba68dd3a20a1dc10960`).
 
 Wave 1 = a newcomer installs a **vanilla public chart at its default base**,
 entirely via `cub installer` (never the helm CLI), onto a BYO cluster whose Argo
