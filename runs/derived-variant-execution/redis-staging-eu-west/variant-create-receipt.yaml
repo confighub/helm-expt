@@ -1,0 +1,60 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DerivedVariantExecutionReceipt"
+metadata:
+  name: "redis-staging-eu-west-derived-variant-20260605"
+spec:
+  run:
+    date: "2026-06-05"
+    context:
+      contextName: "honey-moon"
+      organization: "Cubby AI Inc"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "v0.1.71"
+      cubServerVersion: "v0.1.74"
+  source:
+    component: "Redis"
+    chart: "bitnami/redis"
+    chartVersion: "25.5.3"
+    base: "default"
+    sourceSpace: "helm-redis-confighub-proof"
+    sourceSpaceID: "6d4b51b7-dfb4-4a29-9f59-310adf3d38d8"
+    proofReceipt: "runs/redis-confighub-proof/latest/confighub-proof-receipt.yaml"
+    workOrder: "data/variant-goldens/derived-expansion-wave/work-orders.yaml#redis-staging-eu-west"
+  create:
+    command: "cub variant create staging-eu-west helm-redis-confighub-proof --environment Staging --region eu-west --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --allow-exists --wait --timeout 10m -o json"
+    result: "pass"
+    variant: "staging-eu-west"
+    downstreamSpace: "Redis-staging-eu-west"
+    downstreamSpaceID: "2a4d57bf-24f4-4f4f-8542-6c2d4bc28c2e"
+    environment: "Staging"
+    region: "eu-west"
+  target:
+    desired: "redis-targets/staging-eu-west"
+    bound: false
+    targetBoundUnitCount: 0
+    status: "target-omitted-in-current-context"
+    reason: "The desired work-order target is not present in the active ConfigHub context, so this receipt proves clone/link intended state only."
+  clone:
+    unitCount: 15
+    upstreamLinkedUnitCount: 15
+    sourceDataHashCount: 15
+    downstreamDataHashCount: 15
+    sameDataHashSetAsSource: true
+  gates:
+    deleteGateUnitCount: 0
+    destroyGateUnitCount: 0
+  review:
+    sameInstallShape: true
+    noHelmRerender: true
+    changedScope:
+      - "Space.Labels.Variant"
+      - "Space.Labels.Environment"
+      - "Space.Labels.Region"
+    routeBackToInstaller:
+      - "switch to reuse-existing-secret"
+      - "change Redis architecture or replica layout"
+      - "change rendered Service, StatefulSet, or Secret shape"
+  liveApply:
+    result: "not-attempted"
+    reason: "No target was attached; this is a ConfigHub intended-state proof, not a live cluster deployment."
+  result: "pass"

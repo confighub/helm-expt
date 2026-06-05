@@ -773,7 +773,10 @@ function writeDemoDocs({ chart, bases, defaultBase, receipt, functionReceipt, sa
     ["Re-render", "Pass"],
     ["Package determinism", "Pass"],
     ["Validator path", receipt.spec.vet.result],
-    ["ConfigHub upload", `Pass; ${receipt.spec.upload.kubernetesUnitCount} proof Units`],
+    [
+      "ConfigHub upload",
+      `Pass; ${receipt.spec.upload.unitCount} ConfigHub Units (${receipt.spec.upload.kubernetesUnitCount} Kubernetes Units plus installer record)`,
+    ],
     ["Server-side variant", `Pass; ${receipt.spec.serverSideVariant.clonedUnitCount} cloned Units`],
     ["ConfigHub function scan", functionReceipt.spec.result],
     ["Safe operations", safeOpsReceipt.spec.safetyResult],
@@ -847,7 +850,9 @@ cub unit apply --space ${receipt.spec.upload.space} --where "Labels.Proof = '${c
 \`\`\`text
 rendered objects: ${receipt.spec.render.manifestCount}
 separated secrets: ${receipt.spec.render.separatedSecretCount}
-ConfigHub proof Units: ${receipt.spec.upload.kubernetesUnitCount}
+ConfigHub Units: ${receipt.spec.upload.unitCount}
+Kubernetes Units: ${receipt.spec.upload.kubernetesUnitCount}
+installer record Units: ${receipt.spec.upload.installerRecordUnitCount}
 staging clone Units: ${receipt.spec.serverSideVariant.clonedUnitCount}
 function scan: ${functionReceipt.spec.result}
 safe ops: ${safeOpsReceipt.spec.safetyResult}

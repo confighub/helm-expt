@@ -27,10 +27,11 @@ function verifyConfigHubProof() {
   check(receipt.spec?.rerender?.manifestCount === 14, "Redis rerender must produce 14 manifests");
   check(receipt.spec?.deterministicPackage?.byteIdenticalAcrossTwoLocalBundles === true, "Redis package must be deterministic");
   check(receipt.spec?.upload?.unitCount === 15, "Redis upload must create 15 Units");
-  check(receipt.spec?.upload?.redisKubernetesUnitCount === 14, "Redis upload must create 14 Kubernetes Units");
+  check(receipt.spec?.upload?.kubernetesUnitCount === 14, "Redis upload must create 14 Kubernetes Units");
   check(receipt.spec?.upload?.installerRecordUnitCount === 1, "Redis upload must create installer-record Unit");
   check(receipt.spec?.plan?.result === "pass", "Redis post-upload plan must pass");
   check(receipt.spec?.serverSideVariant?.result === "pass", "Redis server-side variant must pass");
+  check(receipt.spec?.serverSideVariant?.downstreamSpace === "Redis-staging", "Redis staging clone space mismatch");
   check(receipt.spec?.serverSideVariant?.clonedUnitCount === 15, "Redis staging clone must contain 15 Units");
   check(receipt.spec?.review?.unitList === "pass", "Redis unit list review missing");
   check(receipt.spec?.review?.unitData === "pass", "Redis unit data review missing");

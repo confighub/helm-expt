@@ -1,44 +1,43 @@
-apiVersion: helm-expt.confighub.com/v1alpha1
-kind: ConfigHubSafeOpsReceipt
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
 metadata:
-  name: redis-safe-ops-20260527
+  name: "redis-safe-ops-20260527"
 spec:
   observedAt: "2026-05-27"
   context:
-    organization: Kubara
-    server: https://hub.confighub.com
-    space: helm-redis-confighub-proof
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-redis-confighub-proof"
     selector: "Labels.Proof = 'redis-confighub-proof'"
   subject:
-    chart: bitnami/redis
-    chartVersion: 25.5.3
-    packagePath: packages/bitnami/redis/25.5.3
-    variant: default
+    chart: "bitnami/redis"
+    chartVersion: "25.5.3"
+    packagePath: "packages/bitnami/redis/25.5.3"
+    variant: "default"
   changeset:
-    slug: redis-safe-ops-20260527
-    createResult: pass
-    updateResult: pass
+    slug: "redis-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
     description: "Redis safe-ops proof: approve reviewed revisions, dry-run apply only"
     labels:
-      Proof: redis-confighub-proof
-      Lane: safe-ops
+      Proof: "redis-confighub-proof"
+      Lane: "safe-ops"
     annotations:
-      proof.confighub.com/scope: local-test
+      proof.confighub.com/scope: "local-test"
       proof.confighub.com/live-apply: "false"
   approval:
-    command: cub unit approve statefulset-redis-redis-master --space helm-redis-confighub-proof --revision HeadRevisionNum --verbose --wait
-    result: pass
-    representativeUnit: statefulset-redis-redis-master
-    output: "Unit statefulset-redis-redis-master has been approved; awaiting triggers."
+    command: "cub unit approve statefulset-redis-redis-master --space helm-redis-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "statefulset-redis-redis-master"
+    output: "Unit statefulset-redis-redis-master (79fc40fe-8200-401c-b0e1-701c2e08352d) has been approved\nAwaiting triggers..."
   applyDryRun:
-    command: cub unit apply --space helm-redis-confighub-proof --where "Labels.Proof = 'redis-confighub-proof'" --dry-run --wait --timeout 2m
-    result: blocked-no-target
+    command: "cub unit apply --space helm-redis-confighub-proof --where \"Labels.Proof = 'redis-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
     expected: true
-    message: "cannot invoke action on a unit without a target"
+    message: "Failed: HTTP 422 for req dIstHXzYuFOePhOsyWAyJfDeTHbRfwJp: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
-    command: cub unit cancel --space helm-redis-confighub-proof --where "Labels.Proof = 'redis-confighub-proof'"
-    result: pass
+    command: "cub unit cancel --space helm-redis-confighub-proof --where \"Labels.Proof = 'redis-confighub-proof'\""
+    result: "pass"
     message: "No units found matching the filter"
-  safetyResult: pass
-  interpretation: "The reviewed Redis Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."
-
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."
