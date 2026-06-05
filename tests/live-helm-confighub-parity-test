@@ -1,0 +1,700 @@
+#!/usr/bin/env python3
+"""Run one live Helm-vs-ConfigHub parity test.
+
+The test owns one cub-lk rig and writes a LiveHelmConfigHubParityReceipt. It
+checks three delivery legs for the same chart/base:
+
+  1. regular Helm install
+  2. cub installer render followed by kubectl apply
+  3. cub installer upload followed by ConfigHub OCI -> Argo CD
+
+The runner is intentionally conservative. A receipt can pass, watch, or block.
+Non-pass receipts are useful evidence when the chart needs CRDs, secrets,
+storage, hooks, or target capabilities before the selected base is live-ready.
+"""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import os
+import shutil
+import subprocess
+import sys
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+
+try:
+    import yaml
+except ImportError:  # pragma: no cover
+    yaml = None
+
+
+def sh(cmd: list[str], timeout: int = 120, env: dict[str, str] | None = None) -> tuple[int, str, str]:
+    try:
+        proc = subprocess.run(cmd, text=True, capture_output=True, timeout=timeout, env=env)
+        return proc.returncode, proc.stdout.strip(), proc.stderr.strip()
+    except subprocess.TimeoutExpired:
+        return 124, "", f"timeout after {timeout}s"
+
+
+def sha256_text(text: str) -> str:
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def write_text(path: Path, text: str) -> str:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(text)
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def write_yaml(path: Path, data: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if yaml:
+        path.write_text(yaml.safe_dump(data, sort_keys=False, default_flow_style=False))
+    else:
+        path.write_text(json.dumps(data, indent=2) + "\n")
+
+
+def load_yaml(path: Path) -> dict:
+    if not yaml:
+        raise RuntimeError("PyYAML is required for live parity tests")
+    return yaml.safe_load(path.read_text()) or {}
+
+
+def raw_values_file(source: Path, destination: Path) -> Path:
+    data = load_yaml(source)
+    if data.get("kind") == "EffectiveValues" and isinstance(data.get("spec", {}).get("values"), dict):
+        write_yaml(destination, data["spec"]["values"])
+        return destination
+    shutil.copyfile(source, destination)
+    return destination
+
+
+def yaml_docs(text: str) -> list[dict]:
+    if not yaml:
+        raise RuntimeError("PyYAML is required for live parity tests")
+    return [doc for doc in yaml.safe_load_all(text) if isinstance(doc, dict)]
+
+
+def object_identity(doc: dict) -> str:
+    meta = doc.get("metadata") or {}
+    return "|".join([
+        str(doc.get("apiVersion") or ""),
+        str(doc.get("kind") or ""),
+        str(meta.get("namespace") or ""),
+        str(meta.get("name") or ""),
+    ])
+
+
+def prune(value):
+    if isinstance(value, dict):
+        return {key: prune(item) for key, item in value.items() if item is not None}
+    if isinstance(value, list):
+        return [prune(item) for item in value]
+    return value
+
+
+def normalize_namespace_references(value, namespace_map: dict[str, str]):
+    if isinstance(value, dict):
+        return {key: normalize_namespace_references(item, namespace_map) for key, item in value.items()}
+    if isinstance(value, list):
+        return [normalize_namespace_references(item, namespace_map) for item in value]
+    if isinstance(value, str):
+        return namespace_map.get(value, value)
+    return value
+
+
+def object_map(text: str, namespace_map: dict[str, str] | None = None) -> dict[str, str]:
+    namespace_map = namespace_map or {}
+    result = {}
+    for doc in yaml_docs(text):
+        meta = doc.get("metadata")
+        if not isinstance(meta, dict):
+            continue
+        if not doc.get("apiVersion") or not doc.get("kind") or not meta.get("name"):
+            continue
+        doc = normalize_namespace_references(prune(doc), namespace_map)
+        if doc.get("kind") == "Namespace":
+            name = doc.get("metadata", {}).get("name")
+            if name in namespace_map:
+                doc["metadata"]["name"] = namespace_map[name]
+        meta = doc.get("metadata") or {}
+        for optional_map in ("annotations", "labels"):
+            if meta.get(optional_map) == {}:
+                meta.pop(optional_map, None)
+        result[object_identity(doc)] = json.dumps(doc, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
+    return result
+
+
+def collect_yaml(root: Path) -> str:
+    docs = []
+    if not root.exists():
+        return ""
+    for path in sorted(root.glob("*.yaml")):
+        text = path.read_text()
+        if text.strip():
+            docs.append(text.rstrip())
+    return "\n---\n".join(docs) + ("\n" if docs else "")
+
+
+def combine_yaml_parts(*parts: str) -> str:
+    docs = [part.strip() for part in parts if part.strip()]
+    return "\n---\n".join(docs) + ("\n" if docs else "")
+
+
+def render_docs_to_yaml(docs: list[dict]) -> str:
+    if not docs:
+        return ""
+    if yaml:
+        return "\n---\n".join(yaml.safe_dump(doc, sort_keys=False).strip() for doc in docs) + "\n"
+    return "\n---\n".join(json.dumps(doc, indent=2) for doc in docs) + "\n"
+
+
+def docs_matching(text: str, kind: str) -> list[dict]:
+    return [doc for doc in yaml_docs(text) if doc.get("kind") == kind]
+
+
+def manifest_namespaces(text: str) -> list[str]:
+    namespaces = set()
+    for doc in yaml_docs(text):
+        meta = doc.get("metadata") or {}
+        namespace = meta.get("namespace")
+        if isinstance(namespace, str) and namespace:
+            namespaces.add(namespace)
+        if doc.get("kind") == "Namespace":
+            name = meta.get("name")
+            if isinstance(name, str) and name:
+                namespaces.add(name)
+    return sorted(namespaces)
+
+
+def workload_namespaces(text: str, fallback: str) -> list[str]:
+    workload_kinds = {"Deployment", "StatefulSet", "DaemonSet"}
+    namespaces = set()
+    for doc in yaml_docs(text):
+        if doc.get("kind") not in workload_kinds:
+            continue
+        namespace = (doc.get("metadata") or {}).get("namespace")
+        if isinstance(namespace, str) and namespace:
+            namespaces.add(namespace)
+    return sorted(namespaces) or [fallback]
+
+
+def kubectl(args: list[str], kubeconfig: Path, context: str, timeout: int = 120) -> tuple[int, str, str]:
+    return sh(["kubectl", "--kubeconfig", str(kubeconfig), "--context", context, *args], timeout=timeout)
+
+
+def kubectl_must(args: list[str], kubeconfig: Path, context: str, step: str, timeout: int = 120) -> str:
+    rc, out, err = kubectl(args, kubeconfig, context, timeout=timeout)
+    if rc != 0:
+        raise RuntimeError(f"{step} failed: {(err or out)[:800]}")
+    return out
+
+
+def delete_namespace_if_safe(namespace: str, kubeconfig: Path, context: str) -> None:
+    if namespace in ("default", "kube-system", "kube-public", "kube-node-lease"):
+        return
+    kubectl(["delete", "namespace", namespace, "--wait=true", "--timeout=180s"], kubeconfig, context, timeout=210)
+
+
+def protected_namespace(namespace: str) -> bool:
+    return namespace in ("default", "kube-system", "kube-public", "kube-node-lease")
+
+
+def leg_namespace(namespace: str, suffix: str) -> str:
+    if protected_namespace(namespace):
+        return namespace
+    return f"{namespace}-{suffix}"
+
+
+def cleanup_manifest_yaml(text: str) -> str:
+    docs = []
+    for doc in yaml_docs(text):
+        if doc.get("kind") == "Namespace" and protected_namespace(doc.get("metadata", {}).get("name", "")):
+            continue
+        docs.append(doc)
+    return render_docs_to_yaml(docs)
+
+
+def ready_status(kubeconfig: Path, context: str, namespace: str) -> dict:
+    rc, workloads, workload_err = kubectl(
+        ["-n", namespace, "get", "deploy,statefulset,daemonset", "--no-headers"],
+        kubeconfig,
+        context,
+        timeout=60,
+    )
+    rc_pods, pods, pod_err = kubectl(["-n", namespace, "get", "pods", "--no-headers"], kubeconfig, context, timeout=60)
+    not_ready = []
+    for line in pods.splitlines():
+        fields = line.split()
+        if len(fields) < 3:
+            continue
+        name, ready, status = fields[:3]
+        ok = status in ("Running", "Completed")
+        if "/" in ready:
+            have, want = ready.split("/", 1)
+            ok = ok and have == want
+        if not ok:
+            not_ready.append({"pod": name, "ready": ready, "status": status})
+    return {
+        "result": "pass" if rc == 0 and bool(workloads.strip()) and rc_pods == 0 and not not_ready else "watch",
+        "workloads": workloads if rc == 0 else workload_err,
+        "pods": pods if rc_pods == 0 else pod_err,
+        "notReady": not_ready,
+    }
+
+
+def wait_ready(kubeconfig: Path, context: str, namespace: str, timeout_seconds: int = 300) -> dict:
+    deadline = time.monotonic() + timeout_seconds
+    last = ready_status(kubeconfig, context, namespace)
+    while time.monotonic() < deadline:
+        if last["result"] == "pass":
+            return last
+        time.sleep(10)
+        last = ready_status(kubeconfig, context, namespace)
+    return last
+
+
+def wait_ready_many(kubeconfig: Path, context: str, namespaces: list[str], timeout_seconds: int = 300) -> dict:
+    deadline = time.monotonic() + timeout_seconds
+    last = {}
+    while time.monotonic() < deadline:
+        results = {namespace: ready_status(kubeconfig, context, namespace) for namespace in namespaces}
+        last = results
+        if results and all(item.get("result") == "pass" for item in results.values()):
+            break
+        time.sleep(10)
+    not_ready = []
+    workloads = []
+    pods = []
+    for namespace, result in last.items():
+        workloads.append(f"# {namespace}\n{result.get('workloads', '')}".rstrip())
+        pods.append(f"# {namespace}\n{result.get('pods', '')}".rstrip())
+        for item in result.get("notReady", []):
+            not_ready.append({"namespace": namespace, **item})
+    return {
+        "result": "pass" if last and all(item.get("result") == "pass" for item in last.values()) else "watch",
+        "namespaces": namespaces,
+        "workloads": "\n".join(workloads),
+        "pods": "\n".join(pods),
+        "notReady": not_ready,
+    }
+
+
+def semantic_compare(helm_yaml: str, cub_yaml: str, allowed_extra: list[str], namespace_map: dict[str, str] | None = None) -> dict:
+    helm = object_map(helm_yaml)
+    cub = object_map(cub_yaml, namespace_map)
+    helm_keys = set(helm)
+    cub_keys = set(cub)
+    missing = sorted(helm_keys - cub_keys)
+    extra = sorted(cub_keys - helm_keys)
+    common = sorted(helm_keys & cub_keys)
+    diffs = [key for key in common if helm[key] != cub[key]]
+    return {
+        "result": "pass" if not missing and extra == allowed_extra and not diffs else "blocked",
+        "helmObjectCount": len(helm_keys),
+        "configHubObjectCount": len(cub_keys),
+        "missingFromConfigHub": missing,
+        "extraInConfigHub": extra,
+        "semanticDiffs": diffs[:50],
+        "comparisonSHA256": sha256_text(json.dumps({
+            "missing": missing,
+            "extra": extra,
+            "diffs": diffs,
+        }, sort_keys=True)),
+    }
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--chart", required=True)
+    parser.add_argument("--version", required=True)
+    parser.add_argument("--repo-url", required=True)
+    parser.add_argument("--release", required=True)
+    parser.add_argument("--namespace", required=True)
+    parser.add_argument("--package", required=True)
+    parser.add_argument("--recipe", required=True)
+    parser.add_argument("--base", required=True)
+    parser.add_argument("--variant-revision", required=True)
+    parser.add_argument("--values", required=True)
+    parser.add_argument("--slug", required=True)
+    parser.add_argument("--rig", required=True)
+    parser.add_argument("--out", required=True)
+    parser.add_argument("--wait", default="8m")
+    parser.add_argument("--keep", action="store_true")
+    args = parser.parse_args()
+
+    repo = Path(__file__).resolve().parents[1]
+    package_path = repo / args.package
+    recipe_path = repo / args.recipe
+    values_path = repo / args.values
+    revision_path = repo / args.variant_revision
+    canonical_rendered_path = revision_path.parent / "rendered" / "release-objects.yaml"
+    out_path = repo / args.out
+    run_root = out_path.parent
+    rig = args.rig
+    context = f"kind-{rig}"
+    kubeconfig = Path.home() / ".confighub" / "lk" / f"{rig}.kubeconfig"
+    cluster_space = f"{rig}-cluster"
+    target = f"{cluster_space}/oci"
+    workdir = Path("/tmp") / f"helm-expt-live-parity-{rig}-{args.slug}"
+    wspace = f"{rig}-{args.slug}"
+    child_app = f"{args.slug}-parity"
+    helm_namespace = leg_namespace(args.namespace, "helm")
+    apply_namespace = leg_namespace(args.namespace, "apply")
+    oci_namespace = leg_namespace(args.namespace, "oci")
+
+    receipt = {
+        "apiVersion": "helm-expt.confighub.com/v1alpha1",
+        "kind": "LiveHelmConfigHubParityReceipt",
+        "metadata": {"name": f"{args.chart.replace('/', '-')}-{args.version}-{args.base}-live-parity-20260605"},
+        "spec": {
+            "chart": args.chart,
+            "version": args.version,
+            "base": args.base,
+            "result": "blocked",
+            "observedAt": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+            "package": {"path": args.package},
+            "recipe": {"path": args.recipe},
+            "variantRevision": args.variant_revision,
+            "run": {
+                "rig": rig,
+                "kubeContext": context,
+                "namespace": args.namespace,
+                "legNamespaces": {
+                    "regularHelm": helm_namespace,
+                    "configHubKubectlApply": apply_namespace,
+                    "configHubOciArgo": oci_namespace,
+                },
+                "clusterLifecycle": "not-created",
+                "cleanup": {"result": "not-run"},
+            },
+            "legs": {},
+            "semanticComparison": {"allowedExtraConfigHubObjects": [f"v1|Namespace||{args.namespace}"]},
+            "checks": [],
+        },
+    }
+
+    def check_item(name: str, result: str, detail: str) -> None:
+        receipt["spec"]["checks"].append({"name": name, "result": result, "detail": detail[:1000]})
+
+    def leg(name: str, **fields) -> None:
+        receipt["spec"]["legs"][name] = fields
+
+    def mark_stage(name: str) -> None:
+        write_text(run_root / "stage.txt", f"{datetime.now(timezone.utc).replace(microsecond=0).isoformat()} {name}\n")
+
+    cleanup_ok = True
+    try:
+        mark_stage("validate-inputs")
+        for path, label in [
+            (package_path, "package"),
+            (recipe_path, "recipe"),
+            (values_path, "values"),
+            (revision_path, "variant revision"),
+            (canonical_rendered_path, "canonical rendered objects"),
+        ]:
+            if not path.exists():
+                raise RuntimeError(f"{label} path not found: {path}")
+        canonical_helm_manifest = canonical_rendered_path.read_text()
+        write_text(run_root / "canonical-helm-render.yaml", canonical_helm_manifest)
+        helm_values_path = raw_values_file(values_path, run_root / "regular-helm-values.yaml")
+
+        mark_stage("cub-lk-up")
+        rc, out, err = sh(["cub", "lk", "up", "--name", rig, "--no-ports"], timeout=600)
+        if rc != 0:
+            raise RuntimeError(f"cub lk up failed: {(err or out)[:1000]}")
+        receipt["spec"]["run"]["clusterLifecycle"] = "created"
+        check_item("cub-lk-up", "pass", out or "cub lk up passed")
+
+        if workdir.exists():
+            shutil.rmtree(workdir)
+
+        chart_ref = args.chart.split("/", 1)[1] if "/" in args.chart else args.chart
+        helm_cmd = [
+            "helm", "upgrade", "--install", args.release, chart_ref,
+            "--repo", args.repo_url,
+            "--version", args.version,
+            "--namespace", helm_namespace,
+            "--create-namespace",
+            "--values", str(helm_values_path),
+            "--wait",
+            "--timeout", args.wait,
+        ]
+        env = {**os.environ, "KUBECONFIG": str(kubeconfig)}
+        mark_stage("regular-helm-install")
+        rc, helm_out, helm_err = sh(helm_cmd, timeout=900, env=env)
+        helm_live_manifest = ""
+        get_rc, get_out, get_err = sh(["helm", "get", "manifest", args.release, "--namespace", helm_namespace], timeout=120, env=env)
+        if get_rc == 0:
+            helm_live_manifest = get_out + "\n"
+            write_text(run_root / "regular-helm-live-manifest.yaml", helm_live_manifest)
+        helm_runtime = wait_ready(kubeconfig, context, helm_namespace, timeout_seconds=180)
+        helm_result = "pass" if rc == 0 and get_rc == 0 and helm_runtime["result"] == "pass" else "blocked"
+        leg("regularHelm",
+            result=helm_result,
+            command=" ".join(helm_cmd),
+            manifestSHA256=sha256_text(canonical_helm_manifest),
+            objectCount=len(object_map(canonical_helm_manifest)),
+            liveHelmManifestSHA256=sha256_text(helm_live_manifest) if helm_live_manifest else "",
+            liveHelmManifestObjectCount=len(object_map(helm_live_manifest)) if helm_live_manifest else 0,
+            namespace=helm_namespace,
+            runtime=helm_runtime,
+            stderr=helm_err[:1000] if rc != 0 else "",
+            getManifestError=get_err[:1000] if get_rc != 0 else "",
+        )
+        check_item("regular-helm-live", helm_result, helm_err or helm_out or helm_runtime.get("workloads", ""))
+        # The other legs use separate namespaces, so Helm cleanup does not block
+        # their execution. cub-lk teardown removes the whole rig at the end.
+        sh(["helm", "uninstall", args.release, "--namespace", helm_namespace, "--wait"], timeout=300, env=env)
+
+        mark_stage("configHub-direct-render")
+        setup_cmd = [
+            "cub", "installer", "setup", "--pull", str(package_path), "--base", args.base,
+            "--work-dir", str(workdir), "--non-interactive", "--namespace", apply_namespace,
+        ]
+        rc, setup_out, setup_err = sh(setup_cmd, timeout=360)
+        if rc != 0:
+            raise RuntimeError(f"installer setup failed: {(setup_err or setup_out)[:1000]}")
+        manifests_dir = workdir / "out" / "manifests"
+        secrets_dir = workdir / "out" / "secrets"
+        cub_manifest = combine_yaml_parts(collect_yaml(manifests_dir), collect_yaml(secrets_dir))
+        write_text(run_root / "confighub-rendered-manifest.yaml", cub_manifest)
+
+        apply_manifest_namespaces = manifest_namespaces(cub_manifest) or [apply_namespace]
+        apply_runtime_namespaces = workload_namespaces(cub_manifest, apply_namespace)
+        namespace_docs = []
+        for namespace in apply_manifest_namespaces:
+            if protected_namespace(namespace):
+                continue
+            namespace_docs.append(yaml.safe_load(kubectl_must(
+                ["create", "namespace", namespace, "--dry-run=client", "-o", "yaml"],
+                kubeconfig,
+                context,
+                f"namespace yaml {namespace}",
+            )))
+        ns_yaml = run_root / "namespace-apply.yaml"
+        if namespace_docs:
+            write_text(ns_yaml, render_docs_to_yaml(namespace_docs))
+            kubectl_must(["apply", "-f", str(ns_yaml)], kubeconfig, context, "namespace apply")
+        if secrets_dir.exists():
+            for secret_path in sorted(secrets_dir.glob("*.yaml")):
+                kubectl_must(["apply", "-f", str(secret_path)], kubeconfig, context, f"secret apply {secret_path.name}", timeout=120)
+        if manifests_dir.exists():
+            mark_stage("configHub-direct-apply")
+            crds = docs_matching(cub_manifest, "CustomResourceDefinition")
+            if crds:
+                crd_path = run_root / "confighub-rendered-crds.yaml"
+                write_text(crd_path, render_docs_to_yaml(crds))
+                kubectl_must(["apply", "--server-side", "--force-conflicts", "-f", str(crd_path)], kubeconfig, context, "crd apply", timeout=300)
+                for crd in crds:
+                    name = crd.get("metadata", {}).get("name")
+                    if name:
+                        kubectl(["wait", "--for=condition=Established", f"crd/{name}", "--timeout=180s"], kubeconfig, context, timeout=210)
+            for path in sorted(manifests_dir.glob("*.yaml")):
+                if "namespace-" in path.name:
+                    kubectl(["apply", "-f", str(path)], kubeconfig, context, timeout=120)
+            rest = [path for path in sorted(manifests_dir.glob("*.yaml")) if "namespace-" not in path.name]
+            if rest:
+                kubectl_must(["apply", "--server-side", "--force-conflicts", "-f", str(manifests_dir)], kubeconfig, context, "manifest apply", timeout=300)
+        mark_stage("configHub-direct-readiness")
+        apply_runtime = wait_ready_many(kubeconfig, context, apply_runtime_namespaces, timeout_seconds=300)
+        apply_result = "pass" if apply_runtime["result"] == "pass" else "watch"
+        leg("configHubKubectlApply",
+            result=apply_result,
+            renderCommand=" ".join(setup_cmd),
+            applyMode="namespace-first kubectl apply; separated secrets staged when present",
+            manifestSHA256=sha256_text(cub_manifest),
+            objectCount=len(object_map(cub_manifest)),
+            namespace=apply_namespace,
+            manifestNamespaces=apply_manifest_namespaces,
+            runtimeNamespaces=apply_runtime_namespaces,
+            runtime=apply_runtime,
+        )
+        check_item("confighub-kubectl-apply-live", apply_result, apply_runtime.get("workloads", ""))
+
+        # Re-render for the OCI leg so the applied artifact is isolated from the
+        # direct kubectl/apply namespace.
+        mark_stage("configHub-oci-render")
+        if workdir.exists():
+            shutil.rmtree(workdir)
+        setup_cmd_oci = [
+            "cub", "installer", "setup", "--pull", str(package_path), "--base", args.base,
+            "--work-dir", str(workdir), "--non-interactive", "--namespace", oci_namespace,
+        ]
+        rc, setup_out, setup_err = sh(setup_cmd_oci, timeout=360)
+        if rc != 0:
+            raise RuntimeError(f"installer setup for oci failed: {(setup_err or setup_out)[:1000]}")
+        manifests_dir = workdir / "out" / "manifests"
+        secrets_dir = workdir / "out" / "secrets"
+        cub_manifest_oci = combine_yaml_parts(collect_yaml(manifests_dir), collect_yaml(secrets_dir))
+        write_text(run_root / "confighub-rendered-oci-manifest.yaml", cub_manifest_oci)
+
+        # Stage separated Secrets before OCI/Argo reconciliation. ConfigHub upload
+        # deliberately excludes these files from the workload Units.
+        oci_manifest_namespaces = manifest_namespaces(cub_manifest_oci) or [oci_namespace]
+        oci_runtime_namespaces = workload_namespaces(cub_manifest_oci, oci_namespace)
+        namespace_docs = []
+        for namespace in oci_manifest_namespaces:
+            if protected_namespace(namespace):
+                continue
+            namespace_docs.append(yaml.safe_load(kubectl_must(
+                ["create", "namespace", namespace, "--dry-run=client", "-o", "yaml"],
+                kubeconfig,
+                context,
+                f"oci namespace yaml {namespace}",
+            )))
+        ns_oci_yaml = run_root / "namespace-oci.yaml"
+        if namespace_docs:
+            write_text(ns_oci_yaml, render_docs_to_yaml(namespace_docs))
+            kubectl_must(["apply", "-f", str(ns_oci_yaml)], kubeconfig, context, "namespace apply before oci")
+        staged_secrets = []
+        if secrets_dir.exists():
+            for secret_path in sorted(secrets_dir.glob("*.yaml")):
+                kubectl_must(["apply", "-f", str(secret_path)], kubeconfig, context, f"oci secret apply {secret_path.name}", timeout=120)
+                staged_secrets.append(secret_path.name)
+
+        rc, upload_out, upload_err = sh([
+            "cub", "installer", "upload", "--work-dir", str(workdir),
+            "--space", wspace, "--target", target,
+        ], timeout=600)
+        if rc != 0:
+            raise RuntimeError(f"installer upload failed: {(upload_err or upload_out)[:1000]}")
+
+        rc, units_out, units_err = sh(["cub", "unit", "list", "--space", wspace], timeout=120)
+        if rc != 0:
+            raise RuntimeError(f"unit list failed: {(units_err or units_out)[:1000]}")
+        units = []
+        for line in units_out.splitlines():
+            token = line.split()
+            if not token:
+                continue
+            name = token[0]
+            if name not in ("NAME", "installer-record"):
+                units.append(name)
+        if not units:
+            raise RuntimeError(f"no workload units found in {wspace}")
+        rc, apply_out, apply_err = sh(["cub", "unit", "apply", "--space", wspace, "--unit", ",".join(units)], timeout=300)
+        if rc != 0:
+            raise RuntimeError(f"unit apply failed: {(apply_err or apply_out)[:1000]}")
+
+        mark_stage("configHub-oci-argo")
+        app = {
+            "apiVersion": "argoproj.io/v1alpha1",
+            "kind": "Application",
+            "metadata": {"name": child_app, "namespace": "argocd"},
+            "spec": {
+                "project": "default",
+                "source": {
+                    "repoURL": f"oci://oci.hub.confighub.com:443/target/{cluster_space}/oci",
+                    "targetRevision": "latest",
+                    "path": f"./{wspace}",
+                },
+                "destination": {"server": "https://kubernetes.default.svc", "namespace": oci_namespace},
+                "syncPolicy": {
+                    "automated": {"selfHeal": True, "prune": True},
+                    "syncOptions": ["ServerSideApply=true", "CreateNamespace=true"],
+                },
+            },
+        }
+        app_path = run_root / "argo-application.json"
+        app_path.write_text(json.dumps(app, indent=2))
+        sh(["cub", "unit", "create", "--space", cluster_space, f"{child_app}-app", str(app_path), "--target", target, "--allow-exists"], timeout=180)
+        rc, app_apply_out, app_apply_err = sh(["cub", "unit", "apply", "--space", cluster_space, "--unit", f"{child_app}-app"], timeout=180)
+        if rc != 0:
+            raise RuntimeError(f"application apply failed: {(app_apply_err or app_apply_out)[:1000]}")
+        kubectl([
+            "annotate", "application", cluster_space, "-n", "argocd",
+            "argocd.argoproj.io/refresh=hard", "--overwrite",
+        ], kubeconfig, context, timeout=30)
+
+        sync = health = revision = ""
+        waited = 0
+        while waited < 420:
+            rc, status, _ = kubectl([
+                "get", "application", child_app, "-n", "argocd",
+                "-o", "jsonpath={.status.sync.status}|{.status.health.status}|{.status.sync.revision}",
+            ], kubeconfig, context, timeout=30)
+            if "|" in status:
+                sync, health, revision = (status.split("|") + ["", "", ""])[:3]
+                if sync == "Synced" and health == "Healthy":
+                    break
+            time.sleep(10)
+            waited += 10
+        mark_stage("configHub-oci-readiness")
+        oci_runtime = wait_ready_many(kubeconfig, context, oci_runtime_namespaces, timeout_seconds=180)
+        oci_result = "pass" if sync == "Synced" and health == "Healthy" and oci_runtime["result"] == "pass" else "watch"
+        leg("configHubOciArgo",
+            result=oci_result,
+            workloadSpace=wspace,
+            controller="Argo CD OCI",
+            app=child_app,
+            manifestSHA256=sha256_text(cub_manifest_oci),
+            objectCount=len(object_map(cub_manifest_oci)),
+            namespace=oci_namespace,
+            manifestNamespaces=oci_manifest_namespaces,
+            runtimeNamespaces=oci_runtime_namespaces,
+            ociRevision=revision,
+            sync=sync or "unknown",
+            health=health or "unknown",
+            separatedSecrets=staged_secrets,
+            runtime=oci_runtime,
+        )
+        check_item("confighub-oci-argo-live", oci_result, f"sync={sync or '?'} health={health or '?'} after {waited}s")
+
+        comparison_apply = semantic_compare(
+            canonical_helm_manifest,
+            cub_manifest,
+            [f"v1|Namespace||{args.namespace}"],
+            {apply_namespace: args.namespace},
+        )
+        comparison_argo = semantic_compare(
+            canonical_helm_manifest,
+            cub_manifest_oci,
+            [f"v1|Namespace||{args.namespace}"],
+            {oci_namespace: args.namespace},
+        )
+        receipt["spec"]["semanticComparison"]["helmVsConfigHubKubectlApply"] = comparison_apply
+        receipt["spec"]["semanticComparison"]["helmVsConfigHubOciArgo"] = comparison_argo
+        check_item("semantic-object-parity", comparison_apply["result"], f"missing={len(comparison_apply['missingFromConfigHub'])} extra={comparison_apply['extraInConfigHub']} diffs={len(comparison_apply['semanticDiffs'])}")
+
+        leg_results = [item.get("result") for item in receipt["spec"]["legs"].values()]
+        comparison_ok = comparison_apply["result"] == "pass"
+        receipt["spec"]["result"] = "pass" if all(item == "pass" for item in leg_results) and comparison_ok else "watch"
+        if "blocked" in leg_results or not canonical_helm_manifest or not comparison_ok:
+            receipt["spec"]["result"] = "blocked"
+
+    except Exception as exc:
+        receipt["spec"]["result"] = "blocked"
+        check_item("failure", "blocked", str(exc))
+        receipt["spec"]["failure"] = {"message": str(exc)}
+    finally:
+        if not args.keep:
+            mark_stage("cleanup")
+            for cmd in [
+                ["cub", "space", "delete", wspace, "--recursive-force"],
+                ["cub", "unit", "delete", "--space", cluster_space, f"{child_app}-app"],
+            ]:
+                rc, _, _ = sh(cmd, timeout=180)
+                cleanup_ok = cleanup_ok and rc == 0
+            rc, down_out, down_err = sh(["cub", "lk", "down", "--name", rig], timeout=600)
+            cleanup_ok = cleanup_ok and rc == 0
+            receipt["spec"]["run"]["clusterLifecycle"] = "cleaned-up" if rc == 0 else "cleanup-failed"
+            receipt["spec"]["run"]["cleanup"] = {
+                "command": f"cub lk down --name {rig}",
+                "result": "pass" if cleanup_ok else "blocked",
+                "detail": (down_err or down_out)[:1000],
+            }
+        else:
+            receipt["spec"]["run"]["clusterLifecycle"] = "retained"
+            receipt["spec"]["run"]["cleanup"] = {"result": "retained"}
+        write_yaml(out_path, receipt)
+        print(f"wrote {out_path.relative_to(repo)} result={receipt['spec']['result']}")
+
+    return 0 if receipt["spec"]["result"] in ("pass", "watch", "blocked") else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

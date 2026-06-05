@@ -1,0 +1,48 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: grafana-loki-7.0.0-single-binary-filesystem-live-parity-20260605
+spec:
+  chart: grafana/loki
+  version: 7.0.0
+  base: single-binary-filesystem
+  result: blocked
+  observedAt: '2026-06-05T20:30:57Z'
+  package:
+    path: packages/grafana/loki/7.0.0
+  recipe:
+    path: recipes/grafana/loki/7.0.0
+  variantRevision: recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/variant-revision.yaml
+  run:
+    rig: helm-expt-parity-loki-mq1dptxq-102g
+    kubeContext: kind-helm-expt-parity-loki-mq1dptxq-102g
+    namespace: loki
+    legNamespaces:
+      regularHelm: loki-helm
+      configHubKubectlApply: loki-apply
+      configHubOciArgo: loki-oci
+    clusterLifecycle: cleanup-failed
+    cleanup:
+      command: cub lk down --name helm-expt-parity-loki-mq1dptxq-102g
+      result: blocked
+      detail: 'Error: no lk-managed Space for "helm-expt-parity-loki-mq1dptxq-102g"
+        in the current cub context (are you in the right context?). Pass --force to
+        delete the local kind cluster + kubeconfig anyway
+
+        Error: no lk-managed Space for "helm-expt-parity-loki-mq1dptxq-102g" in the
+        current cub context (are you in the right context?). Pass --force to delete
+        the local kind cluster + kubeconfig anyway'
+  legs: {}
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||loki
+  checks:
+  - name: failure
+    result: blocked
+    detail: 'cub lk up failed: Error: kind create cluster: exit status 1
+
+      Error: kind create cluster: exit status 1'
+  failure:
+    message: 'cub lk up failed: Error: kind create cluster: exit status 1
+
+      Error: kind create cluster: exit status 1'

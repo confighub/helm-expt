@@ -1,0 +1,48 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: external-secrets-external-secrets-2.5.0-default-live-parity-20260605
+spec:
+  chart: external-secrets/external-secrets
+  version: 2.5.0
+  base: default
+  result: blocked
+  observedAt: '2026-06-05T20:30:57Z'
+  package:
+    path: packages/external-secrets/external-secrets/2.5.0
+  recipe:
+    path: recipes/external-secrets/external-secrets/2.5.0
+  variantRevision: recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/variant-revision.yaml
+  run:
+    rig: helm-expt-parity-externalsecrets-mq1dptut-1023
+    kubeContext: kind-helm-expt-parity-externalsecrets-mq1dptut-1023
+    namespace: external-secrets
+    legNamespaces:
+      regularHelm: external-secrets-helm
+      configHubKubectlApply: external-secrets-apply
+      configHubOciArgo: external-secrets-oci
+    clusterLifecycle: cleanup-failed
+    cleanup:
+      command: cub lk down --name helm-expt-parity-externalsecrets-mq1dptut-1023
+      result: blocked
+      detail: 'Error: no lk-managed Space for "helm-expt-parity-externalsecrets-mq1dptut-1023"
+        in the current cub context (are you in the right context?). Pass --force to
+        delete the local kind cluster + kubeconfig anyway
+
+        Error: no lk-managed Space for "helm-expt-parity-externalsecrets-mq1dptut-1023"
+        in the current cub context (are you in the right context?). Pass --force to
+        delete the local kind cluster + kubeconfig anyway'
+  legs: {}
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||external-secrets
+  checks:
+  - name: failure
+    result: blocked
+    detail: 'cub lk up failed: Error: kind create cluster: exit status 1
+
+      Error: kind create cluster: exit status 1'
+  failure:
+    message: 'cub lk up failed: Error: kind create cluster: exit status 1
+
+      Error: kind create cluster: exit status 1'

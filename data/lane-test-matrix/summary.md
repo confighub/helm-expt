@@ -15,8 +15,8 @@ cluster.
 
 ```text
 chart-recipe-variant rows: 156
-complete core lane set: 2
-incomplete core lane set: 154
+complete core lane set: 6
+incomplete core lane set: 150
 ```
 
 ## Core Lane Counts
@@ -26,8 +26,8 @@ incomplete core lane set: 154
 | helm_template_vs_installer_setup | 156 | 0 | 0 |
 | confighub_upload_variant_scan_safe_ops | 18 | 138 | 0 |
 | local_kind_kubectl_apply | 21 | 135 | 0 |
-| confighub_oci_argo_live | 6 | 145 | 5 |
-| live_helm_vs_confighub_dual_compare | 2 | 154 | 0 |
+| confighub_oci_argo_live | 12 | 137 | 7 |
+| live_helm_vs_confighub_dual_compare | 10 | 136 | 10 |
 
 ## Lane Definitions
 
@@ -41,7 +41,7 @@ incomplete core lane set: 154
 
 ## Current Gaps
 
-The live Helm-vs-ConfigHub dual comparison lane has 2 PASS receipt(s) and 154 missing row(s). The ConfigHub OCI/Argo live lane has a harness, but this repo
+The live Helm-vs-ConfigHub dual comparison lane has 10 PASS receipt(s) and 136 missing row(s). The ConfigHub OCI/Argo live lane has a harness, but this repo
 currently has no committed PASS receipts for every chart-recipe-variant row.
 
 ### First Missing ConfigHub Proof Rows
@@ -125,8 +125,8 @@ currently has no committed PASS receipts for every chart-recipe-variant row.
 - bitnami/elasticsearch@22.1.6 / ha
 - bitnami/memcached@8.5.5 / default
 - bitnami/mongodb@19.0.7 / existing-secret-replicaset
-- bitnami/mongodb@19.0.7 / generated-passwords
 - bitnami/mysql@14.0.3 / existing-secret
 - bitnami/mysql@14.0.3 / generated-passwords
 - bitnami/nginx@24.0.2 / existing-tls-ingress
+- bitnami/opensearch@2.0.10 / default
 

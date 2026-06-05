@@ -1,0 +1,95 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: argo-cd-argo-cd-9.5.15-default-live-parity-20260605
+spec:
+  chart: argo-cd/argo-cd
+  version: 9.5.15
+  base: default
+  result: blocked
+  observedAt: '2026-06-05T20:30:57Z'
+  package:
+    path: packages/argo-cd/argo-cd/9.5.15
+  recipe:
+    path: recipes/argo-cd/argo-cd/9.5.15
+  variantRevision: recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/variant-revision.yaml
+  run:
+    rig: helm-expt-parity-argocd-mq1dpu4c-1030
+    kubeContext: kind-helm-expt-parity-argocd-mq1dpu4c-1030
+    namespace: argocd
+    legNamespaces:
+      regularHelm: argocd-helm
+      configHubKubectlApply: argocd-apply
+      configHubOciArgo: argocd-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-argocd-mq1dpu4c-1030
+      result: blocked
+      detail: "Deleting kind cluster \"helm-expt-parity-argocd-mq1dpu4c-1030\"...\n\
+        Deleting cluster \"helm-expt-parity-argocd-mq1dpu4c-1030\" ...\nERROR: failed\
+        \ to delete cluster \"helm-expt-parity-argocd-mq1dpu4c-1030\": failed to delete\
+        \ nodes: command \"docker rm -f -v helm-expt-parity-argocd-mq1dpu4c-1030-control-plane\"\
+        \ failed with error: exit status 1\n\nCommand Output: Error response from\
+        \ daemon: cannot remove container \"helm-expt-parity-argocd-mq1dpu4c-1030-control-plane\"\
+        : could not kill container: tried to kill container, but did not receive an\
+        \ exit event\n  warning: kind delete cluster: exit status 1\nDeleting Space\
+        \ \"helm-expt-parity-argocd-mq1dpu4c-1030-cluster\" (recursive: cascades to\
+        \ Unit, Target, Worker)...\n  warning: space \"helm-expt-parity-argocd-mq1dpu4c-1030-cluster\"\
+        \ not found\n\nDone."
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install argo-cd argo-cd --repo https://argoproj.github.io/argo-helm
+        --version 9.5.15 --namespace argocd-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: e52ddef5e56e347a8959dd1e8591e116479bf8aa8682c83e3753fe7355a38cc0
+      objectCount: 49
+      liveHelmManifestSHA256: ''
+      liveHelmManifestObjectCount: 0
+      namespace: argocd-helm
+      runtime:
+        result: watch
+        workloads: ''
+        pods: ''
+        notReady: []
+      stderr: 'Error: unable to continue with install: CustomResourceDefinition "applications.argoproj.io"
+        in namespace "" exists and cannot be imported into the current release: invalid
+        ownership metadata; label validation error: missing key "app.kubernetes.io/managed-by":
+        must be set to "Helm"; annotation validation error: missing key "meta.helm.sh/release-name":
+        must be set to "argo-cd"; annotation validation error: missing key "meta.helm.sh/release-namespace":
+        must be set to "argocd-helm"'
+      getManifestError: 'Error: release: not found'
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||argocd
+  checks:
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-argocd-mq1dpu4c-1030\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-argocd-mq1dpu4c-1030.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-argocd-mq1dpu4c-1030\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-argocd-mq1dpu4c-1030\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-argocd-mq1dpu4c-1030\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-argocd-mq1dpu4c-1030.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\nspec: "
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: unable to continue with install: CustomResourceDefinition "applications.argoproj.io"
+      in namespace "" exists and cannot be imported into the current release: invalid
+      ownership metadata; label validation error: missing key "app.kubernetes.io/managed-by":
+      must be set to "Helm"; annotation validation error: missing key "meta.helm.sh/release-name":
+      must be set to "argo-cd"; annotation validation error: missing key "meta.helm.sh/release-namespace":
+      must be set to "argocd-helm"'
+  - name: failure
+    result: blocked
+    detail: 'crd apply failed: Error from server: etcdserver: request timed out'
+  failure:
+    message: 'crd apply failed: Error from server: etcdserver: request timed out'

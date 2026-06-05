@@ -1,0 +1,44 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: hashicorp-consul-2.0.0-default-control-plane-live-parity-20260605
+spec:
+  chart: hashicorp/consul
+  version: 2.0.0
+  base: default-control-plane
+  result: blocked
+  observedAt: '2026-06-05T20:36:39Z'
+  package:
+    path: packages/hashicorp/consul/2.0.0
+  recipe:
+    path: recipes/hashicorp/consul/2.0.0
+  variantRevision: recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/variant-revision.yaml
+  run:
+    rig: helm-expt-parity-consul-mq1dx5ju-11ay
+    kubeContext: kind-helm-expt-parity-consul-mq1dx5ju-11ay
+    namespace: consul
+    legNamespaces:
+      regularHelm: consul-helm
+      configHubKubectlApply: consul-apply
+      configHubOciArgo: consul-oci
+    clusterLifecycle: cleanup-failed
+    cleanup:
+      command: cub lk down --name helm-expt-parity-consul-mq1dx5ju-11ay
+      result: blocked
+      detail: 'Error: no lk-managed Space for "helm-expt-parity-consul-mq1dx5ju-11ay"
+        in the current cub context (are you in the right context?). Pass --force to
+        delete the local kind cluster + kubeconfig anyway
+
+        Error: no lk-managed Space for "helm-expt-parity-consul-mq1dx5ju-11ay" in
+        the current cub context (are you in the right context?). Pass --force to delete
+        the local kind cluster + kubeconfig anyway'
+  legs: {}
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||consul
+  checks:
+  - name: failure
+    result: blocked
+    detail: 'cub lk up failed: timeout after 600s'
+  failure:
+    message: 'cub lk up failed: timeout after 600s'

@@ -62,6 +62,9 @@ function verifyRuntime(runtime, context) {
     for (const item of runtime.checks) {
       check(item.result === "pass", `${context} runtime check did not pass: ${item.name ?? "unnamed"}`);
     }
+  } else if (runtime.result) {
+    check(runtime.result === "pass", `${context} runtime result mismatch`);
+    check((runtime.notReady ?? []).length === 0, `${context} has not-ready pods`);
   } else {
     check(runtime.ready === "1/1", `${context} runtime readiness mismatch`);
     check(runtime.podStatus === "Running", `${context} pod status mismatch`);
