@@ -39,6 +39,7 @@ when they are exercising installer, upload, or live-cluster paths.
 | `npm run site:verify` | Generated static site files match current catalog data. | When changing catalog data surfaced by `site/`. |
 | `npm run derived-variants:verify` | Intended-state derived variant receipts are present and prove clone/link/gate evidence. | When changing derived variant goldens or clone receipts. |
 | `npm run derived-variants:target-bound:verify` | Target-bound derived variant receipts are present and prove live ConfigHub OCI/Argo/runtime evidence for exact derived variants. | When adding or changing target-bound derived variant evidence. |
+| `npm run derived-variants:target-bound:summary:verify` | Generated target-bound derived variant summary is current with the committed receipts. | When adding or changing target-bound derived variant evidence. |
 
 ## Where Helm And ConfigHub Actually Run
 
@@ -50,6 +51,7 @@ when they are exercising installer, upload, or live-cluster paths.
 | Local cluster apply, no ConfigHub | `npm run top20:local-e2e`; `npm run redis:local-e2e` | Applies committed rendered objects to kind with `kubectl`, waits for workloads/PVCs/CRDs, and writes observation receipts. |
 | ConfigHub to OCI to Argo live path | `tests/chart-install-test`; `tests/chart-install-sweep`; `tests/existing-secret-proof` | Runs `cub installer setup`, uploads Units, applies Units to OCI, creates an Argo Application, waits for sync/health, and checks runtime workloads. |
 | Target-bound derived variant live path | `cub variant create --target`; `npm run derived-variants:target-bound:verify`; `runs/derived-variant-target-bound/**/receipt.yaml` | Clones a reviewed uploaded base Space, binds the cloned Units to a real target, applies workload Units to OCI, reconciles with Argo, and records runtime evidence. |
+| Target-bound derived variant summary | `npm run derived-variants:target-bound:summary:verify`; `data/derived-variant-target-bound/summary.md` | Gives humans one generated table for target-bound derived variant pass, blocked, and watch receipts. |
 | User-side Redis checks | `redis:verify-install:render`, `redis:verify-install:cluster`, `redis:verify-install:confighub` | Checks a user's Redis tutorial render, cluster state, or ConfigHub Space against `install-checks.yaml`. |
 
 The live Helm-vs-ConfigHub comparator has started with committed NGINX and

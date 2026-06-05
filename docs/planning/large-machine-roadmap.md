@@ -120,6 +120,9 @@ Done when:
 - `npm run derived-variants:verify` covers intended-state receipts.
 - `npm run derived-variants:target-bound:verify` covers target-bound live
   receipts.
+- `npm run derived-variants:target-bound:summary:verify` keeps
+  [Target-Bound Derived Variants](../../data/derived-variant-target-bound/summary.md)
+  current for human review.
 - The docs say which derived variants are target-bound live and which are not.
 
 ## Phase 3 - Top-20 Row-Level Live Coverage

@@ -14,6 +14,11 @@ The runtime/GitOps wave tracks the first Argo/OCI live rows:
 
 [Runtime/GitOps Wave](../../data/runtime-gitops/summary.md)
 
+The target-bound derived variant summary tracks ConfigHub variants created from
+uploaded bases and then bound to live targets:
+
+[Target-Bound Derived Variants](../../data/derived-variant-target-bound/summary.md)
+
 The top-level catalog shows what a user can browse:
 
 [Catalog](../../CATALOG.md)
@@ -75,6 +80,9 @@ Live Helm-vs-ConfigHub parity has started:
 
 Target-bound derived ConfigHub variant proof has started:
 
+- The generated target-bound derived variant summary shows the current pass and
+  blocked rows:
+  [Target-Bound Derived Variants](../../data/derived-variant-target-bound/summary.md).
 - `NGINX-prod-us-east` was created from a clean uploaded NGINX
   `http-clusterip` base with `cub variant create --target`, applied to a
   ConfigHub OCI target, reconciled by Argo CD, and observed as a live NGINX
