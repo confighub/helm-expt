@@ -100,11 +100,11 @@ Outcome: derived variants become operational, not only intended-state clones.
 
 Start with:
 
-| Derived variant | Reason |
-| --- | --- |
-| `NGINX-prod-us-east` | Small prod-style gate and target story. |
-| `Redis-staging-eu-west` | Stateful target-bound non-prod story. |
-| `Prometheus-staging-eu-west` | Observability workload with larger object set. |
+| Derived variant | Status | Reason |
+| --- | --- | --- |
+| `NGINX-prod-us-east` | pass | Small prod-style gate and target story. |
+| `Redis-staging-eu-west` | next | Stateful target-bound non-prod story. |
+| `Prometheus-staging-eu-west` | next | Observability workload with larger object set. |
 
 Tasks:
 
@@ -117,8 +117,9 @@ Tasks:
 
 Done when:
 
-- `npm run derived-variants:verify` distinguishes intended-state receipts from
-  target-bound live receipts.
+- `npm run derived-variants:verify` covers intended-state receipts.
+- `npm run derived-variants:target-bound:verify` covers target-bound live
+  receipts.
 - The docs say which derived variants are target-bound live and which are not.
 
 ## Phase 3 - Top-20 Row-Level Live Coverage
@@ -248,8 +249,8 @@ Done when:
 2. Add a current proof status page generated or verified from the lane matrix.
 3. Keep the NGINX live Helm-vs-ConfigHub parity canary green.
 4. Keep the Redis live Helm-vs-ConfigHub parity canary green.
-5. Add target-bound live receipt schema for derived variants.
-6. Target-bind and live-apply `NGINX-prod-us-east`.
+5. Keep the target-bound live receipt schema for derived variants green.
+6. Keep the `NGINX-prod-us-east` target-bound live receipt green.
 7. Target-bind and live-apply `Redis-staging-eu-west`.
 8. Target-bind and live-apply `Prometheus-staging-eu-west`.
 9. Fix or explain Grafana placeholder drift (#156).

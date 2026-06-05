@@ -216,6 +216,26 @@ links the cloned Units back to their upstream Units. Add `--target
 source base labels unless a post-clone trigger or later bulk update changes
 them.
 
+Current live target-bound example:
+
+```text
+nginx/http-clusterip
+-> NGINX-prod-us-east
+```
+
+That example starts from a clean uploaded NGINX base Space, runs
+`cub variant create --target`, applies the cloned workload Units to a ConfigHub
+OCI target, and lets Argo CD reconcile the derived Space into Kubernetes. The
+receipt is:
+
+```text
+runs/derived-variant-target-bound/nginx-prod-us-east/receipt.yaml
+```
+
+The example deliberately excludes `installer-record` from the workload apply.
+That Unit is installer support metadata, not a Kubernetes object for the
+workload artifact.
+
 A future/polished [Creator flow](../reference/variant-creation-artifact.md#creator-status)
 should make those building blocks easy to use. It should not introduce a
 separate variant system.

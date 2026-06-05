@@ -1,0 +1,131 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "TargetBoundDerivedVariantReceipt"
+metadata:
+  name: "nginx-prod-us-east-target-bound-derived-variant-20260605"
+spec:
+  result: "pass"
+  run:
+    date: "2026-06-05"
+    observedAt: "2026-06-05T13:10:47Z"
+    organization: "kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "dev"
+    cubServerVersion: "v0.1.74"
+    kube:
+      rig: "helm-expt-derived-nginx-0605"
+      context: "kind-helm-expt-derived-nginx-0605"
+      kubectlClientVersion: "v1.36.0"
+      helmVersion: "v4.1.4+g05fa379"
+  source:
+    component: "NGINX"
+    chart: "bitnami/nginx"
+    chartVersion: "24.0.2"
+    base: "http-clusterip"
+    package: "packages/bitnami/nginx/24.0.2"
+    sourceSpace: "helm-expt-derived-nginx-base-0605"
+    sourceSpaceID: "dff3c289-608e-4c18-b290-5db7ab247068"
+    proofReceipt: "runs/nginx-confighub-proof/latest/confighub-proof-receipt.yaml"
+    sourceVariantRevision: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml"
+  create:
+    command: "cub variant create prod-us-east helm-expt-derived-nginx-base-0605 --environment Prod --region us-east --target helm-expt-derived-nginx-0605-cluster/oci --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review --allow-exists --wait --timeout 10m -o json"
+    result: "pass"
+    variant: "prod-us-east"
+    downstreamSpace: "NGINX-prod-us-east"
+    downstreamSpaceID: "745a24bd-74d7-4e8f-9a41-ee998449fa5c"
+    environment: "Prod"
+    region: "us-east"
+    spaceLabels:
+      Component: "NGINX"
+      Environment: "Prod"
+      Layer: "App"
+      Owner: "ConfigHubHelm"
+      Region: "us-east"
+      Variant: "prod-us-east"
+  target:
+    slug: "helm-expt-derived-nginx-0605-cluster/oci"
+    targetID: "8a0103af-20f1-4865-b96c-2a66157c7613"
+    targetSpace: "helm-expt-derived-nginx-0605-cluster"
+    targetSpaceID: "bfce7c99-3ee1-4986-8ce7-6e9241986e73"
+    bridgeWorkerCondition: "Ready"
+    bound: true
+  clone:
+    unitCount: 7
+    workloadUnitCount: 6
+    targetBoundUnitCount: 7
+    targetBoundWorkloadUnitCount: 6
+    upstreamLinkedWorkloadUnitCount: 6
+    linkCount: 16
+    copiedSupportUnit:
+      - "installer-record"
+    productFinding:
+      unitLabelsPreserveSourceBaseVariant: true
+      note: "The derived Space has Variant=prod-us-east. The cloned workload Units still carry the source base label Variant=http-clusterip unless a post-clone trigger, TransformPaths fill, or later bulk update changes Unit labels."
+  apply:
+    result: "pass"
+    command: "cub unit apply --space NGINX-prod-us-east --unit deployment-nginx-nginx,namespace-nginx,networkpolicy-nginx-nginx,poddisruptionbudget-nginx-nginx,serviceaccount-nginx-nginx,service-nginx-nginx"
+    appliedUnitCount: 6
+    excludedUnits:
+      - "installer-record"
+    reasonForExclusion: "installer-record is ConfigHub/installer support metadata, not a Kubernetes resource for the workload OCI artifact."
+    unitStatuses:
+      ReadySynced: 6
+      NotLiveSupportUnits: 1
+  argo:
+    result: "pass"
+    rootApplication: "helm-expt-derived-nginx-0605-cluster"
+    childApplication: "nginx-prod-us-east"
+    repoURL: "oci://oci.hub.confighub.com:443/target/helm-expt-derived-nginx-0605-cluster/oci"
+    path: "./NGINX-prod-us-east"
+    destinationNamespace: "nginx"
+    syncStatus: "Synced"
+    healthStatus: "Healthy"
+    revision: "sha256:b50ccd74f830168807a5a9175cb4515b30744bc05157b5440b2ce5996d159060"
+    resourceCount: 6
+  runtime:
+    result: "pass"
+    namespace: "nginx"
+    deployment:
+      name: "nginx"
+      ready: "1/1"
+      availableReplicas: 1
+      observedGenerationMatches: true
+      rollout: "pass"
+    pod:
+      name: "nginx-76d8f8fd77-hx2kx"
+      status: "Running"
+      ready: "1/1"
+    service:
+      name: "nginx"
+      type: "ClusterIP"
+      ports:
+        - "80/TCP"
+        - "443/TCP"
+  review:
+    noHelmRerender: true
+    sameInstallShape: true
+    derivedChanges:
+      - "Space.Labels.Variant"
+      - "Space.Labels.Environment"
+      - "Space.Labels.Region"
+      - "Space.Annotations.TargetID"
+      - "Unit.TargetID"
+      - "Unit.DeleteGates"
+      - "Unit.DestroyGates"
+      - "child Argo Application Unit in the target cluster Space"
+    routeBackToInstaller:
+      - "switch NGINX to existing TLS ingress"
+      - "change Service type or rendered ingress shape"
+      - "change Helm values that alter rendered Kubernetes objects"
+  evidenceSHA256:
+    argoApplicationYaml: "c1f33447675a4045b56af068568ae1f002fa5210bb4bf699585295b304c1610d"
+    runtimeYaml: "bb724f8cacd6ce57ff35c69158cd8ea842a96cc2ce16fed2e362f7215d89b94b"
+    downstreamUnitsJson: "527c0ec5532b024181380e8a19651396b4e8e851ab42c45d3ca8a70f5745284b"
+    sourceUnitsJson: "f596dc2d16b019855bcd0b8d459fc197689677ac23b404e5e0f50038ad5b08c7"
+    downstreamSpaceJson: "df3020306906cd1cc6ef0c2686a7633b41fe1a0fbea04dacf138cf46962da368"
+    targetJson: "32369f6caf4fba9bb2201c22f5e9d969bcae574bdb4ec36b84e85c2e4331d14a"
+  cleanup:
+    result: "pass"
+    appDestroy: "pass"
+    downstreamSpaceDelete: "pass"
+    sourceSpaceDelete: "pass"
+    rigDown: "pass"

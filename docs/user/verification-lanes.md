@@ -50,6 +50,17 @@ npm run verify
 `npm run verify` is useful, but it is not a fresh live test. It checks that the
 committed artifacts, receipts, generated data, and docs are self-consistent.
 
+Check derived ConfigHub variants:
+
+```sh
+npm run derived-variants:verify
+npm run derived-variants:target-bound:verify
+```
+
+The first command checks intended-state clone/link/gate receipts. The second
+checks receipts where a derived variant was bound to a real target, applied to
+OCI, reconciled by Argo, and observed in Kubernetes.
+
 ## Rule
 
 Use the narrowest true claim:
