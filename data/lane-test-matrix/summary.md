@@ -19,7 +19,7 @@ incomplete core lane set: 156
 | Lane | Pass | Missing | Fail |
 | --- | ---: | ---: | ---: |
 | helm_template_vs_installer_setup | 156 | 0 | 0 |
-| confighub_upload_variant_scan_safe_ops | 17 | 139 | 0 |
+| confighub_upload_variant_scan_safe_ops | 18 | 138 | 0 |
 | local_kind_kubectl_apply | 21 | 135 | 0 |
 | confighub_oci_argo_live | 0 | 156 | 0 |
 | live_helm_vs_confighub_dual_compare | 0 | 156 | 0 |
@@ -65,9 +65,9 @@ chart-recipe-variant row.
 - bitnami/mongodb@19.0.7 / existing-secret-replicaset
 - bitnami/mysql@14.0.3 / existing-secret
 - bitnami/nginx@24.0.2 / existing-tls-ingress
-- bitnami/nginx@24.0.2 / http-clusterip
 - bitnami/opensearch@2.0.10 / default
 - bitnami/opensearch@2.0.10 / ha
+- bitnami/phpmyadmin@20.0.0 / default
 
 
 ### First Missing Local Kind Rows

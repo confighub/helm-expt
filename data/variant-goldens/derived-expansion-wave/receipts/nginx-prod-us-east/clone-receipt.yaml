@@ -8,7 +8,7 @@ spec:
   issue: "https://github.com/confighub/helm-expt/issues/144"
   command: "cub variant create prod-us-east helm-nginx-confighub-proof --environment Prod --region us-east --target web-targets/prod-us-east --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review"
   sourceSpace: "helm-nginx-confighub-proof"
-  downstreamSpace: "helm-nginx-confighub-proof-prod-us-east"
+  downstreamSpace: "NGINX-prod-us-east"
   sourceRevision: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml"
   renderedObjectSetSHA256: "a5f890172fd1bd8cf31870607c1a7874313c5746f1020d547af3dac017db4223"
   sourceUnits: 7

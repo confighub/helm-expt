@@ -8,7 +8,7 @@ spec:
   issue: "https://github.com/confighub/helm-expt/issues/144"
   command: "cub variant create staging-eu-west helm-prometheus-confighub-proof --environment Staging --region eu-west --target monitoring-targets/staging-eu-west --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}'"
   sourceSpace: "helm-prometheus-confighub-proof"
-  downstreamSpace: "helm-prometheus-confighub-proof-staging-eu-west"
+  downstreamSpace: "Prometheus-staging-eu-west"
   sourceRevision: "recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/variant-revision.yaml"
   renderedObjectSetSHA256: "c11349803ddbb44562066474dd04d47d7c5c75d083dbc96162224573f949c11b"
   sourceUnits: 25

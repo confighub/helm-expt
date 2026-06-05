@@ -2,39 +2,20 @@
 
 ## Purpose
 
-This proof lane repeats the Redis ConfigHub proof shape for
-`bitnami/nginx@24.0.2`, starting with the simplest useful install variant:
-`http-clusterip`.
+This proof lane shows the current ConfigHub path for `bitnami/nginx@24.0.2`
+using real commands only: `cub installer`, `cub variant`, `cub unit`,
+`cub function`, and `cub changeset`.
 
-It uses current commands only. It does not rely on future shorthand such as
-`cub installer nginx`, `cub installer compare`, `cub installer scan`, or
-`cub variant diff`.
+The selected happy-path install variant is `http-clusterip`.
+
+## Package Bases
+
+| Base | Default | Description |
+| --- | --- | --- |
+| `http-clusterip` | yes | nginx plain HTTP ClusterIP variant rendered from bitnami/nginx@24.0.2 |
+| `existing-tls-ingress` | no | nginx existing TLS with ingress variant rendered from bitnami/nginx@24.0.2 |
 
 ## Acceptance Contract
-
-The NGINX lane is accepted when it proves:
-
-| Capability | Command surface | Acceptance |
-| --- | --- | --- |
-| Package explanation | `cub installer doc` | Shows NGINX package bases and target-fact requirements. |
-| Deterministic setup | `cub installer setup` | Renders `http-clusterip` into a fresh work directory. |
-| Re-render | `cub installer render` | Re-renders the same work directory successfully. |
-| Package determinism | `cub installer package` | Builds byte-identical package archives. |
-| Validator path | `cub installer vet` | Runs successfully, or records that the package has no validators. |
-| Upload plan | `cub installer plan` | Produces a read-only plan after upload state exists. |
-| ConfigHub upload | `cub installer upload` | Creates or reconciles ConfigHub Units for the rendered NGINX output. |
-| Server-side variant | `cub variant create` | Clones a reviewed uploaded NGINX space. |
-| Review/diff | `cub unit tree`, `cub unit data`, `cub revision list`, `cub unit diff` | Shows ConfigHub-side object data, revision history, and a Unit diff. |
-| ConfigHub function scan | `cub function vet` | Runs validating functions against uploaded Units. |
-| Safe operations | `cub changeset`, `cub unit approve`, `cub unit apply --dry-run`, `cub unit cancel` | Records approval and blocks apply clearly when no target exists. |
-
-## Result
-
-Passed for the current NGINX `http-clusterip` proof lane on 2026-05-27.
-
-See the ConfigHub proof transcript in this directory.
-
-Current status:
 
 | Capability | Status |
 | --- | --- |
@@ -42,11 +23,16 @@ Current status:
 | Deterministic setup | Pass |
 | Re-render | Pass |
 | Package determinism | Pass |
-| Validator path | Pass; package declares no validators |
-| Upload plan | Pass; pre-upload missing-state failure is expected, post-upload plan is no-op |
-| ConfigHub upload | Pass, using explicit `CUB_CONFIG` workaround |
-| Server-side variant | Pass; `cub variant create` cloned staging space |
-| Review/diff | Pass for Unit tree/data/revisions/revision diff |
-| ConfigHub function scan | Pass; `vet-format`, `vet-placeholders`, and `vet-merge-keys` passed for 6 Units |
-| Safe operations | Pass; changeset/update/approval worked and dry-run apply blocked because no target is attached |
+| Validator path | pass |
+| ConfigHub upload | Pass; 6 proof Units |
+| Server-side variant | Pass; 7 cloned Units |
+| ConfigHub function scan | pass |
+| Safe operations | pass |
 
+## Receipts
+
+```text
+../../../runs/nginx-confighub-proof/latest/confighub-proof-receipt.yaml
+../../../runs/nginx-confighub-proof/latest/function-scan-receipt.yaml
+../../../runs/nginx-confighub-proof/latest/safe-ops-receipt.yaml
+```

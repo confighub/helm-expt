@@ -89,7 +89,7 @@ spec:
         uploadedUnitCount: 15
       create:
         variant: "prod-us-east"
-        downstreamSpace: "helm-redis-confighub-proof-prod-us-east"
+        downstreamSpace: "Redis-prod-us-east"
         environment: "Prod"
         region: "us-east"
         namespace: "redis-prod"
@@ -139,7 +139,7 @@ spec:
         uploadedUnitCount: 15
       create:
         variant: "staging-eu-west"
-        downstreamSpace: "helm-redis-confighub-proof-staging-eu-west"
+        downstreamSpace: "Redis-staging-eu-west"
         environment: "Staging"
         region: "eu-west"
         namespace: "redis-staging"
@@ -187,7 +187,7 @@ spec:
         uploadedUnitCount: 25
       create:
         variant: "prod-us-east"
-        downstreamSpace: "helm-prometheus-confighub-proof-prod-us-east"
+        downstreamSpace: "Prometheus-prod-us-east"
         environment: "Prod"
         region: "us-east"
         namespace: "monitoring-prod"
@@ -237,7 +237,7 @@ spec:
         uploadedUnitCount: 25
       create:
         variant: "staging-eu-west"
-        downstreamSpace: "helm-prometheus-confighub-proof-staging-eu-west"
+        downstreamSpace: "Prometheus-staging-eu-west"
         environment: "Staging"
         region: "eu-west"
         namespace: "monitoring-staging"
@@ -285,7 +285,7 @@ spec:
         uploadedUnitCount: 7
       create:
         variant: "prod-us-east"
-        downstreamSpace: "helm-nginx-confighub-proof-prod-us-east"
+        downstreamSpace: "NGINX-prod-us-east"
         environment: "Prod"
         region: "us-east"
         namespace: "nginx-prod"
@@ -335,7 +335,7 @@ spec:
         uploadedUnitCount: 7
       create:
         variant: "customer-acme-prod"
-        downstreamSpace: "helm-nginx-confighub-proof-customer-acme-prod"
+        downstreamSpace: "NGINX-customer-acme-prod"
         environment: "Prod"
         region: "us-west"
         namespace: "nginx-acme"
@@ -385,7 +385,7 @@ spec:
         uploadedUnitCount: 10
       create:
         variant: "prod-us-east"
-        downstreamSpace: "helm-grafana-confighub-proof-prod-us-east"
+        downstreamSpace: "Grafana-prod-us-east"
         environment: "Prod"
         region: "us-east"
         namespace: "grafana-prod"
@@ -435,7 +435,7 @@ spec:
         uploadedUnitCount: 10
       create:
         variant: "customer-acme-prod"
-        downstreamSpace: "helm-grafana-confighub-proof-customer-acme-prod"
+        downstreamSpace: "Grafana-customer-acme-prod"
         environment: "Prod"
         region: "us-east"
         namespace: "grafana-acme"
@@ -485,7 +485,7 @@ spec:
         uploadedUnitCount: 14
       create:
         variant: "regulated-prod-us-east"
-        downstreamSpace: "helm-vault-confighub-proof-regulated-prod-us-east"
+        downstreamSpace: "Vault-regulated-prod-us-east"
         environment: "Prod"
         region: "us-east"
         namespace: "vault-prod"
@@ -535,7 +535,7 @@ spec:
         uploadedUnitCount: 14
       create:
         variant: "staging-us-east"
-        downstreamSpace: "helm-vault-confighub-proof-staging-us-east"
+        downstreamSpace: "Vault-staging-us-east"
         environment: "Staging"
         region: "us-east"
         namespace: "vault-staging"

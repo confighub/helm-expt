@@ -8,7 +8,7 @@ spec:
   issue: "https://github.com/confighub/helm-expt/issues/144"
   command: "cub variant create customer-acme-prod helm-grafana-confighub-proof --environment Prod --region us-east --target observability-targets/customer-acme-prod --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review"
   sourceSpace: "helm-grafana-confighub-proof"
-  downstreamSpace: "helm-grafana-confighub-proof-customer-acme-prod"
+  downstreamSpace: "Grafana-customer-acme-prod"
   sourceRevision: "recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/variant-revision.yaml"
   renderedObjectSetSHA256: "893351c9b8cad0a10b0176a946bf514a76c5895bdb2d88a31bdd53a94288066d"
   sourceUnits: 10

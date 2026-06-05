@@ -530,7 +530,7 @@ function enrichDerivedSource(source) {
 
 function buildDerivedWorkOrder(source, variant) {
   const target = `${source.targetPrefix}/${variant.variant}`;
-  const downstreamSpace = `${source.sourceSpace}-${variant.variant}`;
+  const downstreamSpace = `${source.component}-${variant.variant}`;
   const gateArgs = variant.gates ? " --unit-delete-gate production-review --unit-destroy-gate production-review" : "";
   const command = [
     `cub variant create ${variant.variant} ${source.sourceSpace}`,
