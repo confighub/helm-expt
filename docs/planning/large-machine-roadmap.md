@@ -105,6 +105,7 @@ Start with:
 | `NGINX-prod-us-east` | pass | Small prod-style gate and target story. |
 | `Redis-staging-eu-west` | blocked | Stateful target-bound non-prod story; needs namespace mutation and Redis Secret delivery modeled before live apply. |
 | `Prometheus-prod-us-east` | pass | Server-only observability workload with cluster RBAC and production-style gates. |
+| `Prometheus-staging-eu-west` | pass | Same reviewed server-only base delivered as a staging target-bound derived variant. |
 
 Tasks:
 

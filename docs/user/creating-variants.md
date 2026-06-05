@@ -224,6 +224,7 @@ nginx/http-clusterip
 
 prometheus/server-only-ephemeral
 -> Prometheus-prod-us-east
+-> Prometheus-staging-eu-west
 ```
 
 These examples start from clean uploaded base Spaces, run
@@ -234,6 +235,7 @@ receipts are:
 ```text
 runs/derived-variant-target-bound/nginx-prod-us-east/receipt.yaml
 runs/derived-variant-target-bound/prometheus-server-only-prod-us-east/receipt.yaml
+runs/derived-variant-target-bound/prometheus-server-only-staging-eu-west/receipt.yaml
 ```
 
 The example deliberately excludes `installer-record` from the workload apply.

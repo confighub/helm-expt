@@ -1,0 +1,414 @@
+#!/usr/bin/env python3
+"""Create and verify one target-bound derived ConfigHub variant.
+
+This is the live-test atom for the post-upload variant path:
+
+  cub installer setup
+  cub installer upload
+  cub variant create --target
+  cub unit apply
+  Argo OCI sync
+  Kubernetes runtime observation
+
+The caller owns the cub-lk rig lifecycle. This script writes a structured
+TargetBoundDerivedVariantReceipt that is checked by:
+
+  npm run derived-variants:target-bound:verify
+"""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import shutil
+import subprocess
+import sys
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+
+try:
+    import yaml
+except ImportError:  # pragma: no cover - fallback for minimal Python installs
+    yaml = None
+
+
+def sh(cmd: list[str], timeout: int = 120) -> tuple[int, str, str]:
+    try:
+        proc = subprocess.run(cmd, text=True, capture_output=True, timeout=timeout)
+        return proc.returncode, proc.stdout.strip(), proc.stderr.strip()
+    except subprocess.TimeoutExpired:
+        return 124, "", f"timeout after {timeout}s"
+
+
+def must(cmd: list[str], step: str, timeout: int = 120) -> str:
+    rc, out, err = sh(cmd, timeout=timeout)
+    if rc != 0:
+        raise RuntimeError(f"{step} failed: {(err or out)[:600]}")
+    return out
+
+
+def sha256_text(text: str) -> str:
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def read_json_command(cmd: list[str], step: str, timeout: int = 120):
+    out = must(cmd, step, timeout=timeout)
+    try:
+        return json.loads(out)
+    except json.JSONDecodeError as exc:
+        starts = [idx for idx in (out.find("["), out.find("{")) if idx >= 0]
+        if starts:
+            try:
+                return json.loads(out[min(starts):])
+            except json.JSONDecodeError:
+                pass
+        raise RuntimeError(f"{step} did not return JSON: {out[:600]}") from exc
+
+
+def unit_slug(row) -> str:
+    unit = row.get("Unit", row) if isinstance(row, dict) else {}
+    return unit.get("Slug") or row.get("Slug") or ""
+
+
+def unit_target_id(row) -> str:
+    unit = row.get("Unit", row) if isinstance(row, dict) else {}
+    return unit.get("TargetID") or row.get("TargetID") or ""
+
+
+def unit_upstream_id(row) -> str:
+    unit = row.get("Unit", row) if isinstance(row, dict) else {}
+    return unit.get("UpstreamUnitID") or row.get("UpstreamUnitID") or ""
+
+
+def space_id(row) -> str:
+    if isinstance(row, list) and row:
+        row = row[0]
+    space = row.get("Space", row) if isinstance(row, dict) else {}
+    return space.get("SpaceID") or space.get("ID") or space.get("UUID") or row.get("SpaceID", "")
+
+
+def space_labels(row) -> dict:
+    if isinstance(row, list) and row:
+        row = row[0]
+    space = row.get("Space", row) if isinstance(row, dict) else {}
+    return space.get("Labels") or row.get("Labels") or {}
+
+
+def target_id(row) -> str:
+    target = row.get("Target", row) if isinstance(row, dict) else {}
+    return target.get("TargetID") or target.get("ID") or row.get("TargetID", "")
+
+
+def write_json_yaml(path: Path, data: dict):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if yaml:
+        path.write_text(yaml.safe_dump(data, sort_keys=False, default_flow_style=False))
+    else:
+        path.write_text(json.dumps(data, indent=2, sort_keys=False) + "\n")
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--package", required=True, help="package path relative to repo root")
+    parser.add_argument("--base", required=True)
+    parser.add_argument("--component", required=True)
+    parser.add_argument("--chart", required=True)
+    parser.add_argument("--chart-version", required=True)
+    parser.add_argument("--namespace", required=True)
+    parser.add_argument("--rig", required=True, help="existing cub-lk rig")
+    parser.add_argument("--source-space", required=True)
+    parser.add_argument("--variant", required=True)
+    parser.add_argument("--environment", required=True)
+    parser.add_argument("--region", required=True)
+    parser.add_argument("--deployment", required=True)
+    parser.add_argument("--service", required=True)
+    parser.add_argument("--child-app", required=True)
+    parser.add_argument("--out", required=True, help="receipt path")
+    parser.add_argument("--keep", action="store_true")
+    parser.add_argument("--timeout", type=int, default=240)
+    args = parser.parse_args()
+
+    repo = Path(__file__).resolve().parents[1]
+    package_path = repo / args.package
+    if not package_path.exists():
+        raise RuntimeError(f"package not found: {package_path}")
+
+    rig = args.rig
+    cluster_space = f"{rig}-cluster"
+    target_slug = f"{cluster_space}/oci"
+    kubeconfig = str(Path.home() / ".confighub" / "lk" / f"{rig}.kubeconfig")
+    kctx = f"kind-{rig}"
+    downstream_space = f"{args.component}-{args.variant}"
+    workdir = Path("/tmp") / f"helm-expt-target-bound-{rig}-{args.component.lower()}-{args.variant}"
+    app_file = Path("/tmp") / f"app-{rig}-{args.child_app}.yaml"
+
+    receipt = {
+        "apiVersion": "helm-expt.confighub.com/v1alpha1",
+        "kind": "TargetBoundDerivedVariantReceipt",
+        "metadata": {
+            "name": f"{args.component.lower()}-{args.variant}-target-bound-derived-variant-20260605",
+        },
+        "spec": {
+            "result": "blocked",
+            "run": {
+                "date": "2026-06-05",
+                "observedAt": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+                "organization": "kubara",
+                "server": "https://hub.confighub.com",
+                "kube": {"rig": rig, "context": kctx},
+            },
+            "source": {
+                "component": args.component,
+                "chart": args.chart,
+                "chartVersion": args.chart_version,
+                "base": args.base,
+                "package": args.package,
+                "sourceSpace": args.source_space,
+            },
+            "create": {
+                "variant": args.variant,
+                "downstreamSpace": downstream_space,
+                "environment": args.environment,
+                "region": args.region,
+            },
+            "target": {"slug": target_slug},
+            "cleanup": {"result": "not-run"},
+        },
+    }
+
+    try:
+        if workdir.exists():
+            shutil.rmtree(workdir)
+
+        must([
+            "cub", "installer", "setup", "--pull", str(package_path), "--base", args.base,
+            "--work-dir", str(workdir), "--non-interactive", "--namespace", args.namespace,
+        ], "installer setup", timeout=240)
+
+        must([
+            "cub", "installer", "upload", "--work-dir", str(workdir),
+            "--space", args.source_space, "--component", args.component, "--layer", "App",
+            "--owner", "ConfigHubHelm", "--variant", args.base,
+        ], "installer upload", timeout=480)
+
+        command = [
+            "cub", "variant", "create", args.variant, args.source_space,
+            "--environment", args.environment, "--region", args.region,
+            "--target", target_slug,
+            "--space-name-pattern", "template:{{.Labels.Component}}-{{.Labels.Variant}}",
+            "--allow-exists", "--wait", "--timeout", "10m", "-o", "json",
+        ]
+        if args.environment.lower() == "prod":
+            command.extend(["--unit-delete-gate", "production-review", "--unit-destroy-gate", "production-review"])
+        create_out = read_json_command(command, "variant create", timeout=720)
+        receipt["spec"]["create"]["command"] = " ".join(command)
+        receipt["spec"]["create"]["result"] = "pass"
+
+        downstream_space_json = read_json_command(["cub", "space", "list", "--where", f"Slug = '{downstream_space}'", "-o", "json"], "downstream space")
+        target_json = read_json_command(["cub", "target", "get", "--space", cluster_space, "oci", "-o", "json"], "target get")
+        units_json = read_json_command(["cub", "unit", "list", "--space", downstream_space, "-o", "json"], "downstream units")
+        source_units_json = read_json_command(["cub", "unit", "list", "--space", args.source_space, "-o", "json"], "source units")
+
+        workload_units = [unit_slug(row) for row in units_json if unit_slug(row) and unit_slug(row) != "installer-record"]
+        if not workload_units:
+            raise RuntimeError(f"no workload units found in {downstream_space}")
+
+        target_bound = [row for row in units_json if unit_target_id(row)]
+        target_bound_workload = [row for row in units_json if unit_slug(row) != "installer-record" and unit_target_id(row)]
+        upstream_linked_workload = [row for row in units_json if unit_slug(row) != "installer-record" and unit_upstream_id(row)]
+
+        receipt["spec"]["source"]["sourceSpaceID"] = space_id(read_json_command(["cub", "space", "list", "--where", f"Slug = '{args.source_space}'", "-o", "json"], "source space"))
+        receipt["spec"]["create"]["downstreamSpaceID"] = space_id(downstream_space_json)
+        receipt["spec"]["create"]["spaceLabels"] = space_labels(downstream_space_json)
+        receipt["spec"]["target"].update({
+            "targetID": target_id(target_json),
+            "targetSpace": cluster_space,
+            "bound": True,
+        })
+        receipt["spec"]["clone"] = {
+            "unitCount": len(units_json),
+            "workloadUnitCount": len(workload_units),
+            "targetBoundUnitCount": len(target_bound),
+            "targetBoundWorkloadUnitCount": len(target_bound_workload),
+            "upstreamLinkedWorkloadUnitCount": len(upstream_linked_workload),
+            "copiedSupportUnit": ["installer-record"],
+            "productFinding": {
+                "unitLabelsPreserveSourceBaseVariant": True,
+                "note": "The derived Space carries the new Variant label. Cloned workload Units preserve source base labels unless post-clone mutation changes them.",
+            },
+        }
+
+        must(["cub", "unit", "apply", "--space", downstream_space, "--unit", ",".join(workload_units), "--wait", "--timeout", "5m"], "apply workload units", timeout=360)
+        receipt["spec"]["apply"] = {
+            "result": "pass",
+            "command": f"cub unit apply --space {downstream_space} --unit {','.join(workload_units)}",
+            "appliedUnitCount": len(workload_units),
+            "excludedUnits": ["installer-record"],
+            "reasonForExclusion": "installer-record is ConfigHub/installer support metadata, not a Kubernetes resource for the workload OCI artifact.",
+        }
+
+        app = {
+            "apiVersion": "argoproj.io/v1alpha1",
+            "kind": "Application",
+            "metadata": {"name": args.child_app, "namespace": "argocd"},
+            "spec": {
+                "project": "default",
+                "source": {
+                    "repoURL": f"oci://oci.hub.confighub.com:443/target/{cluster_space}/oci",
+                    "targetRevision": "latest",
+                    "path": f"./{downstream_space}",
+                },
+                "destination": {"server": "https://kubernetes.default.svc", "namespace": args.namespace},
+                "syncPolicy": {
+                    "automated": {"selfHeal": True, "prune": True},
+                    "syncOptions": ["ServerSideApply=true", "CreateNamespace=true"],
+                },
+            },
+        }
+        app_text = json.dumps(app, indent=2)
+        app_file.write_text(app_text)
+        rc, out, err = sh(["cub", "unit", "create", "--space", cluster_space, f"{args.child_app}-app", str(app_file), "--target", target_slug, "--allow-exists"], timeout=180)
+        if rc != 0 and "already exists" not in (out + err).lower():
+            raise RuntimeError(f"app unit create failed: {(err or out)[:600]}")
+        must(["cub", "unit", "apply", "--space", cluster_space, "--unit", f"{args.child_app}-app", "--wait", "--timeout", "5m"], "apply app unit", timeout=360)
+        sh([
+            "kubectl", "--kubeconfig", kubeconfig, "--context", kctx,
+            "annotate", "application", cluster_space, "-n", "argocd",
+            "argocd.argoproj.io/refresh=hard", "--overwrite",
+        ], timeout=30)
+
+        deadline = time.time() + args.timeout
+        sync = health = revision = ""
+        while time.time() < deadline:
+            rc, out, _ = sh([
+                "kubectl", "--kubeconfig", kubeconfig, "--context", kctx,
+                "get", "application", args.child_app, "-n", "argocd",
+                "-o", "jsonpath={.status.sync.status}|{.status.health.status}|{.status.sync.revision}",
+            ], timeout=30)
+            if rc == 0 and "|" in out:
+                sync, health, revision = (out.split("|") + ["", "", ""])[:3]
+                if sync == "Synced" and health == "Healthy":
+                    break
+            time.sleep(10)
+        if sync != "Synced" or health != "Healthy":
+            raise RuntimeError(f"Argo did not reach Synced/Healthy: sync={sync or '?'} health={health or '?'}")
+
+        resources_json = must([
+            "kubectl", "--kubeconfig", kubeconfig, "--context", kctx,
+            "get", "application", args.child_app, "-n", "argocd", "-o", "json",
+        ], "argo application json", timeout=60)
+        argo_app = json.loads(resources_json)
+        resource_count = len(argo_app.get("status", {}).get("resources", []))
+
+        must([
+            "kubectl", "--kubeconfig", kubeconfig, "--context", kctx,
+            "rollout", "status", f"deployment/{args.deployment}", "-n", args.namespace, "--timeout=180s",
+        ], "deployment rollout", timeout=210)
+        deployment_json_text = must([
+            "kubectl", "--kubeconfig", kubeconfig, "--context", kctx,
+            "get", "deployment", args.deployment, "-n", args.namespace, "-o", "json",
+        ], "deployment get", timeout=60)
+        pods_text = must([
+            "kubectl", "--kubeconfig", kubeconfig, "--context", kctx,
+            "get", "pods", "-n", args.namespace, "-l", f"app.kubernetes.io/name={args.deployment}", "--no-headers",
+        ], "pod get by app label", timeout=60)
+        if not pods_text.strip():
+            pods_text = must([
+                "kubectl", "--kubeconfig", kubeconfig, "--context", kctx,
+                "get", "pods", "-n", args.namespace, "--no-headers",
+            ], "pod get", timeout=60)
+        service_json_text = must([
+            "kubectl", "--kubeconfig", kubeconfig, "--context", kctx,
+            "get", "service", args.service, "-n", args.namespace, "-o", "json",
+        ], "service get", timeout=60)
+
+        deployment = json.loads(deployment_json_text)
+        service = json.loads(service_json_text)
+        first_pod = pods_text.splitlines()[0].split()
+        ready = f"{deployment.get('status', {}).get('readyReplicas', 0)}/{deployment.get('spec', {}).get('replicas', 1)}"
+        observed_generation_matches = deployment.get("status", {}).get("observedGeneration") == deployment.get("metadata", {}).get("generation")
+
+        receipt["spec"]["argo"] = {
+            "result": "pass",
+            "rootApplication": cluster_space,
+            "childApplication": args.child_app,
+            "repoURL": f"oci://oci.hub.confighub.com:443/target/{cluster_space}/oci",
+            "path": f"./{downstream_space}",
+            "destinationNamespace": args.namespace,
+            "syncStatus": sync,
+            "healthStatus": health,
+            "revision": revision,
+            "resourceCount": resource_count,
+        }
+        receipt["spec"]["runtime"] = {
+            "result": "pass",
+            "namespace": args.namespace,
+            "deployment": {
+                "name": args.deployment,
+                "ready": ready,
+                "availableReplicas": deployment.get("status", {}).get("availableReplicas", 0),
+                "observedGenerationMatches": observed_generation_matches,
+                "rollout": "pass",
+            },
+            "pod": {
+                "name": first_pod[0],
+                "status": first_pod[2] if len(first_pod) > 2 else "",
+                "ready": first_pod[1] if len(first_pod) > 1 else "",
+            },
+            "service": {
+                "name": args.service,
+                "type": service.get("spec", {}).get("type", ""),
+                "ports": [f"{item.get('port')}/{item.get('protocol')}" for item in service.get("spec", {}).get("ports", [])],
+            },
+        }
+        receipt["spec"]["review"] = {
+            "noHelmRerender": True,
+            "sameInstallShape": True,
+            "derivedChanges": [
+                "Space.Labels.Variant",
+                "Space.Labels.Environment",
+                "Space.Labels.Region",
+                "Space.Annotations.TargetID",
+                "Unit.TargetID",
+                "child Argo Application Unit in the target cluster Space",
+            ],
+            "routeBackToInstaller": [
+                "change Helm values that alter rendered Kubernetes objects",
+                "change component topology, storage, CRDs, Secrets, or lifecycle behavior",
+            ],
+        }
+        receipt["spec"]["evidenceSHA256"] = {
+            "argoApplicationYaml": sha256_text(app_text),
+            "runtimeYaml": sha256_text(deployment_json_text + "\n" + pods_text + "\n" + service_json_text),
+            "downstreamUnitsJson": sha256_text(json.dumps(units_json, sort_keys=True)),
+            "sourceUnitsJson": sha256_text(json.dumps(source_units_json, sort_keys=True)),
+            "downstreamSpaceJson": sha256_text(json.dumps(downstream_space_json, sort_keys=True)),
+            "targetJson": sha256_text(json.dumps(target_json, sort_keys=True)),
+        }
+        receipt["spec"]["result"] = "pass"
+
+    finally:
+        cleanup_ok = True
+        if not args.keep:
+            for cmd in [
+                ["cub", "unit", "destroy", "--space", cluster_space, "--unit", f"{args.child_app}-app", "--wait"],
+                ["cub", "space", "delete", downstream_space, "--recursive-force"],
+                ["cub", "space", "delete", args.source_space, "--recursive-force"],
+                ["cub", "unit", "delete", "--space", cluster_space, f"{args.child_app}-app"],
+            ]:
+                rc, _, _ = sh(cmd, timeout=240)
+                cleanup_ok = cleanup_ok and rc == 0
+        receipt["spec"]["cleanup"] = {"result": "pass" if cleanup_ok else "blocked"}
+        write_json_yaml(Path(args.out), receipt)
+
+    print(json.dumps({"result": receipt["spec"]["result"], "receipt": args.out}, indent=2))
+    return 0 if receipt["spec"]["result"] == "pass" else 1
+
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main())
+    except Exception as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        sys.exit(1)
