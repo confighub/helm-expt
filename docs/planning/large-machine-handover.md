@@ -48,8 +48,8 @@ Also true:
 20 top-20 chart-level ConfigHub proof receipt sets exist.
 20 top-20 local-kind receipt sets exist for selected supported scope.
 10 derived ConfigHub variants have live intended-state receipts.
-1 derived ConfigHub variant has a target-bound live apply PASS receipt:
-`NGINX-prod-us-east`.
+2 derived ConfigHub variants have target-bound live apply PASS receipts:
+`NGINX-prod-us-east` and `Prometheus-prod-us-east`.
 1 derived ConfigHub variant has a target-bound blocked receipt:
 `Redis-staging-eu-west`.
 10 rows have committed GitOps/OCI live receipts:
@@ -112,15 +112,17 @@ The first target-bound derived variant receipt is:
 
 ```text
 runs/derived-variant-target-bound/nginx-prod-us-east/receipt.yaml
+runs/derived-variant-target-bound/prometheus-server-only-prod-us-east/receipt.yaml
 npm run derived-variants:target-bound:verify
 ```
 
-That receipt proves a clean uploaded NGINX `http-clusterip` base was cloned with
-`cub variant create --target`, the cloned workload Units were applied to a
-ConfigHub OCI target, Argo CD reconciled the derived Space, and Kubernetes
-reported the NGINX Deployment ready. It also records a product detail: the
-derived Space label changes to `Variant=prod-us-east`, while cloned Unit labels
-still preserve the source base label unless a post-clone mutation changes them.
+Those receipts prove clean uploaded NGINX `http-clusterip` and Prometheus
+`server-only-ephemeral` bases were cloned with `cub variant create --target`,
+the cloned workload Units were applied to ConfigHub OCI targets, Argo CD
+reconciled the derived Spaces, and Kubernetes reported the workloads ready. The
+receipts also record a product detail: the derived Space label changes to
+`Variant=prod-us-east`, while cloned Unit labels still preserve the source base
+label unless a post-clone mutation changes them.
 
 The first target-bound blocked receipt is:
 
