@@ -1,0 +1,122 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: TargetBoundDerivedVariantReceipt
+metadata:
+  name: metricsserver-prod-us-east-target-bound-derived-variant-20260605
+spec:
+  result: pass
+  run:
+    date: '2026-06-05'
+    observedAt: '2026-06-05T14:53:36Z'
+    organization: kubara
+    server: https://hub.confighub.com
+    kube:
+      rig: helm-expt-derived-ms-0605
+      context: kind-helm-expt-derived-ms-0605
+  source:
+    component: MetricsServer
+    chart: metrics-server/metrics-server
+    chartVersion: 3.13.0
+    base: default
+    package: packages/metrics-server/metrics-server/3.13.0
+    sourceSpace: helm-expt-derived-metrics-server-base-0605
+    sourceSpaceID: 80f50f9f-7de7-42b7-85b0-e486746ccac0
+  create:
+    variant: prod-us-east
+    downstreamSpace: MetricsServer-prod-us-east
+    environment: Prod
+    region: us-east
+    command: cub variant create prod-us-east helm-expt-derived-metrics-server-base-0605
+      --environment Prod --region us-east --target helm-expt-derived-ms-0605-cluster/oci
+      --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists
+      --wait --timeout 10m -o json --unit-delete-gate production-review --unit-destroy-gate
+      production-review
+    result: pass
+    downstreamSpaceID: 0cdb4bb7-356b-452a-bae0-5467f8956db3
+    spaceLabels:
+      Component: MetricsServer
+      Environment: Prod
+      Layer: App
+      Owner: ConfigHubHelm
+      Region: us-east
+      Variant: prod-us-east
+  target:
+    slug: helm-expt-derived-ms-0605-cluster/oci
+    targetID: 2215c346-ca79-45a9-adb3-a7308ec30870
+    targetSpace: helm-expt-derived-ms-0605-cluster
+    bound: true
+  cleanup:
+    result: pass
+  clone:
+    unitCount: 11
+    workloadUnitCount: 10
+    targetBoundUnitCount: 11
+    targetBoundWorkloadUnitCount: 10
+    upstreamLinkedWorkloadUnitCount: 10
+    copiedSupportUnit:
+    - installer-record
+    productFinding:
+      unitLabelsPreserveSourceBaseVariant: true
+      note: The derived Space carries the new Variant label. Cloned workload Units
+        preserve source base labels unless post-clone mutation changes them.
+  apply:
+    result: pass
+    command: cub unit apply --space MetricsServer-prod-us-east --unit apiservice-v1beta1-metrics-k8s-io,clusterrolebinding-metrics-serversystemauth-delegator,clusterrolebinding-systemmetrics-server,clusterrole-systemmetrics-server,clusterrole-systemmetrics-server-aggregated-reader,deployment-kube-system-metrics-server,namespace-kube-system,rolebinding-kube-system-metrics-server-auth-reader,serviceaccount-kube-system-metrics-server,service-kube-system-metrics-server
+    appliedUnitCount: 10
+    excludedUnits:
+    - installer-record
+    reasonForExclusion: installer-record is ConfigHub/installer support metadata,
+      not a Kubernetes resource for the workload OCI artifact.
+  argo:
+    result: pass
+    rootApplication: helm-expt-derived-ms-0605-cluster
+    childApplication: metrics-server-prod-us-east
+    repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-derived-ms-0605-cluster/oci
+    path: ./MetricsServer-prod-us-east
+    destinationNamespace: kube-system
+    syncStatus: Synced
+    healthStatus: Healthy
+    revision: sha256:92fba41fb6ce6d9f5d668b0b2f7a2e5301c088772bfa84ca68ef1fddbbd8caaa
+    resourceCount: 10
+  runtime:
+    result: pass
+    namespace: kube-system
+    deployment:
+      name: metrics-server
+      ready: 1/1
+      availableReplicas: 1
+      observedGenerationMatches: true
+      rollout: pass
+    pod:
+      name: metrics-server-74c6bc5757-nsb2f
+      status: Running
+      ready: 1/1
+    service:
+      name: metrics-server
+      type: ClusterIP
+      ports:
+      - 443/TCP
+    apiService:
+      name: v1beta1.metrics.k8s.io
+      available: 'True'
+      reason: Passed
+      message: all checks passed
+  review:
+    noHelmRerender: true
+    sameInstallShape: true
+    derivedChanges:
+    - Space.Labels.Variant
+    - Space.Labels.Environment
+    - Space.Labels.Region
+    - Space.Annotations.TargetID
+    - Unit.TargetID
+    - child Argo Application Unit in the target cluster Space
+    routeBackToInstaller:
+    - change Helm values that alter rendered Kubernetes objects
+    - change component topology, storage, CRDs, Secrets, or lifecycle behavior
+  evidenceSHA256:
+    argoApplicationYaml: 2b34392c9c6504d16c82e64aaf2c7c67b772255e31d12c2aac440ef01f446897
+    runtimeYaml: 9f38a328d1e473104c6437093854d235f043932c1ce9ac7107f80b1257c5436f
+    downstreamUnitsJson: c32e4d22eadc86d0cc77a94219e7401f6263f506901f6b7e965c2823d19cdc60
+    sourceUnitsJson: b6c31536951db2aff1796cc2c83480bcf2a93378023e5b33476bb9e67e5f813a
+    downstreamSpaceJson: 4260cefd10d89eb3ba1d97ea2005dd570781716aeb3497fe46f4d16ebe2f10ea
+    targetJson: 81af3bfca9d33dd74c10c2901caf53746bdd43d599621075f97bfd0d39d2abca

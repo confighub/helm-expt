@@ -104,6 +104,7 @@ Start with:
 | --- | --- | --- |
 | `NGINX-prod-us-east` | pass | Small prod-style gate and target story. |
 | `NGINX-customer-acme-prod` | pass | Same reviewed NGINX base delivered as a customer-derived target-bound variant. |
+| `MetricsServer-prod-us-east` | pass | Cluster-service chart with Deployment, Service, and APIService live evidence. |
 | `Redis-staging-eu-west` | blocked | Stateful target-bound non-prod story; needs namespace mutation and Redis Secret delivery modeled before live apply. |
 | `Prometheus-prod-us-east` | pass | Server-only observability workload with cluster RBAC and production-style gates. |
 | `Prometheus-staging-eu-west` | pass | Same reviewed server-only base delivered as a staging target-bound derived variant. |

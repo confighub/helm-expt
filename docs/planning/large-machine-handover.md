@@ -48,9 +48,10 @@ Also true:
 20 top-20 chart-level ConfigHub proof receipt sets exist.
 20 top-20 local-kind receipt sets exist for selected supported scope.
 10 derived ConfigHub variants have live intended-state receipts.
-4 derived ConfigHub variants have target-bound live apply PASS receipts:
+5 derived ConfigHub variants have target-bound live apply PASS receipts:
 `NGINX-prod-us-east`, `NGINX-customer-acme-prod`,
-`Prometheus-prod-us-east`, and `Prometheus-staging-eu-west`.
+`MetricsServer-prod-us-east`, `Prometheus-prod-us-east`, and
+`Prometheus-staging-eu-west`.
 1 derived ConfigHub variant has a target-bound blocked receipt:
 `Redis-staging-eu-west`.
 The generated target-bound derived variant summary is:
@@ -116,16 +117,19 @@ The current target-bound derived variant receipts are:
 ```text
 runs/derived-variant-target-bound/nginx-prod-us-east/receipt.yaml
 runs/derived-variant-target-bound/nginx-customer-acme-prod/receipt.yaml
+runs/derived-variant-target-bound/metrics-server-prod-us-east/receipt.yaml
 runs/derived-variant-target-bound/prometheus-server-only-prod-us-east/receipt.yaml
 runs/derived-variant-target-bound/prometheus-server-only-staging-eu-west/receipt.yaml
 npm run derived-variants:target-bound:verify
 ```
 
-Those receipts prove clean uploaded NGINX `http-clusterip` and Prometheus
-`server-only-ephemeral` bases were cloned with `cub variant create --target`.
-The cloned workload Units were applied to ConfigHub OCI targets, Argo CD
-reconciled the derived Spaces, and Kubernetes reported the workloads ready.
-Prometheus now has both production and staging target-bound derived receipts.
+Those receipts prove clean uploaded NGINX `http-clusterip`, Metrics Server
+`default`, and Prometheus `server-only-ephemeral` bases were cloned with
+`cub variant create --target`. The cloned workload Units were applied to
+ConfigHub OCI targets, Argo CD reconciled the derived Spaces, and Kubernetes
+reported the workloads ready. Metrics Server also records APIService
+availability. Prometheus now has both production and staging target-bound
+derived receipts.
 The receipts also record a product detail: the derived Space label changes to
 the requested operating variant, while cloned Unit labels still preserve the
 source base label unless a post-clone mutation changes them.

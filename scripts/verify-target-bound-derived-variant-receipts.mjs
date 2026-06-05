@@ -55,6 +55,10 @@ function verifyPass(spec, context) {
   check(spec.runtime?.deployment?.rollout === "pass", `${context}: deployment rollout must pass`);
   check(spec.runtime?.pod?.status === "Running", `${context}: pod must be Running`);
   check(spec.runtime?.service?.type === "ClusterIP", `${context}: service type mismatch`);
+  if (spec.runtime?.apiService) {
+    check(spec.runtime.apiService.available === "True", `${context}: APIService availability mismatch`);
+    check(Boolean(spec.runtime.apiService.name), `${context}: APIService name missing`);
+  }
 
   check(spec.review?.noHelmRerender === true, `${context}: receipt must assert no Helm rerender`);
   check(spec.review?.sameInstallShape === true, `${context}: receipt must assert same install shape`);
