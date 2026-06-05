@@ -1,0 +1,111 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: RuntimeGitOpsReceipt
+metadata:
+  name: hashicorp-consul-secure-mesh-existing-secrets-flux-oci-helm-expt-oci-0605
+spec:
+  chart: hashicorp/consul
+  version: 2.0.0
+  base: secure-mesh-existing-secrets
+  packagePath: packages/hashicorp/consul/2.0.0
+  recipePath: recipes/hashicorp/consul/2.0.0
+  controller: Flux OCI
+  observedAt: "2026-06-05T11:41:44Z"
+  result: blocked
+  run:
+    rig: helm-expt-oci-0605
+    clusterSpace: helm-expt-oci-0605-cluster
+    workloadSpace: helm-expt-oci-0605-consul-flux
+    target: helm-expt-oci-0605-cluster/oci
+    namespace: consul
+    kubeContext: kind-helm-expt-oci-0605
+    kubeconfig: /Users/alexis/.confighub/lk/helm-expt-oci-0605.kubeconfig
+    keptForInspection: true
+  oci:
+    repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-oci-0605-cluster/oci
+    path: ./helm-expt-oci-0605-consul-flux
+    revision: sha256:abeb66796814d2307e831eea503105988b36d5298f44324e4f92e61be34e64b1
+    fluxArtifactDigest: sha256:e75996f776abbfb62eb11689506b75148fc59546c8ebbad374f839481a542bbd
+  notes:
+    targetFacts: "The required CA, server TLS, gossip encryption, and ACL bootstrap token Secrets were staged before Flux reconciliation."
+    separatedSecret: "The rendered consul-consul-auth-method Secret was staged out of band because installer upload excludes rendered Secrets."
+    finding: "Flux pulled the ConfigHub OCI artifact and began applying the secure mesh base. The selected base is not live-ready on the retained one-node kind target because it requires a three-server Consul cluster with anti-affinity; without quorum the server has no leader and ACL/gateway startup remains blocked."
+  checks:
+    - name: render
+      result: pass
+      detail: "97 manifests rendered; collector produced target facts; 1 separated Secret rendered but not uploaded."
+    - name: target-fact-secrets
+      result: pass
+      detail: "consul-ca-cert, consul-server-cert, consul-gossip-encryption-key, and consul-bootstrap-acl-token existed with required keys."
+    - name: separated-secret
+      result: pass
+      detail: "consul/consul-consul-auth-method was staged before reconciliation."
+    - name: confighub-upload
+      result: pass
+      detail: units uploaded to helm-expt-oci-0605-consul-flux
+    - name: flux-source
+      result: pass
+      detail: "OCIRepository helm-expt-oci-0605-consul-flux ready at latest@sha256:abeb66796814d2307e831eea503105988b36d5298f44324e4f92e61be34e64b1."
+    - name: scheduling
+      result: blocked
+      detail: "consul-consul-server-1 and consul-consul-server-2 stayed Pending: 0/1 nodes are available; node did not match pod anti-affinity rules."
+    - name: quorum
+      result: blocked
+      detail: "consul-consul-server-0 log reported bootstrap_expect=3 and repeated No cluster leader."
+    - name: lifecycle-job
+      result: blocked
+      detail: "consul-consul-server-acl-init stayed Running while Consul had no leader."
+  gitops:
+    flux:
+      namespace: flux-system
+      source:
+        kind: OCIRepository
+        name: helm-expt-oci-0605-consul-flux
+        ready: true
+        revision: latest@sha256:abeb66796814d2307e831eea503105988b36d5298f44324e4f92e61be34e64b1
+        artifactDigest: sha256:e75996f776abbfb62eb11689506b75148fc59546c8ebbad374f839481a542bbd
+      kustomization:
+        name: consul-flux
+        ready: false
+        reason: HealthCheckFailed
+        status: "health check failed after 75.531441ms: failed early due to stalled resources: [Deployment/consul/consul-consul-connect-injector status: 'Failed']"
+  runtime:
+    namespace: consul
+    statefulSets:
+      - name: consul-consul-server
+        ready: "0/3"
+        blockedReason: "three replicas with anti-affinity cannot schedule on one-node kind target"
+    deployments:
+      - name: consul-consul-webhook-cert-manager
+        ready: "1/1"
+      - name: consul-consul-connect-injector
+        ready: "0/1"
+        blockedReason: No cluster leader
+      - name: consul-consul-ingress-gateway
+        ready: "0/1"
+        blockedReason: waiting for Consul server readiness
+      - name: consul-consul-mesh-gateway
+        ready: "0/1"
+        blockedReason: waiting for Consul server readiness
+      - name: consul-consul-terminating-gateway
+        ready: "0/1"
+        blockedReason: waiting for Consul server readiness
+    jobs:
+      - name: consul-consul-server-acl-init
+        status: Running
+        blockedReason: No cluster leader
+    persistentVolumeClaims:
+      bound: 1
+      pending: 2
+    targetFacts:
+      secrets:
+        - consul-ca-cert
+        - consul-server-cert
+        - consul-gossip-encryption-key
+        - consul-bootstrap-acl-token
+  confighub:
+    workloadSpace: helm-expt-oci-0605-consul-flux
+    unitCount: 98
+    unitStatusCounts:
+      Ready: 92
+      NotLive: 6
+    installerRecordStatus: NotLive

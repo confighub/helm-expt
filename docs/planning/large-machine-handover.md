@@ -36,7 +36,7 @@ chart-recipe-variant rows: 156
 helm_template_vs_installer_setup: 156 pass, 0 missing
 confighub_upload_variant_scan_safe_ops: 18 pass, 138 missing
 local_kind_kubectl_apply: 21 pass, 135 missing
-confighub_oci_argo_live: 5 pass, 148 missing, 3 fail
+confighub_oci_argo_live: 5 pass, 146 missing, 5 fail
 live_helm_vs_confighub_dual_compare: 0 pass, 156 missing
 complete core lane set: 0
 ```
@@ -49,7 +49,7 @@ Also true:
 20 top-20 local-kind receipt sets exist for selected supported scope.
 10 derived ConfigHub variants have live intended-state receipts.
 0 derived variants have target-bound live apply receipts.
-8 rows have committed GitOps/OCI live receipts:
+10 rows have committed GitOps/OCI live receipts:
 `bitnami/redis@25.5.3 / reuse-existing-secret`,
 `prometheus-community/prometheus@29.8.0 / server-only-ephemeral`, and
 `bitnami/postgresql@18.6.7 / existing-secret` pass through Flux OCI.
@@ -58,9 +58,14 @@ Also true:
 `external-secrets/external-secrets@2.5.0 / no-crds` has a blocked receipt:
 Argo synced the OCI artifact, but the workload needs CRDs already present and
 the webhook Secret delivered outside the current workload OCI path.
+`argo-cd/argo-cd@9.5.15 / no-crds` has a blocked receipt: Argo synced the OCI
+artifact, but runtime Secret requirements were incomplete.
 `prometheus-community/kube-prometheus-stack@85.3.3 / no-crds` has a blocked
 receipt: Flux pulled the OCI artifact, but reconciliation failed because
 Prometheus Operator CRDs were absent and separated Secrets were not delivered.
+`hashicorp/consul@2.0.0 / secure-mesh-existing-secrets` has a blocked receipt:
+Flux pulled the OCI artifact, but the selected secure mesh base needs a
+multi-node target for its three-server topology and anti-affinity rules.
 `ingress-nginx/ingress-nginx@4.15.1 / admission-disabled` has a watch receipt:
 Argo synced the OCI artifact and the controller Deployment became Ready, but
 the kind target has no LoadBalancer external IP so Argo health stayed

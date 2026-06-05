@@ -1,0 +1,100 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: RuntimeGitOpsReceipt
+metadata:
+  name: argo-cd-no-crds-argo-oci-helm-expt-oci-0605
+spec:
+  chart: argo-cd/argo-cd
+  version: 9.5.15
+  base: no-crds
+  packagePath: packages/argo-cd/argo-cd/9.5.15
+  recipePath: recipes/argo-cd/argo-cd/9.5.15
+  controller: Argo CD OCI
+  observedAt: "2026-06-05T11:33:18Z"
+  result: blocked
+  run:
+    rig: helm-expt-oci-0605
+    clusterSpace: helm-expt-oci-0605-cluster
+    workloadSpace: helm-expt-oci-0605-argo-cd
+    target: helm-expt-oci-0605-cluster/oci
+    namespace: argocd-workload
+    kubeContext: kind-helm-expt-oci-0605
+    kubeconfig: /Users/alexis/.confighub/lk/helm-expt-oci-0605.kubeconfig
+    keptForInspection: true
+  oci:
+    repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-oci-0605-cluster/oci
+    path: ./helm-expt-oci-0605-argo-cd
+    revision: sha256:abeb66796814d2307e831eea503105988b36d5298f44324e4f92e61be34e64b1
+  notes:
+    secretHandling: "Two separated generated Secrets were staged out of band: argocd-secret and argocd-notifications-secret."
+    finding: "Argo CD pulled and synced the ConfigHub OCI artifact, but the no-crds base did not become healthy because required runtime secret data was not represented by the recipe: argocd-redis was absent and argocd-secret lacked server.secretkey."
+  checks:
+    - name: render
+      result: pass
+      detail: "45 manifests rendered to namespace argocd-workload; 2 separated Secrets rendered but not uploaded."
+    - name: separated-secrets
+      result: pass
+      detail: "argocd-workload/argocd-secret and argocd-workload/argocd-notifications-secret were staged before reconciliation."
+    - name: confighub-upload
+      result: pass
+      detail: units uploaded to helm-expt-oci-0605-argo-cd
+    - name: argo-sync
+      result: pass
+      detail: "Application argo-cd-workload synced revision sha256:abeb66796814d2307e831eea503105988b36d5298f44324e4f92e61be34e64b1."
+    - name: missing-redis-secret
+      result: blocked
+      detail: "application-controller, redis, repo-server, and server pods reported Error: secret \"argocd-redis\" not found."
+    - name: missing-server-secret-key
+      result: blocked
+      detail: "dex-server log reported server.secretkey is missing."
+    - name: runtime
+      result: blocked
+      detail: "applicationset-controller and notifications-controller reached 1/1; dex, redis, repo-server, server, and application-controller did not become ready."
+  gitops:
+    applications:
+      - name: argo-cd-workload
+        namespace: argocd
+        sync: Synced
+        health: Degraded
+        revision: sha256:abeb66796814d2307e831eea503105988b36d5298f44324e4f92e61be34e64b1
+  runtime:
+    namespace: argocd-workload
+    deployments:
+      - name: argo-cd-argocd-applicationset-controller
+        ready: "1/1"
+      - name: argo-cd-argocd-notifications-controller
+        ready: "1/1"
+      - name: argo-cd-argocd-dex-server
+        ready: "0/1"
+        status: CrashLoopBackOff
+        blockedReason: server.secretkey is missing
+      - name: argo-cd-argocd-redis
+        ready: "0/1"
+        status: CreateContainerConfigError
+        blockedReason: secret argocd-redis not found
+      - name: argo-cd-argocd-repo-server
+        ready: "0/1"
+        status: CreateContainerConfigError
+        blockedReason: secret argocd-redis not found
+      - name: argo-cd-argocd-server
+        ready: "0/1"
+        status: CreateContainerConfigError
+        blockedReason: secret argocd-redis not found
+    statefulSets:
+      - name: argo-cd-argocd-application-controller
+        ready: "0/1"
+        blockedReason: secret argocd-redis not found
+    secrets:
+      staged:
+        - argocd-secret
+        - argocd-notifications-secret
+      missing:
+        - argocd-redis
+      missingKeys:
+        - argocd-secret/server.secretkey
+  confighub:
+    workloadSpace: helm-expt-oci-0605-argo-cd
+    unitCount: 46
+    unitStatusCounts:
+      Ready: 45
+      NotLive: 1
+    installerRecordStatus: NotLive
