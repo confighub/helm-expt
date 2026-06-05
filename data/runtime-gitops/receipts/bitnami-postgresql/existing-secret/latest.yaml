@@ -1,0 +1,94 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: RuntimeGitOpsReceipt
+metadata:
+  name: bitnami-postgresql-existing-secret-flux-oci-helm-expt-oci-0605
+spec:
+  chart: bitnami/postgresql
+  version: 18.6.7
+  base: existing-secret
+  packagePath: packages/bitnami/postgresql/18.6.7
+  recipePath: recipes/bitnami/postgresql/18.6.7
+  controller: Flux OCI
+  observedAt: "2026-06-05T10:28:38Z"
+  result: pass
+  run:
+    rig: helm-expt-oci-0605
+    clusterSpace: helm-expt-oci-0605-cluster
+    workloadSpace: helm-expt-oci-0605-postgresql-flux
+    target: helm-expt-oci-0605-cluster/oci
+    namespace: postgresql
+    kubeContext: kind-helm-expt-oci-0605
+    kubeconfig: /Users/alexis/.confighub/lk/helm-expt-oci-0605.kubeconfig
+    keptForInspection: true
+  oci:
+    repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-oci-0605-cluster/oci
+    path: ./helm-expt-oci-0605-postgresql-flux
+    revision: sha256:d820d9bde5bbeeeee6bbd3f3e8ba90da43ce0dd1aefcbaa098920b75e1ea1f3b
+    fluxArtifactDigest: sha256:5c4a09ef8e19e57be48a9ac0226c5fd2e6e91e71101cc658249b8c3aef06a12b
+  notes:
+    targetFact: "The postgresql/postgresql-auth Secret was staged before Flux reconciliation."
+    finding: "Flux pulled the ConfigHub OCI artifact, applied the PostgreSQL existing-secret base, and psql returned a successful query result."
+  checks:
+    - name: render
+      result: pass
+      detail: "namespaces in render: ['postgresql']; collector produced 2 fact(s)"
+    - name: target-fact-secret
+      result: pass
+      detail: "postgresql/postgresql-auth exists with key postgres-password"
+    - name: confighub-upload
+      result: pass
+      detail: units uploaded to helm-expt-oci-0605-postgresql-flux
+    - name: flux-source
+      result: pass
+      detail: "OCIRepository helm-expt-oci-0605-postgresql-flux ready at latest@sha256:d820d9bde5bbeeeee6bbd3f3e8ba90da43ce0dd1aefcbaa098920b75e1ea1f3b"
+    - name: flux-kustomization
+      result: pass
+      detail: "Kustomization postgresql-flux ready at latest@sha256:d820d9bde5bbeeeee6bbd3f3e8ba90da43ce0dd1aefcbaa098920b75e1ea1f3b"
+    - name: runtime
+      result: pass
+      detail: "statefulset.apps/postgresql 1/1"
+    - name: pvc
+      result: pass
+      detail: "1 PostgreSQL PVC Bound"
+    - name: sql-probe
+      result: pass
+      detail: "PGPASSWORD=confighub-postgres-password psql -U postgres -d postgres -tAc 'select 1' returned 1"
+  gitops:
+    flux:
+      namespace: flux-system
+      source:
+        kind: OCIRepository
+        name: helm-expt-oci-0605-postgresql-flux
+        ready: true
+        revision: latest@sha256:d820d9bde5bbeeeee6bbd3f3e8ba90da43ce0dd1aefcbaa098920b75e1ea1f3b
+      kustomization:
+        name: postgresql-flux
+        ready: true
+        lastAppliedRevision: latest@sha256:d820d9bde5bbeeeee6bbd3f3e8ba90da43ce0dd1aefcbaa098920b75e1ea1f3b
+  runtime:
+    namespace: postgresql
+    statefulSet:
+      name: postgresql
+      ready: "1/1"
+      image: registry-1.docker.io/bitnami/postgresql:latest
+    pod:
+      name: postgresql-0
+      ready: "1/1"
+      status: Running
+    persistentVolumeClaims:
+      bound: 1
+    service:
+      name: postgresql
+      type: ClusterIP
+      ports: "5432/TCP"
+    secret:
+      name: postgresql-auth
+      keys:
+        - postgres-password
+  confighub:
+    workloadSpace: helm-expt-oci-0605-postgresql-flux
+    unitCount: 8
+    unitStatusCounts:
+      Ready: 2
+      NotLive: 6
+    note: "Units were applied to the OCI target; Flux performed the Kubernetes reconciliation."

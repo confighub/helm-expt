@@ -56,14 +56,18 @@ The current proof surface is:
 20/20 top-20 charts have local-kind runtime receipts.
 20/20 top-20 charts have ConfigHub proof receipts.
 80 additional charts are proof-grade, not catalog-supported.
-The first GitOps/OCI wave is selected. Two rows are live-proven:
+The first GitOps/OCI wave is selected. Five rows are live-proven:
+`bitnami/redis@25.5.3 / reuse-existing-secret`,
+`prometheus-community/prometheus@29.8.0 / server-only-ephemeral`, and
+`bitnami/postgresql@18.6.7 / existing-secret` through Flux OCI;
 `bitnami/nginx@24.0.2 / http-clusterip` and
-`metrics-server/metrics-server@3.13.0 / default`.
-Two rows have committed non-pass receipts:
+`metrics-server/metrics-server@3.13.0 / default` through Argo CD OCI.
+Three rows have committed non-pass receipts:
 `ingress-nginx/ingress-nginx@4.15.1 / admission-disabled` is watch because the
 controller Deployment is Ready but the kind target has no LoadBalancer external
 IP.
 `external-secrets/external-secrets@2.5.0 / no-crds`.
+`prometheus-community/kube-prometheus-stack@85.3.3 / no-crds`.
 ```
 
 For chart-recipe-variant lane coverage, use the generated lane matrix instead
@@ -102,7 +106,7 @@ The current honest state is therefore:
 render reproducibility: complete for current recipe variants
 ConfigHub proof: partial by exact chart-recipe-variant row
 local live cluster proof: partial by exact chart-recipe-variant row
-GitOps/OCI live proof: two exact rows pass, two exact rows are non-pass, remaining rows backlog
+GitOps/OCI live proof: five exact rows pass, three exact rows are non-pass, remaining rows backlog
 live Helm-vs-ConfigHub parity proof: backlog
 ```
 

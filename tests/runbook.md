@@ -17,11 +17,29 @@ ingress-nginx `admission-disabled` synced and reached Deployment readiness but
 remained Argo `Progressing` because the kind target has no LoadBalancer external
 IP
 (`sha256:9672fd1b2da39cffada83cfa7b4cc8610ff65c7bbc2e2ba68dd3a20a1dc10960`).
+Redis `reuse-existing-secret` was also delivered through Flux OCI on the same
+rig after staging the required `redis/redis-existing-secret`; Flux applied
+revision
+`sha256:800fa47d22c99a250a8f3f4bed3004c334c2c1818cb6f1805e1cb892d490c1e2` and
+Redis returned PONG.
+Prometheus `server-only-ephemeral` and PostgreSQL `existing-secret` were then
+delivered through the same Flux controller. Prometheus reached Deployment
+readiness at
+`sha256:5002930116cef5be34ec07de6445b29956d73627ae1d02b17446187d9a58810b`.
+PostgreSQL reached StatefulSet readiness after staging
+`postgresql/postgresql-auth`, and a `select 1` probe passed at
+`sha256:d820d9bde5bbeeeee6bbd3f3e8ba90da43ce0dd1aefcbaa098920b75e1ea1f3b`.
+kube-prometheus-stack `no-crds` was then attempted through Flux. Flux pulled
+revision
+`sha256:ca3114731bde626fc078765e4b1f8cb12858b6f31e9af8c083175662bbe2eecd`,
+but reconciliation blocked because `Alertmanager.monitoring.coreos.com/v1` and
+related Prometheus Operator CRDs were absent; the run also recorded two
+separated Secrets that were not delivered through the workload OCI path.
 
 Wave 1 = a newcomer installs a **vanilla public chart at its default base**,
-entirely via `cub installer` (never the helm CLI), onto a BYO cluster whose Argo
-pulls from `oci.hub.confighub.com`. This runbook is the exact, parameterized
-procedure so the same job runs identically on another machine.
+entirely via `cub installer` (never the helm CLI), onto a BYO cluster whose
+GitOps controller pulls from `oci.hub.confighub.com`. This runbook is the exact,
+parameterized procedure so the same job runs identically on another machine.
 
 Lives here (test harness) per the repo split; the core flow it exercises lives
 in `confighub/helm-expt`. See `pilot/HELM_STRESS_TEST_MISSION.md`.

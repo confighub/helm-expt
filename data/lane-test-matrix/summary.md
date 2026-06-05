@@ -26,7 +26,7 @@ incomplete core lane set: 156
 | helm_template_vs_installer_setup | 156 | 0 | 0 |
 | confighub_upload_variant_scan_safe_ops | 18 | 138 | 0 |
 | local_kind_kubectl_apply | 21 | 135 | 0 |
-| confighub_oci_argo_live | 2 | 152 | 2 |
+| confighub_oci_argo_live | 5 | 148 | 3 |
 | live_helm_vs_confighub_dual_compare | 0 | 156 | 0 |
 
 ## Lane Definitions

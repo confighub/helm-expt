@@ -39,6 +39,11 @@ proof and local live proof are partial by exact variant row.
 
 GitOps/OCI live proof has started:
 
+- Redis `reuse-existing-secret` passes through Flux OCI with the required
+  existing Secret staged in the target namespace.
+- Prometheus `server-only-ephemeral` passes through Flux OCI.
+- PostgreSQL `existing-secret` passes through Flux OCI with the required
+  existing Secret staged in the target namespace.
 - NGINX `http-clusterip` passes.
 - Metrics Server `default` passes.
 - ingress-nginx `admission-disabled` has a watch receipt. The controller
@@ -47,6 +52,9 @@ GitOps/OCI live proof has started:
 - External Secrets `no-crds` has a blocked receipt. Argo synced the OCI
   artifact, but the target cluster still needed CRDs and the rendered webhook
   Secret delivered outside the workload OCI path.
+- kube-prometheus-stack `no-crds` has a blocked receipt. Flux pulled the OCI
+  artifact, but reconciliation failed because Prometheus Operator CRDs were
+  absent and separated Secrets were not delivered.
 
 Live Helm-vs-ConfigHub parity remains backlog until a receipt-producing harness
 exists.

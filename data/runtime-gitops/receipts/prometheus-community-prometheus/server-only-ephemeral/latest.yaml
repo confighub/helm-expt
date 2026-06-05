@@ -1,0 +1,84 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: RuntimeGitOpsReceipt
+metadata:
+  name: prometheus-server-only-ephemeral-flux-oci-helm-expt-oci-0605
+spec:
+  chart: prometheus-community/prometheus
+  version: 29.8.0
+  base: server-only-ephemeral
+  packagePath: packages/prometheus-community/prometheus/29.8.0
+  recipePath: recipes/prometheus-community/prometheus/29.8.0
+  controller: Flux OCI
+  observedAt: "2026-06-05T10:25:55Z"
+  result: pass
+  run:
+    rig: helm-expt-oci-0605
+    clusterSpace: helm-expt-oci-0605-cluster
+    workloadSpace: helm-expt-oci-0605-prometheus-flux
+    target: helm-expt-oci-0605-cluster/oci
+    namespace: monitoring
+    kubeContext: kind-helm-expt-oci-0605
+    kubeconfig: /Users/alexis/.confighub/lk/helm-expt-oci-0605.kubeconfig
+    keptForInspection: true
+  oci:
+    repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-oci-0605-cluster/oci
+    path: ./helm-expt-oci-0605-prometheus-flux
+    revision: sha256:5002930116cef5be34ec07de6445b29956d73627ae1d02b17446187d9a58810b
+    fluxArtifactDigest: sha256:cae560b0f80b05bdcd732012d5ca28b2eda11c2f42c28df04ad23cb5ee42c53b
+  notes:
+    finding: "Flux pulled the ConfigHub OCI artifact and applied the server-only-ephemeral base. The Prometheus server Deployment became available."
+  checks:
+    - name: render
+      result: pass
+      detail: "namespaces in render: ['monitoring']"
+    - name: confighub-upload
+      result: pass
+      detail: units uploaded to helm-expt-oci-0605-prometheus-flux
+    - name: flux-source
+      result: pass
+      detail: "OCIRepository helm-expt-oci-0605-prometheus-flux ready at latest@sha256:5002930116cef5be34ec07de6445b29956d73627ae1d02b17446187d9a58810b"
+    - name: flux-kustomization
+      result: pass
+      detail: "Kustomization prometheus-flux ready at latest@sha256:5002930116cef5be34ec07de6445b29956d73627ae1d02b17446187d9a58810b"
+    - name: runtime
+      result: pass
+      detail: "deployment.apps/prometheus-server 1/1 1 1"
+    - name: pod
+      result: pass
+      detail: "pod prometheus-server 2/2 Running"
+  gitops:
+    flux:
+      namespace: flux-system
+      source:
+        kind: OCIRepository
+        name: helm-expt-oci-0605-prometheus-flux
+        ready: true
+        revision: latest@sha256:5002930116cef5be34ec07de6445b29956d73627ae1d02b17446187d9a58810b
+      kustomization:
+        name: prometheus-flux
+        ready: true
+        lastAppliedRevision: latest@sha256:5002930116cef5be34ec07de6445b29956d73627ae1d02b17446187d9a58810b
+  runtime:
+    namespace: monitoring
+    deployment:
+      name: prometheus-server
+      ready: "1/1"
+      updated: 1
+      available: 1
+      images:
+        - quay.io/prometheus-operator/prometheus-config-reloader:v0.91.0
+        - quay.io/prometheus/prometheus:v3.11.3
+    pod:
+      ready: "2/2"
+      status: Running
+    service:
+      name: prometheus-server
+      type: ClusterIP
+      ports: "80/TCP"
+  confighub:
+    workloadSpace: helm-expt-oci-0605-prometheus-flux
+    unitCount: 8
+    unitStatusCounts:
+      Ready: 7
+      NotLive: 1
+    installerRecordStatus: NotLive
