@@ -206,22 +206,23 @@ ConfigHub proof lane. The Redis-specific verifier now checks the common
 `upload.kubernetesUnitCount` and `serverSideVariant.downstreamSpace` fields, so
 Redis no longer preserves the older receipt schema as a special case.
 
-The first target-bound derived-variant receipt now exists for
-`NGINX-prod-us-east`; a second pass receipt exists for
-`Prometheus-prod-us-east` from the Prometheus `server-only-ephemeral` base:
+Target-bound derived-variant receipts now exist for `NGINX-prod-us-east`,
+`Prometheus-prod-us-east`, and `Prometheus-staging-eu-west`:
 
 ```text
 data/derived-variant-target-bound/summary.md
 runs/derived-variant-target-bound/nginx-prod-us-east/receipt.yaml
 runs/derived-variant-target-bound/prometheus-server-only-prod-us-east/receipt.yaml
+runs/derived-variant-target-bound/prometheus-server-only-staging-eu-west/receipt.yaml
 npm run derived-variants:target-bound:verify
 npm run derived-variants:target-bound:summary:verify
 ```
 
 They prove `cub variant create --target`, target-bound cloned workload Units,
 ConfigHub OCI publication, Argo CD reconciliation, Kubernetes runtime readiness,
-and cleanup for a small web chart and a server-only observability chart. A
-blocked target-bound receipt also exists for
+and cleanup for a small web chart and a server-only observability chart across
+production and staging derived variants. A blocked target-bound receipt also
+exists for
 `Redis-staging-eu-west`; it records that the Redis staging work order needs
 checked namespace mutation and Redis Secret delivery before it can honestly be
 called target-bound live. The next derived-variant implementation step is to

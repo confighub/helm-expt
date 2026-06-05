@@ -91,9 +91,13 @@ Target-bound derived ConfigHub variant proof has started:
   `server-only-ephemeral` base with `cub variant create --target`, applied to
   a ConfigHub OCI target, reconciled by Argo CD, and observed as a live
   Prometheus server Deployment in Kubernetes.
+- `Prometheus-staging-eu-west` repeats that same target-bound path for a
+  staging derived variant from the same reviewed Prometheus
+  `server-only-ephemeral` base.
 - These receipts prove the derived-variant operating path for a small web chart
-  and a server-only observability chart: clone the reviewed base, bind a real
-  target, apply the cloned workload Units, and record Argo/runtime evidence.
+  and a server-only observability chart across production and staging derived
+  variants: clone the reviewed base, bind a real target, apply the cloned
+  workload Units, and record Argo/runtime evidence.
 - `Redis-staging-eu-west` has a blocked target-bound receipt. The work order
   asks for a namespace change and Redis Secret delivery, but those are not yet
   represented as checked post-clone mutations or secret/fact bindings in the

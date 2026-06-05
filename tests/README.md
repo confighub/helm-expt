@@ -24,6 +24,9 @@ Start with [npm-scripts.md](npm-scripts.md) when you want to know what each
   agreement; emit a receipt.
 - `chart-install-sweep` — shardable top-20 driver:
   `--rig <cub-lk> [--shard i/n] [--slugs a,b]`.
+- `target-bound-derived-variant-test` — create one derived ConfigHub variant
+  from an uploaded base with `cub variant create --target`, deliver the cloned
+  workload Units through OCI/Argo, verify runtime, and emit a receipt.
 - `existing-secret-proof` — the F3 fix path: pre-provision the Secret
   out-of-band, install the existing-secret base, and confirm Ready.
 

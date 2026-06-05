@@ -1,0 +1,137 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "TargetBoundDerivedVariantReceipt",
+  "metadata": {
+    "name": "prometheus-staging-eu-west-target-bound-derived-variant-20260605"
+  },
+  "spec": {
+    "result": "pass",
+    "run": {
+      "date": "2026-06-05",
+      "observedAt": "2026-06-05T14:16:19Z",
+      "organization": "kubara",
+      "server": "https://hub.confighub.com",
+      "kube": {
+        "rig": "helm-expt-derived-prom-stg-0605",
+        "context": "kind-helm-expt-derived-prom-stg-0605"
+      }
+    },
+    "source": {
+      "component": "Prometheus",
+      "chart": "prometheus-community/prometheus",
+      "chartVersion": "29.8.0",
+      "base": "server-only-ephemeral",
+      "package": "packages/prometheus-community/prometheus/29.8.0",
+      "sourceSpace": "helm-expt-derived-prometheus-server-only-staging-base-0605",
+      "sourceSpaceID": "ed30e204-d32c-48d5-b5f1-6f49b95a4ad8"
+    },
+    "create": {
+      "variant": "staging-eu-west",
+      "downstreamSpace": "Prometheus-staging-eu-west",
+      "environment": "Staging",
+      "region": "eu-west",
+      "command": "cub variant create staging-eu-west helm-expt-derived-prometheus-server-only-staging-base-0605 --environment Staging --region eu-west --target helm-expt-derived-prom-stg-0605-cluster/oci --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists --wait --timeout 10m -o json",
+      "result": "pass",
+      "downstreamSpaceID": "f399c2c0-0bdf-454e-92eb-ffbfd786fa70",
+      "spaceLabels": {
+        "Component": "Prometheus",
+        "Environment": "Staging",
+        "Layer": "App",
+        "Owner": "ConfigHubHelm",
+        "Region": "eu-west",
+        "Variant": "staging-eu-west"
+      }
+    },
+    "target": {
+      "slug": "helm-expt-derived-prom-stg-0605-cluster/oci",
+      "targetID": "ca4c97ba-155d-48ab-9434-e2cb7ce17b2d",
+      "targetSpace": "helm-expt-derived-prom-stg-0605-cluster",
+      "bound": true
+    },
+    "cleanup": {
+      "result": "pass"
+    },
+    "clone": {
+      "unitCount": 8,
+      "workloadUnitCount": 7,
+      "targetBoundUnitCount": 8,
+      "targetBoundWorkloadUnitCount": 7,
+      "upstreamLinkedWorkloadUnitCount": 7,
+      "copiedSupportUnit": [
+        "installer-record"
+      ],
+      "productFinding": {
+        "unitLabelsPreserveSourceBaseVariant": true,
+        "note": "The derived Space carries the new Variant label. Cloned workload Units preserve source base labels unless post-clone mutation changes them."
+      }
+    },
+    "apply": {
+      "result": "pass",
+      "command": "cub unit apply --space Prometheus-staging-eu-west --unit clusterrolebinding-prometheus-server,clusterrole-prometheus-server,configmap-monitoring-prometheus-server,deployment-monitoring-prometheus-server,namespace-monitoring,serviceaccount-monitoring-prometheus-server,service-monitoring-prometheus-server",
+      "appliedUnitCount": 7,
+      "excludedUnits": [
+        "installer-record"
+      ],
+      "reasonForExclusion": "installer-record is ConfigHub/installer support metadata, not a Kubernetes resource for the workload OCI artifact."
+    },
+    "argo": {
+      "result": "pass",
+      "rootApplication": "helm-expt-derived-prom-stg-0605-cluster",
+      "childApplication": "prometheus-staging-eu-west",
+      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-derived-prom-stg-0605-cluster/oci",
+      "path": "./Prometheus-staging-eu-west",
+      "destinationNamespace": "monitoring",
+      "syncStatus": "Synced",
+      "healthStatus": "Healthy",
+      "revision": "sha256:10b2c93cda1676cc4b1faa8a14375802f70f1416e1dca42204399ba554df57bc",
+      "resourceCount": 7
+    },
+    "runtime": {
+      "result": "pass",
+      "namespace": "monitoring",
+      "deployment": {
+        "name": "prometheus-server",
+        "ready": "1/1",
+        "availableReplicas": 1,
+        "observedGenerationMatches": true,
+        "rollout": "pass"
+      },
+      "pod": {
+        "name": "prometheus-server-766fbf4f7-qv9hb",
+        "status": "Running",
+        "ready": "2/2"
+      },
+      "service": {
+        "name": "prometheus-server",
+        "type": "ClusterIP",
+        "ports": [
+          "80/TCP"
+        ]
+      }
+    },
+    "review": {
+      "noHelmRerender": true,
+      "sameInstallShape": true,
+      "derivedChanges": [
+        "Space.Labels.Variant",
+        "Space.Labels.Environment",
+        "Space.Labels.Region",
+        "Space.Annotations.TargetID",
+        "Unit.TargetID",
+        "child Argo Application Unit in the target cluster Space"
+      ],
+      "routeBackToInstaller": [
+        "change Helm values that alter rendered Kubernetes objects",
+        "change component topology, storage, CRDs, Secrets, or lifecycle behavior"
+      ]
+    },
+    "evidenceSHA256": {
+      "argoApplicationYaml": "b3ca7d8ea579e507bcf0f0637ac295884c8cce23632d93a7ad48f29b19aca14d",
+      "runtimeYaml": "503f6f6d2a0cae8e81005f92b64f2e7e635f9a394a3e4e2a45c886abda9b85e2",
+      "downstreamUnitsJson": "d83d71656372625b2b634d4f3bef8f1911dd22bbedc6100572b84491667f96e0",
+      "sourceUnitsJson": "78a74ef2553f562ab1ca964711cb18baf8c9543e3165c521d6b774c3e0793f81",
+      "downstreamSpaceJson": "4dec9a77f5ad3942c4e18062120f01311eefde012c2d7638ac4ccd78bdd9238c",
+      "targetJson": "391e1e996c4ccf91d9e14039a5da58c00fb9f414adeffa4dc7b14765411945b8"
+    }
+  }
+}
