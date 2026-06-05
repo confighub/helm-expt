@@ -48,8 +48,10 @@ Also true:
 20 top-20 chart-level ConfigHub proof receipt sets exist.
 20 top-20 local-kind receipt sets exist for selected supported scope.
 10 derived ConfigHub variants have live intended-state receipts.
-1 derived ConfigHub variant has a target-bound live apply receipt:
+1 derived ConfigHub variant has a target-bound live apply PASS receipt:
 `NGINX-prod-us-east`.
+1 derived ConfigHub variant has a target-bound blocked receipt:
+`Redis-staging-eu-west`.
 10 rows have committed GitOps/OCI live receipts:
 `bitnami/redis@25.5.3 / reuse-existing-secret`,
 `prometheus-community/prometheus@29.8.0 / server-only-ephemeral`, and
@@ -119,6 +121,17 @@ ConfigHub OCI target, Argo CD reconciled the derived Space, and Kubernetes
 reported the NGINX Deployment ready. It also records a product detail: the
 derived Space label changes to `Variant=prod-us-east`, while cloned Unit labels
 still preserve the source base label unless a post-clone mutation changes them.
+
+The first target-bound blocked receipt is:
+
+```text
+runs/derived-variant-target-bound/redis-staging-eu-west/receipt.yaml
+```
+
+It records that Redis staging cannot yet be honestly called target-bound live:
+the work order asks for a namespace change and Redis Secret delivery, but those
+are not yet represented by checked post-clone mutations or secret/fact bindings
+in the derived path.
 
 ## Known Sharp Edge
 

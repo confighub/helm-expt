@@ -103,7 +103,7 @@ Start with:
 | Derived variant | Status | Reason |
 | --- | --- | --- |
 | `NGINX-prod-us-east` | pass | Small prod-style gate and target story. |
-| `Redis-staging-eu-west` | next | Stateful target-bound non-prod story. |
+| `Redis-staging-eu-west` | blocked | Stateful target-bound non-prod story; needs namespace mutation and Redis Secret delivery modeled before live apply. |
 | `Prometheus-staging-eu-west` | next | Observability workload with larger object set. |
 
 Tasks:
@@ -251,7 +251,8 @@ Done when:
 4. Keep the Redis live Helm-vs-ConfigHub parity canary green.
 5. Keep the target-bound live receipt schema for derived variants green.
 6. Keep the `NGINX-prod-us-east` target-bound live receipt green.
-7. Target-bind and live-apply `Redis-staging-eu-west`.
+7. Implement the namespace mutation and Redis Secret/fact handling needed for
+   `Redis-staging-eu-west`.
 8. Target-bind and live-apply `Prometheus-staging-eu-west`.
 9. Fix or explain Grafana placeholder drift (#156).
 10. Add per-chart "what am I getting?" cards for the top-20.

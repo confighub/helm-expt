@@ -1,0 +1,57 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "TargetBoundDerivedVariantReceipt"
+metadata:
+  name: "redis-staging-eu-west-target-bound-derived-variant-20260605"
+spec:
+  result: "blocked"
+  run:
+    date: "2026-06-05"
+    observedAt: "2026-06-05T13:25:00Z"
+    organization: "kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "dev"
+    cubServerVersion: "v0.1.74"
+  source:
+    component: "Redis"
+    chart: "bitnami/redis"
+    chartVersion: "25.5.3"
+    base: "default"
+    package: "packages/bitnami/redis/25.5.3"
+    sourceSpace: "helm-redis-confighub-proof"
+    sourceVariantRevision: "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml"
+  create:
+    plannedCommand: "cub variant create staging-eu-west helm-redis-confighub-proof --environment Staging --region eu-west --target <target-space>/oci --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}'"
+    result: "not-attempted"
+    variant: "staging-eu-west"
+    downstreamSpace: "Redis-staging-eu-west"
+    environment: "Staging"
+    region: "eu-west"
+  target:
+    slug: "<target-space>/oci"
+    bound: false
+  apply:
+    result: "not-attempted"
+  argo:
+    result: "not-attempted"
+  runtime:
+    result: "not-attempted"
+  blockers:
+    -
+      id: "namespace-mutation-not-yet-modeled"
+      reason: "The work order asks for namespace redis-staging, but the current proven derived path only changes Space labels and target binding. It does not yet apply a checked post-clone namespace mutation across namespace-scoped Redis Units."
+      requiredCapability: "Creator blueprint or TransformPaths/function mutation that changes approved namespace fields and records MutationSources/check receipts."
+    -
+      id: "redis-secret-delivery-not-yet-modeled"
+      reason: "The Redis default base separates the rendered Secret during cub installer handling. A target-bound derived clone of the ConfigHub Units does not by itself deliver that generated Redis Secret to the target namespace."
+      requiredCapability: "Explicit generated-secret receipt or switch to the reuse-existing-secret base with target-fact Secret binding before target-bound live delivery."
+  routeForward:
+    - "Add a derived namespace mutation check for Redis or keep namespace as redis in the declared derived variant."
+    - "Model Redis Secret delivery explicitly: generated-secret receipt for default, or target-fact Secret binding for reuse-existing-secret."
+    - "After those capabilities exist, run the same target-bound live path used for NGINX and record Argo/runtime evidence."
+  review:
+    noHelmRerender: true
+    sameInstallShapeBlockedByMissingMutationProof: true
+    routeBackToInstaller:
+      - "switch to reuse-existing-secret"
+      - "change Redis storage or HA topology"
+      - "change Helm values that alter StatefulSet or Service shape"

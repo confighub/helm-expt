@@ -82,6 +82,10 @@ Target-bound derived ConfigHub variant proof has started:
 - This proves the derived-variant operating path for one small chart: clone the
   reviewed base, bind a real target, apply the cloned workload Units, and record
   Argo/runtime evidence.
+- `Redis-staging-eu-west` has a blocked target-bound receipt. The work order
+  asks for a namespace change and Redis Secret delivery, but those are not yet
+  represented as checked post-clone mutations or secret/fact bindings in the
+  derived variant path.
 - The other derived-variant receipts remain intended-state clone/link evidence
   until they have target-bound live receipts.
 
