@@ -21,10 +21,11 @@ function verifyConfigHubProof() {
   check(receipt.spec?.render?.manifestCount === 6, "NGINX render must produce 6 manifests");
   check(receipt.spec?.render?.separatedSecretCount === 0, "NGINX http-clusterip must not separate secrets");
   check(receipt.spec?.deterministicPackage?.byteIdenticalAcrossTwoLocalBundles === true, "NGINX package must be deterministic");
-  check(receipt.spec?.upload?.nginxKubernetesUnitCount === 6, "NGINX upload must create 6 Kubernetes Units");
+  check(receipt.spec?.upload?.kubernetesUnitCount === 6, "NGINX upload must create 6 Kubernetes Units");
   check(receipt.spec?.upload?.installerRecordUnitCount === 1, "NGINX upload must create installer-record Unit");
   check(receipt.spec?.plan?.result === "pass", "NGINX post-upload plan must pass");
   check(receipt.spec?.serverSideVariant?.result === "pass", "NGINX server-side variant must pass");
+  check(receipt.spec?.serverSideVariant?.downstreamSpace === "NGINX-staging", "NGINX staging clone space mismatch");
   check(receipt.spec?.serverSideVariant?.clonedUnitCount === 7, "NGINX staging clone must contain 7 Units");
 }
 
@@ -65,4 +66,3 @@ function verifySafeOps() {
   check(receipt.spec?.cancel?.result === "pass", "NGINX cancel must pass");
   check(receipt.spec?.safetyResult === "pass", "NGINX safe-ops safety result must pass");
 }
-

@@ -110,6 +110,21 @@ fields, facts, links, targets, gates, functions, or checks, make it a derived
 ConfigHub variant using `cub variant create` plus guided review.
 ```
 
+There are three product questions behind that routing:
+
+| Question | Product lane | Typical answer in this repo |
+| --- | --- | --- |
+| How many useful configs should be free or out of the box? | public catalog bases | enough reviewed base variants to cover common, high-value install shapes such as default, existing Secret, server-only, ClusterIP, storage, or observability modes |
+| What can users customize inside ConfigHub after a base is reviewed? | derived ConfigHub variants | environment, region, customer, target, gates, observation policy, target facts, links, and approved post-render field fills |
+| Which cases are more complex and likely managed or paid? | import, private overlays, and stacks | private values and wrapper charts, GitOps import, fleet variants, full app stacks, private patch SLAs, old-version support, and production receipts |
+
+The public catalog should carry enough free base variants that most users do
+not start from a blank chart analysis. Derived variants should cover many
+environment and customer cases without rerendering Helm. Full import, private
+overlay, and stack workflows are still important, but they should be presented
+as a richer lane over the same proof model rather than as the first tutorial
+vocabulary.
+
 Before OCI delivery, users need to make three separate decisions:
 
 | Question | Use | Examples |
@@ -131,7 +146,7 @@ Examples:
 | Wrapper chart plus platform values plus customer overlay values | managed overlay import; usually needs ConfigHub Server |
 
 For the detailed algorithm, see
-[Customization Algorithm](./docs/user/customization-algorithm.md). For the product
+[Customization Algorithm](./docs/reference/customization-algorithm.md). For the product
 tier boundaries, see
 [Product Support Tiers For Helm Scenarios](./docs/user/product-support-tiers.md).
 For the simple variant creation guide, see
@@ -261,9 +276,23 @@ Run the full repository verifier:
 npm run verify
 ```
 
-That checks recipe/package structure, Helm equivalence, rendered object
-digests, receipts, catalog status, target facts, local live/e2e receipts,
-production disposition, and top-500 analysis.
+That checks the committed proof corpus: recipe/package structure, recorded Helm
+equivalence, rendered object digests, receipts, catalog status, target facts,
+committed local live/e2e receipts, production disposition, and top-500 analysis.
+The default verifier does not rerun Helm or touch a Kubernetes cluster; it proves
+that the checked-in artifacts and receipts are self-consistent and current.
+
+Use `redis:compare` when you want to see the fresh Helm-vs-installer comparison
+end to end:
+
+```sh
+npm run redis:compare
+```
+
+For most curated charts, `<chart>:compare` currently verifies `cub installer
+setup` against the stored Helm-rendered object set; fresh Helm rendering happens
+in the chart's `:generate-proof` path. Use the live/runtime lanes when you want
+to create fresh cluster or ConfigHub evidence.
 
 For the proof contracts specifically:
 
@@ -306,8 +335,7 @@ checks, use a Kubernetes context you are comfortable applying test resources to.
 After `cub installer setup`, check the rendered objects:
 
 ```sh
-npm run verify-install:render -- \
-  --chart bitnami/redis/25.5.3 \
+npm run redis:verify-install:render -- \
   --base default \
   --work-dir .tmp/demo/redis-default \
   --namespace redis
@@ -316,15 +344,14 @@ npm run verify-install:render -- \
 Expected result:
 
 ```text
-PASS verify-install:render bitnami/redis/25.5.3 default
+PASS redis:verify-install:render bitnami/redis/25.5.3 default
 semantic object matches: 14/14
 ```
 
 After `kubectl apply`, check the live cluster:
 
 ```sh
-npm run verify-install:cluster -- \
-  --chart bitnami/redis/25.5.3 \
+npm run redis:verify-install:cluster -- \
   --base default \
   --context <your-kubectl-context> \
   --namespace redis
@@ -333,15 +360,14 @@ npm run verify-install:cluster -- \
 Expected result:
 
 ```text
-PASS verify-install:cluster bitnami/redis/25.5.3 default
+PASS redis:verify-install:cluster bitnami/redis/25.5.3 default
 checks: statefulsets, PVCs, Redis PING
 ```
 
 After `cub installer upload`, check the ConfigHub Units and labels:
 
 ```sh
-npm run verify-install:confighub -- \
-  --chart bitnami/redis/25.5.3 \
+npm run redis:verify-install:confighub -- \
   --base default \
   --space <your-space>
 ```
@@ -349,15 +375,17 @@ npm run verify-install:confighub -- \
 Expected result:
 
 ```text
-PASS verify-install:confighub bitnami/redis/25.5.3 default
+PASS redis:verify-install:confighub bitnami/redis/25.5.3 default
 units: 15
 variant-labeled units: 14
 ```
 
 Each command writes a receipt under `.tmp/verify-install/`. That receipt is the
 user-side proof: what you rendered, what namespace/context you checked, what
-matched, and which checks passed. Today these checks ship for Redis only. Other
-charts should follow the same pattern as `install-checks.yaml` lands per chart.
+matched, and which checks passed. Today these user-install checks ship for
+Redis only. The generic `verify-install:*` scripts are lower-level compatibility
+aliases for charts that have an `install-checks.yaml`; they are not a repo-wide
+chart verifier.
 
 The NGINX bulk-ops tutorial has a separate live ConfigHub verifier:
 
@@ -391,8 +419,8 @@ cub installer setup \
 
 npm run redis:compare
 npm run verify
-npm run verify-install:render -- --chart bitnami/redis/25.5.3 --base default --work-dir .tmp/demo/redis-default --namespace redis
-npm run verify-install:confighub -- --chart bitnami/redis/25.5.3 --base default --space <your-space>
+npm run redis:verify-install:render -- --base default --work-dir .tmp/demo/redis-default --namespace redis
+npm run redis:verify-install:confighub -- --base default --space <your-space>
 ```
 
 The full ConfigHub upload command is in `docs/demo/redis/demo-script.md`; it is
@@ -597,8 +625,8 @@ cub changeset create
 
 ## Additional Options For Live Cluster Verification
 
-The built-in `verify-install:cluster` command is intentionally small. It proves
-the Redis happy path with rollout, PVC, Secret, and Redis PING checks.
+The built-in `redis:verify-install:cluster` command is intentionally small. It
+proves the Redis happy path with rollout, PVC, Secret, and Redis PING checks.
 
 For deeper runtime proof, use the
 [cub-scout helm-expt example](https://github.com/confighub/cub-scout/tree/main/examples/helm-expt).

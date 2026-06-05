@@ -291,7 +291,7 @@ human entry point for choosing charts and variants.
 
 - Public mission and quick start: [README.md](../README.md)
 - Short explanation: [how-the-harness-works.md](./how-the-harness-works.md)
-- Customization placement algorithm: [customization-algorithm.md](./customization-algorithm.md)
+- Customization placement algorithm: [customization-algorithm.md](../reference/customization-algorithm.md)
 - Current pathway review: [current-pathway-review.md](../planning/current-pathway-review.md)
 - Repo consistency review: [repo-consistency-review.md](../planning/repo-consistency-review.md)
 - Full execution plan: [agreed-execution-plan.md](../planning/agreed-execution-plan.md)

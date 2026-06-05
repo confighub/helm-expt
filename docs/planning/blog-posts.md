@@ -41,11 +41,11 @@ ConfigHub, inspect Units, and verify your own install with receipts.
 Show:
 
 - `cub installer setup`;
-- `npm run verify-install:render`;
+- `npm run redis:verify-install:render`;
 - `kubectl apply`;
-- `npm run verify-install:cluster`;
+- `npm run redis:verify-install:cluster`;
 - `cub installer upload`;
-- `npm run verify-install:confighub`;
+- `npm run redis:verify-install:confighub`;
 - ConfigHub Unit list, labels, data, diff, scan, approval, and dry-run apply.
 
 Proof links:
@@ -105,7 +105,7 @@ Show:
 Proof links:
 
 - `CATALOG.md`
-- `docs/user/customization-algorithm.md`
+- `docs/reference/customization-algorithm.md`
 - `docs/user/maintenance-sla.md`
 
 ## 5. Live Truth Without A Magic Worker
@@ -121,7 +121,7 @@ arrive as fresh observation receipts from explicit tools.
 
 Show:
 
-- what `verify-install:cluster` proves for Redis;
+- what `redis:verify-install:cluster` proves for Redis;
 - where cub-scout fits for object-set receipts, drift checks, source truth,
   ownership graphs, snapshots, and GitOps convergence evidence;
 - why freshness is part of the claim.

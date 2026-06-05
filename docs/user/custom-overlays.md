@@ -4,6 +4,27 @@
 
 This is the custom overlay case in its simplest form.
 
+## Product Lane
+
+ExternalDNS customer overlays sit across three product lanes:
+
+```text
+1. Free/out-of-box catalog configs:
+   reviewed ExternalDNS base shapes that are common enough to publish.
+
+2. ConfigHub customization:
+   customer, environment, region, target, gates, facts, and observation policy
+   as derived variants over a reviewed base.
+
+3. Managed or potentially paid complexity:
+   private wrapper charts, private values, GitOps import, fleet variants, full
+   stacks, production receipts, support SLAs, and old-version patch work.
+```
+
+The example below is a classification golden for that boundary. It is not a
+claim that every customer overlay is free catalog material, and it is not a
+live production import receipt.
+
 ## Example
 
 ```text

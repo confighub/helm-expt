@@ -48,6 +48,46 @@ The current proof surface is:
 The first GitOps/OCI wave is selected but not yet live-proven.
 ```
 
+For chart-recipe-variant lane coverage, use the generated lane matrix instead
+of chart-level shorthand:
+
+```text
+data/lane-test-matrix/summary.md
+```
+
+As of the current matrix, all 156 chart-recipe-variant rows have
+Helm-equivalence plus installer setup-check evidence. ConfigHub proof and
+local-kind evidence are partial by exact variant row. ConfigHub OCI/Argo live
+and live Helm-vs-ConfigHub dual-deploy comparison are required lanes but do not
+yet have committed PASS receipts in this repo.
+
+Outcome doctrine:
+
+```text
+Every supported Helm chart default and declared main choice should become
+verifiably reproducible, ConfigHub-reviewable, live-cluster verified, and tied
+to receipts.
+```
+
+Do not treat an activity as done just because a script, doc, generated row, or
+tutorial exists. The outcome must be visible in committed evidence and guarded
+by a verifier. For catalog-supported charts, "main choices" means the default
+base plus the declared supported non-default bases such as existing-secret,
+no-crds, server-only, ingress, HA, ClusterIP, storage, or equivalent chart
+choices. For derived ConfigHub variants, it means the post-render operating
+choices that the docs claim are supported: target, environment, region,
+customer, gates, facts, links, field fills, checks, and observation policy.
+
+The current honest state is therefore:
+
+```text
+render reproducibility: complete for current recipe variants
+ConfigHub proof: partial by exact chart-recipe-variant row
+local live cluster proof: partial by exact chart-recipe-variant row
+GitOps/OCI live proof: backlog
+live Helm-vs-ConfigHub parity proof: backlog
+```
+
 The top-level public entry points are [README.md](../../README.md),
 [CATALOG.md](../../CATALOG.md), and the generated static site under
 [site/](../../site/).
@@ -62,8 +102,71 @@ The latest completed work added generated queues for the next proof stages:
 | Hook lifecycle wave | [data/hook-lifecycle/summary.md](../../data/hook-lifecycle/summary.md) |
 | Image digest workdown | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | Compact next-ten waves | [data/next-ten-waves/summary.md](../../data/next-ten-waves/summary.md) |
+| Lane-test matrix | [data/lane-test-matrix/summary.md](../../data/lane-test-matrix/summary.md) |
 
 These files are generated and verified. Do not edit them by hand.
+
+## 2026-06-04 Brian-List And Derived-Variant Sync
+
+The near-term TODO list now folds in Brian's "configuration as data" value
+lanes and the current `cub variant` command surface. See
+[next-20-tasks.md](./next-20-tasks.md) for the active queue and
+[issue-backlog.md](./issue-backlog.md) for the issue mirror.
+
+Current CLI truth:
+
+```text
+cub variant create
+```
+
+`cub variant create` is the current derived-variant substrate. `cub variant
+upload`, `cub variant promote`, and `cub variant release` are not current local
+commands and should be described only as planned or candidate product lanes.
+
+New issues created from the Brian-list / derived-variant review:
+
+| Issue | Focus |
+| --- | --- |
+| [#143](https://github.com/confighub/helm-expt/issues/143) | Make `cub variant create` the explicit derived-variant substrate. |
+| [#144](https://github.com/confighub/helm-expt/issues/144) | Build a derived-variant expansion wave across top-20 and wave-2 charts. |
+| [#145](https://github.com/confighub/helm-expt/issues/145) | Prove promotion and environment management with derived ConfigHub variants. |
+| [#146](https://github.com/confighub/helm-expt/issues/146) | Add fleet inventory and CMDB views. |
+| [#147](https://github.com/confighub/helm-expt/issues/147) | Prove fleet-scale mutation and codemod workflows. |
+| [#148](https://github.com/confighub/helm-expt/issues/148) | Add policy, compliance, and security posture reports. |
+| [#149](https://github.com/confighub/helm-expt/issues/149) | Add dependency graph and impact analysis. |
+| [#150](https://github.com/confighub/helm-expt/issues/150) | Add Creator and agentic intent flow over `cub variant create`. |
+| [#151](https://github.com/confighub/helm-expt/issues/151) | Define variant release and OCI handoff semantics. |
+| [#152](https://github.com/confighub/helm-expt/issues/152) | Define promotion UI expectations for clean variant diffs. |
+| [#153](https://github.com/confighub/helm-expt/issues/153) | Reposition GitOps tutorial around Argo/OCI and bridge-independent proof. |
+
+The most important gap is now explicit: the repo still needs more derived
+ConfigHub variants with execution receipts. Issue #144 now has a generated
+starting wave under
+[data/variant-goldens/derived-expansion-wave/](../../data/variant-goldens/derived-expansion-wave/):
+10 derived-variant work orders across Redis, Prometheus, NGINX, Grafana, and
+Vault. Each work order now has golden clone, mutation, and check receipt targets
+under `receipts/<work-order>/`. These are explicit proof targets, not live
+execution receipts.
+
+2026-06-05 update: the first live derived-variant execution slice now exists
+for NGINX. `cub variant create` created `NGINX-prod-us-east` and
+`NGINX-customer-acme-prod` from the reviewed
+`helm-nginx-confighub-proof` base Space. The receipts prove clone/link
+preservation, same data-hash set as the reviewed base, production gates on all
+cloned Units, and no Helm re-render. The active ConfigHub context did not have
+the desired work-order targets, so these receipts intentionally stop before
+target binding and live apply:
+
+```text
+runs/derived-variant-execution/nginx-prod-us-east/variant-create-receipt.yaml
+runs/derived-variant-execution/nginx-customer-acme-prod/variant-create-receipt.yaml
+npm run derived-variants:verify
+```
+
+The next step is to run selected `cub variant create` commands against the
+remaining reviewed Spaces and supplement the golden targets with live
+clone/link, allowed-mutation, target-fact, gate, observation, and eventually
+target-bound live-apply receipts.
 
 ## 2026-06-03 Variant And Spreadsheet Findings
 
@@ -106,7 +209,7 @@ Where the counts live:
 | How many rows have proof, support, package, and variant status? | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) and [data/top500-catalog-analysis/raw.json](../../data/top500-catalog-analysis/raw.json). |
 | How do those rows map to the Helm problem-space? | [data/top500-catalog-analysis/drilldown.csv](../../data/top500-catalog-analysis/drilldown.csv) and `raw.json` columns such as `source_features`, `lookup_count`, `tpl_count`, `crd_files_count`, `cluster_roles_count`, `webhooks_count`, `stateful_sets_count`, `pvc_count`, and proof control categories. |
 | Which concrete base/render variants are next? | [data/catalog-promotion-wave2/summary.md](../../data/catalog-promotion-wave2/summary.md), [data/catalog-promotion-wave2/variant-work-orders.md](../../data/catalog-promotion-wave2/variant-work-orders.md), and [data/next-ten-waves/variant-build-wave.csv](../../data/next-ten-waves/variant-build-wave.csv). |
-| Which derived ConfigHub variant capability has a receipt-style golden? | [data/variant-goldens/redis-prod-us-east/preview.yaml](../../data/variant-goldens/redis-prod-us-east/preview.yaml), currently showing one Redis default-to-prod clone with three changed paths and one preserved upstream-link change. |
+| Which derived ConfigHub variant capability has receipt-style proof? | [data/variant-goldens/redis-prod-us-east/preview.yaml](../../data/variant-goldens/redis-prod-us-east/preview.yaml) shows one Redis default-to-prod clone with three changed paths and one preserved upstream-link change. [data/variant-goldens/derived-expansion-wave/README.md](../../data/variant-goldens/derived-expansion-wave/README.md) adds 10 derived-variant work orders across five reviewed bases. |
 | Which managed overlay route proves a creator path? | [data/managed-overlay-goldens/external-dns-customer-acme-prod/preview.yaml](../../data/managed-overlay-goldens/external-dns-customer-acme-prod/preview.yaml), currently showing six classified overlay routes, including one creator route. |
 
 Important gap:
@@ -114,8 +217,9 @@ Important gap:
 ```text
 The big Top-500 sheet does not yet count derived ConfigHub variant opportunity.
 It counts current base variant proof status and maps source problem-space
-complexity. Derived variant reach is currently represented by goldens and
-managed-overlay examples, not by scaled catalog metrics.
+complexity. Derived variant reach is now represented by goldens, the generated
+derived-expansion wave, and managed-overlay examples, not yet by scaled
+Top-500 catalog metrics.
 ```
 
 The next Top-500 generator update should add generated fields or a generated
@@ -159,6 +263,7 @@ If a choice refines already-rendered ConfigHub Units through approved fields, fa
 Do not imply derived ConfigHub variants replace base variants for render-time object changes.
 Do not describe derived ConfigHub variants as catalog-supported unless receipts prove the uploaded-base-plus-derived-variant path.
 Generated data must have a verify script that fails if committed output is stale.
+Every task should state the outcome it will prove, the evidence artifact that proves it, and the verifier that keeps it current.
 ```
 
 ## Variant Vocabulary
@@ -197,6 +302,7 @@ Use these generated summaries together:
 | Which top-20 versions need refresh? | [data/latest-top20-refresh/summary.md](../../data/latest-top20-refresh/summary.md) |
 | Which charts are next for real variants? | [data/catalog-promotion-wave2/summary.md](../../data/catalog-promotion-wave2/summary.md) |
 | What derived-variant golden exists? | [data/variant-goldens/redis-prod-us-east/README.md](../../data/variant-goldens/redis-prod-us-east/README.md) |
+| What derived-variant expansion wave exists? | [data/variant-goldens/derived-expansion-wave/README.md](../../data/variant-goldens/derived-expansion-wave/README.md) |
 | What managed-overlay creator route exists? | [data/managed-overlay-goldens/external-dns-customer-acme-prod/preview.yaml](../../data/managed-overlay-goldens/external-dns-customer-acme-prod/preview.yaml) |
 
 ## User Documentation
@@ -254,62 +360,22 @@ npm run verify
 
 The full verify chain is expected to pass on a clean checkout.
 
-## Suggested Next 20 Tasks
+## Suggested Next Tasks
 
-The next work should proceed in this order.
+Use [next-20-tasks.md](./next-20-tasks.md) as the single active TODO queue. The
+headline order is:
 
-1. Add Top-500 generated columns for `base_variant_opportunity_count`,
-   `derived_variant_opportunity_count`, `delivery_prerequisite_count`,
-   `variant_route_mix`, `derived_variant_routes`, `problem_space_tags`, and
-   `recommended_variant_strategy`.
-2. Add a generated derived-route taxonomy so base/render changes,
-   post-render ConfigHub refinements, and delivery prerequisites classify the
-   same way in docs, CSV, JSON, and receipts.
-3. Add a compact Top-500 summary section that rolls up base-only,
-   base-plus-derived, managed-overlay, delivery-prerequisite-first, and
-   needs-recipe-first counts.
-4. Add the same strategy columns to the wave-2 candidate review so each
-   proposed variant says whether it is a base variant, derived ConfigHub
-   variant, or delivery prerequisite.
-6. Run the first runtime/GitOps wave from
-   [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv)
-   and commit receipts under `data/runtime-gitops/receipts/`.
-7. Resolve image digests for the first priority subjects in
-   [data/image-digest-workdown/priority-subjects.csv](../../data/image-digest-workdown/priority-subjects.csv).
-8. Write production-disposition receipts for the first five rows in
-   [data/next-ten-waves/production-disposition-wave.csv](../../data/next-ten-waves/production-disposition-wave.csv).
-9. Work the six latest-version candidates in
-   [data/next-ten-waves/latest-promotion-wave.csv](../../data/next-ten-waves/latest-promotion-wave.csv).
-10. Build and prove the wave-2 variant rows in
-    [data/next-ten-waves/variant-build-wave.csv](../../data/next-ten-waves/variant-build-wave.csv).
-11. Build and prove the `traefik/traefik@40.2.0` wave-2 base variants:
-    `default`, `external-crds`, `internal-clusterip-dashboard-off`, and
-    `cloud-loadbalancer`.
-12. Build and prove the `external-dns/external-dns@1.21.1` wave-2 base
-    variants: `route53-irsa`, `cloudflare-existing-secret`, and
-    `dry-run-txt-registry`.
-13. Build and prove the `vmware-tanzu/velero@12.0.1`,
-    `istio-official/istiod@1.30.0`, and `kyverno/kyverno@3.8.1` wave-2 base
-    variants from the generated work orders.
-14. Add at least one wave-2 derived ConfigHub variant golden that starts from
-    an uploaded reviewed base and proves clone/link/check receipts without a
-    hidden Helm rerender.
-15. Add at least one wave-2 managed-overlay classification receipt that routes
-    render-time choices to installer/base variants and post-render choices to a
-    derived ConfigHub creator path.
-16. Extend derived variant receipts to show target, environment, region,
-    namespace, fact binding, TransformPaths, upstream-link preservation, checks,
-    and route-back-to-installer cases.
-17. Review the first gap rows in
-    [data/next-ten-waves/gap-review-wave.csv](../../data/next-ten-waves/gap-review-wave.csv).
-18. Turn the import examples in
-    [data/next-ten-waves/import-prototype-wave.csv](../../data/next-ten-waves/import-prototype-wave.csv)
-    into an executable installer-backed import prototype when the installer
-    surface exists.
-19. Regenerate the public site and catalog pages after the new strategy and
-    derived-variant metrics exist.
-20. Run the full `npm run verify` chain, then sync to GitHub with a clean
-    branch, merged PRs, and no stale generated outputs.
+1. Make `cub variant create` current and explicit in docs, Tutorial 4, UX
+   proposals, and command-surface verification (#143).
+2. Build the derived-variant expansion wave so derived ConfigHub variants get
+   real use across multiple charts (#144).
+3. Prove promotion and environment management with derived ConfigHub variants
+   (#145).
+4. Close the open Helm import path P0 (#76).
+5. Continue wave-2 base-variant promotion, production disposition, target
+   facts, GitOps/Argo proof, release/OCI semantics, promotion UI expectations,
+   fleet inventory, fleet mutation, policy/security posture, and impact
+   analysis in the order listed in `next-20-tasks.md`.
 
 ## What Not To Do
 

@@ -22,18 +22,13 @@ whole repo. For the single serial order through `docs/user/*.md`, start with
 | [how-the-harness-works.md](./user/how-the-harness-works.md) | Short technical explanation of the harness lifecycle and where user value is created. |
 | [introduction-to-the-harness.md](./user/introduction-to-the-harness.md) | Detailed recipe-generation workflow and the table for where Helm pieces belong. |
 | [creating-variants.md](./user/creating-variants.md) | Simple guide to base variants, derived ConfigHub variants, AI assistant tasks, and bulk creation. |
+| [cub-variant-command-surface.md](./user/cub-variant-command-surface.md) | Current `cub variant create` command surface and how Space/Unit metadata maps to derived variants. |
 | [change-routing-before-oci.md](./user/change-routing-before-oci.md) | Short guide for choosing a base variant, derived ConfigHub variant, or delivery prerequisite before OCI handoff. |
 | [custom-overlays.md](./user/custom-overlays.md) | Plain-English ExternalDNS example for wrapper charts, platform values, customer overlay values, and target facts. |
-| [customization-algorithm.md](./user/customization-algorithm.md) | How values files, overlays, wrapper charts, and post-render variants are routed. |
 | [prometheus-overlay-promotion-example.md](./user/prometheus-overlay-promotion-example.md) | Worked Prometheus example for a values overlay and a ConfigHub-only promotion variant. |
 | [product-support-tiers.md](./user/product-support-tiers.md) | Which Helm scenarios fit the public catalog, managed imports, or commercial support. |
 | [hook-lifecycle-strategy.md](./user/hook-lifecycle-strategy.md) | How Helm hooks are inventoried, classified, translated, or blocked. |
 | [maintenance-sla.md](./user/maintenance-sla.md) | How catalog entries are refreshed, patched, and supported. |
-| [catalog-doctrine.md](./user/catalog-doctrine.md) | The catalog model: chart → recipes → placeholdered base variants → derived ConfigHub variants. |
-| [customization-decision-tree.md](./user/customization-decision-tree.md) | Routing a customization to a base or derived variant; the Level-2 support definition. |
-| [complete-corresponding-model.md](./user/complete-corresponding-model.md) | The completeness contract a supported chart must satisfy. |
-| [per-chart-recipes.md](./user/per-chart-recipes.md) | Method for recommending per-chart recipe + variant counts. |
-| [fork-vocabulary.md](./user/fork-vocabulary.md) | Shared vocabulary for base vs derived variants and how names map. |
 | [demo/redis/demo-script.md](demo/redis/demo-script.md) | Runnable Redis walkthrough. |
 | [demo/redis/ux-acceptance.md](demo/redis/ux-acceptance.md) | Redis demo acceptance criteria. |
 | [demo/redis/function-scan-lane.md](demo/redis/function-scan-lane.md) | Redis ConfigHub function scan lane. |
@@ -73,9 +68,9 @@ Do not hand-edit generated Markdown unless the generator is also updated.
 | [how-the-harness-works.md](./user/how-the-harness-works.md) | Lifecycle-stage explanation of the harness. |
 | [introduction-to-the-harness.md](./user/introduction-to-the-harness.md) | Detailed import workflow, recipe decisions, and hook policy. |
 | [creating-variants.md](./user/creating-variants.md) | Simple user guide for base variants, derived ConfigHub variants, AI assistant tasks, and bulk creation. |
+| [cub-variant-command-surface.md](./user/cub-variant-command-surface.md) | Current `cub variant create` syntax, labels, annotations, targets, gates, and non-current variant verbs. |
 | [change-routing-before-oci.md](./user/change-routing-before-oci.md) | User-facing routing guide for base variants, derived variants, and delivery prerequisites before OCI handoff. |
 | [custom-overlays.md](./user/custom-overlays.md) | ExternalDNS managed overlay example with wrapper chart, platform values, customer values, target facts, and ConfigHub variant routing. |
-| [customization-algorithm.md](./user/customization-algorithm.md) | Rules for values files, overlays, wrapper charts, and post-render variants. |
 | [prometheus-overlay-promotion-example.md](./user/prometheus-overlay-promotion-example.md) | Concrete Prometheus example showing when an overlay becomes an installer base and when a change is ConfigHub-only. |
 | [product-support-tiers.md](./user/product-support-tiers.md) | Free, public, managed, and commercial support boundaries. |
 | [maintenance-sla.md](./user/maintenance-sla.md) | Catalog maintenance and update expectations. |
@@ -103,6 +98,12 @@ ConfigHub primitives.
 | File | Role |
 | --- | --- |
 | [artifact-verifier-spec.md](./reference/artifact-verifier-spec.md) | What the artifact verifier must check. |
+| [customization-algorithm.md](./reference/customization-algorithm.md) | Reference algorithm for values files, overlays, wrapper charts, and post-render variants. |
+| [catalog-doctrine.md](./reference/catalog-doctrine.md) | Catalog doctrine: chart → recipes → placeholdered base variants → derived ConfigHub variants. |
+| [customization-decision-tree.md](./reference/customization-decision-tree.md) | Design-level routing tree for customization and support outcomes. |
+| [complete-corresponding-model.md](./reference/complete-corresponding-model.md) | Completeness contract a supported chart must satisfy. |
+| [per-chart-recipes.md](./reference/per-chart-recipes.md) | Method for recommending per-chart recipe + variant counts. |
+| [fork-vocabulary.md](./reference/fork-vocabulary.md) | Shared vocabulary for base vs derived variants and how names map. |
 | [helm-import-contract.md](./reference/helm-import-contract.md) | Contract for graduating from direct `cub helm install` rendering into maintained `cub installer` recipes. |
 | [capability-profile-catalog.md](./reference/capability-profile-catalog.md) | Named Kubernetes capability profiles used during render. |
 | [generated-fact-receipts.md](./reference/generated-fact-receipts.md) | Generated secrets, certs, random values, and time-value receipt specification. |
@@ -116,8 +117,11 @@ ConfigHub primitives.
 | File | Role |
 | --- | --- |
 | [variant-creation-artifact.md](./reference/variant-creation-artifact.md) | Reference design for guided variant creation over existing ConfigHub capabilities. |
+| [cub-variant-command-surface.md](./user/cub-variant-command-surface.md) | User-facing command surface for the current `cub variant create` clone/link substrate. |
 | [redis-variant-creation-plan.yaml](./reference/redis-variant-creation-plan.yaml) | Concrete Redis variant creation blueprint. |
 | [variant-creator-verification.md](./reference/variant-creator-verification.md) | How Creator previews, checks, receipts, UX, agent, and fleet paths are verified. |
+| [derived-variant-live-proof.md](./reference/derived-variant-live-proof.md) | First live `cub variant create` execution receipts for derived ConfigHub variants. |
+| [lane-test-doctrine.md](./reference/lane-test-doctrine.md) | Core corpus lane-test doctrine for every chart-recipe-variant row. |
 | [variant-promotion-worked-example.md](./reference/variant-promotion-worked-example.md) | Worked promotion examples for Redis and managed overlays. |
 | [confighub-promotion-mapping.md](./reference/confighub-promotion-mapping.md) | Mapping between Helm-derived bases, ConfigHub variants, and promotion concepts. |
 | [kubara-customized-overlays.md](./corpus/kubara-customized-overlays.md) | Managed wrapper chart plus customer overlay test case. |
@@ -128,6 +132,8 @@ Generated proof data for this section lives in:
 | --- | --- |
 | `data/variant-goldens/redis-prod-us-east/` | Generated Redis example: `redis/default` to `prod-us-east` with preview, checks, and receipts. |
 | `data/managed-overlay-goldens/external-dns-customer-acme-prod/` | Generated ExternalDNS managed overlay example: wrapper chart plus platform/customer overlay values and route classification. |
+| `data/lane-test-matrix/` | Generated lane-test coverage matrix for every chart-recipe-variant row. |
+| `runs/derived-variant-execution/` | Live ConfigHub intended-state receipts for derived variant creation. |
 
 ### Catalog, Scale, And Refresh
 

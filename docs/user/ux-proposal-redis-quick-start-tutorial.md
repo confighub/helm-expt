@@ -9,6 +9,16 @@ described in [Creator Status](../reference/variant-creation-artifact.md#creator-
 make the human intent simple, then map it to formal contracts, AX/FX, and the
 current CLI primitives.
 
+## Shared Mapping
+
+All tutorial UX proposals use the same map:
+
+```text
+Human: express the desired base, environment, region, customer, delivery, or operation.
+CLI: use cub installer for render/base work; use cub variant create for derived ConfigHub variants.
+Proof: run checks, gates, and receipts before the change is called ready.
+```
+
 ## Current CLI Friction
 
 The CLI UX is exposing too many implementation steps to a first-time human:

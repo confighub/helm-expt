@@ -4,7 +4,7 @@ This document mirrors the GitHub issues that must not be lost in the planning
 docs. GitHub remains the execution tracker; this file keeps reviewers aligned
 with the written plan.
 
-Last synced: 2026-05-31.
+Last synced: 2026-06-04.
 
 ## Rule
 
@@ -13,6 +13,21 @@ P0 issues are gates for the scope they name.
 P1 issues strengthen the proof after P0.
 P2 issues preserve important design depth without blocking the first proof.
 ```
+
+Issue closure should be outcome-based:
+
+```text
+Name the chart choices, variants, or lanes covered.
+Commit the receipt, matrix row, generated report, or verified doc that proves
+the outcome.
+Add or update the verifier that fails if the evidence becomes stale.
+Do not close an issue because a command, tutorial, or proposal merely exists.
+```
+
+The catalog-wide target is that every supported Helm chart default and declared
+main choice becomes reproducible, ConfigHub-reviewable, live-cluster verified,
+and tied to receipts. If a lane is still missing, track it as missing backlog
+instead of converting the issue into a broad "verified" claim.
 
 The original P0 proof gates are now closed and verified by the harness. The
 remaining open P0 is a productization/design gate, not evidence that the current
@@ -30,10 +45,10 @@ Current open issue shape:
 
 ```text
 open P0: 1
-open P1: 6
+open P1: 17
 open P2: 7
 open content/story issues: 8
-open unlabelled docs issue: #82
+open unlabelled issues: 7 (#82, #96, #97, #99, #106, #113, #114)
 ```
 
 ## Capability Roadmap
@@ -47,13 +62,13 @@ Existing ConfigHub capabilities to use now:
 | Lane | Existing verbs | Roadmap home |
 | --- | --- | --- |
 | Installer proof | `cub installer doc/setup/render/package/push/sign/verify/vet/plan/upload/inspect/list` | P0.4, P1.1 |
-| Server variants | `cub variant create` | P0.5 |
+| Server variants | `cub variant create` | #143, #144, #145, #150 |
 | Review and diff | `cub unit diff`, `cub revision data/list`, `cub unit data/tree/list` | P1.6 |
 | Safe operations | `cub changeset create/list/update`, `cub unit approve/apply/destroy/cancel` | P1.7 |
 | Scanning and misconfig | `cub function vet`, `cub function get/set`, `cub run ...` | P1.8 |
 | Target and live facts | `cub target create/get/list`, `cub k8s collect`, `cub k8s source`, `cub unit livestate/livedata/refresh` | P1.3, P1.4 |
-| GitOps adoption | `cub gitops discover/import` | P2.5 |
-| Metadata model | `cub tag`, `cub attribute`, `cub filter`, `cub view`, `cub link` | P1.9 |
+| GitOps adoption | `cub gitops discover/import` | #12, #151, #153 |
+| Metadata model | `cub tag`, `cub attribute`, `cub filter`, `cub view`, `cub link` | #146, #149 |
 
 Missing product verbs:
 
@@ -65,8 +80,29 @@ Missing product verbs:
 | P0 ask | `cub installer compare` or `cub installer prove` |
 | P1 ask | `cub installer scan` |
 | P1 ask | `cub variant list/diff/promote/update` |
+| P1 ask | `cub variant release` or another explicit variant-to-OCI handoff verb |
 | P1 ask | `cub observe` or `cub target observe` |
 | P2 ask | `cub catalog search/show/install` |
+
+## Brian-List And Derived-Variant Issues Added 2026-06-04
+
+Brian's "configuration as data" list is now represented as helm-expt execution
+work, with derived ConfigHub variants pulled forward instead of treated as an
+appendix.
+
+| Issue | Lane | Why it matters now |
+| --- | --- | --- |
+| [#143](https://github.com/confighub/helm-expt/issues/143) Make `cub variant create` the explicit derived-variant substrate | Current CLI truth | Keeps docs and tutorials aligned with the command Brian added. |
+| [#144](https://github.com/confighub/helm-expt/issues/144) Build a derived-variant expansion wave across top-20 and wave-2 charts | Derived variants | Fixes the gap that the repo does not yet use enough derived variants. |
+| [#145](https://github.com/confighub/helm-expt/issues/145) Prove promotion and environment management with derived ConfigHub variants | Promotion | Highest-value Brian-list lane inside helm-expt. |
+| [#146](https://github.com/confighub/helm-expt/issues/146) Add fleet inventory and CMDB views over catalog artifacts and ConfigHub Units | Inventory | Shows the value of queryable rendered desired state. |
+| [#147](https://github.com/confighub/helm-expt/issues/147) Prove fleet-scale mutation and codemod workflows over ConfigHub Units | Fleet operations | Turns rendered Units into safe bulk operations, not YAML search/replace. |
+| [#148](https://github.com/confighub/helm-expt/issues/148) Add policy, compliance, and security posture reports over rendered desired state | Policy/security | Rolls scan/gate evidence into a useful posture view. |
+| [#149](https://github.com/confighub/helm-expt/issues/149) Add dependency graph and impact analysis for variants and upgrades | Impact analysis | Uses upstream links, targets, and variants to answer "what changes?" |
+| [#150](https://github.com/confighub/helm-expt/issues/150) Add Creator and agentic intent flow over `cub variant create` | AI/Creator UX | Keeps the human story simple while mapping to current CLI primitives. |
+| [#151](https://github.com/confighub/helm-expt/issues/151) Define variant release and OCI handoff semantics | Release/GitOps | Captures release vs tag, gates, validation, and OCI publication questions. |
+| [#152](https://github.com/confighub/helm-expt/issues/152) Define Promotion UI expectations for clean variant diffs | Promotion UI | Makes derived-variant review understandable to humans. |
+| [#153](https://github.com/confighub/helm-expt/issues/153) Reposition GitOps tutorial around Argo/OCI and bridge-independent proof | GitOps | Keeps Tutorial 6 aligned with the Argo/OCI direction and descoped bridge paths. |
 
 ## Completed Redis Proof Gates
 
@@ -217,6 +253,17 @@ proof corpus must continue to satisfy.
 | [#14](https://github.com/confighub/helm-expt/issues/14) Add CI/PR comment mode for chart analysis results | Workflow | Lets teams adopt analysis in existing review flows. |
 | [#15](https://github.com/confighub/helm-expt/issues/15) Diagnose existing Helm release state and upgrade footguns | Migration / day-2 | Helps existing Helm users move without blind spots. |
 | [#16](https://github.com/confighub/helm-expt/issues/16) Generate suggested fixes for common Helm pain findings | Remediation | Turns analysis into action. |
+| [#143](https://github.com/confighub/helm-expt/issues/143) Make `cub variant create` the explicit derived-variant substrate | Derived variants / docs | Prevents docs from inventing command surface and makes the current variant CLI visible. |
+| [#144](https://github.com/confighub/helm-expt/issues/144) Build a derived-variant expansion wave across top-20 and wave-2 charts | Derived variants / proof | Gives derived variants enough real use to be credible. |
+| [#145](https://github.com/confighub/helm-expt/issues/145) Prove promotion and environment management with derived ConfigHub variants | Promotion | Shows reviewed base -> environment/region/customer variants without Helm rerender. |
+| [#146](https://github.com/confighub/helm-expt/issues/146) Add fleet inventory and CMDB views over catalog artifacts and ConfigHub Units | Inventory | Turns queryable desired state into a concrete user-facing value lane. |
+| [#147](https://github.com/confighub/helm-expt/issues/147) Prove fleet-scale mutation and codemod workflows over ConfigHub Units | Fleet operations | Demonstrates controlled bulk changes with checks, gates, and receipts. |
+| [#148](https://github.com/confighub/helm-expt/issues/148) Add policy, compliance, and security posture reports over rendered desired state | Policy/security | Rolls scan/gate evidence into a catalog posture view. |
+| [#149](https://github.com/confighub/helm-expt/issues/149) Add dependency graph and impact analysis for variants and upgrades | Impact analysis | Shows what base, target, or policy changes affect. |
+| [#150](https://github.com/confighub/helm-expt/issues/150) Add Creator and agentic intent flow over `cub variant create` | Creator / AX | Keeps the human and agent story intent-first while mapping to current primitives. |
+| [#151](https://github.com/confighub/helm-expt/issues/151) Define variant release and OCI handoff semantics | GitOps / release | Separates current CLI truth from planned release/tag/OCI behavior. |
+| [#152](https://github.com/confighub/helm-expt/issues/152) Define Promotion UI expectations for clean variant diffs | Review UX | Makes inherited, overridden, upstream-added, and no-op changes legible. |
+| [#153](https://github.com/confighub/helm-expt/issues/153) Reposition GitOps tutorial around Argo/OCI and bridge-independent proof | GitOps | Keeps the tutorial aligned with current Argo/OCI direction. |
 
 ## P2 Design Depth
 

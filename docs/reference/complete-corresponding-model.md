@@ -64,6 +64,23 @@ verifiable model."
 
 The current measured state is in `data/model-completeness/summary.md`.
 
+This report is a model-support view, not the whole live outcome. Level 2 means
+the chart has a complete, honest, reproducible model for its declared scope.
+The full catalog outcome still needs the lane-test matrix:
+
+```text
+default and declared main choices
+-> Helm-equivalence and installer setup
+-> ConfigHub upload, scan, clone/check, and safe-ops proof
+-> live Kubernetes observation
+-> ConfigHub OCI through Argo/Flux
+-> live Helm-vs-ConfigHub parity
+```
+
+Recommended extra variants are an enhancement until they are declared as
+supported choices. Once a choice is declared supported, it must be tracked as
+its own chart-recipe-variant row with the relevant lane evidence.
+
 Current headline:
 
 ```text

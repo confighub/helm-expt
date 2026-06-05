@@ -1,0 +1,50 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DerivedVariantMutationReceipt"
+metadata:
+  name: "nginx-prod-us-east-mutation-target"
+  generatedBy: "scripts/generate-variant-goldens.mjs"
+spec:
+  executionMode: "golden-target-not-live-execution"
+  sourceBase: "NGINX/http-clusterip"
+  downstreamVariant: "NGINX/prod-us-east"
+  noHelmRerender: true
+  preservedRenderedObjectSetSHA256: "a5f890172fd1bd8cf31870607c1a7874313c5746f1020d547af3dac017db4223"
+  allowedMutationPaths:
+    - "Space.Labels.Variant"
+    - "Space.Labels.Environment"
+    - "Space.Labels.Region"
+    - "Space.Annotations.TargetID"
+    - "metadata.namespace when the base exposes namespace as an approved post-render field"
+    - "observation policy metadata"
+    - "Unit.DeleteGates"
+    - "Unit.DestroyGates"
+  mutationSources:
+    -
+      path: "Space.Labels.Variant"
+      source: "Variant Creator contract over cub variant create clone/link output"
+    -
+      path: "Space.Labels.Environment"
+      source: "Variant Creator contract over cub variant create clone/link output"
+    -
+      path: "Space.Labels.Region"
+      source: "Variant Creator contract over cub variant create clone/link output"
+    -
+      path: "Space.Annotations.TargetID"
+      source: "Variant Creator contract over cub variant create clone/link output"
+    -
+      path: "metadata.namespace when the base exposes namespace as an approved post-render field"
+      source: "Variant Creator contract over cub variant create clone/link output"
+    -
+      path: "observation policy metadata"
+      source: "Variant Creator contract over cub variant create clone/link output"
+    -
+      path: "Unit.DeleteGates"
+      source: "Variant Creator contract over cub variant create clone/link output"
+    -
+      path: "Unit.DestroyGates"
+      source: "Variant Creator contract over cub variant create clone/link output"
+  routeBackToInstaller:
+    - "add TLS ingress"
+    - "switch to existing-tls-ingress"
+    - "change Service type or rendered NetworkPolicy/PDB shape"
+  result: "golden-target"

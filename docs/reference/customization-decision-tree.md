@@ -4,7 +4,7 @@
 
 **Status:** DRAFT / design-pending (#1133). Sources: installer
 `docs/consumer-guide.md` (the authoritative consumer-facing model) + helm-expt
-`docs/user/customization-algorithm.md` & `change-routing-before-oci.md`.
+`docs/reference/customization-algorithm.md` & `docs/user/change-routing-before-oci.md`.
 Grounded by the #1134 campaign for the early forks. Tags: **[proven]** =
 demonstrated live this campaign · **[observed]** · **[design]** = still to decide.
 
@@ -32,13 +32,26 @@ demonstrated live this campaign · **[observed]** · **[design]** = still to dec
 - **ConfigHub owns** the derived-variant *instances* (the long tail).
 - **The render boundary is the rule:** changes the rendered object set → a new **base variant** (re-render + Helm-equivalence); only changes operating context (target/env/region/gates/fills) → a **derived ConfigHub variant** (no re-render). This is Lens B below.
 
-### "100% supported" = every quirk accounted-for (Level 2)
+### Support outcomes
 A chart is **supported** when every Helm quirk it uses — `lookup`, hooks, `.Capabilities`, generated
 secrets, `tpl`, raw / post-renderers, CRDs / webhooks — is either **modeled** (static: declared fact ·
 named capability profile · generated-fact receipt) or **explicitly disclosed** (operator-decision · honest
 blocker). **Zero silent gaps.** That faithful disclosure *is* the support — not a claim that runtime
-behavior was statically replicated. **Live proof (Level 3)** is layered on where it earns trust, not
-required everywhere. Variant richness (more base/derived variants) is an **enhancement**, not the support bar.
+behavior was statically replicated.
+
+For the public catalog outcome, the bar is higher:
+
+```text
+Every supported default and declared main choice should have reproducible
+render evidence plus live-cluster evidence. Missing live evidence stays visible
+as `missing` lane backlog.
+```
+
+Analysis-tier rows can be proof-grade without live coverage. A chart choice
+should not be described as fully catalog-supported, production-supported, or
+live-verified until the relevant live lanes have committed receipts. Variant
+richness is an enhancement; every variant that is advertised as supported needs
+the same outcome tracking as the default.
 
 ## Two complementary lenses (read both)
 The consumer guide and the routing doc answer different questions. Use them together.
@@ -171,6 +184,7 @@ Tiers: public catalog proof → ConfigHub managed variants → managed overlay i
 
 ## Sources
 installer: `docs/consumer-guide.md`, `author-guide.md`, `principles.md`.
-helm-expt: `docs/user/customization-algorithm.md`, `change-routing-before-oci.md`,
-`creating-variants.md`, `custom-overlays.md`, `product-support-tiers.md`, `hook-lifecycle-strategy.md`.
+helm-expt: `docs/reference/customization-algorithm.md`, `docs/user/change-routing-before-oci.md`,
+`docs/user/creating-variants.md`, `docs/user/custom-overlays.md`, `docs/user/product-support-tiers.md`,
+`docs/user/hook-lifecycle-strategy.md`.
 Campaign: `reports/pilot-helm-sweep/SCORECARD.md`, findings F1–F4.

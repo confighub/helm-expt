@@ -14,14 +14,17 @@ For a catalog chart that passes a full test run, you can expect:
    with the same key fields — apart from declared governance additions (a
    generated `Namespace` object; rendered `Secret`s are deliberately not stored
    in the artifact, see property 5).
-   *Verified by:* `npm run <chart>:compare` (helm template vs the installer render).
+   *Verified by:* Helm-equivalence receipts plus installer package setup checks.
+   `npm run redis:compare` reruns the clearest fresh Helm-vs-installer example;
+   most curated `<chart>:compare` commands verify installer setup against the
+   stored Helm-rendered object set.
 
 2. **Installs via `cub installer` — never the `helm` CLI — governed end to end.**
    The chart becomes ConfigHub units, is published to an OCI artifact at
    `oci.hub.confighub.com`, and is pulled + reconciled by your in-cluster
    Argo/Flux into a running workload.
-   *Verified by:* local-kind e2e receipts (this repo) + the live
-   ConfigHub→OCI→Argo/Flux gate (Pilot; receipts in `confighub-ai-demo`).
+   *Verified by:* local-kind e2e receipts, ConfigHub proof receipts, and the
+   live ConfigHub→OCI→Argo/Flux lane as it lands in the lane-test matrix.
 
 3. **Deterministic, pinned, pull-based delivery.** The OCI artifact is
    content-addressed (digest); the controller pulls and reconciles it, so drift
@@ -55,6 +58,26 @@ For a catalog chart that passes a full test run, you can expect:
 8. **Every claim has a receipt.** Render, equivalence, scan, upload, and live
    observation are recorded as committed proof artifacts you can inspect.
 
+## Outcome-First Reading
+
+Read "full test run" as an outcome, not as a script name. For every supported
+chart default and declared main choice, the desired end state is:
+
+```text
+fresh or receipt-backed Helm equivalence
+-> deterministic cub installer setup
+-> ConfigHub upload, scan, clone/check, and safe-ops receipts
+-> live Kubernetes apply and observation
+-> ConfigHub OCI through Argo or Flux with runtime evidence
+-> live Helm-vs-ConfigHub comparison across Helm, ConfigHub/OCI, and ConfigHub/kubectl
+```
+
+Default-only verification is not enough when the catalog advertises another
+main choice. For example, an existing-secret, no-crds, server-only, ingress, HA,
+or storage-mode base needs the same outcome tracking as the default base. A
+derived ConfigHub variant needs clone/check/mutation receipts and live evidence
+for the post-render choices it claims to support.
+
 ## What a full per-chart run exercises
 
 `render-equivalence → install (default base) → install (a non-default
@@ -63,12 +86,13 @@ each backed by a receipt. A chart "passes" only when every applicable row holds.
 
 ## Current coverage (honest)
 
-- **Render-equivalence, scan, upload, local-kind e2e:** 20/20 TOP20 charts;
-  100 charts have recipe/package proof artifacts.
-- **Live ConfigHub→OCI→Argo/Flux + Day-2:** proven on representative charts
-  today (nginx default; redis `reuse-existing-secret`; nginx Day-2). The broader
-  live sweep (all 20, then 100+) runs on dedicated machines — see the test plan
-  in `confighub-ai-demo` (`pilot/HELM_EXPT_TEST_STRATEGY.md`).
+- **Render-equivalence and installer setup:** tracked for every current
+  chart-recipe-variant row in `data/lane-test-matrix/`.
+- **ConfigHub proof and local-kind e2e:** tracked in the same matrix; current
+  coverage is partial by variant.
+- **Live ConfigHub→OCI→Argo/Flux and live Helm-vs-ConfigHub comparison:** required
+  lanes, currently backlog in this repo until committed receipts exist for each
+  chart-recipe-variant row.
 
 ## Known limitations / open items
 
@@ -80,10 +104,13 @@ each backed by a receipt. A chart "passes" only when every applicable row holds.
   artifacts, or `:compare`/proof fails a source-SHA check (issue #97).
 - Environment caveats — e.g. metrics-server needs `--kubelet-insecure-tls` on
   kind; heavy charts need real cluster resources.
+- Live Helm-vs-ConfigHub comparison is not yet a committed default lane. It must
+  compare a live Helm deployment with two live ConfigHub deliveries: controller
+  OCI and kubectl/apply.
 
 ## Where to look
 
-- Per-chart proof: `npm run <chart>:proof` / `npm run <chart>:compare`.
-- Live gate receipts + the full test strategy + findings:
-  `confighub-ai-demo` → `pilot/HELM_EXPT_TEST_STRATEGY.md`,
-  `pilot/HELM_WAVE1_FINDINGS.md`, `reports/pilot-ax-audits/`.
+- Per-chart proof: `npm run <chart>:verify-proof`, `npm run <chart>:verify-package`,
+  and where supported `npm run <chart>:compare`.
+- Corpus lane matrix: `data/lane-test-matrix/summary.md`.
+- Lane doctrine: `docs/reference/lane-test-doctrine.md`.

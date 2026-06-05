@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DerivedVariantCloneReceipt"
+metadata:
+  name: "vault-staging-us-east-clone-target"
+  generatedBy: "scripts/generate-variant-goldens.mjs"
+spec:
+  executionMode: "golden-target-not-live-execution"
+  issue: "https://github.com/confighub/helm-expt/issues/144"
+  command: "cub variant create staging-us-east helm-vault-confighub-proof --environment Staging --region us-east --target security-targets/staging-us-east --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}'"
+  sourceSpace: "helm-vault-confighub-proof"
+  downstreamSpace: "Vault-staging-us-east"
+  sourceRevision: "recipes/hashicorp/vault/0.32.0/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "6de2d61c8de0c21faa951e89ec16658bcdff22e69d78075fdd394d895a5e6978"
+  sourceUnits: 14
+  clonedUnitsExpected: 14
+  upstreamLinks: "preserve"
+  labels:
+    Component: "Vault"
+    Variant: "staging-us-east"
+    Environment: "Staging"
+    Region: "us-east"
+  target: "security-targets/staging-us-east"
+  productionGatesExpected: false
+  result: "golden-target"

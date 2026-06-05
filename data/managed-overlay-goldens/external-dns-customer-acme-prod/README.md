@@ -15,8 +15,23 @@ The golden separates two decisions before rendering:
 - operating labels, targets, approvals, and observation requirements go through
   the post-render Variant Creator contract.
 
+Product support split:
+
+- free/out-of-box catalog configs are reviewed base shapes that are common
+  enough to publish;
+- ConfigHub customization creates derived variants over a reviewed base;
+- managed or potentially paid complexity includes private wrapper charts,
+  private values, GitOps import, fleet variants, full stacks, production
+  receipts, support SLAs, and old-version patch work.
+
 This is not a claim that all Kubara applications are imported. It is a
 verification target for the managed-overlay boundary.
+
+Status: current generated classification golden. It is not a live import,
+ConfigHub delivery, or production-readiness receipt.
+
+Source base: ExternalDNS/managed-aws-acme.
+Derived operating variant: ExternalDNS/customer-acme-prod.
 
 Generated files:
 

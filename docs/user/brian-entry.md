@@ -91,6 +91,11 @@ if the implementation path changes from `cub installer` to direct import.
 
 ## The Human UX We Want
 
+Brian's new `cub variant create` support makes the downstream variant part of
+this story concrete. The command clones an uploaded reviewed Space and its
+Units into a linked downstream Space. It is not the polished Creator UX, but it
+is the current substrate for the derived-variant path.
+
 The current CLI exposes implementation steps:
 
 ```text
@@ -132,6 +137,9 @@ Underneath, that can still map to a formal
 YAML/object roles, AX tasks, FX functions, `cub variant create`, ConfigHub
 links, checks, and receipts.
 
+For exact current syntax, see
+[cub Variant Command Surface](./cub-variant-command-surface.md).
+
 ## The Important Boundary
 
 Do not classify every Helm value change as an installer/base variant.
@@ -158,6 +166,56 @@ anti-affinity, storage, or chart branches
 ```
 
 The product should explain this boundary before showing CLI commands.
+
+## Where The Recommended Values Live
+
+The recommended Helm values are not generated at install time by a hidden
+recommendation engine. They are explicit recipe artifacts for each reviewed
+base variant.
+
+Each recipe records:
+
+```text
+variants/<name>/variant.yaml
+  the named install shape and render controls
+
+effective-values*.yaml
+  the Helm values profile used to render that shape
+```
+
+For example, Prometheus `server-only-ephemeral` has:
+
+```text
+recipes/prometheus-community/prometheus/29.8.0/
+  effective-values-server-only-ephemeral.yaml
+  variants/server-only-ephemeral/variant.yaml
+```
+
+The variant file points at the values profile:
+
+```yaml
+spec:
+  valuesProfile: "../../effective-values-server-only-ephemeral.yaml"
+```
+
+The values profile is stored at recipe root because it is recipe-level proof
+evidence: it can be hashed, compared, reused, and cited by revisions and
+receipts. The variant directory stores the named variant control file and any
+variant-specific artifacts.
+
+That folder split is easy to miss. The human wording should be:
+
+```text
+Variant = the named install shape.
+Values profile = the Helm inputs used to produce that install shape.
+The variant points to the values profile.
+```
+
+Derived ConfigHub variants should normally keep the same reviewed values
+profile, because they do not rerender Helm. If a request needs new Helm values,
+it belongs in the base-variant path. If it changes target, labels, gates, fact
+bindings, or approved post-render fields, it belongs in the derived-variant
+path.
 
 ## Expected Use
 

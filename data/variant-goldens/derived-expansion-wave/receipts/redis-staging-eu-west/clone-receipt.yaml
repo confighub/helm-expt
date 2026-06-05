@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DerivedVariantCloneReceipt"
+metadata:
+  name: "redis-staging-eu-west-clone-target"
+  generatedBy: "scripts/generate-variant-goldens.mjs"
+spec:
+  executionMode: "golden-target-not-live-execution"
+  issue: "https://github.com/confighub/helm-expt/issues/144"
+  command: "cub variant create staging-eu-west helm-redis-confighub-proof --environment Staging --region eu-west --target redis-targets/staging-eu-west --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}'"
+  sourceSpace: "helm-redis-confighub-proof"
+  downstreamSpace: "Redis-staging-eu-west"
+  sourceRevision: "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+  sourceUnits: 15
+  clonedUnitsExpected: 15
+  upstreamLinks: "preserve"
+  labels:
+    Component: "Redis"
+    Variant: "staging-eu-west"
+    Environment: "Staging"
+    Region: "eu-west"
+  target: "redis-targets/staging-eu-west"
+  productionGatesExpected: false
+  result: "golden-target"

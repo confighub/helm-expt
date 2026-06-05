@@ -1,6 +1,10 @@
-import { join } from "node:path";
+import { existsSync, readdirSync } from "node:fs";
+import { dirname, join, relative } from "node:path";
+import { fileURLToPath } from "node:url";
 
 import { check, readYaml, repoRoot } from "./proof-common.mjs";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 /*
 InstallChecks schema, intentionally small for the first Redis user verifier:
@@ -61,8 +65,35 @@ export function loadInstallChecks(chart, base) {
 }
 
 export function installChecksPath(chart) {
-  if (chart === "bitnami/redis/25.5.3") {
-    return join(repoRoot, "recipes/bitnami/redis/25.5.3/install-checks.yaml");
+  const parts = chart.split("/");
+  if (parts.length === 3) {
+    const candidate = join(repoRoot, "recipes", ...parts, "install-checks.yaml");
+    if (existsSync(candidate)) return candidate;
   }
-  throw new Error(`verify-install currently supports bitnami/redis/25.5.3, got ${chart}`);
+  const supported = supportedInstallCheckCharts();
+  const suffix = supported.length ? ` Currently available: ${supported.join(", ")}.` : " No install-checks.yaml files are currently available.";
+  throw new Error(`verify-install requires recipes/<repo>/<chart>/<version>/install-checks.yaml for ${chart}.${suffix}`);
+}
+
+export function supportedInstallCheckCharts() {
+  return walk(join(repoRoot, "recipes"))
+    .filter((path) => path.endsWith("/install-checks.yaml"))
+    .map((path) => relative(join(repoRoot, "recipes"), dirname(path)).replaceAll("\\", "/"))
+    .sort();
+}
+
+function walk(root) {
+  return readdirSafe(root).flatMap((entry) => {
+    const path = join(root, entry.name);
+    if (entry.isDirectory()) return walk(path);
+    return [path];
+  });
+}
+
+function readdirSafe(root) {
+  try {
+    return readdirSync(root, { withFileTypes: true });
+  } catch {
+    return [];
+  }
 }

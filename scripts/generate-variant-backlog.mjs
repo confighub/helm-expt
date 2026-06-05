@@ -1,5 +1,5 @@
 // Variant backlog — derives, from each chart's real detected control-points, WHICH standard variants it
-// should offer (per docs/user/per-chart-recipes.md), minus the variants it already ships. This is the
+// should offer (per docs/reference/per-chart-recipes.md), minus the variants it already ships. This is the
 // scoping input for the wave-based variant build; it does NOT author the variants (those are bespoke
 // per chart, like data/catalog-promotion-wave2/variant-work-orders.yaml). It names the work, honestly.
 //

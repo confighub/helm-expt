@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DerivedVariantCloneReceipt"
+metadata:
+  name: "nginx-customer-acme-prod-clone-target"
+  generatedBy: "scripts/generate-variant-goldens.mjs"
+spec:
+  executionMode: "golden-target-not-live-execution"
+  issue: "https://github.com/confighub/helm-expt/issues/144"
+  command: "cub variant create customer-acme-prod helm-nginx-confighub-proof --environment Prod --region us-west --target web-targets/customer-acme-prod --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review"
+  sourceSpace: "helm-nginx-confighub-proof"
+  downstreamSpace: "NGINX-customer-acme-prod"
+  sourceRevision: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "a5f890172fd1bd8cf31870607c1a7874313c5746f1020d547af3dac017db4223"
+  sourceUnits: 7
+  clonedUnitsExpected: 7
+  upstreamLinks: "preserve"
+  labels:
+    Component: "NGINX"
+    Variant: "customer-acme-prod"
+    Environment: "Prod"
+    Region: "us-west"
+  target: "web-targets/customer-acme-prod"
+  productionGatesExpected: true
+  result: "golden-target"

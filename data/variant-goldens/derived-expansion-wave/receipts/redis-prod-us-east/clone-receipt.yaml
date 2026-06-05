@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DerivedVariantCloneReceipt"
+metadata:
+  name: "redis-prod-us-east-clone-target"
+  generatedBy: "scripts/generate-variant-goldens.mjs"
+spec:
+  executionMode: "golden-target-not-live-execution"
+  issue: "https://github.com/confighub/helm-expt/issues/144"
+  command: "cub variant create prod-us-east helm-redis-confighub-proof --environment Prod --region us-east --target redis-targets/prod-us-east --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review"
+  sourceSpace: "helm-redis-confighub-proof"
+  downstreamSpace: "Redis-prod-us-east"
+  sourceRevision: "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+  sourceUnits: 15
+  clonedUnitsExpected: 15
+  upstreamLinks: "preserve"
+  labels:
+    Component: "Redis"
+    Variant: "prod-us-east"
+    Environment: "Prod"
+    Region: "us-east"
+  target: "redis-targets/prod-us-east"
+  productionGatesExpected: true
+  result: "golden-target"
