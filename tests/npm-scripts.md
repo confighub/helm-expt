@@ -23,7 +23,7 @@ when they are exercising installer, upload, or live-cluster paths.
 | `<chart>:compare` | Compare or verify Helm-equivalence for one chart. Redis reruns `helm template`; most curated chart commands currently verify `cub installer setup` against the stored Helm-rendered object set. | Usually no |
 | `<chart>:generate-*` | Rebuild one chart's proof or package artifacts. | Yes |
 | `top20:local-e2e` | Run live local-kind tests and write receipts. | Yes |
-| `verify-install:*` | Check a user's own Redis install. | Writes receipts under `.tmp/` |
+| `redis:verify-install:*` | Check a user's own Redis install. | Writes receipts under `.tmp/` |
 | `verify-bulk-ops:*` | Check a user's own ConfigHub bulk-ops tutorial state. | Writes receipts under `.tmp/` |
 
 ## Common Commands
@@ -47,7 +47,7 @@ when they are exercising installer, upload, or live-cluster paths.
 | ConfigHub proof, no cluster | `npm run top20:confighub-proof`; `runs/*-confighub-proof/latest/*receipt.yaml` | Runs `cub installer setup`, `cub installer render`, `cub installer upload`, `cub variant create`, Unit reads/diffs, function scans, and safe-ops checks. |
 | Local cluster apply, no ConfigHub | `npm run top20:local-e2e`; `npm run redis:local-e2e` | Applies committed rendered objects to kind with `kubectl`, waits for workloads/PVCs/CRDs, and writes observation receipts. |
 | ConfigHub to OCI to Argo live path | `tests/chart-install-test`; `tests/chart-install-sweep`; `tests/existing-secret-proof` | Runs `cub installer setup`, uploads Units, applies Units to OCI, creates an Argo Application, waits for sync/health, and checks runtime workloads. |
-| User-side Redis checks | `verify-install:render`, `verify-install:cluster`, `verify-install:confighub` | Checks a user's Redis tutorial render, cluster state, or ConfigHub Space against `install-checks.yaml`. |
+| User-side Redis checks | `redis:verify-install:render`, `redis:verify-install:cluster`, `redis:verify-install:confighub` | Checks a user's Redis tutorial render, cluster state, or ConfigHub Space against `install-checks.yaml`. |
 
 There is not yet a current default lane that installs the same chart with
 `helm install` beside the ConfigHub-delivered version and compares both live
@@ -66,14 +66,17 @@ prove their own result matches the catalog.
 They are not the repo-wide proof harness. `npm run verify` uses the committed
 per-chart proof scripts and generated-data verifiers. Redis participates in
 that same chain with `redis:verify-proof`, `redis:verify-package`, and
-`redis:verify-confighub-proof`; `verify-install:*` is an extra user-demo check
-because Redis is the first human quick-start path with an `install-checks.yaml`.
+`redis:verify-confighub-proof`; `redis:verify-install:*` is an extra user-demo
+check because Redis is the first human quick-start path with an
+`install-checks.yaml`. The generic `verify-install:*` scripts are compatibility
+aliases for charts that have their own `install-checks.yaml`; they are not a
+repo-wide chart verifier.
 
 | Command | Stage | What it proves |
 | --- | --- | --- |
-| `npm run verify-install:render -- --chart bitnami/redis/25.5.3 --base default --work-dir <dir> --namespace redis` | After `cub installer setup` | The user's rendered Redis objects semantically match the canonical catalog render. |
-| `npm run verify-install:cluster -- --chart bitnami/redis/25.5.3 --base default --context <ctx> --namespace redis` | After `kubectl apply` | The user's cluster has the expected Redis StatefulSets, PVCs, and Redis PING behavior. |
-| `npm run verify-install:confighub -- --chart bitnami/redis/25.5.3 --base default --space <space>` | After `cub installer upload` | ConfigHub has the expected Redis Units and labels. |
+| `npm run redis:verify-install:render -- --base default --work-dir <dir> --namespace redis` | After `cub installer setup` | The user's rendered Redis objects semantically match the canonical catalog render. |
+| `npm run redis:verify-install:cluster -- --base default --context <ctx> --namespace redis` | After `kubectl apply` | The user's cluster has the expected Redis StatefulSets, PVCs, and Redis PING behavior. |
+| `npm run redis:verify-install:confighub -- --base default --space <space>` | After `cub installer upload` | ConfigHub has the expected Redis Units and labels. |
 
 These currently ship for Redis only:
 
@@ -82,8 +85,8 @@ recipes/bitnami/redis/25.5.3/install-checks.yaml
 ```
 
 Other charts have their chart-specific proof/package scripts, but not
-`verify-install:*` user-side checks until their own `install-checks.yaml` files
-are added.
+Redis-style user-install checks until their own `install-checks.yaml` files are
+added.
 
 ## User Bulk-Ops Verification
 

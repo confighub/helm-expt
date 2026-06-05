@@ -50,7 +50,7 @@ try {
     process.exit();
   }
   writeFailureReceipt(error);
-  console.error(`FAIL verify-install:${stage} ${chart} ${base}`);
+  console.error(`FAIL ${verifierLabel(stage)} ${chart} ${base}`);
   console.error(error.message);
   process.exitCode = 1;
 }
@@ -145,7 +145,7 @@ function verifyRender({ spec, variant }) {
   };
   writeYaml(receiptPath, receipt);
 
-  console.log(`PASS verify-install:render ${chart} ${variant.name}`);
+  console.log(`PASS ${verifierLabel("render")} ${chart} ${variant.name}`);
   console.log(`render matches canonical: ${equivalenceReceipt.spec.regularHelm.renderedSHA256}`);
   console.log(`canonical objects: ${canonicalKeys.size}`);
   console.log(`user objects: ${userKeys.size}`);
@@ -312,7 +312,7 @@ function verifyCluster({ spec, variant }) {
   };
   writeYaml(receiptPath, receipt);
 
-  console.log(`PASS verify-install:cluster ${chart} ${variant.name}`);
+  console.log(`PASS ${verifierLabel("cluster")} ${chart} ${variant.name}`);
   console.log(`namespace: ${namespace}`);
   console.log(`context: ${context ?? "current-context"}`);
   console.log("checks: statefulsets, PVCs, Redis PING");
@@ -380,7 +380,7 @@ function verifyConfigHub({ variant }) {
     },
   });
 
-  console.log(`PASS verify-install:confighub ${chart} ${variant.name}`);
+  console.log(`PASS ${verifierLabel("confighub")} ${chart} ${variant.name}`);
   console.log(`space: ${space}`);
   console.log(`units: ${units.length}`);
   console.log(`variant-labeled units: ${labeledUnits.length}`);
@@ -592,9 +592,12 @@ function requiredOption(name) {
 function printUsage() {
   const supported = supportedInstallCheckCharts();
   console.error(`Usage:
+  npm run redis:verify-install:render -- --base default --work-dir <cub-install-work-dir> --namespace redis
+  npm run redis:verify-install:cluster -- --base default --context <kubectl-context> --namespace redis
+  npm run redis:verify-install:confighub -- --base default --space <confighub-space>
+
+Lower-level generic form, for charts that have an install-checks.yaml:
   npm run verify-install:render -- --chart bitnami/redis/25.5.3 --base default --work-dir <cub-install-work-dir> --namespace redis
-  npm run verify-install:cluster -- --chart bitnami/redis/25.5.3 --base default --context <kubectl-context> --namespace redis
-  npm run verify-install:confighub -- --chart bitnami/redis/25.5.3 --base default --space <confighub-space>
 
 Options:
   --chart       Chart/version to verify. Requires recipes/<repo>/<chart>/<version>/install-checks.yaml.
@@ -606,4 +609,9 @@ Options:
   --space       Required for ConfigHub Unit checks
   --output-dir  Receipt output directory. Default: .tmp/verify-install
 `);
+}
+
+function verifierLabel(labelStage) {
+  if (chart === "bitnami/redis/25.5.3") return `redis:verify-install:${labelStage}`;
+  return `verify-install:${labelStage ?? "unknown"}`;
 }

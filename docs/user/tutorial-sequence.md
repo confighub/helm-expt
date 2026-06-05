@@ -69,9 +69,9 @@ This page uses three different verification layers:
 | `npm run verify` | Repository-wide committed artifact consistency: docs, command surfaces, recipes, packages, receipts, catalog data, and generated data. | No, not in the default path. | No, it verifies committed receipts. |
 | `redis:compare` | Fresh Redis Helm-vs-`cub installer` comparison. | Yes. | No. |
 | Most `<chart>:compare` commands | Curated chart package/setup verification against the stored Helm-rendered object set. | No; fresh Helm rendering happens in `:generate-proof`. | No. |
-| `verify-install:*` | A user's own Redis tutorial state after setup, upload, or apply. | No for `render`; it checks the user's rendered work dir against the Redis acceptance contract. | Only `verify-install:cluster`. |
+| `redis:verify-install:*` | A user's own Redis tutorial state after setup, upload, or apply. | No for `render`; it checks the user's rendered work dir against the Redis acceptance contract. | Only `redis:verify-install:cluster`. |
 
-`verify-install:*` currently ships for Redis because Redis is the first
+`redis:verify-install:*` currently ships because Redis is the first
 outside-user quick-start with `recipes/bitnami/redis/25.5.3/install-checks.yaml`.
 Other tutorials use chart-specific proof/package checks, generated goldens, or
 live ConfigHub/GitOps checks until they get their own `install-checks.yaml`.
@@ -111,8 +111,7 @@ cub installer setup \
   --non-interactive \
   --namespace redis
 
-npm run verify-install:render -- \
-  --chart bitnami/redis/25.5.3 \
+npm run redis:verify-install:render -- \
   --base default \
   --work-dir .tmp/demo/redis-default \
   --namespace redis
@@ -131,8 +130,7 @@ cub installer upload \
   --unit-label Variant=default \
   --unit-label Proof=redis-confighub-proof
 
-npm run verify-install:confighub -- \
-  --chart bitnami/redis/25.5.3 \
+npm run redis:verify-install:confighub -- \
   --base default \
   --space helm-redis-default
 ```
@@ -203,8 +201,7 @@ cub installer setup \
   --non-interactive \
   --namespace redis
 
-npm run verify-install:render -- \
-  --chart bitnami/redis/25.5.3 \
+npm run redis:verify-install:render -- \
   --base reuse-existing-secret \
   --work-dir .tmp/demo/redis-reuse-existing-secret \
   --namespace redis
@@ -215,8 +212,7 @@ Optional local live check:
 ```sh
 kubectl --context <your-context> apply -f .tmp/demo/redis-reuse-existing-secret/out/manifests
 
-npm run verify-install:cluster -- \
-  --chart bitnami/redis/25.5.3 \
+npm run redis:verify-install:cluster -- \
   --base reuse-existing-secret \
   --context <your-context> \
   --namespace redis
@@ -229,8 +225,8 @@ default and reuse-existing-secret are different base variants because Helm
 renders different Kubernetes object references.
 ```
 
-If you ran the live step, the `verify-install:cluster` command above should pass
-with StatefulSet, PVC, Redis PING, and target Secret checks.
+If you ran the live step, the `redis:verify-install:cluster` command above
+should pass with StatefulSet, PVC, Redis PING, and target Secret checks.
 
 You can see a UX proposal for this stage here:
 [Redis Secret Modes UX Proposal](./ux-proposal-redis-secret-modes-tutorial.md).

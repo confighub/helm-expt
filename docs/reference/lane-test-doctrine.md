@@ -71,7 +71,7 @@ other lanes are intentionally tracked as partial or missing until their receipt
 families cover every chart-recipe-variant row.
 
 Redis must not remain a permanent special case. Redis-only tutorial helpers such
-as `verify-install:*` are allowed as user-facing checks, but corpus-core lane
+as `redis:verify-install:*` are allowed as user-facing checks, but corpus-core lane
 coverage should come from the same generated lane matrix and receipt families as
 the other charts.
 
