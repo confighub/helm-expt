@@ -8,8 +8,8 @@ spec:
     context:
       organization: "Kubara"
       server: "https://hub.confighub.com"
-      cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.49"
+      cubClientVersion: "Version:    v0.1.71"
+      cubServerVersion: "v0.1.74"
   package:
     path: "packages/hashicorp/vault/0.32.0"
     name: "hashicorp-vault"
@@ -36,7 +36,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/hashicorp/vault/0.32.0 -o .tmp/confighub-proof/vault-archives/vault-a.tgz"
-    sha256: "a942c0f6db2bc98fcbd9c4dbabb194f037828a99e967fd74dc16ec97d498cc93"
+    sha256: "ebd400cadeca497b07aeec728a9e9215a305509a3560c4c3baf0334f2c41c377"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/vault-default"
@@ -63,7 +63,7 @@ spec:
     command: "cub variant create staging helm-vault-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists"
     result: "pass"
     upstreamSpace: "helm-vault-confighub-proof"
-    downstreamSpace: "helm-vault-confighub-proof-staging"
+    downstreamSpace: "Vault-staging"
     clonedUnitCount: 14
   review:
     unitList: "pass"
@@ -72,11 +72,10 @@ spec:
     revisionDiff: "pass"
     representativeUnit: "statefulset-vault-vault"
   retention:
-    liveSpacesDeletedAfterProof: true
-    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    liveSpacesDeletedAfterProof: false
     spaces:
       - "helm-vault-confighub-proof"
-      - "helm-vault-confighub-proof-staging"
+      - "Vault-staging"
   observedFriction:
     - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."

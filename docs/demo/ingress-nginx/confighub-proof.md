@@ -24,7 +24,7 @@ The selected happy-path install variant is `default`.
 | Re-render | Pass |
 | Package determinism | Pass |
 | Validator path | pass |
-| ConfigHub upload | Pass; 12 proof Units |
+| ConfigHub upload | Pass; 13 ConfigHub Units (12 Kubernetes Units plus installer record) |
 | Server-side variant | Pass; 13 cloned Units |
 | ConfigHub function scan | pass |
 | Safe operations | pass |

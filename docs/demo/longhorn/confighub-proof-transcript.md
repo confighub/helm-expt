@@ -30,7 +30,9 @@ cub unit apply --space helm-longhorn-confighub-proof --where "Labels.Proof = 'lo
 ```text
 rendered objects: 42
 separated secrets: 0
-ConfigHub proof Units: 42
+ConfigHub Units: 43
+Kubernetes Units: 42
+installer record Units: 1
 staging clone Units: 43
 function scan: pass
 safe ops: pass

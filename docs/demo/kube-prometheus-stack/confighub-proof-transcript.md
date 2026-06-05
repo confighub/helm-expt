@@ -30,7 +30,9 @@ cub unit apply --space helm-kube-prometheus-stack-confighub-proof --where "Label
 ```text
 rendered objects: 123
 separated secrets: 2
-ConfigHub proof Units: 123
+ConfigHub Units: 124
+Kubernetes Units: 123
+installer record Units: 1
 staging clone Units: 124
 function scan: pass
 safe ops: pass

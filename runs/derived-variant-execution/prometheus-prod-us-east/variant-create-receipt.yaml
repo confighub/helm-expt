@@ -1,0 +1,58 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DerivedVariantExecutionReceipt"
+metadata:
+  name: "prometheus-prod-us-east-derived-variant-20260605"
+spec:
+  run:
+    date: "2026-06-05"
+    context:
+      contextName: "honey-moon"
+      organization: "Cubby AI Inc"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "v0.1.71"
+      cubServerVersion: "v0.1.74"
+  source:
+    component: "Prometheus"
+    chart: "prometheus-community/prometheus"
+    chartVersion: "29.8.0"
+    base: "default"
+    sourceSpace: "helm-prometheus-confighub-proof"
+    sourceSpaceID: "7ac1d202-53f2-4a75-b6cf-0ebc3656ee5f"
+    proofReceipt: "runs/prometheus-confighub-proof/latest/confighub-proof-receipt.yaml"
+    workOrder: "data/variant-goldens/derived-expansion-wave/work-orders.yaml#prometheus-prod-us-east"
+  create:
+    command: "cub variant create prod-us-east helm-prometheus-confighub-proof --environment Prod --region us-east --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review --allow-exists --wait --timeout 10m -o json"
+    result: "pass"
+    variant: "prod-us-east"
+    downstreamSpace: "Prometheus-prod-us-east"
+    downstreamSpaceID: "0cb02152-b459-400d-8f73-c1cf60e06bc7"
+    environment: "Prod"
+    region: "us-east"
+  target:
+    desired: "monitoring-targets/prod-us-east"
+    bound: false
+    targetBoundUnitCount: 0
+    status: "target-omitted-in-current-context"
+    reason: "The desired work-order target is not present in the active ConfigHub context, so this receipt proves clone/link/gate intended state only."
+  clone:
+    unitCount: 25
+    upstreamLinkedUnitCount: 25
+    sourceDataHashCount: 25
+    downstreamDataHashCount: 25
+    sameDataHashSetAsSource: true
+  gates:
+    deleteGate: "production-review"
+    deleteGateUnitCount: 25
+    destroyGate: "production-review"
+    destroyGateUnitCount: 25
+  review:
+    sameInstallShape: true
+    noHelmRerender: true
+    routeBackToInstaller:
+      - "disable Alertmanager, node-exporter, kube-state-metrics, or pushgateway"
+      - "switch to server-only-ephemeral"
+      - "change storage topology or rendered scrape object shape"
+  liveApply:
+    result: "not-attempted"
+    reason: "No target was attached; this is a ConfigHub intended-state proof, not a live cluster deployment."
+  result: "pass"

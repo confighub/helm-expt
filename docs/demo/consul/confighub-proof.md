@@ -24,7 +24,7 @@ The selected happy-path install variant is `default-control-plane`.
 | Re-render | Pass |
 | Package determinism | Pass |
 | Validator path | pass |
-| ConfigHub upload | Pass; 71 proof Units |
+| ConfigHub upload | Pass; 72 ConfigHub Units (71 Kubernetes Units plus installer record) |
 | Server-side variant | Pass; 72 cloned Units |
 | ConfigHub function scan | pass |
 | Safe operations | pass |

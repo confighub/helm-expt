@@ -24,7 +24,7 @@ The selected happy-path install variant is `single-binary-filesystem`.
 | Re-render | Pass |
 | Package determinism | Pass |
 | Validator path | pass |
-| ConfigHub upload | Pass; 20 proof Units |
+| ConfigHub upload | Pass; 21 ConfigHub Units (20 Kubernetes Units plus installer record) |
 | Server-side variant | Pass; 21 cloned Units |
 | ConfigHub function scan | pass |
 | Safe operations | pass |

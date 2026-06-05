@@ -30,7 +30,9 @@ cub unit apply --space helm-tempo-confighub-proof --where "Labels.Proof = 'tempo
 ```text
 rendered objects: 5
 separated secrets: 0
-ConfigHub proof Units: 5
+ConfigHub Units: 6
+Kubernetes Units: 5
+installer record Units: 1
 staging clone Units: 6
 function scan: pass
 safe ops: pass

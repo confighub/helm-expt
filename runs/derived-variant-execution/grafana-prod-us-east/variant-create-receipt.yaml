@@ -1,0 +1,66 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DerivedVariantExecutionReceipt"
+metadata:
+  name: "grafana-prod-us-east-derived-variant-20260605"
+spec:
+  run:
+    date: "2026-06-05"
+    context:
+      contextName: "honey-moon"
+      organization: "Cubby AI Inc"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "v0.1.71"
+      cubServerVersion: "v0.1.74"
+  source:
+    component: "Grafana"
+    chart: "grafana/grafana"
+    chartVersion: "10.5.15"
+    base: "generated-passwords"
+    sourceSpace: "helm-grafana-confighub-proof"
+    sourceSpaceID: "4b752caf-5366-4fce-82b0-2f5a425c4ebc"
+    proofReceipt: "runs/grafana-confighub-proof/latest/confighub-proof-receipt.yaml"
+    workOrder: "data/variant-goldens/derived-expansion-wave/work-orders.yaml#grafana-prod-us-east"
+  create:
+    command: "cub variant create prod-us-east helm-grafana-confighub-proof --environment Prod --region us-east --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review --allow-exists --wait --timeout 10m -o json"
+    result: "pass"
+    variant: "prod-us-east"
+    downstreamSpace: "Grafana-prod-us-east"
+    downstreamSpaceID: "966cd13a-9f78-491c-b301-00a8fa733550"
+    environment: "Prod"
+    region: "us-east"
+  correctiveUpdate:
+    result: "pass"
+    unit: "deployment-grafana-grafana"
+    affectedUnitCount: 1
+    fromDataHash: "7a8e898ea1e2b28337b19761557dc871b77fccbe678ba6e4b16034fe19f85b66"
+    toDataHash: "5dfbc8d19c228c529c2f1b0fb32be35b3851d1bb120da6a55e2ead4006d82ea7"
+    command: "cub unit data deployment-grafana-grafana --space helm-grafana-confighub-proof | cub unit update deployment-grafana-grafana --space Grafana-prod-us-east - --change-desc 'Repair derived variant placeholder drift to match reviewed Grafana source' --wait --timeout 10m --quiet"
+    reason: "The initial clone replaced one duplicated Grafana 9094 port name/protocol with confighubplaceholder. The corrective update restored the reviewed source deployment data."
+  target:
+    desired: "observability-targets/prod-us-east"
+    bound: false
+    targetBoundUnitCount: 0
+    status: "target-omitted-in-current-context"
+    reason: "The desired work-order target is not present in the active ConfigHub context, so this receipt proves clone/link/gate intended state only."
+  clone:
+    unitCount: 10
+    upstreamLinkedUnitCount: 10
+    sourceDataHashCount: 10
+    downstreamDataHashCount: 10
+    sameDataHashSetAsSource: true
+  gates:
+    deleteGate: "production-review"
+    deleteGateUnitCount: 10
+    destroyGate: "production-review"
+    destroyGateUnitCount: 10
+  review:
+    sameInstallShape: true
+    noHelmRerender: true
+    routeBackToInstaller:
+      - "switch to existing Secret plus ingress"
+      - "change dashboard or datasource provisioning shape"
+      - "change persistence or rendered Service/Ingress shape"
+  liveApply:
+    result: "not-attempted"
+    reason: "No target was attached; this is a ConfigHub intended-state proof, not a live cluster deployment."
+  result: "pass"

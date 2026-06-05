@@ -30,7 +30,9 @@ cub unit apply --space helm-vault-confighub-proof --where "Labels.Proof = 'vault
 ```text
 rendered objects: 13
 separated secrets: 0
-ConfigHub proof Units: 13
+ConfigHub Units: 14
+Kubernetes Units: 13
+installer record Units: 1
 staging clone Units: 14
 function scan: pass
 safe ops: pass

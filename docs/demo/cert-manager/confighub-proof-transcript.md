@@ -30,7 +30,9 @@ cub unit apply --space helm-cert-manager-confighub-proof --where "Labels.Proof =
 ```text
 rendered objects: 43
 separated secrets: 0
-ConfigHub proof Units: 43
+ConfigHub Units: 44
+Kubernetes Units: 43
+installer record Units: 1
 staging clone Units: 44
 function scan: pass
 safe ops: pass

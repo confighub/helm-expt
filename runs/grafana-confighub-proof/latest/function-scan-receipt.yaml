@@ -19,39 +19,39 @@ spec:
     -
       slug: "clusterrolebinding-grafana-clusterrolebinding"
       headRevisionNum: 2
-      dataHash: "f09389e906377f0ee447719b156a1b1cb0f9781142ebfa9245518fc1654c86ad"
+      dataHash: "d06306f9c879979d4392ad7329c9e72ffecfe28c6288fc530fbc31bf7059e718"
     -
       slug: "clusterrole-grafana-clusterrole"
       headRevisionNum: 2
-      dataHash: "786cdc5595b052e125ea97ec710b6671e7c3c340a374ea92367942656fd63b2e"
+      dataHash: "f2eff57b946713fd835ae24a5316ba4e07528ce3029ce75e7b0af30d0e68d8f7"
     -
       slug: "configmap-grafana-grafana"
       headRevisionNum: 2
-      dataHash: "c071c3717c53455443ef966ce71d4c843094df13e3603090bd111c753f49c129"
+      dataHash: "5d5ca7207aa12cd7448de904eec6a125e9141de0d3a5d20779b34f1a894a9e60"
     -
       slug: "deployment-grafana-grafana"
       headRevisionNum: 2
-      dataHash: "977e6e5651de34826c948f295d7b6b5a3465967ae72094f033cb4c04fd6ee602"
+      dataHash: "5dfbc8d19c228c529c2f1b0fb32be35b3851d1bb120da6a55e2ead4006d82ea7"
     -
       slug: "namespace-grafana"
       headRevisionNum: 2
-      dataHash: "675d9278ea7cedc116d11907f104bdef99b653b4a7f6a3572ba06717e5287de1"
+      dataHash: "079482289b2f62078832c77d1d3248d9d63a9903597a0f9e2f0686f86772523f"
     -
       slug: "rolebinding-grafana-grafana"
       headRevisionNum: 2
-      dataHash: "17720ea818bdaad2dbf985e2be41cbd9fdb00f7a4986b6fc2fce659ebf9ec9eb"
+      dataHash: "a6a54745f04956f263807a5d9bd3249ed5261342d12045830a8b8a1ef7c95b08"
     -
       slug: "role-grafana-grafana"
       headRevisionNum: 2
-      dataHash: "253a30edf82a9483c5323800f03f3b1ca35514c42d3316c4bda1ab97d8b2c025"
+      dataHash: "1bb182bfc6f2e6462a5a047f70e4a3ab2fde6fd482195a2d173584b35cda6776"
     -
       slug: "serviceaccount-grafana-grafana"
       headRevisionNum: 2
-      dataHash: "326b2243e1ad95e7867d1f0ed6e2b1fe438bae99e6dcf7bc4f3871a0b61d70ba"
+      dataHash: "c083b2aed3ced04e76b292492207ee7ebe5fcd95a931f0c5b404d456c19fd130"
     -
       slug: "service-grafana-grafana"
       headRevisionNum: 2
-      dataHash: "a87cdddc85eefa3c24902411b14dad56328642316b1b819ae677e79902bd10e6"
+      dataHash: "3a32924c5e4ccfb664b185f8b46ce54654f151ee5e3f42e2e449a91496c9db9e"
   validations:
     -
       function: "vet-format"

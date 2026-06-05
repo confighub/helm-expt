@@ -8,8 +8,8 @@ spec:
     context:
       organization: "Kubara"
       server: "https://hub.confighub.com"
-      cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.49"
+      cubClientVersion: "Version:    v0.1.71"
+      cubServerVersion: "v0.1.74"
   package:
     path: "packages/prometheus-community/prometheus/29.8.0"
     name: "prometheus"
@@ -36,7 +36,7 @@ spec:
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/prometheus-community/prometheus/29.8.0 -o .tmp/confighub-proof/prometheus-archives/prometheus-a.tgz"
-    sha256: "6ca5329f1a665aab8e8cab7e5cfd7c9b5ceadef36942c320105f29d5b4950a68"
+    sha256: "ac86e0bf7ec6ab8d8e8c66298fb32791be696756480116fe833a4459e5bcc9e1"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
     command: "cub installer vet --work-dir .tmp/confighub-proof/prometheus-default"
@@ -63,7 +63,7 @@ spec:
     command: "cub variant create staging helm-prometheus-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists"
     result: "pass"
     upstreamSpace: "helm-prometheus-confighub-proof"
-    downstreamSpace: "helm-prometheus-confighub-proof-staging"
+    downstreamSpace: "Prometheus-staging"
     clonedUnitCount: 25
   review:
     unitList: "pass"
@@ -72,11 +72,10 @@ spec:
     revisionDiff: "pass"
     representativeUnit: "statefulset-monitoring-prometheus-alertmanager"
   retention:
-    liveSpacesDeletedAfterProof: true
-    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    liveSpacesDeletedAfterProof: false
     spaces:
       - "helm-prometheus-confighub-proof"
-      - "helm-prometheus-confighub-proof-staging"
+      - "Prometheus-staging"
   observedFriction:
     - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
