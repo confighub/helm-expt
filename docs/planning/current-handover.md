@@ -216,9 +216,13 @@ npm run derived-variants:target-bound:verify
 
 It proves `cub variant create --target`, target-bound cloned workload Units,
 ConfigHub OCI publication, Argo CD reconciliation, Kubernetes runtime readiness,
-and cleanup for one small chart. The next derived-variant step is to repeat the
-same target-bound live path for a stateful chart such as
-`Redis-staging-eu-west`, then for a larger observability chart such as
+and cleanup for one small chart. A blocked target-bound receipt also exists for
+`Redis-staging-eu-west`; it records that the Redis staging work order needs
+checked namespace mutation and Redis Secret delivery before it can honestly be
+called target-bound live. The next derived-variant implementation step is to
+add those post-clone mutation/secret checks, or pick a derived variant whose
+declared operating change does not require them. After that, repeat the same
+target-bound live path for Redis or for a larger observability chart such as
 `Prometheus-staging-eu-west`. The Grafana placeholder drift is tracked in
 [#156](https://github.com/confighub/helm-expt/issues/156) as a follow-up issue
 against clone/upgrade behavior.

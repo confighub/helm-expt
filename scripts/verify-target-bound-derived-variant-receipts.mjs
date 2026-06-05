@@ -23,6 +23,7 @@ for (const receiptPath of receipts) {
   check(Boolean(spec.target?.slug), `${context}: missing target slug`);
 
   if (spec.result === "pass") verifyPass(spec, context);
+  if (spec.result === "blocked") verifyBlocked(spec, context);
 }
 
 console.log(`verified ${receipts.length} target-bound derived variant receipt(s)`);
@@ -63,4 +64,20 @@ function verifyPass(spec, context) {
   }
 
   check(spec.cleanup?.result === "pass", `${context}: cleanup must pass`);
+}
+
+function verifyBlocked(spec, context) {
+  check(Array.isArray(spec.blockers), `${context}: blocked receipt must include blockers`);
+  check(spec.blockers.length > 0, `${context}: blocked receipt must include at least one blocker`);
+  for (const blocker of spec.blockers) {
+    check(Boolean(blocker.id), `${context}: blocker missing id`);
+    check(Boolean(blocker.reason), `${context}: blocker missing reason`);
+    check(Boolean(blocker.requiredCapability), `${context}: blocker missing required capability`);
+  }
+  check(Array.isArray(spec.routeForward), `${context}: blocked receipt must include routeForward`);
+  check(spec.routeForward.length > 0, `${context}: blocked receipt routeForward must not be empty`);
+  check(spec.target?.bound !== true, `${context}: blocked receipt must not claim target binding`);
+  check(spec.apply?.result !== "pass", `${context}: blocked receipt must not claim apply pass`);
+  check(spec.argo?.result !== "pass", `${context}: blocked receipt must not claim Argo pass`);
+  check(spec.runtime?.result !== "pass", `${context}: blocked receipt must not claim runtime pass`);
 }
