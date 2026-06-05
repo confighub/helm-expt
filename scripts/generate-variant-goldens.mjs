@@ -1161,6 +1161,10 @@ Generated files:
 The per-work-order receipts are golden targets, not live execution receipts.
 They make the required clone, mutation, and check outcomes explicit before the
 live ConfigHub execution step.
+
+Live execution receipts, where available, are tracked separately under
+\`runs/derived-variant-execution/\`. The first live slice is documented in
+\`docs/reference/derived-variant-live-proof.md\`.
 `;
 }
 

@@ -146,10 +146,27 @@ starting wave under
 10 derived-variant work orders across Redis, Prometheus, NGINX, Grafana, and
 Vault. Each work order now has golden clone, mutation, and check receipt targets
 under `receipts/<work-order>/`. These are explicit proof targets, not live
-execution receipts. The next step is to run selected `cub variant create`
-commands against real reviewed Spaces and replace or supplement the golden
-targets with live clone/link, allowed-mutation, target-fact, gate, and
-observation receipts.
+execution receipts.
+
+2026-06-05 update: the first live derived-variant execution slice now exists
+for NGINX. `cub variant create` created `NGINX-prod-us-east` and
+`NGINX-customer-acme-prod` from the reviewed
+`helm-nginx-confighub-proof` base Space. The receipts prove clone/link
+preservation, same data-hash set as the reviewed base, production gates on all
+cloned Units, and no Helm re-render. The active ConfigHub context did not have
+the desired work-order targets, so these receipts intentionally stop before
+target binding and live apply:
+
+```text
+runs/derived-variant-execution/nginx-prod-us-east/variant-create-receipt.yaml
+runs/derived-variant-execution/nginx-customer-acme-prod/variant-create-receipt.yaml
+npm run derived-variants:verify
+```
+
+The next step is to run selected `cub variant create` commands against the
+remaining reviewed Spaces and supplement the golden targets with live
+clone/link, allowed-mutation, target-fact, gate, observation, and eventually
+target-bound live-apply receipts.
 
 ## 2026-06-03 Variant And Spreadsheet Findings
 

@@ -120,6 +120,7 @@ ConfigHub primitives.
 | [cub-variant-command-surface.md](./user/cub-variant-command-surface.md) | User-facing command surface for the current `cub variant create` clone/link substrate. |
 | [redis-variant-creation-plan.yaml](./reference/redis-variant-creation-plan.yaml) | Concrete Redis variant creation blueprint. |
 | [variant-creator-verification.md](./reference/variant-creator-verification.md) | How Creator previews, checks, receipts, UX, agent, and fleet paths are verified. |
+| [derived-variant-live-proof.md](./reference/derived-variant-live-proof.md) | First live `cub variant create` execution receipts for derived ConfigHub variants. |
 | [lane-test-doctrine.md](./reference/lane-test-doctrine.md) | Core corpus lane-test doctrine for every chart-recipe-variant row. |
 | [variant-promotion-worked-example.md](./reference/variant-promotion-worked-example.md) | Worked promotion examples for Redis and managed overlays. |
 | [confighub-promotion-mapping.md](./reference/confighub-promotion-mapping.md) | Mapping between Helm-derived bases, ConfigHub variants, and promotion concepts. |
@@ -132,6 +133,7 @@ Generated proof data for this section lives in:
 | `data/variant-goldens/redis-prod-us-east/` | Generated Redis example: `redis/default` to `prod-us-east` with preview, checks, and receipts. |
 | `data/managed-overlay-goldens/external-dns-customer-acme-prod/` | Generated ExternalDNS managed overlay example: wrapper chart plus platform/customer overlay values and route classification. |
 | `data/lane-test-matrix/` | Generated lane-test coverage matrix for every chart-recipe-variant row. |
+| `runs/derived-variant-execution/` | Live ConfigHub intended-state receipts for derived variant creation. |
 
 ### Catalog, Scale, And Refresh
 

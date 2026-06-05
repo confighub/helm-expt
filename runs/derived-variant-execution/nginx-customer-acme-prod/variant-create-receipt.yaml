@@ -1,0 +1,64 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DerivedVariantExecutionReceipt"
+metadata:
+  name: "nginx-customer-acme-prod-derived-variant-20260605"
+spec:
+  run:
+    date: "2026-06-05"
+    context:
+      contextName: "honey-moon"
+      organization: "Cubby AI Inc"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "v0.1.71"
+      cubServerVersion: "v0.1.74"
+  source:
+    component: "NGINX"
+    chart: "bitnami/nginx"
+    chartVersion: "24.0.2"
+    base: "http-clusterip"
+    sourceSpace: "helm-nginx-confighub-proof"
+    sourceSpaceID: "25a49519-f0c1-42ee-b697-73b1f687c866"
+    proofReceipt: "runs/nginx-confighub-proof/latest/confighub-proof-receipt.yaml"
+    workOrder: "data/variant-goldens/derived-expansion-wave/work-orders.yaml#nginx-customer-acme-prod"
+  create:
+    command: "cub variant create customer-acme-prod helm-nginx-confighub-proof --environment Prod --region us-west --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review --allow-exists --wait --timeout 10m -o json"
+    result: "pass"
+    variant: "customer-acme-prod"
+    downstreamSpace: "NGINX-customer-acme-prod"
+    downstreamSpaceID: "0992a342-311e-4aa2-85a0-1189dd3aa3bd"
+    environment: "Prod"
+    region: "us-west"
+  target:
+    desired: "web-targets/customer-acme-prod"
+    bound: false
+    targetBoundUnitCount: 0
+    status: "target-omitted-in-current-context"
+    reason: "The desired work-order target is not present in the active ConfigHub context, so this receipt proves clone/link/gate intended state only."
+  clone:
+    unitCount: 7
+    upstreamLinkedUnitCount: 7
+    sourceDataHashCount: 7
+    downstreamDataHashCount: 7
+    sameDataHashSetAsSource: true
+  gates:
+    deleteGate: "production-review"
+    deleteGateUnitCount: 7
+    destroyGate: "production-review"
+    destroyGateUnitCount: 7
+  review:
+    sameInstallShape: true
+    noHelmRerender: true
+    changedScope:
+      - "Space.Labels.Variant"
+      - "Space.Labels.Environment"
+      - "Space.Labels.Region"
+      - "Unit.DeleteGates"
+      - "Unit.DestroyGates"
+    routeBackToInstaller:
+      - "add TLS ingress"
+      - "switch to existing-tls-ingress"
+      - "change Service type or rendered NetworkPolicy/PDB shape"
+  liveApply:
+    result: "not-attempted"
+    reason: "No target was attached; this is a ConfigHub intended-state proof, not a live cluster deployment."
+  result: "pass"
