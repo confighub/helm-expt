@@ -1,0 +1,42 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DerivedVariantMutationReceipt"
+metadata:
+  name: "redis-staging-eu-west-mutation-target"
+  generatedBy: "scripts/generate-variant-goldens.mjs"
+spec:
+  executionMode: "golden-target-not-live-execution"
+  sourceBase: "Redis/default"
+  downstreamVariant: "Redis/staging-eu-west"
+  noHelmRerender: true
+  preservedRenderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+  allowedMutationPaths:
+    - "Space.Labels.Variant"
+    - "Space.Labels.Environment"
+    - "Space.Labels.Region"
+    - "Space.Annotations.TargetID"
+    - "metadata.namespace when the base exposes namespace as an approved post-render field"
+    - "observation policy metadata"
+  mutationSources:
+    -
+      path: "Space.Labels.Variant"
+      source: "Variant Creator contract over cub variant create clone/link output"
+    -
+      path: "Space.Labels.Environment"
+      source: "Variant Creator contract over cub variant create clone/link output"
+    -
+      path: "Space.Labels.Region"
+      source: "Variant Creator contract over cub variant create clone/link output"
+    -
+      path: "Space.Annotations.TargetID"
+      source: "Variant Creator contract over cub variant create clone/link output"
+    -
+      path: "metadata.namespace when the base exposes namespace as an approved post-render field"
+      source: "Variant Creator contract over cub variant create clone/link output"
+    -
+      path: "observation policy metadata"
+      source: "Variant Creator contract over cub variant create clone/link output"
+  routeBackToInstaller:
+    - "switch to existing Secret mode"
+    - "change Redis storage or HA topology"
+    - "change Helm values that alter StatefulSet or Service shape"
+  result: "golden-target"

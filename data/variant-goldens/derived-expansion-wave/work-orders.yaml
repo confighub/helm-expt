@@ -76,6 +76,7 @@ spec:
     -
       id: "redis-prod-us-east"
       issue: "https://github.com/confighub/helm-expt/issues/144"
+      executionStatus: "golden-target-only"
       source:
         component: "Redis"
         chart: "bitnami/redis"
@@ -114,6 +115,10 @@ spec:
         - "upstream-links-preserved"
         - "target-facts-available"
         - "production-gates-present-when-prod"
+      receiptTargets:
+        clone: "receipts/redis-prod-us-east/clone-receipt.yaml"
+        mutation: "receipts/redis-prod-us-east/mutation-receipt.yaml"
+        checks: "receipts/redis-prod-us-east/check-receipt.yaml"
       routeBackToInstaller:
         - "switch to existing Secret mode"
         - "change Redis storage or HA topology"
@@ -121,6 +126,7 @@ spec:
     -
       id: "redis-staging-eu-west"
       issue: "https://github.com/confighub/helm-expt/issues/144"
+      executionStatus: "golden-target-only"
       source:
         component: "Redis"
         chart: "bitnami/redis"
@@ -157,6 +163,10 @@ spec:
         - "upstream-links-preserved"
         - "target-facts-available"
         - "production-gates-present-when-prod"
+      receiptTargets:
+        clone: "receipts/redis-staging-eu-west/clone-receipt.yaml"
+        mutation: "receipts/redis-staging-eu-west/mutation-receipt.yaml"
+        checks: "receipts/redis-staging-eu-west/check-receipt.yaml"
       routeBackToInstaller:
         - "switch to existing Secret mode"
         - "change Redis storage or HA topology"
@@ -164,6 +174,7 @@ spec:
     -
       id: "prometheus-prod-us-east"
       issue: "https://github.com/confighub/helm-expt/issues/144"
+      executionStatus: "golden-target-only"
       source:
         component: "Prometheus"
         chart: "prometheus-community/prometheus"
@@ -202,6 +213,10 @@ spec:
         - "upstream-links-preserved"
         - "target-facts-available"
         - "production-gates-present-when-prod"
+      receiptTargets:
+        clone: "receipts/prometheus-prod-us-east/clone-receipt.yaml"
+        mutation: "receipts/prometheus-prod-us-east/mutation-receipt.yaml"
+        checks: "receipts/prometheus-prod-us-east/check-receipt.yaml"
       routeBackToInstaller:
         - "disable Alertmanager, node-exporter, kube-state-metrics, or pushgateway"
         - "switch to server-only-ephemeral"
@@ -209,6 +224,7 @@ spec:
     -
       id: "prometheus-staging-eu-west"
       issue: "https://github.com/confighub/helm-expt/issues/144"
+      executionStatus: "golden-target-only"
       source:
         component: "Prometheus"
         chart: "prometheus-community/prometheus"
@@ -245,6 +261,10 @@ spec:
         - "upstream-links-preserved"
         - "target-facts-available"
         - "production-gates-present-when-prod"
+      receiptTargets:
+        clone: "receipts/prometheus-staging-eu-west/clone-receipt.yaml"
+        mutation: "receipts/prometheus-staging-eu-west/mutation-receipt.yaml"
+        checks: "receipts/prometheus-staging-eu-west/check-receipt.yaml"
       routeBackToInstaller:
         - "disable Alertmanager, node-exporter, kube-state-metrics, or pushgateway"
         - "switch to server-only-ephemeral"
@@ -252,6 +272,7 @@ spec:
     -
       id: "nginx-prod-us-east"
       issue: "https://github.com/confighub/helm-expt/issues/144"
+      executionStatus: "golden-target-only"
       source:
         component: "NGINX"
         chart: "bitnami/nginx"
@@ -290,6 +311,10 @@ spec:
         - "upstream-links-preserved"
         - "target-facts-available"
         - "production-gates-present-when-prod"
+      receiptTargets:
+        clone: "receipts/nginx-prod-us-east/clone-receipt.yaml"
+        mutation: "receipts/nginx-prod-us-east/mutation-receipt.yaml"
+        checks: "receipts/nginx-prod-us-east/check-receipt.yaml"
       routeBackToInstaller:
         - "add TLS ingress"
         - "switch to existing-tls-ingress"
@@ -297,6 +322,7 @@ spec:
     -
       id: "nginx-customer-acme-prod"
       issue: "https://github.com/confighub/helm-expt/issues/144"
+      executionStatus: "golden-target-only"
       source:
         component: "NGINX"
         chart: "bitnami/nginx"
@@ -335,6 +361,10 @@ spec:
         - "upstream-links-preserved"
         - "target-facts-available"
         - "production-gates-present-when-prod"
+      receiptTargets:
+        clone: "receipts/nginx-customer-acme-prod/clone-receipt.yaml"
+        mutation: "receipts/nginx-customer-acme-prod/mutation-receipt.yaml"
+        checks: "receipts/nginx-customer-acme-prod/check-receipt.yaml"
       routeBackToInstaller:
         - "add TLS ingress"
         - "switch to existing-tls-ingress"
@@ -342,6 +372,7 @@ spec:
     -
       id: "grafana-prod-us-east"
       issue: "https://github.com/confighub/helm-expt/issues/144"
+      executionStatus: "golden-target-only"
       source:
         component: "Grafana"
         chart: "grafana/grafana"
@@ -380,6 +411,10 @@ spec:
         - "upstream-links-preserved"
         - "target-facts-available"
         - "production-gates-present-when-prod"
+      receiptTargets:
+        clone: "receipts/grafana-prod-us-east/clone-receipt.yaml"
+        mutation: "receipts/grafana-prod-us-east/mutation-receipt.yaml"
+        checks: "receipts/grafana-prod-us-east/check-receipt.yaml"
       routeBackToInstaller:
         - "switch to existing admin Secret"
         - "add ingress TLS"
@@ -387,6 +422,7 @@ spec:
     -
       id: "grafana-customer-acme-prod"
       issue: "https://github.com/confighub/helm-expt/issues/144"
+      executionStatus: "golden-target-only"
       source:
         component: "Grafana"
         chart: "grafana/grafana"
@@ -425,6 +461,10 @@ spec:
         - "upstream-links-preserved"
         - "target-facts-available"
         - "production-gates-present-when-prod"
+      receiptTargets:
+        clone: "receipts/grafana-customer-acme-prod/clone-receipt.yaml"
+        mutation: "receipts/grafana-customer-acme-prod/mutation-receipt.yaml"
+        checks: "receipts/grafana-customer-acme-prod/check-receipt.yaml"
       routeBackToInstaller:
         - "switch to existing admin Secret"
         - "add ingress TLS"
@@ -432,6 +472,7 @@ spec:
     -
       id: "vault-regulated-prod-us-east"
       issue: "https://github.com/confighub/helm-expt/issues/144"
+      executionStatus: "golden-target-only"
       source:
         component: "Vault"
         chart: "hashicorp/vault"
@@ -470,6 +511,10 @@ spec:
         - "upstream-links-preserved"
         - "target-facts-available"
         - "production-gates-present-when-prod"
+      receiptTargets:
+        clone: "receipts/vault-regulated-prod-us-east/clone-receipt.yaml"
+        mutation: "receipts/vault-regulated-prod-us-east/mutation-receipt.yaml"
+        checks: "receipts/vault-regulated-prod-us-east/check-receipt.yaml"
       routeBackToInstaller:
         - "switch to HA raft UI"
         - "change injector webhook or StatefulSet topology"
@@ -477,6 +522,7 @@ spec:
     -
       id: "vault-staging-us-east"
       issue: "https://github.com/confighub/helm-expt/issues/144"
+      executionStatus: "golden-target-only"
       source:
         component: "Vault"
         chart: "hashicorp/vault"
@@ -513,6 +559,10 @@ spec:
         - "upstream-links-preserved"
         - "target-facts-available"
         - "production-gates-present-when-prod"
+      receiptTargets:
+        clone: "receipts/vault-staging-us-east/clone-receipt.yaml"
+        mutation: "receipts/vault-staging-us-east/mutation-receipt.yaml"
+        checks: "receipts/vault-staging-us-east/check-receipt.yaml"
       routeBackToInstaller:
         - "switch to HA raft UI"
         - "change injector webhook or StatefulSet topology"

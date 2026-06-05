@@ -324,6 +324,7 @@ function derivedExpansionWave() {
   const workOrders = sources.flatMap((source) =>
     source.variants.map((variant) => buildDerivedWorkOrder(source, variant)),
   );
+  const receiptOutputs = derivedExpansionReceiptOutputs(workOrders);
 
   const wave = {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
@@ -384,6 +385,14 @@ function derivedExpansionWave() {
           name: "all-have-route-back-guidance",
           result: workOrders.every((order) => order.routeBackToInstaller.length > 0) ? "pass" : "fail",
         },
+        {
+          name: "all-have-clone-mutation-check-receipt-targets",
+          result: workOrders.every((order) =>
+            Boolean(order.receiptTargets.clone && order.receiptTargets.mutation && order.receiptTargets.checks),
+          )
+            ? "pass"
+            : "fail",
+        },
       ],
       result: "golden-pass",
     },
@@ -394,6 +403,7 @@ function derivedExpansionWave() {
     "work-orders.yaml": yaml(wave),
     "work-orders.csv": derivedExpansionCsv(workOrders),
     "receipts/wave-check-receipt.yaml": yaml(checkReceipt),
+    ...receiptOutputs,
   };
 }
 
@@ -543,6 +553,7 @@ function buildDerivedWorkOrder(source, variant) {
   return {
     id: `${source.componentSlug}-${variant.variant}`,
     issue: "https://github.com/confighub/helm-expt/issues/144",
+    executionStatus: "golden-target-only",
     source: {
       component: source.component,
       chart: source.chart,
@@ -577,8 +588,106 @@ function buildDerivedWorkOrder(source, variant) {
       "target-facts-available",
       "production-gates-present-when-prod",
     ],
+    receiptTargets: {
+      clone: `receipts/${source.componentSlug}-${variant.variant}/clone-receipt.yaml`,
+      mutation: `receipts/${source.componentSlug}-${variant.variant}/mutation-receipt.yaml`,
+      checks: `receipts/${source.componentSlug}-${variant.variant}/check-receipt.yaml`,
+    },
     routeBackToInstaller: source.routeBackToInstaller,
   };
+}
+
+function derivedExpansionReceiptOutputs(workOrders) {
+  return Object.fromEntries(
+    workOrders.flatMap((order) => {
+      const cloneReceipt = {
+        apiVersion: "helm-expt.confighub.com/v1alpha1",
+        kind: "DerivedVariantCloneReceipt",
+        metadata: {
+          name: `${order.id}-clone-target`,
+          generatedBy: "scripts/generate-variant-goldens.mjs",
+        },
+        spec: {
+          executionMode: "golden-target-not-live-execution",
+          issue: order.issue,
+          command: order.create.command,
+          sourceSpace: order.source.sourceSpace,
+          downstreamSpace: order.create.downstreamSpace,
+          sourceRevision: order.source.sourceRevision,
+          renderedObjectSetSHA256: order.source.renderedObjectSetSHA256,
+          sourceUnits: order.source.uploadedUnitCount,
+          clonedUnitsExpected: order.source.uploadedUnitCount,
+          upstreamLinks: "preserve",
+          labels: {
+            Component: order.source.component,
+            Variant: order.create.variant,
+            Environment: order.create.environment,
+            Region: order.create.region,
+          },
+          target: order.create.target,
+          productionGatesExpected: order.create.environment === "Prod",
+          result: "golden-target",
+        },
+      };
+
+      const mutationReceipt = {
+        apiVersion: "helm-expt.confighub.com/v1alpha1",
+        kind: "DerivedVariantMutationReceipt",
+        metadata: {
+          name: `${order.id}-mutation-target`,
+          generatedBy: "scripts/generate-variant-goldens.mjs",
+        },
+        spec: {
+          executionMode: "golden-target-not-live-execution",
+          sourceBase: `${order.source.component}/${order.source.base}`,
+          downstreamVariant: `${order.source.component}/${order.create.variant}`,
+          noHelmRerender: true,
+          preservedRenderedObjectSetSHA256: order.source.renderedObjectSetSHA256,
+          allowedMutationPaths: order.review.changedFieldsOnly,
+          mutationSources: order.review.changedFieldsOnly.map((path) => ({
+            path,
+            source: "Variant Creator contract over cub variant create clone/link output",
+          })),
+          routeBackToInstaller: order.routeBackToInstaller,
+          result: "golden-target",
+        },
+      };
+
+      const checkReceipt = {
+        apiVersion: "helm-expt.confighub.com/v1alpha1",
+        kind: "DerivedVariantCreatorCheckReceipt",
+        metadata: {
+          name: `${order.id}-checks-target`,
+          generatedBy: "scripts/generate-variant-goldens.mjs",
+        },
+        spec: {
+          executionMode: "golden-target-not-live-execution",
+          supportOutcome: "missing-live-execution-receipt",
+          sourceRevision: order.source.sourceRevision,
+          derivedVariant: order.create.variant,
+          checks: order.checks.map((name) => ({
+            name,
+            result: "target-defined",
+            requiredBeforeSupport: true,
+          })),
+          requiredReceiptsBeforeSupport: [
+            "live cub variant create receipt",
+            "post-clone Unit/link review receipt",
+            "allowed mutation path receipt",
+            "target fact receipt when a target is bound",
+            "live observation receipt when deployable",
+          ],
+          result: "golden-target",
+        },
+      };
+
+      return [
+        [order.receiptTargets.clone, yaml(cloneReceipt)],
+        [order.receiptTargets.mutation, yaml(mutationReceipt)],
+        [order.receiptTargets.checks, yaml(checkReceipt)],
+      ];
+    }),
+  );
 }
 
 function kubaraGolden() {
@@ -1033,6 +1142,7 @@ Summary:
 source bases: ${wave.spec.summary.sourceBaseCount}
 derived variants: ${wave.spec.summary.derivedVariantCount}
 current command: ${wave.spec.commandSurface.current}
+receipt targets: ${wave.spec.summary.derivedVariantCount * 3}
 \`\`\`
 
 | Work order | Source base | Derived variant | Environment | Region | Target |
@@ -1044,6 +1154,13 @@ Generated files:
 - \`work-orders.yaml\`
 - \`work-orders.csv\`
 - \`receipts/wave-check-receipt.yaml\`
+- \`receipts/<work-order>/clone-receipt.yaml\`
+- \`receipts/<work-order>/mutation-receipt.yaml\`
+- \`receipts/<work-order>/check-receipt.yaml\`
+
+The per-work-order receipts are golden targets, not live execution receipts.
+They make the required clone, mutation, and check outcomes explicit before the
+live ConfigHub execution step.
 `;
 }
 
@@ -1059,6 +1176,7 @@ function derivedExpansionCsv(workOrders) {
     "target",
     "source_space",
     "downstream_space",
+    "execution_status",
     "rendered_object_set_sha256",
     "command",
   ];
@@ -1073,6 +1191,7 @@ function derivedExpansionCsv(workOrders) {
     order.create.target,
     order.source.sourceSpace,
     order.create.downstreamSpace,
+    order.executionStatus,
     order.source.renderedObjectSetSHA256,
     order.create.command,
   ]);
@@ -1110,6 +1229,11 @@ function verifyExpansionWave() {
     check(order.review.upstreamLinks === "preserved", `${order.id} must preserve upstream links`);
     check(order.routeBackToInstaller.length > 0, `${order.id} must include route-back guidance`);
     check(order.checks.includes("same-rendered-object-set"), `${order.id} must check rendered object set preservation`);
+    for (const [kind, receiptPath] of Object.entries(order.receiptTargets)) {
+      const receipt = readYaml(join(expansionRoot, receiptPath));
+      check(receipt.spec?.executionMode === "golden-target-not-live-execution", `${order.id} ${kind} receipt must not claim live execution`);
+      check(receipt.spec?.result === "golden-target", `${order.id} ${kind} receipt target result changed`);
+    }
   }
   check(receipt.spec.result === "golden-pass", "Derived expansion check receipt must pass");
 }

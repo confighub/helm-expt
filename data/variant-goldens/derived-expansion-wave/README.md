@@ -20,6 +20,7 @@ Summary:
 source bases: 5
 derived variants: 10
 current command: cub variant create
+receipt targets: 30
 ```
 
 | Work order | Source base | Derived variant | Environment | Region | Target |
@@ -40,3 +41,10 @@ Generated files:
 - `work-orders.yaml`
 - `work-orders.csv`
 - `receipts/wave-check-receipt.yaml`
+- `receipts/<work-order>/clone-receipt.yaml`
+- `receipts/<work-order>/mutation-receipt.yaml`
+- `receipts/<work-order>/check-receipt.yaml`
+
+The per-work-order receipts are golden targets, not live execution receipts.
+They make the required clone, mutation, and check outcomes explicit before the
+live ConfigHub execution step.

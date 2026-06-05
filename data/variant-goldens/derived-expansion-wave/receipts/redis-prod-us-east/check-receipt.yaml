@@ -1,0 +1,42 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DerivedVariantCreatorCheckReceipt"
+metadata:
+  name: "redis-prod-us-east-checks-target"
+  generatedBy: "scripts/generate-variant-goldens.mjs"
+spec:
+  executionMode: "golden-target-not-live-execution"
+  supportOutcome: "missing-live-execution-receipt"
+  sourceRevision: "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml"
+  derivedVariant: "prod-us-east"
+  checks:
+    -
+      name: "source-revision-bound"
+      result: "target-defined"
+      requiredBeforeSupport: true
+    -
+      name: "same-rendered-object-set"
+      result: "target-defined"
+      requiredBeforeSupport: true
+    -
+      name: "allowed-mutation-paths-only"
+      result: "target-defined"
+      requiredBeforeSupport: true
+    -
+      name: "upstream-links-preserved"
+      result: "target-defined"
+      requiredBeforeSupport: true
+    -
+      name: "target-facts-available"
+      result: "target-defined"
+      requiredBeforeSupport: true
+    -
+      name: "production-gates-present-when-prod"
+      result: "target-defined"
+      requiredBeforeSupport: true
+  requiredReceiptsBeforeSupport:
+    - "live cub variant create receipt"
+    - "post-clone Unit/link review receipt"
+    - "allowed mutation path receipt"
+    - "target fact receipt when a target is bound"
+    - "live observation receipt when deployable"
+  result: "golden-target"

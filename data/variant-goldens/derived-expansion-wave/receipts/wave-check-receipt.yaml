@@ -21,4 +21,7 @@ spec:
     -
       name: "all-have-route-back-guidance"
       result: "pass"
+    -
+      name: "all-have-clone-mutation-check-receipt-targets"
+      result: "pass"
   result: "golden-pass"

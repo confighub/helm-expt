@@ -1,0 +1,50 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DerivedVariantMutationReceipt"
+metadata:
+  name: "vault-regulated-prod-us-east-mutation-target"
+  generatedBy: "scripts/generate-variant-goldens.mjs"
+spec:
+  executionMode: "golden-target-not-live-execution"
+  sourceBase: "Vault/default"
+  downstreamVariant: "Vault/regulated-prod-us-east"
+  noHelmRerender: true
+  preservedRenderedObjectSetSHA256: "6de2d61c8de0c21faa951e89ec16658bcdff22e69d78075fdd394d895a5e6978"
+  allowedMutationPaths:
+    - "Space.Labels.Variant"
+    - "Space.Labels.Environment"
+    - "Space.Labels.Region"
+    - "Space.Annotations.TargetID"
+    - "metadata.namespace when the base exposes namespace as an approved post-render field"
+    - "observation policy metadata"
+    - "Unit.DeleteGates"
+    - "Unit.DestroyGates"
+  mutationSources:
+    -
+      path: "Space.Labels.Variant"
+      source: "Variant Creator contract over cub variant create clone/link output"
+    -
+      path: "Space.Labels.Environment"
+      source: "Variant Creator contract over cub variant create clone/link output"
+    -
+      path: "Space.Labels.Region"
+      source: "Variant Creator contract over cub variant create clone/link output"
+    -
+      path: "Space.Annotations.TargetID"
+      source: "Variant Creator contract over cub variant create clone/link output"
+    -
+      path: "metadata.namespace when the base exposes namespace as an approved post-render field"
+      source: "Variant Creator contract over cub variant create clone/link output"
+    -
+      path: "observation policy metadata"
+      source: "Variant Creator contract over cub variant create clone/link output"
+    -
+      path: "Unit.DeleteGates"
+      source: "Variant Creator contract over cub variant create clone/link output"
+    -
+      path: "Unit.DestroyGates"
+      source: "Variant Creator contract over cub variant create clone/link output"
+  routeBackToInstaller:
+    - "switch to HA raft UI"
+    - "change injector webhook or StatefulSet topology"
+    - "change TLS, unseal, or storage rendered object shape"
+  result: "golden-target"

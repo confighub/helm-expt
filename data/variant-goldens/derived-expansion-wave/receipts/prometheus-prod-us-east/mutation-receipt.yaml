@@ -1,0 +1,50 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DerivedVariantMutationReceipt"
+metadata:
+  name: "prometheus-prod-us-east-mutation-target"
+  generatedBy: "scripts/generate-variant-goldens.mjs"
+spec:
+  executionMode: "golden-target-not-live-execution"
+  sourceBase: "Prometheus/default"
+  downstreamVariant: "Prometheus/prod-us-east"
+  noHelmRerender: true
+  preservedRenderedObjectSetSHA256: "c11349803ddbb44562066474dd04d47d7c5c75d083dbc96162224573f949c11b"
+  allowedMutationPaths:
+    - "Space.Labels.Variant"
+    - "Space.Labels.Environment"
+    - "Space.Labels.Region"
+    - "Space.Annotations.TargetID"
+    - "metadata.namespace when the base exposes namespace as an approved post-render field"
+    - "observation policy metadata"
+    - "Unit.DeleteGates"
+    - "Unit.DestroyGates"
+  mutationSources:
+    -
+      path: "Space.Labels.Variant"
+      source: "Variant Creator contract over cub variant create clone/link output"
+    -
+      path: "Space.Labels.Environment"
+      source: "Variant Creator contract over cub variant create clone/link output"
+    -
+      path: "Space.Labels.Region"
+      source: "Variant Creator contract over cub variant create clone/link output"
+    -
+      path: "Space.Annotations.TargetID"
+      source: "Variant Creator contract over cub variant create clone/link output"
+    -
+      path: "metadata.namespace when the base exposes namespace as an approved post-render field"
+      source: "Variant Creator contract over cub variant create clone/link output"
+    -
+      path: "observation policy metadata"
+      source: "Variant Creator contract over cub variant create clone/link output"
+    -
+      path: "Unit.DeleteGates"
+      source: "Variant Creator contract over cub variant create clone/link output"
+    -
+      path: "Unit.DestroyGates"
+      source: "Variant Creator contract over cub variant create clone/link output"
+  routeBackToInstaller:
+    - "disable Alertmanager, node-exporter, kube-state-metrics, or pushgateway"
+    - "switch to server-only-ephemeral"
+    - "change storage topology or rendered scrape object shape"
+  result: "golden-target"
