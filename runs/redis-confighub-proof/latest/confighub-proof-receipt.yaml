@@ -1,93 +1,96 @@
-apiVersion: helm-expt.confighub.com/v1alpha1
-kind: ConfigHubProofReceipt
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
 metadata:
-  name: redis-confighub-proof-20260527
+  name: "redis-confighub-proof-20260527"
 spec:
   run:
     date: "2026-05-27"
     context:
-      organization: Kubara
-      server: https://hub.confighub.com
-      cubClientVersion: dev
-      cubServerVersion: v0.1.49
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    v0.1.71"
+      cubServerVersion: "v0.1.74"
   package:
-    path: packages/bitnami/redis/25.5.3
-    name: bitnami-redis
-    chart: bitnami/redis
-    chartVersion: 25.5.3
-    selectedBase: default
+    path: "packages/bitnami/redis/25.5.3"
+    name: "bitnami-redis"
+    chart: "bitnami/redis"
+    chartVersion: "25.5.3"
     bases:
-      - default
-      - reuse-existing-secret
+      - "default"
+      - "reuse-existing-secret"
+    selectedBase: "default"
     docVerified: true
-    targetFactRequirementVerified:
-      base: reuse-existing-secret
-      externalRequireKind: ClusterFeature
-      requirement: Secret redis/redis-existing-secret key redis-password
+    targetFactRequirements:
+      -
+        base: "reuse-existing-secret"
+        requirements:
+          -
+            kind: "ClusterFeature"
+            name: "Secret redis/redis-existing-secret key redis-password"
+            namespace: "redis"
+            suggestedSource: "kubectl -n redis create secret generic redis-existing-secret --from-literal=redis-password=<value>"
   render:
-    command: cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/confighub-proof/redis-default --non-interactive --namespace redis
-    result: pass
+    command: "cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/confighub-proof/redis-default --non-interactive --namespace redis"
+    result: "pass"
     manifestCount: 14
     separatedSecretCount: 1
     facts:
       targetFactChecks:
-        base: default
-        mode: not-required
-        result: pass
-      requiredSecrets: []
+        base: "default"
+        mode: "not-required"
+        result: "pass"
+      targetFacts:
+        requiredSecrets:
+          []
   rerender:
-    command: cub installer render --work-dir .tmp/confighub-proof/redis-default
-    result: pass
+    command: "cub installer render --work-dir .tmp/confighub-proof/redis-default"
+    result: "pass"
     manifestCount: 14
     separatedSecretCount: 1
   deterministicPackage:
-    command: cub installer package packages/bitnami/redis/25.5.3 -o .tmp/confighub-proof/archives/redis-a.tgz
-    sha256: 33d75e4443ef0ca2d42d79049074f89e25de740bdc677f2451010024ab035550
+    command: "cub installer package packages/bitnami/redis/25.5.3 -o .tmp/confighub-proof/redis-archives/redis-a.tgz"
+    sha256: "932093f05f7b1b264bf2579c3bfbcf975467e0830c5d77f992b08be2b796273a"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
-    command: cub installer vet --work-dir .tmp/confighub-proof/redis-default
-    result: pass
-    note: Package declares no validators.
+    command: "cub installer vet --work-dir .tmp/confighub-proof/redis-default"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
   upload:
-    command: cub installer upload --work-dir .tmp/confighub-proof/redis-default --space helm-redis-confighub-proof
-    result: pass
-    workaround: CUB_CONFIG=/Users/alexis/.confighub/config.yaml
-    uploadedAt: "2026-05-27T07:33:57Z"
-    space: helm-redis-confighub-proof
+    command: "cub installer upload --work-dir .tmp/confighub-proof/redis-default --space helm-redis-confighub-proof --component Redis --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=Redis --unit-label HelmChart=bitnami-redis --unit-label HelmChartVersion=25.5.3 --unit-label Variant=default --unit-label Proof=redis-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-redis-confighub-proof"
     unitCount: 15
-    redisKubernetesUnitCount: 14
+    kubernetesUnitCount: 14
     installerRecordUnitCount: 1
-    inferredLinkCount: 31
     separatedSecretsNotUploaded:
-      - v1/Secret redis/redis
+      - "v1/Secret redis/redis"
   plan:
-    command: cub installer plan --work-dir .tmp/confighub-proof/redis-default
-    result: pass
-    summary: No changes.
-    images:
-      - StatefulSet/redis-master [redis] registry-1.docker.io/bitnami/redis:latest
-      - StatefulSet/redis-replicas [redis] registry-1.docker.io/bitnami/redis:latest
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/redis-default"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/redis-default"
+    result: "pass"
+    summary: "No changes.\nImages in helm-redis-confighub-proof (post-render):\n      StatefulSet/redis-master [redis] registry-1.docker.io/bitnami/redis:latest\n      StatefulSet/redis-replicas [redis] registry-1.docker.io/bitnami/redis:latest"
   serverSideVariant:
-    command: cub variant create staging helm-redis-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}}
-    result: pass
-    upstreamSpace: helm-redis-confighub-proof
-    downstreamSpace: helm-redis-confighub-proof-staging
+    command: "cub variant create staging helm-redis-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists"
+    result: "pass"
+    upstreamSpace: "helm-redis-confighub-proof"
+    downstreamSpace: "Redis-staging"
     clonedUnitCount: 15
-    downstreamLabels:
-      Component: Redis
-      Environment: Staging
-      Layer: App
-      Owner: ConfigHubHelm
-      Region: local
-      Variant: staging
   review:
-    unitList: pass
-    cloneTree: pass
-    unitData: pass
-    revisionList: pass
-    revisionDiff: pass
-    note: Current diff proof uses Unit revision diff; richer variant diff remains a product ask.
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "statefulset-redis-redis-master"
+  retention:
+    liveSpacesDeletedAfterProof: false
+    spaces:
+      - "helm-redis-confighub-proof"
+      - "Redis-staging"
   observedFriction:
-    - kustomize was present in $(go env GOPATH)/bin but not on the default shell PATH.
-    - cub installer upload needs explicit CUB_CONFIG in this local setup.
-    - broad cub unit tree --edge link for the Redis space was too slow; narrower clone tree and unit review commands worked.
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

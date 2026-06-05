@@ -1,87 +1,103 @@
-apiVersion: helm-expt.confighub.com/v1alpha1
-kind: ConfigHubFunctionScanReceipt
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
 metadata:
-  name: redis-function-scan-20260527
+  name: "redis-function-scan-20260527"
 spec:
   observedAt: "2026-05-27"
   context:
-    organization: Kubara
-    server: https://hub.confighub.com
-    space: helm-redis-confighub-proof
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-redis-confighub-proof"
     selector: "Labels.Proof = 'redis-confighub-proof'"
   subject:
-    chart: bitnami/redis
-    chartVersion: 25.5.3
-    packagePath: packages/bitnami/redis/25.5.3
-    variant: default
+    chart: "bitnami/redis"
+    chartVersion: "25.5.3"
+    packagePath: "packages/bitnami/redis/25.5.3"
+    variant: "default"
     configHubUnitCount: 14
   unitRevisionBindings:
-    - slug: configmap-redis-redis-configuration
+    -
+      slug: "configmap-redis-redis-configuration"
       headRevisionNum: 2
-      dataHash: 4dd664aafdc46d58e0dca01daf91b13d012d50f8e8b96fb039efd2c92304468c
-    - slug: configmap-redis-redis-health
+      dataHash: "af485c69d45b5b96ff59a7de6417764fb7ba03e0197f66f97fe648b3dc5f18c9"
+    -
+      slug: "configmap-redis-redis-health"
       headRevisionNum: 2
-      dataHash: 3bdf89f97a553b4c87ddab7ca1872d2ea7050b156736d7c12b34fb9f665541ac
-    - slug: configmap-redis-redis-scripts
+      dataHash: "32a39a4f0d065226551273bd026e071a274c18f855f6defb7f678fee2a801822"
+    -
+      slug: "configmap-redis-redis-scripts"
       headRevisionNum: 2
-      dataHash: ea1af6c9fca67a276acba062dc211b1e3a6dc8b86b29660a9982f0cc0e820456
-    - slug: namespace-redis
+      dataHash: "2589d8ed211a80ceb1f131e68cbc9e6ffdac9dde3e28a292095711f97a06b6d1"
+    -
+      slug: "namespace-redis"
       headRevisionNum: 2
-      dataHash: f3d7fd7039df54db5fc1920f5f7bbe8f693f3451edaea0ce3237d82e177e2fac
-    - slug: networkpolicy-redis-redis
+      dataHash: "70b29bded2e2137d53a1d4a3b37c2c0d05123f53d11f466c7f588c53e291bed7"
+    -
+      slug: "networkpolicy-redis-redis"
       headRevisionNum: 2
-      dataHash: 9968baf8a8467f5aa17126071660ae59b0f5e7caafb5076f1563f3760f698d38
-    - slug: poddisruptionbudget-redis-redis-master
+      dataHash: "104a338aa220386145cce88e2f884f34bd9a7c0b1e818e74f824c239ff34b293"
+    -
+      slug: "poddisruptionbudget-redis-redis-master"
       headRevisionNum: 2
-      dataHash: 4a6c5d11b9cab6e533a540b252163451a0f80e9e3fcbe7aa9f724a54e78e3881
-    - slug: poddisruptionbudget-redis-redis-replicas
+      dataHash: "7e95026937268fc8136fc71d6b9ea20f8582b8550bf6c4323f1047c95a3eaaa8"
+    -
+      slug: "poddisruptionbudget-redis-redis-replicas"
       headRevisionNum: 2
-      dataHash: d6b0622bcc7920cf5ae405b5043d993f075e503d6173eef6f58d1a4bab879301
-    - slug: serviceaccount-redis-redis-master
+      dataHash: "48d275886ebf3efa8bfb059241c8d39a35507b4d7d76c7560b3a5f37f528c700"
+    -
+      slug: "serviceaccount-redis-redis-master"
       headRevisionNum: 2
-      dataHash: 6531c5e48f52797235d051cf5b5f6ecf6328d05c972aba57160801d07ae2354a
-    - slug: serviceaccount-redis-redis-replica
+      dataHash: "a285af00ab87294148fd8fa974e0d11ed9c3cad6d3ae0a5df26b45229936a068"
+    -
+      slug: "serviceaccount-redis-redis-replica"
       headRevisionNum: 2
-      dataHash: 570acb57cccf3499dc41a8afe002814e1da90df6fe531a58142225a74844000e
-    - slug: service-redis-redis-headless
+      dataHash: "2dca24526a486290965041119ad9f33be23459601df4c0b955a1277009a7b8a1"
+    -
+      slug: "service-redis-redis-headless"
       headRevisionNum: 2
-      dataHash: 3cb0ace83e68aadd66a363da3948eaa31b41ecccdcdcfe3f19bec4210991e526
-    - slug: service-redis-redis-master
+      dataHash: "2599541cf63b7f1e0e68835e9fc48cfb55d7c3f7e568f4873011c23a97bb66d7"
+    -
+      slug: "service-redis-redis-master"
       headRevisionNum: 2
-      dataHash: 2f27d831399922622fe7f400fecf826b3d75c91e5932df750142f616c4e20418
-    - slug: service-redis-redis-replicas
+      dataHash: "c2415d07ca0a2e03d580e5c05afcc9164c7559053310ef9580fe13d9398e45dd"
+    -
+      slug: "service-redis-redis-replicas"
       headRevisionNum: 2
-      dataHash: dbe256292dabbf211235b6c6fb3ac4ca412706f5d55b64cb9463ec1b61963818
-    - slug: statefulset-redis-redis-master
+      dataHash: "35a387f3ba356beb752a238b4934999e1b723164e5fbf3dab811e56b6e64cf71"
+    -
+      slug: "statefulset-redis-redis-master"
       headRevisionNum: 2
-      dataHash: 3adb61cafeee13c2abfe8527d683c61a86b81a2b5160ba3a69d286471c02b6b6
-    - slug: statefulset-redis-redis-replicas
+      dataHash: "f4597b4ad85cdd95a99b23da6048526f3522403a32964f3dfda6dcf28cd37329"
+    -
+      slug: "statefulset-redis-redis-replicas"
       headRevisionNum: 2
-      dataHash: b504190388bb1f5ea561238733a306f53714eba7d87b1d2d55d35f8f21b47708
+      dataHash: "5ed643d93dec84456baff34f55e76fb7552638dbf1284c9e1a5acf32d13f09fc"
   validations:
-    - function: vet-format
-      toolchain: Kubernetes/YAML
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
       hermetic: true
       idempotent: true
-      result: pass
+      result: "pass"
       scannedUnits: 14
       failedUnits: 0
-    - function: vet-placeholders
-      toolchain: Kubernetes/YAML
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
       hermetic: true
       idempotent: true
-      result: pass
+      result: "pass"
       scannedUnits: 14
       failedUnits: 0
-    - function: vet-merge-keys
-      toolchain: Kubernetes/YAML
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
       hermetic: true
       idempotent: true
-      result: pass
+      result: "pass"
       scannedUnits: 14
       failedUnits: 0
-  result: pass
+  result: "pass"
   limitations:
-    - This is a ConfigHub-native validation receipt, not a full external vulnerability scan.
-    - Production readiness still depends on policy disposition in the recipe scan and install gate.
-
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

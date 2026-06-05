@@ -148,20 +148,28 @@ Vault. Each work order now has golden clone, mutation, and check receipt targets
 under `receipts/<work-order>/`. These are explicit proof targets, not live
 execution receipts.
 
-2026-06-05 update: the first live derived-variant execution slice now exists
-for NGINX. `cub variant create` created `NGINX-prod-us-east` and
-`NGINX-customer-acme-prod` from the reviewed
-`helm-nginx-confighub-proof` base Space. The receipts prove clone/link
-preservation, same data-hash set as the reviewed base, production gates on all
-cloned Units, and no Helm re-render. The active ConfigHub context did not have
-the desired work-order targets, so these receipts intentionally stop before
-target binding and live apply:
+2026-06-05 update: the first live derived-variant execution slices now exist
+for NGINX and Redis. `cub variant create` created `NGINX-prod-us-east` and
+`NGINX-customer-acme-prod` from the reviewed `helm-nginx-confighub-proof` base
+Space, and `Redis-prod-us-east` and `Redis-staging-eu-west` from the reviewed
+`helm-redis-confighub-proof` base Space. The receipts prove clone/link
+preservation, same data-hash set as the reviewed base, production gates where
+the work order asks for them, and no Helm re-render. The active ConfigHub
+context did not have the desired work-order targets, so these receipts
+intentionally stop before target binding and live apply:
 
 ```text
 runs/derived-variant-execution/nginx-prod-us-east/variant-create-receipt.yaml
 runs/derived-variant-execution/nginx-customer-acme-prod/variant-create-receipt.yaml
+runs/derived-variant-execution/redis-prod-us-east/variant-create-receipt.yaml
+runs/derived-variant-execution/redis-staging-eu-west/variant-create-receipt.yaml
 npm run derived-variants:verify
 ```
+
+Redis's ConfigHub proof receipt was also refreshed through the common top-20
+ConfigHub proof lane. The Redis-specific verifier now checks the common
+`upload.kubernetesUnitCount` and `serverSideVariant.downstreamSpace` fields, so
+Redis no longer preserves the older receipt schema as a special case.
 
 The next step is to run selected `cub variant create` commands against the
 remaining reviewed Spaces and supplement the golden targets with live

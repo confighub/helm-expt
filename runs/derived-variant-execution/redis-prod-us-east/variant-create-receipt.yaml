@@ -1,0 +1,64 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DerivedVariantExecutionReceipt"
+metadata:
+  name: "redis-prod-us-east-derived-variant-20260605"
+spec:
+  run:
+    date: "2026-06-05"
+    context:
+      contextName: "honey-moon"
+      organization: "Cubby AI Inc"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "v0.1.71"
+      cubServerVersion: "v0.1.74"
+  source:
+    component: "Redis"
+    chart: "bitnami/redis"
+    chartVersion: "25.5.3"
+    base: "default"
+    sourceSpace: "helm-redis-confighub-proof"
+    sourceSpaceID: "6d4b51b7-dfb4-4a29-9f59-310adf3d38d8"
+    proofReceipt: "runs/redis-confighub-proof/latest/confighub-proof-receipt.yaml"
+    workOrder: "data/variant-goldens/derived-expansion-wave/work-orders.yaml#redis-prod-us-east"
+  create:
+    command: "cub variant create prod-us-east helm-redis-confighub-proof --environment Prod --region us-east --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review --allow-exists --wait --timeout 10m -o json"
+    result: "pass"
+    variant: "prod-us-east"
+    downstreamSpace: "Redis-prod-us-east"
+    downstreamSpaceID: "18b9f9fb-7c4f-41b1-b7a2-0e1a7267bc12"
+    environment: "Prod"
+    region: "us-east"
+  target:
+    desired: "redis-targets/prod-us-east"
+    bound: false
+    targetBoundUnitCount: 0
+    status: "target-omitted-in-current-context"
+    reason: "The desired work-order target is not present in the active ConfigHub context, so this receipt proves clone/link/gate intended state only."
+  clone:
+    unitCount: 15
+    upstreamLinkedUnitCount: 15
+    sourceDataHashCount: 15
+    downstreamDataHashCount: 15
+    sameDataHashSetAsSource: true
+  gates:
+    deleteGate: "production-review"
+    deleteGateUnitCount: 15
+    destroyGate: "production-review"
+    destroyGateUnitCount: 15
+  review:
+    sameInstallShape: true
+    noHelmRerender: true
+    changedScope:
+      - "Space.Labels.Variant"
+      - "Space.Labels.Environment"
+      - "Space.Labels.Region"
+      - "Unit.DeleteGates"
+      - "Unit.DestroyGates"
+    routeBackToInstaller:
+      - "switch to reuse-existing-secret"
+      - "change Redis architecture or replica layout"
+      - "change rendered Service, StatefulSet, or Secret shape"
+  liveApply:
+    result: "not-attempted"
+    reason: "No target was attached; this is a ConfigHub intended-state proof, not a live cluster deployment."
+  result: "pass"
