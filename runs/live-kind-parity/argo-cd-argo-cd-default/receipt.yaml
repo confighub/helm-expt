@@ -1,0 +1,207 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: argo-cd-argo-cd-9.5.15-default-kind-parity-20260606
+spec:
+  chart: argo-cd/argo-cd
+  version: 9.5.15
+  base: default
+  result: watch
+  observedAt: '2026-06-06T07:22:34Z'
+  package:
+    path: packages/argo-cd/argo-cd/9.5.15
+  recipe:
+    path: recipes/argo-cd/argo-cd/9.5.15
+  variantRevision: recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: helm-expt-kind-argocd-mq20zth8-1wvw-helm
+    installerCluster: helm-expt-kind-argocd-mq20zth8-1wvw-installer
+    namespace: argocd
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: helm-expt-kind-argocd-mq20zth8-1wvw-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "helm-expt-kind-argocd-mq20zth8-1wvw-helm" ...
+
+          Deleted nodes: ["helm-expt-kind-argocd-mq20zth8-1wvw-helm-control-plane"]'
+      - cluster: helm-expt-kind-argocd-mq20zth8-1wvw-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "helm-expt-kind-argocd-mq20zth8-1wvw-installer"
+          ...
+
+          Deleted nodes: ["helm-expt-kind-argocd-mq20zth8-1wvw-installer-control-plane"]'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install argo-cd argo-cd --repo https://argoproj.github.io/argo-helm
+        --version 9.5.15 --namespace argocd --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/argo-cd-argo-cd-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: argocd
+      manifestSHA256: e52ddef5e56e347a8959dd1e8591e116479bf8aa8682c83e3753fe7355a38cc0
+      objectCount: 49
+      liveHelmManifestSHA256: 66c97f6d90166727a1b3967db69013de088bbd59eaac797a53aa4972d76e3d93
+      liveHelmManifestObjectCount: 49
+      runtimeNamespaces: &id001
+      - argocd
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# argocd
+
+          deployment.apps/argo-cd-argocd-applicationset-controller   1/1   1     1     59s
+
+          deployment.apps/argo-cd-argocd-dex-server                  1/1   1     1     59s
+
+          deployment.apps/argo-cd-argocd-notifications-controller    1/1   1     1     59s
+
+          deployment.apps/argo-cd-argocd-redis                       1/1   1     1     59s
+
+          deployment.apps/argo-cd-argocd-repo-server                 1/1   1     1     59s
+
+          deployment.apps/argo-cd-argocd-server                      1/1   1     1     59s
+
+          statefulset.apps/argo-cd-argocd-application-controller   1/1   59s'
+        pods: '# argocd
+
+          argo-cd-argocd-application-controller-0                    1/1   Running   0     59s
+
+          argo-cd-argocd-applicationset-controller-d7b84547c-ngtps   1/1   Running   0     59s
+
+          argo-cd-argocd-dex-server-676f75f567-m852f                 1/1   Running   0     59s
+
+          argo-cd-argocd-notifications-controller-c6fb5b58f-9zb8h    1/1   Running   0     59s
+
+          argo-cd-argocd-redis-6d948d65cb-4hzmz                      1/1   Running   0     59s
+
+          argo-cd-argocd-repo-server-84d4bc7ddd-d7lpk                1/1   Running   0     59s
+
+          argo-cd-argocd-server-7b67f47f47-gd6n9                     1/1   Running   0     59s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: watch
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/argo-cd/argo-cd/9.5.15
+        --base default --work-dir /tmp/helm-expt-kind-parity-helm-expt-kind-argocd-mq20zth8-1wvw-argo-cd
+        --non-interactive --namespace argocd
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: argocd
+      manifestSHA256: 04a4399e45a80e73369dad4d7bb8e604c2cb836946dc565ed9aae211ba870439
+      objectCount: 50
+      manifestNamespaces:
+      - argocd
+      runtimeNamespaces: &id002
+      - argocd
+      runtime:
+        result: watch
+        namespaces: *id002
+        workloads: '# argocd
+
+          deployment.apps/argo-cd-argocd-applicationset-controller   1/1   1     1     4m56s
+
+          deployment.apps/argo-cd-argocd-dex-server                  0/1   1     0     4m56s
+
+          deployment.apps/argo-cd-argocd-notifications-controller    1/1   1     1     4m55s
+
+          deployment.apps/argo-cd-argocd-redis                       0/1   1     0     4m55s
+
+          deployment.apps/argo-cd-argocd-repo-server                 0/1   1     0     4m55s
+
+          deployment.apps/argo-cd-argocd-server                      0/1   1     0     4m55s
+
+          statefulset.apps/argo-cd-argocd-application-controller   0/1   4m54s'
+        pods: '# argocd
+
+          argo-cd-argocd-application-controller-0                    0/1   CreateContainerConfigError   0               4m54s
+
+          argo-cd-argocd-applicationset-controller-d7b84547c-88nsz   1/1   Running                      0               4m54s
+
+          argo-cd-argocd-dex-server-676f75f567-hhfzm                 0/1   Error                        5
+          (2m36s ago)   4m53s
+
+          argo-cd-argocd-notifications-controller-c6fb5b58f-z5bzn    1/1   Running                      0               4m54s
+
+          argo-cd-argocd-redis-6d948d65cb-t79vl                      0/1   CreateContainerConfigError   0               4m55s
+
+          argo-cd-argocd-repo-server-84d4bc7ddd-966mm                0/1   CreateContainerConfigError   0               4m54s
+
+          argo-cd-argocd-server-7b67f47f47-fssxd                     0/1   CreateContainerConfigError   0               4m54s'
+        notReady:
+        - namespace: argocd
+          pod: argo-cd-argocd-application-controller-0
+          ready: 0/1
+          status: CreateContainerConfigError
+        - namespace: argocd
+          pod: argo-cd-argocd-dex-server-676f75f567-hhfzm
+          ready: 0/1
+          status: Error
+        - namespace: argocd
+          pod: argo-cd-argocd-redis-6d948d65cb-t79vl
+          ready: 0/1
+          status: CreateContainerConfigError
+        - namespace: argocd
+          pod: argo-cd-argocd-repo-server-84d4bc7ddd-966mm
+          ready: 0/1
+          status: CreateContainerConfigError
+        - namespace: argocd
+          pod: argo-cd-argocd-server-7b67f47f47-fssxd
+          ready: 0/1
+          status: CreateContainerConfigError
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||argocd
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 49
+      installerObjectCount: 50
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||argocd
+      semanticDiffs: []
+      comparisonSHA256: 6c60ffd22c1944fecaf346a2a0eebba316b16acb2da1efc67c5b303490178783
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"argo-cd\" does not exist. Installing it now.\nNAME: argo-cd\n\
+      LAST DEPLOYED: Sat Jun  6 08:34:35 2026\nNAMESPACE: argocd\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nIn order\
+      \ to access the server UI you have the following options:\n\n1. kubectl port-forward\
+      \ service/argo-cd-argocd-server -n argocd 8080:443\n\n    and then open the\
+      \ browser on http://localhost:8080 and accept the certificate\n\n2. enable ingress\
+      \ in the values file `server.ingress.enabled` and either\n      - Add the annotation\
+      \ for ssl passthrough: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-1-ssl-passthrough\n\
+      \      - Set the `configs.params.\"server.insecure\"` in the values file and\
+      \ terminate SSL at your ingress: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-2-multiple-ingress-objects-and-hosts\n\
+      \n\nAfter reaching the UI the first time you can login with username: admin\
+      \ and the random password generated during the installation. You can f"
+  - name: cub-installer-apply-live
+    result: watch
+    detail: '# argocd
+
+      deployment.apps/argo-cd-argocd-applicationset-controller   1/1   1     1     4m56s
+
+      deployment.apps/argo-cd-argocd-dex-server                  0/1   1     0     4m56s
+
+      deployment.apps/argo-cd-argocd-notifications-controller    1/1   1     1     4m55s
+
+      deployment.apps/argo-cd-argocd-redis                       0/1   1     0     4m55s
+
+      deployment.apps/argo-cd-argocd-repo-server                 0/1   1     0     4m55s
+
+      deployment.apps/argo-cd-argocd-server                      0/1   1     0     4m55s
+
+      statefulset.apps/argo-cd-argocd-application-controller   0/1   4m54s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||argocd'] diffs=0

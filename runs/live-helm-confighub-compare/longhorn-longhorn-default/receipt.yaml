@@ -1,0 +1,48 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: longhorn-longhorn-1.11.2-default-live-parity-20260605
+spec:
+  chart: longhorn/longhorn
+  version: 1.11.2
+  base: default
+  result: blocked
+  observedAt: '2026-06-05T20:34:49Z'
+  package:
+    path: packages/longhorn/longhorn/1.11.2
+  recipe:
+    path: recipes/longhorn/longhorn/1.11.2
+  variantRevision: recipes/longhorn/longhorn/1.11.2/revisions/default/r001/variant-revision.yaml
+  run:
+    rig: helm-expt-parity-longhorn-mq1dut3m-10xv
+    kubeContext: kind-helm-expt-parity-longhorn-mq1dut3m-10xv
+    namespace: longhorn-system
+    legNamespaces:
+      regularHelm: longhorn-system-helm
+      configHubKubectlApply: longhorn-system-apply
+      configHubOciArgo: longhorn-system-oci
+    clusterLifecycle: cleanup-failed
+    cleanup:
+      command: cub lk down --name helm-expt-parity-longhorn-mq1dut3m-10xv
+      result: blocked
+      detail: 'Error: no lk-managed Space for "helm-expt-parity-longhorn-mq1dut3m-10xv"
+        in the current cub context (are you in the right context?). Pass --force to
+        delete the local kind cluster + kubeconfig anyway
+
+        Error: no lk-managed Space for "helm-expt-parity-longhorn-mq1dut3m-10xv" in
+        the current cub context (are you in the right context?). Pass --force to delete
+        the local kind cluster + kubeconfig anyway'
+  legs: {}
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||longhorn-system
+  checks:
+  - name: failure
+    result: blocked
+    detail: 'cub lk up failed: Error: kind create cluster: exit status 1
+
+      Error: kind create cluster: exit status 1'
+  failure:
+    message: 'cub lk up failed: Error: kind create cluster: exit status 1
+
+      Error: kind create cluster: exit status 1'

@@ -1,0 +1,242 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: jetstack-cert-manager-v1.20.2-crds-enabled-live-parity-20260605
+spec:
+  chart: jetstack/cert-manager
+  version: v1.20.2
+  base: crds-enabled
+  result: pass
+  observedAt: '2026-06-05T16:29:56Z'
+  package:
+    path: packages/jetstack/cert-manager/v1.20.2
+  recipe:
+    path: recipes/jetstack/cert-manager/v1.20.2
+  variantRevision: recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/variant-revision.yaml
+  run:
+    rig: helm-expt-parity-certmanager-mq153vzp-1pbp
+    kubeContext: kind-helm-expt-parity-certmanager-mq153vzp-1pbp
+    namespace: cert-manager
+    legNamespaces:
+      regularHelm: cert-manager-helm
+      configHubKubectlApply: cert-manager-apply
+      configHubOciArgo: cert-manager-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-certmanager-mq153vzp-1pbp
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-certmanager-mq153vzp-1pbp"...
+
+        Deleting cluster "helm-expt-parity-certmanager-mq153vzp-1pbp" ...
+
+        Deleted nodes: ["helm-expt-parity-certmanager-mq153vzp-1pbp-control-plane"]
+
+        Deleting Space "helm-expt-parity-certmanager-mq153vzp-1pbp-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install cert-manager cert-manager --repo https://charts.jetstack.io
+        --version v1.20.2 --namespace cert-manager-helm --create-namespace --values
+        /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jetstack-cert-manager-crds-enabled/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: e288b2413bd1919173bee6afcd823be61399f101cfe2cf61f8e0df56740fefe0
+      objectCount: 48
+      liveHelmManifestSHA256: 58a6e56fedcbfb7a2a94ba73a88fe830e908e458d26783eef0cac5a1b275085c
+      liveHelmManifestObjectCount: 48
+      namespace: cert-manager-helm
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/cert-manager              1/1   1     1     27s
+
+          deployment.apps/cert-manager-cainjector   1/1   1     1     27s
+
+          deployment.apps/cert-manager-webhook      1/1   1     1     27s'
+        pods: 'cert-manager-5957746d66-mmn4r              1/1   Running   0     27s
+
+          cert-manager-cainjector-567c6b47ff-8vv2q   1/1   Running   0     27s
+
+          cert-manager-webhook-7cc5c588cb-4q2qt      1/1   Running   0     27s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jetstack/cert-manager/v1.20.2
+        --base crds-enabled --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-certmanager-mq153vzp-1pbp-cert-manager
+        --non-interactive --namespace cert-manager-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 70b65ef11eb4f43895473ead5676147a5b3afb9c400c68a7c892960ada66ff93
+      objectCount: 49
+      namespace: cert-manager-apply
+      manifestNamespaces:
+      - cert-manager
+      - cert-manager-apply
+      - kube-system
+      runtimeNamespaces: &id001
+      - cert-manager
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# cert-manager
+
+          deployment.apps/cert-manager              1/1   1     1     11s
+
+          deployment.apps/cert-manager-cainjector   1/1   1     1     11s
+
+          deployment.apps/cert-manager-webhook      1/1   1     1     11s'
+        pods: '# cert-manager
+
+          cert-manager-5957746d66-2kfxs              1/1   Running   0     10s
+
+          cert-manager-cainjector-567c6b47ff-wknj5   1/1   Running   0     10s
+
+          cert-manager-webhook-7cc5c588cb-rcmvr      1/1   Running   0     10s'
+        notReady: []
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-certmanager-mq153vzp-1pbp-cert-manager
+      controller: Argo CD OCI
+      app: cert-manager-parity
+      manifestSHA256: c7f6a2fd8f665e3cd1f768f1e9daa50f463a361e7c9b93aaee653fe461ff423d
+      objectCount: 49
+      namespace: cert-manager-oci
+      manifestNamespaces:
+      - cert-manager
+      - cert-manager-oci
+      - kube-system
+      runtimeNamespaces: &id002
+      - cert-manager
+      ociRevision: sha256:86515646923e6772202665ce1d418852373d842f86935afc8178ae2f6bec4003
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# cert-manager
+
+          deployment.apps/cert-manager              1/1   1     1     3m32s
+
+          deployment.apps/cert-manager-cainjector   1/1   1     1     3m32s
+
+          deployment.apps/cert-manager-webhook      1/1   1     1     3m32s'
+        pods: '# cert-manager
+
+          cert-manager-5957746d66-2kfxs              1/1   Running   0     3m31s
+
+          cert-manager-cainjector-567c6b47ff-wknj5   1/1   Running   0     3m31s
+
+          cert-manager-webhook-7cc5c588cb-rcmvr      1/1   Running   0     3m31s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||cert-manager
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 48
+      configHubObjectCount: 49
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||cert-manager
+      semanticDiffs: []
+      comparisonSHA256: c9c63ab13aaa52bb2e0a8493bdcd5f19a4ad64f691147895aa0a2a1f793cf741
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 48
+      configHubObjectCount: 49
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||cert-manager
+      semanticDiffs: []
+      comparisonSHA256: c9c63ab13aaa52bb2e0a8493bdcd5f19a4ad64f691147895aa0a2a1f793cf741
+  checks:
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-certmanager-mq153vzp-1pbp\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-certmanager-mq153vzp-1pbp.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-certmanager-mq153vzp-1pbp\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-certmanager-mq153vzp-1pbp\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-certmanager-mq153vzp-1pbp\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-certmanager-mq153vzp-1pbp.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
+      Installing Argo C"
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "cert-manager" does not exist. Installing it now.
+
+      NAME: cert-manager
+
+      LAST DEPLOYED: Fri Jun  5 17:31:25 2026
+
+      NAMESPACE: cert-manager-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None
+
+      NOTES:
+
+      cert-manager v1.20.2 has been deployed successfully!
+
+
+      In order to begin issuing certificates, you will need to set up a ClusterIssuer
+
+      or Issuer resource (for example, by creating a ''letsencrypt-staging'' issuer).
+
+
+      More information on the different types of issuers and how to configure them
+
+      can be found in our documentation:
+
+
+      https://cert-manager.io/docs/configuration/
+
+
+      For information on how to configure cert-manager to automatically provision
+
+      Certificates for Ingress resources, take a look at the `ingress-shim`
+
+      documentation:
+
+
+      https://cert-manager.io/docs/usage/ingress/
+
+
+      For information on how to configure cert-manager to automatically provision
+
+      Certificates for Gateway API resources, take a look at the `gateway resource`
+
+      documentation:
+
+
+      https://cert-manager.io'
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# cert-manager
+
+      deployment.apps/cert-manager              1/1   1     1     11s
+
+      deployment.apps/cert-manager-cainjector   1/1   1     1     11s
+
+      deployment.apps/cert-manager-webhook      1/1   1     1     11s'
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||cert-manager'] diffs=0

@@ -1,0 +1,126 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: bitnami-mongodb-19.0.7-generated-passwords-kind-parity-20260606
+spec:
+  chart: bitnami/mongodb
+  version: 19.0.7
+  base: generated-passwords
+  result: pass
+  observedAt: '2026-06-06T08:27:39Z'
+  package:
+    path: packages/bitnami/mongodb/19.0.7
+  recipe:
+    path: recipes/bitnami/mongodb/19.0.7
+  variantRevision: recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-mongod-a4436-bib6-helm
+    installerCluster: hx-mongod-a4436-bib6-installer
+    namespace: mongodb
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-mongod-a4436-bib6-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-mongod-a4436-bib6-helm" ...
+
+          Deleted nodes: ["hx-mongod-a4436-bib6-helm-control-plane"]'
+      - cluster: hx-mongod-a4436-bib6-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-mongod-a4436-bib6-installer" ...
+
+          Deleted nodes: ["hx-mongod-a4436-bib6-installer-control-plane"]'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install mongodb mongodb --repo https://charts.bitnami.com/bitnami
+        --version 19.0.7 --namespace mongodb --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-mongodb-generated-passwords/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: mongodb
+      manifestSHA256: 187a27077a6c1924669172528109b878e4d9c7759689a2f52826be8dfbc30f1e
+      objectCount: 8
+      liveHelmManifestSHA256: 066bf82020cb872f13706ac5b7a5f72bd1764f3fa1218aaaecc0f02788d49f35
+      liveHelmManifestObjectCount: 8
+      runtimeNamespaces: &id001
+      - mongodb
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# mongodb
+
+          deployment.apps/mongodb   1/1   1     1     70s'
+        pods: '# mongodb
+
+          mongodb-84f445cd86-tct8j   1/1   Running   0     70s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/mongodb/19.0.7
+        --base generated-passwords --work-dir /tmp/helm-expt-kind-parity-hx-mongod-a4436-bib6-mongodb
+        --non-interactive --namespace mongodb
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: mongodb
+      manifestSHA256: e5800a8de79964e1609746296ff967c7cd309ec601ff0866b976115d9434dfa6
+      objectCount: 9
+      manifestNamespaces:
+      - mongodb
+      runtimeNamespaces: &id002
+      - mongodb
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# mongodb
+
+          deployment.apps/mongodb   1/1   1     1     60s'
+        pods: '# mongodb
+
+          mongodb-84f445cd86-pwmsh   1/1   Running   0     60s'
+        notReady: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||mongodb
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 8
+      installerObjectCount: 9
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||mongodb
+      semanticDiffs: []
+      comparisonSHA256: 5cb56fb3a1c69fae59ae3cf62520452fee05586a28aefab8f8d78d16664f97b3
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"mongodb\" does not exist. Installing it now.\nNAME: mongodb\n\
+      LAST DEPLOYED: Sat Jun  6 09:28:39 2026\nNAMESPACE: mongodb\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nCHART\
+      \ NAME: mongodb\nCHART VERSION: 19.0.7\nAPP VERSION: 8.3.2\n\n\u26A0 WARNING:\
+      \ Since August 28th, 2025, only a limited subset of images/charts are available\
+      \ for free.\n    Subscribe to Bitnami Secure Images to receive continued support\
+      \ and security updates.\n    More info at https://bitnami.com and https://github.com/bitnami/containers/issues/83267\n\
+      \n** Please be patient while the chart is being deployed **\n\nMongoDB&reg;\
+      \ can be accessed on the following DNS name(s) and ports from within your cluster:\n\
+      \n    mongodb.mongodb.svc.cluster.local\n\nTo get the root password run:\n\n\
+      \    export MONGODB_ROOT_PASSWORD=$(kubectl get secret --namespace mongodb mongodb\
+      \ -o jsonpath=\"{.data.mongodb-root-password}\" | base64 -d)\n\nTo connect to\
+      \ your database, create a MongoDB&reg; client container:\n\n    kubectl r"
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# mongodb
+
+      deployment.apps/mongodb   1/1   1     1     60s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||mongodb'] diffs=0

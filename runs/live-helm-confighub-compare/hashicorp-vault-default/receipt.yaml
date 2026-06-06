@@ -1,0 +1,52 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: hashicorp-vault-0.32.0-default-live-parity-20260605
+spec:
+  chart: hashicorp/vault
+  version: 0.32.0
+  base: default
+  result: blocked
+  observedAt: '2026-06-05T20:33:05Z'
+  package:
+    path: packages/hashicorp/vault/0.32.0
+  recipe:
+    path: recipes/hashicorp/vault/0.32.0
+  variantRevision: recipes/hashicorp/vault/0.32.0/revisions/default/r001/variant-revision.yaml
+  run:
+    rig: helm-expt-parity-vault-mq1dskzc-10px
+    kubeContext: kind-helm-expt-parity-vault-mq1dskzc-10px
+    namespace: vault
+    legNamespaces:
+      regularHelm: vault-helm
+      configHubKubectlApply: vault-apply
+      configHubOciArgo: vault-oci
+    clusterLifecycle: cleanup-failed
+    cleanup:
+      command: cub lk down --name helm-expt-parity-vault-mq1dskzc-10px
+      result: blocked
+      detail: 'Error: no lk-managed Space for "helm-expt-parity-vault-mq1dskzc-10px"
+        in the current cub context (are you in the right context?). Pass --force to
+        delete the local kind cluster + kubeconfig anyway
+
+        Error: no lk-managed Space for "helm-expt-parity-vault-mq1dskzc-10px" in the
+        current cub context (are you in the right context?). Pass --force to delete
+        the local kind cluster + kubeconfig anyway'
+  legs: {}
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||vault
+  checks:
+  - name: failure
+    result: blocked
+    detail: 'cub lk up failed: Error: wait for argocd-server: kubectl wait --for=condition=Available
+      --timeout=5m deployment/argocd-server -n argocd: exit status 1
+
+      Error: wait for argocd-server: kubectl wait --for=condition=Available --timeout=5m
+      deployment/argocd-server -n argocd: exit status 1'
+  failure:
+    message: 'cub lk up failed: Error: wait for argocd-server: kubectl wait --for=condition=Available
+      --timeout=5m deployment/argocd-server -n argocd: exit status 1
+
+      Error: wait for argocd-server: kubectl wait --for=condition=Available --timeout=5m
+      deployment/argocd-server -n argocd: exit status 1'

@@ -1,0 +1,169 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: prometheus-community-prometheus-29.8.0-server-only-ephemeral-live-parity-20260605
+spec:
+  chart: prometheus-community/prometheus
+  version: 29.8.0
+  base: server-only-ephemeral
+  result: pass
+  observedAt: '2026-06-05T16:48:59Z'
+  package:
+    path: packages/prometheus-community/prometheus/29.8.0
+  recipe:
+    path: recipes/prometheus-community/prometheus/29.8.0
+  variantRevision: recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/variant-revision.yaml
+  run:
+    rig: helm-expt-parity-prometheus-mq15se5h-1see
+    kubeContext: kind-helm-expt-parity-prometheus-mq15se5h-1see
+    namespace: monitoring
+    legNamespaces:
+      regularHelm: monitoring-helm
+      configHubKubectlApply: monitoring-apply
+      configHubOciArgo: monitoring-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-prometheus-mq15se5h-1see
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-prometheus-mq15se5h-1see"...
+
+        Deleting cluster "helm-expt-parity-prometheus-mq15se5h-1see" ...
+
+        Deleted nodes: ["helm-expt-parity-prometheus-mq15se5h-1see-control-plane"]
+
+        Deleting Space "helm-expt-parity-prometheus-mq15se5h-1see-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install prometheus prometheus --repo https://prometheus-community.github.io/helm-charts
+        --version 29.8.0 --namespace monitoring-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-server-only-ephemeral/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 174e1729753ef551fa059f86111cfd87653ea2380dc879238cf5cc4987e78812
+      objectCount: 6
+      liveHelmManifestSHA256: ab05380ccad2a9c191e58a2232dd153c8245a13ba9d26628b318868521c333b0
+      liveHelmManifestObjectCount: 6
+      namespace: monitoring-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/prometheus-server   1/1   1     1     56s
+        pods: prometheus-server-766fbf4f7-z272b   2/2   Running   0     56s
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus/29.8.0
+        --base server-only-ephemeral --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheus-mq15se5h-1see-prometheus
+        --non-interactive --namespace monitoring-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 23751dd0c9afc6af2d74de3b71a14a90393e427db90ae27b754d44d469c7e033
+      objectCount: 7
+      namespace: monitoring-apply
+      manifestNamespaces:
+      - monitoring-apply
+      runtimeNamespaces: &id001
+      - monitoring-apply
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# monitoring-apply
+
+          deployment.apps/prometheus-server   1/1   1     1     40s'
+        pods: '# monitoring-apply
+
+          prometheus-server-766fbf4f7-9nbnv   2/2   Running   0     40s'
+        notReady: []
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-prometheus-mq15se5h-1see-prometheus
+      controller: Argo CD OCI
+      app: prometheus-parity
+      manifestSHA256: 9dcae590c06333daddb5d74270d421196837a79e93061cdd08b3f1bab056c9d4
+      objectCount: 7
+      namespace: monitoring-oci
+      manifestNamespaces:
+      - monitoring-oci
+      runtimeNamespaces: &id002
+      - monitoring-oci
+      ociRevision: sha256:e87b0484d92aaa11b97ec7f90f58fca718174255fe3f5dd26025aa9498933c59
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# monitoring-oci
+
+          deployment.apps/prometheus-server   1/1   1     1     3m49s'
+        pods: '# monitoring-oci
+
+          prometheus-server-766fbf4f7-79wfj   2/2   Running   0     3m8s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||monitoring
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 6
+      configHubObjectCount: 7
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||monitoring
+      semanticDiffs: []
+      comparisonSHA256: ca460f8fdf5af8446152ce8783dacc1e44e13a7b336bad6e16f01f618b01ca50
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 6
+      configHubObjectCount: 7
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||monitoring
+      semanticDiffs: []
+      comparisonSHA256: ca460f8fdf5af8446152ce8783dacc1e44e13a7b336bad6e16f01f618b01ca50
+  checks:
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-prometheus-mq15se5h-1see\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-prometheus-mq15se5h-1see.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-prometheus-mq15se5h-1see\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-prometheus-mq15se5h-1see\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-prometheus-mq15se5h-1see\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-prometheus-mq15se5h-1see.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
+      \ \U0001F642\nInstalling Argo C"
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"prometheus\" does not exist. Installing it now.\nNAME: prometheus\n\
+      LAST DEPLOYED: Fri Jun  5 17:50:36 2026\nNAMESPACE: monitoring-helm\nSTATUS:\
+      \ deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n\
+      The Prometheus server can be accessed via port 80 on the following DNS name\
+      \ from within your cluster:\nprometheus-server.monitoring-helm.svc.cluster.local\n\
+      \n\nGet the Prometheus server URL by running these commands in the same shell:\n\
+      \  export POD_NAME=$(kubectl get pods --namespace monitoring-helm -l \"app.kubernetes.io/name=prometheus,app.kubernetes.io/instance=prometheus\"\
+      \ -o jsonpath=\"{.items[0].metadata.name}\")\n  kubectl --namespace monitoring-helm\
+      \ port-forward $POD_NAME 9090\n#################################################################################\n\
+      ######   WARNING: Persistence is disabled!!! You will lose your data when  \
+      \ #####\n######            the Server pod is terminated.                   \
+      \          #####\n###################################################"
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# monitoring-apply
+
+      deployment.apps/prometheus-server   1/1   1     1     40s'
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 260s
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||monitoring'] diffs=0

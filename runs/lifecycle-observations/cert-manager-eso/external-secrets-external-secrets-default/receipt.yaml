@@ -1,0 +1,106 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "LifecycleObservationReceipt"
+metadata:
+  name: "external-secrets-external-secrets-default-lifecycle"
+spec:
+  chart: "external-secrets/external-secrets"
+  version: "2.5.0"
+  base: "default"
+  result: "pass"
+  observedAt: "2026-06-06T21:15:36Z"
+  package:
+    path: "packages/external-secrets/external-secrets/2.5.0"
+  recipe:
+    path: "recipes/external-secrets/external-secrets/2.5.0"
+  variantRevision: "recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/variant-revision.yaml"
+  renderedObjectCount: 42
+  lifecycleModel:
+    crdPolicy: "crds-rendered-by-base-variant"
+    hookPolicy: "no-helm-hook"
+    controllerOwnedFields:
+      - "webhook Secret certificate data"
+      - "admission webhook caBundle"
+  controllerOwnedFields:
+    webhookSecretDataKeys:
+      - "ca.crt"
+      - "ca.key"
+      - "tls.crt"
+      - "tls.key"
+  run:
+    mode: "single-kind-cluster-cub-installer-lifecycle-observation"
+    cluster: "hx-life-external-s-default-0df2b-r3ag"
+    namespace: "external-secrets"
+    cleanup:
+      result: "pass"
+      detail: "Deleting cluster \"hx-life-external-s-default-0df2b-r3ag\" ...\nDeleted nodes: [\"hx-life-external-s-default-0df2b-r3ag-control-plane\"]"
+  checks:
+    -
+      name: "kind-create"
+      result: "pass"
+      detail: "created fresh kind cluster"
+    -
+      name: "cub-installer-setup"
+      result: "pass"
+      detail: "rendered package to /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-lifecycle-hx-life-external-s-default-0df2b-r3ag"
+    -
+      name: "kubectl-apply"
+      result: "pass"
+      detail: "applied cub installer output"
+    -
+      name: "deployment-ready:external-secrets"
+      result: "pass"
+      detail: "rollout complete"
+    -
+      name: "deployment-ready:external-secrets-cert-controller"
+      result: "pass"
+      detail: "rollout complete"
+    -
+      name: "deployment-ready:external-secrets-webhook"
+      result: "pass"
+      detail: "rollout complete"
+    -
+      name: "crds-established"
+      result: "pass"
+      detail: "23 CRDs established"
+    -
+      name: "webhook-ca-bundle:secretstore-validate"
+      result: "pass"
+      detail: "all webhook clientConfig.caBundle fields are non-empty"
+    -
+      name: "webhook-ca-bundle:externalsecret-validate"
+      result: "pass"
+      detail: "all webhook clientConfig.caBundle fields are non-empty"
+    -
+      name: "webhook-secret-data:external-secrets-webhook"
+      result: "pass"
+      detail: "Secret data keys: ca.crt,ca.key,tls.crt,tls.key"
+    -
+      name: "server-dry-run-api-object"
+      result: "pass"
+      detail: "SecretStore/lifecycle-check accepted by server dry-run"
+  renderedCrds:
+    count: 23
+    names:
+      - "acraccesstokens.generators.external-secrets.io"
+      - "cloudsmithaccesstokens.generators.external-secrets.io"
+      - "clusterexternalsecrets.external-secrets.io"
+      - "clustergenerators.generators.external-secrets.io"
+      - "clusterpushsecrets.external-secrets.io"
+      - "clustersecretstores.external-secrets.io"
+      - "ecrauthorizationtokens.generators.external-secrets.io"
+      - "externalsecrets.external-secrets.io"
+      - "fakes.generators.external-secrets.io"
+      - "gcraccesstokens.generators.external-secrets.io"
+      - "generatorstates.generators.external-secrets.io"
+      - "githubaccesstokens.generators.external-secrets.io"
+      - "grafanas.generators.external-secrets.io"
+      - "mfas.generators.external-secrets.io"
+      - "passwords.generators.external-secrets.io"
+      - "pushsecrets.external-secrets.io"
+      - "quayaccesstokens.generators.external-secrets.io"
+      - "secretstores.external-secrets.io"
+      - "sshkeys.generators.external-secrets.io"
+      - "stssessiontokens.generators.external-secrets.io"
+      - "uuids.generators.external-secrets.io"
+      - "vaultdynamicsecrets.generators.external-secrets.io"
+      - "webhooks.generators.external-secrets.io"

@@ -1,0 +1,185 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-sync-secret-rotation-kind-parity-20260606
+spec:
+  chart: secrets-store-csi-driver/secrets-store-csi-driver
+  version: 1.6.0
+  base: sync-secret-rotation
+  result: pass
+  observedAt: '2026-06-06T12:50:43Z'
+  package:
+    path: packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0
+  recipe:
+    path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0
+  variantRevision: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-secret-81724-ptjf-helm
+    installerCluster: hx-secret-81724-ptjf-installer
+    namespace: kube-system
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-secret-81724-ptjf-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-secret-81724-ptjf-helm" ...
+
+          Deleted nodes: ["hx-secret-81724-ptjf-helm-control-plane"]'
+      - cluster: hx-secret-81724-ptjf-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-secret-81724-ptjf-installer" ...
+
+          Deleted nodes: ["hx-secret-81724-ptjf-installer-control-plane"]'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install secrets-store-csi-driver secrets-store-csi-driver
+        --repo https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts --version
+        1.6.0 --namespace kube-system --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/secrets-store-csi-driver-secrets-store-csi-driver-sync-secret-rotation/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: kube-system
+      manifestSHA256: 3667c16d411f773ef20e51c9980d484eb770c1173092878f1b018f5b4377a182
+      objectCount: 12
+      liveHelmManifestSHA256: 56b8462329e96035aa176043ebacb5ec697490d140c5018c40f7f346eef27d24
+      liveHelmManifestObjectCount: 10
+      runtimeNamespaces: &id001
+      - kube-system
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# kube-system
+
+          deployment.apps/coredns   2/2   2     2     71s
+
+          daemonset.apps/kindnet                    1     1     1     1     1     kubernetes.io/os=linux   70s
+
+          daemonset.apps/kube-proxy                 1     1     1     1     1     kubernetes.io/os=linux   71s
+
+          daemonset.apps/secrets-store-csi-driver   1     1     1     1     1     kubernetes.io/os=linux   18s'
+        pods: '# kube-system
+
+          coredns-7d764666f9-8x7mv                                          1/1   Running   0     64s
+
+          coredns-7d764666f9-fbjkg                                          1/1   Running   0     64s
+
+          etcd-hx-secret-81724-ptjf-helm-control-plane                      1/1   Running   0     71s
+
+          kindnet-ljpwv                                                     1/1   Running   0     64s
+
+          kube-apiserver-hx-secret-81724-ptjf-helm-control-plane            1/1   Running   0     71s
+
+          kube-controller-manager-hx-secret-81724-ptjf-helm-control-plane   1/1   Running   0     71s
+
+          kube-proxy-r7cx8                                                  1/1   Running   0     64s
+
+          kube-scheduler-hx-secret-81724-ptjf-helm-control-plane            1/1   Running   0     71s
+
+          secrets-store-csi-driver-qsbft                                    3/3   Running   0     18s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0
+        --base sync-secret-rotation --work-dir /tmp/helm-expt-kind-parity-hx-secret-81724-ptjf-secrets-store-csi-driver
+        --non-interactive --namespace kube-system
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: kube-system
+      manifestSHA256: 9f1a8a4bb1386e829e943c2ac921949570cfcac5c83ecf140e53402950b0c96c
+      objectCount: 13
+      manifestNamespaces:
+      - kube-system
+      runtimeNamespaces: &id002
+      - kube-system
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# kube-system
+
+          deployment.apps/coredns   2/2   2     2     68s
+
+          daemonset.apps/kindnet                    1     1     1     1     1     kubernetes.io/os=linux   67s
+
+          daemonset.apps/kube-proxy                 1     1     1     1     1     kubernetes.io/os=linux   68s
+
+          daemonset.apps/secrets-store-csi-driver   1     1     1     1     1     kubernetes.io/os=linux   20s'
+        pods: '# kube-system
+
+          coredns-7d764666f9-c4gqd                                               1/1   Running   0     62s
+
+          coredns-7d764666f9-l2bqx                                               1/1   Running   0     62s
+
+          etcd-hx-secret-81724-ptjf-installer-control-plane                      1/1   Running   0     70s
+
+          kindnet-vkk45                                                          1/1   Running   0     62s
+
+          kube-apiserver-hx-secret-81724-ptjf-installer-control-plane            1/1   Running   0     70s
+
+          kube-controller-manager-hx-secret-81724-ptjf-installer-control-plane   1/1   Running   0     69s
+
+          kube-proxy-5gs5c                                                       1/1   Running   0     62s
+
+          kube-scheduler-hx-secret-81724-ptjf-installer-control-plane            1/1   Running   0     69s
+
+          secrets-store-csi-driver-vjxjk                                         3/3   Running   0     20s'
+        notReady: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||kube-system
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 12
+      installerObjectCount: 13
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||kube-system
+      semanticDiffs: []
+      comparisonSHA256: d7d8f2070f925cc04d15340cdeb3f8408ddab050974b0a3f3627d942ae966b01
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: staged=0
+  - name: target-facts-installer
+    result: pass
+    detail: staged=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"secrets-store-csi-driver\" does not exist. Installing it now.\n\
+      NAME: secrets-store-csi-driver\nLAST DEPLOYED: Sat Jun  6 13:51:33 2026\nNAMESPACE:\
+      \ kube-system\nSTATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\n\
+      TEST SUITE: None\nNOTES:\nThe Secrets Store CSI Driver is getting deployed to\
+      \ your cluster.\n\nTo verify that Secrets Store CSI Driver has started, run:\n\
+      \n  kubectl --namespace=kube-system get pods -l \"app=secrets-store-csi-driver\"\
+      \n\nNow you can follow these steps https://secrets-store-csi-driver.sigs.k8s.io/getting-started/usage.html\n\
+      to create a SecretProviderClass resource, and a deployment using the SecretProviderClass."
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# kube-system
+
+      deployment.apps/coredns   2/2   2     2     68s
+
+      daemonset.apps/kindnet                    1     1     1     1     1     kubernetes.io/os=linux   67s
+
+      daemonset.apps/kube-proxy                 1     1     1     1     1     kubernetes.io/os=linux   68s
+
+      daemonset.apps/secrets-store-csi-driver   1     1     1     1     1     kubernetes.io/os=linux   20s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||kube-system'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []

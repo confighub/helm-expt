@@ -1,0 +1,125 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: prometheus-community-prometheus-29.8.0-server-only-ephemeral-kind-parity-20260606
+spec:
+  chart: prometheus-community/prometheus
+  version: 29.8.0
+  base: server-only-ephemeral
+  result: pass
+  observedAt: '2026-06-06T08:15:57Z'
+  package:
+    path: packages/prometheus-community/prometheus/29.8.0
+  recipe:
+    path: recipes/prometheus-community/prometheus/29.8.0
+  variantRevision: recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-promet-c7e13-whag-helm
+    installerCluster: hx-promet-c7e13-whag-installer
+    namespace: monitoring
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-promet-c7e13-whag-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-promet-c7e13-whag-helm" ...
+
+          Deleted nodes: ["hx-promet-c7e13-whag-helm-control-plane"]'
+      - cluster: hx-promet-c7e13-whag-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-promet-c7e13-whag-installer" ...
+
+          Deleted nodes: ["hx-promet-c7e13-whag-installer-control-plane"]'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install prometheus prometheus --repo https://prometheus-community.github.io/helm-charts
+        --version 29.8.0 --namespace monitoring --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/prometheus-community-prometheus-server-only-ephemeral/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: monitoring
+      manifestSHA256: 174e1729753ef551fa059f86111cfd87653ea2380dc879238cf5cc4987e78812
+      objectCount: 6
+      liveHelmManifestSHA256: 174e1729753ef551fa059f86111cfd87653ea2380dc879238cf5cc4987e78812
+      liveHelmManifestObjectCount: 6
+      runtimeNamespaces: &id001
+      - monitoring
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# monitoring
+
+          deployment.apps/prometheus-server   1/1   1     1     54s'
+        pods: '# monitoring
+
+          prometheus-server-766fbf4f7-pxgnr   2/2   Running   0     54s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus/29.8.0
+        --base server-only-ephemeral --work-dir /tmp/helm-expt-kind-parity-hx-promet-c7e13-whag-prometheus
+        --non-interactive --namespace monitoring
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: monitoring
+      manifestSHA256: 31ba9464f8da744ef7e1ee724009fdf63241723e1ced0dba04c76ee2947bcd2d
+      objectCount: 7
+      manifestNamespaces:
+      - monitoring
+      runtimeNamespaces: &id002
+      - monitoring
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# monitoring
+
+          deployment.apps/prometheus-server   1/1   1     1     61s'
+        pods: '# monitoring
+
+          prometheus-server-766fbf4f7-wphcr   2/2   Running   0     61s'
+        notReady: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||monitoring
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 6
+      installerObjectCount: 7
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||monitoring
+      semanticDiffs: []
+      comparisonSHA256: ca460f8fdf5af8446152ce8783dacc1e44e13a7b336bad6e16f01f618b01ca50
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"prometheus\" does not exist. Installing it now.\nNAME: prometheus\n\
+      LAST DEPLOYED: Sat Jun  6 09:16:47 2026\nNAMESPACE: monitoring\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nThe Prometheus\
+      \ server can be accessed via port 80 on the following DNS name from within your\
+      \ cluster:\nprometheus-server.monitoring.svc.cluster.local\n\n\nGet the Prometheus\
+      \ server URL by running these commands in the same shell:\n  export POD_NAME=$(kubectl\
+      \ get pods --namespace monitoring -l \"app.kubernetes.io/name=prometheus,app.kubernetes.io/instance=prometheus\"\
+      \ -o jsonpath=\"{.items[0].metadata.name}\")\n  kubectl --namespace monitoring\
+      \ port-forward $POD_NAME 9090\n#################################################################################\n\
+      ######   WARNING: Persistence is disabled!!! You will lose your data when  \
+      \ #####\n######            the Server pod is terminated.                   \
+      \          #####\n#######################################################################"
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# monitoring
+
+      deployment.apps/prometheus-server   1/1   1     1     61s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||monitoring'] diffs=0

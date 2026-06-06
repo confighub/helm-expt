@@ -1,0 +1,80 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "LifecycleObservationReceipt"
+metadata:
+  name: "jetstack-cert-manager-crds-enabled-lifecycle"
+spec:
+  chart: "jetstack/cert-manager"
+  version: "v1.20.2"
+  base: "crds-enabled"
+  result: "pass"
+  observedAt: "2026-06-06T21:14:53Z"
+  package:
+    path: "packages/jetstack/cert-manager/v1.20.2"
+  recipe:
+    path: "recipes/jetstack/cert-manager/v1.20.2"
+  variantRevision: "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/variant-revision.yaml"
+  renderedObjectCount: 48
+  lifecycleModel:
+    crdPolicy: "crds-rendered-by-base-variant"
+    hookPolicy: "startupapicheck-becomes-post-apply-api-dry-run"
+    controllerOwnedFields:
+      - "admission webhook caBundle"
+  controllerOwnedFields:
+    {}
+  run:
+    mode: "single-kind-cluster-cub-installer-lifecycle-observation"
+    cluster: "hx-life-jetstack-c-crds-enabl-e9902-q6p6"
+    namespace: "cert-manager"
+    cleanup:
+      result: "pass"
+      detail: "Deleting cluster \"hx-life-jetstack-c-crds-enabl-e9902-q6p6\" ...\nDeleted nodes: [\"hx-life-jetstack-c-crds-enabl-e9902-q6p6-control-plane\"]"
+  checks:
+    -
+      name: "kind-create"
+      result: "pass"
+      detail: "created fresh kind cluster"
+    -
+      name: "cub-installer-setup"
+      result: "pass"
+      detail: "rendered package to /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-lifecycle-hx-life-jetstack-c-crds-enabl-e9902-q6p6"
+    -
+      name: "kubectl-apply"
+      result: "pass"
+      detail: "applied cub installer output"
+    -
+      name: "deployment-ready:cert-manager"
+      result: "pass"
+      detail: "rollout complete"
+    -
+      name: "deployment-ready:cert-manager-cainjector"
+      result: "pass"
+      detail: "rollout complete"
+    -
+      name: "deployment-ready:cert-manager-webhook"
+      result: "pass"
+      detail: "rollout complete"
+    -
+      name: "crds-established"
+      result: "pass"
+      detail: "6 CRDs established"
+    -
+      name: "webhook-ca-bundle:cert-manager-webhook"
+      result: "pass"
+      detail: "all webhook clientConfig.caBundle fields are non-empty"
+    -
+      name: "webhook-ca-bundle:cert-manager-webhook"
+      result: "pass"
+      detail: "all webhook clientConfig.caBundle fields are non-empty"
+    -
+      name: "server-dry-run-api-object"
+      result: "pass"
+      detail: "Issuer/lifecycle-check accepted by server dry-run"
+  renderedCrds:
+    count: 6
+    names:
+      - "certificaterequests.cert-manager.io"
+      - "certificates.cert-manager.io"
+      - "challenges.acme.cert-manager.io"
+      - "clusterissuers.cert-manager.io"
+      - "issuers.cert-manager.io"
+      - "orders.acme.cert-manager.io"

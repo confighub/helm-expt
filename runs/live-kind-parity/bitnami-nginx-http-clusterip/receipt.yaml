@@ -1,0 +1,126 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: bitnami-nginx-24.0.2-http-clusterip-kind-parity-20260606
+spec:
+  chart: bitnami/nginx
+  version: 24.0.2
+  base: http-clusterip
+  result: pass
+  observedAt: '2026-06-06T07:42:23Z'
+  package:
+    path: packages/bitnami/nginx/24.0.2
+  recipe:
+    path: recipes/bitnami/nginx/24.0.2
+  variantRevision: recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: helm-expt-kind-nginx-mq21paqe-u2-helm
+    installerCluster: helm-expt-kind-nginx-mq21paqe-u2-installer
+    namespace: nginx
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: helm-expt-kind-nginx-mq21paqe-u2-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "helm-expt-kind-nginx-mq21paqe-u2-helm" ...
+
+          Deleted nodes: ["helm-expt-kind-nginx-mq21paqe-u2-helm-control-plane"]'
+      - cluster: helm-expt-kind-nginx-mq21paqe-u2-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "helm-expt-kind-nginx-mq21paqe-u2-installer" ...
+
+          Deleted nodes: ["helm-expt-kind-nginx-mq21paqe-u2-installer-control-plane"]'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install nginx nginx --repo https://charts.bitnami.com/bitnami
+        --version 24.0.2 --namespace nginx --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-nginx-http-clusterip/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: nginx
+      manifestSHA256: a5f890172fd1bd8cf31870607c1a7874313c5746f1020d547af3dac017db4223
+      objectCount: 5
+      liveHelmManifestSHA256: 4568464b5b424149359449d5f100a2f95b9ee89606fcfb63bffaede542798bfc
+      liveHelmManifestObjectCount: 5
+      runtimeNamespaces: &id001
+      - nginx
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# nginx
+
+          deployment.apps/nginx   1/1   1     1     18s'
+        pods: '# nginx
+
+          nginx-76d8f8fd77-v5hws   1/1   Running   0     18s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/nginx/24.0.2
+        --base http-clusterip --work-dir /tmp/helm-expt-kind-parity-helm-expt-kind-nginx-mq21paqe-u2-nginx
+        --non-interactive --namespace nginx
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: nginx
+      manifestSHA256: 34c93cb0b2964879d312a480715bea07c2f7466bc4b4bbae8acc863db9c3045a
+      objectCount: 6
+      manifestNamespaces:
+      - nginx
+      runtimeNamespaces: &id002
+      - nginx
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# nginx
+
+          deployment.apps/nginx   1/1   1     1     20s'
+        pods: '# nginx
+
+          nginx-76d8f8fd77-kb5tt   1/1   Running   0     20s'
+        notReady: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||nginx
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 5
+      installerObjectCount: 6
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||nginx
+      semanticDiffs: []
+      comparisonSHA256: 627cc353c7a88de0f36167d4074aee4bced7ea0f009123a7c6ecf0a8b1b41f21
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"nginx\" does not exist. Installing it now.\nNAME: nginx\nLAST\
+      \ DEPLOYED: Sat Jun  6 08:43:22 2026\nNAMESPACE: nginx\nSTATUS: deployed\nREVISION:\
+      \ 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nCHART NAME: nginx\n\
+      CHART VERSION: 24.0.2\nAPP VERSION: 1.31.1\n\n\u26A0 WARNING: Since August 28th,\
+      \ 2025, only a limited subset of images/charts are available for free.\n   \
+      \ Subscribe to Bitnami Secure Images to receive continued support and security\
+      \ updates.\n    More info at https://bitnami.com and https://github.com/bitnami/containers/issues/83267\n\
+      \n** Please be patient while the chart is being deployed **\nNGINX can be accessed\
+      \ through the following DNS name from within your cluster:\n\n    nginx.nginx.svc.cluster.local\
+      \ (port 80)\n\nTo access NGINX from outside the cluster, follow the steps below:\n\
+      \n1. Get the NGINX URL by running these commands:\n\n    export SERVICE_PORT=$(kubectl\
+      \ get --namespace nginx -o jsonpath=\"{.spec.ports[0].port}\" services nginx)\n\
+      \    kubectl port-forward --namespace nginx svc/"
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# nginx
+
+      deployment.apps/nginx   1/1   1     1     20s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||nginx'] diffs=0

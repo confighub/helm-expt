@@ -1,0 +1,172 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-default-kind-parity-20260606
+spec:
+  chart: secrets-store-csi-driver/secrets-store-csi-driver
+  version: 1.6.0
+  base: default
+  result: pass
+  observedAt: '2026-06-06T08:15:57Z'
+  package:
+    path: packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0
+  recipe:
+    path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0
+  variantRevision: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-secret-2265f-whag-helm
+    installerCluster: hx-secret-2265f-whag-installer
+    namespace: kube-system
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-secret-2265f-whag-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-secret-2265f-whag-helm" ...
+
+          Deleted nodes: ["hx-secret-2265f-whag-helm-control-plane"]'
+      - cluster: hx-secret-2265f-whag-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-secret-2265f-whag-installer" ...
+
+          Deleted nodes: ["hx-secret-2265f-whag-installer-control-plane"]'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install secrets-store-csi-driver secrets-store-csi-driver
+        --repo https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts --version
+        1.6.0 --namespace kube-system --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/secrets-store-csi-driver-secrets-store-csi-driver-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: kube-system
+      manifestSHA256: 2490f14dd08f7e309f8f78cd1c2f1b05eb5b8995343b33ad6b3b243401a39ead
+      objectCount: 10
+      liveHelmManifestSHA256: 19a108b289e8409b981e23a8262fa85377008c9b697f0654378f2265b885aea3
+      liveHelmManifestObjectCount: 8
+      runtimeNamespaces: &id001
+      - kube-system
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# kube-system
+
+          deployment.apps/coredns   2/2   2     2     80s
+
+          daemonset.apps/kindnet                    1     1     1     1     1     kubernetes.io/os=linux   79s
+
+          daemonset.apps/kube-proxy                 1     1     1     1     1     kubernetes.io/os=linux   80s
+
+          daemonset.apps/secrets-store-csi-driver   1     1     1     1     1     kubernetes.io/os=linux   14s'
+        pods: '# kube-system
+
+          coredns-7d764666f9-bbxqz                                          1/1   Running   0     72s
+
+          coredns-7d764666f9-qdlml                                          1/1   Running   0     72s
+
+          etcd-hx-secret-2265f-whag-helm-control-plane                      1/1   Running   0     80s
+
+          kindnet-4nhxx                                                     1/1   Running   0     72s
+
+          kube-apiserver-hx-secret-2265f-whag-helm-control-plane            1/1   Running   0     80s
+
+          kube-controller-manager-hx-secret-2265f-whag-helm-control-plane   1/1   Running   0     80s
+
+          kube-proxy-ghwnn                                                  1/1   Running   0     72s
+
+          kube-scheduler-hx-secret-2265f-whag-helm-control-plane            1/1   Running   0     80s
+
+          secrets-store-csi-driver-8mhv9                                    3/3   Running   0     14s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-secret-2265f-whag-secrets-store-csi-driver
+        --non-interactive --namespace kube-system
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: kube-system
+      manifestSHA256: 5b4b937922978bc6fc7fa12a7e90bfab88c8b83398e5122b643796ec9f2aee6d
+      objectCount: 11
+      manifestNamespaces:
+      - kube-system
+      runtimeNamespaces: &id002
+      - kube-system
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# kube-system
+
+          deployment.apps/coredns   2/2   2     2     76s
+
+          daemonset.apps/kindnet                    1     1     1     1     1     kubernetes.io/os=linux   76s
+
+          daemonset.apps/kube-proxy                 1     1     1     1     1     kubernetes.io/os=linux   76s
+
+          daemonset.apps/secrets-store-csi-driver   1     1     1     1     1     kubernetes.io/os=linux   20s'
+        pods: '# kube-system
+
+          coredns-7d764666f9-bmvlp                                               1/1   Running   0     69s
+
+          coredns-7d764666f9-qfcpd                                               1/1   Running   0     69s
+
+          etcd-hx-secret-2265f-whag-installer-control-plane                      1/1   Running   0     78s
+
+          kindnet-xk9zq                                                          1/1   Running   0     69s
+
+          kube-apiserver-hx-secret-2265f-whag-installer-control-plane            1/1   Running   0     78s
+
+          kube-controller-manager-hx-secret-2265f-whag-installer-control-plane   1/1   Running   0     78s
+
+          kube-proxy-md6vm                                                       1/1   Running   0     69s
+
+          kube-scheduler-hx-secret-2265f-whag-installer-control-plane            1/1   Running   0     78s
+
+          secrets-store-csi-driver-bzhld                                         3/3   Running   0     20s'
+        notReady: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||kube-system
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 10
+      installerObjectCount: 11
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||kube-system
+      semanticDiffs: []
+      comparisonSHA256: d7d8f2070f925cc04d15340cdeb3f8408ddab050974b0a3f3627d942ae966b01
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"secrets-store-csi-driver\" does not exist. Installing it now.\n\
+      NAME: secrets-store-csi-driver\nLAST DEPLOYED: Sat Jun  6 09:16:50 2026\nNAMESPACE:\
+      \ kube-system\nSTATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\n\
+      TEST SUITE: None\nNOTES:\nThe Secrets Store CSI Driver is getting deployed to\
+      \ your cluster.\n\nTo verify that Secrets Store CSI Driver has started, run:\n\
+      \n  kubectl --namespace=kube-system get pods -l \"app=secrets-store-csi-driver\"\
+      \n\nNow you can follow these steps https://secrets-store-csi-driver.sigs.k8s.io/getting-started/usage.html\n\
+      to create a SecretProviderClass resource, and a deployment using the SecretProviderClass."
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# kube-system
+
+      deployment.apps/coredns   2/2   2     2     76s
+
+      daemonset.apps/kindnet                    1     1     1     1     1     kubernetes.io/os=linux   76s
+
+      daemonset.apps/kube-proxy                 1     1     1     1     1     kubernetes.io/os=linux   76s
+
+      daemonset.apps/secrets-store-csi-driver   1     1     1     1     1     kubernetes.io/os=linux   20s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||kube-system'] diffs=0

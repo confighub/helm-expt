@@ -50,13 +50,17 @@ when they are exercising installer, upload, or live-cluster paths.
 | ConfigHub proof, no cluster | `npm run top20:confighub-proof`; `runs/*-confighub-proof/latest/*receipt.yaml` | Runs `cub installer setup`, `cub installer render`, `cub installer upload`, `cub variant create`, Unit reads/diffs, function scans, and safe-ops checks. |
 | Local cluster apply, no ConfigHub | `npm run top20:local-e2e`; `npm run redis:local-e2e` | Applies committed rendered objects to kind with `kubectl`, waits for workloads/PVCs/CRDs, and writes observation receipts. |
 | ConfigHub to OCI to Argo live path | `tests/chart-install-test`; `tests/chart-install-sweep`; `tests/existing-secret-proof` | Runs `cub installer setup`, uploads Units, applies Units to OCI, creates an Argo Application, waits for sync/health, and checks runtime workloads. |
+| Strict two-cluster Helm parity | `npm run kind-parity:run`; `tests/live-helm-installer-kind-parity-test` | Creates two vanilla kind clusters, runs regular Helm on one, runs `cub installer setup` plus `kubectl apply` on the other, then compares semantic objects and readiness. |
+| Strict top-20 variant parity | `npm run kind-parity:run-top20-variants:missing`; `npm run kind-parity:run-top20-variants` | Runs the strict two-cluster parity harness for all maintained top-20 chart variants, either only missing receipts or the full set. |
 | Target-bound derived variant live path | `tests/target-bound-derived-variant-test`; `cub variant create --target`; `npm run derived-variants:target-bound:verify`; `runs/derived-variant-target-bound/**/receipt.yaml` | Clones a reviewed uploaded base Space, binds the cloned Units to a real target, applies workload Units to OCI, reconciles with Argo, and records runtime evidence. |
 | Target-bound derived variant summary | `npm run derived-variants:target-bound:summary:verify`; `data/derived-variant-target-bound/summary.md` | Gives humans one generated table for target-bound derived variant pass, blocked, and watch receipts. |
 | User-side Redis checks | `redis:verify-install:render`, `redis:verify-install:cluster`, `redis:verify-install:confighub` | Checks a user's Redis tutorial render, cluster state, or ConfigHub Space against `install-checks.yaml`. |
 
-The live Helm-vs-ConfigHub comparator has started with committed NGINX and
-Redis receipts. It is not yet complete for every chart-recipe-variant row; use
-`data/lane-test-matrix/summary.md` for the exact pass/missing state.
+The strict two-cluster parity harness is the preferred default for proving that
+regular Helm and `cub installer` reach the same outcome for one chart/base row.
+The existing ConfigHub/OCI live comparator remains the delivery proof. Use
+`data/lane-test-matrix/summary.md` for the exact pass/missing state across the
+corpus.
 
 The generated corpus control surface for these lanes is
 `data/lane-test-matrix/`. Its doctrine is

@@ -1,0 +1,688 @@
+#!/usr/bin/env python3
+"""Run one strict live Helm-vs-installer parity test on two vanilla kind clusters.
+
+This test intentionally does not use cub-lk, ConfigHub upload, OCI, Argo CD, or
+Flux. It checks one simpler claim:
+
+  1. regular Helm installs chart/base inputs on vanilla kind cluster A
+  2. cub installer renders/applies the matching package/base on vanilla kind
+     cluster B
+  3. the rendered objects are semantically equivalent and both clusters reach
+     the same readiness class
+
+The GitOps/OCI lane remains separate. This strict lane is the safer default for
+parity because CRDs and controllers in one leg cannot contaminate the other.
+"""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import os
+import shutil
+import subprocess
+import sys
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+
+try:
+    import yaml
+except ImportError:  # pragma: no cover
+    yaml = None
+
+if yaml:
+    class KubernetesYamlLoader(yaml.SafeLoader):
+        pass
+
+    KubernetesYamlLoader.yaml_implicit_resolvers = {
+        key: [
+            (tag, regexp)
+            for tag, regexp in resolvers
+            if tag != "tag:yaml.org,2002:value"
+        ]
+        for key, resolvers in yaml.SafeLoader.yaml_implicit_resolvers.items()
+    }
+else:  # pragma: no cover
+    KubernetesYamlLoader = None
+
+
+def sh(cmd: list[str], timeout: int = 120, env: dict[str, str] | None = None) -> tuple[int, str, str]:
+    try:
+        proc = subprocess.run(cmd, text=True, capture_output=True, timeout=timeout, env=env)
+        return proc.returncode, proc.stdout.strip(), proc.stderr.strip()
+    except subprocess.TimeoutExpired:
+        return 124, "", f"timeout after {timeout}s"
+
+
+def sha256_text(text: str) -> str:
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def write_text(path: Path, text: str) -> str:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(text)
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def write_yaml(path: Path, data: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if yaml:
+        path.write_text(yaml.safe_dump(data, sort_keys=False, default_flow_style=False))
+    else:
+        path.write_text(json.dumps(data, indent=2) + "\n")
+
+
+def load_yaml(path: Path) -> dict:
+    if not yaml:
+        raise RuntimeError("PyYAML is required for live parity tests")
+    return yaml.load(path.read_text(), Loader=KubernetesYamlLoader) or {}
+
+
+def raw_values_file(source: Path, destination: Path) -> Path:
+    data = load_yaml(source)
+    if data.get("kind") == "EffectiveValues" and isinstance(data.get("spec", {}).get("values"), dict):
+        write_yaml(destination, data["spec"]["values"])
+        return destination
+    shutil.copyfile(source, destination)
+    return destination
+
+
+def yaml_docs(text: str) -> list[dict]:
+    if not yaml:
+        raise RuntimeError("PyYAML is required for live parity tests")
+    return [doc for doc in yaml.load_all(text, Loader=KubernetesYamlLoader) if isinstance(doc, dict)]
+
+
+def object_identity(doc: dict) -> str:
+    meta = doc.get("metadata") or {}
+    return "|".join([
+        str(doc.get("apiVersion") or ""),
+        str(doc.get("kind") or ""),
+        str(meta.get("namespace") or ""),
+        str(meta.get("name") or ""),
+    ])
+
+
+def prune(value):
+    if isinstance(value, dict):
+        return {key: prune(item) for key, item in value.items() if item is not None}
+    if isinstance(value, list):
+        return [prune(item) for item in value]
+    return value
+
+
+def object_map(text: str) -> dict[str, str]:
+    result = {}
+    for doc in yaml_docs(text):
+        meta = doc.get("metadata")
+        if not isinstance(meta, dict):
+            continue
+        if not doc.get("apiVersion") or not doc.get("kind") or not meta.get("name"):
+            continue
+        doc = prune(doc)
+        meta = doc.get("metadata") or {}
+        for optional_map in ("annotations", "labels"):
+            if meta.get(optional_map) == {}:
+                meta.pop(optional_map, None)
+        result[object_identity(doc)] = json.dumps(doc, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
+    return result
+
+
+def collect_yaml(root: Path) -> str:
+    docs = []
+    if not root.exists():
+        return ""
+    for path in sorted(root.glob("*.yaml")):
+        text = path.read_text()
+        if text.strip():
+            docs.append(text.rstrip())
+    return "\n---\n".join(docs) + ("\n" if docs else "")
+
+
+def combine_yaml_parts(*parts: str) -> str:
+    docs = [part.strip() for part in parts if part.strip()]
+    return "\n---\n".join(docs) + ("\n" if docs else "")
+
+
+def render_docs_to_yaml(docs: list[dict]) -> str:
+    if not docs:
+        return ""
+    return "\n---\n".join(yaml.safe_dump(doc, sort_keys=False).strip() for doc in docs) + "\n"
+
+
+def docs_matching(text: str, kind: str) -> list[dict]:
+    return [doc for doc in yaml_docs(text) if doc.get("kind") == kind]
+
+
+def manifest_namespaces(text: str) -> list[str]:
+    namespaces = set()
+    for doc in yaml_docs(text):
+        meta = doc.get("metadata") or {}
+        namespace = meta.get("namespace")
+        if isinstance(namespace, str) and namespace:
+            namespaces.add(namespace)
+        if doc.get("kind") == "Namespace":
+            name = meta.get("name")
+            if isinstance(name, str) and name:
+                namespaces.add(name)
+    return sorted(namespaces)
+
+
+def workload_namespaces(text: str, fallback: str) -> list[str]:
+    workload_kinds = {"Deployment", "StatefulSet", "DaemonSet"}
+    namespaces = set()
+    for doc in yaml_docs(text):
+        if doc.get("kind") not in workload_kinds:
+            continue
+        namespace = (doc.get("metadata") or {}).get("namespace")
+        if isinstance(namespace, str) and namespace:
+            namespaces.add(namespace)
+    return sorted(namespaces) or [fallback]
+
+
+def protected_namespace(namespace: str) -> bool:
+    return namespace in ("default", "kube-system", "kube-public", "kube-node-lease")
+
+
+def kubectl(args: list[str], kubeconfig: Path, context: str, timeout: int = 120) -> tuple[int, str, str]:
+    return sh(["kubectl", "--kubeconfig", str(kubeconfig), "--context", context, *args], timeout=timeout)
+
+
+def kubectl_must(args: list[str], kubeconfig: Path, context: str, step: str, timeout: int = 120) -> str:
+    rc, out, err = kubectl(args, kubeconfig, context, timeout=timeout)
+    if rc != 0:
+        raise RuntimeError(f"{step} failed: {(err or out)[:1000]}")
+    return out
+
+
+def ensure_tls_material(run_root: Path) -> tuple[str, str]:
+    cert = run_root / "target-facts-tls.crt"
+    key = run_root / "target-facts-tls.key"
+    if not cert.exists() or not key.exists():
+        rc, out, err = sh([
+            "openssl", "req", "-x509", "-newkey", "rsa:2048", "-nodes",
+            "-keyout", str(key), "-out", str(cert), "-subj", "/CN=helm-expt.local",
+            "-days", "1",
+        ], timeout=60)
+        if rc != 0:
+            raise RuntimeError(f"target fact TLS material generation failed: {(err or out)[:1000]}")
+    return cert.read_text(), key.read_text()
+
+
+def target_fact_value(secret_name: str, key: str, run_root: Path) -> str:
+    if key in ("tls.crt", "ca.crt"):
+        return ensure_tls_material(run_root)[0]
+    if key == "tls.key":
+        return ensure_tls_material(run_root)[1]
+    if key == "admin-user":
+        return "admin"
+    if key == "key" and "gossip" in secret_name:
+        return "MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY="
+    if key in ("access_key", "access-key"):
+        return "helm-expt-access-key"
+    if key in ("secret_key", "secret-key"):
+        return "helm-expt-secret-key"
+    if key == "token":
+        return "helm-expt-token"
+    if "cookie" in key:
+        return "helm-expt-cookie"
+    return "helm-expt-password"
+
+
+def stage_target_facts(variant: dict, kubeconfig: Path, context: str, fallback_namespace: str, run_root: Path, label: str) -> dict:
+    required = ((variant.get("spec") or {}).get("targetFacts") or {}).get("requiredSecrets") or []
+    if not required:
+        return {"result": "pass", "stagedSecrets": []}
+    docs = []
+    namespaces = set()
+    staged = []
+    for secret in required:
+        namespace = secret.get("namespace") or fallback_namespace
+        name = secret.get("name")
+        keys = secret.get("keys") or []
+        if not name or not keys:
+            raise RuntimeError(f"invalid required secret target fact: {secret}")
+        namespaces.add(namespace)
+        string_data = {key: target_fact_value(name, key, run_root) for key in keys}
+        secret_type = "kubernetes.io/tls" if set(("tls.crt", "tls.key")).issubset(string_data) and len(set(string_data) - set(("tls.crt", "tls.key", "ca.crt"))) == 0 else "Opaque"
+        docs.append({
+            "apiVersion": "v1",
+            "kind": "Secret",
+            "metadata": {"name": name, "namespace": namespace},
+            "type": secret_type,
+            "stringData": string_data,
+        })
+        staged.append({"namespace": namespace, "name": name, "keys": sorted(keys)})
+    for namespace in sorted(namespaces):
+        if protected_namespace(namespace):
+            continue
+        namespace_yaml = yaml.safe_load(kubectl_must(
+            ["create", "namespace", namespace, "--dry-run=client", "-o", "yaml"],
+            kubeconfig,
+            context,
+            f"target fact namespace {namespace}",
+        ))
+        namespace_path = run_root / f"target-facts-{label}-{namespace}-namespace.yaml"
+        write_yaml(namespace_path, namespace_yaml)
+        kubectl_must(["apply", "-f", str(namespace_path)], kubeconfig, context, f"target fact namespace apply {namespace}")
+    target_facts_path = run_root / f"target-facts-{label}.yaml"
+    write_yaml(target_facts_path, {"apiVersion": "v1", "kind": "List", "items": docs})
+    kubectl_must(["apply", "-f", str(target_facts_path)], kubeconfig, context, f"target facts apply {label}")
+    return {"result": "pass", "stagedSecrets": staged, "path": str(target_facts_path)}
+
+
+def ready_status(kubeconfig: Path, context: str, namespace: str) -> dict:
+    rc, workloads, workload_err = kubectl(
+        ["-n", namespace, "get", "deploy,statefulset,daemonset", "--no-headers"],
+        kubeconfig,
+        context,
+        timeout=60,
+    )
+    rc_pods, pods, pod_err = kubectl(["-n", namespace, "get", "pods", "--no-headers"], kubeconfig, context, timeout=60)
+    not_ready = []
+    for line in pods.splitlines():
+        fields = line.split()
+        if len(fields) < 3:
+            continue
+        name, ready, status = fields[:3]
+        ok = status in ("Running", "Completed")
+        if "/" in ready:
+            have, want = ready.split("/", 1)
+            ok = ok and have == want
+        if not ok:
+            not_ready.append({"pod": name, "ready": ready, "status": status})
+    return {
+        "result": "pass" if rc == 0 and bool(workloads.strip()) and rc_pods == 0 and not not_ready else "watch",
+        "workloads": workloads if rc == 0 else workload_err,
+        "pods": pods if rc_pods == 0 else pod_err,
+        "notReady": not_ready,
+    }
+
+
+def wait_ready_many(kubeconfig: Path, context: str, namespaces: list[str], timeout_seconds: int = 300) -> dict:
+    deadline = time.monotonic() + timeout_seconds
+    last = {}
+    while time.monotonic() < deadline:
+        results = {namespace: ready_status(kubeconfig, context, namespace) for namespace in namespaces}
+        last = results
+        if results and all(item.get("result") == "pass" for item in results.values()):
+            break
+        time.sleep(10)
+    not_ready = []
+    workloads = []
+    pods = []
+    for namespace, result in last.items():
+        workloads.append(f"# {namespace}\n{result.get('workloads', '')}".rstrip())
+        pods.append(f"# {namespace}\n{result.get('pods', '')}".rstrip())
+        for item in result.get("notReady", []):
+            not_ready.append({"namespace": namespace, **item})
+    return {
+        "result": "pass" if last and all(item.get("result") == "pass" for item in last.values()) else "watch",
+        "namespaces": namespaces,
+        "workloads": "\n".join(workloads),
+        "pods": "\n".join(pods),
+        "notReady": not_ready,
+    }
+
+
+def semantic_compare(helm_yaml: str, installer_yaml: str, allowed_extra: list[str]) -> dict:
+    helm = object_map(helm_yaml)
+    installer = object_map(installer_yaml)
+    helm_keys = set(helm)
+    installer_keys = set(installer)
+    missing = sorted(helm_keys - installer_keys)
+    extra = sorted(installer_keys - helm_keys)
+    common = sorted(helm_keys & installer_keys)
+    diffs = []
+    normalizations = []
+    for key in common:
+        if helm[key] == installer[key]:
+            continue
+        normalization = allowed_semantic_normalization(key, helm[key], installer[key])
+        if normalization:
+            normalizations.append(normalization)
+        else:
+            diffs.append(key)
+    return {
+        "result": "pass" if not missing and extra == allowed_extra and not diffs else "blocked",
+        "helmObjectCount": len(helm_keys),
+        "installerObjectCount": len(installer_keys),
+        "missingFromInstaller": missing,
+        "extraInInstaller": extra,
+        "semanticDiffs": diffs[:50],
+        "allowedSemanticNormalizations": normalizations,
+        "comparisonSHA256": sha256_text(json.dumps({
+            "missing": missing,
+            "extra": extra,
+            "diffs": diffs,
+            "normalizations": normalizations,
+        }, sort_keys=True)),
+    }
+
+
+def allowed_semantic_normalization(key: str, helm_json: str, installer_json: str) -> dict | None:
+    if key == "v1|ConfigMap|loki|loki":
+        helm_doc = json.loads(helm_json)
+        installer_doc = json.loads(installer_json)
+        config = (helm_doc.get("data") or {}).get("config.yaml")
+        if isinstance(config, str):
+            helm_doc["data"]["config.yaml"] = config[1:] if config.startswith("\n") else config
+            if json.dumps(helm_doc, sort_keys=True, separators=(",", ":"), ensure_ascii=True) == installer_json:
+                return {
+                    "object": key,
+                    "path": "data.config.yaml",
+                    "rule": "ignore-single-leading-newline",
+                    "reason": "cub installer rendering removes an initial blank line from the embedded Loki YAML string; the parsed Loki configuration is unchanged.",
+                }
+    if key == "apps/v1|StatefulSet|consul|consul-consul-server":
+        helm_doc = json.loads(helm_json)
+        installer_doc = json.loads(installer_json)
+        normalize_leading_newlines(helm_doc)
+        normalize_leading_newlines(installer_doc)
+        if json.dumps(helm_doc, sort_keys=True, separators=(",", ":"), ensure_ascii=True) == json.dumps(installer_doc, sort_keys=True, separators=(",", ":"), ensure_ascii=True):
+            return {
+                "object": key,
+                "path": "spec.template.spec.containers[].command[]",
+                "rule": "ignore-leading-newlines-in-command-strings",
+                "reason": "the only difference is an initial blank line in a shell command block; /bin/sh -ec executes the same script.",
+            }
+    return None
+
+
+def normalize_leading_newlines(value) -> None:
+    if isinstance(value, list):
+        for index, item in enumerate(value):
+            if isinstance(item, str):
+                value[index] = item.lstrip("\n")
+            else:
+                normalize_leading_newlines(item)
+    elif isinstance(value, dict):
+        for item in value.values():
+            normalize_leading_newlines(item)
+
+
+def create_kind_cluster(name: str, kubeconfig: Path) -> tuple[int, str, str]:
+    kubeconfig.parent.mkdir(parents=True, exist_ok=True)
+    return sh(["kind", "create", "cluster", "--name", name, "--kubeconfig", str(kubeconfig), "--wait", "300s"], timeout=720)
+
+
+def delete_kind_cluster(name: str, kubeconfig: Path) -> tuple[int, str, str]:
+    return sh(["kind", "delete", "cluster", "--name", name, "--kubeconfig", str(kubeconfig)], timeout=300)
+
+
+def apply_installer_manifest(manifest: str, manifests_dir: Path, secrets_dir: Path, kubeconfig: Path, context: str, fallback_namespace: str, run_root: Path) -> dict:
+    manifest_names = manifest_namespaces(manifest) or [fallback_namespace]
+    runtime_names = workload_namespaces(manifest, fallback_namespace)
+    namespace_docs = []
+    for namespace in manifest_names:
+        if protected_namespace(namespace):
+            continue
+        namespace_docs.append(yaml.safe_load(kubectl_must(
+            ["create", "namespace", namespace, "--dry-run=client", "-o", "yaml"],
+            kubeconfig,
+            context,
+            f"namespace yaml {namespace}",
+        )))
+    if namespace_docs:
+        ns_yaml = run_root / "installer-namespaces.yaml"
+        write_text(ns_yaml, render_docs_to_yaml(namespace_docs))
+        kubectl_must(["apply", "-f", str(ns_yaml)], kubeconfig, context, "namespace apply")
+
+    if secrets_dir.exists():
+        for secret_path in sorted(secrets_dir.glob("*.yaml")):
+            kubectl_must(["apply", "-f", str(secret_path)], kubeconfig, context, f"secret apply {secret_path.name}", timeout=120)
+
+    if manifests_dir.exists():
+        crds = docs_matching(manifest, "CustomResourceDefinition")
+        if crds:
+            crd_path = run_root / "installer-crds.yaml"
+            write_text(crd_path, render_docs_to_yaml(crds))
+            kubectl_must(["apply", "--server-side", "--force-conflicts", "-f", str(crd_path)], kubeconfig, context, "crd apply", timeout=300)
+            for crd in crds:
+                name = crd.get("metadata", {}).get("name")
+                if name:
+                    kubectl(["wait", "--for=condition=Established", f"crd/{name}", "--timeout=180s"], kubeconfig, context, timeout=210)
+        for path in sorted(manifests_dir.glob("*.yaml")):
+            if "namespace-" in path.name:
+                kubectl(["apply", "-f", str(path)], kubeconfig, context, timeout=120)
+        rest = [path for path in sorted(manifests_dir.glob("*.yaml")) if "namespace-" not in path.name]
+        if rest:
+            kubectl_must(["apply", "--server-side", "--force-conflicts", "-f", str(manifests_dir)], kubeconfig, context, "manifest apply", timeout=300)
+    return {"manifestNamespaces": manifest_names, "runtimeNamespaces": runtime_names}
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--chart", required=True)
+    parser.add_argument("--version", required=True)
+    parser.add_argument("--repo-url", required=True)
+    parser.add_argument("--release", required=True)
+    parser.add_argument("--namespace", required=True)
+    parser.add_argument("--package", required=True)
+    parser.add_argument("--recipe", required=True)
+    parser.add_argument("--base", required=True)
+    parser.add_argument("--variant-revision", required=True)
+    parser.add_argument("--values", required=True)
+    parser.add_argument("--slug", required=True)
+    parser.add_argument("--rig", required=True)
+    parser.add_argument("--out", required=True)
+    parser.add_argument("--wait", default="8m")
+    parser.add_argument("--keep", action="store_true")
+    args = parser.parse_args()
+
+    repo = Path(__file__).resolve().parents[1]
+    package_path = repo / args.package
+    recipe_path = repo / args.recipe
+    values_path = repo / args.values
+    revision_path = repo / args.variant_revision
+    variant_path = recipe_path / "variants" / args.base / "variant.yaml"
+    canonical_rendered_path = revision_path.parent / "rendered" / "release-objects.yaml"
+    out_path = repo / args.out
+    run_root = out_path.parent
+    workdir = Path("/tmp") / f"helm-expt-kind-parity-{args.rig}-{args.slug}"
+    helm_cluster = f"{args.rig}-helm"
+    installer_cluster = f"{args.rig}-installer"
+    helm_context = f"kind-{helm_cluster}"
+    installer_context = f"kind-{installer_cluster}"
+    helm_kubeconfig = run_root / "helm.kubeconfig"
+    installer_kubeconfig = run_root / "installer.kubeconfig"
+
+    receipt = {
+        "apiVersion": "helm-expt.confighub.com/v1alpha1",
+        "kind": "LiveHelmInstallerKindParityReceipt",
+        "metadata": {"name": f"{args.chart.replace('/', '-')}-{args.version}-{args.base}-kind-parity-20260606"},
+        "spec": {
+            "chart": args.chart,
+            "version": args.version,
+            "base": args.base,
+            "result": "blocked",
+            "observedAt": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+            "package": {"path": args.package},
+            "recipe": {"path": args.recipe},
+            "variantRevision": args.variant_revision,
+            "run": {
+                "mode": "two-vanilla-kind-clusters",
+                "helmCluster": helm_cluster,
+                "installerCluster": installer_cluster,
+                "namespace": args.namespace,
+                "cleanup": {"result": "not-run"},
+            },
+            "legs": {},
+            "semanticComparison": {"allowedExtraInstallerObjects": [f"v1|Namespace||{args.namespace}"]},
+            "checks": [],
+        },
+    }
+
+    def check_item(name: str, result: str, detail: str) -> None:
+        receipt["spec"]["checks"].append({"name": name, "result": result, "detail": detail[:1000]})
+
+    def leg(name: str, **fields) -> None:
+        receipt["spec"]["legs"][name] = fields
+
+    def mark_stage(name: str) -> None:
+        write_text(run_root / "stage.txt", f"{datetime.now(timezone.utc).replace(microsecond=0).isoformat()} {name}\n")
+
+    cleanup_results = []
+    try:
+        mark_stage("validate-inputs")
+        for path, label in [
+            (package_path, "package"),
+            (recipe_path, "recipe"),
+            (variant_path, "variant"),
+            (values_path, "values"),
+            (revision_path, "variant revision"),
+            (canonical_rendered_path, "canonical rendered objects"),
+        ]:
+            if not path.exists():
+                raise RuntimeError(f"{label} path not found: {path}")
+        canonical_helm_manifest = canonical_rendered_path.read_text()
+        variant = load_yaml(variant_path)
+        write_text(run_root / "canonical-helm-render.yaml", canonical_helm_manifest)
+        helm_values_path = raw_values_file(values_path, run_root / "regular-helm-values.yaml")
+
+        mark_stage("create-kind-clusters")
+        for name, kubeconfig, label in [
+            (helm_cluster, helm_kubeconfig, "helm"),
+            (installer_cluster, installer_kubeconfig, "installer"),
+        ]:
+            rc, out, err = create_kind_cluster(name, kubeconfig)
+            if rc != 0:
+                raise RuntimeError(f"kind create {label} cluster failed: {(err or out)[:1000]}")
+            check_item(f"kind-create-{label}", "pass", out or f"{label} kind cluster created")
+
+        helm_target_facts = stage_target_facts(variant, helm_kubeconfig, helm_context, args.namespace, run_root, "helm")
+        installer_target_facts = stage_target_facts(variant, installer_kubeconfig, installer_context, args.namespace, run_root, "installer")
+        receipt["spec"]["targetFacts"] = {
+            "regularHelm": helm_target_facts,
+            "cubInstallerApply": installer_target_facts,
+        }
+        check_item("target-facts-helm", helm_target_facts["result"], f"staged={len(helm_target_facts.get('stagedSecrets', []))}")
+        check_item("target-facts-installer", installer_target_facts["result"], f"staged={len(installer_target_facts.get('stagedSecrets', []))}")
+
+        if workdir.exists():
+            shutil.rmtree(workdir)
+
+        chart_ref = args.chart.split("/", 1)[1] if "/" in args.chart else args.chart
+        helm_cmd = [
+            "helm", "upgrade", "--install", args.release, chart_ref,
+            "--repo", args.repo_url,
+            "--version", args.version,
+            "--namespace", args.namespace,
+            "--create-namespace",
+            "--values", str(helm_values_path),
+            "--wait",
+            "--timeout", args.wait,
+        ]
+        helm_env = {**os.environ, "KUBECONFIG": str(helm_kubeconfig)}
+        mark_stage("regular-helm-install")
+        rc, helm_out, helm_err = sh(helm_cmd, timeout=900, env=helm_env)
+        helm_live_manifest = ""
+        get_rc, get_out, get_err = sh(["helm", "get", "manifest", args.release, "--namespace", args.namespace], timeout=120, env=helm_env)
+        if get_rc == 0:
+            helm_live_manifest = get_out + "\n"
+            write_text(run_root / "regular-helm-live-manifest.yaml", helm_live_manifest)
+        helm_runtime_names = workload_namespaces(canonical_helm_manifest, args.namespace)
+        helm_runtime = wait_ready_many(helm_kubeconfig, helm_context, helm_runtime_names, timeout_seconds=300)
+        helm_result = "pass" if rc == 0 and get_rc == 0 and helm_runtime["result"] == "pass" else "blocked"
+        leg("regularHelm",
+            result=helm_result,
+            command=" ".join(helm_cmd),
+            namespace=args.namespace,
+            manifestSHA256=sha256_text(canonical_helm_manifest),
+            objectCount=len(object_map(canonical_helm_manifest)),
+            liveHelmManifestSHA256=sha256_text(helm_live_manifest) if helm_live_manifest else "",
+            liveHelmManifestObjectCount=len(object_map(helm_live_manifest)) if helm_live_manifest else 0,
+            runtimeNamespaces=helm_runtime_names,
+            runtime=helm_runtime,
+            stderr=helm_err[:1000] if rc != 0 else "",
+            getManifestError=get_err[:1000] if get_rc != 0 else "",
+        )
+        check_item("regular-helm-live", helm_result, helm_err or helm_out or helm_runtime.get("workloads", ""))
+
+        mark_stage("installer-render")
+        setup_cmd = [
+            "cub", "installer", "setup", "--pull", str(package_path), "--base", args.base,
+            "--work-dir", str(workdir), "--non-interactive", "--namespace", args.namespace,
+        ]
+        rc, setup_out, setup_err = sh(setup_cmd, timeout=360)
+        if rc != 0:
+            raise RuntimeError(f"installer setup failed: {(setup_err or setup_out)[:1000]}")
+        manifests_dir = workdir / "out" / "manifests"
+        secrets_dir = workdir / "out" / "secrets"
+        installer_manifest = combine_yaml_parts(collect_yaml(manifests_dir), collect_yaml(secrets_dir))
+        write_text(run_root / "installer-rendered-manifest.yaml", installer_manifest)
+
+        mark_stage("installer-apply")
+        apply_info = apply_installer_manifest(
+            installer_manifest,
+            manifests_dir,
+            secrets_dir,
+            installer_kubeconfig,
+            installer_context,
+            args.namespace,
+            run_root,
+        )
+        mark_stage("installer-readiness")
+        installer_runtime = wait_ready_many(installer_kubeconfig, installer_context, apply_info["runtimeNamespaces"], timeout_seconds=300)
+        installer_result = "pass" if installer_runtime["result"] == "pass" else "watch"
+        leg("cubInstallerApply",
+            result=installer_result,
+            renderCommand=" ".join(setup_cmd),
+            applyMode="two-cluster vanilla-kind; namespace-first kubectl apply; separated secrets staged when present",
+            namespace=args.namespace,
+            manifestSHA256=sha256_text(installer_manifest),
+            objectCount=len(object_map(installer_manifest)),
+            manifestNamespaces=apply_info["manifestNamespaces"],
+            runtimeNamespaces=apply_info["runtimeNamespaces"],
+            runtime=installer_runtime,
+        )
+        check_item("cub-installer-apply-live", installer_result, installer_runtime.get("workloads", ""))
+
+        comparison = semantic_compare(
+            canonical_helm_manifest,
+            installer_manifest,
+            [f"v1|Namespace||{args.namespace}"],
+        )
+        receipt["spec"]["semanticComparison"]["helmVsCubInstallerApply"] = comparison
+        check_item("semantic-object-parity", comparison["result"], f"missing={len(comparison['missingFromInstaller'])} extra={comparison['extraInInstaller']} diffs={len(comparison['semanticDiffs'])}")
+
+        if comparison["result"] != "pass" or helm_result == "blocked":
+            receipt["spec"]["result"] = "blocked"
+        elif installer_result == "pass" and helm_runtime["result"] == "pass":
+            receipt["spec"]["result"] = "pass"
+        else:
+            receipt["spec"]["result"] = "watch"
+
+    except Exception as exc:
+        receipt["spec"]["result"] = "blocked"
+        check_item("failure", "blocked", str(exc))
+        receipt["spec"]["failure"] = {"message": str(exc)}
+    finally:
+        if args.keep:
+            receipt["spec"]["run"]["cleanup"] = {"result": "retained"}
+        else:
+            mark_stage("cleanup")
+            for name, kubeconfig, label in [
+                (helm_cluster, helm_kubeconfig, "helm"),
+                (installer_cluster, installer_kubeconfig, "installer"),
+            ]:
+                rc, out, err = delete_kind_cluster(name, kubeconfig)
+                cleanup_results.append({
+                    "cluster": name,
+                    "leg": label,
+                    "result": "pass" if rc == 0 else "blocked",
+                    "detail": (err or out)[:1000],
+                })
+            receipt["spec"]["run"]["cleanup"] = {
+                "result": "pass" if all(item["result"] == "pass" for item in cleanup_results) else "blocked",
+                "clusters": cleanup_results,
+            }
+        write_yaml(out_path, receipt)
+        print(f"wrote {out_path.relative_to(repo)} result={receipt['spec']['result']}")
+
+    return 0 if receipt["spec"]["result"] in ("pass", "watch", "blocked") else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

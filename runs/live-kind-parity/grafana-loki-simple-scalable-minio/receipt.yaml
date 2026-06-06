@@ -1,0 +1,287 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: grafana-loki-7.0.0-simple-scalable-minio-kind-parity-20260606
+spec:
+  chart: grafana/loki
+  version: 7.0.0
+  base: simple-scalable-minio
+  result: blocked
+  observedAt: '2026-06-06T13:25:28Z'
+  package:
+    path: packages/grafana/loki/7.0.0
+  recipe:
+    path: recipes/grafana/loki/7.0.0
+  variantRevision: recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-loki-78faf-yi68-helm
+    installerCluster: hx-loki-78faf-yi68-installer
+    namespace: loki
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-loki-78faf-yi68-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-loki-78faf-yi68-helm" ...
+
+          Deleted nodes: ["hx-loki-78faf-yi68-helm-control-plane"]'
+      - cluster: hx-loki-78faf-yi68-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-loki-78faf-yi68-installer" ...
+
+          Deleted nodes: ["hx-loki-78faf-yi68-installer-control-plane"]'
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install loki loki --repo https://grafana.github.io/helm-charts
+        --version 7.0.0 --namespace loki --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-loki-simple-scalable-minio/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: loki
+      manifestSHA256: 8c4176621cdd67670d41b1689de1bcaa74854e40fb8170070606f794d0fc36ab
+      objectCount: 36
+      liveHelmManifestSHA256: 6a0a3226ec529d4a2c56cfb1337cf3dcd99caf2427e731a6cf573570356b2479
+      liveHelmManifestObjectCount: 36
+      runtimeNamespaces: &id001
+      - loki
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# loki
+
+          deployment.apps/loki-gateway   1/1   1     1     12m
+
+          deployment.apps/loki-read      1/3   3     1     12m
+
+          statefulset.apps/loki-backend         1/3   12m
+
+          statefulset.apps/loki-chunks-cache    1/1   12m
+
+          statefulset.apps/loki-minio           1/1   12m
+
+          statefulset.apps/loki-results-cache   1/1   12m
+
+          statefulset.apps/loki-write           1/3   12m
+
+          daemonset.apps/loki-canary   1     1     1     1     1     <none>   12m'
+        pods: '# loki
+
+          loki-backend-0                  2/2   Running   0     12m
+
+          loki-backend-1                  0/2   Pending   0     12m
+
+          loki-backend-2                  0/2   Pending   0     12m
+
+          loki-canary-56nll               1/1   Running   0     12m
+
+          loki-chunks-cache-0             2/2   Running   0     12m
+
+          loki-gateway-75b9df9f48-5h47t   1/1   Running   0     12m
+
+          loki-minio-0                    1/1   Running   0     12m
+
+          loki-read-b4c74bc6c-pkplk       0/1   Pending   0     12m
+
+          loki-read-b4c74bc6c-tpwqr       0/1   Pending   0     12m
+
+          loki-read-b4c74bc6c-wppkj       1/1   Running   0     12m
+
+          loki-results-cache-0            2/2   Running   0     12m
+
+          loki-write-0                    1/1   Running   0     12m
+
+          loki-write-1                    0/1   Pending   0     12m
+
+          loki-write-2                    0/1   Pending   0     12m'
+        notReady:
+        - namespace: loki
+          pod: loki-backend-1
+          ready: 0/2
+          status: Pending
+        - namespace: loki
+          pod: loki-backend-2
+          ready: 0/2
+          status: Pending
+        - namespace: loki
+          pod: loki-read-b4c74bc6c-pkplk
+          ready: 0/1
+          status: Pending
+        - namespace: loki
+          pod: loki-read-b4c74bc6c-tpwqr
+          ready: 0/1
+          status: Pending
+        - namespace: loki
+          pod: loki-write-1
+          ready: 0/1
+          status: Pending
+        - namespace: loki
+          pod: loki-write-2
+          ready: 0/1
+          status: Pending
+      stderr: 'Error: resource Deployment/loki/loki-read not ready. status: InProgress,
+        message: Available: 1/3
+
+        resource StatefulSet/loki/loki-backend not ready. status: InProgress, message:
+        Ready: 1/3
+
+        resource StatefulSet/loki/loki-write not ready. status: InProgress, message:
+        Ready: 1/3
+
+        context deadline exceeded'
+      getManifestError: ''
+    cubInstallerApply:
+      result: watch
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/loki/7.0.0
+        --base simple-scalable-minio --work-dir /tmp/helm-expt-kind-parity-hx-loki-78faf-yi68-loki
+        --non-interactive --namespace loki
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: loki
+      manifestSHA256: 3076afbbd36cfea531b0dbf0e2394cc9b06a51397af5094f951f48eb78083673
+      objectCount: 37
+      manifestNamespaces:
+      - loki
+      runtimeNamespaces: &id002
+      - loki
+      runtime:
+        result: watch
+        namespaces: *id002
+        workloads: '# loki
+
+          deployment.apps/loki-gateway   1/1   1     1     4m53s
+
+          deployment.apps/loki-read      1/3   3     1     4m53s
+
+          statefulset.apps/loki-backend         1/3   4m53s
+
+          statefulset.apps/loki-chunks-cache    1/1   4m53s
+
+          statefulset.apps/loki-results-cache   1/1   4m53s
+
+          statefulset.apps/loki-write           1/3   4m53s
+
+          daemonset.apps/loki-canary   1     1     1     1     1     <none>   4m53s'
+        pods: '# loki
+
+          loki-backend-0                  0/2   Pending   0     4m53s
+
+          loki-backend-1                  0/2   Pending   0     4m53s
+
+          loki-backend-2                  2/2   Running   0     4m53s
+
+          loki-canary-g7zhq               1/1   Running   0     4m53s
+
+          loki-chunks-cache-0             2/2   Running   0     4m53s
+
+          loki-gateway-75b9df9f48-c7xff   1/1   Running   0     4m53s
+
+          loki-read-b4c74bc6c-fn5t2       0/1   Pending   0     4m53s
+
+          loki-read-b4c74bc6c-rrzlz       1/1   Running   0     4m53s
+
+          loki-read-b4c74bc6c-zwpx7       0/1   Pending   0     4m53s
+
+          loki-results-cache-0            2/2   Running   0     4m53s
+
+          loki-write-0                    1/1   Running   0     4m53s
+
+          loki-write-1                    0/1   Pending   0     4m53s
+
+          loki-write-2                    0/1   Pending   0     4m53s'
+        notReady:
+        - namespace: loki
+          pod: loki-backend-0
+          ready: 0/2
+          status: Pending
+        - namespace: loki
+          pod: loki-backend-1
+          ready: 0/2
+          status: Pending
+        - namespace: loki
+          pod: loki-read-b4c74bc6c-fn5t2
+          ready: 0/1
+          status: Pending
+        - namespace: loki
+          pod: loki-read-b4c74bc6c-zwpx7
+          ready: 0/1
+          status: Pending
+        - namespace: loki
+          pod: loki-write-1
+          ready: 0/1
+          status: Pending
+        - namespace: loki
+          pod: loki-write-2
+          ready: 0/1
+          status: Pending
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||loki
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 36
+      installerObjectCount: 37
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||loki
+      semanticDiffs: []
+      allowedSemanticNormalizations:
+      - object: v1|ConfigMap|loki|loki
+        path: data.config.yaml
+        rule: ignore-single-leading-newline
+        reason: cub installer rendering removes an initial blank line from the embedded
+          Loki YAML string; the parsed Loki configuration is unchanged.
+      comparisonSHA256: 60915880fa2a6e0840d286480b2ec51521c93ce40f7daf761b2942e2fc4e40f7
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: staged=0
+  - name: target-facts-installer
+    result: pass
+    detail: staged=0
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: resource Deployment/loki/loki-read not ready. status: InProgress,
+      message: Available: 1/3
+
+      resource StatefulSet/loki/loki-backend not ready. status: InProgress, message:
+      Ready: 1/3
+
+      resource StatefulSet/loki/loki-write not ready. status: InProgress, message:
+      Ready: 1/3
+
+      context deadline exceeded'
+  - name: cub-installer-apply-live
+    result: watch
+    detail: '# loki
+
+      deployment.apps/loki-gateway   1/1   1     1     4m53s
+
+      deployment.apps/loki-read      1/3   3     1     4m53s
+
+      statefulset.apps/loki-backend         1/3   4m53s
+
+      statefulset.apps/loki-chunks-cache    1/1   4m53s
+
+      statefulset.apps/loki-results-cache   1/1   4m53s
+
+      statefulset.apps/loki-write           1/3   4m53s
+
+      daemonset.apps/loki-canary   1     1     1     1     1     <none>   4m53s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||loki'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []

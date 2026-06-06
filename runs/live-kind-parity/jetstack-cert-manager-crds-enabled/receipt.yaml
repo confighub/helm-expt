@@ -1,0 +1,186 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: jetstack-cert-manager-v1.20.2-crds-enabled-kind-parity-20260606
+spec:
+  chart: jetstack/cert-manager
+  version: v1.20.2
+  base: crds-enabled
+  result: pass
+  observedAt: '2026-06-06T08:13:07Z'
+  package:
+    path: packages/jetstack/cert-manager/v1.20.2
+  recipe:
+    path: recipes/jetstack/cert-manager/v1.20.2
+  variantRevision: recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-certma-b06f3-styg-helm
+    installerCluster: hx-certma-b06f3-styg-installer
+    namespace: cert-manager
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-certma-b06f3-styg-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-certma-b06f3-styg-helm" ...
+
+          Deleted nodes: ["hx-certma-b06f3-styg-helm-control-plane"]'
+      - cluster: hx-certma-b06f3-styg-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-certma-b06f3-styg-installer" ...
+
+          Deleted nodes: ["hx-certma-b06f3-styg-installer-control-plane"]'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install cert-manager cert-manager --repo https://charts.jetstack.io
+        --version v1.20.2 --namespace cert-manager --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/jetstack-cert-manager-crds-enabled/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: cert-manager
+      manifestSHA256: e288b2413bd1919173bee6afcd823be61399f101cfe2cf61f8e0df56740fefe0
+      objectCount: 48
+      liveHelmManifestSHA256: e288b2413bd1919173bee6afcd823be61399f101cfe2cf61f8e0df56740fefe0
+      liveHelmManifestObjectCount: 48
+      runtimeNamespaces: &id001
+      - cert-manager
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# cert-manager
+
+          deployment.apps/cert-manager              1/1   1     1     29s
+
+          deployment.apps/cert-manager-cainjector   1/1   1     1     29s
+
+          deployment.apps/cert-manager-webhook      1/1   1     1     29s'
+        pods: '# cert-manager
+
+          cert-manager-5957746d66-5hktt              1/1   Running   0     29s
+
+          cert-manager-cainjector-567c6b47ff-d9sx5   1/1   Running   0     29s
+
+          cert-manager-webhook-7cc5c588cb-xhm2m      1/1   Running   0     29s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jetstack/cert-manager/v1.20.2
+        --base crds-enabled --work-dir /tmp/helm-expt-kind-parity-hx-certma-b06f3-styg-cert-manager
+        --non-interactive --namespace cert-manager
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: cert-manager
+      manifestSHA256: 736687fcace8e44296134bad01af24fc98dedecf939736d872b1f118e30b5271
+      objectCount: 49
+      manifestNamespaces:
+      - cert-manager
+      - kube-system
+      runtimeNamespaces: &id002
+      - cert-manager
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# cert-manager
+
+          deployment.apps/cert-manager              1/1   1     1     20s
+
+          deployment.apps/cert-manager-cainjector   1/1   1     1     20s
+
+          deployment.apps/cert-manager-webhook      1/1   1     1     20s'
+        pods: '# cert-manager
+
+          cert-manager-5957746d66-7cwkl              1/1   Running   0     20s
+
+          cert-manager-cainjector-567c6b47ff-ttn9t   1/1   Running   0     20s
+
+          cert-manager-webhook-7cc5c588cb-tpv4w      1/1   Running   0     20s'
+        notReady: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||cert-manager
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 48
+      installerObjectCount: 49
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||cert-manager
+      semanticDiffs: []
+      comparisonSHA256: c9c63ab13aaa52bb2e0a8493bdcd5f19a4ad64f691147895aa0a2a1f793cf741
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "cert-manager" does not exist. Installing it now.
+
+      NAME: cert-manager
+
+      LAST DEPLOYED: Sat Jun  6 09:13:59 2026
+
+      NAMESPACE: cert-manager
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None
+
+      NOTES:
+
+      cert-manager v1.20.2 has been deployed successfully!
+
+
+      In order to begin issuing certificates, you will need to set up a ClusterIssuer
+
+      or Issuer resource (for example, by creating a ''letsencrypt-staging'' issuer).
+
+
+      More information on the different types of issuers and how to configure them
+
+      can be found in our documentation:
+
+
+      https://cert-manager.io/docs/configuration/
+
+
+      For information on how to configure cert-manager to automatically provision
+
+      Certificates for Ingress resources, take a look at the `ingress-shim`
+
+      documentation:
+
+
+      https://cert-manager.io/docs/usage/ingress/
+
+
+      For information on how to configure cert-manager to automatically provision
+
+      Certificates for Gateway API resources, take a look at the `gateway resource`
+
+      documentation:
+
+
+      https://cert-manager.io/docs'
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# cert-manager
+
+      deployment.apps/cert-manager              1/1   1     1     20s
+
+      deployment.apps/cert-manager-cainjector   1/1   1     1     20s
+
+      deployment.apps/cert-manager-webhook      1/1   1     1     20s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||cert-manager'] diffs=0

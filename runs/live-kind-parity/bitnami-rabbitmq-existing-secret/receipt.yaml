@@ -1,0 +1,146 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: bitnami-rabbitmq-16.0.14-existing-secret-kind-parity-20260606
+spec:
+  chart: bitnami/rabbitmq
+  version: 16.0.14
+  base: existing-secret
+  result: pass
+  observedAt: '2026-06-06T10:42:14Z'
+  package:
+    path: packages/bitnami/rabbitmq/16.0.14
+  recipe:
+    path: recipes/bitnami/rabbitmq/16.0.14
+  variantRevision: recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-rabbit-28b3a-4l5y-helm
+    installerCluster: hx-rabbit-28b3a-4l5y-installer
+    namespace: rabbitmq
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-rabbit-28b3a-4l5y-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-rabbit-28b3a-4l5y-helm" ...
+
+          Deleted nodes: ["hx-rabbit-28b3a-4l5y-helm-control-plane"]'
+      - cluster: hx-rabbit-28b3a-4l5y-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-rabbit-28b3a-4l5y-installer" ...
+
+          Deleted nodes: ["hx-rabbit-28b3a-4l5y-installer-control-plane"]'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install rabbitmq rabbitmq --repo https://charts.bitnami.com/bitnami
+        --version 16.0.14 --namespace rabbitmq --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-rabbitmq-existing-secret/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: rabbitmq
+      manifestSHA256: cdff3262264844b099e7f4421f1bbd5027360c2d23ba34667506d85255c4b6f2
+      objectCount: 9
+      liveHelmManifestSHA256: 9ae8b3991f953201638ac36ad6a1495a0e4eae16501bb8710816f485a678dd11
+      liveHelmManifestObjectCount: 9
+      runtimeNamespaces: &id001
+      - rabbitmq
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# rabbitmq
+
+          statefulset.apps/rabbitmq   1/1   68s'
+        pods: '# rabbitmq
+
+          rabbitmq-0   1/1   Running   0     68s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/rabbitmq/16.0.14
+        --base existing-secret --work-dir /tmp/helm-expt-kind-parity-hx-rabbit-28b3a-4l5y-rabbitmq
+        --non-interactive --namespace rabbitmq
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: rabbitmq
+      manifestSHA256: 8dad570fedf1cfaf02f8a53c8684f19945e6311c5025625590258868f5fdcc9b
+      objectCount: 10
+      manifestNamespaces:
+      - rabbitmq
+      runtimeNamespaces: &id002
+      - rabbitmq
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# rabbitmq
+
+          statefulset.apps/rabbitmq   1/1   71s'
+        pods: '# rabbitmq
+
+          rabbitmq-0   1/1   Running   0     71s'
+        notReady: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||rabbitmq
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 9
+      installerObjectCount: 10
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||rabbitmq
+      semanticDiffs: []
+      comparisonSHA256: c6fcfee201c616020737877b77e4aca885ff005df9adfc1f75bae7439752f4cb
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: staged=2
+  - name: target-facts-installer
+    result: pass
+    detail: staged=2
+  - name: regular-helm-live
+    result: pass
+    detail: 'I0606 11:43:11.399325   90617 warnings.go:107] "Warning: spec.trafficDistribution:
+      \"PreferClose\" is deprecated; use \"PreferSameZone\""'
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# rabbitmq
+
+      statefulset.apps/rabbitmq   1/1   71s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||rabbitmq'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets:
+      - namespace: rabbitmq
+        name: rabbitmq-auth
+        keys:
+        - rabbitmq-password
+      - namespace: rabbitmq
+        name: rabbitmq-erlang-cookie
+        keys:
+        - rabbitmq-erlang-cookie
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-rabbitmq-existing-secret/target-facts-helm.yaml
+    cubInstallerApply:
+      result: pass
+      stagedSecrets:
+      - namespace: rabbitmq
+        name: rabbitmq-auth
+        keys:
+        - rabbitmq-password
+      - namespace: rabbitmq
+        name: rabbitmq-erlang-cookie
+        keys:
+        - rabbitmq-erlang-cookie
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-rabbitmq-existing-secret/target-facts-installer.yaml

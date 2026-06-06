@@ -27,6 +27,13 @@ delivery, or a LoadBalancer-capable cluster.
 | `confighub_oci_argo_live` | ConfigHub Units were published through OCI and reconciled by Argo CD, with runtime evidence. | Regular Helm was deployed side by side for parity. |
 | `live_helm_vs_confighub_dual_compare` | A live Helm deployment was compared against ConfigHub delivery paths. | Only exact rows with committed receipts pass. The lane matrix shows which rows still need evidence. |
 
+Strict Helm parity should use two vanilla kind clusters by default: regular Helm
+on one cluster and `cub installer` render/apply on the other. This is the
+required 100% live parity test for base variants. It avoids controller or CRD
+contamination between the two legs. OCI/GitOps delivery remains a separate live
+lane after parity has passed. See
+[Two-Cluster Helm Parity Harness](../reference/two-cluster-parity-harness.md).
+
 ## Commands
 
 Check the generated matrix:

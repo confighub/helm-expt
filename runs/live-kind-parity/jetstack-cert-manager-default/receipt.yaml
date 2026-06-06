@@ -1,0 +1,150 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: jetstack-cert-manager-v1.20.2-default-kind-parity-20260606
+spec:
+  chart: jetstack/cert-manager
+  version: v1.20.2
+  base: default
+  result: blocked
+  observedAt: '2026-06-06T12:08:45Z'
+  package:
+    path: packages/jetstack/cert-manager/v1.20.2
+  recipe:
+    path: recipes/jetstack/cert-manager/v1.20.2
+  variantRevision: recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-certma-06bd4-7uhe-helm
+    installerCluster: hx-certma-06bd4-7uhe-installer
+    namespace: cert-manager
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-certma-06bd4-7uhe-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-certma-06bd4-7uhe-helm" ...
+
+          Deleted nodes: ["hx-certma-06bd4-7uhe-helm-control-plane"]'
+      - cluster: hx-certma-06bd4-7uhe-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-certma-06bd4-7uhe-installer" ...
+
+          Deleted nodes: ["hx-certma-06bd4-7uhe-installer-control-plane"]'
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install cert-manager cert-manager --repo https://charts.jetstack.io
+        --version v1.20.2 --namespace cert-manager --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/jetstack-cert-manager-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: cert-manager
+      manifestSHA256: 45029db19d75e578bec74b82a0476a6580d1f7193239a210bf4873156ac725ce
+      objectCount: 42
+      liveHelmManifestSHA256: 45029db19d75e578bec74b82a0476a6580d1f7193239a210bf4873156ac725ce
+      liveHelmManifestObjectCount: 42
+      runtimeNamespaces: &id001
+      - cert-manager
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# cert-manager
+
+          deployment.apps/cert-manager              1/1   1     1     6m11s
+
+          deployment.apps/cert-manager-cainjector   1/1   1     1     6m11s
+
+          deployment.apps/cert-manager-webhook      1/1   1     1     6m11s'
+        pods: '# cert-manager
+
+          cert-manager-5957746d66-v9k4q              1/1   Running   0             6m11s
+
+          cert-manager-cainjector-567c6b47ff-8mlnd   1/1   Running   1 (63s ago)   6m11s
+
+          cert-manager-webhook-7cc5c588cb-tk67j      1/1   Running   0             6m11s'
+        notReady: []
+      stderr: 'Error: failed post-install: resource Job/cert-manager/cert-manager-startupapicheck
+        not ready. status: Failed, message: Job Failed. failed: 1/1'
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jetstack/cert-manager/v1.20.2
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-certma-06bd4-7uhe-cert-manager
+        --non-interactive --namespace cert-manager
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: cert-manager
+      manifestSHA256: 57e2faf5f0a57a95f2371db14bb9a73e95fcca5a42a6d95447e30fd0603abc91
+      objectCount: 43
+      manifestNamespaces:
+      - cert-manager
+      - kube-system
+      runtimeNamespaces: &id002
+      - cert-manager
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# cert-manager
+
+          deployment.apps/cert-manager              1/1   1     1     20s
+
+          deployment.apps/cert-manager-cainjector   1/1   1     1     21s
+
+          deployment.apps/cert-manager-webhook      1/1   1     1     20s'
+        pods: '# cert-manager
+
+          cert-manager-5957746d66-722rg              1/1   Running   0     20s
+
+          cert-manager-cainjector-567c6b47ff-4ft6n   1/1   Running   0     20s
+
+          cert-manager-webhook-7cc5c588cb-c9mdc      1/1   Running   0     20s'
+        notReady: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||cert-manager
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 42
+      installerObjectCount: 43
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||cert-manager
+      semanticDiffs: []
+      comparisonSHA256: c9c63ab13aaa52bb2e0a8493bdcd5f19a4ad64f691147895aa0a2a1f793cf741
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: staged=0
+  - name: target-facts-installer
+    result: pass
+    detail: staged=0
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: failed post-install: resource Job/cert-manager/cert-manager-startupapicheck
+      not ready. status: Failed, message: Job Failed. failed: 1/1'
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# cert-manager
+
+      deployment.apps/cert-manager              1/1   1     1     20s
+
+      deployment.apps/cert-manager-cainjector   1/1   1     1     21s
+
+      deployment.apps/cert-manager-webhook      1/1   1     1     20s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||cert-manager'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []

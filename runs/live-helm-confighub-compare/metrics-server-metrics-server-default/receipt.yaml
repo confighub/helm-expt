@@ -1,0 +1,208 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: metrics-server-metrics-server-3.13.0-default-live-parity-20260605
+spec:
+  chart: metrics-server/metrics-server
+  version: 3.13.0
+  base: default
+  result: pass
+  observedAt: '2026-06-05T15:44:11Z'
+  package:
+    path: packages/metrics-server/metrics-server/3.13.0
+  recipe:
+    path: recipes/metrics-server/metrics-server/3.13.0
+  variantRevision: recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/variant-revision.yaml
+  run:
+    rig: helm-expt-parity-metricsserver-mq13h1yo-154u
+    kubeContext: kind-helm-expt-parity-metricsserver-mq13h1yo-154u
+    namespace: kube-system
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-metricsserver-mq13h1yo-154u
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-metricsserver-mq13h1yo-154u"...
+
+        Deleting cluster "helm-expt-parity-metricsserver-mq13h1yo-154u" ...
+
+        Deleted nodes: ["helm-expt-parity-metricsserver-mq13h1yo-154u-control-plane"]
+
+        Deleting Space "helm-expt-parity-metricsserver-mq13h1yo-154u-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install metrics-server metrics-server --repo https://kubernetes-sigs.github.io/metrics-server/
+        --version 3.13.0 --namespace kube-system --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/metrics-server-metrics-server-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 97514966a1917b1ae3b597ec3a32216d0a650db7cb56d472f4e722c69c869b51
+      objectCount: 9
+      liveHelmManifestSHA256: 97514966a1917b1ae3b597ec3a32216d0a650db7cb56d472f4e722c69c869b51
+      liveHelmManifestObjectCount: 9
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/coredns          2/2   2     2     102s
+
+          deployment.apps/metrics-server   1/1   1     1     25s
+
+          daemonset.apps/kindnet      1     1     1     1     1     kubernetes.io/os=linux   101s
+
+          daemonset.apps/kube-proxy   1     1     1     1     1     kubernetes.io/os=linux   102s'
+        pods: 'coredns-7d764666f9-bxdn4                                                             1/1   Running   0     97s
+
+          coredns-7d764666f9-jnfl5                                                             1/1   Running   0     97s
+
+          etcd-helm-expt-parity-metricsserver-mq13h1yo-154u-control-plane                      1/1   Running   0     103s
+
+          kindnet-t2jl7                                                                        1/1   Running   0     97s
+
+          kube-apiserver-helm-expt-parity-metricsserver-mq13h1yo-154u-control-plane            1/1   Running   0     103s
+
+          kube-controller-manager-helm-expt-parity-metricsserver-mq13h1yo-154u-control-plane   1/1   Running   0     102s
+
+          kube-proxy-kphlt                                                                     1/1   Running   0     97s
+
+          kube-scheduler-helm-expt-parity-metricsserver-mq13h1yo-154u-control-plane            1/1   Running   0     103s
+
+          metrics-server-74c6bc5757-txrn4                                                      1/1   Running   0     25s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/metrics-server/metrics-server/3.13.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-metricsserver-mq13h1yo-154u-metrics-server
+        --non-interactive --namespace kube-system
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 0d533fa37de2334f11f4e6b0a53e9dd27094220cf2d689b9e8d08deb5c58c622
+      objectCount: 10
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/coredns          2/2   2     2     2m22s
+
+          deployment.apps/metrics-server   1/1   1     1     31s
+
+          daemonset.apps/kindnet      1     1     1     1     1     kubernetes.io/os=linux   2m21s
+
+          daemonset.apps/kube-proxy   1     1     1     1     1     kubernetes.io/os=linux   2m22s'
+        pods: 'coredns-7d764666f9-bxdn4                                                             1/1   Running   0     2m17s
+
+          coredns-7d764666f9-jnfl5                                                             1/1   Running   0     2m17s
+
+          etcd-helm-expt-parity-metricsserver-mq13h1yo-154u-control-plane                      1/1   Running   0     2m23s
+
+          kindnet-t2jl7                                                                        1/1   Running   0     2m17s
+
+          kube-apiserver-helm-expt-parity-metricsserver-mq13h1yo-154u-control-plane            1/1   Running   0     2m23s
+
+          kube-controller-manager-helm-expt-parity-metricsserver-mq13h1yo-154u-control-plane   1/1   Running   0     2m22s
+
+          kube-proxy-kphlt                                                                     1/1   Running   0     2m17s
+
+          kube-scheduler-helm-expt-parity-metricsserver-mq13h1yo-154u-control-plane            1/1   Running   0     2m23s
+
+          metrics-server-74c6bc5757-cmz66                                                      1/1   Running   0     31s'
+        notReady: []
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-metricsserver-mq13h1yo-154u-metrics-server
+      controller: Argo CD OCI
+      app: metrics-server-parity
+      manifestSHA256: 0d533fa37de2334f11f4e6b0a53e9dd27094220cf2d689b9e8d08deb5c58c622
+      objectCount: 10
+      ociRevision: sha256:403a2bdcc098068aa1c2f628cfe41ffed06bff1f5208c51e33b24edc2e924b09
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/coredns          2/2   2     2     4m2s
+
+          deployment.apps/metrics-server   1/1   1     1     26s
+
+          daemonset.apps/kindnet      1     1     1     1     1     kubernetes.io/os=linux   4m1s
+
+          daemonset.apps/kube-proxy   1     1     1     1     1     kubernetes.io/os=linux   4m2s'
+        pods: 'coredns-7d764666f9-bxdn4                                                             1/1   Running   0     3m57s
+
+          coredns-7d764666f9-jnfl5                                                             1/1   Running   0     3m57s
+
+          etcd-helm-expt-parity-metricsserver-mq13h1yo-154u-control-plane                      1/1   Running   0     4m3s
+
+          kindnet-t2jl7                                                                        1/1   Running   0     3m57s
+
+          kube-apiserver-helm-expt-parity-metricsserver-mq13h1yo-154u-control-plane            1/1   Running   0     4m3s
+
+          kube-controller-manager-helm-expt-parity-metricsserver-mq13h1yo-154u-control-plane   1/1   Running   0     4m2s
+
+          kube-proxy-kphlt                                                                     1/1   Running   0     3m57s
+
+          kube-scheduler-helm-expt-parity-metricsserver-mq13h1yo-154u-control-plane            1/1   Running   0     4m3s
+
+          metrics-server-74c6bc5757-r2jpj                                                      1/1   Running   0     26s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||kube-system
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 9
+      configHubObjectCount: 10
+      missingFromConfigHub: &id001 []
+      extraInConfigHub: &id002
+      - v1|Namespace||kube-system
+      semanticDiffs: &id003 []
+      comparisonSHA256: d7d8f2070f925cc04d15340cdeb3f8408ddab050974b0a3f3627d942ae966b01
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 9
+      configHubObjectCount: 10
+      missingFromConfigHub: *id001
+      extraInConfigHub: *id002
+      semanticDiffs: *id003
+      comparisonSHA256: d7d8f2070f925cc04d15340cdeb3f8408ddab050974b0a3f3627d942ae966b01
+  checks:
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-metricsserver-mq13h1yo-154u\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-metricsserver-mq13h1yo-154u.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-metricsserver-mq13h1yo-154u\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-metricsserver-mq13h1yo-154u\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-metricsserver-mq13h1yo-154u\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-metricsserver-mq13h1yo-154u.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
+      Insta"
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"metrics-server\" does not exist. Installing it now.\nNAME:\
+      \ metrics-server\nLAST DEPLOYED: Fri Jun  5 16:45:35 2026\nNAMESPACE: kube-system\n\
+      STATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\n\
+      NOTES:\n***********************************************************************\n\
+      * Metrics Server                                                      *\n***********************************************************************\n\
+      \  Chart version: 3.13.0\n  App version:   0.8.0\n  Image tag:     registry.k8s.io/metrics-server/metrics-server:v0.8.0\n\
+      ***********************************************************************"
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: 'deployment.apps/coredns          2/2   2     2     2m22s
+
+      deployment.apps/metrics-server   1/1   1     1     31s
+
+      daemonset.apps/kindnet      1     1     1     1     1     kubernetes.io/os=linux   2m21s
+
+      daemonset.apps/kube-proxy   1     1     1     1     1     kubernetes.io/os=linux   2m22s'
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 40s
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||kube-system'] diffs=0
