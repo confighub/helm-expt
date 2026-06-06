@@ -35,7 +35,8 @@ For a chart-choice row to be called fully proven, the outcome is:
 | ConfigHub reviewability | upload proof, linked Units, server-side derived-variant clone where applicable, function scan receipt, and safe-ops receipt. |
 | Live cluster truth | local-kind or equivalent Kubernetes observation receipt that checks applied objects and meaningful runtime state, not just file generation. |
 | GitOps/OCI truth | ConfigHub Units published through OCI and reconciled by Argo or Flux, with sync and runtime evidence. |
-| Helm-vs-ConfigHub parity | live Helm deployment compared with two live ConfigHub deliveries: controller-driven OCI and kubectl/apply. |
+| Helm-vs-installer parity | required live parity: live Helm deployment on one vanilla cluster compared with live `cub installer` render/apply on a second vanilla cluster. |
+| ConfigHub delivery parity | live Helm deployment compared with ConfigHub delivery paths such as controller-driven OCI and kubectl/apply. |
 
 If any required evidence is missing, the row remains useful but incomplete. The
 matrix should say `missing`; docs should not flatten that into "verified."
@@ -62,7 +63,7 @@ npm run lane-tests:verify
 | `confighub_upload_variant_scan_safe_ops` | ConfigHub upload proof, server-side variant clone, function scan receipt, and safe-ops receipt. |
 | `local_kind_kubectl_apply` | A committed local-kind observation receipt proving the rendered object set applies and reaches expected runtime checks. |
 | `confighub_oci_argo_live` | A receipt from `tests/chart-install-test` or its successor proving ConfigHub Units were published through OCI and reconciled by Argo or Flux. |
-| `live_helm_vs_confighub_dual_compare` | A live comparison receipt that installs the chart with Helm and compares it against two live ConfigHub deliveries: controller-driven OCI and kubectl/apply. |
+| `live_helm_vs_confighub_dual_compare` | Historical combined lane that installs the chart with Helm and compares it against ConfigHub delivery paths. Keep these receipts as useful evidence. The required 100% live parity lane should use the two-cluster kind harness described in [Two-Cluster Helm Parity Harness](two-cluster-parity-harness.md). |
 
 ## Current Reading
 
