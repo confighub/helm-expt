@@ -31,6 +31,21 @@ try:
 except ImportError:  # pragma: no cover
     yaml = None
 
+if yaml:
+    class KubernetesYamlLoader(yaml.SafeLoader):
+        pass
+
+    KubernetesYamlLoader.yaml_implicit_resolvers = {
+        key: [
+            (tag, regexp)
+            for tag, regexp in resolvers
+            if tag != "tag:yaml.org,2002:value"
+        ]
+        for key, resolvers in yaml.SafeLoader.yaml_implicit_resolvers.items()
+    }
+else:  # pragma: no cover
+    KubernetesYamlLoader = None
+
 
 def sh(cmd: list[str], timeout: int = 120, env: dict[str, str] | None = None) -> tuple[int, str, str]:
     try:
@@ -61,7 +76,7 @@ def write_yaml(path: Path, data: dict) -> None:
 def load_yaml(path: Path) -> dict:
     if not yaml:
         raise RuntimeError("PyYAML is required for live parity tests")
-    return yaml.safe_load(path.read_text()) or {}
+    return yaml.load(path.read_text(), Loader=KubernetesYamlLoader) or {}
 
 
 def raw_values_file(source: Path, destination: Path) -> Path:
@@ -76,7 +91,7 @@ def raw_values_file(source: Path, destination: Path) -> Path:
 def yaml_docs(text: str) -> list[dict]:
     if not yaml:
         raise RuntimeError("PyYAML is required for live parity tests")
-    return [doc for doc in yaml.safe_load_all(text) if isinstance(doc, dict)]
+    return [doc for doc in yaml.load_all(text, Loader=KubernetesYamlLoader) if isinstance(doc, dict)]
 
 
 def object_identity(doc: dict) -> str:
@@ -261,7 +276,7 @@ def semantic_compare(helm_yaml: str, installer_yaml: str, allowed_extra: list[st
 
 def create_kind_cluster(name: str, kubeconfig: Path) -> tuple[int, str, str]:
     kubeconfig.parent.mkdir(parents=True, exist_ok=True)
-    return sh(["kind", "create", "cluster", "--name", name, "--kubeconfig", str(kubeconfig), "--wait", "180s"], timeout=600)
+    return sh(["kind", "create", "cluster", "--name", name, "--kubeconfig", str(kubeconfig), "--wait", "300s"], timeout=720)
 
 
 def delete_kind_cluster(name: str, kubeconfig: Path) -> tuple[int, str, str]:

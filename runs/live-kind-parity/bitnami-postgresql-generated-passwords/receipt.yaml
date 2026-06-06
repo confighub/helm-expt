@@ -1,0 +1,126 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: bitnami-postgresql-18.6.7-generated-passwords-kind-parity-20260606
+spec:
+  chart: bitnami/postgresql
+  version: 18.6.7
+  base: generated-passwords
+  result: pass
+  observedAt: '2026-06-06T08:23:49Z'
+  package:
+    path: packages/bitnami/postgresql/18.6.7
+  recipe:
+    path: recipes/bitnami/postgresql/18.6.7
+  variantRevision: recipes/bitnami/postgresql/18.6.7/revisions/generated-passwords/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-postgr-b10b7-6lby-helm
+    installerCluster: hx-postgr-b10b7-6lby-installer
+    namespace: postgresql
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-postgr-b10b7-6lby-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-postgr-b10b7-6lby-helm" ...
+
+          Deleted nodes: ["hx-postgr-b10b7-6lby-helm-control-plane"]'
+      - cluster: hx-postgr-b10b7-6lby-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-postgr-b10b7-6lby-installer" ...
+
+          Deleted nodes: ["hx-postgr-b10b7-6lby-installer-control-plane"]'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install postgresql postgresql --repo https://charts.bitnami.com/bitnami
+        --version 18.6.7 --namespace postgresql --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-postgresql-generated-passwords/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: postgresql
+      manifestSHA256: 5ddff6ac6f2de4b98f6fce9d482167f300406c3ff738317e34b322522465ea72
+      objectCount: 7
+      liveHelmManifestSHA256: cfb7c83799e3df945011f6f59e9645ecb1eea68116a3ae56af60cc6a425b7130
+      liveHelmManifestObjectCount: 7
+      runtimeNamespaces: &id001
+      - postgresql
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# postgresql
+
+          statefulset.apps/postgresql   1/1   61s'
+        pods: '# postgresql
+
+          postgresql-0   1/1   Running   0     61s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/postgresql/18.6.7
+        --base generated-passwords --work-dir /tmp/helm-expt-kind-parity-hx-postgr-b10b7-6lby-postgresql
+        --non-interactive --namespace postgresql
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: postgresql
+      manifestSHA256: b082d408496b3f5c61e406603db92e72e913cda0846fb8595c8079788ec39d62
+      objectCount: 8
+      manifestNamespaces:
+      - postgresql
+      runtimeNamespaces: &id002
+      - postgresql
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# postgresql
+
+          statefulset.apps/postgresql   1/1   51s'
+        pods: '# postgresql
+
+          postgresql-0   1/1   Running   0     51s'
+        notReady: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||postgresql
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 7
+      installerObjectCount: 8
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||postgresql
+      semanticDiffs: []
+      comparisonSHA256: c3866137a465ac636d73c84a83f03755b6dc44de56f05463b9c548fb927c384f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"postgresql\" does not exist. Installing it now.\nNAME: postgresql\n\
+      LAST DEPLOYED: Sat Jun  6 09:24:47 2026\nNAMESPACE: postgresql\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nCHART\
+      \ NAME: postgresql\nCHART VERSION: 18.6.7\nAPP VERSION: 18.4.0\n\n\u26A0 WARNING:\
+      \ Since August 28th, 2025, only a limited subset of images/charts are available\
+      \ for free.\n    Subscribe to Bitnami Secure Images to receive continued support\
+      \ and security updates.\n    More info at https://bitnami.com and https://github.com/bitnami/containers/issues/83267\n\
+      \n** Please be patient while the chart is being deployed **\n\nPostgreSQL can\
+      \ be accessed via port 5432 on the following DNS names from within your cluster:\n\
+      \n    postgresql.postgresql.svc.cluster.local - Read/Write connection\n\nTo\
+      \ get the password for \"postgres\" run:\n\n    export POSTGRES_PASSWORD=$(kubectl\
+      \ get secret --namespace postgresql postgresql -o jsonpath=\"{.data.postgres-password}\"\
+      \ | base64 -d)\n\nTo connect to your database run "
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# postgresql
+
+      statefulset.apps/postgresql   1/1   51s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||postgresql'] diffs=0

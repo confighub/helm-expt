@@ -1,0 +1,136 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: hashicorp-consul-2.0.0-default-control-plane-kind-parity-20260606
+spec:
+  chart: hashicorp/consul
+  version: 2.0.0
+  base: default-control-plane
+  result: blocked
+  observedAt: '2026-06-06T08:51:25Z'
+  package:
+    path: packages/hashicorp/consul/2.0.0
+  recipe:
+    path: recipes/hashicorp/consul/2.0.0
+  variantRevision: recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-consul-776fd-635n-helm
+    installerCluster: hx-consul-776fd-635n-installer
+    namespace: consul
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-consul-776fd-635n-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-consul-776fd-635n-helm" ...
+
+          Deleted nodes: ["hx-consul-776fd-635n-helm-control-plane"]'
+      - cluster: hx-consul-776fd-635n-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-consul-776fd-635n-installer" ...
+
+          Deleted nodes: ["hx-consul-776fd-635n-installer-control-plane"]'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install consul consul --repo https://helm.releases.hashicorp.com
+        --version 2.0.0 --namespace consul --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/hashicorp-consul-default-control-plane/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: consul
+      manifestSHA256: 7efa3e8b59c702c8b8fa744a0ff91198e09ad8ba0fb93a86b50c3fd9e39d29f7
+      objectCount: 68
+      liveHelmManifestSHA256: c2fa71a4d2961c9cce0f27a09aa558c5af38df2a9a5a8a8d3df6ac49ffc97098
+      liveHelmManifestObjectCount: 68
+      runtimeNamespaces: &id001
+      - consul
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# consul
+
+          deployment.apps/consul-consul-connect-injector       1/1   1     1     73s
+
+          deployment.apps/consul-consul-webhook-cert-manager   1/1   1     1     73s
+
+          statefulset.apps/consul-consul-server   1/1   73s'
+        pods: '# consul
+
+          consul-consul-connect-injector-769f576cf-vlhhb        1/1   Running   0     73s
+
+          consul-consul-server-0                                1/1   Running   0     73s
+
+          consul-consul-webhook-cert-manager-7b7958cdff-x8gxk   1/1   Running   0     73s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/consul/2.0.0
+        --base default-control-plane --work-dir /tmp/helm-expt-kind-parity-hx-consul-776fd-635n-consul
+        --non-interactive --namespace consul
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: consul
+      manifestSHA256: f1eddbbfabc811c9b5a2b9b5e3378a696ec2a486c321e14d024300e68257335e
+      objectCount: 69
+      manifestNamespaces:
+      - consul
+      runtimeNamespaces: &id002
+      - consul
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# consul
+
+          deployment.apps/consul-consul-connect-injector       1/1   1     1     71s
+
+          deployment.apps/consul-consul-webhook-cert-manager   1/1   1     1     71s
+
+          statefulset.apps/consul-consul-server   1/1   71s'
+        pods: '# consul
+
+          consul-consul-connect-injector-769f576cf-kzvql        1/1   Running   0     71s
+
+          consul-consul-server-0                                1/1   Running   0     71s
+
+          consul-consul-webhook-cert-manager-7b7958cdff-pdvv9   1/1   Running   0     71s'
+        notReady: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||consul
+    helmVsCubInstallerApply:
+      result: blocked
+      helmObjectCount: 68
+      installerObjectCount: 69
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||consul
+      semanticDiffs:
+      - apps/v1|StatefulSet|consul|consul-consul-server
+      comparisonSHA256: a07622d9cc6c65e83ffb5011c50e476b2d40e6467ef2d6153c9a1d5803ea080f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: regular-helm-live
+    result: pass
+    detail: 'I0606 09:52:18.865106   28771 warnings.go:107] "Warning: unrecognized
+      format \"int32\""'
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# consul
+
+      deployment.apps/consul-consul-connect-injector       1/1   1     1     71s
+
+      deployment.apps/consul-consul-webhook-cert-manager   1/1   1     1     71s
+
+      statefulset.apps/consul-consul-server   1/1   71s'
+  - name: semantic-object-parity
+    result: blocked
+    detail: missing=0 extra=['v1|Namespace||consul'] diffs=1

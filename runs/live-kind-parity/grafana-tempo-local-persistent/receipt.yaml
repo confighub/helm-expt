@@ -1,0 +1,132 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: grafana-tempo-1.24.4-local-persistent-kind-parity-20260606
+spec:
+  chart: grafana/tempo
+  version: 1.24.4
+  base: local-persistent
+  result: blocked
+  observedAt: '2026-06-06T08:31:55Z'
+  package:
+    path: packages/grafana/tempo/1.24.4
+  recipe:
+    path: recipes/grafana/tempo/1.24.4
+  variantRevision: recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-tempo-c7c24-gzv8-helm
+    installerCluster: hx-tempo-c7c24-gzv8-installer
+    namespace: tempo
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-tempo-c7c24-gzv8-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-tempo-c7c24-gzv8-helm" ...
+
+          Deleted nodes: ["hx-tempo-c7c24-gzv8-helm-control-plane"]'
+      - cluster: hx-tempo-c7c24-gzv8-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-tempo-c7c24-gzv8-installer" ...
+
+          Deleted nodes: ["hx-tempo-c7c24-gzv8-installer-control-plane"]'
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install tempo tempo --repo https://grafana.github.io/helm-charts
+        --version 1.24.4 --namespace tempo --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-tempo-local-persistent/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: tempo
+      manifestSHA256: 4a18b354ff67e98d84f6d89ce16b973396c9c30bf3c121f4ef146886151c44be
+      objectCount: 4
+      liveHelmManifestSHA256: 6310bac84c15da33880cdfb62315ea2c73e134f4f67630dbe390fa1d6c280acb
+      liveHelmManifestObjectCount: 4
+      runtimeNamespaces: &id001
+      - tempo
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# tempo
+
+          statefulset.apps/tempo   0/1   12m'
+        pods: '# tempo
+
+          tempo-0   0/1   Pending   0     12m'
+        notReady:
+        - namespace: tempo
+          pod: tempo-0
+          ready: 0/1
+          status: Pending
+      stderr: 'level=WARN msg="this chart is deprecated"
+
+        Error: resource StatefulSet/tempo/tempo not ready. status: InProgress, message:
+        Ready: 0/1
+
+        context deadline exceeded'
+      getManifestError: ''
+    cubInstallerApply:
+      result: watch
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/tempo/1.24.4
+        --base local-persistent --work-dir /tmp/helm-expt-kind-parity-hx-tempo-c7c24-gzv8-tempo
+        --non-interactive --namespace tempo
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: tempo
+      manifestSHA256: b0c23153c38cc975edaacd9d9783a7c7e12547f57133880999b976e527c51822
+      objectCount: 5
+      manifestNamespaces:
+      - tempo
+      runtimeNamespaces: &id002
+      - tempo
+      runtime:
+        result: watch
+        namespaces: *id002
+        workloads: '# tempo
+
+          statefulset.apps/tempo   0/1   4m53s'
+        pods: '# tempo
+
+          tempo-0   0/1   Pending   0     4m53s'
+        notReady:
+        - namespace: tempo
+          pod: tempo-0
+          ready: 0/1
+          status: Pending
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||tempo
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 4
+      installerObjectCount: 5
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||tempo
+      semanticDiffs: []
+      comparisonSHA256: d735e3356a20355ebb638cc11a9430cb3be7a0e61f6e1608cc4fb8bada9dfc97
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: regular-helm-live
+    result: blocked
+    detail: 'level=WARN msg="this chart is deprecated"
+
+      Error: resource StatefulSet/tempo/tempo not ready. status: InProgress, message:
+      Ready: 0/1
+
+      context deadline exceeded'
+  - name: cub-installer-apply-live
+    result: watch
+    detail: '# tempo
+
+      statefulset.apps/tempo   0/1   4m53s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||tempo'] diffs=0

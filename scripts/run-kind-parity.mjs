@@ -30,7 +30,7 @@ if (mode === "--run") {
 
 function runTarget(target) {
   const resolved = resolveTarget(target);
-  const rig = `helm-expt-kind-${rigSlug(target.slug)}-${uniqueRunSuffix()}`;
+  const rig = shortRigName(target);
   const out = receiptPath(target);
   mkdirSync(dirname(join(repoRoot, out)), { recursive: true });
   const command = [
@@ -205,14 +205,13 @@ function receiptPath(target) {
 }
 
 function uniqueRunSuffix() {
-  return `${Date.now().toString(36)}-${process.pid.toString(36)}`;
+  return Date.now().toString(36).slice(-4);
 }
 
-function rigSlug(slug) {
-  const compact = slug.replaceAll("-", "");
-  if (compact.length <= 16) return compact;
-  const hash = createHash("sha1").update(slug).digest("hex").slice(0, 5);
-  return `${compact.slice(0, 11)}${hash}`;
+function shortRigName(target) {
+  const slug = target.slug.replaceAll(/[^a-z0-9]/gi, "").toLowerCase().slice(0, 6) || "chart";
+  const hash = createHash("sha1").update(`${target.chart}@${target.version}/${target.base}`).digest("hex").slice(0, 5);
+  return `hx-${slug}-${hash}-${uniqueRunSuffix()}`;
 }
 
 function optionValue(name) {

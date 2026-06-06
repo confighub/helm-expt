@@ -1,0 +1,167 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: grafana-loki-7.0.0-single-binary-filesystem-kind-parity-20260606
+spec:
+  chart: grafana/loki
+  version: 7.0.0
+  base: single-binary-filesystem
+  result: blocked
+  observedAt: '2026-06-06T08:31:55Z'
+  package:
+    path: packages/grafana/loki/7.0.0
+  recipe:
+    path: recipes/grafana/loki/7.0.0
+  variantRevision: recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-loki-a68de-gzv8-helm
+    installerCluster: hx-loki-a68de-gzv8-installer
+    namespace: loki
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-loki-a68de-gzv8-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-loki-a68de-gzv8-helm" ...
+
+          Deleted nodes: ["hx-loki-a68de-gzv8-helm-control-plane"]'
+      - cluster: hx-loki-a68de-gzv8-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-loki-a68de-gzv8-installer" ...
+
+          Deleted nodes: ["hx-loki-a68de-gzv8-installer-control-plane"]'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install loki loki --repo https://grafana.github.io/helm-charts
+        --version 7.0.0 --namespace loki --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-loki-single-binary-filesystem/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: loki
+      manifestSHA256: 6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30
+      objectCount: 19
+      liveHelmManifestSHA256: 0a81d1c61bdfd5415273139ab2f7b0415fb4d37213d2857d74ff0e41f3380086
+      liveHelmManifestObjectCount: 19
+      runtimeNamespaces: &id001
+      - loki
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# loki
+
+          deployment.apps/loki-gateway   1/1   1     1     63s
+
+          statefulset.apps/loki                 1/1   63s
+
+          statefulset.apps/loki-chunks-cache    1/1   63s
+
+          statefulset.apps/loki-results-cache   1/1   63s
+
+          daemonset.apps/loki-canary   1     1     1     1     1     <none>   63s'
+        pods: '# loki
+
+          loki-0                          2/2   Running   0     63s
+
+          loki-canary-d2kdw               1/1   Running   0     63s
+
+          loki-chunks-cache-0             2/2   Running   0     63s
+
+          loki-gateway-7fb9f9f6c5-knrzd   1/1   Running   0     63s
+
+          loki-results-cache-0            2/2   Running   0     63s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/loki/7.0.0
+        --base single-binary-filesystem --work-dir /tmp/helm-expt-kind-parity-hx-loki-a68de-gzv8-loki
+        --non-interactive --namespace loki
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: loki
+      manifestSHA256: d2ee6fd3a136a978a2230ddd49e28b69b44e432e317721b52c8617de610dcae0
+      objectCount: 20
+      manifestNamespaces:
+      - loki
+      runtimeNamespaces: &id002
+      - loki
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# loki
+
+          deployment.apps/loki-gateway   1/1   1     1     71s
+
+          statefulset.apps/loki                 1/1   71s
+
+          statefulset.apps/loki-chunks-cache    1/1   71s
+
+          statefulset.apps/loki-results-cache   1/1   71s
+
+          daemonset.apps/loki-canary   1     1     1     1     1     <none>   71s'
+        pods: '# loki
+
+          loki-0                          2/2   Running   0     71s
+
+          loki-canary-zz77n               1/1   Running   0     71s
+
+          loki-chunks-cache-0             2/2   Running   0     71s
+
+          loki-gateway-7fb9f9f6c5-qvb86   1/1   Running   0     71s
+
+          loki-results-cache-0            2/2   Running   0     71s'
+        notReady: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||loki
+    helmVsCubInstallerApply:
+      result: blocked
+      helmObjectCount: 19
+      installerObjectCount: 20
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||loki
+      semanticDiffs:
+      - v1|ConfigMap|loki|loki
+      comparisonSHA256: 1967b8cf2df78220a8ae3e5fac2ecbf7671e9f5f85d92f1cb79546823f9724f5
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"loki\" does not exist. Installing it now.\nNAME: loki\nLAST\
+      \ DEPLOYED: Sat Jun  6 09:32:47 2026\nNAMESPACE: loki\nSTATUS: deployed\nREVISION:\
+      \ 1\nDESCRIPTION: Install complete\nNOTES:\n***********************************************************************\n\
+      \ Welcome to Grafana Loki\n Chart version: 7.0.0\n Chart Name: loki\n Loki version:\
+      \ 3.6.7\n***********************************************************************\n\
+      \n** Please be patient while the chart is being deployed **\n\nTip:\n\n  Watch\
+      \ the deployment status using the command: kubectl get pods -w --namespace loki\n\
+      \nIf pods are taking too long to schedule make sure pod affinity can be fulfilled\
+      \ in the current cluster.\n\n***********************************************************************\n\
+      Installed components:\n***********************************************************************\n\
+      * loki\n\nLoki has been deployed as a single binary.\nThis means a single pod\
+      \ is handling reads and writes. You can scale that pod vertically by adding\
+      \ more CPU and m"
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# loki
+
+      deployment.apps/loki-gateway   1/1   1     1     71s
+
+      statefulset.apps/loki                 1/1   71s
+
+      statefulset.apps/loki-chunks-cache    1/1   71s
+
+      statefulset.apps/loki-results-cache   1/1   71s
+
+      daemonset.apps/loki-canary   1     1     1     1     1     <none>   71s'
+  - name: semantic-object-parity
+    result: blocked
+    detail: missing=0 extra=['v1|Namespace||loki'] diffs=1

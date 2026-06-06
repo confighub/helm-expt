@@ -1,0 +1,163 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: external-secrets-external-secrets-2.5.0-default-kind-parity-20260606
+spec:
+  chart: external-secrets/external-secrets
+  version: 2.5.0
+  base: default
+  result: pass
+  observedAt: '2026-06-06T08:13:07Z'
+  package:
+    path: packages/external-secrets/external-secrets/2.5.0
+  recipe:
+    path: recipes/external-secrets/external-secrets/2.5.0
+  variantRevision: recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-extern-a266f-styg-helm
+    installerCluster: hx-extern-a266f-styg-installer
+    namespace: external-secrets
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-extern-a266f-styg-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-extern-a266f-styg-helm" ...
+
+          Deleted nodes: ["hx-extern-a266f-styg-helm-control-plane"]'
+      - cluster: hx-extern-a266f-styg-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-extern-a266f-styg-installer" ...
+
+          Deleted nodes: ["hx-extern-a266f-styg-installer-control-plane"]'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install external-secrets external-secrets --repo https://charts.external-secrets.io
+        --version 2.5.0 --namespace external-secrets --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/external-secrets-external-secrets-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: external-secrets
+      manifestSHA256: f1c832a9af788c9d2a7a0b066d76a7d8af253d83f5b0fa39c1aa91271230d3db
+      objectCount: 42
+      liveHelmManifestSHA256: a1c1a8ff5ba4930b0e3f6758299aa4860eb3f9c5b5b9b91fabc3f0c68965e5bf
+      liveHelmManifestObjectCount: 42
+      runtimeNamespaces: &id001
+      - external-secrets
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# external-secrets
+
+          deployment.apps/external-secrets                   1/1   1     1     41s
+
+          deployment.apps/external-secrets-cert-controller   1/1   1     1     41s
+
+          deployment.apps/external-secrets-webhook           1/1   1     1     41s'
+        pods: '# external-secrets
+
+          external-secrets-b86785d68-vfn66                    1/1   Running   0     41s
+
+          external-secrets-cert-controller-65485795f8-wzn4h   1/1   Running   0     41s
+
+          external-secrets-webhook-5bc7b6dbd-qb24l            1/1   Running   0     41s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/external-secrets/external-secrets/2.5.0
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-extern-a266f-styg-external-secrets
+        --non-interactive --namespace external-secrets
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: external-secrets
+      manifestSHA256: bd5348c6222054d5e1678ea1f74bfea5fa2977f8d3fb1f09a174891796d742c4
+      objectCount: 43
+      manifestNamespaces:
+      - external-secrets
+      runtimeNamespaces: &id002
+      - external-secrets
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# external-secrets
+
+          deployment.apps/external-secrets                   1/1   1     1     41s
+
+          deployment.apps/external-secrets-cert-controller   1/1   1     1     41s
+
+          deployment.apps/external-secrets-webhook           1/1   1     1     41s'
+        pods: '# external-secrets
+
+          external-secrets-b86785d68-lsmlq                    1/1   Running   0     41s
+
+          external-secrets-cert-controller-65485795f8-7qd6t   1/1   Running   0     41s
+
+          external-secrets-webhook-5bc7b6dbd-5hjnp            1/1   Running   0     41s'
+        notReady: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||external-secrets
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 42
+      installerObjectCount: 43
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||external-secrets
+      semanticDiffs: []
+      comparisonSHA256: bff0abb5fae1531b9b51a70c171fcaa5967fb38efdd4c468abe6671a6b4923f4
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "external-secrets" does not exist. Installing it now.
+
+      NAME: external-secrets
+
+      LAST DEPLOYED: Sat Jun  6 09:14:00 2026
+
+      NAMESPACE: external-secrets
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None
+
+      NOTES:
+
+      external-secrets has been deployed successfully in namespace external-secrets!
+
+
+      In order to begin using ExternalSecrets, you will need to set up a SecretStore
+
+      or ClusterSecretStore resource (for example, by creating a ''vault'' SecretStore).
+
+
+      More information on the different types of SecretStores and how to configure
+      them
+
+      can be found in our Github: https://github.com/external-secrets/external-secrets'
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# external-secrets
+
+      deployment.apps/external-secrets                   1/1   1     1     41s
+
+      deployment.apps/external-secrets-cert-controller   1/1   1     1     41s
+
+      deployment.apps/external-secrets-webhook           1/1   1     1     41s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||external-secrets'] diffs=0
