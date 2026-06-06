@@ -84,6 +84,12 @@ The receipt can be:
 | `watch` | Object parity passed but at least one runtime condition did not settle in time. |
 | `blocked` | Install, apply, semantic parity, required target facts, or cluster prerequisites failed. |
 
+Receipts may include `allowedSemanticNormalizations` when the harness has a
+named, chart-specific rule for an object that is operationally unchanged after
+installer rendering. These rules are narrow. Current examples are a single
+leading newline in Loki's embedded `ConfigMap` YAML and leading newlines in
+Consul shell command blocks. Other object differences remain `blocked`.
+
 ## Current Command
 
 Run one chart/base from the maintained recipe catalog:

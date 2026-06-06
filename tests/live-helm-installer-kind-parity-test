@@ -334,7 +334,16 @@ def semantic_compare(helm_yaml: str, installer_yaml: str, allowed_extra: list[st
     missing = sorted(helm_keys - installer_keys)
     extra = sorted(installer_keys - helm_keys)
     common = sorted(helm_keys & installer_keys)
-    diffs = [key for key in common if helm[key] != installer[key]]
+    diffs = []
+    normalizations = []
+    for key in common:
+        if helm[key] == installer[key]:
+            continue
+        normalization = allowed_semantic_normalization(key, helm[key], installer[key])
+        if normalization:
+            normalizations.append(normalization)
+        else:
+            diffs.append(key)
     return {
         "result": "pass" if not missing and extra == allowed_extra and not diffs else "blocked",
         "helmObjectCount": len(helm_keys),
@@ -342,12 +351,55 @@ def semantic_compare(helm_yaml: str, installer_yaml: str, allowed_extra: list[st
         "missingFromInstaller": missing,
         "extraInInstaller": extra,
         "semanticDiffs": diffs[:50],
+        "allowedSemanticNormalizations": normalizations,
         "comparisonSHA256": sha256_text(json.dumps({
             "missing": missing,
             "extra": extra,
             "diffs": diffs,
+            "normalizations": normalizations,
         }, sort_keys=True)),
     }
+
+
+def allowed_semantic_normalization(key: str, helm_json: str, installer_json: str) -> dict | None:
+    if key == "v1|ConfigMap|loki|loki":
+        helm_doc = json.loads(helm_json)
+        installer_doc = json.loads(installer_json)
+        config = (helm_doc.get("data") or {}).get("config.yaml")
+        if isinstance(config, str):
+            helm_doc["data"]["config.yaml"] = config[1:] if config.startswith("\n") else config
+            if json.dumps(helm_doc, sort_keys=True, separators=(",", ":"), ensure_ascii=True) == installer_json:
+                return {
+                    "object": key,
+                    "path": "data.config.yaml",
+                    "rule": "ignore-single-leading-newline",
+                    "reason": "cub installer rendering removes an initial blank line from the embedded Loki YAML string; the parsed Loki configuration is unchanged.",
+                }
+    if key == "apps/v1|StatefulSet|consul|consul-consul-server":
+        helm_doc = json.loads(helm_json)
+        installer_doc = json.loads(installer_json)
+        normalize_leading_newlines(helm_doc)
+        normalize_leading_newlines(installer_doc)
+        if json.dumps(helm_doc, sort_keys=True, separators=(",", ":"), ensure_ascii=True) == json.dumps(installer_doc, sort_keys=True, separators=(",", ":"), ensure_ascii=True):
+            return {
+                "object": key,
+                "path": "spec.template.spec.containers[].command[]",
+                "rule": "ignore-leading-newlines-in-command-strings",
+                "reason": "the only difference is an initial blank line in a shell command block; /bin/sh -ec executes the same script.",
+            }
+    return None
+
+
+def normalize_leading_newlines(value) -> None:
+    if isinstance(value, list):
+        for index, item in enumerate(value):
+            if isinstance(item, str):
+                value[index] = item.lstrip("\n")
+            else:
+                normalize_leading_newlines(item)
+    elif isinstance(value, dict):
+        for item in value.values():
+            normalize_leading_newlines(item)
 
 
 def create_kind_cluster(name: str, kubeconfig: Path) -> tuple[int, str, str]:

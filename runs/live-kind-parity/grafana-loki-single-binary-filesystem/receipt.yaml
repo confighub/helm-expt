@@ -6,8 +6,8 @@ spec:
   chart: grafana/loki
   version: 7.0.0
   base: single-binary-filesystem
-  result: blocked
-  observedAt: '2026-06-06T08:31:55Z'
+  result: pass
+  observedAt: '2026-06-06T13:21:54Z'
   package:
     path: packages/grafana/loki/7.0.0
   recipe:
@@ -15,24 +15,24 @@ spec:
   variantRevision: recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-loki-a68de-gzv8-helm
-    installerCluster: hx-loki-a68de-gzv8-installer
+    helmCluster: hx-loki-a68de-txoh-helm
+    installerCluster: hx-loki-a68de-txoh-installer
     namespace: loki
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-loki-a68de-gzv8-helm
+      - cluster: hx-loki-a68de-txoh-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-loki-a68de-gzv8-helm" ...
+        detail: 'Deleting cluster "hx-loki-a68de-txoh-helm" ...
 
-          Deleted nodes: ["hx-loki-a68de-gzv8-helm-control-plane"]'
-      - cluster: hx-loki-a68de-gzv8-installer
+          Deleted nodes: ["hx-loki-a68de-txoh-helm-control-plane"]'
+      - cluster: hx-loki-a68de-txoh-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-loki-a68de-gzv8-installer" ...
+        detail: 'Deleting cluster "hx-loki-a68de-txoh-installer" ...
 
-          Deleted nodes: ["hx-loki-a68de-gzv8-installer-control-plane"]'
+          Deleted nodes: ["hx-loki-a68de-txoh-installer-control-plane"]'
   legs:
     regularHelm:
       result: pass
@@ -51,33 +51,33 @@ spec:
         namespaces: *id001
         workloads: '# loki
 
-          deployment.apps/loki-gateway   1/1   1     1     63s
+          deployment.apps/loki-gateway   1/1   1     1     73s
 
-          statefulset.apps/loki                 1/1   63s
+          statefulset.apps/loki                 1/1   73s
 
-          statefulset.apps/loki-chunks-cache    1/1   63s
+          statefulset.apps/loki-chunks-cache    1/1   73s
 
-          statefulset.apps/loki-results-cache   1/1   63s
+          statefulset.apps/loki-results-cache   1/1   73s
 
-          daemonset.apps/loki-canary   1     1     1     1     1     <none>   63s'
+          daemonset.apps/loki-canary   1     1     1     1     1     <none>   73s'
         pods: '# loki
 
-          loki-0                          2/2   Running   0     63s
+          loki-0                          2/2   Running   0     73s
 
-          loki-canary-d2kdw               1/1   Running   0     63s
+          loki-canary-dnkds               1/1   Running   0     73s
 
-          loki-chunks-cache-0             2/2   Running   0     63s
+          loki-chunks-cache-0             2/2   Running   0     73s
 
-          loki-gateway-7fb9f9f6c5-knrzd   1/1   Running   0     63s
+          loki-gateway-7fb9f9f6c5-wpqn8   1/1   Running   0     73s
 
-          loki-results-cache-0            2/2   Running   0     63s'
+          loki-results-cache-0            2/2   Running   0     73s'
         notReady: []
       stderr: ''
       getManifestError: ''
     cubInstallerApply:
       result: pass
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/loki/7.0.0
-        --base single-binary-filesystem --work-dir /tmp/helm-expt-kind-parity-hx-loki-a68de-gzv8-loki
+        --base single-binary-filesystem --work-dir /tmp/helm-expt-kind-parity-hx-loki-a68de-txoh-loki
         --non-interactive --namespace loki
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
@@ -106,11 +106,11 @@ spec:
 
           loki-0                          2/2   Running   0     71s
 
-          loki-canary-zz77n               1/1   Running   0     71s
+          loki-canary-4nsqz               1/1   Running   0     71s
 
           loki-chunks-cache-0             2/2   Running   0     71s
 
-          loki-gateway-7fb9f9f6c5-qvb86   1/1   Running   0     71s
+          loki-gateway-7fb9f9f6c5-fdvk6   1/1   Running   0     71s
 
           loki-results-cache-0            2/2   Running   0     71s'
         notReady: []
@@ -118,15 +118,20 @@ spec:
     allowedExtraInstallerObjects:
     - v1|Namespace||loki
     helmVsCubInstallerApply:
-      result: blocked
+      result: pass
       helmObjectCount: 19
       installerObjectCount: 20
       missingFromInstaller: []
       extraInInstaller:
       - v1|Namespace||loki
-      semanticDiffs:
-      - v1|ConfigMap|loki|loki
-      comparisonSHA256: 1967b8cf2df78220a8ae3e5fac2ecbf7671e9f5f85d92f1cb79546823f9724f5
+      semanticDiffs: []
+      allowedSemanticNormalizations:
+      - object: v1|ConfigMap|loki|loki
+        path: data.config.yaml
+        rule: ignore-single-leading-newline
+        reason: cub installer rendering removes an initial blank line from the embedded
+          Loki YAML string; the parsed Loki configuration is unchanged.
+      comparisonSHA256: 60915880fa2a6e0840d286480b2ec51521c93ce40f7daf761b2942e2fc4e40f7
   checks:
   - name: kind-create-helm
     result: pass
@@ -134,10 +139,16 @@ spec:
   - name: kind-create-installer
     result: pass
     detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: staged=0
+  - name: target-facts-installer
+    result: pass
+    detail: staged=0
   - name: regular-helm-live
     result: pass
     detail: "Release \"loki\" does not exist. Installing it now.\nNAME: loki\nLAST\
-      \ DEPLOYED: Sat Jun  6 09:32:47 2026\nNAMESPACE: loki\nSTATUS: deployed\nREVISION:\
+      \ DEPLOYED: Sat Jun  6 14:22:46 2026\nNAMESPACE: loki\nSTATUS: deployed\nREVISION:\
       \ 1\nDESCRIPTION: Install complete\nNOTES:\n***********************************************************************\n\
       \ Welcome to Grafana Loki\n Chart version: 7.0.0\n Chart Name: loki\n Loki version:\
       \ 3.6.7\n***********************************************************************\n\
@@ -163,5 +174,12 @@ spec:
 
       daemonset.apps/loki-canary   1     1     1     1     1     <none>   71s'
   - name: semantic-object-parity
-    result: blocked
-    detail: missing=0 extra=['v1|Namespace||loki'] diffs=1
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||loki'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []

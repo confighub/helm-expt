@@ -7,7 +7,7 @@ spec:
   version: 7.0.0
   base: simple-scalable-minio
   result: blocked
-  observedAt: '2026-06-06T11:06:49Z'
+  observedAt: '2026-06-06T13:25:28Z'
   package:
     path: packages/grafana/loki/7.0.0
   recipe:
@@ -15,24 +15,24 @@ spec:
   variantRevision: recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-loki-78faf-07qp-helm
-    installerCluster: hx-loki-78faf-07qp-installer
+    helmCluster: hx-loki-78faf-yi68-helm
+    installerCluster: hx-loki-78faf-yi68-installer
     namespace: loki
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-loki-78faf-07qp-helm
+      - cluster: hx-loki-78faf-yi68-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-loki-78faf-07qp-helm" ...
+        detail: 'Deleting cluster "hx-loki-78faf-yi68-helm" ...
 
-          Deleted nodes: ["hx-loki-78faf-07qp-helm-control-plane"]'
-      - cluster: hx-loki-78faf-07qp-installer
+          Deleted nodes: ["hx-loki-78faf-yi68-helm-control-plane"]'
+      - cluster: hx-loki-78faf-yi68-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-loki-78faf-07qp-installer" ...
+        detail: 'Deleting cluster "hx-loki-78faf-yi68-installer" ...
 
-          Deleted nodes: ["hx-loki-78faf-07qp-installer-control-plane"]'
+          Deleted nodes: ["hx-loki-78faf-yi68-installer-control-plane"]'
   legs:
     regularHelm:
       result: blocked
@@ -74,19 +74,19 @@ spec:
 
           loki-backend-2                  0/2   Pending   0     12m
 
-          loki-canary-w2w2q               1/1   Running   0     12m
+          loki-canary-56nll               1/1   Running   0     12m
 
           loki-chunks-cache-0             2/2   Running   0     12m
 
-          loki-gateway-75b9df9f48-lcvfs   1/1   Running   0     12m
+          loki-gateway-75b9df9f48-5h47t   1/1   Running   0     12m
 
           loki-minio-0                    1/1   Running   0     12m
 
-          loki-read-b4c74bc6c-g7sjd       0/1   Pending   0     12m
+          loki-read-b4c74bc6c-pkplk       0/1   Pending   0     12m
 
-          loki-read-b4c74bc6c-qkzwr       1/1   Running   0     12m
+          loki-read-b4c74bc6c-tpwqr       0/1   Pending   0     12m
 
-          loki-read-b4c74bc6c-qt6wj       0/1   Pending   0     12m
+          loki-read-b4c74bc6c-wppkj       1/1   Running   0     12m
 
           loki-results-cache-0            2/2   Running   0     12m
 
@@ -105,11 +105,11 @@ spec:
           ready: 0/2
           status: Pending
         - namespace: loki
-          pod: loki-read-b4c74bc6c-g7sjd
+          pod: loki-read-b4c74bc6c-pkplk
           ready: 0/1
           status: Pending
         - namespace: loki
-          pod: loki-read-b4c74bc6c-qt6wj
+          pod: loki-read-b4c74bc6c-tpwqr
           ready: 0/1
           status: Pending
         - namespace: loki
@@ -134,7 +134,7 @@ spec:
     cubInstallerApply:
       result: watch
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/loki/7.0.0
-        --base simple-scalable-minio --work-dir /tmp/helm-expt-kind-parity-hx-loki-78faf-07qp-loki
+        --base simple-scalable-minio --work-dir /tmp/helm-expt-kind-parity-hx-loki-78faf-yi68-loki
         --non-interactive --namespace loki
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
@@ -167,21 +167,21 @@ spec:
 
           loki-backend-0                  0/2   Pending   0     4m53s
 
-          loki-backend-1                  2/2   Running   0     4m53s
+          loki-backend-1                  0/2   Pending   0     4m53s
 
-          loki-backend-2                  0/2   Pending   0     4m53s
+          loki-backend-2                  2/2   Running   0     4m53s
 
-          loki-canary-l9nwp               1/1   Running   0     4m53s
+          loki-canary-g7zhq               1/1   Running   0     4m53s
 
           loki-chunks-cache-0             2/2   Running   0     4m53s
 
-          loki-gateway-75b9df9f48-9pqw5   1/1   Running   0     4m53s
+          loki-gateway-75b9df9f48-c7xff   1/1   Running   0     4m53s
 
-          loki-read-b4c74bc6c-t8wfs       0/1   Pending   0     4m53s
+          loki-read-b4c74bc6c-fn5t2       0/1   Pending   0     4m53s
 
-          loki-read-b4c74bc6c-v5mnw       0/1   Pending   0     4m53s
+          loki-read-b4c74bc6c-rrzlz       1/1   Running   0     4m53s
 
-          loki-read-b4c74bc6c-w7n7v       1/1   Running   0     4m53s
+          loki-read-b4c74bc6c-zwpx7       0/1   Pending   0     4m53s
 
           loki-results-cache-0            2/2   Running   0     4m53s
 
@@ -196,15 +196,15 @@ spec:
           ready: 0/2
           status: Pending
         - namespace: loki
-          pod: loki-backend-2
+          pod: loki-backend-1
           ready: 0/2
           status: Pending
         - namespace: loki
-          pod: loki-read-b4c74bc6c-t8wfs
+          pod: loki-read-b4c74bc6c-fn5t2
           ready: 0/1
           status: Pending
         - namespace: loki
-          pod: loki-read-b4c74bc6c-v5mnw
+          pod: loki-read-b4c74bc6c-zwpx7
           ready: 0/1
           status: Pending
         - namespace: loki
@@ -219,15 +219,20 @@ spec:
     allowedExtraInstallerObjects:
     - v1|Namespace||loki
     helmVsCubInstallerApply:
-      result: blocked
+      result: pass
       helmObjectCount: 36
       installerObjectCount: 37
       missingFromInstaller: []
       extraInInstaller:
       - v1|Namespace||loki
-      semanticDiffs:
-      - v1|ConfigMap|loki|loki
-      comparisonSHA256: 1967b8cf2df78220a8ae3e5fac2ecbf7671e9f5f85d92f1cb79546823f9724f5
+      semanticDiffs: []
+      allowedSemanticNormalizations:
+      - object: v1|ConfigMap|loki|loki
+        path: data.config.yaml
+        rule: ignore-single-leading-newline
+        reason: cub installer rendering removes an initial blank line from the embedded
+          Loki YAML string; the parsed Loki configuration is unchanged.
+      comparisonSHA256: 60915880fa2a6e0840d286480b2ec51521c93ce40f7daf761b2942e2fc4e40f7
   checks:
   - name: kind-create-helm
     result: pass
@@ -271,8 +276,8 @@ spec:
 
       daemonset.apps/loki-canary   1     1     1     1     1     <none>   4m53s'
   - name: semantic-object-parity
-    result: blocked
-    detail: missing=0 extra=['v1|Namespace||loki'] diffs=1
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||loki'] diffs=0
   targetFacts:
     regularHelm:
       result: pass

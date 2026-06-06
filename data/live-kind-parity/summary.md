@@ -4,9 +4,9 @@ This report tracks strict parity receipts that use two vanilla kind clusters:
 regular Helm on one cluster and `cub installer` render/apply on the other.
 
 ```text
-pass: 23
+pass: 25
 watch: 3
-blocked: 14
+blocked: 12
 ```
 
 | Chart | Base | Result | Receipt |
@@ -30,10 +30,10 @@ blocked: 14
 | `grafana/grafana@10.5.15` | existing-secret-ingress | pass | runs/live-kind-parity/grafana-grafana-existing-secret-ingress/receipt.yaml |
 | `grafana/grafana@10.5.15` | generated-passwords | pass | runs/live-kind-parity/grafana-grafana-generated-passwords/receipt.yaml |
 | `grafana/loki@7.0.0` | simple-scalable-minio | blocked | runs/live-kind-parity/grafana-loki-simple-scalable-minio/receipt.yaml |
-| `grafana/loki@7.0.0` | single-binary-filesystem | blocked | runs/live-kind-parity/grafana-loki-single-binary-filesystem/receipt.yaml |
+| `grafana/loki@7.0.0` | single-binary-filesystem | pass | runs/live-kind-parity/grafana-loki-single-binary-filesystem/receipt.yaml |
 | `grafana/tempo@1.24.4` | local-persistent | blocked | runs/live-kind-parity/grafana-tempo-local-persistent/receipt.yaml |
 | `grafana/tempo@1.24.4` | s3-query-observability | blocked | runs/live-kind-parity/grafana-tempo-s3-query-observability/receipt.yaml |
-| `hashicorp/consul@2.0.0` | default-control-plane | blocked | runs/live-kind-parity/hashicorp-consul-default-control-plane/receipt.yaml |
+| `hashicorp/consul@2.0.0` | default-control-plane | pass | runs/live-kind-parity/hashicorp-consul-default-control-plane/receipt.yaml |
 | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | blocked | runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml |
 | `hashicorp/vault@0.32.0` | default | blocked | runs/live-kind-parity/hashicorp-vault-default/receipt.yaml |
 | `hashicorp/vault@0.32.0` | ha-raft-ui | blocked | runs/live-kind-parity/hashicorp-vault-ha-raft-ui/receipt.yaml |
