@@ -1,0 +1,232 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: argo-cd-argo-cd-9.5.15-no-crds-kind-parity-20260606
+spec:
+  chart: argo-cd/argo-cd
+  version: 9.5.15
+  base: no-crds
+  result: blocked
+  observedAt: '2026-06-06T09:28:30Z'
+  package:
+    path: packages/argo-cd/argo-cd/9.5.15
+  recipe:
+    path: recipes/argo-cd/argo-cd/9.5.15
+  variantRevision: recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-argocd-937ab-hs65-helm
+    installerCluster: hx-argocd-937ab-hs65-installer
+    namespace: argocd
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-argocd-937ab-hs65-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-argocd-937ab-hs65-helm" ...
+
+          Deleted nodes: ["hx-argocd-937ab-hs65-helm-control-plane"]'
+      - cluster: hx-argocd-937ab-hs65-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-argocd-937ab-hs65-installer" ...
+
+          Deleted nodes: ["hx-argocd-937ab-hs65-installer-control-plane"]'
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install argo-cd argo-cd --repo https://argoproj.github.io/argo-helm
+        --version 9.5.15 --namespace argocd --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/argo-cd-argo-cd-no-crds/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: argocd
+      manifestSHA256: 23a51fb8ea2215b08a853bbb26698d80f58a5514b68d4f49cdcd870a8371fc71
+      objectCount: 46
+      liveHelmManifestSHA256: 4e4266ee6bcd019dd592c1cb58987112aa4de3d82a8ee8fc8af15674b7e95c32
+      liveHelmManifestObjectCount: 46
+      runtimeNamespaces: &id001
+      - argocd
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# argocd
+
+          deployment.apps/argo-cd-argocd-applicationset-controller   0/1   1     0     12m
+
+          deployment.apps/argo-cd-argocd-dex-server                  1/1   1     1     12m
+
+          deployment.apps/argo-cd-argocd-notifications-controller    1/1   1     1     12m
+
+          deployment.apps/argo-cd-argocd-redis                       1/1   1     1     12m
+
+          deployment.apps/argo-cd-argocd-repo-server                 1/1   1     1     12m
+
+          deployment.apps/argo-cd-argocd-server                      0/1   1     0     12m
+
+          statefulset.apps/argo-cd-argocd-application-controller   0/1   12m'
+        pods: '# argocd
+
+          argo-cd-argocd-application-controller-0                    0/1   Running            0               12m
+
+          argo-cd-argocd-applicationset-controller-d7b84547c-qtpqw   0/1   CrashLoopBackOff   7
+          (2m6s ago)    12m
+
+          argo-cd-argocd-dex-server-676f75f567-bwsj4                 1/1   Running            0               12m
+
+          argo-cd-argocd-notifications-controller-c6fb5b58f-5hcmk    1/1   Running            0               12m
+
+          argo-cd-argocd-redis-6d948d65cb-n8z2q                      1/1   Running            0               12m
+
+          argo-cd-argocd-repo-server-84d4bc7ddd-sb2xk                1/1   Running            0               12m
+
+          argo-cd-argocd-server-7b67f47f47-g4dz4                     0/1   CrashLoopBackOff   7
+          (2m25s ago)   12m'
+        notReady:
+        - namespace: argocd
+          pod: argo-cd-argocd-application-controller-0
+          ready: 0/1
+          status: Running
+        - namespace: argocd
+          pod: argo-cd-argocd-applicationset-controller-d7b84547c-qtpqw
+          ready: 0/1
+          status: CrashLoopBackOff
+        - namespace: argocd
+          pod: argo-cd-argocd-server-7b67f47f47-g4dz4
+          ready: 0/1
+          status: CrashLoopBackOff
+      stderr: 'Error: resource Deployment/argocd/argo-cd-argocd-applicationset-controller
+        not ready. status: InProgress, message: Available: 0/1
+
+        resource Deployment/argocd/argo-cd-argocd-server not ready. status: InProgress,
+        message: Available: 0/1
+
+        resource StatefulSet/argocd/argo-cd-argocd-application-controller not ready.
+        status: InProgress, message: Ready: 0/1
+
+        context deadline exceeded'
+      getManifestError: ''
+    cubInstallerApply:
+      result: watch
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/argo-cd/argo-cd/9.5.15
+        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-argocd-937ab-hs65-argo-cd
+        --non-interactive --namespace argocd
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: argocd
+      manifestSHA256: 9aa58f051c3b42403ede3fee15b66780db77a92d115161820c4335e9cda5c403
+      objectCount: 47
+      manifestNamespaces:
+      - argocd
+      runtimeNamespaces: &id002
+      - argocd
+      runtime:
+        result: watch
+        namespaces: *id002
+        workloads: '# argocd
+
+          deployment.apps/argo-cd-argocd-applicationset-controller   0/1   1     0     4m53s
+
+          deployment.apps/argo-cd-argocd-dex-server                  0/1   1     0     4m53s
+
+          deployment.apps/argo-cd-argocd-notifications-controller    1/1   1     1     4m53s
+
+          deployment.apps/argo-cd-argocd-redis                       0/1   1     0     4m53s
+
+          deployment.apps/argo-cd-argocd-repo-server                 0/1   1     0     4m53s
+
+          deployment.apps/argo-cd-argocd-server                      0/1   1     0     4m53s
+
+          statefulset.apps/argo-cd-argocd-application-controller   0/1   4m53s'
+        pods: '# argocd
+
+          argo-cd-argocd-application-controller-0                    0/1   CreateContainerConfigError   0               4m53s
+
+          argo-cd-argocd-applicationset-controller-d7b84547c-wl7rh   0/1   CrashLoopBackOff             5
+          (76s ago)     4m53s
+
+          argo-cd-argocd-dex-server-676f75f567-dlft9                 0/1   Error                        5
+          (2m50s ago)   4m53s
+
+          argo-cd-argocd-notifications-controller-c6fb5b58f-4p2m6    1/1   Running                      0               4m53s
+
+          argo-cd-argocd-redis-6d948d65cb-9tf5w                      0/1   CreateContainerConfigError   0               4m53s
+
+          argo-cd-argocd-repo-server-84d4bc7ddd-nh49j                0/1   CreateContainerConfigError   0               4m53s
+
+          argo-cd-argocd-server-7b67f47f47-4mblk                     0/1   CreateContainerConfigError   0               4m53s'
+        notReady:
+        - namespace: argocd
+          pod: argo-cd-argocd-application-controller-0
+          ready: 0/1
+          status: CreateContainerConfigError
+        - namespace: argocd
+          pod: argo-cd-argocd-applicationset-controller-d7b84547c-wl7rh
+          ready: 0/1
+          status: CrashLoopBackOff
+        - namespace: argocd
+          pod: argo-cd-argocd-dex-server-676f75f567-dlft9
+          ready: 0/1
+          status: Error
+        - namespace: argocd
+          pod: argo-cd-argocd-redis-6d948d65cb-9tf5w
+          ready: 0/1
+          status: CreateContainerConfigError
+        - namespace: argocd
+          pod: argo-cd-argocd-repo-server-84d4bc7ddd-nh49j
+          ready: 0/1
+          status: CreateContainerConfigError
+        - namespace: argocd
+          pod: argo-cd-argocd-server-7b67f47f47-4mblk
+          ready: 0/1
+          status: CreateContainerConfigError
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||argocd
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 46
+      installerObjectCount: 47
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||argocd
+      semanticDiffs: []
+      comparisonSHA256: 6c60ffd22c1944fecaf346a2a0eebba316b16acb2da1efc67c5b303490178783
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: resource Deployment/argocd/argo-cd-argocd-applicationset-controller
+      not ready. status: InProgress, message: Available: 0/1
+
+      resource Deployment/argocd/argo-cd-argocd-server not ready. status: InProgress,
+      message: Available: 0/1
+
+      resource StatefulSet/argocd/argo-cd-argocd-application-controller not ready.
+      status: InProgress, message: Ready: 0/1
+
+      context deadline exceeded'
+  - name: cub-installer-apply-live
+    result: watch
+    detail: '# argocd
+
+      deployment.apps/argo-cd-argocd-applicationset-controller   0/1   1     0     4m53s
+
+      deployment.apps/argo-cd-argocd-dex-server                  0/1   1     0     4m53s
+
+      deployment.apps/argo-cd-argocd-notifications-controller    1/1   1     1     4m53s
+
+      deployment.apps/argo-cd-argocd-redis                       0/1   1     0     4m53s
+
+      deployment.apps/argo-cd-argocd-repo-server                 0/1   1     0     4m53s
+
+      deployment.apps/argo-cd-argocd-server                      0/1   1     0     4m53s
+
+      statefulset.apps/argo-cd-argocd-application-controller   0/1   4m53s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||argocd'] diffs=0

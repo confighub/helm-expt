@@ -1,0 +1,163 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: bitnami-nginx-24.0.2-existing-tls-ingress-kind-parity-20260606
+spec:
+  chart: bitnami/nginx
+  version: 24.0.2
+  base: existing-tls-ingress
+  result: pass
+  observedAt: '2026-06-06T10:38:22Z'
+  package:
+    path: packages/bitnami/nginx/24.0.2
+  recipe:
+    path: recipes/bitnami/nginx/24.0.2
+  variantRevision: recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-nginx-d7852-zmez-helm
+    installerCluster: hx-nginx-d7852-zmez-installer
+    namespace: nginx
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-nginx-d7852-zmez-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-nginx-d7852-zmez-helm" ...
+
+          Deleted nodes: ["hx-nginx-d7852-zmez-helm-control-plane"]'
+      - cluster: hx-nginx-d7852-zmez-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-nginx-d7852-zmez-installer" ...
+
+          Deleted nodes: ["hx-nginx-d7852-zmez-installer-control-plane"]'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install nginx nginx --repo https://charts.bitnami.com/bitnami
+        --version 24.0.2 --namespace nginx --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-nginx-existing-tls-ingress/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: nginx
+      manifestSHA256: 955979d8a644fbfb6075908f91924e095a84c6c203d2886f6209c90a7d616419
+      objectCount: 6
+      liveHelmManifestSHA256: f624d203ce41e8e009df538673193ca718e55221806982202a3bcb528b5fb897
+      liveHelmManifestObjectCount: 6
+      runtimeNamespaces: &id001
+      - nginx
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# nginx
+
+          deployment.apps/nginx   1/1   1     1     18s'
+        pods: '# nginx
+
+          nginx-cbfbb96f6-ccbpv   1/1   Running   0     18s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/nginx/24.0.2
+        --base existing-tls-ingress --work-dir /tmp/helm-expt-kind-parity-hx-nginx-d7852-zmez-nginx
+        --non-interactive --namespace nginx
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: nginx
+      manifestSHA256: 34fd44202701d3ac777602f3f027e1e4dfb1d7f4e51e44ccdcbb16476a13c93d
+      objectCount: 7
+      manifestNamespaces:
+      - nginx
+      runtimeNamespaces: &id002
+      - nginx
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# nginx
+
+          deployment.apps/nginx   1/1   1     1     20s'
+        pods: '# nginx
+
+          nginx-cbfbb96f6-7rn7d   1/1   Running   0     20s'
+        notReady: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||nginx
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 6
+      installerObjectCount: 7
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||nginx
+      semanticDiffs: []
+      comparisonSHA256: 627cc353c7a88de0f36167d4074aee4bced7ea0f009123a7c6ecf0a8b1b41f21
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: staged=2
+  - name: target-facts-installer
+    result: pass
+    detail: staged=2
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"nginx\" does not exist. Installing it now.\nNAME: nginx\nLAST\
+      \ DEPLOYED: Sat Jun  6 11:39:19 2026\nNAMESPACE: nginx\nSTATUS: deployed\nREVISION:\
+      \ 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nCHART NAME: nginx\n\
+      CHART VERSION: 24.0.2\nAPP VERSION: 1.31.1\n\n\u26A0 WARNING: Since August 28th,\
+      \ 2025, only a limited subset of images/charts are available for free.\n   \
+      \ Subscribe to Bitnami Secure Images to receive continued support and security\
+      \ updates.\n    More info at https://bitnami.com and https://github.com/bitnami/containers/issues/83267\n\
+      \n** Please be patient while the chart is being deployed **\nNGINX can be accessed\
+      \ through the following DNS name from within your cluster:\n\n    nginx.nginx.svc.cluster.local\
+      \ (port 80)\n\nTo access NGINX from outside the cluster, follow the steps below:\n\
+      \n1. Get the NGINX URL and associate its hostname to your cluster external IP:\n\
+      \n   export CLUSTER_IP=$(minikube ip) # On Minikube. Use: `kubectl cluster-info`\
+      \ on others K8s clusters\n   echo \"NGINX URL: http"
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# nginx
+
+      deployment.apps/nginx   1/1   1     1     20s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||nginx'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets:
+      - namespace: nginx
+        name: nginx-backend-tls
+        keys:
+        - ca.crt
+        - tls.crt
+        - tls.key
+      - namespace: nginx
+        name: nginx-ingress-tls
+        keys:
+        - tls.crt
+        - tls.key
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-nginx-existing-tls-ingress/target-facts-helm.yaml
+    cubInstallerApply:
+      result: pass
+      stagedSecrets:
+      - namespace: nginx
+        name: nginx-backend-tls
+        keys:
+        - ca.crt
+        - tls.crt
+        - tls.key
+      - namespace: nginx
+        name: nginx-ingress-tls
+        keys:
+        - tls.crt
+        - tls.key
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-nginx-existing-tls-ingress/target-facts-installer.yaml

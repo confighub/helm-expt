@@ -196,6 +196,82 @@ def kubectl_must(args: list[str], kubeconfig: Path, context: str, step: str, tim
     return out
 
 
+def ensure_tls_material(run_root: Path) -> tuple[str, str]:
+    cert = run_root / "target-facts-tls.crt"
+    key = run_root / "target-facts-tls.key"
+    if not cert.exists() or not key.exists():
+        rc, out, err = sh([
+            "openssl", "req", "-x509", "-newkey", "rsa:2048", "-nodes",
+            "-keyout", str(key), "-out", str(cert), "-subj", "/CN=helm-expt.local",
+            "-days", "1",
+        ], timeout=60)
+        if rc != 0:
+            raise RuntimeError(f"target fact TLS material generation failed: {(err or out)[:1000]}")
+    return cert.read_text(), key.read_text()
+
+
+def target_fact_value(secret_name: str, key: str, run_root: Path) -> str:
+    if key in ("tls.crt", "ca.crt"):
+        return ensure_tls_material(run_root)[0]
+    if key == "tls.key":
+        return ensure_tls_material(run_root)[1]
+    if key == "admin-user":
+        return "admin"
+    if key == "key" and "gossip" in secret_name:
+        return "MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY="
+    if key in ("access_key", "access-key"):
+        return "helm-expt-access-key"
+    if key in ("secret_key", "secret-key"):
+        return "helm-expt-secret-key"
+    if key == "token":
+        return "helm-expt-token"
+    if "cookie" in key:
+        return "helm-expt-cookie"
+    return "helm-expt-password"
+
+
+def stage_target_facts(variant: dict, kubeconfig: Path, context: str, fallback_namespace: str, run_root: Path, label: str) -> dict:
+    required = ((variant.get("spec") or {}).get("targetFacts") or {}).get("requiredSecrets") or []
+    if not required:
+        return {"result": "pass", "stagedSecrets": []}
+    docs = []
+    namespaces = set()
+    staged = []
+    for secret in required:
+        namespace = secret.get("namespace") or fallback_namespace
+        name = secret.get("name")
+        keys = secret.get("keys") or []
+        if not name or not keys:
+            raise RuntimeError(f"invalid required secret target fact: {secret}")
+        namespaces.add(namespace)
+        string_data = {key: target_fact_value(name, key, run_root) for key in keys}
+        secret_type = "kubernetes.io/tls" if set(("tls.crt", "tls.key")).issubset(string_data) and len(set(string_data) - set(("tls.crt", "tls.key", "ca.crt"))) == 0 else "Opaque"
+        docs.append({
+            "apiVersion": "v1",
+            "kind": "Secret",
+            "metadata": {"name": name, "namespace": namespace},
+            "type": secret_type,
+            "stringData": string_data,
+        })
+        staged.append({"namespace": namespace, "name": name, "keys": sorted(keys)})
+    for namespace in sorted(namespaces):
+        if protected_namespace(namespace):
+            continue
+        namespace_yaml = yaml.safe_load(kubectl_must(
+            ["create", "namespace", namespace, "--dry-run=client", "-o", "yaml"],
+            kubeconfig,
+            context,
+            f"target fact namespace {namespace}",
+        ))
+        namespace_path = run_root / f"target-facts-{label}-{namespace}-namespace.yaml"
+        write_yaml(namespace_path, namespace_yaml)
+        kubectl_must(["apply", "-f", str(namespace_path)], kubeconfig, context, f"target fact namespace apply {namespace}")
+    target_facts_path = run_root / f"target-facts-{label}.yaml"
+    write_yaml(target_facts_path, {"apiVersion": "v1", "kind": "List", "items": docs})
+    kubectl_must(["apply", "-f", str(target_facts_path)], kubeconfig, context, f"target facts apply {label}")
+    return {"result": "pass", "stagedSecrets": staged, "path": str(target_facts_path)}
+
+
 def ready_status(kubeconfig: Path, context: str, namespace: str) -> dict:
     rc, workloads, workload_err = kubectl(
         ["-n", namespace, "get", "deploy,statefulset,daemonset", "--no-headers"],
@@ -348,6 +424,7 @@ def main() -> int:
     recipe_path = repo / args.recipe
     values_path = repo / args.values
     revision_path = repo / args.variant_revision
+    variant_path = recipe_path / "variants" / args.base / "variant.yaml"
     canonical_rendered_path = revision_path.parent / "rendered" / "release-objects.yaml"
     out_path = repo / args.out
     run_root = out_path.parent
@@ -400,6 +477,7 @@ def main() -> int:
         for path, label in [
             (package_path, "package"),
             (recipe_path, "recipe"),
+            (variant_path, "variant"),
             (values_path, "values"),
             (revision_path, "variant revision"),
             (canonical_rendered_path, "canonical rendered objects"),
@@ -407,6 +485,7 @@ def main() -> int:
             if not path.exists():
                 raise RuntimeError(f"{label} path not found: {path}")
         canonical_helm_manifest = canonical_rendered_path.read_text()
+        variant = load_yaml(variant_path)
         write_text(run_root / "canonical-helm-render.yaml", canonical_helm_manifest)
         helm_values_path = raw_values_file(values_path, run_root / "regular-helm-values.yaml")
 
@@ -419,6 +498,15 @@ def main() -> int:
             if rc != 0:
                 raise RuntimeError(f"kind create {label} cluster failed: {(err or out)[:1000]}")
             check_item(f"kind-create-{label}", "pass", out or f"{label} kind cluster created")
+
+        helm_target_facts = stage_target_facts(variant, helm_kubeconfig, helm_context, args.namespace, run_root, "helm")
+        installer_target_facts = stage_target_facts(variant, installer_kubeconfig, installer_context, args.namespace, run_root, "installer")
+        receipt["spec"]["targetFacts"] = {
+            "regularHelm": helm_target_facts,
+            "cubInstallerApply": installer_target_facts,
+        }
+        check_item("target-facts-helm", helm_target_facts["result"], f"staged={len(helm_target_facts.get('stagedSecrets', []))}")
+        check_item("target-facts-installer", installer_target_facts["result"], f"staged={len(installer_target_facts.get('stagedSecrets', []))}")
 
         if workdir.exists():
             shutil.rmtree(workdir)

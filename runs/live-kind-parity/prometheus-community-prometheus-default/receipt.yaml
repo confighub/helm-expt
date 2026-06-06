@@ -1,0 +1,178 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: prometheus-community-prometheus-29.8.0-default-kind-parity-20260606
+spec:
+  chart: prometheus-community/prometheus
+  version: 29.8.0
+  base: default
+  result: pass
+  observedAt: '2026-06-06T12:47:11Z'
+  package:
+    path: packages/prometheus-community/prometheus/29.8.0
+  recipe:
+    path: recipes/prometheus-community/prometheus/29.8.0
+  variantRevision: recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-promet-8e1b3-lagc-helm
+    installerCluster: hx-promet-8e1b3-lagc-installer
+    namespace: monitoring
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-promet-8e1b3-lagc-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-promet-8e1b3-lagc-helm" ...
+
+          Deleted nodes: ["hx-promet-8e1b3-lagc-helm-control-plane"]'
+      - cluster: hx-promet-8e1b3-lagc-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-promet-8e1b3-lagc-installer" ...
+
+          Deleted nodes: ["hx-promet-8e1b3-lagc-installer-control-plane"]'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install prometheus prometheus --repo https://prometheus-community.github.io/helm-charts
+        --version 29.8.0 --namespace monitoring --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/prometheus-community-prometheus-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: monitoring
+      manifestSHA256: c11349803ddbb44562066474dd04d47d7c5c75d083dbc96162224573f949c11b
+      objectCount: 23
+      liveHelmManifestSHA256: 93ae11b6cd896d3645e0082c803132270b26b0df7a9f19491cfb4a6419c40f59
+      liveHelmManifestObjectCount: 23
+      runtimeNamespaces: &id001
+      - monitoring
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# monitoring
+
+          deployment.apps/prometheus-kube-state-metrics       1/1   1     1     77s
+
+          deployment.apps/prometheus-prometheus-pushgateway   1/1   1     1     77s
+
+          deployment.apps/prometheus-server                   1/1   1     1     77s
+
+          statefulset.apps/prometheus-alertmanager   1/1   77s
+
+          daemonset.apps/prometheus-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   77s'
+        pods: '# monitoring
+
+          prometheus-alertmanager-0                            1/1   Running   0     77s
+
+          prometheus-kube-state-metrics-68ff7c5cc5-wdlz7       1/1   Running   0     77s
+
+          prometheus-prometheus-node-exporter-b9t28            1/1   Running   0     77s
+
+          prometheus-prometheus-pushgateway-75b8bf7c77-s28l6   1/1   Running   0     77s
+
+          prometheus-server-84f77dc9fd-qtmpp                   2/2   Running   0     77s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus/29.8.0
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-promet-8e1b3-lagc-prometheus
+        --non-interactive --namespace monitoring
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: monitoring
+      manifestSHA256: cb4d4ca59ae52ac595ad0fab1372fc2d1dae9d1d79c35848867a7b5e1f5852be
+      objectCount: 24
+      manifestNamespaces:
+      - monitoring
+      runtimeNamespaces: &id002
+      - monitoring
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# monitoring
+
+          deployment.apps/prometheus-kube-state-metrics       1/1   1     1     81s
+
+          deployment.apps/prometheus-prometheus-pushgateway   1/1   1     1     81s
+
+          deployment.apps/prometheus-server                   1/1   1     1     81s
+
+          statefulset.apps/prometheus-alertmanager   1/1   81s
+
+          daemonset.apps/prometheus-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   81s'
+        pods: '# monitoring
+
+          prometheus-alertmanager-0                            1/1   Running   0     81s
+
+          prometheus-kube-state-metrics-68ff7c5cc5-x8cll       1/1   Running   0     81s
+
+          prometheus-prometheus-node-exporter-jfqmr            1/1   Running   0     81s
+
+          prometheus-prometheus-pushgateway-75b8bf7c77-6twd6   1/1   Running   0     81s
+
+          prometheus-server-84f77dc9fd-wtcvs                   2/2   Running   0     81s'
+        notReady: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||monitoring
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 23
+      installerObjectCount: 24
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||monitoring
+      semanticDiffs: []
+      comparisonSHA256: ca460f8fdf5af8446152ce8783dacc1e44e13a7b336bad6e16f01f618b01ca50
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: staged=0
+  - name: target-facts-installer
+    result: pass
+    detail: staged=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"prometheus\" does not exist. Installing it now.\nNAME: prometheus\n\
+      LAST DEPLOYED: Sat Jun  6 13:48:02 2026\nNAMESPACE: monitoring\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nThe Prometheus\
+      \ server can be accessed via port 80 on the following DNS name from within your\
+      \ cluster:\nprometheus-server.monitoring.svc.cluster.local\n\n\nGet the Prometheus\
+      \ server URL by running these commands in the same shell:\n  export POD_NAME=$(kubectl\
+      \ get pods --namespace monitoring -l \"app.kubernetes.io/name=prometheus,app.kubernetes.io/instance=prometheus\"\
+      \ -o jsonpath=\"{.items[0].metadata.name}\")\n  kubectl --namespace monitoring\
+      \ port-forward $POD_NAME 9090\n\nPrometheus alertmanager can be accessed via\
+      \ port 9093 on the following DNS name from within your cluster:\nprometheus-alertmanager.monitoring.svc.cluster.local\n\
+      \n\nGet the Alertmanager URL by running these commands in the same shell:\n\
+      \  export POD_NAME=$(kubectl get pods --namespace monitoring -l \"app.kubernetes.io/nam"
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# monitoring
+
+      deployment.apps/prometheus-kube-state-metrics       1/1   1     1     81s
+
+      deployment.apps/prometheus-prometheus-pushgateway   1/1   1     1     81s
+
+      deployment.apps/prometheus-server                   1/1   1     1     81s
+
+      statefulset.apps/prometheus-alertmanager   1/1   81s
+
+      daemonset.apps/prometheus-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   81s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||monitoring'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []

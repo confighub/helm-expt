@@ -1,0 +1,203 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: metrics-server-metrics-server-3.13.0-external-tls-ca-kind-parity-20260606
+spec:
+  chart: metrics-server/metrics-server
+  version: 3.13.0
+  base: external-tls-ca
+  result: blocked
+  observedAt: '2026-06-06T12:22:12Z'
+  package:
+    path: packages/metrics-server/metrics-server/3.13.0
+  recipe:
+    path: recipes/metrics-server/metrics-server/3.13.0
+  variantRevision: recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-metric-3c02b-p5ex-helm
+    installerCluster: hx-metric-3c02b-p5ex-installer
+    namespace: kube-system
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-metric-3c02b-p5ex-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-metric-3c02b-p5ex-helm" ...
+
+          Deleted nodes: ["hx-metric-3c02b-p5ex-helm-control-plane"]'
+      - cluster: hx-metric-3c02b-p5ex-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-metric-3c02b-p5ex-installer" ...
+
+          Deleted nodes: ["hx-metric-3c02b-p5ex-installer-control-plane"]'
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install metrics-server metrics-server --repo https://kubernetes-sigs.github.io/metrics-server/
+        --version 3.13.0 --namespace kube-system --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: kube-system
+      manifestSHA256: 4b9df6b53cb5d8ed0b655b121696183d1c107ea88511e889bef1aae6708c8dad
+      objectCount: 9
+      liveHelmManifestSHA256: 4b9df6b53cb5d8ed0b655b121696183d1c107ea88511e889bef1aae6708c8dad
+      liveHelmManifestObjectCount: 9
+      runtimeNamespaces: &id001
+      - kube-system
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# kube-system
+
+          deployment.apps/coredns          2/2   2     2     13m
+
+          deployment.apps/metrics-server   0/1   1     0     12m
+
+          daemonset.apps/kindnet      1     1     1     1     1     kubernetes.io/os=linux   13m
+
+          daemonset.apps/kube-proxy   1     1     1     1     1     kubernetes.io/os=linux   13m'
+        pods: '# kube-system
+
+          coredns-7d764666f9-6cz4p                                          1/1   Running   0     13m
+
+          coredns-7d764666f9-k7flv                                          1/1   Running   0     13m
+
+          etcd-hx-metric-3c02b-p5ex-helm-control-plane                      1/1   Running   0     13m
+
+          kindnet-6bqxb                                                     1/1   Running   0     13m
+
+          kube-apiserver-hx-metric-3c02b-p5ex-helm-control-plane            1/1   Running   0     13m
+
+          kube-controller-manager-hx-metric-3c02b-p5ex-helm-control-plane   1/1   Running   0     13m
+
+          kube-proxy-k5cpn                                                  1/1   Running   0     13m
+
+          kube-scheduler-hx-metric-3c02b-p5ex-helm-control-plane            1/1   Running   0     13m
+
+          metrics-server-66d8d7cb7-vlgcs                                    0/1   Running   0     12m'
+        notReady:
+        - namespace: kube-system
+          pod: metrics-server-66d8d7cb7-vlgcs
+          ready: 0/1
+          status: Running
+      stderr: 'Error: resource Deployment/kube-system/metrics-server not ready. status:
+        InProgress, message: Available: 0/1
+
+        context deadline exceeded'
+      getManifestError: ''
+    cubInstallerApply:
+      result: watch
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/metrics-server/metrics-server/3.13.0
+        --base external-tls-ca --work-dir /tmp/helm-expt-kind-parity-hx-metric-3c02b-p5ex-metrics-server
+        --non-interactive --namespace kube-system
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: kube-system
+      manifestSHA256: 1f1198be1d18153fa854ef5f7eb3c82ad66b675d1357b22eaf2531e3ce41b61c
+      objectCount: 10
+      manifestNamespaces:
+      - kube-system
+      runtimeNamespaces: &id002
+      - kube-system
+      runtime:
+        result: watch
+        namespaces: *id002
+        workloads: '# kube-system
+
+          deployment.apps/coredns          2/2   2     2     18m
+
+          deployment.apps/metrics-server   0/1   1     0     4m53s
+
+          daemonset.apps/kindnet      1     1     1     1     1     kubernetes.io/os=linux   18m
+
+          daemonset.apps/kube-proxy   1     1     1     1     1     kubernetes.io/os=linux   18m'
+        pods: '# kube-system
+
+          coredns-7d764666f9-dhfp9                                               1/1   Running   0     18m
+
+          coredns-7d764666f9-n62nt                                               1/1   Running   0     18m
+
+          etcd-hx-metric-3c02b-p5ex-installer-control-plane                      1/1   Running   0     18m
+
+          kindnet-f5kvj                                                          1/1   Running   0     18m
+
+          kube-apiserver-hx-metric-3c02b-p5ex-installer-control-plane            1/1   Running   0     18m
+
+          kube-controller-manager-hx-metric-3c02b-p5ex-installer-control-plane   1/1   Running   0     18m
+
+          kube-proxy-jfds7                                                       1/1   Running   0     18m
+
+          kube-scheduler-hx-metric-3c02b-p5ex-installer-control-plane            1/1   Running   0     18m
+
+          metrics-server-66d8d7cb7-rqd6z                                         0/1   Running   0     4m53s'
+        notReady:
+        - namespace: kube-system
+          pod: metrics-server-66d8d7cb7-rqd6z
+          ready: 0/1
+          status: Running
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||kube-system
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 9
+      installerObjectCount: 10
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||kube-system
+      semanticDiffs: []
+      comparisonSHA256: d7d8f2070f925cc04d15340cdeb3f8408ddab050974b0a3f3627d942ae966b01
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: staged=1
+  - name: target-facts-installer
+    result: pass
+    detail: staged=1
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: resource Deployment/kube-system/metrics-server not ready. status:
+      InProgress, message: Available: 0/1
+
+      context deadline exceeded'
+  - name: cub-installer-apply-live
+    result: watch
+    detail: '# kube-system
+
+      deployment.apps/coredns          2/2   2     2     18m
+
+      deployment.apps/metrics-server   0/1   1     0     4m53s
+
+      daemonset.apps/kindnet      1     1     1     1     1     kubernetes.io/os=linux   18m
+
+      daemonset.apps/kube-proxy   1     1     1     1     1     kubernetes.io/os=linux   18m'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||kube-system'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets:
+      - namespace: kube-system
+        name: metrics-server-tls
+        keys:
+        - tls.crt
+        - tls.key
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/target-facts-helm.yaml
+    cubInstallerApply:
+      result: pass
+      stagedSecrets:
+      - namespace: kube-system
+        name: metrics-server-tls
+        keys:
+        - tls.crt
+        - tls.key
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/target-facts-installer.yaml

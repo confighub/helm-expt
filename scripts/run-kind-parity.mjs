@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { existsSync, mkdirSync, readdirSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { spawnSync } from "node:child_process";
 import { check, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
@@ -9,6 +9,8 @@ const chartOption = optionValue("--chart");
 const versionOption = optionValue("--version");
 const baseOption = optionValue("--base");
 const recipeOption = optionValue("--recipe");
+const top20 = process.argv.includes("--top20");
+const missingOnly = process.argv.includes("--missing");
 const continueOnFail = process.argv.includes("--continue-on-fail");
 const keep = process.argv.includes("--keep");
 
@@ -24,6 +26,7 @@ if (mode === "--run") {
   console.log(`Usage:
   npm run kind-parity:run -- --chart grafana/loki --version 7.0.0 --base single-binary-filesystem
   npm run kind-parity:run -- --recipe recipes/grafana/loki/7.0.0 --base single-binary-filesystem
+  npm run kind-parity:run -- --top20 --missing --continue-on-fail
   npm run kind-parity:summary
   npm run kind-parity:verify`);
 }
@@ -60,6 +63,12 @@ function runTarget(target) {
 }
 
 function selectedTargets() {
+  if (top20) {
+    let selected = top20Targets();
+    if (missingOnly) selected = selected.filter((target) => !existsSync(join(repoRoot, receiptPath(target))));
+    check(selected.length >= 1, "no top20 variant parity targets selected");
+    return selected;
+  }
   if (recipeOption) {
     check(baseOption, "--base is required with --recipe");
     const target = targetFromRecipe(recipeOption, baseOption);
@@ -71,6 +80,29 @@ function selectedTargets() {
   const target = targets().find((item) => item.chart === chartOption && item.version === versionOption && item.base === baseOption);
   check(Boolean(target), `no recipe variant found for ${chartOption}@${versionOption} base ${baseOption}`);
   return [target];
+}
+
+function top20Targets() {
+  const csvPath = join(repoRoot, "data", "production-disposition", "top20.csv");
+  check(existsSync(csvPath), "data/production-disposition/top20.csv not found");
+  const lines = readFileSync(csvPath, "utf8").trim().split(/\r?\n/);
+  const headers = lines.shift().split(",");
+  const column = (row, name) => row[headers.indexOf(name)];
+  const result = [];
+  for (const line of lines) {
+    if (!line.trim()) continue;
+    const row = line.split(",");
+    const chart = column(row, "chart");
+    const version = column(row, "version");
+    const recipe = column(row, "recipe_path");
+    check(chart && version && recipe, `invalid top20 row: ${line}`);
+    const variantsDir = join(repoRoot, recipe, "variants");
+    check(existsSync(variantsDir), `${recipe}: variants directory not found`);
+    for (const base of readdirSync(variantsDir, { withFileTypes: true }).filter((entry) => entry.isDirectory()).map((entry) => entry.name).sort()) {
+      result.push(targetFromRecipe(recipe, base, chart, version));
+    }
+  }
+  return result;
 }
 
 function targets() {

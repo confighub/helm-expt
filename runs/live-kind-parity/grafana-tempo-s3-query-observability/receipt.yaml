@@ -1,0 +1,119 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: grafana-tempo-1.24.4-s3-query-observability-kind-parity-20260606
+spec:
+  chart: grafana/tempo
+  version: 1.24.4
+  base: s3-query-observability
+  result: blocked
+  observedAt: '2026-06-06T11:25:50Z'
+  package:
+    path: packages/grafana/tempo/1.24.4
+  recipe:
+    path: recipes/grafana/tempo/1.24.4
+  variantRevision: recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-tempo-b030a-oo4c-helm
+    installerCluster: hx-tempo-b030a-oo4c-installer
+    namespace: tempo
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-tempo-b030a-oo4c-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-tempo-b030a-oo4c-helm" ...
+
+          Deleted nodes: ["hx-tempo-b030a-oo4c-helm-control-plane"]'
+      - cluster: hx-tempo-b030a-oo4c-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-tempo-b030a-oo4c-installer" ...
+
+          Deleted nodes: ["hx-tempo-b030a-oo4c-installer-control-plane"]'
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install tempo tempo --repo https://grafana.github.io/helm-charts
+        --version 1.24.4 --namespace tempo --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-tempo-s3-query-observability/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: tempo
+      manifestSHA256: 6fb9e1726fb68d7e7e251420e9c5761e078cd38f508fa87af7759e0b302017a4
+      objectCount: 8
+      liveHelmManifestSHA256: ''
+      liveHelmManifestObjectCount: 0
+      runtimeNamespaces: &id001
+      - tempo
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# tempo'
+        pods: '# tempo'
+        notReady: []
+      stderr: 'level=WARN msg="this chart is deprecated"
+
+        Error: unable to build kubernetes objects from release manifest: resource
+        mapping not found for name: "tempo" namespace: "tempo" from "": no matches
+        for kind "ServiceMonitor" in version "monitoring.coreos.com/v1"
+
+        ensure CRDs are installed first'
+      getManifestError: 'Error: release: not found'
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||tempo
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: staged=1
+  - name: target-facts-installer
+    result: pass
+    detail: staged=1
+  - name: regular-helm-live
+    result: blocked
+    detail: 'level=WARN msg="this chart is deprecated"
+
+      Error: unable to build kubernetes objects from release manifest: resource mapping
+      not found for name: "tempo" namespace: "tempo" from "": no matches for kind
+      "ServiceMonitor" in version "monitoring.coreos.com/v1"
+
+      ensure CRDs are installed first'
+  - name: failure
+    result: blocked
+    detail: 'manifest apply failed: error: resource mapping not found for name: "tempo"
+      namespace: "tempo" from "/tmp/helm-expt-kind-parity-hx-tempo-b030a-oo4c-tempo/out/manifests/servicemonitor-tempo-tempo.yaml":
+      no matches for kind "ServiceMonitor" in version "monitoring.coreos.com/v1"
+
+      ensure CRDs are installed first'
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets:
+      - namespace: tempo
+        name: tempo-s3-credentials
+        keys:
+        - access_key
+        - secret_key
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-tempo-s3-query-observability/target-facts-helm.yaml
+    cubInstallerApply:
+      result: pass
+      stagedSecrets:
+      - namespace: tempo
+        name: tempo-s3-credentials
+        keys:
+        - access_key
+        - secret_key
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-tempo-s3-query-observability/target-facts-installer.yaml
+  failure:
+    message: 'manifest apply failed: error: resource mapping not found for name: "tempo"
+      namespace: "tempo" from "/tmp/helm-expt-kind-parity-hx-tempo-b030a-oo4c-tempo/out/manifests/servicemonitor-tempo-tempo.yaml":
+      no matches for kind "ServiceMonitor" in version "monitoring.coreos.com/v1"
+
+      ensure CRDs are installed first'

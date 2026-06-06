@@ -1,0 +1,177 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: bitnami-mongodb-19.0.7-existing-secret-replicaset-kind-parity-20260606
+spec:
+  chart: bitnami/mongodb
+  version: 19.0.7
+  base: existing-secret-replicaset
+  result: blocked
+  observedAt: '2026-06-06T10:16:01Z'
+  package:
+    path: packages/bitnami/mongodb/19.0.7
+  recipe:
+    path: recipes/bitnami/mongodb/19.0.7
+  variantRevision: recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-mongod-b95c6-6vmx-helm
+    installerCluster: hx-mongod-b95c6-6vmx-installer
+    namespace: mongodb
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-mongod-b95c6-6vmx-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-mongod-b95c6-6vmx-helm" ...
+
+          Deleted nodes: ["hx-mongod-b95c6-6vmx-helm-control-plane"]'
+      - cluster: hx-mongod-b95c6-6vmx-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-mongod-b95c6-6vmx-installer" ...
+
+          Deleted nodes: ["hx-mongod-b95c6-6vmx-installer-control-plane"]'
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install mongodb mongodb --repo https://charts.bitnami.com/bitnami
+        --version 19.0.7 --namespace mongodb --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: mongodb
+      manifestSHA256: 85bcba9d441796846c8452331d94210c5d3b7d8fb5e5969044741cd5c678372c
+      objectCount: 10
+      liveHelmManifestSHA256: 892c4c72f5dd54d8080feabc0a4b1518e14e399eb2c20690ac941507fd80adf9
+      liveHelmManifestObjectCount: 10
+      runtimeNamespaces: &id001
+      - mongodb
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# mongodb
+
+          statefulset.apps/mongodb           0/2   12m
+
+          statefulset.apps/mongodb-arbiter   0/1   12m'
+        pods: '# mongodb
+
+          mongodb-0           0/1   CrashLoopBackOff   7 (93s ago)    12m
+
+          mongodb-arbiter-0   0/1   CrashLoopBackOff   7 (101s ago)   12m'
+        notReady:
+        - namespace: mongodb
+          pod: mongodb-0
+          ready: 0/1
+          status: CrashLoopBackOff
+        - namespace: mongodb
+          pod: mongodb-arbiter-0
+          ready: 0/1
+          status: CrashLoopBackOff
+      stderr: 'Error: resource StatefulSet/mongodb/mongodb-arbiter not ready. status:
+        InProgress, message: Ready: 0/1
+
+        resource StatefulSet/mongodb/mongodb not ready. status: InProgress, message:
+        Replicas: 1/2
+
+        context deadline exceeded'
+      getManifestError: ''
+    cubInstallerApply:
+      result: watch
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/mongodb/19.0.7
+        --base existing-secret-replicaset --work-dir /tmp/helm-expt-kind-parity-hx-mongod-b95c6-6vmx-mongodb
+        --non-interactive --namespace mongodb
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: mongodb
+      manifestSHA256: 11c551ceb9ba722f7c76e1d1f78e004d6ee598fb9b860a4e249b194b8a080273
+      objectCount: 11
+      manifestNamespaces:
+      - mongodb
+      runtimeNamespaces: &id002
+      - mongodb
+      runtime:
+        result: watch
+        namespaces: *id002
+        workloads: '# mongodb
+
+          statefulset.apps/mongodb           0/2   4m52s
+
+          statefulset.apps/mongodb-arbiter   0/1   4m52s'
+        pods: '# mongodb
+
+          mongodb-0           0/1   CrashLoopBackOff   5 (88s ago)   4m52s
+
+          mongodb-arbiter-0   0/1   CrashLoopBackOff   5 (83s ago)   4m52s'
+        notReady:
+        - namespace: mongodb
+          pod: mongodb-0
+          ready: 0/1
+          status: CrashLoopBackOff
+        - namespace: mongodb
+          pod: mongodb-arbiter-0
+          ready: 0/1
+          status: CrashLoopBackOff
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||mongodb
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 10
+      installerObjectCount: 11
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||mongodb
+      semanticDiffs: []
+      comparisonSHA256: 5cb56fb3a1c69fae59ae3cf62520452fee05586a28aefab8f8d78d16664f97b3
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: staged=1
+  - name: target-facts-installer
+    result: pass
+    detail: staged=1
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: resource StatefulSet/mongodb/mongodb-arbiter not ready. status:
+      InProgress, message: Ready: 0/1
+
+      resource StatefulSet/mongodb/mongodb not ready. status: InProgress, message:
+      Replicas: 1/2
+
+      context deadline exceeded'
+  - name: cub-installer-apply-live
+    result: watch
+    detail: '# mongodb
+
+      statefulset.apps/mongodb           0/2   4m52s
+
+      statefulset.apps/mongodb-arbiter   0/1   4m52s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||mongodb'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets:
+      - namespace: mongodb
+        name: mongodb-auth
+        keys:
+        - mongodb-replica-set-key
+        - mongodb-root-password
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/target-facts-helm.yaml
+    cubInstallerApply:
+      result: pass
+      stagedSecrets:
+      - namespace: mongodb
+        name: mongodb-auth
+        keys:
+        - mongodb-replica-set-key
+        - mongodb-root-password
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/target-facts-installer.yaml

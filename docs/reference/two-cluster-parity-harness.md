@@ -103,6 +103,18 @@ npm run kind-parity:run -- \
   --base single-binary-filesystem
 ```
 
+Run every top-20 chart variant that does not already have a receipt:
+
+```sh
+npm run kind-parity:run-top20-variants:missing
+```
+
+Run every top-20 chart variant, replacing existing receipts:
+
+```sh
+npm run kind-parity:run-top20-variants -- --continue-on-fail
+```
+
 The command writes a receipt under:
 
 ```text

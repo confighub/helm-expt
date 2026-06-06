@@ -1,0 +1,193 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: external-secrets-external-secrets-2.5.0-no-crds-kind-parity-20260606
+spec:
+  chart: external-secrets/external-secrets
+  version: 2.5.0
+  base: no-crds
+  result: blocked
+  observedAt: '2026-06-06T10:45:31Z'
+  package:
+    path: packages/external-secrets/external-secrets/2.5.0
+  recipe:
+    path: recipes/external-secrets/external-secrets/2.5.0
+  variantRevision: recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-extern-41245-8tcm-helm
+    installerCluster: hx-extern-41245-8tcm-installer
+    namespace: external-secrets
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-extern-41245-8tcm-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-extern-41245-8tcm-helm" ...
+
+          Deleted nodes: ["hx-extern-41245-8tcm-helm-control-plane"]'
+      - cluster: hx-extern-41245-8tcm-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-extern-41245-8tcm-installer" ...
+
+          Deleted nodes: ["hx-extern-41245-8tcm-installer-control-plane"]'
+  legs:
+    regularHelm:
+      result: blocked
+      command: helm upgrade --install external-secrets external-secrets --repo https://charts.external-secrets.io
+        --version 2.5.0 --namespace external-secrets --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/external-secrets-external-secrets-no-crds/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: external-secrets
+      manifestSHA256: da5857fba93e0394594d7e072b31e3cf28985392b5cc0443730a23b722d7670b
+      objectCount: 19
+      liveHelmManifestSHA256: 520c6a60fc36ce3ad6a91a45ce7640480b030976db7a07d113226ecfe027854b
+      liveHelmManifestObjectCount: 19
+      runtimeNamespaces: &id001
+      - external-secrets
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# external-secrets
+
+          deployment.apps/external-secrets                   0/1   1     0     12m
+
+          deployment.apps/external-secrets-cert-controller   0/1   1     0     12m
+
+          deployment.apps/external-secrets-webhook           0/1   1     0     12m'
+        pods: '# external-secrets
+
+          external-secrets-b86785d68-kx4sq                    0/1   CrashLoopBackOff   7
+          (2m ago)   12m
+
+          external-secrets-cert-controller-647c64d965-595c2   0/1   Running            0            12m
+
+          external-secrets-webhook-5bc7b6dbd-n9xzq            0/1   Error              4
+          (4m ago)   12m'
+        notReady:
+        - namespace: external-secrets
+          pod: external-secrets-b86785d68-kx4sq
+          ready: 0/1
+          status: CrashLoopBackOff
+        - namespace: external-secrets
+          pod: external-secrets-cert-controller-647c64d965-595c2
+          ready: 0/1
+          status: Running
+        - namespace: external-secrets
+          pod: external-secrets-webhook-5bc7b6dbd-n9xzq
+          ready: 0/1
+          status: Error
+      stderr: 'Error: resource Deployment/external-secrets/external-secrets-cert-controller
+        not ready. status: InProgress, message: Available: 0/1
+
+        resource Deployment/external-secrets/external-secrets not ready. status: InProgress,
+        message: Available: 0/1
+
+        resource Deployment/external-secrets/external-secrets-webhook not ready. status:
+        InProgress, message: Available: 0/1
+
+        context deadline exceeded'
+      getManifestError: ''
+    cubInstallerApply:
+      result: watch
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/external-secrets/external-secrets/2.5.0
+        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-extern-41245-8tcm-external-secrets
+        --non-interactive --namespace external-secrets
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: external-secrets
+      manifestSHA256: 3220333e12e5e526d30786d4879ca4c8fad6c3d14417a307b66dc7550a228fbe
+      objectCount: 20
+      manifestNamespaces:
+      - external-secrets
+      runtimeNamespaces: &id002
+      - external-secrets
+      runtime:
+        result: watch
+        namespaces: *id002
+        workloads: '# external-secrets
+
+          deployment.apps/external-secrets                   0/1   1     0     4m53s
+
+          deployment.apps/external-secrets-cert-controller   0/1   1     0     4m53s
+
+          deployment.apps/external-secrets-webhook           0/1   1     0     4m53s'
+        pods: '# external-secrets
+
+          external-secrets-b86785d68-hr2h6                    0/1   CrashLoopBackOff   5
+          (108s ago)   4m53s
+
+          external-secrets-cert-controller-647c64d965-6nhkn   0/1   Running            0              4m53s
+
+          external-secrets-webhook-5bc7b6dbd-cnvwm            0/1   Running            2
+          (37s ago)    4m53s'
+        notReady:
+        - namespace: external-secrets
+          pod: external-secrets-b86785d68-hr2h6
+          ready: 0/1
+          status: CrashLoopBackOff
+        - namespace: external-secrets
+          pod: external-secrets-cert-controller-647c64d965-6nhkn
+          ready: 0/1
+          status: Running
+        - namespace: external-secrets
+          pod: external-secrets-webhook-5bc7b6dbd-cnvwm
+          ready: 0/1
+          status: Running
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||external-secrets
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 19
+      installerObjectCount: 20
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||external-secrets
+      semanticDiffs: []
+      comparisonSHA256: bff0abb5fae1531b9b51a70c171fcaa5967fb38efdd4c468abe6671a6b4923f4
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: staged=0
+  - name: target-facts-installer
+    result: pass
+    detail: staged=0
+  - name: regular-helm-live
+    result: blocked
+    detail: 'Error: resource Deployment/external-secrets/external-secrets-cert-controller
+      not ready. status: InProgress, message: Available: 0/1
+
+      resource Deployment/external-secrets/external-secrets not ready. status: InProgress,
+      message: Available: 0/1
+
+      resource Deployment/external-secrets/external-secrets-webhook not ready. status:
+      InProgress, message: Available: 0/1
+
+      context deadline exceeded'
+  - name: cub-installer-apply-live
+    result: watch
+    detail: '# external-secrets
+
+      deployment.apps/external-secrets                   0/1   1     0     4m53s
+
+      deployment.apps/external-secrets-cert-controller   0/1   1     0     4m53s
+
+      deployment.apps/external-secrets-webhook           0/1   1     0     4m53s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||external-secrets'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []

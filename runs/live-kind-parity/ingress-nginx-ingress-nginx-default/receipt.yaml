@@ -1,0 +1,143 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: ingress-nginx-ingress-nginx-4.15.1-default-kind-parity-20260606
+spec:
+  chart: ingress-nginx/ingress-nginx
+  version: 4.15.1
+  base: default
+  result: watch
+  observedAt: '2026-06-06T12:02:09Z'
+  package:
+    path: packages/ingress-nginx/ingress-nginx/4.15.1
+  recipe:
+    path: recipes/ingress-nginx/ingress-nginx/4.15.1
+  variantRevision: recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-ingres-1c8ae-zdeb-helm
+    installerCluster: hx-ingres-1c8ae-zdeb-installer
+    namespace: ingress-nginx
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-ingres-1c8ae-zdeb-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-ingres-1c8ae-zdeb-helm" ...
+
+          Deleted nodes: ["hx-ingres-1c8ae-zdeb-helm-control-plane"]'
+      - cluster: hx-ingres-1c8ae-zdeb-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-ingres-1c8ae-zdeb-installer" ...
+
+          Deleted nodes: ["hx-ingres-1c8ae-zdeb-installer-control-plane"]'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx
+        --version 4.15.1 --namespace ingress-nginx --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/ingress-nginx-ingress-nginx-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: ingress-nginx
+      manifestSHA256: 257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d
+      objectCount: 11
+      liveHelmManifestSHA256: 69021fe879a52913af047cf5f1c5b6ecceae91cad4581d49a54ad1a6518090d7
+      liveHelmManifestObjectCount: 11
+      runtimeNamespaces: &id001
+      - ingress-nginx
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# ingress-nginx
+
+          deployment.apps/ingress-nginx-controller   1/1   1     1     32s'
+        pods: '# ingress-nginx
+
+          ingress-nginx-controller-6c7cd85885-m7vjl   1/1   Running   0     32s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: watch
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/ingress-nginx/ingress-nginx/4.15.1
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-ingres-1c8ae-zdeb-ingress-nginx
+        --non-interactive --namespace ingress-nginx
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: ingress-nginx
+      manifestSHA256: 87f4abdfb6ec603eecd4d7e85f9a469cf164006fc09f032ffd6575152ed61aa9
+      objectCount: 12
+      manifestNamespaces:
+      - ingress-nginx
+      runtimeNamespaces: &id002
+      - ingress-nginx
+      runtime:
+        result: watch
+        namespaces: *id002
+        workloads: '# ingress-nginx
+
+          deployment.apps/ingress-nginx-controller   0/1   1     0     4m53s'
+        pods: '# ingress-nginx
+
+          ingress-nginx-controller-6c7cd85885-hpskc   0/1   ContainerCreating   0     4m53s'
+        notReady:
+        - namespace: ingress-nginx
+          pod: ingress-nginx-controller-6c7cd85885-hpskc
+          ready: 0/1
+          status: ContainerCreating
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||ingress-nginx
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 11
+      installerObjectCount: 12
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||ingress-nginx
+      semanticDiffs: []
+      comparisonSHA256: ce6ad96842988e20aa8d7e457c04fd08e639d26fca3d67f5e2b728ee2b23ade2
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: staged=0
+  - name: target-facts-installer
+    result: pass
+    detail: staged=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"ingress-nginx\" does not exist. Installing it now.\nNAME: ingress-nginx\n\
+      LAST DEPLOYED: Sat Jun  6 13:02:58 2026\nNAMESPACE: ingress-nginx\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nThe ingress-nginx\
+      \ controller has been installed.\nIt may take a few minutes for the load balancer\
+      \ IP to be available.\nYou can watch the status by running 'kubectl get service\
+      \ --namespace ingress-nginx ingress-nginx-controller --output wide --watch'\n\
+      \nAn example Ingress that makes use of the controller:\n  apiVersion: networking.k8s.io/v1\n\
+      \  kind: Ingress\n  metadata:\n    name: example\n    namespace: foo\n  spec:\n\
+      \    ingressClassName: nginx\n    rules:\n      - host: www.example.com\n  \
+      \      http:\n          paths:\n            - pathType: Prefix\n           \
+      \   backend:\n                service:\n                  name: exampleService\n\
+      \                  port:\n                    number: 80\n              path:\
+      \ /\n    # This section is only required if TLS is to be enabled for the "
+  - name: cub-installer-apply-live
+    result: watch
+    detail: '# ingress-nginx
+
+      deployment.apps/ingress-nginx-controller   0/1   1     0     4m53s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||ingress-nginx'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
