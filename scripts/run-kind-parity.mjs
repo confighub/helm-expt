@@ -161,9 +161,12 @@ function verifyReceipts() {
     check(receipt.kind === "LiveHelmInstallerKindParityReceipt", `${context}: kind mismatch`);
     check(receipt.spec?.run?.mode === "two-vanilla-kind-clusters", `${context}: mode mismatch`);
     check(["pass", "watch", "blocked"].includes(receipt.spec?.result), `${context}: invalid result`);
-    check(receipt.spec?.legs?.regularHelm, `${context}: missing regularHelm leg`);
-    check(receipt.spec?.legs?.cubInstallerApply, `${context}: missing cubInstallerApply leg`);
-    check(receipt.spec?.semanticComparison?.helmVsCubInstallerApply, `${context}: missing semantic comparison`);
+    const preInstallBlocked = receipt.spec?.result === "blocked" && Boolean(receipt.spec?.failure);
+    if (!preInstallBlocked) {
+      check(receipt.spec?.legs?.regularHelm, `${context}: missing regularHelm leg`);
+      check(receipt.spec?.legs?.cubInstallerApply, `${context}: missing cubInstallerApply leg`);
+      check(receipt.spec?.semanticComparison?.helmVsCubInstallerApply, `${context}: missing semantic comparison`);
+    }
     if (receipt.spec?.run?.cleanup?.result !== "retained") {
       check(receipt.spec?.run?.cleanup?.result === "pass", `${context}: cleanup must pass for non-retained parity clusters`);
     }
