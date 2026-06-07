@@ -55,6 +55,9 @@ function readme(rows) {
     ["data/outcome-coverage/base-outcomes.csv", "One row per chart/base variant: render parity, ConfigHub proof, local live, GitOps/OCI live, live Helm parity."],
     ["data/outcome-coverage/derived-variant-outcomes.csv", "One row per derived ConfigHub variant: intended-state proof and target-bound live status."],
     ["data/outcome-coverage/feature-outcomes.csv", "One row per chart feature: hooks, generated secrets, CRDs, webhooks, required values, schemas, extension slots, gaps."],
+    ["data/pain-point-coverage/summary.md", "General Helm pain point coverage: current answers, handoffs, evidence, gaps, and next actions."],
+    ["data/variant-path-coverage/summary.md", "Per chart/base/path matrix for base variants, diffs, operations, and derived ConfigHub variants."],
+    ["data/edge-recovery/summary.md", "Recovered graph fragments from Redis and kube-prometheus-stack recipe artifacts."],
     ["data/csv-index.csv", "Machine-readable index of every CSV under data/."],
   ];
   const families = [...new Set(rows.map((row) => row.family))].sort();
@@ -134,6 +137,9 @@ npm run verify
 function audienceFor(path) {
   if (path === "data/csv-index.csv") return "user/front-door";
   if (path.startsWith("data/outcome-coverage/")) return "user/front-door";
+  if (path.startsWith("data/pain-point-coverage/")) return "user/front-door";
+  if (path.startsWith("data/variant-path-coverage/")) return "user/front-door";
+  if (path.startsWith("data/edge-recovery/")) return "corpus";
   if (path.includes("lane-test") || path.includes("live") || path.includes("runtime") || path.includes("derived-variant-target-bound")) return "verification";
   if (path.includes("chart-facts") || path.includes("top100") || path.includes("top500") || path.includes("hook") || path.includes("image") || path.includes("quirk")) return "corpus";
   if (path.includes("production") || path.includes("catalog") || path.includes("latest") || path.includes("legacy") || path.includes("next-ten")) return "planning";
@@ -146,6 +152,9 @@ function roleFor(path) {
   if (path === "data/outcome-coverage/base-outcomes.csv") return "one row per chart/base: proof lane status";
   if (path === "data/outcome-coverage/derived-variant-outcomes.csv") return "one row per derived variant: intended and target-bound status";
   if (path === "data/outcome-coverage/feature-outcomes.csv") return "one row per chart feature or quirk";
+  if (path === "data/pain-point-coverage/pain-points.csv") return "one row per Helm pain point: answer, handoff, evidence, gap";
+  if (path === "data/edge-recovery/edges.csv") return "recovered desired-state graph fragments from recipe artifacts";
+  if (path === "data/variant-path-coverage/coverage-matrix.csv") return "one row per chart/base/path proof status";
   if (path.endsWith("variant-lanes.csv")) return "row-level proof lane matrix";
   if (path.endsWith("chart-facts.csv")) return "chart facts and hard gaps";
   if (path.endsWith("report.csv")) return "model completeness report";
@@ -169,6 +178,9 @@ function familyRole(family) {
   const roles = {
     adversarial10: "hard-chart readiness and control-point analysis",
     "outcome-coverage": "front-door outcome, test, and status map",
+    "pain-point-coverage": "front-door Helm pain point coverage map",
+    "edge-recovery": "recovered desired-state graph fragments",
+    "variant-path-coverage": "chart/base/path proof status matrix",
     "data-index": "CSV index and generated data guide",
     "lane-test-matrix": "exact chart/base proof lane status",
     "model-completeness": "chart-level model support criteria",
@@ -212,6 +224,9 @@ function verifyFor(family) {
 function commandMap() {
   return {
     "outcome-coverage": { generate: "npm run outcomes:generate", verify: "npm run outcomes:verify" },
+    "pain-point-coverage": { generate: "npm run pain-points:generate", verify: "npm run pain-points:verify" },
+    "edge-recovery": { generate: "npm run edges:generate", verify: "npm run edges:verify" },
+    "variant-path-coverage": { generate: "npm run variant-paths:generate", verify: "npm run variant-paths:verify" },
     "data-index": { generate: "npm run data:index", verify: "npm run data:index:verify" },
     adversarial10: { generate: "npm run adversarial10:generate", verify: "npm run adversarial10:verify" },
     "lane-test-matrix": { generate: "npm run lane-tests:generate", verify: "npm run lane-tests:verify" },

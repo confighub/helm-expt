@@ -18,6 +18,11 @@ trust boundary: the user can see the exact Kubernetes objects. The larger value
 is what happens after that: base variants, derived ConfigHub variants, scans,
 gates, promotion, observation, upgrade review, and blast-radius control.
 
+Redis remains the fast teaching chart because it is small and shows generated
+facts, target facts, and Secret choices clearly. kube-prometheus-stack is the
+main proof chart because it has high object count, CRDs, webhooks, RBAC,
+dependencies, and enough field density to make blast radius visible.
+
 ## Product Promise
 
 ```text
@@ -66,6 +71,9 @@ Success signal:
 ```text
 I can try the chart as quickly as Helm, but I can see and prove more.
 ```
+
+Redis is the first five-minute example. Prometheus is the first serious
+confidence example.
 
 ### 2. Application Team Or Service Owner
 
@@ -129,6 +137,9 @@ Success signal:
 ```text
 I can change 100 variants without guessing which clusters or objects are in scope.
 ```
+
+The first high-fanout proof should use kube-prometheus-stack or Prometheus,
+not Redis. Redis teaches the method; Prometheus shows why the method matters.
 
 ### 4. Security, Compliance, Or Audit Reviewer
 

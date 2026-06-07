@@ -1,0 +1,115 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InheritanceGraph"
+metadata:
+  name: "bitnami-redis-25.5.3"
+spec:
+  chart: "bitnami/redis"
+  version: "25.5.3"
+  recipe: "recipe.yaml"
+  baseVariant: "default"
+  variants:
+    -
+      name: "default"
+      variant: "variants/default/variant.yaml"
+      valuesProfile: "effective-values.yaml"
+    -
+      name: "reuse-existing-secret"
+      variant: "variants/reuse-existing-secret/variant.yaml"
+      valuesProfile: "effective-values-reuse-existing-secret.yaml"
+  edges:
+    -
+      from: "default"
+      to: "default"
+      type: "base-self"
+      inheritedValuePaths:
+        - "auth.password"
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        []
+      removedValuePaths:
+        []
+      valueSourceMapCoverage:
+        []
+    -
+      from: "default"
+      to: "reuse-existing-secret"
+      type: "inherits-with-overrides"
+      inheritedValuePaths:
+        []
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        - "auth.existingSecret"
+        - "auth.existingSecretPasswordKey"
+      removedValuePaths:
+        - "auth.password"
+      valueSourceMapCoverage:
+        - "auth.password"
+  targetFactEdges:
+    -
+      variant: "reuse-existing-secret"
+      kind: "Secret"
+      namespace: "redis"
+      name: "redis-existing-secret"
+      keys:
+        - "redis-password"
+      fact: "Secret/redis/redis-existing-secret:redis-password"
+      purpose: "Redis authentication password"
+  generatedFactEdges:
+    -
+      variant: "default"
+      valuePath: "auth.password"
+      source: "generated-fact-receipt"
+      effectiveValueDigest: "sha256:6486a1dce90d013579f3b52d6939524b23b3ca00c5702e409348e6c0ba782349"
+      renderedFields:
+        - "v1|Secret|redis|redis:data.redis-password"
+        - "apps/v1|StatefulSet|redis|redis-master:spec.template.spec.volumes[redis-password].secret.secretName"
+        - "apps/v1|StatefulSet|redis|redis-replicas:spec.template.spec.volumes[redis-password].secret.secretName"
+      relatedFacts:
+        - "revisions/default/r001/receipts/generated-fact-receipt.yaml"
+  fieldReachability:
+    -
+      valuePath: "replica.replicaCount"
+      source: "chart-default"
+      renderedFieldCount: 1
+      renderedFields:
+        - "apps/v1|StatefulSet|redis|redis-replicas:spec.replicas"
+      immutableFieldRisk: false
+      rolloutImpact: "changes-replica-statefulset-scale"
+    -
+      valuePath: "releaseName"
+      source: "variant.releaseName"
+      renderedFieldCount: 4
+      renderedFields:
+        - "apps/v1|StatefulSet|redis|redis-master:metadata.name"
+        - "apps/v1|StatefulSet|redis|redis-replicas:metadata.name"
+        - "v1|Service|redis|redis-headless:metadata.name"
+        - "apps/v1|StatefulSet|redis|redis-replicas:spec.template.spec.containers[0].env.REDIS_MASTER_HOST"
+      immutableFieldRisk: true
+      rolloutImpact: "changing-release-name-renames-objects"
+    -
+      valuePath: "namespace"
+      source: "variant.namespace"
+      renderedFieldCount: 4
+      renderedFields:
+        - "apps/v1|StatefulSet|redis|redis-master:metadata.namespace"
+        - "apps/v1|StatefulSet|redis|redis-replicas:metadata.namespace"
+        - "v1|Service|redis|redis-headless:metadata.namespace"
+        - "v1|Secret|redis|redis:metadata.namespace"
+      immutableFieldRisk: true
+      rolloutImpact: "moving-namespace-creates-distinct-object-set"
+    -
+      valuePath: "auth.password"
+      source: "generated-fact-receipt"
+      renderedFieldCount: 3
+      renderedFields:
+        - "v1|Secret|redis|redis:data.redis-password"
+        - "apps/v1|StatefulSet|redis|redis-master:spec.template.spec.volumes[redis-password].secret.secretName"
+        - "apps/v1|StatefulSet|redis|redis-replicas:spec.template.spec.volumes[redis-password].secret.secretName"
+      immutableFieldRisk: false
+      rolloutImpact: "changes-secret-checksum-and-rolls-redis-pods"
+  notes:
+    - "This graph is recovered from checked-in recipe artifacts."
+    - "It is a desired-state graph fragment, not a live-cluster observation."
+    - "Field reachability is limited to charts that have value-source-map.yaml coverage."

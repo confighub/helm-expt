@@ -108,6 +108,7 @@ expected product outcome, not a failure of the model.
 | --- | --- |
 | Try the shortest verified path | [Tutorial Sequence](./tutorial-sequence.md) |
 | See outcome status and CSVs | [Outcomes And Tests](./outcomes-and-tests.md) |
+| See which Helm pains are addressed | [Helm Pain Points](./helm-pain-points.md) |
 | Adopt existing apps | [Adopting Existing Apps](./adopting-existing-apps.md) |
 | Understand proof levels | [Verification Lanes](./verification-lanes.md) |
 | Choose base versus derived variants | [Creating Variants](./creating-variants.md) |
