@@ -5,7 +5,7 @@
 This page answers the skeptical first question:
 
 ```text
-How is this better than cub helm install or cub gitops import?
+How is this better than cub helm template, cub helm install, or cub gitops import?
 Isn't it just helm template plus a wrapper?
 What is the wrapper and machinery for?
 How do you expect this to be used?
@@ -14,7 +14,9 @@ How do you expect this to be used?
 The short answer is:
 
 ```text
-For a one-off install, cub helm install or a direct GitOps import should be simpler.
+For local inspection, cub helm template should be simpler.
+For a one-off ConfigHub load, cub helm install should be simpler.
+For an existing GitOps estate, direct GitOps import should be simpler.
 
 This repo is about the catalog/proof/product path:
 turn a popular Helm chart into a reviewed, named, reusable, supportable
@@ -22,10 +24,14 @@ ConfigHub model with variants, checks, receipts, promotion, GitOps handoff, and
 maintenance expectations.
 ```
 
-## Not A Replacement For The Fast Path
+## Not A Replacement For The Fast Paths
 
-`cub helm install` is the fast action path. Use it when the user wants to point
-at a chart and get objects installed or rendered now.
+`cub helm template` is the fast local render path. Use it when the user wants
+to inspect what a chart produces, debug values, or create a regular Helm
+baseline without a ConfigHub server connection.
+
+`cub helm install` is the fast ConfigHub action path. Use it when the user wants
+to point at a chart and create ConfigHub Units now.
 
 `cub gitops import` should be the natural path when the user already has a
 GitOps source and wants ConfigHub to understand or manage it.
@@ -41,6 +47,16 @@ Which changes are base variants and which are post-render variants?
 What can be promoted safely across environments?
 What was scanned, approved, applied, observed, and supported?
 ```
+
+Command routing:
+
+| Need | Use |
+| --- | --- |
+| Render and inspect Helm output locally. | `cub helm template` |
+| Load one chart render into ConfigHub Units now. | `cub helm install` |
+| Maintain a reviewed, variant-aware catalog entry. | `cub installer` recipe/package path |
+| Graduate a chart render into that catalog path. | future `cub installer import helm` |
+| Bring an existing GitOps estate under ConfigHub visibility. | `cub gitops import` |
 
 ## What The Wrapper/Machinery Is For
 

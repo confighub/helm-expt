@@ -120,7 +120,7 @@ ConfigHub primitives.
 | [observation-freshness-slo.md](./reference/observation-freshness-slo.md) | Freshness states for live observations in a workerless ConfigHub model. |
 | [upgrade-rollback-receipts.md](./reference/upgrade-rollback-receipts.md) | Upgrade and rollback receipt shape. |
 | [hook-lifecycle-strategy.md](./user/hook-lifecycle-strategy.md) | How Helm hooks are inventoried, classified, translated, or blocked. |
-| [old-cub-helm-model.md](./reference/old-cub-helm-model.md) | Legacy direct `cub helm install` model and how it differs from durable installer recipes. |
+| [direct-cub-helm-model.md](./reference/direct-cub-helm-model.md) | Current `cub helm template` / `cub helm install` roles and how they differ from durable installer recipes. |
 
 ### Variants, Promotion, And Operations
 

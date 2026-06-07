@@ -74,8 +74,9 @@ managed wrapper chart
   + render context
 ```
 
-`cub helm install` can be the quick one-shot render path. A maintained `cub
-installer` recipe/package must capture the durable import unit above.
+`cub helm template` can be the quick local render path. `cub helm install` can
+be the quick one-shot ConfigHub load path. A maintained `cub installer`
+recipe/package must capture the durable import unit above.
 
 ## Overlay Decision Rule
 

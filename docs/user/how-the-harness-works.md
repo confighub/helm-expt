@@ -139,9 +139,14 @@ cub installer import helm
 cub installer preflight
 ```
 
-`cub helm install` is the quick one-shot render path. A `cub installer`
-recipe/package is the reusable catalog artifact. Import bridges those two
-paths.
+`cub helm template` is the quick local render path. It is useful for inspection,
+debugging values, CRD/resource split checks, and Helm-equivalence baselines.
+
+`cub helm install` is the quick one-shot ConfigHub load path. It is useful when
+the goal is to create ConfigHub Units from one chart render now.
+
+A `cub installer` recipe/package is the reusable catalog artifact. Import
+bridges the fast Helm command paths into the maintained recipe/package path.
 
 ## Stage 3 - Render, Compare, And Prove
 
@@ -304,7 +309,7 @@ Current GitHub issue state as of 2026-05-31:
 
 ```text
 Open P0:
-  #76 Define Helm import path from cub helm install to cub installer recipes
+  #76 Define Helm import path from cub helm template / cub helm install to cub installer recipes
 
 Open docs/story issue:
   #82 Document how helm-expt, ConfigHub, and installer solve Helm pain points

@@ -40,6 +40,7 @@ flow. Use it when you need the deeper model:
 
 | Reference | Read It For |
 | --- | --- |
+| [Direct Cub Helm Model](../reference/direct-cub-helm-model.md) | Where `cub helm template` and `cub helm install` fit in the bigger Helm story. |
 | [Customization Algorithm](../reference/customization-algorithm.md) | The detailed routing algorithm for values, overlays, wrapper charts, and post-render variants. |
 | [Catalog Doctrine](../reference/catalog-doctrine.md) | The catalog model for defaults, parameterized bases, standard forks, and derived fills. |
 | [Customization Decision Tree](../reference/customization-decision-tree.md) | The design-level decision tree behind the customization flow. |

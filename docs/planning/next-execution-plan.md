@@ -73,8 +73,8 @@ Issue baseline:
 
 ```text
 Original proof P0s are closed and verified by npm run verify.
-The remaining open P0 is #76: define the Helm import path from cub helm install
-to durable cub installer recipes.
+The remaining open P0 is #76: define the Helm import path from `cub helm
+template` / `cub helm install` to durable `cub installer` recipes.
 Issue #82 is the current user-facing explanation work for the Helm pain table.
 ```
 
@@ -135,6 +135,15 @@ result simpler, safer, or more provable.
 These are product/installer asks, not blockers for continuing the public proof.
 Where repo scripts already perform the job, the ask is to turn a proven pattern
 into a reusable `cub` capability.
+
+Current command routing:
+
+| User need | Current command | Product role |
+| --- | --- | --- |
+| Render and inspect a Helm chart locally | `cub helm template` | Fast renderer and baseline generator |
+| Render and load a chart into ConfigHub Units | `cub helm install` | Fast one-shot ConfigHub action |
+| Build a maintained, variant-aware catalog entry | repo generator + `cub installer` package path | Current proof substrate |
+| Graduate fast Helm path into maintained catalog path | future `cub installer import helm` | Missing bridge |
 
 | Priority | Ask | Why |
 | --- | --- | --- |

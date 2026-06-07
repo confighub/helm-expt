@@ -1440,8 +1440,9 @@ changed content.
 
 ## Legacy Reference Redis Demo
 
-`docs/reference/old-cub-helm-model.md` retains a legacy reference script that uses real
-`cub installer` commands from `confighub/installer`, not target command names.
+`docs/reference/direct-cub-helm-model.md` explains the current fast Helm command
+paths and keeps the Redis compatibility script using real `cub installer`
+commands from `confighub/installer`, not target command names.
 
 This path is retained for reference only:
 
@@ -1477,8 +1478,8 @@ Helm render
   -> ConfigHub Units, revisions, and diffs
 ```
 
-The older direct `cub helm install` concept is preserved in
-`docs/reference/old-cub-helm-model.md` as background only.
+The direct `cub helm template` and `cub helm install` command story is preserved
+in `docs/reference/direct-cub-helm-model.md`.
 
 The current proof must be built from new chart repos and new artifacts under
 the planned recipe/variant/revision model. Do not use this legacy demo as the

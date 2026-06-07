@@ -3,13 +3,22 @@
 This repo treats Helm import as the path from a Helm render into a maintained
 `cub installer` recipe/package.
 
-`cub helm install` is the fast action path:
+`cub helm template` is the fast local render path:
+
+```text
+chart + values + flags -> rendered Kubernetes objects on disk/stdout
+```
+
+It is useful for inspection, debugging, CRD/resource split checks, and as the
+regular Helm baseline for equivalence receipts.
+
+`cub helm install` is the fast ConfigHub action path:
 
 ```text
 chart + values + flags -> rendered Kubernetes objects -> ConfigHub Units
 ```
 
-That is useful for quick inspection or a one-off ConfigHub load.
+That is useful for a one-off ConfigHub load.
 
 The maintained recipe path is different:
 
@@ -23,9 +32,18 @@ plus values, overlays, dependency closure, and render context
 -> scans, gates, upload/publish receipts, and live evidence
 ```
 
-Import is the bridge between those two paths. It should let a user graduate
-from "render this chart now" to "maintain this chart as a reusable,
+Import is the bridge between those paths. It should let a user graduate
+from "render/load this chart now" to "maintain this chart as a reusable,
 variant-aware, proof-bound catalog entry."
+
+The intended product command is:
+
+```text
+cub installer import helm
+```
+
+Until that exists, this repo uses generators and proof scripts to create the
+same import artifacts explicitly.
 
 ## What Import Must Capture
 

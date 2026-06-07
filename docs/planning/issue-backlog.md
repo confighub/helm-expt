@@ -34,12 +34,21 @@ remaining open P0 is a productization/design gate, not evidence that the current
 proof corpus is broken:
 
 ```text
-#76 Define Helm import path from cub helm install to cub installer recipes.
+#76 Define Helm import path from cub helm template / cub helm install to cub installer recipes.
 ```
 
 That issue matters because the repo-proven import workflow needs a clear product
-path. The public proof can remain valid while #76 is open; the product story is
-not complete until it is resolved.
+path. The current command story is:
+
+| Command | Product role |
+| --- | --- |
+| `cub helm template` | Fast local render and Helm baseline. |
+| `cub helm install` | Fast one-shot render into ConfigHub Units. |
+| `cub installer` recipe/package | Maintained catalog artifact with named bases, receipts, scans, and live evidence. |
+| future `cub installer import helm` | Bridge from fast Helm command paths to maintained recipe/package candidates. |
+
+The public proof can remain valid while #76 is open; the product story is not
+complete until the bridge is resolved.
 
 Current open issue shape:
 
