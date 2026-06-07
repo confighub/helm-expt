@@ -10,6 +10,11 @@ The generated lane matrix is the authority for exact chart/version/base status:
 
 [Lane Test Matrix](../../data/lane-test-matrix/summary.md)
 
+The generated outcome coverage is the easiest spreadsheet-oriented entry
+point for chart, base, derived variant, and feature status:
+
+[Outcome Coverage](../../data/outcome-coverage/summary.md)
+
 The runtime/GitOps wave tracks the first Argo/OCI live rows:
 
 [Runtime/GitOps Wave](../../data/runtime-gitops/summary.md)
@@ -136,6 +141,7 @@ this page.
 
 | Question | Page |
 | --- | --- |
+| Where are the outcome CSVs? | [Outcomes And Tests](./outcomes-and-tests.md) |
 | What are the verification lanes? | [Verification Lanes](./verification-lanes.md) |
 | What can I install? | [Catalog](../../CATALOG.md) |
 | How do I run the tutorial path? | [Tutorial Sequence](./tutorial-sequence.md) |

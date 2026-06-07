@@ -9,6 +9,10 @@ The generated lane matrix is the numeric source of truth:
 
 [Lane Test Matrix](../../data/lane-test-matrix/summary.md)
 
+For a chart/base/derived-variant/feature spreadsheet view, start with:
+
+[Outcome Coverage](../../data/outcome-coverage/summary.md)
+
 Each row is one chart, version, and base variant. A chart can have one lane
 passing and another lane missing.
 

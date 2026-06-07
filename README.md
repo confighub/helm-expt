@@ -219,6 +219,9 @@ CATALOG.md
 docs/user/what-you-get.md
   The compact product model: why this exists, what is proven, and what remains product work.
 
+docs/user/outcomes-and-tests.md
+  What the repo promises, which tests prove each promise, and where the CSVs live.
+
 docs/user/current-proof-status.md
   What is proven now, and which generated summaries are authoritative.
 
@@ -236,6 +239,9 @@ data/live-e2e/summary.md
 
 data/production-disposition/summary.md
   What still has to be resolved before each chart can be production-promoted.
+
+data/outcome-coverage/summary.md
+  Outcome promises, proving tests, and front-door CSVs for charts, bases, derived variants, and features.
 
 data/latest-top20-refresh/summary.md
   Which supported top-20 charts are current and which need new proof paths.

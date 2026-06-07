@@ -18,6 +18,7 @@ whole repo. For the single serial order through `docs/user/*.md`, start with
 | [../CATALOG.md](../CATALOG.md) | Generated chart catalog: charts first, recommended variants underneath. |
 | [user/README.md](./user/README.md) | Serial reading order for the manual user docs. |
 | [what-you-get.md](./user/what-you-get.md) | Compact product model: what ConfigHub adds around Helm output, what is proven, and what remains product work. |
+| [outcomes-and-tests.md](./user/outcomes-and-tests.md) | User-facing outcome and test map, with links to the front-door CSVs. |
 | [why-this-exists.md](./user/why-this-exists.md) | Skeptical entry point: why this is not just `cub helm install` or `cub gitops import`, and what the catalog/proof path adds. |
 | [tutorial-sequence.md](./user/tutorial-sequence.md) | Short show-and-tell tutorials for Redis, variants, overlays, GitOps, and bulk ops. |
 | [current-proof-status.md](./user/current-proof-status.md) | Short guide to current proof status and the generated summaries that are authoritative. |
@@ -55,6 +56,9 @@ documentation set.
 | `docs/demo/<chart>/confighub-proof.md` | Per-chart ConfigHub proof summary. Corpus evidence. |
 | `docs/demo/<chart>/confighub-proof-transcript.md` | Per-chart command transcript and observed outputs. Corpus evidence. |
 | `data/*/summary.md` | Generated status, review, or matrix summary. |
+| `data/README.md` | Generated data index and start-here guide for CSVs. |
+| `data/csv-index.csv` | Generated machine-readable index of every CSV under `data/`. |
+| `data/outcome-coverage/*.csv` | Front-door CSVs for chart, base, derived variant, and feature outcomes. |
 | `data/latest-top20-refresh/candidates/README.md` | Generated summary for latest-version candidate proofs. |
 | `runs/**/*.md` | Generated execution output from Pilot or other run harnesses. These are receipts/log summaries, not narrative docs. |
 
@@ -69,6 +73,7 @@ Do not hand-edit generated Markdown unless the generator is also updated.
 | [chart-recipe-manifest-flow.md](./reference/chart-recipe-manifest-flow.md) | Canonical object model: chart, recipe, variant, revision, rendered objects, receipts. |
 | [tutorial-sequence.md](./user/tutorial-sequence.md) | Sequential tutorial flow with commands and expected results. |
 | [current-proof-status.md](./user/current-proof-status.md) | User-facing entry point for current proof status. |
+| [outcomes-and-tests.md](./user/outcomes-and-tests.md) | User-facing map from promised outcomes to tests, CSVs, and commands. |
 | [verification-lanes.md](./user/verification-lanes.md) | User-facing explanation of proof lanes and command checks. |
 | [how-the-harness-works.md](./user/how-the-harness-works.md) | Lifecycle-stage explanation of the harness. |
 | [introduction-to-the-harness.md](./user/introduction-to-the-harness.md) | Detailed import workflow, recipe decisions, and hook policy. |

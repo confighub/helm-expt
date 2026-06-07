@@ -1,99 +1,98 @@
-# Catalog data — current data and how to regenerate it
+# Data Index
 
-Every file under `data/` is **generated** from the recipes + the source scan. This is the index of
-what each artifact is, which is canonical, and the one command that refreshes it. All generators have a
-`*:verify` twin that regenerates in memory and fails if the committed file is stale.
+This directory contains generated evidence, CSVs, and summary pages for the
+Helm experiment. The data is meant to answer three questions without requiring
+readers to inspect every recipe folder:
 
-## Per-chart facts — the row-by-row view
+~~~text
+What outcomes are promised?
+Which tests prove those outcomes?
+What is the current status for each chart, base, derived variant, and feature?
+~~~
 
-| File | What it is |
+## Start Here
+
+| File | Use it for |
 | --- | --- |
-| `data/chart-facts/chart-facts.csv` | **One row per chart** (100): post-deploy/other hooks, secrets, CRDs, webhooks, required-values, values-schema, install-vs-upgrade, NOTES, extension-slots, variants built, buildable backlog, and `not_yet_enabled` (the hard gap). |
-| `data/chart-facts/summary.md` | Headline counts + the table of charts with an open gap. |
-| `data/chart-facts/chart-facts.json` | Machine map (consumed by the top-500/100 analyses). |
+| [outcome-coverage/summary.md](./outcome-coverage/summary.md) | Start here. Outcome promises, tests that prove them, and links to the four front-door CSVs. |
+| [outcome-coverage/chart-outcomes.csv](./outcome-coverage/chart-outcomes.csv) | One row per chart: model support, production readiness, lane counts, hard gaps, feature summary. |
+| [outcome-coverage/base-outcomes.csv](./outcome-coverage/base-outcomes.csv) | One row per chart/base variant: render parity, ConfigHub proof, local live, GitOps/OCI live, live Helm parity. |
+| [outcome-coverage/derived-variant-outcomes.csv](./outcome-coverage/derived-variant-outcomes.csv) | One row per derived ConfigHub variant: intended-state proof and target-bound live status. |
+| [outcome-coverage/feature-outcomes.csv](./outcome-coverage/feature-outcomes.csv) | One row per chart feature: hooks, generated secrets, CRDs, webhooks, required values, schemas, extension slots, gaps. |
+| [csv-index.csv](./csv-index.csv) | Machine-readable index of every CSV under data/. |
 
-```bash
-npm run chart-facts          # regenerate
-npm run chart-facts:verify   # fail if stale
-```
+The front-door CSVs are intentionally redundant with deeper generated reports.
+They join the important evidence into a small set of spreadsheet-friendly
+tables. Use the deeper CSVs when you need drill-down.
 
-Column reference: [`docs/reference/quirk-coverage.md`](../docs/reference/quirk-coverage.md).
+## How To Read Status
 
-## Top-500 catalog analysis
-
-| File | What it is |
+| Term | Meaning |
 | --- | --- |
-| `data/top500-catalog-analysis/review.csv` | **Canonical** front sheet — one row per top-500 chart (incl. `not_yet_enabled`). |
-| `data/top500-catalog-analysis/drilldown.csv` | Wide per-chart evidence (control-point counts, proof columns). |
-| `data/top500-catalog-analysis/summary.md` | Human summary + promotion candidates. |
-| `data/top500-catalog-analysis/raw.json` | Machine report. |
-| `data/top500-catalog-analysis/source/` | Historical source-feature scan input. |
+| `model-supported` | The chart has a complete, honest model for its declared scope. It is not a live-deployment claim by itself. |
+| `render parity` | `cub installer` setup renders the same Kubernetes object set as regular Helm under recorded inputs. |
+| `in-ConfigHub` | The rendered objects upload as ConfigHub Units with scan/safe-operation receipts. |
+| `local live` | The rendered objects were applied to Kubernetes and observed with workload checks. |
+| `GitOps live` | ConfigHub OCI was reconciled by Argo or Flux and observed. |
+| `live parity` | A live Helm install was compared with ConfigHub delivery paths. |
+| `missing` | No committed receipt for that exact row yet. |
+| `blocked` / `watch` / `fail` | A committed receipt exists and records a non-pass outcome on the tested target. |
 
-```bash
-npm run top500:catalog        # regenerate (reads chart-facts.json — run chart-facts first)
-npm run top500:catalog:verify
-```
+## Dataset Families
 
-`review.csv` is the canonical front sheet and can be opened in any spreadsheet.
-
-## Top-100 proof surface
-
-`data/top100-catalog-analysis/{review.csv,summary.md,raw.json}` — the proof-surface ranking of the
-100 charts with recipes (also carries `not_yet_enabled`).
-
-Use this with `data/chart-facts/summary.md` when asking "what works, what works
-with help, and what is not enabled yet":
-
-```text
-top100 summary       proof surface and catalog status
-chart facts          per-chart quirks and hard gaps
-model completeness   Level-2 support under declared scope
-variant backlog      recommended variants still to build
-```
-
-```bash
-npm run top100:catalog && npm run top100:catalog:verify
-```
-
-## Coverage, backlog, and waves
-
-| Path | What it is | Regenerate |
+| Family | Main summary | Primary use |
 | --- | --- | --- |
-| `data/model-completeness/` | supported (Level 2) + variant-rich counts | `npm run completeness:generate` |
-| `data/variant-backlog/backlog.csv` | what each chart still needs (recommended − built) | `npm run variant-backlog:generate` |
-| `data/variant-backlog/wave-plans/<wave>.json` | per-wave build plan (ha, no-crds, …) | hand-authored |
-| `data/variant-backlog/wave-results/<wave>.json` | per-wave results (promoted / declined + reason) | `node scripts/run-variant-wave.mjs <wave>` |
-| `data/quirk-review-queue/` | the Level-2 residue, made actionable | `npm run quirk-queue:generate` |
-| `data/attack-plan-workdown/` | generated next-action index for import, gaps, variants, production, runtime/GitOps, latest candidates, and image digests | `npm run attack-plan:generate` |
-| `data/runtime-gitops/` | first-wave Argo/Flux OCI live-proof plan and required receipt index | `npm run runtime-gitops:wave` |
-| `data/lane-test-matrix/` | corpus lane coverage for every chart-recipe-variant row | `npm run lane-tests:generate` |
-| `data/hook-lifecycle/` | maintained hook-bearing charts and required lifecycle receipt paths | `npm run hooks:lifecycle` |
-| `data/image-digest-workdown/` | rendered image digest review queue by chart and variant | `npm run image-digests:workdown` |
-| `data/next-ten-waves/` | compact first rows for gaps, latest promotion, variants, production disposition, and import examples | `npm run next-ten:waves` |
+| `adversarial10` | [adversarial10/summary.md](./adversarial10/summary.md) | hard-chart readiness and control-point analysis |
+| `attack-plan-workdown` | [attack-plan-workdown/summary.md](./attack-plan-workdown/summary.md) | execution workdown across gaps and proof lanes |
+| `catalog-promotion-review` | [catalog-promotion-review/summary.md](./catalog-promotion-review/summary.md) | catalog promotion worksheet for the 100-chart corpus |
+| `catalog-promotion-wave2` | [catalog-promotion-wave2/summary.md](./catalog-promotion-wave2/summary.md) | second promotion-wave review worksheet |
+| `chart-facts` | [chart-facts/summary.md](./chart-facts/summary.md) | per-chart feature, quirk, and hard-gap facts |
+| `data-index` | - | CSV index and generated data guide |
+| `derived-variant-target-bound` | [derived-variant-target-bound/summary.md](./derived-variant-target-bound/summary.md) | derived ConfigHub variants with target/live evidence |
+| `external-scan-lane` | [external-scan-lane/summary.md](./external-scan-lane/summary.md) | external scanner lane review output |
+| `hook-lifecycle` | [hook-lifecycle/summary.md](./hook-lifecycle/summary.md) | hook-bearing charts and required lifecycle receipt paths |
+| `image-digest-workdown` | [image-digest-workdown/summary.md](./image-digest-workdown/summary.md) | image pinning and mutable tag review |
+| `lane-test-matrix` | [lane-test-matrix/summary.md](./lane-test-matrix/summary.md) | exact chart/base proof lane status |
+| `latest-top20-refresh` | [latest-top20-refresh/summary.md](./latest-top20-refresh/summary.md) | latest upstream chart-version refresh candidates |
+| `legacy-patch-review` | [legacy-patch-review/summary.md](./legacy-patch-review/summary.md) | older chart-version patch support review |
+| `lifecycle-observations` | - | controller-owned or hook-like lifecycle observations |
+| `live-e2e` | [live-e2e/summary.md](./live-e2e/summary.md) | top-20 local kind runtime status |
+| `live-helm-confighub-compare` | [live-helm-confighub-compare/summary.md](./live-helm-confighub-compare/summary.md) | strict live Helm-vs-ConfigHub parity |
+| `live-kind-parity` | [live-kind-parity/summary.md](./live-kind-parity/summary.md) | two-cluster kind parity receipts |
+| `model-completeness` | [model-completeness/summary.md](./model-completeness/summary.md) | chart-level model support criteria |
+| `next-ten-waves` | [next-ten-waves/summary.md](./next-ten-waves/summary.md) | compact next work queues |
+| `next80-full-proofs` | [next80-full-proofs/summary.md](./next80-full-proofs/summary.md) | 80 additional full proof-grade chart artifacts |
+| `outcome-coverage` | [outcome-coverage/summary.md](./outcome-coverage/summary.md) | front-door outcome, test, and status map |
+| `production-disposition` | [production-disposition/summary.md](./production-disposition/summary.md) | top-20 production blockers and next actions |
+| `quirk-review-queue` | [quirk-review-queue/summary.md](./quirk-review-queue/summary.md) | queue for chart quirks needing human or product review |
+| `runtime-gitops` | [runtime-gitops/summary.md](./runtime-gitops/summary.md) | Argo/Flux OCI live proof wave |
+| `top100-catalog-analysis` | [top100-catalog-analysis/summary.md](./top100-catalog-analysis/summary.md) | top-100 proof and promotion surface |
+| `top500-catalog-analysis` | [top500-catalog-analysis/summary.md](./top500-catalog-analysis/summary.md) | top-500 catalog planning analysis |
+| `variant-backlog` | [variant-backlog/summary.md](./variant-backlog/summary.md) | candidate base-variant expansion backlog |
+| `variant-goldens` | - | golden work orders for derived-variant examples |
 
-Per-chart dispositions live next to each recipe: `recipes/<chart>/helm-pain-report.yaml`
-(`npm run catalog:pain-reports`) and `recipes/<chart>/control-points.yaml`.
+## Every CSV
 
-## Regenerate everything, in dependency order
+The complete CSV list is generated at:
 
-```bash
-npm run catalog:pain-reports        # per-chart dispositions (from control-points)
-npm run variant-backlog:generate    # what each chart still needs
-npm run completeness:generate       # Level-2 + variant-rich counts
-npm run quirk-queue:generate        # residue
-npm run chart-facts                 # per-chart facts (reads the above + the source scan)
-npm run catalog:status && npm run catalog:maps   # catalog-status + per-chart artifact-index (maps last)
-npm run top500:catalog              # reads chart-facts.json
-npm run top100:catalog              # reads top500 + chart-facts.json
-npm run catalog:index               # CATALOG.md
-npm run attack-plan:generate        # reads the refreshed data and emits the workdown index
-npm run runtime-gitops:wave         # first GitOps/OCI receipt wave from the sweep
-npm run lane-tests:generate         # corpus lane matrix across every chart-recipe-variant row
-npm run hooks:lifecycle             # hook-bearing maintained charts and receipt index
-npm run image-digests:workdown      # image pinning review queue
-npm run next-ten:waves              # compact execution queues for the next work
-```
+~~~text
+data/csv-index.csv
+~~~
 
-The dependency that matters most: **`chart-facts` before `top500`/`top100`** (they read
-`chart-facts.json` for the `not_yet_enabled` column), and **`catalog:maps` last** among the catalog
-generators (the per-chart `artifact-index.yaml` reads `catalog-status.yaml`).
+It includes 50 CSV files. Each row records the path, audience,
+purpose, summary, and regenerate/verify command where known.
+
+## Regeneration
+
+Regenerate and verify this index:
+
+~~~sh
+npm run data:index
+npm run data:index:verify
+~~~
+
+The full repository verifier includes the data index:
+
+~~~sh
+npm run verify
+~~~

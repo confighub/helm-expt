@@ -106,6 +106,7 @@ expected product outcome, not a failure of the model.
 | If you want to... | Read |
 | --- | --- |
 | Try the shortest verified path | [Tutorial Sequence](./tutorial-sequence.md) |
+| See outcome status and CSVs | [Outcomes And Tests](./outcomes-and-tests.md) |
 | Understand proof levels | [Verification Lanes](./verification-lanes.md) |
 | Choose base versus derived variants | [Creating Variants](./creating-variants.md) |
 | Route values files and overlays | [Custom Overlays](./custom-overlays.md) |
