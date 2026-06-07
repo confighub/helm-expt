@@ -114,6 +114,7 @@ ConfigHub proof: partial by exact chart-recipe-variant row
 local live cluster proof: partial by exact chart-recipe-variant row
 GitOps/OCI live proof: five exact rows pass, five exact rows are non-pass, remaining rows backlog
 live Helm-vs-ConfigHub parity proof: two exact rows pass, remaining rows backlog
+lifecycle observation proof: cert-manager and External Secrets exact rows pass, generic hook lifecycle support remains backlog
 ```
 
 The top-level public entry points are [README.md](../../README.md),
@@ -128,16 +129,29 @@ The latest completed work added generated queues for the next proof stages:
 | --- | --- |
 | Runtime/GitOps first wave | [data/runtime-gitops/summary.md](../../data/runtime-gitops/summary.md) |
 | Hook lifecycle wave | [data/hook-lifecycle/summary.md](../../data/hook-lifecycle/summary.md) |
+| Cert-manager / External Secrets lifecycle observations | [data/lifecycle-observations/cert-manager-eso/summary.md](../../data/lifecycle-observations/cert-manager-eso/summary.md) |
 | Image digest workdown | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | Compact next-ten waves | [data/next-ten-waves/summary.md](../../data/next-ten-waves/summary.md) |
 | Lane-test matrix | [data/lane-test-matrix/summary.md](../../data/lane-test-matrix/summary.md) |
 
 These files are generated and verified. Do not edit them by hand.
 
-## 2026-06-04 Brian-List And Derived-Variant Sync
+The compact product entry point is:
 
-The near-term TODO list now folds in Brian's "configuration as data" value
-lanes and the current `cub variant` command surface. See
+```text
+docs/user/what-you-get.md
+```
+
+Historical planning snapshots live under:
+
+```text
+docs/planning/archive/
+```
+
+## 2026-06-04 Configuration-As-Data And Derived-Variant Sync
+
+The near-term TODO list now folds in the configuration-as-data value lanes and
+the current `cub variant` command surface. See
 [next-20-tasks.md](./next-20-tasks.md) for the active queue and
 [issue-backlog.md](./issue-backlog.md) for the issue mirror.
 
@@ -151,7 +165,7 @@ cub variant create
 upload`, `cub variant promote`, and `cub variant release` are not current local
 commands and should be described only as planned or candidate product lanes.
 
-New issues created from the Brian-list / derived-variant review:
+New issues created from the configuration-as-data / derived-variant review:
 
 | Issue | Focus |
 | --- | --- |

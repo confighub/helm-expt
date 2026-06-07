@@ -181,13 +181,13 @@ Done when:
 Outcome: a new human can understand the value without reading the whole proof
 corpus.
 
-Create a user-facing page, likely:
+The current user-facing entry point is:
 
 ```text
 docs/user/what-you-get.md
 ```
 
-It should answer:
+It answers:
 
 - What does ConfigHub add beyond `helm install`?
 - Which charts are currently supported and at what proof level?
@@ -209,10 +209,12 @@ Per-chart cards should include:
 | Not yet proven | Plain backlog, not buried disclaimers. |
 | Try this first | The simplest reliable user command path. |
 
-Done when:
+Next improvements:
 
-- `README.md` points to this page before deep proof mechanics.
-- `CATALOG.md` or the static site has per-chart status cards.
+- keep `README.md` and `docs/user/README.md` pointing to this page before deep
+  proof mechanics;
+- add per-chart status cards to `CATALOG.md` or the static site;
+- keep the page tied to generated evidence rather than hand-copied counts.
 
 ## Phase 6 - Docs Organization
 
@@ -232,11 +234,11 @@ Proposed folder rules:
 
 Tasks:
 
-- Audit every `.md` file and classify it as user, reference, planning, demo,
-  generated data, or stale/historical.
-- Move files that are not user-facing out of `docs/user/`.
-- Add redirect notes or index links for moved files.
-- Update `docs/README.md`.
+- Keep `docs/user/` limited to first-run and workflow docs.
+- Keep stable doctrine in `docs/reference/`.
+- Keep active roadmaps and issue mirrors in `docs/planning/`.
+- Move historical snapshots to `docs/planning/archive/`.
+- Update `docs/README.md` whenever a manual doc moves.
 - Run `npm run docs:verify`.
 
 Done when:

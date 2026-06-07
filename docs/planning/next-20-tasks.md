@@ -57,7 +57,7 @@ task is about delivery, live observation.
 
 ## Now - derived variants and current CLI truth
 1. **Make `cub variant create` the explicit derived-variant substrate** (#143) - add the command-surface
-   doc, update Tutorial 4, make UX proposals consistent, update `brian-entry.md`, and add a lightweight
+   doc, update Tutorial 4, make UX proposals consistent, update `why-this-exists.md`, and add a lightweight
    command-surface verifier. Do not document non-existent `cub variant` subcommands as current.
 2. **Execute and deepen the derived-variant expansion wave** (#144) - the generated
    [derived-expansion-wave](../../data/variant-goldens/derived-expansion-wave/README.md) now names
@@ -80,7 +80,7 @@ task is about delivery, live observation.
 8. **Per-chart weirdness-and-mitigations notes** - make hooks, CRDs, webhooks, lookup, generated secrets,
    required values, RBAC, stateful storage, upgrade, and rollback visible for every catalog-supported chart.
 
-## Brian-list value lanes inside helm-expt
+## Configuration-As-Data Value Lanes Inside helm-expt
 9. **Fleet inventory and CMDB views** (#146) - generated chart/component/variant/Space/Unit/target/status
    views, explicitly distinguishing base variants from derived ConfigHub variants.
 10. **Fleet-scale mutation and codemod workflows** (#147) - prove one controlled change across a labeled
@@ -118,6 +118,6 @@ task is about delivery, live observation.
 ## Suggested order
 Treat 1-3 as the immediate correction: `helm-expt` needs more visible derived
 variants, and the docs must line up with the real `cub variant create` command.
-Tasks 9-13 are the highest-value Brian-list lanes inside this repo. GitOps,
+Tasks 9-13 are the highest-value configuration-as-data lanes inside this repo. GitOps,
 release, and promotion UI come next because they make the product story legible
 without asking humans to follow every low-level CLI step.

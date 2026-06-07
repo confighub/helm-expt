@@ -4,7 +4,7 @@ This document mirrors the GitHub issues that must not be lost in the planning
 docs. GitHub remains the execution tracker; this file keeps reviewers aligned
 with the written plan.
 
-Last synced: 2026-06-04.
+Last synced with planning docs: 2026-06-07.
 
 ## Rule
 
@@ -84,17 +84,16 @@ Missing product verbs:
 | P1 ask | `cub observe` or `cub target observe` |
 | P2 ask | `cub catalog search/show/install` |
 
-## Brian-List And Derived-Variant Issues Added 2026-06-04
+## Configuration-As-Data And Derived-Variant Issues Added 2026-06-04
 
-Brian's "configuration as data" list is now represented as helm-expt execution
-work, with derived ConfigHub variants pulled forward instead of treated as an
-appendix.
+Configuration-as-data work is now represented as helm-expt execution work, with
+derived ConfigHub variants pulled forward instead of treated as an appendix.
 
 | Issue | Lane | Why it matters now |
 | --- | --- | --- |
-| [#143](https://github.com/confighub/helm-expt/issues/143) Make `cub variant create` the explicit derived-variant substrate | Current CLI truth | Keeps docs and tutorials aligned with the command Brian added. |
+| [#143](https://github.com/confighub/helm-expt/issues/143) Make `cub variant create` the explicit derived-variant substrate | Current CLI truth | Keeps docs and tutorials aligned with the current command surface. |
 | [#144](https://github.com/confighub/helm-expt/issues/144) Build a derived-variant expansion wave across top-20 and wave-2 charts | Derived variants | Fixes the gap that the repo does not yet use enough derived variants. |
-| [#145](https://github.com/confighub/helm-expt/issues/145) Prove promotion and environment management with derived ConfigHub variants | Promotion | Highest-value Brian-list lane inside helm-expt. |
+| [#145](https://github.com/confighub/helm-expt/issues/145) Prove promotion and environment management with derived ConfigHub variants | Promotion | Highest-value derived-variant lane inside helm-expt. |
 | [#146](https://github.com/confighub/helm-expt/issues/146) Add fleet inventory and CMDB views over catalog artifacts and ConfigHub Units | Inventory | Shows the value of queryable rendered desired state. |
 | [#147](https://github.com/confighub/helm-expt/issues/147) Prove fleet-scale mutation and codemod workflows over ConfigHub Units | Fleet operations | Turns rendered Units into safe bulk operations, not YAML search/replace. |
 | [#148](https://github.com/confighub/helm-expt/issues/148) Add policy, compliance, and security posture reports over rendered desired state | Policy/security | Rolls scan/gate evidence into a useful posture view. |
@@ -163,7 +162,21 @@ Current planning home:
 docs/user/hook-lifecycle-strategy.md
 ```
 
-Execution tracker to create when this becomes implementation work:
+Current implementation evidence:
+
+```text
+data/hook-lifecycle/summary.md
+data/lifecycle-observations/cert-manager-eso/summary.md
+npm run hooks:lifecycle:verify
+npm run lifecycle:cert-manager-eso:verify
+```
+
+The hook queue is still inventory and required-receipt planning. The
+cert-manager / External Secrets lane proves a lifecycle-observation pattern for
+CRD ownership, webhook readiness, controller-populated data, and server dry-run
+checks. It does not prove all hook-using charts.
+
+Execution work still needed:
 
 ```text
 Add hook risk buckets and lifecycle dispositions to top-500 catalog analysis.
@@ -282,7 +295,7 @@ proof corpus must continue to satisfy.
 When a GitHub issue is added, closed, or reclassified:
 
 - update this file
-- update `docs/planning/current-pathway-review.md` if it changes P0 gates
+- update `docs/planning/current-handover.md` or the relevant archived snapshot if it changes P0 gates
 - update `docs/planning/agreed-execution-plan.md` if it changes doctrine or acceptance
 - update `docs/planning/independent-review-brief.md` if it changes review scope
 

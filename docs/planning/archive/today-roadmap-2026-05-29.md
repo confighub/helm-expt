@@ -111,11 +111,11 @@ Three variant creation modes to keep aligned:
 
 Today's concrete output:
 
-- Keep [variant-creation-artifact.md](../reference/variant-creation-artifact.md) focused on
+- Keep [variant-creation-artifact.md](../../reference/variant-creation-artifact.md) focused on
   the Variant Creator contract over current ConfigHub primitives.
 - Treat the old `VariantCreationPlan` name as a working-name ancestor, not as a
   new backend entity.
-- Keep [variant-creator-verification.md](../reference/variant-creator-verification.md)
+- Keep [variant-creator-verification.md](../../reference/variant-creator-verification.md)
   focused on verifying the artifact fields, previews, checks, and receipts.
 - Do not add a new artifact unless the plan says who consumes it.
 
@@ -164,9 +164,9 @@ carefully before making a broad suggestion.
 
 Today's concrete output:
 
-- Keep [confighub-promotion-mapping.md](../reference/confighub-promotion-mapping.md) as the
+- Keep [confighub-promotion-mapping.md](../../reference/confighub-promotion-mapping.md) as the
   doctrine document.
-- Keep [variant-promotion-worked-example.md](../reference/variant-promotion-worked-example.md)
+- Keep [variant-promotion-worked-example.md](../../reference/variant-promotion-worked-example.md)
   as the two-example explainer: Redis default -> prod-us-east, and
   external-dns managed base -> customer overlay variant.
 - Make no more promotion-map artifact batches today.
@@ -255,7 +255,7 @@ accidental details. They are part of the managed release recipe.
 Today's concrete output:
 
 - Add or update a Kubara mapping note only if it records real inspected inputs.
-- Current note: [kubara-customized-overlays.md](../corpus/kubara-customized-overlays.md)
+- Current note: [kubara-customized-overlays.md](../../corpus/kubara-customized-overlays.md)
   records inspected `external-dns/external-dns@1.21.1` inputs and classifies
   what a managed wrapper/customer overlay import would need to capture.
 - Classify each required value into one of:

@@ -16,7 +16,8 @@ analysis, not the main pathway for executing the current Helm mission.
 The mission is clear:
 
 ```text
-Use Helm charts. Ship ConfigHub variants. Never have Helm pain again.
+Use Helm charts. Ship ConfigHub variants. Make Helm output easier to review,
+vary, verify, and operate.
 ```
 
 Lead with:
@@ -525,11 +526,11 @@ For 20 charts, prove depth with 20 full public-chart proof slices:
 - produce a Helm equivalence report;
 - produce scan receipt and install gate per rendered revision;
 - include explicit CRD-heavy charts in the set;
-- choose the adversarial set from [known-adversarial-charts.md](../corpus/known-adversarial-charts.md);
+- choose the adversarial set from [known-adversarial-charts.md](../../corpus/known-adversarial-charts.md);
 - make every generated spreadsheet row traceable to receipts, not just source scans.
 
 The concrete target list and acceptance contract live in
-[top20-full-proof-target.md](./top20-full-proof-target.md).
+[top20-full-proof-target.md](../top20-full-proof-target.md).
 
 For 50 charts, prove breadth without losing clarity:
 
@@ -589,7 +590,7 @@ schema gaps, unknown values, and upgrade-sensitive state.
 
 ## P0 Before Scaling
 
-The authoritative issue list is [docs/planning/issue-backlog.md](./issue-backlog.md). The
+The authoritative issue list is [docs/planning/issue-backlog.md](../issue-backlog.md). The
 following open P0s must be complete or deliberately reclassified before the
 20/100/500 proof can be believable:
 

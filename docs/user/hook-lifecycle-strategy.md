@@ -59,6 +59,22 @@ This means hooks are not most charts, but they are real. Roughly 11% of scanned
 public charts use Helm hooks, and most hook-using charts need lifecycle review
 before production support.
 
+## Status Vocabulary
+
+Use these states when discussing hook or hook-like lifecycle behavior:
+
+| Status | Meaning |
+| --- | --- |
+| `inventoried` | The source scan found hook templates or hook-like lifecycle behavior. |
+| `render-proven` | The normal non-hook object set is deterministic under recorded inputs. |
+| `route-selected` | A candidate handling route is recorded, such as test action, preflight, Argo hook, sync wave, managed action, or blocker. |
+| `lifecycle-observed` | The selected route has a receipt with execution or controller behavior, runtime result, timestamp, and freshness. |
+| `blocked` | The hook is unsafe, ambiguous, target-dependent, or not yet mapped. |
+
+Do not treat `inventoried` or `render-proven` as lifecycle support.
+`route-selected` is still a plan until it has a receipt. `blocked` is a valid
+catalog outcome when a hook does not fit the current model safely.
+
 ## Classification
 
 | Hook class | Default disposition |
@@ -102,6 +118,10 @@ cluster-dependent hook behavior is deterministic
 all hook behavior can be translated automatically
 ```
 
+Some charts will have hooks that do not fit the first-pass categories cleanly.
+The correct behavior is to record the uncertainty and block production support
+for that chart/base until the lifecycle route is reviewed and receipted.
+
 ## GitOps And Argo Route
 
 When Helm is not the runtime installer, many hook-like behaviors need another
@@ -122,6 +142,24 @@ Suggested mapping:
 
 Argo translation is not automatic. It is one implementation strategy that must
 produce lifecycle receipts and observations.
+
+## Lifecycle Observations Without Helm Hooks
+
+Some charts have no Helm hook but still need lifecycle observation because
+controllers populate fields or Secrets after apply. External Secrets is the
+current example: the chart does not use a Helm hook in the tested bases, but
+the controller and webhook flow populate runtime data that rendered YAML alone
+cannot prove.
+
+The cert-manager / External Secrets lifecycle lane records this pattern:
+
+```text
+data/lifecycle-observations/cert-manager-eso/summary.md
+```
+
+That lane is not a claim that all hooks are solved. It proves the receipt shape
+for common lifecycle issues: CRD ownership, webhook API readiness, CA bundle
+injection, controller-populated Secret data, and server dry-run checks.
 
 ## Managed / Commercial Strategy
 

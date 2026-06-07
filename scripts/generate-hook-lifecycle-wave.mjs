@@ -111,6 +111,11 @@ Render equivalence makes hook resources explicit; it does not prove hook
 execution. Production support requires a lifecycle route and a lifecycle or
 observation receipt for that route.
 
+Hook rows move through explicit states: inventoried, render-proven,
+route-selected, lifecycle-observed, or blocked. The first two states are useful
+evidence, but they are not hook lifecycle support. Some hooks may remain blocked
+until chart-specific review finds a safe route.
+
 ## Current Reading
 
 \`\`\`text
@@ -133,6 +138,12 @@ hook lifecycle receipts present:       ${receiptRows.filter((row) => row.receipt
 A row is not hook-lifecycle-proven until the receipt under
 \`data/hook-lifecycle/receipts/\` exists and records the chosen route,
 execution or controller behavior, runtime outcome, and freshness timestamp.
+
+Related lifecycle observations can exist outside this hook queue when a chart
+has hook-like runtime behavior but no Helm hook. For example, cert-manager and
+External Secrets lifecycle observations live under
+\`data/lifecycle-observations/cert-manager-eso/\`. Those receipts demonstrate
+the lifecycle-observation pattern, not universal hook support.
 `;
 }
 

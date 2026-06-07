@@ -1,4 +1,4 @@
-# Brian Entry: Why This Exists
+# Why This Exists
 
 **UNOFFICIAL/EXPERIMENTAL**
 
@@ -91,7 +91,7 @@ if the implementation path changes from `cub installer` to direct import.
 
 ## The Human UX We Want
 
-Brian's new `cub variant create` support makes the downstream variant part of
+The current `cub variant create` support makes the downstream variant part of
 this story concrete. The command clones an uploaded reviewed Space and its
 Units into a linked downstream Space. It is not the polished Creator UX, but it
 is the current substrate for the derived-variant path.

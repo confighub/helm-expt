@@ -4,8 +4,9 @@ Use Helm charts. Ship ConfigHub variants.
 
 This repo shows how popular public Helm charts can become `cub installer`
 packages with named base variants, exact rendered Kubernetes objects, optional
-derived ConfigHub variants, scans, gates, receipts, and live proof.   ALL
-CONTENTS ARE EXPERIMENTAL & UNOFFICIAL.
+derived ConfigHub variants, scans, gates, receipts, and live proof.
+
+All contents are experimental and unofficial.
 
 Core flow:
 
@@ -161,7 +162,8 @@ For Helm hooks specifically, see
 For a single serial order through the user docs, see
 [User Docs Reading Order](./docs/user/README.md).
 If you are asking why this is not just `cub helm install`, start with
-[Brian Entry: Why This Exists](./docs/user/brian-entry.md).
+[Why This Exists](./docs/user/why-this-exists.md). For the shortest product
+model, start with [What You Get](./docs/user/what-you-get.md).
 
 ## What Is Proven Today
 
@@ -175,6 +177,8 @@ If you are asking why this is not just `cub helm install`, start with
 20/20 have passing local kind live/e2e receipts.
 20/20 have ConfigHub upload, scan, and safe-ops proof receipts.
 100 charts have recipe/package proof artifacts.
+cert-manager and External Secrets have lifecycle-observation receipts for
+common CRD/webhook/controller-owned runtime behavior.
 Top-500 source/catalog analysis exists as catalog-planning data for future
 recipe promotion work.
 ```
@@ -211,6 +215,9 @@ Start here:
 ```text
 CATALOG.md
   The top-level chart catalog: charts first, variants underneath.
+
+docs/user/what-you-get.md
+  The compact product model: why this exists, what is proven, and what remains product work.
 
 docs/user/current-proof-status.md
   What is proven now, and which generated summaries are authoritative.

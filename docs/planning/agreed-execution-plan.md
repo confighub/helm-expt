@@ -31,7 +31,8 @@ Approve the Kubernetes objects Helm produced,
 not the values you hope produced them.
 ```
 
-"Never have Helm pain again" is the ambition. The near-term proof must be more
+The ambition is to make Helm substantially less painful by removing hidden
+render, review, promotion, and observation gaps. The near-term proof must be
 precise: ConfigHub makes Helm output easier to review, safer to apply, and
 provably correct versus Helm where equivalence is expected.
 

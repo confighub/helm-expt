@@ -41,7 +41,7 @@ Read:
 - `data/adversarial10/proof-readiness.csv`
 - `docs/planning/agreed-execution-plan.md`
 - `docs/reference/chart-recipe-manifest-flow.md`
-- `docs/planning/current-pathway-review.md`
+- `docs/planning/archive/current-pathway-review.md`
 - `docs/planning/issue-backlog.md`
 - `docs/corpus/known-adversarial-charts.md`
 - `docs/planning/review-prompts.md`

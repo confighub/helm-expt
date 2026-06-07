@@ -29,9 +29,6 @@ See exactly what changed and why before you ship.
 
 ## Today's Roadmap
 
-For the current tactical plan, see
-[Today Roadmap - 2026-05-29](./today-roadmap-2026-05-29.md).
-
 For the reviewer-facing harness explanation, see
 [How The Harness Works](../user/how-the-harness-works.md). That is the shortest
 explanation of how the harness proves chart behavior today, what product

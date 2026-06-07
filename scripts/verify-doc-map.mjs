@@ -31,6 +31,7 @@ function isExpectedMarkdownLocation(file) {
     file === 'site/README.md' ||
     file === 'docs/README.md' ||
     /^docs\/(user|planning|reference|corpus)\/[^/]+\.md$/.test(file) ||
+    /^docs\/planning\/archive\/[^/]+\.md$/.test(file) ||
     /^docs\/demo\/[^/]+\/[^/]+\.md$/.test(file) ||
     /^recipes\/[^/]+\/[^/]+\/[^/]+\/(README|CATALOG|weirdness-and-mitigations)\.md$/.test(file) ||
     /^packages\/[^/]+\/[^/]+\/[^/]+\/README\.md$/.test(file) ||

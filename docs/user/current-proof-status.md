@@ -19,6 +19,11 @@ uploaded bases and then bound to live targets:
 
 [Target-Bound Derived Variants](../../data/derived-variant-target-bound/summary.md)
 
+The lifecycle observation summary tracks cert-manager and External Secrets
+checks that rendered YAML alone cannot prove:
+
+[Cert-Manager And External Secrets Lifecycle Observations](../../data/lifecycle-observations/cert-manager-eso/summary.md)
+
 The top-level catalog shows what a user can browse:
 
 [Catalog](../../CATALOG.md)
@@ -33,6 +38,7 @@ recipe/package proof
 -> local live Kubernetes proof
 -> GitOps/OCI live proof
 -> live Helm-vs-ConfigHub parity proof
+-> lifecycle observation proof for controller-owned or hook-like behavior
 ```
 
 A row is only proven for a lane when the lane matrix says `pass`.
@@ -77,6 +83,18 @@ Live Helm-vs-ConfigHub parity has started:
   semantic object diffs for the shared Kubernetes objects.
 - Remaining chart-recipe-variant rows are backlog until they have committed
   receipts.
+
+Lifecycle observation proof has started:
+
+- cert-manager `default` and `crds-enabled` pass lifecycle checks for CRD
+  ownership policy, startup API readiness, webhook CA bundle injection, and
+  server dry-run.
+- External Secrets `default` and `no-crds` pass lifecycle checks for CRD
+  ownership policy, webhook CA bundle injection, controller-populated webhook
+  Secret data, and server dry-run.
+- These receipts demonstrate the lifecycle-observation pattern. They do not
+  imply that all Helm hooks or controller-owned runtime behavior are supported
+  automatically.
 
 Target-bound derived ConfigHub variant proof has started:
 

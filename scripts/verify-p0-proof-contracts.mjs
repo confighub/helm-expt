@@ -124,12 +124,14 @@ function capabilityProfilesByName() {
 
 function verifyDocs() {
   const freshnessPath = repoPath("docs", "reference", "observation-freshness-slo.md");
-  const p0Path = repoPath("docs", "planning", "p0-major-issue-status.md");
+  const p0Path = repoPath("docs", "planning", "archive", "p0-major-issue-status.md");
+  const issueBacklogPath = repoPath("docs", "planning", "issue-backlog.md");
   const capabilityPath = repoPath("docs", "reference", "capability-profile-catalog.md");
   const generatedFactPath = repoPath("docs", "reference", "generated-fact-receipts.md");
   const upgradePath = repoPath("docs", "reference", "upgrade-rollback-receipts.md");
   check(existsSync(freshnessPath), "missing observation freshness SLO doc");
-  check(existsSync(p0Path), "missing P0 major issue status doc");
+  check(existsSync(p0Path), "missing archived P0 major issue status doc");
+  check(existsSync(issueBacklogPath), "missing issue backlog doc");
   check(existsSync(capabilityPath), "missing capability profile catalog doc");
   check(existsSync(generatedFactPath), "missing generated fact receipt doc");
   check(existsSync(upgradePath), "missing upgrade/rollback receipt doc");
@@ -141,7 +143,7 @@ function verifyDocs() {
   for (const phrase of ["synthetic profiles", "bulk", "adversarial", "unknown profile", "stored digest"]) {
     check(capabilityDoc.includes(phrase), `capability profile doc missing ${phrase}`);
   }
-  const p0Status = readFileSync(p0Path, "utf8");
+  const p0Status = `${readFileSync(p0Path, "utf8")}\n${readFileSync(issueBacklogPath, "utf8")}`;
   for (const issue of p0Issues) {
     check(p0Status.includes(issue), `P0 status doc missing ${issue}`);
   }

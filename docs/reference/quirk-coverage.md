@@ -1,9 +1,9 @@
 # Quirk coverage — what we track, and what we don't track yet
 
-The Level-2 support bar is "every Helm quirk a chart uses is modeled or explicitly disclosed, with
-**zero silent gaps**." That promise applies to the *quirk taxonomy itself*: this page is the honest
-audit of which Helm behaviours we detect and surface, and which we do not yet — so a quirk we can't
-account for is disclosed here rather than silently missed.
+The Level-2 support bar is that important Helm quirks should be modeled or
+explicitly disclosed. This page is the audit of which Helm behaviours we detect
+and surface, and which we do not yet. A quirk we cannot account for should be
+listed here rather than silently missed.
 
 Source of truth for per-chart facts: `data/chart-facts/chart-facts.csv` (regenerate with
 `npm run chart-facts`). Per-chart control points: `recipes/<chart>/control-points.yaml`. Source
@@ -15,7 +15,7 @@ Detected per chart, modeled in the recipe/variant, and shown in `chart-facts.csv
 
 | Quirk | Where it shows |
 | --- | --- |
-| Hooks — post-install/upgrade/delete vs pre-* / test | `post_deploy_hooks`, `other_hooks`, `hook_status` (handled-by-lifecycle-policy) |
+| Hooks — post-install/upgrade/delete vs pre-* / test | `post_deploy_hooks`, `other_hooks`, `hook_status` (lifecycle policy or blocker) |
 | Generated secrets (rand / cert / password funcs) | `generates_secrets`, `existing_secret` |
 | CRDs (file-based and template-baked) | `crds`, `no_crds_variant` |
 | Admission webhooks (validating + mutating) | `webhooks` |
@@ -64,5 +64,6 @@ the taxonomy — listed so they are disclosed, not silently missed.
   (pattern: `scanHas(s, "<field>")`), then `npm run chart-facts`.
 - Tier 3 → Tier 2: teach the source-feature scanner to detect the behaviour, then promote as above.
 
-The extensibility principle holds: the taxonomy is designed to grow, and every chart's unmodeled
-behaviour is a disclosed line here, never a silent pass.
+The extensibility principle holds: the taxonomy is designed to grow, and known
+unmodeled behavior should become a disclosed line here rather than a silent
+pass.

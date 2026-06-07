@@ -17,7 +17,8 @@ whole repo. For the single serial order through `docs/user/*.md`, start with
 | [../README.md](../README.md) | Main user introduction: why the repo exists, what is proven, and how to try it. |
 | [../CATALOG.md](../CATALOG.md) | Generated chart catalog: charts first, recommended variants underneath. |
 | [user/README.md](./user/README.md) | Serial reading order for the manual user docs. |
-| [brian-entry.md](./user/brian-entry.md) | Skeptical entry point: why this is not just `cub helm install` or `cub gitops import`, and what the catalog/proof path adds. |
+| [what-you-get.md](./user/what-you-get.md) | Compact product model: what ConfigHub adds around Helm output, what is proven, and what remains product work. |
+| [why-this-exists.md](./user/why-this-exists.md) | Skeptical entry point: why this is not just `cub helm install` or `cub gitops import`, and what the catalog/proof path adds. |
 | [tutorial-sequence.md](./user/tutorial-sequence.md) | Short show-and-tell tutorials for Redis, variants, overlays, GitOps, and bulk ops. |
 | [current-proof-status.md](./user/current-proof-status.md) | Short guide to current proof status and the generated summaries that are authoritative. |
 | [verification-lanes.md](./user/verification-lanes.md) | Plain-English definition of each verification lane and the commands that check them. |
@@ -206,19 +207,16 @@ not the primary user path.
 | --- | --- |
 | [agreed-execution-plan.md](./planning/agreed-execution-plan.md) | Consolidated execution plan and project guidance. |
 | [current-handover.md](./planning/current-handover.md) | Current pickup snapshot, including the base-variant versus derived ConfigHub variant vocabulary. |
-| [current-pathway-review.md](./planning/current-pathway-review.md) | Snapshot review of the current pathway and remaining gaps. |
 | [large-machine-handover.md](./planning/large-machine-handover.md) | Strict handover for a Codex instance that can run live Kubernetes and GitOps proof lanes. |
 | [large-machine-roadmap.md](./planning/large-machine-roadmap.md) | Outcome-driven roadmap for live parity, target-bound derived variants, chart quirks, and docs organization. |
 | [next-execution-plan.md](./planning/next-execution-plan.md) | Current execution plan and near-term backlog. |
-| [today-roadmap-2026-05-29.md](./planning/today-roadmap-2026-05-29.md) | Dated handoff snapshot retained for historical context. |
-| [p0-major-issue-status.md](./planning/p0-major-issue-status.md) | Status of original P0 proof issues. |
 | [issue-backlog.md](./planning/issue-backlog.md) | Issue index and execution order. |
 | [independent-review-brief.md](./planning/independent-review-brief.md) | Brief for an independent product/technical review. |
 | [review-prompts.md](./planning/review-prompts.md) | Longer review prompts for structured critique. |
-| [repo-consistency-review.md](./planning/repo-consistency-review.md) | Internal consistency review of the repo shape. |
 | [pilot-adversarial-testing.md](./planning/pilot-adversarial-testing.md) | Plan for adversarial testing with external automation. |
 | [blog-posts.md](./planning/blog-posts.md) | Public writing plan. |
 | [dedicated-website-plan.md](./planning/dedicated-website-plan.md) | Standalone website plan. |
+| [archive/README.md](./planning/archive/README.md) | Historical planning snapshots retained for traceability. |
 
 ## Naming Rules
 

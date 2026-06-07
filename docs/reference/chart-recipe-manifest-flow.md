@@ -4,13 +4,13 @@ This note describes the proposed ConfigHub/cub installer flow for Helm-derived p
 
 ## Mission
 
-The Helm mission is:
+The Helm mission is to remove as much Helm pain as possible by moving hidden
+rendering, variation, review, delivery, and observation concerns into explicit
+ConfigHub artifacts and receipts.
 
-```text
-Never have Helm pain again.
-```
-
-That does not mean "never use Helm". It means Helm stops being the place where the user has to reason about hidden state, invisible generator behavior, values-file guesswork, and fragile one-off deployment scripts.
+That does not mean "never use Helm". It means Helm stops being the only place
+where the user has to reason about hidden state, invisible generator behavior,
+values-file guesswork, and fragile one-off deployment scripts.
 
 The promise:
 
@@ -53,7 +53,7 @@ managed variants
 + exact rendered artifacts
 + bulk checks
 + day-2 propagation
-= no more Helm pain
+= less hidden Helm pain, with explicit blockers where automation is unsafe
 ```
 
 ## Variants Are the Product Spine
@@ -874,7 +874,7 @@ Checks:
 | Required/fail | render fails only after late values | recipe input validation |
 | `tpl` escape hatch | values become code | bound evaluation, explicit allowed fields, or reject |
 | Raw manifests | arbitrary resource injection | explicit extension slot plus scanning |
-| Hooks | procedural lifecycle hidden in chart; execution depends on live cluster facts | map to phases/tests, target-aware lifecycle receipts, explicit skip, or fail |
+| Hooks | procedural lifecycle hidden in chart; execution depends on live cluster facts | inventory first; map to phases/tests, target-aware lifecycle receipts, explicit skip, or blocker where safe |
 | CRDs/webhooks/APIService | ordering and cluster-wide blast radius | operate policy and install phases |
 | Kustomize remote base | remote content changes | vendor or pin digest |
 | Kustomize generator | name/content changes unexpectedly | deterministic generator options and input digests |
@@ -1028,7 +1028,7 @@ Feature counts among scanned charts:
 | --- | ---: | --- |
 | Non-exact dependency constraints | 152 | dependency lock before import/render |
 | HTTP chart repo URL | 5 | source acquisition warning/policy |
-| Hooks | 54 | lifecycle policy, phases/tests, or fail |
+| Hooks | 54 | lifecycle policy, phases/tests, or explicit blocker |
 | Non-test hooks | 42 | install phase mapping or unsupported |
 | Test hooks | 16 | map to test/check actions |
 | `lookup` | 244 | recipe target fact requirements and lookup policy |

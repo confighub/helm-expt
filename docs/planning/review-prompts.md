@@ -6,7 +6,7 @@ Primary source:
 
 - `docs/reference/chart-recipe-manifest-flow.md`
 - `docs/planning/agreed-execution-plan.md`
-- `docs/planning/current-pathway-review.md`
+- `docs/planning/archive/current-pathway-review.md`
 - `docs/planning/independent-review-brief.md`
 - `docs/planning/issue-backlog.md`
 - `docs/corpus/known-adversarial-charts.md`
@@ -150,7 +150,8 @@ You are an independent product and technical reviewer evaluating ConfigHub's Hel
 
 The mission is:
 
-  Never have Helm pain again.
+  Reduce Helm pain by making chart output explicit, variant-aware, reviewable,
+  and receipt-backed.
 
 The crisp positioning is:
 

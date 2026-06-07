@@ -26,6 +26,7 @@ delivery, or a LoadBalancer-capable cluster.
 | `local_kind_kubectl_apply` | The rendered objects were applied to a local Kubernetes cluster and workload checks passed. | Argo or Flux pulled from ConfigHub OCI. |
 | `confighub_oci_argo_live` | ConfigHub Units were published through OCI and reconciled by Argo CD, with runtime evidence. | Regular Helm was deployed side by side for parity. |
 | `live_helm_vs_confighub_dual_compare` | A live Helm deployment was compared against ConfigHub delivery paths. | Only exact rows with committed receipts pass. The lane matrix shows which rows still need evidence. |
+| lifecycle observations | Controller-owned or hook-like post-apply behavior was checked with fresh runtime evidence. | Normal render equivalence for every hook-using chart. |
 
 Strict Helm parity should use two vanilla kind clusters by default: regular Helm
 on one cluster and `cub installer` render/apply on the other. This is the
@@ -46,6 +47,12 @@ Check the selected GitOps/OCI wave:
 
 ```sh
 npm run runtime-gitops:wave:verify
+```
+
+Check the cert-manager / External Secrets lifecycle observations:
+
+```sh
+npm run lifecycle:cert-manager-eso:verify
 ```
 
 Check the complete repository corpus:
