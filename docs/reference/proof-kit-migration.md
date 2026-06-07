@@ -44,11 +44,11 @@ Projected across all 19 charts: **~5,050 lines vs ~24,300 → ~19,300 deleted (�
 This is a behaviour-preserving refactor. For metrics-server, against the
 **unchanged committed artifacts**:
 
-- `--verify-proof` ✅ `--verify-proof-self-test` ✅ `--verify-package` ✅
+- `--verify-proof`, `--verify-proof-self-test`, and `--verify-package` all pass
   (the same three modes the `verify` gate runs; `--verify-package` exercises
   `cub installer package` + `cub installer setup` + the semantic Helm-vs-cub compare).
 - `verify-installer-command-surface`, `verify-variant-command-surface`,
-  `verify-p0-proof-contracts`, `verify-doc-map` ✅
+  `verify-p0-proof-contracts`, and `verify-doc-map` all pass
 - **Byte-for-byte generation:** running `--generate-proof` with the old code and
   with the new code produces identical bytes (verified by regenerating under each
   and diffing). The only delta vs the committed tree is a pre-existing staleness in
@@ -100,8 +100,8 @@ Hooks:
 
 ## Status & caveats
 
-- ✅ `metrics-server` migrated (reference).
-- ⏳ 18 charts remaining — tracked in the migration issue.
+- `metrics-server` migrated (reference).
+- 18 charts remaining, tracked in the migration issue.
 - Charts with extra artifacts (e.g. target-facts collector shell scripts, multi-leg
   lifecycle hooks, multiple revisions) will extend the spec with additional hooks
   as they are migrated; the kit covers the core proof shape shared by all of them.
