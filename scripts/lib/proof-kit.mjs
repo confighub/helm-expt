@@ -54,10 +54,19 @@ const DEFAULT_RENDER_FLAGS = ["--include-crds", "--skip-tests", "--no-hooks"];
 // coordinates and conventional names are computed once here so the rest of the
 // kit (and chart specs) never re-derive them inconsistently.
 function makeContext(spec) {
-  const chart = spec.chart;
-  check(chart && chart.repository && chart.name && chart.version, "spec.chart must set repository, name, version");
-  const proofRoot = join(repoRoot, "recipes", chart.repository, chart.name, chart.version);
-  const packageRoot = join(repoRoot, "packages", chart.repository, chart.name, chart.version);
+  check(
+    spec.chart && spec.chart.repository && spec.chart.name && spec.chart.version,
+    "spec.chart must set repository, name, version",
+  );
+  // Multi-version proof harness overrides (run-latest-top20-candidates.mjs):
+  // HELM_EXPT_CHART_VERSION re-targets the version; HELM_EXPT_PROOF_OUTPUT_ROOT writes
+  // proof/package trees under a scratch root. Both unset -> identical to before.
+  const chart = { ...spec.chart, version: process.env.HELM_EXPT_CHART_VERSION ?? spec.chart.version };
+  const outputRoot = process.env.HELM_EXPT_PROOF_OUTPUT_ROOT
+    ? join(repoRoot, process.env.HELM_EXPT_PROOF_OUTPUT_ROOT)
+    : repoRoot;
+  const proofRoot = join(outputRoot, "recipes", chart.repository, chart.name, chart.version);
+  const packageRoot = join(outputRoot, "packages", chart.repository, chart.name, chart.version);
   const ns = chart.namespace;
   return {
     spec,
@@ -75,7 +84,8 @@ function makeContext(spec) {
     receiptSlug: spec.receiptSlug ?? chart.name, // short name used in receipt metadata.name
     scriptPrefix: spec.scriptPrefix ?? chart.name, // npm script namespace, e.g. `metrics-server`
     renderFlags: spec.renderFlags ?? DEFAULT_RENDER_FLAGS,
-    dependencies: spec.dependencies ?? [],
+    expectedDependencyCount: spec.expectedDependencyCount ?? 0,
+    recordChartLockDigest: spec.recordChartLockDigest ?? false,
     supportObjects: spec.supportObjects ?? [`v1|Namespace||${ns}`],
     dependencyLockChart: spec.dependencyLockChart ?? `${chart.repository}/${chart.name}`,
     sourceType: spec.sourceType ?? "HelmChart",
@@ -141,7 +151,9 @@ function generateProof(ctx) {
     spec: {
       chart: ctx.dependencyLockChart,
       version: chart.version,
-      dependencies: ctx.dependencies,
+      dependencies: source.dependencies,
+      // Charts on the bitnami dependency-lock template always record this key (even null).
+      ...(ctx.recordChartLockDigest ? { chartLockDigest: source.chartLockDigest } : {}),
     },
   });
 
@@ -290,7 +302,7 @@ function generateProof(ctx) {
           deterministicAcrossTwoLocalRenders: true,
           objectCount: objects.length,
           renderedSecretCount: secretCount,
-          secretCountSeparatedByCubInstall: 0,
+          secretCountSeparatedByCubInstall: variant.expectedSecretCount ?? 0,
         },
       },
     });
@@ -304,7 +316,7 @@ function generateProof(ctx) {
         cubInstall: {
           objectCountIncludingSecretsAndSupportObjects: objects.length + ctx.supportObjects.length,
           uploadedManifestFiles: objects.length + ctx.supportObjects.length,
-          separatedSecretFiles: 0,
+          separatedSecretFiles: variant.expectedSecretCount ?? 0,
           semanticObjectMatches: `${objects.length}/${objects.length}`,
         },
         semanticNormalizations: ["prune-null-fields"],
@@ -474,7 +486,7 @@ npm run ${ctx.scriptPrefix}:verify-package
           helmReleaseObjectCount: variant.expectedObjectCount,
           cubInstallObjectCountIncludingSupport: variant.expectedObjectCount + ctx.supportObjects.length,
           semanticObjectMatches: `${variant.expectedObjectCount}/${variant.expectedObjectCount}`,
-          separatedSecretCount: 0,
+          separatedSecretCount: variant.expectedSecretCount ?? 0,
           allowedCubOnlyObjects: ctx.supportObjects,
         })),
       },
@@ -530,7 +542,7 @@ function verifyProof(ctx, root = ctx.proofRoot) {
   check(sourceLock.spec.version === chart.version, "source version mismatch");
   check(Boolean(sourceLock.spec.packageSHA256), "source package SHA must be present");
   check(dependencyLock.kind === "DependencyLock", "dependency-lock.yaml must be DependencyLock");
-  check((dependencyLock.spec.dependencies ?? []).length === ctx.dependencies.length, "dependency lock length mismatch");
+  check((dependencyLock.spec.dependencies ?? []).length === ctx.expectedDependencyCount, "dependency lock length mismatch");
   check(recipe.kind === "Recipe", "recipe.yaml must be Recipe");
   check(recipe.spec.variants?.length === variants.length, `recipe must have ${variants.length} variants`);
   check(valueModel.spec.checkedValues?.length >= ctx.spec.valueModel.checkedValues.length, "value model must record checked values");
@@ -708,7 +720,7 @@ function verifySetupVariant(ctx, tempRoot, variant, receipt) {
   }
   check(semanticDiffs.length === 0, `${variant.name} semantic diffs: ${semanticDiffs.join(", ")}`);
   const secretFiles = listYamlFiles(join(workDir, "out", "secrets"));
-  check(secretFiles.length === 0, `${variant.name} should not separate secrets`);
+  check(secretFiles.length === (variant.expectedSecretCount ?? 0), `${variant.name} separated Secret count mismatch`);
 }
 
 function pullSource(ctx) {
@@ -720,11 +732,15 @@ function pullSource(ctx) {
     command("tar", ["-xzf", packagePath, "-C", tempRoot]);
     const chartRoot = join(tempRoot, chart.name);
     const chartYaml = readYaml(join(chartRoot, "Chart.yaml"));
+    const chartLockPath = join(chartRoot, "Chart.lock");
+    const chartLock = existsSync(chartLockPath) ? readYaml(chartLockPath) : null;
     return {
       appVersion: chartYaml.appVersion,
       packageSHA256: sha256File(packagePath),
       packageBytes: readFileSync(packagePath).length,
       defaultValuesSHA256: sha256File(join(chartRoot, "values.yaml")),
+      chartLockDigest: chartLock?.digest ?? null,
+      dependencies: chartLock?.dependencies ?? chartYaml.dependencies ?? [],
     };
   } finally {
     rmSync(tempRoot, { recursive: true, force: true });
