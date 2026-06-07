@@ -14,6 +14,7 @@ Keep these questions separate when explaining the project:
 | --- | --- | --- |
 | How many useful configs are free or out of the box? | public catalog bases | a curated set of reviewed, Helm-equivalent install shapes for common chart needs |
 | What can users customize in ConfigHub after choosing a reviewed base? | derived ConfigHub variants | environment, region, customer, target, gates, facts, links, observations, and approved post-render field fills |
+| How do users adopt apps they already run? | existing app adoption | Argo CD, Flux, KRM YAML, rendered manifests, and live resources are discovered/imported before any recipe rewrite. |
 | Which cases are more complex and potentially commercial? | managed import, GitOps import, private overlays, and stacks | private values, wrapper charts, fleet variants, full stacks, old-version support, production receipts, and patch SLAs |
 
 The catalog should be generous enough that users can try useful non-default
@@ -196,6 +197,54 @@ This is the lane for "take this base and extend it with x and y." It should
 cover many real customer and environment differences without requiring a new
 Helm render, as long as the source base exposes the allowed paths and the
 checks can prove that the install shape stayed reviewed.
+
+## Tier 2A - Existing App Adoption
+
+This tier covers teams that already run apps through Argo CD, Flux, KRM YAML,
+Kustomize output, rendered manifests, or live Kubernetes resources.
+
+Supported shape:
+
+```text
+existing app source
+-> discover/import into ConfigHub
+-> preserve source, target, labels, links, and controller ownership
+-> scan, diff, observe, and classify
+-> decide whether to keep imported, create a derived variant, or graduate to a recipe
+```
+
+Good examples:
+
+```text
+Argo CD Application already syncing a Helm chart
+Flux HelmRelease with customer values
+Flux Kustomization over KRM YAML
+rendered manifests in Git
+live resources imported for review
+```
+
+Current entry points:
+
+| Existing source | Entry point |
+| --- | --- |
+| Argo CD Application | `cub gitops discover` / `cub gitops import` |
+| Flux HelmRelease | `cub gitops discover` / `cub gitops import` |
+| Flux Kustomization | `cub gitops discover` / `cub gitops import` |
+| KRM YAML or rendered Kubernetes resources | `cub unit import` or managed import workflow |
+
+The first promise is visibility without disruption:
+
+```text
+Show me the app.
+Preserve where it came from.
+Do not change delivery until I choose to.
+Tell me what ConfigHub can prove.
+```
+
+If the app should become a reusable catalog entry, graduate it into the
+`cub installer` recipe/package path. If the app only needs target, labels,
+gates, links, observations, or safe post-render fills, use derived ConfigHub
+variants after import.
 
 ## Tier 3 - Managed Overlay Import
 

@@ -44,6 +44,8 @@ path. The current command story is:
 | --- | --- |
 | `cub helm template` | Fast local render and Helm baseline. |
 | `cub helm install` | Fast one-shot render into ConfigHub Units. |
+| `cub gitops discover` / `cub gitops import` | Existing Argo CD and Flux app adoption. |
+| `cub unit import` | KRM YAML, rendered manifest, or Kubernetes resource adoption. |
 | `cub installer` recipe/package | Maintained catalog artifact with named bases, receipts, scans, and live evidence. |
 | future `cub installer import helm` | Bridge from fast Helm command paths to maintained recipe/package candidates. |
 
@@ -77,6 +79,7 @@ Existing ConfigHub capabilities to use now:
 | Scanning and misconfig | `cub function vet`, `cub function get/set`, `cub run ...` | P1.8 |
 | Target and live facts | `cub target create/get/list`, `cub k8s collect`, `cub k8s source`, `cub unit livestate/livedata/refresh` | P1.3, P1.4 |
 | GitOps adoption | `cub gitops discover/import` | #12, #151, #153 |
+| Existing KRM/resource adoption | `cub unit import`, `cub unit tree/list/diff`, `cub k8s source` | #151, #153 |
 | Metadata model | `cub tag`, `cub attribute`, `cub filter`, `cub view`, `cub link` | #146, #149 |
 
 Missing product verbs:

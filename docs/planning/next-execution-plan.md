@@ -142,6 +142,8 @@ Current command routing:
 | --- | --- | --- |
 | Render and inspect a Helm chart locally | `cub helm template` | Fast renderer and baseline generator |
 | Render and load a chart into ConfigHub Units | `cub helm install` | Fast one-shot ConfigHub action |
+| Discover/import existing Argo CD or Flux apps | `cub gitops discover` / `cub gitops import` | Existing app adoption path |
+| Import KRM YAML, rendered manifests, or live resources | `cub unit import` or managed import workflow | Generic Kubernetes resource adoption path |
 | Build a maintained, variant-aware catalog entry | repo generator + `cub installer` package path | Current proof substrate |
 | Graduate fast Helm path into maintained catalog path | future `cub installer import helm` | Missing bridge |
 

@@ -29,6 +29,7 @@ The practical split is:
 
 | Choice | Route |
 | --- | --- |
+| Already managed by Argo, Flux, KRM, rendered YAML, or live resources | Adopt first through `cub gitops discover/import`, `cub unit import`, or a managed import workflow. |
 | Changes Helm inputs, object shape, object count, topology, CRDs, RBAC, storage, generated facts, or lifecycle behavior | New or updated `cub installer` base variant. |
 | Refines already-rendered fields, target, environment, region, customer, gates, links, observation policy, or approved placeholder fills | Derived ConfigHub variant after upload. |
 | Requires an external runtime prerequisite | Delivery prerequisite, target fact, preflight, gate, or observation receipt. |
@@ -107,6 +108,7 @@ expected product outcome, not a failure of the model.
 | --- | --- |
 | Try the shortest verified path | [Tutorial Sequence](./tutorial-sequence.md) |
 | See outcome status and CSVs | [Outcomes And Tests](./outcomes-and-tests.md) |
+| Adopt existing apps | [Adopting Existing Apps](./adopting-existing-apps.md) |
 | Understand proof levels | [Verification Lanes](./verification-lanes.md) |
 | Choose base versus derived variants | [Creating Variants](./creating-variants.md) |
 | Route values files and overlays | [Custom Overlays](./custom-overlays.md) |

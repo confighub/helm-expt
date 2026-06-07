@@ -228,6 +228,9 @@ docs/user/current-proof-status.md
 docs/user/verification-lanes.md
   What each proof lane means, and what it does not prove.
 
+docs/user/adopting-existing-apps.md
+  How existing Argo, Flux, KRM, rendered-manifest, and live-resource apps enter the ConfigHub model.
+
 site/index.html
   Generated static catalog view for a lightweight website slice.
 

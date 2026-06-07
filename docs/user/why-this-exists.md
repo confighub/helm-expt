@@ -56,7 +56,8 @@ Command routing:
 | Load one chart render into ConfigHub Units now. | `cub helm install` |
 | Maintain a reviewed, variant-aware catalog entry. | `cub installer` recipe/package path |
 | Graduate a chart render into that catalog path. | future `cub installer import helm` |
-| Bring an existing GitOps estate under ConfigHub visibility. | `cub gitops import` |
+| Bring existing Argo CD or Flux apps under ConfigHub visibility. | `cub gitops discover` / `cub gitops import` |
+| Bring KRM YAML or rendered manifests under ConfigHub visibility. | `cub unit import` or managed import workflow |
 
 ## What The Wrapper/Machinery Is For
 
