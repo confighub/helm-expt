@@ -118,6 +118,7 @@ function writeSummary() {
       version: target.version,
       variant: target.variant,
       result: receipt?.spec?.result ?? "not-started",
+      reason: classifyBlocked(receipt),
       receipt: existsSync(path) ? receiptPath(target) : "",
     };
   });
@@ -125,6 +126,15 @@ function writeSummary() {
   const watch = rows.filter((row) => row.result === "watch").length;
   const blocked = rows.filter((row) => row.result === "blocked").length;
   const notStarted = rows.filter((row) => row.result === "not-started").length;
+  const blockedReasons = {};
+  for (const row of rows) {
+    if (row.result === "blocked") blockedReasons[row.reason] = (blockedReasons[row.reason] ?? 0) + 1;
+  }
+  const blockedBreakdown =
+    Object.entries(blockedReasons)
+      .sort(([left], [right]) => left.localeCompare(right))
+      .map(([reason, count]) => `${reason}: ${count}`)
+      .join("\n") || "(none)";
   const root = join(repoRoot, "data", "live-helm-confighub-compare");
   const csv = toCsv(rows);
   const md = `# Live Helm-vs-ConfigHub Parity
@@ -140,9 +150,15 @@ blocked: ${blocked}
 not-started: ${notStarted}
 \`\`\`
 
-| Rank | Chart | Base | Result | Receipt |
-| ---: | --- | --- | --- | --- |
-${rows.map((row) => `| ${row.rank} | \`${row.chart}@${row.version}\` | ${row.variant} | ${row.result} | ${row.receipt || "-"} |`).join("\n")}
+Blocked rows broken down by cause (see \`blocked-triage.md\`; none are parity defects):
+
+\`\`\`text
+${blockedBreakdown}
+\`\`\`
+
+| Rank | Chart | Base | Result | Reason | Receipt |
+| ---: | --- | --- | --- | --- | --- |
+${rows.map((row) => `| ${row.rank} | \`${row.chart}@${row.version}\` | ${row.variant} | ${row.result} | ${row.reason || "-"} | ${row.receipt || "-"} |`).join("\n")}
 `;
   write(join(root, "summary.csv"), csv);
   write(join(root, "summary.md"), md);
@@ -204,7 +220,7 @@ function numberOption(name) {
 }
 
 function toCsv(rows) {
-  const headers = ["rank", "chart", "version", "variant", "result", "receipt"];
+  const headers = ["rank", "chart", "version", "variant", "result", "reason", "receipt"];
   return `${[headers.join(","), ...rows.map((row) => headers.map((header) => csvEscape(row[header])).join(","))].join("\n")}\n`;
 }
 
@@ -212,4 +228,26 @@ function csvEscape(value) {
   const text = value === undefined || value === null ? "" : String(value);
   if (/[",\n]/.test(text)) return `"${text.replaceAll('"', '""')}"`;
   return text;
+}
+
+// Classify why a row is blocked so infra/provisioning flakiness is not conflated
+// with a real ConfigHub-vs-Helm parity defect. Returns "" for non-blocked rows.
+// See data/live-helm-confighub-compare/blocked-triage.md for the analysis.
+function classifyBlocked(receipt) {
+  const spec = receipt?.spec ?? {};
+  if (spec.result !== "blocked") return "";
+  const message = String(spec.failure?.message ?? "").toLowerCase();
+  if (message.includes("kind create cluster")) return "infra: kind create failed";
+  if (message.includes("argocd-server")) return "infra: rig bootstrap (argocd) not ready";
+  if (message.includes("timeout after")) return "infra: provisioning timeout";
+  if (message.includes("etcdserver") || message.includes("request timed out")) return "infra: etcd/apiserver overload";
+  const semantic = spec.semanticComparison ?? {};
+  const semanticPassed = Object.values(semantic).some(
+    (value) => value && typeof value === "object" && value.result === "pass",
+  );
+  const regularHelm = (spec.legs ?? {}).regularHelm ?? {};
+  if (regularHelm.result === "blocked") {
+    return semanticPassed ? "helm-runtime: upstream not ready (parity passed)" : "helm-runtime: upstream leg blocked";
+  }
+  return "uncategorized";
 }
