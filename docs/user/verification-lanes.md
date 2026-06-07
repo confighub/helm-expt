@@ -39,6 +39,13 @@ contamination between the two legs. OCI/GitOps delivery remains a separate live
 lane after parity has passed. See
 [Two-Cluster Helm Parity Harness](../reference/two-cluster-parity-harness.md).
 
+Strict Helm parity should use two vanilla kind clusters by default: regular Helm
+on one cluster and `cub installer` render/apply on the other. This is the
+required 100% live parity test for base variants. It avoids controller or CRD
+contamination between the two legs. OCI/GitOps delivery remains a separate live
+lane after parity has passed. See
+[Two-Cluster Helm Parity Harness](../reference/two-cluster-parity-harness.md).
+
 ## Commands
 
 Check the generated matrix:
