@@ -263,7 +263,7 @@ function generateProof(ctx) {
       },
     });
 
-    const scanFindings = scanDocs(docs);
+    const scanFindings = scanDocs(ctx, docs);
     const scanCounts = findingCounts(scanFindings);
     const scanResult = scanFindings.some((finding) => finding.severity === "high") ? "warn" : scanFindings.length ? "warn" : "pass";
     const policyBundleDigest = sha256(JSON.stringify(scanPolicy));
@@ -805,7 +805,7 @@ function variantDocFor(ctx, variant) {
   return doc;
 }
 
-function scanDocs(docs) {
+function scanDocs(ctx, docs) {
   const findings = [];
   const serviceAccounts = new Set(
     docs.filter((doc) => doc.kind === "ServiceAccount").map((doc) => `${doc.metadata?.namespace ?? ""}/${doc.metadata?.name ?? ""}`),
@@ -871,6 +871,8 @@ function scanDocs(docs) {
       message: "Cluster-scoped RBAC requires production review",
     });
   }
+  // Chart-specific scan rules (e.g. admission webhooks, CRDs) the common ruleset can't infer.
+  if (ctx.spec.scanExtra) findings.push(...ctx.spec.scanExtra(docs));
   findings.sort((left, right) => left.id.localeCompare(right.id));
   return findings;
 }
