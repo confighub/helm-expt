@@ -14,6 +14,10 @@ hook, and feature data into four CSVs. The pain-point and variant-path matrices
 add two more front-door views for "what Helm pain is this solving?" and "which
 exact chart/base/path has which proof?"
 
+For the shortest chart-by-chart top-100 answer, start with:
+
+[Top-100 Readiness](../../data/top100-readiness/summary.md)
+
 ## The Four Outcome Tables
 
 | File | Use it for |
@@ -28,6 +32,7 @@ exact chart/base/path has which proof?"
 | File | Use it for |
 | --- | --- |
 | [pain-points.csv](../../data/pain-point-coverage/pain-points.csv) | One row per common Helm pain point. Shows current answer, handoff, evidence, remaining gap, and next action. |
+| [readiness.csv](../../data/top100-readiness/readiness.csv) | One row per top-100 chart. Shows current user status, strongest evidence, hard gap, and next action. |
 | [coverage-matrix.csv](../../data/variant-path-coverage/coverage-matrix.csv) | One row per chart/base/path. Shows whether the row is a base, diff, operation, or derived variant, with proof status per lane. |
 | [edges.csv](../../data/edge-recovery/edges.csv) | Recovered graph fragments for Redis and kube-prometheus-stack: inheritance, overrides, generated facts, target facts, and field reachability where known. |
 
@@ -53,20 +58,30 @@ The machine-readable index is:
 | Hooks and hook-like lifecycle behavior are visible rather than hidden. | Hook lifecycle queue and lifecycle observation receipts. | `npm run hooks:lifecycle:verify && npm run lifecycle:cert-manager-eso:verify` |
 | Images, Secrets, CRDs, webhooks, target facts, and other chart-specific features are tracked. | Chart facts, attack-plan workdown, and image digest workdown. | `npm run chart-facts:verify && npm run attack-plan:verify && npm run image-digests:workdown:verify` |
 | Common Helm pain points have an explicit answer and gap. | Pain-point coverage matrix and per-chart pain reports. | `npm run pain-points:verify` |
+| The top-100 corpus has a clear user status. | Top-100 readiness rollup. | `npm run top100:readiness:verify` |
 | Variant paths have row-level status. | Variant-path coverage matrix. | `npm run variant-paths:verify` |
 | Helm artifacts feed graph fragments. | Inheritance graphs and edge-recovery CSV. | `npm run edges:verify` |
+
+## Confidence Tiers
+
+| Corpus | What it means |
+| --- | --- |
+| top-20 | Bespoke catalog entries with declared base variants and the broadest live evidence. |
+| top-100 | Maintained recipe/package proof artifacts. Some are catalog-supported; most are proof-grade and need promotion review or user-shaped variants. |
+| top-500 | Source-feature and catalog-planning reconnaissance. It shows where Helm pain appears, not that every chart is ready to install. |
 
 ## How To Use The Tables
 
 1. Pick a chart in [CATALOG.md](../../CATALOG.md).
 2. Open the per-chart catalog page at `recipes/<repo>/<chart>/<version>/CATALOG.md`.
 3. Check [chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) for the chart-level status.
-4. Filter [base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) by chart to see each base variant.
-5. Check [feature-outcomes.csv](../../data/outcome-coverage/feature-outcomes.csv) for hooks, CRDs, generated facts, target facts, and other chart-specific behavior.
-6. Check [pain-points.csv](../../data/pain-point-coverage/pain-points.csv) for the general Helm pain being addressed.
-7. Check [coverage-matrix.csv](../../data/variant-path-coverage/coverage-matrix.csv) when the question is about one base, diff, operation, or derived variant path.
-8. Check [derived-variant-outcomes.csv](../../data/outcome-coverage/derived-variant-outcomes.csv) when the question is about post-render ConfigHub variants.
-9. Run the scoped verifier for the table you opened, or `npm run verify` only when you need the full corpus gate.
+4. Check [readiness.csv](../../data/top100-readiness/readiness.csv) when the question is "can I use this chart now?"
+5. Filter [base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) by chart to see each base variant.
+6. Check [feature-outcomes.csv](../../data/outcome-coverage/feature-outcomes.csv) for hooks, CRDs, generated facts, target facts, and other chart-specific behavior.
+7. Check [pain-points.csv](../../data/pain-point-coverage/pain-points.csv) for the general Helm pain being addressed.
+8. Check [coverage-matrix.csv](../../data/variant-path-coverage/coverage-matrix.csv) when the question is about one base, diff, operation, or derived variant path.
+9. Check [derived-variant-outcomes.csv](../../data/outcome-coverage/derived-variant-outcomes.csv) when the question is about post-render ConfigHub variants.
+10. Run the scoped verifier for the table you opened, or `npm run verify` only when you need the full corpus gate.
 
 ## Narrow Claim Rule
 

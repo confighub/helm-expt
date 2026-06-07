@@ -225,6 +225,9 @@ docs/user/outcomes-and-tests.md
 docs/user/helm-pain-points.md
   How common Helm pain points map to helm-expt, ConfigHub, cub installer, and live observation.
 
+data/top100-readiness/summary.md
+  One chart-by-chart answer for current top-100 user status, strongest evidence, and next action.
+
 docs/user/current-proof-status.md
   What is proven now, and which generated summaries are authoritative.
 
