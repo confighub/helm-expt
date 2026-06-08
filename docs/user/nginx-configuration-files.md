@@ -97,7 +97,11 @@ Useful files:
 recipes/bitnami/nginx/24.0.2/helm-pain-report.yaml
 recipes/bitnami/nginx/24.0.2/control-points.yaml
 data/live-helm-confighub-compare/summary.md
+data/extension-slots/summary.md
 ```
+
+For the broader catalog count of NGINX-like extension slots, use
+[Extension Slot Coverage](../../data/extension-slots/summary.md).
 
 ## Future NGINX-Specific Checks
 

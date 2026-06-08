@@ -30,6 +30,9 @@ The generated summary also carries the current high-value counts for
 NGINX-like extension slots. These distinguish explicit catalog control points
 from broader source-scan signals such as raw `tpl` usage.
 
+For the chart-level extension-slot list, use
+[Extension Slot Coverage](../../data/extension-slots/summary.md).
+
 Regenerate and check the audit:
 
 ```sh

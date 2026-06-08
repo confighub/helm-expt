@@ -44,6 +44,7 @@ For the shortest chart-by-chart top-100 answer, start with:
 | [readiness.csv](../../data/top100-readiness/readiness.csv) | One row per top-100 chart. Shows adoption bucket, current user status, strongest evidence, hard gap, and next action. |
 | [coverage-matrix.csv](../../data/variant-path-coverage/coverage-matrix.csv) | One row per chart/base/path. Shows whether the row is a base, diff, operation, or derived variant, with proof status per lane. |
 | [quirk coverage](../../data/quirk-coverage/summary.md) | One row per Helm quirk axis. Shows whether it is tracked, partly tracked, source-scanned only, or not scanned. |
+| [extension slot coverage](../../data/extension-slots/summary.md) | One row per chart with NGINX-like raw manifests, tpl snippets, config blocks, sidecars, or add-on slots. |
 | [edges.csv](../../data/edge-recovery/edges.csv) | Recovered graph fragments for Redis and kube-prometheus-stack: inheritance, overrides, generated facts, target facts, and field reachability where known. |
 
 Every CSV under `data/` is indexed here:
