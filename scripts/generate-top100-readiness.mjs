@@ -59,6 +59,7 @@ function buildReport() {
       live_parity: countText(outcome.live_parity_pass, outcome.base_rows),
       hard_gap: shortGap(outcome.hard_gap || top100.not_yet_enabled),
       next_action: status.nextAction,
+      next_action_source: status.nextActionSource,
       recipe_path: top100.recipe_path,
       catalog_path: top100.catalog_path,
     };
@@ -92,11 +93,13 @@ function userStatusFor(top100, outcome, strongestEvidence, productionNextAction)
       return {
         userStatus: "catalog-supported-with-live-evidence",
         nextAction: productionNextAction ?? (hardGap === "-" ? "promote a declared production scope when gates pass" : `resolve or document: ${hardGap}`),
+        nextActionSource: productionNextAction ? "production-disposition" : "top100-readiness-fallback",
       };
     }
     return {
       userStatus: "catalog-supported-needs-live-expansion",
       nextAction: productionNextAction ?? "add live evidence for the remaining supported variants",
+      nextActionSource: productionNextAction ? "production-disposition" : "live-lane-expansion",
     };
   }
   if (top100.catalog_status === "proof-grade") {
@@ -104,16 +107,19 @@ function userStatusFor(top100, outcome, strongestEvidence, productionNextAction)
       return {
         userStatus: hardGap === "-" ? "proof-grade-ready-for-promotion-review" : "proof-grade-with-named-limitation",
         nextAction: hardGap === "-" ? "run catalog promotion review" : `review limitation before promotion: ${hardGap}`,
+        nextActionSource: hardGap === "-" ? "catalog-promotion-review" : "limitation-review",
       };
     }
     return {
       userStatus: "proof-grade-needs-user-shaped-variant",
       nextAction: "add at least one user-shaped variant before catalog promotion",
+      nextActionSource: "user-shaped-variant-backlog",
     };
   }
   return {
     userStatus: "not-in-current-catalog-lane",
     nextAction: top100.top500_next_action || "review chart analysis and create a recipe candidate",
+    nextActionSource: "top500-catalog-analysis",
   };
 }
 
@@ -202,6 +208,7 @@ ${[...evidenceCounts.entries()].map(([status, count]) => `| \`${status}\` | ${co
 - For top-20 public catalog rows, \`next_action\` comes from
   \`data/production-disposition/next-actions.csv\`. That keeps "can I try this?"
   separate from "can we call it production-supported?"
+- \`next_action_source\` records which generated queue produced the advice.
 - Hard gaps are capability gaps, not necessarily chart failure. They usually mean
   a useful path such as an existing-secret, HA, no-CRDs, or production lifecycle
   path still needs a supported variant or operator decision.
@@ -216,15 +223,15 @@ ${[...evidenceCounts.entries()].map(([status, count]) => `| \`${status}\` | ${co
 
 ## First Rows
 
-| Chart | Adoption bucket | Evidence | Variants | Next action |
-| --- | --- | --- | ---: | --- |
-${rows.slice(0, 25).map((row) => `| \`${row.chart}\` | \`${row.adoption_bucket}\` | \`${row.strongest_evidence}\` | ${row.variant_count} | ${escapePipes(row.next_action)} |`).join("\n")}
+| Chart | Adoption bucket | Evidence | Variants | Next action | Source |
+| --- | --- | --- | ---: | --- | --- |
+${rows.slice(0, 25).map((row) => `| \`${row.chart}\` | \`${row.adoption_bucket}\` | \`${row.strongest_evidence}\` | ${row.variant_count} | ${escapePipes(row.next_action)} | \`${row.next_action_source}\` |`).join("\n")}
 
 ## Files
 
 | File | Use |
 | --- | --- |
-| \`data/top100-readiness/readiness.csv\` | One row per top-100 chart: user status, strongest evidence, lane counts, gap, next action. |
+| \`data/top100-readiness/readiness.csv\` | One row per top-100 chart: user status, strongest evidence, lane counts, gap, next action, and next-action source. |
 | \`data/top100-catalog-analysis/review.csv\` | Catalog analysis and promotion surface. |
 | \`data/outcome-coverage/chart-outcomes.csv\` | Detailed outcome counts per chart. |
 | \`data/outcome-coverage/base-outcomes.csv\` | Per base-variant proof lane status. |

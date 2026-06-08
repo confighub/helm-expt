@@ -452,6 +452,7 @@ function top20StatusRows(top100Rows, chartByName, top20BaseReadinessRows) {
         feature_summary: chartByName.get(row.chart)?.feature_summary ?? "",
         hard_gap: row.hard_gap,
         next_action: row.next_action,
+        next_action_source: row.next_action_source,
         catalog_path: row.catalog_path,
       };
     })
@@ -476,6 +477,7 @@ function top20ToCsv(rows) {
     "feature_summary",
     "hard_gap",
     "next_action",
+    "next_action_source",
     "catalog_path",
   ];
   return `${headers.join(",")}\n${rows.map((row) => headers.map((header) => csvCell(row[header] ?? "")).join(",")).join("\n")}\n`;
