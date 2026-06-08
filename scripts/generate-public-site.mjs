@@ -111,12 +111,15 @@ function html(catalog) {
     ["Derived create receipts", metricValue(metric("derived variant live create receipts"))],
     ["GitOps/OCI live pass", metricValue(metric("GitOps/OCI live pass rows"))],
     ["Live parity pass", metricValue(metric("live Helm-vs-ConfigHub parity pass rows"))],
+    ["Two-cluster parity pass", metricValue(metric("two-cluster kind parity pass rows"))],
   ];
   const statusRows = [
     "in-ConfigHub proof rows",
     "local live rows",
     "GitOps/OCI live pass rows",
     "live Helm-vs-ConfigHub parity pass rows",
+    "two-cluster kind parity pass rows",
+    "two-cluster semantic parity defect receipts",
     "derived variant live create receipts",
     "target-bound derived variant receipts",
     "hook lifecycle receipts present",
