@@ -29,30 +29,34 @@ The CLI surface is unchanged, so every existing `npm run <chart>:*` script and t
 --verify-proof-self-test  --verify-package  --compare
 ```
 
-### Result for the reference chart (metrics-server)
+### Result for migrated charts
 
-| | lines |
+| Chart | Current script lines |
 | --- | ---: |
-| `metrics-server-proof.mjs` before | 1000 |
-| `metrics-server-proof.mjs` after | 218 |
-| `scripts/lib/proof-kit.mjs` (shared, amortized over all charts) | 912 |
+| `metrics-server-proof.mjs` | 218 |
+| `ingress-nginx-proof.mjs` | 182 |
+| `cert-manager-proof.mjs` | 292 |
+| `postgresql-proof.mjs` | 237 |
+| `external-secrets-proof.mjs` | 328 |
+| `nginx-proof.mjs` | 385 |
+| `scripts/lib/proof-kit.mjs` (shared, amortized over all migrated charts) | 938 |
 
-Projected across all 19 charts: **~5,050 lines vs ~24,300 → ~19,300 deleted (≈79%).**
+The original proof scripts were usually around 1,000 lines each. The migrated
+scripts are now chart specs plus chart-specific checks, while the repeated
+generate/verify/package machinery lives in `scripts/lib/proof-kit.mjs`.
 
 ## Equivalence evidence
 
-This is a behaviour-preserving refactor. For metrics-server, against the
+This is a behaviour-preserving refactor. For each migrated chart, against the
 **unchanged committed artifacts**:
 
 - `--verify-proof`, `--verify-proof-self-test`, and `--verify-package` all pass
   (the same three modes the `verify` gate runs; `--verify-package` exercises
   `cub installer package` + `cub installer setup` + the semantic Helm-vs-cub compare).
-- `verify-installer-command-surface`, `verify-variant-command-surface`,
-  `verify-p0-proof-contracts`, and `verify-doc-map` all pass
-- **Byte-for-byte generation:** running `--generate-proof` with the old code and
-  with the new code produces identical bytes (verified by regenerating under each
-  and diffing). The only delta vs the committed tree is a pre-existing staleness in
-  `recipe.yaml`'s digest that the *old* code reproduces too — unrelated to this change.
+- The migration PRs regenerate the committed proof artifacts without semantic
+  product changes.
+- Known pre-existing digest drift remains out of scope when the old script
+  reproduced it too. Migration PRs should not mix refactor and behavior changes.
 
 ## Migrating a chart
 
@@ -100,8 +104,39 @@ Hooks:
 
 ## Status & caveats
 
-- `metrics-server` migrated (reference).
-- 18 charts remaining, tracked in the migration issue.
-- Charts with extra artifacts (e.g. target-facts collector shell scripts, multi-leg
-  lifecycle hooks, multiple revisions) will extend the spec with additional hooks
-  as they are migrated; the kit covers the core proof shape shared by all of them.
+Migrated to the shared proof kit:
+
+```text
+metrics-server
+ingress-nginx
+cert-manager
+postgresql
+external-secrets
+nginx
+```
+
+Remaining chart proof scripts:
+
+```text
+argo-cd
+consul
+grafana
+kube-prometheus-stack
+loki
+longhorn
+mongodb
+mysql
+prometheus
+rabbitmq
+secrets-store-csi-driver
+tempo
+vault
+```
+
+Redis remains bespoke because it is the first complete proof slice and has
+additional user-install verification helpers.
+
+Charts with extra artifacts, target-fact collector scripts, multi-leg lifecycle
+hooks, or multiple revisions will extend the spec with additional hooks as they
+are migrated. The kit should continue to cover only the shared proof shape; new
+product behavior belongs in separate PRs.
