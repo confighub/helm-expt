@@ -27,8 +27,8 @@ remained OutOfSync.
 
 The current summary therefore contains these kinds of blocked row:
 
-- `infra:` rows are local test-rig/provisioning failures that still need a clean
-  rerun before product conclusions are drawn.
+- `fixture:` rows reached enough of the lane to show that the test setup is not
+  the right shape for the chart.
 - `parity:` rows reached the comparison and found a Helm-vs-ConfigHub difference
   that needs recipe or harness review.
 
@@ -37,7 +37,7 @@ The current summary therefore contains these kinds of blocked row:
 | Rank | Chart | Current reason | Current reading |
 | ---: | --- | --- | --- |
 | 5 | external-secrets/external-secrets | `parity: live semantic diff` | The hardened rerun reached Helm, ConfigHub apply, and ConfigHub OCI/Argo. The webhook Deployment is the reported semantic diff, and the ConfigHub apply/OCI legs left the cert-controller and webhook pods not ready. This aligns with the chart's documented webhook Secret/cert-controller control point and needs chart-specific review. |
-| 6 | argo-cd/argo-cd | `infra: etcd/apiserver overload` | The previous run hit API-server/etcd pressure and CRD ownership friction before a clean parity conclusion. |
+| 6 | argo-cd/argo-cd | `fixture: pre-existing CRDs owned by test controller` | The rerun reached the chart-specific conflict: the live rig installs Argo CD as the OCI controller, so regular Helm refuses to own the already-installed Argo CD CRDs. The ConfigHub paths render semantically equivalent objects, but the chart-installed Argo CD pods also need generated Secret handling. |
 
 ## What The External Secrets Rerun Proved
 
@@ -149,11 +149,26 @@ The previous Consul `infra: provisioning timeout` row was local rig residue. The
 live lane now records Consul as `watch`, not `blocked`. The next Consul work is
 to inspect the OCI/Argo sync status, not to change the recipe.
 
+## What The Argo CD Rerun Proved
+
+The Argo CD rerun reached the chart-specific fixture problem:
+
+- regular Helm could not install the Argo CD chart because the test rig already
+  installs Argo CD CRDs for the OCI controller, and Helm refuses to import CRDs
+  without its ownership metadata;
+- ConfigHub kubectl-apply and ConfigHub OCI/Argo both rendered semantically
+  equivalent object sets;
+- the ConfigHub-applied Argo CD pods did not become ready because they referenced
+  generated Secrets that were not present in the target namespace.
+
+This is no longer an `etcd` or API-server overload row. The next Argo CD work is
+a different live fixture, such as a two-cluster or phased controller setup, plus
+an explicit generated-Secret policy for the chart-installed Argo CD instance.
+
 ## Rerun Order
 
-Rerun the remaining infrastructure-blocked rows one at a time on a clean host:
-
-1. `argo-cd`
+There are no remaining rows whose current reason is only local infrastructure
+provisioning.
 
 Treat a rerun result as product evidence only if it reaches at least one
 ConfigHub delivery leg and records a semantic comparison. Until then, keep the
