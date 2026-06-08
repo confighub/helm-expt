@@ -47,6 +47,8 @@ The current public corpus contains:
 20 top-chart local kind runtime receipts
 20 top-chart ConfigHub upload, scan, and safe-operation receipt sets
 20 chart-specific Helm pain reports
+10 derived ConfigHub variant work orders with live `cub variant create` receipts
+6 target-bound derived variant receipts with OCI/GitOps/runtime evidence
 top-100 and top-500 catalog analysis data
 selected GitOps/OCI and live parity receipts
 ```

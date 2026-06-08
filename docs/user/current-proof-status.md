@@ -11,7 +11,7 @@ The shortest generated status page is:
 [Status Dashboard](../../data/status-dashboard/summary.md)
 
 It summarizes top100 readiness, proof lanes, hook and quirk residues,
-GitOps/OCI, and live parity in one place.
+derived ConfigHub variants, GitOps/OCI, and live parity in one place.
 
 The generated lane matrix is the authority for exact chart/version/base status:
 
