@@ -27,6 +27,9 @@ Which detailed CSV should I open next?
 | proof lanes | GitOps/OCI live pass rows | 12/156 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | live Helm-vs-ConfigHub parity pass rows | 10/156 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | complete core lane rows | 6/156 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| derived variants | derived variant golden rows | 10/10 | good | [data/variant-goldens/derived-expansion-wave/work-orders.csv](../../data/variant-goldens/derived-expansion-wave/work-orders.csv) |
+| derived variants | derived variant live create receipts | 10/10 | good | [runs/derived-variant-execution](../../runs/derived-variant-execution) |
+| derived variants | target-bound derived variant receipts | 6/10 | partial | [runs/derived-variant-target-bound](../../runs/derived-variant-target-bound) |
 | live evidence | runtime/GitOps wave rows | 10/10 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
 | live evidence | live Helm-vs-ConfigHub receipts | 20/20 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | quirks | tracked-and-surfaced axes | 8/25 | good | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
@@ -85,6 +88,26 @@ Current live parity non-pass receipts:
 | hashicorp/consul@2.0.0 | default-control-plane | blocked | infra: provisioning timeout |
 
 
+## Derived Variant Evidence
+
+Derived ConfigHub variants are the post-render half of the model. They start
+from reviewed uploaded bases and use `cub variant create` plus ConfigHub
+metadata, targets, gates, links, checks, and receipts. They do not rerender
+Helm.
+
+| Metric | Value |
+| --- | ---: |
+| derived variant golden rows | 10/10 |
+| live cub variant create receipts | 10/10 |
+| target-bound derived variant receipts | 6/10 |
+
+The golden rows are in
+[variant-goldens/derived-expansion-wave/work-orders.csv](../variant-goldens/derived-expansion-wave/work-orders.csv).
+Live create receipts are in
+[runs/derived-variant-execution](../../runs/derived-variant-execution), and
+target-bound receipts are in
+[runs/derived-variant-target-bound](../../runs/derived-variant-target-bound).
+
 ## Quirk And Hook Residue
 
 | Quirk coverage tier | Axes |
@@ -119,6 +142,7 @@ and [Hook Lifecycle Strategy](../../docs/user/hook-lifecycle-strategy.md).
 | Which Helm quirk axes are still blind spots? | [quirk-coverage/coverage.csv](../quirk-coverage/coverage.csv) |
 | Which hook charts need lifecycle receipts? | [hook-lifecycle/top100-hooks.csv](../hook-lifecycle/top100-hooks.csv) |
 | Which live comparisons passed or failed? | [live-helm-confighub-compare/summary.csv](../live-helm-confighub-compare/summary.csv) |
+| Which derived variants are specified or executed? | [variant-goldens/derived-expansion-wave/work-orders.csv](../variant-goldens/derived-expansion-wave/work-orders.csv) |
 
 Regenerate:
 

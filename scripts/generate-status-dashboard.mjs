@@ -3,7 +3,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { check, repoRoot, write } from "./lib/proof-common.mjs";
+import { check, listFiles, repoRoot, write } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const outDir = join(repoRoot, "data", "status-dashboard");
@@ -36,6 +36,12 @@ function buildReport() {
   const hookRows = readCsv("data/hook-lifecycle/top100-hooks.csv");
   const liveRows = readCsv("data/live-helm-confighub-compare/summary.csv");
   const runtimeRows = readCsv("data/runtime-gitops/wave1.csv");
+  const derivedWorkOrders = readCsv("data/variant-goldens/derived-expansion-wave/work-orders.csv");
+  const derivedLiveReceiptCount = derivedWorkOrders.filter((row) =>
+    existsSync(join(repoRoot, "runs", "derived-variant-execution", row.id, "variant-create-receipt.yaml")),
+  ).length;
+  const targetBoundDerivedReceiptCount = listFiles(join(repoRoot, "runs", "derived-variant-target-bound"))
+    .filter((file) => /receipt\.ya?ml$/.test(file)).length;
 
   const rows = [];
 
@@ -51,6 +57,10 @@ function buildReport() {
   rows.push(metric("proof lanes", "live Helm-vs-ConfigHub parity pass rows", passCount(baseRows, "live_helm_vs_confighub_parity"), baseRows.length, "partial", "data/outcome-coverage/base-outcomes.csv", `${nonPassCount(baseRows, "live_helm_vs_confighub_parity")} rows have non-pass live parity receipts.`));
   rows.push(metric("proof lanes", "complete core lane rows", count(baseRows, "complete_core_lane_set", "yes"), baseRows.length, "gap", "data/outcome-coverage/base-outcomes.csv", "Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."));
 
+  rows.push(metric("derived variants", "derived variant golden rows", derivedWorkOrders.length, derivedWorkOrders.length, "good", "data/variant-goldens/derived-expansion-wave/work-orders.csv", "Golden work orders that specify source base, downstream variant, current cub variant create command, and receipt targets."));
+  rows.push(metric("derived variants", "derived variant live create receipts", derivedLiveReceiptCount, derivedWorkOrders.length, "good", "runs/derived-variant-execution", "Receipts from current cub variant create executions without hidden Helm rerender."));
+  rows.push(metric("derived variants", "target-bound derived variant receipts", targetBoundDerivedReceiptCount, derivedWorkOrders.length, "partial", "runs/derived-variant-target-bound", "Derived variants that went further through target binding, ConfigHub OCI, Argo sync, and runtime observation."));
+
   rows.push(metric("live evidence", "runtime/GitOps wave rows", runtimeRows.length, runtimeRows.length, "partial", "data/runtime-gitops/wave1.csv", "Selected Argo/Flux OCI wave rows; this is not the whole corpus."));
   rows.push(metric("live evidence", "live Helm-vs-ConfigHub receipts", liveRows.length, liveRows.length, "partial", "data/live-helm-confighub-compare/summary.csv", "Committed live comparison receipts, including pass and non-pass results."));
 
@@ -63,7 +73,7 @@ function buildReport() {
   rows.push(metric("hooks", "top100 maintained hook charts", hookRows.length, hookRows.length, "partial", "data/hook-lifecycle/top100-hooks.csv", "Hook-bearing maintained charts with required lifecycle receipt paths."));
   rows.push(metric("hooks", "hook lifecycle receipts present", hookRows.filter((row) => row.lifecycle_disposition === "lifecycle-observed").length, hookRows.length, "gap", "data/hook-lifecycle/top100-hooks.csv", "Current hook rows still need lifecycle route and receipt work."));
 
-  return { rows, csv: toCsv(rows), summary: summary(rows, { chartRows, baseRows, top100Rows, quirkRows, hookRows, liveRows, runtimeRows }) };
+  return { rows, csv: toCsv(rows), summary: summary(rows, { chartRows, baseRows, top100Rows, quirkRows, hookRows, liveRows, runtimeRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount }) };
 }
 
 function summary(rows, context) {
@@ -129,6 +139,26 @@ ${liveNonPass.length ? `Current live parity non-pass receipts:
 ${liveNonPass.map((row) => `| ${row.chart}@${row.version} | ${row.variant} | ${row.result} | ${row.reason || "-"} |`).join("\n")}
 ` : "There are no current live parity non-pass receipts.\n"}
 
+## Derived Variant Evidence
+
+Derived ConfigHub variants are the post-render half of the model. They start
+from reviewed uploaded bases and use \`cub variant create\` plus ConfigHub
+metadata, targets, gates, links, checks, and receipts. They do not rerender
+Helm.
+
+| Metric | Value |
+| --- | ---: |
+| derived variant golden rows | ${context.derivedWorkOrders.length}/${context.derivedWorkOrders.length} |
+| live cub variant create receipts | ${context.derivedLiveReceiptCount}/${context.derivedWorkOrders.length} |
+| target-bound derived variant receipts | ${context.targetBoundDerivedReceiptCount}/${context.derivedWorkOrders.length} |
+
+The golden rows are in
+[variant-goldens/derived-expansion-wave/work-orders.csv](../variant-goldens/derived-expansion-wave/work-orders.csv).
+Live create receipts are in
+[runs/derived-variant-execution](../../runs/derived-variant-execution), and
+target-bound receipts are in
+[runs/derived-variant-target-bound](../../runs/derived-variant-target-bound).
+
 ## Quirk And Hook Residue
 
 | Quirk coverage tier | Axes |
@@ -154,6 +184,7 @@ and [Hook Lifecycle Strategy](../../docs/user/hook-lifecycle-strategy.md).
 | Which Helm quirk axes are still blind spots? | [quirk-coverage/coverage.csv](../quirk-coverage/coverage.csv) |
 | Which hook charts need lifecycle receipts? | [hook-lifecycle/top100-hooks.csv](../hook-lifecycle/top100-hooks.csv) |
 | Which live comparisons passed or failed? | [live-helm-confighub-compare/summary.csv](../live-helm-confighub-compare/summary.csv) |
+| Which derived variants are specified or executed? | [variant-goldens/derived-expansion-wave/work-orders.csv](../variant-goldens/derived-expansion-wave/work-orders.csv) |
 
 Regenerate:
 

@@ -111,6 +111,33 @@
       "note": "Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."
     },
     {
+      "section": "derived variants",
+      "metric": "derived variant golden rows",
+      "value": "10",
+      "total": "10",
+      "status": "good",
+      "source": "data/variant-goldens/derived-expansion-wave/work-orders.csv",
+      "note": "Golden work orders that specify source base, downstream variant, current cub variant create command, and receipt targets."
+    },
+    {
+      "section": "derived variants",
+      "metric": "derived variant live create receipts",
+      "value": "10",
+      "total": "10",
+      "status": "good",
+      "source": "runs/derived-variant-execution",
+      "note": "Receipts from current cub variant create executions without hidden Helm rerender."
+    },
+    {
+      "section": "derived variants",
+      "metric": "target-bound derived variant receipts",
+      "value": "6",
+      "total": "10",
+      "status": "partial",
+      "source": "runs/derived-variant-target-bound",
+      "note": "Derived variants that went further through target binding, ConfigHub OCI, Argo sync, and runtime observation."
+    },
+    {
       "section": "live evidence",
       "metric": "runtime/GitOps wave rows",
       "value": "10",
