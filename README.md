@@ -199,6 +199,8 @@ For the full routing table, see [Choosing Commands](./docs/user/choosing-command
 156 chart/base rows have Helm-template versus cub-installer render parity.
 The selected top-20 live Helm-vs-ConfigHub comparison lane has 15 pass,
 5 watch, and 0 blocked receipts.
+The top-20 base-variant two-cluster kind parity lane has 40 committed
+receipts: 25 pass, 3 watch, 12 blocked, and 0 semantic parity defects.
 cert-manager and External Secrets have lifecycle-observation receipts for
 common CRD/webhook/controller-owned runtime behavior.
 Top-500 source/catalog analysis exists as catalog-planning data for future
@@ -228,9 +230,14 @@ and exercised outside the pure local `npm run verify` corpus. The first
 runtime/GitOps wave currently has 10 committed receipts: 5 pass and 5 non-pass
 target-fit receipts. The strict live Helm-vs-ConfigHub comparison lane has 20
 committed receipts for selected top-20 rows: 15 pass, 5 watch, and 0 blocked.
+The strict two-cluster kind parity lane has receipts for all 40 top-20 base
+variants and separates semantic parity from target prerequisites, runtime
+readiness, hooks, and storage behavior.
 See the generated summaries for exact chart/base status:
 [Runtime/GitOps Wave](./data/runtime-gitops/summary.md) and
 [Live Helm-vs-ConfigHub Parity](./data/live-helm-confighub-compare/summary.md).
+For the all-base-variant parity lane, see
+[Two-Cluster Kind Parity](./data/live-kind-parity/summary.md).
 
 Start here:
 
