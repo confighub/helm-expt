@@ -37,8 +37,9 @@ function buildReport() {
   const liveE2E = liveE2EIndex();
   const sourceFeatures = sourceFeatureIndex();
   const lifecycleObservations = lifecycleObservationIndex();
+  const dispositionReceipts = productionDispositionReceiptIndex();
   const rows = recipeRoots()
-    .map((root) => productionRow(root, configHubProof, liveE2E, sourceFeatures, lifecycleObservations))
+    .map((root) => productionRow(root, configHubProof, liveE2E, sourceFeatures, lifecycleObservations, dispositionReceipts))
     .filter(Boolean)
     .sort((left, right) => left.chart.localeCompare(right.chart));
   check(rows.length === 20, `expected 20 catalog-supported rows, found ${rows.length}`);
@@ -46,6 +47,7 @@ function buildReport() {
   check(rows.every((row) => row.confighub_proof === "pass"), "all top20 rows must have passing ConfigHub proof receipts");
   check(rows.every((row) => row.production_support === "blocked"), "production support should remain explicitly blocked");
   check(rows.some((row) => row.live_e2e === "local-kind-observed"), "at least one supported chart needs a live/e2e observation receipt");
+  checkAllDispositionReceiptsUsed(rows, dispositionReceipts);
   return { rows, csv: toCsv(rows), summary: toSummary(rows) };
 }
 
@@ -56,7 +58,7 @@ function recipeRoots() {
     .sort();
 }
 
-function productionRow(root, configHubProof, liveE2E, sourceFeatures, lifecycleObservations) {
+function productionRow(root, configHubProof, liveE2E, sourceFeatures, lifecycleObservations, dispositionReceipts) {
   const catalog = readYaml(join(root, "catalog-status.yaml"));
   if (catalog.spec?.status !== "catalog-supported") return null;
   const index = readYaml(join(root, "artifact-index.yaml"));
@@ -73,6 +75,9 @@ function productionRow(root, configHubProof, liveE2E, sourceFeatures, lifecycleO
     variants: index.spec?.variants ?? [],
     productionReadiness: catalog.spec?.productionReadiness,
   });
+  const accepted = acceptedDispositionReceipts(chart, requiredDispositions, dispositionReceipts);
+  const acceptedNames = new Set(accepted.map((receipt) => receipt.disposition));
+  const openDispositions = requiredDispositions.filter((name) => !acceptedNames.has(name));
   const lifecycleBasis = lifecyclePolicyBasis(controls.spec?.points ?? [], source, observations);
   return {
     chart,
@@ -84,6 +89,9 @@ function productionRow(root, configHubProof, liveE2E, sourceFeatures, lifecycleO
     live_e2e_receipts: live.receipts.join(";"),
     production_support: catalog.spec.productionReadiness === "blocked-by-current-scan-gate" ? "blocked" : "review",
     required_dispositions: requiredDispositions.join(";"),
+    accepted_dispositions: accepted.map((receipt) => receipt.disposition).join(";"),
+    open_dispositions: openDispositions.join(";"),
+    production_disposition_receipts: accepted.map((receipt) => receipt.path).join(";"),
     source_hook_count: source.hooks?.count ?? 0,
     lifecycle_policy_basis: lifecycleBasis.join(";"),
     lifecycle_observation_receipts: observations.map((row) => row.receipt).join(";"),
@@ -92,6 +100,47 @@ function productionRow(root, configHubProof, liveE2E, sourceFeatures, lifecycleO
     package_path: index.spec?.installerPackage?.path ?? "",
     confighub_proof_receipt: receipt?.path ?? "",
   };
+}
+
+function productionDispositionReceiptIndex() {
+  const result = new Map();
+  const root = join(repoRoot, "data", "production-disposition", "receipts");
+  if (!existsSync(root)) return result;
+  for (const receiptPath of listFiles(root).filter((file) => /\.ya?ml$/.test(file))) {
+    const receipt = readYaml(receiptPath);
+    if (receipt.kind !== "ProductionDispositionReceipt") continue;
+    if (receipt.spec?.decision !== "accepted") continue;
+    const chart = receipt.spec?.chart;
+    const disposition = receipt.spec?.disposition;
+    if (!chart || !disposition) continue;
+    for (const item of receipt.spec?.evidence ?? []) {
+      if (item.path) check(existsSync(join(repoRoot, item.path)), `${relativeRepo(receiptPath)} references missing evidence ${item.path}`);
+    }
+    result.set(dispositionKey(chart, disposition), {
+      chart,
+      disposition,
+      path: relativeRepo(receiptPath),
+      decision: receipt.spec.decision,
+      acceptedAt: receipt.spec.acceptedAt ?? "",
+    });
+  }
+  return result;
+}
+
+function checkAllDispositionReceiptsUsed(rows, dispositionReceipts) {
+  const used = new Set(rows.flatMap((row) => splitList(row.production_disposition_receipts)));
+  const unused = [...dispositionReceipts.values()].map((receipt) => receipt.path).filter((path) => !used.has(path));
+  check(unused.length === 0, `production disposition receipt does not match a required disposition: ${unused.join(", ")}`);
+}
+
+function acceptedDispositionReceipts(chart, requiredDispositions, dispositionReceipts) {
+  return requiredDispositions
+    .map((disposition) => dispositionReceipts.get(dispositionKey(chart, disposition)))
+    .filter(Boolean);
+}
+
+function dispositionKey(chart, disposition) {
+  return `${chart}\u0000${disposition}`;
 }
 
 function sourceFeatureIndex() {
@@ -226,6 +275,9 @@ function toCsv(rows) {
     "live_e2e",
     "production_support",
     "required_dispositions",
+    "accepted_dispositions",
+    "open_dispositions",
+    "production_disposition_receipts",
     "source_hook_count",
     "lifecycle_policy_basis",
     "lifecycle_observation_receipts",
@@ -246,6 +298,8 @@ function toSummary(rows) {
   const sourceHookRows = rows.filter((row) => Number(row.source_hook_count) > 0).length;
   const lifecycleDispositionRows = rows.filter((row) => row.required_dispositions.includes("hook and lifecycle phase policy")).length;
   const lifecycleObservationRows = rows.filter((row) => row.lifecycle_observation_receipts).length;
+  const acceptedDispositionCount = rows.reduce((sum, row) => sum + splitList(row.accepted_dispositions).length, 0);
+  const rowsWithAcceptedDisposition = rows.filter((row) => row.accepted_dispositions).length;
   return `# Production Disposition And Live/E2E Lane
 
 The top-20 are mandatory catalog entries because their upstream Helm charts are
@@ -265,6 +319,8 @@ production-blocked pending disposition: ${productionBlocked}
 source Helm-hook rows: ${sourceHookRows}
 hook/lifecycle disposition rows: ${lifecycleDispositionRows}
 related lifecycle observation rows: ${lifecycleObservationRows}
+accepted production disposition receipts: ${acceptedDispositionCount}
+charts with accepted dispositions: ${rowsWithAcceptedDisposition}
 \`\`\`
 
 The hook/lifecycle disposition is a production-review item. It does not always
@@ -280,9 +336,9 @@ mean the retained source scan found Helm hooks. Use the evidence fields in
 
 ## Top-20 Disposition Table
 
-| Chart | Variants | ConfigHub proof | Live/e2e | Production status | Required dispositions |
-| --- | --- | --- | --- | --- | --- |
-${rows.map((row) => `| \`${row.chart}@${row.version}\` | ${row.supported_variants.replaceAll(";", ", ")} | ${row.confighub_proof} | ${row.live_e2e} | ${row.production_support} | ${row.required_dispositions.replaceAll(";", ", ")} |`).join("\n")}
+| Chart | Variants | ConfigHub proof | Live/e2e | Production status | Accepted | Open dispositions |
+| --- | --- | --- | --- | --- | ---: | --- |
+${rows.map((row) => `| \`${row.chart}@${row.version}\` | ${row.supported_variants.replaceAll(";", ", ")} | ${row.confighub_proof} | ${row.live_e2e} | ${row.production_support} | ${splitList(row.accepted_dispositions).length} | ${row.open_dispositions.replaceAll(";", ", ")} |`).join("\n")}
 
 ## Doctrine
 
@@ -340,4 +396,11 @@ function parseCsvLine(line) {
   }
   values.push(current);
   return values;
+}
+
+function splitList(value) {
+  return String(value ?? "")
+    .split(";")
+    .map((item) => item.trim())
+    .filter(Boolean);
 }
