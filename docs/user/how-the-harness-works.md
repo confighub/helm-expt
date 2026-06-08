@@ -13,6 +13,35 @@ create derived ConfigHub variants with approved post-render refinements, and
 attach receipts for what was rendered, mutated, checked, approved, applied, or
 observed.
 
+## Seven-Stage Lifecycle
+
+The harness uses the same seven stages for every chart:
+
+| Stage | What it manages | User value |
+| --- | --- | --- |
+| 1. Acquire and pin | Chart source, dependencies, digests, provenance. | The input is fixed and reviewable. |
+| 2. Render and capture | Helm render inputs, generated facts, capability profile, render parity. | The Kubernetes objects are known before install. |
+| 3. Shape base variants | Supported install shapes such as `default`, `existing-secret`, `no-crds`, or HA. | Choices are named variants, not scattered values files. |
+| 4. Scan and gate | Exact rendered objects, policy findings, install decision. | Checks run on the output that will be used. |
+| 5. Settle prerequisites | Target facts, preflight needs, approvals, signatures, delivery requirements. | External dependencies are visible before deploy. |
+| 6. Publish and deploy | OCI/GitOps/apply handoff and lifecycle routing. | The handoff has evidence and ordering. |
+| 7. Observe and operate | Live state, freshness, drift, promotion, upgrade, rollback. | Day-1 and day-2 operations have receipts. |
+
+Render parity is the first trust boundary:
+
+```text
+regular Helm render and cub installer render produce the same Kubernetes object
+set under recorded inputs, except for explicitly classified support objects or
+intentional differences.
+```
+
+Render parity proves the desired non-hook object set. Hooks, webhook readiness,
+controller-populated fields, GitOps sync, drift, and upgrade behavior require
+lifecycle, handoff, or observation receipts.
+
+The detailed doctrine is
+[Seven-Stage Helm Lifecycle](../reference/seven-stage-helm-lifecycle.md).
+
 ## User Value
 
 Helm often compresses install, render, release history, and cluster-side effects

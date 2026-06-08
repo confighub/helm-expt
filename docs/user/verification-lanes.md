@@ -39,12 +39,24 @@ contamination between the two legs. OCI/GitOps delivery remains a separate live
 lane after parity has passed. See
 [Two-Cluster Helm Parity Harness](../reference/two-cluster-parity-harness.md).
 
-Strict Helm parity should use two vanilla kind clusters by default: regular Helm
-on one cluster and `cub installer` render/apply on the other. This is the
-required 100% live parity test for base variants. It avoids controller or CRD
-contamination between the two legs. OCI/GitOps delivery remains a separate live
-lane after parity has passed. See
-[Two-Cluster Helm Parity Harness](../reference/two-cluster-parity-harness.md).
+## Runtime Readiness
+
+GitOps or Kubernetes can report that objects were accepted while the workload is
+not usable. Secret delivery, missing CRDs, webhook readiness, LoadBalancer
+availability, anti-affinity, PVC binding, and controller-populated fields can
+all produce a false sense of success.
+
+Treat this as a separate claim:
+
+```text
+render parity -> desired objects are right
+apply or GitOps sync -> objects were handed to Kubernetes
+runtime readiness -> the workload became usable
+```
+
+A tutorial or catalog row should say which of those claims it proves. If a row
+has only render parity or GitOps sync, do not call it live-ready. Runtime-ready
+claims need workload-specific checks or fresh observations.
 
 ## Commands
 

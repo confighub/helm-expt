@@ -150,6 +150,8 @@ For the detailed algorithm, see
 [Customization Algorithm](./docs/reference/customization-algorithm.md). For the product
 tier boundaries, see
 [Product Support Tiers For Helm Scenarios](./docs/user/product-support-tiers.md).
+For the seven-stage lifecycle and render parity boundary, see
+[Seven-Stage Helm Lifecycle](./docs/reference/seven-stage-helm-lifecycle.md).
 For the simple variant creation guide, see
 [Creating Variants](./docs/user/creating-variants.md).
 For wrapper charts and customer overlays, see
@@ -297,6 +299,11 @@ I want the full ConfigHub walkthrough.
 
 You need Node.js to run the proof scripts. There are no npm dependencies and no
 `npm install` step.
+
+That is deliberate. The committed proof harness uses Node's standard library
+and local repo code, so a fresh clone can check the corpus without downloading a
+third-party npm supply chain first. Live lanes still need the relevant external
+CLIs such as `helm`, `kubectl`, `kind`, `cub`, or GitOps controllers.
 
 ```sh
 git clone https://github.com/confighub/helm-expt.git
