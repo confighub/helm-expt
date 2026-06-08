@@ -128,7 +128,7 @@ Current ConfigHub/OCI live parity non-pass receipts:
 | hashicorp/vault@0.32.0 | default | watch | - |
 | bitnami/mysql@14.0.3 | generated-passwords | watch | - |
 | grafana/tempo@1.24.4 | local-persistent | watch | - |
-| hashicorp/consul@2.0.0 | default-control-plane | blocked | infra: provisioning timeout |
+| hashicorp/consul@2.0.0 | default-control-plane | watch | - |
 
 
 Current two-cluster kind parity non-pass receipts:
