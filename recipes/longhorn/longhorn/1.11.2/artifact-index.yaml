@@ -60,9 +60,9 @@ spec:
       localLive: "1/2"
       gitopsLive: "1/2"
       liveParity: "1/2"
-    featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots"
+    featureSummary: "required-values"
     hardGap: "-"
-    nextAction: "promote a declared production scope when gates pass"
+    nextAction: "write or fix the CRD lifecycle and upgrade policy disposition receipt"
   installerPackage:
     path: "packages/longhorn/longhorn/1.11.2"
     installer: "packages/longhorn/longhorn/1.11.2/installer.yaml"

@@ -60,9 +60,9 @@ spec:
       localLive: "1/2"
       gitopsLive: "0/2"
       liveParity: "0/2"
-    featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots"
+    featureSummary: "webhooks;required-values;values-schema;extension-slots"
     hardGap: "-"
-    nextAction: "promote a declared production scope when gates pass"
+    nextAction: "write or fix the cluster RBAC review disposition receipt"
   installerPackage:
     path: "packages/hashicorp/vault/0.32.0"
     installer: "packages/hashicorp/vault/0.32.0/installer.yaml"

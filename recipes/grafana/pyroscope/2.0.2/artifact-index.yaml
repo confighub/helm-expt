@@ -64,7 +64,7 @@ spec:
       localLive: "0/3"
       gitopsLive: "0/3"
       liveParity: "0/3"
-    featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots"
+    featureSummary: "generated-secrets;crds;required-values;extension-slots"
     hardGap: "existing-secret (chart ships no Secret toggle - #113)"
     nextAction: "review limitation before promotion: existing-secret (chart ships no Secret toggle - #113)"
   installerPackage:

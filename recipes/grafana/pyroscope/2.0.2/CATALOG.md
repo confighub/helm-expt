@@ -32,7 +32,7 @@ for exact base-variant evidence.
 | User status | proof-grade-with-named-limitation |
 | Strongest evidence | render-parity |
 | Proof lanes | render parity 3/3; ConfigHub 0/3; local live 0/3; GitOps live 0/3; live parity 0/3 |
-| Feature summary | hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots |
+| Feature summary | generated-secrets;crds;required-values;extension-slots |
 | Hard gap | existing-secret (chart ships no Secret toggle - #113) |
 | Next action | review limitation before promotion: existing-secret (chart ships no Secret toggle - #113) |
 

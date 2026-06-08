@@ -61,9 +61,9 @@ spec:
       localLive: "1/2"
       gitopsLive: "1/2"
       liveParity: "1/2"
-    featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots"
+    featureSummary: "generated-secrets;required-values;install-vs-upgrade;extension-slots"
     hardGap: "-"
-    nextAction: "promote a declared production scope when gates pass"
+    nextAction: "write or fix the extension slot provenance and scan policy disposition receipt"
   installerPackage:
     path: "packages/bitnami/mongodb/19.0.7"
     installer: "packages/bitnami/mongodb/19.0.7/installer.yaml"

@@ -365,7 +365,7 @@ function featureSummary(facts) {
 
 function truthyStatus(value) {
   const text = String(value ?? "").trim();
-  return text && text !== "-" && text !== "n/a" && !text.startsWith("n/a ");
+  return !emptyFeatureStatus(text) && text !== "n/a" && !text.startsWith("n/a ");
 }
 
 function lanePass(lane) {

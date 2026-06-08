@@ -60,9 +60,9 @@ spec:
       localLive: "1/2"
       gitopsLive: "1/2"
       liveParity: "1/2"
-    featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots"
+    featureSummary: "generated-secrets;install-vs-upgrade;extension-slots"
     hardGap: "existing-secret (chart ships no Secret toggle - #113)"
-    nextAction: "resolve or document: existing-secret (chart ships no Secret toggle - #113)"
+    nextAction: "resolve image digests or pin image tags in the installer base; record image override/proof receipt; then accept PDB behavior or add a reviewed patch where the chart supports it"
   installerPackage:
     path: "packages/bitnami/nginx/24.0.2"
     installer: "packages/bitnami/nginx/24.0.2/installer.yaml"

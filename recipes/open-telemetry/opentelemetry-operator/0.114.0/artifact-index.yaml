@@ -63,7 +63,7 @@ spec:
       localLive: "0/2"
       gitopsLive: "0/2"
       liveParity: "0/2"
-    featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots"
+    featureSummary: "crds;extension-slots"
     hardGap: "-"
     nextAction: "run catalog promotion review"
   installerPackage:

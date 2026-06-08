@@ -58,9 +58,9 @@ spec:
       localLive: "1/2"
       gitopsLive: "1/2"
       liveParity: "1/2"
-    featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots"
+    featureSummary: "extension-slots"
     hardGap: "-"
-    nextAction: "promote a declared production scope when gates pass"
+    nextAction: "write or fix the CRD lifecycle and upgrade policy disposition receipt"
   installerPackage:
     path: "packages/jetstack/cert-manager/v1.20.2"
     installer: "packages/jetstack/cert-manager/v1.20.2/installer.yaml"

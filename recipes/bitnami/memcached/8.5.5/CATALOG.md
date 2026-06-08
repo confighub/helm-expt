@@ -32,7 +32,7 @@ for exact base-variant evidence.
 | User status | proof-grade-needs-user-shaped-variant |
 | Strongest evidence | render-parity |
 | Proof lanes | render parity 1/1; ConfigHub 0/1; local live 0/1; GitOps live 0/1; live parity 0/1 |
-| Feature summary | hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots |
+| Feature summary | generated-secrets;install-vs-upgrade;extension-slots |
 | Hard gap | existing-secret (chart ships no Secret toggle - #113) |
 | Next action | add at least one user-shaped variant before catalog promotion |
 

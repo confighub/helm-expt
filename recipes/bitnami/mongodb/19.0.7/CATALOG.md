@@ -32,9 +32,9 @@ for exact base-variant evidence.
 | User status | catalog-supported-with-live-evidence |
 | Strongest evidence | live-helm-vs-confighub-parity |
 | Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 1/2; live parity 1/2 |
-| Feature summary | hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots |
+| Feature summary | generated-secrets;required-values;install-vs-upgrade;extension-slots |
 | Hard gap | - |
-| Next action | promote a declared production scope when gates pass |
+| Next action | write or fix the extension slot provenance and scan policy disposition receipt |
 
 ## Artifact Chain
 

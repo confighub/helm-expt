@@ -32,9 +32,9 @@ for exact base-variant evidence.
 | User status | catalog-supported-with-live-evidence |
 | Strongest evidence | local-kubernetes-live |
 | Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 0/2; live parity 0/2 |
-| Feature summary | hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots |
+| Feature summary | webhooks;required-values |
 | Hard gap | - |
-| Next action | promote a declared production scope when gates pass |
+| Next action | write or fix the cluster RBAC review disposition receipt |
 
 ## Artifact Chain
 

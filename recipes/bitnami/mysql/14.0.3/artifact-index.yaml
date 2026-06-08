@@ -59,9 +59,9 @@ spec:
       localLive: "1/2"
       gitopsLive: "1/2"
       liveParity: "1/2"
-    featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots"
+    featureSummary: "generated-secrets;required-values;values-schema;install-vs-upgrade"
     hardGap: "ha (curated proof lane - bespoke teaching needed)"
-    nextAction: "resolve or document: ha (curated proof lane - bespoke teaching needed)"
+    nextAction: "write or fix the extension slot provenance and scan policy disposition receipt"
   installerPackage:
     path: "packages/bitnami/mysql/14.0.3"
     installer: "packages/bitnami/mysql/14.0.3/installer.yaml"

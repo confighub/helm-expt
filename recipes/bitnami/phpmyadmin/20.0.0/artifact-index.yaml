@@ -59,7 +59,7 @@ spec:
       localLive: "0/1"
       gitopsLive: "0/1"
       liveParity: "0/1"
-    featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots"
+    featureSummary: "generated-secrets;required-values;values-schema;install-vs-upgrade;extension-slots"
     hardGap: "existing-secret (chart ships no Secret toggle - #113)"
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:

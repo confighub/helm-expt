@@ -56,7 +56,7 @@ spec:
       localLive: "0/1"
       gitopsLive: "0/1"
       liveParity: "0/1"
-    featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots"
+    featureSummary: "extension-slots"
     hardGap: "-"
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:

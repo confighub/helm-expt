@@ -62,9 +62,9 @@ spec:
       localLive: "1/2"
       gitopsLive: "1/2"
       liveParity: "1/2"
-    featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots"
+    featureSummary: "webhooks;required-values;install-vs-upgrade;extension-slots"
     hardGap: "ha (curated proof lane - bespoke teaching needed)"
-    nextAction: "resolve or document: ha (curated proof lane - bespoke teaching needed)"
+    nextAction: "write or fix the CRD lifecycle and upgrade policy disposition receipt"
   installerPackage:
     path: "packages/hashicorp/consul/2.0.0"
     installer: "packages/hashicorp/consul/2.0.0/installer.yaml"
