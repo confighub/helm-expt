@@ -740,7 +740,7 @@ function writeSummary() {
   const summary = `# Top-20 Local Kind Live/E2E
 
 This report records live Kubernetes observation receipts for the top-20 chart
-proof set. A passing row means the rendered ConfigHub/cub-install recipe output
+proof set. A passing row means the rendered ConfigHub/cub installer package output
 was applied to a local kind cluster and the declared live checks passed. A
 failing row is still useful evidence: it tells us exactly which production
 disposition or local-kind limitation must be handled before we claim broader

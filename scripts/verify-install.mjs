@@ -592,12 +592,12 @@ function requiredOption(name) {
 function printUsage() {
   const supported = supportedInstallCheckCharts();
   console.error(`Usage:
-  npm run redis:verify-install:render -- --base default --work-dir <cub-install-work-dir> --namespace redis
+  npm run redis:verify-install:render -- --base default --work-dir <installer-work-dir> --namespace redis
   npm run redis:verify-install:cluster -- --base default --context <kubectl-context> --namespace redis
   npm run redis:verify-install:confighub -- --base default --space <confighub-space>
 
 Lower-level generic form, for charts that have an install-checks.yaml:
-  npm run verify-install:render -- --chart bitnami/redis/25.5.3 --base default --work-dir <cub-install-work-dir> --namespace redis
+  npm run verify-install:render -- --chart bitnami/redis/25.5.3 --base default --work-dir <installer-work-dir> --namespace redis
 
 Options:
   --chart       Chart/version to verify. Requires recipes/<repo>/<chart>/<version>/install-checks.yaml.

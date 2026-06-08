@@ -24,7 +24,7 @@ Every claim must be backed by a machine-readable receipt; a silent wrong result
 | Phase | Scope | Pass bar |
 |---|---|---|
 | **1 — 20-chart DEFAULT path (NOW)** | Each of the 20 proof charts, **default base only**, end-to-end: `cub installer setup` → `upload` → ConfigHub units → OCI (`oci.hub.confighub.com`) → Argo (cub-lk) → running + three-way agree | 20/20 reach Healthy + three-way AGREED, **0 silent errors**; every render passes the namespace-coherence guard |
-| **2 — recipes + Helm comparator (NEXT)** | Non-default bases/variants per chart, **and** a `helm` comparison: `cub installer` result vs `helm template`/`helm install` for **default + added params** | per (chart,recipe): deploys + verifies; cub-installer output is equivalent to Helm's (modulo governance adds), diffs explained |
+| **2 — recipes + Helm comparator (NEXT)** | Non-default bases/variants per chart, **and** a `helm` comparison: `cub installer` result vs `helm template`/`helm install` for **default + added params** | per (chart,recipe): deploys + verifies; `cub installer` output is equivalent to Helm's (modulo governance adds), diffs explained |
 | **3 — scale + agentic (SOON)** | The parallel agentic campaign across charts/recipes; Day-2 mutation; authority scan; (anonymous mode still deferred) | runs unattended across many agents/machines, aggregated receipts, no false-greens |
 
 ## The work unit (what one agent runs)
