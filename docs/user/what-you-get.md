@@ -60,8 +60,9 @@ For exact chart/base status, use the generated status dashboard and
 
 For a compact generated view of the catalog and proof state, open
 [`site/index.html`](../../site/index.html). It shows command routing, proof
-counters, top-20 base readiness, top-100 readiness, the top-500 evidence
-boundary, and extension-slot coverage.
+counters, top-20 base readiness, exact `cub installer setup` commands for the
+recommended bases, top-100 readiness, the top-500 evidence boundary, and
+extension-slot coverage.
 
 The generated summaries and verifier scripts decide the exact current counts.
 Use [Current Proof Status](./current-proof-status.md) and

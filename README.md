@@ -325,6 +325,9 @@ I want to check the repo quickly.
 I want to see what charts and variants exist.
   Open CATALOG.md.
 
+I want the easiest browsable catalog with setup commands.
+  Open site/index.html.
+
 I want a short show-and-tell sequence.
   Read docs/user/tutorial-sequence.md.
 
