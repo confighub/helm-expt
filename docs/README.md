@@ -18,6 +18,7 @@ whole repo. For the single serial order through `docs/user/*.md`, start with
 | [../CATALOG.md](../CATALOG.md) | Generated chart catalog: charts first, recommended variants underneath. |
 | [user/README.md](./user/README.md) | Serial reading order for the manual user docs. |
 | [what-you-get.md](./user/what-you-get.md) | Compact product model: what ConfigHub adds around Helm output, what is proven, and what remains product work. |
+| [choosing-commands.md](./user/choosing-commands.md) | Short guide for choosing `cub helm template`, `cub helm install`, `cub installer`, `cub variant create`, or repo verifiers. |
 | [outcomes-and-tests.md](./user/outcomes-and-tests.md) | User-facing outcome and test map, with links to the front-door CSVs. |
 | [helm-pain-points.md](./user/helm-pain-points.md) | User-facing map from common Helm pain points to current proof, handoffs, and per-chart reports. |
 | [why-this-exists.md](./user/why-this-exists.md) | Skeptical entry point: why this is not just `cub helm install` or `cub gitops import`, and what the catalog/proof path adds. |
@@ -83,6 +84,7 @@ Do not hand-edit generated Markdown unless the generator is also updated.
 | [verification-lanes.md](./user/verification-lanes.md) | User-facing explanation of proof lanes and command checks. |
 | [how-the-harness-works.md](./user/how-the-harness-works.md) | Lifecycle-stage explanation of the harness. |
 | [introduction-to-the-harness.md](./user/introduction-to-the-harness.md) | Detailed import workflow, recipe decisions, and hook policy. |
+| [choosing-commands.md](./user/choosing-commands.md) | User-facing command-routing guide for the Helm and ConfigHub command family. |
 | [creating-variants.md](./user/creating-variants.md) | Simple user guide for base variants, derived ConfigHub variants, AI assistant tasks, and bulk creation. |
 | [cub-variant-command-surface.md](./user/cub-variant-command-surface.md) | Current `cub variant create` syntax, labels, annotations, targets, gates, and non-current variant verbs. |
 | [change-routing-before-oci.md](./user/change-routing-before-oci.md) | User-facing routing guide for base variants, derived variants, and delivery prerequisites before OCI handoff. |
