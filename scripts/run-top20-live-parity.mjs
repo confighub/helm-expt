@@ -247,6 +247,10 @@ function classifyBlocked(receipt) {
   );
   const regularHelm = (spec.legs ?? {}).regularHelm ?? {};
   if (regularHelm.result === "blocked") {
+    const regularMessage = String(`${regularHelm.stderr ?? ""}\n${regularHelm.getManifestError ?? ""}`).toLowerCase();
+    if (regularMessage.includes("customresourcedefinition") && regularMessage.includes("cannot be imported")) {
+      return "fixture: pre-existing CRDs owned by test controller";
+    }
     return semanticPassed ? "helm-runtime: upstream not ready (parity passed)" : "helm-runtime: upstream leg blocked";
   }
   // Real parity finding: Helm installed but a ConfigHub delivery path diverged live.
