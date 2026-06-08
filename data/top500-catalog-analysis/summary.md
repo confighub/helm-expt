@@ -21,20 +21,20 @@ rows: 500
 source scanned: 495
 source failed: 5
 current proof recipes in repo: 100
-current proof recipes matched to old matrix rows: 91
-current proof recipes not represented in old matrix rows: 9
+current proof recipes matched to retained source-scan rows: 91
+current proof recipes not represented in retained source-scan rows: 9
 current recipe proofs: 91
 proof matched by exact chart ref: 63
 proof matched by chart name and version: 16
 proof matched by chart name only: 12
 exact source/current version matches: 70
-current recipe version differs from old source row: 21
+current recipe version differs from retained source-scan row: 21
 no current recipe proof: 409
 catalog-supported: 20
 proof-grade: 71
 multi-variant proofs: 50
 default-only proofs: 41
-supported but production-blocked: 20
+catalog-supported with production gate not cleared: 20
 ```
 
 ## What We Learn

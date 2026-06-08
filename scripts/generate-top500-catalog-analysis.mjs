@@ -350,20 +350,20 @@ rows: ${summary.rows}
 source scanned: ${summary.sourceScanned}
 source failed: ${summary.sourceFailed}
 current proof recipes in repo: ${summary.currentProofsTotal}
-current proof recipes matched to old matrix rows: ${summary.currentProofsMatched}
-current proof recipes not represented in old matrix rows: ${summary.currentProofsUnmatchedToOldMatrix}
+current proof recipes matched to retained source-scan rows: ${summary.currentProofsMatched}
+current proof recipes not represented in retained source-scan rows: ${summary.currentProofsUnmatchedToOldMatrix}
 current recipe proofs: ${summary.currentRecipeRows}
 proof matched by exact chart ref: ${summary.proofMatchExactChart}
 proof matched by chart name and version: ${summary.proofMatchNameVersion}
 proof matched by chart name only: ${summary.proofMatchNameOnly}
 exact source/current version matches: ${summary.exactCurrentVersionRows}
-current recipe version differs from old source row: ${summary.differentCurrentVersionRows}
+current recipe version differs from retained source-scan row: ${summary.differentCurrentVersionRows}
 no current recipe proof: ${summary.noCurrentRecipeRows}
 catalog-supported: ${summary.catalogSupported}
 proof-grade: ${summary.proofGrade}
 multi-variant proofs: ${summary.multiVariantProofs}
 default-only proofs: ${summary.defaultOnlyProofs}
-supported but production-blocked: ${summary.productionBlockedSupported}
+catalog-supported with production gate not cleared: ${summary.productionBlockedSupported}
 \`\`\`
 
 ## What We Learn
