@@ -236,6 +236,17 @@ The \`blocked\` rows are currently from the two-cluster kind parity lane.
    usually mean object parity passed and the target needs a readiness, storage,
    capacity, or operating-policy decision.
 
+## Run Safety
+
+Run live parity reruns serially. Do not run two live parity commands at the
+same time from different terminals or agents. The live harness creates and
+prunes parity-owned kind clusters and related local resources; concurrent runs
+can delete each other's in-flight cluster and produce a false infrastructure
+failure.
+
+If several rows need reruns, run one command, let it finish, inspect the
+receipt, regenerate the relevant summary, then move to the next row.
+
 ## Rerun Queue
 
 | Priority | Lane | Chart | Base | Current | Reason | Command |
