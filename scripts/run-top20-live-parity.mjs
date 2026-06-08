@@ -249,5 +249,13 @@ function classifyBlocked(receipt) {
   if (regularHelm.result === "blocked") {
     return semanticPassed ? "helm-runtime: upstream not ready (parity passed)" : "helm-runtime: upstream leg blocked";
   }
+  // Real parity finding: Helm installed but a ConfigHub delivery path diverged live.
+  const semanticDiff = Object.values(semantic).some(
+    (value) =>
+      value &&
+      typeof value === "object" &&
+      (((value.semanticDiffs ?? []).length > 0) || ((value.missingFromConfigHub ?? []).length > 0)),
+  );
+  if (semanticDiff) return "parity: live semantic diff";
   return "uncategorized";
 }
