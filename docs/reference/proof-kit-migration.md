@@ -71,6 +71,26 @@ This is a behaviour-preserving refactor. For each migrated chart, against the
 - Known pre-existing digest drift remains out of scope when the old script
   reproduced it too. Migration PRs should not mix refactor and behavior changes.
 
+### Live parity
+
+Byte-equivalence against the committed artifacts is the migration gate. The refactor
+also preserves live behavior, not just static output. Because a migrated thin spec
+produces a byte-identical rendered object set and installer package, its live install
+behavior is necessarily the same as the original script.
+
+This was confirmed on a real cluster. A migrated chart was run through the strict
+live Helm-vs-ConfigHub comparison lane (`live_helm_vs_confighub_dual_compare`) on a
+fresh kind cluster: for metrics-server, the regular-Helm, ConfigHub kubectl-apply,
+and ConfigHub Argo CD OCI legs all installed and became healthy, and both ConfigHub
+delivery paths matched live Helm with zero semantic differences (the only extra
+object is the explained installer Namespace).
+
+This is a live run, not a corpus check, and a live receipt is the only basis on
+which a chart is called live-parity-passing. Per-chart live status is tracked in the
+lane summary; charts without a fresh live receipt are not claimed as passing:
+
+[Live Helm-vs-ConfigHub Parity](../../data/live-helm-confighub-compare/summary.md)
+
 ## Migrating a chart
 
 1. Open `scripts/<chart>-proof.mjs`. Keep the `chart`, `variants`, and scan-policy
