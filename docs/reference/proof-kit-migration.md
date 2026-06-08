@@ -41,6 +41,7 @@ The CLI surface is unchanged, so every existing `npm run <chart>:*` script and t
 | `nginx-proof.mjs` | 385 |
 | `kube-prometheus-stack-proof.mjs` | 352 |
 | `mysql-proof.mjs` | 247 |
+| `mongodb-proof.mjs` | 257 |
 | `scripts/lib/proof-kit.mjs` (shared, amortized over all migrated charts) | 943 |
 
 The original proof scripts were usually around 1,000 lines each. The migrated
@@ -117,6 +118,7 @@ external-secrets
 nginx
 kube-prometheus-stack
 mysql
+mongodb
 ```
 
 Remaining chart proof scripts:
@@ -127,7 +129,6 @@ consul
 grafana
 loki
 longhorn
-mongodb
 prometheus
 rabbitmq
 secrets-store-csi-driver
