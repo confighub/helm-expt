@@ -6,15 +6,14 @@ chart/base rows. Each completed row has a receipt under
 
 ```text
 pass: 12
-watch: 4
-blocked: 4
+watch: 5
+blocked: 3
 not-started: 0
 ```
 
 Blocked rows broken down by cause (see `blocked-triage.md`):
 
 ```text
-helm-runtime: upstream not ready (parity passed): 1
 infra: etcd/apiserver overload: 1
 infra: provisioning timeout: 1
 parity: live semantic diff: 1
@@ -40,5 +39,5 @@ parity: live semantic diff: 1
 | 16 | `bitnami/mysql@14.0.3` | generated-passwords | watch | - | runs/live-helm-confighub-compare/bitnami-mysql-generated-passwords/receipt.yaml |
 | 17 | `bitnami/mongodb@19.0.7` | generated-passwords | pass | - | runs/live-helm-confighub-compare/bitnami-mongodb-generated-passwords/receipt.yaml |
 | 18 | `bitnami/nginx@24.0.2` | http-clusterip | pass | - | runs/live-helm-confighub-compare/bitnami-nginx-http-clusterip/receipt.yaml |
-| 19 | `grafana/tempo@1.24.4` | local-persistent | blocked | helm-runtime: upstream not ready (parity passed) | runs/live-helm-confighub-compare/grafana-tempo-local-persistent/receipt.yaml |
+| 19 | `grafana/tempo@1.24.4` | local-persistent | watch | - | runs/live-helm-confighub-compare/grafana-tempo-local-persistent/receipt.yaml |
 | 20 | `hashicorp/consul@2.0.0` | default-control-plane | blocked | infra: provisioning timeout | runs/live-helm-confighub-compare/hashicorp-consul-default-control-plane/receipt.yaml |

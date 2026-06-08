@@ -202,6 +202,14 @@ def combine_yaml_parts(*parts: str) -> str:
     return "\n---\n".join(docs) + ("\n" if docs else "")
 
 
+def helm_wait_timeout(output: str) -> bool:
+    lowered = output.lower()
+    return (
+        "context deadline exceeded" in lowered
+        and ("not ready" in lowered or "status: inprogress" in lowered)
+    )
+
+
 def render_docs_to_yaml(docs: list[dict]) -> str:
     if not docs:
         return ""
@@ -513,7 +521,11 @@ def main() -> int:
             helm_live_manifest = get_out + "\n"
             write_text(run_root / "regular-helm-live-manifest.yaml", helm_live_manifest)
         helm_runtime = wait_ready(kubeconfig, context, helm_namespace, timeout_seconds=180)
-        if rc != 0 or get_rc != 0:
+        if get_rc != 0:
+            helm_result = "blocked"
+        elif rc != 0 and helm_wait_timeout(f"{helm_out}\n{helm_err}"):
+            helm_result = "watch"
+        elif rc != 0:
             helm_result = "blocked"
         elif helm_runtime["result"] == "pass":
             helm_result = "pass"
