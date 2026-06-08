@@ -141,7 +141,7 @@ a `cub installer` base variant.
 
 ## The Proposed Bridge
 
-The useful future command is an import bridge:
+The proposed bridge is an import command:
 
 ```text
 cub installer import helm ...

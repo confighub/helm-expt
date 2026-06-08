@@ -15,7 +15,7 @@ critically — honestly, so the claim survives an adversary.
 
 ## What "100%" must mean (and must not)
 "100%" is a claim about **the rendered result and the accounting of behavior** — not a claim that a static
-file magically reproduces live, cluster-dependent dynamism.
+file reproduces live, cluster-dependent dynamism by itself.
 
 **100% means, per chart:**
 1. **Render-equivalent** — for every supported variant, `cub installer setup` output **≡** `helm template`

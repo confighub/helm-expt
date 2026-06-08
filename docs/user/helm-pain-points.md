@@ -43,7 +43,7 @@ pain report
 optional live receipts
 ```
 
-That does not magically solve every Helm problem. It makes each problem visible
+That does not solve every Helm problem by itself. It makes each problem visible
 and routes it to the right place.
 
 ## Where The Answer Lives
