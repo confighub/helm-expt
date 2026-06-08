@@ -331,6 +331,33 @@
       "note": "Rows whose committed two-cluster receipt currently points at a semantic object comparison defect."
     },
     {
+      "section": "production disposition",
+      "metric": "top20 production-supported charts",
+      "value": "0",
+      "total": "20",
+      "status": "gap",
+      "source": "data/production-disposition/top20.csv",
+      "note": "Top-20 catalog charts with all production dispositions closed."
+    },
+    {
+      "section": "production disposition",
+      "metric": "top20 production-blocked charts",
+      "value": "20",
+      "total": "20",
+      "status": "partial",
+      "source": "data/production-disposition/top20.csv",
+      "note": "Top-20 catalog charts that remain blocked from production support pending explicit dispositions."
+    },
+    {
+      "section": "production disposition",
+      "metric": "charts with accepted production dispositions",
+      "value": "1",
+      "total": "20",
+      "status": "partial",
+      "source": "data/production-disposition/top20.csv",
+      "note": "Charts with at least one disposition receipt accepted."
+    },
+    {
       "section": "quirks",
       "metric": "tracked-and-surfaced axes",
       "value": "9",
