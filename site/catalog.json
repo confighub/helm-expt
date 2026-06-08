@@ -8,7 +8,8 @@
     "imageDigestSubjects": "data/image-digest-workdown/all-subjects.csv",
     "nextTenGaps": "data/next-ten-waves/gap-review-wave.csv",
     "statusDashboard": "data/status-dashboard/status.csv",
-    "baseReadiness": "data/top20-base-readiness/base-readiness.csv"
+    "baseReadiness": "data/top20-base-readiness/base-readiness.csv",
+    "extensionSlots": "data/extension-slots/extension-slots.csv"
   },
   "summary": {
     "catalogSupported": 20,
@@ -20,7 +21,9 @@
     "imageSubjectsNeedingResolution": 149,
     "nextTenGapRows": 9,
     "baseVariants": 40,
-    "startHereBaseVariants": 11
+    "startHereBaseVariants": 11,
+    "top20ChartsWithExtensionSlots": 13,
+    "top100ChartsWithExtensionSlots": 82
   },
   "statusMetrics": [
     {
@@ -3882,6 +3885,828 @@
       "complete_core_lane_set": "no",
       "package_base": "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/bases/sync-secret-rotation",
       "catalog_path": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.md"
+    }
+  ],
+  "extensionSlots": [
+    {
+      "chart": "argo-cd/argo-cd@9.5.15",
+      "catalog_scope": "top20-catalog",
+      "built_variants": "default+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl:controlled-by-empty-defaults",
+      "surfaces": "raw/extra manifests; tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/argo-cd/argo-cd/9.5.15/control-points.yaml;recipes/argo-cd/argo-cd/9.5.15/helm-pain-report.yaml"
+    },
+    {
+      "chart": "bitnami/mongodb@19.0.7",
+      "catalog_scope": "top20-catalog",
+      "built_variants": "existing-secret-replicaset+generated-passwords",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl:controlled-by-empty-defaults",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/bitnami/mongodb/19.0.7/control-points.yaml;recipes/bitnami/mongodb/19.0.7/helm-pain-report.yaml"
+    },
+    {
+      "chart": "bitnami/nginx@24.0.2",
+      "catalog_scope": "top20-catalog",
+      "built_variants": "existing-tls-ingress+http-clusterip",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "extension-slots:controlled-by-empty-defaults",
+      "surfaces": "NGINX config blocks; raw/extra manifests; sidecars",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/bitnami/nginx/24.0.2/control-points.yaml;recipes/bitnami/nginx/24.0.2/helm-pain-report.yaml"
+    },
+    {
+      "chart": "external-secrets/external-secrets@2.5.0",
+      "catalog_scope": "top20-catalog",
+      "built_variants": "default+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl:controlled-by-empty-defaults",
+      "surfaces": "raw/extra manifests; tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/external-secrets/external-secrets/2.5.0/control-points.yaml;recipes/external-secrets/external-secrets/2.5.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "grafana/grafana@10.5.15",
+      "catalog_scope": "top20-catalog",
+      "built_variants": "existing-secret-ingress+generated-passwords",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "extension-slots:controlled-by-empty-defaults",
+      "surfaces": "sidecars; monitoring config; Secret/env injection",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/grafana/grafana/10.5.15/control-points.yaml;recipes/grafana/grafana/10.5.15/helm-pain-report.yaml"
+    },
+    {
+      "chart": "grafana/loki@7.0.0",
+      "catalog_scope": "top20-catalog",
+      "built_variants": "simple-scalable-minio+single-binary-filesystem",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl:controlled-by-empty-defaults",
+      "surfaces": "raw/extra manifests; Secret/env injection; tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/grafana/loki/7.0.0/control-points.yaml;recipes/grafana/loki/7.0.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "grafana/tempo@1.24.4",
+      "catalog_scope": "top20-catalog",
+      "built_variants": "local-persistent+s3-query-observability",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "extension-slots:controlled-by-empty-defaults",
+      "surfaces": "volumes/mounts; tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/grafana/tempo/1.24.4/control-points.yaml;recipes/grafana/tempo/1.24.4/helm-pain-report.yaml"
+    },
+    {
+      "chart": "hashicorp/consul@2.0.0",
+      "catalog_scope": "top20-catalog",
+      "built_variants": "default-control-plane+secure-mesh-existing-secrets",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "extension-slots:controlled-by-empty-defaults",
+      "surfaces": "controller/gateway config; tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/hashicorp/consul/2.0.0/control-points.yaml;recipes/hashicorp/consul/2.0.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "hashicorp/vault@0.32.0",
+      "catalog_scope": "top20-catalog",
+      "built_variants": "default+ha-raft-ui",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "extension-slots:controlled-by-empty-defaults",
+      "surfaces": "sidecars; volumes/mounts; Secret/env injection",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/hashicorp/vault/0.32.0/control-points.yaml;recipes/hashicorp/vault/0.32.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "jetstack/cert-manager@v1.20.2",
+      "catalog_scope": "top20-catalog",
+      "built_variants": "crds-enabled+default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl:controlled-by-empty-defaults",
+      "surfaces": "raw/extra manifests; tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/jetstack/cert-manager/v1.20.2/control-points.yaml;recipes/jetstack/cert-manager/v1.20.2/helm-pain-report.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack@85.3.3",
+      "catalog_scope": "top20-catalog",
+      "built_variants": "default+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl:controlled-by-empty-defaults",
+      "surfaces": "raw/extra manifests; monitoring config; tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/prometheus-community/kube-prometheus-stack/85.3.3/control-points.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml"
+    },
+    {
+      "chart": "prometheus-community/prometheus@29.8.0",
+      "catalog_scope": "top20-catalog",
+      "built_variants": "default+server-only-ephemeral",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "extension-slots:controlled-by-empty-defaults",
+      "surfaces": "raw/extra manifests; monitoring config",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/prometheus-community/prometheus/29.8.0/control-points.yaml;recipes/prometheus-community/prometheus/29.8.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "secrets-store-csi-driver/secrets-store-csi-driver@1.6.0",
+      "catalog_scope": "top20-catalog",
+      "built_variants": "default+sync-secret-rotation",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "extension-slots:controlled-by-empty-defaults",
+      "surfaces": "chart-specific tpl/raw/config slots",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/control-points.yaml;recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "aqua/trivy-operator@0.32.1",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/aqua/trivy-operator/0.32.1/control-points.yaml;recipes/aqua/trivy-operator/0.32.1/helm-pain-report.yaml"
+    },
+    {
+      "chart": "argo-cd/argo-events@2.4.21",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/argo-cd/argo-events/2.4.21/control-points.yaml;recipes/argo-cd/argo-events/2.4.21/helm-pain-report.yaml"
+    },
+    {
+      "chart": "argo-cd/argo-rollouts@2.40.9",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/argo-cd/argo-rollouts/2.40.9/control-points.yaml;recipes/argo-cd/argo-rollouts/2.40.9/helm-pain-report.yaml"
+    },
+    {
+      "chart": "argo-cd/argo-workflows@1.0.14",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/argo-cd/argo-workflows/1.0.14/control-points.yaml;recipes/argo-cd/argo-workflows/1.0.14/helm-pain-report.yaml"
+    },
+    {
+      "chart": "argo-cd/argocd-image-updater@1.2.2",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/argo-cd/argocd-image-updater/1.2.2/control-points.yaml;recipes/argo-cd/argocd-image-updater/1.2.2/helm-pain-report.yaml"
+    },
+    {
+      "chart": "autoscaler/cluster-autoscaler@9.57.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/autoscaler/cluster-autoscaler/9.57.0/control-points.yaml;recipes/autoscaler/cluster-autoscaler/9.57.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "autoscaler/vertical-pod-autoscaler@0.9.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "extension-slots:source-signal-recorded",
+      "surfaces": "raw/extra manifests",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/autoscaler/vertical-pod-autoscaler/0.9.0/control-points.yaml;recipes/autoscaler/vertical-pod-autoscaler/0.9.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/control-points.yaml;recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/helm-pain-report.yaml"
+    },
+    {
+      "chart": "bitnami/apache@11.4.29",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/bitnami/apache/11.4.29/control-points.yaml;recipes/bitnami/apache/11.4.29/helm-pain-report.yaml"
+    },
+    {
+      "chart": "bitnami/contour@21.1.4",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/bitnami/contour/21.1.4/control-points.yaml;recipes/bitnami/contour/21.1.4/helm-pain-report.yaml"
+    },
+    {
+      "chart": "bitnami/elasticsearch@22.1.6",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+ha",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/bitnami/elasticsearch/22.1.6/control-points.yaml;recipes/bitnami/elasticsearch/22.1.6/helm-pain-report.yaml"
+    },
+    {
+      "chart": "bitnami/memcached@8.5.5",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/bitnami/memcached/8.5.5/control-points.yaml;recipes/bitnami/memcached/8.5.5/helm-pain-report.yaml"
+    },
+    {
+      "chart": "bitnami/opensearch@2.0.10",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+ha",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/bitnami/opensearch/2.0.10/control-points.yaml;recipes/bitnami/opensearch/2.0.10/helm-pain-report.yaml"
+    },
+    {
+      "chart": "bitnami/phpmyadmin@20.0.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/bitnami/phpmyadmin/20.0.0/control-points.yaml;recipes/bitnami/phpmyadmin/20.0.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "bitnami/spark@10.0.3",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+ha",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/bitnami/spark/10.0.3/control-points.yaml;recipes/bitnami/spark/10.0.3/helm-pain-report.yaml"
+    },
+    {
+      "chart": "bitnami/zookeeper@13.8.7",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+ha",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/bitnami/zookeeper/13.8.7/control-points.yaml;recipes/bitnami/zookeeper/13.8.7/helm-pain-report.yaml"
+    },
+    {
+      "chart": "cloudnative-pg/cloudnative-pg@0.28.2",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/cloudnative-pg/cloudnative-pg/0.28.2/control-points.yaml;recipes/cloudnative-pg/cloudnative-pg/0.28.2/helm-pain-report.yaml"
+    },
+    {
+      "chart": "coredns/coredns@1.45.2",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/coredns/coredns/1.45.2/control-points.yaml;recipes/coredns/coredns/1.45.2/helm-pain-report.yaml"
+    },
+    {
+      "chart": "crossplane-stable/crossplane@2.3.1",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/crossplane-stable/crossplane/2.3.1/control-points.yaml;recipes/crossplane-stable/crossplane/2.3.1/helm-pain-report.yaml"
+    },
+    {
+      "chart": "descheduler/descheduler@0.36.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/descheduler/descheduler/0.36.0/control-points.yaml;recipes/descheduler/descheduler/0.36.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "dex/dex@0.24.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/dex/dex/0.24.0/control-points.yaml;recipes/dex/dex/0.24.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "elastic/eck-operator@3.4.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+ha+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/elastic/eck-operator/3.4.0/control-points.yaml;recipes/elastic/eck-operator/3.4.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "elastic/filebeat@8.5.1",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/elastic/filebeat/8.5.1/control-points.yaml;recipes/elastic/filebeat/8.5.1/helm-pain-report.yaml"
+    },
+    {
+      "chart": "elastic/kibana@8.5.1",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/elastic/kibana/8.5.1/control-points.yaml;recipes/elastic/kibana/8.5.1/helm-pain-report.yaml"
+    },
+    {
+      "chart": "elastic/logstash@8.5.1",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+ha",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/elastic/logstash/8.5.1/control-points.yaml;recipes/elastic/logstash/8.5.1/helm-pain-report.yaml"
+    },
+    {
+      "chart": "elastic/metricbeat@8.5.1",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/elastic/metricbeat/8.5.1/control-points.yaml;recipes/elastic/metricbeat/8.5.1/helm-pain-report.yaml"
+    },
+    {
+      "chart": "external-dns/external-dns@1.21.1",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/external-dns/external-dns/1.21.1/control-points.yaml;recipes/external-dns/external-dns/1.21.1/helm-pain-report.yaml"
+    },
+    {
+      "chart": "fairwinds-stable/goldilocks@10.3.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/fairwinds-stable/goldilocks/10.3.0/control-points.yaml;recipes/fairwinds-stable/goldilocks/10.3.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "fairwinds-stable/vpa@4.11.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/fairwinds-stable/vpa/4.11.0/control-points.yaml;recipes/fairwinds-stable/vpa/4.11.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "falcosecurity/falco@9.0.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/falcosecurity/falco/9.0.0/control-points.yaml;recipes/falcosecurity/falco/9.0.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "falcosecurity/falcosidekick@0.13.1",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "extension-slots:source-signal-recorded",
+      "surfaces": "raw/extra manifests",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/falcosecurity/falcosidekick/0.13.1/control-points.yaml;recipes/falcosecurity/falcosidekick/0.13.1/helm-pain-report.yaml"
+    },
+    {
+      "chart": "fluent/fluent-bit@0.57.6",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/fluent/fluent-bit/0.57.6/control-points.yaml;recipes/fluent/fluent-bit/0.57.6/helm-pain-report.yaml"
+    },
+    {
+      "chart": "fluent/fluentd@0.5.3",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/fluent/fluentd/0.5.3/control-points.yaml;recipes/fluent/fluentd/0.5.3/helm-pain-report.yaml"
+    },
+    {
+      "chart": "gatekeeper/gatekeeper@3.22.2",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "extension-slots:source-signal-recorded",
+      "surfaces": "raw/extra manifests",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/gatekeeper/gatekeeper/3.22.2/control-points.yaml;recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml"
+    },
+    {
+      "chart": "gitlab/gitlab-runner@0.89.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/gitlab/gitlab-runner/0.89.0/control-points.yaml;recipes/gitlab/gitlab-runner/0.89.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "grafana/alloy@1.8.2",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/grafana/alloy/1.8.2/control-points.yaml;recipes/grafana/alloy/1.8.2/helm-pain-report.yaml"
+    },
+    {
+      "chart": "grafana/promtail@6.17.1",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/grafana/promtail/6.17.1/control-points.yaml;recipes/grafana/promtail/6.17.1/helm-pain-report.yaml"
+    },
+    {
+      "chart": "grafana/pyroscope@2.0.2",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+ha+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/grafana/pyroscope/2.0.2/control-points.yaml;recipes/grafana/pyroscope/2.0.2/helm-pain-report.yaml"
+    },
+    {
+      "chart": "grafana/rollout-operator@0.49.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "extension-slots:source-signal-recorded",
+      "surfaces": "raw/extra manifests",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/grafana/rollout-operator/0.49.0/control-points.yaml;recipes/grafana/rollout-operator/0.49.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "haproxytech/kubernetes-ingress@1.52.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/haproxytech/kubernetes-ingress/1.52.0/control-points.yaml;recipes/haproxytech/kubernetes-ingress/1.52.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "istio/istiod@1.30.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/istio/istiod/1.30.0/control-points.yaml;recipes/istio/istiod/1.30.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "jaegertracing/jaeger-operator@2.57.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "extension-slots:source-signal-recorded",
+      "surfaces": "raw/extra manifests",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/jaegertracing/jaeger-operator/2.57.0/control-points.yaml;recipes/jaegertracing/jaeger-operator/2.57.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "jaegertracing/jaeger@4.8.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/jaegertracing/jaeger/4.8.0/control-points.yaml;recipes/jaegertracing/jaeger/4.8.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "jetstack/trust-manager@v0.22.1",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/jetstack/trust-manager/v0.22.1/control-points.yaml;recipes/jetstack/trust-manager/v0.22.1/helm-pain-report.yaml"
+    },
+    {
+      "chart": "kedacore/keda@2.19.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/kedacore/keda/2.19.0/control-points.yaml;recipes/kedacore/keda/2.19.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "kyverno/kyverno-policies@3.8.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/kyverno/kyverno-policies/3.8.0/control-points.yaml;recipes/kyverno/kyverno-policies/3.8.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "kyverno/kyverno@3.8.1",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/kyverno/kyverno/3.8.1/control-points.yaml;recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml"
+    },
+    {
+      "chart": "minio-operator/tenant@7.1.1",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/minio-operator/tenant/7.1.1/control-points.yaml;recipes/minio-operator/tenant/7.1.1/helm-pain-report.yaml"
+    },
+    {
+      "chart": "nats/nack@0.34.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/nats/nack/0.34.0/control-points.yaml;recipes/nats/nack/0.34.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "nats/nats@2.14.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+ha",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/nats/nats/2.14.0/control-points.yaml;recipes/nats/nats/2.14.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "nats/surveyor@0.20.9",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "extension-slots:source-signal-recorded",
+      "surfaces": "raw/extra manifests",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/nats/surveyor/0.20.9/control-points.yaml;recipes/nats/surveyor/0.20.9/helm-pain-report.yaml"
+    },
+    {
+      "chart": "open-telemetry/opentelemetry-operator@0.114.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/open-telemetry/opentelemetry-operator/0.114.0/control-points.yaml;recipes/open-telemetry/opentelemetry-operator/0.114.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "opencost/opencost@2.5.21",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/opencost/opencost/2.5.21/control-points.yaml;recipes/opencost/opencost/2.5.21/helm-pain-report.yaml"
+    },
+    {
+      "chart": "percona/pxc-operator@1.19.1",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "extension-slots:source-signal-recorded",
+      "surfaces": "raw/extra manifests",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/percona/pxc-operator/1.19.1/control-points.yaml;recipes/percona/pxc-operator/1.19.1/helm-pain-report.yaml"
+    },
+    {
+      "chart": "prometheus-community/alertmanager@1.37.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+ha",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/prometheus-community/alertmanager/1.37.0/control-points.yaml;recipes/prometheus-community/alertmanager/1.37.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-state-metrics@7.4.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/prometheus-community/kube-state-metrics/7.4.0/control-points.yaml;recipes/prometheus-community/kube-state-metrics/7.4.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "prometheus-community/prometheus-adapter@5.3.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/prometheus-community/prometheus-adapter/5.3.0/control-points.yaml;recipes/prometheus-community/prometheus-adapter/5.3.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "prometheus-community/prometheus-blackbox-exporter@11.10.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/control-points.yaml;recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "prometheus-community/prometheus-node-exporter@4.55.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/prometheus-community/prometheus-node-exporter/4.55.0/control-points.yaml;recipes/prometheus-community/prometheus-node-exporter/4.55.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "prometheus-community/prometheus-pushgateway@3.6.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/prometheus-community/prometheus-pushgateway/3.6.0/control-points.yaml;recipes/prometheus-community/prometheus-pushgateway/3.6.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "rook-release/rook-ceph-cluster@v1.19.5",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/rook-release/rook-ceph-cluster/v1.19.5/control-points.yaml;recipes/rook-release/rook-ceph-cluster/v1.19.5/helm-pain-report.yaml"
+    },
+    {
+      "chart": "runix/pgadmin4@1.62.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/runix/pgadmin4/1.62.0/control-points.yaml;recipes/runix/pgadmin4/1.62.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "sealed-secrets/sealed-secrets@2.18.6",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/sealed-secrets/sealed-secrets/2.18.6/control-points.yaml;recipes/sealed-secrets/sealed-secrets/2.18.6/helm-pain-report.yaml"
+    },
+    {
+      "chart": "stakater/reloader@2.2.12",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/stakater/reloader/2.2.12/control-points.yaml;recipes/stakater/reloader/2.2.12/helm-pain-report.yaml"
+    },
+    {
+      "chart": "strimzi/strimzi-kafka-operator@1.0.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/strimzi/strimzi-kafka-operator/1.0.0/control-points.yaml;recipes/strimzi/strimzi-kafka-operator/1.0.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "traefik/traefik@40.2.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/traefik/traefik/40.2.0/control-points.yaml;recipes/traefik/traefik/40.2.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "velero/velero@12.0.1",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+no-crds",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/velero/velero/12.0.1/control-points.yaml;recipes/velero/velero/12.0.1/helm-pain-report.yaml"
+    },
+    {
+      "chart": "vm/victoria-logs-single@0.12.5",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/vm/victoria-logs-single/0.12.5/control-points.yaml;recipes/vm/victoria-logs-single/0.12.5/helm-pain-report.yaml"
+    },
+    {
+      "chart": "vm/victoria-metrics-single@0.39.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes — per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/vm/victoria-metrics-single/0.39.0/control-points.yaml;recipes/vm/victoria-metrics-single/0.39.0/helm-pain-report.yaml"
     }
   ]
 }

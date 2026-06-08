@@ -19,6 +19,7 @@ Data source:
 - `data/next-ten-waves/gap-review-wave.csv`
 - `data/status-dashboard/status.csv`
 - `data/top20-base-readiness/base-readiness.csv`
+- `data/extension-slots/extension-slots.csv`
 - `data/variant-goldens/redis-prod-us-east/`
 - `data/managed-overlay-goldens/external-dns-customer-acme-prod/`
 

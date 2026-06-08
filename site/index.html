@@ -431,6 +431,25 @@
       </div>
     </section>
 
+    <section aria-labelledby="extension-slots">
+      <h2 id="extension-slots">Extension Slots</h2>
+      <p>Many Helm charts expose raw manifests, tpl snippets, config blocks, sidecars, or add-on slots. Supported bases keep those slots empty or controlled. If a user populates one, that should become a reviewed cub installer base with render parity, scans, gates, and receipts.</p>
+      <div class="grid">
+        <div class="metric"><strong>13/20</strong><span>Top-20 charts with extension slots</span></div>
+        <div class="metric"><strong>82/100</strong><span>Top-100 charts with surfaced extension slots</span></div>
+      </div>
+      <div class="card"><table>
+        <thead><tr><th>Chart</th><th>Example surfaces</th><th>Route</th></tr></thead>
+        <tbody><tr><td>argo-cd/argo-cd@9.5.15</td><td>raw/extra manifests; tpl-powered values</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr><tr><td>bitnami/mongodb@19.0.7</td><td>tpl-powered values</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr><tr><td>bitnami/nginx@24.0.2</td><td>NGINX config blocks; raw/extra manifests; sidecars</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr><tr><td>external-secrets/external-secrets@2.5.0</td><td>raw/extra manifests; tpl-powered values</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr><tr><td>grafana/grafana@10.5.15</td><td>sidecars; monitoring config; Secret/env injection</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr><tr><td>grafana/loki@7.0.0</td><td>raw/extra manifests; Secret/env injection; tpl-powered values</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr><tr><td>grafana/tempo@1.24.4</td><td>volumes/mounts; tpl-powered values</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr><tr><td>hashicorp/consul@2.0.0</td><td>controller/gateway config; tpl-powered values</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr><tr><td>hashicorp/vault@0.32.0</td><td>sidecars; volumes/mounts; Secret/env injection</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr><tr><td>jetstack/cert-manager@v1.20.2</td><td>raw/extra manifests; tpl-powered values</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr><tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>raw/extra manifests; monitoring config; tpl-powered values</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr><tr><td>prometheus-community/prometheus@29.8.0</td><td>raw/extra manifests; monitoring config</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr><tr><td>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</td><td>chart-specific tpl/raw/config slots</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><a href="../data/extension-slots/summary.md">Open the full extension-slot coverage report</a>.</p>
+    </section>
+
     <section aria-labelledby="data">
       <h2 id="data">Generated Data</h2>
       <p>This static view is generated from repo artifacts. The machine-readable catalog is <a href="./catalog.json">catalog.json</a>.</p>
@@ -442,6 +461,8 @@
         <li><a href="../data/runtime-gitops/summary.md">Runtime/GitOps first wave</a></li>
         <li><a href="../data/image-digest-workdown/summary.md">Image digest workdown</a></li>
         <li><a href="../data/next-ten-waves/summary.md">Next-ten execution waves</a></li>
+        <li><a href="../data/top20-base-readiness/summary.md">Top-20 base readiness</a></li>
+        <li><a href="../data/extension-slots/summary.md">Extension slot coverage</a></li>
       </ul>
     </section>
   </main>

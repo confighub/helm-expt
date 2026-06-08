@@ -15,6 +15,7 @@ const imageDigestSubjectsPath = join(repoRoot, "data", "image-digest-workdown", 
 const nextTenGapsPath = join(repoRoot, "data", "next-ten-waves", "gap-review-wave.csv");
 const statusDashboardPath = join(repoRoot, "data", "status-dashboard", "status.csv");
 const baseReadinessPath = join(repoRoot, "data", "top20-base-readiness", "base-readiness.csv");
+const extensionSlotsPath = join(repoRoot, "data", "extension-slots", "extension-slots.csv");
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -47,6 +48,7 @@ function buildSite() {
   const nextTenGaps = parseCsv(readFileSync(nextTenGapsPath, "utf8"));
   const statusMetrics = parseCsv(readFileSync(statusDashboardPath, "utf8"));
   const baseReadiness = parseCsv(readFileSync(baseReadinessPath, "utf8"));
+  const extensionSlots = parseCsv(readFileSync(extensionSlotsPath, "utf8"));
   const catalogEntries = top100.entries.filter((entry) => entry.proof_surface === "top20-catalog-supported");
   const proofGrade = top100.entries.filter((entry) => entry.proof_surface === "next80-proof-grade");
   const latestCandidates = readiness.map((row) => ({
@@ -67,6 +69,7 @@ function buildSite() {
       nextTenGaps: "data/next-ten-waves/gap-review-wave.csv",
       statusDashboard: "data/status-dashboard/status.csv",
       baseReadiness: "data/top20-base-readiness/base-readiness.csv",
+      extensionSlots: "data/extension-slots/extension-slots.csv",
     },
     summary: {
       catalogSupported: catalogEntries.length,
@@ -79,12 +82,15 @@ function buildSite() {
       nextTenGapRows: nextTenGaps.length,
       baseVariants: baseReadiness.length,
       startHereBaseVariants: baseReadiness.filter((row) => row.user_readiness === "start-here").length,
+      top20ChartsWithExtensionSlots: extensionSlots.filter((row) => row.catalog_scope === "top20-catalog").length,
+      top100ChartsWithExtensionSlots: extensionSlots.length,
     },
     statusMetrics,
     catalogEntries,
     proofGradeEntries: proofGrade,
     latestCandidates,
     baseReadiness,
+    extensionSlots,
   };
   return {
     catalogJson: `${JSON.stringify(catalog, null, 2)}\n`,
@@ -121,6 +127,9 @@ function html(catalog) {
   const recommendedBaseRows = catalog.baseReadiness
     .filter((row) => row.recommended_first === "yes")
     .map((row) => [row.chart, row.base, row.user_readiness, row.why]);
+  const top20ExtensionRows = catalog.extensionSlots
+    .filter((row) => row.catalog_scope === "top20-catalog")
+    .map((row) => [row.chart, row.surfaces, row.current_route]);
   const stages = [
     ["1. Acquire and pin", "Lock chart source, dependencies, digests, and provenance."],
     ["2. Render and capture", "Run Helm under recorded inputs and prove render parity with cub installer."],
@@ -294,6 +303,20 @@ function html(catalog) {
       </div>
     </section>
 
+    <section aria-labelledby="extension-slots">
+      <h2 id="extension-slots">Extension Slots</h2>
+      <p>Many Helm charts expose raw manifests, tpl snippets, config blocks, sidecars, or add-on slots. Supported bases keep those slots empty or controlled. If a user populates one, that should become a reviewed cub installer base with render parity, scans, gates, and receipts.</p>
+      <div class="grid">
+        <div class="metric"><strong>${escapeHtml(catalog.summary.top20ChartsWithExtensionSlots)}/20</strong><span>Top-20 charts with extension slots</span></div>
+        <div class="metric"><strong>${escapeHtml(catalog.summary.top100ChartsWithExtensionSlots)}/100</strong><span>Top-100 charts with surfaced extension slots</span></div>
+      </div>
+      ${markdownLikeTable([
+        ["Chart", "Example surfaces", "Route"],
+        ...top20ExtensionRows,
+      ])}
+      <p><a href="../data/extension-slots/summary.md">Open the full extension-slot coverage report</a>.</p>
+    </section>
+
     <section aria-labelledby="data">
       <h2 id="data">Generated Data</h2>
       <p>This static view is generated from repo artifacts. The machine-readable catalog is <a href="./catalog.json">catalog.json</a>.</p>
@@ -305,6 +328,8 @@ function html(catalog) {
         <li><a href="../data/runtime-gitops/summary.md">Runtime/GitOps first wave</a></li>
         <li><a href="../data/image-digest-workdown/summary.md">Image digest workdown</a></li>
         <li><a href="../data/next-ten-waves/summary.md">Next-ten execution waves</a></li>
+        <li><a href="../data/top20-base-readiness/summary.md">Top-20 base readiness</a></li>
+        <li><a href="../data/extension-slots/summary.md">Extension slot coverage</a></li>
       </ul>
     </section>
   </main>
@@ -378,6 +403,7 @@ Data source:
 - \`data/next-ten-waves/gap-review-wave.csv\`
 - \`data/status-dashboard/status.csv\`
 - \`data/top20-base-readiness/base-readiness.csv\`
+- \`data/extension-slots/extension-slots.csv\`
 - \`data/variant-goldens/redis-prod-us-east/\`
 - \`data/managed-overlay-goldens/external-dns-customer-acme-prod/\`
 
