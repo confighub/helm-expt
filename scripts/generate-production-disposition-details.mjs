@@ -435,7 +435,12 @@ function toNextActionsCsv(charts) {
 function productionNextAction(open, scan) {
   const first = open[0];
   if (!first) return "refresh live/e2e receipts for the accepted production scope";
-  if (first.name === "scan/gate warning disposition" && scan?.nextAction) return scan.nextAction;
+  if (first.name === "scan/gate warning disposition" && scan?.nextAction) {
+    if (String(scan.topChecks ?? "").includes("latest-tag")) {
+      return "resolve image digests or pin image tags in the installer base; record image override/proof receipt; then accept PDB behavior or add a reviewed patch where the chart supports it";
+    }
+    return scan.nextAction;
+  }
   return `write or fix the ${first.name} disposition receipt`;
 }
 
