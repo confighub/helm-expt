@@ -61,6 +61,7 @@ documentation set.
 | `data/*/summary.md` | Generated status, review, or matrix summary. |
 | `data/README.md` | Generated data index and start-here guide for CSVs. |
 | `data/csv-index.csv` | Generated machine-readable index of every CSV under `data/`. |
+| `data/status-dashboard/summary.md` | Generated front-door status dashboard for top100, proof lanes, hooks, quirks, GitOps, and live parity. |
 | `data/outcome-coverage/*.csv` | Front-door CSVs for chart, base, derived variant, and feature outcomes. |
 | `data/latest-top20-refresh/candidates/README.md` | Generated summary for latest-version candidate proofs. |
 | `runs/**/*.md` | Generated execution output from Pilot or other run harnesses. These are receipts/log summaries, not narrative docs. |
