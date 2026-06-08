@@ -17,7 +17,7 @@ production-blocked pending disposition: 20
 source Helm-hook rows: 1
 hook/lifecycle disposition rows: 12
 related lifecycle observation rows: 2
-accepted production disposition receipts: 6
+accepted production disposition receipts: 7
 charts with accepted dispositions: 3
 ```
 
@@ -39,7 +39,7 @@ mean the retained source scan found Helm hooks. Use the evidence fields in
 | `argo-cd/argo-cd@9.5.15` | default, no-crds | pass | local-kind-observed | blocked | 0 | CRD lifecycle and upgrade policy, cluster RBAC review, extension slot provenance and scan policy, hook and lifecycle phase policy, scan/gate warning disposition, storage backup restore and rollback policy |
 | `bitnami/mongodb@19.0.7` | generated-passwords, existing-secret-replicaset | pass | local-kind-observed | blocked | 0 | extension slot provenance and scan policy, generated fact ownership, hook and lifecycle phase policy, scan/gate warning disposition, target fact preflight |
 | `bitnami/mysql@14.0.3` | generated-passwords, existing-secret | pass | local-kind-observed | blocked | 0 | extension slot provenance and scan policy, generated fact ownership, hook and lifecycle phase policy, scan/gate warning disposition, storage backup restore and rollback policy, target fact preflight |
-| `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | pass | local-kind-observed | blocked | 2 | extension slot provenance and scan policy, scan/gate warning disposition |
+| `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | pass | local-kind-observed | blocked | 3 | scan/gate warning disposition |
 | `bitnami/postgresql@18.6.7` | generated-passwords, existing-secret | pass | local-kind-observed | blocked | 0 | extension slot provenance and scan policy, generated fact ownership, hook and lifecycle phase policy, scan/gate warning disposition, storage backup restore and rollback policy, target fact preflight |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords, existing-secret | pass | local-kind-observed | blocked | 0 | extension slot provenance and scan policy, generated fact ownership, hook and lifecycle phase policy, scan/gate warning disposition, storage backup restore and rollback policy, target fact preflight |
 | `bitnami/redis@25.5.3` | default, reuse-existing-secret | pass | local-kind-observed | blocked | 2 | generated fact ownership, scan/gate warning disposition |

@@ -6,14 +6,14 @@ exactly what must be closed before production support can be claimed.
 The lifecycle columns separate retained source-hook evidence from recipe-level
 lifecycle policy and related CRD/webhook/controller observations.
 
-Accepted disposition receipts recorded: 6
+Accepted disposition receipts recorded: 7
 
 | Chart | Local-test variants | Production state | Accepted | Open | Source hooks | Lifecycle basis | Live/e2e receipts |
 | --- | --- | --- | ---: | ---: | ---: | --- | --- |
 | `argo-cd/argo-cd@9.5.15` | default, no-crds | production-blocked | 0 | 6 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/mongodb@19.0.7` | generated-passwords, existing-secret-replicaset | production-blocked | 0 | 5 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/mysql@14.0.3` | generated-passwords, existing-secret | production-blocked | 0 | 6 | 0 | recipe-hook-policy:no-hooks | 1 |
-| `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | production-blocked | 2 | 2 | 0 | none | 1 |
+| `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | production-blocked | 3 | 1 | 0 | none | 1 |
 | `bitnami/postgresql@18.6.7` | generated-passwords, existing-secret | production-blocked | 0 | 6 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords, existing-secret | production-blocked | 0 | 6 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/redis@25.5.3` | default, reuse-existing-secret | production-blocked | 2 | 2 | 0 | recipe-hook-policy:no-hooks | 2 |

@@ -1,0 +1,30 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: bitnami-nginx-extension-slot-provenance-and-scan-policy
+spec:
+  chart: bitnami/nginx
+  version: "24.0.2"
+  disposition: extension slot provenance and scan policy
+  decision: accepted
+  acceptedAt: "2026-06-08"
+  scope:
+    - local-test
+    - production-review-input
+  summary: The supported NGINX bases leave the chart's config-text, raw-manifest, sidecar, git-clone, and metrics extension slots empty or disabled. The generated NGINX check matrix verifies those slots do not appear silently in the rendered object sets.
+  evidence:
+    - path: recipes/bitnami/nginx/24.0.2/control-points.yaml
+      claim: The extension-slots control point records serverBlock, streamServerBlock, extraDeploy, git-clone, metrics, and sidecar slots as controlled by empty defaults.
+    - path: recipes/bitnami/nginx/24.0.2/helm-pain-report.yaml
+      claim: The NGINX pain report documents the extension-slot risk and states promoted variants keep those values empty or disabled.
+    - path: data/nginx-config-checks/summary.md
+      claim: The generated NGINX check report passes 14 checks across both supported bases and records that no custom config, raw objects, sidecars, git-clone content, or metrics add-ons are present.
+    - path: data/nginx-config-checks/checks.csv
+      claim: The machine-readable check matrix records each extension-slot check and pass result per supported variant.
+    - path: docs/user/nginx-configuration-files.md
+      claim: User docs route populated NGINX config text, extraDeploy objects, sidecars, metrics, or git-clone values to a new reviewed cub installer base with NGINX-specific validation.
+  affectedVariants:
+    - http-clusterip
+    - existing-tls-ingress
+  remainingProductionBlockers:
+    - scan/gate warning disposition
