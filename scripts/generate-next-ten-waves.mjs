@@ -92,8 +92,11 @@ function buildReport() {
       version: row.version,
       supported_variants: row.supported_variants,
       production_support: row.production_support,
-      required_dispositions: row.required_dispositions,
-      next_action: "write disposition receipts, then rerun runtime/GitOps and image-digest lanes",
+      accepted_dispositions: row.accepted_dispositions,
+      open_dispositions: row.open_dispositions,
+      next_action: row.open_dispositions
+        ? "write receipts for open dispositions, then rerun runtime/GitOps and image-digest lanes"
+        : "rerun runtime/GitOps and image-digest lanes",
     };
   });
 
@@ -165,6 +168,10 @@ import prototype rows:             ${importPrototypeRows.length}
 | \`variant-build-wave.csv\` | Wave-2 chart variants to render and prove next. |
 | \`production-disposition-wave.csv\` | First five catalog-supported charts to move toward production disposition. |
 | \`import-prototype-wave.csv\` | Import examples that explain public chart, managed overlay, and post-render promotion routes. |
+
+The production-disposition wave separates accepted dispositions from open
+dispositions, so the queue shows only the production decisions still needing
+receipts before the follow-up runtime/GitOps and image-digest lanes run.
 `;
 }
 

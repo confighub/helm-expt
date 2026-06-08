@@ -23,3 +23,7 @@ import prototype rows:             3
 | `variant-build-wave.csv` | Wave-2 chart variants to render and prove next. |
 | `production-disposition-wave.csv` | First five catalog-supported charts to move toward production disposition. |
 | `import-prototype-wave.csv` | Import examples that explain public chart, managed overlay, and post-render promotion routes. |
+
+The production-disposition wave separates accepted dispositions from open
+dispositions, so the queue shows only the production decisions still needing
+receipts before the follow-up runtime/GitOps and image-digest lanes run.
