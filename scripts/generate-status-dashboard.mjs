@@ -35,6 +35,7 @@ function buildReport() {
   const quirkRows = readCsv("data/quirk-coverage/coverage.csv");
   const hookRows = readCsv("data/hook-lifecycle/top100-hooks.csv");
   const liveRows = readCsv("data/live-helm-confighub-compare/summary.csv");
+  const kindParityRows = readCsv("data/live-kind-parity/summary.csv");
   const runtimeRows = readCsv("data/runtime-gitops/wave1.csv");
   const derivedWorkOrders = readCsv("data/variant-goldens/derived-expansion-wave/work-orders.csv");
   const derivedLiveReceiptCount = derivedWorkOrders.filter((row) =>
@@ -55,6 +56,7 @@ function buildReport() {
   rows.push(metric("proof lanes", "local live rows", passCount(baseRows, "local_live"), baseRows.length, "partial", "data/outcome-coverage/base-outcomes.csv", "Rows with committed local Kubernetes observation receipts."));
   rows.push(metric("proof lanes", "GitOps/OCI live pass rows", passCount(baseRows, "gitops_oci_live"), baseRows.length, "partial", "data/outcome-coverage/base-outcomes.csv", `${nonPassCount(baseRows, "gitops_oci_live")} rows have non-pass GitOps/OCI receipts.`));
   rows.push(metric("proof lanes", "live Helm-vs-ConfigHub parity pass rows", passCount(baseRows, "live_helm_vs_confighub_parity"), baseRows.length, "partial", "data/outcome-coverage/base-outcomes.csv", `${nonPassCount(baseRows, "live_helm_vs_confighub_parity")} rows have non-pass live parity receipts.`));
+  rows.push(metric("proof lanes", "two-cluster kind parity pass rows", resultCount(kindParityRows, "pass"), kindParityRows.length, "partial", "data/live-kind-parity/summary.csv", "Regular Helm in one vanilla kind cluster, cub installer output in another, then semantic comparison."));
   rows.push(metric("proof lanes", "complete core lane rows", count(baseRows, "complete_core_lane_set", "yes"), baseRows.length, "gap", "data/outcome-coverage/base-outcomes.csv", "Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."));
 
   rows.push(metric("derived variants", "derived variant golden rows", derivedWorkOrders.length, derivedWorkOrders.length, "good", "data/variant-goldens/derived-expansion-wave/work-orders.csv", "Golden work orders that specify source base, downstream variant, current cub variant create command, and receipt targets."));
@@ -63,6 +65,7 @@ function buildReport() {
 
   rows.push(metric("live evidence", "runtime/GitOps wave rows", runtimeRows.length, runtimeRows.length, "partial", "data/runtime-gitops/wave1.csv", "Selected Argo/Flux OCI wave rows; this is not the whole corpus."));
   rows.push(metric("live evidence", "live Helm-vs-ConfigHub receipts", liveRows.length, liveRows.length, "partial", "data/live-helm-confighub-compare/summary.csv", "Committed live comparison receipts, including pass and non-pass results."));
+  rows.push(metric("live evidence", "two-cluster kind parity receipts", kindParityRows.length, kindParityRows.length, "partial", "data/live-kind-parity/summary.csv", "Committed two-cluster parity receipts for the top-20 base variants, including pass and non-pass results."));
 
   const quirkTierCounts = groupCount(quirkRows, "coverage_tier");
   rows.push(metric("quirks", "tracked-and-surfaced axes", quirkTierCounts.get("tracked-and-surfaced") ?? 0, quirkRows.length, "good", "data/quirk-coverage/coverage.csv", "Quirk axes visible in generated chart or user data."));
@@ -73,7 +76,7 @@ function buildReport() {
   rows.push(metric("hooks", "top100 maintained hook charts", hookRows.length, hookRows.length, "partial", "data/hook-lifecycle/top100-hooks.csv", "Hook-bearing maintained charts with required lifecycle receipt paths."));
   rows.push(metric("hooks", "hook lifecycle receipts present", hookRows.filter((row) => row.lifecycle_disposition === "lifecycle-observed").length, hookRows.length, "gap", "data/hook-lifecycle/top100-hooks.csv", "Current hook rows still need lifecycle route and receipt work."));
 
-  return { rows, csv: toCsv(rows), summary: summary(rows, { chartRows, baseRows, top100Rows, quirkRows, hookRows, liveRows, runtimeRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount }) };
+  return { rows, csv: toCsv(rows), summary: summary(rows, { chartRows, baseRows, top100Rows, quirkRows, hookRows, liveRows, kindParityRows, runtimeRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount }) };
 }
 
 function summary(rows, context) {
@@ -127,10 +130,17 @@ for exact chart/base lane status.
 | local live | ${passCount(context.baseRows, "local_live")} | ${nonPassCount(context.baseRows, "local_live")} | ${missingCount(context.baseRows, "local_live")} | ${context.baseRows.length} |
 | GitOps/OCI live | ${passCount(context.baseRows, "gitops_oci_live")} | ${nonPassCount(context.baseRows, "gitops_oci_live")} | ${missingCount(context.baseRows, "gitops_oci_live")} | ${context.baseRows.length} |
 | live Helm-vs-ConfigHub parity | ${passCount(context.baseRows, "live_helm_vs_confighub_parity")} | ${nonPassCount(context.baseRows, "live_helm_vs_confighub_parity")} | ${missingCount(context.baseRows, "live_helm_vs_confighub_parity")} | ${context.baseRows.length} |
+| two-cluster kind parity | ${resultCount(context.kindParityRows, "pass")} | ${context.kindParityRows.filter((row) => row.result !== "pass").length} | 0 | ${context.kindParityRows.length} |
 
 Non-pass live receipts are useful evidence. They usually identify a target
 prerequisite, runtime behavior, or provisioning boundary rather than a render
 parity failure.
+
+The two-cluster kind parity lane is the cleanest live comparison for chart/base
+rows: regular Helm is applied to one vanilla kind cluster and the \`cub installer\`
+rendered objects are applied to another vanilla kind cluster. The receipts then
+compare the live outcomes. Use
+[live-kind-parity/summary.csv](../live-kind-parity/summary.csv) for those rows.
 
 ${liveNonPass.length ? `Current live parity non-pass receipts:
 
@@ -280,4 +290,8 @@ function groupCount(rows, key) {
 
 function mapRows(map) {
   return [...map.entries()].map(([key, value]) => `| ${key} | ${value} |`).join("\n");
+}
+
+function resultCount(rows, result) {
+  return rows.filter((row) => row.result === result).length;
 }

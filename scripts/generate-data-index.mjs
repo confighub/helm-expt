@@ -56,6 +56,7 @@ function readme(rows) {
     ["data/outcome-coverage/base-outcomes.csv", "One row per chart/base variant: render parity, ConfigHub proof, local live, GitOps/OCI live, live Helm parity."],
     ["data/outcome-coverage/derived-variant-outcomes.csv", "One row per derived ConfigHub variant: intended-state proof and target-bound live status."],
     ["data/outcome-coverage/feature-outcomes.csv", "One row per chart feature: hooks, generated secrets, CRDs, webhooks, required values, schemas, extension slots, gaps."],
+    ["data/live-kind-parity/summary.md", "Two-cluster live parity: regular Helm in one vanilla kind cluster and cub installer output in another."],
     ["data/pain-point-coverage/summary.md", "General Helm pain point coverage: current answers, handoffs, evidence, gaps, and next actions."],
     ["data/top100-readiness/summary.md", "Top-100 readiness: one chart-by-chart answer for current user status, strongest evidence, and next action."],
     ["data/variant-path-coverage/summary.md", "Per chart/base/path matrix for base variants, diffs, operations, and derived ConfigHub variants."],

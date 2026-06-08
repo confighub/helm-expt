@@ -103,6 +103,15 @@
     },
     {
       "section": "proof lanes",
+      "metric": "two-cluster kind parity pass rows",
+      "value": "25",
+      "total": "40",
+      "status": "partial",
+      "source": "data/live-kind-parity/summary.csv",
+      "note": "Regular Helm in one vanilla kind cluster, cub installer output in another, then semantic comparison."
+    },
+    {
+      "section": "proof lanes",
       "metric": "complete core lane rows",
       "value": "6",
       "total": "156",
@@ -154,6 +163,15 @@
       "status": "partial",
       "source": "data/live-helm-confighub-compare/summary.csv",
       "note": "Committed live comparison receipts, including pass and non-pass results."
+    },
+    {
+      "section": "live evidence",
+      "metric": "two-cluster kind parity receipts",
+      "value": "40",
+      "total": "40",
+      "status": "partial",
+      "source": "data/live-kind-parity/summary.csv",
+      "note": "Committed two-cluster parity receipts for the top-20 base variants, including pass and non-pass results."
     },
     {
       "section": "quirks",

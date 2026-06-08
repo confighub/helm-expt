@@ -26,12 +26,14 @@ Which detailed CSV should I open next?
 | proof lanes | local live rows | 21/156 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | GitOps/OCI live pass rows | 12/156 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | live Helm-vs-ConfigHub parity pass rows | 10/156 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | two-cluster kind parity pass rows | 25/40 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | complete core lane rows | 6/156 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | derived variants | derived variant golden rows | 10/10 | good | [data/variant-goldens/derived-expansion-wave/work-orders.csv](../../data/variant-goldens/derived-expansion-wave/work-orders.csv) |
 | derived variants | derived variant live create receipts | 10/10 | good | [runs/derived-variant-execution](../../runs/derived-variant-execution) |
 | derived variants | target-bound derived variant receipts | 6/10 | partial | [runs/derived-variant-target-bound](../../runs/derived-variant-target-bound) |
 | live evidence | runtime/GitOps wave rows | 10/10 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
 | live evidence | live Helm-vs-ConfigHub receipts | 20/20 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | two-cluster kind parity receipts | 40/40 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | quirks | tracked-and-surfaced axes | 8/25 | good | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
 | quirks | partly tracked axes | 3/25 | partial | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
 | quirks | source-scanned but not surfaced axes | 5/25 | gap | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
@@ -67,10 +69,17 @@ for exact chart/base lane status.
 | local live | 21 | 0 | 135 | 156 |
 | GitOps/OCI live | 12 | 7 | 137 | 156 |
 | live Helm-vs-ConfigHub parity | 10 | 10 | 136 | 156 |
+| two-cluster kind parity | 25 | 15 | 0 | 40 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
 prerequisite, runtime behavior, or provisioning boundary rather than a render
 parity failure.
+
+The two-cluster kind parity lane is the cleanest live comparison for chart/base
+rows: regular Helm is applied to one vanilla kind cluster and the `cub installer`
+rendered objects are applied to another vanilla kind cluster. The receipts then
+compare the live outcomes. Use
+[live-kind-parity/summary.csv](../live-kind-parity/summary.csv) for those rows.
 
 Current live parity non-pass receipts:
 
