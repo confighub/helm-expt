@@ -203,6 +203,7 @@ def normalize_namespace_references(value, namespace_map: dict[str, str]):
         normalized = namespace_map.get(value, value)
         for source, target in namespace_map.items():
             normalized = normalized.replace(f".{source}.svc", f".{target}.svc")
+            normalized = normalized.replace(f"={source}", f"={target}")
         return normalized
     return value
 

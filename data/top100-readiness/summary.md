@@ -54,8 +54,8 @@ charts with named hard gaps: 25
 
 | Evidence | Count | Meaning |
 | --- | ---: | --- |
-| `live-helm-vs-confighub-parity` | 12 | Plain Helm and ConfigHub delivery reached equivalent live outcomes for at least one variant. |
-| `local-kubernetes-live` | 8 | Rendered objects were applied to Kubernetes and observed for at least one variant. |
+| `live-helm-vs-confighub-parity` | 13 | Plain Helm and ConfigHub delivery reached equivalent live outcomes for at least one variant. |
+| `local-kubernetes-live` | 7 | Rendered objects were applied to Kubernetes and observed for at least one variant. |
 | `render-parity` | 80 | Regular Helm and cub installer setup render-equivalent objects. |
 
 ## How To Read This
@@ -90,7 +90,7 @@ charts with named hard gaps: 25
 | `bitnami/postgresql@18.6.7` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/rabbitmq@16.0.14` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/redis@25.5.3` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |
-| `external-secrets/external-secrets@2.5.0` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | promote a declared production scope when gates pass |
+| `external-secrets/external-secrets@2.5.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |
 | `grafana/grafana@10.5.15` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |
 | `grafana/loki@7.0.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |
 | `grafana/tempo@1.24.4` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | resolve or document: ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |

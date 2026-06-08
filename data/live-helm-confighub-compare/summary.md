@@ -5,8 +5,8 @@ chart/base rows. Each completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 12
-watch: 8
+pass: 13
+watch: 7
 blocked: 0
 not-started: 0
 ```
@@ -23,7 +23,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 | 2 | `metrics-server/metrics-server@3.13.0` | default | pass | - | runs/live-helm-confighub-compare/metrics-server-metrics-server-default/receipt.yaml |
 | 3 | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | watch | - | runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml |
 | 4 | `jetstack/cert-manager@v1.20.2` | crds-enabled | pass | - | runs/live-helm-confighub-compare/jetstack-cert-manager-crds-enabled/receipt.yaml |
-| 5 | `external-secrets/external-secrets@2.5.0` | default | watch | - | runs/live-helm-confighub-compare/external-secrets-external-secrets-default/receipt.yaml |
+| 5 | `external-secrets/external-secrets@2.5.0` | default | pass | - | runs/live-helm-confighub-compare/external-secrets-external-secrets-default/receipt.yaml |
 | 6 | `argo-cd/argo-cd@9.5.15` | default | watch | - | runs/live-helm-confighub-compare/argo-cd-argo-cd-default/receipt.yaml |
 | 7 | `prometheus-community/kube-prometheus-stack@85.3.3` | default | watch | - | runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml |
 | 8 | `bitnami/postgresql@18.6.7` | generated-passwords | pass | - | runs/live-helm-confighub-compare/bitnami-postgresql-generated-passwords/receipt.yaml |

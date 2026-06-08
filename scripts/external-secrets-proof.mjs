@@ -142,6 +142,52 @@ runProofCli({
     ],
   },
   dependencyLockChart: "external-secrets/external-secrets",
+  packageTransformers: [
+    {
+      toolchain: "Kubernetes/YAML",
+      whereResource: "",
+      description: "Set the namespace on every namespaced resource.",
+      invocations: [{ name: "set-namespace", args: ["{{ .Namespace }}"] }],
+    },
+    {
+      toolchain: "Kubernetes/YAML",
+      whereResource:
+        "ConfigHub.ResourceType IN ('rbac.authorization.k8s.io/v1/ClusterRoleBinding', 'rbac.authorization.k8s.io/v1/RoleBinding')",
+      description: "Keep RBAC subject namespaces aligned with the selected install namespace.",
+      invocations: [{ name: "yq-i", args: ['.subjects[]?.namespace = "{{ .Namespace }}"'] }],
+    },
+    {
+      toolchain: "Kubernetes/YAML",
+      whereResource: "ConfigHub.ResourceType = 'apps/v1/Deployment'",
+      description: "Keep external-secrets webhook certificate controller namespace references aligned.",
+      invocations: [
+        {
+          name: "yq-i",
+          args: [
+            '(.spec.template.spec.containers[] | select(.name == "cert-controller").args[3]) = "--service-namespace={{ .Namespace }}"',
+          ],
+        },
+        {
+          name: "yq-i",
+          args: [
+            '(.spec.template.spec.containers[] | select(.name == "cert-controller").args[5]) = "--secret-namespace={{ .Namespace }}"',
+          ],
+        },
+        {
+          name: "yq-i",
+          args: [
+            '(.spec.template.spec.containers[] | select(.name == "webhook").args[2]) = "--dns-name=external-secrets-webhook.{{ .Namespace }}.svc"',
+          ],
+        },
+      ],
+    },
+    {
+      toolchain: "Kubernetes/YAML",
+      whereResource: "ConfigHub.ResourceType = 'admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration'",
+      description: "Keep admission webhook service references aligned with the selected install namespace.",
+      invocations: [{ name: "yq-i", args: ['.webhooks[].clientConfig.service.namespace = "{{ .Namespace }}"'] }],
+    },
+  ],
   controlPoints: [
     { category: "source-lock", status: "handled", evidence: "source-lock.yaml" },
     {

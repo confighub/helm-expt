@@ -50,6 +50,17 @@ import {
 
 const DEFAULT_RENDER_FLAGS = ["--include-crds", "--skip-tests", "--no-hooks"];
 
+function stableJson(value) {
+  if (Array.isArray(value)) return `[${value.map((item) => stableJson(item)).join(",")}]`;
+  if (value && typeof value === "object") {
+    return `{${Object.keys(value)
+      .sort()
+      .map((key) => `${JSON.stringify(key)}:${stableJson(value[key])}`)
+      .join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
+
 // Build the immutable per-chart context derived from the spec. All chart
 // coordinates and conventional names are computed once here so the rest of the
 // kit (and chart specs) never re-derive them inconsistently.
@@ -446,6 +457,7 @@ function generatePackage(ctx) {
             },
           }
         : {}),
+      ...(ctx.spec.packageTransformers?.length ? { transformers: ctx.spec.packageTransformers } : {}),
     },
   });
   if (variants.some((variant) => (variant.targetFacts?.requiredSecrets ?? []).length)) {
@@ -675,6 +687,12 @@ function verifyPackage(ctx) {
   const bases = installer.spec.bases ?? [];
   check(bases.length === variants.length, `package must declare ${variants.length} bases`);
   check(bases.filter((base) => base.default === true).length === 1, "package must have one default base");
+  if (ctx.spec.packageTransformers?.length) {
+    check(
+      stableJson(installer.spec.transformers ?? []) === stableJson(ctx.spec.packageTransformers),
+      "package transformers must match proof spec",
+    );
+  }
   for (const variant of variants) {
     const base = bases.find((item) => item.name === variant.base);
     check(Boolean(base), `missing base ${variant.base}`);

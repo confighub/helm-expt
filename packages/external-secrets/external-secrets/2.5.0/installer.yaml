@@ -15,12 +15,47 @@ spec:
       path: "bases/no-crds"
       description: "external-secrets CRDs disabled variant rendered from external-secrets/external-secrets@2.5.0"
   transformers:
-    # F1 fix: honour `cub installer --namespace X` instead of the frozen upstream
-    # literal — set metadata.namespace on every namespaced resource and rename
-    # the Namespace object. Pattern: installer examples/hello-app/installer.yaml.
-    - toolchain: "Kubernetes/YAML"
+    -
+      toolchain: "Kubernetes/YAML"
       whereResource: ""
       description: "Set the namespace on every namespaced resource."
       invocations:
-        - name: "set-namespace"
-          args: ["{{ .Namespace }}"]
+        -
+          name: "set-namespace"
+          args:
+            - "{{ .Namespace }}"
+    -
+      toolchain: "Kubernetes/YAML"
+      whereResource: "ConfigHub.ResourceType IN ('rbac.authorization.k8s.io/v1/ClusterRoleBinding', 'rbac.authorization.k8s.io/v1/RoleBinding')"
+      description: "Keep RBAC subject namespaces aligned with the selected install namespace."
+      invocations:
+        -
+          name: "yq-i"
+          args:
+            - ".subjects[]?.namespace = \"{{ .Namespace }}\""
+    -
+      toolchain: "Kubernetes/YAML"
+      whereResource: "ConfigHub.ResourceType = 'apps/v1/Deployment'"
+      description: "Keep external-secrets webhook certificate controller namespace references aligned."
+      invocations:
+        -
+          name: "yq-i"
+          args:
+            - "(.spec.template.spec.containers[] | select(.name == \"cert-controller\").args[3]) = \"--service-namespace={{ .Namespace }}\""
+        -
+          name: "yq-i"
+          args:
+            - "(.spec.template.spec.containers[] | select(.name == \"cert-controller\").args[5]) = \"--secret-namespace={{ .Namespace }}\""
+        -
+          name: "yq-i"
+          args:
+            - "(.spec.template.spec.containers[] | select(.name == \"webhook\").args[2]) = \"--dns-name=external-secrets-webhook.{{ .Namespace }}.svc\""
+    -
+      toolchain: "Kubernetes/YAML"
+      whereResource: "ConfigHub.ResourceType = 'admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration'"
+      description: "Keep admission webhook service references aligned with the selected install namespace."
+      invocations:
+        -
+          name: "yq-i"
+          args:
+            - ".webhooks[].clientConfig.service.namespace = \"{{ .Namespace }}\""

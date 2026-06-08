@@ -10,15 +10,15 @@ the status per chart, base variant, derived variant, and Helm feature.
 charts with model support:           100/100
 variant-rich charts:                 54/100
 chart/base rows:                     156
-complete core lane rows:             8/156
+complete core lane rows:             9/156
 render parity rows:                  156/156
 in-ConfigHub proof rows:             18/156
 local live rows:                     21/156
-GitOps/OCI live pass rows:           14/156
-GitOps/OCI non-pass receipts:        12
-live Helm-vs-ConfigHub pass rows:    12/156
-live Helm-vs-ConfigHub non-pass receipts: 8
-selected live parity receipts:       12 pass, 8 watch, 0 blocked
+GitOps/OCI live pass rows:           15/156
+GitOps/OCI non-pass receipts:        11
+live Helm-vs-ConfigHub pass rows:    13/156
+live Helm-vs-ConfigHub non-pass receipts: 7
+selected live parity receipts:       13 pass, 7 watch, 0 blocked
 two-cluster kind parity receipts:    25 pass, 3 watch, 12 blocked
 derived intended-state pass rows:    10
 target-bound derived pass rows:      5
@@ -61,7 +61,7 @@ hook lifecycle receipts present:     0
 | `bitnami/postgresql@18.6.7` | generated-passwords;existing-secret | yes | 0/2 | 1/2 | 2/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords;existing-secret | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/redis@25.5.3` | default;reuse-existing-secret | yes | 1/2 | 2/2 | 2/2 | 1/2 | 2/2 | - |
-| `external-secrets/external-secrets@2.5.0` | default;no-crds | yes | 1/2 | 1/2 | 0/2 | 0/2 | 1/2 | - |
+| `external-secrets/external-secrets@2.5.0` | default;no-crds | yes | 1/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
 | `grafana/grafana@10.5.15` | generated-passwords;existing-secret-ingress | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | - |
 | `grafana/loki@7.0.0` | single-binary-filesystem;simple-scalable-minio | yes | 1/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
 | `grafana/tempo@1.24.4` | local-persistent;s3-query-observability | yes | 1/2 | 1/2 | 0/2 | 0/2 | 0/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
