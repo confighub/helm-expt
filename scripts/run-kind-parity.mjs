@@ -159,6 +159,7 @@ function writeSummary() {
       version: receipt.spec?.version,
       base: receipt.spec?.base,
       result: receipt.spec?.result,
+      reason: classifyReceipt(receipt),
       receipt: relativeRepo(path),
     };
   }).sort((a, b) => `${a.chart}@${a.version}/${a.base}`.localeCompare(`${b.chart}@${b.version}/${b.base}`));
@@ -175,13 +176,43 @@ watch: ${counts.get("watch") ?? 0}
 blocked: ${counts.get("blocked") ?? 0}
 \`\`\`
 
-| Chart | Base | Result | Receipt |
-| --- | --- | --- | --- |
-${rows.map((row) => `| \`${row.chart}@${row.version}\` | ${row.base} | ${row.result} | ${row.receipt} |`).join("\n")}
+| Chart | Base | Result | Reason | Receipt |
+| --- | --- | --- | --- | --- |
+${rows.map((row) => `| \`${row.chart}@${row.version}\` | ${row.base} | ${row.result} | ${row.reason} | ${row.receipt} |`).join("\n")}
 `;
   write(join(root, "summary.md"), md);
   write(join(root, "summary.csv"), toCsv(rows));
   console.log(`wrote ${relativeRepo(join(root, "summary.md"))}`);
+}
+
+function classifyReceipt(receipt) {
+  const spec = receipt.spec ?? {};
+  if (spec.result === "pass") return "";
+
+  const semantic = spec.semanticComparison?.helmVsCubInstallerApply;
+  const semanticDiffs = semantic?.semanticDiffs ?? [];
+  const semanticPassed = semantic?.result === "pass";
+  const semanticFailed = semantic?.result === "blocked" || semanticDiffs.length > 0;
+  if (semanticFailed) return "parity: semantic object diff";
+
+  const text = JSON.stringify(spec).toLowerCase();
+  const paritySuffix = semanticPassed ? " (parity passed)" : "";
+  if (text.includes("no matches for kind") || text.includes("ensure crds are installed first") || text.includes("resource mapping not found")) {
+    return `target-prerequisite: CRDs missing${paritySuffix}`;
+  }
+  if (spec.base === "no-crds" && text.includes("crashloopbackoff")) {
+    return `target-prerequisite: CRDs disabled or missing${paritySuffix}`;
+  }
+  if (text.includes("startupapicheck") || text.includes("failed post-install")) {
+    return `helm-hook: post-install hook failed${paritySuffix}`;
+  }
+  if (text.includes("crashloopbackoff")) return `target-runtime: pod crash loop${paritySuffix}`;
+  if (text.includes("pending")) return `target-runtime: pods pending${paritySuffix}`;
+  if (text.includes("available: 0/1") || text.includes("ready: 0/1") || text.includes('"ready":"0/1"') || text.includes("context deadline exceeded")) {
+    return `helm-runtime: upstream not ready${paritySuffix}`;
+  }
+  if (spec.result === "watch") return semanticPassed ? "watch: object parity passed; readiness needs review" : "watch: inspect receipt";
+  return "blocked: inspect receipt";
 }
 
 function verifyReceipts() {
@@ -252,7 +283,7 @@ function optionValue(name) {
 }
 
 function toCsv(rows) {
-  const headers = ["chart", "version", "base", "result", "receipt"];
+  const headers = ["chart", "version", "base", "result", "reason", "receipt"];
   return `${[headers.join(","), ...rows.map((row) => headers.map((header) => csvEscape(row[header])).join(","))].join("\n")}\n`;
 }
 
