@@ -126,6 +126,7 @@ function buildEntry(indexPath) {
     status: spec.catalogStatus?.status ?? "",
     supportLevel: spec.catalogStatus?.supportLevel ?? "",
     productionReadiness: spec.catalogStatus?.productionReadiness ?? "",
+    proofSummary: spec.proofSummary ?? {},
     startVariant: startVariant?.name ?? "",
     variants,
   };
@@ -137,6 +138,9 @@ function chartSection(entry) {
     "",
     `Status: ${entry.status}`,
     `Production readiness: ${entry.productionReadiness}`,
+    `Strongest evidence: ${entry.proofSummary.strongestEvidence || "see per-chart catalog"}`,
+    `Proof lanes: ${proofLaneText(entry.proofSummary.proofLanes)}`,
+    `Hard gap: ${entry.proofSummary.hardGap || "-"}`,
     `Package: ${link(entry.package, entry.package)}`,
     `Per-chart catalog: ${link("CATALOG.md", entry.catalog)}`,
     ...(entry.helmPainReport ? [`Helm pain report: ${link("helm-pain-report.yaml", entry.helmPainReport)}`] : []),
@@ -177,10 +181,12 @@ function variantSection(variant, startVariant) {
 
 function liveTestedTable(entries) {
   return markdownTable(
-    ["Chart", "Start With", "Variants", "Package", "Catalog"],
+    ["Chart", "Start With", "Evidence", "Hard Gap", "Variants", "Package", "Catalog"],
     entries.map((entry) => [
       `${entry.chart}@${entry.version}`,
       entry.startVariant,
+      entry.proofSummary.strongestEvidence || "-",
+      entry.proofSummary.hardGap || "-",
       entry.variants.map((variant) => variant.name).join(", "),
       link(entry.package, entry.package),
       link("CATALOG.md", entry.catalog),
@@ -197,16 +203,28 @@ function entrylessCatalogPath(variantPath) {
 
 function summaryTable(entries) {
   return markdownTable(
-    ["Chart", "Status", "Start With", "All Variants", "Package", "Catalog"],
+    ["Chart", "Status", "Bucket", "Evidence", "Start With", "Hard Gap", "Catalog"],
     entries.map((entry) => [
       `${entry.chart}@${entry.version}`,
       entry.status,
+      entry.proofSummary.adoptionBucket || "-",
+      entry.proofSummary.strongestEvidence || "-",
       entry.startVariant,
-      entry.variants.map((variant) => variant.name).join(", "),
-      link(entry.package, entry.package),
+      entry.proofSummary.hardGap || "-",
       link("CATALOG.md", entry.catalog),
     ]),
   );
+}
+
+function proofLaneText(lanes) {
+  if (!lanes) return "-";
+  return [
+    `render parity ${lanes.renderParity || "-"}`,
+    `ConfigHub ${lanes.inConfigHub || "-"}`,
+    `local live ${lanes.localLive || "-"}`,
+    `GitOps live ${lanes.gitopsLive || "-"}`,
+    `live parity ${lanes.liveParity || "-"}`,
+  ].join("; ");
 }
 
 function markdownTable(headers, rows) {
