@@ -9,18 +9,22 @@ const mode = process.argv[2] ?? "--generate";
 const outDir = join(repoRoot, "data", "status-dashboard");
 const summaryPath = join(outDir, "summary.md");
 const csvPath = join(outDir, "status.csv");
+const top20Path = join(outDir, "top20-status.csv");
 
 if (mode === "--generate") {
   const report = buildReport();
   write(summaryPath, report.summary);
   write(csvPath, report.csv);
+  write(top20Path, report.top20Csv);
   console.log("wrote status dashboard");
 } else if (mode === "--verify") {
   const report = buildReport();
   check(existsSync(summaryPath), "data/status-dashboard/summary.md is missing; run npm run status:dashboard");
   check(existsSync(csvPath), "data/status-dashboard/status.csv is missing; run npm run status:dashboard");
+  check(existsSync(top20Path), "data/status-dashboard/top20-status.csv is missing; run npm run status:dashboard");
   check(readFileSync(summaryPath, "utf8") === report.summary, "data/status-dashboard/summary.md is stale; run npm run status:dashboard");
   check(readFileSync(csvPath, "utf8") === report.csv, "data/status-dashboard/status.csv is stale; run npm run status:dashboard");
+  check(readFileSync(top20Path, "utf8") === report.top20Csv, "data/status-dashboard/top20-status.csv is stale; run npm run status:dashboard");
   console.log(`verified status dashboard for ${report.rows.length} metric(s)`);
 } else {
   console.log(`Usage:
@@ -76,7 +80,14 @@ function buildReport() {
   rows.push(metric("hooks", "top100 maintained hook charts", hookRows.length, hookRows.length, "partial", "data/hook-lifecycle/top100-hooks.csv", "Hook-bearing maintained charts with required lifecycle receipt paths."));
   rows.push(metric("hooks", "hook lifecycle receipts present", hookRows.filter((row) => row.lifecycle_disposition === "lifecycle-observed").length, hookRows.length, "gap", "data/hook-lifecycle/top100-hooks.csv", "Current hook rows still need lifecycle route and receipt work."));
 
-  return { rows, csv: toCsv(rows), summary: summary(rows, { chartRows, baseRows, top100Rows, quirkRows, hookRows, liveRows, kindParityRows, runtimeRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount }) };
+  const top20Rows = top20StatusRows(top100Rows);
+  return {
+    rows,
+    csv: toCsv(rows),
+    top20Rows,
+    top20Csv: top20ToCsv(top20Rows),
+    summary: summary(rows, { chartRows, baseRows, top100Rows, top20Rows, quirkRows, hookRows, liveRows, kindParityRows, runtimeRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount }),
+  };
 }
 
 function summary(rows, context) {
@@ -121,6 +132,21 @@ The top100 is model-supported, but not uniformly live-proven. Use
 [top100-readiness/readiness.csv](../top100-readiness/readiness.csv) for one row
 per chart, and [outcome-coverage/base-outcomes.csv](../outcome-coverage/base-outcomes.csv)
 for exact chart/base lane status.
+
+## Top20 Catalog Status
+
+This is the compact chart-by-chart view for the public catalog. It shows the
+supported base variants, current evidence strength, and lane counts. Use
+[top20-status.csv](top20-status.csv) when you want the same data in a
+spreadsheet.
+
+| Chart | Variants | Strongest evidence | Render | ConfigHub | Local live | GitOps live | Live parity | Hard gap |
+| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
+${context.top20Rows.map((row) => `| ${row.chart} | ${row.variants} | ${row.strongest_evidence} | ${row.render_parity} | ${row.in_confighub} | ${row.local_live} | ${row.gitops_live} | ${row.live_parity} | ${row.hard_gap} |`).join("\n")}
+
+The table is deliberately lane-specific. A chart can be useful today without
+every lane passing for every base variant. The exact per-base rows are in
+[outcome-coverage/base-outcomes.csv](../outcome-coverage/base-outcomes.csv).
 
 ## Live And Parity Residue
 
@@ -255,6 +281,46 @@ function parseCsv(text) {
 
 function toCsv(rows) {
   const headers = ["section", "metric", "value", "total", "status", "source", "note"];
+  return `${headers.join(",")}\n${rows.map((row) => headers.map((header) => csvCell(row[header] ?? "")).join(",")).join("\n")}\n`;
+}
+
+function top20StatusRows(top100Rows) {
+  return top100Rows
+    .filter((row) => row.catalog_tier === "top20-catalog-supported")
+    .map((row) => ({
+      rank: row.proof_surface_rank,
+      chart: row.chart,
+      variants: row.variants,
+      user_status: row.user_status,
+      strongest_evidence: row.strongest_evidence,
+      render_parity: row.render_parity,
+      in_confighub: row.in_confighub,
+      local_live: row.local_live,
+      gitops_live: row.gitops_live,
+      live_parity: row.live_parity,
+      hard_gap: row.hard_gap,
+      next_action: row.next_action,
+      catalog_path: row.catalog_path,
+    }))
+    .sort((a, b) => Number(a.rank) - Number(b.rank));
+}
+
+function top20ToCsv(rows) {
+  const headers = [
+    "rank",
+    "chart",
+    "variants",
+    "user_status",
+    "strongest_evidence",
+    "render_parity",
+    "in_confighub",
+    "local_live",
+    "gitops_live",
+    "live_parity",
+    "hard_gap",
+    "next_action",
+    "catalog_path",
+  ];
   return `${headers.join(",")}\n${rows.map((row) => headers.map((header) => csvCell(row[header] ?? "")).join(",")).join("\n")}\n`;
 }
 

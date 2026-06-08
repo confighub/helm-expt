@@ -15,6 +15,7 @@ What is the current status for each chart, base, derived variant, and feature?
 | File | Use it for |
 | --- | --- |
 | [status-dashboard/summary.md](./status-dashboard/summary.md) | Start here for a one-page status dashboard: top100, proof lanes, hooks, quirks, GitOps, and live parity. |
+| [status-dashboard/top20-status.csv](./status-dashboard/top20-status.csv) | Compact chart-by-chart status for the top-20 public catalog: variants, evidence strength, proof lanes, gaps, next action. |
 | [outcome-coverage/summary.md](./outcome-coverage/summary.md) | Start here. Outcome promises, tests that prove them, and links to the four front-door CSVs. |
 | [outcome-coverage/chart-outcomes.csv](./outcome-coverage/chart-outcomes.csv) | One row per chart: model support, production readiness, lane counts, hard gaps, feature summary. |
 | [outcome-coverage/base-outcomes.csv](./outcome-coverage/base-outcomes.csv) | One row per chart/base variant: render parity, ConfigHub proof, local live, GitOps/OCI live, live Helm parity. |
@@ -95,7 +96,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 58 CSV files. Each row records the path, audience,
+It includes 59 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
