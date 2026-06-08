@@ -79,6 +79,15 @@ def load_yaml(path: Path) -> dict:
     return yaml.load(path.read_text(), Loader=KubernetesYamlLoader) or {}
 
 
+def semantic_normalizations_for(revision_path: Path) -> list[str]:
+    receipt_path = revision_path.parent / "receipts" / "helm-equivalence-receipt.yaml"
+    if not receipt_path.exists():
+        return []
+    receipt = load_yaml(receipt_path)
+    values = ((receipt.get("spec") or {}).get("semanticNormalizations") or [])
+    return [str(item) for item in values if isinstance(item, str)]
+
+
 def raw_values_file(source: Path, destination: Path) -> Path:
     data = load_yaml(source)
     if data.get("kind") == "EffectiveValues" and isinstance(data.get("spec", {}).get("values"), dict):
@@ -112,7 +121,32 @@ def prune(value):
     return value
 
 
-def object_map(text: str) -> dict[str, str]:
+def trim_command_block_leading_newline(value, key: str | None = None):
+    if isinstance(value, dict):
+        return {item_key: trim_command_block_leading_newline(item, item_key) for item_key, item in value.items()}
+    if isinstance(value, list):
+        return [trim_command_block_leading_newline(item, key) for item in value]
+    if key in {"args", "command"} and isinstance(value, str) and value.startswith("\n"):
+        return value[1:]
+    return value
+
+
+def apply_semantic_normalizations(doc: dict, semantic_normalizations: list[str]) -> dict:
+    identity = object_identity(doc)
+    if (
+        "loki-configmap-leading-blank-line-pruned-by-kustomize" in semantic_normalizations
+        and identity == "v1|ConfigMap|loki|loki"
+    ):
+        config = doc.get("data", {}).get("config.yaml")
+        if isinstance(config, str) and config.startswith("\n"):
+            doc["data"]["config.yaml"] = config[1:]
+    if "trim-leading-command-block-newline" in semantic_normalizations:
+        doc = trim_command_block_leading_newline(doc)
+    return doc
+
+
+def object_map(text: str, semantic_normalizations: list[str] | None = None) -> dict[str, str]:
+    semantic_normalizations = semantic_normalizations or []
     result = {}
     for doc in yaml_docs(text):
         meta = doc.get("metadata")
@@ -125,6 +159,7 @@ def object_map(text: str) -> dict[str, str]:
         for optional_map in ("annotations", "labels"):
             if meta.get(optional_map) == {}:
                 meta.pop(optional_map, None)
+        doc = apply_semantic_normalizations(doc, semantic_normalizations)
         result[object_identity(doc)] = json.dumps(doc, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
     return result
 
@@ -326,24 +361,25 @@ def wait_ready_many(kubeconfig: Path, context: str, namespaces: list[str], timeo
     }
 
 
-def semantic_compare(helm_yaml: str, installer_yaml: str, allowed_extra: list[str]) -> dict:
-    helm = object_map(helm_yaml)
-    installer = object_map(installer_yaml)
+def semantic_compare(
+    helm_yaml: str,
+    installer_yaml: str,
+    allowed_extra: list[str],
+    semantic_normalizations: list[str] | None = None,
+) -> dict:
+    semantic_normalizations = semantic_normalizations or []
+    helm = object_map(helm_yaml, semantic_normalizations)
+    installer = object_map(installer_yaml, semantic_normalizations)
     helm_keys = set(helm)
     installer_keys = set(installer)
     missing = sorted(helm_keys - installer_keys)
     extra = sorted(installer_keys - helm_keys)
     common = sorted(helm_keys & installer_keys)
     diffs = []
-    normalizations = []
     for key in common:
         if helm[key] == installer[key]:
             continue
-        normalization = allowed_semantic_normalization(key, helm[key], installer[key])
-        if normalization:
-            normalizations.append(normalization)
-        else:
-            diffs.append(key)
+        diffs.append(key)
     return {
         "result": "pass" if not missing and extra == allowed_extra and not diffs else "blocked",
         "helmObjectCount": len(helm_keys),
@@ -351,55 +387,14 @@ def semantic_compare(helm_yaml: str, installer_yaml: str, allowed_extra: list[st
         "missingFromInstaller": missing,
         "extraInInstaller": extra,
         "semanticDiffs": diffs[:50],
-        "allowedSemanticNormalizations": normalizations,
+        "semanticNormalizations": semantic_normalizations,
         "comparisonSHA256": sha256_text(json.dumps({
             "missing": missing,
             "extra": extra,
             "diffs": diffs,
-            "normalizations": normalizations,
+            "semanticNormalizations": semantic_normalizations,
         }, sort_keys=True)),
     }
-
-
-def allowed_semantic_normalization(key: str, helm_json: str, installer_json: str) -> dict | None:
-    if key == "v1|ConfigMap|loki|loki":
-        helm_doc = json.loads(helm_json)
-        installer_doc = json.loads(installer_json)
-        config = (helm_doc.get("data") or {}).get("config.yaml")
-        if isinstance(config, str):
-            helm_doc["data"]["config.yaml"] = config[1:] if config.startswith("\n") else config
-            if json.dumps(helm_doc, sort_keys=True, separators=(",", ":"), ensure_ascii=True) == installer_json:
-                return {
-                    "object": key,
-                    "path": "data.config.yaml",
-                    "rule": "ignore-single-leading-newline",
-                    "reason": "cub installer rendering removes an initial blank line from the embedded Loki YAML string; the parsed Loki configuration is unchanged.",
-                }
-    if key == "apps/v1|StatefulSet|consul|consul-consul-server":
-        helm_doc = json.loads(helm_json)
-        installer_doc = json.loads(installer_json)
-        normalize_leading_newlines(helm_doc)
-        normalize_leading_newlines(installer_doc)
-        if json.dumps(helm_doc, sort_keys=True, separators=(",", ":"), ensure_ascii=True) == json.dumps(installer_doc, sort_keys=True, separators=(",", ":"), ensure_ascii=True):
-            return {
-                "object": key,
-                "path": "spec.template.spec.containers[].command[]",
-                "rule": "ignore-leading-newlines-in-command-strings",
-                "reason": "the only difference is an initial blank line in a shell command block; /bin/sh -ec executes the same script.",
-            }
-    return None
-
-
-def normalize_leading_newlines(value) -> None:
-    if isinstance(value, list):
-        for index, item in enumerate(value):
-            if isinstance(item, str):
-                value[index] = item.lstrip("\n")
-            else:
-                normalize_leading_newlines(item)
-    elif isinstance(value, dict):
-        for item in value.values():
-            normalize_leading_newlines(item)
 
 
 def create_kind_cluster(name: str, kubeconfig: Path) -> tuple[int, str, str]:
@@ -537,6 +532,8 @@ def main() -> int:
             if not path.exists():
                 raise RuntimeError(f"{label} path not found: {path}")
         canonical_helm_manifest = canonical_rendered_path.read_text()
+        semantic_normalizations = semantic_normalizations_for(revision_path)
+        receipt["spec"]["semanticComparison"]["semanticNormalizations"] = semantic_normalizations
         variant = load_yaml(variant_path)
         write_text(run_root / "canonical-helm-render.yaml", canonical_helm_manifest)
         helm_values_path = raw_values_file(values_path, run_root / "regular-helm-values.yaml")
@@ -643,6 +640,7 @@ def main() -> int:
             canonical_helm_manifest,
             installer_manifest,
             [f"v1|Namespace||{args.namespace}"],
+            semantic_normalizations,
         )
         receipt["spec"]["semanticComparison"]["helmVsCubInstallerApply"] = comparison
         check_item("semantic-object-parity", comparison["result"], f"missing={len(comparison['missingFromInstaller'])} extra={comparison['extraInInstaller']} diffs={len(comparison['semanticDiffs'])}")
