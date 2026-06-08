@@ -155,6 +155,7 @@ function followupForTwoCluster(row) {
 function markdown(rows) {
   const counts = countBy(rows, "lane");
   const resultCounts = countBy(rows, "current_result");
+  const laneResults = countByLaneAndResult(rows);
   const semanticDefects = rows.filter((row) => row.reason?.startsWith("parity:")).length;
   const infraRows = rows.filter((row) => row.reason?.startsWith("infra:")).length;
   const prerequisiteRows = rows.filter((row) => row.reason?.startsWith("target-prerequisite:") || row.reason?.startsWith("helm-hook:")).length;
@@ -186,6 +187,19 @@ prerequisite-or-lifecycle-rows: ${prerequisiteRows}
 runtime-or-watch-rows: ${runtimeRows}
 \`\`\`
 
+## Lane Breakdown
+
+| Lane | Rows | Pass | Watch | Blocked | Fail |
+| --- | ---: | ---: | ---: | ---: | ---: |
+${["configHub-oci-live-comparison", "two-cluster-kind-parity"].map((lane) => {
+  const row = laneResults[lane] ?? {};
+  return `| ${lane} | ${counts[lane] ?? 0} | ${row.pass ?? 0} | ${row.watch ?? 0} | ${row.blocked ?? 0} | ${row.fail ?? 0} |`;
+}).join("\n")}
+
+The ConfigHub/OCI live comparison rows in this queue are current \`watch\` rows.
+They have semantic parity and need runtime, target, or controller-health review.
+The \`blocked\` rows are currently from the two-cluster kind parity lane.
+
 ## Recommended Order
 
 1. Inspect any \`parity:\` rows first. Those are the only rows that currently
@@ -214,6 +228,15 @@ data/live-parity-rerun-plan/rerun-plan.csv
 function countBy(rows, key) {
   const result = {};
   for (const row of rows) result[row[key]] = (result[row[key]] ?? 0) + 1;
+  return result;
+}
+
+function countByLaneAndResult(rows) {
+  const result = {};
+  for (const row of rows) {
+    result[row.lane] ??= {};
+    result[row.lane][row.current_result] = (result[row.lane][row.current_result] ?? 0) + 1;
+  }
   return result;
 }
 

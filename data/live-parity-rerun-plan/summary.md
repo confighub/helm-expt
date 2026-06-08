@@ -21,6 +21,17 @@ prerequisite-or-lifecycle-rows: 5
 runtime-or-watch-rows: 15
 ```
 
+## Lane Breakdown
+
+| Lane | Rows | Pass | Watch | Blocked | Fail |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| configHub-oci-live-comparison | 5 | 0 | 5 | 0 | 0 |
+| two-cluster-kind-parity | 15 | 0 | 3 | 12 | 0 |
+
+The ConfigHub/OCI live comparison rows in this queue are current `watch` rows.
+They have semantic parity and need runtime, target, or controller-health review.
+The `blocked` rows are currently from the two-cluster kind parity lane.
+
 ## Recommended Order
 
 1. Inspect any `parity:` rows first. Those are the only rows that currently
