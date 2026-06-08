@@ -95,6 +95,7 @@ function html(catalog) {
     ["Render parity rows", metricValue(metric("render parity rows"))],
     ["Catalog-supported charts", metricValue(metric("catalog-supported charts"))],
     ["Proof-grade non-catalog", metricValue(metric("proof-grade non-catalog charts"))],
+    ["Derived create receipts", metricValue(metric("derived variant live create receipts"))],
     ["GitOps/OCI live pass", metricValue(metric("GitOps/OCI live pass rows"))],
     ["Live parity pass", metricValue(metric("live Helm-vs-ConfigHub parity pass rows"))],
   ];
@@ -103,6 +104,8 @@ function html(catalog) {
     "local live rows",
     "GitOps/OCI live pass rows",
     "live Helm-vs-ConfigHub parity pass rows",
+    "derived variant live create receipts",
+    "target-bound derived variant receipts",
     "hook lifecycle receipts present",
     "not-scanned axes",
   ]
