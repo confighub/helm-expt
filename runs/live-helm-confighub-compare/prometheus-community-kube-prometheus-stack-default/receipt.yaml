@@ -6,47 +6,235 @@ spec:
   chart: prometheus-community/kube-prometheus-stack
   version: 85.3.3
   base: default
-  result: blocked
-  observedAt: '2026-06-05T20:40:29Z'
+  result: watch
+  observedAt: '2026-06-08T11:03:21Z'
   package:
     path: packages/prometheus-community/kube-prometheus-stack/85.3.3
   recipe:
     path: recipes/prometheus-community/kube-prometheus-stack/85.3.3
   variantRevision: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/variant-revision.yaml
   run:
-    rig: helm-expt-parity-kubeprometheudecd9-mq1e22yc-126g
-    kubeContext: kind-helm-expt-parity-kubeprometheudecd9-mq1e22yc-126g
+    rig: helm-expt-parity-kubeprometheudecd9-mq53rg0n-1vqt
+    kubeContext: kind-helm-expt-parity-kubeprometheudecd9-mq53rg0n-1vqt
     namespace: monitoring
     legNamespaces:
       regularHelm: monitoring-helm
       configHubKubectlApply: monitoring-apply
       configHubOciArgo: monitoring-oci
-    clusterLifecycle: cleanup-failed
+    clusterLifecycle: cleaned-up
     cleanup:
-      command: cub lk down --name helm-expt-parity-kubeprometheudecd9-mq1e22yc-126g
-      result: blocked
-      detail: 'Error: no lk-managed Space for "helm-expt-parity-kubeprometheudecd9-mq1e22yc-126g"
-        in the current cub context (are you in the right context?). Pass --force to
-        delete the local kind cluster + kubeconfig anyway
+      command: cub lk down --name helm-expt-parity-kubeprometheudecd9-mq53rg0n-1vqt
+        --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-kubeprometheudecd9-mq53rg0n-1vqt"...
 
-        Error: no lk-managed Space for "helm-expt-parity-kubeprometheudecd9-mq1e22yc-126g"
-        in the current cub context (are you in the right context?). Pass --force to
-        delete the local kind cluster + kubeconfig anyway'
-  legs: {}
+        Deleting cluster "helm-expt-parity-kubeprometheudecd9-mq53rg0n-1vqt" ...
+
+        Deleted nodes: ["helm-expt-parity-kubeprometheudecd9-mq53rg0n-1vqt-control-plane"]
+
+        Deleting Space "helm-expt-parity-kubeprometheudecd9-mq53rg0n-1vqt-cluster"
+        (recursive: cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install kube-prometheus-stack kube-prometheus-stack
+        --repo https://prometheus-community.github.io/helm-charts --version 85.3.3
+        --namespace monitoring-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 9fac2a0e4140eee298c84ce61f13dd8ca392bb92e2037d0ef0aaa4d8015ee491
+      objectCount: 124
+      liveHelmManifestSHA256: 8a9159bfcc727741d3637bbc8a715e627a44e4385ad66ff3a89c04c66e51f2b3
+      liveHelmManifestObjectCount: 114
+      namespace: monitoring-helm
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/kube-prometheus-stack-grafana              1/1   1     1     95s
+
+          deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1   1     1     95s
+
+          deployment.apps/kube-prometheus-stack-operator             1/1   1     1     95s
+
+          statefulset.apps/alertmanager-kube-prometheus-stack-alertmanager   1/1   88s
+
+          statefulset.apps/prometheus-kube-prometheus-stack-prometheus       1/1   88s
+
+          daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   95s'
+        pods: 'alertmanager-kube-prometheus-stack-alertmanager-0           2/2   Running   0     88s
+
+          kube-prometheus-stack-grafana-689f864759-r9pbq              3/3   Running   0     95s
+
+          kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-t5875   1/1   Running   0     95s
+
+          kube-prometheus-stack-operator-6d54798576-brw7n             1/1   Running   0     95s
+
+          kube-prometheus-stack-prometheus-node-exporter-26lkq        1/1   Running   0     95s
+
+          prometheus-kube-prometheus-stack-prometheus-0               2/2   Running   0     88s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: watch
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/kube-prometheus-stack/85.3.3
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kubeprometheudecd9-mq53rg0n-1vqt-kube-prometheus-stack
+        --non-interactive --namespace monitoring-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 985082ab8217bd3dfff6cc111df3932548ea85ec1c75b7d723a35499c205e337
+      objectCount: 125
+      namespace: monitoring-apply
+      manifestNamespaces:
+      - kube-system
+      - monitoring
+      - monitoring-apply
+      runtimeNamespaces: &id001
+      - monitoring
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# monitoring
+
+          deployment.apps/kube-prometheus-stack-grafana              1/1   1     1     4m54s
+
+          deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1   1     1     4m54s
+
+          deployment.apps/kube-prometheus-stack-operator             0/1   1     0     4m54s
+
+          daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   4m54s'
+        pods: '# monitoring
+
+          kube-prometheus-stack-grafana-689f864759-7qjgk              3/3   Running             0     4m53s
+
+          kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-9wksd   1/1   Running             0     4m53s
+
+          kube-prometheus-stack-operator-6d54798576-r7x46             0/1   ContainerCreating   0     4m53s
+
+          kube-prometheus-stack-prometheus-node-exporter-5vwwb        1/1   Running             0     4m53s'
+        notReady:
+        - namespace: monitoring
+          pod: kube-prometheus-stack-operator-6d54798576-r7x46
+          ready: 0/1
+          status: ContainerCreating
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-kubeprometheudecd9-mq53rg0n-1vqt-kube-prometheus-stack
+      controller: Argo CD OCI
+      app: kube-prometheus-stack-parity
+      manifestSHA256: 9a05df891f1cd2c70935b20d648e29f4f9d6e4d9f5427a7752bff3e7e3bd9245
+      objectCount: 125
+      namespace: monitoring-oci
+      manifestNamespaces:
+      - kube-system
+      - monitoring
+      - monitoring-oci
+      runtimeNamespaces: &id002
+      - monitoring
+      ociRevision: sha256:06c6681ef1a3b4bbad2555f33aaf8ed794f80341cc09d6b3adc7fac1861c9fa6
+      sync: Synced
+      health: Degraded
+      separatedSecrets:
+      - secret-monitoring-alertmanager-kube-prometheus-stack-alertmanager.yaml
+      - secret-monitoring-kube-prometheus-stack-grafana.yaml
+      runtime:
+        result: watch
+        namespaces: *id002
+        workloads: '# monitoring
+
+          deployment.apps/kube-prometheus-stack-grafana              1/1   1     1     21m
+
+          deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1   1     1     21m
+
+          deployment.apps/kube-prometheus-stack-operator             0/1   1     0     21m
+
+          daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   21m'
+        pods: '# monitoring
+
+          kube-prometheus-stack-grafana-689f864759-7qjgk              3/3   Running             0     21m
+
+          kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-9wksd   1/1   Running             0     21m
+
+          kube-prometheus-stack-operator-6d54798576-r7x46             0/1   ContainerCreating   0     21m
+
+          kube-prometheus-stack-prometheus-node-exporter-5vwwb        1/1   Running             0     21m'
+        notReady:
+        - namespace: monitoring
+          pod: kube-prometheus-stack-operator-6d54798576-r7x46
+          ready: 0/1
+          status: ContainerCreating
   semanticComparison:
     allowedExtraConfigHubObjects:
     - v1|Namespace||monitoring
+    semanticNormalizations: &id003
+    - prune-null-fields
+    - prune-empty-metadata-maps
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 124
+      configHubObjectCount: 125
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||monitoring
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 4472b0dababd206e1f005dd3d9f8e63cebe5cfea6a72b65bc9dfe6e66f822921
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 124
+      configHubObjectCount: 125
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||monitoring
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 4472b0dababd206e1f005dd3d9f8e63cebe5cfea6a72b65bc9dfe6e66f822921
   checks:
-  - name: failure
-    result: blocked
-    detail: 'cub lk up failed: Error: wait for argocd-server: kubectl wait --for=condition=Available
-      --timeout=5m deployment/argocd-server -n argocd: exit status 1
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-kubeprometheudecd9-mq53rg0n-1vqt\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-kubeprometheudecd9-mq53rg0n-1vqt.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-kubeprometheudecd9-mq53rg0n-1vqt\" ...\n\
+      \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
+      \ \U0001F4E6   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-kubeprometheudecd9-mq53rg0n-1vqt\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-kubeprometheudecd9-mq53rg0n-1vqt\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-kubeprometheudecd9-mq53rg0n-1vqt.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.i"
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"kube-prometheus-stack\" does not exist. Installing it now.\n\
+      NAME: kube-prometheus-stack\nLAST DEPLOYED: Mon Jun  8 12:04:19 2026\nNAMESPACE:\
+      \ monitoring-helm\nSTATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\n\
+      TEST SUITE: None\nNOTES:\nkube-prometheus-stack has been installed. Check its\
+      \ status by running:\n  kubectl --namespace monitoring-helm get pods -l \"release=kube-prometheus-stack\"\
+      \n\nGet Grafana 'admin' user password by running:\n\n  kubectl --namespace monitoring-helm\
+      \ get secrets kube-prometheus-stack-grafana -o jsonpath=\"{.data.admin-password}\"\
+      \ | base64 -d ; echo\n\nAccess Grafana local instance:\n\n  export POD_NAME=$(kubectl\
+      \ --namespace monitoring-helm get pod -l \"app.kubernetes.io/name=grafana,app.kubernetes.io/instance=kube-prometheus-stack\"\
+      \ -oname)\n  kubectl --namespace monitoring-helm port-forward $POD_NAME 3000\n\
+      \nGet your grafana admin user password by running:\n\n  kubectl get secret --namespace\
+      \ monitoring-helm -l app.kubernetes.io/component=admin-secret -o jsonpath=\"\
+      {.ite"
+  - name: confighub-kubectl-apply-live
+    result: watch
+    detail: '# monitoring
 
-      Error: wait for argocd-server: kubectl wait --for=condition=Available --timeout=5m
-      deployment/argocd-server -n argocd: exit status 1'
-  failure:
-    message: 'cub lk up failed: Error: wait for argocd-server: kubectl wait --for=condition=Available
-      --timeout=5m deployment/argocd-server -n argocd: exit status 1
+      deployment.apps/kube-prometheus-stack-grafana              1/1   1     1     4m54s
 
-      Error: wait for argocd-server: kubectl wait --for=condition=Available --timeout=5m
-      deployment/argocd-server -n argocd: exit status 1'
+      deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1   1     1     4m54s
+
+      deployment.apps/kube-prometheus-stack-operator             0/1   1     0     4m54s
+
+      daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   4m54s'
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=Synced health=Degraded after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||monitoring'] diffs=0
