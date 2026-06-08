@@ -6,13 +6,20 @@ commands fit in the Helm experiment.
 They are real and useful commands. They are not the maintained catalog recipe
 path by themselves.
 
+Current command references:
+
+- [`cub helm template`](https://docs.confighub.com/developer/cli/cub_helm_template/)
+- [`cub helm install`](https://docs.confighub.com/developer/cli/cub_helm_install/)
+
 ## Command Roles
 
 | Command | Role | Use it when |
 | --- | --- | --- |
-| `cub helm template` | Local Helm renderer. It renders a chart to stdout or local files and does not require a ConfigHub server connection. | You want quick local inspection, a baseline for comparison, or the first input to recipe analysis. |
-| `cub helm install` | Direct Helm-to-ConfigHub action. It renders a chart and creates ConfigHub Units. | You want a one-shot ConfigHub load from a chart, values, and flags. |
-| `cub installer` package path | Maintained catalog path. It renders from a reviewed recipe/package with named bases, receipts, scans, upload/publish evidence, and live checks. | You want repeatable, supportable, variant-aware Helm-derived configs. |
+| Command | Role | Use it when | What it does not try to be |
+| --- | --- | --- | --- |
+| `cub helm template` | Local Helm renderer. It renders a chart to stdout or local files and does not require a ConfigHub server connection. It can split CRDs from regular resources. | You want quick local inspection, a baseline for comparison, or the first input to recipe analysis. | A durable ConfigHub catalog entry. |
+| `cub helm install` | Direct Helm-to-ConfigHub action. It renders a chart and creates ConfigHub Units. It handles values files, `--set`, CRD splitting, target assignment, and wait behavior. | You want a one-shot ConfigHub load from a chart, values, and flags. | A maintained recipe with supported variants, receipts, and update policy. |
+| `cub installer` package path | Maintained catalog path. It renders from a reviewed recipe/package with named bases, receipts, scans, upload/publish evidence, and live checks. | You want repeatable, supportable, variant-aware Helm-derived configs. | The shortest one-off render/install command. |
 
 ## Direct Render
 
@@ -92,6 +99,29 @@ cub installer import helm
 That command should graduate a direct Helm render or install into a maintained
 recipe/package candidate. Until that product surface exists, helm-expt uses
 repo generators and proof scripts to build and verify the same artifact chain.
+
+The bridge should preserve the useful low-friction paths:
+
+```text
+curious user
+  -> cub helm template
+  -> inspect rendered objects
+
+fast ConfigHub user
+  -> cub helm install
+  -> get ConfigHub Units now
+
+supported catalog user
+  -> cub installer setup --pull <package> --base <base>
+  -> use a reviewed recipe/base variant with receipts
+
+promotion or production user
+  -> ConfigHub variants, scans, changesets, approvals, OCI/GitOps, observations
+```
+
+That is the big-picture rule for the Helm command family. Fast paths should stay
+fast. The catalog path should be chosen when the user wants repeatability,
+variant support, proof, and maintenance.
 
 ## Current Redis Compatibility Check
 
