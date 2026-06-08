@@ -87,14 +87,18 @@ GitOps/OCI live proof has started:
 
 Live Helm-vs-ConfigHub parity has started:
 
-- NGINX `http-clusterip` passes a live comparison between regular Helm,
-  ConfigHub kubectl/apply delivery, and ConfigHub OCI/Argo delivery.
-- Redis `default` passes the same live comparison, including separated Secret
-  staging, four Bound PVCs, StatefulSets Ready, and Redis PONG.
-- The comparison found the expected installer-added Namespace object and no
-  semantic object diffs for the shared Kubernetes objects.
-- Remaining chart-recipe-variant rows are backlog until they have committed
-  receipts.
+- The selected top-20 live comparison lane has committed receipts for all 20
+  rows.
+- 10 rows pass, 2 rows are watch, and 8 rows are blocked.
+- The pass rows include Redis, Metrics Server, cert-manager, PostgreSQL,
+  RabbitMQ, Secrets Store CSI Driver, Prometheus, Grafana, MongoDB, and NGINX.
+- The non-pass rows are still useful. The current triage classifies them as
+  infrastructure/provisioning or upstream-runtime readiness, not semantic
+  parity defects in the shared object set.
+- The comparison checks regular Helm against ConfigHub delivery and records the
+  expected installer-added Namespace object and any semantic object diffs.
+- Exact chart/base status is in the generated summary:
+  [Live Helm-vs-ConfigHub Parity](../../data/live-helm-confighub-compare/summary.md).
 
 Lifecycle observation proof has started:
 
