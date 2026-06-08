@@ -35,6 +35,7 @@ Accepted disposition receipts recorded: 7
 
 These rows have accepted production-disposition receipts or three or fewer
 open dispositions. They are the clearest next production-review work queue.
+The same queue is available as `next-actions.csv`.
 
 | Chart | Accepted | Open | Open dispositions | External scan reading |
 | --- | ---: | ---: | --- | --- |

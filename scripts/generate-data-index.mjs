@@ -41,8 +41,8 @@ function buildReport() {
       audience: audienceFor(path),
       use_for: roleFor(path),
       summary: summaryFor(path),
-      regenerate: commandFor(family),
-      verify: verifyFor(family),
+      regenerate: commandForPath(path, family),
+      verify: verifyForPath(path, family),
     };
   });
   return { rows, csv: toCsv(rows), readme: readme(rows) };
@@ -63,6 +63,7 @@ function readme(rows) {
     ["data/lifecycle-boundary/summary.md", "Hook and hook-like lifecycle boundary: hook queue rows, lifecycle observations, evidence, and current limits."],
     ["data/live-kind-parity/summary.md", "Two-cluster live parity: regular Helm in one vanilla kind cluster and cub installer output in another."],
     ["data/production-disposition/summary.md", "Production support boundary for top-20 catalog charts: accepted dispositions, open blockers, and next actions."],
+    ["data/production-disposition/next-actions.csv", "Production disposition work queue: next required receipt or fix per top-20 chart."],
     ["data/external-scan-lane/chart-workdown.csv", "Chart-level scan/gate workdown: grouped scanner findings, priority, and next action before production disposition."],
     ["data/pain-point-coverage/summary.md", "General Helm pain point coverage: current answers, handoffs, evidence, gaps, and next actions."],
     ["data/top100-readiness/summary.md", "Top-100 readiness: one chart-by-chart answer for adoption bucket, strongest evidence, hard gap, next action, and first work queues."],
@@ -186,6 +187,7 @@ function roleFor(path) {
   if (path === "data/extension-slots/extension-slots.csv") return "one row per chart with NGINX-like extension slots and the route for populated slots";
   if (path === "data/nginx-config-checks/checks.csv") return "NGINX supported-base checks for config extension slots and rendered object shape";
   if (path === "data/lifecycle-boundary/lifecycle-boundary.csv") return "one row per hook queue item or hook-like lifecycle observation";
+  if (path === "data/production-disposition/next-actions.csv") return "one row per top-20 chart: next production disposition receipt or fix";
   if (path === "data/external-scan-lane/chart-workdown.csv") return "one row per chart: external scan findings grouped into priority and next production action";
   if (path === "data/high-fanout-demo/prometheus-kps.csv") return "Prometheus/kube-prometheus-stack high-fanout base-variant example";
   if (path.endsWith("variant-lanes.csv")) return "row-level proof lane matrix";
@@ -261,6 +263,16 @@ function commandFor(family) {
 function verifyFor(family) {
   const commands = commandMap()[family];
   return commands?.verify ?? "";
+}
+
+function commandForPath(path, family) {
+  if (path === "data/production-disposition/next-actions.csv") return "npm run production:disposition:details";
+  return commandFor(family);
+}
+
+function verifyForPath(path, family) {
+  if (path === "data/production-disposition/next-actions.csv") return "npm run production:disposition:details:verify";
+  return verifyFor(family);
 }
 
 function commandMap() {

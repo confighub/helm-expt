@@ -13,6 +13,7 @@ import {
 const outputRoot = join(repoRoot, "data", "production-disposition");
 const detailsPath = join(outputRoot, "dispositions.yaml");
 const summaryPath = join(outputRoot, "dispositions.md");
+const nextActionsPath = join(outputRoot, "next-actions.csv");
 const mode = process.argv[2] ?? "--generate";
 
 const dispositionCatalog = {
@@ -68,12 +69,15 @@ if (mode === "--generate") {
   writeReport(report);
   console.log(`wrote ${relativeRepo(detailsPath)}`);
   console.log(`wrote ${relativeRepo(summaryPath)}`);
+  console.log(`wrote ${relativeRepo(nextActionsPath)}`);
 } else if (mode === "--verify") {
   const report = buildReport();
   check(existsSync(detailsPath), "missing production disposition details; run npm run production:disposition:details");
   check(existsSync(summaryPath), "missing production disposition details summary; run npm run production:disposition:details");
+  check(existsSync(nextActionsPath), "missing production disposition next actions; run npm run production:disposition:details");
   check(readFileSync(detailsPath, "utf8") === report.yaml, "production disposition details are stale");
   check(readFileSync(summaryPath, "utf8") === report.markdown, "production disposition details summary is stale");
+  check(readFileSync(nextActionsPath, "utf8") === report.nextActionsCsv, "production disposition next actions are stale");
   console.log("verified production disposition details");
 } else {
   console.log(`Usage:
@@ -149,6 +153,7 @@ function buildReport() {
   return {
     yaml: `${toYaml(doc)}\n`,
     markdown: toMarkdown(charts),
+    nextActionsCsv: toNextActionsCsv(charts),
   };
 }
 
@@ -358,6 +363,7 @@ ${charts.map((chart) => {
 
 These rows have accepted production-disposition receipts or three or fewer
 open dispositions. They are the clearest next production-review work queue.
+The same queue is available as \`next-actions.csv\`.
 
 | Chart | Accepted | Open | Open dispositions | External scan reading |
 | --- | ---: | ---: | --- | --- |
@@ -381,6 +387,66 @@ backed by rendered-digest-bound scan and live/e2e receipts.
 `;
 }
 
+function toNextActionsCsv(charts) {
+  const workdown = externalScanWorkdownIndex();
+  const rows = charts
+    .map((chart) => {
+      const accepted = chart.dispositions.filter((item) => item.state === "accepted");
+      const open = chart.dispositions.filter((item) => item.state !== "accepted");
+      const firstOpen = open[0] ?? {};
+      const scan = workdown.get(chart.chart) ?? {};
+      return {
+        chart: chart.chart,
+        version: chart.version,
+        productionState: chart.status,
+        acceptedCount: accepted.length,
+        openCount: open.length,
+        nextDisposition: firstOpen.name ?? "",
+        owner: firstOpen.owner ?? "",
+        requiredEvidence: (firstOpen.requiredEvidence ?? []).join(";"),
+        scanPriority: scan.priority ?? "",
+        externalScanFindings: scan.findingCount ?? "",
+        externalScanNextAction: scan.nextAction ?? "",
+        supportedVariants: chart.supportedLocalTestVariants.join(";"),
+        liveE2EReceipts: chart.evidence.liveE2EReceipts.length,
+        nextAction: productionNextAction(open, scan),
+      };
+    })
+    .sort((left, right) => Number(left.openCount) - Number(right.openCount) || Number(right.acceptedCount) - Number(left.acceptedCount) || left.chart.localeCompare(right.chart));
+  const headers = [
+    "chart",
+    "version",
+    "productionState",
+    "acceptedCount",
+    "openCount",
+    "nextDisposition",
+    "owner",
+    "requiredEvidence",
+    "scanPriority",
+    "externalScanFindings",
+    "externalScanNextAction",
+    "supportedVariants",
+    "liveE2EReceipts",
+    "nextAction",
+  ];
+  return `${[headers.join(","), ...rows.map((row) => headers.map((header) => csvEscape(row[header])).join(","))].join("\n")}\n`;
+}
+
+function productionNextAction(open, scan) {
+  const first = open[0];
+  if (!first) return "refresh live/e2e receipts for the accepted production scope";
+  if (first.name === "scan/gate warning disposition" && scan?.nextAction) return scan.nextAction;
+  return `write or fix the ${first.name} disposition receipt`;
+}
+
+function externalScanWorkdownIndex() {
+  const result = new Map();
+  const path = join(repoRoot, "data", "external-scan-lane", "chart-workdown.csv");
+  if (!existsSync(path)) return result;
+  for (const row of parseCsv(readFileSync(path, "utf8"))) result.set(row.chart, row);
+  return result;
+}
+
 function externalScanSummary(rows) {
   if (!rows.length) return "no external scan row";
   return rows
@@ -391,6 +457,7 @@ function externalScanSummary(rows) {
 function writeReport(report) {
   write(detailsPath, report.yaml);
   write(summaryPath, report.markdown);
+  write(nextActionsPath, report.nextActionsCsv);
 }
 
 function slugFor(chart) {
@@ -455,4 +522,10 @@ function parseCsvLine(line) {
   }
   values.push(current);
   return values;
+}
+
+function csvEscape(value) {
+  const text = value === undefined || value === null ? "" : String(value);
+  if (/[",\n]/.test(text)) return `"${text.replaceAll('"', '""')}"`;
+  return text;
 }
