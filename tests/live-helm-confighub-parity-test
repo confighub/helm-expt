@@ -30,6 +30,14 @@ try:
 except ImportError:  # pragma: no cover
     yaml = None
 
+if yaml:
+    # Some Kubernetes manifests contain unquoted "=" list items. PyYAML resolves
+    # those as YAML 1.1 "value" tags, but for Kubernetes they are plain strings.
+    yaml.SafeLoader.add_constructor(
+        "tag:yaml.org,2002:value",
+        lambda loader, node: loader.construct_scalar(node),
+    )
+
 
 def sh(cmd: list[str], timeout: int = 120, env: dict[str, str] | None = None) -> tuple[int, str, str]:
     try:
