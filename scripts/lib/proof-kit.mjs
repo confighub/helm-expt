@@ -86,6 +86,8 @@ function makeContext(spec) {
     renderFlags: spec.renderFlags ?? DEFAULT_RENDER_FLAGS,
     expectedDependencyCount: spec.expectedDependencyCount ?? 0,
     recordChartLockDigest: spec.recordChartLockDigest ?? false,
+    recordDeprecated: spec.recordDeprecated ?? false,
+    expectedDeprecated: spec.expectedDeprecated ?? false,
     supportObjects: spec.supportObjects ?? [`v1|Namespace||${ns}`],
     dependencyLockChart: spec.dependencyLockChart ?? `${chart.repository}/${chart.name}`,
     sourceType: spec.sourceType ?? "HelmChart",
@@ -136,6 +138,8 @@ function generateProof(ctx) {
       chart: chart.name,
       version: chart.version,
       appVersion: source.appVersion,
+      // Charts that record the upstream Chart.yaml deprecation marker opt in via recordDeprecated.
+      ...(ctx.recordDeprecated ? { deprecated: Boolean(source.deprecated) } : {}),
       packageSHA256: source.packageSHA256,
       packageBytes: source.packageBytes,
       evidence: {
@@ -541,6 +545,9 @@ function verifyProof(ctx, root = ctx.proofRoot) {
   check(sourceLock.spec.chart === chart.name, "source chart mismatch");
   check(sourceLock.spec.version === chart.version, "source version mismatch");
   check(Boolean(sourceLock.spec.packageSHA256), "source package SHA must be present");
+  if (ctx.recordDeprecated) {
+    check(sourceLock.spec.deprecated === ctx.expectedDeprecated, "source deprecation marker must be recorded");
+  }
   check(dependencyLock.kind === "DependencyLock", "dependency-lock.yaml must be DependencyLock");
   check((dependencyLock.spec.dependencies ?? []).length === ctx.expectedDependencyCount, "dependency lock length mismatch");
   check(recipe.kind === "Recipe", "recipe.yaml must be Recipe");
@@ -736,6 +743,7 @@ function pullSource(ctx) {
     const chartLock = existsSync(chartLockPath) ? readYaml(chartLockPath) : null;
     return {
       appVersion: chartYaml.appVersion,
+      deprecated: Boolean(chartYaml.deprecated),
       packageSHA256: sha256File(packagePath),
       packageBytes: readFileSync(packagePath).length,
       defaultValuesSHA256: sha256File(join(chartRoot, "values.yaml")),
