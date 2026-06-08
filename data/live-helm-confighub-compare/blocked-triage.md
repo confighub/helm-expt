@@ -15,7 +15,9 @@ ConfigMap serialization normalization recorded in the chart's Helm equivalence
 receipt. The 2026-06-08 Longhorn rerun also reached the full comparison and now
 passes. The 2026-06-08 kube-prometheus-stack rerun reached the full comparison
 and now records `watch`: semantic parity passed, but the ConfigHub paths did not
-become fully runtime-ready inside the local test budget.
+become fully runtime-ready inside the local test budget. The 2026-06-08 Vault
+rerun also reached the full comparison and now records `watch`: semantic parity
+passed, while the default Vault server remained sealed and uninitialized.
 
 The current summary therefore contains these kinds of blocked row:
 
@@ -32,7 +34,6 @@ The current summary therefore contains these kinds of blocked row:
 | ---: | --- | --- | --- |
 | 5 | external-secrets/external-secrets | `parity: live semantic diff` | The hardened rerun reached Helm, ConfigHub apply, and ConfigHub OCI/Argo. The webhook Deployment is the reported semantic diff, and the ConfigHub apply/OCI legs left the cert-controller and webhook pods not ready. This aligns with the chart's documented webhook Secret/cert-controller control point and needs chart-specific review. |
 | 6 | argo-cd/argo-cd | `infra: etcd/apiserver overload` | The previous run hit API-server/etcd pressure and CRD ownership friction before a clean parity conclusion. |
-| 12 | hashicorp/vault | `infra: rig bootstrap (argocd) not ready` | The previous run failed while bootstrapping the local Argo CD rig. |
 | 19 | grafana/tempo | `helm-runtime: upstream not ready (parity passed)` | Semantic parity passed; the upstream Helm release did not become ready inside the wait budget. |
 | 20 | hashicorp/consul | `infra: provisioning timeout` | The previous run timed out while provisioning the local parity rig. |
 
@@ -97,13 +98,30 @@ The previous kube-prometheus-stack `infra: rig bootstrap (argocd) not ready` row
 was local rig residue. The live lane now records kube-prometheus-stack as
 `watch`, not `blocked`.
 
+## What The Vault Rerun Proved
+
+The Vault rerun reached all three delivery legs:
+
+- regular Helm installed and rendered a live manifest, but the Vault server
+  remained unready because it was sealed and uninitialized;
+- ConfigHub kubectl-apply installed the same object set and showed the same
+  sealed-server runtime condition;
+- ConfigHub OCI/Argo synced, but Argo reported `Progressing` for the same
+  sealed-server condition;
+- semantic comparison passed for both ConfigHub paths after normalizing
+  namespace references in Kubernetes service DNS strings.
+
+The previous Vault `infra: rig bootstrap (argocd) not ready` row was local rig
+residue. The live lane now records Vault as `watch`, not `blocked`. The next
+Vault work is an operating policy for initialization and unseal, not a recipe
+parity fix.
+
 ## Rerun Order
 
 Rerun the remaining infrastructure-blocked rows one at a time on a clean host:
 
-1. `vault`
-2. `consul`
-3. `argo-cd`
+1. `consul`
+2. `argo-cd`
 
 Treat a rerun result as product evidence only if it reaches at least one
 ConfigHub delivery leg and records a semantic comparison. Until then, keep the
