@@ -63,21 +63,37 @@ function configHubOciRows() {
 function twoClusterRows() {
   const path = join(repoRoot, "data", "live-kind-parity", "summary.csv");
   if (!existsSync(path)) return [];
+  const lifecycleObservations = lifecycleObservationIndex();
   return parseCsv(readFileSync(path, "utf8"))
     .filter((row) => ["blocked", "watch"].includes(row.result))
-    .map((row) => ({
-      priority: priorityForTwoCluster(row),
-      lane: "two-cluster-kind-parity",
-      chart: row.chart,
-      version: row.version,
-      base: row.base,
-      current_result: row.result,
-      reason: row.reason || reasonForTwoCluster(row),
-      diagnosis: diagnosisForTwoCluster(row),
-      rerun_command: `npm run kind-parity:run -- --chart ${row.chart} --version ${row.version} --base ${row.base}`,
-      followup: followupForTwoCluster(row),
-      receipt: row.receipt,
-    }));
+    .map((row) => {
+      const lifecycle = lifecycleObservations.get(lifecycleKey(row));
+      return {
+        priority: priorityForTwoCluster(row),
+        lane: "two-cluster-kind-parity",
+        chart: row.chart,
+        version: row.version,
+        base: row.base,
+        current_result: row.result,
+        reason: row.reason || reasonForTwoCluster(row),
+        diagnosis: diagnosisForTwoCluster(row, lifecycle),
+        rerun_command: `npm run kind-parity:run -- --chart ${row.chart} --version ${row.version} --base ${row.base}`,
+        followup: followupForTwoCluster(row, lifecycle),
+        receipt: row.receipt,
+        related_lifecycle_result: lifecycle?.result ?? "",
+        related_lifecycle_receipt: lifecycle?.receipt ?? "",
+      };
+    });
+}
+
+function lifecycleObservationIndex() {
+  const path = join(repoRoot, "data", "lifecycle-observations", "cert-manager-eso", "summary.csv");
+  if (!existsSync(path)) return new Map();
+  return new Map(parseCsv(readFileSync(path, "utf8")).map((row) => [lifecycleKey(row), row]));
+}
+
+function lifecycleKey(row) {
+  return `${row.chart}@${row.version}/${row.base}`;
 }
 
 function priorityForConfigHubOci(row) {
@@ -122,7 +138,13 @@ function reasonForTwoCluster(row) {
   return "strict parity row blocked; inspect receipt";
 }
 
-function diagnosisForTwoCluster(row) {
+function diagnosisForTwoCluster(row, lifecycle) {
+  if (lifecycle?.result === "pass" && row.reason?.startsWith("helm-hook:")) {
+    return `Object parity passed. Helm hook execution blocked the regular Helm leg, while the related lifecycle observation passed: ${lifecycle.receipt}.`;
+  }
+  if (lifecycle?.result === "pass" && row.reason?.startsWith("target-prerequisite:")) {
+    return `Object parity passed. This base needs external prerequisites; the related lifecycle observation passed with those prerequisites staged: ${lifecycle.receipt}.`;
+  }
   if (row.reason?.startsWith("parity:")) {
     return "Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning.";
   }
@@ -141,8 +163,10 @@ function diagnosisForTwoCluster(row) {
   return "Rerun the same chart/base with two clean vanilla kind clusters before changing the recipe.";
 }
 
-function followupForTwoCluster(row) {
+function followupForTwoCluster(row, lifecycle) {
   if (row.reason?.startsWith("parity:")) return "Open a parity issue only if the diff is not an intentional, documented normalization.";
+  if (lifecycle?.result === "pass" && row.reason?.startsWith("helm-hook:")) return "Keep this as lifecycle-routed evidence unless the product decision is to emulate the Helm hook directly.";
+  if (lifecycle?.result === "pass" && row.reason?.startsWith("target-prerequisite:")) return "Record the external prerequisite in the base variant and use the lifecycle receipt when explaining target readiness.";
   if (row.reason?.startsWith("target-prerequisite:")) return "Record the prerequisite in the chart facts, base variant, or install checks before promoting.";
   if (row.reason?.startsWith("helm-hook:")) return "Keep desired object parity separate from hook execution and document the lifecycle route.";
   if (row.reason?.startsWith("target-runtime:") || row.reason?.startsWith("helm-runtime:")) {
@@ -156,6 +180,7 @@ function markdown(rows) {
   const counts = countBy(rows, "lane");
   const resultCounts = countBy(rows, "current_result");
   const laneResults = countByLaneAndResult(rows);
+  const lifecycleRows = rows.filter((row) => row.related_lifecycle_receipt);
   const semanticDefects = rows.filter((row) => row.reason?.startsWith("parity:")).length;
   const infraRows = rows.filter((row) => row.reason?.startsWith("infra:")).length;
   const prerequisiteRows = rows.filter((row) => row.reason?.startsWith("target-prerequisite:") || row.reason?.startsWith("helm-hook:")).length;
@@ -216,6 +241,16 @@ The \`blocked\` rows are currently from the two-cluster kind parity lane.
 | Priority | Lane | Chart | Base | Current | Reason | Command |
 | ---: | --- | --- | --- | --- | --- | --- |
 ${rows.map((row) => `| ${row.priority} | ${row.lane} | \`${row.chart}@${row.version}\` | ${row.base} | ${row.current_result} | ${row.reason} | \`${row.rerun_command}\` |`).join("\n")}
+
+${lifecycleRows.length ? `## Related Lifecycle Evidence
+
+These rows still have their strict parity result, but a separate lifecycle
+receipt already explains the hook, CRD, webhook, or controller-owned behavior.
+
+| Chart | Base | Rerun result | Lifecycle result | Lifecycle receipt |
+| --- | --- | --- | --- | --- |
+${lifecycleRows.map((row) => `| \`${row.chart}@${row.version}\` | ${row.base} | ${row.current_result} | ${row.related_lifecycle_result} | ${row.related_lifecycle_receipt} |`).join("\n")}
+` : ""}
 
 The machine-readable queue is:
 
@@ -298,6 +333,8 @@ function toCsv(rows) {
     "rerun_command",
     "followup",
     "receipt",
+    "related_lifecycle_result",
+    "related_lifecycle_receipt",
   ];
   return `${headers.join(",")}\n${rows.map((row) => headers.map((header) => csvCell(row[header])).join(",")).join("\n")}\n`;
 }

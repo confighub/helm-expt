@@ -6675,7 +6675,9 @@
       "diagnosis": "Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior.",
       "rerun_command": "npm run live-parity:top20 -- --from-rank 6 --to-rank 6 --continue-on-fail",
       "followup": "Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation.",
-      "receipt": "runs/live-helm-confighub-compare/argo-cd-argo-cd-default/receipt.yaml"
+      "receipt": "runs/live-helm-confighub-compare/argo-cd-argo-cd-default/receipt.yaml",
+      "related_lifecycle_result": "",
+      "related_lifecycle_receipt": ""
     },
     {
       "priority": "30",
@@ -6688,7 +6690,9 @@
       "diagnosis": "Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior.",
       "rerun_command": "npm run live-parity:top20 -- --from-rank 19 --to-rank 19 --continue-on-fail",
       "followup": "Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation.",
-      "receipt": "runs/live-helm-confighub-compare/grafana-tempo-local-persistent/receipt.yaml"
+      "receipt": "runs/live-helm-confighub-compare/grafana-tempo-local-persistent/receipt.yaml",
+      "related_lifecycle_result": "",
+      "related_lifecycle_receipt": ""
     },
     {
       "priority": "30",
@@ -6701,7 +6705,9 @@
       "diagnosis": "Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior.",
       "rerun_command": "npm run live-parity:top20 -- --from-rank 12 --to-rank 12 --continue-on-fail",
       "followup": "Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation.",
-      "receipt": "runs/live-helm-confighub-compare/hashicorp-vault-default/receipt.yaml"
+      "receipt": "runs/live-helm-confighub-compare/hashicorp-vault-default/receipt.yaml",
+      "related_lifecycle_result": "",
+      "related_lifecycle_receipt": ""
     },
     {
       "priority": "30",
@@ -6714,7 +6720,9 @@
       "diagnosis": "Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior.",
       "rerun_command": "npm run live-parity:top20 -- --from-rank 3 --to-rank 3 --continue-on-fail",
       "followup": "Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation.",
-      "receipt": "runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml"
+      "receipt": "runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml",
+      "related_lifecycle_result": "",
+      "related_lifecycle_receipt": ""
     },
     {
       "priority": "30",
@@ -6727,7 +6735,9 @@
       "diagnosis": "Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior.",
       "rerun_command": "npm run live-parity:top20 -- --from-rank 7 --to-rank 7 --continue-on-fail",
       "followup": "Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation.",
-      "receipt": "runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
+      "receipt": "runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml",
+      "related_lifecycle_result": "",
+      "related_lifecycle_receipt": ""
     },
     {
       "priority": "50",
@@ -6740,7 +6750,9 @@
       "diagnosis": "The target is missing required API types or prerequisites. Stage them, then rerun the same base.",
       "rerun_command": "npm run kind-parity:run -- --chart argo-cd/argo-cd --version 9.5.15 --base no-crds",
       "followup": "Record the prerequisite in the chart facts, base variant, or install checks before promoting.",
-      "receipt": "runs/live-kind-parity/argo-cd-argo-cd-no-crds/receipt.yaml"
+      "receipt": "runs/live-kind-parity/argo-cd-argo-cd-no-crds/receipt.yaml",
+      "related_lifecycle_result": "",
+      "related_lifecycle_receipt": ""
     },
     {
       "priority": "50",
@@ -6750,10 +6762,12 @@
       "base": "no-crds",
       "current_result": "blocked",
       "reason": "target-prerequisite: CRDs disabled or missing (parity passed)",
-      "diagnosis": "The target is missing required API types or prerequisites. Stage them, then rerun the same base.",
+      "diagnosis": "Object parity passed. This base needs external prerequisites; the related lifecycle observation passed with those prerequisites staged: runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-no-crds/receipt.yaml.",
       "rerun_command": "npm run kind-parity:run -- --chart external-secrets/external-secrets --version 2.5.0 --base no-crds",
-      "followup": "Record the prerequisite in the chart facts, base variant, or install checks before promoting.",
-      "receipt": "runs/live-kind-parity/external-secrets-external-secrets-no-crds/receipt.yaml"
+      "followup": "Record the external prerequisite in the base variant and use the lifecycle receipt when explaining target readiness.",
+      "receipt": "runs/live-kind-parity/external-secrets-external-secrets-no-crds/receipt.yaml",
+      "related_lifecycle_result": "pass",
+      "related_lifecycle_receipt": "runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-no-crds/receipt.yaml"
     },
     {
       "priority": "50",
@@ -6766,7 +6780,9 @@
       "diagnosis": "The target is missing required API types or prerequisites. Stage them, then rerun the same base.",
       "rerun_command": "npm run kind-parity:run -- --chart grafana/tempo --version 1.24.4 --base s3-query-observability",
       "followup": "Record the prerequisite in the chart facts, base variant, or install checks before promoting.",
-      "receipt": "runs/live-kind-parity/grafana-tempo-s3-query-observability/receipt.yaml"
+      "receipt": "runs/live-kind-parity/grafana-tempo-s3-query-observability/receipt.yaml",
+      "related_lifecycle_result": "",
+      "related_lifecycle_receipt": ""
     },
     {
       "priority": "50",
@@ -6779,7 +6795,9 @@
       "diagnosis": "The target is missing required API types or prerequisites. Stage them, then rerun the same base.",
       "rerun_command": "npm run kind-parity:run -- --chart prometheus-community/kube-prometheus-stack --version 85.3.3 --base no-crds",
       "followup": "Record the prerequisite in the chart facts, base variant, or install checks before promoting.",
-      "receipt": "runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml"
+      "receipt": "runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml",
+      "related_lifecycle_result": "",
+      "related_lifecycle_receipt": ""
     },
     {
       "priority": "55",
@@ -6789,10 +6807,12 @@
       "base": "default",
       "current_result": "blocked",
       "reason": "helm-hook: post-install hook failed (parity passed)",
-      "diagnosis": "This is Helm lifecycle behavior. Decide whether the hook maps to desired config, a lifecycle operation, or an observation check.",
+      "diagnosis": "Object parity passed. Helm hook execution blocked the regular Helm leg, while the related lifecycle observation passed: runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-default/receipt.yaml.",
       "rerun_command": "npm run kind-parity:run -- --chart jetstack/cert-manager --version v1.20.2 --base default",
-      "followup": "Keep desired object parity separate from hook execution and document the lifecycle route.",
-      "receipt": "runs/live-kind-parity/jetstack-cert-manager-default/receipt.yaml"
+      "followup": "Keep this as lifecycle-routed evidence unless the product decision is to emulate the Helm hook directly.",
+      "receipt": "runs/live-kind-parity/jetstack-cert-manager-default/receipt.yaml",
+      "related_lifecycle_result": "pass",
+      "related_lifecycle_receipt": "runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-default/receipt.yaml"
     },
     {
       "priority": "60",
@@ -6805,7 +6825,9 @@
       "diagnosis": "Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate.",
       "rerun_command": "npm run kind-parity:run -- --chart argo-cd/argo-cd --version 9.5.15 --base default",
       "followup": "Keep the recipe stable unless the rendered object comparison starts failing.",
-      "receipt": "runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml"
+      "receipt": "runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml",
+      "related_lifecycle_result": "",
+      "related_lifecycle_receipt": ""
     },
     {
       "priority": "60",
@@ -6818,7 +6840,9 @@
       "diagnosis": "Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate.",
       "rerun_command": "npm run kind-parity:run -- --chart bitnami/mongodb --version 19.0.7 --base existing-secret-replicaset",
       "followup": "Keep the recipe stable unless the rendered object comparison starts failing.",
-      "receipt": "runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml"
+      "receipt": "runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml",
+      "related_lifecycle_result": "",
+      "related_lifecycle_receipt": ""
     },
     {
       "priority": "60",
@@ -6831,7 +6855,9 @@
       "diagnosis": "Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate.",
       "rerun_command": "npm run kind-parity:run -- --chart grafana/loki --version 7.0.0 --base simple-scalable-minio",
       "followup": "Keep the recipe stable unless the rendered object comparison starts failing.",
-      "receipt": "runs/live-kind-parity/grafana-loki-simple-scalable-minio/receipt.yaml"
+      "receipt": "runs/live-kind-parity/grafana-loki-simple-scalable-minio/receipt.yaml",
+      "related_lifecycle_result": "",
+      "related_lifecycle_receipt": ""
     },
     {
       "priority": "60",
@@ -6844,7 +6870,9 @@
       "diagnosis": "Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate.",
       "rerun_command": "npm run kind-parity:run -- --chart grafana/tempo --version 1.24.4 --base local-persistent",
       "followup": "Keep the recipe stable unless the rendered object comparison starts failing.",
-      "receipt": "runs/live-kind-parity/grafana-tempo-local-persistent/receipt.yaml"
+      "receipt": "runs/live-kind-parity/grafana-tempo-local-persistent/receipt.yaml",
+      "related_lifecycle_result": "",
+      "related_lifecycle_receipt": ""
     },
     {
       "priority": "60",
@@ -6857,7 +6885,9 @@
       "diagnosis": "Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate.",
       "rerun_command": "npm run kind-parity:run -- --chart hashicorp/consul --version 2.0.0 --base secure-mesh-existing-secrets",
       "followup": "Keep the recipe stable unless the rendered object comparison starts failing.",
-      "receipt": "runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml"
+      "receipt": "runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml",
+      "related_lifecycle_result": "",
+      "related_lifecycle_receipt": ""
     },
     {
       "priority": "60",
@@ -6870,7 +6900,9 @@
       "diagnosis": "Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate.",
       "rerun_command": "npm run kind-parity:run -- --chart hashicorp/vault --version 0.32.0 --base default",
       "followup": "Keep the recipe stable unless the rendered object comparison starts failing.",
-      "receipt": "runs/live-kind-parity/hashicorp-vault-default/receipt.yaml"
+      "receipt": "runs/live-kind-parity/hashicorp-vault-default/receipt.yaml",
+      "related_lifecycle_result": "",
+      "related_lifecycle_receipt": ""
     },
     {
       "priority": "60",
@@ -6883,7 +6915,9 @@
       "diagnosis": "Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate.",
       "rerun_command": "npm run kind-parity:run -- --chart hashicorp/vault --version 0.32.0 --base ha-raft-ui",
       "followup": "Keep the recipe stable unless the rendered object comparison starts failing.",
-      "receipt": "runs/live-kind-parity/hashicorp-vault-ha-raft-ui/receipt.yaml"
+      "receipt": "runs/live-kind-parity/hashicorp-vault-ha-raft-ui/receipt.yaml",
+      "related_lifecycle_result": "",
+      "related_lifecycle_receipt": ""
     },
     {
       "priority": "60",
@@ -6896,7 +6930,9 @@
       "diagnosis": "Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate.",
       "rerun_command": "npm run kind-parity:run -- --chart ingress-nginx/ingress-nginx --version 4.15.1 --base default",
       "followup": "Keep the recipe stable unless the rendered object comparison starts failing.",
-      "receipt": "runs/live-kind-parity/ingress-nginx-ingress-nginx-default/receipt.yaml"
+      "receipt": "runs/live-kind-parity/ingress-nginx-ingress-nginx-default/receipt.yaml",
+      "related_lifecycle_result": "",
+      "related_lifecycle_receipt": ""
     },
     {
       "priority": "60",
@@ -6909,7 +6945,9 @@
       "diagnosis": "Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate.",
       "rerun_command": "npm run kind-parity:run -- --chart metrics-server/metrics-server --version 3.13.0 --base external-tls-ca",
       "followup": "Keep the recipe stable unless the rendered object comparison starts failing.",
-      "receipt": "runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/receipt.yaml"
+      "receipt": "runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/receipt.yaml",
+      "related_lifecycle_result": "",
+      "related_lifecycle_receipt": ""
     },
     {
       "priority": "60",
@@ -6922,7 +6960,9 @@
       "diagnosis": "Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate.",
       "rerun_command": "npm run kind-parity:run -- --chart prometheus-community/kube-prometheus-stack --version 85.3.3 --base default",
       "followup": "Keep the recipe stable unless the rendered object comparison starts failing.",
-      "receipt": "runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
+      "receipt": "runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml",
+      "related_lifecycle_result": "",
+      "related_lifecycle_receipt": ""
     }
   ]
 }

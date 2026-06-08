@@ -68,6 +68,17 @@ The `blocked` rows are currently from the two-cluster kind parity lane.
 | 60 | two-cluster-kind-parity | `metrics-server/metrics-server@3.13.0` | external-tls-ca | blocked | helm-runtime: upstream not ready (parity passed) | `npm run kind-parity:run -- --chart metrics-server/metrics-server --version 3.13.0 --base external-tls-ca` |
 | 60 | two-cluster-kind-parity | `prometheus-community/kube-prometheus-stack@85.3.3` | default | watch | helm-runtime: upstream not ready (parity passed) | `npm run kind-parity:run -- --chart prometheus-community/kube-prometheus-stack --version 85.3.3 --base default` |
 
+## Related Lifecycle Evidence
+
+These rows still have their strict parity result, but a separate lifecycle
+receipt already explains the hook, CRD, webhook, or controller-owned behavior.
+
+| Chart | Base | Rerun result | Lifecycle result | Lifecycle receipt |
+| --- | --- | --- | --- | --- |
+| `external-secrets/external-secrets@2.5.0` | no-crds | blocked | pass | runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-no-crds/receipt.yaml |
+| `jetstack/cert-manager@v1.20.2` | default | blocked | pass | runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-default/receipt.yaml |
+
+
 The machine-readable queue is:
 
 ```text

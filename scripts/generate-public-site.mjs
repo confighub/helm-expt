@@ -157,8 +157,15 @@ function html(catalog) {
   ].map(([bucket, meaning]) => [bucket, top100AdoptionCounts[bucket] ?? 0, meaning]);
   const rerunCounts = countBy(catalog.liveParityRerunPlan, "lane");
   const rerunRows = catalog.liveParityRerunPlan
-    .slice(0, 8)
-    .map((row) => [row.lane, `${row.chart}@${row.version}`, row.base, row.current_result, row.reason]);
+    .slice(0, 10)
+    .map((row) => [
+      row.lane,
+      `${row.chart}@${row.version}`,
+      row.base,
+      row.current_result,
+      row.related_lifecycle_result || "-",
+      row.reason,
+    ]);
   const stages = [
     ["1. Acquire and pin", "Lock chart source, dependencies, digests, and provenance."],
     ["2. Render and capture", "Run Helm under recorded inputs and prove render parity with cub installer."],
@@ -295,7 +302,7 @@ function html(catalog) {
         <div class="metric"><strong>${escapeHtml(rerunCounts["two-cluster-kind-parity"] ?? 0)}</strong><span>Two-cluster rows to resolve</span></div>
       </div>
       ${markdownLikeTable([
-        ["Lane", "Chart", "Base", "Current", "Reason"],
+        ["Lane", "Chart", "Base", "Current", "Lifecycle", "Reason"],
         ...rerunRows,
       ])}
       <p><a href="../data/live-parity-rerun-plan/summary.md">Open the full live parity rerun plan</a>.</p>
