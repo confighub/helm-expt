@@ -31,6 +31,7 @@ data/lifecycle-observations/cert-manager-eso/summary.csv,lifecycle-observations,
 data/live-e2e/top20-local-kind.csv,live-e2e,verification,supporting generated CSV,data/live-e2e/summary.md,npm run top20:local-e2e:summary,npm run top20:verify-local-e2e
 data/live-helm-confighub-compare/summary.csv,live-helm-confighub-compare,verification,machine-readable summary,data/live-helm-confighub-compare/summary.md,npm run live-parity:top20:summary,npm run live-parity:verify
 data/live-kind-parity/summary.csv,live-kind-parity,verification,machine-readable summary,data/live-kind-parity/summary.md,npm run kind-parity:summary,npm run kind-parity:verify
+data/live-parity-rerun-plan/rerun-plan.csv,live-parity-rerun-plan,verification,supporting generated CSV,data/live-parity-rerun-plan/summary.md,npm run live-parity:rerun-plan,npm run live-parity:rerun-plan:verify
 data/model-completeness/report.csv,model-completeness,supporting,model completeness report,data/model-completeness/summary.md,npm run completeness:generate,npm run completeness:verify
 data/next-ten-waves/gap-review-wave.csv,next-ten-waves,planning,supporting generated CSV,data/next-ten-waves/summary.md,npm run next-ten:waves,npm run next-ten:waves:verify
 data/next-ten-waves/import-prototype-wave.csv,next-ten-waves,planning,supporting generated CSV,data/next-ten-waves/summary.md,npm run next-ten:waves,npm run next-ten:waves:verify

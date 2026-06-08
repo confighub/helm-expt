@@ -52,6 +52,7 @@ when they are exercising installer, upload, or live-cluster paths.
 | ConfigHub to OCI to Argo live path | `tests/chart-install-test`; `tests/chart-install-sweep`; `tests/existing-secret-proof` | Runs `cub installer setup`, uploads Units, applies Units to OCI, creates an Argo Application, waits for sync/health, and checks runtime workloads. |
 | Strict two-cluster Helm parity | `npm run kind-parity:run`; `tests/live-helm-installer-kind-parity-test` | Creates two vanilla kind clusters, runs regular Helm on one, runs `cub installer setup` plus `kubectl apply` on the other, then compares semantic objects and readiness. |
 | Strict top-20 variant parity | `npm run kind-parity:run-top20-variants:missing`; `npm run kind-parity:run-top20-variants` | Runs the strict two-cluster parity harness for all maintained top-20 chart variants, either only missing receipts or the full set. |
+| Live parity rerun queue | `npm run live-parity:rerun-plan`; `data/live-parity-rerun-plan/summary.md` | Reads the current live parity CSVs and lists the non-pass rows, diagnosis, and exact rerun command for the next live-testing pass. |
 | Target-bound derived variant live path | `tests/target-bound-derived-variant-test`; `cub variant create --target`; `npm run derived-variants:target-bound:verify`; `runs/derived-variant-target-bound/**/receipt.yaml` | Clones a reviewed uploaded base Space, binds the cloned Units to a real target, applies workload Units to OCI, reconciles with Argo, and records runtime evidence. |
 | Target-bound derived variant summary | `npm run derived-variants:target-bound:summary:verify`; `data/derived-variant-target-bound/summary.md` | Gives humans one generated table for target-bound derived variant pass, blocked, and watch receipts. |
 | User-side Redis checks | `redis:verify-install:render`, `redis:verify-install:cluster`, `redis:verify-install:confighub` | Checks a user's Redis tutorial render, cluster state, or ConfigHub Space against `install-checks.yaml`. |
@@ -65,6 +66,10 @@ corpus.
 The generated corpus control surface for these lanes is
 `data/lane-test-matrix/`. Its doctrine is
 `docs/reference/lane-test-doctrine.md`.
+
+For live reruns, use `data/live-parity-rerun-plan/summary.md`. It keeps
+infrastructure blocks, runtime watch rows, and possible parity defects separate
+before anyone changes a recipe.
 
 ## User-Install Verification
 
