@@ -56,6 +56,86 @@ and routes it to the right place.
 | Live state, drift, readiness, freshness | `cub-scout` and controllers |
 | Private values, private overlays, old-version patches, production SLAs | managed/commercial lane |
 
+## General Model
+
+The general answer is the same for every chart:
+
+```text
+Helm chart or wrapper chart
+-> cub installer recipe/package
+-> named base variant
+-> exact rendered object revision
+-> scans, gates, and receipts
+-> ConfigHub Units and optional derived ConfigHub variants
+-> OCI/GitOps handoff
+-> cub-scout, controller, or other observation receipts
+```
+
+`helm-expt` is the public proof corpus: chart analysis, recipes, variants,
+rendered objects, receipts, and pain reports.
+
+`cub installer` is the executable package path: setup, render, package, upload,
+and verify the reviewed bases.
+
+ConfigHub Server is the managed operations layer: Units, variants, links,
+changesets, approvals, diffs, receipts, search, and governance.
+
+GitOps controllers apply or pull the published desired state. `cub-scout` and
+other observers provide fresh live evidence. Workerless ConfigHub should not
+claim current cluster truth without a fresh observation receipt.
+
+## Per-Chart Proof
+
+The general model is not enough by itself because Helm pain is chart-specific.
+Each maintained chart has a chart-level report:
+
+```text
+recipes/<repo>/<chart>/<version>/helm-pain-report.yaml
+```
+
+That file answers:
+
+```text
+What chart behavior caused pain?
+Where did it land in the model?
+Which variants are supported?
+Which receipts prove the current claim?
+What remains blocked, partial, or operator-reviewed?
+```
+
+Examples:
+
+| Chart | Pain report |
+| --- | --- |
+| Redis | [recipes/bitnami/redis/25.5.3/helm-pain-report.yaml](../../recipes/bitnami/redis/25.5.3/helm-pain-report.yaml) |
+| cert-manager | [recipes/jetstack/cert-manager/v1.20.2/helm-pain-report.yaml](../../recipes/jetstack/cert-manager/v1.20.2/helm-pain-report.yaml) |
+
+## The 15 Pain Points
+
+This is the user-facing view of the generated matrix in
+[`data/pain-point-coverage/pain-points.csv`](../../data/pain-point-coverage/pain-points.csv).
+The status column is deliberately conservative. "Strong" means there is current
+catalog evidence for the supported scope. "Partial" means the route is defined
+but still depends on live evidence, product work, or chart-specific review.
+
+| Pain point | General answer | Per-chart proof | Status |
+| --- | --- | --- | --- |
+| Go-templated YAML | Render to explicit objects, inventories, and Helm-equivalence receipts. | Render receipts and object inventories per base. | Strong current proof |
+| values.yaml sprawl | Capture effective values and expose named base variants. | Effective values, variants, and value models. | Strong for supported bases |
+| State lives in cluster secrets | Keep desired state, locks, and receipts outside Helm release state. | Outcome and runtime/GitOps rows. | Partial handoff |
+| Failed upgrades wedge releases | Treat upgrade, rollback, and prune as explicit variant paths. | Operation receipts and variant-path coverage where present. | Partial |
+| CRD handling | Make CRDs visible, separable where possible, and lifecycle-gated. | CRD rows in inventories, gates, and pain reports. | Partial |
+| Subchart and dependency hell | Lock and document the dependency closure. | Dependency locks and chart dossiers. | Partial |
+| No field-level governance | Move reviewed objects into ConfigHub Units, links, functions, gates, and mutation records. | Value-source maps and recovered edges where present. | Partial, strongest on Redis |
+| No native secrets story | Separate generated facts, target facts, and external secret requirements. | Secret variants and install checks. | Partial known gap |
+| Hooks are brittle | Classify hooks by lifecycle phase; do not claim hook execution from render parity alone. | Hook lifecycle data and chart pain reports. | Partial doctrine |
+| Multi-environment promotion is DIY | Use base variants plus derived ConfigHub variants, labels, links, approvals, and receipts. | Derived variant receipts and promotion examples. | Partial |
+| GitOps impedance mismatch | Publish pinned rendered object sets and keep GitOps live proof separate from render proof. | Runtime/GitOps and live-parity summaries. | Partial live lane |
+| History without diffs | Store object revisions, diffs, operation receipts, and live observations. | Variant revisions, diffs, and receipts. | Strong static, partial operational |
+| Templating language limits | Surface `tpl`, raw manifest slots, and extension points instead of hiding them. | Feature outcomes and pain reports. | Partial |
+| Dry-run does not match reality | Separate static render proof from live target evidence. | Verification lanes, kind parity, lifecycle observations. | Partial live-dependent |
+| Chart ownership and fork burden | Route shape changes to installer bases and post-render changes to ConfigHub variants. | Change-routing and custom-overlay guides. | Partial product lane |
+
 ## What To Read
 
 | Question | File |
