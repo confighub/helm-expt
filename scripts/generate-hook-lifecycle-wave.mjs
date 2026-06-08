@@ -41,11 +41,14 @@ if (mode === "--generate") {
 function buildReport() {
   const top100 = JSON.parse(readFileSync(join(repoRoot, "data", "top100-catalog-analysis", "raw.json"), "utf8"));
   const top500 = JSON.parse(readFileSync(join(repoRoot, "data", "top500-catalog-analysis", "raw.json"), "utf8"));
+  const sourceScanRows = JSON.parse(readFileSync(join(repoRoot, "data", "top500-catalog-analysis", "source", "source-feature-scan.raw.json"), "utf8"));
   check(Array.isArray(top100.entries), "top100 raw JSON must contain entries");
   check(Array.isArray(top500.rows), "top500 raw JSON must contain rows");
+  check(Array.isArray(sourceScanRows), "source feature scan raw JSON must contain rows");
 
   const top500HookRows = top500.rows.filter(hasHelmHooks);
   const hookRows = top100.entries.filter(hasHelmHooks).map((entry) => {
+    const sourceRow = sourceScanRows.find((row) => row.chart === entry.chart) ?? {};
     const base = firstListItem(entry.supported_variants) || firstListItem(entry.candidate_variants) || entry.start_variant || "default";
     return {
       proof_surface_rank: entry.proof_surface_rank,
@@ -56,8 +59,19 @@ function buildReport() {
       production_readiness: entry.production_readiness,
       selected_base: base,
       source_features: entry.source_features,
+      hook_count: sourceRow.hooks?.count ?? "",
+      hook_types: sourceRow.hookTypesText ?? "",
+      hook_examples: (sourceRow.hooks?.examples ?? []).join(";"),
+      test_hook_count: sourceRow.testHooks?.count ?? "",
+      hook_weight_count: sourceRow.hookWeights?.count ?? "",
+      hook_delete_policy_count: sourceRow.hookDeletePolicies?.count ?? "",
+      job_count: sourceRow.jobs ?? "",
+      webhook_count: Number(sourceRow.validatingWebhooks ?? 0) + Number(sourceRow.mutatingWebhooks ?? 0),
+      crd_count: sourceRow.crdFiles ?? "",
+      lookup_count: sourceRow.lookup?.count ?? "",
       lifecycle_disposition: "requires-route-and-receipt",
       recommended_route: recommendedRoute(entry),
+      route_hint: routeHint(sourceRow),
       required_receipt: `data/hook-lifecycle/receipts/${slug(entry.chart)}/${base}/latest.yaml`,
       next_action: "choose lifecycle route, run live path, commit lifecycle or observation receipt",
     };
@@ -68,11 +82,13 @@ function buildReport() {
     version: row.version,
     base: row.selected_base,
     recommended_route: row.recommended_route,
-    required_receipt: row.required_receipt,
-    receipt_status: existsSync(join(repoRoot, row.required_receipt)) ? "present" : "not-yet-written",
-    minimum_checks: [
-      "hook resources inventoried",
-      "route selected",
+      required_receipt: row.required_receipt,
+      receipt_status: existsSync(join(repoRoot, row.required_receipt)) ? "present" : "not-yet-written",
+      hook_types: row.hook_types,
+      route_hint: row.route_hint,
+      minimum_checks: [
+        "hook resources inventoried",
+        "route selected",
       "controller or operator action recorded",
       "runtime outcome observed",
       "freshness timestamp recorded",
@@ -99,6 +115,21 @@ function recommendedRoute(entry) {
   if (entry.catalog_status === "catalog-supported") return "production-disposition-first";
   if (Number(entry.top500_rank || 9999) <= 50) return "catalog-promotion-review-first";
   return "recipe-maintenance-review-first";
+}
+
+function routeHint(sourceRow) {
+  const types = splitList(sourceRow.hookTypesText);
+  const hints = [];
+  if (types.some((type) => type.startsWith("pre-install"))) hints.push("preflight-or-presync");
+  if (types.some((type) => type.startsWith("post-install"))) hints.push("postsync-check-or-observation");
+  if (types.some((type) => type.includes("upgrade"))) hints.push("upgrade-action-with-receipt");
+  if (types.some((type) => type.includes("delete"))) hints.push("delete-cleanup-policy");
+  if ((sourceRow.testHooks?.count ?? 0) > 0) hints.push("explicit-test-check");
+  if ((sourceRow.hookWeights?.count ?? 0) > 0) hints.push("preserve-ordering");
+  if ((sourceRow.hookDeletePolicies?.count ?? 0) > 0) hints.push("preserve-cleanup-policy");
+  if ((Number(sourceRow.validatingWebhooks ?? 0) + Number(sourceRow.mutatingWebhooks ?? 0)) > 0) hints.push("webhook-readiness-observation");
+  if ((sourceRow.lookup?.count ?? 0) > 0) hints.push("target-facts-or-preflight");
+  return [...new Set(hints)].join(";");
 }
 
 function summary({ top500HookRows, hookRows, receiptRows }) {
@@ -144,6 +175,12 @@ has hook-like runtime behavior but no Helm hook. For example, cert-manager and
 External Secrets lifecycle observations live under
 \`data/lifecycle-observations/cert-manager-eso/\`. Those receipts demonstrate
 the lifecycle-observation pattern, not universal hook support.
+
+## Maintained Hook Chart Details
+
+| Chart | Hooks | Hook types | Route hint | Example templates |
+| --- | ---: | --- | --- | --- |
+${hookRows.map((row) => `| ${row.chart}@${row.version} | ${row.hook_count} | ${row.hook_types || "-"} | ${row.route_hint || "-"} | ${truncateExamples(row.hook_examples)} |`).join("\n")}
 `;
 }
 
@@ -172,4 +209,10 @@ function csvCell(value) {
 
 function slug(value) {
   return String(value).replaceAll("/", "-");
+}
+
+function truncateExamples(value) {
+  const examples = splitList(value);
+  if (examples.length === 0) return "-";
+  return examples.slice(0, 2).join("<br>");
 }
