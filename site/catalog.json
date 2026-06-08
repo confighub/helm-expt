@@ -7075,7 +7075,7 @@
       "current_result": "blocked",
       "reason": "target-runtime: pod crash loop (parity passed)",
       "diagnosis": "Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate.",
-      "rerun_command": "npm run kind-parity:run -- --chart bitnami/mongodb --version 19.0.7 --base existing-secret-replicaset",
+      "rerun_command": "npm run kind-parity:run -- --chart bitnami/mongodb --version 19.0.7 --base existing-secret-replicaset --repo-url oci://registry-1.docker.io/bitnamicharts",
       "followup": "Keep the recipe stable unless the rendered object comparison starts failing.",
       "receipt": "runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml",
       "related_lifecycle_result": "",

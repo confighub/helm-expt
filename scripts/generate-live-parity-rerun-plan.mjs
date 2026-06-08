@@ -9,6 +9,7 @@ const mode = process.argv[2] ?? "--generate";
 const outputRoot = join(repoRoot, "data", "live-parity-rerun-plan");
 const summaryPath = join(outputRoot, "summary.md");
 const csvPath = join(outputRoot, "rerun-plan.csv");
+const bitnamiOciRepository = "oci://registry-1.docker.io/bitnamicharts";
 
 if (mode === "--generate") {
   const plan = buildPlan();
@@ -54,7 +55,7 @@ function configHubOciRows() {
       current_result: row.result,
       reason: row.reason || "watch: inspect receipt",
       diagnosis: diagnosisForConfigHubOci(row),
-      rerun_command: `npm run live-parity:top20 -- --from-rank ${row.rank} --to-rank ${row.rank} --continue-on-fail`,
+      rerun_command: `npm run live-parity:top20 -- --from-rank ${row.rank} --to-rank ${row.rank}${repoUrlFlag(row)} --continue-on-fail`,
       followup: followupForConfigHubOci(row),
       receipt: row.receipt,
     }));
@@ -77,7 +78,7 @@ function twoClusterRows() {
         current_result: row.result,
         reason: row.reason || reasonForTwoCluster(row),
         diagnosis: diagnosisForTwoCluster(row, lifecycle),
-        rerun_command: `npm run kind-parity:run -- --chart ${row.chart} --version ${row.version} --base ${row.base}`,
+        rerun_command: `npm run kind-parity:run -- --chart ${row.chart} --version ${row.version} --base ${row.base}${repoUrlFlag(row)}`,
         followup: followupForTwoCluster(row, lifecycle),
         receipt: row.receipt,
         related_lifecycle_result: lifecycle?.result ?? "",
@@ -94,6 +95,15 @@ function lifecycleObservationIndex() {
 
 function lifecycleKey(row) {
   return `${row.chart}@${row.version}/${row.base}`;
+}
+
+function repoUrlFlag(row) {
+  return repoUrlOverrideFor(row) ? ` --repo-url ${repoUrlOverrideFor(row)}` : "";
+}
+
+function repoUrlOverrideFor(row) {
+  if (row.chart?.startsWith("bitnami/")) return bitnamiOciRepository;
+  return "";
 }
 
 function priorityForConfigHubOci(row) {
@@ -246,6 +256,13 @@ failure.
 
 If several rows need reruns, run one command, let it finish, inspect the
 receipt, regenerate the relevant summary, then move to the next row.
+
+## Repository Overrides
+
+Some pinned public chart versions remain available from OCI even when the classic
+Helm repository index no longer exposes them. The generated commands include an
+explicit \`--repo-url\` override for those rows. This keeps the rerun command
+faithful to the locked chart/version without changing the recipe.
 
 ## Rerun Queue
 

@@ -54,6 +54,13 @@ failure.
 If several rows need reruns, run one command, let it finish, inspect the
 receipt, regenerate the relevant summary, then move to the next row.
 
+## Repository Overrides
+
+Some pinned public chart versions remain available from OCI even when the classic
+Helm repository index no longer exposes them. The generated commands include an
+explicit `--repo-url` override for those rows. This keeps the rerun command
+faithful to the locked chart/version without changing the recipe.
+
 ## Rerun Queue
 
 | Priority | Lane | Chart | Base | Current | Reason | Command |
@@ -69,7 +76,7 @@ receipt, regenerate the relevant summary, then move to the next row.
 | 50 | two-cluster-kind-parity | `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | blocked | target-prerequisite: CRDs missing | `npm run kind-parity:run -- --chart prometheus-community/kube-prometheus-stack --version 85.3.3 --base no-crds` |
 | 55 | two-cluster-kind-parity | `jetstack/cert-manager@v1.20.2` | default | blocked | helm-hook: post-install hook failed (parity passed) | `npm run kind-parity:run -- --chart jetstack/cert-manager --version v1.20.2 --base default` |
 | 60 | two-cluster-kind-parity | `argo-cd/argo-cd@9.5.15` | default | watch | helm-runtime: upstream not ready (parity passed) | `npm run kind-parity:run -- --chart argo-cd/argo-cd --version 9.5.15 --base default` |
-| 60 | two-cluster-kind-parity | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | blocked | target-runtime: pod crash loop (parity passed) | `npm run kind-parity:run -- --chart bitnami/mongodb --version 19.0.7 --base existing-secret-replicaset` |
+| 60 | two-cluster-kind-parity | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | blocked | target-runtime: pod crash loop (parity passed) | `npm run kind-parity:run -- --chart bitnami/mongodb --version 19.0.7 --base existing-secret-replicaset --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 60 | two-cluster-kind-parity | `grafana/loki@7.0.0` | simple-scalable-minio | blocked | target-runtime: pods pending (parity passed) | `npm run kind-parity:run -- --chart grafana/loki --version 7.0.0 --base simple-scalable-minio` |
 | 60 | two-cluster-kind-parity | `grafana/tempo@1.24.4` | local-persistent | blocked | target-runtime: pods pending (parity passed) | `npm run kind-parity:run -- --chart grafana/tempo --version 1.24.4 --base local-persistent` |
 | 60 | two-cluster-kind-parity | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | blocked | target-runtime: pod crash loop (parity passed) | `npm run kind-parity:run -- --chart hashicorp/consul --version 2.0.0 --base secure-mesh-existing-secrets` |
