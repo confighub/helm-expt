@@ -18,7 +18,7 @@ charts with named hard gaps: 25
 
 | Question | Count | Read it as | Next move |
 | --- | ---: | --- | --- |
-| Which charts are already public catalog entries? | 20 | Use the catalog, then check exact base status before claiming a lane. | Open `CATALOG.md`, the per-chart catalog page, and `base-outcomes.csv`. |
+| Which charts are already public catalog entries? | 20 | Use the catalog, then check exact base status before claiming a lane. | Open `CATALOG.md`, the per-chart catalog page, `base-outcomes.csv`, and the production next-action queue. |
 | Which proof-grade charts are closest to promotion? | 27 | Recipe/package proof and multiple variants exist, but catalog review is not done. | Run catalog promotion review and add live lanes for selected bases. |
 | Which charts need a useful user-shaped variant first? | 46 | The default render proves the mechanism, but it is not yet a good catalog offer. | Add one or more realistic base variants before promotion. |
 | Which charts need a limitation decision first? | 7 | A known gap affects the recommended path. | Decide whether to support, disclose, or defer that capability. |
@@ -67,6 +67,9 @@ charts with named hard gaps: 25
 - Live evidence is intentionally counted separately. A chart can be proof-grade
   without every base variant having live Kubernetes, GitOps, or live parity
   evidence yet.
+- For top-20 public catalog rows, `next_action` comes from
+  `data/production-disposition/next-actions.csv`. That keeps "can I try this?"
+  separate from "can we call it production-supported?"
 - Hard gaps are capability gaps, not necessarily chart failure. They usually mean
   a useful path such as an existing-secret, HA, no-CRDs, or production lifecycle
   path still needs a supported variant or operator decision.
@@ -83,26 +86,26 @@ charts with named hard gaps: 25
 
 | Chart | Adoption bucket | Evidence | Variants | Next action |
 | --- | --- | --- | ---: | --- |
-| `argo-cd/argo-cd@9.5.15` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
-| `bitnami/mongodb@19.0.7` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |
-| `bitnami/mysql@14.0.3` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
-| `bitnami/nginx@24.0.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve or document: existing-secret (chart ships no Secret toggle - #113) |
-| `bitnami/postgresql@18.6.7` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
-| `bitnami/rabbitmq@16.0.14` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
-| `bitnami/redis@25.5.3` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |
-| `external-secrets/external-secrets@2.5.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |
-| `grafana/grafana@10.5.15` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |
-| `grafana/loki@7.0.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |
-| `grafana/tempo@1.24.4` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | resolve or document: ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
-| `hashicorp/consul@2.0.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
-| `hashicorp/vault@0.32.0` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | promote a declared production scope when gates pass |
-| `ingress-nginx/ingress-nginx@4.15.1` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | promote a declared production scope when gates pass |
-| `jetstack/cert-manager@v1.20.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |
-| `longhorn/longhorn@1.11.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |
-| `metrics-server/metrics-server@3.13.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve or document: existing-secret (chart ships no Secret toggle - #113) |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | resolve or document: existing-secret (chart ships no Secret toggle - #113) |
-| `prometheus-community/prometheus@29.8.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
-| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |
+| `argo-cd/argo-cd@9.5.15` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | write or fix the CRD lifecycle and upgrade policy disposition receipt |
+| `bitnami/mongodb@19.0.7` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the extension slot provenance and scan policy disposition receipt |
+| `bitnami/mysql@14.0.3` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the extension slot provenance and scan policy disposition receipt |
+| `bitnami/nginx@24.0.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve image digests or pin image tags in the installer base; record image override/proof receipt; then accept PDB behavior or add a reviewed patch where the chart supports it |
+| `bitnami/postgresql@18.6.7` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the extension slot provenance and scan policy disposition receipt |
+| `bitnami/rabbitmq@16.0.14` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the extension slot provenance and scan policy disposition receipt |
+| `bitnami/redis@25.5.3` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the generated fact ownership disposition receipt |
+| `external-secrets/external-secrets@2.5.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the CRD lifecycle and upgrade policy disposition receipt |
+| `grafana/grafana@10.5.15` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the cluster RBAC review disposition receipt |
+| `grafana/loki@7.0.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the cluster RBAC review disposition receipt |
+| `grafana/tempo@1.24.4` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | write or fix the extension slot provenance and scan policy disposition receipt |
+| `hashicorp/consul@2.0.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the CRD lifecycle and upgrade policy disposition receipt |
+| `hashicorp/vault@0.32.0` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | write or fix the cluster RBAC review disposition receipt |
+| `ingress-nginx/ingress-nginx@4.15.1` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | write or fix the cluster RBAC review disposition receipt |
+| `jetstack/cert-manager@v1.20.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the CRD lifecycle and upgrade policy disposition receipt |
+| `longhorn/longhorn@1.11.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the CRD lifecycle and upgrade policy disposition receipt |
+| `metrics-server/metrics-server@3.13.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the cluster RBAC review disposition receipt |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | write or fix the CRD lifecycle and upgrade policy disposition receipt |
+| `prometheus-community/prometheus@29.8.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the cluster RBAC review disposition receipt |
+| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the CRD lifecycle and upgrade policy disposition receipt |
 | `traefik/traefik@40.2.0` | `limitation-decision-first` | `render-parity` | 2 | review limitation before promotion: existing-secret (chart ships no Secret toggle - #113) |
 | `external-dns/external-dns@1.21.1` | `promote-after-review` | `render-parity` | 2 | run catalog promotion review |
 | `gitlab/gitlab-runner@0.89.0` | `needs-useful-variant` | `render-parity` | 1 | add at least one user-shaped variant before catalog promotion |

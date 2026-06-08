@@ -34,13 +34,15 @@ if (mode === "--generate") {
 function buildReport() {
   const top100Rows = parseCsvFile("data/top100-catalog-analysis/review.csv");
   const outcomeRows = parseCsvFile("data/outcome-coverage/chart-outcomes.csv");
+  const productionNextActions = productionNextActionIndex();
   const outcomeByChart = new Map(outcomeRows.map((row) => [row.chart, row]));
 
   const rows = top100Rows.map((top100) => {
     const key = `${top100.chart}@${top100.version}`;
     const outcome = outcomeByChart.get(key) ?? {};
     const strongestEvidence = strongestEvidenceFor(outcome);
-    const status = userStatusFor(top100, outcome, strongestEvidence);
+    const productionNextAction = productionNextActions.get(key);
+    const status = userStatusFor(top100, outcome, strongestEvidence, productionNextAction);
     return {
       proof_surface_rank: top100.proof_surface_rank,
       chart: key,
@@ -61,6 +63,11 @@ function buildReport() {
       catalog_path: top100.catalog_path,
     };
   });
+  const missingProductionRows = rows
+    .filter((row) => row.catalog_tier === "top20-catalog-supported")
+    .filter((row) => !productionNextActions.has(row.chart))
+    .map((row) => row.chart);
+  check(missingProductionRows.length === 0, `missing production next actions for top20 rows: ${missingProductionRows.join(", ")}`);
 
   return {
     rows,
@@ -78,18 +85,18 @@ function strongestEvidenceFor(row) {
   return "not-proven";
 }
 
-function userStatusFor(top100, outcome, strongestEvidence) {
+function userStatusFor(top100, outcome, strongestEvidence, productionNextAction) {
   const hardGap = shortGap(outcome.hard_gap || top100.not_yet_enabled);
   if (top100.catalog_status === "catalog-supported") {
     if (["live-helm-vs-confighub-parity", "gitops-oci-live", "local-kubernetes-live"].includes(strongestEvidence)) {
       return {
         userStatus: "catalog-supported-with-live-evidence",
-        nextAction: hardGap === "-" ? "promote a declared production scope when gates pass" : `resolve or document: ${hardGap}`,
+        nextAction: productionNextAction ?? (hardGap === "-" ? "promote a declared production scope when gates pass" : `resolve or document: ${hardGap}`),
       };
     }
     return {
       userStatus: "catalog-supported-needs-live-expansion",
-      nextAction: "add live evidence for the remaining supported variants",
+      nextAction: productionNextAction ?? "add live evidence for the remaining supported variants",
     };
   }
   if (top100.catalog_status === "proof-grade") {
@@ -108,6 +115,16 @@ function userStatusFor(top100, outcome, strongestEvidence) {
     userStatus: "not-in-current-catalog-lane",
     nextAction: top100.top500_next_action || "review chart analysis and create a recipe candidate",
   };
+}
+
+function productionNextActionIndex() {
+  const result = new Map();
+  const path = join(repoRoot, "data", "production-disposition", "next-actions.csv");
+  if (!existsSync(path)) return result;
+  for (const row of parseCsvFile("data/production-disposition/next-actions.csv")) {
+    if (row.chart && row.version) result.set(`${row.chart}@${row.version}`, row.nextAction);
+  }
+  return result;
 }
 
 function summary(rows) {
@@ -144,7 +161,7 @@ charts with named hard gaps: ${hardGaps.length}
 
 | Question | Count | Read it as | Next move |
 | --- | ---: | --- | --- |
-| Which charts are already public catalog entries? | ${top20.length} | Use the catalog, then check exact base status before claiming a lane. | Open \`CATALOG.md\`, the per-chart catalog page, and \`base-outcomes.csv\`. |
+| Which charts are already public catalog entries? | ${top20.length} | Use the catalog, then check exact base status before claiming a lane. | Open \`CATALOG.md\`, the per-chart catalog page, \`base-outcomes.csv\`, and the production next-action queue. |
 | Which proof-grade charts are closest to promotion? | ${promotionReview.length} | Recipe/package proof and multiple variants exist, but catalog review is not done. | Run catalog promotion review and add live lanes for selected bases. |
 | Which charts need a useful user-shaped variant first? | ${needsVariant.length} | The default render proves the mechanism, but it is not yet a good catalog offer. | Add one or more realistic base variants before promotion. |
 | Which charts need a limitation decision first? | ${namedLimitation.length} | A known gap affects the recommended path. | Decide whether to support, disclose, or defer that capability. |
@@ -182,6 +199,9 @@ ${[...evidenceCounts.entries()].map(([status, count]) => `| \`${status}\` | ${co
 - Live evidence is intentionally counted separately. A chart can be proof-grade
   without every base variant having live Kubernetes, GitOps, or live parity
   evidence yet.
+- For top-20 public catalog rows, \`next_action\` comes from
+  \`data/production-disposition/next-actions.csv\`. That keeps "can I try this?"
+  separate from "can we call it production-supported?"
 - Hard gaps are capability gaps, not necessarily chart failure. They usually mean
   a useful path such as an existing-secret, HA, no-CRDs, or production lifecycle
   path still needs a supported variant or operator decision.

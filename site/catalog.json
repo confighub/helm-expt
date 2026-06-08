@@ -5014,7 +5014,7 @@
       "gitops_live": "0/2",
       "live_parity": "0/2",
       "hard_gap": "ha (curated proof lane - bespoke teaching needed)",
-      "next_action": "resolve or document: ha (curated proof lane - bespoke teaching needed)",
+      "next_action": "write or fix the CRD lifecycle and upgrade policy disposition receipt",
       "recipe_path": "recipes/argo-cd/argo-cd/9.5.15/recipe.yaml",
       "catalog_path": "recipes/argo-cd/argo-cd/9.5.15/CATALOG.md"
     },
@@ -5033,7 +5033,7 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "-",
-      "next_action": "promote a declared production scope when gates pass",
+      "next_action": "write or fix the extension slot provenance and scan policy disposition receipt",
       "recipe_path": "recipes/bitnami/mongodb/19.0.7/recipe.yaml",
       "catalog_path": "recipes/bitnami/mongodb/19.0.7/CATALOG.md"
     },
@@ -5052,7 +5052,7 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "ha (curated proof lane - bespoke teaching needed)",
-      "next_action": "resolve or document: ha (curated proof lane - bespoke teaching needed)",
+      "next_action": "write or fix the extension slot provenance and scan policy disposition receipt",
       "recipe_path": "recipes/bitnami/mysql/14.0.3/recipe.yaml",
       "catalog_path": "recipes/bitnami/mysql/14.0.3/CATALOG.md"
     },
@@ -5071,7 +5071,7 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "existing-secret (chart ships no Secret toggle - #113)",
-      "next_action": "resolve or document: existing-secret (chart ships no Secret toggle - #113)",
+      "next_action": "resolve image digests or pin image tags in the installer base; record image override/proof receipt; then accept PDB behavior or add a reviewed patch where the chart supports it",
       "recipe_path": "recipes/bitnami/nginx/24.0.2/recipe.yaml",
       "catalog_path": "recipes/bitnami/nginx/24.0.2/CATALOG.md"
     },
@@ -5090,7 +5090,7 @@
       "gitops_live": "2/2",
       "live_parity": "1/2",
       "hard_gap": "ha (curated proof lane - bespoke teaching needed)",
-      "next_action": "resolve or document: ha (curated proof lane - bespoke teaching needed)",
+      "next_action": "write or fix the extension slot provenance and scan policy disposition receipt",
       "recipe_path": "recipes/bitnami/postgresql/18.6.7/recipe.yaml",
       "catalog_path": "recipes/bitnami/postgresql/18.6.7/CATALOG.md"
     },
@@ -5109,7 +5109,7 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "ha (curated proof lane - bespoke teaching needed)",
-      "next_action": "resolve or document: ha (curated proof lane - bespoke teaching needed)",
+      "next_action": "write or fix the extension slot provenance and scan policy disposition receipt",
       "recipe_path": "recipes/bitnami/rabbitmq/16.0.14/recipe.yaml",
       "catalog_path": "recipes/bitnami/rabbitmq/16.0.14/CATALOG.md"
     },
@@ -5128,7 +5128,7 @@
       "gitops_live": "2/2",
       "live_parity": "1/2",
       "hard_gap": "-",
-      "next_action": "promote a declared production scope when gates pass",
+      "next_action": "write or fix the generated fact ownership disposition receipt",
       "recipe_path": "recipes/bitnami/redis/25.5.3/recipe.yaml",
       "catalog_path": "recipes/bitnami/redis/25.5.3/CATALOG.md"
     },
@@ -5147,7 +5147,7 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "-",
-      "next_action": "promote a declared production scope when gates pass",
+      "next_action": "write or fix the CRD lifecycle and upgrade policy disposition receipt",
       "recipe_path": "recipes/external-secrets/external-secrets/2.5.0/recipe.yaml",
       "catalog_path": "recipes/external-secrets/external-secrets/2.5.0/CATALOG.md"
     },
@@ -5166,7 +5166,7 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "-",
-      "next_action": "promote a declared production scope when gates pass",
+      "next_action": "write or fix the cluster RBAC review disposition receipt",
       "recipe_path": "recipes/grafana/grafana/10.5.15/recipe.yaml",
       "catalog_path": "recipes/grafana/grafana/10.5.15/CATALOG.md"
     },
@@ -5185,7 +5185,7 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "-",
-      "next_action": "promote a declared production scope when gates pass",
+      "next_action": "write or fix the cluster RBAC review disposition receipt",
       "recipe_path": "recipes/grafana/loki/7.0.0/recipe.yaml",
       "catalog_path": "recipes/grafana/loki/7.0.0/CATALOG.md"
     },
@@ -5204,7 +5204,7 @@
       "gitops_live": "0/2",
       "live_parity": "0/2",
       "hard_gap": "ha (tempo single-binary chart; HA is the separate tempo-distributed chart)",
-      "next_action": "resolve or document: ha (tempo single-binary chart; HA is the separate tempo-distributed chart)",
+      "next_action": "write or fix the extension slot provenance and scan policy disposition receipt",
       "recipe_path": "recipes/grafana/tempo/1.24.4/recipe.yaml",
       "catalog_path": "recipes/grafana/tempo/1.24.4/CATALOG.md"
     },
@@ -5223,7 +5223,7 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "ha (curated proof lane - bespoke teaching needed)",
-      "next_action": "resolve or document: ha (curated proof lane - bespoke teaching needed)",
+      "next_action": "write or fix the CRD lifecycle and upgrade policy disposition receipt",
       "recipe_path": "recipes/hashicorp/consul/2.0.0/recipe.yaml",
       "catalog_path": "recipes/hashicorp/consul/2.0.0/CATALOG.md"
     },
@@ -5242,7 +5242,7 @@
       "gitops_live": "0/2",
       "live_parity": "0/2",
       "hard_gap": "-",
-      "next_action": "promote a declared production scope when gates pass",
+      "next_action": "write or fix the cluster RBAC review disposition receipt",
       "recipe_path": "recipes/hashicorp/vault/0.32.0/recipe.yaml",
       "catalog_path": "recipes/hashicorp/vault/0.32.0/CATALOG.md"
     },
@@ -5261,7 +5261,7 @@
       "gitops_live": "0/2",
       "live_parity": "0/2",
       "hard_gap": "-",
-      "next_action": "promote a declared production scope when gates pass",
+      "next_action": "write or fix the cluster RBAC review disposition receipt",
       "recipe_path": "recipes/ingress-nginx/ingress-nginx/4.15.1/recipe.yaml",
       "catalog_path": "recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.md"
     },
@@ -5280,7 +5280,7 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "-",
-      "next_action": "promote a declared production scope when gates pass",
+      "next_action": "write or fix the CRD lifecycle and upgrade policy disposition receipt",
       "recipe_path": "recipes/jetstack/cert-manager/v1.20.2/recipe.yaml",
       "catalog_path": "recipes/jetstack/cert-manager/v1.20.2/CATALOG.md"
     },
@@ -5299,7 +5299,7 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "-",
-      "next_action": "promote a declared production scope when gates pass",
+      "next_action": "write or fix the CRD lifecycle and upgrade policy disposition receipt",
       "recipe_path": "recipes/longhorn/longhorn/1.11.2/recipe.yaml",
       "catalog_path": "recipes/longhorn/longhorn/1.11.2/CATALOG.md"
     },
@@ -5318,7 +5318,7 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "existing-secret (chart ships no Secret toggle - #113)",
-      "next_action": "resolve or document: existing-secret (chart ships no Secret toggle - #113)",
+      "next_action": "write or fix the cluster RBAC review disposition receipt",
       "recipe_path": "recipes/metrics-server/metrics-server/3.13.0/recipe.yaml",
       "catalog_path": "recipes/metrics-server/metrics-server/3.13.0/CATALOG.md"
     },
@@ -5337,7 +5337,7 @@
       "gitops_live": "0/2",
       "live_parity": "0/2",
       "hard_gap": "existing-secret (chart ships no Secret toggle - #113)",
-      "next_action": "resolve or document: existing-secret (chart ships no Secret toggle - #113)",
+      "next_action": "write or fix the CRD lifecycle and upgrade policy disposition receipt",
       "recipe_path": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/recipe.yaml",
       "catalog_path": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md"
     },
@@ -5356,7 +5356,7 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "ha (curated proof lane - bespoke teaching needed)",
-      "next_action": "resolve or document: ha (curated proof lane - bespoke teaching needed)",
+      "next_action": "write or fix the cluster RBAC review disposition receipt",
       "recipe_path": "recipes/prometheus-community/prometheus/29.8.0/recipe.yaml",
       "catalog_path": "recipes/prometheus-community/prometheus/29.8.0/CATALOG.md"
     },
@@ -5375,7 +5375,7 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "-",
-      "next_action": "promote a declared production scope when gates pass",
+      "next_action": "write or fix the CRD lifecycle and upgrade policy disposition receipt",
       "recipe_path": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/recipe.yaml",
       "catalog_path": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.md"
     },
