@@ -44,6 +44,9 @@ Which detailed CSV should I open next?
 | live evidence | two-cluster kind parity receipts | 40/40 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | live evidence | ConfigHub/OCI semantic parity defect receipts | 0/20 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 0/40 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| production disposition | top20 production-supported charts | 0/20 | gap | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| production disposition | top20 production-blocked charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| production disposition | charts with accepted production dispositions | 1/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | quirks | tracked-and-surfaced axes | 9/26 | good | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
 | quirks | partly tracked axes | 3/26 | partial | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
 | quirks | source-scanned but not surfaced axes | 5/26 | gap | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
@@ -199,6 +202,47 @@ Current two-cluster kind parity non-pass receipts:
 | prometheus-community/kube-prometheus-stack@85.3.3 | no-crds | blocked | target-prerequisite: CRDs missing |
 
 
+## Production Disposition Boundary
+
+The top-20 catalog entries are currently supported for the declared local-test
+scope. Production support is tracked separately. A chart stays blocked from
+production support until its scan/gate warnings, lifecycle risks, target facts,
+storage policy, RBAC, webhook behavior, and extension-slot dispositions are
+closed or explicitly accepted.
+
+| Metric | Value |
+| --- | ---: |
+| production-supported charts | 0/20 |
+| production-blocked pending disposition | 20/20 |
+| charts with accepted dispositions | 1/20 |
+
+| Open disposition | Charts |
+| --- | ---: |
+| scan/gate warning disposition | 20 |
+| extension slot provenance and scan policy | 17 |
+| cluster RBAC review | 13 |
+| hook and lifecycle phase policy | 11 |
+| target fact preflight | 10 |
+| generated fact ownership | 9 |
+| storage backup restore and rollback policy | 8 |
+| CRD lifecycle and upgrade policy | 7 |
+
+| Chart | Production | Accepted | Open | Next action |
+| --- | --- | ---: | ---: | --- |
+| argo-cd/argo-cd@9.5.15 | blocked | 0 | 6 | extend live/e2e lane beyond local kind after production dispositions are written |
+| bitnami/mongodb@19.0.7 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |
+| bitnami/mysql@14.0.3 | blocked | 0 | 6 | extend live/e2e lane beyond local kind after production dispositions are written |
+| bitnami/nginx@24.0.2 | blocked | 0 | 4 | extend live/e2e lane beyond local kind after production dispositions are written |
+| bitnami/postgresql@18.6.7 | blocked | 0 | 6 | extend live/e2e lane beyond local kind after production dispositions are written |
+| bitnami/rabbitmq@16.0.14 | blocked | 0 | 6 | extend live/e2e lane beyond local kind after production dispositions are written |
+| bitnami/redis@25.5.3 | blocked | 1 | 3 | extend live/e2e lane beyond local kind after production dispositions are written |
+| external-secrets/external-secrets@2.5.0 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |
+| grafana/grafana@10.5.15 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |
+| grafana/loki@7.0.0 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |
+
+Use [production-disposition/summary.md](../production-disposition/summary.md)
+for the full top-20 disposition table.
+
 ## Derived Variant Evidence
 
 Derived ConfigHub variants are the post-render half of the model. They start
@@ -305,6 +349,7 @@ lifecycle observation.
 | Which hook claims are queued versus observed? | [lifecycle-boundary/summary.md](../lifecycle-boundary/summary.md) |
 | Which live comparisons passed or failed? | [live-helm-confighub-compare/summary.csv](../live-helm-confighub-compare/summary.csv) |
 | Which live rows should be rerun next? | [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md) |
+| Which top-20 charts are production-supported? | [production-disposition/summary.md](../production-disposition/summary.md) |
 | Which derived variants are specified or executed? | [variant-goldens/derived-expansion-wave/work-orders.csv](../variant-goldens/derived-expansion-wave/work-orders.csv) |
 
 Regenerate:

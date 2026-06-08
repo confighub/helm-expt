@@ -46,6 +46,7 @@ function buildReport() {
   const liveRows = readCsv("data/live-helm-confighub-compare/summary.csv");
   const kindParityRows = readCsv("data/live-kind-parity/summary.csv");
   const runtimeRows = readCsv("data/runtime-gitops/wave1.csv");
+  const productionRows = readCsv("data/production-disposition/top20.csv");
   const derivedWorkOrders = readCsv("data/variant-goldens/derived-expansion-wave/work-orders.csv");
   const derivedLiveReceiptCount = derivedWorkOrders.filter((row) =>
     existsSync(join(repoRoot, "runs", "derived-variant-execution", row.id, "variant-create-receipt.yaml")),
@@ -86,6 +87,10 @@ function buildReport() {
   rows.push(metric("live evidence", "ConfigHub/OCI semantic parity defect receipts", semanticDefectCount(liveRows), liveRows.length, "good", "data/live-helm-confighub-compare/summary.csv", "Rows whose committed receipt currently points at a semantic object comparison defect."));
   rows.push(metric("live evidence", "two-cluster semantic parity defect receipts", semanticDefectCount(kindParityRows), kindParityRows.length, "good", "data/live-kind-parity/summary.csv", "Rows whose committed two-cluster receipt currently points at a semantic object comparison defect."));
 
+  rows.push(metric("production disposition", "top20 production-supported charts", productionRows.filter((row) => row.production_support === "production-supported").length, productionRows.length, "gap", "data/production-disposition/top20.csv", "Top-20 catalog charts with all production dispositions closed."));
+  rows.push(metric("production disposition", "top20 production-blocked charts", productionRows.filter((row) => row.production_support === "blocked").length, productionRows.length, "partial", "data/production-disposition/top20.csv", "Top-20 catalog charts that remain blocked from production support pending explicit dispositions."));
+  rows.push(metric("production disposition", "charts with accepted production dispositions", productionRows.filter((row) => dispositionCount(row.accepted_dispositions) > 0).length, productionRows.length, "partial", "data/production-disposition/top20.csv", "Charts with at least one disposition receipt accepted."));
+
   const quirkTierCounts = groupCount(quirkRows, "coverage_tier");
   rows.push(metric("quirks", "tracked-and-surfaced axes", quirkTierCounts.get("tracked-and-surfaced") ?? 0, quirkRows.length, "good", "data/quirk-coverage/coverage.csv", "Quirk axes visible in generated chart or user data."));
   rows.push(metric("quirks", "partly tracked axes", quirkTierCounts.get("partly-tracked") ?? 0, quirkRows.length, "partial", "data/quirk-coverage/coverage.csv", "Visible quirk axes that still need lifecycle or proof coverage."));
@@ -108,7 +113,7 @@ function buildReport() {
     csv: toCsv(rows),
     top20Rows,
     top20Csv: top20ToCsv(top20Rows),
-    summary: summary(rows, { chartRows, baseRows, top100Rows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, lifecycleBoundaryRows, liveRows, kindParityRows, runtimeRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount }),
+    summary: summary(rows, { chartRows, baseRows, top100Rows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, lifecycleBoundaryRows, liveRows, kindParityRows, runtimeRows, productionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount }),
   };
 }
 
@@ -123,6 +128,10 @@ function summary(rows, context) {
   const hookPreview = context.hookRows.slice(0, 8);
   const liveNonPass = context.liveRows.filter((row) => row.result && row.result !== "pass");
   const kindParityNonPass = context.kindParityRows.filter((row) => row.result && row.result !== "pass");
+  const productionBlockers = [...flattenCounts(context.productionRows, "open_dispositions").entries()]
+    .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
+    .slice(0, 8);
+  const productionPreview = context.productionRows.slice(0, 10);
 
   return `# Status Dashboard
 
@@ -241,6 +250,31 @@ ${kindParityNonPass.length ? `Current two-cluster kind parity non-pass receipts:
 ${kindParityNonPass.map((row) => `| ${row.chart}@${row.version} | ${row.base} | ${row.result} | ${row.reason || "-"} |`).join("\n")}
 ` : "There are no current two-cluster kind parity non-pass receipts.\n"}
 
+## Production Disposition Boundary
+
+The top-20 catalog entries are currently supported for the declared local-test
+scope. Production support is tracked separately. A chart stays blocked from
+production support until its scan/gate warnings, lifecycle risks, target facts,
+storage policy, RBAC, webhook behavior, and extension-slot dispositions are
+closed or explicitly accepted.
+
+| Metric | Value |
+| --- | ---: |
+| production-supported charts | ${context.productionRows.filter((row) => row.production_support === "production-supported").length}/${context.productionRows.length} |
+| production-blocked pending disposition | ${context.productionRows.filter((row) => row.production_support === "blocked").length}/${context.productionRows.length} |
+| charts with accepted dispositions | ${context.productionRows.filter((row) => dispositionCount(row.accepted_dispositions) > 0).length}/${context.productionRows.length} |
+
+| Open disposition | Charts |
+| --- | ---: |
+${productionBlockers.map(([blocker, count]) => `| ${blocker} | ${count} |`).join("\n")}
+
+| Chart | Production | Accepted | Open | Next action |
+| --- | --- | ---: | ---: | --- |
+${productionPreview.map((row) => `| ${row.chart}@${row.version} | ${row.production_support} | ${dispositionCount(row.accepted_dispositions)} | ${dispositionCount(row.open_dispositions)} | ${row.next_action} |`).join("\n")}
+
+Use [production-disposition/summary.md](../production-disposition/summary.md)
+for the full top-20 disposition table.
+
 ## Derived Variant Evidence
 
 Derived ConfigHub variants are the post-render half of the model. They start
@@ -325,6 +359,7 @@ lifecycle observation.
 | Which hook claims are queued versus observed? | [lifecycle-boundary/summary.md](../lifecycle-boundary/summary.md) |
 | Which live comparisons passed or failed? | [live-helm-confighub-compare/summary.csv](../live-helm-confighub-compare/summary.csv) |
 | Which live rows should be rerun next? | [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md) |
+| Which top-20 charts are production-supported? | [production-disposition/summary.md](../production-disposition/summary.md) |
 | Which derived variants are specified or executed? | [variant-goldens/derived-expansion-wave/work-orders.csv](../variant-goldens/derived-expansion-wave/work-orders.csv) |
 
 Regenerate:
@@ -513,4 +548,25 @@ function semanticDefectCount(rows) {
     const reason = String(row.reason ?? "").toLowerCase();
     return reason.startsWith("parity:") || reason.includes("semantic object diff");
   }).length;
+}
+
+function dispositionCount(value) {
+  return splitDisposition(value).length;
+}
+
+function flattenCounts(rows, field) {
+  const counts = new Map();
+  for (const row of rows) {
+    for (const value of splitDisposition(row[field])) {
+      counts.set(value, (counts.get(value) ?? 0) + 1);
+    }
+  }
+  return counts;
+}
+
+function splitDisposition(value) {
+  return String(value ?? "")
+    .split(";")
+    .map((item) => item.trim())
+    .filter(Boolean);
 }
