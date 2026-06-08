@@ -246,7 +246,7 @@
   },
   "grafana/tempo": {
     "version": "1.24.4",
-    "not_yet_enabled": "ha (tempo single-binary chart; HA is the separate t…)",
+    "not_yet_enabled": "ha (tempo single-binary chart; HA is the separate tempo-distributed chart)",
     "buildable_not_yet_run": "ingress-tls (buildable — not yet run)"
   },
   "haproxytech/kubernetes-ingress": {

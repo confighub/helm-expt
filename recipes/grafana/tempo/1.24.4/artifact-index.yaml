@@ -62,8 +62,8 @@ spec:
       gitopsLive: "0/2"
       liveParity: "0/2"
     featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots"
-    hardGap: "ha (tempo single-binary chart; HA is the separate t...)"
-    nextAction: "resolve or document: ha (tempo single-binary chart; HA is the separate t...)"
+    hardGap: "ha (tempo single-binary chart; HA is the separate tempo-distributed chart)"
+    nextAction: "resolve or document: ha (tempo single-binary chart; HA is the separate tempo-distributed chart)"
   installerPackage:
     path: "packages/grafana/tempo/1.24.4"
     installer: "packages/grafana/tempo/1.24.4/installer.yaml"

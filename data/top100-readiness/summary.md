@@ -38,7 +38,7 @@ charts with named hard gaps: 25
 | --- | ---: | --- |
 | existing-secret (chart ships no Secret toggle - #113) | 15 | The chart does not expose a clean bring-your-own-secret render path. Do not invent one silently. |
 | ha (curated proof lane - bespoke teaching needed) | 6 | The proof path does not yet teach a realistic HA variant for that chart. |
-| ha (tempo single-binary chart; HA is the separate t...) | 1 | The current chart path is single-binary; HA belongs to a separate supported topology decision. |
+| ha (tempo single-binary chart; HA is the separate tempo-distributed chart) | 1 | The current chart path is single-binary; HA belongs to a separate supported topology decision. |
 | no-crds (template-baked CRDs, no toggle - #114) | 3 | The chart bakes CRDs into templates or lacks a clean CRDs-off switch. CRD ownership needs an explicit route. |
 
 ## User Status
@@ -93,7 +93,7 @@ charts with named hard gaps: 25
 | `external-secrets/external-secrets@2.5.0` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | promote a declared production scope when gates pass |
 | `grafana/grafana@10.5.15` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |
 | `grafana/loki@7.0.0` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | promote a declared production scope when gates pass |
-| `grafana/tempo@1.24.4` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | resolve or document: ha (tempo single-binary chart; HA is the separate t...) |
+| `grafana/tempo@1.24.4` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | resolve or document: ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
 | `hashicorp/consul@2.0.0` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
 | `hashicorp/vault@0.32.0` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | promote a declared production scope when gates pass |
 | `ingress-nginx/ingress-nginx@4.15.1` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | promote a declared production scope when gates pass |

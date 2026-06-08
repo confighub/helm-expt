@@ -104,8 +104,7 @@ function classifyGap(ref, variant, reason, secretsGen) {
     return { kind: "soft", label: "existing-secret (buildable — not yet run)" };
   }
   if (!reason) return { kind: "soft", label: `${variant} (buildable — not yet run)` };
-  const short = r.length > 50 ? `${r.slice(0, 47)}…` : r;
-  return { kind: "hard", label: `${variant} (${short})` };
+  return { kind: "hard", label: `${variant} (${r})` };
 }
 
 function isCrdPublicationChart(ref) {

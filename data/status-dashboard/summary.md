@@ -82,7 +82,7 @@ spreadsheet.
 | external-secrets/external-secrets@2.5.0 | default;no-crds | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | - |
 | grafana/grafana@10.5.15 | generated-passwords;existing-secret-ingress | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
 | grafana/loki@7.0.0 | single-binary-filesystem;simple-scalable-minio | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | - |
-| grafana/tempo@1.24.4 | local-persistent;s3-query-observability | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | ha (tempo single-binary chart; HA is the separate t...) |
+| grafana/tempo@1.24.4 | local-persistent;s3-query-observability | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
 | hashicorp/consul@2.0.0 | default-control-plane;secure-mesh-existing-secrets | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | ha (curated proof lane - bespoke teaching needed) |
 | hashicorp/vault@0.32.0 | default;ha-raft-ui | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | - |
 | ingress-nginx/ingress-nginx@4.15.1 | default;admission-disabled | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | - |
