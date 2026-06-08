@@ -173,6 +173,10 @@ That lane is not a claim that all hooks are solved. It proves the receipt shape
 for common lifecycle issues: CRD ownership, webhook API readiness, CA bundle
 injection, controller-populated Secret data, and server dry-run checks.
 
+The generated boundary page keeps the two claims separate:
+
+[Hook And Lifecycle Boundary](../../data/lifecycle-boundary/summary.md)
+
 ## Managed / Commercial Strategy
 
 Hooks can support paid value, but the offer should not be "we run arbitrary

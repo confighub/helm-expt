@@ -45,6 +45,7 @@ For the shortest chart-by-chart top-100 answer, start with:
 | [coverage-matrix.csv](../../data/variant-path-coverage/coverage-matrix.csv) | One row per chart/base/path. Shows whether the row is a base, diff, operation, or derived variant, with proof status per lane. |
 | [quirk coverage](../../data/quirk-coverage/summary.md) | One row per Helm quirk axis. Shows whether it is tracked, partly tracked, source-scanned only, or not scanned. |
 | [extension slot coverage](../../data/extension-slots/summary.md) | One row per chart with NGINX-like raw manifests, tpl snippets, config blocks, sidecars, or add-on slots. |
+| [hook and lifecycle boundary](../../data/lifecycle-boundary/summary.md) | Separates hook lifecycle queue rows from hook-like controller lifecycle observations. |
 | [edges.csv](../../data/edge-recovery/edges.csv) | Recovered graph fragments for Redis and kube-prometheus-stack: inheritance, overrides, generated facts, target facts, and field reachability where known. |
 
 Every CSV under `data/` is indexed here:
@@ -66,7 +67,7 @@ The machine-readable index is:
 | ConfigHub OCI can be reconciled by GitOps for tested rows. | Argo or Flux OCI receipts plus runtime observation. | `npm run runtime-gitops:wave:verify` |
 | Plain Helm and ConfigHub delivery reach equivalent live outcomes for tested rows. | Live Helm-vs-ConfigHub comparison receipts and two-cluster parity receipts. | `npm run live-parity:verify && npm run kind-parity:verify` |
 | Derived ConfigHub variants preserve reviewed bases and expose post-render changes. | Derived variant execution receipts and target-bound receipts. | `npm run derived-variants:verify && npm run derived-variants:target-bound:verify` |
-| Hooks and hook-like lifecycle behavior are visible rather than hidden. | Hook lifecycle queue and lifecycle observation receipts. | `npm run hooks:lifecycle:verify && npm run lifecycle:cert-manager-eso:verify` |
+| Hooks and hook-like lifecycle behavior are visible rather than hidden. | Hook lifecycle queue, lifecycle boundary, and lifecycle observation receipts. | `npm run hooks:lifecycle:verify && npm run lifecycle:boundary:verify && npm run lifecycle:cert-manager-eso:verify` |
 | Images, Secrets, CRDs, webhooks, target facts, and other chart-specific features are tracked. | Chart facts, attack-plan workdown, and image digest workdown. | `npm run chart-facts:verify && npm run attack-plan:verify && npm run image-digests:workdown:verify` |
 | Known Helm quirks are either surfaced or disclosed as gaps. | Quirk coverage audit. | `npm run quirk-coverage:verify` |
 | Common Helm pain points have an explicit answer and gap. | Pain-point coverage matrix and per-chart pain reports. | `npm run pain-points:verify` |

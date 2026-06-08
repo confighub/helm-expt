@@ -43,6 +43,11 @@ checks that rendered YAML alone cannot prove:
 
 [Cert-Manager And External Secrets Lifecycle Observations](../../data/lifecycle-observations/cert-manager-eso/summary.md)
 
+The hook/lifecycle boundary page separates hook queue rows from hook-like
+controller lifecycle observations:
+
+[Hook And Lifecycle Boundary](../../data/lifecycle-boundary/summary.md)
+
 The top-level catalog shows what a user can browse:
 
 [Catalog](../../CATALOG.md)

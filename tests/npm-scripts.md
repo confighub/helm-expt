@@ -233,6 +233,7 @@ These keep the generated catalog/data surfaces current.
 | `npm run attack-plan:generate` / `attack-plan:verify` | Generated workdown for import, gaps, variants, production, runtime/GitOps, latest candidates, and image digests. |
 | `npm run runtime-gitops:wave` / `runtime-gitops:wave:verify` | First Argo/Flux OCI live-proof wave and required receipt paths. |
 | `npm run hooks:lifecycle` / `hooks:lifecycle:verify` | Maintained charts with Helm hooks and required lifecycle receipt paths. |
+| `npm run lifecycle:boundary` / `lifecycle:boundary:verify` | Boundary table separating hook lifecycle queue rows from hook-like lifecycle observations. |
 | `npm run image-digests:workdown` / `image-digests:workdown:verify` | Rendered image digest review queue by chart and variant. |
 | `npm run next-ten:waves` / `next-ten:waves:verify` | Compact next work rows for gaps, latest promotion, variants, production disposition, and import examples. |
 | `npm run catalog:index` / `catalog:index:verify` | Root `CATALOG.md`. |
