@@ -139,7 +139,10 @@ def normalize_namespace_references(value, namespace_map: dict[str, str]):
     if isinstance(value, list):
         return [normalize_namespace_references(item, namespace_map) for item in value]
     if isinstance(value, str):
-        return namespace_map.get(value, value)
+        normalized = namespace_map.get(value, value)
+        for source, target in namespace_map.items():
+            normalized = normalized.replace(f".{source}.svc", f".{target}.svc")
+        return normalized
     return value
 
 
@@ -510,7 +513,12 @@ def main() -> int:
             helm_live_manifest = get_out + "\n"
             write_text(run_root / "regular-helm-live-manifest.yaml", helm_live_manifest)
         helm_runtime = wait_ready(kubeconfig, context, helm_namespace, timeout_seconds=180)
-        helm_result = "pass" if rc == 0 and get_rc == 0 and helm_runtime["result"] == "pass" else "blocked"
+        if rc != 0 or get_rc != 0:
+            helm_result = "blocked"
+        elif helm_runtime["result"] == "pass":
+            helm_result = "pass"
+        else:
+            helm_result = "watch"
         leg("regularHelm",
             result=helm_result,
             command=" ".join(helm_cmd),

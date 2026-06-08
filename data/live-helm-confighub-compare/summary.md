@@ -6,8 +6,8 @@ chart/base rows. Each completed row has a receipt under
 
 ```text
 pass: 12
-watch: 3
-blocked: 5
+watch: 4
+blocked: 4
 not-started: 0
 ```
 
@@ -17,7 +17,6 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 helm-runtime: upstream not ready (parity passed): 1
 infra: etcd/apiserver overload: 1
 infra: provisioning timeout: 1
-infra: rig bootstrap (argocd) not ready: 1
 parity: live semantic diff: 1
 ```
 
@@ -34,7 +33,7 @@ parity: live semantic diff: 1
 | 9 | `bitnami/rabbitmq@16.0.14` | generated-passwords | pass | - | runs/live-helm-confighub-compare/bitnami-rabbitmq-generated-passwords/receipt.yaml |
 | 10 | `grafana/loki@7.0.0` | single-binary-filesystem | pass | - | runs/live-helm-confighub-compare/grafana-loki-single-binary-filesystem/receipt.yaml |
 | 11 | `longhorn/longhorn@1.11.2` | default | pass | - | runs/live-helm-confighub-compare/longhorn-longhorn-default/receipt.yaml |
-| 12 | `hashicorp/vault@0.32.0` | default | blocked | infra: rig bootstrap (argocd) not ready | runs/live-helm-confighub-compare/hashicorp-vault-default/receipt.yaml |
+| 12 | `hashicorp/vault@0.32.0` | default | watch | - | runs/live-helm-confighub-compare/hashicorp-vault-default/receipt.yaml |
 | 13 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | pass | - | runs/live-helm-confighub-compare/secrets-store-csi-driver-secrets-store-csi-driver-default/receipt.yaml |
 | 14 | `prometheus-community/prometheus@29.8.0` | server-only-ephemeral | pass | - | runs/live-helm-confighub-compare/prometheus-community-prometheus-server-only-ephemeral/receipt.yaml |
 | 15 | `grafana/grafana@10.5.15` | generated-passwords | pass | - | runs/live-helm-confighub-compare/grafana-grafana-generated-passwords/receipt.yaml |

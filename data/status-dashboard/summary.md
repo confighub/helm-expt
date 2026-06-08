@@ -125,7 +125,7 @@ Current ConfigHub/OCI live parity non-pass receipts:
 | external-secrets/external-secrets@2.5.0 | default | blocked | parity: live semantic diff |
 | argo-cd/argo-cd@9.5.15 | default | blocked | infra: etcd/apiserver overload |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | watch | - |
-| hashicorp/vault@0.32.0 | default | blocked | infra: rig bootstrap (argocd) not ready |
+| hashicorp/vault@0.32.0 | default | watch | - |
 | bitnami/mysql@14.0.3 | generated-passwords | watch | - |
 | grafana/tempo@1.24.4 | local-persistent | blocked | helm-runtime: upstream not ready (parity passed) |
 | hashicorp/consul@2.0.0 | default-control-plane | blocked | infra: provisioning timeout |

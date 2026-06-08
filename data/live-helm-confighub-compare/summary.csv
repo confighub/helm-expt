@@ -10,7 +10,7 @@ rank,chart,version,variant,result,reason,receipt
 9,bitnami/rabbitmq,16.0.14,generated-passwords,pass,,runs/live-helm-confighub-compare/bitnami-rabbitmq-generated-passwords/receipt.yaml
 10,grafana/loki,7.0.0,single-binary-filesystem,pass,,runs/live-helm-confighub-compare/grafana-loki-single-binary-filesystem/receipt.yaml
 11,longhorn/longhorn,1.11.2,default,pass,,runs/live-helm-confighub-compare/longhorn-longhorn-default/receipt.yaml
-12,hashicorp/vault,0.32.0,default,blocked,infra: rig bootstrap (argocd) not ready,runs/live-helm-confighub-compare/hashicorp-vault-default/receipt.yaml
+12,hashicorp/vault,0.32.0,default,watch,,runs/live-helm-confighub-compare/hashicorp-vault-default/receipt.yaml
 13,secrets-store-csi-driver/secrets-store-csi-driver,1.6.0,default,pass,,runs/live-helm-confighub-compare/secrets-store-csi-driver-secrets-store-csi-driver-default/receipt.yaml
 14,prometheus-community/prometheus,29.8.0,server-only-ephemeral,pass,,runs/live-helm-confighub-compare/prometheus-community-prometheus-server-only-ephemeral/receipt.yaml
 15,grafana/grafana,10.5.15,generated-passwords,pass,,runs/live-helm-confighub-compare/grafana-grafana-generated-passwords/receipt.yaml
