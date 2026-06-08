@@ -222,6 +222,9 @@ docs/user/what-you-get.md
 docs/user/outcomes-and-tests.md
   What the repo promises, which tests prove each promise, and where the CSVs live.
 
+docs/user/helm-pain-points.md
+  How common Helm pain points map to helm-expt, ConfigHub, cub installer, and live observation.
+
 docs/user/current-proof-status.md
   What is proven now, and which generated summaries are authoritative.
 
@@ -245,6 +248,15 @@ data/production-disposition/summary.md
 
 data/outcome-coverage/summary.md
   Outcome promises, proving tests, and front-door CSVs for charts, bases, derived variants, and features.
+
+data/pain-point-coverage/summary.md
+  Helm pain points, current answers, handoffs, evidence paths, and remaining gaps.
+
+data/variant-path-coverage/summary.md
+  Proof status per chart, base variant, derived variant, diff, and operation path.
+
+data/edge-recovery/summary.md
+  Graph fragments recovered from Redis and kube-prometheus-stack recipe artifacts.
 
 data/latest-top20-refresh/summary.md
   Which supported top-20 charts are current and which need new proof paths.

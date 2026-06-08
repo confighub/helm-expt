@@ -17,6 +17,8 @@ across product docs, catalog docs, and planning docs.
 | Promotion wave | A controlled rollout from one reviewed variant or revision to a selected group of derived variants or targets. |
 | Observation receipt | Evidence from Kubernetes, GitOps, ConfigHub, or another observer that says what was seen, when it was seen, and how fresh that observation is. |
 | Pain report | Per-chart record of Helm pain points, mitigation, evidence, and remaining risk. |
+| Teaching chart | A small chart used to explain the model quickly. Redis is the first teaching chart. |
+| Main proof chart | A harder chart used to prove the model under high object count, CRDs, webhooks, dependencies, and blast radius. kube-prometheus-stack is the first main proof chart. |
 
 ## Decision Matrix
 
@@ -64,6 +66,15 @@ across product docs, catalog docs, and planning docs.
 | Day 0 install | What will this chart install? | reviewed base variant, exact objects, Helm equivalence, scans, local/live proof |
 | Day 1 configure | How do I adapt this safely? | derived variants, target facts, labels, links, gates, preview, receipts |
 | Day 2 operate | How do I patch, promote, observe, and upgrade? | promotion waves, bulk scan/patch, blast-radius preview, observation freshness, upgrade/rollback receipts |
+
+## Demonstration Chart Roles
+
+| Chart | Role | Use it for |
+| --- | --- | --- |
+| Redis | Teaching chart | five-minute UX, generated Secret versus existing Secret, target facts, small object inventory |
+| Prometheus / kube-prometheus-stack | Main proof chart | high fanout, CRDs, webhooks, RBAC, dependencies, and blast-radius visibility |
+| NGINX | Simple web chart | easy local/live path and bulk patch examples |
+| cert-manager / External Secrets | Lifecycle charts | CRDs, webhooks, hook-like behavior, controller-owned fields, target readiness |
 
 ## Variant Rules
 

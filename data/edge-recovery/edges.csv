@@ -1,0 +1,7 @@
+chart,edge_type,from_variant,to_variant,inherited_paths,overridden_paths,added_paths,removed_paths,field_reachability_paths,target_fact_edges,generated_fact_edges,graph
+bitnami/redis@25.5.3,base-self,default,default,1,,,,,0,1,recipes/bitnami/redis/25.5.3/inheritance-graph.yaml
+bitnami/redis@25.5.3,inherits-with-overrides,default,reuse-existing-secret,0,,auth.existingSecret;auth.existingSecretPasswordKey,auth.password,auth.password,1,1,recipes/bitnami/redis/25.5.3/inheritance-graph.yaml
+bitnami/redis@25.5.3,target-fact,,reuse-existing-secret,,,Secret/redis/redis-existing-secret:redis-password,,,1,0,recipes/bitnami/redis/25.5.3/inheritance-graph.yaml
+bitnami/redis@25.5.3,generated-fact,,default,,,auth.password,,v1|Secret|redis|redis:data.redis-password;apps/v1|StatefulSet|redis|redis-master:spec.template.spec.volumes[redis-password].secret.secretName;apps/v1|StatefulSet|redis|redis-replicas:spec.template.spec.volumes[redis-password].secret.secretName,0,1,recipes/bitnami/redis/25.5.3/inheritance-graph.yaml
+prometheus-community/kube-prometheus-stack@85.3.3,base-self,default,default,1,,,,,0,0,recipes/prometheus-community/kube-prometheus-stack/85.3.3/inheritance-graph.yaml
+prometheus-community/kube-prometheus-stack@85.3.3,inherits-with-overrides,default,no-crds,1,,crds.enabled,,,0,0,recipes/prometheus-community/kube-prometheus-stack/85.3.3/inheritance-graph.yaml

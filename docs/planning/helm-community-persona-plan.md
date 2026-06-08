@@ -33,6 +33,13 @@ The next public improvement is not another abstract plan. It is a better first
 visit: show who the repo is for, what value each user gets, where the variants
 are, what has been tested live, and what requires ConfigHub or paid support.
 
+Use Redis and Prometheus for different jobs:
+
+- Redis is the short teaching path for first-run UX, generated credentials,
+  target facts, and existing Secret variants.
+- kube-prometheus-stack/Prometheus is the main proof path for object fanout,
+  CRDs, webhooks, RBAC, dependencies, and blast-radius visibility.
+
 ## Workstream 1: Public Entry Point
 
 Goal: make a Helm user understand the project without reading internal proof
@@ -79,6 +86,8 @@ Acceptance checks:
   user path from chart to variant decision.
 - No user has to infer variant names from directory structure alone.
 - Base variants and derived ConfigHub variants are not mixed together.
+- kube-prometheus-stack is named as the canonical hard/demo chart for
+  high-density change and blast-radius proof.
 
 ## Workstream 3: Live And Day-1/Day-2 Operations
 
@@ -130,6 +139,8 @@ Acceptance checks:
   derived ConfigHub variant.
 - Bulk operations show scope and blast radius before mutation.
 - Promotion examples do not imply nonexistent `cub variant` commands.
+- The first high-fanout example uses Prometheus/kube-prometheus-stack once the
+  edge and variant-path matrices exist.
 
 ## Workstream 5: Free, Authenticated, And Paid Boundaries
 
@@ -182,11 +193,13 @@ Acceptance checks:
 1. Turn the top-20 live parity outcomes into clear user-facing chart status:
    pass, watch, blocked, and the reason for non-pass rows.
 2. Update the public entry point with persona routes and tier boundaries.
-3. Improve the generated catalog so variants and live status are visible first.
-4. Add a short operations-first tutorial path: promotion, bulk scan, bulk patch,
+3. Add pain-point, edge, and variant-path matrices so chart status is clear.
+4. Improve the generated catalog so variants and live status are visible first.
+5. Add a Prometheus/kube-prometheus-stack high-fanout proof spec.
+6. Add a short operations-first tutorial path: promotion, bulk scan, bulk patch,
    and observation.
-5. Refresh top-100 and top-500 summaries using the current support categories.
-6. Move commercial examples into a clear managed/private lane.
+7. Refresh top-100 and top-500 summaries using the current support categories.
+8. Move commercial examples into a clear managed/private lane.
 
 ## Verification
 

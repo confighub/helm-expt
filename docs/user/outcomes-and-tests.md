@@ -10,7 +10,9 @@ The generated front door is:
 [Outcome Coverage](../../data/outcome-coverage/summary.md)
 
 That summary joins the catalog, recipe, variant, proof, live-test, GitOps,
-hook, and feature data into four CSVs.
+hook, and feature data into four CSVs. The pain-point and variant-path matrices
+add two more front-door views for "what Helm pain is this solving?" and "which
+exact chart/base/path has which proof?"
 
 ## The Four Outcome Tables
 
@@ -20,6 +22,14 @@ hook, and feature data into four CSVs.
 | [base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) | One row per chart/base variant. Shows render parity, ConfigHub proof, local live proof, GitOps/OCI live proof, and live Helm parity. |
 | [derived-variant-outcomes.csv](../../data/outcome-coverage/derived-variant-outcomes.csv) | One row per derived ConfigHub variant. Shows intended-state proof and target-bound live status. |
 | [feature-outcomes.csv](../../data/outcome-coverage/feature-outcomes.csv) | One row per chart feature or quirk. Shows hooks, generated secrets, CRDs, webhooks, required values, schemas, extension slots, and unresolved gaps. |
+
+## Additional Front-Door Tables
+
+| File | Use it for |
+| --- | --- |
+| [pain-points.csv](../../data/pain-point-coverage/pain-points.csv) | One row per common Helm pain point. Shows current answer, handoff, evidence, remaining gap, and next action. |
+| [coverage-matrix.csv](../../data/variant-path-coverage/coverage-matrix.csv) | One row per chart/base/path. Shows whether the row is a base, diff, operation, or derived variant, with proof status per lane. |
+| [edges.csv](../../data/edge-recovery/edges.csv) | Recovered graph fragments for Redis and kube-prometheus-stack: inheritance, overrides, generated facts, target facts, and field reachability where known. |
 
 Every CSV under `data/` is indexed here:
 
@@ -42,6 +52,9 @@ The machine-readable index is:
 | Derived ConfigHub variants preserve reviewed bases and expose post-render changes. | Derived variant execution receipts and target-bound receipts. | `npm run derived-variants:verify && npm run derived-variants:target-bound:verify` |
 | Hooks and hook-like lifecycle behavior are visible rather than hidden. | Hook lifecycle queue and lifecycle observation receipts. | `npm run hooks:lifecycle:verify && npm run lifecycle:cert-manager-eso:verify` |
 | Images, Secrets, CRDs, webhooks, target facts, and other chart-specific features are tracked. | Chart facts, attack-plan workdown, and image digest workdown. | `npm run chart-facts:verify && npm run attack-plan:verify && npm run image-digests:workdown:verify` |
+| Common Helm pain points have an explicit answer and gap. | Pain-point coverage matrix and per-chart pain reports. | `npm run pain-points:verify` |
+| Variant paths have row-level status. | Variant-path coverage matrix. | `npm run variant-paths:verify` |
+| Helm artifacts feed graph fragments. | Inheritance graphs and edge-recovery CSV. | `npm run edges:verify` |
 
 ## How To Use The Tables
 
@@ -50,8 +63,10 @@ The machine-readable index is:
 3. Check [chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) for the chart-level status.
 4. Filter [base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) by chart to see each base variant.
 5. Check [feature-outcomes.csv](../../data/outcome-coverage/feature-outcomes.csv) for hooks, CRDs, generated facts, target facts, and other chart-specific behavior.
-6. Check [derived-variant-outcomes.csv](../../data/outcome-coverage/derived-variant-outcomes.csv) when the question is about post-render ConfigHub variants.
-7. Run `npm run outcomes:verify` when you only need the outcome tables, or `npm run verify` when you need the full corpus check.
+6. Check [pain-points.csv](../../data/pain-point-coverage/pain-points.csv) for the general Helm pain being addressed.
+7. Check [coverage-matrix.csv](../../data/variant-path-coverage/coverage-matrix.csv) when the question is about one base, diff, operation, or derived variant path.
+8. Check [derived-variant-outcomes.csv](../../data/outcome-coverage/derived-variant-outcomes.csv) when the question is about post-render ConfigHub variants.
+9. Run the scoped verifier for the table you opened, or `npm run verify` only when you need the full corpus gate.
 
 ## Narrow Claim Rule
 
