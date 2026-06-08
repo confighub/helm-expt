@@ -18,6 +18,7 @@ const baseReadinessPath = join(repoRoot, "data", "top20-base-readiness", "base-r
 const extensionSlotsPath = join(repoRoot, "data", "extension-slots", "extension-slots.csv");
 const top100ReadinessPath = join(repoRoot, "data", "top100-readiness", "readiness.csv");
 const liveParityRerunPlanPath = join(repoRoot, "data", "live-parity-rerun-plan", "rerun-plan.csv");
+const productionDispositionPath = join(repoRoot, "data", "production-disposition", "top20.csv");
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -53,6 +54,7 @@ function buildSite() {
   const extensionSlots = parseCsv(readFileSync(extensionSlotsPath, "utf8"));
   const top100Readiness = parseCsv(readFileSync(top100ReadinessPath, "utf8"));
   const liveParityRerunPlan = parseCsv(readFileSync(liveParityRerunPlanPath, "utf8"));
+  const productionDisposition = parseCsv(readFileSync(productionDispositionPath, "utf8"));
   const baseReadinessByKey = new Map(baseReadiness.map((row) => [`${row.chart}|${row.base}`, row]));
   const catalogEntries = top100.entries
     .filter((entry) => entry.proof_surface === "top20-catalog-supported")
@@ -83,6 +85,7 @@ function buildSite() {
       extensionSlots: "data/extension-slots/extension-slots.csv",
       top100Readiness: "data/top100-readiness/readiness.csv",
       liveParityRerunPlan: "data/live-parity-rerun-plan/rerun-plan.csv",
+      productionDisposition: "data/production-disposition/top20.csv",
     },
     commandRoutes: commandRoutes(),
     top500Evidence: top500.summary,
@@ -104,6 +107,9 @@ function buildSite() {
       ).length,
       liveParityRerunRows: liveParityRerunPlan.length,
       liveParityRerunSemanticDefects: liveParityRerunPlan.filter((row) => row.reason.startsWith("parity:")).length,
+      productionSupportedCharts: productionDisposition.filter((row) => row.production_support === "production-supported").length,
+      productionBlockedCharts: productionDisposition.filter((row) => row.production_support === "blocked").length,
+      chartsWithAcceptedProductionDispositions: productionDisposition.filter((row) => dispositionCount(row.accepted_dispositions) > 0).length,
     },
     statusMetrics,
     catalogEntries,
@@ -113,6 +119,7 @@ function buildSite() {
     extensionSlots,
     top100Readiness,
     liveParityRerunPlan,
+    productionDisposition,
   };
   return {
     catalogJson: `${JSON.stringify(catalog, null, 2)}\n`,
@@ -184,6 +191,19 @@ function html(catalog) {
       row.current_result,
       row.related_lifecycle_result || "-",
       row.reason,
+    ]);
+  const productionBlockers = [...flattenCounts(catalog.productionDisposition, "open_dispositions").entries()]
+    .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
+    .slice(0, 8)
+    .map(([blocker, count]) => [blocker, String(count)]);
+  const productionDispositionRows = catalog.productionDisposition
+    .slice(0, 10)
+    .map((row) => [
+      `${row.chart}@${row.version}`,
+      row.production_support,
+      String(dispositionCount(row.accepted_dispositions)),
+      String(dispositionCount(row.open_dispositions)),
+      row.next_action,
     ]);
   const stages = [
     ["1. Acquire and pin", "Lock chart source, dependencies, digests, and provenance."],
@@ -309,6 +329,25 @@ function html(catalog) {
         ...statusRows.map((row) => [row.metric, metricValue(row), row.status]),
       ])}
       <p><a href="../data/status-dashboard/summary.md">Open the full status dashboard</a>.</p>
+    </section>
+
+    <section aria-labelledby="production-readiness">
+      <h2 id="production-readiness">Production Readiness Boundary</h2>
+      <p>The top-20 charts are catalog-supported for the declared local-test scope. Production support is tracked separately and remains blocked until scan, lifecycle, target-fact, storage, RBAC, webhook, and extension-slot dispositions are closed.</p>
+      <div class="grid">
+        <div class="metric"><strong>${escapeHtml(catalog.summary.productionSupportedCharts)}/${escapeHtml(catalog.productionDisposition.length)}</strong><span>Production-supported charts</span></div>
+        <div class="metric"><strong>${escapeHtml(catalog.summary.productionBlockedCharts)}/${escapeHtml(catalog.productionDisposition.length)}</strong><span>Production-blocked pending disposition</span></div>
+        <div class="metric"><strong>${escapeHtml(catalog.summary.chartsWithAcceptedProductionDispositions)}/${escapeHtml(catalog.productionDisposition.length)}</strong><span>Charts with accepted dispositions</span></div>
+      </div>
+      ${markdownLikeTable([
+        ["Open disposition", "Charts"],
+        ...productionBlockers,
+      ])}
+      ${markdownLikeTable([
+        ["Chart", "Production", "Accepted", "Open", "Next action"],
+        ...productionDispositionRows,
+      ])}
+      <p><a href="../data/production-disposition/summary.md">Open the full production disposition report</a>.</p>
     </section>
 
     <section aria-labelledby="live-rerun-plan">
@@ -541,6 +580,27 @@ function metricValue(row) {
   return row.total ? `${row.value}/${row.total}` : row.value;
 }
 
+function dispositionCount(value) {
+  return splitDisposition(value).length;
+}
+
+function flattenCounts(rows, field) {
+  const counts = new Map();
+  for (const row of rows) {
+    for (const value of splitDisposition(row[field])) {
+      counts.set(value, (counts.get(value) ?? 0) + 1);
+    }
+  }
+  return counts;
+}
+
+function splitDisposition(value) {
+  return String(value ?? "")
+    .split(";")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
 function markdownLikeTable(rows) {
   const [headers, ...body] = rows;
   return `<div class="card"><table>
@@ -580,6 +640,7 @@ Data source:
 - \`data/extension-slots/extension-slots.csv\`
 - \`data/top100-readiness/readiness.csv\`
 - \`data/live-parity-rerun-plan/rerun-plan.csv\`
+- \`data/production-disposition/top20.csv\`
 - \`docs/user/choosing-commands.md\`
 - \`data/variant-goldens/redis-prod-us-east/\`
 - \`data/managed-overlay-goldens/external-dns-customer-acme-prod/\`
