@@ -300,7 +300,8 @@ spec:
         lifecycleObservationReceipts:
           []
         productionDispositionReceipts:
-          []
+          - "data/production-disposition/receipts/bitnami-nginx/generated-fact-ownership.yaml"
+          - "data/production-disposition/receipts/bitnami-nginx/target-fact-preflight.yaml"
       dispositions:
         -
           name: "extension slot provenance and scan policy"
@@ -313,7 +314,8 @@ spec:
           unblockRule: "supported only when extensions are explicit and scanned after render"
         -
           name: "generated fact ownership"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/bitnami-nginx/generated-fact-ownership.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "generated secret/cert inventory"
@@ -331,7 +333,8 @@ spec:
           unblockRule: "supported only when warnings are accepted, fixed, or variant-blocking"
         -
           name: "target fact preflight"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/bitnami-nginx/target-fact-preflight.yaml"
           owner: "installer-review"
           requiredEvidence:
             - "installer externalRequires/facts"

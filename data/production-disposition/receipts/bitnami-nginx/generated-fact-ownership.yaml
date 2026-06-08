@@ -1,0 +1,31 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: bitnami-nginx-generated-fact-ownership
+spec:
+  chart: bitnami/nginx
+  version: "24.0.2"
+  disposition: generated fact ownership
+  decision: accepted
+  acceptedAt: "2026-06-08"
+  scope:
+    - local-test
+    - production-review-input
+  summary: The supported NGINX bases do not rely on Helm-generated TLS material. The HTTP base disables the TLS path, and the existing-tls-ingress base externalizes certificate material into explicit target Secret requirements before render.
+  evidence:
+    - path: recipes/bitnami/nginx/24.0.2/control-points.yaml
+      claim: The generated-facts control point states that promoted variants disable generated TLS or require existing TLS Secrets before render.
+    - path: recipes/bitnami/nginx/24.0.2/effective-values-existing-tls-ingress.yaml
+      claim: The TLS ingress values reference existing backend and ingress TLS Secrets instead of generated certificate material.
+    - path: recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/receipts/render-receipt.yaml
+      claim: The existing-tls-ingress render produced zero rendered Secrets and zero separated Secrets.
+    - path: recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/receipts/render-receipt.yaml
+      claim: The HTTP ClusterIP render does not exercise the generated TLS path.
+    - path: runs/live-kind-parity/bitnami-nginx-existing-tls-ingress/receipt.yaml
+      claim: Two-cluster live parity passes after staging explicit TLS target facts for both Helm and cub installer paths.
+  affectedVariants:
+    - http-clusterip
+    - existing-tls-ingress
+  remainingProductionBlockers:
+    - extension slot provenance and scan policy
+    - scan/gate warning disposition

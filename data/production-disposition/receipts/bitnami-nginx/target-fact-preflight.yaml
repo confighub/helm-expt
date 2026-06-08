@@ -1,0 +1,29 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: bitnami-nginx-target-fact-preflight
+spec:
+  chart: bitnami/nginx
+  version: "24.0.2"
+  disposition: target fact preflight
+  decision: accepted
+  acceptedAt: "2026-06-08"
+  scope:
+    - local-test
+    - production-review-input
+  summary: The existing-tls-ingress variant declares backend and ingress TLS Secrets as target facts, the installer package exposes them as external requirements, and the two-cluster parity receipt proves those Secrets can be staged before both Helm and cub installer paths.
+  evidence:
+    - path: recipes/bitnami/nginx/24.0.2/variants/existing-tls-ingress/variant.yaml
+      claim: The variant declares nginx/nginx-backend-tls and nginx/nginx-ingress-tls as required target Secrets.
+    - path: packages/bitnami/nginx/24.0.2/installer.yaml
+      claim: The package base declares externalRequires entries for both TLS Secrets.
+    - path: recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/receipts/install-gate.yaml
+      claim: The install gate records that target Secrets must exist before apply.
+    - path: runs/live-kind-parity/bitnami-nginx-existing-tls-ingress/receipt.yaml
+      claim: Two-cluster live parity stages both required Secrets for the regular Helm and cub installer legs and passes semantic parity.
+  affectedVariants:
+    - existing-tls-ingress
+  remainingProductionBlockers:
+    - extension slot provenance and scan policy
+    - generated fact ownership
+    - scan/gate warning disposition

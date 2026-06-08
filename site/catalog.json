@@ -84,7 +84,7 @@
     "liveParityRerunSemanticDefects": 0,
     "productionSupportedCharts": 0,
     "productionBlockedCharts": 20,
-    "chartsWithAcceptedProductionDispositions": 1
+    "chartsWithAcceptedProductionDispositions": 2
   },
   "statusMetrics": [
     {
@@ -351,7 +351,7 @@
     {
       "section": "production disposition",
       "metric": "charts with accepted production dispositions",
-      "value": "1",
+      "value": "2",
       "total": "20",
       "status": "partial",
       "source": "data/production-disposition/top20.csv",
@@ -7275,9 +7275,9 @@
       "live_e2e": "local-kind-observed",
       "production_support": "blocked",
       "required_dispositions": "extension slot provenance and scan policy;generated fact ownership;scan/gate warning disposition;target fact preflight",
-      "accepted_dispositions": "",
-      "open_dispositions": "extension slot provenance and scan policy;generated fact ownership;scan/gate warning disposition;target fact preflight",
-      "production_disposition_receipts": "",
+      "accepted_dispositions": "generated fact ownership;target fact preflight",
+      "open_dispositions": "extension slot provenance and scan policy;scan/gate warning disposition",
+      "production_disposition_receipts": "data/production-disposition/receipts/bitnami-nginx/generated-fact-ownership.yaml;data/production-disposition/receipts/bitnami-nginx/target-fact-preflight.yaml",
       "source_hook_count": "0",
       "lifecycle_policy_basis": "none",
       "lifecycle_observation_receipts": "",
