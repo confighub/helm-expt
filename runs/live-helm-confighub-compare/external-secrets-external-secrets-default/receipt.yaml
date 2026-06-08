@@ -7,42 +7,230 @@ spec:
   version: 2.5.0
   base: default
   result: blocked
-  observedAt: '2026-06-05T20:30:57Z'
+  observedAt: '2026-06-08T10:06:26Z'
   package:
     path: packages/external-secrets/external-secrets/2.5.0
   recipe:
     path: recipes/external-secrets/external-secrets/2.5.0
   variantRevision: recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/variant-revision.yaml
   run:
-    rig: helm-expt-parity-externalsecrets-mq1dptut-1023
-    kubeContext: kind-helm-expt-parity-externalsecrets-mq1dptut-1023
+    rig: helm-expt-parity-externalsecrets-mq51q8zp-1iba
+    kubeContext: kind-helm-expt-parity-externalsecrets-mq51q8zp-1iba
     namespace: external-secrets
     legNamespaces:
       regularHelm: external-secrets-helm
       configHubKubectlApply: external-secrets-apply
       configHubOciArgo: external-secrets-oci
-    clusterLifecycle: cleanup-failed
+    clusterLifecycle: cleaned-up
     cleanup:
-      command: cub lk down --name helm-expt-parity-externalsecrets-mq1dptut-1023
-      result: blocked
-      detail: 'Error: no lk-managed Space for "helm-expt-parity-externalsecrets-mq1dptut-1023"
-        in the current cub context (are you in the right context?). Pass --force to
-        delete the local kind cluster + kubeconfig anyway
+      command: cub lk down --name helm-expt-parity-externalsecrets-mq51q8zp-1iba --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-externalsecrets-mq51q8zp-1iba"...
 
-        Error: no lk-managed Space for "helm-expt-parity-externalsecrets-mq1dptut-1023"
-        in the current cub context (are you in the right context?). Pass --force to
-        delete the local kind cluster + kubeconfig anyway'
-  legs: {}
+        Deleting cluster "helm-expt-parity-externalsecrets-mq51q8zp-1iba" ...
+
+        Deleted nodes: ["helm-expt-parity-externalsecrets-mq51q8zp-1iba-control-plane"]
+
+        Deleting Space "helm-expt-parity-externalsecrets-mq51q8zp-1iba-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install external-secrets external-secrets --repo https://charts.external-secrets.io
+        --version 2.5.0 --namespace external-secrets-helm --create-namespace --values
+        /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/external-secrets-external-secrets-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: f1c832a9af788c9d2a7a0b066d76a7d8af253d83f5b0fa39c1aa91271230d3db
+      objectCount: 42
+      liveHelmManifestSHA256: 4b69a5e66264b169986e8541159d9e05e23e64eccc1a93cc47cc318d0e719b6a
+      liveHelmManifestObjectCount: 42
+      namespace: external-secrets-helm
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/external-secrets                   1/1   1     1     44s
+
+          deployment.apps/external-secrets-cert-controller   1/1   1     1     44s
+
+          deployment.apps/external-secrets-webhook           1/1   1     1     44s'
+        pods: 'external-secrets-b86785d68-g57nl                   1/1   Running   0     44s
+
+          external-secrets-cert-controller-5c64677fd-h7k6s   1/1   Running   0     44s
+
+          external-secrets-webhook-7f9f8ff8bf-72sld          1/1   Running   0     44s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: watch
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/external-secrets/external-secrets/2.5.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-externalsecrets-mq51q8zp-1iba-external-secrets
+        --non-interactive --namespace external-secrets-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 8c026c99a16934099d41dfe5abdda41c88695374c320cd05f2b8dcc7ba96201d
+      objectCount: 43
+      namespace: external-secrets-apply
+      manifestNamespaces:
+      - external-secrets-apply
+      runtimeNamespaces: &id001
+      - external-secrets-apply
+      runtime:
+        result: watch
+        namespaces: *id001
+        workloads: '# external-secrets-apply
+
+          deployment.apps/external-secrets                   1/1   1     1     4m53s
+
+          deployment.apps/external-secrets-cert-controller   0/1   1     0     4m53s
+
+          deployment.apps/external-secrets-webhook           0/1   1     0     4m53s'
+        pods: '# external-secrets-apply
+
+          external-secrets-b86785d68-mvtq7                    1/1   Running   0             4m53s
+
+          external-secrets-cert-controller-65485795f8-97wtq   0/1   Running   0             4m53s
+
+          external-secrets-webhook-67fbbbfdd7-jjg89           0/1   Running   2 (50s
+          ago)   4m53s'
+        notReady:
+        - namespace: external-secrets-apply
+          pod: external-secrets-cert-controller-65485795f8-97wtq
+          ready: 0/1
+          status: Running
+        - namespace: external-secrets-apply
+          pod: external-secrets-webhook-67fbbbfdd7-jjg89
+          ready: 0/1
+          status: Running
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-externalsecrets-mq51q8zp-1iba-external-secrets
+      controller: Argo CD OCI
+      app: external-secrets-parity
+      manifestSHA256: a8bfe5ae846ca0473235fef5c2ca27e5a1979ba991e358b49e2df2dd1935869c
+      objectCount: 43
+      namespace: external-secrets-oci
+      manifestNamespaces:
+      - external-secrets-oci
+      runtimeNamespaces: &id002
+      - external-secrets-oci
+      ociRevision: sha256:247fd619a6c020a98bcf2be5f7b9e13d7cb85ec12318faf8c9db505f52672880
+      sync: Synced
+      health: Progressing
+      separatedSecrets:
+      - secret-external-secrets-oci-external-secrets-webhook.yaml
+      runtime:
+        result: watch
+        namespaces: *id002
+        workloads: '# external-secrets-oci
+
+          deployment.apps/external-secrets                   1/1   1     1     9m40s
+
+          deployment.apps/external-secrets-cert-controller   0/1   1     0     9m40s
+
+          deployment.apps/external-secrets-webhook           0/1   1     0     9m40s'
+        pods: '# external-secrets-oci
+
+          external-secrets-b86785d68-gwbfr                    1/1   Running   0             9m40s
+
+          external-secrets-cert-controller-65485795f8-xpbtj   0/1   Running   0             9m40s
+
+          external-secrets-webhook-5947b85db4-sb7xr           0/1   Running   4 (57s
+          ago)   9m40s'
+        notReady:
+        - namespace: external-secrets-oci
+          pod: external-secrets-cert-controller-65485795f8-xpbtj
+          ready: 0/1
+          status: Running
+        - namespace: external-secrets-oci
+          pod: external-secrets-webhook-5947b85db4-sb7xr
+          ready: 0/1
+          status: Running
   semanticComparison:
     allowedExtraConfigHubObjects:
     - v1|Namespace||external-secrets
+    helmVsConfigHubKubectlApply:
+      result: blocked
+      helmObjectCount: 42
+      configHubObjectCount: 43
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||external-secrets
+      semanticDiffs:
+      - apps/v1|Deployment|external-secrets|external-secrets-webhook
+      comparisonSHA256: 0d499c71ed224cbbf8d3b72d9c15d086ec85a65dc29c1d6d8d06480386aae0bc
+    helmVsConfigHubOciArgo:
+      result: blocked
+      helmObjectCount: 42
+      configHubObjectCount: 43
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||external-secrets
+      semanticDiffs:
+      - apps/v1|Deployment|external-secrets|external-secrets-webhook
+      comparisonSHA256: 0d499c71ed224cbbf8d3b72d9c15d086ec85a65dc29c1d6d8d06480386aae0bc
   checks:
-  - name: failure
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-externalsecrets-mq51q8zp-1iba\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-externalsecrets-mq51q8zp-1iba.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-externalsecrets-mq51q8zp-1iba\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-externalsecrets-mq51q8zp-1iba\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-externalsecrets-mq51q8zp-1iba\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-externalsecrets-mq51q8zp-1iba.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/"
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "external-secrets" does not exist. Installing it now.
+
+      NAME: external-secrets
+
+      LAST DEPLOYED: Mon Jun  8 11:08:09 2026
+
+      NAMESPACE: external-secrets-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None
+
+      NOTES:
+
+      external-secrets has been deployed successfully in namespace external-secrets-helm!
+
+
+      In order to begin using ExternalSecrets, you will need to set up a SecretStore
+
+      or ClusterSecretStore resource (for example, by creating a ''vault'' SecretStore).
+
+
+      More information on the different types of SecretStores and how to configure
+      them
+
+      can be found in our Github: https://github.com/external-secrets/external-secrets'
+  - name: confighub-kubectl-apply-live
+    result: watch
+    detail: '# external-secrets-apply
+
+      deployment.apps/external-secrets                   1/1   1     1     4m53s
+
+      deployment.apps/external-secrets-cert-controller   0/1   1     0     4m53s
+
+      deployment.apps/external-secrets-webhook           0/1   1     0     4m53s'
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=Synced health=Progressing after 420s
+  - name: semantic-object-parity
     result: blocked
-    detail: 'cub lk up failed: Error: kind create cluster: exit status 1
-
-      Error: kind create cluster: exit status 1'
-  failure:
-    message: 'cub lk up failed: Error: kind create cluster: exit status 1
-
-      Error: kind create cluster: exit status 1'
+    detail: missing=0 extra=['v1|Namespace||external-secrets'] diffs=1
