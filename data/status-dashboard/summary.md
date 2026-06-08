@@ -42,6 +42,8 @@ Which detailed CSV should I open next?
 | quirks | not-scanned axes | 6/26 | gap | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
 | hooks | top100 maintained hook charts | 5/5 | partial | [data/hook-lifecycle/top100-hooks.csv](../../data/hook-lifecycle/top100-hooks.csv) |
 | hooks | hook lifecycle receipts present | 0/5 | gap | [data/hook-lifecycle/top100-hooks.csv](../../data/hook-lifecycle/top100-hooks.csv) |
+| hooks | hook/lifecycle boundary rows | 9/9 | partial | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
+| hooks | hook queue rows still needing route receipts | 5/5 | gap | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
 | hooks | related lifecycle observation receipts passing | 4/4 | good | [data/lifecycle-observations/cert-manager-eso/summary.csv](../../data/lifecycle-observations/cert-manager-eso/summary.csv) |
 
 ## Top100 Readiness
@@ -203,6 +205,18 @@ receipt work. The hook doctrine is
 [Seven-Stage Helm Lifecycle](../../docs/reference/seven-stage-helm-lifecycle.md)
 and [Hook Lifecycle Strategy](../../docs/user/hook-lifecycle-strategy.md).
 
+The generated boundary table separates hook queue rows from hook-like
+controller lifecycle observations:
+
+| Lifecycle lane | Rows |
+| --- | ---: |
+| helm-hook-lifecycle-queue | 5 |
+| hook-like-lifecycle-observation | 4 |
+
+Open [lifecycle-boundary/summary.md](../lifecycle-boundary/summary.md) when the
+question is whether a row proves hook execution or only proves controller
+lifecycle observation.
+
 ## How To Use This
 
 | Question | Open |
@@ -212,6 +226,7 @@ and [Hook Lifecycle Strategy](../../docs/user/hook-lifecycle-strategy.md).
 | Which hooks, CRDs, generated facts, or target facts matter? | [outcome-coverage/feature-outcomes.csv](../outcome-coverage/feature-outcomes.csv) |
 | Which Helm quirk axes are still blind spots? | [quirk-coverage/coverage.csv](../quirk-coverage/coverage.csv) |
 | Which hook charts need lifecycle receipts? | [hook-lifecycle/top100-hooks.csv](../hook-lifecycle/top100-hooks.csv) |
+| Which hook claims are queued versus observed? | [lifecycle-boundary/summary.md](../lifecycle-boundary/summary.md) |
 | Which live comparisons passed or failed? | [live-helm-confighub-compare/summary.csv](../live-helm-confighub-compare/summary.csv) |
 | Which live rows should be rerun next? | [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md) |
 | Which derived variants are specified or executed? | [variant-goldens/derived-expansion-wave/work-orders.csv](../variant-goldens/derived-expansion-wave/work-orders.csv) |

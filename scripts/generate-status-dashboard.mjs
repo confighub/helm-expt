@@ -38,6 +38,7 @@ function buildReport() {
   const top100Rows = readCsv("data/top100-readiness/readiness.csv");
   const quirkRows = readCsv("data/quirk-coverage/coverage.csv");
   const hookRows = readCsv("data/hook-lifecycle/top100-hooks.csv");
+  const lifecycleBoundaryRows = readCsv("data/lifecycle-boundary/lifecycle-boundary.csv");
   const lifecycleObservationRows = readCsv("data/lifecycle-observations/cert-manager-eso/summary.csv");
   const liveRows = readCsv("data/live-helm-confighub-compare/summary.csv");
   const kindParityRows = readCsv("data/live-kind-parity/summary.csv");
@@ -82,6 +83,8 @@ function buildReport() {
 
   rows.push(metric("hooks", "top100 maintained hook charts", hookRows.length, hookRows.length, "partial", "data/hook-lifecycle/top100-hooks.csv", "Hook-bearing maintained charts with required lifecycle receipt paths."));
   rows.push(metric("hooks", "hook lifecycle receipts present", hookRows.filter((row) => row.lifecycle_disposition === "lifecycle-observed").length, hookRows.length, "gap", "data/hook-lifecycle/top100-hooks.csv", "Current hook rows still need lifecycle route and receipt work."));
+  rows.push(metric("hooks", "hook/lifecycle boundary rows", lifecycleBoundaryRows.length, lifecycleBoundaryRows.length, "partial", "data/lifecycle-boundary/lifecycle-boundary.csv", "Separates hook queue rows from hook-like controller lifecycle observations."));
+  rows.push(metric("hooks", "hook queue rows still needing route receipts", lifecycleBoundaryRows.filter((row) => row.lane === "helm-hook-lifecycle-queue" && row.status === "route-and-receipt-needed").length, lifecycleBoundaryRows.filter((row) => row.lane === "helm-hook-lifecycle-queue").length, "gap", "data/lifecycle-boundary/lifecycle-boundary.csv", "Hook-bearing rows whose behavior is inventoried but not yet lifecycle-observed."));
   rows.push(metric("hooks", "related lifecycle observation receipts passing", passCount(lifecycleObservationRows, "result"), lifecycleObservationRows.length, "good", "data/lifecycle-observations/cert-manager-eso/summary.csv", "Cert-manager and External Secrets receipts for CRD/webhook/controller behavior that rendered YAML alone cannot prove."));
 
   const chartByName = new Map(chartRows.map((row) => [row.chart, row]));
@@ -91,7 +94,7 @@ function buildReport() {
     csv: toCsv(rows),
     top20Rows,
     top20Csv: top20ToCsv(top20Rows),
-    summary: summary(rows, { chartRows, baseRows, top100Rows, top20Rows, quirkRows, hookRows, liveRows, kindParityRows, runtimeRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount }),
+    summary: summary(rows, { chartRows, baseRows, top100Rows, top20Rows, quirkRows, hookRows, lifecycleBoundaryRows, liveRows, kindParityRows, runtimeRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount }),
   };
 }
 
@@ -99,6 +102,7 @@ function summary(rows, context) {
   const top100Status = groupCount(context.top100Rows, "adoption_bucket");
   const strongestEvidence = groupCount(context.top100Rows, "strongest_evidence");
   const quirkTierCounts = groupCount(context.quirkRows, "coverage_tier");
+  const lifecycleBoundaryCounts = groupCount(context.lifecycleBoundaryRows, "lane");
   const hookPreview = context.hookRows.slice(0, 8);
   const liveNonPass = context.liveRows.filter((row) => row.result && row.result !== "pass");
   const kindParityNonPass = context.kindParityRows.filter((row) => row.result && row.result !== "pass");
@@ -232,6 +236,17 @@ receipt work. The hook doctrine is
 [Seven-Stage Helm Lifecycle](../../docs/reference/seven-stage-helm-lifecycle.md)
 and [Hook Lifecycle Strategy](../../docs/user/hook-lifecycle-strategy.md).
 
+The generated boundary table separates hook queue rows from hook-like
+controller lifecycle observations:
+
+| Lifecycle lane | Rows |
+| --- | ---: |
+${mapRows(lifecycleBoundaryCounts)}
+
+Open [lifecycle-boundary/summary.md](../lifecycle-boundary/summary.md) when the
+question is whether a row proves hook execution or only proves controller
+lifecycle observation.
+
 ## How To Use This
 
 | Question | Open |
@@ -241,6 +256,7 @@ and [Hook Lifecycle Strategy](../../docs/user/hook-lifecycle-strategy.md).
 | Which hooks, CRDs, generated facts, or target facts matter? | [outcome-coverage/feature-outcomes.csv](../outcome-coverage/feature-outcomes.csv) |
 | Which Helm quirk axes are still blind spots? | [quirk-coverage/coverage.csv](../quirk-coverage/coverage.csv) |
 | Which hook charts need lifecycle receipts? | [hook-lifecycle/top100-hooks.csv](../hook-lifecycle/top100-hooks.csv) |
+| Which hook claims are queued versus observed? | [lifecycle-boundary/summary.md](../lifecycle-boundary/summary.md) |
 | Which live comparisons passed or failed? | [live-helm-confighub-compare/summary.csv](../live-helm-confighub-compare/summary.csv) |
 | Which live rows should be rerun next? | [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md) |
 | Which derived variants are specified or executed? | [variant-goldens/derived-expansion-wave/work-orders.csv](../variant-goldens/derived-expansion-wave/work-orders.csv) |
