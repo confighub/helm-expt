@@ -68,6 +68,10 @@ function makeContext(spec) {
   const proofRoot = join(outputRoot, "recipes", chart.repository, chart.name, chart.version);
   const packageRoot = join(outputRoot, "packages", chart.repository, chart.name, chart.version);
   const ns = chart.namespace;
+  // Base artifact name; default `${repository}-${name}`. A chart may override it via
+  // spec.packageName to preserve a pre-existing name quirk (kube-prometheus-stack
+  // doubles its chart name). Both lockName and packageName derive from it.
+  const baseName = spec.packageName ?? `${chart.repository}-${chart.name}`;
   return {
     spec,
     chart,
@@ -77,8 +81,8 @@ function makeContext(spec) {
     packageRoot,
     packageRelative: relativeRepo(packageRoot),
     receiptPath: join(proofRoot, "publication", "installer-package-receipt.yaml"),
-    lockName: `${chart.repository}-${chart.name}-${chart.version}`, // e.g. metrics-server-metrics-server-3.13.0
-    packageName: `${chart.repository}-${chart.name}`, // e.g. metrics-server-metrics-server
+    lockName: `${baseName}-${chart.version}`,
+    packageName: baseName, // e.g. metrics-server-metrics-server
     chartRef: `${chart.repository}/${chart.name}`, // e.g. metrics-server/metrics-server
     helmChartRef: spec.helmChartRef ?? `${chart.repository}/${chart.name}`,
     receiptSlug: spec.receiptSlug ?? chart.name, // short name used in receipt metadata.name
@@ -88,6 +92,7 @@ function makeContext(spec) {
     recordChartLockDigest: spec.recordChartLockDigest ?? false,
     recordDeprecated: spec.recordDeprecated ?? false,
     expectedDeprecated: spec.expectedDeprecated ?? false,
+    semanticNormalizations: spec.semanticNormalizations ?? ["prune-null-fields"],
     supportObjects: spec.supportObjects ?? [`v1|Namespace||${ns}`],
     dependencyLockChart: spec.dependencyLockChart ?? `${chart.repository}/${chart.name}`,
     sourceType: spec.sourceType ?? "HelmChart",
@@ -323,7 +328,7 @@ function generateProof(ctx) {
           separatedSecretFiles: variant.expectedSecretCount ?? 0,
           semanticObjectMatches: `${objects.length}/${objects.length}`,
         },
-        semanticNormalizations: ["prune-null-fields"],
+        semanticNormalizations: ctx.semanticNormalizations,
         classifications: ctx.supportObjects.map((identity) => ({
           identity,
           classification: "installer-support-object",
