@@ -12,14 +12,53 @@ ConfigHub variant, or an upgrade/customization path.
 - derived-confighub-variant: 10
 - upgrade-simulation: 2
 
+## Path Type Meanings
+
+| Path type | Meaning |
+| --- | --- |
+| `base-variant` | A render-time `cub installer` base. This is where Helm values, CRDs, topology, storage, generated-vs-existing Secret choices, and other object-shape changes belong. |
+| `base-to-base-diff` | A comparison between two rendered bases. Use it to see what a variant changes before treating it as a deployable choice. |
+| `derived-confighub-variant` | A post-render ConfigHub variant created from an uploaded base. It should not hide a Helm rerender. |
+| `upgrade-simulation` | A simulated change path. It records expected consequences but is not live operation proof. |
+
 ## Rows By Live Status
 
-- fail: 14
+- blocked: 12
 - missing: 130
 - not-attempted: 10
 - not-tested: 2
 - not-tested-by-diff: 1
 - pass: 12
+- watch: 2
+
+## Live Status Meanings
+
+| Live status | Meaning |
+| --- | --- |
+| `pass` | At least one live lane for this exact path passed. Check the row to see which lane and receipt. |
+| `missing` | No committed live receipt exists for this exact path yet. This is backlog, not failure. |
+| `blocked` | A committed receipt exists and recorded a prerequisite, runtime, or infrastructure block. Inspect the receipt before changing the recipe. |
+| `watch` | A committed receipt exists and object parity or sync was not the problem, but readiness or target behavior still needs review. |
+| `not-attempted` | The row is an intended derived-variant path without target-bound live evidence in this matrix. |
+| `not-tested` | The row is a simulated operation path, not a live operation run. |
+| `not-tested-by-diff` | The row is a diff; live evidence belongs to the base variants, not the diff artifact. |
+
+## First Non-Pass Rows With Receipts Or Explicit Scope
+
+| Chart | Path | Type | Live status | Remaining gap |
+| --- | --- | --- | --- | --- |
+| `argo-cd/argo-cd@9.5.15` | `default` | base-variant | blocked | confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
+| `argo-cd/argo-cd@9.5.15` | `no-crds` | base-variant | blocked | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
+| `bitnami/mysql@14.0.3` | `generated-passwords` | base-variant | watch | confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
+| `bitnami/nginx@24.0.2` | `customer-acme-prod` | derived-confighub-variant | not-attempted | target/live evidence may be separate |
+| `bitnami/nginx@24.0.2` | `prod-us-east` | derived-confighub-variant | not-attempted | target/live evidence may be separate |
+| `bitnami/redis@25.5.3` | `bitnami-redis-default-to-reuse-existing-secret` | base-to-base-diff | not-tested-by-diff | target facts must be satisfied before delivery |
+| `bitnami/redis@25.5.3` | `prod-us-east` | derived-confighub-variant | not-attempted | target/live evidence may be separate |
+| `bitnami/redis@25.5.3` | `staging-eu-west` | derived-confighub-variant | not-attempted | target/live evidence may be separate |
+| `bitnami/redis@25.5.3` | `default-to-reuse-existing-secret` | upgrade-simulation | not-tested | live operation not proven |
+| `bitnami/redis@25.5.3` | `reuse-existing-secret-to-default` | upgrade-simulation | not-tested | live operation not proven |
+| `external-secrets/external-secrets@2.5.0` | `default` | base-variant | blocked | confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
+| `external-secrets/external-secrets@2.5.0` | `no-crds` | base-variant | blocked | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 
 ## How To Use This Matrix
 

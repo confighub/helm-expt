@@ -163,6 +163,7 @@ function summary(rows) {
   const live = counts(rows, (row) => row.live_status);
   const typeLines = [...byType.entries()].sort().map(([type, count]) => `- ${type}: ${count}`).join("\n");
   const liveLines = [...live.entries()].sort().map(([status, count]) => `- ${status}: ${count}`).join("\n");
+  const nonPassRows = rows.filter((row) => !["pass", "missing"].includes(row.live_status));
   return `# Variant Path Coverage
 
 This generated report tracks proof status at the chart, base-variant, and
@@ -174,9 +175,36 @@ ConfigHub variant, or an upgrade/customization path.
 
 ${typeLines}
 
+## Path Type Meanings
+
+| Path type | Meaning |
+| --- | --- |
+| \`base-variant\` | A render-time \`cub installer\` base. This is where Helm values, CRDs, topology, storage, generated-vs-existing Secret choices, and other object-shape changes belong. |
+| \`base-to-base-diff\` | A comparison between two rendered bases. Use it to see what a variant changes before treating it as a deployable choice. |
+| \`derived-confighub-variant\` | A post-render ConfigHub variant created from an uploaded base. It should not hide a Helm rerender. |
+| \`upgrade-simulation\` | A simulated change path. It records expected consequences but is not live operation proof. |
+
 ## Rows By Live Status
 
 ${liveLines}
+
+## Live Status Meanings
+
+| Live status | Meaning |
+| --- | --- |
+| \`pass\` | At least one live lane for this exact path passed. Check the row to see which lane and receipt. |
+| \`missing\` | No committed live receipt exists for this exact path yet. This is backlog, not failure. |
+| \`blocked\` | A committed receipt exists and recorded a prerequisite, runtime, or infrastructure block. Inspect the receipt before changing the recipe. |
+| \`watch\` | A committed receipt exists and object parity or sync was not the problem, but readiness or target behavior still needs review. |
+| \`not-attempted\` | The row is an intended derived-variant path without target-bound live evidence in this matrix. |
+| \`not-tested\` | The row is a simulated operation path, not a live operation run. |
+| \`not-tested-by-diff\` | The row is a diff; live evidence belongs to the base variants, not the diff artifact. |
+
+## First Non-Pass Rows With Receipts Or Explicit Scope
+
+| Chart | Path | Type | Live status | Remaining gap |
+| --- | --- | --- | --- | --- |
+${nonPassRows.slice(0, 12).map((row) => `| \`${row.chart}\` | \`${row.variant_path}\` | ${row.path_type} | ${row.live_status} | ${escapePipes(row.remaining_gap)} |`).join("\n")}
 
 ## How To Use This Matrix
 
@@ -197,6 +225,10 @@ npm run variant-paths:generate
 npm run variant-paths:verify
 ~~~
 `;
+}
+
+function escapePipes(value) {
+  return String(value ?? "").replaceAll("|", "\\|");
 }
 
 function counts(rows, keyFn) {
