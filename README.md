@@ -279,7 +279,8 @@ data/top20-base-readiness/summary.md
   One row per top-20 base variant: which bases are clean first paths and which need prerequisites, runtime review, or hook lifecycle work.
 
 data/top100-readiness/summary.md
-  One chart-by-chart answer for current top-100 adoption bucket, strongest evidence, and next action.
+  One chart-by-chart answer for current top-100 adoption bucket, strongest
+  evidence, next action, and first work queues.
 
 data/extension-slots/summary.md
   NGINX-like extension slots: 13/20 top-20 catalog charts and 82/100 top-100 chart facts surface raw manifests, tpl snippets, config blocks, sidecars, or add-on slots.
