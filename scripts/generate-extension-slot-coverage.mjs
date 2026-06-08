@@ -69,6 +69,11 @@ function buildReport() {
     .filter((row) => row.catalog_scope === "top20-catalog")
     .map((row) => `| \`${row.chart}\` | ${row.built_variants} | ${escapePipes(row.surfaces)} | ${row.control_point_status} |`)
     .join("\n");
+  const top20WithExtensionCharts = new Set(rows.filter((row) => row.catalog_scope === "top20-catalog").map((row) => row.chart));
+  const top20WithoutExtensionList = top20Rows
+    .filter((row) => !top20WithExtensionCharts.has(row.chart))
+    .map((row) => `| \`${row.chart}\` | ${row.variants.replaceAll(";", "+")} | ${escapePipes(row.hard_gap || "-")} | use the supported base; route Helm-input changes through a reviewed \`cub installer\` base and post-render changes through \`cub variant create\` |`)
+    .join("\n");
 
   const summary = `# Extension Slot Coverage
 
@@ -87,6 +92,7 @@ its own render parity, scans, gates, and receipts.
 
 ~~~text
 top-20 catalog charts with explicit extension-slot control points: ${top20WithExtension}/20
+top-20 catalog charts without extension slots in chart facts:     ${20 - top20WithExtension}/20
 top-100 chart facts with extension slots surfaced:                ${top100Count}/100
 matched top-500 proof rows with extension-slot control points:    ${matchedTop500}
 top-500 source rows using tpl:                                    ${sourceTpl}/500
@@ -102,6 +108,16 @@ to current recipe/package proof artifacts.
 | Chart | Built variants | Example surfaces | Control point |
 | --- | --- | --- | --- |
 ${top20List}
+
+## Top-20 Charts Without Extension Slots
+
+These charts still have normal Helm choices and production review work. They do
+not currently expose NGINX-like raw manifest, tpl snippet, config block,
+sidecar, or add-on slots in the chart facts.
+
+| Chart | Built variants | Current hard gap | Route |
+| --- | --- | --- | --- |
+${top20WithoutExtensionList}
 
 ## How To Use This
 
