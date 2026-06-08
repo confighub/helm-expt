@@ -16,8 +16,8 @@ that must be rerun before judging parity.
 
 ```text
 chart-recipe-variant rows: 156
-complete core lane set: 10
-incomplete core lane set: 146
+complete core lane set: 11
+incomplete core lane set: 145
 ```
 
 ## Core Lane Counts
@@ -27,8 +27,8 @@ incomplete core lane set: 146
 | helm_template_vs_installer_setup | 156 | 0 | 0 | 0 | 0 |
 | confighub_upload_variant_scan_safe_ops | 18 | 138 | 0 | 0 | 0 |
 | local_kind_kubectl_apply | 21 | 135 | 0 | 0 | 0 |
-| confighub_oci_argo_live | 16 | 130 | 0 | 6 | 4 |
-| live_helm_vs_confighub_dual_compare | 14 | 136 | 0 | 6 | 0 |
+| confighub_oci_argo_live | 17 | 130 | 0 | 5 | 4 |
+| live_helm_vs_confighub_dual_compare | 15 | 136 | 0 | 5 | 0 |
 
 ## Lane Definitions
 
@@ -42,7 +42,7 @@ incomplete core lane set: 146
 
 ## Current Gaps
 
-The live Helm-vs-ConfigHub dual comparison lane has 14 PASS receipt(s), 6 WATCH receipt(s), 0 BLOCKED receipt(s), 0 FAIL receipt(s), and 136 missing row(s). The ConfigHub OCI/Argo live lane has a harness, but this repo
+The live Helm-vs-ConfigHub dual comparison lane has 15 PASS receipt(s), 5 WATCH receipt(s), 0 BLOCKED receipt(s), 0 FAIL receipt(s), and 136 missing row(s). The ConfigHub OCI/Argo live lane has a harness, but this repo
 currently has no committed PASS receipts for every chart-recipe-variant row.
 
 ### First Non-Pass Or Missing ConfigHub Proof Rows

@@ -55,13 +55,13 @@ spec:
   proofSummary:
     adoptionBucket: "try-from-public-catalog"
     userStatus: "catalog-supported-with-live-evidence"
-    strongestEvidence: "local-kubernetes-live"
+    strongestEvidence: "live-helm-vs-confighub-parity"
     proofLanes:
       renderParity: "2/2"
       inConfigHub: "1/2"
       localLive: "1/2"
-      gitopsLive: "0/2"
-      liveParity: "0/2"
+      gitopsLive: "1/2"
+      liveParity: "1/2"
     featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots"
     hardGap: "ha (curated proof lane - bespoke teaching needed)"
     nextAction: "resolve or document: ha (curated proof lane - bespoke teaching needed)"
@@ -69,7 +69,7 @@ spec:
     path: "packages/hashicorp/consul/2.0.0"
     installer: "packages/hashicorp/consul/2.0.0/installer.yaml"
     receipt: "recipes/hashicorp/consul/2.0.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "2a323886a885502f016d70d3ae634a4bb946b65b395212273dc9ea29a8fc514b"
+    deterministicBundleSHA256: "1918bef9abfcb4917d55382c4733f4a9c142cae1439d9b37e86a3119a3eb6f83"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -115,7 +115,7 @@ spec:
           name: "default-control-plane-r001"
           revision: "r001"
           variantRevision: "recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/variant-revision.yaml"
-          digest: "62f352d18f2246e1d0cf76328ea6b7dc4be7e9407c37e601b2f11412c37753bd"
+          digest: "b83c19e0fd112cd7ef9080d42a3a16d6b3b22c5b2021c5a30a93372d1ff3f0de"
           renderedObjectSetSHA256: "7efa3e8b59c702c8b8fa744a0ff91198e09ad8ba0fb93a86b50c3fd9e39d29f7"
           renderedObjects: "recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/rendered/object-inventory.yaml"
@@ -202,7 +202,7 @@ spec:
           name: "secure-mesh-existing-secrets-r001"
           revision: "r001"
           variantRevision: "recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/variant-revision.yaml"
-          digest: "fd752ef8b45f7b313396f849c315c5246a42bcff581325a0872be7dae35350d7"
+          digest: "f571f3bed46371985a0db79eeca2a13ddc4676c58606d8cbee7f026a367364e6"
           renderedObjectSetSHA256: "0acc8c339c2965446b754c3a9c948c4f154ca6e47b074ddc3b8d315e2cb7c468"
           renderedObjects: "recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/object-inventory.yaml"

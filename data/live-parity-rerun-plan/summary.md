@@ -10,15 +10,15 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 21
+rows: 20
 blocked: 12
-watch: 9
-configHub-oci-live-comparison: 6
+watch: 8
+configHub-oci-live-comparison: 5
 two-cluster-kind-parity: 15
 semantic-parity-defects: 0
 infra-or-rig-rows: 0
 prerequisite-or-lifecycle-rows: 5
-runtime-or-watch-rows: 16
+runtime-or-watch-rows: 15
 ```
 
 ## Recommended Order
@@ -38,7 +38,6 @@ runtime-or-watch-rows: 16
 | ---: | --- | --- | --- | --- | --- | --- |
 | 30 | configHub-oci-live-comparison | `argo-cd/argo-cd@9.5.15` | default | watch | watch: inspect receipt | `npm run live-parity:top20 -- --from-rank 6 --to-rank 6 --continue-on-fail` |
 | 30 | configHub-oci-live-comparison | `grafana/tempo@1.24.4` | local-persistent | watch | watch: inspect receipt | `npm run live-parity:top20 -- --from-rank 19 --to-rank 19 --continue-on-fail` |
-| 30 | configHub-oci-live-comparison | `hashicorp/consul@2.0.0` | default-control-plane | watch | watch: inspect receipt | `npm run live-parity:top20 -- --from-rank 20 --to-rank 20 --continue-on-fail` |
 | 30 | configHub-oci-live-comparison | `hashicorp/vault@0.32.0` | default | watch | watch: inspect receipt | `npm run live-parity:top20 -- --from-rank 12 --to-rank 12 --continue-on-fail` |
 | 30 | configHub-oci-live-comparison | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | watch | watch: inspect receipt | `npm run live-parity:top20 -- --from-rank 3 --to-rank 3 --continue-on-fail` |
 | 30 | configHub-oci-live-comparison | `prometheus-community/kube-prometheus-stack@85.3.3` | default | watch | watch: inspect receipt | `npm run live-parity:top20 -- --from-rank 7 --to-rank 7 --continue-on-fail` |

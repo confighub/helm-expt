@@ -86,20 +86,20 @@
     {
       "section": "proof lanes",
       "metric": "GitOps/OCI live pass rows",
-      "value": "12",
+      "value": "17",
       "total": "156",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
-      "note": "7 rows have non-pass GitOps/OCI receipts."
+      "note": "9 rows have non-pass GitOps/OCI receipts."
     },
     {
       "section": "proof lanes",
       "metric": "live Helm-vs-ConfigHub parity pass rows",
-      "value": "10",
+      "value": "15",
       "total": "156",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
-      "note": "10 rows have non-pass live parity receipts."
+      "note": "5 rows have non-pass live parity receipts."
     },
     {
       "section": "proof lanes",
@@ -113,7 +113,7 @@
     {
       "section": "proof lanes",
       "metric": "complete core lane rows",
-      "value": "6",
+      "value": "11",
       "total": "156",
       "status": "gap",
       "source": "data/outcome-coverage/base-outcomes.csv",
@@ -174,6 +174,24 @@
       "note": "Committed two-cluster parity receipts for the top-20 base variants, including pass and non-pass results."
     },
     {
+      "section": "live evidence",
+      "metric": "ConfigHub/OCI semantic parity defect receipts",
+      "value": "0",
+      "total": "20",
+      "status": "good",
+      "source": "data/live-helm-confighub-compare/summary.csv",
+      "note": "Rows whose committed receipt currently points at a semantic object comparison defect."
+    },
+    {
+      "section": "live evidence",
+      "metric": "two-cluster semantic parity defect receipts",
+      "value": "0",
+      "total": "40",
+      "status": "good",
+      "source": "data/live-kind-parity/summary.csv",
+      "note": "Rows whose committed two-cluster receipt currently points at a semantic object comparison defect."
+    },
+    {
       "section": "quirks",
       "metric": "tracked-and-surfaced axes",
       "value": "8",
@@ -226,6 +244,15 @@
       "status": "gap",
       "source": "data/hook-lifecycle/top100-hooks.csv",
       "note": "Current hook rows still need lifecycle route and receipt work."
+    },
+    {
+      "section": "hooks",
+      "metric": "related lifecycle observation receipts passing",
+      "value": "4",
+      "total": "4",
+      "status": "good",
+      "source": "data/lifecycle-observations/cert-manager-eso/summary.csv",
+      "note": "Cert-manager and External Secrets receipts for CRD/webhook/controller behavior that rendered YAML alone cannot prove."
     }
   ],
   "catalogEntries": [
@@ -520,7 +547,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "ha (tempo single-binary chart; HA is the separate t…)",
+      "not_yet_enabled": "ha (tempo single-binary chart; HA is the separate tempo-distributed chart)",
       "package_path": "packages/grafana/tempo/1.24.4",
       "recipe_path": "recipes/grafana/tempo/1.24.4/recipe.yaml",
       "catalog_path": "recipes/grafana/tempo/1.24.4/CATALOG.md",

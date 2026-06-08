@@ -54,8 +54,8 @@ charts with named hard gaps: 25
 
 | Evidence | Count | Meaning |
 | --- | ---: | --- |
-| `live-helm-vs-confighub-parity` | 14 | Plain Helm and ConfigHub delivery reached equivalent live outcomes for at least one variant. |
-| `local-kubernetes-live` | 6 | Rendered objects were applied to Kubernetes and observed for at least one variant. |
+| `live-helm-vs-confighub-parity` | 15 | Plain Helm and ConfigHub delivery reached equivalent live outcomes for at least one variant. |
+| `local-kubernetes-live` | 5 | Rendered objects were applied to Kubernetes and observed for at least one variant. |
 | `render-parity` | 80 | Regular Helm and cub installer setup render-equivalent objects. |
 
 ## How To Read This
@@ -94,7 +94,7 @@ charts with named hard gaps: 25
 | `grafana/grafana@10.5.15` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |
 | `grafana/loki@7.0.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |
 | `grafana/tempo@1.24.4` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | resolve or document: ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
-| `hashicorp/consul@2.0.0` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
+| `hashicorp/consul@2.0.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
 | `hashicorp/vault@0.32.0` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | promote a declared production scope when gates pass |
 | `ingress-nginx/ingress-nginx@4.15.1` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | promote a declared production scope when gates pass |
 | `jetstack/cert-manager@v1.20.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |

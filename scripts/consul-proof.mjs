@@ -127,12 +127,143 @@ runProofCli({
   recordChartLockDigest: true,
   recordDeprecated: true,
   expectedDeprecated: false,
-  semanticNormalizations: ["prune-null-fields", "trim-leading-command-block-newline"],
+  semanticNormalizations: [
+    "prune-null-fields",
+    "trim-leading-command-block-newline",
+    "consul-namespace-reference-normalization",
+    "consul-statefulset-gitops-defaults",
+  ],
+  packageTransformers: [
+    {
+      toolchain: "Kubernetes/YAML",
+      whereResource: "",
+      description: "Set the namespace on every namespaced resource.",
+      invocations: [{ name: "set-namespace", args: ["{{ .Namespace }}"] }],
+    },
+    {
+      toolchain: "Kubernetes/YAML",
+      whereResource: "ConfigHub.ResourceType = 'rbac.authorization.k8s.io/v1/ClusterRoleBinding'",
+      description: "Keep cluster-role binding subject namespaces aligned with the selected install namespace.",
+      invocations: [{ name: "yq-i", args: ['.subjects[]?.namespace = "{{ .Namespace }}"'] }],
+    },
+    {
+      toolchain: "Kubernetes/YAML",
+      whereResource: "ConfigHub.ResourceType = 'v1/ConfigMap'",
+      description: "Keep Consul service DNS and webhook Secret namespace references aligned with the selected install namespace.",
+      invocations: [
+        {
+          name: "set-starlark",
+          args: [
+            `def rewrite(value):
+  ns = params["namespace"]
+  if type(value) == "dict":
+    for key in value.keys():
+      value[key] = rewrite(value[key])
+    return value
+  if type(value) == "list":
+    for index in range(len(value)):
+      value[index] = rewrite(value[index])
+    return value
+  if type(value) == "string":
+    value = re.sub("consul-consul-server[.]consul[.]svc", "consul-consul-server." + ns + ".svc", value)
+    value = re.sub("consul-consul-connect-injector[.]consul[.]svc[.]cluster[.]local", "consul-consul-connect-injector." + ns + ".svc.cluster.local", value)
+    value = re.sub("consul-consul-connect-injector[.]consul[.]svc", "consul-consul-connect-injector." + ns + ".svc", value)
+    value = re.sub('consul-consul-connect-injector[.]consul"', 'consul-consul-connect-injector.' + ns + '"', value)
+    value = re.sub('"secretNamespace": "consul"', '"secretNamespace": "' + ns + '"', value)
+    return value
+  return value
+
+rewrite(r)
+`,
+            "namespace={{ .Namespace }}",
+          ],
+        },
+      ],
+    },
+    {
+      toolchain: "Kubernetes/YAML",
+      whereResource: "ConfigHub.ResourceType = 'apps/v1/Deployment'",
+      description: "Keep Consul controller namespace flags and service references aligned with the selected install namespace.",
+      invocations: [
+        {
+          name: "set-starlark",
+          args: [
+            `def rewrite(value):
+  ns = params["namespace"]
+  if type(value) == "dict":
+    for key in value.keys():
+      value[key] = rewrite(value[key])
+    return value
+  if type(value) == "list":
+    for index in range(len(value)):
+      value[index] = rewrite(value[index])
+    return value
+  if type(value) == "string":
+    value = re.sub("consul-consul-server[.]consul[.]svc", "consul-consul-server." + ns + ".svc", value)
+    value = re.sub('-release-namespace="consul"', '-release-namespace="' + ns + '"', value)
+    value = re.sub("-deployment-namespace=consul", "-deployment-namespace=" + ns, value)
+    return value
+  return value
+
+rewrite(r)
+`,
+            "namespace={{ .Namespace }}",
+          ],
+        },
+      ],
+    },
+    {
+      toolchain: "Kubernetes/YAML",
+      whereResource: "ConfigHub.ResourceType = 'apps/v1/StatefulSet'",
+      description: "Make the Consul server StatefulSet stable under Kubernetes defaulting so GitOps can converge.",
+      invocations: [
+        {
+          name: "yq-i",
+          args: ['.spec.persistentVolumeClaimRetentionPolicy = {"whenDeleted": "Retain", "whenScaled": "Retain"} | .spec.revisionHistoryLimit = 10 | .spec.updateStrategy = {"type": "RollingUpdate", "rollingUpdate": {"partition": 0, "maxUnavailable": 1}}'],
+        },
+        {
+          name: "yq-i",
+          args: ['.spec.template.spec.dnsPolicy = "ClusterFirst" | .spec.template.spec.restartPolicy = "Always" | .spec.template.spec.schedulerName = "default-scheduler" | .spec.template.spec.serviceAccount = "consul-consul-server"'],
+        },
+        {
+          name: "yq-i",
+          args: ['(.spec.template.spec.containers[].env[]? | select(.valueFrom.fieldRef).valueFrom.fieldRef.apiVersion) = "v1" | (.spec.template.spec.initContainers[].env[]? | select(.valueFrom.fieldRef).valueFrom.fieldRef.apiVersion) = "v1"'],
+        },
+        {
+          name: "yq-i",
+          args: ['.spec.template.spec.containers[].imagePullPolicy = "IfNotPresent" | .spec.template.spec.initContainers[].imagePullPolicy = "IfNotPresent" | .spec.template.spec.initContainers[].resources = {}'],
+        },
+        {
+          name: "yq-i",
+          args: ['(.spec.template.spec.containers[].ports[] | select(.protocol == null).protocol) = "TCP" | .spec.template.spec.containers[].terminationMessagePath = "/dev/termination-log" | .spec.template.spec.containers[].terminationMessagePolicy = "File" | .spec.template.spec.initContainers[].terminationMessagePath = "/dev/termination-log" | .spec.template.spec.initContainers[].terminationMessagePolicy = "File"'],
+        },
+        {
+          name: "yq-i",
+          args: ['(.spec.template.spec.volumes[] | select(has("configMap")).configMap.defaultMode) = 420 | .spec.volumeClaimTemplates[].apiVersion = "v1" | .spec.volumeClaimTemplates[].kind = "PersistentVolumeClaim" | .spec.volumeClaimTemplates[].spec.volumeMode = "Filesystem"'],
+        },
+        {
+          name: "yq-i",
+          args: ["del(.spec.template.spec.containers[].volumeMounts[] | select(.readOnly == false).readOnly)"],
+        },
+      ],
+    },
+    {
+      toolchain: "Kubernetes/YAML",
+      whereResource:
+        "ConfigHub.ResourceType IN ('admissionregistration.k8s.io/v1/MutatingWebhookConfiguration', 'admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration')",
+      description: "Keep admission webhook service references aligned with the selected install namespace.",
+      invocations: [{ name: "yq-i", args: ['.webhooks[].clientConfig.service.namespace = "{{ .Namespace }}"'] }],
+    },
+  ],
   allowedSemanticDiff({ helmObjectJson, cubObjectJson }) {
     const helmObject = JSON.parse(helmObjectJson);
     const cubObject = JSON.parse(cubObjectJson);
     normalizeCommandBlocks(helmObject);
     normalizeCommandBlocks(cubObject);
+    normalizeRoleBindingSubjectNamespaces(helmObject);
+    normalizeRoleBindingSubjectNamespaces(cubObject);
+    normalizeConsulStatefulSetForGitOps(helmObject);
+    normalizeConsulStatefulSetForGitOps(cubObject);
     return JSON.stringify(helmObject) === JSON.stringify(cubObject);
   },
   valueModel: {
@@ -398,4 +529,52 @@ function normalizeCommandBlocks(value) {
   }
   if (!value || typeof value !== "object") return;
   for (const child of Object.values(value)) normalizeCommandBlocks(child);
+}
+
+function normalizeRoleBindingSubjectNamespaces(object) {
+  if (object?.kind !== "RoleBinding") return;
+  const namespace = object.metadata?.namespace;
+  if (!namespace) return;
+  for (const subject of object.subjects ?? []) {
+    if (subject.kind === "ServiceAccount" && subject.namespace === namespace) delete subject.namespace;
+  }
+}
+
+function normalizeConsulStatefulSetForGitOps(object) {
+  if (object?.kind !== "StatefulSet" || object?.metadata?.name !== "consul-consul-server") return;
+  const spec = object.spec ?? {};
+  delete spec.persistentVolumeClaimRetentionPolicy;
+  delete spec.revisionHistoryLimit;
+  delete spec.updateStrategy;
+  const podSpec = spec.template?.spec ?? {};
+  delete podSpec.dnsPolicy;
+  delete podSpec.restartPolicy;
+  delete podSpec.schedulerName;
+  delete podSpec.serviceAccount;
+  for (const container of podSpec.containers ?? []) {
+    delete container.imagePullPolicy;
+    delete container.terminationMessagePath;
+    delete container.terminationMessagePolicy;
+    for (const env of container.env ?? []) delete env.valueFrom?.fieldRef?.apiVersion;
+    for (const port of container.ports ?? []) delete port.protocol;
+    for (const mount of container.volumeMounts ?? []) {
+      if (mount.readOnly === false) delete mount.readOnly;
+    }
+  }
+  for (const container of podSpec.initContainers ?? []) {
+    delete container.imagePullPolicy;
+    if (container.resources && Object.keys(container.resources).length === 0) delete container.resources;
+    delete container.terminationMessagePath;
+    delete container.terminationMessagePolicy;
+    for (const env of container.env ?? []) delete env.valueFrom?.fieldRef?.apiVersion;
+  }
+  for (const volume of podSpec.volumes ?? []) {
+    if (volume.configMap) delete volume.configMap.defaultMode;
+  }
+  for (const claim of spec.volumeClaimTemplates ?? []) {
+    delete claim.apiVersion;
+    delete claim.kind;
+    delete claim.spec?.volumeMode;
+    delete claim.status;
+  }
 }

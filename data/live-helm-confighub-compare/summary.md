@@ -5,8 +5,8 @@ chart/base rows. Each completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 14
-watch: 6
+pass: 15
+watch: 5
 blocked: 0
 not-started: 0
 ```
@@ -38,4 +38,4 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 | 17 | `bitnami/mongodb@19.0.7` | generated-passwords | pass | - | runs/live-helm-confighub-compare/bitnami-mongodb-generated-passwords/receipt.yaml |
 | 18 | `bitnami/nginx@24.0.2` | http-clusterip | pass | - | runs/live-helm-confighub-compare/bitnami-nginx-http-clusterip/receipt.yaml |
 | 19 | `grafana/tempo@1.24.4` | local-persistent | watch | - | runs/live-helm-confighub-compare/grafana-tempo-local-persistent/receipt.yaml |
-| 20 | `hashicorp/consul@2.0.0` | default-control-plane | watch | - | runs/live-helm-confighub-compare/hashicorp-consul-default-control-plane/receipt.yaml |
+| 20 | `hashicorp/consul@2.0.0` | default-control-plane | pass | - | runs/live-helm-confighub-compare/hashicorp-consul-default-control-plane/receipt.yaml |

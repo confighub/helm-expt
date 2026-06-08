@@ -5,12 +5,12 @@ metadata:
 spec:
   variant: "../../../variants/secure-mesh-existing-secrets/variant.yaml"
   revision: "r001"
-  digest: "fd752ef8b45f7b313396f849c315c5246a42bcff581325a0872be7dae35350d7"
+  digest: "f571f3bed46371985a0db79eeca2a13ddc4676c58606d8cbee7f026a367364e6"
   digestInputs:
-    recipeSHA256: "4a6667a911c80202bdbb4c7bf98fb323c742f2f9c635995c06c1e42a911dabdf"
+    recipeSHA256: "0544f009daee191155ec2463613598458558321e8543284b06a750938dfc7bd1"
     variantSHA256: "d38cf3579ff0a855bb44b31ab9a18b8eae2d18edfb3dce95ceb7ca0d83c638da"
     effectiveValuesSHA256: "13b0cb66ff9a0b3ad3c21465d7978a03750ef309d0bc792f4347e1fdcc37f568"
-    rendererSHA256: "802e90ca6f4d3538badc3879a237ce00b5725f3eae315323fde3254df3c9759e"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
     renderedObjectSetSHA256: "0acc8c339c2965446b754c3a9c948c4f154ca6e47b074ddc3b8d315e2cb7c468"
   rendered:
     releaseObjects: "rendered/release-objects.yaml"

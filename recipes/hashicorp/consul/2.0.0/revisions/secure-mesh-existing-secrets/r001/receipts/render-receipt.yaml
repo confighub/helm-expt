@@ -12,8 +12,6 @@ spec:
       - "--include-crds"
       - "--skip-tests"
       - "--no-hooks"
-    apiVersions:
-      []
   inputs:
     sourceLockSHA256: "ca9530b8c44624e168be7b046f8954bc869bf0cdf1c5c832665886c307746f59"
     dependencyLockSHA256: "fba9743dff568a2ee3df44e4cde5398b1c9d2ab326cebaea5f3514be33721ffa"

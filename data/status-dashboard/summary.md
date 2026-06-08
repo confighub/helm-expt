@@ -24,10 +24,10 @@ Which detailed CSV should I open next?
 | proof lanes | render parity rows | 156/156 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | in-ConfigHub proof rows | 18/156 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | local live rows | 21/156 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | GitOps/OCI live pass rows | 16/156 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | live Helm-vs-ConfigHub parity pass rows | 14/156 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | GitOps/OCI live pass rows | 17/156 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | live Helm-vs-ConfigHub parity pass rows | 15/156 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | two-cluster kind parity pass rows | 25/40 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| proof lanes | complete core lane rows | 10/156 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | complete core lane rows | 11/156 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | derived variants | derived variant golden rows | 10/10 | good | [data/variant-goldens/derived-expansion-wave/work-orders.csv](../../data/variant-goldens/derived-expansion-wave/work-orders.csv) |
 | derived variants | derived variant live create receipts | 10/10 | good | [runs/derived-variant-execution](../../runs/derived-variant-execution) |
 | derived variants | target-bound derived variant receipts | 6/10 | partial | [runs/derived-variant-target-bound](../../runs/derived-variant-target-bound) |
@@ -56,8 +56,8 @@ Which detailed CSV should I open next?
 | Strongest evidence | Charts |
 | --- | ---: |
 | render-parity | 80 |
-| live-helm-vs-confighub-parity | 14 |
-| local-kubernetes-live | 6 |
+| live-helm-vs-confighub-parity | 15 |
+| local-kubernetes-live | 5 |
 
 The top100 is model-supported, but not uniformly live-proven. Use
 [top100-readiness/readiness.csv](../top100-readiness/readiness.csv) for one row
@@ -86,7 +86,7 @@ spreadsheet.
 | grafana/grafana@10.5.15 | generated-passwords;existing-secret-ingress | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
 | grafana/loki@7.0.0 | single-binary-filesystem;simple-scalable-minio | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
 | grafana/tempo@1.24.4 | local-persistent;s3-query-observability | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
-| hashicorp/consul@2.0.0 | default-control-plane;secure-mesh-existing-secrets | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | ha (curated proof lane - bespoke teaching needed) |
+| hashicorp/consul@2.0.0 | default-control-plane;secure-mesh-existing-secrets | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
 | hashicorp/vault@0.32.0 | default;ha-raft-ui | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | - |
 | ingress-nginx/ingress-nginx@4.15.1 | default;admission-disabled | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | - |
 | jetstack/cert-manager@v1.20.2 | default;crds-enabled | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
@@ -106,8 +106,8 @@ every lane passing for every base variant. The exact per-base rows are in
 | --- | ---: | ---: | ---: | ---: |
 | in-ConfigHub | 18 | 0 | 138 | 156 |
 | local live | 21 | 0 | 135 | 156 |
-| GitOps/OCI live | 16 | 10 | 130 | 156 |
-| live Helm-vs-ConfigHub parity | 14 | 6 | 136 | 156 |
+| GitOps/OCI live | 17 | 9 | 130 | 156 |
+| live Helm-vs-ConfigHub parity | 15 | 5 | 136 | 156 |
 | two-cluster kind parity | 25 | 15 | 0 | 40 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
@@ -136,7 +136,6 @@ Current ConfigHub/OCI live parity non-pass receipts:
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | watch | - |
 | hashicorp/vault@0.32.0 | default | watch | - |
 | grafana/tempo@1.24.4 | local-persistent | watch | - |
-| hashicorp/consul@2.0.0 | default-control-plane | watch | - |
 
 
 Current two-cluster kind parity non-pass receipts:

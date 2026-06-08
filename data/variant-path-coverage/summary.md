@@ -23,13 +23,13 @@ ConfigHub variant, or an upgrade/customization path.
 
 ## Rows By Live Status
 
-- blocked: 12
+- blocked: 4
 - missing: 130
 - not-attempted: 10
 - not-tested: 2
 - not-tested-by-diff: 1
-- pass: 12
-- watch: 2
+- pass: 17
+- watch: 5
 
 ## Live Status Meanings
 
@@ -47,9 +47,8 @@ ConfigHub variant, or an upgrade/customization path.
 
 | Chart | Path | Type | Live status | Remaining gap |
 | --- | --- | --- | --- | --- |
-| `argo-cd/argo-cd@9.5.15` | `default` | base-variant | blocked | confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
+| `argo-cd/argo-cd@9.5.15` | `default` | base-variant | watch | confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 | `argo-cd/argo-cd@9.5.15` | `no-crds` | base-variant | blocked | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
-| `bitnami/mysql@14.0.3` | `generated-passwords` | base-variant | watch | confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 | `bitnami/nginx@24.0.2` | `customer-acme-prod` | derived-confighub-variant | not-attempted | target/live evidence may be separate |
 | `bitnami/nginx@24.0.2` | `prod-us-east` | derived-confighub-variant | not-attempted | target/live evidence may be separate |
 | `bitnami/redis@25.5.3` | `bitnami-redis-default-to-reuse-existing-secret` | base-to-base-diff | not-tested-by-diff | target facts must be satisfied before delivery |
@@ -57,8 +56,9 @@ ConfigHub variant, or an upgrade/customization path.
 | `bitnami/redis@25.5.3` | `staging-eu-west` | derived-confighub-variant | not-attempted | target/live evidence may be separate |
 | `bitnami/redis@25.5.3` | `default-to-reuse-existing-secret` | upgrade-simulation | not-tested | live operation not proven |
 | `bitnami/redis@25.5.3` | `reuse-existing-secret-to-default` | upgrade-simulation | not-tested | live operation not proven |
-| `external-secrets/external-secrets@2.5.0` | `default` | base-variant | blocked | confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 | `external-secrets/external-secrets@2.5.0` | `no-crds` | base-variant | blocked | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
+| `grafana/grafana@10.5.15` | `customer-acme-prod` | derived-confighub-variant | not-attempted | target/live evidence may be separate |
+| `grafana/grafana@10.5.15` | `prod-us-east` | derived-confighub-variant | not-attempted | target/live evidence may be separate |
 
 ## How To Use This Matrix
 

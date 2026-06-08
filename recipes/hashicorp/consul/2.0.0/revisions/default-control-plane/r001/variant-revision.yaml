@@ -5,12 +5,12 @@ metadata:
 spec:
   variant: "../../../variants/default-control-plane/variant.yaml"
   revision: "r001"
-  digest: "62f352d18f2246e1d0cf76328ea6b7dc4be7e9407c37e601b2f11412c37753bd"
+  digest: "b83c19e0fd112cd7ef9080d42a3a16d6b3b22c5b2021c5a30a93372d1ff3f0de"
   digestInputs:
-    recipeSHA256: "4a6667a911c80202bdbb4c7bf98fb323c742f2f9c635995c06c1e42a911dabdf"
+    recipeSHA256: "0544f009daee191155ec2463613598458558321e8543284b06a750938dfc7bd1"
     variantSHA256: "531ff8ab5a0231b02fd1db36691f9bc7870962c567737b31ad8bede3f48b89f3"
     effectiveValuesSHA256: "7474c564afb46c7bfb9fc27178cc6a9879cbe3daee2bb2dadba6441e4d1219c4"
-    rendererSHA256: "802e90ca6f4d3538badc3879a237ce00b5725f3eae315323fde3254df3c9759e"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
     renderedObjectSetSHA256: "7efa3e8b59c702c8b8fa744a0ff91198e09ad8ba0fb93a86b50c3fd9e39d29f7"
   rendered:
     releaseObjects: "rendered/release-objects.yaml"
