@@ -169,6 +169,10 @@ Production disposition is still open for the top-20 catalog:
 Use the generated production table for exact blockers and next actions:
 [Production Disposition](../../data/production-disposition/summary.md).
 
+Use the detailed disposition plan when you need the accepted receipts, owners,
+required evidence, and unblock rules:
+[Production Disposition Details](../../data/production-disposition/dispositions.md).
+
 Use the generated queue when you want the next chart-level production action:
 [Production Next Actions](../../data/production-disposition/next-actions.csv).
 

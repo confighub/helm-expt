@@ -42,6 +42,7 @@ For the shortest chart-by-chart top-100 answer, start with:
 | [top20-status.csv](../../data/status-dashboard/top20-status.csv) | One row per top-20 catalog chart. Shows the recommended base, setup command, base-readiness mix, strongest evidence, lane counts, feature summary, hard gaps, and next action. |
 | [top20 base readiness](../../data/top20-base-readiness/summary.md) | One row per top-20 base variant. Shows which bases are clean first paths and which need prerequisites, runtime review, or hook lifecycle work. |
 | [production disposition](../../data/production-disposition/summary.md) | Top-20 production support boundary. Shows accepted dispositions, open blockers, and next actions before a chart can be called production-supported. |
+| [production disposition details](../../data/production-disposition/dispositions.md) | Detailed top-20 production plan. Shows accepted receipts, owners, required evidence, and unblock rules for each disposition type. |
 | [production next actions](../../data/production-disposition/next-actions.csv) | One row per top-20 chart. Shows the next production disposition receipt or fix to work on. |
 | [pain-points.csv](../../data/pain-point-coverage/pain-points.csv) | One row per common Helm pain point. Shows current answer, handoff, evidence, remaining gap, and next action. |
 | [readiness.csv](../../data/top100-readiness/readiness.csv) | One row per top-100 chart. Shows adoption bucket, current user status, strongest evidence, hard gap, and next action. |
@@ -96,15 +97,16 @@ The machine-readable index is:
 4. Check [chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) for the chart-level status.
 5. Check [top20 base readiness](../../data/top20-base-readiness/summary.md) when the question is "which public catalog base should I try first?"
 6. Check [production disposition](../../data/production-disposition/summary.md) when the question is "can we call this production-supported?"
-7. Check [production next actions](../../data/production-disposition/next-actions.csv) when the question is "what production receipt or fix should we work on next?"
-8. Check [readiness.csv](../../data/top100-readiness/readiness.csv) when the question is "can I use this chart now?"
-9. Check [top500 review.csv](../../data/top500-catalog-analysis/review.csv) when the question is how the retained top500 source scan maps to current proof.
-10. Filter [base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) by chart to see each base variant.
-11. Check [feature-outcomes.csv](../../data/outcome-coverage/feature-outcomes.csv) for hooks, CRDs, generated facts, target facts, and other chart-specific behavior.
-12. Check [pain-points.csv](../../data/pain-point-coverage/pain-points.csv) for the general Helm pain being addressed.
-13. Check [coverage-matrix.csv](../../data/variant-path-coverage/coverage-matrix.csv) when the question is about one base, diff, operation, or derived variant path.
-14. Check [derived-variant-outcomes.csv](../../data/outcome-coverage/derived-variant-outcomes.csv) when the question is about post-render ConfigHub variants.
-15. Run the scoped verifier for the table you opened, or `npm run verify` only when you need the full corpus gate.
+7. Check [production disposition details](../../data/production-disposition/dispositions.md) when the question is "what evidence closes this production blocker?"
+8. Check [production next actions](../../data/production-disposition/next-actions.csv) when the question is "what production receipt or fix should we work on next?"
+9. Check [readiness.csv](../../data/top100-readiness/readiness.csv) when the question is "can I use this chart now?"
+10. Check [top500 review.csv](../../data/top500-catalog-analysis/review.csv) when the question is how the retained top500 source scan maps to current proof.
+11. Filter [base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) by chart to see each base variant.
+12. Check [feature-outcomes.csv](../../data/outcome-coverage/feature-outcomes.csv) for hooks, CRDs, generated facts, target facts, and other chart-specific behavior.
+13. Check [pain-points.csv](../../data/pain-point-coverage/pain-points.csv) for the general Helm pain being addressed.
+14. Check [coverage-matrix.csv](../../data/variant-path-coverage/coverage-matrix.csv) when the question is about one base, diff, operation, or derived variant path.
+15. Check [derived-variant-outcomes.csv](../../data/outcome-coverage/derived-variant-outcomes.csv) when the question is about post-render ConfigHub variants.
+16. Run the scoped verifier for the table you opened, or `npm run verify` only when you need the full corpus gate.
 
 ## Narrow Claim Rule
 
