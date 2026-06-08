@@ -47,11 +47,11 @@ The `blocked` rows are currently from the two-cluster kind parity lane.
 
 | Priority | Lane | Chart | Base | Current | Reason | Command |
 | ---: | --- | --- | --- | --- | --- | --- |
-| 30 | configHub-oci-live-comparison | `argo-cd/argo-cd@9.5.15` | default | watch | watch: inspect receipt | `npm run live-parity:top20 -- --from-rank 6 --to-rank 6 --continue-on-fail` |
-| 30 | configHub-oci-live-comparison | `grafana/tempo@1.24.4` | local-persistent | watch | watch: inspect receipt | `npm run live-parity:top20 -- --from-rank 19 --to-rank 19 --continue-on-fail` |
-| 30 | configHub-oci-live-comparison | `hashicorp/vault@0.32.0` | default | watch | watch: inspect receipt | `npm run live-parity:top20 -- --from-rank 12 --to-rank 12 --continue-on-fail` |
-| 30 | configHub-oci-live-comparison | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | watch | watch: inspect receipt | `npm run live-parity:top20 -- --from-rank 3 --to-rank 3 --continue-on-fail` |
-| 30 | configHub-oci-live-comparison | `prometheus-community/kube-prometheus-stack@85.3.3` | default | watch | watch: inspect receipt | `npm run live-parity:top20 -- --from-rank 7 --to-rank 7 --continue-on-fail` |
+| 30 | configHub-oci-live-comparison | `argo-cd/argo-cd@9.5.15` | default | watch | target-runtime: pod config/runtime errors (parity passed) | `npm run live-parity:top20 -- --from-rank 6 --to-rank 6 --continue-on-fail` |
+| 30 | configHub-oci-live-comparison | `grafana/tempo@1.24.4` | local-persistent | watch | target-runtime: PVC/storage pending (parity passed) | `npm run live-parity:top20 -- --from-rank 19 --to-rank 19 --continue-on-fail` |
+| 30 | configHub-oci-live-comparison | `hashicorp/vault@0.32.0` | default | watch | operate-policy: Vault init/unseal readiness (parity passed) | `npm run live-parity:top20 -- --from-rank 12 --to-rank 12 --continue-on-fail` |
+| 30 | configHub-oci-live-comparison | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | watch | gitops-runtime: Argo health Progressing (parity passed) | `npm run live-parity:top20 -- --from-rank 3 --to-rank 3 --continue-on-fail` |
+| 30 | configHub-oci-live-comparison | `prometheus-community/kube-prometheus-stack@85.3.3` | default | watch | target-runtime: pod ContainerCreating (parity passed) | `npm run live-parity:top20 -- --from-rank 7 --to-rank 7 --continue-on-fail` |
 | 50 | two-cluster-kind-parity | `argo-cd/argo-cd@9.5.15` | no-crds | blocked | target-prerequisite: CRDs disabled or missing (parity passed) | `npm run kind-parity:run -- --chart argo-cd/argo-cd --version 9.5.15 --base no-crds` |
 | 50 | two-cluster-kind-parity | `external-secrets/external-secrets@2.5.0` | no-crds | blocked | target-prerequisite: CRDs disabled or missing (parity passed) | `npm run kind-parity:run -- --chart external-secrets/external-secrets --version 2.5.0 --base no-crds` |
 | 50 | two-cluster-kind-parity | `grafana/tempo@1.24.4` | s3-query-observability | blocked | target-prerequisite: CRDs missing | `npm run kind-parity:run -- --chart grafana/tempo --version 1.24.4 --base s3-query-observability` |

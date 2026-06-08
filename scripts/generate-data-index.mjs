@@ -261,7 +261,7 @@ function commandMap() {
     "derived-variant-target-bound": { generate: "npm run derived-variants:target-bound:summary", verify: "npm run derived-variants:target-bound:summary:verify" },
     "external-scan-lane": { generate: "npm run external-scan", verify: "npm run external-scan:verify" },
     "live-e2e": { generate: "npm run top20:local-e2e:summary", verify: "npm run top20:verify-local-e2e" },
-    "live-helm-confighub-compare": { generate: "npm run live-parity:top20:summary", verify: "npm run live-parity:verify" },
+    "live-helm-confighub-compare": { generate: "npm run live-parity:top20:summary", verify: "npm run live-parity:top20:verify-slots" },
     "live-parity-rerun-plan": { generate: "npm run live-parity:rerun-plan", verify: "npm run live-parity:rerun-plan:verify" },
     "live-kind-parity": { generate: "npm run kind-parity:summary", verify: "npm run kind-parity:verify" },
     "runtime-gitops": { generate: "npm run runtime-gitops:wave", verify: "npm run runtime-gitops:wave:verify" },

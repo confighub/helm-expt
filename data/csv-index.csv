@@ -29,7 +29,7 @@ data/latest-top20-refresh/review.csv,latest-top20-refresh,planning,review or pro
 data/legacy-patch-review/review.csv,legacy-patch-review,planning,review or promotion worksheet,data/legacy-patch-review/summary.md,npm run legacy-patch:review,npm run legacy-patch:review:verify
 data/lifecycle-observations/cert-manager-eso/summary.csv,lifecycle-observations,supporting,machine-readable summary,data/lifecycle-observations/cert-manager-eso/summary.md,npm run lifecycle:cert-manager-eso:summary,npm run lifecycle:cert-manager-eso:verify
 data/live-e2e/top20-local-kind.csv,live-e2e,verification,supporting generated CSV,data/live-e2e/summary.md,npm run top20:local-e2e:summary,npm run top20:verify-local-e2e
-data/live-helm-confighub-compare/summary.csv,live-helm-confighub-compare,verification,machine-readable summary,data/live-helm-confighub-compare/summary.md,npm run live-parity:top20:summary,npm run live-parity:verify
+data/live-helm-confighub-compare/summary.csv,live-helm-confighub-compare,verification,machine-readable summary,data/live-helm-confighub-compare/summary.md,npm run live-parity:top20:summary,npm run live-parity:top20:verify-slots
 data/live-kind-parity/summary.csv,live-kind-parity,verification,machine-readable summary,data/live-kind-parity/summary.md,npm run kind-parity:summary,npm run kind-parity:verify
 data/live-parity-rerun-plan/rerun-plan.csv,live-parity-rerun-plan,verification,supporting generated CSV,data/live-parity-rerun-plan/summary.md,npm run live-parity:rerun-plan,npm run live-parity:rerun-plan:verify
 data/model-completeness/report.csv,model-completeness,supporting,model completeness report,data/model-completeness/summary.md,npm run completeness:generate,npm run completeness:verify

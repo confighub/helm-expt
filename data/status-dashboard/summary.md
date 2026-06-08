@@ -131,11 +131,11 @@ Current ConfigHub/OCI live parity non-pass receipts:
 
 | Chart | Variant | Result | Reason |
 | --- | --- | --- | --- |
-| ingress-nginx/ingress-nginx@4.15.1 | admission-disabled | watch | - |
-| argo-cd/argo-cd@9.5.15 | default | watch | - |
-| prometheus-community/kube-prometheus-stack@85.3.3 | default | watch | - |
-| hashicorp/vault@0.32.0 | default | watch | - |
-| grafana/tempo@1.24.4 | local-persistent | watch | - |
+| ingress-nginx/ingress-nginx@4.15.1 | admission-disabled | watch | gitops-runtime: Argo health Progressing (parity passed) |
+| argo-cd/argo-cd@9.5.15 | default | watch | target-runtime: pod config/runtime errors (parity passed) |
+| prometheus-community/kube-prometheus-stack@85.3.3 | default | watch | target-runtime: pod ContainerCreating (parity passed) |
+| hashicorp/vault@0.32.0 | default | watch | operate-policy: Vault init/unseal readiness (parity passed) |
+| grafana/tempo@1.24.4 | local-persistent | watch | target-runtime: PVC/storage pending (parity passed) |
 
 
 Current two-cluster kind parity non-pass receipts:

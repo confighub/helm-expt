@@ -42,6 +42,7 @@ if (mode === "--run") {
   writeSummary();
 } else if (mode === "--verify") {
   verifyExpectedReceipts();
+  verifySummary();
 } else {
   console.log(`Usage:
   node scripts/run-top20-live-parity.mjs --run --chart metrics-server
@@ -109,6 +110,24 @@ function verifyExpectedReceipts() {
 }
 
 function writeSummary() {
+  const { root, csv, md } = buildSummary();
+  write(join(root, "summary.csv"), csv);
+  write(join(root, "summary.md"), md);
+  console.log(`wrote ${relativeRepo(join(root, "summary.md"))}`);
+}
+
+function verifySummary() {
+  const { root, csv, md } = buildSummary();
+  const csvPath = join(root, "summary.csv");
+  const mdPath = join(root, "summary.md");
+  check(existsSync(csvPath), `${relativeRepo(csvPath)} is missing; run npm run live-parity:top20:summary`);
+  check(existsSync(mdPath), `${relativeRepo(mdPath)} is missing; run npm run live-parity:top20:summary`);
+  check(readFileSync(csvPath, "utf8") === csv, `${relativeRepo(csvPath)} is stale; run npm run live-parity:top20:summary`);
+  check(readFileSync(mdPath, "utf8") === md, `${relativeRepo(mdPath)} is stale; run npm run live-parity:top20:summary`);
+  console.log("verified top-20 live parity summary");
+}
+
+function buildSummary() {
   const rows = targets.map((target) => {
     const path = join(repoRoot, receiptPath(target));
     const receipt = existsSync(path) ? readYaml(path) : null;
@@ -118,7 +137,7 @@ function writeSummary() {
       version: target.version,
       variant: target.variant,
       result: receipt?.spec?.result ?? "not-started",
-      reason: classifyBlocked(receipt),
+      reason: classifyReason(receipt, target),
       receipt: existsSync(path) ? receiptPath(target) : "",
     };
   });
@@ -160,9 +179,7 @@ ${blockedBreakdown}
 | ---: | --- | --- | --- | --- | --- |
 ${rows.map((row) => `| ${row.rank} | \`${row.chart}@${row.version}\` | ${row.variant} | ${row.result} | ${row.reason || "-"} | ${row.receipt || "-"} |`).join("\n")}
 `;
-  write(join(root, "summary.csv"), csv);
-  write(join(root, "summary.md"), md);
-  console.log(`wrote ${relativeRepo(join(root, "summary.md"))}`);
+  return { root, rows, csv, md };
 }
 
 function resolveTarget(target) {
@@ -230,18 +247,28 @@ function csvEscape(value) {
   return text;
 }
 
-// Classify why a row is blocked so infra/provisioning flakiness is not conflated
-// with a real ConfigHub-vs-Helm parity defect. Returns "" for non-blocked rows.
+// Classify non-pass rows so target/runtime conditions are not conflated with a
+// real ConfigHub-vs-Helm parity defect. Returns "" for passing rows.
 // See data/live-helm-confighub-compare/blocked-triage.md for the analysis.
-function classifyBlocked(receipt) {
+function classifyReason(receipt, target) {
   const spec = receipt?.spec ?? {};
-  if (spec.result !== "blocked") return "";
+  if (!["blocked", "watch"].includes(spec.result)) return "";
+  const semantic = spec.semanticComparison ?? {};
+  const semanticDiff = Object.values(semantic).some(
+    (value) =>
+      value &&
+      typeof value === "object" &&
+      (((value.semanticDiffs ?? []).length > 0) || ((value.missingFromConfigHub ?? []).length > 0)),
+  );
+  if (semanticDiff) return "parity: live semantic diff";
+
+  if (spec.result === "watch") return classifyWatch(spec, target);
+
   const message = String(spec.failure?.message ?? "").toLowerCase();
   if (message.includes("kind create cluster")) return "infra: kind create failed";
   if (message.includes("argocd-server")) return "infra: rig bootstrap (argocd) not ready";
   if (message.includes("timeout after")) return "infra: provisioning timeout";
   if (message.includes("etcdserver") || message.includes("request timed out")) return "infra: etcd/apiserver overload";
-  const semantic = spec.semanticComparison ?? {};
   const semanticPassed = Object.values(semantic).some(
     (value) => value && typeof value === "object" && value.result === "pass",
   );
@@ -254,12 +281,20 @@ function classifyBlocked(receipt) {
     return semanticPassed ? "helm-runtime: upstream not ready (parity passed)" : "helm-runtime: upstream leg blocked";
   }
   // Real parity finding: Helm installed but a ConfigHub delivery path diverged live.
-  const semanticDiff = Object.values(semantic).some(
-    (value) =>
-      value &&
-      typeof value === "object" &&
-      (((value.semanticDiffs ?? []).length > 0) || ((value.missingFromConfigHub ?? []).length > 0)),
-  );
-  if (semanticDiff) return "parity: live semantic diff";
   return "uncategorized";
+}
+
+function classifyWatch(spec, target) {
+  const text = JSON.stringify(spec).toLowerCase();
+  if (target.chart === "hashicorp/vault") return "operate-policy: Vault init/unseal readiness (parity passed)";
+  if (target.chart === "grafana/tempo" && text.includes("pending")) return "target-runtime: PVC/storage pending (parity passed)";
+  if (text.includes("createcontainerconfigerror") || text.includes("crashloopbackoff")) {
+    return "target-runtime: pod config/runtime errors (parity passed)";
+  }
+  if (text.includes("containercreating")) return "target-runtime: pod ContainerCreating (parity passed)";
+  const gitops = spec.legs?.configHubOciArgo ?? {};
+  if (gitops.sync === "Synced" && gitops.health && gitops.health !== "Healthy") {
+    return `gitops-runtime: Argo health ${gitops.health} (parity passed)`;
+  }
+  return "watch: inspect receipt";
 }
