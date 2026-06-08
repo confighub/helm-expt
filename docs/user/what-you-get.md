@@ -50,6 +50,7 @@ The current public corpus contains:
 10 derived ConfigHub variant work orders with live `cub variant create` receipts
 6 target-bound derived variant receipts with OCI/GitOps/runtime evidence
 top-100 and top-500 catalog analysis data
+extension-slot coverage for 13/20 top catalog charts and 82/100 top100 chart facts
 selected GitOps/OCI and live parity receipts
 ```
 

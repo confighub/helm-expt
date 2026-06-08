@@ -279,6 +279,9 @@ data/top20-base-readiness/summary.md
 data/top100-readiness/summary.md
   One chart-by-chart answer for current top-100 adoption bucket, strongest evidence, and next action.
 
+data/extension-slots/summary.md
+  NGINX-like extension slots: 13/20 top-20 catalog charts and 82/100 top-100 chart facts surface raw manifests, tpl snippets, config blocks, sidecars, or add-on slots.
+
 docs/user/current-proof-status.md
   What is proven now, and which generated summaries are authoritative.
 
