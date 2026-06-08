@@ -255,6 +255,7 @@ GitOps/OCI live pass rows:           ${aggregate.gitopsLivePass}/${aggregate.bas
 GitOps/OCI non-pass receipts:        ${aggregate.gitopsLiveNonPass}
 live Helm-vs-ConfigHub pass rows:    ${aggregate.liveParityPass}/${aggregate.baseRows}
 live Helm-vs-ConfigHub non-pass receipts: ${aggregate.liveParityNonPass}
+selected live parity receipts:       ${aggregate.liveParitySelectedPass} pass, ${aggregate.liveParitySelectedWatch} watch, ${aggregate.liveParitySelectedBlocked} blocked
 derived intended-state pass rows:    ${aggregate.derivedIntendedPass}
 target-bound derived pass rows:      ${aggregate.derivedTargetPass}
 target-bound derived blocked rows:   ${aggregate.derivedTargetBlocked}

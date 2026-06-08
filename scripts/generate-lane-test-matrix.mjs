@@ -168,7 +168,7 @@ function localKindIndex() {
     const method = receipt.spec?.observer?.method ?? "";
     if (!method.includes("kubectl") && !relativeRepo(receiptPath).includes("top20-local-kind")) continue;
     index.set(revision, {
-      status: result === "pass" ? "pass" : "fail",
+      status: normalizeLaneResult(result),
       note: relativeRepo(receiptPath),
     });
   }
@@ -196,7 +196,7 @@ function ociArgoIndex() {
     const base = spec.base;
     if (!packagePath || !base) continue;
     index.set(`${packagePath}|${base}`, {
-      status: spec.result === "pass" ? "pass" : "fail",
+      status: normalizeLaneResult(spec.result),
       note: relativeRepo(receiptPath),
     });
   }
@@ -210,7 +210,7 @@ function ociArgoIndex() {
     const ociLegResult = spec.legs?.configHubOciArgo?.result;
     if (!packagePath || !base || !ociLegResult) continue;
     index.set(`${packagePath}|${base}`, {
-      status: ociLegResult === "pass" ? "pass" : "fail",
+      status: normalizeLaneResult(ociLegResult),
       note: `${relativeRepo(receiptPath)}#configHubOciArgo`,
     });
   }
@@ -226,7 +226,7 @@ function liveDualCompareIndex() {
     const base = receipt.spec?.variant ?? receipt.spec?.base;
     if (!packagePath || !base) continue;
     index.set(`${packagePath}|${base}`, {
-      status: receipt.spec?.result === "pass" ? "pass" : "fail",
+      status: normalizeLaneResult(receipt.spec?.result),
       note: relativeRepo(receiptPath),
     });
   }
@@ -235,6 +235,13 @@ function liveDualCompareIndex() {
 
 function missing(note) {
   return { status: "missing", note };
+}
+
+function normalizeLaneResult(result) {
+  if (["pass", "watch", "blocked", "fail", "missing"].includes(result)) return result;
+  if (result === "PASS") return "pass";
+  if (result === "FAIL") return "fail";
+  return result ? "fail" : "missing";
 }
 
 function toCsv(rows) {
@@ -266,6 +273,8 @@ function toSummary(rows) {
         pass: rows.filter((row) => row[lane] === "pass").length,
         missing: rows.filter((row) => row[lane] === "missing").length,
         fail: rows.filter((row) => row[lane] === "fail").length,
+        watch: rows.filter((row) => row[lane] === "watch").length,
+        blocked: rows.filter((row) => row[lane] === "blocked").length,
       },
     ]),
   );
@@ -277,7 +286,7 @@ function toSummary(rows) {
   const liveDualStatus =
     liveDual.pass === 0
       ? "The live Helm-vs-ConfigHub dual comparison lane has no PASS receipts yet."
-      : `The live Helm-vs-ConfigHub dual comparison lane has ${liveDual.pass} PASS receipt(s) and ${liveDual.missing} missing row(s).`;
+      : `The live Helm-vs-ConfigHub dual comparison lane has ${liveDual.pass} PASS receipt(s), ${liveDual.watch} WATCH receipt(s), ${liveDual.blocked} BLOCKED receipt(s), ${liveDual.fail} FAIL receipt(s), and ${liveDual.missing} missing row(s).`;
 
   return `# Lane Test Matrix
 
@@ -287,10 +296,11 @@ observation receipts, and live-test receipt locations.
 This is a corpus control surface. A lane can be \`missing\` without making this
 generated report stale; the missing state is the backlog.
 
-A lane marked \`fail\` means a committed receipt exists and the lane did not
-pass. For live lanes, this can be a useful target-fit finding such as missing
-CRDs, separated Secret delivery, or a LoadBalancer requirement on a local kind
-cluster.
+A lane marked \`fail\`, \`watch\`, or \`blocked\` means a committed receipt
+exists and the lane did not pass as-is. For live lanes, this can be a useful
+target-fit finding such as missing CRDs, separated Secret delivery, a
+LoadBalancer requirement on a local kind cluster, or an infrastructure block
+that must be rerun before judging parity.
 
 ## Headline
 
@@ -302,9 +312,9 @@ incomplete core lane set: ${total - complete}
 
 ## Core Lane Counts
 
-| Lane | Pass | Missing | Fail |
-| --- | ---: | ---: | ---: |
-${CORE_LANES.map((lane) => `| ${lane} | ${counts[lane].pass} | ${counts[lane].missing} | ${counts[lane].fail} |`).join("\n")}
+| Lane | Pass | Missing | Fail | Watch | Blocked |
+| --- | ---: | ---: | ---: | ---: | ---: |
+${CORE_LANES.map((lane) => `| ${lane} | ${counts[lane].pass} | ${counts[lane].missing} | ${counts[lane].fail} | ${counts[lane].watch} | ${counts[lane].blocked} |`).join("\n")}
 
 ## Lane Definitions
 
@@ -321,15 +331,15 @@ ${CORE_LANES.map((lane) => `| ${lane} | ${counts[lane].pass} | ${counts[lane].mi
 ${liveDualStatus} The ConfigHub OCI/Argo live lane has a harness, but this repo
 currently has no committed PASS receipts for every chart-recipe-variant row.
 
-### First Missing ConfigHub Proof Rows
+### First Non-Pass Or Missing ConfigHub Proof Rows
 
 ${rowList(missingConfigHub)}
 
-### First Missing Local Kind Rows
+### First Non-Pass Or Missing Local Kind Rows
 
 ${rowList(missingLocal)}
 
-### First Missing Live Helm Vs ConfigHub Rows
+### First Non-Pass Or Missing Live Helm Vs ConfigHub Rows
 
 ${rowList(missingLive)}
 `;
