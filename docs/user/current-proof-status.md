@@ -13,6 +13,13 @@ The shortest generated status page is:
 It summarizes top100 readiness, proof lanes, hook and quirk residues,
 derived ConfigHub variants, GitOps/OCI, and live parity in one place.
 
+The compact top-20 catalog status CSV is:
+
+[Top20 Catalog Status](../../data/status-dashboard/top20-status.csv)
+
+It gives one row per catalog chart with supported base variants, strongest
+evidence, lane counts, hard gaps, and next action.
+
 The generated lane matrix is the authority for exact chart/version/base status:
 
 [Lane Test Matrix](../../data/lane-test-matrix/summary.md)

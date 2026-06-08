@@ -230,6 +230,9 @@ docs/user/helm-pain-points.md
 data/status-dashboard/summary.md
   One-page current status: top100, proof lanes, hooks, quirks, GitOps, and live parity.
 
+data/status-dashboard/top20-status.csv
+  Compact chart-by-chart status for the top-20 catalog: variants, lane counts, gaps, and next action.
+
 data/top100-readiness/summary.md
   One chart-by-chart answer for current top-100 user status, strongest evidence, and next action.
 
