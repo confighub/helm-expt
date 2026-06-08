@@ -288,16 +288,16 @@ spec:
           -
             variant: "existing-tls-ingress"
             result: "warn"
-            findingCount: 3
-            renderedSHA256: "955979d8a644fbfb6075908f91924e095a84c6c203d2886f6209c90a7d616419"
-            topChecks: "latest-tag:2;pdb-unhealthy-pod-eviction-policy:1"
+            findingCount: 1
+            renderedSHA256: "cb5cdb64d2f05a0f3e2b2d07facc3d08705f86b3a34a3f52c891bdbd28d44e8f"
+            topChecks: "pdb-unhealthy-pod-eviction-policy:1"
             renderedPath: "recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml"
           -
             variant: "http-clusterip"
             result: "warn"
-            findingCount: 3
-            renderedSHA256: "a5f890172fd1bd8cf31870607c1a7874313c5746f1020d547af3dac017db4223"
-            topChecks: "latest-tag:2;pdb-unhealthy-pod-eviction-policy:1"
+            findingCount: 1
+            renderedSHA256: "7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba"
+            topChecks: "pdb-unhealthy-pod-eviction-policy:1"
             renderedPath: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/top20-local-kind/nginx-http-clusterip/observation-receipt.json"

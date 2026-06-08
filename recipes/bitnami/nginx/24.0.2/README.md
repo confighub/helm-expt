@@ -4,8 +4,8 @@ This is the promoted proof slice for the NGINX public Helm chart.
 
 Variants:
 
-- `http-clusterip`: TLS generation disabled and service exposure kept internal; 5 Helm objects, 6 cub installer objects including Namespace.
-- `existing-tls-ingress`: target TLS Secrets supply backend and ingress certificates; 6 Helm objects, 7 cub installer objects including Namespace.
+- `http-clusterip`: image pinned by digest, TLS generation disabled, and service exposure kept internal; 5 Helm objects, 6 cub installer objects including Namespace.
+- `existing-tls-ingress`: image pinned by digest and target TLS Secrets supply backend and ingress certificates; 6 Helm objects, 7 cub installer objects including Namespace.
 
 What this proves:
 

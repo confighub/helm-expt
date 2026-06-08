@@ -61,7 +61,7 @@ spec:
       liveParity: "1/2"
     featureSummary: "generated-secrets;required-values;values-schema;install-vs-upgrade"
     hardGap: "ha (curated proof lane - bespoke teaching needed)"
-    nextAction: "write or fix the extension slot provenance and scan policy disposition receipt"
+    nextAction: "write or fix the generated fact ownership disposition receipt"
   installerPackage:
     path: "packages/bitnami/mysql/14.0.3"
     installer: "packages/bitnami/mysql/14.0.3/installer.yaml"

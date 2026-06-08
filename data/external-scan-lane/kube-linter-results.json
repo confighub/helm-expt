@@ -6,7 +6,7 @@
     "pass": 0,
     "warn": 40,
     "fail": 0,
-    "totalFindings": 325,
+    "totalFindings": 321,
     "toolStatus": {
       "kubeLinter": {
         "available": true,
@@ -603,35 +603,14 @@
       "scannerVersion": "0.8.3",
       "result": "warn",
       "exitCode": 1,
-      "findingCount": 3,
+      "findingCount": 1,
       "checkCounts": {
-        "latest-tag": 2,
         "pdb-unhealthy-pod-eviction-policy": 1
       },
       "renderedPath": "recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml",
-      "renderedSHA256": "955979d8a644fbfb6075908f91924e095a84c6c203d2886f6209c90a7d616419",
+      "renderedSHA256": "cb5cdb64d2f05a0f3e2b2d07facc3d08705f86b3a34a3f52c891bdbd28d44e8f",
       "recipePath": "recipes/bitnami/nginx/24.0.2",
       "findings": [
-        {
-          "check": "latest-tag",
-          "message": "The container \"nginx\" is using an invalid container image, \"registry-1.docker.io/bitnami/nginx:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
-          "object": {
-            "apiVersion": "",
-            "kind": "",
-            "namespace": "nginx",
-            "name": "nginx"
-          }
-        },
-        {
-          "check": "latest-tag",
-          "message": "The container \"preserve-logs-symlinks\" is using an invalid container image, \"registry-1.docker.io/bitnami/nginx:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
-          "object": {
-            "apiVersion": "",
-            "kind": "",
-            "namespace": "nginx",
-            "name": "nginx"
-          }
-        },
         {
           "check": "pdb-unhealthy-pod-eviction-policy",
           "message": "unhealthyPodEvictionPolicy is not explicitly set",
@@ -652,35 +631,14 @@
       "scannerVersion": "0.8.3",
       "result": "warn",
       "exitCode": 1,
-      "findingCount": 3,
+      "findingCount": 1,
       "checkCounts": {
-        "latest-tag": 2,
         "pdb-unhealthy-pod-eviction-policy": 1
       },
       "renderedPath": "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/release-objects.yaml",
-      "renderedSHA256": "a5f890172fd1bd8cf31870607c1a7874313c5746f1020d547af3dac017db4223",
+      "renderedSHA256": "7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba",
       "recipePath": "recipes/bitnami/nginx/24.0.2",
       "findings": [
-        {
-          "check": "latest-tag",
-          "message": "The container \"nginx\" is using an invalid container image, \"registry-1.docker.io/bitnami/nginx:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
-          "object": {
-            "apiVersion": "",
-            "kind": "",
-            "namespace": "nginx",
-            "name": "nginx"
-          }
-        },
-        {
-          "check": "latest-tag",
-          "message": "The container \"preserve-logs-symlinks\" is using an invalid container image, \"registry-1.docker.io/bitnami/nginx:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
-          "object": {
-            "apiVersion": "",
-            "kind": "",
-            "namespace": "nginx",
-            "name": "nginx"
-          }
-        },
         {
           "check": "pdb-unhealthy-pod-eviction-policy",
           "message": "unhealthyPodEvictionPolicy is not explicitly set",

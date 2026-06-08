@@ -61,9 +61,8 @@ targetFacts:
     name: nginx-ingress-tls
     namespace: nginx
     purpose: TLS certificate material referenced by the Ingress
-
 targetFactChecks:
-  base: "existing-tls-ingress"
+  base: "$base"
   mode: "$check_mode"
   result: "$result"
 YAML

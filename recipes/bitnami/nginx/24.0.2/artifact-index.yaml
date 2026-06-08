@@ -62,12 +62,12 @@ spec:
       liveParity: "1/2"
     featureSummary: "generated-secrets;install-vs-upgrade;extension-slots"
     hardGap: "existing-secret (chart ships no Secret toggle - #113)"
-    nextAction: "resolve image digests or pin image tags in the installer base; record image override/proof receipt; then accept PDB behavior or add a reviewed patch where the chart supports it"
+    nextAction: "accept PDB behavior or add a reviewed patch where the chart supports it"
   installerPackage:
     path: "packages/bitnami/nginx/24.0.2"
     installer: "packages/bitnami/nginx/24.0.2/installer.yaml"
     receipt: "recipes/bitnami/nginx/24.0.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "31e3efed39908c535f981e59a2267e792a0d1a46a8f996c7dcc12b2c5b892e78"
+    deterministicBundleSHA256: "22fcfab8b87209477e160751282e72522be1d9073335f7973eae61c5157be7b1"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -113,8 +113,8 @@ spec:
           name: "http-clusterip-r001"
           revision: "r001"
           variantRevision: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml"
-          digest: "74a962f5a700e4eb279eab1f88c6ec6e13384a863c9a22dd2cc66ded6d088ebb"
-          renderedObjectSetSHA256: "a5f890172fd1bd8cf31870607c1a7874313c5746f1020d547af3dac017db4223"
+          digest: "1eefe2d05ce603981d16cf976aa38b0497de756c716dc5be6825ff6b6ba4c37d"
+          renderedObjectSetSHA256: "7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba"
           renderedObjects: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/object-inventory.yaml"
           objectCount: 5
@@ -127,22 +127,22 @@ spec:
               kind: "RenderReceipt"
               path: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/receipts/render-receipt.yaml"
               result: "recorded"
-              renderedObjectSetSHA256: "a5f890172fd1bd8cf31870607c1a7874313c5746f1020d547af3dac017db4223"
+              renderedObjectSetSHA256: "7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba"
             helmEquivalence:
               kind: "HelmEquivalenceReceipt"
               path: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/receipts/helm-equivalence-receipt.yaml"
               result: "pass"
-              renderedObjectSetSHA256: "a5f890172fd1bd8cf31870607c1a7874313c5746f1020d547af3dac017db4223"
+              renderedObjectSetSHA256: "7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba"
             scan:
               kind: "ScanReceipt"
               path: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/receipts/scan-receipt.yaml"
               result: "warn"
-              renderedObjectSetSHA256: "a5f890172fd1bd8cf31870607c1a7874313c5746f1020d547af3dac017db4223"
+              renderedObjectSetSHA256: "7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba"
             installGate:
               kind: "InstallGate"
               path: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/receipts/install-gate.yaml"
               result: "warn"
-              renderedObjectSetSHA256: "a5f890172fd1bd8cf31870607c1a7874313c5746f1020d547af3dac017db4223"
+              renderedObjectSetSHA256: "7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba"
     -
       name: "existing-tls-ingress"
       variant: "recipes/bitnami/nginx/24.0.2/variants/existing-tls-ingress/variant.yaml"
@@ -190,8 +190,8 @@ spec:
           name: "existing-tls-ingress-r001"
           revision: "r001"
           variantRevision: "recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/variant-revision.yaml"
-          digest: "3044606bf290daf096400d592fb7b5ab0f857fab940a726d2d6b4bf6bdd6ea16"
-          renderedObjectSetSHA256: "955979d8a644fbfb6075908f91924e095a84c6c203d2886f6209c90a7d616419"
+          digest: "60945c95552a4d059faecdec34a1774858e6170d55e7d2261f9b502fa4868731"
+          renderedObjectSetSHA256: "cb5cdb64d2f05a0f3e2b2d07facc3d08705f86b3a34a3f52c891bdbd28d44e8f"
           renderedObjects: "recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/rendered/object-inventory.yaml"
           objectCount: 6
@@ -204,19 +204,19 @@ spec:
               kind: "RenderReceipt"
               path: "recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/receipts/render-receipt.yaml"
               result: "recorded"
-              renderedObjectSetSHA256: "955979d8a644fbfb6075908f91924e095a84c6c203d2886f6209c90a7d616419"
+              renderedObjectSetSHA256: "cb5cdb64d2f05a0f3e2b2d07facc3d08705f86b3a34a3f52c891bdbd28d44e8f"
             helmEquivalence:
               kind: "HelmEquivalenceReceipt"
               path: "recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/receipts/helm-equivalence-receipt.yaml"
               result: "pass"
-              renderedObjectSetSHA256: "955979d8a644fbfb6075908f91924e095a84c6c203d2886f6209c90a7d616419"
+              renderedObjectSetSHA256: "cb5cdb64d2f05a0f3e2b2d07facc3d08705f86b3a34a3f52c891bdbd28d44e8f"
             scan:
               kind: "ScanReceipt"
               path: "recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/receipts/scan-receipt.yaml"
               result: "warn"
-              renderedObjectSetSHA256: "955979d8a644fbfb6075908f91924e095a84c6c203d2886f6209c90a7d616419"
+              renderedObjectSetSHA256: "cb5cdb64d2f05a0f3e2b2d07facc3d08705f86b3a34a3f52c891bdbd28d44e8f"
             installGate:
               kind: "InstallGate"
               path: "recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/receipts/install-gate.yaml"
               result: "warn"
-              renderedObjectSetSHA256: "955979d8a644fbfb6075908f91924e095a84c6c203d2886f6209c90a7d616419"
+              renderedObjectSetSHA256: "cb5cdb64d2f05a0f3e2b2d07facc3d08705f86b3a34a3f52c891bdbd28d44e8f"

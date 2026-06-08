@@ -5,13 +5,13 @@ metadata:
 spec:
   variant: "../../../variants/http-clusterip/variant.yaml"
   revision: "r001"
-  digest: "74a962f5a700e4eb279eab1f88c6ec6e13384a863c9a22dd2cc66ded6d088ebb"
+  digest: "1eefe2d05ce603981d16cf976aa38b0497de756c716dc5be6825ff6b6ba4c37d"
   digestInputs:
-    recipeSHA256: "2b9fe59f59ca0d15556369238d79652f23af1901cf9f363d30f36d09b92f861b"
+    recipeSHA256: "f4457b3184053f2678f471a360b040a94ef9b643a3208fc4b6a1470ffbe99606"
     variantSHA256: "3f1ccc4fef5167aa9703f54afaf6649e2bb4cc1190b8217bf3c9e0e01cc581bd"
-    effectiveValuesSHA256: "da718c95c6c45d2ee472ac9c243eb7cc11597be2b1828fe3beb5c74e229b8426"
+    effectiveValuesSHA256: "d0a062815551555f16c2d5dcb8fa1c18a39426e01947aaf32d17ac8be1223e67"
     rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
-    renderedObjectSetSHA256: "a5f890172fd1bd8cf31870607c1a7874313c5746f1020d547af3dac017db4223"
+    renderedObjectSetSHA256: "7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba"
   rendered:
     releaseObjects: "rendered/release-objects.yaml"
     objectInventory: "rendered/object-inventory.yaml"

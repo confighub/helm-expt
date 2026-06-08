@@ -4,7 +4,7 @@ metadata:
   name: "bitnami-nginx-24.0.2-existing-tls-ingress-r001"
 spec:
   source: "rendered/release-objects.yaml"
-  sourceSHA256: "955979d8a644fbfb6075908f91924e095a84c6c203d2886f6209c90a7d616419"
+  sourceSHA256: "cb5cdb64d2f05a0f3e2b2d07facc3d08705f86b3a34a3f52c891bdbd28d44e8f"
   objectCount: 6
   objects:
     -

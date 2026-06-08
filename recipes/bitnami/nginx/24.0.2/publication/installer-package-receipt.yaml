@@ -4,16 +4,13 @@ metadata:
   name: "bitnami-nginx-24.0.2"
 spec:
   chart:
-    name: "nginx"
     repository: "bitnami"
+    name: "nginx"
     version: "24.0.2"
-  deterministicBundle:
-    byteIdenticalAcrossTwoLocalBundles: true
-    command: "cub installer package packages/bitnami/nginx/24.0.2 -o <tmp>/nginx-24.0.2.tgz"
-    sha256: "31e3efed39908c535f981e59a2267e792a0d1a46a8f996c7dcc12b2c5b892e78"
   package:
-    name: "bitnami-nginx"
     path: "packages/bitnami/nginx/24.0.2"
+    name: "bitnami-nginx"
+    version: "24.0.2"
     sourceFiles:
       -
         path: "README.md"
@@ -25,47 +22,50 @@ spec:
         bytes: 99
       -
         path: "bases/existing-tls-ingress/upstream.yaml"
-        sha256: "955979d8a644fbfb6075908f91924e095a84c6c203d2886f6209c90a7d616419"
-        bytes: 7869
+        sha256: "cb5cdb64d2f05a0f3e2b2d07facc3d08705f86b3a34a3f52c891bdbd28d44e8f"
+        bytes: 7999
       -
         path: "bases/http-clusterip/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
         bytes: 99
       -
         path: "bases/http-clusterip/upstream.yaml"
-        sha256: "a5f890172fd1bd8cf31870607c1a7874313c5746f1020d547af3dac017db4223"
-        bytes: 7114
+        sha256: "7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba"
+        bytes: 7244
       -
         path: "collector/target-facts.sh"
-        sha256: "5852d6b1d40c4238d351acf3e48d8aaca8fa667e2eac27b74e507fc7d6abc911"
-        bytes: 1759
+        sha256: "00bd869b6b8bc254022bdea3b9ed781ee0e9716409e665c2188c2e03f405ed03"
+        bytes: 1743
       -
         path: "installer.yaml"
-        sha256: "25976977203b996fa20bd3da3aef2a8bbb0918609febe1c90cfe98c50732774d"
-        bytes: 1571
-    version: "24.0.2"
+        sha256: "f6053c3514ebe93f9a1c0b948bb040602a4144f8d7915b4971dbcd8cd68ced9b"
+        bytes: 1311
+  deterministicBundle:
+    command: "cub installer package packages/bitnami/nginx/24.0.2 -o <tmp>/nginx-24.0.2.tgz"
+    sha256: "22fcfab8b87209477e160751282e72522be1d9073335f7973eae61c5157be7b1"
+    byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
-      allowedCubOnlyObjects:
-        - "v1|Namespace||nginx"
+      variant: "http-clusterip"
       base: "http-clusterip"
       command: "cub installer setup --pull packages/bitnami/nginx/24.0.2 --base http-clusterip --work-dir <tmp> --non-interactive --namespace nginx"
-      cubInstallObjectCountIncludingSupport: 6
       helmReleaseObjectCount: 5
+      cubInstallObjectCountIncludingSupport: 6
       semanticObjectMatches: "5/5"
       separatedSecretCount: 0
       targetFactMode: "not-required"
       targetFactsBound: false
-      variant: "http-clusterip"
-    -
       allowedCubOnlyObjects:
         - "v1|Namespace||nginx"
+    -
+      variant: "existing-tls-ingress"
       base: "existing-tls-ingress"
       command: "cub installer setup --pull packages/bitnami/nginx/24.0.2 --base existing-tls-ingress --work-dir <tmp> --non-interactive --namespace nginx"
-      cubInstallObjectCountIncludingSupport: 7
       helmReleaseObjectCount: 6
+      cubInstallObjectCountIncludingSupport: 7
       semanticObjectMatches: "6/6"
       separatedSecretCount: 0
       targetFactMode: "collector-facts"
       targetFactsBound: true
-      variant: "existing-tls-ingress"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||nginx"

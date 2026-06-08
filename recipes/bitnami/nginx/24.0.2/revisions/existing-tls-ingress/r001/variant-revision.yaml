@@ -5,13 +5,13 @@ metadata:
 spec:
   variant: "../../../variants/existing-tls-ingress/variant.yaml"
   revision: "r001"
-  digest: "3044606bf290daf096400d592fb7b5ab0f857fab940a726d2d6b4bf6bdd6ea16"
+  digest: "60945c95552a4d059faecdec34a1774858e6170d55e7d2261f9b502fa4868731"
   digestInputs:
-    recipeSHA256: "2b9fe59f59ca0d15556369238d79652f23af1901cf9f363d30f36d09b92f861b"
+    recipeSHA256: "f4457b3184053f2678f471a360b040a94ef9b643a3208fc4b6a1470ffbe99606"
     variantSHA256: "88f7bf90c6a360f1346699989ec0bd1419d78bf3c3aa1d7ced35d6351547a86f"
-    effectiveValuesSHA256: "9caa5c8a70d697372b24106ba71d0167fafc779d281480ce7985b98035f16dac"
+    effectiveValuesSHA256: "5b0e7fbb26efa0a8516d13cda9c061f3334389c132bac1b379aebd3cfb832ea9"
     rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
-    renderedObjectSetSHA256: "955979d8a644fbfb6075908f91924e095a84c6c203d2886f6209c90a7d616419"
+    renderedObjectSetSHA256: "cb5cdb64d2f05a0f3e2b2d07facc3d08705f86b3a34a3f52c891bdbd28d44e8f"
   rendered:
     releaseObjects: "rendered/release-objects.yaml"
     objectInventory: "rendered/object-inventory.yaml"
