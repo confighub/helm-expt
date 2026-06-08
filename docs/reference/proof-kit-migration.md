@@ -50,7 +50,8 @@ The CLI surface is unchanged, so every existing `npm run <chart>:*` script and t
 | `longhorn-proof.mjs` | 242 |
 | `argo-cd-proof.mjs` | 245 |
 | `loki-proof.mjs` | 384 |
-| `scripts/lib/proof-kit.mjs` (shared, amortized over all migrated charts) | 957 |
+| `rabbitmq-proof.mjs` | 262 |
+| `scripts/lib/proof-kit.mjs` (shared, amortized over all migrated charts) | 1005 |
 
 The original proof scripts were usually around 1,000 lines each. The migrated
 scripts are now chart specs plus chart-specific checks, while the repeated
@@ -98,6 +99,8 @@ Data fields:
 
 - `chart` `{ repository, repositoryURL, name, version, releaseName, namespace, kubeVersion }`
 - `variants[]` `{ name, base, displayName, valuesFile, valuesText, valuesSummary, expectedObjectCount, targetFactNote?, targetFacts?, apiVersions? }`
+- `variants[].targetFacts.requiredSecrets[]` — when present, generated packages include installer-native `externalRequires` and a target-facts collector script
+- package setup receipts mark each base as `targetFactMode: collector-facts` or `not-required`
 - `scanPolicy` `{ scanner, version, rules[] }`
 - `valueModel` `{ checkedValues[], unknownValues?, deadValues?, ignoredValues? }`
 - `controlPoints[]`, `dossier { maintainedNotes[], knownControlPoints[] }`
@@ -141,13 +144,13 @@ vault
 longhorn
 argo-cd
 loki
+rabbitmq
 ```
 
 Remaining chart proof scripts:
 
 ```text
 consul
-rabbitmq
 ```
 
 Redis remains bespoke because it is the first complete proof slice and has
