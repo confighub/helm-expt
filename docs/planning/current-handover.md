@@ -57,24 +57,6 @@ The current proof surface is:
 20/20 top-20 charts have ConfigHub proof receipts.
 80 additional charts are proof-grade, not catalog-supported.
 All non-Redis top-20 proof scripts use the shared proof kit.
-The first GitOps/OCI wave has committed receipts for all ten selected rows.
-Five rows are live-proven:
-`bitnami/redis@25.5.3 / reuse-existing-secret`,
-`prometheus-community/prometheus@29.8.0 / server-only-ephemeral`, and
-`bitnami/postgresql@18.6.7 / existing-secret` through Flux OCI;
-`bitnami/nginx@24.0.2 / http-clusterip` and
-`metrics-server/metrics-server@3.13.0 / default` through Argo CD OCI.
-Five rows have committed non-pass receipts:
-`ingress-nginx/ingress-nginx@4.15.1 / admission-disabled` is watch because the
-controller Deployment is Ready but the kind target has no LoadBalancer external
-IP.
-`external-secrets/external-secrets@2.5.0 / no-crds`.
-`argo-cd/argo-cd@9.5.15 / no-crds` is blocked because Argo synced the OCI
-artifact but runtime Secret requirements were incomplete.
-`prometheus-community/kube-prometheus-stack@85.3.3 / no-crds`.
-`hashicorp/consul@2.0.0 / secure-mesh-existing-secrets` is blocked because the
-selected secure mesh base needs a multi-node target for its three-server
-topology and anti-affinity rules.
 ```
 
 For chart-recipe-variant lane coverage, use the generated lane matrix instead
@@ -91,6 +73,20 @@ variant row. The selected top-20 live Helm-vs-ConfigHub comparison lane now has
 20 committed receipts: 10 pass, 2 watch, and 8 blocked. The blocked rows are
 triaged as infrastructure/provisioning or upstream-runtime readiness, not
 semantic parity defects in the shared object set.
+
+For exact GitOps/OCI status, do not rely on copied counts in this handover.
+Use the generated status dashboard and outcome CSVs:
+
+```text
+data/status-dashboard/summary.md
+data/outcome-coverage/base-outcomes.csv
+data/runtime-gitops/summary.md
+```
+
+The runtime/GitOps first wave tracks the first ten selected Argo/Flux OCI
+rows. The broader outcome table also includes later GitOps/OCI receipts from
+other live lanes. Treat both as exact chart/base evidence, not as a chart-level
+blanket claim.
 
 Outcome doctrine:
 
@@ -115,7 +111,7 @@ The current honest state is therefore:
 render reproducibility: complete for current recipe variants
 ConfigHub proof: partial by exact chart-recipe-variant row
 local live cluster proof: partial by exact chart-recipe-variant row
-GitOps/OCI live proof: five exact rows pass, five exact rows are non-pass, remaining rows backlog
+GitOps/OCI live proof: partial by exact chart-recipe-variant row; use generated status for current pass, watch, blocked, and missing counts
 live Helm-vs-ConfigHub parity proof: 10 selected top-20 rows pass, 2 watch, 8 blocked by infra/provisioning or upstream-runtime readiness
 lifecycle observation proof: cert-manager and External Secrets exact rows pass, generic hook lifecycle support remains backlog
 ```
