@@ -48,6 +48,7 @@ The CLI surface is unchanged, so every existing `npm run <chart>:*` script and t
 | `secrets-store-csi-driver-proof.mjs` | 240 |
 | `vault-proof.mjs` | 259 |
 | `longhorn-proof.mjs` | 242 |
+| `argo-cd-proof.mjs` | 245 |
 | `scripts/lib/proof-kit.mjs` (shared, amortized over all migrated charts) | 949 |
 
 The original proof scripts were usually around 1,000 lines each. The migrated
@@ -132,12 +133,12 @@ tempo
 secrets-store-csi-driver
 vault
 longhorn
+argo-cd
 ```
 
 Remaining chart proof scripts:
 
 ```text
-argo-cd
 consul
 loki
 rabbitmq
