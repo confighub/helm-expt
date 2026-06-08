@@ -64,44 +64,45 @@ A row is only proven for a lane when the lane matrix says `pass`.
 
 ## Current Interpretation
 
-The repo has strong render evidence for the current recipe variants. ConfigHub
-proof and local live proof are partial by exact variant row.
+The repo has complete render-parity evidence for the current recipe/base rows.
+ConfigHub proof, local live proof, GitOps/OCI proof, and strict live
+Helm-vs-ConfigHub proof are tracked separately because each one proves a
+different outcome.
+
+Current aggregate status:
+
+```text
+helm_template_vs_installer_setup:        156 pass, 0 missing
+confighub_upload_variant_scan_safe_ops:   18 pass, 138 missing
+local_kind_kubectl_apply:                 21 pass, 135 missing
+confighub_oci_argo_live:                  14 pass, 8 watch, 4 blocked, 130 missing
+live_helm_vs_confighub_dual_compare:      12 pass, 7 watch, 1 blocked, 136 missing
+```
+
+Those counts come from the generated lane matrix:
+[Lane Test Matrix](../../data/lane-test-matrix/summary.md).
+
+The missing rows are backlog. They are not failed rows. `watch` and `blocked`
+mean a committed receipt exists and the lane found a target, lifecycle, or
+fixture condition that still needs a decision or rerun.
 
 GitOps/OCI live proof has started:
 
-- Redis `reuse-existing-secret` passes through Flux OCI with the required
-  existing Secret staged in the target namespace.
-- Prometheus `server-only-ephemeral` passes through Flux OCI.
-- PostgreSQL `existing-secret` passes through Flux OCI with the required
-  existing Secret staged in the target namespace.
-- NGINX `http-clusterip` passes.
-- Metrics Server `default` passes.
-- ingress-nginx `admission-disabled` has a watch receipt. The controller
-  Deployment is Ready, but the kind target has no LoadBalancer external IP, so
-  Argo health stayed Progressing.
-- External Secrets `no-crds` has a blocked receipt. Argo synced the OCI
-  artifact, but the target cluster still needed CRDs and the rendered webhook
-  Secret delivered outside the workload OCI path.
-- Argo CD `no-crds` has a blocked receipt. Argo synced the OCI artifact, but
-  runtime Secret requirements were incomplete: `argocd-redis` was absent and
-  `argocd-secret` did not contain `server.secretkey`.
-- kube-prometheus-stack `no-crds` has a blocked receipt. Flux pulled the OCI
-  artifact, but reconciliation failed because Prometheus Operator CRDs were
-  absent and separated Secrets were not delivered.
-- Consul `secure-mesh-existing-secrets` has a blocked receipt. Flux pulled the
-  OCI artifact, but the selected secure mesh base needs a multi-node target for
-  the three-server topology and anti-affinity rules.
+- the first runtime/GitOps wave has 10 committed receipts;
+- 5 first-wave receipts pass;
+- 5 first-wave receipts are non-pass target-fit receipts;
+- exact chart/base/controller status is in the generated runtime summary:
+  [Runtime/GitOps Wave](../../data/runtime-gitops/summary.md).
 
 Live Helm-vs-ConfigHub parity has started:
 
 - The selected top-20 live comparison lane has committed receipts for all 20
   rows.
-- 10 rows pass, 2 rows are watch, and 8 rows are blocked.
-- The pass rows include Redis, Metrics Server, cert-manager, PostgreSQL,
-  RabbitMQ, Secrets Store CSI Driver, Prometheus, Grafana, MongoDB, and NGINX.
-- The non-pass rows are still useful. The current triage classifies them as
-  infrastructure/provisioning or upstream-runtime readiness, not semantic
-  parity defects in the shared object set.
+- 12 rows pass, 7 rows are watch, and 1 row is blocked.
+- The blocked row is the Argo CD chart under a fixture where the live rig
+  already installed Argo CD CRDs for the OCI controller.
+- The watch rows are useful target/runtime findings, such as LoadBalancer,
+  storage, sealed-service, controller-readiness, or GitOps sync conditions.
 - The comparison checks regular Helm against ConfigHub delivery and records the
   expected installer-added Namespace object and any semantic object diffs.
 - Exact chart/base status is in the generated summary:
@@ -140,7 +141,7 @@ Target-bound derived ConfigHub variant proof has started:
 - `Prometheus-staging-eu-west` repeats that same target-bound path for a
   staging derived variant from the same reviewed Prometheus
   `server-only-ephemeral` base.
-- These receipts prove the derived-variant operating path for a small web chart
+- These receipts prove the derived-variant operating path for a small web chart,
   a cluster-service chart, and a server-only observability chart across
   production, staging, and customer-derived variants: clone the reviewed base,
   bind a real target, apply the cloned workload Units, and record
