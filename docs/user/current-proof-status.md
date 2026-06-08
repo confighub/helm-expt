@@ -10,8 +10,9 @@ The shortest generated status page is:
 
 [Status Dashboard](../../data/status-dashboard/summary.md)
 
-It summarizes top100 readiness, proof lanes, hook and quirk residues,
-derived ConfigHub variants, GitOps/OCI, and live parity in one place.
+It summarizes top100 readiness, the retained top500 evidence map, proof lanes,
+hook and quirk residues, derived ConfigHub variants, GitOps/OCI, and live
+parity in one place.
 
 The compact top-20 catalog status CSV is:
 
