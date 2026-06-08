@@ -98,7 +98,7 @@ cub installer compare/prove
 cub installer scan
 Creator-style preview/check flows over cub variant create
 clear release/OCI handoff semantics
-larger live parity coverage across top-20 base variants
+closing the remaining live parity watch and blocked rows
 per-chart lifecycle routes for hook-heavy charts
 ```
 

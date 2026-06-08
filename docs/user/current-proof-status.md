@@ -123,6 +123,18 @@ Live Helm-vs-ConfigHub parity has started:
 - Exact chart/base status is in the generated summary:
   [Live Helm-vs-ConfigHub Parity](../../data/live-helm-confighub-compare/summary.md).
 
+Strict two-cluster Helm-vs-installer parity now has committed receipts for all
+40 maintained top-20 base variants:
+
+- 25 rows pass;
+- 3 rows are watch;
+- 12 rows are blocked by target prerequisites, runtime readiness, storage,
+  hooks, or operating-policy decisions;
+- 0 rows currently report a semantic parity defect.
+
+Use the generated rerun plan for the next command and expected remediation:
+[Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md).
+
 Lifecycle observation proof has started:
 
 - cert-manager `default` and `crds-enabled` pass lifecycle checks for CRD

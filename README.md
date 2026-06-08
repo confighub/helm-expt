@@ -212,6 +212,9 @@ The `20/20` claims above are chart-level catalog coverage. Per-base and
 per-lane status is stricter; use `data/status-dashboard/summary.md` and
 `data/outcome-coverage/base-outcomes.csv` before making a claim about a
 specific chart/base pair.
+For the current non-pass live rows, use
+`data/live-parity-rerun-plan/summary.md`; it separates semantic parity defects
+from target prerequisites, runtime watch rows, and lifecycle work.
 
 The current top-20 live proof means:
 
