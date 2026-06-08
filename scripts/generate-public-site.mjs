@@ -14,6 +14,7 @@ const runtimeWavePath = join(repoRoot, "data", "runtime-gitops", "wave1.csv");
 const imageDigestSubjectsPath = join(repoRoot, "data", "image-digest-workdown", "all-subjects.csv");
 const nextTenGapsPath = join(repoRoot, "data", "next-ten-waves", "gap-review-wave.csv");
 const statusDashboardPath = join(repoRoot, "data", "status-dashboard", "status.csv");
+const baseReadinessPath = join(repoRoot, "data", "top20-base-readiness", "base-readiness.csv");
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -45,6 +46,7 @@ function buildSite() {
   const imageSubjects = parseCsv(readFileSync(imageDigestSubjectsPath, "utf8"));
   const nextTenGaps = parseCsv(readFileSync(nextTenGapsPath, "utf8"));
   const statusMetrics = parseCsv(readFileSync(statusDashboardPath, "utf8"));
+  const baseReadiness = parseCsv(readFileSync(baseReadinessPath, "utf8"));
   const catalogEntries = top100.entries.filter((entry) => entry.proof_surface === "top20-catalog-supported");
   const proofGrade = top100.entries.filter((entry) => entry.proof_surface === "next80-proof-grade");
   const latestCandidates = readiness.map((row) => ({
@@ -64,6 +66,7 @@ function buildSite() {
       imageDigestSubjects: "data/image-digest-workdown/all-subjects.csv",
       nextTenGaps: "data/next-ten-waves/gap-review-wave.csv",
       statusDashboard: "data/status-dashboard/status.csv",
+      baseReadiness: "data/top20-base-readiness/base-readiness.csv",
     },
     summary: {
       catalogSupported: catalogEntries.length,
@@ -74,11 +77,14 @@ function buildSite() {
       runtimeGitopsWave: runtimeWave.length,
       imageSubjectsNeedingResolution: imageSubjects.filter((row) => row.needs_resolution === "yes").length,
       nextTenGapRows: nextTenGaps.length,
+      baseVariants: baseReadiness.length,
+      startHereBaseVariants: baseReadiness.filter((row) => row.user_readiness === "start-here").length,
     },
     statusMetrics,
     catalogEntries,
     proofGradeEntries: proofGrade,
     latestCandidates,
+    baseReadiness,
   };
   return {
     catalogJson: `${JSON.stringify(catalog, null, 2)}\n`,
@@ -111,6 +117,10 @@ function html(catalog) {
   ]
     .map((name) => metric(name))
     .filter((row) => row.metric);
+  const baseReadinessCounts = countBy(catalog.baseReadiness, "user_readiness");
+  const recommendedBaseRows = catalog.baseReadiness
+    .filter((row) => row.recommended_first === "yes")
+    .map((row) => [row.chart, row.base, row.user_readiness, row.why]);
   const stages = [
     ["1. Acquire and pin", "Lock chart source, dependencies, digests, and provenance."],
     ["2. Render and capture", "Run Helm under recorded inputs and prove render parity with cub installer."],
@@ -225,6 +235,21 @@ function html(catalog) {
         ...statusRows.map((row) => [row.metric, metricValue(row), row.status]),
       ])}
       <p><a href="../data/status-dashboard/summary.md">Open the full status dashboard</a>.</p>
+    </section>
+
+    <section aria-labelledby="base-readiness">
+      <h2 id="base-readiness">Which Base Should I Start With?</h2>
+      <p>Each catalog chart has named base variants. The table below shows the recommended first base for each top-20 chart and whether that base is ready as a clean first path, needs extra proof, or needs runtime/prerequisite review.</p>
+      <div class="lanes">
+        ${Object.entries(baseReadinessCounts)
+          .map(([label, value]) => `<div class="metric"><strong>${escapeHtml(value)}</strong><span>${escapeHtml(label)}</span></div>`)
+          .join("\n        ")}
+      </div>
+      ${markdownLikeTable([
+        ["Chart", "Recommended base", "Readiness", "Reason"],
+        ...recommendedBaseRows,
+      ])}
+      <p><a href="../data/top20-base-readiness/summary.md">Open the full base-readiness table</a>.</p>
     </section>
 
     <section aria-labelledby="catalog">
@@ -352,6 +377,7 @@ Data source:
 - \`data/image-digest-workdown/all-subjects.csv\`
 - \`data/next-ten-waves/gap-review-wave.csv\`
 - \`data/status-dashboard/status.csv\`
+- \`data/top20-base-readiness/base-readiness.csv\`
 - \`data/variant-goldens/redis-prod-us-east/\`
 - \`data/managed-overlay-goldens/external-dns-customer-acme-prod/\`
 
@@ -389,6 +415,15 @@ function parseCsvLine(line) {
   }
   cells.push(cell);
   return cells;
+}
+
+function countBy(rows, field) {
+  const counts = {};
+  for (const row of rows) {
+    const key = row[field] || "unknown";
+    counts[key] = (counts[key] ?? 0) + 1;
+  }
+  return Object.fromEntries(Object.entries(counts).sort(([left], [right]) => left.localeCompare(right)));
 }
 
 function escapeHtml(value) {

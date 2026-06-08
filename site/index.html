@@ -112,7 +112,7 @@
       <p>The site uses the generated status dashboard. A partial or gap status means the exact lane still needs receipts, not that render parity failed.</p>
       <div class="card"><table>
         <thead><tr><th>Metric</th><th>Value</th><th>Status</th></tr></thead>
-        <tbody><tr><td>in-ConfigHub proof rows</td><td>18/156</td><td>partial</td></tr><tr><td>local live rows</td><td>21/156</td><td>partial</td></tr><tr><td>GitOps/OCI live pass rows</td><td>17/156</td><td>partial</td></tr><tr><td>live Helm-vs-ConfigHub parity pass rows</td><td>15/156</td><td>partial</td></tr><tr><td>derived variant live create receipts</td><td>10/10</td><td>good</td></tr><tr><td>target-bound derived variant receipts</td><td>6/10</td><td>partial</td></tr><tr><td>hook lifecycle receipts present</td><td>0/5</td><td>gap</td></tr><tr><td>not-scanned axes</td><td>6/25</td><td>gap</td></tr></tbody>
+        <tbody><tr><td>in-ConfigHub proof rows</td><td>18/156</td><td>partial</td></tr><tr><td>local live rows</td><td>21/156</td><td>partial</td></tr><tr><td>GitOps/OCI live pass rows</td><td>17/156</td><td>partial</td></tr><tr><td>live Helm-vs-ConfigHub parity pass rows</td><td>15/156</td><td>partial</td></tr><tr><td>derived variant live create receipts</td><td>10/10</td><td>good</td></tr><tr><td>target-bound derived variant receipts</td><td>6/10</td><td>partial</td></tr><tr><td>hook lifecycle receipts present</td><td>0/5</td><td>gap</td></tr><tr><td>not-scanned axes</td><td>6/26</td><td>gap</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -120,6 +120,29 @@
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p><a href="../data/status-dashboard/summary.md">Open the full status dashboard</a>.</p>
+    </section>
+
+    <section aria-labelledby="base-readiness">
+      <h2 id="base-readiness">Which Base Should I Start With?</h2>
+      <p>Each catalog chart has named base variants. The table below shows the recommended first base for each top-20 chart and whether that base is ready as a clean first path, needs extra proof, or needs runtime/prerequisite review.</p>
+      <div class="lanes">
+        <div class="metric"><strong>1</strong><span>hook-lifecycle-review-needed</span></div>
+        <div class="metric"><strong>7</strong><span>runtime-review-needed</span></div>
+        <div class="metric"><strong>3</strong><span>runtime-watch</span></div>
+        <div class="metric"><strong>11</strong><span>start-here</span></div>
+        <div class="metric"><strong>4</strong><span>target-prerequisite-needed</span></div>
+        <div class="metric"><strong>14</strong><span>try-with-proof</span></div>
+      </div>
+      <div class="card"><table>
+        <thead><tr><th>Chart</th><th>Recommended base</th><th>Readiness</th><th>Reason</th></tr></thead>
+        <tbody><tr><td>argo-cd/argo-cd@9.5.15</td><td>default</td><td>runtime-watch</td><td>helm-runtime: upstream not ready (parity passed)</td></tr><tr><td>bitnami/mongodb@19.0.7</td><td>generated-passwords</td><td>start-here</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>bitnami/mysql@14.0.3</td><td>generated-passwords</td><td>start-here</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>bitnami/nginx@24.0.2</td><td>http-clusterip</td><td>start-here</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>bitnami/postgresql@18.6.7</td><td>generated-passwords</td><td>try-with-proof</td><td>render parity and two-cluster live parity pass, but one or more broader lanes are missing</td></tr><tr><td>bitnami/rabbitmq@16.0.14</td><td>generated-passwords</td><td>start-here</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>bitnami/redis@25.5.3</td><td>default</td><td>start-here</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>external-secrets/external-secrets@2.5.0</td><td>default</td><td>start-here</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>grafana/grafana@10.5.15</td><td>generated-passwords</td><td>start-here</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>grafana/loki@7.0.0</td><td>single-binary-filesystem</td><td>start-here</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>grafana/tempo@1.24.4</td><td>local-persistent</td><td>runtime-review-needed</td><td>target-runtime: pods pending (parity passed)</td></tr><tr><td>hashicorp/consul@2.0.0</td><td>default-control-plane</td><td>start-here</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>hashicorp/vault@0.32.0</td><td>default</td><td>runtime-review-needed</td><td>helm-runtime: upstream not ready (parity passed)</td></tr><tr><td>ingress-nginx/ingress-nginx@4.15.1</td><td>default</td><td>runtime-watch</td><td>helm-runtime: upstream not ready (parity passed)</td></tr><tr><td>jetstack/cert-manager@v1.20.2</td><td>default</td><td>hook-lifecycle-review-needed</td><td>helm-hook: post-install hook failed (parity passed)</td></tr><tr><td>longhorn/longhorn@1.11.2</td><td>default</td><td>start-here</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>metrics-server/metrics-server@3.13.0</td><td>default</td><td>try-with-proof</td><td>render parity and two-cluster live parity pass, but one or more broader lanes are missing</td></tr><tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>default</td><td>runtime-watch</td><td>helm-runtime: upstream not ready (parity passed)</td></tr><tr><td>prometheus-community/prometheus@29.8.0</td><td>default</td><td>try-with-proof</td><td>render parity and two-cluster live parity pass, but one or more broader lanes are missing</td></tr><tr><td>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</td><td>default</td><td>start-here</td><td>all core lanes plus two-cluster parity pass for this base</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><a href="../data/top20-base-readiness/summary.md">Open the full base-readiness table</a>.</p>
     </section>
 
     <section aria-labelledby="catalog">
