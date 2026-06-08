@@ -513,6 +513,30 @@ def main() -> int:
         if workdir.exists():
             shutil.rmtree(workdir)
 
+        # Adopt CRDs the chart declares that the rig already installed. The cub lk
+        # bootstrap installs Argo CD (the OCI controller) and its argoproj CRDs, so
+        # the argo-cd chart's own CRDs already exist without Helm ownership metadata
+        # and "helm upgrade --install" refuses to import them. Labeling the existing
+        # CRDs with Helm ownership lets the regular-Helm leg own them. CRDs that are
+        # not already present are created by Helm as usual, so this is a no-op for
+        # every other chart.
+        for crd_doc in docs_matching(canonical_helm_manifest, "CustomResourceDefinition"):
+            crd_name = (crd_doc.get("metadata") or {}).get("name")
+            if not crd_name:
+                continue
+            if kubectl(["get", "crd", crd_name], kubeconfig, context, timeout=60)[0] != 0:
+                continue
+            kubectl(["label", "crd", crd_name, "app.kubernetes.io/managed-by=Helm", "--overwrite"], kubeconfig, context, timeout=60)
+            kubectl(
+                [
+                    "annotate", "crd", crd_name,
+                    f"meta.helm.sh/release-name={args.release}",
+                    f"meta.helm.sh/release-namespace={helm_namespace}",
+                    "--overwrite",
+                ],
+                kubeconfig, context, timeout=60,
+            )
+
         chart_ref = args.chart.split("/", 1)[1] if "/" in args.chart else args.chart
         helm_cmd = [
             "helm", "upgrade", "--install", args.release, chart_ref,
