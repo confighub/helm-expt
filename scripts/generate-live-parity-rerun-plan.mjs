@@ -155,6 +155,14 @@ function followupForTwoCluster(row) {
 function markdown(rows) {
   const counts = countBy(rows, "lane");
   const resultCounts = countBy(rows, "current_result");
+  const semanticDefects = rows.filter((row) => row.reason?.startsWith("parity:")).length;
+  const infraRows = rows.filter((row) => row.reason?.startsWith("infra:")).length;
+  const prerequisiteRows = rows.filter((row) => row.reason?.startsWith("target-prerequisite:") || row.reason?.startsWith("helm-hook:")).length;
+  const runtimeRows = rows.filter((row) =>
+    row.reason?.startsWith("target-runtime:")
+    || row.reason?.startsWith("helm-runtime:")
+    || row.current_result === "watch",
+  ).length;
   return `# Live Parity Rerun Plan
 
 This is the generated queue for reducing non-pass live parity rows. It combines:
@@ -172,14 +180,22 @@ blocked: ${resultCounts.blocked ?? 0}
 watch: ${resultCounts.watch ?? 0}
 configHub-oci-live-comparison: ${counts["configHub-oci-live-comparison"] ?? 0}
 two-cluster-kind-parity: ${counts["two-cluster-kind-parity"] ?? 0}
+semantic-parity-defects: ${semanticDefects}
+infra-or-rig-rows: ${infraRows}
+prerequisite-or-lifecycle-rows: ${prerequisiteRows}
+runtime-or-watch-rows: ${runtimeRows}
 \`\`\`
 
 ## Recommended Order
 
-1. Re-run the ConfigHub/OCI rows with \`infra:\` reasons on a clean host, one at a time.
-2. Re-run the ConfigHub/OCI row where semantic parity already passed but upstream Helm readiness timed out.
-3. Re-run strict two-cluster blocked rows for all base variants.
-4. Review watch rows last; most are readiness or target-limit cases rather than object parity failures.
+1. Inspect any \`parity:\` rows first. Those are the only rows that currently
+   point at an object-set difference.
+2. Re-run any \`infra:\` rows on a clean host, one at a time.
+3. Resolve \`target-prerequisite:\` and \`helm-hook:\` rows by staging the
+   prerequisite or choosing the lifecycle route before rerunning.
+4. Review \`target-runtime:\`, \`helm-runtime:\`, and \`watch\` rows last. They
+   usually mean object parity passed and the target needs a readiness, storage,
+   capacity, or operating-policy decision.
 
 ## Rerun Queue
 

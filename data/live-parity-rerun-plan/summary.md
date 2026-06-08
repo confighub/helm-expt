@@ -15,14 +15,22 @@ blocked: 13
 watch: 10
 configHub-oci-live-comparison: 8
 two-cluster-kind-parity: 15
+semantic-parity-defects: 0
+infra-or-rig-rows: 0
+prerequisite-or-lifecycle-rows: 5
+runtime-or-watch-rows: 17
 ```
 
 ## Recommended Order
 
-1. Re-run the ConfigHub/OCI rows with `infra:` reasons on a clean host, one at a time.
-2. Re-run the ConfigHub/OCI row where semantic parity already passed but upstream Helm readiness timed out.
-3. Re-run strict two-cluster blocked rows for all base variants.
-4. Review watch rows last; most are readiness or target-limit cases rather than object parity failures.
+1. Inspect any `parity:` rows first. Those are the only rows that currently
+   point at an object-set difference.
+2. Re-run any `infra:` rows on a clean host, one at a time.
+3. Resolve `target-prerequisite:` and `helm-hook:` rows by staging the
+   prerequisite or choosing the lifecycle route before rerunning.
+4. Review `target-runtime:`, `helm-runtime:`, and `watch` rows last. They
+   usually mean object parity passed and the target needs a readiness, storage,
+   capacity, or operating-policy decision.
 
 ## Rerun Queue
 
