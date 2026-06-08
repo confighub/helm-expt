@@ -120,6 +120,18 @@ The existing ConfigHub/OCI live comparator remains the delivery proof. Use
 `data/lane-test-matrix/summary.md` for the exact pass/missing state across the
 corpus.
 
+If a pinned chart version is available through OCI but no longer appears in the
+classic Helm repository index, pass an OCI repository override:
+
+```sh
+npm run kind-parity:run -- \
+  --chart bitnami/nginx --version 24.0.2 --base http-clusterip \
+  --repo-url oci://registry-1.docker.io/bitnamicharts
+```
+
+The strict two-cluster and ConfigHub/OCI live parity runners treat `oci://...`
+repo URLs as OCI chart repositories and omit Helm's `--repo` flag.
+
 The generated corpus control surface for these lanes is
 `data/lane-test-matrix/`. Its doctrine is
 `docs/reference/lane-test-doctrine.md`.

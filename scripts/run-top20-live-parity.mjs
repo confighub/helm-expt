@@ -8,6 +8,7 @@ const mode = process.argv[2] ?? "--help";
 const selectedSlug = optionValue("--chart");
 const selectedFromRank = numberOption("--from-rank");
 const selectedToRank = numberOption("--to-rank");
+const repoUrlOverride = optionValue("--repo-url");
 const continueOnFail = process.argv.includes("--continue-on-fail");
 const keep = process.argv.includes("--keep");
 
@@ -46,6 +47,7 @@ if (mode === "--run") {
 } else {
   console.log(`Usage:
   node scripts/run-top20-live-parity.mjs --run --chart metrics-server
+  node scripts/run-top20-live-parity.mjs --run --chart nginx --repo-url oci://registry-1.docker.io/bitnamicharts
   node scripts/run-top20-live-parity.mjs --run --from-rank 2 --to-rank 5 --continue-on-fail
   node scripts/run-top20-live-parity.mjs --run --all --continue-on-fail
   node scripts/run-top20-live-parity.mjs --summary
@@ -189,7 +191,7 @@ function resolveTarget(target) {
   const valuesProfile = variant.spec?.valuesProfile;
   check(valuesProfile, `${target.chart} ${target.variant} missing valuesProfile`);
   return {
-    repositoryURL: source.spec?.repositoryURL,
+    repositoryURL: repoUrlOverride ?? source.spec?.repositoryURL,
     packagePath: `packages/${target.chart}/${target.version}`,
     valuesPath: normalizeRelative(target.recipe, "variants/" + target.variant, valuesProfile),
     variantRevision: `${target.recipe}/revisions/${target.variant}/r001/variant-revision.yaml`,

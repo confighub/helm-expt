@@ -160,6 +160,19 @@ python3 tests/live-helm-installer-kind-parity-test \
   --out <receipt-path>
 ```
 
+For OCI-hosted charts, pass the OCI repository instead of an HTTP Helm repo:
+
+```sh
+npm run kind-parity:run -- \
+  --chart bitnami/nginx --version 24.0.2 --base http-clusterip \
+  --repo-url oci://registry-1.docker.io/bitnamicharts
+```
+
+The lower-level runner treats `oci://...` as a chart repository and calls Helm
+with the full OCI chart reference rather than `--repo`. This is useful when a
+pinned chart version is still available in OCI but no longer appears in the
+classic Helm repository index.
+
 This is still recipe/package based. If the user only has a raw chart and values
 file, the first step is to import or create the recipe/package candidate.
 

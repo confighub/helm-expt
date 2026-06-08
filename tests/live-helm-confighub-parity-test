@@ -47,6 +47,15 @@ def sh(cmd: list[str], timeout: int = 120, env: dict[str, str] | None = None) ->
         return 124, "", f"timeout after {timeout}s"
 
 
+def helm_chart_command_args(chart: str, repo_url: str) -> list[str]:
+    chart_name = chart.split("/", 1)[1] if "/" in chart else chart
+    if repo_url.startswith("oci://"):
+        repo = repo_url.rstrip("/")
+        chart_ref = repo if repo.rsplit("/", 1)[-1] == chart_name else f"{repo}/{chart_name}"
+        return [chart_ref]
+    return [chart_name, "--repo", repo_url]
+
+
 def prune_parity_leaks() -> None:
     # The rig runner is serial, so before bringing a cluster up there should be no
     # other helm-expt-parity-* cluster. Remove any left over from a prior failed
@@ -716,10 +725,9 @@ def main() -> int:
                 kubeconfig, context, timeout=60,
             )
 
-        chart_ref = args.chart.split("/", 1)[1] if "/" in args.chart else args.chart
         helm_cmd = [
-            "helm", "upgrade", "--install", args.release, chart_ref,
-            "--repo", args.repo_url,
+            "helm", "upgrade", "--install", args.release,
+            *helm_chart_command_args(args.chart, args.repo_url),
             "--version", args.version,
             "--namespace", helm_namespace,
             "--create-namespace",

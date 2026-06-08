@@ -9,6 +9,7 @@ const chartOption = optionValue("--chart");
 const versionOption = optionValue("--version");
 const baseOption = optionValue("--base");
 const recipeOption = optionValue("--recipe");
+const repoUrlOverride = optionValue("--repo-url");
 const top20 = process.argv.includes("--top20");
 const missingOnly = process.argv.includes("--missing");
 const continueOnFail = process.argv.includes("--continue-on-fail");
@@ -25,6 +26,7 @@ if (mode === "--run") {
 } else {
   console.log(`Usage:
   npm run kind-parity:run -- --chart grafana/loki --version 7.0.0 --base single-binary-filesystem
+  npm run kind-parity:run -- --chart bitnami/nginx --version 24.0.2 --base http-clusterip --repo-url oci://registry-1.docker.io/bitnamicharts
   npm run kind-parity:run -- --recipe recipes/grafana/loki/7.0.0 --base single-binary-filesystem
   npm run kind-parity:run -- --top20 --missing --continue-on-fail
   npm run kind-parity:summary
@@ -141,7 +143,7 @@ function resolveTarget(target) {
   const valuesProfile = variant.spec?.valuesProfile;
   check(valuesProfile, `${target.chart} ${target.base} missing valuesProfile`);
   return {
-    repositoryURL: source.spec?.repositoryURL,
+    repositoryURL: repoUrlOverride ?? source.spec?.repositoryURL,
     packagePath: `packages/${target.chart}/${target.version}`,
     valuesPath: normalizeRelative(target.recipe, "variants/" + target.base, valuesProfile),
     variantRevision: `${target.recipe}/revisions/${target.base}/r001/variant-revision.yaml`,
