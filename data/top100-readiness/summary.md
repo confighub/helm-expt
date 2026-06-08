@@ -14,6 +14,24 @@ charts with live evidence on at least one variant: 20
 charts with named hard gaps: 25
 ~~~
 
+## Practical Buckets
+
+| Question | Count | Read it as | Next move |
+| --- | ---: | --- | --- |
+| Which charts are already public catalog entries? | 20 | Use the catalog, then check exact base status before claiming a lane. | Open `CATALOG.md`, the per-chart catalog page, and `base-outcomes.csv`. |
+| Which proof-grade charts are closest to promotion? | 27 | Recipe/package proof and multiple variants exist, but catalog review is not done. | Run catalog promotion review and add live lanes for selected bases. |
+| Which charts need a useful user-shaped variant first? | 46 | The default render proves the mechanism, but it is not yet a good catalog offer. | Add one or more realistic base variants before promotion. |
+| Which charts need a limitation decision first? | 7 | A known gap affects the recommended path. | Decide whether to support, disclose, or defer that capability. |
+
+## Hard Gap Buckets
+
+| Gap | Charts | What it means |
+| --- | ---: | --- |
+| existing-secret (chart ships no Secret toggle - #113) | 15 | The chart does not expose a clean bring-your-own-secret render path. Do not invent one silently. |
+| ha (curated proof lane - bespoke teaching needed) | 6 | The proof path does not yet teach a realistic HA variant for that chart. |
+| ha (tempo single-binary chart; HA is the separate t...) | 1 | The current chart path is single-binary; HA belongs to a separate supported topology decision. |
+| no-crds (template-baked CRDs, no toggle - #114) | 3 | The chart bakes CRDs into templates or lacks a clean CRDs-off switch. CRD ownership needs an explicit route. |
+
 ## User Status
 
 | Status | Count | Meaning |
@@ -43,6 +61,14 @@ charts with named hard gaps: 25
 - Hard gaps are capability gaps, not necessarily chart failure. They usually mean
   a useful path such as an existing-secret, HA, no-CRDs, or production lifecycle
   path still needs a supported variant or operator decision.
+
+## First Backlog Rows
+
+| Backlog | First rows |
+| --- | --- |
+| Promotion review | `external-dns/external-dns@1.21.1`<br>`cloudnative-pg/cloudnative-pg@0.28.2`<br>`kedacore/keda@2.19.0`<br>`elastic/eck-operator@3.4.0`<br>`grafana/alloy@1.8.2` |
+| User-shaped variants | `gitlab/gitlab-runner@0.89.0`<br>`fluent/fluent-bit@0.57.6`<br>`runix/pgadmin4@1.62.0`<br>`nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18`<br>`prometheus-community/kube-state-metrics@7.4.0` |
+| Named limitation review | `traefik/traefik@40.2.0`<br>`kyverno/kyverno@3.8.1`<br>`bitnami/elasticsearch@22.1.6`<br>`bitnami/spark@10.0.3`<br>`bitnami/zookeeper@13.8.7` |
 
 ## First Rows
 
