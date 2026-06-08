@@ -102,6 +102,11 @@ Some hooks may map to tests, preflight checks, Argo lifecycle hooks, sync waves,
 or managed actions. Some will remain blocked until reviewed. That is an
 expected product outcome, not a failure of the model.
 
+For the full lifecycle model, see
+[Seven-Stage Helm Lifecycle](../reference/seven-stage-helm-lifecycle.md).
+For free, public, managed, and production claim boundaries, see
+[Product Support Tiers](./product-support-tiers.md).
+
 ## Read Next
 
 | If you want to... | Read |
@@ -115,3 +120,4 @@ expected product outcome, not a failure of the model.
 | Route values files and overlays | [Custom Overlays](./custom-overlays.md) |
 | Understand hook handling | [Hook Lifecycle Strategy](./hook-lifecycle-strategy.md) |
 | See why this is not just a fast render command | [Why This Exists](./why-this-exists.md) |
+| Understand free, managed, and production boundaries | [Product Support Tiers](./product-support-tiers.md) |

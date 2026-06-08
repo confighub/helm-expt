@@ -1394,8 +1394,8 @@ fresh observation receipt when live behavior matters
 This is the claim boundary:
 
 ```text
-Helm equivalence proves selected rendered objects.
-Hook execution is proven only by hook/lifecycle receipts and live observations.
+Render parity proves selected non-hook rendered objects.
+Hook behavior is proven only by hook/lifecycle receipts and live observations.
 ```
 
 Commercially, hooks are not a paid "execute hooks safely" feature. The paid

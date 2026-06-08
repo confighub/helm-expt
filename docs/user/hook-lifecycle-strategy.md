@@ -14,6 +14,18 @@ Do not hide hooks inside the normal rendered-object proof.
 Do not claim hook execution is deterministic without a lifecycle receipt.
 ```
 
+The hook policy uses the same seven-stage lifecycle as the rest of the harness:
+
+```text
+acquire and pin -> render and capture -> shape base variants -> scan and gate
+-> settle prerequisites -> publish and deploy -> observe and operate
+```
+
+Render parity proves the desired non-hook object set. Hook support starts with
+source inventory and becomes a support claim only when the lifecycle route and
+receipts exist. The full doctrine is
+[Seven-Stage Helm Lifecycle](../reference/seven-stage-helm-lifecycle.md).
+
 ## What The Top-500 Scan Shows
 
 The retained source scan is:
@@ -105,7 +117,7 @@ The catalog can safely prove:
 
 ```text
 source chart contains hooks
-normal rendered object set is deterministic under recorded inputs
+normal rendered object set has render parity under recorded inputs
 hook behavior has an explicit disposition
 production support is blocked unless lifecycle proof exists
 ```

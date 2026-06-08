@@ -63,6 +63,22 @@ Derived ConfigHub variant = post-upload clone/refinement when no new Helm render
 Receipt = proof of what happened.
 ```
 
+The lifecycle doctrine is:
+
+```text
+acquire and pin
+render and capture
+shape base variants
+scan and gate
+settle prerequisites
+publish and deploy
+observe and operate
+```
+
+Those seven stages are the stable map for hooks, CRDs, generated values,
+target facts, overlays, GitOps handoff, and live observations. See
+[Seven-Stage Helm Lifecycle](../reference/seven-stage-helm-lifecycle.md).
+
 ## How A New Recipe Is Generated
 
 1. Pick a public Helm chart and exact version.
@@ -173,8 +189,8 @@ Each hook then receives a disposition:
 The proof claim must stay precise:
 
 ```text
-Helm equivalence proves the selected rendered object set.
-It does not prove hook execution unless there is a hook/lifecycle receipt.
+Render parity proves the selected non-hook object set.
+Hook behavior is proven only by hook/lifecycle receipts and live observations.
 ```
 
 So a production-ready chart with hooks needs at least a hook inventory,

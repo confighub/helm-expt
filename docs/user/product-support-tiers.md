@@ -22,6 +22,27 @@ cases without starting from scratch. ConfigHub customization should then make
 those reviewed bases fit real environments. Managed import and stack workflows
 are the higher-complexity lane for private or production-specific cases.
 
+## Claim Boundary
+
+The public catalog proves public chart behavior for declared chart versions,
+base variants, inputs, and test lanes. It does not automatically prove a
+customer's private chart, private values file, wrapper chart, cluster policy,
+GitOps controller, secret system, or production target.
+
+Use these claims separately:
+
+| Claim | Meaning |
+| --- | --- |
+| Public catalog claim | The declared public chart/base has recorded render parity, scans, receipts, and any committed live evidence. |
+| User install claim | The user ran the same package/base and produced matching receipts in their work directory, ConfigHub space, or cluster. |
+| Managed import claim | A private chart, wrapper chart, overlay, or customer values set was imported, checked, and receipted as its own artifact. |
+| Production claim | The selected variant was approved, delivered, observed, and kept fresh under the user's production policy. |
+
+This boundary matters commercially. The free/public lane builds trust and
+reduces first-use friction. Private values, wrapper charts, fleet variants,
+production approvals, live observations, old-version patches, and support SLAs
+belong in managed or commercial lanes.
+
 ## Tier 0 - Low-Friction Standalone Try
 
 This is the desired first user experience: closer to `helm install redis` than
