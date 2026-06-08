@@ -72,7 +72,7 @@ function twoClusterRows() {
       version: row.version,
       base: row.base,
       current_result: row.result,
-      reason: reasonForTwoCluster(row),
+      reason: row.reason || reasonForTwoCluster(row),
       diagnosis: diagnosisForTwoCluster(row),
       rerun_command: `npm run kind-parity:run -- --chart ${row.chart} --version ${row.version} --base ${row.base}`,
       followup: followupForTwoCluster(row),
@@ -88,6 +88,10 @@ function priorityForConfigHubOci(row) {
 }
 
 function priorityForTwoCluster(row) {
+  if (row.reason?.startsWith("parity:")) return 45;
+  if (row.reason?.startsWith("target-prerequisite:")) return 50;
+  if (row.reason?.startsWith("helm-hook:")) return 55;
+  if (row.reason?.startsWith("target-runtime:") || row.reason?.startsWith("helm-runtime:")) return 60;
   if (row.result === "blocked") return 50;
   if (row.result === "watch") return 60;
   return 70;
@@ -119,6 +123,18 @@ function reasonForTwoCluster(row) {
 }
 
 function diagnosisForTwoCluster(row) {
+  if (row.reason?.startsWith("parity:")) {
+    return "Semantic object comparison did not pass. Inspect the diff before changing waits or target provisioning.";
+  }
+  if (row.reason?.startsWith("target-prerequisite:")) {
+    return "The target is missing required API types or prerequisites. Stage them, then rerun the same base.";
+  }
+  if (row.reason?.startsWith("helm-hook:")) {
+    return "This is Helm lifecycle behavior. Decide whether the hook maps to desired config, a lifecycle operation, or an observation check.";
+  }
+  if (row.reason?.startsWith("target-runtime:") || row.reason?.startsWith("helm-runtime:")) {
+    return "Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate.";
+  }
   if (row.result === "watch") {
     return "Rerun once on a clean pair of vanilla kind clusters; if object parity remains clean, decide whether readiness should stay watch.";
   }
@@ -126,6 +142,12 @@ function diagnosisForTwoCluster(row) {
 }
 
 function followupForTwoCluster(row) {
+  if (row.reason?.startsWith("parity:")) return "Open a parity issue only if the diff is not an intentional, documented normalization.";
+  if (row.reason?.startsWith("target-prerequisite:")) return "Record the prerequisite in the chart facts, base variant, or install checks before promoting.";
+  if (row.reason?.startsWith("helm-hook:")) return "Keep desired object parity separate from hook execution and document the lifecycle route.";
+  if (row.reason?.startsWith("target-runtime:") || row.reason?.startsWith("helm-runtime:")) {
+    return "Keep the recipe stable unless the rendered object comparison starts failing.";
+  }
   if (row.result === "watch") return "Do not change chart artifacts unless semantic parity or object readiness shows a real difference.";
   return "If blocked again, classify as recipe issue, target-fact/prerequisite issue, or chart runtime issue from the receipt.";
 }
