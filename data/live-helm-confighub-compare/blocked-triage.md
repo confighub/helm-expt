@@ -24,41 +24,40 @@ pod pending in all three paths. The 2026-06-08 Consul rerun reached the full
 comparison and now records `watch`: regular Helm and ConfigHub kubectl-apply
 became live-ready, semantic parity passed, and only the ConfigHub OCI/Argo leg
 remained OutOfSync.
+The 2026-06-08 External Secrets rerun now records `watch`: semantic parity
+passed, while the cert-controller and webhook remained unready in the ConfigHub
+paths inside the local test budget.
 
 The current summary therefore contains these kinds of blocked row:
 
 - `fixture:` rows reached enough of the lane to show that the test setup is not
   the right shape for the chart.
-- `parity:` rows reached the comparison and found a Helm-vs-ConfigHub difference
-  that needs recipe or harness review.
 
 ## Current Blocked Rows
 
 | Rank | Chart | Current reason | Current reading |
 | ---: | --- | --- | --- |
-| 5 | external-secrets/external-secrets | `parity: live semantic diff` | The hardened rerun reached Helm, ConfigHub apply, and ConfigHub OCI/Argo. The webhook Deployment is the reported semantic diff, and the ConfigHub apply/OCI legs left the cert-controller and webhook pods not ready. This aligns with the chart's documented webhook Secret/cert-controller control point and needs chart-specific review. |
 | 6 | argo-cd/argo-cd | `fixture: pre-existing CRDs owned by test controller` | The rerun reached the chart-specific conflict: the live rig installs Argo CD as the OCI controller, so regular Helm refuses to own the already-installed Argo CD CRDs. The ConfigHub paths render semantically equivalent objects, but the chart-installed Argo CD pods also need generated Secret handling. |
 
 ## What The External Secrets Rerun Proved
 
-The hardened rig improved the evidence quality. External Secrets no longer
-fails at `kind create`; it now records:
+The hardened rig improved the evidence quality. External Secrets now records:
 
 - regular Helm installed and became ready;
 - ConfigHub kubectl-apply rendered and applied the package, but runtime readiness
   remained `watch`;
 - ConfigHub OCI/Argo synced, but runtime health remained `Progressing`;
-- semantic comparison reported the `external-secrets-webhook` Deployment;
+- semantic comparison passed for both ConfigHub paths;
 - cleanup completed cleanly.
 
 This is useful product evidence. It shows that the live lane can now separate an
-infrastructure failure from a chart-specific parity/runtime problem.
+infrastructure failure from a chart-specific runtime or lifecycle problem.
 
 The chart already records the relevant control point: the rendered webhook Secret
 contains metadata only, and the cert-controller populates certificate material
 after apply. The next review should decide whether the ConfigHub path needs a
-recipe fix, a stronger lifecycle/observation policy, or a comparator
-normalization fix.
+stronger lifecycle/observation policy or a chart-specific live fixture for
+webhook certificate readiness. The current row is `watch`, not `blocked`.
 
 ## What The Loki Rerun Proved
 

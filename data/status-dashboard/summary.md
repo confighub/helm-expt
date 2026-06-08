@@ -122,7 +122,7 @@ Current ConfigHub/OCI live parity non-pass receipts:
 | Chart | Variant | Result | Reason |
 | --- | --- | --- | --- |
 | ingress-nginx/ingress-nginx@4.15.1 | admission-disabled | watch | - |
-| external-secrets/external-secrets@2.5.0 | default | blocked | parity: live semantic diff |
+| external-secrets/external-secrets@2.5.0 | default | watch | - |
 | argo-cd/argo-cd@9.5.15 | default | blocked | fixture: pre-existing CRDs owned by test controller |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | watch | - |
 | hashicorp/vault@0.32.0 | default | watch | - |
