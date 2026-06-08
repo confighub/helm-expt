@@ -86,6 +86,8 @@ npm run verify
 
 `npm run verify` is useful, but it is not a fresh live test. It checks that the
 committed artifacts, receipts, generated data, and docs are self-consistent.
+For the rule on when to run scoped checks, the full verifier, live tests, and
+chart refreshes, see [NPM Test And Verification Scripts](../../tests/npm-scripts.md).
 
 Check derived ConfigHub variants:
 
