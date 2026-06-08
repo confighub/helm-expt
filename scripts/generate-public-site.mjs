@@ -162,6 +162,18 @@ function html(catalog) {
     ["needs-useful-variant", "The mechanism works, but the chart needs realistic user-shaped bases before it is a good offer."],
     ["limitation-decision-first", "A named capability gap needs a support, disclosure, or defer decision before promotion."],
   ].map(([bucket, meaning]) => [bucket, top100AdoptionCounts[bucket] ?? 0, meaning]);
+  const top100QueueRows = [
+    ["Promotion review", "promote-after-review"],
+    ["Needs useful variant", "needs-useful-variant"],
+    ["Limitation decision", "limitation-decision-first"],
+  ].map(([label, bucket]) => [
+    label,
+    catalog.top100Readiness
+      .filter((row) => row.adoption_bucket === bucket)
+      .slice(0, 5)
+      .map((row) => row.chart)
+      .join(", "),
+  ]);
   const rerunCounts = countBy(catalog.liveParityRerunPlan, "lane");
   const rerunRows = catalog.liveParityRerunPlan
     .slice(0, 10)
@@ -327,6 +339,10 @@ function html(catalog) {
       ${markdownLikeTable([
         ["Bucket", "Charts", "Meaning"],
         ...top100ReadinessRows,
+      ])}
+      ${markdownLikeTable([
+        ["Queue", "First rows"],
+        ...top100QueueRows,
       ])}
       <p><a href="../data/top100-readiness/summary.md">Open the full top-100 readiness report</a>.</p>
     </section>
