@@ -14,6 +14,7 @@ import {
 const outputRoot = join(repoRoot, "data", "external-scan-lane");
 const resultsPath = join(outputRoot, "kube-linter-results.json");
 const reviewCsvPath = join(outputRoot, "review.csv");
+const chartWorkdownCsvPath = join(outputRoot, "chart-workdown.csv");
 const summaryPath = join(outputRoot, "summary.md");
 const mode = process.argv[2] ?? "--generate";
 
@@ -22,14 +23,17 @@ if (mode === "--generate") {
   writeReport(report);
   console.log(`wrote ${relativeRepo(resultsPath)}`);
   console.log(`wrote ${relativeRepo(reviewCsvPath)}`);
+  console.log(`wrote ${relativeRepo(chartWorkdownCsvPath)}`);
   console.log(`wrote ${relativeRepo(summaryPath)}`);
 } else if (mode === "--verify") {
   const report = buildReport();
   check(existsSync(resultsPath), "missing external scan results; run npm run external-scan");
   check(existsSync(reviewCsvPath), "missing external scan review; run npm run external-scan");
+  check(existsSync(chartWorkdownCsvPath), "missing external scan chart workdown; run npm run external-scan");
   check(existsSync(summaryPath), "missing external scan summary; run npm run external-scan");
   check(readFileSync(resultsPath, "utf8") === report.resultsJson, "external scan results are stale");
   check(readFileSync(reviewCsvPath, "utf8") === report.csv, "external scan review CSV is stale");
+  check(readFileSync(chartWorkdownCsvPath, "utf8") === report.chartWorkdownCsv, "external scan chart workdown CSV is stale");
   check(readFileSync(summaryPath, "utf8") === report.summary, "external scan summary is stale");
   console.log("verified external scan lane outputs");
 } else {
@@ -62,6 +66,7 @@ function buildReport() {
     summary,
     resultsJson: `${JSON.stringify({ generatedBy: "scripts/run-external-scan-lane.mjs", summary, rows }, null, 2)}\n`,
     csv: toCsv(rows),
+    chartWorkdownCsv: chartWorkdownCsv(rows),
     summary: toSummary(summary, rows),
   };
 }
@@ -170,6 +175,10 @@ function toSummary(summary, rows) {
   const topChecks = Object.entries(byCheck)
     .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
     .slice(0, 12);
+  const chartWorkdown = chartWorkdownRows(rows);
+  const closestProductionRows = chartWorkdown
+    .filter((row) => row.chart === "bitnami/nginx" || row.priority === "high")
+    .slice(0, 10);
   return `# External Scan Lane
 
 This lane runs a market-standard rendered-manifest scanner against the exact
@@ -203,6 +212,16 @@ total findings: ${summary.totalFindings}
 | --- | ---: |
 ${topChecks.map(([checkName, count]) => `| \`${checkName}\` | ${count} |`).join("\n")}
 
+## Chart Workdown
+
+The chart workdown groups variant findings into the next production action.
+Use it with [production-disposition](../production-disposition/summary.md)
+when closing \`scan/gate warning disposition\`.
+
+| Chart | Variants | Findings | Priority | Top checks | Next action |
+| --- | ---: | ---: | --- | --- | --- |
+${closestProductionRows.map((row) => `| \`${row.chart}@${row.version}\` | ${row.variantCount} | ${row.findingCount} | ${row.priority} | ${row.topChecks} | ${row.nextAction} |`).join("\n")}
+
 ## Interpretation
 
 \`warn\` means the external scanner found issues that must receive a production
@@ -215,7 +234,80 @@ would publish or install.
 function writeReport(report) {
   write(resultsPath, report.resultsJson);
   write(reviewCsvPath, report.csv);
+  write(chartWorkdownCsvPath, report.chartWorkdownCsv);
   write(summaryPath, report.summary);
+}
+
+function chartWorkdownCsv(rows) {
+  const workdown = chartWorkdownRows(rows);
+  const headers = ["chart", "version", "variantCount", "findingCount", "priority", "topChecks", "nextAction", "variants"];
+  return `${[headers.join(","), ...workdown.map((row) => headers.map((header) => csvEscape(row[header])).join(","))].join("\n")}\n`;
+}
+
+function chartWorkdownRows(rows) {
+  const grouped = new Map();
+  for (const row of rows) {
+    const key = `${row.chart}\u0000${row.version}`;
+    if (!grouped.has(key)) {
+      grouped.set(key, {
+        chart: row.chart,
+        version: row.version,
+        variants: [],
+        checks: {},
+        findingCount: 0,
+      });
+    }
+    const item = grouped.get(key);
+    item.variants.push(row.variant);
+    item.findingCount += row.findingCount;
+    for (const [checkName, count] of Object.entries(row.checkCounts)) {
+      item.checks[checkName] = (item.checks[checkName] ?? 0) + count;
+    }
+  }
+  return [...grouped.values()]
+    .map((row) => {
+      const topChecks = Object.entries(row.checks)
+        .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
+        .map(([name, count]) => `${name}:${count}`)
+        .join(";");
+      return {
+        chart: row.chart,
+        version: row.version,
+        variantCount: new Set(row.variants).size,
+        variants: [...new Set(row.variants)].sort().join(";"),
+        findingCount: row.findingCount,
+        priority: scanPriority(row.checks),
+        topChecks,
+        nextAction: scanNextAction(row.checks),
+      };
+    })
+    .sort((left, right) => priorityRank(left.priority) - priorityRank(right.priority) || right.findingCount - left.findingCount || left.chart.localeCompare(right.chart));
+}
+
+function scanPriority(checks) {
+  if (checks["latest-tag"] || checks["privileged-container"] || checks["privilege-escalation-container"] || checks["sensitive-host-mounts"]) {
+    return "high";
+  }
+  if (checks["dangling-service"] || checks["run-as-non-root"] || checks["no-read-only-root-fs"]) return "medium";
+  return "standard";
+}
+
+function priorityRank(priority) {
+  return { high: 0, medium: 1, standard: 2 }[priority] ?? 3;
+}
+
+function scanNextAction(checks) {
+  const actions = [];
+  if (checks["latest-tag"]) actions.push("pin image tag or digest in the installer base");
+  if (checks["privileged-container"] || checks["privilege-escalation-container"] || checks["sensitive-host-mounts"]) {
+    actions.push("record security acceptance or create a hardened base");
+  }
+  if (checks["dangling-service"]) actions.push("review service selectors and runtime endpoints");
+  if (checks["pdb-unhealthy-pod-eviction-policy"]) actions.push("accept PDB behavior or add a reviewed patch where the chart supports it");
+  if (checks["unset-cpu-requirements"] || checks["unset-memory-requirements"]) actions.push("add production resource policy or accept chart defaults for local-test only");
+  if (checks["no-read-only-root-fs"] || checks["run-as-non-root"]) actions.push("review pod security posture for the production target");
+  if (checks["liveness-port"] || checks["readiness-port"] || checks["startup-port"]) actions.push("review probe port wiring");
+  return actions.length ? actions.join("; ") : "record explicit scan/gate disposition";
 }
 
 function valueFor(row, header) {

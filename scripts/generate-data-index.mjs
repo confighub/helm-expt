@@ -63,6 +63,7 @@ function readme(rows) {
     ["data/lifecycle-boundary/summary.md", "Hook and hook-like lifecycle boundary: hook queue rows, lifecycle observations, evidence, and current limits."],
     ["data/live-kind-parity/summary.md", "Two-cluster live parity: regular Helm in one vanilla kind cluster and cub installer output in another."],
     ["data/production-disposition/summary.md", "Production support boundary for top-20 catalog charts: accepted dispositions, open blockers, and next actions."],
+    ["data/external-scan-lane/chart-workdown.csv", "Chart-level scan/gate workdown: grouped scanner findings, priority, and next action before production disposition."],
     ["data/pain-point-coverage/summary.md", "General Helm pain point coverage: current answers, handoffs, evidence, gaps, and next actions."],
     ["data/top100-readiness/summary.md", "Top-100 readiness: one chart-by-chart answer for adoption bucket, strongest evidence, hard gap, next action, and first work queues."],
     ["data/top500-catalog-analysis/review.csv", "Top-500 evidence map: retained source-scan rows joined to current recipe proof, catalog status, version drift, source features, and next action."],
@@ -157,6 +158,7 @@ function audienceFor(path) {
   if (path.startsWith("data/quirk-coverage/")) return "user/front-door";
   if (path.startsWith("data/extension-slots/")) return "user/front-door";
   if (path.startsWith("data/production-disposition/")) return "user/front-door";
+  if (path === "data/external-scan-lane/chart-workdown.csv") return "user/front-door";
   if (path.startsWith("data/nginx-config-checks/")) return "verification";
   if (path.startsWith("data/lifecycle-boundary/")) return "user/front-door";
   if (path.startsWith("data/high-fanout-demo/")) return "user/front-door";
@@ -184,6 +186,7 @@ function roleFor(path) {
   if (path === "data/extension-slots/extension-slots.csv") return "one row per chart with NGINX-like extension slots and the route for populated slots";
   if (path === "data/nginx-config-checks/checks.csv") return "NGINX supported-base checks for config extension slots and rendered object shape";
   if (path === "data/lifecycle-boundary/lifecycle-boundary.csv") return "one row per hook queue item or hook-like lifecycle observation";
+  if (path === "data/external-scan-lane/chart-workdown.csv") return "one row per chart: external scan findings grouped into priority and next production action";
   if (path === "data/high-fanout-demo/prometheus-kps.csv") return "Prometheus/kube-prometheus-stack high-fanout base-variant example";
   if (path.endsWith("variant-lanes.csv")) return "row-level proof lane matrix";
   if (path.endsWith("chart-facts.csv")) return "chart facts and hard gaps";
