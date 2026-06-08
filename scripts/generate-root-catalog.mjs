@@ -24,7 +24,8 @@ if (mode === "--generate") {
 }
 
 function buildMarkdown() {
-  const entries = artifactIndexes().map(buildEntry);
+  const readinessByKey = top20BaseReadinessByKey();
+  const entries = artifactIndexes().map((indexPath) => buildEntry(indexPath, readinessByKey));
   const byChart = new Map(entries.map((entry) => [entry.chart, entry]));
   const liveTested = TOP20_CONFIGHUB_PROOF_CHARTS.map((chart) => byChart.get(chart.chart)).filter(Boolean);
   const remaining = entries.filter((entry) => !liveTested.some((live) => live.chart === entry.chart));
@@ -85,10 +86,15 @@ function buildMarkdown() {
     "",
     "For exact base-variant readiness, including prerequisites and runtime",
     "review rows, see [Top-20 Base Variant Readiness](data/top20-base-readiness/summary.md).",
+    "The `Start Base Status` column uses the same generated readiness labels.",
     "",
     "### At A Glance",
     "",
     liveTestedTable(liveTested),
+    "",
+    "### Start Base Status Labels",
+    "",
+    readinessLabelTable(),
     "",
     "### Chart Details",
     "",
@@ -112,14 +118,19 @@ function artifactIndexes() {
     .sort();
 }
 
-function buildEntry(indexPath) {
+function buildEntry(indexPath, readinessByKey) {
   const index = readYaml(indexPath);
   const spec = index.spec ?? {};
-  const variants = spec.variants ?? [];
+  const chart = spec.chart?.ref ?? index.metadata?.chart ?? "";
+  const version = spec.chart?.version ?? index.metadata?.version ?? "";
+  const variants = (spec.variants ?? []).map((variant) => ({
+    ...variant,
+    readiness: readinessByKey.get(`${chart}@${version}|${variant.name}`),
+  }));
   const startVariant = variants.find((variant) => variant.packageBase?.default) ?? variants[0];
   return {
-    chart: spec.chart?.ref ?? index.metadata?.chart ?? "",
-    version: spec.chart?.version ?? index.metadata?.version ?? "",
+    chart,
+    version,
     namespace: startVariant?.namespace ?? "",
     releaseName: startVariant?.releaseName ?? "",
     catalog: relativeRepo(join(dirname(indexPath), "CATALOG.md")),
@@ -131,6 +142,7 @@ function buildEntry(indexPath) {
     productionReadiness: spec.catalogStatus?.productionReadiness ?? "",
     proofSummary: spec.proofSummary ?? {},
     startVariant: startVariant?.name ?? "",
+    startReadiness: startVariant?.readiness?.user_readiness ?? "",
     variants,
   };
 }
@@ -141,6 +153,7 @@ function chartSection(entry) {
     "",
     `Status: ${entry.status}`,
     `Production readiness: ${entry.productionReadiness}`,
+    `Start base readiness: ${entry.startReadiness || "-"}`,
     `Strongest evidence: ${entry.proofSummary.strongestEvidence || "see per-chart catalog"}`,
     `Proof lanes: ${proofLaneText(entry.proofSummary.proofLanes)}`,
     `Hard gap: ${entry.proofSummary.hardGap || "-"}`,
@@ -171,6 +184,7 @@ function variantSection(variant, startVariant) {
     `##### ${variant.name}${isStart ? " (recommended first)" : ""}`,
     "",
     `When to use: ${variant.packageBase?.description ?? "see per-chart catalog"}`,
+    `Readiness: ${variant.readiness?.user_readiness ?? "see status dashboard"}`,
     `Namespace: ${variant.namespace}`,
     `Target facts: ${variant.targetFactSummary || "none"}`,
     `Package base: ${link(variant.packageBase?.path ?? "", variant.packageBase?.path ?? "")}`,
@@ -184,10 +198,11 @@ function variantSection(variant, startVariant) {
 
 function liveTestedTable(entries) {
   return markdownTable(
-    ["Chart", "Start With", "Evidence", "Hard Gap", "Variants", "Package", "Catalog"],
+    ["Chart", "Start With", "Start Base Status", "Evidence", "Hard Gap", "Variants", "Package", "Catalog"],
     entries.map((entry) => [
       `${entry.chart}@${entry.version}`,
       entry.startVariant,
+      entry.startReadiness || "-",
       entry.proofSummary.strongestEvidence || "-",
       entry.proofSummary.hardGap || "-",
       entry.variants.map((variant) => variant.name).join(", "),
@@ -195,6 +210,70 @@ function liveTestedTable(entries) {
       link("CATALOG.md", entry.catalog),
     ]),
   );
+}
+
+function readinessLabelTable() {
+  return markdownTable(
+    ["Status", "Meaning"],
+    [
+      ["start-here", "Best first catalog path today for the declared scope."],
+      ["try-with-proof", "Useful base with proof, but not every lane is complete."],
+      ["lifecycle-observed", "Lifecycle behavior has a committed observation receipt."],
+      ["prerequisite-observed", "Target prerequisites are explicit and have observation evidence."],
+      ["runtime-watch", "Render/parity evidence exists, but runtime behavior needs review or rerun."],
+      ["runtime-review-needed", "Runtime readiness needs inspection before broader claims."],
+      ["target-prerequisite-needed", "The target must provide a prerequisite such as CRDs, Secrets, or storage."],
+    ],
+  );
+}
+
+function top20BaseReadinessByKey() {
+  const path = join(repoRoot, "data", "top20-base-readiness", "base-readiness.csv");
+  if (!existsSync(path)) return new Map();
+  return new Map(readCsv(path).map((row) => [`${row.chart}|${row.base}`, row]));
+}
+
+function readCsv(path) {
+  return parseCsv(readFileSync(path, "utf8"));
+}
+
+function parseCsv(text) {
+  const rows = [];
+  let row = [];
+  let field = "";
+  let quoted = false;
+  for (let i = 0; i < text.length; i += 1) {
+    const char = text[i];
+    const next = text[i + 1];
+    if (quoted) {
+      if (char === '"' && next === '"') {
+        field += '"';
+        i += 1;
+      } else if (char === '"') {
+        quoted = false;
+      } else {
+        field += char;
+      }
+    } else if (char === '"') {
+      quoted = true;
+    } else if (char === ",") {
+      row.push(field);
+      field = "";
+    } else if (char === "\n") {
+      row.push(field);
+      rows.push(row);
+      row = [];
+      field = "";
+    } else if (char !== "\r") {
+      field += char;
+    }
+  }
+  if (field || row.length) {
+    row.push(field);
+    rows.push(row);
+  }
+  const [headers, ...body] = rows.filter((item) => item.some((fieldValue) => fieldValue !== ""));
+  return body.map((item) => Object.fromEntries(headers.map((header, index) => [header, item[index] ?? ""])));
 }
 
 function entrylessCatalogPath(variantPath) {
