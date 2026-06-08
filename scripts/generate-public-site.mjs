@@ -16,6 +16,7 @@ const nextTenGapsPath = join(repoRoot, "data", "next-ten-waves", "gap-review-wav
 const statusDashboardPath = join(repoRoot, "data", "status-dashboard", "status.csv");
 const baseReadinessPath = join(repoRoot, "data", "top20-base-readiness", "base-readiness.csv");
 const extensionSlotsPath = join(repoRoot, "data", "extension-slots", "extension-slots.csv");
+const top100ReadinessPath = join(repoRoot, "data", "top100-readiness", "readiness.csv");
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -49,6 +50,7 @@ function buildSite() {
   const statusMetrics = parseCsv(readFileSync(statusDashboardPath, "utf8"));
   const baseReadiness = parseCsv(readFileSync(baseReadinessPath, "utf8"));
   const extensionSlots = parseCsv(readFileSync(extensionSlotsPath, "utf8"));
+  const top100Readiness = parseCsv(readFileSync(top100ReadinessPath, "utf8"));
   const catalogEntries = top100.entries.filter((entry) => entry.proof_surface === "top20-catalog-supported");
   const proofGrade = top100.entries.filter((entry) => entry.proof_surface === "next80-proof-grade");
   const latestCandidates = readiness.map((row) => ({
@@ -70,6 +72,7 @@ function buildSite() {
       statusDashboard: "data/status-dashboard/status.csv",
       baseReadiness: "data/top20-base-readiness/base-readiness.csv",
       extensionSlots: "data/extension-slots/extension-slots.csv",
+      top100Readiness: "data/top100-readiness/readiness.csv",
     },
     commandRoutes: commandRoutes(),
     summary: {
@@ -85,6 +88,9 @@ function buildSite() {
       startHereBaseVariants: baseReadiness.filter((row) => row.user_readiness === "start-here").length,
       top20ChartsWithExtensionSlots: extensionSlots.filter((row) => row.catalog_scope === "top20-catalog").length,
       top100ChartsWithExtensionSlots: extensionSlots.length,
+      top100ChartsWithLiveEvidence: top100Readiness.filter((row) =>
+        ["live-helm-vs-confighub-parity", "gitops-oci-live", "local-kubernetes-live"].includes(row.strongest_evidence),
+      ).length,
     },
     statusMetrics,
     catalogEntries,
@@ -92,6 +98,7 @@ function buildSite() {
     latestCandidates,
     baseReadiness,
     extensionSlots,
+    top100Readiness,
   };
   return {
     catalogJson: `${JSON.stringify(catalog, null, 2)}\n`,
@@ -134,6 +141,13 @@ function html(catalog) {
   const top20ExtensionRows = catalog.extensionSlots
     .filter((row) => row.catalog_scope === "top20-catalog")
     .map((row) => [row.chart, row.surfaces, row.current_route]);
+  const top100AdoptionCounts = countBy(catalog.top100Readiness, "adoption_bucket");
+  const top100ReadinessRows = [
+    ["try-from-public-catalog", "Use the catalog entry, then check exact base status before broad claims."],
+    ["promote-after-review", "Recipe/package proof and multiple variants exist; choose candidates for catalog review and live lanes."],
+    ["needs-useful-variant", "The mechanism works, but the chart needs realistic user-shaped bases before it is a good offer."],
+    ["limitation-decision-first", "A named capability gap needs a support, disclosure, or defer decision before promotion."],
+  ].map(([bucket, meaning]) => [bucket, top100AdoptionCounts[bucket] ?? 0, meaning]);
   const stages = [
     ["1. Acquire and pin", "Lock chart source, dependencies, digests, and provenance."],
     ["2. Render and capture", "Run Helm under recorded inputs and prove render parity with cub installer."],
@@ -258,6 +272,22 @@ function html(catalog) {
         ...statusRows.map((row) => [row.metric, metricValue(row), row.status]),
       ])}
       <p><a href="../data/status-dashboard/summary.md">Open the full status dashboard</a>.</p>
+    </section>
+
+    <section aria-labelledby="top100-readiness">
+      <h2 id="top100-readiness">Top-100 Readiness</h2>
+      <p>The top-100 corpus is not one claim. It separates public catalog entries, promotion candidates, charts that need better user-shaped bases, and charts that need a limitation decision before promotion.</p>
+      <div class="grid">
+        <div class="metric"><strong>${escapeHtml(catalog.summary.top100ChartsWithLiveEvidence)}/100</strong><span>Charts with live evidence</span></div>
+        <div class="metric"><strong>${escapeHtml(top100AdoptionCounts["try-from-public-catalog"] ?? 0)}/100</strong><span>Public catalog entries</span></div>
+        <div class="metric"><strong>${escapeHtml(top100AdoptionCounts["promote-after-review"] ?? 0)}/100</strong><span>Promotion-review candidates</span></div>
+        <div class="metric"><strong>${escapeHtml(top100AdoptionCounts["needs-useful-variant"] ?? 0)}/100</strong><span>Need useful variants</span></div>
+      </div>
+      ${markdownLikeTable([
+        ["Bucket", "Charts", "Meaning"],
+        ...top100ReadinessRows,
+      ])}
+      <p><a href="../data/top100-readiness/summary.md">Open the full top-100 readiness report</a>.</p>
     </section>
 
     <section aria-labelledby="base-readiness">
@@ -448,6 +478,7 @@ Data source:
 - \`data/status-dashboard/status.csv\`
 - \`data/top20-base-readiness/base-readiness.csv\`
 - \`data/extension-slots/extension-slots.csv\`
+- \`data/top100-readiness/readiness.csv\`
 - \`docs/user/choosing-commands.md\`
 - \`data/variant-goldens/redis-prod-us-east/\`
 - \`data/managed-overlay-goldens/external-dns-customer-acme-prod/\`

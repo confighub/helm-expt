@@ -138,6 +138,27 @@
       <p><a href="../data/status-dashboard/summary.md">Open the full status dashboard</a>.</p>
     </section>
 
+    <section aria-labelledby="top100-readiness">
+      <h2 id="top100-readiness">Top-100 Readiness</h2>
+      <p>The top-100 corpus is not one claim. It separates public catalog entries, promotion candidates, charts that need better user-shaped bases, and charts that need a limitation decision before promotion.</p>
+      <div class="grid">
+        <div class="metric"><strong>20/100</strong><span>Charts with live evidence</span></div>
+        <div class="metric"><strong>20/100</strong><span>Public catalog entries</span></div>
+        <div class="metric"><strong>27/100</strong><span>Promotion-review candidates</span></div>
+        <div class="metric"><strong>46/100</strong><span>Need useful variants</span></div>
+      </div>
+      <div class="card"><table>
+        <thead><tr><th>Bucket</th><th>Charts</th><th>Meaning</th></tr></thead>
+        <tbody><tr><td>try-from-public-catalog</td><td>20</td><td>Use the catalog entry, then check exact base status before broad claims.</td></tr><tr><td>promote-after-review</td><td>27</td><td>Recipe/package proof and multiple variants exist; choose candidates for catalog review and live lanes.</td></tr><tr><td>needs-useful-variant</td><td>46</td><td>The mechanism works, but the chart needs realistic user-shaped bases before it is a good offer.</td></tr><tr><td>limitation-decision-first</td><td>7</td><td>A named capability gap needs a support, disclosure, or defer decision before promotion.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><a href="../data/top100-readiness/summary.md">Open the full top-100 readiness report</a>.</p>
+    </section>
+
     <section aria-labelledby="base-readiness">
       <h2 id="base-readiness">Which Base Should I Start With?</h2>
       <p>Each catalog chart has named base variants. The table below shows the recommended first base for each top-20 chart and whether that base is ready as a clean first path, needs extra proof, or needs runtime/prerequisite review.</p>
