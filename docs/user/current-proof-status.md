@@ -75,8 +75,8 @@ Current aggregate status:
 helm_template_vs_installer_setup:        156 pass, 0 missing
 confighub_upload_variant_scan_safe_ops:   18 pass, 138 missing
 local_kind_kubectl_apply:                 21 pass, 135 missing
-confighub_oci_argo_live:                  14 pass, 8 watch, 4 blocked, 130 missing
-live_helm_vs_confighub_dual_compare:      12 pass, 7 watch, 1 blocked, 136 missing
+confighub_oci_argo_live:                  17 pass, 5 watch, 4 blocked, 130 missing
+live_helm_vs_confighub_dual_compare:      15 pass, 5 watch, 0 blocked, 136 missing
 ```
 
 Those counts come from the generated lane matrix:
@@ -98,11 +98,13 @@ Live Helm-vs-ConfigHub parity has started:
 
 - The selected top-20 live comparison lane has committed receipts for all 20
   rows.
-- 12 rows pass, 7 rows are watch, and 1 row is blocked.
-- The blocked row is the Argo CD chart under a fixture where the live rig
-  already installed Argo CD CRDs for the OCI controller.
-- The watch rows are useful target/runtime findings, such as LoadBalancer,
-  storage, sealed-service, controller-readiness, or GitOps sync conditions.
+- 15 rows pass, 5 rows are watch, and no rows are blocked.
+- A `watch` row means semantic object parity passed, but the live target still
+  has a runtime, storage, controller-health, initialization, or operating-policy
+  condition to review.
+- The current watch rows are ingress-nginx `admission-disabled`, Argo CD
+  `default`, kube-prometheus-stack `default`, Vault `default`, and Tempo
+  `local-persistent`.
 - The comparison checks regular Helm against ConfigHub delivery and records the
   expected installer-added Namespace object and any semantic object diffs.
 - Exact chart/base status is in the generated summary:

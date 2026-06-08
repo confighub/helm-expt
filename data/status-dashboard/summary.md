@@ -36,10 +36,10 @@ Which detailed CSV should I open next?
 | live evidence | two-cluster kind parity receipts | 40/40 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | live evidence | ConfigHub/OCI semantic parity defect receipts | 0/20 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 0/40 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| quirks | tracked-and-surfaced axes | 8/25 | good | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
-| quirks | partly tracked axes | 3/25 | partial | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
-| quirks | source-scanned but not surfaced axes | 5/25 | gap | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
-| quirks | not-scanned axes | 6/25 | gap | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
+| quirks | tracked-and-surfaced axes | 9/26 | good | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
+| quirks | partly tracked axes | 3/26 | partial | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
+| quirks | source-scanned but not surfaced axes | 5/26 | gap | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
+| quirks | not-scanned axes | 6/26 | gap | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
 | hooks | top100 maintained hook charts | 5/5 | partial | [data/hook-lifecycle/top100-hooks.csv](../../data/hook-lifecycle/top100-hooks.csv) |
 | hooks | hook lifecycle receipts present | 0/5 | gap | [data/hook-lifecycle/top100-hooks.csv](../../data/hook-lifecycle/top100-hooks.csv) |
 | hooks | related lifecycle observation receipts passing | 4/4 | good | [data/lifecycle-observations/cert-manager-eso/summary.csv](../../data/lifecycle-observations/cert-manager-eso/summary.csv) |
@@ -183,7 +183,7 @@ target-bound receipts are in
 
 | Quirk coverage tier | Axes |
 | --- | ---: |
-| tracked-and-surfaced | 8 |
+| tracked-and-surfaced | 9 |
 | not-scanned | 6 |
 | source-scanned-not-surfaced | 5 |
 | partly-tracked | 3 |

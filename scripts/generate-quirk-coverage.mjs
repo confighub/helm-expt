@@ -37,9 +37,16 @@ function buildReport() {
   const hookRows = parseCsvFile("data/hook-lifecycle/top100-hooks.csv");
   const rawTop500 = loadRawTop500();
   const top100Refs = new Set(top100.map((row) => normRef(row.chart)));
+  const top20Refs = new Set(top100.filter((row) => row.proof_surface === "top20-catalog-supported").map((row) => normRef(row.chart)));
   const rawTop100 = rawTop500.filter((row) => top100Refs.has(normRef(row.chart ?? row.name ?? "")));
   const deps = dependencyFacts();
   const receipts = renderReceiptFacts();
+  const explicitExtensionSlots = {
+    top20: chartFactCountForRefs(chartFacts, "extension_slots", top20Refs),
+    top100: chartFactCountForRefs(chartFacts, "extension_slots", top100Refs),
+    matchedTop500ProofRows: top500ProofExtensionSlotCount(),
+    sourceTpl: sourceFieldCount(rawTop500, "tpl"),
+  };
 
   const rows = [
     axis("lookup-target-facts", "tracked-and-surfaced", sourceFeatureCount(top100, "lookup"), sourceFieldCount(rawTop500, "lookup"), "data/top100-catalog-analysis/review.csv;recipes/*/*/*/control-points.yaml", "lookup is surfaced as a control point and routed to target facts or explicit variant policy.", "Target-fact enforcement is stronger for selected charts than for every top-100 row.", "Promote target-fact requirements into installer-native preflight where the package model supports it."),
@@ -59,6 +66,7 @@ function buildReport() {
     axis("required-or-fail", "tracked-and-surfaced", chartFactCount(chartFacts, "required_values"), sourceFieldCount(rawTop500, "requiredOrFail"), "data/chart-facts/chart-facts.csv", "Helm required/fail checks are surfaced as mandatory input risk.", "Not every required value has a typed user prompt.", "Use values schema or explicit placeholder units for required inputs."),
     axis("values-schema", "tracked-and-surfaced", chartFactCount(chartFacts, "values_schema"), sourceFieldCount(rawTop500, "valuesSchema"), "data/chart-facts/chart-facts.csv", "values.schema.json is surfaced as an input contract.", "Schemas are not yet centralized in a ConfigHub schema registry.", "Keep schema references with recipe/package artifacts and map to ConfigHub schema registry later."),
     axis("tpl-extension-slots", "tracked-and-surfaced", chartFactCount(chartFacts, "extension_slots"), sourceFieldCount(rawTop500, "tpl"), "data/chart-facts/chart-facts.csv;recipes/*/*/*/helm-pain-report.yaml", "tpl and extension slots are disclosed and reviewed per chart.", "Per-field provenance for arbitrary tpl content is not complete.", "Keep unsupported or unbounded tpl paths as explicit extension-slot decisions."),
+    axis("explicit-extension-slot-control-points", "tracked-and-surfaced", explicitExtensionSlots.top100, explicitExtensionSlots.matchedTop500ProofRows, "data/chart-facts/chart-facts.csv;recipes/*/*/*/control-points.yaml;recipes/*/*/*/helm-pain-report.yaml", "NGINX-like extension surfaces are promoted into per-chart control points or pain reports when recipes exist.", "The top-500 count here only covers rows matched to current package proofs; the broader source scan sees tpl use separately.", "Keep extension slots explicit in chart facts, recipe control points, scan/gate findings, and user-facing variant decisions."),
     axis("semver-compare", "source-scanned-not-surfaced", sourceFieldCount(rawTop100, "semverCompare"), sourceFieldCount(rawTop500, "semverCompare"), "data/top500-catalog-analysis/source/source-feature-scan.raw.json", "The source scanner records semverCompare use.", "It is not yet promoted to chart facts or variant-path coverage.", "Promote semverCompare into chart facts and link it to source/version refresh review."),
     axis("files-get", "source-scanned-not-surfaced", sourceFieldCount(rawTop100, "filesGet"), sourceFieldCount(rawTop500, "filesGet"), "data/top500-catalog-analysis/source/source-feature-scan.raw.json", "The source scanner records .Files.Get usage.", "Bundled-file content can affect rendered config without appearing in values.", "Promote .Files.Get into chart facts and source-lock evidence."),
     axis("time-uuid-functions", "source-scanned-not-surfaced", sourceFieldCount(rawTop100, "timeUuidFuncs"), sourceFieldCount(rawTop500, "timeUuidFuncs"), "data/top500-catalog-analysis/source/source-feature-scan.raw.json", "The source scanner records time and UUID functions.", "These are distinct from secret generation and should be a separate nondeterminism axis.", "Promote time/UUID functions into chart facts and generated-fact policy."),
@@ -72,7 +80,7 @@ function buildReport() {
   return {
     rows,
     csv: toCsv(rows),
-    summary: summary(rows),
+    summary: summary(rows, explicitExtensionSlots),
   };
 }
 
@@ -89,7 +97,7 @@ function axis(axisName, coverageTier, top100Count, top500Count, evidence, curren
   };
 }
 
-function summary(rows) {
+function summary(rows, explicitExtensionSlots) {
   const counts = countBy(rows, (row) => row.coverage_tier);
   const byTier = [...counts.entries()].map(([tier, count]) => `| \`${tier}\` | ${count} | ${tierMeaning(tier)} |`).join("\n");
   const table = rows.map((row) => `| \`${row.axis}\` | \`${row.coverage_tier}\` | ${row.top100_count} | ${row.top500_count} | ${escapePipes(row.remaining_gap)} |`).join("\n");
@@ -103,6 +111,20 @@ source-scanned only, or not scanned. It is a coverage map, not a support claim.
 | Coverage tier | Axes | Meaning |
 | --- | ---: | --- |
 ${byTier}
+
+## High-Value Counts
+
+The NGINX chart exposes concrete extension slots such as \`serverBlock\`,
+\`streamServerBlock\`, and \`extraDeploy\`. The broader catalog has many similar
+surfaces: raw manifests, sidecars, extra config blocks, templated snippets, and
+add-on slots.
+
+~~~text
+explicit extension-slot control points in top-20 catalog: ${explicitExtensionSlots.top20}/20
+extension slots surfaced in current top-100 chart facts: ${explicitExtensionSlots.top100}/100
+matched top-500 proof rows with extension slots: ${explicitExtensionSlots.matchedTop500ProofRows}
+top-500 source rows using tpl: ${explicitExtensionSlots.sourceTpl}/500
+~~~
 
 ## Axes
 
@@ -212,6 +234,16 @@ function fieldCount(value) {
 
 function chartFactCount(rows, field) {
   return rows.filter((row) => truthyFact(row[field])).length;
+}
+
+function chartFactCountForRefs(rows, field, refs) {
+  return rows.filter((row) => refs.has(normRef(row.chart)) && truthyFact(row[field])).length;
+}
+
+function top500ProofExtensionSlotCount() {
+  const path = join(repoRoot, "data", "top500-catalog-analysis", "drilldown.csv");
+  if (!existsSync(path)) return 0;
+  return parseCsv(readFileSync(path, "utf8")).filter((row) => row.proof_has_extension_slots === "true").length;
 }
 
 function truthyFact(value) {

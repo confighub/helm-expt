@@ -18,10 +18,10 @@ live evidence,live Helm-vs-ConfigHub receipts,20,20,partial,data/live-helm-confi
 live evidence,two-cluster kind parity receipts,40,40,partial,data/live-kind-parity/summary.csv,"Committed two-cluster parity receipts for the top-20 base variants, including pass and non-pass results."
 live evidence,ConfigHub/OCI semantic parity defect receipts,0,20,good,data/live-helm-confighub-compare/summary.csv,Rows whose committed receipt currently points at a semantic object comparison defect.
 live evidence,two-cluster semantic parity defect receipts,0,40,good,data/live-kind-parity/summary.csv,Rows whose committed two-cluster receipt currently points at a semantic object comparison defect.
-quirks,tracked-and-surfaced axes,8,25,good,data/quirk-coverage/coverage.csv,Quirk axes visible in generated chart or user data.
-quirks,partly tracked axes,3,25,partial,data/quirk-coverage/coverage.csv,Visible quirk axes that still need lifecycle or proof coverage.
-quirks,source-scanned but not surfaced axes,5,25,gap,data/quirk-coverage/coverage.csv,Detected in source scan but not promoted to front-door chart facts.
-quirks,not-scanned axes,6,25,gap,data/quirk-coverage/coverage.csv,Known blind spots in the scanner/data model.
+quirks,tracked-and-surfaced axes,9,26,good,data/quirk-coverage/coverage.csv,Quirk axes visible in generated chart or user data.
+quirks,partly tracked axes,3,26,partial,data/quirk-coverage/coverage.csv,Visible quirk axes that still need lifecycle or proof coverage.
+quirks,source-scanned but not surfaced axes,5,26,gap,data/quirk-coverage/coverage.csv,Detected in source scan but not promoted to front-door chart facts.
+quirks,not-scanned axes,6,26,gap,data/quirk-coverage/coverage.csv,Known blind spots in the scanner/data model.
 hooks,top100 maintained hook charts,5,5,partial,data/hook-lifecycle/top100-hooks.csv,Hook-bearing maintained charts with required lifecycle receipt paths.
 hooks,hook lifecycle receipts present,0,5,gap,data/hook-lifecycle/top100-hooks.csv,Current hook rows still need lifecycle route and receipt work.
 hooks,related lifecycle observation receipts passing,4,4,good,data/lifecycle-observations/cert-manager-eso/summary.csv,Cert-manager and External Secrets receipts for CRD/webhook/controller behavior that rendered YAML alone cannot prove.

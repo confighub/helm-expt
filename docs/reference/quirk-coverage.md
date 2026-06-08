@@ -26,6 +26,10 @@ Use the audit when adding chart facts, pain reports, variant paths, hook
 lifecycle routes, and top-100/top-500 analysis. A chart can still be usable when
 one of its axes is incomplete, but the incomplete axis should stay visible.
 
+The generated summary also carries the current high-value counts for
+NGINX-like extension slots. These distinguish explicit catalog control points
+from broader source-scan signals such as raw `tpl` usage.
+
 Regenerate and check the audit:
 
 ```sh

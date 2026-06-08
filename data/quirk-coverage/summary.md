@@ -11,8 +11,22 @@ source-scanned only, or not scanned. It is a coverage map, not a support claim.
 | `not-scanned` | 6 | Known blind spot in the current scanner/data model. |
 | `partly-tracked` | 3 | Visible, but missing one or more lifecycle or per-chart proof pieces. |
 | `source-scanned-not-surfaced` | 5 | Detected in source scan but not yet promoted to chart facts or outcome tables. |
-| `tracked-and-surfaced` | 8 | Shown in generated chart/user data and tied to recipe or receipt evidence. |
+| `tracked-and-surfaced` | 9 | Shown in generated chart/user data and tied to recipe or receipt evidence. |
 | `tracked-by-lock-not-front-door` | 2 | Recorded in locks or artifacts but not yet promoted to front-door tables. |
+
+## High-Value Counts
+
+The NGINX chart exposes concrete extension slots such as `serverBlock`,
+`streamServerBlock`, and `extraDeploy`. The broader catalog has many similar
+surfaces: raw manifests, sidecars, extra config blocks, templated snippets, and
+add-on slots.
+
+~~~text
+explicit extension-slot control points in top-20 catalog: 13/20
+extension slots surfaced in current top-100 chart facts: 82/100
+matched top-500 proof rows with extension slots: 53
+top-500 source rows using tpl: 362/500
+~~~
 
 ## Axes
 
@@ -35,6 +49,7 @@ source-scanned only, or not scanned. It is a coverage map, not a support claim.
 | `required-or-fail` | `tracked-and-surfaced` | 33 | 309 | Not every required value has a typed user prompt. |
 | `values-schema` | `tracked-and-surfaced` | 14 | 178 | Schemas are not yet centralized in a ConfigHub schema registry. |
 | `tpl-extension-slots` | `tracked-and-surfaced` | 82 | 362 | Per-field provenance for arbitrary tpl content is not complete. |
+| `explicit-extension-slot-control-points` | `tracked-and-surfaced` | 82 | 53 | The top-500 count here only covers rows matched to current package proofs; the broader source scan sees tpl use separately. |
 | `semver-compare` | `source-scanned-not-surfaced` | 40 | 309 | It is not yet promoted to chart facts or variant-path coverage. |
 | `files-get` | `source-scanned-not-surfaced` | 15 | 129 | Bundled-file content can affect rendered config without appearing in values. |
 | `time-uuid-functions` | `source-scanned-not-surfaced` | 17 | 140 | These are distinct from secret generation and should be a separate nondeterminism axis. |
