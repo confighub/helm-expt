@@ -51,7 +51,8 @@ The CLI surface is unchanged, so every existing `npm run <chart>:*` script and t
 | `argo-cd-proof.mjs` | 245 |
 | `loki-proof.mjs` | 384 |
 | `rabbitmq-proof.mjs` | 262 |
-| `scripts/lib/proof-kit.mjs` (shared, amortized over all migrated charts) | 1005 |
+| `consul-proof.mjs` | 401 |
+| `scripts/lib/proof-kit.mjs` (shared, amortized over all migrated charts) | 1007 |
 
 The original proof scripts were usually around 1,000 lines each. The migrated
 scripts are now chart specs plus chart-specific checks, while the repeated
@@ -145,13 +146,10 @@ longhorn
 argo-cd
 loki
 rabbitmq
-```
-
-Remaining chart proof scripts:
-
-```text
 consul
 ```
+
+All non-Redis top-20 proof scripts now use the shared proof kit.
 
 Redis remains bespoke because it is the first complete proof slice and has
 additional user-install verification helpers.
