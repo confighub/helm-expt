@@ -59,6 +59,7 @@ function buildSite() {
     .map((entry) => ({
       ...entry,
       start_base_readiness: baseReadinessByKey.get(`${entry.chart}@${entry.version}|${entry.start_variant}`)?.user_readiness ?? "",
+      start_command: baseReadinessByKey.get(`${entry.chart}@${entry.version}|${entry.start_variant}`)?.command ?? "",
     }));
   const proofGrade = top100.entries.filter((entry) => entry.proof_surface === "next80-proof-grade");
   const latestCandidates = readiness.map((row) => ({
@@ -150,7 +151,7 @@ function html(catalog) {
   const baseReadinessCounts = countBy(catalog.baseReadiness, "user_readiness");
   const recommendedBaseRows = catalog.baseReadiness
     .filter((row) => row.recommended_first === "yes")
-    .map((row) => [row.chart, row.base, row.user_readiness, row.why]);
+    .map((row) => [row.chart, row.base, row.user_readiness, row.command, row.why]);
   const top20ExtensionRows = catalog.extensionSlots
     .filter((row) => row.catalog_scope === "top20-catalog")
     .map((row) => [row.chart, row.surfaces, row.current_route]);
@@ -362,7 +363,7 @@ function html(catalog) {
         ...baseReadinessLabelRows(),
       ])}
       ${markdownLikeTable([
-        ["Chart", "Recommended base", "Readiness", "Reason"],
+        ["Chart", "Recommended base", "Readiness", "Command", "Reason"],
         ...recommendedBaseRows,
       ])}
       <p><a href="../data/top20-base-readiness/summary.md">Open the full base-readiness table</a>.</p>
@@ -528,6 +529,7 @@ function markdownLikeTable(rows) {
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>`;
 }

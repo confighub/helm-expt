@@ -118,6 +118,7 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p><a href="../docs/user/choosing-commands.md">Open the command-routing guide</a>.</p>
@@ -133,6 +134,7 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p><a href="../data/status-dashboard/summary.md">Open the full status dashboard</a>.</p>
@@ -154,6 +156,7 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p><a href="../data/live-parity-rerun-plan/summary.md">Open the full live parity rerun plan</a>.</p>
@@ -175,6 +178,7 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p><a href="../data/top100-readiness/summary.md">Open the full top-100 readiness report</a>.</p>
@@ -196,6 +200,7 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p><a href="../data/top500-catalog-analysis/summary.md">Open the full top-500 catalog analysis</a>.</p>
@@ -220,15 +225,17 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
       <div class="card"><table>
-        <thead><tr><th>Chart</th><th>Recommended base</th><th>Readiness</th><th>Reason</th></tr></thead>
-        <tbody><tr><td>argo-cd/argo-cd@9.5.15</td><td>default</td><td>runtime-watch</td><td>helm-runtime: upstream not ready (parity passed)</td></tr><tr><td>bitnami/mongodb@19.0.7</td><td>generated-passwords</td><td>start-here</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>bitnami/mysql@14.0.3</td><td>generated-passwords</td><td>start-here</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>bitnami/nginx@24.0.2</td><td>http-clusterip</td><td>start-here</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>bitnami/postgresql@18.6.7</td><td>generated-passwords</td><td>try-with-proof</td><td>render parity and two-cluster live parity pass, but one or more broader lanes are missing</td></tr><tr><td>bitnami/rabbitmq@16.0.14</td><td>generated-passwords</td><td>start-here</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>bitnami/redis@25.5.3</td><td>default</td><td>start-here</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>external-secrets/external-secrets@2.5.0</td><td>default</td><td>start-here</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>grafana/grafana@10.5.15</td><td>generated-passwords</td><td>start-here</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>grafana/loki@7.0.0</td><td>single-binary-filesystem</td><td>start-here</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>grafana/tempo@1.24.4</td><td>local-persistent</td><td>runtime-review-needed</td><td>target-runtime: pods pending (parity passed)</td></tr><tr><td>hashicorp/consul@2.0.0</td><td>default-control-plane</td><td>start-here</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>hashicorp/vault@0.32.0</td><td>default</td><td>runtime-review-needed</td><td>helm-runtime: upstream not ready (parity passed)</td></tr><tr><td>ingress-nginx/ingress-nginx@4.15.1</td><td>default</td><td>runtime-watch</td><td>helm-runtime: upstream not ready (parity passed)</td></tr><tr><td>jetstack/cert-manager@v1.20.2</td><td>default</td><td>lifecycle-observed</td><td>helm-hook: post-install hook failed (parity passed); lifecycle observation passed</td></tr><tr><td>longhorn/longhorn@1.11.2</td><td>default</td><td>start-here</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>metrics-server/metrics-server@3.13.0</td><td>default</td><td>try-with-proof</td><td>render parity and two-cluster live parity pass, but one or more broader lanes are missing</td></tr><tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>default</td><td>runtime-watch</td><td>helm-runtime: upstream not ready (parity passed)</td></tr><tr><td>prometheus-community/prometheus@29.8.0</td><td>default</td><td>try-with-proof</td><td>render parity and two-cluster live parity pass, but one or more broader lanes are missing</td></tr><tr><td>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</td><td>default</td><td>start-here</td><td>all core lanes plus two-cluster parity pass for this base</td></tr></tbody>
+        <thead><tr><th>Chart</th><th>Recommended base</th><th>Readiness</th><th>Command</th><th>Reason</th></tr></thead>
+        <tbody><tr><td>argo-cd/argo-cd@9.5.15</td><td>default</td><td>runtime-watch</td><td>cub installer setup --pull packages/argo-cd/argo-cd/9.5.15 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace argocd</td><td>helm-runtime: upstream not ready (parity passed)</td></tr><tr><td>bitnami/mongodb@19.0.7</td><td>generated-passwords</td><td>start-here</td><td>cub installer setup --pull packages/bitnami/mongodb/19.0.7 --base generated-passwords --work-dir &lt;tmp&gt; --non-interactive --namespace mongodb</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>bitnami/mysql@14.0.3</td><td>generated-passwords</td><td>start-here</td><td>cub installer setup --pull packages/bitnami/mysql/14.0.3 --base generated-passwords --work-dir &lt;tmp&gt; --non-interactive --namespace mysql</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>bitnami/nginx@24.0.2</td><td>http-clusterip</td><td>start-here</td><td>cub installer setup --pull packages/bitnami/nginx/24.0.2 --base http-clusterip --work-dir &lt;tmp&gt; --non-interactive --namespace nginx</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>bitnami/postgresql@18.6.7</td><td>generated-passwords</td><td>try-with-proof</td><td>cub installer setup --pull packages/bitnami/postgresql/18.6.7 --base generated-passwords --work-dir &lt;tmp&gt; --non-interactive --namespace postgresql</td><td>render parity and two-cluster live parity pass, but one or more broader lanes are missing</td></tr><tr><td>bitnami/rabbitmq@16.0.14</td><td>generated-passwords</td><td>start-here</td><td>cub installer setup --pull packages/bitnami/rabbitmq/16.0.14 --base generated-passwords --work-dir &lt;tmp&gt; --non-interactive --namespace rabbitmq</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>bitnami/redis@25.5.3</td><td>default</td><td>start-here</td><td>cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace redis</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>external-secrets/external-secrets@2.5.0</td><td>default</td><td>start-here</td><td>cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace external-secrets</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>grafana/grafana@10.5.15</td><td>generated-passwords</td><td>start-here</td><td>cub installer setup --pull packages/grafana/grafana/10.5.15 --base generated-passwords --work-dir &lt;tmp&gt; --non-interactive --namespace grafana</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>grafana/loki@7.0.0</td><td>single-binary-filesystem</td><td>start-here</td><td>cub installer setup --pull packages/grafana/loki/7.0.0 --base single-binary-filesystem --work-dir &lt;tmp&gt; --non-interactive --namespace loki</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>grafana/tempo@1.24.4</td><td>local-persistent</td><td>runtime-review-needed</td><td>cub installer setup --pull packages/grafana/tempo/1.24.4 --base local-persistent --work-dir &lt;tmp&gt; --non-interactive --namespace tempo</td><td>target-runtime: pods pending (parity passed)</td></tr><tr><td>hashicorp/consul@2.0.0</td><td>default-control-plane</td><td>start-here</td><td>cub installer setup --pull packages/hashicorp/consul/2.0.0 --base default-control-plane --work-dir &lt;tmp&gt; --non-interactive --namespace consul</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>hashicorp/vault@0.32.0</td><td>default</td><td>runtime-review-needed</td><td>cub installer setup --pull packages/hashicorp/vault/0.32.0 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace vault</td><td>helm-runtime: upstream not ready (parity passed)</td></tr><tr><td>ingress-nginx/ingress-nginx@4.15.1</td><td>default</td><td>runtime-watch</td><td>cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace ingress-nginx</td><td>helm-runtime: upstream not ready (parity passed)</td></tr><tr><td>jetstack/cert-manager@v1.20.2</td><td>default</td><td>lifecycle-observed</td><td>cub installer setup --pull packages/jetstack/cert-manager/v1.20.2 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace cert-manager</td><td>helm-hook: post-install hook failed (parity passed); lifecycle observation passed</td></tr><tr><td>longhorn/longhorn@1.11.2</td><td>default</td><td>start-here</td><td>cub installer setup --pull packages/longhorn/longhorn/1.11.2 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace longhorn-system</td><td>all core lanes plus two-cluster parity pass for this base</td></tr><tr><td>metrics-server/metrics-server@3.13.0</td><td>default</td><td>try-with-proof</td><td>cub installer setup --pull packages/metrics-server/metrics-server/3.13.0 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace kube-system</td><td>render parity and two-cluster live parity pass, but one or more broader lanes are missing</td></tr><tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>default</td><td>runtime-watch</td><td>cub installer setup --pull packages/prometheus-community/kube-prometheus-stack/85.3.3 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace monitoring</td><td>helm-runtime: upstream not ready (parity passed)</td></tr><tr><td>prometheus-community/prometheus@29.8.0</td><td>default</td><td>try-with-proof</td><td>cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace monitoring</td><td>render parity and two-cluster live parity pass, but one or more broader lanes are missing</td></tr><tr><td>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</td><td>default</td><td>start-here</td><td>cub installer setup --pull packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace kube-system</td><td>all core lanes plus two-cluster parity pass for this base</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p><a href="../data/top20-base-readiness/summary.md">Open the full base-readiness table</a>.</p>
@@ -511,6 +518,7 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
     </section>
@@ -554,6 +562,7 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p><a href="../data/extension-slots/summary.md">Open the full extension-slot coverage report</a>.</p>
