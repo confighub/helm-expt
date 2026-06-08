@@ -143,6 +143,30 @@ Hooks:
   where `perVariant.get(name)` returns the parsed
   `{ releasePath, releaseDigest, objects, identities, inventory, revision, renderReceipt, equivalence, scan, gate }`.
 
+## Current Extension Surface
+
+The merged proof kit now covers the current non-Redis top-20 proof scripts.
+Before adding a new chart-specific helper, check whether the existing spec fields
+or hooks cover the case:
+
+| Need | Current field or hook |
+| --- | --- |
+| Target facts or required external secrets | `variants[].targetFacts.requiredSecrets[]` |
+| Target-facts collector scripts in generated packages | target facts on the variant spec |
+| Extra proof files such as default-render blockers | `extraProofDocuments`, `extraRequiredFiles` |
+| Extra scan findings or policy details | chart `scanPolicy` plus `verifyExtra` |
+| Chart dependencies and `Chart.lock` evidence | `dependencies`, `expectedDependencyCount`, `recordChartLockDigest` |
+| Deprecated upstream chart marker | `recordDeprecated`, `expectedDeprecated` |
+| Extra Helm API versions for render parity | `variants[].apiVersions` |
+| Package naming exceptions | `packageName` |
+| Narrow serialization-only semantic differences | `allowedSemanticDiff`, `semanticNormalizations` |
+| Per-chart assertions that should not become generic | `verifyExtra` |
+
+Keep the kit as shared proof machinery. Product behavior changes, live-test
+policy changes, and new variant semantics should land outside the migration
+refactor and then be connected to the kit only when the repeated proof shape is
+clear.
+
 ## Status & caveats
 
 Migrated to the shared proof kit:
@@ -173,6 +197,10 @@ All non-Redis top-20 proof scripts now use the shared proof kit.
 
 Redis remains bespoke because it is the first complete proof slice and has
 additional user-install verification helpers.
+
+No chart is currently migrated twice: each non-Redis top-20 chart has one
+`scripts/<chart>-proof.mjs` spec using `runProofCli`, while Redis uses its
+existing dedicated generator and verifier scripts.
 
 Charts with extra artifacts, target-fact collector scripts, multi-leg lifecycle
 hooks, or multiple revisions will extend the spec with additional hooks as they
