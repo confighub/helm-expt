@@ -39,6 +39,26 @@
       "path": "post-render-configHub-variant"
     }
   ],
+  "top500Evidence": {
+    "rows": 500,
+    "sourceScanned": 495,
+    "sourceFailed": 5,
+    "currentRecipeRows": 91,
+    "proofMatchExactChart": 63,
+    "proofMatchNameVersion": 16,
+    "proofMatchNameOnly": 12,
+    "exactCurrentVersionRows": 70,
+    "differentCurrentVersionRows": 21,
+    "noCurrentRecipeRows": 409,
+    "catalogSupported": 20,
+    "proofGrade": 71,
+    "defaultOnlyProofs": 41,
+    "multiVariantProofs": 50,
+    "productionBlockedSupported": 20,
+    "currentProofsTotal": 100,
+    "currentProofsMatched": 91,
+    "currentProofsUnmatchedToOldMatrix": 9
+  },
   "summary": {
     "catalogSupported": 20,
     "proofGrade": 80,

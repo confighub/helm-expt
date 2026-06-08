@@ -159,6 +159,27 @@
       <p><a href="../data/top100-readiness/summary.md">Open the full top-100 readiness report</a>.</p>
     </section>
 
+    <section aria-labelledby="top500-evidence">
+      <h2 id="top500-evidence">Top-500 Evidence Map</h2>
+      <p>The top-500 data is reconnaissance plus proof indexing. It shows how common Helm quirks are and which popular charts already match current recipe/package evidence. It is not blanket certification.</p>
+      <div class="grid">
+        <div class="metric"><strong>495/500</strong><span>Source rows scanned</span></div>
+        <div class="metric"><strong>91/500</strong><span>Rows matched to current proofs</span></div>
+        <div class="metric"><strong>409/500</strong><span>Reconnaissance only</span></div>
+        <div class="metric"><strong>50</strong><span>Matched multi-variant proofs</span></div>
+      </div>
+      <div class="card"><table>
+        <thead><tr><th>Signal</th><th>Count</th><th>Meaning</th></tr></thead>
+        <tbody><tr><td>catalog-supported</td><td>20</td><td>Current public catalog entries in the matched top-500 evidence.</td></tr><tr><td>proof-grade</td><td>71</td><td>Matched charts with deterministic proof artifacts but not public catalog promotion.</td></tr><tr><td>different current version</td><td>21</td><td>A current recipe exists, but the source-scan row used a different version.</td></tr><tr><td>no current recipe proof</td><td>409</td><td>Backlog data only: create recipe, variants, scans, and receipts before product claims.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><a href="../data/top500-catalog-analysis/summary.md">Open the full top-500 catalog analysis</a>.</p>
+    </section>
+
     <section aria-labelledby="base-readiness">
       <h2 id="base-readiness">Which Base Should I Start With?</h2>
       <p>Each catalog chart has named base variants. The table below shows the recommended first base for each top-20 chart and whether that base is ready as a clean first path, needs extra proof, or needs runtime/prerequisite review.</p>

@@ -75,6 +75,7 @@ function buildSite() {
       top100Readiness: "data/top100-readiness/readiness.csv",
     },
     commandRoutes: commandRoutes(),
+    top500Evidence: top500.summary,
     summary: {
       catalogSupported: catalogEntries.length,
       proofGrade: proofGrade.length,
@@ -288,6 +289,25 @@ function html(catalog) {
         ...top100ReadinessRows,
       ])}
       <p><a href="../data/top100-readiness/summary.md">Open the full top-100 readiness report</a>.</p>
+    </section>
+
+    <section aria-labelledby="top500-evidence">
+      <h2 id="top500-evidence">Top-500 Evidence Map</h2>
+      <p>The top-500 data is reconnaissance plus proof indexing. It shows how common Helm quirks are and which popular charts already match current recipe/package evidence. It is not blanket certification.</p>
+      <div class="grid">
+        <div class="metric"><strong>${escapeHtml(catalog.top500Evidence.sourceScanned)}/${escapeHtml(catalog.top500Evidence.rows)}</strong><span>Source rows scanned</span></div>
+        <div class="metric"><strong>${escapeHtml(catalog.top500Evidence.currentRecipeRows)}/${escapeHtml(catalog.top500Evidence.rows)}</strong><span>Rows matched to current proofs</span></div>
+        <div class="metric"><strong>${escapeHtml(catalog.top500Evidence.noCurrentRecipeRows)}/${escapeHtml(catalog.top500Evidence.rows)}</strong><span>Reconnaissance only</span></div>
+        <div class="metric"><strong>${escapeHtml(catalog.top500Evidence.multiVariantProofs)}</strong><span>Matched multi-variant proofs</span></div>
+      </div>
+      ${markdownLikeTable([
+        ["Signal", "Count", "Meaning"],
+        ["catalog-supported", catalog.top500Evidence.catalogSupported, "Current public catalog entries in the matched top-500 evidence."],
+        ["proof-grade", catalog.top500Evidence.proofGrade, "Matched charts with deterministic proof artifacts but not public catalog promotion."],
+        ["different current version", catalog.top500Evidence.differentCurrentVersionRows, "A current recipe exists, but the source-scan row used a different version."],
+        ["no current recipe proof", catalog.top500Evidence.noCurrentRecipeRows, "Backlog data only: create recipe, variants, scans, and receipts before product claims."],
+      ])}
+      <p><a href="../data/top500-catalog-analysis/summary.md">Open the full top-500 catalog analysis</a>.</p>
     </section>
 
     <section aria-labelledby="base-readiness">
