@@ -165,6 +165,9 @@ function generateProof(ctx) {
       ...(ctx.recordChartLockDigest ? { chartLockDigest: source.chartLockDigest } : {}),
     },
   });
+  for (const artifact of ctx.spec.extraProofDocuments?.({ ctx, source }) ?? []) {
+    writeYaml(join(proofRoot, artifact.path), artifact.document);
+  }
 
   writeYaml(join(proofRoot, "value-model.yaml"), {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
@@ -331,11 +334,14 @@ function generateProof(ctx) {
           semanticObjectMatches: `${objects.length}/${objects.length}`,
         },
         semanticNormalizations: ctx.semanticNormalizations,
-        classifications: ctx.supportObjects.map((identity) => ({
-          identity,
-          classification: "installer-support-object",
-          disposition: "allowed",
-        })),
+        classifications: [
+          ...ctx.supportObjects.map((identity) => ({
+            identity,
+            classification: "installer-support-object",
+            disposition: "allowed",
+          })),
+          ...(ctx.spec.extraEquivalenceClassifications?.(variant) ?? []),
+        ],
         result: "pass",
         evidenceCommand: `npm run ${ctx.scriptPrefix}:compare`,
       },
@@ -387,6 +393,7 @@ function generateProof(ctx) {
         ),
         helmMatchByVariant: Object.fromEntries(summaries.map((summary) => [summary.name, `${summary.objects.length}/${summary.objects.length}`])),
         scanGate: ctx.spec.plan.scanGate,
+        ...(ctx.spec.plan.extraReadiness ?? {}),
         nextAction: ctx.spec.plan.nextAction,
       },
       receipts: summaries.flatMap((summary) => [
@@ -522,6 +529,7 @@ function requiredProofFiles(ctx) {
     "value-model.yaml",
   ];
   for (const variant of ctx.variants) base.push(variant.valuesFile);
+  for (const file of ctx.spec.extraRequiredFiles ?? []) base.push(file);
   base.push("recipe.yaml");
   for (const variant of ctx.variants) {
     base.push(
@@ -731,7 +739,12 @@ function verifySetupVariant(ctx, tempRoot, variant, receipt) {
   );
   const semanticDiffs = [];
   for (const key of helmObjects) {
-    if (semantic.helm[key] !== semantic.cub[key]) semanticDiffs.push(key);
+    if (
+      semantic.helm[key] !== semantic.cub[key] &&
+      !ctx.spec.allowedSemanticDiff?.({ key, helmObjectJson: semantic.helm[key], cubObjectJson: semantic.cub[key], variant })
+    ) {
+      semanticDiffs.push(key);
+    }
   }
   check(semanticDiffs.length === 0, `${variant.name} semantic diffs: ${semanticDiffs.join(", ")}`);
   const secretFiles = listYamlFiles(join(workDir, "out", "secrets"));
