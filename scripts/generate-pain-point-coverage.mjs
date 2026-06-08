@@ -250,6 +250,33 @@ function summary(rows) {
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([status, count]) => `- ${status}: ${count}`)
     .join("\n");
+  const claimBuckets = [
+    {
+      bucket: "Strong static proof",
+      rows: rows.filter((row) => row.current_status.startsWith("strong")),
+      meaning: "The repo has useful static or base-scoped proof today. This is not a blanket live-production claim.",
+    },
+    {
+      bucket: "Partial with current evidence",
+      rows: rows.filter((row) => row.current_status === "partial" || row.current_status === "partial-strong-on-redis"),
+      meaning: "The model is working for examples or parts of the lifecycle, but the proof is not broad enough yet.",
+    },
+    {
+      bucket: "Live-dependent",
+      rows: rows.filter((row) => row.current_status.includes("live")),
+      meaning: "The answer depends on cluster, GitOps, runtime, or observation receipts.",
+    },
+    {
+      bucket: "Product or handoff lane",
+      rows: rows.filter((row) => row.current_status.includes("product") || row.current_status.includes("handoff")),
+      meaning: "The repo explains the route, but the durable value belongs in ConfigHub Server, cub-scout, or a product workflow.",
+    },
+    {
+      bucket: "Known gap or doctrine only",
+      rows: rows.filter((row) => row.current_status.includes("known-gap") || row.current_status.includes("doctrine")),
+      meaning: "The repo has the policy and detection path, but not complete execution receipts yet.",
+    },
+  ];
   return `# Helm Pain Point Coverage
 
 This generated report maps the 15 common Helm pain points to the current
@@ -264,6 +291,12 @@ work remains.
 
 ${countLines}
 
+## Claim Buckets
+
+| Bucket | Count | Pain points | Meaning |
+| --- | ---: | --- | --- |
+${claimBuckets.map((bucket) => `| ${bucket.bucket} | ${bucket.rows.length} | ${painList(bucket.rows)} | ${bucket.meaning} |`).join("\n")}
+
 ## Root Cause Model
 
 Helm is a 1-to-many generator. One chart plus one values set can produce many
@@ -272,6 +305,12 @@ After render, Helm loses the inverse: the output no longer explains which input
 produced each field. Multiple generators such as Helm, Kustomize, GitOps
 controllers, and agents multiply the problem unless their outputs and provenance
 enter one graph.
+
+## Pain Points And Next Actions
+
+| Pain point | Current status | Remaining gap | Next action |
+| --- | --- | --- | --- |
+${rows.map((row) => `| ${row.pain_point} | \`${row.current_status}\` | ${escapePipes(row.remaining_gap)} | ${escapePipes(row.next_action)} |`).join("\n")}
 
 ## What To Open
 
@@ -289,6 +328,15 @@ npm run pain-points:generate
 npm run pain-points:verify
 ~~~
 `;
+}
+
+function painList(rows) {
+  if (!rows.length) return "-";
+  return rows.map((row) => row.pain_point).join("<br>");
+}
+
+function escapePipes(value) {
+  return String(value ?? "").replaceAll("|", "\\|");
 }
 
 function toCsv(rows) {
