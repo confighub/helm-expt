@@ -4,7 +4,7 @@ metadata:
   name: "postgresql-existing-secret-r001"
 spec:
   variantRevision: "../variant-revision.yaml"
-  renderedObjectSetSHA256: "63c946704d955651bb3051d69d26dd67e18a074791846752e503d7ddc4ed38ef"
+  renderedObjectSetSHA256: "595ce44f8c11b10ad1817bf57141529864efd48318a6a97a6e914d3669bb90dd"
   decision: "warn"
   allowedScopes:
     - "local-test"

@@ -29,6 +29,11 @@ spec:
       evidence: "auth.existingSecret"
       note: "The existing-secret variant declares the target Secret instead of rendering one."
     -
+      category: "image-digest"
+      status: "handled"
+      digest: "sha256:2d3c068e58f89e0e29c6d41ffa3d00ff253e87a9426662c3ef11d2a0942ee653"
+      note: "Supported bases pin the Bitnami PostgreSQL image by digest."
+    -
       category: "hook-policy"
       status: "handled-for-render"
       policy: "no-hooks"

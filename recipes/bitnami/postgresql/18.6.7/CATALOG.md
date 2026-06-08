@@ -19,7 +19,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Production readiness | blocked-by-current-scan-gate |
 | Supported variants | generated-passwords, existing-secret |
 | Candidate variants | none |
-| Control points | capability-profile, dependency-lock, generated-facts, hook-policy, installer-support-object, pvc-policy, source-lock, stateful-workload, target-facts, tpl |
+| Control points | capability-profile, dependency-lock, generated-facts, hook-policy, image-digest, installer-support-object, pvc-policy, source-lock, stateful-workload, target-facts, tpl |
 
 ## Feature And Proof Summary
 

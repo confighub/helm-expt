@@ -19,6 +19,7 @@ spec:
     - "Default chart rendering is nondeterministic unless auth.postgresPassword is bound before render."
     - "generated-passwords variant persists auth.postgresPassword as a generated fact and renders the Secret deterministically."
     - "existing-secret variant does not render a Secret and instead declares postgresql/postgresql-auth as a target fact."
+    - "Supported bases pin the Bitnami PostgreSQL image by digest instead of rendering the chart default latest tag."
     - "Chart declares the Bitnami common dependency and records it in dependency-lock.yaml."
     - "Chart source contains Helm hook annotations; the rendered proof excludes hooks and keeps lifecycle policy explicit."
     - "PostgreSQL renders a StatefulSet with volumeClaimTemplates and needs storage/upgrade/rollback policy."
@@ -69,6 +70,15 @@ spec:
       disposition: "handled-by-target-fact-values"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "variant-controlled"
+    -
+      id: "image-digest"
+      detectedPainPoint: "Supported bases pin the Bitnami PostgreSQL image by digest."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
     -
       id: "hook-policy"
       detectedPainPoint: "Chart source contains Helm hooks; the proof render excludes hooks and lifecycle policy must handle them before production."
@@ -134,4 +144,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
-  answerForSkepticalHelmUser: "bitnami/postgresql@18.6.7 maps its detected Helm pain to 11 ConfigHub control areas: source-lock, dependency-lock, capability-profile, generated-fact, target-fact-requirement, lifecycle-policy, operate-policy, extension-slot, recipe, scan-gate, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains blocked-by-current-scan-gate."
+  answerForSkepticalHelmUser: "bitnami/postgresql@18.6.7 maps its detected Helm pain to 11 ConfigHub control areas: source-lock, dependency-lock, capability-profile, generated-fact, target-fact-requirement, recipe, lifecycle-policy, operate-policy, extension-slot, scan-gate, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains blocked-by-current-scan-gate."

@@ -4,7 +4,7 @@ metadata:
   name: "postgresql-generated-passwords-r001"
 spec:
   variantRevision: "../variant-revision.yaml"
-  renderedObjectSetSHA256: "5ddff6ac6f2de4b98f6fce9d482167f300406c3ff738317e34b322522465ea72"
+  renderedObjectSetSHA256: "db49bd6d27e0deaed0b9e314f0527bc2d9468b7be10f9bbdaad14593f0b65a6b"
   decision: "warn"
   allowedScopes:
     - "local-test"

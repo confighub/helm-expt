@@ -24,6 +24,7 @@ or operating-policy dispositions.
 - Default chart rendering is nondeterministic unless auth.postgresPassword is bound before render.
 - generated-passwords variant persists auth.postgresPassword as a generated fact and renders the Secret deterministically.
 - existing-secret variant does not render a Secret and instead declares postgresql/postgresql-auth as a target fact.
+- Supported bases pin the Bitnami PostgreSQL image by digest instead of rendering the chart default latest tag.
 - Chart declares the Bitnami common dependency and records it in dependency-lock.yaml.
 - Chart source contains Helm hook annotations; the rendered proof excludes hooks and keeps lifecycle policy explicit.
 - PostgreSQL renders a StatefulSet with volumeClaimTemplates and needs storage/upgrade/rollback policy.
@@ -45,6 +46,7 @@ or operating-policy dispositions.
 | capability-profile | handled | Kubernetes API and version branches are bound to the named Kubernetes capability profile. |
 | generated-facts | variant-controlled | The generated-passwords variant binds the generated password before render so Helm output is deterministic. |
 | target-facts | variant-controlled | The existing-secret variant declares the target Secret instead of rendering one. |
+| image-digest | handled | Supported bases pin the Bitnami PostgreSQL image by digest. |
 | hook-policy | handled-for-render | Chart source contains Helm hooks; the proof render excludes hooks and lifecycle policy must handle them before production. |
 | stateful-workload | scan-and-review | apps/v1\|StatefulSet\|postgresql\|postgresql |
 | pvc-policy | scan-and-review | StatefulSet volumeClaimTemplates need storage, retention, upgrade, and rollback policy. |
@@ -58,6 +60,7 @@ or operating-policy dispositions.
 - generated-facts
 - hook-lifecycle-policy
 - hook-policy
+- image-digest
 - installer-support-object
 - pvc-policy
 - source-lock

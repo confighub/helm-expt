@@ -6,7 +6,7 @@
     "pass": 0,
     "warn": 40,
     "fail": 0,
-    "totalFindings": 317,
+    "totalFindings": 315,
     "toolStatus": {
       "kubeLinter": {
         "available": true,
@@ -659,25 +659,14 @@
       "scannerVersion": "0.8.3",
       "result": "warn",
       "exitCode": 1,
-      "findingCount": 2,
+      "findingCount": 1,
       "checkCounts": {
-        "latest-tag": 1,
         "pdb-unhealthy-pod-eviction-policy": 1
       },
       "renderedPath": "recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/rendered/release-objects.yaml",
-      "renderedSHA256": "63c946704d955651bb3051d69d26dd67e18a074791846752e503d7ddc4ed38ef",
+      "renderedSHA256": "595ce44f8c11b10ad1817bf57141529864efd48318a6a97a6e914d3669bb90dd",
       "recipePath": "recipes/bitnami/postgresql/18.6.7",
       "findings": [
-        {
-          "check": "latest-tag",
-          "message": "The container \"postgresql\" is using an invalid container image, \"registry-1.docker.io/bitnami/postgresql:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
-          "object": {
-            "apiVersion": "",
-            "kind": "",
-            "namespace": "postgresql",
-            "name": "postgresql"
-          }
-        },
         {
           "check": "pdb-unhealthy-pod-eviction-policy",
           "message": "unhealthyPodEvictionPolicy is not explicitly set",
@@ -698,25 +687,14 @@
       "scannerVersion": "0.8.3",
       "result": "warn",
       "exitCode": 1,
-      "findingCount": 2,
+      "findingCount": 1,
       "checkCounts": {
-        "latest-tag": 1,
         "pdb-unhealthy-pod-eviction-policy": 1
       },
       "renderedPath": "recipes/bitnami/postgresql/18.6.7/revisions/generated-passwords/r001/rendered/release-objects.yaml",
-      "renderedSHA256": "5ddff6ac6f2de4b98f6fce9d482167f300406c3ff738317e34b322522465ea72",
+      "renderedSHA256": "db49bd6d27e0deaed0b9e314f0527bc2d9468b7be10f9bbdaad14593f0b65a6b",
       "recipePath": "recipes/bitnami/postgresql/18.6.7",
       "findings": [
-        {
-          "check": "latest-tag",
-          "message": "The container \"postgresql\" is using an invalid container image, \"registry-1.docker.io/bitnami/postgresql:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
-          "object": {
-            "apiVersion": "",
-            "kind": "",
-            "namespace": "postgresql",
-            "name": "postgresql"
-          }
-        },
         {
           "check": "pdb-unhealthy-pod-eviction-policy",
           "message": "unhealthyPodEvictionPolicy is not explicitly set",

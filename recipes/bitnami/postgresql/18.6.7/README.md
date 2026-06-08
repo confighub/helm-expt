@@ -13,6 +13,7 @@ What this proves:
 - default chart rendering is nondeterministic until generated credentials are bound;
 - the generated-passwords variant persists auth.postgresPassword before render;
 - the existing-secret variant uses a declared target Secret and does not render a Secret;
+- both supported bases pin the PostgreSQL image digest instead of rendering a mutable latest tag;
 - generated fact, target fact, Helm hook lifecycle, dependency lock, StatefulSet/PVC, and extension-slot risks are visible as scan/gate findings instead of hidden Helm behavior.
 
 Useful commands:

@@ -18,13 +18,17 @@ const chart = {
   kubeVersion: "1.30.0",
 };
 
+const postgresqlImageDigest = "sha256:2d3c068e58f89e0e29c6d41ffa3d00ff253e87a9426662c3ef11d2a0942ee653";
+
 const variants = [
   {
     name: "generated-passwords",
     base: "generated-passwords",
     displayName: "generated passwords",
     valuesFile: "effective-values.yaml",
-    valuesText: `auth:
+    valuesText: `image:
+  digest: ${postgresqlImageDigest}
+auth:
   postgresPassword: confighub-postgres-password
 `,
     valuesSummary: "postgres admin password bound as a generated fact",
@@ -38,7 +42,9 @@ const variants = [
     base: "existing-secret",
     displayName: "existing Secret",
     valuesFile: "effective-values-existing-secret.yaml",
-    valuesText: `auth:
+    valuesText: `image:
+  digest: ${postgresqlImageDigest}
+auth:
   existingSecret: postgresql-auth
 `,
     valuesSummary: "target Secret supplies PostgreSQL credentials",
@@ -88,6 +94,7 @@ runProofCli({
       { path: "auth.postgresPassword", variant: "generated-passwords", disposition: "generated-fact-bound", reason: "default chart uses random password generation; this variant persists the generated value before render" },
       { path: "auth.existingSecret", variant: "existing-secret", disposition: "target-fact-bound", reason: "externalizes the credential into a declared target Secret instead of rendering a Secret" },
       { path: "auth.secretKeys.adminPasswordKey", variant: "existing-secret", disposition: "target-secret-key", reason: "documents the expected key in the target Secret" },
+      { path: "image.digest", variant: "all", disposition: "pinned-image", reason: "supported bases pin the Bitnami PostgreSQL image by digest instead of rendering the chart default latest tag" },
       { path: "primary.persistence.enabled", variant: "all", disposition: "stateful-storage-enabled", reason: "chart defaults create a StatefulSet with volume claim templates" },
       { path: "architecture", variant: "all", disposition: "standalone", reason: "promoted variants keep standalone architecture; replication becomes a later variant" },
       { path: "common", variant: "all", disposition: "locked-dependency", reason: "chart declares the Bitnami common dependency and records it in dependency-lock.yaml" },
@@ -95,12 +102,21 @@ runProofCli({
     ],
   },
   dependencyLockChart: "bitnami/postgresql",
+  packageTransformers: [
+    {
+      description: "Set the namespace on every namespaced resource.",
+      invocations: [{ name: "set-namespace", args: ["{{ .Namespace }}"] }],
+      toolchain: "Kubernetes/YAML",
+      whereResource: "",
+    },
+  ],
   controlPoints: [
     { category: "source-lock", status: "handled", evidence: "source-lock.yaml" },
     { category: "dependency-lock", status: "handled", evidence: "dependency-lock.yaml", note: "chart declares the Bitnami common dependency; promoted variants lock its metadata." },
     { category: "capability-profile", status: "handled", kubeVersion: chart.kubeVersion, note: "Kubernetes API and version branches are bound to the named Kubernetes capability profile." },
     { category: "generated-facts", status: "variant-controlled", evidence: "auth.postgresPassword", note: "The generated-passwords variant binds the generated password before render so Helm output is deterministic." },
     { category: "target-facts", status: "variant-controlled", evidence: "auth.existingSecret", note: "The existing-secret variant declares the target Secret instead of rendering one." },
+    { category: "image-digest", status: "handled", digest: postgresqlImageDigest, note: "Supported bases pin the Bitnami PostgreSQL image by digest." },
     { category: "hook-policy", status: "handled-for-render", policy: "no-hooks", note: "Chart source contains Helm hooks; the proof render excludes hooks and lifecycle policy must handle them before production." },
     { category: "stateful-workload", status: "scan-and-review", object: "apps/v1|StatefulSet|postgresql|postgresql" },
     { category: "pvc-policy", status: "scan-and-review", note: "StatefulSet volumeClaimTemplates need storage, retention, upgrade, and rollback policy." },
@@ -112,6 +128,7 @@ runProofCli({
       "Default chart rendering is nondeterministic unless auth.postgresPassword is bound before render.",
       "generated-passwords variant persists auth.postgresPassword as a generated fact and renders the Secret deterministically.",
       "existing-secret variant does not render a Secret and instead declares postgresql/postgresql-auth as a target fact.",
+      "Supported bases pin the Bitnami PostgreSQL image by digest instead of rendering the chart default latest tag.",
       "Chart declares the Bitnami common dependency and records it in dependency-lock.yaml.",
       "Chart source contains Helm hook annotations; the rendered proof excludes hooks and keeps lifecycle policy explicit.",
       "PostgreSQL renders a StatefulSet with volumeClaimTemplates and needs storage/upgrade/rollback policy.",
@@ -139,6 +156,7 @@ runProofCli({
       "default chart rendering is nondeterministic until generated credentials are bound;",
       "the generated-passwords variant persists auth.postgresPassword before render;",
       "the existing-secret variant uses a declared target Secret and does not render a Secret;",
+      "both supported bases pin the PostgreSQL image digest instead of rendering a mutable latest tag;",
       "generated fact, target fact, Helm hook lifecycle, dependency lock, StatefulSet/PVC, and extension-slot risks are visible as scan/gate findings instead of hidden Helm behavior.",
     ],
   },

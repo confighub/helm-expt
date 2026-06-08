@@ -9,6 +9,7 @@ spec:
     - "Default chart rendering is nondeterministic unless auth.postgresPassword is bound before render."
     - "generated-passwords variant persists auth.postgresPassword as a generated fact and renders the Secret deterministically."
     - "existing-secret variant does not render a Secret and instead declares postgresql/postgresql-auth as a target fact."
+    - "Supported bases pin the Bitnami PostgreSQL image by digest instead of rendering the chart default latest tag."
     - "Chart declares the Bitnami common dependency and records it in dependency-lock.yaml."
     - "Chart source contains Helm hook annotations; the rendered proof excludes hooks and keeps lifecycle policy explicit."
     - "PostgreSQL renders a StatefulSet with volumeClaimTemplates and needs storage/upgrade/rollback policy."
