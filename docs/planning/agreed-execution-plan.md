@@ -184,10 +184,11 @@ P1 issues are strong next proof.
 P2 issues preserve important design depth without blocking the first proof.
 ```
 
-The original proof P0s are closed and verified. The current open P0 is about
-productizing Helm import into durable `cub installer` recipes. Do not let
-planning docs hide open P0s, but also do not let productization P0s imply that
-the current proof corpus is broken.
+The original proof P0s are closed and verified, including the Helm import-path
+definition. Future product work such as a first-class `cub installer import
+helm` command should be tracked separately. Do not let planning docs hide open
+P0s when they exist, but also do not let productization gaps imply that the
+current proof corpus is broken.
 
 Immediate execution order:
 
@@ -1630,9 +1631,11 @@ Minimum docs:
     them.
 12. The new top-100/top-500 spreadsheets must be generated proof
     indexes / evidence maps, not proof by themselves.
-13. The original proof P0 gates are closed and verified. The remaining open P0
-    is the productization path for Helm import into durable `cub installer`
-    recipes; do not confuse that product gap with a broken proof corpus.
+13. The original proof P0 gates are closed and verified. The Helm import path
+    definition is also closed as a verifier-backed contract. The future product
+    command for importing Helm into durable `cub installer` recipes remains
+    implementation work; do not confuse that product gap with a broken proof
+    corpus.
 14. The target proof is:
 
 ```text

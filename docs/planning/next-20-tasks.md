@@ -19,7 +19,9 @@ data. It does not replace them; it is the executive work queue over them.
   proof creation.
 - Current chart facts show 25 hard gaps for recommended extra capabilities: 15 existing-secret gaps (#113),
   3 template-CRD/no-crds gaps (#114), 6 curated-variant lanes, and 1 other gap.
-- **0 production-supported** (20 production-blocked pending disposition). Open **P0 #76** (Helm import path).
+- **0 production-supported** (20 production-blocked pending disposition). P0 #76 is closed as a
+  verifier-backed import-path definition; downstream `cub installer import helm`
+  implementation remains product work.
 
 ## Outcome standard for this queue
 
@@ -65,8 +67,9 @@ task is about delivery, live observation.
    receipts without hidden Helm rerender.
 3. **Prove promotion and environment management with derived ConfigHub variants** (#145) - base -> staging
    or prod using `cub variant create`, target/gates/observation policy, upstream links, and low-noise review.
-4. **Close open P0 #76** - define and prove the Helm import path from `cub helm install` to durable
-   `cub installer` recipes.
+4. **Keep the closed #76 import contract executable** - the Helm import path from
+   `cub helm install` to durable `cub installer` recipes is defined and verified;
+   next work is product implementation and broader managed-overlay examples.
 
 ## Next - base variants, production depth, and facts
 5. **Wave-2 real base-variant promotion** - add user-shaped base variants to the 5 selected proof-grade

@@ -4,7 +4,7 @@ This document mirrors the GitHub issues that must not be lost in the planning
 docs. GitHub remains the execution tracker; this file keeps reviewers aligned
 with the written plan.
 
-Last synced with planning docs: 2026-06-07.
+Last synced with planning docs: 2026-06-08.
 
 ## Rule
 
@@ -29,16 +29,16 @@ main choice becomes reproducible, ConfigHub-reviewable, live-cluster verified,
 and tied to receipts. If a lane is still missing, track it as missing backlog
 instead of converting the issue into a broad "verified" claim.
 
-The original P0 proof gates are now closed and verified by the harness. The
-remaining open P0 is a productization/design gate, not evidence that the current
-proof corpus is broken:
+The original P0 proof gates are now closed and verified by the harness. Issue
+#76 is closed as the import-path definition and proof-contract issue:
 
 ```text
 #76 Define Helm import path from cub helm template / cub helm install to cub installer recipes.
 ```
 
-That issue matters because the repo-proven import workflow needs a clear product
-path. The current command story is:
+The downstream product command is still future work, but it should be tracked as
+implementation work rather than keeping the definition issue open. The current
+command story is:
 
 | Command | Product role |
 | --- | --- |
@@ -49,13 +49,14 @@ path. The current command story is:
 | `cub installer` recipe/package | Maintained catalog artifact with named bases, receipts, scans, and live evidence. |
 | future `cub installer import helm` | Bridge from fast Helm command paths to maintained recipe/package candidates. |
 
-The public proof can remain valid while #76 is open; the product story is not
-complete until the bridge is resolved.
+The public proof remains valid without that future bridge because the repo
+currently builds and verifies the same artifact chain through generators and
+proof scripts.
 
 Current open issue shape:
 
 ```text
-open P0: 1
+open P0: 0
 open P1: 17
 open P2: 7
 open content/story issues: 8
@@ -312,5 +313,6 @@ When a GitHub issue is added, closed, or reclassified:
 - update `docs/planning/independent-review-brief.md` if it changes review scope
 
 Do not let the written plan describe a proof path that ignores open P0 gates.
-When a P0 is about productization rather than current proof validity, say that
-explicitly rather than letting reviewers infer the proof corpus is broken.
+When future P0s are about productization rather than current proof validity,
+say that explicitly rather than letting reviewers infer the proof corpus is
+broken.

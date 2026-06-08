@@ -453,7 +453,8 @@ headline order is:
    receipt, starting with Redis and Prometheus (#144).
 3. Prove promotion and environment management with derived ConfigHub variants
    (#145).
-4. Close the open Helm import path P0 (#76).
+4. Keep the closed Helm import path contract (#76) verifier-backed while the
+   downstream `cub installer import helm` product command remains future work.
 5. Continue wave-2 base-variant promotion, production disposition, target
    facts, GitOps/Argo proof, release/OCI semantics, promotion UI expectations,
    fleet inventory, fleet mutation, policy/security posture, and impact
