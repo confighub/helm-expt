@@ -5,15 +5,15 @@ metadata:
 spec:
   variant: ../../../variants/default/variant.yaml
   revision: r001
-  digest: "e51d44a74db116790294ae6574ff7f8c896695dca27951c283133338ea3564e2"
+  digest: "b72dbea967a115c140b00b124ac7facf66178d27383041e0938b11df75ab58d4"
   digestInputs:
-    recipeSHA256: "fdc8c3ccba9baa7411f8b8fcda69575bd05fd8eeade8a77e85a0ec42191dcb89"
+    recipeSHA256: "47c306c7ddf6b46c8dc68172e92013083ba10390f96a2f4b4457dbc34585b254"
     variantSHA256: "a982f82e82a3880dc29e39c43ed498f8e6ddc05440930fa9de65676f3d074ed2"
-    effectiveValuesSHA256: "02a65bd7e43a6e3c26adba437e2039172883f3629accf21eb2dc12d8e3db4080"
-    generatedFactsSHA256: "cd7bfad5181e2a1ed64ecc24c4aac04b86cc90e01da81868cf699bb1dbb1358f"
-    capabilityProfileSHA256: "sha256:c1f8a4eb20154228a391f2a61565160634fbeb5dcf1079065543dd0a2ff3dfbf"
+    effectiveValuesSHA256: "1cdcf2a5ccb24b63b1852a446350ca10dea5aad3b76d58ce1ec7da43f6bf44a2"
     rendererSHA256: "eeed52df580bde704c2d46939dfd052dc9ef146932dc72678095deb732000021"
-    renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+    capabilityProfileSHA256: "sha256:c1f8a4eb20154228a391f2a61565160634fbeb5dcf1079065543dd0a2ff3dfbf"
+    generatedFactsSHA256: "cd7bfad5181e2a1ed64ecc24c4aac04b86cc90e01da81868cf699bb1dbb1358f"
+    renderedObjectSetSHA256: "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
 
   rendered:
     releaseObjects: rendered/release-objects.yaml

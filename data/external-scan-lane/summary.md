@@ -22,7 +22,7 @@ variant rendered object sets scanned: 40
 pass: 0
 warn: 40
 fail: 0
-total findings: 321
+total findings: 317
 ```
 
 ## Most Common Findings
@@ -35,8 +35,8 @@ total findings: 321
 | `dangling-service` | 20 |
 | `pdb-unhealthy-pod-eviction-policy` | 19 |
 | `run-as-non-root` | 16 |
-| `latest-tag` | 11 |
 | `sensitive-host-mounts` | 9 |
+| `latest-tag` | 7 |
 | `liveness-port` | 6 |
 | `readiness-port` | 6 |
 | `privilege-escalation-container` | 4 |
@@ -55,7 +55,6 @@ when closing `scan/gate warning disposition`.
 | `prometheus-community/prometheus@29.8.0` | 2 | 27 | high | unset-cpu-requirements:8;unset-memory-requirements:8;no-read-only-root-fs:6;sensitive-host-mounts:3;host-network:1;host-pid:1 | record security acceptance or create a hardened base; add production resource policy or accept chart defaults for local-test only; review pod security posture for the production target |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | 2 | 16 | high | no-read-only-root-fs:6;run-as-non-root:6;privilege-escalation-container:2;privileged-container:2 | record security acceptance or create a hardened base; review pod security posture for the production target |
 | `bitnami/mongodb@19.0.7` | 2 | 8 | high | latest-tag:5;pdb-unhealthy-pod-eviction-policy:3 | pin image tag or digest in the installer base; accept PDB behavior or add a reviewed patch where the chart supports it |
-| `bitnami/redis@25.5.3` | 2 | 8 | high | latest-tag:4;pdb-unhealthy-pod-eviction-policy:4 | pin image tag or digest in the installer base; accept PDB behavior or add a reviewed patch where the chart supports it |
 | `bitnami/postgresql@18.6.7` | 2 | 4 | high | latest-tag:2;pdb-unhealthy-pod-eviction-policy:2 | pin image tag or digest in the installer base; accept PDB behavior or add a reviewed patch where the chart supports it |
 | `bitnami/nginx@24.0.2` | 2 | 2 | standard | pdb-unhealthy-pod-eviction-policy:2 | accept PDB behavior or add a reviewed patch where the chart supports it |
 

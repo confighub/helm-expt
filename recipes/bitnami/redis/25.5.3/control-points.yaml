@@ -32,6 +32,9 @@ spec:
     - category: secret-handling
       status: handled
       note: cub installer separates one rendered Secret from uploaded manifests.
+    - category: image-digest
+      status: handled
+      digest: sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25
     - category: installer-support-object
       status: handled
       object: v1|Namespace||redis

@@ -23,6 +23,7 @@ spec:
       type: "base-self"
       inheritedValuePaths:
         - "auth.password"
+        - "image.digest"
       overriddenValuePaths:
         []
       addedValuePaths:
@@ -36,7 +37,7 @@ spec:
       to: "reuse-existing-secret"
       type: "inherits-with-overrides"
       inheritedValuePaths:
-        []
+        - "image.digest"
       overriddenValuePaths:
         []
       addedValuePaths:
@@ -99,6 +100,15 @@ spec:
         - "v1|Secret|redis|redis:metadata.namespace"
       immutableFieldRisk: true
       rolloutImpact: "moving-namespace-creates-distinct-object-set"
+    -
+      valuePath: "image.digest"
+      source: "catalog-policy"
+      renderedFieldCount: 2
+      renderedFields:
+        - "apps/v1|StatefulSet|redis|redis-master:spec.template.spec.containers[0].image"
+        - "apps/v1|StatefulSet|redis|redis-replicas:spec.template.spec.containers[0].image"
+      immutableFieldRisk: false
+      rolloutImpact: "changing-image-rolls-redis-pods"
     -
       valuePath: "auth.password"
       source: "generated-fact-receipt"

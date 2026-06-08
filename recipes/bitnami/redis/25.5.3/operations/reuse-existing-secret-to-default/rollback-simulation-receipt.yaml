@@ -9,9 +9,9 @@ spec:
     to: 25.5.3
   fromRevision: ../../revisions/reuse-existing-secret/r001/variant-revision.yaml
   toRevision: ../../revisions/default/r001/variant-revision.yaml
-  fromRenderedObjectSetSHA256: "0086a3d5f1b87c1107465940c49adf19187c784d1fd901c7fc7cc53dd504cb4b"
-  toRenderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
-  diffDigest: "sha256:41fd22bd59c5cc683e6a52d1871ea9ed80503f314961a82816bd7494de5398a9"
+  fromRenderedObjectSetSHA256: "55f424589dfd8581580a51659cdf46e52180961ddbf9f6b7b244d0aacc42546f"
+  toRenderedObjectSetSHA256: "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
+  diffDigest: "sha256:d00d045f8d06238f2fd0cc1219f9d8fd27ae0c5c13c6ab665f5b05b50d603488"
   preservedChanges:
     - "Release name, namespace, Services, StatefulSets, and PVC templates stay stable."
   droppedChanges:

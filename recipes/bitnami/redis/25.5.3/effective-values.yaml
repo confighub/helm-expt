@@ -6,16 +6,18 @@ spec:
   files:
     - path: effective-values.yaml
       source: inline-proof
-      sha256: "e876580b22aa7d60397e273e06bdf91fd9d301388ae22c902b17679e7b3213f2"
+      sha256: "bf6827da91d89c34a366338b2548bec5be4ccabb5387e2a61270227f576e2e99"
   mergedValuesCaptured: false
-  valueTreeSHA256: "sha256:e876580b22aa7d60397e273e06bdf91fd9d301388ae22c902b17679e7b3213f2"
+  values:
+    image:
+      digest: sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25
+    auth:
+      password: "confighub-redis-password"
   provenance:
     - path: auth.password
       source: generated-fact-receipt
-      sourceRef: revisions/default/r001/receipts/generated-fact-receipt.yaml
-      valueDigest: "sha256:6486a1dce90d013579f3b52d6939524b23b3ca00c5702e409348e6c0ba782349"
-      redaction: digest-in-reports
-      note: "The proof fixture binds this credential before render so Helm output is deterministic."
-  values:
-    auth:
-      password: "confighub-redis-password"
+      receipt: revisions/default/r001/receipts/generated-fact-receipt.yaml
+      digest: "sha256:6486a1dce90d013579f3b52d6939524b23b3ca00c5702e409348e6c0ba782349"
+    - path: image.digest
+      source: catalog-policy
+      digest: "sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25"

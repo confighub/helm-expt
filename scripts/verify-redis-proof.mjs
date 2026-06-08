@@ -15,6 +15,18 @@ import { fileURLToPath } from "node:url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(__dirname, "..");
 const defaultProofRoot = join(repoRoot, "recipes", "bitnami", "redis", "25.5.3");
+const redisImageDigest = "sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25";
+const defaultValuesText = `image:
+  digest: ${redisImageDigest}
+auth:
+  password: "confighub-redis-password"
+`;
+const reuseExistingSecretValuesText = `image:
+  digest: ${redisImageDigest}
+auth:
+  existingSecret: redis-existing-secret
+  existingSecretPasswordKey: redis-password
+`;
 const args = process.argv.slice(2);
 const selfTest = args.includes("--self-test");
 const proofRoot = resolve(optionValue("--proof-root") ?? defaultProofRoot);
@@ -256,19 +268,26 @@ function verifyProof(root) {
   check(effectiveValuesFile?.sha256, "effective values SHA must be present");
   check(effectiveValuesFile?.source === "inline-proof", "default values must be inline proof values");
   check(
-    effectiveValuesFile.sha256 === sha256('auth:\n  password: "confighub-redis-password"\n'),
+    effectiveValuesFile.sha256 === sha256(defaultValuesText),
     "default inline values SHA mismatch",
   );
   check(
     effectiveValues.spec.values?.auth?.password === "confighub-redis-password",
     "default value auth.password mismatch",
   );
+  check(
+    effectiveValues.spec.values?.image?.digest === redisImageDigest,
+    "default value image.digest mismatch",
+  );
   const reuseEffectiveValuesFile = reuseEffectiveValues.spec.files?.[0];
   check(reuseEffectiveValuesFile?.source === "inline-proof", "reuse-existing-secret values must be inline proof values");
   check(
-    reuseEffectiveValuesFile?.sha256 ===
-      sha256("auth:\n  existingSecret: redis-existing-secret\n  existingSecretPasswordKey: redis-password\n"),
+    reuseEffectiveValuesFile?.sha256 === sha256(reuseExistingSecretValuesText),
     "reuse-existing-secret inline values SHA mismatch",
+  );
+  check(
+    reuseEffectiveValues.spec.values?.image?.digest === redisImageDigest,
+    "reuse-existing-secret value image.digest mismatch",
   );
   check(
     reuseEffectiveValues.spec.values?.auth?.existingSecret === "redis-existing-secret",
@@ -312,7 +331,7 @@ function verifyProof(root) {
   check(renderReceipt.spec.outputs.secretCountSeparatedByCubInstall === 1, "render receipt separated secret count must be 1");
 
   check(
-    equivalence.spec.regularHelm.renderedSHA256 === "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d",
+    equivalence.spec.regularHelm.renderedSHA256 === releaseDigest,
     "regular Helm SHA mismatch",
   );
   check(equivalence.spec.regularHelm.objectCount === 14, "regular Helm object count must be 14");
@@ -335,21 +354,21 @@ function verifyProof(root) {
     "scan receipt scanner name mismatch",
   );
   check(Boolean(scanReceipt.spec.policyBundleDigest), "scan receipt policy bundle digest must be present");
-  check(scanReceipt.spec.result === "warn", "Redis scan receipt must warn while high findings exist");
-  check(scanReceipt.spec.findingCounts?.high === 2, "Redis scan receipt must record 2 high findings");
+  check(scanReceipt.spec.result === "warn", "Redis scan receipt must warn while PDB findings exist");
+  check(scanReceipt.spec.findingCounts?.high === 0, "Redis scan receipt must record 0 high findings after image digest pinning");
   check(scanReceipt.spec.findingCounts?.medium === 2, "Redis scan receipt must record 2 medium findings");
   check(scanReceipt.spec.findingCounts?.low === 0, "Redis scan receipt must record 0 low findings");
-  check(scanReceipt.spec.findings?.length === 4, "Redis scan receipt must list 4 findings");
+  check(scanReceipt.spec.findings?.length === 2, "Redis scan receipt must list 2 findings");
   check(
-    scanReceipt.spec.findings.filter((finding) => finding.rule === "mutable-image-tag").length === 2,
-    "Redis scan receipt must list 2 mutable-image-tag findings",
+    scanReceipt.spec.findings.filter((finding) => finding.rule === "mutable-image-tag").length === 0,
+    "Redis scan receipt must not list mutable-image-tag findings after image digest pinning",
   );
   check(
     scanReceipt.spec.findings.filter((finding) => finding.rule === "pdb-unhealthy-pod-eviction-policy").length === 2,
     "Redis scan receipt must list 2 PDB unhealthy eviction policy findings",
   );
   check(installGate.spec.renderedObjectSetSHA256 === releaseDigest, "install gate rendered digest mismatch");
-  check(installGate.spec.decision === "warn", "install gate must warn with high scan findings");
+  check(installGate.spec.decision === "warn", "install gate must warn with remaining scan findings");
   check(installGate.spec.allowedScopes?.includes("local-test"), "install gate must allow local-test only");
   check(installGate.spec.blockedScopes?.includes("production"), "install gate must block production with high findings");
 
@@ -421,11 +440,11 @@ function verifyProof(root) {
     "reuse equivalence must not classify a rendered Redis Secret",
   );
   check(reuseScanReceipt.spec.renderedObjectSetSHA256 === reuseReleaseDigest, "reuse scan receipt rendered digest mismatch");
-  check(reuseScanReceipt.spec.result === "warn", "reuse scan receipt must warn while high findings exist");
-  check(reuseScanReceipt.spec.findingCounts?.high === 2, "reuse scan receipt must record 2 high findings");
+  check(reuseScanReceipt.spec.result === "warn", "reuse scan receipt must warn while PDB findings exist");
+  check(reuseScanReceipt.spec.findingCounts?.high === 0, "reuse scan receipt must record 0 high findings after image digest pinning");
   check(reuseScanReceipt.spec.findingCounts?.medium === 2, "reuse scan receipt must record 2 medium findings");
   check(reuseInstallGate.spec.renderedObjectSetSHA256 === reuseReleaseDigest, "reuse install gate rendered digest mismatch");
-  check(reuseInstallGate.spec.decision === "warn", "reuse install gate must warn with high scan findings");
+  check(reuseInstallGate.spec.decision === "warn", "reuse install gate must warn with remaining scan findings");
   check(reuseInstallGate.spec.allowedScopes?.includes("local-test"), "reuse install gate must allow local-test only");
   check(reuseInstallGate.spec.blockedScopes?.includes("production"), "reuse install gate must block production");
 
@@ -517,7 +536,7 @@ function runSelfTest() {
       const path = join(root, "revisions", "default", "r001", "receipts", "scan-receipt.yaml");
       writeFileSync(path, readFileSync(path, "utf8").replace("result: warn", "result: pass"));
     },
-    "Redis scan receipt must warn while high findings exist",
+    "Redis scan receipt must warn while PDB findings exist",
   );
 
   expectFailure(

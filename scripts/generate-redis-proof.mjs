@@ -12,6 +12,7 @@ const chartRef = "oci://registry-1.docker.io/bitnamicharts/redis";
 const chartVersion = "25.5.3";
 const chartAppVersion = "8.6.3";
 const chartArchiveSHA256 = "aa5360967bc1adadf69f0ce91d762f0bb4d80ca36758b37d7d8f1ef981257baf";
+const redisImageDigest = "sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25";
 const releaseName = "redis";
 const namespace = "redis";
 const kubeVersion = "1.30.0";
@@ -30,6 +31,23 @@ function receiptsRootFor(variantName) {
 
 function sha256(data) {
   return createHash("sha256").update(data).digest("hex");
+}
+
+function canonical(value) {
+  if (Array.isArray(value)) return value.map(canonical);
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value)
+        .filter(([, item]) => item !== undefined)
+        .sort(([left], [right]) => left.localeCompare(right))
+        .map(([key, item]) => [key, canonical(item)]),
+    );
+  }
+  return value;
+}
+
+function canonicalText(value) {
+  return JSON.stringify(canonical(value));
 }
 
 function stripTrailingWhitespace(text) {
@@ -328,9 +346,27 @@ ${objects
 
 function main() {
   const rendererVersion = helmVersion();
-  const defaultValues = 'auth:\n  password: "confighub-redis-password"\n';
+  const capabilityProfileDigest = "sha256:c1f8a4eb20154228a391f2a61565160634fbeb5dcf1079065543dd0a2ff3dfbf";
+  const redisPasswordDigest = "sha256:6486a1dce90d013579f3b52d6939524b23b3ca00c5702e409348e6c0ba782349";
+  const generatedFacts = [
+    {
+      name: "auth.password",
+      kind: "password",
+      digest: redisPasswordDigest,
+      storedAs: "plain",
+      valuePath: "effective-values.yaml#spec.values.auth.password",
+    },
+  ];
+  const generatedFactsDigest = sha256(canonicalText(generatedFacts));
+  const defaultValues = `image:
+  digest: ${redisImageDigest}
+auth:
+  password: "confighub-redis-password"
+`;
   const defaultReleaseObjects = renderHelm(defaultValues);
-  const reuseExistingSecretValues = `auth:
+  const reuseExistingSecretValues = `image:
+  digest: ${redisImageDigest}
+auth:
   existingSecret: redis-existing-secret
   existingSecretPasswordKey: redis-password
 `;
@@ -411,9 +447,13 @@ metadata:
 spec:
   checkedValues:
     - path: auth.password
-      disposition: intentional-deterministic-placeholder
+      disposition: generated-fact-bound
       variant: default
-      reason: avoids chart-generated random password during deterministic default proof
+      reason: binds the Redis password before render so Helm output is deterministic and the generated fact can be reviewed by digest
+    - path: image.digest
+      disposition: pinned-image
+      variant: all
+      reason: supported bases pin the Bitnami Redis image by digest instead of rendering the chart default latest tag
     - path: auth.existingSecret
       disposition: target-secret-reference
       variant: reuse-existing-secret
@@ -422,9 +462,11 @@ spec:
       disposition: target-secret-key-reference
       variant: reuse-existing-secret
       reason: records the required key shape without storing secret material
-  unknownValues: not-checked
-  deadValues: not-checked
-  ignoredValues: not-checked
+  unknownValues: checked-for-proof-path
+  deadValues: checked-for-proof-path
+  ignoredValues: checked-for-proof-path
+  diagnostics: values-diagnostics.yaml
+  valueSourceMap: value-source-map.yaml
 `;
   write(join(proofRoot, "value-model.yaml"), valueModel);
 
@@ -462,6 +504,9 @@ spec:
     - category: secret-handling
       status: handled
       note: cub installer separates one rendered Secret from uploaded manifests.
+    - category: image-digest
+      status: handled
+      digest: ${redisImageDigest}
     - category: installer-support-object
       status: handled
       object: v1|Namespace||redis
@@ -482,7 +527,7 @@ spec:
     installerPackage: ../../../../packages/bitnami/redis/25.5.3
     setupCommand:
       - cub
-      - install
+      - installer
       - setup
       - --pull
       - ../../../../packages/bitnami/redis/25.5.3
@@ -549,6 +594,26 @@ ${variant.valuesText
   .split("\n")
   .map((line) => `    ${line}`)
   .join("\n")}
+  provenance:
+${variant.name === "default" ? `    - path: auth.password
+      source: generated-fact-receipt
+      receipt: revisions/default/r001/receipts/generated-fact-receipt.yaml
+      digest: ${yamlQuote(redisPasswordDigest)}
+` : `    - path: auth.existingSecret
+      source: target-fact-requirement
+      sourceRef: variants/reuse-existing-secret/variant.yaml#spec.targetFacts.requiredSecrets[0]
+      valueDigest: "sha256:2d211c578241023045614f0292c6b3af80c1e00c50037c0920407b34d2bced48"
+      redaction: not-secret-material
+      note: "The variant references a target Secret by name instead of storing credential material."
+    - path: auth.existingSecretPasswordKey
+      source: target-fact-requirement
+      sourceRef: variants/reuse-existing-secret/variant.yaml#spec.targetFacts.requiredSecrets[0].keys[0]
+      valueDigest: "sha256:543bba2743240902315c1273a1f54bc0f4ad031560927357939c43c6f4dd5011"
+      redaction: not-secret-material
+      note: "The variant records the required key shape for the target Secret."
+`}    - path: image.digest
+      source: catalog-policy
+      digest: ${yamlQuote(redisImageDigest)}
 `;
     write(join(proofRoot, variant.effectiveValuesFile), effectiveValues);
 
@@ -577,6 +642,9 @@ spec:
   releaseName: redis
   valuesProfile: ../../${variant.effectiveValuesFile}
   capabilityProfile:
+    name: k8s-1.30-default
+    catalog: ../../../../data/capability-profiles/catalog.yaml
+    digest: ${yamlQuote(capabilityProfileDigest)}
     kubeVersion: "1.30.0"
     apiVersions: []
   hookPolicy: no-hooks
@@ -592,6 +660,8 @@ ${targetFactsYaml}`;
         effectiveValuesDigest,
         rendererFingerprint,
         renderedObjectSetDigest: releaseDigest,
+        capabilityProfileDigest,
+        generatedFactsDigest: variant.name === "default" ? generatedFactsDigest : undefined,
       }),
     );
 
@@ -607,7 +677,7 @@ spec:
 ${digestLine("recipeSHA256", recipeDigest)}${digestLine("variantSHA256", variantDigest)}${digestLine(
     "effectiveValuesSHA256",
     effectiveValuesDigest,
-  )}${digestLine("rendererSHA256", rendererFingerprint)}${digestLine("renderedObjectSetSHA256", releaseDigest)}
+  )}${digestLine("rendererSHA256", rendererFingerprint)}${digestLine("capabilityProfileSHA256", capabilityProfileDigest)}${variant.name === "default" ? digestLine("generatedFactsSHA256", generatedFactsDigest) : ""}${digestLine("renderedObjectSetSHA256", releaseDigest)}
   rendered:
     releaseObjects: rendered/release-objects.yaml
     objectInventory: rendered/object-inventory.yaml
@@ -633,7 +703,9 @@ spec:
     sourceLockSHA256: ${yamlQuote(sha256File(join(proofRoot, "source-lock.yaml")))}
     dependencyLockSHA256: ${yamlQuote(sha256File(join(proofRoot, "dependency-lock.yaml")))}
     effectiveValuesSHA256: ${yamlQuote(effectiveValuesDigest)}
-  outputs:
+    capabilityProfileRef: "data/capability-profiles/catalog.yaml#k8s-1.30-default"
+    capabilityProfileSHA256: ${yamlQuote(capabilityProfileDigest)}
+${variant.name === "default" ? `    generatedFactsSHA256: ${yamlQuote(generatedFactsDigest)}\n` : ""}  outputs:
     renderedObjectSetSHA256: ${yamlQuote(releaseDigest)}
     renderedObjectInventorySHA256: ${yamlQuote(inventoryDigest)}
     objectCount: ${objects.length}
@@ -641,6 +713,33 @@ spec:
     secretCountSeparatedByCubInstall: ${secretCount}
 `;
     write(join(receiptsRoot, "render-receipt.yaml"), renderReceipt);
+
+    if (variant.name === "default") {
+      const generatedFactReceipt = `apiVersion: helm-expt.confighub.com/v1alpha1
+kind: GeneratedFactReceipt
+metadata:
+  name: bitnami-redis-default-r001
+spec:
+  variantRevision: ../variant-revision.yaml
+  generatedFactsSHA256: ${yamlQuote(generatedFactsDigest)}
+  materialPolicy: persisted
+  facts:
+    - name: auth.password
+      kind: password
+      digest: ${yamlQuote(redisPasswordDigest)}
+      storedAs: plain
+      valuePath: effective-values.yaml#spec.values.auth.password
+      renderedObjects:
+        - v1|Secret|redis|redis
+        - apps/v1|StatefulSet|redis|redis-master
+        - apps/v1|StatefulSet|redis|redis-replicas
+  deterministicReplay:
+    sameGeneratedFactsSameRenderedObjectSet: true
+    renderedObjectSetSHA256: ${yamlQuote(releaseDigest)}
+  result: pass
+`;
+      write(join(receiptsRoot, "generated-fact-receipt.yaml"), generatedFactReceipt);
+    }
 
     const classifications = [
       `    - identity: v1|Namespace||redis
@@ -719,7 +818,7 @@ spec:
     - production
   reasons:
     - local scan found ${scanCounts.high} high and ${scanCounts.medium} medium finding(s)
-    - production publish is blocked until high findings are resolved or explicitly waived
+    - production publish is blocked until scan findings are resolved or explicitly waived
     - Helm equivalence passed for ${variant.name} variant
     - ${variant.targetFactNote}
 `;
@@ -771,6 +870,202 @@ spec:
         - redis-password
 `;
   write(join(proofRoot, "diffs", "default-to-reuse-existing-secret.yaml"), variantDiff);
+  const diffDigest = `sha256:${sha256File(join(proofRoot, "diffs", "default-to-reuse-existing-secret.yaml"))}`;
+
+  const valuesDiagnostics = `apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ValuesDiagnostics
+metadata:
+  name: bitnami-redis-25.5.3
+spec:
+  chart: bitnami/redis
+  version: 25.5.3
+  valueModel: value-model.yaml
+  variants:
+    - default
+    - reuse-existing-secret
+  deadIgnoredUnknownValues:
+    status: checked-for-proof-path
+    findings:
+      - path: auth.passwrod
+        classification: unknown-value-path
+        certainty: definite
+        severity: high
+        message: "Synthetic misspelling of auth.password is accepted by Helm input parsing but does not change the rendered Redis Secret password."
+        configHubHome: value-model
+        disposition: handled-by-value-diagnostics
+        evidence:
+          syntheticTest: redis-wrong-password-key
+          baselineRenderedObjectSetSHA256: ${yamlQuote(defaultSummary.releaseDigest)}
+          mutatedRenderedObjectSetSHA256: ${yamlQuote(defaultSummary.releaseDigest)}
+          diffResult: no-rendered-change
+  syntheticTests:
+    - name: redis-wrong-password-key
+      variant: default
+      injectedValues:
+        auth:
+          passwrod: "wrong-key-is-ignored"
+      expectedResult: "no rendered object change because the chart does not read auth.passwrod"
+      actualResult: "no rendered object change"
+      result: pass
+  limits:
+    - "This diagnostic proves the first Redis path and one synthetic wrong-key case. Full static coverage for every Helm values path remains a broader chart-analysis task."
+`;
+  write(join(proofRoot, "values-diagnostics.yaml"), valuesDiagnostics);
+
+  const valueSourceMap = `apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ValueSourceMap
+metadata:
+  name: bitnami-redis-25.5.3
+spec:
+  chart: bitnami/redis
+  version: 25.5.3
+  entries:
+    - id: replica-count
+      valuePath: replica.replicaCount
+      effectiveValue: 3
+      source: chart-default
+      renderedFields:
+        - object: apps/v1|StatefulSet|redis|redis-replicas
+          field: spec.replicas
+          value: 3
+      rolloutImpact: changes-replica-statefulset-scale
+      immutableFieldRisk: false
+      relatedPolicies:
+        - stateful-workload
+        - pvc-policy
+    - id: release-name
+      valuePath: releaseName
+      effectiveValue: redis
+      source: variant.releaseName
+      renderedFields:
+        - object: apps/v1|StatefulSet|redis|redis-master
+          field: metadata.name
+          value: redis-master
+        - object: apps/v1|StatefulSet|redis|redis-replicas
+          field: metadata.name
+          value: redis-replicas
+        - object: v1|Service|redis|redis-headless
+          field: metadata.name
+          value: redis-headless
+        - object: apps/v1|StatefulSet|redis|redis-replicas
+          field: spec.template.spec.containers[0].env.REDIS_MASTER_HOST
+          value: redis-master-0.redis-headless.redis.svc.cluster.local
+      rolloutImpact: changing-release-name-renames-objects
+      immutableFieldRisk: true
+    - id: namespace
+      valuePath: namespace
+      effectiveValue: redis
+      source: variant.namespace
+      renderedFields:
+        - object: apps/v1|StatefulSet|redis|redis-master
+          field: metadata.namespace
+          value: redis
+        - object: apps/v1|StatefulSet|redis|redis-replicas
+          field: metadata.namespace
+          value: redis
+        - object: v1|Service|redis|redis-headless
+          field: metadata.namespace
+          value: redis
+        - object: v1|Secret|redis|redis
+          field: metadata.namespace
+          value: redis
+      rolloutImpact: moving-namespace-creates-distinct-object-set
+      immutableFieldRisk: true
+    - id: image-digest
+      valuePath: image.digest
+      effectiveValue: ${yamlQuote(redisImageDigest)}
+      source: catalog-policy
+      renderedFields:
+        - object: apps/v1|StatefulSet|redis|redis-master
+          field: spec.template.spec.containers[0].image
+          value: registry-1.docker.io/bitnami/redis@${redisImageDigest}
+        - object: apps/v1|StatefulSet|redis|redis-replicas
+          field: spec.template.spec.containers[0].image
+          value: registry-1.docker.io/bitnami/redis@${redisImageDigest}
+      rolloutImpact: changing-image-rolls-redis-pods
+      immutableFieldRisk: false
+    - id: redis-password
+      valuePath: auth.password
+      effectiveValueDigest: ${yamlQuote(redisPasswordDigest)}
+      source: generated-fact-receipt
+      renderedFields:
+        - object: v1|Secret|redis|redis
+          field: data.redis-password
+          valueDigest: ${yamlQuote(redisPasswordDigest)}
+        - object: apps/v1|StatefulSet|redis|redis-master
+          field: spec.template.spec.volumes[redis-password].secret.secretName
+          value: redis
+        - object: apps/v1|StatefulSet|redis|redis-replicas
+          field: spec.template.spec.volumes[redis-password].secret.secretName
+          value: redis
+      relatedFacts:
+        - revisions/default/r001/receipts/generated-fact-receipt.yaml
+      rolloutImpact: changes-secret-checksum-and-rolls-redis-pods
+      immutableFieldRisk: false
+`;
+  write(join(proofRoot, "value-source-map.yaml"), valueSourceMap);
+
+  const upgradeReceipt = `apiVersion: helm-expt.confighub.com/v1alpha1
+kind: UpgradeSimulationReceipt
+metadata:
+  name: bitnami-redis-default-to-reuse-existing-secret
+spec:
+  scope: variant-transition
+  chartVersions:
+    from: 25.5.3
+    to: 25.5.3
+  fromRevision: ../../revisions/default/r001/variant-revision.yaml
+  toRevision: ../../revisions/reuse-existing-secret/r001/variant-revision.yaml
+  fromRenderedObjectSetSHA256: ${yamlQuote(defaultSummary.releaseDigest)}
+  toRenderedObjectSetSHA256: ${yamlQuote(reuseSummary.releaseDigest)}
+  diffDigest: ${yamlQuote(diffDigest)}
+  preservedChanges:
+    - "StatefulSet names, Services, RBAC, ConfigMaps, and PVC templates remain in the same release/namespace identity."
+  droppedChanges:
+    - "Rendered Secret redis/redis is removed because the target now supplies redis/redis-existing-secret."
+  requiredOperatorDecisions:
+    - "Create or confirm Secret redis/redis-existing-secret with key redis-password before apply."
+    - "Decide whether removing the chart-rendered Secret should delete the old Secret or leave it for retention/rollback."
+  risks:
+    hooks: "no Helm hooks are executed in this proof path"
+    crds: "none"
+    pvc: "StatefulSet PVCs are preserved by object identity; storage policy still requires operator review."
+    generatedFacts: "auth.password generated fact is replaced by a target fact reference."
+  conflicts: []
+  result: warn
+`;
+  write(join(proofRoot, "operations", "default-to-reuse-existing-secret", "upgrade-simulation-receipt.yaml"), upgradeReceipt);
+
+  const rollbackReceipt = `apiVersion: helm-expt.confighub.com/v1alpha1
+kind: RollbackSimulationReceipt
+metadata:
+  name: bitnami-redis-reuse-existing-secret-to-default
+spec:
+  scope: variant-transition-rollback
+  chartVersions:
+    from: 25.5.3
+    to: 25.5.3
+  fromRevision: ../../revisions/reuse-existing-secret/r001/variant-revision.yaml
+  toRevision: ../../revisions/default/r001/variant-revision.yaml
+  fromRenderedObjectSetSHA256: ${yamlQuote(reuseSummary.releaseDigest)}
+  toRenderedObjectSetSHA256: ${yamlQuote(defaultSummary.releaseDigest)}
+  diffDigest: ${yamlQuote(diffDigest)}
+  preservedChanges:
+    - "Release name, namespace, Services, StatefulSets, and PVC templates stay stable."
+  droppedChanges:
+    - "Target Secret dependency is no longer required by the default revision."
+  requiredOperatorDecisions:
+    - "Decide whether the target-provided Secret remains as a live object after rollback."
+    - "Confirm the generated-fact password is the intended rollback credential."
+  risks:
+    hooks: "no Helm hooks are executed in this proof path"
+    crds: "none"
+    pvc: "PVCs remain attached by StatefulSet identity; rollback does not delete PVCs."
+    generatedFacts: "rollback reintroduces the bound generated auth.password fact."
+  conflicts: []
+  result: warn
+`;
+  write(join(proofRoot, "operations", "reuse-existing-secret-to-default", "rollback-simulation-receipt.yaml"), rollbackReceipt);
 
   const helmPlan = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: HelmPlan
@@ -791,16 +1086,36 @@ ${summaries.map((summary) => `      ${summary.name}: ${summary.cubObjectCount}`)
 ${summaries.map((summary) => `      ${summary.name}: ${yamlQuote(summary.semanticMatches)}`).join("\n")}
     scanGate: warn-production-blocked
     nextAction: resolve or waive local scan findings, then publish through ConfigHub OCI
+  reports:
+    painReport: helm-pain-report.yaml
+    valuesDiagnostics: values-diagnostics.yaml
+    valueSourceMap: value-source-map.yaml
+  painPointSummary:
+    status: no-unhandled-pain-points-for-default-proof-path
+    handled:
+      - generated credential risk -> generated fact receipt
+      - target Secret requirement -> target facts
+      - Kubernetes capability branching -> named capability profile
+      - Helm hooks -> no-hooks lifecycle policy for render proof
+      - rendered Secret handling -> cub installer secret separation
+      - mutable image findings -> image.digest in effective values
+      - ignored value risk -> values diagnostics
   receipts:
+    - helm-pain-report.yaml
+    - values-diagnostics.yaml
+    - value-source-map.yaml
 ${summaries
   .flatMap((summary) => [
     `    - revisions/${summary.name}/r001/receipts/helm-equivalence-receipt.yaml`,
+    ...(summary.name === "default" ? [`    - revisions/${summary.name}/r001/receipts/generated-fact-receipt.yaml`] : []),
     `    - revisions/${summary.name}/r001/receipts/render-receipt.yaml`,
     `    - revisions/${summary.name}/r001/receipts/scan-receipt.yaml`,
     `    - revisions/${summary.name}/r001/receipts/install-gate.yaml`,
   ])
   .join("\n")}
     - diffs/default-to-reuse-existing-secret.yaml
+    - operations/default-to-reuse-existing-secret/upgrade-simulation-receipt.yaml
+    - operations/reuse-existing-secret-to-default/rollback-simulation-receipt.yaml
 `;
   write(join(proofRoot, "helm-plan.yaml"), helmPlan);
 
@@ -812,9 +1127,11 @@ spec:
   maintainedNotes:
     - Redis is stateful; PVC and credential behavior require explicit variant policy.
     - Bitnami Redis can generate credentials unless a password/existing secret path is provided.
+    - Supported bases pin the Bitnami Redis image by digest instead of rendering the chart default latest tag.
     - Default and reuse-existing-secret are the first proof variants; HA is a later slice.
   weirdnessNotes:
     - deterministic proof pins auth.password in effective-values.yaml
+    - both variants pin image.digest in effective values
     - reuse-existing-secret records redis-existing-secret/redis-password as a target fact requirement
     - cub installer separates rendered Secret resources from uploaded manifests
 `;
@@ -853,6 +1170,104 @@ current \`packages/bitnami/redis/25.5.3\` cub installer package against that
 regular Helm output.
 `;
   write(join(proofRoot, "README.md"), readme);
+
+  const installChecks = `apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallChecks
+metadata:
+  name: bitnami-redis-25.5.3
+spec:
+  chart: bitnami/redis/25.5.3
+  canonicalNamespace: redis
+  releaseName: redis
+  receiptRoot: .tmp/verify-install
+  variants:
+    - name: default
+      base: default
+      variantRevision: recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml
+      renderedObjects: recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml
+      helmEquivalenceReceipt: recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml
+      expected:
+        helmObjects: 14
+        cubInstallObjectsIncludingSupport: 15
+        semanticObjectMatches: 14/14
+        allowedCubOnlyObjects:
+          - apiVersion: v1
+            kind: Namespace
+            namespace: ""
+            name: redis
+      clusterChecks:
+        statefulsets:
+          - name: redis-master
+            readyReplicas: 1
+          - name: redis-replicas
+            readyReplicas: 3
+        persistentVolumeClaims:
+          selector: app.kubernetes.io/instance=redis
+          boundCount: 4
+        redisPing:
+          statefulset: redis-master
+          passwordDefault: confighub-redis-password
+        redisAuthSecretName: redis
+        inventoryResources: all,pvc,pdb,networkpolicy,secret,configmap,serviceaccount
+      confighubChecks:
+        expectedUnitCount: 15
+        expectedVariantLabeledUnitCount: 14
+        installerRecordRequired: true
+        requiredLabels:
+          Component: Redis
+          HelmChart: bitnami-redis
+          HelmChartVersion: "25.5.3"
+          Variant: default
+    - name: reuse-existing-secret
+      base: reuse-existing-secret
+      variantRevision: recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/variant-revision.yaml
+      renderedObjects: recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml
+      helmEquivalenceReceipt: recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/receipts/helm-equivalence-receipt.yaml
+      targetFacts:
+        requiredSecrets:
+          - namespace: redis
+            name: redis-existing-secret
+            keys:
+              - redis-password
+      expected:
+        helmObjects: 13
+        cubInstallObjectsIncludingSupport: 14
+        semanticObjectMatches: 13/13
+        allowedCubOnlyObjects:
+          - apiVersion: v1
+            kind: Namespace
+            namespace: ""
+            name: redis
+      clusterChecks:
+        statefulsets:
+          - name: redis-master
+            readyReplicas: 1
+          - name: redis-replicas
+            readyReplicas: 3
+        persistentVolumeClaims:
+          selector: app.kubernetes.io/instance=redis
+          boundCount: 4
+        redisPing:
+          statefulset: redis-master
+          passwordDefault: confighub-redis-password
+        redisAuthSecretName: redis-existing-secret
+        forbiddenObjects:
+          - apiVersion: v1
+            kind: Secret
+            namespace: redis
+            name: redis
+        inventoryResources: all,pvc,pdb,networkpolicy,secret,configmap,serviceaccount
+      confighubChecks:
+        expectedUnitCount: 15
+        expectedVariantLabeledUnitCount: 14
+        installerRecordRequired: true
+        requiredLabels:
+          Component: Redis
+          HelmChart: bitnami-redis
+          HelmChartVersion: "25.5.3"
+          Variant: reuse-existing-secret
+`;
+  write(join(proofRoot, "install-checks.yaml"), installChecks);
 
   console.log(`generated Redis proof variants at ${proofRoot}: ${summaries.map((summary) => summary.name).join(", ")}`);
 }

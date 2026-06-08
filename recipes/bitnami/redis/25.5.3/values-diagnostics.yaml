@@ -21,8 +21,8 @@ spec:
         disposition: handled-by-value-diagnostics
         evidence:
           syntheticTest: redis-wrong-password-key
-          baselineRenderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
-          mutatedRenderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+          baselineRenderedObjectSetSHA256: "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
+          mutatedRenderedObjectSetSHA256: "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
           diffResult: no-rendered-change
   syntheticTests:
     - name: redis-wrong-password-key

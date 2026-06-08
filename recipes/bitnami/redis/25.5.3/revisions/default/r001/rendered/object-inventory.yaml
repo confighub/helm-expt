@@ -4,7 +4,7 @@ metadata:
   name: bitnami-redis-25.5.3-default-r001
 spec:
   source: rendered/release-objects.yaml
-  sourceSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+  sourceSHA256: "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
   objectCount: 14
   objects:
     - identity: "networking.k8s.io/v1|NetworkPolicy|redis|redis"

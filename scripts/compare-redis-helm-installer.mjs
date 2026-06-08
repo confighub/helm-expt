@@ -19,7 +19,12 @@ const chartVersion = "25.5.3";
 const releaseName = "redis";
 const namespace = "redis";
 const kubeVersion = "1.30.0";
-const defaultValuesText = 'auth:\n  password: "confighub-redis-password"\n';
+const redisImageDigest = "sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25";
+const defaultValuesText = `image:
+  digest: ${redisImageDigest}
+auth:
+  password: "confighub-redis-password"
+`;
 
 const env = { ...process.env };
 try {
@@ -47,7 +52,12 @@ try {
     {
       name: "reuse-existing-secret",
       base: "reuse-existing-secret",
-      valuesText: "auth:\n  existingSecret: redis-existing-secret\n  existingSecretPasswordKey: redis-password\n",
+      valuesText: `image:
+  digest: ${redisImageDigest}
+auth:
+  existingSecret: redis-existing-secret
+  existingSecretPasswordKey: redis-password
+`,
       expectedYamlPath: join(
         proofRoot,
         "revisions",

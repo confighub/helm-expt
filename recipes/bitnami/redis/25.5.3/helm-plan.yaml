@@ -33,7 +33,7 @@ spec:
       - Kubernetes capability branching -> named capability profile
       - Helm hooks -> no-hooks lifecycle policy for render proof
       - rendered Secret handling -> cub installer secret separation
-      - mutable image findings -> scan receipt and install gate
+      - mutable image findings -> image.digest in effective values
       - ignored value risk -> values diagnostics
   receipts:
     - helm-pain-report.yaml

@@ -542,16 +542,16 @@ spec:
           -
             variant: "default"
             result: "warn"
-            findingCount: 4
-            renderedSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
-            topChecks: "latest-tag:2;pdb-unhealthy-pod-eviction-policy:2"
+            findingCount: 2
+            renderedSHA256: "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
+            topChecks: "pdb-unhealthy-pod-eviction-policy:2"
             renderedPath: "recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml"
           -
             variant: "reuse-existing-secret"
             result: "warn"
-            findingCount: 4
-            renderedSHA256: "a90dda4885fb97749e2c222f1abd840f49dcf6eafa953ea6ea2dbc6ba565fe53"
-            topChecks: "latest-tag:2;pdb-unhealthy-pod-eviction-policy:2"
+            findingCount: 2
+            renderedSHA256: "55f424589dfd8581580a51659cdf46e52180961ddbf9f6b7b244d0aacc42546f"
+            topChecks: "pdb-unhealthy-pod-eviction-policy:2"
             renderedPath: "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/redis-local-kind/latest/observation-receipt.yaml"

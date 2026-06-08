@@ -6,7 +6,7 @@
     "pass": 0,
     "warn": 40,
     "fail": 0,
-    "totalFindings": 321,
+    "totalFindings": 317,
     "toolStatus": {
       "kubeLinter": {
         "available": true,
@@ -793,35 +793,14 @@
       "scannerVersion": "0.8.3",
       "result": "warn",
       "exitCode": 1,
-      "findingCount": 4,
+      "findingCount": 2,
       "checkCounts": {
-        "latest-tag": 2,
         "pdb-unhealthy-pod-eviction-policy": 2
       },
       "renderedPath": "recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml",
-      "renderedSHA256": "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d",
+      "renderedSHA256": "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e",
       "recipePath": "recipes/bitnami/redis/25.5.3",
       "findings": [
-        {
-          "check": "latest-tag",
-          "message": "The container \"redis\" is using an invalid container image, \"registry-1.docker.io/bitnami/redis:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
-          "object": {
-            "apiVersion": "",
-            "kind": "",
-            "namespace": "redis",
-            "name": "redis-master"
-          }
-        },
-        {
-          "check": "latest-tag",
-          "message": "The container \"redis\" is using an invalid container image, \"registry-1.docker.io/bitnami/redis:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
-          "object": {
-            "apiVersion": "",
-            "kind": "",
-            "namespace": "redis",
-            "name": "redis-replicas"
-          }
-        },
         {
           "check": "pdb-unhealthy-pod-eviction-policy",
           "message": "unhealthyPodEvictionPolicy is not explicitly set",
@@ -852,35 +831,14 @@
       "scannerVersion": "0.8.3",
       "result": "warn",
       "exitCode": 1,
-      "findingCount": 4,
+      "findingCount": 2,
       "checkCounts": {
-        "latest-tag": 2,
         "pdb-unhealthy-pod-eviction-policy": 2
       },
       "renderedPath": "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml",
-      "renderedSHA256": "a90dda4885fb97749e2c222f1abd840f49dcf6eafa953ea6ea2dbc6ba565fe53",
+      "renderedSHA256": "55f424589dfd8581580a51659cdf46e52180961ddbf9f6b7b244d0aacc42546f",
       "recipePath": "recipes/bitnami/redis/25.5.3",
       "findings": [
-        {
-          "check": "latest-tag",
-          "message": "The container \"redis\" is using an invalid container image, \"registry-1.docker.io/bitnami/redis:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
-          "object": {
-            "apiVersion": "",
-            "kind": "",
-            "namespace": "redis",
-            "name": "redis-master"
-          }
-        },
-        {
-          "check": "latest-tag",
-          "message": "The container \"redis\" is using an invalid container image, \"registry-1.docker.io/bitnami/redis:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
-          "object": {
-            "apiVersion": "",
-            "kind": "",
-            "namespace": "redis",
-            "name": "redis-replicas"
-          }
-        },
         {
           "check": "pdb-unhealthy-pod-eviction-policy",
           "message": "unhealthyPodEvictionPolicy is not explicitly set",

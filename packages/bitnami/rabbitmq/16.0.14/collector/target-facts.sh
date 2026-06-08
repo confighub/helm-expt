@@ -55,8 +55,9 @@ targetFacts:
     name: rabbitmq-erlang-cookie
     namespace: rabbitmq
     purpose: RabbitMQ Erlang cookie for node clustering
+
 targetFactChecks:
-  base: "$base"
+  base: "existing-secret"
   mode: "$check_mode"
   result: "$result"
 YAML

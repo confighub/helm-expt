@@ -29,6 +29,7 @@ spec:
       - "dependency-lock"
       - "generated-facts"
       - "hook-policy"
+      - "image-digest"
       - "installer-support-object"
       - "secret-handling"
       - "source-lock"
@@ -64,7 +65,7 @@ spec:
     path: "packages/bitnami/redis/25.5.3"
     installer: "packages/bitnami/redis/25.5.3/installer.yaml"
     receipt: "recipes/bitnami/redis/25.5.3/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "359013e764592e2fa6ab7f9dd8948ec8afca68a6069673c5e2364742fbb266d7"
+    deterministicBundleSHA256: "ff4382e50234ef0f5b7a2324431e6083eea30dcef45297dbc1b5ca4a6bfce154"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -113,8 +114,8 @@ spec:
           name: "default-r001"
           revision: "r001"
           variantRevision: "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml"
-          digest: "e51d44a74db116790294ae6574ff7f8c896695dca27951c283133338ea3564e2"
-          renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+          digest: "b72dbea967a115c140b00b124ac7facf66178d27383041e0938b11df75ab58d4"
+          renderedObjectSetSHA256: "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
           renderedObjects: "recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/object-inventory.yaml"
           objectCount: 14
@@ -127,22 +128,22 @@ spec:
               kind: "RenderReceipt"
               path: "recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/render-receipt.yaml"
               result: "recorded"
-              renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+              renderedObjectSetSHA256: "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
             helmEquivalence:
               kind: "HelmEquivalenceReceipt"
               path: "recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
               result: "pass"
-              renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+              renderedObjectSetSHA256: "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
             scan:
               kind: "ScanReceipt"
               path: "recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/scan-receipt.yaml"
               result: "warn"
-              renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+              renderedObjectSetSHA256: "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
             installGate:
               kind: "InstallGate"
               path: "recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/install-gate.yaml"
               result: "warn"
-              renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+              renderedObjectSetSHA256: "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
     -
       name: "reuse-existing-secret"
       variant: "recipes/bitnami/redis/25.5.3/variants/reuse-existing-secret/variant.yaml"
@@ -184,8 +185,8 @@ spec:
           name: "reuse-existing-secret-r001"
           revision: "r001"
           variantRevision: "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/variant-revision.yaml"
-          digest: "964efba731ca5cc276c42fff4adb10d0b940e3ff9a4a3d5195d95646e1c80801"
-          renderedObjectSetSHA256: "a90dda4885fb97749e2c222f1abd840f49dcf6eafa953ea6ea2dbc6ba565fe53"
+          digest: "a530dc8e393021275a35a9d16ac3ec69408c3a644f0899c4cbd05ffb0f3d404a"
+          renderedObjectSetSHA256: "55f424589dfd8581580a51659cdf46e52180961ddbf9f6b7b244d0aacc42546f"
           renderedObjects: "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/object-inventory.yaml"
           objectCount: 13
@@ -198,19 +199,19 @@ spec:
               kind: "RenderReceipt"
               path: "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/receipts/render-receipt.yaml"
               result: "recorded"
-              renderedObjectSetSHA256: "a90dda4885fb97749e2c222f1abd840f49dcf6eafa953ea6ea2dbc6ba565fe53"
+              renderedObjectSetSHA256: "55f424589dfd8581580a51659cdf46e52180961ddbf9f6b7b244d0aacc42546f"
             helmEquivalence:
               kind: "HelmEquivalenceReceipt"
               path: "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/receipts/helm-equivalence-receipt.yaml"
               result: "pass"
-              renderedObjectSetSHA256: "a90dda4885fb97749e2c222f1abd840f49dcf6eafa953ea6ea2dbc6ba565fe53"
+              renderedObjectSetSHA256: "55f424589dfd8581580a51659cdf46e52180961ddbf9f6b7b244d0aacc42546f"
             scan:
               kind: "ScanReceipt"
               path: "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/receipts/scan-receipt.yaml"
               result: "warn"
-              renderedObjectSetSHA256: "a90dda4885fb97749e2c222f1abd840f49dcf6eafa953ea6ea2dbc6ba565fe53"
+              renderedObjectSetSHA256: "55f424589dfd8581580a51659cdf46e52180961ddbf9f6b7b244d0aacc42546f"
             installGate:
               kind: "InstallGate"
               path: "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/receipts/install-gate.yaml"
               result: "warn"
-              renderedObjectSetSHA256: "a90dda4885fb97749e2c222f1abd840f49dcf6eafa953ea6ea2dbc6ba565fe53"
+              renderedObjectSetSHA256: "55f424589dfd8581580a51659cdf46e52180961ddbf9f6b7b244d0aacc42546f"

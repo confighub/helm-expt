@@ -69,8 +69,9 @@ targetFacts:
     name: consul-bootstrap-acl-token
     namespace: consul
     purpose: Consul ACL bootstrap token
+
 targetFactChecks:
-  base: "$base"
+  base: "secure-mesh-existing-secrets"
   mode: "$check_mode"
   result: "$result"
 YAML

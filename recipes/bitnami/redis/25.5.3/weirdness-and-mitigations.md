@@ -23,6 +23,7 @@ or operating-policy dispositions.
 
 - Redis is stateful; PVC and credential behavior require explicit variant policy.
 - Bitnami Redis can generate credentials unless a password/existing secret path is provided.
+- Supported bases pin the Bitnami Redis image by digest instead of rendering the chart default latest tag.
 - Default and reuse-existing-secret are the first proof variants; HA is a later slice.
 
 ## Catalog Mitigations
@@ -42,6 +43,7 @@ or operating-policy dispositions.
 | capability-profile | handled | recorded in control-points.yaml |
 | hook-policy | handled | no-hooks |
 | secret-handling | handled | cub installer separates one rendered Secret from uploaded manifests. |
+| image-digest | handled | recorded in control-points.yaml |
 | installer-support-object | handled | v1\|Namespace\|\|redis |
 
 ## Control Point Index
@@ -50,6 +52,7 @@ or operating-policy dispositions.
 - dependency-lock
 - generated-facts
 - hook-policy
+- image-digest
 - installer-support-object
 - secret-handling
 - source-lock

@@ -4,7 +4,7 @@ metadata:
   name: bitnami-redis-reuse-existing-secret-r001
 spec:
   variantRevision: ../variant-revision.yaml
-  renderedObjectSetSHA256: "a90dda4885fb97749e2c222f1abd840f49dcf6eafa953ea6ea2dbc6ba565fe53"
+  renderedObjectSetSHA256: "55f424589dfd8581580a51659cdf46e52180961ddbf9f6b7b244d0aacc42546f"
   result: warn
   scanner:
     name: "helm-expt-local-rendered-object-scan"
@@ -12,21 +12,11 @@ spec:
   policyBundleDigest: "47cf09c23cef94058ab9ac9b4dfed4b825fba2d78732939422a33b8611138157"
   findingCounts:
     critical: 0
-    high: 2
+    high: 0
     medium: 2
     low: 0
     info: 0
   findings:
-    - id: "mutable-image-tag:apps/v1|StatefulSet|redis|redis-master:redis"
-      rule: "mutable-image-tag"
-      severity: "high"
-      object: "apps/v1|StatefulSet|redis|redis-master"
-      message: "container redis uses mutable image registry-1.docker.io/bitnami/redis:latest"
-    - id: "mutable-image-tag:apps/v1|StatefulSet|redis|redis-replicas:redis"
-      rule: "mutable-image-tag"
-      severity: "high"
-      object: "apps/v1|StatefulSet|redis|redis-replicas"
-      message: "container redis uses mutable image registry-1.docker.io/bitnami/redis:latest"
     - id: "pdb-unhealthy-pod-eviction-policy:policy/v1|PodDisruptionBudget|redis|redis-master"
       rule: "pdb-unhealthy-pod-eviction-policy"
       severity: "medium"

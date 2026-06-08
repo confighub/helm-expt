@@ -1,24 +1,27 @@
-apiVersion: installer.confighub.com/v1alpha1
-kind: Package
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
 metadata:
-  name: bitnami-redis
+  name: "bitnami-redis"
   version: "25.5.3"
 spec:
   bases:
-    - name: default
-      path: bases/default
+    -
       default: true
       description: "Redis default variant rendered from bitnami/redis@25.5.3"
-    - name: reuse-existing-secret
-      path: bases/reuse-existing-secret
+      name: "default"
+      path: "bases/default"
+    -
       description: "Redis variant that uses an existing Secret target fact"
       externalRequires:
-        - kind: ClusterFeature
+        -
+          kind: "ClusterFeature"
           name: "Secret redis/redis-existing-secret key redis-password"
-          namespace: redis
+          namespace: "redis"
           suggestedSource: "kubectl -n redis create secret generic redis-existing-secret --from-literal=redis-password=<value>"
+      name: "reuse-existing-secret"
+      path: "bases/reuse-existing-secret"
   collector:
-    command: /bin/sh
+    command: "/bin/sh"
     args:
-      - collector/target-facts.sh
-    description: "Records Redis target-fact bindings and can live-check the existing Secret variant."
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check existing Secret requirements."

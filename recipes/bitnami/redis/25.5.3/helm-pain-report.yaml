@@ -19,6 +19,7 @@ spec:
   notes:
     - "Redis is stateful; PVC and credential behavior require explicit variant policy."
     - "Bitnami Redis can generate credentials unless a password/existing secret path is provided."
+    - "Supported bases pin the Bitnami Redis image by digest instead of rendering the chart default latest tag."
     - "Default and reuse-existing-secret are the first proof variants; HA is a later slice."
   painPoints:
     -
@@ -79,6 +80,15 @@ spec:
     -
       id: "secret-handling"
       detectedPainPoint: "cub installer separates one rendered Secret from uploaded manifests."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "image-digest"
+      detectedPainPoint: "image-digest is detected in this chart and mapped to a ConfigHub control point"
       evidence:
         - "control-points.yaml"
       configHubHome: "recipe"

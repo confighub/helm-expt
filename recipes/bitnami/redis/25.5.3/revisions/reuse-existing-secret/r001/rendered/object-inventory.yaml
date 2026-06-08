@@ -4,7 +4,7 @@ metadata:
   name: bitnami-redis-25.5.3-reuse-existing-secret-r001
 spec:
   source: rendered/release-objects.yaml
-  sourceSHA256: "a90dda4885fb97749e2c222f1abd840f49dcf6eafa953ea6ea2dbc6ba565fe53"
+  sourceSHA256: "55f424589dfd8581580a51659cdf46e52180961ddbf9f6b7b244d0aacc42546f"
   objectCount: 13
   objects:
     - identity: "networking.k8s.io/v1|NetworkPolicy|redis|redis"

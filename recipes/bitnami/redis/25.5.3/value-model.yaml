@@ -8,6 +8,10 @@ spec:
       disposition: generated-fact-bound
       variant: default
       reason: binds the Redis password before render so Helm output is deterministic and the generated fact can be reviewed by digest
+    - path: image.digest
+      disposition: pinned-image
+      variant: all
+      reason: supported bases pin the Bitnami Redis image by digest instead of rendering the chart default latest tag
     - path: auth.existingSecret
       disposition: target-secret-reference
       variant: reuse-existing-secret
