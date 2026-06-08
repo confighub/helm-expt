@@ -44,7 +44,8 @@ The CLI surface is unchanged, so every existing `npm run <chart>:*` script and t
 | `mongodb-proof.mjs` | 257 |
 | `grafana-proof.mjs` | 251 |
 | `prometheus-proof.mjs` | 298 |
-| `scripts/lib/proof-kit.mjs` (shared, amortized over all migrated charts) | 943 |
+| `tempo-proof.mjs` | 362 |
+| `scripts/lib/proof-kit.mjs` (shared, amortized over all migrated charts) | 949 |
 
 The original proof scripts were usually around 1,000 lines each. The migrated
 scripts are now chart specs plus chart-specific checks, while the repeated
@@ -91,10 +92,11 @@ This is a behaviour-preserving refactor. For each migrated chart, against the
 Data fields:
 
 - `chart` `{ repository, repositoryURL, name, version, releaseName, namespace, kubeVersion }`
-- `variants[]` `{ name, base, displayName, valuesFile, valuesText, valuesSummary, expectedObjectCount, targetFactNote?, targetFacts? }`
+- `variants[]` `{ name, base, displayName, valuesFile, valuesText, valuesSummary, expectedObjectCount, targetFactNote?, targetFacts?, apiVersions? }`
 - `scanPolicy` `{ scanner, version, rules[] }`
 - `valueModel` `{ checkedValues[], unknownValues?, deadValues?, ignoredValues? }`
 - `controlPoints[]`, `dossier { maintainedNotes[], knownControlPoints[] }`
+- `dossier.extra?` — extra chart-specific dossier fields, such as a successor chart note
 - `plan { status, scanGate, nextAction }`, `readme { intro, proves[] }`
 - `supportObjects?` — cub-only objects allowed in the diff (default `["v1|Namespace||<ns>"]`)
 - `dependencies?`, `renderFlags?`, `helmChartRef?`, `receiptSlug?`, `scriptPrefix?`
@@ -123,6 +125,7 @@ mysql
 mongodb
 grafana
 prometheus
+tempo
 ```
 
 Remaining chart proof scripts:
@@ -134,7 +137,6 @@ loki
 longhorn
 rabbitmq
 secrets-store-csi-driver
-tempo
 vault
 ```
 
