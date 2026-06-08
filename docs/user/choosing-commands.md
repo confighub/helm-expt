@@ -21,6 +21,31 @@ The durable catalog path starts at `cub installer`, not at `cub helm install`.
 The fast Helm commands are still useful. They are the low-friction render and
 one-shot adoption paths.
 
+## Graduation Path
+
+A user can move through these paths over time. They do not need to choose the
+full catalog model on day one.
+
+| Stage | Command path | Result |
+| --- | --- | --- |
+| Inspect | `cub helm template` | Render the chart locally and see the Kubernetes objects. |
+| Adopt quickly | `cub helm install` | Load one rendered Helm result into ConfigHub Units. |
+| Use a maintained catalog entry | `cub installer setup --pull <package> --base <base>` | Start from a reviewed recipe/package base with locks, values, labels, receipts, and checks. |
+| Operate | `cub installer upload`, `cub variant create`, ConfigHub changesets, scans, approvals, OCI/GitOps, observations | Manage reviewed objects as ConfigHub Units and derived variants. |
+
+Existing apps enter through the same model without a recipe rewrite:
+
+| Existing source | First command path | Next decision |
+| --- | --- | --- |
+| Argo CD Application | `cub gitops discover` / `cub gitops import` | Keep imported, create a derived variant, or graduate to a maintained recipe. |
+| Flux HelmRelease or Kustomization | `cub gitops discover` / `cub gitops import` | Preserve the controller source and target before changing the render path. |
+| Rendered KRM YAML or manifests | `cub unit import` or managed import workflow | Add labels, links, scans, gates, and observations. |
+
+The important boundary is whether the user wants a one-time representation or a
+maintained artifact. Direct commands are good for one-time representation.
+Catalog entries are for repeatable bases, variant support, updates, patches,
+and proof.
+
 ## Command Roles
 
 ### `cub helm template`

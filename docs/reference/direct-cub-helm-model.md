@@ -91,6 +91,20 @@ chart + values + flags
 -> scans, gates, upload/publish receipts, live evidence
 ```
 
+The paths can be used in sequence:
+
+| Stage | Command path | What the user learns or gains |
+| --- | --- | --- |
+| Inspect | `cub helm template` | What Kubernetes objects the chart renders under chosen inputs. |
+| Adopt quickly | `cub helm install` | What those objects look like as ConfigHub Units. |
+| Standardize | `cub installer setup --pull <package> --base <base>` | Whether a maintained recipe/base already covers the intended use case. |
+| Operate | `cub installer upload`, `cub variant create`, ConfigHub checks, changesets, approvals, OCI/GitOps, observations | How the reviewed objects are managed, varied, promoted, delivered, and observed. |
+
+Existing Argo CD, Flux, KRM, and rendered-manifest estates should enter through
+their direct import paths first. A team can then decide whether to keep the
+imported representation, create derived ConfigHub variants, or graduate the app
+to a maintained `cub installer` recipe/package.
+
 The product bridge we want is:
 
 ```text
