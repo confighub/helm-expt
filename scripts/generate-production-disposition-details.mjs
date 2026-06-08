@@ -267,17 +267,43 @@ function externalScanIndex() {
   const result = new Map();
   const path = join(repoRoot, "data", "external-scan-lane", "kube-linter-results.json");
   if (!existsSync(path)) return result;
+  const reviewRows = externalScanReviewIndex();
   const data = JSON.parse(readFileSync(path, "utf8"));
   for (const row of data.rows ?? []) {
     if (!result.has(row.chart)) result.set(row.chart, []);
+    const review = reviewRows.get(`${row.chart}\u0000${row.variant}`) ?? {};
     result.get(row.chart).push({
       variant: row.variant,
       result: row.result,
       findingCount: row.findingCount,
       renderedSHA256: row.renderedSHA256,
+      topChecks: review.topChecks ?? summarizeFindingChecks(row.findings ?? []),
+      renderedPath: review.renderedPath ?? "",
     });
   }
   return result;
+}
+
+function externalScanReviewIndex() {
+  const result = new Map();
+  const path = join(repoRoot, "data", "external-scan-lane", "review.csv");
+  if (!existsSync(path)) return result;
+  for (const row of parseCsv(readFileSync(path, "utf8"))) {
+    result.set(`${row.chart}\u0000${row.variant}`, row);
+  }
+  return result;
+}
+
+function summarizeFindingChecks(findings) {
+  const counts = new Map();
+  for (const finding of findings) {
+    const key = finding.check ?? "unknown";
+    counts.set(key, (counts.get(key) ?? 0) + 1);
+  }
+  return [...counts.entries()]
+    .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
+    .map(([check, count]) => `${check}:${count}`)
+    .join(";");
 }
 
 function liveE2EIndex() {
@@ -302,6 +328,14 @@ function chartFromObservation(receipt) {
 
 function toMarkdown(charts) {
   const acceptedDispositionCount = charts.reduce((sum, chart) => sum + chart.dispositions.filter((item) => item.state === "accepted").length, 0);
+  const closestRows = charts
+    .map((chart) => {
+      const accepted = chart.dispositions.filter((item) => item.state === "accepted").length;
+      const open = chart.dispositions.filter((item) => item.state !== "accepted");
+      return { chart, accepted, open };
+    })
+    .filter((row) => row.accepted > 0 || row.open.length <= 3)
+    .sort((left, right) => left.open.length - right.open.length || right.accepted - left.accepted || left.chart.chart.localeCompare(right.chart.chart));
   return `# Top-20 Production Disposition Details
 
 The top-20 catalog entries are supported for \`local-test\`. This file states
@@ -320,6 +354,15 @@ ${charts.map((chart) => {
   return `| \`${chart.chart}@${chart.version}\` | ${chart.supportedLocalTestVariants.join(", ")} | ${chart.status} | ${accepted} | ${open} | ${chart.evidence.sourceHookCount} | ${chart.evidence.lifecyclePolicyBasis.join("; ")} | ${chart.evidence.liveE2EReceipts.length} |`;
 }).join("\n")}
 
+## Closest Rows
+
+These rows have accepted production-disposition receipts or three or fewer
+open dispositions. They are the clearest next production-review work queue.
+
+| Chart | Accepted | Open | Open dispositions | External scan reading |
+| --- | ---: | ---: | --- | --- |
+${closestRows.map(({ chart, accepted, open }) => `| \`${chart.chart}@${chart.version}\` | ${accepted} | ${open.length} | ${open.map((item) => item.name).join("; ")} | ${externalScanSummary(chart.evidence.externalScanVariants)} |`).join("\n")}
+
 ## Standard Disposition Types
 
 ${Object.entries(dispositionCatalog)
@@ -336,6 +379,13 @@ No chart leaves \`production-blocked\` until each required disposition is
 accepted, fixed, or turned into an explicit variant blocker, and the result is
 backed by rendered-digest-bound scan and live/e2e receipts.
 `;
+}
+
+function externalScanSummary(rows) {
+  if (!rows.length) return "no external scan row";
+  return rows
+    .map((row) => `${row.variant}: ${row.result}, ${row.findingCount} finding(s)${row.topChecks ? ` (${row.topChecks})` : ""}`)
+    .join("; ");
 }
 
 function writeReport(report) {

@@ -23,11 +23,15 @@ spec:
             result: "warn"
             findingCount: 18
             renderedSHA256: "e52ddef5e56e347a8959dd1e8591e116479bf8aa8682c83e3753fe7355a38cc0"
+            topChecks: "unset-cpu-requirements:9;unset-memory-requirements:9"
+            renderedPath: "recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/rendered/release-objects.yaml"
           -
             variant: "no-crds"
             result: "warn"
             findingCount: 18
             renderedSHA256: "23a51fb8ea2215b08a853bbb26698d80f58a5514b68d4f49cdcd870a8371fc71"
+            topChecks: "unset-cpu-requirements:9;unset-memory-requirements:9"
+            renderedPath: "recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/top20-local-kind/argo-cd-default/observation-receipt.json"
         sourceHookCount: 0
@@ -114,11 +118,15 @@ spec:
             result: "warn"
             findingCount: 5
             renderedSHA256: "85bcba9d441796846c8452331d94210c5d3b7d8fb5e5969044741cd5c678372c"
+            topChecks: "latest-tag:3;pdb-unhealthy-pod-eviction-policy:2"
+            renderedPath: "recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml"
           -
             variant: "generated-passwords"
             result: "warn"
             findingCount: 3
             renderedSHA256: "187a27077a6c1924669172528109b878e4d9c7759689a2f52826be8dfbc30f1e"
+            topChecks: "latest-tag:2;pdb-unhealthy-pod-eviction-policy:1"
+            renderedPath: "recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/top20-local-kind/mongodb-generated-passwords/observation-receipt.json"
         sourceHookCount: 0
@@ -196,11 +204,15 @@ spec:
             result: "warn"
             findingCount: 1
             renderedSHA256: "024c04f020fbe5cc7af518d743a68e055f999e88a6633b278adccc769c1b7fa8"
+            topChecks: "pdb-unhealthy-pod-eviction-policy:1"
+            renderedPath: "recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/rendered/release-objects.yaml"
           -
             variant: "generated-passwords"
             result: "warn"
             findingCount: 1
             renderedSHA256: "04e856bfa75859dc9d8e45c61d49ad566494a7f66c257da9113ad26ca1696380"
+            topChecks: "pdb-unhealthy-pod-eviction-policy:1"
+            renderedPath: "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/top20-local-kind/mysql-generated-passwords/observation-receipt.json"
         sourceHookCount: 0
@@ -287,11 +299,15 @@ spec:
             result: "warn"
             findingCount: 3
             renderedSHA256: "955979d8a644fbfb6075908f91924e095a84c6c203d2886f6209c90a7d616419"
+            topChecks: "latest-tag:2;pdb-unhealthy-pod-eviction-policy:1"
+            renderedPath: "recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml"
           -
             variant: "http-clusterip"
             result: "warn"
             findingCount: 3
             renderedSHA256: "a5f890172fd1bd8cf31870607c1a7874313c5746f1020d547af3dac017db4223"
+            topChecks: "latest-tag:2;pdb-unhealthy-pod-eviction-policy:1"
+            renderedPath: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/top20-local-kind/nginx-http-clusterip/observation-receipt.json"
         sourceHookCount: 0
@@ -365,11 +381,15 @@ spec:
             result: "warn"
             findingCount: 2
             renderedSHA256: "63c946704d955651bb3051d69d26dd67e18a074791846752e503d7ddc4ed38ef"
+            topChecks: "latest-tag:1;pdb-unhealthy-pod-eviction-policy:1"
+            renderedPath: "recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/rendered/release-objects.yaml"
           -
             variant: "generated-passwords"
             result: "warn"
             findingCount: 2
             renderedSHA256: "5ddff6ac6f2de4b98f6fce9d482167f300406c3ff738317e34b322522465ea72"
+            topChecks: "latest-tag:1;pdb-unhealthy-pod-eviction-policy:1"
+            renderedPath: "recipes/bitnami/postgresql/18.6.7/revisions/generated-passwords/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/top20-local-kind/postgresql-generated-passwords/observation-receipt.json"
         sourceHookCount: 0
@@ -456,11 +476,15 @@ spec:
             result: "warn"
             findingCount: 1
             renderedSHA256: "cdff3262264844b099e7f4421f1bbd5027360c2d23ba34667506d85255c4b6f2"
+            topChecks: "pdb-unhealthy-pod-eviction-policy:1"
+            renderedPath: "recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/rendered/release-objects.yaml"
           -
             variant: "generated-passwords"
             result: "warn"
             findingCount: 1
             renderedSHA256: "81187ce4367f5196ddbaa35ea55b972698f8a474d78a2cdc2908b12290c89f31"
+            topChecks: "pdb-unhealthy-pod-eviction-policy:1"
+            renderedPath: "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/top20-local-kind/rabbitmq-generated-passwords/observation-receipt.json"
         sourceHookCount: 0
@@ -547,11 +571,15 @@ spec:
             result: "warn"
             findingCount: 4
             renderedSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+            topChecks: "latest-tag:2;pdb-unhealthy-pod-eviction-policy:2"
+            renderedPath: "recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml"
           -
             variant: "reuse-existing-secret"
             result: "warn"
             findingCount: 4
             renderedSHA256: "a90dda4885fb97749e2c222f1abd840f49dcf6eafa953ea6ea2dbc6ba565fe53"
+            topChecks: "latest-tag:2;pdb-unhealthy-pod-eviction-policy:2"
+            renderedPath: "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/redis-local-kind/latest/observation-receipt.yaml"
           - "runs/redis-local-kind/reuse-existing-secret-latest/observation-receipt.yaml"
@@ -624,11 +652,15 @@ spec:
             result: "warn"
             findingCount: 6
             renderedSHA256: "f1c832a9af788c9d2a7a0b066d76a7d8af253d83f5b0fa39c1aa91271230d3db"
+            topChecks: "unset-cpu-requirements:3;unset-memory-requirements:3"
+            renderedPath: "recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/rendered/release-objects.yaml"
           -
             variant: "no-crds"
             result: "warn"
             findingCount: 6
             renderedSHA256: "da5857fba93e0394594d7e072b31e3cf28985392b5cc0443730a23b722d7670b"
+            topChecks: "unset-cpu-requirements:3;unset-memory-requirements:3"
+            renderedPath: "recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/top20-local-kind/external-secrets-default/observation-receipt.json"
         sourceHookCount: 0
@@ -707,11 +739,15 @@ spec:
             result: "warn"
             findingCount: 3
             renderedSHA256: "04b1fc4abd47d12c2eef1e06e7f4dc7cb2dd6ffd639a7a8967bda1c98a00fb60"
+            topChecks: "no-read-only-root-fs:1;unset-cpu-requirements:1;unset-memory-requirements:1"
+            renderedPath: "recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/rendered/release-objects.yaml"
           -
             variant: "generated-passwords"
             result: "warn"
             findingCount: 3
             renderedSHA256: "893351c9b8cad0a10b0176a946bf514a76c5895bdb2d88a31bdd53a94288066d"
+            topChecks: "no-read-only-root-fs:1;unset-cpu-requirements:1;unset-memory-requirements:1"
+            renderedPath: "recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/top20-local-kind/grafana-generated-passwords/observation-receipt.json"
         sourceHookCount: 0
@@ -789,11 +825,15 @@ spec:
             result: "warn"
             findingCount: 21
             renderedSHA256: "8c4176621cdd67670d41b1689de1bcaa74854e40fb8170070606f794d0fc36ab"
+            topChecks: "unset-memory-requirements:9;unset-cpu-requirements:8;pdb-unhealthy-pod-eviction-policy:3;no-read-only-root-fs:1"
+            renderedPath: "recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/rendered/release-objects.yaml"
           -
             variant: "single-binary-filesystem"
             result: "warn"
             findingCount: 12
             renderedSHA256: "6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30"
+            topChecks: "unset-cpu-requirements:6;unset-memory-requirements:6"
+            renderedPath: "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/top20-local-kind/loki-single-binary-filesystem/observation-receipt.json"
         sourceHookCount: 0
@@ -871,11 +911,15 @@ spec:
             result: "warn"
             findingCount: 3
             renderedSHA256: "4a18b354ff67e98d84f6d89ce16b973396c9c30bf3c121f4ef146886151c44be"
+            topChecks: "no-read-only-root-fs:1;unset-cpu-requirements:1;unset-memory-requirements:1"
+            renderedPath: "recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/rendered/release-objects.yaml"
           -
             variant: "s3-query-observability"
             result: "warn"
             findingCount: 6
             renderedSHA256: "6fb9e1726fb68d7e7e251420e9c5761e078cd38f508fa87af7759e0b302017a4"
+            topChecks: "no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2"
+            renderedPath: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/top20-local-kind/tempo-local-persistent/observation-receipt.json"
         sourceHookCount: 0
@@ -944,11 +988,15 @@ spec:
             result: "warn"
             findingCount: 5
             renderedSHA256: "7efa3e8b59c702c8b8fa744a0ff91198e09ad8ba0fb93a86b50c3fd9e39d29f7"
+            topChecks: "liveness-port:1;readiness-port:1;startup-port:1;unset-cpu-requirements:1;unset-memory-requirements:1"
+            renderedPath: "recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/rendered/release-objects.yaml"
           -
             variant: "secure-mesh-existing-secrets"
             result: "warn"
             findingCount: 6
             renderedSHA256: "0acc8c339c2965446b754c3a9c948c4f154ca6e47b074ddc3b8d315e2cb7c468"
+            topChecks: "job-ttl-seconds-after-finished:1;liveness-port:1;readiness-port:1;startup-port:1;unset-cpu-requirements:1"
+            renderedPath: "recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/top20-local-kind/consul-default-control-plane/observation-receipt.json"
         sourceHookCount: 0
@@ -1053,11 +1101,15 @@ spec:
             result: "warn"
             findingCount: 9
             renderedSHA256: "6de2d61c8de0c21faa951e89ec16658bcdff22e69d78075fdd394d895a5e6978"
+            topChecks: "no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2;liveness-port:1;readiness-port:1"
+            renderedPath: "recipes/hashicorp/vault/0.32.0/revisions/default/r001/rendered/release-objects.yaml"
           -
             variant: "ha-raft-ui"
             result: "warn"
             findingCount: 12
             renderedSHA256: "734a212cbb2e8d11ed288d32bc8b709e859248ef5587090b04e0fa407b248b5f"
+            topChecks: "dangling-service:2;no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2;liveness-port:1"
+            renderedPath: "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/top20-local-kind/vault-default/observation-receipt.json"
         sourceHookCount: 0
@@ -1135,11 +1187,15 @@ spec:
             result: "warn"
             findingCount: 4
             renderedSHA256: "ad133758fa1985241f9dd1fe766f6ca9f17e199bf7562e37b3c2834a6588c25e"
+            topChecks: "liveness-port:1;no-read-only-root-fs:1;readiness-port:1;unset-memory-requirements:1"
+            renderedPath: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/release-objects.yaml"
           -
             variant: "default"
             result: "warn"
             findingCount: 4
             renderedSHA256: "257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d"
+            topChecks: "liveness-port:1;no-read-only-root-fs:1;readiness-port:1;unset-memory-requirements:1"
+            renderedPath: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/top20-local-kind/ingress-nginx-admission-disabled/observation-receipt.json"
         sourceHookCount: 0
@@ -1217,11 +1273,15 @@ spec:
             result: "warn"
             findingCount: 6
             renderedSHA256: "e288b2413bd1919173bee6afcd823be61399f101cfe2cf61f8e0df56740fefe0"
+            topChecks: "unset-cpu-requirements:3;unset-memory-requirements:3"
+            renderedPath: "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
           -
             variant: "default"
             result: "warn"
             findingCount: 6
             renderedSHA256: "45029db19d75e578bec74b82a0476a6580d1f7193239a210bf4873156ac725ce"
+            topChecks: "unset-cpu-requirements:3;unset-memory-requirements:3"
+            renderedPath: "recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/top20-local-kind/cert-manager-crds-enabled/observation-receipt.json"
         sourceHookCount: 0
@@ -1310,11 +1370,15 @@ spec:
             result: "warn"
             findingCount: 24
             renderedSHA256: "4a2f739775a696f5d67db6adf1f99473c60a3f5adf308ceb3ccbf222435acd90"
+            topChecks: "no-read-only-root-fs:5;run-as-non-root:5;unset-cpu-requirements:5;unset-memory-requirements:5;dangling-service:2"
+            renderedPath: "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/rendered/release-objects.yaml"
           -
             variant: "ui-ingress"
             result: "warn"
             findingCount: 24
             renderedSHA256: "2f6508c2bc3f2a09e1ffcb8ec71282b3e2dd52e69fe8ca80fc90ab756f9b9298"
+            topChecks: "no-read-only-root-fs:5;run-as-non-root:5;unset-cpu-requirements:5;unset-memory-requirements:5;dangling-service:2"
+            renderedPath: "recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/top20-local-kind/longhorn-default/observation-receipt.json"
         sourceHookCount: 0
@@ -1392,11 +1456,15 @@ spec:
             result: "warn"
             findingCount: 1
             renderedSHA256: "97514966a1917b1ae3b597ec3a32216d0a650db7cb56d472f4e722c69c869b51"
+            topChecks: "unset-memory-requirements:1"
+            renderedPath: "recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/rendered/release-objects.yaml"
           -
             variant: "external-tls-ca"
             result: "warn"
             findingCount: 1
             renderedSHA256: "4b9df6b53cb5d8ed0b655b121696183d1c107ea88511e889bef1aae6708c8dad"
+            topChecks: "unset-memory-requirements:1"
+            renderedPath: "recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/top20-local-kind/metrics-server-default/observation-receipt.json"
         sourceHookCount: 0
@@ -1477,11 +1545,15 @@ spec:
             result: "warn"
             findingCount: 27
             renderedSHA256: "9fac2a0e4140eee298c84ce61f13dd8ca392bb92e2037d0ef0aaa4d8015ee491"
+            topChecks: "dangling-service:7;unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:3;sensitive-host-mounts:3"
+            renderedPath: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
           -
             variant: "no-crds"
             result: "warn"
             findingCount: 27
             renderedSHA256: "3f6049fc2b7a40bbfb009b347880e3f319a87c9b60a6fd274220287a10167fc2"
+            topChecks: "dangling-service:7;unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:3;sensitive-host-mounts:3"
+            renderedPath: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json"
         sourceHookCount: 2
@@ -1568,11 +1640,15 @@ spec:
             result: "warn"
             findingCount: 21
             renderedSHA256: "c11349803ddbb44562066474dd04d47d7c5c75d083dbc96162224573f949c11b"
+            topChecks: "unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:4;sensitive-host-mounts:3;host-network:1"
+            renderedPath: "recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/rendered/release-objects.yaml"
           -
             variant: "server-only-ephemeral"
             result: "warn"
             findingCount: 6
             renderedSHA256: "174e1729753ef551fa059f86111cfd87653ea2380dc879238cf5cc4987e78812"
+            topChecks: "no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2"
+            renderedPath: "recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/top20-local-kind/prometheus-server-only-ephemeral/observation-receipt.json"
         sourceHookCount: 0
@@ -1632,11 +1708,15 @@ spec:
             result: "warn"
             findingCount: 8
             renderedSHA256: "2490f14dd08f7e309f8f78cd1c2f1b05eb5b8995343b33ad6b3b243401a39ead"
+            topChecks: "no-read-only-root-fs:3;run-as-non-root:3;privilege-escalation-container:1;privileged-container:1"
+            renderedPath: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/default/r001/rendered/release-objects.yaml"
           -
             variant: "sync-secret-rotation"
             result: "warn"
             findingCount: 8
             renderedSHA256: "3667c16d411f773ef20e51c9980d484eb770c1173092878f1b018f5b4377a182"
+            topChecks: "no-read-only-root-fs:3;run-as-non-root:3;privilege-escalation-container:1;privileged-container:1"
+            renderedPath: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/top20-local-kind/secrets-store-csi-driver-default/observation-receipt.json"
         sourceHookCount: 0
