@@ -6,43 +6,228 @@ spec:
   chart: grafana/loki
   version: 7.0.0
   base: single-binary-filesystem
-  result: blocked
-  observedAt: '2026-06-05T20:30:57Z'
+  result: pass
+  observedAt: '2026-06-08T10:42:12Z'
   package:
     path: packages/grafana/loki/7.0.0
   recipe:
     path: recipes/grafana/loki/7.0.0
   variantRevision: recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/variant-revision.yaml
   run:
-    rig: helm-expt-parity-loki-mq1dptxq-102g
-    kubeContext: kind-helm-expt-parity-loki-mq1dptxq-102g
+    rig: helm-expt-parity-loki-mq5308xy-1mc0
+    kubeContext: kind-helm-expt-parity-loki-mq5308xy-1mc0
     namespace: loki
     legNamespaces:
       regularHelm: loki-helm
       configHubKubectlApply: loki-apply
       configHubOciArgo: loki-oci
-    clusterLifecycle: cleanup-failed
+    clusterLifecycle: cleaned-up
     cleanup:
-      command: cub lk down --name helm-expt-parity-loki-mq1dptxq-102g
-      result: blocked
-      detail: 'Error: no lk-managed Space for "helm-expt-parity-loki-mq1dptxq-102g"
-        in the current cub context (are you in the right context?). Pass --force to
-        delete the local kind cluster + kubeconfig anyway
+      command: cub lk down --name helm-expt-parity-loki-mq5308xy-1mc0 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-loki-mq5308xy-1mc0"...
 
-        Error: no lk-managed Space for "helm-expt-parity-loki-mq1dptxq-102g" in the
-        current cub context (are you in the right context?). Pass --force to delete
-        the local kind cluster + kubeconfig anyway'
-  legs: {}
+        Deleting cluster "helm-expt-parity-loki-mq5308xy-1mc0" ...
+
+        Deleted nodes: ["helm-expt-parity-loki-mq5308xy-1mc0-control-plane"]
+
+        Deleting Space "helm-expt-parity-loki-mq5308xy-1mc0-cluster" (recursive: cascades
+        to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install loki loki --repo https://grafana.github.io/helm-charts
+        --version 7.0.0 --namespace loki-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-loki-single-binary-filesystem/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30
+      objectCount: 19
+      liveHelmManifestSHA256: f650fe3a28044703b210df73bd119cc3ad561c525d28e0adb67ac41d81ea62e8
+      liveHelmManifestObjectCount: 19
+      namespace: loki-helm
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/loki-gateway   1/1   1     1     64s
+
+          statefulset.apps/loki                 1/1   64s
+
+          statefulset.apps/loki-chunks-cache    1/1   64s
+
+          statefulset.apps/loki-results-cache   1/1   64s
+
+          daemonset.apps/loki-canary   1     1     1     1     1     <none>   64s'
+        pods: 'loki-0                          2/2   Running   0     64s
+
+          loki-canary-rg6x8               1/1   Running   0     64s
+
+          loki-chunks-cache-0             2/2   Running   0     64s
+
+          loki-gateway-84c4885666-kjvld   1/1   Running   0     64s
+
+          loki-results-cache-0            2/2   Running   0     64s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/loki/7.0.0
+        --base single-binary-filesystem --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-loki-mq5308xy-1mc0-loki
+        --non-interactive --namespace loki-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 035c0cb952dcae60813ad10241379af499df9402b22b48a4ddfc904fd5ee7bc9
+      objectCount: 20
+      namespace: loki-apply
+      manifestNamespaces:
+      - loki
+      - loki-apply
+      runtimeNamespaces: &id001
+      - loki
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# loki
+
+          deployment.apps/loki-gateway   1/1   1     1     51s
+
+          statefulset.apps/loki                 1/1   51s
+
+          statefulset.apps/loki-chunks-cache    1/1   51s
+
+          statefulset.apps/loki-results-cache   1/1   51s
+
+          daemonset.apps/loki-canary   1     1     1     1     1     <none>   51s'
+        pods: '# loki
+
+          loki-0                          2/2   Running   0     51s
+
+          loki-canary-9w4qz               1/1   Running   0     51s
+
+          loki-chunks-cache-0             2/2   Running   0     51s
+
+          loki-gateway-7fb9f9f6c5-kpb78   1/1   Running   0     51s
+
+          loki-results-cache-0            2/2   Running   0     51s'
+        notReady: []
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-loki-mq5308xy-1mc0-loki
+      controller: Argo CD OCI
+      app: loki-parity
+      manifestSHA256: 93bed5900046f134c2a1c1f0965a0757bb0a148c7a0f3bb0fb1a176eca567ee4
+      objectCount: 20
+      namespace: loki-oci
+      manifestNamespaces:
+      - loki
+      - loki-oci
+      runtimeNamespaces: &id002
+      - loki
+      ociRevision: sha256:3f6db891bc29c73572cb7a2db76df7efe42a2ce60810dd3c72d12e33143ed974
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# loki
+
+          deployment.apps/loki-gateway   1/1   1     1     2m23s
+
+          statefulset.apps/loki                 1/1   2m23s
+
+          statefulset.apps/loki-chunks-cache    1/1   2m23s
+
+          statefulset.apps/loki-results-cache   1/1   2m23s
+
+          daemonset.apps/loki-canary   1     1     1     1     1     <none>   2m23s'
+        pods: '# loki
+
+          loki-0                          2/2   Running   0     2m23s
+
+          loki-canary-9w4qz               1/1   Running   0     2m23s
+
+          loki-chunks-cache-0             2/2   Running   0     2m23s
+
+          loki-gateway-7fb9f9f6c5-kpb78   1/1   Running   0     2m23s
+
+          loki-results-cache-0            2/2   Running   0     2m23s'
+        notReady: []
   semanticComparison:
     allowedExtraConfigHubObjects:
     - v1|Namespace||loki
+    semanticNormalizations: &id003
+    - prune-null-fields
+    - loki-configmap-leading-blank-line-pruned-by-kustomize
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 19
+      configHubObjectCount: 20
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||loki
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: b56cd0b955bffe64fc40b9da640482a62c9ca62c207e37cced68c9b08a17ad8e
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 19
+      configHubObjectCount: 20
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||loki
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: b56cd0b955bffe64fc40b9da640482a62c9ca62c207e37cced68c9b08a17ad8e
   checks:
-  - name: failure
-    result: blocked
-    detail: 'cub lk up failed: Error: kind create cluster: exit status 1
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-loki-mq5308xy-1mc0\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-loki-mq5308xy-1mc0.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-loki-mq5308xy-1mc0\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-loki-mq5308xy-1mc0\"\nYou can\
+      \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-loki-mq5308xy-1mc0\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-loki-mq5308xy-1mc0.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
+      \ \U0001F642\nInstalling Argo CD...\nCreating namespace \"argocd\"...\n"
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"loki\" does not exist. Installing it now.\nNAME: loki\nLAST\
+      \ DEPLOYED: Mon Jun  8 11:43:40 2026\nNAMESPACE: loki-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nNOTES:\n***********************************************************************\n\
+      \ Welcome to Grafana Loki\n Chart version: 7.0.0\n Chart Name: loki\n Loki version:\
+      \ 3.6.7\n***********************************************************************\n\
+      \n** Please be patient while the chart is being deployed **\n\nTip:\n\n  Watch\
+      \ the deployment status using the command: kubectl get pods -w --namespace loki-helm\n\
+      \nIf pods are taking too long to schedule make sure pod affinity can be fulfilled\
+      \ in the current cluster.\n\n***********************************************************************\n\
+      Installed components:\n***********************************************************************\n\
+      * loki\n\nLoki has been deployed as a single binary.\nThis means a single pod\
+      \ is handling reads and writes. You can scale that pod vertically by adding\
+      \ more"
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# loki
 
-      Error: kind create cluster: exit status 1'
-  failure:
-    message: 'cub lk up failed: Error: kind create cluster: exit status 1
+      deployment.apps/loki-gateway   1/1   1     1     51s
 
-      Error: kind create cluster: exit status 1'
+      statefulset.apps/loki                 1/1   51s
+
+      statefulset.apps/loki-chunks-cache    1/1   51s
+
+      statefulset.apps/loki-results-cache   1/1   51s
+
+      daemonset.apps/loki-canary   1     1     1     1     1     <none>   51s'
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||loki'] diffs=0

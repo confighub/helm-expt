@@ -135,8 +135,25 @@ def normalize_namespace_references(value, namespace_map: dict[str, str]):
     return value
 
 
-def object_map(text: str, namespace_map: dict[str, str] | None = None) -> dict[str, str]:
+def apply_semantic_normalizations(doc: dict, semantic_normalizations: list[str]) -> dict:
+    identity = object_identity(doc)
+    if (
+        "loki-configmap-leading-blank-line-pruned-by-kustomize" in semantic_normalizations
+        and identity == "v1|ConfigMap|loki|loki"
+    ):
+        config = doc.get("data", {}).get("config.yaml")
+        if isinstance(config, str) and config.startswith("\n"):
+            doc["data"]["config.yaml"] = config[1:]
+    return doc
+
+
+def object_map(
+    text: str,
+    namespace_map: dict[str, str] | None = None,
+    semantic_normalizations: list[str] | None = None,
+) -> dict[str, str]:
     namespace_map = namespace_map or {}
+    semantic_normalizations = semantic_normalizations or []
     result = {}
     for doc in yaml_docs(text):
         meta = doc.get("metadata")
@@ -153,6 +170,7 @@ def object_map(text: str, namespace_map: dict[str, str] | None = None) -> dict[s
         for optional_map in ("annotations", "labels"):
             if meta.get(optional_map) == {}:
                 meta.pop(optional_map, None)
+        doc = apply_semantic_normalizations(doc, semantic_normalizations)
         result[object_identity(doc)] = json.dumps(doc, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
     return result
 
@@ -312,9 +330,16 @@ def wait_ready_many(kubeconfig: Path, context: str, namespaces: list[str], timeo
     }
 
 
-def semantic_compare(helm_yaml: str, cub_yaml: str, allowed_extra: list[str], namespace_map: dict[str, str] | None = None) -> dict:
-    helm = object_map(helm_yaml)
-    cub = object_map(cub_yaml, namespace_map)
+def semantic_compare(
+    helm_yaml: str,
+    cub_yaml: str,
+    allowed_extra: list[str],
+    namespace_map: dict[str, str] | None = None,
+    semantic_normalizations: list[str] | None = None,
+) -> dict:
+    semantic_normalizations = semantic_normalizations or []
+    helm = object_map(helm_yaml, semantic_normalizations=semantic_normalizations)
+    cub = object_map(cub_yaml, namespace_map, semantic_normalizations)
     helm_keys = set(helm)
     cub_keys = set(cub)
     missing = sorted(helm_keys - cub_keys)
@@ -328,10 +353,12 @@ def semantic_compare(helm_yaml: str, cub_yaml: str, allowed_extra: list[str], na
         "missingFromConfigHub": missing,
         "extraInConfigHub": extra,
         "semanticDiffs": diffs[:50],
+        "semanticNormalizations": semantic_normalizations,
         "comparisonSHA256": sha256_text(json.dumps({
             "missing": missing,
             "extra": extra,
             "diffs": diffs,
+            "semanticNormalizations": semantic_normalizations,
         }, sort_keys=True)),
     }
 
@@ -361,6 +388,7 @@ def main() -> int:
     values_path = repo / args.values
     revision_path = repo / args.variant_revision
     canonical_rendered_path = revision_path.parent / "rendered" / "release-objects.yaml"
+    equivalence_receipt_path = revision_path.parent / "receipts" / "helm-equivalence-receipt.yaml"
     out_path = repo / args.out
     run_root = out_path.parent
     rig = args.rig
@@ -424,9 +452,13 @@ def main() -> int:
             (values_path, "values"),
             (revision_path, "variant revision"),
             (canonical_rendered_path, "canonical rendered objects"),
+            (equivalence_receipt_path, "Helm equivalence receipt"),
         ]:
             if not path.exists():
                 raise RuntimeError(f"{label} path not found: {path}")
+        equivalence_receipt = load_yaml(equivalence_receipt_path)
+        semantic_normalizations = equivalence_receipt.get("spec", {}).get("semanticNormalizations") or []
+        receipt["spec"]["semanticComparison"]["semanticNormalizations"] = semantic_normalizations
         canonical_helm_manifest = canonical_rendered_path.read_text()
         write_text(run_root / "canonical-helm-render.yaml", canonical_helm_manifest)
         helm_values_path = raw_values_file(values_path, run_root / "regular-helm-values.yaml")
@@ -687,12 +719,14 @@ def main() -> int:
             cub_manifest,
             [f"v1|Namespace||{args.namespace}"],
             {apply_namespace: args.namespace},
+            semantic_normalizations,
         )
         comparison_argo = semantic_compare(
             canonical_helm_manifest,
             cub_manifest_oci,
             [f"v1|Namespace||{args.namespace}"],
             {oci_namespace: args.namespace},
+            semantic_normalizations,
         )
         receipt["spec"]["semanticComparison"]["helmVsConfigHubKubectlApply"] = comparison_apply
         receipt["spec"]["semanticComparison"]["helmVsConfigHubOciArgo"] = comparison_argo

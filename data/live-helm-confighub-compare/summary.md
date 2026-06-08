@@ -5,9 +5,9 @@ chart/base rows. Each completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 10
+pass: 11
 watch: 2
-blocked: 8
+blocked: 7
 not-started: 0
 ```
 
@@ -16,7 +16,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 ```text
 helm-runtime: upstream not ready (parity passed): 1
 infra: etcd/apiserver overload: 1
-infra: kind create failed: 2
+infra: kind create failed: 1
 infra: provisioning timeout: 1
 infra: rig bootstrap (argocd) not ready: 2
 parity: live semantic diff: 1
@@ -33,7 +33,7 @@ parity: live semantic diff: 1
 | 7 | `prometheus-community/kube-prometheus-stack@85.3.3` | default | blocked | infra: rig bootstrap (argocd) not ready | runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml |
 | 8 | `bitnami/postgresql@18.6.7` | generated-passwords | pass | - | runs/live-helm-confighub-compare/bitnami-postgresql-generated-passwords/receipt.yaml |
 | 9 | `bitnami/rabbitmq@16.0.14` | generated-passwords | pass | - | runs/live-helm-confighub-compare/bitnami-rabbitmq-generated-passwords/receipt.yaml |
-| 10 | `grafana/loki@7.0.0` | single-binary-filesystem | blocked | infra: kind create failed | runs/live-helm-confighub-compare/grafana-loki-single-binary-filesystem/receipt.yaml |
+| 10 | `grafana/loki@7.0.0` | single-binary-filesystem | pass | - | runs/live-helm-confighub-compare/grafana-loki-single-binary-filesystem/receipt.yaml |
 | 11 | `longhorn/longhorn@1.11.2` | default | blocked | infra: kind create failed | runs/live-helm-confighub-compare/longhorn-longhorn-default/receipt.yaml |
 | 12 | `hashicorp/vault@0.32.0` | default | blocked | infra: rig bootstrap (argocd) not ready | runs/live-helm-confighub-compare/hashicorp-vault-default/receipt.yaml |
 | 13 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | pass | - | runs/live-helm-confighub-compare/secrets-store-csi-driver-secrets-store-csi-driver-default/receipt.yaml |
