@@ -281,9 +281,9 @@ The fast install path uses ConfigHub's OCI endpoint. A fully client-side,
 serverless `cub installer` path is a deferred option and should be tracked as an
 issue, not treated as part of the current proof.
 
-Backlog gates are tracked in `docs/planning/issue-backlog.md`. Open P0 issues in that
-file must not be bypassed by the flow; they are gates before credible
-20/100/500 chart proof.
+Backlog gates are tracked in `docs/planning/issue-backlog.md`. Any open P0
+issues in that file must not be bypassed by the flow; they are gates for the
+scope they name.
 
 The detailed execution contract is in `docs/planning/agreed-execution-plan.md`. Treat
 the shorthand below as candidate future porcelain, not current executable CLI.

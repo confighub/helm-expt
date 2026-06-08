@@ -73,8 +73,10 @@ Issue baseline:
 
 ```text
 Original proof P0s are closed and verified by npm run verify.
-The remaining open P0 is #76: define the Helm import path from `cub helm
-template` / `cub helm install` to durable `cub installer` recipes.
+#76 is closed as a verifier-backed definition of the Helm import path from
+`cub helm template` / `cub helm install` to durable `cub installer` recipes.
+The future `cub installer import helm` command remains product implementation
+work, not a blocker for the current proof corpus.
 Issue #82 is the current user-facing explanation work for the Helm pain table.
 ```
 

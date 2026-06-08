@@ -334,10 +334,10 @@ windows, and fleet operations.
 
 ## Issue Map
 
-Current GitHub issue state as of 2026-05-31:
+Current GitHub issue state as of 2026-06-08:
 
 ```text
-Open P0:
+Closed P0:
   #76 Define Helm import path from cub helm template / cub helm install to cub installer recipes
 
 Open docs/story issue:
