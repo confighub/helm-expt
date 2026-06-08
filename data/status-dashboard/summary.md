@@ -46,7 +46,7 @@ Which detailed CSV should I open next?
 | live evidence | two-cluster semantic parity defect receipts | 0/40 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-supported charts | 0/20 | gap | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | top20 production-blocked charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
-| production disposition | charts with accepted production dispositions | 2/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| production disposition | charts with accepted production dispositions | 3/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | quirks | tracked-and-surfaced axes | 9/26 | good | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
 | quirks | partly tracked axes | 3/26 | partial | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
 | quirks | source-scanned but not surfaced axes | 5/26 | gap | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
@@ -214,18 +214,18 @@ closed or explicitly accepted.
 | --- | ---: |
 | production-supported charts | 0/20 |
 | production-blocked pending disposition | 20/20 |
-| charts with accepted dispositions | 2/20 |
+| charts with accepted dispositions | 3/20 |
 
 | Open disposition | Charts |
 | --- | ---: |
 | scan/gate warning disposition | 20 |
 | extension slot provenance and scan policy | 17 |
 | cluster RBAC review | 13 |
-| hook and lifecycle phase policy | 11 |
+| hook and lifecycle phase policy | 10 |
 | generated fact ownership | 8 |
 | storage backup restore and rollback policy | 8 |
-| target fact preflight | 8 |
 | CRD lifecycle and upgrade policy | 7 |
+| target fact preflight | 7 |
 
 | Chart | Production | Accepted | Open | Next action |
 | --- | --- | ---: | ---: | --- |

@@ -1,0 +1,32 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: metrics-server-hook-lifecycle-phase-policy
+spec:
+  chart: metrics-server/metrics-server
+  version: "3.13.0"
+  disposition: hook and lifecycle phase policy
+  decision: accepted
+  acceptedAt: "2026-06-08"
+  scope:
+    - local-test
+    - production-review-input
+  summary: Metrics Server has no retained source Helm hooks in the top-500 source scan, and the recipe records an explicit no-hooks policy for the supported bases. The remaining lifecycle concern is APIService runtime availability, not Helm hook execution.
+  evidence:
+    - path: data/top500-catalog-analysis/source/source-feature-scan.raw.json
+      claim: metrics-server/metrics-server has source hook count 0 in the retained source scan.
+    - path: recipes/metrics-server/metrics-server/3.13.0/control-points.yaml
+      claim: The recipe control point category hook-policy has policy no-hooks.
+    - path: recipes/metrics-server/metrics-server/3.13.0/helm-pain-report.yaml
+      claim: Hook policy is handled for the supported local-test scope while APIService readiness remains a separate observation concern.
+    - path: recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/receipts/install-gate.yaml
+      claim: The default variant install gate does not rely on Helm hook execution.
+    - path: recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/receipts/install-gate.yaml
+      claim: The external-tls-ca variant install gate does not rely on Helm hook execution.
+  affectedVariants:
+    - default
+    - external-tls-ca
+  remainingProductionBlockers:
+    - cluster RBAC review
+    - generated fact ownership
+    - scan/gate warning disposition

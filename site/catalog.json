@@ -84,7 +84,7 @@
     "liveParityRerunSemanticDefects": 0,
     "productionSupportedCharts": 0,
     "productionBlockedCharts": 20,
-    "chartsWithAcceptedProductionDispositions": 2
+    "chartsWithAcceptedProductionDispositions": 3
   },
   "statusMetrics": [
     {
@@ -351,7 +351,7 @@
     {
       "section": "production disposition",
       "metric": "charts with accepted production dispositions",
-      "value": "2",
+      "value": "3",
       "total": "20",
       "status": "partial",
       "source": "data/production-disposition/top20.csv",
@@ -7548,9 +7548,9 @@
       "live_e2e": "local-kind-observed",
       "production_support": "blocked",
       "required_dispositions": "cluster RBAC review;generated fact ownership;hook and lifecycle phase policy;scan/gate warning disposition;target fact preflight",
-      "accepted_dispositions": "",
-      "open_dispositions": "cluster RBAC review;generated fact ownership;hook and lifecycle phase policy;scan/gate warning disposition;target fact preflight",
-      "production_disposition_receipts": "",
+      "accepted_dispositions": "hook and lifecycle phase policy;target fact preflight",
+      "open_dispositions": "cluster RBAC review;generated fact ownership;scan/gate warning disposition",
+      "production_disposition_receipts": "data/production-disposition/receipts/metrics-server-metrics-server/hook-lifecycle-phase-policy.yaml;data/production-disposition/receipts/metrics-server-metrics-server/target-fact-preflight.yaml",
       "source_hook_count": "0",
       "lifecycle_policy_basis": "recipe-hook-policy:no-hooks",
       "lifecycle_observation_receipts": "",

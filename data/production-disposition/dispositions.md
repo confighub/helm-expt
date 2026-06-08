@@ -6,7 +6,7 @@ exactly what must be closed before production support can be claimed.
 The lifecycle columns separate retained source-hook evidence from recipe-level
 lifecycle policy and related CRD/webhook/controller observations.
 
-Accepted disposition receipts recorded: 4
+Accepted disposition receipts recorded: 6
 
 | Chart | Local-test variants | Production state | Accepted | Open | Source hooks | Lifecycle basis | Live/e2e receipts |
 | --- | --- | --- | ---: | ---: | ---: | --- | --- |
@@ -26,7 +26,7 @@ Accepted disposition receipts recorded: 4
 | `ingress-nginx/ingress-nginx@4.15.1` | default, admission-disabled | production-blocked | 0 | 5 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `jetstack/cert-manager@v1.20.2` | default, crds-enabled | production-blocked | 0 | 6 | 0 | recipe-hook-policy:no-hooks; lifecycle-observations:2/2 | 1 |
 | `longhorn/longhorn@1.11.2` | default, ui-ingress | production-blocked | 0 | 5 | 0 | recipe-hook-policy:no-hooks | 1 |
-| `metrics-server/metrics-server@3.13.0` | default, external-tls-ca | production-blocked | 0 | 5 | 0 | recipe-hook-policy:no-hooks | 1 |
+| `metrics-server/metrics-server@3.13.0` | default, external-tls-ca | production-blocked | 2 | 3 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default, no-crds | production-blocked | 0 | 6 | 2 | source-hooks:2 | 1 |
 | `prometheus-community/prometheus@29.8.0` | default, server-only-ephemeral | production-blocked | 0 | 3 | 0 | none | 1 |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default, sync-secret-rotation | production-blocked | 0 | 4 | 0 | none | 1 |

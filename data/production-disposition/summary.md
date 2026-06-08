@@ -17,8 +17,8 @@ production-blocked pending disposition: 20
 source Helm-hook rows: 1
 hook/lifecycle disposition rows: 12
 related lifecycle observation rows: 2
-accepted production disposition receipts: 4
-charts with accepted dispositions: 2
+accepted production disposition receipts: 6
+charts with accepted dispositions: 3
 ```
 
 The hook/lifecycle disposition is a production-review item. It does not always
@@ -52,7 +52,7 @@ mean the retained source scan found Helm hooks. Use the evidence fields in
 | `ingress-nginx/ingress-nginx@4.15.1` | default, admission-disabled | pass | local-kind-observed | blocked | 0 | cluster RBAC review, extension slot provenance and scan policy, hook and lifecycle phase policy, scan/gate warning disposition, webhook readiness and failure policy |
 | `jetstack/cert-manager@v1.20.2` | default, crds-enabled | pass | local-kind-observed | blocked | 0 | CRD lifecycle and upgrade policy, cluster RBAC review, extension slot provenance and scan policy, hook and lifecycle phase policy, scan/gate warning disposition, webhook readiness and failure policy |
 | `longhorn/longhorn@1.11.2` | default, ui-ingress | pass | local-kind-observed | blocked | 0 | CRD lifecycle and upgrade policy, cluster RBAC review, hook and lifecycle phase policy, scan/gate warning disposition, webhook readiness and failure policy |
-| `metrics-server/metrics-server@3.13.0` | default, external-tls-ca | pass | local-kind-observed | blocked | 0 | cluster RBAC review, generated fact ownership, hook and lifecycle phase policy, scan/gate warning disposition, target fact preflight |
+| `metrics-server/metrics-server@3.13.0` | default, external-tls-ca | pass | local-kind-observed | blocked | 2 | cluster RBAC review, generated fact ownership, scan/gate warning disposition |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default, no-crds | pass | local-kind-observed | blocked | 0 | CRD lifecycle and upgrade policy, cluster RBAC review, extension slot provenance and scan policy, generated fact ownership, scan/gate warning disposition, webhook readiness and failure policy |
 | `prometheus-community/prometheus@29.8.0` | default, server-only-ephemeral | pass | local-kind-observed | blocked | 0 | cluster RBAC review, extension slot provenance and scan policy, scan/gate warning disposition |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default, sync-secret-rotation | pass | local-kind-observed | blocked | 0 | CRD lifecycle and upgrade policy, cluster RBAC review, extension slot provenance and scan policy, scan/gate warning disposition |

@@ -1,0 +1,30 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: metrics-server-target-fact-preflight
+spec:
+  chart: metrics-server/metrics-server
+  version: "3.13.0"
+  disposition: target fact preflight
+  decision: accepted
+  acceptedAt: "2026-06-08"
+  scope:
+    - local-test
+    - production-review-input
+  summary: The external-tls-ca variant declares the serving certificate Secret as a target fact, the installer package exposes it as an external requirement, and the two-cluster parity receipt proves that Secret can be staged before both Helm and cub installer paths.
+  evidence:
+    - path: recipes/metrics-server/metrics-server/3.13.0/variants/external-tls-ca/variant.yaml
+      claim: The variant declares kube-system/metrics-server-tls with tls.crt and tls.key as a required target Secret.
+    - path: packages/metrics-server/metrics-server/3.13.0/installer.yaml
+      claim: The package base declares an externalRequires entry for the metrics-server TLS Secret.
+    - path: recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/receipts/install-gate.yaml
+      claim: The install gate records that the target Secret is required before apply.
+    - path: runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/receipt.yaml
+      claim: Two-cluster parity stages the required Secret for both the regular Helm and cub installer legs and passes semantic object parity; runtime readiness remains a separate watch item.
+  affectedVariants:
+    - external-tls-ca
+  remainingProductionBlockers:
+    - cluster RBAC review
+    - generated fact ownership
+    - hook and lifecycle phase policy
+    - scan/gate warning disposition

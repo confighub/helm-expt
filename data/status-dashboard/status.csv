@@ -28,7 +28,7 @@ live evidence,ConfigHub/OCI semantic parity defect receipts,0,20,good,data/live-
 live evidence,two-cluster semantic parity defect receipts,0,40,good,data/live-kind-parity/summary.csv,Rows whose committed two-cluster receipt currently points at a semantic object comparison defect.
 production disposition,top20 production-supported charts,0,20,gap,data/production-disposition/top20.csv,Top-20 catalog charts with all production dispositions closed.
 production disposition,top20 production-blocked charts,20,20,partial,data/production-disposition/top20.csv,Top-20 catalog charts that remain blocked from production support pending explicit dispositions.
-production disposition,charts with accepted production dispositions,2,20,partial,data/production-disposition/top20.csv,Charts with at least one disposition receipt accepted.
+production disposition,charts with accepted production dispositions,3,20,partial,data/production-disposition/top20.csv,Charts with at least one disposition receipt accepted.
 quirks,tracked-and-surfaced axes,9,26,good,data/quirk-coverage/coverage.csv,Quirk axes visible in generated chart or user data.
 quirks,partly tracked axes,3,26,partial,data/quirk-coverage/coverage.csv,Visible quirk axes that still need lifecycle or proof coverage.
 quirks,source-scanned but not surfaced axes,5,26,gap,data/quirk-coverage/coverage.csv,Detected in source scan but not promoted to front-door chart facts.

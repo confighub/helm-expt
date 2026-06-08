@@ -1403,7 +1403,8 @@ spec:
         lifecycleObservationReceipts:
           []
         productionDispositionReceipts:
-          []
+          - "data/production-disposition/receipts/metrics-server-metrics-server/hook-lifecycle-phase-policy.yaml"
+          - "data/production-disposition/receipts/metrics-server-metrics-server/target-fact-preflight.yaml"
       dispositions:
         -
           name: "cluster RBAC review"
@@ -1425,7 +1426,8 @@ spec:
           unblockRule: "supported only when generated material is captured or deliberately externalized"
         -
           name: "hook and lifecycle phase policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/metrics-server-metrics-server/hook-lifecycle-phase-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "hook inventory"
@@ -1443,7 +1445,8 @@ spec:
           unblockRule: "supported only when warnings are accepted, fixed, or variant-blocking"
         -
           name: "target fact preflight"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/metrics-server-metrics-server/target-fact-preflight.yaml"
           owner: "installer-review"
           requiredEvidence:
             - "installer externalRequires/facts"
