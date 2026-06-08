@@ -167,6 +167,23 @@ If you are asking why this is not just `cub helm install`, start with
 [Why This Exists](./docs/user/why-this-exists.md). For the shortest product
 model, start with [What You Get](./docs/user/what-you-get.md).
 
+## Command Choice
+
+Use the shortest command that answers the question you are asking:
+
+| Goal | Command path |
+| --- | --- |
+| See what a chart renders, without ConfigHub state. | `cub helm template` |
+| Load one Helm render into ConfigHub Units quickly. | `cub helm install` |
+| Use a maintained catalog entry with supported bases, receipts, scans, and live evidence. | `cub installer setup --pull <package> --base <base>` |
+| Upload a reviewed rendered base into ConfigHub. | `cub installer upload` |
+| Create an environment, region, customer, or target variant after upload. | `cub variant create` |
+
+The durable catalog path starts at `cub installer`. The future bridge from a
+direct Helm render/install into a maintained recipe is tracked as
+`cub installer import helm`; it is not used as a current command in this repo.
+For the full routing table, see [Choosing Commands](./docs/user/choosing-commands.md).
+
 ## What Is Proven Today
 
 > **What a full test run verifies — and what you can expect to be true:** see
@@ -180,8 +197,8 @@ model, start with [What You Get](./docs/user/what-you-get.md).
 20/20 have ConfigHub upload, scan, and safe-ops proof receipts.
 100 charts have recipe/package proof artifacts.
 156 chart/base rows have Helm-template versus cub-installer render parity.
-The selected top-20 live Helm-vs-ConfigHub comparison lane has 12 pass,
-7 watch, and 1 blocked receipt.
+The selected top-20 live Helm-vs-ConfigHub comparison lane has 15 pass,
+5 watch, and 0 blocked receipts.
 cert-manager and External Secrets have lifecycle-observation receipts for
 common CRD/webhook/controller-owned runtime behavior.
 Top-500 source/catalog analysis exists as catalog-planning data for future
@@ -210,7 +227,7 @@ That lane depends on a live GitOps controller and cluster, so it is documented
 and exercised outside the pure local `npm run verify` corpus. The first
 runtime/GitOps wave currently has 10 committed receipts: 5 pass and 5 non-pass
 target-fit receipts. The strict live Helm-vs-ConfigHub comparison lane has 20
-committed receipts for selected top-20 rows: 12 pass, 7 watch, and 1 blocked.
+committed receipts for selected top-20 rows: 15 pass, 5 watch, and 0 blocked.
 See the generated summaries for exact chart/base status:
 [Runtime/GitOps Wave](./data/runtime-gitops/summary.md) and
 [Live Helm-vs-ConfigHub Parity](./data/live-helm-confighub-compare/summary.md).
@@ -656,7 +673,7 @@ a running GitOps controller and cluster. The current generated status is:
 
 ```text
 runtime/GitOps first wave: 5 pass, 5 non-pass target-fit receipts
-strict live Helm-vs-ConfigHub comparison: 12 pass, 7 watch, 1 blocked
+strict live Helm-vs-ConfigHub comparison: 15 pass, 5 watch, 0 blocked
 ```
 
 Use the generated summaries for exact chart/base status:

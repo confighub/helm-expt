@@ -70,9 +70,9 @@ As of the current matrix, all 156 chart-recipe-variant rows have
 Helm-equivalence plus installer setup-check evidence. ConfigHub proof,
 local-kind evidence, and ConfigHub OCI/Argo live proof are partial by exact
 variant row. The selected top-20 live Helm-vs-ConfigHub comparison lane now has
-20 committed receipts: 12 pass, 7 watch, and 1 blocked. The remaining blocked
-row is an Argo CD chart fixture conflict: the live rig already installed Argo CD
-CRDs for the OCI controller.
+20 committed receipts: 15 pass, 5 watch, and 0 blocked. The remaining watch
+rows are target/runtime/controller-readiness findings whose semantic parity
+checks pass.
 
 For exact GitOps/OCI status, do not rely on copied counts in this handover.
 Use the generated status dashboard and outcome CSVs:
@@ -112,7 +112,7 @@ render reproducibility: complete for current recipe variants
 ConfigHub proof: partial by exact chart-recipe-variant row
 local live cluster proof: partial by exact chart-recipe-variant row
 GitOps/OCI live proof: partial by exact chart-recipe-variant row; use generated status for current pass, watch, blocked, and missing counts
-live Helm-vs-ConfigHub parity proof: 12 selected top-20 rows pass, 7 watch, 1 blocked by an Argo CD chart fixture conflict
+live Helm-vs-ConfigHub parity proof: 15 selected top-20 rows pass, 5 watch, 0 blocked; watch rows have semantic parity and need target/runtime follow-up
 lifecycle observation proof: cert-manager and External Secrets exact rows pass, generic hook lifecycle support remains backlog
 ```
 
