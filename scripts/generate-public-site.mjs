@@ -13,6 +13,7 @@ const latestReadinessPath = join(repoRoot, "data", "latest-top20-refresh", "prom
 const runtimeWavePath = join(repoRoot, "data", "runtime-gitops", "wave1.csv");
 const imageDigestSubjectsPath = join(repoRoot, "data", "image-digest-workdown", "all-subjects.csv");
 const nextTenGapsPath = join(repoRoot, "data", "next-ten-waves", "gap-review-wave.csv");
+const statusDashboardPath = join(repoRoot, "data", "status-dashboard", "status.csv");
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -43,6 +44,7 @@ function buildSite() {
   const runtimeWave = parseCsv(readFileSync(runtimeWavePath, "utf8"));
   const imageSubjects = parseCsv(readFileSync(imageDigestSubjectsPath, "utf8"));
   const nextTenGaps = parseCsv(readFileSync(nextTenGapsPath, "utf8"));
+  const statusMetrics = parseCsv(readFileSync(statusDashboardPath, "utf8"));
   const catalogEntries = top100.entries.filter((entry) => entry.proof_surface === "top20-catalog-supported");
   const proofGrade = top100.entries.filter((entry) => entry.proof_surface === "next80-proof-grade");
   const latestCandidates = readiness.map((row) => ({
@@ -61,6 +63,7 @@ function buildSite() {
       runtimeWave: "data/runtime-gitops/wave1.csv",
       imageDigestSubjects: "data/image-digest-workdown/all-subjects.csv",
       nextTenGaps: "data/next-ten-waves/gap-review-wave.csv",
+      statusDashboard: "data/status-dashboard/status.csv",
     },
     summary: {
       catalogSupported: catalogEntries.length,
@@ -72,6 +75,7 @@ function buildSite() {
       imageSubjectsNeedingResolution: imageSubjects.filter((row) => row.needs_resolution === "yes").length,
       nextTenGapRows: nextTenGaps.length,
     },
+    statusMetrics,
     catalogEntries,
     proofGradeEntries: proofGrade,
     latestCandidates,
@@ -85,13 +89,33 @@ function buildSite() {
 
 function html(catalog) {
   const entries = catalog.catalogEntries;
+  const metric = (name) => catalog.statusMetrics.find((row) => row.metric === name) ?? {};
   const counters = [
-    ["Catalog-supported charts", catalog.summary.catalogSupported],
-    ["Proof-grade recipes", catalog.summary.proofGrade],
-    ["Top-500 rows analyzed", catalog.summary.top500Rows],
-    ["Latest candidates", catalog.summary.latestCandidates],
-    ["Runtime/GitOps wave", catalog.summary.runtimeGitopsWave],
-    ["Image subjects to pin", catalog.summary.imageSubjectsNeedingResolution],
+    ["Model-supported charts", metricValue(metric("charts with model support"))],
+    ["Render parity rows", metricValue(metric("render parity rows"))],
+    ["Catalog-supported charts", metricValue(metric("catalog-supported charts"))],
+    ["Proof-grade non-catalog", metricValue(metric("proof-grade non-catalog charts"))],
+    ["GitOps/OCI live pass", metricValue(metric("GitOps/OCI live pass rows"))],
+    ["Live parity pass", metricValue(metric("live Helm-vs-ConfigHub parity pass rows"))],
+  ];
+  const statusRows = [
+    "in-ConfigHub proof rows",
+    "local live rows",
+    "GitOps/OCI live pass rows",
+    "live Helm-vs-ConfigHub parity pass rows",
+    "hook lifecycle receipts present",
+    "not-scanned axes",
+  ]
+    .map((name) => metric(name))
+    .filter((row) => row.metric);
+  const stages = [
+    ["1. Acquire and pin", "Lock chart source, dependencies, digests, and provenance."],
+    ["2. Render and capture", "Run Helm under recorded inputs and prove render parity with cub installer."],
+    ["3. Shape base variants", "Name the install shapes that change Helm inputs or object shape."],
+    ["4. Scan and gate", "Scan the exact rendered objects and record allow, warn, or block decisions."],
+    ["5. Settle prerequisites", "Record target facts, preflight needs, approvals, signatures, and delivery requirements."],
+    ["6. Publish and deploy", "Publish or apply the approved object set and route lifecycle behavior."],
+    ["7. Observe and operate", "Record live state, freshness, drift, promotion, upgrade, and rollback evidence."],
   ];
   return `<!doctype html>
 <html lang="en">
@@ -128,12 +152,13 @@ function html(catalog) {
     a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
     code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     pre {
-      overflow-x: auto;
+      overflow-wrap: anywhere;
       padding: 14px;
       border: 1px solid var(--line);
       border-radius: 6px;
       background: #0f1720;
       color: #e9f2ff;
+      white-space: pre-wrap;
     }
     .tagline { font-size: 1.2rem; color: var(--ink); }
     .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
@@ -152,7 +177,7 @@ function html(catalog) {
     .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .82rem; border: 1px solid var(--line); }
     .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
     .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
-    .lanes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
     .lane { background: var(--panel); }
     .bar { height: 8px; border-radius: 999px; background: #dfe7ee; overflow: hidden; margin-top: 12px; }
     .bar span { display: block; height: 100%; background: var(--accent); }
@@ -167,7 +192,11 @@ function html(catalog) {
   <header>
     <h1>Use Helm charts. Ship ConfigHub variants.</h1>
     <p class="tagline">The catalog turns popular public Helm charts into reviewed cub installer packages, named variants, rendered objects, checks, and proof receipts.</p>
-    <pre>cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/redis --non-interactive --namespace redis</pre>
+    <pre>cub installer setup --pull packages/bitnami/redis/25.5.3 \\
+  --base default \\
+  --work-dir .tmp/redis \\
+  --non-interactive \\
+  --namespace redis</pre>
   </header>
   <main>
     <section aria-labelledby="proof-counters">
@@ -178,24 +207,21 @@ function html(catalog) {
     </section>
 
     <section aria-labelledby="how-it-works">
-      <h2 id="how-it-works">How It Works</h2>
-      <div class="lanes">
-        <div class="lane">
-          <h3>1. Render</h3>
-          <p>Helm output is captured as a cub installer package and compared with regular Helm output.</p>
-          <div class="bar"><span style="width: 100%"></span></div>
-        </div>
-        <div class="lane">
-          <h3>2. Vary</h3>
-          <p>Supported variants make common choices explicit: default, existing Secret, no CRDs, local storage, ingress, and similar paths.</p>
-          <div class="bar"><span style="width: 100%"></span></div>
-        </div>
-        <div class="lane">
-          <h3>3. Prove</h3>
-          <p>Receipts record equivalence, scans, gates, ConfigHub upload, local live evidence, and latest-version promotion readiness.</p>
-          <div class="bar"><span style="width: 100%"></span></div>
-        </div>
+      <h2 id="how-it-works">Seven-Stage Lifecycle</h2>
+      <p>The catalog separates Helm rendering, variant choices, delivery, and live evidence so each claim can be checked at the right boundary.</p>
+      <div class="stage-grid">
+        ${stages.map(([title, body]) => `<div class="lane"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div>`).join("\n        ")}
       </div>
+    </section>
+
+    <section aria-labelledby="current-status">
+      <h2 id="current-status">Current Status</h2>
+      <p>The site uses the generated status dashboard. A partial or gap status means the exact lane still needs receipts, not that render parity failed.</p>
+      ${markdownLikeTable([
+        ["Metric", "Value", "Status"],
+        ...statusRows.map((row) => [row.metric, metricValue(row), row.status]),
+      ])}
+      <p><a href="../data/status-dashboard/summary.md">Open the full status dashboard</a>.</p>
     </section>
 
     <section aria-labelledby="catalog">
@@ -284,6 +310,11 @@ function chartCard(entry) {
         </article>`;
 }
 
+function metricValue(row) {
+  if (!row?.metric) return "-";
+  return row.total ? `${row.value}/${row.total}` : row.value;
+}
+
 function markdownLikeTable(rows) {
   const [headers, ...body] = rows;
   return `<div class="card"><table>
@@ -317,6 +348,7 @@ Data source:
 - \`data/runtime-gitops/wave1.csv\`
 - \`data/image-digest-workdown/all-subjects.csv\`
 - \`data/next-ten-waves/gap-review-wave.csv\`
+- \`data/status-dashboard/status.csv\`
 - \`data/variant-goldens/redis-prod-us-east/\`
 - \`data/managed-overlay-goldens/external-dns-customer-acme-prod/\`
 

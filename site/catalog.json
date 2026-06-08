@@ -6,7 +6,8 @@
     "latestCandidates": "data/latest-top20-refresh/promotion-readiness.csv",
     "runtimeWave": "data/runtime-gitops/wave1.csv",
     "imageDigestSubjects": "data/image-digest-workdown/all-subjects.csv",
-    "nextTenGaps": "data/next-ten-waves/gap-review-wave.csv"
+    "nextTenGaps": "data/next-ten-waves/gap-review-wave.csv",
+    "statusDashboard": "data/status-dashboard/status.csv"
   },
   "summary": {
     "catalogSupported": 20,
@@ -18,6 +19,170 @@
     "imageSubjectsNeedingResolution": 149,
     "nextTenGapRows": 9
   },
+  "statusMetrics": [
+    {
+      "section": "top100",
+      "metric": "charts with model support",
+      "value": "100",
+      "total": "100",
+      "status": "good",
+      "source": "data/outcome-coverage/chart-outcomes.csv",
+      "note": "The top100 corpus has honest chart models for the declared scope."
+    },
+    {
+      "section": "top100",
+      "metric": "catalog-supported charts",
+      "value": "20",
+      "total": "100",
+      "status": "partial",
+      "source": "data/top100-readiness/readiness.csv",
+      "note": "These are the current public catalog entries; production support still depends on lane status."
+    },
+    {
+      "section": "top100",
+      "metric": "proof-grade non-catalog charts",
+      "value": "80",
+      "total": "100",
+      "status": "partial",
+      "source": "data/top100-readiness/readiness.csv",
+      "note": "These charts have proof artifacts but are not promoted catalog entries."
+    },
+    {
+      "section": "top100",
+      "metric": "variant-rich charts",
+      "value": "54",
+      "total": "100",
+      "status": "partial",
+      "source": "data/outcome-coverage/chart-outcomes.csv",
+      "note": "Charts with more than one declared base variant."
+    },
+    {
+      "section": "proof lanes",
+      "metric": "render parity rows",
+      "value": "156",
+      "total": "156",
+      "status": "good",
+      "source": "data/outcome-coverage/base-outcomes.csv",
+      "note": "Every chart/base row has render parity under recorded inputs."
+    },
+    {
+      "section": "proof lanes",
+      "metric": "in-ConfigHub proof rows",
+      "value": "18",
+      "total": "156",
+      "status": "partial",
+      "source": "data/outcome-coverage/base-outcomes.csv",
+      "note": "Rows with upload, scan, or safe-operation proof receipts."
+    },
+    {
+      "section": "proof lanes",
+      "metric": "local live rows",
+      "value": "21",
+      "total": "156",
+      "status": "partial",
+      "source": "data/outcome-coverage/base-outcomes.csv",
+      "note": "Rows with committed local Kubernetes observation receipts."
+    },
+    {
+      "section": "proof lanes",
+      "metric": "GitOps/OCI live pass rows",
+      "value": "12",
+      "total": "156",
+      "status": "partial",
+      "source": "data/outcome-coverage/base-outcomes.csv",
+      "note": "7 rows have non-pass GitOps/OCI receipts."
+    },
+    {
+      "section": "proof lanes",
+      "metric": "live Helm-vs-ConfigHub parity pass rows",
+      "value": "10",
+      "total": "156",
+      "status": "partial",
+      "source": "data/outcome-coverage/base-outcomes.csv",
+      "note": "10 rows have non-pass live parity receipts."
+    },
+    {
+      "section": "proof lanes",
+      "metric": "complete core lane rows",
+      "value": "6",
+      "total": "156",
+      "status": "gap",
+      "source": "data/outcome-coverage/base-outcomes.csv",
+      "note": "Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."
+    },
+    {
+      "section": "live evidence",
+      "metric": "runtime/GitOps wave rows",
+      "value": "10",
+      "total": "10",
+      "status": "partial",
+      "source": "data/runtime-gitops/wave1.csv",
+      "note": "Selected Argo/Flux OCI wave rows; this is not the whole corpus."
+    },
+    {
+      "section": "live evidence",
+      "metric": "live Helm-vs-ConfigHub receipts",
+      "value": "20",
+      "total": "20",
+      "status": "partial",
+      "source": "data/live-helm-confighub-compare/summary.csv",
+      "note": "Committed live comparison receipts, including pass and non-pass results."
+    },
+    {
+      "section": "quirks",
+      "metric": "tracked-and-surfaced axes",
+      "value": "8",
+      "total": "25",
+      "status": "good",
+      "source": "data/quirk-coverage/coverage.csv",
+      "note": "Quirk axes visible in generated chart or user data."
+    },
+    {
+      "section": "quirks",
+      "metric": "partly tracked axes",
+      "value": "3",
+      "total": "25",
+      "status": "partial",
+      "source": "data/quirk-coverage/coverage.csv",
+      "note": "Visible quirk axes that still need lifecycle or proof coverage."
+    },
+    {
+      "section": "quirks",
+      "metric": "source-scanned but not surfaced axes",
+      "value": "5",
+      "total": "25",
+      "status": "gap",
+      "source": "data/quirk-coverage/coverage.csv",
+      "note": "Detected in source scan but not promoted to front-door chart facts."
+    },
+    {
+      "section": "quirks",
+      "metric": "not-scanned axes",
+      "value": "6",
+      "total": "25",
+      "status": "gap",
+      "source": "data/quirk-coverage/coverage.csv",
+      "note": "Known blind spots in the scanner/data model."
+    },
+    {
+      "section": "hooks",
+      "metric": "top100 maintained hook charts",
+      "value": "5",
+      "total": "5",
+      "status": "partial",
+      "source": "data/hook-lifecycle/top100-hooks.csv",
+      "note": "Hook-bearing maintained charts with required lifecycle receipt paths."
+    },
+    {
+      "section": "hooks",
+      "metric": "hook lifecycle receipts present",
+      "value": "0",
+      "total": "5",
+      "status": "gap",
+      "source": "data/hook-lifecycle/top100-hooks.csv",
+      "note": "Current hook rows still need lifecycle route and receipt work."
+    }
+  ],
   "catalogEntries": [
     {
       "proof_surface": "top20-catalog-supported",
