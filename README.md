@@ -175,6 +175,7 @@ Use the shortest command that answers the question you are asking:
 | --- | --- |
 | See what a chart renders, without ConfigHub state. | `cub helm template` |
 | Load one Helm render into ConfigHub Units quickly. | `cub helm install` |
+| Adopt an existing Argo, Flux, KRM, or rendered-manifest app. | `cub gitops discover/import`, `cub unit import`, or a managed import workflow |
 | Use a maintained catalog entry with supported bases, receipts, scans, and live evidence. | `cub installer setup --pull <package> --base <base>` |
 | Upload a reviewed rendered base into ConfigHub. | `cub installer upload` |
 | Create an environment, region, customer, or target variant after upload. | `cub variant create` |
@@ -334,6 +335,9 @@ I want a short show-and-tell sequence.
 
 I want to know which command to use.
   Read docs/user/choosing-commands.md.
+
+I already run apps through Argo, Flux, KRM, or rendered manifests.
+  Read docs/user/adopting-existing-apps.md.
 
 I want the user docs in order.
   Read docs/user/README.md.
