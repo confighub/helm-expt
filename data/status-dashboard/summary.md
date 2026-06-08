@@ -77,32 +77,36 @@ webhooks, values schemas, and other tracked quirks. Use
 [top20-status.csv](top20-status.csv) when you want the same data in a
 spreadsheet.
 
-| Chart | Variants | Strongest evidence | Render | ConfigHub | Local live | GitOps live | Live parity | Hard gap |
-| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| argo-cd/argo-cd@9.5.15 | default;no-crds | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | ha (curated proof lane - bespoke teaching needed) |
-| bitnami/mongodb@19.0.7 | generated-passwords;existing-secret-replicaset | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
-| bitnami/mysql@14.0.3 | generated-passwords;existing-secret | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
-| bitnami/nginx@24.0.2 | http-clusterip;existing-tls-ingress | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | existing-secret (chart ships no Secret toggle - #113) |
-| bitnami/postgresql@18.6.7 | generated-passwords;existing-secret | live-helm-vs-confighub-parity | 2/2 | 0/2 | 1/2 | 2/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
-| bitnami/rabbitmq@16.0.14 | generated-passwords;existing-secret | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
-| bitnami/redis@25.5.3 | default;reuse-existing-secret | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 2/2 | 1/2 | - |
-| external-secrets/external-secrets@2.5.0 | default;no-crds | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
-| grafana/grafana@10.5.15 | generated-passwords;existing-secret-ingress | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
-| grafana/loki@7.0.0 | single-binary-filesystem;simple-scalable-minio | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
-| grafana/tempo@1.24.4 | local-persistent;s3-query-observability | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
-| hashicorp/consul@2.0.0 | default-control-plane;secure-mesh-existing-secrets | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
-| hashicorp/vault@0.32.0 | default;ha-raft-ui | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | - |
-| ingress-nginx/ingress-nginx@4.15.1 | default;admission-disabled | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | - |
-| jetstack/cert-manager@v1.20.2 | default;crds-enabled | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
-| longhorn/longhorn@1.11.2 | default;ui-ingress | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
-| metrics-server/metrics-server@3.13.0 | default;external-tls-ca | live-helm-vs-confighub-parity | 2/2 | 0/2 | 1/2 | 1/2 | 1/2 | existing-secret (chart ships no Secret toggle - #113) |
-| prometheus-community/kube-prometheus-stack@85.3.3 | default;no-crds | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | existing-secret (chart ships no Secret toggle - #113) |
-| prometheus-community/prometheus@29.8.0 | default;server-only-ephemeral | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
-| secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | default;sync-secret-rotation | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
+| Chart | Recommended base | Base readiness | Strongest evidence | Render | ConfigHub | Local live | GitOps live | Live parity | Hard gap |
+| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
+| argo-cd/argo-cd@9.5.15 | default (runtime-watch) | runtime-watch:1; target-prerequisite-needed:1 | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | ha (curated proof lane - bespoke teaching needed) |
+| bitnami/mongodb@19.0.7 | generated-passwords (start-here) | start-here:1; runtime-review-needed:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
+| bitnami/mysql@14.0.3 | generated-passwords (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
+| bitnami/nginx@24.0.2 | http-clusterip (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | existing-secret (chart ships no Secret toggle - #113) |
+| bitnami/postgresql@18.6.7 | generated-passwords (try-with-proof) | try-with-proof:2 | live-helm-vs-confighub-parity | 2/2 | 0/2 | 1/2 | 2/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
+| bitnami/rabbitmq@16.0.14 | generated-passwords (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
+| bitnami/redis@25.5.3 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 2/2 | 1/2 | - |
+| external-secrets/external-secrets@2.5.0 | default (start-here) | start-here:1; prerequisite-observed:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
+| grafana/grafana@10.5.15 | generated-passwords (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
+| grafana/loki@7.0.0 | single-binary-filesystem (start-here) | start-here:1; runtime-review-needed:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
+| grafana/tempo@1.24.4 | local-persistent (runtime-review-needed) | runtime-review-needed:1; target-prerequisite-needed:1 | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
+| hashicorp/consul@2.0.0 | default-control-plane (start-here) | start-here:1; runtime-review-needed:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
+| hashicorp/vault@0.32.0 | default (runtime-review-needed) | runtime-review-needed:2 | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | - |
+| ingress-nginx/ingress-nginx@4.15.1 | default (runtime-watch) | try-with-proof:1; runtime-watch:1 | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | - |
+| jetstack/cert-manager@v1.20.2 | default (lifecycle-observed) | try-with-proof:1; lifecycle-observed:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
+| longhorn/longhorn@1.11.2 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
+| metrics-server/metrics-server@3.13.0 | default (try-with-proof) | try-with-proof:1; runtime-review-needed:1 | live-helm-vs-confighub-parity | 2/2 | 0/2 | 1/2 | 1/2 | 1/2 | existing-secret (chart ships no Secret toggle - #113) |
+| prometheus-community/kube-prometheus-stack@85.3.3 | default (runtime-watch) | runtime-watch:1; target-prerequisite-needed:1 | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | existing-secret (chart ships no Secret toggle - #113) |
+| prometheus-community/prometheus@29.8.0 | default (try-with-proof) | try-with-proof:2 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
+| secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
 
 The table is deliberately lane-specific. A chart can be useful today without
 every lane passing for every base variant. The exact per-base rows are in
 [outcome-coverage/base-outcomes.csv](../outcome-coverage/base-outcomes.csv).
+The `Base readiness` column is generated from
+[top20-base-readiness/base-readiness.csv](../top20-base-readiness/base-readiness.csv),
+which is the better source when the question is which base variant to try
+first.
 
 ## Live And Parity Residue
 

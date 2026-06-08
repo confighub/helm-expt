@@ -91,7 +91,7 @@ function buildReport() {
   rows.push(metric("hooks", "related lifecycle observation receipts passing", passCount(lifecycleObservationRows, "result"), lifecycleObservationRows.length, "good", "data/lifecycle-observations/cert-manager-eso/summary.csv", "Cert-manager and External Secrets receipts for CRD/webhook/controller behavior that rendered YAML alone cannot prove."));
 
   const chartByName = new Map(chartRows.map((row) => [row.chart, row]));
-  const top20Rows = top20StatusRows(top100Rows, chartByName);
+  const top20Rows = top20StatusRows(top100Rows, chartByName, top20BaseReadinessRows);
   return {
     rows,
     csv: toCsv(rows),
@@ -155,13 +155,17 @@ webhooks, values schemas, and other tracked quirks. Use
 [top20-status.csv](top20-status.csv) when you want the same data in a
 spreadsheet.
 
-| Chart | Variants | Strongest evidence | Render | ConfigHub | Local live | GitOps live | Live parity | Hard gap |
-| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
-${context.top20Rows.map((row) => `| ${row.chart} | ${row.variants} | ${row.strongest_evidence} | ${row.render_parity} | ${row.in_confighub} | ${row.local_live} | ${row.gitops_live} | ${row.live_parity} | ${row.hard_gap} |`).join("\n")}
+| Chart | Recommended base | Base readiness | Strongest evidence | Render | ConfigHub | Local live | GitOps live | Live parity | Hard gap |
+| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
+${context.top20Rows.map((row) => `| ${row.chart} | ${row.recommended_base} | ${row.base_readiness} | ${row.strongest_evidence} | ${row.render_parity} | ${row.in_confighub} | ${row.local_live} | ${row.gitops_live} | ${row.live_parity} | ${row.hard_gap} |`).join("\n")}
 
 The table is deliberately lane-specific. A chart can be useful today without
 every lane passing for every base variant. The exact per-base rows are in
 [outcome-coverage/base-outcomes.csv](../outcome-coverage/base-outcomes.csv).
+The \`Base readiness\` column is generated from
+[top20-base-readiness/base-readiness.csv](../top20-base-readiness/base-readiness.csv),
+which is the better source when the question is which base variant to try
+first.
 
 ## Live And Parity Residue
 
@@ -326,25 +330,37 @@ function toCsv(rows) {
   return `${headers.join(",")}\n${rows.map((row) => headers.map((header) => csvCell(row[header] ?? "")).join(",")).join("\n")}\n`;
 }
 
-function top20StatusRows(top100Rows, chartByName) {
+function top20StatusRows(top100Rows, chartByName, top20BaseReadinessRows) {
+  const readinessByChart = new Map();
+  for (const row of top20BaseReadinessRows) {
+    const rows = readinessByChart.get(row.chart) ?? [];
+    rows.push(row);
+    readinessByChart.set(row.chart, rows);
+  }
   return top100Rows
     .filter((row) => row.catalog_tier === "top20-catalog-supported")
-    .map((row) => ({
-      rank: row.proof_surface_rank,
-      chart: row.chart,
-      variants: row.variants,
-      user_status: row.user_status,
-      strongest_evidence: row.strongest_evidence,
-      render_parity: row.render_parity,
-      in_confighub: row.in_confighub,
-      local_live: row.local_live,
-      gitops_live: row.gitops_live,
-      live_parity: row.live_parity,
-      feature_summary: chartByName.get(row.chart)?.feature_summary ?? "",
-      hard_gap: row.hard_gap,
-      next_action: row.next_action,
-      catalog_path: row.catalog_path,
-    }))
+    .map((row) => {
+      const baseRows = readinessByChart.get(row.chart) ?? [];
+      const recommended = baseRows.find((baseRow) => baseRow.recommended_first === "yes");
+      return {
+        rank: row.proof_surface_rank,
+        chart: row.chart,
+        variants: row.variants,
+        recommended_base: recommended ? `${recommended.base} (${recommended.user_readiness})` : "-",
+        base_readiness: readinessSummary(baseRows),
+        user_status: row.user_status,
+        strongest_evidence: row.strongest_evidence,
+        render_parity: row.render_parity,
+        in_confighub: row.in_confighub,
+        local_live: row.local_live,
+        gitops_live: row.gitops_live,
+        live_parity: row.live_parity,
+        feature_summary: chartByName.get(row.chart)?.feature_summary ?? "",
+        hard_gap: row.hard_gap,
+        next_action: row.next_action,
+        catalog_path: row.catalog_path,
+      };
+    })
     .sort((a, b) => Number(a.rank) - Number(b.rank));
 }
 
@@ -353,6 +369,8 @@ function top20ToCsv(rows) {
     "rank",
     "chart",
     "variants",
+    "recommended_base",
+    "base_readiness",
     "user_status",
     "strongest_evidence",
     "render_parity",
@@ -366,6 +384,29 @@ function top20ToCsv(rows) {
     "catalog_path",
   ];
   return `${headers.join(",")}\n${rows.map((row) => headers.map((header) => csvCell(row[header] ?? "")).join(",")).join("\n")}\n`;
+}
+
+function readinessSummary(rows) {
+  if (!rows.length) return "-";
+  const summary = groupCount(rows, "user_readiness");
+  const priority = [
+    "start-here",
+    "try-with-proof",
+    "lifecycle-observed",
+    "prerequisite-observed",
+    "runtime-watch",
+    "runtime-review-needed",
+    "target-prerequisite-needed",
+    "hook-lifecycle-review-needed",
+  ];
+  return [...summary.entries()]
+    .sort((a, b) => {
+      const priorityA = priority.includes(a[0]) ? priority.indexOf(a[0]) : priority.length;
+      const priorityB = priority.includes(b[0]) ? priority.indexOf(b[0]) : priority.length;
+      return priorityA - priorityB || a[0].localeCompare(b[0]);
+    })
+    .map(([key, value]) => `${key}:${value}`)
+    .join("; ");
 }
 
 function csvCell(value) {

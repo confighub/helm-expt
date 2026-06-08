@@ -271,7 +271,7 @@ data/status-dashboard/summary.md
   One-page current status: top100, proof lanes, hooks, quirks, GitOps, and live parity.
 
 data/status-dashboard/top20-status.csv
-  Compact chart-by-chart status for the top-20 catalog: variants, lane counts, feature summary, gaps, and next action.
+  Compact chart-by-chart status for the top-20 catalog: recommended base, base readiness, lane counts, feature summary, gaps, and next action.
 
 data/top20-base-readiness/summary.md
   One row per top-20 base variant: which bases are clean first paths and which need prerequisites, runtime review, or hook lifecycle work.
