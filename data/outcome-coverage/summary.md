@@ -19,6 +19,7 @@ GitOps/OCI non-pass receipts:        7
 live Helm-vs-ConfigHub pass rows:    10/156
 live Helm-vs-ConfigHub non-pass receipts: 10
 selected live parity receipts:       10 pass, 2 watch, 8 blocked
+two-cluster kind parity receipts:    25 pass, 3 watch, 12 blocked
 derived intended-state pass rows:    10
 target-bound derived pass rows:      5
 target-bound derived blocked rows:   1
@@ -45,34 +46,34 @@ hook lifecycle receipts present:     0
 | File | What it shows |
 | --- | --- |
 | `chart-outcomes.csv` | One row per chart: model support, production readiness, variant count, lane counts, feature summary, hard gaps. |
-| `base-outcomes.csv` | One row per chart/base variant: render parity, in-ConfigHub proof, local live, GitOps/OCI live, live parity. |
+| `base-outcomes.csv` | One row per chart/base variant: render parity, in-ConfigHub proof, local live, GitOps/OCI live, live parity, and two-cluster kind parity. |
 | `derived-variant-outcomes.csv` | One row per executed derived ConfigHub variant: intended-state proof and target-bound live status. |
 | `feature-outcomes.csv` | One row per chart/feature: hooks, generated secrets, CRDs, webhooks, required values, schemas, extension slots, gaps. |
 
 ## Catalog-Supported Chart Snapshot
 
-| Chart | Variants | Model | In-ConfigHub | Local live | GitOps live | Live parity | Hard gap |
-| --- | --- | --- | ---: | ---: | ---: | ---: | --- |
-| `argo-cd/argo-cd@9.5.15` | default;no-crds | yes | 1/2 | 1/2 | 0/2 | 0/2 | ha (curated proof lane - bespoke teaching needed) |
-| `bitnami/mongodb@19.0.7` | generated-passwords;existing-secret-replicaset | yes | 1/2 | 1/2 | 1/2 | 1/2 | - |
-| `bitnami/mysql@14.0.3` | generated-passwords;existing-secret | yes | 1/2 | 1/2 | 0/2 | 0/2 | ha (curated proof lane - bespoke teaching needed) |
-| `bitnami/nginx@24.0.2` | http-clusterip;existing-tls-ingress | yes | 1/2 | 1/2 | 1/2 | 1/2 | existing-secret (chart ships no Secret toggle - #113) |
-| `bitnami/postgresql@18.6.7` | generated-passwords;existing-secret | yes | 0/2 | 1/2 | 2/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
-| `bitnami/rabbitmq@16.0.14` | generated-passwords;existing-secret | yes | 1/2 | 1/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
-| `bitnami/redis@25.5.3` | default;reuse-existing-secret | yes | 1/2 | 2/2 | 2/2 | 1/2 | - |
-| `external-secrets/external-secrets@2.5.0` | default;no-crds | yes | 1/2 | 1/2 | 0/2 | 0/2 | - |
-| `grafana/grafana@10.5.15` | generated-passwords;existing-secret-ingress | yes | 1/2 | 1/2 | 1/2 | 1/2 | - |
-| `grafana/loki@7.0.0` | single-binary-filesystem;simple-scalable-minio | yes | 1/2 | 1/2 | 0/2 | 0/2 | - |
-| `grafana/tempo@1.24.4` | local-persistent;s3-query-observability | yes | 1/2 | 1/2 | 0/2 | 0/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
-| `hashicorp/consul@2.0.0` | default-control-plane;secure-mesh-existing-secrets | yes | 1/2 | 1/2 | 0/2 | 0/2 | ha (curated proof lane - bespoke teaching needed) |
-| `hashicorp/vault@0.32.0` | default;ha-raft-ui | yes | 1/2 | 1/2 | 0/2 | 0/2 | - |
-| `ingress-nginx/ingress-nginx@4.15.1` | default;admission-disabled | yes | 1/2 | 1/2 | 0/2 | 0/2 | - |
-| `jetstack/cert-manager@v1.20.2` | default;crds-enabled | yes | 1/2 | 1/2 | 1/2 | 1/2 | - |
-| `longhorn/longhorn@1.11.2` | default;ui-ingress | yes | 1/2 | 1/2 | 0/2 | 0/2 | - |
-| `metrics-server/metrics-server@3.13.0` | default;external-tls-ca | yes | 0/2 | 1/2 | 1/2 | 1/2 | existing-secret (chart ships no Secret toggle - #113) |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | default;no-crds | yes | 1/2 | 1/2 | 0/2 | 0/2 | existing-secret (chart ships no Secret toggle - #113) |
-| `prometheus-community/prometheus@29.8.0` | default;server-only-ephemeral | yes | 1/2 | 1/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
-| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default;sync-secret-rotation | yes | 1/2 | 1/2 | 1/2 | 1/2 | - |
+| Chart | Variants | Model | In-ConfigHub | Local live | GitOps live | Live parity | Two-cluster parity | Hard gap |
+| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
+| `argo-cd/argo-cd@9.5.15` | default;no-crds | yes | 1/2 | 1/2 | 0/2 | 0/2 | 0/2 | ha (curated proof lane - bespoke teaching needed) |
+| `bitnami/mongodb@19.0.7` | generated-passwords;existing-secret-replicaset | yes | 1/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
+| `bitnami/mysql@14.0.3` | generated-passwords;existing-secret | yes | 1/2 | 1/2 | 0/2 | 0/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
+| `bitnami/nginx@24.0.2` | http-clusterip;existing-tls-ingress | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | existing-secret (chart ships no Secret toggle - #113) |
+| `bitnami/postgresql@18.6.7` | generated-passwords;existing-secret | yes | 0/2 | 1/2 | 2/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
+| `bitnami/rabbitmq@16.0.14` | generated-passwords;existing-secret | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
+| `bitnami/redis@25.5.3` | default;reuse-existing-secret | yes | 1/2 | 2/2 | 2/2 | 1/2 | 2/2 | - |
+| `external-secrets/external-secrets@2.5.0` | default;no-crds | yes | 1/2 | 1/2 | 0/2 | 0/2 | 1/2 | - |
+| `grafana/grafana@10.5.15` | generated-passwords;existing-secret-ingress | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | - |
+| `grafana/loki@7.0.0` | single-binary-filesystem;simple-scalable-minio | yes | 1/2 | 1/2 | 0/2 | 0/2 | 1/2 | - |
+| `grafana/tempo@1.24.4` | local-persistent;s3-query-observability | yes | 1/2 | 1/2 | 0/2 | 0/2 | 0/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
+| `hashicorp/consul@2.0.0` | default-control-plane;secure-mesh-existing-secrets | yes | 1/2 | 1/2 | 0/2 | 0/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
+| `hashicorp/vault@0.32.0` | default;ha-raft-ui | yes | 1/2 | 1/2 | 0/2 | 0/2 | 0/2 | - |
+| `ingress-nginx/ingress-nginx@4.15.1` | default;admission-disabled | yes | 1/2 | 1/2 | 0/2 | 0/2 | 1/2 | - |
+| `jetstack/cert-manager@v1.20.2` | default;crds-enabled | yes | 1/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
+| `longhorn/longhorn@1.11.2` | default;ui-ingress | yes | 1/2 | 1/2 | 0/2 | 0/2 | 2/2 | - |
+| `metrics-server/metrics-server@3.13.0` | default;external-tls-ca | yes | 0/2 | 1/2 | 1/2 | 1/2 | 1/2 | existing-secret (chart ships no Secret toggle - #113) |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | default;no-crds | yes | 1/2 | 1/2 | 0/2 | 0/2 | 0/2 | existing-secret (chart ships no Secret toggle - #113) |
+| `prometheus-community/prometheus@29.8.0` | default;server-only-ephemeral | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
+| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default;sync-secret-rotation | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | - |
 
 ## How To Read This
 

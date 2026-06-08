@@ -41,11 +41,13 @@ function buildReport() {
   const hookRows = parseCsvFile("data/hook-lifecycle/top100-hooks.csv");
   const hookReceiptRows = parseCsvFile("data/hook-lifecycle/receipt-index.csv");
   const liveParityRows = parseCsvFile("data/live-helm-confighub-compare/summary.csv");
+  const kindParityRows = parseCsvFile("data/live-kind-parity/summary.csv");
 
   const modelByChart = new Map(modelRows.map((row) => [row.chart, row]));
   const factsByChart = new Map(chartFacts.map((row) => [`${row.chart}@${row.version}`, row]));
   const prodByChart = new Map(productionRows.map((row) => [`${row.chart}@${row.version}`, row]));
   const lanesByChart = group(laneRows, (row) => `${row.chart}@${row.version}`);
+  const kindParityByBase = new Map(kindParityRows.map((row) => [`${row.chart}@${row.version}|${row.base}`, row]));
 
   const chartRows = modelRows
     .map((model) => {
@@ -70,6 +72,11 @@ function buildReport() {
         gitops_live_non_pass_receipts: count(rows, laneNonPassReceipt("confighub_oci_argo_live")),
         live_parity_pass: count(rows, lanePass("live_helm_vs_confighub_dual_compare")),
         live_parity_non_pass_receipts: count(rows, laneNonPassReceipt("live_helm_vs_confighub_dual_compare")),
+        two_cluster_kind_parity_pass: count(rows, (row) => kindParityByBase.get(`${row.chart}@${row.version}|${row.variant}`)?.result === "pass"),
+        two_cluster_kind_parity_non_pass_receipts: count(rows, (row) => {
+          const result = kindParityByBase.get(`${row.chart}@${row.version}|${row.variant}`)?.result;
+          return ["fail", "watch", "blocked"].includes(result);
+        }),
         supported_variants: production.supported_variants || rows.map((row) => row.variant).join(";"),
         feature_summary: featureSummary(facts),
         hard_gap: facts.not_yet_enabled ?? "",
@@ -79,22 +86,27 @@ function buildReport() {
     })
     .sort((a, b) => a.chart.localeCompare(b.chart));
 
-  const baseRows = laneRows.map((row) => ({
-    chart: `${row.chart}@${row.version}`,
-    base: row.variant,
-    outcome_level: outcomeLevel(row),
-    render_parity: row.helm_template_vs_installer_setup,
-    in_confighub: row.confighub_upload_variant_scan_safe_ops,
-    local_live: row.local_kind_kubectl_apply,
-    gitops_oci_live: row.confighub_oci_argo_live,
-    live_helm_vs_confighub_parity: row.live_helm_vs_confighub_dual_compare,
-    complete_core_lane_set: row.complete_core_lane_set,
-    missing_or_non_pass_lanes: row.missing_core_lanes,
-    recipe_path: row.recipe_path,
-    package_path: row.package_path,
-    variant_revision: row.variant_revision,
-    evidence_notes: row.lane_notes,
-  }));
+  const baseRows = laneRows.map((row) => {
+    const kindParity = kindParityByBase.get(`${row.chart}@${row.version}|${row.variant}`);
+    return {
+      chart: `${row.chart}@${row.version}`,
+      base: row.variant,
+      outcome_level: outcomeLevel(row),
+      render_parity: row.helm_template_vs_installer_setup,
+      in_confighub: row.confighub_upload_variant_scan_safe_ops,
+      local_live: row.local_kind_kubectl_apply,
+      gitops_oci_live: row.confighub_oci_argo_live,
+      live_helm_vs_confighub_parity: row.live_helm_vs_confighub_dual_compare,
+      two_cluster_kind_parity: kindParity?.result ?? "missing",
+      two_cluster_kind_parity_reason: kindParity?.reason ?? "",
+      complete_core_lane_set: row.complete_core_lane_set,
+      missing_or_non_pass_lanes: row.missing_core_lanes,
+      recipe_path: row.recipe_path,
+      package_path: row.package_path,
+      variant_revision: row.variant_revision,
+      evidence_notes: [row.lane_notes, kindParity ? kindParity.receipt : "no two-cluster kind parity receipt in this repo"].filter(Boolean).join(" | "),
+    };
+  });
 
   const derivedRows = derivedVariantRows(derivedTargetRows);
   const featureRows = chartFacts.flatMap((facts) => featureRowsForChart(facts, modelByChart.get(`${facts.chart}@${facts.version}`)));
@@ -121,6 +133,10 @@ function buildReport() {
     liveParitySelectedPass: count(liveParityRows, (row) => row.result === "pass"),
     liveParitySelectedWatch: count(liveParityRows, (row) => row.result === "watch"),
     liveParitySelectedBlocked: count(liveParityRows, (row) => row.result === "blocked"),
+    kindParityRows: kindParityRows.length,
+    kindParityPass: count(kindParityRows, (row) => row.result === "pass"),
+    kindParityWatch: count(kindParityRows, (row) => row.result === "watch"),
+    kindParityBlocked: count(kindParityRows, (row) => row.result === "blocked"),
   };
 
   return {
@@ -269,6 +285,7 @@ GitOps/OCI non-pass receipts:        ${aggregate.gitopsLiveNonPass}
 live Helm-vs-ConfigHub pass rows:    ${aggregate.liveParityPass}/${aggregate.baseRows}
 live Helm-vs-ConfigHub non-pass receipts: ${aggregate.liveParityNonPass}
 selected live parity receipts:       ${aggregate.liveParitySelectedPass} pass, ${aggregate.liveParitySelectedWatch} watch, ${aggregate.liveParitySelectedBlocked} blocked
+two-cluster kind parity receipts:    ${aggregate.kindParityPass} pass, ${aggregate.kindParityWatch} watch, ${aggregate.kindParityBlocked} blocked
 derived intended-state pass rows:    ${aggregate.derivedIntendedPass}
 target-bound derived pass rows:      ${aggregate.derivedTargetPass}
 target-bound derived blocked rows:   ${aggregate.derivedTargetBlocked}
@@ -295,17 +312,17 @@ hook lifecycle receipts present:     ${aggregate.hookLifecycleReceipts}
 | File | What it shows |
 | --- | --- |
 | \`chart-outcomes.csv\` | One row per chart: model support, production readiness, variant count, lane counts, feature summary, hard gaps. |
-| \`base-outcomes.csv\` | One row per chart/base variant: render parity, in-ConfigHub proof, local live, GitOps/OCI live, live parity. |
+| \`base-outcomes.csv\` | One row per chart/base variant: render parity, in-ConfigHub proof, local live, GitOps/OCI live, live parity, and two-cluster kind parity. |
 | \`derived-variant-outcomes.csv\` | One row per executed derived ConfigHub variant: intended-state proof and target-bound live status. |
 | \`feature-outcomes.csv\` | One row per chart/feature: hooks, generated secrets, CRDs, webhooks, required values, schemas, extension slots, gaps. |
 
 ## Catalog-Supported Chart Snapshot
 
-| Chart | Variants | Model | In-ConfigHub | Local live | GitOps live | Live parity | Hard gap |
-| --- | --- | --- | ---: | ---: | ---: | ---: | --- |
+| Chart | Variants | Model | In-ConfigHub | Local live | GitOps live | Live parity | Two-cluster parity | Hard gap |
+| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
 ${selected
   .map((row) =>
-    `| \`${row.chart}\` | ${row.supported_variants || row.variant_count} | ${row.model_supported_level2} | ${row.in_confighub_pass}/${row.base_rows} | ${row.local_live_pass}/${row.base_rows} | ${row.gitops_live_pass}/${row.base_rows} | ${row.live_parity_pass}/${row.base_rows} | ${escapePipes(shortGap(row.hard_gap))} |`
+    `| \`${row.chart}\` | ${row.supported_variants || row.variant_count} | ${row.model_supported_level2} | ${row.in_confighub_pass}/${row.base_rows} | ${row.local_live_pass}/${row.base_rows} | ${row.gitops_live_pass}/${row.base_rows} | ${row.live_parity_pass}/${row.base_rows} | ${row.two_cluster_kind_parity_pass}/${row.base_rows} | ${escapePipes(shortGap(row.hard_gap))} |`
   )
   .join("\n")}
 
