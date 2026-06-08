@@ -193,10 +193,11 @@ For the full routing table, see [Choosing Commands](./docs/user/choosing-command
 
 ```text
 20 popular Helm charts have catalog entries.
-20/20 have passing local kind live/e2e receipts.
-20/20 have ConfigHub upload, scan, and safe-ops proof receipts.
+20/20 top-20 charts have at least one passing local kind live/e2e receipt.
+20/20 top-20 charts have chart-level ConfigHub upload, scan, and safe-ops proof receipt sets.
 100 charts have recipe/package proof artifacts.
 156 chart/base rows have Helm-template versus cub-installer render parity.
+18/156 chart/base rows currently have the stricter in-ConfigHub proof lane marked pass.
 The selected top-20 live Helm-vs-ConfigHub comparison lane has 15 pass,
 5 watch, and 0 blocked receipts.
 The top-20 base-variant two-cluster kind parity lane has 40 committed
@@ -206,6 +207,11 @@ common CRD/webhook/controller-owned runtime behavior.
 Top-500 source/catalog analysis exists as catalog-planning data for future
 recipe promotion work.
 ```
+
+The `20/20` claims above are chart-level catalog coverage. Per-base and
+per-lane status is stricter; use `data/status-dashboard/summary.md` and
+`data/outcome-coverage/base-outcomes.csv` before making a claim about a
+specific chart/base pair.
 
 The current top-20 live proof means:
 

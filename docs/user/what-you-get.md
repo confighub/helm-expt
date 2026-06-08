@@ -44,14 +44,18 @@ The current public corpus contains:
 ```text
 100 recipe/package proof artifacts
 20 top-chart catalog entries with bespoke base variants
-20 top-chart local kind runtime receipts
-20 top-chart ConfigHub upload, scan, and safe-operation receipt sets
+20 top-20 charts with chart-level local kind runtime receipts
+20 top-20 charts with chart-level ConfigHub upload, scan, and safe-operation receipt sets
 20 chart-specific Helm pain reports
 10 derived ConfigHub variant work orders with live `cub variant create` receipts
 6 target-bound derived variant receipts with OCI/GitOps/runtime evidence
 top-100 and top-500 catalog analysis data
 selected GitOps/OCI and live parity receipts
 ```
+
+Those chart-level counts do not mean every base variant has every live lane.
+For exact chart/base status, use the generated status dashboard and
+`base-outcomes.csv`.
 
 For a compact generated view of the catalog and proof state, open
 [`site/index.html`](../../site/index.html). It shows command routing, proof

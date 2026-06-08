@@ -83,13 +83,17 @@ The current repo verifies:
 ```text
 100 recipe/package proof artifacts
 20 top-chart catalog entries with bespoke variants
-20/20 local kind live/e2e receipts
-20/20 ConfigHub upload, scan, safe-ops, and derived variant receipts
+20/20 top-20 charts with at least one local kind live/e2e receipt
+20/20 top-20 charts with chart-level ConfigHub upload, scan, and safe-ops receipt sets
 20 per-chart Helm pain reports
 top-500 catalog analysis
 hook/lifecycle risk estimate for the top-500 scan
 latest-version candidate proofs for 6 moved top-20 charts
 ```
+
+Per-base lane status is tracked separately. A chart can have a chart-level proof
+set while one of its bases still needs ConfigHub, local live, GitOps, parity, or
+lifecycle evidence.
 
 The remaining work is productization: turning repo-proven scripts into product
 surfaces for import, analysis, preflight, compare/prove, scan, and variant
