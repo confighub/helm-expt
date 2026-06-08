@@ -21,6 +21,21 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Candidate variants | none |
 | Control points | blocked-default-render, capability-profile, cluster-rbac, dependency-lock, installer-support-object, lifecycle-policy, object-storage-policy, pvc-policy, source-lock, stateful-workload, storage-config, tpl |
 
+## Feature And Proof Summary
+
+This is the chart-level summary. Use the variant table and receipt links below
+for exact base-variant evidence.
+
+| Field | Value |
+| --- | --- |
+| Adoption bucket | try-from-public-catalog |
+| User status | catalog-supported-with-live-evidence |
+| Strongest evidence | local-kubernetes-live |
+| Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 0/2; live parity 0/2 |
+| Feature summary | hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots |
+| Hard gap | - |
+| Next action | promote a declared production scope when gates pass |
+
 ## Artifact Chain
 
 | Stage | Artifact |

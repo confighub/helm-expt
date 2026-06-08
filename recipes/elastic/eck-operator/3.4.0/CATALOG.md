@@ -21,6 +21,21 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Candidate variants | default, ha, no-crds |
 | Control points | capability-profile, cluster-rbac, crds, dependency-lock, extension-slots, generated-facts, helm-equivalence, rendered-manifest-scan, secret-material, source-lock, stateful-storage, tpl-extension-slots, variant-revision, webhooks |
 
+## Feature And Proof Summary
+
+This is the chart-level summary. Use the variant table and receipt links below
+for exact base-variant evidence.
+
+| Field | Value |
+| --- | --- |
+| Adoption bucket | promote-after-review |
+| User status | proof-grade-ready-for-promotion-review |
+| Strongest evidence | render-parity |
+| Proof lanes | render parity 3/3; ConfigHub 0/3; local live 0/3; GitOps live 0/3; live parity 0/3 |
+| Feature summary | hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots |
+| Hard gap | - |
+| Next action | run catalog promotion review |
+
 ## Artifact Chain
 
 | Stage | Artifact |

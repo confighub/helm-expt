@@ -21,6 +21,21 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Candidate variants | none |
 | Control points | admission-webhook, capability-profile, cluster-rbac, crd-policy, dependency-lock, hook-policy, installer-support-object, source-lock, tpl |
 
+## Feature And Proof Summary
+
+This is the chart-level summary. Use the variant table and receipt links below
+for exact base-variant evidence.
+
+| Field | Value |
+| --- | --- |
+| Adoption bucket | try-from-public-catalog |
+| User status | catalog-supported-with-live-evidence |
+| Strongest evidence | live-helm-vs-confighub-parity |
+| Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 1/2; live parity 1/2 |
+| Feature summary | hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots |
+| Hard gap | - |
+| Next action | promote a declared production scope when gates pass |
+
 ## Artifact Chain
 
 | Stage | Artifact |

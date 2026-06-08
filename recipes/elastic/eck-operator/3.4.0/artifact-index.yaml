@@ -54,6 +54,19 @@ spec:
       - "no-crds"
     deferredVariants:
       []
+  proofSummary:
+    adoptionBucket: "promote-after-review"
+    userStatus: "proof-grade-ready-for-promotion-review"
+    strongestEvidence: "render-parity"
+    proofLanes:
+      renderParity: "3/3"
+      inConfigHub: "0/3"
+      localLive: "0/3"
+      gitopsLive: "0/3"
+      liveParity: "0/3"
+    featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots"
+    hardGap: "-"
+    nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/elastic/eck-operator/3.4.0"
     installer: "packages/elastic/eck-operator/3.4.0/installer.yaml"

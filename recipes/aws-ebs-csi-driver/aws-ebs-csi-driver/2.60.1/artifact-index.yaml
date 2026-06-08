@@ -47,6 +47,19 @@ spec:
       - "default"
     deferredVariants:
       []
+  proofSummary:
+    adoptionBucket: "needs-useful-variant"
+    userStatus: "proof-grade-needs-user-shaped-variant"
+    strongestEvidence: "render-parity"
+    proofLanes:
+      renderParity: "1/1"
+      inConfigHub: "0/1"
+      localLive: "0/1"
+      gitopsLive: "0/1"
+      liveParity: "0/1"
+    featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots"
+    hardGap: "-"
+    nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1"
     installer: "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/installer.yaml"

@@ -48,6 +48,19 @@ spec:
       []
     deferredVariants:
       []
+  proofSummary:
+    adoptionBucket: "try-from-public-catalog"
+    userStatus: "catalog-supported-with-live-evidence"
+    strongestEvidence: "local-kubernetes-live"
+    proofLanes:
+      renderParity: "2/2"
+      inConfigHub: "1/2"
+      localLive: "1/2"
+      gitopsLive: "0/2"
+      liveParity: "0/2"
+    featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots"
+    hardGap: "existing-secret (chart ships no Secret toggle - #113)"
+    nextAction: "resolve or document: existing-secret (chart ships no Secret toggle - #113)"
   installerPackage:
     path: "packages/prometheus-community/kube-prometheus-stack/85.3.3"
     installer: "packages/prometheus-community/kube-prometheus-stack/85.3.3/installer.yaml"
