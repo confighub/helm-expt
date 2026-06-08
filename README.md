@@ -242,6 +242,10 @@ For the all-base-variant parity lane, see
 Start here:
 
 ```text
+site/index.html
+  Generated static catalog view: command routing, proof counters, top-20 bases,
+  top-100 readiness, top-500 evidence boundary, and extension slots.
+
 CATALOG.md
   The top-level chart catalog: charts first, variants underneath.
 
@@ -274,9 +278,6 @@ docs/user/verification-lanes.md
 
 docs/user/adopting-existing-apps.md
   How existing Argo, Flux, KRM, rendered-manifest, and live-resource apps enter the ConfigHub model.
-
-site/index.html
-  Generated static catalog view for a lightweight website slice.
 
 docs/README.md
   The documentation map: what each doc family is for.
