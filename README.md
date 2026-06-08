@@ -146,6 +146,13 @@ Examples:
 | Approved post-clone function or TransformPaths fill over existing fields | derived ConfigHub variant with mutation receipt |
 | Wrapper chart plus platform values plus customer overlay values | managed overlay import; usually needs ConfigHub Server |
 
+NGINX-style extension slots are common. In the current evidence set, 13/20
+top-20 catalog charts and 82/100 top-100 chart facts expose raw manifests,
+`tpl` snippets, config blocks, sidecars, or add-on slots. Leaving those slots
+empty can stay inside a supported catalog base. Populating them creates a new
+reviewed install shape and should route back through a `cub installer` base
+variant with render parity, scans, gates, and receipts.
+
 For the detailed algorithm, see
 [Customization Algorithm](./docs/reference/customization-algorithm.md). For the product
 tier boundaries, see
@@ -158,6 +165,8 @@ For wrapper charts and customer overlays, see
 [Custom Overlays](./docs/user/custom-overlays.md).
 For the OCI delivery boundary, see
 [Choosing Base Variants, Derived Variants, And Delivery Changes](./docs/user/change-routing-before-oci.md).
+For the extension-slot coverage table, see
+[Extension Slot Coverage](./data/extension-slots/summary.md).
 For Helm hooks specifically, see
 [Hook Lifecycle Strategy](./docs/user/hook-lifecycle-strategy.md).
 
