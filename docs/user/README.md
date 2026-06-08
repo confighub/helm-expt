@@ -19,23 +19,24 @@ If your first question is "why is this better than `cub helm install` or
 | Step | File | Read It For |
 | --- | --- | --- |
 | 1 | [What You Get](./what-you-get.md) | The product model in one short read. |
-| 2 | [Outcomes And Tests](./outcomes-and-tests.md) | What the repo promises, which tests prove each promise, and where the CSVs live. |
-| 3 | [Helm Pain Points](./helm-pain-points.md) | Which Helm pains are tracked generally and per chart. |
-| 4 | [Tutorial Sequence](./tutorial-sequence.md) | A short show-and-tell path with commands, checks, and expected results. |
-| 5 | [Current Proof Status](./current-proof-status.md) | What is proven now and which generated summaries are authoritative. |
-| 6 | [Verification Lanes](./verification-lanes.md) | What each proof lane means and what it does not prove. |
-| 7 | [How The Harness Works](./how-the-harness-works.md) | The project lifecycle and the value of proofs, uploads, variants, and receipts. |
-| 8 | [Creating Variants](./creating-variants.md) | The base variant versus derived ConfigHub variant distinction. |
-| 9 | [cub Variant Command Surface](./cub-variant-command-surface.md) | The current `cub variant create` syntax and what is not a current variant command. |
-| 10 | [Choosing Base Variants, Derived Variants, And Delivery Changes](./change-routing-before-oci.md) | The routing rule before OCI or GitOps delivery. |
-| 11 | [Adopting Existing Apps](./adopting-existing-apps.md) | How Argo, Flux, KRM, rendered manifests, and existing apps enter the ConfigHub model. |
-| 12 | [Custom Overlay Example](./custom-overlays.md) | A plain ExternalDNS example for wrapper charts, customer values, target facts, and Creator flow. |
-| 13 | [Prometheus Promotion Example](./prometheus-overlay-promotion-example.md) | A concrete promotion example that keeps the Helm install shape stable. |
-| 14 | [Prometheus High-Fanout Example](./prometheus-high-fanout.md) | Why a small Helm base choice can affect many objects and target prerequisites. |
-| 15 | [Introduction To The Harness](./introduction-to-the-harness.md) | The deeper recipe-generation workflow and the table for where Helm pieces belong. |
-| 16 | [Product Support Tiers](./product-support-tiers.md) | Which scenarios fit public catalog, managed import, or commercial support. |
-| 17 | [Maintenance SLA](./maintenance-sla.md) | How catalog entries are refreshed, patched, and supported. |
-| 18 | [Hook Lifecycle Strategy](./hook-lifecycle-strategy.md) | Why Helm hooks need explicit lifecycle routes and receipts. |
+| 2 | [Choosing Commands](./choosing-commands.md) | When to use `cub helm template`, `cub helm install`, `cub installer`, `cub variant create`, and repo verifiers. |
+| 3 | [Outcomes And Tests](./outcomes-and-tests.md) | What the repo promises, which tests prove each promise, and where the CSVs live. |
+| 4 | [Helm Pain Points](./helm-pain-points.md) | Which Helm pains are tracked generally and per chart. |
+| 5 | [Tutorial Sequence](./tutorial-sequence.md) | A short show-and-tell path with commands, checks, and expected results. |
+| 6 | [Current Proof Status](./current-proof-status.md) | What is proven now and which generated summaries are authoritative. |
+| 7 | [Verification Lanes](./verification-lanes.md) | What each proof lane means and what it does not prove. |
+| 8 | [How The Harness Works](./how-the-harness-works.md) | The project lifecycle and the value of proofs, uploads, variants, and receipts. |
+| 9 | [Creating Variants](./creating-variants.md) | The base variant versus derived ConfigHub variant distinction. |
+| 10 | [cub Variant Command Surface](./cub-variant-command-surface.md) | The current `cub variant create` syntax and what is not a current variant command. |
+| 11 | [Choosing Base Variants, Derived Variants, And Delivery Changes](./change-routing-before-oci.md) | The routing rule before OCI or GitOps delivery. |
+| 12 | [Adopting Existing Apps](./adopting-existing-apps.md) | How Argo, Flux, KRM, rendered manifests, and existing apps enter the ConfigHub model. |
+| 13 | [Custom Overlay Example](./custom-overlays.md) | A plain ExternalDNS example for wrapper charts, customer values, target facts, and Creator flow. |
+| 14 | [Prometheus Promotion Example](./prometheus-overlay-promotion-example.md) | A concrete promotion example that keeps the Helm install shape stable. |
+| 15 | [Prometheus High-Fanout Example](./prometheus-high-fanout.md) | Why a small Helm base choice can affect many objects and target prerequisites. |
+| 16 | [Introduction To The Harness](./introduction-to-the-harness.md) | The deeper recipe-generation workflow and the table for where Helm pieces belong. |
+| 17 | [Product Support Tiers](./product-support-tiers.md) | Which scenarios fit public catalog, managed import, or commercial support. |
+| 18 | [Maintenance SLA](./maintenance-sla.md) | How catalog entries are refreshed, patched, and supported. |
+| 19 | [Hook Lifecycle Strategy](./hook-lifecycle-strategy.md) | Why Helm hooks need explicit lifecycle routes and receipts. |
 
 Detailed doctrine and historical design material now lives under
 [`docs/reference`](../reference/) so it does not look like the first-run user
@@ -44,7 +45,7 @@ flow. Use it when you need the deeper model:
 | Reference | Read It For |
 | --- | --- |
 | [Seven-Stage Helm Lifecycle](../reference/seven-stage-helm-lifecycle.md) | The doctrine for render parity and for routing hooks, CRDs, target facts, generated values, overlays, GitOps, and observations. |
-| [Direct Cub Helm Model](../reference/direct-cub-helm-model.md) | Where `cub helm template` and `cub helm install` fit in the bigger Helm story. |
+| [Direct Cub Helm Model](../reference/direct-cub-helm-model.md) | Detailed reference for `cub helm template`, `cub helm install`, and the durable catalog path. |
 | [Customization Algorithm](../reference/customization-algorithm.md) | The detailed routing algorithm for values, overlays, wrapper charts, and post-render variants. |
 | [Catalog Doctrine](../reference/catalog-doctrine.md) | The catalog model for defaults, parameterized bases, standard forks, and derived fills. |
 | [Customization Decision Tree](../reference/customization-decision-tree.md) | The design-level decision tree behind the customization flow. |

@@ -11,10 +11,11 @@ Current command references:
 - [`cub helm template`](https://docs.confighub.com/developer/cli/cub_helm_template/)
 - [`cub helm install`](https://docs.confighub.com/developer/cli/cub_helm_install/)
 
+For the shorter user-facing routing guide, see
+[Choosing Commands](../user/choosing-commands.md).
+
 ## Command Roles
 
-| Command | Role | Use it when |
-| --- | --- | --- |
 | Command | Role | Use it when | What it does not try to be |
 | --- | --- | --- | --- |
 | `cub helm template` | Local Helm renderer. It renders a chart to stdout or local files and does not require a ConfigHub server connection. It can split CRDs from regular resources. | You want quick local inspection, a baseline for comparison, or the first input to recipe analysis. | A durable ConfigHub catalog entry. |

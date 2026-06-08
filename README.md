@@ -282,6 +282,9 @@ I want to see what charts and variants exist.
 I want a short show-and-tell sequence.
   Read docs/user/tutorial-sequence.md.
 
+I want to know which command to use.
+  Read docs/user/choosing-commands.md.
+
 I want the user docs in order.
   Read docs/user/README.md.
 
