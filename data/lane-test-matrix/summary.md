@@ -6,10 +6,11 @@ observation receipts, and live-test receipt locations.
 This is a corpus control surface. A lane can be `missing` without making this
 generated report stale; the missing state is the backlog.
 
-A lane marked `fail` means a committed receipt exists and the lane did not
-pass. For live lanes, this can be a useful target-fit finding such as missing
-CRDs, separated Secret delivery, or a LoadBalancer requirement on a local kind
-cluster.
+A lane marked `fail`, `watch`, or `blocked` means a committed receipt
+exists and the lane did not pass as-is. For live lanes, this can be a useful
+target-fit finding such as missing CRDs, separated Secret delivery, a
+LoadBalancer requirement on a local kind cluster, or an infrastructure block
+that must be rerun before judging parity.
 
 ## Headline
 
@@ -21,13 +22,13 @@ incomplete core lane set: 150
 
 ## Core Lane Counts
 
-| Lane | Pass | Missing | Fail |
-| --- | ---: | ---: | ---: |
-| helm_template_vs_installer_setup | 156 | 0 | 0 |
-| confighub_upload_variant_scan_safe_ops | 18 | 138 | 0 |
-| local_kind_kubectl_apply | 21 | 135 | 0 |
-| confighub_oci_argo_live | 12 | 137 | 7 |
-| live_helm_vs_confighub_dual_compare | 10 | 136 | 10 |
+| Lane | Pass | Missing | Fail | Watch | Blocked |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| helm_template_vs_installer_setup | 156 | 0 | 0 | 0 | 0 |
+| confighub_upload_variant_scan_safe_ops | 18 | 138 | 0 | 0 | 0 |
+| local_kind_kubectl_apply | 21 | 135 | 0 | 0 | 0 |
+| confighub_oci_argo_live | 12 | 137 | 0 | 3 | 4 |
+| live_helm_vs_confighub_dual_compare | 10 | 136 | 0 | 2 | 8 |
 
 ## Lane Definitions
 
@@ -41,10 +42,10 @@ incomplete core lane set: 150
 
 ## Current Gaps
 
-The live Helm-vs-ConfigHub dual comparison lane has 10 PASS receipt(s) and 136 missing row(s). The ConfigHub OCI/Argo live lane has a harness, but this repo
+The live Helm-vs-ConfigHub dual comparison lane has 10 PASS receipt(s), 2 WATCH receipt(s), 8 BLOCKED receipt(s), 0 FAIL receipt(s), and 136 missing row(s). The ConfigHub OCI/Argo live lane has a harness, but this repo
 currently has no committed PASS receipts for every chart-recipe-variant row.
 
-### First Missing ConfigHub Proof Rows
+### First Non-Pass Or Missing ConfigHub Proof Rows
 
 - aqua/trivy-operator@0.32.1 / default
 - aqua/trivy-operator@0.32.1 / no-crds
@@ -73,7 +74,7 @@ currently has no committed PASS receipts for every chart-recipe-variant row.
 - bitnami/phpmyadmin@20.0.0 / default
 
 
-### First Missing Local Kind Rows
+### First Non-Pass Or Missing Local Kind Rows
 
 - aqua/trivy-operator@0.32.1 / default
 - aqua/trivy-operator@0.32.1 / no-crds
@@ -102,7 +103,7 @@ currently has no committed PASS receipts for every chart-recipe-variant row.
 - bitnami/phpmyadmin@20.0.0 / default
 
 
-### First Missing Live Helm Vs ConfigHub Rows
+### First Non-Pass Or Missing Live Helm Vs ConfigHub Rows
 
 - aqua/trivy-operator@0.32.1 / default
 - aqua/trivy-operator@0.32.1 / no-crds
