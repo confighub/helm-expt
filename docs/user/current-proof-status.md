@@ -161,9 +161,10 @@ Production disposition is still open for the top-20 catalog:
 
 - 0 of 20 top-20 charts are currently marked production-supported.
 - 20 of 20 remain blocked pending explicit production dispositions.
-- Redis has the first accepted disposition receipt; the other charts still need
-  disposition closure before the catalog should describe them as
-  production-supported.
+- 7 production-disposition receipts are accepted across 3 charts: NGINX,
+  Redis, and Metrics Server.
+- Every top-20 chart still needs disposition closure before the catalog should
+  describe it as production-supported.
 
 Use the generated production table for exact blockers and next actions:
 [Production Disposition](../../data/production-disposition/summary.md).
