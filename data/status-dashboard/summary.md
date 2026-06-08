@@ -117,7 +117,7 @@ rendered objects are applied to another vanilla kind cluster. The receipts then
 compare the live outcomes. Use
 [live-kind-parity/summary.csv](../live-kind-parity/summary.csv) for those rows.
 
-Current live parity non-pass receipts:
+Current ConfigHub/OCI live parity non-pass receipts:
 
 | Chart | Variant | Result | Reason |
 | --- | --- | --- | --- |
@@ -131,6 +131,27 @@ Current live parity non-pass receipts:
 | bitnami/mysql@14.0.3 | generated-passwords | watch | - |
 | grafana/tempo@1.24.4 | local-persistent | blocked | helm-runtime: upstream not ready (parity passed) |
 | hashicorp/consul@2.0.0 | default-control-plane | blocked | infra: provisioning timeout |
+
+
+Current two-cluster kind parity non-pass receipts:
+
+| Chart | Base | Result | Reason |
+| --- | --- | --- | --- |
+| argo-cd/argo-cd@9.5.15 | default | watch | helm-runtime: upstream not ready (parity passed) |
+| argo-cd/argo-cd@9.5.15 | no-crds | blocked | target-prerequisite: CRDs disabled or missing (parity passed) |
+| bitnami/mongodb@19.0.7 | existing-secret-replicaset | blocked | target-runtime: pod crash loop (parity passed) |
+| external-secrets/external-secrets@2.5.0 | no-crds | blocked | target-prerequisite: CRDs disabled or missing (parity passed) |
+| grafana/loki@7.0.0 | simple-scalable-minio | blocked | target-runtime: pods pending (parity passed) |
+| grafana/tempo@1.24.4 | local-persistent | blocked | target-runtime: pods pending (parity passed) |
+| grafana/tempo@1.24.4 | s3-query-observability | blocked | target-prerequisite: CRDs missing |
+| hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | blocked | parity: semantic object diff |
+| hashicorp/vault@0.32.0 | default | blocked | helm-runtime: upstream not ready (parity passed) |
+| hashicorp/vault@0.32.0 | ha-raft-ui | blocked | target-runtime: pods pending (parity passed) |
+| ingress-nginx/ingress-nginx@4.15.1 | default | watch | helm-runtime: upstream not ready (parity passed) |
+| jetstack/cert-manager@v1.20.2 | default | blocked | helm-hook: post-install hook failed (parity passed) |
+| metrics-server/metrics-server@3.13.0 | external-tls-ca | blocked | helm-runtime: upstream not ready (parity passed) |
+| prometheus-community/kube-prometheus-stack@85.3.3 | default | watch | helm-runtime: upstream not ready (parity passed) |
+| prometheus-community/kube-prometheus-stack@85.3.3 | no-crds | blocked | target-prerequisite: CRDs missing |
 
 
 ## Derived Variant Evidence

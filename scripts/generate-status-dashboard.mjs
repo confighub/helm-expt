@@ -97,6 +97,7 @@ function summary(rows, context) {
   const quirkTierCounts = groupCount(context.quirkRows, "coverage_tier");
   const hookPreview = context.hookRows.slice(0, 8);
   const liveNonPass = context.liveRows.filter((row) => row.result && row.result !== "pass");
+  const kindParityNonPass = context.kindParityRows.filter((row) => row.result && row.result !== "pass");
 
   return `# Status Dashboard
 
@@ -171,12 +172,19 @@ rendered objects are applied to another vanilla kind cluster. The receipts then
 compare the live outcomes. Use
 [live-kind-parity/summary.csv](../live-kind-parity/summary.csv) for those rows.
 
-${liveNonPass.length ? `Current live parity non-pass receipts:
+${liveNonPass.length ? `Current ConfigHub/OCI live parity non-pass receipts:
 
 | Chart | Variant | Result | Reason |
 | --- | --- | --- | --- |
 ${liveNonPass.map((row) => `| ${row.chart}@${row.version} | ${row.variant} | ${row.result} | ${row.reason || "-"} |`).join("\n")}
 ` : "There are no current live parity non-pass receipts.\n"}
+
+${kindParityNonPass.length ? `Current two-cluster kind parity non-pass receipts:
+
+| Chart | Base | Result | Reason |
+| --- | --- | --- | --- |
+${kindParityNonPass.map((row) => `| ${row.chart}@${row.version} | ${row.base} | ${row.result} | ${row.reason || "-"} |`).join("\n")}
+` : "There are no current two-cluster kind parity non-pass receipts.\n"}
 
 ## Derived Variant Evidence
 
