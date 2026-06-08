@@ -1,9 +1,9 @@
 # Large Machine Handover
 
-Updated: 2026-06-05
+Updated: 2026-06-08
 
 This is the handover for a Codex instance with enough local resources to run
-cluster and GitOps tests. It starts from public `main` after PR #162.
+cluster and GitOps tests. It starts from public `main`.
 
 ## First Principle
 
@@ -29,63 +29,35 @@ The repo has useful proof. It does not yet have complete live proof.
 Use [data/lane-test-matrix/summary.md](../../data/lane-test-matrix/summary.md)
 as the chart-recipe-variant truth source.
 
-Current row-level lane counts:
+The generated status dashboard is the front door for current counts:
+
+```text
+data/status-dashboard/summary.md
+data/lane-test-matrix/summary.md
+data/outcome-coverage/base-outcomes.csv
+```
+
+As of the current generated matrix, the durable row-level facts are:
 
 ```text
 chart-recipe-variant rows: 156
-helm_template_vs_installer_setup: 156 pass, 0 missing
-confighub_upload_variant_scan_safe_ops: 18 pass, 138 missing
-local_kind_kubectl_apply: 21 pass, 135 missing
-confighub_oci_argo_live: 6 pass, 145 missing, 5 fail
-live_helm_vs_confighub_dual_compare: 2 pass, 154 missing
-complete core lane set: 2
-```
-
-Also true:
-
-```text
+render parity rows: 156 pass
+ConfigHub proof rows: partial
+local live rows: partial
+GitOps/OCI live rows: partial, with pass/watch/blocked/missing tracked by exact chart/base
+live Helm-vs-ConfigHub rows: partial, with pass/watch/blocked/missing tracked by exact chart/base
+complete core lane rows: partial
 100 charts have recipe/package proof artifacts.
 20 top-20 chart-level ConfigHub proof receipt sets exist.
 20 top-20 local-kind receipt sets exist for selected supported scope.
 10 derived ConfigHub variants have live intended-state receipts.
-5 derived ConfigHub variants have target-bound live apply PASS receipts:
-`NGINX-prod-us-east`, `NGINX-customer-acme-prod`,
-`MetricsServer-prod-us-east`, `Prometheus-prod-us-east`, and
-`Prometheus-staging-eu-west`.
-1 derived ConfigHub variant has a target-bound blocked receipt:
-`Redis-staging-eu-west`.
-The generated target-bound derived variant summary is:
-`data/derived-variant-target-bound/summary.md`.
-10 rows have committed GitOps/OCI live receipts:
-`bitnami/redis@25.5.3 / reuse-existing-secret`,
-`prometheus-community/prometheus@29.8.0 / server-only-ephemeral`, and
-`bitnami/postgresql@18.6.7 / existing-secret` pass through Flux OCI.
-`bitnami/nginx@24.0.2 / http-clusterip` and
-`metrics-server/metrics-server@3.13.0 / default` pass through Argo CD OCI.
-`external-secrets/external-secrets@2.5.0 / no-crds` has a blocked receipt:
-Argo synced the OCI artifact, but the workload needs CRDs already present and
-the webhook Secret delivered outside the current workload OCI path.
-`argo-cd/argo-cd@9.5.15 / no-crds` has a blocked receipt: Argo synced the OCI
-artifact, but runtime Secret requirements were incomplete.
-`prometheus-community/kube-prometheus-stack@85.3.3 / no-crds` has a blocked
-receipt: Flux pulled the OCI artifact, but reconciliation failed because
-Prometheus Operator CRDs were absent and separated Secrets were not delivered.
-`hashicorp/consul@2.0.0 / secure-mesh-existing-secrets` has a blocked receipt:
-Flux pulled the OCI artifact, but the selected secure mesh base needs a
-multi-node target for its three-server topology and anti-affinity rules.
-`ingress-nginx/ingress-nginx@4.15.1 / admission-disabled` has a watch receipt:
-Argo synced the OCI artifact and the controller Deployment became Ready, but
-the kind target has no LoadBalancer external IP so Argo health stayed
-Progressing.
-2 rows have committed live Helm-vs-ConfigHub parity receipts:
-`bitnami/nginx@24.0.2 / http-clusterip` passes regular Helm, ConfigHub
-kubectl/apply, and ConfigHub OCI/Argo delivery. The shared rendered object sets
-match semantically; the only expected difference is the installer-added
-Namespace object.
-`bitnami/redis@25.5.3 / default` passes the same three delivery paths. The
-Redis run also proves separated Secret staging, four Bound PVCs, StatefulSets
-Ready, Redis PONG, and the same expected Namespace-only ConfigHub extra object.
 ```
+
+Do not maintain exact live lane counts in this handover. They change as
+receipts land. Use the generated files above for current pass, watch, blocked,
+and missing counts. Use
+`data/live-parity-rerun-plan/summary.md` to choose the next non-pass live row
+to rerun.
 
 The apparent tension between "20 top-20 receipt sets" and "18 row-level
 ConfigHub lane passes" is expected: the lane matrix is exact by
