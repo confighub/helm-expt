@@ -30,6 +30,11 @@ spec:
             renderedSHA256: "23a51fb8ea2215b08a853bbb26698d80f58a5514b68d4f49cdcd870a8371fc71"
         liveE2EReceipts:
           - "runs/top20-local-kind/argo-cd-default/observation-receipt.json"
+        sourceHookCount: 0
+        lifecyclePolicyBasis:
+          - "recipe-hook-policy:no-hooks"
+        lifecycleObservationReceipts:
+          []
       dispositions:
         -
           name: "CRD lifecycle and upgrade policy"
@@ -114,6 +119,11 @@ spec:
             renderedSHA256: "187a27077a6c1924669172528109b878e4d9c7759689a2f52826be8dfbc30f1e"
         liveE2EReceipts:
           - "runs/top20-local-kind/mongodb-generated-passwords/observation-receipt.json"
+        sourceHookCount: 0
+        lifecyclePolicyBasis:
+          - "recipe-hook-policy:no-hooks"
+        lifecycleObservationReceipts:
+          []
       dispositions:
         -
           name: "extension slot provenance and scan policy"
@@ -189,6 +199,11 @@ spec:
             renderedSHA256: "04e856bfa75859dc9d8e45c61d49ad566494a7f66c257da9113ad26ca1696380"
         liveE2EReceipts:
           - "runs/top20-local-kind/mysql-generated-passwords/observation-receipt.json"
+        sourceHookCount: 0
+        lifecyclePolicyBasis:
+          - "recipe-hook-policy:no-hooks"
+        lifecycleObservationReceipts:
+          []
       dispositions:
         -
           name: "extension slot provenance and scan policy"
@@ -273,6 +288,11 @@ spec:
             renderedSHA256: "a5f890172fd1bd8cf31870607c1a7874313c5746f1020d547af3dac017db4223"
         liveE2EReceipts:
           - "runs/top20-local-kind/nginx-http-clusterip/observation-receipt.json"
+        sourceHookCount: 0
+        lifecyclePolicyBasis:
+          - "none"
+        lifecycleObservationReceipts:
+          []
       dispositions:
         -
           name: "extension slot provenance and scan policy"
@@ -339,6 +359,11 @@ spec:
             renderedSHA256: "5ddff6ac6f2de4b98f6fce9d482167f300406c3ff738317e34b322522465ea72"
         liveE2EReceipts:
           - "runs/top20-local-kind/postgresql-generated-passwords/observation-receipt.json"
+        sourceHookCount: 0
+        lifecyclePolicyBasis:
+          - "recipe-hook-policy:no-hooks"
+        lifecycleObservationReceipts:
+          []
       dispositions:
         -
           name: "extension slot provenance and scan policy"
@@ -423,6 +448,11 @@ spec:
             renderedSHA256: "81187ce4367f5196ddbaa35ea55b972698f8a474d78a2cdc2908b12290c89f31"
         liveE2EReceipts:
           - "runs/top20-local-kind/rabbitmq-generated-passwords/observation-receipt.json"
+        sourceHookCount: 0
+        lifecyclePolicyBasis:
+          - "recipe-hook-policy:no-hooks"
+        lifecycleObservationReceipts:
+          []
       dispositions:
         -
           name: "extension slot provenance and scan policy"
@@ -506,6 +536,12 @@ spec:
             findingCount: 4
             renderedSHA256: "a90dda4885fb97749e2c222f1abd840f49dcf6eafa953ea6ea2dbc6ba565fe53"
         liveE2EReceipts:
+          - "runs/redis-local-kind/latest/observation-receipt.yaml"
+          - "runs/redis-local-kind/reuse-existing-secret-latest/observation-receipt.yaml"
+        sourceHookCount: 0
+        lifecyclePolicyBasis:
+          - "recipe-hook-policy:no-hooks"
+        lifecycleObservationReceipts:
           []
       dispositions:
         -
@@ -573,6 +609,12 @@ spec:
             renderedSHA256: "da5857fba93e0394594d7e072b31e3cf28985392b5cc0443730a23b722d7670b"
         liveE2EReceipts:
           - "runs/top20-local-kind/external-secrets-default/observation-receipt.json"
+        sourceHookCount: 0
+        lifecyclePolicyBasis:
+          - "lifecycle-observations:2/2"
+        lifecycleObservationReceipts:
+          - "runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-default/receipt.yaml"
+          - "runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-no-crds/receipt.yaml"
       dispositions:
         -
           name: "CRD lifecycle and upgrade policy"
@@ -648,6 +690,11 @@ spec:
             renderedSHA256: "893351c9b8cad0a10b0176a946bf514a76c5895bdb2d88a31bdd53a94288066d"
         liveE2EReceipts:
           - "runs/top20-local-kind/grafana-generated-passwords/observation-receipt.json"
+        sourceHookCount: 0
+        lifecyclePolicyBasis:
+          - "none"
+        lifecycleObservationReceipts:
+          []
       dispositions:
         -
           name: "cluster RBAC review"
@@ -723,6 +770,11 @@ spec:
             renderedSHA256: "6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30"
         liveE2EReceipts:
           - "runs/top20-local-kind/loki-single-binary-filesystem/observation-receipt.json"
+        sourceHookCount: 0
+        lifecyclePolicyBasis:
+          - "recipe-lifecycle-policy"
+        lifecycleObservationReceipts:
+          []
       dispositions:
         -
           name: "cluster RBAC review"
@@ -798,6 +850,11 @@ spec:
             renderedSHA256: "6fb9e1726fb68d7e7e251420e9c5761e078cd38f508fa87af7759e0b302017a4"
         liveE2EReceipts:
           - "runs/top20-local-kind/tempo-local-persistent/observation-receipt.json"
+        sourceHookCount: 0
+        lifecyclePolicyBasis:
+          - "none"
+        lifecycleObservationReceipts:
+          []
       dispositions:
         -
           name: "extension slot provenance and scan policy"
@@ -864,6 +921,11 @@ spec:
             renderedSHA256: "0acc8c339c2965446b754c3a9c948c4f154ca6e47b074ddc3b8d315e2cb7c468"
         liveE2EReceipts:
           - "runs/top20-local-kind/consul-default-control-plane/observation-receipt.json"
+        sourceHookCount: 0
+        lifecyclePolicyBasis:
+          - "recipe-lifecycle-policy"
+        lifecycleObservationReceipts:
+          []
       dispositions:
         -
           name: "CRD lifecycle and upgrade policy"
@@ -966,6 +1028,11 @@ spec:
             renderedSHA256: "734a212cbb2e8d11ed288d32bc8b709e859248ef5587090b04e0fa407b248b5f"
         liveE2EReceipts:
           - "runs/top20-local-kind/vault-default/observation-receipt.json"
+        sourceHookCount: 0
+        lifecyclePolicyBasis:
+          - "none"
+        lifecycleObservationReceipts:
+          []
       dispositions:
         -
           name: "cluster RBAC review"
@@ -1041,6 +1108,11 @@ spec:
             renderedSHA256: "257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d"
         liveE2EReceipts:
           - "runs/top20-local-kind/ingress-nginx-admission-disabled/observation-receipt.json"
+        sourceHookCount: 0
+        lifecyclePolicyBasis:
+          - "recipe-hook-policy:no-hooks"
+        lifecycleObservationReceipts:
+          []
       dispositions:
         -
           name: "cluster RBAC review"
@@ -1116,6 +1188,13 @@ spec:
             renderedSHA256: "45029db19d75e578bec74b82a0476a6580d1f7193239a210bf4873156ac725ce"
         liveE2EReceipts:
           - "runs/top20-local-kind/cert-manager-crds-enabled/observation-receipt.json"
+        sourceHookCount: 0
+        lifecyclePolicyBasis:
+          - "recipe-hook-policy:no-hooks"
+          - "lifecycle-observations:2/2"
+        lifecycleObservationReceipts:
+          - "runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-default/receipt.yaml"
+          - "runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml"
       dispositions:
         -
           name: "CRD lifecycle and upgrade policy"
@@ -1200,6 +1279,11 @@ spec:
             renderedSHA256: "2f6508c2bc3f2a09e1ffcb8ec71282b3e2dd52e69fe8ca80fc90ab756f9b9298"
         liveE2EReceipts:
           - "runs/top20-local-kind/longhorn-default/observation-receipt.json"
+        sourceHookCount: 0
+        lifecyclePolicyBasis:
+          - "recipe-hook-policy:no-hooks"
+        lifecycleObservationReceipts:
+          []
       dispositions:
         -
           name: "CRD lifecycle and upgrade policy"
@@ -1275,6 +1359,11 @@ spec:
             renderedSHA256: "4b9df6b53cb5d8ed0b655b121696183d1c107ea88511e889bef1aae6708c8dad"
         liveE2EReceipts:
           - "runs/top20-local-kind/metrics-server-default/observation-receipt.json"
+        sourceHookCount: 0
+        lifecyclePolicyBasis:
+          - "recipe-hook-policy:no-hooks"
+        lifecycleObservationReceipts:
+          []
       dispositions:
         -
           name: "cluster RBAC review"
@@ -1350,6 +1439,11 @@ spec:
             renderedSHA256: "3f6049fc2b7a40bbfb009b347880e3f319a87c9b60a6fd274220287a10167fc2"
         liveE2EReceipts:
           - "runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json"
+        sourceHookCount: 2
+        lifecyclePolicyBasis:
+          - "source-hooks:2"
+        lifecycleObservationReceipts:
+          []
       dispositions:
         -
           name: "CRD lifecycle and upgrade policy"
@@ -1434,6 +1528,11 @@ spec:
             renderedSHA256: "174e1729753ef551fa059f86111cfd87653ea2380dc879238cf5cc4987e78812"
         liveE2EReceipts:
           - "runs/top20-local-kind/prometheus-server-only-ephemeral/observation-receipt.json"
+        sourceHookCount: 0
+        lifecyclePolicyBasis:
+          - "none"
+        lifecycleObservationReceipts:
+          []
       dispositions:
         -
           name: "cluster RBAC review"
@@ -1491,6 +1590,11 @@ spec:
             renderedSHA256: "3667c16d411f773ef20e51c9980d484eb770c1173092878f1b018f5b4377a182"
         liveE2EReceipts:
           - "runs/top20-local-kind/secrets-store-csi-driver-default/observation-receipt.json"
+        sourceHookCount: 0
+        lifecyclePolicyBasis:
+          - "none"
+        lifecycleObservationReceipts:
+          []
       dispositions:
         -
           name: "CRD lifecycle and upgrade policy"

@@ -86,8 +86,12 @@ function buildReport() {
   check(rows.length === 20, `expected 20 catalog-supported recipes, found ${rows.length}`);
   const externalScan = externalScanIndex();
   const liveE2E = liveE2EIndex();
+  const sourceFeatures = sourceFeatureIndex();
+  const lifecycleObservations = lifecycleObservationIndex();
   const charts = rows.map((row) => {
     const required = [...row.requiredDispositions].sort();
+    const source = sourceFeatures.get(row.chart) ?? {};
+    const observations = lifecycleObservations.get(row.chart) ?? [];
     return {
       chart: row.chart,
       version: row.version,
@@ -99,6 +103,9 @@ function buildReport() {
         configHubProofReceipt: row.configHubProofReceipt,
         externalScanVariants: externalScan.get(row.chart) ?? [],
         liveE2EReceipts: liveE2E.get(row.chart) ?? [],
+        sourceHookCount: source.hooks?.count ?? 0,
+        lifecyclePolicyBasis: lifecyclePolicyBasis(row.controlPoints, source, observations),
+        lifecycleObservationReceipts: observations.map((item) => item.receipt),
       },
       dispositions: required.map((name) => ({
         name,
@@ -151,10 +158,42 @@ function catalogSupportedRows() {
       recipePath: relativeRepo(root),
       packagePath: index.spec?.installerPackage?.path ?? "",
       configHubProofReceipt: `runs/${slugFor(status.spec.chart)}-confighub-proof/latest/confighub-proof-receipt.yaml`,
+      controlPoints: controls.spec?.points ?? [],
       requiredDispositions: requiredDispositions(controls.spec?.points ?? [], index.spec?.variants ?? []),
     });
   }
   return rows.sort((left, right) => left.chart.localeCompare(right.chart));
+}
+
+function sourceFeatureIndex() {
+  const result = new Map();
+  const path = join(repoRoot, "data", "top500-catalog-analysis", "source", "source-feature-scan.raw.json");
+  if (!existsSync(path)) return result;
+  for (const row of JSON.parse(readFileSync(path, "utf8"))) result.set(row.chart, row);
+  return result;
+}
+
+function lifecycleObservationIndex() {
+  const result = new Map();
+  const path = join(repoRoot, "data", "lifecycle-observations", "cert-manager-eso", "summary.csv");
+  if (!existsSync(path)) return result;
+  for (const row of parseCsv(readFileSync(path, "utf8"))) {
+    if (!result.has(row.chart)) result.set(row.chart, []);
+    result.get(row.chart).push(row);
+  }
+  return result;
+}
+
+function lifecyclePolicyBasis(points, source, observations) {
+  const categories = new Set(points.map((point) => point.category));
+  const bases = [];
+  const sourceHookCount = Number(source.hooks?.count ?? 0);
+  if (sourceHookCount > 0) bases.push(`source-hooks:${sourceHookCount}`);
+  const hookPoint = points.find((point) => point.category === "hook-policy");
+  if (hookPoint) bases.push(`recipe-hook-policy:${hookPoint.policy ?? hookPoint.status ?? "declared"}`);
+  if (categories.has("lifecycle-policy")) bases.push("recipe-lifecycle-policy");
+  if (observations.length > 0) bases.push(`lifecycle-observations:${observations.filter((row) => row.result === "pass").length}/${observations.length}`);
+  return bases.length > 0 ? bases : ["none"];
 }
 
 function requiredDispositions(points, variants) {
@@ -195,12 +234,20 @@ function liveE2EIndex() {
   const result = new Map();
   for (const receiptPath of listFiles(join(repoRoot, "runs")).filter((file) => file.endsWith("observation-receipt.json") || file.endsWith("observation-receipt.yaml"))) {
     const receipt = receiptPath.endsWith(".json") ? JSON.parse(readFileSync(receiptPath, "utf8")) : readYaml(receiptPath);
-    const chart = receipt.spec?.chart;
+    const chart = chartFromObservation(receipt);
     if (!chart) continue;
     if (!result.has(chart)) result.set(chart, []);
     result.get(chart).push(relativeRepo(receiptPath));
   }
   return result;
+}
+
+function chartFromObservation(receipt) {
+  if (receipt.spec?.chart) return receipt.spec.chart;
+  const variantRevision = String(receipt.spec?.variantRevision ?? "");
+  const parts = variantRevision.split("/");
+  if (parts[0] === "recipes" && parts.length >= 4) return `${parts[1]}/${parts[2]}`;
+  return "";
 }
 
 function toMarkdown(charts) {
@@ -209,9 +256,12 @@ function toMarkdown(charts) {
 The top-20 catalog entries are supported for \`local-test\`. This file states
 exactly what must be closed before production support can be claimed.
 
-| Chart | Local-test variants | Production state | Required disposition count | Live/e2e receipts |
-| --- | --- | --- | ---: | --- |
-${charts.map((chart) => `| \`${chart.chart}@${chart.version}\` | ${chart.supportedLocalTestVariants.join(", ")} | ${chart.status} | ${chart.dispositions.length} | ${chart.evidence.liveE2EReceipts.length} |`).join("\n")}
+The lifecycle columns separate retained source-hook evidence from recipe-level
+lifecycle policy and related CRD/webhook/controller observations.
+
+| Chart | Local-test variants | Production state | Required disposition count | Source hooks | Lifecycle basis | Live/e2e receipts |
+| --- | --- | --- | ---: | ---: | --- | --- |
+${charts.map((chart) => `| \`${chart.chart}@${chart.version}\` | ${chart.supportedLocalTestVariants.join(", ")} | ${chart.status} | ${chart.dispositions.length} | ${chart.evidence.sourceHookCount} | ${chart.evidence.lifecyclePolicyBasis.join("; ")} | ${chart.evidence.liveE2EReceipts.length} |`).join("\n")}
 
 ## Standard Disposition Types
 
@@ -260,4 +310,42 @@ function slugFor(chart) {
     "hashicorp/consul": "consul",
   };
   return mapping[chart] ?? chart.split("/").at(-1);
+}
+
+function parseCsv(text) {
+  const lines = text.trim().split(/\r?\n/).filter(Boolean);
+  if (lines.length === 0) return [];
+  const headers = parseCsvLine(lines[0]);
+  return lines.slice(1).map((line) => {
+    const values = parseCsvLine(line);
+    return Object.fromEntries(headers.map((header, index) => [header, values[index] ?? ""]));
+  });
+}
+
+function parseCsvLine(line) {
+  const values = [];
+  let current = "";
+  let quoted = false;
+  for (let index = 0; index < line.length; index += 1) {
+    const char = line[index];
+    if (quoted) {
+      if (char === '"' && line[index + 1] === '"') {
+        current += '"';
+        index += 1;
+      } else if (char === '"') {
+        quoted = false;
+      } else {
+        current += char;
+      }
+    } else if (char === '"') {
+      quoted = true;
+    } else if (char === ",") {
+      values.push(current);
+      current = "";
+    } else {
+      current += char;
+    }
+  }
+  values.push(current);
+  return values;
 }
