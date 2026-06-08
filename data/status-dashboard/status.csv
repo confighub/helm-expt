@@ -24,3 +24,4 @@ quirks,source-scanned but not surfaced axes,5,25,gap,data/quirk-coverage/coverag
 quirks,not-scanned axes,6,25,gap,data/quirk-coverage/coverage.csv,Known blind spots in the scanner/data model.
 hooks,top100 maintained hook charts,5,5,partial,data/hook-lifecycle/top100-hooks.csv,Hook-bearing maintained charts with required lifecycle receipt paths.
 hooks,hook lifecycle receipts present,0,5,gap,data/hook-lifecycle/top100-hooks.csv,Current hook rows still need lifecycle route and receipt work.
+hooks,related lifecycle observation receipts passing,4,4,good,data/lifecycle-observations/cert-manager-eso/summary.csv,Cert-manager and External Secrets receipts for CRD/webhook/controller behavior that rendered YAML alone cannot prove.

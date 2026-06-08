@@ -18,6 +18,7 @@ top-100 maintained charts with hooks:  5
 catalog-supported hook charts:         1
 proof-grade hook charts:               4
 hook lifecycle receipts present:       0
+related lifecycle observations passing: 4/4
 ```
 
 ## Files
@@ -38,6 +39,18 @@ has hook-like runtime behavior but no Helm hook. For example, cert-manager and
 External Secrets lifecycle observations live under
 `data/lifecycle-observations/cert-manager-eso/`. Those receipts demonstrate
 the lifecycle-observation pattern, not universal hook support.
+
+## Related Lifecycle Observation Lane
+
+This lane is separate from the top100 hook queue. It proves the observation
+shape for CRD/webhook/controller behavior that rendered YAML alone cannot prove.
+
+| Chart | Base | Result | Lifecycle policy | Receipt |
+| --- | --- | --- | --- | --- |
+| jetstack/cert-manager@v1.20.2 | default | pass | startupapicheck-becomes-post-apply-api-dry-run | runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-default/receipt.yaml |
+| jetstack/cert-manager@v1.20.2 | crds-enabled | pass | startupapicheck-becomes-post-apply-api-dry-run | runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml |
+| external-secrets/external-secrets@2.5.0 | default | pass | no-helm-hook | runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-default/receipt.yaml |
+| external-secrets/external-secrets@2.5.0 | no-crds | pass | no-helm-hook | runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-no-crds/receipt.yaml |
 
 ## Maintained Hook Chart Details
 
