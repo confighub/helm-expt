@@ -435,9 +435,22 @@ function generatePackage(ctx) {
         path: `bases/${variant.base}`,
         default: index === 0 ? true : undefined,
         description: `${chart.name} ${variant.displayName} variant rendered from ${ctx.chartRef}@${chart.version}`,
+        externalRequires: externalRequiresForVariant(variant),
       })),
+      ...(variants.some((variant) => (variant.targetFacts?.requiredSecrets ?? []).length)
+        ? {
+            collector: {
+              command: "/bin/sh",
+              args: ["collector/target-facts.sh"],
+              description: "Records target-fact bindings and can live-check existing Secret requirements.",
+            },
+          }
+        : {}),
     },
   });
+  if (variants.some((variant) => (variant.targetFacts?.requiredSecrets ?? []).length)) {
+    write(join(packageRoot, "collector", "target-facts.sh"), targetFactsCollectorScript(variants));
+  }
   write(
     join(packageRoot, "README.md"),
     `# ${ctx.chartRef} ${chart.version} Installer Package
@@ -506,6 +519,8 @@ npm run ${ctx.scriptPrefix}:verify-package
           cubInstallObjectCountIncludingSupport: variant.expectedObjectCount + ctx.supportObjects.length,
           semanticObjectMatches: `${variant.expectedObjectCount}/${variant.expectedObjectCount}`,
           separatedSecretCount: variant.expectedSecretCount ?? 0,
+          targetFactMode: (variant.targetFacts?.requiredSecrets ?? []).length ? "collector-facts" : "not-required",
+          targetFactsBound: Boolean((variant.targetFacts?.requiredSecrets ?? []).length),
           allowedCubOnlyObjects: ctx.supportObjects,
         })),
       },
@@ -702,6 +717,36 @@ function verifyPackage(ctx) {
     rmSync(tempRoot, { recursive: true, force: true });
   }
   console.log(`${ctx.receiptSlug} installer package verification passed`);
+}
+
+function externalRequiresForVariant(variant) {
+  const requiredSecrets = variant.targetFacts?.requiredSecrets ?? [];
+  if (!requiredSecrets.length) return undefined;
+  return requiredSecrets.map((secret) => ({
+    kind: "ClusterFeature",
+    name: `Secret ${secret.namespace}/${secret.name} ${secret.keys.length === 1 ? `key ${secret.keys[0]}` : `keys ${secret.keys.join(",")}`}`,
+    namespace: secret.namespace,
+    suggestedSource: `kubectl -n ${secret.namespace} create secret generic ${secret.name} ${secret.keys.map((key) => `--from-literal=${key}=<value>`).join(" ")}`,
+  }));
+}
+
+function targetFactsCollectorScript(variants) {
+  const variantCases = variants
+    .filter((variant) => (variant.targetFacts?.requiredSecrets ?? []).length)
+    .map((variant) => {
+      const checks = (variant.targetFacts.requiredSecrets ?? [])
+        .flatMap((secret) => secret.keys.map((key) => `      live_check_secret '${secret.namespace}' '${secret.name}' '${key}'`))
+        .join("\n");
+      const facts = (variant.targetFacts.requiredSecrets ?? [])
+        .map((secret) => {
+          const keys = secret.keys.map((key) => `    - ${key}`).join("\n");
+          return `  - keys:\n${keys}\n    name: ${secret.name}\n    namespace: ${secret.namespace}\n    purpose: ${secret.purpose}`;
+        })
+        .join("\n");
+      return `  '${variant.base}')\n    if [ "$check_mode" = "live" ]; then\n${checks}\n      result="pass"\n    else\n      result="recorded"\n    fi\n    cat <<YAML\ntargetFacts:\n  requiredSecrets:\n${facts}\ntargetFactChecks:\n  base: "$base"\n  mode: "$check_mode"\n  result: "$result"\nYAML\n    ;;`;
+    })
+    .join("\n");
+  return `#!/bin/sh\nset -eu\n\nbase="\${INSTALLER_BASE:-default}"\ncheck_mode="\${TARGET_FACT_CHECK_MODE:-record}"\n\nemit_empty() {\n  cat <<YAML\ntargetFacts:\n  requiredSecrets: []\ntargetFactChecks:\n  base: "$base"\n  mode: not-required\n  result: pass\nYAML\n}\n\nlive_check_secret() {\n  namespace="$1"\n  name="$2"\n  key="$3"\n  if ! command -v kubectl >/dev/null 2>&1; then\n    echo "kubectl is required for TARGET_FACT_CHECK_MODE=live" >&2\n    exit 1\n  fi\n  if ! kubectl -n "$namespace" get secret "$name" >/dev/null 2>&1; then\n    echo "required Secret $namespace/$name was not found" >&2\n    exit 1\n  fi\n  if ! kubectl -n "$namespace" get secret "$name" -o yaml | awk -v key="$key" '$1 == key \":\" { found=1 } END { exit found ? 0 : 1 }'; then\n    echo "required Secret $namespace/$name is missing key $key" >&2\n    exit 1\n  fi\n}\n\ncase "$base" in\n${variantCases}\n  *)\n    emit_empty\n    ;;\nesac\n`;
 }
 
 function verifySetupVariant(ctx, tempRoot, variant, receipt) {

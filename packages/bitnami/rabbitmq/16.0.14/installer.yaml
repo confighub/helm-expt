@@ -6,11 +6,13 @@ metadata:
 spec:
   bases:
     -
-      default: true
-      description: "rabbitmq generated passwords variant rendered from bitnami/rabbitmq@16.0.14"
       name: "generated-passwords"
       path: "bases/generated-passwords"
+      default: true
+      description: "rabbitmq generated passwords variant rendered from bitnami/rabbitmq@16.0.14"
     -
+      name: "existing-secret"
+      path: "bases/existing-secret"
       description: "rabbitmq existing Secret variant rendered from bitnami/rabbitmq@16.0.14"
       externalRequires:
         -
@@ -23,8 +25,6 @@ spec:
           name: "Secret rabbitmq/rabbitmq-erlang-cookie key rabbitmq-erlang-cookie"
           namespace: "rabbitmq"
           suggestedSource: "kubectl -n rabbitmq create secret generic rabbitmq-erlang-cookie --from-literal=rabbitmq-erlang-cookie=<value>"
-      name: "existing-secret"
-      path: "bases/existing-secret"
   collector:
     command: "/bin/sh"
     args:
