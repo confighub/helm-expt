@@ -35,6 +35,8 @@ spec:
           - "recipe-hook-policy:no-hooks"
         lifecycleObservationReceipts:
           []
+        productionDispositionReceipts:
+          []
       dispositions:
         -
           name: "CRD lifecycle and upgrade policy"
@@ -124,6 +126,8 @@ spec:
           - "recipe-hook-policy:no-hooks"
         lifecycleObservationReceipts:
           []
+        productionDispositionReceipts:
+          []
       dispositions:
         -
           name: "extension slot provenance and scan policy"
@@ -203,6 +207,8 @@ spec:
         lifecyclePolicyBasis:
           - "recipe-hook-policy:no-hooks"
         lifecycleObservationReceipts:
+          []
+        productionDispositionReceipts:
           []
       dispositions:
         -
@@ -293,6 +299,8 @@ spec:
           - "none"
         lifecycleObservationReceipts:
           []
+        productionDispositionReceipts:
+          []
       dispositions:
         -
           name: "extension slot provenance and scan policy"
@@ -363,6 +371,8 @@ spec:
         lifecyclePolicyBasis:
           - "recipe-hook-policy:no-hooks"
         lifecycleObservationReceipts:
+          []
+        productionDispositionReceipts:
           []
       dispositions:
         -
@@ -452,6 +462,8 @@ spec:
         lifecyclePolicyBasis:
           - "recipe-hook-policy:no-hooks"
         lifecycleObservationReceipts:
+          []
+        productionDispositionReceipts:
           []
       dispositions:
         -
@@ -543,6 +555,8 @@ spec:
           - "recipe-hook-policy:no-hooks"
         lifecycleObservationReceipts:
           []
+        productionDispositionReceipts:
+          - "data/production-disposition/receipts/bitnami-redis/hook-lifecycle-phase-policy.yaml"
       dispositions:
         -
           name: "generated fact ownership"
@@ -555,7 +569,8 @@ spec:
           unblockRule: "supported only when generated material is captured or deliberately externalized"
         -
           name: "hook and lifecycle phase policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/bitnami-redis/hook-lifecycle-phase-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "hook inventory"
@@ -615,6 +630,8 @@ spec:
         lifecycleObservationReceipts:
           - "runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-default/receipt.yaml"
           - "runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-no-crds/receipt.yaml"
+        productionDispositionReceipts:
+          []
       dispositions:
         -
           name: "CRD lifecycle and upgrade policy"
@@ -694,6 +711,8 @@ spec:
         lifecyclePolicyBasis:
           - "none"
         lifecycleObservationReceipts:
+          []
+        productionDispositionReceipts:
           []
       dispositions:
         -
@@ -775,6 +794,8 @@ spec:
           - "recipe-lifecycle-policy"
         lifecycleObservationReceipts:
           []
+        productionDispositionReceipts:
+          []
       dispositions:
         -
           name: "cluster RBAC review"
@@ -855,6 +876,8 @@ spec:
           - "none"
         lifecycleObservationReceipts:
           []
+        productionDispositionReceipts:
+          []
       dispositions:
         -
           name: "extension slot provenance and scan policy"
@@ -925,6 +948,8 @@ spec:
         lifecyclePolicyBasis:
           - "recipe-lifecycle-policy"
         lifecycleObservationReceipts:
+          []
+        productionDispositionReceipts:
           []
       dispositions:
         -
@@ -1033,6 +1058,8 @@ spec:
           - "none"
         lifecycleObservationReceipts:
           []
+        productionDispositionReceipts:
+          []
       dispositions:
         -
           name: "cluster RBAC review"
@@ -1112,6 +1139,8 @@ spec:
         lifecyclePolicyBasis:
           - "recipe-hook-policy:no-hooks"
         lifecycleObservationReceipts:
+          []
+        productionDispositionReceipts:
           []
       dispositions:
         -
@@ -1195,6 +1224,8 @@ spec:
         lifecycleObservationReceipts:
           - "runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-default/receipt.yaml"
           - "runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml"
+        productionDispositionReceipts:
+          []
       dispositions:
         -
           name: "CRD lifecycle and upgrade policy"
@@ -1284,6 +1315,8 @@ spec:
           - "recipe-hook-policy:no-hooks"
         lifecycleObservationReceipts:
           []
+        productionDispositionReceipts:
+          []
       dispositions:
         -
           name: "CRD lifecycle and upgrade policy"
@@ -1364,6 +1397,8 @@ spec:
           - "recipe-hook-policy:no-hooks"
         lifecycleObservationReceipts:
           []
+        productionDispositionReceipts:
+          []
       dispositions:
         -
           name: "cluster RBAC review"
@@ -1443,6 +1478,8 @@ spec:
         lifecyclePolicyBasis:
           - "source-hooks:2"
         lifecycleObservationReceipts:
+          []
+        productionDispositionReceipts:
           []
       dispositions:
         -
@@ -1533,6 +1570,8 @@ spec:
           - "none"
         lifecycleObservationReceipts:
           []
+        productionDispositionReceipts:
+          []
       dispositions:
         -
           name: "cluster RBAC review"
@@ -1594,6 +1633,8 @@ spec:
         lifecyclePolicyBasis:
           - "none"
         lifecycleObservationReceipts:
+          []
+        productionDispositionReceipts:
           []
       dispositions:
         -

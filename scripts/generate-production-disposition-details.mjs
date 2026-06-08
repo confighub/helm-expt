@@ -88,10 +88,13 @@ function buildReport() {
   const liveE2E = liveE2EIndex();
   const sourceFeatures = sourceFeatureIndex();
   const lifecycleObservations = lifecycleObservationIndex();
+  const dispositionReceipts = productionDispositionReceiptIndex();
   const charts = rows.map((row) => {
     const required = [...row.requiredDispositions].sort();
     const source = sourceFeatures.get(row.chart) ?? {};
     const observations = lifecycleObservations.get(row.chart) ?? [];
+    const accepted = acceptedDispositionReceipts(row.chart, required, dispositionReceipts);
+    const acceptedByDisposition = new Map(accepted.map((receipt) => [receipt.disposition, receipt]));
     return {
       chart: row.chart,
       version: row.version,
@@ -106,12 +109,17 @@ function buildReport() {
         sourceHookCount: source.hooks?.count ?? 0,
         lifecyclePolicyBasis: lifecyclePolicyBasis(row.controlPoints, source, observations),
         lifecycleObservationReceipts: observations.map((item) => item.receipt),
+        productionDispositionReceipts: accepted.map((item) => item.path),
       },
-      dispositions: required.map((name) => ({
-        name,
-        state: "required",
-        ...dispositionCatalog[name],
-      })),
+      dispositions: required.map((name) => {
+        const receipt = acceptedByDisposition.get(name);
+        return {
+          name,
+          state: receipt ? "accepted" : "required",
+          receipt: receipt?.path,
+          ...dispositionCatalog[name],
+        };
+      }),
       unblockCriteria: [
         "all required dispositions are accepted or fixed",
         "supported variants keep Helm equivalence receipts bound to rendered digests",
@@ -125,6 +133,7 @@ function buildReport() {
     (name) => !knownDispositionNames.has(name),
   );
   check(missingCatalog.length === 0, `missing disposition catalog entries: ${missingCatalog.join(", ")}`);
+  checkAllDispositionReceiptsUsed(charts, dispositionReceipts);
   const doc = {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "ProductionDispositionPlan",
@@ -141,6 +150,47 @@ function buildReport() {
     yaml: `${toYaml(doc)}\n`,
     markdown: toMarkdown(charts),
   };
+}
+
+function productionDispositionReceiptIndex() {
+  const result = new Map();
+  const root = join(repoRoot, "data", "production-disposition", "receipts");
+  if (!existsSync(root)) return result;
+  for (const receiptPath of listFiles(root).filter((file) => /\.ya?ml$/.test(file))) {
+    const receipt = readYaml(receiptPath);
+    if (receipt.kind !== "ProductionDispositionReceipt") continue;
+    if (receipt.spec?.decision !== "accepted") continue;
+    const chart = receipt.spec?.chart;
+    const disposition = receipt.spec?.disposition;
+    if (!chart || !disposition) continue;
+    for (const item of receipt.spec?.evidence ?? []) {
+      if (item.path) check(existsSync(join(repoRoot, item.path)), `${relativeRepo(receiptPath)} references missing evidence ${item.path}`);
+    }
+    result.set(dispositionKey(chart, disposition), {
+      chart,
+      disposition,
+      path: relativeRepo(receiptPath),
+      decision: receipt.spec.decision,
+      acceptedAt: receipt.spec.acceptedAt ?? "",
+    });
+  }
+  return result;
+}
+
+function checkAllDispositionReceiptsUsed(charts, dispositionReceipts) {
+  const used = new Set(charts.flatMap((chart) => chart.evidence.productionDispositionReceipts));
+  const unused = [...dispositionReceipts.values()].map((receipt) => receipt.path).filter((path) => !used.has(path));
+  check(unused.length === 0, `production disposition receipt does not match a required disposition: ${unused.join(", ")}`);
+}
+
+function acceptedDispositionReceipts(chart, requiredDispositions, dispositionReceipts) {
+  return requiredDispositions
+    .map((disposition) => dispositionReceipts.get(dispositionKey(chart, disposition)))
+    .filter(Boolean);
+}
+
+function dispositionKey(chart, disposition) {
+  return `${chart}\u0000${disposition}`;
 }
 
 function catalogSupportedRows() {
@@ -251,6 +301,7 @@ function chartFromObservation(receipt) {
 }
 
 function toMarkdown(charts) {
+  const acceptedDispositionCount = charts.reduce((sum, chart) => sum + chart.dispositions.filter((item) => item.state === "accepted").length, 0);
   return `# Top-20 Production Disposition Details
 
 The top-20 catalog entries are supported for \`local-test\`. This file states
@@ -259,9 +310,15 @@ exactly what must be closed before production support can be claimed.
 The lifecycle columns separate retained source-hook evidence from recipe-level
 lifecycle policy and related CRD/webhook/controller observations.
 
-| Chart | Local-test variants | Production state | Required disposition count | Source hooks | Lifecycle basis | Live/e2e receipts |
-| --- | --- | --- | ---: | ---: | --- | --- |
-${charts.map((chart) => `| \`${chart.chart}@${chart.version}\` | ${chart.supportedLocalTestVariants.join(", ")} | ${chart.status} | ${chart.dispositions.length} | ${chart.evidence.sourceHookCount} | ${chart.evidence.lifecyclePolicyBasis.join("; ")} | ${chart.evidence.liveE2EReceipts.length} |`).join("\n")}
+Accepted disposition receipts recorded: ${acceptedDispositionCount}
+
+| Chart | Local-test variants | Production state | Accepted | Open | Source hooks | Lifecycle basis | Live/e2e receipts |
+| --- | --- | --- | ---: | ---: | ---: | --- | --- |
+${charts.map((chart) => {
+  const accepted = chart.dispositions.filter((item) => item.state === "accepted").length;
+  const open = chart.dispositions.length - accepted;
+  return `| \`${chart.chart}@${chart.version}\` | ${chart.supportedLocalTestVariants.join(", ")} | ${chart.status} | ${accepted} | ${open} | ${chart.evidence.sourceHookCount} | ${chart.evidence.lifecyclePolicyBasis.join("; ")} | ${chart.evidence.liveE2EReceipts.length} |`;
+}).join("\n")}
 
 ## Standard Disposition Types
 

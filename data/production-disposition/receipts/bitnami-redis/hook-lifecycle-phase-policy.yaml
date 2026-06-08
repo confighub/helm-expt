@@ -1,0 +1,32 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: bitnami-redis-hook-lifecycle-phase-policy
+spec:
+  chart: bitnami/redis
+  version: "25.5.3"
+  disposition: hook and lifecycle phase policy
+  decision: accepted
+  acceptedAt: "2026-06-08"
+  scope:
+    - local-test
+    - production-review-input
+  summary: Redis has no retained source Helm hooks in the top-500 source scan. The recipe records an explicit no-hooks policy, so this disposition is closed for the supported Redis bases.
+  evidence:
+    - path: data/top500-catalog-analysis/source/source-feature-scan.raw.json
+      claim: bitnami/redis has source hook count 0 in the retained scan.
+    - path: recipes/bitnami/redis/25.5.3/control-points.yaml
+      claim: recipe control point category hook-policy has policy no-hooks.
+    - path: recipes/bitnami/redis/25.5.3/helm-pain-report.yaml
+      claim: hook policy is handled by lifecycle policy for the supported local-test scope.
+    - path: recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/install-gate.yaml
+      claim: default variant install gate does not rely on Helm hook execution.
+    - path: recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/receipts/install-gate.yaml
+      claim: reuse-existing-secret variant install gate does not rely on Helm hook execution.
+  affectedVariants:
+    - default
+    - reuse-existing-secret
+  remainingProductionBlockers:
+    - generated fact ownership
+    - target fact preflight
+    - scan/gate warning disposition
