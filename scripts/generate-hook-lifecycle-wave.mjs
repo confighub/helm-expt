@@ -42,6 +42,7 @@ function buildReport() {
   const top100 = JSON.parse(readFileSync(join(repoRoot, "data", "top100-catalog-analysis", "raw.json"), "utf8"));
   const top500 = JSON.parse(readFileSync(join(repoRoot, "data", "top500-catalog-analysis", "raw.json"), "utf8"));
   const sourceScanRows = JSON.parse(readFileSync(join(repoRoot, "data", "top500-catalog-analysis", "source", "source-feature-scan.raw.json"), "utf8"));
+  const lifecycleObservationRows = readCsvIfExists("data/lifecycle-observations/cert-manager-eso/summary.csv");
   check(Array.isArray(top100.entries), "top100 raw JSON must contain entries");
   check(Array.isArray(top500.rows), "top500 raw JSON must contain rows");
   check(Array.isArray(sourceScanRows), "source feature scan raw JSON must contain rows");
@@ -50,6 +51,8 @@ function buildReport() {
   const hookRows = top100.entries.filter(hasHelmHooks).map((entry) => {
     const sourceRow = sourceScanRows.find((row) => row.chart === entry.chart) ?? {};
     const base = firstListItem(entry.supported_variants) || firstListItem(entry.candidate_variants) || entry.start_variant || "default";
+    const requiredReceipt = `data/hook-lifecycle/receipts/${slug(entry.chart)}/${base}/latest.yaml`;
+    const receiptStatus = existsSync(join(repoRoot, requiredReceipt)) ? "present" : "not-yet-written";
     return {
       proof_surface_rank: entry.proof_surface_rank,
       top500_rank: entry.top500_rank,
@@ -69,10 +72,11 @@ function buildReport() {
       webhook_count: Number(sourceRow.validatingWebhooks ?? 0) + Number(sourceRow.mutatingWebhooks ?? 0),
       crd_count: sourceRow.crdFiles ?? "",
       lookup_count: sourceRow.lookup?.count ?? "",
-      lifecycle_disposition: "requires-route-and-receipt",
+      lifecycle_disposition: receiptStatus === "present" ? "lifecycle-observed" : "requires-route-and-receipt",
       recommended_route: recommendedRoute(entry),
       route_hint: routeHint(sourceRow),
-      required_receipt: `data/hook-lifecycle/receipts/${slug(entry.chart)}/${base}/latest.yaml`,
+      required_receipt: requiredReceipt,
+      receipt_status: receiptStatus,
       next_action: "choose lifecycle route, run live path, commit lifecycle or observation receipt",
     };
   });
@@ -82,13 +86,13 @@ function buildReport() {
     version: row.version,
     base: row.selected_base,
     recommended_route: row.recommended_route,
-      required_receipt: row.required_receipt,
-      receipt_status: existsSync(join(repoRoot, row.required_receipt)) ? "present" : "not-yet-written",
-      hook_types: row.hook_types,
-      route_hint: row.route_hint,
-      minimum_checks: [
-        "hook resources inventoried",
-        "route selected",
+    required_receipt: row.required_receipt,
+    receipt_status: row.receipt_status,
+    hook_types: row.hook_types,
+    route_hint: row.route_hint,
+    minimum_checks: [
+      "hook resources inventoried",
+      "route selected",
       "controller or operator action recorded",
       "runtime outcome observed",
       "freshness timestamp recorded",
@@ -97,12 +101,12 @@ function buildReport() {
 
   check(top500HookRows.length === 54, `expected 54 top500 hook rows; found ${top500HookRows.length}`);
   check(hookRows.length === 5, `expected 5 maintained top100 hook rows; found ${hookRows.length}`);
-  check(receiptRows.every((row) => row.receipt_status === "not-yet-written"), "hook lifecycle receipts should not be pre-claimed");
+  check(receiptRows.every((row) => ["present", "not-yet-written"].includes(row.receipt_status)), "hook lifecycle receipt status must be explicit");
 
   const outputs = {
     corpus: csv(hookRows),
     receiptIndex: csv(receiptRows),
-    summary: summary({ top500HookRows, hookRows, receiptRows }),
+    summary: summary({ top500HookRows, hookRows, receiptRows, lifecycleObservationRows }),
   };
   return { outputs, hookRows };
 }
@@ -132,9 +136,10 @@ function routeHint(sourceRow) {
   return [...new Set(hints)].join(";");
 }
 
-function summary({ top500HookRows, hookRows, receiptRows }) {
+function summary({ top500HookRows, hookRows, receiptRows, lifecycleObservationRows }) {
   const catalogSupported = hookRows.filter((row) => row.catalog_status === "catalog-supported").length;
   const proofGrade = hookRows.filter((row) => row.catalog_status === "proof-grade").length;
+  const lifecycleObservationPass = lifecycleObservationRows.filter((row) => row.result === "pass").length;
   return `# Hook Lifecycle Wave
 
 This generated file tracks maintained charts whose source scan found Helm hooks.
@@ -155,6 +160,7 @@ top-100 maintained charts with hooks:  ${hookRows.length}
 catalog-supported hook charts:         ${catalogSupported}
 proof-grade hook charts:               ${proofGrade}
 hook lifecycle receipts present:       ${receiptRows.filter((row) => row.receipt_status === "present").length}
+related lifecycle observations passing: ${lifecycleObservationPass}/${lifecycleObservationRows.length}
 \`\`\`
 
 ## Files
@@ -175,6 +181,15 @@ has hook-like runtime behavior but no Helm hook. For example, cert-manager and
 External Secrets lifecycle observations live under
 \`data/lifecycle-observations/cert-manager-eso/\`. Those receipts demonstrate
 the lifecycle-observation pattern, not universal hook support.
+
+## Related Lifecycle Observation Lane
+
+This lane is separate from the top100 hook queue. It proves the observation
+shape for CRD/webhook/controller behavior that rendered YAML alone cannot prove.
+
+| Chart | Base | Result | Lifecycle policy | Receipt |
+| --- | --- | --- | --- | --- |
+${lifecycleObservationRows.map((row) => `| ${row.chart}@${row.version} | ${row.base} | ${row.result} | ${row.hook_policy} | ${row.receipt} |`).join("\n")}
 
 ## Maintained Hook Chart Details
 
@@ -205,6 +220,50 @@ function csvCell(value) {
   const text = value === undefined || value === null ? "" : String(value);
   if (/[",\n]/.test(text)) return `"${text.replaceAll('"', '""')}"`;
   return text;
+}
+
+function readCsvIfExists(path) {
+  const absolute = join(repoRoot, path);
+  if (!existsSync(absolute)) return [];
+  return parseCsv(readFileSync(absolute, "utf8"));
+}
+
+function parseCsv(text) {
+  const lines = text.trim().split(/\r?\n/).filter(Boolean);
+  if (lines.length === 0) return [];
+  const headers = parseCsvLine(lines[0]);
+  return lines.slice(1).map((line) => {
+    const values = parseCsvLine(line);
+    return Object.fromEntries(headers.map((header, index) => [header, values[index] ?? ""]));
+  });
+}
+
+function parseCsvLine(line) {
+  const values = [];
+  let current = "";
+  let quoted = false;
+  for (let index = 0; index < line.length; index += 1) {
+    const char = line[index];
+    if (quoted) {
+      if (char === '"' && line[index + 1] === '"') {
+        current += '"';
+        index += 1;
+      } else if (char === '"') {
+        quoted = false;
+      } else {
+        current += char;
+      }
+    } else if (char === '"') {
+      quoted = true;
+    } else if (char === ",") {
+      values.push(current);
+      current = "";
+    } else {
+      current += char;
+    }
+  }
+  values.push(current);
+  return values;
 }
 
 function slug(value) {
