@@ -37,8 +37,8 @@ experience — never a teaser that breaks at a paywall (that's what adversary **
 
 ## Persona drivers (Sonnet, rig-bound — *run it as that user, at their tier*)
 - **Newcomer / app-dev (T0→T1):** default just-works + one fill. Tests honest-default + obvious-steps.
-- **Platform eng — "Charlie" (T1):** derive → promote `default → prod-us-east`, set gates/labels/approvals. Tests the derived-variant value.
-- **SRE — "Brian" (T1):** day-2 image/replica edit, then **rollback**; recover from a break. Tests day-2/upgrade/rollback.
+- **Platform engineer (T1):** derive → promote `default → prod-us-east`, set gates/labels/approvals. Tests the derived-variant value.
+- **SRE (T1):** day-2 image/replica edit, then **rollback**; recover from a break. Tests day-2/upgrade/rollback.
 - **Security/governance (T1, T2):** existing-secret fork + required-secret gate + approve-before-apply + delete gate; ESO/Vault rung at T2. Tests F3-fix + governance teeth.
 Drivers **discover the exact `cub` commands** (via `--help` / the `cub-mutate`/`cub-apply`/`create-initiative` skills) — they must NOT invent flags.
 

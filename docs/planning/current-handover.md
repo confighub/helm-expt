@@ -122,8 +122,8 @@ The top-level public entry points are [README.md](../../README.md),
 
 ## Latest Completed Work
 
-The latest completed implementation work completed the proof-kit migration:
-all non-Redis top-20 chart proof scripts now share
+The proof-kit migration is complete for the current non-Redis top-20 charts:
+those chart proof scripts now share
 `scripts/lib/proof-kit.mjs`. Redis remains bespoke because it carries the
 first tutorial and user-install verification helpers.
 
