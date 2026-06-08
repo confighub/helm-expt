@@ -239,9 +239,13 @@ These keep the generated catalog/data surfaces current.
 | --- | --- |
 | `npm run catalog:pain-reports` / `catalog:pain-reports:verify` | Per-chart Helm pain reports. |
 | `npm run chart-facts` / `chart-facts:verify` | One-row-per-chart facts for the 100 maintained recipes. |
+| `npm run outcomes:generate` / `outcomes:verify` | Front-door outcome tables for charts, bases, derived variants, and features. |
+| `npm run production:disposition` / `production:disposition:verify` | Top-20 production support boundary: accepted dispositions, open blockers, and next actions. |
+| `npm run production:disposition:details` / `production:disposition:details:verify` | Detailed production disposition plan and production next-action queue. |
 | `npm run extension-slots` / `extension-slots:verify` | NGINX-like extension-slot coverage: charts, surfaces, routing, and evidence. |
 | `npm run nginx:config-checks` / `nginx:config-checks:verify` | NGINX supported-base checks for empty config extension slots, sidecars, metrics, raw objects, and ingress shape. |
 | `npm run top20:base-readiness` / `top20:base-readiness:verify` | Top-20 base-variant readiness: start-here bases, proof-backed bases, prerequisites, runtime review, and hook lifecycle rows. |
+| `npm run top100:readiness` / `top100:readiness:verify` | Top-100 readiness view: adoption bucket, strongest evidence, hard gap, next action, and queue source. |
 | `npm run top100:catalog` / `top100:catalog:verify` | Top-100 maintained recipe/package proof surface. |
 | `npm run top500:catalog` / `top500:catalog:verify` | Top-500 source/catalog evidence map. |
 | `npm run completeness:generate` / `completeness:verify` | Level-2 support and variant-rich counts. |
@@ -253,8 +257,11 @@ These keep the generated catalog/data surfaces current.
 | `npm run lifecycle:boundary` / `lifecycle:boundary:verify` | Boundary table separating hook lifecycle queue rows from hook-like lifecycle observations. |
 | `npm run image-digests:workdown` / `image-digests:workdown:verify` | Rendered image digest review queue by chart and variant. |
 | `npm run next-ten:waves` / `next-ten:waves:verify` | Compact next work rows for gaps, latest promotion, variants, production disposition, and import examples. |
+| `npm run status:dashboard` / `status:dashboard:verify` | One-page status dashboard and top-20 chart status CSV. |
+| `npm run site:generate` / `site:verify` | Static site data and HTML generated from current catalog/status inputs. |
 | `npm run catalog:index` / `catalog:index:verify` | Root `CATALOG.md`. |
 | `npm run catalog:maps` / `catalog:maps:verify` | Per-chart catalog and artifact index maps. |
+| `npm run data:index` / `data:index:verify` | Generated data README and machine-readable CSV index. |
 
 For the current regeneration order, see `data/README.md`.
 

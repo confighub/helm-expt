@@ -43,6 +43,22 @@ The front-door CSVs are intentionally redundant with deeper generated reports.
 They join the important evidence into a small set of spreadsheet-friendly
 tables. Use the deeper CSVs when you need drill-down.
 
+## Regeneration Order
+
+Use the narrowest generator that matches the change, then run the matching
+verify command. Do not run live tests just to refresh CSVs.
+
+| Change | Regenerate in this order |
+| --- | --- |
+| Chart facts, quirk facts, or variant metadata | `npm run chart-facts`, `npm run outcomes:generate`, `npm run top100:readiness`, `npm run status:dashboard`, `npm run site:generate` |
+| Production support decisions or blockers | `npm run production:disposition`, `npm run production:disposition:details`, `npm run top100:readiness`, `npm run status:dashboard`, `npm run site:generate` |
+| Live receipt status | Regenerate the lane summary, then `npm run outcomes:generate`, `npm run status:dashboard`, `npm run site:generate` |
+| Per-chart catalog or artifact map inputs | `npm run catalog:maps`, then `npm run catalog:index` if the root catalog view changed |
+| CSV files added, removed, or renamed | Run the owner generator first, then `npm run data:index` |
+
+After regenerating, run the same commands with `:verify` where available.
+Use `npm run verify` only as the broad release gate after scoped checks pass.
+
 ## How To Read Status
 
 | Term | Meaning |
