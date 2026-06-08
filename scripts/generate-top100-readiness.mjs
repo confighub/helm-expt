@@ -113,11 +113,15 @@ function summary(rows) {
   const counts = countBy(rows, (row) => row.user_status);
   const evidenceCounts = countBy(rows, (row) => row.strongest_evidence);
   const hardGaps = rows.filter((row) => row.hard_gap !== "-");
+  const hardGapCounts = countBy(hardGaps, (row) => row.hard_gap);
   const top20 = rows.filter((row) => row.catalog_tier === "top20-catalog-supported");
   const next80 = rows.filter((row) => row.catalog_tier === "next80-proof-grade");
   const liveEvidence = rows.filter((row) =>
     ["live-helm-vs-confighub-parity", "gitops-oci-live", "local-kubernetes-live"].includes(row.strongest_evidence),
   );
+  const promotionReview = rows.filter((row) => row.user_status === "proof-grade-ready-for-promotion-review");
+  const needsVariant = rows.filter((row) => row.user_status === "proof-grade-needs-user-shaped-variant");
+  const namedLimitation = rows.filter((row) => row.user_status === "proof-grade-with-named-limitation");
   return `# Top-100 Readiness
 
 This is the shortest chart-by-chart answer for the maintained top-100 corpus.
@@ -133,6 +137,21 @@ next-80 proof-grade: ${next80.length}
 charts with live evidence on at least one variant: ${liveEvidence.length}
 charts with named hard gaps: ${hardGaps.length}
 ~~~
+
+## Practical Buckets
+
+| Question | Count | Read it as | Next move |
+| --- | ---: | --- | --- |
+| Which charts are already public catalog entries? | ${top20.length} | Use the catalog, then check exact base status before claiming a lane. | Open \`CATALOG.md\`, the per-chart catalog page, and \`base-outcomes.csv\`. |
+| Which proof-grade charts are closest to promotion? | ${promotionReview.length} | Recipe/package proof and multiple variants exist, but catalog review is not done. | Run catalog promotion review and add live lanes for selected bases. |
+| Which charts need a useful user-shaped variant first? | ${needsVariant.length} | The default render proves the mechanism, but it is not yet a good catalog offer. | Add one or more realistic base variants before promotion. |
+| Which charts need a limitation decision first? | ${namedLimitation.length} | A known gap affects the recommended path. | Decide whether to support, disclose, or defer that capability. |
+
+## Hard Gap Buckets
+
+| Gap | Charts | What it means |
+| --- | ---: | --- |
+${[...hardGapCounts.entries()].map(([gap, count]) => `| ${escapePipes(gap)} | ${count} | ${escapePipes(gapMeaning(gap))} |`).join("\n")}
 
 ## User Status
 
@@ -159,6 +178,14 @@ ${[...evidenceCounts.entries()].map(([status, count]) => `| \`${status}\` | ${co
   a useful path such as an existing-secret, HA, no-CRDs, or production lifecycle
   path still needs a supported variant or operator decision.
 
+## First Backlog Rows
+
+| Backlog | First rows |
+| --- | --- |
+| Promotion review | ${sampleCharts(promotionReview)} |
+| User-shaped variants | ${sampleCharts(needsVariant)} |
+| Named limitation review | ${sampleCharts(namedLimitation)} |
+
 ## First Rows
 
 | Chart | User status | Evidence | Variants | Next action |
@@ -181,6 +208,19 @@ npm run top100:readiness
 npm run top100:readiness:verify
 ~~~
 `;
+}
+
+function sampleCharts(rows) {
+  if (!rows.length) return "-";
+  return rows.slice(0, 5).map((row) => `\`${row.chart}\``).join("<br>");
+}
+
+function gapMeaning(gap) {
+  if (gap.includes("existing-secret")) return "The chart does not expose a clean bring-your-own-secret render path. Do not invent one silently.";
+  if (gap.includes("no-crds")) return "The chart bakes CRDs into templates or lacks a clean CRDs-off switch. CRD ownership needs an explicit route.";
+  if (gap.includes("tempo single-binary")) return "The current chart path is single-binary; HA belongs to a separate supported topology decision.";
+  if (gap.includes("ha")) return "The proof path does not yet teach a realistic HA variant for that chart.";
+  return "Review before catalog promotion.";
 }
 
 function statusMeaning(status) {
