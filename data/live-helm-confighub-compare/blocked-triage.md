@@ -20,7 +20,10 @@ rerun also reached the full comparison and now records `watch`: semantic parity
 passed, while the default Vault server remained sealed and uninitialized. The
 2026-06-08 Tempo rerun reached the full comparison and now records `watch`:
 semantic parity passed, while the local persistent-volume fixture left the Tempo
-pod pending in all three paths.
+pod pending in all three paths. The 2026-06-08 Consul rerun reached the full
+comparison and now records `watch`: regular Helm and ConfigHub kubectl-apply
+became live-ready, semantic parity passed, and only the ConfigHub OCI/Argo leg
+remained OutOfSync.
 
 The current summary therefore contains these kinds of blocked row:
 
@@ -35,7 +38,6 @@ The current summary therefore contains these kinds of blocked row:
 | ---: | --- | --- | --- |
 | 5 | external-secrets/external-secrets | `parity: live semantic diff` | The hardened rerun reached Helm, ConfigHub apply, and ConfigHub OCI/Argo. The webhook Deployment is the reported semantic diff, and the ConfigHub apply/OCI legs left the cert-controller and webhook pods not ready. This aligns with the chart's documented webhook Secret/cert-controller control point and needs chart-specific review. |
 | 6 | argo-cd/argo-cd | `infra: etcd/apiserver overload` | The previous run hit API-server/etcd pressure and CRD ownership friction before a clean parity conclusion. |
-| 20 | hashicorp/consul | `infra: provisioning timeout` | The previous run timed out while provisioning the local parity rig. |
 
 ## What The External Secrets Rerun Proved
 
@@ -132,12 +134,26 @@ The previous Tempo `helm-runtime: upstream not ready (parity passed)` row is now
 recorded more precisely as `watch`, not `blocked`. The next Tempo work is a
 storage fixture or production storage-class decision, not a recipe parity fix.
 
+## What The Consul Rerun Proved
+
+The Consul rerun reached all three delivery legs:
+
+- regular Helm installed and became ready;
+- ConfigHub kubectl-apply installed and became ready;
+- ConfigHub OCI/Argo created live-ready workloads, but Argo still reported
+  `OutOfSync`;
+- semantic comparison passed for both ConfigHub paths after applying the
+  chart-declared command-block newline normalization.
+
+The previous Consul `infra: provisioning timeout` row was local rig residue. The
+live lane now records Consul as `watch`, not `blocked`. The next Consul work is
+to inspect the OCI/Argo sync status, not to change the recipe.
+
 ## Rerun Order
 
 Rerun the remaining infrastructure-blocked rows one at a time on a clean host:
 
-1. `consul`
-2. `argo-cd`
+1. `argo-cd`
 
 Treat a rerun result as product evidence only if it reaches at least one
 ConfigHub delivery leg and records a semantic comparison. Until then, keep the

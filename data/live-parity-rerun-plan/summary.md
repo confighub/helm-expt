@@ -11,8 +11,8 @@ block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
 rows: 23
-blocked: 15
-watch: 8
+blocked: 14
+watch: 9
 configHub-oci-live-comparison: 8
 two-cluster-kind-parity: 15
 ```
@@ -29,9 +29,9 @@ two-cluster-kind-parity: 15
 | Priority | Lane | Chart | Base | Current | Reason | Command |
 | ---: | --- | --- | --- | --- | --- | --- |
 | 10 | configHub-oci-live-comparison | `argo-cd/argo-cd@9.5.15` | default | blocked | infra: etcd/apiserver overload | `npm run live-parity:top20 -- --from-rank 6 --to-rank 6 --continue-on-fail` |
-| 10 | configHub-oci-live-comparison | `hashicorp/consul@2.0.0` | default-control-plane | blocked | infra: provisioning timeout | `npm run live-parity:top20 -- --from-rank 20 --to-rank 20 --continue-on-fail` |
 | 30 | configHub-oci-live-comparison | `bitnami/mysql@14.0.3` | generated-passwords | watch | watch: inspect receipt | `npm run live-parity:top20 -- --from-rank 16 --to-rank 16 --continue-on-fail` |
 | 30 | configHub-oci-live-comparison | `grafana/tempo@1.24.4` | local-persistent | watch | watch: inspect receipt | `npm run live-parity:top20 -- --from-rank 19 --to-rank 19 --continue-on-fail` |
+| 30 | configHub-oci-live-comparison | `hashicorp/consul@2.0.0` | default-control-plane | watch | watch: inspect receipt | `npm run live-parity:top20 -- --from-rank 20 --to-rank 20 --continue-on-fail` |
 | 30 | configHub-oci-live-comparison | `hashicorp/vault@0.32.0` | default | watch | watch: inspect receipt | `npm run live-parity:top20 -- --from-rank 12 --to-rank 12 --continue-on-fail` |
 | 30 | configHub-oci-live-comparison | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | watch | watch: inspect receipt | `npm run live-parity:top20 -- --from-rank 3 --to-rank 3 --continue-on-fail` |
 | 30 | configHub-oci-live-comparison | `prometheus-community/kube-prometheus-stack@85.3.3` | default | watch | watch: inspect receipt | `npm run live-parity:top20 -- --from-rank 7 --to-rank 7 --continue-on-fail` |

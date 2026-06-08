@@ -146,6 +146,16 @@ def normalize_namespace_references(value, namespace_map: dict[str, str]):
     return value
 
 
+def trim_command_block_leading_newline(value, key: str | None = None):
+    if isinstance(value, dict):
+        return {item_key: trim_command_block_leading_newline(item, item_key) for item_key, item in value.items()}
+    if isinstance(value, list):
+        return [trim_command_block_leading_newline(item, key) for item in value]
+    if key in {"args", "command"} and isinstance(value, str) and value.startswith("\n"):
+        return value[1:]
+    return value
+
+
 def apply_semantic_normalizations(doc: dict, semantic_normalizations: list[str]) -> dict:
     identity = object_identity(doc)
     if (
@@ -155,6 +165,8 @@ def apply_semantic_normalizations(doc: dict, semantic_normalizations: list[str])
         config = doc.get("data", {}).get("config.yaml")
         if isinstance(config, str) and config.startswith("\n"):
             doc["data"]["config.yaml"] = config[1:]
+    if "trim-leading-command-block-newline" in semantic_normalizations:
+        doc = trim_command_block_leading_newline(doc)
     return doc
 
 

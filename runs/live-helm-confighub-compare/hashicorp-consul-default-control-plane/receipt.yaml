@@ -6,39 +6,189 @@ spec:
   chart: hashicorp/consul
   version: 2.0.0
   base: default-control-plane
-  result: blocked
-  observedAt: '2026-06-05T20:36:39Z'
+  result: watch
+  observedAt: '2026-06-08T13:30:35Z'
   package:
     path: packages/hashicorp/consul/2.0.0
   recipe:
     path: recipes/hashicorp/consul/2.0.0
   variantRevision: recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/variant-revision.yaml
   run:
-    rig: helm-expt-parity-consul-mq1dx5ju-11ay
-    kubeContext: kind-helm-expt-parity-consul-mq1dx5ju-11ay
+    rig: helm-expt-parity-consul-mq590sva-euc
+    kubeContext: kind-helm-expt-parity-consul-mq590sva-euc
     namespace: consul
     legNamespaces:
       regularHelm: consul-helm
       configHubKubectlApply: consul-apply
       configHubOciArgo: consul-oci
-    clusterLifecycle: cleanup-failed
+    clusterLifecycle: cleaned-up
     cleanup:
-      command: cub lk down --name helm-expt-parity-consul-mq1dx5ju-11ay
-      result: blocked
-      detail: 'Error: no lk-managed Space for "helm-expt-parity-consul-mq1dx5ju-11ay"
-        in the current cub context (are you in the right context?). Pass --force to
-        delete the local kind cluster + kubeconfig anyway
+      command: cub lk down --name helm-expt-parity-consul-mq590sva-euc --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-consul-mq590sva-euc"...
 
-        Error: no lk-managed Space for "helm-expt-parity-consul-mq1dx5ju-11ay" in
-        the current cub context (are you in the right context?). Pass --force to delete
-        the local kind cluster + kubeconfig anyway'
-  legs: {}
+        Deleting cluster "helm-expt-parity-consul-mq590sva-euc" ...
+
+        Deleted nodes: ["helm-expt-parity-consul-mq590sva-euc-control-plane"]
+
+        Deleting Space "helm-expt-parity-consul-mq590sva-euc-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install consul consul --repo https://helm.releases.hashicorp.com
+        --version 2.0.0 --namespace consul-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-consul-default-control-plane/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 7efa3e8b59c702c8b8fa744a0ff91198e09ad8ba0fb93a86b50c3fd9e39d29f7
+      objectCount: 68
+      liveHelmManifestSHA256: d81b2ff975638df3b946772af5dea4e134f1531406c9cd547c50ff9f71454b8d
+      liveHelmManifestObjectCount: 68
+      namespace: consul-helm
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/consul-consul-connect-injector       1/1   1     1     55s
+
+          deployment.apps/consul-consul-webhook-cert-manager   1/1   1     1     55s
+
+          statefulset.apps/consul-consul-server   1/1   55s'
+        pods: 'consul-consul-connect-injector-79775c78b9-qqqq7       1/1   Running   0     55s
+
+          consul-consul-server-0                                1/1   Running   0     55s
+
+          consul-consul-webhook-cert-manager-5bd4994f6d-58jl4   1/1   Running   0     55s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/consul/2.0.0
+        --base default-control-plane --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-consul-mq590sva-euc-consul
+        --non-interactive --namespace consul-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 6b9be94e5ac8203f7965077c1435b939e964db6a6a5810cbe3307ccf01141913
+      objectCount: 69
+      namespace: consul-apply
+      manifestNamespaces:
+      - consul
+      - consul-apply
+      runtimeNamespaces: &id001
+      - consul
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# consul
+
+          deployment.apps/consul-consul-connect-injector       1/1   1     1     41s
+
+          deployment.apps/consul-consul-webhook-cert-manager   1/1   1     1     41s
+
+          statefulset.apps/consul-consul-server   1/1   41s'
+        pods: '# consul
+
+          consul-consul-connect-injector-769f576cf-mwghm        1/1   Running   0     41s
+
+          consul-consul-server-0                                1/1   Running   0     41s
+
+          consul-consul-webhook-cert-manager-7b7958cdff-mxmx8   1/1   Running   0     41s'
+        notReady: []
+    configHubOciArgo:
+      result: watch
+      workloadSpace: helm-expt-parity-consul-mq590sva-euc-consul
+      controller: Argo CD OCI
+      app: consul-parity
+      manifestSHA256: 26c9fa8f016089c75df8d39038420a732a16ae7406c14f57aea6216526ae67ec
+      objectCount: 69
+      namespace: consul-oci
+      manifestNamespaces:
+      - consul
+      - consul-oci
+      runtimeNamespaces: &id002
+      - consul
+      ociRevision: sha256:fbbc7817ab5cb747813bcc3cd21ba8b2a9b563865a74e7c0355856e858b8fb33
+      sync: OutOfSync
+      health: Healthy
+      separatedSecrets: []
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# consul
+
+          deployment.apps/consul-consul-connect-injector       1/1   1     1     10m
+
+          deployment.apps/consul-consul-webhook-cert-manager   1/1   1     1     10m
+
+          statefulset.apps/consul-consul-server   1/1   10m'
+        pods: '# consul
+
+          consul-consul-connect-injector-769f576cf-mwghm        1/1   Running   0     10m
+
+          consul-consul-server-0                                1/1   Running   0     10m
+
+          consul-consul-webhook-cert-manager-7b7958cdff-mxmx8   1/1   Running   0     10m'
+        notReady: []
   semanticComparison:
     allowedExtraConfigHubObjects:
     - v1|Namespace||consul
+    semanticNormalizations: &id003
+    - prune-null-fields
+    - trim-leading-command-block-newline
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 68
+      configHubObjectCount: 69
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||consul
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: e29877851daaa06262af9013447e8e10dc7256ada4b416560f87be8a7265e9eb
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 68
+      configHubObjectCount: 69
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||consul
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: e29877851daaa06262af9013447e8e10dc7256ada4b416560f87be8a7265e9eb
   checks:
-  - name: failure
-    result: blocked
-    detail: 'cub lk up failed: timeout after 600s'
-  failure:
-    message: 'cub lk up failed: timeout after 600s'
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-consul-mq590sva-euc\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-consul-mq590sva-euc.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-consul-mq590sva-euc\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-consul-mq590sva-euc\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-consul-mq590sva-euc\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-consul-mq590sva-euc.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
+      Installing Argo CD...\nCreating namespace \"argocd\"...\n"
+  - name: regular-helm-live
+    result: pass
+    detail: 'I0608 14:32:03.189104   19436 warnings.go:107] "Warning: unrecognized
+      format \"int32\""'
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# consul
+
+      deployment.apps/consul-consul-connect-injector       1/1   1     1     41s
+
+      deployment.apps/consul-consul-webhook-cert-manager   1/1   1     1     41s
+
+      statefulset.apps/consul-consul-server   1/1   41s'
+  - name: confighub-oci-argo-live
+    result: watch
+    detail: sync=OutOfSync health=Healthy after 420s
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||consul'] diffs=0
