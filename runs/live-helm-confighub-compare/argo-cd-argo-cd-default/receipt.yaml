@@ -6,16 +6,16 @@ spec:
   chart: argo-cd/argo-cd
   version: 9.5.15
   base: default
-  result: blocked
-  observedAt: '2026-06-08T13:46:00Z'
+  result: watch
+  observedAt: '2026-06-08T15:46:05Z'
   package:
     path: packages/argo-cd/argo-cd/9.5.15
   recipe:
     path: recipes/argo-cd/argo-cd/9.5.15
   variantRevision: recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/variant-revision.yaml
   run:
-    rig: helm-expt-parity-argocd-mq59kmod-i6m
-    kubeContext: kind-helm-expt-parity-argocd-mq59kmod-i6m
+    rig: helm-expt-parity-argocd-mq5dv1mh-gv0
+    kubeContext: kind-helm-expt-parity-argocd-mq5dv1mh-gv0
     namespace: argocd
     legNamespaces:
       regularHelm: argocd-helm
@@ -23,46 +23,65 @@ spec:
       configHubOciArgo: argocd-oci
     clusterLifecycle: cleaned-up
     cleanup:
-      command: cub lk down --name helm-expt-parity-argocd-mq59kmod-i6m --force
+      command: cub lk down --name helm-expt-parity-argocd-mq5dv1mh-gv0 --force
       result: pass
-      detail: 'Deleting kind cluster "helm-expt-parity-argocd-mq59kmod-i6m"...
+      detail: 'Deleting kind cluster "helm-expt-parity-argocd-mq5dv1mh-gv0"...
 
-        Deleting cluster "helm-expt-parity-argocd-mq59kmod-i6m" ...
+        Deleting cluster "helm-expt-parity-argocd-mq5dv1mh-gv0" ...
 
-        Deleted nodes: ["helm-expt-parity-argocd-mq59kmod-i6m-control-plane"]
+        Deleted nodes: ["helm-expt-parity-argocd-mq5dv1mh-gv0-control-plane"]
 
-        Deleting Space "helm-expt-parity-argocd-mq59kmod-i6m-cluster" (recursive:
+        Deleting Space "helm-expt-parity-argocd-mq5dv1mh-gv0-cluster" (recursive:
         cascades to Unit, Target, Worker)...
 
 
         Done.'
   legs:
     regularHelm:
-      result: blocked
+      result: pass
       command: helm upgrade --install argo-cd argo-cd --repo https://argoproj.github.io/argo-helm
         --version 9.5.15 --namespace argocd-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: e52ddef5e56e347a8959dd1e8591e116479bf8aa8682c83e3753fe7355a38cc0
       objectCount: 49
-      liveHelmManifestSHA256: ''
-      liveHelmManifestObjectCount: 0
+      liveHelmManifestSHA256: 12375bf1079f52771311f74cb02225b351b9c77ae5726561838ad20d0af71f56
+      liveHelmManifestObjectCount: 49
       namespace: argocd-helm
       runtime:
-        result: watch
-        workloads: ''
-        pods: ''
+        result: pass
+        workloads: 'deployment.apps/argo-cd-argocd-applicationset-controller   1/1   1     1     65s
+
+          deployment.apps/argo-cd-argocd-dex-server                  1/1   1     1     64s
+
+          deployment.apps/argo-cd-argocd-notifications-controller    1/1   1     1     65s
+
+          deployment.apps/argo-cd-argocd-redis                       1/1   1     1     64s
+
+          deployment.apps/argo-cd-argocd-repo-server                 1/1   1     1     65s
+
+          deployment.apps/argo-cd-argocd-server                      1/1   1     1     65s
+
+          statefulset.apps/argo-cd-argocd-application-controller   1/1   64s'
+        pods: 'argo-cd-argocd-application-controller-0                     1/1   Running   0     64s
+
+          argo-cd-argocd-applicationset-controller-7cd66884bc-qzqdh   1/1   Running   0     65s
+
+          argo-cd-argocd-dex-server-7678b4bd45-t2npk                  1/1   Running   0     64s
+
+          argo-cd-argocd-notifications-controller-677ffbd8d6-vlsnj    1/1   Running   0     65s
+
+          argo-cd-argocd-redis-6d948d65cb-ccnds                       1/1   Running   0     64s
+
+          argo-cd-argocd-repo-server-6f478b9c74-xlfbr                 1/1   Running   0     65s
+
+          argo-cd-argocd-server-8dbf74f69-kkqhg                       1/1   Running   0     64s'
         notReady: []
-      stderr: 'Error: unable to continue with install: CustomResourceDefinition "applications.argoproj.io"
-        in namespace "" exists and cannot be imported into the current release: invalid
-        ownership metadata; label validation error: missing key "app.kubernetes.io/managed-by":
-        must be set to "Helm"; annotation validation error: missing key "meta.helm.sh/release-name":
-        must be set to "argo-cd"; annotation validation error: missing key "meta.helm.sh/release-namespace":
-        must be set to "argocd-helm"'
-      getManifestError: 'Error: release: not found'
+      stderr: ''
+      getManifestError: ''
     configHubKubectlApply:
       result: watch
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/argo-cd/argo-cd/9.5.15
-        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argocd-mq59kmod-i6m-argo-cd
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argocd-mq5dv1mh-gv0-argo-cd
         --non-interactive --namespace argocd-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
       manifestSHA256: 142e2de084be2b85d0f38d04f0a6557a0c7bb1468e7a792476d11113c3078a01
@@ -92,44 +111,44 @@ spec:
           statefulset.apps/argo-cd-argocd-application-controller   0/1   4m53s'
         pods: '# argocd-apply
 
-          argo-cd-argocd-application-controller-0                    0/1   CreateContainerConfigError   0               4m53s
+          argo-cd-argocd-application-controller-0                    0/1   CreateContainerConfigError   0             4m53s
 
-          argo-cd-argocd-applicationset-controller-d7b84547c-q7zpn   1/1   Running                      0               4m52s
+          argo-cd-argocd-applicationset-controller-d7b84547c-xbrss   1/1   Running                      0             4m53s
 
-          argo-cd-argocd-dex-server-676f75f567-bxc5j                 0/1   Error                        5
-          (2m42s ago)   4m52s
+          argo-cd-argocd-dex-server-676f75f567-njjmn                 0/1   CrashLoopBackOff             5
+          (97s ago)   4m53s
 
-          argo-cd-argocd-notifications-controller-c6fb5b58f-c2qq5    1/1   Running                      0               4m52s
+          argo-cd-argocd-notifications-controller-c6fb5b58f-vnhct    1/1   Running                      0             4m53s
 
-          argo-cd-argocd-redis-6d948d65cb-dzcrq                      0/1   CreateContainerConfigError   0               4m53s
+          argo-cd-argocd-redis-6d948d65cb-jddk5                      0/1   CreateContainerConfigError   0             4m53s
 
-          argo-cd-argocd-repo-server-84d4bc7ddd-qn4cw                0/1   CreateContainerConfigError   0               4m52s
+          argo-cd-argocd-repo-server-84d4bc7ddd-mkb9m                0/1   CreateContainerConfigError   0             4m53s
 
-          argo-cd-argocd-server-7b67f47f47-2g4v9                     0/1   CreateContainerConfigError   0               4m52s'
+          argo-cd-argocd-server-7b67f47f47-5xl2m                     0/1   CreateContainerConfigError   0             4m53s'
         notReady:
         - namespace: argocd-apply
           pod: argo-cd-argocd-application-controller-0
           ready: 0/1
           status: CreateContainerConfigError
         - namespace: argocd-apply
-          pod: argo-cd-argocd-dex-server-676f75f567-bxc5j
+          pod: argo-cd-argocd-dex-server-676f75f567-njjmn
           ready: 0/1
-          status: Error
+          status: CrashLoopBackOff
         - namespace: argocd-apply
-          pod: argo-cd-argocd-redis-6d948d65cb-dzcrq
-          ready: 0/1
-          status: CreateContainerConfigError
-        - namespace: argocd-apply
-          pod: argo-cd-argocd-repo-server-84d4bc7ddd-qn4cw
+          pod: argo-cd-argocd-redis-6d948d65cb-jddk5
           ready: 0/1
           status: CreateContainerConfigError
         - namespace: argocd-apply
-          pod: argo-cd-argocd-server-7b67f47f47-2g4v9
+          pod: argo-cd-argocd-repo-server-84d4bc7ddd-mkb9m
+          ready: 0/1
+          status: CreateContainerConfigError
+        - namespace: argocd-apply
+          pod: argo-cd-argocd-server-7b67f47f47-5xl2m
           ready: 0/1
           status: CreateContainerConfigError
     configHubOciArgo:
       result: watch
-      workloadSpace: helm-expt-parity-argocd-mq59kmod-i6m-argo-cd
+      workloadSpace: helm-expt-parity-argocd-mq5dv1mh-gv0-argo-cd
       controller: Argo CD OCI
       app: argo-cd-parity
       manifestSHA256: 6b10845255540959ff60d40b8fb49e6402c31cfe8b89fa61efcc41359dd41c67
@@ -139,7 +158,7 @@ spec:
       - argocd-oci
       runtimeNamespaces: &id002
       - argocd-oci
-      ociRevision: sha256:ca51060c17008728d1f0205af3084d880c9beb5372931d9af7b12a7de36bbef9
+      ociRevision: sha256:d48a30343113933dbdb44a21e253dc926b5cfea730a3af0e4651a03b5c9ad4f5
       sync: Synced
       health: Progressing
       separatedSecrets:
@@ -150,54 +169,54 @@ spec:
         namespaces: *id002
         workloads: '# argocd-oci
 
-          deployment.apps/argo-cd-argocd-applicationset-controller   1/1   1     1     9m35s
+          deployment.apps/argo-cd-argocd-applicationset-controller   1/1   1     1     9m39s
 
-          deployment.apps/argo-cd-argocd-dex-server                  0/1   1     0     9m35s
+          deployment.apps/argo-cd-argocd-dex-server                  0/1   1     0     9m39s
 
-          deployment.apps/argo-cd-argocd-notifications-controller    1/1   1     1     9m35s
+          deployment.apps/argo-cd-argocd-notifications-controller    1/1   1     1     9m39s
 
-          deployment.apps/argo-cd-argocd-redis                       0/1   1     0     9m35s
+          deployment.apps/argo-cd-argocd-redis                       0/1   1     0     9m39s
 
-          deployment.apps/argo-cd-argocd-repo-server                 0/1   1     0     9m35s
+          deployment.apps/argo-cd-argocd-repo-server                 0/1   1     0     9m39s
 
-          deployment.apps/argo-cd-argocd-server                      0/1   1     0     9m35s
+          deployment.apps/argo-cd-argocd-server                      0/1   1     0     9m39s
 
-          statefulset.apps/argo-cd-argocd-application-controller   0/1   9m35s'
+          statefulset.apps/argo-cd-argocd-application-controller   0/1   9m39s'
         pods: '# argocd-oci
 
-          argo-cd-argocd-application-controller-0                    0/1   CreateContainerConfigError   0              9m35s
+          argo-cd-argocd-application-controller-0                    0/1   CreateContainerConfigError   0               9m39s
 
-          argo-cd-argocd-applicationset-controller-d7b84547c-9qpw6   1/1   Running                      0              9m35s
+          argo-cd-argocd-applicationset-controller-d7b84547c-drsvw   1/1   Running                      0               9m39s
 
-          argo-cd-argocd-dex-server-676f75f567-5bgdd                 0/1   CrashLoopBackOff             6
-          (4m4s ago)   9m35s
+          argo-cd-argocd-dex-server-676f75f567-tn74z                 0/1   CrashLoopBackOff             6
+          (3m51s ago)   9m39s
 
-          argo-cd-argocd-notifications-controller-c6fb5b58f-jvdn5    1/1   Running                      0              9m35s
+          argo-cd-argocd-notifications-controller-c6fb5b58f-w4t9g    1/1   Running                      0               9m39s
 
-          argo-cd-argocd-redis-6d948d65cb-66vfk                      0/1   CreateContainerConfigError   0              9m35s
+          argo-cd-argocd-redis-6d948d65cb-9qzpq                      0/1   CreateContainerConfigError   0               9m39s
 
-          argo-cd-argocd-repo-server-84d4bc7ddd-5kmrs                0/1   CreateContainerConfigError   0              9m35s
+          argo-cd-argocd-repo-server-84d4bc7ddd-f4glc                0/1   CreateContainerConfigError   0               9m39s
 
-          argo-cd-argocd-server-7b67f47f47-n4r26                     0/1   CreateContainerConfigError   0              9m35s'
+          argo-cd-argocd-server-7b67f47f47-bb7ts                     0/1   CreateContainerConfigError   0               9m39s'
         notReady:
         - namespace: argocd-oci
           pod: argo-cd-argocd-application-controller-0
           ready: 0/1
           status: CreateContainerConfigError
         - namespace: argocd-oci
-          pod: argo-cd-argocd-dex-server-676f75f567-5bgdd
+          pod: argo-cd-argocd-dex-server-676f75f567-tn74z
           ready: 0/1
           status: CrashLoopBackOff
         - namespace: argocd-oci
-          pod: argo-cd-argocd-redis-6d948d65cb-66vfk
+          pod: argo-cd-argocd-redis-6d948d65cb-9qzpq
           ready: 0/1
           status: CreateContainerConfigError
         - namespace: argocd-oci
-          pod: argo-cd-argocd-repo-server-84d4bc7ddd-5kmrs
+          pod: argo-cd-argocd-repo-server-84d4bc7ddd-f4glc
           ready: 0/1
           status: CreateContainerConfigError
         - namespace: argocd-oci
-          pod: argo-cd-argocd-server-7b67f47f47-n4r26
+          pod: argo-cd-argocd-server-7b67f47f47-bb7ts
           ready: 0/1
           status: CreateContainerConfigError
   semanticComparison:
@@ -228,9 +247,9 @@ spec:
   checks:
   - name: cub-lk-up
     result: pass
-    detail: "Creating kind cluster \"helm-expt-parity-argocd-mq59kmod-i6m\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-argocd-mq59kmod-i6m.kubeconfig)...\n\
-      Creating cluster \"helm-expt-parity-argocd-mq59kmod-i6m\" ...\n \u2022 Ensuring\
+    detail: "Creating kind cluster \"helm-expt-parity-argocd-mq5dv1mh-gv0\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-argocd-mq5dv1mh-gv0.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-argocd-mq5dv1mh-gv0\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
       \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
@@ -238,19 +257,26 @@ spec:
       \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
       \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
-      \nSet kubectl context to \"kind-helm-expt-parity-argocd-mq59kmod-i6m\"\nYou\
-      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-argocd-mq59kmod-i6m\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-argocd-mq59kmod-i6m.kubeconfig\n\
-      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
-      Installing Argo CD...\nCreating namespace \"argocd\"...\n"
+      \nSet kubectl context to \"kind-helm-expt-parity-argocd-mq5dv1mh-gv0\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-argocd-mq5dv1mh-gv0\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-argocd-mq5dv1mh-gv0.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\nspec:\
+      \ {}\nsta"
   - name: regular-helm-live
-    result: blocked
-    detail: 'Error: unable to continue with install: CustomResourceDefinition "applications.argoproj.io"
-      in namespace "" exists and cannot be imported into the current release: invalid
-      ownership metadata; label validation error: missing key "app.kubernetes.io/managed-by":
-      must be set to "Helm"; annotation validation error: missing key "meta.helm.sh/release-name":
-      must be set to "argo-cd"; annotation validation error: missing key "meta.helm.sh/release-namespace":
-      must be set to "argocd-helm"'
+    result: pass
+    detail: "Release \"argo-cd\" does not exist. Installing it now.\nNAME: argo-cd\n\
+      LAST DEPLOYED: Mon Jun  8 16:47:36 2026\nNAMESPACE: argocd-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nIn order\
+      \ to access the server UI you have the following options:\n\n1. kubectl port-forward\
+      \ service/argo-cd-argocd-server -n argocd-helm 8080:443\n\n    and then open\
+      \ the browser on http://localhost:8080 and accept the certificate\n\n2. enable\
+      \ ingress in the values file `server.ingress.enabled` and either\n      - Add\
+      \ the annotation for ssl passthrough: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-1-ssl-passthrough\n\
+      \      - Set the `configs.params.\"server.insecure\"` in the values file and\
+      \ terminate SSL at your ingress: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-2-multiple-ingress-objects-and-hosts\n\
+      \n\nAfter reaching the UI the first time you can login with username: admin\
+      \ and the random password generated during the installation."
   - name: confighub-kubectl-apply-live
     result: watch
     detail: '# argocd-apply
