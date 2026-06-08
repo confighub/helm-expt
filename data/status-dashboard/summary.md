@@ -48,6 +48,9 @@ Which detailed CSV should I open next?
 | quirks | partly tracked axes | 3/26 | partial | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
 | quirks | source-scanned but not surfaced axes | 5/26 | gap | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
 | quirks | not-scanned axes | 6/26 | gap | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
+| extension slots | top20 charts with extension slots | 13/20 | partial | [data/extension-slots/extension-slots.csv](../../data/extension-slots/extension-slots.csv) |
+| extension slots | top100 charts with extension slots | 82/100 | partial | [data/extension-slots/extension-slots.csv](../../data/extension-slots/extension-slots.csv) |
+| extension slots | top500 source rows using tpl | 362/500 | partial | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
 | hooks | top100 maintained hook charts | 5/5 | partial | [data/hook-lifecycle/top100-hooks.csv](../../data/hook-lifecycle/top100-hooks.csv) |
 | hooks | hook lifecycle receipts present | 0/5 | gap | [data/hook-lifecycle/top100-hooks.csv](../../data/hook-lifecycle/top100-hooks.csv) |
 | hooks | hook/lifecycle boundary rows | 9/9 | partial | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
@@ -227,6 +230,41 @@ target-bound receipts are in
 | tracked-by-lock-not-front-door | 2 |
 | disclosed-not-complete | 1 |
 
+## Extension Slot Coverage
+
+Extension slots are Helm inputs that can inject raw manifests, templated
+snippets, config blocks, sidecars, extra volumes, or chart-specific config
+files. They are useful, but a populated slot changes the install shape. The
+supported catalog route is to keep them empty or controlled in the first base,
+then create a reviewed `cub installer` base when a slot is populated.
+
+| Scope | Charts |
+| --- | ---: |
+| top-20 catalog charts with extension slots | 13/20 |
+| top-100 chart facts with extension slots | 82/100 |
+| top-500 source rows using `tpl` | 362/500 |
+
+| Top-20 chart | Example surfaces | Route |
+| --- | --- | --- |
+| argo-cd/argo-cd@9.5.15 | raw/extra manifests; tpl-powered values | keep empty in supported bases, or make a reviewed installer base when populated |
+| bitnami/mongodb@19.0.7 | tpl-powered values | keep empty in supported bases, or make a reviewed installer base when populated |
+| bitnami/nginx@24.0.2 | NGINX config blocks; raw/extra manifests; sidecars | keep empty in supported bases, or make a reviewed installer base when populated |
+| external-secrets/external-secrets@2.5.0 | raw/extra manifests; tpl-powered values | keep empty in supported bases, or make a reviewed installer base when populated |
+| grafana/grafana@10.5.15 | sidecars; monitoring config; Secret/env injection | keep empty in supported bases, or make a reviewed installer base when populated |
+| grafana/loki@7.0.0 | raw/extra manifests; Secret/env injection; tpl-powered values | keep empty in supported bases, or make a reviewed installer base when populated |
+| grafana/tempo@1.24.4 | volumes/mounts; tpl-powered values | keep empty in supported bases, or make a reviewed installer base when populated |
+| hashicorp/consul@2.0.0 | controller/gateway config; tpl-powered values | keep empty in supported bases, or make a reviewed installer base when populated |
+| hashicorp/vault@0.32.0 | sidecars; volumes/mounts; Secret/env injection | keep empty in supported bases, or make a reviewed installer base when populated |
+| jetstack/cert-manager@v1.20.2 | raw/extra manifests; tpl-powered values | keep empty in supported bases, or make a reviewed installer base when populated |
+| prometheus-community/kube-prometheus-stack@85.3.3 | raw/extra manifests; monitoring config; tpl-powered values | keep empty in supported bases, or make a reviewed installer base when populated |
+| prometheus-community/prometheus@29.8.0 | raw/extra manifests; monitoring config | keep empty in supported bases, or make a reviewed installer base when populated |
+| secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | chart-specific tpl/raw/config slots | keep empty in supported bases, or make a reviewed installer base when populated |
+
+Use [extension-slots/summary.md](../extension-slots/summary.md) for the full
+NGINX-style extension-slot report.
+
+## Hook Residue
+
 | Hook chart | Selected base | Current disposition | Next action |
 | --- | --- | --- | --- |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | requires-route-and-receipt | choose lifecycle route, run live path, commit lifecycle or observation receipt |
@@ -261,6 +299,7 @@ lifecycle observation.
 | Which base variants have which proof lanes? | [outcome-coverage/base-outcomes.csv](../outcome-coverage/base-outcomes.csv) |
 | Which top-20 base variant should I start with? | [top20-base-readiness/summary.md](../top20-base-readiness/summary.md) |
 | Which hooks, CRDs, generated facts, or target facts matter? | [outcome-coverage/feature-outcomes.csv](../outcome-coverage/feature-outcomes.csv) |
+| Which charts have NGINX-like extension slots? | [extension-slots/summary.md](../extension-slots/summary.md) |
 | Which Helm quirk axes are still blind spots? | [quirk-coverage/coverage.csv](../quirk-coverage/coverage.csv) |
 | Which hook charts need lifecycle receipts? | [hook-lifecycle/top100-hooks.csv](../hook-lifecycle/top100-hooks.csv) |
 | Which hook claims are queued versus observed? | [lifecycle-boundary/summary.md](../lifecycle-boundary/summary.md) |

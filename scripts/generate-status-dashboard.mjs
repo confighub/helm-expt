@@ -39,6 +39,7 @@ function buildReport() {
   const top100Rows = readCsv("data/top100-readiness/readiness.csv");
   const top500Rows = readCsv("data/top500-catalog-analysis/review.csv");
   const quirkRows = readCsv("data/quirk-coverage/coverage.csv");
+  const extensionRows = readCsv("data/extension-slots/extension-slots.csv");
   const hookRows = readCsv("data/hook-lifecycle/top100-hooks.csv");
   const lifecycleBoundaryRows = readCsv("data/lifecycle-boundary/lifecycle-boundary.csv");
   const lifecycleObservationRows = readCsv("data/lifecycle-observations/cert-manager-eso/summary.csv");
@@ -90,6 +91,9 @@ function buildReport() {
   rows.push(metric("quirks", "partly tracked axes", quirkTierCounts.get("partly-tracked") ?? 0, quirkRows.length, "partial", "data/quirk-coverage/coverage.csv", "Visible quirk axes that still need lifecycle or proof coverage."));
   rows.push(metric("quirks", "source-scanned but not surfaced axes", quirkTierCounts.get("source-scanned-not-surfaced") ?? 0, quirkRows.length, "gap", "data/quirk-coverage/coverage.csv", "Detected in source scan but not promoted to front-door chart facts."));
   rows.push(metric("quirks", "not-scanned axes", quirkTierCounts.get("not-scanned") ?? 0, quirkRows.length, "gap", "data/quirk-coverage/coverage.csv", "Known blind spots in the scanner/data model."));
+  rows.push(metric("extension slots", "top20 charts with extension slots", extensionRows.filter((row) => row.catalog_scope === "top20-catalog").length, 20, "partial", "data/extension-slots/extension-slots.csv", "Top-20 catalog charts that expose raw manifests, tpl snippets, config blocks, sidecars, or add-on slots."));
+  rows.push(metric("extension slots", "top100 charts with extension slots", extensionRows.length, 100, "partial", "data/extension-slots/extension-slots.csv", "Top-100 chart facts where NGINX-like extension slots are surfaced."));
+  rows.push(metric("extension slots", "top500 source rows using tpl", Number(quirkRows.find((row) => row.axis === "tpl-extension-slots")?.top500_count ?? 0), top500Rows.length, "partial", "data/quirk-coverage/coverage.csv", "Broader source-scan signal for template-powered inputs; not every tpl use is an explicit supported slot."));
 
   rows.push(metric("hooks", "top100 maintained hook charts", hookRows.length, hookRows.length, "partial", "data/hook-lifecycle/top100-hooks.csv", "Hook-bearing maintained charts with required lifecycle receipt paths."));
   rows.push(metric("hooks", "hook lifecycle receipts present", hookRows.filter((row) => row.lifecycle_disposition === "lifecycle-observed").length, hookRows.length, "gap", "data/hook-lifecycle/top100-hooks.csv", "Current hook rows still need lifecycle route and receipt work."));
@@ -104,7 +108,7 @@ function buildReport() {
     csv: toCsv(rows),
     top20Rows,
     top20Csv: top20ToCsv(top20Rows),
-    summary: summary(rows, { chartRows, baseRows, top100Rows, top500Rows, top20Rows, quirkRows, hookRows, lifecycleBoundaryRows, liveRows, kindParityRows, runtimeRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount }),
+    summary: summary(rows, { chartRows, baseRows, top100Rows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, lifecycleBoundaryRows, liveRows, kindParityRows, runtimeRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount }),
   };
 }
 
@@ -114,6 +118,7 @@ function summary(rows, context) {
   const top500CatalogStatus = groupCount(context.top500Rows, "catalog_status");
   const top500RecipeStatus = groupCount(context.top500Rows, "recipe_status");
   const quirkTierCounts = groupCount(context.quirkRows, "coverage_tier");
+  const top20ExtensionRows = context.extensionRows.filter((row) => row.catalog_scope === "top20-catalog");
   const lifecycleBoundaryCounts = groupCount(context.lifecycleBoundaryRows, "lane");
   const hookPreview = context.hookRows.slice(0, 8);
   const liveNonPass = context.liveRows.filter((row) => row.result && row.result !== "pass");
@@ -262,6 +267,29 @@ target-bound receipts are in
 | --- | ---: |
 ${mapRows(quirkTierCounts)}
 
+## Extension Slot Coverage
+
+Extension slots are Helm inputs that can inject raw manifests, templated
+snippets, config blocks, sidecars, extra volumes, or chart-specific config
+files. They are useful, but a populated slot changes the install shape. The
+supported catalog route is to keep them empty or controlled in the first base,
+then create a reviewed \`cub installer\` base when a slot is populated.
+
+| Scope | Charts |
+| --- | ---: |
+| top-20 catalog charts with extension slots | ${top20ExtensionRows.length}/20 |
+| top-100 chart facts with extension slots | ${context.extensionRows.length}/100 |
+| top-500 source rows using \`tpl\` | ${Number(context.quirkRows.find((row) => row.axis === "tpl-extension-slots")?.top500_count ?? 0)}/${context.top500Rows.length} |
+
+| Top-20 chart | Example surfaces | Route |
+| --- | --- | --- |
+${top20ExtensionRows.map((row) => `| ${row.chart} | ${row.surfaces} | ${row.current_route} |`).join("\n")}
+
+Use [extension-slots/summary.md](../extension-slots/summary.md) for the full
+NGINX-style extension-slot report.
+
+## Hook Residue
+
 | Hook chart | Selected base | Current disposition | Next action |
 | --- | --- | --- | --- |
 ${hookPreview.map((row) => `| ${row.chart}@${row.version} | ${row.selected_base} | ${row.lifecycle_disposition} | ${row.next_action} |`).join("\n")}
@@ -291,6 +319,7 @@ lifecycle observation.
 | Which base variants have which proof lanes? | [outcome-coverage/base-outcomes.csv](../outcome-coverage/base-outcomes.csv) |
 | Which top-20 base variant should I start with? | [top20-base-readiness/summary.md](../top20-base-readiness/summary.md) |
 | Which hooks, CRDs, generated facts, or target facts matter? | [outcome-coverage/feature-outcomes.csv](../outcome-coverage/feature-outcomes.csv) |
+| Which charts have NGINX-like extension slots? | [extension-slots/summary.md](../extension-slots/summary.md) |
 | Which Helm quirk axes are still blind spots? | [quirk-coverage/coverage.csv](../quirk-coverage/coverage.csv) |
 | Which hook charts need lifecycle receipts? | [hook-lifecycle/top100-hooks.csv](../hook-lifecycle/top100-hooks.csv) |
 | Which hook claims are queued versus observed? | [lifecycle-boundary/summary.md](../lifecycle-boundary/summary.md) |

@@ -30,6 +30,9 @@ quirks,tracked-and-surfaced axes,9,26,good,data/quirk-coverage/coverage.csv,Quir
 quirks,partly tracked axes,3,26,partial,data/quirk-coverage/coverage.csv,Visible quirk axes that still need lifecycle or proof coverage.
 quirks,source-scanned but not surfaced axes,5,26,gap,data/quirk-coverage/coverage.csv,Detected in source scan but not promoted to front-door chart facts.
 quirks,not-scanned axes,6,26,gap,data/quirk-coverage/coverage.csv,Known blind spots in the scanner/data model.
+extension slots,top20 charts with extension slots,13,20,partial,data/extension-slots/extension-slots.csv,"Top-20 catalog charts that expose raw manifests, tpl snippets, config blocks, sidecars, or add-on slots."
+extension slots,top100 charts with extension slots,82,100,partial,data/extension-slots/extension-slots.csv,Top-100 chart facts where NGINX-like extension slots are surfaced.
+extension slots,top500 source rows using tpl,362,500,partial,data/quirk-coverage/coverage.csv,Broader source-scan signal for template-powered inputs; not every tpl use is an explicit supported slot.
 hooks,top100 maintained hook charts,5,5,partial,data/hook-lifecycle/top100-hooks.csv,Hook-bearing maintained charts with required lifecycle receipt paths.
 hooks,hook lifecycle receipts present,0,5,gap,data/hook-lifecycle/top100-hooks.csv,Current hook rows still need lifecycle route and receipt work.
 hooks,hook/lifecycle boundary rows,9,9,partial,data/lifecycle-boundary/lifecycle-boundary.csv,Separates hook queue rows from hook-like controller lifecycle observations.
