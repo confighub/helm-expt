@@ -50,6 +50,19 @@ spec:
       - "ha"
     deferredVariants:
       []
+  proofSummary:
+    adoptionBucket: "limitation-decision-first"
+    userStatus: "proof-grade-with-named-limitation"
+    strongestEvidence: "render-parity"
+    proofLanes:
+      renderParity: "2/2"
+      inConfigHub: "0/2"
+      localLive: "0/2"
+      gitopsLive: "0/2"
+      liveParity: "0/2"
+    featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots"
+    hardGap: "existing-secret (chart ships no Secret toggle - #113)"
+    nextAction: "review limitation before promotion: existing-secret (chart ships no Secret toggle - #113)"
   installerPackage:
     path: "packages/bitnami/zookeeper/13.8.7"
     installer: "packages/bitnami/zookeeper/13.8.7/installer.yaml"

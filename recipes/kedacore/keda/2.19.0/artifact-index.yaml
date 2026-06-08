@@ -52,6 +52,19 @@ spec:
       - "no-crds"
     deferredVariants:
       []
+  proofSummary:
+    adoptionBucket: "promote-after-review"
+    userStatus: "proof-grade-ready-for-promotion-review"
+    strongestEvidence: "render-parity"
+    proofLanes:
+      renderParity: "2/2"
+      inConfigHub: "0/2"
+      localLive: "0/2"
+      gitopsLive: "0/2"
+      liveParity: "0/2"
+    featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots"
+    hardGap: "-"
+    nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/kedacore/keda/2.19.0"
     installer: "packages/kedacore/keda/2.19.0/installer.yaml"

@@ -49,6 +49,19 @@ spec:
       []
     deferredVariants:
       []
+  proofSummary:
+    adoptionBucket: "try-from-public-catalog"
+    userStatus: "catalog-supported-with-live-evidence"
+    strongestEvidence: "live-helm-vs-confighub-parity"
+    proofLanes:
+      renderParity: "2/2"
+      inConfigHub: "0/2"
+      localLive: "1/2"
+      gitopsLive: "1/2"
+      liveParity: "1/2"
+    featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots"
+    hardGap: "existing-secret (chart ships no Secret toggle - #113)"
+    nextAction: "resolve or document: existing-secret (chart ships no Secret toggle - #113)"
   installerPackage:
     path: "packages/metrics-server/metrics-server/3.13.0"
     installer: "packages/metrics-server/metrics-server/3.13.0/installer.yaml"

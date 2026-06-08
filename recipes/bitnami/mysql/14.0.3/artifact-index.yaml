@@ -49,6 +49,19 @@ spec:
       []
     deferredVariants:
       []
+  proofSummary:
+    adoptionBucket: "try-from-public-catalog"
+    userStatus: "catalog-supported-with-live-evidence"
+    strongestEvidence: "local-kubernetes-live"
+    proofLanes:
+      renderParity: "2/2"
+      inConfigHub: "1/2"
+      localLive: "1/2"
+      gitopsLive: "0/2"
+      liveParity: "0/2"
+    featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots"
+    hardGap: "ha (curated proof lane - bespoke teaching needed)"
+    nextAction: "resolve or document: ha (curated proof lane - bespoke teaching needed)"
   installerPackage:
     path: "packages/bitnami/mysql/14.0.3"
     installer: "packages/bitnami/mysql/14.0.3/installer.yaml"
