@@ -9,8 +9,12 @@ install, ConfigHub apply, OCI delivery, or semantic comparison.
 
 After the hardened live rig was added, the 2026-06-08 rerun of External Secrets
 did reach the full comparison. It changed that row from an infrastructure
-failure into a real live-parity finding. The current summary therefore contains
-both kinds of blocked row:
+failure into a real live-parity finding. The 2026-06-08 Loki rerun also reached
+the full comparison and now passes after the live comparator applies the same
+ConfigMap serialization normalization recorded in the chart's Helm equivalence
+receipt.
+
+The current summary therefore contains these kinds of blocked row:
 
 - `infra:` rows are local test-rig/provisioning failures that still need a clean
   rerun before product conclusions are drawn.
@@ -26,7 +30,6 @@ both kinds of blocked row:
 | 5 | external-secrets/external-secrets | `parity: live semantic diff` | The hardened rerun reached Helm, ConfigHub apply, and ConfigHub OCI/Argo. The webhook Deployment is the reported semantic diff, and the ConfigHub apply/OCI legs left the cert-controller and webhook pods not ready. This aligns with the chart's documented webhook Secret/cert-controller control point and needs chart-specific review. |
 | 6 | argo-cd/argo-cd | `infra: etcd/apiserver overload` | The previous run hit API-server/etcd pressure and CRD ownership friction before a clean parity conclusion. |
 | 7 | prometheus-community/kube-prometheus-stack | `infra: rig bootstrap (argocd) not ready` | The previous run failed while bootstrapping the local Argo CD rig. |
-| 10 | grafana/loki | `infra: kind create failed` | The previous run failed during local kind cluster creation. |
 | 11 | longhorn/longhorn | `infra: kind create failed` | The previous run failed during local kind cluster creation. |
 | 12 | hashicorp/vault | `infra: rig bootstrap (argocd) not ready` | The previous run failed while bootstrapping the local Argo CD rig. |
 | 19 | grafana/tempo | `helm-runtime: upstream not ready (parity passed)` | Semantic parity passed; the upstream Helm release did not become ready inside the wait budget. |
@@ -53,16 +56,29 @@ after apply. The next review should decide whether the ConfigHub path needs a
 recipe fix, a stronger lifecycle/observation policy, or a comparator
 normalization fix.
 
+## What The Loki Rerun Proved
+
+The Loki rerun reached all three delivery legs:
+
+- regular Helm installed and became ready;
+- ConfigHub kubectl-apply installed and became ready;
+- ConfigHub OCI/Argo synced and became healthy;
+- semantic comparison passed for both ConfigHub paths after applying the
+  chart-declared `loki-configmap-leading-blank-line-pruned-by-kustomize`
+  normalization.
+
+The previous Loki `infra: kind create failed` row was local rig residue. The live
+lane now records Loki as `pass`.
+
 ## Rerun Order
 
 Rerun the remaining infrastructure-blocked rows one at a time on a clean host:
 
-1. `loki`
-2. `longhorn`
-3. `kube-prometheus-stack`
-4. `vault`
-5. `consul`
-6. `argo-cd`
+1. `longhorn`
+2. `kube-prometheus-stack`
+3. `vault`
+4. `consul`
+5. `argo-cd`
 
 Treat a rerun result as product evidence only if it reaches at least one
 ConfigHub delivery leg and records a semantic comparison. Until then, keep the

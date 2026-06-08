@@ -10,10 +10,10 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 25
-blocked: 20
+rows: 24
+blocked: 19
 watch: 5
-configHub-oci-live-comparison: 10
+configHub-oci-live-comparison: 9
 two-cluster-kind-parity: 15
 ```
 
@@ -29,7 +29,6 @@ two-cluster-kind-parity: 15
 | Priority | Lane | Chart | Base | Current | Reason | Command |
 | ---: | --- | --- | --- | --- | --- | --- |
 | 10 | configHub-oci-live-comparison | `argo-cd/argo-cd@9.5.15` | default | blocked | infra: etcd/apiserver overload | `npm run live-parity:top20 -- --from-rank 6 --to-rank 6 --continue-on-fail` |
-| 10 | configHub-oci-live-comparison | `grafana/loki@7.0.0` | single-binary-filesystem | blocked | infra: kind create failed | `npm run live-parity:top20 -- --from-rank 10 --to-rank 10 --continue-on-fail` |
 | 10 | configHub-oci-live-comparison | `hashicorp/consul@2.0.0` | default-control-plane | blocked | infra: provisioning timeout | `npm run live-parity:top20 -- --from-rank 20 --to-rank 20 --continue-on-fail` |
 | 10 | configHub-oci-live-comparison | `hashicorp/vault@0.32.0` | default | blocked | infra: rig bootstrap (argocd) not ready | `npm run live-parity:top20 -- --from-rank 12 --to-rank 12 --continue-on-fail` |
 | 10 | configHub-oci-live-comparison | `longhorn/longhorn@1.11.2` | default | blocked | infra: kind create failed | `npm run live-parity:top20 -- --from-rank 11 --to-rank 11 --continue-on-fail` |
