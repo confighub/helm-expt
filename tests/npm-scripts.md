@@ -13,6 +13,59 @@ Most scripts use Node.js built-ins and do not need `npm install`. Some scripts
 shell out to `cub`, `cub installer`, `helm`, `kubectl`, `kind`, or ConfigHub
 when they are exercising installer, upload, or live-cluster paths.
 
+## Test Cadence
+
+Use the narrowest check that proves the change you made. The full verifier is
+the release gate, not the default inner-loop command.
+
+| Situation | Run | Why |
+| --- | --- | --- |
+| Editing one doc or one generated-data summary | The matching `*:verify`, plus `npm run docs:verify` if links or doc location changed | Catches stale generated output and broken docs without spending time on unrelated chart proofs. |
+| Editing one top-20 chart proof script | `<chart>:verify-proof`, `<chart>:verify-package`, and `<chart>:verify-proof:self-test` | Proves the chart's receipts, package, and tamper rejection before touching broader lanes. |
+| Editing the shared proof kit | Representative chart checks that exercise the changed hook, then all 19 non-Redis top-20 `verify-proof` and `verify-package` checks | Keeps proof-kit work scoped while still proving the shared path across the migrated charts. |
+| Editing recipe/package structure or target facts | Chart-specific proof/package checks, `npm run verify:artifact-chain`, and `npm run installer:target-facts:verify` when target facts changed | Proves the recipe/package graph and installer-native fact bindings. |
+| Editing status, catalog, or CSV generators | The generator's own `*:verify`, then `npm run data:index:verify` if a CSV was added, removed, or renamed | Keeps front-door data discoverable and prevents stale summaries. |
+| Before merging a broad PR or after several related PRs land | `npm run verify` | Runs the complete committed-artifact gate once the scoped checks already passed. |
+| Before a public demo, release note, or external review | `npm run verify`, plus the specific live receipt verifier for the lane being shown | Separates corpus self-consistency from the live proof being demonstrated. |
+
+Live tests are not the default proof loop. Run them when the goal is to create
+or refresh live evidence:
+
+| Live evidence needed | Run |
+| --- | --- |
+| Local Kubernetes receipt for top-20 rows | `npm run top20:local-e2e` |
+| GitOps/OCI runtime receipt | `tests/chart-install-test` or `tests/chart-install-sweep` |
+| Strict Helm-vs-installer live parity | `npm run kind-parity:run` or `npm run kind-parity:run-top20-variants:missing` |
+| Rerun current live parity residue | `npm run live-parity:rerun-plan` first, then the exact command from the generated plan |
+| Derived ConfigHub variant target proof | `tests/target-bound-derived-variant-test` |
+| Controller-owned or hook-like lifecycle proof | The chart-specific lifecycle runner, such as `npm run lifecycle:cert-manager-eso` |
+
+Treat live runs as evidence-producing work. Commit the receipt and regenerate the
+summary that indexes it, or do not claim the lane changed.
+
+## Chart Refresh Cadence
+
+The catalog should keep the currently supported chart version and any candidate
+new version separate until promotion evidence exists.
+
+| Task | Command | Rule |
+| --- | --- | --- |
+| Check whether supported top-20 charts have newer upstream versions | `npm run top20:latest-refresh` | Produces candidate data only. It does not replace the supported catalog version. |
+| Render and inspect latest-version candidates | `npm run top20:latest-candidates` | Candidate artifacts live under the latest-candidate data path until promotion review. |
+| Decide whether a candidate can replace a supported version | `npm run top20:latest-promotion-readiness` | Replacement needs render proof, gap review, and any required live or lifecycle receipts. |
+| Keep old supported versions useful | `npm run legacy-patch:review` | Older versions may remain valuable for patch, audit, and enterprise support. Do not delete them just because upstream moved. |
+| Review top100/top500 evidence | `npm run top100:readiness`, `npm run top100:catalog`, `npm run top500:catalog` | These are planning and corpus views. They are not live-install claims for every chart. |
+
+Supported catalog movement should be explicit:
+
+```text
+current supported version
+-> latest candidate render/proof
+-> gap and quirk review
+-> live or lifecycle evidence where needed
+-> catalog promotion decision
+```
+
 ## Script Naming Rules
 
 | Pattern | Meaning | Mutates files? |
