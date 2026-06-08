@@ -210,7 +210,7 @@ function featureRowsForChart(facts, model) {
   return rows.map(([feature, status]) => ({
     chart,
     feature,
-    status: status || "-",
+    status: featureStatus(feature, status),
     support_meaning: featureMeaning(feature, status),
     evidence: [
       "data/chart-facts/chart-facts.csv",
@@ -220,16 +220,29 @@ function featureRowsForChart(facts, model) {
   }));
 }
 
+function featureStatus(feature, status) {
+  const text = String(status ?? "").trim();
+  if (emptyFeatureStatus(text)) return "-";
+  if (feature === "crds" || feature === "webhooks") return "present";
+  return text;
+}
+
 function featureMeaning(feature, status) {
-  const text = String(status ?? "");
-  if (!text || text === "-") return "not observed or not applicable in chart facts";
+  const text = String(status ?? "").trim();
+  if (emptyFeatureStatus(text)) return "not observed or not applicable in chart facts";
   if (feature === "not_yet_enabled") return text.includes("no open gap") ? "no hard capability gap recorded" : "hard gap or curated proof lane remains";
   if (feature === "buildable_not_yet_run") return text === "-" ? "no buildable backlog recorded" : "known build path exists but has not been promoted";
   if (feature.includes("hook")) return "hook or lifecycle behavior must be tracked through lifecycle policy or blocker";
   if (feature === "existing_secret") return "bring-your-own-secret route status";
+  if (feature === "crds" && /^\d+$/.test(text)) return `CRDs are present; count ${text}; raw count is in chart-facts.csv`;
   if (feature === "no_crds_variant") return "CRD ownership route status";
+  if (feature === "webhooks" && /^\d+$/.test(text)) return `admission webhooks are present; count ${text}; raw count is in chart-facts.csv`;
   if (feature === "extension_slots") return "open extension slots require per-use review";
   return "tracked chart fact";
+}
+
+function emptyFeatureStatus(text) {
+  return !text || text === "-" || text === "—";
 }
 
 function summary({ aggregate, chartRows }) {
