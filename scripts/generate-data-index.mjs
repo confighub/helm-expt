@@ -62,6 +62,7 @@ function readme(rows) {
     ["data/nginx-config-checks/checks.csv", "NGINX supported-base checks for empty config extension slots, sidecars, metrics, raw objects, and ingress shape."],
     ["data/lifecycle-boundary/summary.md", "Hook and hook-like lifecycle boundary: hook queue rows, lifecycle observations, evidence, and current limits."],
     ["data/live-kind-parity/summary.md", "Two-cluster live parity: regular Helm in one vanilla kind cluster and cub installer output in another."],
+    ["data/production-disposition/summary.md", "Production support boundary for top-20 catalog charts: accepted dispositions, open blockers, and next actions."],
     ["data/pain-point-coverage/summary.md", "General Helm pain point coverage: current answers, handoffs, evidence, gaps, and next actions."],
     ["data/top100-readiness/summary.md", "Top-100 readiness: one chart-by-chart answer for adoption bucket, strongest evidence, hard gap, next action, and first work queues."],
     ["data/top500-catalog-analysis/review.csv", "Top-500 evidence map: retained source-scan rows joined to current recipe proof, catalog status, version drift, source features, and next action."],
@@ -155,6 +156,7 @@ function audienceFor(path) {
   if (path.startsWith("data/variant-path-coverage/")) return "user/front-door";
   if (path.startsWith("data/quirk-coverage/")) return "user/front-door";
   if (path.startsWith("data/extension-slots/")) return "user/front-door";
+  if (path.startsWith("data/production-disposition/")) return "user/front-door";
   if (path.startsWith("data/nginx-config-checks/")) return "verification";
   if (path.startsWith("data/lifecycle-boundary/")) return "user/front-door";
   if (path.startsWith("data/high-fanout-demo/")) return "user/front-door";

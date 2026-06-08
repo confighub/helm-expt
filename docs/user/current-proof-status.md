@@ -29,6 +29,15 @@ to try first:
 It gives one row per top-20 base variant with `start-here`,
 `try-with-proof`, prerequisite, runtime, or hook lifecycle status.
 
+Production support is tracked separately from test evidence:
+
+[Production Disposition](../../data/production-disposition/summary.md)
+
+It shows which top-20 charts still need explicit decisions for scan/gate
+warnings, lifecycle behavior, target facts, storage policy, RBAC, webhooks,
+extension slots, and operating policy before they can be called
+production-supported.
+
 The generated lane matrix is the authority for exact chart/version/base status:
 
 [Lane Test Matrix](../../data/lane-test-matrix/summary.md)
@@ -75,6 +84,11 @@ recipe/package proof
 ```
 
 A row is only proven for a lane when the lane matrix says `pass`.
+
+Production support is stricter than a passing proof lane. A chart can be
+render-equivalent, locally tested, and useful for demos while still blocked
+from production support until its production dispositions are closed or
+explicitly accepted.
 
 ## Current Interpretation
 
@@ -135,6 +149,17 @@ Strict two-cluster Helm-vs-installer parity now has committed receipts for all
 
 Use the generated rerun plan for the next command and expected remediation:
 [Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md).
+
+Production disposition is still open for the top-20 catalog:
+
+- 0 of 20 top-20 charts are currently marked production-supported.
+- 20 of 20 remain blocked pending explicit production dispositions.
+- Redis has the first accepted disposition receipt; the other charts still need
+  disposition closure before the catalog should describe them as
+  production-supported.
+
+Use the generated production table for exact blockers and next actions:
+[Production Disposition](../../data/production-disposition/summary.md).
 
 Lifecycle observation proof has started:
 
