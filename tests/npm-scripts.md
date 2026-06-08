@@ -127,6 +127,20 @@ npm run prometheus:verify-proof
 npm run prometheus:verify-package
 ```
 
+Implementation note:
+
+```text
+Redis remains bespoke because it carries the first user-install verification
+path and Redis-specific quick-start checks.
+
+The other 19 top-20 chart scripts share scripts/lib/proof-kit.mjs. Their
+per-chart files are declarative specs plus chart-specific assertions.
+```
+
+That means a proof-model change usually belongs in the shared proof kit, while
+a chart-specific object assertion, value choice, or scan finding belongs in the
+individual `<chart>-proof.mjs` spec.
+
 For non-curated charts, the broader generators and verifiers own the proof
 surface:
 
