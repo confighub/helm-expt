@@ -29,7 +29,6 @@ two-cluster-kind-parity: 15
 | Priority | Lane | Chart | Base | Current | Reason | Command |
 | ---: | --- | --- | --- | --- | --- | --- |
 | 10 | configHub-oci-live-comparison | `argo-cd/argo-cd@9.5.15` | default | blocked | infra: etcd/apiserver overload | `npm run live-parity:top20 -- --from-rank 6 --to-rank 6 --continue-on-fail` |
-| 10 | configHub-oci-live-comparison | `external-secrets/external-secrets@2.5.0` | default | blocked | infra: kind create failed | `npm run live-parity:top20 -- --from-rank 5 --to-rank 5 --continue-on-fail` |
 | 10 | configHub-oci-live-comparison | `grafana/loki@7.0.0` | single-binary-filesystem | blocked | infra: kind create failed | `npm run live-parity:top20 -- --from-rank 10 --to-rank 10 --continue-on-fail` |
 | 10 | configHub-oci-live-comparison | `hashicorp/consul@2.0.0` | default-control-plane | blocked | infra: provisioning timeout | `npm run live-parity:top20 -- --from-rank 20 --to-rank 20 --continue-on-fail` |
 | 10 | configHub-oci-live-comparison | `hashicorp/vault@0.32.0` | default | blocked | infra: rig bootstrap (argocd) not ready | `npm run live-parity:top20 -- --from-rank 12 --to-rank 12 --continue-on-fail` |
@@ -38,6 +37,7 @@ two-cluster-kind-parity: 15
 | 20 | configHub-oci-live-comparison | `grafana/tempo@1.24.4` | local-persistent | blocked | helm-runtime: upstream not ready (parity passed) | `npm run live-parity:top20 -- --from-rank 19 --to-rank 19 --continue-on-fail` |
 | 30 | configHub-oci-live-comparison | `bitnami/mysql@14.0.3` | generated-passwords | watch | watch: inspect receipt | `npm run live-parity:top20 -- --from-rank 16 --to-rank 16 --continue-on-fail` |
 | 30 | configHub-oci-live-comparison | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | watch | watch: inspect receipt | `npm run live-parity:top20 -- --from-rank 3 --to-rank 3 --continue-on-fail` |
+| 40 | configHub-oci-live-comparison | `external-secrets/external-secrets@2.5.0` | default | blocked | parity: live semantic diff | `npm run live-parity:top20 -- --from-rank 5 --to-rank 5 --continue-on-fail` |
 | 45 | two-cluster-kind-parity | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | blocked | parity: semantic object diff | `npm run kind-parity:run -- --chart hashicorp/consul --version 2.0.0 --base secure-mesh-existing-secrets` |
 | 50 | two-cluster-kind-parity | `argo-cd/argo-cd@9.5.15` | no-crds | blocked | target-prerequisite: CRDs disabled or missing (parity passed) | `npm run kind-parity:run -- --chart argo-cd/argo-cd --version 9.5.15 --base no-crds` |
 | 50 | two-cluster-kind-parity | `external-secrets/external-secrets@2.5.0` | no-crds | blocked | target-prerequisite: CRDs disabled or missing (parity passed) | `npm run kind-parity:run -- --chart external-secrets/external-secrets --version 2.5.0 --base no-crds` |

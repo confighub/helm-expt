@@ -150,7 +150,7 @@ blocked: ${blocked}
 not-started: ${notStarted}
 \`\`\`
 
-Blocked rows broken down by cause (see \`blocked-triage.md\`; none are parity defects):
+Blocked rows broken down by cause (see \`blocked-triage.md\`):
 
 \`\`\`text
 ${blockedBreakdown}

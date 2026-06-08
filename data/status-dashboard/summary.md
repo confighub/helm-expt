@@ -122,7 +122,7 @@ Current ConfigHub/OCI live parity non-pass receipts:
 | Chart | Variant | Result | Reason |
 | --- | --- | --- | --- |
 | ingress-nginx/ingress-nginx@4.15.1 | admission-disabled | watch | - |
-| external-secrets/external-secrets@2.5.0 | default | blocked | infra: kind create failed |
+| external-secrets/external-secrets@2.5.0 | default | blocked | parity: live semantic diff |
 | argo-cd/argo-cd@9.5.15 | default | blocked | infra: etcd/apiserver overload |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | blocked | infra: rig bootstrap (argocd) not ready |
 | grafana/loki@7.0.0 | single-binary-filesystem | blocked | infra: kind create failed |
