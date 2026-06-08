@@ -34,11 +34,13 @@ A row is not hook-lifecycle-proven until the receipt under
 `data/hook-lifecycle/receipts/` exists and records the chosen route,
 execution or controller behavior, runtime outcome, and freshness timestamp.
 
-Related lifecycle observations can exist outside this hook queue when a chart
-has hook-like runtime behavior but no Helm hook. For example, cert-manager and
-External Secrets lifecycle observations live under
-`data/lifecycle-observations/cert-manager-eso/`. Those receipts demonstrate
-the lifecycle-observation pattern, not universal hook support.
+Related lifecycle observations can exist outside this hook queue when a
+chart-specific lane is proving runtime behavior that rendered YAML alone cannot
+prove. The current cert-manager receipts cover the known
+`startupapicheck` Helm post-install hook route. The current External Secrets
+receipts cover controller/webhook behavior in bases that do not use a Helm
+hook. These receipts demonstrate the lifecycle-observation pattern, not
+universal hook support.
 
 ## Related Lifecycle Observation Lane
 

@@ -69,14 +69,16 @@ This generated report separates two related but different claims:
 Helm hook lifecycle support: hook-bearing charts need a selected route and a
 receipt before production support.
 
-Hook-like lifecycle observation: some charts have controller, CRD, webhook, or
-runtime behavior that rendered YAML cannot prove, even when they do not use a
-Helm hook in the selected base.
+Hook-like lifecycle observation: some charts have Helm hook, controller, CRD,
+webhook, or runtime behavior that rendered YAML cannot prove through render
+parity alone.
 ~~~
 
 The distinction matters because passing cert-manager and External Secrets
-lifecycle observations do not mean every Helm hook is solved. They prove the
-observation pattern for common controller-owned runtime behavior.
+lifecycle observations do not mean every Helm hook is solved. Cert-manager
+proves a chart-specific route for its known startup API check hook. External
+Secrets proves controller-owned webhook behavior in bases that do not use a
+Helm hook.
 
 ## Current Reading
 
