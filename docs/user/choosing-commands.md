@@ -21,6 +21,21 @@ The durable catalog path starts at `cub installer`, not at `cub helm install`.
 The fast Helm commands are still useful. They are the low-friction render and
 one-shot adoption paths.
 
+## What To Check Next
+
+Each command path leaves the user at a different proof level. Check the matching
+surface before making a stronger claim.
+
+| After this path | Check | What you can claim |
+| --- | --- | --- |
+| `cub helm template` | The rendered output and any local diff or schema check you ran. | You inspected a Helm render. No ConfigHub or live-cluster claim is implied. |
+| `cub helm install` | ConfigHub Space and Unit list, labels, and diffs. | The chart was rendered into ConfigHub Units once. No maintained recipe or catalog support claim is implied. |
+| `cub installer setup --pull ... --base ...` | Per-chart `CATALOG.md`, `helm-equivalence-receipt.yaml`, and `data/outcome-coverage/base-outcomes.csv`. | The selected base has a recorded recipe/package proof and render-parity status. |
+| `cub installer upload` | ConfigHub Units, upload/scan/safe-operation receipts, and `data/outcome-coverage/base-outcomes.csv`. | The rendered base exists in ConfigHub with the receipt lanes that are present for that row. |
+| `cub variant create` | Derived variant receipt, upstream links, changed labels/target/gates, and `data/derived-variant-target-bound/summary.md` if it was delivered live. | A reviewed uploaded base was cloned/refined post-render. It is not a Helm rerender. |
+| OCI/GitOps delivery | Runtime/GitOps receipt, controller status, workload checks, and `data/runtime-gitops/summary.md`. | The selected row was reconciled by Argo or Flux only if a committed receipt says so. |
+| Two-cluster live parity | `data/live-kind-parity/summary.md` and the row receipt. | Regular Helm and `cub installer` reached the recorded live outcome for that exact chart/base row. |
+
 ## Graduation Path
 
 A user can move through these paths over time. They do not need to choose the
