@@ -34,8 +34,11 @@ function buildReport() {
   const chartFacts = parseCsvFile("data/chart-facts/chart-facts.csv");
   const top20Rows = parseCsvFile("data/status-dashboard/top20-status.csv");
   const quirkRows = parseCsvFile("data/quirk-coverage/coverage.csv");
+  const sourceRows = JSON.parse(readFileSync(join(repoRoot, "data/top500-catalog-analysis/source/source-feature-scan.raw.json"), "utf8"));
   const top20 = new Set(top20Rows.map((row) => chartKey(row.chart)));
   const sourceTpl = quirkRows.find((row) => row.axis === "tpl-extension-slots")?.top500_count ?? "unknown";
+  const sourceRawExtra = sourceRows.filter((row) => hasCount(row.extraManifestValues)).length;
+  const sourceTplOrRawExtra = sourceRows.filter((row) => hasCount(row.tpl) || hasCount(row.extraManifestValues)).length;
   const matchedTop500 = quirkRows.find((row) => row.axis === "explicit-extension-slot-control-points")?.top500_count ?? "unknown";
 
   const rows = chartFacts
@@ -96,12 +99,15 @@ top-20 catalog charts without extension slots in chart facts:     ${20 - top20Wi
 top-100 chart facts with extension slots surfaced:                ${top100Count}/100
 matched top-500 proof rows with extension-slot control points:    ${matchedTop500}
 top-500 source rows using tpl:                                    ${sourceTpl}/500
+top-500 source rows with raw/extra manifest values:               ${sourceRawExtra}/500
+top-500 source rows using tpl or raw/extra manifest values:       ${sourceTplOrRawExtra}/500
 ~~~
 
-The top-500 \`tpl\` count is broader than the explicit control-point count. It is
-a source-scan signal that a chart may have template-powered inputs. The
-explicit control-point count is narrower: it only covers rows already matched
-to current recipe/package proof artifacts.
+The top-500 \`tpl\` and raw/extra manifest counts are broader than the explicit
+control-point count. They are source-scan signals that a chart may have
+template-powered or arbitrary object injection inputs. The explicit
+control-point count is narrower: it only covers rows already matched to current
+recipe/package proof artifacts.
 
 ## Top-20 Catalog Charts
 
@@ -203,6 +209,12 @@ function inferredSurfaces(chart) {
 function hasExtensionSlot(value) {
   const text = String(value ?? "").trim();
   return text && text !== "-" && text !== "—";
+}
+
+function hasCount(value) {
+  if (typeof value === "number") return value > 0;
+  if (value && typeof value === "object" && typeof value.count === "number") return value.count > 0;
+  return false;
 }
 
 function chartKey(value) {

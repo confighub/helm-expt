@@ -19,12 +19,15 @@ top-20 catalog charts without extension slots in chart facts:     7/20
 top-100 chart facts with extension slots surfaced:                82/100
 matched top-500 proof rows with extension-slot control points:    53
 top-500 source rows using tpl:                                    362/500
+top-500 source rows with raw/extra manifest values:               254/500
+top-500 source rows using tpl or raw/extra manifest values:       363/500
 ~~~
 
-The top-500 `tpl` count is broader than the explicit control-point count. It is
-a source-scan signal that a chart may have template-powered inputs. The
-explicit control-point count is narrower: it only covers rows already matched
-to current recipe/package proof artifacts.
+The top-500 `tpl` and raw/extra manifest counts are broader than the explicit
+control-point count. They are source-scan signals that a chart may have
+template-powered or arbitrary object injection inputs. The explicit
+control-point count is narrower: it only covers rows already matched to current
+recipe/package proof artifacts.
 
 ## Top-20 Catalog Charts
 

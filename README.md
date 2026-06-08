@@ -148,10 +148,12 @@ Examples:
 
 NGINX-style extension slots are common. In the current evidence set, 13/20
 top-20 catalog charts and 82/100 top-100 chart facts expose raw manifests,
-`tpl` snippets, config blocks, sidecars, or add-on slots. Leaving those slots
-empty can stay inside a supported catalog base. Populating them creates a new
-reviewed install shape and should route back through a `cub installer` base
-variant with render parity, scans, gates, and receipts.
+`tpl` snippets, config blocks, sidecars, or add-on slots. In the broader
+top-500 source scan, 254/500 charts expose raw/extra manifest values and
+363/500 use `tpl` or raw/extra manifest values. Leaving those slots empty can
+stay inside a supported catalog base. Populating them creates a new reviewed
+install shape and should route back through a `cub installer` base variant with
+render parity, scans, gates, and receipts.
 
 For the detailed algorithm, see
 [Customization Algorithm](./docs/reference/customization-algorithm.md). For the product
@@ -292,7 +294,7 @@ data/top100-readiness/summary.md
   evidence, next action, and first work queues.
 
 data/extension-slots/summary.md
-  NGINX-like extension slots: 13/20 top-20 catalog charts and 82/100 top-100 chart facts surface raw manifests, tpl snippets, config blocks, sidecars, or add-on slots.
+  NGINX-like extension slots: 13/20 top-20 catalog charts and 82/100 top-100 chart facts surface raw manifests, tpl snippets, config blocks, sidecars, or add-on slots. The top-500 source scan sees raw/extra manifest values in 254/500 charts and tpl or raw/extra manifest values in 363/500 charts.
 
 docs/user/current-proof-status.md
   What is proven now, and which generated summaries are authoritative.
