@@ -37,6 +37,7 @@ function buildReport() {
   const baseRows = readCsv("data/outcome-coverage/base-outcomes.csv");
   const top20BaseReadinessRows = readCsv("data/top20-base-readiness/base-readiness.csv");
   const top100Rows = readCsv("data/top100-readiness/readiness.csv");
+  const top500Rows = readCsv("data/top500-catalog-analysis/review.csv");
   const quirkRows = readCsv("data/quirk-coverage/coverage.csv");
   const hookRows = readCsv("data/hook-lifecycle/top100-hooks.csv");
   const lifecycleBoundaryRows = readCsv("data/lifecycle-boundary/lifecycle-boundary.csv");
@@ -57,6 +58,12 @@ function buildReport() {
   rows.push(metric("top100", "catalog-supported charts", count(top100Rows, "catalog_tier", "top20-catalog-supported"), top100Rows.length, "partial", "data/top100-readiness/readiness.csv", "These are the current public catalog entries; production support still depends on lane status."));
   rows.push(metric("top100", "proof-grade non-catalog charts", top100Rows.filter((row) => row.catalog_tier !== "top20-catalog-supported").length, top100Rows.length, "partial", "data/top100-readiness/readiness.csv", "These charts have proof artifacts but are not promoted catalog entries."));
   rows.push(metric("top100", "variant-rich charts", chartRows.filter((row) => row.variant_rich === "yes").length, chartRows.length, "partial", "data/outcome-coverage/chart-outcomes.csv", "Charts with more than one declared base variant."));
+  rows.push(metric("top500", "source rows scanned", count(top500Rows, "source_status", "source-scanned"), top500Rows.length, "partial", "data/top500-catalog-analysis/review.csv", "Retained source-scan rows with source feature data."));
+  rows.push(metric("top500", "rows with current recipe proof", top500Rows.filter((row) => row.recipe_status.startsWith("current-recipe")).length, top500Rows.length, "partial", "data/top500-catalog-analysis/review.csv", "Retained source-scan rows matched to current recipe/package proof."));
+  rows.push(metric("top500", "catalog-supported rows", count(top500Rows, "catalog_status", "catalog-supported"), top500Rows.length, "partial", "data/top500-catalog-analysis/review.csv", "Rows promoted to the current public catalog; production gates still matter."));
+  rows.push(metric("top500", "proof-grade rows", count(top500Rows, "catalog_status", "proof-grade"), top500Rows.length, "partial", "data/top500-catalog-analysis/review.csv", "Rows with deterministic proof that are not public catalog entries."));
+  rows.push(metric("top500", "rows with no current recipe proof", count(top500Rows, "recipe_status", "no-current-recipe"), top500Rows.length, "gap", "data/top500-catalog-analysis/review.csv", "Source reconnaissance rows with no current recipe/package proof yet."));
+  rows.push(metric("top500", "version-drift review rows", count(top500Rows, "version_match", "different-current-version"), top500Rows.length, "partial", "data/top500-catalog-analysis/review.csv", "Current recipe exists but the retained source-scan version differs."));
 
   rows.push(metric("proof lanes", "render parity rows", passCount(baseRows, "render_parity"), baseRows.length, "good", "data/outcome-coverage/base-outcomes.csv", "Every chart/base row has render parity under recorded inputs."));
   rows.push(metric("proof lanes", "in-ConfigHub proof rows", passCount(baseRows, "in_confighub"), baseRows.length, "partial", "data/outcome-coverage/base-outcomes.csv", "Rows with upload, scan, or safe-operation proof receipts."));
@@ -97,13 +104,15 @@ function buildReport() {
     csv: toCsv(rows),
     top20Rows,
     top20Csv: top20ToCsv(top20Rows),
-    summary: summary(rows, { chartRows, baseRows, top100Rows, top20Rows, quirkRows, hookRows, lifecycleBoundaryRows, liveRows, kindParityRows, runtimeRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount }),
+    summary: summary(rows, { chartRows, baseRows, top100Rows, top500Rows, top20Rows, quirkRows, hookRows, lifecycleBoundaryRows, liveRows, kindParityRows, runtimeRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount }),
   };
 }
 
 function summary(rows, context) {
   const top100Status = groupCount(context.top100Rows, "adoption_bucket");
   const strongestEvidence = groupCount(context.top100Rows, "strongest_evidence");
+  const top500CatalogStatus = groupCount(context.top500Rows, "catalog_status");
+  const top500RecipeStatus = groupCount(context.top500Rows, "recipe_status");
   const quirkTierCounts = groupCount(context.quirkRows, "coverage_tier");
   const lifecycleBoundaryCounts = groupCount(context.lifecycleBoundaryRows, "lane");
   const hookPreview = context.hookRows.slice(0, 8);
@@ -113,8 +122,8 @@ function summary(rows, context) {
   return `# Status Dashboard
 
 This generated dashboard is the short front door for current project status. It
-joins the top100 readiness, proof lane, quirk, hook, GitOps, and live-parity
-tables without replacing them.
+joins the top100 readiness, top500 evidence map, proof lane, quirk, hook,
+GitOps, and live-parity tables without replacing them.
 
 Use this page to answer:
 
@@ -145,6 +154,25 @@ The top100 is model-supported, but not uniformly live-proven. Use
 [top100-readiness/readiness.csv](../top100-readiness/readiness.csv) for one row
 per chart, and [outcome-coverage/base-outcomes.csv](../outcome-coverage/base-outcomes.csv)
 for exact chart/base lane status.
+
+## Top500 Evidence Map
+
+The top500 table is retained source reconnaissance joined to the current
+recipe/package corpus. It shows which retained source-scan rows now have
+current proof, which rows only have source facts, and where the retained source
+version differs from the maintained recipe version.
+
+| Catalog status | Rows |
+| --- | ---: |
+${mapRows(top500CatalogStatus)}
+
+| Recipe status | Rows |
+| --- | ---: |
+${mapRows(top500RecipeStatus)}
+
+Use [top500-catalog-analysis/summary.md](../top500-catalog-analysis/summary.md)
+for the narrative and [top500-catalog-analysis/review.csv](../top500-catalog-analysis/review.csv)
+for one row per retained source-scan chart.
 
 ## Top20 Catalog Status
 
@@ -259,6 +287,7 @@ lifecycle observation.
 | Question | Open |
 | --- | --- |
 | Can I use this chart today? | [top100-readiness/readiness.csv](../top100-readiness/readiness.csv) |
+| How much of the retained top500 source scan maps to current proof? | [top500-catalog-analysis/review.csv](../top500-catalog-analysis/review.csv) |
 | Which base variants have which proof lanes? | [outcome-coverage/base-outcomes.csv](../outcome-coverage/base-outcomes.csv) |
 | Which top-20 base variant should I start with? | [top20-base-readiness/summary.md](../top20-base-readiness/summary.md) |
 | Which hooks, CRDs, generated facts, or target facts matter? | [outcome-coverage/feature-outcomes.csv](../outcome-coverage/feature-outcomes.csv) |

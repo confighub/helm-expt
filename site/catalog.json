@@ -115,6 +115,60 @@
       "note": "Charts with more than one declared base variant."
     },
     {
+      "section": "top500",
+      "metric": "source rows scanned",
+      "value": "495",
+      "total": "500",
+      "status": "partial",
+      "source": "data/top500-catalog-analysis/review.csv",
+      "note": "Retained source-scan rows with source feature data."
+    },
+    {
+      "section": "top500",
+      "metric": "rows with current recipe proof",
+      "value": "91",
+      "total": "500",
+      "status": "partial",
+      "source": "data/top500-catalog-analysis/review.csv",
+      "note": "Retained source-scan rows matched to current recipe/package proof."
+    },
+    {
+      "section": "top500",
+      "metric": "catalog-supported rows",
+      "value": "20",
+      "total": "500",
+      "status": "partial",
+      "source": "data/top500-catalog-analysis/review.csv",
+      "note": "Rows promoted to the current public catalog; production gates still matter."
+    },
+    {
+      "section": "top500",
+      "metric": "proof-grade rows",
+      "value": "71",
+      "total": "500",
+      "status": "partial",
+      "source": "data/top500-catalog-analysis/review.csv",
+      "note": "Rows with deterministic proof that are not public catalog entries."
+    },
+    {
+      "section": "top500",
+      "metric": "rows with no current recipe proof",
+      "value": "409",
+      "total": "500",
+      "status": "gap",
+      "source": "data/top500-catalog-analysis/review.csv",
+      "note": "Source reconnaissance rows with no current recipe/package proof yet."
+    },
+    {
+      "section": "top500",
+      "metric": "version-drift review rows",
+      "value": "21",
+      "total": "500",
+      "status": "partial",
+      "source": "data/top500-catalog-analysis/review.csv",
+      "note": "Current recipe exists but the retained source-scan version differs."
+    },
+    {
       "section": "proof lanes",
       "metric": "render parity rows",
       "value": "156",

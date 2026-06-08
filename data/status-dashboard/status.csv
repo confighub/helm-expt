@@ -3,6 +3,12 @@ top100,charts with model support,100,100,good,data/outcome-coverage/chart-outcom
 top100,catalog-supported charts,20,100,partial,data/top100-readiness/readiness.csv,These are the current public catalog entries; production support still depends on lane status.
 top100,proof-grade non-catalog charts,80,100,partial,data/top100-readiness/readiness.csv,These charts have proof artifacts but are not promoted catalog entries.
 top100,variant-rich charts,54,100,partial,data/outcome-coverage/chart-outcomes.csv,Charts with more than one declared base variant.
+top500,source rows scanned,495,500,partial,data/top500-catalog-analysis/review.csv,Retained source-scan rows with source feature data.
+top500,rows with current recipe proof,91,500,partial,data/top500-catalog-analysis/review.csv,Retained source-scan rows matched to current recipe/package proof.
+top500,catalog-supported rows,20,500,partial,data/top500-catalog-analysis/review.csv,Rows promoted to the current public catalog; production gates still matter.
+top500,proof-grade rows,71,500,partial,data/top500-catalog-analysis/review.csv,Rows with deterministic proof that are not public catalog entries.
+top500,rows with no current recipe proof,409,500,gap,data/top500-catalog-analysis/review.csv,Source reconnaissance rows with no current recipe/package proof yet.
+top500,version-drift review rows,21,500,partial,data/top500-catalog-analysis/review.csv,Current recipe exists but the retained source-scan version differs.
 proof lanes,render parity rows,156,156,good,data/outcome-coverage/base-outcomes.csv,Every chart/base row has render parity under recorded inputs.
 proof lanes,in-ConfigHub proof rows,18,156,partial,data/outcome-coverage/base-outcomes.csv,"Rows with upload, scan, or safe-operation proof receipts."
 proof lanes,local live rows,21,156,partial,data/outcome-coverage/base-outcomes.csv,Rows with committed local Kubernetes observation receipts.
