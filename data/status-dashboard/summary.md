@@ -222,8 +222,8 @@ closed or explicitly accepted.
 | extension slot provenance and scan policy | 17 |
 | cluster RBAC review | 13 |
 | hook and lifecycle phase policy | 11 |
-| target fact preflight | 10 |
 | generated fact ownership | 9 |
+| target fact preflight | 9 |
 | storage backup restore and rollback policy | 8 |
 | CRD lifecycle and upgrade policy | 7 |
 
@@ -235,7 +235,7 @@ closed or explicitly accepted.
 | bitnami/nginx@24.0.2 | blocked | 0 | 4 | extend live/e2e lane beyond local kind after production dispositions are written |
 | bitnami/postgresql@18.6.7 | blocked | 0 | 6 | extend live/e2e lane beyond local kind after production dispositions are written |
 | bitnami/rabbitmq@16.0.14 | blocked | 0 | 6 | extend live/e2e lane beyond local kind after production dispositions are written |
-| bitnami/redis@25.5.3 | blocked | 1 | 3 | extend live/e2e lane beyond local kind after production dispositions are written |
+| bitnami/redis@25.5.3 | blocked | 2 | 2 | extend live/e2e lane beyond local kind after production dispositions are written |
 | external-secrets/external-secrets@2.5.0 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |
 | grafana/grafana@10.5.15 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |
 | grafana/loki@7.0.0 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |

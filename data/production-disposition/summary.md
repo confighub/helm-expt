@@ -17,7 +17,7 @@ production-blocked pending disposition: 20
 source Helm-hook rows: 1
 hook/lifecycle disposition rows: 12
 related lifecycle observation rows: 2
-accepted production disposition receipts: 1
+accepted production disposition receipts: 2
 charts with accepted dispositions: 1
 ```
 
@@ -42,7 +42,7 @@ mean the retained source scan found Helm hooks. Use the evidence fields in
 | `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | pass | local-kind-observed | blocked | 0 | extension slot provenance and scan policy, generated fact ownership, scan/gate warning disposition, target fact preflight |
 | `bitnami/postgresql@18.6.7` | generated-passwords, existing-secret | pass | local-kind-observed | blocked | 0 | extension slot provenance and scan policy, generated fact ownership, hook and lifecycle phase policy, scan/gate warning disposition, storage backup restore and rollback policy, target fact preflight |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords, existing-secret | pass | local-kind-observed | blocked | 0 | extension slot provenance and scan policy, generated fact ownership, hook and lifecycle phase policy, scan/gate warning disposition, storage backup restore and rollback policy, target fact preflight |
-| `bitnami/redis@25.5.3` | default, reuse-existing-secret | pass | local-kind-observed | blocked | 1 | generated fact ownership, scan/gate warning disposition, target fact preflight |
+| `bitnami/redis@25.5.3` | default, reuse-existing-secret | pass | local-kind-observed | blocked | 2 | generated fact ownership, scan/gate warning disposition |
 | `external-secrets/external-secrets@2.5.0` | default, no-crds | pass | local-kind-observed | blocked | 0 | CRD lifecycle and upgrade policy, cluster RBAC review, extension slot provenance and scan policy, scan/gate warning disposition, webhook readiness and failure policy |
 | `grafana/grafana@10.5.15` | generated-passwords, existing-secret-ingress | pass | local-kind-observed | blocked | 0 | cluster RBAC review, extension slot provenance and scan policy, generated fact ownership, scan/gate warning disposition, target fact preflight |
 | `grafana/loki@7.0.0` | single-binary-filesystem, simple-scalable-minio | pass | local-kind-observed | blocked | 0 | cluster RBAC review, extension slot provenance and scan policy, hook and lifecycle phase policy, scan/gate warning disposition, storage backup restore and rollback policy |

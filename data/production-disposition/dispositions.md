@@ -6,7 +6,7 @@ exactly what must be closed before production support can be claimed.
 The lifecycle columns separate retained source-hook evidence from recipe-level
 lifecycle policy and related CRD/webhook/controller observations.
 
-Accepted disposition receipts recorded: 1
+Accepted disposition receipts recorded: 2
 
 | Chart | Local-test variants | Production state | Accepted | Open | Source hooks | Lifecycle basis | Live/e2e receipts |
 | --- | --- | --- | ---: | ---: | ---: | --- | --- |
@@ -16,7 +16,7 @@ Accepted disposition receipts recorded: 1
 | `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | production-blocked | 0 | 4 | 0 | none | 1 |
 | `bitnami/postgresql@18.6.7` | generated-passwords, existing-secret | production-blocked | 0 | 6 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords, existing-secret | production-blocked | 0 | 6 | 0 | recipe-hook-policy:no-hooks | 1 |
-| `bitnami/redis@25.5.3` | default, reuse-existing-secret | production-blocked | 1 | 3 | 0 | recipe-hook-policy:no-hooks | 2 |
+| `bitnami/redis@25.5.3` | default, reuse-existing-secret | production-blocked | 2 | 2 | 0 | recipe-hook-policy:no-hooks | 2 |
 | `external-secrets/external-secrets@2.5.0` | default, no-crds | production-blocked | 0 | 5 | 0 | lifecycle-observations:2/2 | 1 |
 | `grafana/grafana@10.5.15` | generated-passwords, existing-secret-ingress | production-blocked | 0 | 5 | 0 | none | 1 |
 | `grafana/loki@7.0.0` | single-binary-filesystem, simple-scalable-minio | production-blocked | 0 | 5 | 0 | recipe-lifecycle-policy | 1 |
