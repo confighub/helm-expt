@@ -25,6 +25,11 @@
       "path": "one-shot-configHub-load"
     },
     {
+      "goal": "Adopt an existing Argo, Flux, KRM, or rendered-manifest app.",
+      "command": "cub gitops discover/import, cub unit import, or managed import",
+      "path": "existing-app-adoption"
+    },
+    {
       "goal": "Use a maintained catalog entry with supported bases and proof.",
       "command": "cub installer setup --pull <package> --base <base>",
       "path": "maintained-catalog-base"
@@ -356,6 +361,33 @@
       "status": "gap",
       "source": "data/quirk-coverage/coverage.csv",
       "note": "Known blind spots in the scanner/data model."
+    },
+    {
+      "section": "extension slots",
+      "metric": "top20 charts with extension slots",
+      "value": "13",
+      "total": "20",
+      "status": "partial",
+      "source": "data/extension-slots/extension-slots.csv",
+      "note": "Top-20 catalog charts that expose raw manifests, tpl snippets, config blocks, sidecars, or add-on slots."
+    },
+    {
+      "section": "extension slots",
+      "metric": "top100 charts with extension slots",
+      "value": "82",
+      "total": "100",
+      "status": "partial",
+      "source": "data/extension-slots/extension-slots.csv",
+      "note": "Top-100 chart facts where NGINX-like extension slots are surfaced."
+    },
+    {
+      "section": "extension slots",
+      "metric": "top500 source rows using tpl",
+      "value": "362",
+      "total": "500",
+      "status": "partial",
+      "source": "data/quirk-coverage/coverage.csv",
+      "note": "Broader source-scan signal for template-powered inputs; not every tpl use is an explicit supported slot."
     },
     {
       "section": "hooks",

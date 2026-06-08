@@ -498,6 +498,11 @@ function commandRoutes() {
       path: "one-shot-configHub-load",
     },
     {
+      goal: "Adopt an existing Argo, Flux, KRM, or rendered-manifest app.",
+      command: "cub gitops discover/import, cub unit import, or managed import",
+      path: "existing-app-adoption",
+    },
+    {
       goal: "Use a maintained catalog entry with supported bases and proof.",
       command: "cub installer setup --pull <package> --base <base>",
       path: "maintained-catalog-base",
