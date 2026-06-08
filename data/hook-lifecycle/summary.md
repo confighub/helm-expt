@@ -38,3 +38,13 @@ has hook-like runtime behavior but no Helm hook. For example, cert-manager and
 External Secrets lifecycle observations live under
 `data/lifecycle-observations/cert-manager-eso/`. Those receipts demonstrate
 the lifecycle-observation pattern, not universal hook support.
+
+## Maintained Hook Chart Details
+
+| Chart | Hooks | Hook types | Route hint | Example templates |
+| --- | ---: | --- | --- | --- |
+| prometheus-community/kube-prometheus-stack@85.3.3 | 2 | post-install, post-upgrade, pre-install, pre-upgrade | preflight-or-presync;postsync-check-or-observation;upgrade-action-with-receipt;preserve-ordering;preserve-cleanup-policy;webhook-readiness-observation;target-facts-or-preflight | kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/job-patch/ciliumnetworkpolicy-createSecret.yaml<br>kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/job-patch/ciliumnetworkpolicy-patchWebhook.yaml |
+| kyverno/kyverno@3.8.1 | 8 | post-upgrade, pre-delete, test | upgrade-action-with-receipt;delete-cleanup-policy;explicit-test-check;preserve-ordering;preserve-cleanup-policy;target-facts-or-preflight | kyverno/charts/reports-server/templates/hooks/pre-delete-api-service-cleanup.yaml<br>kyverno/templates/hooks/post-upgrade-migrate-resources.yaml |
+| fluent/fluent-bit@0.57.6 | 1 | test | explicit-test-check;preserve-cleanup-policy | fluent-bit/templates/tests/test-connection.yaml |
+| projectcalico/tigera-operator@v3.32.0 | 1 | pre-delete | delete-cleanup-policy;preserve-ordering;preserve-cleanup-policy;target-facts-or-preflight | tigera-operator/templates/tigera-operator/00-uninstall.yaml |
+| gatekeeper/gatekeeper@3.22.2 | 4 | pre-install, pre-upgrade | preflight-or-presync;upgrade-action-with-receipt;preserve-ordering;preserve-cleanup-policy;webhook-readiness-observation | gatekeeper/templates/upgrade-crds-hook.yaml |
