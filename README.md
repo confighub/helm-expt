@@ -234,7 +234,7 @@ data/status-dashboard/top20-status.csv
   Compact chart-by-chart status for the top-20 catalog: variants, lane counts, gaps, and next action.
 
 data/top100-readiness/summary.md
-  One chart-by-chart answer for current top-100 user status, strongest evidence, and next action.
+  One chart-by-chart answer for current top-100 adoption bucket, strongest evidence, and next action.
 
 docs/user/current-proof-status.md
   What is proven now, and which generated summaries are authoritative.

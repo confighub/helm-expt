@@ -59,7 +59,7 @@ function readme(rows) {
     ["data/outcome-coverage/feature-outcomes.csv", "One row per chart feature: hooks, generated secrets, CRDs, webhooks, required values, schemas, extension slots, gaps."],
     ["data/live-kind-parity/summary.md", "Two-cluster live parity: regular Helm in one vanilla kind cluster and cub installer output in another."],
     ["data/pain-point-coverage/summary.md", "General Helm pain point coverage: current answers, handoffs, evidence, gaps, and next actions."],
-    ["data/top100-readiness/summary.md", "Top-100 readiness: one chart-by-chart answer for current user status, strongest evidence, and next action."],
+    ["data/top100-readiness/summary.md", "Top-100 readiness: one chart-by-chart answer for adoption bucket, strongest evidence, hard gap, and next action."],
     ["data/variant-path-coverage/summary.md", "Per chart/base/path matrix for base variants, diffs, operations, and derived ConfigHub variants."],
     ["data/quirk-coverage/summary.md", "Coverage audit for Helm quirks: tracked, partly tracked, source-scanned only, or not scanned."],
     ["data/high-fanout-demo/summary.md", "Prometheus/kube-prometheus-stack example showing how one base choice changes many objects and prerequisites."],
@@ -165,7 +165,7 @@ function roleFor(path) {
   if (path === "data/outcome-coverage/derived-variant-outcomes.csv") return "one row per derived variant: intended and target-bound status";
   if (path === "data/outcome-coverage/feature-outcomes.csv") return "one row per chart feature or quirk";
   if (path === "data/pain-point-coverage/pain-points.csv") return "one row per Helm pain point: answer, handoff, evidence, gap";
-  if (path === "data/top100-readiness/readiness.csv") return "one row per top-100 chart: user status, strongest evidence, gap, next action";
+  if (path === "data/top100-readiness/readiness.csv") return "one row per top-100 chart: adoption bucket, strongest evidence, gap, next action";
   if (path === "data/edge-recovery/edges.csv") return "recovered desired-state graph fragments from recipe artifacts";
   if (path === "data/variant-path-coverage/coverage-matrix.csv") return "one row per chart/base/path proof status";
   if (path === "data/quirk-coverage/coverage.csv") return "one row per Helm quirk axis: coverage tier, evidence, remaining gap, next action";

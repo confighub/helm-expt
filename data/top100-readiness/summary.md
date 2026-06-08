@@ -23,6 +23,15 @@ charts with named hard gaps: 25
 | Which charts need a useful user-shaped variant first? | 46 | The default render proves the mechanism, but it is not yet a good catalog offer. | Add one or more realistic base variants before promotion. |
 | Which charts need a limitation decision first? | 7 | A known gap affects the recommended path. | Decide whether to support, disclose, or defer that capability. |
 
+## Adoption Buckets
+
+| Bucket | Count | What it means | Use this when |
+| --- | ---: | --- | --- |
+| `limitation-decision-first` | 7 | A named capability gap affects the recommended path. Decide whether to support, disclose, or defer it. | You need an operator/product decision before presenting the chart as supported. |
+| `needs-useful-variant` | 46 | The proof mechanism works, but the current default-only path is not yet a compelling catalog offer. | You are deciding which realistic base variants users would actually want. |
+| `promote-after-review` | 27 | Recipe/package proof and multiple variants exist. It is a good candidate for catalog review and selected live lanes. | You are expanding the catalog or choosing the next charts for live evidence. |
+| `try-from-public-catalog` | 20 | A public catalog entry exists and at least one base has live evidence. Check the exact base lane before making a broader claim. | You want a maintained public example and can choose a base with the needed proof lane. |
+
 ## Hard Gap Buckets
 
 | Gap | Charts | What it means |
@@ -72,33 +81,33 @@ charts with named hard gaps: 25
 
 ## First Rows
 
-| Chart | User status | Evidence | Variants | Next action |
+| Chart | Adoption bucket | Evidence | Variants | Next action |
 | --- | --- | --- | ---: | --- |
-| `argo-cd/argo-cd@9.5.15` | `catalog-supported-with-live-evidence` | `local-kubernetes-live` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
-| `bitnami/mongodb@19.0.7` | `catalog-supported-with-live-evidence` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |
-| `bitnami/mysql@14.0.3` | `catalog-supported-with-live-evidence` | `local-kubernetes-live` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
-| `bitnami/nginx@24.0.2` | `catalog-supported-with-live-evidence` | `live-helm-vs-confighub-parity` | 2 | resolve or document: existing-secret (chart ships no Secret toggle - #113) |
-| `bitnami/postgresql@18.6.7` | `catalog-supported-with-live-evidence` | `live-helm-vs-confighub-parity` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
-| `bitnami/rabbitmq@16.0.14` | `catalog-supported-with-live-evidence` | `live-helm-vs-confighub-parity` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
-| `bitnami/redis@25.5.3` | `catalog-supported-with-live-evidence` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |
-| `external-secrets/external-secrets@2.5.0` | `catalog-supported-with-live-evidence` | `local-kubernetes-live` | 2 | promote a declared production scope when gates pass |
-| `grafana/grafana@10.5.15` | `catalog-supported-with-live-evidence` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |
-| `grafana/loki@7.0.0` | `catalog-supported-with-live-evidence` | `local-kubernetes-live` | 2 | promote a declared production scope when gates pass |
-| `grafana/tempo@1.24.4` | `catalog-supported-with-live-evidence` | `local-kubernetes-live` | 2 | resolve or document: ha (tempo single-binary chart; HA is the separate t...) |
-| `hashicorp/consul@2.0.0` | `catalog-supported-with-live-evidence` | `local-kubernetes-live` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
-| `hashicorp/vault@0.32.0` | `catalog-supported-with-live-evidence` | `local-kubernetes-live` | 2 | promote a declared production scope when gates pass |
-| `ingress-nginx/ingress-nginx@4.15.1` | `catalog-supported-with-live-evidence` | `local-kubernetes-live` | 2 | promote a declared production scope when gates pass |
-| `jetstack/cert-manager@v1.20.2` | `catalog-supported-with-live-evidence` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |
-| `longhorn/longhorn@1.11.2` | `catalog-supported-with-live-evidence` | `local-kubernetes-live` | 2 | promote a declared production scope when gates pass |
-| `metrics-server/metrics-server@3.13.0` | `catalog-supported-with-live-evidence` | `live-helm-vs-confighub-parity` | 2 | resolve or document: existing-secret (chart ships no Secret toggle - #113) |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | `catalog-supported-with-live-evidence` | `local-kubernetes-live` | 2 | resolve or document: existing-secret (chart ships no Secret toggle - #113) |
-| `prometheus-community/prometheus@29.8.0` | `catalog-supported-with-live-evidence` | `live-helm-vs-confighub-parity` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
-| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | `catalog-supported-with-live-evidence` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |
-| `traefik/traefik@40.2.0` | `proof-grade-with-named-limitation` | `render-parity` | 2 | review limitation before promotion: existing-secret (chart ships no Secret toggle - #113) |
-| `external-dns/external-dns@1.21.1` | `proof-grade-ready-for-promotion-review` | `render-parity` | 2 | run catalog promotion review |
-| `gitlab/gitlab-runner@0.89.0` | `proof-grade-needs-user-shaped-variant` | `render-parity` | 1 | add at least one user-shaped variant before catalog promotion |
-| `kyverno/kyverno@3.8.1` | `proof-grade-with-named-limitation` | `render-parity` | 2 | review limitation before promotion: existing-secret (chart ships no Secret toggle - #113) |
-| `cloudnative-pg/cloudnative-pg@0.28.2` | `proof-grade-ready-for-promotion-review` | `render-parity` | 2 | run catalog promotion review |
+| `argo-cd/argo-cd@9.5.15` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
+| `bitnami/mongodb@19.0.7` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |
+| `bitnami/mysql@14.0.3` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
+| `bitnami/nginx@24.0.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve or document: existing-secret (chart ships no Secret toggle - #113) |
+| `bitnami/postgresql@18.6.7` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
+| `bitnami/rabbitmq@16.0.14` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
+| `bitnami/redis@25.5.3` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |
+| `external-secrets/external-secrets@2.5.0` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | promote a declared production scope when gates pass |
+| `grafana/grafana@10.5.15` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |
+| `grafana/loki@7.0.0` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | promote a declared production scope when gates pass |
+| `grafana/tempo@1.24.4` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | resolve or document: ha (tempo single-binary chart; HA is the separate t...) |
+| `hashicorp/consul@2.0.0` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
+| `hashicorp/vault@0.32.0` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | promote a declared production scope when gates pass |
+| `ingress-nginx/ingress-nginx@4.15.1` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | promote a declared production scope when gates pass |
+| `jetstack/cert-manager@v1.20.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |
+| `longhorn/longhorn@1.11.2` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | promote a declared production scope when gates pass |
+| `metrics-server/metrics-server@3.13.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve or document: existing-secret (chart ships no Secret toggle - #113) |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | resolve or document: existing-secret (chart ships no Secret toggle - #113) |
+| `prometheus-community/prometheus@29.8.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
+| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |
+| `traefik/traefik@40.2.0` | `limitation-decision-first` | `render-parity` | 2 | review limitation before promotion: existing-secret (chart ships no Secret toggle - #113) |
+| `external-dns/external-dns@1.21.1` | `promote-after-review` | `render-parity` | 2 | run catalog promotion review |
+| `gitlab/gitlab-runner@0.89.0` | `needs-useful-variant` | `render-parity` | 1 | add at least one user-shaped variant before catalog promotion |
+| `kyverno/kyverno@3.8.1` | `limitation-decision-first` | `render-parity` | 2 | review limitation before promotion: existing-secret (chart ships no Secret toggle - #113) |
+| `cloudnative-pg/cloudnative-pg@0.28.2` | `promote-after-review` | `render-parity` | 2 | run catalog promotion review |
 
 ## Files
 
