@@ -6,10 +6,10 @@ top100,variant-rich charts,54,100,partial,data/outcome-coverage/chart-outcomes.c
 proof lanes,render parity rows,156,156,good,data/outcome-coverage/base-outcomes.csv,Every chart/base row has render parity under recorded inputs.
 proof lanes,in-ConfigHub proof rows,18,156,partial,data/outcome-coverage/base-outcomes.csv,"Rows with upload, scan, or safe-operation proof receipts."
 proof lanes,local live rows,21,156,partial,data/outcome-coverage/base-outcomes.csv,Rows with committed local Kubernetes observation receipts.
-proof lanes,GitOps/OCI live pass rows,12,156,partial,data/outcome-coverage/base-outcomes.csv,7 rows have non-pass GitOps/OCI receipts.
-proof lanes,live Helm-vs-ConfigHub parity pass rows,10,156,partial,data/outcome-coverage/base-outcomes.csv,10 rows have non-pass live parity receipts.
+proof lanes,GitOps/OCI live pass rows,14,156,partial,data/outcome-coverage/base-outcomes.csv,12 rows have non-pass GitOps/OCI receipts.
+proof lanes,live Helm-vs-ConfigHub parity pass rows,12,156,partial,data/outcome-coverage/base-outcomes.csv,8 rows have non-pass live parity receipts.
 proof lanes,two-cluster kind parity pass rows,25,40,partial,data/live-kind-parity/summary.csv,"Regular Helm in one vanilla kind cluster, cub installer output in another, then semantic comparison."
-proof lanes,complete core lane rows,6,156,gap,data/outcome-coverage/base-outcomes.csv,"Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."
+proof lanes,complete core lane rows,8,156,gap,data/outcome-coverage/base-outcomes.csv,"Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."
 derived variants,derived variant golden rows,10,10,good,data/variant-goldens/derived-expansion-wave/work-orders.csv,"Golden work orders that specify source base, downstream variant, current cub variant create command, and receipt targets."
 derived variants,derived variant live create receipts,10,10,good,runs/derived-variant-execution,Receipts from current cub variant create executions without hidden Helm rerender.
 derived variants,target-bound derived variant receipts,6,10,partial,runs/derived-variant-target-bound,"Derived variants that went further through target binding, ConfigHub OCI, Argo sync, and runtime observation."
