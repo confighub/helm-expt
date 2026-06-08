@@ -260,6 +260,9 @@ data/status-dashboard/summary.md
 data/status-dashboard/top20-status.csv
   Compact chart-by-chart status for the top-20 catalog: variants, lane counts, feature summary, gaps, and next action.
 
+data/top20-base-readiness/summary.md
+  One row per top-20 base variant: which bases are clean first paths and which need prerequisites, runtime review, or hook lifecycle work.
+
 data/top100-readiness/summary.md
   One chart-by-chart answer for current top-100 adoption bucket, strongest evidence, and next action.
 

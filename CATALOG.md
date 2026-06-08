@@ -52,6 +52,9 @@ These 20 charts have local kind live/e2e receipts and ConfigHub upload,
 scan, and safe-ops proof receipts. Start with the first variant unless a
 different variant matches your intent.
 
+For exact base-variant readiness, including prerequisites and runtime
+review rows, see [Top-20 Base Variant Readiness](data/top20-base-readiness/summary.md).
+
 ### At A Glance
 
 | Chart | Start With | Evidence | Hard Gap | Variants | Package | Catalog |

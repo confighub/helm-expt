@@ -16,6 +16,7 @@ What is the current status for each chart, base, derived variant, and feature?
 | --- | --- |
 | [status-dashboard/summary.md](./status-dashboard/summary.md) | Start here for a one-page status dashboard: top100, proof lanes, hooks, quirks, GitOps, and live parity. |
 | [status-dashboard/top20-status.csv](./status-dashboard/top20-status.csv) | Compact chart-by-chart status for the top-20 public catalog: variants, evidence strength, proof lanes, feature summary, gaps, next action. |
+| [top20-base-readiness/summary.md](./top20-base-readiness/summary.md) | One row per top-20 base variant: which bases are good first paths and which need prerequisites, runtime review, or hook lifecycle work. |
 | [outcome-coverage/summary.md](./outcome-coverage/summary.md) | Start here. Outcome promises, tests that prove them, and links to the four front-door CSVs. |
 | [outcome-coverage/chart-outcomes.csv](./outcome-coverage/chart-outcomes.csv) | One row per chart: model support, production readiness, lane counts, hard gaps, feature summary. |
 | [outcome-coverage/base-outcomes.csv](./outcome-coverage/base-outcomes.csv) | One row per chart/base variant: render parity, ConfigHub proof, local live, GitOps/OCI live, live Helm parity. |
@@ -89,6 +90,7 @@ tables. Use the deeper CSVs when you need drill-down.
 | `status-dashboard` | [status-dashboard/summary.md](./status-dashboard/summary.md) | one-page front-door status dashboard |
 | `top100-catalog-analysis` | [top100-catalog-analysis/summary.md](./top100-catalog-analysis/summary.md) | top-100 proof and promotion surface |
 | `top100-readiness` | [top100-readiness/summary.md](./top100-readiness/summary.md) | front-door top-100 user readiness and evidence summary |
+| `top20-base-readiness` | [top20-base-readiness/summary.md](./top20-base-readiness/summary.md) | top-20 base-variant readiness and first-path guidance |
 | `top500-catalog-analysis` | [top500-catalog-analysis/summary.md](./top500-catalog-analysis/summary.md) | top-500 catalog planning analysis |
 | `variant-backlog` | [variant-backlog/summary.md](./variant-backlog/summary.md) | candidate base-variant expansion backlog |
 | `variant-goldens` | - | golden work orders for derived-variant examples |
@@ -102,7 +104,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 62 CSV files. Each row records the path, audience,
+It includes 63 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

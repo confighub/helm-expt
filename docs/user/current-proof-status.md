@@ -20,6 +20,14 @@ The compact top-20 catalog status CSV is:
 It gives one row per catalog chart with supported base variants, strongest
 evidence, lane counts, hard gaps, and next action.
 
+The top-20 base readiness table is the shortest answer for which base variant
+to try first:
+
+[Top20 Base Variant Readiness](../../data/top20-base-readiness/summary.md)
+
+It gives one row per top-20 base variant with `start-here`,
+`try-with-proof`, prerequisite, runtime, or hook lifecycle status.
+
 The generated lane matrix is the authority for exact chart/version/base status:
 
 [Lane Test Matrix](../../data/lane-test-matrix/summary.md)

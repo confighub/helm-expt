@@ -52,6 +52,7 @@ function readme(rows) {
   const primary = [
     ["data/status-dashboard/summary.md", "Start here for a one-page status dashboard: top100, proof lanes, hooks, quirks, GitOps, and live parity."],
     ["data/status-dashboard/top20-status.csv", "Compact chart-by-chart status for the top-20 public catalog: variants, evidence strength, proof lanes, feature summary, gaps, next action."],
+    ["data/top20-base-readiness/summary.md", "One row per top-20 base variant: which bases are good first paths and which need prerequisites, runtime review, or hook lifecycle work."],
     ["data/outcome-coverage/summary.md", "Start here. Outcome promises, tests that prove them, and links to the four front-door CSVs."],
     ["data/outcome-coverage/chart-outcomes.csv", "One row per chart: model support, production readiness, lane counts, hard gaps, feature summary."],
     ["data/outcome-coverage/base-outcomes.csv", "One row per chart/base variant: render parity, ConfigHub proof, local live, GitOps/OCI live, live Helm parity."],
@@ -146,6 +147,7 @@ npm run verify
 function audienceFor(path) {
   if (path === "data/csv-index.csv") return "user/front-door";
   if (path.startsWith("data/status-dashboard/")) return "user/front-door";
+  if (path.startsWith("data/top20-base-readiness/")) return "user/front-door";
   if (path.startsWith("data/outcome-coverage/")) return "user/front-door";
   if (path.startsWith("data/pain-point-coverage/")) return "user/front-door";
   if (path.startsWith("data/top100-readiness/")) return "user/front-door";
@@ -166,6 +168,7 @@ function roleFor(path) {
   if (path === "data/csv-index.csv") return "machine-readable index of every CSV under data";
   if (path === "data/status-dashboard/status.csv") return "front-door status dashboard across top100, proof lanes, hooks, quirks, GitOps, and live parity";
   if (path === "data/status-dashboard/top20-status.csv") return "one row per top-20 catalog chart: variants, evidence strength, proof lanes, feature summary, gaps, next action";
+  if (path === "data/top20-base-readiness/base-readiness.csv") return "one row per top-20 base variant: user readiness, proof status, target facts, command, and next action";
   if (path === "data/outcome-coverage/chart-outcomes.csv") return "one row per chart: model support, lane counts, gaps";
   if (path === "data/outcome-coverage/base-outcomes.csv") return "one row per chart/base: proof lane status";
   if (path === "data/outcome-coverage/derived-variant-outcomes.csv") return "one row per derived variant: intended and target-bound status";
@@ -203,6 +206,7 @@ function familyRole(family) {
     adversarial10: "hard-chart readiness and control-point analysis",
     "outcome-coverage": "front-door outcome, test, and status map",
     "status-dashboard": "one-page front-door status dashboard",
+    "top20-base-readiness": "top-20 base-variant readiness and first-path guidance",
     "pain-point-coverage": "front-door Helm pain point coverage map",
     "top100-readiness": "front-door top-100 user readiness and evidence summary",
     "edge-recovery": "recovered desired-state graph fragments",
@@ -257,6 +261,7 @@ function commandMap() {
   return {
     "outcome-coverage": { generate: "npm run outcomes:generate", verify: "npm run outcomes:verify" },
     "status-dashboard": { generate: "npm run status:dashboard", verify: "npm run status:dashboard:verify" },
+    "top20-base-readiness": { generate: "npm run top20:base-readiness", verify: "npm run top20:base-readiness:verify" },
     "pain-point-coverage": { generate: "npm run pain-points:generate", verify: "npm run pain-points:verify" },
     "top100-readiness": { generate: "npm run top100:readiness", verify: "npm run top100:readiness:verify" },
     "edge-recovery": { generate: "npm run edges:generate", verify: "npm run edges:verify" },

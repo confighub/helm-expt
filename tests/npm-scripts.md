@@ -225,6 +225,7 @@ These keep the generated catalog/data surfaces current.
 | `npm run chart-facts` / `chart-facts:verify` | One-row-per-chart facts for the 100 maintained recipes. |
 | `npm run extension-slots` / `extension-slots:verify` | NGINX-like extension-slot coverage: charts, surfaces, routing, and evidence. |
 | `npm run nginx:config-checks` / `nginx:config-checks:verify` | NGINX supported-base checks for empty config extension slots, sidecars, metrics, raw objects, and ingress shape. |
+| `npm run top20:base-readiness` / `top20:base-readiness:verify` | Top-20 base-variant readiness: start-here bases, proof-backed bases, prerequisites, runtime review, and hook lifecycle rows. |
 | `npm run top100:catalog` / `top100:catalog:verify` | Top-100 maintained recipe/package proof surface. |
 | `npm run top500:catalog` / `top500:catalog:verify` | Top-500 source/catalog evidence map. |
 | `npm run completeness:generate` / `completeness:verify` | Level-2 support and variant-rich counts. |

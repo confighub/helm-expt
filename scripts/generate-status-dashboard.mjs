@@ -35,6 +35,7 @@ if (mode === "--generate") {
 function buildReport() {
   const chartRows = readCsv("data/outcome-coverage/chart-outcomes.csv");
   const baseRows = readCsv("data/outcome-coverage/base-outcomes.csv");
+  const top20BaseReadinessRows = readCsv("data/top20-base-readiness/base-readiness.csv");
   const top100Rows = readCsv("data/top100-readiness/readiness.csv");
   const quirkRows = readCsv("data/quirk-coverage/coverage.csv");
   const hookRows = readCsv("data/hook-lifecycle/top100-hooks.csv");
@@ -64,6 +65,8 @@ function buildReport() {
   rows.push(metric("proof lanes", "live Helm-vs-ConfigHub parity pass rows", passCount(baseRows, "live_helm_vs_confighub_parity"), baseRows.length, "partial", "data/outcome-coverage/base-outcomes.csv", `${nonPassCount(baseRows, "live_helm_vs_confighub_parity")} rows have non-pass live parity receipts.`));
   rows.push(metric("proof lanes", "two-cluster kind parity pass rows", resultCount(kindParityRows, "pass"), kindParityRows.length, "partial", "data/live-kind-parity/summary.csv", "Regular Helm in one vanilla kind cluster, cub installer output in another, then semantic comparison."));
   rows.push(metric("proof lanes", "complete core lane rows", count(baseRows, "complete_core_lane_set", "yes"), baseRows.length, "gap", "data/outcome-coverage/base-outcomes.csv", "Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."));
+  rows.push(metric("proof lanes", "top20 start-here base variants", count(top20BaseReadinessRows, "user_readiness", "start-here"), top20BaseReadinessRows.length, "partial", "data/top20-base-readiness/base-readiness.csv", "Base variants that are the cleanest first catalog paths today."));
+  rows.push(metric("proof lanes", "top20 bases needing prerequisite or runtime review", top20BaseReadinessRows.filter((row) => ["target-prerequisite-needed", "runtime-watch", "runtime-review-needed", "hook-lifecycle-review-needed"].includes(row.user_readiness)).length, top20BaseReadinessRows.length, "partial", "data/top20-base-readiness/base-readiness.csv", "Base variants whose render parity is useful but whose target fit, runtime, or lifecycle behavior needs review."));
 
   rows.push(metric("derived variants", "derived variant golden rows", derivedWorkOrders.length, derivedWorkOrders.length, "good", "data/variant-goldens/derived-expansion-wave/work-orders.csv", "Golden work orders that specify source base, downstream variant, current cub variant create command, and receipt targets."));
   rows.push(metric("derived variants", "derived variant live create receipts", derivedLiveReceiptCount, derivedWorkOrders.length, "good", "runs/derived-variant-execution", "Receipts from current cub variant create executions without hidden Helm rerender."));
@@ -253,6 +256,7 @@ lifecycle observation.
 | --- | --- |
 | Can I use this chart today? | [top100-readiness/readiness.csv](../top100-readiness/readiness.csv) |
 | Which base variants have which proof lanes? | [outcome-coverage/base-outcomes.csv](../outcome-coverage/base-outcomes.csv) |
+| Which top-20 base variant should I start with? | [top20-base-readiness/summary.md](../top20-base-readiness/summary.md) |
 | Which hooks, CRDs, generated facts, or target facts matter? | [outcome-coverage/feature-outcomes.csv](../outcome-coverage/feature-outcomes.csv) |
 | Which Helm quirk axes are still blind spots? | [quirk-coverage/coverage.csv](../quirk-coverage/coverage.csv) |
 | Which hook charts need lifecycle receipts? | [hook-lifecycle/top100-hooks.csv](../hook-lifecycle/top100-hooks.csv) |
