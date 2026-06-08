@@ -53,7 +53,13 @@ function buildSite() {
   const extensionSlots = parseCsv(readFileSync(extensionSlotsPath, "utf8"));
   const top100Readiness = parseCsv(readFileSync(top100ReadinessPath, "utf8"));
   const liveParityRerunPlan = parseCsv(readFileSync(liveParityRerunPlanPath, "utf8"));
-  const catalogEntries = top100.entries.filter((entry) => entry.proof_surface === "top20-catalog-supported");
+  const baseReadinessByKey = new Map(baseReadiness.map((row) => [`${row.chart}|${row.base}`, row]));
+  const catalogEntries = top100.entries
+    .filter((entry) => entry.proof_surface === "top20-catalog-supported")
+    .map((entry) => ({
+      ...entry,
+      start_base_readiness: baseReadinessByKey.get(`${entry.chart}@${entry.version}|${entry.start_variant}`)?.user_readiness ?? "",
+    }));
   const proofGrade = top100.entries.filter((entry) => entry.proof_surface === "next80-proof-grade");
   const latestCandidates = readiness.map((row) => ({
     chart: row.chart,
@@ -453,6 +459,7 @@ function chartCard(entry) {
           <dl>
             <dt>Supported version</dt><dd>${escapeHtml(entry.version)}</dd>
             <dt>Start variant</dt><dd>${escapeHtml(entry.start_variant)}</dd>
+            <dt>Start status</dt><dd>${escapeHtml(entry.start_base_readiness || "see base-readiness table")}</dd>
             <dt>Variants</dt><dd>${escapeHtml(entry.supported_variants || entry.candidate_variants)}</dd>
             <dt>Package</dt><dd><a href="../${escapeHtml(entry.package_path)}">${escapeHtml(entry.package_path)}</a></dd>
             <dt>Chart proof</dt><dd><a href="../${escapeHtml(entry.catalog_path)}">CATALOG.md</a></dd>

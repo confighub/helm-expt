@@ -429,7 +429,8 @@
       "package_path": "packages/argo-cd/argo-cd/9.5.15",
       "recipe_path": "recipes/argo-cd/argo-cd/9.5.15/recipe.yaml",
       "catalog_path": "recipes/argo-cd/argo-cd/9.5.15/CATALOG.md",
-      "helm_pain_report": "recipes/argo-cd/argo-cd/9.5.15/helm-pain-report.yaml"
+      "helm_pain_report": "recipes/argo-cd/argo-cd/9.5.15/helm-pain-report.yaml",
+      "start_base_readiness": "runtime-watch"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -456,7 +457,8 @@
       "package_path": "packages/bitnami/mongodb/19.0.7",
       "recipe_path": "recipes/bitnami/mongodb/19.0.7/recipe.yaml",
       "catalog_path": "recipes/bitnami/mongodb/19.0.7/CATALOG.md",
-      "helm_pain_report": "recipes/bitnami/mongodb/19.0.7/helm-pain-report.yaml"
+      "helm_pain_report": "recipes/bitnami/mongodb/19.0.7/helm-pain-report.yaml",
+      "start_base_readiness": "start-here"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -483,7 +485,8 @@
       "package_path": "packages/bitnami/mysql/14.0.3",
       "recipe_path": "recipes/bitnami/mysql/14.0.3/recipe.yaml",
       "catalog_path": "recipes/bitnami/mysql/14.0.3/CATALOG.md",
-      "helm_pain_report": "recipes/bitnami/mysql/14.0.3/helm-pain-report.yaml"
+      "helm_pain_report": "recipes/bitnami/mysql/14.0.3/helm-pain-report.yaml",
+      "start_base_readiness": "start-here"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -510,7 +513,8 @@
       "package_path": "packages/bitnami/nginx/24.0.2",
       "recipe_path": "recipes/bitnami/nginx/24.0.2/recipe.yaml",
       "catalog_path": "recipes/bitnami/nginx/24.0.2/CATALOG.md",
-      "helm_pain_report": "recipes/bitnami/nginx/24.0.2/helm-pain-report.yaml"
+      "helm_pain_report": "recipes/bitnami/nginx/24.0.2/helm-pain-report.yaml",
+      "start_base_readiness": "start-here"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -537,7 +541,8 @@
       "package_path": "packages/bitnami/postgresql/18.6.7",
       "recipe_path": "recipes/bitnami/postgresql/18.6.7/recipe.yaml",
       "catalog_path": "recipes/bitnami/postgresql/18.6.7/CATALOG.md",
-      "helm_pain_report": "recipes/bitnami/postgresql/18.6.7/helm-pain-report.yaml"
+      "helm_pain_report": "recipes/bitnami/postgresql/18.6.7/helm-pain-report.yaml",
+      "start_base_readiness": "try-with-proof"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -564,7 +569,8 @@
       "package_path": "packages/bitnami/rabbitmq/16.0.14",
       "recipe_path": "recipes/bitnami/rabbitmq/16.0.14/recipe.yaml",
       "catalog_path": "recipes/bitnami/rabbitmq/16.0.14/CATALOG.md",
-      "helm_pain_report": "recipes/bitnami/rabbitmq/16.0.14/helm-pain-report.yaml"
+      "helm_pain_report": "recipes/bitnami/rabbitmq/16.0.14/helm-pain-report.yaml",
+      "start_base_readiness": "start-here"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -591,7 +597,8 @@
       "package_path": "packages/bitnami/redis/25.5.3",
       "recipe_path": "recipes/bitnami/redis/25.5.3/recipe.yaml",
       "catalog_path": "recipes/bitnami/redis/25.5.3/CATALOG.md",
-      "helm_pain_report": "recipes/bitnami/redis/25.5.3/helm-pain-report.yaml"
+      "helm_pain_report": "recipes/bitnami/redis/25.5.3/helm-pain-report.yaml",
+      "start_base_readiness": "start-here"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -618,7 +625,8 @@
       "package_path": "packages/external-secrets/external-secrets/2.5.0",
       "recipe_path": "recipes/external-secrets/external-secrets/2.5.0/recipe.yaml",
       "catalog_path": "recipes/external-secrets/external-secrets/2.5.0/CATALOG.md",
-      "helm_pain_report": "recipes/external-secrets/external-secrets/2.5.0/helm-pain-report.yaml"
+      "helm_pain_report": "recipes/external-secrets/external-secrets/2.5.0/helm-pain-report.yaml",
+      "start_base_readiness": "start-here"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -645,7 +653,8 @@
       "package_path": "packages/grafana/grafana/10.5.15",
       "recipe_path": "recipes/grafana/grafana/10.5.15/recipe.yaml",
       "catalog_path": "recipes/grafana/grafana/10.5.15/CATALOG.md",
-      "helm_pain_report": "recipes/grafana/grafana/10.5.15/helm-pain-report.yaml"
+      "helm_pain_report": "recipes/grafana/grafana/10.5.15/helm-pain-report.yaml",
+      "start_base_readiness": "start-here"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -672,7 +681,8 @@
       "package_path": "packages/grafana/loki/7.0.0",
       "recipe_path": "recipes/grafana/loki/7.0.0/recipe.yaml",
       "catalog_path": "recipes/grafana/loki/7.0.0/CATALOG.md",
-      "helm_pain_report": "recipes/grafana/loki/7.0.0/helm-pain-report.yaml"
+      "helm_pain_report": "recipes/grafana/loki/7.0.0/helm-pain-report.yaml",
+      "start_base_readiness": "start-here"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -699,7 +709,8 @@
       "package_path": "packages/grafana/tempo/1.24.4",
       "recipe_path": "recipes/grafana/tempo/1.24.4/recipe.yaml",
       "catalog_path": "recipes/grafana/tempo/1.24.4/CATALOG.md",
-      "helm_pain_report": "recipes/grafana/tempo/1.24.4/helm-pain-report.yaml"
+      "helm_pain_report": "recipes/grafana/tempo/1.24.4/helm-pain-report.yaml",
+      "start_base_readiness": "runtime-review-needed"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -726,7 +737,8 @@
       "package_path": "packages/hashicorp/consul/2.0.0",
       "recipe_path": "recipes/hashicorp/consul/2.0.0/recipe.yaml",
       "catalog_path": "recipes/hashicorp/consul/2.0.0/CATALOG.md",
-      "helm_pain_report": "recipes/hashicorp/consul/2.0.0/helm-pain-report.yaml"
+      "helm_pain_report": "recipes/hashicorp/consul/2.0.0/helm-pain-report.yaml",
+      "start_base_readiness": "start-here"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -753,7 +765,8 @@
       "package_path": "packages/hashicorp/vault/0.32.0",
       "recipe_path": "recipes/hashicorp/vault/0.32.0/recipe.yaml",
       "catalog_path": "recipes/hashicorp/vault/0.32.0/CATALOG.md",
-      "helm_pain_report": "recipes/hashicorp/vault/0.32.0/helm-pain-report.yaml"
+      "helm_pain_report": "recipes/hashicorp/vault/0.32.0/helm-pain-report.yaml",
+      "start_base_readiness": "runtime-review-needed"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -780,7 +793,8 @@
       "package_path": "packages/ingress-nginx/ingress-nginx/4.15.1",
       "recipe_path": "recipes/ingress-nginx/ingress-nginx/4.15.1/recipe.yaml",
       "catalog_path": "recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.md",
-      "helm_pain_report": "recipes/ingress-nginx/ingress-nginx/4.15.1/helm-pain-report.yaml"
+      "helm_pain_report": "recipes/ingress-nginx/ingress-nginx/4.15.1/helm-pain-report.yaml",
+      "start_base_readiness": "runtime-watch"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -807,7 +821,8 @@
       "package_path": "packages/jetstack/cert-manager/v1.20.2",
       "recipe_path": "recipes/jetstack/cert-manager/v1.20.2/recipe.yaml",
       "catalog_path": "recipes/jetstack/cert-manager/v1.20.2/CATALOG.md",
-      "helm_pain_report": "recipes/jetstack/cert-manager/v1.20.2/helm-pain-report.yaml"
+      "helm_pain_report": "recipes/jetstack/cert-manager/v1.20.2/helm-pain-report.yaml",
+      "start_base_readiness": "lifecycle-observed"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -834,7 +849,8 @@
       "package_path": "packages/longhorn/longhorn/1.11.2",
       "recipe_path": "recipes/longhorn/longhorn/1.11.2/recipe.yaml",
       "catalog_path": "recipes/longhorn/longhorn/1.11.2/CATALOG.md",
-      "helm_pain_report": "recipes/longhorn/longhorn/1.11.2/helm-pain-report.yaml"
+      "helm_pain_report": "recipes/longhorn/longhorn/1.11.2/helm-pain-report.yaml",
+      "start_base_readiness": "start-here"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -861,7 +877,8 @@
       "package_path": "packages/metrics-server/metrics-server/3.13.0",
       "recipe_path": "recipes/metrics-server/metrics-server/3.13.0/recipe.yaml",
       "catalog_path": "recipes/metrics-server/metrics-server/3.13.0/CATALOG.md",
-      "helm_pain_report": "recipes/metrics-server/metrics-server/3.13.0/helm-pain-report.yaml"
+      "helm_pain_report": "recipes/metrics-server/metrics-server/3.13.0/helm-pain-report.yaml",
+      "start_base_readiness": "try-with-proof"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -888,7 +905,8 @@
       "package_path": "packages/prometheus-community/kube-prometheus-stack/85.3.3",
       "recipe_path": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/recipe.yaml",
       "catalog_path": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md",
-      "helm_pain_report": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml"
+      "helm_pain_report": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml",
+      "start_base_readiness": "runtime-watch"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -915,7 +933,8 @@
       "package_path": "packages/prometheus-community/prometheus/29.8.0",
       "recipe_path": "recipes/prometheus-community/prometheus/29.8.0/recipe.yaml",
       "catalog_path": "recipes/prometheus-community/prometheus/29.8.0/CATALOG.md",
-      "helm_pain_report": "recipes/prometheus-community/prometheus/29.8.0/helm-pain-report.yaml"
+      "helm_pain_report": "recipes/prometheus-community/prometheus/29.8.0/helm-pain-report.yaml",
+      "start_base_readiness": "try-with-proof"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -942,7 +961,8 @@
       "package_path": "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0",
       "recipe_path": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/recipe.yaml",
       "catalog_path": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.md",
-      "helm_pain_report": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/helm-pain-report.yaml"
+      "helm_pain_report": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/helm-pain-report.yaml",
+      "start_base_readiness": "start-here"
     }
   ],
   "proofGradeEntries": [
