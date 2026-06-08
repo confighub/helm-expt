@@ -49,7 +49,8 @@ The CLI surface is unchanged, so every existing `npm run <chart>:*` script and t
 | `vault-proof.mjs` | 259 |
 | `longhorn-proof.mjs` | 242 |
 | `argo-cd-proof.mjs` | 245 |
-| `scripts/lib/proof-kit.mjs` (shared, amortized over all migrated charts) | 949 |
+| `loki-proof.mjs` | 384 |
+| `scripts/lib/proof-kit.mjs` (shared, amortized over all migrated charts) | 957 |
 
 The original proof scripts were usually around 1,000 lines each. The migrated
 scripts are now chart specs plus chart-specific checks, while the repeated
@@ -101,13 +102,18 @@ Data fields:
 - `valueModel` `{ checkedValues[], unknownValues?, deadValues?, ignoredValues? }`
 - `controlPoints[]`, `dossier { maintainedNotes[], knownControlPoints[] }`
 - `dossier.extra?` — extra chart-specific dossier fields, such as a successor chart note
+- `plan.extraReadiness?` — additional HelmPlan readiness fields, such as a default-render status
 - `plan { status, scanGate, nextAction }`, `readme { intro, proves[] }`
 - `supportObjects?` — cub-only objects allowed in the diff (default `["v1|Namespace||<ns>"]`)
 - `dependencies?`, `renderFlags?`, `helmChartRef?`, `receiptSlug?`, `scriptPrefix?`
+- `extraRequiredFiles?` — additional proof files that must exist, such as a default-render blocker
 
 Hooks:
 
 - `installGate(variant) -> { decision, reasons, allowedScopes?, blockedScopes? }`
+- `extraProofDocuments({ ctx, source }) -> [{ path, document }]` — optional generated proof files written after source/dependency locks
+- `extraEquivalenceClassifications(variant) -> []` — optional Helm equivalence classifications in addition to installer support objects
+- `allowedSemanticDiff({ key, helmObjectJson, cubObjectJson, variant }) -> boolean` — optional package-setup compare allowance for documented serialization differences
 - `verifyExtra(ctx)` — chart-specific assertions; `ctx` exposes
   `{ root, controlPoints, perVariant, check, readYaml, readFileSync, join, … }`,
   where `perVariant.get(name)` returns the parsed
@@ -134,13 +140,13 @@ secrets-store-csi-driver
 vault
 longhorn
 argo-cd
+loki
 ```
 
 Remaining chart proof scripts:
 
 ```text
 consul
-loki
 rabbitmq
 ```
 
