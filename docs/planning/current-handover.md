@@ -56,6 +56,7 @@ The current proof surface is:
 20/20 top-20 charts have local-kind runtime receipts.
 20/20 top-20 charts have ConfigHub proof receipts.
 80 additional charts are proof-grade, not catalog-supported.
+All non-Redis top-20 proof scripts use the shared proof kit.
 The first GitOps/OCI wave has committed receipts for all ten selected rows.
 Five rows are live-proven:
 `bitnami/redis@25.5.3 / reuse-existing-secret`,
@@ -86,8 +87,10 @@ data/lane-test-matrix/summary.md
 As of the current matrix, all 156 chart-recipe-variant rows have
 Helm-equivalence plus installer setup-check evidence. ConfigHub proof,
 local-kind evidence, and ConfigHub OCI/Argo live proof are partial by exact
-variant row. Live Helm-vs-ConfigHub dual-deploy comparison is a required lane
-but does not yet have committed PASS receipts in this repo.
+variant row. The selected top-20 live Helm-vs-ConfigHub comparison lane now has
+20 committed receipts: 10 pass, 2 watch, and 8 blocked. The blocked rows are
+triaged as infrastructure/provisioning or upstream-runtime readiness, not
+semantic parity defects in the shared object set.
 
 Outcome doctrine:
 
@@ -113,7 +116,7 @@ render reproducibility: complete for current recipe variants
 ConfigHub proof: partial by exact chart-recipe-variant row
 local live cluster proof: partial by exact chart-recipe-variant row
 GitOps/OCI live proof: five exact rows pass, five exact rows are non-pass, remaining rows backlog
-live Helm-vs-ConfigHub parity proof: two exact rows pass, remaining rows backlog
+live Helm-vs-ConfigHub parity proof: 10 selected top-20 rows pass, 2 watch, 8 blocked by infra/provisioning or upstream-runtime readiness
 lifecycle observation proof: cert-manager and External Secrets exact rows pass, generic hook lifecycle support remains backlog
 ```
 
@@ -123,7 +126,12 @@ The top-level public entry points are [README.md](../../README.md),
 
 ## Latest Completed Work
 
-The latest completed work added generated queues for the next proof stages:
+The latest completed implementation work completed the proof-kit migration:
+all non-Redis top-20 chart proof scripts now share
+`scripts/lib/proof-kit.mjs`. Redis remains bespoke because it carries the
+first tutorial and user-install verification helpers.
+
+The latest generated queues for the next proof stages are:
 
 | Area | Artifact |
 | --- | --- |
