@@ -34,7 +34,7 @@ blocked: 12
 | `grafana/tempo@1.24.4` | local-persistent | blocked | target-runtime: pods pending (parity passed) | runs/live-kind-parity/grafana-tempo-local-persistent/receipt.yaml |
 | `grafana/tempo@1.24.4` | s3-query-observability | blocked | target-prerequisite: CRDs missing | runs/live-kind-parity/grafana-tempo-s3-query-observability/receipt.yaml |
 | `hashicorp/consul@2.0.0` | default-control-plane | pass |  | runs/live-kind-parity/hashicorp-consul-default-control-plane/receipt.yaml |
-| `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | blocked | parity: semantic object diff | runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml |
+| `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | blocked | target-runtime: pod crash loop (parity passed) | runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml |
 | `hashicorp/vault@0.32.0` | default | blocked | helm-runtime: upstream not ready (parity passed) | runs/live-kind-parity/hashicorp-vault-default/receipt.yaml |
 | `hashicorp/vault@0.32.0` | ha-raft-ui | blocked | target-runtime: pods pending (parity passed) | runs/live-kind-parity/hashicorp-vault-ha-raft-ui/receipt.yaml |
 | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | pass |  | runs/live-kind-parity/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml |

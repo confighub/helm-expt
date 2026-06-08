@@ -142,7 +142,7 @@ Current two-cluster kind parity non-pass receipts:
 | grafana/loki@7.0.0 | simple-scalable-minio | blocked | target-runtime: pods pending (parity passed) |
 | grafana/tempo@1.24.4 | local-persistent | blocked | target-runtime: pods pending (parity passed) |
 | grafana/tempo@1.24.4 | s3-query-observability | blocked | target-prerequisite: CRDs missing |
-| hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | blocked | parity: semantic object diff |
+| hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | blocked | target-runtime: pod crash loop (parity passed) |
 | hashicorp/vault@0.32.0 | default | blocked | helm-runtime: upstream not ready (parity passed) |
 | hashicorp/vault@0.32.0 | ha-raft-ui | blocked | target-runtime: pods pending (parity passed) |
 | ingress-nginx/ingress-nginx@4.15.1 | default | watch | helm-runtime: upstream not ready (parity passed) |
