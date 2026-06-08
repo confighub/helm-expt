@@ -30,7 +30,7 @@ For the shortest chart-by-chart top-100 answer, start with:
 | File | Use it for |
 | --- | --- |
 | [chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) | One row per chart. Shows model support, production readiness, lane counts, feature summary, and hard gaps. |
-| [base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) | One row per chart/base variant. Shows render parity, ConfigHub proof, local live proof, GitOps/OCI live proof, and live Helm parity. |
+| [base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) | One row per chart/base variant. Shows render parity, ConfigHub proof, local live proof, GitOps/OCI live proof, live Helm parity, and two-cluster kind parity. |
 | [derived-variant-outcomes.csv](../../data/outcome-coverage/derived-variant-outcomes.csv) | One row per derived ConfigHub variant. Shows intended-state proof and target-bound live status. |
 | [feature-outcomes.csv](../../data/outcome-coverage/feature-outcomes.csv) | One row per chart feature or quirk. Shows hooks, generated secrets, CRDs, webhooks, required values, schemas, extension slots, and unresolved gaps. |
 
@@ -108,6 +108,7 @@ in-ConfigHub proof
 local live
 GitOps live
 live parity
+two-cluster live parity
 lifecycle observed
 production-ready
 ```
