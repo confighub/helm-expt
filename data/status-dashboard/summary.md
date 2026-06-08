@@ -64,7 +64,9 @@ for exact chart/base lane status.
 ## Top20 Catalog Status
 
 This is the compact chart-by-chart view for the public catalog. It shows the
-supported base variants, current evidence strength, and lane counts. Use
+supported base variants, current evidence strength, and lane counts. The CSV
+also includes each chart's feature summary for hooks, CRDs, generated Secrets,
+webhooks, values schemas, and other tracked quirks. Use
 [top20-status.csv](top20-status.csv) when you want the same data in a
 spreadsheet.
 

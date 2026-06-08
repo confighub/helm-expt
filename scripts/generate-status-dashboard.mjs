@@ -80,7 +80,8 @@ function buildReport() {
   rows.push(metric("hooks", "top100 maintained hook charts", hookRows.length, hookRows.length, "partial", "data/hook-lifecycle/top100-hooks.csv", "Hook-bearing maintained charts with required lifecycle receipt paths."));
   rows.push(metric("hooks", "hook lifecycle receipts present", hookRows.filter((row) => row.lifecycle_disposition === "lifecycle-observed").length, hookRows.length, "gap", "data/hook-lifecycle/top100-hooks.csv", "Current hook rows still need lifecycle route and receipt work."));
 
-  const top20Rows = top20StatusRows(top100Rows);
+  const chartByName = new Map(chartRows.map((row) => [row.chart, row]));
+  const top20Rows = top20StatusRows(top100Rows, chartByName);
   return {
     rows,
     csv: toCsv(rows),
@@ -136,7 +137,9 @@ for exact chart/base lane status.
 ## Top20 Catalog Status
 
 This is the compact chart-by-chart view for the public catalog. It shows the
-supported base variants, current evidence strength, and lane counts. Use
+supported base variants, current evidence strength, and lane counts. The CSV
+also includes each chart's feature summary for hooks, CRDs, generated Secrets,
+webhooks, values schemas, and other tracked quirks. Use
 [top20-status.csv](top20-status.csv) when you want the same data in a
 spreadsheet.
 
@@ -284,7 +287,7 @@ function toCsv(rows) {
   return `${headers.join(",")}\n${rows.map((row) => headers.map((header) => csvCell(row[header] ?? "")).join(",")).join("\n")}\n`;
 }
 
-function top20StatusRows(top100Rows) {
+function top20StatusRows(top100Rows, chartByName) {
   return top100Rows
     .filter((row) => row.catalog_tier === "top20-catalog-supported")
     .map((row) => ({
@@ -298,6 +301,7 @@ function top20StatusRows(top100Rows) {
       local_live: row.local_live,
       gitops_live: row.gitops_live,
       live_parity: row.live_parity,
+      feature_summary: chartByName.get(row.chart)?.feature_summary ?? "",
       hard_gap: row.hard_gap,
       next_action: row.next_action,
       catalog_path: row.catalog_path,
@@ -317,6 +321,7 @@ function top20ToCsv(rows) {
     "local_live",
     "gitops_live",
     "live_parity",
+    "feature_summary",
     "hard_gap",
     "next_action",
     "catalog_path",
