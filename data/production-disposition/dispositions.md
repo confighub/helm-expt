@@ -37,12 +37,12 @@ These rows have accepted production-disposition receipts or three or fewer
 open dispositions. They are the clearest next production-review work queue.
 The same queue is available as `next-actions.csv`.
 
-| Chart | Accepted | Open | Open dispositions | External scan reading |
-| --- | ---: | ---: | --- | --- |
-| `bitnami/nginx@24.0.2` | 3 | 1 | scan/gate warning disposition | existing-tls-ingress: warn, 3 finding(s) (latest-tag:2;pdb-unhealthy-pod-eviction-policy:1); http-clusterip: warn, 3 finding(s) (latest-tag:2;pdb-unhealthy-pod-eviction-policy:1) |
-| `bitnami/redis@25.5.3` | 2 | 2 | generated fact ownership; scan/gate warning disposition | default: warn, 4 finding(s) (latest-tag:2;pdb-unhealthy-pod-eviction-policy:2); reuse-existing-secret: warn, 4 finding(s) (latest-tag:2;pdb-unhealthy-pod-eviction-policy:2) |
-| `metrics-server/metrics-server@3.13.0` | 2 | 3 | cluster RBAC review; generated fact ownership; scan/gate warning disposition | default: warn, 1 finding(s) (unset-memory-requirements:1); external-tls-ca: warn, 1 finding(s) (unset-memory-requirements:1) |
-| `prometheus-community/prometheus@29.8.0` | 0 | 3 | cluster RBAC review; extension slot provenance and scan policy; scan/gate warning disposition | default: warn, 21 finding(s) (unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:4;sensitive-host-mounts:3;host-network:1); server-only-ephemeral: warn, 6 finding(s) (no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2) |
+| Chart | Accepted | Open | Open dispositions | Next receipt | External scan reading |
+| --- | ---: | ---: | --- | --- | --- |
+| `bitnami/nginx@24.0.2` | 3 | 1 | scan/gate warning disposition | data/production-disposition/receipts/bitnami-nginx/scan-gate-warning-disposition.yaml | existing-tls-ingress: warn, 3 finding(s) (latest-tag:2;pdb-unhealthy-pod-eviction-policy:1); http-clusterip: warn, 3 finding(s) (latest-tag:2;pdb-unhealthy-pod-eviction-policy:1) |
+| `bitnami/redis@25.5.3` | 2 | 2 | generated fact ownership; scan/gate warning disposition | data/production-disposition/receipts/bitnami-redis/generated-fact-ownership.yaml | default: warn, 4 finding(s) (latest-tag:2;pdb-unhealthy-pod-eviction-policy:2); reuse-existing-secret: warn, 4 finding(s) (latest-tag:2;pdb-unhealthy-pod-eviction-policy:2) |
+| `metrics-server/metrics-server@3.13.0` | 2 | 3 | cluster RBAC review; generated fact ownership; scan/gate warning disposition | data/production-disposition/receipts/metrics-server-metrics-server/cluster-rbac-review.yaml | default: warn, 1 finding(s) (unset-memory-requirements:1); external-tls-ca: warn, 1 finding(s) (unset-memory-requirements:1) |
+| `prometheus-community/prometheus@29.8.0` | 0 | 3 | cluster RBAC review; extension slot provenance and scan policy; scan/gate warning disposition | data/production-disposition/receipts/prometheus-community-prometheus/cluster-rbac-review.yaml | default: warn, 21 finding(s) (unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:4;sensitive-host-mounts:3;host-network:1); server-only-ephemeral: warn, 6 finding(s) (no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2) |
 
 ## Standard Disposition Types
 

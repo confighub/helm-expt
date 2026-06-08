@@ -376,9 +376,9 @@ These rows have accepted production-disposition receipts or three or fewer
 open dispositions. They are the clearest next production-review work queue.
 The same queue is available as \`next-actions.csv\`.
 
-| Chart | Accepted | Open | Open dispositions | External scan reading |
-| --- | ---: | ---: | --- | --- |
-${closestRows.map(({ chart, accepted, open }) => `| \`${chart.chart}@${chart.version}\` | ${accepted} | ${open.length} | ${open.map((item) => item.name).join("; ")} | ${externalScanSummary(chart.evidence.externalScanVariants)} |`).join("\n")}
+| Chart | Accepted | Open | Open dispositions | Next receipt | External scan reading |
+| --- | ---: | ---: | --- | --- | --- |
+${closestRows.map(({ chart, accepted, open }) => `| \`${chart.chart}@${chart.version}\` | ${accepted} | ${open.length} | ${open.map((item) => item.name).join("; ")} | ${open[0] ? nextDispositionReceiptPath(chart.chart, open[0].name) : "-"} | ${externalScanSummary(chart.evidence.externalScanVariants)} |`).join("\n")}
 
 ## Standard Disposition Types
 
@@ -413,6 +413,7 @@ function toNextActionsCsv(charts) {
         acceptedCount: accepted.length,
         openCount: open.length,
         nextDisposition: firstOpen.name ?? "",
+        nextDispositionReceipt: firstOpen.name ? nextDispositionReceiptPath(chart.chart, firstOpen.name) : "",
         owner: firstOpen.owner ?? "",
         requiredEvidence: (firstOpen.requiredEvidence ?? []).join(";"),
         scanPriority: scan.priority ?? "",
@@ -431,6 +432,7 @@ function toNextActionsCsv(charts) {
     "acceptedCount",
     "openCount",
     "nextDisposition",
+    "nextDispositionReceipt",
     "owner",
     "requiredEvidence",
     "scanPriority",
@@ -441,6 +443,17 @@ function toNextActionsCsv(charts) {
     "nextAction",
   ];
   return `${[headers.join(","), ...rows.map((row) => headers.map((header) => csvEscape(row[header])).join(","))].join("\n")}\n`;
+}
+
+function nextDispositionReceiptPath(chart, disposition) {
+  return `data/production-disposition/receipts/${pathSlug(chart)}/${pathSlug(disposition)}.yaml`;
+}
+
+function pathSlug(text) {
+  return String(text)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 }
 
 function productionNextAction(open, scan) {
