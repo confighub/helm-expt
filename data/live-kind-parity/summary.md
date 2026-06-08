@@ -3,11 +3,40 @@
 This report tracks strict parity receipts that use two vanilla kind clusters:
 regular Helm on one cluster and `cub installer` render/apply on the other.
 
+It is the cleanest live check for the narrow parity question:
+
+```text
+Under the same chart, version, values, and base variant, does regular Helm reach
+the same live outcome as cub installer output?
+```
+
 ```text
 pass: 25
 watch: 3
 blocked: 12
+semantic parity defects: 0
 ```
+
+Non-pass rows are still useful when object parity passed. They usually point at
+target prerequisites, controller readiness, storage, hooks, or operating policy.
+Use the rerun plan for the next command and expected remediation:
+
+```text
+data/live-parity-rerun-plan/summary.md
+```
+
+## Non-Pass By Reason
+
+| Reason | Rows |
+| --- | ---: |
+| helm-runtime: upstream not ready (parity passed) | 5 |
+| target-runtime: pods pending (parity passed) | 3 |
+| target-prerequisite: CRDs disabled or missing (parity passed) | 2 |
+| target-prerequisite: CRDs missing | 2 |
+| target-runtime: pod crash loop (parity passed) | 2 |
+| helm-hook: post-install hook failed (parity passed) | 1 |
+
+## Rows
 
 | Chart | Base | Result | Reason | Receipt |
 | --- | --- | --- | --- | --- |

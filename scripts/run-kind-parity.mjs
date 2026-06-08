@@ -165,16 +165,43 @@ function writeSummary() {
   }).sort((a, b) => `${a.chart}@${a.version}/${a.base}`.localeCompare(`${b.chart}@${b.version}/${b.base}`));
   const counts = new Map();
   for (const row of rows) counts.set(row.result, (counts.get(row.result) ?? 0) + 1);
+  const nonPassRows = rows.filter((row) => row.result !== "pass");
+  const semanticDefectRows = rows.filter((row) => row.reason.startsWith("parity:"));
+  const reasonCounts = groupCount(nonPassRows, "reason");
   const md = `# Two-Cluster Helm-vs-Installer Kind Parity
 
 This report tracks strict parity receipts that use two vanilla kind clusters:
 regular Helm on one cluster and \`cub installer\` render/apply on the other.
 
+It is the cleanest live check for the narrow parity question:
+
+\`\`\`text
+Under the same chart, version, values, and base variant, does regular Helm reach
+the same live outcome as cub installer output?
+\`\`\`
+
 \`\`\`text
 pass: ${counts.get("pass") ?? 0}
 watch: ${counts.get("watch") ?? 0}
 blocked: ${counts.get("blocked") ?? 0}
+semantic parity defects: ${semanticDefectRows.length}
 \`\`\`
+
+Non-pass rows are still useful when object parity passed. They usually point at
+target prerequisites, controller readiness, storage, hooks, or operating policy.
+Use the rerun plan for the next command and expected remediation:
+
+\`\`\`text
+data/live-parity-rerun-plan/summary.md
+\`\`\`
+
+## Non-Pass By Reason
+
+| Reason | Rows |
+| --- | ---: |
+${reasonCounts.size ? mapRows(reasonCounts) : "| - | 0 |"}
+
+## Rows
 
 | Chart | Base | Result | Reason | Receipt |
 | --- | --- | --- | --- | --- |
@@ -285,6 +312,22 @@ function optionValue(name) {
 function toCsv(rows) {
   const headers = ["chart", "version", "base", "result", "reason", "receipt"];
   return `${[headers.join(","), ...rows.map((row) => headers.map((header) => csvEscape(row[header])).join(","))].join("\n")}\n`;
+}
+
+function groupCount(rows, key) {
+  const result = new Map();
+  for (const row of rows) {
+    const value = row[key] || "-";
+    result.set(value, (result.get(value) ?? 0) + 1);
+  }
+  return result;
+}
+
+function mapRows(map) {
+  return [...map.entries()]
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .map(([key, value]) => `| ${key} | ${value} |`)
+    .join("\n");
 }
 
 function csvEscape(value) {
