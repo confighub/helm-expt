@@ -45,6 +45,7 @@ The CLI surface is unchanged, so every existing `npm run <chart>:*` script and t
 | `grafana-proof.mjs` | 251 |
 | `prometheus-proof.mjs` | 298 |
 | `tempo-proof.mjs` | 362 |
+| `secrets-store-csi-driver-proof.mjs` | 240 |
 | `scripts/lib/proof-kit.mjs` (shared, amortized over all migrated charts) | 949 |
 
 The original proof scripts were usually around 1,000 lines each. The migrated
@@ -126,6 +127,7 @@ mongodb
 grafana
 prometheus
 tempo
+secrets-store-csi-driver
 ```
 
 Remaining chart proof scripts:
@@ -136,7 +138,6 @@ consul
 loki
 longhorn
 rabbitmq
-secrets-store-csi-driver
 vault
 ```
 
