@@ -70,6 +70,8 @@ function buildReport() {
   rows.push(metric("live evidence", "runtime/GitOps wave rows", runtimeRows.length, runtimeRows.length, "partial", "data/runtime-gitops/wave1.csv", "Selected Argo/Flux OCI wave rows; this is not the whole corpus."));
   rows.push(metric("live evidence", "live Helm-vs-ConfigHub receipts", liveRows.length, liveRows.length, "partial", "data/live-helm-confighub-compare/summary.csv", "Committed live comparison receipts, including pass and non-pass results."));
   rows.push(metric("live evidence", "two-cluster kind parity receipts", kindParityRows.length, kindParityRows.length, "partial", "data/live-kind-parity/summary.csv", "Committed two-cluster parity receipts for the top-20 base variants, including pass and non-pass results."));
+  rows.push(metric("live evidence", "ConfigHub/OCI semantic parity defect receipts", semanticDefectCount(liveRows), liveRows.length, "good", "data/live-helm-confighub-compare/summary.csv", "Rows whose committed receipt currently points at a semantic object comparison defect."));
+  rows.push(metric("live evidence", "two-cluster semantic parity defect receipts", semanticDefectCount(kindParityRows), kindParityRows.length, "good", "data/live-kind-parity/summary.csv", "Rows whose committed two-cluster receipt currently points at a semantic object comparison defect."));
 
   const quirkTierCounts = groupCount(quirkRows, "coverage_tier");
   rows.push(metric("quirks", "tracked-and-surfaced axes", quirkTierCounts.get("tracked-and-surfaced") ?? 0, quirkRows.length, "good", "data/quirk-coverage/coverage.csv", "Quirk axes visible in generated chart or user data."));
@@ -165,6 +167,13 @@ every lane passing for every base variant. The exact per-base rows are in
 Non-pass live receipts are useful evidence. They usually identify a target
 prerequisite, runtime behavior, or provisioning boundary rather than a render
 parity failure.
+
+Current semantic parity defect receipts:
+
+~~~text
+ConfigHub/OCI live comparison: ${semanticDefectCount(context.liveRows)}/${context.liveRows.length}
+two-cluster kind parity:       ${semanticDefectCount(context.kindParityRows)}/${context.kindParityRows.length}
+~~~
 
 The two-cluster kind parity lane is the cleanest live comparison for chart/base
 rows: regular Helm is applied to one vanilla kind cluster and the \`cub installer\`
@@ -374,4 +383,11 @@ function mapRows(map) {
 
 function resultCount(rows, result) {
   return rows.filter((row) => row.result === result).length;
+}
+
+function semanticDefectCount(rows) {
+  return rows.filter((row) => {
+    const reason = String(row.reason ?? "").toLowerCase();
+    return reason.startsWith("parity:") || reason.includes("semantic object diff");
+  }).length;
 }
