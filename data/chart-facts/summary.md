@@ -61,7 +61,7 @@ other hard gap:                                         1
 | `bitnami/zookeeper` | existing-secret (chart ships no Secret toggle — #113) |
 | `fairwinds-stable/goldilocks` | existing-secret (chart ships no Secret toggle — #113) |
 | `grafana/pyroscope` | existing-secret (chart ships no Secret toggle — #113) |
-| `grafana/tempo` | ha (tempo single-binary chart; HA is the separate t…) |
+| `grafana/tempo` | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
 | `hashicorp/consul` | ha (curated proof lane — bespoke teaching needed) |
 | `jaegertracing/jaeger` | existing-secret (chart ships no Secret toggle — #113) |
 | `kyverno/kyverno` | existing-secret (chart ships no Secret toggle — #113) |
