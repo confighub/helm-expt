@@ -35,8 +35,10 @@ if (mode === "--generate") {
 function buildReport() {
   const configHubProof = configHubProofIndex();
   const liveE2E = liveE2EIndex();
+  const sourceFeatures = sourceFeatureIndex();
+  const lifecycleObservations = lifecycleObservationIndex();
   const rows = recipeRoots()
-    .map((root) => productionRow(root, configHubProof, liveE2E))
+    .map((root) => productionRow(root, configHubProof, liveE2E, sourceFeatures, lifecycleObservations))
     .filter(Boolean)
     .sort((left, right) => left.chart.localeCompare(right.chart));
   check(rows.length === 20, `expected 20 catalog-supported rows, found ${rows.length}`);
@@ -54,12 +56,14 @@ function recipeRoots() {
     .sort();
 }
 
-function productionRow(root, configHubProof, liveE2E) {
+function productionRow(root, configHubProof, liveE2E, sourceFeatures, lifecycleObservations) {
   const catalog = readYaml(join(root, "catalog-status.yaml"));
   if (catalog.spec?.status !== "catalog-supported") return null;
   const index = readYaml(join(root, "artifact-index.yaml"));
   const controls = readYaml(join(root, "control-points.yaml"));
   const chart = catalog.spec.chart;
+  const source = sourceFeatures.get(chart) ?? {};
+  const observations = lifecycleObservations.get(chart) ?? [];
   const version = String(catalog.spec.version);
   const receipt = configHubProof.get(chart);
   const configHubProofStatus = receipt?.status ?? "missing";
@@ -69,6 +73,7 @@ function productionRow(root, configHubProof, liveE2E) {
     variants: index.spec?.variants ?? [],
     productionReadiness: catalog.spec?.productionReadiness,
   });
+  const lifecycleBasis = lifecyclePolicyBasis(controls.spec?.points ?? [], source, observations);
   return {
     chart,
     version,
@@ -79,11 +84,46 @@ function productionRow(root, configHubProof, liveE2E) {
     live_e2e_receipts: live.receipts.join(";"),
     production_support: catalog.spec.productionReadiness === "blocked-by-current-scan-gate" ? "blocked" : "review",
     required_dispositions: requiredDispositions.join(";"),
+    source_hook_count: source.hooks?.count ?? 0,
+    lifecycle_policy_basis: lifecycleBasis.join(";"),
+    lifecycle_observation_receipts: observations.map((row) => row.receipt).join(";"),
     next_action: nextAction(requiredDispositions, live.status),
     recipe_path: relativeRepo(root),
     package_path: index.spec?.installerPackage?.path ?? "",
     confighub_proof_receipt: receipt?.path ?? "",
   };
+}
+
+function sourceFeatureIndex() {
+  const path = join(repoRoot, "data", "top500-catalog-analysis", "source", "source-feature-scan.raw.json");
+  const result = new Map();
+  if (!existsSync(path)) return result;
+  const rows = JSON.parse(readFileSync(path, "utf8"));
+  for (const row of rows) result.set(row.chart, row);
+  return result;
+}
+
+function lifecycleObservationIndex() {
+  const result = new Map();
+  const path = join(repoRoot, "data", "lifecycle-observations", "cert-manager-eso", "summary.csv");
+  if (!existsSync(path)) return result;
+  for (const row of parseCsv(readFileSync(path, "utf8"))) {
+    if (!result.has(row.chart)) result.set(row.chart, []);
+    result.get(row.chart).push(row);
+  }
+  return result;
+}
+
+function lifecyclePolicyBasis(points, source, observations) {
+  const categories = new Set(points.map((point) => point.category));
+  const bases = [];
+  const sourceHookCount = Number(source.hooks?.count ?? 0);
+  if (sourceHookCount > 0) bases.push(`source-hooks:${sourceHookCount}`);
+  const hookPoint = points.find((point) => point.category === "hook-policy");
+  if (hookPoint) bases.push(`recipe-hook-policy:${hookPoint.policy ?? hookPoint.status ?? "declared"}`);
+  if (categories.has("lifecycle-policy")) bases.push("recipe-lifecycle-policy");
+  if (observations.length > 0) bases.push(`lifecycle-observations:${observations.filter((row) => row.result === "pass").length}/${observations.length}`);
+  return bases.length > 0 ? bases : ["none"];
 }
 
 function configHubProofIndex() {
@@ -114,9 +154,9 @@ function configHubProofIndex() {
 
 function liveE2EIndex() {
   const result = new Map();
-  for (const receiptPath of listFiles(join(repoRoot, "runs")).filter((file) => file.endsWith("observation-receipt.json"))) {
-    const receipt = JSON.parse(readFileSync(receiptPath, "utf8"));
-    const chart = receipt.spec?.chart;
+  for (const receiptPath of listFiles(join(repoRoot, "runs")).filter((file) => file.endsWith("observation-receipt.json") || file.endsWith("observation-receipt.yaml"))) {
+    const receipt = receiptPath.endsWith(".json") ? JSON.parse(readFileSync(receiptPath, "utf8")) : readYaml(receiptPath);
+    const chart = chartFromObservation(receipt);
     if (!chart || receipt.spec?.result !== "pass") continue;
     if (!result.has(chart)) result.set(chart, []);
     result.get(chart).push(relativeRepo(receiptPath));
@@ -125,18 +165,20 @@ function liveE2EIndex() {
 }
 
 function liveStatus(chart, liveE2E) {
-  const receipts = [...(liveE2E.get(chart) ?? [])];
-  if (chart === "bitnami/redis") {
-    receipts.push(
-    "runs/redis-local-kind/latest/observation-receipt.yaml",
-    "runs/redis-local-kind/reuse-existing-secret-latest/observation-receipt.yaml",
-    );
-  }
+  const receipts = [...new Set(liveE2E.get(chart) ?? [])];
   const existingReceipts = receipts.filter((path) => existsSync(join(repoRoot, path))).sort();
   return {
     status: existingReceipts.length > 0 ? "local-kind-observed" : "not-started",
     receipts: existingReceipts,
   };
+}
+
+function chartFromObservation(receipt) {
+  if (receipt.spec?.chart) return receipt.spec.chart;
+  const variantRevision = String(receipt.spec?.variantRevision ?? "");
+  const parts = variantRevision.split("/");
+  if (parts[0] === "recipes" && parts.length >= 4) return `${parts[1]}/${parts[2]}`;
+  return "";
 }
 
 function dispositionList({ controls, variants, productionReadiness }) {
@@ -184,6 +226,9 @@ function toCsv(rows) {
     "live_e2e",
     "production_support",
     "required_dispositions",
+    "source_hook_count",
+    "lifecycle_policy_basis",
+    "lifecycle_observation_receipts",
     "next_action",
     "recipe_path",
     "package_path",
@@ -198,6 +243,9 @@ function toSummary(rows) {
   const configHubProofPass = rows.filter((row) => row.confighub_proof === "pass").length;
   const liveObserved = rows.filter((row) => row.live_e2e === "local-kind-observed").length;
   const productionBlocked = rows.filter((row) => row.production_support === "blocked").length;
+  const sourceHookRows = rows.filter((row) => Number(row.source_hook_count) > 0).length;
+  const lifecycleDispositionRows = rows.filter((row) => row.required_dispositions.includes("hook and lifecycle phase policy")).length;
+  const lifecycleObservationRows = rows.filter((row) => row.lifecycle_observation_receipts).length;
   return `# Production Disposition And Live/E2E Lane
 
 The top-20 are mandatory catalog entries because their upstream Helm charts are
@@ -214,7 +262,21 @@ ConfigHub proof receipts passing: ${configHubProofPass}
 live/e2e observed charts: ${liveObserved}
 production-supported charts: 0
 production-blocked pending disposition: ${productionBlocked}
+source Helm-hook rows: ${sourceHookRows}
+hook/lifecycle disposition rows: ${lifecycleDispositionRows}
+related lifecycle observation rows: ${lifecycleObservationRows}
 \`\`\`
+
+The hook/lifecycle disposition is a production-review item. It does not always
+mean the retained source scan found Helm hooks. Use the evidence fields in
+\`top20.csv\`:
+
+- \`source_hook_count\` shows retained source-scan hook evidence.
+- \`lifecycle_policy_basis\` shows whether the row came from source hooks,
+  recipe hook policy, generic lifecycle policy, or related lifecycle
+  observations.
+- \`lifecycle_observation_receipts\` links receipts for cert-manager and
+  External Secrets style CRD/webhook/controller behavior.
 
 ## Top-20 Disposition Table
 
@@ -240,4 +302,42 @@ function csvEscape(value) {
   const text = value === undefined || value === null ? "" : String(value);
   if (/[",\n]/.test(text)) return `"${text.replaceAll('"', '""')}"`;
   return text;
+}
+
+function parseCsv(text) {
+  const lines = text.trim().split(/\r?\n/).filter(Boolean);
+  if (lines.length === 0) return [];
+  const headers = parseCsvLine(lines[0]);
+  return lines.slice(1).map((line) => {
+    const values = parseCsvLine(line);
+    return Object.fromEntries(headers.map((header, index) => [header, values[index] ?? ""]));
+  });
+}
+
+function parseCsvLine(line) {
+  const values = [];
+  let current = "";
+  let quoted = false;
+  for (let index = 0; index < line.length; index += 1) {
+    const char = line[index];
+    if (quoted) {
+      if (char === '"' && line[index + 1] === '"') {
+        current += '"';
+        index += 1;
+      } else if (char === '"') {
+        quoted = false;
+      } else {
+        current += char;
+      }
+    } else if (char === '"') {
+      quoted = true;
+    } else if (char === ",") {
+      values.push(current);
+      current = "";
+    } else {
+      current += char;
+    }
+  }
+  values.push(current);
+  return values;
 }

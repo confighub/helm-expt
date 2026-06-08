@@ -14,7 +14,21 @@ ConfigHub proof receipts passing: 20
 live/e2e observed charts: 20
 production-supported charts: 0
 production-blocked pending disposition: 20
+source Helm-hook rows: 1
+hook/lifecycle disposition rows: 12
+related lifecycle observation rows: 2
 ```
+
+The hook/lifecycle disposition is a production-review item. It does not always
+mean the retained source scan found Helm hooks. Use the evidence fields in
+`top20.csv`:
+
+- `source_hook_count` shows retained source-scan hook evidence.
+- `lifecycle_policy_basis` shows whether the row came from source hooks,
+  recipe hook policy, generic lifecycle policy, or related lifecycle
+  observations.
+- `lifecycle_observation_receipts` links receipts for cert-manager and
+  External Secrets style CRD/webhook/controller behavior.
 
 ## Top-20 Disposition Table
 
