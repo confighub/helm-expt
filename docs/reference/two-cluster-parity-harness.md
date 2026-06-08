@@ -121,6 +121,10 @@ Run every top-20 chart variant, replacing existing receipts:
 npm run kind-parity:run-top20-variants -- --continue-on-fail
 ```
 
+Run this lane serially. The harness cleans up parity-owned kind clusters before
+and after a run; two concurrent parity runs can interfere with each other and
+turn an infrastructure collision into a false chart failure.
+
 The command writes a receipt under:
 
 ```text

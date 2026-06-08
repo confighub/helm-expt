@@ -43,6 +43,10 @@ or refresh live evidence:
 Treat live runs as evidence-producing work. Commit the receipt and regenerate the
 summary that indexes it, or do not claim the lane changed.
 
+Run the strict live parity lane serially. Its cleanup step owns kind clusters
+for that lane, so concurrent parity runs can remove another in-flight run's
+cluster and produce misleading failures.
+
 ## Chart Refresh Cadence
 
 The catalog should keep the currently supported chart version and any candidate
