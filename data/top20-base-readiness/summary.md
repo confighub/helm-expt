@@ -19,8 +19,10 @@ start-here: 11
 try-with-proof: 14
 runtime-watch: 3
 runtime-review-needed: 7
-target-prerequisite-needed: 4
-hook-lifecycle-review-needed: 1
+target-prerequisite-needed: 3
+hook-lifecycle-review-needed: 0
+lifecycle-observed: 1
+prerequisite-observed: 1
 render-only: 0
 ~~~
 
@@ -34,6 +36,8 @@ render-only: 0
 | `runtime-review-needed` | Object parity passed, but runtime state needs investigation before this base is presented as easy. |
 | `target-prerequisite-needed` | The base expects CRDs, APIs, Secrets, storage, or another target prerequisite to exist or be staged. |
 | `hook-lifecycle-review-needed` | Helm hook or hook-like lifecycle behavior needs an explicit route and receipt. |
+| `lifecycle-observed` | Strict parity remains blocked or watch, but the hook-like lifecycle route has a passing observation receipt. |
+| `prerequisite-observed` | The base needs an external prerequisite, and a related observation receipt proves the staged-prerequisite path. |
 | `render-only` | Render parity exists, but live/user proof lanes are not present for this base. |
 
 ## Rows
@@ -55,7 +59,7 @@ render-only: 0
 | `bitnami/redis@25.5.3` | default | yes | start-here | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
 | `bitnami/redis@25.5.3` | reuse-existing-secret | no | try-with-proof | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `external-secrets/external-secrets@2.5.0` | default | yes | start-here | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
-| `external-secrets/external-secrets@2.5.0` | no-crds | no | target-prerequisite-needed | target-prerequisite: CRDs disabled or missing (parity passed) | stage or model the prerequisite, then rerun the same base; keep render parity separate from target fit |
+| `external-secrets/external-secrets@2.5.0` | no-crds | no | prerequisite-observed | target-prerequisite: CRDs disabled or missing (parity passed); prerequisite-staged lifecycle observation passed | record the prerequisite for this base and use runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-no-crds/receipt.yaml when explaining target readiness |
 | `grafana/grafana@10.5.15` | generated-passwords | yes | start-here | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
 | `grafana/grafana@10.5.15` | existing-secret-ingress | no | try-with-proof | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `grafana/loki@7.0.0` | single-binary-filesystem | yes | start-here | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
@@ -68,7 +72,7 @@ render-only: 0
 | `hashicorp/vault@0.32.0` | ha-raft-ui | no | runtime-review-needed | target-runtime: pods pending (parity passed) | inspect runtime state; keep the recipe stable unless semantic object comparison starts failing |
 | `ingress-nginx/ingress-nginx@4.15.1` | default | yes | runtime-watch | helm-runtime: upstream not ready (parity passed) | inspect the receipt and rerun after target resources, storage, and waits are appropriate |
 | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | no | try-with-proof | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
-| `jetstack/cert-manager@v1.20.2` | default | yes | hook-lifecycle-review-needed | helm-hook: post-install hook failed (parity passed) | choose a lifecycle route and commit a lifecycle or observation receipt |
+| `jetstack/cert-manager@v1.20.2` | default | yes | lifecycle-observed | helm-hook: post-install hook failed (parity passed); lifecycle observation passed | use the lifecycle route evidence at runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-default/receipt.yaml; rerun strict parity only if the hook handling decision changes |
 | `jetstack/cert-manager@v1.20.2` | crds-enabled | no | try-with-proof | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `longhorn/longhorn@1.11.2` | default | yes | start-here | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
 | `longhorn/longhorn@1.11.2` | ui-ingress | no | try-with-proof | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |

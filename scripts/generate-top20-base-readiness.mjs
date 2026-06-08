@@ -34,6 +34,7 @@ function buildReport() {
   const productionRows = parseCsvFile("data/production-disposition/top20.csv");
   const baseRows = parseCsvFile("data/outcome-coverage/base-outcomes.csv");
   const baseByKey = new Map(baseRows.map((row) => [`${row.chart}|${row.base}`, row]));
+  const lifecycleObservations = lifecycleObservationIndex();
   const rows = [];
 
   for (const [index, production] of productionRows.entries()) {
@@ -44,7 +45,8 @@ function buildReport() {
       const base = variant.name;
       const baseRow = baseByKey.get(`${chartKey}|${base}`);
       check(Boolean(baseRow), `missing base outcome row for ${chartKey} ${base}`);
-      const readiness = readinessFor(baseRow);
+      const lifecycle = lifecycleObservations.get(`${chartKey}|${base}`);
+      const readiness = readinessFor(baseRow, lifecycle);
       rows.push({
         rank: String(index + 1),
         chart: chartKey,
@@ -62,6 +64,8 @@ function buildReport() {
         live_helm_vs_confighub_parity: baseRow.live_helm_vs_confighub_parity,
         two_cluster_kind_parity: baseRow.two_cluster_kind_parity,
         two_cluster_kind_parity_reason: baseRow.two_cluster_kind_parity_reason,
+        lifecycle_observation: lifecycle?.result ?? "",
+        lifecycle_observation_receipt: lifecycle?.receipt ?? "",
         complete_core_lane_set: baseRow.complete_core_lane_set,
         package_base: variant.packageBase?.path ?? "",
         catalog_path: `${production.recipe_path}/CATALOG.md`,
@@ -98,6 +102,8 @@ runtime-watch: ${counts.get("runtime-watch") ?? 0}
 runtime-review-needed: ${counts.get("runtime-review-needed") ?? 0}
 target-prerequisite-needed: ${counts.get("target-prerequisite-needed") ?? 0}
 hook-lifecycle-review-needed: ${counts.get("hook-lifecycle-review-needed") ?? 0}
+lifecycle-observed: ${counts.get("lifecycle-observed") ?? 0}
+prerequisite-observed: ${counts.get("prerequisite-observed") ?? 0}
 render-only: ${counts.get("render-only") ?? 0}
 ~~~
 
@@ -111,6 +117,8 @@ render-only: ${counts.get("render-only") ?? 0}
 | \`runtime-review-needed\` | Object parity passed, but runtime state needs investigation before this base is presented as easy. |
 | \`target-prerequisite-needed\` | The base expects CRDs, APIs, Secrets, storage, or another target prerequisite to exist or be staged. |
 | \`hook-lifecycle-review-needed\` | Helm hook or hook-like lifecycle behavior needs an explicit route and receipt. |
+| \`lifecycle-observed\` | Strict parity remains blocked or watch, but the hook-like lifecycle route has a passing observation receipt. |
+| \`prerequisite-observed\` | The base needs an external prerequisite, and a related observation receipt proves the staged-prerequisite path. |
 | \`render-only\` | Render parity exists, but live/user proof lanes are not present for this base. |
 
 ## Rows
@@ -139,7 +147,7 @@ npm run top20:base-readiness:verify
   return { rows, csv: toCsv(rows), summary };
 }
 
-function readinessFor(row) {
+function readinessFor(row, lifecycle) {
   if (row.complete_core_lane_set === "yes" && row.two_cluster_kind_parity === "pass") {
     return {
       status: "start-here",
@@ -155,6 +163,20 @@ function readinessFor(row) {
     };
   }
   const reason = row.two_cluster_kind_parity_reason || "";
+  if (lifecycle?.result === "pass" && reason.startsWith("helm-hook")) {
+    return {
+      status: "lifecycle-observed",
+      why: `${reason}; lifecycle observation passed`,
+      nextAction: `use the lifecycle route evidence at ${lifecycle.receipt}; rerun strict parity only if the hook handling decision changes`,
+    };
+  }
+  if (lifecycle?.result === "pass" && reason.startsWith("target-prerequisite")) {
+    return {
+      status: "prerequisite-observed",
+      why: `${reason}; prerequisite-staged lifecycle observation passed`,
+      nextAction: `record the prerequisite for this base and use ${lifecycle.receipt} when explaining target readiness`,
+    };
+  }
   if (reason.startsWith("target-prerequisite")) {
     return {
       status: "target-prerequisite-needed",
@@ -195,6 +217,13 @@ function readinessFor(row) {
     why: "no passing render parity row found",
     nextAction: "inspect the recipe and proof receipts before presenting this base",
   };
+}
+
+function lifecycleObservationIndex() {
+  const path = join(repoRoot, "data", "lifecycle-observations", "cert-manager-eso", "summary.csv");
+  if (!existsSync(path)) return new Map();
+  return new Map(parseCsvFile("data/lifecycle-observations/cert-manager-eso/summary.csv")
+    .map((row) => [`${row.chart}@${row.version}|${row.base}`, row]));
 }
 
 function parseCsvFile(path) {

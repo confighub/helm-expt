@@ -345,7 +345,7 @@ function html(catalog) {
 
     <section aria-labelledby="base-readiness">
       <h2 id="base-readiness">Which Base Should I Start With?</h2>
-      <p>Each catalog chart has named base variants. The table below shows the recommended first base for each top-20 chart and whether that base is ready as a clean first path, needs extra proof, or needs runtime/prerequisite review.</p>
+      <p>Each catalog chart has named base variants. The table below shows the recommended first base for each top-20 chart and whether that base is ready as a clean first path, needs extra proof, has related lifecycle evidence, or needs runtime/prerequisite review.</p>
       <div class="lanes">
         ${Object.entries(baseReadinessCounts)
           .map(([label, value]) => `<div class="metric"><strong>${escapeHtml(value)}</strong><span>${escapeHtml(label)}</span></div>`)

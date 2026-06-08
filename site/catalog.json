@@ -188,12 +188,12 @@
     },
     {
       "section": "proof lanes",
-      "metric": "top20 bases needing prerequisite or runtime review",
-      "value": "15",
+      "metric": "top20 bases needing unresolved prerequisite or runtime review",
+      "value": "13",
       "total": "40",
       "status": "partial",
       "source": "data/top20-base-readiness/base-readiness.csv",
-      "note": "Base variants whose render parity is useful but whose target fit, runtime, or lifecycle behavior needs review."
+      "note": "Base variants whose render parity is useful but whose target fit, runtime, or lifecycle behavior still needs review."
     },
     {
       "section": "derived variants",
@@ -3115,6 +3115,8 @@
       "live_helm_vs_confighub_parity": "watch",
       "two_cluster_kind_parity": "watch",
       "two_cluster_kind_parity_reason": "helm-runtime: upstream not ready (parity passed)",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
       "package_base": "packages/argo-cd/argo-cd/9.5.15/bases/default",
       "catalog_path": "recipes/argo-cd/argo-cd/9.5.15/CATALOG.md"
@@ -3136,6 +3138,8 @@
       "live_helm_vs_confighub_parity": "missing",
       "two_cluster_kind_parity": "blocked",
       "two_cluster_kind_parity_reason": "target-prerequisite: CRDs disabled or missing (parity passed)",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
       "package_base": "packages/argo-cd/argo-cd/9.5.15/bases/no-crds",
       "catalog_path": "recipes/argo-cd/argo-cd/9.5.15/CATALOG.md"
@@ -3157,6 +3161,8 @@
       "live_helm_vs_confighub_parity": "pass",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "yes",
       "package_base": "packages/bitnami/mongodb/19.0.7/bases/generated-passwords",
       "catalog_path": "recipes/bitnami/mongodb/19.0.7/CATALOG.md"
@@ -3178,6 +3184,8 @@
       "live_helm_vs_confighub_parity": "missing",
       "two_cluster_kind_parity": "blocked",
       "two_cluster_kind_parity_reason": "target-runtime: pod crash loop (parity passed)",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
       "package_base": "packages/bitnami/mongodb/19.0.7/bases/existing-secret-replicaset",
       "catalog_path": "recipes/bitnami/mongodb/19.0.7/CATALOG.md"
@@ -3199,6 +3207,8 @@
       "live_helm_vs_confighub_parity": "pass",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "yes",
       "package_base": "packages/bitnami/mysql/14.0.3/bases/generated-passwords",
       "catalog_path": "recipes/bitnami/mysql/14.0.3/CATALOG.md"
@@ -3220,6 +3230,8 @@
       "live_helm_vs_confighub_parity": "missing",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
       "package_base": "packages/bitnami/mysql/14.0.3/bases/existing-secret",
       "catalog_path": "recipes/bitnami/mysql/14.0.3/CATALOG.md"
@@ -3241,6 +3253,8 @@
       "live_helm_vs_confighub_parity": "pass",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "yes",
       "package_base": "packages/bitnami/nginx/24.0.2/bases/http-clusterip",
       "catalog_path": "recipes/bitnami/nginx/24.0.2/CATALOG.md"
@@ -3262,6 +3276,8 @@
       "live_helm_vs_confighub_parity": "missing",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
       "package_base": "packages/bitnami/nginx/24.0.2/bases/existing-tls-ingress",
       "catalog_path": "recipes/bitnami/nginx/24.0.2/CATALOG.md"
@@ -3283,6 +3299,8 @@
       "live_helm_vs_confighub_parity": "pass",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
       "package_base": "packages/bitnami/postgresql/18.6.7/bases/generated-passwords",
       "catalog_path": "recipes/bitnami/postgresql/18.6.7/CATALOG.md"
@@ -3304,6 +3322,8 @@
       "live_helm_vs_confighub_parity": "missing",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
       "package_base": "packages/bitnami/postgresql/18.6.7/bases/existing-secret",
       "catalog_path": "recipes/bitnami/postgresql/18.6.7/CATALOG.md"
@@ -3325,6 +3345,8 @@
       "live_helm_vs_confighub_parity": "pass",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "yes",
       "package_base": "packages/bitnami/rabbitmq/16.0.14/bases/generated-passwords",
       "catalog_path": "recipes/bitnami/rabbitmq/16.0.14/CATALOG.md"
@@ -3346,6 +3368,8 @@
       "live_helm_vs_confighub_parity": "missing",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
       "package_base": "packages/bitnami/rabbitmq/16.0.14/bases/existing-secret",
       "catalog_path": "recipes/bitnami/rabbitmq/16.0.14/CATALOG.md"
@@ -3367,6 +3391,8 @@
       "live_helm_vs_confighub_parity": "pass",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "yes",
       "package_base": "packages/bitnami/redis/25.5.3/bases/default",
       "catalog_path": "recipes/bitnami/redis/25.5.3/CATALOG.md"
@@ -3388,6 +3414,8 @@
       "live_helm_vs_confighub_parity": "missing",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
       "package_base": "packages/bitnami/redis/25.5.3/bases/reuse-existing-secret",
       "catalog_path": "recipes/bitnami/redis/25.5.3/CATALOG.md"
@@ -3409,6 +3437,8 @@
       "live_helm_vs_confighub_parity": "pass",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
+      "lifecycle_observation": "pass",
+      "lifecycle_observation_receipt": "runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-default/receipt.yaml",
       "complete_core_lane_set": "yes",
       "package_base": "packages/external-secrets/external-secrets/2.5.0/bases/default",
       "catalog_path": "recipes/external-secrets/external-secrets/2.5.0/CATALOG.md"
@@ -3418,9 +3448,9 @@
       "chart": "external-secrets/external-secrets@2.5.0",
       "base": "no-crds",
       "recommended_first": "no",
-      "user_readiness": "target-prerequisite-needed",
-      "why": "target-prerequisite: CRDs disabled or missing (parity passed)",
-      "next_action": "stage or model the prerequisite, then rerun the same base; keep render parity separate from target fit",
+      "user_readiness": "prerequisite-observed",
+      "why": "target-prerequisite: CRDs disabled or missing (parity passed); prerequisite-staged lifecycle observation passed",
+      "next_action": "record the prerequisite for this base and use runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-no-crds/receipt.yaml when explaining target readiness",
       "command": "cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base no-crds --work-dir <tmp> --non-interactive --namespace external-secrets",
       "target_facts": "none",
       "render_parity": "pass",
@@ -3430,6 +3460,8 @@
       "live_helm_vs_confighub_parity": "missing",
       "two_cluster_kind_parity": "blocked",
       "two_cluster_kind_parity_reason": "target-prerequisite: CRDs disabled or missing (parity passed)",
+      "lifecycle_observation": "pass",
+      "lifecycle_observation_receipt": "runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-no-crds/receipt.yaml",
       "complete_core_lane_set": "no",
       "package_base": "packages/external-secrets/external-secrets/2.5.0/bases/no-crds",
       "catalog_path": "recipes/external-secrets/external-secrets/2.5.0/CATALOG.md"
@@ -3451,6 +3483,8 @@
       "live_helm_vs_confighub_parity": "pass",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "yes",
       "package_base": "packages/grafana/grafana/10.5.15/bases/generated-passwords",
       "catalog_path": "recipes/grafana/grafana/10.5.15/CATALOG.md"
@@ -3472,6 +3506,8 @@
       "live_helm_vs_confighub_parity": "missing",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
       "package_base": "packages/grafana/grafana/10.5.15/bases/existing-secret-ingress",
       "catalog_path": "recipes/grafana/grafana/10.5.15/CATALOG.md"
@@ -3493,6 +3529,8 @@
       "live_helm_vs_confighub_parity": "pass",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "yes",
       "package_base": "packages/grafana/loki/7.0.0/bases/single-binary-filesystem",
       "catalog_path": "recipes/grafana/loki/7.0.0/CATALOG.md"
@@ -3514,6 +3552,8 @@
       "live_helm_vs_confighub_parity": "missing",
       "two_cluster_kind_parity": "blocked",
       "two_cluster_kind_parity_reason": "target-runtime: pods pending (parity passed)",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
       "package_base": "packages/grafana/loki/7.0.0/bases/simple-scalable-minio",
       "catalog_path": "recipes/grafana/loki/7.0.0/CATALOG.md"
@@ -3535,6 +3575,8 @@
       "live_helm_vs_confighub_parity": "watch",
       "two_cluster_kind_parity": "blocked",
       "two_cluster_kind_parity_reason": "target-runtime: pods pending (parity passed)",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
       "package_base": "packages/grafana/tempo/1.24.4/bases/local-persistent",
       "catalog_path": "recipes/grafana/tempo/1.24.4/CATALOG.md"
@@ -3556,6 +3598,8 @@
       "live_helm_vs_confighub_parity": "missing",
       "two_cluster_kind_parity": "blocked",
       "two_cluster_kind_parity_reason": "target-prerequisite: CRDs missing",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
       "package_base": "packages/grafana/tempo/1.24.4/bases/s3-query-observability",
       "catalog_path": "recipes/grafana/tempo/1.24.4/CATALOG.md"
@@ -3577,6 +3621,8 @@
       "live_helm_vs_confighub_parity": "pass",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "yes",
       "package_base": "packages/hashicorp/consul/2.0.0/bases/default-control-plane",
       "catalog_path": "recipes/hashicorp/consul/2.0.0/CATALOG.md"
@@ -3598,6 +3644,8 @@
       "live_helm_vs_confighub_parity": "missing",
       "two_cluster_kind_parity": "blocked",
       "two_cluster_kind_parity_reason": "target-runtime: pod crash loop (parity passed)",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
       "package_base": "packages/hashicorp/consul/2.0.0/bases/secure-mesh-existing-secrets",
       "catalog_path": "recipes/hashicorp/consul/2.0.0/CATALOG.md"
@@ -3619,6 +3667,8 @@
       "live_helm_vs_confighub_parity": "watch",
       "two_cluster_kind_parity": "blocked",
       "two_cluster_kind_parity_reason": "helm-runtime: upstream not ready (parity passed)",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
       "package_base": "packages/hashicorp/vault/0.32.0/bases/default",
       "catalog_path": "recipes/hashicorp/vault/0.32.0/CATALOG.md"
@@ -3640,6 +3690,8 @@
       "live_helm_vs_confighub_parity": "missing",
       "two_cluster_kind_parity": "blocked",
       "two_cluster_kind_parity_reason": "target-runtime: pods pending (parity passed)",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
       "package_base": "packages/hashicorp/vault/0.32.0/bases/ha-raft-ui",
       "catalog_path": "recipes/hashicorp/vault/0.32.0/CATALOG.md"
@@ -3661,6 +3713,8 @@
       "live_helm_vs_confighub_parity": "missing",
       "two_cluster_kind_parity": "watch",
       "two_cluster_kind_parity_reason": "helm-runtime: upstream not ready (parity passed)",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
       "package_base": "packages/ingress-nginx/ingress-nginx/4.15.1/bases/default",
       "catalog_path": "recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.md"
@@ -3682,6 +3736,8 @@
       "live_helm_vs_confighub_parity": "watch",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
       "package_base": "packages/ingress-nginx/ingress-nginx/4.15.1/bases/admission-disabled",
       "catalog_path": "recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.md"
@@ -3691,9 +3747,9 @@
       "chart": "jetstack/cert-manager@v1.20.2",
       "base": "default",
       "recommended_first": "yes",
-      "user_readiness": "hook-lifecycle-review-needed",
-      "why": "helm-hook: post-install hook failed (parity passed)",
-      "next_action": "choose a lifecycle route and commit a lifecycle or observation receipt",
+      "user_readiness": "lifecycle-observed",
+      "why": "helm-hook: post-install hook failed (parity passed); lifecycle observation passed",
+      "next_action": "use the lifecycle route evidence at runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-default/receipt.yaml; rerun strict parity only if the hook handling decision changes",
       "command": "cub installer setup --pull packages/jetstack/cert-manager/v1.20.2 --base default --work-dir <tmp> --non-interactive --namespace cert-manager",
       "target_facts": "none",
       "render_parity": "pass",
@@ -3703,6 +3759,8 @@
       "live_helm_vs_confighub_parity": "missing",
       "two_cluster_kind_parity": "blocked",
       "two_cluster_kind_parity_reason": "helm-hook: post-install hook failed (parity passed)",
+      "lifecycle_observation": "pass",
+      "lifecycle_observation_receipt": "runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-default/receipt.yaml",
       "complete_core_lane_set": "no",
       "package_base": "packages/jetstack/cert-manager/v1.20.2/bases/default",
       "catalog_path": "recipes/jetstack/cert-manager/v1.20.2/CATALOG.md"
@@ -3724,6 +3782,8 @@
       "live_helm_vs_confighub_parity": "pass",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
+      "lifecycle_observation": "pass",
+      "lifecycle_observation_receipt": "runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml",
       "complete_core_lane_set": "no",
       "package_base": "packages/jetstack/cert-manager/v1.20.2/bases/crds-enabled",
       "catalog_path": "recipes/jetstack/cert-manager/v1.20.2/CATALOG.md"
@@ -3745,6 +3805,8 @@
       "live_helm_vs_confighub_parity": "pass",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "yes",
       "package_base": "packages/longhorn/longhorn/1.11.2/bases/default",
       "catalog_path": "recipes/longhorn/longhorn/1.11.2/CATALOG.md"
@@ -3766,6 +3828,8 @@
       "live_helm_vs_confighub_parity": "missing",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
       "package_base": "packages/longhorn/longhorn/1.11.2/bases/ui-ingress",
       "catalog_path": "recipes/longhorn/longhorn/1.11.2/CATALOG.md"
@@ -3787,6 +3851,8 @@
       "live_helm_vs_confighub_parity": "pass",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
       "package_base": "packages/metrics-server/metrics-server/3.13.0/bases/default",
       "catalog_path": "recipes/metrics-server/metrics-server/3.13.0/CATALOG.md"
@@ -3808,6 +3874,8 @@
       "live_helm_vs_confighub_parity": "missing",
       "two_cluster_kind_parity": "blocked",
       "two_cluster_kind_parity_reason": "helm-runtime: upstream not ready (parity passed)",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
       "package_base": "packages/metrics-server/metrics-server/3.13.0/bases/external-tls-ca",
       "catalog_path": "recipes/metrics-server/metrics-server/3.13.0/CATALOG.md"
@@ -3829,6 +3897,8 @@
       "live_helm_vs_confighub_parity": "watch",
       "two_cluster_kind_parity": "watch",
       "two_cluster_kind_parity_reason": "helm-runtime: upstream not ready (parity passed)",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
       "package_base": "packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/default",
       "catalog_path": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md"
@@ -3850,6 +3920,8 @@
       "live_helm_vs_confighub_parity": "missing",
       "two_cluster_kind_parity": "blocked",
       "two_cluster_kind_parity_reason": "target-prerequisite: CRDs missing",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
       "package_base": "packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/no-crds",
       "catalog_path": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md"
@@ -3871,6 +3943,8 @@
       "live_helm_vs_confighub_parity": "missing",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
       "package_base": "packages/prometheus-community/prometheus/29.8.0/bases/default",
       "catalog_path": "recipes/prometheus-community/prometheus/29.8.0/CATALOG.md"
@@ -3892,6 +3966,8 @@
       "live_helm_vs_confighub_parity": "pass",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
       "package_base": "packages/prometheus-community/prometheus/29.8.0/bases/server-only-ephemeral",
       "catalog_path": "recipes/prometheus-community/prometheus/29.8.0/CATALOG.md"
@@ -3913,6 +3989,8 @@
       "live_helm_vs_confighub_parity": "pass",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "yes",
       "package_base": "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/bases/default",
       "catalog_path": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.md"
@@ -3934,6 +4012,8 @@
       "live_helm_vs_confighub_parity": "missing",
       "two_cluster_kind_parity": "pass",
       "two_cluster_kind_parity_reason": "",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
       "package_base": "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/bases/sync-secret-rotation",
       "catalog_path": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.md"
