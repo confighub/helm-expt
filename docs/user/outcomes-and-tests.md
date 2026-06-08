@@ -39,7 +39,7 @@ For the shortest chart-by-chart top-100 answer, start with:
 | File | Use it for |
 | --- | --- |
 | [status.csv](../../data/status-dashboard/status.csv) | One row per dashboard metric: top100, proof lanes, hooks, quirks, GitOps, and live parity. |
-| [top20-status.csv](../../data/status-dashboard/top20-status.csv) | One row per top-20 catalog chart. Shows supported base variants, strongest evidence, lane counts, hard gaps, and next action. |
+| [top20-status.csv](../../data/status-dashboard/top20-status.csv) | One row per top-20 catalog chart. Shows supported base variants, strongest evidence, lane counts, feature summary, hard gaps, and next action. |
 | [pain-points.csv](../../data/pain-point-coverage/pain-points.csv) | One row per common Helm pain point. Shows current answer, handoff, evidence, remaining gap, and next action. |
 | [readiness.csv](../../data/top100-readiness/readiness.csv) | One row per top-100 chart. Shows adoption bucket, current user status, strongest evidence, hard gap, and next action. |
 | [coverage-matrix.csv](../../data/variant-path-coverage/coverage-matrix.csv) | One row per chart/base/path. Shows whether the row is a base, diff, operation, or derived variant, with proof status per lane. |

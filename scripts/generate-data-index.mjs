@@ -51,7 +51,7 @@ function buildReport() {
 function readme(rows) {
   const primary = [
     ["data/status-dashboard/summary.md", "Start here for a one-page status dashboard: top100, proof lanes, hooks, quirks, GitOps, and live parity."],
-    ["data/status-dashboard/top20-status.csv", "Compact chart-by-chart status for the top-20 public catalog: variants, evidence strength, proof lanes, gaps, next action."],
+    ["data/status-dashboard/top20-status.csv", "Compact chart-by-chart status for the top-20 public catalog: variants, evidence strength, proof lanes, feature summary, gaps, next action."],
     ["data/outcome-coverage/summary.md", "Start here. Outcome promises, tests that prove them, and links to the four front-door CSVs."],
     ["data/outcome-coverage/chart-outcomes.csv", "One row per chart: model support, production readiness, lane counts, hard gaps, feature summary."],
     ["data/outcome-coverage/base-outcomes.csv", "One row per chart/base variant: render parity, ConfigHub proof, local live, GitOps/OCI live, live Helm parity."],
@@ -159,7 +159,7 @@ function audienceFor(path) {
 function roleFor(path) {
   if (path === "data/csv-index.csv") return "machine-readable index of every CSV under data";
   if (path === "data/status-dashboard/status.csv") return "front-door status dashboard across top100, proof lanes, hooks, quirks, GitOps, and live parity";
-  if (path === "data/status-dashboard/top20-status.csv") return "one row per top-20 catalog chart: variants, evidence strength, proof lanes, gaps, next action";
+  if (path === "data/status-dashboard/top20-status.csv") return "one row per top-20 catalog chart: variants, evidence strength, proof lanes, feature summary, gaps, next action";
   if (path === "data/outcome-coverage/chart-outcomes.csv") return "one row per chart: model support, lane counts, gaps";
   if (path === "data/outcome-coverage/base-outcomes.csv") return "one row per chart/base: proof lane status";
   if (path === "data/outcome-coverage/derived-variant-outcomes.csv") return "one row per derived variant: intended and target-bound status";
