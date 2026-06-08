@@ -43,12 +43,12 @@ Which detailed CSV should I open next?
 
 ## Top100 Readiness
 
-| User status | Charts |
+| Adoption bucket | Charts |
 | --- | ---: |
-| proof-grade-needs-user-shaped-variant | 46 |
-| proof-grade-ready-for-promotion-review | 27 |
-| catalog-supported-with-live-evidence | 20 |
-| proof-grade-with-named-limitation | 7 |
+| needs-useful-variant | 46 |
+| promote-after-review | 27 |
+| try-from-public-catalog | 20 |
+| limitation-decision-first | 7 |
 
 | Strongest evidence | Charts |
 | --- | ---: |

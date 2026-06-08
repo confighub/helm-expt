@@ -45,6 +45,7 @@ function buildReport() {
       proof_surface_rank: top100.proof_surface_rank,
       chart: key,
       catalog_tier: top100.proof_surface,
+      adoption_bucket: adoptionBucketFor(status.userStatus),
       user_status: status.userStatus,
       strongest_evidence: strongestEvidence,
       variant_count: top100.variant_count,
@@ -111,6 +112,7 @@ function userStatusFor(top100, outcome, strongestEvidence) {
 
 function summary(rows) {
   const counts = countBy(rows, (row) => row.user_status);
+  const adoptionCounts = countBy(rows, (row) => row.adoption_bucket);
   const evidenceCounts = countBy(rows, (row) => row.strongest_evidence);
   const hardGaps = rows.filter((row) => row.hard_gap !== "-");
   const hardGapCounts = countBy(hardGaps, (row) => row.hard_gap);
@@ -146,6 +148,12 @@ charts with named hard gaps: ${hardGaps.length}
 | Which proof-grade charts are closest to promotion? | ${promotionReview.length} | Recipe/package proof and multiple variants exist, but catalog review is not done. | Run catalog promotion review and add live lanes for selected bases. |
 | Which charts need a useful user-shaped variant first? | ${needsVariant.length} | The default render proves the mechanism, but it is not yet a good catalog offer. | Add one or more realistic base variants before promotion. |
 | Which charts need a limitation decision first? | ${namedLimitation.length} | A known gap affects the recommended path. | Decide whether to support, disclose, or defer that capability. |
+
+## Adoption Buckets
+
+| Bucket | Count | What it means | Use this when |
+| --- | ---: | --- | --- |
+${[...adoptionCounts.entries()].map(([bucket, count]) => `| \`${bucket}\` | ${count} | ${escapePipes(adoptionMeaning(bucket))} | ${escapePipes(adoptionUse(bucket))} |`).join("\n")}
 
 ## Hard Gap Buckets
 
@@ -188,9 +196,9 @@ ${[...evidenceCounts.entries()].map(([status, count]) => `| \`${status}\` | ${co
 
 ## First Rows
 
-| Chart | User status | Evidence | Variants | Next action |
+| Chart | Adoption bucket | Evidence | Variants | Next action |
 | --- | --- | --- | ---: | --- |
-${rows.slice(0, 25).map((row) => `| \`${row.chart}\` | \`${row.user_status}\` | \`${row.strongest_evidence}\` | ${row.variant_count} | ${escapePipes(row.next_action)} |`).join("\n")}
+${rows.slice(0, 25).map((row) => `| \`${row.chart}\` | \`${row.adoption_bucket}\` | \`${row.strongest_evidence}\` | ${row.variant_count} | ${escapePipes(row.next_action)} |`).join("\n")}
 
 ## Files
 
@@ -233,6 +241,42 @@ function statusMeaning(status) {
     "not-in-current-catalog-lane": "Not part of the maintained top-100 proof lane.",
   };
   return meanings[status] ?? "";
+}
+
+function adoptionBucketFor(status) {
+  const buckets = {
+    "catalog-supported-with-live-evidence": "try-from-public-catalog",
+    "catalog-supported-needs-live-expansion": "try-with-lane-check",
+    "proof-grade-ready-for-promotion-review": "promote-after-review",
+    "proof-grade-needs-user-shaped-variant": "needs-useful-variant",
+    "proof-grade-with-named-limitation": "limitation-decision-first",
+    "not-in-current-catalog-lane": "not-ready",
+  };
+  return buckets[status] ?? "not-ready";
+}
+
+function adoptionMeaning(bucket) {
+  const meanings = {
+    "try-from-public-catalog": "A public catalog entry exists and at least one base has live evidence. Check the exact base lane before making a broader claim.",
+    "try-with-lane-check": "A public catalog entry exists, but the useful base still needs more live evidence.",
+    "promote-after-review": "Recipe/package proof and multiple variants exist. It is a good candidate for catalog review and selected live lanes.",
+    "needs-useful-variant": "The proof mechanism works, but the current default-only path is not yet a compelling catalog offer.",
+    "limitation-decision-first": "A named capability gap affects the recommended path. Decide whether to support, disclose, or defer it.",
+    "not-ready": "The chart is outside the current maintained proof lane.",
+  };
+  return meanings[bucket] ?? "";
+}
+
+function adoptionUse(bucket) {
+  const uses = {
+    "try-from-public-catalog": "You want a maintained public example and can choose a base with the needed proof lane.",
+    "try-with-lane-check": "You accept partial live coverage and will verify the exact base yourself.",
+    "promote-after-review": "You are expanding the catalog or choosing the next charts for live evidence.",
+    "needs-useful-variant": "You are deciding which realistic base variants users would actually want.",
+    "limitation-decision-first": "You need an operator/product decision before presenting the chart as supported.",
+    "not-ready": "Use source analysis only; do not present it as catalog support.",
+  };
+  return uses[bucket] ?? "";
 }
 
 function evidenceMeaning(status) {

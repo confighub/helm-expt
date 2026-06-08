@@ -91,7 +91,7 @@ function buildReport() {
 }
 
 function summary(rows, context) {
-  const top100Status = groupCount(context.top100Rows, "user_status");
+  const top100Status = groupCount(context.top100Rows, "adoption_bucket");
   const strongestEvidence = groupCount(context.top100Rows, "strongest_evidence");
   const quirkTierCounts = groupCount(context.quirkRows, "coverage_tier");
   const hookPreview = context.hookRows.slice(0, 8);
@@ -120,7 +120,7 @@ ${rows.map((row) => `| ${row.section} | ${row.metric} | ${row.value}${row.total 
 
 ## Top100 Readiness
 
-| User status | Charts |
+| Adoption bucket | Charts |
 | --- | ---: |
 ${mapRows(top100Status)}
 
