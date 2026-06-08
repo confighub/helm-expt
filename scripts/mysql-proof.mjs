@@ -86,6 +86,41 @@ const scanPolicy = {
   ],
 };
 
+function normalizeMysqlStatefulSetForGitOps(object) {
+  if (object?.kind !== "StatefulSet" || object?.metadata?.name !== "mysql") return;
+  delete object.spec?.podManagementPolicy;
+  delete object.spec?.persistentVolumeClaimRetentionPolicy;
+  delete object.spec?.revisionHistoryLimit;
+  delete object.spec?.template?.spec?.dnsPolicy;
+  delete object.spec?.template?.spec?.restartPolicy;
+  delete object.spec?.template?.spec?.schedulerName;
+  delete object.spec?.template?.spec?.serviceAccount;
+  delete object.spec?.template?.spec?.terminationGracePeriodSeconds;
+  for (const container of object.spec?.template?.spec?.containers ?? []) {
+    delete container.envFrom;
+    delete container.terminationMessagePath;
+    delete container.terminationMessagePolicy;
+    for (const port of container.ports ?? []) delete port.protocol;
+  }
+  for (const container of object.spec?.template?.spec?.initContainers ?? []) {
+    delete container.terminationMessagePath;
+    delete container.terminationMessagePolicy;
+  }
+  for (const volume of object.spec?.template?.spec?.volumes ?? []) {
+    if (volume.configMap) delete volume.configMap.defaultMode;
+    if (volume.secret) delete volume.secret.defaultMode;
+  }
+  for (const claim of object.spec?.volumeClaimTemplates ?? []) {
+    delete claim.apiVersion;
+    delete claim.kind;
+    delete claim.spec?.volumeMode;
+  }
+  delete object.spec?.template?.spec?.affinity?.nodeAffinity;
+  delete object.spec?.template?.spec?.affinity?.podAffinity;
+  delete object.spec?.template?.spec?.securityContext?.supplementalGroups;
+  delete object.spec?.template?.spec?.securityContext?.sysctls;
+}
+
 runProofCli({
   chart,
   variants,
@@ -93,6 +128,64 @@ runProofCli({
   supportObjects: [`v1|Namespace||${chart.namespace}`],
   expectedDependencyCount: 1,
   recordChartLockDigest: true,
+  semanticNormalizations: ["prune-null-fields", "mysql-statefulset-gitops-defaults"],
+  packageTransformers: [
+    {
+      toolchain: "Kubernetes/YAML",
+      whereResource: "",
+      description: "Set the namespace on every namespaced resource.",
+      invocations: [{ name: "set-namespace", args: ["{{ .Namespace }}"] }],
+    },
+    {
+      toolchain: "Kubernetes/YAML",
+      whereResource: "ConfigHub.ResourceType = 'apps/v1/StatefulSet'",
+      description: "Remove empty MySQL StatefulSet placeholders that cause GitOps drift after Kubernetes defaulting.",
+      invocations: [
+        {
+          name: "yq-i",
+          args: [
+            '.spec.podManagementPolicy = "OrderedReady"',
+          ],
+        },
+        {
+          name: "yq-i",
+          args: ['.spec.persistentVolumeClaimRetentionPolicy = {"whenDeleted": "Retain", "whenScaled": "Retain"}'],
+        },
+        {
+          name: "yq-i",
+          args: [
+            "del(.spec.template.spec.affinity.nodeAffinity, .spec.template.spec.affinity.podAffinity, .spec.template.spec.containers[].envFrom, .spec.template.spec.securityContext.supplementalGroups, .spec.template.spec.securityContext.sysctls)",
+          ],
+        },
+        {
+          name: "yq-i",
+          args: [
+            ".spec.revisionHistoryLimit = 10 | .spec.template.spec.dnsPolicy = \"ClusterFirst\" | .spec.template.spec.restartPolicy = \"Always\" | .spec.template.spec.schedulerName = \"default-scheduler\" | .spec.template.spec.serviceAccount = \"mysql\" | .spec.template.spec.terminationGracePeriodSeconds = 30",
+          ],
+        },
+        {
+          name: "yq-i",
+          args: [
+            ".spec.template.spec.containers[].ports[].protocol = \"TCP\" | .spec.template.spec.containers[].terminationMessagePath = \"/dev/termination-log\" | .spec.template.spec.containers[].terminationMessagePolicy = \"File\" | .spec.template.spec.initContainers[].terminationMessagePath = \"/dev/termination-log\" | .spec.template.spec.initContainers[].terminationMessagePolicy = \"File\"",
+          ],
+        },
+        {
+          name: "yq-i",
+          args: [
+            "(.spec.template.spec.volumes[] | select(has(\"configMap\")).configMap.defaultMode) = 420 | (.spec.template.spec.volumes[] | select(has(\"secret\")).secret.defaultMode) = 420 | .spec.volumeClaimTemplates[].apiVersion = \"v1\" | .spec.volumeClaimTemplates[].kind = \"PersistentVolumeClaim\" | .spec.volumeClaimTemplates[].spec.volumeMode = \"Filesystem\"",
+          ],
+        },
+      ],
+    },
+  ],
+  allowedSemanticDiff({ key, helmObjectJson, cubObjectJson }) {
+    if (key !== "apps/v1|StatefulSet|mysql|mysql") return false;
+    const helmObject = JSON.parse(helmObjectJson);
+    const cubObject = JSON.parse(cubObjectJson);
+    normalizeMysqlStatefulSetForGitOps(helmObject);
+    normalizeMysqlStatefulSetForGitOps(cubObject);
+    return JSON.stringify(helmObject) === JSON.stringify(cubObject);
+  },
   valueModel: {
     checkedValues: [
       { path: "auth.rootPassword", variant: "generated-passwords", disposition: "generated-fact-bound", reason: "default chart uses random root password generation; this variant persists the generated value before render" },

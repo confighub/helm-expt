@@ -5,8 +5,8 @@ chart/base rows. Each completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 13
-watch: 7
+pass: 14
+watch: 6
 blocked: 0
 not-started: 0
 ```
@@ -34,7 +34,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 | 13 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | pass | - | runs/live-helm-confighub-compare/secrets-store-csi-driver-secrets-store-csi-driver-default/receipt.yaml |
 | 14 | `prometheus-community/prometheus@29.8.0` | server-only-ephemeral | pass | - | runs/live-helm-confighub-compare/prometheus-community-prometheus-server-only-ephemeral/receipt.yaml |
 | 15 | `grafana/grafana@10.5.15` | generated-passwords | pass | - | runs/live-helm-confighub-compare/grafana-grafana-generated-passwords/receipt.yaml |
-| 16 | `bitnami/mysql@14.0.3` | generated-passwords | watch | - | runs/live-helm-confighub-compare/bitnami-mysql-generated-passwords/receipt.yaml |
+| 16 | `bitnami/mysql@14.0.3` | generated-passwords | pass | - | runs/live-helm-confighub-compare/bitnami-mysql-generated-passwords/receipt.yaml |
 | 17 | `bitnami/mongodb@19.0.7` | generated-passwords | pass | - | runs/live-helm-confighub-compare/bitnami-mongodb-generated-passwords/receipt.yaml |
 | 18 | `bitnami/nginx@24.0.2` | http-clusterip | pass | - | runs/live-helm-confighub-compare/bitnami-nginx-http-clusterip/receipt.yaml |
 | 19 | `grafana/tempo@1.24.4` | local-persistent | watch | - | runs/live-helm-confighub-compare/grafana-tempo-local-persistent/receipt.yaml |

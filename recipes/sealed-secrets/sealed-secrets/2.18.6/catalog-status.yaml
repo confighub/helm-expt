@@ -1,25 +1,24 @@
-apiVersion: "helm-expt.confighub.com/v1alpha1"
-kind: "CatalogStatus"
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: CatalogStatus
 metadata:
   name: "sealed-secrets-sealed-secrets-2.18.6"
 spec:
-  candidateVariants:
-    - "default"
-    - "no-crds"
   chart: "sealed-secrets/sealed-secrets"
-  deferredVariants:
-    []
-  notes:
-    - "Machine proof exists; catalog support is not claimed until variant and product review are complete."
-  productionReadiness: "not-reviewed-for-production"
-  review:
-    humanReviewRequired: true
-    lastReviewed: "2026-05-27"
-    productReviewRequired: true
+  version: "2.18.6"
   status: "proof-grade"
   supportLevel: "machine-proof-only"
   supportedScopes:
     []
+  productionReadiness: "not-reviewed-for-production"
   supportedVariants:
     []
-  version: "2.18.6"
+  candidateVariants:
+    - "default"
+    - "no-crds"
+  deferredVariants: []
+  review:
+    lastReviewed: "2026-05-27"
+    humanReviewRequired: true
+    productReviewRequired: true
+  notes:
+    - "Machine proof exists; catalog support is not claimed until variant and product review are complete."

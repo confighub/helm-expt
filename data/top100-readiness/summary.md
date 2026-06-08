@@ -54,8 +54,8 @@ charts with named hard gaps: 25
 
 | Evidence | Count | Meaning |
 | --- | ---: | --- |
-| `live-helm-vs-confighub-parity` | 13 | Plain Helm and ConfigHub delivery reached equivalent live outcomes for at least one variant. |
-| `local-kubernetes-live` | 7 | Rendered objects were applied to Kubernetes and observed for at least one variant. |
+| `live-helm-vs-confighub-parity` | 14 | Plain Helm and ConfigHub delivery reached equivalent live outcomes for at least one variant. |
+| `local-kubernetes-live` | 6 | Rendered objects were applied to Kubernetes and observed for at least one variant. |
 | `render-parity` | 80 | Regular Helm and cub installer setup render-equivalent objects. |
 
 ## How To Read This
@@ -85,7 +85,7 @@ charts with named hard gaps: 25
 | --- | --- | --- | ---: | --- |
 | `argo-cd/argo-cd@9.5.15` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/mongodb@19.0.7` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | promote a declared production scope when gates pass |
-| `bitnami/mysql@14.0.3` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
+| `bitnami/mysql@14.0.3` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/nginx@24.0.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve or document: existing-secret (chart ships no Secret toggle - #113) |
 | `bitnami/postgresql@18.6.7` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/rabbitmq@16.0.14` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve or document: ha (curated proof lane - bespoke teaching needed) |

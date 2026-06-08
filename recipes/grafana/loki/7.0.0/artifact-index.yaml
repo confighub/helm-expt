@@ -54,13 +54,13 @@ spec:
   proofSummary:
     adoptionBucket: "try-from-public-catalog"
     userStatus: "catalog-supported-with-live-evidence"
-    strongestEvidence: "local-kubernetes-live"
+    strongestEvidence: "live-helm-vs-confighub-parity"
     proofLanes:
       renderParity: "2/2"
       inConfigHub: "1/2"
       localLive: "1/2"
-      gitopsLive: "0/2"
-      liveParity: "0/2"
+      gitopsLive: "1/2"
+      liveParity: "1/2"
     featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots"
     hardGap: "-"
     nextAction: "promote a declared production scope when gates pass"

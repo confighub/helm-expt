@@ -5,9 +5,9 @@ metadata:
 spec:
   variant: "../../../variants/generated-passwords/variant.yaml"
   revision: "r001"
-  digest: "15fa29928ceaab56173e94fc971318f96650e29f391a74f5b8fd7a298fd9f6ae"
+  digest: "f5255e2acc903498bb91e3aad431849f888374c43a13050676b83b3ab7fe02a1"
   digestInputs:
-    recipeSHA256: "3af6429c548f6ce56d096e3f2600f6ef4d1356504d6934743f7a1f8e0e6b6aa8"
+    recipeSHA256: "8e0541b66d48d11e0de766e9c5656f3eccaf970c9f542f2a6db107947ff4482c"
     variantSHA256: "c3886d4f255881699cfb49a0d251e72b4be0f6eabdc248d82e6ca07ec3ae21d2"
     effectiveValuesSHA256: "6cd13d74fc2369f4916119601f8eead83eecf461183f0f28ab1ed95fa7a07c46"
     rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"

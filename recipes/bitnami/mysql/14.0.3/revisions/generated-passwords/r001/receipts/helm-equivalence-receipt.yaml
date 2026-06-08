@@ -14,6 +14,7 @@ spec:
     semanticObjectMatches: "8/8"
   semanticNormalizations:
     - "prune-null-fields"
+    - "mysql-statefulset-gitops-defaults"
   classifications:
     -
       identity: "v1|Namespace||mysql"

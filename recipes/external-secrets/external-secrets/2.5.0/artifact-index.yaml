@@ -51,13 +51,13 @@ spec:
   proofSummary:
     adoptionBucket: "try-from-public-catalog"
     userStatus: "catalog-supported-with-live-evidence"
-    strongestEvidence: "local-kubernetes-live"
+    strongestEvidence: "live-helm-vs-confighub-parity"
     proofLanes:
       renderParity: "2/2"
       inConfigHub: "1/2"
       localLive: "1/2"
-      gitopsLive: "0/2"
-      liveParity: "0/2"
+      gitopsLive: "1/2"
+      liveParity: "1/2"
     featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots"
     hardGap: "-"
     nextAction: "promote a declared production scope when gates pass"
@@ -65,7 +65,7 @@ spec:
     path: "packages/external-secrets/external-secrets/2.5.0"
     installer: "packages/external-secrets/external-secrets/2.5.0/installer.yaml"
     receipt: "recipes/external-secrets/external-secrets/2.5.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "3c3a7b86739c4c1d546d33377aaeb753a3c73b17fcfee7eb79a9121bb5b3d9cc"
+    deterministicBundleSHA256: "895629548e36c1fa7b5ecd27206276195545ac70dc00924eb2c3c6b2ae81234e"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

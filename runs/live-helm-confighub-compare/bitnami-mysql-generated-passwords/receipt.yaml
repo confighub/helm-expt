@@ -6,16 +6,16 @@ spec:
   chart: bitnami/mysql
   version: 14.0.3
   base: generated-passwords
-  result: watch
-  observedAt: '2026-06-08T16:12:56Z'
+  result: pass
+  observedAt: '2026-06-08T17:46:04Z'
   package:
     path: packages/bitnami/mysql/14.0.3
   recipe:
     path: recipes/bitnami/mysql/14.0.3
   variantRevision: recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/variant-revision.yaml
   run:
-    rig: helm-expt-parity-mysql-mq5etl6c-pku
-    kubeContext: kind-helm-expt-parity-mysql-mq5etl6c-pku
+    rig: helm-expt-parity-mysql-mq5i5crp-1sge
+    kubeContext: kind-helm-expt-parity-mysql-mq5i5crp-1sge
     namespace: mysql
     legNamespaces:
       regularHelm: mysql-helm
@@ -23,16 +23,16 @@ spec:
       configHubOciArgo: mysql-oci
     clusterLifecycle: cleaned-up
     cleanup:
-      command: cub lk down --name helm-expt-parity-mysql-mq5etl6c-pku --force
+      command: cub lk down --name helm-expt-parity-mysql-mq5i5crp-1sge --force
       result: pass
-      detail: 'Deleting kind cluster "helm-expt-parity-mysql-mq5etl6c-pku"...
+      detail: 'Deleting kind cluster "helm-expt-parity-mysql-mq5i5crp-1sge"...
 
-        Deleting cluster "helm-expt-parity-mysql-mq5etl6c-pku" ...
+        Deleting cluster "helm-expt-parity-mysql-mq5i5crp-1sge" ...
 
-        Deleted nodes: ["helm-expt-parity-mysql-mq5etl6c-pku-control-plane"]
+        Deleted nodes: ["helm-expt-parity-mysql-mq5i5crp-1sge-control-plane"]
 
-        Deleting Space "helm-expt-parity-mysql-mq5etl6c-pku-cluster" (recursive: cascades
-        to Unit, Target, Worker)...
+        Deleting Space "helm-expt-parity-mysql-mq5i5crp-1sge-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
 
 
         Done.'
@@ -49,18 +49,18 @@ spec:
       namespace: mysql-helm
       runtime:
         result: pass
-        workloads: statefulset.apps/mysql   1/1   54s
-        pods: mysql-0   1/1   Running   0     54s
+        workloads: statefulset.apps/mysql   1/1   64s
+        pods: mysql-0   1/1   Running   0     64s
         notReady: []
       stderr: ''
       getManifestError: ''
     configHubKubectlApply:
       result: pass
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/mysql/14.0.3
-        --base generated-passwords --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-mysql-mq5etl6c-pku-mysql
+        --base generated-passwords --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-mysql-mq5i5crp-1sge-mysql
         --non-interactive --namespace mysql-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
-      manifestSHA256: 161a51f1929f47fc94a698a549539eb80e43817800729068f8098cefcb6852bb
+      manifestSHA256: c792db1bae3dd11505e0a83cfaf64cc7a2e35e12ad783724f56ff0a701e9fe69
       objectCount: 9
       namespace: mysql-apply
       manifestNamespaces:
@@ -72,25 +72,25 @@ spec:
         namespaces: *id001
         workloads: '# mysql-apply
 
-          statefulset.apps/mysql   1/1   31s'
+          statefulset.apps/mysql   1/1   30s'
         pods: '# mysql-apply
 
-          mysql-0   1/1   Running   0     31s'
+          mysql-0   1/1   Running   0     30s'
         notReady: []
     configHubOciArgo:
-      result: watch
-      workloadSpace: helm-expt-parity-mysql-mq5etl6c-pku-mysql
+      result: pass
+      workloadSpace: helm-expt-parity-mysql-mq5i5crp-1sge-mysql
       controller: Argo CD OCI
       app: mysql-parity
-      manifestSHA256: 6d7f10cda152f1ee9dc2478146058551bdc8ceb14f357d1c53c924f5fec8f153
+      manifestSHA256: c82afbf27d72ff5dafc0204ef82798441081bb1cafa05a1242f416aba6a7f7ef
       objectCount: 9
       namespace: mysql-oci
       manifestNamespaces:
       - mysql-oci
       runtimeNamespaces: &id002
       - mysql-oci
-      ociRevision: sha256:36ec2b4a6d1629cd0954714a8abb869010c13129b89e790f487b10ddbc9623a7
-      sync: OutOfSync
+      ociRevision: sha256:0d256f53056c2f289d7d876cc23cf7f428276545cdc425fbe3735eecda2c99f1
+      sync: Synced
       health: Healthy
       separatedSecrets:
       - secret-mysql-oci-mysql.yaml
@@ -99,16 +99,17 @@ spec:
         namespaces: *id002
         workloads: '# mysql-oci
 
-          statefulset.apps/mysql   1/1   6m50s'
+          statefulset.apps/mysql   1/1   34s'
         pods: '# mysql-oci
 
-          mysql-0   1/1   Running   0     6m50s'
+          mysql-0   1/1   Running   0     34s'
         notReady: []
   semanticComparison:
     allowedExtraConfigHubObjects:
     - v1|Namespace||mysql
     semanticNormalizations: &id003
     - prune-null-fields
+    - mysql-statefulset-gitops-defaults
     helmVsConfigHubKubectlApply:
       result: pass
       helmObjectCount: 8
@@ -118,7 +119,7 @@ spec:
       - v1|Namespace||mysql
       semanticDiffs: []
       semanticNormalizations: *id003
-      comparisonSHA256: 1c64890323f0d3ac0c22e1cfa98fc6dd324c54c7e2b2051e8415138a840409ca
+      comparisonSHA256: f680e3fc7c7a38af16c7c8a301d850023c0b7f16b8412f51f7729207b7541c90
     helmVsConfigHubOciArgo:
       result: pass
       helmObjectCount: 8
@@ -128,16 +129,16 @@ spec:
       - v1|Namespace||mysql
       semanticDiffs: []
       semanticNormalizations: *id003
-      comparisonSHA256: 1c64890323f0d3ac0c22e1cfa98fc6dd324c54c7e2b2051e8415138a840409ca
+      comparisonSHA256: f680e3fc7c7a38af16c7c8a301d850023c0b7f16b8412f51f7729207b7541c90
   checks:
   - name: live-lane-lock
     result: pass
     detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
-    detail: "Creating kind cluster \"helm-expt-parity-mysql-mq5etl6c-pku\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-mysql-mq5etl6c-pku.kubeconfig)...\n\
-      Creating cluster \"helm-expt-parity-mysql-mq5etl6c-pku\" ...\n \u2022 Ensuring\
+    detail: "Creating kind cluster \"helm-expt-parity-mysql-mq5i5crp-1sge\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-mysql-mq5i5crp-1sge.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-mysql-mq5i5crp-1sge\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
       \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
@@ -145,16 +146,16 @@ spec:
       \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
       \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
-      \nSet kubectl context to \"kind-helm-expt-parity-mysql-mq5etl6c-pku\"\nYou can\
-      \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-mysql-mq5etl6c-pku\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-mysql-mq5etl6c-pku.kubeconfig\n\
-      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
-      \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\n\
-      spec: {}\nsta"
+      \nSet kubectl context to \"kind-helm-expt-parity-mysql-mq5i5crp-1sge\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-mysql-mq5i5crp-1sge\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-mysql-mq5i5crp-1sge.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\nspec:\
+      \ {}\nsta"
   - name: regular-helm-live
     result: pass
     detail: "Release \"mysql\" does not exist. Installing it now.\nNAME: mysql\nLAST\
-      \ DEPLOYED: Mon Jun  8 17:13:58 2026\nNAMESPACE: mysql-helm\nSTATUS: deployed\n\
+      \ DEPLOYED: Mon Jun  8 18:47:40 2026\nNAMESPACE: mysql-helm\nSTATUS: deployed\n\
       REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nCHART\
       \ NAME: mysql\nCHART VERSION: 14.0.3\nAPP VERSION: 9.4.0\n\n\u26A0 WARNING:\
       \ Since August 28th, 2025, only a limited subset of images/charts are available\
@@ -170,10 +171,10 @@ spec:
     result: pass
     detail: '# mysql-apply
 
-      statefulset.apps/mysql   1/1   31s'
+      statefulset.apps/mysql   1/1   30s'
   - name: confighub-oci-argo-live
-    result: watch
-    detail: sync=OutOfSync health=Healthy after 420s
+    result: pass
+    detail: sync=Synced health=Healthy after 50s
   - name: semantic-object-parity
     result: pass
     detail: missing=0 extra=['v1|Namespace||mysql'] diffs=0

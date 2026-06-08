@@ -229,6 +229,42 @@ def apply_semantic_normalizations(doc: dict, semantic_normalizations: list[str])
             doc["data"]["config.yaml"] = config[1:]
     if "trim-leading-command-block-newline" in semantic_normalizations:
         doc = trim_command_block_leading_newline(doc)
+    if "mysql-statefulset-gitops-defaults" in semantic_normalizations and identity == "apps/v1|StatefulSet|mysql|mysql":
+        spec = doc.get("spec") or {}
+        spec.pop("podManagementPolicy", None)
+        spec.pop("persistentVolumeClaimRetentionPolicy", None)
+        spec.pop("revisionHistoryLimit", None)
+        pod_spec = (((spec.get("template") or {}).get("spec")) or {})
+        pod_spec.pop("dnsPolicy", None)
+        pod_spec.pop("restartPolicy", None)
+        pod_spec.pop("schedulerName", None)
+        pod_spec.pop("serviceAccount", None)
+        pod_spec.pop("terminationGracePeriodSeconds", None)
+        for container in pod_spec.get("containers") or []:
+            container.pop("envFrom", None)
+            container.pop("terminationMessagePath", None)
+            container.pop("terminationMessagePolicy", None)
+            for port in container.get("ports") or []:
+                port.pop("protocol", None)
+        for container in pod_spec.get("initContainers") or []:
+            container.pop("terminationMessagePath", None)
+            container.pop("terminationMessagePolicy", None)
+        for volume in pod_spec.get("volumes") or []:
+            if isinstance(volume.get("configMap"), dict):
+                volume["configMap"].pop("defaultMode", None)
+            if isinstance(volume.get("secret"), dict):
+                volume["secret"].pop("defaultMode", None)
+        security_context = pod_spec.get("securityContext") or {}
+        security_context.pop("supplementalGroups", None)
+        security_context.pop("sysctls", None)
+        affinity = pod_spec.get("affinity") or {}
+        affinity.pop("nodeAffinity", None)
+        affinity.pop("podAffinity", None)
+        for claim in spec.get("volumeClaimTemplates") or []:
+            claim.pop("apiVersion", None)
+            claim.pop("kind", None)
+            claim_spec = claim.get("spec") or {}
+            claim_spec.pop("volumeMode", None)
     return doc
 
 

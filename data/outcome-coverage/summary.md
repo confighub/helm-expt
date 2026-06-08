@@ -10,15 +10,15 @@ the status per chart, base variant, derived variant, and Helm feature.
 charts with model support:           100/100
 variant-rich charts:                 54/100
 chart/base rows:                     156
-complete core lane rows:             9/156
+complete core lane rows:             10/156
 render parity rows:                  156/156
 in-ConfigHub proof rows:             18/156
 local live rows:                     21/156
-GitOps/OCI live pass rows:           15/156
-GitOps/OCI non-pass receipts:        11
-live Helm-vs-ConfigHub pass rows:    13/156
-live Helm-vs-ConfigHub non-pass receipts: 7
-selected live parity receipts:       13 pass, 7 watch, 0 blocked
+GitOps/OCI live pass rows:           16/156
+GitOps/OCI non-pass receipts:        10
+live Helm-vs-ConfigHub pass rows:    14/156
+live Helm-vs-ConfigHub non-pass receipts: 6
+selected live parity receipts:       14 pass, 6 watch, 0 blocked
 two-cluster kind parity receipts:    25 pass, 3 watch, 12 blocked
 derived intended-state pass rows:    10
 target-bound derived pass rows:      5
@@ -56,7 +56,7 @@ hook lifecycle receipts present:     0
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
 | `argo-cd/argo-cd@9.5.15` | default;no-crds | yes | 1/2 | 1/2 | 0/2 | 0/2 | 0/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/mongodb@19.0.7` | generated-passwords;existing-secret-replicaset | yes | 1/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
-| `bitnami/mysql@14.0.3` | generated-passwords;existing-secret | yes | 1/2 | 1/2 | 0/2 | 0/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
+| `bitnami/mysql@14.0.3` | generated-passwords;existing-secret | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/nginx@24.0.2` | http-clusterip;existing-tls-ingress | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | existing-secret (chart ships no Secret toggle - #113) |
 | `bitnami/postgresql@18.6.7` | generated-passwords;existing-secret | yes | 0/2 | 1/2 | 2/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords;existing-secret | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |

@@ -52,13 +52,13 @@ spec:
   proofSummary:
     adoptionBucket: "try-from-public-catalog"
     userStatus: "catalog-supported-with-live-evidence"
-    strongestEvidence: "local-kubernetes-live"
+    strongestEvidence: "live-helm-vs-confighub-parity"
     proofLanes:
       renderParity: "2/2"
       inConfigHub: "1/2"
       localLive: "1/2"
-      gitopsLive: "0/2"
-      liveParity: "0/2"
+      gitopsLive: "1/2"
+      liveParity: "1/2"
     featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;values-schema;install-vs-upgrade;extension-slots"
     hardGap: "ha (curated proof lane - bespoke teaching needed)"
     nextAction: "resolve or document: ha (curated proof lane - bespoke teaching needed)"
@@ -66,7 +66,7 @@ spec:
     path: "packages/bitnami/mysql/14.0.3"
     installer: "packages/bitnami/mysql/14.0.3/installer.yaml"
     receipt: "recipes/bitnami/mysql/14.0.3/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "be4019f4dd61c810734b3fff065f928fd4d676a52efd5231d2daaa9608bf2a7a"
+    deterministicBundleSHA256: "8f1244d73c4c6ad3fb20e0e28fc2372a815ce858e6d70208357fbd5747fd154d"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -112,7 +112,7 @@ spec:
           name: "generated-passwords-r001"
           revision: "r001"
           variantRevision: "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/variant-revision.yaml"
-          digest: "15fa29928ceaab56173e94fc971318f96650e29f391a74f5b8fd7a298fd9f6ae"
+          digest: "f5255e2acc903498bb91e3aad431849f888374c43a13050676b83b3ab7fe02a1"
           renderedObjectSetSHA256: "04e856bfa75859dc9d8e45c61d49ad566494a7f66c257da9113ad26ca1696380"
           renderedObjects: "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/rendered/object-inventory.yaml"
@@ -182,7 +182,7 @@ spec:
           name: "existing-secret-r001"
           revision: "r001"
           variantRevision: "recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/variant-revision.yaml"
-          digest: "8a16853a4edb47cda3f2e834967646b20d425a9497df51a98017a37c04f1620c"
+          digest: "35f764d5ca1dea324b3bd8fea49b4d5eab5054b85f10216d3ee846252853e242"
           renderedObjectSetSHA256: "024c04f020fbe5cc7af518d743a68e055f999e88a6633b278adccc769c1b7fa8"
           renderedObjects: "recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/rendered/object-inventory.yaml"
