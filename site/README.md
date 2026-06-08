@@ -17,6 +17,7 @@ Data source:
 - `data/runtime-gitops/wave1.csv`
 - `data/image-digest-workdown/all-subjects.csv`
 - `data/next-ten-waves/gap-review-wave.csv`
+- `data/status-dashboard/status.csv`
 - `data/variant-goldens/redis-prod-us-east/`
 - `data/managed-overlay-goldens/external-dns-customer-acme-prod/`
 
