@@ -85,39 +85,39 @@ charts with named hard gaps: 25
 
 ## First Rows
 
-| Chart | Adoption bucket | Evidence | Variants | Next action | Source |
-| --- | --- | --- | ---: | --- | --- |
-| `argo-cd/argo-cd@9.5.15` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | write or fix the CRD lifecycle and upgrade policy disposition receipt | `production-disposition` |
-| `bitnami/mongodb@19.0.7` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the extension slot provenance and scan policy disposition receipt | `production-disposition` |
-| `bitnami/mysql@14.0.3` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the generated fact ownership disposition receipt | `production-disposition` |
-| `bitnami/nginx@24.0.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve image digests or pin image tags in the installer base; record image override/proof receipt; then accept PDB behavior or add a reviewed patch where the chart supports it | `production-disposition` |
-| `bitnami/postgresql@18.6.7` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the generated fact ownership disposition receipt | `production-disposition` |
-| `bitnami/rabbitmq@16.0.14` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the generated fact ownership disposition receipt | `production-disposition` |
-| `bitnami/redis@25.5.3` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the generated fact ownership disposition receipt | `production-disposition` |
-| `external-secrets/external-secrets@2.5.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the CRD lifecycle and upgrade policy disposition receipt | `production-disposition` |
-| `grafana/grafana@10.5.15` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the cluster RBAC review disposition receipt | `production-disposition` |
-| `grafana/loki@7.0.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the cluster RBAC review disposition receipt | `production-disposition` |
-| `grafana/tempo@1.24.4` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | write or fix the extension slot provenance and scan policy disposition receipt | `production-disposition` |
-| `hashicorp/consul@2.0.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the CRD lifecycle and upgrade policy disposition receipt | `production-disposition` |
-| `hashicorp/vault@0.32.0` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | write or fix the cluster RBAC review disposition receipt | `production-disposition` |
-| `ingress-nginx/ingress-nginx@4.15.1` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | write or fix the cluster RBAC review disposition receipt | `production-disposition` |
-| `jetstack/cert-manager@v1.20.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the CRD lifecycle and upgrade policy disposition receipt | `production-disposition` |
-| `longhorn/longhorn@1.11.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the CRD lifecycle and upgrade policy disposition receipt | `production-disposition` |
-| `metrics-server/metrics-server@3.13.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the cluster RBAC review disposition receipt | `production-disposition` |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | write or fix the CRD lifecycle and upgrade policy disposition receipt | `production-disposition` |
-| `prometheus-community/prometheus@29.8.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the cluster RBAC review disposition receipt | `production-disposition` |
-| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the CRD lifecycle and upgrade policy disposition receipt | `production-disposition` |
-| `traefik/traefik@40.2.0` | `limitation-decision-first` | `render-parity` | 2 | review limitation before promotion: existing-secret (chart ships no Secret toggle - #113) | `limitation-review` |
-| `external-dns/external-dns@1.21.1` | `promote-after-review` | `render-parity` | 2 | run catalog promotion review | `catalog-promotion-review` |
-| `gitlab/gitlab-runner@0.89.0` | `needs-useful-variant` | `render-parity` | 1 | add at least one user-shaped variant before catalog promotion | `user-shaped-variant-backlog` |
-| `kyverno/kyverno@3.8.1` | `limitation-decision-first` | `render-parity` | 2 | review limitation before promotion: existing-secret (chart ships no Secret toggle - #113) | `limitation-review` |
-| `cloudnative-pg/cloudnative-pg@0.28.2` | `promote-after-review` | `render-parity` | 2 | run catalog promotion review | `catalog-promotion-review` |
+| Chart | Adoption bucket | Evidence | Variants | Next action | Next receipt | Source |
+| --- | --- | --- | ---: | --- | --- | --- |
+| `argo-cd/argo-cd@9.5.15` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | write or fix the CRD lifecycle and upgrade policy disposition receipt | `data/production-disposition/receipts/argo-cd-argo-cd/crd-lifecycle-and-upgrade-policy.yaml` | `production-disposition` |
+| `bitnami/mongodb@19.0.7` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the extension slot provenance and scan policy disposition receipt | `data/production-disposition/receipts/bitnami-mongodb/extension-slot-provenance-and-scan-policy.yaml` | `production-disposition` |
+| `bitnami/mysql@14.0.3` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the generated fact ownership disposition receipt | `data/production-disposition/receipts/bitnami-mysql/generated-fact-ownership.yaml` | `production-disposition` |
+| `bitnami/nginx@24.0.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve image digests or pin image tags in the installer base; record image override/proof receipt; then accept PDB behavior or add a reviewed patch where the chart supports it | `data/production-disposition/receipts/bitnami-nginx/scan-gate-warning-disposition.yaml` | `production-disposition` |
+| `bitnami/postgresql@18.6.7` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the generated fact ownership disposition receipt | `data/production-disposition/receipts/bitnami-postgresql/generated-fact-ownership.yaml` | `production-disposition` |
+| `bitnami/rabbitmq@16.0.14` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the generated fact ownership disposition receipt | `data/production-disposition/receipts/bitnami-rabbitmq/generated-fact-ownership.yaml` | `production-disposition` |
+| `bitnami/redis@25.5.3` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the generated fact ownership disposition receipt | `data/production-disposition/receipts/bitnami-redis/generated-fact-ownership.yaml` | `production-disposition` |
+| `external-secrets/external-secrets@2.5.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the CRD lifecycle and upgrade policy disposition receipt | `data/production-disposition/receipts/external-secrets-external-secrets/crd-lifecycle-and-upgrade-policy.yaml` | `production-disposition` |
+| `grafana/grafana@10.5.15` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the cluster RBAC review disposition receipt | `data/production-disposition/receipts/grafana-grafana/cluster-rbac-review.yaml` | `production-disposition` |
+| `grafana/loki@7.0.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the cluster RBAC review disposition receipt | `data/production-disposition/receipts/grafana-loki/cluster-rbac-review.yaml` | `production-disposition` |
+| `grafana/tempo@1.24.4` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | write or fix the extension slot provenance and scan policy disposition receipt | `data/production-disposition/receipts/grafana-tempo/extension-slot-provenance-and-scan-policy.yaml` | `production-disposition` |
+| `hashicorp/consul@2.0.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the CRD lifecycle and upgrade policy disposition receipt | `data/production-disposition/receipts/hashicorp-consul/crd-lifecycle-and-upgrade-policy.yaml` | `production-disposition` |
+| `hashicorp/vault@0.32.0` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | write or fix the cluster RBAC review disposition receipt | `data/production-disposition/receipts/hashicorp-vault/cluster-rbac-review.yaml` | `production-disposition` |
+| `ingress-nginx/ingress-nginx@4.15.1` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | write or fix the cluster RBAC review disposition receipt | `data/production-disposition/receipts/ingress-nginx-ingress-nginx/cluster-rbac-review.yaml` | `production-disposition` |
+| `jetstack/cert-manager@v1.20.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the CRD lifecycle and upgrade policy disposition receipt | `data/production-disposition/receipts/jetstack-cert-manager/crd-lifecycle-and-upgrade-policy.yaml` | `production-disposition` |
+| `longhorn/longhorn@1.11.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the CRD lifecycle and upgrade policy disposition receipt | `data/production-disposition/receipts/longhorn-longhorn/crd-lifecycle-and-upgrade-policy.yaml` | `production-disposition` |
+| `metrics-server/metrics-server@3.13.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the cluster RBAC review disposition receipt | `data/production-disposition/receipts/metrics-server-metrics-server/cluster-rbac-review.yaml` | `production-disposition` |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | write or fix the CRD lifecycle and upgrade policy disposition receipt | `data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml` | `production-disposition` |
+| `prometheus-community/prometheus@29.8.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the cluster RBAC review disposition receipt | `data/production-disposition/receipts/prometheus-community-prometheus/cluster-rbac-review.yaml` | `production-disposition` |
+| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the CRD lifecycle and upgrade policy disposition receipt | `data/production-disposition/receipts/secrets-store-csi-driver-secrets-store-csi-driver/crd-lifecycle-and-upgrade-policy.yaml` | `production-disposition` |
+| `traefik/traefik@40.2.0` | `limitation-decision-first` | `render-parity` | 2 | review limitation before promotion: existing-secret (chart ships no Secret toggle - #113) | - | `limitation-review` |
+| `external-dns/external-dns@1.21.1` | `promote-after-review` | `render-parity` | 2 | run catalog promotion review | - | `catalog-promotion-review` |
+| `gitlab/gitlab-runner@0.89.0` | `needs-useful-variant` | `render-parity` | 1 | add at least one user-shaped variant before catalog promotion | - | `user-shaped-variant-backlog` |
+| `kyverno/kyverno@3.8.1` | `limitation-decision-first` | `render-parity` | 2 | review limitation before promotion: existing-secret (chart ships no Secret toggle - #113) | - | `limitation-review` |
+| `cloudnative-pg/cloudnative-pg@0.28.2` | `promote-after-review` | `render-parity` | 2 | run catalog promotion review | - | `catalog-promotion-review` |
 
 ## Files
 
 | File | Use |
 | --- | --- |
-| `data/top100-readiness/readiness.csv` | One row per top-100 chart: user status, strongest evidence, lane counts, gap, next action, and next-action source. |
+| `data/top100-readiness/readiness.csv` | One row per top-100 chart: user status, strongest evidence, lane counts, gap, next action, next receipt path where available, and next-action source. |
 | `data/top100-catalog-analysis/review.csv` | Catalog analysis and promotion surface. |
 | `data/outcome-coverage/chart-outcomes.csv` | Detailed outcome counts per chart. |
 | `data/outcome-coverage/base-outcomes.csv` | Per base-variant proof lane status. |

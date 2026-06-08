@@ -5016,6 +5016,7 @@
       "hard_gap": "ha (curated proof lane - bespoke teaching needed)",
       "next_action": "write or fix the CRD lifecycle and upgrade policy disposition receipt",
       "next_action_source": "production-disposition",
+      "next_action_receipt": "data/production-disposition/receipts/argo-cd-argo-cd/crd-lifecycle-and-upgrade-policy.yaml",
       "recipe_path": "recipes/argo-cd/argo-cd/9.5.15/recipe.yaml",
       "catalog_path": "recipes/argo-cd/argo-cd/9.5.15/CATALOG.md"
     },
@@ -5036,6 +5037,7 @@
       "hard_gap": "-",
       "next_action": "write or fix the extension slot provenance and scan policy disposition receipt",
       "next_action_source": "production-disposition",
+      "next_action_receipt": "data/production-disposition/receipts/bitnami-mongodb/extension-slot-provenance-and-scan-policy.yaml",
       "recipe_path": "recipes/bitnami/mongodb/19.0.7/recipe.yaml",
       "catalog_path": "recipes/bitnami/mongodb/19.0.7/CATALOG.md"
     },
@@ -5056,6 +5058,7 @@
       "hard_gap": "ha (curated proof lane - bespoke teaching needed)",
       "next_action": "write or fix the generated fact ownership disposition receipt",
       "next_action_source": "production-disposition",
+      "next_action_receipt": "data/production-disposition/receipts/bitnami-mysql/generated-fact-ownership.yaml",
       "recipe_path": "recipes/bitnami/mysql/14.0.3/recipe.yaml",
       "catalog_path": "recipes/bitnami/mysql/14.0.3/CATALOG.md"
     },
@@ -5076,6 +5079,7 @@
       "hard_gap": "existing-secret (chart ships no Secret toggle - #113)",
       "next_action": "resolve image digests or pin image tags in the installer base; record image override/proof receipt; then accept PDB behavior or add a reviewed patch where the chart supports it",
       "next_action_source": "production-disposition",
+      "next_action_receipt": "data/production-disposition/receipts/bitnami-nginx/scan-gate-warning-disposition.yaml",
       "recipe_path": "recipes/bitnami/nginx/24.0.2/recipe.yaml",
       "catalog_path": "recipes/bitnami/nginx/24.0.2/CATALOG.md"
     },
@@ -5096,6 +5100,7 @@
       "hard_gap": "ha (curated proof lane - bespoke teaching needed)",
       "next_action": "write or fix the generated fact ownership disposition receipt",
       "next_action_source": "production-disposition",
+      "next_action_receipt": "data/production-disposition/receipts/bitnami-postgresql/generated-fact-ownership.yaml",
       "recipe_path": "recipes/bitnami/postgresql/18.6.7/recipe.yaml",
       "catalog_path": "recipes/bitnami/postgresql/18.6.7/CATALOG.md"
     },
@@ -5116,6 +5121,7 @@
       "hard_gap": "ha (curated proof lane - bespoke teaching needed)",
       "next_action": "write or fix the generated fact ownership disposition receipt",
       "next_action_source": "production-disposition",
+      "next_action_receipt": "data/production-disposition/receipts/bitnami-rabbitmq/generated-fact-ownership.yaml",
       "recipe_path": "recipes/bitnami/rabbitmq/16.0.14/recipe.yaml",
       "catalog_path": "recipes/bitnami/rabbitmq/16.0.14/CATALOG.md"
     },
@@ -5136,6 +5142,7 @@
       "hard_gap": "-",
       "next_action": "write or fix the generated fact ownership disposition receipt",
       "next_action_source": "production-disposition",
+      "next_action_receipt": "data/production-disposition/receipts/bitnami-redis/generated-fact-ownership.yaml",
       "recipe_path": "recipes/bitnami/redis/25.5.3/recipe.yaml",
       "catalog_path": "recipes/bitnami/redis/25.5.3/CATALOG.md"
     },
@@ -5156,6 +5163,7 @@
       "hard_gap": "-",
       "next_action": "write or fix the CRD lifecycle and upgrade policy disposition receipt",
       "next_action_source": "production-disposition",
+      "next_action_receipt": "data/production-disposition/receipts/external-secrets-external-secrets/crd-lifecycle-and-upgrade-policy.yaml",
       "recipe_path": "recipes/external-secrets/external-secrets/2.5.0/recipe.yaml",
       "catalog_path": "recipes/external-secrets/external-secrets/2.5.0/CATALOG.md"
     },
@@ -5176,6 +5184,7 @@
       "hard_gap": "-",
       "next_action": "write or fix the cluster RBAC review disposition receipt",
       "next_action_source": "production-disposition",
+      "next_action_receipt": "data/production-disposition/receipts/grafana-grafana/cluster-rbac-review.yaml",
       "recipe_path": "recipes/grafana/grafana/10.5.15/recipe.yaml",
       "catalog_path": "recipes/grafana/grafana/10.5.15/CATALOG.md"
     },
@@ -5196,6 +5205,7 @@
       "hard_gap": "-",
       "next_action": "write or fix the cluster RBAC review disposition receipt",
       "next_action_source": "production-disposition",
+      "next_action_receipt": "data/production-disposition/receipts/grafana-loki/cluster-rbac-review.yaml",
       "recipe_path": "recipes/grafana/loki/7.0.0/recipe.yaml",
       "catalog_path": "recipes/grafana/loki/7.0.0/CATALOG.md"
     },
@@ -5216,6 +5226,7 @@
       "hard_gap": "ha (tempo single-binary chart; HA is the separate tempo-distributed chart)",
       "next_action": "write or fix the extension slot provenance and scan policy disposition receipt",
       "next_action_source": "production-disposition",
+      "next_action_receipt": "data/production-disposition/receipts/grafana-tempo/extension-slot-provenance-and-scan-policy.yaml",
       "recipe_path": "recipes/grafana/tempo/1.24.4/recipe.yaml",
       "catalog_path": "recipes/grafana/tempo/1.24.4/CATALOG.md"
     },
@@ -5236,6 +5247,7 @@
       "hard_gap": "ha (curated proof lane - bespoke teaching needed)",
       "next_action": "write or fix the CRD lifecycle and upgrade policy disposition receipt",
       "next_action_source": "production-disposition",
+      "next_action_receipt": "data/production-disposition/receipts/hashicorp-consul/crd-lifecycle-and-upgrade-policy.yaml",
       "recipe_path": "recipes/hashicorp/consul/2.0.0/recipe.yaml",
       "catalog_path": "recipes/hashicorp/consul/2.0.0/CATALOG.md"
     },
@@ -5256,6 +5268,7 @@
       "hard_gap": "-",
       "next_action": "write or fix the cluster RBAC review disposition receipt",
       "next_action_source": "production-disposition",
+      "next_action_receipt": "data/production-disposition/receipts/hashicorp-vault/cluster-rbac-review.yaml",
       "recipe_path": "recipes/hashicorp/vault/0.32.0/recipe.yaml",
       "catalog_path": "recipes/hashicorp/vault/0.32.0/CATALOG.md"
     },
@@ -5276,6 +5289,7 @@
       "hard_gap": "-",
       "next_action": "write or fix the cluster RBAC review disposition receipt",
       "next_action_source": "production-disposition",
+      "next_action_receipt": "data/production-disposition/receipts/ingress-nginx-ingress-nginx/cluster-rbac-review.yaml",
       "recipe_path": "recipes/ingress-nginx/ingress-nginx/4.15.1/recipe.yaml",
       "catalog_path": "recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.md"
     },
@@ -5296,6 +5310,7 @@
       "hard_gap": "-",
       "next_action": "write or fix the CRD lifecycle and upgrade policy disposition receipt",
       "next_action_source": "production-disposition",
+      "next_action_receipt": "data/production-disposition/receipts/jetstack-cert-manager/crd-lifecycle-and-upgrade-policy.yaml",
       "recipe_path": "recipes/jetstack/cert-manager/v1.20.2/recipe.yaml",
       "catalog_path": "recipes/jetstack/cert-manager/v1.20.2/CATALOG.md"
     },
@@ -5316,6 +5331,7 @@
       "hard_gap": "-",
       "next_action": "write or fix the CRD lifecycle and upgrade policy disposition receipt",
       "next_action_source": "production-disposition",
+      "next_action_receipt": "data/production-disposition/receipts/longhorn-longhorn/crd-lifecycle-and-upgrade-policy.yaml",
       "recipe_path": "recipes/longhorn/longhorn/1.11.2/recipe.yaml",
       "catalog_path": "recipes/longhorn/longhorn/1.11.2/CATALOG.md"
     },
@@ -5336,6 +5352,7 @@
       "hard_gap": "existing-secret (chart ships no Secret toggle - #113)",
       "next_action": "write or fix the cluster RBAC review disposition receipt",
       "next_action_source": "production-disposition",
+      "next_action_receipt": "data/production-disposition/receipts/metrics-server-metrics-server/cluster-rbac-review.yaml",
       "recipe_path": "recipes/metrics-server/metrics-server/3.13.0/recipe.yaml",
       "catalog_path": "recipes/metrics-server/metrics-server/3.13.0/CATALOG.md"
     },
@@ -5356,6 +5373,7 @@
       "hard_gap": "existing-secret (chart ships no Secret toggle - #113)",
       "next_action": "write or fix the CRD lifecycle and upgrade policy disposition receipt",
       "next_action_source": "production-disposition",
+      "next_action_receipt": "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml",
       "recipe_path": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/recipe.yaml",
       "catalog_path": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md"
     },
@@ -5376,6 +5394,7 @@
       "hard_gap": "ha (curated proof lane - bespoke teaching needed)",
       "next_action": "write or fix the cluster RBAC review disposition receipt",
       "next_action_source": "production-disposition",
+      "next_action_receipt": "data/production-disposition/receipts/prometheus-community-prometheus/cluster-rbac-review.yaml",
       "recipe_path": "recipes/prometheus-community/prometheus/29.8.0/recipe.yaml",
       "catalog_path": "recipes/prometheus-community/prometheus/29.8.0/CATALOG.md"
     },
@@ -5396,6 +5415,7 @@
       "hard_gap": "-",
       "next_action": "write or fix the CRD lifecycle and upgrade policy disposition receipt",
       "next_action_source": "production-disposition",
+      "next_action_receipt": "data/production-disposition/receipts/secrets-store-csi-driver-secrets-store-csi-driver/crd-lifecycle-and-upgrade-policy.yaml",
       "recipe_path": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/recipe.yaml",
       "catalog_path": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.md"
     },
@@ -5416,6 +5436,7 @@
       "hard_gap": "existing-secret (chart ships no Secret toggle - #113)",
       "next_action": "review limitation before promotion: existing-secret (chart ships no Secret toggle - #113)",
       "next_action_source": "limitation-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/traefik/traefik/40.2.0/recipe.yaml",
       "catalog_path": "recipes/traefik/traefik/40.2.0/CATALOG.md"
     },
@@ -5436,6 +5457,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/external-dns/external-dns/1.21.1/recipe.yaml",
       "catalog_path": "recipes/external-dns/external-dns/1.21.1/CATALOG.md"
     },
@@ -5456,6 +5478,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/gitlab/gitlab-runner/0.89.0/recipe.yaml",
       "catalog_path": "recipes/gitlab/gitlab-runner/0.89.0/CATALOG.md"
     },
@@ -5476,6 +5499,7 @@
       "hard_gap": "existing-secret (chart ships no Secret toggle - #113)",
       "next_action": "review limitation before promotion: existing-secret (chart ships no Secret toggle - #113)",
       "next_action_source": "limitation-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/kyverno/kyverno/3.8.1/recipe.yaml",
       "catalog_path": "recipes/kyverno/kyverno/3.8.1/CATALOG.md"
     },
@@ -5496,6 +5520,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/recipe.yaml",
       "catalog_path": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/CATALOG.md"
     },
@@ -5516,6 +5541,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/fluent/fluent-bit/0.57.6/recipe.yaml",
       "catalog_path": "recipes/fluent/fluent-bit/0.57.6/CATALOG.md"
     },
@@ -5536,6 +5562,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/runix/pgadmin4/1.62.0/recipe.yaml",
       "catalog_path": "recipes/runix/pgadmin4/1.62.0/CATALOG.md"
     },
@@ -5556,6 +5583,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/recipe.yaml",
       "catalog_path": "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/CATALOG.md"
     },
@@ -5576,6 +5604,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/kedacore/keda/2.19.0/recipe.yaml",
       "catalog_path": "recipes/kedacore/keda/2.19.0/CATALOG.md"
     },
@@ -5596,6 +5625,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/prometheus-community/kube-state-metrics/7.4.0/recipe.yaml",
       "catalog_path": "recipes/prometheus-community/kube-state-metrics/7.4.0/CATALOG.md"
     },
@@ -5616,6 +5646,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/elastic/eck-operator/3.4.0/recipe.yaml",
       "catalog_path": "recipes/elastic/eck-operator/3.4.0/CATALOG.md"
     },
@@ -5636,6 +5667,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/elastic/kibana/8.5.1/recipe.yaml",
       "catalog_path": "recipes/elastic/kibana/8.5.1/CATALOG.md"
     },
@@ -5656,6 +5688,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/descheduler/descheduler/0.36.0/recipe.yaml",
       "catalog_path": "recipes/descheduler/descheduler/0.36.0/CATALOG.md"
     },
@@ -5676,6 +5709,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/recipe.yaml",
       "catalog_path": "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/CATALOG.md"
     },
@@ -5696,6 +5730,7 @@
       "hard_gap": "existing-secret (chart ships no Secret toggle - #113)",
       "next_action": "review limitation before promotion: existing-secret (chart ships no Secret toggle - #113)",
       "next_action_source": "limitation-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/bitnami/elasticsearch/22.1.6/recipe.yaml",
       "catalog_path": "recipes/bitnami/elasticsearch/22.1.6/CATALOG.md"
     },
@@ -5716,6 +5751,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/stakater/reloader/2.2.12/recipe.yaml",
       "catalog_path": "recipes/stakater/reloader/2.2.12/CATALOG.md"
     },
@@ -5736,6 +5772,7 @@
       "hard_gap": "existing-secret (chart ships no Secret toggle - #113)",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/jaegertracing/jaeger/4.8.0/recipe.yaml",
       "catalog_path": "recipes/jaegertracing/jaeger/4.8.0/CATALOG.md"
     },
@@ -5756,6 +5793,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/grafana/alloy/1.8.2/recipe.yaml",
       "catalog_path": "recipes/grafana/alloy/1.8.2/CATALOG.md"
     },
@@ -5776,6 +5814,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/nats/nats/2.14.0/recipe.yaml",
       "catalog_path": "recipes/nats/nats/2.14.0/CATALOG.md"
     },
@@ -5796,6 +5835,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/dex/dex/0.24.0/recipe.yaml",
       "catalog_path": "recipes/dex/dex/0.24.0/CATALOG.md"
     },
@@ -5816,6 +5856,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/prometheus-community/alertmanager/1.37.0/recipe.yaml",
       "catalog_path": "recipes/prometheus-community/alertmanager/1.37.0/CATALOG.md"
     },
@@ -5836,6 +5877,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/falcosecurity/falco/9.0.0/recipe.yaml",
       "catalog_path": "recipes/falcosecurity/falco/9.0.0/CATALOG.md"
     },
@@ -5856,6 +5898,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/prometheus-community/prometheus-node-exporter/4.55.0/recipe.yaml",
       "catalog_path": "recipes/prometheus-community/prometheus-node-exporter/4.55.0/CATALOG.md"
     },
@@ -5876,6 +5919,7 @@
       "hard_gap": "existing-secret (chart ships no Secret toggle - #113)",
       "next_action": "review limitation before promotion: existing-secret (chart ships no Secret toggle - #113)",
       "next_action_source": "limitation-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/bitnami/spark/10.0.3/recipe.yaml",
       "catalog_path": "recipes/bitnami/spark/10.0.3/CATALOG.md"
     },
@@ -5896,6 +5940,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/elastic/logstash/8.5.1/recipe.yaml",
       "catalog_path": "recipes/elastic/logstash/8.5.1/CATALOG.md"
     },
@@ -5916,6 +5961,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/prometheus-community/prometheus-adapter/5.3.0/recipe.yaml",
       "catalog_path": "recipes/prometheus-community/prometheus-adapter/5.3.0/CATALOG.md"
     },
@@ -5936,6 +5982,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/projectcalico/tigera-operator/v3.32.0/recipe.yaml",
       "catalog_path": "recipes/projectcalico/tigera-operator/v3.32.0/CATALOG.md"
     },
@@ -5956,6 +6003,7 @@
       "hard_gap": "existing-secret (chart ships no Secret toggle - #113)",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/fairwinds-stable/goldilocks/10.3.0/recipe.yaml",
       "catalog_path": "recipes/fairwinds-stable/goldilocks/10.3.0/CATALOG.md"
     },
@@ -5976,6 +6024,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/prometheus-community/prometheus-operator-crds/29.0.0/recipe.yaml",
       "catalog_path": "recipes/prometheus-community/prometheus-operator-crds/29.0.0/CATALOG.md"
     },
@@ -5996,6 +6045,7 @@
       "hard_gap": "existing-secret (chart ships no Secret toggle - #113)",
       "next_action": "review limitation before promotion: existing-secret (chart ships no Secret toggle - #113)",
       "next_action_source": "limitation-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/bitnami/zookeeper/13.8.7/recipe.yaml",
       "catalog_path": "recipes/bitnami/zookeeper/13.8.7/CATALOG.md"
     },
@@ -6016,6 +6066,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/elastic/filebeat/8.5.1/recipe.yaml",
       "catalog_path": "recipes/elastic/filebeat/8.5.1/CATALOG.md"
     },
@@ -6036,6 +6087,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/hashicorp/terraform/1.1.2/recipe.yaml",
       "catalog_path": "recipes/hashicorp/terraform/1.1.2/CATALOG.md"
     },
@@ -6056,6 +6108,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/coredns/coredns/1.45.2/recipe.yaml",
       "catalog_path": "recipes/coredns/coredns/1.45.2/CATALOG.md"
     },
@@ -6076,6 +6129,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/fairwinds-stable/vpa/4.11.0/recipe.yaml",
       "catalog_path": "recipes/fairwinds-stable/vpa/4.11.0/CATALOG.md"
     },
@@ -6096,6 +6150,7 @@
       "hard_gap": "existing-secret (chart ships no Secret toggle - #113)",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/bitnami/phpmyadmin/20.0.0/recipe.yaml",
       "catalog_path": "recipes/bitnami/phpmyadmin/20.0.0/CATALOG.md"
     },
@@ -6116,6 +6171,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/prometheus-community/prometheus-pushgateway/3.6.0/recipe.yaml",
       "catalog_path": "recipes/prometheus-community/prometheus-pushgateway/3.6.0/CATALOG.md"
     },
@@ -6136,6 +6192,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/fluent/fluentd/0.5.3/recipe.yaml",
       "catalog_path": "recipes/fluent/fluentd/0.5.3/CATALOG.md"
     },
@@ -6156,6 +6213,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/jaegertracing/jaeger-operator/2.57.0/recipe.yaml",
       "catalog_path": "recipes/jaegertracing/jaeger-operator/2.57.0/CATALOG.md"
     },
@@ -6176,6 +6234,7 @@
       "hard_gap": "existing-secret (chart ships no Secret toggle - #113)",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/bitnami/memcached/8.5.5/recipe.yaml",
       "catalog_path": "recipes/bitnami/memcached/8.5.5/CATALOG.md"
     },
@@ -6196,6 +6255,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/strimzi/strimzi-kafka-operator/1.0.0/recipe.yaml",
       "catalog_path": "recipes/strimzi/strimzi-kafka-operator/1.0.0/CATALOG.md"
     },
@@ -6216,6 +6276,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/opencost/opencost/2.5.21/recipe.yaml",
       "catalog_path": "recipes/opencost/opencost/2.5.21/CATALOG.md"
     },
@@ -6236,6 +6297,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/gatekeeper/gatekeeper/3.22.2/recipe.yaml",
       "catalog_path": "recipes/gatekeeper/gatekeeper/3.22.2/CATALOG.md"
     },
@@ -6256,6 +6318,7 @@
       "hard_gap": "existing-secret (chart ships no Secret toggle - #113)",
       "next_action": "review limitation before promotion: existing-secret (chart ships no Secret toggle - #113)",
       "next_action_source": "limitation-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/bitnami/contour/21.1.4/recipe.yaml",
       "catalog_path": "recipes/bitnami/contour/21.1.4/CATALOG.md"
     },
@@ -6276,6 +6339,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/kyverno/kyverno-policies/3.8.0/recipe.yaml",
       "catalog_path": "recipes/kyverno/kyverno-policies/3.8.0/CATALOG.md"
     },
@@ -6296,6 +6360,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/elastic/metricbeat/8.5.1/recipe.yaml",
       "catalog_path": "recipes/elastic/metricbeat/8.5.1/CATALOG.md"
     },
@@ -6316,6 +6381,7 @@
       "hard_gap": "no-crds (template-baked CRDs, no toggle - #114)",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/minio-operator/operator/7.1.1/recipe.yaml",
       "catalog_path": "recipes/minio-operator/operator/7.1.1/CATALOG.md"
     },
@@ -6336,6 +6402,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/percona/pxc-operator/1.19.1/recipe.yaml",
       "catalog_path": "recipes/percona/pxc-operator/1.19.1/CATALOG.md"
     },
@@ -6356,6 +6423,7 @@
       "hard_gap": "existing-secret (chart ships no Secret toggle - #113)",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/bitnami/apache/11.4.29/recipe.yaml",
       "catalog_path": "recipes/bitnami/apache/11.4.29/CATALOG.md"
     },
@@ -6376,6 +6444,7 @@
       "hard_gap": "existing-secret (chart ships no Secret toggle - #113)",
       "next_action": "review limitation before promotion: existing-secret (chart ships no Secret toggle - #113)",
       "next_action_source": "limitation-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/grafana/pyroscope/2.0.2/recipe.yaml",
       "catalog_path": "recipes/grafana/pyroscope/2.0.2/CATALOG.md"
     },
@@ -6396,6 +6465,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/recipe.yaml",
       "catalog_path": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/CATALOG.md"
     },
@@ -6416,6 +6486,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/falcosecurity/falcosidekick/0.13.1/recipe.yaml",
       "catalog_path": "recipes/falcosecurity/falcosidekick/0.13.1/CATALOG.md"
     },
@@ -6436,6 +6507,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/aqua/trivy-operator/0.32.1/recipe.yaml",
       "catalog_path": "recipes/aqua/trivy-operator/0.32.1/CATALOG.md"
     },
@@ -6456,6 +6528,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/argo-cd/argo-events/2.4.21/recipe.yaml",
       "catalog_path": "recipes/argo-cd/argo-events/2.4.21/CATALOG.md"
     },
@@ -6476,6 +6549,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/argo-cd/argo-rollouts/2.40.9/recipe.yaml",
       "catalog_path": "recipes/argo-cd/argo-rollouts/2.40.9/CATALOG.md"
     },
@@ -6496,6 +6570,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/argo-cd/argo-workflows/1.0.14/recipe.yaml",
       "catalog_path": "recipes/argo-cd/argo-workflows/1.0.14/CATALOG.md"
     },
@@ -6516,6 +6591,7 @@
       "hard_gap": "no-crds (template-baked CRDs, no toggle - #114)",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/argo-cd/argocd-image-updater/1.2.2/recipe.yaml",
       "catalog_path": "recipes/argo-cd/argocd-image-updater/1.2.2/CATALOG.md"
     },
@@ -6536,6 +6612,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/autoscaler/cluster-autoscaler/9.57.0/recipe.yaml",
       "catalog_path": "recipes/autoscaler/cluster-autoscaler/9.57.0/CATALOG.md"
     },
@@ -6556,6 +6633,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/recipe.yaml",
       "catalog_path": "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/CATALOG.md"
     },
@@ -6576,6 +6654,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/bitnami/opensearch/2.0.10/recipe.yaml",
       "catalog_path": "recipes/bitnami/opensearch/2.0.10/CATALOG.md"
     },
@@ -6596,6 +6675,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/crossplane-stable/crossplane/2.3.1/recipe.yaml",
       "catalog_path": "recipes/crossplane-stable/crossplane/2.3.1/CATALOG.md"
     },
@@ -6616,6 +6696,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/grafana/promtail/6.17.1/recipe.yaml",
       "catalog_path": "recipes/grafana/promtail/6.17.1/CATALOG.md"
     },
@@ -6636,6 +6717,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/grafana/rollout-operator/0.49.0/recipe.yaml",
       "catalog_path": "recipes/grafana/rollout-operator/0.49.0/CATALOG.md"
     },
@@ -6656,6 +6738,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/haproxytech/kubernetes-ingress/1.52.0/recipe.yaml",
       "catalog_path": "recipes/haproxytech/kubernetes-ingress/1.52.0/CATALOG.md"
     },
@@ -6676,6 +6759,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/istio/gateway/1.30.0/recipe.yaml",
       "catalog_path": "recipes/istio/gateway/1.30.0/CATALOG.md"
     },
@@ -6696,6 +6780,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/istio/istiod/1.30.0/recipe.yaml",
       "catalog_path": "recipes/istio/istiod/1.30.0/CATALOG.md"
     },
@@ -6716,6 +6801,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/jetstack/cert-manager-csi-driver/v0.14.0/recipe.yaml",
       "catalog_path": "recipes/jetstack/cert-manager-csi-driver/v0.14.0/CATALOG.md"
     },
@@ -6736,6 +6822,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/jetstack/trust-manager/v0.22.1/recipe.yaml",
       "catalog_path": "recipes/jetstack/trust-manager/v0.22.1/CATALOG.md"
     },
@@ -6756,6 +6843,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/linkerd/linkerd-crds/1.8.0/recipe.yaml",
       "catalog_path": "recipes/linkerd/linkerd-crds/1.8.0/CATALOG.md"
     },
@@ -6776,6 +6864,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/minio-operator/tenant/7.1.1/recipe.yaml",
       "catalog_path": "recipes/minio-operator/tenant/7.1.1/CATALOG.md"
     },
@@ -6796,6 +6885,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/nats/nack/0.34.0/recipe.yaml",
       "catalog_path": "recipes/nats/nack/0.34.0/CATALOG.md"
     },
@@ -6816,6 +6906,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/nats/surveyor/0.20.9/recipe.yaml",
       "catalog_path": "recipes/nats/surveyor/0.20.9/CATALOG.md"
     },
@@ -6836,6 +6927,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/open-telemetry/opentelemetry-operator/0.114.0/recipe.yaml",
       "catalog_path": "recipes/open-telemetry/opentelemetry-operator/0.114.0/CATALOG.md"
     },
@@ -6856,6 +6948,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/percona/pg-operator/3.0.0/recipe.yaml",
       "catalog_path": "recipes/percona/pg-operator/3.0.0/CATALOG.md"
     },
@@ -6876,6 +6969,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/percona/psmdb-operator/1.22.0/recipe.yaml",
       "catalog_path": "recipes/percona/psmdb-operator/1.22.0/CATALOG.md"
     },
@@ -6896,6 +6990,7 @@
       "hard_gap": "no-crds (template-baked CRDs, no toggle - #114)",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/rook-release/rook-ceph/v1.19.5/recipe.yaml",
       "catalog_path": "recipes/rook-release/rook-ceph/v1.19.5/CATALOG.md"
     },
@@ -6916,6 +7011,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/rook-release/rook-ceph-cluster/v1.19.5/recipe.yaml",
       "catalog_path": "recipes/rook-release/rook-ceph-cluster/v1.19.5/CATALOG.md"
     },
@@ -6936,6 +7032,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/sealed-secrets/sealed-secrets/2.18.6/recipe.yaml",
       "catalog_path": "recipes/sealed-secrets/sealed-secrets/2.18.6/CATALOG.md"
     },
@@ -6956,6 +7053,7 @@
       "hard_gap": "-",
       "next_action": "run catalog promotion review",
       "next_action_source": "catalog-promotion-review",
+      "next_action_receipt": "",
       "recipe_path": "recipes/velero/velero/12.0.1/recipe.yaml",
       "catalog_path": "recipes/velero/velero/12.0.1/CATALOG.md"
     },
@@ -6976,6 +7074,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/vm/victoria-logs-single/0.12.5/recipe.yaml",
       "catalog_path": "recipes/vm/victoria-logs-single/0.12.5/CATALOG.md"
     },
@@ -6996,6 +7095,7 @@
       "hard_gap": "-",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "next_action_source": "user-shaped-variant-backlog",
+      "next_action_receipt": "",
       "recipe_path": "recipes/vm/victoria-metrics-single/0.39.0/recipe.yaml",
       "catalog_path": "recipes/vm/victoria-metrics-single/0.39.0/CATALOG.md"
     }

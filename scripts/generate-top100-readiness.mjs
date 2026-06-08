@@ -60,6 +60,7 @@ function buildReport() {
       hard_gap: shortGap(outcome.hard_gap || top100.not_yet_enabled),
       next_action: status.nextAction,
       next_action_source: status.nextActionSource,
+      next_action_receipt: status.nextActionReceipt,
       recipe_path: top100.recipe_path,
       catalog_path: top100.catalog_path,
     };
@@ -92,14 +93,16 @@ function userStatusFor(top100, outcome, strongestEvidence, productionNextAction)
     if (["live-helm-vs-confighub-parity", "gitops-oci-live", "local-kubernetes-live"].includes(strongestEvidence)) {
       return {
         userStatus: "catalog-supported-with-live-evidence",
-        nextAction: productionNextAction ?? (hardGap === "-" ? "promote a declared production scope when gates pass" : `resolve or document: ${hardGap}`),
+        nextAction: productionNextAction?.nextAction ?? (hardGap === "-" ? "promote a declared production scope when gates pass" : `resolve or document: ${hardGap}`),
         nextActionSource: productionNextAction ? "production-disposition" : "top100-readiness-fallback",
+        nextActionReceipt: productionNextAction?.nextDispositionReceipt ?? "",
       };
     }
     return {
       userStatus: "catalog-supported-needs-live-expansion",
-      nextAction: productionNextAction ?? "add live evidence for the remaining supported variants",
+      nextAction: productionNextAction?.nextAction ?? "add live evidence for the remaining supported variants",
       nextActionSource: productionNextAction ? "production-disposition" : "live-lane-expansion",
+      nextActionReceipt: productionNextAction?.nextDispositionReceipt ?? "",
     };
   }
   if (top100.catalog_status === "proof-grade") {
@@ -108,18 +111,21 @@ function userStatusFor(top100, outcome, strongestEvidence, productionNextAction)
         userStatus: hardGap === "-" ? "proof-grade-ready-for-promotion-review" : "proof-grade-with-named-limitation",
         nextAction: hardGap === "-" ? "run catalog promotion review" : `review limitation before promotion: ${hardGap}`,
         nextActionSource: hardGap === "-" ? "catalog-promotion-review" : "limitation-review",
+        nextActionReceipt: "",
       };
     }
     return {
       userStatus: "proof-grade-needs-user-shaped-variant",
       nextAction: "add at least one user-shaped variant before catalog promotion",
       nextActionSource: "user-shaped-variant-backlog",
+      nextActionReceipt: "",
     };
   }
   return {
     userStatus: "not-in-current-catalog-lane",
     nextAction: top100.top500_next_action || "review chart analysis and create a recipe candidate",
     nextActionSource: "top500-catalog-analysis",
+    nextActionReceipt: "",
   };
 }
 
@@ -128,7 +134,7 @@ function productionNextActionIndex() {
   const path = join(repoRoot, "data", "production-disposition", "next-actions.csv");
   if (!existsSync(path)) return result;
   for (const row of parseCsvFile("data/production-disposition/next-actions.csv")) {
-    if (row.chart && row.version) result.set(`${row.chart}@${row.version}`, row.nextAction);
+    if (row.chart && row.version) result.set(`${row.chart}@${row.version}`, row);
   }
   return result;
 }
@@ -223,15 +229,15 @@ ${[...evidenceCounts.entries()].map(([status, count]) => `| \`${status}\` | ${co
 
 ## First Rows
 
-| Chart | Adoption bucket | Evidence | Variants | Next action | Source |
-| --- | --- | --- | ---: | --- | --- |
-${rows.slice(0, 25).map((row) => `| \`${row.chart}\` | \`${row.adoption_bucket}\` | \`${row.strongest_evidence}\` | ${row.variant_count} | ${escapePipes(row.next_action)} | \`${row.next_action_source}\` |`).join("\n")}
+| Chart | Adoption bucket | Evidence | Variants | Next action | Next receipt | Source |
+| --- | --- | --- | ---: | --- | --- | --- |
+${rows.slice(0, 25).map((row) => `| \`${row.chart}\` | \`${row.adoption_bucket}\` | \`${row.strongest_evidence}\` | ${row.variant_count} | ${escapePipes(row.next_action)} | ${row.next_action_receipt ? `\`${row.next_action_receipt}\`` : "-"} | \`${row.next_action_source}\` |`).join("\n")}
 
 ## Files
 
 | File | Use |
 | --- | --- |
-| \`data/top100-readiness/readiness.csv\` | One row per top-100 chart: user status, strongest evidence, lane counts, gap, next action, and next-action source. |
+| \`data/top100-readiness/readiness.csv\` | One row per top-100 chart: user status, strongest evidence, lane counts, gap, next action, next receipt path where available, and next-action source. |
 | \`data/top100-catalog-analysis/review.csv\` | Catalog analysis and promotion surface. |
 | \`data/outcome-coverage/chart-outcomes.csv\` | Detailed outcome counts per chart. |
 | \`data/outcome-coverage/base-outcomes.csv\` | Per base-variant proof lane status. |
