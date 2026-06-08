@@ -172,7 +172,81 @@ import prototype rows:             ${importPrototypeRows.length}
 The production-disposition wave separates accepted dispositions from open
 dispositions, so the queue shows only the production decisions still needing
 receipts before the follow-up runtime/GitOps and image-digest lanes run.
+
+## Gap Review Wave
+
+${markdownTable(
+  gapRows,
+  [
+    ["#", "priority"],
+    ["Chart", "chart"],
+    ["Capability", "capability"],
+    ["Proof tier", "proof_tier"],
+    ["Next action", "next_action"],
+  ],
+)}
+
+## Latest-Version Promotion Wave
+
+${markdownTable(
+  latestRows,
+  [
+    ["#", "priority"],
+    ["Chart", "chart"],
+    ["Current", "current_version"],
+    ["Candidate", "candidate_version"],
+    ["Status", "status"],
+  ],
+)}
+
+## Variant Build Wave
+
+${markdownTable(
+  variantRows,
+  [
+    ["#", "priority"],
+    ["Chart", "chart"],
+    ["Proposed variants", "proposed_variants"],
+    ["Blocking questions", "blocking_questions"],
+  ],
+)}
+
+## Production Disposition Wave
+
+${markdownTable(
+  productionRows,
+  [
+    ["#", "priority"],
+    ["Chart", "chart"],
+    ["Accepted", "accepted_dispositions"],
+    ["Open", "open_dispositions"],
+  ],
+)}
+
+## Import Prototype Wave
+
+${markdownTable(
+  importPrototypeRows,
+  [
+    ["#", "priority"],
+    ["Case", "case"],
+    ["Route", "route"],
+    ["Status", "status"],
+  ],
+)}
 `;
+}
+
+function markdownTable(rows, columns) {
+  const header = `| ${columns.map(([label]) => label).join(" | ")} |`;
+  const separator = `| ${columns.map(() => "---").join(" | ")} |`;
+  const body = rows.map((row) => `| ${columns.map(([, key]) => markdownCell(row[key])).join(" | ")} |`);
+  return [header, separator, ...body].join("\n");
+}
+
+function markdownCell(value) {
+  const text = value === undefined || value === null || value === "" ? "-" : String(value);
+  return text.replaceAll("|", "\\|").replaceAll("\n", " ");
 }
 
 function parseCsvFile(path) {
