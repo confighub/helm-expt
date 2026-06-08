@@ -141,6 +141,7 @@ The latest generated queues for the next proof stages are:
 | Image digest workdown | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | Compact next-ten waves | [data/next-ten-waves/summary.md](../../data/next-ten-waves/summary.md) |
 | Lane-test matrix | [data/lane-test-matrix/summary.md](../../data/lane-test-matrix/summary.md) |
+| Live parity rerun queue | [data/live-parity-rerun-plan/summary.md](../../data/live-parity-rerun-plan/summary.md) |
 
 These files are generated and verified. Do not edit them by hand.
 
