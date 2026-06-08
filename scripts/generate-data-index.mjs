@@ -58,6 +58,7 @@ function readme(rows) {
     ["data/outcome-coverage/derived-variant-outcomes.csv", "One row per derived ConfigHub variant: intended-state proof and target-bound live status."],
     ["data/outcome-coverage/feature-outcomes.csv", "One row per chart feature: hooks, generated secrets, CRDs, webhooks, required values, schemas, extension slots, gaps."],
     ["data/extension-slots/extension-slots.csv", "One row per chart with NGINX-like extension slots: scope, built variants, surfaces, route, evidence."],
+    ["data/nginx-config-checks/checks.csv", "NGINX supported-base checks for empty config extension slots, sidecars, metrics, raw objects, and ingress shape."],
     ["data/live-kind-parity/summary.md", "Two-cluster live parity: regular Helm in one vanilla kind cluster and cub installer output in another."],
     ["data/pain-point-coverage/summary.md", "General Helm pain point coverage: current answers, handoffs, evidence, gaps, and next actions."],
     ["data/top100-readiness/summary.md", "Top-100 readiness: one chart-by-chart answer for adoption bucket, strongest evidence, hard gap, and next action."],
@@ -150,6 +151,7 @@ function audienceFor(path) {
   if (path.startsWith("data/variant-path-coverage/")) return "user/front-door";
   if (path.startsWith("data/quirk-coverage/")) return "user/front-door";
   if (path.startsWith("data/extension-slots/")) return "user/front-door";
+  if (path.startsWith("data/nginx-config-checks/")) return "verification";
   if (path.startsWith("data/high-fanout-demo/")) return "user/front-door";
   if (path.startsWith("data/edge-recovery/")) return "corpus";
   if (path.includes("lane-test") || path.includes("live") || path.includes("runtime") || path.includes("derived-variant-target-bound")) return "verification";
@@ -172,6 +174,7 @@ function roleFor(path) {
   if (path === "data/variant-path-coverage/coverage-matrix.csv") return "one row per chart/base/path proof status";
   if (path === "data/quirk-coverage/coverage.csv") return "one row per Helm quirk axis: coverage tier, evidence, remaining gap, next action";
   if (path === "data/extension-slots/extension-slots.csv") return "one row per chart with NGINX-like extension slots and the route for populated slots";
+  if (path === "data/nginx-config-checks/checks.csv") return "NGINX supported-base checks for config extension slots and rendered object shape";
   if (path === "data/high-fanout-demo/prometheus-kps.csv") return "Prometheus/kube-prometheus-stack high-fanout base-variant example";
   if (path.endsWith("variant-lanes.csv")) return "row-level proof lane matrix";
   if (path.endsWith("chart-facts.csv")) return "chart facts and hard gaps";
@@ -203,6 +206,7 @@ function familyRole(family) {
     "variant-path-coverage": "chart/base/path proof status matrix",
     "quirk-coverage": "Helm quirk-axis coverage audit",
     "extension-slots": "NGINX-like extension-slot coverage and routing",
+    "nginx-config-checks": "NGINX supported-base config extension checks",
     "high-fanout-demo": "Prometheus base-variant fanout and prerequisite example",
     "data-index": "CSV index and generated data guide",
     "lane-test-matrix": "exact chart/base proof lane status",
@@ -255,6 +259,7 @@ function commandMap() {
     "variant-path-coverage": { generate: "npm run variant-paths:generate", verify: "npm run variant-paths:verify" },
     "quirk-coverage": { generate: "npm run quirk-coverage", verify: "npm run quirk-coverage:verify" },
     "extension-slots": { generate: "npm run extension-slots", verify: "npm run extension-slots:verify" },
+    "nginx-config-checks": { generate: "npm run nginx:config-checks", verify: "npm run nginx:config-checks:verify" },
     "high-fanout-demo": { generate: "npm run high-fanout:generate", verify: "npm run high-fanout:verify" },
     "data-index": { generate: "npm run data:index", verify: "npm run data:index:verify" },
     adversarial10: { generate: "npm run adversarial10:generate", verify: "npm run adversarial10:verify" },

@@ -22,6 +22,7 @@ What is the current status for each chart, base, derived variant, and feature?
 | [outcome-coverage/derived-variant-outcomes.csv](./outcome-coverage/derived-variant-outcomes.csv) | One row per derived ConfigHub variant: intended-state proof and target-bound live status. |
 | [outcome-coverage/feature-outcomes.csv](./outcome-coverage/feature-outcomes.csv) | One row per chart feature: hooks, generated secrets, CRDs, webhooks, required values, schemas, extension slots, gaps. |
 | [extension-slots/extension-slots.csv](./extension-slots/extension-slots.csv) | One row per chart with NGINX-like extension slots: scope, built variants, surfaces, route, evidence. |
+| [nginx-config-checks/checks.csv](./nginx-config-checks/checks.csv) | NGINX supported-base checks for empty config extension slots, sidecars, metrics, raw objects, and ingress shape. |
 | [live-kind-parity/summary.md](./live-kind-parity/summary.md) | Two-cluster live parity: regular Helm in one vanilla kind cluster and cub installer output in another. |
 | [pain-point-coverage/summary.md](./pain-point-coverage/summary.md) | General Helm pain point coverage: current answers, handoffs, evidence, gaps, and next actions. |
 | [top100-readiness/summary.md](./top100-readiness/summary.md) | Top-100 readiness: one chart-by-chart answer for adoption bucket, strongest evidence, hard gap, and next action. |
@@ -76,6 +77,7 @@ tables. Use the deeper CSVs when you need drill-down.
 | `model-completeness` | [model-completeness/summary.md](./model-completeness/summary.md) | chart-level model support criteria |
 | `next-ten-waves` | [next-ten-waves/summary.md](./next-ten-waves/summary.md) | compact next work queues |
 | `next80-full-proofs` | [next80-full-proofs/summary.md](./next80-full-proofs/summary.md) | 80 additional full proof-grade chart artifacts |
+| `nginx-config-checks` | [nginx-config-checks/summary.md](./nginx-config-checks/summary.md) | NGINX supported-base config extension checks |
 | `outcome-coverage` | [outcome-coverage/summary.md](./outcome-coverage/summary.md) | front-door outcome, test, and status map |
 | `pain-point-coverage` | [pain-point-coverage/summary.md](./pain-point-coverage/summary.md) | front-door Helm pain point coverage map |
 | `production-disposition` | [production-disposition/summary.md](./production-disposition/summary.md) | top-20 production blockers and next actions |
@@ -98,7 +100,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 60 CSV files. Each row records the path, audience,
+It includes 61 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

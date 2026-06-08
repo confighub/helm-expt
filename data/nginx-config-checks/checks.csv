@@ -1,0 +1,15 @@
+variant,check,result,evidence
+http-clusterip,no ConfigMap-backed nginx.conf or conf.d content,pass,rendered objects contain no ConfigMap and no configMap volume
+http-clusterip,no raw extraDeploy object kinds,pass,"rendered kinds: Deployment, NetworkPolicy, PodDisruptionBudget, Service, ServiceAccount"
+http-clusterip,no sidecars,pass,containers: nginx
+http-clusterip,no git-clone init container,pass,initContainers: preserve-logs-symlinks
+http-clusterip,no metrics add-on service or ServiceMonitor,pass,services: nginx
+http-clusterip,only expected volumes are mounted,pass,volumes: empty-dir
+http-clusterip,ingress shape matches variant,pass,Ingress not expected and not rendered
+existing-tls-ingress,no ConfigMap-backed nginx.conf or conf.d content,pass,rendered objects contain no ConfigMap and no configMap volume
+existing-tls-ingress,no raw extraDeploy object kinds,pass,"rendered kinds: Deployment, Ingress, NetworkPolicy, PodDisruptionBudget, Service, ServiceAccount"
+existing-tls-ingress,no sidecars,pass,containers: nginx
+existing-tls-ingress,no git-clone init container,pass,initContainers: preserve-logs-symlinks
+existing-tls-ingress,no metrics add-on service or ServiceMonitor,pass,services: nginx
+existing-tls-ingress,only expected volumes are mounted,pass,"volumes: empty-dir, certificate"
+existing-tls-ingress,ingress shape matches variant,pass,Ingress expected and rendered
