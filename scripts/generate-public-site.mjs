@@ -358,6 +358,10 @@ function html(catalog) {
           .join("\n        ")}
       </div>
       ${markdownLikeTable([
+        ["Status", "Meaning"],
+        ...baseReadinessLabelRows(),
+      ])}
+      ${markdownLikeTable([
         ["Chart", "Recommended base", "Readiness", "Reason"],
         ...recommendedBaseRows,
       ])}
@@ -465,6 +469,19 @@ function chartCard(entry) {
             <dt>Chart proof</dt><dd><a href="../${escapeHtml(entry.catalog_path)}">CATALOG.md</a></dd>
           </dl>
         </article>`;
+}
+
+function baseReadinessLabelRows() {
+  return [
+    ["start-here", "Best current demo/catalog path for the declared scope."],
+    ["try-with-proof", "Render parity and two-cluster parity pass, but broader lanes are still incomplete."],
+    ["lifecycle-observed", "Lifecycle behavior has a committed observation receipt."],
+    ["prerequisite-observed", "A target prerequisite is explicit and has observation evidence."],
+    ["runtime-watch", "Object parity passed, but the live target did not fully settle during the run."],
+    ["runtime-review-needed", "Runtime state needs investigation before the base is presented as easy."],
+    ["target-prerequisite-needed", "The target must provide a prerequisite such as CRDs, APIs, Secrets, or storage."],
+    ["hook-lifecycle-review-needed", "Helm hook or hook-like lifecycle behavior needs an explicit route and receipt."],
+  ];
 }
 
 function commandRoutes() {
