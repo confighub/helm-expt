@@ -71,6 +71,7 @@ function buildSite() {
       baseReadiness: "data/top20-base-readiness/base-readiness.csv",
       extensionSlots: "data/extension-slots/extension-slots.csv",
     },
+    commandRoutes: commandRoutes(),
     summary: {
       catalogSupported: catalogEntries.length,
       proofGrade: proofGrade.length,
@@ -236,6 +237,16 @@ function html(catalog) {
       </div>
     </section>
 
+    <section aria-labelledby="command-choice">
+      <h2 id="command-choice">Choose The Shortest Useful Command</h2>
+      <p>The Helm command family is not one path. Use direct Helm commands for quick inspection or one-shot loading. Use cub installer when you want a maintained catalog entry with bases, receipts, scans, and live evidence.</p>
+      ${markdownLikeTable([
+        ["Goal", "Command path"],
+        ...catalog.commandRoutes.map((row) => [row.goal, row.command]),
+      ])}
+      <p><a href="../docs/user/choosing-commands.md">Open the command-routing guide</a>.</p>
+    </section>
+
     <section aria-labelledby="current-status">
       <h2 id="current-status">Current Status</h2>
       <p>The site uses the generated status dashboard. A partial or gap status means the exact lane still needs receipts, not that render parity failed.</p>
@@ -363,6 +374,36 @@ function chartCard(entry) {
         </article>`;
 }
 
+function commandRoutes() {
+  return [
+    {
+      goal: "See what a chart renders without ConfigHub state.",
+      command: "cub helm template",
+      path: "direct-render",
+    },
+    {
+      goal: "Load one Helm render into ConfigHub Units quickly.",
+      command: "cub helm install",
+      path: "one-shot-configHub-load",
+    },
+    {
+      goal: "Use a maintained catalog entry with supported bases and proof.",
+      command: "cub installer setup --pull <package> --base <base>",
+      path: "maintained-catalog-base",
+    },
+    {
+      goal: "Upload a reviewed rendered base into ConfigHub.",
+      command: "cub installer upload",
+      path: "reviewed-unit-upload",
+    },
+    {
+      goal: "Create an environment, region, customer, or target variant after upload.",
+      command: "cub variant create",
+      path: "post-render-configHub-variant",
+    },
+  ];
+}
+
 function metricValue(row) {
   if (!row?.metric) return "-";
   return row.total ? `${row.value}/${row.total}` : row.value;
@@ -404,6 +445,7 @@ Data source:
 - \`data/status-dashboard/status.csv\`
 - \`data/top20-base-readiness/base-readiness.csv\`
 - \`data/extension-slots/extension-slots.csv\`
+- \`docs/user/choosing-commands.md\`
 - \`data/variant-goldens/redis-prod-us-east/\`
 - \`data/managed-overlay-goldens/external-dns-customer-acme-prod/\`
 

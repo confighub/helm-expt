@@ -107,6 +107,21 @@
       </div>
     </section>
 
+    <section aria-labelledby="command-choice">
+      <h2 id="command-choice">Choose The Shortest Useful Command</h2>
+      <p>The Helm command family is not one path. Use direct Helm commands for quick inspection or one-shot loading. Use cub installer when you want a maintained catalog entry with bases, receipts, scans, and live evidence.</p>
+      <div class="card"><table>
+        <thead><tr><th>Goal</th><th>Command path</th></tr></thead>
+        <tbody><tr><td>See what a chart renders without ConfigHub state.</td><td>cub helm template</td></tr><tr><td>Load one Helm render into ConfigHub Units quickly.</td><td>cub helm install</td></tr><tr><td>Use a maintained catalog entry with supported bases and proof.</td><td>cub installer setup --pull &lt;package&gt; --base &lt;base&gt;</td></tr><tr><td>Upload a reviewed rendered base into ConfigHub.</td><td>cub installer upload</td></tr><tr><td>Create an environment, region, customer, or target variant after upload.</td><td>cub variant create</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><a href="../docs/user/choosing-commands.md">Open the command-routing guide</a>.</p>
+    </section>
+
     <section aria-labelledby="current-status">
       <h2 id="current-status">Current Status</h2>
       <p>The site uses the generated status dashboard. A partial or gap status means the exact lane still needs receipts, not that render parity failed.</p>

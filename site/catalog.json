@@ -11,6 +11,33 @@
     "baseReadiness": "data/top20-base-readiness/base-readiness.csv",
     "extensionSlots": "data/extension-slots/extension-slots.csv"
   },
+  "commandRoutes": [
+    {
+      "goal": "See what a chart renders without ConfigHub state.",
+      "command": "cub helm template",
+      "path": "direct-render"
+    },
+    {
+      "goal": "Load one Helm render into ConfigHub Units quickly.",
+      "command": "cub helm install",
+      "path": "one-shot-configHub-load"
+    },
+    {
+      "goal": "Use a maintained catalog entry with supported bases and proof.",
+      "command": "cub installer setup --pull <package> --base <base>",
+      "path": "maintained-catalog-base"
+    },
+    {
+      "goal": "Upload a reviewed rendered base into ConfigHub.",
+      "command": "cub installer upload",
+      "path": "reviewed-unit-upload"
+    },
+    {
+      "goal": "Create an environment, region, customer, or target variant after upload.",
+      "command": "cub variant create",
+      "path": "post-render-configHub-variant"
+    }
+  ],
   "summary": {
     "catalogSupported": 20,
     "proofGrade": 80,
