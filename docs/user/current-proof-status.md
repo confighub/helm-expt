@@ -38,6 +38,13 @@ warnings, lifecycle behavior, target facts, storage policy, RBAC, webhooks,
 extension slots, and operating policy before they can be called
 production-supported.
 
+The shortest production work queue is:
+
+[Production Next Actions](../../data/production-disposition/next-actions.csv)
+
+It lists one next required receipt or fix per top-20 chart, starting with the
+charts closest to production disposition closure.
+
 The generated lane matrix is the authority for exact chart/version/base status:
 
 [Lane Test Matrix](../../data/lane-test-matrix/summary.md)
@@ -160,6 +167,9 @@ Production disposition is still open for the top-20 catalog:
 
 Use the generated production table for exact blockers and next actions:
 [Production Disposition](../../data/production-disposition/summary.md).
+
+Use the generated queue when you want the next chart-level production action:
+[Production Next Actions](../../data/production-disposition/next-actions.csv).
 
 Lifecycle observation proof has started:
 
