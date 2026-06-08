@@ -277,6 +277,11 @@ Catalog page:
 You can see a UX proposal for this stage here:
 [Prometheus Base Variant UX Proposal](./ux-proposal-prometheus-base-variant-tutorial.md).
 
+For the larger Prometheus Operator chart, see
+[Prometheus High-Fanout Example](./prometheus-high-fanout.md). It shows how
+`kube-prometheus-stack/default` and `kube-prometheus-stack/no-crds` differ by 10
+CRD objects and why the `no-crds` base needs target prerequisites.
+
 ## Tutorial 4: Prometheus Promotion Variant
 
 This shows the proposed product flow for creating a derived ConfigHub variant
