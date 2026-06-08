@@ -255,6 +255,7 @@ function generateProof(ctx) {
         helmVersion,
         kubeVersion: chart.kubeVersion,
         flags: ctx.renderFlags,
+        ...((variant.apiVersions ?? []).length ? { apiVersions: variant.apiVersions } : {}),
       }),
     );
     const revisionDigest = sha256(
@@ -299,6 +300,7 @@ function generateProof(ctx) {
           version: helmVersion,
           kubeVersion: chart.kubeVersion,
           flags: ctx.renderFlags,
+          ...((variant.apiVersions ?? []).length ? { apiVersions: variant.apiVersions } : {}),
         },
         inputs: {
           sourceLockSHA256: sha256File(join(proofRoot, "source-lock.yaml")),
@@ -402,6 +404,7 @@ function generateProof(ctx) {
     spec: {
       chart: chartRef,
       version: chart.version,
+      ...(ctx.spec.dossier.extra ?? {}),
       maintainedNotes: ctx.spec.dossier.maintainedNotes,
       knownControlPoints: ctx.spec.dossier.knownControlPoints,
     },
@@ -781,6 +784,9 @@ function renderVariant(ctx, variant) {
       write(valuesPath, variant.valuesText);
       args.push("--values", valuesPath);
     }
+    for (const apiVersion of variant.apiVersions ?? []) {
+      args.push("--api-versions", apiVersion);
+    }
     const first = command("helm", args);
     const second = command("helm", args);
     return { first, second, deterministic: sha256(first) === sha256(second) };
@@ -826,7 +832,7 @@ function variantDocFor(ctx, variant) {
       namespace: chart.namespace,
       releaseName: chart.releaseName,
       valuesProfile: `../../${variant.valuesFile}`,
-      capabilityProfile: { kubeVersion: chart.kubeVersion, apiVersions: [] },
+      capabilityProfile: { kubeVersion: chart.kubeVersion, apiVersions: variant.apiVersions ?? [] },
       hookPolicy: "no-hooks",
     },
   };
