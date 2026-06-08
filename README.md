@@ -179,6 +179,9 @@ model, start with [What You Get](./docs/user/what-you-get.md).
 20/20 have passing local kind live/e2e receipts.
 20/20 have ConfigHub upload, scan, and safe-ops proof receipts.
 100 charts have recipe/package proof artifacts.
+156 chart/base rows have Helm-template versus cub-installer render parity.
+The selected top-20 live Helm-vs-ConfigHub comparison lane has 12 pass,
+7 watch, and 1 blocked receipt.
 cert-manager and External Secrets have lifecycle-observation receipts for
 common CRD/webhook/controller-owned runtime behavior.
 Top-500 source/catalog analysis exists as catalog-planning data for future
@@ -204,13 +207,13 @@ ConfigHub OCI
 ```
 
 That lane depends on a live GitOps controller and cluster, so it is documented
-and exercised outside the pure local `npm run verify` corpus. The current
-committed receipts show Redis, Prometheus, and PostgreSQL passing through Flux
-OCI, and NGINX and Metrics Server passing through Argo CD pulling ConfigHub OCI.
-ingress-nginx has a watch receipt because the kind target has no LoadBalancer
-external IP. External Secrets and kube-prometheus-stack have blocked receipts
-that record missing CRD and separated Secret prerequisites. See "Additional
-Options For Live Cluster Verification" below for the runtime proof path.
+and exercised outside the pure local `npm run verify` corpus. The first
+runtime/GitOps wave currently has 10 committed receipts: 5 pass and 5 non-pass
+target-fit receipts. The strict live Helm-vs-ConfigHub comparison lane has 20
+committed receipts for selected top-20 rows: 12 pass, 7 watch, and 1 blocked.
+See the generated summaries for exact chart/base status:
+[Runtime/GitOps Wave](./data/runtime-gitops/summary.md) and
+[Live Helm-vs-ConfigHub Parity](./data/live-helm-confighub-compare/summary.md).
 
 Start here:
 
@@ -649,12 +652,16 @@ Once the Units are in ConfigHub, the intended GitOps path is:
 Today this repo proves the chart -> recipe -> variant -> rendered objects path
 for the top 20, and proves local kind deployment for those rendered objects.
 The Argo CD / Flux OCI path is verified in a separate live lane because it needs
-a running GitOps controller and cluster. Current committed receipts show Redis,
-Prometheus, and PostgreSQL passing through Flux OCI, and NGINX and Metrics
-Server passing through Argo CD pulling ConfigHub OCI. ingress-nginx has a watch
-receipt because the kind target has no LoadBalancer external IP. External
-Secrets and kube-prometheus-stack have blocked receipts because the target still
-needs CRDs and separated Secret delivery.
+a running GitOps controller and cluster. The current generated status is:
+
+```text
+runtime/GitOps first wave: 5 pass, 5 non-pass target-fit receipts
+strict live Helm-vs-ConfigHub comparison: 12 pass, 7 watch, 1 blocked
+```
+
+Use the generated summaries for exact chart/base status:
+[Runtime/GitOps Wave](./data/runtime-gitops/summary.md) and
+[Live Helm-vs-ConfigHub Parity](./data/live-helm-confighub-compare/summary.md).
 
 ## Current Commands Used
 
