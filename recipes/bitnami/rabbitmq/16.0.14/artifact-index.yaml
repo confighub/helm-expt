@@ -53,7 +53,7 @@ spec:
     path: "packages/bitnami/rabbitmq/16.0.14"
     installer: "packages/bitnami/rabbitmq/16.0.14/installer.yaml"
     receipt: "recipes/bitnami/rabbitmq/16.0.14/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "f8f76456c105e7fbd2eb3595e497f8ed2163d9963d63973f5c9c847381843835"
+    deterministicBundleSHA256: "505663d5101d214d164bdf6bacb42af233702f9b25ac4246b1702a0f9eda5ab0"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
