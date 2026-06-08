@@ -1,0 +1,128 @@
+# Status Dashboard
+
+This generated dashboard is the short front door for current project status. It
+joins the top100 readiness, proof lane, quirk, hook, GitOps, and live-parity
+tables without replacing them.
+
+Use this page to answer:
+
+~~~text
+What is working now?
+Which claims are only partial?
+Where are the main residues?
+Which detailed CSV should I open next?
+~~~
+
+## Current State
+
+| Section | Metric | Value | Status | Source |
+| --- | --- | ---: | --- | --- |
+| top100 | charts with model support | 100/100 | good | [data/outcome-coverage/chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) |
+| top100 | catalog-supported charts | 20/100 | partial | [data/top100-readiness/readiness.csv](../../data/top100-readiness/readiness.csv) |
+| top100 | proof-grade non-catalog charts | 80/100 | partial | [data/top100-readiness/readiness.csv](../../data/top100-readiness/readiness.csv) |
+| top100 | variant-rich charts | 54/100 | partial | [data/outcome-coverage/chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) |
+| proof lanes | render parity rows | 156/156 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | in-ConfigHub proof rows | 18/156 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | local live rows | 21/156 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | GitOps/OCI live pass rows | 12/156 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | live Helm-vs-ConfigHub parity pass rows | 10/156 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | complete core lane rows | 6/156 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| live evidence | runtime/GitOps wave rows | 10/10 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
+| live evidence | live Helm-vs-ConfigHub receipts | 20/20 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| quirks | tracked-and-surfaced axes | 8/25 | good | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
+| quirks | partly tracked axes | 3/25 | partial | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
+| quirks | source-scanned but not surfaced axes | 5/25 | gap | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
+| quirks | not-scanned axes | 6/25 | gap | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
+| hooks | top100 maintained hook charts | 5/5 | partial | [data/hook-lifecycle/top100-hooks.csv](../../data/hook-lifecycle/top100-hooks.csv) |
+| hooks | hook lifecycle receipts present | 0/5 | gap | [data/hook-lifecycle/top100-hooks.csv](../../data/hook-lifecycle/top100-hooks.csv) |
+
+## Top100 Readiness
+
+| User status | Charts |
+| --- | ---: |
+| proof-grade-needs-user-shaped-variant | 46 |
+| proof-grade-ready-for-promotion-review | 27 |
+| catalog-supported-with-live-evidence | 20 |
+| proof-grade-with-named-limitation | 7 |
+
+| Strongest evidence | Charts |
+| --- | ---: |
+| render-parity | 80 |
+| live-helm-vs-confighub-parity | 10 |
+| local-kubernetes-live | 10 |
+
+The top100 is model-supported, but not uniformly live-proven. Use
+[top100-readiness/readiness.csv](../top100-readiness/readiness.csv) for one row
+per chart, and [outcome-coverage/base-outcomes.csv](../outcome-coverage/base-outcomes.csv)
+for exact chart/base lane status.
+
+## Live And Parity Residue
+
+| Lane | Pass | Non-pass | Missing | Total |
+| --- | ---: | ---: | ---: | ---: |
+| in-ConfigHub | 18 | 0 | 138 | 156 |
+| local live | 21 | 0 | 135 | 156 |
+| GitOps/OCI live | 12 | 7 | 137 | 156 |
+| live Helm-vs-ConfigHub parity | 10 | 10 | 136 | 156 |
+
+Non-pass live receipts are useful evidence. They usually identify a target
+prerequisite, runtime behavior, or provisioning boundary rather than a render
+parity failure.
+
+Current live parity non-pass receipts:
+
+| Chart | Variant | Result | Reason |
+| --- | --- | --- | --- |
+| ingress-nginx/ingress-nginx@4.15.1 | admission-disabled | watch | - |
+| external-secrets/external-secrets@2.5.0 | default | blocked | infra: kind create failed |
+| argo-cd/argo-cd@9.5.15 | default | blocked | infra: etcd/apiserver overload |
+| prometheus-community/kube-prometheus-stack@85.3.3 | default | blocked | infra: rig bootstrap (argocd) not ready |
+| grafana/loki@7.0.0 | single-binary-filesystem | blocked | infra: kind create failed |
+| longhorn/longhorn@1.11.2 | default | blocked | infra: kind create failed |
+| hashicorp/vault@0.32.0 | default | blocked | infra: rig bootstrap (argocd) not ready |
+| bitnami/mysql@14.0.3 | generated-passwords | watch | - |
+| grafana/tempo@1.24.4 | local-persistent | blocked | helm-runtime: upstream not ready (parity passed) |
+| hashicorp/consul@2.0.0 | default-control-plane | blocked | infra: provisioning timeout |
+
+
+## Quirk And Hook Residue
+
+| Quirk coverage tier | Axes |
+| --- | ---: |
+| tracked-and-surfaced | 8 |
+| not-scanned | 6 |
+| source-scanned-not-surfaced | 5 |
+| partly-tracked | 3 |
+| tracked-by-lock-not-front-door | 2 |
+| disclosed-not-complete | 1 |
+
+| Hook chart | Selected base | Current disposition | Next action |
+| --- | --- | --- | --- |
+| prometheus-community/kube-prometheus-stack@85.3.3 | default | requires-route-and-receipt | choose lifecycle route, run live path, commit lifecycle or observation receipt |
+| kyverno/kyverno@3.8.1 | default | requires-route-and-receipt | choose lifecycle route, run live path, commit lifecycle or observation receipt |
+| fluent/fluent-bit@0.57.6 | default | requires-route-and-receipt | choose lifecycle route, run live path, commit lifecycle or observation receipt |
+| projectcalico/tigera-operator@v3.32.0 | default | requires-route-and-receipt | choose lifecycle route, run live path, commit lifecycle or observation receipt |
+| gatekeeper/gatekeeper@3.22.2 | default | requires-route-and-receipt | choose lifecycle route, run live path, commit lifecycle or observation receipt |
+
+Hook rows are not support claims. They are the queue for lifecycle route and
+receipt work. The hook doctrine is
+[Seven-Stage Helm Lifecycle](../../docs/reference/seven-stage-helm-lifecycle.md)
+and [Hook Lifecycle Strategy](../../docs/user/hook-lifecycle-strategy.md).
+
+## How To Use This
+
+| Question | Open |
+| --- | --- |
+| Can I use this chart today? | [top100-readiness/readiness.csv](../top100-readiness/readiness.csv) |
+| Which base variants have which proof lanes? | [outcome-coverage/base-outcomes.csv](../outcome-coverage/base-outcomes.csv) |
+| Which hooks, CRDs, generated facts, or target facts matter? | [outcome-coverage/feature-outcomes.csv](../outcome-coverage/feature-outcomes.csv) |
+| Which Helm quirk axes are still blind spots? | [quirk-coverage/coverage.csv](../quirk-coverage/coverage.csv) |
+| Which hook charts need lifecycle receipts? | [hook-lifecycle/top100-hooks.csv](../hook-lifecycle/top100-hooks.csv) |
+| Which live comparisons passed or failed? | [live-helm-confighub-compare/summary.csv](../live-helm-confighub-compare/summary.csv) |
+
+Regenerate:
+
+~~~sh
+npm run status:dashboard
+npm run status:dashboard:verify
+~~~

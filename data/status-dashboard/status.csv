@@ -1,0 +1,19 @@
+section,metric,value,total,status,source,note
+top100,charts with model support,100,100,good,data/outcome-coverage/chart-outcomes.csv,The top100 corpus has honest chart models for the declared scope.
+top100,catalog-supported charts,20,100,partial,data/top100-readiness/readiness.csv,These are the current public catalog entries; production support still depends on lane status.
+top100,proof-grade non-catalog charts,80,100,partial,data/top100-readiness/readiness.csv,These charts have proof artifacts but are not promoted catalog entries.
+top100,variant-rich charts,54,100,partial,data/outcome-coverage/chart-outcomes.csv,Charts with more than one declared base variant.
+proof lanes,render parity rows,156,156,good,data/outcome-coverage/base-outcomes.csv,Every chart/base row has render parity under recorded inputs.
+proof lanes,in-ConfigHub proof rows,18,156,partial,data/outcome-coverage/base-outcomes.csv,"Rows with upload, scan, or safe-operation proof receipts."
+proof lanes,local live rows,21,156,partial,data/outcome-coverage/base-outcomes.csv,Rows with committed local Kubernetes observation receipts.
+proof lanes,GitOps/OCI live pass rows,12,156,partial,data/outcome-coverage/base-outcomes.csv,7 rows have non-pass GitOps/OCI receipts.
+proof lanes,live Helm-vs-ConfigHub parity pass rows,10,156,partial,data/outcome-coverage/base-outcomes.csv,10 rows have non-pass live parity receipts.
+proof lanes,complete core lane rows,6,156,gap,data/outcome-coverage/base-outcomes.csv,"Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."
+live evidence,runtime/GitOps wave rows,10,10,partial,data/runtime-gitops/wave1.csv,Selected Argo/Flux OCI wave rows; this is not the whole corpus.
+live evidence,live Helm-vs-ConfigHub receipts,20,20,partial,data/live-helm-confighub-compare/summary.csv,"Committed live comparison receipts, including pass and non-pass results."
+quirks,tracked-and-surfaced axes,8,25,good,data/quirk-coverage/coverage.csv,Quirk axes visible in generated chart or user data.
+quirks,partly tracked axes,3,25,partial,data/quirk-coverage/coverage.csv,Visible quirk axes that still need lifecycle or proof coverage.
+quirks,source-scanned but not surfaced axes,5,25,gap,data/quirk-coverage/coverage.csv,Detected in source scan but not promoted to front-door chart facts.
+quirks,not-scanned axes,6,25,gap,data/quirk-coverage/coverage.csv,Known blind spots in the scanner/data model.
+hooks,top100 maintained hook charts,5,5,partial,data/hook-lifecycle/top100-hooks.csv,Hook-bearing maintained charts with required lifecycle receipt paths.
+hooks,hook lifecycle receipts present,0,5,gap,data/hook-lifecycle/top100-hooks.csv,Current hook rows still need lifecycle route and receipt work.

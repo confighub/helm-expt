@@ -227,6 +227,9 @@ docs/user/outcomes-and-tests.md
 docs/user/helm-pain-points.md
   How common Helm pain points map to helm-expt, ConfigHub, cub installer, and live observation.
 
+data/status-dashboard/summary.md
+  One-page current status: top100, proof lanes, hooks, quirks, GitOps, and live parity.
+
 data/top100-readiness/summary.md
   One chart-by-chart answer for current top-100 user status, strongest evidence, and next action.
 
