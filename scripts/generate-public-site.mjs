@@ -17,6 +17,7 @@ const statusDashboardPath = join(repoRoot, "data", "status-dashboard", "status.c
 const baseReadinessPath = join(repoRoot, "data", "top20-base-readiness", "base-readiness.csv");
 const extensionSlotsPath = join(repoRoot, "data", "extension-slots", "extension-slots.csv");
 const top100ReadinessPath = join(repoRoot, "data", "top100-readiness", "readiness.csv");
+const liveParityRerunPlanPath = join(repoRoot, "data", "live-parity-rerun-plan", "rerun-plan.csv");
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -51,6 +52,7 @@ function buildSite() {
   const baseReadiness = parseCsv(readFileSync(baseReadinessPath, "utf8"));
   const extensionSlots = parseCsv(readFileSync(extensionSlotsPath, "utf8"));
   const top100Readiness = parseCsv(readFileSync(top100ReadinessPath, "utf8"));
+  const liveParityRerunPlan = parseCsv(readFileSync(liveParityRerunPlanPath, "utf8"));
   const catalogEntries = top100.entries.filter((entry) => entry.proof_surface === "top20-catalog-supported");
   const proofGrade = top100.entries.filter((entry) => entry.proof_surface === "next80-proof-grade");
   const latestCandidates = readiness.map((row) => ({
@@ -73,6 +75,7 @@ function buildSite() {
       baseReadiness: "data/top20-base-readiness/base-readiness.csv",
       extensionSlots: "data/extension-slots/extension-slots.csv",
       top100Readiness: "data/top100-readiness/readiness.csv",
+      liveParityRerunPlan: "data/live-parity-rerun-plan/rerun-plan.csv",
     },
     commandRoutes: commandRoutes(),
     top500Evidence: top500.summary,
@@ -92,6 +95,8 @@ function buildSite() {
       top100ChartsWithLiveEvidence: top100Readiness.filter((row) =>
         ["live-helm-vs-confighub-parity", "gitops-oci-live", "local-kubernetes-live"].includes(row.strongest_evidence),
       ).length,
+      liveParityRerunRows: liveParityRerunPlan.length,
+      liveParityRerunSemanticDefects: liveParityRerunPlan.filter((row) => row.reason.startsWith("parity:")).length,
     },
     statusMetrics,
     catalogEntries,
@@ -100,6 +105,7 @@ function buildSite() {
     baseReadiness,
     extensionSlots,
     top100Readiness,
+    liveParityRerunPlan,
   };
   return {
     catalogJson: `${JSON.stringify(catalog, null, 2)}\n`,
@@ -149,6 +155,10 @@ function html(catalog) {
     ["needs-useful-variant", "The mechanism works, but the chart needs realistic user-shaped bases before it is a good offer."],
     ["limitation-decision-first", "A named capability gap needs a support, disclosure, or defer decision before promotion."],
   ].map(([bucket, meaning]) => [bucket, top100AdoptionCounts[bucket] ?? 0, meaning]);
+  const rerunCounts = countBy(catalog.liveParityRerunPlan, "lane");
+  const rerunRows = catalog.liveParityRerunPlan
+    .slice(0, 8)
+    .map((row) => [row.lane, `${row.chart}@${row.version}`, row.base, row.current_result, row.reason]);
   const stages = [
     ["1. Acquire and pin", "Lock chart source, dependencies, digests, and provenance."],
     ["2. Render and capture", "Run Helm under recorded inputs and prove render parity with cub installer."],
@@ -273,6 +283,22 @@ function html(catalog) {
         ...statusRows.map((row) => [row.metric, metricValue(row), row.status]),
       ])}
       <p><a href="../data/status-dashboard/summary.md">Open the full status dashboard</a>.</p>
+    </section>
+
+    <section aria-labelledby="live-rerun-plan">
+      <h2 id="live-rerun-plan">Live Parity Rerun Plan</h2>
+      <p>The live non-pass rows are work queues, not hidden failures. The rerun plan separates semantic parity defects from target prerequisites, runtime watch rows, hooks, and operating-policy decisions.</p>
+      <div class="grid">
+        <div class="metric"><strong>${escapeHtml(catalog.summary.liveParityRerunRows)}</strong><span>Rows in rerun queue</span></div>
+        <div class="metric"><strong>${escapeHtml(catalog.summary.liveParityRerunSemanticDefects)}</strong><span>Semantic parity defects</span></div>
+        <div class="metric"><strong>${escapeHtml(rerunCounts["configHub-oci-live-comparison"] ?? 0)}</strong><span>ConfigHub/OCI watch rows</span></div>
+        <div class="metric"><strong>${escapeHtml(rerunCounts["two-cluster-kind-parity"] ?? 0)}</strong><span>Two-cluster rows to resolve</span></div>
+      </div>
+      ${markdownLikeTable([
+        ["Lane", "Chart", "Base", "Current", "Reason"],
+        ...rerunRows,
+      ])}
+      <p><a href="../data/live-parity-rerun-plan/summary.md">Open the full live parity rerun plan</a>.</p>
     </section>
 
     <section aria-labelledby="top100-readiness">
@@ -499,6 +525,7 @@ Data source:
 - \`data/top20-base-readiness/base-readiness.csv\`
 - \`data/extension-slots/extension-slots.csv\`
 - \`data/top100-readiness/readiness.csv\`
+- \`data/live-parity-rerun-plan/rerun-plan.csv\`
 - \`docs/user/choosing-commands.md\`
 - \`data/variant-goldens/redis-prod-us-east/\`
 - \`data/managed-overlay-goldens/external-dns-customer-acme-prod/\`

@@ -138,6 +138,27 @@
       <p><a href="../data/status-dashboard/summary.md">Open the full status dashboard</a>.</p>
     </section>
 
+    <section aria-labelledby="live-rerun-plan">
+      <h2 id="live-rerun-plan">Live Parity Rerun Plan</h2>
+      <p>The live non-pass rows are work queues, not hidden failures. The rerun plan separates semantic parity defects from target prerequisites, runtime watch rows, hooks, and operating-policy decisions.</p>
+      <div class="grid">
+        <div class="metric"><strong>20</strong><span>Rows in rerun queue</span></div>
+        <div class="metric"><strong>0</strong><span>Semantic parity defects</span></div>
+        <div class="metric"><strong>5</strong><span>ConfigHub/OCI watch rows</span></div>
+        <div class="metric"><strong>15</strong><span>Two-cluster rows to resolve</span></div>
+      </div>
+      <div class="card"><table>
+        <thead><tr><th>Lane</th><th>Chart</th><th>Base</th><th>Current</th><th>Reason</th></tr></thead>
+        <tbody><tr><td>configHub-oci-live-comparison</td><td>argo-cd/argo-cd@9.5.15</td><td>default</td><td>watch</td><td>target-runtime: pod config/runtime errors (parity passed)</td></tr><tr><td>configHub-oci-live-comparison</td><td>grafana/tempo@1.24.4</td><td>local-persistent</td><td>watch</td><td>target-runtime: PVC/storage pending (parity passed)</td></tr><tr><td>configHub-oci-live-comparison</td><td>hashicorp/vault@0.32.0</td><td>default</td><td>watch</td><td>operate-policy: Vault init/unseal readiness (parity passed)</td></tr><tr><td>configHub-oci-live-comparison</td><td>ingress-nginx/ingress-nginx@4.15.1</td><td>admission-disabled</td><td>watch</td><td>gitops-runtime: Argo health Progressing (parity passed)</td></tr><tr><td>configHub-oci-live-comparison</td><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>default</td><td>watch</td><td>target-runtime: pod ContainerCreating (parity passed)</td></tr><tr><td>two-cluster-kind-parity</td><td>argo-cd/argo-cd@9.5.15</td><td>no-crds</td><td>blocked</td><td>target-prerequisite: CRDs disabled or missing (parity passed)</td></tr><tr><td>two-cluster-kind-parity</td><td>external-secrets/external-secrets@2.5.0</td><td>no-crds</td><td>blocked</td><td>target-prerequisite: CRDs disabled or missing (parity passed)</td></tr><tr><td>two-cluster-kind-parity</td><td>grafana/tempo@1.24.4</td><td>s3-query-observability</td><td>blocked</td><td>target-prerequisite: CRDs missing</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><a href="../data/live-parity-rerun-plan/summary.md">Open the full live parity rerun plan</a>.</p>
+    </section>
+
     <section aria-labelledby="top100-readiness">
       <h2 id="top100-readiness">Top-100 Readiness</h2>
       <p>The top-100 corpus is not one claim. It separates public catalog entries, promotion candidates, charts that need better user-shaped bases, and charts that need a limitation decision before promotion.</p>
