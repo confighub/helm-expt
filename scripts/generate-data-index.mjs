@@ -56,6 +56,7 @@ function readme(rows) {
     ["data/outcome-coverage/derived-variant-outcomes.csv", "One row per derived ConfigHub variant: intended-state proof and target-bound live status."],
     ["data/outcome-coverage/feature-outcomes.csv", "One row per chart feature: hooks, generated secrets, CRDs, webhooks, required values, schemas, extension slots, gaps."],
     ["data/pain-point-coverage/summary.md", "General Helm pain point coverage: current answers, handoffs, evidence, gaps, and next actions."],
+    ["data/top100-readiness/summary.md", "Top-100 readiness: one chart-by-chart answer for current user status, strongest evidence, and next action."],
     ["data/variant-path-coverage/summary.md", "Per chart/base/path matrix for base variants, diffs, operations, and derived ConfigHub variants."],
     ["data/edge-recovery/summary.md", "Recovered graph fragments from Redis and kube-prometheus-stack recipe artifacts."],
     ["data/csv-index.csv", "Machine-readable index of every CSV under data/."],
@@ -138,6 +139,7 @@ function audienceFor(path) {
   if (path === "data/csv-index.csv") return "user/front-door";
   if (path.startsWith("data/outcome-coverage/")) return "user/front-door";
   if (path.startsWith("data/pain-point-coverage/")) return "user/front-door";
+  if (path.startsWith("data/top100-readiness/")) return "user/front-door";
   if (path.startsWith("data/variant-path-coverage/")) return "user/front-door";
   if (path.startsWith("data/edge-recovery/")) return "corpus";
   if (path.includes("lane-test") || path.includes("live") || path.includes("runtime") || path.includes("derived-variant-target-bound")) return "verification";
@@ -153,6 +155,7 @@ function roleFor(path) {
   if (path === "data/outcome-coverage/derived-variant-outcomes.csv") return "one row per derived variant: intended and target-bound status";
   if (path === "data/outcome-coverage/feature-outcomes.csv") return "one row per chart feature or quirk";
   if (path === "data/pain-point-coverage/pain-points.csv") return "one row per Helm pain point: answer, handoff, evidence, gap";
+  if (path === "data/top100-readiness/readiness.csv") return "one row per top-100 chart: user status, strongest evidence, gap, next action";
   if (path === "data/edge-recovery/edges.csv") return "recovered desired-state graph fragments from recipe artifacts";
   if (path === "data/variant-path-coverage/coverage-matrix.csv") return "one row per chart/base/path proof status";
   if (path.endsWith("variant-lanes.csv")) return "row-level proof lane matrix";
@@ -179,6 +182,7 @@ function familyRole(family) {
     adversarial10: "hard-chart readiness and control-point analysis",
     "outcome-coverage": "front-door outcome, test, and status map",
     "pain-point-coverage": "front-door Helm pain point coverage map",
+    "top100-readiness": "front-door top-100 user readiness and evidence summary",
     "edge-recovery": "recovered desired-state graph fragments",
     "variant-path-coverage": "chart/base/path proof status matrix",
     "data-index": "CSV index and generated data guide",
@@ -225,6 +229,7 @@ function commandMap() {
   return {
     "outcome-coverage": { generate: "npm run outcomes:generate", verify: "npm run outcomes:verify" },
     "pain-point-coverage": { generate: "npm run pain-points:generate", verify: "npm run pain-points:verify" },
+    "top100-readiness": { generate: "npm run top100:readiness", verify: "npm run top100:readiness:verify" },
     "edge-recovery": { generate: "npm run edges:generate", verify: "npm run edges:verify" },
     "variant-path-coverage": { generate: "npm run variant-paths:generate", verify: "npm run variant-paths:verify" },
     "data-index": { generate: "npm run data:index", verify: "npm run data:index:verify" },
