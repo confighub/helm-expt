@@ -12,10 +12,10 @@ Accepted disposition receipts recorded: 7
 | --- | --- | --- | ---: | ---: | ---: | --- | --- |
 | `argo-cd/argo-cd@9.5.15` | default, no-crds | production-blocked | 0 | 6 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/mongodb@19.0.7` | generated-passwords, existing-secret-replicaset | production-blocked | 0 | 5 | 0 | recipe-hook-policy:no-hooks | 1 |
-| `bitnami/mysql@14.0.3` | generated-passwords, existing-secret | production-blocked | 0 | 6 | 0 | recipe-hook-policy:no-hooks | 1 |
+| `bitnami/mysql@14.0.3` | generated-passwords, existing-secret | production-blocked | 0 | 5 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | production-blocked | 3 | 1 | 0 | none | 1 |
-| `bitnami/postgresql@18.6.7` | generated-passwords, existing-secret | production-blocked | 0 | 6 | 0 | recipe-hook-policy:no-hooks | 1 |
-| `bitnami/rabbitmq@16.0.14` | generated-passwords, existing-secret | production-blocked | 0 | 6 | 0 | recipe-hook-policy:no-hooks | 1 |
+| `bitnami/postgresql@18.6.7` | generated-passwords, existing-secret | production-blocked | 0 | 5 | 0 | recipe-hook-policy:no-hooks | 1 |
+| `bitnami/rabbitmq@16.0.14` | generated-passwords, existing-secret | production-blocked | 0 | 5 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/redis@25.5.3` | default, reuse-existing-secret | production-blocked | 2 | 2 | 0 | recipe-hook-policy:no-hooks | 2 |
 | `external-secrets/external-secrets@2.5.0` | default, no-crds | production-blocked | 0 | 5 | 0 | lifecycle-observations:2/2 | 1 |
 | `grafana/grafana@10.5.15` | generated-passwords, existing-secret-ingress | production-blocked | 0 | 5 | 0 | none | 1 |
@@ -23,7 +23,7 @@ Accepted disposition receipts recorded: 7
 | `grafana/tempo@1.24.4` | local-persistent, s3-query-observability | production-blocked | 0 | 4 | 0 | none | 1 |
 | `hashicorp/consul@2.0.0` | default-control-plane, secure-mesh-existing-secrets | production-blocked | 0 | 8 | 0 | recipe-lifecycle-policy | 1 |
 | `hashicorp/vault@0.32.0` | default, ha-raft-ui | production-blocked | 0 | 5 | 0 | none | 1 |
-| `ingress-nginx/ingress-nginx@4.15.1` | default, admission-disabled | production-blocked | 0 | 5 | 0 | recipe-hook-policy:no-hooks | 1 |
+| `ingress-nginx/ingress-nginx@4.15.1` | default, admission-disabled | production-blocked | 0 | 4 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `jetstack/cert-manager@v1.20.2` | default, crds-enabled | production-blocked | 0 | 6 | 0 | recipe-hook-policy:no-hooks; lifecycle-observations:2/2 | 1 |
 | `longhorn/longhorn@1.11.2` | default, ui-ingress | production-blocked | 0 | 5 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `metrics-server/metrics-server@3.13.0` | default, external-tls-ca | production-blocked | 2 | 3 | 0 | recipe-hook-policy:no-hooks | 1 |

@@ -91,10 +91,11 @@ function buildReport() {
   const externalScan = externalScanIndex();
   const liveE2E = liveE2EIndex();
   const sourceFeatures = sourceFeatureIndex();
+  const extensionSlots = extensionSlotIndex();
   const lifecycleObservations = lifecycleObservationIndex();
   const dispositionReceipts = productionDispositionReceiptIndex();
   const charts = rows.map((row) => {
-    const required = [...row.requiredDispositions].sort();
+    const required = [...requiredDispositions(row.controlPoints, row.variants, extensionSlots.has(`${row.chart}@${row.version}`))].sort();
     const source = sourceFeatures.get(row.chart) ?? {};
     const observations = lifecycleObservations.get(row.chart) ?? [];
     const accepted = acceptedDispositionReceipts(row.chart, required, dispositionReceipts);
@@ -214,7 +215,7 @@ function catalogSupportedRows() {
       packagePath: index.spec?.installerPackage?.path ?? "",
       configHubProofReceipt: `runs/${slugFor(status.spec.chart)}-confighub-proof/latest/confighub-proof-receipt.yaml`,
       controlPoints: controls.spec?.points ?? [],
-      requiredDispositions: requiredDispositions(controls.spec?.points ?? [], index.spec?.variants ?? []),
+      variants: index.spec?.variants ?? [],
     });
   }
   return rows.sort((left, right) => left.chart.localeCompare(right.chart));
@@ -225,6 +226,14 @@ function sourceFeatureIndex() {
   const path = join(repoRoot, "data", "top500-catalog-analysis", "source", "source-feature-scan.raw.json");
   if (!existsSync(path)) return result;
   for (const row of JSON.parse(readFileSync(path, "utf8"))) result.set(row.chart, row);
+  return result;
+}
+
+function extensionSlotIndex() {
+  const result = new Set();
+  const path = join(repoRoot, "data", "extension-slots", "extension-slots.csv");
+  if (!existsSync(path)) return result;
+  for (const row of parseCsv(readFileSync(path, "utf8"))) result.add(row.chart);
   return result;
 }
 
@@ -251,7 +260,7 @@ function lifecyclePolicyBasis(points, source, observations) {
   return bases.length > 0 ? bases : ["none"];
 }
 
-function requiredDispositions(points, variants) {
+function requiredDispositions(points, variants, hasExtensionSlot) {
   const categories = new Set(points.map((point) => point.category));
   const hasCategory = (...names) => names.some((name) => categories.has(name));
   const result = new Set(["scan/gate warning disposition"]);
@@ -264,7 +273,9 @@ function requiredDispositions(points, variants) {
     result.add("target fact preflight");
   }
   if (hasCategory("lifecycle-policy", "hook-policy")) result.add("hook and lifecycle phase policy");
-  if (hasCategory("tpl-extension-slots", "extension-slots", "tpl")) result.add("extension slot provenance and scan policy");
+  if (hasCategory("tpl-extension-slots", "extension-slots") || (hasExtensionSlot && hasCategory("tpl"))) {
+    result.add("extension slot provenance and scan policy");
+  }
   return result;
 }
 

@@ -36,10 +36,11 @@ function buildReport() {
   const configHubProof = configHubProofIndex();
   const liveE2E = liveE2EIndex();
   const sourceFeatures = sourceFeatureIndex();
+  const extensionSlots = extensionSlotIndex();
   const lifecycleObservations = lifecycleObservationIndex();
   const dispositionReceipts = productionDispositionReceiptIndex();
   const rows = recipeRoots()
-    .map((root) => productionRow(root, configHubProof, liveE2E, sourceFeatures, lifecycleObservations, dispositionReceipts))
+    .map((root) => productionRow(root, configHubProof, liveE2E, sourceFeatures, extensionSlots, lifecycleObservations, dispositionReceipts))
     .filter(Boolean)
     .sort((left, right) => left.chart.localeCompare(right.chart));
   check(rows.length === 20, `expected 20 catalog-supported rows, found ${rows.length}`);
@@ -58,7 +59,7 @@ function recipeRoots() {
     .sort();
 }
 
-function productionRow(root, configHubProof, liveE2E, sourceFeatures, lifecycleObservations, dispositionReceipts) {
+function productionRow(root, configHubProof, liveE2E, sourceFeatures, extensionSlots, lifecycleObservations, dispositionReceipts) {
   const catalog = readYaml(join(root, "catalog-status.yaml"));
   if (catalog.spec?.status !== "catalog-supported") return null;
   const index = readYaml(join(root, "artifact-index.yaml"));
@@ -74,6 +75,7 @@ function productionRow(root, configHubProof, liveE2E, sourceFeatures, lifecycleO
     controls: controls.spec?.points ?? [],
     variants: index.spec?.variants ?? [],
     productionReadiness: catalog.spec?.productionReadiness,
+    hasExtensionSlot: extensionSlots.has(`${chart}@${version}`),
   });
   const accepted = acceptedDispositionReceipts(chart, requiredDispositions, dispositionReceipts);
   const acceptedNames = new Set(accepted.map((receipt) => receipt.disposition));
@@ -149,6 +151,14 @@ function sourceFeatureIndex() {
   if (!existsSync(path)) return result;
   const rows = JSON.parse(readFileSync(path, "utf8"));
   for (const row of rows) result.set(row.chart, row);
+  return result;
+}
+
+function extensionSlotIndex() {
+  const result = new Set();
+  const path = join(repoRoot, "data", "extension-slots", "extension-slots.csv");
+  if (!existsSync(path)) return result;
+  for (const row of parseCsv(readFileSync(path, "utf8"))) result.add(row.chart);
   return result;
 }
 
@@ -230,7 +240,7 @@ function chartFromObservation(receipt) {
   return "";
 }
 
-function dispositionList({ controls, variants, productionReadiness }) {
+function dispositionList({ controls, variants, productionReadiness, hasExtensionSlot }) {
   const categories = new Set(controls.map((point) => point.category));
   const hasCategory = (...names) => names.some((name) => categories.has(name));
   const variantTargetFacts = variants.flatMap((variant) => {
@@ -253,7 +263,7 @@ function dispositionList({ controls, variants, productionReadiness }) {
   if (hasCategory("generated-facts")) dispositions.add("generated fact ownership");
   if (hasCategory("target-facts") || variantTargetFacts.length) dispositions.add("target fact preflight");
   if (hasCategory("lifecycle-policy", "hook-policy")) dispositions.add("hook and lifecycle phase policy");
-  if (hasCategory("tpl-extension-slots", "extension-slots", "tpl")) {
+  if (hasCategory("tpl-extension-slots", "extension-slots") || (hasExtensionSlot && hasCategory("tpl"))) {
     dispositions.add("extension slot provenance and scan policy");
   }
   if (dispositions.size === 1) dispositions.add("production values and target assumptions");

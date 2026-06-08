@@ -219,8 +219,8 @@ closed or explicitly accepted.
 | Open disposition | Charts |
 | --- | ---: |
 | scan/gate warning disposition | 20 |
-| extension slot provenance and scan policy | 16 |
 | cluster RBAC review | 13 |
+| extension slot provenance and scan policy | 12 |
 | hook and lifecycle phase policy | 10 |
 | generated fact ownership | 8 |
 | storage backup restore and rollback policy | 8 |
@@ -231,10 +231,10 @@ closed or explicitly accepted.
 | --- | --- | ---: | ---: | --- |
 | argo-cd/argo-cd@9.5.15 | blocked | 0 | 6 | extend live/e2e lane beyond local kind after production dispositions are written |
 | bitnami/mongodb@19.0.7 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |
-| bitnami/mysql@14.0.3 | blocked | 0 | 6 | extend live/e2e lane beyond local kind after production dispositions are written |
+| bitnami/mysql@14.0.3 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |
 | bitnami/nginx@24.0.2 | blocked | 3 | 1 | extend live/e2e lane beyond local kind after production dispositions are written |
-| bitnami/postgresql@18.6.7 | blocked | 0 | 6 | extend live/e2e lane beyond local kind after production dispositions are written |
-| bitnami/rabbitmq@16.0.14 | blocked | 0 | 6 | extend live/e2e lane beyond local kind after production dispositions are written |
+| bitnami/postgresql@18.6.7 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |
+| bitnami/rabbitmq@16.0.14 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |
 | bitnami/redis@25.5.3 | blocked | 2 | 2 | extend live/e2e lane beyond local kind after production dispositions are written |
 | external-secrets/external-secrets@2.5.0 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |
 | grafana/grafana@10.5.15 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |

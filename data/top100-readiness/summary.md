@@ -89,10 +89,10 @@ charts with named hard gaps: 25
 | --- | --- | --- | ---: | --- | --- |
 | `argo-cd/argo-cd@9.5.15` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | write or fix the CRD lifecycle and upgrade policy disposition receipt | `production-disposition` |
 | `bitnami/mongodb@19.0.7` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the extension slot provenance and scan policy disposition receipt | `production-disposition` |
-| `bitnami/mysql@14.0.3` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the extension slot provenance and scan policy disposition receipt | `production-disposition` |
+| `bitnami/mysql@14.0.3` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the generated fact ownership disposition receipt | `production-disposition` |
 | `bitnami/nginx@24.0.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve image digests or pin image tags in the installer base; record image override/proof receipt; then accept PDB behavior or add a reviewed patch where the chart supports it | `production-disposition` |
-| `bitnami/postgresql@18.6.7` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the extension slot provenance and scan policy disposition receipt | `production-disposition` |
-| `bitnami/rabbitmq@16.0.14` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the extension slot provenance and scan policy disposition receipt | `production-disposition` |
+| `bitnami/postgresql@18.6.7` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the generated fact ownership disposition receipt | `production-disposition` |
+| `bitnami/rabbitmq@16.0.14` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the generated fact ownership disposition receipt | `production-disposition` |
 | `bitnami/redis@25.5.3` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the generated fact ownership disposition receipt | `production-disposition` |
 | `external-secrets/external-secrets@2.5.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the CRD lifecycle and upgrade policy disposition receipt | `production-disposition` |
 | `grafana/grafana@10.5.15` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the cluster RBAC review disposition receipt | `production-disposition` |

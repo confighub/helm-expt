@@ -224,15 +224,6 @@ spec:
           []
       dispositions:
         -
-          name: "extension slot provenance and scan policy"
-          state: "required"
-          owner: "catalog-review"
-          requiredEvidence:
-            - "tpl/raw value inventory"
-            - "allowed extension slots"
-            - "scan coverage for rendered additions"
-          unblockRule: "supported only when extensions are explicit and scanned after render"
-        -
           name: "generated fact ownership"
           state: "required"
           owner: "catalog-review"
@@ -401,15 +392,6 @@ spec:
           []
       dispositions:
         -
-          name: "extension slot provenance and scan policy"
-          state: "required"
-          owner: "catalog-review"
-          requiredEvidence:
-            - "tpl/raw value inventory"
-            - "allowed extension slots"
-            - "scan coverage for rendered additions"
-          unblockRule: "supported only when extensions are explicit and scanned after render"
-        -
           name: "generated fact ownership"
           state: "required"
           owner: "catalog-review"
@@ -495,15 +477,6 @@ spec:
         productionDispositionReceipts:
           []
       dispositions:
-        -
-          name: "extension slot provenance and scan policy"
-          state: "required"
-          owner: "catalog-review"
-          requiredEvidence:
-            - "tpl/raw value inventory"
-            - "allowed extension slots"
-            - "scan coverage for rendered additions"
-          unblockRule: "supported only when extensions are explicit and scanned after render"
         -
           name: "generated fact ownership"
           state: "required"
@@ -1215,15 +1188,6 @@ spec:
             - "least-privilege disposition"
             - "operator acceptance"
           unblockRule: "supported only after cluster-scoped permissions have an explicit disposition"
-        -
-          name: "extension slot provenance and scan policy"
-          state: "required"
-          owner: "catalog-review"
-          requiredEvidence:
-            - "tpl/raw value inventory"
-            - "allowed extension slots"
-            - "scan coverage for rendered additions"
-          unblockRule: "supported only when extensions are explicit and scanned after render"
         -
           name: "hook and lifecycle phase policy"
           state: "required"
