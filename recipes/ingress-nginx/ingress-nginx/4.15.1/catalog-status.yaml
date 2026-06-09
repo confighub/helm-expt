@@ -13,6 +13,7 @@ spec:
   supportedVariants:
     - "default"
     - "admission-disabled"
+    - "internal-clusterip"
   candidateVariants:
     []
   deferredVariants: []

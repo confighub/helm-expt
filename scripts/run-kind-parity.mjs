@@ -128,7 +128,8 @@ function targetFromRecipe(recipe, base, chart = null, version = null) {
   const recipeRoot = join(repoRoot, recipe);
   const source = readYaml(join(recipeRoot, "source-lock.yaml"));
   const variant = readYaml(join(recipeRoot, "variants", base, "variant.yaml"));
-  const chartRef = chart ?? source.spec?.chartRef ?? source.spec?.chart ?? source.spec?.name;
+  const sourceChart = source.spec?.chartRef ?? source.spec?.chart ?? source.spec?.name;
+  const chartRef = chart ?? (sourceChart?.includes("/") ? sourceChart : [source.spec?.repositoryName, sourceChart].filter(Boolean).join("/"));
   const versionRef = version ?? source.spec?.version;
   check(chartRef, `${recipe} missing chart ref`);
   check(versionRef, `${recipe} missing chart version`);

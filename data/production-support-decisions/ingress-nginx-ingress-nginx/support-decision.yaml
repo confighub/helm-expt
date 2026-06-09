@@ -1,62 +1,72 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ProductionSupportDecision
 metadata:
-  name: "ingress-nginx-ingress-nginx-default-public-oci-rejected"
+  name: ingress-nginx-ingress-nginx-internal-clusterip-public-oci-supported
 spec:
-  chart: "ingress-nginx/ingress-nginx"
+  chart: ingress-nginx/ingress-nginx
   version: "4.15.1"
-  decision: rejected
+  decision: supported
   decisionDate: "2026-06-09"
-  supportedBase: "default"
+  supportedSince: "2026-06-09T20:44:02Z"
+  supportedBase: internal-clusterip
   targetScope:
-    clusterClass: vanilla-kubernetes
-    namespace: "ingress-nginx"
+    clusterClass: cub-lk-kind-vanilla
+    namespace: ingress-nginx
     deliveryPath: confighub-oci
-    gitopsController: argo-or-flux
+    gitopsController: argo
+    lastEvidenceAt: "2026-06-09T20:44:02Z"
+    lastEvidenceTarget: helm-expt-parity-ingressnginx-mq73y283-241h-cluster/oci
+    lastEvidenceKubeContext: kind-helm-expt-parity-ingressnginx-mq73y283-241h
+    liveEvidenceTTL: 30d
     storageAssumptions:
-      - "Use the chart's recorded storage behavior for the candidate base unless this draft is narrowed before final support."
+      - no persistent volume required for the supported base
     networkAssumptions:
-      - "Use the service, ingress, DNS, and certificate behavior recorded by the candidate base unless this draft is narrowed before final support."
+      - controller Service is ClusterIP
+      - external LoadBalancer provisioning, public ingress, DNS, and TLS certificates are outside this supported base
     requiredTargetFacts: []
   supportBoundary:
     includes:
-      - "ingress-nginx/ingress-nginx@4.15.1 default base"
-      - ConfigHub OCI delivery for the declared target scope after fresh target evidence is recorded
-      - rendered objects, labels, gates, receipts, and support objects produced by the recorded base
+      - ingress-nginx/ingress-nginx@4.15.1 internal-clusterip base
+      - admission webhook objects disabled in the supported base
+      - rendered Deployment, Service, IngressClass, RBAC, ConfigMap, ServiceAccount, and Namespace support object produced by the recorded base
+      - ConfigHub OCI delivery through Argo for the declared cub-lk vanilla kind target scope
     excludes:
-      - "private values overlays, wrapper charts, and populated extension slots unless separately reviewed"
-      - "non-vanilla Kubernetes distributions unless separately reviewed"
-      - "other delivery controllers or target scopes unless separately reviewed"
+      - default base with admission webhook and LoadBalancer behavior
+      - admission-disabled base with LoadBalancer behavior
+      - public LoadBalancer provisioning
+      - production ingress, DNS, and certificate management
+      - private values overlays, wrapper charts, and populated extension slots unless separately reviewed
+      - non-vanilla Kubernetes distributions unless separately reviewed
   decisions:
     imageDecision:
-      state: "no-open-image-digest-gap"
-      detail: "no open image-digest gap in current queue"
+      state: no-open-image-digest-gap
+      detail: The rendered controller image is pinned by digest in the supported base.
     scanDecision:
-      state: "not-reviewed-because-default-base-lacks-target-fit"
-      detail: "scanner findings remain useful proof data, but the default base is not promoted as the first production-supported ingress-nginx scope"
+      state: accepted-for-scope
+      detail: Cluster RBAC findings are accepted for the declared ingress controller scope; the admission webhook and hook path are outside this base.
     lifecycleDecision:
-      state: "no-chart-hooks"
-      detail: "record lifecycle support boundary: recipe-hook-policy:no-hooks"
+      state: no-chart-hooks-for-supported-base
+      detail: The supported base disables admission webhooks, so the admission hook Jobs and webhook readiness path are excluded from this support scope.
     targetFactDecision:
-      state: "no-unresolved-target-prerequisite-in-candidate-base"
-      detail: "no unresolved target prerequisite in candidate base"
+      state: none-required
+      detail: The internal-clusterip base has no required target facts.
     liveEvidenceDecision:
-      state: "not-production-supported-because-default-base-lacks-target-fit"
-      detail: "semantic parity exists, but the default base needs a target with real LoadBalancer/admission behavior; the kind proof records runtime-watch rather than a supported production scope"
+      state: fresh-target-evidence-passed
+      detail: Fresh target-scoped ConfigHub OCI and Argo evidence passed on 2026-06-09 for the declared cub-lk vanilla kind scope.
   evidence:
-    - path: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
-      claim: "The candidate base is Helm-equivalent under recorded inputs."
-    - path: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/receipts/scan-receipt.yaml"
-      claim: "The rendered-object scan receipt exists for the candidate base."
-    - path: "runs/live-kind-parity/ingress-nginx-ingress-nginx-default/receipt.yaml"
-      claim: "The two-cluster Helm-vs-installer parity receipt exists for the candidate base."
-    - path: "data/production-disposition/receipts/ingress-nginx-ingress-nginx/cluster-rbac-review.yaml"
-      claim: "The cluster rbac review receipt exists for this chart."
-    - path: "data/production-disposition/receipts/ingress-nginx-ingress-nginx/hook-and-lifecycle-phase-policy.yaml"
-      claim: "The hook and lifecycle phase policy receipt exists for this chart."
-    - path: "data/production-disposition/receipts/ingress-nginx-ingress-nginx/scan-gate-warning-disposition.yaml"
-      claim: "The scan gate warning disposition receipt exists for this chart."
-    - path: "data/production-disposition/receipts/ingress-nginx-ingress-nginx/webhook-readiness-and-failure-policy.yaml"
-      claim: "The webhook readiness and failure policy receipt exists for this chart."
+    - path: recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The supported base is Helm-equivalent under recorded inputs, with only the installer Namespace support object added.
+    - path: recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/receipts/scan-receipt.yaml
+      claim: The supported base records cluster RBAC findings and has no high or critical rendered-object scan findings.
+    - path: runs/ingress-nginx-confighub-proof/latest/confighub-proof-receipt.yaml
+      claim: ConfigHub upload, plan, safe operations, labels, and server-side variant clone proof passed for the supported base.
+    - path: runs/top20-local-kind/ingress-nginx-internal-clusterip/observation-receipt.json
+      claim: Local kind apply, rollout, cub-scout object-set, closed-world, and workload convergence checks passed for the supported base.
+    - path: runs/live-kind-parity/ingress-nginx-ingress-nginx-internal-clusterip/receipt.yaml
+      claim: The supported base passes strict two-cluster live parity between regular Helm and cub installer apply.
+    - path: runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-internal-clusterip/receipt.yaml
+      claim: Regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo delivery reached the same live outcome for the supported base.
+    - path: data/production-support-decisions/ingress-nginx-ingress-nginx/fresh-target-evidence-2026-06-09.yaml
+      claim: Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared support scope.
   requiredBeforeFinal: []
-  nextAction: "Keep this default base as parity evidence only; create a separate supported ingress-nginx scope for a target with LoadBalancer behavior or an explicitly supported admission-disabled topology."
+  nextAction: Keep the target-scoped evidence fresh before using this supported scope as a production-support example.

@@ -6,7 +6,7 @@ This proof lane shows the current ConfigHub path for `ingress-nginx/ingress-ngin
 using real commands only: `cub installer`, `cub variant`, `cub unit`,
 `cub function`, and `cub changeset`.
 
-The selected happy-path install variant is `default`.
+The selected happy-path install variant is `internal-clusterip`.
 
 ## Package Bases
 
@@ -14,6 +14,7 @@ The selected happy-path install variant is `default`.
 | --- | --- | --- |
 | `default` | yes | ingress-nginx default variant rendered from ingress-nginx/ingress-nginx@4.15.1 |
 | `admission-disabled` | no | ingress-nginx admission webhook disabled variant rendered from ingress-nginx/ingress-nginx@4.15.1 |
+| `internal-clusterip` | no | ingress-nginx internal ClusterIP controller variant rendered from ingress-nginx/ingress-nginx@4.15.1 |
 
 ## Acceptance Contract
 
@@ -24,8 +25,8 @@ The selected happy-path install variant is `default`.
 | Re-render | Pass |
 | Package determinism | Pass |
 | Validator path | pass |
-| ConfigHub upload | Pass; 13 ConfigHub Units (12 Kubernetes Units plus installer record) |
-| Server-side variant | Pass; 13 cloned Units |
+| ConfigHub upload | Pass; 11 ConfigHub Units (10 Kubernetes Units plus installer record) |
+| Server-side variant | Pass; 11 cloned Units |
 | ConfigHub function scan | pass |
 | Safe operations | pass |
 

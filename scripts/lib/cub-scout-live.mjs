@@ -189,6 +189,9 @@ function pruneApiDroppedNoops(value, path = []) {
   if (value === 0 && last === "initialDelaySeconds" && ["livenessProbe", "readinessProbe", "startupProbe"].includes(parent)) {
     return undefined;
   }
+  if (value === 0 && path.length === 2 && path[0] === "spec" && last === "minReadySeconds") {
+    return undefined;
+  }
   if (
     value === false &&
     (

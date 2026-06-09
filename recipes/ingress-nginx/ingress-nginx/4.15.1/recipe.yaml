@@ -22,3 +22,4 @@ spec:
   variants:
     - "variants/default/variant.yaml"
     - "variants/admission-disabled/variant.yaml"
+    - "variants/internal-clusterip/variant.yaml"

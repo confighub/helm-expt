@@ -25,6 +25,7 @@ export const TOP20_CONFIGHUB_PROOF_CHARTS = [
     chart: "ingress-nginx/ingress-nginx",
     chartVersion: "4.15.1",
     namespace: "ingress-nginx",
+    defaultBase: "internal-clusterip",
   },
   {
     slug: "cert-manager",

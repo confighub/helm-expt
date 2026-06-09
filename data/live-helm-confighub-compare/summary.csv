@@ -1,7 +1,7 @@
 rank,chart,version,variant,result,reason,receipt
 1,bitnami/redis,25.5.3,default,pass,,runs/live-helm-confighub-compare/bitnami-redis-default/receipt.yaml
 2,metrics-server/metrics-server,3.13.0,default,pass,,runs/live-helm-confighub-compare/metrics-server-metrics-server-default/receipt.yaml
-3,ingress-nginx/ingress-nginx,4.15.1,admission-disabled,watch,target-fit: LoadBalancer Service has no external IP on kind (parity passed),runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml
+3,ingress-nginx/ingress-nginx,4.15.1,internal-clusterip,pass,,runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-internal-clusterip/receipt.yaml
 4,jetstack/cert-manager,v1.20.2,crds-enabled,pass,,runs/live-helm-confighub-compare/jetstack-cert-manager-crds-enabled/receipt.yaml
 5,external-secrets/external-secrets,2.5.0,default,pass,,runs/live-helm-confighub-compare/external-secrets-external-secrets-default/receipt.yaml
 6,argo-cd/argo-cd,9.5.15,default,pass,,runs/live-helm-confighub-compare/argo-cd-argo-cd-default/receipt.yaml

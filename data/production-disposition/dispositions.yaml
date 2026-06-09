@@ -1294,6 +1294,7 @@ spec:
       supportedLocalTestVariants:
         - "default"
         - "admission-disabled"
+        - "internal-clusterip"
       evidence:
         recipe: "recipes/ingress-nginx/ingress-nginx/4.15.1"
         package: "packages/ingress-nginx/ingress-nginx/4.15.1"
@@ -1315,6 +1316,7 @@ spec:
             renderedPath: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/top20-local-kind/ingress-nginx-admission-disabled/observation-receipt.json"
+          - "runs/top20-local-kind/ingress-nginx-internal-clusterip/observation-receipt.json"
         sourceHookCount: 0
         lifecyclePolicyBasis:
           - "recipe-hook-policy:no-hooks"

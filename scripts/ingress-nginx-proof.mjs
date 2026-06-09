@@ -6,7 +6,7 @@
 //        --verify-proof|--verify-proof-self-test|--verify-package|--compare
 
 import { runProofCli } from "./lib/proof-kit.mjs";
-import { identityFor } from "./lib/proof-common.mjs";
+import { identityFor, parseDocs } from "./lib/proof-common.mjs";
 
 const chart = {
   repository: "ingress-nginx",
@@ -42,6 +42,21 @@ const variants = [
     expectedObjectCount: 9,
     targetFactNote: "removes the admission Service and ValidatingWebhookConfiguration from the rendered revision",
   },
+  {
+    name: "internal-clusterip",
+    base: "internal-clusterip",
+    displayName: "internal ClusterIP controller",
+    valuesFile: "effective-values-internal-clusterip.yaml",
+    valuesText: `controller:
+  admissionWebhooks:
+    enabled: false
+  service:
+    type: ClusterIP
+`,
+    valuesSummary: "admission webhook disabled and controller Service set to ClusterIP",
+    expectedObjectCount: 9,
+    targetFactNote: "uses an internal ClusterIP Service for targets without an external LoadBalancer",
+  },
 ];
 
 const scanPolicy = {
@@ -62,6 +77,14 @@ runProofCli({
   variants,
   scanPolicy,
   supportObjects: [`v1|Namespace||${chart.namespace}`],
+  packageTransformers: [
+    {
+      toolchain: "Kubernetes/YAML",
+      whereResource: "",
+      description: "Set the namespace on every namespaced resource.",
+      invocations: [{ name: "set-namespace", args: ["{{ .Namespace }}"] }],
+    },
+  ],
   valueModel: {
     checkedValues: [
       {
@@ -75,6 +98,24 @@ runProofCli({
         variant: "admission-disabled",
         disposition: "admission-webhook-disabled",
         reason: "removes admission Service and ValidatingWebhookConfiguration from the rendered revision",
+      },
+      {
+        path: "controller.admissionWebhooks.enabled",
+        variant: "internal-clusterip",
+        disposition: "admission-webhook-disabled",
+        reason: "keeps the internal target base free of admission hook and webhook objects",
+      },
+      {
+        path: "controller.service.type",
+        variant: "admission-disabled",
+        disposition: "public-load-balancer-service",
+        reason: "keeps the chart's default LoadBalancer Service shape for targets that provide external load balancers",
+      },
+      {
+        path: "controller.service.type",
+        variant: "internal-clusterip",
+        disposition: "internal-service-target-fit",
+        reason: "uses ClusterIP for local/internal targets where LoadBalancer external IP assignment is not available",
       },
       {
         path: "controller.image.digest",
@@ -104,6 +145,7 @@ runProofCli({
       "Default chart renders an admission Service and ValidatingWebhookConfiguration.",
       "Admission certificate create/patch Jobs are Helm hooks and are excluded from the rendered revision by --no-hooks.",
       "admission-disabled variant removes the admission Service and ValidatingWebhookConfiguration from the rendered revision.",
+      "internal-clusterip variant also changes the controller Service from LoadBalancer to ClusterIP for local/internal targets.",
       "Admission webhook readiness must be observed after apply because a rendered object alone does not prove webhook health.",
     ],
     knownControlPoints: [
@@ -125,6 +167,7 @@ runProofCli({
       "regular Helm output is preserved by `cub installer setup`, plus the explained Namespace support object;",
       "default chart render is deterministic under the pinned Kubernetes capability profile;",
       "the admission-disabled variant deliberately removes admission webhook objects;",
+      "the internal-clusterip variant keeps the admission-disabled object set and fits targets without external LoadBalancer assignment;",
       "admission webhook, Helm hook lifecycle, and cluster RBAC risks are visible as scan/gate findings instead of hidden Helm behavior.",
     ],
   },
@@ -160,12 +203,13 @@ runProofCli({
     return findings;
   },
   // Chart-specific verify assertions the generic kit cannot infer.
-  verifyExtra({ controlPoints, perVariant, check }) {
+  verifyExtra({ controlPoints, perVariant, check, readFileSync }) {
     check(controlPoints.spec.points?.some((point) => point.category === "capability-profile"), "capability-profile control point missing");
     check(controlPoints.spec.points?.some((point) => point.category === "hook-policy"), "hook-policy control point missing");
     check(controlPoints.spec.points?.some((point) => point.category === "admission-webhook"), "admission-webhook control point missing");
     for (const variant of variants) {
-      const { identities, scan } = perVariant.get(variant.name);
+      const { releasePath, identities, scan } = perVariant.get(variant.name);
+      const docs = parseDocs(readFileSync(releasePath, "utf8"));
       check(identities.includes("apps/v1|Deployment|ingress-nginx|ingress-nginx-controller"), `${variant.name} Deployment missing`);
       check(identities.includes("networking.k8s.io/v1|IngressClass||nginx"), `${variant.name} IngressClass missing`);
       if (variant.name === "default") {
@@ -175,6 +219,18 @@ runProofCli({
       if (variant.name === "admission-disabled") {
         check(!identities.includes("admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||ingress-nginx-admission"), "admission-disabled must not render ValidatingWebhookConfiguration");
         check(!identities.includes("v1|Service|ingress-nginx|ingress-nginx-controller-admission"), "admission-disabled must not render admission Service");
+      }
+      if (variant.name === "internal-clusterip") {
+        const service = docs.find((object) => identityFor(object) === "v1|Service|ingress-nginx|ingress-nginx-controller");
+        check(Boolean(service), "internal-clusterip controller Service missing");
+        check(service.spec?.type === "ClusterIP", "internal-clusterip controller Service must be ClusterIP");
+        check(!identities.includes("admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||ingress-nginx-admission"), "internal-clusterip must not render ValidatingWebhookConfiguration");
+        check(!identities.includes("v1|Service|ingress-nginx|ingress-nginx-controller-admission"), "internal-clusterip must not render admission Service");
+      }
+      if (variant.name === "admission-disabled") {
+        const service = docs.find((object) => identityFor(object) === "v1|Service|ingress-nginx|ingress-nginx-controller");
+        check(Boolean(service), "admission-disabled controller Service missing");
+        check(service.spec?.type === "LoadBalancer", "admission-disabled controller Service must remain LoadBalancer");
       }
       check(scan.spec.findingCounts.medium >= 2, `${variant.name} scan must flag admission/RBAC review`);
     }

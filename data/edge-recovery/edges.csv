@@ -71,6 +71,7 @@ hashicorp/vault@0.32.0,base-self,default,default,0,,,,,0,0,recipes/hashicorp/vau
 hashicorp/vault@0.32.0,inherits-with-overrides,default,ha-raft-ui,0,,server.ha.enabled;server.ha.raft.enabled;ui.enabled,,,0,0,recipes/hashicorp/vault/0.32.0/inheritance-graph.yaml
 ingress-nginx/ingress-nginx@4.15.1,base-self,default,default,0,,,,,0,0,recipes/ingress-nginx/ingress-nginx/4.15.1/inheritance-graph.yaml
 ingress-nginx/ingress-nginx@4.15.1,inherits-with-overrides,default,admission-disabled,0,,controller.admissionWebhooks.enabled,,,0,0,recipes/ingress-nginx/ingress-nginx/4.15.1/inheritance-graph.yaml
+ingress-nginx/ingress-nginx@4.15.1,inherits-with-overrides,default,internal-clusterip,0,,controller.admissionWebhooks.enabled;controller.service.type,,,0,0,recipes/ingress-nginx/ingress-nginx/4.15.1/inheritance-graph.yaml
 jetstack/cert-manager@v1.20.2,base-self,default,default,0,,,,,0,0,recipes/jetstack/cert-manager/v1.20.2/inheritance-graph.yaml
 jetstack/cert-manager@v1.20.2,inherits-with-overrides,default,crds-enabled,0,,crds.enabled,,,0,0,recipes/jetstack/cert-manager/v1.20.2/inheritance-graph.yaml
 longhorn/longhorn@1.11.2,base-self,default,default,0,,,,,0,0,recipes/longhorn/longhorn/1.11.2/inheritance-graph.yaml

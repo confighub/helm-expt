@@ -11,11 +11,11 @@ target-scoped support decision for the chart/base/target you intend to use.
 ## Summary
 
 ~~~text
-start-here bases: 14
-top-20 base variants: 40
-target-scoped supported decisions: 16
+start-here bases: 15
+top-20 base variants: 41
+target-scoped supported decisions: 17
 target-scoped superseded decisions: 2
-target-scoped rejected decisions: 2
+target-scoped rejected decisions: 1
 target-scoped draft decisions: 0
 ~~~
 
@@ -34,6 +34,7 @@ target-scoped draft decisions: 0
 | `grafana/loki@7.0.0` | single-binary-filesystem | `cub installer setup --pull packages/grafana/loki/7.0.0 --base single-binary-filesystem --work-dir <tmp> --non-interactive --namespace loki` | check production decision for grafana/loki |
 | `grafana/tempo@1.24.4` | local-persistent | `cub installer setup --pull packages/grafana/tempo/1.24.4 --base local-persistent --work-dir <tmp> --non-interactive --namespace tempo` | check production decision for grafana/tempo |
 | `hashicorp/consul@2.0.0` | default-control-plane | `cub installer setup --pull packages/hashicorp/consul/2.0.0 --base default-control-plane --work-dir <tmp> --non-interactive --namespace consul` | check production decision for hashicorp/consul |
+| `ingress-nginx/ingress-nginx@4.15.1` | internal-clusterip | `cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base internal-clusterip --work-dir <tmp> --non-interactive --namespace ingress-nginx` | check production decision for ingress-nginx/ingress-nginx |
 | `longhorn/longhorn@1.11.2` | default | `cub installer setup --pull packages/longhorn/longhorn/1.11.2 --base default --work-dir <tmp> --non-interactive --namespace longhorn-system` | check production decision for longhorn/longhorn |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default | `cub installer setup --pull packages/prometheus-community/kube-prometheus-stack/85.3.3 --base default --work-dir <tmp> --non-interactive --namespace monitoring` | check production decision for prometheus-community/kube-prometheus-stack |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | `cub installer setup --pull packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system` | check production decision for secrets-store-csi-driver/secrets-store-csi-driver |

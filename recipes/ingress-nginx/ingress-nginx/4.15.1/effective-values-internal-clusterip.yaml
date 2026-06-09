@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "ingress-nginx-ingress-nginx-4.15.1-internal-clusterip"
+spec:
+  files:
+    -
+      path: "effective-values-internal-clusterip.yaml"
+      source: "inline-proof"
+      sha256: "f1d4721fa368f303d4576a7e4c8bbba0d3b07e9d96267bee0e10183c38eaaf75"
+  mergedValuesCaptured: false
+  values:
+    controller:
+      admissionWebhooks:
+        enabled: false
+      service:
+        type: "ClusterIP"

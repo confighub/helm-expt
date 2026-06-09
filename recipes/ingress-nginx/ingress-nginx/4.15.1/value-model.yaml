@@ -15,6 +15,21 @@ spec:
       disposition: "admission-webhook-disabled"
       reason: "removes admission Service and ValidatingWebhookConfiguration from the rendered revision"
     -
+      path: "controller.admissionWebhooks.enabled"
+      variant: "internal-clusterip"
+      disposition: "admission-webhook-disabled"
+      reason: "keeps the internal target base free of admission hook and webhook objects"
+    -
+      path: "controller.service.type"
+      variant: "admission-disabled"
+      disposition: "public-load-balancer-service"
+      reason: "keeps the chart's default LoadBalancer Service shape for targets that provide external load balancers"
+    -
+      path: "controller.service.type"
+      variant: "internal-clusterip"
+      disposition: "internal-service-target-fit"
+      reason: "uses ClusterIP for local/internal targets where LoadBalancer external IP assignment is not available"
+    -
       path: "controller.image.digest"
       variant: "all"
       disposition: "immutable-image-reference"

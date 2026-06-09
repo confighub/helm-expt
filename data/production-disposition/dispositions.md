@@ -23,7 +23,7 @@ Accepted disposition receipts recorded: 103
 | `grafana/tempo@1.24.4` | local-persistent, s3-query-observability | production-review-ready | 4 | 0 | 0 | none | 1 |
 | `hashicorp/consul@2.0.0` | default-control-plane, secure-mesh-existing-secrets | production-review-ready | 8 | 0 | 0 | recipe-lifecycle-policy | 1 |
 | `hashicorp/vault@0.32.0` | default, ha-raft-ui | production-review-ready | 5 | 0 | 0 | none | 1 |
-| `ingress-nginx/ingress-nginx@4.15.1` | default, admission-disabled | production-review-ready | 4 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
+| `ingress-nginx/ingress-nginx@4.15.1` | default, admission-disabled, internal-clusterip | production-review-ready | 4 | 0 | 0 | recipe-hook-policy:no-hooks | 2 |
 | `jetstack/cert-manager@v1.20.2` | default, crds-enabled | production-review-ready | 6 | 0 | 0 | recipe-hook-policy:no-hooks; lifecycle-observations:2/2 | 1 |
 | `longhorn/longhorn@1.11.2` | default, ui-ingress | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `metrics-server/metrics-server@3.13.0` | default, external-tls-ca | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
@@ -82,7 +82,7 @@ runtime fit, and final support scope.
 | `grafana/tempo@1.24.4` | local-persistent | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
 | `hashicorp/consul@2.0.0` | default-control-plane | start-here | image-digest-resolution | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | `hashicorp/vault@0.32.0` | default | runtime-review-needed | runtime-or-prerequisite-scope | 2 | choose whether default is in production scope; close or document its runtime-review-needed live-readiness issue first |
-| `ingress-nginx/ingress-nginx@4.15.1` | default | runtime-watch | runtime-or-prerequisite-scope | 0 | choose whether default is in production scope; close or document its runtime-watch live-readiness issue first |
+| `ingress-nginx/ingress-nginx@4.15.1` | internal-clusterip | start-here | lifecycle-support-scope | 0 | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
 | `jetstack/cert-manager@v1.20.2` | crds-enabled | try-with-proof | image-digest-resolution | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | `longhorn/longhorn@1.11.2` | default | start-here | security-acceptance-or-hardened-base | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
 | `metrics-server/metrics-server@3.13.0` | default | try-with-proof | image-digest-resolution | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |

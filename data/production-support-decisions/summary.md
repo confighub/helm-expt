@@ -11,9 +11,9 @@ live evidence rule, and operator-owned boundaries.
 
 ```text
 decision artifacts: 20
-supported decisions: 16
+supported decisions: 17
 draft decisions: 0
-rejected decisions: 2
+rejected decisions: 1
 superseded decisions: 2
 open work items: 0
 ```
@@ -25,7 +25,7 @@ evidence work before it becomes production-supported for a target scope.
 
 | Workstream | Charts | Examples | Next action |
 | --- | ---: | --- | --- |
-| Supported scope evidence | 16 | `argo-cd/argo-cd@9.5.15` (default)<br>`bitnami/mongodb@19.0.7` (generated-passwords)<br>`bitnami/mysql@14.0.3` (generated-passwords)<br>`bitnami/nginx@24.0.2` (http-clusterip)<br>and 12 more | Keep target-scoped evidence fresh before using the supported scope as a production example. |
+| Supported scope evidence | 17 | `argo-cd/argo-cd@9.5.15` (default)<br>`bitnami/mongodb@19.0.7` (generated-passwords)<br>`bitnami/mysql@14.0.3` (generated-passwords)<br>`bitnami/nginx@24.0.2` (http-clusterip)<br>and 13 more | Keep target-scoped evidence fresh before using the supported scope as a production example. |
 
 ## Priority Rows
 
@@ -58,7 +58,7 @@ Each decision directory also has a generated workdown page:
 | `grafana/tempo@1.24.4` | [local-persistent](./grafana-tempo/README.md) |
 | `hashicorp/consul@2.0.0` | [default-control-plane](./hashicorp-consul/README.md) |
 | `hashicorp/vault@0.32.0` | [default](./hashicorp-vault/README.md) |
-| `ingress-nginx/ingress-nginx@4.15.1` | [default](./ingress-nginx-ingress-nginx/README.md) |
+| `ingress-nginx/ingress-nginx@4.15.1` | [internal-clusterip](./ingress-nginx-ingress-nginx/README.md) |
 | `jetstack/cert-manager@v1.20.2` | [crds-enabled](./jetstack-cert-manager/README.md) |
 | `longhorn/longhorn@1.11.2` | [default](./longhorn-longhorn/README.md) |
 | `metrics-server/metrics-server@3.13.0` | [default](./metrics-server-metrics-server/README.md) |
@@ -83,7 +83,7 @@ Each decision directory also has a generated workdown page:
 | `grafana/tempo@1.24.4` | local-persistent | superseded | vanilla-kubernetes; namespace=tempo; delivery=confighub-oci; controller=argo-or-flux | not-production-supported-because-source-chart-is-deprecated | Keep this as catalog proof evidence only; review grafana-community/tempo or another maintained successor before making a production-support claim. |
 | `hashicorp/consul@2.0.0` | default-control-plane | supported | cub-lk-kind-vanilla; namespace=consul; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate secure-mesh, TLS, ACL, gateway, UI, external-CRD, production-quorum, hardening, and digest-pinned bases for real customer Consul workloads. |
 | `hashicorp/vault@0.32.0` | default | rejected | vanilla-kubernetes; namespace=vault; delivery=confighub-oci; controller=argo-or-flux | not-production-supported-because-vault-default-is-unready | Keep this default base as parity evidence only; create a separate Vault production base with init/unseal, storage, TLS, backup/restore, and operator runbook evidence before making a support claim. |
-| `ingress-nginx/ingress-nginx@4.15.1` | default | rejected | vanilla-kubernetes; namespace=ingress-nginx; delivery=confighub-oci; controller=argo-or-flux | not-production-supported-because-default-base-lacks-target-fit | Keep this default base as parity evidence only; create a separate supported ingress-nginx scope for a target with LoadBalancer behavior or an explicitly supported admission-disabled topology. |
+| `ingress-nginx/ingress-nginx@4.15.1` | internal-clusterip | supported | cub-lk-kind-vanilla; namespace=ingress-nginx; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example. |
 | `jetstack/cert-manager@v1.20.2` | crds-enabled | supported | cub-lk-kind-vanilla; namespace=cert-manager; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate issuer, certificate, provider, or hardened resource bases for real customer certificate workloads. |
 | `longhorn/longhorn@1.11.2` | default | supported | cub-lk-kind-vanilla; namespace=longhorn-system; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate backup/restore, upgrade, replica-policy, storage-class, UI-ingress, resource-hardened, or digest-pinned bases for real customer Longhorn workloads. |
 | `metrics-server/metrics-server@3.13.0` | default | supported | cub-lk-kind-vanilla; namespace=kube-system; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate external-tls-ca, resource-hardened, RBAC-hardened, API aggregation hardened, digest-pinned, or customer production bases for real Metrics Server workloads. |

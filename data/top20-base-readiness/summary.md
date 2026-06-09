@@ -14,8 +14,8 @@ or runtime review.
 ## Summary
 
 ~~~text
-base variants: 40
-start-here: 14
+base variants: 41
+start-here: 15
 try-with-proof: 18
 runtime-watch: 1
 runtime-review-needed: 5
@@ -30,7 +30,7 @@ Live rerun readiness for non-pass rows:
 
 ~~~text
 model-or-stage-first: 2
-review-target-first: 7
+review-target-first: 6
 inspect-diff-first: 0
 rerun-now-after-cleanup: 0
 ~~~
@@ -80,7 +80,8 @@ rerun-now-after-cleanup: 0
 | `hashicorp/vault@0.32.0` | default | yes | runtime-review-needed | review-target-first | helm-runtime: upstream not ready (parity passed) | inspect runtime state; keep the recipe stable unless semantic object comparison starts failing |
 | `hashicorp/vault@0.32.0` | ha-raft-ui | no | runtime-review-needed | review-target-first | target-runtime: pods pending (parity passed) | inspect runtime state; keep the recipe stable unless semantic object comparison starts failing |
 | `ingress-nginx/ingress-nginx@4.15.1` | default | yes | runtime-watch | review-target-first | helm-runtime: upstream not ready (parity passed) | inspect the receipt and rerun after target resources, storage, and waits are appropriate |
-| `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | no | try-with-proof | review-target-first | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
+| `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
+| `ingress-nginx/ingress-nginx@4.15.1` | internal-clusterip | no | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
 | `jetstack/cert-manager@v1.20.2` | default | yes | lifecycle-observed | model-or-stage-first | helm-hook: post-install hook failed (parity passed); lifecycle observation passed | use the lifecycle route evidence at runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-default/receipt.yaml; rerun strict parity only if the hook handling decision changes |
 | `jetstack/cert-manager@v1.20.2` | crds-enabled | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `longhorn/longhorn@1.11.2` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |

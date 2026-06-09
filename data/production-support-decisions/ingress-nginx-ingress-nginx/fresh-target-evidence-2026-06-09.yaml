@@ -1,0 +1,47 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionSupportEvidenceReceipt
+metadata:
+  name: ingress-nginx-internal-clusterip-argo-oci-support-evidence-20260609
+spec:
+  chart: ingress-nginx/ingress-nginx
+  version: "4.15.1"
+  base: internal-clusterip
+  observedAt: "2026-06-09T20:44:02Z"
+  result: pass
+  targetScope:
+    clusterClass: cub-lk-kind-vanilla
+    namespace: ingress-nginx
+    deliveryPath: confighub-oci
+    gitopsController: argo
+    rig: helm-expt-parity-ingressnginx-mq73y283-241h
+    kubeContext: kind-helm-expt-parity-ingressnginx-mq73y283-241h
+    target: helm-expt-parity-ingressnginx-mq73y283-241h-cluster/oci
+    workloadSpace: helm-expt-parity-ingressnginx-mq73y283-241h-ingress-nginx
+  package:
+    path: packages/ingress-nginx/ingress-nginx/4.15.1
+  recipe:
+    path: recipes/ingress-nginx/ingress-nginx/4.15.1
+  oci:
+    revision: sha256:18e8dd805b75ae44c0dc0e37d07c58d50816bd715874c09345b8f332eb243176
+    repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-ingressnginx-mq73y283-241h-cluster/oci
+    path: ./helm-expt-parity-ingressnginx-mq73y283-241h-ingress-nginx
+  source:
+    runner: tests/live-helm-confighub-parity-test
+    receipt: runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-internal-clusterip/receipt.yaml
+    cleanupPolicy: cub-lk rig and workload space cleaned by runner after evidence capture
+  checks:
+    - name: regular-helm-live
+      result: pass
+      detail: deployment.apps/ingress-nginx-controller reached 1/1 in the regular Helm namespace
+    - name: confighub-kubectl-apply-live
+      result: pass
+      detail: deployment.apps/ingress-nginx-controller reached 1/1 after cub installer render/apply
+    - name: confighub-oci-argo-live
+      result: pass
+      detail: Argo application synced and healthy from ConfigHub OCI
+    - name: semantic-object-parity
+      result: pass
+      detail: regular Helm and both ConfigHub delivery legs matched semantically, allowing only the Namespace support object
+  supportClaim:
+    state: fresh-target-evidence-passed
+    detail: Fresh target-scoped ConfigHub OCI and Argo evidence passed for the ingress-nginx internal-clusterip support scope.

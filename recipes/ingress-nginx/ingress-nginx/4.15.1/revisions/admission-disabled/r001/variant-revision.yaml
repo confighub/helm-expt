@@ -5,9 +5,9 @@ metadata:
 spec:
   variant: "../../../variants/admission-disabled/variant.yaml"
   revision: "r001"
-  digest: "df9ec5e51d2774d3ee7f68ecfb00c3388d1c2face4a4f6665d5905a40d667588"
+  digest: "c559f8547f3716cddff683df312790c09786c8bff4284023d7ad59ad6139e7b7"
   digestInputs:
-    recipeSHA256: "015d26978fbff2459a2ead15d831ac81fd61d4f0305149b462e0cd22485be786"
+    recipeSHA256: "2c3419c5c4b1323bdd31902838bb877f79b3ff6aabfbb29bd8a85bd8b0504f8f"
     variantSHA256: "2f90e183f7b41708f63a66f3a4a326147c3ce692c810c63ab6b794cdfff62c02"
     effectiveValuesSHA256: "13872ad305abca3d0b8d35efd839e3d97059dd89cd9a4b5dbeade220db762ce7"
     rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"

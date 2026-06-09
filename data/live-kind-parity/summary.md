@@ -11,7 +11,7 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 32
+pass: 33
 watch: 1
 blocked: 7
 semantic parity defects: 0
@@ -67,6 +67,7 @@ data/live-parity-rerun-plan/summary.md
 | `hashicorp/vault@0.32.0` | ha-raft-ui | blocked | target-runtime: pods pending (parity passed) | runs/live-kind-parity/hashicorp-vault-ha-raft-ui/receipt.yaml |
 | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | pass |  | runs/live-kind-parity/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml |
 | `ingress-nginx/ingress-nginx@4.15.1` | default | watch | helm-runtime: upstream not ready (parity passed) | runs/live-kind-parity/ingress-nginx-ingress-nginx-default/receipt.yaml |
+| `ingress-nginx/ingress-nginx@4.15.1` | internal-clusterip | pass |  | runs/live-kind-parity/ingress-nginx-ingress-nginx-internal-clusterip/receipt.yaml |
 | `jetstack/cert-manager@v1.20.2` | crds-enabled | pass |  | runs/live-kind-parity/jetstack-cert-manager-crds-enabled/receipt.yaml |
 | `jetstack/cert-manager@v1.20.2` | default | blocked | helm-hook: post-install hook failed (parity passed) | runs/live-kind-parity/jetstack-cert-manager-default/receipt.yaml |
 | `longhorn/longhorn@1.11.2` | default | pass |  | runs/live-kind-parity/longhorn-longhorn-default/receipt.yaml |

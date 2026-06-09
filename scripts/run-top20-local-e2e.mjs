@@ -43,9 +43,9 @@ const targets = [
     chart: "ingress-nginx/ingress-nginx",
     version: "4.15.1",
     namespace: "ingress-nginx",
-    variant: "admission-disabled",
-    revision: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/variant-revision.yaml",
-    rendered: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/release-objects.yaml",
+    variant: "internal-clusterip",
+    revision: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/variant-revision.yaml",
+    rendered: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/rendered/release-objects.yaml",
     waits: [{ kind: "deployment", name: "ingress-nginx-controller", namespace: "ingress-nginx" }],
   },
   {

@@ -10,15 +10,19 @@ spec:
     variants:
       - "default"
       - "admission-disabled"
+      - "internal-clusterip"
     helmObjectsByVariant:
       default: 11
       admission-disabled: 9
+      internal-clusterip: 9
     cubInstallObjectsByVariant:
       default: 12
       admission-disabled: 10
+      internal-clusterip: 10
     helmMatchByVariant:
       default: "11/11"
       admission-disabled: "9/9"
+      internal-clusterip: "9/9"
     scanGate: "warn-production-blocked"
     nextAction: "publish only after admission webhook lifecycle/observation policy and cluster RBAC review are satisfied"
   receipts:
@@ -30,3 +34,7 @@ spec:
     - "revisions/admission-disabled/r001/receipts/render-receipt.yaml"
     - "revisions/admission-disabled/r001/receipts/scan-receipt.yaml"
     - "revisions/admission-disabled/r001/receipts/install-gate.yaml"
+    - "revisions/internal-clusterip/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/internal-clusterip/r001/receipts/render-receipt.yaml"
+    - "revisions/internal-clusterip/r001/receipts/scan-receipt.yaml"
+    - "revisions/internal-clusterip/r001/receipts/install-gate.yaml"

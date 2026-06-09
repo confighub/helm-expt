@@ -34,7 +34,7 @@ for exact base-variant evidence.
 | Proof lanes | render parity 2/2; ConfigHub 0/2; local live 1/2; GitOps live 1/2; live parity 1/2 |
 | Feature summary | generated-secrets |
 | Hard gap | existing-secret (chart ships no Secret toggle) |
-| Next action | resolve image digests for each affected variant before production OCI support |
+| Next action | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 
 ## Artifact Chain
 

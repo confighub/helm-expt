@@ -9,7 +9,7 @@ spec:
       organization: "Kubara"
       server: "https://hub.confighub.com"
       cubClientVersion: "Version:    dev"
-      cubServerVersion: "v0.1.49"
+      cubServerVersion: "v0.1.79"
   package:
     path: "packages/ingress-nginx/ingress-nginx/4.15.1"
     name: "ingress-nginx-ingress-nginx"
@@ -18,53 +18,54 @@ spec:
     bases:
       - "default"
       - "admission-disabled"
-    selectedBase: "default"
+      - "internal-clusterip"
+    selectedBase: "internal-clusterip"
     docVerified: true
     targetFactRequirements:
       []
   render:
-    command: "cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base default --work-dir .tmp/confighub-proof/ingress-nginx-default --non-interactive --namespace ingress-nginx"
+    command: "cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base internal-clusterip --work-dir .tmp/confighub-proof/ingress-nginx-internal-clusterip --non-interactive --namespace ingress-nginx"
     result: "pass"
-    manifestCount: 12
+    manifestCount: 10
     separatedSecretCount: 0
     facts:
       {}
   rerender:
-    command: "cub installer render --work-dir .tmp/confighub-proof/ingress-nginx-default"
+    command: "cub installer render --work-dir .tmp/confighub-proof/ingress-nginx-internal-clusterip"
     result: "pass"
-    manifestCount: 12
+    manifestCount: 10
     separatedSecretCount: 0
   deterministicPackage:
     command: "cub installer package packages/ingress-nginx/ingress-nginx/4.15.1 -o .tmp/confighub-proof/ingress-nginx-archives/ingress-nginx-a.tgz"
-    sha256: "67696880ec9c64ef02f0759fdd67e2423d478f9fedcd70bbe45b5edd71336f46"
+    sha256: "a98d276038ce5d36f01c7e819aeb9c35e6445ca722a0359a64deaea92109f5c8"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
-    command: "cub installer vet --work-dir .tmp/confighub-proof/ingress-nginx-default"
+    command: "cub installer vet --work-dir .tmp/confighub-proof/ingress-nginx-internal-clusterip"
     result: "pass"
     note: "Package declares no validators (spec.validators is empty)."
   upload:
-    command: "cub installer upload --work-dir .tmp/confighub-proof/ingress-nginx-default --space helm-ingress-nginx-confighub-proof --component IngressNGINX --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=IngressNGINX --unit-label HelmChart=ingress-nginx-ingress-nginx --unit-label HelmChartVersion=4.15.1 --unit-label Variant=default --unit-label Proof=ingress-nginx-confighub-proof --retry"
+    command: "cub installer upload --work-dir .tmp/confighub-proof/ingress-nginx-internal-clusterip --space helm-ingress-nginx-confighub-proof --component IngressNGINX --layer App --environment Demo --owner ConfigHubHelm --variant internal-clusterip --unit-label Component=IngressNGINX --unit-label HelmChart=ingress-nginx-ingress-nginx --unit-label HelmChartVersion=4.15.1 --unit-label Variant=internal-clusterip --unit-label Proof=ingress-nginx-confighub-proof --retry"
     result: "pass"
     workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
     space: "helm-ingress-nginx-confighub-proof"
-    unitCount: 13
-    kubernetesUnitCount: 12
+    unitCount: 11
+    kubernetesUnitCount: 10
     installerRecordUnitCount: 1
     separatedSecretsNotUploaded:
       []
   plan:
     preUpload:
-      command: "cub installer plan --work-dir .tmp/confighub-proof/ingress-nginx-default"
+      command: "cub installer plan --work-dir .tmp/confighub-proof/ingress-nginx-internal-clusterip"
       result: "expected-missing-upload-state"
-    command: "cub installer plan --work-dir .tmp/confighub-proof/ingress-nginx-default"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/ingress-nginx-internal-clusterip"
     result: "pass"
     summary: "No changes.\nImages in helm-ingress-nginx-confighub-proof (post-render):\n      Deployment/ingress-nginx-controller [controller] registry.k8s.io/ingress-nginx/controller:v1.15.1@sha256:594ceea76b01c592858f803f9ff4d2cb40542cae2060410b2c95f75907d659e1"
   serverSideVariant:
     command: "cub variant create staging helm-ingress-nginx-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists"
     result: "pass"
     upstreamSpace: "helm-ingress-nginx-confighub-proof"
-    downstreamSpace: "helm-ingress-nginx-confighub-proof-staging"
-    clonedUnitCount: 13
+    downstreamSpace: "IngressNGINX-staging"
+    clonedUnitCount: 11
   review:
     unitList: "pass"
     unitData: "pass"
@@ -72,11 +73,10 @@ spec:
     revisionDiff: "pass"
     representativeUnit: "deployment-ingress-nginx-ingress-nginx-controller"
   retention:
-    liveSpacesDeletedAfterProof: true
-    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    liveSpacesDeletedAfterProof: false
     spaces:
       - "helm-ingress-nginx-confighub-proof"
-      - "helm-ingress-nginx-confighub-proof-staging"
+      - "IngressNGINX-staging"
   observedFriction:
     - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."

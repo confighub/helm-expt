@@ -25,6 +25,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 - crds-enabled variant renders six cert-manager CRDs as ordinary rendered objects.
 - startup API check is a Helm post-install hook and is excluded from the rendered revision by --no-hooks.
 - Mutating and validating webhook readiness must be observed after apply because rendered objects alone do not prove webhook health.
+- A stricter cub-scout live witness on kind Kubernetes 1.30 found that four rendered CRDs contain spec.versions[0].selectableFields that the live API omitted after apply; workloads converged, but this blocks strict rendered-object/live parity for that target profile.
 - extraObjects is a tpl-powered extension slot; promoted variants keep it empty.
 
 ## Catalog Mitigations
@@ -42,6 +43,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 | source-lock | handled | source-lock.yaml |
 | dependency-lock | handled | chart has no subchart dependencies |
 | capability-profile | handled | render is bound to the named Kubernetes capability profile even though this chart version does not branch on .Capabilities. |
+| capability-profile-live-pruning | strict-live-object-parity-blocked-on-kubernetes-1.30 | cub-scout live witness on kind Kubernetes 1.30 found four rendered CRDs with spec.versions[0].selectableFields that were absent from the live CRDs after apply; workloads converged, but strict rendered-object/live parity is blocked until the capability/feature-gate route is decided. |
 | crd-policy | variant-controlled | CRDs are ordinary rendered objects only in the crds-enabled variant and still need lifecycle/upgrade policy. |
 | hook-policy | handled-for-render | startup API check Job is a Helm post-install hook and is excluded from the render proof; lifecycle policy must handle it before production. |
 | admission-webhook | scan-and-observe | recorded in control-points.yaml |
@@ -54,6 +56,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 - admission-webhook
 - admission-webhook-observation
 - capability-profile
+- capability-profile-live-pruning
 - cluster-rbac
 - cluster-rbac-scan
 - crd-lifecycle-policy

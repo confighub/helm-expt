@@ -96,8 +96,9 @@ function runChart(chart) {
   const installer = readYaml(installerPath);
   const bases = installer.spec?.bases ?? [];
   check(bases.length > 0, `${chart.packagePath} declares no bases`);
-  const defaultBase = bases.find((base) => base.default)?.name ?? bases[0].name;
+  const defaultBase = chart.defaultBase ?? bases.find((base) => base.default)?.name ?? bases[0].name;
   check(defaultBase, `${chart.packagePath} has no usable default base`);
+  check(bases.some((base) => base.name === defaultBase), `${chart.slug} configured base ${defaultBase} is not in package bases`);
 
   const runRoot = join(repoRoot, "runs", `${chart.slug}-confighub-proof`, "latest");
   const demoRoot = join(repoRoot, "docs", "demo", chart.slug);

@@ -17,7 +17,7 @@ not-started: 0
 | ---: | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `bitnami/redis@25.5.3` | default | pass | observed | 3/3 pass | - | runs/redis-local-kind/latest/observation-receipt.yaml |
 | 2 | `metrics-server/metrics-server@3.13.0` | default | pass | observed | 2/3 pass | - | runs/top20-local-kind/metrics-server-default/observation-receipt.json |
-| 3 | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | pass | - | - | - | runs/top20-local-kind/ingress-nginx-admission-disabled/observation-receipt.json |
+| 3 | `ingress-nginx/ingress-nginx@4.15.1` | internal-clusterip | pass | observed | 3/3 pass | - | runs/top20-local-kind/ingress-nginx-internal-clusterip/observation-receipt.json |
 | 4 | `jetstack/cert-manager@v1.20.2` | crds-enabled | pass | - | - | - | runs/top20-local-kind/cert-manager-crds-enabled/observation-receipt.json |
 | 5 | `external-secrets/external-secrets@2.5.0` | default | pass | - | - | - | runs/top20-local-kind/external-secrets-default/observation-receipt.json |
 | 6 | `argo-cd/argo-cd@9.5.15` | default | pass | - | - | - | runs/top20-local-kind/argo-cd-default/observation-receipt.json |
