@@ -23,6 +23,12 @@ support decision. It does not replace the source decision artifact:
 | Missing proof lane | Complete the missing ConfigHub, GitOps, or live lane before final support. |
 
 
+## Closeout Sequence
+
+1. Choose the final target scope, GitOps controller, namespace, and artifact digest.
+2. Decide which scanner findings are accepted, fixed, hardened, or outside this target scope.
+3. Complete the missing ConfigHub, GitOps, or live lane for the selected support boundary.
+
 ## Required Before Final Support
 
 - Choose the final target scope, exact GitOps controller, namespace, and artifact digest.

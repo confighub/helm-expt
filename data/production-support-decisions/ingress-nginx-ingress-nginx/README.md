@@ -23,6 +23,12 @@ support decision. It does not replace the source decision artifact:
 | Runtime decision | Decide whether the runtime condition is supported before refreshing live evidence. |
 
 
+## Closeout Sequence
+
+1. Choose the final target scope, GitOps controller, namespace, and artifact digest.
+2. Decide which scanner findings are accepted, fixed, hardened, or outside this target scope.
+3. Decide whether the runtime condition is supported, excluded, or operator-owned.
+
 ## Required Before Final Support
 
 - Choose the final target scope, exact GitOps controller, namespace, and artifact digest.

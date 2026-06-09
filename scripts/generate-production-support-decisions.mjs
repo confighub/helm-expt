@@ -220,6 +220,10 @@ support decision. It does not replace the source decision artifact:
 
 ${openWorkMarkdown(row)}
 
+## Closeout Sequence
+
+${closeoutSequenceMarkdown(row)}
+
 ## Required Before Final Support
 
 ${listOrDash(row.required_before_final)}
@@ -285,6 +289,49 @@ function openWorkMarkdown(row) {
   }
   if (items.length === 0) return "- No open generated work item for this decision.\n";
   return `| Work | Action |\n| --- | --- |\n${items.map(([work, action]) => `| ${work} | ${action} |`).join("\n")}\n`;
+}
+
+function closeoutSequenceMarkdown(row) {
+  const steps = closeoutSteps(row);
+  return steps.map((step, index) => `${index + 1}. ${step}`).join("\n");
+}
+
+function closeoutSteps(row) {
+  if (row.decision === "supported") {
+    return ["Keep the target-scoped evidence fresh for the declared support boundary."];
+  }
+  const steps = ["Choose the final target scope, GitOps controller, namespace, and artifact digest."];
+  if (row.image_decision === "needs-image-digest-resolution-or-exception") {
+    steps.push("Pin rendered image references by digest or record an explicit mutable-image exception.");
+  }
+  if (row.scan_decision === "needs-scan-scope-decision") {
+    steps.push("Decide which scanner findings are accepted, fixed, hardened, or outside this target scope.");
+  }
+  if (row.scan_decision === "needs-security-acceptance-or-hardened-base") {
+    steps.push("Accept current security findings for this infrastructure scope or create a narrower hardened base.");
+  }
+  if (row.lifecycle_decision === "needs-lifecycle-support-boundary") {
+    steps.push("Record the lifecycle boundary, including hook, webhook, CRD, cleanup, ordering, and upgrade behavior.");
+  }
+  if (row.lifecycle_decision === "route-selected-observation-needed") {
+    steps.push("Execute or observe the selected lifecycle route and bind the receipt to this target scope.");
+  }
+  if (row.target_fact_decision === "needs-target-prerequisite-scope") {
+    steps.push("State the required target facts or prerequisites that must exist before delivery.");
+  }
+  if (row.live_evidence_decision === "needs-runtime-decision-before-final") {
+    steps.push("Decide whether the runtime condition is supported, excluded, or operator-owned.");
+  }
+  if (row.live_evidence_decision === "needs-missing-live-or-confighub-lanes-before-final") {
+    steps.push("Complete the missing ConfigHub, GitOps, or live lane for the selected support boundary.");
+  }
+  if (row.live_evidence_decision === "needs-lifecycle-observation-before-final") {
+    steps.push("Bind lifecycle observation evidence to this target scope.");
+  }
+  if (row.live_evidence_decision === "needs-fresh-target-evidence-before-final") {
+    steps.push("Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence after the earlier decisions are closed.");
+  }
+  return [...new Set(steps)];
 }
 
 function evidenceMarkdown(evidence) {

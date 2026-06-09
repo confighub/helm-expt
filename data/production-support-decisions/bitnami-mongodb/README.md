@@ -23,6 +23,12 @@ support decision. It does not replace the source decision artifact:
 | Fresh evidence | Refresh ConfigHub OCI/GitOps and live/e2e evidence after earlier decisions are closed. |
 
 
+## Closeout Sequence
+
+1. Choose the final target scope, GitOps controller, namespace, and artifact digest.
+2. Decide which scanner findings are accepted, fixed, hardened, or outside this target scope.
+3. Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence after the earlier decisions are closed.
+
 ## Required Before Final Support
 
 - Choose the final target scope, exact GitOps controller, namespace, and artifact digest.

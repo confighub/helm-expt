@@ -25,6 +25,14 @@ support decision. It does not replace the source decision artifact:
 | Fresh evidence | Refresh ConfigHub OCI/GitOps and live/e2e evidence after earlier decisions are closed. |
 
 
+## Closeout Sequence
+
+1. Choose the final target scope, GitOps controller, namespace, and artifact digest.
+2. Pin rendered image references by digest or record an explicit mutable-image exception.
+3. Accept current security findings for this infrastructure scope or create a narrower hardened base.
+4. Execute or observe the selected lifecycle route and bind the receipt to this target scope.
+5. Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence after the earlier decisions are closed.
+
 ## Required Before Final Support
 
 - Choose the final target scope, exact GitOps controller, namespace, and artifact digest.
