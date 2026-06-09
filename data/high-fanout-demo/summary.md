@@ -77,6 +77,26 @@ For production support, the target-scoped decision still has to choose CRD
 ownership, admission Secret source, webhook freshness checks, RBAC and scrape
 scope, storage posture, and the supported delivery path.
 
+## Production Support Checklist
+
+This chart is the serious-chart proof path. The current evidence makes the
+base choices reviewable; it does not mark either base production-supported for
+all targets. A production support decision is still target-scoped.
+
+| Decision | `default` | `no-crds` | Evidence |
+| --- | --- | --- | --- |
+| CRD ownership | This release owns the Prometheus Operator CRDs. | The target cluster owns compatible Prometheus Operator CRDs before apply. | `data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml` |
+| Admission Secret | Stage or manage `monitoring/kube-prometheus-stack-admission` cert/key before config-only delivery. | Stage the same admission Secret plus the external CRDs. | `data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/target-fact-preflight.yaml` |
+| Webhook freshness | Observe webhook, operator, and caBundle readiness after apply. | Same, after CRDs are established. | `data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml` |
+| RBAC and scrape scope | Approve the rendered cluster RBAC and monitoring blast radius for the target. | Same RBAC family; target CRD ownership does not narrow scrape scope by itself. | `data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/cluster-rbac-review.yaml` |
+| Scan and image posture | Accept the scan findings for this infrastructure scope or create a hardened base. | Same, plus prerequisite evidence for external CRDs. | `data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/scan-gate-warning-disposition.yaml` |
+| Final live evidence | Refresh target-scoped live parity, GitOps/OCI, and observation receipts for the supported target. | Rerun GitOps/OCI after staging CRDs and the admission Secret. | `runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml`; `runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml` |
+
+Use `default` when the catalog package should own the CRDs. Use `no-crds`
+only when CRDs are a target prerequisite with their own owner, version, and
+fresh observation. The two bases are both valid review inputs, but they are not
+the same operational contract.
+
 ## Files
 
 | File | Purpose |
