@@ -6,6 +6,7 @@ import { check, repoRoot, write } from "./lib/proof-common.mjs";
 const siteRoot = join(repoRoot, "site");
 const indexPath = join(siteRoot, "index.html");
 const offeringPath = join(siteRoot, "offering.html");
+const tryPath = join(siteRoot, "try.html");
 const catalogJsonPath = join(siteRoot, "catalog.json");
 const readmePath = join(siteRoot, "README.md");
 const top100Path = join(repoRoot, "data", "top100-catalog-analysis", "raw.json");
@@ -27,17 +28,20 @@ if (mode === "--generate") {
   const site = buildSite();
   write(indexPath, site.indexHtml);
   write(offeringPath, site.offeringHtml);
+  write(tryPath, site.tryHtml);
   write(catalogJsonPath, site.catalogJson);
   write(readmePath, site.readme);
-  console.log("wrote site/index.html, site/offering.html, site/catalog.json, and site/README.md");
+  console.log("wrote site/index.html, site/offering.html, site/try.html, site/catalog.json, and site/README.md");
 } else if (mode === "--verify") {
   const site = buildSite();
   check(existsSync(indexPath), "site/index.html is missing; run npm run site:generate");
   check(existsSync(offeringPath), "site/offering.html is missing; run npm run site:generate");
+  check(existsSync(tryPath), "site/try.html is missing; run npm run site:generate");
   check(existsSync(catalogJsonPath), "site/catalog.json is missing; run npm run site:generate");
   check(existsSync(readmePath), "site/README.md is missing; run npm run site:generate");
   check(readFileSync(indexPath, "utf8") === site.indexHtml, "site/index.html is stale");
   check(readFileSync(offeringPath, "utf8") === site.offeringHtml, "site/offering.html is stale");
+  check(readFileSync(tryPath, "utf8") === site.tryHtml, "site/try.html is stale");
   check(readFileSync(catalogJsonPath, "utf8") === site.catalogJson, "site/catalog.json is stale");
   check(readFileSync(readmePath, "utf8") === site.readme, "site/README.md is stale");
   console.log("verified generated public site outputs");
@@ -137,6 +141,7 @@ function buildSite() {
     catalogJson: `${JSON.stringify(catalog, null, 2)}\n`,
     indexHtml: html(catalog),
     offeringHtml: offeringHtml(catalog),
+    tryHtml: tryHtml(catalog),
     readme: readme(),
   };
 }
@@ -307,7 +312,7 @@ function html(catalog) {
 </head>
 <body>
   <header>
-    <nav><a href="./offering.html">Offering</a> · <a href="./index.html">Catalog dashboard</a> · <a href="../README.md">Repository</a></nav>
+    <nav><a href="./offering.html">Offering</a> · <a href="./try.html">Try now</a> · <a href="./index.html">Catalog dashboard</a> · <a href="../README.md">Repository</a></nav>
     <h1>Use Helm charts. Ship ConfigHub variants.</h1>
     <p class="tagline">The catalog turns popular public Helm charts into reviewed cub installer packages, named variants, rendered objects, checks, and proof receipts.</p>
     <pre>cub installer setup --pull packages/bitnami/redis/25.5.3 \\
@@ -596,7 +601,7 @@ function offeringHtml(catalog) {
 </head>
 <body>
   <header class="hero">
-    <nav><a href="./offering.html">Offering</a> · <a href="./index.html">Catalog dashboard</a> · <a href="../README.md">Repository</a></nav>
+    <nav><a href="./offering.html">Offering</a> · <a href="./try.html">Try now</a> · <a href="./index.html">Catalog dashboard</a> · <a href="../README.md">Repository</a></nav>
     <h1>Public Helm charts, in visible and verifiable stages.</h1>
     <p class="tagline">We port popular public Helm charts to ConfigHub without changing the intended end-to-end semantics of the supported bases.</p>
     <p>Helm is still the renderer. ConfigHub turns the result into reviewed packages, named variants, rendered objects, scans, gates, receipts, and live evidence.</p>
@@ -701,6 +706,7 @@ function offeringHtml(catalog) {
       <h2 id="links">Where To Go Next</h2>
       <div class="grid">
         <div class="card"><h3>Browse the catalog</h3><p><a href="./index.html">Open the generated catalog dashboard</a>.</p></div>
+        <div class="card"><h3>Try it</h3><p><a href="./try.html">Open the short try-now page</a>.</p></div>
         <div class="card"><h3>Pick a base variant</h3><p><a href="../data/top20-base-readiness/summary.md">Open top-20 base readiness</a>.</p></div>
         <div class="card"><h3>Read current proof status</h3><p><a href="../docs/user/current-proof-status.md">Open current proof status</a>.</p></div>
         <div class="card"><h3>Choose the right command</h3><p><a href="../docs/user/choosing-commands.md">Open command routing</a>.</p></div>
@@ -709,6 +715,154 @@ function offeringHtml(catalog) {
   </main>
   <footer>
     Experimental public catalog proof. Production support requires a target-scoped decision and fresh receipts.
+  </footer>
+</body>
+</html>
+`;
+}
+
+function tryHtml(catalog) {
+  const redis = catalog.catalogEntries.find((entry) => entry.chart === "bitnami/redis");
+  const kps = catalog.catalogEntries.find((entry) => entry.chart === "prometheus-community/kube-prometheus-stack");
+  const kpsReadiness = catalog.baseReadiness.find(
+    (row) => row.chart === "prometheus-community/kube-prometheus-stack@85.3.3" && row.base === "default",
+  );
+  const redisReadiness = catalog.baseReadiness.find((row) => row.chart === "bitnami/redis@25.5.3" && row.base === "default");
+  const quickRows = [
+    ["No account", "Browse catalog, inspect proof, run repository checks, and render public packages locally."],
+    ["ConfigHub account", "Upload rendered objects as Units, inspect labels, create derived variants, and use managed proof workflows."],
+    ["Live cluster", "Apply generated manifests or run the live lanes when you want Kubernetes evidence."],
+  ];
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Try ConfigHub Helm Catalog</title>
+  <style>
+    ${siteCss()}
+    .hero { padding-top: 56px; }
+    .split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .step { border-left: 3px solid var(--accent); padding-left: 12px; margin: 20px 0; }
+    @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <nav><a href="./offering.html">Offering</a> · <a href="./try.html">Try now</a> · <a href="./index.html">Catalog dashboard</a> · <a href="../README.md">Repository</a></nav>
+    <h1>Try the catalog in three short paths.</h1>
+    <p class="tagline">Start without a big commitment. Use Redis for the simplest happy path, then inspect kube-prometheus-stack to see the model on a serious Helm chart.</p>
+    ${markdownLikeTable([
+      ["Path", "What it proves"],
+      ...quickRows,
+    ])}
+  </header>
+  <main>
+    <section aria-labelledby="setup">
+      <h2 id="setup">Setup</h2>
+      <p>Clone the repo and check the public corpus first. There are no npm dependencies.</p>
+      <pre>git clone https://github.com/confighub/helm-expt.git
+cd helm-expt
+npm run site:verify
+npm run docs:verify</pre>
+      <p>Install the ConfigHub installer plugin before running package setup commands.</p>
+      <pre>cub version
+cub plugin install confighub/installer
+cub installer --help</pre>
+    </section>
+
+    <section aria-labelledby="redis">
+      <h2 id="redis">Path 1: Redis Happy Path</h2>
+      <p>Redis is the small teaching chart. It shows the chart to recipe to base variant to exact rendered objects path.</p>
+      <div class="split">
+        <section class="card">
+          <h3>Catalog status</h3>
+          ${plainTable([
+            ["Field", "Value"],
+            ["Chart", redis ? `${redis.chart}@${redis.version}` : "bitnami/redis@25.5.3"],
+            ["Start base", redis?.start_variant ?? "default"],
+            ["Readiness", redisReadiness?.user_readiness ?? "start-here"],
+            ["Reason", redisReadiness?.why ?? "all core lanes plus two-cluster parity pass for this base"],
+          ])}
+        </section>
+        <section class="card">
+          <h3>Run</h3>
+          <pre>cub installer setup \\
+  --pull packages/bitnami/redis/25.5.3 \\
+  --base default \\
+  --work-dir .tmp/demo/redis-default \\
+  --non-interactive \\
+  --namespace redis
+
+npm run redis:verify-install:render -- \\
+  --base default \\
+  --work-dir .tmp/demo/redis-default \\
+  --namespace redis</pre>
+        </section>
+      </div>
+      <p>Expected result: the render verifier prints PASS and writes a receipt under <code>.tmp/verify-install/</code>. That proves your rendered Redis objects match the catalog acceptance contract.</p>
+    </section>
+
+    <section aria-labelledby="confighub">
+      <h2 id="confighub">Path 2: Upload To ConfigHub</h2>
+      <p>Use this when you want to see the rendered objects as ConfigHub Units. This requires an authenticated ConfigHub context.</p>
+      <pre>cub auth login
+cub context get -o json
+cub installer upload \\
+  --work-dir .tmp/demo/redis-default \\
+  --space helm-redis-default \\
+  --component Redis \\
+  --layer App \\
+  --environment Demo \\
+  --owner ConfigHubHelm \\
+  --variant default \\
+  --unit-label Component=Redis \\
+  --unit-label HelmChart=bitnami-redis \\
+  --unit-label HelmChartVersion=25.5.3 \\
+  --unit-label Variant=default
+
+npm run redis:verify-install:confighub -- \\
+  --base default \\
+  --space helm-redis-default</pre>
+      <p>Expected result: ConfigHub shows a <code>helm-redis-default</code> Space with labeled Redis Units. Open ConfigHub, choose the Space, then inspect Units and labels.</p>
+    </section>
+
+    <section aria-labelledby="kps">
+      <h2 id="kps">Path 3: Serious Chart Check</h2>
+      <p>Use kube-prometheus-stack to see why the catalog is more than a Redis demo. It includes CRDs, webhooks, RBAC, generated facts, dependency locks, extension slots, and target prerequisites.</p>
+      <div class="split">
+        <section class="card">
+          <h3>Catalog status</h3>
+          ${plainTable([
+            ["Field", "Value"],
+            ["Chart", kps ? `${kps.chart}@${kps.version}` : "prometheus-community/kube-prometheus-stack@85.3.3"],
+            ["Start base", kps?.start_variant ?? "default"],
+            ["Readiness", kpsReadiness?.user_readiness ?? "start-here"],
+            ["Reason", kpsReadiness?.why ?? "all core lanes plus two-cluster parity pass for this base"],
+          ])}
+        </section>
+        <section class="card">
+          <h3>Run</h3>
+          <pre>npm run kube-prometheus-stack:verify-proof
+npm run kube-prometheus-stack:verify-package
+npm run kube-prometheus-stack:compare</pre>
+        </section>
+      </div>
+      <p>Expected result: the chart proof and package checks pass. This checks the committed proof and package for the serious chart. Use the full live lanes when you need fresh cluster evidence.</p>
+    </section>
+
+    <section aria-labelledby="next">
+      <h2 id="next">Next</h2>
+      <div class="grid">
+        <div class="card"><h3>Full tutorial</h3><p><a href="../docs/user/tutorial-sequence.md">Open the tutorial sequence</a>.</p></div>
+        <div class="card"><h3>Current proof</h3><p><a href="../docs/user/current-proof-status.md">Open current proof status</a>.</p></div>
+        <div class="card"><h3>Catalog</h3><p><a href="./index.html">Open the generated catalog dashboard</a>.</p></div>
+        <div class="card"><h3>Base readiness</h3><p><a href="../data/top20-base-readiness/summary.md">Open top-20 base readiness</a>.</p></div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    The short path uses current commands only. Stronger production claims require fresh target-scoped receipts.
   </footer>
 </body>
 </html>
@@ -866,6 +1020,14 @@ function markdownLikeTable(rows) {
       </style>`;
 }
 
+function plainTable(rows) {
+  const [headers, ...body] = rows;
+  return `<table>
+        <thead><tr>${headers.map((header) => `<th>${escapeHtml(header)}</th>`).join("")}</tr></thead>
+        <tbody>${body.map((row) => `<tr>${row.map((cell) => `<td>${escapeHtml(cell)}</td>`).join("")}</tr>`).join("")}</tbody>
+      </table>`;
+}
+
 function simpleList(rows) {
   return `<ul>${rows.map(([title, body]) => `<li><strong>${escapeHtml(title)}:</strong> ${escapeHtml(body)}</li>`).join("")}</ul>`;
 }
@@ -950,6 +1112,7 @@ npm run site:verify
 \`\`\`
 
 Open \`site/offering.html\` directly in a browser for the public offering page.
+Open \`site/try.html\` for the short try-now page.
 Open \`site/index.html\` for the static catalog and status dashboard.
 
 Data source:
