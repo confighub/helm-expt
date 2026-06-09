@@ -51,6 +51,7 @@ function buildReport() {
 function readme(rows) {
   const quickRoutes = [
     ["I want the current headline status.", "data/status-dashboard/summary.md"],
+    ["I want the next work queues.", "data/status-dashboard/next-work-queues.csv"],
     ["I want to know which catalog base to try first.", "data/top20-base-readiness/start-here.md"],
     ["I want to know whether any top-20 chart/base is easy, partial, blocked, or watch.", "data/top20-base-readiness/summary.md"],
     ["I want one spreadsheet row per chart/base proof lane.", "data/outcome-coverage/base-outcomes.csv"],
@@ -62,6 +63,7 @@ function readme(rows) {
   ];
   const primary = [
     ["data/status-dashboard/summary.md", "Start here for a one-page status dashboard: top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity."],
+    ["data/status-dashboard/next-work-queues.csv", "Machine-readable next work queues for top100 catalog work, top20 production support, live parity, and hook/lifecycle work."],
     ["data/status-dashboard/top20-status.csv", "Compact chart-by-chart status for the top-20 public catalog: recommended base, setup command, base-readiness mix, evidence strength, proof lanes, feature summary, gaps, next action."],
     ["data/top20-base-readiness/start-here.md", "Short guide to the clean first catalog paths: chart, base, command, and production-support reminder."],
     ["data/top20-base-readiness/summary.md", "One row per top-20 base variant: which bases are good first paths and which need prerequisites, runtime review, or hook lifecycle work."],
@@ -223,6 +225,7 @@ function audienceFor(path) {
 function roleFor(path) {
   if (path === "data/csv-index.csv") return "machine-readable index of every CSV under data";
   if (path === "data/status-dashboard/status.csv") return "front-door status dashboard across top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity";
+  if (path === "data/status-dashboard/next-work-queues.csv") return "machine-readable next work queues: section, item, count, action, source table, and detail";
   if (path === "data/status-dashboard/top20-status.csv") return "one row per top-20 catalog chart: recommended base, setup command, base-readiness mix, evidence strength, proof lanes, feature summary, gaps, next action";
   if (path === "data/live-e2e/cub-scout-watchlist.csv") return "strict cub-scout live witness gaps where ordinary live checks pass but rendered/live parity needs a target capability or lifecycle decision";
   if (path === "data/top20-base-readiness/base-readiness.csv") return "one row per top-20 base variant: user readiness, proof status, target facts, command, and next action";
