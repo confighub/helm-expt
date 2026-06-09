@@ -1,0 +1,60 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionImagePolicyDecision"
+metadata:
+  name: "longhorn-longhorn-public-oci-image-policy-decision"
+spec:
+  chart: "longhorn/longhorn"
+  version: "1.11.2"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "longhorn-system"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "default"
+  variantsCovered:
+    - "default"
+    - "ui-ingress"
+  decision: "mutable-image-exception-accepted-for-target-scope"
+  decidedAt: "2026-06-09"
+  claim: "The rendered Longhorn bases still contain mutable image tags, but each rendered image reference has digest-resolution evidence. For the default public proof scope, the mutable tags are accepted as a target-scoped exception while stricter environments remain free to require digest-pinned bases or image overrides."
+  renderedImageSummary:
+    renderedSubjects: 2
+    subjectsNeedingResolution: 2
+    imageRefs: 10
+    mutableTagRefs: 10
+    floatingLatestOrUntaggedRefs: 0
+    resolutionReceipts: 2
+  variantReceipts:
+    default:
+      renderedObjectSetSHA256: "4a2f739775a696f5d67db6adf1f99473c60a3f5adf308ceb3ccbf222435acd90"
+      sourceImageReviewRows: 5
+      uniqueImages: 3
+      receiptPath: "data/image-digest-workdown/receipts/longhorn-longhorn/default/image-digest-resolution.yaml"
+    ui-ingress:
+      renderedObjectSetSHA256: "2f6508c2bc3f2a09e1ffcb8ec71282b3e2dd52e69fe8ca80fc90ab756f9b9298"
+      sourceImageReviewRows: 5
+      uniqueImages: 3
+      receiptPath: "data/image-digest-workdown/receipts/longhorn-longhorn/ui-ingress/image-digest-resolution.yaml"
+  acceptedException:
+    reason: "The public proof target uses upstream Longhorn image tags. The receipt set records the registry digest each tag resolved to at decision time."
+    operatorAction: "For stricter production environments, create a digest-pinned base or image override policy before support expansion."
+  limits:
+    - "This does not mean the rendered manifests are digest-pinned."
+    - "This is not a blanket approval for all clusters, private overlays, regulated environments, or future chart versions."
+    - "This does not make the ui-ingress topology production-supported."
+    - "If an upstream image tag is retargeted, rerun digest resolution and re-review this decision before promotion."
+  evidence:
+    -
+      path: "data/image-digest-workdown/chart-summary.csv"
+      claim: "Summarizes Longhorn rendered image references."
+    -
+      path: "data/attack-plan-workdown/image-digest-review.csv"
+      claim: "Lists every rendered Longhorn image reference found in the object sets."
+    -
+      path: "data/image-digest-workdown/receipts/longhorn-longhorn/default/image-digest-resolution.yaml"
+      claim: "Records registry digest resolution for the default rendered object set."
+    -
+      path: "data/image-digest-workdown/receipts/longhorn-longhorn/ui-ingress/image-digest-resolution.yaml"
+      claim: "Records registry digest resolution for the ui-ingress rendered object set."
+  remainingSupportBlockers:
+    - "Record security acceptance and fresh target-scoped ConfigHub OCI/GitOps evidence for the selected base."

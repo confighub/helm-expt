@@ -1,0 +1,64 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ImageDigestResolutionReceipt"
+metadata:
+  name: "longhorn-longhorn-ui-ingress-image-digest-resolution"
+spec:
+  chart: "longhorn/longhorn"
+  version: "1.11.2"
+  variant: "ui-ingress"
+  resolvedAt: "2026-06-09T19:14:00.009Z"
+  renderedObjectSet:
+    path: "recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/rendered/release-objects.yaml"
+    sha256: "2f6508c2bc3f2a09e1ffcb8ec71282b3e2dd52e69fe8ca80fc90ab756f9b9298"
+  sourceImageReview:
+    path: "data/attack-plan-workdown/image-digest-review.csv"
+    rows: 5
+    uniqueImages: 3
+  resolver:
+    name: "docker-buildx-imagetools"
+    commandTemplate: "docker buildx imagetools inspect <image>"
+  images:
+    -
+      image: "docker.io/longhornio/longhorn-manager:v1.11.2"
+      digest: "sha256:0f80ca11ac4eb7522f4e6e801a7afc9909ea8d3041575f3d029964c46590f096"
+      digestReference: "docker.io/longhornio/longhorn-manager:v1.11.2@sha256:0f80ca11ac4eb7522f4e6e801a7afc9909ea8d3041575f3d029964c46590f096"
+      mediaType: "application/vnd.oci.image.index.v1+json"
+      resolverOutput:
+        name: "docker.io/longhornio/longhorn-manager:v1.11.2"
+      occurrences:
+        -
+          object: "apps/v1/DaemonSet/longhorn-system/longhorn-manager"
+          fieldPath: "spec.template.spec.containers.0.image"
+        -
+          object: "apps/v1/Deployment/longhorn-system/longhorn-driver-deployer"
+          fieldPath: "spec.template.spec.containers.0.image"
+        -
+          object: "apps/v1/Deployment/longhorn-system/longhorn-driver-deployer"
+          fieldPath: "spec.template.spec.initContainers.0.image"
+    -
+      image: "docker.io/longhornio/longhorn-share-manager:v1.11.2"
+      digest: "sha256:c11559e998ea982e6bac1637d66cc2aaab662a6b546709f2e54e2bfa50ffb0c3"
+      digestReference: "docker.io/longhornio/longhorn-share-manager:v1.11.2@sha256:c11559e998ea982e6bac1637d66cc2aaab662a6b546709f2e54e2bfa50ffb0c3"
+      mediaType: "application/vnd.oci.image.index.v1+json"
+      resolverOutput:
+        name: "docker.io/longhornio/longhorn-share-manager:v1.11.2"
+      occurrences:
+        -
+          object: "apps/v1/DaemonSet/longhorn-system/longhorn-manager"
+          fieldPath: "spec.template.spec.containers.1.image"
+    -
+      image: "docker.io/longhornio/longhorn-ui:v1.11.2"
+      digest: "sha256:885bc78f99f31da0d9b0fd8f533a53558a3aa81f9719c62e0d3c69ed8456d5b7"
+      digestReference: "docker.io/longhornio/longhorn-ui:v1.11.2@sha256:885bc78f99f31da0d9b0fd8f533a53558a3aa81f9719c62e0d3c69ed8456d5b7"
+      mediaType: "application/vnd.oci.image.index.v1+json"
+      resolverOutput:
+        name: "docker.io/longhornio/longhorn-ui:v1.11.2"
+      occurrences:
+        -
+          object: "apps/v1/Deployment/longhorn-system/longhorn-ui"
+          fieldPath: "spec.template.spec.containers.0.image"
+  productionSupportUse:
+    status: "digest-resolution-recorded"
+    claim: "The mutable rendered image references for this Longhorn base were resolved to registry manifest digests at the recorded time."
+    limits: "This receipt does not mean the rendered manifests are digest-pinned and does not by itself make the chart production-supported."
+    nextRequired: "Choose a digest-pinned base, image override policy, or explicit mutable-image exception before broader production support."

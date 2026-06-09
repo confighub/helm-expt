@@ -1,70 +1,98 @@
-apiVersion: helm-expt.confighub.com/v1alpha1
-kind: ProductionSupportDecision
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSupportDecision"
 metadata:
-  name: "longhorn-longhorn-default-public-oci-draft"
+  name: "longhorn-longhorn-default-public-oci-supported"
 spec:
   chart: "longhorn/longhorn"
   version: "1.11.2"
-  decision: draft
+  decision: "supported"
   decisionDate: "2026-06-09"
+  supportedSince: "2026-06-08T10:49:43Z"
   supportedBase: "default"
   targetScope:
-    clusterClass: vanilla-kubernetes
-    namespace: "longhorn"
-    deliveryPath: confighub-oci
-    gitopsController: argo-or-flux
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "longhorn-system"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+    lastEvidenceAt: "2026-06-08T10:49:43Z"
+    lastEvidenceTarget: "helm-expt-parity-longhorn-mq539wrp-1qp7-cluster/oci"
+    lastEvidenceKubeContext: "kind-helm-expt-parity-longhorn-mq539wrp-1qp7"
+    liveEvidenceTTL: "30d"
     storageAssumptions:
-      - "Use the chart's recorded storage behavior for the candidate base unless this draft is narrowed before final support."
+      - "Use the Longhorn default storage behavior recorded by the supported scope unless a narrower scope is separately reviewed."
     networkAssumptions:
-      - "Use the service, ingress, DNS, and certificate behavior recorded by the candidate base unless this draft is narrowed before final support."
-    requiredTargetFacts: []
+      - "Use the Longhorn service, webhook, CRD, and node behavior recorded by the supported scope unless a narrower scope is separately reviewed."
+    requiredTargetFacts:
+      []
   supportBoundary:
     includes:
       - "longhorn/longhorn@1.11.2 default base"
-      - ConfigHub OCI delivery for the declared target scope after fresh target evidence is recorded
-      - rendered objects, labels, gates, receipts, and support objects produced by the recorded base
+      - "ConfigHub OCI delivery through Argo for the declared cub-lk vanilla kind target scope"
+      - "rendered Longhorn CRDs, storage controllers, CSI components, webhooks, UI, cluster RBAC, labels, gates, receipts, and support objects produced by the default base"
+      - "mutable-image exception backed by registry digest-resolution evidence for the rendered image references"
+      - "recorded security acceptance, lifecycle observation, live Helm-vs-ConfigHub parity, and two-cluster Helm-vs-installer parity for the declared public proof scope"
     excludes:
+      - "ui-ingress unless separately reviewed with ingress, DNS, and TLS evidence"
+      - "backup, restore, recurring jobs, snapshot policy, replica policy, default storage class changes, and upgrade/failover operations unless separately reviewed"
       - "private values overlays, wrapper charts, and populated extension slots unless separately reviewed"
       - "non-vanilla Kubernetes distributions unless separately reviewed"
       - "other delivery controllers or target scopes unless separately reviewed"
   decisions:
     imageDecision:
-      state: "needs-image-digest-resolution-or-exception"
-      detail: "resolve image digests or record explicit exception before production OCI support"
+      state: "mutable-image-exception-accepted-for-target-scope"
+      detail: "rendered Longhorn image tags are mutable, with registry digest-resolution evidence recorded for this public proof scope; stricter environments should use digest-pinned bases or image overrides"
     scanDecision:
-      state: "needs-security-acceptance-or-hardened-base"
-      detail: "record security acceptance or create hardened base"
+      state: "privileged-storage-infrastructure-accepted-for-target-scope"
+      detail: "The default base installs privileged storage infrastructure, CRDs, webhooks, CSI components, and cluster RBAC. That is accepted only for this public proof scope because the chart's normal function is node-level storage management. Customer production scopes need storage, node, backup, restore, upgrade, and hardening review."
     lifecycleDecision:
-      state: "no-chart-hooks"
-      detail: "record lifecycle support boundary: recipe-hook-policy:no-hooks"
+      state: "storage-controller-crds-webhooks-observed-for-proof-scope"
+      detail: "The default base has no Helm hooks. CRDs, webhooks, CSI components, storage controllers, and UI workloads are applied as reviewed desired objects and observed healthy through regular Helm, cub installer apply, and ConfigHub OCI/Argo."
     targetFactDecision:
       state: "no-unresolved-target-prerequisite-in-candidate-base"
       detail: "no unresolved target prerequisite in candidate base"
     liveEvidenceDecision:
-      state: "needs-fresh-target-evidence-before-final"
-      detail: "refresh target-scoped live/e2e evidence before support claim"
+      state: "fresh-target-evidence-passed"
+      detail: "fresh target-scoped ConfigHub OCI and Argo evidence passed on 2026-06-08 for the declared cub-lk vanilla kind Longhorn default scope"
   evidence:
-    - path: "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    -
+      path: "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
       claim: "The candidate base is Helm-equivalent under recorded inputs."
-    - path: "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/receipts/scan-receipt.yaml"
+    -
+      path: "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/receipts/scan-receipt.yaml"
       claim: "The rendered-object scan receipt exists for the candidate base."
-    - path: "runs/live-kind-parity/longhorn-longhorn-default/receipt.yaml"
+    -
+      path: "runs/live-kind-parity/longhorn-longhorn-default/receipt.yaml"
       claim: "The two-cluster Helm-vs-installer parity receipt exists for the candidate base."
-    - path: "runs/live-helm-confighub-compare/longhorn-longhorn-default/receipt.yaml"
+    -
+      path: "runs/live-helm-confighub-compare/longhorn-longhorn-default/receipt.yaml"
       claim: "The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base."
-    - path: "data/production-disposition/receipts/longhorn-longhorn/cluster-rbac-review.yaml"
+    -
+      path: "data/production-support-decisions/longhorn-longhorn/fresh-target-evidence-2026-06-08.yaml"
+      claim: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared cub-lk vanilla kind support scope."
+    -
+      path: "data/image-digest-workdown/receipts/longhorn-longhorn/default/image-digest-resolution.yaml"
+      claim: "Registry digest resolution exists for the rendered default image references."
+    -
+      path: "data/production-support-decisions/longhorn-longhorn/image-policy-decision.yaml"
+      claim: "The target-scoped image policy decision records the mutable-image exception and digest-resolution evidence."
+    -
+      path: "data/production-support-decisions/longhorn-longhorn/security-decision.yaml"
+      claim: "The target-scoped security decision records the accepted infrastructure security boundary."
+    -
+      path: "data/production-support-decisions/longhorn-longhorn/lifecycle-decision.yaml"
+      claim: "The target-scoped lifecycle decision binds CRD, webhook, node, runtime, and OCI/Argo health to proof-scope evidence."
+    -
+      path: "data/production-disposition/receipts/longhorn-longhorn/cluster-rbac-review.yaml"
       claim: "The cluster rbac review receipt exists for this chart."
-    - path: "data/production-disposition/receipts/longhorn-longhorn/crd-lifecycle-and-upgrade-policy.yaml"
+    -
+      path: "data/production-disposition/receipts/longhorn-longhorn/crd-lifecycle-and-upgrade-policy.yaml"
       claim: "The crd lifecycle and upgrade policy receipt exists for this chart."
-    - path: "data/production-disposition/receipts/longhorn-longhorn/hook-and-lifecycle-phase-policy.yaml"
-      claim: "The hook and lifecycle phase policy receipt exists for this chart."
-    - path: "data/production-disposition/receipts/longhorn-longhorn/scan-gate-warning-disposition.yaml"
+    -
+      path: "data/production-disposition/receipts/longhorn-longhorn/scan-gate-warning-disposition.yaml"
       claim: "The scan gate warning disposition receipt exists for this chart."
-    - path: "data/production-disposition/receipts/longhorn-longhorn/webhook-readiness-and-failure-policy.yaml"
+    -
+      path: "data/production-disposition/receipts/longhorn-longhorn/webhook-readiness-and-failure-policy.yaml"
       claim: "The webhook readiness and failure policy receipt exists for this chart."
   requiredBeforeFinal:
-    - "Choose the final target scope, exact GitOps controller, namespace, and artifact digest."
-    - "Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope."
-    - "resolve image digests or record explicit exception before production OCI support"
-    - "record security acceptance or create hardened base"
-  nextAction: "choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support"
+    []
+  nextAction: "Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate backup/restore, upgrade, replica-policy, storage-class, UI-ingress, resource-hardened, or digest-pinned bases for real customer Longhorn workloads."

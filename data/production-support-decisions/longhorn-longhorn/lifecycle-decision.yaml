@@ -1,0 +1,64 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionLifecycleDecision"
+metadata:
+  name: "longhorn-longhorn-public-oci-lifecycle-decision"
+spec:
+  chart: "longhorn/longhorn"
+  version: "1.11.2"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "longhorn-system"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "default"
+  variantsCovered:
+    - "default"
+    - "ui-ingress"
+  decision: "storage-controller-crds-webhooks-observed-for-proof-scope"
+  decidedAt: "2026-06-09"
+  claim: "The default base has no Helm hooks. CRDs, webhooks, CSI components, storage controllers, and UI workloads are applied as reviewed desired objects and observed healthy through regular Helm, cub installer apply, and ConfigHub OCI/Argo."
+  lifecycleModel:
+    hookPolicy: "no-chart-hooks"
+    selectedTopology: "default-local-kind-storage-control-plane"
+    excludedTopologies:
+      - "ui-ingress"
+  observedLifecycleSignals:
+    twoClusterParity:
+      result: "pass"
+      observedAt: "2026-06-06T09:03:36Z"
+      regularHelmRuntime: "pass"
+      installerRuntime: "pass"
+      semanticParity: "pass"
+    confighubOciArgo:
+      result: "pass"
+      observedAt: "2026-06-08T10:49:43Z"
+      regularHelmRuntime: "pass"
+      confighubApplyRuntime: "pass"
+      confighubOciRuntime: "pass"
+      argoSync: "Synced"
+      argoHealth: "Healthy"
+      semanticParity: "pass"
+      allowedExtraConfigHubObjects:
+        - "v1|Namespace||longhorn-system"
+  limits:
+    - "This is not a blanket security approval for customer clusters, private overlays, regulated environments, or future chart versions."
+    - "This does not support backup, restore, recurring jobs, production replica policy, failover, upgrades, UI ingress, or disaster recovery behavior."
+    - "Storage classes, node disks, backup targets, replica counts, webhooks, and upgrade sequencing remain separate target decisions."
+  evidence:
+    -
+      path: "runs/live-kind-parity/longhorn-longhorn-default/receipt.yaml"
+      claim: "Two-cluster Helm-vs-installer parity passes for default."
+    -
+      path: "runs/live-helm-confighub-compare/longhorn-longhorn-default/receipt.yaml"
+      claim: "ConfigHub OCI/Argo live parity passes for default."
+    -
+      path: "data/production-disposition/receipts/longhorn-longhorn/crd-lifecycle-and-upgrade-policy.yaml"
+      claim: "The crd lifecycle and upgrade policy receipt exists for this chart."
+    -
+      path: "data/production-disposition/receipts/longhorn-longhorn/webhook-readiness-and-failure-policy.yaml"
+      claim: "The webhook readiness and failure policy receipt exists for this chart."
+    -
+      path: "data/production-disposition/receipts/longhorn-longhorn/scan-gate-warning-disposition.yaml"
+      claim: "The scan gate warning disposition receipt exists for this chart."
+  remainingSupportBlockers:
+    - "Record image policy, security acceptance, and fresh target-scoped ConfigHub OCI/GitOps evidence."

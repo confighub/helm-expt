@@ -1,0 +1,71 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSupportEvidenceReceipt"
+metadata:
+  name: "secrets-store-csi-driver-secrets-store-csi-driver-default-argo-oci-support-evidence-20260605"
+spec:
+  chart: "secrets-store-csi-driver/secrets-store-csi-driver"
+  version: "1.6.0"
+  base: "default"
+  observedAt: "2026-06-05T20:42:11Z"
+  result: "pass"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "kube-system"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+    rig: "helm-expt-parity-secretsstorece4481-mq1e49vr-12eh"
+    kubeContext: "kind-helm-expt-parity-secretsstorece4481-mq1e49vr-12eh"
+    target: "helm-expt-parity-secretsstorece4481-mq1e49vr-12eh-cluster/oci"
+    workloadSpace: "helm-expt-parity-secretsstorece4481-mq1e49vr-12eh-secrets-store-csi-driver"
+    app: "secrets-store-csi-driver-parity"
+  package:
+    path: "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0"
+  recipe:
+    path: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0"
+  oci:
+    revision: "sha256:05b69d16963bdb8395e13404de9e6772d7cf54d8883e121e5ddf49fc8758fde7"
+    controller: "Argo CD OCI"
+    sync: "Synced"
+    health: "Healthy"
+    manifestSHA256: "5b4b937922978bc6fc7fa12a7e90bfab88c8b83398e5122b643796ec9f2aee6d"
+    objectCount: 11
+    separatedSecrets:
+      []
+  comparison:
+    regularHelmRuntime: "pass"
+    configHubApplyRuntime: "pass"
+    configHubOciRuntime: "pass"
+    helmVsConfigHubOciArgo: "pass"
+    allowedExtraConfigHubObjects:
+      - "v1|Namespace||kube-system"
+  twoClusterCrossCheck:
+    path: "runs/live-kind-parity/secrets-store-csi-driver-secrets-store-csi-driver-default/receipt.yaml"
+    result: "pass"
+    semanticParity: "pass"
+    regularHelmRuntime: "pass"
+    installerRuntime: "pass"
+  checks:
+    -
+      name: "regular-helm-runtime"
+      result: "pass"
+      detail: "regular Helm Secrets Store CSI Driver runtime passed"
+    -
+      name: "confighub-apply-runtime"
+      result: "pass"
+      detail: "ConfigHub rendered objects applied by kubectl reached runtime readiness"
+    -
+      name: "confighub-oci-argo-runtime"
+      result: "pass"
+      detail: "Argo app secrets-store-csi-driver-parity: sync=Synced health=Healthy revision=sha256:05b69d16963bdb8395e13404de9e6772d7cf54d8883e121e5ddf49fc8758fde7"
+    -
+      name: "semantic-object-parity"
+      result: "pass"
+      detail: "regular Helm and ConfigHub OCI/Argo object sets match semantically, except the recorded Namespace support object"
+  supportClaim:
+    state: "fresh-target-evidence-passed"
+    detail: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared Secrets Store CSI Driver default support scope."
+  limits:
+    - "This supports the recorded cub-lk vanilla kind Argo OCI scope, not every Kubernetes cluster."
+    - "This assumes an existing Argo CD OCI controller is available to reconcile the ConfigHub artifact."
+    - "This supports the default base only."
+    - "Evidence freshness is 30 days for public demo/support examples unless refreshed earlier."
