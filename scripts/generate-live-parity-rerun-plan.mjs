@@ -33,10 +33,14 @@ function buildPlan() {
   const rows = [
     ...configHubOciRows(),
     ...twoClusterRows(),
-  ].map((row) => ({
-    next_step_type: nextStepType(row),
-    ...row,
-  })).sort((left, right) =>
+  ].map((row) => {
+    const next_step_type = nextStepType(row);
+    return {
+      next_step_type,
+      rerun_readiness: rerunReadiness(next_step_type),
+      ...row,
+    };
+  }).sort((left, right) =>
     left.priority - right.priority
     || left.lane.localeCompare(right.lane)
     || `${left.chart}@${left.version}/${left.base}`.localeCompare(`${right.chart}@${right.version}/${right.base}`),
@@ -215,11 +219,35 @@ function nextStepDescription(type) {
   }[type] ?? "Read the receipt and classify the row before rerunning.";
 }
 
+function rerunReadiness(type) {
+  return {
+    "inspect-parity-diff": "inspect-diff-first",
+    "clean-rerun": "rerun-now-after-cleanup",
+    "stage-prerequisite": "model-or-stage-first",
+    "lifecycle-route": "model-or-stage-first",
+    "operating-policy": "model-or-stage-first",
+    "gitops-runtime-review": "review-target-first",
+    "runtime-review": "review-target-first",
+    "inspect-receipt": "inspect-receipt-first",
+  }[type] ?? "inspect-receipt-first";
+}
+
+function rerunReadinessDescription(type) {
+  return {
+    "inspect-diff-first": "Do not rerun until the semantic diff has been inspected.",
+    "rerun-now-after-cleanup": "Rerun serially on a clean host after confirming no other live lane is running.",
+    "model-or-stage-first": "Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning.",
+    "review-target-first": "Review runtime, storage, controller health, or wait conditions before rerunning.",
+    "inspect-receipt-first": "Read the receipt and classify the row before rerunning.",
+  }[type] ?? "Read the receipt and classify the row before rerunning.";
+}
+
 function markdown(rows) {
   const counts = countBy(rows, "lane");
   const resultCounts = countBy(rows, "current_result");
   const laneResults = countByLaneAndResult(rows);
   const nextStepCounts = countBy(rows, "next_step_type");
+  const readinessCounts = countBy(rows, "rerun_readiness");
   const lifecycleRows = rows.filter((row) => row.related_lifecycle_receipt);
   const semanticDefects = rows.filter((row) => row.reason?.startsWith("parity:")).length;
   const infraRows = rows.filter((row) => row.reason?.startsWith("infra:")).length;
@@ -288,6 +316,15 @@ usually need a model or target decision before another rerun is useful. Rows in
 after the receipt explains what readiness, storage, controller, or wait
 condition changed.
 
+## Rerun Readiness
+
+This table separates rows that need modeling or target work from rows that are
+reasonable live rerun candidates.
+
+| Readiness | Rows | Meaning |
+| --- | ---: | --- |
+${Object.entries(readinessCounts).sort((left, right) => left[0].localeCompare(right[0])).map(([type, count]) => `| ${type} | ${count} | ${rerunReadinessDescription(type)} |`).join("\n")}
+
 ## Run Safety
 
 Run live parity reruns serially. Do not run two live parity commands at the
@@ -308,9 +345,9 @@ faithful to the locked chart/version without changing the recipe.
 
 ## Rerun Queue
 
-| Priority | Next step | Lane | Chart | Base | Current | Reason | Command |
-| ---: | --- | --- | --- | --- | --- | --- | --- |
-${rows.map((row) => `| ${row.priority} | ${row.next_step_type} | ${row.lane} | \`${row.chart}@${row.version}\` | ${row.base} | ${row.current_result} | ${row.reason} | \`${row.rerun_command}\` |`).join("\n")}
+| Priority | Readiness | Next step | Lane | Chart | Base | Current | Reason | Command |
+| ---: | --- | --- | --- | --- | --- | --- | --- | --- |
+${rows.map((row) => `| ${row.priority} | ${row.rerun_readiness} | ${row.next_step_type} | ${row.lane} | \`${row.chart}@${row.version}\` | ${row.base} | ${row.current_result} | ${row.reason} | \`${row.rerun_command}\` |`).join("\n")}
 
 ${lifecycleRows.length ? `## Related Lifecycle Evidence
 
@@ -400,6 +437,7 @@ function toCsv(rows) {
     "current_result",
     "reason",
     "next_step_type",
+    "rerun_readiness",
     "diagnosis",
     "rerun_command",
     "followup",

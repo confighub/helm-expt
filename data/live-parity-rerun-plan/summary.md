@@ -59,6 +59,16 @@ usually need a model or target decision before another rerun is useful. Rows in
 after the receipt explains what readiness, storage, controller, or wait
 condition changed.
 
+## Rerun Readiness
+
+This table separates rows that need modeling or target work from rows that are
+reasonable live rerun candidates.
+
+| Readiness | Rows | Meaning |
+| --- | ---: | --- |
+| model-or-stage-first | 6 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| review-target-first | 14 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+
 ## Run Safety
 
 Run live parity reruns serially. Do not run two live parity commands at the
@@ -79,28 +89,28 @@ faithful to the locked chart/version without changing the recipe.
 
 ## Rerun Queue
 
-| Priority | Next step | Lane | Chart | Base | Current | Reason | Command |
-| ---: | --- | --- | --- | --- | --- | --- | --- |
-| 30 | runtime-review | configHub-oci-live-comparison | `argo-cd/argo-cd@9.5.15` | default | watch | target-runtime: pod config/runtime errors (parity passed) | `npm run live-parity:top20 -- --from-rank 6 --to-rank 6 --continue-on-fail` |
-| 30 | runtime-review | configHub-oci-live-comparison | `grafana/tempo@1.24.4` | local-persistent | watch | target-runtime: PVC/storage pending (parity passed) | `npm run live-parity:top20 -- --from-rank 19 --to-rank 19 --continue-on-fail` |
-| 30 | operating-policy | configHub-oci-live-comparison | `hashicorp/vault@0.32.0` | default | watch | operate-policy: Vault init/unseal readiness (parity passed) | `npm run live-parity:top20 -- --from-rank 12 --to-rank 12 --continue-on-fail` |
-| 30 | gitops-runtime-review | configHub-oci-live-comparison | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | watch | gitops-runtime: Argo health Progressing (parity passed) | `npm run live-parity:top20 -- --from-rank 3 --to-rank 3 --continue-on-fail` |
-| 30 | runtime-review | configHub-oci-live-comparison | `prometheus-community/kube-prometheus-stack@85.3.3` | default | watch | target-runtime: pod ContainerCreating (parity passed) | `npm run live-parity:top20 -- --from-rank 7 --to-rank 7 --continue-on-fail` |
-| 50 | stage-prerequisite | two-cluster-kind-parity | `argo-cd/argo-cd@9.5.15` | no-crds | blocked | target-prerequisite: CRDs disabled or missing (parity passed) | `npm run kind-parity:run -- --chart argo-cd/argo-cd --version 9.5.15 --base no-crds` |
-| 50 | stage-prerequisite | two-cluster-kind-parity | `external-secrets/external-secrets@2.5.0` | no-crds | blocked | target-prerequisite: CRDs disabled or missing (parity passed) | `npm run kind-parity:run -- --chart external-secrets/external-secrets --version 2.5.0 --base no-crds` |
-| 50 | stage-prerequisite | two-cluster-kind-parity | `grafana/tempo@1.24.4` | s3-query-observability | blocked | target-prerequisite: CRDs missing | `npm run kind-parity:run -- --chart grafana/tempo --version 1.24.4 --base s3-query-observability` |
-| 50 | stage-prerequisite | two-cluster-kind-parity | `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | blocked | target-prerequisite: CRDs missing | `npm run kind-parity:run -- --chart prometheus-community/kube-prometheus-stack --version 85.3.3 --base no-crds` |
-| 55 | lifecycle-route | two-cluster-kind-parity | `jetstack/cert-manager@v1.20.2` | default | blocked | helm-hook: post-install hook failed (parity passed) | `npm run kind-parity:run -- --chart jetstack/cert-manager --version v1.20.2 --base default` |
-| 60 | runtime-review | two-cluster-kind-parity | `argo-cd/argo-cd@9.5.15` | default | watch | helm-runtime: upstream not ready (parity passed) | `npm run kind-parity:run -- --chart argo-cd/argo-cd --version 9.5.15 --base default` |
-| 60 | runtime-review | two-cluster-kind-parity | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | blocked | target-runtime: pod crash loop (parity passed) | `npm run kind-parity:run -- --chart bitnami/mongodb --version 19.0.7 --base existing-secret-replicaset --repo-url oci://registry-1.docker.io/bitnamicharts` |
-| 60 | runtime-review | two-cluster-kind-parity | `grafana/loki@7.0.0` | simple-scalable-minio | blocked | target-runtime: pods pending (parity passed) | `npm run kind-parity:run -- --chart grafana/loki --version 7.0.0 --base simple-scalable-minio` |
-| 60 | runtime-review | two-cluster-kind-parity | `grafana/tempo@1.24.4` | local-persistent | blocked | target-runtime: pods pending (parity passed) | `npm run kind-parity:run -- --chart grafana/tempo --version 1.24.4 --base local-persistent` |
-| 60 | runtime-review | two-cluster-kind-parity | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | blocked | target-runtime: pod crash loop (parity passed) | `npm run kind-parity:run -- --chart hashicorp/consul --version 2.0.0 --base secure-mesh-existing-secrets` |
-| 60 | runtime-review | two-cluster-kind-parity | `hashicorp/vault@0.32.0` | default | blocked | helm-runtime: upstream not ready (parity passed) | `npm run kind-parity:run -- --chart hashicorp/vault --version 0.32.0 --base default` |
-| 60 | runtime-review | two-cluster-kind-parity | `hashicorp/vault@0.32.0` | ha-raft-ui | blocked | target-runtime: pods pending (parity passed) | `npm run kind-parity:run -- --chart hashicorp/vault --version 0.32.0 --base ha-raft-ui` |
-| 60 | runtime-review | two-cluster-kind-parity | `ingress-nginx/ingress-nginx@4.15.1` | default | watch | helm-runtime: upstream not ready (parity passed) | `npm run kind-parity:run -- --chart ingress-nginx/ingress-nginx --version 4.15.1 --base default` |
-| 60 | runtime-review | two-cluster-kind-parity | `metrics-server/metrics-server@3.13.0` | external-tls-ca | blocked | helm-runtime: upstream not ready (parity passed) | `npm run kind-parity:run -- --chart metrics-server/metrics-server --version 3.13.0 --base external-tls-ca` |
-| 60 | runtime-review | two-cluster-kind-parity | `prometheus-community/kube-prometheus-stack@85.3.3` | default | watch | helm-runtime: upstream not ready (parity passed) | `npm run kind-parity:run -- --chart prometheus-community/kube-prometheus-stack --version 85.3.3 --base default` |
+| Priority | Readiness | Next step | Lane | Chart | Base | Current | Reason | Command |
+| ---: | --- | --- | --- | --- | --- | --- | --- | --- |
+| 30 | review-target-first | runtime-review | configHub-oci-live-comparison | `argo-cd/argo-cd@9.5.15` | default | watch | target-runtime: pod config/runtime errors (parity passed) | `npm run live-parity:top20 -- --from-rank 6 --to-rank 6 --continue-on-fail` |
+| 30 | review-target-first | runtime-review | configHub-oci-live-comparison | `grafana/tempo@1.24.4` | local-persistent | watch | target-runtime: PVC/storage pending (parity passed) | `npm run live-parity:top20 -- --from-rank 19 --to-rank 19 --continue-on-fail` |
+| 30 | model-or-stage-first | operating-policy | configHub-oci-live-comparison | `hashicorp/vault@0.32.0` | default | watch | operate-policy: Vault init/unseal readiness (parity passed) | `npm run live-parity:top20 -- --from-rank 12 --to-rank 12 --continue-on-fail` |
+| 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | watch | gitops-runtime: Argo health Progressing (parity passed) | `npm run live-parity:top20 -- --from-rank 3 --to-rank 3 --continue-on-fail` |
+| 30 | review-target-first | runtime-review | configHub-oci-live-comparison | `prometheus-community/kube-prometheus-stack@85.3.3` | default | watch | target-runtime: pod ContainerCreating (parity passed) | `npm run live-parity:top20 -- --from-rank 7 --to-rank 7 --continue-on-fail` |
+| 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `argo-cd/argo-cd@9.5.15` | no-crds | blocked | target-prerequisite: CRDs disabled or missing (parity passed) | `npm run kind-parity:run -- --chart argo-cd/argo-cd --version 9.5.15 --base no-crds` |
+| 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `external-secrets/external-secrets@2.5.0` | no-crds | blocked | target-prerequisite: CRDs disabled or missing (parity passed) | `npm run kind-parity:run -- --chart external-secrets/external-secrets --version 2.5.0 --base no-crds` |
+| 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `grafana/tempo@1.24.4` | s3-query-observability | blocked | target-prerequisite: CRDs missing | `npm run kind-parity:run -- --chart grafana/tempo --version 1.24.4 --base s3-query-observability` |
+| 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | blocked | target-prerequisite: CRDs missing | `npm run kind-parity:run -- --chart prometheus-community/kube-prometheus-stack --version 85.3.3 --base no-crds` |
+| 55 | model-or-stage-first | lifecycle-route | two-cluster-kind-parity | `jetstack/cert-manager@v1.20.2` | default | blocked | helm-hook: post-install hook failed (parity passed) | `npm run kind-parity:run -- --chart jetstack/cert-manager --version v1.20.2 --base default` |
+| 60 | review-target-first | runtime-review | two-cluster-kind-parity | `argo-cd/argo-cd@9.5.15` | default | watch | helm-runtime: upstream not ready (parity passed) | `npm run kind-parity:run -- --chart argo-cd/argo-cd --version 9.5.15 --base default` |
+| 60 | review-target-first | runtime-review | two-cluster-kind-parity | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | blocked | target-runtime: pod crash loop (parity passed) | `npm run kind-parity:run -- --chart bitnami/mongodb --version 19.0.7 --base existing-secret-replicaset --repo-url oci://registry-1.docker.io/bitnamicharts` |
+| 60 | review-target-first | runtime-review | two-cluster-kind-parity | `grafana/loki@7.0.0` | simple-scalable-minio | blocked | target-runtime: pods pending (parity passed) | `npm run kind-parity:run -- --chart grafana/loki --version 7.0.0 --base simple-scalable-minio` |
+| 60 | review-target-first | runtime-review | two-cluster-kind-parity | `grafana/tempo@1.24.4` | local-persistent | blocked | target-runtime: pods pending (parity passed) | `npm run kind-parity:run -- --chart grafana/tempo --version 1.24.4 --base local-persistent` |
+| 60 | review-target-first | runtime-review | two-cluster-kind-parity | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | blocked | target-runtime: pod crash loop (parity passed) | `npm run kind-parity:run -- --chart hashicorp/consul --version 2.0.0 --base secure-mesh-existing-secrets` |
+| 60 | review-target-first | runtime-review | two-cluster-kind-parity | `hashicorp/vault@0.32.0` | default | blocked | helm-runtime: upstream not ready (parity passed) | `npm run kind-parity:run -- --chart hashicorp/vault --version 0.32.0 --base default` |
+| 60 | review-target-first | runtime-review | two-cluster-kind-parity | `hashicorp/vault@0.32.0` | ha-raft-ui | blocked | target-runtime: pods pending (parity passed) | `npm run kind-parity:run -- --chart hashicorp/vault --version 0.32.0 --base ha-raft-ui` |
+| 60 | review-target-first | runtime-review | two-cluster-kind-parity | `ingress-nginx/ingress-nginx@4.15.1` | default | watch | helm-runtime: upstream not ready (parity passed) | `npm run kind-parity:run -- --chart ingress-nginx/ingress-nginx --version 4.15.1 --base default` |
+| 60 | review-target-first | runtime-review | two-cluster-kind-parity | `metrics-server/metrics-server@3.13.0` | external-tls-ca | blocked | helm-runtime: upstream not ready (parity passed) | `npm run kind-parity:run -- --chart metrics-server/metrics-server --version 3.13.0 --base external-tls-ca` |
+| 60 | review-target-first | runtime-review | two-cluster-kind-parity | `prometheus-community/kube-prometheus-stack@85.3.3` | default | watch | helm-runtime: upstream not ready (parity passed) | `npm run kind-parity:run -- --chart prometheus-community/kube-prometheus-stack --version 85.3.3 --base default` |
 
 ## Related Lifecycle Evidence
 
