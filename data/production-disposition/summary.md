@@ -13,13 +13,13 @@ catalog-supported local-test charts: 20
 ConfigHub proof receipts passing: 20
 live/e2e observed charts: 20
 production-supported charts: 0
-production-review-ready pending final support decision: 15
-production-blocked pending disposition: 5
+production-review-ready pending final support decision: 16
+production-blocked pending disposition: 4
 source Helm-hook rows: 1
 hook/lifecycle disposition rows: 12
 related lifecycle observation rows: 2
-accepted production disposition receipts: 70
-charts with accepted dispositions: 15
+accepted production disposition receipts: 75
+charts with accepted dispositions: 16
 ```
 
 The hook/lifecycle disposition is a production-review item. It does not always
@@ -55,7 +55,7 @@ runtime checks.
 | `grafana/loki@7.0.0` | single-binary-filesystem, simple-scalable-minio | pass | local-kind-observed | production-review-ready | 5 |  |
 | `grafana/tempo@1.24.4` | local-persistent, s3-query-observability | pass | local-kind-observed | production-review-ready | 4 |  |
 | `hashicorp/consul@2.0.0` | default-control-plane, secure-mesh-existing-secrets | pass | local-kind-observed | blocked | 0 | CRD lifecycle and upgrade policy, cluster RBAC review, extension slot provenance and scan policy, hook and lifecycle phase policy, scan/gate warning disposition, storage backup restore and rollback policy, target fact preflight, webhook readiness and failure policy |
-| `hashicorp/vault@0.32.0` | default, ha-raft-ui | pass | local-kind-observed | blocked | 0 | cluster RBAC review, extension slot provenance and scan policy, scan/gate warning disposition, storage backup restore and rollback policy, webhook readiness and failure policy |
+| `hashicorp/vault@0.32.0` | default, ha-raft-ui | pass | local-kind-observed | production-review-ready | 5 |  |
 | `ingress-nginx/ingress-nginx@4.15.1` | default, admission-disabled | pass | local-kind-observed | production-review-ready | 4 |  |
 | `jetstack/cert-manager@v1.20.2` | default, crds-enabled | pass | local-kind-observed | production-review-ready | 6 |  |
 | `longhorn/longhorn@1.11.2` | default, ui-ingress | pass | local-kind-observed | blocked | 0 | CRD lifecycle and upgrade policy, cluster RBAC review, hook and lifecycle phase policy, scan/gate warning disposition, webhook readiness and failure policy |

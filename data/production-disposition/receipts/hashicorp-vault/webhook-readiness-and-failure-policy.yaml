@@ -1,0 +1,48 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: hashicorp-vault-webhook-readiness-and-failure-policy
+spec:
+  chart: hashicorp/vault
+  version: "0.32.0"
+  disposition: webhook readiness and failure policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Both supported bases render the Vault agent injector Deployment, Service,
+    and MutatingWebhookConfiguration. This disposition accepts the rendered
+    webhook shape as production review input. Production support must still
+    choose the injector posture, certificate management, failurePolicy,
+    namespace/object selectors, and freshness checks for webhook availability.
+  evidence:
+    - path: recipes/hashicorp/vault/0.32.0/control-points.yaml
+      claim: The recipe records the injector admission webhook as scan-and-review.
+    - path: recipes/hashicorp/vault/0.32.0/value-model.yaml
+      claim: The value model records injector.enabled and injector.failurePolicy as admission-webhook review controls.
+    - path: recipes/hashicorp/vault/0.32.0/revisions/default/r001/rendered/object-inventory.yaml
+      claim: The default inventory records vault-agent-injector-cfg, vault-agent-injector Deployment, and injector Service.
+    - path: recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/object-inventory.yaml
+      claim: The ha-raft-ui inventory records the same injector webhook objects.
+    - path: recipes/hashicorp/vault/0.32.0/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default scan records admission-webhook-review for the injector MutatingWebhookConfiguration.
+    - path: recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/receipts/scan-receipt.yaml
+      claim: The ha-raft-ui scan records the same admission webhook review point.
+    - path: runs/top20-local-kind/vault-default/observation-receipt.json
+      claim: The local observation records server-side apply and injector Deployment rollout evidence for the default base.
+    - path: runs/live-helm-confighub-compare/hashicorp-vault-default/receipt.yaml
+      claim: The ConfigHub OCI/Argo lane reaches Synced but Health remains Progressing because Vault server readiness requires post-install operation.
+  affectedVariants:
+    - default
+    - ha-raft-ui
+  acceptedPolicy:
+    webhookObjects: Injector webhook objects are part of the reviewed rendered object set.
+    readiness: Injector rollout must be observed fresh for supported targets.
+    failurePolicy: Target production policy must choose whether injector webhook failure should fail closed or fail open.
+  variantCaveats:
+    - "Webhook render parity does not prove production admission safety; certificate and failure policy are target decisions."
+    - "Vault server readiness is separate from injector readiness and depends on init/unseal operation."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should define injector enablement, failurePolicy, certificate ownership, and required webhook observation receipts.

@@ -12,7 +12,7 @@ current ConfigHub/cub installer proof absorbs it.
 | Catalog status | catalog-supported |
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
-| Production readiness | blocked-by-current-scan-gate |
+| Production readiness | production-review-ready |
 | Variants in this note | default, ha-raft-ui |
 
 Production support is not implied by this file. A chart can be supported for
@@ -31,9 +31,10 @@ or operating-policy dispositions.
 ## Catalog Mitigations
 
 - Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
-- default is the simplest local Vault chart path.
-- ha-raft-ui is supported as a richer local HA-shape proof, not a production readiness claim.
-- Production remains blocked until seal/init, storage, recovery, unseal workflow, and scan/gate findings have dispositions.
+- default is the simplest local Vault chart path and the safer first production-review base.
+- ha-raft-ui is supported as a richer HA/Raft/UI proof, but has target-sensitive service-selector and runtime caveats.
+- RBAC, injector webhook, extension slots, storage/init/unseal/recovery, TLS posture, service exposure, and scan/gate warnings are recorded as production review input.
+- Production recommendation remains a separate decision; Vault needs explicit init/unseal, recovery material, TLS, backup/restore, and live observation procedures before support.
 
 ## Control Points
 

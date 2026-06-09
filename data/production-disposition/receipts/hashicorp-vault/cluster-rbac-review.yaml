@@ -1,0 +1,46 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: hashicorp-vault-cluster-rbac-review
+spec:
+  chart: hashicorp/vault
+  version: "0.32.0"
+  disposition: cluster RBAC review
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Vault renders cluster-scoped RBAC for the injector webhook and server
+    ServiceAccount binding, plus additional discovery RBAC in the ha-raft-ui
+    base. This disposition accepts that RBAC inventory as production review
+    input. Target policy can still require a narrower base, separate cluster
+    approval, or injector-disabled posture before production support.
+  evidence:
+    - path: recipes/hashicorp/vault/0.32.0/control-points.yaml
+      claim: The recipe records cluster RBAC as a scan-and-review control point.
+    - path: recipes/hashicorp/vault/0.32.0/revisions/default/r001/rendered/object-inventory.yaml
+      claim: The default inventory records the injector ClusterRole and ClusterRoleBinding objects.
+    - path: recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/object-inventory.yaml
+      claim: The ha-raft-ui inventory records the same cluster RBAC plus discovery Role and RoleBinding.
+    - path: recipes/hashicorp/vault/0.32.0/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default rendered-object scan flags Vault RBAC findings with zero high or critical findings.
+    - path: recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/receipts/scan-receipt.yaml
+      claim: The ha-raft-ui rendered-object scan flags cluster and namespace RBAC review findings.
+    - path: recipes/hashicorp/vault/0.32.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The default base is Helm-equivalent under recorded inputs.
+    - path: recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The ha-raft-ui base is Helm-equivalent under recorded inputs.
+    - path: runs/live-helm-confighub-compare/hashicorp-vault-default/receipt.yaml
+      claim: The default base has semantic parity across regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo while runtime remains watch pending Vault initialization and unseal.
+  affectedVariants:
+    - default
+    - ha-raft-ui
+  acceptedWarnings:
+    - cluster-rbac-review
+  variantCaveats:
+    - "Cluster-scoped injector and server permissions must be reviewed against the target cluster's policy."
+    - "A production support decision may choose an injector-disabled or narrower RBAC base if target policy requires it."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should review Vault RBAC together with injector usage, namespace scope, and the target secret-management policy.

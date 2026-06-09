@@ -27,9 +27,9 @@ live evidence,two-cluster kind parity receipts,40,40,partial,data/live-kind-pari
 live evidence,ConfigHub/OCI semantic parity defect receipts,0,20,good,data/live-helm-confighub-compare/summary.csv,Rows whose committed receipt currently points at a semantic object comparison defect.
 live evidence,two-cluster semantic parity defect receipts,0,40,good,data/live-kind-parity/summary.csv,Rows whose committed two-cluster receipt currently points at a semantic object comparison defect.
 production disposition,top20 production-supported charts,0,20,gap,data/production-disposition/top20.csv,Top-20 catalog charts with a final production support decision.
-production disposition,top20 production-review-ready charts,15,20,partial,data/production-disposition/top20.csv,"Top-20 catalog charts with required dispositions closed, pending final production support decision and target scope."
-production disposition,top20 production-blocked charts,5,20,partial,data/production-disposition/top20.csv,Top-20 catalog charts that remain blocked from production support pending explicit dispositions.
-production disposition,charts with accepted production dispositions,15,20,partial,data/production-disposition/top20.csv,Charts with at least one disposition receipt accepted.
+production disposition,top20 production-review-ready charts,16,20,partial,data/production-disposition/top20.csv,"Top-20 catalog charts with required dispositions closed, pending final production support decision and target scope."
+production disposition,top20 production-blocked charts,4,20,partial,data/production-disposition/top20.csv,Top-20 catalog charts that remain blocked from production support pending explicit dispositions.
+production disposition,charts with accepted production dispositions,16,20,partial,data/production-disposition/top20.csv,Charts with at least one disposition receipt accepted.
 scan disposition,high-priority scan rows,4,20,partial,data/scan-disposition-workdown/workdown.csv,"External scan rows that need a fix, hardened base, or explicit production disposition."
 scan disposition,remaining mutable-image rows,0,20,good,data/scan-disposition-workdown/workdown.csv,Rows still routed to image-pin fixes after the supported-base pinning work.
 scan disposition,privileged infrastructure review rows,4,20,partial,data/scan-disposition-workdown/workdown.csv,"Rows where host, node, or privileged access is likely part of the chart and needs explicit acceptance or a narrower base."

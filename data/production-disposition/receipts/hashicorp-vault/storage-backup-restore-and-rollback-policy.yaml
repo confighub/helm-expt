@@ -1,0 +1,55 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: hashicorp-vault-storage-backup-restore-and-rollback-policy
+spec:
+  chart: hashicorp/vault
+  version: "0.32.0"
+  disposition: storage backup restore and rollback policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Vault storage and operating state are explicit production decisions. The
+    default base preserves the chart's standalone posture, while ha-raft-ui
+    enables integrated Raft, HA discovery, PDB, active/standby services, and UI
+    exposure. This disposition accepts those rendered storage choices as
+    production review input. It does not claim Vault is production-ready without
+    init, unseal, recovery, seal migration, backup, restore, and rollback
+    procedures.
+  evidence:
+    - path: recipes/hashicorp/vault/0.32.0/control-points.yaml
+      claim: The recipe records StatefulSet, TLS posture, and operate-policy for init, unseal, seal migration, and recovery material.
+    - path: recipes/hashicorp/vault/0.32.0/value-model.yaml
+      claim: The value model records HA/Raft enablement, UI exposure, TLS posture, data/audit storage, and extension slots.
+    - path: recipes/hashicorp/vault/0.32.0/effective-values.yaml
+      claim: The default base keeps chart default standalone Vault behavior.
+    - path: recipes/hashicorp/vault/0.32.0/effective-values-ha-raft-ui.yaml
+      claim: The ha-raft-ui base enables HA/Raft storage and UI service exposure as explicit values.
+    - path: recipes/hashicorp/vault/0.32.0/revisions/default/r001/rendered/object-inventory.yaml
+      claim: The default inventory records the Vault StatefulSet and default Vault services.
+    - path: recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/object-inventory.yaml
+      claim: The ha-raft-ui inventory records PDB, active/standby services, UI service, and additional discovery RBAC.
+    - path: recipes/hashicorp/vault/0.32.0/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default scan records Vault workload, TLS posture, service exposure, and storage/init/unseal review warnings.
+    - path: recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/receipts/scan-receipt.yaml
+      claim: The ha-raft-ui scan records HA service-selector warnings, service exposure, TLS posture, and workload operation warnings.
+    - path: runs/live-kind-parity/hashicorp-vault-default/receipt.yaml
+      claim: The default base has semantic object parity while runtime remains watch because Vault is not initialized/unsealed.
+    - path: runs/live-kind-parity/hashicorp-vault-ha-raft-ui/receipt.yaml
+      claim: The HA/Raft base has semantic object parity while runtime remains watch pending target capacity and Vault init/unseal.
+  affectedVariants:
+    - default
+    - ha-raft-ui
+  acceptedPolicy:
+    default: Accepted as a local-test and production-review base only; production requires explicit init/unseal and TLS decisions.
+    haRaftUi: Accepted as an HA/Raft/UI review base only; active/standby service selector warnings and target capacity must be reviewed before support.
+    rollback: Vault rollback cannot be inferred from render parity and must be paired with backup, restore, seal, recovery, and data migration procedures.
+  variantCaveats:
+    - "Vault server pods are expected to remain not-ready until init/unseal is performed; live parity receipts therefore remain watch/progressing."
+    - "ha-raft-ui has local high scan findings for active/standby service selectors that must be accepted or fixed before production support."
+    - "TLS is disabled in the rendered config and must be explicitly approved or replaced with a TLS-enabled base for production."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose storage mode, TLS posture, init/unseal workflow, recovery material handling, backup/restore method, and rollback procedure.

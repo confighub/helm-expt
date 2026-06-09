@@ -14,7 +14,7 @@ spec:
   supportedVariants:
     - "default"
     - "ha-raft-ui"
-  productionReadiness: "blocked-by-current-scan-gate"
+  productionReadiness: "production-review-ready"
   notes:
     - "The chart renders deterministically under pinned Helm, chart version, kube version, and values."
     - "The default variant keeps the chart defaults: standalone Vault server, injector webhook, and TLS disabled in the rendered Vault config."
@@ -142,4 +142,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
-  answerForSkepticalHelmUser: "hashicorp/vault@0.32.0 maps its detected Helm pain to 9 ConfigHub control areas: source-lock, dependency-lock, capability-profile, operate-policy, lifecycle-policy, recipe, scan-gate, extension-slot, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains blocked-by-current-scan-gate."
+  answerForSkepticalHelmUser: "hashicorp/vault@0.32.0 maps its detected Helm pain to 9 ConfigHub control areas: source-lock, dependency-lock, capability-profile, operate-policy, lifecycle-policy, recipe, scan-gate, extension-slot, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains production-review-ready."

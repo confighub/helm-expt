@@ -16,7 +16,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Catalog status | catalog-supported |
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
-| Production readiness | blocked-by-current-scan-gate |
+| Production readiness | production-review-ready |
 | Supported variants | default, ha-raft-ui |
 | Candidate variants | none |
 | Control points | admission-webhook, capability-profile, cluster-rbac, dependency-lock, extension-slots, installer-support-object, operate-policy, service-exposure, source-lock, stateful-workload, tls-posture |
@@ -34,7 +34,7 @@ for exact base-variant evidence.
 | Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 0/2; live parity 0/2 |
 | Feature summary | webhooks;required-values;values-schema;extension-slots |
 | Hard gap | - |
-| Next action | write or fix the receipt for cluster RBAC review |
+| Next action | refresh live/e2e receipts for the accepted production scope |
 
 ## Artifact Chain
 

@@ -1,0 +1,47 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: hashicorp-vault-extension-slot-provenance-and-scan-policy
+spec:
+  chart: hashicorp/vault
+  version: "0.32.0"
+  disposition: extension slot provenance and scan policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Vault exposes high-impact extension slots for extra environment variables,
+    secret-backed environment variables, extra volumes, init containers,
+    plugins, and sidecars. The supported bases keep these slots empty and bind
+    only the default or HA/Raft/UI choices. This disposition accepts the current
+    extension-slot model as production review input and requires populated
+    Vault extension content to become a reviewed installer base or
+    ConfigHub-managed unit.
+  evidence:
+    - path: recipes/hashicorp/vault/0.32.0/control-points.yaml
+      claim: The recipe records extra environment, Secret, volume, plugin, init, and sidecar slots as controlled-by-empty-defaults.
+    - path: recipes/hashicorp/vault/0.32.0/value-model.yaml
+      claim: The value model records Vault extension and Secret injection slots explicitly.
+    - path: recipes/hashicorp/vault/0.32.0/effective-values.yaml
+      claim: The default base preserves the chart default posture without populated extension slots.
+    - path: recipes/hashicorp/vault/0.32.0/effective-values-ha-raft-ui.yaml
+      claim: The ha-raft-ui base changes HA/Raft and UI values without populating arbitrary extension slots.
+    - path: recipes/hashicorp/vault/0.32.0/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default scan records Vault Secret/env, volume, plugin, init, and sidecar extension slots for review.
+    - path: recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/receipts/scan-receipt.yaml
+      claim: The ha-raft-ui scan records the same extension-slot review.
+    - path: runs/vault-confighub-proof/latest/confighub-proof-receipt.yaml
+      claim: The ConfigHub proof records real cub installer upload and server-side variant clone for the default base.
+  affectedVariants:
+    - default
+    - ha-raft-ui
+  acceptedPolicy:
+    currentBases: Secret/env, volume, plugin, init, and sidecar extension slots stay empty in supported bases.
+    populatedSlotRule: New Vault extension content must be reviewed, scanned, and bound to a new base or managed ConfigHub unit.
+    secretMaterial: Vault bootstrap, unseal, recovery, and seal material must not be hidden as rendered values.
+  variantCaveats:
+    - "Vault extension slots are high-impact because they can change identity, storage, plugins, and bootstrap behavior."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose which Vault extension surfaces are allowed for the target and how secret material is supplied.

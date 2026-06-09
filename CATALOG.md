@@ -683,7 +683,7 @@ Receipts: [per-chart receipts](recipes/grafana/grafana/10.5.15/CATALOG.md)
 #### hashicorp/vault@0.32.0
 
 Status: catalog-supported
-Production readiness: blocked-by-current-scan-gate
+Production readiness: production-review-ready
 Start base readiness: runtime-review-needed
 Strongest evidence: local-kubernetes-live
 Proof lanes: render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 0/2; live parity 0/2

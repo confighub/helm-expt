@@ -1,0 +1,68 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: hashicorp-vault-scan-gate-warning-disposition
+spec:
+  chart: hashicorp/vault
+  version: "0.32.0"
+  disposition: scan/gate warning disposition
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Vault's default base has no high or critical local rendered-object scan
+    findings. The ha-raft-ui base has two high local findings for active and
+    standby service selectors, and the external scanner records workload
+    security, resource, probe, PDB, and dangling-service warnings. This
+    disposition accepts the current warnings as explicit production review
+    inputs, not as final production support.
+  evidence:
+    - path: data/external-scan-lane/review.csv
+      claim: External kube-linter rows record no-read-only-root-fs, resource, probe, and dangling-service warnings for Vault bases.
+    - path: data/scan-disposition-workdown/workdown.csv
+      claim: The generated scan disposition workdown routes Vault to harden-security-context before production support.
+    - path: recipes/hashicorp/vault/0.32.0/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default rendered-object scan has zero high or critical findings and records webhook, RBAC, TLS, service, extension, and workload warnings.
+    - path: recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/receipts/scan-receipt.yaml
+      claim: The ha-raft-ui rendered-object scan records high service-selector findings plus RBAC, webhook, TLS, service, extension, and workload warnings.
+    - path: recipes/hashicorp/vault/0.32.0/revisions/default/r001/receipts/install-gate.yaml
+      claim: The default gate allows local-test and blocks production until TLS, init/unseal, storage, injector, RBAC, service exposure, and extension policy are reviewed.
+    - path: recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/receipts/install-gate.yaml
+      claim: The HA/Raft/UI gate records the same production boundary with additional HA and UI exposure.
+    - path: data/production-disposition/receipts/hashicorp-vault/cluster-rbac-review.yaml
+      claim: Cluster RBAC handling has an accepted production-review disposition.
+    - path: data/production-disposition/receipts/hashicorp-vault/extension-slot-provenance-and-scan-policy.yaml
+      claim: Extension-slot handling has an accepted production-review disposition.
+    - path: data/production-disposition/receipts/hashicorp-vault/webhook-readiness-and-failure-policy.yaml
+      claim: Webhook readiness and failure-policy handling have an accepted production-review disposition.
+    - path: data/production-disposition/receipts/hashicorp-vault/storage-backup-restore-and-rollback-policy.yaml
+      claim: Storage, init/unseal, backup, restore, and rollback handling have an accepted production-review disposition.
+    - path: runs/live-helm-confighub-compare/hashicorp-vault-default/receipt.yaml
+      claim: Default-base semantic parity passes across regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo while runtime remains watch pending Vault operation.
+  affectedVariants:
+    - default
+    - ha-raft-ui
+  acceptedWarnings:
+    - admission-webhook-review
+    - cluster-rbac-review
+    - dangling-service
+    - extension-slot-review
+    - liveness-port
+    - no-read-only-root-fs
+    - pdb-unhealthy-pod-eviction-policy
+    - readiness-port
+    - service-exposure-review
+    - service-selector-has-workload-match
+    - startup-port
+    - unset-cpu-requirements
+    - unset-memory-requirements
+    - vault-tls-posture-review
+    - vault-workload-operate-review
+  variantCaveats:
+    - "default is the safer first review path because ha-raft-ui has high service-selector findings."
+    - "Vault live evidence is watch/progressing until init/unseal is performed; this is an operating requirement, not a render parity defect."
+    - "A production base should normally add TLS, resource policy, and explicit init/unseal and recovery procedures."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose the supported base, TLS posture, hardening policy, init/unseal workflow, and live observation requirements for the target.

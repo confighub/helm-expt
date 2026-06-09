@@ -52,7 +52,7 @@ grafana/tempo@1.24.4,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,pro
 haproxytech/kubernetes-ingress@1.52.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/haproxytech/kubernetes-ingress/1.52.0
 hashicorp/consul@2.0.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,blocked-by-current-scan-gate,none,recipes/hashicorp/consul/2.0.0
 hashicorp/terraform@1.1.2,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/hashicorp/terraform/1.1.2
-hashicorp/vault@0.32.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,blocked-by-current-scan-gate,none,recipes/hashicorp/vault/0.32.0
+hashicorp/vault@0.32.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/hashicorp/vault/0.32.0
 ingress-nginx/ingress-nginx@4.15.1,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/ingress-nginx/ingress-nginx/4.15.1
 istio/gateway@1.30.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/istio/gateway/1.30.0
 istio/istiod@1.30.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/istio/istiod/1.30.0

@@ -1147,7 +1147,7 @@ spec:
     -
       chart: "hashicorp/vault"
       version: "0.32.0"
-      status: "production-blocked"
+      status: "production-review-ready"
       supportedLocalTestVariants:
         - "default"
         - "ha-raft-ui"
@@ -1178,11 +1178,16 @@ spec:
         lifecycleObservationReceipts:
           []
         productionDispositionReceipts:
-          []
+          - "data/production-disposition/receipts/hashicorp-vault/cluster-rbac-review.yaml"
+          - "data/production-disposition/receipts/hashicorp-vault/extension-slot-provenance-and-scan-policy.yaml"
+          - "data/production-disposition/receipts/hashicorp-vault/scan-gate-warning-disposition.yaml"
+          - "data/production-disposition/receipts/hashicorp-vault/storage-backup-restore-and-rollback-policy.yaml"
+          - "data/production-disposition/receipts/hashicorp-vault/webhook-readiness-and-failure-policy.yaml"
       dispositions:
         -
           name: "cluster RBAC review"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/hashicorp-vault/cluster-rbac-review.yaml"
           owner: "security-review"
           requiredEvidence:
             - "cluster-scoped RBAC inventory"
@@ -1191,7 +1196,8 @@ spec:
           unblockRule: "supported only after cluster-scoped permissions have an explicit disposition"
         -
           name: "extension slot provenance and scan policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/hashicorp-vault/extension-slot-provenance-and-scan-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "tpl/raw value inventory"
@@ -1200,7 +1206,8 @@ spec:
           unblockRule: "supported only when extensions are explicit and scanned after render"
         -
           name: "scan/gate warning disposition"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/hashicorp-vault/scan-gate-warning-disposition.yaml"
           owner: "security-review"
           requiredEvidence:
             - "local scan receipt"
@@ -1209,7 +1216,8 @@ spec:
           unblockRule: "supported only when warnings are accepted, fixed, or variant-blocking"
         -
           name: "storage backup restore and rollback policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/hashicorp-vault/storage-backup-restore-and-rollback-policy.yaml"
           owner: "operate-review"
           requiredEvidence:
             - "PVC/storage class assumptions"
@@ -1218,7 +1226,8 @@ spec:
           unblockRule: "supported only when stateful rollback is not hand-waved"
         -
           name: "webhook readiness and failure policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/hashicorp-vault/webhook-readiness-and-failure-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "webhook deployment readiness"
