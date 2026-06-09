@@ -16,10 +16,21 @@ For a chart/base/derived-variant/feature spreadsheet view, start with:
 Each row is one chart, version, and base variant. A chart can have one lane
 passing and another lane missing.
 
-A `fail` lane means a receipt exists and the result was not pass. For live
-lanes, this can be useful evidence about a target prerequisite rather than a
-broken test. For example, a chart may need CRDs preinstalled, separated Secret
-delivery, or a LoadBalancer-capable cluster.
+## Status Terms
+
+| Status | Meaning |
+| --- | --- |
+| `pass` | The committed receipt proves the lane's stated outcome for that exact chart, version, and base variant. |
+| `missing` | No committed receipt exists for that exact row yet. This is backlog, not failure. |
+| `watch` | The lane produced useful evidence, and object parity usually passed, but a runtime, storage, controller-health, initialization, or operating-policy condition still needs review. |
+| `blocked` | The lane produced useful evidence, but a target prerequisite, lifecycle route, hook decision, Secret, CRD, storage class, or similar condition must be resolved before the row can pass. |
+| `fail` | The receipt records a failed check. Read the reason before treating it as a ConfigHub-vs-Helm defect. |
+
+For live lanes, `watch`, `blocked`, and `fail` can be useful evidence rather
+than a broken test. A chart may need CRDs preinstalled, separated Secret
+delivery, a LoadBalancer-capable cluster, a controller readiness wait, or an
+explicit lifecycle decision. Only call a row a parity defect when the semantic
+object comparison fails.
 
 ## Core Lanes
 
