@@ -34,7 +34,7 @@ spec:
     - path: recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/receipts/helm-equivalence-receipt.yaml
       claim: The single-binary-filesystem base is Helm-equivalent, with the only content normalization limited to a leading blank line in embedded Loki config.
     - path: runs/loki-confighub-proof/latest/confighub-proof-receipt.yaml
-      claim: The ConfigHub proof records real cub installer upload and cub variant clone for the selected base.
+      claim: The ConfigHub proof records real cub installer upload and derived variant creation with cub variant create for the selected base.
   affectedVariants:
     - single-binary-filesystem
     - simple-scalable-minio

@@ -33,7 +33,7 @@ spec:
     - path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/receipts/scan-receipt.yaml
       claim: The sync-secret-rotation scan records the same extension-slot review plus synced Secret rotation review.
     - path: runs/secrets-store-csi-driver-confighub-proof/latest/confighub-proof-receipt.yaml
-      claim: The ConfigHub proof records the default base upload and server-side variant clone through real cub installer and cub variant commands.
+      claim: The ConfigHub proof records the default base upload and derived variant creation through real cub installer and cub variant create commands.
   affectedVariants:
     - default
     - sync-secret-rotation
