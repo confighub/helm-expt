@@ -352,6 +352,32 @@ a non-default base still needs target runtime review. The final production
 support decision must choose the supported base, target scope, and required
 runtime checks.
 
+## How To Read The Production State
+
+| State | Meaning |
+| --- | --- |
+| \`catalog-supported\` | The chart is in the public catalog with maintained bases and local-test proof. |
+| \`production-review-ready\` | The required pre-review disposition receipts exist for the chart. |
+| \`blocked\` | One or more required pre-review disposition receipts are missing. |
+| \`production-supported\` | Not set by this lane. It requires a separate target-scoped support decision. |
+
+\`production-review-ready\` is not the same as production support. It means the
+chart has enough accepted disposition evidence for a human or product process
+to decide the supported production scope.
+
+The remaining work is recorded in:
+
+| File | Use |
+| --- | --- |
+| \`data/production-disposition/next-actions.csv\` | One next production action per top-20 chart. |
+| \`data/production-disposition/dispositions.md\` | Accepted receipts, evidence, owners, and unblock rules. |
+| \`data/scan-disposition-workdown/summary.md\` | Whether scan findings need fixes, hardened bases, explicit acceptance, runtime review, or policy decisions. |
+
+Typical final-support work includes choosing the production base, naming the
+target scope, accepting or patching scan findings, confirming lifecycle and
+target-fact requirements, refreshing live/e2e evidence for that scope, and
+recording the support decision.
+
 ## Top-20 Disposition Table
 
 | Chart | Variants | ConfigHub proof | Live/e2e | Production status | Accepted | Open dispositions |
