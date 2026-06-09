@@ -153,7 +153,9 @@ top-500 source scan, 254/500 charts expose raw/extra manifest values and
 363/500 use `tpl` or raw/extra manifest values. Leaving those slots empty can
 stay inside a supported catalog base. Populating them creates a new reviewed
 install shape and should route back through a `cub installer` base variant with
-render parity, scans, gates, and receipts.
+render parity, scans, gates, and receipts. See
+[Extension Slots](./docs/user/extension-slots.md) for the user-facing routing
+guide.
 
 For the detailed algorithm, see
 [Customization Algorithm](./docs/reference/customization-algorithm.md). For the product
