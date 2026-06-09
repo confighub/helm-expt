@@ -6,16 +6,16 @@ spec:
   chart: grafana/tempo
   version: 1.24.4
   base: local-persistent
-  result: watch
-  observedAt: '2026-06-08T12:46:12Z'
+  result: pass
+  observedAt: '2026-06-09T10:23:03Z'
   package:
     path: packages/grafana/tempo/1.24.4
   recipe:
     path: recipes/grafana/tempo/1.24.4
   variantRevision: recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/variant-revision.yaml
   run:
-    rig: helm-expt-parity-tempo-mq57fpzp-a9f
-    kubeContext: kind-helm-expt-parity-tempo-mq57fpzp-a9f
+    rig: helm-expt-parity-tempo-mq6hrhgu-wv3
+    kubeContext: kind-helm-expt-parity-tempo-mq6hrhgu-wv3
     namespace: tempo
     legNamespaces:
       regularHelm: tempo-helm
@@ -23,102 +23,88 @@ spec:
       configHubOciArgo: tempo-oci
     clusterLifecycle: cleaned-up
     cleanup:
-      command: cub lk down --name helm-expt-parity-tempo-mq57fpzp-a9f --force
+      command: cub lk down --name helm-expt-parity-tempo-mq6hrhgu-wv3 --force
       result: pass
-      detail: 'Deleting kind cluster "helm-expt-parity-tempo-mq57fpzp-a9f"...
+      detail: 'Deleting kind cluster "helm-expt-parity-tempo-mq6hrhgu-wv3"...
 
-        Deleting cluster "helm-expt-parity-tempo-mq57fpzp-a9f" ...
+        Deleting cluster "helm-expt-parity-tempo-mq6hrhgu-wv3" ...
 
-        Deleted nodes: ["helm-expt-parity-tempo-mq57fpzp-a9f-control-plane"]
+        Deleted nodes: ["helm-expt-parity-tempo-mq6hrhgu-wv3-control-plane"]
 
-        Deleting Space "helm-expt-parity-tempo-mq57fpzp-a9f-cluster" (recursive: cascades
+        Deleting Space "helm-expt-parity-tempo-mq6hrhgu-wv3-cluster" (recursive: cascades
         to Unit, Target, Worker)...
 
 
         Done.'
   legs:
     regularHelm:
-      result: watch
+      result: pass
       command: helm upgrade --install tempo tempo --repo https://grafana.github.io/helm-charts
         --version 1.24.4 --namespace tempo-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-tempo-local-persistent/regular-helm-values.yaml
         --wait --timeout 8m
-      manifestSHA256: 4a18b354ff67e98d84f6d89ce16b973396c9c30bf3c121f4ef146886151c44be
+      manifestSHA256: df7ce7b40425eef8d057bdd80416ea3ae781ababe7ce6a154db74990c0f07905
       objectCount: 4
-      liveHelmManifestSHA256: 4e3f151991d51cf171cbc6319f10c93ef996b78193f36a889cccfe705bfd15bb
+      liveHelmManifestSHA256: f86b9da02961eddcef8f23f6e691a43054212db8cf293cbcbb2b644f9fca553e
       liveHelmManifestObjectCount: 4
       namespace: tempo-helm
       runtime:
-        result: watch
-        workloads: statefulset.apps/tempo   0/1   11m
-        pods: tempo-0   0/1   Pending   0     11m
-        notReady:
-        - pod: tempo-0
-          ready: 0/1
-          status: Pending
-      stderr: 'level=WARN msg="this chart is deprecated"
-
-        Error: resource StatefulSet/tempo-helm/tempo not ready. status: InProgress,
-        message: Ready: 0/1
-
-        context deadline exceeded'
+        result: pass
+        workloads: statefulset.apps/tempo   1/1   54s
+        pods: tempo-0   1/1   Running   0     54s
+        notReady: []
+      stderr: ''
       getManifestError: ''
     configHubKubectlApply:
-      result: watch
+      result: pass
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/tempo/1.24.4
-        --base local-persistent --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-tempo-mq57fpzp-a9f-tempo
+        --base local-persistent --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-tempo-mq6hrhgu-wv3-tempo
         --non-interactive --namespace tempo-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
-      manifestSHA256: a9f18b7aebbe41c0f7b1f62472c7c7e17c6551e3edfbe18314bc159e63bb08c9
+      manifestSHA256: 71c2ba036c8541ec4961869e796427d96ab15c580b0ede0ed7119334804da0f7
       objectCount: 5
       namespace: tempo-apply
       manifestNamespaces:
+      - tempo
       - tempo-apply
       runtimeNamespaces: &id001
-      - tempo-apply
+      - tempo
       runtime:
-        result: watch
+        result: pass
         namespaces: *id001
-        workloads: '# tempo-apply
+        workloads: '# tempo
 
-          statefulset.apps/tempo   0/1   4m53s'
-        pods: '# tempo-apply
+          statefulset.apps/tempo   1/1   50s'
+        pods: '# tempo
 
-          tempo-0   0/1   Pending   0     4m53s'
-        notReady:
-        - namespace: tempo-apply
-          pod: tempo-0
-          ready: 0/1
-          status: Pending
+          tempo-0   1/1   Running   0     50s'
+        notReady: []
     configHubOciArgo:
-      result: watch
-      workloadSpace: helm-expt-parity-tempo-mq57fpzp-a9f-tempo
+      result: pass
+      workloadSpace: helm-expt-parity-tempo-mq6hrhgu-wv3-tempo
       controller: Argo CD OCI
       app: tempo-parity
-      manifestSHA256: 752938289c9bc723bd00277256aef877b9fe8739998fe1053faed8c11652dc3f
+      manifestSHA256: 909176e5983fa3a798a832eca9cdda3ef7055cea38d20675101d2826317f23e7
       objectCount: 5
       namespace: tempo-oci
       manifestNamespaces:
+      - tempo
       - tempo-oci
       runtimeNamespaces: &id002
-      - tempo-oci
-      ociRevision: sha256:1b517c449472e4b3ec676f629417fdb5e4d73580b46cee6a6fa980c59480c82c
+      - tempo
+      ociRevision: sha256:1002e5983d6c52bf9a0d5023cfbac3cf749d83e0a762adb5d93f0057c1b01d24
       sync: Synced
-      health: Progressing
+      health: Healthy
       separatedSecrets: []
       runtime:
-        result: watch
+        result: pass
         namespaces: *id002
-        workloads: '# tempo-oci
+        workloads: '# tempo
 
-          statefulset.apps/tempo   0/1   9m42s'
-        pods: '# tempo-oci
+          statefulset.apps/tempo   1/1   93s'
+        pods: '# tempo
 
-          tempo-0   0/1   Pending   0     9m42s'
-        notReady:
-        - namespace: tempo-oci
-          pod: tempo-0
-          ready: 0/1
-          status: Pending
+          tempo-0   1/1   Running   0     93s'
+        notReady: []
   semanticComparison:
     allowedExtraConfigHubObjects:
     - v1|Namespace||tempo
@@ -145,11 +131,14 @@ spec:
       semanticNormalizations: *id003
       comparisonSHA256: 8b00d5bf7dfb6f4ee3e5330bcb26d8b9861352f81ea90b16bd6aae90eef49ebc
   checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
-    detail: "Creating kind cluster \"helm-expt-parity-tempo-mq57fpzp-a9f\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-tempo-mq57fpzp-a9f.kubeconfig)...\n\
-      Creating cluster \"helm-expt-parity-tempo-mq57fpzp-a9f\" ...\n \u2022 Ensuring\
+    detail: "Creating kind cluster \"helm-expt-parity-tempo-mq6hrhgu-wv3\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-tempo-mq6hrhgu-wv3.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-tempo-mq6hrhgu-wv3\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
       \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
@@ -157,27 +146,44 @@ spec:
       \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
       \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
-      \nSet kubectl context to \"kind-helm-expt-parity-tempo-mq57fpzp-a9f\"\nYou can\
-      \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-tempo-mq57fpzp-a9f\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-tempo-mq57fpzp-a9f.kubeconfig\n\
+      \nSet kubectl context to \"kind-helm-expt-parity-tempo-mq6hrhgu-wv3\"\nYou can\
+      \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-tempo-mq6hrhgu-wv3\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-tempo-mq6hrhgu-wv3.kubeconfig\n\
       \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
       Installing Argo CD...\nCreating namespace \"argocd\"...\napiVer"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
   - name: regular-helm-live
-    result: watch
-    detail: 'level=WARN msg="this chart is deprecated"
-
-      Error: resource StatefulSet/tempo-helm/tempo not ready. status: InProgress,
-      message: Ready: 0/1
-
-      context deadline exceeded'
+    result: pass
+    detail: level=WARN msg="this chart is deprecated"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
   - name: confighub-kubectl-apply-live
-    result: watch
-    detail: '# tempo-apply
+    result: pass
+    detail: '# tempo
 
-      statefulset.apps/tempo   0/1   4m53s'
+      statefulset.apps/tempo   1/1   50s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
   - name: confighub-oci-argo-live
-    result: watch
-    detail: sync=Synced health=Progressing after 420s
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
   - name: semantic-object-parity
     result: pass
     detail: missing=0 extra=['v1|Namespace||tempo'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
