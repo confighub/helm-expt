@@ -69,10 +69,18 @@ data/lane-test-matrix/summary.md
 As of the current matrix, all 156 chart-recipe-variant rows have
 Helm-equivalence plus installer setup-check evidence. ConfigHub proof,
 local-kind evidence, and ConfigHub OCI/Argo live proof are partial by exact
-variant row. The selected top-20 live Helm-vs-ConfigHub comparison lane now has
-20 committed receipts: 15 pass, 5 watch, and 0 blocked. The remaining watch
-rows are target/runtime/controller-readiness findings whose semantic parity
-checks pass.
+variant row.
+
+There are two live parity surfaces, and they answer different questions:
+
+| Surface | Current reading | Use it for |
+| --- | --- | --- |
+| Selected live Helm-vs-ConfigHub comparison | 20 committed receipts: 15 pass, 5 watch, 0 blocked. | Comparing regular Helm with ConfigHub delivery for one selected row per top-20 chart. |
+| Live parity rerun queue | 20 non-pass rows across ConfigHub/OCI and two-cluster parity: 8 watch, 12 blocked, 0 semantic parity defects. | Choosing the next exact row that needs a prerequisite, runtime, lifecycle, or operating-policy decision before rerun. |
+
+The watch and blocked rows are not currently object-set parity defects. They
+surface target prerequisites, hook/lifecycle routes, controller health, storage,
+or runtime readiness decisions that still need to be modeled or rerun.
 
 For exact GitOps/OCI status, do not rely on copied counts in this handover.
 Use the generated status dashboard and outcome CSVs:
@@ -112,7 +120,8 @@ render reproducibility: complete for current recipe variants
 ConfigHub proof: partial by exact chart-recipe-variant row
 local live cluster proof: partial by exact chart-recipe-variant row
 GitOps/OCI live proof: partial by exact chart-recipe-variant row; use generated status for current pass, watch, blocked, and missing counts
-live Helm-vs-ConfigHub parity proof: 15 selected top-20 rows pass, 5 watch, 0 blocked; watch rows have semantic parity and need target/runtime follow-up
+selected live Helm-vs-ConfigHub comparison: 15 top-20 rows pass, 5 watch, 0 blocked
+broader live parity rerun queue: 8 watch, 12 blocked, 0 semantic parity defects across ConfigHub/OCI and two-cluster parity
 lifecycle observation proof: cert-manager and External Secrets exact rows pass, generic hook lifecycle support remains backlog
 ```
 
@@ -379,7 +388,7 @@ Use these generated summaries together:
 | --- | --- |
 | What can a user install now? | [CATALOG.md](../../CATALOG.md) |
 | What does each chart prove? | [data/top100-catalog-analysis/summary.md](../../data/top100-catalog-analysis/summary.md) |
-| What quirks and hard gaps remain? | [data/chart-facts/summary.md](../../data/chart-facts/summary.md) |
+| What quirks and hard gaps remain? | [data/chart-facts/summary.md](../../data/chart-facts/summary.md) and [data/quirk-coverage/summary.md](../../data/quirk-coverage/summary.md) |
 | What did we learn from the top 500? | [data/top500-catalog-analysis/summary.md](../../data/top500-catalog-analysis/summary.md) |
 | What is the current attack-plan queue? | [data/attack-plan-workdown/summary.md](../../data/attack-plan-workdown/summary.md) |
 | What is the first GitOps/OCI wave? | [data/runtime-gitops/summary.md](../../data/runtime-gitops/summary.md) |
@@ -465,7 +474,7 @@ headline order is:
    fleet inventory, fleet mutation, policy/security posture, and impact
    analysis in the order listed in `next-20-tasks.md`.
 
-## What Not To Do
+## Operating Cautions
 
 Do not add another planning document when an existing generated work queue can
 be refreshed instead.

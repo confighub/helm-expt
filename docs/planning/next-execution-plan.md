@@ -47,18 +47,27 @@ For the first dedicated website shape, see
 
 ## Current Baseline
 
-The repo now has:
+Use generated status pages for current counts. Do not maintain exact live,
+production, or refresh counts by hand in this plan.
+
+| Question | Current source |
+| --- | --- |
+| What is working now, and what is partial? | [data/status-dashboard/summary.md](../../data/status-dashboard/summary.md) |
+| Which exact chart/base rows have each proof lane? | [data/outcome-coverage/summary.md](../../data/outcome-coverage/summary.md) |
+| Which base variant should a user try first? | [data/top20-base-readiness/summary.md](../../data/top20-base-readiness/summary.md) |
+| Which non-pass live rows need decisions or reruns? | [data/live-parity-rerun-plan/summary.md](../../data/live-parity-rerun-plan/summary.md) |
+| Which latest chart versions are promotion candidates? | [data/latest-top20-refresh/summary.md](../../data/latest-top20-refresh/summary.md) |
+| Which compact work rows are next? | [data/next-ten-waves/summary.md](../../data/next-ten-waves/summary.md) |
+
+Current generated facts, at the time of this plan update:
 
 ```text
-100 machine-proof recipes
-100 cub installer packages
-20 bespoke multi-variant proofs
-80 generated full default proofs
-20 explicit catalog-supported recipes for local-test scope
-0 top-20 catalog candidates remaining
-80 proof-grade recipes
-14 top-20 proofs on the latest chart version
-6 top-20 proofs needing latest-version refresh
+100 charts have model support.
+20 top-100 charts are catalog-supported for the current public catalog scope.
+80 top-100 charts are proof-grade non-catalog rows.
+156 chart/base rows have render parity.
+ConfigHub proof, local live proof, GitOps/OCI proof, and live parity are partial by exact row.
+0 top-20 charts are production-supported; 20/20 are production-review-ready.
 ```
 
 Important boundary:
@@ -69,15 +78,16 @@ Machine proof decides support scope; it does not erase production review.
 Catalog support scope must be explicit in catalog-status.yaml.
 ```
 
-Issue baseline:
+Issue and command baseline:
 
 ```text
-Original proof P0s are closed and verified by npm run verify.
 #76 is closed as a verifier-backed definition of the Helm import path from
 `cub helm template` / `cub helm install` to durable `cub installer` recipes.
 The future `cub installer import helm` command remains product implementation
 work, not a blocker for the current proof corpus.
 Issue #82 is the current user-facing explanation work for the Helm pain table.
+Use scoped verifiers while editing. Use the full `npm run verify` only as the
+broad release gate.
 ```
 
 ## Roadmap Integration: Real Cub And ConfigHub Capabilities
