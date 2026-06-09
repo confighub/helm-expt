@@ -43,7 +43,7 @@ The shortest production work queue is:
 [Production Next Actions](../../data/production-disposition/next-actions.csv)
 
 It lists one next required receipt or fix per top-20 chart, starting with the
-charts closest to production disposition closure.
+charts closest to a production support review.
 
 The scan warning workdown is:
 
@@ -102,9 +102,9 @@ recipe/package proof
 A row is only proven for a lane when the lane matrix says `pass`.
 
 Production support is stricter than a passing proof lane. A chart can be
-render-equivalent, locally tested, and useful for demos while still blocked
-from production support until its production dispositions are closed or
-explicitly accepted.
+render-equivalent, locally tested, and useful for demos while still not being
+production-supported. Accepted dispositions are review input; production
+support needs a final target-scoped decision.
 
 ## Current Interpretation
 
@@ -166,7 +166,7 @@ Strict two-cluster Helm-vs-installer parity now has committed receipts for all
 Use the generated rerun plan for the next command and expected remediation:
 [Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md).
 
-Production disposition is still open for the top-20 catalog:
+Production support decisions are still open for the top-20 catalog:
 
 - 0 of 20 top-20 charts are currently marked production-supported.
 - 20 of 20 are production-review-ready pending a final support decision and
