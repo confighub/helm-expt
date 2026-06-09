@@ -1,0 +1,69 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionLifecycleDecision"
+metadata:
+  name: "bitnami-mysql-public-oci-lifecycle-decision"
+spec:
+  chart: "bitnami/mysql"
+  version: "14.0.3"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "mysql"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "generated-passwords"
+  variantsCovered:
+    - "existing-secret"
+    - "generated-passwords"
+  decision: "lifecycle-observed-for-proof-scope"
+  decidedAt: "2026-06-09"
+  claim: "The MySQL generated-passwords base has no Helm hook objects and reaches readiness through regular Helm, cub installer apply, and ConfigHub OCI/Argo. The generated root password is bound before render and the rendered Secret is separated by cub installer rather than hidden in workload units."
+  lifecycleModel:
+    hookPolicy: "no-chart-hooks"
+    selectedTopology: "primary-statefulset-generated-passwords"
+    generatedFacts: "auth.rootPassword is generated and bound before render; the rendered Secret is deterministic and separated during cub installer output."
+    storagePolicy: "The public proof uses the chart's default primary StatefulSet PVC posture. StorageClass, backup, restore, and rollback remain target decisions."
+    excludedTopology: "existing-secret is a useful target-fact path but remains outside this production-support claim until its target credential and rotation policy are separately reviewed."
+  observedLifecycleSignals:
+    twoClusterParity:
+      result: "pass"
+      observedAt: "2026-06-06T08:23:49Z"
+      regularHelmRuntime: "pass"
+      installerRuntime: "pass"
+      semanticParity: "pass"
+    confighubOciArgo:
+      result: "pass"
+      observedAt: "2026-06-08T17:46:04Z"
+      regularHelmRuntime: "pass"
+      confighubApplyRuntime: "pass"
+      confighubOciRuntime: "pass"
+      argoSync: "Synced"
+      argoHealth: "Healthy"
+      semanticParity: "pass"
+      separatedSecrets:
+        - "secret-mysql-oci-mysql.yaml"
+  limits:
+    - "This supports the generated-passwords public proof base, not every MySQL deployment topology."
+    - "This proof does not test MySQL backup, restore, point-in-time recovery, failover, or credential rotation."
+    - "Credential rotation and secret custody are target operating procedures outside this public proof."
+    - "Populated init scripts, custom configuration, or external credential paths require a new reviewed base."
+  evidence:
+    -
+      path: "runs/live-kind-parity/bitnami-mysql-generated-passwords/receipt.yaml"
+      claim: "Two-cluster Helm-vs-installer parity passes for generated-passwords."
+    -
+      path: "runs/live-helm-confighub-compare/bitnami-mysql-generated-passwords/receipt.yaml"
+      claim: "ConfigHub OCI/Argo live parity passes for generated-passwords."
+    -
+      path: "data/production-disposition/receipts/bitnami-mysql/generated-fact-ownership.yaml"
+      claim: "Records generated credential ownership and the separated Secret policy."
+    -
+      path: "data/production-disposition/receipts/bitnami-mysql/hook-and-lifecycle-phase-policy.yaml"
+      claim: "Records the no-hooks lifecycle boundary for MySQL."
+    -
+      path: "data/production-disposition/receipts/bitnami-mysql/storage-backup-restore-and-rollback-policy.yaml"
+      claim: "Records MySQL storage, backup, restore, and rollback boundaries."
+    -
+      path: "data/production-disposition/receipts/bitnami-mysql/target-fact-preflight.yaml"
+      claim: "Records the existing-secret target-fact path that remains outside this support claim."
+  remainingSupportBlockers:
+    - "Record image policy, scan/PDB acceptance, and fresh target-scoped ConfigHub OCI/GitOps evidence."

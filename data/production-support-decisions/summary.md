@@ -11,9 +11,9 @@ live evidence rule, and operator-owned boundaries.
 
 ```text
 decision artifacts: 20
-supported decisions: 10
-draft decisions: 10
-open work items: 28
+supported decisions: 11
+draft decisions: 9
+open work items: 25
 ```
 
 ## Workstreams
@@ -23,12 +23,12 @@ evidence work before it becomes production-supported for a target scope.
 
 | Workstream | Charts | Examples | Next action |
 | --- | ---: | --- | --- |
-| Supported scope evidence | 10 | `argo-cd/argo-cd@9.5.15` (default)<br>`bitnami/mongodb@19.0.7` (generated-passwords)<br>`bitnami/nginx@24.0.2` (http-clusterip)<br>`bitnami/redis@25.5.3` (default)<br>and 6 more | Keep target-scoped evidence fresh before using the supported scope as a production example. |
-| Image digest resolution or exception | 8 | `bitnami/mysql@14.0.3` (generated-passwords)<br>`bitnami/rabbitmq@16.0.14` (generated-passwords)<br>`grafana/grafana@10.5.15` (generated-passwords)<br>`grafana/tempo@1.24.4` (local-persistent)<br>and 4 more | Pin images by digest or record an explicit exception before production OCI support. |
-| Scan scope decision | 8 | `bitnami/mysql@14.0.3` (generated-passwords)<br>`bitnami/postgresql@18.6.7` (generated-passwords)<br>`bitnami/rabbitmq@16.0.14` (generated-passwords)<br>`grafana/grafana@10.5.15` (generated-passwords)<br>and 4 more | Record which scanner findings are accepted, fixed, or outside the supported target scope. |
+| Supported scope evidence | 11 | `argo-cd/argo-cd@9.5.15` (default)<br>`bitnami/mongodb@19.0.7` (generated-passwords)<br>`bitnami/mysql@14.0.3` (generated-passwords)<br>`bitnami/nginx@24.0.2` (http-clusterip)<br>and 7 more | Keep target-scoped evidence fresh before using the supported scope as a production example. |
+| Image digest resolution or exception | 7 | `bitnami/rabbitmq@16.0.14` (generated-passwords)<br>`grafana/grafana@10.5.15` (generated-passwords)<br>`grafana/tempo@1.24.4` (local-persistent)<br>`hashicorp/vault@0.32.0` (default)<br>and 3 more | Pin images by digest or record an explicit exception before production OCI support. |
+| Scan scope decision | 7 | `bitnami/postgresql@18.6.7` (generated-passwords)<br>`bitnami/rabbitmq@16.0.14` (generated-passwords)<br>`grafana/grafana@10.5.15` (generated-passwords)<br>`grafana/tempo@1.24.4` (local-persistent)<br>and 3 more | Record which scanner findings are accepted, fixed, or outside the supported target scope. |
 | Security acceptance or hardened base | 2 | `longhorn/longhorn@1.11.2` (default)<br>`secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` (default) | Accept current security findings for the target scope or create a narrower hardened base. |
 | Runtime or missing-lane decision | 4 | `bitnami/postgresql@18.6.7` (generated-passwords)<br>`hashicorp/vault@0.32.0` (default)<br>`ingress-nginx/ingress-nginx@4.15.1` (default)<br>`metrics-server/metrics-server@3.13.0` (default) | Close the runtime, missing-lane, or lifecycle-observation decision before refreshing final evidence. |
-| Fresh target-scoped evidence | 6 | `bitnami/mysql@14.0.3` (generated-passwords)<br>`bitnami/rabbitmq@16.0.14` (generated-passwords)<br>`grafana/grafana@10.5.15` (generated-passwords)<br>`grafana/tempo@1.24.4` (local-persistent)<br>and 2 more | After scope and risk decisions are closed, refresh ConfigHub OCI/GitOps and live/e2e evidence for that exact scope. |
+| Fresh target-scoped evidence | 5 | `bitnami/rabbitmq@16.0.14` (generated-passwords)<br>`grafana/grafana@10.5.15` (generated-passwords)<br>`grafana/tempo@1.24.4` (local-persistent)<br>`longhorn/longhorn@1.11.2` (default)<br>and 1 more | After scope and risk decisions are closed, refresh ConfigHub OCI/GitOps and live/e2e evidence for that exact scope. |
 
 ## Priority Rows
 
@@ -38,7 +38,6 @@ currently concentrated.
 
 | Chart | Base | Open work | Next action |
 | --- | --- | --- | --- |
-| `bitnami/mysql@14.0.3` | generated-passwords | image; scan scope; fresh evidence | resolve image digests for each affected variant before production OCI support |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords | image; scan scope; fresh evidence | resolve image digests for each affected variant before production OCI support |
 | `grafana/grafana@10.5.15` | generated-passwords | image; scan scope; fresh evidence | resolve image digests for each affected variant before production OCI support |
 | `grafana/tempo@1.24.4` | local-persistent | image; scan scope; fresh evidence | resolve image digests for each affected variant before production OCI support |
@@ -46,6 +45,7 @@ currently concentrated.
 | `longhorn/longhorn@1.11.2` | default | image; security/hardened base; fresh evidence | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
 | `metrics-server/metrics-server@3.13.0` | default | image; scan scope; missing proof lane | resolve image digests for each affected variant before production OCI support |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | image; security/hardened base; fresh evidence | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
+| `bitnami/postgresql@18.6.7` | generated-passwords | scan scope; missing proof lane | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
 
 The spreadsheet form is [work-items.csv](./work-items.csv). It has one row per
 production-support task or keep-fresh item, so overlapping work such as image,
@@ -82,7 +82,7 @@ Each decision directory also has a generated workdown page:
 | --- | --- | --- | --- | --- | --- |
 | `argo-cd/argo-cd@9.5.15` | default | supported | cub-lk-kind-vanilla; namespace=argocd; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate hardened, self-managed, repository-credential, SSO, or backup/restore bases for real customer GitOps control planes. |
 | `bitnami/mongodb@19.0.7` | generated-passwords | supported | cub-lk-kind-vanilla; namespace=mongodb; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, replica-set, backup/restore, failover, credential-rotation, storage-class, SLO, or resource-hardened bases for real customer MongoDB workloads. |
-| `bitnami/mysql@14.0.3` | generated-passwords | draft | vanilla-kubernetes; namespace=mysql; delivery=confighub-oci; controller=argo-or-flux | needs-fresh-target-evidence-before-final | resolve image digests for each affected variant before production OCI support |
+| `bitnami/mysql@14.0.3` | generated-passwords | supported | cub-lk-kind-vanilla; namespace=mysql; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, backup/restore, failover, credential-rotation, storage-class, SLO, or resource-hardened bases for real customer MySQL workloads. |
 | `bitnami/nginx@24.0.2` | http-clusterip | supported | cub-lk-kind-vanilla; namespace=nginx; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example. |
 | `bitnami/postgresql@18.6.7` | generated-passwords | draft | vanilla-kubernetes; namespace=postgresql; delivery=confighub-oci; controller=argo-or-flux | needs-missing-live-or-confighub-lanes-before-final | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords | draft | vanilla-kubernetes; namespace=rabbitmq; delivery=confighub-oci; controller=argo-or-flux | needs-fresh-target-evidence-before-final | resolve image digests for each affected variant before production OCI support |

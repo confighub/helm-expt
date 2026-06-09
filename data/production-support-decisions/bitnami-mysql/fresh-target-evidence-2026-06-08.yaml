@@ -1,0 +1,74 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSupportEvidenceReceipt"
+metadata:
+  name: "bitnami-mysql-generated-passwords-argo-oci-support-evidence-20260608"
+spec:
+  chart: "bitnami/mysql"
+  version: "14.0.3"
+  base: "generated-passwords"
+  observedAt: "2026-06-08T17:46:04Z"
+  result: "pass"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "mysql"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+    rig: "helm-expt-parity-mysql-mq5i5crp-1sge"
+    kubeContext: "kind-helm-expt-parity-mysql-mq5i5crp-1sge"
+    target: "helm-expt-parity-mysql-mq5i5crp-1sge-cluster/oci"
+    workloadSpace: "helm-expt-parity-mysql-mq5i5crp-1sge-mysql"
+    app: "mysql-parity"
+  package:
+    path: "packages/bitnami/mysql/14.0.3"
+  recipe:
+    path: "recipes/bitnami/mysql/14.0.3"
+  oci:
+    revision: "sha256:0d256f53056c2f289d7d876cc23cf7f428276545cdc425fbe3735eecda2c99f1"
+    controller: "Argo CD OCI"
+    sync: "Synced"
+    health: "Healthy"
+    manifestSHA256: "c82afbf27d72ff5dafc0204ef82798441081bb1cafa05a1242f416aba6a7f7ef"
+    objectCount: 9
+    separatedSecrets:
+      - "secret-mysql-oci-mysql.yaml"
+  comparison:
+    regularHelmRuntime: "pass"
+    configHubApplyRuntime: "pass"
+    configHubOciRuntime: "pass"
+    helmVsConfigHubOciArgo: "pass"
+    allowedExtraConfigHubObjects:
+      - "v1|Namespace||mysql"
+  twoClusterCrossCheck:
+    path: "runs/live-kind-parity/bitnami-mysql-generated-passwords/receipt.yaml"
+    result: "pass"
+    semanticParity: "pass"
+    regularHelmRuntime: "pass"
+    installerRuntime: "pass"
+  source:
+    liveReceiptPath: "runs/live-helm-confighub-compare/bitnami-mysql-generated-passwords/receipt.yaml"
+    cleanupPolicy: "cub-lk rig and ConfigHub cluster space removed after evidence capture"
+  checks:
+    -
+      name: "regular-helm-runtime"
+      result: "pass"
+      detail: "regular Helm MySQL runtime passed"
+    -
+      name: "confighub-apply-runtime"
+      result: "pass"
+      detail: "ConfigHub rendered objects applied by kubectl reached MySQL readiness"
+    -
+      name: "confighub-oci-argo-runtime"
+      result: "pass"
+      detail: "Argo app mysql-parity: sync=Synced health=Healthy revision=sha256:0d256f53056c2f289d7d876cc23cf7f428276545cdc425fbe3735eecda2c99f1"
+    -
+      name: "semantic-object-parity"
+      result: "pass"
+      detail: "regular Helm and ConfigHub OCI/Argo object sets match semantically, except the recorded Namespace support object"
+  supportClaim:
+    state: "fresh-target-evidence-passed"
+    detail: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared MySQL generated-passwords support scope."
+  limits:
+    - "This supports the recorded cub-lk vanilla kind Argo OCI scope, not every Kubernetes cluster."
+    - "This assumes an existing Argo CD OCI controller is available to reconcile the ConfigHub artifact."
+    - "This supports the generated-passwords base, not the existing-secret topology."
+    - "Evidence freshness is 30 days for public demo/support examples unless refreshed earlier."
