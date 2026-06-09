@@ -380,7 +380,7 @@ function html(catalog) {
         ["Chart", "Production", "Accepted", "Open", "Next action"],
         ...productionDispositionRows,
       ])}
-      <p><a href="../data/production-disposition/summary.md">Open the full production disposition report</a> or <a href="../data/scan-disposition-workdown/summary.md">open the scan disposition workdown</a>.</p>
+      <p><a href="../docs/user/production-support-decisions.md">Open the production support decision guide</a>, <a href="../data/production-disposition/summary.md">open the full production disposition report</a>, or <a href="../data/scan-disposition-workdown/summary.md">open the scan disposition workdown</a>.</p>
     </section>
 
     <section aria-labelledby="live-rerun-plan">
@@ -709,6 +709,7 @@ function offeringHtml(catalog) {
         <div class="card"><h3>Try it</h3><p><a href="./try.html">Open the short try-now page</a>.</p></div>
         <div class="card"><h3>Pick a base variant</h3><p><a href="../data/top20-base-readiness/summary.md">Open top-20 base readiness</a>.</p></div>
         <div class="card"><h3>Read current proof status</h3><p><a href="../docs/user/current-proof-status.md">Open current proof status</a>.</p></div>
+        <div class="card"><h3>Understand production support</h3><p><a href="../docs/user/production-support-decisions.md">Open production support decisions</a>.</p></div>
         <div class="card"><h3>Choose the right command</h3><p><a href="../docs/user/choosing-commands.md">Open command routing</a>.</p></div>
       </div>
     </section>
@@ -1114,6 +1115,8 @@ npm run site:verify
 Open \`site/offering.html\` directly in a browser for the public offering page.
 Open \`site/try.html\` for the short try-now page.
 Open \`site/index.html\` for the static catalog and status dashboard.
+Open \`docs/user/production-support-decisions.md\` for the plain-English
+boundary between production-review-ready and production-supported.
 
 Data source:
 
