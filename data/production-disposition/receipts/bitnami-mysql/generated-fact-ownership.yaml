@@ -37,6 +37,5 @@ spec:
     - generated-passwords
     - existing-secret
   remainingProductionBlockers:
-    - scan/gate warning disposition
     - storage backup restore and rollback policy
   nextDecision: A production support decision should choose whether MySQL uses generated credentials managed outside the public proof values or the existing-secret base with externally managed credentials.

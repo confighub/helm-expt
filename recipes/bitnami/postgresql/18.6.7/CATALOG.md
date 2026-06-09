@@ -34,7 +34,7 @@ for exact base-variant evidence.
 | Proof lanes | render parity 2/2; ConfigHub 0/2; local live 1/2; GitOps live 2/2; live parity 1/2 |
 | Feature summary | generated-secrets;required-values;install-vs-upgrade |
 | Hard gap | ha (curated proof lane - bespoke teaching needed) |
-| Next action | accept PDB behavior or add a reviewed patch where the chart supports it |
+| Next action | write or fix the storage backup restore and rollback policy disposition receipt |
 
 ## Artifact Chain
 

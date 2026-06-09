@@ -228,7 +228,7 @@ production-supported until a final target-scoped support decision is recorded.
 
 | Open disposition | Charts |
 | --- | ---: |
-| scan/gate warning disposition | 17 |
+| scan/gate warning disposition | 14 |
 | cluster RBAC review | 12 |
 | extension slot provenance and scan policy | 12 |
 | storage backup restore and rollback policy | 8 |
@@ -246,16 +246,16 @@ production-supported until a final target-scoped support decision is recorded.
 
 | Chart | Production | Accepted | Open | Next action |
 | --- | --- | ---: | ---: | --- |
-| argo-cd/argo-cd@9.5.15 | blocked | 0 | 6 | extend live/e2e lane beyond local kind after production dispositions are written |
-| bitnami/mongodb@19.0.7 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |
-| bitnami/mysql@14.0.3 | blocked | 3 | 2 | extend live/e2e lane beyond local kind after production dispositions are written |
+| argo-cd/argo-cd@9.5.15 | blocked | 0 | 6 | write or fix the CRD lifecycle and upgrade policy disposition receipt |
+| bitnami/mongodb@19.0.7 | blocked | 0 | 5 | write or fix the extension slot provenance and scan policy disposition receipt |
+| bitnami/mysql@14.0.3 | blocked | 4 | 1 | write or fix the storage backup restore and rollback policy disposition receipt |
 | bitnami/nginx@24.0.2 | production-review-ready | 4 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
-| bitnami/postgresql@18.6.7 | blocked | 3 | 2 | extend live/e2e lane beyond local kind after production dispositions are written |
-| bitnami/rabbitmq@16.0.14 | blocked | 3 | 2 | extend live/e2e lane beyond local kind after production dispositions are written |
+| bitnami/postgresql@18.6.7 | blocked | 4 | 1 | write or fix the storage backup restore and rollback policy disposition receipt |
+| bitnami/rabbitmq@16.0.14 | blocked | 4 | 1 | write or fix the storage backup restore and rollback policy disposition receipt |
 | bitnami/redis@25.5.3 | production-review-ready | 4 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
-| external-secrets/external-secrets@2.5.0 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |
-| grafana/grafana@10.5.15 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |
-| grafana/loki@7.0.0 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |
+| external-secrets/external-secrets@2.5.0 | blocked | 0 | 5 | write or fix the CRD lifecycle and upgrade policy disposition receipt |
+| grafana/grafana@10.5.15 | blocked | 0 | 5 | write or fix the cluster RBAC review disposition receipt |
+| grafana/loki@7.0.0 | blocked | 0 | 5 | write or fix the cluster RBAC review disposition receipt |
 
 Use [production-disposition/summary.md](../production-disposition/summary.md)
 for the full top-20 disposition table and

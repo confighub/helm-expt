@@ -97,7 +97,7 @@ function productionRow(root, configHubProof, liveE2E, sourceFeatures, extensionS
     source_hook_count: source.hooks?.count ?? 0,
     lifecycle_policy_basis: lifecycleBasis.join(";"),
     lifecycle_observation_receipts: observations.map((row) => row.receipt).join(";"),
-    next_action: nextAction(requiredDispositions, live.status),
+    next_action: nextAction(openDispositions, live.status),
     recipe_path: relativeRepo(root),
     package_path: index.spec?.installerPackage?.path ?? "",
     confighub_proof_receipt: receipt?.path ?? "",
@@ -269,7 +269,8 @@ function dispositionList({ controls, variants, hasExtensionSlot }) {
   return [...dispositions].sort();
 }
 
-function nextAction(requiredDispositions, liveStatus) {
+function nextAction(openDispositions, liveStatus) {
+  if (openDispositions.length > 0) return `write or fix the ${openDispositions[0]} disposition receipt`;
   if (liveStatus === "not-started") return "add target-backed live/e2e observation receipt after production dispositions are written";
   return "extend live/e2e lane beyond local kind after production dispositions are written";
 }

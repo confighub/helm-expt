@@ -1,0 +1,49 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: bitnami-rabbitmq-scan-gate-warning-disposition
+spec:
+  chart: bitnami/rabbitmq
+  version: "16.0.14"
+  disposition: scan/gate warning disposition
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: The supported RabbitMQ bases have no high or critical rendered-object scan findings. The external scanner's remaining finding is the PodDisruptionBudget unhealthy-pod-eviction policy on each base. The local scan warnings are either covered by existing production disposition receipts or remain open under the separate storage, backup, restore, and rollback policy disposition. This accepts the PDB warning as an explicit availability-policy choice for the reviewed bases, not as a hidden render defect.
+  evidence:
+    - path: data/external-scan-lane/chart-workdown.csv
+      claim: The external scan workdown records two RabbitMQ findings, both for pdb-unhealthy-pod-eviction-policy across the two supported bases.
+    - path: data/scan-disposition-workdown/workdown.csv
+      claim: The generated scan disposition workdown routes bitnami/rabbitmq to accept-or-patch-pdb-policy rather than image-pin, security-hardening, endpoint, or privileged-infrastructure work.
+    - path: recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/receipts/scan-receipt.yaml
+      claim: The generated-passwords local rendered-object scan has zero high or critical findings and records all remaining policy warnings explicitly.
+    - path: recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/receipts/scan-receipt.yaml
+      claim: The existing-secret local rendered-object scan has zero high or critical findings and records all remaining policy warnings explicitly.
+    - path: data/production-disposition/receipts/bitnami-rabbitmq/generated-fact-ownership.yaml
+      claim: Generated credential ownership is already accepted for the reviewed bases.
+    - path: data/production-disposition/receipts/bitnami-rabbitmq/target-fact-preflight.yaml
+      claim: Target Secret preflight is already accepted for the existing-secret base.
+    - path: data/production-disposition/receipts/bitnami-rabbitmq/hook-and-lifecycle-phase-policy.yaml
+      claim: Lifecycle/no-hooks policy is already accepted for the reviewed bases.
+    - path: recipes/bitnami/rabbitmq/16.0.14/dependency-lock.yaml
+      claim: The Bitnami common dependency is locked for the reviewed bases.
+    - path: recipes/bitnami/rabbitmq/16.0.14/control-points.yaml
+      claim: Extension slots are kept empty in the supported bases and must be rescanned if populated.
+    - path: runs/live-kind-parity/bitnami-rabbitmq-generated-passwords/receipt.yaml
+      claim: The generated-passwords base passes strict two-cluster live parity between regular Helm and cub installer apply.
+    - path: runs/live-kind-parity/bitnami-rabbitmq-existing-secret/receipt.yaml
+      claim: The existing-secret base passes strict two-cluster live parity with target Secrets staged.
+  affectedVariants:
+    - generated-passwords
+    - existing-secret
+  acceptedWarnings:
+    - pdb-unhealthy-pod-eviction-policy
+    - dependency-lock-review
+    - extension-slot-review
+  deferredWarnings:
+    - stateful-workload-review
+  remainingProductionBlockers:
+    - storage backup restore and rollback policy
+  nextDecision: Record storage, backup, restore, and rollback policy before declaring production support for a target scope.
