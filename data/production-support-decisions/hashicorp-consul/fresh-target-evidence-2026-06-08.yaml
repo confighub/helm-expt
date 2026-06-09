@@ -1,0 +1,72 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSupportEvidenceReceipt"
+metadata:
+  name: "hashicorp-consul-default-control-plane-argo-oci-support-evidence-20260608"
+spec:
+  chart: "hashicorp/consul"
+  version: "2.0.0"
+  base: "default-control-plane"
+  observedAt: "2026-06-08T19:19:58Z"
+  result: "pass"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "consul"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+    rig: "helm-expt-parity-consul-mq5li3h5-1bw5"
+    kubeContext: "kind-helm-expt-parity-consul-mq5li3h5-1bw5"
+    target: "helm-expt-parity-consul-mq5li3h5-1bw5-cluster/oci"
+    workloadSpace: "helm-expt-parity-consul-mq5li3h5-1bw5-consul"
+    app: "consul-parity"
+  package:
+    path: "packages/hashicorp/consul/2.0.0"
+  recipe:
+    path: "recipes/hashicorp/consul/2.0.0"
+  oci:
+    revision: "sha256:25bc6140761f800f498f928e6843ebf0fc65c90b78b1a27e05772391fd72ceea"
+    controller: "Argo CD OCI"
+    sync: "Synced"
+    health: "Healthy"
+    manifestSHA256: "bcd771e5421b90c4e77257ac39f1e2e43cb03eeb25e9fa49939d7251944ca9f9"
+    objectCount: 69
+  comparison:
+    regularHelmRuntime: "pass"
+    configHubApplyRuntime: "pass"
+    configHubOciRuntime: "pass"
+    helmVsConfigHubOciArgo: "pass"
+    allowedExtraConfigHubObjects:
+      - "v1|Namespace||consul"
+  twoClusterCrossCheck:
+    path: "runs/live-kind-parity/hashicorp-consul-default-control-plane/receipt.yaml"
+    result: "pass"
+    semanticParity: "pass"
+    regularHelmRuntime: "pass"
+    installerRuntime: "pass"
+  source:
+    liveReceiptPath: "runs/live-helm-confighub-compare/hashicorp-consul-default-control-plane/receipt.yaml"
+    cleanupPolicy: "cub-lk rig and ConfigHub cluster space removed after evidence capture"
+  checks:
+    -
+      name: "regular-helm-runtime"
+      result: "pass"
+      detail: "regular Helm Consul runtime passed"
+    -
+      name: "confighub-apply-runtime"
+      result: "pass"
+      detail: "ConfigHub rendered objects applied by kubectl reached Consul readiness"
+    -
+      name: "confighub-oci-argo-runtime"
+      result: "pass"
+      detail: "Argo app consul-parity: sync=Synced health=Healthy revision=sha256:25bc6140761f800f498f928e6843ebf0fc65c90b78b1a27e05772391fd72ceea"
+    -
+      name: "semantic-object-parity"
+      result: "pass"
+      detail: "regular Helm and ConfigHub OCI/Argo object sets match semantically, except the recorded Namespace support object"
+  supportClaim:
+    state: "fresh-target-evidence-passed"
+    detail: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared Consul default-control-plane support scope."
+  limits:
+    - "This supports the recorded cub-lk vanilla kind Argo OCI scope, not every Kubernetes cluster."
+    - "This assumes an existing Argo CD OCI controller is available to reconcile the ConfigHub artifact."
+    - "This supports the default-control-plane base, not the secure mesh or gateway topology."
+    - "Evidence freshness is 30 days for public demo/support examples unless refreshed earlier."

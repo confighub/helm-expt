@@ -1,48 +1,60 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ProductionSupportDecision
 metadata:
-  name: "hashicorp-consul-default-control-plane-public-oci-draft"
+  name: "hashicorp-consul-default-control-plane-public-oci-supported"
 spec:
   chart: "hashicorp/consul"
   version: "2.0.0"
-  decision: draft
+  decision: supported
   decisionDate: "2026-06-09"
+  supportedSince: "2026-06-08T19:19:58Z"
   supportedBase: "default-control-plane"
   targetScope:
-    clusterClass: vanilla-kubernetes
+    clusterClass: cub-lk-kind-vanilla
     namespace: "consul"
     deliveryPath: confighub-oci
-    gitopsController: argo-or-flux
+    gitopsController: argo
+    lastEvidenceAt: "2026-06-08T19:19:58Z"
+    lastEvidenceTarget: helm-expt-parity-consul-mq5li3h5-1bw5-cluster/oci
+    lastEvidenceKubeContext: kind-helm-expt-parity-consul-mq5li3h5-1bw5
+    liveEvidenceTTL: 30d
     storageAssumptions:
-      - "Use the chart's recorded storage behavior for the candidate base unless this draft is narrowed before final support."
+      - "The supported base uses Consul's simple one-server control-plane posture for the public proof scope; production quorum, backup, restore, rollback, and state continuity need a separate target decision."
     networkAssumptions:
-      - "Use the service, ingress, DNS, and certificate behavior recorded by the candidate base unless this draft is narrowed before final support."
+      - "Use the connect-injector webhook, services, and certificate-manager workload behavior recorded by the supported scope unless a narrower scope is separately reviewed."
     requiredTargetFacts: []
   supportBoundary:
     includes:
       - "hashicorp/consul@2.0.0 default-control-plane base"
-      - ConfigHub OCI delivery for the declared target scope after fresh target evidence is recorded
-      - rendered objects, labels, gates, receipts, and support objects produced by the recorded base
+      - ConfigHub OCI delivery through Argo for the declared cub-lk vanilla kind target scope
+      - rendered Consul server, connect injector, webhook certificate manager, CRDs, RBAC, labels, gates, receipts, and support objects produced by the recorded base
+      - recorded mutable-image exception with digest-resolution evidence for the declared public proof scope
+      - recorded resource/probe warning acceptance for the declared public proof scope
+      - recorded no-hook desired-object lifecycle policy for the declared public proof scope
     excludes:
+      - "secure-mesh-existing-secrets unless separately reviewed for a target with required Secrets, TLS, ACL, gateway, UI, mesh, and runtime policies"
+      - "Consul production quorum, backup, restore, rollback, ACL state, gossip key continuity, and traffic failover unless separately reviewed"
+      - "platform-owned Gateway API or Consul CRDs unless separately reviewed through an external-CRD base"
       - "private values overlays, wrapper charts, and populated extension slots unless separately reviewed"
+      - "digest-pinned, resource-hardened, TLS/ACL-enabled, gateway-enabled, UI-ingress, or customer production bases unless separately reviewed"
       - "non-vanilla Kubernetes distributions unless separately reviewed"
       - "other delivery controllers or target scopes unless separately reviewed"
   decisions:
     imageDecision:
-      state: "needs-image-digest-resolution-or-exception"
-      detail: "resolve image digests or record explicit exception before production OCI support"
+      state: "mutable-image-exception-accepted-for-target-scope"
+      detail: "both recorded bases have digest-resolution receipts; mutable image tags are accepted only for the declared default-control-plane public proof scope, while stricter scopes may require digest-pinned bases or image overrides"
     scanDecision:
-      state: "needs-scan-scope-decision"
-      detail: "accept, fix, or document scanner findings for supported scope"
+      state: "default-control-plane-resource-policy-accepted-for-target-scope"
+      detail: "resource and probe-port warnings are accepted for the declared public proof scope; stricter scopes should create a resource-policy base and review cluster RBAC, CRD, and webhook posture"
     lifecycleDecision:
-      state: "needs-lifecycle-support-boundary"
-      detail: "record lifecycle support boundary: recipe-lifecycle-policy"
+      state: "lifecycle-observed-for-proof-scope"
+      detail: "the default-control-plane base is managed as desired objects with Helm hooks excluded, and reaches readiness through regular Helm, cub installer apply, and ConfigHub OCI/Argo"
     targetFactDecision:
       state: "no-unresolved-target-prerequisite-in-candidate-base"
       detail: "no unresolved target prerequisite in candidate base"
     liveEvidenceDecision:
-      state: "needs-fresh-target-evidence-before-final"
-      detail: "refresh target-scoped live/e2e evidence before support claim"
+      state: "fresh-target-evidence-passed"
+      detail: "fresh target-scoped ConfigHub OCI and Argo evidence passed on 2026-06-08 for the declared cub-lk vanilla kind Consul default-control-plane scope"
   evidence:
     - path: "recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/receipts/helm-equivalence-receipt.yaml"
       claim: "The candidate base is Helm-equivalent under recorded inputs."
@@ -52,6 +64,16 @@ spec:
       claim: "The two-cluster Helm-vs-installer parity receipt exists for the candidate base."
     - path: "runs/live-helm-confighub-compare/hashicorp-consul-default-control-plane/receipt.yaml"
       claim: "The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base."
+    - path: "data/production-support-decisions/hashicorp-consul/fresh-target-evidence-2026-06-08.yaml"
+      claim: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared cub-lk vanilla kind support scope."
+    - path: "data/image-digest-workdown/receipts/hashicorp-consul/default-control-plane/image-digest-resolution.yaml"
+      claim: "The rendered mutable image references for the supported base have registry digest-resolution evidence."
+    - path: "data/production-support-decisions/hashicorp-consul/image-policy-decision.yaml"
+      claim: "The target-scoped image policy decision accepts mutable rendered tags for this public proof scope with explicit limits."
+    - path: "data/production-support-decisions/hashicorp-consul/security-decision.yaml"
+      claim: "The target-scoped security decision accepts the default-control-plane warning shape only for this public proof scope."
+    - path: "data/production-support-decisions/hashicorp-consul/lifecycle-decision.yaml"
+      claim: "The target-scoped lifecycle decision binds no-hook desired-object policy, CRD/webhook policy, secure-mesh exclusions, and OCI/Argo runtime health to proof-scope evidence."
     - path: "data/production-disposition/receipts/hashicorp-consul/cluster-rbac-review.yaml"
       claim: "The cluster rbac review disposition exists for this chart."
     - path: "data/production-disposition/receipts/hashicorp-consul/crd-lifecycle-and-upgrade-policy.yaml"
@@ -68,8 +90,5 @@ spec:
       claim: "The target fact preflight disposition exists for this chart."
     - path: "data/production-disposition/receipts/hashicorp-consul/webhook-readiness-and-failure-policy.yaml"
       claim: "The webhook readiness and failure policy disposition exists for this chart."
-  requiredBeforeFinal:
-    - "Choose the final target scope, exact GitOps controller, namespace, and artifact digest."
-    - "Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope."
-    - "resolve image digests or record explicit exception before production OCI support"
-  nextAction: "resolve image digests for each affected variant before production OCI support"
+  requiredBeforeFinal: []
+  nextAction: "Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate secure-mesh, TLS, ACL, gateway, UI, external-CRD, production-quorum, hardening, and digest-pinned bases for real customer Consul workloads."
