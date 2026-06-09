@@ -76,8 +76,10 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `local live` | The rendered objects were applied to Kubernetes and observed with workload checks. |
 | `GitOps live` | ConfigHub OCI was reconciled by Argo or Flux and observed. |
 | `live parity` | A live Helm install was compared with ConfigHub delivery paths. |
-| `missing` | No committed receipt for that exact row yet. |
-| `blocked` / `watch` / `fail` | A committed receipt exists and records a non-pass outcome on the tested target. |
+| `missing` | No committed receipt for that exact row yet. This is backlog, not failure. |
+| `watch` | A committed receipt exists and the lane produced useful evidence, but runtime, storage, controller-health, initialization, or operating policy still needs review. |
+| `blocked` | A committed receipt exists, but a target prerequisite, lifecycle route, hook decision, Secret, CRD, storage class, or similar condition must be resolved before the row can pass. |
+| `fail` | A committed receipt records a failed check. Read the reason before treating it as a ConfigHub-vs-Helm defect. |
 
 ## Dataset Families
 
