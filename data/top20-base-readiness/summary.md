@@ -16,9 +16,9 @@ or runtime review.
 ~~~text
 base variants: 40
 start-here: 11
-try-with-proof: 19
+try-with-proof: 20
 runtime-watch: 1
-runtime-review-needed: 7
+runtime-review-needed: 6
 target-prerequisite-needed: 1
 hook-lifecycle-review-needed: 0
 lifecycle-observed: 1
@@ -30,7 +30,7 @@ Live rerun readiness for non-pass rows:
 
 ~~~text
 model-or-stage-first: 2
-review-target-first: 11
+review-target-first: 10
 inspect-diff-first: 0
 rerun-now-after-cleanup: 0
 ~~~
@@ -73,7 +73,7 @@ rerun-now-after-cleanup: 0
 | `grafana/grafana@10.5.15` | existing-secret-ingress | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `grafana/loki@7.0.0` | single-binary-filesystem | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
 | `grafana/loki@7.0.0` | simple-scalable-minio | no | runtime-review-needed | review-target-first | target-runtime: pods pending (parity passed) | inspect runtime state; keep the recipe stable unless semantic object comparison starts failing |
-| `grafana/tempo@1.24.4` | local-persistent | yes | runtime-review-needed | review-target-first | target-runtime: pods pending (parity passed) | inspect runtime state; keep the recipe stable unless semantic object comparison starts failing |
+| `grafana/tempo@1.24.4` | local-persistent | yes | try-with-proof | review-target-first | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `grafana/tempo@1.24.4` | s3-query-observability | no | target-prerequisite-needed | model-or-stage-first | target-prerequisite: CRDs missing | stage or model the prerequisite, then rerun the same base; keep render parity separate from target fit |
 | `hashicorp/consul@2.0.0` | default-control-plane | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
 | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | no | runtime-review-needed | review-target-first | target-runtime: pod crash loop (parity passed) | inspect runtime state; keep the recipe stable unless semantic object comparison starts failing |
@@ -87,7 +87,7 @@ rerun-now-after-cleanup: 0
 | `longhorn/longhorn@1.11.2` | ui-ingress | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `metrics-server/metrics-server@3.13.0` | default | yes | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `metrics-server/metrics-server@3.13.0` | external-tls-ca | no | runtime-review-needed | review-target-first | helm-runtime: upstream not ready (parity passed) | inspect runtime state; keep the recipe stable unless semantic object comparison starts failing |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | default | yes | try-with-proof | review-target-first | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | default | yes | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `prometheus-community/prometheus@29.8.0` | default | yes | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `prometheus-community/prometheus@29.8.0` | server-only-ephemeral | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |

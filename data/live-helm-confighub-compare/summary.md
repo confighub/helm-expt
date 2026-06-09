@@ -5,8 +5,8 @@ chart/base rows. Each completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 15
-watch: 5
+pass: 16
+watch: 4
 blocked: 0
 not-started: 0
 ```
@@ -25,7 +25,7 @@ Blocked rows broken down by cause (see `blocked-triage.md`):
 | 4 | `jetstack/cert-manager@v1.20.2` | crds-enabled | pass | - | runs/live-helm-confighub-compare/jetstack-cert-manager-crds-enabled/receipt.yaml |
 | 5 | `external-secrets/external-secrets@2.5.0` | default | pass | - | runs/live-helm-confighub-compare/external-secrets-external-secrets-default/receipt.yaml |
 | 6 | `argo-cd/argo-cd@9.5.15` | default | watch | target-runtime: pod config/runtime errors (parity passed) | runs/live-helm-confighub-compare/argo-cd-argo-cd-default/receipt.yaml |
-| 7 | `prometheus-community/kube-prometheus-stack@85.3.3` | default | watch | target-runtime: pod ContainerCreating (parity passed) | runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml |
+| 7 | `prometheus-community/kube-prometheus-stack@85.3.3` | default | pass | - | runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml |
 | 8 | `bitnami/postgresql@18.6.7` | generated-passwords | pass | - | runs/live-helm-confighub-compare/bitnami-postgresql-generated-passwords/receipt.yaml |
 | 9 | `bitnami/rabbitmq@16.0.14` | generated-passwords | pass | - | runs/live-helm-confighub-compare/bitnami-rabbitmq-generated-passwords/receipt.yaml |
 | 10 | `grafana/loki@7.0.0` | single-binary-filesystem | pass | - | runs/live-helm-confighub-compare/grafana-loki-single-binary-filesystem/receipt.yaml |

@@ -11,9 +11,9 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 30
+pass: 31
 watch: 1
-blocked: 9
+blocked: 8
 semantic parity defects: 0
 ```
 
@@ -30,8 +30,8 @@ data/live-parity-rerun-plan/summary.md
 | Reason | Rows |
 | --- | ---: |
 | helm-runtime: upstream not ready (parity passed) | 3 |
-| target-runtime: pods pending (parity passed) | 3 |
 | target-runtime: pod crash loop (parity passed) | 2 |
+| target-runtime: pods pending (parity passed) | 2 |
 | helm-hook: post-install hook failed (parity passed) | 1 |
 | target-prerequisite: CRDs missing | 1 |
 
@@ -59,7 +59,7 @@ data/live-parity-rerun-plan/summary.md
 | `grafana/grafana@10.5.15` | generated-passwords | pass |  | runs/live-kind-parity/grafana-grafana-generated-passwords/receipt.yaml |
 | `grafana/loki@7.0.0` | simple-scalable-minio | blocked | target-runtime: pods pending (parity passed) | runs/live-kind-parity/grafana-loki-simple-scalable-minio/receipt.yaml |
 | `grafana/loki@7.0.0` | single-binary-filesystem | pass |  | runs/live-kind-parity/grafana-loki-single-binary-filesystem/receipt.yaml |
-| `grafana/tempo@1.24.4` | local-persistent | blocked | target-runtime: pods pending (parity passed) | runs/live-kind-parity/grafana-tempo-local-persistent/receipt.yaml |
+| `grafana/tempo@1.24.4` | local-persistent | pass |  | runs/live-kind-parity/grafana-tempo-local-persistent/receipt.yaml |
 | `grafana/tempo@1.24.4` | s3-query-observability | blocked | target-prerequisite: CRDs missing | runs/live-kind-parity/grafana-tempo-s3-query-observability/receipt.yaml |
 | `hashicorp/consul@2.0.0` | default-control-plane | pass |  | runs/live-kind-parity/hashicorp-consul-default-control-plane/receipt.yaml |
 | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | blocked | target-runtime: pod crash loop (parity passed) | runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml |

@@ -18,8 +18,8 @@ GitOps/OCI live pass rows:           17/156
 GitOps/OCI non-pass receipts:        9
 live Helm-vs-ConfigHub pass rows:    15/156
 live Helm-vs-ConfigHub non-pass receipts: 5
-selected live parity receipts:       15 pass, 5 watch, 0 blocked
-two-cluster kind parity receipts:    30 pass, 1 watch, 9 blocked
+selected live parity receipts:       16 pass, 4 watch, 0 blocked
+two-cluster kind parity receipts:    31 pass, 1 watch, 8 blocked
 derived intended-state pass rows:    10
 target-bound derived pass rows:      5
 target-bound derived blocked rows:   1
@@ -68,7 +68,7 @@ related lifecycle observations:      4/4
 | `external-secrets/external-secrets@2.5.0` | default;no-crds | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | - |
 | `grafana/grafana@10.5.15` | generated-passwords;existing-secret-ingress | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | - |
 | `grafana/loki@7.0.0` | single-binary-filesystem;simple-scalable-minio | yes | 1/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
-| `grafana/tempo@1.24.4` | local-persistent;s3-query-observability | yes | 1/2 | 1/2 | 0/2 | 0/2 | 0/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
+| `grafana/tempo@1.24.4` | local-persistent;s3-query-observability | yes | 1/2 | 1/2 | 0/2 | 0/2 | 1/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
 | `hashicorp/consul@2.0.0` | default-control-plane;secure-mesh-existing-secrets | yes | 1/2 | 1/2 | 1/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
 | `hashicorp/vault@0.32.0` | default;ha-raft-ui | yes | 1/2 | 1/2 | 0/2 | 0/2 | 0/2 | - |
 | `ingress-nginx/ingress-nginx@4.15.1` | default;admission-disabled | yes | 1/2 | 1/2 | 0/2 | 0/2 | 1/2 | - |
