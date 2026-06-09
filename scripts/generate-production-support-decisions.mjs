@@ -17,6 +17,7 @@ if (mode === "--generate") {
   write(summaryPath, report.summary);
   write(csvPath, report.csv);
   write(workItemsPath, report.workItemsCsv);
+  for (const readme of report.readmes) write(join(repoRoot, readme.path), readme.contents);
   console.log("wrote production support decisions");
 } else if (mode === "--scaffold") {
   const rows = readDecisionQueue();
@@ -36,6 +37,10 @@ if (mode === "--generate") {
   check(readFileSync(summaryPath, "utf8") === report.summary, "production support decision summary is stale");
   check(readFileSync(csvPath, "utf8") === report.csv, "production support decision CSV is stale");
   check(readFileSync(workItemsPath, "utf8") === report.workItemsCsv, "production support work item CSV is stale");
+  for (const readme of report.readmes) {
+    check(existsSync(join(repoRoot, readme.path)), `missing production support workdown ${readme.path}; run npm run production:support-decisions`);
+    check(readFileSync(join(repoRoot, readme.path), "utf8") === readme.contents, `production support workdown ${readme.path} is stale`);
+  }
   console.log(`verified ${report.rows.length} production support decision(s)`);
 } else {
   console.log(`Usage:
@@ -48,7 +53,8 @@ function buildReport() {
   const expected = expectedDecisionMap();
   const rows = decisionRows(expected);
   const workItems = workItemRows(rows);
-  return { rows, workItems, summary: summary(rows, workItems), csv: toCsv(rows), workItemsCsv: workItemsToCsv(workItems) };
+  const readmes = decisionReadmes(rows);
+  return { rows, workItems, readmes, summary: summary(rows, workItems), csv: toCsv(rows), workItemsCsv: workItemsToCsv(workItems) };
 }
 
 function decisionRows(expected) {
@@ -103,8 +109,13 @@ function decisionRow(file, expected) {
     live_evidence_decision: spec.decisions?.liveEvidenceDecision?.state ?? "",
     evidence_count: String((spec.evidence ?? []).length),
     remaining_final_requirements: (spec.requiredBeforeFinal ?? []).join("; "),
+    required_before_final: spec.requiredBeforeFinal ?? [],
+    support_includes: spec.supportBoundary?.includes ?? [],
+    support_excludes: spec.supportBoundary?.excludes ?? [],
+    evidence: spec.evidence ?? [],
     next_action: spec.nextAction ?? "",
     path: relativeRepo(file),
+    workdown_path: relativePath.replace(/support-decision\.yaml$/, "README.md"),
   };
 }
 
@@ -155,6 +166,12 @@ The spreadsheet form is [work-items.csv](./work-items.csv). It has one row per
 production-support task or keep-fresh item, so overlapping work such as image,
 scan, lifecycle, runtime, and fresh evidence can be assigned independently.
 
+Each decision directory also has a generated workdown page:
+
+| Chart | Workdown |
+| --- | --- |
+${rows.map((row) => `| \`${row.chart}@${row.version}\` | [${row.supported_base}](${row.workdown_path.replace(/^data\/production-support-decisions\//, "./")}) |`).join("\n")}
+
 ## Decisions
 
 | Chart | Base | Decision | Target scope | Live evidence decision | Next action |
@@ -175,6 +192,109 @@ npm run production:support-decisions
 npm run production:support-decisions:verify
 ~~~
 `;
+}
+
+function decisionReadmes(rows) {
+  return rows.map((row) => ({ path: row.workdown_path, contents: decisionReadme(row) }));
+}
+
+function decisionReadme(row) {
+  return `# ${row.chart}@${row.version} Production Support Workdown
+
+This generated page is a human workdown for one target-scoped production
+support decision. It does not replace the source decision artifact:
+
+[support-decision.yaml](./support-decision.yaml)
+
+## Current Decision
+
+| Field | Value |
+| --- | --- |
+| Chart | \`${row.chart}@${row.version}\` |
+| Candidate base | \`${row.supported_base}\` |
+| Decision state | \`${row.decision}\` |
+| Target scope | ${row.target_scope} |
+| Delivery path | \`${row.delivery_path}\` |
+
+## Open Work
+
+${openWorkMarkdown(row)}
+
+## Required Before Final Support
+
+${listOrDash(row.required_before_final)}
+
+## Support Boundary
+
+Included:
+
+${listOrDash(row.support_includes)}
+
+Excluded:
+
+${listOrDash(row.support_excludes)}
+
+## Evidence
+
+${evidenceMarkdown(row.evidence)}
+
+## Next Action
+
+${row.next_action}
+
+Regenerate:
+
+~~~sh
+npm run production:support-decisions
+npm run production:support-decisions:verify
+~~~
+`;
+}
+
+function openWorkMarkdown(row) {
+  const items = [];
+  if (row.image_decision === "needs-image-digest-resolution-or-exception") {
+    items.push(["Image digest", "Pin rendered image references by digest or record an explicit mutable-image exception."]);
+  }
+  if (row.scan_decision === "needs-scan-scope-decision") {
+    items.push(["Scan scope", "Record which scanner findings are accepted, fixed, or outside this target scope."]);
+  }
+  if (row.scan_decision === "needs-security-acceptance-or-hardened-base") {
+    items.push(["Security posture", "Accept current findings for this infrastructure scope or create a narrower hardened base."]);
+  }
+  if (["needs-lifecycle-support-boundary", "route-selected-observation-needed"].includes(row.lifecycle_decision)) {
+    items.push(["Lifecycle", "Record the lifecycle boundary, or execute and observe the selected hook/lifecycle route."]);
+  }
+  if (row.target_fact_decision === "needs-target-prerequisite-scope") {
+    items.push(["Target prerequisites", "Decide which target facts or prerequisites are inside this support scope."]);
+  }
+  if (row.live_evidence_decision === "needs-runtime-decision-before-final") {
+    items.push(["Runtime decision", "Decide whether the runtime condition is supported before refreshing live evidence."]);
+  }
+  if (row.live_evidence_decision === "needs-missing-live-or-confighub-lanes-before-final") {
+    items.push(["Missing proof lane", "Complete the missing ConfigHub, GitOps, or live lane before final support."]);
+  }
+  if (row.live_evidence_decision === "needs-lifecycle-observation-before-final") {
+    items.push(["Lifecycle observation", "Bind lifecycle observation evidence to this target scope before final support."]);
+  }
+  if (row.live_evidence_decision === "needs-fresh-target-evidence-before-final") {
+    items.push(["Fresh evidence", "Refresh ConfigHub OCI/GitOps and live/e2e evidence after earlier decisions are closed."]);
+  }
+  if (items.length === 0 && row.decision === "supported") {
+    items.push(["Keep fresh", "Keep target-scoped evidence fresh before using this supported scope as an example."]);
+  }
+  if (items.length === 0) return "- No open generated work item for this decision.\n";
+  return `| Work | Action |\n| --- | --- |\n${items.map(([work, action]) => `| ${work} | ${action} |`).join("\n")}\n`;
+}
+
+function evidenceMarkdown(evidence) {
+  if (!evidence.length) return "- No evidence entries recorded.\n";
+  return evidence.map((entry) => `- [${entry.path}](../../../${entry.path}) - ${entry.claim}`).join("\n");
+}
+
+function listOrDash(items) {
+  if (!items?.length) return "- None.\n";
+  return items.map((item) => `- ${item}`).join("\n");
 }
 
 function supportWorkstreams(rows) {

@@ -52,6 +52,31 @@ The spreadsheet form is [work-items.csv](./work-items.csv). It has one row per
 production-support task or keep-fresh item, so overlapping work such as image,
 scan, lifecycle, runtime, and fresh evidence can be assigned independently.
 
+Each decision directory also has a generated workdown page:
+
+| Chart | Workdown |
+| --- | --- |
+| `argo-cd/argo-cd@9.5.15` | [default](./argo-cd-argo-cd/README.md) |
+| `bitnami/mongodb@19.0.7` | [generated-passwords](./bitnami-mongodb/README.md) |
+| `bitnami/mysql@14.0.3` | [generated-passwords](./bitnami-mysql/README.md) |
+| `bitnami/nginx@24.0.2` | [http-clusterip](./bitnami-nginx/README.md) |
+| `bitnami/postgresql@18.6.7` | [generated-passwords](./bitnami-postgresql/README.md) |
+| `bitnami/rabbitmq@16.0.14` | [generated-passwords](./bitnami-rabbitmq/README.md) |
+| `bitnami/redis@25.5.3` | [default](./bitnami-redis/README.md) |
+| `external-secrets/external-secrets@2.5.0` | [default](./external-secrets-external-secrets/README.md) |
+| `grafana/grafana@10.5.15` | [generated-passwords](./grafana-grafana/README.md) |
+| `grafana/loki@7.0.0` | [single-binary-filesystem](./grafana-loki/README.md) |
+| `grafana/tempo@1.24.4` | [local-persistent](./grafana-tempo/README.md) |
+| `hashicorp/consul@2.0.0` | [default-control-plane](./hashicorp-consul/README.md) |
+| `hashicorp/vault@0.32.0` | [default](./hashicorp-vault/README.md) |
+| `ingress-nginx/ingress-nginx@4.15.1` | [default](./ingress-nginx-ingress-nginx/README.md) |
+| `jetstack/cert-manager@v1.20.2` | [default](./jetstack-cert-manager/README.md) |
+| `longhorn/longhorn@1.11.2` | [default](./longhorn-longhorn/README.md) |
+| `metrics-server/metrics-server@3.13.0` | [default](./metrics-server-metrics-server/README.md) |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | [default](./prometheus-community-kube-prometheus-stack/README.md) |
+| `prometheus-community/prometheus@29.8.0` | [default](./prometheus-community-prometheus/README.md) |
+| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | [default](./secrets-store-csi-driver-secrets-store-csi-driver/README.md) |
+
 ## Decisions
 
 | Chart | Base | Decision | Target scope | Live evidence decision | Next action |
