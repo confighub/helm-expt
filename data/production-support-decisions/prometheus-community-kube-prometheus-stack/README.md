@@ -20,7 +20,6 @@ support decision. It does not replace the source decision artifact:
 | Work | Action |
 | --- | --- |
 | Image digest | Pin rendered image references by digest or record an explicit mutable-image exception. |
-| Security posture | Accept current findings for this infrastructure scope or create a narrower hardened base. |
 | Lifecycle | Record the lifecycle boundary, or execute and observe the selected hook/lifecycle route. |
 | Fresh evidence | Refresh ConfigHub OCI/GitOps and live/e2e evidence after earlier decisions are closed. |
 
@@ -29,15 +28,13 @@ support decision. It does not replace the source decision artifact:
 
 1. Choose the final target scope, GitOps controller, namespace, and artifact digest.
 2. Pin rendered image references by digest or record an explicit mutable-image exception.
-3. Accept current security findings for this infrastructure scope or create a narrower hardened base.
-4. Execute or observe the selected lifecycle route and bind the receipt to this target scope.
-5. Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence after the earlier decisions are closed.
+3. Execute or observe the selected lifecycle route and bind the receipt to this target scope.
+4. Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence after the earlier decisions are closed.
 
 ## Required Before Final Support
 
 - Choose the final target scope, exact GitOps controller, namespace, and artifact digest.
 - Choose a digest-pinned base, image override policy, or explicit mutable-image exception before production OCI support.
-- Record security acceptance for the supported scope or create a narrower hardened base for host access, privileged infrastructure, and resource policy findings.
 - Execute or observe the selected hook lifecycle route, including webhook TLS/readiness, cleanup, ordering, and upgrade behavior.
 - Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope after the previous decisions are closed.
 
@@ -63,6 +60,7 @@ Excluded:
 - [runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml](../../../runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml) - The two-cluster Helm-vs-installer parity receipt exists for the candidate base.
 - [runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml](../../../runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml) - The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base.
 - [data/image-digest-workdown/receipts/prometheus-community-kube-prometheus-stack/default/image-digest-resolution.yaml](../../../data/image-digest-workdown/receipts/prometheus-community-kube-prometheus-stack/default/image-digest-resolution.yaml) - The rendered mutable image references for the candidate base have registry digest-resolution evidence.
+- [data/production-support-decisions/prometheus-community-kube-prometheus-stack/security-decision.yaml](../../../data/production-support-decisions/prometheus-community-kube-prometheus-stack/security-decision.yaml) - The target-scoped production security decision accepts the recorded scan findings for this public monitoring support draft.
 - [data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/cluster-rbac-review.yaml](../../../data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/cluster-rbac-review.yaml) - The cluster rbac review disposition exists for this chart.
 - [data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml](../../../data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml) - The crd lifecycle and upgrade policy disposition exists for this chart.
 - [data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/extension-slot-provenance-and-scan-policy.yaml](../../../data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/extension-slot-provenance-and-scan-policy.yaml) - The extension slot provenance and scan policy disposition exists for this chart.
@@ -74,7 +72,7 @@ Excluded:
 
 ## Next Action
 
-treat kube-prometheus-stack as the serious-chart proof: close image, security, and lifecycle decisions first, then refresh scoped ConfigHub OCI/GitOps evidence for the monitoring namespace
+treat kube-prometheus-stack as the serious-chart proof: close image policy and lifecycle observation next, then refresh scoped ConfigHub OCI/GitOps evidence for the monitoring namespace
 
 Regenerate:
 

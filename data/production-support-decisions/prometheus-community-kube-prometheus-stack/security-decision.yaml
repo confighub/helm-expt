@@ -1,0 +1,91 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSecurityDecision"
+metadata:
+  name: "prometheus-community-kube-prometheus-stack-public-oci-security-decision"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "85.3.3"
+  targetScope:
+    clusterClass: "vanilla-kubernetes"
+    namespace: "monitoring"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo-or-flux"
+  supportedBaseCandidate: "default"
+  variantsCovered:
+    - "default"
+    - "no-crds"
+  decision: "accepted-for-target-scope"
+  decidedAt: "2026-06-09"
+  claim: "The recorded scan findings are accepted for this public monitoring infrastructure support draft, subject to the stated support boundary and remaining non-security blockers."
+  route: "accept-or-split-privileged-infrastructure"
+  routeReason: "the chart installs infrastructure that normally needs node, host, or privileged access"
+  findingSummary:
+    externalScan:
+      scanner: "kube-linter"
+      result: "warn"
+      totalFindings: 54
+      topChecks:
+        dangling-service: 14
+        unset-cpu-requirements: 12
+        unset-memory-requirements: 12
+        no-read-only-root-fs: 6
+        sensitive-host-mounts: 6
+        host-network: 2
+        host-pid: 2
+    localRenderedScans:
+      default:
+        result: "warn"
+        renderedObjectSetSHA256: "9fac2a0e4140eee298c84ce61f13dd8ca392bb92e2037d0ef0aaa4d8015ee491"
+        findingCounts:
+          critical: 0
+          high: 7
+          info: 0
+          low: 0
+          medium: 21
+      no-crds:
+        result: "warn"
+        renderedObjectSetSHA256: "3f6049fc2b7a40bbfb009b347880e3f319a87c9b60a6fd274220287a10167fc2"
+        findingCounts:
+          critical: 0
+          high: 7
+          info: 0
+          low: 0
+          medium: 11
+  acceptedFindings:
+    -
+      group: "dangling-service"
+      disposition: "Accepted for this monitoring scope when services intentionally point at existing cluster components or operator-created workloads. Fresh live evidence must still confirm runtime behavior."
+    -
+      group: "host-network-host-pid-sensitive-host-mounts"
+      disposition: "Accepted for this monitoring infrastructure scope where node or control-plane observation requires host access. A hardened or narrower base is still allowed for stricter environments."
+    -
+      group: "resource-policy"
+      disposition: "Accepted as chart-default behavior for this public proof scope. A production customer scope may require a resource-policy base or overlay before support."
+    -
+      group: "read-only-root-filesystem"
+      disposition: "Accepted as chart-default behavior for this support draft. Hardened bases should be created where the chart supports safe hardening values."
+  limits:
+    - "This is not a blanket security approval for all clusters, overlays, Kubernetes distributions, or private values."
+    - "This does not make kube-prometheus-stack production-supported by itself."
+    - "Final support still needs the image pin-or-exception decision, lifecycle observation, and fresh target-scoped ConfigHub OCI/GitOps/live evidence."
+    - "The no-crds variant remains valid only when compatible CRDs are already installed and observed in the target."
+  evidence:
+    -
+      path: "data/scan-disposition-workdown/workdown.csv"
+      claim: "Routes kube-prometheus-stack scan findings to accept-or-split-privileged-infrastructure."
+    -
+      path: "data/external-scan-lane/review.csv"
+      claim: "Records kube-linter warning counts for default and no-crds rendered object sets."
+    -
+      path: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for default."
+    -
+      path: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for no-crds."
+    -
+      path: "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/scan-gate-warning-disposition.yaml"
+      claim: "Earlier production disposition accepts scan warnings as production-review inputs, not final production support."
+  remainingSupportBlockers:
+    - "Choose a digest-pinned base, image override policy, or explicit mutable-image exception before production OCI support."
+    - "Execute or observe the selected hook lifecycle route, including webhook TLS/readiness, cleanup, ordering, and upgrade behavior."
+    - "Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope after the previous decisions are closed."

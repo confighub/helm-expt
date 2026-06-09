@@ -40,8 +40,8 @@ spec:
       state: "needs-image-digest-resolution-or-exception"
       detail: "the default base has a digest-resolution receipt; final support still needs a digest-pinned base, image override policy, or explicit mutable-image exception"
     scanDecision:
-      state: "needs-security-acceptance-or-hardened-base"
-      detail: "record security acceptance or create hardened base"
+      state: "security-accepted-for-target-scope"
+      detail: "scan findings are accepted for the declared public monitoring support draft; stricter environments may still require a hardened base"
     lifecycleDecision:
       state: "route-selected-observation-needed"
       detail: "the hook lifecycle route is selected; final support still needs execution or observation receipt for webhook TLS/readiness, cleanup, ordering, and upgrade behavior"
@@ -62,6 +62,8 @@ spec:
       claim: "The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base."
     - path: "data/image-digest-workdown/receipts/prometheus-community-kube-prometheus-stack/default/image-digest-resolution.yaml"
       claim: "The rendered mutable image references for the candidate base have registry digest-resolution evidence."
+    - path: "data/production-support-decisions/prometheus-community-kube-prometheus-stack/security-decision.yaml"
+      claim: "The target-scoped production security decision accepts the recorded scan findings for this public monitoring support draft."
     - path: "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/cluster-rbac-review.yaml"
       claim: "The cluster rbac review disposition exists for this chart."
     - path: "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml"
@@ -81,7 +83,6 @@ spec:
   requiredBeforeFinal:
     - "Choose the final target scope, exact GitOps controller, namespace, and artifact digest."
     - "Choose a digest-pinned base, image override policy, or explicit mutable-image exception before production OCI support."
-    - "Record security acceptance for the supported scope or create a narrower hardened base for host access, privileged infrastructure, and resource policy findings."
     - "Execute or observe the selected hook lifecycle route, including webhook TLS/readiness, cleanup, ordering, and upgrade behavior."
     - "Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope after the previous decisions are closed."
-  nextAction: "treat kube-prometheus-stack as the serious-chart proof: close image, security, and lifecycle decisions first, then refresh scoped ConfigHub OCI/GitOps evidence for the monitoring namespace"
+  nextAction: "treat kube-prometheus-stack as the serious-chart proof: close image policy and lifecycle observation next, then refresh scoped ConfigHub OCI/GitOps evidence for the monitoring namespace"
