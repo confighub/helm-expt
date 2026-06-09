@@ -1,0 +1,44 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: bitnami-mysql-generated-fact-ownership
+spec:
+  chart: bitnami/mysql
+  version: "14.0.3"
+  disposition: generated fact ownership
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: The generated-passwords base binds auth.rootPassword, auth.password, and auth.replicationPassword before render so the rendered MySQL Secret is deterministic and separated by cub installer. The existing-secret base removes the rendered credential Secret and declares mysql/mysql-auth as a required target Secret. This closes generated credential ownership for the reviewed bases, while production support still needs a target-specific secret policy.
+  evidence:
+    - path: recipes/bitnami/mysql/14.0.3/control-points.yaml
+      claim: The recipe records generated-facts as variant-controlled and target-facts as variant-controlled.
+    - path: recipes/bitnami/mysql/14.0.3/value-model.yaml
+      claim: The value model records generated-passwords values and the existing-secret target-fact route.
+    - path: recipes/bitnami/mysql/14.0.3/effective-values.yaml
+      claim: The generated-passwords base binds all three MySQL password inputs before render using deterministic proof values.
+    - path: recipes/bitnami/mysql/14.0.3/effective-values-existing-secret.yaml
+      claim: The existing-secret base switches the rendered objects to use mysql-auth instead of rendering the credential Secret.
+    - path: recipes/bitnami/mysql/14.0.3/variants/existing-secret/variant.yaml
+      claim: The existing-secret variant declares mysql/mysql-auth with mysql-root-password, mysql-password, and mysql-replication-password keys as target facts.
+    - path: packages/bitnami/mysql/14.0.3/installer.yaml
+      claim: The installer package exposes the MySQL Secret as an external requirement for the existing-secret base.
+    - path: recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/receipts/render-receipt.yaml
+      claim: The generated-passwords base renders one Secret deterministically and records that cub installer separates one Secret.
+    - path: recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/receipts/render-receipt.yaml
+      claim: The existing-secret base renders zero Secrets.
+    - path: runs/live-kind-parity/bitnami-mysql-generated-passwords/receipt.yaml
+      claim: The generated-passwords base passes strict two-cluster live parity between regular Helm and cub installer apply.
+    - path: runs/live-kind-parity/bitnami-mysql-existing-secret/receipt.yaml
+      claim: The existing-secret base passes strict two-cluster live parity with the target Secret staged for both paths.
+  affectedVariants:
+    - generated-passwords
+    - existing-secret
+  remainingProductionBlockers:
+    - hook and lifecycle phase policy
+    - scan/gate warning disposition
+    - storage backup restore and rollback policy
+    - target fact preflight
+  nextDecision: A production support decision should choose whether MySQL uses generated credentials managed outside the public proof values or the existing-secret base with externally managed credentials.

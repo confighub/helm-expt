@@ -47,7 +47,7 @@ Which detailed CSV should I open next?
 | production disposition | top20 production-supported charts | 0/20 | gap | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | top20 production-review-ready charts | 3/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | top20 production-blocked charts | 17/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
-| production disposition | charts with accepted production dispositions | 3/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| production disposition | charts with accepted production dispositions | 6/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | scan disposition | high-priority scan rows | 4/20 | partial | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
 | scan disposition | remaining mutable-image rows | 0/20 | good | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
 | scan disposition | privileged infrastructure review rows | 4/20 | partial | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
@@ -222,7 +222,7 @@ production-supported until a final target-scoped support decision is recorded.
 | production-supported charts | 0/20 |
 | production-review-ready pending final support decision | 3/20 |
 | production-blocked pending disposition | 17/20 |
-| charts with accepted dispositions | 3/20 |
+| charts with accepted dispositions | 6/20 |
 | high-priority scan rows | 4/20 |
 | mutable-image rows still needing fixes | 0/20 |
 
@@ -248,10 +248,10 @@ production-supported until a final target-scoped support decision is recorded.
 | --- | --- | ---: | ---: | --- |
 | argo-cd/argo-cd@9.5.15 | blocked | 0 | 6 | extend live/e2e lane beyond local kind after production dispositions are written |
 | bitnami/mongodb@19.0.7 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |
-| bitnami/mysql@14.0.3 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |
+| bitnami/mysql@14.0.3 | blocked | 1 | 4 | extend live/e2e lane beyond local kind after production dispositions are written |
 | bitnami/nginx@24.0.2 | production-review-ready | 4 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
-| bitnami/postgresql@18.6.7 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |
-| bitnami/rabbitmq@16.0.14 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |
+| bitnami/postgresql@18.6.7 | blocked | 1 | 4 | extend live/e2e lane beyond local kind after production dispositions are written |
+| bitnami/rabbitmq@16.0.14 | blocked | 1 | 4 | extend live/e2e lane beyond local kind after production dispositions are written |
 | bitnami/redis@25.5.3 | production-review-ready | 4 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
 | external-secrets/external-secrets@2.5.0 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |
 | grafana/grafana@10.5.15 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |

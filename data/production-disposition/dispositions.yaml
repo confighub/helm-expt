@@ -221,11 +221,12 @@ spec:
         lifecycleObservationReceipts:
           []
         productionDispositionReceipts:
-          []
+          - "data/production-disposition/receipts/bitnami-mysql/generated-fact-ownership.yaml"
       dispositions:
         -
           name: "generated fact ownership"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/bitnami-mysql/generated-fact-ownership.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "generated secret/cert inventory"
@@ -391,11 +392,12 @@ spec:
         lifecycleObservationReceipts:
           []
         productionDispositionReceipts:
-          []
+          - "data/production-disposition/receipts/bitnami-postgresql/generated-fact-ownership.yaml"
       dispositions:
         -
           name: "generated fact ownership"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/bitnami-postgresql/generated-fact-ownership.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "generated secret/cert inventory"
@@ -477,11 +479,12 @@ spec:
         lifecycleObservationReceipts:
           []
         productionDispositionReceipts:
-          []
+          - "data/production-disposition/receipts/bitnami-rabbitmq/generated-fact-ownership.yaml"
       dispositions:
         -
           name: "generated fact ownership"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/bitnami-rabbitmq/generated-fact-ownership.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "generated secret/cert inventory"
