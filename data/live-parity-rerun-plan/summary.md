@@ -10,22 +10,22 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 13
+rows: 11
 blocked: 8
-watch: 5
-configHub-oci-live-comparison: 4
+watch: 3
+configHub-oci-live-comparison: 2
 two-cluster-kind-parity: 9
 semantic-parity-defects: 0
 infra-or-rig-rows: 0
 prerequisite-or-lifecycle-rows: 2
-runtime-or-watch-rows: 11
+runtime-or-watch-rows: 9
 ```
 
 ## Lane Breakdown
 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| configHub-oci-live-comparison | 4 | 0 | 4 | 0 | 0 |
+| configHub-oci-live-comparison | 2 | 0 | 2 | 0 | 0 |
 | two-cluster-kind-parity | 9 | 0 | 1 | 8 | 0 |
 
 The ConfigHub/OCI live comparison rows in this queue are current `watch` rows.
@@ -50,7 +50,7 @@ The `blocked` rows are currently from the two-cluster kind parity lane.
 | gitops-runtime-review | 1 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
 | lifecycle-route | 1 | Choose the lifecycle route or observation contract before rerunning strict parity. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if the expected readiness changes. |
-| runtime-review | 9 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
+| runtime-review | 7 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
 | stage-prerequisite | 1 | Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning. |
 
 Rows in `stage-prerequisite`, `lifecycle-route`, and `operating-policy`
@@ -67,7 +67,7 @@ reasonable live rerun candidates.
 | Readiness | Rows | Meaning |
 | --- | ---: | --- |
 | model-or-stage-first | 3 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 10 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| review-target-first | 8 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Run Safety
 
@@ -91,8 +91,6 @@ faithful to the locked chart/version without changing the recipe.
 
 | Priority | Readiness | Next step | Lane | Chart | Base | Current | Reason | Command |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
-| 30 | review-target-first | runtime-review | configHub-oci-live-comparison | `argo-cd/argo-cd@9.5.15` | default | watch | target-runtime: pod config/runtime errors (parity passed) | `npm run live-parity:top20 -- --from-rank 6 --to-rank 6 --continue-on-fail` |
-| 30 | review-target-first | runtime-review | configHub-oci-live-comparison | `grafana/tempo@1.24.4` | local-persistent | watch | target-runtime: PVC/storage pending (parity passed) | `npm run live-parity:top20 -- --from-rank 19 --to-rank 19 --continue-on-fail` |
 | 30 | model-or-stage-first | operating-policy | configHub-oci-live-comparison | `hashicorp/vault@0.32.0` | default | watch | operate-policy: Vault init/unseal readiness (parity passed) | `npm run live-parity:top20 -- --from-rank 12 --to-rank 12 --continue-on-fail` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | watch | gitops-runtime: Argo health Progressing (parity passed) | `npm run live-parity:top20 -- --from-rank 3 --to-rank 3 --continue-on-fail` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `grafana/tempo@1.24.4` | s3-query-observability | blocked | target-prerequisite: CRDs missing | `npm run kind-parity:run -- --chart grafana/tempo --version 1.24.4 --base s3-query-observability` |
