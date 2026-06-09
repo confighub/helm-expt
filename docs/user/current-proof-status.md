@@ -226,14 +226,15 @@ Production support decisions are still open for the top-20 catalog:
 - 0 of 20 top-20 charts are currently marked production-supported.
 - 20 of 20 are production-review-ready pending a final support decision and
   target scope.
+- 20 of 20 have draft target-scoped support decision artifacts.
 - 0 of 20 still need a pre-review production disposition.
 - 103 production-disposition receipts are accepted across 20 charts.
 - external scan work has 0 remaining mutable-image rows after the current
   supported-base image pinning pass.
 - the remaining high-priority scan rows are routed to explicit privileged
   infrastructure or security disposition work, not to simple image-pin fixes.
-- A review-ready chart is still not production-supported until a final
-  target-scoped support decision is recorded.
+- A review-ready chart is still not production-supported until its final
+  target-scoped support decision is completed.
 
 That next step is now clearer than it was before. The top-20 production queue
 is no longer blocked on missing pre-review receipts; it is grouped by the final
