@@ -223,10 +223,11 @@ The selected top-20 live Helm-vs-ConfigHub comparison lane has 15 pass,
 5 watch, and 0 blocked receipts.
 The top-20 base-variant two-cluster kind parity lane has 40 committed
 receipts: 25 pass, 3 watch, 12 blocked, and 0 semantic parity defects.
-cert-manager and External Secrets have lifecycle-observation receipts for
-common CRD/webhook/controller-owned runtime behavior.
 5/5 maintained hook-bearing top-100 charts have hook route receipts;
-0/5 have hook execution or observation receipts yet.
+0/5 of those hook-queue rows have hook execution or observation receipts yet.
+Separately, cert-manager and External Secrets have lifecycle-observation
+receipts for common CRD/webhook/controller-owned runtime behavior. Those
+receipts demonstrate the observation pattern, not universal hook support.
 Top-500 source/catalog analysis exists as catalog-planning data for future
 recipe promotion work.
 ```

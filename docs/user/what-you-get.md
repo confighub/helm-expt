@@ -53,7 +53,8 @@ The current public corpus contains:
 6 target-bound derived variant receipts with OCI/GitOps/runtime evidence
 top-100 and top-500 catalog analysis data
 extension-slot coverage for 13/20 top catalog charts and 82/100 top100 chart facts
-5 maintained hook-bearing top-100 charts with route receipts; 0 with hook execution/observation receipts
+5 maintained hook-bearing top-100 charts with route receipts; 0 of those hook-queue rows with hook execution/observation receipts
+separate cert-manager and External Secrets lifecycle observations for common CRD/webhook/controller-owned runtime behavior
 selected GitOps/OCI and live parity receipts
 ```
 
@@ -116,6 +117,12 @@ Hooks and hook-like lifecycle behavior need cautious handling. The repo can
 inventory hooks and prove the normal rendered object set. It should not claim
 that hook execution is reproduced unless a lifecycle route, execution result,
 and fresh observation receipt exist.
+
+The current hook queue and the cert-manager / External Secrets observations are
+related but not identical. The hook queue tracks maintained charts whose source
+scan found Helm hooks. The cert-manager and External Secrets receipts show how
+target-aware lifecycle observations can prove CRD, webhook, and
+controller-owned runtime behavior after apply.
 
 Some hooks may map to tests, preflight checks, Argo lifecycle hooks, sync waves,
 or managed actions. Some will remain blocked until reviewed. That is an
