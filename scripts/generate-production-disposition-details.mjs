@@ -89,15 +89,24 @@ function buildReport() {
   const rows = catalogSupportedRows();
   check(rows.length === 20, `expected 20 catalog-supported recipes, found ${rows.length}`);
   const externalScan = externalScanIndex();
+  const baseReadiness = baseReadinessIndex();
+  const imageDigest = imageDigestIndex();
   const liveE2E = liveE2EIndex();
   const sourceFeatures = sourceFeatureIndex();
   const extensionSlots = extensionSlotIndex();
   const lifecycleObservations = lifecycleObservationIndex();
   const dispositionReceipts = productionDispositionReceiptIndex();
+  const queueContext = new Map();
   const charts = rows.map((row) => {
     const required = [...requiredDispositions(row.controlPoints, row.variants, extensionSlots.has(`${row.chart}@${row.version}`))].sort();
     const source = sourceFeatures.get(row.chart) ?? {};
     const observations = lifecycleObservations.get(row.chart) ?? [];
+    const readinessRows = baseReadiness.get(`${row.chart}@${row.version}`) ?? [];
+    queueContext.set(`${row.chart}@${row.version}`, {
+      recommendedBase: recommendedBaseFromRows(readinessRows),
+      baseReadinessSummary: baseReadinessSummary(readinessRows),
+      imageDigest: compactImageDigest(imageDigest.get(`${row.chart}@${row.version}`)),
+    });
     const accepted = acceptedDispositionReceipts(row.chart, required, dispositionReceipts);
     const acceptedByDisposition = new Map(accepted.map((receipt) => [receipt.disposition, receipt]));
     const openCount = required.filter((name) => !acceptedByDisposition.has(name)).length;
@@ -154,8 +163,8 @@ function buildReport() {
   };
   return {
     yaml: `${toYaml(doc)}\n`,
-    markdown: toMarkdown(charts),
-    nextActionsCsv: toNextActionsCsv(charts),
+    markdown: toMarkdown(charts, queueContext),
+    nextActionsCsv: toNextActionsCsv(charts, queueContext),
   };
 }
 
@@ -323,6 +332,27 @@ function summarizeFindingChecks(findings) {
     .join(";");
 }
 
+function baseReadinessIndex() {
+  const result = new Map();
+  const path = join(repoRoot, "data", "top20-base-readiness", "base-readiness.csv");
+  if (!existsSync(path)) return result;
+  for (const row of parseCsv(readFileSync(path, "utf8"))) {
+    if (!result.has(row.chart)) result.set(row.chart, []);
+    result.get(row.chart).push(row);
+  }
+  return result;
+}
+
+function imageDigestIndex() {
+  const result = new Map();
+  const path = join(repoRoot, "data", "image-digest-workdown", "chart-summary.csv");
+  if (!existsSync(path)) return result;
+  for (const row of parseCsv(readFileSync(path, "utf8"))) {
+    if (row.chart && row.version) result.set(`${row.chart}@${row.version}`, row);
+  }
+  return result;
+}
+
 function liveE2EIndex() {
   const result = new Map();
   for (const receiptPath of listFiles(join(repoRoot, "runs")).filter((file) => file.endsWith("observation-receipt.json") || file.endsWith("observation-receipt.yaml"))) {
@@ -343,8 +373,9 @@ function chartFromObservation(receipt) {
   return "";
 }
 
-function toMarkdown(charts) {
+function toMarkdown(charts, queueContext) {
   const acceptedDispositionCount = charts.reduce((sum, chart) => sum + chart.dispositions.filter((item) => item.state === "accepted").length, 0);
+  const scanWorkdown = externalScanWorkdownIndex();
   const closestRows = charts
     .map((chart) => {
       const accepted = chart.dispositions.filter((item) => item.state === "accepted").length;
@@ -381,6 +412,24 @@ The same queue is available as \`next-actions.csv\`.
 | --- | ---: | ---: | --- | --- | --- |
 ${closestRows.map(({ chart, accepted, open }) => `| \`${chart.chart}@${chart.version}\` | ${accepted} | ${open.length} | ${open.map((item) => item.name).join("; ")} | ${open[0] ? nextDispositionReceiptPath(chart.chart, open[0].name) : "-"} | ${externalScanSummary(chart.evidence.externalScanVariants)} |`).join("\n")}
 
+## Production Decision Queue
+
+These rows are ready for a target-scoped production support decision, not
+already production-supported. The queue separates the first base a user should
+try from production evidence still needed for image pinning, scan acceptance,
+runtime fit, and final support scope.
+
+| Chart | First base | Base readiness | Decision focus | Image subjects needing resolution | Next action |
+| --- | --- | --- | --- | ---: | --- |
+${charts.map((chart) => {
+  const open = chart.dispositions.filter((item) => item.state !== "accepted");
+  const scan = scanWorkdown.get(chart.chart) ?? {};
+  const context = queueContext.get(`${chart.chart}@${chart.version}`) ?? {};
+  const base = context.recommendedBase ?? {};
+  const image = context.imageDigest ?? {};
+  return `| \`${chart.chart}@${chart.version}\` | ${base.base || "-"} | ${base.user_readiness || "-"} | ${productionDecisionFocus(chart, scan, image, base)} | ${number(image.subjects_needing_resolution)} | ${productionNextAction({ open, scan, image, base, chart })} |`;
+}).join("\n")}
+
 ## Standard Disposition Types
 
 ${Object.entries(dispositionCatalog)
@@ -400,7 +449,7 @@ still requires a separate target-scoped support decision.
 `;
 }
 
-function toNextActionsCsv(charts) {
+function toNextActionsCsv(charts, queueContext) {
   const workdown = externalScanWorkdownIndex();
   const rows = charts
     .map((chart) => {
@@ -408,6 +457,9 @@ function toNextActionsCsv(charts) {
       const open = chart.dispositions.filter((item) => item.state !== "accepted");
       const firstOpen = open[0] ?? {};
       const scan = workdown.get(chart.chart) ?? {};
+      const context = queueContext.get(`${chart.chart}@${chart.version}`) ?? {};
+      const base = context.recommendedBase ?? {};
+      const image = context.imageDigest ?? {};
       return {
         chart: chart.chart,
         version: chart.version,
@@ -423,7 +475,13 @@ function toNextActionsCsv(charts) {
         externalScanNextAction: scan.nextAction ?? "",
         supportedVariants: chart.supportedLocalTestVariants.join(";"),
         liveE2EReceipts: chart.evidence.liveE2EReceipts.length,
-        nextAction: productionNextAction(open, scan),
+        recommendedFirstBase: base.base ?? "",
+        firstBaseReadiness: base.user_readiness ?? "",
+        baseReadinessSummary: context.baseReadinessSummary ?? "",
+        imageSubjectsNeedingResolution: image.subjects_needing_resolution ?? "",
+        imageNextAction: image.next_action ?? "",
+        productionDecisionFocus: productionDecisionFocus(chart, scan, image, base),
+        nextAction: productionNextAction({ open, scan, image, base, chart }),
       };
     })
     .sort((left, right) => Number(left.openCount) - Number(right.openCount) || Number(right.acceptedCount) - Number(left.acceptedCount) || left.chart.localeCompare(right.chart));
@@ -442,6 +500,12 @@ function toNextActionsCsv(charts) {
     "externalScanNextAction",
     "supportedVariants",
     "liveE2EReceipts",
+    "recommendedFirstBase",
+    "firstBaseReadiness",
+    "baseReadinessSummary",
+    "imageSubjectsNeedingResolution",
+    "imageNextAction",
+    "productionDecisionFocus",
     "nextAction",
   ];
   return `${[headers.join(","), ...rows.map((row) => headers.map((header) => csvEscape(row[header])).join(","))].join("\n")}\n`;
@@ -458,16 +522,76 @@ function pathSlug(text) {
     .replace(/^-|-$/g, "");
 }
 
-function productionNextAction(open, scan) {
+function recommendedBaseFromRows(rows) {
+  const row = rows.find((item) => item.recommended_first === "yes")
+    ?? rows.find((row) => row.complete_core_lane_set === "yes")
+    ?? rows[0]
+    ?? {};
+  if (!row.base) return {};
+  return {
+    base: row.base,
+    user_readiness: row.user_readiness,
+    complete_core_lane_set: row.complete_core_lane_set,
+    live_rerun_readiness: row.live_rerun_readiness,
+    live_rerun_next_step: row.live_rerun_next_step,
+  };
+}
+
+function baseReadinessSummary(rows) {
+  const counts = countBy(rows ?? [], (row) => row.user_readiness || "unknown");
+  return [...counts.entries()]
+    .sort((left, right) => left[0].localeCompare(right[0]))
+    .map(([status, count]) => `${status}:${count}`)
+    .join(";");
+}
+
+function compactImageDigest(row = {}) {
+  if (!row.chart) return {};
+  return {
+    rendered_subjects: row.rendered_subjects,
+    subjects_needing_resolution: row.subjects_needing_resolution,
+    image_refs: row.image_refs,
+    mutable_tag_refs: row.mutable_tag_refs,
+    floating_latest_or_untagged_refs: row.floating_latest_or_untagged_refs,
+    next_action: row.next_action,
+  };
+}
+
+function productionDecisionFocus(chart, scan, image, base) {
+  if (chart.dispositions.some((item) => item.state !== "accepted")) return "missing-disposition";
+  if (scan?.priority === "high") return "security-acceptance-or-hardened-base";
+  if (base.user_readiness === "lifecycle-observed") return "lifecycle-support-scope";
+  if (base.user_readiness && !["start-here", "try-with-proof"].includes(base.user_readiness)) return "runtime-or-prerequisite-scope";
+  if (number(image.subjects_needing_resolution) > 0) return "image-digest-resolution";
+  if ((chart.evidence.lifecyclePolicyBasis ?? []).some((basis) => basis !== "none")) return "lifecycle-support-scope";
+  return "final-target-support-decision";
+}
+
+function productionNextAction({ open, scan, image, base, chart }) {
   const first = open[0];
-  if (!first) return "refresh live/e2e receipts for the accepted production scope";
-  if (first.name === "scan/gate warning disposition" && scan?.nextAction) {
+  if (first?.name === "scan/gate warning disposition" && scan?.nextAction) {
     if (String(scan.topChecks ?? "").includes("latest-tag")) {
       return "resolve image digests or pin image tags in the installer base; record image override/proof receipt; then accept PDB behavior or add a reviewed patch where the chart supports it";
     }
     return scan.nextAction;
   }
-  return `write or fix the receipt for ${first.name}`;
+  if (first) return `write or fix the receipt for ${first.name}`;
+  if (scan?.priority === "high") {
+    return "choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support";
+  }
+  if (base.user_readiness === "lifecycle-observed") {
+    return `choose whether ${base.base} is in production scope; record the target-scoped lifecycle support decision before claiming production support`;
+  }
+  if (base.user_readiness && !["start-here", "try-with-proof"].includes(base.user_readiness)) {
+    return `choose whether ${base.base} is in production scope; close or document its ${base.user_readiness} live-readiness issue first`;
+  }
+  if (number(image.subjects_needing_resolution) > 0) {
+    return image.next_action || "resolve image digests for each affected variant before production OCI support";
+  }
+  if ((chart.evidence.lifecyclePolicyBasis ?? []).some((basis) => basis !== "none")) {
+    return "record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope";
+  }
+  return "choose the supported production base and target scope, refresh live/e2e evidence, and record the final support decision";
 }
 
 function externalScanWorkdownIndex() {
@@ -553,6 +677,20 @@ function parseCsvLine(line) {
   }
   values.push(current);
   return values;
+}
+
+function countBy(items, selector) {
+  const result = new Map();
+  for (const item of items) {
+    const key = selector(item);
+    result.set(key, (result.get(key) ?? 0) + 1);
+  }
+  return result;
+}
+
+function number(value) {
+  const parsed = Number(value ?? 0);
+  return Number.isFinite(parsed) ? parsed : 0;
 }
 
 function csvEscape(value) {

@@ -112,26 +112,26 @@ decision before catalog promotion.
 
 | Chart | Adoption bucket | Evidence | Variants | Next action | Next receipt | Source |
 | --- | --- | --- | ---: | --- | --- | --- |
-| `argo-cd/argo-cd@9.5.15` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
-| `bitnami/mongodb@19.0.7` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
-| `bitnami/mysql@14.0.3` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
-| `bitnami/nginx@24.0.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
-| `bitnami/postgresql@18.6.7` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
-| `bitnami/rabbitmq@16.0.14` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
-| `bitnami/redis@25.5.3` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
-| `external-secrets/external-secrets@2.5.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
-| `grafana/grafana@10.5.15` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
-| `grafana/loki@7.0.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
-| `grafana/tempo@1.24.4` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
-| `hashicorp/consul@2.0.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
-| `hashicorp/vault@0.32.0` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
-| `ingress-nginx/ingress-nginx@4.15.1` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
-| `jetstack/cert-manager@v1.20.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
-| `longhorn/longhorn@1.11.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
-| `metrics-server/metrics-server@3.13.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
-| `prometheus-community/prometheus@29.8.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
-| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
+| `argo-cd/argo-cd@9.5.15` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | choose whether default is in production scope; close or document its runtime-watch live-readiness issue first | - | `production-disposition` |
+| `bitnami/mongodb@19.0.7` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope | - | `production-disposition` |
+| `bitnami/mysql@14.0.3` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve image digests for each affected variant before production OCI support | - | `production-disposition` |
+| `bitnami/nginx@24.0.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | choose the supported production base and target scope, refresh live/e2e evidence, and record the final support decision | - | `production-disposition` |
+| `bitnami/postgresql@18.6.7` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope | - | `production-disposition` |
+| `bitnami/rabbitmq@16.0.14` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve image digests for each affected variant before production OCI support | - | `production-disposition` |
+| `bitnami/redis@25.5.3` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope | - | `production-disposition` |
+| `external-secrets/external-secrets@2.5.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve image digests for each affected variant before production OCI support | - | `production-disposition` |
+| `grafana/grafana@10.5.15` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve image digests for each affected variant before production OCI support | - | `production-disposition` |
+| `grafana/loki@7.0.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve image digests for each affected variant before production OCI support | - | `production-disposition` |
+| `grafana/tempo@1.24.4` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | choose whether local-persistent is in production scope; close or document its runtime-review-needed live-readiness issue first | - | `production-disposition` |
+| `hashicorp/consul@2.0.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve image digests for each affected variant before production OCI support | - | `production-disposition` |
+| `hashicorp/vault@0.32.0` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | choose whether default is in production scope; close or document its runtime-review-needed live-readiness issue first | - | `production-disposition` |
+| `ingress-nginx/ingress-nginx@4.15.1` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | choose whether default is in production scope; close or document its runtime-watch live-readiness issue first | - | `production-disposition` |
+| `jetstack/cert-manager@v1.20.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | choose whether default is in production scope; record the target-scoped lifecycle support decision before claiming production support | - | `production-disposition` |
+| `longhorn/longhorn@1.11.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support | - | `production-disposition` |
+| `metrics-server/metrics-server@3.13.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve image digests for each affected variant before production OCI support | - | `production-disposition` |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support | - | `production-disposition` |
+| `prometheus-community/prometheus@29.8.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support | - | `production-disposition` |
+| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support | - | `production-disposition` |
 | `traefik/traefik@40.2.0` | `limitation-decision-first` | `render-parity` | 2 | review limitation before promotion: existing-secret (chart ships no Secret toggle) | - | `limitation-review` |
 | `external-dns/external-dns@1.21.1` | `promote-after-review` | `render-parity` | 2 | run catalog promotion review | - | `catalog-promotion-review` |
 | `gitlab/gitlab-runner@0.89.0` | `needs-useful-variant` | `render-parity` | 1 | add at least one user-shaped variant before catalog promotion | - | `user-shaped-variant-backlog` |
