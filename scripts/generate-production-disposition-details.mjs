@@ -698,6 +698,8 @@ function recommendedBaseFromRows(rows) {
   const explicitSupportBase =
     rows[0]?.chart === "jetstack/cert-manager@v1.20.2"
       ? rows.find((item) => item.base === "crds-enabled")
+      : rows[0]?.chart === "prometheus-community/prometheus@29.8.0"
+        ? rows.find((item) => item.base === "server-only-ephemeral")
       : null;
   const row = explicitSupportBase
     ?? rows.find((item) => item.recommended_first === "yes")

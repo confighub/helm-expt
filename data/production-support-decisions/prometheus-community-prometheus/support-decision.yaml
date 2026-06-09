@@ -1,64 +1,84 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ProductionSupportDecision
 metadata:
-  name: "prometheus-community-prometheus-default-public-oci-draft"
+  name: "prometheus-community-prometheus-server-only-ephemeral-public-oci-supported"
 spec:
   chart: "prometheus-community/prometheus"
   version: "29.8.0"
-  decision: draft
+  decision: supported
   decisionDate: "2026-06-09"
-  supportedBase: "default"
+  supportedSince: "2026-06-05T16:48:59Z"
+  supportedBase: "server-only-ephemeral"
   targetScope:
-    clusterClass: vanilla-kubernetes
-    namespace: "prometheus"
+    clusterClass: cub-lk-kind-vanilla
+    namespace: "monitoring"
     deliveryPath: confighub-oci
-    gitopsController: argo-or-flux
+    gitopsController: argo
+    lastEvidenceAt: "2026-06-05T16:48:59Z"
+    lastEvidenceTarget: helm-expt-parity-prometheus-mq15se5h-1see-cluster/oci
+    lastEvidenceKubeContext: kind-helm-expt-parity-prometheus-mq15se5h-1see
+    liveEvidenceTTL: 30d
     storageAssumptions:
-      - "Use the chart's recorded storage behavior for the candidate base unless this draft is narrowed before final support."
+      - "The supported base is ephemeral and has persistence disabled; long-retention storage needs a separate reviewed base."
     networkAssumptions:
-      - "Use the service, ingress, DNS, and certificate behavior recorded by the candidate base unless this draft is narrowed before final support."
+      - "Use the service behavior recorded by the supported scope unless a narrower scope is separately reviewed."
     requiredTargetFacts: []
   supportBoundary:
     includes:
-      - "prometheus-community/prometheus@29.8.0 default base"
-      - ConfigHub OCI delivery for the declared target scope after fresh target evidence is recorded
-      - rendered objects, labels, gates, receipts, and support objects produced by the recorded base
+      - "prometheus-community/prometheus@29.8.0 server-only-ephemeral base"
+      - ConfigHub OCI delivery through Argo for the declared cub-lk vanilla kind target scope
+      - rendered Prometheus server Deployment, Service, ConfigMap, RBAC, labels, gates, receipts, and support objects produced by the recorded base
+      - recorded mutable-image exception with digest-resolution evidence for the declared public proof scope
+      - recorded security acceptance for the narrower server-only proof scope
+      - recorded no-hooks lifecycle policy for the declared public proof scope
     excludes:
+      - "the broad default Prometheus stack unless separately reviewed for a specific target"
+      - "node-exporter, kube-state-metrics, pushgateway, Alertmanager, persistent storage, and long-retention production monitoring"
       - "private values overlays, wrapper charts, and populated extension slots unless separately reviewed"
+      - "custom scrape configs, remote write/read, ingress, network policy, PDB settings, and extra manifests unless separately reviewed"
+      - "digest-pinned, resource-hardened, storage-backed, or customer production bases unless separately reviewed"
       - "non-vanilla Kubernetes distributions unless separately reviewed"
       - "other delivery controllers or target scopes unless separately reviewed"
   decisions:
     imageDecision:
-      state: "needs-image-digest-resolution-or-exception"
-      detail: "resolve image digests or record explicit exception before production OCI support"
+      state: "mutable-image-exception-accepted-for-target-scope"
+      detail: "both recorded bases have digest-resolution receipts; mutable image tags are accepted only for the declared server-only public proof scope, while stricter scopes may require digest-pinned bases or image overrides"
     scanDecision:
-      state: "needs-security-acceptance-or-hardened-base"
-      detail: "record security acceptance or create hardened base"
+      state: "narrow-server-only-security-accepted-for-target-scope"
+      detail: "server-only RBAC, scrape, resource, and security-context warnings are accepted for the declared public proof scope; the broad default stack remains outside this support claim"
     lifecycleDecision:
-      state: "no-lifecycle-specific-decision"
-      detail: "no lifecycle-specific decision beyond standard support boundary"
+      state: "lifecycle-observed-for-proof-scope"
+      detail: "the server-only-ephemeral base has no Helm hook execution requirement and reaches readiness through regular Helm, cub installer apply, and ConfigHub OCI/Argo"
     targetFactDecision:
       state: "no-unresolved-target-prerequisite-in-candidate-base"
-      detail: "no unresolved target prerequisite in candidate base"
+      detail: "the supported server-only-ephemeral base has no unresolved target prerequisite"
     liveEvidenceDecision:
-      state: "needs-missing-live-or-confighub-lanes-before-final"
-      detail: "complete missing live or ConfigHub lanes, then refresh target-scoped evidence"
+      state: "fresh-target-evidence-passed"
+      detail: "fresh target-scoped ConfigHub OCI and Argo evidence passed on 2026-06-05 for the declared cub-lk vanilla kind Prometheus server-only scope"
   evidence:
-    - path: "recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
-      claim: "The candidate base is Helm-equivalent under recorded inputs."
-    - path: "recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/receipts/scan-receipt.yaml"
-      claim: "The rendered-object scan receipt exists for the candidate base."
-    - path: "runs/live-kind-parity/prometheus-community-prometheus-default/receipt.yaml"
-      claim: "The two-cluster Helm-vs-installer parity receipt exists for the candidate base."
+    - path: "recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/receipts/helm-equivalence-receipt.yaml"
+      claim: "The supported base is Helm-equivalent under recorded inputs."
+    - path: "recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/receipts/scan-receipt.yaml"
+      claim: "The rendered-object scan receipt exists for the supported base."
+    - path: "runs/live-kind-parity/prometheus-community-prometheus-server-only-ephemeral/receipt.yaml"
+      claim: "The two-cluster Helm-vs-installer parity receipt exists for the supported base."
+    - path: "runs/live-helm-confighub-compare/prometheus-community-prometheus-server-only-ephemeral/receipt.yaml"
+      claim: "The selected live Helm-vs-ConfigHub comparison receipt exists for the supported base."
+    - path: "data/production-support-decisions/prometheus-community-prometheus/fresh-target-evidence-2026-06-05.yaml"
+      claim: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared cub-lk vanilla kind support scope."
+    - path: "data/image-digest-workdown/receipts/prometheus-community-prometheus/server-only-ephemeral/image-digest-resolution.yaml"
+      claim: "The rendered mutable image references for the supported base have registry digest-resolution evidence."
+    - path: "data/production-support-decisions/prometheus-community-prometheus/image-policy-decision.yaml"
+      claim: "The target-scoped image policy decision accepts mutable rendered tags for this public proof scope with explicit limits."
+    - path: "data/production-support-decisions/prometheus-community-prometheus/security-decision.yaml"
+      claim: "The target-scoped security decision accepts the narrower server-only warning shape only for this public proof scope."
+    - path: "data/production-support-decisions/prometheus-community-prometheus/lifecycle-decision.yaml"
+      claim: "The target-scoped lifecycle decision binds no-hooks policy, selected components, and OCI/Argo runtime health to proof-scope evidence."
     - path: "data/production-disposition/receipts/prometheus-community-prometheus/cluster-rbac-review.yaml"
-      claim: "The cluster rbac review disposition exists for this chart."
+      claim: "The cluster RBAC review disposition exists for this chart."
     - path: "data/production-disposition/receipts/prometheus-community-prometheus/extension-slot-provenance-and-scan-policy.yaml"
       claim: "The extension slot provenance and scan policy disposition exists for this chart."
     - path: "data/production-disposition/receipts/prometheus-community-prometheus/scan-gate-warning-disposition.yaml"
-      claim: "The scan gate warning disposition disposition exists for this chart."
-  requiredBeforeFinal:
-    - "Choose the final target scope, exact GitOps controller, namespace, and artifact digest."
-    - "Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope."
-    - "resolve image digests or record explicit exception before production OCI support"
-    - "record security acceptance or create hardened base"
-  nextAction: "choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support"
+      claim: "The scan gate warning disposition exists for this chart and recommends server-only-ephemeral as the narrower first production-review base."
+  requiredBeforeFinal: []
+  nextAction: "Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate default-stack, persistent-storage, remote-write, scrape-customization, ingress, node-exporter, resource-hardened, or digest-pinned bases for real customer monitoring workloads."

@@ -1,0 +1,66 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionLifecycleDecision"
+metadata:
+  name: "prometheus-community-prometheus-public-oci-lifecycle-decision"
+spec:
+  chart: "prometheus-community/prometheus"
+  version: "29.8.0"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "monitoring"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "server-only-ephemeral"
+  variantsCovered:
+    - "default"
+    - "server-only-ephemeral"
+  decision: "lifecycle-observed-for-proof-scope"
+  decidedAt: "2026-06-09"
+  claim: "The Prometheus server-only-ephemeral base has no Helm hook execution requirement in the supported proof scope. The Prometheus server Deployment reaches readiness through regular Helm, cub installer apply, and ConfigHub OCI/Argo, and semantic parity is preserved."
+  lifecycleModel:
+    hookPolicy: "no-chart-hooks"
+    selectedComponents:
+      - "prometheus-server"
+    disabledComponents:
+      - "alertmanager"
+      - "kube-state-metrics"
+      - "node-exporter"
+      - "pushgateway"
+      - "persistent-storage"
+    extensionSlots: "custom scrape configs, remote read/write, ingress, network policy, PDB settings, and extra manifests require a new reviewed base when populated"
+  observedLifecycleSignals:
+    twoClusterParity:
+      result: "pass"
+      observedAt: "2026-06-06T08:15:57Z"
+      regularHelmRuntime: "pass"
+      installerRuntime: "pass"
+      semanticParity: "pass"
+    confighubOciArgo:
+      result: "pass"
+      observedAt: "2026-06-05T16:48:59Z"
+      regularHelmRuntime: "pass"
+      confighubApplyRuntime: "pass"
+      confighubOciRuntime: "pass"
+      argoSync: "Synced"
+      argoHealth: "Healthy"
+      semanticParity: "pass"
+  limits:
+    - "This supports the server-only-ephemeral public proof base, not the broad default Prometheus stack."
+    - "Persistence is disabled in this base; it is not a long-retention production monitoring deployment."
+    - "Custom scrape config, remote write/read, ingress, network policy, PDB settings, and extra manifests require a separate reviewed base."
+    - "The default bundled stack remains outside this support claim."
+  evidence:
+    -
+      path: "runs/live-kind-parity/prometheus-community-prometheus-server-only-ephemeral/receipt.yaml"
+      claim: "Two-cluster Helm-vs-installer parity passes for server-only-ephemeral."
+    -
+      path: "runs/live-helm-confighub-compare/prometheus-community-prometheus-server-only-ephemeral/receipt.yaml"
+      claim: "ConfigHub OCI/Argo live parity passes for server-only-ephemeral."
+    -
+      path: "data/production-disposition/receipts/prometheus-community-prometheus/extension-slot-provenance-and-scan-policy.yaml"
+      claim: "Records the custom scrape, remote read/write, ingress, network policy, PDB, and extra-manifest slot policy."
+    -
+      path: "data/production-disposition/receipts/prometheus-community-prometheus/cluster-rbac-review.yaml"
+      claim: "Records cluster RBAC review for Prometheus discovery."
+  remainingSupportBlockers:
+    - "Record image policy, security acceptance, and fresh target-scoped ConfigHub OCI/GitOps evidence."

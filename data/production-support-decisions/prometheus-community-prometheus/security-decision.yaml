@@ -1,0 +1,82 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSecurityDecision"
+metadata:
+  name: "prometheus-community-prometheus-public-oci-security-decision"
+spec:
+  chart: "prometheus-community/prometheus"
+  version: "29.8.0"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "monitoring"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "server-only-ephemeral"
+  variantsCovered:
+    - "default"
+    - "server-only-ephemeral"
+  decision: "narrow-server-only-security-accepted-for-target-scope"
+  decidedAt: "2026-06-09"
+  claim: "The selected support scope is the narrower server-only-ephemeral base, not the broad default stack. It removes bundled node-exporter, kube-state-metrics, pushgateway, Alertmanager, and persistence from the first support claim. The remaining server-only scan warnings are accepted for this public proof scope; stricter environments should create a resource/security hardened base."
+  route: "accept-or-split-privileged-infrastructure"
+  routeReason: "the chart installs infrastructure that normally needs node, host, or privileged access"
+  findingSummary:
+    scanner: "kube-linter"
+    result: "warn"
+    totalFindings: 27
+    topChecks:
+      unset-cpu-requirements: 8
+      unset-memory-requirements: 8
+      no-read-only-root-fs: 6
+      sensitive-host-mounts: 3
+      host-network: 1
+      host-pid: 1
+    variants:
+      default:
+        findingCount: 21
+        topChecks:
+          unset-cpu-requirements: 6
+          unset-memory-requirements: 6
+          no-read-only-root-fs: 4
+          sensitive-host-mounts: 3
+          host-network: 1
+        renderedObjectSetSHA256: "c11349803ddbb44562066474dd04d47d7c5c75d083dbc96162224573f949c11b"
+      server-only-ephemeral:
+        findingCount: 6
+        topChecks:
+          no-read-only-root-fs: 2
+          unset-cpu-requirements: 2
+          unset-memory-requirements: 2
+        renderedObjectSetSHA256: "174e1729753ef551fa059f86111cfd87653ea2380dc879238cf5cc4987e78812"
+  acceptedFindings:
+    -
+      group: "server-only-rbac-and-scrape-scope"
+      disposition: "Accepted for the public proof scope. The server-only base still needs cluster-wide read RBAC for discovery; customer scopes should review or narrow this access."
+    -
+      group: "server-only-resource-and-security-context-defaults"
+      disposition: "Accepted for the public proof scope. Add CPU/memory requests, read-only root filesystem policy, and other hardening in a stricter base."
+  defaultBaseDisposition: "The default base remains a review target, not a supported production scope. It includes bundled infrastructure and node-level access that needs a separate target security decision."
+  limits:
+    - "This is not a blanket security approval for customer clusters, private overlays, or regulated environments."
+    - "This does not make the broad default Prometheus stack production-supported."
+    - "Custom scrape configs, remote write/read, ingress, network policy, PDB, extra manifests, persistent storage, and bundled exporters remain separate review surfaces."
+  evidence:
+    -
+      path: "data/scan-disposition-workdown/workdown.csv"
+      claim: "Routes Prometheus scan findings to accept-or-split-privileged-infrastructure."
+    -
+      path: "data/external-scan-lane/review.csv"
+      claim: "Records kube-linter warning counts for default and server-only-ephemeral rendered object sets."
+    -
+      path: "recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for default."
+    -
+      path: "recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for server-only-ephemeral."
+    -
+      path: "data/production-disposition/receipts/prometheus-community-prometheus/scan-gate-warning-disposition.yaml"
+      claim: "Earlier production disposition recommends server-only-ephemeral as the narrower first production-review base."
+    -
+      path: "data/production-disposition/receipts/prometheus-community-prometheus/cluster-rbac-review.yaml"
+      claim: "Records Prometheus cluster RBAC review for the supported bases."
+  remainingSupportBlockers:
+    - "Record image policy and fresh target-scoped ConfigHub OCI/GitOps evidence."
