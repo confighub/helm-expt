@@ -205,6 +205,11 @@ For the full routing table, see [Choosing Commands](./docs/user/choosing-command
 > acceptance contract — the verified properties, current coverage, and the
 > honest limitations.
 
+The generated status dashboard is the authority for current counts:
+[data/status-dashboard/summary.md](./data/status-dashboard/summary.md).
+The numbers below are the current public snapshot, not a promise that every
+chart/base row has every lane complete.
+
 ```text
 20 popular Helm charts have catalog entries.
 20/20 top-20 charts have at least one passing local kind live/e2e receipt.
@@ -264,7 +269,9 @@ See the generated summaries for exact chart/base status:
 [Runtime/GitOps Wave](./data/runtime-gitops/summary.md) and
 [Live Helm-vs-ConfigHub Parity](./data/live-helm-confighub-compare/summary.md).
 For the all-base-variant parity lane, see
-[Two-Cluster Kind Parity](./data/live-kind-parity/summary.md).
+[Two-Cluster Kind Parity](./data/live-kind-parity/summary.md). For the exact
+non-pass follow-up queue, see
+[Live Parity Rerun Plan](./data/live-parity-rerun-plan/summary.md).
 
 Start here:
 
@@ -728,6 +735,8 @@ strict live Helm-vs-ConfigHub comparison: 15 pass, 5 watch, 0 blocked
 Use the generated summaries for exact chart/base status:
 [Runtime/GitOps Wave](./data/runtime-gitops/summary.md) and
 [Live Helm-vs-ConfigHub Parity](./data/live-helm-confighub-compare/summary.md).
+For non-pass follow-up rows, use
+[Live Parity Rerun Plan](./data/live-parity-rerun-plan/summary.md).
 
 ## Current Commands Used
 
