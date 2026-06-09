@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionLifecycleDecision"
+metadata:
+  name: "external-secrets-external-secrets-public-oci-lifecycle-decision"
+spec:
+  chart: "external-secrets/external-secrets"
+  version: "2.5.0"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "external-secrets"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "default"
+  variantsCovered:
+    - "default"
+    - "no-crds"
+  decision: "lifecycle-observed-for-proof-scope"
+  decidedAt: "2026-06-09"
+  claim: "External Secrets has no Helm hooks in the supported base. The controller-owned lifecycle fields have proof-scope observation evidence: CRDs are Established, controller Deployments are ready, webhook caBundle fields are populated, webhook Secret data is populated, and a SecretStore server dry-run is accepted."
+  lifecycleModel:
+    controllerOwnedFields:
+      - "webhook Secret certificate data"
+      - "admission webhook caBundle"
+    crdPolicy: "crds-rendered-by-base-variant"
+    hookPolicy: "no-helm-hook"
+  observedLifecycleSignals:
+    result: "pass"
+    observedAt: "2026-06-06T21:15:36Z"
+    controllerOwnedFields:
+      webhookSecretDataKeys:
+        - "ca.crt"
+        - "ca.key"
+        - "tls.crt"
+        - "tls.key"
+    renderedCrds: 23
+    checks:
+      kind-create: "pass"
+      cub-installer-setup: "pass"
+      kubectl-apply: "pass"
+      deployment-ready:external-secrets: "pass"
+      deployment-ready:external-secrets-cert-controller: "pass"
+      deployment-ready:external-secrets-webhook: "pass"
+      crds-established: "pass"
+      webhook-ca-bundle:secretstore-validate: "pass"
+      webhook-ca-bundle:externalsecret-validate: "pass"
+      webhook-secret-data:external-secrets-webhook: "pass"
+      server-dry-run-api-object: "pass"
+  limits:
+    - "This decision records controller-owned post-apply behavior; it does not claim universal Helm hook emulation."
+    - "SecretStore and provider configuration objects are user workloads outside this base chart."
+    - "The no-crds path remains target-prerequisite driven and needs compatible CRDs staged before apply."
+    - "Upgrade lifecycle and future chart versions need fresh receipts before support expansion."
+  evidence:
+    -
+      path: "runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-default/receipt.yaml"
+      claim: "Lifecycle observation for the default base."
+    -
+      path: "runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-no-crds/receipt.yaml"
+      claim: "Lifecycle observation for the no-crds base with compatible CRDs staged."
+    -
+      path: "data/production-disposition/receipts/external-secrets-external-secrets/webhook-readiness-and-failure-policy.yaml"
+      claim: "Webhook readiness and controller-owned field policy is accepted as production-review input."
+    -
+      path: "data/production-disposition/receipts/external-secrets-external-secrets/crd-lifecycle-and-upgrade-policy.yaml"
+      claim: "CRD ownership policy is accepted as production-review input."
+  remainingSupportBlockers:
+    - "Record image policy, security/resource policy, and fresh target-scoped ConfigHub OCI/GitOps evidence."

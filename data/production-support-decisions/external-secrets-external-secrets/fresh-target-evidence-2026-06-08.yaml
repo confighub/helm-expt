@@ -1,0 +1,71 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSupportEvidenceReceipt"
+metadata:
+  name: "external-secrets-external-secrets-default-argo-oci-support-evidence-20260608"
+spec:
+  chart: "external-secrets/external-secrets"
+  version: "2.5.0"
+  base: "default"
+  observedAt: "2026-06-08T17:11:42Z"
+  result: "pass"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "external-secrets"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+    rig: "helm-expt-parity-externalsecrets-mq5gx5ta-19j0"
+    kubeContext: "kind-helm-expt-parity-externalsecrets-mq5gx5ta-19j0"
+    target: "helm-expt-parity-externalsecrets-mq5gx5ta-19j0-cluster/oci"
+    workloadSpace: "helm-expt-parity-externalsecrets-mq5gx5ta-19j0-external-secrets"
+    app: "external-secrets-parity"
+  package:
+    path: "packages/external-secrets/external-secrets/2.5.0"
+  recipe:
+    path: "recipes/external-secrets/external-secrets/2.5.0"
+  oci:
+    revision: "sha256:8a849bc10483fe8bb35213034f55cd41a3950cbd32e0c8b53a63dd91433192af"
+    controller: "Argo CD OCI"
+    sync: "Synced"
+    health: "Healthy"
+    manifestSHA256: "6536a258d875528b5730becc9c0f154490ee45ff0c0943e048fa50f28dffc241"
+    objectCount: 43
+  comparison:
+    regularHelmRuntime: "pass"
+    configHubApplyRuntime: "pass"
+    configHubOciRuntime: "pass"
+    helmVsConfigHubOciArgo: "pass"
+    allowedExtraConfigHubObjects:
+      - "v1|Namespace||external-secrets"
+  twoClusterCrossCheck:
+    path: "runs/live-kind-parity/external-secrets-external-secrets-default/receipt.yaml"
+    result: "pass"
+    semanticParity: "pass"
+    regularHelmRuntime: "pass"
+    installerRuntime: "pass"
+  source:
+    liveReceiptPath: "runs/live-helm-confighub-compare/external-secrets-external-secrets-default/receipt.yaml"
+    cleanupPolicy: "cub-lk rig and ConfigHub cluster space removed after evidence capture"
+  checks:
+    -
+      name: "regular-helm-runtime"
+      result: "pass"
+      detail: "regular Helm workload runtime passed"
+    -
+      name: "confighub-apply-runtime"
+      result: "pass"
+      detail: "ConfigHub rendered objects applied by kubectl reached runtime pass"
+    -
+      name: "confighub-oci-argo-runtime"
+      result: "pass"
+      detail: "Argo app external-secrets-parity: sync=Synced health=Healthy revision=sha256:8a849bc10483fe8bb35213034f55cd41a3950cbd32e0c8b53a63dd91433192af"
+    -
+      name: "semantic-object-parity"
+      result: "pass"
+      detail: "regular Helm and ConfigHub OCI/Argo object sets match semantically, except the recorded Namespace support object"
+  supportClaim:
+    state: "fresh-target-evidence-passed"
+    detail: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared External Secrets default support scope."
+  limits:
+    - "This supports the recorded cub-lk vanilla kind Argo OCI scope, not every Kubernetes cluster."
+    - "SecretStore provider configuration and provider credentials are outside this base support claim."
+    - "Evidence freshness is 30 days for public demo/support examples unless refreshed earlier."

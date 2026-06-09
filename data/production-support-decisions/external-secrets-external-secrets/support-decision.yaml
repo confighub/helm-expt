@@ -1,48 +1,58 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ProductionSupportDecision
 metadata:
-  name: "external-secrets-external-secrets-default-public-oci-draft"
+  name: "external-secrets-external-secrets-default-public-oci-supported"
 spec:
   chart: "external-secrets/external-secrets"
   version: "2.5.0"
-  decision: draft
+  decision: supported
   decisionDate: "2026-06-09"
+  supportedSince: "2026-06-08T17:11:42Z"
   supportedBase: "default"
   targetScope:
-    clusterClass: vanilla-kubernetes
+    clusterClass: cub-lk-kind-vanilla
     namespace: "external-secrets"
     deliveryPath: confighub-oci
-    gitopsController: argo-or-flux
+    gitopsController: argo
+    lastEvidenceAt: "2026-06-08T17:11:42Z"
+    lastEvidenceTarget: helm-expt-parity-externalsecrets-mq5gx5ta-19j0-cluster/oci
+    lastEvidenceKubeContext: kind-helm-expt-parity-externalsecrets-mq5gx5ta-19j0
+    liveEvidenceTTL: 30d
     storageAssumptions:
-      - "Use the chart's recorded storage behavior for the candidate base unless this draft is narrowed before final support."
+      - "Use the chart's recorded storage behavior for the supported scope unless a narrower scope is separately reviewed."
     networkAssumptions:
-      - "Use the service, ingress, DNS, and certificate behavior recorded by the candidate base unless this draft is narrowed before final support."
+      - "Use the service, webhook, and certificate behavior recorded by the supported scope unless a narrower scope is separately reviewed."
     requiredTargetFacts: []
   supportBoundary:
     includes:
       - "external-secrets/external-secrets@2.5.0 default base"
-      - ConfigHub OCI delivery for the declared target scope after fresh target evidence is recorded
+      - ConfigHub OCI delivery through Argo for the declared cub-lk vanilla kind target scope
       - rendered objects, labels, gates, receipts, and support objects produced by the recorded base
+      - recorded mutable-image exception for the declared public controller support scope
+      - recorded resource-policy acceptance for the declared public controller support scope
+      - controller-owned webhook lifecycle observation for the declared public controller support scope
     excludes:
       - "private values overlays, wrapper charts, and populated extension slots unless separately reviewed"
+      - "SecretStore, ClusterSecretStore, ExternalSecret, PushSecret, provider credentials, and provider-specific workloads"
+      - "digest-pinned, resource-hardened, or provider-specific production bases unless separately reviewed"
       - "non-vanilla Kubernetes distributions unless separately reviewed"
       - "other delivery controllers or target scopes unless separately reviewed"
   decisions:
     imageDecision:
-      state: "needs-image-digest-resolution-or-exception"
-      detail: "resolve image digests or record explicit exception before production OCI support"
+      state: "mutable-image-exception-accepted-for-target-scope"
+      detail: "both recorded base variants have digest-resolution receipts; mutable image tags are accepted only for the declared public controller support scope, while stricter scopes may require digest-pinned bases or image overrides"
     scanDecision:
-      state: "needs-scan-scope-decision"
-      detail: "accept, fix, or document scanner findings for supported scope"
+      state: "resource-policy-accepted-for-target-scope"
+      detail: "missing CPU and memory requests/limits are accepted for the declared public cub-lk controller proof scope; stricter scopes should create a resource-policy base or overlay"
     lifecycleDecision:
-      state: "needs-lifecycle-support-boundary"
-      detail: "record lifecycle support boundary: lifecycle-observations:2/2"
+      state: "lifecycle-observed-for-proof-scope"
+      detail: "no Helm hooks are required for the supported base; lifecycle observations prove CRDs established, webhook certificate data and caBundle populated, controller Deployments ready, and SecretStore server dry-run accepted"
     targetFactDecision:
       state: "no-unresolved-target-prerequisite-in-candidate-base"
       detail: "no unresolved target prerequisite in candidate base"
     liveEvidenceDecision:
-      state: "needs-fresh-target-evidence-before-final"
-      detail: "refresh target-scoped live/e2e evidence before support claim"
+      state: "fresh-target-evidence-passed"
+      detail: "fresh target-scoped ConfigHub OCI and Argo evidence passed on 2026-06-08 for the declared cub-lk vanilla kind External Secrets scope"
   evidence:
     - path: "recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
       claim: "The candidate base is Helm-equivalent under recorded inputs."
@@ -52,6 +62,16 @@ spec:
       claim: "The two-cluster Helm-vs-installer parity receipt exists for the candidate base."
     - path: "runs/live-helm-confighub-compare/external-secrets-external-secrets-default/receipt.yaml"
       claim: "The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base."
+    - path: "data/production-support-decisions/external-secrets-external-secrets/fresh-target-evidence-2026-06-08.yaml"
+      claim: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared cub-lk vanilla kind support scope."
+    - path: "data/image-digest-workdown/receipts/external-secrets-external-secrets/default/image-digest-resolution.yaml"
+      claim: "The rendered mutable image references for the candidate base have registry digest-resolution evidence."
+    - path: "data/production-support-decisions/external-secrets-external-secrets/image-policy-decision.yaml"
+      claim: "The target-scoped image policy decision accepts mutable rendered tags for this public controller support scope with explicit limits."
+    - path: "data/production-support-decisions/external-secrets-external-secrets/security-decision.yaml"
+      claim: "The target-scoped security decision accepts missing resource requests/limits only for this public cub-lk proof scope."
+    - path: "data/production-support-decisions/external-secrets-external-secrets/lifecycle-decision.yaml"
+      claim: "The target-scoped lifecycle decision binds controller-owned webhook fields and CRD readiness to proof-scope observation evidence."
     - path: "data/production-disposition/receipts/external-secrets-external-secrets/cluster-rbac-review.yaml"
       claim: "The cluster rbac review disposition exists for this chart."
     - path: "data/production-disposition/receipts/external-secrets-external-secrets/crd-lifecycle-and-upgrade-policy.yaml"
@@ -64,8 +84,5 @@ spec:
       claim: "The target fact preflight disposition exists for this chart."
     - path: "data/production-disposition/receipts/external-secrets-external-secrets/webhook-readiness-and-failure-policy.yaml"
       claim: "The webhook readiness and failure policy disposition exists for this chart."
-  requiredBeforeFinal:
-    - "Choose the final target scope, exact GitOps controller, namespace, and artifact digest."
-    - "Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope."
-    - "resolve image digests or record explicit exception before production OCI support"
-  nextAction: "resolve image digests for each affected variant before production OCI support"
+  requiredBeforeFinal: []
+  nextAction: "Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate provider-specific bases for SecretStore and ExternalSecret use cases."

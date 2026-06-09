@@ -1,0 +1,42 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ImageDigestResolutionReceipt"
+metadata:
+  name: "external-secrets-external-secrets-default-image-digest-resolution"
+spec:
+  chart: "external-secrets/external-secrets"
+  version: "2.5.0"
+  variant: "default"
+  resolvedAt: "2026-06-09T17:30:29.528Z"
+  renderedObjectSet:
+    path: "recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/rendered/release-objects.yaml"
+    sha256: "f1c832a9af788c9d2a7a0b066d76a7d8af253d83f5b0fa39c1aa91271230d3db"
+  sourceImageReview:
+    path: "data/attack-plan-workdown/image-digest-review.csv"
+    rows: 3
+    uniqueImages: 1
+  resolver:
+    name: "docker-buildx-imagetools"
+    commandTemplate: "docker buildx imagetools inspect <image>"
+  images:
+    -
+      image: "ghcr.io/external-secrets/external-secrets:v2.5.0"
+      digest: "sha256:45e7bee4e743331288df01efce0e35b41738cffdc89c86a235359a5153257489"
+      digestReference: "ghcr.io/external-secrets/external-secrets:v2.5.0@sha256:45e7bee4e743331288df01efce0e35b41738cffdc89c86a235359a5153257489"
+      mediaType: "application/vnd.oci.image.index.v1+json"
+      resolverOutput:
+        name: "ghcr.io/external-secrets/external-secrets:v2.5.0"
+      occurrences:
+        -
+          object: "apps/v1/Deployment/external-secrets/external-secrets-cert-controller"
+          fieldPath: "spec.template.spec.containers.0.image"
+        -
+          object: "apps/v1/Deployment/external-secrets/external-secrets-webhook"
+          fieldPath: "spec.template.spec.containers.0.image"
+        -
+          object: "apps/v1/Deployment/external-secrets/external-secrets"
+          fieldPath: "spec.template.spec.containers.0.image"
+  productionSupportUse:
+    status: "digest-resolution-recorded"
+    claim: "The mutable rendered image references for this candidate base were resolved to registry manifest digests at the recorded time."
+    limits: "This receipt does not mean the rendered manifests are digest-pinned and does not by itself make the chart production-supported."
+    nextRequired: "Choose a digest-pinned base, image override policy, or explicit mutable-image exception before final production OCI support."
