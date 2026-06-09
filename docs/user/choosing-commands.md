@@ -147,6 +147,7 @@ a `cub installer` base variant.
 | "Load this chart into ConfigHub right now." | `cub helm install` |
 | "Use the supported Redis catalog entry." | `cub installer setup --pull packages/bitnami/redis/25.5.3 --base default` |
 | "Use a values file that changes storage, ingress, RBAC, CRDs, components, or topology." | create or choose a `cub installer` base variant |
+| "Fill `extraDeploy`, `serverBlock`, `tpl`, sidecar, raw manifest, or config-block slots." | create or choose a reviewed `cub installer` base variant |
 | "Promote this reviewed Prometheus base to prod-us-east." | `cub variant create` over the uploaded ConfigHub Space |
 | "Change target, environment, region, gates, labels, links, or observation policy." | derived ConfigHub variant |
 | "Use an existing Secret that changes chart rendering." | base variant |

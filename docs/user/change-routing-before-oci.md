@@ -34,6 +34,8 @@ Use a base variant for:
   object shape differs;
 - applying a Helm values file or `--set` input that changes chart branches,
   object shape, object count, or lifecycle behavior;
+- populating raw manifest, `tpl`, sidecar, config-block, or application config
+  extension slots such as `extraDeploy`, `serverBlock`, or extra scrape config;
 - applying a Kustomize overlay or post-renderer that materially changes the
   install shape;
 - selecting a wrapper chart, umbrella chart, platform values, or customer
