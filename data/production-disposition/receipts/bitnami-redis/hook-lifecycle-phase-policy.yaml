@@ -26,7 +26,4 @@ spec:
   affectedVariants:
     - default
     - reuse-existing-secret
-  remainingProductionBlockers:
-    - generated fact ownership
-    - target fact preflight
-    - scan/gate warning disposition
+  remainingProductionBlockers: []

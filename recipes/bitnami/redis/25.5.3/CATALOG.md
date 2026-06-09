@@ -16,7 +16,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Catalog status | catalog-supported |
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
-| Production readiness | blocked-by-current-scan-gate |
+| Production readiness | production-review-ready |
 | Supported variants | default, reuse-existing-secret |
 | Candidate variants | none |
 | Control points | capability-profile, dependency-lock, generated-facts, hook-policy, image-digest, installer-support-object, secret-handling, source-lock, target-facts |
@@ -34,7 +34,7 @@ for exact base-variant evidence.
 | Proof lanes | render parity 2/2; ConfigHub 1/2; local live 2/2; GitOps live 2/2; live parity 1/2 |
 | Feature summary | generated-secrets;required-values;install-vs-upgrade |
 | Hard gap | - |
-| Next action | write or fix the generated fact ownership disposition receipt |
+| Next action | refresh live/e2e receipts for the accepted production scope |
 
 ## Artifact Chain
 

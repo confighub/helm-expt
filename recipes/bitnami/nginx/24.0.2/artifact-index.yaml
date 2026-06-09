@@ -62,7 +62,7 @@ spec:
       liveParity: "1/2"
     featureSummary: "generated-secrets;install-vs-upgrade;extension-slots"
     hardGap: "existing-secret (chart ships no Secret toggle - #113)"
-    nextAction: "accept PDB behavior or add a reviewed patch where the chart supports it"
+    nextAction: "refresh live/e2e receipts for the accepted production scope"
   installerPackage:
     path: "packages/bitnami/nginx/24.0.2"
     installer: "packages/bitnami/nginx/24.0.2/installer.yaml"

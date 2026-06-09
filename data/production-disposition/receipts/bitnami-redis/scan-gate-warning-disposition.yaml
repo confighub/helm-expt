@@ -1,0 +1,38 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: bitnami-redis-scan-gate-warning-disposition
+spec:
+  chart: bitnami/redis
+  version: "25.5.3"
+  disposition: scan/gate warning disposition
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: The supported Redis bases have no high or critical rendered-object scan findings. The remaining scan findings are PodDisruptionBudget unhealthy-pod-eviction policy warnings on the master and replica PDBs in each base. Both bases pass render parity and strict two-cluster live parity, so this disposition treats the PDB behavior as an explicit availability-policy choice for the reviewed bases rather than a hidden render defect.
+  evidence:
+    - path: data/external-scan-lane/chart-workdown.csv
+      claim: The external scan workdown records four Redis findings, all for pdb-unhealthy-pod-eviction-policy across the two supported bases.
+    - path: data/scan-disposition-workdown/workdown.csv
+      claim: The generated scan disposition workdown routes bitnami/redis to accept-or-patch-pdb-policy rather than image-pin, security-hardening, endpoint, or privileged-infrastructure work.
+    - path: recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default rendered-object scan has zero high or critical findings and records the two PDB/availability warnings explicitly.
+    - path: recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/receipts/scan-receipt.yaml
+      claim: The reuse-existing-secret rendered-object scan has zero high or critical findings and records the two PDB/availability warnings explicitly.
+    - path: recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The default base is Helm-equivalent under recorded inputs, with the installer Namespace support object and separated Secret classified.
+    - path: recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The reuse-existing-secret base is Helm-equivalent under recorded inputs, with only the installer Namespace support object added.
+    - path: runs/live-kind-parity/bitnami-redis-default/receipt.yaml
+      claim: The default base passes strict two-cluster live parity between regular Helm and cub installer apply.
+    - path: runs/live-kind-parity/bitnami-redis-reuse-existing-secret/receipt.yaml
+      claim: The reuse-existing-secret base passes strict two-cluster live parity between regular Helm and cub installer apply with the target Secret staged.
+  affectedVariants:
+    - default
+    - reuse-existing-secret
+  acceptedWarnings:
+    - pdb-unhealthy-pod-eviction-policy
+  remainingProductionBlockers: []
+  nextDecision: A product/operator production support decision can now review Redis secret ownership, persistence, backup, and availability policy for the chosen target scope.

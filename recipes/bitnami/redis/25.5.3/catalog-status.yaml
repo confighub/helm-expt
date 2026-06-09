@@ -9,7 +9,7 @@ spec:
   supportLevel: "supported-for-declared-scopes"
   supportedScopes:
     - local-test
-  productionReadiness: "blocked-by-current-scan-gate"
+  productionReadiness: "production-review-ready"
   supportedVariants:
     - "default"
     - "reuse-existing-secret"
@@ -22,5 +22,5 @@ spec:
     productReviewRequired: false
   notes:
     - "First deliberately supported catalog entry."
-    - "Supported scope is local-test until scan findings have production dispositions."
+    - "Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state."
     - "Both variants are Helm-equivalent through cub installer setup."

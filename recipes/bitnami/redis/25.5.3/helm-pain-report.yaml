@@ -15,7 +15,7 @@ spec:
   supportedVariants:
     - "default"
     - "reuse-existing-secret"
-  productionReadiness: "blocked-by-current-scan-gate"
+  productionReadiness: "production-review-ready"
   notes:
     - "Redis is stateful; PVC and credential behavior require explicit variant policy."
     - "Bitnami Redis can generate credentials unless a password/existing secret path is provided."
@@ -42,7 +42,7 @@ spec:
       supportedVariantStatus: "handled"
     -
       id: "generated-facts"
-      detectedPainPoint: "auth.password is deterministic in this proof; future generated-fact receipt should own this."
+      detectedPainPoint: "auth.password is bound before render and owned by a generated-fact receipt."
       evidence:
         - "effective-values.yaml"
       configHubHome: "generated-fact"
@@ -124,4 +124,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "values-diagnostics.yaml"
       supportedVariantStatus: "unknown=checked-for-proof-path; dead=checked-for-proof-path; ignored=checked-for-proof-path"
-  answerForSkepticalHelmUser: "bitnami/redis@25.5.3 maps its detected Helm pain to 9 ConfigHub control areas: source-lock, dependency-lock, generated-fact, target-fact-requirement, capability-profile, lifecycle-policy, recipe, scan-gate, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains blocked-by-current-scan-gate."
+  answerForSkepticalHelmUser: "bitnami/redis@25.5.3 maps its detected Helm pain to 9 ConfigHub control areas: source-lock, dependency-lock, generated-fact, target-fact-requirement, capability-profile, lifecycle-policy, recipe, scan-gate, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production recommendation remains a separate target-scoped decision."

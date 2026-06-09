@@ -1,0 +1,34 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: bitnami-redis-generated-fact-ownership
+spec:
+  chart: bitnami/redis
+  version: "25.5.3"
+  disposition: generated fact ownership
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: The default Redis base binds auth.password before render through a generated-fact receipt, records the generated fact digest, and separates the rendered Secret from ConfigHub upload. The reuse-existing-secret base removes that generated fact from the rendered object set and records the Redis Secret as an explicit target fact. This closes generated-fact ownership for the reviewed bases, while the final production support decision still needs to choose the target secret policy.
+  evidence:
+    - path: recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/generated-fact-receipt.yaml
+      claim: The default base records auth.password as a generated fact, binds it to the rendered Redis Secret and StatefulSets, and proves deterministic replay for the rendered object set.
+    - path: recipes/bitnami/redis/25.5.3/effective-values.yaml
+      claim: The default effective values reference the generated-fact receipt and store the value path used for render.
+    - path: recipes/bitnami/redis/25.5.3/value-source-map.yaml
+      claim: The value-source map records the auth.password digest, rendered fields, and rollout impact.
+    - path: recipes/bitnami/redis/25.5.3/inheritance-graph.yaml
+      claim: The inheritance graph shows that reuse-existing-secret removes auth.password and replaces it with an explicit target Secret edge.
+    - path: recipes/bitnami/redis/25.5.3/diffs/default-to-reuse-existing-secret.yaml
+      claim: The variant diff records the removal of Secret redis/redis and the addition of the redis-existing-secret target fact.
+    - path: runs/live-kind-parity/bitnami-redis-default/receipt.yaml
+      claim: The default base passes strict two-cluster live parity between regular Helm and cub installer apply with the generated fact bound before render.
+    - path: runs/live-kind-parity/bitnami-redis-reuse-existing-secret/receipt.yaml
+      claim: The reuse-existing-secret base passes strict two-cluster live parity after staging the target Secret for both regular Helm and cub installer paths.
+  affectedVariants:
+    - default
+    - reuse-existing-secret
+  remainingProductionBlockers: []
+  nextDecision: A target-scoped production support decision should choose whether Redis uses the generated-fact default base or the reuse-existing-secret base with externally managed credentials.

@@ -98,7 +98,7 @@ The `Start Base Status` column uses the same generated readiness labels.
 #### bitnami/redis@25.5.3
 
 Status: catalog-supported
-Production readiness: blocked-by-current-scan-gate
+Production readiness: production-review-ready
 Start base readiness: start-here
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 1/2; local live 2/2; GitOps live 2/2; live parity 1/2

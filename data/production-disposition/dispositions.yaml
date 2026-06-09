@@ -532,7 +532,7 @@ spec:
     -
       chart: "bitnami/redis"
       version: "25.5.3"
-      status: "production-blocked"
+      status: "production-review-ready"
       supportedLocalTestVariants:
         - "default"
         - "reuse-existing-secret"
@@ -564,12 +564,15 @@ spec:
         lifecycleObservationReceipts:
           []
         productionDispositionReceipts:
+          - "data/production-disposition/receipts/bitnami-redis/generated-fact-ownership.yaml"
           - "data/production-disposition/receipts/bitnami-redis/hook-lifecycle-phase-policy.yaml"
+          - "data/production-disposition/receipts/bitnami-redis/scan-gate-warning-disposition.yaml"
           - "data/production-disposition/receipts/bitnami-redis/target-fact-preflight.yaml"
       dispositions:
         -
           name: "generated fact ownership"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/bitnami-redis/generated-fact-ownership.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "generated secret/cert inventory"
@@ -588,7 +591,8 @@ spec:
           unblockRule: "supported only when hooks are mapped to lifecycle policy or intentionally excluded"
         -
           name: "scan/gate warning disposition"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/bitnami-redis/scan-gate-warning-disposition.yaml"
           owner: "security-review"
           requiredEvidence:
             - "local scan receipt"

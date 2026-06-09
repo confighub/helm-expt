@@ -22,8 +22,8 @@ multi-variant entries: 54
 default-only entries: 46
 top-20 current with latest upstream: 14
 top-20 update candidates: 6
-production-blocked entries: 19
-production-review-ready entries: 1
+production-blocked entries: 18
+production-review-ready entries: 2
 entries matched to top-500 source rows: 65
 no hard gap in chart-facts: 75
 hard gap for at least one recommended capability: 25

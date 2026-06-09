@@ -34,7 +34,7 @@ for exact base-variant evidence.
 | Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 1/2; live parity 1/2 |
 | Feature summary | generated-secrets;install-vs-upgrade;extension-slots |
 | Hard gap | existing-secret (chart ships no Secret toggle - #113) |
-| Next action | accept PDB behavior or add a reviewed patch where the chart supports it |
+| Next action | refresh live/e2e receipts for the accepted production scope |
 
 ## Artifact Chain
 

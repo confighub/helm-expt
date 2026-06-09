@@ -40,7 +40,7 @@ spec:
     supportLevel: "supported-for-declared-scopes"
     supportedScopes:
       - "local-test"
-    productionReadiness: "blocked-by-current-scan-gate"
+    productionReadiness: "production-review-ready"
     supportedVariants:
       - "default"
       - "reuse-existing-secret"
@@ -60,7 +60,7 @@ spec:
       liveParity: "1/2"
     featureSummary: "generated-secrets;required-values;install-vs-upgrade"
     hardGap: "-"
-    nextAction: "write or fix the generated fact ownership disposition receipt"
+    nextAction: "refresh live/e2e receipts for the accepted production scope"
   installerPackage:
     path: "packages/bitnami/redis/25.5.3"
     installer: "packages/bitnami/redis/25.5.3/installer.yaml"

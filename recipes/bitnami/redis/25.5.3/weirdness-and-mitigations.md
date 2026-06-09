@@ -12,7 +12,7 @@ current ConfigHub/cub installer proof absorbs it.
 | Catalog status | catalog-supported |
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
-| Production readiness | blocked-by-current-scan-gate |
+| Production readiness | production-review-ready |
 | Variants in this note | default, reuse-existing-secret |
 
 Production support is not implied by this file. A chart can be supported for
@@ -38,7 +38,7 @@ or operating-policy dispositions.
 | --- | --- | --- |
 | source-lock | handled | source-lock.yaml |
 | dependency-lock | handled | dependency-lock.yaml |
-| generated-facts | handled-for-default-proof | auth.password is deterministic in this proof; future generated-fact receipt should own this. |
+| generated-facts | handled-for-default-proof | auth.password is bound before render and owned by revisions/default/r001/receipts/generated-fact-receipt.yaml. |
 | target-facts | required-for-reuse-existing-secret | variants/reuse-existing-secret/variant.yaml |
 | capability-profile | handled | recorded in control-points.yaml |
 | hook-policy | handled | no-hooks |

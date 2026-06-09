@@ -169,9 +169,9 @@ Use the generated rerun plan for the next command and expected remediation:
 Production disposition is still open for the top-20 catalog:
 
 - 0 of 20 top-20 charts are currently marked production-supported.
-- 1 of 20 is production-review-ready: NGINX.
-- 19 of 20 remain blocked pending explicit production dispositions.
-- 8 production-disposition receipts are accepted across 3 charts: NGINX,
+- 2 of 20 are production-review-ready: NGINX and Redis.
+- 18 of 20 remain blocked pending explicit production dispositions.
+- 10 production-disposition receipts are accepted across 3 charts: NGINX,
   Redis, and Metrics Server.
 - external scan work has 0 remaining mutable-image rows after the current
   supported-base image pinning pass.
