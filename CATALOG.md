@@ -908,7 +908,7 @@ Receipts: [per-chart receipts](recipes/bitnami/nginx/24.0.2/CATALOG.md)
 #### grafana/tempo@1.24.4
 
 Status: catalog-supported
-Production readiness: blocked-by-current-scan-gate
+Production readiness: production-review-ready
 Start base readiness: runtime-review-needed
 Strongest evidence: local-kubernetes-live
 Proof lanes: render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 0/2; live parity 0/2

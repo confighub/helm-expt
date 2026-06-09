@@ -941,7 +941,7 @@ spec:
     -
       chart: "grafana/tempo"
       version: "1.24.4"
-      status: "production-blocked"
+      status: "production-review-ready"
       supportedLocalTestVariants:
         - "local-persistent"
         - "s3-query-observability"
@@ -972,11 +972,15 @@ spec:
         lifecycleObservationReceipts:
           []
         productionDispositionReceipts:
-          []
+          - "data/production-disposition/receipts/grafana-tempo/extension-slot-provenance-and-scan-policy.yaml"
+          - "data/production-disposition/receipts/grafana-tempo/scan-gate-warning-disposition.yaml"
+          - "data/production-disposition/receipts/grafana-tempo/storage-backup-restore-and-rollback-policy.yaml"
+          - "data/production-disposition/receipts/grafana-tempo/target-fact-preflight.yaml"
       dispositions:
         -
           name: "extension slot provenance and scan policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/grafana-tempo/extension-slot-provenance-and-scan-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "tpl/raw value inventory"
@@ -985,7 +989,8 @@ spec:
           unblockRule: "supported only when extensions are explicit and scanned after render"
         -
           name: "scan/gate warning disposition"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/grafana-tempo/scan-gate-warning-disposition.yaml"
           owner: "security-review"
           requiredEvidence:
             - "local scan receipt"
@@ -994,7 +999,8 @@ spec:
           unblockRule: "supported only when warnings are accepted, fixed, or variant-blocking"
         -
           name: "storage backup restore and rollback policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/grafana-tempo/storage-backup-restore-and-rollback-policy.yaml"
           owner: "operate-review"
           requiredEvidence:
             - "PVC/storage class assumptions"
@@ -1003,7 +1009,8 @@ spec:
           unblockRule: "supported only when stateful rollback is not hand-waved"
         -
           name: "target fact preflight"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/grafana-tempo/target-fact-preflight.yaml"
           owner: "installer-review"
           requiredEvidence:
             - "installer externalRequires/facts"

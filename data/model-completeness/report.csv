@@ -48,7 +48,7 @@ grafana/loki@7.0.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,block
 grafana/promtail@6.17.1,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/grafana/promtail/6.17.1
 grafana/pyroscope@2.0.2,yes,6/6,yes,yes,yes,yes,yes,yes,yes,3,proof-grade,not-reviewed-for-production,none,recipes/grafana/pyroscope/2.0.2
 grafana/rollout-operator@0.49.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/grafana/rollout-operator/0.49.0
-grafana/tempo@1.24.4,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,blocked-by-current-scan-gate,none,recipes/grafana/tempo/1.24.4
+grafana/tempo@1.24.4,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/grafana/tempo/1.24.4
 haproxytech/kubernetes-ingress@1.52.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/haproxytech/kubernetes-ingress/1.52.0
 hashicorp/consul@2.0.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,blocked-by-current-scan-gate,none,recipes/hashicorp/consul/2.0.0
 hashicorp/terraform@1.1.2,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/hashicorp/terraform/1.1.2

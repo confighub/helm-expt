@@ -1,0 +1,49 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: grafana-tempo-extension-slot-provenance-and-scan-policy
+spec:
+  chart: grafana/tempo
+  version: "1.24.4"
+  disposition: extension slot provenance and scan policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Tempo exposes high-impact config, structuredConfig, volume, mount, ingress,
+    network policy, ServiceMonitor, and templated-string extension surfaces. The
+    supported bases keep arbitrary config and volume slots controlled; the
+    s3-query-observability base deliberately adds query ingress, NetworkPolicy,
+    and ServiceMonitor under captured values and target capability assumptions.
+    This disposition accepts the current base inputs while requiring any new
+    populated extension content to become a reviewed installer base.
+  evidence:
+    - path: recipes/grafana/tempo/1.24.4/control-points.yaml
+      claim: The recipe records extension-slots as controlled-by-empty-defaults and separately records query ingress, NetworkPolicy, and ServiceMonitor as explicit variant-controlled surfaces.
+    - path: recipes/grafana/tempo/1.24.4/value-model.yaml
+      claim: The value model records config, structuredConfig, extraVolumes, and extraVolumeMounts as extension slots.
+    - path: recipes/grafana/tempo/1.24.4/effective-values.yaml
+      claim: The local-persistent base only binds local storage, PVC settings, and disabled usage reporting.
+    - path: recipes/grafana/tempo/1.24.4/effective-values-s3-query-observability.yaml
+      claim: The s3-query-observability base explicitly adds S3 storage, Secret references, query ingress, NetworkPolicy, and ServiceMonitor.
+    - path: recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/receipts/scan-receipt.yaml
+      claim: The local-persistent scan records extension-slot-review and StatefulSet runtime review points explicitly.
+    - path: recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/receipts/scan-receipt.yaml
+      claim: The s3-query-observability scan records ingress, NetworkPolicy, ServiceMonitor, extension-slot, and target Secret review points explicitly.
+    - path: recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The local-persistent base is Helm-equivalent under recorded inputs.
+    - path: recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The s3-query-observability base is Helm-equivalent under recorded inputs.
+  affectedVariants:
+    - local-persistent
+    - s3-query-observability
+  acceptedPolicy:
+    currentBases: Arbitrary config, structuredConfig, volume, mount, and templated-string slots are controlled in the supported bases.
+    populatedSlotRule: New Tempo config, volumes, mounts, ingress, NetworkPolicy, ServiceMonitor, or extra templated content creates a reviewed installer base rather than an untracked post-render edit.
+    serviceMonitorRule: ServiceMonitor is allowed only when the target capability profile includes monitoring.coreos.com/v1.
+  variantCaveats:
+    - "s3-query-observability requires target-specific ingress, NetworkPolicy, Prometheus Operator, and object-store review."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose whether to keep the chart's extension slots empty or add reviewed bases for specific operational integrations.

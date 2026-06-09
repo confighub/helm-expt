@@ -43,7 +43,7 @@ spec:
     supportLevel: "supported-for-declared-scopes"
     supportedScopes:
       - "local-test"
-    productionReadiness: "blocked-by-current-scan-gate"
+    productionReadiness: "production-review-ready"
     supportedVariants:
       - "local-persistent"
       - "s3-query-observability"
@@ -63,7 +63,7 @@ spec:
       liveParity: "0/2"
     featureSummary: "extension-slots"
     hardGap: "ha (tempo single-binary chart; HA is the separate tempo-distributed chart)"
-    nextAction: "write or fix the receipt for extension slot provenance and scan policy"
+    nextAction: "refresh live/e2e receipts for the accepted production scope"
   installerPackage:
     path: "packages/grafana/tempo/1.24.4"
     installer: "packages/grafana/tempo/1.24.4/installer.yaml"

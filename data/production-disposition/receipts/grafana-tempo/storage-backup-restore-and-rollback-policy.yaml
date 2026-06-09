@@ -1,0 +1,49 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: grafana-tempo-storage-backup-restore-and-rollback-policy
+spec:
+  chart: grafana/tempo
+  version: "1.24.4"
+  disposition: storage backup restore and rollback policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Tempo storage is explicit in the supported bases. local-persistent binds a
+    PVC-backed local trace/WAL path. s3-query-observability switches trace
+    storage to S3, nulls local trace storage to avoid Helm merge residue, and
+    still declares WAL/PVC behavior. This disposition accepts the storage model
+    as production review input while requiring target retention, backup,
+    restore, and rollback decisions before production support.
+  evidence:
+    - path: recipes/grafana/tempo/1.24.4/value-model.yaml
+      claim: The value model records local persistence, local trace storage, S3 storage, and Helm merge cleanup as explicit value decisions.
+    - path: recipes/grafana/tempo/1.24.4/effective-values.yaml
+      claim: The local-persistent base binds local trace storage, WAL path, PVC size, and local-path storage class.
+    - path: recipes/grafana/tempo/1.24.4/effective-values-s3-query-observability.yaml
+      claim: The s3-query-observability base sets trace backend to s3, clears local trace storage, and records S3 endpoint, region, and bucket assumptions.
+    - path: recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/rendered/object-inventory.yaml
+      claim: The local-persistent rendered object inventory contains the Tempo StatefulSet and Service.
+    - path: recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/object-inventory.yaml
+      claim: The s3-query-observability rendered object inventory contains the same StatefulSet plus query/observability objects.
+    - path: recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/receipts/scan-receipt.yaml
+      claim: The local-persistent scan records StatefulSet storage and runtime review, including the missing tempo-headless Service risk.
+    - path: recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/receipts/scan-receipt.yaml
+      claim: The s3-query-observability scan records StatefulSet storage and runtime review, S3 target facts, and the same missing headless Service risk.
+    - path: runs/top20-local-kind/tempo-local-persistent/observation-receipt.json
+      claim: The local-test observation receipt records server-side apply and StatefulSet rollout for the local-persistent base in the top-20 local lane.
+  affectedVariants:
+    - local-persistent
+    - s3-query-observability
+  acceptedPolicy:
+    localPersistent: PVC storage is accepted for local-test and production review input only; target storage class, retention, backup, and restore remain production decisions.
+    s3QueryObservability: S3 trace storage is accepted as an explicit target-backed route, subject to object-store credentials, bucket lifecycle, and restore policy.
+    rollback: Storage rollback cannot be inferred from render parity and must be recorded as a target operating procedure.
+  variantCaveats:
+    - "The chart StatefulSet references serviceName tempo-headless, but these variants render no headless Service; this remains an explicit target/runtime review item."
+    - "The literal grafana/tempo chart is deprecated, so final production support may choose the maintained successor chart instead."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose the storage backend, backup/restore mechanism, retention policy, and whether to use this deprecated chart or a successor chart.

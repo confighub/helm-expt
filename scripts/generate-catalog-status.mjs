@@ -107,11 +107,13 @@ const supportedCatalogEntries = {
     ],
   },
   "grafana/tempo": {
+    productionReadiness: "production-review-ready",
     notes: [
       "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.",
-      "local-persistent is the simplest local Tempo path.",
-      "s3-query-observability is supported when object-store and query-path assumptions are declared.",
-      "Production remains blocked until object storage, retention, PVC, and scan/gate findings have dispositions.",
+      "local-persistent is the simplest local Tempo path, with storage/runtime caveats recorded for review.",
+      "s3-query-observability is supported when the S3 target Secret and Prometheus Operator ServiceMonitor API are staged in the target cluster.",
+      "Chart deprecation, storage/backup/rollback policy, target facts, extension slots, runtime service risk, and scan/gate warnings are recorded as production review input.",
+      "Production recommendation remains a separate decision; the final decision should choose the maintained successor chart or explicit legacy support and target runtime checks.",
     ],
   },
   "hashicorp/consul": {

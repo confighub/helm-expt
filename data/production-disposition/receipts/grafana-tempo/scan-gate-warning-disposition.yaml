@@ -1,0 +1,66 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: grafana-tempo-scan-gate-warning-disposition
+spec:
+  chart: grafana/tempo
+  version: "1.24.4"
+  disposition: scan/gate warning disposition
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Tempo has no high or critical rendered-object scan findings. The local scan
+    warnings are chart deprecation, extension slots, StatefulSet storage/runtime
+    review, missing headless Service risk, query ingress, NetworkPolicy,
+    ServiceMonitor capability, and target Secret facts. The external scanner
+    adds workload security and resource-policy warnings. This disposition
+    accepts those warnings as explicit production review inputs, not as final
+    production support.
+  evidence:
+    - path: data/external-scan-lane/review.csv
+      claim: External kube-linter rows for both bases record no-read-only-root-fs, unset-cpu-requirements, and unset-memory-requirements warnings bound to rendered object digests.
+    - path: data/scan-disposition-workdown/workdown.csv
+      claim: The generated scan disposition workdown routes Tempo to harden-security-context before production support.
+    - path: recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/receipts/scan-receipt.yaml
+      claim: The local-persistent rendered-object scan has zero high or critical findings and records chart deprecation, extension-slot, storage, and service risk findings.
+    - path: recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/receipts/scan-receipt.yaml
+      claim: The s3-query-observability rendered-object scan has zero high or critical findings and records ingress, NetworkPolicy, ServiceMonitor, target Secret, extension-slot, storage, and service risk findings.
+    - path: data/production-disposition/receipts/grafana-tempo/extension-slot-provenance-and-scan-policy.yaml
+      claim: Tempo extension slots, query ingress, NetworkPolicy, and ServiceMonitor handling have an accepted production-review disposition.
+    - path: data/production-disposition/receipts/grafana-tempo/target-fact-preflight.yaml
+      claim: The S3 credential Secret and ServiceMonitor target capability have an accepted preflight disposition.
+    - path: data/production-disposition/receipts/grafana-tempo/storage-backup-restore-and-rollback-policy.yaml
+      claim: Tempo storage, backup, restore, rollback, missing headless Service risk, and chart deprecation have an accepted production-review disposition.
+    - path: recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The local-persistent base is Helm-equivalent under recorded inputs.
+    - path: recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The s3-query-observability base is Helm-equivalent under recorded inputs.
+    - path: runs/top20-local-kind/tempo-local-persistent/observation-receipt.json
+      claim: The top-20 local lane has a passing server-side apply and StatefulSet rollout observation for local-persistent.
+    - path: runs/live-helm-confighub-compare/grafana-tempo-local-persistent/receipt.yaml
+      claim: The live Helm-vs-ConfigHub compare row is watch because target storage/PVC runtime is pending while semantic object parity passes.
+  affectedVariants:
+    - local-persistent
+    - s3-query-observability
+  acceptedWarnings:
+    - chart-deprecation
+    - edge-ingress-policy
+    - extension-slot-review
+    - network-policy-review
+    - no-read-only-root-fs
+    - servicemonitor-capability
+    - stateful-workload-review
+    - statefulset-service-risk
+    - target-secret-fact
+    - unset-cpu-requirements
+    - unset-memory-requirements
+  variantCaveats:
+    - "local-persistent has render parity and local-test observation, but broader live parity remains watch because target storage/PVC runtime is pending."
+    - "s3-query-observability requires S3 credentials and the Prometheus Operator ServiceMonitor CRD before live target proof."
+    - "The chart is deprecated; a final production support decision may prefer the maintained successor chart."
+    - "A hardened production base may add resource requests/limits and read-only root filesystem settings where the upstream chart supports them."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose the Tempo chart lineage, storage backend, target prerequisites, runtime checks, and workload hardening policy for the selected base.

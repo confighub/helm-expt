@@ -1,0 +1,44 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: grafana-tempo-target-fact-preflight
+spec:
+  chart: grafana/tempo
+  version: "1.24.4"
+  disposition: target fact preflight
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    The s3-query-observability base externalizes S3 credentials into a target
+    Secret and requires the Prometheus Operator ServiceMonitor API in the target
+    cluster. The installer package records the Secret requirement as
+    externalRequires. This disposition accepts that preflight model for
+    production review input.
+  evidence:
+    - path: recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml
+      claim: The variant declares the required tempo/tempo-s3-credentials Secret with access_key and secret_key keys.
+    - path: packages/grafana/tempo/1.24.4/installer.yaml
+      claim: The installer package records externalRequires for Secret tempo/tempo-s3-credentials keys access_key and secret_key.
+    - path: recipes/grafana/tempo/1.24.4/value-model.yaml
+      claim: The value model records tempo.storage.trace.s3 and tempo.extraEnv as target-fact-bound.
+    - path: recipes/grafana/tempo/1.24.4/effective-values-s3-query-observability.yaml
+      claim: The effective values reference AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY from tempo-s3-credentials rather than embedding secret material.
+    - path: recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/receipts/scan-receipt.yaml
+      claim: The scan records target-secret-fact findings for both S3 credential environment variables.
+    - path: runs/live-kind-parity/grafana-tempo-s3-query-observability/receipt.yaml
+      claim: The two-cluster parity run staged the target Secret in both clusters before encountering the separate missing ServiceMonitor CRD prerequisite.
+    - path: runs/tempo-confighub-proof/latest/confighub-proof-receipt.yaml
+      claim: The ConfigHub proof receipt records the s3-query-observability target fact requirement while selected local-persistent does not require target facts.
+  affectedVariants:
+    - s3-query-observability
+  acceptedPolicy:
+    secretPreflight: The target Secret tempo/tempo-s3-credentials with access_key and secret_key must exist before apply.
+    capabilityPreflight: monitoring.coreos.com/v1 must exist before the ServiceMonitor object can be applied.
+    noSecretEmbedding: S3 access keys must remain target facts or secret-manager references, not rendered ConfigMap values.
+  variantCaveats:
+    - "s3-query-observability is a target-prerequisite path until the S3 Secret and ServiceMonitor CRD are staged and observed fresh."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose the object-store credential source and target capability preflight for the selected cluster.

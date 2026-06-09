@@ -16,7 +16,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Catalog status | catalog-supported |
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
-| Production readiness | blocked-by-current-scan-gate |
+| Production readiness | production-review-ready |
 | Supported variants | local-persistent, s3-query-observability |
 | Candidate variants | none |
 | Control points | capability-profile, chart-deprecation, dependency-lock, extension-slots, installer-support-object, network-policy, query-ingress-policy, servicemonitor-capability, source-lock, stateful-workload, target-facts, upstream-runtime-risk |
@@ -34,7 +34,7 @@ for exact base-variant evidence.
 | Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 0/2; live parity 0/2 |
 | Feature summary | extension-slots |
 | Hard gap | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
-| Next action | write or fix the receipt for extension slot provenance and scan policy |
+| Next action | refresh live/e2e receipts for the accepted production scope |
 
 ## Artifact Chain
 

@@ -6,7 +6,7 @@ exactly what must be closed before production support can be claimed.
 The lifecycle columns separate retained source-hook evidence from recipe-level
 lifecycle policy and related CRD/webhook/controller observations.
 
-Accepted disposition receipts recorded: 57
+Accepted disposition receipts recorded: 61
 
 | Chart | Local-test variants | Production state | Accepted | Open | Source hooks | Lifecycle basis | Live/e2e receipts |
 | --- | --- | --- | ---: | ---: | ---: | --- | --- |
@@ -20,7 +20,7 @@ Accepted disposition receipts recorded: 57
 | `external-secrets/external-secrets@2.5.0` | default, no-crds | production-review-ready | 5 | 0 | 0 | lifecycle-observations:2/2 | 1 |
 | `grafana/grafana@10.5.15` | generated-passwords, existing-secret-ingress | production-review-ready | 5 | 0 | 0 | none | 1 |
 | `grafana/loki@7.0.0` | single-binary-filesystem, simple-scalable-minio | production-blocked | 0 | 5 | 0 | recipe-lifecycle-policy | 1 |
-| `grafana/tempo@1.24.4` | local-persistent, s3-query-observability | production-blocked | 0 | 4 | 0 | none | 1 |
+| `grafana/tempo@1.24.4` | local-persistent, s3-query-observability | production-review-ready | 4 | 0 | 0 | none | 1 |
 | `hashicorp/consul@2.0.0` | default-control-plane, secure-mesh-existing-secrets | production-blocked | 0 | 8 | 0 | recipe-lifecycle-policy | 1 |
 | `hashicorp/vault@0.32.0` | default, ha-raft-ui | production-blocked | 0 | 5 | 0 | none | 1 |
 | `ingress-nginx/ingress-nginx@4.15.1` | default, admission-disabled | production-review-ready | 4 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
@@ -49,6 +49,7 @@ The same queue is available as `next-actions.csv`.
 | `metrics-server/metrics-server@3.13.0` | 5 | 0 |  | - | default: warn, 1 finding(s) (unset-memory-requirements:1); external-tls-ca: warn, 1 finding(s) (unset-memory-requirements:1) |
 | `bitnami/nginx@24.0.2` | 4 | 0 |  | - | existing-tls-ingress: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); http-clusterip: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
 | `bitnami/redis@25.5.3` | 4 | 0 |  | - | default: warn, 2 finding(s) (pdb-unhealthy-pod-eviction-policy:2); reuse-existing-secret: warn, 2 finding(s) (pdb-unhealthy-pod-eviction-policy:2) |
+| `grafana/tempo@1.24.4` | 4 | 0 |  | - | local-persistent: warn, 3 finding(s) (no-read-only-root-fs:1;unset-cpu-requirements:1;unset-memory-requirements:1); s3-query-observability: warn, 6 finding(s) (no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2) |
 | `ingress-nginx/ingress-nginx@4.15.1` | 4 | 0 |  | - | admission-disabled: warn, 4 finding(s) (liveness-port:1;no-read-only-root-fs:1;readiness-port:1;unset-memory-requirements:1); default: warn, 4 finding(s) (liveness-port:1;no-read-only-root-fs:1;readiness-port:1;unset-memory-requirements:1) |
 | `prometheus-community/prometheus@29.8.0` | 3 | 0 |  | - | default: warn, 21 finding(s) (unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:4;sensitive-host-mounts:3;host-network:1); server-only-ephemeral: warn, 6 finding(s) (no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2) |
 

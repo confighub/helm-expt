@@ -14,7 +14,7 @@ spec:
   supportedVariants:
     - "local-persistent"
     - "s3-query-observability"
-  productionReadiness: "blocked-by-current-scan-gate"
+  productionReadiness: "production-review-ready"
   notes:
     - "Chart.yaml marks this chart version deprecated, and the proof records that status."
     - "local-persistent uses local Tempo storage and explicit PVC settings."
@@ -160,4 +160,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
-  answerForSkepticalHelmUser: "grafana/tempo@1.24.4 maps its detected Helm pain to 9 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, target-fact-requirement, operate-policy, extension-slot, scan-gate, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains blocked-by-current-scan-gate."
+  answerForSkepticalHelmUser: "grafana/tempo@1.24.4 maps its detected Helm pain to 9 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, target-fact-requirement, operate-policy, extension-slot, scan-gate, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains production-review-ready."

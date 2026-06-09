@@ -12,7 +12,7 @@ current ConfigHub/cub installer proof absorbs it.
 | Catalog status | catalog-supported |
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
-| Production readiness | blocked-by-current-scan-gate |
+| Production readiness | production-review-ready |
 | Variants in this note | local-persistent, s3-query-observability |
 
 Production support is not implied by this file. A chart can be supported for
@@ -31,9 +31,10 @@ or operating-policy dispositions.
 ## Catalog Mitigations
 
 - Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
-- local-persistent is the simplest local Tempo path.
-- s3-query-observability is supported when object-store and query-path assumptions are declared.
-- Production remains blocked until object storage, retention, PVC, and scan/gate findings have dispositions.
+- local-persistent is the simplest local Tempo path, with storage/runtime caveats recorded for review.
+- s3-query-observability is supported when the S3 target Secret and Prometheus Operator ServiceMonitor API are staged in the target cluster.
+- Chart deprecation, storage/backup/rollback policy, target facts, extension slots, runtime service risk, and scan/gate warnings are recorded as production review input.
+- Production recommendation remains a separate decision; the final decision should choose the maintained successor chart or explicit legacy support and target runtime checks.
 
 ## Control Points
 
