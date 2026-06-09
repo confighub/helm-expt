@@ -1,0 +1,91 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSupportEvidenceReceipt"
+metadata:
+  name: "metrics-server-metrics-server-default-argo-oci-support-evidence-20260605"
+spec:
+  chart: "metrics-server/metrics-server"
+  version: "3.13.0"
+  base: "default"
+  observedAt: "2026-06-05T15:44:11Z"
+  result: "pass"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "kube-system"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+    rig: "helm-expt-parity-metricsserver-mq13h1yo-154u"
+    kubeContext: "kind-helm-expt-parity-metricsserver-mq13h1yo-154u"
+    target: "helm-expt-parity-metricsserver-mq13h1yo-154u-cluster/oci"
+    workloadSpace: "helm-expt-parity-metricsserver-mq13h1yo-154u-metrics-server"
+    app: "metrics-server-parity"
+  package:
+    path: "packages/metrics-server/metrics-server/3.13.0"
+  recipe:
+    path: "recipes/metrics-server/metrics-server/3.13.0"
+  oci:
+    revision: "sha256:403a2bdcc098068aa1c2f628cfe41ffed06bff1f5208c51e33b24edc2e924b09"
+    controller: "Argo CD OCI"
+    sync: "Synced"
+    health: "Healthy"
+    manifestSHA256: "0d533fa37de2334f11f4e6b0a53e9dd27094220cf2d689b9e8d08deb5c58c622"
+    objectCount: 10
+    separatedSecrets:
+      []
+  comparison:
+    regularHelmRuntime: "pass"
+    configHubApplyRuntime: "pass"
+    configHubOciRuntime: "pass"
+    helmVsConfigHubOciArgo: "pass"
+    allowedExtraConfigHubObjects:
+      - "v1|Namespace||kube-system"
+  twoClusterCrossCheck:
+    path: "runs/live-kind-parity/metrics-server-metrics-server-default/receipt.yaml"
+    result: "pass"
+    semanticParity: "pass"
+    regularHelmRuntime: "pass"
+    installerRuntime: "pass"
+  runtimeObservation:
+    path: "data/runtime-gitops/receipts/metrics-server-metrics-server/default/latest.yaml"
+    result: "pass"
+    observedAt: "2026-06-05T09:42:20Z"
+    argoSync: "Synced"
+    argoHealth: "Healthy"
+    apiServiceAvailable: true
+    metricsApiCheck: "pass"
+  source:
+    liveReceiptPath: "runs/live-helm-confighub-compare/metrics-server-metrics-server-default/receipt.yaml"
+    runtimeGitOpsReceiptPath: "data/runtime-gitops/receipts/metrics-server-metrics-server/default/latest.yaml"
+    cleanupPolicy: "cub-lk rig and ConfigHub cluster space removed after evidence capture"
+  checks:
+    -
+      name: "regular-helm-runtime"
+      result: "pass"
+      detail: "regular Helm Metrics Server runtime passed"
+    -
+      name: "confighub-apply-runtime"
+      result: "pass"
+      detail: "ConfigHub rendered objects applied by kubectl reached Metrics Server readiness"
+    -
+      name: "confighub-oci-argo-runtime"
+      result: "pass"
+      detail: "Argo app metrics-server-parity: sync=Synced health=Healthy revision=sha256:403a2bdcc098068aa1c2f628cfe41ffed06bff1f5208c51e33b24edc2e924b09"
+    -
+      name: "apiservice-available"
+      result: "pass"
+      detail: "v1beta1.metrics.k8s.io Available=True in runtime/GitOps receipt"
+    -
+      name: "metrics-api"
+      result: "pass"
+      detail: "kubectl top nodes returned metrics in runtime/GitOps receipt"
+    -
+      name: "semantic-object-parity"
+      result: "pass"
+      detail: "regular Helm and ConfigHub OCI/Argo object sets match semantically, except the recorded Namespace support object"
+  supportClaim:
+    state: "fresh-target-evidence-passed"
+    detail: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared Metrics Server default support scope, with APIService and metrics API evidence recorded in the runtime/GitOps receipt."
+  limits:
+    - "This supports the recorded cub-lk vanilla kind Argo OCI scope, not every Kubernetes cluster."
+    - "This assumes an existing Argo CD OCI controller is available to reconcile the ConfigHub artifact."
+    - "This supports the default base, not the external-tls-ca topology."
+    - "Evidence freshness is 30 days for public demo/support examples unless refreshed earlier."

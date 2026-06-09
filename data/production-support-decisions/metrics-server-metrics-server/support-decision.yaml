@@ -1,48 +1,57 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ProductionSupportDecision
 metadata:
-  name: "metrics-server-metrics-server-default-public-oci-draft"
+  name: "metrics-server-metrics-server-default-public-oci-supported"
 spec:
   chart: "metrics-server/metrics-server"
   version: "3.13.0"
-  decision: draft
+  decision: supported
   decisionDate: "2026-06-09"
+  supportedSince: "2026-06-05T15:44:11Z"
   supportedBase: "default"
   targetScope:
-    clusterClass: vanilla-kubernetes
-    namespace: "metrics-server"
+    clusterClass: cub-lk-kind-vanilla
+    namespace: "kube-system"
     deliveryPath: confighub-oci
-    gitopsController: argo-or-flux
+    gitopsController: argo
+    lastEvidenceAt: "2026-06-05T15:44:11Z"
+    lastEvidenceTarget: helm-expt-parity-metricsserver-mq13h1yo-154u-cluster/oci
+    lastEvidenceKubeContext: kind-helm-expt-parity-metricsserver-mq13h1yo-154u
+    liveEvidenceTTL: 30d
     storageAssumptions:
-      - "Use the chart's recorded storage behavior for the candidate base unless this draft is narrowed before final support."
+      - "The supported base is stateless; production resource sizing remains a target decision."
     networkAssumptions:
-      - "Use the service, ingress, DNS, and certificate behavior recorded by the candidate base unless this draft is narrowed before final support."
+      - "Use the Service and APIService behavior recorded by the supported scope unless a narrower scope is separately reviewed."
     requiredTargetFacts: []
   supportBoundary:
     includes:
       - "metrics-server/metrics-server@3.13.0 default base"
-      - ConfigHub OCI delivery for the declared target scope after fresh target evidence is recorded
-      - rendered objects, labels, gates, receipts, and support objects produced by the recorded base
+      - ConfigHub OCI delivery through Argo for the declared cub-lk vanilla kind target scope
+      - rendered Metrics Server Deployment, Service, APIService, cluster RBAC, labels, gates, receipts, and support objects produced by the recorded base
+      - mutable-image exception backed by registry digest-resolution evidence for the rendered image references
+      - recorded resource-warning acceptance, cluster RBAC review, no-hooks lifecycle policy, APIService availability, and metrics API observation for the declared public proof scope
     excludes:
+      - "external-tls-ca unless separately reviewed with target certificate-chain evidence"
       - "private values overlays, wrapper charts, and populated extension slots unless separately reviewed"
+      - "resource-hardened, RBAC-hardened, API aggregation hardened, custom TLS, or customer production bases unless separately reviewed"
       - "non-vanilla Kubernetes distributions unless separately reviewed"
       - "other delivery controllers or target scopes unless separately reviewed"
   decisions:
     imageDecision:
-      state: "needs-image-digest-resolution-or-exception"
-      detail: "resolve image digests or record explicit exception before production OCI support"
+      state: "mutable-image-exception-accepted-for-target-scope"
+      detail: "rendered Metrics Server image tags are mutable, with registry digest-resolution evidence recorded for this public proof scope; stricter environments should use digest-pinned bases or image overrides"
     scanDecision:
-      state: "needs-scan-scope-decision"
-      detail: "accept, fix, or document scanner findings for supported scope"
+      state: "resource-defaults-accepted-for-target-scope"
+      detail: "the chart resource warning is accepted only for the declared public proof scope; target production deployments should choose resource requests and limits"
     lifecycleDecision:
-      state: "no-chart-hooks"
-      detail: "record lifecycle support boundary: recipe-hook-policy:no-hooks"
+      state: "lifecycle-observed-for-proof-scope"
+      detail: "the default base has no Helm hooks and reaches readiness through regular Helm, cub installer apply, ConfigHub OCI/Argo, APIService Available=True, and kubectl top nodes"
     targetFactDecision:
       state: "no-unresolved-target-prerequisite-in-candidate-base"
       detail: "no unresolved target prerequisite in candidate base"
     liveEvidenceDecision:
-      state: "needs-missing-live-or-confighub-lanes-before-final"
-      detail: "complete missing live or ConfigHub lanes, then refresh target-scoped evidence"
+      state: "fresh-target-evidence-passed"
+      detail: "fresh target-scoped ConfigHub OCI and Argo evidence passed on 2026-06-05 for the declared cub-lk vanilla kind Metrics Server default scope"
   evidence:
     - path: "recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
       claim: "The candidate base is Helm-equivalent under recorded inputs."
@@ -53,19 +62,26 @@ spec:
     - path: "runs/live-helm-confighub-compare/metrics-server-metrics-server-default/receipt.yaml"
       claim: "The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base."
     - path: "data/runtime-gitops/receipts/metrics-server-metrics-server/default/latest.yaml"
-      claim: "The runtime/GitOps receipt exists for the candidate base and should be refreshed for the declared target before final support."
+      claim: "The runtime/GitOps receipt records APIService Available=True and kubectl top nodes returning metrics for the default base."
+    - path: "data/production-support-decisions/metrics-server-metrics-server/fresh-target-evidence-2026-06-05.yaml"
+      claim: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared cub-lk vanilla kind support scope."
+    - path: "data/image-digest-workdown/receipts/metrics-server-metrics-server/default/image-digest-resolution.yaml"
+      claim: "Registry digest resolution exists for the rendered default Metrics Server image reference."
+    - path: "data/production-support-decisions/metrics-server-metrics-server/image-policy-decision.yaml"
+      claim: "The target-scoped image policy decision records the mutable-image exception and digest-resolution evidence."
+    - path: "data/production-support-decisions/metrics-server-metrics-server/security-decision.yaml"
+      claim: "The target-scoped security decision accepts the default resource-warning shape only for this public proof scope."
+    - path: "data/production-support-decisions/metrics-server-metrics-server/lifecycle-decision.yaml"
+      claim: "The target-scoped lifecycle decision binds no-hooks policy, cluster RBAC, APIService observation, metrics API proof, and OCI/Argo runtime health to proof-scope evidence."
     - path: "data/production-disposition/receipts/metrics-server-metrics-server/cluster-rbac-review.yaml"
-      claim: "The cluster rbac review disposition exists for this chart."
+      claim: "The cluster rbac review receipt exists for this chart."
     - path: "data/production-disposition/receipts/metrics-server-metrics-server/generated-fact-ownership.yaml"
-      claim: "The generated fact ownership disposition exists for this chart."
+      claim: "The generated fact ownership receipt exists for this chart."
     - path: "data/production-disposition/receipts/metrics-server-metrics-server/hook-lifecycle-phase-policy.yaml"
-      claim: "The hook lifecycle phase policy disposition exists for this chart."
+      claim: "The hook lifecycle phase policy receipt exists for this chart."
     - path: "data/production-disposition/receipts/metrics-server-metrics-server/scan-gate-warning-disposition.yaml"
-      claim: "The scan gate warning disposition disposition exists for this chart."
+      claim: "The scan gate warning disposition receipt exists for this chart."
     - path: "data/production-disposition/receipts/metrics-server-metrics-server/target-fact-preflight.yaml"
-      claim: "The target fact preflight disposition exists for this chart."
-  requiredBeforeFinal:
-    - "Choose the final target scope, exact GitOps controller, namespace, and artifact digest."
-    - "Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope."
-    - "resolve image digests or record explicit exception before production OCI support"
-  nextAction: "resolve image digests for each affected variant before production OCI support"
+      claim: "The target fact preflight receipt exists for this chart."
+  requiredBeforeFinal: []
+  nextAction: "Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate external-tls-ca, resource-hardened, RBAC-hardened, API aggregation hardened, digest-pinned, or customer production bases for real Metrics Server workloads."

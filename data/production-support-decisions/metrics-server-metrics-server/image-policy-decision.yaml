@@ -1,0 +1,60 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionImagePolicyDecision"
+metadata:
+  name: "metrics-server-metrics-server-public-oci-image-policy-decision"
+spec:
+  chart: "metrics-server/metrics-server"
+  version: "3.13.0"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "kube-system"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "default"
+  variantsCovered:
+    - "external-tls-ca"
+    - "default"
+  decision: "mutable-image-exception-accepted-for-target-scope"
+  decidedAt: "2026-06-09"
+  claim: "The rendered Metrics Server bases still contain mutable image tags, but each rendered image reference has digest-resolution evidence. For the default public proof scope, the mutable tags are accepted as a target-scoped exception while stricter environments remain free to require digest-pinned bases or image overrides."
+  renderedImageSummary:
+    renderedSubjects: 2
+    subjectsNeedingResolution: 2
+    imageRefs: 2
+    mutableTagRefs: 2
+    floatingLatestOrUntaggedRefs: 0
+    resolutionReceipts: 2
+  variantReceipts:
+    external-tls-ca:
+      renderedObjectSetSHA256: "4b9df6b53cb5d8ed0b655b121696183d1c107ea88511e889bef1aae6708c8dad"
+      sourceImageReviewRows: 1
+      uniqueImages: 1
+      receiptPath: "data/image-digest-workdown/receipts/metrics-server-metrics-server/external-tls-ca/image-digest-resolution.yaml"
+    default:
+      renderedObjectSetSHA256: "97514966a1917b1ae3b597ec3a32216d0a650db7cb56d472f4e722c69c869b51"
+      sourceImageReviewRows: 1
+      uniqueImages: 1
+      receiptPath: "data/image-digest-workdown/receipts/metrics-server-metrics-server/default/image-digest-resolution.yaml"
+  acceptedException:
+    reason: "The public proof target uses the upstream Metrics Server image tag. The receipt set records the registry digest that tag resolved to at decision time."
+    operatorAction: "For stricter production environments, create a digest-pinned base or image override policy before support expansion."
+  limits:
+    - "This does not mean the rendered manifests are digest-pinned."
+    - "This is not a blanket approval for all clusters, private overlays, regulated environments, or future chart versions."
+    - "This does not make the external-tls-ca base production-supported."
+    - "If an upstream image tag is retargeted, rerun digest resolution and re-review this decision before promotion."
+  evidence:
+    -
+      path: "data/image-digest-workdown/chart-summary.csv"
+      claim: "Summarizes Metrics Server rendered image references."
+    -
+      path: "data/attack-plan-workdown/image-digest-review.csv"
+      claim: "Lists every rendered Metrics Server image reference found in the object sets."
+    -
+      path: "data/image-digest-workdown/receipts/metrics-server-metrics-server/external-tls-ca/image-digest-resolution.yaml"
+      claim: "Records registry digest resolution for the external-tls-ca rendered object set."
+    -
+      path: "data/image-digest-workdown/receipts/metrics-server-metrics-server/default/image-digest-resolution.yaml"
+      claim: "Records registry digest resolution for the default rendered object set."
+  remainingSupportBlockers:
+    - "Record scan/resource-policy acceptance, APIService lifecycle boundary, and fresh target-scoped ConfigHub OCI/GitOps evidence."

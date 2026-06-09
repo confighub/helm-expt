@@ -57,10 +57,10 @@ Excluded:
 - [recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/receipts/scan-receipt.yaml](../../../recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/receipts/scan-receipt.yaml) - The rendered-object scan receipt exists for the candidate base.
 - [runs/live-kind-parity/grafana-tempo-local-persistent/receipt.yaml](../../../runs/live-kind-parity/grafana-tempo-local-persistent/receipt.yaml) - The two-cluster Helm-vs-installer parity receipt exists for the candidate base.
 - [runs/live-helm-confighub-compare/grafana-tempo-local-persistent/receipt.yaml](../../../runs/live-helm-confighub-compare/grafana-tempo-local-persistent/receipt.yaml) - The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base.
-- [data/production-disposition/receipts/grafana-tempo/extension-slot-provenance-and-scan-policy.yaml](../../../data/production-disposition/receipts/grafana-tempo/extension-slot-provenance-and-scan-policy.yaml) - The extension slot provenance and scan policy disposition exists for this chart.
-- [data/production-disposition/receipts/grafana-tempo/scan-gate-warning-disposition.yaml](../../../data/production-disposition/receipts/grafana-tempo/scan-gate-warning-disposition.yaml) - The scan gate warning disposition disposition exists for this chart.
-- [data/production-disposition/receipts/grafana-tempo/storage-backup-restore-and-rollback-policy.yaml](../../../data/production-disposition/receipts/grafana-tempo/storage-backup-restore-and-rollback-policy.yaml) - The storage backup restore and rollback policy disposition exists for this chart.
-- [data/production-disposition/receipts/grafana-tempo/target-fact-preflight.yaml](../../../data/production-disposition/receipts/grafana-tempo/target-fact-preflight.yaml) - The target fact preflight disposition exists for this chart.
+- [data/production-disposition/receipts/grafana-tempo/extension-slot-provenance-and-scan-policy.yaml](../../../data/production-disposition/receipts/grafana-tempo/extension-slot-provenance-and-scan-policy.yaml) - The extension slot provenance and scan policy receipt exists for this chart.
+- [data/production-disposition/receipts/grafana-tempo/scan-gate-warning-disposition.yaml](../../../data/production-disposition/receipts/grafana-tempo/scan-gate-warning-disposition.yaml) - The scan gate warning disposition receipt exists for this chart.
+- [data/production-disposition/receipts/grafana-tempo/storage-backup-restore-and-rollback-policy.yaml](../../../data/production-disposition/receipts/grafana-tempo/storage-backup-restore-and-rollback-policy.yaml) - The storage backup restore and rollback policy receipt exists for this chart.
+- [data/production-disposition/receipts/grafana-tempo/target-fact-preflight.yaml](../../../data/production-disposition/receipts/grafana-tempo/target-fact-preflight.yaml) - The target fact preflight receipt exists for this chart.
 
 ## Next Action
 

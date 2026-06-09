@@ -75,9 +75,9 @@ spec:
     - path: "data/production-support-decisions/prometheus-community-prometheus/lifecycle-decision.yaml"
       claim: "The target-scoped lifecycle decision binds no-hooks policy, selected components, and OCI/Argo runtime health to proof-scope evidence."
     - path: "data/production-disposition/receipts/prometheus-community-prometheus/cluster-rbac-review.yaml"
-      claim: "The cluster RBAC review disposition exists for this chart."
+      claim: "The cluster RBAC review receipt exists for this chart."
     - path: "data/production-disposition/receipts/prometheus-community-prometheus/extension-slot-provenance-and-scan-policy.yaml"
-      claim: "The extension slot provenance and scan policy disposition exists for this chart."
+      claim: "The extension slot provenance and scan policy receipt exists for this chart."
     - path: "data/production-disposition/receipts/prometheus-community-prometheus/scan-gate-warning-disposition.yaml"
       claim: "The scan gate warning disposition exists for this chart and recommends server-only-ephemeral as the narrower first production-review base."
   requiredBeforeFinal: []
