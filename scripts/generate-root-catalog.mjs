@@ -127,7 +127,10 @@ function buildEntry(indexPath, readinessByKey) {
     ...variant,
     readiness: readinessByKey.get(`${chart}@${version}|${variant.name}`),
   }));
-  const startVariant = variants.find((variant) => variant.packageBase?.default) ?? variants[0];
+  const startVariant =
+    variants.find((variant) => variant.readiness?.recommended_first === "yes") ??
+    variants.find((variant) => variant.packageBase?.default) ??
+    variants[0];
   return {
     chart,
     version,
