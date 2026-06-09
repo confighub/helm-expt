@@ -1,0 +1,51 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: bitnami-rabbitmq-storage-backup-restore-and-rollback-policy
+spec:
+  chart: bitnami/rabbitmq
+  version: "16.0.14"
+  disposition: storage backup restore and rollback policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    The supported RabbitMQ bases render the same StatefulSet identity and the
+    same data volumeClaimTemplate: name data, 8Gi, ReadWriteOnce, target default
+    storage class. The two bases pass strict two-cluster live parity, proving
+    the rendered PVC-backed workload starts under the reviewed inputs. This
+    disposition accepts the manifest-level storage and rollback boundary for
+    production review input. It does not claim that RabbitMQ data backup or
+    restore has been executed; target production support must choose and observe
+    the actual backup/restore mechanism for the target cluster.
+  evidence:
+    - path: recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/rendered/release-objects.yaml
+      claim: The generated-passwords base renders StatefulSet rabbitmq with volumeClaimTemplates[0].metadata.name=data, storage 8Gi, accessModes ReadWriteOnce, and no pinned storageClassName.
+    - path: recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/rendered/release-objects.yaml
+      claim: The existing-secret base renders the same StatefulSet and PVC template identity as generated-passwords.
+    - path: recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/rendered/object-inventory.yaml
+      claim: The generated-passwords object inventory contains one StatefulSet, apps/v1|StatefulSet|rabbitmq|rabbitmq.
+    - path: recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/rendered/object-inventory.yaml
+      claim: The existing-secret object inventory contains the same StatefulSet identity.
+    - path: recipes/bitnami/rabbitmq/16.0.14/value-model.yaml
+      claim: persistence.enabled is recorded as stateful-storage-enabled for all supported bases.
+    - path: recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/receipts/install-gate.yaml
+      claim: The install gate records StatefulSet and volumeClaimTemplates as an explicit storage, upgrade, and rollback policy boundary.
+    - path: recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/receipts/install-gate.yaml
+      claim: The existing-secret install gate records the same storage boundary.
+    - path: runs/live-kind-parity/bitnami-rabbitmq-generated-passwords/receipt.yaml
+      claim: The generated-passwords base passes strict two-cluster live parity with the StatefulSet running.
+    - path: runs/live-kind-parity/bitnami-rabbitmq-existing-secret/receipt.yaml
+      claim: The existing-secret base passes strict two-cluster live parity with target Secrets staged and the StatefulSet running.
+  affectedVariants:
+    - generated-passwords
+    - existing-secret
+  acceptedPolicy:
+    pvcIdentity: StatefulSet rabbitmq keeps the same namespace, name, and data volumeClaimTemplate across the supported bases.
+    storageClass: The public proof does not pin storageClassName; target production review must select the storage class through cluster defaults or a future reviewed base.
+    rollbackBoundary: Manifest rollback between supported bases preserves StatefulSet and PVC identity. It must not be treated as RabbitMQ queue or message recovery.
+    backupRestore: RabbitMQ backup, restore, retention, and recovery-point objectives are target/operator responsibilities outside this public proof.
+  remainingProductionBlockers: []
+  nextDecision: A target-specific production support decision can now choose the storage class and RabbitMQ backup/restore mechanism, then attach fresh runtime observation receipts for that target.

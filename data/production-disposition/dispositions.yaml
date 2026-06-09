@@ -190,7 +190,7 @@ spec:
     -
       chart: "bitnami/mysql"
       version: "14.0.3"
-      status: "production-blocked"
+      status: "production-review-ready"
       supportedLocalTestVariants:
         - "generated-passwords"
         - "existing-secret"
@@ -224,6 +224,7 @@ spec:
           - "data/production-disposition/receipts/bitnami-mysql/generated-fact-ownership.yaml"
           - "data/production-disposition/receipts/bitnami-mysql/hook-and-lifecycle-phase-policy.yaml"
           - "data/production-disposition/receipts/bitnami-mysql/scan-gate-warning-disposition.yaml"
+          - "data/production-disposition/receipts/bitnami-mysql/storage-backup-restore-and-rollback-policy.yaml"
           - "data/production-disposition/receipts/bitnami-mysql/target-fact-preflight.yaml"
       dispositions:
         -
@@ -258,7 +259,8 @@ spec:
           unblockRule: "supported only when warnings are accepted, fixed, or variant-blocking"
         -
           name: "storage backup restore and rollback policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/bitnami-mysql/storage-backup-restore-and-rollback-policy.yaml"
           owner: "operate-review"
           requiredEvidence:
             - "PVC/storage class assumptions"
@@ -367,7 +369,7 @@ spec:
     -
       chart: "bitnami/postgresql"
       version: "18.6.7"
-      status: "production-blocked"
+      status: "production-review-ready"
       supportedLocalTestVariants:
         - "generated-passwords"
         - "existing-secret"
@@ -401,6 +403,7 @@ spec:
           - "data/production-disposition/receipts/bitnami-postgresql/generated-fact-ownership.yaml"
           - "data/production-disposition/receipts/bitnami-postgresql/hook-and-lifecycle-phase-policy.yaml"
           - "data/production-disposition/receipts/bitnami-postgresql/scan-gate-warning-disposition.yaml"
+          - "data/production-disposition/receipts/bitnami-postgresql/storage-backup-restore-and-rollback-policy.yaml"
           - "data/production-disposition/receipts/bitnami-postgresql/target-fact-preflight.yaml"
       dispositions:
         -
@@ -435,7 +438,8 @@ spec:
           unblockRule: "supported only when warnings are accepted, fixed, or variant-blocking"
         -
           name: "storage backup restore and rollback policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/bitnami-postgresql/storage-backup-restore-and-rollback-policy.yaml"
           owner: "operate-review"
           requiredEvidence:
             - "PVC/storage class assumptions"
@@ -460,7 +464,7 @@ spec:
     -
       chart: "bitnami/rabbitmq"
       version: "16.0.14"
-      status: "production-blocked"
+      status: "production-review-ready"
       supportedLocalTestVariants:
         - "generated-passwords"
         - "existing-secret"
@@ -494,6 +498,7 @@ spec:
           - "data/production-disposition/receipts/bitnami-rabbitmq/generated-fact-ownership.yaml"
           - "data/production-disposition/receipts/bitnami-rabbitmq/hook-and-lifecycle-phase-policy.yaml"
           - "data/production-disposition/receipts/bitnami-rabbitmq/scan-gate-warning-disposition.yaml"
+          - "data/production-disposition/receipts/bitnami-rabbitmq/storage-backup-restore-and-rollback-policy.yaml"
           - "data/production-disposition/receipts/bitnami-rabbitmq/target-fact-preflight.yaml"
       dispositions:
         -
@@ -528,7 +533,8 @@ spec:
           unblockRule: "supported only when warnings are accepted, fixed, or variant-blocking"
         -
           name: "storage backup restore and rollback policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/bitnami-rabbitmq/storage-backup-restore-and-rollback-policy.yaml"
           owner: "operate-review"
           requiredEvidence:
             - "PVC/storage class assumptions"

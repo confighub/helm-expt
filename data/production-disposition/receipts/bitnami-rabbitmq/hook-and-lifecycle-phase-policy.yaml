@@ -32,6 +32,5 @@ spec:
   affectedVariants:
     - generated-passwords
     - existing-secret
-  remainingProductionBlockers:
-    - storage backup restore and rollback policy
+  remainingProductionBlockers: []
   nextDecision: Decide whether to accept or patch the remaining PDB scan warning, then record storage, backup, restore, and rollback policy for production support.

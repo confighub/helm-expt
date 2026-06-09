@@ -44,6 +44,5 @@ spec:
     - extension-slot-review
   deferredWarnings:
     - stateful-workload-review
-  remainingProductionBlockers:
-    - storage backup restore and rollback policy
+  remainingProductionBlockers: []
   nextDecision: Record storage, backup, restore, and rollback policy before declaring production support for a target scope.

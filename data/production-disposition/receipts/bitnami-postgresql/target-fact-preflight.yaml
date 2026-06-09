@@ -23,5 +23,4 @@ spec:
       claim: Two-cluster live parity stages the required Secret for both the regular Helm and cub installer legs and passes semantic parity.
   affectedVariants:
     - existing-secret
-  remainingProductionBlockers:
-    - storage backup restore and rollback policy
+  remainingProductionBlockers: []

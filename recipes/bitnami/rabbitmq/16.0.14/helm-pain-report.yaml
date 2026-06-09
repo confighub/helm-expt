@@ -14,7 +14,7 @@ spec:
   supportedVariants:
     - "generated-passwords"
     - "existing-secret"
-  productionReadiness: "blocked-by-current-scan-gate"
+  productionReadiness: "production-review-ready"
   notes:
     - "Default chart rendering is nondeterministic unless auth.password is bound before render."
     - "Default chart rendering is also nondeterministic unless auth.erlangCookie is bound before render."
@@ -136,4 +136,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
-  answerForSkepticalHelmUser: "bitnami/rabbitmq@16.0.14 maps its detected Helm pain to 11 ConfigHub control areas: source-lock, dependency-lock, capability-profile, generated-fact, target-fact-requirement, lifecycle-policy, operate-policy, extension-slot, recipe, scan-gate, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains blocked-by-current-scan-gate."
+  answerForSkepticalHelmUser: "bitnami/rabbitmq@16.0.14 maps its detected Helm pain to 11 ConfigHub control areas: source-lock, dependency-lock, capability-profile, generated-fact, target-fact-requirement, lifecycle-policy, operate-policy, extension-slot, recipe, scan-gate, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains production-review-ready."

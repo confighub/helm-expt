@@ -368,7 +368,7 @@ Receipts: [per-chart receipts](recipes/argo-cd/argo-cd/9.5.15/CATALOG.md)
 #### bitnami/postgresql@18.6.7
 
 Status: catalog-supported
-Production readiness: blocked-by-current-scan-gate
+Production readiness: production-review-ready
 Start base readiness: try-with-proof
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 0/2; local live 1/2; GitOps live 2/2; live parity 1/2
@@ -413,7 +413,7 @@ Receipts: [per-chart receipts](recipes/bitnami/postgresql/18.6.7/CATALOG.md)
 #### bitnami/rabbitmq@16.0.14
 
 Status: catalog-supported
-Production readiness: blocked-by-current-scan-gate
+Production readiness: production-review-ready
 Start base readiness: start-here
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 1/2; live parity 1/2
@@ -593,7 +593,7 @@ Receipts: [per-chart receipts](recipes/longhorn/longhorn/1.11.2/CATALOG.md)
 #### bitnami/mysql@14.0.3
 
 Status: catalog-supported
-Production readiness: blocked-by-current-scan-gate
+Production readiness: production-review-ready
 Start base readiness: start-here
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 1/2; live parity 1/2

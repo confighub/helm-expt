@@ -42,7 +42,7 @@ spec:
     supportLevel: "supported-for-declared-scopes"
     supportedScopes:
       - "local-test"
-    productionReadiness: "blocked-by-current-scan-gate"
+    productionReadiness: "production-review-ready"
     supportedVariants:
       - "generated-passwords"
       - "existing-secret"
@@ -62,7 +62,7 @@ spec:
       liveParity: "1/2"
     featureSummary: "generated-secrets;required-values;install-vs-upgrade"
     hardGap: "ha (curated proof lane - bespoke teaching needed)"
-    nextAction: "write or fix the storage backup restore and rollback policy disposition receipt"
+    nextAction: "refresh live/e2e receipts for the accepted production scope"
   installerPackage:
     path: "packages/bitnami/postgresql/18.6.7"
     installer: "packages/bitnami/postgresql/18.6.7/installer.yaml"

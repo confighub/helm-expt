@@ -16,8 +16,8 @@ top-20 scanned charts:        20
 high-priority scan rows:      4
 rows with latest-tag issues:  0
 production-supported rows:    0
-production-review-ready rows: 3
-production-blocked rows:      17
+production-review-ready rows: 6
+production-blocked rows:      14
 ~~~
 
 ## Priority Counts

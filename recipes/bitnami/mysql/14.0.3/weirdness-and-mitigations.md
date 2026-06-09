@@ -12,7 +12,7 @@ current ConfigHub/cub installer proof absorbs it.
 | Catalog status | catalog-supported |
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
-| Production readiness | blocked-by-current-scan-gate |
+| Production readiness | production-review-ready |
 | Variants in this note | generated-passwords, existing-secret |
 
 Production support is not implied by this file. A chart can be supported for
@@ -34,7 +34,8 @@ or operating-policy dispositions.
 - Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
 - generated-passwords is the simplest install path and records generated Secret separation.
 - existing-secret is supported when the declared MySQL Secret target facts are satisfied.
-- Production remains blocked until storage, backup/restore, generated fact, and scan/gate findings have dispositions.
+- Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state.
+- Target production review must choose storage class and database backup/restore mechanism before use.
 
 ## Control Points
 

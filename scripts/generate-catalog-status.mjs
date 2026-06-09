@@ -30,11 +30,13 @@ const supportedCatalogEntries = {
     ],
   },
   "bitnami/postgresql": {
+    productionReadiness: "production-review-ready",
     notes: [
       "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.",
       "generated-passwords is the simplest install path and records generated Secret separation.",
       "existing-secret is supported when the declared postgresql-auth target fact is satisfied.",
-      "Production remains blocked until StatefulSet/PVC, backup/restore, generated fact, and scan/gate findings have dispositions.",
+      "Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state.",
+      "Target production review must choose storage class and database backup/restore mechanism before use.",
     ],
   },
   "argo-cd/argo-cd": {
@@ -54,19 +56,23 @@ const supportedCatalogEntries = {
     ],
   },
   "bitnami/mysql": {
+    productionReadiness: "production-review-ready",
     notes: [
       "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.",
       "generated-passwords is the simplest install path and records generated Secret separation.",
       "existing-secret is supported when the declared MySQL Secret target facts are satisfied.",
-      "Production remains blocked until storage, backup/restore, generated fact, and scan/gate findings have dispositions.",
+      "Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state.",
+      "Target production review must choose storage class and database backup/restore mechanism before use.",
     ],
   },
   "bitnami/rabbitmq": {
+    productionReadiness: "production-review-ready",
     notes: [
       "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.",
       "generated-passwords is the simplest install path and records generated Secret separation.",
       "existing-secret is supported when the declared RabbitMQ Secret target facts are satisfied.",
-      "Production remains blocked until clustering, storage, Erlang cookie handling, and scan/gate findings have dispositions.",
+      "Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state.",
+      "Target production review must choose storage class, RabbitMQ recovery policy, and backup/restore mechanism before use.",
     ],
   },
   "external-secrets/external-secrets": {
