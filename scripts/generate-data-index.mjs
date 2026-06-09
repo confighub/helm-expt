@@ -59,7 +59,7 @@ function readme(rows) {
     ["I want live parity status.", "data/live-kind-parity/summary.md; data/live-helm-confighub-compare/summary.md"],
     ["I want hook, CRD, webhook, or lifecycle status.", "data/lifecycle-boundary/summary.md; data/outcome-coverage/feature-outcomes.csv"],
     ["I want extension-slot or custom-config risk.", "data/extension-slots/summary.md; data/nginx-config-checks/summary.md"],
-    ["I want production support status and next actions.", "data/status-dashboard/next-work-queues.csv; data/production-support-decisions/summary.md; data/production-support-decisions/decisions.csv"],
+    ["I want production support status and next actions.", "data/status-dashboard/next-work-queues.csv; data/production-support-decisions/summary.md; data/production-support-decisions/work-items.csv; data/production-support-decisions/decisions.csv"],
     ["I want accepted pre-review production dispositions.", "data/production-disposition/summary.md; data/production-disposition/support-decision-contract.md; data/production-disposition/support-decision-queue.csv"],
   ];
   const primary = [
@@ -86,6 +86,7 @@ function readme(rows) {
     ["data/production-disposition/support-decision-contract.md", "Production support decision contract: required fields, current decision states, and the rule for moving from production-review-ready to production-supported."],
     ["data/production-disposition/support-decision-queue.csv", "Pre-review queue showing the candidate production base, support boundary work, and required evidence before target-scoped decisions."],
     ["data/production-support-decisions/summary.md", "Target-scoped support decision artifacts: draft and supported decisions, boundaries, evidence state, and next action."],
+    ["data/production-support-decisions/work-items.csv", "One row per production-support task or keep-fresh item: chart, base, work type, status field, priority, action, and source decision."],
     ["data/production-support-decisions/decisions.csv", "One row per target-scoped support decision artifact: chart, base, decision state, target scope, evidence decision, and next action."],
     ["data/external-scan-lane/chart-workdown.csv", "Chart-level scan/gate workdown: grouped scanner findings, priority, and next action before production disposition."],
     ["data/scan-disposition-workdown/workdown.csv", "Scan warning routes: which rows need fixes, hardened bases, explicit security acceptance, runtime endpoint review, or PDB policy decisions."],
@@ -248,6 +249,7 @@ function roleFor(path) {
   if (path === "data/production-disposition/next-actions.csv") return "one row per top-20 chart: recommended base, production decision focus, image digest status, and next action";
   if (path === "data/production-disposition/support-decision-queue.csv") return "pre-review production support queue: candidate base, support boundary work, and required evidence";
   if (path === "data/production-support-decisions/decisions.csv") return "one row per target-scoped support decision artifact";
+  if (path === "data/production-support-decisions/work-items.csv") return "one row per production-support task or keep-fresh item";
   if (path === "data/external-scan-lane/chart-workdown.csv") return "one row per chart: external scan findings grouped into priority and next production action";
   if (path === "data/scan-disposition-workdown/workdown.csv") return "one row per top-20 chart: route scan warnings to fixes, hardened bases, acceptance, endpoint review, or PDB decisions";
   if (path === "data/high-fanout-demo/prometheus-kps.csv") return "Prometheus/kube-prometheus-stack high-fanout base-variant example";

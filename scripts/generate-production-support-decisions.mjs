@@ -9,12 +9,14 @@ const mode = process.argv[2] ?? "--generate";
 const root = join(repoRoot, "data", "production-support-decisions");
 const summaryPath = join(root, "summary.md");
 const csvPath = join(root, "decisions.csv");
+const workItemsPath = join(root, "work-items.csv");
 const decisionQueuePath = join(repoRoot, "data", "production-disposition", "support-decision-queue.csv");
 
 if (mode === "--generate") {
   const report = buildReport();
   write(summaryPath, report.summary);
   write(csvPath, report.csv);
+  write(workItemsPath, report.workItemsCsv);
   console.log("wrote production support decisions");
 } else if (mode === "--scaffold") {
   const rows = readDecisionQueue();
@@ -30,8 +32,10 @@ if (mode === "--generate") {
   const report = buildReport();
   check(existsSync(summaryPath), "missing production support decision summary; run npm run production:support-decisions");
   check(existsSync(csvPath), "missing production support decision CSV; run npm run production:support-decisions");
+  check(existsSync(workItemsPath), "missing production support work item CSV; run npm run production:support-decisions");
   check(readFileSync(summaryPath, "utf8") === report.summary, "production support decision summary is stale");
   check(readFileSync(csvPath, "utf8") === report.csv, "production support decision CSV is stale");
+  check(readFileSync(workItemsPath, "utf8") === report.workItemsCsv, "production support work item CSV is stale");
   console.log(`verified ${report.rows.length} production support decision(s)`);
 } else {
   console.log(`Usage:
@@ -43,7 +47,8 @@ if (mode === "--generate") {
 function buildReport() {
   const expected = expectedDecisionMap();
   const rows = decisionRows(expected);
-  return { rows, summary: summary(rows), csv: toCsv(rows) };
+  const workItems = workItemRows(rows);
+  return { rows, workItems, summary: summary(rows, workItems), csv: toCsv(rows), workItemsCsv: workItemsToCsv(workItems) };
 }
 
 function decisionRows(expected) {
@@ -103,7 +108,7 @@ function decisionRow(file, expected) {
   };
 }
 
-function summary(rows) {
+function summary(rows, workItems) {
   const stateCounts = groupCount(rows, "decision");
   const supported = stateCounts.get("supported") ?? 0;
   const draft = stateCounts.get("draft") ?? 0;
@@ -124,6 +129,7 @@ live evidence rule, and operator-owned boundaries.
 decision artifacts: ${rows.length}
 supported decisions: ${supported}
 draft decisions: ${draft}
+open work items: ${workItems.filter((row) => row.priority !== "keep-fresh").length}
 \`\`\`
 
 ## Workstreams
@@ -144,6 +150,10 @@ currently concentrated.
 | Chart | Base | Open work | Next action |
 | --- | --- | --- | --- |
 ${priorityRows.map((row) => `| \`${row.chart}@${row.version}\` | ${row.supported_base} | ${openWork(row).join("; ")} | ${row.next_action} |`).join("\n")}
+
+The spreadsheet form is [work-items.csv](./work-items.csv). It has one row per
+production-support task or keep-fresh item, so overlapping work such as image,
+scan, lifecycle, runtime, and fresh evidence can be assigned independently.
 
 ## Decisions
 
@@ -235,6 +245,74 @@ function previewRows(rows) {
   const remaining = rows.length - values.length;
   if (remaining > 0) values.push(`and ${remaining} more`);
   return values.join("<br>");
+}
+
+function workItemRows(rows) {
+  return rows.flatMap((row) => {
+    const items = [];
+    if (row.decision === "supported") {
+      items.push(workItem(row, "supported-scope-evidence", "decision", row.decision, "keep-fresh", "Keep target-scoped evidence fresh before using this supported scope as an example."));
+      return items;
+    }
+    if (row.image_decision === "needs-image-digest-resolution-or-exception") {
+      items.push(workItem(row, "image-digest-resolution", "image_decision", row.image_decision, "before-final", "Pin images by digest or record an explicit mutable-image exception for the supported scope."));
+    }
+    if (row.scan_decision === "needs-scan-scope-decision") {
+      items.push(workItem(row, "scan-scope-decision", "scan_decision", row.scan_decision, "before-final", "Record which scanner findings are accepted, fixed, or outside the supported target scope."));
+    }
+    if (row.scan_decision === "needs-security-acceptance-or-hardened-base") {
+      items.push(workItem(row, "security-acceptance-or-hardened-base", "scan_decision", row.scan_decision, "before-final", "Accept current security findings for the target scope or create a narrower hardened base."));
+    }
+    if (["needs-lifecycle-support-boundary", "route-selected-observation-needed"].includes(row.lifecycle_decision)) {
+      items.push(workItem(row, "lifecycle-decision-or-observation", "lifecycle_decision", row.lifecycle_decision, "before-final", "Record the lifecycle boundary, or execute and observe the selected hook/lifecycle route."));
+    }
+    if (row.live_evidence_decision === "needs-runtime-decision-before-final") {
+      items.push(workItem(row, "runtime-decision", "live_evidence_decision", row.live_evidence_decision, "before-final", "Decide whether the runtime condition is in the supported scope before refreshing live evidence."));
+    }
+    if (row.live_evidence_decision === "needs-missing-live-or-confighub-lanes-before-final") {
+      items.push(workItem(row, "missing-proof-lane", "live_evidence_decision", row.live_evidence_decision, "before-final", "Complete the missing ConfigHub, GitOps, or live lane before final support."));
+    }
+    if (row.live_evidence_decision === "needs-lifecycle-observation-before-final") {
+      items.push(workItem(row, "lifecycle-observation", "live_evidence_decision", row.live_evidence_decision, "before-final", "Bind lifecycle observation evidence to the supported target scope before final support."));
+    }
+    if (row.live_evidence_decision === "needs-fresh-target-evidence-before-final") {
+      items.push(workItem(row, "fresh-target-scoped-evidence", "live_evidence_decision", row.live_evidence_decision, "after-decisions", "Refresh ConfigHub OCI/GitOps and live/e2e evidence after the other decisions are closed."));
+    }
+    return items;
+  });
+}
+
+function workItem(row, workType, statusField, status, priority, nextAction) {
+  return {
+    chart: row.chart,
+    version: row.version,
+    supported_base: row.supported_base,
+    decision: row.decision,
+    work_type: workType,
+    status_field: statusField,
+    status,
+    priority,
+    target_scope: row.target_scope,
+    next_action: nextAction,
+    source_decision: row.path,
+  };
+}
+
+function workItemsToCsv(rows) {
+  const headers = [
+    "chart",
+    "version",
+    "supported_base",
+    "decision",
+    "work_type",
+    "status_field",
+    "status",
+    "priority",
+    "target_scope",
+    "next_action",
+    "source_decision",
+  ];
+  return `${headers.join(",")}\n${rows.map((row) => headers.map((header) => csvCell(row[header] ?? "")).join(",")).join("\n")}\n`;
 }
 
 function toCsv(rows) {

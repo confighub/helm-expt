@@ -26,7 +26,7 @@ smallest generated surface that answers it.
 | I want live parity status. | [live-kind-parity/summary.md](./live-kind-parity/summary.md)<br>[live-helm-confighub-compare/summary.md](./live-helm-confighub-compare/summary.md) |
 | I want hook, CRD, webhook, or lifecycle status. | [lifecycle-boundary/summary.md](./lifecycle-boundary/summary.md)<br>[outcome-coverage/feature-outcomes.csv](./outcome-coverage/feature-outcomes.csv) |
 | I want extension-slot or custom-config risk. | [extension-slots/summary.md](./extension-slots/summary.md)<br>[nginx-config-checks/summary.md](./nginx-config-checks/summary.md) |
-| I want production support status and next actions. | [status-dashboard/next-work-queues.csv](./status-dashboard/next-work-queues.csv)<br>[production-support-decisions/summary.md](./production-support-decisions/summary.md)<br>[production-support-decisions/decisions.csv](./production-support-decisions/decisions.csv) |
+| I want production support status and next actions. | [status-dashboard/next-work-queues.csv](./status-dashboard/next-work-queues.csv)<br>[production-support-decisions/summary.md](./production-support-decisions/summary.md)<br>[production-support-decisions/work-items.csv](./production-support-decisions/work-items.csv)<br>[production-support-decisions/decisions.csv](./production-support-decisions/decisions.csv) |
 | I want accepted pre-review production dispositions. | [production-disposition/summary.md](./production-disposition/summary.md)<br>[production-disposition/support-decision-contract.md](./production-disposition/support-decision-contract.md)<br>[production-disposition/support-decision-queue.csv](./production-disposition/support-decision-queue.csv) |
 
 ## Start Here
@@ -56,6 +56,7 @@ smallest generated surface that answers it.
 | [production-disposition/support-decision-contract.md](./production-disposition/support-decision-contract.md) | Production support decision contract: required fields, current decision states, and the rule for moving from production-review-ready to production-supported. |
 | [production-disposition/support-decision-queue.csv](./production-disposition/support-decision-queue.csv) | Pre-review queue showing the candidate production base, support boundary work, and required evidence before target-scoped decisions. |
 | [production-support-decisions/summary.md](./production-support-decisions/summary.md) | Target-scoped support decision artifacts: draft and supported decisions, boundaries, evidence state, and next action. |
+| [production-support-decisions/work-items.csv](./production-support-decisions/work-items.csv) | One row per production-support task or keep-fresh item: chart, base, work type, status field, priority, action, and source decision. |
 | [production-support-decisions/decisions.csv](./production-support-decisions/decisions.csv) | One row per target-scoped support decision artifact: chart, base, decision state, target scope, evidence decision, and next action. |
 | [external-scan-lane/chart-workdown.csv](./external-scan-lane/chart-workdown.csv) | Chart-level scan/gate workdown: grouped scanner findings, priority, and next action before production disposition. |
 | [scan-disposition-workdown/workdown.csv](./scan-disposition-workdown/workdown.csv) | Scan warning routes: which rows need fixes, hardened bases, explicit security acceptance, runtime endpoint review, or PDB policy decisions. |
@@ -161,7 +162,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 70 CSV files. Each row records the path, audience,
+It includes 71 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

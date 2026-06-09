@@ -461,6 +461,7 @@ lifecycle observation.
 | Which live comparisons passed or failed? | [live-helm-confighub-compare/summary.csv](../live-helm-confighub-compare/summary.csv) |
 | Which live rows should be rerun next? | [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md) |
 | Which top-20 charts are production-supported? | [production-support-decisions/summary.md](../production-support-decisions/summary.md) |
+| Which production-support tasks can be assigned? | [production-support-decisions/work-items.csv](../production-support-decisions/work-items.csv) |
 | Which derived variants are specified or executed? | [variant-goldens/derived-expansion-wave/work-orders.csv](../variant-goldens/derived-expansion-wave/work-orders.csv) |
 
 Regenerate:
