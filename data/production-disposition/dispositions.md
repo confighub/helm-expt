@@ -6,7 +6,7 @@ exactly what must be closed before production support can be claimed.
 The lifecycle columns separate retained source-hook evidence from recipe-level
 lifecycle policy and related CRD/webhook/controller observations.
 
-Accepted disposition receipts recorded: 51
+Accepted disposition receipts recorded: 57
 
 | Chart | Local-test variants | Production state | Accepted | Open | Source hooks | Lifecycle basis | Live/e2e receipts |
 | --- | --- | --- | ---: | ---: | ---: | --- | --- |
@@ -24,7 +24,7 @@ Accepted disposition receipts recorded: 51
 | `hashicorp/consul@2.0.0` | default-control-plane, secure-mesh-existing-secrets | production-blocked | 0 | 8 | 0 | recipe-lifecycle-policy | 1 |
 | `hashicorp/vault@0.32.0` | default, ha-raft-ui | production-blocked | 0 | 5 | 0 | none | 1 |
 | `ingress-nginx/ingress-nginx@4.15.1` | default, admission-disabled | production-review-ready | 4 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
-| `jetstack/cert-manager@v1.20.2` | default, crds-enabled | production-blocked | 0 | 6 | 0 | recipe-hook-policy:no-hooks; lifecycle-observations:2/2 | 1 |
+| `jetstack/cert-manager@v1.20.2` | default, crds-enabled | production-review-ready | 6 | 0 | 0 | recipe-hook-policy:no-hooks; lifecycle-observations:2/2 | 1 |
 | `longhorn/longhorn@1.11.2` | default, ui-ingress | production-blocked | 0 | 5 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `metrics-server/metrics-server@3.13.0` | default, external-tls-ca | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default, no-crds | production-blocked | 0 | 6 | 2 | source-hooks:2 | 1 |
@@ -40,6 +40,7 @@ The same queue is available as `next-actions.csv`.
 | Chart | Accepted | Open | Open dispositions | Next receipt | External scan reading |
 | --- | ---: | ---: | --- | --- | --- |
 | `bitnami/mongodb@19.0.7` | 6 | 0 |  | - | existing-secret-replicaset: warn, 2 finding(s) (pdb-unhealthy-pod-eviction-policy:2); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
+| `jetstack/cert-manager@v1.20.2` | 6 | 0 |  | - | crds-enabled: warn, 6 finding(s) (unset-cpu-requirements:3;unset-memory-requirements:3); default: warn, 6 finding(s) (unset-cpu-requirements:3;unset-memory-requirements:3) |
 | `bitnami/mysql@14.0.3` | 5 | 0 |  | - | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
 | `bitnami/postgresql@18.6.7` | 5 | 0 |  | - | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
 | `bitnami/rabbitmq@16.0.14` | 5 | 0 |  | - | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |

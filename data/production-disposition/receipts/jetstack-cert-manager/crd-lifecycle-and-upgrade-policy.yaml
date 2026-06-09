@@ -1,0 +1,53 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: jetstack-cert-manager-crd-lifecycle-and-upgrade-policy
+spec:
+  chart: jetstack/cert-manager
+  version: "v1.20.2"
+  disposition: CRD lifecycle and upgrade policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    cert-manager has two supported CRD postures. The default base omits CRDs
+    and requires compatible cert-manager CRDs to exist before install. The
+    crds-enabled base renders the six cert-manager CRDs as ordinary reviewed
+    objects. This disposition accepts the CRD routing model for production
+    review input: CRD ownership is a base choice, not an implicit Helm side
+    effect.
+  evidence:
+    - path: recipes/jetstack/cert-manager/v1.20.2/control-points.yaml
+      claim: The recipe records CRD policy as variant-controlled, with zero CRDs in default and six CRDs in crds-enabled.
+    - path: recipes/jetstack/cert-manager/v1.20.2/value-model.yaml
+      claim: The value model records crds.enabled as the active CRD switch and installCRDs as deprecated/not used.
+    - path: recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/object-inventory.yaml
+      claim: The default rendered object inventory records zero CustomResourceDefinition objects.
+    - path: recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/object-inventory.yaml
+      claim: The crds-enabled rendered object inventory records the six cert-manager CustomResourceDefinition objects.
+    - path: recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/receipts/scan-receipt.yaml
+      claim: The crds-enabled rendered-object scan records CRD upgrade policy warnings explicitly.
+    - path: recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The default base is Helm-equivalent under recorded inputs, with only the installer Namespace support object added.
+    - path: recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The crds-enabled base is Helm-equivalent under recorded inputs, with only the installer Namespace support object added.
+    - path: runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-default/receipt.yaml
+      claim: The default lifecycle observation proves the base works when compatible external CRDs are staged before apply.
+    - path: runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml
+      claim: The crds-enabled lifecycle observation proves rendered CRDs become Established and an Issuer object is accepted by server dry-run.
+    - path: runs/live-kind-parity/jetstack-cert-manager-crds-enabled/receipt.yaml
+      claim: The crds-enabled base passes strict two-cluster live parity between regular Helm and cub installer apply.
+  affectedVariants:
+    - default
+    - crds-enabled
+  acceptedPolicy:
+    default: CRDs are owned outside this base and must exist in the target before install.
+    crdsEnabled: CRDs are owned by this base and must be reviewed, upgraded, and rolled back as part of chart support.
+    upgrade: CRD schema changes remain target-sensitive and require a fresh upgrade review when the chart version changes.
+  variantCaveats:
+    - "crds-enabled is the stronger first production-review path because it has strict live parity and ConfigHub OCI/Argo live proof."
+    - "default is a target-prerequisite path; it needs compatible CRDs staged and observed before production use."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose whether the target owns cert-manager CRDs through this base or through a separate CRD management path.

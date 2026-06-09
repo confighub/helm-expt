@@ -45,9 +45,9 @@ Which detailed CSV should I open next?
 | live evidence | ConfigHub/OCI semantic parity defect receipts | 0/20 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 0/40 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-supported charts | 0/20 | gap | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
-| production disposition | top20 production-review-ready charts | 11/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
-| production disposition | top20 production-blocked charts | 9/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
-| production disposition | charts with accepted production dispositions | 11/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| production disposition | top20 production-review-ready charts | 12/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| production disposition | top20 production-blocked charts | 8/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| production disposition | charts with accepted production dispositions | 12/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | scan disposition | high-priority scan rows | 4/20 | partial | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
 | scan disposition | remaining mutable-image rows | 0/20 | good | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
 | scan disposition | privileged infrastructure review rows | 4/20 | partial | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
@@ -131,8 +131,8 @@ spreadsheet.
 | grafana/tempo@1.24.4 | local-persistent (runtime-review-needed) | runtime-review-needed:1; target-prerequisite-needed:1 | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
 | hashicorp/consul@2.0.0 | default-control-plane (start-here) | start-here:1; runtime-review-needed:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
 | hashicorp/vault@0.32.0 | default (runtime-review-needed) | runtime-review-needed:2 | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | - |
-| ingress-nginx/ingress-nginx@4.15.1 | default (runtime-watch) | try-with-proof:1; runtime-watch:1 | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | - |
-| jetstack/cert-manager@v1.20.2 | default (lifecycle-observed) | try-with-proof:1; lifecycle-observed:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
+| ingress-nginx/ingress-nginx@4.15.1 | admission-disabled (try-with-proof) | try-with-proof:1; runtime-watch:1 | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | - |
+| jetstack/cert-manager@v1.20.2 | crds-enabled (try-with-proof) | try-with-proof:1; lifecycle-observed:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
 | longhorn/longhorn@1.11.2 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
 | metrics-server/metrics-server@3.13.0 | default (try-with-proof) | try-with-proof:1; runtime-review-needed:1 | live-helm-vs-confighub-parity | 2/2 | 0/2 | 1/2 | 1/2 | 1/2 | existing-secret (chart ships no Secret toggle - #113) |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default (runtime-watch) | runtime-watch:1; target-prerequisite-needed:1 | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | existing-secret (chart ships no Secret toggle - #113) |
@@ -220,21 +220,21 @@ production-supported until a final target-scoped support decision is recorded.
 | Metric | Value |
 | --- | ---: |
 | production-supported charts | 0/20 |
-| production-review-ready pending final support decision | 11/20 |
-| production-blocked pending disposition | 9/20 |
-| charts with accepted dispositions | 11/20 |
+| production-review-ready pending final support decision | 12/20 |
+| production-blocked pending disposition | 8/20 |
+| charts with accepted dispositions | 12/20 |
 | high-priority scan rows | 4/20 |
 | mutable-image rows still needing fixes | 0/20 |
 
 | Open disposition | Charts |
 | --- | ---: |
-| scan/gate warning disposition | 9 |
-| cluster RBAC review | 8 |
-| extension slot provenance and scan policy | 8 |
-| CRD lifecycle and upgrade policy | 6 |
-| hook and lifecycle phase policy | 5 |
+| scan/gate warning disposition | 8 |
+| cluster RBAC review | 7 |
+| extension slot provenance and scan policy | 7 |
+| CRD lifecycle and upgrade policy | 5 |
 | storage backup restore and rollback policy | 5 |
-| webhook readiness and failure policy | 5 |
+| hook and lifecycle phase policy | 4 |
+| webhook readiness and failure policy | 4 |
 | target fact preflight | 2 |
 
 | Scan route | Charts |

@@ -1,0 +1,47 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: jetstack-cert-manager-webhook-readiness-and-failure-policy
+spec:
+  chart: jetstack/cert-manager
+  version: "v1.20.2"
+  disposition: webhook readiness and failure policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    cert-manager renders admission webhook configurations whose caBundle fields
+    are populated after apply by the running system. The rendered objects prove
+    desired config; webhook availability, caBundle injection, and API acceptance
+    must be observed fresh after apply. This disposition accepts that boundary
+    for production review input.
+  evidence:
+    - path: recipes/jetstack/cert-manager/v1.20.2/control-points.yaml
+      claim: The recipe records MutatingWebhookConfiguration and ValidatingWebhookConfiguration objects as scan-and-observe admission webhook control points.
+    - path: recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/object-inventory.yaml
+      claim: The default rendered object inventory records the cert-manager webhook configurations.
+    - path: recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/object-inventory.yaml
+      claim: The crds-enabled rendered object inventory records the same webhook configurations plus CRDs.
+    - path: recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default rendered-object scan records admission-webhook-requires-observation findings explicitly.
+    - path: recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/receipts/scan-receipt.yaml
+      claim: The crds-enabled rendered-object scan records the same webhook observation findings explicitly.
+    - path: runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-default/receipt.yaml
+      claim: The default lifecycle observation proves webhook caBundle fields are non-empty and an Issuer object is accepted by server dry-run when CRDs are staged externally.
+    - path: runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml
+      claim: The crds-enabled lifecycle observation proves webhook caBundle fields are non-empty and an Issuer object is accepted by server dry-run.
+    - path: runs/live-helm-confighub-compare/jetstack-cert-manager-crds-enabled/receipt.yaml
+      claim: The crds-enabled base passes regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo live parity with healthy runtime.
+  affectedVariants:
+    - default
+    - crds-enabled
+  acceptedPolicy:
+    controllerOwnedFields: Admission webhook caBundle values are produced after apply and must be observed fresh.
+    desiredObjects: Webhook configurations, webhook Service, and webhook Deployment remain part of the reviewed rendered object set.
+    failurePolicy: A production target must record its admission failure policy and webhook availability expectation before support is declared.
+  variantCaveats:
+    - "default requires compatible external CRDs before webhook/API validation can be proved."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should attach target-specific webhook availability, failure-policy, and API dry-run checks to the chosen base.

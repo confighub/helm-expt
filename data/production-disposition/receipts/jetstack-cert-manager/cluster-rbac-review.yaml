@@ -1,0 +1,40 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: jetstack-cert-manager-cluster-rbac-review
+spec:
+  chart: jetstack/cert-manager
+  version: "v1.20.2"
+  disposition: cluster RBAC review
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: cert-manager intentionally renders cluster-scoped RBAC for certificate controllers, approval, cainjector, webhook SubjectAccessReviews, and view/edit roles. Both supported bases expose this RBAC inventory. This disposition accepts the upstream RBAC shape for production review input; target policy can still require a narrower base or explicit cluster approval.
+  evidence:
+    - path: recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/object-inventory.yaml
+      claim: The default object inventory records the ClusterRole and ClusterRoleBinding objects rendered by the chart.
+    - path: recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/object-inventory.yaml
+      claim: The crds-enabled object inventory records the same controller RBAC shape plus CRDs.
+    - path: recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default rendered-object scan flags cluster-rbac-review findings with zero high or critical findings.
+    - path: recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/receipts/scan-receipt.yaml
+      claim: The crds-enabled rendered-object scan flags the same cluster RBAC warning family.
+    - path: recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The default base is Helm-equivalent under recorded inputs.
+    - path: recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The crds-enabled base is Helm-equivalent under recorded inputs.
+    - path: runs/live-kind-parity/jetstack-cert-manager-crds-enabled/receipt.yaml
+      claim: The crds-enabled base passes strict two-cluster live parity.
+    - path: runs/live-helm-confighub-compare/jetstack-cert-manager-crds-enabled/receipt.yaml
+      claim: The crds-enabled base passes regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo live parity.
+  affectedVariants:
+    - default
+    - crds-enabled
+  acceptedWarnings:
+    - cluster-rbac-review
+  variantCaveats:
+    - "Cluster-scoped permissions are expected for this controller class but must be reviewed against the target cluster's policy."
+  remainingProductionBlockers: []
+  nextDecision: A target-scoped production support decision can review cert-manager RBAC together with issuer scope, approval policy, and cluster-level certificate authority policy.

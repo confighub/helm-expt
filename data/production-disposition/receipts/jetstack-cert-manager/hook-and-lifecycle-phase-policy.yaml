@@ -1,0 +1,49 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: jetstack-cert-manager-hook-and-lifecycle-phase-policy
+spec:
+  chart: jetstack/cert-manager
+  version: "v1.20.2"
+  disposition: hook and lifecycle phase policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    The cert-manager startup API check is a Helm post-install hook Job and is
+    intentionally excluded from the rendered object proof by the no-hooks render
+    policy. The equivalent ConfigHub lifecycle check is a post-apply API
+    dry-run and observation receipt, not a hidden rendered object. This
+    disposition accepts that hook route for production review input.
+  evidence:
+    - path: recipes/jetstack/cert-manager/v1.20.2/control-points.yaml
+      claim: The recipe records startup API check as a Helm post-install hook excluded from render and requiring lifecycle policy.
+    - path: recipes/jetstack/cert-manager/v1.20.2/value-model.yaml
+      claim: The value model records startupapicheck.enabled as hook-excluded-by-render-policy.
+    - path: recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/receipts/install-gate.yaml
+      claim: The default install gate blocks production until the startup API check hook has explicit lifecycle handling.
+    - path: recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/receipts/install-gate.yaml
+      claim: The crds-enabled install gate records the same lifecycle requirement.
+    - path: recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default scan records helm-hook-lifecycle-policy for cert-manager-startupapicheck.
+    - path: recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/receipts/scan-receipt.yaml
+      claim: The crds-enabled scan records the same helm-hook-lifecycle-policy finding.
+    - path: runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-default/receipt.yaml
+      claim: The default lifecycle observation records hookPolicy startupapicheck-becomes-post-apply-api-dry-run and proves server dry-run with external CRDs staged.
+    - path: runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml
+      claim: The crds-enabled lifecycle observation records the same hookPolicy and proves server dry-run after rendered CRDs become Established.
+    - path: data/lifecycle-boundary/lifecycle-boundary.csv
+      claim: cert-manager lifecycle observation rows are separated from the generic hook-lifecycle queue and do not claim universal Helm hook support.
+  affectedVariants:
+    - default
+    - crds-enabled
+  acceptedPolicy:
+    renderPolicy: Helm hook Jobs are not part of the immutable rendered revision when the recipe uses no-hooks.
+    replacementCheck: cert-manager startup API check is represented by post-apply server dry-run and lifecycle observation receipts.
+    productionRule: Fresh target observation is required after apply and after chart upgrades.
+  variantCaveats:
+    - "This disposition covers the cert-manager startup API check route only. It does not claim all Helm hook patterns are solved."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should require fresh startup API observation for the selected target and chart version.

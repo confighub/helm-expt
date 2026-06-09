@@ -14,7 +14,7 @@ spec:
   supportedVariants:
     - "default"
     - "crds-enabled"
-  productionReadiness: "blocked-by-current-scan-gate"
+  productionReadiness: "production-review-ready"
   notes:
     - "Default chart does not render CRDs because crds.enabled defaults to false."
     - "crds-enabled variant renders six cert-manager CRDs as ordinary rendered objects."
@@ -123,4 +123,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
-  answerForSkepticalHelmUser: "jetstack/cert-manager@v1.20.2 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, lifecycle-policy, scan-gate, extension-slot, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains blocked-by-current-scan-gate."
+  answerForSkepticalHelmUser: "jetstack/cert-manager@v1.20.2 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, lifecycle-policy, scan-gate, extension-slot, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains production-review-ready."

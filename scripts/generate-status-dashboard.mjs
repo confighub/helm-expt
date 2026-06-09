@@ -453,7 +453,7 @@ function top20StatusRows(top100Rows, chartByName, top20BaseReadinessRows) {
     .filter((row) => row.catalog_tier === "top20-catalog-supported")
     .map((row) => {
       const baseRows = readinessByChart.get(row.chart) ?? [];
-      const recommended = baseRows.find((baseRow) => baseRow.recommended_first === "yes");
+      const recommended = recommendedBaseRow(baseRows);
       return {
         rank: row.proof_surface_rank,
         chart: row.chart,
@@ -476,6 +476,28 @@ function top20StatusRows(top100Rows, chartByName, top20BaseReadinessRows) {
       };
     })
     .sort((a, b) => Number(a.rank) - Number(b.rank));
+}
+
+function recommendedBaseRow(baseRows) {
+  const readinessRank = new Map([
+    ["start-here", 0],
+    ["try-with-proof", 1],
+    ["lifecycle-observed", 2],
+    ["prerequisite-observed", 3],
+    ["runtime-watch", 4],
+    ["runtime-review-needed", 5],
+    ["hook-lifecycle-review-needed", 6],
+    ["target-prerequisite-needed", 7],
+    ["render-only", 8],
+    ["blocked", 9],
+  ]);
+  return [...baseRows].sort((left, right) => {
+    const leftRank = readinessRank.get(left.user_readiness) ?? 99;
+    const rightRank = readinessRank.get(right.user_readiness) ?? 99;
+    if (leftRank !== rightRank) return leftRank - rightRank;
+    if (left.recommended_first !== right.recommended_first) return left.recommended_first === "yes" ? -1 : 1;
+    return left.base.localeCompare(right.base);
+  })[0];
 }
 
 function top20ToCsv(rows) {

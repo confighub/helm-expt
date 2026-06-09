@@ -1301,7 +1301,7 @@ spec:
     -
       chart: "jetstack/cert-manager"
       version: "v1.20.2"
-      status: "production-blocked"
+      status: "production-review-ready"
       supportedLocalTestVariants:
         - "default"
         - "crds-enabled"
@@ -1334,11 +1334,17 @@ spec:
           - "runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-default/receipt.yaml"
           - "runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml"
         productionDispositionReceipts:
-          []
+          - "data/production-disposition/receipts/jetstack-cert-manager/crd-lifecycle-and-upgrade-policy.yaml"
+          - "data/production-disposition/receipts/jetstack-cert-manager/cluster-rbac-review.yaml"
+          - "data/production-disposition/receipts/jetstack-cert-manager/extension-slot-provenance-and-scan-policy.yaml"
+          - "data/production-disposition/receipts/jetstack-cert-manager/hook-and-lifecycle-phase-policy.yaml"
+          - "data/production-disposition/receipts/jetstack-cert-manager/scan-gate-warning-disposition.yaml"
+          - "data/production-disposition/receipts/jetstack-cert-manager/webhook-readiness-and-failure-policy.yaml"
       dispositions:
         -
           name: "CRD lifecycle and upgrade policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/jetstack-cert-manager/crd-lifecycle-and-upgrade-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "CRD ownership decision"
@@ -1347,7 +1353,8 @@ spec:
           unblockRule: "supported only when CRD ownership and upgrade behavior are explicit"
         -
           name: "cluster RBAC review"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/jetstack-cert-manager/cluster-rbac-review.yaml"
           owner: "security-review"
           requiredEvidence:
             - "cluster-scoped RBAC inventory"
@@ -1356,7 +1363,8 @@ spec:
           unblockRule: "supported only after cluster-scoped permissions have an explicit disposition"
         -
           name: "extension slot provenance and scan policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/jetstack-cert-manager/extension-slot-provenance-and-scan-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "tpl/raw value inventory"
@@ -1365,7 +1373,8 @@ spec:
           unblockRule: "supported only when extensions are explicit and scanned after render"
         -
           name: "hook and lifecycle phase policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/jetstack-cert-manager/hook-and-lifecycle-phase-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "hook inventory"
@@ -1374,7 +1383,8 @@ spec:
           unblockRule: "supported only when hooks are mapped to lifecycle policy or intentionally excluded"
         -
           name: "scan/gate warning disposition"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/jetstack-cert-manager/scan-gate-warning-disposition.yaml"
           owner: "security-review"
           requiredEvidence:
             - "local scan receipt"
@@ -1383,7 +1393,8 @@ spec:
           unblockRule: "supported only when warnings are accepted, fixed, or variant-blocking"
         -
           name: "webhook readiness and failure policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/jetstack-cert-manager/webhook-readiness-and-failure-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "webhook deployment readiness"
