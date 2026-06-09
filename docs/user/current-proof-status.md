@@ -295,4 +295,6 @@ this page.
 | What can I install? | [Catalog](../../CATALOG.md) |
 | How do I run the tutorial path? | [Tutorial Sequence](./tutorial-sequence.md) |
 | How do variants work? | [Creating Variants](./creating-variants.md) |
+| What compact work queue should we pick from next? | [Next-Ten Waves](../../data/next-ten-waves/summary.md) |
+| What is the broader generated workdown? | [Attack Plan Workdown](../../data/attack-plan-workdown/summary.md) |
 | What is the current execution plan? | [Large Machine Roadmap](../planning/large-machine-roadmap.md) |
