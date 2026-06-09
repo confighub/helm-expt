@@ -8,6 +8,7 @@ emit_empty() {
   cat <<YAML
 targetFacts:
   requiredSecrets: []
+  requiredCRDs: []
 targetFactChecks:
   base: "$base"
   mode: not-required
@@ -33,6 +34,18 @@ live_check_secret() {
   fi
 }
 
+live_check_crd() {
+  name="$1"
+  if ! command -v kubectl >/dev/null 2>&1; then
+    echo "kubectl is required for TARGET_FACT_CHECK_MODE=live" >&2
+    exit 1
+  fi
+  if ! kubectl get crd "$name" >/dev/null 2>&1; then
+    echo "required CRD $name was not found" >&2
+    exit 1
+  fi
+}
+
 case "$base" in
   'existing-secret-replicaset')
     if [ "$check_mode" = "live" ]; then
@@ -51,8 +64,11 @@ targetFacts:
     name: mongodb-auth
     namespace: mongodb
     purpose: MongoDB root password and replica-set key
+
+  requiredCRDs: []
+
 targetFactChecks:
-  base: "$base"
+  base: "existing-secret-replicaset"
   mode: "$check_mode"
   result: "$result"
 YAML

@@ -18,6 +18,10 @@ spec:
           name: "Secret tempo/tempo-s3-credentials keys access_key,secret_key"
           namespace: "tempo"
           suggestedSource: "kubectl -n tempo create secret generic tempo-s3-credentials --from-literal=access_key=<value> --from-literal=secret_key=<value>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD servicemonitors.monitoring.coreos.com"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
       name: "s3-query-observability"
       path: "bases/s3-query-observability"
   collector:
@@ -25,13 +29,3 @@ spec:
     args:
       - "collector/target-facts.sh"
     description: "Records target-fact bindings and can live-check existing Secret requirements."
-  transformers:
-    -
-      description: "Set the namespace on every namespaced resource."
-      invocations:
-        -
-          args:
-            - "{{ .Namespace }}"
-          name: "set-namespace"
-      toolchain: "Kubernetes/YAML"
-      whereResource: ""

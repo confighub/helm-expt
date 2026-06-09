@@ -4,13 +4,16 @@ metadata:
   name: "bitnami-mysql-14.0.3"
 spec:
   chart:
-    repository: "bitnami"
     name: "mysql"
+    repository: "bitnami"
     version: "14.0.3"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/bitnami/mysql/14.0.3 -o <tmp>/mysql-14.0.3.tgz"
+    sha256: "1acdf2ccae6aa722ffd25280d732334d80de499f7eb1344668e83f01f574da4e"
   package:
-    path: "packages/bitnami/mysql/14.0.3"
     name: "bitnami-mysql"
-    version: "14.0.3"
+    path: "packages/bitnami/mysql/14.0.3"
     sourceFiles:
       -
         path: "README.md"
@@ -34,38 +37,35 @@ spec:
         bytes: 12409
       -
         path: "collector/target-facts.sh"
-        sha256: "f812ed4047bc4603973d0dea5394ea1d6da35414403aa8aab519c3f60fc082df"
-        bytes: 1507
+        sha256: "0aaf288325f9d10025c838a1d91903e13cea6bf3949f8f17b572c04ee1adae7f"
+        bytes: 1839
       -
         path: "installer.yaml"
-        sha256: "7fdafdc0bfcd042ef449e46ba332b8421d2182fea4ac1e3ea1daa9e8ef7bdece"
+        sha256: "a082d6d8e00ff2da3dc5362b648cfe0728d3fb63c73bc393b57a6c5b877524a0"
         bytes: 3383
-  deterministicBundle:
-    command: "cub installer package packages/bitnami/mysql/14.0.3 -o <tmp>/mysql-14.0.3.tgz"
-    sha256: "8f1244d73c4c6ad3fb20e0e28fc2372a815ce858e6d70208357fbd5747fd154d"
-    byteIdenticalAcrossTwoLocalBundles: true
+    version: "14.0.3"
   setupChecks:
     -
-      variant: "generated-passwords"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||mysql"
       base: "generated-passwords"
       command: "cub installer setup --pull packages/bitnami/mysql/14.0.3 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mysql"
-      helmReleaseObjectCount: 8
       cubInstallObjectCountIncludingSupport: 9
+      helmReleaseObjectCount: 8
       semanticObjectMatches: "8/8"
       separatedSecretCount: 1
       targetFactMode: "not-required"
       targetFactsBound: false
+      variant: "generated-passwords"
+    -
       allowedCubOnlyObjects:
         - "v1|Namespace||mysql"
-    -
-      variant: "existing-secret"
       base: "existing-secret"
       command: "cub installer setup --pull packages/bitnami/mysql/14.0.3 --base existing-secret --work-dir <tmp> --non-interactive --namespace mysql"
-      helmReleaseObjectCount: 7
       cubInstallObjectCountIncludingSupport: 8
+      helmReleaseObjectCount: 7
       semanticObjectMatches: "7/7"
       separatedSecretCount: 0
       targetFactMode: "collector-facts"
       targetFactsBound: true
-      allowedCubOnlyObjects:
-        - "v1|Namespace||mysql"
+      variant: "existing-secret"

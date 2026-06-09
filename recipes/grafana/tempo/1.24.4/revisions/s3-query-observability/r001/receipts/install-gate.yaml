@@ -4,7 +4,7 @@ metadata:
   name: "tempo-s3-query-observability-r001"
 spec:
   variantRevision: "../variant-revision.yaml"
-  renderedObjectSetSHA256: "6fb9e1726fb68d7e7e251420e9c5761e078cd38f508fa87af7759e0b302017a4"
+  renderedObjectSetSHA256: "e647ad22435c55910e4c77470263e05daf026af43b59bde1f0ae7db754d3d5ad"
   decision: "warn"
   allowedScopes:
     - "local-test"
@@ -15,4 +15,4 @@ spec:
     - "Tempo storage backend and query/observability posture are explicit variant choices"
     - "Helm hook behavior needs explicit lifecycle policy before production"
     - "Tempo StatefulSet, storage, S3 credential Secret, query ingress, NetworkPolicy, ServiceMonitor, and extension slots need production review"
-    - "requires target Secret tempo/tempo-s3-credentials before apply; ServiceMonitor also requires the Prometheus Operator CRD in the target cluster"
+    - "requires target Secret tempo/tempo-s3-credentials and a reachable S3-compatible bucket before runtime readiness; ServiceMonitor also requires the Prometheus Operator CRD in the target cluster"

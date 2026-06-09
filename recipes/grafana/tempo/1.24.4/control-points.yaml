@@ -28,10 +28,20 @@ spec:
       evidence: "tempo.extraEnv secretKeyRef"
       note: "The s3-query-observability variant declares the target Secret for S3 credentials instead of embedding access keys in rendered ConfigMaps."
     -
+      category: "object-store-runtime-prerequisite"
+      status: "runtime-watch"
+      evidence: "tempo.storage.trace.s3"
+      note: "The S3 variant needs a reachable S3-compatible endpoint and bucket before Tempo becomes ready; dummy credentials alone are not a live proof."
+    -
       category: "capability-profile"
       status: "variant-controlled"
       evidence: "monitoring.coreos.com/v1"
       note: "The ServiceMonitor variant records the Prometheus Operator API as an explicit target capability."
+    -
+      category: "servicemonitor-crd-target-fact"
+      status: "target-fact"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||servicemonitors.monitoring.coreos.com"
+      note: "The Tempo chart renders a ServiceMonitor when the API is declared, but the Prometheus Operator CRD must already exist in the target cluster."
     -
       category: "stateful-workload"
       status: "scan-and-review"

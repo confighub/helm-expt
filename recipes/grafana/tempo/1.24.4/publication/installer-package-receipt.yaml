@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/grafana/tempo/1.24.4 -o <tmp>/tempo-1.24.4.tgz"
-    sha256: "488af452507e6e7829206bba3dab12e91d1d492ea0086784daa0183ead715d72"
+    sha256: "5201328651cf3dd741b4664b4b93f7809723150c0588316f81f44ac6eec73678"
   package:
     name: "grafana-tempo"
     path: "packages/grafana/tempo/1.24.4"
@@ -25,24 +25,24 @@ spec:
         bytes: 99
       -
         path: "bases/local-persistent/upstream.yaml"
-        sha256: "4a18b354ff67e98d84f6d89ce16b973396c9c30bf3c121f4ef146886151c44be"
-        bytes: 6211
+        sha256: "df7ce7b40425eef8d057bdd80416ea3ae781ababe7ce6a154db74990c0f07905"
+        bytes: 6209
       -
         path: "bases/s3-query-observability/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
         bytes: 99
       -
         path: "bases/s3-query-observability/upstream.yaml"
-        sha256: "6fb9e1726fb68d7e7e251420e9c5761e078cd38f508fa87af7759e0b302017a4"
-        bytes: 9393
+        sha256: "e647ad22435c55910e4c77470263e05daf026af43b59bde1f0ae7db754d3d5ad"
+        bytes: 9391
       -
         path: "collector/target-facts.sh"
-        sha256: "b8c5b8d16a45d2401822ce2b9737c855ccc23d64c27616d48c96c3aea1c32001"
-        bytes: 1449
+        sha256: "42b2dd4749e18d2b9997c24cddfb4bae4e36039987df96c3498fb21def043b43"
+        bytes: 2293
       -
         path: "installer.yaml"
-        sha256: "97c7ac554d092365bf829db19b2dda9b6f10d1fbcc1b8137566c8b65b059b1aa"
-        bytes: 1281
+        sha256: "03d62ed1fed5f5536989834a7f1817ecd982ae37019c43167e21436e9df1a31c"
+        bytes: 1190
     version: "1.24.4"
   setupChecks:
     -

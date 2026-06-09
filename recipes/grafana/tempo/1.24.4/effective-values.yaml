@@ -7,7 +7,7 @@ spec:
     -
       path: "effective-values.yaml"
       source: "inline-proof"
-      sha256: "d00c19663ddfef96a5cbfbad94a9aa1912a83259e3ad3b4ea99f81ef329b3204"
+      sha256: "b9e0cb1795d219201c502da4854ab8262fe38526dfb3c564c2684925ab6b8877"
   mergedValuesCaptured: false
   values:
     persistence:
@@ -18,7 +18,7 @@ spec:
       enableStatefulSetAutoDeletePVC: false
       enabled: true
       size: "10Gi"
-      storageClassName: "local-path"
+      storageClassName: "standard"
     tempo:
       reportingEnabled: false
       storage:

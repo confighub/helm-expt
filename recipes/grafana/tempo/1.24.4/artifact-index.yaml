@@ -31,8 +31,10 @@ spec:
       - "extension-slots"
       - "installer-support-object"
       - "network-policy"
+      - "object-store-runtime-prerequisite"
       - "query-ingress-policy"
       - "servicemonitor-capability"
+      - "servicemonitor-crd-target-fact"
       - "source-lock"
       - "stateful-workload"
       - "target-facts"
@@ -68,7 +70,7 @@ spec:
     path: "packages/grafana/tempo/1.24.4"
     installer: "packages/grafana/tempo/1.24.4/installer.yaml"
     receipt: "recipes/grafana/tempo/1.24.4/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "488af452507e6e7829206bba3dab12e91d1d492ea0086784daa0183ead715d72"
+    deterministicBundleSHA256: "5201328651cf3dd741b4664b4b93f7809723150c0588316f81f44ac6eec73678"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -114,8 +116,8 @@ spec:
           name: "local-persistent-r001"
           revision: "r001"
           variantRevision: "recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/variant-revision.yaml"
-          digest: "a2bac6b313b2df276b8bfdda46133f2adc573631e209be98898868c9142b4adc"
-          renderedObjectSetSHA256: "4a18b354ff67e98d84f6d89ce16b973396c9c30bf3c121f4ef146886151c44be"
+          digest: "75c99c0e86a430f8ff1c9967da77a5fc59f5bad8498961eb024cdac68be36cc8"
+          renderedObjectSetSHA256: "df7ce7b40425eef8d057bdd80416ea3ae781ababe7ce6a154db74990c0f07905"
           renderedObjects: "recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/rendered/object-inventory.yaml"
           objectCount: 4
@@ -128,22 +130,22 @@ spec:
               kind: "RenderReceipt"
               path: "recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/receipts/render-receipt.yaml"
               result: "recorded"
-              renderedObjectSetSHA256: "4a18b354ff67e98d84f6d89ce16b973396c9c30bf3c121f4ef146886151c44be"
+              renderedObjectSetSHA256: "df7ce7b40425eef8d057bdd80416ea3ae781ababe7ce6a154db74990c0f07905"
             helmEquivalence:
               kind: "HelmEquivalenceReceipt"
               path: "recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/receipts/helm-equivalence-receipt.yaml"
               result: "pass"
-              renderedObjectSetSHA256: "4a18b354ff67e98d84f6d89ce16b973396c9c30bf3c121f4ef146886151c44be"
+              renderedObjectSetSHA256: "df7ce7b40425eef8d057bdd80416ea3ae781ababe7ce6a154db74990c0f07905"
             scan:
               kind: "ScanReceipt"
               path: "recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/receipts/scan-receipt.yaml"
               result: "warn"
-              renderedObjectSetSHA256: "4a18b354ff67e98d84f6d89ce16b973396c9c30bf3c121f4ef146886151c44be"
+              renderedObjectSetSHA256: "df7ce7b40425eef8d057bdd80416ea3ae781ababe7ce6a154db74990c0f07905"
             installGate:
               kind: "InstallGate"
               path: "recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/receipts/install-gate.yaml"
               result: "warn"
-              renderedObjectSetSHA256: "4a18b354ff67e98d84f6d89ce16b973396c9c30bf3c121f4ef146886151c44be"
+              renderedObjectSetSHA256: "df7ce7b40425eef8d057bdd80416ea3ae781ababe7ce6a154db74990c0f07905"
     -
       name: "s3-query-observability"
       variant: "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
@@ -157,6 +159,17 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "servicemonitors.monitoring.coreos.com"
+            purpose: "Prometheus Operator ServiceMonitor CRD required by Tempo's ServiceMonitor object"
+            sourcePath: "../../../prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "prometheus-community/kube-prometheus-stack@85.3.3/default"
         requiredSecrets:
           -
             keys:
@@ -165,7 +178,7 @@ spec:
             name: "tempo-s3-credentials"
             namespace: "tempo"
             purpose: "S3 access credentials referenced by Tempo environment variables"
-      targetFactSummary: "required Secret tempo/tempo-s3-credentials keys access_key,secret_key"
+      targetFactSummary: "required Secret tempo/tempo-s3-credentials keys access_key,secret_key; required CRD servicemonitors.monitoring.coreos.com"
       packageBase:
         name: "s3-query-observability"
         path: "packages/grafana/tempo/1.24.4/bases/s3-query-observability"
@@ -184,8 +197,8 @@ spec:
           name: "s3-query-observability-r001"
           revision: "r001"
           variantRevision: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml"
-          digest: "60bd1d7d364dc0dc0bdab3ea1268c3ad83a3f2e4a6724dedbf6ef2290117f1ec"
-          renderedObjectSetSHA256: "6fb9e1726fb68d7e7e251420e9c5761e078cd38f508fa87af7759e0b302017a4"
+          digest: "7ceb8a577a909802935d654471a1e0f27c7f3e7d69a83eb6e4a6781ecbf6db46"
+          renderedObjectSetSHA256: "e647ad22435c55910e4c77470263e05daf026af43b59bde1f0ae7db754d3d5ad"
           renderedObjects: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/object-inventory.yaml"
           objectCount: 8
@@ -198,19 +211,19 @@ spec:
               kind: "RenderReceipt"
               path: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/receipts/render-receipt.yaml"
               result: "recorded"
-              renderedObjectSetSHA256: "6fb9e1726fb68d7e7e251420e9c5761e078cd38f508fa87af7759e0b302017a4"
+              renderedObjectSetSHA256: "e647ad22435c55910e4c77470263e05daf026af43b59bde1f0ae7db754d3d5ad"
             helmEquivalence:
               kind: "HelmEquivalenceReceipt"
               path: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/receipts/helm-equivalence-receipt.yaml"
               result: "pass"
-              renderedObjectSetSHA256: "6fb9e1726fb68d7e7e251420e9c5761e078cd38f508fa87af7759e0b302017a4"
+              renderedObjectSetSHA256: "e647ad22435c55910e4c77470263e05daf026af43b59bde1f0ae7db754d3d5ad"
             scan:
               kind: "ScanReceipt"
               path: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/receipts/scan-receipt.yaml"
               result: "warn"
-              renderedObjectSetSHA256: "6fb9e1726fb68d7e7e251420e9c5761e078cd38f508fa87af7759e0b302017a4"
+              renderedObjectSetSHA256: "e647ad22435c55910e4c77470263e05daf026af43b59bde1f0ae7db754d3d5ad"
             installGate:
               kind: "InstallGate"
               path: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/receipts/install-gate.yaml"
               result: "warn"
-              renderedObjectSetSHA256: "6fb9e1726fb68d7e7e251420e9c5761e078cd38f508fa87af7759e0b302017a4"
+              renderedObjectSetSHA256: "e647ad22435c55910e4c77470263e05daf026af43b59bde1f0ae7db754d3d5ad"

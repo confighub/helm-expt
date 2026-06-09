@@ -22,3 +22,14 @@ spec:
           - "access_key"
           - "secret_key"
         purpose: "S3 access credentials referenced by Tempo environment variables"
+    requiredCRDs:
+      -
+        name: "servicemonitors.monitoring.coreos.com"
+        sourcePath: "../../../prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "prometheus-community/kube-prometheus-stack@85.3.3/default"
+        purpose: "Prometheus Operator ServiceMonitor CRD required by Tempo's ServiceMonitor object"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
