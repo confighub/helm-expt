@@ -1,0 +1,467 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "rendered-object-set://sha256/ae1f81048ff0304b",
+      "digest": {
+        "sha256": "ae1f81048ff0304b81165709d4668ddc0611c0dd7367b4ddf798200f55204d79"
+      }
+    },
+    {
+      "name": "k8s-live-object-set://namespace/kube-system",
+      "digest": {
+        "sha256": "ae1f81048ff0304b81165709d4668ddc0611c0dd7367b4ddf798200f55204d79"
+      }
+    }
+  ],
+  "predicateType": "https://cub-scout.dev/receipt/v1",
+  "predicate": {
+    "version": "v1",
+    "claim": "live object set matches rendered manifests from /Users/alexis/code/helm-expt/runs/top20-local-kind/metrics-server-default/cub-scout.desired.yaml",
+    "scope": {
+      "kind": "ObjectSet",
+      "name": "rendered-install",
+      "namespace": "kube-system"
+    },
+    "verifier": {
+      "tool": "cub-scout",
+      "version": "dev"
+    },
+    "verifiedAt": "2026-06-09T13:14:00Z",
+    "freshness": {
+      "observedAt": "2026-06-09T13:14:00Z",
+      "expiresAt": "2026-06-09T14:14:00Z",
+      "ttl": "1h0m0s"
+    },
+    "predicateName": "object-set-matches",
+    "verdict": "WATCH",
+    "evidence": {
+      "objectSet": {
+        "desiredSource": {
+          "type": "file",
+          "ref": "/Users/alexis/code/helm-expt/runs/top20-local-kind/metrics-server-default/cub-scout.desired.yaml",
+          "digest": "9e9ade32ea4d43b3d080706ec4245fb18e65d2b72f8bc6f1f50053737078266e",
+          "objectCount": 9
+        },
+        "scope": {
+          "kind": "namespace",
+          "namespace": "kube-system"
+        },
+        "matchMode": "authored-fields",
+        "desiredDigest": "ae1f81048ff0304b81165709d4668ddc0611c0dd7367b4ddf798200f55204d79",
+        "liveDigest": "ae1f81048ff0304b81165709d4668ddc0611c0dd7367b4ddf798200f55204d79",
+        "summary": {
+          "desired": 9,
+          "matched": 9,
+          "missing": 0,
+          "mismatched": 0,
+          "inconclusive": 0
+        },
+        "objects": [
+          {
+            "id": {
+              "apiVersion": "apiregistration.k8s.io/v1",
+              "kind": "APIService",
+              "name": "v1beta1.metrics.k8s.io"
+            },
+            "status": "matched",
+            "desiredDigest": "33d31c22fe07ceba534a691bc9f30baa729fc51e398f81d7e17655212db6055e",
+            "liveDigest": "33d31c22fe07ceba534a691bc9f30baa729fc51e398f81d7e17655212db6055e"
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "kube-system",
+              "name": "metrics-server"
+            },
+            "status": "matched",
+            "desiredDigest": "473d0f93f1fe2cea8da76d1733efa28f79736abc2c95e7fa7cc0265027debccd",
+            "liveDigest": "473d0f93f1fe2cea8da76d1733efa28f79736abc2c95e7fa7cc0265027debccd"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "ClusterRoleBinding",
+              "name": "metrics-server:system:auth-delegator"
+            },
+            "status": "matched",
+            "desiredDigest": "d7dcc0902de57711316112e99de0f08458b9f0d0de604ae8d1e855f32839560c",
+            "liveDigest": "d7dcc0902de57711316112e99de0f08458b9f0d0de604ae8d1e855f32839560c"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "ClusterRoleBinding",
+              "name": "system:metrics-server"
+            },
+            "status": "matched",
+            "desiredDigest": "989794d73fb9755b042ee3e9bd8982486d4335f9d4db434058884de355696c8f",
+            "liveDigest": "989794d73fb9755b042ee3e9bd8982486d4335f9d4db434058884de355696c8f"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "ClusterRole",
+              "name": "system:metrics-server"
+            },
+            "status": "matched",
+            "desiredDigest": "341c255b472c1907c20373499fa5525442c16f915024aca092642b547797fc9c",
+            "liveDigest": "341c255b472c1907c20373499fa5525442c16f915024aca092642b547797fc9c"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "ClusterRole",
+              "name": "system:metrics-server-aggregated-reader"
+            },
+            "status": "matched",
+            "desiredDigest": "008b8b7065df66d2531081ffc19c463841b0a641c83f26897ebdedc219c81207",
+            "liveDigest": "008b8b7065df66d2531081ffc19c463841b0a641c83f26897ebdedc219c81207"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "RoleBinding",
+              "namespace": "kube-system",
+              "name": "metrics-server-auth-reader"
+            },
+            "status": "matched",
+            "desiredDigest": "21a502d43d20be8adad0e85f28e08d10b1845fe7755d0bc88b5df998bc6af565",
+            "liveDigest": "21a502d43d20be8adad0e85f28e08d10b1845fe7755d0bc88b5df998bc6af565"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ServiceAccount",
+              "namespace": "kube-system",
+              "name": "metrics-server"
+            },
+            "status": "matched",
+            "desiredDigest": "94ec1d3e60c6d820c4453da7fe391377ec2200373a4d15e36ecd0faca0815d30",
+            "liveDigest": "94ec1d3e60c6d820c4453da7fe391377ec2200373a4d15e36ecd0faca0815d30"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "kube-system",
+              "name": "metrics-server"
+            },
+            "status": "matched",
+            "desiredDigest": "8d69a85886166c84d296c7cf37a98f73601c66c9a24baba4a89ea68182bd3d01",
+            "liveDigest": "8d69a85886166c84d296c7cf37a98f73601c66c9a24baba4a89ea68182bd3d01"
+          }
+        ],
+        "extraChecked": true,
+        "extraObjects": [
+          {
+            "apiVersion": "apps/v1",
+            "kind": "Deployment",
+            "namespace": "kube-system",
+            "name": "coredns"
+          },
+          {
+            "apiVersion": "rbac.authorization.k8s.io/v1",
+            "kind": "RoleBinding",
+            "namespace": "kube-system",
+            "name": "kube-proxy"
+          },
+          {
+            "apiVersion": "rbac.authorization.k8s.io/v1",
+            "kind": "RoleBinding",
+            "namespace": "kube-system",
+            "name": "kubeadm:kubelet-config"
+          },
+          {
+            "apiVersion": "rbac.authorization.k8s.io/v1",
+            "kind": "RoleBinding",
+            "namespace": "kube-system",
+            "name": "kubeadm:nodes-kubeadm-config"
+          },
+          {
+            "apiVersion": "rbac.authorization.k8s.io/v1",
+            "kind": "RoleBinding",
+            "namespace": "kube-system",
+            "name": "system::extension-apiserver-authentication-reader"
+          },
+          {
+            "apiVersion": "rbac.authorization.k8s.io/v1",
+            "kind": "RoleBinding",
+            "namespace": "kube-system",
+            "name": "system::leader-locking-kube-controller-manager"
+          },
+          {
+            "apiVersion": "rbac.authorization.k8s.io/v1",
+            "kind": "RoleBinding",
+            "namespace": "kube-system",
+            "name": "system::leader-locking-kube-scheduler"
+          },
+          {
+            "apiVersion": "rbac.authorization.k8s.io/v1",
+            "kind": "RoleBinding",
+            "namespace": "kube-system",
+            "name": "system:controller:bootstrap-signer"
+          },
+          {
+            "apiVersion": "rbac.authorization.k8s.io/v1",
+            "kind": "RoleBinding",
+            "namespace": "kube-system",
+            "name": "system:controller:cloud-provider"
+          },
+          {
+            "apiVersion": "rbac.authorization.k8s.io/v1",
+            "kind": "RoleBinding",
+            "namespace": "kube-system",
+            "name": "system:controller:token-cleaner"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "attachdetach-controller"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "bootstrap-signer"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "certificate-controller"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "clusterrole-aggregation-controller"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "coredns"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "cronjob-controller"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "daemon-set-controller"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "deployment-controller"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "disruption-controller"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "endpoint-controller"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "endpointslice-controller"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "endpointslicemirroring-controller"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "ephemeral-volume-controller"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "expand-controller"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "generic-garbage-collector"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "horizontal-pod-autoscaler"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "job-controller"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "kindnet"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "kube-proxy"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "legacy-service-account-token-cleaner"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "namespace-controller"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "node-controller"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "persistent-volume-binder"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "pod-garbage-collector"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "pv-protection-controller"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "pvc-protection-controller"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "replicaset-controller"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "replication-controller"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "resourcequota-controller"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "root-ca-cert-publisher"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "service-account-controller"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "service-controller"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "statefulset-controller"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "token-cleaner"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "ttl-after-finished-controller"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "ttl-controller"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system",
+            "name": "validatingadmissionpolicy-status-controller"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "namespace": "kube-system",
+            "name": "kube-dns"
+          }
+        ]
+      }
+    },
+    "omissions": [
+      {
+        "missing": "extra-live-objects",
+        "reason": "closed-world check found 48 live object(s) of the rendered kinds in scope that are not in the desired set; see extraObjects",
+        "severity": "warning"
+      }
+    ],
+    "inputAttestations": [],
+    "nextSteps": [
+      {
+        "actionType": "read-only",
+        "reason": "every desired object matched, but 48 unexpected live object(s) of the rendered kinds were found in scope; review extraObjects before treating the install as exclusive",
+        "nextCommand": "cub-scout map list",
+        "nextSurface": "cub-scout"
+      }
+    ],
+    "fingerprint": "sha256:6a1ec12fd988ac48a91991633c4ddbdf3a8c079359b02916620428d0718ed812"
+  }
+}

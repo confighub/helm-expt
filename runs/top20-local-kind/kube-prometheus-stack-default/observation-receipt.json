@@ -18,7 +18,7 @@
       "context": "kind-helm-expt-redis",
       "namespace": "monitoring"
     },
-    "observedAt": "2026-05-28T08:15:01.844Z",
+    "observedAt": "2026-06-09T13:09:35.333Z",
     "freshnessTTL": "1h",
     "result": "pass",
     "chart": "prometheus-community/kube-prometheus-stack",
@@ -32,7 +32,7 @@
         "result": "pass",
         "reason": "Prometheus Operator admission webhook TLS Secret is normally created by Helm hook lifecycle",
         "evidencePath": "support-secret-kube-prometheus-stack-admission.txt",
-        "evidenceSHA256": "e61ba539f94e4afa24fc5f39c2a3ff674d4b77fa6b0f65c6c7bb2ea3547b3a68"
+        "evidenceSHA256": "4aab199e36643fe2f2e102060a794bc7a17368dd8de344587f3bbc300de625a3"
       },
       {
         "name": "crd-bootstrap-apply",
@@ -122,14 +122,14 @@
         "result": "pass",
         "object": "daemonset/kube-prometheus-stack-prometheus-node-exporter",
         "evidencePath": "daemonset-kube-prometheus-stack-prometheus-node-exporter-rollout.txt",
-        "evidenceSHA256": "ea419de6c91b897268f8dd01c0383ae44892aee0a9fa00de533b0f7ccb068f11"
+        "evidenceSHA256": "d73c3a3d3350fadcf41a6da84996223932487b435d47977f67439875dddb55f5"
       },
       {
         "name": "deployment-kube-prometheus-stack-grafana-rollout",
         "result": "pass",
         "object": "deployment/kube-prometheus-stack-grafana",
         "evidencePath": "deployment-kube-prometheus-stack-grafana-rollout.txt",
-        "evidenceSHA256": "daa7aab9ac8b66f779b15b008ceff148b8124d8eda0c1be715066607062c5e35"
+        "evidenceSHA256": "6c6ea14352ed79612864620f2e1aade562f8fde81b5032b9b13b24e9cbb1b00e"
       },
       {
         "name": "deployment-kube-prometheus-stack-kube-state-metrics-rollout",
@@ -144,6 +144,20 @@
         "object": "deployment/kube-prometheus-stack-operator",
         "evidencePath": "deployment-kube-prometheus-stack-operator-rollout.txt",
         "evidenceSHA256": "60042991b8fc238246ef1913d78939b554a24abf6a75c148f7e768bc996a90a7"
+      },
+      {
+        "name": "statefulset-alertmanager-kube-prometheus-stack-alertmanager-rollout",
+        "result": "pass",
+        "object": "statefulset/alertmanager-kube-prometheus-stack-alertmanager",
+        "evidencePath": "statefulset-alertmanager-kube-prometheus-stack-alertmanager-rollout.txt",
+        "evidenceSHA256": "9cc7434692ec130266cc2b3b66ed198ef2320b6b99789df335eb5bc0a89139a0"
+      },
+      {
+        "name": "statefulset-prometheus-kube-prometheus-stack-prometheus-rollout",
+        "result": "pass",
+        "object": "statefulset/prometheus-kube-prometheus-stack-prometheus",
+        "evidencePath": "statefulset-prometheus-kube-prometheus-stack-prometheus-rollout.txt",
+        "evidenceSHA256": "ffa43bd35aeb9546795510ffebea7a95f34375f26a17a3038b61ae718dca3c67"
       },
       {
         "name": "crd-exists",
@@ -214,11 +228,51 @@
         "object": "customresourcedefinition/thanosrulers.monitoring.coreos.com",
         "evidencePath": "crd-thanosrulers.monitoring.coreos.com.txt",
         "evidenceSHA256": "617fb11352388cd23e38b99d438a76ac541d1bebd1de55465630bbf310942b36"
+      },
+      {
+        "name": "cub-scout-object-set-matches",
+        "result": "pass",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "evidencePath": "cub-scout.object-set.receipt.json",
+        "evidenceSHA256": "6de9d989ee14655fa69fedbbbf4d2c941290ea49aedc077c5a6193a060537c7b",
+        "stderrPath": "cub-scout.object-set.stderr.txt",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "cub-scout-closed-world-object-set",
+        "result": "watch",
+        "verdict": "WATCH",
+        "exitCode": 2,
+        "evidencePath": "cub-scout.closed-world.receipt.json",
+        "evidenceSHA256": "c2cdd18a2c3cad9da6686ec8fc3d054807bb8a576215e86a87534c949abc8a4d",
+        "stderrPath": "cub-scout.closed-world.stderr.txt",
+        "stderrSHA256": "2d5612bf3580660df88b77f34676a9461a09b7682dcbfe827f0c458023f643e5"
+      },
+      {
+        "name": "cub-scout-workloads-converged",
+        "result": "pass",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "evidencePath": "cub-scout.workloads.receipt.json",
+        "evidenceSHA256": "55e3ee941f1658cba8576c7b290e33c7736b6257aec735357ae06dcfd9a117ad",
+        "stderrPath": "cub-scout.workloads.stderr.txt",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "cub-scout-prerequisites-met",
+        "result": "pass",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "evidencePath": "cub-scout.prerequisites.receipt.json",
+        "evidenceSHA256": "a98a55bad8400f0ae41e473acc4239c89908d790e19e84154d24b9273fa89703",
+        "stderrPath": "cub-scout.prerequisites.stderr.txt",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       }
     ],
     "kubectlObjects": {
       "path": "kubectl-objects.txt",
-      "sha256": "62d10e9ac412b7befa075af0435d8641ee594a61791b56c905e57ade7f8bd164"
+      "sha256": "2ca668c0f139c5a1817d56bf1108f27dcd7885946b371f2a6834a1e51508baee"
     }
   }
 }

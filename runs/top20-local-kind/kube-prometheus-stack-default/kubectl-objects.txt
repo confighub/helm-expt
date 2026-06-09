@@ -1,91 +1,91 @@
-NAME                                                            READY   STATUS            RESTARTS   AGE   IP             NODE                            NOMINATED NODE   READINESS GATES
-pod/alertmanager-kube-prometheus-stack-alertmanager-0           0/2     PodInitializing   0          35s   10.244.0.31    helm-expt-redis-control-plane   <none>           <none>
-pod/kube-prometheus-stack-grafana-7668b68d75-zdjw7              3/3     Running           0          51s   10.244.0.28    helm-expt-redis-control-plane   <none>           <none>
-pod/kube-prometheus-stack-kube-state-metrics-64659c7c5c-8vd46   1/1     Running           0          51s   10.244.0.29    helm-expt-redis-control-plane   <none>           <none>
-pod/kube-prometheus-stack-operator-5998b47fc-pbb7w              1/1     Running           0          51s   10.244.0.30    helm-expt-redis-control-plane   <none>           <none>
-pod/kube-prometheus-stack-prometheus-node-exporter-mcbn8        1/1     Running           0          51s   192.168.97.2   helm-expt-redis-control-plane   <none>           <none>
-pod/prometheus-kube-prometheus-stack-prometheus-0               0/2     PodInitializing   0          35s   10.244.0.32    helm-expt-redis-control-plane   <none>           <none>
+NAME                                                            READY   STATUS    RESTARTS   AGE     IP             NODE                            NOMINATED NODE   READINESS GATES
+pod/alertmanager-kube-prometheus-stack-alertmanager-0           2/2     Running   0          8m10s   10.244.0.8     helm-expt-redis-control-plane   <none>           <none>
+pod/kube-prometheus-stack-grafana-7668b68d75-fx696              3/3     Running   0          8m26s   10.244.0.6     helm-expt-redis-control-plane   <none>           <none>
+pod/kube-prometheus-stack-kube-state-metrics-64659c7c5c-nwlgv   1/1     Running   0          8m26s   10.244.0.5     helm-expt-redis-control-plane   <none>           <none>
+pod/kube-prometheus-stack-operator-5998b47fc-9ttkh              1/1     Running   0          8m26s   10.244.0.7     helm-expt-redis-control-plane   <none>           <none>
+pod/kube-prometheus-stack-prometheus-node-exporter-7829d        1/1     Running   0          8m26s   192.168.97.2   helm-expt-redis-control-plane   <none>           <none>
+pod/prometheus-kube-prometheus-stack-prometheus-0               2/2     Running   0          8m10s   10.244.0.9     helm-expt-redis-control-plane   <none>           <none>
 
-NAME                                                     TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)                      AGE   SELECTOR
-service/alertmanager-operated                            ClusterIP   None           <none>        9093/TCP,9094/TCP,9094/UDP   35s   app.kubernetes.io/name=alertmanager
-service/kube-prometheus-stack-alertmanager               ClusterIP   10.96.157.89   <none>        9093/TCP,8080/TCP            51s   alertmanager=kube-prometheus-stack-alertmanager,app.kubernetes.io/name=alertmanager
-service/kube-prometheus-stack-grafana                    ClusterIP   10.96.88.196   <none>        80/TCP                       51s   app.kubernetes.io/instance=kube-prometheus-stack,app.kubernetes.io/name=grafana
-service/kube-prometheus-stack-kube-state-metrics         ClusterIP   10.96.180.34   <none>        8080/TCP                     51s   app.kubernetes.io/instance=kube-prometheus-stack,app.kubernetes.io/name=kube-state-metrics
-service/kube-prometheus-stack-operator                   ClusterIP   10.96.228.24   <none>        443/TCP                      51s   app=kube-prometheus-stack-operator,release=kube-prometheus-stack
-service/kube-prometheus-stack-prometheus                 ClusterIP   10.96.83.70    <none>        9090/TCP,8080/TCP            51s   app.kubernetes.io/name=prometheus,operator.prometheus.io/name=kube-prometheus-stack-prometheus
-service/kube-prometheus-stack-prometheus-node-exporter   ClusterIP   10.96.78.161   <none>        9100/TCP                     51s   app.kubernetes.io/instance=kube-prometheus-stack,app.kubernetes.io/name=prometheus-node-exporter
-service/prometheus-operated                              ClusterIP   None           <none>        9090/TCP                     35s   app.kubernetes.io/name=prometheus
+NAME                                                     TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE     SELECTOR
+service/alertmanager-operated                            ClusterIP   None            <none>        9093/TCP,9094/TCP,9094/UDP   8m10s   app.kubernetes.io/name=alertmanager
+service/kube-prometheus-stack-alertmanager               ClusterIP   10.96.69.253    <none>        9093/TCP,8080/TCP            8m26s   alertmanager=kube-prometheus-stack-alertmanager,app.kubernetes.io/name=alertmanager
+service/kube-prometheus-stack-grafana                    ClusterIP   10.96.101.122   <none>        80/TCP                       8m26s   app.kubernetes.io/instance=kube-prometheus-stack,app.kubernetes.io/name=grafana
+service/kube-prometheus-stack-kube-state-metrics         ClusterIP   10.96.1.126     <none>        8080/TCP                     8m26s   app.kubernetes.io/instance=kube-prometheus-stack,app.kubernetes.io/name=kube-state-metrics
+service/kube-prometheus-stack-operator                   ClusterIP   10.96.239.192   <none>        443/TCP                      8m26s   app=kube-prometheus-stack-operator,release=kube-prometheus-stack
+service/kube-prometheus-stack-prometheus                 ClusterIP   10.96.220.149   <none>        9090/TCP,8080/TCP            8m26s   app.kubernetes.io/name=prometheus,operator.prometheus.io/name=kube-prometheus-stack-prometheus
+service/kube-prometheus-stack-prometheus-node-exporter   ClusterIP   10.96.190.70    <none>        9100/TCP                     8m26s   app.kubernetes.io/instance=kube-prometheus-stack,app.kubernetes.io/name=prometheus-node-exporter
+service/prometheus-operated                              ClusterIP   None            <none>        9090/TCP                     8m10s   app.kubernetes.io/name=prometheus
 
-NAME                                                            DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR            AGE   CONTAINERS      IMAGES                                                SELECTOR
-daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1         1         1       1            1           kubernetes.io/os=linux   51s   node-exporter   quay.io/prometheus/node-exporter:v1.11.1-distroless   app.kubernetes.io/instance=kube-prometheus-stack,app.kubernetes.io/name=prometheus-node-exporter
+NAME                                                            DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR            AGE     CONTAINERS      IMAGES                                                SELECTOR
+daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1         1         1       1            1           kubernetes.io/os=linux   8m26s   node-exporter   quay.io/prometheus/node-exporter:v1.11.1-distroless   app.kubernetes.io/instance=kube-prometheus-stack,app.kubernetes.io/name=prometheus-node-exporter
 
-NAME                                                       READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS                                            IMAGES                                                                                                               SELECTOR
-deployment.apps/kube-prometheus-stack-grafana              1/1     1            1           51s   grafana-sc-dashboard,grafana-sc-datasources,grafana   quay.io/kiwigrid/k8s-sidecar:2.7.3,quay.io/kiwigrid/k8s-sidecar:2.7.3,docker.io/grafana/grafana:13.0.1-security-01   app.kubernetes.io/instance=kube-prometheus-stack,app.kubernetes.io/name=grafana
-deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1     1            1           51s   kube-state-metrics                                    registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0                                                        app.kubernetes.io/instance=kube-prometheus-stack,app.kubernetes.io/name=kube-state-metrics
-deployment.apps/kube-prometheus-stack-operator             1/1     1            1           51s   kube-prometheus-stack                                 quay.io/prometheus-operator/prometheus-operator:v0.90.1                                                              app=kube-prometheus-stack-operator,release=kube-prometheus-stack
+NAME                                                       READY   UP-TO-DATE   AVAILABLE   AGE     CONTAINERS                                            IMAGES                                                                                                               SELECTOR
+deployment.apps/kube-prometheus-stack-grafana              1/1     1            1           8m26s   grafana-sc-dashboard,grafana-sc-datasources,grafana   quay.io/kiwigrid/k8s-sidecar:2.7.3,quay.io/kiwigrid/k8s-sidecar:2.7.3,docker.io/grafana/grafana:13.0.1-security-01   app.kubernetes.io/instance=kube-prometheus-stack,app.kubernetes.io/name=grafana
+deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1     1            1           8m26s   kube-state-metrics                                    registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0                                                        app.kubernetes.io/instance=kube-prometheus-stack,app.kubernetes.io/name=kube-state-metrics
+deployment.apps/kube-prometheus-stack-operator             1/1     1            1           8m26s   kube-prometheus-stack                                 quay.io/prometheus-operator/prometheus-operator:v0.90.1                                                              app=kube-prometheus-stack-operator,release=kube-prometheus-stack
 
-NAME                                                                  DESIRED   CURRENT   READY   AGE   CONTAINERS                                            IMAGES                                                                                                               SELECTOR
-replicaset.apps/kube-prometheus-stack-grafana-7668b68d75              1         1         1       51s   grafana-sc-dashboard,grafana-sc-datasources,grafana   quay.io/kiwigrid/k8s-sidecar:2.7.3,quay.io/kiwigrid/k8s-sidecar:2.7.3,docker.io/grafana/grafana:13.0.1-security-01   app.kubernetes.io/instance=kube-prometheus-stack,app.kubernetes.io/name=grafana,pod-template-hash=7668b68d75
-replicaset.apps/kube-prometheus-stack-kube-state-metrics-64659c7c5c   1         1         1       51s   kube-state-metrics                                    registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0                                                        app.kubernetes.io/instance=kube-prometheus-stack,app.kubernetes.io/name=kube-state-metrics,pod-template-hash=64659c7c5c
-replicaset.apps/kube-prometheus-stack-operator-5998b47fc              1         1         1       51s   kube-prometheus-stack                                 quay.io/prometheus-operator/prometheus-operator:v0.90.1                                                              app=kube-prometheus-stack-operator,pod-template-hash=5998b47fc,release=kube-prometheus-stack
+NAME                                                                  DESIRED   CURRENT   READY   AGE     CONTAINERS                                            IMAGES                                                                                                               SELECTOR
+replicaset.apps/kube-prometheus-stack-grafana-7668b68d75              1         1         1       8m26s   grafana-sc-dashboard,grafana-sc-datasources,grafana   quay.io/kiwigrid/k8s-sidecar:2.7.3,quay.io/kiwigrid/k8s-sidecar:2.7.3,docker.io/grafana/grafana:13.0.1-security-01   app.kubernetes.io/instance=kube-prometheus-stack,app.kubernetes.io/name=grafana,pod-template-hash=7668b68d75
+replicaset.apps/kube-prometheus-stack-kube-state-metrics-64659c7c5c   1         1         1       8m26s   kube-state-metrics                                    registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0                                                        app.kubernetes.io/instance=kube-prometheus-stack,app.kubernetes.io/name=kube-state-metrics,pod-template-hash=64659c7c5c
+replicaset.apps/kube-prometheus-stack-operator-5998b47fc              1         1         1       8m26s   kube-prometheus-stack                                 quay.io/prometheus-operator/prometheus-operator:v0.90.1                                                              app=kube-prometheus-stack-operator,pod-template-hash=5998b47fc,release=kube-prometheus-stack
 
-NAME                                                               READY   AGE   CONTAINERS                     IMAGES
-statefulset.apps/alertmanager-kube-prometheus-stack-alertmanager   0/1     35s   alertmanager,config-reloader   quay.io/prometheus/alertmanager:v0.32.1,quay.io/prometheus-operator/prometheus-config-reloader:v0.90.1
-statefulset.apps/prometheus-kube-prometheus-stack-prometheus       0/1     35s   prometheus,config-reloader     quay.io/prometheus/prometheus:v3.11.3-distroless,quay.io/prometheus-operator/prometheus-config-reloader:v0.90.1
+NAME                                                               READY   AGE     CONTAINERS                     IMAGES
+statefulset.apps/alertmanager-kube-prometheus-stack-alertmanager   1/1     8m10s   alertmanager,config-reloader   quay.io/prometheus/alertmanager:v0.32.1,quay.io/prometheus-operator/prometheus-config-reloader:v0.90.1
+statefulset.apps/prometheus-kube-prometheus-stack-prometheus       1/1     8m10s   prometheus,config-reloader     quay.io/prometheus/prometheus:v3.11.3-distroless,quay.io/prometheus-operator/prometheus-config-reloader:v0.90.1
 
 NAME                                                                DATA   AGE
-configmap/kube-prometheus-stack-alertmanager-overview               1      51s
-configmap/kube-prometheus-stack-apiserver                           1      51s
-configmap/kube-prometheus-stack-cluster-total                       1      51s
-configmap/kube-prometheus-stack-controller-manager                  1      51s
-configmap/kube-prometheus-stack-etcd                                1      51s
-configmap/kube-prometheus-stack-grafana                             1      51s
-configmap/kube-prometheus-stack-grafana-config-dashboards           1      51s
-configmap/kube-prometheus-stack-grafana-datasource                  1      51s
-configmap/kube-prometheus-stack-grafana-overview                    1      51s
-configmap/kube-prometheus-stack-k8s-coredns                         1      51s
-configmap/kube-prometheus-stack-k8s-resources-cluster               1      51s
-configmap/kube-prometheus-stack-k8s-resources-multicluster          1      51s
-configmap/kube-prometheus-stack-k8s-resources-namespace             1      51s
-configmap/kube-prometheus-stack-k8s-resources-node                  1      51s
-configmap/kube-prometheus-stack-k8s-resources-pod                   1      51s
-configmap/kube-prometheus-stack-k8s-resources-workload              1      51s
-configmap/kube-prometheus-stack-k8s-resources-workloads-namespace   1      51s
-configmap/kube-prometheus-stack-kubelet                             1      51s
-configmap/kube-prometheus-stack-namespace-by-pod                    1      51s
-configmap/kube-prometheus-stack-namespace-by-workload               1      51s
-configmap/kube-prometheus-stack-node-cluster-rsrc-use               1      51s
-configmap/kube-prometheus-stack-node-rsrc-use                       1      51s
-configmap/kube-prometheus-stack-nodes                               1      51s
-configmap/kube-prometheus-stack-nodes-aix                           1      51s
-configmap/kube-prometheus-stack-nodes-darwin                        1      51s
-configmap/kube-prometheus-stack-persistentvolumesusage              1      51s
-configmap/kube-prometheus-stack-pod-total                           1      51s
-configmap/kube-prometheus-stack-prometheus                          1      51s
-configmap/kube-prometheus-stack-proxy                               1      51s
-configmap/kube-prometheus-stack-scheduler                           1      51s
-configmap/kube-prometheus-stack-workload-total                      1      51s
-configmap/kube-root-ca.crt                                          1      54s
-configmap/prometheus-kube-prometheus-stack-prometheus-rulefiles-0   35     35s
+configmap/kube-prometheus-stack-alertmanager-overview               1      8m27s
+configmap/kube-prometheus-stack-apiserver                           1      8m27s
+configmap/kube-prometheus-stack-cluster-total                       1      8m27s
+configmap/kube-prometheus-stack-controller-manager                  1      8m27s
+configmap/kube-prometheus-stack-etcd                                1      8m27s
+configmap/kube-prometheus-stack-grafana                             1      8m27s
+configmap/kube-prometheus-stack-grafana-config-dashboards           1      8m27s
+configmap/kube-prometheus-stack-grafana-datasource                  1      8m27s
+configmap/kube-prometheus-stack-grafana-overview                    1      8m27s
+configmap/kube-prometheus-stack-k8s-coredns                         1      8m27s
+configmap/kube-prometheus-stack-k8s-resources-cluster               1      8m27s
+configmap/kube-prometheus-stack-k8s-resources-multicluster          1      8m27s
+configmap/kube-prometheus-stack-k8s-resources-namespace             1      8m27s
+configmap/kube-prometheus-stack-k8s-resources-node                  1      8m27s
+configmap/kube-prometheus-stack-k8s-resources-pod                   1      8m27s
+configmap/kube-prometheus-stack-k8s-resources-workload              1      8m27s
+configmap/kube-prometheus-stack-k8s-resources-workloads-namespace   1      8m27s
+configmap/kube-prometheus-stack-kubelet                             1      8m27s
+configmap/kube-prometheus-stack-namespace-by-pod                    1      8m27s
+configmap/kube-prometheus-stack-namespace-by-workload               1      8m27s
+configmap/kube-prometheus-stack-node-cluster-rsrc-use               1      8m27s
+configmap/kube-prometheus-stack-node-rsrc-use                       1      8m27s
+configmap/kube-prometheus-stack-nodes                               1      8m27s
+configmap/kube-prometheus-stack-nodes-aix                           1      8m27s
+configmap/kube-prometheus-stack-nodes-darwin                        1      8m27s
+configmap/kube-prometheus-stack-persistentvolumesusage              1      8m27s
+configmap/kube-prometheus-stack-pod-total                           1      8m27s
+configmap/kube-prometheus-stack-prometheus                          1      8m27s
+configmap/kube-prometheus-stack-proxy                               1      8m27s
+configmap/kube-prometheus-stack-scheduler                           1      8m27s
+configmap/kube-prometheus-stack-workload-total                      1      8m27s
+configmap/kube-root-ca.crt                                          1      8m30s
+configmap/prometheus-kube-prometheus-stack-prometheus-rulefiles-0   35     8m10s
 
 NAME                                                                                    TYPE     DATA   AGE
-secret/alertmanager-kube-prometheus-stack-alertmanager                                  Opaque   1      51s
-secret/alertmanager-kube-prometheus-stack-alertmanager-cluster-tls-config               Opaque   1      35s
-secret/alertmanager-kube-prometheus-stack-alertmanager-generated                        Opaque   1      35s
-secret/alertmanager-kube-prometheus-stack-alertmanager-tls-assets-0                     Opaque   0      35s
-secret/alertmanager-kube-prometheus-stack-alertmanager-web-config                       Opaque   1      35s
-secret/kube-prometheus-stack-admission                                                  Opaque   2      54s
-secret/kube-prometheus-stack-grafana                                                    Opaque   3      51s
-secret/prometheus-kube-prometheus-stack-prometheus                                      Opaque   1      35s
-secret/prometheus-kube-prometheus-stack-prometheus-thanos-prometheus-http-client-file   Opaque   1      35s
-secret/prometheus-kube-prometheus-stack-prometheus-tls-assets-0                         Opaque   0      35s
-secret/prometheus-kube-prometheus-stack-prometheus-web-config                           Opaque   1      35s
+secret/alertmanager-kube-prometheus-stack-alertmanager                                  Opaque   1      8m27s
+secret/alertmanager-kube-prometheus-stack-alertmanager-cluster-tls-config               Opaque   1      8m10s
+secret/alertmanager-kube-prometheus-stack-alertmanager-generated                        Opaque   1      8m10s
+secret/alertmanager-kube-prometheus-stack-alertmanager-tls-assets-0                     Opaque   0      8m10s
+secret/alertmanager-kube-prometheus-stack-alertmanager-web-config                       Opaque   1      8m10s
+secret/kube-prometheus-stack-admission                                                  Opaque   2      8m30s
+secret/kube-prometheus-stack-grafana                                                    Opaque   3      8m27s
+secret/prometheus-kube-prometheus-stack-prometheus                                      Opaque   1      8m10s
+secret/prometheus-kube-prometheus-stack-prometheus-thanos-prometheus-http-client-file   Opaque   1      8m10s
+secret/prometheus-kube-prometheus-stack-prometheus-tls-assets-0                         Opaque   0      8m10s
+secret/prometheus-kube-prometheus-stack-prometheus-web-config                           Opaque   1      8m10s
 
 NAME                                                            SECRETS   AGE
-serviceaccount/default                                          0         54s
-serviceaccount/kube-prometheus-stack-alertmanager               0         51s
-serviceaccount/kube-prometheus-stack-grafana                    0         51s
-serviceaccount/kube-prometheus-stack-kube-state-metrics         0         51s
-serviceaccount/kube-prometheus-stack-operator                   0         51s
-serviceaccount/kube-prometheus-stack-prometheus                 0         51s
-serviceaccount/kube-prometheus-stack-prometheus-node-exporter   0         51s
+serviceaccount/default                                          0         8m30s
+serviceaccount/kube-prometheus-stack-alertmanager               0         8m27s
+serviceaccount/kube-prometheus-stack-grafana                    0         8m27s
+serviceaccount/kube-prometheus-stack-kube-state-metrics         0         8m27s
+serviceaccount/kube-prometheus-stack-operator                   0         8m27s
+serviceaccount/kube-prometheus-stack-prometheus                 0         8m27s
+serviceaccount/kube-prometheus-stack-prometheus-node-exporter   0         8m27s

@@ -112,6 +112,14 @@ const targets = [
         reason: "Prometheus Operator admission webhook TLS Secret is normally created by Helm hook lifecycle",
       },
     ],
+    waits: [
+      { kind: "daemonset", name: "kube-prometheus-stack-prometheus-node-exporter", namespace: "monitoring" },
+      { kind: "deployment", name: "kube-prometheus-stack-grafana", namespace: "monitoring" },
+      { kind: "deployment", name: "kube-prometheus-stack-kube-state-metrics", namespace: "monitoring" },
+      { kind: "deployment", name: "kube-prometheus-stack-operator", namespace: "monitoring" },
+      { kind: "statefulset", name: "alertmanager-kube-prometheus-stack-alertmanager", namespace: "monitoring" },
+      { kind: "statefulset", name: "prometheus-kube-prometheus-stack-prometheus", namespace: "monitoring" },
+    ],
   },
   {
     rank: 8,
@@ -795,7 +803,9 @@ function toCsv(rows) {
 }
 
 function cubScoutStatus(receipt) {
-  return receipt?.spec?.cubScout?.status ?? "";
+  if (receipt?.spec?.cubScout?.status) return receipt.spec.cubScout.status;
+  const checks = (receipt?.spec?.checks ?? []).filter((checkItem) => String(checkItem.name ?? "").startsWith("cub-scout-"));
+  return checks.length ? "observed" : "";
 }
 
 function cubScoutCheckSummary(receipt) {

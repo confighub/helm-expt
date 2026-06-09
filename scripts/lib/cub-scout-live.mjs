@@ -40,6 +40,7 @@ export function runCubScoutLiveReceipts({
   const checks = [];
   const failures = [];
   const cubScoutRenderedPath = prepareCubScoutDesiredManifest(runDir, renderedPath);
+  const cubScoutWorkloadsPath = prepareCubScoutWorkloadManifest(runDir, renderedPath);
   const restore = context ? switchKubeContext(context) : () => {};
   try {
     const baseArgs = ["receipt", "verify", "--scope", `namespace/${namespace}`, "--format", "json"];
@@ -64,23 +65,25 @@ export function runCubScoutLiveReceipts({
       collectFailure(closedWorld, failures, { allowWatch: true });
     }
 
-    const workloads = runPredicate({
-      bin: resolved.bin,
-      runDir,
-      label: "workloads",
-      args: [
-        ...baseArgs,
-        "--file",
-        cubScoutRenderedPath,
-        "--predicate",
-        "workloads-converged",
-        "--grace-window",
-        graceWindow,
-        ...maybeTtl,
-      ],
-    });
-    checks.push(checkForPredicate("cub-scout-workloads-converged", workloads));
-    collectFailure(workloads, failures);
+    if (cubScoutWorkloadsPath) {
+      const workloads = runPredicate({
+        bin: resolved.bin,
+        runDir,
+        label: "workloads",
+        args: [
+          ...baseArgs,
+          "--file",
+          cubScoutWorkloadsPath,
+          "--predicate",
+          "workloads-converged",
+          "--grace-window",
+          graceWindow,
+          ...maybeTtl,
+        ],
+      });
+      checks.push(checkForPredicate("cub-scout-workloads-converged", workloads));
+      collectFailure(workloads, failures);
+    }
 
     const prereqs = targetFactsToPrerequisites(targetFacts, namespace);
     if (hasPrerequisites(prereqs)) {
@@ -156,10 +159,45 @@ function prepareCubScoutDesiredManifest(runDir, renderedPath) {
   return desiredPath;
 }
 
+function prepareCubScoutWorkloadManifest(runDir, renderedPath) {
+  const desiredPath = join(runDir, "cub-scout.workloads.desired.yaml");
+  const docs = parseDocs(readFileSync(renderedPath, "utf8"))
+    .filter((doc) => cubScoutWorkloadKind(doc.apiVersion, doc.kind))
+    .map((doc) => pruneApiDroppedNoops(doc));
+  if (!docs.length) return null;
+  writeFileSync(desiredPath, `${docs.map((doc) => toYaml(doc)).join("\n---\n")}\n`);
+  return desiredPath;
+}
+
+function cubScoutWorkloadKind(apiVersion, kind) {
+  return new Set([
+    "apps/v1|DaemonSet",
+    "apps/v1|Deployment",
+    "apps/v1|StatefulSet",
+    "batch/v1|CronJob",
+    "batch/v1|Job",
+    "v1|Pod",
+  ]).has(`${apiVersion}|${kind}`);
+}
+
 // Match the authored fields Kubernetes preserves after apply. Do not prune all
 // empty arrays: some, such as NetworkPolicy ingress: [], are meaningful.
 function pruneApiDroppedNoops(value, path = []) {
   if (value === null || value === undefined) return undefined;
+  const last = path.at(-1);
+  const parent = path.at(-2);
+  if (value === 0 && last === "initialDelaySeconds" && ["livenessProbe", "readinessProbe", "startupProbe"].includes(parent)) {
+    return undefined;
+  }
+  if (
+    value === false &&
+    (
+      (path.length >= 4 && path.at(-3) === "template" && path.at(-2) === "spec" && ["hostIPC", "hostNetwork", "hostPID"].includes(last)) ||
+      (path.length === 2 && path[0] === "spec" && last === "publishNotReadyAddresses")
+    )
+  ) {
+    return undefined;
+  }
   if (Array.isArray(value)) {
     if (
       value.length === 0 &&
@@ -176,6 +214,9 @@ function pruneApiDroppedNoops(value, path = []) {
   for (const [key, item] of Object.entries(value)) {
     const pruned = pruneApiDroppedNoops(item, [...path, key]);
     if (pruned !== undefined) result[key] = pruned;
+  }
+  if (Object.keys(result).length === 0 && path.length >= 2 && path.at(-2) === "metadata" && ["annotations", "labels"].includes(last)) {
+    return undefined;
   }
   return result;
 }
