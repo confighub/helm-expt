@@ -30,7 +30,7 @@ The practical split is:
 | Choice | Route |
 | --- | --- |
 | Already managed by Argo, Flux, KRM, rendered YAML, or live resources | Adopt first through `cub gitops discover/import`, `cub unit import`, or a managed import workflow. |
-| Changes Helm inputs, object shape, object count, topology, CRDs, RBAC, storage, generated facts, or lifecycle behavior | New or updated `cub installer` base variant. |
+| Changes Helm inputs, object shape, object count, topology, CRDs, RBAC, storage, generated facts, extension slots, or lifecycle behavior | New or updated `cub installer` base variant. |
 | Refines already-rendered fields, target, environment, region, customer, gates, links, observation policy, or approved placeholder fills | Derived ConfigHub variant after upload. |
 | Requires an external runtime prerequisite | Delivery prerequisite, target fact, preflight, gate, or observation receipt. |
 
@@ -137,6 +137,7 @@ For free, public, managed, and production claim boundaries, see
 | Understand proof levels | [Verification Lanes](./verification-lanes.md) |
 | Choose base versus derived variants | [Creating Variants](./creating-variants.md) |
 | Route values files and overlays | [Custom Overlays](./custom-overlays.md) |
+| Route raw manifests, tpl snippets, sidecars, and config blocks | [Extension Slots](./extension-slots.md) |
 | Understand hook handling | [Hook Lifecycle Strategy](./hook-lifecycle-strategy.md) |
 | See why this is not just a fast render command | [Why This Exists](./why-this-exists.md) |
 | Understand free, managed, and production boundaries | [Product Support Tiers](./product-support-tiers.md) |

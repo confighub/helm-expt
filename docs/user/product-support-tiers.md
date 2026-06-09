@@ -167,6 +167,12 @@ current review queue is:
 
 [Image Digest Workdown](../../data/image-digest-workdown/summary.md)
 
+Extension slots are also a support boundary. A public catalog base can leave
+raw manifest, `tpl`, sidecar, config block, or add-on slots empty or explicitly
+reviewed. When a user populates one of those slots, the result is a new install
+shape and should be reviewed as a new `cub installer` base or managed import,
+with render parity, scans, gates, and receipts.
+
 Hook boundary:
 
 ```text

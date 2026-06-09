@@ -117,6 +117,11 @@ controller lifecycle observations:
 
 [Hook And Lifecycle Boundary](../../data/lifecycle-boundary/summary.md)
 
+The extension-slot coverage page tracks charts with raw manifests, `tpl`
+snippets, sidecars, config blocks, add-on slots, or similar Helm inputs:
+
+[Extension Slot Coverage](../../data/extension-slots/summary.md)
+
 The top-level catalog shows what a user can browse:
 
 [Catalog](../../CATALOG.md)

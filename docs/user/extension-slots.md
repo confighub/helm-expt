@@ -46,41 +46,25 @@ The CSV is:
 
 ## How To Use Them
 
-Use the supported catalog base when the extension slot is empty, disabled, or
-already part of the reviewed base.
+| User action | Route |
+| --- | --- |
+| Leave the extension slot empty, disabled, or already part of the reviewed base. | Use the supported catalog base. |
+| Fill a slot that changes Kubernetes objects or application configuration. | Create a new `cub installer` base variant. |
+| Change only target, region, environment, labels, gates, links, approval policy, observation policy, or another approved post-render field. | Use a derived ConfigHub variant after upload. |
 
-Create a new `cub installer` base variant when you fill an extension slot that
-changes rendered Kubernetes objects or application configuration.
+Examples that create a new `cub installer` base:
 
-Examples:
-
-```text
-add NGINX serverBlock text
-add Prometheus extra scrape config
-add Grafana dashboard sidecars
-add Loki extra objects
-add Vault extra volumes or sidecars
-add raw manifests through extraDeploy
-```
+| Example | Why |
+| --- | --- |
+| Add NGINX `serverBlock` text. | The application config inside the rendered workload changes. |
+| Add Prometheus extra scrape config. | The monitoring behavior changes and needs its own rendered proof. |
+| Add Grafana dashboard sidecars. | New sidecars or mounted config affect the workload shape. |
+| Add Loki extra objects. | Raw object injection changes the rendered object set. |
+| Add Vault extra volumes or sidecars. | Pod shape and security review change. |
+| Add raw manifests through `extraDeploy`. | Arbitrary Kubernetes objects need scan/gate proof. |
 
 The new base should have its own rendered objects, render parity, scan/gate
 results, and receipts.
-
-Use a derived ConfigHub variant only when the rendered object set is already
-reviewed and the change is operational metadata.
-
-Examples:
-
-```text
-target
-region
-environment
-labels
-approval policy
-observation policy
-approved resource patch
-approved image patch
-```
 
 This keeps the rule simple:
 
