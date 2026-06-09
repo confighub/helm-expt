@@ -48,6 +48,7 @@ Start with the generated production queue:
 - [Production Support Decision Contract](../../data/production-disposition/support-decision-contract.md)
 - [Production Support Decision Queue](../../data/production-disposition/support-decision-queue.csv)
 - [Production Next Actions](../../data/production-disposition/next-actions.csv)
+- [Production Support Decision Artifacts](../../data/production-support-decisions/summary.md)
 
 Then work the row by decision state:
 
@@ -108,6 +109,16 @@ candidate base: http-clusterip
 That is the clean first production-support candidate because its base is small,
 the extension slots are empty in the supported path, and the remaining work is
 mainly to choose the target scope and refresh evidence for that scope.
+
+The first draft decision artifact is:
+
+```text
+data/production-support-decisions/bitnami-nginx/support-decision.yaml
+```
+
+It names the proposed `http-clusterip` support boundary and records that fresh
+target-scoped ConfigHub OCI/GitOps evidence is still required before the row can
+be marked `production-supported`.
 
 After NGINX, the queue splits into four kinds of work:
 

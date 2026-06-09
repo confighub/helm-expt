@@ -60,6 +60,7 @@ function readme(rows) {
     ["I want hook, CRD, webhook, or lifecycle status.", "data/lifecycle-boundary/summary.md; data/outcome-coverage/feature-outcomes.csv"],
     ["I want extension-slot or custom-config risk.", "data/extension-slots/summary.md; data/nginx-config-checks/summary.md"],
     ["I want production support status and next actions.", "data/production-disposition/summary.md; data/production-disposition/support-decision-contract.md; data/production-disposition/support-decision-queue.csv"],
+    ["I want target-scoped production support decisions.", "data/production-support-decisions/summary.md; data/production-support-decisions/decisions.csv"],
   ];
   const primary = [
     ["data/status-dashboard/summary.md", "Start here for a one-page status dashboard: top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity."],
@@ -84,6 +85,8 @@ function readme(rows) {
     ["data/production-disposition/next-actions.csv", "Production decision work queue: recommended base, decision focus, image digest gap, and next action per top-20 chart."],
     ["data/production-disposition/support-decision-contract.md", "Production support decision contract: required fields, current decision states, and the rule for moving from production-review-ready to production-supported."],
     ["data/production-disposition/support-decision-queue.csv", "One row per top-20 chart showing the candidate production base, decision state, support boundary work, and required next evidence."],
+    ["data/production-support-decisions/summary.md", "Target-scoped support decision artifacts: draft and supported decisions, boundaries, evidence state, and next action."],
+    ["data/production-support-decisions/decisions.csv", "One row per target-scoped support decision artifact: chart, base, decision state, target scope, evidence decision, and next action."],
     ["data/external-scan-lane/chart-workdown.csv", "Chart-level scan/gate workdown: grouped scanner findings, priority, and next action before production disposition."],
     ["data/scan-disposition-workdown/workdown.csv", "Scan warning routes: which rows need fixes, hardened bases, explicit security acceptance, runtime endpoint review, or PDB policy decisions."],
     ["data/image-digest-workdown/summary.md", "Image digest workdown: rendered image references that need digest resolution, image overrides, or explicit proof receipts before reproducible production OCI support."],
@@ -210,6 +213,7 @@ function audienceFor(path) {
   if (path.startsWith("data/quirk-coverage/")) return "user/front-door";
   if (path.startsWith("data/extension-slots/")) return "user/front-door";
   if (path.startsWith("data/production-disposition/")) return "user/front-door";
+  if (path.startsWith("data/production-support-decisions/")) return "user/front-door";
   if (path === "data/external-scan-lane/chart-workdown.csv") return "user/front-door";
   if (path.startsWith("data/scan-disposition-workdown/")) return "user/front-door";
   if (path.startsWith("data/nginx-config-checks/")) return "verification";
@@ -243,6 +247,7 @@ function roleFor(path) {
   if (path === "data/lifecycle-boundary/lifecycle-boundary.csv") return "one row per hook queue item or hook-like lifecycle observation";
   if (path === "data/production-disposition/next-actions.csv") return "one row per top-20 chart: recommended base, production decision focus, image digest status, and next action";
   if (path === "data/production-disposition/support-decision-queue.csv") return "one row per top-20 chart: candidate production base, decision state, support boundary work, and required next evidence";
+  if (path === "data/production-support-decisions/decisions.csv") return "one row per target-scoped support decision artifact";
   if (path === "data/external-scan-lane/chart-workdown.csv") return "one row per chart: external scan findings grouped into priority and next production action";
   if (path === "data/scan-disposition-workdown/workdown.csv") return "one row per top-20 chart: route scan warnings to fixes, hardened bases, acceptance, endpoint review, or PDB decisions";
   if (path === "data/high-fanout-demo/prometheus-kps.csv") return "Prometheus/kube-prometheus-stack high-fanout base-variant example";
@@ -303,6 +308,7 @@ function familyRole(family) {
     "top100-catalog-analysis": "top-100 proof and promotion surface",
     "top500-catalog-analysis": "top-500 catalog planning analysis",
     "production-disposition": "top-20 production blockers and next actions",
+    "production-support-decisions": "target-scoped production support decision artifacts",
     "quirk-review-queue": "queue for chart quirks needing human or product review",
     "image-digest-workdown": "image pinning and mutable tag review",
     "attack-plan-workdown": "execution workdown across gaps and proof lanes",
@@ -374,6 +380,7 @@ function commandMap() {
     "top100-catalog-analysis": { generate: "npm run top100:catalog", verify: "npm run top100:catalog:verify" },
     "top500-catalog-analysis": { generate: "npm run top500:catalog", verify: "npm run top500:catalog:verify" },
     "production-disposition": { generate: "npm run production:disposition", verify: "npm run production:disposition:verify" },
+    "production-support-decisions": { generate: "npm run production:support-decisions", verify: "npm run production:support-decisions:verify" },
     "image-digest-workdown": { generate: "npm run image-digests:workdown", verify: "npm run image-digests:workdown:verify" },
     "attack-plan-workdown": { generate: "npm run attack-plan:generate", verify: "npm run attack-plan:verify" },
     "next-ten-waves": { generate: "npm run next-ten:waves", verify: "npm run next-ten:waves:verify" },

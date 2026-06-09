@@ -1,0 +1,69 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionSupportDecision
+metadata:
+  name: bitnami-nginx-http-clusterip-public-oci-draft
+spec:
+  chart: bitnami/nginx
+  version: "24.0.2"
+  decision: draft
+  decisionDate: "2026-06-09"
+  supportedBase: http-clusterip
+  targetScope:
+    clusterClass: vanilla-kubernetes
+    namespace: nginx
+    deliveryPath: confighub-oci
+    gitopsController: argo-or-flux
+    storageAssumptions:
+      - no persistent volume required for the supported base
+    networkAssumptions:
+      - ClusterIP service is created by the supported base
+      - external ingress, TLS, and DNS are outside this supported base
+    requiredTargetFacts: []
+  supportBoundary:
+    includes:
+      - bitnami/nginx@24.0.2 http-clusterip base
+      - empty NGINX extension slots in the supported base
+      - rendered Deployment, Service, PodDisruptionBudget, and support objects produced by the recorded base
+      - ConfigHub OCI delivery for the declared target scope after fresh target evidence is recorded
+    excludes:
+      - existing-tls-ingress base
+      - populated serverBlock, streamServerBlock, extraDeploy, sidecar, or raw manifest slots
+      - private values overlays
+      - production ingress, DNS, and certificate management
+      - non-vanilla Kubernetes distributions unless separately reviewed
+  decisions:
+    imageDecision:
+      state: no-open-image-digest-gap
+      detail: The current production decision queue records no image-digest blocker for bitnami/nginx.
+    scanDecision:
+      state: accepted-for-scope
+      detail: The remaining scan warning is the PDB unhealthy-pod-eviction policy, accepted for the declared http-clusterip scope.
+    lifecycleDecision:
+      state: no-chart-hooks
+      detail: No Helm hook execution is required for the supported base; extension slots stay empty.
+    targetFactDecision:
+      state: none-required
+      detail: The http-clusterip base has no required target facts. TLS target facts belong to the excluded existing-tls-ingress base.
+    liveEvidenceDecision:
+      state: needs-fresh-target-evidence-before-final
+      detail: Existing receipts prove local and parity behavior. A final support decision still needs a fresh target-scoped ConfigHub OCI/GitOps receipt for the declared scope.
+  evidence:
+    - path: recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The supported base is Helm-equivalent under recorded inputs, with only the installer Namespace support object added.
+    - path: recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/receipts/scan-receipt.yaml
+      claim: The supported base has no high or critical rendered-object scan findings and records the PDB warning explicitly.
+    - path: data/production-disposition/receipts/bitnami-nginx/scan-gate-warning-disposition.yaml
+      claim: The PDB warning has an accepted pre-review production disposition for the NGINX supported bases.
+    - path: data/production-disposition/receipts/bitnami-nginx/extension-slot-provenance-and-scan-policy.yaml
+      claim: Extension slots are empty in the supported base and populated slots route back to a reviewed installer base.
+    - path: runs/live-kind-parity/bitnami-nginx-http-clusterip/receipt.yaml
+      claim: The supported base passes strict two-cluster live parity between regular Helm and cub installer apply.
+    - path: runs/live-helm-confighub-compare/bitnami-nginx-http-clusterip/receipt.yaml
+      claim: The selected live Helm-vs-ConfigHub comparison receipt exists for the supported base.
+    - path: data/runtime-gitops/receipts/bitnami-nginx/http-clusterip/latest.yaml
+      claim: Runtime/GitOps receipt exists for the supported base and should be refreshed for the declared target before final support.
+  requiredBeforeFinal:
+    - Refresh target-scoped ConfigHub OCI/GitOps evidence for the declared target scope.
+    - Record the exact controller, target, namespace, and artifact digest used for the final support claim.
+    - Re-run the production disposition and status dashboard generators after the refreshed evidence is committed.
+  nextAction: Refresh target-scoped ConfigHub OCI/GitOps evidence, then change this decision from draft to supported if the receipt passes for the declared scope.
