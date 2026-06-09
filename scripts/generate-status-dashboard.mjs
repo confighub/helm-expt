@@ -301,7 +301,7 @@ production-supported until a final target-scoped support decision is recorded.
 
 | Open disposition | Charts |
 | --- | ---: |
-${productionBlockers.map(([blocker, count]) => `| ${blocker} | ${count} |`).join("\n")}
+${productionBlockers.length ? productionBlockers.map(([blocker, count]) => `| ${blocker} | ${count} |`).join("\n") : "| none | 0 |"}
 
 | Scan route | Charts |
 | --- | ---: |

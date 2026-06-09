@@ -1,0 +1,52 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: prometheus-community-kube-prometheus-stack-target-fact-preflight
+spec:
+  chart: prometheus-community/kube-prometheus-stack
+  version: "85.3.3"
+  disposition: target fact preflight
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Both kube-prometheus-stack bases require the admission webhook TLS Secret
+    for config-only delivery lanes because regular Helm creates that material
+    through hook lifecycle. The no-crds base also requires the Prometheus
+    Operator CRDs to exist before apply. The recipe records those requirements,
+    the installer package exposes them as externalRequires, and live parity
+    receipts prove the prerequisites can be staged before regular Helm and cub
+    installer paths reach equivalent workload state.
+  evidence:
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml
+      claim: The default variant declares monitoring/kube-prometheus-stack-admission keys cert and key as a required target Secret.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml
+      claim: The no-crds variant declares the admission Secret plus Prometheus Operator CRDs as required target facts.
+    - path: packages/prometheus-community/kube-prometheus-stack/85.3.3/installer.yaml
+      claim: The installer package records externalRequires entries for the admission Secret and no-crds CRD prerequisites.
+    - path: packages/prometheus-community/kube-prometheus-stack/85.3.3/collector/target-facts.sh
+      claim: The package collector records target facts and can live-check the required Secret and CRDs when TARGET_FACT_CHECK_MODE=live.
+    - path: runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json
+      claim: The local kind receipt records admission Secret staging, CRD establishment, and workload rollout checks.
+    - path: runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml
+      claim: Two-cluster parity stages the required admission Secret for the cub installer leg and passes semantic parity.
+    - path: runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml
+      claim: Two-cluster parity stages the admission Secret and Prometheus Operator CRDs for the no-crds base and passes semantic parity.
+    - path: runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml
+      claim: The selected live Helm-vs-ConfigHub comparison passes for regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo delivery.
+  affectedVariants:
+    - default
+    - no-crds
+  acceptedPolicy:
+    secretPreflight: The target Secret monitoring/kube-prometheus-stack-admission with cert and key must exist before config-only apply.
+    crdPreflight: The no-crds base requires Prometheus Operator CRDs to exist and be established before apply.
+    webhookFreshness: Admission webhook readiness and caBundle freshness remain live observation requirements after apply.
+    noSecretEmbedding: Admission TLS key material remains target-owned secret material, not hidden in ConfigHub rendered Units.
+  variantCaveats:
+    - "default is the simpler production-review input because it renders CRDs and only needs the admission Secret staged for config-only delivery lanes."
+    - "no-crds is appropriate only when the target cluster manages Prometheus Operator CRDs separately."
+    - "This chart remains a serious-chart proof: scan findings, CRD lifecycle, webhook lifecycle, storage, and RBAC still need target-scoped support decisions before production support."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose the CRD ownership model, admission Secret source, webhook freshness checks, and supported target scope.

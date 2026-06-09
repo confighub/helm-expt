@@ -13,12 +13,12 @@ catalog-supported local-test charts: 20
 ConfigHub proof receipts passing: 20
 live/e2e observed charts: 20
 production-supported charts: 0
-production-review-ready pending final support decision: 17
-production-blocked pending disposition: 3
+production-review-ready pending final support decision: 20
+production-blocked pending disposition: 0
 source Helm-hook rows: 1
 hook/lifecycle disposition rows: 12
 related lifecycle observation rows: 2
-accepted production disposition receipts: 100
+accepted production disposition receipts: 103
 charts with accepted dispositions: 20
 ```
 
@@ -71,14 +71,14 @@ recording the support decision.
 
 | Chart | Variants | ConfigHub proof | Live/e2e | Production status | Accepted | Open dispositions |
 | --- | --- | --- | --- | --- | ---: | --- |
-| `argo-cd/argo-cd@9.5.15` | default, no-crds | pass | local-kind-observed | blocked | 6 | target fact preflight |
+| `argo-cd/argo-cd@9.5.15` | default, no-crds | pass | local-kind-observed | production-review-ready | 7 |  |
 | `bitnami/mongodb@19.0.7` | generated-passwords, existing-secret-replicaset | pass | local-kind-observed | production-review-ready | 6 |  |
 | `bitnami/mysql@14.0.3` | generated-passwords, existing-secret | pass | local-kind-observed | production-review-ready | 5 |  |
 | `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | pass | local-kind-observed | production-review-ready | 4 |  |
 | `bitnami/postgresql@18.6.7` | generated-passwords, existing-secret | pass | local-kind-observed | production-review-ready | 5 |  |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords, existing-secret | pass | local-kind-observed | production-review-ready | 5 |  |
 | `bitnami/redis@25.5.3` | default, reuse-existing-secret | pass | local-kind-observed | production-review-ready | 4 |  |
-| `external-secrets/external-secrets@2.5.0` | default, no-crds | pass | local-kind-observed | blocked | 5 | target fact preflight |
+| `external-secrets/external-secrets@2.5.0` | default, no-crds | pass | local-kind-observed | production-review-ready | 6 |  |
 | `grafana/grafana@10.5.15` | generated-passwords, existing-secret-ingress | pass | local-kind-observed | production-review-ready | 5 |  |
 | `grafana/loki@7.0.0` | single-binary-filesystem, simple-scalable-minio | pass | local-kind-observed | production-review-ready | 5 |  |
 | `grafana/tempo@1.24.4` | local-persistent, s3-query-observability | pass | local-kind-observed | production-review-ready | 4 |  |
@@ -88,7 +88,7 @@ recording the support decision.
 | `jetstack/cert-manager@v1.20.2` | default, crds-enabled | pass | local-kind-observed | production-review-ready | 6 |  |
 | `longhorn/longhorn@1.11.2` | default, ui-ingress | pass | local-kind-observed | production-review-ready | 5 |  |
 | `metrics-server/metrics-server@3.13.0` | default, external-tls-ca | pass | local-kind-observed | production-review-ready | 5 |  |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | default, no-crds | pass | local-kind-observed | blocked | 6 | target fact preflight |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | default, no-crds | pass | local-kind-observed | production-review-ready | 7 |  |
 | `prometheus-community/prometheus@29.8.0` | default, server-only-ephemeral | pass | local-kind-observed | production-review-ready | 3 |  |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default, sync-secret-rotation | pass | local-kind-observed | production-review-ready | 4 |  |
 

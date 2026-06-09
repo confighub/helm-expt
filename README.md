@@ -228,8 +228,8 @@ chart/base row has every lane complete.
 20 popular Helm charts have catalog entries.
 20/20 top-20 charts have at least one passing local kind live/e2e receipt.
 20/20 top-20 charts have chart-level ConfigHub upload, scan, and safe-ops proof receipt sets.
-17/20 top-20 charts are production-review-ready by disposition receipt.
-3/20 top-20 charts still need pre-review target-fact preflight disposition.
+20/20 top-20 charts are production-review-ready by disposition receipt.
+0/20 top-20 charts still need pre-review target-fact preflight disposition.
 0/20 top-20 charts are production-supported until target-scoped support decisions are recorded.
 100 charts have recipe/package proof artifacts.
 156 chart/base rows have Helm-template versus cub installer render parity.

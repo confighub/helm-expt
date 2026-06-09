@@ -1,0 +1,49 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: argo-cd-argo-cd-target-fact-preflight
+spec:
+  chart: argo-cd/argo-cd
+  version: "9.5.15"
+  disposition: target fact preflight
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    The default base requires the argocd-redis auth Secret for config-only
+    delivery lanes. The no-crds base also requires the Argo CD CRDs to exist
+    before apply. The recipe records those requirements as target facts, the
+    installer package exposes them as externalRequires, and the live parity
+    receipts prove the prerequisites can be staged before the cub installer
+    path reaches the same workload state as regular Helm.
+  evidence:
+    - path: recipes/argo-cd/argo-cd/9.5.15/variants/default/variant.yaml
+      claim: The default variant declares argocd/argocd-redis key auth as a required target Secret for config-only delivery lanes.
+    - path: recipes/argo-cd/argo-cd/9.5.15/variants/no-crds/variant.yaml
+      claim: The no-crds variant declares the same Secret plus applications, applicationsets, and appprojects CRDs as required target facts.
+    - path: packages/argo-cd/argo-cd/9.5.15/installer.yaml
+      claim: The installer package records externalRequires entries for the Secret and no-crds CRD prerequisites.
+    - path: packages/argo-cd/argo-cd/9.5.15/collector/target-facts.sh
+      claim: The package collector records the target facts and can live-check the required Secret and CRDs when TARGET_FACT_CHECK_MODE=live.
+    - path: runs/top20-local-kind/argo-cd-default/observation-receipt.json
+      claim: The local kind receipt records support Secret staging and CRD establishment before workload observation.
+    - path: runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml
+      claim: Two-cluster parity stages the required Secret for the cub installer leg and passes semantic parity.
+    - path: runs/live-kind-parity/argo-cd-argo-cd-no-crds/receipt.yaml
+      claim: Two-cluster parity stages the required Secret and CRDs for the no-crds base and passes semantic parity.
+    - path: runs/live-helm-confighub-compare/argo-cd-argo-cd-default/receipt.yaml
+      claim: The selected live Helm-vs-ConfigHub comparison passes for regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo delivery.
+  affectedVariants:
+    - default
+    - no-crds
+  acceptedPolicy:
+    secretPreflight: The target Secret argocd/argocd-redis with key auth must exist before config-only apply.
+    crdPreflight: The no-crds base requires the Argo CD CRDs to exist and be established before apply.
+    noSecretEmbedding: The Redis auth value remains target-owned secret material, not hidden in ConfigHub rendered Units.
+  variantCaveats:
+    - "default is the simpler production-review input because it renders CRDs and only needs the argocd-redis Secret staged for config-only delivery lanes."
+    - "no-crds is appropriate only when the target cluster manages the Argo CD CRDs separately."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose whether default or no-crds is in scope for the target and record the Secret source, CRD ownership, and freshness checks.

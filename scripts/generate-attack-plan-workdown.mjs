@@ -232,8 +232,23 @@ function buildProductionRows(productionRows) {
     live_e2e: row.live_e2e,
     production_support: row.production_support,
     required_dispositions: row.required_dispositions,
-    next_action: "write disposition receipts for each blocker, then rerun production and runtime/GitOps lanes",
+    next_action: productionNextAction(row),
   }));
+}
+
+function productionNextAction(row) {
+  if (row.production_support === "blocked") {
+    return row.open_dispositions
+      ? `write or fix disposition receipt(s): ${row.open_dispositions}`
+      : "identify the missing disposition receipt, then rerun production disposition";
+  }
+  if (row.production_support === "production-review-ready") {
+    return row.next_action || "choose production base, target scope, and support policy; refresh live evidence for that scope";
+  }
+  if (row.production_support === "production-supported") {
+    return "keep support receipt fresh; monitor chart updates, live evidence, and scan policy drift";
+  }
+  return "review production disposition state";
 }
 
 function buildRuntimeRows(top100, productionByChart) {
