@@ -10,7 +10,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { check, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
+import { check, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const outputRoot = join(repoRoot, "data", "image-digest-workdown");
@@ -71,24 +71,7 @@ function buildReport() {
   }
 
   const subjectRows = [...subjects.values()]
-    .map((row) => ({
-      chart: row.chart,
-      version: row.version,
-      variant: row.variant,
-      catalog_status: row.catalog_status,
-      proof_surface: row.proof_surface,
-      image_refs: row.image_refs,
-      digest_pinned_refs: row.digest_pinned_refs,
-      mutable_tag_refs: row.mutable_tag_refs,
-      floating_latest_or_untagged_refs: row.floating_latest_or_untagged_refs,
-      needs_resolution: row.mutable_tag_refs + row.floating_latest_or_untagged_refs > 0 ? "yes" : "no",
-      example_unpinned_images: row.examples.join(";"),
-      rendered_sha256: row.rendered_sha256,
-      rendered_path: row.rendered_path,
-      next_action: row.mutable_tag_refs + row.floating_latest_or_untagged_refs > 0
-        ? "resolve image digests and record image override/proof receipt before production OCI support"
-        : "none",
-    }))
+    .map((row) => subjectRow(row))
     .sort(subjectSort);
 
   const chartRows = summarizeCharts(subjectRows);
@@ -126,6 +109,7 @@ function summarizeCharts(subjectRows) {
         image_refs: 0,
         mutable_tag_refs: 0,
         floating_latest_or_untagged_refs: 0,
+        resolution_receipts: 0,
         next_action: "",
       });
     }
@@ -135,13 +119,12 @@ function summarizeCharts(subjectRows) {
     chart.image_refs += Number(row.image_refs);
     chart.mutable_tag_refs += Number(row.mutable_tag_refs);
     chart.floating_latest_or_untagged_refs += Number(row.floating_latest_or_untagged_refs);
+    if (row.resolution_receipt_status === "recorded") chart.resolution_receipts += 1;
   }
   return [...charts.values()]
     .map((row) => ({
       ...row,
-      next_action: row.subjects_needing_resolution > 0
-        ? "resolve image digests for each affected variant before production OCI support"
-        : "none",
+      next_action: chartNextAction(row),
     }))
     .sort((left, right) => {
       if (left.catalog_status !== right.catalog_status) return left.catalog_status === "catalog-supported" ? -1 : 1;
@@ -149,9 +132,21 @@ function summarizeCharts(subjectRows) {
     });
 }
 
+function chartNextAction(row) {
+  if (row.subjects_needing_resolution === 0) return "none";
+  if (row.resolution_receipts > 0 && row.resolution_receipts < row.subjects_needing_resolution) {
+    return "finish digest-resolution receipts for remaining affected variants, then choose pinned bases or explicit mutable-image exceptions";
+  }
+  if (row.resolution_receipts >= row.subjects_needing_resolution) {
+    return "choose pinned bases or explicit mutable-image exceptions before production OCI support";
+  }
+  return "resolve image digests for each affected variant before production OCI support";
+}
+
 function summary({ imageRows, subjectRows, chartRows, priorityRows }) {
   const refsNeedingResolution = imageRows.filter((row) => row.image_status !== "digest-pinned").length;
   const subjectsNeedingResolution = subjectRows.filter((row) => row.needs_resolution === "yes").length;
+  const subjectsWithReceipts = subjectRows.filter((row) => row.resolution_receipt_status === "recorded").length;
   const catalogSubjects = subjectRows.filter((row) => row.catalog_status === "catalog-supported").length;
   const catalogSubjectsNeedingResolution = subjectRows.filter((row) => row.catalog_status === "catalog-supported" && row.needs_resolution === "yes").length;
   return `# Image Digest Workdown
@@ -167,6 +162,7 @@ rendered image references:             ${imageRows.length}
 rendered subjects:                     ${subjectRows.length}
 image references needing resolution:   ${refsNeedingResolution}
 rendered subjects needing resolution:  ${subjectsNeedingResolution}
+resolution receipts recorded:          ${subjectsWithReceipts}
 catalog-supported subjects:            ${catalogSubjects}
 catalog-supported needing resolution:  ${catalogSubjectsNeedingResolution}
 charts with rendered image references: ${chartRows.length}
@@ -187,6 +183,62 @@ A production OCI claim needs image digest evidence. Mutable tags and \`:latest\`
 may be acceptable for local proof, but production support needs either pinned
 image references or an explicit image override/proof receipt.
 `;
+}
+
+function subjectRow(row) {
+  const receipt = imageDigestReceipt(row);
+  const hasUnpinnedRefs = row.mutable_tag_refs + row.floating_latest_or_untagged_refs > 0;
+  return {
+    chart: row.chart,
+    version: row.version,
+    variant: row.variant,
+    catalog_status: row.catalog_status,
+    proof_surface: row.proof_surface,
+    image_refs: row.image_refs,
+    digest_pinned_refs: row.digest_pinned_refs,
+    mutable_tag_refs: row.mutable_tag_refs,
+    floating_latest_or_untagged_refs: row.floating_latest_or_untagged_refs,
+    needs_resolution: hasUnpinnedRefs ? "yes" : "no",
+    resolution_receipt_status: receipt.status,
+    resolution_receipt_path: receipt.path,
+    example_unpinned_images: row.examples.join(";"),
+    rendered_sha256: row.rendered_sha256,
+    rendered_path: row.rendered_path,
+    next_action: nextAction({ hasUnpinnedRefs, receipt }),
+  };
+}
+
+function nextAction({ hasUnpinnedRefs, receipt }) {
+  if (!hasUnpinnedRefs) return "none";
+  if (receipt.status === "recorded") {
+    return "use the digest-resolution receipt to choose a digest-pinned base or explicit mutable-image exception before production OCI support";
+  }
+  return "resolve image digests and record image override/proof receipt before production OCI support";
+}
+
+function imageDigestReceipt(row) {
+  const relativePath = [
+    "data",
+    "image-digest-workdown",
+    "receipts",
+    slug(row.chart),
+    row.variant,
+    "image-digest-resolution.yaml",
+  ].join("/");
+  const path = join(repoRoot, relativePath);
+  if (!existsSync(path)) return { status: "missing", path: "" };
+  const receipt = readYaml(path);
+  const spec = receipt.spec ?? {};
+  check(receipt.kind === "ImageDigestResolutionReceipt", `${relativePath} must be kind ImageDigestResolutionReceipt`);
+  check(spec.chart === row.chart, `${relativePath} chart mismatch`);
+  check(spec.version === row.version, `${relativePath} version mismatch`);
+  check(spec.variant === row.variant, `${relativePath} variant mismatch`);
+  check(spec.renderedObjectSet?.sha256 === row.rendered_sha256, `${relativePath} rendered sha mismatch`);
+  return { status: "recorded", path: relativePath };
+}
+
+function slug(value) {
+  return value.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "").toLowerCase();
 }
 
 function subjectSort(left, right) {
