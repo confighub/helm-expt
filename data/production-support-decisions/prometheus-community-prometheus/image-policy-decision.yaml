@@ -1,0 +1,60 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionImagePolicyDecision"
+metadata:
+  name: "prometheus-community-prometheus-public-oci-image-policy-decision"
+spec:
+  chart: "prometheus-community/prometheus"
+  version: "29.8.0"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "monitoring"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "server-only-ephemeral"
+  variantsCovered:
+    - "default"
+    - "server-only-ephemeral"
+  decision: "mutable-image-exception-accepted-for-target-scope"
+  decidedAt: "2026-06-09"
+  claim: "The rendered Prometheus bases still contain mutable image tags, but each rendered image reference has digest-resolution evidence. For the narrower server-only public proof scope, the mutable tag is accepted as a target-scoped exception while stricter environments remain free to require digest-pinned bases or image overrides."
+  renderedImageSummary:
+    renderedSubjects: 2
+    subjectsNeedingResolution: 2
+    imageRefs: 8
+    mutableTagRefs: 8
+    floatingLatestOrUntaggedRefs: 0
+    resolutionReceipts: 2
+  variantReceipts:
+    default:
+      renderedObjectSetSHA256: "c11349803ddbb44562066474dd04d47d7c5c75d083dbc96162224573f949c11b"
+      sourceImageReviewRows: 6
+      uniqueImages: 6
+      receiptPath: "data/image-digest-workdown/receipts/prometheus-community-prometheus/default/image-digest-resolution.yaml"
+    server-only-ephemeral:
+      renderedObjectSetSHA256: "174e1729753ef551fa059f86111cfd87653ea2380dc879238cf5cc4987e78812"
+      sourceImageReviewRows: 2
+      uniqueImages: 2
+      receiptPath: "data/image-digest-workdown/receipts/prometheus-community-prometheus/server-only-ephemeral/image-digest-resolution.yaml"
+  acceptedException:
+    reason: "The public proof target uses upstream Prometheus image tags. The receipt set records the registry digest each tag resolved to at decision time, so reviewers can rerun the decision when upstream tags move."
+    operatorAction: "For stricter production environments, create a digest-pinned base or image override policy before support expansion."
+  limits:
+    - "This does not mean the rendered manifests are digest-pinned."
+    - "This is not a blanket approval for all clusters, private overlays, regulated environments, or future chart versions."
+    - "This does not make the broad default Prometheus stack production-supported."
+    - "If an upstream image tag is retargeted, rerun digest resolution and re-review this decision before promotion."
+  evidence:
+    -
+      path: "data/image-digest-workdown/chart-summary.csv"
+      claim: "Summarizes Prometheus rendered image references."
+    -
+      path: "data/attack-plan-workdown/image-digest-review.csv"
+      claim: "Lists every rendered image reference found in the Prometheus object sets."
+    -
+      path: "data/image-digest-workdown/receipts/prometheus-community-prometheus/default/image-digest-resolution.yaml"
+      claim: "Records registry digest resolution for the default rendered object set."
+    -
+      path: "data/image-digest-workdown/receipts/prometheus-community-prometheus/server-only-ephemeral/image-digest-resolution.yaml"
+      claim: "Records registry digest resolution for the server-only-ephemeral rendered object set."
+  remainingSupportBlockers:
+    - "Record security acceptance and fresh target-scoped ConfigHub OCI/GitOps evidence for the selected narrower base."

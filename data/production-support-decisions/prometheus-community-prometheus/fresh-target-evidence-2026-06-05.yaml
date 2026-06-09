@@ -1,0 +1,72 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSupportEvidenceReceipt"
+metadata:
+  name: "prometheus-community-prometheus-server-only-ephemeral-argo-oci-support-evidence-20260605"
+spec:
+  chart: "prometheus-community/prometheus"
+  version: "29.8.0"
+  base: "server-only-ephemeral"
+  observedAt: "2026-06-05T16:48:59Z"
+  result: "pass"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "monitoring"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+    rig: "helm-expt-parity-prometheus-mq15se5h-1see"
+    kubeContext: "kind-helm-expt-parity-prometheus-mq15se5h-1see"
+    target: "helm-expt-parity-prometheus-mq15se5h-1see-cluster/oci"
+    workloadSpace: "helm-expt-parity-prometheus-mq15se5h-1see-prometheus"
+    app: "prometheus-parity"
+  package:
+    path: "packages/prometheus-community/prometheus/29.8.0"
+  recipe:
+    path: "recipes/prometheus-community/prometheus/29.8.0"
+  oci:
+    revision: "sha256:e87b0484d92aaa11b97ec7f90f58fca718174255fe3f5dd26025aa9498933c59"
+    controller: "Argo CD OCI"
+    sync: "Synced"
+    health: "Healthy"
+    manifestSHA256: "9dcae590c06333daddb5d74270d421196837a79e93061cdd08b3f1bab056c9d4"
+    objectCount: 7
+  comparison:
+    regularHelmRuntime: "pass"
+    configHubApplyRuntime: "pass"
+    configHubOciRuntime: "pass"
+    helmVsConfigHubOciArgo: "pass"
+    allowedExtraConfigHubObjects:
+      - "v1|Namespace||monitoring"
+  twoClusterCrossCheck:
+    path: "runs/live-kind-parity/prometheus-community-prometheus-server-only-ephemeral/receipt.yaml"
+    result: "pass"
+    semanticParity: "pass"
+    regularHelmRuntime: "pass"
+    installerRuntime: "pass"
+  source:
+    liveReceiptPath: "runs/live-helm-confighub-compare/prometheus-community-prometheus-server-only-ephemeral/receipt.yaml"
+    cleanupPolicy: "cub-lk rig and ConfigHub cluster space removed after evidence capture"
+  checks:
+    -
+      name: "regular-helm-runtime"
+      result: "pass"
+      detail: "regular Helm Prometheus server runtime passed"
+    -
+      name: "confighub-apply-runtime"
+      result: "pass"
+      detail: "ConfigHub rendered objects applied by kubectl reached Prometheus server readiness"
+    -
+      name: "confighub-oci-argo-runtime"
+      result: "pass"
+      detail: "Argo app prometheus-parity: sync=Synced health=Healthy revision=sha256:e87b0484d92aaa11b97ec7f90f58fca718174255fe3f5dd26025aa9498933c59"
+    -
+      name: "semantic-object-parity"
+      result: "pass"
+      detail: "regular Helm and ConfigHub OCI/Argo object sets match semantically, except the recorded Namespace support object"
+  supportClaim:
+    state: "fresh-target-evidence-passed"
+    detail: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared Prometheus server-only-ephemeral support scope."
+  limits:
+    - "This supports the recorded cub-lk vanilla kind Argo OCI scope, not every Kubernetes cluster."
+    - "This assumes an existing Argo CD OCI controller is available to reconcile the ConfigHub artifact."
+    - "This supports the server-only-ephemeral base, not the broad default Prometheus stack."
+    - "Evidence freshness is 30 days for public demo/support examples unless refreshed earlier."
