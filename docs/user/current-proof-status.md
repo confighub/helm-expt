@@ -224,17 +224,28 @@ are grouped by the next decision needed before a rerun is useful:
 Production support decisions are still open for the top-20 catalog:
 
 - 0 of 20 top-20 charts are currently marked production-supported.
-- 17 of 20 are production-review-ready pending a final support decision and
+- 20 of 20 are production-review-ready pending a final support decision and
   target scope.
-- 3 of 20 still need a pre-review production disposition, currently target
-  fact preflight for Argo CD, External Secrets, and kube-prometheus-stack.
-- 100 production-disposition receipts are accepted across 20 charts.
+- 0 of 20 still need a pre-review production disposition.
+- 103 production-disposition receipts are accepted across 20 charts.
 - external scan work has 0 remaining mutable-image rows after the current
   supported-base image pinning pass.
 - the remaining high-priority scan rows are routed to explicit privileged
   infrastructure or security disposition work, not to simple image-pin fixes.
 - A review-ready chart is still not production-supported until a final
   target-scoped support decision is recorded.
+
+That next step is now clearer than it was before. The top-20 production queue
+is no longer blocked on missing pre-review receipts; it is grouped by the final
+decision each chart needs:
+
+| Workstream | Charts | Meaning |
+| --- | ---: | --- |
+| Final support decision | 1 | Choose the supported base, target scope, delivery path, and evidence refresh rule. |
+| Image digest resolution | 9 | Pin images by digest or record an explicit exception before production OCI support. |
+| Lifecycle support boundary | 4 | Record which lifecycle behavior is supported, observed, excluded, or operator-owned. |
+| Security acceptance or hardened base | 4 | Accept current security findings for a target scope or create a hardened base variant. |
+| Target runtime scope | 2 | Decide whether the runtime condition is acceptable for the target scope, then refresh live evidence. |
 
 Use the generated production table for exact blockers and next actions:
 [Production Disposition](../../data/production-disposition/summary.md).
