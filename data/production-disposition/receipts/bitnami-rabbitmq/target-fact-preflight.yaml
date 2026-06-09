@@ -1,0 +1,29 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: bitnami-rabbitmq-target-fact-preflight
+spec:
+  chart: bitnami/rabbitmq
+  version: "16.0.14"
+  disposition: target fact preflight
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: The existing-secret base declares the RabbitMQ administrator password and Erlang cookie Secrets as target facts, the installer package exposes them as external requirements, and the two-cluster parity receipt proves those Secrets can be staged before both regular Helm and cub installer paths.
+  evidence:
+    - path: recipes/bitnami/rabbitmq/16.0.14/variants/existing-secret/variant.yaml
+      claim: The variant declares rabbitmq/rabbitmq-auth and rabbitmq/rabbitmq-erlang-cookie as required target Secrets.
+    - path: packages/bitnami/rabbitmq/16.0.14/installer.yaml
+      claim: The package base declares externalRequires entries for both RabbitMQ credential Secrets.
+    - path: recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/receipts/install-gate.yaml
+      claim: The install gate records that target Secrets are required before apply.
+    - path: runs/live-kind-parity/bitnami-rabbitmq-existing-secret/receipt.yaml
+      claim: Two-cluster live parity stages both required Secrets for the regular Helm and cub installer legs and passes semantic parity.
+  affectedVariants:
+    - existing-secret
+  remainingProductionBlockers:
+    - hook and lifecycle phase policy
+    - scan/gate warning disposition
+    - storage backup restore and rollback policy

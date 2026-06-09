@@ -1,0 +1,29 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: bitnami-postgresql-target-fact-preflight
+spec:
+  chart: bitnami/postgresql
+  version: "18.6.7"
+  disposition: target fact preflight
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: The existing-secret base declares the PostgreSQL credential Secret as a target fact, the installer package exposes it as an external requirement, and the two-cluster parity receipt proves that Secret can be staged before both regular Helm and cub installer paths.
+  evidence:
+    - path: recipes/bitnami/postgresql/18.6.7/variants/existing-secret/variant.yaml
+      claim: The variant declares postgresql/postgresql-auth with postgres-password as a required target Secret key.
+    - path: packages/bitnami/postgresql/18.6.7/installer.yaml
+      claim: The package base declares an externalRequires entry for Secret postgresql/postgresql-auth with the required key.
+    - path: recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/receipts/install-gate.yaml
+      claim: The install gate records that the target Secret is required before apply.
+    - path: runs/live-kind-parity/bitnami-postgresql-existing-secret/receipt.yaml
+      claim: Two-cluster live parity stages the required Secret for both the regular Helm and cub installer legs and passes semantic parity.
+  affectedVariants:
+    - existing-secret
+  remainingProductionBlockers:
+    - hook and lifecycle phase policy
+    - scan/gate warning disposition
+    - storage backup restore and rollback policy

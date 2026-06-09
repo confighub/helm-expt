@@ -222,6 +222,7 @@ spec:
           []
         productionDispositionReceipts:
           - "data/production-disposition/receipts/bitnami-mysql/generated-fact-ownership.yaml"
+          - "data/production-disposition/receipts/bitnami-mysql/target-fact-preflight.yaml"
       dispositions:
         -
           name: "generated fact ownership"
@@ -262,7 +263,8 @@ spec:
           unblockRule: "supported only when stateful rollback is not hand-waved"
         -
           name: "target fact preflight"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/bitnami-mysql/target-fact-preflight.yaml"
           owner: "installer-review"
           requiredEvidence:
             - "installer externalRequires/facts"
@@ -393,6 +395,7 @@ spec:
           []
         productionDispositionReceipts:
           - "data/production-disposition/receipts/bitnami-postgresql/generated-fact-ownership.yaml"
+          - "data/production-disposition/receipts/bitnami-postgresql/target-fact-preflight.yaml"
       dispositions:
         -
           name: "generated fact ownership"
@@ -433,7 +436,8 @@ spec:
           unblockRule: "supported only when stateful rollback is not hand-waved"
         -
           name: "target fact preflight"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/bitnami-postgresql/target-fact-preflight.yaml"
           owner: "installer-review"
           requiredEvidence:
             - "installer externalRequires/facts"
@@ -480,6 +484,7 @@ spec:
           []
         productionDispositionReceipts:
           - "data/production-disposition/receipts/bitnami-rabbitmq/generated-fact-ownership.yaml"
+          - "data/production-disposition/receipts/bitnami-rabbitmq/target-fact-preflight.yaml"
       dispositions:
         -
           name: "generated fact ownership"
@@ -520,7 +525,8 @@ spec:
           unblockRule: "supported only when stateful rollback is not hand-waved"
         -
           name: "target fact preflight"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/bitnami-rabbitmq/target-fact-preflight.yaml"
           owner: "installer-review"
           requiredEvidence:
             - "installer externalRequires/facts"

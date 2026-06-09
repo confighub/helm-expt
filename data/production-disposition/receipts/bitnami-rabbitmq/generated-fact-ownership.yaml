@@ -40,5 +40,4 @@ spec:
     - hook and lifecycle phase policy
     - scan/gate warning disposition
     - storage backup restore and rollback policy
-    - target fact preflight
   nextDecision: A production support decision should choose whether RabbitMQ uses generated credentials managed outside the public proof values or the existing-secret base with externally managed credentials.
