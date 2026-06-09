@@ -19,7 +19,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Production readiness | production-review-ready |
 | Supported variants | default, no-crds |
 | Candidate variants | none |
-| Control points | capability-profile, cluster-rbac, crd-policy, dependency-lock, gitops-handoff, hook-policy, installer-support-object, source-lock, stateful-workload, tpl |
+| Control points | capability-profile, cluster-rbac, crd-policy, dependency-lock, gitops-handoff, hook-generated-secret, hook-policy, installer-support-object, source-lock, stateful-workload, tpl |
 
 ## Feature And Proof Summary
 
@@ -58,8 +58,8 @@ for exact base-variant evidence.
 
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| default | [recipes/argo-cd/argo-cd/9.5.15/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/argo-cd/argo-cd/9.5.15/bases/default](../../../../packages/argo-cd/argo-cd/9.5.15/bases/default) | [recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 49 | 50 | 49/49 | pass | warn | warn | none |
-| no-crds | [recipes/argo-cd/argo-cd/9.5.15/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/argo-cd/argo-cd/9.5.15/bases/no-crds](../../../../packages/argo-cd/argo-cd/9.5.15/bases/no-crds) | [recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 46 | 47 | 46/46 | pass | warn | warn | none |
+| default | [recipes/argo-cd/argo-cd/9.5.15/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/argo-cd/argo-cd/9.5.15/bases/default](../../../../packages/argo-cd/argo-cd/9.5.15/bases/default) | [recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 49 | 50 | 49/49 | pass | warn | warn | required Secret argocd/argocd-redis keys auth |
+| no-crds | [recipes/argo-cd/argo-cd/9.5.15/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/argo-cd/argo-cd/9.5.15/bases/no-crds](../../../../packages/argo-cd/argo-cd/9.5.15/bases/no-crds) | [recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 46 | 47 | 46/46 | pass | warn | warn | required Secret argocd/argocd-redis keys auth; required CRD applications.argoproj.io; required CRD applicationsets.argoproj.io; required CRD appprojects.argoproj.io |
 
 ## Package Bases
 

@@ -11,9 +11,9 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 28
-watch: 2
-blocked: 10
+pass: 30
+watch: 1
+blocked: 9
 semantic parity defects: 0
 ```
 
@@ -29,19 +29,18 @@ data/live-parity-rerun-plan/summary.md
 
 | Reason | Rows |
 | --- | ---: |
-| helm-runtime: upstream not ready (parity passed) | 4 |
+| helm-runtime: upstream not ready (parity passed) | 3 |
 | target-runtime: pods pending (parity passed) | 3 |
 | target-runtime: pod crash loop (parity passed) | 2 |
 | helm-hook: post-install hook failed (parity passed) | 1 |
-| target-prerequisite: CRDs disabled or missing (parity passed) | 1 |
 | target-prerequisite: CRDs missing | 1 |
 
 ## Rows
 
 | Chart | Base | Result | Reason | Receipt |
 | --- | --- | --- | --- | --- |
-| `argo-cd/argo-cd@9.5.15` | default | watch | helm-runtime: upstream not ready (parity passed) | runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml |
-| `argo-cd/argo-cd@9.5.15` | no-crds | blocked | target-prerequisite: CRDs disabled or missing (parity passed) | runs/live-kind-parity/argo-cd-argo-cd-no-crds/receipt.yaml |
+| `argo-cd/argo-cd@9.5.15` | default | pass |  | runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml |
+| `argo-cd/argo-cd@9.5.15` | no-crds | pass |  | runs/live-kind-parity/argo-cd-argo-cd-no-crds/receipt.yaml |
 | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | blocked | target-runtime: pod crash loop (parity passed) | runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml |
 | `bitnami/mongodb@19.0.7` | generated-passwords | pass |  | runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml |
 | `bitnami/mysql@14.0.3` | existing-secret | pass |  | runs/live-kind-parity/bitnami-mysql-existing-secret/receipt.yaml |

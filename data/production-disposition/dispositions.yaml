@@ -9,7 +9,7 @@ spec:
     -
       chart: "argo-cd/argo-cd"
       version: "9.5.15"
-      status: "production-review-ready"
+      status: "production-blocked"
       supportedLocalTestVariants:
         - "default"
         - "no-crds"
@@ -107,6 +107,15 @@ spec:
             - "backup/restore path"
             - "rollback constraints"
           unblockRule: "supported only when stateful rollback is not hand-waved"
+        -
+          name: "target fact preflight"
+          state: "required"
+          owner: "installer-review"
+          requiredEvidence:
+            - "installer externalRequires/facts"
+            - "preflight command or documented block"
+            - "freshness expectation"
+          unblockRule: "supported only when required target facts are checkable before apply"
       unblockCriteria:
         - "all required dispositions are accepted or fixed"
         - "supported variants keep Helm equivalence receipts bound to rendered digests"

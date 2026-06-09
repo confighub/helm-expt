@@ -10,9 +10,10 @@ Variants:
 What this proves:
 
 - regular Helm output is preserved by `cub installer setup`, plus the explained Namespace support object;
-- default chart render is deterministic under the pinned Kubernetes capability profile;
-- the no-crds variant deliberately removes the three Argo CD CRDs;
-- CRD lifecycle, Helm hook lifecycle, generated Secret ownership, disabled dependency, StatefulSet, GitOps handoff, and cluster RBAC risks are visible as scan/gate findings instead of hidden Helm behavior.
+- default and no-crds variants make CRD ownership explicit;
+- generated Secrets, built-in Redis, StatefulSet behavior, dependency metadata, and cluster RBAC are visible as scan/gate findings;
+- extraObjects is a tpl-powered extension slot and remains empty in promoted variants;
+- Argo CD can be installed as a chart while the ConfigHub OCI handoff remains the default delivery path for other catalog entries.
 
 Useful commands:
 
