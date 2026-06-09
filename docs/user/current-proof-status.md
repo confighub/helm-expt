@@ -236,23 +236,31 @@ Production support decisions are still mostly open for the top-20 catalog:
 - A review-ready chart is still not production-supported until its final
   target-scoped support decision is completed.
 
-That next step is now clearer than it was before. The top-20 production queue
-is no longer blocked on missing pre-review receipts; it is grouped by the final
-decision each chart needs:
+The top-20 production queue is no longer blocked on missing pre-review
+receipts. It is grouped from the current target-scoped support decisions.
+Workstreams can overlap: one chart can need image, scan, lifecycle, and fresh
+evidence work before it becomes production-supported for a target scope.
 
 | Workstream | Charts | Meaning |
 | --- | ---: | --- |
-| Final support decision | 1 | Choose the supported base, target scope, delivery path, and evidence refresh rule. |
-| Image digest resolution | 9 | Pin images by digest or record an explicit exception before production OCI support. |
-| Lifecycle support boundary | 4 | Record which lifecycle behavior is supported, observed, excluded, or operator-owned. |
+| Supported scope evidence | 1 | Keep target-scoped evidence fresh before using the supported scope as a production example. |
+| Image digest resolution or exception | 15 | Pin images by digest or record an explicit exception before production OCI support. |
+| Scan scope decision | 15 | Record which scanner findings are accepted, fixed, or outside the supported target scope. |
 | Security acceptance or hardened base | 4 | Accept current security findings for a target scope or create a hardened base variant. |
-| Target runtime scope | 2 | Decide whether the runtime condition is acceptable for the target scope, then refresh live evidence. |
+| Lifecycle decision or observation | 5 | Record the lifecycle boundary, or execute and observe the selected hook/lifecycle route. |
+| Runtime or missing-lane decision | 6 | Close the runtime, missing-lane, or lifecycle-observation decision before refreshing final evidence. |
+| Fresh target-scoped evidence | 13 | Refresh ConfigHub OCI/GitOps and live/e2e evidence for the exact supported scope after the other decisions are closed. |
 
-Use the generated production table for exact blockers and next actions:
-[Production Disposition](../../data/production-disposition/summary.md).
+Use the target-scoped decision table for exact blockers and next actions:
+[Production Support Decisions](../../data/production-support-decisions/summary.md).
 
-For the plain-English path from review-ready to production-supported, see
+For the plain-English path from review-ready to production-supported, see the
+user guide:
 [Production Support Decisions](./production-support-decisions.md).
+
+Use the generated production disposition table when you need the pre-review
+receipts and accepted dispositions:
+[Production Disposition](../../data/production-disposition/summary.md).
 
 Use the scan workdown when the question is what kind of work a scan warning
 represents:
