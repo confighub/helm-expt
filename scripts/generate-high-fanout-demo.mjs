@@ -274,6 +274,7 @@ the same operational contract.
 | \`recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md\` | Variant catalog and receipt links. |
 | \`recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-source-map.yaml\` | Value-to-rendered-field reachability for the Grafana admin password and CRD toggle. |
 | \`recipes/prometheus-community/kube-prometheus-stack/85.3.3/inheritance-graph.yaml\` | Desired-state graph fragment showing the base relation. |
+| \`data/production-support-decisions/prometheus-community-kube-prometheus-stack/README.md\` | Human workdown for the current target-scoped production support decision. |
 | \`runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml\` | Strict live proof for regular Helm, ConfigHub apply, and ConfigHub OCI/Argo on the default base. |
 | \`runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml\` | Two-cluster kind parity proof for the no-crds base with target facts staged. |
 | \`data/runtime-gitops/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml\` | GitOps/OCI receipt for the no-crds prerequisite failure. |
