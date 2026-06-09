@@ -17,6 +17,23 @@ tests/* executables
 Start with [npm-scripts.md](npm-scripts.md) when you want to know what each
 `npm run ...` command checks, why it exists, and whether it writes files.
 
+## Test Cadence
+
+Use scoped checks while working. Use the full repository verifier as a broad
+release gate after the focused checks pass. Use live tests only when the work is
+to create or refresh live evidence.
+
+| Question | Start with |
+| --- | --- |
+| Which check matches my edit? | [npm-scripts.md](npm-scripts.md) |
+| What claim does each lane prove? | [strategy.md](strategy.md) |
+| What is the current chart/base status? | [../data/status-dashboard/summary.md](../data/status-dashboard/summary.md) |
+| Which live rows should be rerun next? | [../data/live-parity-rerun-plan/summary.md](../data/live-parity-rerun-plan/summary.md) |
+
+Do not use `npm run verify` as a substitute for a fresh live test. It verifies
+the committed corpus and receipts. Do not use a live test as a substitute for
+render parity. They prove different things.
+
 ## Scripts (resolve the repo from their own location)
 
 - `chart-install-test` — install one chart/base via `cub installer` →
