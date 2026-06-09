@@ -249,6 +249,8 @@ recipe promotion work.
 
 The production support decision contract is in
 [data/production-disposition/support-decision-contract.md](./data/production-disposition/support-decision-contract.md).
+For the user-facing version of that boundary, see
+[Production Support Decisions](./docs/user/production-support-decisions.md).
 
 The `20/20` claims above are chart-level catalog coverage. Per-base and
 per-lane status is stricter; use `data/status-dashboard/summary.md` and

@@ -250,6 +250,9 @@ decision each chart needs:
 Use the generated production table for exact blockers and next actions:
 [Production Disposition](../../data/production-disposition/summary.md).
 
+For the plain-English path from review-ready to production-supported, see
+[Production Support Decisions](./production-support-decisions.md).
+
 Use the scan workdown when the question is what kind of work a scan warning
 represents:
 [Scan Disposition Workdown](../../data/scan-disposition-workdown/summary.md).
