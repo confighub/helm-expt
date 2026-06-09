@@ -10,14 +10,14 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 19
-blocked: 12
+rows: 18
+blocked: 11
 watch: 7
 configHub-oci-live-comparison: 5
-two-cluster-kind-parity: 14
+two-cluster-kind-parity: 13
 semantic-parity-defects: 0
 infra-or-rig-rows: 0
-prerequisite-or-lifecycle-rows: 5
+prerequisite-or-lifecycle-rows: 4
 runtime-or-watch-rows: 14
 ```
 
@@ -26,7 +26,7 @@ runtime-or-watch-rows: 14
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | configHub-oci-live-comparison | 5 | 0 | 5 | 0 | 0 |
-| two-cluster-kind-parity | 14 | 0 | 2 | 12 | 0 |
+| two-cluster-kind-parity | 13 | 0 | 2 | 11 | 0 |
 
 The ConfigHub/OCI live comparison rows in this queue are current `watch` rows.
 They have semantic parity and need runtime, target, or controller-health review.
@@ -51,7 +51,7 @@ The `blocked` rows are currently from the two-cluster kind parity lane.
 | lifecycle-route | 1 | Choose the lifecycle route or observation contract before rerunning strict parity. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if the expected readiness changes. |
 | runtime-review | 12 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
-| stage-prerequisite | 4 | Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning. |
+| stage-prerequisite | 3 | Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning. |
 
 Rows in `stage-prerequisite`, `lifecycle-route`, and `operating-policy`
 usually need a model or target decision before another rerun is useful. Rows in
@@ -66,7 +66,7 @@ reasonable live rerun candidates.
 
 | Readiness | Rows | Meaning |
 | --- | ---: | --- |
-| model-or-stage-first | 6 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| model-or-stage-first | 5 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 | review-target-first | 13 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Run Safety
@@ -99,7 +99,6 @@ faithful to the locked chart/version without changing the recipe.
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `argo-cd/argo-cd@9.5.15` | no-crds | blocked | target-prerequisite: CRDs disabled or missing (parity passed) | `npm run kind-parity:run -- --chart argo-cd/argo-cd --version 9.5.15 --base no-crds` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `external-secrets/external-secrets@2.5.0` | no-crds | blocked | target-prerequisite: CRDs disabled or missing (parity passed) | `npm run kind-parity:run -- --chart external-secrets/external-secrets --version 2.5.0 --base no-crds` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `grafana/tempo@1.24.4` | s3-query-observability | blocked | target-prerequisite: CRDs missing | `npm run kind-parity:run -- --chart grafana/tempo --version 1.24.4 --base s3-query-observability` |
-| 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | blocked | target-prerequisite: CRDs missing | `npm run kind-parity:run -- --chart prometheus-community/kube-prometheus-stack --version 85.3.3 --base no-crds` |
 | 55 | model-or-stage-first | lifecycle-route | two-cluster-kind-parity | `jetstack/cert-manager@v1.20.2` | default | blocked | helm-hook: post-install hook failed (parity passed) | `npm run kind-parity:run -- --chart jetstack/cert-manager --version v1.20.2 --base default` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `argo-cd/argo-cd@9.5.15` | default | watch | helm-runtime: upstream not ready (parity passed) | `npm run kind-parity:run -- --chart argo-cd/argo-cd --version 9.5.15 --base default` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | blocked | target-runtime: pod crash loop (parity passed) | `npm run kind-parity:run -- --chart bitnami/mongodb --version 19.0.7 --base existing-secret-replicaset --repo-url oci://registry-1.docker.io/bitnamicharts` |

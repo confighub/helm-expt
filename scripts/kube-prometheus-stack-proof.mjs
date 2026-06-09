@@ -18,6 +18,19 @@ const chart = {
   kubeVersion: "1.30.0",
 };
 
+const prometheusOperatorCRDs = [
+  "alertmanagerconfigs.monitoring.coreos.com",
+  "alertmanagers.monitoring.coreos.com",
+  "podmonitors.monitoring.coreos.com",
+  "probes.monitoring.coreos.com",
+  "prometheusagents.monitoring.coreos.com",
+  "prometheuses.monitoring.coreos.com",
+  "prometheusrules.monitoring.coreos.com",
+  "scrapeconfigs.monitoring.coreos.com",
+  "servicemonitors.monitoring.coreos.com",
+  "thanosrulers.monitoring.coreos.com",
+];
+
 const variants = [
   {
     name: "default",
@@ -59,6 +72,12 @@ grafana:
     expectedCRDCount: 0,
     expectedSecretCount: 2,
     targetFacts: {
+      requiredCRDs: prometheusOperatorCRDs.map((name) => ({
+        name,
+        sourceVariant: "default",
+        purpose: "Prometheus Operator CRD managed outside this no-crds base",
+        deliveryLanes: ["regularHelm", "cubInstallerApply", "configHubKubectlApply", "configHubOciArgo"],
+      })),
       requiredSecrets: [
         {
           namespace: "monitoring",
@@ -69,7 +88,7 @@ grafana:
         },
       ],
     },
-    targetFactNote: "omits Prometheus Operator CRDs while preserving Grafana, webhooks, RBAC, rules, ServiceMonitors, and config-only webhook TLS target facts",
+    targetFactNote: "omits Prometheus Operator CRDs while preserving Grafana, webhooks, RBAC, rules, ServiceMonitors, required target CRDs, and config-only webhook TLS target facts",
   },
 ];
 
@@ -203,9 +222,9 @@ runProofCli({
     },
     {
       category: "crd-policy",
-      status: "variant-controlled",
+      status: "variant-controlled-and-target-fact",
       variants: { default: 10, "no-crds": 0 },
-      note: "CRDs are ordinary rendered objects in the default variant and still need lifecycle/upgrade policy.",
+      note: "CRDs are ordinary rendered objects in the default variant; no-crds records those same CRDs as target prerequisites.",
     },
     {
       category: "admission-webhook",
@@ -234,7 +253,7 @@ runProofCli({
     maintainedNotes: [
       "Default chart render is nondeterministic unless grafana.adminPassword is bound before render.",
       "default variant binds grafana.adminPassword and renders 10 Prometheus Operator CRDs.",
-      "no-crds variant omits CRDs for clusters that manage CRDs separately.",
+      "no-crds variant omits CRDs for clusters that manage CRDs separately and records those CRDs as target facts.",
       "Chart declares CRD, kube-state-metrics, node-exporter, Grafana, and windows-exporter dependencies and records them in dependency-lock.yaml.",
       "Config-only delivery stages the kube-prometheus-stack-admission TLS Secret as a target fact; regular Helm creates that material through hook lifecycle.",
       "Admission webhook readiness must still be observed after apply because rendered objects plus staged Secret do not prove webhook health.",

@@ -5,10 +5,10 @@ metadata:
 spec:
   variant: "../../../variants/no-crds/variant.yaml"
   revision: "r001"
-  digest: "80d6ed1ba630e9d2de6a023a54481453813999618f6f290ba66eaa13602a6b1b"
+  digest: "f9940a13bfba5778f48eb546a826a505917122bff6e344421fc5bd354bf89b1e"
   digestInputs:
     recipeSHA256: "884bd19ed914449aca773a7dcbf66a04d0b7199fd0539d3c5fb2cb49c0f8749f"
-    variantSHA256: "64b5bdd20a38d2906b2e37f0890fb8643c98a741eff051e0e3fec46422474f28"
+    variantSHA256: "540d109d3b5f70149a5bc2355721d21a9e8a3f945b6b6bf41b264b68f9c5fcd9"
     effectiveValuesSHA256: "967c6cbe753417ea46c4223bacd76b05bc93e3da7982b32576963fd8d78f224e"
     rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
     renderedObjectSetSHA256: "3f6049fc2b7a40bbfb009b347880e3f319a87c9b60a6fd274220287a10167fc2"

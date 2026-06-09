@@ -26,6 +26,46 @@ spec:
           name: "Secret monitoring/kube-prometheus-stack-admission keys cert,key"
           namespace: "monitoring"
           suggestedSource: "kubectl -n monitoring create secret generic kube-prometheus-stack-admission --from-literal=cert=<value> --from-literal=key=<value>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD alertmanagerconfigs.monitoring.coreos.com"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD alertmanagers.monitoring.coreos.com"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD podmonitors.monitoring.coreos.com"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD probes.monitoring.coreos.com"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD prometheusagents.monitoring.coreos.com"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD prometheuses.monitoring.coreos.com"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD prometheusrules.monitoring.coreos.com"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD scrapeconfigs.monitoring.coreos.com"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD servicemonitors.monitoring.coreos.com"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD thanosrulers.monitoring.coreos.com"
+          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
   collector:
     command: "/bin/sh"
     args:

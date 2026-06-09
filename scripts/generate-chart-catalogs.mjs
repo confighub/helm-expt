@@ -326,6 +326,9 @@ function targetFactSummary(targetFacts) {
     const keys = (configMap.keys ?? []).join(",");
     bits.push(`required ConfigMap ${namespace}${configMap.name}${keys ? ` keys ${keys}` : ""}`);
   }
+  for (const crd of targetFacts.requiredCRDs ?? []) {
+    bits.push(`required CRD ${crd.name}`);
+  }
   return bits.length ? bits.join("; ") : "see variant targetFacts";
 }
 
