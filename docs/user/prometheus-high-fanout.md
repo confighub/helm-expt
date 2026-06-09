@@ -117,6 +117,40 @@ target-scoped decision, not a blanket chart label.
 Use `default` when the catalog package should own the CRDs. Use `no-crds` only
 when CRDs have their own owner, version, and fresh observation.
 
+## Current Production Proof Plan
+
+The current target-scoped support decision is still a draft:
+
+[kube-prometheus-stack support decision](../../data/production-support-decisions/prometheus-community-kube-prometheus-stack/support-decision.yaml)
+
+The `default` base already has useful proof:
+
+| Boundary | Current status |
+| --- | --- |
+| Render parity | pass |
+| ConfigHub proof | pass |
+| Two-cluster kind parity | pass |
+| Strict ConfigHub OCI/Argo live path | pass |
+| Production support | draft |
+
+To make `default` production-supported for one target scope, the remaining work
+is:
+
+1. Choose the exact target scope: controller, namespace, cluster class, and OCI
+   artifact digest.
+2. Resolve image digests or record an explicit mutable-image exception.
+3. Record security acceptance for the monitoring stack scope, or create a
+   narrower hardened base.
+4. Execute or observe the selected hook/lifecycle route for admission webhook
+   TLS, readiness, cleanup, ordering, and upgrade behavior.
+5. Refresh ConfigHub OCI/GitOps and live/e2e evidence after the previous
+   decisions are closed.
+
+The `no-crds` base is a separate support decision. Its GitOps receipt is
+currently useful because it blocked on missing CRDs; production support for
+that base must first stage or prove compatible Prometheus Operator CRDs and the
+admission Secret in the target.
+
 ## Why This Matters
 
 For high-fanout charts, a small Helm input can alter many Kubernetes objects and
