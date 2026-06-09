@@ -10,7 +10,7 @@ spec:
     - "Each selected chart must already have proof-grade package/proof artifacts."
     - "Each selected chart must still be machine-proof-only, with no catalog-supported variants yet."
     - "Each proposed user-shaped variant must become an actual recipe variant, package base, rendered revision, scan/gate receipt, and Helm-equivalence receipt before support is claimed."
-    - "Production support remains blocked until production dispositions and live/e2e observation requirements are recorded."
+    - "Production support remains unclaimed until dispositions, target scope, support policy, and live/e2e observation requirements are recorded."
   candidates:
     -
       rank: 8

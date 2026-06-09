@@ -271,7 +271,7 @@ function nextActionFor({ source, proof, versionMatch, sourceStatus, variantStatu
   if (sourceStatus === "source-scan-failed") return "repair source acquisition before recipe proof";
   if (!proof) return "create recipe, package, variants, rendered digest, scans, and receipts";
   if (!versionMatch) return "review source/current-version drift and refresh recipe if needed";
-  if (catalogStatus === "catalog-supported") return "add production dispositions and live/e2e observation lane";
+  if (catalogStatus === "catalog-supported") return "record target-scoped support decision and refresh live/e2e observation lane";
   if (variantStatus === "default-only") return "add user-shaped variants before catalog promotion";
   return "run catalog promotion review";
 }

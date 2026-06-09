@@ -211,12 +211,9 @@ Current two-cluster kind parity non-pass receipts:
 ## Production Disposition Boundary
 
 The top-20 catalog entries are currently supported for the declared local-test
-scope. Production support is tracked separately. A chart stays blocked from
-production support until its scan/gate warnings, lifecycle risks, target facts,
-storage policy, RBAC, webhook behavior, and extension-slot dispositions are
-closed or explicitly accepted.
-
-A review-ready row has those dispositions closed. It is still not
+scope. Production support is tracked separately. A review-ready row has accepted
+dispositions for scan/gate warnings, lifecycle risks, target facts, storage
+policy, RBAC, webhook behavior, and extension slots. It is still not
 production-supported until a final target-scoped support decision is recorded.
 
 | Metric | Value |
@@ -241,16 +238,16 @@ production-supported until a final target-scoped support decision is recorded.
 
 | Chart | Production | Accepted | Open | Next action |
 | --- | --- | ---: | ---: | --- |
-| argo-cd/argo-cd@9.5.15 | production-review-ready | 6 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
-| bitnami/mongodb@19.0.7 | production-review-ready | 6 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
-| bitnami/mysql@14.0.3 | production-review-ready | 5 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
-| bitnami/nginx@24.0.2 | production-review-ready | 4 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
-| bitnami/postgresql@18.6.7 | production-review-ready | 5 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
-| bitnami/rabbitmq@16.0.14 | production-review-ready | 5 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
-| bitnami/redis@25.5.3 | production-review-ready | 4 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
-| external-secrets/external-secrets@2.5.0 | production-review-ready | 5 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
-| grafana/grafana@10.5.15 | production-review-ready | 5 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
-| grafana/loki@7.0.0 | production-review-ready | 5 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
+| argo-cd/argo-cd@9.5.15 | production-review-ready | 6 | 0 | record final target-scoped support decision and refresh live/e2e evidence for that scope |
+| bitnami/mongodb@19.0.7 | production-review-ready | 6 | 0 | record final target-scoped support decision and refresh live/e2e evidence for that scope |
+| bitnami/mysql@14.0.3 | production-review-ready | 5 | 0 | record final target-scoped support decision and refresh live/e2e evidence for that scope |
+| bitnami/nginx@24.0.2 | production-review-ready | 4 | 0 | record final target-scoped support decision and refresh live/e2e evidence for that scope |
+| bitnami/postgresql@18.6.7 | production-review-ready | 5 | 0 | record final target-scoped support decision and refresh live/e2e evidence for that scope |
+| bitnami/rabbitmq@16.0.14 | production-review-ready | 5 | 0 | record final target-scoped support decision and refresh live/e2e evidence for that scope |
+| bitnami/redis@25.5.3 | production-review-ready | 4 | 0 | record final target-scoped support decision and refresh live/e2e evidence for that scope |
+| external-secrets/external-secrets@2.5.0 | production-review-ready | 5 | 0 | record final target-scoped support decision and refresh live/e2e evidence for that scope |
+| grafana/grafana@10.5.15 | production-review-ready | 5 | 0 | record final target-scoped support decision and refresh live/e2e evidence for that scope |
+| grafana/loki@7.0.0 | production-review-ready | 5 | 0 | record final target-scoped support decision and refresh live/e2e evidence for that scope |
 
 Use [production-disposition/summary.md](../production-disposition/summary.md)
 for the full top-20 disposition table and

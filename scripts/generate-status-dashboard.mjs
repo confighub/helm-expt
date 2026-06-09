@@ -90,7 +90,7 @@ function buildReport() {
 
   rows.push(metric("production disposition", "top20 production-supported charts", productionRows.filter((row) => row.production_support === "production-supported").length, productionRows.length, "gap", "data/production-disposition/top20.csv", "Top-20 catalog charts with a final production support decision."));
   rows.push(metric("production disposition", "top20 production-review-ready charts", productionRows.filter((row) => row.production_support === "production-review-ready").length, productionRows.length, "partial", "data/production-disposition/top20.csv", "Top-20 catalog charts with required dispositions closed, pending final production support decision and target scope."));
-  rows.push(metric("production disposition", "top20 production-blocked charts", productionRows.filter((row) => row.production_support === "blocked").length, productionRows.length, "partial", "data/production-disposition/top20.csv", "Top-20 catalog charts that remain blocked from production support pending explicit dispositions."));
+  rows.push(metric("production disposition", "top20 production-blocked charts", productionRows.filter((row) => row.production_support === "blocked").length, productionRows.length, "partial", "data/production-disposition/top20.csv", "Top-20 catalog charts that still have open disposition work before support review."));
   rows.push(metric("production disposition", "charts with accepted production dispositions", productionRows.filter((row) => dispositionCount(row.accepted_dispositions) > 0).length, productionRows.length, "partial", "data/production-disposition/top20.csv", "Charts with at least one disposition receipt accepted."));
   rows.push(metric("scan disposition", "high-priority scan rows", scanDispositionRows.filter((row) => row.scanPriority === "high").length, scanDispositionRows.length, "partial", "data/scan-disposition-workdown/workdown.csv", "External scan rows that need a fix, hardened base, or explicit production disposition."));
   rows.push(metric("scan disposition", "remaining mutable-image rows", scanDispositionRows.filter((row) => row.dispositionRoute === "fix-image-pin").length, scanDispositionRows.length, "good", "data/scan-disposition-workdown/workdown.csv", "Rows still routed to image-pin fixes after the supported-base pinning work."));
@@ -263,12 +263,9 @@ ${kindParityNonPass.map((row) => `| ${row.chart}@${row.version} | ${row.base} | 
 ## Production Disposition Boundary
 
 The top-20 catalog entries are currently supported for the declared local-test
-scope. Production support is tracked separately. A chart stays blocked from
-production support until its scan/gate warnings, lifecycle risks, target facts,
-storage policy, RBAC, webhook behavior, and extension-slot dispositions are
-closed or explicitly accepted.
-
-A review-ready row has those dispositions closed. It is still not
+scope. Production support is tracked separately. A review-ready row has accepted
+dispositions for scan/gate warnings, lifecycle risks, target facts, storage
+policy, RBAC, webhook behavior, and extension slots. It is still not
 production-supported until a final target-scoped support decision is recorded.
 
 | Metric | Value |
