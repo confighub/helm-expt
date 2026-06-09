@@ -88,6 +88,20 @@ The machine-readable index is:
 | Variant paths have row-level status. | Variant-path coverage matrix. | `npm run variant-paths:verify` |
 | Helm artifacts feed graph fragments. | Inheritance graphs and edge-recovery CSV. | `npm run edges:verify` |
 
+## Live Observation Witness
+
+Live observation lanes may write additional cub-scout receipts when a compatible
+`cub-scout` binary is available. These receipts answer three runtime questions:
+
+| Receipt | Question |
+| --- | --- |
+| `cub-scout.object-set.receipt.json` | Are the rendered objects present live, with authored fields matching? |
+| `cub-scout.workloads.receipt.json` | Did the desired workloads converge to a usable runtime state? |
+| `cub-scout.prerequisites.receipt.json` | Are declared target facts, such as required Secrets or CRDs, present? |
+
+These receipts belong to live runs only. They are not part of the deterministic
+render, recipe, package, or `npm run verify` path.
+
 ## Confidence Tiers
 
 | Corpus | What it means |

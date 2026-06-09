@@ -275,8 +275,8 @@ Current implementation:
 
 ```text
 local kind live/e2e receipts for top-20
+optional cub-scout object-set, workload, and prerequisite receipts in live run dirs
 workerless observation guidance
-additional cub-scout lane referenced for deeper runtime proof
 ```
 
 Roadmap surfaces, not current commands in this repo:

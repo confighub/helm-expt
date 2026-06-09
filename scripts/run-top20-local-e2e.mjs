@@ -12,6 +12,7 @@ import {
   toYaml,
   write,
 } from "./lib/proof-common.mjs";
+import { loadTargetFactsForRevision, runCubScoutLiveReceipts } from "./lib/cub-scout-live.mjs";
 
 const clusterName = optionValue("--cluster") ?? "helm-expt-redis";
 const contextName = `kind-${clusterName}`;
@@ -423,6 +424,15 @@ function runTarget(target) {
     stage = "object-inventory";
     const objects = kubectl(["-n", target.namespace, "get", "all,pvc,pdb,configmap,secret,serviceaccount", "-o", "wide"]);
     writeFileSync(join(runRoot, "kubectl-objects.txt"), objects);
+    stage = "cub-scout-live-witness";
+    const cubScout = runCubScoutLiveReceipts({
+      runDir: runRoot,
+      renderedPath,
+      namespace: target.namespace,
+      context: contextName,
+      targetFacts: loadTargetFactsForRevision(target.revision),
+    });
+    checks.push(...cubScout.checks);
     writeReceipt({ target, renderedDigest, objectCount, checks, result: "pass" });
     console.log(`wrote ${relativeRepo(join(runRoot, "observation-receipt.json"))}`);
   } catch (error) {
