@@ -192,6 +192,14 @@ function html(catalog) {
       row.production_status,
       row.next_hard_work,
     ]);
+  const kpsProductionDecisionRows = [
+    ["CRD ownership", "Decide whether the package owns Prometheus Operator CRDs or the target cluster owns compatible CRDs first."],
+    ["Admission Secret", "Stage or manage monitoring/kube-prometheus-stack-admission before config-only delivery."],
+    ["Webhook freshness", "Observe webhook, operator, and caBundle readiness after apply."],
+    ["RBAC and scrape scope", "Approve the rendered cluster RBAC and monitoring blast radius for the target."],
+    ["Scan and image posture", "Accept the findings for this infrastructure scope or create a hardened base."],
+    ["Final live evidence", "Refresh target-scoped live parity, GitOps/OCI, and observation receipts before claiming production support."],
+  ];
   const recommendedBaseRows = catalog.baseReadiness
     .filter((row) => row.recommended_first === "yes")
     .map((row) => [row.chart, row.base, row.user_readiness, row.command, row.why]);
@@ -359,7 +367,12 @@ function html(catalog) {
         ["Base", "User choice", "Render", "Two-cluster kind", "OCI/GitOps", "Production", "Next hard work"],
         ...highFanoutRows,
       ])}
-      <p><a href="../data/high-fanout-demo/summary.md">Open the high-fanout proof-chain summary</a> or <a href="../docs/user/chain-of-proof.md">read the chain-of-proof guide</a>.</p>
+      <p>Production support for this chart is target-scoped. The checklist below is the short version of the generated high-fanout report.</p>
+      ${markdownLikeTable([
+        ["Decision", "What must be settled"],
+        ...kpsProductionDecisionRows,
+      ])}
+      <p><a href="../data/high-fanout-demo/summary.md">Open the high-fanout proof-chain summary</a>, <a href="../docs/user/prometheus-high-fanout.md">read the KPS user guide</a>, or <a href="../docs/user/chain-of-proof.md">read the chain-of-proof guide</a>.</p>
     </section>
 
     <section aria-labelledby="command-choice">
