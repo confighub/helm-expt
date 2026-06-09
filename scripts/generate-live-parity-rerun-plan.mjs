@@ -137,6 +137,9 @@ function diagnosisForConfigHubOci(row) {
   if (row.reason?.startsWith("helm-runtime:")) {
     return "Semantic parity already passed; rerun with right-sized Helm readiness waits or classify as watch if upstream Helm stays pending.";
   }
+  if (row.reason?.startsWith("target-fit:")) {
+    return "Semantic parity and workload readiness passed, but the proof target lacks a required platform behavior such as LoadBalancer external IP assignment.";
+  }
   if (row.result === "watch") {
     return "Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior.";
   }
@@ -146,6 +149,7 @@ function diagnosisForConfigHubOci(row) {
 function followupForConfigHubOci(row) {
   if (row.reason?.startsWith("infra:")) return "If it still blocks, fix rig provisioning before judging chart parity.";
   if (row.reason?.startsWith("helm-runtime:")) return "If object comparison remains clean, record this as upstream runtime readiness rather than a ConfigHub parity defect.";
+  if (row.reason?.startsWith("target-fit:")) return "Use a target with the required platform behavior, or create a separate base that matches the proof target.";
   if (row.result === "watch") return "Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation.";
   return "Open a dedicated parity issue only if the semantic object comparison fails.";
 }
@@ -200,6 +204,7 @@ function nextStepType(row) {
   if (reason.startsWith("target-prerequisite:")) return "stage-prerequisite";
   if (reason.startsWith("helm-hook:")) return "lifecycle-route";
   if (reason.startsWith("operate-policy:")) return "operating-policy";
+  if (reason.startsWith("target-fit:")) return "target-fit-review";
   if (reason.startsWith("gitops-runtime:")) return "gitops-runtime-review";
   if (reason.startsWith("target-runtime:") || reason.startsWith("helm-runtime:")) return "runtime-review";
   if (row.current_result === "watch") return "runtime-review";
@@ -213,6 +218,7 @@ function nextStepDescription(type) {
     "stage-prerequisite": "Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning.",
     "lifecycle-route": "Choose the lifecycle route or observation contract before rerunning strict parity.",
     "operating-policy": "Record the operating policy decision, then rerun only if the expected readiness changes.",
+    "target-fit-review": "Choose a target that provides the required platform behavior, or create a base that fits the target.",
     "gitops-runtime-review": "Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected.",
     "runtime-review": "Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning.",
     "inspect-receipt": "Read the receipt and classify the row before rerunning.",
@@ -226,6 +232,7 @@ function rerunReadiness(type) {
     "stage-prerequisite": "model-or-stage-first",
     "lifecycle-route": "model-or-stage-first",
     "operating-policy": "model-or-stage-first",
+    "target-fit-review": "model-or-stage-first",
     "gitops-runtime-review": "review-target-first",
     "runtime-review": "review-target-first",
     "inspect-receipt": "inspect-receipt-first",

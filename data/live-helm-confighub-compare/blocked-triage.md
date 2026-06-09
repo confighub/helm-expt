@@ -22,11 +22,8 @@ policy condition.
 
 | Rank | Chart | Base | Current reading | Next action |
 | ---: | --- | --- | --- | --- |
-| 3 | ingress-nginx/ingress-nginx | admission-disabled | Regular Helm and ConfigHub kubectl-apply became ready. ConfigHub OCI/Argo synced, but Argo still reported `Progressing` inside the test budget. Semantic parity passed. | Inspect Argo health and ingress-controller conditions before changing the recipe. |
-| 6 | argo-cd/argo-cd | default | The chart now reaches semantic comparison. ConfigHub paths still show pod readiness failures around generated/runtime Secrets and controller bootstrap conditions. Semantic parity passed. | Use a fixture that separates the test controller from the chart-installed Argo CD instance, then decide the generated-Secret policy. |
-| 7 | prometheus-community/kube-prometheus-stack | default | Regular Helm became ready. ConfigHub paths installed semantically equivalent objects, but one operator pod remained `ContainerCreating` and Argo reported `Degraded`. | Inspect local capacity, CRD/webhook readiness, and operator startup before changing the recipe. |
+| 3 | ingress-nginx/ingress-nginx | admission-disabled | Regular Helm and ConfigHub kubectl-apply became ready. ConfigHub OCI/Argo synced and the controller Deployment became ready, but the LoadBalancer Service has no external IP on kind, so Argo health remains `Progressing`. Semantic parity passed. | Use a target with LoadBalancer behavior, or create a separate base that uses an exposure mode suited to kind or internal-only targets. |
 | 12 | hashicorp/vault | default | All paths install the same object set, but the default Vault server remains sealed and uninitialized. Semantic parity passed. | Treat initialization and unseal as an operating policy, not a recipe parity fix. |
-| 19 | grafana/tempo | local-persistent | All paths install the same object set, but the local persistent-volume fixture leaves the Tempo pod pending. Semantic parity passed. | Choose a storage fixture or production StorageClass policy. |
 
 ## Recently Resolved Rows
 

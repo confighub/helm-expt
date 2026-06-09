@@ -289,6 +289,9 @@ function classifyReason(receipt, target) {
 function classifyWatch(spec, target) {
   const text = JSON.stringify(spec).toLowerCase();
   if (target.chart === "hashicorp/vault") return "operate-policy: Vault init/unseal readiness (parity passed)";
+  if (target.chart === "ingress-nginx/ingress-nginx" && target.variant === "admission-disabled") {
+    return "target-fit: LoadBalancer Service has no external IP on kind (parity passed)";
+  }
   if (target.chart === "grafana/tempo" && text.includes("pending")) return "target-runtime: PVC/storage pending (parity passed)";
   if (text.includes("createcontainerconfigerror") || text.includes("crashloopbackoff")) {
     return "target-runtime: pod config/runtime errors (parity passed)";
