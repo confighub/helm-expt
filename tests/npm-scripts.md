@@ -295,11 +295,11 @@ verification and artifact-generation layer.
 
 | Change | Minimum checks |
 | --- | --- |
-| Documentation only | `npm run docs:verify` and `npm run installer:command-surface:verify` |
-| Generated data or catalog | Relevant `*:verify`, `npm run attack-plan:verify` if workdown inputs changed, then `npm run runtime-gitops:wave:verify`, `npm run hooks:lifecycle:verify`, `npm run image-digests:workdown:verify`, `npm run next-ten:waves:verify`, and `npm run site:verify` if the site reads it |
+| Documentation only | `npm run docs:verify`; add `npm run installer:command-surface:verify` only when command examples changed |
+| Generated data or catalog | The owner generator's matching `*:verify`; add downstream `*:verify` checks only when that downstream surface reads the changed data |
 | Recipe or package | Chart-specific verify scripts if curated, plus `npm run verify:artifact-chain` |
 | Top-20 chart proof | `<chart>:compare`, `<chart>:verify-proof`, `<chart>:verify-package`, and `npm run top20:verify-local-e2e` if receipts changed |
-| Chart-facts/top100/top500 data | `npm run chart-facts:verify`, `npm run top100:catalog:verify`, `npm run top500:catalog:verify` |
+| Chart-facts/top100/top500 data | `npm run chart-facts:verify`, `npm run top100:catalog:verify`, `npm run top100:readiness:verify`, `npm run top500:catalog:verify`, plus `npm run status:dashboard:verify` if the front-door counters changed |
 | Broad proof-model change | `npm run p0:contracts`, focused `*:verify` checks for changed surfaces, and `npm run verify` |
 
 ## Current Top-100 Reading
