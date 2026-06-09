@@ -45,6 +45,15 @@ The shortest production work queue is:
 It lists one next required receipt or fix per top-20 chart, starting with the
 charts closest to production disposition closure.
 
+The scan warning workdown is:
+
+[Scan Disposition Workdown](../../data/scan-disposition-workdown/summary.md)
+
+It routes external scan findings into concrete production work: fix in the
+installer base, add a resource policy, harden security context, explicitly
+accept or split privileged infrastructure, review runtime endpoints, or decide
+PDB policy.
+
 The generated lane matrix is the authority for exact chart/version/base status:
 
 [Lane Test Matrix](../../data/lane-test-matrix/summary.md)
@@ -163,11 +172,19 @@ Production disposition is still open for the top-20 catalog:
 - 20 of 20 remain blocked pending explicit production dispositions.
 - 7 production-disposition receipts are accepted across 3 charts: NGINX,
   Redis, and Metrics Server.
+- external scan work has 0 remaining mutable-image rows after the current
+  supported-base image pinning pass.
+- the remaining high-priority scan rows are routed to explicit privileged
+  infrastructure or security disposition work, not to simple image-pin fixes.
 - Every top-20 chart still needs disposition closure before the catalog should
   describe it as production-supported.
 
 Use the generated production table for exact blockers and next actions:
 [Production Disposition](../../data/production-disposition/summary.md).
+
+Use the scan workdown when the question is what kind of work a scan warning
+represents:
+[Scan Disposition Workdown](../../data/scan-disposition-workdown/summary.md).
 
 Use the detailed disposition plan when you need the accepted receipts, owners,
 required evidence, and unblock rules:

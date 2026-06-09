@@ -44,6 +44,7 @@ For the shortest chart-by-chart top-100 answer, start with:
 | [production disposition](../../data/production-disposition/summary.md) | Top-20 production support boundary. Shows accepted dispositions, open blockers, and next actions before a chart can be called production-supported. |
 | [production disposition details](../../data/production-disposition/dispositions.md) | Detailed top-20 production plan. Shows accepted receipts, owners, required evidence, and unblock rules for each disposition type. |
 | [production next actions](../../data/production-disposition/next-actions.csv) | One row per top-20 chart. Shows the next production disposition receipt or fix to work on. |
+| [scan disposition workdown](../../data/scan-disposition-workdown/summary.md) | One row per top-20 chart. Routes scan warnings to image-pin fixes, resource policies, security hardening, privileged infrastructure acceptance, runtime endpoint review, or PDB policy decisions. |
 | [pain-points.csv](../../data/pain-point-coverage/pain-points.csv) | One row per common Helm pain point. Shows current answer, handoff, evidence, remaining gap, and next action. |
 | [readiness.csv](../../data/top100-readiness/readiness.csv) | One row per top-100 chart. Shows adoption bucket, current user status, strongest evidence, hard gap, and next action. |
 | [top500 review.csv](../../data/top500-catalog-analysis/review.csv) | One row per retained source-scan chart. Shows source-scan status, current recipe/package proof status, catalog status, version drift, source features, and next action. |
@@ -74,6 +75,7 @@ The machine-readable index is:
 | Derived ConfigHub variants preserve reviewed bases and expose post-render changes. | Derived variant execution receipts and target-bound receipts. | `npm run derived-variants:verify && npm run derived-variants:target-bound:verify` |
 | Hooks and hook-like lifecycle behavior are visible rather than hidden. | Hook lifecycle queue, lifecycle boundary, and lifecycle observation receipts. | `npm run hooks:lifecycle:verify && npm run lifecycle:boundary:verify && npm run lifecycle:cert-manager-eso:verify` |
 | A chart is ready to describe as production-supported. | Production disposition table plus accepted receipts for scan/gate, lifecycle, RBAC, storage, target facts, extension slots, and operation policy. | `npm run production:disposition:verify` |
+| Scan warnings have been routed to the right kind of production work. | External scan lane plus scan disposition workdown. | `npm run external-scan:verify && npm run scan-disposition:workdown:verify` |
 | Images, Secrets, CRDs, webhooks, target facts, and other chart-specific features are tracked. | Chart facts, attack-plan workdown, and image digest workdown. | `npm run chart-facts:verify && npm run attack-plan:verify && npm run image-digests:workdown:verify` |
 | Known Helm quirks are either surfaced or disclosed as gaps. | Quirk coverage audit. | `npm run quirk-coverage:verify` |
 | Common Helm pain points have an explicit answer and gap. | Pain-point coverage matrix and per-chart pain reports. | `npm run pain-points:verify` |
@@ -99,14 +101,15 @@ The machine-readable index is:
 6. Check [production disposition](../../data/production-disposition/summary.md) when the question is "can we call this production-supported?"
 7. Check [production disposition details](../../data/production-disposition/dispositions.md) when the question is "what evidence closes this production blocker?"
 8. Check [production next actions](../../data/production-disposition/next-actions.csv) when the question is "what production receipt or fix should we work on next?"
-9. Check [readiness.csv](../../data/top100-readiness/readiness.csv) when the question is "can I use this chart now?"
-10. Check [top500 review.csv](../../data/top500-catalog-analysis/review.csv) when the question is how the retained top500 source scan maps to current proof.
-11. Filter [base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) by chart to see each base variant.
-12. Check [feature-outcomes.csv](../../data/outcome-coverage/feature-outcomes.csv) for hooks, CRDs, generated facts, target facts, and other chart-specific behavior.
-13. Check [pain-points.csv](../../data/pain-point-coverage/pain-points.csv) for the general Helm pain being addressed.
-14. Check [coverage-matrix.csv](../../data/variant-path-coverage/coverage-matrix.csv) when the question is about one base, diff, operation, or derived variant path.
-15. Check [derived-variant-outcomes.csv](../../data/outcome-coverage/derived-variant-outcomes.csv) when the question is about post-render ConfigHub variants.
-16. Run the scoped verifier for the table you opened, or `npm run verify` only when you need the full corpus gate.
+9. Check [scan disposition workdown](../../data/scan-disposition-workdown/summary.md) when the question is "is this scan finding a fix, a hardened base, an acceptance, or a runtime review?"
+10. Check [readiness.csv](../../data/top100-readiness/readiness.csv) when the question is "can I use this chart now?"
+11. Check [top500 review.csv](../../data/top500-catalog-analysis/review.csv) when the question is how the retained top500 source scan maps to current proof.
+12. Filter [base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) by chart to see each base variant.
+13. Check [feature-outcomes.csv](../../data/outcome-coverage/feature-outcomes.csv) for hooks, CRDs, generated facts, target facts, and other chart-specific behavior.
+14. Check [pain-points.csv](../../data/pain-point-coverage/pain-points.csv) for the general Helm pain being addressed.
+15. Check [coverage-matrix.csv](../../data/variant-path-coverage/coverage-matrix.csv) when the question is about one base, diff, operation, or derived variant path.
+16. Check [derived-variant-outcomes.csv](../../data/outcome-coverage/derived-variant-outcomes.csv) when the question is about post-render ConfigHub variants.
+17. Run the scoped verifier for the table you opened, or `npm run verify` only when you need the full corpus gate.
 
 ## Narrow Claim Rule
 

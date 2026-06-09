@@ -97,6 +97,7 @@ current supported version
 | `npm run derived-variants:verify` | Intended-state derived variant receipts are present and prove clone/link/gate evidence. | When changing derived variant goldens or clone receipts. |
 | `npm run derived-variants:target-bound:verify` | Target-bound derived variant receipts are present and prove live ConfigHub OCI/Argo/runtime evidence for exact derived variants. | When adding or changing target-bound derived variant evidence. |
 | `npm run derived-variants:target-bound:summary:verify` | Generated target-bound derived variant summary is current with the committed receipts. | When adding or changing target-bound derived variant evidence. |
+| `npm run scan-disposition:workdown:verify` | The scan warning routing table is current with the external scan lane and production next-action queue. | When changing external scan output, production dispositions, image pins, or supported-base hardening policy. |
 
 ## Where Helm And ConfigHub Actually Run
 
