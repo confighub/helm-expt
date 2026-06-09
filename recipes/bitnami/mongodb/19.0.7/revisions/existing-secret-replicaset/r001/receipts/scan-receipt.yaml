@@ -30,11 +30,11 @@ spec:
       object: "values|primary.initdb.scripts"
       message: "initdb and extended configuration slots must be scanned when populated"
     -
-      id: "helm-hook-lifecycle-policy:source"
+      id: "helm-hook-lifecycle-policy:no-hooks-boundary"
       rule: "helm-hook-lifecycle-policy"
       severity: "medium"
-      object: "source|helm-hooks"
-      message: "Chart source contains Helm hooks; rendered proof excludes hooks and production needs lifecycle policy"
+      object: "source|no-hooks-boundary"
+      message: "Retained source scan records hook count 0; supported bases render no hook objects, and future hook-producing paths need lifecycle policy"
     -
       id: "stateful-workload-review:apps/v1|StatefulSet|mongodb|mongodb"
       rule: "stateful-workload-review"

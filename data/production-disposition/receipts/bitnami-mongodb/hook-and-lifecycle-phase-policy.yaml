@@ -1,0 +1,36 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: bitnami-mongodb-hook-and-lifecycle-phase-policy
+spec:
+  chart: bitnami/mongodb
+  version: "19.0.7"
+  disposition: hook and lifecycle phase policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: MongoDB has source hook count 0 in the retained top-500 source scan for the pinned chart line. Both supported bases render no hook objects and run with the recipe no-hooks policy. This closes lifecycle policy for these supported bases only; future values or chart versions that render or rely on hooks must get a separate lifecycle route before production.
+  evidence:
+    - path: data/top500-catalog-analysis/source/source-feature-scan.raw.json
+      claim: bitnami/mongodb has source hook count 0 in the retained source scan for the MongoDB chart line.
+    - path: recipes/bitnami/mongodb/19.0.7/control-points.yaml
+      claim: The recipe records hook-policy with policy no-hooks for the supported bases.
+    - path: recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/rendered/object-inventory.yaml
+      claim: The generated-passwords rendered object inventory contains no hook objects.
+    - path: recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/rendered/object-inventory.yaml
+      claim: The existing-secret-replicaset rendered object inventory contains no hook objects.
+    - path: recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/receipts/install-gate.yaml
+      claim: The generated-passwords install gate records the no-hooks lifecycle boundary explicitly.
+    - path: recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/receipts/install-gate.yaml
+      claim: The existing-secret-replicaset install gate records the no-hooks lifecycle boundary explicitly.
+    - path: runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml
+      claim: The generated-passwords base passes strict two-cluster live parity without hook objects.
+    - path: runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml
+      claim: The existing-secret-replicaset base passes semantic object parity without hook objects; runtime readiness remains review-needed.
+  affectedVariants:
+    - generated-passwords
+    - existing-secret-replicaset
+  remainingProductionBlockers: []
+  nextDecision: If a future MongoDB chart version or values profile introduces hooks, route that behavior through a lifecycle policy or a target controller observation lane before production.

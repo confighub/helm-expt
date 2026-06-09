@@ -1,0 +1,29 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: bitnami-mongodb-target-fact-preflight
+spec:
+  chart: bitnami/mongodb
+  version: "19.0.7"
+  disposition: target fact preflight
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: The existing-secret-replicaset base declares the MongoDB credential Secret as a target fact, the installer package exposes it as an external requirement, and the collector can record or live-check the required Secret keys. The two-cluster parity receipt proves those target facts can be staged for both regular Helm and cub installer paths and that semantic object parity still passes. Runtime readiness for this base remains a separate review item.
+  evidence:
+    - path: recipes/bitnami/mongodb/19.0.7/variants/existing-secret-replicaset/variant.yaml
+      claim: The variant declares mongodb/mongodb-auth with mongodb-root-password and mongodb-replica-set-key as required target Secret keys.
+    - path: packages/bitnami/mongodb/19.0.7/installer.yaml
+      claim: The package base declares an externalRequires entry for Secret mongodb/mongodb-auth with the required keys.
+    - path: packages/bitnami/mongodb/19.0.7/collector/target-facts.sh
+      claim: The collector records target-fact requirements and can live-check the Secret when TARGET_FACT_CHECK_MODE=live.
+    - path: recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/receipts/install-gate.yaml
+      claim: The install gate records that the target Secret is required before apply.
+    - path: runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml
+      claim: Two-cluster live parity stages the required Secret for both the regular Helm and cub installer legs and passes semantic object parity, while runtime readiness remains review-needed.
+  affectedVariants:
+    - existing-secret-replicaset
+  remainingProductionBlockers: []
+  nextDecision: Keep the target Secret preflight in the installer package and use a target-specific live check before applying this base outside the public proof cluster.

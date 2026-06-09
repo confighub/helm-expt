@@ -1,0 +1,44 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: bitnami-mongodb-storage-backup-restore-and-rollback-policy
+spec:
+  chart: bitnami/mongodb
+  version: "19.0.7"
+  disposition: storage backup restore and rollback policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: The generated-passwords base renders a Deployment plus a standalone 8Gi ReadWriteOnce PVC named mongodb. The existing-secret-replicaset base renders primary and arbiter StatefulSets, with the primary StatefulSet owning an 8Gi ReadWriteOnce volumeClaimTemplate. This disposition accepts the manifest-level storage and rollback boundary as production review input. It does not claim database backup or restore has been tested, and it does not treat the existing-secret-replicaset runtime crash loop as solved.
+  evidence:
+    - path: recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/rendered/release-objects.yaml
+      claim: The generated-passwords base renders PVC mongodb with storage 8Gi and access mode ReadWriteOnce.
+    - path: recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml
+      claim: The existing-secret-replicaset base renders StatefulSet mongodb with a volumeClaimTemplate storing 8Gi and an arbiter StatefulSet without persistent data storage.
+    - path: recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/rendered/object-inventory.yaml
+      claim: The generated-passwords object inventory contains Deployment mongodb and PVC mongodb.
+    - path: recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/rendered/object-inventory.yaml
+      claim: The existing-secret-replicaset object inventory contains StatefulSet mongodb and StatefulSet mongodb-arbiter.
+    - path: recipes/bitnami/mongodb/19.0.7/value-model.yaml
+      claim: persistence.enabled is recorded as storage-enabled for all supported bases.
+    - path: recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/receipts/install-gate.yaml
+      claim: The generated-passwords install gate records MongoDB storage, upgrade, and rollback policy as an explicit review boundary.
+    - path: recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/receipts/install-gate.yaml
+      claim: The existing-secret-replicaset install gate records MongoDB storage, upgrade, and rollback policy as an explicit review boundary.
+    - path: runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml
+      claim: The generated-passwords base passes strict two-cluster live parity with the Deployment running.
+    - path: runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml
+      claim: The existing-secret-replicaset base passes semantic object parity but remains runtime-review-needed because MongoDB and arbiter pods crash-looped in kind.
+  affectedVariants:
+    - generated-passwords
+    - existing-secret-replicaset
+  acceptedPolicy:
+    generatedPasswordsStorage: Standalone Deployment uses PVC mongodb, 8Gi, ReadWriteOnce, with no pinned storageClassName in the public base.
+    replicaSetStorage: Replica set base keeps StatefulSet mongodb and its data volumeClaimTemplate identity stable; arbiter behavior remains part of target runtime review.
+    storageClass: The public proof does not pin storageClassName; target production review must choose cluster default or a future reviewed base.
+    rollbackBoundary: Manifest rollback preserves the rendered object identity for the selected base. It must not be treated as MongoDB point-in-time restore.
+    backupRestore: MongoDB backup, restore, retention, and recovery-point objectives are target/operator responsibilities outside this public proof.
+  remainingProductionBlockers: []
+  nextDecision: A target-specific production support decision should choose the storage class, backup/restore mechanism, and whether the replica-set base is appropriate for the target.

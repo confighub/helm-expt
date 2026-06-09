@@ -13,13 +13,13 @@ catalog-supported local-test charts: 20
 ConfigHub proof receipts passing: 20
 live/e2e observed charts: 20
 production-supported charts: 0
-production-review-ready pending final support decision: 6
-production-blocked pending disposition: 14
+production-review-ready pending final support decision: 7
+production-blocked pending disposition: 13
 source Helm-hook rows: 1
 hook/lifecycle disposition rows: 12
 related lifecycle observation rows: 2
-accepted production disposition receipts: 28
-charts with accepted dispositions: 6
+accepted production disposition receipts: 34
+charts with accepted dispositions: 7
 ```
 
 The hook/lifecycle disposition is a production-review item. It does not always
@@ -33,12 +33,18 @@ mean the retained source scan found Helm hooks. Use the evidence fields in
 - `lifecycle_observation_receipts` links receipts for cert-manager and
   External Secrets style CRD/webhook/controller behavior.
 
+Use `data/top20-base-readiness/base-readiness.csv` for base-by-base live
+readiness. A chart can be production-review-ready at the disposition level while
+a non-default base still needs target runtime review. The final production
+support decision must choose the supported base, target scope, and required
+runtime checks.
+
 ## Top-20 Disposition Table
 
 | Chart | Variants | ConfigHub proof | Live/e2e | Production status | Accepted | Open dispositions |
 | --- | --- | --- | --- | --- | ---: | --- |
 | `argo-cd/argo-cd@9.5.15` | default, no-crds | pass | local-kind-observed | blocked | 0 | CRD lifecycle and upgrade policy, cluster RBAC review, extension slot provenance and scan policy, hook and lifecycle phase policy, scan/gate warning disposition, storage backup restore and rollback policy |
-| `bitnami/mongodb@19.0.7` | generated-passwords, existing-secret-replicaset | pass | local-kind-observed | blocked | 0 | extension slot provenance and scan policy, generated fact ownership, hook and lifecycle phase policy, scan/gate warning disposition, target fact preflight |
+| `bitnami/mongodb@19.0.7` | generated-passwords, existing-secret-replicaset | pass | local-kind-observed | production-review-ready | 6 |  |
 | `bitnami/mysql@14.0.3` | generated-passwords, existing-secret | pass | local-kind-observed | production-review-ready | 5 |  |
 | `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | pass | local-kind-observed | production-review-ready | 4 |  |
 | `bitnami/postgresql@18.6.7` | generated-passwords, existing-secret | pass | local-kind-observed | production-review-ready | 5 |  |

@@ -14,7 +14,7 @@ spec:
   supportedVariants:
     - "generated-passwords"
     - "existing-secret-replicaset"
-  productionReadiness: "blocked-by-current-scan-gate"
+  productionReadiness: "production-review-ready"
   notes:
     - "Default chart rendering is nondeterministic unless auth.rootPassword is bound before render."
     - "generated-passwords variant persists auth.rootPassword as a generated fact and renders the Secret deterministically."
@@ -22,7 +22,7 @@ spec:
     - "existing-secret-replicaset variant changes architecture to replicaset and renders primary plus arbiter StatefulSets."
     - "Supported bases pin the Bitnami MongoDB image by digest instead of rendering the chart default latest tag."
     - "Chart declares the Bitnami common dependency and records it in dependency-lock.yaml."
-    - "Chart source contains Helm hook annotations; the rendered proof excludes hooks and keeps lifecycle policy explicit."
+    - "Retained source-scan evidence records hook count 0 for this pinned chart line; supported bases render no hook objects and keep the no-hooks lifecycle boundary explicit."
     - "MongoDB renders persistent storage, NetworkPolicy, and PDB objects that need production policy."
     - "initdb and extended configuration are template-powered extension slots; promoted variants keep them empty."
   painPoints:
@@ -82,7 +82,7 @@ spec:
       supportedVariantStatus: "handled"
     -
       id: "hook-policy"
-      detectedPainPoint: "Chart source contains Helm hooks; the proof render excludes hooks and lifecycle policy must handle them before production."
+      detectedPainPoint: "The retained source scan records hook count 0 for this pinned chart line. Supported bases render no hook objects; future hook-producing paths must map to lifecycle policy before production."
       evidence:
         - "no-hooks"
       configHubHome: "lifecycle-policy"
@@ -99,11 +99,20 @@ spec:
       linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "variant-controlled"
     -
-      id: "workload-policy"
-      detectedPainPoint: "Deployment/StatefulSet workloads need storage, retention, upgrade, and rollback policy."
+      id: "stateful-workload"
+      detectedPainPoint: "MongoDB Deployment/PVC and StatefulSet workloads need storage, retention, upgrade, and rollback policy."
       evidence:
         - "control-points.yaml"
-      configHubHome: "recipe"
+      configHubHome: "operate-policy"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "pvc-policy"
+      detectedPainPoint: "Persistent volumes and StatefulSet volumeClaimTemplates need storage class, retention, backup, restore, and rollback policy."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "operate-policy"
       disposition: "handled-by-scan-or-gate"
       linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "scan-and-review"
@@ -163,4 +172,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
-  answerForSkepticalHelmUser: "bitnami/mongodb@19.0.7 maps its detected Helm pain to 10 ConfigHub control areas: source-lock, dependency-lock, capability-profile, generated-fact, target-fact-requirement, recipe, lifecycle-policy, extension-slot, scan-gate, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains blocked-by-current-scan-gate."
+  answerForSkepticalHelmUser: "bitnami/mongodb@19.0.7 maps its detected Helm pain to 11 ConfigHub control areas: source-lock, dependency-lock, capability-profile, generated-fact, target-fact-requirement, recipe, lifecycle-policy, operate-policy, extension-slot, scan-gate, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains production-review-ready."

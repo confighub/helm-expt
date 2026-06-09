@@ -37,15 +37,19 @@ spec:
       category: "hook-policy"
       status: "handled-for-render"
       policy: "no-hooks"
-      note: "Chart source contains Helm hooks; the proof render excludes hooks and lifecycle policy must handle them before production."
+      note: "The retained source scan records hook count 0 for this pinned chart line. Supported bases render no hook objects; future hook-producing paths must map to lifecycle policy before production."
     -
       category: "replicaset-topology"
       status: "variant-controlled"
       object: "apps/v1|StatefulSet|mongodb|mongodb"
     -
-      category: "workload-policy"
+      category: "stateful-workload"
       status: "scan-and-review"
-      note: "Deployment/StatefulSet workloads need storage, retention, upgrade, and rollback policy."
+      note: "MongoDB Deployment/PVC and StatefulSet workloads need storage, retention, upgrade, and rollback policy."
+    -
+      category: "pvc-policy"
+      status: "scan-and-review"
+      note: "Persistent volumes and StatefulSet volumeClaimTemplates need storage class, retention, backup, restore, and rollback policy."
     -
       category: "network-policy"
       status: "scan-and-review"

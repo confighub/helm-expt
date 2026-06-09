@@ -346,6 +346,12 @@ mean the retained source scan found Helm hooks. Use the evidence fields in
 - \`lifecycle_observation_receipts\` links receipts for cert-manager and
   External Secrets style CRD/webhook/controller behavior.
 
+Use \`data/top20-base-readiness/base-readiness.csv\` for base-by-base live
+readiness. A chart can be production-review-ready at the disposition level while
+a non-default base still needs target runtime review. The final production
+support decision must choose the supported base, target scope, and required
+runtime checks.
+
 ## Top-20 Disposition Table
 
 | Chart | Variants | ConfigHub proof | Live/e2e | Production status | Accepted | Open dispositions |

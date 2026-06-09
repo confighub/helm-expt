@@ -818,7 +818,7 @@ Receipts: [per-chart receipts](recipes/prometheus-community/prometheus/29.8.0/CA
 #### bitnami/mongodb@19.0.7
 
 Status: catalog-supported
-Production readiness: blocked-by-current-scan-gate
+Production readiness: production-review-ready
 Start base readiness: start-here
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 1/2; live parity 1/2

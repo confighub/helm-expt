@@ -36,11 +36,11 @@ spec:
       object: "v1|Secret|mongodb|mongodb"
       message: "MongoDB Secret content and ownership must be explicit before production promotion"
     -
-      id: "helm-hook-lifecycle-policy:source"
+      id: "helm-hook-lifecycle-policy:no-hooks-boundary"
       rule: "helm-hook-lifecycle-policy"
       severity: "medium"
-      object: "source|helm-hooks"
-      message: "Chart source contains Helm hooks; rendered proof excludes hooks and production needs lifecycle policy"
+      object: "source|no-hooks-boundary"
+      message: "Retained source scan records hook count 0; supported bases render no hook objects, and future hook-producing paths need lifecycle policy"
     -
       id: "stateful-workload-review:apps/v1|Deployment|mongodb|mongodb"
       rule: "stateful-workload-review"

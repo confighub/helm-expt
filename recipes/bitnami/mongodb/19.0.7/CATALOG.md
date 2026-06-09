@@ -16,10 +16,10 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Catalog status | catalog-supported |
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
-| Production readiness | blocked-by-current-scan-gate |
+| Production readiness | production-review-ready |
 | Supported variants | generated-passwords, existing-secret-replicaset |
 | Candidate variants | none |
-| Control points | capability-profile, dependency-lock, generated-facts, hook-policy, image-digest, installer-support-object, network-policy, pdb-policy, replicaset-topology, source-lock, target-facts, tpl, workload-policy |
+| Control points | capability-profile, dependency-lock, generated-facts, hook-policy, image-digest, installer-support-object, network-policy, pdb-policy, pvc-policy, replicaset-topology, source-lock, stateful-workload, target-facts, tpl |
 
 ## Feature And Proof Summary
 
@@ -34,7 +34,7 @@ for exact base-variant evidence.
 | Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 1/2; live parity 1/2 |
 | Feature summary | generated-secrets;required-values;install-vs-upgrade;extension-slots |
 | Hard gap | - |
-| Next action | write or fix the extension slot provenance and scan policy disposition receipt |
+| Next action | refresh live/e2e receipts for the accepted production scope |
 
 ## Artifact Chain
 

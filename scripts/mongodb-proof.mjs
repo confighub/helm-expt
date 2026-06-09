@@ -118,9 +118,10 @@ runProofCli({
     { category: "generated-facts", status: "variant-controlled", evidence: "auth.rootPassword", note: "The generated-passwords variant binds the generated root password before render so Helm output is deterministic." },
     { category: "target-facts", status: "variant-controlled", evidence: "auth.existingSecret", note: "The existing-secret-replicaset variant declares the target Secret instead of rendering one." },
     { category: "image-digest", status: "handled", digest: mongodbImageDigest, note: "Supported bases pin the Bitnami MongoDB image by digest." },
-    { category: "hook-policy", status: "handled-for-render", policy: "no-hooks", note: "Chart source contains Helm hooks; the proof render excludes hooks and lifecycle policy must handle them before production." },
+    { category: "hook-policy", status: "handled-for-render", policy: "no-hooks", note: "The retained source scan records hook count 0 for this pinned chart line. Supported bases render no hook objects; future hook-producing paths must map to lifecycle policy before production." },
     { category: "replicaset-topology", status: "variant-controlled", object: "apps/v1|StatefulSet|mongodb|mongodb" },
-    { category: "workload-policy", status: "scan-and-review", note: "Deployment/StatefulSet workloads need storage, retention, upgrade, and rollback policy." },
+    { category: "stateful-workload", status: "scan-and-review", note: "MongoDB Deployment/PVC and StatefulSet workloads need storage, retention, upgrade, and rollback policy." },
+    { category: "pvc-policy", status: "scan-and-review", note: "Persistent volumes and StatefulSet volumeClaimTemplates need storage class, retention, backup, restore, and rollback policy." },
     { category: "network-policy", status: "scan-and-review", object: "networking.k8s.io/v1|NetworkPolicy|mongodb|mongodb" },
     { category: "pdb-policy", status: "scan-and-review", object: "policy/v1|PodDisruptionBudget|mongodb|mongodb" },
     { category: "tpl", status: "controlled-by-empty-defaults", note: "initdb and extended configuration slots use templating; promoted variants do not populate them." },
@@ -134,7 +135,7 @@ runProofCli({
       "existing-secret-replicaset variant changes architecture to replicaset and renders primary plus arbiter StatefulSets.",
       "Supported bases pin the Bitnami MongoDB image by digest instead of rendering the chart default latest tag.",
       "Chart declares the Bitnami common dependency and records it in dependency-lock.yaml.",
-      "Chart source contains Helm hook annotations; the rendered proof excludes hooks and keeps lifecycle policy explicit.",
+      "Retained source-scan evidence records hook count 0 for this pinned chart line; supported bases render no hook objects and keep the no-hooks lifecycle boundary explicit.",
       "MongoDB renders persistent storage, NetworkPolicy, and PDB objects that need production policy.",
       "initdb and extended configuration are template-powered extension slots; promoted variants keep them empty.",
     ],
@@ -144,7 +145,7 @@ runProofCli({
       "dependency-lock",
       "hook-lifecycle-policy",
       "replicaset-topology",
-      "workload-policy",
+      "stateful-workload-policy",
       "network-policy",
       "pdb-policy",
       "tpl-extension-slot",
@@ -163,7 +164,7 @@ runProofCli({
       "the generated-passwords variant persists auth.rootPassword before render;",
       "the existing-secret-replicaset variant uses a declared target Secret, does not render a Secret, and changes topology to replica set;",
       "both supported bases pin the MongoDB image digest instead of rendering a mutable latest tag;",
-      "generated fact, target fact, Helm hook lifecycle, dependency lock, Deployment/StatefulSet storage, NetworkPolicy/PDB, and extension-slot risks are visible as scan/gate findings instead of hidden Helm behavior.",
+      "generated fact, target fact, no-hooks lifecycle boundary, dependency lock, Deployment/PVC and StatefulSet storage, NetworkPolicy/PDB, and extension-slot risks are visible as scan/gate findings instead of hidden Helm behavior.",
     ],
   },
   installGate: (variant) => ({
@@ -171,7 +172,7 @@ runProofCli({
     reasons: [
       `Helm equivalence passed for ${variant.name}`,
       "Generated credential handling needs explicit generated fact or target fact policy before production",
-      "Helm hook behavior needs explicit lifecycle policy before production",
+      "The no-hooks lifecycle boundary is explicit; any future hook-producing path needs a separate lifecycle route before production",
       "MongoDB Deployment/StatefulSet storage, upgrade, and rollback policy need production review",
       "Replica-set topology, arbiter behavior, NetworkPolicy, and PDB need production review",
       variant.targetFactNote,
@@ -205,11 +206,11 @@ runProofCli({
       message: "Bitnami common dependency metadata is locked before recipe publication",
     });
     findings.push({
-      id: "helm-hook-lifecycle-policy:source",
+      id: "helm-hook-lifecycle-policy:no-hooks-boundary",
       rule: "helm-hook-lifecycle-policy",
       severity: "medium",
-      object: "source|helm-hooks",
-      message: "Chart source contains Helm hooks; rendered proof excludes hooks and production needs lifecycle policy",
+      object: "source|no-hooks-boundary",
+      message: "Retained source scan records hook count 0; supported bases render no hook objects, and future hook-producing paths need lifecycle policy",
     });
     findings.push({
       id: "extension-slot-review:initdb-configuration",
@@ -244,7 +245,7 @@ runProofCli({
     check(controlPoints.spec.points?.some((point) => point.category === "target-facts"), "target-facts control point missing");
     check(controlPoints.spec.points?.some((point) => point.category === "hook-policy"), "hook-policy control point missing");
     check(controlPoints.spec.points?.some((point) => point.category === "replicaset-topology"), "replicaset-topology control point missing");
-    check(controlPoints.spec.points?.some((point) => point.category === "workload-policy"), "workload-policy control point missing");
+    check(controlPoints.spec.points?.some((point) => point.category === "stateful-workload"), "stateful-workload control point missing");
     for (const variant of variants) {
       const { identities, scan } = perVariant.get(variant.name);
       const crdIdentities = identities.filter((identity) => identity.startsWith("apiextensions.k8s.io/v1|CustomResourceDefinition|"));

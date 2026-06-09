@@ -13,7 +13,7 @@ spec:
   reasons:
     - "Helm equivalence passed for generated-passwords"
     - "Generated credential handling needs explicit generated fact or target fact policy before production"
-    - "Helm hook behavior needs explicit lifecycle policy before production"
+    - "The no-hooks lifecycle boundary is explicit; any future hook-producing path needs a separate lifecycle route before production"
     - "MongoDB Deployment/StatefulSet storage, upgrade, and rollback policy need production review"
     - "Replica-set topology, arbiter behavior, NetworkPolicy, and PDB need production review"
     - "uses a persisted generated fact for auth.rootPassword and renders the chart Secret deterministically"

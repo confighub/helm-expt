@@ -104,7 +104,7 @@ spec:
     -
       chart: "bitnami/mongodb"
       version: "19.0.7"
-      status: "production-blocked"
+      status: "production-review-ready"
       supportedLocalTestVariants:
         - "generated-passwords"
         - "existing-secret-replicaset"
@@ -135,11 +135,17 @@ spec:
         lifecycleObservationReceipts:
           []
         productionDispositionReceipts:
-          []
+          - "data/production-disposition/receipts/bitnami-mongodb/extension-slot-provenance-and-scan-policy.yaml"
+          - "data/production-disposition/receipts/bitnami-mongodb/generated-fact-ownership.yaml"
+          - "data/production-disposition/receipts/bitnami-mongodb/hook-and-lifecycle-phase-policy.yaml"
+          - "data/production-disposition/receipts/bitnami-mongodb/scan-gate-warning-disposition.yaml"
+          - "data/production-disposition/receipts/bitnami-mongodb/storage-backup-restore-and-rollback-policy.yaml"
+          - "data/production-disposition/receipts/bitnami-mongodb/target-fact-preflight.yaml"
       dispositions:
         -
           name: "extension slot provenance and scan policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/bitnami-mongodb/extension-slot-provenance-and-scan-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "tpl/raw value inventory"
@@ -148,7 +154,8 @@ spec:
           unblockRule: "supported only when extensions are explicit and scanned after render"
         -
           name: "generated fact ownership"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/bitnami-mongodb/generated-fact-ownership.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "generated secret/cert inventory"
@@ -157,7 +164,8 @@ spec:
           unblockRule: "supported only when generated material is captured or deliberately externalized"
         -
           name: "hook and lifecycle phase policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/bitnami-mongodb/hook-and-lifecycle-phase-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "hook inventory"
@@ -166,7 +174,8 @@ spec:
           unblockRule: "supported only when hooks are mapped to lifecycle policy or intentionally excluded"
         -
           name: "scan/gate warning disposition"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/bitnami-mongodb/scan-gate-warning-disposition.yaml"
           owner: "security-review"
           requiredEvidence:
             - "local scan receipt"
@@ -174,8 +183,19 @@ spec:
             - "waiver or fix decision"
           unblockRule: "supported only when warnings are accepted, fixed, or variant-blocking"
         -
+          name: "storage backup restore and rollback policy"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/bitnami-mongodb/storage-backup-restore-and-rollback-policy.yaml"
+          owner: "operate-review"
+          requiredEvidence:
+            - "PVC/storage class assumptions"
+            - "backup/restore path"
+            - "rollback constraints"
+          unblockRule: "supported only when stateful rollback is not hand-waved"
+        -
           name: "target fact preflight"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/bitnami-mongodb/target-fact-preflight.yaml"
           owner: "installer-review"
           requiredEvidence:
             - "installer externalRequires/facts"

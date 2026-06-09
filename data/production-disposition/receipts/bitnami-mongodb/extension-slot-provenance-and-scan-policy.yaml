@@ -1,0 +1,37 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: bitnami-mongodb-extension-slot-provenance-and-scan-policy
+spec:
+  chart: bitnami/mongodb
+  version: "19.0.7"
+  disposition: extension slot provenance and scan policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: The supported MongoDB bases keep the tpl-powered initdb and extended-configuration slots empty. This accepts the current bases because there is no unreviewed user-supplied script or raw configuration content in the rendered objects. Any future base that populates those slots must become a new reviewed installer base and must be rendered, scanned, and compared again.
+  evidence:
+    - path: recipes/bitnami/mongodb/19.0.7/control-points.yaml
+      claim: The recipe records tpl as controlled-by-empty-defaults for initdb and extended configuration slots.
+    - path: recipes/bitnami/mongodb/19.0.7/value-model.yaml
+      claim: The value model records primary.initdb.scripts and primary.extendedConfiguration as empty extension slots.
+    - path: recipes/bitnami/mongodb/19.0.7/effective-values.yaml
+      claim: The generated-passwords base only sets the image digest and root password; it does not populate initdb or extended-configuration content.
+    - path: recipes/bitnami/mongodb/19.0.7/effective-values-existing-secret-replicaset.yaml
+      claim: The existing-secret-replicaset base only sets architecture, image digest, and existingSecret; it does not populate initdb or extended-configuration content.
+    - path: recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/receipts/scan-receipt.yaml
+      claim: The generated-passwords scan records the extension slot review warning explicitly.
+    - path: recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/receipts/scan-receipt.yaml
+      claim: The existing-secret-replicaset scan records the extension slot review warning explicitly.
+    - path: data/top20-base-readiness/base-readiness.csv
+      claim: The generated-passwords base is the recommended start-here path; existing-secret-replicaset remains runtime-review-needed rather than silently promoted.
+  affectedVariants:
+    - generated-passwords
+    - existing-secret-replicaset
+  acceptedPolicy:
+    supportedSlotState: Supported bases keep tpl-powered MongoDB extension slots empty.
+    populatedSlotRule: Populating init scripts or extended configuration creates a new base variant that must be rendered, scanned, compared, and dispositioned.
+  remainingProductionBlockers: []
+  nextDecision: If a customer needs MongoDB init scripts or custom configuration, create a separate reviewed base rather than treating it as a post-render ConfigHub-only edit.

@@ -48,11 +48,14 @@ const supportedCatalogEntries = {
     ],
   },
   "bitnami/mongodb": {
+    productionReadiness: "production-review-ready",
     notes: [
       "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.",
       "generated-passwords is the simplest install path and records generated Secret separation.",
       "existing-secret-replicaset is supported when the declared MongoDB Secret target facts are satisfied.",
-      "Production remains blocked until replica set, storage, backup/restore, and scan/gate findings have dispositions.",
+      "Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state.",
+      "Target production review must choose storage class, MongoDB backup/restore mechanism, and whether the replica-set base is appropriate for the target.",
+      "The existing-secret-replicaset base is still marked runtime-review-needed in the base-readiness table.",
     ],
   },
   "bitnami/mysql": {

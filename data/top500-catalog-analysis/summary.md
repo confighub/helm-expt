@@ -34,8 +34,8 @@ catalog-supported: 20
 proof-grade: 71
 multi-variant proofs: 50
 default-only proofs: 41
-catalog-supported production-blocked: 14
-catalog-supported production-review-ready: 6
+catalog-supported production-blocked: 13
+catalog-supported production-review-ready: 7
 ```
 
 ## What We Learn

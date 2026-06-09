@@ -12,7 +12,7 @@ current ConfigHub/cub installer proof absorbs it.
 | Catalog status | catalog-supported |
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
-| Production readiness | blocked-by-current-scan-gate |
+| Production readiness | production-review-ready |
 | Variants in this note | generated-passwords, existing-secret-replicaset |
 
 Production support is not implied by this file. A chart can be supported for
@@ -27,7 +27,7 @@ or operating-policy dispositions.
 - existing-secret-replicaset variant changes architecture to replicaset and renders primary plus arbiter StatefulSets.
 - Supported bases pin the Bitnami MongoDB image by digest instead of rendering the chart default latest tag.
 - Chart declares the Bitnami common dependency and records it in dependency-lock.yaml.
-- Chart source contains Helm hook annotations; the rendered proof excludes hooks and keeps lifecycle policy explicit.
+- Retained source-scan evidence records hook count 0 for this pinned chart line; supported bases render no hook objects and keep the no-hooks lifecycle boundary explicit.
 - MongoDB renders persistent storage, NetworkPolicy, and PDB objects that need production policy.
 - initdb and extended configuration are template-powered extension slots; promoted variants keep them empty.
 
@@ -36,7 +36,9 @@ or operating-policy dispositions.
 - Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
 - generated-passwords is the simplest install path and records generated Secret separation.
 - existing-secret-replicaset is supported when the declared MongoDB Secret target facts are satisfied.
-- Production remains blocked until replica set, storage, backup/restore, and scan/gate findings have dispositions.
+- Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state.
+- Target production review must choose storage class, MongoDB backup/restore mechanism, and whether the replica-set base is appropriate for the target.
+- The existing-secret-replicaset base is still marked runtime-review-needed in the base-readiness table.
 
 ## Control Points
 
@@ -48,9 +50,10 @@ or operating-policy dispositions.
 | generated-facts | variant-controlled | The generated-passwords variant binds the generated root password before render so Helm output is deterministic. |
 | target-facts | variant-controlled | The existing-secret-replicaset variant declares the target Secret instead of rendering one. |
 | image-digest | handled | Supported bases pin the Bitnami MongoDB image by digest. |
-| hook-policy | handled-for-render | Chart source contains Helm hooks; the proof render excludes hooks and lifecycle policy must handle them before production. |
+| hook-policy | handled-for-render | The retained source scan records hook count 0 for this pinned chart line. Supported bases render no hook objects; future hook-producing paths must map to lifecycle policy before production. |
 | replicaset-topology | variant-controlled | apps/v1\|StatefulSet\|mongodb\|mongodb |
-| workload-policy | scan-and-review | Deployment/StatefulSet workloads need storage, retention, upgrade, and rollback policy. |
+| stateful-workload | scan-and-review | MongoDB Deployment/PVC and StatefulSet workloads need storage, retention, upgrade, and rollback policy. |
+| pvc-policy | scan-and-review | Persistent volumes and StatefulSet volumeClaimTemplates need storage class, retention, backup, restore, and rollback policy. |
 | network-policy | scan-and-review | networking.k8s.io/v1\|NetworkPolicy\|mongodb\|mongodb |
 | pdb-policy | scan-and-review | policy/v1\|PodDisruptionBudget\|mongodb\|mongodb |
 | tpl | controlled-by-empty-defaults | initdb and extended configuration slots use templating; promoted variants do not populate them. |
@@ -67,12 +70,14 @@ or operating-policy dispositions.
 - installer-support-object
 - network-policy
 - pdb-policy
+- pvc-policy
 - replicaset-topology
 - source-lock
+- stateful-workload
+- stateful-workload-policy
 - target-facts
 - tpl
 - tpl-extension-slot
-- workload-policy
 
 ## Proof Links
 

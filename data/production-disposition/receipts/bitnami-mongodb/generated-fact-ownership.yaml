@@ -1,0 +1,36 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: bitnami-mongodb-generated-fact-ownership
+spec:
+  chart: bitnami/mongodb
+  version: "19.0.7"
+  disposition: generated fact ownership
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: The generated-passwords base binds auth.rootPassword before render, so the rendered MongoDB Secret is deterministic and separated by cub installer. The existing-secret-replicaset base does not render a credential Secret and routes credentials to an explicit target Secret requirement. This closes generated credential ownership for the reviewed bases while leaving target-specific credential rotation and storage to the production support decision.
+  evidence:
+    - path: recipes/bitnami/mongodb/19.0.7/control-points.yaml
+      claim: The recipe records generated-facts and target-facts as variant-controlled.
+    - path: recipes/bitnami/mongodb/19.0.7/value-model.yaml
+      claim: The value model records auth.rootPassword as generated-fact-bound and auth.existingSecret as target-fact-bound.
+    - path: recipes/bitnami/mongodb/19.0.7/effective-values.yaml
+      claim: The generated-passwords base binds auth.rootPassword before render.
+    - path: recipes/bitnami/mongodb/19.0.7/effective-values-existing-secret-replicaset.yaml
+      claim: The existing-secret-replicaset base sets auth.existingSecret to mongodb-auth.
+    - path: recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/receipts/render-receipt.yaml
+      claim: The generated-passwords base renders one Secret deterministically and records one separated Secret.
+    - path: recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/receipts/render-receipt.yaml
+      claim: The existing-secret-replicaset base renders zero Secrets.
+    - path: runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml
+      claim: The generated-passwords base passes strict two-cluster live parity between regular Helm and cub installer apply.
+    - path: runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml
+      claim: The existing-secret-replicaset run stages the target Secret for both paths and passes semantic object parity, while runtime readiness remains review-needed.
+  affectedVariants:
+    - generated-passwords
+    - existing-secret-replicaset
+  remainingProductionBlockers: []
+  nextDecision: A target-specific production support decision should choose generated credential ownership outside the public proof values or the existing-secret route with externally managed credentials.
