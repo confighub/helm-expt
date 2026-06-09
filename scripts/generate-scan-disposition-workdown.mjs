@@ -3,7 +3,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { check, repoRoot, write } from "./lib/proof-common.mjs";
+import { check, readYaml, repoRoot, write } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const outputRoot = join(repoRoot, "data", "scan-disposition-workdown");
@@ -35,6 +35,7 @@ function buildReport() {
     const topChecks = parseTopChecks(row.topChecks);
     const route = classifyRoute(row.chart, topChecks);
     const production = productionRows.get(row.chart) ?? {};
+    const securityDecision = supportSecurityDecision(row.chart, row.version);
     return {
       chart: row.chart,
       version: row.version,
@@ -44,7 +45,9 @@ function buildReport() {
       topChecks: row.topChecks,
       dispositionRoute: route.route,
       routeReason: route.reason,
-      suggestedAction: route.action,
+      suggestedAction: securityDecision.state === "recorded" ? securityDecision.nextAction : route.action,
+      supportSecurityDecision: securityDecision.path,
+      supportSecurityDecisionState: securityDecision.decision,
       productionNextDisposition: production.nextDisposition ?? "",
       productionDispositionReceipt: production.nextDispositionReceipt ?? "",
       owner: ownerFor(route.route, production.owner),
@@ -141,6 +144,28 @@ function isPrivilegedInfrastructure(chart) {
   ]).has(chart);
 }
 
+function supportSecurityDecision(chart, version) {
+  const path = `data/production-support-decisions/${slug(chart)}/security-decision.yaml`;
+  const absolute = join(repoRoot, path);
+  if (!existsSync(absolute)) return { state: "missing", decision: "", path: "", nextAction: "" };
+  const decision = readYaml(absolute);
+  const spec = decision.spec ?? {};
+  check(decision.kind === "ProductionSecurityDecision", `${path} must be kind ProductionSecurityDecision`);
+  check(spec.chart === chart, `${path} chart mismatch`);
+  check(spec.version === version, `${path} version mismatch`);
+  return {
+    state: "recorded",
+    decision: spec.decision ?? "",
+    path,
+    nextAction:
+      "support security decision recorded; use the accepted target scope or create a hardened base for stricter environments",
+  };
+}
+
+function slug(value) {
+  return value.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "").toLowerCase();
+}
+
 function toSummary(rows) {
   const highRows = rows.filter((row) => row.scanPriority === "high");
   const routeCounts = countBy(rows, (row) => row.dispositionRoute);
@@ -182,9 +207,9 @@ ${[...routeCounts.entries()].map(([route, count]) => `| \`${route}\` | ${count} 
 
 ## High-Priority Rows
 
-| Chart | Findings | Top checks | Route | Suggested action |
-| --- | ---: | --- | --- | --- |
-${highRows.map((row) => `| \`${row.chart}@${row.version}\` | ${row.findingCount} | ${row.topChecks} | \`${row.dispositionRoute}\` | ${row.suggestedAction} |`).join("\n") || "| - | 0 | - | - | - |"}
+| Chart | Findings | Top checks | Route | Support security decision | Suggested action |
+| --- | ---: | --- | --- | --- | --- |
+${highRows.map((row) => `| \`${row.chart}@${row.version}\` | ${row.findingCount} | ${row.topChecks} | \`${row.dispositionRoute}\` | ${row.supportSecurityDecisionState || "-"} | ${row.suggestedAction} |`).join("\n") || "| - | 0 | - | - | - | - |"}
 
 ## Files
 
@@ -309,6 +334,8 @@ function toCsv(rows) {
     "dispositionRoute",
     "routeReason",
     "suggestedAction",
+    "supportSecurityDecision",
+    "supportSecurityDecisionState",
     "productionNextDisposition",
     "productionDispositionReceipt",
     "owner",
