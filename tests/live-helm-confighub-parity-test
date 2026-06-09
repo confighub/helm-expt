@@ -607,14 +607,14 @@ def cleanup_manifest_yaml(text: str) -> str:
     return render_docs_to_yaml(docs)
 
 
-def ready_status(kubeconfig: Path, context: str, namespace: str) -> dict:
+def ready_status(kubeconfig: Path, context: str, namespace: str, command_timeout: int = 20) -> dict:
     rc, workloads, workload_err = kubectl(
         ["-n", namespace, "get", "deploy,statefulset,daemonset", "--no-headers"],
         kubeconfig,
         context,
-        timeout=60,
+        timeout=command_timeout,
     )
-    rc_pods, pods, pod_err = kubectl(["-n", namespace, "get", "pods", "--no-headers"], kubeconfig, context, timeout=60)
+    rc_pods, pods, pod_err = kubectl(["-n", namespace, "get", "pods", "--no-headers"], kubeconfig, context, timeout=command_timeout)
     not_ready = []
     for line in pods.splitlines():
         fields = line.split()
@@ -642,7 +642,8 @@ def wait_ready(kubeconfig: Path, context: str, namespace: str, timeout_seconds: 
         if last["result"] == "pass":
             return last
         time.sleep(10)
-        last = ready_status(kubeconfig, context, namespace)
+        remaining = max(1, int(deadline - time.monotonic()))
+        last = ready_status(kubeconfig, context, namespace, command_timeout=min(20, remaining))
     return last
 
 
@@ -650,7 +651,12 @@ def wait_ready_many(kubeconfig: Path, context: str, namespaces: list[str], timeo
     deadline = time.monotonic() + timeout_seconds
     last = {}
     while time.monotonic() < deadline:
-        results = {namespace: ready_status(kubeconfig, context, namespace) for namespace in namespaces}
+        results = {}
+        for namespace in namespaces:
+            remaining = max(1, int(deadline - time.monotonic()))
+            if remaining <= 1:
+                break
+            results[namespace] = ready_status(kubeconfig, context, namespace, command_timeout=min(20, remaining))
         last = results
         if results and all(item.get("result") == "pass" for item in results.values()):
             break
@@ -670,6 +676,16 @@ def wait_ready_many(kubeconfig: Path, context: str, namespaces: list[str], timeo
         "pods": "\n".join(pods),
         "notReady": not_ready,
     }
+
+
+def operating_policy_watch(chart: str, base: str) -> bool:
+    return chart == "hashicorp/vault" and base == "default"
+
+
+def readiness_timeout(chart: str, base: str, default_seconds: int) -> int:
+    if operating_policy_watch(chart, base):
+        return min(default_seconds, 60)
+    return default_seconds
 
 
 def semantic_compare(
@@ -964,7 +980,7 @@ def main() -> int:
             if rest:
                 kubectl_must(["apply", "--server-side", "--force-conflicts", "-f", str(manifests_dir)], kubeconfig, context, "manifest apply", timeout=300)
         mark_stage("configHub-direct-readiness")
-        apply_runtime = wait_ready_many(kubeconfig, context, apply_runtime_namespaces, timeout_seconds=300)
+        apply_runtime = wait_ready_many(kubeconfig, context, apply_runtime_namespaces, timeout_seconds=readiness_timeout(args.chart, args.base, 300))
         apply_result = "pass" if apply_runtime["result"] == "pass" else "watch"
         leg("configHubKubectlApply",
             result=apply_result,
@@ -1078,8 +1094,9 @@ def main() -> int:
         ], kubeconfig, context, timeout=30)
 
         sync = health = revision = ""
+        max_argo_wait = readiness_timeout(args.chart, args.base, 420)
         waited = 0
-        while waited < 420:
+        while waited < max_argo_wait:
             rc, status, _ = kubectl([
                 "get", "application", child_app, "-n", "argocd",
                 "-o", "jsonpath={.status.sync.status}|{.status.health.status}|{.status.sync.revision}",
@@ -1091,7 +1108,7 @@ def main() -> int:
             time.sleep(10)
             waited += 10
         mark_stage("configHub-oci-readiness")
-        oci_runtime = wait_ready_many(kubeconfig, context, oci_runtime_namespaces, timeout_seconds=180)
+        oci_runtime = wait_ready_many(kubeconfig, context, oci_runtime_namespaces, timeout_seconds=readiness_timeout(args.chart, args.base, 180))
         oci_result = "pass" if sync == "Synced" and health == "Healthy" and oci_runtime["result"] == "pass" else "watch"
         leg("configHubOciArgo",
             result=oci_result,

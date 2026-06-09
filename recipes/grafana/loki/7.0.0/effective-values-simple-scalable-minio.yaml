@@ -7,10 +7,14 @@ spec:
     -
       path: "effective-values-simple-scalable-minio.yaml"
       source: "inline-proof"
-      sha256: "5f37d7cae2dccea5f77ecb5cf18297ef44a18e1d502da285b3e6d26017a8282e"
+      sha256: "b67bea99f0056ef16e432293be47d8e870cadb9b929d8df9a227777f6812bf28"
   mergedValuesCaptured: false
   values:
+    backend:
+      replicas: 1
     loki:
+      commonConfig:
+        replication_factor: 1
       schemaConfig:
         configs:
           -
@@ -35,3 +39,7 @@ spec:
         type: "s3"
     minio:
       enabled: true
+    read:
+      replicas: 1
+    write:
+      replicas: 1

@@ -1,25 +1,25 @@
-NAME               READY   STATUS    RESTARTS   AGE   IP            NODE                            NOMINATED NODE   READINESS GATES
-pod/postgresql-0   1/1     Running   0          34s   10.244.0.34   helm-expt-redis-control-plane   <none>           <none>
+NAME               READY   STATUS    RESTARTS   AGE   IP           NODE                            NOMINATED NODE   READINESS GATES
+pod/postgresql-0   1/1     Running   0          35s   10.244.0.6   helm-expt-redis-control-plane   <none>           <none>
 
-NAME                    TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE   SELECTOR
-service/postgresql      ClusterIP   10.96.228.40   <none>        5432/TCP   34s   app.kubernetes.io/component=primary,app.kubernetes.io/instance=postgresql,app.kubernetes.io/name=postgresql
-service/postgresql-hl   ClusterIP   None           <none>        5432/TCP   34s   app.kubernetes.io/component=primary,app.kubernetes.io/instance=postgresql,app.kubernetes.io/name=postgresql
+NAME                    TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)    AGE   SELECTOR
+service/postgresql      ClusterIP   10.96.54.22   <none>        5432/TCP   35s   app.kubernetes.io/component=primary,app.kubernetes.io/instance=postgresql,app.kubernetes.io/name=postgresql
+service/postgresql-hl   ClusterIP   None          <none>        5432/TCP   35s   app.kubernetes.io/component=primary,app.kubernetes.io/instance=postgresql,app.kubernetes.io/name=postgresql
 
 NAME                          READY   AGE   CONTAINERS   IMAGES
-statefulset.apps/postgresql   1/1     34s   postgresql   registry-1.docker.io/bitnami/postgresql:latest
+statefulset.apps/postgresql   1/1     35s   postgresql   registry-1.docker.io/bitnami/postgresql@sha256:2d3c068e58f89e0e29c6d41ffa3d00ff253e87a9426662c3ef11d2a0942ee653
 
 NAME                                      STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE   VOLUMEMODE
-persistentvolumeclaim/data-postgresql-0   Bound    pvc-552f3f10-40b9-4c0c-a67e-9b78eea6ef37   8Gi        RWO            standard       <unset>                 34s   Filesystem
+persistentvolumeclaim/data-postgresql-0   Bound    pvc-eb3381ca-360c-452b-a189-044083268366   8Gi        RWO            standard       <unset>                 35s   Filesystem
 
 NAME                                    MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
-poddisruptionbudget.policy/postgresql   N/A             1                 1                     34s
+poddisruptionbudget.policy/postgresql   N/A             1                 1                     35s
 
 NAME                         DATA   AGE
-configmap/kube-root-ca.crt   1      34s
+configmap/kube-root-ca.crt   1      35s
 
 NAME                TYPE     DATA   AGE
-secret/postgresql   Opaque   1      34s
+secret/postgresql   Opaque   1      35s
 
 NAME                        SECRETS   AGE
-serviceaccount/default      0         34s
-serviceaccount/postgresql   0         34s
+serviceaccount/default      0         35s
+serviceaccount/postgresql   0         35s

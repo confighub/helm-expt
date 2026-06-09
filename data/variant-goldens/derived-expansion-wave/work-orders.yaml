@@ -30,7 +30,7 @@ spec:
       package: "packages/bitnami/redis/25.5.3"
       sourceSpace: "helm-redis-confighub-proof"
       sourceRevision: "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml"
-      renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+      renderedObjectSetSHA256: "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
       uploadedUnitCount: 15
     -
       id: "prometheus-default"
@@ -50,7 +50,7 @@ spec:
       package: "packages/bitnami/nginx/24.0.2"
       sourceSpace: "helm-nginx-confighub-proof"
       sourceRevision: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml"
-      renderedObjectSetSHA256: "a5f890172fd1bd8cf31870607c1a7874313c5746f1020d547af3dac017db4223"
+      renderedObjectSetSHA256: "7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba"
       uploadedUnitCount: 7
     -
       id: "grafana-generated-passwords"
@@ -84,7 +84,7 @@ spec:
         base: "default"
         sourceSpace: "helm-redis-confighub-proof"
         sourceRevision: "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml"
-        renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+        renderedObjectSetSHA256: "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
         objectCount: 14
         uploadedUnitCount: 15
       create:
@@ -134,7 +134,7 @@ spec:
         base: "default"
         sourceSpace: "helm-redis-confighub-proof"
         sourceRevision: "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml"
-        renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+        renderedObjectSetSHA256: "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
         objectCount: 14
         uploadedUnitCount: 15
       create:
@@ -280,7 +280,7 @@ spec:
         base: "http-clusterip"
         sourceSpace: "helm-nginx-confighub-proof"
         sourceRevision: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml"
-        renderedObjectSetSHA256: "a5f890172fd1bd8cf31870607c1a7874313c5746f1020d547af3dac017db4223"
+        renderedObjectSetSHA256: "7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba"
         objectCount: 5
         uploadedUnitCount: 7
       create:
@@ -330,7 +330,7 @@ spec:
         base: "http-clusterip"
         sourceSpace: "helm-nginx-confighub-proof"
         sourceRevision: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml"
-        renderedObjectSetSHA256: "a5f890172fd1bd8cf31870607c1a7874313c5746f1020d547af3dac017db4223"
+        renderedObjectSetSHA256: "7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba"
         objectCount: 5
         uploadedUnitCount: 7
       create:

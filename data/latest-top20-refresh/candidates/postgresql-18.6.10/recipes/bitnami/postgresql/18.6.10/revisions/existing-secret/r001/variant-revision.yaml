@@ -5,13 +5,13 @@ metadata:
 spec:
   variant: "../../../variants/existing-secret/variant.yaml"
   revision: "r001"
-  digest: "eaf33c5847e872c0fc962d2b04f72d8e93e741dc5a91909f115a33929c2e8946"
+  digest: "405f685ceaa082317180a153831b8cd0dd68873b099120e98fe3e2d7fc07e3f9"
   digestInputs:
     recipeSHA256: "c4a420f138f07cbbb9fe81ba23eee1c02ba6458d6c49ab49984094ea79a22455"
     variantSHA256: "25c5081f3cf1415c38ea009a0063950d56c6a217f0493304f3b3c1dafe5eafb0"
-    effectiveValuesSHA256: "1c0311d8ab4d824aa33348dd196e6a3a8274af36d3526282273fc603ba0657e0"
+    effectiveValuesSHA256: "7f1bd3e4199e96dbcc71a0883872b6fc1c7509863a1cec7ff54d8add34eb9cb4"
     rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
-    renderedObjectSetSHA256: "3d24db23028b9494edd8d4f6ba1ab94bdfd6d98b2d9d33360a4d693c944b3910"
+    renderedObjectSetSHA256: "dfbd333f2a1842ca8af06c501cf0b9719fd1b121fc5ee87b78a1cd3253f9497a"
   rendered:
     releaseObjects: "rendered/release-objects.yaml"
     objectInventory: "rendered/object-inventory.yaml"

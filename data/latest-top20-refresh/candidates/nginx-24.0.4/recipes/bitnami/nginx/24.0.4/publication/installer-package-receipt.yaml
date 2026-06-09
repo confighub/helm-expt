@@ -22,23 +22,27 @@ spec:
         bytes: 99
       -
         path: "bases/existing-tls-ingress/upstream.yaml"
-        sha256: "1aba8d613af1299ba8b249ef59b2921030e52edc0df7938645a3db400043d39c"
-        bytes: 7869
+        sha256: "35c8f535452c33518088a067f035d6249750b0a67245138feaf84d728c94588f"
+        bytes: 7999
       -
         path: "bases/http-clusterip/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
         bytes: 99
       -
         path: "bases/http-clusterip/upstream.yaml"
-        sha256: "1a26fda6a69d965163592d2af5e777ee7a28ed7c9e5c057ad233c3dd00892d09"
-        bytes: 7114
+        sha256: "5c175126acf3b7abd9fce0c17791cfce7236eac8f51e9781d20814cad14b0bac"
+        bytes: 7244
+      -
+        path: "collector/target-facts.sh"
+        sha256: "76f13a064dabd88f83f012ecb19211185890f3cdeb653c50b97492c343fff21a"
+        bytes: 2063
       -
         path: "installer.yaml"
-        sha256: "685ef44c01afd6d266c07f3c65ed04920c55483f71bdb574802a3fd14b3ee1eb"
-        bytes: 491
+        sha256: "88c803b492b9aadcfa2dd6913873ef97192bd5bd611150ecebc38b2c02752174"
+        bytes: 1311
   deterministicBundle:
     command: "cub installer package data/latest-top20-refresh/candidates/nginx-24.0.4/packages/bitnami/nginx/24.0.4 -o <tmp>/nginx-24.0.4.tgz"
-    sha256: "64b24930f9789188dc33d7e6135280a9074c0cadf05ec631fae77c8244ffdb9e"
+    sha256: "5823922869c4cdb546dfc8dd76ce7a982df0e808a9afb03dbff6c2d98eb104f4"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
@@ -49,6 +53,8 @@ spec:
       cubInstallObjectCountIncludingSupport: 6
       semanticObjectMatches: "5/5"
       separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
       allowedCubOnlyObjects:
         - "v1|Namespace||nginx"
     -
@@ -59,5 +65,7 @@ spec:
       cubInstallObjectCountIncludingSupport: 7
       semanticObjectMatches: "6/6"
       separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
       allowedCubOnlyObjects:
         - "v1|Namespace||nginx"

@@ -7,8 +7,10 @@ spec:
     -
       path: "effective-values.yaml"
       source: "inline-proof"
-      sha256: "b14c97651bc609550ed34ce760f9f452d76985ee52957c490a1a72fabf37a595"
+      sha256: "40505b37779bd9ea9b7b0200c7be1a240b5c0a1f150b55e8f5c9010a3d370a41"
   mergedValuesCaptured: false
   values:
     auth:
       postgresPassword: "confighub-postgres-password"
+    image:
+      digest: "sha256:2d3c068e58f89e0e29c6d41ffa3d00ff253e87a9426662c3ef11d2a0942ee653"

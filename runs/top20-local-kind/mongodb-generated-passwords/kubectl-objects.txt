@@ -1,28 +1,28 @@
-NAME                           READY   STATUS    RESTARTS   AGE   IP            NODE                                NOMINATED NODE   READINESS GATES
-pod/mongodb-7bfc6675bb-xnvh2   1/1     Running   0          34s   10.244.0.14   helm-expt-live-tail-control-plane   <none>           <none>
+NAME                           READY   STATUS    RESTARTS   AGE   IP           NODE                            NOMINATED NODE   READINESS GATES
+pod/mongodb-67697d888d-qx7r2   1/1     Running   0          45s   10.244.0.8   helm-expt-redis-control-plane   <none>           <none>
 
 NAME              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)     AGE   SELECTOR
-service/mongodb   ClusterIP   10.96.255.237   <none>        27017/TCP   34s   app.kubernetes.io/component=mongodb,app.kubernetes.io/instance=mongodb,app.kubernetes.io/name=mongodb
+service/mongodb   ClusterIP   10.96.156.254   <none>        27017/TCP   45s   app.kubernetes.io/component=mongodb,app.kubernetes.io/instance=mongodb,app.kubernetes.io/name=mongodb
 
-NAME                      READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                                        SELECTOR
-deployment.apps/mongodb   1/1     1            1           34s   mongodb      registry-1.docker.io/bitnami/mongodb:latest   app.kubernetes.io/component=mongodb,app.kubernetes.io/instance=mongodb,app.kubernetes.io/name=mongodb
+NAME                      READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                                                                                                         SELECTOR
+deployment.apps/mongodb   1/1     1            1           45s   mongodb      registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e   app.kubernetes.io/component=mongodb,app.kubernetes.io/instance=mongodb,app.kubernetes.io/name=mongodb
 
-NAME                                 DESIRED   CURRENT   READY   AGE   CONTAINERS   IMAGES                                        SELECTOR
-replicaset.apps/mongodb-7bfc6675bb   1         1         1       34s   mongodb      registry-1.docker.io/bitnami/mongodb:latest   app.kubernetes.io/component=mongodb,app.kubernetes.io/instance=mongodb,app.kubernetes.io/name=mongodb,pod-template-hash=7bfc6675bb
+NAME                                 DESIRED   CURRENT   READY   AGE   CONTAINERS   IMAGES                                                                                                         SELECTOR
+replicaset.apps/mongodb-67697d888d   1         1         1       45s   mongodb      registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e   app.kubernetes.io/component=mongodb,app.kubernetes.io/instance=mongodb,app.kubernetes.io/name=mongodb,pod-template-hash=67697d888d
 
 NAME                            STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE   VOLUMEMODE
-persistentvolumeclaim/mongodb   Bound    pvc-01063420-102a-4070-9f25-cc1f98f63819   8Gi        RWO            standard       <unset>                 34s   Filesystem
+persistentvolumeclaim/mongodb   Bound    pvc-edd2ebf0-bf27-4b67-a8ae-2cad2a13f105   8Gi        RWO            standard       <unset>                 45s   Filesystem
 
 NAME                                 MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
-poddisruptionbudget.policy/mongodb   N/A             1                 1                     34s
+poddisruptionbudget.policy/mongodb   N/A             1                 1                     45s
 
 NAME                               DATA   AGE
-configmap/kube-root-ca.crt         1      34s
-configmap/mongodb-common-scripts   3      34s
+configmap/kube-root-ca.crt         1      45s
+configmap/mongodb-common-scripts   3      45s
 
 NAME             TYPE     DATA   AGE
-secret/mongodb   Opaque   1      34s
+secret/mongodb   Opaque   1      45s
 
 NAME                     SECRETS   AGE
-serviceaccount/default   0         34s
-serviceaccount/mongodb   1         34s
+serviceaccount/default   0         45s
+serviceaccount/mongodb   1         45s

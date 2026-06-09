@@ -1,64 +1,4 @@
 ---
-# Source: loki/templates/backend/poddisruptionbudget-backend.yaml
-apiVersion: policy/v1
-kind: PodDisruptionBudget
-metadata:
-  name: loki-backend
-  namespace: loki
-  labels:
-    helm.sh/chart: loki-7.0.0
-    app.kubernetes.io/name: loki
-    app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.7"
-    app.kubernetes.io/component: backend
-spec:
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: loki
-      app.kubernetes.io/instance: loki
-      app.kubernetes.io/component: backend
-  maxUnavailable: 1
----
-# Source: loki/templates/read/poddisruptionbudget-read.yaml
-apiVersion: policy/v1
-kind: PodDisruptionBudget
-metadata:
-  name: loki-read
-  namespace: loki
-  labels:
-    helm.sh/chart: loki-7.0.0
-    app.kubernetes.io/name: loki
-    app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.7"
-    app.kubernetes.io/component: read
-spec:
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: loki
-      app.kubernetes.io/instance: loki
-      app.kubernetes.io/component: read
-  maxUnavailable: 1
----
-# Source: loki/templates/write/poddisruptionbudget-write.yaml
-apiVersion: policy/v1
-kind: PodDisruptionBudget
-metadata:
-  name: loki-write
-  namespace: loki
-  labels:
-    helm.sh/chart: loki-7.0.0
-    app.kubernetes.io/name: loki
-    app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.7"
-    app.kubernetes.io/component: write
-spec:
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: loki
-      app.kubernetes.io/instance: loki
-      app.kubernetes.io/component: write
-  maxUnavailable: 1
----
 # Source: loki/charts/minio/templates/serviceaccount.yaml
 apiVersion: v1
 kind: ServiceAccount
@@ -551,7 +491,7 @@ data:
     common:
       compactor_grpc_address: 'loki-backend.loki.svc.cluster.local:9095'
       path_prefix: /var/loki
-      replication_factor: 3
+      replication_factor: 1
       storage:
         s3:
           access_key_id: root-user
@@ -1481,7 +1421,7 @@ metadata:
     app.kubernetes.io/version: "3.6.7"
     app.kubernetes.io/component: read
 spec:
-  replicas: 3
+  replicas: 1
   strategy:
     rollingUpdate:
       maxSurge: 0
@@ -1495,7 +1435,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: f07a6d3ffc1873fa4b027b7a15eca5f9b0a1ed6285937745b5dba48557171f72
+        checksum/config: 4eef0afb58cecadace9be7d3d45e81fe45e43a6eb6c767089b8e22b155889b47
       labels:
         app.kubernetes.io/part-of: memberlist
         app.kubernetes.io/name: loki
@@ -1693,7 +1633,7 @@ metadata:
     app.kubernetes.io/component: backend
     app.kubernetes.io/part-of: memberlist
 spec:
-  replicas: 3
+  replicas: 1
   podManagementPolicy: Parallel
   updateStrategy:
     rollingUpdate:
@@ -1712,7 +1652,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: f07a6d3ffc1873fa4b027b7a15eca5f9b0a1ed6285937745b5dba48557171f72
+        checksum/config: 4eef0afb58cecadace9be7d3d45e81fe45e43a6eb6c767089b8e22b155889b47
         kubectl.kubernetes.io/default-container: "loki"
       labels:
         helm.sh/chart: loki-7.0.0
@@ -2116,7 +2056,7 @@ metadata:
     app.kubernetes.io/component: write
     app.kubernetes.io/part-of: memberlist
 spec:
-  replicas: 3
+  replicas: 1
   podManagementPolicy: Parallel
   updateStrategy:
     rollingUpdate:
@@ -2131,7 +2071,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: f07a6d3ffc1873fa4b027b7a15eca5f9b0a1ed6285937745b5dba48557171f72
+        checksum/config: 4eef0afb58cecadace9be7d3d45e81fe45e43a6eb6c767089b8e22b155889b47
       labels:
         helm.sh/chart: loki-7.0.0
         app.kubernetes.io/name: loki

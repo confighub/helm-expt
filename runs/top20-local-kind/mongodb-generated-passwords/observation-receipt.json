@@ -6,7 +6,7 @@
   },
   "spec": {
     "variantRevision": "recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/variant-revision.yaml",
-    "renderedObjectSetSHA256": "187a27077a6c1924669172528109b878e4d9c7759689a2f52826be8dfbc30f1e",
+    "renderedObjectSetSHA256": "ce99d9a7867d5cb7ea0f0f983d092600ec1bb24ce50e969d1032bdbf937e8fdf",
     "observer": {
       "name": "top20-local-e2e",
       "version": "0.2.0",
@@ -14,11 +14,11 @@
     },
     "target": {
       "kind": "kind",
-      "name": "helm-expt-live-tail",
-      "context": "kind-helm-expt-live-tail",
+      "name": "helm-expt-redis",
+      "context": "kind-helm-expt-redis",
       "namespace": "mongodb"
     },
-    "observedAt": "2026-05-28T08:27:51.408Z",
+    "observedAt": "2026-06-09T12:04:59.465Z",
     "freshnessTTL": "1h",
     "result": "pass",
     "chart": "bitnami/mongodb",
@@ -43,7 +43,7 @@
     ],
     "kubectlObjects": {
       "path": "kubectl-objects.txt",
-      "sha256": "6046e1ac5dbcae0663e060ec13a8c1e6066fdc0545c8ffe473de4e7c9ace76ad"
+      "sha256": "223000c6321b2c386617f812b75f0f16dffdf42162540a9ad3dae8de9bd5ab0d"
     }
   }
 }

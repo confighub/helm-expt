@@ -4,7 +4,7 @@ metadata:
   name: "redis-prod-us-east-checks"
 spec:
   sourceRevision: "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml"
-  contractDigest: "sha256:d82f2c1f80350f275dbe6da049d015f4c89d97ee7aa488438af1415b71b8bf93"
+  contractDigest: "sha256:470313c4441067634b2d605b962b70dceb4c2e83ec1a6a53539e1415e39ac49f"
   checks:
     -
       name: "source-revision-bound"
@@ -13,7 +13,7 @@ spec:
     -
       name: "no-hidden-helm-rerender"
       result: "pass"
-      evidence: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+      evidence: "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
     -
       name: "unit-count-preserved"
       result: "pass"

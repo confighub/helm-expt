@@ -5,13 +5,13 @@ metadata:
 spec:
   variantRevision: "../variant-revision.yaml"
   regularHelm:
-    renderedSHA256: "8c4176621cdd67670d41b1689de1bcaa74854e40fb8170070606f794d0fc36ab"
-    objectCount: 36
+    renderedSHA256: "91787d0999a776a5b32de6fa06264eb4ba43bc520a66f82234a07cdf94c2f207"
+    objectCount: 33
   cubInstall:
-    objectCountIncludingSecretsAndSupportObjects: 37
-    uploadedManifestFiles: 37
+    objectCountIncludingSecretsAndSupportObjects: 34
+    uploadedManifestFiles: 34
     separatedSecretFiles: 1
-    semanticObjectMatches: "36/36"
+    semanticObjectMatches: "33/33"
   semanticNormalizations:
     - "prune-null-fields"
     - "loki-configmap-leading-blank-line-pruned-by-kustomize"

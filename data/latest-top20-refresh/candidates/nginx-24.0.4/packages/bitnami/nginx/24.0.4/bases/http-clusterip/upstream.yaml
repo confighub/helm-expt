@@ -144,7 +144,7 @@ spec:
         sysctls: []
       initContainers:
         - name: preserve-logs-symlinks
-          image: registry-1.docker.io/bitnami/nginx:latest
+          image: registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f
           imagePullPolicy: "IfNotPresent"
           securityContext:
             allowPrivilegeEscalation: false
@@ -187,7 +187,7 @@ spec:
               mountPath: /emptydir
       containers:
         - name: nginx
-          image: registry-1.docker.io/bitnami/nginx:latest
+          image: registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f
           imagePullPolicy: "IfNotPresent"
           securityContext:
             allowPrivilegeEscalation: false

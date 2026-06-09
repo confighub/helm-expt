@@ -4,8 +4,8 @@ metadata:
   name: "grafana-loki-7.0.0-simple-scalable-minio-r001"
 spec:
   source: "rendered/release-objects.yaml"
-  sourceSHA256: "8c4176621cdd67670d41b1689de1bcaa74854e40fb8170070606f794d0fc36ab"
-  objectCount: 36
+  sourceSHA256: "91787d0999a776a5b32de6fa06264eb4ba43bc520a66f82234a07cdf94c2f207"
+  objectCount: 33
   objects:
     -
       apiVersion: "apps/v1"
@@ -55,24 +55,6 @@ spec:
       kind: "StatefulSet"
       name: "loki-minio"
       namespace: ""
-    -
-      apiVersion: "policy/v1"
-      identity: "policy/v1|PodDisruptionBudget|loki|loki-backend"
-      kind: "PodDisruptionBudget"
-      name: "loki-backend"
-      namespace: "loki"
-    -
-      apiVersion: "policy/v1"
-      identity: "policy/v1|PodDisruptionBudget|loki|loki-read"
-      kind: "PodDisruptionBudget"
-      name: "loki-read"
-      namespace: "loki"
-    -
-      apiVersion: "policy/v1"
-      identity: "policy/v1|PodDisruptionBudget|loki|loki-write"
-      kind: "PodDisruptionBudget"
-      name: "loki-write"
-      namespace: "loki"
     -
       apiVersion: "rbac.authorization.k8s.io/v1"
       identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||loki-clusterrolebinding"

@@ -11,7 +11,7 @@ production support decision contract and the chart's support decision queue.
 ## Summary
 
 ~~~text
-start-here bases: 11
+start-here bases: 14
 top-20 base variants: 40
 production-supported charts: 0
 ~~~
@@ -20,6 +20,7 @@ production-supported charts: 0
 
 | Chart | Base | Command | Before production |
 | --- | --- | --- | --- |
+| `argo-cd/argo-cd@9.5.15` | default | `cub installer setup --pull packages/argo-cd/argo-cd/9.5.15 --base default --work-dir <tmp> --non-interactive --namespace argocd` | check production decision for argo-cd/argo-cd |
 | `bitnami/mongodb@19.0.7` | generated-passwords | `cub installer setup --pull packages/bitnami/mongodb/19.0.7 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mongodb` | check production decision for bitnami/mongodb |
 | `bitnami/mysql@14.0.3` | generated-passwords | `cub installer setup --pull packages/bitnami/mysql/14.0.3 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mysql` | check production decision for bitnami/mysql |
 | `bitnami/nginx@24.0.2` | http-clusterip | `cub installer setup --pull packages/bitnami/nginx/24.0.2 --base http-clusterip --work-dir <tmp> --non-interactive --namespace nginx` | check production decision for bitnami/nginx |
@@ -28,8 +29,10 @@ production-supported charts: 0
 | `external-secrets/external-secrets@2.5.0` | default | `cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base default --work-dir <tmp> --non-interactive --namespace external-secrets` | check production decision for external-secrets/external-secrets |
 | `grafana/grafana@10.5.15` | generated-passwords | `cub installer setup --pull packages/grafana/grafana/10.5.15 --base generated-passwords --work-dir <tmp> --non-interactive --namespace grafana` | check production decision for grafana/grafana |
 | `grafana/loki@7.0.0` | single-binary-filesystem | `cub installer setup --pull packages/grafana/loki/7.0.0 --base single-binary-filesystem --work-dir <tmp> --non-interactive --namespace loki` | check production decision for grafana/loki |
+| `grafana/tempo@1.24.4` | local-persistent | `cub installer setup --pull packages/grafana/tempo/1.24.4 --base local-persistent --work-dir <tmp> --non-interactive --namespace tempo` | check production decision for grafana/tempo |
 | `hashicorp/consul@2.0.0` | default-control-plane | `cub installer setup --pull packages/hashicorp/consul/2.0.0 --base default-control-plane --work-dir <tmp> --non-interactive --namespace consul` | check production decision for hashicorp/consul |
 | `longhorn/longhorn@1.11.2` | default | `cub installer setup --pull packages/longhorn/longhorn/1.11.2 --base default --work-dir <tmp> --non-interactive --namespace longhorn-system` | check production decision for longhorn/longhorn |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | default | `cub installer setup --pull packages/prometheus-community/kube-prometheus-stack/85.3.3 --base default --work-dir <tmp> --non-interactive --namespace monitoring` | check production decision for prometheus-community/kube-prometheus-stack |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | `cub installer setup --pull packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system` | check production decision for secrets-store-csi-driver/secrets-store-csi-driver |
 
 ## After Setup

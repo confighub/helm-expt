@@ -8,7 +8,7 @@ spec:
   sourceBase: "Redis/default"
   downstreamVariant: "Redis/prod-us-east"
   noHelmRerender: true
-  preservedRenderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+  preservedRenderedObjectSetSHA256: "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
   allowedMutationPaths:
     - "Space.Labels.Variant"
     - "Space.Labels.Environment"

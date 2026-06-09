@@ -33,12 +33,16 @@ spec:
         sha256: "671c6f820a2cc2b381d056f112ad1750b36d08b01e9e1ff5bc503cfa81a56e87"
         bytes: 649682
       -
+        path: "collector/target-facts.sh"
+        sha256: "3fd9d96022a5103d3115a11e40d98572c5d268c53acab0eaaa03d41ffc844991"
+        bytes: 5749
+      -
         path: "installer.yaml"
-        sha256: "fcfa6c4568a6678177924af11b2608bd49775578e756441f3d5f5f6b35e0c826"
-        bytes: 574
+        sha256: "cc902fbc15914c45bd907775d2dc9273d9f45f7362c2a0eef3be45c04b9a76d2"
+        bytes: 3111
   deterministicBundle:
     command: "cub installer package data/latest-top20-refresh/candidates/kube-prometheus-stack-86.1.0/packages/prometheus-community/kube-prometheus-stack/86.1.0 -o <tmp>/kube-prometheus-stack-86.1.0.tgz"
-    sha256: "956421dc84f086ebe04092a98fbad6078729eb00ef596d82c942853870c66d80"
+    sha256: "ddd45b41e0b71d8821ddb9fcf881cbbde09bb1964cca6126a9e9fdc09270bd28"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
@@ -49,6 +53,8 @@ spec:
       cubInstallObjectCountIncludingSupport: 125
       semanticObjectMatches: "124/124"
       separatedSecretCount: 2
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
       allowedCubOnlyObjects:
         - "v1|Namespace||monitoring"
     -
@@ -59,5 +65,7 @@ spec:
       cubInstallObjectCountIncludingSupport: 115
       semanticObjectMatches: "114/114"
       separatedSecretCount: 2
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
       allowedCubOnlyObjects:
         - "v1|Namespace||monitoring"

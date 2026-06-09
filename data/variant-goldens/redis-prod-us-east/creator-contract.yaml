@@ -13,7 +13,7 @@ spec:
     base: "default"
     sourceVariant: "recipes/bitnami/redis/25.5.3/variants/default/variant.yaml"
     sourceRevision: "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml"
-    renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+    renderedObjectSetSHA256: "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
     objectCount: 14
     cubInstallerObjectCountIncludingSupport: 15
   target:
@@ -71,11 +71,11 @@ spec:
       []
     note: "The default base includes a Redis Secret in Helm output and separates it during cub installer handling. A request to use redis-existing-secret must start from the reuse-existing-secret base or go back through cub installer."
   proof:
-    contractDigest: "sha256:d82f2c1f80350f275dbe6da049d015f4c89d97ee7aa488438af1415b71b8bf93"
+    contractDigest: "sha256:470313c4441067634b2d605b962b70dceb4c2e83ec1a6a53539e1415e39ac49f"
     sourceFiles:
       recipe: "recipes/bitnami/redis/25.5.3/recipe.yaml"
       package: "packages/bitnami/redis/25.5.3"
       variant: "recipes/bitnami/redis/25.5.3/variants/default/variant.yaml"
       variantRevision: "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml"
-      renderedObjectSetSHA256: "362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d"
+      renderedObjectSetSHA256: "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
       confighubProofSHA256: "a32b7d9931a6f4fed2ad7037dee37957a5a281506ebe45d3e670662956cc7dac"

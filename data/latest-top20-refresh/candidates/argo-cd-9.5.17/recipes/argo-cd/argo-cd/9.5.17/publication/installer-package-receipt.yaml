@@ -33,12 +33,16 @@ spec:
         sha256: "58d54d31b7e52f80c4a352f48a8828fc62fc31b8e2c8aea497f756ae5ce0f9ec"
         bytes: 104729
       -
+        path: "collector/target-facts.sh"
+        sha256: "ba16581b44f06841b9abe7f402984168f8284eb3cb40621d7f1c3a45fbd0dd06"
+        bytes: 3224
+      -
         path: "installer.yaml"
-        sha256: "e3ff620bc36d906a905d2ae3e3a8d815189b614916fe2b6787c4c3d23460a7ad"
-        bytes: 436
+        sha256: "46398314b3ae351d394beb8d31b812bbf90884ad897d9d20e0a9d73289bd0090"
+        bytes: 1607
   deterministicBundle:
     command: "cub installer package data/latest-top20-refresh/candidates/argo-cd-9.5.17/packages/argo-cd/argo-cd/9.5.17 -o <tmp>/argo-cd-9.5.17.tgz"
-    sha256: "43d4c0358401ae988df327423af203928c038caafc2e4ddb68bd25452bbe0628"
+    sha256: "eca9dcd033ec16724f251c98acb69182cdbd5af02cb5a081ee117d917c1e5e2d"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
@@ -49,6 +53,8 @@ spec:
       cubInstallObjectCountIncludingSupport: 50
       semanticObjectMatches: "49/49"
       separatedSecretCount: 2
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
       allowedCubOnlyObjects:
         - "v1|Namespace||argocd"
     -
@@ -59,5 +65,7 @@ spec:
       cubInstallObjectCountIncludingSupport: 47
       semanticObjectMatches: "46/46"
       separatedSecretCount: 2
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
       allowedCubOnlyObjects:
         - "v1|Namespace||argocd"

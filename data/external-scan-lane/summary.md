@@ -22,7 +22,7 @@ variant rendered object sets scanned: 40
 pass: 0
 warn: 40
 fail: 0
-total findings: 310
+total findings: 307
 ```
 
 ## Most Common Findings
@@ -33,7 +33,7 @@ total findings: 310
 | `unset-cpu-requirements` | 85 |
 | `no-read-only-root-fs` | 40 |
 | `dangling-service` | 20 |
-| `pdb-unhealthy-pod-eviction-policy` | 19 |
+| `pdb-unhealthy-pod-eviction-policy` | 16 |
 | `run-as-non-root` | 16 |
 | `sensitive-host-mounts` | 9 |
 | `liveness-port` | 6 |

@@ -6,7 +6,7 @@
   },
   "spec": {
     "variantRevision": "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml",
-    "renderedObjectSetSHA256": "a5f890172fd1bd8cf31870607c1a7874313c5746f1020d547af3dac017db4223",
+    "renderedObjectSetSHA256": "7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba",
     "observer": {
       "name": "top20-local-e2e",
       "version": "0.2.0",
@@ -14,11 +14,11 @@
     },
     "target": {
       "kind": "kind",
-      "name": "helm-expt-live-tail",
-      "context": "kind-helm-expt-live-tail",
+      "name": "helm-expt-redis",
+      "context": "kind-helm-expt-redis",
       "namespace": "nginx"
     },
-    "observedAt": "2026-05-28T08:28:07.106Z",
+    "observedAt": "2026-06-09T12:05:20.310Z",
     "freshnessTTL": "1h",
     "result": "pass",
     "chart": "bitnami/nginx",
@@ -43,7 +43,7 @@
     ],
     "kubectlObjects": {
       "path": "kubectl-objects.txt",
-      "sha256": "e3e1116dafb912d85d938405ea6fb52c28f7bfdc248c99d5bd71091ecbc56ad5"
+      "sha256": "57f47b56d79ad971d1e8cd145a733b7ba5c2492b69532799107cf413612323a0"
     }
   }
 }

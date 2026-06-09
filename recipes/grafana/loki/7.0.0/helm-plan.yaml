@@ -12,13 +12,13 @@ spec:
       - "simple-scalable-minio"
     helmObjectsByVariant:
       single-binary-filesystem: 19
-      simple-scalable-minio: 36
+      simple-scalable-minio: 33
     cubInstallObjectsByVariant:
       single-binary-filesystem: 20
-      simple-scalable-minio: 37
+      simple-scalable-minio: 34
     helmMatchByVariant:
       single-binary-filesystem: "19/19"
-      simple-scalable-minio: "36/36"
+      simple-scalable-minio: "33/33"
     scanGate: "warn-production-blocked"
     defaultRender: "blocked-with-recorded-mitigation"
     nextAction: "publish only after storage/schema policy, dependency lock review, StatefulSet/PVC policy, object-store Secret ownership, lifecycle policy, and extension-slot review are satisfied"

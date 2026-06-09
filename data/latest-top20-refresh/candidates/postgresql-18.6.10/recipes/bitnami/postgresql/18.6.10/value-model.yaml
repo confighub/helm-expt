@@ -20,6 +20,11 @@ spec:
       disposition: "target-secret-key"
       reason: "documents the expected key in the target Secret"
     -
+      path: "image.digest"
+      variant: "all"
+      disposition: "pinned-image"
+      reason: "supported bases pin the Bitnami PostgreSQL image by digest instead of rendering the chart default latest tag"
+    -
       path: "primary.persistence.enabled"
       variant: "all"
       disposition: "stateful-storage-enabled"

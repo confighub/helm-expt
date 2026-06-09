@@ -13,7 +13,7 @@ spec:
   findingCounts:
     critical: 0
     high: 1
-    medium: 12
+    medium: 18
     low: 0
     info: 0
   findings:
@@ -22,6 +22,18 @@ spec:
       rule: "cluster-rbac-review"
       severity: "medium"
       object: "rbac.authorization.k8s.io/v1|ClusterRole||argo-cd-argocd-application-controller"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||argo-cd-argocd-application-controller"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||argo-cd-argocd-application-controller"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||argo-cd-argocd-notifications-controller"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||argo-cd-argocd-notifications-controller"
       message: "Cluster-scoped RBAC requires production review"
     -
       id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||argo-cd-argocd-notifications-controller"
@@ -36,6 +48,18 @@ spec:
       object: "rbac.authorization.k8s.io/v1|ClusterRole||argo-cd-argocd-server"
       message: "Cluster-scoped RBAC requires production review"
     -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||argo-cd-argocd-server"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||argo-cd-argocd-server"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||argo-cd-argocd-application-controller"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||argo-cd-argocd-application-controller"
+      message: "Cluster-scoped RBAC requires production review"
+    -
       id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||argo-cd-argocd-application-controller"
       rule: "cluster-rbac-review"
       severity: "medium"
@@ -46,6 +70,18 @@ spec:
       rule: "cluster-rbac-review"
       severity: "medium"
       object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||argo-cd-argocd-notifications-controller"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||argo-cd-argocd-notifications-controller"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||argo-cd-argocd-notifications-controller"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||argo-cd-argocd-server"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||argo-cd-argocd-server"
       message: "Cluster-scoped RBAC requires production review"
     -
       id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||argo-cd-argocd-server"

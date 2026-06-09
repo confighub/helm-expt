@@ -4,7 +4,7 @@ metadata:
   name: "bitnami-mongodb-19.0.9-generated-passwords-r001"
 spec:
   source: "rendered/release-objects.yaml"
-  sourceSHA256: "9443f0dd0c22478095a085ec0bd53146b17084f81fd75e753f2f2ec2a8d9e59b"
+  sourceSHA256: "4c5f0cd0bc6bffd0ff46b15cdb23ce44dba155120b6be46952d7da70ade25a68"
   objectCount: 8
   objects:
     -
