@@ -15,8 +15,8 @@ or runtime review.
 
 ~~~text
 base variants: 41
-start-here: 18
-try-with-proof: 15
+start-here: 19
+try-with-proof: 14
 runtime-watch: 1
 runtime-review-needed: 5
 target-prerequisite-needed: 1
@@ -61,7 +61,7 @@ rerun-now-after-cleanup: 0
 | `bitnami/mysql@14.0.3` | existing-secret | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `bitnami/nginx@24.0.2` | http-clusterip | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
 | `bitnami/nginx@24.0.2` | existing-tls-ingress | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
-| `bitnami/postgresql@18.6.7` | generated-passwords | yes | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
+| `bitnami/postgresql@18.6.7` | generated-passwords | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
 | `bitnami/postgresql@18.6.7` | existing-secret | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
 | `bitnami/rabbitmq@16.0.14` | existing-secret | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
