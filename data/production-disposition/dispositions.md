@@ -69,7 +69,7 @@ runtime fit, and final support scope.
 
 | Chart | First base | Base readiness | Decision focus | Image subjects needing resolution | Next action |
 | --- | --- | --- | --- | ---: | --- |
-| `argo-cd/argo-cd@9.5.15` | default | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
+| `argo-cd/argo-cd@9.5.15` | default | start-here | image-digest-resolution | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | `bitnami/mongodb@19.0.7` | generated-passwords | start-here | lifecycle-support-scope | 0 | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
 | `bitnami/mysql@14.0.3` | generated-passwords | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
 | `bitnami/nginx@24.0.2` | http-clusterip | start-here | final-target-support-decision | 0 | choose the supported production base and target scope, refresh live/e2e evidence, and record the final support decision |

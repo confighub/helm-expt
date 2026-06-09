@@ -11,52 +11,59 @@ support decision. It does not replace the source decision artifact:
 | --- | --- |
 | Chart | `argo-cd/argo-cd@9.5.15` |
 | Candidate base | `default` |
-| Decision state | `draft` |
-| Target scope | vanilla-kubernetes; namespace=argo-cd; delivery=confighub-oci; controller=argo-or-flux |
+| Decision state | `supported` |
+| Target scope | cub-lk-kind-vanilla; namespace=argocd; delivery=confighub-oci; controller=argo |
 | Delivery path | `confighub-oci` |
 
 ## Open Work
 
 | Work | Action |
 | --- | --- |
-| Image digest | Pin rendered image references by digest or record an explicit mutable-image exception. |
-| Scan scope | Record which scanner findings are accepted, fixed, or outside this target scope. |
-| Fresh evidence | Refresh ConfigHub OCI/GitOps and live/e2e evidence after earlier decisions are closed. |
+| Keep fresh | Keep target-scoped evidence fresh before using this supported scope as an example. |
 
 
 ## Closeout Sequence
 
-1. Choose the final target scope, GitOps controller, namespace, and artifact digest.
-2. Pin rendered image references by digest or record an explicit mutable-image exception.
-3. Decide which scanner findings are accepted, fixed, hardened, or outside this target scope.
-4. Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence after the earlier decisions are closed.
+1. Keep the target-scoped evidence fresh for the declared support boundary.
 
 ## Required Before Final Support
 
-- Choose the final target scope, exact GitOps controller, namespace, and artifact digest.
-- Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope.
-- resolve image digests or record explicit exception before production OCI support
+- None.
+
 
 ## Support Boundary
 
 Included:
 
 - argo-cd/argo-cd@9.5.15 default base
-- ConfigHub OCI delivery for the declared target scope after fresh target evidence is recorded
-- rendered objects, labels, gates, receipts, and support objects produced by the recorded base
+- ConfigHub OCI delivery through an existing Argo CD controller for the declared cub-lk vanilla kind target scope
+- rendered Argo CD CRDs, controller workloads, services, labels, gates, receipts, and support objects produced by the recorded base
+- declared target-fact preflight for the argocd/argocd-redis auth Secret
+- separated generated operational Secrets staged outside ConfigHub Units for the recorded proof scope
+- recorded mutable-image exception for the declared public GitOps-controller support scope
+- recorded resource-policy acceptance for the declared public GitOps-controller support scope
 
 Excluded:
 
 - private values overlays, wrapper charts, and populated extension slots unless separately reviewed
+- the no-crds target-prerequisite posture unless separately reviewed for a specific target
+- zero-to-Argo self-bootstrap; this support scope assumes an existing Argo CD OCI controller reconciles the ConfigHub artifact
+- repository credentials, admin credential rotation, SSO, RBAC policy, app state backup/restore, and self-management
+- digest-pinned, resource-hardened, or customer production bases unless separately reviewed
 - non-vanilla Kubernetes distributions unless separately reviewed
 - other delivery controllers or target scopes unless separately reviewed
 
 ## Evidence
 
-- [recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](../../../recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/receipts/helm-equivalence-receipt.yaml) - The candidate base is Helm-equivalent under recorded inputs.
-- [recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/receipts/scan-receipt.yaml](../../../recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/receipts/scan-receipt.yaml) - The rendered-object scan receipt exists for the candidate base.
-- [runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml](../../../runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml) - The two-cluster Helm-vs-installer parity receipt exists for the candidate base.
-- [runs/live-helm-confighub-compare/argo-cd-argo-cd-default/receipt.yaml](../../../runs/live-helm-confighub-compare/argo-cd-argo-cd-default/receipt.yaml) - The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base.
+- [recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](../../../recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/receipts/helm-equivalence-receipt.yaml) - The supported base is Helm-equivalent under recorded inputs.
+- [recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/receipts/scan-receipt.yaml](../../../recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/receipts/scan-receipt.yaml) - The rendered-object scan receipt exists for the supported base.
+- [runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml](../../../runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml) - The two-cluster Helm-vs-installer parity receipt exists for the supported base.
+- [runs/live-helm-confighub-compare/argo-cd-argo-cd-default/receipt.yaml](../../../runs/live-helm-confighub-compare/argo-cd-argo-cd-default/receipt.yaml) - The selected live Helm-vs-ConfigHub comparison receipt exists for the supported base.
+- [data/production-support-decisions/argo-cd-argo-cd/fresh-target-evidence-2026-06-09.yaml](../../../data/production-support-decisions/argo-cd-argo-cd/fresh-target-evidence-2026-06-09.yaml) - Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared cub-lk vanilla kind support scope.
+- [data/image-digest-workdown/receipts/argo-cd-argo-cd/default/image-digest-resolution.yaml](../../../data/image-digest-workdown/receipts/argo-cd-argo-cd/default/image-digest-resolution.yaml) - The rendered mutable image references for the supported base have registry digest-resolution evidence.
+- [data/production-support-decisions/argo-cd-argo-cd/image-policy-decision.yaml](../../../data/production-support-decisions/argo-cd-argo-cd/image-policy-decision.yaml) - The target-scoped image policy decision accepts mutable rendered tags for this public GitOps-controller support scope with explicit limits.
+- [data/production-support-decisions/argo-cd-argo-cd/security-decision.yaml](../../../data/production-support-decisions/argo-cd-argo-cd/security-decision.yaml) - The target-scoped security decision accepts missing resource requests/limits only for this public cub-lk proof scope.
+- [data/production-support-decisions/argo-cd-argo-cd/lifecycle-decision.yaml](../../../data/production-support-decisions/argo-cd-argo-cd/lifecycle-decision.yaml) - The target-scoped lifecycle decision binds CRD ownership, target facts, separated Secrets, and OCI/Argo runtime health to proof-scope observation evidence.
 - [data/production-disposition/receipts/argo-cd-argo-cd/cluster-rbac-review.yaml](../../../data/production-disposition/receipts/argo-cd-argo-cd/cluster-rbac-review.yaml) - The cluster rbac review disposition exists for this chart.
 - [data/production-disposition/receipts/argo-cd-argo-cd/crd-lifecycle-and-upgrade-policy.yaml](../../../data/production-disposition/receipts/argo-cd-argo-cd/crd-lifecycle-and-upgrade-policy.yaml) - The crd lifecycle and upgrade policy disposition exists for this chart.
 - [data/production-disposition/receipts/argo-cd-argo-cd/extension-slot-provenance-and-scan-policy.yaml](../../../data/production-disposition/receipts/argo-cd-argo-cd/extension-slot-provenance-and-scan-policy.yaml) - The extension slot provenance and scan policy disposition exists for this chart.
@@ -67,7 +74,7 @@ Excluded:
 
 ## Next Action
 
-resolve image digests for each affected variant before production OCI support
+Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate hardened, self-managed, repository-credential, SSO, or backup/restore bases for real customer GitOps control planes.
 
 Regenerate:
 

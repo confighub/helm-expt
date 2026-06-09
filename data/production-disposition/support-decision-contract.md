@@ -51,7 +51,7 @@ with the same remaining production-support decision.
 | `bitnami/postgresql@18.6.7` | generated-passwords | try-with-proof | lifecycle-support-scope-decision | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
 | `bitnami/redis@25.5.3` | default | start-here | lifecycle-support-scope-decision | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
 | `bitnami/nginx@24.0.2` | http-clusterip | start-here | ready-for-final-scope-decision | choose the supported production base and target scope, refresh live/e2e evidence, and record the final support decision |
-| `argo-cd/argo-cd@9.5.15` | default | start-here | resolve-images-before-production-oci | resolve image digests for each affected variant before production OCI support |
+| `argo-cd/argo-cd@9.5.15` | default | start-here | resolve-images-before-production-oci | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | `bitnami/mysql@14.0.3` | generated-passwords | start-here | resolve-images-before-production-oci | resolve image digests for each affected variant before production OCI support |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords | start-here | resolve-images-before-production-oci | resolve image digests for each affected variant before production OCI support |
 | `external-secrets/external-secrets@2.5.0` | default | start-here | resolve-images-before-production-oci | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |

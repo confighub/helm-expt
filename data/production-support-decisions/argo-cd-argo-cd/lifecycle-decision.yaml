@@ -1,0 +1,107 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionLifecycleDecision"
+metadata:
+  name: "argo-cd-argo-cd-public-oci-lifecycle-decision"
+spec:
+  chart: "argo-cd/argo-cd"
+  version: "9.5.15"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "argocd"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "default"
+  variantsCovered:
+    - "default"
+    - "no-crds"
+  decision: "lifecycle-observed-for-proof-scope"
+  decidedAt: "2026-06-09"
+  claim: "The default Argo CD base has no Helm hook execution requirement in the supported proof scope. The base owns the Argo CD CRDs, stages the target-owned Redis auth Secret, separates generated operational Secrets from ConfigHub Units, and reaches workload health through regular Helm, cub installer apply, and ConfigHub OCI/Argo."
+  lifecycleModel:
+    crdPolicy: "crds-rendered-by-base-variant"
+    hookPolicy: "no-chart-hooks"
+    targetFacts:
+      - "argocd/argocd-redis key auth"
+    separatedSecrets:
+      - "argocd-secret"
+      - "argocd-notifications-secret"
+  observedLifecycleSignals:
+    localKindObservation:
+      result: "pass"
+      observedAt: "2026-05-28T08:14:04.409Z"
+      supportSecret:
+        name: "support-secret-argocd-redis"
+        result: "pass"
+        reason: "Argo CD built-in Redis expects the hard-coded argocd-redis Secret when hooks are excluded"
+        evidencePath: "support-secret-argocd-redis.txt"
+        evidenceSHA256: "e5d950bf86e8e4f9beb7bbd2735913b773c621a23bf3f1dd87b44dd1d3594893"
+      crdBootstrap:
+        name: "crd-bootstrap-apply"
+        result: "pass"
+        count: 3
+        evidencePath: "crd-bootstrap-apply.txt"
+        evidenceSHA256: "cd0fb23ebbadabd7db0d68c3b67ae02a2652b8d076c570742878063f93486d34"
+      crdsEstablished: 3
+      rolloutChecks: 7
+    twoClusterParity:
+      result: "pass"
+      observedAt: "2026-06-09T09:07:02Z"
+      targetFacts:
+        cubInstallerApply:
+          path: "/Users/alexis/code/helm-expt/runs/live-kind-parity/argo-cd-argo-cd-default/target-facts-installer.yaml"
+          result: "pass"
+          stagedCRDs:
+            []
+          stagedSecrets:
+            -
+              keys:
+                - "auth"
+              lane: "cubInstallerApply"
+              name: "argocd-redis"
+              namespace: "argocd"
+        regularHelm:
+          result: "pass"
+          stagedCRDs:
+            []
+          stagedSecrets:
+            []
+      semanticParity: "pass"
+    confighubOciArgo:
+      result: "pass"
+      observedAt: "2026-06-09T10:15:40Z"
+      regularHelmRuntime: "pass"
+      confighubApplyRuntime: "pass"
+      confighubOciRuntime: "pass"
+      argoSync: "Synced"
+      argoHealth: "Healthy"
+      separatedSecrets:
+        - "secret-argocd-argocd-notifications-secret.yaml"
+        - "secret-argocd-argocd-secret.yaml"
+      semanticParity: "pass"
+  limits:
+    - "This proves Argo CD installed as a workload through an existing Argo CD OCI controller in the cub-lk proof rig; it does not prove zero-to-Argo self-bootstrap."
+    - "The target-owned argocd-redis auth Secret must be staged before config-only delivery."
+    - "Generated operational Secrets are separated from ConfigHub Units and must be staged or externally managed."
+    - "The no-crds base remains a target-prerequisite posture and is not the supported production example in this decision."
+    - "Repository credentials, admin credential rotation, SSO, RBAC policy, app state backup/restore, and self-management are outside this base support claim."
+  evidence:
+    -
+      path: "runs/top20-local-kind/argo-cd-default/observation-receipt.json"
+      claim: "Local kind observation records CRD bootstrap, target Secret staging, and workload rollout."
+    -
+      path: "runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml"
+      claim: "Two-cluster Helm-vs-installer parity stages target facts and passes semantic/runtime parity."
+    -
+      path: "runs/live-helm-confighub-compare/argo-cd-argo-cd-default/receipt.yaml"
+      claim: "ConfigHub OCI/Argo live parity passes for the default base."
+    -
+      path: "data/production-disposition/receipts/argo-cd-argo-cd/target-fact-preflight.yaml"
+      claim: "Records the argocd-redis Secret target-fact requirement and no-crds CRD prerequisites."
+    -
+      path: "data/production-disposition/receipts/argo-cd-argo-cd/crd-lifecycle-and-upgrade-policy.yaml"
+      claim: "Records CRD ownership policy for default and no-crds postures."
+    -
+      path: "data/production-disposition/receipts/argo-cd-argo-cd/storage-backup-restore-and-rollback-policy.yaml"
+      claim: "Records generated Secret, state, backup/restore, and rollback boundaries."
+  remainingSupportBlockers:
+    - "Record image policy, security/resource policy, and fresh target-scoped ConfigHub OCI/GitOps evidence."
