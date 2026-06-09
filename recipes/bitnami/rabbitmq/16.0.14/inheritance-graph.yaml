@@ -1,0 +1,80 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InheritanceGraph"
+metadata:
+  name: "bitnami-rabbitmq-16.0.14"
+spec:
+  chart: "bitnami/rabbitmq"
+  version: "16.0.14"
+  recipe: "recipe.yaml"
+  baseVariant: "generated-passwords"
+  variants:
+    -
+      name: "generated-passwords"
+      variant: "variants/generated-passwords/variant.yaml"
+      valuesProfile: "effective-values.yaml"
+    -
+      name: "existing-secret"
+      variant: "variants/existing-secret/variant.yaml"
+      valuesProfile: "effective-values-existing-secret.yaml"
+  edges:
+    -
+      from: "generated-passwords"
+      to: "generated-passwords"
+      type: "base-self"
+      inheritedValuePaths:
+        - "auth.erlangCookie"
+        - "auth.password"
+        - "global.security.allowInsecureImages"
+        - "image.repository"
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        []
+      removedValuePaths:
+        []
+      valueSourceMapCoverage:
+        []
+    -
+      from: "generated-passwords"
+      to: "existing-secret"
+      type: "inherits-with-overrides"
+      inheritedValuePaths:
+        - "global.security.allowInsecureImages"
+        - "image.repository"
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        - "auth.existingErlangSecret"
+        - "auth.existingPasswordSecret"
+      removedValuePaths:
+        - "auth.erlangCookie"
+        - "auth.password"
+      valueSourceMapCoverage:
+        []
+  targetFactEdges:
+    -
+      variant: "existing-secret"
+      kind: "Secret"
+      namespace: "rabbitmq"
+      name: "rabbitmq-auth"
+      keys:
+        - "rabbitmq-password"
+      fact: "Secret/rabbitmq/rabbitmq-auth:rabbitmq-password"
+      purpose: "RabbitMQ administrator password"
+    -
+      variant: "existing-secret"
+      kind: "Secret"
+      namespace: "rabbitmq"
+      name: "rabbitmq-erlang-cookie"
+      keys:
+        - "rabbitmq-erlang-cookie"
+      fact: "Secret/rabbitmq/rabbitmq-erlang-cookie:rabbitmq-erlang-cookie"
+      purpose: "RabbitMQ Erlang cookie for node clustering"
+  generatedFactEdges:
+    []
+  fieldReachability:
+    []
+  notes:
+    - "This graph is recovered from checked-in recipe artifacts."
+    - "It is a desired-state graph fragment, not a live-cluster observation."
+    - "Field reachability is limited to charts that have value-source-map.yaml coverage."

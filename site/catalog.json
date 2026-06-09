@@ -296,17 +296,17 @@
     {
       "section": "graph bridge",
       "metric": "charts with recovered graph fragments",
-      "value": "2",
+      "value": "20",
       "total": "100",
       "status": "partial",
       "source": "data/edge-recovery/edges.csv",
-      "note": "Recipe artifacts converted into desired-state graph fragments, starting with Redis and kube-prometheus-stack."
+      "note": "Catalog-supported recipe artifacts converted into desired-state graph fragments."
     },
     {
       "section": "graph bridge",
       "metric": "recovered graph edge rows",
-      "value": "8",
-      "total": "8",
+      "value": "97",
+      "total": "97",
       "status": "good",
       "source": "data/edge-recovery/edges.csv",
       "note": "Recovered base, override, target-fact, generated-fact, and field-reachability rows."
@@ -314,17 +314,17 @@
     {
       "section": "graph bridge",
       "metric": "target-fact graph edges",
-      "value": "3",
-      "total": "8",
+      "value": "56",
+      "total": "97",
       "status": "partial",
       "source": "data/edge-recovery/edges.csv",
-      "note": "Edges from a variant to required target facts such as pre-existing Secrets or hook-produced material."
+      "note": "Edges from a variant to required target facts such as pre-existing Secrets, CRDs, or hook-produced material."
     },
     {
       "section": "graph bridge",
       "metric": "generated-fact graph edges",
       "value": "1",
-      "total": "8",
+      "total": "97",
       "status": "partial",
       "source": "data/edge-recovery/edges.csv",
       "note": "Edges from generated facts to the rendered fields they affect where field reachability is available."
@@ -333,7 +333,7 @@
       "section": "graph bridge",
       "metric": "rows with field reachability",
       "value": "2",
-      "total": "8",
+      "total": "97",
       "status": "partial",
       "source": "data/edge-recovery/edges.csv",
       "note": "Rows that connect an input, generated fact, or variant change to rendered output fields."

@@ -51,8 +51,9 @@ target fact -> required live prerequisite
 
 Those recovered edges are not a complete ConfigHub graph yet. They are graph
 fragments that show how a Helm chart can move from flat rendered YAML into
-managed desired state. The current generated edge-recovery scope covers Redis
-and kube-prometheus-stack:
+managed desired state. The current generated edge-recovery scope covers the
+top-20 catalog-supported charts, with field reachability still limited to
+charts that have value-source-map coverage:
 
 [Edge Recovery](../../data/edge-recovery/summary.md)
 
@@ -71,7 +72,7 @@ The current public corpus contains:
 20 chart-specific Helm pain reports
 10 derived ConfigHub variant work orders with live `cub variant create` receipts
 6 target-bound derived variant receipts with OCI/GitOps/runtime evidence
-2 charts with recovered desired-state graph fragments
+20 top-20 charts with recovered desired-state graph fragments
 top-100 and top-500 catalog analysis data
 extension-slot coverage for 13/20 top catalog charts and 82/100 top100 chart facts
 5 maintained hook-bearing top-100 charts with route receipts; 0 of those hook-queue rows with hook execution/observation receipts
@@ -110,7 +111,7 @@ That means:
 | --- | --- |
 | Finish target-scoped production support decisions for the top-20 catalog. | Users need to know which bases are supported for which target scope, not only that receipts exist. |
 | Make kube-prometheus-stack the serious-chart proof. | It exercises high fanout, CRDs, webhooks, RBAC, generated facts, extension slots, and large rendered-object sets. |
-| Expand recovered graph edges beyond Redis and kube-prometheus-stack. | Helm's core weakness is forgetful generation. The ConfigHub value grows when rendered objects keep provenance and relationships. |
+| Expand field reachability beyond Redis. | Helm's core weakness is forgetful generation. The ConfigHub value grows when rendered fields keep provenance and relationships. |
 | Complete hook and lifecycle observation receipts for maintained hook charts. | Hook inventory is useful, but production users need a route, an execution decision, and fresh evidence. |
 | Keep the first public path short. | A Helm user should be able to choose a base, inspect objects, run the command, and understand the proof without reading the planning docs. |
 

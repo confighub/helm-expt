@@ -1,0 +1,107 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InheritanceGraph"
+metadata:
+  name: "grafana-tempo-1.24.4"
+spec:
+  chart: "grafana/tempo"
+  version: "1.24.4"
+  recipe: "recipe.yaml"
+  baseVariant: "local-persistent"
+  variants:
+    -
+      name: "local-persistent"
+      variant: "variants/local-persistent/variant.yaml"
+      valuesProfile: "effective-values.yaml"
+    -
+      name: "s3-query-observability"
+      variant: "variants/s3-query-observability/variant.yaml"
+      valuesProfile: "effective-values-s3-query-observability.yaml"
+  edges:
+    -
+      from: "local-persistent"
+      to: "local-persistent"
+      type: "base-self"
+      inheritedValuePaths:
+        - "persistence.accessModes"
+        - "persistence.enableStatefulSetAutoDeletePVC"
+        - "persistence.enabled"
+        - "persistence.size"
+        - "persistence.storageClassName"
+        - "tempo.reportingEnabled"
+        - "tempo.storage.trace.backend"
+        - "tempo.storage.trace.local.path"
+        - "tempo.storage.trace.wal.path"
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        []
+      removedValuePaths:
+        []
+      valueSourceMapCoverage:
+        []
+    -
+      from: "local-persistent"
+      to: "s3-query-observability"
+      type: "inherits-with-overrides"
+      inheritedValuePaths:
+        - "persistence.accessModes"
+        - "persistence.enabled"
+        - "persistence.size"
+        - "persistence.storageClassName"
+        - "tempo.reportingEnabled"
+        - "tempo.storage.trace.wal.path"
+      overriddenValuePaths:
+        - "tempo.storage.trace.backend"
+      addedValuePaths:
+        - "networkPolicy.enabled"
+        - "service.targetPort"
+        - "serviceMonitor.enabled"
+        - "tempo.extraEnv"
+        - "tempo.storage.trace.local"
+        - "tempo.storage.trace.s3.bucket"
+        - "tempo.storage.trace.s3.endpoint"
+        - "tempo.storage.trace.s3.insecure"
+        - "tempo.storage.trace.s3.region"
+        - "tempoQuery.enabled"
+        - "tempoQuery.ingress.enabled"
+        - "tempoQuery.ingress.hosts"
+        - "tempoQuery.ingress.ingressClassName"
+      removedValuePaths:
+        - "persistence.enableStatefulSetAutoDeletePVC"
+        - "tempo.storage.trace.local.path"
+      valueSourceMapCoverage:
+        []
+  targetFactEdges:
+    -
+      variant: "s3-query-observability"
+      kind: "Secret"
+      namespace: "tempo"
+      name: "tempo-s3-credentials"
+      keys:
+        - "access_key"
+        - "secret_key"
+      fact: "Secret/tempo/tempo-s3-credentials:access_key+secret_key"
+      purpose: "S3 access credentials referenced by Tempo environment variables"
+    -
+      variant: "s3-query-observability"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "servicemonitors.monitoring.coreos.com"
+      keys:
+        []
+      fact: "CRD/servicemonitors.monitoring.coreos.com"
+      purpose: "Prometheus Operator ServiceMonitor CRD required by Tempo's ServiceMonitor object"
+      sourceVariant: "prometheus-community/kube-prometheus-stack@85.3.3/default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+  generatedFactEdges:
+    []
+  fieldReachability:
+    []
+  notes:
+    - "This graph is recovered from checked-in recipe artifacts."
+    - "It is a desired-state graph fragment, not a live-cluster observation."
+    - "Field reachability is limited to charts that have value-source-map.yaml coverage."

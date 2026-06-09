@@ -1,0 +1,401 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InheritanceGraph"
+metadata:
+  name: "external-secrets-external-secrets-2.5.0"
+spec:
+  chart: "external-secrets/external-secrets"
+  version: "2.5.0"
+  recipe: "recipe.yaml"
+  baseVariant: "default"
+  variants:
+    -
+      name: "default"
+      variant: "variants/default/variant.yaml"
+      valuesProfile: "effective-values.yaml"
+    -
+      name: "no-crds"
+      variant: "variants/no-crds/variant.yaml"
+      valuesProfile: "effective-values-no-crds.yaml"
+  edges:
+    -
+      from: "default"
+      to: "default"
+      type: "base-self"
+      inheritedValuePaths:
+        []
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        []
+      removedValuePaths:
+        []
+      valueSourceMapCoverage:
+        []
+    -
+      from: "default"
+      to: "no-crds"
+      type: "inherits-with-overrides"
+      inheritedValuePaths:
+        []
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        - "installCRDs"
+      removedValuePaths:
+        []
+      valueSourceMapCoverage:
+        []
+  targetFactEdges:
+    -
+      variant: "no-crds"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "acraccesstokens.generators.external-secrets.io"
+      keys:
+        []
+      fact: "CRD/acraccesstokens.generators.external-secrets.io"
+      purpose: "External Secrets CRD managed outside this no-crds base"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "no-crds"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "cloudsmithaccesstokens.generators.external-secrets.io"
+      keys:
+        []
+      fact: "CRD/cloudsmithaccesstokens.generators.external-secrets.io"
+      purpose: "External Secrets CRD managed outside this no-crds base"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "no-crds"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "clusterexternalsecrets.external-secrets.io"
+      keys:
+        []
+      fact: "CRD/clusterexternalsecrets.external-secrets.io"
+      purpose: "External Secrets CRD managed outside this no-crds base"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "no-crds"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "clustergenerators.generators.external-secrets.io"
+      keys:
+        []
+      fact: "CRD/clustergenerators.generators.external-secrets.io"
+      purpose: "External Secrets CRD managed outside this no-crds base"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "no-crds"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "clusterpushsecrets.external-secrets.io"
+      keys:
+        []
+      fact: "CRD/clusterpushsecrets.external-secrets.io"
+      purpose: "External Secrets CRD managed outside this no-crds base"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "no-crds"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "clustersecretstores.external-secrets.io"
+      keys:
+        []
+      fact: "CRD/clustersecretstores.external-secrets.io"
+      purpose: "External Secrets CRD managed outside this no-crds base"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "no-crds"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "ecrauthorizationtokens.generators.external-secrets.io"
+      keys:
+        []
+      fact: "CRD/ecrauthorizationtokens.generators.external-secrets.io"
+      purpose: "External Secrets CRD managed outside this no-crds base"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "no-crds"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "externalsecrets.external-secrets.io"
+      keys:
+        []
+      fact: "CRD/externalsecrets.external-secrets.io"
+      purpose: "External Secrets CRD managed outside this no-crds base"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "no-crds"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "fakes.generators.external-secrets.io"
+      keys:
+        []
+      fact: "CRD/fakes.generators.external-secrets.io"
+      purpose: "External Secrets CRD managed outside this no-crds base"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "no-crds"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "gcraccesstokens.generators.external-secrets.io"
+      keys:
+        []
+      fact: "CRD/gcraccesstokens.generators.external-secrets.io"
+      purpose: "External Secrets CRD managed outside this no-crds base"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "no-crds"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "generatorstates.generators.external-secrets.io"
+      keys:
+        []
+      fact: "CRD/generatorstates.generators.external-secrets.io"
+      purpose: "External Secrets CRD managed outside this no-crds base"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "no-crds"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "githubaccesstokens.generators.external-secrets.io"
+      keys:
+        []
+      fact: "CRD/githubaccesstokens.generators.external-secrets.io"
+      purpose: "External Secrets CRD managed outside this no-crds base"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "no-crds"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "grafanas.generators.external-secrets.io"
+      keys:
+        []
+      fact: "CRD/grafanas.generators.external-secrets.io"
+      purpose: "External Secrets CRD managed outside this no-crds base"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "no-crds"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "mfas.generators.external-secrets.io"
+      keys:
+        []
+      fact: "CRD/mfas.generators.external-secrets.io"
+      purpose: "External Secrets CRD managed outside this no-crds base"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "no-crds"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "passwords.generators.external-secrets.io"
+      keys:
+        []
+      fact: "CRD/passwords.generators.external-secrets.io"
+      purpose: "External Secrets CRD managed outside this no-crds base"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "no-crds"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "pushsecrets.external-secrets.io"
+      keys:
+        []
+      fact: "CRD/pushsecrets.external-secrets.io"
+      purpose: "External Secrets CRD managed outside this no-crds base"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "no-crds"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "quayaccesstokens.generators.external-secrets.io"
+      keys:
+        []
+      fact: "CRD/quayaccesstokens.generators.external-secrets.io"
+      purpose: "External Secrets CRD managed outside this no-crds base"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "no-crds"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "secretstores.external-secrets.io"
+      keys:
+        []
+      fact: "CRD/secretstores.external-secrets.io"
+      purpose: "External Secrets CRD managed outside this no-crds base"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "no-crds"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "sshkeys.generators.external-secrets.io"
+      keys:
+        []
+      fact: "CRD/sshkeys.generators.external-secrets.io"
+      purpose: "External Secrets CRD managed outside this no-crds base"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "no-crds"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "stssessiontokens.generators.external-secrets.io"
+      keys:
+        []
+      fact: "CRD/stssessiontokens.generators.external-secrets.io"
+      purpose: "External Secrets CRD managed outside this no-crds base"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "no-crds"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "uuids.generators.external-secrets.io"
+      keys:
+        []
+      fact: "CRD/uuids.generators.external-secrets.io"
+      purpose: "External Secrets CRD managed outside this no-crds base"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "no-crds"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "vaultdynamicsecrets.generators.external-secrets.io"
+      keys:
+        []
+      fact: "CRD/vaultdynamicsecrets.generators.external-secrets.io"
+      purpose: "External Secrets CRD managed outside this no-crds base"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "no-crds"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "webhooks.generators.external-secrets.io"
+      keys:
+        []
+      fact: "CRD/webhooks.generators.external-secrets.io"
+      purpose: "External Secrets CRD managed outside this no-crds base"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+  generatedFactEdges:
+    []
+  fieldReachability:
+    []
+  notes:
+    - "This graph is recovered from checked-in recipe artifacts."
+    - "It is a desired-state graph fragment, not a live-cluster observation."
+    - "Field reachability is limited to charts that have value-source-map.yaml coverage."

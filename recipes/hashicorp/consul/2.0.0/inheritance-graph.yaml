@@ -1,0 +1,113 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InheritanceGraph"
+metadata:
+  name: "hashicorp-consul-2.0.0"
+spec:
+  chart: "hashicorp/consul"
+  version: "2.0.0"
+  recipe: "recipe.yaml"
+  baseVariant: "default-control-plane"
+  variants:
+    -
+      name: "default-control-plane"
+      variant: "variants/default-control-plane/variant.yaml"
+      valuesProfile: "effective-values.yaml"
+    -
+      name: "secure-mesh-existing-secrets"
+      variant: "variants/secure-mesh-existing-secrets/variant.yaml"
+      valuesProfile: "effective-values-secure-mesh-existing-secrets.yaml"
+  edges:
+    -
+      from: "default-control-plane"
+      to: "default-control-plane"
+      type: "base-self"
+      inheritedValuePaths:
+        - "connectInject.disruptionBudget.enabled"
+        - "server.disruptionBudget.enabled"
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        []
+      removedValuePaths:
+        []
+      valueSourceMapCoverage:
+        []
+    -
+      from: "default-control-plane"
+      to: "secure-mesh-existing-secrets"
+      type: "inherits-with-overrides"
+      inheritedValuePaths:
+        - "connectInject.disruptionBudget.enabled"
+        - "server.disruptionBudget.enabled"
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        - "global.acls.bootstrapToken.secretKey"
+        - "global.acls.bootstrapToken.secretName"
+        - "global.acls.manageSystemACLs"
+        - "global.gossipEncryption.autoGenerate"
+        - "global.gossipEncryption.secretKey"
+        - "global.gossipEncryption.secretName"
+        - "global.tls.caCert.secretKey"
+        - "global.tls.caCert.secretName"
+        - "global.tls.enabled"
+        - "ingressGateways.defaults.service.type"
+        - "ingressGateways.enabled"
+        - "meshGateway.enabled"
+        - "meshGateway.service.type"
+        - "server.bootstrapExpect"
+        - "server.replicas"
+        - "server.serverCert.secretName"
+        - "terminatingGateways.enabled"
+        - "ui.ingress.enabled"
+        - "ui.ingress.hosts"
+      removedValuePaths:
+        []
+      valueSourceMapCoverage:
+        []
+  targetFactEdges:
+    -
+      variant: "secure-mesh-existing-secrets"
+      kind: "Secret"
+      namespace: "consul"
+      name: "consul-ca-cert"
+      keys:
+        - "tls.crt"
+      fact: "Secret/consul/consul-ca-cert:tls.crt"
+      purpose: "Consul TLS CA certificate"
+    -
+      variant: "secure-mesh-existing-secrets"
+      kind: "Secret"
+      namespace: "consul"
+      name: "consul-server-cert"
+      keys:
+        - "tls.crt"
+        - "tls.key"
+      fact: "Secret/consul/consul-server-cert:tls.crt+tls.key"
+      purpose: "Consul server TLS certificate and private key"
+    -
+      variant: "secure-mesh-existing-secrets"
+      kind: "Secret"
+      namespace: "consul"
+      name: "consul-gossip-encryption-key"
+      keys:
+        - "key"
+      fact: "Secret/consul/consul-gossip-encryption-key:key"
+      purpose: "Consul gossip encryption key"
+    -
+      variant: "secure-mesh-existing-secrets"
+      kind: "Secret"
+      namespace: "consul"
+      name: "consul-bootstrap-acl-token"
+      keys:
+        - "token"
+      fact: "Secret/consul/consul-bootstrap-acl-token:token"
+      purpose: "Consul ACL bootstrap token"
+  generatedFactEdges:
+    []
+  fieldReachability:
+    []
+  notes:
+    - "This graph is recovered from checked-in recipe artifacts."
+    - "It is a desired-state graph fragment, not a live-cluster observation."
+    - "Field reachability is limited to charts that have value-source-map.yaml coverage."

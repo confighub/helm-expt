@@ -1,0 +1,66 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InheritanceGraph"
+metadata:
+  name: "bitnami-postgresql-18.6.7"
+spec:
+  chart: "bitnami/postgresql"
+  version: "18.6.7"
+  recipe: "recipe.yaml"
+  baseVariant: "generated-passwords"
+  variants:
+    -
+      name: "generated-passwords"
+      variant: "variants/generated-passwords/variant.yaml"
+      valuesProfile: "effective-values.yaml"
+    -
+      name: "existing-secret"
+      variant: "variants/existing-secret/variant.yaml"
+      valuesProfile: "effective-values-existing-secret.yaml"
+  edges:
+    -
+      from: "generated-passwords"
+      to: "generated-passwords"
+      type: "base-self"
+      inheritedValuePaths:
+        - "auth.postgresPassword"
+        - "image.digest"
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        []
+      removedValuePaths:
+        []
+      valueSourceMapCoverage:
+        []
+    -
+      from: "generated-passwords"
+      to: "existing-secret"
+      type: "inherits-with-overrides"
+      inheritedValuePaths:
+        - "image.digest"
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        - "auth.existingSecret"
+      removedValuePaths:
+        - "auth.postgresPassword"
+      valueSourceMapCoverage:
+        []
+  targetFactEdges:
+    -
+      variant: "existing-secret"
+      kind: "Secret"
+      namespace: "postgresql"
+      name: "postgresql-auth"
+      keys:
+        - "postgres-password"
+      fact: "Secret/postgresql/postgresql-auth:postgres-password"
+      purpose: "PostgreSQL administrator password"
+  generatedFactEdges:
+    []
+  fieldReachability:
+    []
+  notes:
+    - "This graph is recovered from checked-in recipe artifacts."
+    - "It is a desired-state graph fragment, not a live-cluster observation."
+    - "Field reachability is limited to charts that have value-source-map.yaml coverage."

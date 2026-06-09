@@ -11,10 +11,7 @@ const outputs = {
   csv: join(outputRoot, "edges.csv"),
   summary: join(outputRoot, "summary.md"),
 };
-const chartDirs = [
-  "recipes/bitnami/redis/25.5.3",
-  "recipes/prometheus-community/kube-prometheus-stack/85.3.3",
-];
+const chartDirs = discoverCatalogSupportedRecipeDirs();
 
 if (mode === "--generate") {
   const report = buildReport();
@@ -51,11 +48,34 @@ function buildReport() {
   };
 }
 
+function discoverCatalogSupportedRecipeDirs() {
+  const statusFiles = listFiles(join(repoRoot, "recipes"))
+    .filter((file) => file.endsWith("/catalog-status.yaml"))
+    .sort();
+  const supported = statusFiles
+    .map((file) => {
+      const status = readYaml(file);
+      return {
+        file,
+        chart: status.spec?.chart ?? "",
+        version: status.spec?.version ?? "",
+        status: status.spec?.status ?? "",
+        recipeRel: dirname(relativeRepo(file)),
+      };
+    })
+    .filter((entry) => entry.status === "catalog-supported")
+    .sort((a, b) => a.chart.localeCompare(b.chart) || a.version.localeCompare(b.version));
+  check(supported.length > 0, "no catalog-supported recipes found");
+  return supported.map((entry) => entry.recipeRel);
+}
+
 function buildGraph(recipeRel) {
   const recipeDir = join(repoRoot, recipeRel);
   const recipe = readYaml(join(recipeDir, "recipe.yaml"));
+  const catalogStatus = readYaml(join(recipeDir, "catalog-status.yaml"));
   const chart = recipe.spec?.chart?.name ?? chartFromPath(recipeRel);
   const version = recipe.spec?.chart?.version ?? recipeRel.split("/").at(-1);
+  const supportedVariants = catalogStatus.spec?.supportedVariants ?? [];
   const variants = listFiles(join(recipeDir, "variants"))
     .filter((file) => file.endsWith("/variant.yaml"))
     .map((file) => {
@@ -73,9 +93,11 @@ function buildGraph(recipeRel) {
         capabilityProfile: variant.spec?.capabilityProfile ?? {},
       };
     })
-    .sort((a, b) => variantRank(a.name) - variantRank(b.name) || a.name.localeCompare(b.name));
+    .sort((a, b) => variantRank(a.name, supportedVariants) - variantRank(b.name, supportedVariants) || a.name.localeCompare(b.name));
 
-  const base = variants.find((variant) => variant.name === "default") ?? variants[0];
+  const base = variants.find((variant) => variant.name === supportedVariants[0])
+    ?? variants.find((variant) => variant.name === "default")
+    ?? variants[0];
   const valueSourceMapPath = join(recipeDir, "value-source-map.yaml");
   const valueSourceMap = existsSync(valueSourceMapPath) ? readYaml(valueSourceMapPath) : null;
   const fieldReachability = (valueSourceMap?.spec?.entries ?? []).map((entry) => ({
@@ -228,6 +250,19 @@ function targetFactEdgesForVariant(variant) {
       purpose: secret.purpose ?? "",
     });
   }
+  for (const crd of variant.targetFacts?.requiredCRDs ?? []) {
+    edges.push({
+      variant: variant.name,
+      kind: "CustomResourceDefinition",
+      namespace: "",
+      name: crd.name ?? "",
+      keys: [],
+      fact: `CRD/${crd.name ?? ""}`,
+      purpose: crd.purpose ?? "",
+      sourceVariant: crd.sourceVariant ?? "",
+      deliveryLanes: crd.deliveryLanes ?? [],
+    });
+  }
   return edges;
 }
 
@@ -273,9 +308,11 @@ function sameValue(a, b) {
   return JSON.stringify(a) === JSON.stringify(b);
 }
 
-function variantRank(name) {
-  if (name === "default") return 0;
-  return 1;
+function variantRank(name, supportedVariants = []) {
+  const supportedIndex = supportedVariants.indexOf(name);
+  if (supportedIndex >= 0) return supportedIndex;
+  if (name === "default") return supportedVariants.length;
+  return supportedVariants.length + 1;
 }
 
 function chartFromPath(recipeRel) {
@@ -286,6 +323,8 @@ function chartFromPath(recipeRel) {
 function summary(graphs, rows) {
   const targetFacts = rows.filter((row) => row.edge_type === "target-fact").length;
   const generatedFacts = rows.filter((row) => row.edge_type === "generated-fact").length;
+  const withTargetFacts = graphs.filter((graph) => graph.document.spec.targetFactEdges.length > 0).length;
+  const withFieldReachability = graphs.filter((graph) => graph.document.spec.fieldReachability.length > 0).length;
   return `# Edge Recovery
 
 This generated report records graph fragments recovered from Helm-derived recipe
@@ -300,17 +339,17 @@ charts with inheritance graphs: ${graphs.length}
 edge rows:                      ${rows.length}
 target-fact edges:              ${targetFacts}
 generated-fact edges:           ${generatedFacts}
+charts with target facts:        ${withTargetFacts}
+charts with field reachability:  ${withFieldReachability}
 ~~~
 
-## Main Proof Charts
+## Catalog Graph Coverage
 
 | Chart | Graph | Why it matters |
 | --- | --- | --- |
 ${graphs.map((graph) => {
   const chart = graph.document.spec.chart;
-  const role = chart.includes("redis")
-    ? "Fast teaching chart for generated facts, target facts, and secret variants."
-    : "Main hard/demo chart for CRDs, webhooks, dependencies, and high object count.";
+  const role = graphRole(graph);
   return `| ${chart}@${graph.document.spec.version} | [${graph.path.replace("recipes/", "../../recipes/")}](../../${graph.path}) | ${role} |`;
 }).join("\n")}
 
@@ -321,6 +360,21 @@ npm run edges:generate
 npm run edges:verify
 ~~~
 `;
+}
+
+function graphRole(graph) {
+  const chart = graph.document.spec.chart;
+  const targetFacts = graph.document.spec.targetFactEdges.length;
+  const generatedFacts = graph.document.spec.generatedFactEdges.length;
+  const fieldReachability = graph.document.spec.fieldReachability.length;
+  if (chart === "bitnami/redis") return "Teaching chart for generated facts, target facts, and secret variants.";
+  if (chart === "prometheus-community/kube-prometheus-stack") return "Main hard chart for high fanout, CRDs, webhooks, dependencies, and large object count.";
+  const features = [];
+  if (targetFacts > 0) features.push(`${targetFacts} target fact edge${targetFacts === 1 ? "" : "s"}`);
+  if (generatedFacts > 0) features.push(`${generatedFacts} generated fact edge${generatedFacts === 1 ? "" : "s"}`);
+  if (fieldReachability > 0) features.push("field reachability");
+  if (features.length === 0) return "Catalog-supported chart with base and variant inheritance captured from recipe artifacts.";
+  return `Catalog-supported chart with ${features.join(", ")} captured from recipe artifacts.`;
 }
 
 function toCsv(rows) {
