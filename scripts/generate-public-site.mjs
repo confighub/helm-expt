@@ -5,6 +5,7 @@ import { check, repoRoot, write } from "./lib/proof-common.mjs";
 
 const siteRoot = join(repoRoot, "site");
 const indexPath = join(siteRoot, "index.html");
+const offeringPath = join(siteRoot, "offering.html");
 const catalogJsonPath = join(siteRoot, "catalog.json");
 const readmePath = join(siteRoot, "README.md");
 const top100Path = join(repoRoot, "data", "top100-catalog-analysis", "raw.json");
@@ -25,15 +26,18 @@ const mode = process.argv[2] ?? "--generate";
 if (mode === "--generate") {
   const site = buildSite();
   write(indexPath, site.indexHtml);
+  write(offeringPath, site.offeringHtml);
   write(catalogJsonPath, site.catalogJson);
   write(readmePath, site.readme);
-  console.log("wrote site/index.html, site/catalog.json, and site/README.md");
+  console.log("wrote site/index.html, site/offering.html, site/catalog.json, and site/README.md");
 } else if (mode === "--verify") {
   const site = buildSite();
   check(existsSync(indexPath), "site/index.html is missing; run npm run site:generate");
+  check(existsSync(offeringPath), "site/offering.html is missing; run npm run site:generate");
   check(existsSync(catalogJsonPath), "site/catalog.json is missing; run npm run site:generate");
   check(existsSync(readmePath), "site/README.md is missing; run npm run site:generate");
   check(readFileSync(indexPath, "utf8") === site.indexHtml, "site/index.html is stale");
+  check(readFileSync(offeringPath, "utf8") === site.offeringHtml, "site/offering.html is stale");
   check(readFileSync(catalogJsonPath, "utf8") === site.catalogJson, "site/catalog.json is stale");
   check(readFileSync(readmePath, "utf8") === site.readme, "site/README.md is stale");
   console.log("verified generated public site outputs");
@@ -132,6 +136,7 @@ function buildSite() {
   return {
     catalogJson: `${JSON.stringify(catalog, null, 2)}\n`,
     indexHtml: html(catalog),
+    offeringHtml: offeringHtml(catalog),
     readme: readme(),
   };
 }
@@ -302,6 +307,7 @@ function html(catalog) {
 </head>
 <body>
   <header>
+    <nav><a href="./offering.html">Offering</a> · <a href="./index.html">Catalog dashboard</a> · <a href="../README.md">Repository</a></nav>
     <h1>Use Helm charts. Ship ConfigHub variants.</h1>
     <p class="tagline">The catalog turns popular public Helm charts into reviewed cub installer packages, named variants, rendered objects, checks, and proof receipts.</p>
     <pre>cub installer setup --pull packages/bitnami/redis/25.5.3 \\
@@ -533,6 +539,182 @@ function html(catalog) {
 `;
 }
 
+function offeringHtml(catalog) {
+  const metric = (name) => catalog.statusMetrics.find((row) => row.metric === name) ?? {};
+  const top100WorkabilityCounts = countBy(catalog.top100Readiness, "workability");
+  const publicCounters = [
+    ["Catalog charts", `${catalog.summary.catalogSupported}/20`],
+    ["Recipe proofs", metricValue(metric("charts with model support"))],
+    ["Render parity", metricValue(metric("render parity rows"))],
+    ["Local live receipts", metricValue(metric("local live rows"))],
+    ["Two-cluster parity", metricValue(metric("two-cluster kind parity pass rows"))],
+    ["Semantic defects", metricValue(metric("two-cluster semantic parity defect receipts"))],
+  ];
+  const proofRows = [
+    ["Render parity", "Compare regular Helm rendering with the cub installer package output."],
+    ["Exact object review", "Review the Kubernetes objects, not just the values file that may produce them."],
+    ["Scans and gates", "Bind policy findings and decisions to the rendered object set."],
+    ["Variants", "Use base variants for Helm render choices and derived ConfigHub variants for approved post-render changes."],
+    ["Live evidence", "Record what a local cluster, GitOps controller, or observer actually saw."],
+    ["Watchlists", "Keep target capability and lifecycle gaps visible instead of silently turning them green."],
+  ];
+  const freeRows = [
+    ["Browse public catalog", "See chart versions, base variants, proof status, pain reports, and known gaps."],
+    ["Use public packages", "Run cub installer setup --pull <package> --base <base> for supported public bases."],
+    ["Verify locally", "Run the repo verifiers or a chart-specific live recipe on your own kind cluster."],
+    ["Inspect proof", "Read receipts, rendered objects, Helm pain reports, and current status without trusting a screenshot."],
+  ];
+  const paidRows = [
+    ["Private charts and overlays", "Import wrapper charts, private values, customer overlays, and private OCI sources."],
+    ["Managed variants", "Create environment, region, customer, and target variants with approvals, links, target facts, and receipts."],
+    ["Fleet operations", "Bulk scan, patch, promote, observe, and audit across many spaces or clusters."],
+    ["Production support", "Target-scoped support decisions, patch SLAs, old-version support, policies, and approvals."],
+  ];
+  const personaRows = [
+    ["Platform engineer", "Wants a safer path from public Helm chart to approved cluster config."],
+    ["App team", "Wants a simple install path that still allows dev/prod/customer variants."],
+    ["Security reviewer", "Wants scans and gates on exact rendered objects before deployment."],
+    ["SRE/operator", "Wants receipts for what was applied, observed, promoted, upgraded, or rolled back."],
+    ["Catalog maintainer", "Wants to know which charts are ready, watch, blocked, or need better variants."],
+  ];
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ConfigHub Helm Catalog Offering</title>
+  <style>
+    ${siteCss()}
+    .hero { padding-top: 56px; }
+    .hero h1 { max-width: 900px; }
+    .route { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin: 18px 0; }
+    .route div { border: 1px solid var(--line); border-radius: 6px; padding: 10px; background: var(--panel); font-size: .92rem; }
+    .split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    nav { color: var(--muted); margin-bottom: 24px; }
+    @media (max-width: 900px) { .route, .split { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <nav><a href="./offering.html">Offering</a> · <a href="./index.html">Catalog dashboard</a> · <a href="../README.md">Repository</a></nav>
+    <h1>Public Helm charts, in visible and verifiable stages.</h1>
+    <p class="tagline">We port popular public Helm charts to ConfigHub without changing the intended end-to-end semantics of the supported bases.</p>
+    <p>Helm is still the renderer. ConfigHub turns the result into reviewed packages, named variants, rendered objects, scans, gates, receipts, and live evidence.</p>
+    <pre>public Helm chart
+-> cub installer recipe/package
+-> named base variants
+-> exact rendered Kubernetes objects
+-> scans, gates, receipts
+-> ConfigHub / OCI / GitOps / live observation</pre>
+  </header>
+  <main>
+    <section aria-labelledby="problem">
+      <h2 id="problem">The Problem We Are Solving</h2>
+      <p>Helm users can usually install something. The harder problem is knowing exactly what was produced, whether the same thing was promoted, what changed between environments, whether the exact objects were scanned, and what the cluster actually observed after deployment.</p>
+      <p>The catalog keeps the supported path close to the chart author's golden path, but makes each stage visible. That matters when humans or AI agents make changes: the recipe, variant, rendered objects, scans, gates, and live receipts show whether the change stayed on the path or created a new install shape that needs review.</p>
+      <div class="grid">
+        ${personaRows.map(([title, body]) => `<div class="card"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div>`).join("\n        ")}
+      </div>
+    </section>
+
+    <section aria-labelledby="offer">
+      <h2 id="offer">What The Offering Is</h2>
+      <p>A public catalog of maintained Helm-derived packages, plus a path into ConfigHub for teams that need private variants, approvals, scans, GitOps delivery, fleet operations, and production receipts.</p>
+      <p>The free public lane helps users inspect and install supported public chart bases. The paid lane is for custom values, private charts, GitOps estates, operational services, full stacks, upgrades, patches, approvals, and fleet work.</p>
+      <div class="route">
+        <div>1. Pick chart</div>
+        <div>2. Pick base variant</div>
+        <div>3. Render exact objects</div>
+        <div>4. Review and verify</div>
+        <div>5. Operate variants</div>
+      </div>
+      ${markdownLikeTable([
+        ["Layer", "What it gives a Helm user"],
+        ...proofRows,
+      ])}
+    </section>
+
+    <section aria-labelledby="two-uses">
+      <h2 id="two-uses">Why This Helps</h2>
+      <div class="split">
+        <section class="card">
+          <h3>Change safely</h3>
+          <p>When a person or AI agent changes a chart input, base variant, or post-render ConfigHub variant, the pipeline can compare the exact object set, scan it, and show the receipt trail before the change is promoted.</p>
+        </section>
+        <section class="card">
+          <h3>Stay on the supported path</h3>
+          <p>Many Helm failures come from accidentally driving a chart away from the path its authors expected. The catalog makes supported bases explicit, records where a custom choice belongs, and flags target or lifecycle gaps before they become production surprises. It keeps the user on the right path and makes departures visible.</p>
+        </section>
+      </div>
+    </section>
+
+    <section aria-labelledby="try">
+      <h2 id="try">Try It Without A Big Commitment</h2>
+      <p>The first path should feel closer to <code>helm install redis</code> than to a platform migration. Start with a public package and local verification. Use a ConfigHub account when you want managed state, private inputs, or production workflows.</p>
+      <pre>cub installer setup --pull packages/bitnami/redis/25.5.3 \\
+  --base default \\
+  --work-dir .tmp/redis \\
+  --non-interactive \\
+  --namespace redis</pre>
+      <div class="split">
+        <section class="card">
+          <h3>Low-friction public use</h3>
+          ${simpleList(freeRows)}
+        </section>
+        <section class="card">
+          <h3>ConfigHub-managed use</h3>
+          ${simpleList(paidRows)}
+        </section>
+      </div>
+    </section>
+
+    <section aria-labelledby="status">
+      <h2 id="status">What Is Proven Today</h2>
+      <p>The repo is explicit about what is proven and what is still a watch or blocked item. A green render check does not become a production support claim.</p>
+      <div class="grid">
+        ${publicCounters.map(([label, value]) => `<div class="metric"><strong>${escapeHtml(value)}</strong><span>${escapeHtml(label)}</span></div>`).join("\n        ")}
+      </div>
+      <p>Top-100 readiness is also separated by usefulness:</p>
+      ${markdownLikeTable([
+        ["Bucket", "Charts", "Meaning"],
+        ["try-now-public-catalog", top100WorkabilityCounts["try-now-public-catalog"] ?? 0, "Public catalog chart with a supported first path."],
+        ["works-as-proof-needs-catalog-review", top100WorkabilityCounts["works-as-proof-needs-catalog-review"] ?? 0, "Recipe proof exists; needs catalog review before being presented as a user offer."],
+        ["not-yet-a-good-catalog-offer", top100WorkabilityCounts["not-yet-a-good-catalog-offer"] ?? 0, "Mechanism is proven, but useful variants still need product work."],
+        ["decision-needed-before-promotion", top100WorkabilityCounts["decision-needed-before-promotion"] ?? 0, "A limitation must be supported, disclosed, or deferred."],
+      ])}
+    </section>
+
+    <section aria-labelledby="honesty">
+      <h2 id="honesty">Why This Should Be Trusted</h2>
+      <p>The catalog is designed to expose hard cases, not hide them. The latest strict cub-scout witness work found a real Kubernetes 1.30 CRD capability issue in cert-manager and External Secrets: workloads converged, but strict rendered-object/live parity blocked because live CRDs omitted rendered <code>selectableFields</code> fields.</p>
+      <p>That is the point of the model. It tells the user what is true, what is watch, what is blocked, and what decision is needed next.</p>
+      ${markdownLikeTable([
+        ["Signal", "Current meaning"],
+        ["PASS", "The stated lane met its contract."],
+        ["WATCH", "The main path worked, but extra live state or a runtime condition needs review."],
+        ["BLOCK", "The lane found a missing prerequisite, runtime failure, or target capability conflict."],
+        ["Missing", "Backlog, not a failed chart."],
+      ])}
+    </section>
+
+    <section aria-labelledby="links">
+      <h2 id="links">Where To Go Next</h2>
+      <div class="grid">
+        <div class="card"><h3>Browse the catalog</h3><p><a href="./index.html">Open the generated catalog dashboard</a>.</p></div>
+        <div class="card"><h3>Pick a base variant</h3><p><a href="../data/top20-base-readiness/summary.md">Open top-20 base readiness</a>.</p></div>
+        <div class="card"><h3>Read current proof status</h3><p><a href="../docs/user/current-proof-status.md">Open current proof status</a>.</p></div>
+        <div class="card"><h3>Choose the right command</h3><p><a href="../docs/user/choosing-commands.md">Open command routing</a>.</p></div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    Experimental public catalog proof. Production support requires a target-scoped decision and fresh receipts.
+  </footer>
+</body>
+</html>
+`;
+}
+
 function chartCard(entry) {
   const latestStatus = entry.latest_status === "update-available" ? "warn" : "good";
   const latestLabel =
@@ -684,6 +866,79 @@ function markdownLikeTable(rows) {
       </style>`;
 }
 
+function simpleList(rows) {
+  return `<ul>${rows.map(([title, body]) => `<li><strong>${escapeHtml(title)}:</strong> ${escapeHtml(body)}</li>`).join("")}</ul>`;
+}
+
+function siteCss() {
+  return `
+    :root {
+      color-scheme: light;
+      --ink: #172026;
+      --muted: #5b6872;
+      --line: #d9e0e6;
+      --panel: #f7f9fb;
+      --accent: #0b6bcb;
+      --good: #16794c;
+      --warn: #a05a00;
+      --surface: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.45;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 28px 20px; }
+    header { padding-top: 44px; border-bottom: 1px solid var(--line); }
+    h1 { margin: 0 0 12px; font-size: clamp(2rem, 4vw, 4rem); line-height: 1.02; letter-spacing: 0; }
+    h2 { margin: 36px 0 12px; font-size: 1.45rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1.02rem; letter-spacing: 0; }
+    p { max-width: 820px; color: var(--muted); }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #0f1720;
+      color: #e9f2ff;
+      white-space: pre-wrap;
+    }
+    nav { color: var(--muted); margin-bottom: 24px; }
+    .tagline { font-size: 1.2rem; color: var(--ink); }
+    .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric strong { display: block; font-size: 2rem; line-height: 1.08; color: var(--accent); overflow-wrap: anywhere; }
+    .metric span { display: block; margin-top: 8px; color: var(--muted); font-size: .92rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .82rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 8px; border-radius: 999px; background: #dfe7ee; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--accent); }
+    li { margin: 8px 0; color: var(--muted); }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 36px; }
+    @media (max-width: 900px) {
+      .grid, .catalog, .lanes { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+    }
+  `;
+}
+
 function readme() {
   return `# Generated Public Site
 
@@ -694,7 +949,8 @@ npm run site:generate
 npm run site:verify
 \`\`\`
 
-Open \`site/index.html\` directly in a browser for the static catalog view.
+Open \`site/offering.html\` directly in a browser for the public offering page.
+Open \`site/index.html\` for the static catalog and status dashboard.
 
 Data source:
 
