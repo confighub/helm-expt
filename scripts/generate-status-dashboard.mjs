@@ -87,6 +87,8 @@ function buildReport() {
   rows.push(metric("live evidence", "live Helm-vs-ConfigHub receipts", liveRows.length, liveRows.length, "partial", "data/live-helm-confighub-compare/summary.csv", "Committed live comparison receipts, including pass and non-pass results."));
   rows.push(metric("live evidence", "two-cluster kind parity receipts", kindParityRows.length, kindParityRows.length, "partial", "data/live-kind-parity/summary.csv", "Committed two-cluster parity receipts for the top-20 base variants, including pass and non-pass results."));
   rows.push(metric("live evidence", "live parity rerun rows needing decisions", liveParityRerunRows.length, liveParityRerunRows.length, "partial", "data/live-parity-rerun-plan/rerun-plan.csv", "Non-pass live parity rows grouped by next action, such as runtime review, staged prerequisites, lifecycle route, or operating policy."));
+  rows.push(metric("live evidence", "live parity rows needing model or staging first", count(liveParityRerunRows, "rerun_readiness", "model-or-stage-first"), liveParityRerunRows.length, "partial", "data/live-parity-rerun-plan/rerun-plan.csv", "Rows where another rerun is not the next useful action until a prerequisite, lifecycle route, or operating policy is handled."));
+  rows.push(metric("live evidence", "live parity rows needing target review first", count(liveParityRerunRows, "rerun_readiness", "review-target-first"), liveParityRerunRows.length, "partial", "data/live-parity-rerun-plan/rerun-plan.csv", "Rows where object parity passed but runtime, storage, controller health, or wait conditions should be reviewed before rerun."));
   rows.push(metric("live evidence", "ConfigHub/OCI semantic parity defect receipts", semanticDefectCount(liveRows), liveRows.length, "good", "data/live-helm-confighub-compare/summary.csv", "Rows whose committed receipt currently points at a semantic object comparison defect."));
   rows.push(metric("live evidence", "two-cluster semantic parity defect receipts", semanticDefectCount(kindParityRows), kindParityRows.length, "good", "data/live-kind-parity/summary.csv", "Rows whose committed two-cluster receipt currently points at a semantic object comparison defect."));
 
@@ -139,6 +141,7 @@ function summary(rows, context) {
   const liveNonPass = context.liveRows.filter((row) => row.result && row.result !== "pass");
   const kindParityNonPass = context.kindParityRows.filter((row) => row.result && row.result !== "pass");
   const liveParityNextSteps = groupCount(context.liveParityRerunRows, "next_step_type");
+  const liveParityRerunReadiness = groupCount(context.liveParityRerunRows, "rerun_readiness");
   const productionBlockers = [...flattenCounts(context.productionRows, "open_dispositions").entries()]
     .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
     .slice(0, 8);
@@ -253,6 +256,10 @@ compare the live outcomes. Use
 
 The rerun plan groups non-pass rows by the work needed before another rerun is
 useful.
+
+| Rerun readiness | Rows | Meaning |
+| --- | ---: | --- |
+${liveParityRerunReadinessRows(liveParityRerunReadiness)}
 
 | Next step | Rows | Meaning |
 | --- | ---: | --- |
@@ -582,6 +589,34 @@ function liveParityNextStepRows(counts) {
     })
     .map(([step, count]) => `| ${step} | ${count} | ${liveParityNextStepMeaning(step)} |`)
     .join("\n");
+}
+
+function liveParityRerunReadinessRows(counts) {
+  const order = [
+    "inspect-diff-first",
+    "rerun-now-after-cleanup",
+    "model-or-stage-first",
+    "review-target-first",
+    "inspect-receipt-first",
+  ];
+  return [...counts.entries()]
+    .sort((left, right) => {
+      const leftRank = order.includes(left[0]) ? order.indexOf(left[0]) : order.length;
+      const rightRank = order.includes(right[0]) ? order.indexOf(right[0]) : order.length;
+      return leftRank - rightRank || left[0].localeCompare(right[0]);
+    })
+    .map(([readiness, count]) => `| ${readiness} | ${count} | ${liveParityRerunReadinessMeaning(readiness)} |`)
+    .join("\n");
+}
+
+function liveParityRerunReadinessMeaning(readiness) {
+  return {
+    "inspect-diff-first": "Inspect the semantic diff before another rerun.",
+    "rerun-now-after-cleanup": "Rerun serially on a clean host after confirming no other live lane is running.",
+    "model-or-stage-first": "Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning.",
+    "review-target-first": "Review runtime, storage, controller health, or wait conditions before rerunning.",
+    "inspect-receipt-first": "Read the receipt and classify the row before rerunning.",
+  }[readiness] ?? "Read the receipt and classify the row before rerunning.";
 }
 
 function liveParityNextStepMeaning(step) {
