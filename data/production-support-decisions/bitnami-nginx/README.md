@@ -22,6 +22,10 @@ support decision. It does not replace the source decision artifact:
 | Keep fresh | Keep target-scoped evidence fresh before using this supported scope as an example. |
 
 
+## Closeout Sequence
+
+1. Keep the target-scoped evidence fresh for the declared support boundary.
+
 ## Required Before Final Support
 
 - None.

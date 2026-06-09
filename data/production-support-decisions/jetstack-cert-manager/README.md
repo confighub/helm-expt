@@ -25,6 +25,14 @@ support decision. It does not replace the source decision artifact:
 | Lifecycle observation | Bind lifecycle observation evidence to this target scope before final support. |
 
 
+## Closeout Sequence
+
+1. Choose the final target scope, GitOps controller, namespace, and artifact digest.
+2. Pin rendered image references by digest or record an explicit mutable-image exception.
+3. Decide which scanner findings are accepted, fixed, hardened, or outside this target scope.
+4. Record the lifecycle boundary, including hook, webhook, CRD, cleanup, ordering, and upgrade behavior.
+5. Bind lifecycle observation evidence to this target scope.
+
 ## Required Before Final Support
 
 - Choose the final target scope, exact GitOps controller, namespace, and artifact digest.
