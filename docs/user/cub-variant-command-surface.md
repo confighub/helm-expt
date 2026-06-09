@@ -50,6 +50,11 @@ cub variant create prod-us-east helm-prometheus-server-only \
 This creates a derived ConfigHub variant. It does not run Helm again and it
 does not create a new `cub installer` base.
 
+The clone should preserve the reviewed Unit data. Any post-clone data change
+needs an explicit allowed mutation path and receipt. If decoded Kubernetes data
+changes without that receipt, classify it as drift and repair or block the
+variant before promotion.
+
 ## Space And Unit Mapping
 
 The upstream Space usually comes from `cub installer upload`.

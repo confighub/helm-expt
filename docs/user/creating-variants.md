@@ -124,6 +124,17 @@ run Helm again.
 Use a derived variant when the reviewed object set can be cloned and refined
 with approved post-render changes over ConfigHub Units.
 
+The preservation rule is strict:
+
+```text
+The cloned Units should keep the reviewed rendered data unless an allowed
+post-render mutation changes a declared path and records a receipt.
+```
+
+If a clone changes decoded Kubernetes data without an allowed mutation receipt,
+treat that as drift to investigate. Do not present it as a valid variant just
+because the clone command completed.
+
 Common examples:
 
 - environment, region, customer, or target;
