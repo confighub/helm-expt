@@ -61,6 +61,7 @@ function readme(rows) {
     ["data/extension-slots/extension-slots.csv", "One row per chart with NGINX-like extension slots: scope, built variants, surfaces, route, evidence."],
     ["data/nginx-config-checks/checks.csv", "NGINX supported-base checks for empty config extension slots, sidecars, metrics, raw objects, and ingress shape."],
     ["data/lifecycle-boundary/summary.md", "Hook and hook-like lifecycle boundary: hook queue rows, lifecycle observations, evidence, and current limits."],
+    ["data/lifecycle-observations/cert-manager-eso/summary.md", "Concrete lifecycle observations for cert-manager and External Secrets: CRD policy, post-apply API readiness, webhook CA injection, and controller-populated Secret data."],
     ["data/live-kind-parity/summary.md", "Two-cluster live parity: regular Helm in one vanilla kind cluster and cub installer output in another."],
     ["data/production-disposition/summary.md", "Production support boundary for top-20 catalog charts: accepted dispositions, open blockers, and next actions."],
     ["data/production-disposition/dispositions.md", "Detailed production disposition plan: accepted receipts, open dispositions, owners, required evidence, and unblock rules."],
@@ -133,7 +134,7 @@ Use \`npm run verify\` only as the broad release gate after scoped checks pass.
 | Family | Main summary | Primary use |
 | --- | --- | --- |
 ${families.map((family) => {
-  const summary = `data/${family}/summary.md`;
+  const summary = mainSummaryForFamily(family);
   const summaryLink = existsSync(join(repoRoot, summary)) ? `[${summary.replace("data/", "")}](${summary.replace("data/", "./")})` : "-";
   return `| \`${family}\` | ${summaryLink} | ${familyRole(family)} |`;
 }).join("\n")}
@@ -274,6 +275,11 @@ function familyRole(family) {
     "variant-goldens": "golden work orders for derived-variant examples",
   };
   return roles[family] ?? "supporting generated evidence";
+}
+
+function mainSummaryForFamily(family) {
+  if (family === "lifecycle-observations") return "data/lifecycle-observations/cert-manager-eso/summary.md";
+  return `data/${family}/summary.md`;
 }
 
 function commandFor(family) {

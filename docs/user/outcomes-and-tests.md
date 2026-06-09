@@ -52,6 +52,7 @@ For the shortest chart-by-chart top-100 answer, start with:
 | [quirk coverage](../../data/quirk-coverage/summary.md) | One row per Helm quirk axis. Shows whether it is tracked, partly tracked, source-scanned only, or not scanned. |
 | [extension slot coverage](../../data/extension-slots/summary.md) | One row per chart with NGINX-like raw manifests, tpl snippets, config blocks, sidecars, or add-on slots. |
 | [hook and lifecycle boundary](../../data/lifecycle-boundary/summary.md) | Separates hook lifecycle queue rows from hook-like controller lifecycle observations. |
+| [cert-manager and External Secrets lifecycle observations](../../data/lifecycle-observations/cert-manager-eso/summary.md) | Concrete post-apply checks for CRD policy, API readiness, webhook CA injection, and controller-populated Secret data. |
 | [edges.csv](../../data/edge-recovery/edges.csv) | Recovered graph fragments for Redis and kube-prometheus-stack: inheritance, overrides, generated facts, target facts, and field reachability where known. |
 
 Every CSV under `data/` is indexed here:
@@ -109,7 +110,8 @@ The machine-readable index is:
 14. Check [pain-points.csv](../../data/pain-point-coverage/pain-points.csv) for the general Helm pain being addressed.
 15. Check [coverage-matrix.csv](../../data/variant-path-coverage/coverage-matrix.csv) when the question is about one base, diff, operation, or derived variant path.
 16. Check [derived-variant-outcomes.csv](../../data/outcome-coverage/derived-variant-outcomes.csv) when the question is about post-render ConfigHub variants.
-17. Run the scoped verifier for the table you opened, or `npm run verify` only when you need the full corpus gate.
+17. Check [cert-manager and External Secrets lifecycle observations](../../data/lifecycle-observations/cert-manager-eso/summary.md) when the question is about controller-owned fields or post-apply readiness.
+18. Run the scoped verifier for the table you opened, or `npm run verify` only when you need the full corpus gate.
 
 ## Narrow Claim Rule
 
