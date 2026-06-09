@@ -135,6 +135,11 @@ The current target-scoped support decision is still a draft:
 
 [kube-prometheus-stack support decision](../../data/production-support-decisions/prometheus-community-kube-prometheus-stack/support-decision.yaml)
 
+The generated human workdown is easier to use when assigning the remaining
+work:
+
+[kube-prometheus-stack production support workdown](../../data/production-support-decisions/prometheus-community-kube-prometheus-stack/README.md)
+
 The `default` base already has useful proof:
 
 | Boundary | Current status |
