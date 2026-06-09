@@ -221,12 +221,12 @@ are grouped by the next decision needed before a rerun is useful:
 | lifecycle route | 1 | Choose the hook or lifecycle observation route. |
 | operating policy | 1 | Record the operating decision before expecting a different readiness result. |
 
-Production support decisions are still open for the top-20 catalog:
+Production support decisions are still mostly open for the top-20 catalog:
 
-- 0 of 20 top-20 charts are currently marked production-supported.
+- 1 of 20 top-20 charts has a final target-scoped support decision.
+- 19 of 20 top-20 charts still have draft support decision artifacts.
 - 20 of 20 are production-review-ready pending a final support decision and
   target scope.
-- 20 of 20 have draft target-scoped support decision artifacts.
 - 0 of 20 still need a pre-review production disposition.
 - 103 production-disposition receipts are accepted across 20 charts.
 - external scan work has 0 remaining mutable-image rows after the current

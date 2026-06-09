@@ -67,7 +67,7 @@ Current generated facts, at the time of this plan update:
 80 top-100 charts are proof-grade non-catalog rows.
 156 chart/base rows have render parity.
 ConfigHub proof, local live proof, GitOps/OCI proof, and live parity are partial by exact row.
-0 top-20 charts are production-supported; 20/20 are production-review-ready.
+1 top-20 chart has a final target-scoped support decision; 20/20 are production-review-ready.
 ```
 
 Important boundary:
@@ -843,7 +843,8 @@ Current facts:
 20 catalog-supported local-test charts
 20 passing ConfigHub proof receipt sets
 20 live/e2e observed charts
-0 production-supported charts
+1 final target-scoped support decision
+19 draft target-scoped support decisions
 20 production-review-ready pending final support decision
 0 production-blocked pending disposition
 ```

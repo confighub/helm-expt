@@ -5,14 +5,19 @@ metadata:
 spec:
   chart: bitnami/nginx
   version: "24.0.2"
-  decision: draft
+  decision: supported
   decisionDate: "2026-06-09"
+  supportedSince: "2026-06-09T15:23:52Z"
   supportedBase: http-clusterip
   targetScope:
-    clusterClass: vanilla-kubernetes
+    clusterClass: cub-lk-kind-vanilla
     namespace: nginx
     deliveryPath: confighub-oci
-    gitopsController: argo-or-flux
+    gitopsController: argo
+    lastEvidenceAt: "2026-06-09T15:23:52Z"
+    lastEvidenceTarget: helm-expt-support-nginx-0609-cluster/oci
+    lastEvidenceKubeContext: kind-helm-expt-support-nginx-0609
+    liveEvidenceTTL: 30d
     storageAssumptions:
       - no persistent volume required for the supported base
     networkAssumptions:
@@ -24,12 +29,13 @@ spec:
       - bitnami/nginx@24.0.2 http-clusterip base
       - empty NGINX extension slots in the supported base
       - rendered Deployment, Service, PodDisruptionBudget, and support objects produced by the recorded base
-      - ConfigHub OCI delivery for the declared target scope after fresh target evidence is recorded
+      - ConfigHub OCI delivery through Argo for the declared cub-lk vanilla kind target scope
     excludes:
       - existing-tls-ingress base
       - populated serverBlock, streamServerBlock, extraDeploy, sidecar, or raw manifest slots
       - private values overlays
       - production ingress, DNS, and certificate management
+      - customer production clusters
       - non-vanilla Kubernetes distributions unless separately reviewed
   decisions:
     imageDecision:
@@ -45,8 +51,8 @@ spec:
       state: none-required
       detail: The http-clusterip base has no required target facts. TLS target facts belong to the excluded existing-tls-ingress base.
     liveEvidenceDecision:
-      state: needs-fresh-target-evidence-before-final
-      detail: Existing receipts prove local and parity behavior. A final support decision still needs a fresh target-scoped ConfigHub OCI/GitOps receipt for the declared scope.
+      state: fresh-target-evidence-passed
+      detail: Fresh target-scoped ConfigHub OCI and Argo evidence passed on 2026-06-09 for the declared cub-lk vanilla kind scope.
   evidence:
     - path: recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/receipts/helm-equivalence-receipt.yaml
       claim: The supported base is Helm-equivalent under recorded inputs, with only the installer Namespace support object added.
@@ -62,8 +68,7 @@ spec:
       claim: The selected live Helm-vs-ConfigHub comparison receipt exists for the supported base.
     - path: data/runtime-gitops/receipts/bitnami-nginx/http-clusterip/latest.yaml
       claim: Runtime/GitOps receipt exists for the supported base and should be refreshed for the declared target before final support.
-  requiredBeforeFinal:
-    - Refresh target-scoped ConfigHub OCI/GitOps evidence for the declared target scope.
-    - Record the exact controller, target, namespace, and artifact digest used for the final support claim.
-    - Re-run the production disposition and status dashboard generators after the refreshed evidence is committed.
-  nextAction: Refresh target-scoped ConfigHub OCI/GitOps evidence, then change this decision from draft to supported if the receipt passes for the declared scope.
+    - path: data/production-support-decisions/bitnami-nginx/fresh-target-evidence-2026-06-09.yaml
+      claim: Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared cub-lk vanilla kind support scope.
+  requiredBeforeFinal: []
+  nextAction: Keep the target-scoped evidence fresh before using this supported scope as a production-support example.

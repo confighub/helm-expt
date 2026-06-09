@@ -1,0 +1,47 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionSupportEvidenceReceipt
+metadata:
+  name: bitnami-nginx-http-clusterip-argo-oci-support-evidence-20260609
+spec:
+  chart: bitnami/nginx
+  version: "24.0.2"
+  base: http-clusterip
+  observedAt: "2026-06-09T15:23:52Z"
+  result: pass
+  targetScope:
+    clusterClass: cub-lk-kind-vanilla
+    namespace: nginx
+    deliveryPath: confighub-oci
+    gitopsController: argo
+    rig: helm-expt-support-nginx-0609
+    kubeContext: kind-helm-expt-support-nginx-0609
+    target: helm-expt-support-nginx-0609-cluster/oci
+    workloadSpace: helm-expt-support-nginx-0609-nginx
+  package:
+    path: packages/bitnami/nginx/24.0.2
+  recipe:
+    path: recipes/bitnami/nginx/24.0.2
+  oci:
+    revision: sha256:722604de18d7c1838b22e75c12a2ff5f9083889eb58fcf671dcb2027a34f766f
+    repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-support-nginx-0609-cluster/oci
+    path: ./helm-expt-support-nginx-0609-nginx
+  source:
+    runner: tests/chart-install-test
+    rawJsonSHA256: 7104c45c08ff81f7dd35e5cbe4aa17d9ad64527766c70e054124364807dadb0c
+    cleanupPolicy: workload-space-and-child-application-cleaned-by-runner; cub-lk rig removed after evidence capture
+  checks:
+    - name: render
+      result: pass
+      detail: "namespaces in render: ['nginx']"
+    - name: confighub-upload
+      result: pass
+      detail: units uploaded to helm-expt-support-nginx-0609-nginx
+    - name: argo-sync
+      result: pass
+      detail: "app nginx: sync=Synced health=Healthy after 40s"
+    - name: runtime
+      result: pass
+      detail: "deployment.apps/nginx   1/1   1     1     28s"
+  supportClaim:
+    state: fresh-target-evidence-passed
+    detail: Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared NGINX http-clusterip support scope.
