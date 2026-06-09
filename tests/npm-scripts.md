@@ -296,7 +296,7 @@ verification and artifact-generation layer.
 
 | Change | Minimum checks |
 | --- | --- |
-| Documentation only | `npm run docs:verify`; add `npm run installer:command-surface:verify` only when command examples changed |
+| Documentation only | `npm run docs:verify`; add `npm run installer:command-surface:verify` or `npm run variant:command-surface:verify` when the changed docs include `cub installer`, `cub install`, or `cub variant` examples |
 | Generated data or catalog | The owner generator's matching `*:verify`; add downstream `*:verify` checks only when that downstream surface reads the changed data |
 | Recipe or package | Chart-specific verify scripts if curated, plus `npm run verify:artifact-chain` |
 | Top-20 chart proof | `<chart>:compare`, `<chart>:verify-proof`, `<chart>:verify-package`, and `npm run top20:verify-local-e2e` if receipts changed |
