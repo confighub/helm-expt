@@ -69,6 +69,45 @@ Which detailed CSV should I open next?
 | hooks | hook routes still needing execution or observation | 5/5 | gap | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
 | hooks | related lifecycle observation receipts passing | 4/4 | good | [data/lifecycle-observations/cert-manager-eso/summary.csv](../../data/lifecycle-observations/cert-manager-eso/summary.csv) |
 
+## Next Work Queues
+
+Use this section when the question is what should move next, not when the
+question is whether a specific receipt passed.
+
+### Top100 Catalog Work
+
+| Queue | Charts | Next action |
+| --- | ---: | --- |
+| Use public catalog now | 20 | Open CATALOG.md and top20 base readiness; choose a base with the lane you need. |
+| Promote proof-grade charts | 27 | Run catalog promotion review, select realistic bases, and add selected live lanes. |
+| Design useful base variants | 46 | Create the first user-shaped base before treating the chart as a catalog offer. |
+| Resolve limitation decisions | 7 | Decide whether the named gap is supported, disclosed, deferred, or blocked. |
+
+### Top20 Production Support Work
+
+| Workstream | Charts | Next action |
+| --- | ---: | --- |
+| Final support decision | 1 | Choose supported base, target scope, delivery path, and evidence refresh rule. |
+| Image digest resolution | 9 | Pin images by digest or record the explicit exception before production OCI support. |
+| Lifecycle support boundary | 4 | Record lifecycle behavior as supported, observed, excluded, or operator-owned. |
+| Security acceptance or hardened base | 4 | Accept current security findings for the target scope or create a hardened base. |
+| Target runtime scope | 2 | Decide whether the runtime condition is acceptable, then refresh live evidence. |
+
+### Live Parity Work
+
+| Queue | Rows | Next action |
+| --- | ---: | --- |
+| model-or-stage-first | 3 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| review-target-first | 7 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+
+### Hook And Lifecycle Work
+
+| Queue | Rows | Next action |
+| --- | ---: | --- |
+| Hook route selected, observation pending | 5 | Run the selected lifecycle path and commit execution or observation receipts. |
+| Hook-bearing rows observed | 0 | Keep receipt freshness current when the supported target changes. |
+| Related CRD/webhook/controller observations | 4 | Use these as examples for hook-like lifecycle proof, not as universal hook support. |
+
 ## Top100 Readiness
 
 | Adoption bucket | Charts |
