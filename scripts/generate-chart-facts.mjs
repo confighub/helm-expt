@@ -7,8 +7,9 @@
 //   - admission webhooks? open extension slots (tpl / extraManifests) the user must review?
 //   - which variants are built today
 //   - NOT YET ENABLED: the honest per-chart gap — recommended capabilities we cannot yet build
-//     because no solution/workaround exists yet, each annotated with the reason (#113 / #114 /
-//     curated-lane). Empty means every recommended capability is built and the quirks are modeled.
+//     because no solution/workaround exists yet, each annotated with the reason
+//     (chart ships no Secret toggle, template-baked CRDs, curated-lane, etc.).
+//     Empty means every recommended capability is built and the quirks are modeled.
 //
 // Sources: per-chart helm-pain-report.yaml (dispositions), the source-feature scan (hook types,
 // secret-generating funcs, webhooks), the variant dirs, the variant-backlog (what's recommended but
@@ -94,12 +95,12 @@ function classifyGap(ref, variant, reason, secretsGen) {
   if (variant === "no-crds" && isCrdPublicationChart(ref)) return { kind: "na" };
   // template-baked CRDs first (these declines often also say "no chart CRD toggle")
   if (/#114|template-rendered|template-baked|template CRD|CRD set/i.test(r)) {
-    return { kind: "hard", label: `${variant} (template-baked CRDs, no toggle — #114)` };
+    return { kind: "hard", label: `${variant} (template-baked CRDs; no clean chart toggle yet)` };
   }
   if (/curated proof lane|bespoke/i.test(r)) return { kind: "hard", label: `${variant} (curated proof lane — bespoke teaching needed)` };
   if (variant === "existing-secret") {
     if (/#113|existing-secret|no chart toggle/i.test(r) || (!reason && secretsGen)) {
-      return { kind: "hard", label: "existing-secret (chart ships no Secret toggle — #113)" };
+      return { kind: "hard", label: "existing-secret (chart ships no Secret toggle)" };
     }
     return { kind: "soft", label: "existing-secret (buildable — not yet run)" };
   }
@@ -179,14 +180,14 @@ function buildRows() {
     const esc = classified.find((c) => c.v === "existing-secret");
     let existingSecret;
     if (hasVariant("existing-secret")) existingSecret = "built";
-    else if (esc?.kind === "hard") existingSecret = "NOT built — chart ships no Secret toggle (#113)";
+    else if (esc?.kind === "hard") existingSecret = "NOT built - chart ships no Secret toggle";
     else if (esc?.kind === "soft") existingSecret = "buildable — not yet run";
     else existingSecret = secretsGen ? "n/a (generated only)" : "n/a";
 
     const ncc = classified.find((c) => c.v === "no-crds");
     let noCrds;
     if (hasVariant("no-crds")) noCrds = "built";
-    else if (ncc?.kind === "hard") noCrds = "NOT built — template-baked CRDs, no toggle (#114)";
+    else if (ncc?.kind === "hard") noCrds = "NOT built - template-baked CRDs; no clean chart toggle yet";
     else if (ncc?.kind === "soft" || (hasCrds && rec.includes("no-crds"))) noCrds = "buildable — not yet run";
     else noCrds = hasCrds ? "buildable — not yet run" : "n/a (no CRDs)";
 
@@ -251,10 +252,10 @@ charts with buildable backlog (path exists): ${buildable.length}
 ## What the hard gaps are (charts affected)
 
 \`\`\`text
-existing-secret — chart ships no Secret toggle (#113):  ${tally(/#113/)}
-no-crds — template-baked CRDs, no toggle (#114):        ${tally(/#114/)}
+existing-secret - chart ships no Secret toggle:         ${tally(/chart ships no Secret toggle/)}
+no-crds - template-baked CRDs, no clean toggle yet:     ${tally(/template-baked CRDs/)}
 curated proof lane — needs bespoke teaching:            ${tally(/curated proof lane/)}
-other hard gap:                                         ${withGaps.filter((r) => !/#11[34]|curated proof lane/.test(r.not_yet_enabled)).length}
+other hard gap:                                         ${withGaps.filter((r) => !/chart ships no Secret toggle|template-baked CRDs|curated proof lane/.test(r.not_yet_enabled)).length}
 \`\`\`
 
 ## How to read a row

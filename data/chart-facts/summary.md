@@ -17,8 +17,8 @@ charts with buildable backlog (path exists): 37
 ## What the hard gaps are (charts affected)
 
 ```text
-existing-secret — chart ships no Secret toggle (#113):  15
-no-crds — template-baked CRDs, no toggle (#114):        3
+existing-secret - chart ships no Secret toggle:         15
+no-crds - template-baked CRDs, no clean toggle yet:     3
 curated proof lane — needs bespoke teaching:            6
 other hard gap:                                         1
 ```
@@ -47,30 +47,30 @@ other hard gap:                                         1
 | Chart | Not yet enabled |
 | --- | --- |
 | `argo-cd/argo-cd` | ha (curated proof lane — bespoke teaching needed) |
-| `argo-cd/argocd-image-updater` | no-crds (template-baked CRDs, no toggle — #114) |
-| `bitnami/apache` | existing-secret (chart ships no Secret toggle — #113) |
-| `bitnami/contour` | existing-secret (chart ships no Secret toggle — #113) |
-| `bitnami/elasticsearch` | existing-secret (chart ships no Secret toggle — #113) |
-| `bitnami/memcached` | existing-secret (chart ships no Secret toggle — #113) |
+| `argo-cd/argocd-image-updater` | no-crds (template-baked CRDs; no clean chart toggle yet) |
+| `bitnami/apache` | existing-secret (chart ships no Secret toggle) |
+| `bitnami/contour` | existing-secret (chart ships no Secret toggle) |
+| `bitnami/elasticsearch` | existing-secret (chart ships no Secret toggle) |
+| `bitnami/memcached` | existing-secret (chart ships no Secret toggle) |
 | `bitnami/mysql` | ha (curated proof lane — bespoke teaching needed) |
-| `bitnami/nginx` | existing-secret (chart ships no Secret toggle — #113) |
-| `bitnami/phpmyadmin` | existing-secret (chart ships no Secret toggle — #113) |
+| `bitnami/nginx` | existing-secret (chart ships no Secret toggle) |
+| `bitnami/phpmyadmin` | existing-secret (chart ships no Secret toggle) |
 | `bitnami/postgresql` | ha (curated proof lane — bespoke teaching needed) |
 | `bitnami/rabbitmq` | ha (curated proof lane — bespoke teaching needed) |
-| `bitnami/spark` | existing-secret (chart ships no Secret toggle — #113) |
-| `bitnami/zookeeper` | existing-secret (chart ships no Secret toggle — #113) |
-| `fairwinds-stable/goldilocks` | existing-secret (chart ships no Secret toggle — #113) |
-| `grafana/pyroscope` | existing-secret (chart ships no Secret toggle — #113) |
+| `bitnami/spark` | existing-secret (chart ships no Secret toggle) |
+| `bitnami/zookeeper` | existing-secret (chart ships no Secret toggle) |
+| `fairwinds-stable/goldilocks` | existing-secret (chart ships no Secret toggle) |
+| `grafana/pyroscope` | existing-secret (chart ships no Secret toggle) |
 | `grafana/tempo` | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
 | `hashicorp/consul` | ha (curated proof lane — bespoke teaching needed) |
-| `jaegertracing/jaeger` | existing-secret (chart ships no Secret toggle — #113) |
-| `kyverno/kyverno` | existing-secret (chart ships no Secret toggle — #113) |
-| `metrics-server/metrics-server` | existing-secret (chart ships no Secret toggle — #113) |
-| `minio-operator/operator` | no-crds (template-baked CRDs, no toggle — #114) |
-| `prometheus-community/kube-prometheus-stack` | existing-secret (chart ships no Secret toggle — #113) |
+| `jaegertracing/jaeger` | existing-secret (chart ships no Secret toggle) |
+| `kyverno/kyverno` | existing-secret (chart ships no Secret toggle) |
+| `metrics-server/metrics-server` | existing-secret (chart ships no Secret toggle) |
+| `minio-operator/operator` | no-crds (template-baked CRDs; no clean chart toggle yet) |
+| `prometheus-community/kube-prometheus-stack` | existing-secret (chart ships no Secret toggle) |
 | `prometheus-community/prometheus` | ha (curated proof lane — bespoke teaching needed) |
-| `rook-release/rook-ceph` | no-crds (template-baked CRDs, no toggle — #114) |
-| `traefik/traefik` | existing-secret (chart ships no Secret toggle — #113) |
+| `rook-release/rook-ceph` | no-crds (template-baked CRDs; no clean chart toggle yet) |
+| `traefik/traefik` | existing-secret (chart ships no Secret toggle) |
 
 ## Files
 

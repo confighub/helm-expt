@@ -15,7 +15,7 @@ top-100 runtime/GitOps rows:       100
 top-100 rows with local runtime:   20
 latest top-20 candidates:          6
 rendered image rows reviewed:      366
-rendered subjects with mutable/floating images: 149
+rendered subjects with mutable/floating images: 141
 ```
 
 ## Files
@@ -23,8 +23,8 @@ rendered subjects with mutable/floating images: 149
 | File | Purpose |
 | --- | --- |
 | `helm-import-contract.csv` | #76 import examples and required artifact chain. |
-| `secret-gap-workdown.csv` | #113 charts where no chart-native existing-Secret toggle is known. |
-| `crd-gap-workdown.csv` | #114 charts where no clean no-CRDs variant is currently available. |
+| `secret-gap-workdown.csv` | Charts where no chart-native existing-Secret toggle is known. |
+| `crd-gap-workdown.csv` | Charts where no clean no-CRDs variant is currently available. |
 | `variant-workdown.csv` | Wave-2 user-shaped variant jobs. |
 | `production-workdown.csv` | Top-20 production-disposition blockers and next action. |
 | `runtime-gitops-sweep.csv` | Top-100 runtime/GitOps sweep plan by chart. |

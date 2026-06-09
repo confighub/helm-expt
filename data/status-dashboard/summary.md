@@ -123,7 +123,7 @@ spreadsheet.
 | argo-cd/argo-cd@9.5.15 | default (runtime-watch) | runtime-watch:1; target-prerequisite-needed:1 | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | ha (curated proof lane - bespoke teaching needed) |
 | bitnami/mongodb@19.0.7 | generated-passwords (start-here) | start-here:1; runtime-review-needed:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
 | bitnami/mysql@14.0.3 | generated-passwords (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
-| bitnami/nginx@24.0.2 | http-clusterip (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | existing-secret (chart ships no Secret toggle - #113) |
+| bitnami/nginx@24.0.2 | http-clusterip (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | existing-secret (chart ships no Secret toggle) |
 | bitnami/postgresql@18.6.7 | generated-passwords (try-with-proof) | try-with-proof:2 | live-helm-vs-confighub-parity | 2/2 | 0/2 | 1/2 | 2/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
 | bitnami/rabbitmq@16.0.14 | generated-passwords (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
 | bitnami/redis@25.5.3 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 2/2 | 1/2 | - |
@@ -136,8 +136,8 @@ spreadsheet.
 | ingress-nginx/ingress-nginx@4.15.1 | admission-disabled (try-with-proof) | try-with-proof:1; runtime-watch:1 | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | - |
 | jetstack/cert-manager@v1.20.2 | crds-enabled (try-with-proof) | try-with-proof:1; lifecycle-observed:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
 | longhorn/longhorn@1.11.2 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
-| metrics-server/metrics-server@3.13.0 | default (try-with-proof) | try-with-proof:1; runtime-review-needed:1 | live-helm-vs-confighub-parity | 2/2 | 0/2 | 1/2 | 1/2 | 1/2 | existing-secret (chart ships no Secret toggle - #113) |
-| prometheus-community/kube-prometheus-stack@85.3.3 | default (runtime-watch) | runtime-watch:1; target-prerequisite-needed:1 | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | existing-secret (chart ships no Secret toggle - #113) |
+| metrics-server/metrics-server@3.13.0 | default (try-with-proof) | try-with-proof:1; runtime-review-needed:1 | live-helm-vs-confighub-parity | 2/2 | 0/2 | 1/2 | 1/2 | 1/2 | existing-secret (chart ships no Secret toggle) |
+| prometheus-community/kube-prometheus-stack@85.3.3 | default (runtime-watch) | runtime-watch:1; target-prerequisite-needed:1 | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | existing-secret (chart ships no Secret toggle) |
 | prometheus-community/prometheus@29.8.0 | default (try-with-proof) | try-with-proof:2 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
 | secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
 

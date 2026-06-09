@@ -61,7 +61,7 @@ related lifecycle observations:      4/4
 | `argo-cd/argo-cd@9.5.15` | default;no-crds | yes | 1/2 | 1/2 | 0/2 | 0/2 | 0/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/mongodb@19.0.7` | generated-passwords;existing-secret-replicaset | yes | 1/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
 | `bitnami/mysql@14.0.3` | generated-passwords;existing-secret | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
-| `bitnami/nginx@24.0.2` | http-clusterip;existing-tls-ingress | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | existing-secret (chart ships no Secret toggle - #113) |
+| `bitnami/nginx@24.0.2` | http-clusterip;existing-tls-ingress | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
 | `bitnami/postgresql@18.6.7` | generated-passwords;existing-secret | yes | 0/2 | 1/2 | 2/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords;existing-secret | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/redis@25.5.3` | default;reuse-existing-secret | yes | 1/2 | 2/2 | 2/2 | 1/2 | 2/2 | - |
@@ -74,8 +74,8 @@ related lifecycle observations:      4/4
 | `ingress-nginx/ingress-nginx@4.15.1` | default;admission-disabled | yes | 1/2 | 1/2 | 0/2 | 0/2 | 1/2 | - |
 | `jetstack/cert-manager@v1.20.2` | default;crds-enabled | yes | 1/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
 | `longhorn/longhorn@1.11.2` | default;ui-ingress | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | - |
-| `metrics-server/metrics-server@3.13.0` | default;external-tls-ca | yes | 0/2 | 1/2 | 1/2 | 1/2 | 1/2 | existing-secret (chart ships no Secret toggle - #113) |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | default;no-crds | yes | 1/2 | 1/2 | 0/2 | 0/2 | 0/2 | existing-secret (chart ships no Secret toggle - #113) |
+| `metrics-server/metrics-server@3.13.0` | default;external-tls-ca | yes | 0/2 | 1/2 | 1/2 | 1/2 | 1/2 | existing-secret (chart ships no Secret toggle) |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | default;no-crds | yes | 1/2 | 1/2 | 0/2 | 0/2 | 0/2 | existing-secret (chart ships no Secret toggle) |
 | `prometheus-community/prometheus@29.8.0` | default;server-only-ephemeral | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default;sync-secret-rotation | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | - |
 

@@ -45,10 +45,10 @@ charts with named hard gaps: 25
 
 | Gap | Charts | What it means |
 | --- | ---: | --- |
-| existing-secret (chart ships no Secret toggle - #113) | 15 | The chart does not expose a clean bring-your-own-secret render path. Do not invent one silently. |
+| existing-secret (chart ships no Secret toggle) | 15 | The chart does not expose a clean bring-your-own-secret render path. Do not invent one silently. |
 | ha (curated proof lane - bespoke teaching needed) | 6 | The proof path does not yet teach a realistic HA variant for that chart. |
 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) | 1 | The current chart path is single-binary; HA belongs to a separate supported topology decision. |
-| no-crds (template-baked CRDs, no toggle - #114) | 3 | The chart bakes CRDs into templates or lacks a clean CRDs-off switch. CRD ownership needs an explicit route. |
+| no-crds (template-baked CRDs; no clean chart toggle yet) | 3 | The chart bakes CRDs into templates or lacks a clean CRDs-off switch. CRD ownership needs an explicit route. |
 
 ## User Status
 
@@ -116,10 +116,10 @@ charts with named hard gaps: 25
 | `prometheus-community/kube-prometheus-stack@85.3.3` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
 | `prometheus-community/prometheus@29.8.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
-| `traefik/traefik@40.2.0` | `limitation-decision-first` | `render-parity` | 2 | review limitation before promotion: existing-secret (chart ships no Secret toggle - #113) | - | `limitation-review` |
+| `traefik/traefik@40.2.0` | `limitation-decision-first` | `render-parity` | 2 | review limitation before promotion: existing-secret (chart ships no Secret toggle) | - | `limitation-review` |
 | `external-dns/external-dns@1.21.1` | `promote-after-review` | `render-parity` | 2 | run catalog promotion review | - | `catalog-promotion-review` |
 | `gitlab/gitlab-runner@0.89.0` | `needs-useful-variant` | `render-parity` | 1 | add at least one user-shaped variant before catalog promotion | - | `user-shaped-variant-backlog` |
-| `kyverno/kyverno@3.8.1` | `limitation-decision-first` | `render-parity` | 2 | review limitation before promotion: existing-secret (chart ships no Secret toggle - #113) | - | `limitation-review` |
+| `kyverno/kyverno@3.8.1` | `limitation-decision-first` | `render-parity` | 2 | review limitation before promotion: existing-secret (chart ships no Secret toggle) | - | `limitation-review` |
 | `cloudnative-pg/cloudnative-pg@0.28.2` | `promote-after-review` | `render-parity` | 2 | run catalog promotion review | - | `catalog-promotion-review` |
 
 ## Files

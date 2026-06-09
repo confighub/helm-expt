@@ -67,11 +67,11 @@ receipts before the follow-up runtime/GitOps and image-digest lanes run.
 
 | # | Chart | Accepted | Open |
 | --- | --- | --- | --- |
-| 1 | bitnami/redis | hook and lifecycle phase policy;target fact preflight | generated fact ownership;scan/gate warning disposition |
-| 2 | bitnami/nginx | extension slot provenance and scan policy;generated fact ownership;target fact preflight | scan/gate warning disposition |
-| 3 | metrics-server/metrics-server | hook and lifecycle phase policy;target fact preflight | cluster RBAC review;generated fact ownership;scan/gate warning disposition |
-| 4 | prometheus-community/prometheus | - | cluster RBAC review;extension slot provenance and scan policy;scan/gate warning disposition |
-| 5 | bitnami/postgresql | - | generated fact ownership;hook and lifecycle phase policy;scan/gate warning disposition;storage backup restore and rollback policy;target fact preflight |
+| 1 | bitnami/redis | generated fact ownership;hook and lifecycle phase policy;scan/gate warning disposition;target fact preflight | - |
+| 2 | bitnami/nginx | extension slot provenance and scan policy;generated fact ownership;scan/gate warning disposition;target fact preflight | - |
+| 3 | metrics-server/metrics-server | cluster RBAC review;generated fact ownership;hook and lifecycle phase policy;scan/gate warning disposition;target fact preflight | - |
+| 4 | prometheus-community/prometheus | cluster RBAC review;extension slot provenance and scan policy;scan/gate warning disposition | - |
+| 5 | bitnami/postgresql | generated fact ownership;hook and lifecycle phase policy;scan/gate warning disposition;storage backup restore and rollback policy;target fact preflight | - |
 
 ## Import Prototype Wave
 

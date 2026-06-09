@@ -173,7 +173,7 @@ function buildImportRows() {
 
 function buildSecretRows(chartFacts, top100ByChart, productionByChart) {
   return chartFacts
-    .filter((row) => /#113/.test(row.not_yet_enabled))
+    .filter((row) => /chart ships no Secret toggle/.test(row.not_yet_enabled))
     .map((row) => {
       const top = top100ByChart.get(row.chart);
       const production = productionByChart.get(row.chart);
@@ -195,7 +195,7 @@ function buildSecretRows(chartFacts, top100ByChart, productionByChart) {
 
 function buildCrdRows(chartFacts, top100ByChart, productionByChart) {
   return chartFacts
-    .filter((row) => /#114/.test(row.not_yet_enabled))
+    .filter((row) => /template-baked CRDs/.test(row.not_yet_enabled))
     .map((row) => {
       const top = top100ByChart.get(row.chart);
       const production = productionByChart.get(row.chart);
@@ -363,8 +363,8 @@ rendered subjects with mutable/floating images: ${imageSummary.floatingOrLatestS
 | File | Purpose |
 | --- | --- |
 | \`helm-import-contract.csv\` | #76 import examples and required artifact chain. |
-| \`secret-gap-workdown.csv\` | #113 charts where no chart-native existing-Secret toggle is known. |
-| \`crd-gap-workdown.csv\` | #114 charts where no clean no-CRDs variant is currently available. |
+| \`secret-gap-workdown.csv\` | Charts where no chart-native existing-Secret toggle is known. |
+| \`crd-gap-workdown.csv\` | Charts where no clean no-CRDs variant is currently available. |
 | \`variant-workdown.csv\` | Wave-2 user-shaped variant jobs. |
 | \`production-workdown.csv\` | Top-20 production-disposition blockers and next action. |
 | \`runtime-gitops-sweep.csv\` | Top-100 runtime/GitOps sweep plan by chart. |

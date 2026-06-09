@@ -26,7 +26,7 @@
   },
   "argo-cd/argocd-image-updater": {
     "version": "1.2.2",
-    "not_yet_enabled": "no-crds (template-baked CRDs, no toggle — #114)",
+    "not_yet_enabled": "no-crds (template-baked CRDs; no clean chart toggle yet)",
     "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
   },
   "autoscaler/cluster-autoscaler": {
@@ -46,22 +46,22 @@
   },
   "bitnami/apache": {
     "version": "11.4.29",
-    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
     "buildable_not_yet_run": "—"
   },
   "bitnami/contour": {
     "version": "21.1.4",
-    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
     "buildable_not_yet_run": "—"
   },
   "bitnami/elasticsearch": {
     "version": "22.1.6",
-    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
     "buildable_not_yet_run": "—"
   },
   "bitnami/memcached": {
     "version": "8.5.5",
-    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
     "buildable_not_yet_run": "—"
   },
   "bitnami/mongodb": {
@@ -76,7 +76,7 @@
   },
   "bitnami/nginx": {
     "version": "24.0.2",
-    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
     "buildable_not_yet_run": "—"
   },
   "bitnami/opensearch": {
@@ -86,7 +86,7 @@
   },
   "bitnami/phpmyadmin": {
     "version": "20.0.0",
-    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
     "buildable_not_yet_run": "—"
   },
   "bitnami/postgresql": {
@@ -106,12 +106,12 @@
   },
   "bitnami/spark": {
     "version": "10.0.3",
-    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
     "buildable_not_yet_run": "—"
   },
   "bitnami/zookeeper": {
     "version": "13.8.7",
-    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
     "buildable_not_yet_run": "—"
   },
   "cloudnative-pg/cloudnative-pg": {
@@ -176,7 +176,7 @@
   },
   "fairwinds-stable/goldilocks": {
     "version": "10.3.0",
-    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
     "buildable_not_yet_run": "—"
   },
   "fairwinds-stable/vpa": {
@@ -236,7 +236,7 @@
   },
   "grafana/pyroscope": {
     "version": "2.0.2",
-    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
     "buildable_not_yet_run": "—"
   },
   "grafana/rollout-operator": {
@@ -291,7 +291,7 @@
   },
   "jaegertracing/jaeger": {
     "version": "4.8.0",
-    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
     "buildable_not_yet_run": "—"
   },
   "jetstack/cert-manager-csi-driver": {
@@ -321,7 +321,7 @@
   },
   "kyverno/kyverno": {
     "version": "3.8.1",
-    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
     "buildable_not_yet_run": "—"
   },
   "linkerd/linkerd-crds": {
@@ -336,12 +336,12 @@
   },
   "metrics-server/metrics-server": {
     "version": "3.13.0",
-    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
     "buildable_not_yet_run": "—"
   },
   "minio-operator/operator": {
     "version": "7.1.1",
-    "not_yet_enabled": "no-crds (template-baked CRDs, no toggle — #114)",
+    "not_yet_enabled": "no-crds (template-baked CRDs; no clean chart toggle yet)",
     "buildable_not_yet_run": "—"
   },
   "minio-operator/tenant": {
@@ -406,7 +406,7 @@
   },
   "prometheus-community/kube-prometheus-stack": {
     "version": "85.3.3",
-    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
     "buildable_not_yet_run": "—"
   },
   "prometheus-community/kube-state-metrics": {
@@ -451,7 +451,7 @@
   },
   "rook-release/rook-ceph": {
     "version": "v1.19.5",
-    "not_yet_enabled": "no-crds (template-baked CRDs, no toggle — #114)",
+    "not_yet_enabled": "no-crds (template-baked CRDs; no clean chart toggle yet)",
     "buildable_not_yet_run": "—"
   },
   "runix/pgadmin4": {
@@ -481,7 +481,7 @@
   },
   "traefik/traefik": {
     "version": "40.2.0",
-    "not_yet_enabled": "existing-secret (chart ships no Secret toggle — #113)",
+    "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
     "buildable_not_yet_run": "—"
   },
   "velero/velero": {

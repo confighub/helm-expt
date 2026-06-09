@@ -61,7 +61,7 @@ sidecar, or add-on slots in the chart facts.
 | `bitnami/redis@25.5.3` | default+reuse-existing-secret | - | use the supported base; route Helm-input changes through a reviewed `cub installer` base and post-render changes through `cub variant create` |
 | `ingress-nginx/ingress-nginx@4.15.1` | default+admission-disabled | - | use the supported base; route Helm-input changes through a reviewed `cub installer` base and post-render changes through `cub variant create` |
 | `longhorn/longhorn@1.11.2` | default+ui-ingress | - | use the supported base; route Helm-input changes through a reviewed `cub installer` base and post-render changes through `cub variant create` |
-| `metrics-server/metrics-server@3.13.0` | default+external-tls-ca | existing-secret (chart ships no Secret toggle - #113) | use the supported base; route Helm-input changes through a reviewed `cub installer` base and post-render changes through `cub variant create` |
+| `metrics-server/metrics-server@3.13.0` | default+external-tls-ca | existing-secret (chart ships no Secret toggle) | use the supported base; route Helm-input changes through a reviewed `cub installer` base and post-render changes through `cub variant create` |
 
 ## How To Use This
 
