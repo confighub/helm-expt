@@ -21,11 +21,11 @@ proof lanes,top20 bases needing unresolved prerequisite or runtime review,7,40,p
 derived variants,derived variant golden rows,10,10,good,data/variant-goldens/derived-expansion-wave/work-orders.csv,"Golden work orders that specify source base, downstream variant, current cub variant create command, and receipt targets."
 derived variants,derived variant live create receipts,10,10,good,runs/derived-variant-execution,Receipts from current cub variant create executions without hidden Helm rerender.
 derived variants,target-bound derived variant receipts,6,10,partial,runs/derived-variant-target-bound,"Derived variants that went further through target binding, ConfigHub OCI, Argo sync, and runtime observation."
-graph bridge,charts with recovered graph fragments,2,100,partial,data/edge-recovery/edges.csv,"Recipe artifacts converted into desired-state graph fragments, starting with Redis and kube-prometheus-stack."
-graph bridge,recovered graph edge rows,8,8,good,data/edge-recovery/edges.csv,"Recovered base, override, target-fact, generated-fact, and field-reachability rows."
-graph bridge,target-fact graph edges,3,8,partial,data/edge-recovery/edges.csv,Edges from a variant to required target facts such as pre-existing Secrets or hook-produced material.
-graph bridge,generated-fact graph edges,1,8,partial,data/edge-recovery/edges.csv,Edges from generated facts to the rendered fields they affect where field reachability is available.
-graph bridge,rows with field reachability,2,8,partial,data/edge-recovery/edges.csv,"Rows that connect an input, generated fact, or variant change to rendered output fields."
+graph bridge,charts with recovered graph fragments,20,100,partial,data/edge-recovery/edges.csv,Catalog-supported recipe artifacts converted into desired-state graph fragments.
+graph bridge,recovered graph edge rows,97,97,good,data/edge-recovery/edges.csv,"Recovered base, override, target-fact, generated-fact, and field-reachability rows."
+graph bridge,target-fact graph edges,56,97,partial,data/edge-recovery/edges.csv,"Edges from a variant to required target facts such as pre-existing Secrets, CRDs, or hook-produced material."
+graph bridge,generated-fact graph edges,1,97,partial,data/edge-recovery/edges.csv,Edges from generated facts to the rendered fields they affect where field reachability is available.
+graph bridge,rows with field reachability,2,97,partial,data/edge-recovery/edges.csv,"Rows that connect an input, generated fact, or variant change to rendered output fields."
 live evidence,runtime/GitOps wave rows,10,10,partial,data/runtime-gitops/wave1.csv,Selected Argo/Flux OCI wave rows; this is not the whole corpus.
 live evidence,live Helm-vs-ConfigHub receipts,20,20,partial,data/live-helm-confighub-compare/summary.csv,"Committed live comparison receipts, including pass and non-pass results."
 live evidence,two-cluster kind parity receipts,40,40,partial,data/live-kind-parity/summary.csv,"Committed two-cluster parity receipts for the top-20 base variants, including pass and non-pass results."

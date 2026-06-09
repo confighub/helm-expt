@@ -1,0 +1,85 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InheritanceGraph"
+metadata:
+  name: "bitnami-nginx-24.0.2"
+spec:
+  chart: "bitnami/nginx"
+  version: "24.0.2"
+  recipe: "recipe.yaml"
+  baseVariant: "http-clusterip"
+  variants:
+    -
+      name: "http-clusterip"
+      variant: "variants/http-clusterip/variant.yaml"
+      valuesProfile: "effective-values.yaml"
+    -
+      name: "existing-tls-ingress"
+      variant: "variants/existing-tls-ingress/variant.yaml"
+      valuesProfile: "effective-values-existing-tls-ingress.yaml"
+  edges:
+    -
+      from: "http-clusterip"
+      to: "http-clusterip"
+      type: "base-self"
+      inheritedValuePaths:
+        - "image.digest"
+        - "service.type"
+        - "tls.enabled"
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        []
+      removedValuePaths:
+        []
+      valueSourceMapCoverage:
+        []
+    -
+      from: "http-clusterip"
+      to: "existing-tls-ingress"
+      type: "inherits-with-overrides"
+      inheritedValuePaths:
+        - "image.digest"
+        - "service.type"
+      overriddenValuePaths:
+        - "tls.enabled"
+      addedValuePaths:
+        - "ingress.enabled"
+        - "ingress.extraTls"
+        - "ingress.hostname"
+        - "ingress.ingressClassName"
+        - "ingress.tls"
+        - "tls.existingSecret"
+      removedValuePaths:
+        []
+      valueSourceMapCoverage:
+        []
+  targetFactEdges:
+    -
+      variant: "existing-tls-ingress"
+      kind: "Secret"
+      namespace: "nginx"
+      name: "nginx-backend-tls"
+      keys:
+        - "tls.crt"
+        - "tls.key"
+        - "ca.crt"
+      fact: "Secret/nginx/nginx-backend-tls:tls.crt+tls.key+ca.crt"
+      purpose: "TLS certificate material mounted by the NGINX pod"
+    -
+      variant: "existing-tls-ingress"
+      kind: "Secret"
+      namespace: "nginx"
+      name: "nginx-ingress-tls"
+      keys:
+        - "tls.crt"
+        - "tls.key"
+      fact: "Secret/nginx/nginx-ingress-tls:tls.crt+tls.key"
+      purpose: "TLS certificate material referenced by the Ingress"
+  generatedFactEdges:
+    []
+  fieldReachability:
+    []
+  notes:
+    - "This graph is recovered from checked-in recipe artifacts."
+    - "It is a desired-state graph fragment, not a live-cluster observation."
+    - "Field reachability is limited to charts that have value-source-map.yaml coverage."

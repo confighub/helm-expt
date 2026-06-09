@@ -366,7 +366,7 @@ data/variant-path-coverage/summary.md
   Proof status per chart, base variant, derived variant, diff, and operation path.
 
 data/edge-recovery/summary.md
-  Graph fragments recovered from Redis and kube-prometheus-stack recipe artifacts.
+  Graph fragments recovered from catalog-supported recipe artifacts.
 
 data/latest-top20-refresh/summary.md
   Which supported top-20 charts are current and which need new proof paths.

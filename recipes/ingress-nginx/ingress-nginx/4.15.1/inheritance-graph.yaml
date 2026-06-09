@@ -1,0 +1,57 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InheritanceGraph"
+metadata:
+  name: "ingress-nginx-ingress-nginx-4.15.1"
+spec:
+  chart: "ingress-nginx/ingress-nginx"
+  version: "4.15.1"
+  recipe: "recipe.yaml"
+  baseVariant: "default"
+  variants:
+    -
+      name: "default"
+      variant: "variants/default/variant.yaml"
+      valuesProfile: "effective-values.yaml"
+    -
+      name: "admission-disabled"
+      variant: "variants/admission-disabled/variant.yaml"
+      valuesProfile: "effective-values-admission-disabled.yaml"
+  edges:
+    -
+      from: "default"
+      to: "default"
+      type: "base-self"
+      inheritedValuePaths:
+        []
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        []
+      removedValuePaths:
+        []
+      valueSourceMapCoverage:
+        []
+    -
+      from: "default"
+      to: "admission-disabled"
+      type: "inherits-with-overrides"
+      inheritedValuePaths:
+        []
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        - "controller.admissionWebhooks.enabled"
+      removedValuePaths:
+        []
+      valueSourceMapCoverage:
+        []
+  targetFactEdges:
+    []
+  generatedFactEdges:
+    []
+  fieldReachability:
+    []
+  notes:
+    - "This graph is recovered from checked-in recipe artifacts."
+    - "It is a desired-state graph fragment, not a live-cluster observation."
+    - "Field reachability is limited to charts that have value-source-map.yaml coverage."

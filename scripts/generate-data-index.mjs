@@ -99,7 +99,7 @@ function readme(rows) {
     ["data/variant-path-coverage/summary.md", "Per chart/base/path matrix for base variants, diffs, operations, and derived ConfigHub variants."],
     ["data/quirk-coverage/summary.md", "Coverage audit for Helm quirks: tracked, partly tracked, source-scanned only, or not scanned."],
     ["data/high-fanout-demo/summary.md", "Prometheus/kube-prometheus-stack example showing how one base choice changes many objects and prerequisites."],
-    ["data/edge-recovery/summary.md", "Recovered graph fragments from Redis and kube-prometheus-stack recipe artifacts."],
+    ["data/edge-recovery/summary.md", "Recovered graph fragments from catalog-supported recipe artifacts."],
     ["data/csv-index.csv", "Machine-readable index of every CSV under data/."],
   ];
   const families = [...new Set(rows.map((row) => row.family))].sort();

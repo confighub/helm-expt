@@ -1,0 +1,72 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InheritanceGraph"
+metadata:
+  name: "grafana-grafana-10.5.15"
+spec:
+  chart: "grafana/grafana"
+  version: "10.5.15"
+  recipe: "recipe.yaml"
+  baseVariant: "generated-passwords"
+  variants:
+    -
+      name: "generated-passwords"
+      variant: "variants/generated-passwords/variant.yaml"
+      valuesProfile: "effective-values.yaml"
+    -
+      name: "existing-secret-ingress"
+      variant: "variants/existing-secret-ingress/variant.yaml"
+      valuesProfile: "effective-values-existing-secret-ingress.yaml"
+  edges:
+    -
+      from: "generated-passwords"
+      to: "generated-passwords"
+      type: "base-self"
+      inheritedValuePaths:
+        - "adminPassword"
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        []
+      removedValuePaths:
+        []
+      valueSourceMapCoverage:
+        []
+    -
+      from: "generated-passwords"
+      to: "existing-secret-ingress"
+      type: "inherits-with-overrides"
+      inheritedValuePaths:
+        []
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        - "admin.existingSecret"
+        - "admin.passwordKey"
+        - "admin.userKey"
+        - "ingress.enabled"
+        - "ingress.hosts"
+        - "ingress.ingressClassName"
+        - "ingress.tls"
+      removedValuePaths:
+        - "adminPassword"
+      valueSourceMapCoverage:
+        []
+  targetFactEdges:
+    -
+      variant: "existing-secret-ingress"
+      kind: "Secret"
+      namespace: "grafana"
+      name: "grafana-admin"
+      keys:
+        - "admin-user"
+        - "admin-password"
+      fact: "Secret/grafana/grafana-admin:admin-user+admin-password"
+      purpose: "Grafana administrator username and password"
+  generatedFactEdges:
+    []
+  fieldReachability:
+    []
+  notes:
+    - "This graph is recovered from checked-in recipe artifacts."
+    - "It is a desired-state graph fragment, not a live-cluster observation."
+    - "Field reachability is limited to charts that have value-source-map.yaml coverage."

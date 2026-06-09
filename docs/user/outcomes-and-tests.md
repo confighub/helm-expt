@@ -56,7 +56,7 @@ For the shortest chart-by-chart top-100 answer, start with:
 | [extension slot coverage](../../data/extension-slots/summary.md) | One row per chart with NGINX-like raw manifests, tpl snippets, config blocks, sidecars, or add-on slots. |
 | [hook and lifecycle boundary](../../data/lifecycle-boundary/summary.md) | Separates hook lifecycle queue rows from hook-like controller lifecycle observations. |
 | [cert-manager and External Secrets lifecycle observations](../../data/lifecycle-observations/cert-manager-eso/summary.md) | Concrete post-apply checks for CRD policy, API readiness, webhook CA injection, and controller-populated Secret data. |
-| [edges.csv](../../data/edge-recovery/edges.csv) | Recovered graph fragments for Redis and kube-prometheus-stack: inheritance, overrides, generated facts, target facts, and field reachability where known. |
+| [edges.csv](../../data/edge-recovery/edges.csv) | Recovered graph fragments for catalog-supported charts: inheritance, overrides, generated facts, target facts, and field reachability where known. |
 
 Every CSV under `data/` is indexed here:
 

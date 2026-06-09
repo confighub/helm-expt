@@ -1,0 +1,60 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InheritanceGraph"
+metadata:
+  name: "longhorn-longhorn-1.11.2"
+spec:
+  chart: "longhorn/longhorn"
+  version: "1.11.2"
+  recipe: "recipe.yaml"
+  baseVariant: "default"
+  variants:
+    -
+      name: "default"
+      variant: "variants/default/variant.yaml"
+      valuesProfile: "effective-values.yaml"
+    -
+      name: "ui-ingress"
+      variant: "variants/ui-ingress/variant.yaml"
+      valuesProfile: "effective-values-ui-ingress.yaml"
+  edges:
+    -
+      from: "default"
+      to: "default"
+      type: "base-self"
+      inheritedValuePaths:
+        []
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        []
+      removedValuePaths:
+        []
+      valueSourceMapCoverage:
+        []
+    -
+      from: "default"
+      to: "ui-ingress"
+      type: "inherits-with-overrides"
+      inheritedValuePaths:
+        []
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        - "ingress.enabled"
+        - "ingress.host"
+        - "ingress.ingressClassName"
+        - "ingress.tls"
+      removedValuePaths:
+        []
+      valueSourceMapCoverage:
+        []
+  targetFactEdges:
+    []
+  generatedFactEdges:
+    []
+  fieldReachability:
+    []
+  notes:
+    - "This graph is recovered from checked-in recipe artifacts."
+    - "It is a desired-state graph fragment, not a live-cluster observation."
+    - "Field reachability is limited to charts that have value-source-map.yaml coverage."

@@ -1,0 +1,74 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InheritanceGraph"
+metadata:
+  name: "bitnami-mysql-14.0.3"
+spec:
+  chart: "bitnami/mysql"
+  version: "14.0.3"
+  recipe: "recipe.yaml"
+  baseVariant: "generated-passwords"
+  variants:
+    -
+      name: "generated-passwords"
+      variant: "variants/generated-passwords/variant.yaml"
+      valuesProfile: "effective-values.yaml"
+    -
+      name: "existing-secret"
+      variant: "variants/existing-secret/variant.yaml"
+      valuesProfile: "effective-values-existing-secret.yaml"
+  edges:
+    -
+      from: "generated-passwords"
+      to: "generated-passwords"
+      type: "base-self"
+      inheritedValuePaths:
+        - "auth.password"
+        - "auth.replicationPassword"
+        - "auth.rootPassword"
+        - "global.security.allowInsecureImages"
+        - "image.repository"
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        []
+      removedValuePaths:
+        []
+      valueSourceMapCoverage:
+        []
+    -
+      from: "generated-passwords"
+      to: "existing-secret"
+      type: "inherits-with-overrides"
+      inheritedValuePaths:
+        - "global.security.allowInsecureImages"
+        - "image.repository"
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        - "auth.existingSecret"
+      removedValuePaths:
+        - "auth.password"
+        - "auth.replicationPassword"
+        - "auth.rootPassword"
+      valueSourceMapCoverage:
+        []
+  targetFactEdges:
+    -
+      variant: "existing-secret"
+      kind: "Secret"
+      namespace: "mysql"
+      name: "mysql-auth"
+      keys:
+        - "mysql-root-password"
+        - "mysql-password"
+        - "mysql-replication-password"
+      fact: "Secret/mysql/mysql-auth:mysql-root-password+mysql-password+mysql-replication-password"
+      purpose: "MySQL root, user, and replication passwords"
+  generatedFactEdges:
+    []
+  fieldReachability:
+    []
+  notes:
+    - "This graph is recovered from checked-in recipe artifacts."
+    - "It is a desired-state graph fragment, not a live-cluster observation."
+    - "Field reachability is limited to charts that have value-source-map.yaml coverage."

@@ -1,0 +1,61 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InheritanceGraph"
+metadata:
+  name: "prometheus-community-prometheus-29.8.0"
+spec:
+  chart: "prometheus-community/prometheus"
+  version: "29.8.0"
+  recipe: "recipe.yaml"
+  baseVariant: "default"
+  variants:
+    -
+      name: "default"
+      variant: "variants/default/variant.yaml"
+      valuesProfile: "effective-values.yaml"
+    -
+      name: "server-only-ephemeral"
+      variant: "variants/server-only-ephemeral/variant.yaml"
+      valuesProfile: "effective-values-server-only-ephemeral.yaml"
+  edges:
+    -
+      from: "default"
+      to: "default"
+      type: "base-self"
+      inheritedValuePaths:
+        []
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        []
+      removedValuePaths:
+        []
+      valueSourceMapCoverage:
+        []
+    -
+      from: "default"
+      to: "server-only-ephemeral"
+      type: "inherits-with-overrides"
+      inheritedValuePaths:
+        []
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        - "alertmanager.enabled"
+        - "kube-state-metrics.enabled"
+        - "prometheus-node-exporter.enabled"
+        - "prometheus-pushgateway.enabled"
+        - "server.persistentVolume.enabled"
+      removedValuePaths:
+        []
+      valueSourceMapCoverage:
+        []
+  targetFactEdges:
+    []
+  generatedFactEdges:
+    []
+  fieldReachability:
+    []
+  notes:
+    - "This graph is recovered from checked-in recipe artifacts."
+    - "It is a desired-state graph fragment, not a live-cluster observation."
+    - "Field reachability is limited to charts that have value-source-map.yaml coverage."

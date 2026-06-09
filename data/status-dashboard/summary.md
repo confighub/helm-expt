@@ -39,11 +39,11 @@ Which detailed CSV should I open next?
 | derived variants | derived variant golden rows | 10/10 | good | [data/variant-goldens/derived-expansion-wave/work-orders.csv](../../data/variant-goldens/derived-expansion-wave/work-orders.csv) |
 | derived variants | derived variant live create receipts | 10/10 | good | [runs/derived-variant-execution](../../runs/derived-variant-execution) |
 | derived variants | target-bound derived variant receipts | 6/10 | partial | [runs/derived-variant-target-bound](../../runs/derived-variant-target-bound) |
-| graph bridge | charts with recovered graph fragments | 2/100 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
-| graph bridge | recovered graph edge rows | 8/8 | good | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
-| graph bridge | target-fact graph edges | 3/8 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
-| graph bridge | generated-fact graph edges | 1/8 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
-| graph bridge | rows with field reachability | 2/8 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
+| graph bridge | charts with recovered graph fragments | 20/100 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
+| graph bridge | recovered graph edge rows | 97/97 | good | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
+| graph bridge | target-fact graph edges | 56/97 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
+| graph bridge | generated-fact graph edges | 1/97 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
+| graph bridge | rows with field reachability | 2/97 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | live evidence | runtime/GitOps wave rows | 10/10 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
 | live evidence | live Helm-vs-ConfigHub receipts | 20/20 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster kind parity receipts | 40/40 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |

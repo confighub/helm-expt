@@ -1,0 +1,68 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InheritanceGraph"
+metadata:
+  name: "bitnami-mongodb-19.0.7"
+spec:
+  chart: "bitnami/mongodb"
+  version: "19.0.7"
+  recipe: "recipe.yaml"
+  baseVariant: "generated-passwords"
+  variants:
+    -
+      name: "generated-passwords"
+      variant: "variants/generated-passwords/variant.yaml"
+      valuesProfile: "effective-values.yaml"
+    -
+      name: "existing-secret-replicaset"
+      variant: "variants/existing-secret-replicaset/variant.yaml"
+      valuesProfile: "effective-values-existing-secret-replicaset.yaml"
+  edges:
+    -
+      from: "generated-passwords"
+      to: "generated-passwords"
+      type: "base-self"
+      inheritedValuePaths:
+        - "auth.rootPassword"
+        - "image.digest"
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        []
+      removedValuePaths:
+        []
+      valueSourceMapCoverage:
+        []
+    -
+      from: "generated-passwords"
+      to: "existing-secret-replicaset"
+      type: "inherits-with-overrides"
+      inheritedValuePaths:
+        - "image.digest"
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        - "architecture"
+        - "auth.existingSecret"
+      removedValuePaths:
+        - "auth.rootPassword"
+      valueSourceMapCoverage:
+        []
+  targetFactEdges:
+    -
+      variant: "existing-secret-replicaset"
+      kind: "Secret"
+      namespace: "mongodb"
+      name: "mongodb-auth"
+      keys:
+        - "mongodb-root-password"
+        - "mongodb-replica-set-key"
+      fact: "Secret/mongodb/mongodb-auth:mongodb-root-password+mongodb-replica-set-key"
+      purpose: "MongoDB root password and replica-set key"
+  generatedFactEdges:
+    []
+  fieldReachability:
+    []
+  notes:
+    - "This graph is recovered from checked-in recipe artifacts."
+    - "It is a desired-state graph fragment, not a live-cluster observation."
+    - "Field reachability is limited to charts that have value-source-map.yaml coverage."

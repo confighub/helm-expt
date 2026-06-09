@@ -1,0 +1,79 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InheritanceGraph"
+metadata:
+  name: "grafana-loki-7.0.0"
+spec:
+  chart: "grafana/loki"
+  version: "7.0.0"
+  recipe: "recipe.yaml"
+  baseVariant: "single-binary-filesystem"
+  variants:
+    -
+      name: "single-binary-filesystem"
+      variant: "variants/single-binary-filesystem/variant.yaml"
+      valuesProfile: "effective-values.yaml"
+    -
+      name: "simple-scalable-minio"
+      variant: "variants/simple-scalable-minio/variant.yaml"
+      valuesProfile: "effective-values-simple-scalable-minio.yaml"
+  edges:
+    -
+      from: "single-binary-filesystem"
+      to: "single-binary-filesystem"
+      type: "base-self"
+      inheritedValuePaths:
+        - "backend.replicas"
+        - "deploymentMode"
+        - "loki.auth_enabled"
+        - "loki.commonConfig.replication_factor"
+        - "loki.schemaConfig.configs"
+        - "loki.storage.type"
+        - "read.replicas"
+        - "singleBinary.replicas"
+        - "write.replicas"
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        []
+      removedValuePaths:
+        []
+      valueSourceMapCoverage:
+        []
+    -
+      from: "single-binary-filesystem"
+      to: "simple-scalable-minio"
+      type: "inherits-with-overrides"
+      inheritedValuePaths:
+        - "loki.commonConfig.replication_factor"
+      overriddenValuePaths:
+        - "backend.replicas"
+        - "loki.schemaConfig.configs"
+        - "loki.storage.type"
+        - "read.replicas"
+        - "write.replicas"
+      addedValuePaths:
+        - "loki.storage.bucketNames.admin"
+        - "loki.storage.bucketNames.chunks"
+        - "loki.storage.bucketNames.ruler"
+        - "loki.storage.s3.accessKeyId"
+        - "loki.storage.s3.endpoint"
+        - "loki.storage.s3.insecure"
+        - "loki.storage.s3.s3ForcePathStyle"
+        - "loki.storage.s3.secretAccessKey"
+        - "minio.enabled"
+      removedValuePaths:
+        - "deploymentMode"
+        - "loki.auth_enabled"
+        - "singleBinary.replicas"
+      valueSourceMapCoverage:
+        []
+  targetFactEdges:
+    []
+  generatedFactEdges:
+    []
+  fieldReachability:
+    []
+  notes:
+    - "This graph is recovered from checked-in recipe artifacts."
+    - "It is a desired-state graph fragment, not a live-cluster observation."
+    - "Field reachability is limited to charts that have value-source-map.yaml coverage."

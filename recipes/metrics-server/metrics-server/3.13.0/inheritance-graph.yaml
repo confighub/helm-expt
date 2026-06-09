@@ -1,0 +1,70 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InheritanceGraph"
+metadata:
+  name: "metrics-server-metrics-server-3.13.0"
+spec:
+  chart: "metrics-server/metrics-server"
+  version: "3.13.0"
+  recipe: "recipe.yaml"
+  baseVariant: "default"
+  variants:
+    -
+      name: "default"
+      variant: "variants/default/variant.yaml"
+      valuesProfile: "effective-values.yaml"
+    -
+      name: "external-tls-ca"
+      variant: "variants/external-tls-ca/variant.yaml"
+      valuesProfile: "effective-values-external-tls-ca.yaml"
+  edges:
+    -
+      from: "default"
+      to: "default"
+      type: "base-self"
+      inheritedValuePaths:
+        - "args"
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        []
+      removedValuePaths:
+        []
+      valueSourceMapCoverage:
+        []
+    -
+      from: "default"
+      to: "external-tls-ca"
+      type: "inherits-with-overrides"
+      inheritedValuePaths:
+        []
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        - "apiService.caBundle"
+        - "apiService.insecureSkipTLSVerify"
+        - "tls.existingSecret.lookup"
+        - "tls.existingSecret.name"
+        - "tls.type"
+      removedValuePaths:
+        - "args"
+      valueSourceMapCoverage:
+        []
+  targetFactEdges:
+    -
+      variant: "external-tls-ca"
+      kind: "Secret"
+      namespace: "kube-system"
+      name: "metrics-server-tls"
+      keys:
+        - "tls.crt"
+        - "tls.key"
+      fact: "Secret/kube-system/metrics-server-tls:tls.crt+tls.key"
+      purpose: "metrics-server serving certificate"
+  generatedFactEdges:
+    []
+  fieldReachability:
+    []
+  notes:
+    - "This graph is recovered from checked-in recipe artifacts."
+    - "It is a desired-state graph fragment, not a live-cluster observation."
+    - "Field reachability is limited to charts that have value-source-map.yaml coverage."
