@@ -169,10 +169,10 @@ Use the generated rerun plan for the next command and expected remediation:
 Production disposition is still open for the top-20 catalog:
 
 - 0 of 20 top-20 charts are currently marked production-supported.
-- 2 of 20 are production-review-ready: NGINX and Redis.
-- 18 of 20 remain blocked pending explicit production dispositions.
-- 10 production-disposition receipts are accepted across 3 charts: NGINX,
-  Redis, and Metrics Server.
+- 20 of 20 are production-review-ready pending a final support decision and
+  target scope.
+- 0 of 20 remain production-blocked pending disposition.
+- 100 production-disposition receipts are accepted across 20 charts.
 - external scan work has 0 remaining mutable-image rows after the current
   supported-base image pinning pass.
 - the remaining high-priority scan rows are routed to explicit privileged
@@ -196,6 +196,8 @@ Use the generated queue when you want the next chart-level production action:
 
 Lifecycle observation proof has started:
 
+- 5 maintained hook-bearing top-100 charts now have hook route receipts.
+- 0 of those 5 hook routes have execution or observation receipts yet.
 - cert-manager `default` and `crds-enabled` pass lifecycle checks for CRD
   ownership policy, startup API readiness, webhook CA bundle injection, and
   server dry-run.
@@ -205,6 +207,10 @@ Lifecycle observation proof has started:
 - These receipts demonstrate the lifecycle-observation pattern. They do not
   imply that all Helm hooks or controller-owned runtime behavior are supported
   automatically.
+
+Use the hook boundary report for the current route-selected versus
+lifecycle-observed split:
+[Hook And Lifecycle Boundary](../../data/lifecycle-boundary/summary.md).
 
 Target-bound derived ConfigHub variant proof has started:
 

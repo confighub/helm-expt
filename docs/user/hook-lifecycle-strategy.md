@@ -84,8 +84,10 @@ Use these states when discussing hook or hook-like lifecycle behavior:
 | `blocked` | The hook is unsafe, ambiguous, target-dependent, or not yet mapped. |
 
 Do not treat `inventoried` or `render-proven` as lifecycle support.
-`route-selected` is still a plan until it has a receipt. `blocked` is a valid
-catalog outcome when a hook does not fit the current model safely.
+`route-selected` means the route has been recorded, usually in a route receipt,
+but it is still not lifecycle proof until execution or observation evidence
+exists. `blocked` is a valid catalog outcome when a hook does not fit the
+current model safely.
 
 ## Classification
 
