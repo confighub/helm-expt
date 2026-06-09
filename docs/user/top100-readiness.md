@@ -83,6 +83,10 @@ Use the CSV when comparing many charts:
 
 [readiness.csv](../../data/top100-readiness/readiness.csv)
 
+Start with the `workability` column when you want the simple answer:
+try now from the public catalog, use as proof pending catalog review, add a
+real user-shaped variant first, or make a limitation decision before promotion.
+
 Then drill down:
 
 | Question | Use |

@@ -14,6 +14,15 @@ charts with live evidence on at least one variant: 20
 charts with named hard gaps: 25
 ~~~
 
+## Workability Lens
+
+| User question | Count | Answer |
+| --- | ---: | --- |
+| What can a user try from the public catalog now? | 20 | Use the catalog entry, then check the exact base and proof lane before making a stronger claim. |
+| What works as a proof but is not promoted yet? | 27 | The recipe/package proof exists and useful variants exist; run catalog review and selected live lanes. |
+| What should not be shown as a real catalog offer yet? | 46 | The default render proves the mechanism, but a realistic user-shaped base variant is still needed. |
+| What needs a decision before promotion? | 7 | A named limitation such as existing-secret, HA, or CRD routing must be supported, disclosed, or deferred. |
+
 ## Practical Buckets
 
 | Question | Count | Read it as | Next move |
@@ -117,7 +126,7 @@ charts with named hard gaps: 25
 
 | File | Use |
 | --- | --- |
-| `data/top100-readiness/readiness.csv` | One row per top-100 chart: user status, strongest evidence, lane counts, gap, next action, next receipt path where available, and next-action source. |
+| `data/top100-readiness/readiness.csv` | One row per top-100 chart: workability, user status, strongest evidence, lane counts, gap, next action, next receipt path where available, and next-action source. |
 | `data/top100-catalog-analysis/review.csv` | Catalog analysis and promotion surface. |
 | `data/outcome-coverage/chart-outcomes.csv` | Detailed outcome counts per chart. |
 | `data/outcome-coverage/base-outcomes.csv` | Per base-variant proof lane status. |

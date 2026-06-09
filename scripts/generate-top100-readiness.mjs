@@ -43,10 +43,12 @@ function buildReport() {
     const strongestEvidence = strongestEvidenceFor(outcome);
     const productionNextAction = productionNextActions.get(key);
     const status = userStatusFor(top100, outcome, strongestEvidence, productionNextAction);
+    const workability = workabilityFor(status.userStatus);
     return {
       proof_surface_rank: top100.proof_surface_rank,
       chart: key,
       catalog_tier: top100.proof_surface,
+      workability,
       adoption_bucket: adoptionBucketFor(status.userStatus),
       user_status: status.userStatus,
       strongest_evidence: strongestEvidence,
@@ -169,6 +171,12 @@ charts with live evidence on at least one variant: ${liveEvidence.length}
 charts with named hard gaps: ${hardGaps.length}
 ~~~
 
+## Workability Lens
+
+| User question | Count | Answer |
+| --- | ---: | --- |
+${workabilityRows(rows).map((row) => `| ${row.question} | ${row.count} | ${row.answer} |`).join("\n")}
+
 ## Practical Buckets
 
 | Question | Count | Read it as | Next move |
@@ -237,7 +245,7 @@ ${rows.slice(0, 25).map((row) => `| \`${row.chart}\` | \`${row.adoption_bucket}\
 
 | File | Use |
 | --- | --- |
-| \`data/top100-readiness/readiness.csv\` | One row per top-100 chart: user status, strongest evidence, lane counts, gap, next action, next receipt path where available, and next-action source. |
+| \`data/top100-readiness/readiness.csv\` | One row per top-100 chart: workability, user status, strongest evidence, lane counts, gap, next action, next receipt path where available, and next-action source. |
 | \`data/top100-catalog-analysis/review.csv\` | Catalog analysis and promotion surface. |
 | \`data/outcome-coverage/chart-outcomes.csv\` | Detailed outcome counts per chart. |
 | \`data/outcome-coverage/base-outcomes.csv\` | Per base-variant proof lane status. |
@@ -254,6 +262,56 @@ npm run top100:readiness:verify
 function sampleCharts(rows) {
   if (!rows.length) return "-";
   return rows.slice(0, 5).map((row) => `\`${row.chart}\``).join("<br>");
+}
+
+function workabilityFor(status) {
+  switch (status) {
+    case "catalog-supported-with-live-evidence":
+    case "catalog-supported-needs-live-expansion":
+      return "try-now-public-catalog";
+    case "proof-grade-ready-for-promotion-review":
+      return "works-as-proof-needs-catalog-review";
+    case "proof-grade-needs-user-shaped-variant":
+      return "not-yet-a-good-catalog-offer";
+    case "proof-grade-with-named-limitation":
+      return "decision-needed-before-promotion";
+    default:
+      return "not-in-current-catalog-lane";
+  }
+}
+
+function workabilityRows(rows) {
+  const counts = countBy(rows, (row) => row.workability);
+  const ordered = [
+    {
+      key: "try-now-public-catalog",
+      question: "What can a user try from the public catalog now?",
+      answer: "Use the catalog entry, then check the exact base and proof lane before making a stronger claim.",
+    },
+    {
+      key: "works-as-proof-needs-catalog-review",
+      question: "What works as a proof but is not promoted yet?",
+      answer: "The recipe/package proof exists and useful variants exist; run catalog review and selected live lanes.",
+    },
+    {
+      key: "not-yet-a-good-catalog-offer",
+      question: "What should not be shown as a real catalog offer yet?",
+      answer: "The default render proves the mechanism, but a realistic user-shaped base variant is still needed.",
+    },
+    {
+      key: "decision-needed-before-promotion",
+      question: "What needs a decision before promotion?",
+      answer: "A named limitation such as existing-secret, HA, or CRD routing must be supported, disclosed, or deferred.",
+    },
+    {
+      key: "not-in-current-catalog-lane",
+      question: "What is outside the maintained top-100 lane?",
+      answer: "Use top-500 reconnaissance and create a recipe candidate first.",
+    },
+  ];
+  return ordered
+    .filter((row) => counts.has(row.key))
+    .map((row) => ({ ...row, count: counts.get(row.key) }));
 }
 
 function gapMeaning(gap) {
