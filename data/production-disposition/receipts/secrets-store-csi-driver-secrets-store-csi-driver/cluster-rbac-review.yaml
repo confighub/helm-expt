@@ -1,0 +1,48 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: secrets-store-csi-driver-cluster-rbac-review
+spec:
+  chart: secrets-store-csi-driver/secrets-store-csi-driver
+  version: "1.6.0"
+  disposition: cluster RBAC review
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Secrets Store CSI Driver intentionally renders cluster-scoped RBAC for
+    SecretProviderClass access, status viewing, and optional synced Secret
+    behavior. This disposition accepts the upstream RBAC shape as production
+    review input. Target policy can still require a narrower base, separate
+    approval, or provider-specific access controls before production support.
+  evidence:
+    - path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/control-points.yaml
+      claim: The recipe records cluster RBAC as scan-and-review and sync-secret-rotation as variant-controlled.
+    - path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/default/r001/rendered/object-inventory.yaml
+      claim: The default object inventory records four ClusterRole objects and one ClusterRoleBinding.
+    - path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/rendered/object-inventory.yaml
+      claim: The sync-secret-rotation inventory records the additional synced Secret ClusterRole and ClusterRoleBinding.
+    - path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default rendered-object scan flags cluster-rbac-review findings with zero high or critical findings.
+    - path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/receipts/scan-receipt.yaml
+      claim: The sync-secret-rotation rendered-object scan flags the broader RBAC set, including synced Secret permissions.
+    - path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The default base is Helm-equivalent under recorded inputs.
+    - path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The sync-secret-rotation base is Helm-equivalent under recorded inputs.
+    - path: runs/live-helm-confighub-compare/secrets-store-csi-driver-secrets-store-csi-driver-default/receipt.yaml
+      claim: The default base passes regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo live parity.
+    - path: runs/live-kind-parity/secrets-store-csi-driver-secrets-store-csi-driver-sync-secret-rotation/receipt.yaml
+      claim: The sync-secret-rotation base passes strict two-cluster live parity.
+  affectedVariants:
+    - default
+    - sync-secret-rotation
+  acceptedWarnings:
+    - cluster-rbac-review
+  variantCaveats:
+    - "Cluster-scoped RBAC is expected for this CSI driver but must be reviewed against the target cluster's policy."
+    - "sync-secret-rotation adds RBAC that can write synced Kubernetes Secrets and should be selected only when that behavior is intended."
+  remainingProductionBlockers: []
+  nextDecision: A target-scoped production support decision should review RBAC together with provider identity, SecretProviderClass ownership, and synced Secret policy.

@@ -170,11 +170,13 @@ const supportedCatalogEntries = {
     ],
   },
   "secrets-store-csi-driver/secrets-store-csi-driver": {
+    productionReadiness: "production-review-ready",
     notes: [
       "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.",
       "default preserves the normal CSI driver install shape.",
       "sync-secret-rotation is supported when Secret sync and rotation assumptions are declared.",
-      "Production remains blocked until provider integration, node DaemonSet policy, rotation expectations, and scan/gate findings have dispositions.",
+      "CRD ownership, cluster RBAC, provider/platform extension slots, node DaemonSet posture, synced Secret rotation, and scan/gate warnings are recorded as production review input.",
+      "Production recommendation remains a separate decision; target policy must accept privileged-node CSI behavior and choose the provider integration and synced Secret model.",
     ],
   },
   "ingress-nginx/ingress-nginx": {

@@ -13,13 +13,13 @@ catalog-supported local-test charts: 20
 ConfigHub proof receipts passing: 20
 live/e2e observed charts: 20
 production-supported charts: 0
-production-review-ready pending final support decision: 13
-production-blocked pending disposition: 7
+production-review-ready pending final support decision: 14
+production-blocked pending disposition: 6
 source Helm-hook rows: 1
 hook/lifecycle disposition rows: 12
 related lifecycle observation rows: 2
-accepted production disposition receipts: 61
-charts with accepted dispositions: 13
+accepted production disposition receipts: 65
+charts with accepted dispositions: 14
 ```
 
 The hook/lifecycle disposition is a production-review item. It does not always
@@ -62,7 +62,7 @@ runtime checks.
 | `metrics-server/metrics-server@3.13.0` | default, external-tls-ca | pass | local-kind-observed | production-review-ready | 5 |  |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default, no-crds | pass | local-kind-observed | blocked | 0 | CRD lifecycle and upgrade policy, cluster RBAC review, extension slot provenance and scan policy, generated fact ownership, scan/gate warning disposition, webhook readiness and failure policy |
 | `prometheus-community/prometheus@29.8.0` | default, server-only-ephemeral | pass | local-kind-observed | production-review-ready | 3 |  |
-| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default, sync-secret-rotation | pass | local-kind-observed | blocked | 0 | CRD lifecycle and upgrade policy, cluster RBAC review, extension slot provenance and scan policy, scan/gate warning disposition |
+| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default, sync-secret-rotation | pass | local-kind-observed | production-review-ready | 4 |  |
 
 ## Doctrine
 

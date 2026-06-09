@@ -14,7 +14,7 @@ spec:
   supportedVariants:
     - "default"
     - "sync-secret-rotation"
-  productionReadiness: "blocked-by-current-scan-gate"
+  productionReadiness: "production-review-ready"
   notes:
     - "The chart renders deterministically under pinned Helm, chart version, kube version, and values."
     - "The default variant installs the Linux CSI DaemonSet, CSIDriver, SecretProviderClass CRDs, and cluster RBAC."
@@ -151,4 +151,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
-  answerForSkepticalHelmUser: "secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, lifecycle-policy, recipe, scan-gate, extension-slot, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains blocked-by-current-scan-gate."
+  answerForSkepticalHelmUser: "secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, lifecycle-policy, recipe, scan-gate, extension-slot, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains production-review-ready."

@@ -1765,7 +1765,7 @@ spec:
     -
       chart: "secrets-store-csi-driver/secrets-store-csi-driver"
       version: "1.6.0"
-      status: "production-blocked"
+      status: "production-review-ready"
       supportedLocalTestVariants:
         - "default"
         - "sync-secret-rotation"
@@ -1796,11 +1796,15 @@ spec:
         lifecycleObservationReceipts:
           []
         productionDispositionReceipts:
-          []
+          - "data/production-disposition/receipts/secrets-store-csi-driver-secrets-store-csi-driver/crd-lifecycle-and-upgrade-policy.yaml"
+          - "data/production-disposition/receipts/secrets-store-csi-driver-secrets-store-csi-driver/cluster-rbac-review.yaml"
+          - "data/production-disposition/receipts/secrets-store-csi-driver-secrets-store-csi-driver/extension-slot-provenance-and-scan-policy.yaml"
+          - "data/production-disposition/receipts/secrets-store-csi-driver-secrets-store-csi-driver/scan-gate-warning-disposition.yaml"
       dispositions:
         -
           name: "CRD lifecycle and upgrade policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/secrets-store-csi-driver-secrets-store-csi-driver/crd-lifecycle-and-upgrade-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "CRD ownership decision"
@@ -1809,7 +1813,8 @@ spec:
           unblockRule: "supported only when CRD ownership and upgrade behavior are explicit"
         -
           name: "cluster RBAC review"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/secrets-store-csi-driver-secrets-store-csi-driver/cluster-rbac-review.yaml"
           owner: "security-review"
           requiredEvidence:
             - "cluster-scoped RBAC inventory"
@@ -1818,7 +1823,8 @@ spec:
           unblockRule: "supported only after cluster-scoped permissions have an explicit disposition"
         -
           name: "extension slot provenance and scan policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/secrets-store-csi-driver-secrets-store-csi-driver/extension-slot-provenance-and-scan-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "tpl/raw value inventory"
@@ -1827,7 +1833,8 @@ spec:
           unblockRule: "supported only when extensions are explicit and scanned after render"
         -
           name: "scan/gate warning disposition"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/secrets-store-csi-driver-secrets-store-csi-driver/scan-gate-warning-disposition.yaml"
           owner: "security-review"
           requiredEvidence:
             - "local scan receipt"

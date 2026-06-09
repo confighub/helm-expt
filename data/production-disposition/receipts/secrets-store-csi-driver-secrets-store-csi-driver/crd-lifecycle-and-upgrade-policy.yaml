@@ -1,0 +1,54 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: secrets-store-csi-driver-crd-lifecycle-and-upgrade-policy
+spec:
+  chart: secrets-store-csi-driver/secrets-store-csi-driver
+  version: "1.6.0"
+  disposition: CRD lifecycle and upgrade policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Both supported bases render the SecretProviderClass and
+    SecretProviderClassPodStatus CRDs as ordinary reviewed objects. This
+    disposition accepts the current CRD ownership model for production review
+    input: the recipe owns the CRDs for these bases, and chart upgrades must
+    review CRD schema compatibility before replacing the supported version.
+  evidence:
+    - path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/control-points.yaml
+      claim: The recipe records CRD lifecycle as a scan-and-review control point.
+    - path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/value-model.yaml
+      claim: The value model records linux.crds.enabled as variant-controlled for all promoted bases.
+    - path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/default/r001/rendered/object-inventory.yaml
+      claim: The default rendered object inventory records both Secrets Store CSI Driver CRDs.
+    - path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/rendered/object-inventory.yaml
+      claim: The sync-secret-rotation rendered object inventory records the same two CRDs.
+    - path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default scan records CRD upgrade policy warnings explicitly.
+    - path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/receipts/scan-receipt.yaml
+      claim: The sync-secret-rotation scan records the same CRD upgrade policy warnings.
+    - path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The default base is Helm-equivalent under recorded inputs, with only the installer Namespace support object added.
+    - path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The sync-secret-rotation base is Helm-equivalent under recorded inputs, with only the installer Namespace support object added.
+    - path: runs/top20-local-kind/secrets-store-csi-driver-default/observation-receipt.json
+      claim: The local-kind observation records both CRDs becoming Established before the DaemonSet rollout check.
+    - path: runs/live-kind-parity/secrets-store-csi-driver-secrets-store-csi-driver-default/receipt.yaml
+      claim: The default base passes strict two-cluster live parity between regular Helm and cub installer apply.
+    - path: runs/live-kind-parity/secrets-store-csi-driver-secrets-store-csi-driver-sync-secret-rotation/receipt.yaml
+      claim: The sync-secret-rotation base passes strict two-cluster live parity between regular Helm and cub installer apply.
+  affectedVariants:
+    - default
+    - sync-secret-rotation
+  acceptedPolicy:
+    ownership: These supported bases own the Secrets Store CSI Driver CRDs as part of the rendered object set.
+    upgrade: CRD schema changes remain target-sensitive and require a fresh upgrade review when the chart version changes.
+    rollback: CRD rollback must be treated as a target operating procedure, not inferred from render parity alone.
+  variantCaveats:
+    - "A future no-crds base can be added for clusters that manage these CRDs outside the recipe."
+    - "Provider-specific SecretProviderClass resources are post-install integration objects, not included in these base variants."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose whether the target owns these CRDs through this recipe or through a separate CRD management path.

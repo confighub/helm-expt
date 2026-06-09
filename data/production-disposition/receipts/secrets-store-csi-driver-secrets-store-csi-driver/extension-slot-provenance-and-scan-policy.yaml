@@ -1,0 +1,48 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: secrets-store-csi-driver-extension-slot-provenance-and-scan-policy
+spec:
+  chart: secrets-store-csi-driver/secrets-store-csi-driver
+  version: "1.6.0"
+  disposition: extension slot provenance and scan policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    The supported bases keep provider identity, token requests, scheduling,
+    provider path, and Windows-platform choices explicit. The current bases
+    install the Linux DaemonSet only; provider-specific SecretProviderClass
+    objects and cloud/vault identity wiring are post-render integration
+    controls. This disposition accepts the current empty or bound extension
+    slots as production review input and requires populated provider/platform
+    changes to become reviewed bases or ConfigHub-managed integration objects.
+  evidence:
+    - path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/control-points.yaml
+      claim: The recipe records provider integration as a target decision, Linux-only platform support, and extension slots controlled by empty defaults.
+    - path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/value-model.yaml
+      claim: The value model records tokenRequests, scheduling, priority class, Linux/Windows platform selection, and rotation controls explicitly.
+    - path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/effective-values.yaml
+      claim: The default base binds the Linux CSI driver shape without provider-specific SecretProviderClass content.
+    - path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/effective-values-sync-secret-rotation.yaml
+      claim: The sync-secret-rotation base binds Secret sync, rotation, and provider health-check behavior as explicit values.
+    - path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default scan records provider identity, token-request, scheduling, and platform knobs as extension-slot review.
+    - path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/receipts/scan-receipt.yaml
+      claim: The sync-secret-rotation scan records the same extension-slot review plus synced Secret rotation review.
+    - path: runs/secrets-store-csi-driver-confighub-proof/latest/confighub-proof-receipt.yaml
+      claim: The ConfigHub proof records the default base upload and server-side variant clone through real cub installer and cub variant commands.
+  affectedVariants:
+    - default
+    - sync-secret-rotation
+  acceptedPolicy:
+    providerObjects: SecretProviderClass provider objects are integration objects and must be reviewed with the selected provider, identity model, and target cluster.
+    platformVariant: Windows support is not hidden in the current bases; it should become a separate reviewed base if needed.
+    rotationVariant: Synced Secret rotation is intentionally confined to the sync-secret-rotation base.
+  variantCaveats:
+    - "The recipe installs the CSI driver and CRDs, not a complete cloud or vault provider integration."
+    - "Provider identity and token requests are high-impact extension points and should not be introduced as untracked values edits."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose the provider integration route, platform scope, and whether synced Secret rotation is allowed for the target.

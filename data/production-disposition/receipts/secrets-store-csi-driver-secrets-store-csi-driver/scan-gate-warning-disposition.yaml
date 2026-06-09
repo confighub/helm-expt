@@ -1,0 +1,61 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: secrets-store-csi-driver-scan-gate-warning-disposition
+spec:
+  chart: secrets-store-csi-driver/secrets-store-csi-driver
+  version: "1.6.0"
+  disposition: scan/gate warning disposition
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Secrets Store CSI Driver has no high or critical rendered-object scan
+    findings in the local scanner, but the external scanner flags one high
+    security warning family and eight medium warnings for privileged-node
+    workload posture, root filesystem, non-root execution, and privilege
+    escalation. This disposition accepts the warnings as explicit production
+    review inputs, not as final production support.
+  evidence:
+    - path: data/external-scan-lane/review.csv
+      claim: External kube-linter rows for both bases record privileged-container, privilege-escalation-container, run-as-non-root, and read-only-root-filesystem warnings bound to rendered object digests.
+    - path: data/scan-disposition-workdown/workdown.csv
+      claim: The generated scan disposition workdown routes the chart to security acceptance or hardened-base review before production support.
+    - path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default rendered-object scan records CRD, RBAC, CSIDriver, DaemonSet, and extension-slot warnings with zero high or critical findings.
+    - path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/receipts/scan-receipt.yaml
+      claim: The sync-secret-rotation scan records the same warnings plus synced Secret rotation review.
+    - path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/default/r001/receipts/install-gate.yaml
+      claim: The default install gate allows local-test and blocks production until CRD, CSI DaemonSet, provider identity, rotation, RBAC, and CSIDriver policy are reviewed.
+    - path: recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/receipts/install-gate.yaml
+      claim: The sync-secret-rotation install gate records the same production policy boundary with explicit synced Secret behavior.
+    - path: data/production-disposition/receipts/secrets-store-csi-driver-secrets-store-csi-driver/crd-lifecycle-and-upgrade-policy.yaml
+      claim: CRD ownership and upgrade handling have an accepted production-review disposition.
+    - path: data/production-disposition/receipts/secrets-store-csi-driver-secrets-store-csi-driver/cluster-rbac-review.yaml
+      claim: Cluster RBAC handling has an accepted production-review disposition.
+    - path: data/production-disposition/receipts/secrets-store-csi-driver-secrets-store-csi-driver/extension-slot-provenance-and-scan-policy.yaml
+      claim: Provider, platform, scheduling, and synced Secret extension slots have an accepted production-review disposition.
+    - path: runs/live-helm-confighub-compare/secrets-store-csi-driver-secrets-store-csi-driver-default/receipt.yaml
+      claim: The default base passes regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo live parity.
+  affectedVariants:
+    - default
+    - sync-secret-rotation
+  acceptedWarnings:
+    - cluster-rbac-review
+    - crd-upgrade-policy
+    - csi-daemonset-operate-review
+    - csi-driver-review
+    - extension-slot-review
+    - no-read-only-root-fs
+    - privilege-escalation-container
+    - privileged-container
+    - run-as-non-root
+    - sync-secret-rotation-review
+  variantCaveats:
+    - "Privileged-node behavior is intrinsic to the upstream CSI driver and must be accepted explicitly for the target cluster."
+    - "A hardened production base may be added if the upstream chart supports tighter container security settings for the chosen environment."
+    - "The recipe does not prove provider-specific SecretProviderClass behavior; that belongs to the provider integration path."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose target security acceptance or a hardened base, provider integration scope, and synced Secret rotation policy.

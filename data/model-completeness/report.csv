@@ -92,7 +92,7 @@ rook-release/rook-ceph-cluster@v1.19.5,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proo
 rook-release/rook-ceph@v1.19.5,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/rook-release/rook-ceph/v1.19.5
 runix/pgadmin4@1.62.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/runix/pgadmin4/1.62.0
 sealed-secrets/sealed-secrets@2.18.6,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/sealed-secrets/sealed-secrets/2.18.6
-secrets-store-csi-driver/secrets-store-csi-driver@1.6.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,blocked-by-current-scan-gate,none,recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0
+secrets-store-csi-driver/secrets-store-csi-driver@1.6.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0
 stakater/reloader@2.2.12,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/stakater/reloader/2.2.12
 strimzi/strimzi-kafka-operator@1.0.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/strimzi/strimzi-kafka-operator/1.0.0
 traefik/traefik@40.2.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/traefik/traefik/40.2.0
