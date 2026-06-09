@@ -1,0 +1,82 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSecurityDecision"
+metadata:
+  name: "secrets-store-csi-driver-secrets-store-csi-driver-public-oci-security-decision"
+spec:
+  chart: "secrets-store-csi-driver/secrets-store-csi-driver"
+  version: "1.6.0"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "kube-system"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "default"
+  variantsCovered:
+    - "default"
+    - "sync-secret-rotation"
+  decision: "privileged-node-driver-accepted-for-target-scope"
+  decidedAt: "2026-06-09"
+  claim: "The default base installs a node CSI driver with privileged and privilege-escalation containers. That is accepted only for this public proof scope because it is the normal operating shape of this infrastructure component. Customer production scopes should review provider integration, node policy, sync/rotation behavior, and whether a hardened base is possible."
+  route: "accept-or-split-privileged-infrastructure"
+  routeReason: "the chart installs infrastructure that normally needs node, host, or privileged access"
+  findingSummary:
+    scanner: "kube-linter"
+    result: "warn"
+    totalFindings: 16
+    topChecks:
+      no-read-only-root-fs: 6
+      run-as-non-root: 6
+      privilege-escalation-container: 2
+      privileged-container: 2
+    variants:
+      default:
+        findingCount: 8
+        topChecks:
+          no-read-only-root-fs: 3
+          run-as-non-root: 3
+          privilege-escalation-container: 1
+          privileged-container: 1
+        renderedObjectSetSHA256: "2490f14dd08f7e309f8f78cd1c2f1b05eb5b8995343b33ad6b3b243401a39ead"
+      sync-secret-rotation:
+        findingCount: 8
+        topChecks:
+          no-read-only-root-fs: 3
+          run-as-non-root: 3
+          privilege-escalation-container: 1
+          privileged-container: 1
+        renderedObjectSetSHA256: "3667c16d411f773ef20e51c9980d484eb770c1173092878f1b018f5b4377a182"
+  acceptedFindings:
+    -
+      group: "privileged-node-access"
+      disposition: "Accepted for this public proof scope because the chart installs a CSI node driver. Customer production scopes need explicit node security review."
+    -
+      group: "container-hardening"
+      disposition: "Accepted for this public proof scope. Hardened variants should review read-only root filesystems, non-root execution, and privilege escalation settings where the upstream chart supports them."
+  limits:
+    - "This is not a blanket security approval for customer clusters, private overlays, regulated environments, or future chart versions."
+    - "This does not support SecretProviderClass provider configuration, secret sync, or rotation workflows."
+    - "Provider credentials, IAM, external secret-store connectivity, and sync/rotation behavior remain separate target decisions."
+  evidence:
+    -
+      path: "data/scan-disposition-workdown/workdown.csv"
+      claim: "Routes Secrets Store CSI Driver scan findings to accept-or-split-privileged-infrastructure."
+    -
+      path: "data/external-scan-lane/review.csv"
+      claim: "Records kube-linter warning counts for Secrets Store CSI Driver rendered object sets."
+    -
+      path: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/default/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for default."
+    -
+      path: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for sync-secret-rotation."
+    -
+      path: "data/production-disposition/receipts/secrets-store-csi-driver-secrets-store-csi-driver/scan-gate-warning-disposition.yaml"
+      claim: "The scan gate warning disposition receipt exists for this chart."
+    -
+      path: "data/production-disposition/receipts/secrets-store-csi-driver-secrets-store-csi-driver/cluster-rbac-review.yaml"
+      claim: "The cluster rbac review receipt exists for this chart."
+    -
+      path: "data/production-disposition/receipts/secrets-store-csi-driver-secrets-store-csi-driver/crd-lifecycle-and-upgrade-policy.yaml"
+      claim: "The crd lifecycle and upgrade policy receipt exists for this chart."
+  remainingSupportBlockers:
+    - "Record image policy and fresh target-scoped ConfigHub OCI/GitOps evidence."

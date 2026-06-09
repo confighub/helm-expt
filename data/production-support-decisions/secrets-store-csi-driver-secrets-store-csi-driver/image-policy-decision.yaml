@@ -1,0 +1,60 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionImagePolicyDecision"
+metadata:
+  name: "secrets-store-csi-driver-secrets-store-csi-driver-public-oci-image-policy-decision"
+spec:
+  chart: "secrets-store-csi-driver/secrets-store-csi-driver"
+  version: "1.6.0"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "kube-system"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "default"
+  variantsCovered:
+    - "default"
+    - "sync-secret-rotation"
+  decision: "mutable-image-exception-accepted-for-target-scope"
+  decidedAt: "2026-06-09"
+  claim: "The rendered Secrets Store CSI Driver bases still contain mutable image tags, but each rendered image reference has digest-resolution evidence. For the default public proof scope, the mutable tags are accepted as a target-scoped exception while stricter environments remain free to require digest-pinned bases or image overrides."
+  renderedImageSummary:
+    renderedSubjects: 2
+    subjectsNeedingResolution: 2
+    imageRefs: 6
+    mutableTagRefs: 6
+    floatingLatestOrUntaggedRefs: 0
+    resolutionReceipts: 2
+  variantReceipts:
+    default:
+      renderedObjectSetSHA256: "2490f14dd08f7e309f8f78cd1c2f1b05eb5b8995343b33ad6b3b243401a39ead"
+      sourceImageReviewRows: 3
+      uniqueImages: 3
+      receiptPath: "data/image-digest-workdown/receipts/secrets-store-csi-driver-secrets-store-csi-driver/default/image-digest-resolution.yaml"
+    sync-secret-rotation:
+      renderedObjectSetSHA256: "3667c16d411f773ef20e51c9980d484eb770c1173092878f1b018f5b4377a182"
+      sourceImageReviewRows: 3
+      uniqueImages: 3
+      receiptPath: "data/image-digest-workdown/receipts/secrets-store-csi-driver-secrets-store-csi-driver/sync-secret-rotation/image-digest-resolution.yaml"
+  acceptedException:
+    reason: "The public proof target uses upstream Secrets Store CSI Driver image tags. The receipt set records the registry digest each tag resolved to at decision time."
+    operatorAction: "For stricter production environments, create a digest-pinned base or image override policy before support expansion."
+  limits:
+    - "This does not mean the rendered manifests are digest-pinned."
+    - "This is not a blanket approval for all clusters, private overlays, regulated environments, or future chart versions."
+    - "This does not make the sync-secret-rotation topology production-supported."
+    - "If an upstream image tag is retargeted, rerun digest resolution and re-review this decision before promotion."
+  evidence:
+    -
+      path: "data/image-digest-workdown/chart-summary.csv"
+      claim: "Summarizes Secrets Store CSI Driver rendered image references."
+    -
+      path: "data/attack-plan-workdown/image-digest-review.csv"
+      claim: "Lists every rendered Secrets Store CSI Driver image reference found in the object sets."
+    -
+      path: "data/image-digest-workdown/receipts/secrets-store-csi-driver-secrets-store-csi-driver/default/image-digest-resolution.yaml"
+      claim: "Records registry digest resolution for the default rendered object set."
+    -
+      path: "data/image-digest-workdown/receipts/secrets-store-csi-driver-secrets-store-csi-driver/sync-secret-rotation/image-digest-resolution.yaml"
+      claim: "Records registry digest resolution for the sync-secret-rotation rendered object set."
+  remainingSupportBlockers:
+    - "Record security acceptance and fresh target-scoped ConfigHub OCI/GitOps evidence for the selected base."

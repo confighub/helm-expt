@@ -1,0 +1,71 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSupportEvidenceReceipt"
+metadata:
+  name: "longhorn-longhorn-default-argo-oci-support-evidence-20260608"
+spec:
+  chart: "longhorn/longhorn"
+  version: "1.11.2"
+  base: "default"
+  observedAt: "2026-06-08T10:49:43Z"
+  result: "pass"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "longhorn-system"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+    rig: "helm-expt-parity-longhorn-mq539wrp-1qp7"
+    kubeContext: "kind-helm-expt-parity-longhorn-mq539wrp-1qp7"
+    target: "helm-expt-parity-longhorn-mq539wrp-1qp7-cluster/oci"
+    workloadSpace: "helm-expt-parity-longhorn-mq539wrp-1qp7-longhorn"
+    app: "longhorn-parity"
+  package:
+    path: "packages/longhorn/longhorn/1.11.2"
+  recipe:
+    path: "recipes/longhorn/longhorn/1.11.2"
+  oci:
+    revision: "sha256:b7742ffccc4bef59c8c1907d164c31c6b8c615a2e6dea5c8cc141bb61cb37464"
+    controller: "Argo CD OCI"
+    sync: "Synced"
+    health: "Healthy"
+    manifestSHA256: "c42fdadbbc1edb6d6024f48078de2e7fa4f656595f967772dfddece1988be0a1"
+    objectCount: 42
+    separatedSecrets:
+      []
+  comparison:
+    regularHelmRuntime: "pass"
+    configHubApplyRuntime: "pass"
+    configHubOciRuntime: "pass"
+    helmVsConfigHubOciArgo: "pass"
+    allowedExtraConfigHubObjects:
+      - "v1|Namespace||longhorn-system"
+  twoClusterCrossCheck:
+    path: "runs/live-kind-parity/longhorn-longhorn-default/receipt.yaml"
+    result: "pass"
+    semanticParity: "pass"
+    regularHelmRuntime: "pass"
+    installerRuntime: "pass"
+  checks:
+    -
+      name: "regular-helm-runtime"
+      result: "pass"
+      detail: "regular Helm Longhorn runtime passed"
+    -
+      name: "confighub-apply-runtime"
+      result: "pass"
+      detail: "ConfigHub rendered objects applied by kubectl reached runtime readiness"
+    -
+      name: "confighub-oci-argo-runtime"
+      result: "pass"
+      detail: "Argo app longhorn-parity: sync=Synced health=Healthy revision=sha256:b7742ffccc4bef59c8c1907d164c31c6b8c615a2e6dea5c8cc141bb61cb37464"
+    -
+      name: "semantic-object-parity"
+      result: "pass"
+      detail: "regular Helm and ConfigHub OCI/Argo object sets match semantically, except the recorded Namespace support object"
+  supportClaim:
+    state: "fresh-target-evidence-passed"
+    detail: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared Longhorn default support scope."
+  limits:
+    - "This supports the recorded cub-lk vanilla kind Argo OCI scope, not every Kubernetes cluster."
+    - "This assumes an existing Argo CD OCI controller is available to reconcile the ConfigHub artifact."
+    - "This supports the default base only."
+    - "Evidence freshness is 30 days for public demo/support examples unless refreshed earlier."

@@ -1,0 +1,90 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSecurityDecision"
+metadata:
+  name: "longhorn-longhorn-public-oci-security-decision"
+spec:
+  chart: "longhorn/longhorn"
+  version: "1.11.2"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "longhorn-system"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "default"
+  variantsCovered:
+    - "default"
+    - "ui-ingress"
+  decision: "privileged-storage-infrastructure-accepted-for-target-scope"
+  decidedAt: "2026-06-09"
+  claim: "The default base installs privileged storage infrastructure, CRDs, webhooks, CSI components, and cluster RBAC. That is accepted only for this public proof scope because the chart's normal function is node-level storage management. Customer production scopes need storage, node, backup, restore, upgrade, and hardening review."
+  route: "accept-or-split-privileged-infrastructure"
+  routeReason: "the chart installs infrastructure that normally needs node, host, or privileged access"
+  findingSummary:
+    scanner: "kube-linter"
+    result: "warn"
+    totalFindings: 48
+    topChecks:
+      no-read-only-root-fs: 10
+      run-as-non-root: 10
+      unset-cpu-requirements: 10
+      unset-memory-requirements: 10
+      dangling-service: 4
+      privilege-escalation-container: 2
+      privileged-container: 2
+    variants:
+      default:
+        findingCount: 24
+        topChecks:
+          no-read-only-root-fs: 5
+          run-as-non-root: 5
+          unset-cpu-requirements: 5
+          unset-memory-requirements: 5
+          dangling-service: 2
+        renderedObjectSetSHA256: "4a2f739775a696f5d67db6adf1f99473c60a3f5adf308ceb3ccbf222435acd90"
+      ui-ingress:
+        findingCount: 24
+        topChecks:
+          no-read-only-root-fs: 5
+          run-as-non-root: 5
+          unset-cpu-requirements: 5
+          unset-memory-requirements: 5
+          dangling-service: 2
+        renderedObjectSetSHA256: "2f6508c2bc3f2a09e1ffcb8ec71282b3e2dd52e69fe8ca80fc90ab756f9b9298"
+  acceptedFindings:
+    -
+      group: "privileged-storage-access"
+      disposition: "Accepted for this public proof scope because Longhorn manages node-level storage. Customer production scopes need explicit node and storage security review."
+    -
+      group: "resource-policy"
+      disposition: "Accepted for this public proof scope. Production scopes should choose CPU and memory requests/limits for target capacity and SLO requirements."
+    -
+      group: "dangling-service"
+      disposition: "Accepted for this public proof scope. Service exposure should be reviewed with the selected UI, ingress, and network policy path."
+  limits:
+    - "This is not a blanket security approval for customer clusters, private overlays, regulated environments, or future chart versions."
+    - "This does not support backup, restore, recurring jobs, production replica policy, failover, upgrades, UI ingress, or disaster recovery behavior."
+    - "Storage classes, node disks, backup targets, replica counts, webhooks, and upgrade sequencing remain separate target decisions."
+  evidence:
+    -
+      path: "data/scan-disposition-workdown/workdown.csv"
+      claim: "Routes Longhorn scan findings to accept-or-split-privileged-infrastructure."
+    -
+      path: "data/external-scan-lane/review.csv"
+      claim: "Records kube-linter warning counts for Longhorn rendered object sets."
+    -
+      path: "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for default."
+    -
+      path: "recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for ui-ingress."
+    -
+      path: "data/production-disposition/receipts/longhorn-longhorn/scan-gate-warning-disposition.yaml"
+      claim: "The scan gate warning disposition receipt exists for this chart."
+    -
+      path: "data/production-disposition/receipts/longhorn-longhorn/cluster-rbac-review.yaml"
+      claim: "The cluster rbac review receipt exists for this chart."
+    -
+      path: "data/production-disposition/receipts/longhorn-longhorn/crd-lifecycle-and-upgrade-policy.yaml"
+      claim: "The crd lifecycle and upgrade policy receipt exists for this chart."
+  remainingSupportBlockers:
+    - "Record image policy and fresh target-scoped ConfigHub OCI/GitOps evidence."
