@@ -41,7 +41,7 @@ For the shortest chart-by-chart top-100 answer, start with:
 | [status.csv](../../data/status-dashboard/status.csv) | One row per dashboard metric: top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity. |
 | [top20-status.csv](../../data/status-dashboard/top20-status.csv) | One row per top-20 catalog chart. Shows the recommended base, setup command, base-readiness mix, strongest evidence, lane counts, feature summary, hard gaps, and next action. |
 | [top20 base readiness](../../data/top20-base-readiness/summary.md) | One row per top-20 base variant. Shows which bases are clean first paths and which need prerequisites, runtime review, or hook lifecycle work. |
-| [production disposition](../../data/production-disposition/summary.md) | Top-20 production support boundary. Shows accepted dispositions, open blockers, and next actions before a chart can be called production-supported. |
+| [production disposition](../../data/production-disposition/summary.md) | Top-20 production review boundary. Shows accepted dispositions, open blockers, and next actions before a target-scoped production support decision can be made. |
 | [production disposition details](../../data/production-disposition/dispositions.md) | Detailed top-20 production plan. Shows accepted receipts, owners, required evidence, and unblock rules for each disposition type. |
 | [production next actions](../../data/production-disposition/next-actions.csv) | One row per top-20 chart. Shows the next production disposition receipt or fix to work on. |
 | [scan disposition workdown](../../data/scan-disposition-workdown/summary.md) | One row per top-20 chart. Routes scan warnings to image-pin fixes, resource policies, security hardening, privileged infrastructure acceptance, runtime endpoint review, or PDB policy decisions. |
@@ -78,7 +78,8 @@ The machine-readable index is:
 | Plain Helm and ConfigHub delivery reach equivalent live outcomes for tested rows. | Live Helm-vs-ConfigHub comparison receipts and two-cluster parity receipts. | `npm run live-parity:verify && npm run kind-parity:verify` |
 | Derived ConfigHub variants preserve reviewed bases and expose post-render changes. | Derived variant execution receipts and target-bound receipts. | `npm run derived-variants:verify && npm run derived-variants:target-bound:verify` |
 | Hooks and hook-like lifecycle behavior are visible rather than hidden. | Hook lifecycle queue, lifecycle boundary, and lifecycle observation receipts. | `npm run hooks:lifecycle:verify && npm run lifecycle:boundary:verify && npm run lifecycle:cert-manager-eso:verify` |
-| A chart is ready to describe as production-supported. | Production disposition table plus accepted receipts for scan/gate, lifecycle, RBAC, storage, target facts, extension slots, and operation policy. | `npm run production:disposition:verify` |
+| A chart is ready for production-support review. | Production disposition table plus accepted receipts for scan/gate, lifecycle, RBAC, storage, target facts, extension slots, and operation policy. | `npm run production:disposition:verify` |
+| A chart can be called production-supported. | A final target-scoped support decision names the supported base, target scope, image policy, required live checks, lifecycle policy, and observation freshness. | No single repo-wide verifier yet; check production disposition, image digest workdown, live lanes, and the recorded support decision. |
 | Scan warnings have been routed to the right kind of production work. | External scan lane plus scan disposition workdown. | `npm run external-scan:verify && npm run scan-disposition:workdown:verify` |
 | Images, Secrets, CRDs, webhooks, target facts, and other chart-specific features are tracked. | Chart facts, attack-plan workdown, and image digest workdown. | `npm run chart-facts:verify && npm run attack-plan:verify && npm run image-digests:workdown:verify` |
 | Known Helm quirks are either surfaced or disclosed as gaps. | Quirk coverage audit. | `npm run quirk-coverage:verify` |
@@ -102,7 +103,7 @@ The machine-readable index is:
 3. Check [Status Dashboard](../../data/status-dashboard/summary.md) for the current aggregate state.
 4. Check [chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) for the chart-level status.
 5. Check [top20 base readiness](../../data/top20-base-readiness/summary.md) when the question is "which public catalog base should I try first?"
-6. Check [production disposition](../../data/production-disposition/summary.md) when the question is "can we call this production-supported?"
+6. Check [production disposition](../../data/production-disposition/summary.md) when the question is "is this ready for production-support review, and what remains before support?"
 7. Check [production disposition details](../../data/production-disposition/dispositions.md) when the question is "what evidence closes this production blocker?"
 8. Check [production next actions](../../data/production-disposition/next-actions.csv) when the question is "what production receipt or fix should we work on next?"
 9. Check [scan disposition workdown](../../data/scan-disposition-workdown/summary.md) when the question is "is this scan finding a fix, a hardened base, an acceptance, or a runtime review?"
@@ -134,7 +135,8 @@ GitOps live
 live parity
 two-cluster live parity
 lifecycle observed
-production-ready
+production-review-ready
+production-supported
 ```
 
 A `missing` row means the exact chart/base/variant/feature has no committed
