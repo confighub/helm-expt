@@ -18,6 +18,7 @@ smallest generated surface that answers it.
 | Question | Start with |
 | --- | --- |
 | I want the current headline status. | [status-dashboard/summary.md](./status-dashboard/summary.md) |
+| I want the next work queues. | [status-dashboard/next-work-queues.csv](./status-dashboard/next-work-queues.csv) |
 | I want to know which catalog base to try first. | [top20-base-readiness/start-here.md](./top20-base-readiness/start-here.md) |
 | I want to know whether any top-20 chart/base is easy, partial, blocked, or watch. | [top20-base-readiness/summary.md](./top20-base-readiness/summary.md) |
 | I want one spreadsheet row per chart/base proof lane. | [outcome-coverage/base-outcomes.csv](./outcome-coverage/base-outcomes.csv) |
@@ -32,6 +33,7 @@ smallest generated surface that answers it.
 | File | Use it for |
 | --- | --- |
 | [status-dashboard/summary.md](./status-dashboard/summary.md) | Start here for a one-page status dashboard: top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity. |
+| [status-dashboard/next-work-queues.csv](./status-dashboard/next-work-queues.csv) | Machine-readable next work queues for top100 catalog work, top20 production support, live parity, and hook/lifecycle work. |
 | [status-dashboard/top20-status.csv](./status-dashboard/top20-status.csv) | Compact chart-by-chart status for the top-20 public catalog: recommended base, setup command, base-readiness mix, evidence strength, proof lanes, feature summary, gaps, next action. |
 | [top20-base-readiness/start-here.md](./top20-base-readiness/start-here.md) | Short guide to the clean first catalog paths: chart, base, command, and production-support reminder. |
 | [top20-base-readiness/summary.md](./top20-base-readiness/summary.md) | One row per top-20 base variant: which bases are good first paths and which need prerequisites, runtime review, or hook lifecycle work. |
@@ -155,7 +157,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 68 CSV files. Each row records the path, audience,
+It includes 69 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

@@ -10,21 +10,25 @@ const outDir = join(repoRoot, "data", "status-dashboard");
 const summaryPath = join(outDir, "summary.md");
 const csvPath = join(outDir, "status.csv");
 const top20Path = join(outDir, "top20-status.csv");
+const nextWorkQueuesPath = join(outDir, "next-work-queues.csv");
 
 if (mode === "--generate") {
   const report = buildReport();
   write(summaryPath, report.summary);
   write(csvPath, report.csv);
   write(top20Path, report.top20Csv);
+  write(nextWorkQueuesPath, report.nextWorkQueuesCsv);
   console.log("wrote status dashboard");
 } else if (mode === "--verify") {
   const report = buildReport();
   check(existsSync(summaryPath), "data/status-dashboard/summary.md is missing; run npm run status:dashboard");
   check(existsSync(csvPath), "data/status-dashboard/status.csv is missing; run npm run status:dashboard");
   check(existsSync(top20Path), "data/status-dashboard/top20-status.csv is missing; run npm run status:dashboard");
+  check(existsSync(nextWorkQueuesPath), "data/status-dashboard/next-work-queues.csv is missing; run npm run status:dashboard");
   check(readFileSync(summaryPath, "utf8") === report.summary, "data/status-dashboard/summary.md is stale; run npm run status:dashboard");
   check(readFileSync(csvPath, "utf8") === report.csv, "data/status-dashboard/status.csv is stale; run npm run status:dashboard");
   check(readFileSync(top20Path, "utf8") === report.top20Csv, "data/status-dashboard/top20-status.csv is stale; run npm run status:dashboard");
+  check(readFileSync(nextWorkQueuesPath, "utf8") === report.nextWorkQueuesCsv, "data/status-dashboard/next-work-queues.csv is stale; run npm run status:dashboard");
   console.log(`verified status dashboard for ${report.rows.length} metric(s)`);
 } else {
   console.log(`Usage:
@@ -121,12 +125,15 @@ function buildReport() {
 
   const chartByName = new Map(chartRows.map((row) => [row.chart, row]));
   const top20Rows = top20StatusRows(top100Rows, chartByName, top20BaseReadinessRows);
+  const nextWorkQueues = nextWorkQueueRows({ top100Rows, hookRows, lifecycleObservationRows, liveParityRerunRows, supportDecisionRows });
   return {
     rows,
     csv: toCsv(rows),
     top20Rows,
     top20Csv: top20ToCsv(top20Rows),
-    summary: summary(rows, { chartRows, baseRows, top100Rows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, lifecycleBoundaryRows, lifecycleObservationRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, supportDecisionRows, scanDispositionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount }),
+    nextWorkQueues,
+    nextWorkQueuesCsv: nextWorkQueuesToCsv(nextWorkQueues),
+    summary: summary(rows, { chartRows, baseRows, top100Rows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, lifecycleBoundaryRows, lifecycleObservationRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, supportDecisionRows, scanDispositionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues }),
   };
 }
 
@@ -149,9 +156,10 @@ function summary(rows, context) {
   const productionPreview = context.productionRows.slice(0, 10);
   const scanDispositionRoutes = groupCount(context.scanDispositionRows, "dispositionRoute");
   const highScanRows = context.scanDispositionRows.filter((row) => row.scanPriority === "high");
-  const productionWorkstreams = supportDecisionWorkstreamRows(context.supportDecisionRows);
-  const top100WorkQueues = top100WorkQueueRows(top100Status);
-  const hookWorkQueueRows = hookWorkQueue(context.hookRows, context.lifecycleObservationRows);
+  const productionWorkstreams = nextWorkQueueMarkdown(context.nextWorkQueues, "top20-production-support", "workstream");
+  const top100WorkQueues = nextWorkQueueMarkdown(context.nextWorkQueues, "top100-catalog-work", "queue");
+  const liveParityWorkQueues = nextWorkQueueMarkdown(context.nextWorkQueues, "live-parity-work", "queue");
+  const hookWorkQueueRows = nextWorkQueueMarkdown(context.nextWorkQueues, "hook-and-lifecycle-work", "queue");
 
   return `# Status Dashboard
 
@@ -195,13 +203,15 @@ ${productionWorkstreams}
 
 | Queue | Rows | Next action |
 | --- | ---: | --- |
-${liveParityRerunReadinessRows(liveParityRerunReadiness)}
+${liveParityWorkQueues}
 
 ### Hook And Lifecycle Work
 
 | Queue | Rows | Next action |
 | --- | ---: | --- |
 ${hookWorkQueueRows}
+
+Spreadsheet form: [next-work-queues.csv](next-work-queues.csv).
 
 ## Top100 Readiness
 
@@ -624,33 +634,59 @@ function liveParityNextStepRows(counts) {
     .join("\n");
 }
 
-function top100WorkQueueRows(counts) {
-  const rows = [
-    [
-      "Use public catalog now",
-      counts.get("try-from-public-catalog") ?? 0,
-      "Open CATALOG.md and top20 base readiness; choose a base with the lane you need.",
-    ],
-    [
-      "Promote proof-grade charts",
-      counts.get("promote-after-review") ?? 0,
-      "Run catalog promotion review, select realistic bases, and add selected live lanes.",
-    ],
-    [
-      "Design useful base variants",
-      counts.get("needs-useful-variant") ?? 0,
-      "Create the first user-shaped base before treating the chart as a catalog offer.",
-    ],
-    [
-      "Resolve limitation decisions",
-      counts.get("limitation-decision-first") ?? 0,
-      "Decide whether the named gap is supported, disclosed, deferred, or blocked.",
-    ],
+function nextWorkQueueRows(context) {
+  const top100Status = groupCount(context.top100Rows, "adoption_bucket");
+  const liveParityRerunReadiness = groupCount(context.liveParityRerunRows, "rerun_readiness");
+  return [
+    ...top100WorkQueueObjects(top100Status),
+    ...supportDecisionWorkstreamObjects(context.supportDecisionRows),
+    ...liveParityRerunReadinessObjects(liveParityRerunReadiness),
+    ...hookWorkQueueObjects(context.hookRows, context.lifecycleObservationRows),
   ];
-  return rows.map(([queue, count, action]) => `| ${queue} | ${count} | ${action} |`).join("\n");
 }
 
-function supportDecisionWorkstreamRows(rows) {
+function top100WorkQueueObjects(counts) {
+  return [
+    {
+      section: "top100-catalog-work",
+      item_type: "queue",
+      item: "Use public catalog now",
+      count: counts.get("try-from-public-catalog") ?? 0,
+      next_action: "Open CATALOG.md and top20 base readiness; choose a base with the lane you need.",
+      source: "data/top100-readiness/readiness.csv",
+      detail: "adoption_bucket=try-from-public-catalog",
+    },
+    {
+      section: "top100-catalog-work",
+      item_type: "queue",
+      item: "Promote proof-grade charts",
+      count: counts.get("promote-after-review") ?? 0,
+      next_action: "Run catalog promotion review, select realistic bases, and add selected live lanes.",
+      source: "data/top100-readiness/readiness.csv",
+      detail: "adoption_bucket=promote-after-review",
+    },
+    {
+      section: "top100-catalog-work",
+      item_type: "queue",
+      item: "Design useful base variants",
+      count: counts.get("needs-useful-variant") ?? 0,
+      next_action: "Create the first user-shaped base before treating the chart as a catalog offer.",
+      source: "data/top100-readiness/readiness.csv",
+      detail: "adoption_bucket=needs-useful-variant",
+    },
+    {
+      section: "top100-catalog-work",
+      item_type: "queue",
+      item: "Resolve limitation decisions",
+      count: counts.get("limitation-decision-first") ?? 0,
+      next_action: "Decide whether the named gap is supported, disclosed, deferred, or blocked.",
+      source: "data/top100-readiness/readiness.csv",
+      detail: "adoption_bucket=limitation-decision-first",
+    },
+  ];
+}
+
+function supportDecisionWorkstreamObjects(rows) {
   const order = [
     "ready-for-final-scope-decision",
     "resolve-images-before-production-oci",
@@ -684,19 +720,97 @@ function supportDecisionWorkstreamRows(rows) {
   const counts = groupCount(rows, "decisionState");
   return order
     .filter((state) => counts.has(state))
-    .map((state) => `| ${labels[state] ?? state} | ${counts.get(state)} | ${actions[state] ?? "Record the target-scoped decision."} |`)
-    .join("\n");
+    .map((state) => {
+      const matchingRows = rows.filter((row) => row.decisionState === state);
+      return {
+        section: "top20-production-support",
+        item_type: "workstream",
+        item: labels[state] ?? state,
+        count: counts.get(state),
+        next_action: actions[state] ?? "Record the target-scoped decision.",
+        source: "data/production-disposition/support-decision-queue.csv",
+        detail: previewCharts(matchingRows),
+      };
+    });
 }
 
-function hookWorkQueue(hookRows, lifecycleObservationRows) {
+function liveParityRerunReadinessObjects(counts) {
+  const order = [
+    "inspect-diff-first",
+    "rerun-now-after-cleanup",
+    "model-or-stage-first",
+    "review-target-first",
+    "inspect-receipt-first",
+  ];
+  return [...counts.entries()]
+    .sort((left, right) => {
+      const leftRank = order.includes(left[0]) ? order.indexOf(left[0]) : order.length;
+      const rightRank = order.includes(right[0]) ? order.indexOf(right[0]) : order.length;
+      return leftRank - rightRank || left[0].localeCompare(right[0]);
+    })
+    .map(([readiness, count]) => ({
+      section: "live-parity-work",
+      item_type: "queue",
+      item: readiness,
+      count,
+      next_action: liveParityRerunReadinessMeaning(readiness),
+      source: "data/live-parity-rerun-plan/rerun-plan.csv",
+      detail: `rerun_readiness=${readiness}`,
+    }));
+}
+
+function hookWorkQueueObjects(hookRows, lifecycleObservationRows) {
   const routeSelected = hookRows.filter((row) => row.lifecycle_disposition === "route-selected").length;
   const observed = hookRows.filter((row) => row.lifecycle_disposition === "lifecycle-observed").length;
   const relatedObserved = passCount(lifecycleObservationRows, "result");
   return [
-    ["Hook route selected, observation pending", routeSelected, "Run the selected lifecycle path and commit execution or observation receipts."],
-    ["Hook-bearing rows observed", observed, "Keep receipt freshness current when the supported target changes."],
-    ["Related CRD/webhook/controller observations", relatedObserved, "Use these as examples for hook-like lifecycle proof, not as universal hook support."],
-  ].map(([queue, count, action]) => `| ${queue} | ${count} | ${action} |`).join("\n");
+    {
+      section: "hook-and-lifecycle-work",
+      item_type: "queue",
+      item: "Hook route selected, observation pending",
+      count: routeSelected,
+      next_action: "Run the selected lifecycle path and commit execution or observation receipts.",
+      source: "data/hook-lifecycle/top100-hooks.csv",
+      detail: "lifecycle_disposition=route-selected",
+    },
+    {
+      section: "hook-and-lifecycle-work",
+      item_type: "queue",
+      item: "Hook-bearing rows observed",
+      count: observed,
+      next_action: "Keep receipt freshness current when the supported target changes.",
+      source: "data/hook-lifecycle/top100-hooks.csv",
+      detail: "lifecycle_disposition=lifecycle-observed",
+    },
+    {
+      section: "hook-and-lifecycle-work",
+      item_type: "queue",
+      item: "Related CRD/webhook/controller observations",
+      count: relatedObserved,
+      next_action: "Use these as examples for hook-like lifecycle proof, not as universal hook support.",
+      source: "data/lifecycle-observations/cert-manager-eso/summary.csv",
+      detail: "related lifecycle observations, not universal hook support",
+    },
+  ];
+}
+
+function nextWorkQueueMarkdown(rows, section, label) {
+  return rows
+    .filter((row) => row.section === section)
+    .map((row) => `| ${row.item} | ${row.count} | ${row.next_action} |`)
+    .join("\n") || `| none | 0 | No current ${label} rows. |`;
+}
+
+function nextWorkQueuesToCsv(rows) {
+  const headers = ["section", "item_type", "item", "count", "next_action", "source", "detail"];
+  return `${headers.join(",")}\n${rows.map((row) => headers.map((header) => csvCell(row[header] ?? "")).join(",")).join("\n")}\n`;
+}
+
+function previewCharts(rows) {
+  const values = rows.slice(0, 5).map((row) => `${row.chart}@${row.version} (${row.candidateBase})`);
+  const remaining = rows.length - values.length;
+  if (remaining > 0) values.push(`and ${remaining} more`);
+  return values.join("; ");
 }
 
 function liveParityRerunReadinessRows(counts) {

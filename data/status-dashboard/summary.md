@@ -108,6 +108,8 @@ question is whether a specific receipt passed.
 | Hook-bearing rows observed | 0 | Keep receipt freshness current when the supported target changes. |
 | Related CRD/webhook/controller observations | 4 | Use these as examples for hook-like lifecycle proof, not as universal hook support. |
 
+Spreadsheet form: [next-work-queues.csv](next-work-queues.csv).
+
 ## Top100 Readiness
 
 | Adoption bucket | Charts |
