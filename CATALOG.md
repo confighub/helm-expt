@@ -66,7 +66,7 @@ The `Start Base Status` column uses the same generated readiness labels.
 | jetstack/cert-manager@v1.20.2 | crds-enabled | start-here | live-helm-vs-confighub-parity | - | default, crds-enabled | [packages/jetstack/cert-manager/v1.20.2](packages/jetstack/cert-manager/v1.20.2) | [CATALOG.md](recipes/jetstack/cert-manager/v1.20.2/CATALOG.md) |
 | external-secrets/external-secrets@2.5.0 | default | start-here | live-helm-vs-confighub-parity | - | default, no-crds | [packages/external-secrets/external-secrets/2.5.0](packages/external-secrets/external-secrets/2.5.0) | [CATALOG.md](recipes/external-secrets/external-secrets/2.5.0/CATALOG.md) |
 | argo-cd/argo-cd@9.5.15 | default | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | default, no-crds | [packages/argo-cd/argo-cd/9.5.15](packages/argo-cd/argo-cd/9.5.15) | [CATALOG.md](recipes/argo-cd/argo-cd/9.5.15/CATALOG.md) |
-| bitnami/postgresql@18.6.7 | generated-passwords | try-with-proof | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | generated-passwords, existing-secret | [packages/bitnami/postgresql/18.6.7](packages/bitnami/postgresql/18.6.7) | [CATALOG.md](recipes/bitnami/postgresql/18.6.7/CATALOG.md) |
+| bitnami/postgresql@18.6.7 | generated-passwords | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | generated-passwords, existing-secret | [packages/bitnami/postgresql/18.6.7](packages/bitnami/postgresql/18.6.7) | [CATALOG.md](recipes/bitnami/postgresql/18.6.7/CATALOG.md) |
 | bitnami/rabbitmq@16.0.14 | generated-passwords | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | generated-passwords, existing-secret | [packages/bitnami/rabbitmq/16.0.14](packages/bitnami/rabbitmq/16.0.14) | [CATALOG.md](recipes/bitnami/rabbitmq/16.0.14/CATALOG.md) |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | start-here | live-helm-vs-confighub-parity | existing-secret (chart ships no Secret toggle) | default, no-crds | [packages/prometheus-community/kube-prometheus-stack/85.3.3](packages/prometheus-community/kube-prometheus-stack/85.3.3) | [CATALOG.md](recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md) |
 | grafana/loki@7.0.0 | single-binary-filesystem | start-here | live-helm-vs-confighub-parity | - | single-binary-filesystem, simple-scalable-minio | [packages/grafana/loki/7.0.0](packages/grafana/loki/7.0.0) | [CATALOG.md](recipes/grafana/loki/7.0.0/CATALOG.md) |
@@ -381,9 +381,9 @@ Receipts: [per-chart receipts](recipes/argo-cd/argo-cd/9.5.15/CATALOG.md)
 
 Status: catalog-supported
 Production readiness: production-review-ready
-Start base readiness: try-with-proof
+Start base readiness: start-here
 Strongest evidence: live-helm-vs-confighub-parity
-Proof lanes: render parity 2/2; ConfigHub 0/2; local live 1/2; GitOps live 2/2; live parity 1/2
+Proof lanes: render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 2/2; live parity 1/2
 Hard gap: ha (curated proof lane - bespoke teaching needed)
 Package: [packages/bitnami/postgresql/18.6.7](packages/bitnami/postgresql/18.6.7)
 Per-chart catalog: [CATALOG.md](recipes/bitnami/postgresql/18.6.7/CATALOG.md)
@@ -400,7 +400,7 @@ Variants:
 ##### generated-passwords (recommended first)
 
 When to use: postgresql generated passwords variant rendered from bitnami/postgresql@18.6.7
-Readiness: try-with-proof
+Readiness: start-here
 Namespace: postgresql
 Target facts: none
 Package base: [packages/bitnami/postgresql/18.6.7/bases/generated-passwords](packages/bitnami/postgresql/18.6.7/bases/generated-passwords)

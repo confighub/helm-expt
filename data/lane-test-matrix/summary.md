@@ -16,8 +16,8 @@ that must be rerun before judging parity.
 
 ```text
 chart-recipe-variant rows: 157
-complete core lane set: 18
-incomplete core lane set: 139
+complete core lane set: 19
+incomplete core lane set: 138
 ```
 
 ## Core Lane Counts
@@ -25,7 +25,7 @@ incomplete core lane set: 139
 | Lane | Pass | Missing | Fail | Watch | Blocked |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | helm_template_vs_installer_setup | 157 | 0 | 0 | 0 | 0 |
-| confighub_upload_variant_scan_safe_ops | 19 | 138 | 0 | 0 | 0 |
+| confighub_upload_variant_scan_safe_ops | 20 | 137 | 0 | 0 | 0 |
 | local_kind_kubectl_apply | 22 | 135 | 0 | 0 | 0 |
 | confighub_oci_argo_live | 21 | 130 | 0 | 2 | 4 |
 | live_helm_vs_confighub_dual_compare | 19 | 136 | 0 | 2 | 0 |
