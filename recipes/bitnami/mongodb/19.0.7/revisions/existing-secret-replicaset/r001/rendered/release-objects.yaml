@@ -326,7 +326,7 @@ spec:
       initContainers:
       containers:
         - name: mongodb-arbiter
-          image: registry-1.docker.io/bitnami/mongodb:latest
+          image: registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e
           imagePullPolicy: "IfNotPresent"
           securityContext:
             allowPrivilegeEscalation: false
@@ -491,7 +491,7 @@ spec:
       initContainers:
 
         - name: log-dir
-          image: registry-1.docker.io/bitnami/mongodb:latest
+          image: registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e
           imagePullPolicy: "IfNotPresent"
           command:
             - /bin/bash
@@ -530,7 +530,7 @@ spec:
               subPath: app-logs-dir
       containers:
         - name: mongodb
-          image: registry-1.docker.io/bitnami/mongodb:latest
+          image: registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e
           imagePullPolicy: "IfNotPresent"
           securityContext:
             allowPrivilegeEscalation: false

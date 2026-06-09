@@ -6,7 +6,7 @@
     "pass": 0,
     "warn": 40,
     "fail": 0,
-    "totalFindings": 315,
+    "totalFindings": 310,
     "toolStatus": {
       "kubeLinter": {
         "available": true,
@@ -429,45 +429,14 @@
       "scannerVersion": "0.8.3",
       "result": "warn",
       "exitCode": 1,
-      "findingCount": 5,
+      "findingCount": 2,
       "checkCounts": {
-        "latest-tag": 3,
         "pdb-unhealthy-pod-eviction-policy": 2
       },
       "renderedPath": "recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml",
-      "renderedSHA256": "85bcba9d441796846c8452331d94210c5d3b7d8fb5e5969044741cd5c678372c",
+      "renderedSHA256": "3723a87004e25f813534be469bf648b6d6b80357fb01e47e465f775dcaec9231",
       "recipePath": "recipes/bitnami/mongodb/19.0.7",
       "findings": [
-        {
-          "check": "latest-tag",
-          "message": "The container \"mongodb-arbiter\" is using an invalid container image, \"registry-1.docker.io/bitnami/mongodb:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
-          "object": {
-            "apiVersion": "",
-            "kind": "",
-            "namespace": "mongodb",
-            "name": "mongodb-arbiter"
-          }
-        },
-        {
-          "check": "latest-tag",
-          "message": "The container \"log-dir\" is using an invalid container image, \"registry-1.docker.io/bitnami/mongodb:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
-          "object": {
-            "apiVersion": "",
-            "kind": "",
-            "namespace": "mongodb",
-            "name": "mongodb"
-          }
-        },
-        {
-          "check": "latest-tag",
-          "message": "The container \"mongodb\" is using an invalid container image, \"registry-1.docker.io/bitnami/mongodb:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
-          "object": {
-            "apiVersion": "",
-            "kind": "",
-            "namespace": "mongodb",
-            "name": "mongodb"
-          }
-        },
         {
           "check": "pdb-unhealthy-pod-eviction-policy",
           "message": "unhealthyPodEvictionPolicy is not explicitly set",
@@ -498,35 +467,14 @@
       "scannerVersion": "0.8.3",
       "result": "warn",
       "exitCode": 1,
-      "findingCount": 3,
+      "findingCount": 1,
       "checkCounts": {
-        "latest-tag": 2,
         "pdb-unhealthy-pod-eviction-policy": 1
       },
       "renderedPath": "recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/rendered/release-objects.yaml",
-      "renderedSHA256": "187a27077a6c1924669172528109b878e4d9c7759689a2f52826be8dfbc30f1e",
+      "renderedSHA256": "ce99d9a7867d5cb7ea0f0f983d092600ec1bb24ce50e969d1032bdbf937e8fdf",
       "recipePath": "recipes/bitnami/mongodb/19.0.7",
       "findings": [
-        {
-          "check": "latest-tag",
-          "message": "The container \"log-dir\" is using an invalid container image, \"registry-1.docker.io/bitnami/mongodb:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
-          "object": {
-            "apiVersion": "",
-            "kind": "",
-            "namespace": "mongodb",
-            "name": "mongodb"
-          }
-        },
-        {
-          "check": "latest-tag",
-          "message": "The container \"mongodb\" is using an invalid container image, \"registry-1.docker.io/bitnami/mongodb:latest\". Please use images that are not blocked by the `BlockList` criteria : [\".*:(latest)$\" \"^[^:]*$\" \"(.*/[^:]+)$\"]",
-          "object": {
-            "apiVersion": "",
-            "kind": "",
-            "namespace": "mongodb",
-            "name": "mongodb"
-          }
-        },
         {
           "check": "pdb-unhealthy-pod-eviction-policy",
           "message": "unhealthyPodEvictionPolicy is not explicitly set",

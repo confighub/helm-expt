@@ -4,7 +4,7 @@ metadata:
   name: "mongodb-existing-secret-replicaset-r001"
 spec:
   variantRevision: "../variant-revision.yaml"
-  renderedObjectSetSHA256: "85bcba9d441796846c8452331d94210c5d3b7d8fb5e5969044741cd5c678372c"
+  renderedObjectSetSHA256: "3723a87004e25f813534be469bf648b6d6b80357fb01e47e465f775dcaec9231"
   decision: "warn"
   allowedScopes:
     - "local-test"

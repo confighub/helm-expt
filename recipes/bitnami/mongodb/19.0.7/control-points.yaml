@@ -29,6 +29,11 @@ spec:
       evidence: "auth.existingSecret"
       note: "The existing-secret-replicaset variant declares the target Secret instead of rendering one."
     -
+      category: "image-digest"
+      status: "handled"
+      digest: "sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e"
+      note: "Supported bases pin the Bitnami MongoDB image by digest."
+    -
       category: "hook-policy"
       status: "handled-for-render"
       policy: "no-hooks"

@@ -13,6 +13,7 @@ What this proves:
 - default chart rendering is nondeterministic until the generated root password is bound;
 - the generated-passwords variant persists auth.rootPassword before render;
 - the existing-secret-replicaset variant uses a declared target Secret, does not render a Secret, and changes topology to replica set;
+- both supported bases pin the MongoDB image digest instead of rendering a mutable latest tag;
 - generated fact, target fact, Helm hook lifecycle, dependency lock, Deployment/StatefulSet storage, NetworkPolicy/PDB, and extension-slot risks are visible as scan/gate findings instead of hidden Helm behavior.
 
 Useful commands:

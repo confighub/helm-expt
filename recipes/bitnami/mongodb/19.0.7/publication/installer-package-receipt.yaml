@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/mongodb/19.0.7 -o <tmp>/mongodb-19.0.7.tgz"
-    sha256: "c921a40c70e68295714d6c3a36fdd6e480594eb4ef70bc933e73a71a8438b758"
+    sha256: "8fad813b9b7e2f1723629227362a65adc9af54ce15e24cde07c47ae754704e31"
   package:
     name: "bitnami-mongodb"
     path: "packages/bitnami/mongodb/19.0.7"
@@ -25,16 +25,16 @@ spec:
         bytes: 99
       -
         path: "bases/existing-secret-replicaset/upstream.yaml"
-        sha256: "85bcba9d441796846c8452331d94210c5d3b7d8fb5e5969044741cd5c678372c"
-        bytes: 22453
+        sha256: "3723a87004e25f813534be469bf648b6d6b80357fb01e47e465f775dcaec9231"
+        bytes: 22648
       -
         path: "bases/generated-passwords/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
         bytes: 99
       -
         path: "bases/generated-passwords/upstream.yaml"
-        sha256: "187a27077a6c1924669172528109b878e4d9c7759689a2f52826be8dfbc30f1e"
-        bytes: 11170
+        sha256: "ce99d9a7867d5cb7ea0f0f983d092600ec1bb24ce50e969d1032bdbf937e8fdf"
+        bytes: 11300
       -
         path: "collector/target-facts.sh"
         sha256: "8da396096984651410dd42cd2ab5ecdaa0b317acd0f4eb73f18991a211f2bf25"

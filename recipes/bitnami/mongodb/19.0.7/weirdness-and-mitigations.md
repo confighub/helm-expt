@@ -25,6 +25,7 @@ or operating-policy dispositions.
 - generated-passwords variant persists auth.rootPassword as a generated fact and renders the Secret deterministically.
 - existing-secret-replicaset variant does not render a Secret and instead declares mongodb/mongodb-auth as a target fact.
 - existing-secret-replicaset variant changes architecture to replicaset and renders primary plus arbiter StatefulSets.
+- Supported bases pin the Bitnami MongoDB image by digest instead of rendering the chart default latest tag.
 - Chart declares the Bitnami common dependency and records it in dependency-lock.yaml.
 - Chart source contains Helm hook annotations; the rendered proof excludes hooks and keeps lifecycle policy explicit.
 - MongoDB renders persistent storage, NetworkPolicy, and PDB objects that need production policy.
@@ -46,6 +47,7 @@ or operating-policy dispositions.
 | capability-profile | handled | Kubernetes API and version branches are bound to the named Kubernetes capability profile. |
 | generated-facts | variant-controlled | The generated-passwords variant binds the generated root password before render so Helm output is deterministic. |
 | target-facts | variant-controlled | The existing-secret-replicaset variant declares the target Secret instead of rendering one. |
+| image-digest | handled | Supported bases pin the Bitnami MongoDB image by digest. |
 | hook-policy | handled-for-render | Chart source contains Helm hooks; the proof render excludes hooks and lifecycle policy must handle them before production. |
 | replicaset-topology | variant-controlled | apps/v1\|StatefulSet\|mongodb\|mongodb |
 | workload-policy | scan-and-review | Deployment/StatefulSet workloads need storage, retention, upgrade, and rollback policy. |
@@ -61,6 +63,7 @@ or operating-policy dispositions.
 - generated-facts
 - hook-lifecycle-policy
 - hook-policy
+- image-digest
 - installer-support-object
 - network-policy
 - pdb-policy

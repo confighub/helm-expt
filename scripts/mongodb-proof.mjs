@@ -17,13 +17,17 @@ const chart = {
   kubeVersion: "1.30.0",
 };
 
+const mongodbImageDigest = "sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e";
+
 const variants = [
   {
     name: "generated-passwords",
     base: "generated-passwords",
     displayName: "generated passwords",
     valuesFile: "effective-values.yaml",
-    valuesText: `auth:
+    valuesText: `image:
+  digest: ${mongodbImageDigest}
+auth:
   rootPassword: confighub-mongodb-root-password
 `,
     valuesSummary: "MongoDB root password bound as a generated fact",
@@ -38,6 +42,8 @@ const variants = [
     displayName: "existing Secret replica set",
     valuesFile: "effective-values-existing-secret-replicaset.yaml",
     valuesText: `architecture: replicaset
+image:
+  digest: ${mongodbImageDigest}
 auth:
   existingSecret: mongodb-auth
 `,
@@ -89,6 +95,7 @@ runProofCli({
       { path: "auth.existingSecret", variant: "existing-secret-replicaset", disposition: "target-fact-bound", reason: "externalizes root password and replica-set key into a declared target Secret instead of rendering a Secret" },
       { path: "architecture", variant: "existing-secret-replicaset", disposition: "replicaset-variant", reason: "replica-set topology is explicit and visible as StatefulSet/headless Service outputs" },
       { path: "auth.existingSecret keys", variant: "existing-secret-replicaset", disposition: "target-secret-key", reason: "documents the expected root password and replica-set key in the target Secret" },
+      { path: "image.digest", variant: "all", disposition: "pinned-image", reason: "supported bases pin the Bitnami MongoDB image by digest instead of rendering the chart default latest tag" },
       { path: "persistence.enabled", variant: "all", disposition: "storage-enabled", reason: "promoted variants render persistent storage and must bind storage/retention policy" },
       { path: "networkPolicy.enabled / podDisruptionBudget.enabled", variant: "all", disposition: "production-hardening-enabled", reason: "network policy and disruption controls are visible rendered objects" },
       { path: "common", variant: "all", disposition: "locked-dependency", reason: "chart declares the Bitnami common dependency and records it in dependency-lock.yaml" },
@@ -96,12 +103,21 @@ runProofCli({
     ],
   },
   dependencyLockChart: "bitnami/mongodb",
+  packageTransformers: [
+    {
+      description: "Set the namespace on every namespaced resource.",
+      invocations: [{ name: "set-namespace", args: ["{{ .Namespace }}"] }],
+      toolchain: "Kubernetes/YAML",
+      whereResource: "",
+    },
+  ],
   controlPoints: [
     { category: "source-lock", status: "handled", evidence: "source-lock.yaml" },
     { category: "dependency-lock", status: "handled", evidence: "dependency-lock.yaml", note: "chart declares the Bitnami common dependency; promoted variants lock its metadata." },
     { category: "capability-profile", status: "handled", kubeVersion: chart.kubeVersion, note: "Kubernetes API and version branches are bound to the named Kubernetes capability profile." },
     { category: "generated-facts", status: "variant-controlled", evidence: "auth.rootPassword", note: "The generated-passwords variant binds the generated root password before render so Helm output is deterministic." },
     { category: "target-facts", status: "variant-controlled", evidence: "auth.existingSecret", note: "The existing-secret-replicaset variant declares the target Secret instead of rendering one." },
+    { category: "image-digest", status: "handled", digest: mongodbImageDigest, note: "Supported bases pin the Bitnami MongoDB image by digest." },
     { category: "hook-policy", status: "handled-for-render", policy: "no-hooks", note: "Chart source contains Helm hooks; the proof render excludes hooks and lifecycle policy must handle them before production." },
     { category: "replicaset-topology", status: "variant-controlled", object: "apps/v1|StatefulSet|mongodb|mongodb" },
     { category: "workload-policy", status: "scan-and-review", note: "Deployment/StatefulSet workloads need storage, retention, upgrade, and rollback policy." },
@@ -116,6 +132,7 @@ runProofCli({
       "generated-passwords variant persists auth.rootPassword as a generated fact and renders the Secret deterministically.",
       "existing-secret-replicaset variant does not render a Secret and instead declares mongodb/mongodb-auth as a target fact.",
       "existing-secret-replicaset variant changes architecture to replicaset and renders primary plus arbiter StatefulSets.",
+      "Supported bases pin the Bitnami MongoDB image by digest instead of rendering the chart default latest tag.",
       "Chart declares the Bitnami common dependency and records it in dependency-lock.yaml.",
       "Chart source contains Helm hook annotations; the rendered proof excludes hooks and keeps lifecycle policy explicit.",
       "MongoDB renders persistent storage, NetworkPolicy, and PDB objects that need production policy.",
@@ -145,6 +162,7 @@ runProofCli({
       "default chart rendering is nondeterministic until the generated root password is bound;",
       "the generated-passwords variant persists auth.rootPassword before render;",
       "the existing-secret-replicaset variant uses a declared target Secret, does not render a Secret, and changes topology to replica set;",
+      "both supported bases pin the MongoDB image digest instead of rendering a mutable latest tag;",
       "generated fact, target fact, Helm hook lifecycle, dependency lock, Deployment/StatefulSet storage, NetworkPolicy/PDB, and extension-slot risks are visible as scan/gate findings instead of hidden Helm behavior.",
     ],
   },

@@ -10,6 +10,7 @@ spec:
     - "generated-passwords variant persists auth.rootPassword as a generated fact and renders the Secret deterministically."
     - "existing-secret-replicaset variant does not render a Secret and instead declares mongodb/mongodb-auth as a target fact."
     - "existing-secret-replicaset variant changes architecture to replicaset and renders primary plus arbiter StatefulSets."
+    - "Supported bases pin the Bitnami MongoDB image by digest instead of rendering the chart default latest tag."
     - "Chart declares the Bitnami common dependency and records it in dependency-lock.yaml."
     - "Chart source contains Helm hook annotations; the rendered proof excludes hooks and keeps lifecycle policy explicit."
     - "MongoDB renders persistent storage, NetworkPolicy, and PDB objects that need production policy."

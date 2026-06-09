@@ -7,8 +7,10 @@ spec:
     -
       path: "effective-values.yaml"
       source: "inline-proof"
-      sha256: "6ddd1b23bdedd770fdc013716f7afdb0e027e3539a375e6e07ca563a4e2a524f"
+      sha256: "64a2ec2019571906f2d7db6db89cbdf51612204ac7efde429ff719baf92699b4"
   mergedValuesCaptured: false
   values:
     auth:
       rootPassword: "confighub-mongodb-root-password"
+    image:
+      digest: "sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e"

@@ -6,13 +6,11 @@ metadata:
 spec:
   bases:
     -
-      name: "generated-passwords"
-      path: "bases/generated-passwords"
       default: true
       description: "postgresql generated passwords variant rendered from bitnami/postgresql@18.6.7"
+      name: "generated-passwords"
+      path: "bases/generated-passwords"
     -
-      name: "existing-secret"
-      path: "bases/existing-secret"
       description: "postgresql existing Secret variant rendered from bitnami/postgresql@18.6.7"
       externalRequires:
         -
@@ -20,6 +18,8 @@ spec:
           name: "Secret postgresql/postgresql-auth key postgres-password"
           namespace: "postgresql"
           suggestedSource: "kubectl -n postgresql create secret generic postgresql-auth --from-literal=postgres-password=<value>"
+      name: "existing-secret"
+      path: "bases/existing-secret"
   collector:
     command: "/bin/sh"
     args:
@@ -30,8 +30,8 @@ spec:
       description: "Set the namespace on every namespaced resource."
       invocations:
         -
-          name: "set-namespace"
           args:
             - "{{ .Namespace }}"
+          name: "set-namespace"
       toolchain: "Kubernetes/YAML"
       whereResource: ""

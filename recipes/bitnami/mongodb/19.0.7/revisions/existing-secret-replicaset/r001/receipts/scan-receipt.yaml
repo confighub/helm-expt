@@ -4,7 +4,7 @@ metadata:
   name: "mongodb-existing-secret-replicaset-r001"
 spec:
   variantRevision: "../variant-revision.yaml"
-  renderedObjectSetSHA256: "85bcba9d441796846c8452331d94210c5d3b7d8fb5e5969044741cd5c678372c"
+  renderedObjectSetSHA256: "3723a87004e25f813534be469bf648b6d6b80357fb01e47e465f775dcaec9231"
   result: "warn"
   scanner:
     name: "helm-expt-local-rendered-object-scan"
@@ -12,7 +12,7 @@ spec:
   policyBundleDigest: "99e1e78593c8364ddf7f0c3f9aa47ed6fe4bd54733c92b1a18720f152e6a32be"
   findingCounts:
     critical: 0
-    high: 3
+    high: 0
     medium: 8
     low: 0
     info: 0
@@ -35,24 +35,6 @@ spec:
       severity: "medium"
       object: "source|helm-hooks"
       message: "Chart source contains Helm hooks; rendered proof excludes hooks and production needs lifecycle policy"
-    -
-      id: "mutable-image-tag:apps/v1|StatefulSet|mongodb|mongodb-arbiter:mongodb-arbiter"
-      rule: "mutable-image-tag"
-      severity: "high"
-      object: "apps/v1|StatefulSet|mongodb|mongodb-arbiter"
-      message: "container mongodb-arbiter uses mutable image registry-1.docker.io/bitnami/mongodb:latest"
-    -
-      id: "mutable-image-tag:apps/v1|StatefulSet|mongodb|mongodb:log-dir"
-      rule: "mutable-image-tag"
-      severity: "high"
-      object: "apps/v1|StatefulSet|mongodb|mongodb"
-      message: "container log-dir uses mutable image registry-1.docker.io/bitnami/mongodb:latest"
-    -
-      id: "mutable-image-tag:apps/v1|StatefulSet|mongodb|mongodb:mongodb"
-      rule: "mutable-image-tag"
-      severity: "high"
-      object: "apps/v1|StatefulSet|mongodb|mongodb"
-      message: "container mongodb uses mutable image registry-1.docker.io/bitnami/mongodb:latest"
     -
       id: "stateful-workload-review:apps/v1|StatefulSet|mongodb|mongodb"
       rule: "stateful-workload-review"
