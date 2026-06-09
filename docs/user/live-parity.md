@@ -18,8 +18,8 @@ The repo tracks two live parity lanes.
 
 | Lane | Current result | What it means |
 | --- | --- | --- |
-| Selected live Helm-vs-ConfigHub comparison | 18 pass, 2 watch, 0 blocked | The selected top-20 rows compare regular Helm against ConfigHub delivery paths. |
-| Two-cluster kind parity for all top-20 bases | 32 pass, 1 watch, 7 blocked, 0 semantic parity defects | Regular Helm runs in one vanilla kind cluster and `cub installer` output runs in another. |
+| Selected live Helm-vs-ConfigHub comparison | 20 pass, 0 watch, 0 blocked | The selected top-20 rows compare regular Helm against ConfigHub delivery paths. |
+| Two-cluster kind parity for all top-20 bases | 34 pass, 1 watch, 7 blocked, 0 semantic parity defects | Regular Helm runs in one vanilla kind cluster and `cub installer` output runs in another. |
 
 Use the generated reports for exact rows:
 
@@ -27,14 +27,13 @@ Use the generated reports for exact rows:
 - [Two-Cluster Kind Parity](../../data/live-kind-parity/summary.md)
 - [Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md)
 
-The current rerun queue has 10 non-pass rows and no semantic parity defects.
+The current rerun queue has 9 non-pass rows and no semantic parity defects.
 The useful next work is not one generic rerun; it is split by row type.
 
 | Next step | Rows | What to do first |
 | --- | ---: | --- |
 | runtime review | 6 | Inspect readiness, waits, storage, capacity, or app initialization. |
 | stage prerequisite | 1 | Stage or model CRDs, APIs, Secrets, storage, or another prerequisite. |
-| GitOps runtime review | 1 | Inspect controller health and GitOps waits. |
 | lifecycle route | 1 | Choose the hook or lifecycle observation route. |
 | operating policy | 1 | Record the operating-policy decision. |
 
