@@ -33,7 +33,10 @@ function buildPlan() {
   const rows = [
     ...configHubOciRows(),
     ...twoClusterRows(),
-  ].sort((left, right) =>
+  ].map((row) => ({
+    next_step_type: nextStepType(row),
+    ...row,
+  })).sort((left, right) =>
     left.priority - right.priority
     || left.lane.localeCompare(right.lane)
     || `${left.chart}@${left.version}/${left.base}`.localeCompare(`${right.chart}@${right.version}/${right.base}`),
@@ -186,10 +189,37 @@ function followupForTwoCluster(row, lifecycle) {
   return "If blocked again, classify as recipe issue, target-fact/prerequisite issue, or chart runtime issue from the receipt.";
 }
 
+function nextStepType(row) {
+  const reason = row.reason ?? "";
+  if (reason.startsWith("parity:")) return "inspect-parity-diff";
+  if (reason.startsWith("infra:")) return "clean-rerun";
+  if (reason.startsWith("target-prerequisite:")) return "stage-prerequisite";
+  if (reason.startsWith("helm-hook:")) return "lifecycle-route";
+  if (reason.startsWith("operate-policy:")) return "operating-policy";
+  if (reason.startsWith("gitops-runtime:")) return "gitops-runtime-review";
+  if (reason.startsWith("target-runtime:") || reason.startsWith("helm-runtime:")) return "runtime-review";
+  if (row.current_result === "watch") return "runtime-review";
+  return "inspect-receipt";
+}
+
+function nextStepDescription(type) {
+  return {
+    "inspect-parity-diff": "Inspect the object diff before changing waits, target provisioning, or the recipe.",
+    "clean-rerun": "Rerun once on a clean host with serial execution and authoritative cleanup.",
+    "stage-prerequisite": "Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning.",
+    "lifecycle-route": "Choose the lifecycle route or observation contract before rerunning strict parity.",
+    "operating-policy": "Record the operating policy decision, then rerun only if the expected readiness changes.",
+    "gitops-runtime-review": "Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected.",
+    "runtime-review": "Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning.",
+    "inspect-receipt": "Read the receipt and classify the row before rerunning.",
+  }[type] ?? "Read the receipt and classify the row before rerunning.";
+}
+
 function markdown(rows) {
   const counts = countBy(rows, "lane");
   const resultCounts = countBy(rows, "current_result");
   const laneResults = countByLaneAndResult(rows);
+  const nextStepCounts = countBy(rows, "next_step_type");
   const lifecycleRows = rows.filter((row) => row.related_lifecycle_receipt);
   const semanticDefects = rows.filter((row) => row.reason?.startsWith("parity:")).length;
   const infraRows = rows.filter((row) => row.reason?.startsWith("infra:")).length;
@@ -246,6 +276,18 @@ The \`blocked\` rows are currently from the two-cluster kind parity lane.
    usually mean object parity passed and the target needs a readiness, storage,
    capacity, or operating-policy decision.
 
+## Next Step Buckets
+
+| Next step | Rows | What to do |
+| --- | ---: | --- |
+${Object.entries(nextStepCounts).sort((left, right) => left[0].localeCompare(right[0])).map(([type, count]) => `| ${type} | ${count} | ${nextStepDescription(type)} |`).join("\n")}
+
+Rows in \`stage-prerequisite\`, \`lifecycle-route\`, and \`operating-policy\`
+usually need a model or target decision before another rerun is useful. Rows in
+\`runtime-review\` and \`gitops-runtime-review\` are good rerun candidates only
+after the receipt explains what readiness, storage, controller, or wait
+condition changed.
+
 ## Run Safety
 
 Run live parity reruns serially. Do not run two live parity commands at the
@@ -266,9 +308,9 @@ faithful to the locked chart/version without changing the recipe.
 
 ## Rerun Queue
 
-| Priority | Lane | Chart | Base | Current | Reason | Command |
-| ---: | --- | --- | --- | --- | --- | --- |
-${rows.map((row) => `| ${row.priority} | ${row.lane} | \`${row.chart}@${row.version}\` | ${row.base} | ${row.current_result} | ${row.reason} | \`${row.rerun_command}\` |`).join("\n")}
+| Priority | Next step | Lane | Chart | Base | Current | Reason | Command |
+| ---: | --- | --- | --- | --- | --- | --- | --- |
+${rows.map((row) => `| ${row.priority} | ${row.next_step_type} | ${row.lane} | \`${row.chart}@${row.version}\` | ${row.base} | ${row.current_result} | ${row.reason} | \`${row.rerun_command}\` |`).join("\n")}
 
 ${lifecycleRows.length ? `## Related Lifecycle Evidence
 
@@ -357,6 +399,7 @@ function toCsv(rows) {
     "base",
     "current_result",
     "reason",
+    "next_step_type",
     "diagnosis",
     "rerun_command",
     "followup",
