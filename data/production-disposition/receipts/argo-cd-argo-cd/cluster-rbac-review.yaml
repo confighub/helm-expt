@@ -1,0 +1,46 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: argo-cd-cluster-rbac-review
+spec:
+  chart: argo-cd/argo-cd
+  version: "9.5.15"
+  disposition: cluster RBAC review
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Argo CD intentionally renders cluster-scoped RBAC for the application
+    controller, notifications controller, and server. This disposition accepts
+    the upstream RBAC inventory as production review input. Target policy can
+    still require a narrower base, separate approval, or a limited controller
+    scope before production support.
+  evidence:
+    - path: recipes/argo-cd/argo-cd/9.5.15/control-points.yaml
+      claim: The recipe records cluster RBAC as scan-and-review.
+    - path: recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/rendered/object-inventory.yaml
+      claim: The default object inventory records the ClusterRole and ClusterRoleBinding objects.
+    - path: recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/rendered/object-inventory.yaml
+      claim: The no-crds object inventory records the same cluster-scoped RBAC.
+    - path: recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default rendered-object scan flags cluster-rbac-review findings.
+    - path: recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/receipts/scan-receipt.yaml
+      claim: The no-crds rendered-object scan flags the same cluster RBAC warning family.
+    - path: recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The default base is Helm-equivalent under recorded inputs.
+    - path: recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The no-crds base is Helm-equivalent under recorded inputs.
+    - path: runs/argo-cd-confighub-proof/latest/function-scan-receipt.yaml
+      claim: The ConfigHub function scan records concrete Unit revision bindings for Argo CD RBAC objects.
+  affectedVariants:
+    - default
+    - no-crds
+  acceptedWarnings:
+    - cluster-rbac-review
+  variantCaveats:
+    - "Cluster-scoped permissions must be reviewed against the target cluster's GitOps policy."
+    - "Production support may choose a narrower Argo CD operating model than this default chart posture."
+  remainingProductionBlockers: []
+  nextDecision: A target-scoped production support decision should review RBAC together with managed namespace scope, repository access, and application project policy.

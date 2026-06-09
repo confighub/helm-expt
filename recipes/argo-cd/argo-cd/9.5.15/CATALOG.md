@@ -16,7 +16,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Catalog status | catalog-supported |
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
-| Production readiness | blocked-by-current-scan-gate |
+| Production readiness | production-review-ready |
 | Supported variants | default, no-crds |
 | Candidate variants | none |
 | Control points | capability-profile, cluster-rbac, crd-policy, dependency-lock, gitops-handoff, hook-policy, installer-support-object, source-lock, stateful-workload, tpl |
@@ -34,7 +34,7 @@ for exact base-variant evidence.
 | Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 0/2; live parity 0/2 |
 | Feature summary | crds;extension-slots |
 | Hard gap | ha (curated proof lane - bespoke teaching needed) |
-| Next action | write or fix the receipt for CRD lifecycle and upgrade policy |
+| Next action | refresh live/e2e receipts for the accepted production scope |
 
 ## Artifact Chain
 

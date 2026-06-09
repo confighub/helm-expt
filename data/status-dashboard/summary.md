@@ -45,9 +45,9 @@ Which detailed CSV should I open next?
 | live evidence | ConfigHub/OCI semantic parity defect receipts | 0/20 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 0/40 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-supported charts | 0/20 | gap | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
-| production disposition | top20 production-review-ready charts | 17/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
-| production disposition | top20 production-blocked charts | 3/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
-| production disposition | charts with accepted production dispositions | 17/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| production disposition | top20 production-review-ready charts | 18/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| production disposition | top20 production-blocked charts | 2/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| production disposition | charts with accepted production dispositions | 18/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | scan disposition | high-priority scan rows | 4/20 | partial | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
 | scan disposition | remaining mutable-image rows | 0/20 | good | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
 | scan disposition | privileged infrastructure review rows | 4/20 | partial | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
@@ -220,22 +220,22 @@ production-supported until a final target-scoped support decision is recorded.
 | Metric | Value |
 | --- | ---: |
 | production-supported charts | 0/20 |
-| production-review-ready pending final support decision | 17/20 |
-| production-blocked pending disposition | 3/20 |
-| charts with accepted dispositions | 17/20 |
+| production-review-ready pending final support decision | 18/20 |
+| production-blocked pending disposition | 2/20 |
+| charts with accepted dispositions | 18/20 |
 | high-priority scan rows | 4/20 |
 | mutable-image rows still needing fixes | 0/20 |
 
 | Open disposition | Charts |
 | --- | ---: |
-| cluster RBAC review | 3 |
-| CRD lifecycle and upgrade policy | 3 |
-| extension slot provenance and scan policy | 3 |
-| scan/gate warning disposition | 3 |
-| hook and lifecycle phase policy | 2 |
-| storage backup restore and rollback policy | 2 |
+| cluster RBAC review | 2 |
+| CRD lifecycle and upgrade policy | 2 |
+| extension slot provenance and scan policy | 2 |
+| scan/gate warning disposition | 2 |
 | webhook readiness and failure policy | 2 |
 | generated fact ownership | 1 |
+| hook and lifecycle phase policy | 1 |
+| storage backup restore and rollback policy | 1 |
 
 | Scan route | Charts |
 | --- | ---: |
@@ -246,7 +246,7 @@ production-supported until a final target-scoped support decision is recorded.
 
 | Chart | Production | Accepted | Open | Next action |
 | --- | --- | ---: | ---: | --- |
-| argo-cd/argo-cd@9.5.15 | blocked | 0 | 6 | write or fix the receipt for CRD lifecycle and upgrade policy |
+| argo-cd/argo-cd@9.5.15 | production-review-ready | 6 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
 | bitnami/mongodb@19.0.7 | production-review-ready | 6 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
 | bitnami/mysql@14.0.3 | production-review-ready | 5 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
 | bitnami/nginx@24.0.2 | production-review-ready | 4 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |

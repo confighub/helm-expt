@@ -6,11 +6,11 @@ exactly what must be closed before production support can be claimed.
 The lifecycle columns separate retained source-hook evidence from recipe-level
 lifecycle policy and related CRD/webhook/controller observations.
 
-Accepted disposition receipts recorded: 80
+Accepted disposition receipts recorded: 86
 
 | Chart | Local-test variants | Production state | Accepted | Open | Source hooks | Lifecycle basis | Live/e2e receipts |
 | --- | --- | --- | ---: | ---: | ---: | --- | --- |
-| `argo-cd/argo-cd@9.5.15` | default, no-crds | production-blocked | 0 | 6 | 0 | recipe-hook-policy:no-hooks | 1 |
+| `argo-cd/argo-cd@9.5.15` | default, no-crds | production-review-ready | 6 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/mongodb@19.0.7` | generated-passwords, existing-secret-replicaset | production-review-ready | 6 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/mysql@14.0.3` | generated-passwords, existing-secret | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | production-review-ready | 4 | 0 | 0 | none | 1 |
@@ -39,6 +39,7 @@ The same queue is available as `next-actions.csv`.
 
 | Chart | Accepted | Open | Open dispositions | Next receipt | External scan reading |
 | --- | ---: | ---: | --- | --- | --- |
+| `argo-cd/argo-cd@9.5.15` | 6 | 0 |  | - | default: warn, 18 finding(s) (unset-cpu-requirements:9;unset-memory-requirements:9); no-crds: warn, 18 finding(s) (unset-cpu-requirements:9;unset-memory-requirements:9) |
 | `bitnami/mongodb@19.0.7` | 6 | 0 |  | - | existing-secret-replicaset: warn, 2 finding(s) (pdb-unhealthy-pod-eviction-policy:2); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
 | `jetstack/cert-manager@v1.20.2` | 6 | 0 |  | - | crds-enabled: warn, 6 finding(s) (unset-cpu-requirements:3;unset-memory-requirements:3); default: warn, 6 finding(s) (unset-cpu-requirements:3;unset-memory-requirements:3) |
 | `bitnami/mysql@14.0.3` | 5 | 0 |  | - | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |

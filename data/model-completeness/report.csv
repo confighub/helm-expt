@@ -1,6 +1,6 @@
 chart,supported,score,render_equivalent,behaviorally_complete,readable,usable,verifiable,honestly_scoped,variant_complete,variant_count,support_status,production_readiness,missing_criteria,recipe_path
 aqua/trivy-operator@0.32.1,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/aqua/trivy-operator/0.32.1
-argo-cd/argo-cd@9.5.15,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,blocked-by-current-scan-gate,none,recipes/argo-cd/argo-cd/9.5.15
+argo-cd/argo-cd@9.5.15,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/argo-cd/argo-cd/9.5.15
 argo-cd/argo-events@2.4.21,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/argo-cd/argo-events/2.4.21
 argo-cd/argo-rollouts@2.40.9,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/argo-cd/argo-rollouts/2.40.9
 argo-cd/argo-workflows@1.0.14,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/argo-cd/argo-workflows/1.0.14

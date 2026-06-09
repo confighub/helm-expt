@@ -13,13 +13,13 @@ catalog-supported local-test charts: 20
 ConfigHub proof receipts passing: 20
 live/e2e observed charts: 20
 production-supported charts: 0
-production-review-ready pending final support decision: 17
-production-blocked pending disposition: 3
+production-review-ready pending final support decision: 18
+production-blocked pending disposition: 2
 source Helm-hook rows: 1
 hook/lifecycle disposition rows: 12
 related lifecycle observation rows: 2
-accepted production disposition receipts: 80
-charts with accepted dispositions: 17
+accepted production disposition receipts: 86
+charts with accepted dispositions: 18
 ```
 
 The hook/lifecycle disposition is a production-review item. It does not always
@@ -43,7 +43,7 @@ runtime checks.
 
 | Chart | Variants | ConfigHub proof | Live/e2e | Production status | Accepted | Open dispositions |
 | --- | --- | --- | --- | --- | ---: | --- |
-| `argo-cd/argo-cd@9.5.15` | default, no-crds | pass | local-kind-observed | blocked | 0 | CRD lifecycle and upgrade policy, cluster RBAC review, extension slot provenance and scan policy, hook and lifecycle phase policy, scan/gate warning disposition, storage backup restore and rollback policy |
+| `argo-cd/argo-cd@9.5.15` | default, no-crds | pass | local-kind-observed | production-review-ready | 6 |  |
 | `bitnami/mongodb@19.0.7` | generated-passwords, existing-secret-replicaset | pass | local-kind-observed | production-review-ready | 6 |  |
 | `bitnami/mysql@14.0.3` | generated-passwords, existing-secret | pass | local-kind-observed | production-review-ready | 5 |  |
 | `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | pass | local-kind-observed | production-review-ready | 4 |  |

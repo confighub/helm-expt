@@ -1,0 +1,50 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: argo-cd-storage-backup-restore-and-rollback-policy
+spec:
+  chart: argo-cd/argo-cd
+  version: "9.5.15"
+  disposition: storage backup restore and rollback policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Argo CD's application controller is a StatefulSet and the chart renders
+    Secrets and ConfigMaps that carry operational state. The default proof path
+    separates generated Secrets from ConfigHub Units and records runtime watch
+    caveats when those Secrets or CRD prerequisites are not staged correctly.
+    This disposition accepts the state and rollback boundary as production
+    review input, not as final production support.
+  evidence:
+    - path: recipes/argo-cd/argo-cd/9.5.15/control-points.yaml
+      claim: The recipe records the application controller StatefulSet as scan-and-review.
+    - path: recipes/argo-cd/argo-cd/9.5.15/value-model.yaml
+      claim: The value model records redisSecretInit, configs, repositories, credentials, and notifications as explicit state/config inputs.
+    - path: recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/rendered/object-inventory.yaml
+      claim: The default object inventory records the StatefulSet, Redis Deployment, Secrets, and Argo CD ConfigMaps.
+    - path: recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/rendered/object-inventory.yaml
+      claim: The no-crds object inventory records the same runtime state objects without CRDs.
+    - path: recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default scan records stateful workload review and generated Secret ownership findings.
+    - path: recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/receipts/scan-receipt.yaml
+      claim: The no-crds scan records the same stateful workload and Secret ownership findings.
+    - path: runs/argo-cd-confighub-proof/latest/confighub-proof-receipt.yaml
+      claim: The ConfigHub proof records that argocd-secret and argocd-notifications-secret are separated and not uploaded as ConfigHub Units.
+    - path: data/live-helm-confighub-compare/blocked-triage.md
+      claim: The live parity triage records that ConfigHub paths show readiness failures around generated/runtime Secrets and controller bootstrap conditions, while semantic parity passed.
+  affectedVariants:
+    - default
+    - no-crds
+  acceptedPolicy:
+    separatedSecrets: Generated or operational Secrets are not hidden in ConfigHub Units and must be staged or externally managed for the target.
+    controllerState: Application/controller state and rollback are operating procedures.
+    noCrdsRuntime: The no-crds base requires compatible CRDs and cannot be treated as a standalone install.
+  variantCaveats:
+    - "default is the safer first production-review base because it owns CRDs and has the strongest local-kind evidence."
+    - "no-crds is target-prerequisite-needed and must be paired with external CRD lifecycle ownership."
+    - "Runtime-watch rows are retained as evidence that semantic parity alone is not enough for production support."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should define Secret ownership, admin credential rotation, repository credential handling, app state backup/restore, and rollback procedures.

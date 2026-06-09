@@ -1,0 +1,45 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: argo-cd-extension-slot-provenance-and-scan-policy
+spec:
+  chart: argo-cd/argo-cd
+  version: "9.5.15"
+  disposition: extension slot provenance and scan policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    The supported Argo CD bases keep extraObjects empty and leave repository,
+    credential, notification, and application/project policy changes as
+    explicit ConfigHub or installer-managed inputs. This disposition accepts the
+    empty extension-slot model as production review input. Populated raw objects
+    or templated Argo CD configuration must become reviewed bases or managed
+    ConfigHub Units with scans and receipts.
+  evidence:
+    - path: recipes/argo-cd/argo-cd/9.5.15/control-points.yaml
+      claim: The recipe records extraObjects as a tpl extension slot controlled by empty defaults.
+    - path: recipes/argo-cd/argo-cd/9.5.15/value-model.yaml
+      claim: The value model records extraObjects, configs, repositories, credentials, and notifications as configuration extension surfaces.
+    - path: recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default scan records extension-slot-review for extraObjects.
+    - path: recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/receipts/scan-receipt.yaml
+      claim: The no-crds scan records the same extension-slot-review.
+    - path: recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/receipts/install-gate.yaml
+      claim: The default install gate blocks production until GitOps handoff, Secrets, CRDs, hooks, RBAC, and StatefulSet policy are reviewed.
+    - path: runs/argo-cd-confighub-proof/latest/confighub-proof-receipt.yaml
+      claim: The ConfigHub proof records upload, server-side variant clone, unit review, revision list, and diff checks.
+  affectedVariants:
+    - default
+    - no-crds
+  acceptedPolicy:
+    extraObjects: Raw or templated extraObjects stay empty in supported bases.
+    configs: Repository credentials, SSO, notification, and project configuration are explicit post-render configuration decisions.
+    populatedSlotRule: Populated extension slots require new render parity, scans, gates, and receipts.
+  variantCaveats:
+    - "Argo CD configuration can itself grant deployment power; populated config slots should not be treated as casual values edits."
+    - "Application and AppProject resources are operating/configuration objects and need their own review scope."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should define which Argo CD config surfaces are allowed in the base and which are managed as downstream ConfigHub Units.

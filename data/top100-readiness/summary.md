@@ -87,7 +87,7 @@ charts with named hard gaps: 25
 
 | Chart | Adoption bucket | Evidence | Variants | Next action | Next receipt | Source |
 | --- | --- | --- | ---: | --- | --- | --- |
-| `argo-cd/argo-cd@9.5.15` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | write or fix the receipt for CRD lifecycle and upgrade policy | `data/production-disposition/receipts/argo-cd-argo-cd/crd-lifecycle-and-upgrade-policy.yaml` | `production-disposition` |
+| `argo-cd/argo-cd@9.5.15` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
 | `bitnami/mongodb@19.0.7` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
 | `bitnami/mysql@14.0.3` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
 | `bitnami/nginx@24.0.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |

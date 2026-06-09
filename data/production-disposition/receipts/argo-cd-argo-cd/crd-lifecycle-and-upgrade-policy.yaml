@@ -1,0 +1,50 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: argo-cd-crd-lifecycle-and-upgrade-policy
+spec:
+  chart: argo-cd/argo-cd
+  version: "9.5.15"
+  disposition: CRD lifecycle and upgrade policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Argo CD has two supported CRD postures. The default base renders the three
+    Argo CD CRDs as reviewed objects. The no-crds base omits them and requires
+    compatible CRDs to exist before install. This disposition accepts the CRD
+    routing model as production review input: CRD ownership is a base choice,
+    not an implicit Helm side effect.
+  evidence:
+    - path: recipes/argo-cd/argo-cd/9.5.15/control-points.yaml
+      claim: The recipe records CRD policy as variant-controlled with three CRDs in default and zero in no-crds.
+    - path: recipes/argo-cd/argo-cd/9.5.15/value-model.yaml
+      claim: The value model records crds.install as included in default and excluded in no-crds.
+    - path: recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/rendered/object-inventory.yaml
+      claim: The default object inventory records applications, applicationsets, and appprojects CRDs.
+    - path: recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/rendered/object-inventory.yaml
+      claim: The no-crds object inventory omits those CRDs while preserving the control-plane objects.
+    - path: recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default rendered-object scan records CRD upgrade policy warnings explicitly.
+    - path: recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/receipts/scan-receipt.yaml
+      claim: The no-crds rendered-object scan removes CRD findings and keeps the target-prerequisite boundary.
+    - path: runs/top20-local-kind/argo-cd-default/observation-receipt.json
+      claim: The local-kind observation records the three CRDs becoming Established before workload rollout checks.
+    - path: runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml
+      claim: The default base reaches semantic parity with runtime watch caveats.
+    - path: runs/live-kind-parity/argo-cd-argo-cd-no-crds/receipt.yaml
+      claim: The no-crds base keeps semantic parity but is blocked by the missing/external CRD prerequisite in a vanilla target.
+  affectedVariants:
+    - default
+    - no-crds
+  acceptedPolicy:
+    default: The recipe owns the Argo CD CRDs for the default base.
+    noCrds: The target owns compatible Argo CD CRDs before the no-crds base is applied.
+    upgrade: CRD schema changes require a fresh chart-version review before replacing the supported version.
+  variantCaveats:
+    - "no-crds is not a standalone install path; it requires external CRD lifecycle ownership."
+    - "CRD rollback and Argo CD application-state rollback are operating procedures, not render-parity claims."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose the CRD ownership route and required preflight checks for the target scope.

@@ -1,0 +1,46 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: argo-cd-hook-and-lifecycle-phase-policy
+spec:
+  chart: argo-cd/argo-cd
+  version: "9.5.15"
+  disposition: hook and lifecycle phase policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    The supported Argo CD bases render with Helm hooks excluded. This
+    disposition accepts the desired-object lifecycle model as production review
+    input: render parity proves the reviewed object set, while hook/test or
+    migration behavior must be represented as an explicit lifecycle action or
+    observation receipt before production support.
+  evidence:
+    - path: recipes/argo-cd/argo-cd/9.5.15/control-points.yaml
+      claim: The recipe records hook-policy as handled-for-render and says source hooks are excluded from the proof render.
+    - path: recipes/argo-cd/argo-cd/9.5.15/helm-pain-report.yaml
+      claim: The pain report states that source hooks are excluded and lifecycle policy must handle them before production.
+    - path: recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default scan records helm-hook-lifecycle-policy for source hooks.
+    - path: recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/receipts/scan-receipt.yaml
+      claim: The no-crds scan records the same hook lifecycle warning.
+    - path: recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/receipts/install-gate.yaml
+      claim: The default install gate blocks production until Helm hook behavior has explicit lifecycle policy.
+    - path: recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/receipts/install-gate.yaml
+      claim: The no-crds install gate records the same lifecycle boundary.
+    - path: runs/top20-local-kind/argo-cd-default/observation-receipt.json
+      claim: The local-kind observation records desired-object apply and Argo CD workload rollout checks passing without relying on Helm hooks.
+  affectedVariants:
+    - default
+    - no-crds
+  acceptedPolicy:
+    desiredObjects: Supported bases are managed as reviewed desired Kubernetes objects.
+    hooks: Helm hooks are not silently preserved; required hook behavior must become an explicit lifecycle action.
+    observations: Controller readiness and CRD availability must be observed after apply for supported target scopes.
+  variantCaveats:
+    - "This receipt does not prove arbitrary Argo CD chart hook or test behavior."
+    - "If a future chart version requires lifecycle jobs, those jobs must be mapped before promotion."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should define required Argo CD runtime checks and whether any chart tests or lifecycle jobs are part of the supported operating model.

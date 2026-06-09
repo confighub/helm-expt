@@ -40,11 +40,14 @@ const supportedCatalogEntries = {
     ],
   },
   "argo-cd/argo-cd": {
+    productionReadiness: "production-review-ready",
     notes: [
       "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.",
-      "default preserves the normal Argo CD install shape.",
-      "no-crds is supported when CRD lifecycle is owned outside this package.",
-      "Production remains blocked until RBAC, CRD ownership, raw extension slots, and scan/gate findings have dispositions.",
+      "default preserves the normal Argo CD install shape and is the safer first production-review base.",
+      "no-crds is supported when CRD lifecycle is owned outside this package, but remains target-prerequisite-needed.",
+      "CRD ownership, cluster RBAC, raw extension slots, hook/lifecycle boundary, StatefulSet/Secret ownership, and scan/gate warnings are recorded as production review input.",
+      "Production recommendation remains a separate decision; Argo CD needs target Secret ownership, admin credential rotation, repository policy, resource policy, and fresh controller readiness checks before support.",
+      "The live GitOps/OCI row demonstrates sync mechanics but remains runtime-watch until generated/runtime Secret and bootstrap policy are resolved.",
     ],
   },
   "bitnami/mongodb": {

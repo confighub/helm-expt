@@ -1,0 +1,65 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: argo-cd-scan-gate-warning-disposition
+spec:
+  chart: argo-cd/argo-cd
+  version: "9.5.15"
+  disposition: scan/gate warning disposition
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Argo CD has rendered-object warnings for CRDs, RBAC, source hooks,
+    extension slots, generated Secrets, the application-controller StatefulSet,
+    and a missing default ServiceAccount reference on the Redis workload. The
+    external scanner also records resource request/limit warnings. This
+    disposition accepts those warnings as explicit production review inputs,
+    not as final production support.
+  evidence:
+    - path: data/external-scan-lane/review.csv
+      claim: External kube-linter rows for both bases record unset CPU and memory requirements.
+    - path: data/scan-disposition-workdown/workdown.csv
+      claim: The scan disposition workdown routes Argo CD to add-resource-policy.
+    - path: recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default rendered-object scan records CRD, RBAC, dependency, extension-slot, Secret, hook, StatefulSet, and ServiceAccount findings.
+    - path: recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/receipts/scan-receipt.yaml
+      claim: The no-crds rendered-object scan records the same warning families except CRD findings.
+    - path: recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/receipts/install-gate.yaml
+      claim: The default install gate allows local-test and blocks production until CRD, hook, Secret, StatefulSet, RBAC, and GitOps handoff policy are reviewed.
+    - path: recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/receipts/install-gate.yaml
+      claim: The no-crds install gate records the same production policy boundary with external CRD ownership.
+    - path: data/production-disposition/receipts/argo-cd-argo-cd/crd-lifecycle-and-upgrade-policy.yaml
+      claim: CRD lifecycle handling has an accepted production-review disposition.
+    - path: data/production-disposition/receipts/argo-cd-argo-cd/cluster-rbac-review.yaml
+      claim: Cluster RBAC handling has an accepted production-review disposition.
+    - path: data/production-disposition/receipts/argo-cd-argo-cd/extension-slot-provenance-and-scan-policy.yaml
+      claim: Extension-slot handling has an accepted production-review disposition.
+    - path: data/production-disposition/receipts/argo-cd-argo-cd/hook-and-lifecycle-phase-policy.yaml
+      claim: Hook and lifecycle handling has an accepted production-review disposition.
+    - path: data/production-disposition/receipts/argo-cd-argo-cd/storage-backup-restore-and-rollback-policy.yaml
+      claim: Stateful workload, Secret, and rollback handling has an accepted production-review disposition.
+    - path: runs/top20-local-kind/argo-cd-default/observation-receipt.json
+      claim: The default base passes the committed local-kind observation lane.
+  affectedVariants:
+    - default
+    - no-crds
+  acceptedWarnings:
+    - cluster-rbac-review
+    - crd-upgrade-policy
+    - dependency-lock-review
+    - extension-slot-review
+    - generated-secret-ownership
+    - helm-hook-lifecycle-policy
+    - stateful-workload-review
+    - unset-cpu-requirements
+    - unset-memory-requirements
+    - workload-service-account-exists
+  variantCaveats:
+    - "default is review-ready but still needs target Secret, resource, credential, and controller readiness policy before production support."
+    - "no-crds remains target-prerequisite-needed and should be used only where CRDs are managed externally."
+    - "The live ConfigHub OCI/Argo row is a useful GitOps proof of sync mechanics, but runtime health is still watch until Secret/bootstrap policy is resolved."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose CRD ownership, resource policy, Secret ownership, admin credential rotation, repository scope, and runtime observation checks.

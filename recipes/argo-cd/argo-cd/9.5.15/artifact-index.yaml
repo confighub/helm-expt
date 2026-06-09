@@ -41,7 +41,7 @@ spec:
     supportLevel: "supported-for-declared-scopes"
     supportedScopes:
       - "local-test"
-    productionReadiness: "blocked-by-current-scan-gate"
+    productionReadiness: "production-review-ready"
     supportedVariants:
       - "default"
       - "no-crds"
@@ -61,7 +61,7 @@ spec:
       liveParity: "0/2"
     featureSummary: "crds;extension-slots"
     hardGap: "ha (curated proof lane - bespoke teaching needed)"
-    nextAction: "write or fix the receipt for CRD lifecycle and upgrade policy"
+    nextAction: "refresh live/e2e receipts for the accepted production scope"
   installerPackage:
     path: "packages/argo-cd/argo-cd/9.5.15"
     installer: "packages/argo-cd/argo-cd/9.5.15/installer.yaml"
