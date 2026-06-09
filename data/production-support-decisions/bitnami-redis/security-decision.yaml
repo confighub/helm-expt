@@ -1,0 +1,64 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSecurityDecision"
+metadata:
+  name: "bitnami-redis-public-oci-security-decision"
+spec:
+  chart: "bitnami/redis"
+  version: "25.5.3"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "redis"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "default"
+  variantsCovered:
+    - "default"
+    - "reuse-existing-secret"
+  decision: "pdb-policy-accepted-for-target-scope"
+  decidedAt: "2026-06-09"
+  claim: "The Redis rendered-object scan warnings are PodDisruptionBudget unhealthy-pod-eviction policy warnings on the master and replica PDBs. They are accepted for this public cub-lk teaching and parity proof scope. Stricter availability scopes should create a reviewed PDB policy base or overlay."
+  route: "accept-or-patch-pdb-policy"
+  routeReason: "the remaining warning is an explicit PodDisruptionBudget policy choice"
+  findingSummary:
+    scanner: "kube-linter"
+    result: "warn"
+    totalFindings: 4
+    topChecks:
+      pdb-unhealthy-pod-eviction-policy: 4
+    variants:
+      default:
+        findingCount: 2
+        topChecks:
+          pdb-unhealthy-pod-eviction-policy: 2
+        renderedObjectSetSHA256: "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
+      reuse-existing-secret:
+        findingCount: 2
+        topChecks:
+          pdb-unhealthy-pod-eviction-policy: 2
+        renderedObjectSetSHA256: "55f424589dfd8581580a51659cdf46e52180961ddbf9f6b7b244d0aacc42546f"
+  acceptedFindings:
+    -
+      group: "pdb-unhealthy-pod-eviction-policy"
+      disposition: "Accepted for the public proof scope. For stricter production availability scopes, add a reviewed PDB policy base or operator-owned patch before support expansion."
+  limits:
+    - "This is not a blanket availability-policy approval for customer clusters, private overlays, or regulated environments."
+    - "This does not make every Redis base production-supported."
+    - "Backup, restore, failover, persistence class, sizing, and SLO policy are outside this decision."
+  evidence:
+    -
+      path: "data/scan-disposition-workdown/workdown.csv"
+      claim: "Routes Redis scan findings to accept-or-patch-pdb-policy."
+    -
+      path: "data/external-scan-lane/review.csv"
+      claim: "Records kube-linter warning counts for default and reuse-existing-secret rendered object sets."
+    -
+      path: "recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for default."
+    -
+      path: "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for reuse-existing-secret."
+    -
+      path: "data/production-disposition/receipts/bitnami-redis/scan-gate-warning-disposition.yaml"
+      claim: "Earlier production disposition accepts Redis PDB warnings as production-review inputs."
+  remainingSupportBlockers:
+    - "Record lifecycle/secret handling and fresh target-scoped ConfigHub OCI/GitOps evidence."

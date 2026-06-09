@@ -1,0 +1,76 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionLifecycleDecision"
+metadata:
+  name: "bitnami-redis-public-oci-lifecycle-decision"
+spec:
+  chart: "bitnami/redis"
+  version: "25.5.3"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "redis"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "default"
+  variantsCovered:
+    - "default"
+    - "reuse-existing-secret"
+  decision: "lifecycle-observed-for-proof-scope"
+  decidedAt: "2026-06-09"
+  claim: "The Redis default base has no Helm hook execution requirement in the supported proof scope. The generated Redis Secret is bound before render, separated from the workload OCI artifact, staged before apply or sync, and the StatefulSets, PVCs, and Redis PONG checks pass through regular Helm, cub installer apply, and ConfigHub OCI/Argo."
+  lifecycleModel:
+    hookPolicy: "no-chart-hooks"
+    generatedFacts:
+      - "auth.password"
+    separatedSecrets:
+      - "redis/redis"
+    statefulWorkloads:
+      - "redis-master"
+      - "redis-replicas"
+    targetFacts:
+      - "reuse-existing-secret variant requires redis/redis-existing-secret key redis-password"
+  observedLifecycleSignals:
+    twoClusterParity:
+      result: "pass"
+      observedAt: "2026-06-06T08:19:14Z"
+      regularHelmRuntime: "pass"
+      installerRuntime: "pass"
+      semanticParity: "pass"
+    confighubOciArgo:
+      result: "pass"
+      observedAt: "2026-06-05T12:40:11Z"
+      regularHelmRuntime: "pass"
+      confighubApplyRuntime: "pass"
+      confighubOciRuntime: "pass"
+      argoSync: "Synced"
+      argoHealth: "Healthy"
+      externalSecret:
+        object: "v1|Secret|redis|redis"
+        reason: "Redis default separates the rendered Secret from the workload OCI artifact."
+        stagedBeforeSync: true
+      redisPong:
+        evidenceSHA256: "9597e5d74f44f182ebb56b65a79c6b1b84829735af1ff583d44c3384d8a0a45e"
+        result: "pass"
+      semanticParity: "pass"
+  limits:
+    - "This supports the default generated-secret teaching base for the recorded public proof scope."
+    - "The reuse-existing-secret base is a separate target-fact posture and needs its own target-scoped support decision before being claimed as supported."
+    - "The Redis Secret is not silently stored in ConfigHub Units; it is generated or staged before config-only delivery."
+    - "Backup, restore, failover, persistence class, sizing, and customer SLO tuning are outside this base support claim."
+  evidence:
+    -
+      path: "runs/live-kind-parity/bitnami-redis-default/receipt.yaml"
+      claim: "Two-cluster Helm-vs-installer parity passes for the default base."
+    -
+      path: "runs/live-helm-confighub-compare/bitnami-redis-default/receipt.yaml"
+      claim: "ConfigHub OCI/Argo live parity passes for the default base."
+    -
+      path: "data/production-disposition/receipts/bitnami-redis/generated-fact-ownership.yaml"
+      claim: "Records generated Redis password ownership and separated Secret handling."
+    -
+      path: "data/production-disposition/receipts/bitnami-redis/hook-lifecycle-phase-policy.yaml"
+      claim: "Records the no-hooks lifecycle policy for Redis."
+    -
+      path: "data/production-disposition/receipts/bitnami-redis/target-fact-preflight.yaml"
+      claim: "Records the reuse-existing-secret target-fact posture as a separate variant."
+  remainingSupportBlockers:
+    - "Record scan/security acceptance and fresh target-scoped ConfigHub OCI/GitOps evidence."
