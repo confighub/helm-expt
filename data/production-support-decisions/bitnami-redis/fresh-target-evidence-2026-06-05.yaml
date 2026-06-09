@@ -1,0 +1,80 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSupportEvidenceReceipt"
+metadata:
+  name: "bitnami-redis-default-argo-oci-support-evidence-20260605"
+spec:
+  chart: "bitnami/redis"
+  version: "25.5.3"
+  base: "default"
+  observedAt: "2026-06-05T12:40:11Z"
+  result: "pass"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "redis"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+    rig: "helm-expt-parity-redis-0605"
+    kubeContext: "kind-helm-expt-parity-redis-0605"
+    target: "helm-expt-parity-redis-0605-cluster/oci"
+    workloadSpace: "helm-expt-parity-redis-0605-redis-parity-pass"
+    app: "redis-parity-pass"
+  package:
+    path: "packages/bitnami/redis/25.5.3"
+  recipe:
+    path: "recipes/bitnami/redis/25.5.3"
+  oci:
+    revision: "sha256:960aa50316e83a8a896c82e2cc9dafe8aa90dedff0c8510068116ab34eab1bfe"
+    controller: "Argo CD OCI"
+    sync: "Synced"
+    health: "Healthy"
+    manifestSHA256: "b7096ac72441a1b4160ec820c5332a6b964a12eadd5ff268669b8a4f9a8a128c"
+    objectCount: 15
+  secretHandling:
+    separatedSecret: "v1|Secret|redis|redis"
+    stagedBeforeSync: true
+    reason: "Redis default separates the rendered Secret from the workload OCI artifact."
+  comparison:
+    regularHelmRuntime: "pass"
+    configHubApplyRuntime: "pass"
+    configHubOciRuntime: "pass"
+    helmVsConfigHubOciArgo: "pass"
+    allowedExtraConfigHubObjects:
+      - "v1|Namespace||redis"
+  twoClusterCrossCheck:
+    path: "runs/live-kind-parity/bitnami-redis-default/receipt.yaml"
+    result: "pass"
+    semanticParity: "pass"
+    regularHelmRuntime: "pass"
+    installerRuntime: "pass"
+  source:
+    liveReceiptPath: "runs/live-helm-confighub-compare/bitnami-redis-default/receipt.yaml"
+    cleanupPolicy: "cub-lk rig and ConfigHub cluster space removed after evidence capture"
+  checks:
+    -
+      name: "regular-helm-runtime"
+      result: "pass"
+      detail: "regular Helm Redis runtime passed"
+    -
+      name: "confighub-apply-runtime"
+      result: "pass"
+      detail: "ConfigHub rendered objects applied by kubectl reached Redis PONG"
+    -
+      name: "confighub-oci-argo-runtime"
+      result: "pass"
+      detail: "Argo app redis-parity-pass: sync=Synced health=Healthy revision=sha256:960aa50316e83a8a896c82e2cc9dafe8aa90dedff0c8510068116ab34eab1bfe"
+    -
+      name: "semantic-object-parity"
+      result: "pass"
+      detail: "regular Helm and ConfigHub OCI/Argo object sets match semantically, except the recorded Namespace support object"
+    -
+      name: "redis-pong"
+      result: "pass"
+      detail: "Redis PONG passed after Argo synced the ConfigHub OCI artifact"
+  supportClaim:
+    state: "fresh-target-evidence-passed"
+    detail: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared Redis default support scope."
+  limits:
+    - "This supports the recorded cub-lk vanilla kind Argo OCI scope, not every Kubernetes cluster."
+    - "This assumes an existing Argo CD OCI controller is available to reconcile the ConfigHub artifact."
+    - "The generated Redis Secret is separated from the workload OCI artifact and staged before sync."
+    - "Evidence freshness is 30 days for public demo/support examples unless refreshed earlier."
