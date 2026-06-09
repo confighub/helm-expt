@@ -46,7 +46,7 @@ For the shortest chart-by-chart top-100 answer, start with:
 | [production next actions](../../data/production-disposition/next-actions.csv) | One row per top-20 chart. Shows the next production disposition receipt or fix to work on. |
 | [scan disposition workdown](../../data/scan-disposition-workdown/summary.md) | One row per top-20 chart. Routes scan warnings to image-pin fixes, resource policies, security hardening, privileged infrastructure acceptance, runtime endpoint review, or PDB policy decisions. |
 | [pain-points.csv](../../data/pain-point-coverage/pain-points.csv) | One row per common Helm pain point. Shows current answer, handoff, evidence, remaining gap, and next action. |
-| [readiness.csv](../../data/top100-readiness/readiness.csv) | One row per top-100 chart. Shows adoption bucket, current user status, strongest evidence, hard gap, and next action. |
+| [readiness.csv](../../data/top100-readiness/readiness.csv) | One row per top-100 chart. Shows workability, adoption bucket, current user status, strongest evidence, hard gap, and next action. |
 | [top500 review.csv](../../data/top500-catalog-analysis/review.csv) | One row per retained source-scan chart. Shows source-scan status, current recipe/package proof status, catalog status, version drift, source features, and next action. |
 | [coverage-matrix.csv](../../data/variant-path-coverage/coverage-matrix.csv) | One row per chart/base/path. Shows whether the row is a base, diff, operation, or derived variant, with proof status per lane. |
 | [quirk coverage](../../data/quirk-coverage/summary.md) | One row per Helm quirk axis. Shows whether it is tracked, partly tracked, source-scanned only, or not scanned. |
@@ -102,7 +102,7 @@ The machine-readable index is:
 7. Check [production disposition details](../../data/production-disposition/dispositions.md) when the question is "what evidence closes this production blocker?"
 8. Check [production next actions](../../data/production-disposition/next-actions.csv) when the question is "what production receipt or fix should we work on next?"
 9. Check [scan disposition workdown](../../data/scan-disposition-workdown/summary.md) when the question is "is this scan finding a fix, a hardened base, an acceptance, or a runtime review?"
-10. Check [readiness.csv](../../data/top100-readiness/readiness.csv) when the question is "can I use this chart now?"
+10. Check the `workability` column in [readiness.csv](../../data/top100-readiness/readiness.csv) when the question is "can I use this chart now?"
 11. Check [top500 review.csv](../../data/top500-catalog-analysis/review.csv) when the question is how the retained top500 source scan maps to current proof.
 12. Filter [base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) by chart to see each base variant.
 13. Check [feature-outcomes.csv](../../data/outcome-coverage/feature-outcomes.csv) for hooks, CRDs, generated facts, target facts, and other chart-specific behavior.
