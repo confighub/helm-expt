@@ -1,0 +1,48 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: ingress-nginx-hook-and-lifecycle-phase-policy
+spec:
+  chart: ingress-nginx/ingress-nginx
+  version: "4.15.1"
+  disposition: hook and lifecycle phase policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    The default chart uses Helm admission certificate hook jobs. The current
+    recipe renders with no hooks, so those jobs are not hidden inside the
+    approved rendered object set. The supported routing is explicit:
+    admission-disabled avoids the hook-dependent admission path and is the first
+    production-review base; default keeps the admission webhook objects and must
+    be paired with a target-specific lifecycle route for webhook certificate
+    creation and patching before production use.
+  evidence:
+    - path: recipes/ingress-nginx/ingress-nginx/4.15.1/control-points.yaml
+      claim: The recipe records hook-policy as handled-for-render with policy no-hooks and calls out admission patch Jobs.
+    - path: recipes/ingress-nginx/ingress-nginx/4.15.1/value-model.yaml
+      claim: The value model records controller.admissionWebhooks.enabled as the variant control for the hook-dependent admission path.
+    - path: recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/receipts/install-gate.yaml
+      claim: The default install gate warns that Helm admission hook jobs need explicit lifecycle policy before production.
+    - path: recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/receipts/install-gate.yaml
+      claim: The admission-disabled install gate records the webhook-free base while preserving the lifecycle warning boundary.
+    - path: recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/object-inventory.yaml
+      claim: The default rendered inventory includes the ValidatingWebhookConfiguration and admission Service but not the Helm hook Jobs.
+    - path: recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/object-inventory.yaml
+      claim: The admission-disabled rendered inventory removes the admission webhook objects.
+    - path: runs/live-kind-parity/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml
+      claim: The webhook-free admission-disabled base reaches Ready in both regular Helm and cub installer apply legs.
+    - path: runs/live-kind-parity/ingress-nginx-ingress-nginx-default/receipt.yaml
+      claim: The default base has semantic object parity, but the cub installer runtime leg is watch rather than pass.
+  affectedVariants:
+    - default
+    - admission-disabled
+  acceptedPolicy:
+    admissionDisabled: Use this base when the deployment should avoid the Helm hook-dependent admission webhook path.
+    default: Keep this base as local-test or target-specific review input until webhook certificate lifecycle handling is supplied and observed.
+    productionRule: Hook-dependent certificate creation and patching must be implemented as an explicit lifecycle route or avoided by choosing admission-disabled.
+  remainingProductionBlockers:
+    - scan/gate warning disposition
+  nextDecision: Resolve the remaining workload scan warnings and target security posture before declaring production support.

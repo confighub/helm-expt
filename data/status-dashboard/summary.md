@@ -47,7 +47,7 @@ Which detailed CSV should I open next?
 | production disposition | top20 production-supported charts | 0/20 | gap | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | top20 production-review-ready charts | 7/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | top20 production-blocked charts | 13/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
-| production disposition | charts with accepted production dispositions | 8/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| production disposition | charts with accepted production dispositions | 9/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | scan disposition | high-priority scan rows | 4/20 | partial | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
 | scan disposition | remaining mutable-image rows | 0/20 | good | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
 | scan disposition | privileged infrastructure review rows | 4/20 | partial | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
@@ -222,18 +222,18 @@ production-supported until a final target-scoped support decision is recorded.
 | production-supported charts | 0/20 |
 | production-review-ready pending final support decision | 7/20 |
 | production-blocked pending disposition | 13/20 |
-| charts with accepted dispositions | 8/20 |
+| charts with accepted dispositions | 9/20 |
 | high-priority scan rows | 4/20 |
 | mutable-image rows still needing fixes | 0/20 |
 
 | Open disposition | Charts |
 | --- | ---: |
 | scan/gate warning disposition | 13 |
-| cluster RBAC review | 11 |
+| cluster RBAC review | 10 |
 | extension slot provenance and scan policy | 10 |
 | CRD lifecycle and upgrade policy | 7 |
-| webhook readiness and failure policy | 7 |
-| hook and lifecycle phase policy | 6 |
+| webhook readiness and failure policy | 6 |
+| hook and lifecycle phase policy | 5 |
 | storage backup restore and rollback policy | 5 |
 | target fact preflight | 3 |
 

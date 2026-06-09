@@ -24,4 +24,6 @@ spec:
     - "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts."
     - "default preserves the normal ingress-nginx admission-webhook install shape."
     - "admission-disabled is supported as the simpler webhook-free variant."
-    - "Production remains blocked until admission webhook lifecycle, cluster RBAC, and scan/gate findings have dispositions."
+    - "Cluster RBAC, hook lifecycle, and webhook-readiness routing are recorded as production review input."
+    - "Production remains blocked until scan/gate findings and target security posture are resolved or narrowed into a hardened base."
+    - "admission-disabled is the simpler first production-review base; default needs target-backed webhook lifecycle observation before production use."

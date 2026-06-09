@@ -1,0 +1,48 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: ingress-nginx-cluster-rbac-review
+spec:
+  chart: ingress-nginx/ingress-nginx
+  version: "4.15.1"
+  disposition: cluster RBAC review
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Ingress NGINX intentionally renders cluster-scoped RBAC for controller
+    operation, leader election, status updates, and ingress discovery. Both
+    supported bases render the same ClusterRole and ClusterRoleBinding. This
+    accepts the RBAC inventory as explicit production review input, not as a
+    blanket production support decision. A production target must still accept
+    this controller-level cluster access or use a narrower future base where the
+    chart supports it.
+  evidence:
+    - path: recipes/ingress-nginx/ingress-nginx/4.15.1/control-points.yaml
+      claim: The recipe records cluster-rbac as a scan-and-review control point.
+    - path: recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/object-inventory.yaml
+      claim: The default base inventory records the exact ClusterRole and ClusterRoleBinding objects.
+    - path: recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/object-inventory.yaml
+      claim: The admission-disabled base renders the same cluster-scoped RBAC inventory.
+    - path: recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default local scan flags the cluster-scoped RBAC objects for review.
+    - path: recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/receipts/scan-receipt.yaml
+      claim: The admission-disabled local scan flags the same cluster-scoped RBAC objects for review.
+    - path: recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The default base is Helm-equivalent under recorded inputs, with only the installer Namespace support object added.
+    - path: recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The admission-disabled base is Helm-equivalent under recorded inputs, with only the installer Namespace support object added.
+    - path: runs/live-kind-parity/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml
+      claim: The admission-disabled base passes strict two-cluster live parity between regular Helm and cub installer apply.
+    - path: runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml
+      claim: The admission-disabled base passes semantic parity for regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo delivery.
+  affectedVariants:
+    - default
+    - admission-disabled
+  acceptedWarnings:
+    - cluster-rbac-review
+  remainingProductionBlockers:
+    - scan/gate warning disposition
+  nextDecision: Resolve the remaining workload scan warnings and target security posture before declaring production support.

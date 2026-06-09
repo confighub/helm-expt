@@ -18,8 +18,8 @@ production-blocked pending disposition: 13
 source Helm-hook rows: 1
 hook/lifecycle disposition rows: 12
 related lifecycle observation rows: 2
-accepted production disposition receipts: 36
-charts with accepted dispositions: 8
+accepted production disposition receipts: 39
+charts with accepted dispositions: 9
 ```
 
 The hook/lifecycle disposition is a production-review item. It does not always
@@ -56,7 +56,7 @@ runtime checks.
 | `grafana/tempo@1.24.4` | local-persistent, s3-query-observability | pass | local-kind-observed | blocked | 0 | extension slot provenance and scan policy, scan/gate warning disposition, storage backup restore and rollback policy, target fact preflight |
 | `hashicorp/consul@2.0.0` | default-control-plane, secure-mesh-existing-secrets | pass | local-kind-observed | blocked | 0 | CRD lifecycle and upgrade policy, cluster RBAC review, extension slot provenance and scan policy, hook and lifecycle phase policy, scan/gate warning disposition, storage backup restore and rollback policy, target fact preflight, webhook readiness and failure policy |
 | `hashicorp/vault@0.32.0` | default, ha-raft-ui | pass | local-kind-observed | blocked | 0 | cluster RBAC review, extension slot provenance and scan policy, scan/gate warning disposition, storage backup restore and rollback policy, webhook readiness and failure policy |
-| `ingress-nginx/ingress-nginx@4.15.1` | default, admission-disabled | pass | local-kind-observed | blocked | 0 | cluster RBAC review, hook and lifecycle phase policy, scan/gate warning disposition, webhook readiness and failure policy |
+| `ingress-nginx/ingress-nginx@4.15.1` | default, admission-disabled | pass | local-kind-observed | blocked | 3 | scan/gate warning disposition |
 | `jetstack/cert-manager@v1.20.2` | default, crds-enabled | pass | local-kind-observed | blocked | 0 | CRD lifecycle and upgrade policy, cluster RBAC review, extension slot provenance and scan policy, hook and lifecycle phase policy, scan/gate warning disposition, webhook readiness and failure policy |
 | `longhorn/longhorn@1.11.2` | default, ui-ingress | pass | local-kind-observed | blocked | 0 | CRD lifecycle and upgrade policy, cluster RBAC review, hook and lifecycle phase policy, scan/gate warning disposition, webhook readiness and failure policy |
 | `metrics-server/metrics-server@3.13.0` | default, external-tls-ca | pass | local-kind-observed | production-review-ready | 5 |  |

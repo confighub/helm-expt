@@ -1,0 +1,48 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: ingress-nginx-webhook-readiness-and-failure-policy
+spec:
+  chart: ingress-nginx/ingress-nginx
+  version: "4.15.1"
+  disposition: webhook readiness and failure policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    The chart has two supported webhook postures. The default base renders the
+    admission Service and ValidatingWebhookConfiguration and therefore requires
+    fresh runtime evidence that the webhook endpoint and certificate patching are
+    healthy. The admission-disabled base removes the admission webhook objects
+    and is the simpler production-review path. This accepts the routing policy:
+    webhook-enabled deployments need target-backed lifecycle observation;
+    webhook-disabled deployments must state that admission validation is
+    deliberately not installed.
+  evidence:
+    - path: recipes/ingress-nginx/ingress-nginx/4.15.1/value-model.yaml
+      claim: The value model records controller.admissionWebhooks.enabled as enabled in default and disabled in admission-disabled.
+    - path: recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/object-inventory.yaml
+      claim: The default base renders ValidatingWebhookConfiguration ingress-nginx-admission and the admission Service.
+    - path: recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/object-inventory.yaml
+      claim: The admission-disabled base does not render admission webhook objects.
+    - path: recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default scan records admission-webhook-requires-observation.
+    - path: recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/receipts/install-gate.yaml
+      claim: The default install gate blocks production until webhook availability and hook lifecycle are handled.
+    - path: runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml
+      claim: The admission-disabled base reaches runtime pass for the ConfigHub kubectl apply leg and semantic parity for the OCI/Argo leg.
+    - path: data/runtime-gitops/receipts/ingress-nginx-ingress-nginx/admission-disabled/latest.yaml
+      claim: The admission-disabled GitOps receipt records Argo sync and a ready controller Deployment, with the remaining watch state due to kind LoadBalancer target fit rather than webhook health.
+  affectedVariants:
+    - default
+    - admission-disabled
+  acceptedPolicy:
+    admissionDisabled: Accepted as the first production-review posture because it has no admission webhook runtime dependency.
+    default: Requires a fresh target observation for webhook endpoint availability and certificate patching before production use.
+    failurePolicy: A production target must choose and record its webhook failure policy rather than inheriting it silently from chart defaults.
+  remainingProductionBlockers:
+    - scan/gate warning disposition
+  nextDecision: Resolve the remaining workload scan warnings and target security posture before declaring production support.
+
