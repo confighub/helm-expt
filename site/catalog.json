@@ -86,7 +86,10 @@
     "top100ChartsWithLiveEvidence": 20,
     "liveParityRerunRows": 10,
     "liveParityRerunSemanticDefects": 0,
-    "productionSupportedCharts": 0,
+    "productionSupportedCharts": 16,
+    "productionSupersededCharts": 2,
+    "productionRejectedCharts": 2,
+    "productionDraftCharts": 0,
     "productionReviewReadyCharts": 20,
     "productionBlockedCharts": 0,
     "chartsWithAcceptedProductionDispositions": 20,
@@ -417,7 +420,7 @@
       "total": "20",
       "status": "partial",
       "source": "data/production-disposition/top20.csv",
-      "note": "Top-20 catalog charts with required dispositions closed, pending final production support decision and target scope."
+      "note": "Top-20 catalog charts with required pre-review dispositions closed."
     },
     {
       "section": "production disposition",
@@ -444,25 +447,43 @@
       "total": "20",
       "status": "partial",
       "source": "data/production-support-decisions/decisions.csv",
-      "note": "Draft or supported target-scoped support decision records."
+      "note": "Supported, superseded, rejected, or draft target-scoped support decision records."
     },
     {
       "section": "production support decisions",
       "metric": "supported decision artifacts",
       "value": "16",
       "total": "20",
-      "status": "gap",
+      "status": "partial",
       "source": "data/production-support-decisions/decisions.csv",
       "note": "Support decisions with fresh target evidence and no remaining final requirements."
+    },
+    {
+      "section": "production support decisions",
+      "metric": "superseded decision artifacts",
+      "value": "2",
+      "total": "20",
+      "status": "partial",
+      "source": "data/production-support-decisions/decisions.csv",
+      "note": "Proof records kept for deprecated source charts that should not be production-promoted."
+    },
+    {
+      "section": "production support decisions",
+      "metric": "rejected decision artifacts",
+      "value": "2",
+      "total": "20",
+      "status": "partial",
+      "source": "data/production-support-decisions/decisions.csv",
+      "note": "Default bases that remain parity evidence but need a better production base or target scope."
     },
     {
       "section": "production support decisions",
       "metric": "draft decision artifacts",
       "value": "0",
       "total": "20",
-      "status": "partial",
+      "status": "good",
       "source": "data/production-support-decisions/decisions.csv",
-      "note": "Draft support boundaries that still need fresh target-scoped evidence."
+      "note": "Draft support boundaries that still need a final target-scoped decision."
     },
     {
       "section": "scan disposition",
@@ -5287,8 +5308,8 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "ha (curated proof lane - bespoke teaching needed)",
-      "next_action": "resolve image digests for each affected variant before production OCI support",
-      "next_action_source": "production-disposition",
+      "next_action": "Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate hardened, self-managed, repository-credential, SSO, or backup/restore bases for real customer GitOps control planes.",
+      "next_action_source": "production-support-decisions",
       "next_action_receipt": "",
       "recipe_path": "recipes/argo-cd/argo-cd/9.5.15/recipe.yaml",
       "catalog_path": "recipes/argo-cd/argo-cd/9.5.15/CATALOG.md"
@@ -5309,8 +5330,8 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "-",
-      "next_action": "record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope",
-      "next_action_source": "production-disposition",
+      "next_action": "Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, replica-set, backup/restore, failover, credential-rotation, storage-class, SLO, or resource-hardened bases for real customer MongoDB workloads.",
+      "next_action_source": "production-support-decisions",
       "next_action_receipt": "",
       "recipe_path": "recipes/bitnami/mongodb/19.0.7/recipe.yaml",
       "catalog_path": "recipes/bitnami/mongodb/19.0.7/CATALOG.md"
@@ -5331,8 +5352,8 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "ha (curated proof lane - bespoke teaching needed)",
-      "next_action": "resolve image digests for each affected variant before production OCI support",
-      "next_action_source": "production-disposition",
+      "next_action": "Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, backup/restore, failover, credential-rotation, storage-class, SLO, or resource-hardened bases for real customer MySQL workloads.",
+      "next_action_source": "production-support-decisions",
       "next_action_receipt": "",
       "recipe_path": "recipes/bitnami/mysql/14.0.3/recipe.yaml",
       "catalog_path": "recipes/bitnami/mysql/14.0.3/CATALOG.md"
@@ -5353,8 +5374,8 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "existing-secret (chart ships no Secret toggle)",
-      "next_action": "choose the supported production base and target scope, refresh live/e2e evidence, and record the final support decision",
-      "next_action_source": "production-disposition",
+      "next_action": "Keep the target-scoped evidence fresh before using this supported scope as a production-support example.",
+      "next_action_source": "production-support-decisions",
       "next_action_receipt": "",
       "recipe_path": "recipes/bitnami/nginx/24.0.2/recipe.yaml",
       "catalog_path": "recipes/bitnami/nginx/24.0.2/CATALOG.md"
@@ -5375,8 +5396,8 @@
       "gitops_live": "2/2",
       "live_parity": "1/2",
       "hard_gap": "ha (curated proof lane - bespoke teaching needed)",
-      "next_action": "record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope",
-      "next_action_source": "production-disposition",
+      "next_action": "Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, backup/restore, point-in-time-recovery, failover, credential-rotation, storage-class, SLO, replication, or resource-hardened bases for real customer PostgreSQL workloads.",
+      "next_action_source": "production-support-decisions",
       "next_action_receipt": "",
       "recipe_path": "recipes/bitnami/postgresql/18.6.7/recipe.yaml",
       "catalog_path": "recipes/bitnami/postgresql/18.6.7/CATALOG.md"
@@ -5397,8 +5418,8 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "ha (curated proof lane - bespoke teaching needed)",
-      "next_action": "resolve image digests for each affected variant before production OCI support",
-      "next_action_source": "production-disposition",
+      "next_action": "Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, clustering, backup/restore, queue-recovery, failover, credential-rotation, Erlang-cookie-rotation, storage-class, SLO, or resource-hardened bases for real customer RabbitMQ workloads.",
+      "next_action_source": "production-support-decisions",
       "next_action_receipt": "",
       "recipe_path": "recipes/bitnami/rabbitmq/16.0.14/recipe.yaml",
       "catalog_path": "recipes/bitnami/rabbitmq/16.0.14/CATALOG.md"
@@ -5419,8 +5440,8 @@
       "gitops_live": "2/2",
       "live_parity": "1/2",
       "hard_gap": "-",
-      "next_action": "record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope",
-      "next_action_source": "production-disposition",
+      "next_action": "Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, backup/restore, failover, storage-class, SLO, or availability-hardened bases for real customer Redis workloads.",
+      "next_action_source": "production-support-decisions",
       "next_action_receipt": "",
       "recipe_path": "recipes/bitnami/redis/25.5.3/recipe.yaml",
       "catalog_path": "recipes/bitnami/redis/25.5.3/CATALOG.md"
@@ -5441,8 +5462,8 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "-",
-      "next_action": "resolve image digests for each affected variant before production OCI support",
-      "next_action_source": "production-disposition",
+      "next_action": "Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate provider-specific bases for SecretStore and ExternalSecret use cases.",
+      "next_action_source": "production-support-decisions",
       "next_action_receipt": "",
       "recipe_path": "recipes/external-secrets/external-secrets/2.5.0/recipe.yaml",
       "catalog_path": "recipes/external-secrets/external-secrets/2.5.0/CATALOG.md"
@@ -5463,8 +5484,8 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "-",
-      "next_action": "resolve image digests for each affected variant before production OCI support",
-      "next_action_source": "production-disposition",
+      "next_action": "Keep this as catalog proof evidence only; review a maintained Grafana chart or replacement catalog source before making a production-support claim.",
+      "next_action_source": "production-support-decisions",
       "next_action_receipt": "",
       "recipe_path": "recipes/grafana/grafana/10.5.15/recipe.yaml",
       "catalog_path": "recipes/grafana/grafana/10.5.15/CATALOG.md"
@@ -5485,8 +5506,8 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "-",
-      "next_action": "resolve image digests for each affected variant before production OCI support",
-      "next_action_source": "production-disposition",
+      "next_action": "Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate object-store, retention, backup, restore, tenant, hardening, and digest-pinned bases for real customer Loki workloads.",
+      "next_action_source": "production-support-decisions",
       "next_action_receipt": "",
       "recipe_path": "recipes/grafana/loki/7.0.0/recipe.yaml",
       "catalog_path": "recipes/grafana/loki/7.0.0/CATALOG.md"
@@ -5507,8 +5528,8 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "ha (tempo single-binary chart; HA is the separate tempo-distributed chart)",
-      "next_action": "resolve image digests for each affected variant before production OCI support",
-      "next_action_source": "production-disposition",
+      "next_action": "Keep this as catalog proof evidence only; review grafana-community/tempo or another maintained successor before making a production-support claim.",
+      "next_action_source": "production-support-decisions",
       "next_action_receipt": "",
       "recipe_path": "recipes/grafana/tempo/1.24.4/recipe.yaml",
       "catalog_path": "recipes/grafana/tempo/1.24.4/CATALOG.md"
@@ -5529,8 +5550,8 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "ha (curated proof lane - bespoke teaching needed)",
-      "next_action": "resolve image digests for each affected variant before production OCI support",
-      "next_action_source": "production-disposition",
+      "next_action": "Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate secure-mesh, TLS, ACL, gateway, UI, external-CRD, production-quorum, hardening, and digest-pinned bases for real customer Consul workloads.",
+      "next_action_source": "production-support-decisions",
       "next_action_receipt": "",
       "recipe_path": "recipes/hashicorp/consul/2.0.0/recipe.yaml",
       "catalog_path": "recipes/hashicorp/consul/2.0.0/CATALOG.md"
@@ -5551,8 +5572,8 @@
       "gitops_live": "0/2",
       "live_parity": "0/2",
       "hard_gap": "-",
-      "next_action": "choose whether default is in production scope; close or document its runtime-review-needed live-readiness issue first",
-      "next_action_source": "production-disposition",
+      "next_action": "Keep this default base as parity evidence only; create a separate Vault production base with init/unseal, storage, TLS, backup/restore, and operator runbook evidence before making a support claim.",
+      "next_action_source": "production-support-decisions",
       "next_action_receipt": "",
       "recipe_path": "recipes/hashicorp/vault/0.32.0/recipe.yaml",
       "catalog_path": "recipes/hashicorp/vault/0.32.0/CATALOG.md"
@@ -5573,8 +5594,8 @@
       "gitops_live": "0/2",
       "live_parity": "0/2",
       "hard_gap": "-",
-      "next_action": "choose whether default is in production scope; close or document its runtime-watch live-readiness issue first",
-      "next_action_source": "production-disposition",
+      "next_action": "Keep this default base as parity evidence only; create a separate supported ingress-nginx scope for a target with LoadBalancer behavior or an explicitly supported admission-disabled topology.",
+      "next_action_source": "production-support-decisions",
       "next_action_receipt": "",
       "recipe_path": "recipes/ingress-nginx/ingress-nginx/4.15.1/recipe.yaml",
       "catalog_path": "recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.md"
@@ -5595,8 +5616,8 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "-",
-      "next_action": "choose whether default is in production scope; record the target-scoped lifecycle support decision before claiming production support",
-      "next_action_source": "production-disposition",
+      "next_action": "Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate issuer, certificate, provider, or hardened resource bases for real customer certificate workloads.",
+      "next_action_source": "production-support-decisions",
       "next_action_receipt": "",
       "recipe_path": "recipes/jetstack/cert-manager/v1.20.2/recipe.yaml",
       "catalog_path": "recipes/jetstack/cert-manager/v1.20.2/CATALOG.md"
@@ -5617,8 +5638,8 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "-",
-      "next_action": "choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support",
-      "next_action_source": "production-disposition",
+      "next_action": "Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate backup/restore, upgrade, replica-policy, storage-class, UI-ingress, resource-hardened, or digest-pinned bases for real customer Longhorn workloads.",
+      "next_action_source": "production-support-decisions",
       "next_action_receipt": "",
       "recipe_path": "recipes/longhorn/longhorn/1.11.2/recipe.yaml",
       "catalog_path": "recipes/longhorn/longhorn/1.11.2/CATALOG.md"
@@ -5639,8 +5660,8 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "existing-secret (chart ships no Secret toggle)",
-      "next_action": "resolve image digests for each affected variant before production OCI support",
-      "next_action_source": "production-disposition",
+      "next_action": "Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate external-tls-ca, resource-hardened, RBAC-hardened, API aggregation hardened, digest-pinned, or customer production bases for real Metrics Server workloads.",
+      "next_action_source": "production-support-decisions",
       "next_action_receipt": "",
       "recipe_path": "recipes/metrics-server/metrics-server/3.13.0/recipe.yaml",
       "catalog_path": "recipes/metrics-server/metrics-server/3.13.0/CATALOG.md"
@@ -5661,8 +5682,8 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "existing-secret (chart ships no Secret toggle)",
-      "next_action": "choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support",
-      "next_action_source": "production-disposition",
+      "next_action": "Keep the target-scoped evidence fresh before using this supported scope as a production-support example.",
+      "next_action_source": "production-support-decisions",
       "next_action_receipt": "",
       "recipe_path": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/recipe.yaml",
       "catalog_path": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md"
@@ -5683,8 +5704,8 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "ha (curated proof lane - bespoke teaching needed)",
-      "next_action": "choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support",
-      "next_action_source": "production-disposition",
+      "next_action": "Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate default-stack, persistent-storage, remote-write, scrape-customization, ingress, node-exporter, resource-hardened, or digest-pinned bases for real customer monitoring workloads.",
+      "next_action_source": "production-support-decisions",
       "next_action_receipt": "",
       "recipe_path": "recipes/prometheus-community/prometheus/29.8.0/recipe.yaml",
       "catalog_path": "recipes/prometheus-community/prometheus/29.8.0/CATALOG.md"
@@ -5705,8 +5726,8 @@
       "gitops_live": "1/2",
       "live_parity": "1/2",
       "hard_gap": "-",
-      "next_action": "choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support",
-      "next_action_source": "production-disposition",
+      "next_action": "Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate provider, sync-secret-rotation, IAM, node-policy, resource-hardened, or digest-pinned bases for real customer secret-store workloads.",
+      "next_action_source": "production-support-decisions",
       "next_action_receipt": "",
       "recipe_path": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/recipe.yaml",
       "catalog_path": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.md"

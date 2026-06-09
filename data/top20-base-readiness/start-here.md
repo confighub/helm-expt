@@ -6,14 +6,17 @@ GitOps/OCI evidence, selected live Helm-vs-ConfigHub parity, and two-cluster
 kind parity passing for that base.
 
 These are not production support claims. Before production use, check the
-production support decision contract and the chart's support decision queue.
+target-scoped support decision for the chart/base/target you intend to use.
 
 ## Summary
 
 ~~~text
 start-here bases: 14
 top-20 base variants: 40
-production-supported charts: 0
+target-scoped supported decisions: 16
+target-scoped superseded decisions: 2
+target-scoped rejected decisions: 2
+target-scoped draft decisions: 0
 ~~~
 
 ## First Paths
@@ -66,6 +69,6 @@ cub installer upload --work-dir <tmp> --space <space> ...
 | --- | --- |
 | `data/top20-base-readiness/base-readiness.csv` | Full one-row-per-base table. |
 | `data/top20-base-readiness/summary.md` | All readiness categories, including runtime and prerequisite rows. |
-| `data/production-disposition/support-decision-contract.md` | What must be recorded before production support can be claimed. |
-| `data/production-disposition/support-decision-queue.csv` | One production decision row per top-20 chart. |
+| `data/production-support-decisions/summary.md` | Current target-scoped production support decisions. |
+| `data/production-disposition/support-decision-contract.md` | Pre-decision contract used to create the current support decisions. |
 | `CATALOG.md` | Top-level chart and variant catalog. |

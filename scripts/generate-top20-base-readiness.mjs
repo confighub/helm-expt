@@ -36,6 +36,7 @@ if (mode === "--generate") {
 
 function buildReport() {
   const productionRows = parseCsvFile("data/production-disposition/top20.csv");
+  const productionSupportRows = parseOptionalCsvFile("data/production-support-decisions/decisions.csv");
   const baseRows = parseCsvFile("data/outcome-coverage/base-outcomes.csv");
   const baseByKey = new Map(baseRows.map((row) => [`${row.chart}|${row.base}`, row]));
   const lifecycleObservations = lifecycleObservationIndex();
@@ -88,6 +89,7 @@ function buildReport() {
     || a.base.localeCompare(b.base),
   );
   const counts = groupCount(rows, "user_readiness");
+  const supportCounts = groupCount(productionSupportRows, "decision");
   const rerunCounts = groupCount(rows.filter((row) => row.live_rerun_readiness), "live_rerun_readiness");
   const startHereRows = rows.filter((row) => row.user_readiness === "start-here");
   const summary = `# Top-20 Base Variant Readiness
@@ -173,14 +175,17 @@ GitOps/OCI evidence, selected live Helm-vs-ConfigHub parity, and two-cluster
 kind parity passing for that base.
 
 These are not production support claims. Before production use, check the
-production support decision contract and the chart's support decision queue.
+target-scoped support decision for the chart/base/target you intend to use.
 
 ## Summary
 
 ~~~text
 start-here bases: ${startHereRows.length}
 top-20 base variants: ${rows.length}
-production-supported charts: 0
+target-scoped supported decisions: ${supportCounts.get("supported") ?? 0}
+target-scoped superseded decisions: ${supportCounts.get("superseded") ?? 0}
+target-scoped rejected decisions: ${supportCounts.get("rejected") ?? 0}
+target-scoped draft decisions: ${supportCounts.get("draft") ?? 0}
 ~~~
 
 ## First Paths
@@ -220,8 +225,8 @@ cub installer upload --work-dir <tmp> --space <space> ...
 | --- | --- |
 | \`data/top20-base-readiness/base-readiness.csv\` | Full one-row-per-base table. |
 | \`data/top20-base-readiness/summary.md\` | All readiness categories, including runtime and prerequisite rows. |
-| \`data/production-disposition/support-decision-contract.md\` | What must be recorded before production support can be claimed. |
-| \`data/production-disposition/support-decision-queue.csv\` | One production decision row per top-20 chart. |
+| \`data/production-support-decisions/summary.md\` | Current target-scoped production support decisions. |
+| \`data/production-disposition/support-decision-contract.md\` | Pre-decision contract used to create the current support decisions. |
 | \`CATALOG.md\` | Top-level chart and variant catalog. |
 `;
 
@@ -316,6 +321,12 @@ function liveParityRerunIndex() {
 
 function parseCsvFile(path) {
   return parseCsv(readFileSync(join(repoRoot, path), "utf8"));
+}
+
+function parseOptionalCsvFile(path) {
+  const absolutePath = join(repoRoot, path);
+  if (!existsSync(absolutePath)) return [];
+  return parseCsv(readFileSync(absolutePath, "utf8"));
 }
 
 function parseCsv(text) {

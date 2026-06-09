@@ -13,6 +13,7 @@ const outputRoot = join(repoRoot, "data", "production-disposition");
 const reviewCsvPath = join(outputRoot, "top20.csv");
 const summaryPath = join(outputRoot, "summary.md");
 const supportDecisionQueuePath = join(outputRoot, "support-decision-queue.csv");
+const productionSupportDecisionCsvPath = join(repoRoot, "data", "production-support-decisions", "decisions.csv");
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -51,7 +52,8 @@ function buildReport() {
   check(rows.some((row) => row.live_e2e === "local-kind-observed"), "at least one supported chart needs a live/e2e observation receipt");
   checkAllDispositionReceiptsUsed(rows, dispositionReceipts);
   const supportDecisionQueue = readSupportDecisionQueue();
-  return { rows, csv: toCsv(rows), summary: toSummary(rows, supportDecisionQueue) };
+  const productionSupportDecisions = readProductionSupportDecisions();
+  return { rows, csv: toCsv(rows), summary: toSummary(rows, supportDecisionQueue, productionSupportDecisions) };
 }
 
 function readSupportDecisionQueue() {
@@ -62,6 +64,11 @@ function readSupportDecisionQueue() {
   const rows = parseCsv(readFileSync(supportDecisionQueuePath, "utf8"));
   check(rows.length === 20, `expected 20 support decision queue rows, found ${rows.length}`);
   return rows;
+}
+
+function readProductionSupportDecisions() {
+  if (!existsSync(productionSupportDecisionCsvPath)) return [];
+  return parseCsv(readFileSync(productionSupportDecisionCsvPath, "utf8"));
 }
 
 function recipeRoots() {
@@ -312,12 +319,13 @@ function toCsv(rows) {
   return `${[headers.join(","), ...rows.map((row) => headers.map((header) => csvEscape(row[header])).join(","))].join("\n")}\n`;
 }
 
-function toSummary(rows, supportDecisionQueue) {
+function toSummary(rows, supportDecisionQueue, productionSupportDecisions) {
   const localSupported = rows.filter((row) => row.local_test_support === "catalog-supported").length;
   const configHubProofPass = rows.filter((row) => row.confighub_proof === "pass").length;
   const liveObserved = rows.filter((row) => row.live_e2e === "local-kind-observed").length;
   const productionBlocked = rows.filter((row) => row.production_support === "blocked").length;
   const productionReviewReady = rows.filter((row) => row.production_support === "production-review-ready").length;
+  const decisionCounts = groupCount(productionSupportDecisions, "decision");
   const sourceHookRows = rows.filter((row) => Number(row.source_hook_count) > 0).length;
   const lifecycleDispositionRows = rows.filter((row) => row.required_dispositions.includes("hook and lifecycle phase policy")).length;
   const lifecycleObservationRows = rows.filter((row) => row.lifecycle_observation_receipts).length;
@@ -329,7 +337,9 @@ The top-20 are mandatory catalog entries because their upstream Helm charts are
 too popular to omit. This lane records the work needed to move those supported
 top-20 entries from \`local-test\` support toward production support.
 
-It does **not** claim production support yet.
+It does not claim production support itself. Production support is recorded in
+the target-scoped decision artifacts under
+\`data/production-support-decisions/\`.
 
 ## Summary
 
@@ -337,9 +347,13 @@ It does **not** claim production support yet.
 catalog-supported local-test charts: ${localSupported}
 ConfigHub proof receipts passing: ${configHubProofPass}
 live/e2e observed charts: ${liveObserved}
-production-supported charts: 0
-production-review-ready pending final support decision: ${productionReviewReady}
+production-review-ready disposition rows: ${productionReviewReady}
 production-blocked pending disposition: ${productionBlocked}
+target-scoped support decision artifacts: ${productionSupportDecisions.length || "not generated"}
+target-scoped supported decisions: ${decisionCounts.get("supported") ?? 0}
+target-scoped superseded decisions: ${decisionCounts.get("superseded") ?? 0}
+target-scoped rejected decisions: ${decisionCounts.get("rejected") ?? 0}
+target-scoped draft decisions: ${decisionCounts.get("draft") ?? 0}
 source Helm-hook rows: ${sourceHookRows}
 hook/lifecycle disposition rows: ${lifecycleDispositionRows}
 related lifecycle observation rows: ${lifecycleObservationRows}
@@ -360,9 +374,9 @@ mean the retained source scan found Helm hooks. Use the evidence fields in
 
 Use \`data/top20-base-readiness/base-readiness.csv\` for base-by-base live
 readiness. A chart can be production-review-ready at the disposition level while
-a non-default base still needs target runtime review. The final production
-support decision must choose the supported base, target scope, and required
-runtime checks.
+a non-default base still needs target runtime review. The target-scoped
+production support decision chooses the supported base, target scope, accepted
+risk boundary, and required runtime checks.
 
 ## How To Read The Production State
 
@@ -374,28 +388,30 @@ runtime checks.
 | \`production-supported\` | Not set by this lane. It requires a separate target-scoped support decision. |
 
 \`production-review-ready\` is not the same as production support. It means the
-chart has enough accepted disposition evidence for a human or product process
-to decide the supported production scope.
+chart has enough accepted disposition evidence to make or audit a target-scoped
+production support decision.
 
-The remaining work is recorded in:
+Use these generated files as follows:
 
 | File | Use |
 | --- | --- |
-| \`data/production-disposition/next-actions.csv\` | One next production action per top-20 chart. |
-| \`data/production-disposition/support-decision-contract.md\` | The required fields and current queue for target-scoped production support decisions. |
-| \`data/production-disposition/support-decision-queue.csv\` | One row per top-20 chart showing the candidate base, decision state, and evidence needed before production support. |
+| \`data/production-support-decisions/summary.md\` | Current target-scoped support decisions: supported, superseded, rejected, or draft. |
+| \`data/production-disposition/next-actions.csv\` | Historical pre-decision action per top-20 chart. |
+| \`data/production-disposition/support-decision-contract.md\` | Pre-decision contract and queue used to create the current support decisions. |
+| \`data/production-disposition/support-decision-queue.csv\` | Historical one-row-per-chart support-decision queue. |
 | \`data/production-disposition/dispositions.md\` | Accepted receipts, evidence, owners, and unblock rules. |
 | \`data/scan-disposition-workdown/summary.md\` | Whether scan findings need fixes, hardened bases, explicit acceptance, runtime review, or policy decisions. |
 
-Typical final-support work includes choosing the production base, naming the
-target scope, accepting or patching scan findings, confirming lifecycle and
-target-fact requirements, refreshing live/e2e evidence for that scope, and
-recording the support decision.
+Typical support work includes choosing the production base, naming the target
+scope, accepting or patching scan findings, confirming lifecycle and target-fact
+requirements, refreshing live/e2e evidence for that scope, and recording or
+updating the support decision.
 
-## Final Support Workstreams
+## Pre-Decision Workstreams
 
-The queue is grouped by the decision that must happen next. This is the most
-useful view when moving the top-20 from review-ready to production-supported.
+This historical queue shows the decision that was needed before the current
+target-scoped decisions were closed. Use the current decision artifacts for the
+active support state.
 
 ${supportDecisionWorkstreams(supportDecisionQueue)}
 
@@ -418,6 +434,12 @@ production-supported until their scan/gate warnings, lifecycle risks, target
 facts, and live/e2e observation requirements have explicit dispositions and a
 separate production support decision records the target scope.
 `;
+}
+
+function groupCount(rows, key) {
+  const counts = new Map();
+  for (const row of rows) counts.set(row[key], (counts.get(row[key]) ?? 0) + 1);
+  return counts;
 }
 
 function supportDecisionWorkstreams(rows) {

@@ -70,6 +70,7 @@ function buildSite() {
   const scanDisposition = parseCsv(readFileSync(scanDispositionPath, "utf8"));
   const highFanout = parseCsv(readFileSync(highFanoutPath, "utf8"));
   const baseReadinessByKey = new Map(baseReadiness.map((row) => [`${row.chart}|${row.base}`, row]));
+  const top100ReadinessWithSupport = applySupportDecisionNextActions(top100Readiness, productionSupportDecisions);
   const catalogEntries = top100.entries
     .filter((entry) => entry.proof_surface === "top20-catalog-supported")
     .map((entry) => ({
@@ -119,12 +120,15 @@ function buildSite() {
       startHereBaseVariants: baseReadiness.filter((row) => row.user_readiness === "start-here").length,
       top20ChartsWithExtensionSlots: extensionSlots.filter((row) => row.catalog_scope === "top20-catalog").length,
       top100ChartsWithExtensionSlots: extensionSlots.length,
-      top100ChartsWithLiveEvidence: top100Readiness.filter((row) =>
+      top100ChartsWithLiveEvidence: top100ReadinessWithSupport.filter((row) =>
         ["live-helm-vs-confighub-parity", "gitops-oci-live", "local-kubernetes-live"].includes(row.strongest_evidence),
       ).length,
       liveParityRerunRows: liveParityRerunPlan.length,
       liveParityRerunSemanticDefects: liveParityRerunPlan.filter((row) => row.reason.startsWith("parity:")).length,
-      productionSupportedCharts: productionDisposition.filter((row) => row.production_support === "production-supported").length,
+      productionSupportedCharts: productionSupportDecisions.filter((row) => row.decision === "supported").length,
+      productionSupersededCharts: productionSupportDecisions.filter((row) => row.decision === "superseded").length,
+      productionRejectedCharts: productionSupportDecisions.filter((row) => row.decision === "rejected").length,
+      productionDraftCharts: productionSupportDecisions.filter((row) => row.decision === "draft").length,
       productionReviewReadyCharts: productionDisposition.filter((row) => row.production_support === "production-review-ready").length,
       productionBlockedCharts: productionDisposition.filter((row) => row.production_support === "blocked").length,
       chartsWithAcceptedProductionDispositions: productionDisposition.filter((row) => dispositionCount(row.accepted_dispositions) > 0).length,
@@ -138,7 +142,7 @@ function buildSite() {
     latestCandidates,
     baseReadiness,
     extensionSlots,
-    top100Readiness,
+    top100Readiness: top100ReadinessWithSupport,
     liveParityRerunPlan,
     productionDisposition,
     productionSupportDecisions,
@@ -404,9 +408,10 @@ function html(catalog) {
       <h2 id="production-readiness">Production Readiness Boundary</h2>
       <p>The top-20 charts are catalog-supported for the declared local-test scope. Production support is tracked separately. A review-ready chart has required dispositions closed, but still needs a final target-scoped support decision.</p>
       <div class="grid">
-        <div class="metric"><strong>${escapeHtml(catalog.summary.productionSupportedCharts)}/${escapeHtml(catalog.productionDisposition.length)}</strong><span>Production-supported charts</span></div>
+        <div class="metric"><strong>${escapeHtml(catalog.summary.productionSupportedCharts)}/${escapeHtml(catalog.productionSupportDecisions.length)}</strong><span>Supported target scopes</span></div>
+        <div class="metric"><strong>${escapeHtml(catalog.summary.productionSupersededCharts + catalog.summary.productionRejectedCharts)}/${escapeHtml(catalog.productionSupportDecisions.length)}</strong><span>Closed, not supported</span></div>
         <div class="metric"><strong>${escapeHtml(catalog.summary.productionReviewReadyCharts)}/${escapeHtml(catalog.productionDisposition.length)}</strong><span>Production-review-ready charts</span></div>
-        <div class="metric"><strong>${escapeHtml(catalog.summary.productionBlockedCharts)}/${escapeHtml(catalog.productionDisposition.length)}</strong><span>Production-blocked pending disposition</span></div>
+        <div class="metric"><strong>${escapeHtml(catalog.summary.productionDraftCharts)}/${escapeHtml(catalog.productionSupportDecisions.length)}</strong><span>Draft support decisions</span></div>
         <div class="metric"><strong>${escapeHtml(catalog.summary.chartsWithAcceptedProductionDispositions)}/${escapeHtml(catalog.productionDisposition.length)}</strong><span>Charts with accepted dispositions</span></div>
         <div class="metric"><strong>${escapeHtml(catalog.summary.mutableImageScanRows)}/${escapeHtml(catalog.scanDisposition.length)}</strong><span>Mutable-image scan rows</span></div>
       </div>
@@ -512,7 +517,7 @@ function html(catalog) {
 
     <section aria-labelledby="catalog">
       <h2 id="catalog">Catalog-Supported Charts</h2>
-      <p>These entries are supported for the declared local-test scope. Production support still needs a final target-scoped support decision, even when production dispositions have been accepted.</p>
+      <p>These entries are supported for the declared local-test scope. Production support is tracked separately by target-scoped decisions: supported, superseded, rejected, or draft.</p>
       <div class="catalog">
         ${entries.map(chartCard).join("\n        ")}
       </div>
@@ -1238,6 +1243,19 @@ Data source:
 
 Do not edit generated files in this directory by hand.
 `;
+}
+
+function applySupportDecisionNextActions(rows, supportDecisions) {
+  const byChart = new Map(supportDecisions.map((row) => [`${row.chart}@${row.version}`, row]));
+  return rows.map((row) => {
+    const support = byChart.get(row.chart);
+    if (!support) return row;
+    return {
+      ...row,
+      next_action: support.next_action,
+      next_action_source: "production-support-decisions",
+    };
+  });
 }
 
 function parseCsv(text) {

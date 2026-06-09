@@ -172,9 +172,10 @@
       <h2 id="production-readiness">Production Readiness Boundary</h2>
       <p>The top-20 charts are catalog-supported for the declared local-test scope. Production support is tracked separately. A review-ready chart has required dispositions closed, but still needs a final target-scoped support decision.</p>
       <div class="grid">
-        <div class="metric"><strong>0/20</strong><span>Production-supported charts</span></div>
+        <div class="metric"><strong>16/20</strong><span>Supported target scopes</span></div>
+        <div class="metric"><strong>4/20</strong><span>Closed, not supported</span></div>
         <div class="metric"><strong>20/20</strong><span>Production-review-ready charts</span></div>
-        <div class="metric"><strong>0/20</strong><span>Production-blocked pending disposition</span></div>
+        <div class="metric"><strong>0/20</strong><span>Draft support decisions</span></div>
         <div class="metric"><strong>20/20</strong><span>Charts with accepted dispositions</span></div>
         <div class="metric"><strong>0/20</strong><span>Mutable-image scan rows</span></div>
       </div>
@@ -346,7 +347,7 @@
 
     <section aria-labelledby="catalog">
       <h2 id="catalog">Catalog-Supported Charts</h2>
-      <p>These entries are supported for the declared local-test scope. Production support still needs a final target-scoped support decision, even when production dispositions have been accepted.</p>
+      <p>These entries are supported for the declared local-test scope. Production support is tracked separately by target-scoped decisions: supported, superseded, rejected, or draft.</p>
       <div class="catalog">
         <article class="card">
           <h3>argo-cd/argo-cd</h3>
