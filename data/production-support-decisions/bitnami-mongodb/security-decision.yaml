@@ -1,0 +1,64 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSecurityDecision"
+metadata:
+  name: "bitnami-mongodb-public-oci-security-decision"
+spec:
+  chart: "bitnami/mongodb"
+  version: "19.0.7"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "mongodb"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "generated-passwords"
+  variantsCovered:
+    - "existing-secret-replicaset"
+    - "generated-passwords"
+  decision: "pdb-policy-accepted-for-target-scope"
+  decidedAt: "2026-06-09"
+  claim: "The selected generated-passwords support scope has one external scan warning: the chart's PodDisruptionBudget unhealthy-pod eviction policy. It is accepted for this public proof scope. Target production deployments should choose a stricter PDB policy or a replica-set base where appropriate."
+  route: "accept-or-patch-pdb-policy"
+  routeReason: "the remaining warning is an explicit PodDisruptionBudget policy choice"
+  findingSummary:
+    scanner: "kube-linter"
+    result: "warn"
+    totalFindings: 3
+    topChecks:
+      pdb-unhealthy-pod-eviction-policy: 3
+    variants:
+      existing-secret-replicaset:
+        findingCount: 2
+        topChecks:
+          pdb-unhealthy-pod-eviction-policy: 2
+        renderedObjectSetSHA256: "3723a87004e25f813534be469bf648b6d6b80357fb01e47e465f775dcaec9231"
+      generated-passwords:
+        findingCount: 1
+        topChecks:
+          pdb-unhealthy-pod-eviction-policy: 1
+        renderedObjectSetSHA256: "ce99d9a7867d5cb7ea0f0f983d092600ec1bb24ce50e969d1032bdbf937e8fdf"
+  acceptedFindings:
+    -
+      group: "pdb-unhealthy-pod-eviction-policy"
+      disposition: "Accepted for the public proof scope. Customer production scopes should choose a target PDB/availability policy together with storage and backup posture."
+  limits:
+    - "This is not a blanket security approval for customer clusters, private overlays, regulated environments, or future chart versions."
+    - "The existing-secret-replicaset base remains outside this support claim because its runtime behavior still needs target review."
+    - "Production storage, backup, restore, replica-set topology, and credential rotation remain separate decisions."
+  evidence:
+    -
+      path: "data/scan-disposition-workdown/workdown.csv"
+      claim: "Routes MongoDB scan findings to accept-or-patch-pdb-policy."
+    -
+      path: "data/external-scan-lane/review.csv"
+      claim: "Records kube-linter warning counts for MongoDB rendered object sets."
+    -
+      path: "recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for existing-secret-replicaset."
+    -
+      path: "recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for generated-passwords."
+    -
+      path: "data/production-disposition/receipts/bitnami-mongodb/scan-gate-warning-disposition.yaml"
+      claim: "Earlier production disposition accepts MongoDB scan warnings as production-review inputs."
+  remainingSupportBlockers:
+    - "Record image policy, lifecycle boundary, generated fact ownership, and fresh target-scoped ConfigHub OCI/GitOps evidence."

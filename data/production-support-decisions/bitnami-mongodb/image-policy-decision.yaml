@@ -1,0 +1,48 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionImagePolicyDecision"
+metadata:
+  name: "bitnami-mongodb-public-oci-image-policy-decision"
+spec:
+  chart: "bitnami/mongodb"
+  version: "19.0.7"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "mongodb"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "generated-passwords"
+  variantsCovered:
+    - "existing-secret-replicaset"
+    - "generated-passwords"
+  decision: "no-open-image-digest-gap"
+  decidedAt: "2026-06-09"
+  claim: "The rendered MongoDB bases use digest-pinned Bitnami MongoDB image references in the current proof corpus. There is no open image-digest work item for the selected generated-passwords support scope."
+  renderedImageSummary:
+    renderedSubjects: 2
+    subjectsNeedingResolution: 0
+    imageRefs: 5
+    mutableTagRefs: 0
+    floatingLatestOrUntaggedRefs: 0
+  variantImageRows:
+    existing-secret-replicaset:
+      rows: 3
+      uniqueImages: 1
+      renderedObjectSetSHA256: "3723a87004e25f813534be469bf648b6d6b80357fb01e47e465f775dcaec9231"
+    generated-passwords:
+      rows: 2
+      uniqueImages: 1
+      renderedObjectSetSHA256: "ce99d9a7867d5cb7ea0f0f983d092600ec1bb24ce50e969d1032bdbf937e8fdf"
+  limits:
+    - "This does not mean the rendered manifests are digest-pinned for future chart versions or private image overrides."
+    - "This does not claim future chart versions will stay digest-pinned."
+    - "This does not make the existing-secret-replicaset runtime path production-supported."
+    - "Private image registries, mirrored images, or replacement images need their own digest policy."
+  evidence:
+    -
+      path: "data/image-digest-workdown/chart-summary.csv"
+      claim: "Summarizes MongoDB rendered image references and shows no open digest gap."
+    -
+      path: "data/attack-plan-workdown/image-digest-review.csv"
+      claim: "Lists every rendered MongoDB image reference as digest-pinned."
+  remainingSupportBlockers:
+    - "Record scan/PDB acceptance, lifecycle boundary, and fresh target-scoped ConfigHub OCI/GitOps evidence."
