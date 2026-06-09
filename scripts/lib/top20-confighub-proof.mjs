@@ -143,6 +143,7 @@ export const TOP20_CONFIGHUB_PROOF_CHARTS = [
     chart: "prometheus-community/prometheus",
     chartVersion: "29.8.0",
     namespace: "monitoring",
+    defaultBase: "server-only-ephemeral",
   },
   {
     slug: "mongodb",

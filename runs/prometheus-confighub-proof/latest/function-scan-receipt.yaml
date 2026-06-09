@@ -13,105 +13,37 @@ spec:
     chart: "prometheus-community/prometheus"
     chartVersion: "29.8.0"
     packagePath: "packages/prometheus-community/prometheus/29.8.0"
-    variant: "default"
-    configHubUnitCount: 24
+    variant: "server-only-ephemeral"
+    configHubUnitCount: 7
   unitRevisionBindings:
-    -
-      slug: "clusterrolebinding-prometheus-kube-state-metrics"
-      headRevisionNum: 2
-      dataHash: "854237f9195f3cd11cff910ba098e3e359ef3abe6d535802b79a709015edb5cf"
     -
       slug: "clusterrolebinding-prometheus-server"
       headRevisionNum: 2
-      dataHash: "4d1d81e2cbde6958caedc587ffaad9cd84420d947ab734426776f78ffdc78398"
-    -
-      slug: "clusterrole-prometheus-kube-state-metrics"
-      headRevisionNum: 2
-      dataHash: "38fee2ddb50882ce6b5a6d5161689fb1df993772951a0b9a3771dba2c3d8b663"
+      dataHash: "edd21e6c4b4fa66964694806be7b235c9341fbf3decb683384c779fcfcb38469"
     -
       slug: "clusterrole-prometheus-server"
       headRevisionNum: 2
-      dataHash: "801151e096151659708cf1e0dc147e07660327ff0c11ce87688f6be7e8c16ddd"
-    -
-      slug: "configmap-monitoring-prometheus-alertmanager"
-      headRevisionNum: 2
-      dataHash: "d9d448b4696751c8fa85c3901430abfbe1b421adb8fe4a1ae46de0ef4248ccff"
+      dataHash: "7b2f57f8f0913df0adbe094e2bffd46b8a64c787536f54bc191490c2b711e17c"
     -
       slug: "configmap-monitoring-prometheus-server"
-      headRevisionNum: 2
-      dataHash: "603e1c700bd840206430a62fe3f9c1c0495028c9791263f24e45cc60ea153736"
-    -
-      slug: "daemonset-monitoring-prometheus-prometheus-node-exporter"
-      headRevisionNum: 2
-      dataHash: "24b996aa1101234a730b025006f3570a02966b037836a207ffb8f9e2eb5985e2"
-    -
-      slug: "deployment-monitoring-prometheus-kube-state-metrics"
-      headRevisionNum: 2
-      dataHash: "8490c755245e2cb8dae9672456797010bfd1aad677484fff1af431456100b166"
-    -
-      slug: "deployment-monitoring-prometheus-prometheus-pushgateway"
-      headRevisionNum: 2
-      dataHash: "f67426c04baf72751990642c87e4656bf1164bdeea46551ddc24f26b853963f1"
+      headRevisionNum: 1
+      dataHash: "b0ef432ee8440f6e6346774566d5cada03f4acb8f2156195cd244388d7b58140"
     -
       slug: "deployment-monitoring-prometheus-server"
       headRevisionNum: 2
-      dataHash: "225f7ce07ea45cbb67b79c124481b5c2262770026792fcec9e2c7c7df1fee1ba"
+      dataHash: "117cda7cc0d747be34bd24f21e6a4f5a95e83d619a05e33660e17d490c1b80cc"
     -
       slug: "namespace-monitoring"
-      headRevisionNum: 2
-      dataHash: "9249c5dcf0636453075cce968f3d6595fe84c348a1b62c3f33f229c949a0f7c1"
-    -
-      slug: "persistentvolumeclaim-monitoring-prometheus-server"
-      headRevisionNum: 2
-      dataHash: "338a2a6638c095115822c7a821b7bfa464b329da9157d8bab233a1f7dc56f676"
-    -
-      slug: "serviceaccount-monitoring-prometheus-alertmanager"
-      headRevisionNum: 2
-      dataHash: "016f886f88af51aa10a37e118d0566f461dc104aa70ad63597f4eb3e783e8f5a"
-    -
-      slug: "serviceaccount-monitoring-prometheus-kube-state-metrics"
-      headRevisionNum: 2
-      dataHash: "60c493f9c62fe7eebae7d6566764c41cabbe1ff1c8fddeed69885cb2aec05a96"
-    -
-      slug: "serviceaccount-monitoring-prometheus-prometheus-node-exporter"
-      headRevisionNum: 2
-      dataHash: "1f5db92bca84009bc108794f6035c6f48d4f324e3fe1f844901c187c50bd78e0"
-    -
-      slug: "serviceaccount-monitoring-prometheus-prometheus-pushgateway"
-      headRevisionNum: 2
-      dataHash: "d0c8d9cee45e8303c904ac554f3f06c0fbc4298f5a1d667328400269a60b0b12"
+      headRevisionNum: 1
+      dataHash: "8d1ab1f117e5da9a9a48cf3e7d437fbdf4f856188e15ec51287cb4fa0b0f3962"
     -
       slug: "serviceaccount-monitoring-prometheus-server"
-      headRevisionNum: 2
-      dataHash: "9fd10c059bfc69c1ba4804e7dac50218ed68274f3ce9b2137a462451b1c57adb"
-    -
-      slug: "service-monitoring-prometheus-alertmanager"
-      headRevisionNum: 2
-      dataHash: "5c0e2c2c5363cd39f7ef76de44f5bc9753f0d640be10e91cc40968b6ea4df269"
-    -
-      slug: "service-monitoring-prometheus-alertmanager-headless"
-      headRevisionNum: 2
-      dataHash: "f93c0d32016ac7ebfa51ddfb57727c0d72955ce3348587ae75c58216a2161ac2"
-    -
-      slug: "service-monitoring-prometheus-kube-state-metrics"
-      headRevisionNum: 2
-      dataHash: "6b9c9939da709dac04a91bd30d1f6ac2edc0c7747d0852ae1d29d0179fda99b6"
-    -
-      slug: "service-monitoring-prometheus-prometheus-node-exporter"
-      headRevisionNum: 2
-      dataHash: "e8f2bec03ccf9cc860ba09a490f8bf2450cb5a22253025ee83c17abc8fbecc58"
-    -
-      slug: "service-monitoring-prometheus-prometheus-pushgateway"
-      headRevisionNum: 2
-      dataHash: "29e23325bb7d3f7a937badce2b58c7fe70709d2f826a23d7d679e5cd99e5d9a4"
+      headRevisionNum: 1
+      dataHash: "8b7a38fb3da2c2a0c6eb615a7cf68a66451b9fbb13047258ae436585f8ce653f"
     -
       slug: "service-monitoring-prometheus-server"
       headRevisionNum: 2
-      dataHash: "e5b59b2bcfb7f3796d63c72499901250ebff5f69b0e2dbc6daabfcd50f02570f"
-    -
-      slug: "statefulset-monitoring-prometheus-alertmanager"
-      headRevisionNum: 2
-      dataHash: "85a0887b9b99a97471aa79b7bf73cbecf8e9b53b83dd81209b667481e2faea17"
+      dataHash: "0bac27d1b15f23b07d3f76aa2465298f3e134adc8939d891257e134b630750c3"
   validations:
     -
       function: "vet-format"
@@ -119,7 +51,7 @@ spec:
       hermetic: true
       idempotent: true
       result: "pass"
-      scannedUnits: 24
+      scannedUnits: 7
       failedUnits: 0
     -
       function: "vet-placeholders"
@@ -127,7 +59,7 @@ spec:
       hermetic: true
       idempotent: true
       result: "pass"
-      scannedUnits: 24
+      scannedUnits: 7
       failedUnits: 0
     -
       function: "vet-merge-keys"
@@ -135,7 +67,7 @@ spec:
       hermetic: true
       idempotent: true
       result: "pass"
-      scannedUnits: 24
+      scannedUnits: 7
       failedUnits: 0
   result: "pass"
   limitations:
