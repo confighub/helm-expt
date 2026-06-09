@@ -36,7 +36,7 @@ support decision. It does not replace the source decision artifact:
 ## Required Before Final Support
 
 - Choose the final target scope, exact GitOps controller, namespace, and artifact digest.
-- Resolve image digests or record an explicit mutable-image exception before production OCI support.
+- Choose a digest-pinned base, image override policy, or explicit mutable-image exception before production OCI support.
 - Record security acceptance for the supported scope or create a narrower hardened base for host access, privileged infrastructure, and resource policy findings.
 - Execute or observe the selected hook lifecycle route, including webhook TLS/readiness, cleanup, ordering, and upgrade behavior.
 - Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope after the previous decisions are closed.
@@ -62,6 +62,7 @@ Excluded:
 - [recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/receipts/scan-receipt.yaml](../../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/receipts/scan-receipt.yaml) - The rendered-object scan receipt exists for the candidate base.
 - [runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml](../../../runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml) - The two-cluster Helm-vs-installer parity receipt exists for the candidate base.
 - [runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml](../../../runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml) - The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base.
+- [data/image-digest-workdown/receipts/prometheus-community-kube-prometheus-stack/default/image-digest-resolution.yaml](../../../data/image-digest-workdown/receipts/prometheus-community-kube-prometheus-stack/default/image-digest-resolution.yaml) - The rendered mutable image references for the candidate base have registry digest-resolution evidence.
 - [data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/cluster-rbac-review.yaml](../../../data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/cluster-rbac-review.yaml) - The cluster rbac review disposition exists for this chart.
 - [data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml](../../../data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml) - The crd lifecycle and upgrade policy disposition exists for this chart.
 - [data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/extension-slot-provenance-and-scan-policy.yaml](../../../data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/extension-slot-provenance-and-scan-policy.yaml) - The extension slot provenance and scan policy disposition exists for this chart.

@@ -1,0 +1,105 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ImageDigestResolutionReceipt"
+metadata:
+  name: "prometheus-community-kube-prometheus-stack-default-image-digest-resolution"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "85.3.3"
+  variant: "default"
+  resolvedAt: "2026-06-09T16:54:16.535Z"
+  renderedObjectSet:
+    path: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+    sha256: "9fac2a0e4140eee298c84ce61f13dd8ca392bb92e2037d0ef0aaa4d8015ee491"
+  sourceImageReview:
+    path: "data/attack-plan-workdown/image-digest-review.csv"
+    rows: 8
+    uniqueImages: 7
+  resolver:
+    name: "docker-buildx-imagetools"
+    commandTemplate: "docker buildx imagetools inspect <image>"
+  images:
+    -
+      image: "docker.io/grafana/grafana:13.0.1-security-01"
+      digest: "sha256:2d1f9ae67c1778d33e291d4c3c759cd8b650e67491f02533499eb950e075eeb5"
+      digestReference: "docker.io/grafana/grafana:13.0.1-security-01@sha256:2d1f9ae67c1778d33e291d4c3c759cd8b650e67491f02533499eb950e075eeb5"
+      mediaType: "application/vnd.docker.distribution.manifest.list.v2+json"
+      resolverOutput:
+        name: "docker.io/grafana/grafana:13.0.1-security-01"
+      occurrences:
+        -
+          object: "apps/v1/Deployment/monitoring/kube-prometheus-stack-grafana"
+          fieldPath: "spec.template.spec.containers.2.image"
+    -
+      image: "quay.io/kiwigrid/k8s-sidecar:2.7.3"
+      digest: "sha256:694950d736c8b532eba4006527ccbdac98fefc9f30b3346ba2de50b6cad91c94"
+      digestReference: "quay.io/kiwigrid/k8s-sidecar:2.7.3@sha256:694950d736c8b532eba4006527ccbdac98fefc9f30b3346ba2de50b6cad91c94"
+      mediaType: "application/vnd.oci.image.index.v1+json"
+      resolverOutput:
+        name: "quay.io/kiwigrid/k8s-sidecar:2.7.3"
+      occurrences:
+        -
+          object: "apps/v1/Deployment/monitoring/kube-prometheus-stack-grafana"
+          fieldPath: "spec.template.spec.containers.0.image"
+        -
+          object: "apps/v1/Deployment/monitoring/kube-prometheus-stack-grafana"
+          fieldPath: "spec.template.spec.containers.1.image"
+    -
+      image: "quay.io/prometheus-operator/prometheus-operator:v0.90.1"
+      digest: "sha256:52a6a92d915ea2fa94314748d99db7a94922e3fe63274f6182fc033b9126b573"
+      digestReference: "quay.io/prometheus-operator/prometheus-operator:v0.90.1@sha256:52a6a92d915ea2fa94314748d99db7a94922e3fe63274f6182fc033b9126b573"
+      mediaType: "application/vnd.docker.distribution.manifest.list.v2+json"
+      resolverOutput:
+        name: "quay.io/prometheus-operator/prometheus-operator:v0.90.1"
+      occurrences:
+        -
+          object: "apps/v1/Deployment/monitoring/kube-prometheus-stack-operator"
+          fieldPath: "spec.template.spec.containers.0.image"
+    -
+      image: "quay.io/prometheus/alertmanager:v0.32.1"
+      digest: "sha256:51a825c2a40acc3e338fdd00d622e01ec090f72be2b3ea46be0839cd47a4d286"
+      digestReference: "quay.io/prometheus/alertmanager:v0.32.1@sha256:51a825c2a40acc3e338fdd00d622e01ec090f72be2b3ea46be0839cd47a4d286"
+      mediaType: "application/vnd.docker.distribution.manifest.list.v2+json"
+      resolverOutput:
+        name: "quay.io/prometheus/alertmanager:v0.32.1"
+      occurrences:
+        -
+          object: "monitoring.coreos.com/v1/Alertmanager/monitoring/kube-prometheus-stack-alertmanager"
+          fieldPath: "spec.image"
+    -
+      image: "quay.io/prometheus/node-exporter:v1.11.1-distroless"
+      digest: "sha256:6112664fd761bb964d8a2d3d0119d6c8402618a89edbb3a43c8f7b4090fb53c9"
+      digestReference: "quay.io/prometheus/node-exporter:v1.11.1-distroless@sha256:6112664fd761bb964d8a2d3d0119d6c8402618a89edbb3a43c8f7b4090fb53c9"
+      mediaType: "application/vnd.docker.distribution.manifest.list.v2+json"
+      resolverOutput:
+        name: "quay.io/prometheus/node-exporter:v1.11.1-distroless"
+      occurrences:
+        -
+          object: "apps/v1/DaemonSet/monitoring/kube-prometheus-stack-prometheus-node-exporter"
+          fieldPath: "spec.template.spec.containers.0.image"
+    -
+      image: "quay.io/prometheus/prometheus:v3.11.3-distroless"
+      digest: "sha256:cff72a3f49918f41c4b5c8a6174dd8433036bebf7878120da538b3720ba3fa0d"
+      digestReference: "quay.io/prometheus/prometheus:v3.11.3-distroless@sha256:cff72a3f49918f41c4b5c8a6174dd8433036bebf7878120da538b3720ba3fa0d"
+      mediaType: "application/vnd.docker.distribution.manifest.list.v2+json"
+      resolverOutput:
+        name: "quay.io/prometheus/prometheus:v3.11.3-distroless"
+      occurrences:
+        -
+          object: "monitoring.coreos.com/v1/Prometheus/monitoring/kube-prometheus-stack-prometheus"
+          fieldPath: "spec.image"
+    -
+      image: "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0"
+      digest: "sha256:6b2f0b6f2f86ac5b1aa883a033a8dd55bb96c16d191ec973393bdaadaddac914"
+      digestReference: "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0@sha256:6b2f0b6f2f86ac5b1aa883a033a8dd55bb96c16d191ec973393bdaadaddac914"
+      mediaType: "application/vnd.docker.distribution.manifest.list.v2+json"
+      resolverOutput:
+        name: "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0"
+      occurrences:
+        -
+          object: "apps/v1/Deployment/monitoring/kube-prometheus-stack-kube-state-metrics"
+          fieldPath: "spec.template.spec.containers.0.image"
+  productionSupportUse:
+    status: "digest-resolution-recorded"
+    claim: "The mutable rendered image references for this candidate base were resolved to registry manifest digests at the recorded time."
+    limits: "This receipt does not mean the rendered manifests are digest-pinned and does not by itself make the chart production-supported."
+    nextRequired: "Choose a digest-pinned base, image override policy, or explicit mutable-image exception before final production OCI support."
