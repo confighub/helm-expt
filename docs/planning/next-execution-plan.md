@@ -58,6 +58,7 @@ production, or refresh counts by hand in this plan.
 | Which non-pass live rows need decisions or reruns? | [data/live-parity-rerun-plan/summary.md](../../data/live-parity-rerun-plan/summary.md) |
 | Which latest chart versions are promotion candidates? | [data/latest-top20-refresh/summary.md](../../data/latest-top20-refresh/summary.md) |
 | Which compact work rows are next? | [data/next-ten-waves/summary.md](../../data/next-ten-waves/summary.md) |
+| Which top-20 production-support tasks can be assigned? | [data/production-support-decisions/work-items.csv](../../data/production-support-decisions/work-items.csv) |
 
 Current generated facts, at the time of this plan update:
 
@@ -69,6 +70,31 @@ Current generated facts, at the time of this plan update:
 ConfigHub proof, local live proof, GitOps/OCI proof, and live parity are partial by exact row.
 1 top-20 chart has a final target-scoped support decision; 20/20 are production-review-ready.
 ```
+
+## Current 90 To 95 Push
+
+The repo now has the main matrices that were missing earlier: pain-point
+coverage, edge recovery, variant-path coverage, quirk coverage, outcome
+coverage, top100/top500 analysis, live-parity status, and production-support
+work items.
+
+The next step is to turn those artifacts into product-grade confidence. This is
+not a request for more broad verifier output. It is a request to close the
+important chart and workflow residues that users will feel.
+
+| Priority | Work | Why it matters | Evidence to update |
+| --- | --- | --- | --- |
+| 1 | Close top-20 production-support work items. | The catalog is useful only when a user can see which bases are supported for a target scope and what remains before production use. | `data/production-support-decisions/work-items.csv`, per-chart `catalog-status.yaml`, target-scoped receipts. |
+| 2 | Make kube-prometheus-stack the serious-chart proof. | It exercises high object count, CRDs, webhooks, RBAC, generated facts, extension slots, and large blast radius. It is the best answer to "does this survive real Helm complexity?" | `docs/user/prometheus-high-fanout.md`, `data/production-support-decisions/summary.md`, live and lifecycle receipts for the monitoring scope. |
+| 3 | Expand graph recovery beyond Redis and kube-prometheus-stack. | Helm's root problem is forgetful 1-to-many generation. Recovered edges are the bridge from rendered YAML to the ConfigHub graph. | `data/edge-recovery/edges.csv`, per-chart `inheritance-graph.yaml`, value-source maps. |
+| 4 | Finish hook and lifecycle observations for maintained hook charts. | Hook inventory is not enough. Users need to know whether lifecycle behavior is skipped, blocked, mapped, or observed. | `data/hook-lifecycle/summary.md`, `data/lifecycle-boundary/summary.md`, lifecycle execution or observation receipts. |
+| 5 | Keep the public path short. | A new Helm user should understand the offering, pick a base variant, run the command, and know what proof they have without reading the planning corpus. | `README.md`, `CATALOG.md`, `docs/user/try-now.md`, `docs/user/current-proof-status.md`, generated site pages. |
+
+The 99% product target is the persistent ConfigHub graph. helm-expt should feed
+that graph by producing chart, variant, provenance, quirk, and receipt data that
+is independently checkable. ConfigHub Server then adds authority, query,
+history, approvals, target assignment, and freshness across many variants and
+clusters.
 
 Important boundary:
 

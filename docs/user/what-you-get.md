@@ -98,6 +98,27 @@ Use [Chain Of Proof](./chain-of-proof.md) when you need to explain which tool
 proves which boundary. The short rule is: render proof, ConfigHub proof,
 delivery proof, and live proof are related but not interchangeable.
 
+## From Proof Corpus To Product Path
+
+The current corpus proves that the model works across real public charts. The
+next product step is to make the path obvious for a user and supportable for a
+team.
+
+That means:
+
+| Work | Product reason |
+| --- | --- |
+| Finish target-scoped production support decisions for the top-20 catalog. | Users need to know which bases are supported for which target scope, not only that receipts exist. |
+| Make kube-prometheus-stack the serious-chart proof. | It exercises high fanout, CRDs, webhooks, RBAC, generated facts, extension slots, and large rendered-object sets. |
+| Expand recovered graph edges beyond Redis and kube-prometheus-stack. | Helm's core weakness is forgetful generation. The ConfigHub value grows when rendered objects keep provenance and relationships. |
+| Complete hook and lifecycle observation receipts for maintained hook charts. | Hook inventory is useful, but production users need a route, an execution decision, and fresh evidence. |
+| Keep the first public path short. | A Helm user should be able to choose a base, inspect objects, run the command, and understand the proof without reading the planning docs. |
+
+The persistent ConfigHub graph is the long-term product surface. helm-expt
+should feed that graph with checkable chart, variant, provenance, quirk, and
+receipt data. ConfigHub Server then adds authority, query, history, approvals,
+target assignment, and freshness across many variants and clusters.
+
 ## Why This Is Better Than Plain Helm For Operations
 
 Plain Helm is useful for rendering and installing. The operational gap is what
