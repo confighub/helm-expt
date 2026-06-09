@@ -22,7 +22,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 ## Chart Notes
 
 - Default chart renders 23 external-secrets CRDs because installCRDs defaults to true.
-- no-crds variant omits CRDs for clusters that manage CRDs separately.
+- no-crds variant omits CRDs for clusters that manage CRDs separately and records those CRDs as target facts.
 - Chart declares a bitwarden-sdk-server dependency that remains disabled in promoted variants but is recorded in dependency-lock.yaml.
 - Validating webhook readiness must be observed after apply because rendered objects alone do not prove webhook health.
 - The rendered webhook Secret contains metadata only; cert-controller populates certificate material after apply.
@@ -43,7 +43,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 | source-lock | handled | source-lock.yaml |
 | dependency-lock | handled | chart declares bitwarden-sdk-server dependency; promoted variants keep it disabled but lock its metadata. |
 | capability-profile | handled | OpenShift and ServiceMonitor branches are bound to the named Kubernetes capability profile. |
-| crd-policy | variant-controlled | CRDs are ordinary rendered objects in the default variant and still need lifecycle/upgrade policy. |
+| crd-policy | variant-controlled-and-target-fact | CRDs are ordinary rendered objects in the default variant and required target facts for the no-crds variant. |
 | admission-webhook | scan-and-observe | recorded in control-points.yaml |
 | webhook-secret | scan-and-observe | rendered Secret contains metadata only; cert-controller populates certificate material later. |
 | cluster-rbac | scan-and-review | scan receipts |

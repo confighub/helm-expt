@@ -675,7 +675,7 @@ spec:
     -
       chart: "external-secrets/external-secrets"
       version: "2.5.0"
-      status: "production-review-ready"
+      status: "production-blocked"
       supportedLocalTestVariants:
         - "default"
         - "no-crds"
@@ -753,6 +753,15 @@ spec:
             - "external scan receipt"
             - "waiver or fix decision"
           unblockRule: "supported only when warnings are accepted, fixed, or variant-blocking"
+        -
+          name: "target fact preflight"
+          state: "required"
+          owner: "installer-review"
+          requiredEvidence:
+            - "installer externalRequires/facts"
+            - "preflight command or documented block"
+            - "freshness expectation"
+          unblockRule: "supported only when required target facts are checkable before apply"
         -
           name: "webhook readiness and failure policy"
           state: "accepted"

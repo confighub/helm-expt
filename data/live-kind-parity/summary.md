@@ -11,9 +11,9 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 27
+pass: 28
 watch: 2
-blocked: 11
+blocked: 10
 semantic parity defects: 0
 ```
 
@@ -31,9 +31,9 @@ data/live-parity-rerun-plan/summary.md
 | --- | ---: |
 | helm-runtime: upstream not ready (parity passed) | 4 |
 | target-runtime: pods pending (parity passed) | 3 |
-| target-prerequisite: CRDs disabled or missing (parity passed) | 2 |
 | target-runtime: pod crash loop (parity passed) | 2 |
 | helm-hook: post-install hook failed (parity passed) | 1 |
+| target-prerequisite: CRDs disabled or missing (parity passed) | 1 |
 | target-prerequisite: CRDs missing | 1 |
 
 ## Rows
@@ -55,7 +55,7 @@ data/live-parity-rerun-plan/summary.md
 | `bitnami/redis@25.5.3` | default | pass |  | runs/live-kind-parity/bitnami-redis-default/receipt.yaml |
 | `bitnami/redis@25.5.3` | reuse-existing-secret | pass |  | runs/live-kind-parity/bitnami-redis-reuse-existing-secret/receipt.yaml |
 | `external-secrets/external-secrets@2.5.0` | default | pass |  | runs/live-kind-parity/external-secrets-external-secrets-default/receipt.yaml |
-| `external-secrets/external-secrets@2.5.0` | no-crds | blocked | target-prerequisite: CRDs disabled or missing (parity passed) | runs/live-kind-parity/external-secrets-external-secrets-no-crds/receipt.yaml |
+| `external-secrets/external-secrets@2.5.0` | no-crds | pass |  | runs/live-kind-parity/external-secrets-external-secrets-no-crds/receipt.yaml |
 | `grafana/grafana@10.5.15` | existing-secret-ingress | pass |  | runs/live-kind-parity/grafana-grafana-existing-secret-ingress/receipt.yaml |
 | `grafana/grafana@10.5.15` | generated-passwords | pass |  | runs/live-kind-parity/grafana-grafana-generated-passwords/receipt.yaml |
 | `grafana/loki@7.0.0` | simple-scalable-minio | blocked | target-runtime: pods pending (parity passed) | runs/live-kind-parity/grafana-loki-simple-scalable-minio/receipt.yaml |

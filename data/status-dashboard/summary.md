@@ -32,7 +32,7 @@ Which detailed CSV should I open next?
 | proof lanes | local live rows | 21/156 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | GitOps/OCI live pass rows | 17/156 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | live Helm-vs-ConfigHub parity pass rows | 15/156 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | two-cluster kind parity pass rows | 27/40 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| proof lanes | two-cluster kind parity pass rows | 28/40 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | complete core lane rows | 11/156 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | top20 start-here base variants | 11/40 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | proof lanes | top20 bases needing unresolved prerequisite or runtime review | 11/40 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
@@ -42,9 +42,9 @@ Which detailed CSV should I open next?
 | live evidence | runtime/GitOps wave rows | 10/10 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
 | live evidence | live Helm-vs-ConfigHub receipts | 20/20 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster kind parity receipts | 40/40 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| live evidence | live parity rerun rows needing decisions | 18/18 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing model or staging first | 5/18 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing target review first | 13/18 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rerun rows needing decisions | 17/17 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing model or staging first | 4/17 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing target review first | 13/17 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | ConfigHub/OCI semantic parity defect receipts | 0/20 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 0/40 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-supported charts | 0/20 | gap | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
@@ -130,7 +130,7 @@ spreadsheet.
 | bitnami/postgresql@18.6.7 | generated-passwords (try-with-proof) | try-with-proof:2 | live-helm-vs-confighub-parity | 2/2 | 0/2 | 1/2 | 2/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
 | bitnami/rabbitmq@16.0.14 | generated-passwords (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
 | bitnami/redis@25.5.3 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 2/2 | 1/2 | - |
-| external-secrets/external-secrets@2.5.0 | default (start-here) | start-here:1; prerequisite-observed:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
+| external-secrets/external-secrets@2.5.0 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
 | grafana/grafana@10.5.15 | generated-passwords (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
 | grafana/loki@7.0.0 | single-binary-filesystem (start-here) | start-here:1; runtime-review-needed:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
 | grafana/tempo@1.24.4 | local-persistent (runtime-review-needed) | runtime-review-needed:1; target-prerequisite-needed:1 | local-kubernetes-live | 2/2 | 1/2 | 1/2 | 0/2 | 0/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
@@ -160,7 +160,7 @@ first.
 | local live | 21 | 0 | 135 | 156 |
 | GitOps/OCI live | 17 | 9 | 130 | 156 |
 | live Helm-vs-ConfigHub parity | 15 | 5 | 136 | 156 |
-| two-cluster kind parity | 27 | 13 | 0 | 40 |
+| two-cluster kind parity | 28 | 12 | 0 | 40 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
 prerequisite, runtime behavior, or provisioning boundary rather than a render
@@ -186,12 +186,12 @@ useful.
 
 | Rerun readiness | Rows | Meaning |
 | --- | ---: | --- |
-| model-or-stage-first | 5 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| model-or-stage-first | 4 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 | review-target-first | 13 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 | Next step | Rows | Meaning |
 | --- | ---: | --- |
-| stage-prerequisite | 3 | Stage or model CRDs, APIs, Secrets, storage, or another target prerequisite before rerunning. |
+| stage-prerequisite | 2 | Stage or model CRDs, APIs, Secrets, storage, or another target prerequisite before rerunning. |
 | lifecycle-route | 1 | Choose the hook or lifecycle observation route before rerunning strict parity. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if expected readiness changes. |
 | gitops-runtime-review | 1 | Inspect GitOps/controller health and rerun after target conditions or controller waits are corrected. |
@@ -218,7 +218,6 @@ Current two-cluster kind parity non-pass receipts:
 | argo-cd/argo-cd@9.5.15 | default | watch | helm-runtime: upstream not ready (parity passed) |
 | argo-cd/argo-cd@9.5.15 | no-crds | blocked | target-prerequisite: CRDs disabled or missing (parity passed) |
 | bitnami/mongodb@19.0.7 | existing-secret-replicaset | blocked | target-runtime: pod crash loop (parity passed) |
-| external-secrets/external-secrets@2.5.0 | no-crds | blocked | target-prerequisite: CRDs disabled or missing (parity passed) |
 | grafana/loki@7.0.0 | simple-scalable-minio | blocked | target-runtime: pods pending (parity passed) |
 | grafana/tempo@1.24.4 | local-persistent | blocked | target-runtime: pods pending (parity passed) |
 | grafana/tempo@1.24.4 | s3-query-observability | blocked | target-prerequisite: CRDs missing |

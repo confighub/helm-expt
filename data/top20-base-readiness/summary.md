@@ -16,20 +16,20 @@ or runtime review.
 ~~~text
 base variants: 40
 start-here: 11
-try-with-proof: 16
+try-with-proof: 17
 runtime-watch: 2
 runtime-review-needed: 7
 target-prerequisite-needed: 2
 hook-lifecycle-review-needed: 0
 lifecycle-observed: 1
-prerequisite-observed: 1
+prerequisite-observed: 0
 render-only: 0
 ~~~
 
 Live rerun readiness for non-pass rows:
 
 ~~~text
-model-or-stage-first: 4
+model-or-stage-first: 3
 review-target-first: 11
 inspect-diff-first: 0
 rerun-now-after-cleanup: 0
@@ -68,7 +68,7 @@ rerun-now-after-cleanup: 0
 | `bitnami/redis@25.5.3` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
 | `bitnami/redis@25.5.3` | reuse-existing-secret | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `external-secrets/external-secrets@2.5.0` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
-| `external-secrets/external-secrets@2.5.0` | no-crds | no | prerequisite-observed | model-or-stage-first | target-prerequisite: CRDs disabled or missing (parity passed); prerequisite-staged lifecycle observation passed | record the prerequisite for this base and use runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-no-crds/receipt.yaml when explaining target readiness |
+| `external-secrets/external-secrets@2.5.0` | no-crds | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `grafana/grafana@10.5.15` | generated-passwords | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
 | `grafana/grafana@10.5.15` | existing-secret-ingress | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `grafana/loki@7.0.0` | single-binary-filesystem | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |

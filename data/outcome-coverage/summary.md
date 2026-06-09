@@ -19,7 +19,7 @@ GitOps/OCI non-pass receipts:        9
 live Helm-vs-ConfigHub pass rows:    15/156
 live Helm-vs-ConfigHub non-pass receipts: 5
 selected live parity receipts:       15 pass, 5 watch, 0 blocked
-two-cluster kind parity receipts:    27 pass, 2 watch, 11 blocked
+two-cluster kind parity receipts:    28 pass, 2 watch, 10 blocked
 derived intended-state pass rows:    10
 target-bound derived pass rows:      5
 target-bound derived blocked rows:   1
@@ -65,7 +65,7 @@ related lifecycle observations:      4/4
 | `bitnami/postgresql@18.6.7` | generated-passwords;existing-secret | yes | 0/2 | 1/2 | 2/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords;existing-secret | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/redis@25.5.3` | default;reuse-existing-secret | yes | 1/2 | 2/2 | 2/2 | 1/2 | 2/2 | - |
-| `external-secrets/external-secrets@2.5.0` | default;no-crds | yes | 1/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
+| `external-secrets/external-secrets@2.5.0` | default;no-crds | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | - |
 | `grafana/grafana@10.5.15` | generated-passwords;existing-secret-ingress | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | - |
 | `grafana/loki@7.0.0` | single-binary-filesystem;simple-scalable-minio | yes | 1/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
 | `grafana/tempo@1.24.4` | local-persistent;s3-query-observability | yes | 1/2 | 1/2 | 0/2 | 0/2 | 0/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |

@@ -17,7 +17,7 @@ Accepted disposition receipts recorded: 100
 | `bitnami/postgresql@18.6.7` | generated-passwords, existing-secret | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords, existing-secret | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/redis@25.5.3` | default, reuse-existing-secret | production-review-ready | 4 | 0 | 0 | recipe-hook-policy:no-hooks | 2 |
-| `external-secrets/external-secrets@2.5.0` | default, no-crds | production-review-ready | 5 | 0 | 0 | lifecycle-observations:2/2 | 1 |
+| `external-secrets/external-secrets@2.5.0` | default, no-crds | production-blocked | 5 | 1 | 0 | lifecycle-observations:2/2 | 1 |
 | `grafana/grafana@10.5.15` | generated-passwords, existing-secret-ingress | production-review-ready | 5 | 0 | 0 | none | 1 |
 | `grafana/loki@7.0.0` | single-binary-filesystem, simple-scalable-minio | production-review-ready | 5 | 0 | 0 | recipe-lifecycle-policy | 1 |
 | `grafana/tempo@1.24.4` | local-persistent, s3-query-observability | production-review-ready | 4 | 0 | 0 | none | 1 |
@@ -46,7 +46,6 @@ The same queue is available as `next-actions.csv`.
 | `bitnami/mysql@14.0.3` | 5 | 0 |  | - | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
 | `bitnami/postgresql@18.6.7` | 5 | 0 |  | - | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
 | `bitnami/rabbitmq@16.0.14` | 5 | 0 |  | - | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
-| `external-secrets/external-secrets@2.5.0` | 5 | 0 |  | - | default: warn, 6 finding(s) (unset-cpu-requirements:3;unset-memory-requirements:3); no-crds: warn, 6 finding(s) (unset-cpu-requirements:3;unset-memory-requirements:3) |
 | `grafana/grafana@10.5.15` | 5 | 0 |  | - | existing-secret-ingress: warn, 3 finding(s) (no-read-only-root-fs:1;unset-cpu-requirements:1;unset-memory-requirements:1); generated-passwords: warn, 3 finding(s) (no-read-only-root-fs:1;unset-cpu-requirements:1;unset-memory-requirements:1) |
 | `grafana/loki@7.0.0` | 5 | 0 |  | - | simple-scalable-minio: warn, 21 finding(s) (unset-memory-requirements:9;unset-cpu-requirements:8;pdb-unhealthy-pod-eviction-policy:3;no-read-only-root-fs:1); single-binary-filesystem: warn, 12 finding(s) (unset-cpu-requirements:6;unset-memory-requirements:6) |
 | `hashicorp/vault@0.32.0` | 5 | 0 |  | - | default: warn, 9 finding(s) (no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2;liveness-port:1;readiness-port:1); ha-raft-ui: warn, 12 finding(s) (dangling-service:2;no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2;liveness-port:1) |
@@ -59,6 +58,7 @@ The same queue is available as `next-actions.csv`.
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | 4 | 0 |  | - | default: warn, 8 finding(s) (no-read-only-root-fs:3;run-as-non-root:3;privilege-escalation-container:1;privileged-container:1); sync-secret-rotation: warn, 8 finding(s) (no-read-only-root-fs:3;run-as-non-root:3;privilege-escalation-container:1;privileged-container:1) |
 | `prometheus-community/prometheus@29.8.0` | 3 | 0 |  | - | default: warn, 21 finding(s) (unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:4;sensitive-host-mounts:3;host-network:1); server-only-ephemeral: warn, 6 finding(s) (no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2) |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | 6 | 1 | target fact preflight | data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/target-fact-preflight.yaml | default: warn, 27 finding(s) (dangling-service:7;unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:3;sensitive-host-mounts:3); no-crds: warn, 27 finding(s) (dangling-service:7;unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:3;sensitive-host-mounts:3) |
+| `external-secrets/external-secrets@2.5.0` | 5 | 1 | target fact preflight | data/production-disposition/receipts/external-secrets-external-secrets/target-fact-preflight.yaml | default: warn, 6 finding(s) (unset-cpu-requirements:3;unset-memory-requirements:3); no-crds: warn, 6 finding(s) (unset-cpu-requirements:3;unset-memory-requirements:3) |
 
 ## Production Decision Queue
 
@@ -76,7 +76,7 @@ runtime fit, and final support scope.
 | `bitnami/postgresql@18.6.7` | generated-passwords | try-with-proof | lifecycle-support-scope | 0 | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
 | `bitnami/redis@25.5.3` | default | start-here | lifecycle-support-scope | 0 | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
-| `external-secrets/external-secrets@2.5.0` | default | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
+| `external-secrets/external-secrets@2.5.0` | default | start-here | missing-disposition | 2 | write or fix the receipt for target fact preflight |
 | `grafana/grafana@10.5.15` | generated-passwords | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
 | `grafana/loki@7.0.0` | single-binary-filesystem | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
 | `grafana/tempo@1.24.4` | local-persistent | runtime-review-needed | runtime-or-prerequisite-scope | 2 | choose whether local-persistent is in production scope; close or document its runtime-review-needed live-readiness issue first |
