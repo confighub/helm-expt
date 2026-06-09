@@ -7,7 +7,7 @@ spec:
   version: 3.13.0
   base: external-tls-ca
   result: blocked
-  observedAt: '2026-06-06T12:22:12Z'
+  observedAt: '2026-06-09T23:14:08Z'
   package:
     path: packages/metrics-server/metrics-server/3.13.0
   recipe:
@@ -15,24 +15,24 @@ spec:
   variantRevision: recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-metric-3c02b-p5ex-helm
-    installerCluster: hx-metric-3c02b-p5ex-installer
+    helmCluster: hx-metric-3c02b-b3eh-helm
+    installerCluster: hx-metric-3c02b-b3eh-installer
     namespace: kube-system
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-metric-3c02b-p5ex-helm
+      - cluster: hx-metric-3c02b-b3eh-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-metric-3c02b-p5ex-helm" ...
+        detail: 'Deleting cluster "hx-metric-3c02b-b3eh-helm" ...
 
-          Deleted nodes: ["hx-metric-3c02b-p5ex-helm-control-plane"]'
-      - cluster: hx-metric-3c02b-p5ex-installer
+          Deleted nodes: ["hx-metric-3c02b-b3eh-helm-control-plane"]'
+      - cluster: hx-metric-3c02b-b3eh-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-metric-3c02b-p5ex-installer" ...
+        detail: 'Deleting cluster "hx-metric-3c02b-b3eh-installer" ...
 
-          Deleted nodes: ["hx-metric-3c02b-p5ex-installer-control-plane"]'
+          Deleted nodes: ["hx-metric-3c02b-b3eh-installer-control-plane"]'
   legs:
     regularHelm:
       result: blocked
@@ -60,26 +60,26 @@ spec:
           daemonset.apps/kube-proxy   1     1     1     1     1     kubernetes.io/os=linux   13m'
         pods: '# kube-system
 
-          coredns-7d764666f9-6cz4p                                          1/1   Running   0     13m
+          coredns-7d764666f9-5gccx                                          1/1   Running   0     13m
 
-          coredns-7d764666f9-k7flv                                          1/1   Running   0     13m
+          coredns-7d764666f9-l47rp                                          1/1   Running   0     13m
 
-          etcd-hx-metric-3c02b-p5ex-helm-control-plane                      1/1   Running   0     13m
+          etcd-hx-metric-3c02b-b3eh-helm-control-plane                      1/1   Running   0     13m
 
-          kindnet-6bqxb                                                     1/1   Running   0     13m
+          kindnet-pbvjl                                                     1/1   Running   0     13m
 
-          kube-apiserver-hx-metric-3c02b-p5ex-helm-control-plane            1/1   Running   0     13m
+          kube-apiserver-hx-metric-3c02b-b3eh-helm-control-plane            1/1   Running   0     13m
 
-          kube-controller-manager-hx-metric-3c02b-p5ex-helm-control-plane   1/1   Running   0     13m
+          kube-controller-manager-hx-metric-3c02b-b3eh-helm-control-plane   1/1   Running   0     13m
 
-          kube-proxy-k5cpn                                                  1/1   Running   0     13m
+          kube-proxy-92gwg                                                  1/1   Running   0     13m
 
-          kube-scheduler-hx-metric-3c02b-p5ex-helm-control-plane            1/1   Running   0     13m
+          kube-scheduler-hx-metric-3c02b-b3eh-helm-control-plane            1/1   Running   0     13m
 
-          metrics-server-66d8d7cb7-vlgcs                                    0/1   Running   0     12m'
+          metrics-server-66d8d7cb7-ftv6s                                    0/1   Running   0     12m'
         notReady:
         - namespace: kube-system
-          pod: metrics-server-66d8d7cb7-vlgcs
+          pod: metrics-server-66d8d7cb7-ftv6s
           ready: 0/1
           status: Running
       stderr: 'Error: resource Deployment/kube-system/metrics-server not ready. status:
@@ -90,7 +90,7 @@ spec:
     cubInstallerApply:
       result: watch
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/metrics-server/metrics-server/3.13.0
-        --base external-tls-ca --work-dir /tmp/helm-expt-kind-parity-hx-metric-3c02b-p5ex-metrics-server
+        --base external-tls-ca --work-dir /tmp/helm-expt-kind-parity-hx-metric-3c02b-b3eh-metrics-server
         --non-interactive --namespace kube-system
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
@@ -108,38 +108,40 @@ spec:
 
           deployment.apps/coredns          2/2   2     2     18m
 
-          deployment.apps/metrics-server   0/1   1     0     4m53s
+          deployment.apps/metrics-server   0/1   1     0     4m54s
 
           daemonset.apps/kindnet      1     1     1     1     1     kubernetes.io/os=linux   18m
 
           daemonset.apps/kube-proxy   1     1     1     1     1     kubernetes.io/os=linux   18m'
         pods: '# kube-system
 
-          coredns-7d764666f9-dhfp9                                               1/1   Running   0     18m
+          coredns-7d764666f9-2ttcm                                               1/1   Running   0     18m
 
-          coredns-7d764666f9-n62nt                                               1/1   Running   0     18m
+          coredns-7d764666f9-5ns2r                                               1/1   Running   0     18m
 
-          etcd-hx-metric-3c02b-p5ex-installer-control-plane                      1/1   Running   0     18m
+          etcd-hx-metric-3c02b-b3eh-installer-control-plane                      1/1   Running   0     18m
 
-          kindnet-f5kvj                                                          1/1   Running   0     18m
+          kindnet-pw94v                                                          1/1   Running   0     18m
 
-          kube-apiserver-hx-metric-3c02b-p5ex-installer-control-plane            1/1   Running   0     18m
+          kube-apiserver-hx-metric-3c02b-b3eh-installer-control-plane            1/1   Running   0     18m
 
-          kube-controller-manager-hx-metric-3c02b-p5ex-installer-control-plane   1/1   Running   0     18m
+          kube-controller-manager-hx-metric-3c02b-b3eh-installer-control-plane   1/1   Running   0     18m
 
-          kube-proxy-jfds7                                                       1/1   Running   0     18m
+          kube-proxy-d9vl5                                                       1/1   Running   0     18m
 
-          kube-scheduler-hx-metric-3c02b-p5ex-installer-control-plane            1/1   Running   0     18m
+          kube-scheduler-hx-metric-3c02b-b3eh-installer-control-plane            1/1   Running   0     18m
 
-          metrics-server-66d8d7cb7-rqd6z                                         0/1   Running   0     4m53s'
+          metrics-server-66d8d7cb7-qgj94                                         0/1   Running   0     4m54s'
         notReady:
         - namespace: kube-system
-          pod: metrics-server-66d8d7cb7-rqd6z
+          pod: metrics-server-66d8d7cb7-qgj94
           ready: 0/1
           status: Running
   semanticComparison:
     allowedExtraInstallerObjects:
     - v1|Namespace||kube-system
+    semanticNormalizations: &id003
+    - prune-null-fields
     helmVsCubInstallerApply:
       result: pass
       helmObjectCount: 9
@@ -148,7 +150,8 @@ spec:
       extraInInstaller:
       - v1|Namespace||kube-system
       semanticDiffs: []
-      comparisonSHA256: d7d8f2070f925cc04d15340cdeb3f8408ddab050974b0a3f3627d942ae966b01
+      semanticNormalizations: *id003
+      comparisonSHA256: dd1ab08dc555fd279b5cc7a2eba6c019d56d207ca42c144e3f817e3a6efdfd3e
   checks:
   - name: kind-create-helm
     result: pass
@@ -158,10 +161,10 @@ spec:
     detail: installer kind cluster created
   - name: target-facts-helm
     result: pass
-    detail: staged=1
+    detail: secrets=1 crds=0
   - name: target-facts-installer
     result: pass
-    detail: staged=1
+    detail: secrets=1 crds=0
   - name: regular-helm-live
     result: blocked
     detail: 'Error: resource Deployment/kube-system/metrics-server not ready. status:
@@ -174,7 +177,7 @@ spec:
 
       deployment.apps/coredns          2/2   2     2     18m
 
-      deployment.apps/metrics-server   0/1   1     0     4m53s
+      deployment.apps/metrics-server   0/1   1     0     4m54s
 
       daemonset.apps/kindnet      1     1     1     1     1     kubernetes.io/os=linux   18m
 
@@ -191,6 +194,8 @@ spec:
         keys:
         - tls.crt
         - tls.key
+        lane: regularHelm
+      stagedCRDs: []
       path: /Users/alexis/code/helm-expt/runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
@@ -200,4 +205,6 @@ spec:
         keys:
         - tls.crt
         - tls.key
+        lane: cubInstallerApply
+      stagedCRDs: []
       path: /Users/alexis/code/helm-expt/runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/target-facts-installer.yaml
