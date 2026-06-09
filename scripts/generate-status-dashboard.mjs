@@ -53,6 +53,7 @@ function buildReport() {
   const runtimeRows = readCsv("data/runtime-gitops/wave1.csv");
   const productionRows = readCsv("data/production-disposition/top20.csv");
   const supportDecisionRows = readCsv("data/production-disposition/support-decision-queue.csv");
+  const productionSupportDecisionRows = readCsv("data/production-support-decisions/decisions.csv");
   const scanDispositionRows = readCsv("data/scan-disposition-workdown/workdown.csv");
   const derivedWorkOrders = readCsv("data/variant-goldens/derived-expansion-wave/work-orders.csv");
   const derivedLiveReceiptCount = derivedWorkOrders.filter((row) =>
@@ -101,6 +102,9 @@ function buildReport() {
   rows.push(metric("production disposition", "top20 production-review-ready charts", productionRows.filter((row) => row.production_support === "production-review-ready").length, productionRows.length, "partial", "data/production-disposition/top20.csv", "Top-20 catalog charts with required dispositions closed, pending final production support decision and target scope."));
   rows.push(metric("production disposition", "top20 production-blocked charts", productionRows.filter((row) => row.production_support === "blocked").length, productionRows.length, "partial", "data/production-disposition/top20.csv", "Top-20 catalog charts that still have open disposition work before support review."));
   rows.push(metric("production disposition", "charts with accepted production dispositions", productionRows.filter((row) => dispositionCount(row.accepted_dispositions) > 0).length, productionRows.length, "partial", "data/production-disposition/top20.csv", "Charts with at least one disposition receipt accepted."));
+  rows.push(metric("production support decisions", "target-scoped decision artifacts", productionSupportDecisionRows.length, productionRows.length, "partial", "data/production-support-decisions/decisions.csv", "Draft or supported target-scoped support decision records."));
+  rows.push(metric("production support decisions", "supported decision artifacts", count(productionSupportDecisionRows, "decision", "supported"), productionRows.length, "gap", "data/production-support-decisions/decisions.csv", "Support decisions with fresh target evidence and no remaining final requirements."));
+  rows.push(metric("production support decisions", "draft decision artifacts", count(productionSupportDecisionRows, "decision", "draft"), productionRows.length, "partial", "data/production-support-decisions/decisions.csv", "Draft support boundaries that still need fresh target-scoped evidence."));
   rows.push(metric("scan disposition", "high-priority scan rows", scanDispositionRows.filter((row) => row.scanPriority === "high").length, scanDispositionRows.length, "partial", "data/scan-disposition-workdown/workdown.csv", "External scan rows that need a fix, hardened base, or explicit production disposition."));
   rows.push(metric("scan disposition", "remaining mutable-image rows", scanDispositionRows.filter((row) => row.dispositionRoute === "fix-image-pin").length, scanDispositionRows.length, "good", "data/scan-disposition-workdown/workdown.csv", "Rows still routed to image-pin fixes after the supported-base pinning work."));
   rows.push(metric("scan disposition", "privileged infrastructure review rows", scanDispositionRows.filter((row) => row.dispositionRoute === "accept-or-split-privileged-infrastructure").length, scanDispositionRows.length, "partial", "data/scan-disposition-workdown/workdown.csv", "Rows where host, node, or privileged access is likely part of the chart and needs explicit acceptance or a narrower base."));
@@ -133,7 +137,7 @@ function buildReport() {
     top20Csv: top20ToCsv(top20Rows),
     nextWorkQueues,
     nextWorkQueuesCsv: nextWorkQueuesToCsv(nextWorkQueues),
-    summary: summary(rows, { chartRows, baseRows, top100Rows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, lifecycleBoundaryRows, lifecycleObservationRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, supportDecisionRows, scanDispositionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues }),
+    summary: summary(rows, { chartRows, baseRows, top100Rows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, lifecycleBoundaryRows, lifecycleObservationRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, supportDecisionRows, productionSupportDecisionRows, scanDispositionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues }),
   };
 }
 
@@ -339,6 +343,9 @@ production-supported until a final target-scoped support decision is recorded.
 | production-review-ready pending final support decision | ${context.productionRows.filter((row) => row.production_support === "production-review-ready").length}/${context.productionRows.length} |
 | production-blocked pending disposition | ${context.productionRows.filter((row) => row.production_support === "blocked").length}/${context.productionRows.length} |
 | charts with accepted dispositions | ${context.productionRows.filter((row) => dispositionCount(row.accepted_dispositions) > 0).length}/${context.productionRows.length} |
+| target-scoped support decision artifacts | ${context.productionSupportDecisionRows.length}/${context.productionRows.length} |
+| supported decision artifacts | ${count(context.productionSupportDecisionRows, "decision", "supported")}/${context.productionRows.length} |
+| draft decision artifacts | ${count(context.productionSupportDecisionRows, "decision", "draft")}/${context.productionRows.length} |
 | high-priority scan rows | ${highScanRows.length}/${context.scanDispositionRows.length} |
 | mutable-image rows still needing fixes | ${context.scanDispositionRows.filter((row) => row.dispositionRoute === "fix-image-pin").length}/${context.scanDispositionRows.length} |
 
@@ -357,7 +364,9 @@ ${productionPreview.map((row) => `| ${row.chart}@${row.version} | ${row.producti
 Use [production-disposition/summary.md](../production-disposition/summary.md)
 for the full top-20 disposition table and
 [scan-disposition-workdown/summary.md](../scan-disposition-workdown/summary.md)
-for the scan warning routes.
+for the scan warning routes. Use
+[production-support-decisions/summary.md](../production-support-decisions/summary.md)
+for target-scoped support decision artifacts.
 
 ## Derived Variant Evidence
 
