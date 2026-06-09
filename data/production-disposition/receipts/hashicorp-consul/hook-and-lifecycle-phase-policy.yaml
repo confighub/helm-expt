@@ -1,0 +1,48 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: hashicorp-consul-hook-and-lifecycle-phase-policy
+spec:
+  chart: hashicorp/consul
+  version: "2.0.0"
+  disposition: hook and lifecycle phase policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Consul proof renders exclude Helm hooks. Normal rendered lifecycle objects,
+    including webhook certificate manager workloads and the secure base ACL init
+    Job, remain visible in the rendered object set. This disposition accepts the
+    current lifecycle boundary as production review input: desired objects are
+    managed as rendered config, while hook-like upgrade or bootstrap procedures
+    must become explicit lifecycle actions or controller-observed operations
+    before production support.
+  evidence:
+    - path: recipes/hashicorp/consul/2.0.0/control-points.yaml
+      claim: The recipe records lifecycle policy as scan-and-review and notes that hooks are disabled in proof render.
+    - path: recipes/hashicorp/consul/2.0.0/helm-pain-report.yaml
+      claim: The pain report states that Helm hooks are excluded while the secure variant's ACL init Job remains visible.
+    - path: recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/receipts/install-gate.yaml
+      claim: The default gate blocks production until hook and lifecycle policy is reviewed.
+    - path: recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/receipts/install-gate.yaml
+      claim: The secure mesh gate records the same lifecycle boundary plus target Secret prerequisites.
+    - path: recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/object-inventory.yaml
+      claim: The secure mesh inventory records the ACL init Job and related RBAC as rendered objects.
+    - path: runs/live-kind-parity/hashicorp-consul-default-control-plane/receipt.yaml
+      claim: The default-control-plane base reaches live parity without relying on Helm hook execution.
+    - path: runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml
+      claim: The secure mesh base has semantic parity and staged target facts but remains runtime blocked by topology/operation, not by object diff.
+  affectedVariants:
+    - default-control-plane
+    - secure-mesh-existing-secrets
+  acceptedPolicy:
+    desiredObjects: Supported bases manage the reviewed rendered Kubernetes objects.
+    hooks: Helm hooks are not silently preserved; any required hook behavior must be represented as an explicit lifecycle action or observation.
+    aclInit: The secure base ACL init Job is treated as a rendered lifecycle object with target Secret prerequisites.
+  variantCaveats:
+    - "This receipt does not prove Helm hook execution."
+    - "secure-mesh-existing-secrets needs target-specific bootstrap and mesh readiness checks before production support."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should define Consul bootstrap, ACL init, webhook certificate, mesh gateway, and upgrade lifecycle checks for the chosen target.

@@ -1,0 +1,50 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: prometheus-community-kube-prometheus-stack-crd-lifecycle-and-upgrade-policy
+spec:
+  chart: prometheus-community/kube-prometheus-stack
+  version: "85.3.3"
+  disposition: CRD lifecycle and upgrade policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    The default kube-prometheus-stack base renders Prometheus Operator CRDs as
+    reviewed objects. The no-crds base omits them for clusters where the CRDs
+    are managed separately. This disposition accepts both CRD ownership modes
+    as production review input. It does not choose the production CRD owner or
+    claim CRD upgrade safety.
+  evidence:
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/control-points.yaml
+      claim: The recipe records CRD policy as variant-controlled with 10 CRDs in default and none in no-crds.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-model.yaml
+      claim: The value model records crds.enabled and CRD selection controls explicitly.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/object-inventory.yaml
+      claim: The default rendered object inventory records the Prometheus Operator CRDs.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/object-inventory.yaml
+      claim: The no-crds rendered object inventory omits CRDs while retaining Prometheus Operator custom resources.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default rendered-object scan records CRD upgrade policy warnings for the CRDs.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The default base is Helm-equivalent under recorded inputs.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The no-crds base is Helm-equivalent under recorded inputs.
+    - path: runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json
+      claim: The local-kind observation records CRD bootstrap apply and Established checks for the default base.
+    - path: runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml
+      claim: The no-crds live parity receipt blocks because Prometheus Operator CRDs are missing from the target cluster.
+  affectedVariants:
+    - default
+    - no-crds
+  acceptedPolicy:
+    default: Accepted as the first production-review base when this package owns the Prometheus Operator CRDs.
+    noCrds: Accepted as review input only for targets with compatible Prometheus Operator CRDs already staged and observed.
+    upgrade: Chart upgrades must review Prometheus Operator CRD schema compatibility before replacing the supported version.
+  variantCaveats:
+    - "no-crds is not standalone; it requires compatible CRDs in the target cluster before apply."
+    - "CRD render parity does not prove Prometheus Operator upgrade safety."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose CRD ownership, CRD upgrade ordering, compatibility checks, and rollback procedure for the target scope.

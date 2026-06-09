@@ -12,7 +12,7 @@ current ConfigHub/cub installer proof absorbs it.
 | Catalog status | catalog-supported |
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
-| Production readiness | blocked-by-current-scan-gate |
+| Production readiness | production-review-ready |
 | Variants in this note | default-control-plane, secure-mesh-existing-secrets |
 
 Production support is not implied by this file. A chart can be supported for
@@ -33,7 +33,10 @@ or operating-policy dispositions.
 - Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
 - default-control-plane is the simplest local Consul control-plane path.
 - secure-mesh-existing-secrets is supported when the declared Secret target facts are satisfied.
-- Production remains blocked until gossip/TLS secret ownership, mesh policy, upgrade safety, and scan/gate findings have dispositions.
+- default-control-plane has regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo live parity with healthy runtime, and is the stronger first production-review base.
+- secure-mesh-existing-secrets is useful review input for TLS, ACL, gossip, gateway, UI ingress, and mesh topology, but remains runtime-review-needed until target capacity and bootstrap policy are proven.
+- CRD ownership, cluster RBAC, target Secret preflight, webhook readiness, lifecycle boundary, extension slots, storage/rollback, and scan/gate warnings are recorded as production review input.
+- Production recommendation remains a separate decision; Consul needs target CRD ownership, TLS/ACL/secret rotation, mesh/gateway posture, security policy, backup/restore, and fresh runtime checks before support.
 
 ## Control Points
 

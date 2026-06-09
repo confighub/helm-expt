@@ -50,7 +50,7 @@ grafana/pyroscope@2.0.2,yes,6/6,yes,yes,yes,yes,yes,yes,yes,3,proof-grade,not-re
 grafana/rollout-operator@0.49.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/grafana/rollout-operator/0.49.0
 grafana/tempo@1.24.4,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/grafana/tempo/1.24.4
 haproxytech/kubernetes-ingress@1.52.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/haproxytech/kubernetes-ingress/1.52.0
-hashicorp/consul@2.0.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,blocked-by-current-scan-gate,none,recipes/hashicorp/consul/2.0.0
+hashicorp/consul@2.0.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/hashicorp/consul/2.0.0
 hashicorp/terraform@1.1.2,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/hashicorp/terraform/1.1.2
 hashicorp/vault@0.32.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/hashicorp/vault/0.32.0
 ingress-nginx/ingress-nginx@4.15.1,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/ingress-nginx/ingress-nginx/4.15.1
@@ -80,7 +80,7 @@ percona/psmdb-operator@1.22.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,
 percona/pxc-operator@1.19.1,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/percona/pxc-operator/1.19.1
 projectcalico/tigera-operator@v3.32.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/projectcalico/tigera-operator/v3.32.0
 prometheus-community/alertmanager@1.37.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/prometheus-community/alertmanager/1.37.0
-prometheus-community/kube-prometheus-stack@85.3.3,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,blocked-by-current-scan-gate,none,recipes/prometheus-community/kube-prometheus-stack/85.3.3
+prometheus-community/kube-prometheus-stack@85.3.3,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/prometheus-community/kube-prometheus-stack/85.3.3
 prometheus-community/kube-state-metrics@7.4.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/prometheus-community/kube-state-metrics/7.4.0
 prometheus-community/prometheus-adapter@5.3.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/prometheus-community/prometheus-adapter/5.3.0
 prometheus-community/prometheus-blackbox-exporter@11.10.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0

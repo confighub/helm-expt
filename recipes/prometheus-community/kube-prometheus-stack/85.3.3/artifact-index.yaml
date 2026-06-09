@@ -40,7 +40,7 @@ spec:
     supportLevel: "supported-for-declared-scopes"
     supportedScopes:
       - "local-test"
-    productionReadiness: "blocked-by-current-scan-gate"
+    productionReadiness: "production-review-ready"
     supportedVariants:
       - "default"
       - "no-crds"
@@ -60,7 +60,7 @@ spec:
       liveParity: "0/2"
     featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;install-vs-upgrade;extension-slots"
     hardGap: "existing-secret (chart ships no Secret toggle - #113)"
-    nextAction: "write or fix the receipt for CRD lifecycle and upgrade policy"
+    nextAction: "refresh live/e2e receipts for the accepted production scope"
   installerPackage:
     path: "packages/prometheus-community/kube-prometheus-stack/85.3.3"
     installer: "packages/prometheus-community/kube-prometheus-stack/85.3.3/installer.yaml"

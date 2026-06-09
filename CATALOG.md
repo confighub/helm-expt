@@ -458,7 +458,7 @@ Receipts: [per-chart receipts](recipes/bitnami/rabbitmq/16.0.14/CATALOG.md)
 #### prometheus-community/kube-prometheus-stack@85.3.3
 
 Status: catalog-supported
-Production readiness: blocked-by-current-scan-gate
+Production readiness: production-review-ready
 Start base readiness: runtime-watch
 Strongest evidence: local-kubernetes-live
 Proof lanes: render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 0/2; live parity 0/2
@@ -953,7 +953,7 @@ Receipts: [per-chart receipts](recipes/grafana/tempo/1.24.4/CATALOG.md)
 #### hashicorp/consul@2.0.0
 
 Status: catalog-supported
-Production readiness: blocked-by-current-scan-gate
+Production readiness: production-review-ready
 Start base readiness: start-here
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 1/2; live parity 1/2

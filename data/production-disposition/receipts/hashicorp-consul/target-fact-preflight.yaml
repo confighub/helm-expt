@@ -1,0 +1,45 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: hashicorp-consul-target-fact-preflight
+spec:
+  chart: hashicorp/consul
+  version: "2.0.0"
+  disposition: target fact preflight
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    The secure-mesh-existing-secrets base requires existing target Secrets for
+    the Consul CA certificate, server certificate and key, gossip encryption
+    key, and ACL bootstrap token. This disposition accepts the target-fact
+    declaration and staged parity evidence as production review input. It does
+    not make ConfigHub the hidden store for those secrets.
+  evidence:
+    - path: recipes/hashicorp/consul/2.0.0/variants/secure-mesh-existing-secrets/variant.yaml
+      claim: The secure variant declares required target Secrets for CA, server certificate, gossip key, and ACL bootstrap token.
+    - path: recipes/hashicorp/consul/2.0.0/value-model.yaml
+      claim: The value model records TLS, gossip, and ACL values as target-fact-bound.
+    - path: recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The secure mesh base is Helm-equivalent after the target-fact values are supplied.
+    - path: runs/consul-confighub-proof/latest/confighub-proof-receipt.yaml
+      claim: The ConfigHub proof records the secure base target fact requirements and suggested kubectl Secret sources.
+    - path: runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml
+      claim: The two-cluster parity lane staged four target Secrets for both Helm and cub installer legs and semantic parity passed.
+    - path: runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/target-facts-helm.yaml
+      claim: Target fact staging evidence exists for the regular Helm leg.
+    - path: runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/target-facts-installer.yaml
+      claim: Target fact staging evidence exists for the cub installer leg.
+  affectedVariants:
+    - secure-mesh-existing-secrets
+  acceptedPolicy:
+    secretOwnership: Secret material is supplied by the target environment or secret manager, not hidden in ConfigHub rendered Units.
+    preflight: A production run must verify required Secrets and keys before apply.
+    rotation: Rotation and continuity for gossip, ACL bootstrap, CA, and server certificates are target operating procedures.
+  variantCaveats:
+    - "The default-control-plane base has no target Secret requirements but also disables TLS and ACLs."
+    - "The secure mesh base is not production-ready unless the target owns and rotates the required secret material."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should define the secret source, rotation policy, ACL bootstrap handling, and preflight checks for the target.

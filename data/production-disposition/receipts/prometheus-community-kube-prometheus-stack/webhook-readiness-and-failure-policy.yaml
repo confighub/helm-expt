@@ -1,0 +1,51 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: prometheus-community-kube-prometheus-stack-webhook-readiness-and-failure-policy
+spec:
+  chart: prometheus-community/kube-prometheus-stack
+  version: "85.3.3"
+  disposition: webhook readiness and failure policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    kube-prometheus-stack renders Prometheus Operator admission webhook
+    configurations and relies on webhook TLS material that is normally managed
+    by Helm hook lifecycle. The proof path stages support material and records
+    local observations for the default base. This disposition accepts the
+    webhook readiness model as production review input and requires fresh
+    target observations before production support.
+  evidence:
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/control-points.yaml
+      claim: The recipe records admission webhook objects as scan-and-observe.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-model.yaml
+      claim: The value model records prometheusOperator.admissionWebhooks as an admission-webhook policy area.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/object-inventory.yaml
+      claim: The default object inventory records the admission webhook configurations.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/object-inventory.yaml
+      claim: The no-crds object inventory records the same webhook configurations.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default scan records admission-webhook-requires-observation.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/receipts/scan-receipt.yaml
+      claim: The no-crds scan records admission-webhook-requires-observation.
+    - path: runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json
+      claim: The local-kind observation records support Secret staging, Prometheus Operator CRD readiness, and operator workload rollout checks.
+    - path: runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml
+      claim: The default base has semantic parity while the cub installer leg remains runtime-watch for operator readiness.
+    - path: runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml
+      claim: The default base reaches ConfigHub OCI/Argo sync with semantic parity while health remains watch/degraded.
+  affectedVariants:
+    - default
+    - no-crds
+  acceptedPolicy:
+    webhookObjects: Admission webhook objects remain part of the reviewed rendered object set.
+    tlsMaterial: Webhook TLS support material must be staged or managed by an explicit lifecycle path.
+    readiness: Operator and webhook readiness must be observed fresh on the target before production support.
+  variantCaveats:
+    - "The committed ConfigHub live receipts for default remain runtime-watch; this is not a production-supported state."
+    - "no-crds requires compatible Prometheus Operator CRDs to exist before webhook and custom-resource objects can apply."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should define webhook TLS ownership, failure policy, CRD prerequisites, and required operator/webhook health checks.

@@ -1,0 +1,45 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: prometheus-community-kube-prometheus-stack-generated-fact-ownership
+spec:
+  chart: prometheus-community/kube-prometheus-stack
+  version: "85.3.3"
+  disposition: generated fact ownership
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    The Grafana subchart can generate a random admin password. The supported
+    bases bind the Grafana admin password before render so the rendered object
+    set is deterministic and Helm-equivalent. This disposition accepts the
+    generated-fact binding as production review input while keeping credential
+    ownership, rotation, and separation from ConfigHub Units as target
+    decisions.
+  evidence:
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-model.yaml
+      claim: The value model records grafana.adminPassword as generated-fact-bound for both bases.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/effective-values.yaml
+      claim: The default base binds the Grafana admin password before render.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/effective-values-no-crds.yaml
+      claim: The no-crds base binds the same generated fact before render.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The default base is deterministic and Helm-equivalent after the generated fact is bound.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The no-crds base is deterministic and Helm-equivalent after the generated fact is bound.
+    - path: runs/kube-prometheus-stack-confighub-proof/latest/confighub-proof-receipt.yaml
+      claim: The ConfigHub proof records separated Secret resources that are not uploaded as ConfigHub Units.
+  affectedVariants:
+    - default
+    - no-crds
+  acceptedPolicy:
+    generation: Grafana admin password generation is bound before render, not left to nondeterministic Helm output.
+    storage: Rendered Secret material is separated from ConfigHub Units and must be owned by the target secret process.
+    rotation: Grafana admin password rotation is a target operating procedure.
+  variantCaveats:
+    - "This receipt does not make ConfigHub the secret manager for Grafana credentials."
+    - "A production base may prefer an existing-secret pattern if target policy requires externally managed Grafana credentials."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose Grafana credential source, separation, rotation, and emergency access process.

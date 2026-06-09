@@ -1,0 +1,47 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: hashicorp-consul-cluster-rbac-review
+spec:
+  chart: hashicorp/consul
+  version: "2.0.0"
+  disposition: cluster RBAC review
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Consul renders cluster-scoped RBAC for the server, connect injector,
+    gateway resources, webhook certificate manager, and additional mesh/ACL
+    components in the secure mesh base. This disposition accepts that RBAC
+    inventory as production review input. Target policy can still require
+    narrower bases, separate cluster approval, or disabling gateway/mesh
+    features before production support.
+  evidence:
+    - path: recipes/hashicorp/consul/2.0.0/control-points.yaml
+      claim: The recipe records broad cluster RBAC as a scan-and-review control point.
+    - path: recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/rendered/object-inventory.yaml
+      claim: The default-control-plane object inventory records server, injector, gateway, and webhook certificate manager RBAC objects.
+    - path: recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/object-inventory.yaml
+      claim: The secure-mesh-existing-secrets object inventory records additional auth, gateway, and ACL init RBAC objects.
+    - path: recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/receipts/scan-receipt.yaml
+      claim: The default rendered-object scan flags Consul cluster RBAC review findings.
+    - path: recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/receipts/scan-receipt.yaml
+      claim: The secure mesh rendered-object scan flags broader RBAC review findings.
+    - path: recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The default-control-plane base is Helm-equivalent under recorded inputs.
+    - path: recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The secure-mesh-existing-secrets base is Helm-equivalent under recorded inputs.
+    - path: runs/live-helm-confighub-compare/hashicorp-consul-default-control-plane/receipt.yaml
+      claim: The default-control-plane base has healthy live parity across Helm, ConfigHub apply, and ConfigHub OCI/Argo.
+  affectedVariants:
+    - default-control-plane
+    - secure-mesh-existing-secrets
+  acceptedWarnings:
+    - cluster-rbac-review
+  variantCaveats:
+    - "Cluster-scoped RBAC is expected for Consul but must be reviewed against the target cluster's infrastructure policy."
+    - "secure-mesh-existing-secrets has wider RBAC because it enables mesh, gateway, and ACL paths."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should review Consul RBAC together with mesh/gateway enablement, namespace scope, and target cluster tenancy policy.

@@ -44,7 +44,7 @@ spec:
     supportLevel: "supported-for-declared-scopes"
     supportedScopes:
       - "local-test"
-    productionReadiness: "blocked-by-current-scan-gate"
+    productionReadiness: "production-review-ready"
     supportedVariants:
       - "default-control-plane"
       - "secure-mesh-existing-secrets"
@@ -64,7 +64,7 @@ spec:
       liveParity: "1/2"
     featureSummary: "webhooks;required-values;install-vs-upgrade;extension-slots"
     hardGap: "ha (curated proof lane - bespoke teaching needed)"
-    nextAction: "write or fix the receipt for CRD lifecycle and upgrade policy"
+    nextAction: "refresh live/e2e receipts for the accepted production scope"
   installerPackage:
     path: "packages/hashicorp/consul/2.0.0"
     installer: "packages/hashicorp/consul/2.0.0/installer.yaml"

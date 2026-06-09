@@ -1,0 +1,44 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: prometheus-community-kube-prometheus-stack-extension-slot-provenance-and-scan-policy
+spec:
+  chart: prometheus-community/kube-prometheus-stack
+  version: "85.3.3"
+  disposition: extension slot provenance and scan policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    kube-prometheus-stack exposes high-impact extension surfaces for Prometheus
+    rules, scrape configs, Grafana configuration, datasources, dashboards, and
+    extra manifests. The supported bases keep arbitrary raw/template extension
+    slots controlled and make only CRD inclusion a base choice. This
+    disposition accepts the current extension-slot model as production review
+    input.
+  evidence:
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/control-points.yaml
+      claim: The recipe records tpl-powered Prometheus/Grafana rules, scrape configs, datasource config, and extraManifests as controlled-by-empty-defaults.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-model.yaml
+      claim: The value model records additional rules, additional scrape configs, extra manifests, and umbrella dependency selection.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/effective-values.yaml
+      claim: The default base binds generated Grafana credentials and CRDs without adding arbitrary extra manifests.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/effective-values-no-crds.yaml
+      claim: The no-crds base changes CRD rendering without adding arbitrary extension content.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default scan records dependency and generated-secret review points alongside CRD and RBAC findings.
+    - path: data/extension-slots/extension-slots.csv
+      claim: The generated extension-slot index records kube-prometheus-stack as a top-20 chart with raw/extra manifests, monitoring config, and tpl-powered values.
+  affectedVariants:
+    - default
+    - no-crds
+  acceptedPolicy:
+    currentBases: Supported bases do not populate arbitrary Prometheus rules, scrape configs, dashboards, datasources, or extra manifests beyond the reviewed chart defaults.
+    populatedSlotRule: New monitoring extension content must be rendered, scanned, and recorded as a new installer base or governed ConfigHub unit.
+    postRenderChanges: ConfigHub derived variants may change labels, targets, approvals, and observation policy after render; Helm-input monitoring content belongs in the installer path.
+  variantCaveats:
+    - "Monitoring extension slots can change scrape scope, alert behavior, data retention, tenant visibility, and dashboard exposure."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose allowed extension surfaces and required scan/gate checks for rules, scrape configs, dashboards, and extra manifests.

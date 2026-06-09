@@ -1,0 +1,68 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: prometheus-community-kube-prometheus-stack-scan-gate-warning-disposition
+spec:
+  chart: prometheus-community/kube-prometheus-stack
+  version: "85.3.3"
+  disposition: scan/gate warning disposition
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    kube-prometheus-stack has no critical local scan findings, but it has high
+    service-selector findings and external scan warnings for dangling services,
+    resource policy, root filesystem posture, host mounts, host network, and
+    host PID. This disposition accepts those findings as explicit production
+    review inputs. It does not convert the chart to production-supported.
+  evidence:
+    - path: data/external-scan-lane/review.csv
+      claim: External kube-linter rows record dangling-service, resource, root filesystem, host mount, host network, and host PID warnings for both bases.
+    - path: data/scan-disposition-workdown/workdown.csv
+      claim: The scan disposition workdown routes kube-prometheus-stack to accept-or-split-privileged-infrastructure.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default rendered-object scan records high service selector findings and medium CRD, RBAC, webhook, dependency, and generated-secret warnings.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/receipts/scan-receipt.yaml
+      claim: The no-crds rendered-object scan records the same high service selector findings without CRD findings.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/receipts/install-gate.yaml
+      claim: The default install gate allows local-test and blocks production until CRD, webhook, generated fact, and RBAC policy are reviewed.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/receipts/install-gate.yaml
+      claim: The no-crds install gate records the same production boundary and requires external CRD ownership.
+    - path: data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml
+      claim: CRD lifecycle handling has an accepted production-review disposition.
+    - path: data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/cluster-rbac-review.yaml
+      claim: Cluster RBAC handling has an accepted production-review disposition.
+    - path: data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/extension-slot-provenance-and-scan-policy.yaml
+      claim: Extension-slot handling has an accepted production-review disposition.
+    - path: data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/generated-fact-ownership.yaml
+      claim: Generated Grafana admin credential handling has an accepted production-review disposition.
+    - path: data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml
+      claim: Webhook readiness handling has an accepted production-review disposition.
+    - path: runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml
+      claim: The default base has semantic parity across Helm, ConfigHub apply, and ConfigHub OCI/Argo while runtime remains watch.
+  affectedVariants:
+    - default
+    - no-crds
+  acceptedWarnings:
+    - admission-webhook-requires-observation
+    - cluster-rbac-review
+    - crd-upgrade-policy
+    - dangling-service
+    - dependency-lock-review
+    - generated-secret-ownership
+    - host-network
+    - host-pid
+    - no-read-only-root-fs
+    - sensitive-host-mounts
+    - service-selector-has-workload-match
+    - unset-cpu-requirements
+    - unset-memory-requirements
+  variantCaveats:
+    - "default is the stronger first production-review base because it includes CRDs and has the richest local evidence."
+    - "default still has runtime-watch in ConfigHub apply and OCI/Argo live parity because the Prometheus Operator pod did not become ready in the committed receipt."
+    - "no-crds is target-prerequisite-needed and should only be used when compatible CRDs are already installed and observed."
+    - "A production base may need resource requests/limits, host access review, and component split decisions."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose the supported base, resource/security posture, service-selector interpretation, CRD ownership, and live observation requirements.

@@ -14,7 +14,7 @@ spec:
   supportedVariants:
     - "default"
     - "no-crds"
-  productionReadiness: "blocked-by-current-scan-gate"
+  productionReadiness: "production-review-ready"
   notes:
     - "Default chart render is nondeterministic unless grafana.adminPassword is bound before render."
     - "default variant binds grafana.adminPassword and renders 10 Prometheus Operator CRDs."
@@ -125,4 +125,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
-  answerForSkepticalHelmUser: "prometheus-community/kube-prometheus-stack@85.3.3 maps its detected Helm pain to 9 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, lifecycle-policy, generated-fact, scan-gate, extension-slot, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains blocked-by-current-scan-gate."
+  answerForSkepticalHelmUser: "prometheus-community/kube-prometheus-stack@85.3.3 maps its detected Helm pain to 9 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, lifecycle-policy, generated-fact, scan-gate, extension-slot, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains production-review-ready."

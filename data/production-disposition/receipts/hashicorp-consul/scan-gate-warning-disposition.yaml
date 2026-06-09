@@ -1,0 +1,60 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: hashicorp-consul-scan-gate-warning-disposition
+spec:
+  chart: hashicorp/consul
+  version: "2.0.0"
+  disposition: scan/gate warning disposition
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Consul has no high or critical findings in the local rendered-object scan,
+    but it has many medium review findings for CRDs, cluster RBAC, webhooks,
+    StatefulSet operation, extension slots, and target facts. This disposition
+    accepts those findings as explicit production review inputs. It does not
+    convert the chart to production-supported.
+  evidence:
+    - path: recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/receipts/scan-receipt.yaml
+      claim: The default rendered-object scan has zero high or critical findings and records Consul review warnings.
+    - path: recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/receipts/scan-receipt.yaml
+      claim: The secure mesh rendered-object scan has zero high or critical findings and records additional mesh, ACL, target fact, and RBAC warnings.
+    - path: recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/receipts/install-gate.yaml
+      claim: The default gate allows local-test and blocks production until Consul CRD, RBAC, webhook, storage, lifecycle, and extension policy is reviewed.
+    - path: recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/receipts/install-gate.yaml
+      claim: The secure mesh gate records the same production boundary plus target Secret prerequisites.
+    - path: data/production-disposition/receipts/hashicorp-consul/crd-lifecycle-and-upgrade-policy.yaml
+      claim: CRD lifecycle handling has an accepted production-review disposition.
+    - path: data/production-disposition/receipts/hashicorp-consul/cluster-rbac-review.yaml
+      claim: Cluster RBAC handling has an accepted production-review disposition.
+    - path: data/production-disposition/receipts/hashicorp-consul/extension-slot-provenance-and-scan-policy.yaml
+      claim: Extension-slot handling has an accepted production-review disposition.
+    - path: data/production-disposition/receipts/hashicorp-consul/hook-and-lifecycle-phase-policy.yaml
+      claim: Hook and lifecycle handling has an accepted production-review disposition.
+    - path: data/production-disposition/receipts/hashicorp-consul/storage-backup-restore-and-rollback-policy.yaml
+      claim: StatefulSet, mesh topology, storage, backup, restore, and rollback handling have an accepted production-review disposition.
+    - path: data/production-disposition/receipts/hashicorp-consul/target-fact-preflight.yaml
+      claim: Target Secret handling has an accepted production-review disposition.
+    - path: data/production-disposition/receipts/hashicorp-consul/webhook-readiness-and-failure-policy.yaml
+      claim: Webhook readiness and failure-policy handling have an accepted production-review disposition.
+    - path: runs/live-helm-confighub-compare/hashicorp-consul-default-control-plane/receipt.yaml
+      claim: The default-control-plane base passes live regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo parity with healthy runtime.
+  affectedVariants:
+    - default-control-plane
+    - secure-mesh-existing-secrets
+  acceptedWarnings:
+    - admission-webhook-review
+    - cluster-rbac-review
+    - crd-upgrade-policy
+    - extension-slot-review
+    - stateful-workload-review
+    - target-fact-preflight
+  variantCaveats:
+    - "default-control-plane is the stronger first production-review base because all current live parity lanes are healthy for it."
+    - "secure-mesh-existing-secrets remains target-sensitive because it requires TLS, gossip, ACL, mesh, gateway, and runtime readiness decisions."
+    - "A production base may need hardened resource/security policy even if the local rendered-object scanner has no high or critical findings."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose the supported Consul base, mesh posture, target Secret ownership, security hardening, and live observation requirements.

@@ -1,0 +1,47 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: hashicorp-consul-extension-slot-provenance-and-scan-policy
+spec:
+  chart: hashicorp/consul
+  version: "2.0.0"
+  disposition: extension slot provenance and scan policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Consul exposes powerful extension surfaces for server extra config,
+    injector, controller, gateway behavior, UI ingress, and tpl-controlled
+    strings. The supported bases keep arbitrary extension content controlled
+    and make mesh/gateway/UI exposure explicit variant choices. This
+    disposition accepts that model as production review input and requires
+    populated extension content to become a reviewed installer base or managed
+    ConfigHub unit.
+  evidence:
+    - path: recipes/hashicorp/consul/2.0.0/control-points.yaml
+      claim: The recipe records server, injector, controller, gateway, and tpl-controlled strings as extension slots controlled by empty defaults.
+    - path: recipes/hashicorp/consul/2.0.0/value-model.yaml
+      claim: The value model records server.extraConfig, connectInject, controller, gateway, mesh gateway, and UI ingress paths.
+    - path: recipes/hashicorp/consul/2.0.0/effective-values.yaml
+      claim: The default-control-plane base preserves the chart default posture without adding arbitrary extension content.
+    - path: recipes/hashicorp/consul/2.0.0/effective-values-secure-mesh-existing-secrets.yaml
+      claim: The secure mesh base changes TLS, ACL, gateway, and UI choices explicitly rather than using unbounded post-render mutation.
+    - path: recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/receipts/scan-receipt.yaml
+      claim: The default scan records extension-slot and webhook review findings.
+    - path: recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/receipts/scan-receipt.yaml
+      claim: The secure mesh scan records the same extension-slot review plus broader gateway and ACL surface.
+    - path: data/extension-slots/extension-slots.csv
+      claim: The generated extension-slot index records Consul as a top-20 chart with controller/gateway config and tpl-powered values.
+  affectedVariants:
+    - default-control-plane
+    - secure-mesh-existing-secrets
+  acceptedPolicy:
+    currentBases: Supported bases do not permit unreviewed arbitrary Consul extension content.
+    populatedSlotRule: New Consul extension content must be rendered, scanned, and recorded as a new installer base or a governed ConfigHub unit.
+    postRenderChanges: ConfigHub derived variants may change labels, targets, approvals, and observation policy after render, but Helm-input extension content belongs in the installer path.
+  variantCaveats:
+    - "Consul extension slots can change mesh behavior, admission behavior, traffic routing, and UI exposure."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose which Consul extension surfaces are allowed for the target and what scans/gates are required after any populated slot.

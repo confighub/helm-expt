@@ -1,0 +1,50 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: hashicorp-consul-webhook-readiness-and-failure-policy
+spec:
+  chart: hashicorp/consul
+  version: "2.0.0"
+  disposition: webhook readiness and failure policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Consul renders connect injector mutating and validating webhook
+    configurations plus a webhook certificate manager workload. The default
+    base has fresh live evidence showing the webhook and certificate manager
+    workloads ready in Helm, ConfigHub apply, and ConfigHub OCI/Argo paths. The
+    secure mesh base keeps the same webhook surface but needs target-specific
+    runtime review. This disposition accepts the webhook evidence as production
+    review input.
+  evidence:
+    - path: recipes/hashicorp/consul/2.0.0/control-points.yaml
+      claim: The recipe records the connect injector webhook as scan-and-review.
+    - path: recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/rendered/object-inventory.yaml
+      claim: The default inventory records MutatingWebhookConfiguration, ValidatingWebhookConfiguration, and webhook certificate manager objects.
+    - path: recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/object-inventory.yaml
+      claim: The secure mesh inventory records the same webhook family plus broader mesh gateway workloads.
+    - path: recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/receipts/scan-receipt.yaml
+      claim: The default scan records admission-webhook review findings.
+    - path: recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/receipts/scan-receipt.yaml
+      claim: The secure mesh scan records admission-webhook review findings.
+    - path: runs/top20-local-kind/consul-default-control-plane/observation-receipt.json
+      claim: The local-kind observation records connect injector and webhook certificate manager rollout checks.
+    - path: runs/live-kind-parity/hashicorp-consul-default-control-plane/receipt.yaml
+      claim: The default-control-plane base passes two-cluster live parity with injector and webhook certificate manager workloads ready.
+    - path: runs/live-helm-confighub-compare/hashicorp-consul-default-control-plane/receipt.yaml
+      claim: The default-control-plane base reaches Synced and Healthy in the ConfigHub OCI/Argo lane.
+  affectedVariants:
+    - default-control-plane
+    - secure-mesh-existing-secrets
+  acceptedPolicy:
+    webhookObjects: Webhook objects remain part of the reviewed rendered object set.
+    readiness: Webhook and certificate manager rollout must be observed fresh for supported targets.
+    failurePolicy: A production target must choose acceptable injector webhook failure behavior and certificate ownership.
+  variantCaveats:
+    - "The secure mesh base has semantic parity but runtime is not yet healthy in the committed live parity receipt."
+    - "Webhook render parity does not prove admission safety under target traffic or namespace policy."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should define connect injector enablement, failure policy, certificate ownership, namespace selectors, and required readiness observations.

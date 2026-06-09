@@ -14,7 +14,7 @@ spec:
   supportedVariants:
     - "default-control-plane"
     - "secure-mesh-existing-secrets"
-  productionReadiness: "blocked-by-current-scan-gate"
+  productionReadiness: "production-review-ready"
   notes:
     - "default-control-plane records the chart-default posture: TLS and ACLs disabled, server StatefulSet, injector webhook, webhook cert manager, 28 CRDs, and broad RBAC."
     - "secure-mesh-existing-secrets enables TLS, ACL management, gossip encryption, mesh/ingress/terminating gateways, and UI ingress using declared target Secrets."
@@ -160,4 +160,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
-  answerForSkepticalHelmUser: "hashicorp/consul@2.0.0 maps its detected Helm pain to 10 ConfigHub control areas: source-lock, dependency-lock, capability-profile, target-fact-requirement, recipe, operate-policy, lifecycle-policy, scan-gate, extension-slot, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains blocked-by-current-scan-gate."
+  answerForSkepticalHelmUser: "hashicorp/consul@2.0.0 maps its detected Helm pain to 10 ConfigHub control areas: source-lock, dependency-lock, capability-profile, target-fact-requirement, recipe, operate-policy, lifecycle-policy, scan-gate, extension-slot, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains production-review-ready."

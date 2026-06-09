@@ -1045,7 +1045,7 @@ spec:
     -
       chart: "hashicorp/consul"
       version: "2.0.0"
-      status: "production-blocked"
+      status: "production-review-ready"
       supportedLocalTestVariants:
         - "default-control-plane"
         - "secure-mesh-existing-secrets"
@@ -1076,11 +1076,19 @@ spec:
         lifecycleObservationReceipts:
           []
         productionDispositionReceipts:
-          []
+          - "data/production-disposition/receipts/hashicorp-consul/crd-lifecycle-and-upgrade-policy.yaml"
+          - "data/production-disposition/receipts/hashicorp-consul/cluster-rbac-review.yaml"
+          - "data/production-disposition/receipts/hashicorp-consul/extension-slot-provenance-and-scan-policy.yaml"
+          - "data/production-disposition/receipts/hashicorp-consul/hook-and-lifecycle-phase-policy.yaml"
+          - "data/production-disposition/receipts/hashicorp-consul/scan-gate-warning-disposition.yaml"
+          - "data/production-disposition/receipts/hashicorp-consul/storage-backup-restore-and-rollback-policy.yaml"
+          - "data/production-disposition/receipts/hashicorp-consul/target-fact-preflight.yaml"
+          - "data/production-disposition/receipts/hashicorp-consul/webhook-readiness-and-failure-policy.yaml"
       dispositions:
         -
           name: "CRD lifecycle and upgrade policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/hashicorp-consul/crd-lifecycle-and-upgrade-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "CRD ownership decision"
@@ -1089,7 +1097,8 @@ spec:
           unblockRule: "supported only when CRD ownership and upgrade behavior are explicit"
         -
           name: "cluster RBAC review"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/hashicorp-consul/cluster-rbac-review.yaml"
           owner: "security-review"
           requiredEvidence:
             - "cluster-scoped RBAC inventory"
@@ -1098,7 +1107,8 @@ spec:
           unblockRule: "supported only after cluster-scoped permissions have an explicit disposition"
         -
           name: "extension slot provenance and scan policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/hashicorp-consul/extension-slot-provenance-and-scan-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "tpl/raw value inventory"
@@ -1107,7 +1117,8 @@ spec:
           unblockRule: "supported only when extensions are explicit and scanned after render"
         -
           name: "hook and lifecycle phase policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/hashicorp-consul/hook-and-lifecycle-phase-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "hook inventory"
@@ -1116,7 +1127,8 @@ spec:
           unblockRule: "supported only when hooks are mapped to lifecycle policy or intentionally excluded"
         -
           name: "scan/gate warning disposition"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/hashicorp-consul/scan-gate-warning-disposition.yaml"
           owner: "security-review"
           requiredEvidence:
             - "local scan receipt"
@@ -1125,7 +1137,8 @@ spec:
           unblockRule: "supported only when warnings are accepted, fixed, or variant-blocking"
         -
           name: "storage backup restore and rollback policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/hashicorp-consul/storage-backup-restore-and-rollback-policy.yaml"
           owner: "operate-review"
           requiredEvidence:
             - "PVC/storage class assumptions"
@@ -1134,7 +1147,8 @@ spec:
           unblockRule: "supported only when stateful rollback is not hand-waved"
         -
           name: "target fact preflight"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/hashicorp-consul/target-fact-preflight.yaml"
           owner: "installer-review"
           requiredEvidence:
             - "installer externalRequires/facts"
@@ -1143,7 +1157,8 @@ spec:
           unblockRule: "supported only when required target facts are checkable before apply"
         -
           name: "webhook readiness and failure policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/hashicorp-consul/webhook-readiness-and-failure-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "webhook deployment readiness"
@@ -1635,7 +1650,7 @@ spec:
     -
       chart: "prometheus-community/kube-prometheus-stack"
       version: "85.3.3"
-      status: "production-blocked"
+      status: "production-review-ready"
       supportedLocalTestVariants:
         - "default"
         - "no-crds"
@@ -1666,11 +1681,17 @@ spec:
         lifecycleObservationReceipts:
           []
         productionDispositionReceipts:
-          []
+          - "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml"
+          - "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/cluster-rbac-review.yaml"
+          - "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/extension-slot-provenance-and-scan-policy.yaml"
+          - "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/generated-fact-ownership.yaml"
+          - "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/scan-gate-warning-disposition.yaml"
+          - "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml"
       dispositions:
         -
           name: "CRD lifecycle and upgrade policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "CRD ownership decision"
@@ -1679,7 +1700,8 @@ spec:
           unblockRule: "supported only when CRD ownership and upgrade behavior are explicit"
         -
           name: "cluster RBAC review"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/cluster-rbac-review.yaml"
           owner: "security-review"
           requiredEvidence:
             - "cluster-scoped RBAC inventory"
@@ -1688,7 +1710,8 @@ spec:
           unblockRule: "supported only after cluster-scoped permissions have an explicit disposition"
         -
           name: "extension slot provenance and scan policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/extension-slot-provenance-and-scan-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "tpl/raw value inventory"
@@ -1697,7 +1720,8 @@ spec:
           unblockRule: "supported only when extensions are explicit and scanned after render"
         -
           name: "generated fact ownership"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/generated-fact-ownership.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "generated secret/cert inventory"
@@ -1706,7 +1730,8 @@ spec:
           unblockRule: "supported only when generated material is captured or deliberately externalized"
         -
           name: "scan/gate warning disposition"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/scan-gate-warning-disposition.yaml"
           owner: "security-review"
           requiredEvidence:
             - "local scan receipt"
@@ -1715,7 +1740,8 @@ spec:
           unblockRule: "supported only when warnings are accepted, fixed, or variant-blocking"
         -
           name: "webhook readiness and failure policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "webhook deployment readiness"

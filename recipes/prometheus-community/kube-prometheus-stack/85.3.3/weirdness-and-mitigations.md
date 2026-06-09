@@ -12,7 +12,7 @@ current ConfigHub/cub installer proof absorbs it.
 | Catalog status | catalog-supported |
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
-| Production readiness | blocked-by-current-scan-gate |
+| Production readiness | production-review-ready |
 | Variants in this note | default, no-crds |
 
 Production support is not implied by this file. A chart can be supported for
@@ -34,7 +34,11 @@ or operating-policy dispositions.
 - Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
 - default preserves the normal kube-prometheus-stack install shape.
 - no-crds is supported when CRD lifecycle is owned outside this package.
-- Production remains blocked until CRD lifecycle, RBAC, webhooks, storage, and scan/gate findings have dispositions.
+- default is the stronger first production-review base because it includes CRDs and has local observation evidence.
+- no-crds is supported only when compatible Prometheus Operator CRDs are already staged and observed in the target cluster.
+- CRD ownership, cluster RBAC, generated Grafana credential binding, raw monitoring extension slots, webhook readiness, and scan/gate warnings are recorded as production review input.
+- Production recommendation remains a separate decision; kube-prometheus-stack needs target CRD ownership, webhook TLS lifecycle, resource/security posture, scrape scope, and fresh runtime checks before support.
+- The committed ConfigHub apply and OCI/Argo live rows demonstrate semantic parity but remain runtime-watch until Prometheus Operator readiness is resolved for the target.
 
 ## Control Points
 

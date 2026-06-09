@@ -1,0 +1,52 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: hashicorp-consul-storage-backup-restore-and-rollback-policy
+spec:
+  chart: hashicorp/consul
+  version: "2.0.0"
+  disposition: storage backup restore and rollback policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Consul server state, ACL state, gossip encryption, mesh gateway topology,
+    and rollback behavior are explicit production decisions. The default base
+    renders a single-server control plane that passes live parity. The secure
+    mesh base renders a wider three-server, TLS, ACL, gateway, UI ingress, and
+    existing-Secret topology that has semantic parity but needs target capacity
+    and runtime review. This disposition accepts those rendered choices as
+    production review input.
+  evidence:
+    - path: recipes/hashicorp/consul/2.0.0/control-points.yaml
+      claim: The recipe records StatefulSet, mesh gateway, UI ingress, lifecycle, and target-fact control points.
+    - path: recipes/hashicorp/consul/2.0.0/value-model.yaml
+      claim: The value model records TLS, ACL, gossip encryption, gateway topology, UI ingress, and extension choices.
+    - path: recipes/hashicorp/consul/2.0.0/effective-values.yaml
+      claim: The default-control-plane base keeps TLS and ACLs disabled and uses the chart's simple control-plane posture.
+    - path: recipes/hashicorp/consul/2.0.0/effective-values-secure-mesh-existing-secrets.yaml
+      claim: The secure mesh base enables TLS, ACL management, gossip encryption, mesh/ingress/terminating gateways, and UI ingress.
+    - path: recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/rendered/object-inventory.yaml
+      claim: The default object inventory records the Consul server StatefulSet and control-plane workloads.
+    - path: recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/object-inventory.yaml
+      claim: The secure mesh object inventory records server, gateway, injector, ACL init, and UI objects.
+    - path: runs/live-kind-parity/hashicorp-consul-default-control-plane/receipt.yaml
+      claim: The default-control-plane base passes two-cluster live parity with workloads ready.
+    - path: runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml
+      claim: The secure mesh base has semantic parity but runtime remains blocked by server/gateway/injector readiness.
+    - path: runs/live-helm-confighub-compare/hashicorp-consul-default-control-plane/receipt.yaml
+      claim: The default-control-plane base passes live Helm, ConfigHub apply, and ConfigHub OCI/Argo parity with healthy runtime.
+  affectedVariants:
+    - default-control-plane
+    - secure-mesh-existing-secrets
+  acceptedPolicy:
+    defaultControlPlane: Accepted as the first review base for simple control-plane proof and local-test use.
+    secureMeshExistingSecrets: Accepted as review input only; target capacity, Secret ownership, ACL bootstrap, and mesh gateway readiness must be proven before support.
+    rollback: Consul rollback must include server state, ACL state, gossip key continuity, CRD compatibility, and mesh/gateway traffic impact.
+  variantCaveats:
+    - "default-control-plane disables TLS and ACLs; a target production policy must explicitly accept or replace that posture."
+    - "secure-mesh-existing-secrets has broader production intent but is not yet a ready start-here base."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose topology, TLS/ACL posture, storage/backup/restore process, and rollback checks for the target.

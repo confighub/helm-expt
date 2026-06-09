@@ -1,0 +1,45 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: prometheus-community-kube-prometheus-stack-cluster-rbac-review
+spec:
+  chart: prometheus-community/kube-prometheus-stack
+  version: "85.3.3"
+  disposition: cluster RBAC review
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    kube-prometheus-stack renders cluster-scoped RBAC for Grafana,
+    kube-state-metrics, Prometheus, and the Prometheus Operator. This
+    disposition accepts that RBAC inventory as production review input. Target
+    policy can still require a narrower monitoring base, a namespace-limited
+    posture where possible, or separate cluster approval before production
+    support.
+  evidence:
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/control-points.yaml
+      claim: The recipe records cluster RBAC as scan-and-review.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/object-inventory.yaml
+      claim: The default object inventory records the cluster-scoped RBAC objects.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/object-inventory.yaml
+      claim: The no-crds object inventory records the same monitoring RBAC family.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default rendered-object scan flags cluster RBAC review findings.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/receipts/scan-receipt.yaml
+      claim: The no-crds rendered-object scan flags cluster RBAC review findings.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The default base is Helm-equivalent under recorded inputs.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The no-crds base is Helm-equivalent under recorded inputs.
+  affectedVariants:
+    - default
+    - no-crds
+  acceptedWarnings:
+    - cluster-rbac-review
+  variantCaveats:
+    - "Monitoring stacks normally need broad read permissions; the target cluster must approve that blast radius."
+    - "A narrower production base may disable bundled components or split ownership where the chart supports it."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should review monitoring RBAC together with tenancy, scrape scope, and any required component split.

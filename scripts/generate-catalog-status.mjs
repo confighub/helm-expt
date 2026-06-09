@@ -122,11 +122,15 @@ const supportedCatalogEntries = {
     ],
   },
   "hashicorp/consul": {
+    productionReadiness: "production-review-ready",
     notes: [
       "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.",
       "default-control-plane is the simplest local Consul control-plane path.",
       "secure-mesh-existing-secrets is supported when the declared Secret target facts are satisfied.",
-      "Production remains blocked until gossip/TLS secret ownership, mesh policy, upgrade safety, and scan/gate findings have dispositions.",
+      "default-control-plane has regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo live parity with healthy runtime, and is the stronger first production-review base.",
+      "secure-mesh-existing-secrets is useful review input for TLS, ACL, gossip, gateway, UI ingress, and mesh topology, but remains runtime-review-needed until target capacity and bootstrap policy are proven.",
+      "CRD ownership, cluster RBAC, target Secret preflight, webhook readiness, lifecycle boundary, extension slots, storage/rollback, and scan/gate warnings are recorded as production review input.",
+      "Production recommendation remains a separate decision; Consul needs target CRD ownership, TLS/ACL/secret rotation, mesh/gateway posture, security policy, backup/restore, and fresh runtime checks before support.",
     ],
   },
   "hashicorp/vault": {
@@ -160,11 +164,16 @@ const supportedCatalogEntries = {
     ],
   },
   "prometheus-community/kube-prometheus-stack": {
+    productionReadiness: "production-review-ready",
     notes: [
       "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.",
       "default preserves the normal kube-prometheus-stack install shape.",
       "no-crds is supported when CRD lifecycle is owned outside this package.",
-      "Production remains blocked until CRD lifecycle, RBAC, webhooks, storage, and scan/gate findings have dispositions.",
+      "default is the stronger first production-review base because it includes CRDs and has local observation evidence.",
+      "no-crds is supported only when compatible Prometheus Operator CRDs are already staged and observed in the target cluster.",
+      "CRD ownership, cluster RBAC, generated Grafana credential binding, raw monitoring extension slots, webhook readiness, and scan/gate warnings are recorded as production review input.",
+      "Production recommendation remains a separate decision; kube-prometheus-stack needs target CRD ownership, webhook TLS lifecycle, resource/security posture, scrape scope, and fresh runtime checks before support.",
+      "The committed ConfigHub apply and OCI/Argo live rows demonstrate semantic parity but remain runtime-watch until Prometheus Operator readiness is resolved for the target.",
     ],
   },
   "prometheus-community/prometheus": {

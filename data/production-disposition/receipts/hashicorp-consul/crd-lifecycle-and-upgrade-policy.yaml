@@ -1,0 +1,51 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: hashicorp-consul-crd-lifecycle-and-upgrade-policy
+spec:
+  chart: hashicorp/consul
+  version: "2.0.0"
+  disposition: CRD lifecycle and upgrade policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Both supported Consul bases render Consul and Gateway API CRDs as reviewed
+    objects. This disposition accepts the CRD inventory and local establishment
+    evidence as production review input. It does not claim that these CRDs
+    should always be owned by the package; production support must choose
+    whether Consul or the target platform owns Gateway API and Consul CRD
+    lifecycle.
+  evidence:
+    - path: recipes/hashicorp/consul/2.0.0/control-points.yaml
+      claim: The recipe records CRD ownership as a scan-and-review control point and identifies 28 rendered CRDs.
+    - path: recipes/hashicorp/consul/2.0.0/value-model.yaml
+      claim: The value model records Consul and Gateway API CRD ownership as an explicit review boundary.
+    - path: recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/rendered/object-inventory.yaml
+      claim: The default-control-plane inventory records the rendered Consul and Gateway API CRDs.
+    - path: recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/object-inventory.yaml
+      claim: The secure-mesh-existing-secrets inventory records the same CRD family plus the mesh/gateway objects.
+    - path: recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/receipts/scan-receipt.yaml
+      claim: The default rendered-object scan records CRD upgrade policy warnings for the CRDs.
+    - path: recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/receipts/scan-receipt.yaml
+      claim: The secure mesh scan records the same CRD upgrade policy warning family.
+    - path: runs/top20-local-kind/consul-default-control-plane/observation-receipt.json
+      claim: The local observation records CRD bootstrap apply and Established checks for the rendered CRDs.
+    - path: runs/live-kind-parity/hashicorp-consul-default-control-plane/receipt.yaml
+      claim: The default-control-plane base passes strict two-cluster live parity.
+    - path: runs/live-helm-confighub-compare/hashicorp-consul-default-control-plane/receipt.yaml
+      claim: The default-control-plane base passes regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo live parity with healthy runtime.
+  affectedVariants:
+    - default-control-plane
+    - secure-mesh-existing-secrets
+  acceptedPolicy:
+    defaultControlPlane: Accepted as the first production-review base with package-owned CRDs for review input.
+    secureMeshExistingSecrets: Accepted as review input only; target CRD and mesh topology ownership must be chosen before support.
+    externalOwnership: A future no-crds or externally-owned-CRDs base can be added if the target platform owns Gateway API or Consul CRDs.
+  variantCaveats:
+    - "Gateway API CRDs may already be cluster-managed and must not be silently overwritten in a production target."
+    - "CRD render parity does not prove upgrade safety across Consul or Gateway API versions."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose CRD ownership, CRD upgrade ordering, compatibility checks, and rollback procedure for the target scope.
