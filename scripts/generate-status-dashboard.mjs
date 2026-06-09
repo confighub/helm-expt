@@ -45,6 +45,7 @@ function buildReport() {
   const lifecycleObservationRows = readCsv("data/lifecycle-observations/cert-manager-eso/summary.csv");
   const liveRows = readCsv("data/live-helm-confighub-compare/summary.csv");
   const kindParityRows = readCsv("data/live-kind-parity/summary.csv");
+  const liveParityRerunRows = readCsv("data/live-parity-rerun-plan/rerun-plan.csv");
   const runtimeRows = readCsv("data/runtime-gitops/wave1.csv");
   const productionRows = readCsv("data/production-disposition/top20.csv");
   const scanDispositionRows = readCsv("data/scan-disposition-workdown/workdown.csv");
@@ -85,6 +86,7 @@ function buildReport() {
   rows.push(metric("live evidence", "runtime/GitOps wave rows", runtimeRows.length, runtimeRows.length, "partial", "data/runtime-gitops/wave1.csv", "Selected Argo/Flux OCI wave rows; this is not the whole corpus."));
   rows.push(metric("live evidence", "live Helm-vs-ConfigHub receipts", liveRows.length, liveRows.length, "partial", "data/live-helm-confighub-compare/summary.csv", "Committed live comparison receipts, including pass and non-pass results."));
   rows.push(metric("live evidence", "two-cluster kind parity receipts", kindParityRows.length, kindParityRows.length, "partial", "data/live-kind-parity/summary.csv", "Committed two-cluster parity receipts for the top-20 base variants, including pass and non-pass results."));
+  rows.push(metric("live evidence", "live parity rerun rows needing decisions", liveParityRerunRows.length, liveParityRerunRows.length, "partial", "data/live-parity-rerun-plan/rerun-plan.csv", "Non-pass live parity rows grouped by next action, such as runtime review, staged prerequisites, lifecycle route, or operating policy."));
   rows.push(metric("live evidence", "ConfigHub/OCI semantic parity defect receipts", semanticDefectCount(liveRows), liveRows.length, "good", "data/live-helm-confighub-compare/summary.csv", "Rows whose committed receipt currently points at a semantic object comparison defect."));
   rows.push(metric("live evidence", "two-cluster semantic parity defect receipts", semanticDefectCount(kindParityRows), kindParityRows.length, "good", "data/live-kind-parity/summary.csv", "Rows whose committed two-cluster receipt currently points at a semantic object comparison defect."));
 
@@ -121,7 +123,7 @@ function buildReport() {
     csv: toCsv(rows),
     top20Rows,
     top20Csv: top20ToCsv(top20Rows),
-    summary: summary(rows, { chartRows, baseRows, top100Rows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, lifecycleBoundaryRows, liveRows, kindParityRows, runtimeRows, productionRows, scanDispositionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount }),
+    summary: summary(rows, { chartRows, baseRows, top100Rows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, lifecycleBoundaryRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, scanDispositionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount }),
   };
 }
 
@@ -136,6 +138,7 @@ function summary(rows, context) {
   const hookPreview = context.hookRows.slice(0, 8);
   const liveNonPass = context.liveRows.filter((row) => row.result && row.result !== "pass");
   const kindParityNonPass = context.kindParityRows.filter((row) => row.result && row.result !== "pass");
+  const liveParityNextSteps = groupCount(context.liveParityRerunRows, "next_step_type");
   const productionBlockers = [...flattenCounts(context.productionRows, "open_dispositions").entries()]
     .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
     .slice(0, 8);
@@ -245,6 +248,18 @@ rows: regular Helm is applied to one vanilla kind cluster and the \`cub installe
 rendered objects are applied to another vanilla kind cluster. The receipts then
 compare the live outcomes. Use
 [live-kind-parity/summary.csv](../live-kind-parity/summary.csv) for those rows.
+
+## Live Parity Next Actions
+
+The rerun plan groups non-pass rows by the work needed before another rerun is
+useful.
+
+| Next step | Rows | Meaning |
+| --- | ---: | --- |
+${liveParityNextStepRows(liveParityNextSteps)}
+
+Use [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md)
+for the exact row, command, receipt, diagnosis, and follow-up.
 
 ${liveNonPass.length ? `Current ConfigHub/OCI live parity non-pass receipts:
 
@@ -546,6 +561,40 @@ function readinessSummary(rows) {
     })
     .map(([key, value]) => `${key}:${value}`)
     .join("; ");
+}
+
+function liveParityNextStepRows(counts) {
+  const order = [
+    "inspect-parity-diff",
+    "clean-rerun",
+    "stage-prerequisite",
+    "lifecycle-route",
+    "operating-policy",
+    "gitops-runtime-review",
+    "runtime-review",
+    "inspect-receipt",
+  ];
+  return [...counts.entries()]
+    .sort((left, right) => {
+      const leftRank = order.includes(left[0]) ? order.indexOf(left[0]) : order.length;
+      const rightRank = order.includes(right[0]) ? order.indexOf(right[0]) : order.length;
+      return leftRank - rightRank || left[0].localeCompare(right[0]);
+    })
+    .map(([step, count]) => `| ${step} | ${count} | ${liveParityNextStepMeaning(step)} |`)
+    .join("\n");
+}
+
+function liveParityNextStepMeaning(step) {
+  return {
+    "inspect-parity-diff": "Inspect the semantic object diff before changing waits, target provisioning, or the recipe.",
+    "clean-rerun": "Rerun once on a clean host with serial execution and authoritative cleanup.",
+    "stage-prerequisite": "Stage or model CRDs, APIs, Secrets, storage, or another target prerequisite before rerunning.",
+    "lifecycle-route": "Choose the hook or lifecycle observation route before rerunning strict parity.",
+    "operating-policy": "Record the operating policy decision, then rerun only if expected readiness changes.",
+    "gitops-runtime-review": "Inspect GitOps/controller health and rerun after target conditions or controller waits are corrected.",
+    "runtime-review": "Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning.",
+    "inspect-receipt": "Read the receipt and classify the row before rerunning.",
+  }[step] ?? "Read the receipt and classify the row before rerunning.";
 }
 
 function csvCell(value) {

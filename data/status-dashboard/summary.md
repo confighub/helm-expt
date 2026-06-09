@@ -42,6 +42,7 @@ Which detailed CSV should I open next?
 | live evidence | runtime/GitOps wave rows | 10/10 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
 | live evidence | live Helm-vs-ConfigHub receipts | 20/20 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster kind parity receipts | 40/40 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| live evidence | live parity rerun rows needing decisions | 20/20 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | ConfigHub/OCI semantic parity defect receipts | 0/20 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 0/40 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-supported charts | 0/20 | gap | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
@@ -175,6 +176,22 @@ rows: regular Helm is applied to one vanilla kind cluster and the `cub installer
 rendered objects are applied to another vanilla kind cluster. The receipts then
 compare the live outcomes. Use
 [live-kind-parity/summary.csv](../live-kind-parity/summary.csv) for those rows.
+
+## Live Parity Next Actions
+
+The rerun plan groups non-pass rows by the work needed before another rerun is
+useful.
+
+| Next step | Rows | Meaning |
+| --- | ---: | --- |
+| stage-prerequisite | 4 | Stage or model CRDs, APIs, Secrets, storage, or another target prerequisite before rerunning. |
+| lifecycle-route | 1 | Choose the hook or lifecycle observation route before rerunning strict parity. |
+| operating-policy | 1 | Record the operating policy decision, then rerun only if expected readiness changes. |
+| gitops-runtime-review | 1 | Inspect GitOps/controller health and rerun after target conditions or controller waits are corrected. |
+| runtime-review | 13 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
+
+Use [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md)
+for the exact row, command, receipt, diagnosis, and follow-up.
 
 Current ConfigHub/OCI live parity non-pass receipts:
 
