@@ -32,6 +32,16 @@ charts with named hard gaps: 25
 | Which charts need a useful user-shaped variant first? | 46 | The default render proves the mechanism, but it is not yet a good catalog offer. | Add one or more realistic base variants before promotion. |
 | Which charts need a limitation decision first? | 7 | A known gap affects the recommended path. | Decide whether to support, disclose, or defer that capability. |
 
+## Next Workstreams
+
+| Workstream | Rows | Start with | Done when | First examples |
+| --- | ---: | --- | --- | --- |
+| Use the public catalog | 20 | Open `CATALOG.md` and `data/top20-base-readiness/start-here.md`. | The user chooses a base, checks its proof lane, and avoids production claims until a support decision exists. | `argo-cd/argo-cd@9.5.15`<br>`bitnami/mongodb@19.0.7`<br>`bitnami/mysql@14.0.3`<br>`bitnami/nginx@24.0.2`<br>`bitnami/postgresql@18.6.7` |
+| Promote proof-grade charts | 27 | Run catalog review on the closest proof-grade rows. | A chart has reviewed variants, live evidence for selected bases, and an updated catalog status. | `external-dns/external-dns@1.21.1`<br>`cloudnative-pg/cloudnative-pg@0.28.2`<br>`kedacore/keda@2.19.0`<br>`elastic/eck-operator@3.4.0`<br>`grafana/alloy@1.8.2` |
+| Design user-shaped variants | 46 | Add one realistic base variant that a Helm user would actually pick. | The chart stops being default-only and moves into promotion review or limitation review. | `gitlab/gitlab-runner@0.89.0`<br>`fluent/fluent-bit@0.57.6`<br>`runix/pgadmin4@1.62.0`<br>`nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18`<br>`prometheus-community/kube-state-metrics@7.4.0` |
+| Resolve named limitations | 7 | Decide whether to support, disclose, or defer the named gap. | The catalog page and hard-gap row agree on the supported path. | `traefik/traefik@40.2.0`<br>`kyverno/kyverno@3.8.1`<br>`bitnami/elasticsearch@22.1.6`<br>`bitnami/spark@10.0.3`<br>`bitnami/zookeeper@13.8.7` |
+| Expand live evidence | 80 | Select rows that only have render parity and add local, GitOps, or live Helm-vs-ConfigHub evidence. | The strongest evidence moves beyond render parity for the selected chart/base. | `traefik/traefik@40.2.0`<br>`external-dns/external-dns@1.21.1`<br>`gitlab/gitlab-runner@0.89.0`<br>`kyverno/kyverno@3.8.1`<br>`cloudnative-pg/cloudnative-pg@0.28.2` |
+
 ## Adoption Buckets
 
 | Bucket | Count | What it means | Use this when |

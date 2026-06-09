@@ -187,6 +187,10 @@ ${workabilityRows(rows).map((row) => `| ${row.question} | ${row.count} | ${row.a
 | Which charts need a useful user-shaped variant first? | ${needsVariant.length} | The default render proves the mechanism, but it is not yet a good catalog offer. | Add one or more realistic base variants before promotion. |
 | Which charts need a limitation decision first? | ${namedLimitation.length} | A known gap affects the recommended path. | Decide whether to support, disclose, or defer that capability. |
 
+## Next Workstreams
+
+${top100Workstreams({ top20, promotionReview, needsVariant, namedLimitation, liveEvidence, rows })}
+
 ## Adoption Buckets
 
 | Bucket | Count | What it means | Use this when |
@@ -276,6 +280,50 @@ npm run top100:readiness:verify
 function sampleCharts(rows) {
   if (!rows.length) return "-";
   return rows.slice(0, 5).map((row) => `\`${row.chart}\``).join("<br>");
+}
+
+function top100Workstreams({ top20, promotionReview, needsVariant, namedLimitation, liveEvidence, rows }) {
+  const liveGap = rows.length - liveEvidence.length;
+  const workstreams = [
+    {
+      name: "Use the public catalog",
+      count: top20.length,
+      start: "Open `CATALOG.md` and `data/top20-base-readiness/start-here.md`.",
+      done: "The user chooses a base, checks its proof lane, and avoids production claims until a support decision exists.",
+      examples: sampleCharts(top20),
+    },
+    {
+      name: "Promote proof-grade charts",
+      count: promotionReview.length,
+      start: "Run catalog review on the closest proof-grade rows.",
+      done: "A chart has reviewed variants, live evidence for selected bases, and an updated catalog status.",
+      examples: sampleCharts(promotionReview),
+    },
+    {
+      name: "Design user-shaped variants",
+      count: needsVariant.length,
+      start: "Add one realistic base variant that a Helm user would actually pick.",
+      done: "The chart stops being default-only and moves into promotion review or limitation review.",
+      examples: sampleCharts(needsVariant),
+    },
+    {
+      name: "Resolve named limitations",
+      count: namedLimitation.length,
+      start: "Decide whether to support, disclose, or defer the named gap.",
+      done: "The catalog page and hard-gap row agree on the supported path.",
+      examples: sampleCharts(namedLimitation),
+    },
+    {
+      name: "Expand live evidence",
+      count: liveGap,
+      start: "Select rows that only have render parity and add local, GitOps, or live Helm-vs-ConfigHub evidence.",
+      done: "The strongest evidence moves beyond render parity for the selected chart/base.",
+      examples: sampleCharts(rows.filter((row) => row.strongest_evidence === "render-parity")),
+    },
+  ].filter((row) => row.count > 0);
+  return `| Workstream | Rows | Start with | Done when | First examples |
+| --- | ---: | --- | --- | --- |
+${workstreams.map((row) => `| ${row.name} | ${row.count} | ${escapePipes(row.start)} | ${escapePipes(row.done)} | ${row.examples} |`).join("\n")}`;
 }
 
 function workabilityFor(status) {
