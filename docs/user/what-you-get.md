@@ -149,3 +149,4 @@ For free, public, managed, and production claim boundaries, see
 | Understand hook handling | [Hook Lifecycle Strategy](./hook-lifecycle-strategy.md) |
 | See why this is not just a fast render command | [Why This Exists](./why-this-exists.md) |
 | Understand free, managed, and production boundaries | [Product Support Tiers](./product-support-tiers.md) |
+| Understand how review-ready becomes production-supported | [Production Support Decisions](./production-support-decisions.md) |

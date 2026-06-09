@@ -68,7 +68,9 @@ The current catalog proves a lot, but not everything:
   separately.
 
 A green render check is not a production support claim. Production support
-requires a target-scoped decision and fresh receipts.
+requires a target-scoped decision and fresh receipts. The current path from
+review-ready to supported is described in
+[Production Support Decisions](./production-support-decisions.md).
 
 The catalog is also meant to expose hard cases. For example, the strict
 cub-scout witness found Kubernetes 1.30 CRD capability issues in cert-manager
