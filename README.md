@@ -228,15 +228,16 @@ chart/base row has every lane complete.
 20 popular Helm charts have catalog entries.
 20/20 top-20 charts have at least one passing local kind live/e2e receipt.
 20/20 top-20 charts have chart-level ConfigHub upload, scan, and safe-ops proof receipt sets.
-20/20 top-20 charts are production-review-ready by disposition receipt.
+17/20 top-20 charts are production-review-ready by disposition receipt.
+3/20 top-20 charts still need pre-review target-fact preflight disposition.
 0/20 top-20 charts are production-supported until target-scoped support decisions are recorded.
 100 charts have recipe/package proof artifacts.
 156 chart/base rows have Helm-template versus cub installer render parity.
 18/156 chart/base rows currently have the stricter in-ConfigHub proof lane marked pass.
-The selected top-20 live Helm-vs-ConfigHub comparison lane has 15 pass,
-5 watch, and 0 blocked receipts.
+The selected top-20 live Helm-vs-ConfigHub comparison lane has 18 pass,
+2 watch, and 0 blocked receipts.
 The top-20 base-variant two-cluster kind parity lane has 40 committed
-receipts: 25 pass, 3 watch, 12 blocked, and 0 semantic parity defects.
+receipts: 32 pass, 1 watch, 7 blocked, and 0 semantic parity defects.
 5/5 maintained hook-bearing top-100 charts have hook route receipts;
 0/5 of those hook-queue rows have hook execution or observation receipts yet.
 Separately, cert-manager and External Secrets have lifecycle-observation
@@ -279,7 +280,7 @@ That lane depends on a live GitOps controller and cluster, so it is documented
 and exercised outside the pure local `npm run verify` corpus. The first
 runtime/GitOps wave currently has 10 committed receipts: 5 pass and 5 non-pass
 target-fit receipts. The strict live Helm-vs-ConfigHub comparison lane has 20
-committed receipts for selected top-20 rows: 15 pass, 5 watch, and 0 blocked.
+committed receipts for selected top-20 rows: 18 pass, 2 watch, and 0 blocked.
 The strict two-cluster kind parity lane has receipts for all 40 top-20 base
 variants and separates semantic parity from target prerequisites, runtime
 readiness, hooks, and storage behavior.
@@ -764,7 +765,8 @@ a running GitOps controller and cluster. The current generated status is:
 
 ```text
 runtime/GitOps first wave: 5 pass, 5 non-pass target-fit receipts
-strict live Helm-vs-ConfigHub comparison: 15 pass, 5 watch, 0 blocked
+strict live Helm-vs-ConfigHub comparison: 18 pass, 2 watch, 0 blocked
+two-cluster kind parity: 32 pass, 1 watch, 7 blocked, 0 semantic defects
 ```
 
 Use the generated summaries for exact chart/base status:

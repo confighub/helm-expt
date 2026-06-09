@@ -28,9 +28,9 @@ Current live parity status is generated, not hand-maintained in this plan:
 | [Two-Cluster Kind Parity](../../data/live-kind-parity/summary.md) | All maintained top-20 base variants in two vanilla kind clusters. |
 | [Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md) | Current non-pass rows, next action, and rerun command. |
 
-At the current snapshot, the selected live comparison has 15 pass, 5 watch,
-and 0 blocked receipts. The all-base two-cluster parity lane has 25 pass,
-3 watch, 12 blocked, and 0 semantic parity defects. Use the generated reports
+At the current snapshot, the selected live comparison has 18 pass, 2 watch,
+and 0 blocked receipts. The all-base two-cluster parity lane has 32 pass,
+1 watch, 7 blocked, and 0 semantic parity defects. Use the generated reports
 above before copying any count into a user-facing claim.
 
 The next public improvement is not another abstract plan. It is a better first
