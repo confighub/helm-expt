@@ -112,7 +112,8 @@ live lanes when you need fresh cluster evidence.
 Read [Chain Of Proof](./chain-of-proof.md) for the boundary between render
 proof, ConfigHub desired state, GitOps handoff, and live observation. Read
 [Prometheus High-Fanout Example](./prometheus-high-fanout.md) for the
-kube-prometheus-stack base choices and prerequisites.
+kube-prometheus-stack base choices, prerequisites, and current production proof
+plan.
 
 ## Next
 
