@@ -108,8 +108,9 @@ closing the remaining live parity watch and blocked rows
 per-chart lifecycle routes for hook-heavy charts
 ```
 
-Those lines are not all current CLI commands. Current command routing is in
-[Choosing Commands](./choosing-commands.md).
+Those lines are product gaps or proposed surfaces unless the current CLI help
+already exposes them. Do not treat this list as a runnable command sequence.
+Current command routing is in [Choosing Commands](./choosing-commands.md).
 
 ## Hook And Lifecycle Boundary
 

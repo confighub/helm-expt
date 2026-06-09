@@ -598,7 +598,7 @@ pain points.
 | Repo / system | Role |
 | --- | --- |
 | `confighub/installer` | Implementation substrate for `cub installer`: packages, `installer.yaml`, Kustomize bases/components, inputs, selection, facts, function chains, validators, dependency locks, OCI artifacts, sign/verify, render/upload/day-2 lifecycle. |
-| `confighub/helm-expt` | Current public GitHub catalog/proof surface: Redis end-to-end proof, top-500 control-point matrix, example schemas, HelmPlans, dossiers, receipts, rendered objects, scan/gate examples, and reproducible scripts. |
+| `confighub/helm-expt` | Current public GitHub catalog/proof surface: top-20 catalog entries, top-100/top-500 analysis data, recipe/package artifacts, base variants, receipts, rendered objects, scan/gate examples, live parity evidence, and reproducible scripts. |
 | ConfigHub Server | Workerless system of record for recipes, variants, variant revisions, target assignments, desired state, operation records, receipts, approvals, initiatives, scan/gate result aggregation, and the OCI endpoint used by the fast install path. |
 | `cub-scout` / external observers | Live observation receipts with observer, method, timestamp, result, and freshness. |
 
@@ -610,14 +610,11 @@ Working folder:
 /Users/alexis/code/helm-expt
 ```
 
-Default ConfigHub organization for demos and proofs:
-
-```text
-ConfigHub Helm
-```
+Use the authenticated demo or proof organization allocated for the run. Do not
+hard-code an organization name into public artifacts.
 
 Do not use `ConfighubOps` for this project. That org is for internal
-operations/infrastructure, not Helm demos, proofs, Redis examples, top-500
+operations/infrastructure, not Helm demos, proofs, Redis examples, catalog
 evidence, or installer experiments.
 
 ## Execution Rule
@@ -628,14 +625,15 @@ Server UI/API, or an external observer integration.
 No step should require a hand-maintained spreadsheet, a Slack instruction, or
 an undocumented CI script.
 
-This is the target execution contract. The current executable installer CLI
-includes real subcommands such as `cub installer setup`, `cub installer upload`,
-`cub installer plan`, `cub installer package`, `cub installer push`,
-`cub installer pull`, `cub installer doc`, `cub installer render`,
-`cub installer wizard`, `cub installer vet`, and `cub installer verify`. Shorter
-phrases such as `cub installer redis`, `cub diff redis`, `cub publish redis`,
-and `cub variant redis ha` are candidate future porcelain verbs only until
-those commands exist. If the short UX is needed, propose those verbs
+This is the target execution contract. Current executable command examples must
+use the real `cub installer`, `cub variant create`, `cub helm`, `cub gitops`,
+`cub unit`, and ConfigHub command surfaces. Keep the current command list in
+[Choosing Commands](../user/choosing-commands.md), and keep the automated check
+in `scripts/verify-installer-command-surface.mjs` green.
+
+Shorter phrases such as `cub installer redis`, `cub diff redis`,
+`cub publish redis`, and `cub variant redis ha` are candidate future porcelain
+only until those commands exist. If the short UX is needed, propose those verbs
 deliberately as Cub plugins/extensions; do not write them as current executable
 docs.
 
