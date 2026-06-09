@@ -7,6 +7,25 @@ larger top-500 reconnaissance data.
 
 Read it as chart-by-chart readiness, not as a blanket support claim.
 
+## What A User Should Take From It
+
+The top-100 corpus answers three different questions:
+
+```text
+Can I try this from the public catalog?
+  Start with the 20 top-20 catalog entries.
+
+Is there already a maintained recipe/package proof?
+  Yes, for all 100 charts in this corpus.
+
+Is this chart ready to be promoted as a public catalog offer?
+  Only after useful variants, selected live lanes, and any named limitations
+  have been reviewed.
+```
+
+The top-100 data is most useful for choosing the next chart to promote. It is
+not a promise that every chart is already a polished user offer.
+
 ## Current Shape
 
 ```text

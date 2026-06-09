@@ -4,6 +4,33 @@
 
 Start here when you want to know what is proven today.
 
+## Plain-English Status
+
+The current catalog is useful, but it is not a blanket production support
+claim.
+
+```text
+Top-20:
+  Good public catalog examples.
+  Every chart has maintained bases, proof artifacts, and at least one live lane.
+  Exact proof still depends on the chart/base/lane row.
+
+Top-100:
+  Good maintained proof corpus.
+  Every chart has render parity against regular Helm.
+  Most charts still need catalog review, useful variants, or selected live lanes.
+
+Top-500:
+  Good reconnaissance data.
+  It shows where Helm pain appears across public charts.
+  It is not a maintained recipe catalog.
+```
+
+Use the catalog when you want a chart and base to try. Use the lane summaries
+when you need to say exactly what has been proven for that chart/base. Use the
+production disposition pages when you need to decide whether a chart is ready
+for a specific production target.
+
 ## Source Of Truth
 
 The shortest generated status page is:
@@ -171,7 +198,7 @@ Production support decisions are still open for the top-20 catalog:
 - 0 of 20 top-20 charts are currently marked production-supported.
 - 20 of 20 are production-review-ready pending a final support decision and
   target scope.
-- 0 of 20 remain production-blocked pending disposition.
+- 0 of 20 still need pre-review production dispositions.
 - 100 production-disposition receipts are accepted across 20 charts.
 - external scan work has 0 remaining mutable-image rows after the current
   supported-base image pinning pass.
