@@ -1,0 +1,70 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSecurityDecision"
+metadata:
+  name: "jetstack-cert-manager-public-oci-security-decision"
+spec:
+  chart: "jetstack/cert-manager"
+  version: "v1.20.2"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "cert-manager"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "crds-enabled"
+  variantsCovered:
+    - "default"
+    - "crds-enabled"
+  decision: "resource-policy-accepted-for-target-scope"
+  decidedAt: "2026-06-09"
+  claim: "The recorded kube-linter findings are missing CPU and memory requests/limits on the cert-manager controller, cainjector, and webhook Deployments. They are accepted for this public cub-lk controller proof scope. Stricter environments should create a resource-policy base or overlay before support expansion."
+  route: "add-resource-policy"
+  routeReason: "rendered workloads lack production resource requests or limits"
+  findingSummary:
+    scanner: "kube-linter"
+    result: "warn"
+    totalFindings: 12
+    topChecks:
+      unset-cpu-requirements: 6
+      unset-memory-requirements: 6
+    variants:
+      crds-enabled:
+        findingCount: 6
+        topChecks:
+          unset-cpu-requirements: 3
+          unset-memory-requirements: 3
+        renderedObjectSetSHA256: "e288b2413bd1919173bee6afcd823be61399f101cfe2cf61f8e0df56740fefe0"
+      default:
+        findingCount: 6
+        topChecks:
+          unset-cpu-requirements: 3
+          unset-memory-requirements: 3
+        renderedObjectSetSHA256: "45029db19d75e578bec74b82a0476a6580d1f7193239a210bf4873156ac725ce"
+  acceptedFindings:
+    -
+      group: "unset-cpu-requirements"
+      disposition: "Accepted for the public cub-lk proof scope. Add CPU requests and limits in a hardened base for customer or production SLO scopes."
+    -
+      group: "unset-memory-requirements"
+      disposition: "Accepted for the public cub-lk proof scope. Add memory requests and limits in a hardened base for customer or production SLO scopes."
+  limits:
+    - "This is not a blanket security approval for customer clusters, private overlays, or regulated environments."
+    - "This does not make all cert-manager bases production-supported by itself."
+    - "A hardened resource-policy base remains the correct route for stricter production scopes."
+  evidence:
+    -
+      path: "data/scan-disposition-workdown/workdown.csv"
+      claim: "Routes cert-manager scan findings to add-resource-policy."
+    -
+      path: "data/external-scan-lane/review.csv"
+      claim: "Records kube-linter warning counts for default and crds-enabled rendered object sets."
+    -
+      path: "recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for default."
+    -
+      path: "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for crds-enabled."
+    -
+      path: "data/production-disposition/receipts/jetstack-cert-manager/scan-gate-warning-disposition.yaml"
+      claim: "Earlier production disposition accepts scan warnings as production-review inputs."
+  remainingSupportBlockers:
+    - "Record image policy, lifecycle observation, and fresh target-scoped ConfigHub OCI/GitOps evidence."

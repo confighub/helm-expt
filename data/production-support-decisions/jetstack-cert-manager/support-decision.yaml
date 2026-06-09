@@ -1,55 +1,78 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ProductionSupportDecision
 metadata:
-  name: "jetstack-cert-manager-default-public-oci-draft"
+  name: "jetstack-cert-manager-crds-enabled-public-oci-supported"
 spec:
   chart: "jetstack/cert-manager"
   version: "v1.20.2"
-  decision: draft
+  decision: supported
   decisionDate: "2026-06-09"
-  supportedBase: "default"
+  supportedSince: "2026-06-05T16:29:56Z"
+  supportedBase: "crds-enabled"
   targetScope:
-    clusterClass: vanilla-kubernetes
+    clusterClass: cub-lk-kind-vanilla
     namespace: "cert-manager"
     deliveryPath: confighub-oci
-    gitopsController: argo-or-flux
+    gitopsController: argo
+    lastEvidenceAt: "2026-06-05T16:29:56Z"
+    lastEvidenceTarget: helm-expt-parity-certmanager-mq153vzp-1pbp-cluster/oci
+    lastEvidenceKubeContext: kind-helm-expt-parity-certmanager-mq153vzp-1pbp
+    liveEvidenceTTL: 30d
     storageAssumptions:
-      - "Use the chart's recorded storage behavior for the candidate base unless this draft is narrowed before final support."
+      - "Use the chart's recorded storage behavior for the supported scope unless a narrower scope is separately reviewed."
     networkAssumptions:
-      - "Use the service, ingress, DNS, and certificate behavior recorded by the candidate base unless this draft is narrowed before final support."
+      - "Use the webhook Service and certificate behavior recorded by the supported scope unless a narrower scope is separately reviewed."
     requiredTargetFacts: []
   supportBoundary:
     includes:
-      - "jetstack/cert-manager@v1.20.2 default base"
-      - ConfigHub OCI delivery for the declared target scope after fresh target evidence is recorded
-      - rendered objects, labels, gates, receipts, and support objects produced by the recorded base
+      - "jetstack/cert-manager@v1.20.2 crds-enabled base"
+      - ConfigHub OCI delivery through Argo for the declared cub-lk vanilla kind target scope
+      - rendered CRDs, controller workloads, webhook objects, labels, gates, receipts, and support objects produced by the recorded base
+      - recorded startup API check lifecycle route using post-apply server dry-run and observation, not direct Helm hook execution
+      - recorded mutable-image exception for the declared public controller support scope
+      - recorded resource-policy acceptance for the declared public controller support scope
     excludes:
       - "private values overlays, wrapper charts, and populated extension slots unless separately reviewed"
+      - "the default no-CRD target-prerequisite posture unless separately reviewed for a specific target"
+      - "Issuer, ClusterIssuer, Certificate, CertificateRequest, ACME account, ingress-shim, Gateway API, and provider credential workflows"
+      - "digest-pinned, resource-hardened, or provider-specific production bases unless separately reviewed"
       - "non-vanilla Kubernetes distributions unless separately reviewed"
       - "other delivery controllers or target scopes unless separately reviewed"
   decisions:
     imageDecision:
-      state: "needs-image-digest-resolution-or-exception"
-      detail: "resolve image digests or record explicit exception before production OCI support"
+      state: "mutable-image-exception-accepted-for-target-scope"
+      detail: "both recorded base variants have digest-resolution receipts; mutable image tags are accepted only for the declared public controller support scope, while stricter scopes may require digest-pinned bases or image overrides"
     scanDecision:
-      state: "needs-scan-scope-decision"
-      detail: "accept, fix, or document scanner findings for supported scope"
+      state: "resource-policy-accepted-for-target-scope"
+      detail: "missing CPU and memory requests/limits are accepted for the declared public cub-lk controller proof scope; stricter scopes should create a resource-policy base or overlay"
     lifecycleDecision:
-      state: "needs-lifecycle-support-boundary"
-      detail: "bind lifecycle observation receipt to supported scope"
+      state: "lifecycle-observed-for-proof-scope"
+      detail: "the startup API check is represented by post-apply server dry-run and lifecycle observation; crds-enabled evidence proves CRDs Established, controller Deployments ready, webhook caBundle populated, and ConfigHub OCI/Argo runtime health"
     targetFactDecision:
       state: "no-unresolved-target-prerequisite-in-candidate-base"
-      detail: "no unresolved target prerequisite in candidate base"
+      detail: "the crds-enabled base renders cert-manager CRDs and has no unresolved target prerequisite in the supported scope"
     liveEvidenceDecision:
-      state: "needs-lifecycle-observation-before-final"
-      detail: "attach lifecycle observation and refresh target-scoped evidence"
+      state: "fresh-target-evidence-passed"
+      detail: "fresh target-scoped ConfigHub OCI and Argo evidence passed on 2026-06-05 for the declared cub-lk vanilla kind cert-manager scope"
   evidence:
-    - path: "recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
-      claim: "The candidate base is Helm-equivalent under recorded inputs."
-    - path: "recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/receipts/scan-receipt.yaml"
-      claim: "The rendered-object scan receipt exists for the candidate base."
-    - path: "runs/live-kind-parity/jetstack-cert-manager-default/receipt.yaml"
+    - path: "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/receipts/helm-equivalence-receipt.yaml"
+      claim: "The supported base is Helm-equivalent under recorded inputs."
+    - path: "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/receipts/scan-receipt.yaml"
+      claim: "The rendered-object scan receipt exists for the supported base."
+    - path: "runs/live-kind-parity/jetstack-cert-manager-crds-enabled/receipt.yaml"
       claim: "The two-cluster Helm-vs-installer parity receipt exists for the candidate base."
+    - path: "runs/live-helm-confighub-compare/jetstack-cert-manager-crds-enabled/receipt.yaml"
+      claim: "The selected live Helm-vs-ConfigHub comparison receipt exists for the supported base."
+    - path: "data/production-support-decisions/jetstack-cert-manager/fresh-target-evidence-2026-06-05.yaml"
+      claim: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared cub-lk vanilla kind support scope."
+    - path: "data/image-digest-workdown/receipts/jetstack-cert-manager/crds-enabled/image-digest-resolution.yaml"
+      claim: "The rendered mutable image references for the supported base have registry digest-resolution evidence."
+    - path: "data/production-support-decisions/jetstack-cert-manager/image-policy-decision.yaml"
+      claim: "The target-scoped image policy decision accepts mutable rendered tags for this public controller support scope with explicit limits."
+    - path: "data/production-support-decisions/jetstack-cert-manager/security-decision.yaml"
+      claim: "The target-scoped security decision accepts missing resource requests/limits only for this public cub-lk proof scope."
+    - path: "data/production-support-decisions/jetstack-cert-manager/lifecycle-decision.yaml"
+      claim: "The target-scoped lifecycle decision binds the startup API route and webhook readiness to proof-scope observation evidence."
     - path: "data/production-disposition/receipts/jetstack-cert-manager/cluster-rbac-review.yaml"
       claim: "The cluster rbac review disposition exists for this chart."
     - path: "data/production-disposition/receipts/jetstack-cert-manager/crd-lifecycle-and-upgrade-policy.yaml"
@@ -62,9 +85,5 @@ spec:
       claim: "The scan gate warning disposition disposition exists for this chart."
     - path: "data/production-disposition/receipts/jetstack-cert-manager/webhook-readiness-and-failure-policy.yaml"
       claim: "The webhook readiness and failure policy disposition exists for this chart."
-  requiredBeforeFinal:
-    - "Choose the final target scope, exact GitOps controller, namespace, and artifact digest."
-    - "Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope."
-    - "resolve image digests or record explicit exception before production OCI support"
-    - "bind lifecycle observation receipt to supported scope"
-  nextAction: "choose whether default is in production scope; record the target-scoped lifecycle support decision before claiming production support"
+  requiredBeforeFinal: []
+  nextAction: "Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate issuer, certificate, provider, or hardened resource bases for real customer certificate workloads."
