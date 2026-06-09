@@ -312,5 +312,6 @@ human entry point for choosing charts and variants.
   [current-pathway-review.md](../planning/archive/current-pathway-review.md)
 - Repo consistency review snapshot:
   [repo-consistency-review.md](../planning/archive/repo-consistency-review.md)
-- Full execution plan: [agreed-execution-plan.md](../planning/agreed-execution-plan.md)
+- Consolidated doctrine and historical execution record:
+  [agreed-execution-plan.md](../planning/agreed-execution-plan.md)
 - Artifact verifier specification: [artifact-verifier-spec.md](../reference/artifact-verifier-spec.md)

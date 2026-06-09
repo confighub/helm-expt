@@ -1,6 +1,18 @@
 # Agreed Execution Plan
 
-This is the current agreement for the Helm/ConfigHub proof.
+This is a consolidated doctrine and historical execution record for the
+Helm/ConfigHub proof. It preserves the project model, acceptance ideas, and
+older milestone reasoning.
+
+Do not use this file for current counts or live status. Use these current
+sources instead:
+
+| Current question | Source |
+| --- | --- |
+| What is proven now? | [Current Proof Status](../user/current-proof-status.md) and [Status Dashboard](../../data/status-dashboard/summary.md) |
+| What should be worked next? | [Next 20 Tasks](./next-20-tasks.md), [Next Execution Plan](./next-execution-plan.md), and [Current Handover](./current-handover.md) |
+| Which chart/base rows have exact lane status? | [Outcome Coverage](../../data/outcome-coverage/summary.md) and [Lane Test Matrix](../../data/lane-test-matrix/summary.md) |
+| Which live rows need rerun or decisions? | [Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md) |
 
 ## One-Line Mission
 

@@ -285,8 +285,9 @@ Backlog gates are tracked in `docs/planning/issue-backlog.md`. Any open P0
 issues in that file must not be bypassed by the flow; they are gates for the
 scope they name.
 
-The detailed execution contract is in `docs/planning/agreed-execution-plan.md`. Treat
-the shorthand below as candidate future porcelain, not current executable CLI.
+The consolidated doctrine and historical execution record is in
+`docs/planning/agreed-execution-plan.md`. Treat the shorthand below as
+candidate future porcelain, not current executable CLI.
 If needed, those verbs should be proposed explicitly as Cub plugins/extensions.
 The current executable installer surface includes `cub installer setup`,
 `cub installer upload`, `cub installer plan`, `cub installer package`,

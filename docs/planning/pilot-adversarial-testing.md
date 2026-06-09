@@ -14,12 +14,21 @@ variants, receipts, scans/gates, deterministic checks, and Helm-equivalent
 output where equivalence is expected.
 ```
 
-Live-cluster claim, still to prove:
+Live-cluster claim, partially proven:
 
 ```text
-Selected variants can be installed into isolated Kubernetes clusters and
-observed safely, with failures recorded as explicit chart or environment
-requirements rather than hidden Helm pain.
+Selected variants can be installed into isolated Kubernetes clusters,
+compared with regular Helm where parity is expected, and observed safely.
+Non-pass rows are recorded as target prerequisites, lifecycle routes, runtime
+conditions, or operating-policy decisions rather than hidden Helm pain.
+```
+
+Use current generated status before choosing a Pilot live run:
+
+```text
+data/status-dashboard/summary.md
+data/live-parity-rerun-plan/summary.md
+data/outcome-coverage/base-outcomes.csv
 ```
 
 ## Local Pilot
@@ -55,12 +64,12 @@ The runner writes receipts under:
 runs/pilot/<run-id>/
 ```
 
-Expected first result:
+Expected offline first result:
 
 ```text
-20/20 installer render previews ready
-20/20 installer e2e gates in WATCH, waiting for live target-access,
-ConfigHub upload/proof, OCI/GitOps, GUI, and Kubernetes runtime receipts
+installer render previews ready for the selected package set
+installer e2e gates in WATCH where live target access, ConfigHub upload/proof,
+OCI/GitOps, GUI, or Kubernetes runtime receipts are outside the offline run
 ```
 
 `WATCH` is not failure at this stage. It means Pilot has accepted the local
@@ -171,7 +180,9 @@ context is clearly a disposable test cluster.
 First run:
 
   git status --short --branch
-  npm run verify
+  npm run docs:verify
+  npm run lane-tests:verify
+  npm run pilot:adversarial
 
 Then attack the proof in four passes:
 
@@ -209,12 +220,16 @@ Helm user, and what must not be claimed yet.
 
 ## Offline Commands
 
-Start with the whole repo:
+Start with scoped read-only checks:
 
 ```sh
-npm run verify
+npm run docs:verify
+npm run lane-tests:verify
 npm run pilot:adversarial
 ```
+
+Use `npm run verify` only as a broad release gate after scoped checks pass and
+generated summaries are current.
 
 Then run chart-local checks when narrowing a failure:
 

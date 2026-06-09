@@ -20,14 +20,18 @@ The repo already proves a useful core:
   path, while watch and blocked rows identify target-readiness or chart-specific
   lifecycle work.
 
-Current live parity receipt status:
+Current live parity status is generated, not hand-maintained in this plan:
 
-| Status | Count | Meaning |
-| --- | ---: | --- |
-| pass | 10 | Helm, direct ConfigHub apply, and OCI/controller paths reached expected live state in the harness. |
-| watch | 2 | The path ran but a workload or controller condition did not settle inside the timeout. |
-| blocked | 8 | The chart exposed a target-readiness, lifecycle, or selected-base problem that should be recorded and handled before broader support. |
-| not-started | 0 | All selected top-20 chart/base rows have a receipt slot. |
+| Generated source | Use it for |
+| --- | --- |
+| [Live Helm-vs-ConfigHub Parity](../../data/live-helm-confighub-compare/summary.md) | Selected top-20 live comparison rows. |
+| [Two-Cluster Kind Parity](../../data/live-kind-parity/summary.md) | All maintained top-20 base variants in two vanilla kind clusters. |
+| [Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md) | Current non-pass rows, next action, and rerun command. |
+
+At the current snapshot, the selected live comparison has 15 pass, 5 watch,
+and 0 blocked receipts. The all-base two-cluster parity lane has 25 pass,
+3 watch, 12 blocked, and 0 semantic parity defects. Use the generated reports
+above before copying any count into a user-facing claim.
 
 The next public improvement is not another abstract plan. It is a better first
 visit: show who the repo is for, what value each user gets, where the variants
@@ -209,13 +213,12 @@ Run:
 
 ```sh
 npm run docs:verify
-npm run live-parity:verify
-npm run verify
+npm run live-parity:rerun-plan:verify
 ```
 
-Use the full `npm run verify` after generated summaries are up to date. Use
-`npm run live-parity:top20:verify-slots` only when the intended state is all 20
-top-chart live parity receipts present.
+Use the full `npm run verify` only as the broad release gate after scoped
+checks pass. Use live parity commands only when the work is intended to create
+or refresh live evidence.
 
 Manual review should answer:
 
