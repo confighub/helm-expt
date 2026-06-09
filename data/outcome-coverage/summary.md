@@ -10,9 +10,9 @@ the status per chart, base variant, derived variant, and Helm feature.
 charts with model support:           100/100
 variant-rich charts:                 54/100
 chart/base rows:                     157
-complete core lane rows:             17/157
+complete core lane rows:             18/157
 render parity rows:                  157/157
-in-ConfigHub proof rows:             18/157
+in-ConfigHub proof rows:             19/157
 local live rows:                     22/157
 GitOps/OCI live pass rows:           21/157
 GitOps/OCI non-pass receipts:        6
@@ -74,7 +74,7 @@ related lifecycle observations:      4/4
 | `ingress-nginx/ingress-nginx@4.15.1` | default;admission-disabled;internal-clusterip | yes | 1/3 | 2/3 | 1/3 | 1/3 | 2/3 | - |
 | `jetstack/cert-manager@v1.20.2` | default;crds-enabled | yes | 1/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
 | `longhorn/longhorn@1.11.2` | default;ui-ingress | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | - |
-| `metrics-server/metrics-server@3.13.0` | default;external-tls-ca | yes | 0/2 | 1/2 | 1/2 | 1/2 | 1/2 | existing-secret (chart ships no Secret toggle) |
+| `metrics-server/metrics-server@3.13.0` | default;external-tls-ca | yes | 1/2 | 1/2 | 1/2 | 1/2 | 1/2 | existing-secret (chart ships no Secret toggle) |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default;no-crds | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
 | `prometheus-community/prometheus@29.8.0` | default;server-only-ephemeral | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default;sync-secret-rotation | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | - |
