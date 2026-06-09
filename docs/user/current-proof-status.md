@@ -65,12 +65,18 @@ warnings, lifecycle behavior, target facts, storage policy, RBAC, webhooks,
 extension slots, and operating policy before they can be called
 production-supported.
 
-The shortest production work queue is:
+The shortest assignable production-support work queue is:
+
+[Production Support Work Items](../../data/production-support-decisions/work-items.csv)
+
+It lists one row per concrete support task or keep-fresh item. A chart can have
+several rows because image, scan, lifecycle, runtime, and fresh-evidence work
+can be assigned independently.
+
+The older chart-level production queue is still useful when you want one broad
+next action per chart:
 
 [Production Next Actions](../../data/production-disposition/next-actions.csv)
-
-It lists one row per top-20 chart with the recommended first base, production
-decision focus, image digest status, and next action.
 
 The scan warning workdown is:
 
@@ -270,7 +276,12 @@ Use the detailed disposition plan when you need the accepted receipts, owners,
 required evidence, and unblock rules:
 [Production Disposition Details](../../data/production-disposition/dispositions.md).
 
-Use the generated queue when you want the next chart-level production action:
+Use the generated support work-item queue when you want assignable production
+tasks:
+[Production Support Work Items](../../data/production-support-decisions/work-items.csv).
+
+Use the generated disposition queue when you want the older one-row-per-chart
+production action:
 [Production Next Actions](../../data/production-disposition/next-actions.csv).
 
 Lifecycle observation proof has started:
