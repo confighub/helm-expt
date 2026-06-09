@@ -1,0 +1,61 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionImagePolicyDecision"
+metadata:
+  name: "external-secrets-external-secrets-public-oci-image-policy-decision"
+spec:
+  chart: "external-secrets/external-secrets"
+  version: "2.5.0"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "external-secrets"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "default"
+  variantsCovered:
+    - "default"
+    - "no-crds"
+  decision: "mutable-image-exception-accepted-for-target-scope"
+  decidedAt: "2026-06-09"
+  claim: "The rendered External Secrets bases still contain mutable image tags, but each rendered image reference has digest-resolution evidence. For this public controller support scope, the mutable tag is accepted as a target-scoped exception while stricter environments remain free to require digest-pinned bases or image overrides."
+  renderedImageSummary:
+    renderedSubjects: 2
+    subjectsNeedingResolution: 2
+    imageRefs: 6
+    mutableTagRefs: 6
+    floatingLatestOrUntaggedRefs: 0
+    resolutionReceipts: 2
+  variantReceipts:
+    default:
+      renderedObjectSetSHA256: "f1c832a9af788c9d2a7a0b066d76a7d8af253d83f5b0fa39c1aa91271230d3db"
+      sourceImageReviewRows: 3
+      uniqueImages: 1
+      receiptPath: "data/image-digest-workdown/receipts/external-secrets-external-secrets/default/image-digest-resolution.yaml"
+    no-crds:
+      renderedObjectSetSHA256: "da5857fba93e0394594d7e072b31e3cf28985392b5cc0443730a23b722d7670b"
+      sourceImageReviewRows: 3
+      uniqueImages: 1
+      receiptPath: "data/image-digest-workdown/receipts/external-secrets-external-secrets/no-crds/image-digest-resolution.yaml"
+  acceptedException:
+    reason: "The public proof target uses the upstream chart image tag for a controller install. The receipt set records the digest that the mutable tag resolved to at decision time, so reviewers can rerun the decision when the upstream tag moves."
+    operatorAction: "For stricter production environments, create a digest-pinned base or image override policy before final support."
+  limits:
+    - "This does not mean the rendered manifests are digest-pinned."
+    - "This is not a blanket approval for all clusters, private overlays, regulated environments, or future chart versions."
+    - "This does not make External Secrets production-supported by itself."
+    - "If the upstream image tag is retargeted, rerun digest resolution and re-review this decision before promotion."
+  evidence:
+    -
+      path: "data/image-digest-workdown/chart-summary.csv"
+      claim: "Summarizes External Secrets rendered image references."
+    -
+      path: "data/attack-plan-workdown/image-digest-review.csv"
+      claim: "Lists every rendered image reference found in the External Secrets object sets."
+    -
+      path: "data/image-digest-workdown/receipts/external-secrets-external-secrets/default/image-digest-resolution.yaml"
+      claim: "Records registry digest resolution for the default rendered object set."
+    -
+      path: "data/image-digest-workdown/receipts/external-secrets-external-secrets/no-crds/image-digest-resolution.yaml"
+      claim: "Records registry digest resolution for the no-crds rendered object set."
+  remainingSupportBlockers:
+    - "Record security/resource-policy acceptance or create a hardened base."
+    - "Record lifecycle and fresh target-scoped evidence for the declared support scope."

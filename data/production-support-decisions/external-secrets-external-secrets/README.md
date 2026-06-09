@@ -11,45 +11,42 @@ support decision. It does not replace the source decision artifact:
 | --- | --- |
 | Chart | `external-secrets/external-secrets@2.5.0` |
 | Candidate base | `default` |
-| Decision state | `draft` |
-| Target scope | vanilla-kubernetes; namespace=external-secrets; delivery=confighub-oci; controller=argo-or-flux |
+| Decision state | `supported` |
+| Target scope | cub-lk-kind-vanilla; namespace=external-secrets; delivery=confighub-oci; controller=argo |
 | Delivery path | `confighub-oci` |
 
 ## Open Work
 
 | Work | Action |
 | --- | --- |
-| Image digest | Pin rendered image references by digest or record an explicit mutable-image exception. |
-| Scan scope | Record which scanner findings are accepted, fixed, or outside this target scope. |
-| Lifecycle | Record the lifecycle boundary, or execute and observe the selected hook/lifecycle route. |
-| Fresh evidence | Refresh ConfigHub OCI/GitOps and live/e2e evidence after earlier decisions are closed. |
+| Keep fresh | Keep target-scoped evidence fresh before using this supported scope as an example. |
 
 
 ## Closeout Sequence
 
-1. Choose the final target scope, GitOps controller, namespace, and artifact digest.
-2. Pin rendered image references by digest or record an explicit mutable-image exception.
-3. Decide which scanner findings are accepted, fixed, hardened, or outside this target scope.
-4. Record the lifecycle boundary, including hook, webhook, CRD, cleanup, ordering, and upgrade behavior.
-5. Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence after the earlier decisions are closed.
+1. Keep the target-scoped evidence fresh for the declared support boundary.
 
 ## Required Before Final Support
 
-- Choose the final target scope, exact GitOps controller, namespace, and artifact digest.
-- Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope.
-- resolve image digests or record explicit exception before production OCI support
+- None.
+
 
 ## Support Boundary
 
 Included:
 
 - external-secrets/external-secrets@2.5.0 default base
-- ConfigHub OCI delivery for the declared target scope after fresh target evidence is recorded
+- ConfigHub OCI delivery through Argo for the declared cub-lk vanilla kind target scope
 - rendered objects, labels, gates, receipts, and support objects produced by the recorded base
+- recorded mutable-image exception for the declared public controller support scope
+- recorded resource-policy acceptance for the declared public controller support scope
+- controller-owned webhook lifecycle observation for the declared public controller support scope
 
 Excluded:
 
 - private values overlays, wrapper charts, and populated extension slots unless separately reviewed
+- SecretStore, ClusterSecretStore, ExternalSecret, PushSecret, provider credentials, and provider-specific workloads
+- digest-pinned, resource-hardened, or provider-specific production bases unless separately reviewed
 - non-vanilla Kubernetes distributions unless separately reviewed
 - other delivery controllers or target scopes unless separately reviewed
 
@@ -59,6 +56,11 @@ Excluded:
 - [recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/receipts/scan-receipt.yaml](../../../recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/receipts/scan-receipt.yaml) - The rendered-object scan receipt exists for the candidate base.
 - [runs/live-kind-parity/external-secrets-external-secrets-default/receipt.yaml](../../../runs/live-kind-parity/external-secrets-external-secrets-default/receipt.yaml) - The two-cluster Helm-vs-installer parity receipt exists for the candidate base.
 - [runs/live-helm-confighub-compare/external-secrets-external-secrets-default/receipt.yaml](../../../runs/live-helm-confighub-compare/external-secrets-external-secrets-default/receipt.yaml) - The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base.
+- [data/production-support-decisions/external-secrets-external-secrets/fresh-target-evidence-2026-06-08.yaml](../../../data/production-support-decisions/external-secrets-external-secrets/fresh-target-evidence-2026-06-08.yaml) - Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared cub-lk vanilla kind support scope.
+- [data/image-digest-workdown/receipts/external-secrets-external-secrets/default/image-digest-resolution.yaml](../../../data/image-digest-workdown/receipts/external-secrets-external-secrets/default/image-digest-resolution.yaml) - The rendered mutable image references for the candidate base have registry digest-resolution evidence.
+- [data/production-support-decisions/external-secrets-external-secrets/image-policy-decision.yaml](../../../data/production-support-decisions/external-secrets-external-secrets/image-policy-decision.yaml) - The target-scoped image policy decision accepts mutable rendered tags for this public controller support scope with explicit limits.
+- [data/production-support-decisions/external-secrets-external-secrets/security-decision.yaml](../../../data/production-support-decisions/external-secrets-external-secrets/security-decision.yaml) - The target-scoped security decision accepts missing resource requests/limits only for this public cub-lk proof scope.
+- [data/production-support-decisions/external-secrets-external-secrets/lifecycle-decision.yaml](../../../data/production-support-decisions/external-secrets-external-secrets/lifecycle-decision.yaml) - The target-scoped lifecycle decision binds controller-owned webhook fields and CRD readiness to proof-scope observation evidence.
 - [data/production-disposition/receipts/external-secrets-external-secrets/cluster-rbac-review.yaml](../../../data/production-disposition/receipts/external-secrets-external-secrets/cluster-rbac-review.yaml) - The cluster rbac review disposition exists for this chart.
 - [data/production-disposition/receipts/external-secrets-external-secrets/crd-lifecycle-and-upgrade-policy.yaml](../../../data/production-disposition/receipts/external-secrets-external-secrets/crd-lifecycle-and-upgrade-policy.yaml) - The crd lifecycle and upgrade policy disposition exists for this chart.
 - [data/production-disposition/receipts/external-secrets-external-secrets/extension-slot-provenance-and-scan-policy.yaml](../../../data/production-disposition/receipts/external-secrets-external-secrets/extension-slot-provenance-and-scan-policy.yaml) - The extension slot provenance and scan policy disposition exists for this chart.
@@ -68,7 +70,7 @@ Excluded:
 
 ## Next Action
 
-resolve image digests for each affected variant before production OCI support
+Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate provider-specific bases for SecretStore and ExternalSecret use cases.
 
 Regenerate:
 

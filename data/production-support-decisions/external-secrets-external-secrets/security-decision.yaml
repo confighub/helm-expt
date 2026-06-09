@@ -1,0 +1,70 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSecurityDecision"
+metadata:
+  name: "external-secrets-external-secrets-public-oci-security-decision"
+spec:
+  chart: "external-secrets/external-secrets"
+  version: "2.5.0"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "external-secrets"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "default"
+  variantsCovered:
+    - "default"
+    - "no-crds"
+  decision: "resource-policy-accepted-for-target-scope"
+  decidedAt: "2026-06-09"
+  claim: "The recorded kube-linter findings are missing CPU and memory requests/limits on the External Secrets controller workloads. They are accepted for this public cub-lk controller proof scope. Stricter environments should create a resource-policy base or overlay before support expansion."
+  route: "add-resource-policy"
+  routeReason: "rendered workloads lack production resource requests or limits"
+  findingSummary:
+    scanner: "kube-linter"
+    result: "warn"
+    totalFindings: 12
+    topChecks:
+      unset-cpu-requirements: 6
+      unset-memory-requirements: 6
+    variants:
+      default:
+        findingCount: 6
+        topChecks:
+          unset-cpu-requirements: 3
+          unset-memory-requirements: 3
+        renderedObjectSetSHA256: "f1c832a9af788c9d2a7a0b066d76a7d8af253d83f5b0fa39c1aa91271230d3db"
+      no-crds:
+        findingCount: 6
+        topChecks:
+          unset-cpu-requirements: 3
+          unset-memory-requirements: 3
+        renderedObjectSetSHA256: "da5857fba93e0394594d7e072b31e3cf28985392b5cc0443730a23b722d7670b"
+  acceptedFindings:
+    -
+      group: "unset-cpu-requirements"
+      disposition: "Accepted for the public cub-lk proof scope. Add resource requests in a hardened base for customer or production SLO scopes."
+    -
+      group: "unset-memory-requirements"
+      disposition: "Accepted for the public cub-lk proof scope. Add memory requests and limits in a hardened base for customer or production SLO scopes."
+  limits:
+    - "This is not a blanket security approval for customer clusters, private overlays, or regulated environments."
+    - "This does not make all External Secrets bases production-supported by itself."
+    - "A hardened resource-policy base remains the correct route for stricter production scopes."
+  evidence:
+    -
+      path: "data/scan-disposition-workdown/workdown.csv"
+      claim: "Routes External Secrets scan findings to add-resource-policy."
+    -
+      path: "data/external-scan-lane/review.csv"
+      claim: "Records kube-linter warning counts for default and no-crds rendered object sets."
+    -
+      path: "recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for default."
+    -
+      path: "recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for no-crds."
+    -
+      path: "data/production-disposition/receipts/external-secrets-external-secrets/scan-gate-warning-disposition.yaml"
+      claim: "Earlier production disposition accepts scan warnings as production-review inputs."
+  remainingSupportBlockers:
+    - "Record image policy, lifecycle observation, and fresh target-scoped ConfigHub OCI/GitOps evidence."
