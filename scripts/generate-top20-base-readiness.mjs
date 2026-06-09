@@ -10,19 +10,23 @@ const outputRoot = join(repoRoot, "data", "top20-base-readiness");
 const outputs = {
   summary: join(outputRoot, "summary.md"),
   csv: join(outputRoot, "base-readiness.csv"),
+  startHere: join(outputRoot, "start-here.md"),
 };
 
 if (mode === "--generate") {
   const report = buildReport();
   write(outputs.csv, report.csv);
   write(outputs.summary, report.summary);
+  write(outputs.startHere, report.startHere);
   console.log(`wrote ${relativeRepo(outputRoot)}/`);
 } else if (mode === "--verify") {
   const report = buildReport();
   check(existsSync(outputs.csv), `${relativeRepo(outputs.csv)} is missing; run npm run top20:base-readiness`);
   check(existsSync(outputs.summary), `${relativeRepo(outputs.summary)} is missing; run npm run top20:base-readiness`);
+  check(existsSync(outputs.startHere), `${relativeRepo(outputs.startHere)} is missing; run npm run top20:base-readiness`);
   check(readFileSync(outputs.csv, "utf8") === report.csv, `${relativeRepo(outputs.csv)} is stale; run npm run top20:base-readiness`);
   check(readFileSync(outputs.summary, "utf8") === report.summary, `${relativeRepo(outputs.summary)} is stale; run npm run top20:base-readiness`);
+  check(readFileSync(outputs.startHere, "utf8") === report.startHere, `${relativeRepo(outputs.startHere)} is stale; run npm run top20:base-readiness`);
   console.log(`verified top20 base readiness for ${report.rows.length} base variant(s)`);
 } else {
   console.log(`Usage:
@@ -85,6 +89,7 @@ function buildReport() {
   );
   const counts = groupCount(rows, "user_readiness");
   const rerunCounts = groupCount(rows.filter((row) => row.live_rerun_readiness), "live_rerun_readiness");
+  const startHereRows = rows.filter((row) => row.user_readiness === "start-here");
   const summary = `# Top-20 Base Variant Readiness
 
 This generated table answers the practical catalog question:
@@ -147,6 +152,7 @@ ${rows.map((row) => `| \`${row.chart}\` | ${row.base} | ${row.recommended_first}
 | File | Purpose |
 | --- | --- |
 | \`data/top20-base-readiness/base-readiness.csv\` | Spreadsheet-ready one-row-per-base readiness table. |
+| \`data/top20-base-readiness/start-here.md\` | Short guide to the clean first catalog paths. |
 | \`data/outcome-coverage/base-outcomes.csv\` | Underlying lane data used by this report. |
 | \`data/live-kind-parity/summary.md\` | Two-cluster Helm-vs-installer parity receipts and non-pass reasons. |
 | \`data/live-parity-rerun-plan/rerun-plan.csv\` | Rerun readiness, next step, and exact rerun command for non-pass live rows. |
@@ -159,8 +165,42 @@ npm run top20:base-readiness
 npm run top20:base-readiness:verify
 ~~~
 `;
+  const startHere = `# Top-20 Start-Here Bases
 
-  return { rows, csv: toCsv(rows), summary };
+This generated page lists the catalog bases that are currently the easiest
+first paths. Each row has render parity, ConfigHub proof, local live evidence,
+GitOps/OCI evidence, selected live Helm-vs-ConfigHub parity, and two-cluster
+kind parity passing for that base.
+
+These are not production support claims. Before production use, check the
+production support decision contract and the chart's support decision queue.
+
+## Summary
+
+~~~text
+start-here bases: ${startHereRows.length}
+top-20 base variants: ${rows.length}
+production-supported charts: 0
+~~~
+
+## First Paths
+
+| Chart | Base | Command | Before production |
+| --- | --- | --- | --- |
+${startHereRows.map((row) => `| \`${row.chart}\` | ${row.base} | \`${row.command}\` | ${productionReminder(row)} |`).join("\n")}
+
+## Related Files
+
+| File | Use |
+| --- | --- |
+| \`data/top20-base-readiness/base-readiness.csv\` | Full one-row-per-base table. |
+| \`data/top20-base-readiness/summary.md\` | All readiness categories, including runtime and prerequisite rows. |
+| \`data/production-disposition/support-decision-contract.md\` | What must be recorded before production support can be claimed. |
+| \`data/production-disposition/support-decision-queue.csv\` | One production decision row per top-20 chart. |
+| \`CATALOG.md\` | Top-level chart and variant catalog. |
+`;
+
+  return { rows, csv: toCsv(rows), summary, startHere };
 }
 
 function readinessFor(row, lifecycle) {
@@ -300,6 +340,10 @@ function groupCount(rows, key) {
 
 function firstSort(value) {
   return value === "yes" ? 0 : 1;
+}
+
+function productionReminder(row) {
+  return `check production decision for ${row.chart.split("@")[0]}`;
 }
 
 function toCsv(rows) {

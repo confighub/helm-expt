@@ -99,6 +99,7 @@ rerun-now-after-cleanup: 0
 | File | Purpose |
 | --- | --- |
 | `data/top20-base-readiness/base-readiness.csv` | Spreadsheet-ready one-row-per-base readiness table. |
+| `data/top20-base-readiness/start-here.md` | Short guide to the clean first catalog paths. |
 | `data/outcome-coverage/base-outcomes.csv` | Underlying lane data used by this report. |
 | `data/live-kind-parity/summary.md` | Two-cluster Helm-vs-installer parity receipts and non-pass reasons. |
 | `data/live-parity-rerun-plan/rerun-plan.csv` | Rerun readiness, next step, and exact rerun command for non-pass live rows. |

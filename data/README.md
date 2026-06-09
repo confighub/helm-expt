@@ -18,7 +18,8 @@ smallest generated surface that answers it.
 | Question | Start with |
 | --- | --- |
 | I want the current headline status. | [status-dashboard/summary.md](./status-dashboard/summary.md) |
-| I want to know whether a top-20 chart/base is easy to try. | [top20-base-readiness/summary.md](./top20-base-readiness/summary.md) |
+| I want to know which catalog base to try first. | [top20-base-readiness/start-here.md](./top20-base-readiness/start-here.md) |
+| I want to know whether any top-20 chart/base is easy, partial, blocked, or watch. | [top20-base-readiness/summary.md](./top20-base-readiness/summary.md) |
 | I want one spreadsheet row per chart/base proof lane. | [outcome-coverage/base-outcomes.csv](./outcome-coverage/base-outcomes.csv) |
 | I want the top-100 or top-500 planning picture. | [top100-readiness/summary.md](./top100-readiness/summary.md)<br>[top500-catalog-analysis/review.csv](./top500-catalog-analysis/review.csv) |
 | I want live parity status. | [live-kind-parity/summary.md](./live-kind-parity/summary.md)<br>[live-helm-confighub-compare/summary.md](./live-helm-confighub-compare/summary.md) |
@@ -32,6 +33,7 @@ smallest generated surface that answers it.
 | --- | --- |
 | [status-dashboard/summary.md](./status-dashboard/summary.md) | Start here for a one-page status dashboard: top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity. |
 | [status-dashboard/top20-status.csv](./status-dashboard/top20-status.csv) | Compact chart-by-chart status for the top-20 public catalog: recommended base, setup command, base-readiness mix, evidence strength, proof lanes, feature summary, gaps, next action. |
+| [top20-base-readiness/start-here.md](./top20-base-readiness/start-here.md) | Short guide to the clean first catalog paths: chart, base, command, and production-support reminder. |
 | [top20-base-readiness/summary.md](./top20-base-readiness/summary.md) | One row per top-20 base variant: which bases are good first paths and which need prerequisites, runtime review, or hook lifecycle work. |
 | [outcome-coverage/summary.md](./outcome-coverage/summary.md) | Start here. Outcome promises, tests that prove them, and links to the four front-door CSVs. |
 | [outcome-coverage/chart-outcomes.csv](./outcome-coverage/chart-outcomes.csv) | One row per chart: model support, production readiness, lane counts, hard gaps, feature summary. |

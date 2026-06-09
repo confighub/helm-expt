@@ -303,6 +303,10 @@ data/status-dashboard/top20-status.csv
   Compact chart-by-chart status for the top-20 catalog: recommended base,
   setup command, base readiness, lane counts, feature summary, gaps, and next action.
 
+data/top20-base-readiness/start-here.md
+  The shortest list of clean first catalog paths: chart, base, command, and
+  production-support reminder.
+
 data/top20-base-readiness/summary.md
   One row per top-20 base variant: which bases are clean first paths and which need prerequisites, runtime review, or hook lifecycle work.
 
