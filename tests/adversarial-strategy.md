@@ -61,6 +61,13 @@ Output: `archetype × usage-dim × tier → verdict`, plus a per-tier thesis ver
 - Runs **now at free tier** (cub-lk = free account + kind = T0/T1). T2 cells need a paid env → `REQUIRES-PAID` until one is supplied.
 - **Rig-bound:** process archetypes **sequentially** (one cub-lk rig per archetype, reused across its usage-dims); adversaries are read-only → fan out freely. ~4 archetypes × ~4 usage-dims ≈ 16 cells — multi-hour but bounded; heavy archetypes (vault) get a dedicated rig.
 
-## Runnable as
-`pilot/depth-probe.workflow.js` — tier-parameterized fan-out (drive → attack → synthesize). Invoke with
-`Workflow({scriptPath, args:{tiers:["T0","T1"], archetypes:[...]}})`.
+## Runnable Shape
+
+Use an agent workflow or equivalent runner to fan out by tier:
+drive the scenario, run the adversarial checks, then synthesize the scorecard.
+The runner should accept inputs equivalent to:
+
+```text
+tiers: ["T0", "T1"]
+archetypes: [...]
+```

@@ -1,8 +1,9 @@
-# Helm Mission — Wave 1 Findings
+# Helm Catalog Test Findings
 
-From the 2026-06-01 Wave 1 live run (`pilot-helm-w1`). The mission's promise is
-**"same as Helm, and better — with no errors."** A silent install error breaks
-that promise, so findings here are first-class output, not footnotes.
+Findings from earlier live runs of the helm-expt catalog test lanes. The project
+claim is that the catalog path should match Helm where it claims parity and add
+reviewable ConfigHub controls. Silent wrong output is therefore a release
+blocker for any affected path.
 
 ---
 

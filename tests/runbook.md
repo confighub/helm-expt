@@ -1,13 +1,19 @@
-# Helm Mission — Wave 1 Runbook (reproducible on any machine)
+# Helm Catalog Live Test Runbook
 
-Status: **PASS** first run 2026-06-01 (rig `pilot-helm-w1`, org Cubby AI Inc).
-Repeated 2026-06-04 with rig `helm-expt-oci-0604`, NGINX `http-clusterip`,
+This runbook records the reproducible per-chart path for delivering a catalog
+package through ConfigHub OCI into a live Kubernetes cluster. It is parameterized
+so the same job can run on another machine or rig.
+
+Reference runs:
+
+- 2026-06-01: first NGINX `http-clusterip` pass.
+- 2026-06-04: rig `helm-expt-oci-0604`, NGINX `http-clusterip`,
 Argo CD OCI revision
 `sha256:98ec5a4bfccb925381b1ec304dcb4a9e884bbe06ac1bb5d69d34076a791a7f72`.
-Repeated 2026-06-05 with rig `helm-expt-oci-0605`, NGINX `http-clusterip`,
+- 2026-06-05: rig `helm-expt-oci-0605`, NGINX `http-clusterip`,
 Argo CD OCI revision
 `sha256:0dc30c7049393a17fa7575bd45bad0918f5162d4014f80228010b8e914b49bf5`.
-The same retained rig was then used for three more first-wave rows:
+- The same retained rig was then used for three more first-wave rows:
 Metrics Server `default` passed after follow-up observation
 (`sha256:34716a4697a7f05c4ebde2587d1666fe0e0b47978c7fdbc2b3efb1ab42de1465`);
 External Secrets `no-crds` blocked on missing CRDs and separated webhook Secret
@@ -36,18 +42,17 @@ but reconciliation blocked because `Alertmanager.monitoring.coreos.com/v1` and
 related Prometheus Operator CRDs were absent; the run also recorded two
 separated Secrets that were not delivered through the workload OCI path.
 
-Wave 1 = a newcomer installs a **vanilla public chart at its default base**,
-entirely via `cub installer` (never the helm CLI), onto a BYO cluster whose
+This lane installs a **vanilla public chart at its default base**, entirely via
+`cub installer` (not the helm CLI), onto a BYO cluster whose
 GitOps controller pulls from `oci.hub.confighub.com`. This runbook is the exact,
 parameterized procedure so the same job runs identically on another machine.
 
-Lives here (test harness) per the repo split; the core flow it exercises lives
-in `confighub/helm-expt`. See `pilot/HELM_STRESS_TEST_MISSION.md`.
+The test harness lives in `tests/`; the core flow it exercises lives in
+`confighub/helm-expt`. See [strategy.md](strategy.md).
 
 ## Prerequisites (verify, don't assume)
 
-- `cub auth login` complete (real API check: `cub organization list` or
-  `./scripts/pilot-org-check --json` — NOT `cub info`).
+- `cub auth login` complete. Verify with `cub organization list`, not `cub info`.
 - `kind`, `kubectl`, `docker` (daemon running), `cub` on PATH.
 - cub-lk plugin: `cub plugin install jesperfj/cub-lk` (verify `cub lk version`).
 - `helm-expt` checked out as a **sibling** of this repo (path is machine-specific
@@ -62,7 +67,7 @@ in `confighub/helm-expt`. See `pilot/HELM_STRESS_TEST_MISSION.md`.
 ## Parameters
 
 ```bash
-CLUSTER=pilot-helm-w1                 # cub-lk cluster + name prefix
+CLUSTER=helm-expt-demo                # cub-lk cluster + name prefix
 SPACE_CLUSTER=${CLUSTER}-cluster      # cub-lk creates this (root app + oci target live here)
 WORKLOAD_SPACE=${CLUSTER}-nginx       # we create this for the workload units
 TARGET=${SPACE_CLUSTER}/oci           # the Noop OCI target cub-lk made
@@ -140,10 +145,12 @@ cub lk down --name "$CLUSTER"
 | Runtime | `deploy/nginx 1/1` Available; pod Running 1/1; image `registry-1.docker.io/bitnami/nginx:latest` |
 | Teardown | `cub lk down` deletes kind cluster + space; `kind get clusters` → none |
 
-## Known defect (MUST fix before users see it) — see "Wave 1 findings"
+## Namespace Coherence Guard
 
-`cub installer setup --namespace X` is coherent **only when X equals the base's
-frozen namespace** (`nginx` for this package, `redis` for redis, …). For any
-other X the install is silently split (Namespace object = X, workloads = frozen
-ns). Root cause + fix in `pilot/HELM_WAVE1_FINDINGS.md`. Until fixed, this
-runbook pins `NS` to the frozen value and step 2 includes a coherence guard.
+Earlier live runs found that packages without the namespace transformer could
+render a `Namespace` object for one namespace while workloads retained the
+recipe's frozen namespace. The top-20 packages now include the transformer where
+it is supported, but complex charts can still contain namespace references in
+embedded fields. Keep the step 2 coherence guard in place and read
+[findings.md](findings.md) before using an arbitrary namespace for a complex
+chart.

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Phase-1 driver: run the 20-chart DEFAULT-path Wave 1 across the TOP20 proof
-charts by calling the per-(chart,base) work unit (scripts/pilot-helm-chart-test)
-and aggregating the receipts into a campaign scorecard.
+"""Driver: run the 20-chart default-path live test across the TOP20 proof
+charts by calling the per-(chart,base) work unit (tests/chart-install-test)
+and aggregating the receipts into a scorecard.
 
 Built to shard for parallel, agentic testing: each agent runs `cub lk up` for its
 own rig, then runs this with its `--shard i/n` against that rig. On one machine
@@ -9,10 +9,10 @@ use `--slugs` (a light subset) or run sequentially. The rig lifecycle (cub lk
 up/down) is the caller's job — this driver is rig-agnostic, like the work unit.
 
 Usage:
-  pilot-helm-wave1-sweep --rig <cub-lk-cluster> [--shard i/n] [--slugs a,b,c]
-                         [--helm-expt <path>] [--keep] [--out <dir>]
+  tests/chart-install-sweep --rig <cub-lk-cluster> [--shard i/n] [--slugs a,b,c]
+                            [--helm-expt <path>] [--keep] [--out <dir>]
 
-See pilot/HELM_EXPT_TEST_STRATEGY.md.
+See tests/strategy.md.
 """
 from __future__ import annotations
 import argparse, json, re, subprocess, sys

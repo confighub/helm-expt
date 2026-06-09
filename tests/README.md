@@ -50,8 +50,8 @@ Start with [npm-scripts.md](npm-scripts.md) when you want to know what each
 - `runbook.md` — exact reproducible per-chart procedure.
 - `findings.md` — F1–F4 (namespace, `:latest`, secret delivery, proof-SHA).
 - `adversarial-strategy.md` — the adversarial multi-persona, tier-aware usage
-  probe. Pilot can implement this as a multi-agent workflow; the method lives
-  here.
+  probe. It can be run by an agent workflow or another orchestration runner;
+  the method lives here.
 
 ## Run (standalone)
 

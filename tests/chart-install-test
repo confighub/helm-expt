@@ -6,7 +6,7 @@ verify it, and emit a structured receipt.
 Rig-agnostic: it operates on an existing cub-lk cluster (passed via --rig); the
 caller owns `cub lk up`/`down`. That keeps this the parallel/agentic atom — a
 coordinator can hand each agent its own rig (one cluster per agent) and shard the
-charts. See pilot/HELM_EXPT_TEST_STRATEGY.md.
+charts. See tests/strategy.md.
 
 Reality Rule: status comes from real command output, never a label. Pairs Argo
 health with exact runtime field proof. Includes the F1 namespace-coherence guard.
