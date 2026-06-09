@@ -4,9 +4,19 @@
 
 NGINX has its own configuration model: `nginx.conf`, optional files under
 `conf.d`, and directive contexts such as `http`, `stream`, `server`, and
-`location`. In this project, the NGINX Helm chart is already handled as a
-reviewed `cub installer` package. The NGINX configuration language itself is
-not yet a first-class ConfigHub model.
+`location`. The NGINX documentation describes that model here:
+[Create NGINX Plus and NGINX Configuration Files](https://docs.nginx.com/nginx/admin-guide/basic-functionality/managing-configuration-files/).
+
+In this project, the NGINX Helm chart is already handled as a reviewed
+`cub installer` package. The NGINX configuration language itself is not yet a
+first-class ConfigHub model.
+
+That gives this project a clear boundary:
+
+```text
+NGINX Helm chart and Kubernetes objects -> modeled today
+custom nginx.conf / conf.d content      -> future NGINX-specific validation lane
+```
 
 ## Current Catalog Shape
 
@@ -39,6 +49,17 @@ That is deliberate. These values can inject NGINX config text, extra
 Kubernetes objects, sidecars, source-control pulls, or observability add-ons.
 They should not appear silently in a supported base variant.
 
+The repo has a generated check that proves the two supported NGINX bases do not
+silently use those slots:
+
+```sh
+npm run nginx:config-checks:verify
+```
+
+The report is here:
+
+[NGINX Config Extension Checks](../../data/nginx-config-checks/summary.md)
+
 ## When To Create A Base Variant
 
 Create a new `cub installer` base variant when a change makes Helm render a
@@ -62,6 +83,11 @@ The output should be treated as a new reviewed install shape:
 ```text
 chart values -> recipe/base variant -> rendered objects -> scan/gate -> receipt
 ```
+
+For NGINX config text, the new base should also add an NGINX-specific validation
+receipt. That receipt should say where the effective config came from, which
+ConfigMap or Secret supplies it, whether `nginx -t` passed, and what reload or
+rollout policy was used.
 
 ## When To Create A Derived ConfigHub Variant
 
