@@ -18,7 +18,7 @@
       "context": "kind-helm-expt-redis",
       "namespace": "kube-system"
     },
-    "observedAt": "2026-05-28T08:10:30.352Z",
+    "observedAt": "2026-06-09T13:14:00.545Z",
     "freshnessTTL": "1h",
     "result": "pass",
     "chart": "metrics-server/metrics-server",
@@ -46,11 +46,41 @@
         "object": "apiservice/v1beta1.metrics.k8s.io",
         "evidencePath": "apiservice-v1beta1.metrics.k8s.io.txt",
         "evidenceSHA256": "e0d78cd785ef8146ef7e9f7faf1ccbd76e6b6ad7c4a52ce324143fe90b33cb41"
+      },
+      {
+        "name": "cub-scout-object-set-matches",
+        "result": "pass",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "evidencePath": "cub-scout.object-set.receipt.json",
+        "evidenceSHA256": "76fc9c3853d367ea87a855f93e6ec2e76aef42060e2576ee1f86f08460233ed0",
+        "stderrPath": "cub-scout.object-set.stderr.txt",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "cub-scout-closed-world-object-set",
+        "result": "watch",
+        "verdict": "WATCH",
+        "exitCode": 2,
+        "evidencePath": "cub-scout.closed-world.receipt.json",
+        "evidenceSHA256": "21828699d76e4237fddb9a45963e491be4086e0c8ccd04a582a2998a5b188765",
+        "stderrPath": "cub-scout.closed-world.stderr.txt",
+        "stderrSHA256": "2d5612bf3580660df88b77f34676a9461a09b7682dcbfe827f0c458023f643e5"
+      },
+      {
+        "name": "cub-scout-workloads-converged",
+        "result": "pass",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "evidencePath": "cub-scout.workloads.receipt.json",
+        "evidenceSHA256": "be5f4d8bca5efe8c1253e666adcbfa25f8e271fae05f48908ded4162f11276af",
+        "stderrPath": "cub-scout.workloads.stderr.txt",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       }
     ],
     "kubectlObjects": {
       "path": "kubectl-objects.txt",
-      "sha256": "c84e629bc65b6b160fda0acf2c2218c871714c913590b6f184419b2287d43841"
+      "sha256": "72329a00de6a450dda4b35ef636c279ced2b670e016fb36c3f86ed991a42687f"
     }
   }
 }

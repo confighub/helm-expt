@@ -1,0 +1,1435 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "rendered-object-set://sha256/a6f023f7d5fd3825",
+      "digest": {
+        "sha256": "a6f023f7d5fd38254aed5316497f9318e3e9c0341310be06651c238e46c842db"
+      }
+    },
+    {
+      "name": "k8s-live-object-set://namespace/monitoring",
+      "digest": {
+        "sha256": "a6f023f7d5fd38254aed5316497f9318e3e9c0341310be06651c238e46c842db"
+      }
+    }
+  ],
+  "predicateType": "https://cub-scout.dev/receipt/v1",
+  "predicate": {
+    "version": "v1",
+    "claim": "live object set matches rendered manifests from /Users/alexis/code/helm-expt/runs/top20-local-kind/kube-prometheus-stack-default/cub-scout.desired.yaml",
+    "scope": {
+      "kind": "ObjectSet",
+      "name": "rendered-install",
+      "namespace": "monitoring"
+    },
+    "verifier": {
+      "tool": "cub-scout",
+      "version": "dev"
+    },
+    "verifiedAt": "2026-06-09T13:09:35Z",
+    "freshness": {
+      "observedAt": "2026-06-09T13:09:35Z",
+      "expiresAt": "2026-06-09T14:09:35Z",
+      "ttl": "1h0m0s"
+    },
+    "predicateName": "object-set-matches",
+    "verdict": "WATCH",
+    "evidence": {
+      "objectSet": {
+        "desiredSource": {
+          "type": "file",
+          "ref": "/Users/alexis/code/helm-expt/runs/top20-local-kind/kube-prometheus-stack-default/cub-scout.desired.yaml",
+          "digest": "e895567c69988aa2d84345375a192bd999a9d40e230bbd077a78ffabd2f6de72",
+          "objectCount": 124
+        },
+        "scope": {
+          "kind": "namespace",
+          "namespace": "monitoring"
+        },
+        "matchMode": "authored-fields",
+        "desiredDigest": "a6f023f7d5fd38254aed5316497f9318e3e9c0341310be06651c238e46c842db",
+        "liveDigest": "a6f023f7d5fd38254aed5316497f9318e3e9c0341310be06651c238e46c842db",
+        "summary": {
+          "desired": 124,
+          "matched": 124,
+          "missing": 0,
+          "mismatched": 0,
+          "inconclusive": 0
+        },
+        "objects": [
+          {
+            "id": {
+              "apiVersion": "admissionregistration.k8s.io/v1",
+              "kind": "MutatingWebhookConfiguration",
+              "name": "kube-prometheus-stack-admission"
+            },
+            "status": "matched",
+            "desiredDigest": "40058a4481b287820f8bf6d4c573c54b24fc0bebd8d03779e9e85b98c3f8319e",
+            "liveDigest": "40058a4481b287820f8bf6d4c573c54b24fc0bebd8d03779e9e85b98c3f8319e"
+          },
+          {
+            "id": {
+              "apiVersion": "admissionregistration.k8s.io/v1",
+              "kind": "ValidatingWebhookConfiguration",
+              "name": "kube-prometheus-stack-admission"
+            },
+            "status": "matched",
+            "desiredDigest": "88d0a59ae8b47c7e16b620a0eb9eaf6f89116e6c15234e888191c305f3cd4dfc",
+            "liveDigest": "88d0a59ae8b47c7e16b620a0eb9eaf6f89116e6c15234e888191c305f3cd4dfc"
+          },
+          {
+            "id": {
+              "apiVersion": "apiextensions.k8s.io/v1",
+              "kind": "CustomResourceDefinition",
+              "name": "alertmanagerconfigs.monitoring.coreos.com"
+            },
+            "status": "matched",
+            "desiredDigest": "660b4e24a9a4694f1346cdb9f6c648c6548c1ca28b943d0c6ee3d3f5b3fa8ed9",
+            "liveDigest": "660b4e24a9a4694f1346cdb9f6c648c6548c1ca28b943d0c6ee3d3f5b3fa8ed9"
+          },
+          {
+            "id": {
+              "apiVersion": "apiextensions.k8s.io/v1",
+              "kind": "CustomResourceDefinition",
+              "name": "alertmanagers.monitoring.coreos.com"
+            },
+            "status": "matched",
+            "desiredDigest": "c6360bb8dcf3b2cdd29a9229bd733fb7e5cbabdb15d8bc40f840ca779848e729",
+            "liveDigest": "c6360bb8dcf3b2cdd29a9229bd733fb7e5cbabdb15d8bc40f840ca779848e729"
+          },
+          {
+            "id": {
+              "apiVersion": "apiextensions.k8s.io/v1",
+              "kind": "CustomResourceDefinition",
+              "name": "podmonitors.monitoring.coreos.com"
+            },
+            "status": "matched",
+            "desiredDigest": "c1f0ea805ce4e945514a2246e2e88a8f780d3847d03b01dd54f0c995dfab2de2",
+            "liveDigest": "c1f0ea805ce4e945514a2246e2e88a8f780d3847d03b01dd54f0c995dfab2de2"
+          },
+          {
+            "id": {
+              "apiVersion": "apiextensions.k8s.io/v1",
+              "kind": "CustomResourceDefinition",
+              "name": "probes.monitoring.coreos.com"
+            },
+            "status": "matched",
+            "desiredDigest": "1cc9aa5f3c486442ac2359aa1a632869dee0bce22266a8d7784ededaa518c610",
+            "liveDigest": "1cc9aa5f3c486442ac2359aa1a632869dee0bce22266a8d7784ededaa518c610"
+          },
+          {
+            "id": {
+              "apiVersion": "apiextensions.k8s.io/v1",
+              "kind": "CustomResourceDefinition",
+              "name": "prometheusagents.monitoring.coreos.com"
+            },
+            "status": "matched",
+            "desiredDigest": "59f77234b762b26b4b9a02bbc6040b14da06704f91c2076b4d92c83f6c0c15a3",
+            "liveDigest": "59f77234b762b26b4b9a02bbc6040b14da06704f91c2076b4d92c83f6c0c15a3"
+          },
+          {
+            "id": {
+              "apiVersion": "apiextensions.k8s.io/v1",
+              "kind": "CustomResourceDefinition",
+              "name": "prometheuses.monitoring.coreos.com"
+            },
+            "status": "matched",
+            "desiredDigest": "1883b3fbd461dd9c5db9a48d3397decb5b51013b3cc022b7a1a4a03ec1ab2948",
+            "liveDigest": "1883b3fbd461dd9c5db9a48d3397decb5b51013b3cc022b7a1a4a03ec1ab2948"
+          },
+          {
+            "id": {
+              "apiVersion": "apiextensions.k8s.io/v1",
+              "kind": "CustomResourceDefinition",
+              "name": "prometheusrules.monitoring.coreos.com"
+            },
+            "status": "matched",
+            "desiredDigest": "a9e9389f3a94b357c20d1765b9ee62b87278bcc40f72f1657d9899c7dfe4652e",
+            "liveDigest": "a9e9389f3a94b357c20d1765b9ee62b87278bcc40f72f1657d9899c7dfe4652e"
+          },
+          {
+            "id": {
+              "apiVersion": "apiextensions.k8s.io/v1",
+              "kind": "CustomResourceDefinition",
+              "name": "scrapeconfigs.monitoring.coreos.com"
+            },
+            "status": "matched",
+            "desiredDigest": "04a02b91e182dbfab906b222efdaad4e27d4c0759b73277b1b1859f0a282e9ad",
+            "liveDigest": "04a02b91e182dbfab906b222efdaad4e27d4c0759b73277b1b1859f0a282e9ad"
+          },
+          {
+            "id": {
+              "apiVersion": "apiextensions.k8s.io/v1",
+              "kind": "CustomResourceDefinition",
+              "name": "servicemonitors.monitoring.coreos.com"
+            },
+            "status": "matched",
+            "desiredDigest": "2d7a9a68696e18bda11005da6dc5ae8a0441ed30b892f80cbbf53ec093558c70",
+            "liveDigest": "2d7a9a68696e18bda11005da6dc5ae8a0441ed30b892f80cbbf53ec093558c70"
+          },
+          {
+            "id": {
+              "apiVersion": "apiextensions.k8s.io/v1",
+              "kind": "CustomResourceDefinition",
+              "name": "thanosrulers.monitoring.coreos.com"
+            },
+            "status": "matched",
+            "desiredDigest": "f0657c4b6cac5b4ab743391fea013492c419eeda50b94e50afea516d011b2ab4",
+            "liveDigest": "f0657c4b6cac5b4ab743391fea013492c419eeda50b94e50afea516d011b2ab4"
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "DaemonSet",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-prometheus-node-exporter"
+            },
+            "status": "matched",
+            "desiredDigest": "6862e8c007257d7cef0141eff27cb8a3830d35c72767c606759663c71dc552e6",
+            "liveDigest": "6862e8c007257d7cef0141eff27cb8a3830d35c72767c606759663c71dc552e6"
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-grafana"
+            },
+            "status": "matched",
+            "desiredDigest": "ee08ba5c8ca5dee23ca4a81d90d8b23695beb1f740e4058e873f8a0af797f4ed",
+            "liveDigest": "ee08ba5c8ca5dee23ca4a81d90d8b23695beb1f740e4058e873f8a0af797f4ed"
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kube-state-metrics"
+            },
+            "status": "matched",
+            "desiredDigest": "c3492f96b71341f5a4d2b7bf85a6cb347e872bfd7cc6a5da65b88b49493f5bab",
+            "liveDigest": "c3492f96b71341f5a4d2b7bf85a6cb347e872bfd7cc6a5da65b88b49493f5bab"
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-operator"
+            },
+            "status": "matched",
+            "desiredDigest": "f2198c07a41b0711150506f57447d628e4ec8658ddcf6bcca5f26b6b16b406ba",
+            "liveDigest": "f2198c07a41b0711150506f57447d628e4ec8658ddcf6bcca5f26b6b16b406ba"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "Alertmanager",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-alertmanager"
+            },
+            "status": "matched",
+            "desiredDigest": "093dcab780605dc23d4021e197c63f790319f3469e5eeb8f47f1c7eaafa1692c",
+            "liveDigest": "093dcab780605dc23d4021e197c63f790319f3469e5eeb8f47f1c7eaafa1692c"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-alertmanager.rules"
+            },
+            "status": "matched",
+            "desiredDigest": "3e616523bc5799039284dfe80f5bc0c5975ff972e5786fc91c1639e513347670",
+            "liveDigest": "3e616523bc5799039284dfe80f5bc0c5975ff972e5786fc91c1639e513347670"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-config-reloaders"
+            },
+            "status": "matched",
+            "desiredDigest": "d49ddc8a4d2cd435a7954d158a3b63763df98e4f6cc4920292d47e9181d60a5f",
+            "liveDigest": "d49ddc8a4d2cd435a7954d158a3b63763df98e4f6cc4920292d47e9181d60a5f"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-etcd"
+            },
+            "status": "matched",
+            "desiredDigest": "499a235677d3c775ff65b62e42f2bcc3b0181354b2f736fc26d489c84975cd6b",
+            "liveDigest": "499a235677d3c775ff65b62e42f2bcc3b0181354b2f736fc26d489c84975cd6b"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-general.rules"
+            },
+            "status": "matched",
+            "desiredDigest": "13318f2bd515ce6f1fa7021a8f1054e135ffa56a3e41671357d507927b4ea106",
+            "liveDigest": "13318f2bd515ce6f1fa7021a8f1054e135ffa56a3e41671357d507927b4ea106"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-k8s.rules.container-cpu-usage-seconds-tot"
+            },
+            "status": "matched",
+            "desiredDigest": "93eb14e3448c4f24c9f9043f921175bd3e9b042a37404818f727264b62920695",
+            "liveDigest": "93eb14e3448c4f24c9f9043f921175bd3e9b042a37404818f727264b62920695"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-k8s.rules.container-memory-cache"
+            },
+            "status": "matched",
+            "desiredDigest": "9c99305c2882bbc137216c59c6770a4741420dd83e923be069f82109a401920a",
+            "liveDigest": "9c99305c2882bbc137216c59c6770a4741420dd83e923be069f82109a401920a"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-k8s.rules.container-memory-rss"
+            },
+            "status": "matched",
+            "desiredDigest": "2d0c4a0cc2473f17926c3c819f524375394a0f03a11e0f2ed8eecb38aba29a34",
+            "liveDigest": "2d0c4a0cc2473f17926c3c819f524375394a0f03a11e0f2ed8eecb38aba29a34"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-k8s.rules.container-memory-swap"
+            },
+            "status": "matched",
+            "desiredDigest": "13c8f109bec02b4a4191a33d31b9c4faaf40086a8301711e61619ae955d20d8c",
+            "liveDigest": "13c8f109bec02b4a4191a33d31b9c4faaf40086a8301711e61619ae955d20d8c"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-k8s.rules.container-memory-working-set-by"
+            },
+            "status": "matched",
+            "desiredDigest": "9b7b52967e43f95ac15abd38c4d0303587f6bf928471ef012344ff7418a1823f",
+            "liveDigest": "9b7b52967e43f95ac15abd38c4d0303587f6bf928471ef012344ff7418a1823f"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-k8s.rules.container-resource"
+            },
+            "status": "matched",
+            "desiredDigest": "a63dcc7550c4a8e28bf12b96a3f853468ea942a69ddc4ca7f84dc08f3a22a5ff",
+            "liveDigest": "a63dcc7550c4a8e28bf12b96a3f853468ea942a69ddc4ca7f84dc08f3a22a5ff"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-k8s.rules.pod-owner"
+            },
+            "status": "matched",
+            "desiredDigest": "bbd832ca2a29ffede703301307507550e4d24ef7fe0130e43a7048bc691ca452",
+            "liveDigest": "bbd832ca2a29ffede703301307507550e4d24ef7fe0130e43a7048bc691ca452"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kube-apiserver-availability.rules"
+            },
+            "status": "matched",
+            "desiredDigest": "62b107596e97a5d8baac15c8c20cd7f4b0803d3ba496c0472549e98c20f64ec6",
+            "liveDigest": "62b107596e97a5d8baac15c8c20cd7f4b0803d3ba496c0472549e98c20f64ec6"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kube-apiserver-burnrate.rules"
+            },
+            "status": "matched",
+            "desiredDigest": "d75bfe1d8e45bc3b982c5e150110448ce4f580b88f02bc7b8132b5e697ca0592",
+            "liveDigest": "d75bfe1d8e45bc3b982c5e150110448ce4f580b88f02bc7b8132b5e697ca0592"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kube-apiserver-histogram.rules"
+            },
+            "status": "matched",
+            "desiredDigest": "20e6efcf555da2001f936065d062d273dfe8cd9328fdfd9f9fa0f5c963dfe1b3",
+            "liveDigest": "20e6efcf555da2001f936065d062d273dfe8cd9328fdfd9f9fa0f5c963dfe1b3"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kube-apiserver-slos"
+            },
+            "status": "matched",
+            "desiredDigest": "35b767d759cf7d45fd43c76a7d4c823044f859aa78688be60e8c1b31284cbaa3",
+            "liveDigest": "35b767d759cf7d45fd43c76a7d4c823044f859aa78688be60e8c1b31284cbaa3"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kube-prometheus-general.rules"
+            },
+            "status": "matched",
+            "desiredDigest": "cd809084c51d5be51a716ac65a96213e633ed4333b9a2ba2226d889ddb22508f",
+            "liveDigest": "cd809084c51d5be51a716ac65a96213e633ed4333b9a2ba2226d889ddb22508f"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kube-prometheus-node-recording.rules"
+            },
+            "status": "matched",
+            "desiredDigest": "61f94bfefb435f906e46611e1d146d0ef5dcb2f167f3b82957ae0793daf7ced0",
+            "liveDigest": "61f94bfefb435f906e46611e1d146d0ef5dcb2f167f3b82957ae0793daf7ced0"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kube-scheduler.rules"
+            },
+            "status": "matched",
+            "desiredDigest": "a74fa3cc62d394c70157e2d5646d57b890d793e796195f54ad0733383117044a",
+            "liveDigest": "a74fa3cc62d394c70157e2d5646d57b890d793e796195f54ad0733383117044a"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kube-state-metrics"
+            },
+            "status": "matched",
+            "desiredDigest": "42c029f234a7b6f9310d3218862710f3d86425e06be19198f91f25caea2032b8",
+            "liveDigest": "42c029f234a7b6f9310d3218862710f3d86425e06be19198f91f25caea2032b8"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kubelet.rules"
+            },
+            "status": "matched",
+            "desiredDigest": "3039d3da4a8a990f3d5b7df4244d876d8a13ca8a468fdabb42c25e3f04a4c03a",
+            "liveDigest": "3039d3da4a8a990f3d5b7df4244d876d8a13ca8a468fdabb42c25e3f04a4c03a"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kubernetes-apps"
+            },
+            "status": "matched",
+            "desiredDigest": "6b87978ee6a35532344175ca62ff6c1e103801330fc620671d49db0c2b3bd237",
+            "liveDigest": "6b87978ee6a35532344175ca62ff6c1e103801330fc620671d49db0c2b3bd237"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kubernetes-resources"
+            },
+            "status": "matched",
+            "desiredDigest": "fe6d938d70216489f32ffdc8be7e3388a0a07f58ea383628ca210e3e8db1a6e5",
+            "liveDigest": "fe6d938d70216489f32ffdc8be7e3388a0a07f58ea383628ca210e3e8db1a6e5"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kubernetes-storage"
+            },
+            "status": "matched",
+            "desiredDigest": "539dcb7d27bea418188f01d795d549903c8ffdc03f850fb739a006f6d28e3179",
+            "liveDigest": "539dcb7d27bea418188f01d795d549903c8ffdc03f850fb739a006f6d28e3179"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kubernetes-system"
+            },
+            "status": "matched",
+            "desiredDigest": "b945bc88d38c5b7951c415acfa752c782db05fa42ed62394afb3af908311ce59",
+            "liveDigest": "b945bc88d38c5b7951c415acfa752c782db05fa42ed62394afb3af908311ce59"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kubernetes-system-apiserver"
+            },
+            "status": "matched",
+            "desiredDigest": "d9bc673940a3d1aada8875090e742aeab5387af61e5f03bff8da0d4e17a5f369",
+            "liveDigest": "d9bc673940a3d1aada8875090e742aeab5387af61e5f03bff8da0d4e17a5f369"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kubernetes-system-controller-manager"
+            },
+            "status": "matched",
+            "desiredDigest": "277a9d083f3060b3db81cfd3ec3f9fe26103049205e6a2374d46f17d0baaeafb",
+            "liveDigest": "277a9d083f3060b3db81cfd3ec3f9fe26103049205e6a2374d46f17d0baaeafb"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kubernetes-system-kube-proxy"
+            },
+            "status": "matched",
+            "desiredDigest": "9bc9e6425f67213ad15006eadedaabcc6c2e56dc82125253d166f02586e887e2",
+            "liveDigest": "9bc9e6425f67213ad15006eadedaabcc6c2e56dc82125253d166f02586e887e2"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kubernetes-system-kubelet"
+            },
+            "status": "matched",
+            "desiredDigest": "452319d61e0704f00c4024847ee9a7c11de6155dbcc92c74f3c1a64c7f2810a0",
+            "liveDigest": "452319d61e0704f00c4024847ee9a7c11de6155dbcc92c74f3c1a64c7f2810a0"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kubernetes-system-scheduler"
+            },
+            "status": "matched",
+            "desiredDigest": "f55ba8ae4ee1f71e78d5ce644135a5ed49ec17aaacbc36f5acd20341b4dde581",
+            "liveDigest": "f55ba8ae4ee1f71e78d5ce644135a5ed49ec17aaacbc36f5acd20341b4dde581"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-node-exporter"
+            },
+            "status": "matched",
+            "desiredDigest": "a9f53123c692d5145bf49cbec19c621b306b074e9846d1c25e39e0a69f38494c",
+            "liveDigest": "a9f53123c692d5145bf49cbec19c621b306b074e9846d1c25e39e0a69f38494c"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-node-exporter.rules"
+            },
+            "status": "matched",
+            "desiredDigest": "cc4c291c41a5a62c827bed8571d5c2062bbe04d3912b64d2eb6f9da1d80c1b24",
+            "liveDigest": "cc4c291c41a5a62c827bed8571d5c2062bbe04d3912b64d2eb6f9da1d80c1b24"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-node-network"
+            },
+            "status": "matched",
+            "desiredDigest": "ded390fc7eb8e0896260ded82be6cd5349aea2b6487aa8b8f9dad649cefdae19",
+            "liveDigest": "ded390fc7eb8e0896260ded82be6cd5349aea2b6487aa8b8f9dad649cefdae19"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-node.rules"
+            },
+            "status": "matched",
+            "desiredDigest": "44dc3eee4a4127166b7f7c61dd6052fc03515b4086f5760651bd032d2d9d7f0b",
+            "liveDigest": "44dc3eee4a4127166b7f7c61dd6052fc03515b4086f5760651bd032d2d9d7f0b"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-prometheus"
+            },
+            "status": "matched",
+            "desiredDigest": "69b4f0c47cc83cb494552f8d573803797c7c2feb4201679b01429788c6930d9f",
+            "liveDigest": "69b4f0c47cc83cb494552f8d573803797c7c2feb4201679b01429788c6930d9f"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "PrometheusRule",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-prometheus-operator"
+            },
+            "status": "matched",
+            "desiredDigest": "8088510045356dd98120c1bf2aa93e13777cee32da71bf97b9775d5a365e78f2",
+            "liveDigest": "8088510045356dd98120c1bf2aa93e13777cee32da71bf97b9775d5a365e78f2"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "Prometheus",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-prometheus"
+            },
+            "status": "matched",
+            "desiredDigest": "af56d1d64e2b9a48ec242e698a662ab740a18b9245401e33d6e6a4ed17636e35",
+            "liveDigest": "af56d1d64e2b9a48ec242e698a662ab740a18b9245401e33d6e6a4ed17636e35"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "ServiceMonitor",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-alertmanager"
+            },
+            "status": "matched",
+            "desiredDigest": "4717fb0b24925ff3b5e14019e6165fd042ac6acee95f2dde632f3f9448a2285b",
+            "liveDigest": "4717fb0b24925ff3b5e14019e6165fd042ac6acee95f2dde632f3f9448a2285b"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "ServiceMonitor",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-apiserver"
+            },
+            "status": "matched",
+            "desiredDigest": "d0c8a89f659dfe2b99b9f9c3112da1e366669d1f70e614235e2c4e532e8868fa",
+            "liveDigest": "d0c8a89f659dfe2b99b9f9c3112da1e366669d1f70e614235e2c4e532e8868fa"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "ServiceMonitor",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-coredns"
+            },
+            "status": "matched",
+            "desiredDigest": "e43808f1430e908f21fe28c2f4144afd6ce4064005ed1e8a5a77560fd5c9fde7",
+            "liveDigest": "e43808f1430e908f21fe28c2f4144afd6ce4064005ed1e8a5a77560fd5c9fde7"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "ServiceMonitor",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-grafana"
+            },
+            "status": "matched",
+            "desiredDigest": "80538204d8b5e0ccef5c146fe665cf36b7bcd908ce433593524c6c6044816195",
+            "liveDigest": "80538204d8b5e0ccef5c146fe665cf36b7bcd908ce433593524c6c6044816195"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "ServiceMonitor",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kube-controller-manager"
+            },
+            "status": "matched",
+            "desiredDigest": "88efa152eb584df2033fa23122f6be4ce7e2b6e7257c1fc27d6c445b878cdcd7",
+            "liveDigest": "88efa152eb584df2033fa23122f6be4ce7e2b6e7257c1fc27d6c445b878cdcd7"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "ServiceMonitor",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kube-etcd"
+            },
+            "status": "matched",
+            "desiredDigest": "01a02208c9b6f51ff3d2511addf639cb826d188dcc9323dd7ff0f30931031f8b",
+            "liveDigest": "01a02208c9b6f51ff3d2511addf639cb826d188dcc9323dd7ff0f30931031f8b"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "ServiceMonitor",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kube-proxy"
+            },
+            "status": "matched",
+            "desiredDigest": "d402b99e4257c89d1d3cf5270bd719c7ea790a03a00549d0cba976685a1eb789",
+            "liveDigest": "d402b99e4257c89d1d3cf5270bd719c7ea790a03a00549d0cba976685a1eb789"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "ServiceMonitor",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kube-scheduler"
+            },
+            "status": "matched",
+            "desiredDigest": "34779a2c85c9f5a90dea75c2ed06d275f3148b45b51f1729c32bd8cafb699c8b",
+            "liveDigest": "34779a2c85c9f5a90dea75c2ed06d275f3148b45b51f1729c32bd8cafb699c8b"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "ServiceMonitor",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kube-state-metrics"
+            },
+            "status": "matched",
+            "desiredDigest": "ebdd7672f6cd192b21ca8629955908c9584c9fb6808fa261f3b970902087890e",
+            "liveDigest": "ebdd7672f6cd192b21ca8629955908c9584c9fb6808fa261f3b970902087890e"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "ServiceMonitor",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kubelet"
+            },
+            "status": "matched",
+            "desiredDigest": "e8c1c6a07471c980aa25fd0956e3f70acc0b307937229c96cce858538d6aecdd",
+            "liveDigest": "e8c1c6a07471c980aa25fd0956e3f70acc0b307937229c96cce858538d6aecdd"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "ServiceMonitor",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-operator"
+            },
+            "status": "matched",
+            "desiredDigest": "42d83c39e60fe26610f9474080c2c42503d0b3bc7c8b3737f78129d5a6eedf4f",
+            "liveDigest": "42d83c39e60fe26610f9474080c2c42503d0b3bc7c8b3737f78129d5a6eedf4f"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "ServiceMonitor",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-prometheus"
+            },
+            "status": "matched",
+            "desiredDigest": "c8320cd20b674605a4b1451844098ea1f4eb86ca62efd16c2ca5edfeddf4c3b5",
+            "liveDigest": "c8320cd20b674605a4b1451844098ea1f4eb86ca62efd16c2ca5edfeddf4c3b5"
+          },
+          {
+            "id": {
+              "apiVersion": "monitoring.coreos.com/v1",
+              "kind": "ServiceMonitor",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-prometheus-node-exporter"
+            },
+            "status": "matched",
+            "desiredDigest": "bf795d4c7788c18acedf635996e3bf82734db769ce24cdda9cd0d1a3dd483d80",
+            "liveDigest": "bf795d4c7788c18acedf635996e3bf82734db769ce24cdda9cd0d1a3dd483d80"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "ClusterRoleBinding",
+              "name": "kube-prometheus-stack-grafana-clusterrolebinding"
+            },
+            "status": "matched",
+            "desiredDigest": "09838fdc4c0c572fd5a0ceaa79ced8fa845f84bfe5e385fa2e9c53bfa05491c0",
+            "liveDigest": "09838fdc4c0c572fd5a0ceaa79ced8fa845f84bfe5e385fa2e9c53bfa05491c0"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "ClusterRoleBinding",
+              "name": "kube-prometheus-stack-kube-state-metrics"
+            },
+            "status": "matched",
+            "desiredDigest": "103052133646b1c4f2b39c93eca3cacd4b97e002561fba878372e26d49eea6ef",
+            "liveDigest": "103052133646b1c4f2b39c93eca3cacd4b97e002561fba878372e26d49eea6ef"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "ClusterRoleBinding",
+              "name": "kube-prometheus-stack-operator"
+            },
+            "status": "matched",
+            "desiredDigest": "eb553c3da71c9ce40df997b2d50018491a4db63863d4a34fbb5fbe0a3266387e",
+            "liveDigest": "eb553c3da71c9ce40df997b2d50018491a4db63863d4a34fbb5fbe0a3266387e"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "ClusterRoleBinding",
+              "name": "kube-prometheus-stack-prometheus"
+            },
+            "status": "matched",
+            "desiredDigest": "f89f55dd67ee60deb91ef0ecb93fca0a4c7bb0c1ce397712e1c2a6ebb9dfc415",
+            "liveDigest": "f89f55dd67ee60deb91ef0ecb93fca0a4c7bb0c1ce397712e1c2a6ebb9dfc415"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "ClusterRole",
+              "name": "kube-prometheus-stack-grafana-clusterrole"
+            },
+            "status": "matched",
+            "desiredDigest": "48975a404a9845fa9aa6df095147f5ebba09c5e5c2e9261b9820348b8425b65e",
+            "liveDigest": "48975a404a9845fa9aa6df095147f5ebba09c5e5c2e9261b9820348b8425b65e"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "ClusterRole",
+              "name": "kube-prometheus-stack-kube-state-metrics"
+            },
+            "status": "matched",
+            "desiredDigest": "accda1371bf85351f8a09187d751ff80b7b5eeb80a278c0e8c3b52845a3c1eef",
+            "liveDigest": "accda1371bf85351f8a09187d751ff80b7b5eeb80a278c0e8c3b52845a3c1eef"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "ClusterRole",
+              "name": "kube-prometheus-stack-operator"
+            },
+            "status": "matched",
+            "desiredDigest": "d6ae5c8f18c88c2cd2d37a7617e3754894e4131915086624e38bfae548570cf9",
+            "liveDigest": "d6ae5c8f18c88c2cd2d37a7617e3754894e4131915086624e38bfae548570cf9"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "ClusterRole",
+              "name": "kube-prometheus-stack-prometheus"
+            },
+            "status": "matched",
+            "desiredDigest": "d091e62e0a1854fb9d64fdcb112a4c704b7fb6e51b174bedcf06c751b466f81f",
+            "liveDigest": "d091e62e0a1854fb9d64fdcb112a4c704b7fb6e51b174bedcf06c751b466f81f"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-alertmanager-overview"
+            },
+            "status": "matched",
+            "desiredDigest": "b60d161f578306a40c97fe11f28eff1c201269aef5c0282b96c4164ff74af536",
+            "liveDigest": "b60d161f578306a40c97fe11f28eff1c201269aef5c0282b96c4164ff74af536"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-apiserver"
+            },
+            "status": "matched",
+            "desiredDigest": "7a47339c6f14738bcfff3acb46f5ff417593a82a1bb9445e1526ee36c56fbbe7",
+            "liveDigest": "7a47339c6f14738bcfff3acb46f5ff417593a82a1bb9445e1526ee36c56fbbe7"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-cluster-total"
+            },
+            "status": "matched",
+            "desiredDigest": "dda1c0231082925ec216e4ec2097b04424d3998b31f5df3d23b07300f4d38cbe",
+            "liveDigest": "dda1c0231082925ec216e4ec2097b04424d3998b31f5df3d23b07300f4d38cbe"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-controller-manager"
+            },
+            "status": "matched",
+            "desiredDigest": "3794fd643e0e4eb222b7f742b81af611b950402a705d812e036d6a50b250a319",
+            "liveDigest": "3794fd643e0e4eb222b7f742b81af611b950402a705d812e036d6a50b250a319"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-etcd"
+            },
+            "status": "matched",
+            "desiredDigest": "e5a239b397077a62c7ece080325369114c7721c27037dcb77f080ff5ce88e51f",
+            "liveDigest": "e5a239b397077a62c7ece080325369114c7721c27037dcb77f080ff5ce88e51f"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-grafana"
+            },
+            "status": "matched",
+            "desiredDigest": "07874e96a82af83bbf04b98810d80d03e5a2ba542f50c9da5dcd99571c7ba650",
+            "liveDigest": "07874e96a82af83bbf04b98810d80d03e5a2ba542f50c9da5dcd99571c7ba650"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-grafana-config-dashboards"
+            },
+            "status": "matched",
+            "desiredDigest": "3930add3f1664477a3a8905262117d8acc8d43ad3cfda71395c372a168237e86",
+            "liveDigest": "3930add3f1664477a3a8905262117d8acc8d43ad3cfda71395c372a168237e86"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-grafana-datasource"
+            },
+            "status": "matched",
+            "desiredDigest": "9a4d51b78405dc98b87bfafd785bc92009dc69a263ab94a6da6d8143083880fd",
+            "liveDigest": "9a4d51b78405dc98b87bfafd785bc92009dc69a263ab94a6da6d8143083880fd"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-grafana-overview"
+            },
+            "status": "matched",
+            "desiredDigest": "a6765b7fc3dda69d548320df42ff9de1f6414104713db39a46848528ddd01473",
+            "liveDigest": "a6765b7fc3dda69d548320df42ff9de1f6414104713db39a46848528ddd01473"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-k8s-coredns"
+            },
+            "status": "matched",
+            "desiredDigest": "e68a37dc37ca47b4b26fe0a1dfd23d1b57dcf2f43fe5a61aae57672d4a1209f5",
+            "liveDigest": "e68a37dc37ca47b4b26fe0a1dfd23d1b57dcf2f43fe5a61aae57672d4a1209f5"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-k8s-resources-cluster"
+            },
+            "status": "matched",
+            "desiredDigest": "475b087c8a771386170e272e63492d3dbeee30440626ab059deb8778f4c4ce68",
+            "liveDigest": "475b087c8a771386170e272e63492d3dbeee30440626ab059deb8778f4c4ce68"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-k8s-resources-multicluster"
+            },
+            "status": "matched",
+            "desiredDigest": "4b047b9d7f7b773a7b6bc0d0a1f744e18be6cb924cc572e8122bc5eb45ba0d83",
+            "liveDigest": "4b047b9d7f7b773a7b6bc0d0a1f744e18be6cb924cc572e8122bc5eb45ba0d83"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-k8s-resources-namespace"
+            },
+            "status": "matched",
+            "desiredDigest": "02ecc7b5964e06b326e21afaead8fe64848b70c24a32e88b8512a31c0403fec7",
+            "liveDigest": "02ecc7b5964e06b326e21afaead8fe64848b70c24a32e88b8512a31c0403fec7"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-k8s-resources-node"
+            },
+            "status": "matched",
+            "desiredDigest": "4bf0ec565e4a5620e7c95661c988a50122e7d10df24eb1d0f8001bf93bd5d904",
+            "liveDigest": "4bf0ec565e4a5620e7c95661c988a50122e7d10df24eb1d0f8001bf93bd5d904"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-k8s-resources-pod"
+            },
+            "status": "matched",
+            "desiredDigest": "1833c21149ea9307a097f1c7e70b14c0d21f523365adfa7d0bef8d1fea8bf807",
+            "liveDigest": "1833c21149ea9307a097f1c7e70b14c0d21f523365adfa7d0bef8d1fea8bf807"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-k8s-resources-workload"
+            },
+            "status": "matched",
+            "desiredDigest": "0544965c2622d000a9468098ffa238911a16f3a6cd8aad6748c9b87a62a60e8c",
+            "liveDigest": "0544965c2622d000a9468098ffa238911a16f3a6cd8aad6748c9b87a62a60e8c"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-k8s-resources-workloads-namespace"
+            },
+            "status": "matched",
+            "desiredDigest": "15c397c6af997387311d09f31dd5209e4eb6aa976675b7b4ce454442cc8ea72f",
+            "liveDigest": "15c397c6af997387311d09f31dd5209e4eb6aa976675b7b4ce454442cc8ea72f"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kubelet"
+            },
+            "status": "matched",
+            "desiredDigest": "0c6ef67317d438e7550b030f0dbc2c4f053cf1288510db1412ef22137e73e995",
+            "liveDigest": "0c6ef67317d438e7550b030f0dbc2c4f053cf1288510db1412ef22137e73e995"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-namespace-by-pod"
+            },
+            "status": "matched",
+            "desiredDigest": "803b09fabdea4b66090e381f45fd00a5004e75d12999df1d73e6c7a970b49d72",
+            "liveDigest": "803b09fabdea4b66090e381f45fd00a5004e75d12999df1d73e6c7a970b49d72"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-namespace-by-workload"
+            },
+            "status": "matched",
+            "desiredDigest": "0f755c449cc8912b908b387bf5017e0f6bc37716ec86346315142d3d80fb3290",
+            "liveDigest": "0f755c449cc8912b908b387bf5017e0f6bc37716ec86346315142d3d80fb3290"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-node-cluster-rsrc-use"
+            },
+            "status": "matched",
+            "desiredDigest": "681b96a5ce0b253e44840517efe3069f632a65035e536492e465289157baa162",
+            "liveDigest": "681b96a5ce0b253e44840517efe3069f632a65035e536492e465289157baa162"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-node-rsrc-use"
+            },
+            "status": "matched",
+            "desiredDigest": "91f24e31c5671639fc23155763b906a1317b2997017e7d20ea941e4f22919ca8",
+            "liveDigest": "91f24e31c5671639fc23155763b906a1317b2997017e7d20ea941e4f22919ca8"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-nodes"
+            },
+            "status": "matched",
+            "desiredDigest": "0c92da59bf3317cbebdd2422a0927a9103120bcb7a83b78c5527b9d682751259",
+            "liveDigest": "0c92da59bf3317cbebdd2422a0927a9103120bcb7a83b78c5527b9d682751259"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-nodes-aix"
+            },
+            "status": "matched",
+            "desiredDigest": "db0ca18bf0ec7cb0edd25aa16bd12824e43c52d3e944cdbcb0a1849ea8dde817",
+            "liveDigest": "db0ca18bf0ec7cb0edd25aa16bd12824e43c52d3e944cdbcb0a1849ea8dde817"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-nodes-darwin"
+            },
+            "status": "matched",
+            "desiredDigest": "dd1d55c01d53bb6394179a1e24a0cfbe73d47450e888fdc49dcc49baa14333d0",
+            "liveDigest": "dd1d55c01d53bb6394179a1e24a0cfbe73d47450e888fdc49dcc49baa14333d0"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-persistentvolumesusage"
+            },
+            "status": "matched",
+            "desiredDigest": "15da34c68a3c11971125789a346f067e0c3ddbec96f0912fd0b4ee8ee5084c78",
+            "liveDigest": "15da34c68a3c11971125789a346f067e0c3ddbec96f0912fd0b4ee8ee5084c78"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-pod-total"
+            },
+            "status": "matched",
+            "desiredDigest": "a5a4c8b299b2a6b18a9d24b0ef278d02119a6d4944dbe086fcb2432afdee3a52",
+            "liveDigest": "a5a4c8b299b2a6b18a9d24b0ef278d02119a6d4944dbe086fcb2432afdee3a52"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-prometheus"
+            },
+            "status": "matched",
+            "desiredDigest": "7de6b025046886eea8d45eea3dc05df7e678bb849d2d9f42fea674833451f52f",
+            "liveDigest": "7de6b025046886eea8d45eea3dc05df7e678bb849d2d9f42fea674833451f52f"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-proxy"
+            },
+            "status": "matched",
+            "desiredDigest": "803a679991a7262438340c24546fe2babe6ad6938ac09652796ef59cd0ef3144",
+            "liveDigest": "803a679991a7262438340c24546fe2babe6ad6938ac09652796ef59cd0ef3144"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-scheduler"
+            },
+            "status": "matched",
+            "desiredDigest": "632371416fed4bb48ad578f9bf16342f273683c61f4fec77116c6bf5830edb3c",
+            "liveDigest": "632371416fed4bb48ad578f9bf16342f273683c61f4fec77116c6bf5830edb3c"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-workload-total"
+            },
+            "status": "matched",
+            "desiredDigest": "9a947309c0183de4156ccf0bfff8dcd11fed8338151cb8caa38cd406ea789c07",
+            "liveDigest": "9a947309c0183de4156ccf0bfff8dcd11fed8338151cb8caa38cd406ea789c07"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Secret",
+              "namespace": "monitoring",
+              "name": "alertmanager-kube-prometheus-stack-alertmanager"
+            },
+            "status": "matched",
+            "desiredDigest": "0ce956c8f26764688a785d3d163b4a5ea3ed84eec22b2a01f3a48ae6f4998c8c",
+            "liveDigest": "0ce956c8f26764688a785d3d163b4a5ea3ed84eec22b2a01f3a48ae6f4998c8c"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Secret",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-grafana"
+            },
+            "status": "matched",
+            "desiredDigest": "b62947426ec0af9b204d92d1ba51000291a5a77d33b399aaf89dfe1363c60d05",
+            "liveDigest": "b62947426ec0af9b204d92d1ba51000291a5a77d33b399aaf89dfe1363c60d05"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ServiceAccount",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-alertmanager"
+            },
+            "status": "matched",
+            "desiredDigest": "e82dbe53698c03d683dc452c710155a64027888e85465b2e82b342b19fe5f753",
+            "liveDigest": "e82dbe53698c03d683dc452c710155a64027888e85465b2e82b342b19fe5f753"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ServiceAccount",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-grafana"
+            },
+            "status": "matched",
+            "desiredDigest": "aa9d4f987db99f681b89a41f95705bb57b676f8756645c283dba9d80fbc0139c",
+            "liveDigest": "aa9d4f987db99f681b89a41f95705bb57b676f8756645c283dba9d80fbc0139c"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ServiceAccount",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kube-state-metrics"
+            },
+            "status": "matched",
+            "desiredDigest": "a9ac03c80fd18b2c2ebe8089f8f7d9c79389a4ca38f4969b4102e5e90d15c120",
+            "liveDigest": "a9ac03c80fd18b2c2ebe8089f8f7d9c79389a4ca38f4969b4102e5e90d15c120"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ServiceAccount",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-operator"
+            },
+            "status": "matched",
+            "desiredDigest": "7ed0ab4c44dfa3e87af375b1dd49a8afc3df6190bdb86013ae8911c4963e0785",
+            "liveDigest": "7ed0ab4c44dfa3e87af375b1dd49a8afc3df6190bdb86013ae8911c4963e0785"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ServiceAccount",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-prometheus"
+            },
+            "status": "matched",
+            "desiredDigest": "1663a7287fcc5a00b488c69f5892695b6f95a09346f41ef0144fe68ebdf8071e",
+            "liveDigest": "1663a7287fcc5a00b488c69f5892695b6f95a09346f41ef0144fe68ebdf8071e"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ServiceAccount",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-prometheus-node-exporter"
+            },
+            "status": "matched",
+            "desiredDigest": "988de445b448e069252981fc41945efab4aa3a1073fe4aa62d51b26949e76020",
+            "liveDigest": "988de445b448e069252981fc41945efab4aa3a1073fe4aa62d51b26949e76020"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "kube-system",
+              "name": "kube-prometheus-stack-coredns"
+            },
+            "status": "matched",
+            "desiredDigest": "503b2540a68f0ff70517e776db46ac56fa090ebc4589378d3d7f2b5d68ebeff3",
+            "liveDigest": "503b2540a68f0ff70517e776db46ac56fa090ebc4589378d3d7f2b5d68ebeff3"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "kube-system",
+              "name": "kube-prometheus-stack-kube-controller-manager"
+            },
+            "status": "matched",
+            "desiredDigest": "b9cc78605c6f2a9e24e30d7bdb9486dcf2771b808ec0fca3a1dc77b194b5b1af",
+            "liveDigest": "b9cc78605c6f2a9e24e30d7bdb9486dcf2771b808ec0fca3a1dc77b194b5b1af"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "kube-system",
+              "name": "kube-prometheus-stack-kube-etcd"
+            },
+            "status": "matched",
+            "desiredDigest": "839785aae3e5306d30162880b0a0c35b706dbdfe8441231d364403288494ac55",
+            "liveDigest": "839785aae3e5306d30162880b0a0c35b706dbdfe8441231d364403288494ac55"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "kube-system",
+              "name": "kube-prometheus-stack-kube-proxy"
+            },
+            "status": "matched",
+            "desiredDigest": "8a2c4e994f284ea537bf5535b898613094b50116901dedbef3ff339cc860b2f6",
+            "liveDigest": "8a2c4e994f284ea537bf5535b898613094b50116901dedbef3ff339cc860b2f6"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "kube-system",
+              "name": "kube-prometheus-stack-kube-scheduler"
+            },
+            "status": "matched",
+            "desiredDigest": "1ad387a4b7f55356bf5198c0e34eb2e8329f0f19305bc0bcf4be69e03f9a5d3f",
+            "liveDigest": "1ad387a4b7f55356bf5198c0e34eb2e8329f0f19305bc0bcf4be69e03f9a5d3f"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-alertmanager"
+            },
+            "status": "matched",
+            "desiredDigest": "e0b90b39eac4386deed910003c55c5c3801fb40af651607681209c68eea28fd9",
+            "liveDigest": "e0b90b39eac4386deed910003c55c5c3801fb40af651607681209c68eea28fd9"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-grafana"
+            },
+            "status": "matched",
+            "desiredDigest": "5fa24b174f8eaeda32cec7b20e73150dd6cbdeda0d1f170fd8f591584ea26d8a",
+            "liveDigest": "5fa24b174f8eaeda32cec7b20e73150dd6cbdeda0d1f170fd8f591584ea26d8a"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kube-state-metrics"
+            },
+            "status": "matched",
+            "desiredDigest": "44ba601a70283924e0fca0fac48b94d184e34a59f2cedcb89911c2e8b1b46196",
+            "liveDigest": "44ba601a70283924e0fca0fac48b94d184e34a59f2cedcb89911c2e8b1b46196"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-operator"
+            },
+            "status": "matched",
+            "desiredDigest": "d5d4dfc6ed6c441e47123aac1f68ff55e89dc465707ece0076c2da2aa01940ca",
+            "liveDigest": "d5d4dfc6ed6c441e47123aac1f68ff55e89dc465707ece0076c2da2aa01940ca"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-prometheus"
+            },
+            "status": "matched",
+            "desiredDigest": "38060f742f1c0de54937bf863a3e57df2dc776813312cf465ad1b03fae730dd9",
+            "liveDigest": "38060f742f1c0de54937bf863a3e57df2dc776813312cf465ad1b03fae730dd9"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-prometheus-node-exporter"
+            },
+            "status": "matched",
+            "desiredDigest": "3cd5f3fc7feacba04d0143fed805ee44821911c124b22815a8ad22fe4767c7cf",
+            "liveDigest": "3cd5f3fc7feacba04d0143fed805ee44821911c124b22815a8ad22fe4767c7cf"
+          }
+        ],
+        "extraChecked": true,
+        "extraObjects": [
+          {
+            "apiVersion": "v1",
+            "kind": "Secret",
+            "namespace": "monitoring",
+            "name": "kube-prometheus-stack-admission"
+          }
+        ]
+      }
+    },
+    "omissions": [
+      {
+        "missing": "extra-live-objects",
+        "reason": "closed-world check found 1 live object(s) of the rendered kinds in scope that are not in the desired set; see extraObjects",
+        "severity": "warning"
+      }
+    ],
+    "inputAttestations": [],
+    "nextSteps": [
+      {
+        "actionType": "read-only",
+        "reason": "every desired object matched, but 1 unexpected live object(s) of the rendered kinds were found in scope; review extraObjects before treating the install as exclusive",
+        "nextCommand": "cub-scout map list",
+        "nextSurface": "cub-scout"
+      }
+    ],
+    "fingerprint": "sha256:2f298fb4a89dbaee6be142ecfe437df09328c9174922498de0a2a510d3e9848a"
+  }
+}

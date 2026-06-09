@@ -1,0 +1,15 @@
+requiredCRDs:
+  []
+requiredSecrets:
+  -
+    name: "kube-prometheus-stack-admission"
+    namespace: "monitoring"
+    keys:
+      - "cert"
+      - "key"
+requiredNamespaces:
+  []
+requiredStorageClasses:
+  []
+requiredIngressClasses:
+  []
