@@ -46,6 +46,17 @@ render parity
 -> production support decision
 ```
 
+It also shows the graph bridge. The chart now has a small value-source map for
+the two inputs users are most likely to ask about first:
+
+| Input | Output evidence |
+| --- | --- |
+| `grafana.adminPassword` | The Grafana admin Secret and the Deployment references that consume it. |
+| `crds.enabled` | The 10 Prometheus Operator CRDs present in `default` and omitted from `no-crds`. |
+
+This is not a full inverse map for the whole chart. It is enough to show the
+model: important Helm choices should remain traceable after render.
+
 ## User Flow
 
 Choose the base:
@@ -80,6 +91,7 @@ Read:
 | File | Shows |
 | --- | --- |
 | [KPS catalog](../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md) | The two bases, receipts, gates, and package links. |
+| [value source map](../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-source-map.yaml) | Which checked inputs currently map to rendered fields. |
 | [high-fanout summary](../../data/high-fanout-demo/summary.md) | Object counts, removed CRDs, proof-chain status, and the current GitOps/OCI prerequisite result. |
 | [prometheus-kps.csv](../../data/high-fanout-demo/prometheus-kps.csv) | Spreadsheet rows for the two bases, proof lanes, next hard work, and the base-to-base delta. |
 

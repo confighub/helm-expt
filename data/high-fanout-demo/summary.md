@@ -37,6 +37,20 @@ wrong: it passes two-cluster kind parity when CRDs and the admission Secret are
 staged as target facts. It is also correct for the runtime GitOps wave to block
 when those CRDs are absent.
 
+## Value Reachability
+
+The value-source map records two user-visible inputs and the rendered fields
+they affect:
+
+| Value path | Impact | Rendered fields |
+| --- | --- | ---: |
+| `grafana.adminPassword` | changes-grafana-admin-secret-and-dependent-grafana-pods | 4 |
+| `crds.enabled` | changes-prometheus-operator-crd-object-set | 10 |
+
+This is deliberately small. It does not claim a full inverse map for the whole
+chart. It shows how high-value choices can become explicit graph edges instead
+of disappearing into rendered YAML.
+
 ## Removed Objects
 
 | Kind | Name |
@@ -103,6 +117,7 @@ the same operational contract.
 | --- | --- |
 | `data/high-fanout-demo/prometheus-kps.csv` | Spreadsheet row for each base and the default-to-no-crds delta. |
 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md` | Variant catalog and receipt links. |
+| `recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-source-map.yaml` | Value-to-rendered-field reachability for the Grafana admin password and CRD toggle. |
 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/inheritance-graph.yaml` | Desired-state graph fragment showing the base relation. |
 | `runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml` | Strict live proof for regular Helm, ConfigHub apply, and ConfigHub OCI/Argo on the default base. |
 | `runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml` | Two-cluster kind parity proof for the no-crds base with target facts staged. |
