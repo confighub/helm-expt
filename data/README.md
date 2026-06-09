@@ -24,7 +24,7 @@ smallest generated surface that answers it.
 | I want live parity status. | [live-kind-parity/summary.md](./live-kind-parity/summary.md)<br>[live-helm-confighub-compare/summary.md](./live-helm-confighub-compare/summary.md) |
 | I want hook, CRD, webhook, or lifecycle status. | [lifecycle-boundary/summary.md](./lifecycle-boundary/summary.md)<br>[outcome-coverage/feature-outcomes.csv](./outcome-coverage/feature-outcomes.csv) |
 | I want extension-slot or custom-config risk. | [extension-slots/summary.md](./extension-slots/summary.md)<br>[nginx-config-checks/summary.md](./nginx-config-checks/summary.md) |
-| I want production support status and next actions. | [production-disposition/summary.md](./production-disposition/summary.md)<br>[production-disposition/next-actions.csv](./production-disposition/next-actions.csv) |
+| I want production support status and next actions. | [production-disposition/summary.md](./production-disposition/summary.md)<br>[production-disposition/support-decision-contract.md](./production-disposition/support-decision-contract.md)<br>[production-disposition/support-decision-queue.csv](./production-disposition/support-decision-queue.csv) |
 
 ## Start Here
 
@@ -48,6 +48,8 @@ smallest generated surface that answers it.
 | [production-disposition/summary.md](./production-disposition/summary.md) | Production support boundary for top-20 catalog charts: accepted dispositions, open blockers, and next actions. |
 | [production-disposition/dispositions.md](./production-disposition/dispositions.md) | Detailed production disposition plan: accepted receipts, open dispositions, owners, required evidence, and unblock rules. |
 | [production-disposition/next-actions.csv](./production-disposition/next-actions.csv) | Production decision work queue: recommended base, decision focus, image digest gap, and next action per top-20 chart. |
+| [production-disposition/support-decision-contract.md](./production-disposition/support-decision-contract.md) | Production support decision contract: required fields, current decision states, and the rule for moving from production-review-ready to production-supported. |
+| [production-disposition/support-decision-queue.csv](./production-disposition/support-decision-queue.csv) | One row per top-20 chart showing the candidate production base, decision state, support boundary work, and required next evidence. |
 | [external-scan-lane/chart-workdown.csv](./external-scan-lane/chart-workdown.csv) | Chart-level scan/gate workdown: grouped scanner findings, priority, and next action before production disposition. |
 | [scan-disposition-workdown/workdown.csv](./scan-disposition-workdown/workdown.csv) | Scan warning routes: which rows need fixes, hardened bases, explicit security acceptance, runtime endpoint review, or PDB policy decisions. |
 | [image-digest-workdown/summary.md](./image-digest-workdown/summary.md) | Image digest workdown: rendered image references that need digest resolution, image overrides, or explicit proof receipts before reproducible production OCI support. |
@@ -151,7 +153,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 66 CSV files. Each row records the path, audience,
+It includes 67 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

@@ -370,6 +370,8 @@ The remaining work is recorded in:
 | File | Use |
 | --- | --- |
 | \`data/production-disposition/next-actions.csv\` | One next production action per top-20 chart. |
+| \`data/production-disposition/support-decision-contract.md\` | The required fields and current queue for target-scoped production support decisions. |
+| \`data/production-disposition/support-decision-queue.csv\` | One row per top-20 chart showing the candidate base, decision state, and evidence needed before production support. |
 | \`data/production-disposition/dispositions.md\` | Accepted receipts, evidence, owners, and unblock rules. |
 | \`data/scan-disposition-workdown/summary.md\` | Whether scan findings need fixes, hardened bases, explicit acceptance, runtime review, or policy decisions. |
 

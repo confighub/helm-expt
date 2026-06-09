@@ -232,6 +232,9 @@ Top-500 source/catalog analysis exists as catalog-planning data for future
 recipe promotion work.
 ```
 
+The production support decision contract is in
+[data/production-disposition/support-decision-contract.md](./data/production-disposition/support-decision-contract.md).
+
 The `20/20` claims above are chart-level catalog coverage. Per-base and
 per-lane status is stricter; use `data/status-dashboard/summary.md` and
 `data/outcome-coverage/base-outcomes.csv` before making a claim about a

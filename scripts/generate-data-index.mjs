@@ -57,7 +57,7 @@ function readme(rows) {
     ["I want live parity status.", "data/live-kind-parity/summary.md; data/live-helm-confighub-compare/summary.md"],
     ["I want hook, CRD, webhook, or lifecycle status.", "data/lifecycle-boundary/summary.md; data/outcome-coverage/feature-outcomes.csv"],
     ["I want extension-slot or custom-config risk.", "data/extension-slots/summary.md; data/nginx-config-checks/summary.md"],
-    ["I want production support status and next actions.", "data/production-disposition/summary.md; data/production-disposition/next-actions.csv"],
+    ["I want production support status and next actions.", "data/production-disposition/summary.md; data/production-disposition/support-decision-contract.md; data/production-disposition/support-decision-queue.csv"],
   ];
   const primary = [
     ["data/status-dashboard/summary.md", "Start here for a one-page status dashboard: top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity."],
@@ -78,6 +78,8 @@ function readme(rows) {
     ["data/production-disposition/summary.md", "Production support boundary for top-20 catalog charts: accepted dispositions, open blockers, and next actions."],
     ["data/production-disposition/dispositions.md", "Detailed production disposition plan: accepted receipts, open dispositions, owners, required evidence, and unblock rules."],
     ["data/production-disposition/next-actions.csv", "Production decision work queue: recommended base, decision focus, image digest gap, and next action per top-20 chart."],
+    ["data/production-disposition/support-decision-contract.md", "Production support decision contract: required fields, current decision states, and the rule for moving from production-review-ready to production-supported."],
+    ["data/production-disposition/support-decision-queue.csv", "One row per top-20 chart showing the candidate production base, decision state, support boundary work, and required next evidence."],
     ["data/external-scan-lane/chart-workdown.csv", "Chart-level scan/gate workdown: grouped scanner findings, priority, and next action before production disposition."],
     ["data/scan-disposition-workdown/workdown.csv", "Scan warning routes: which rows need fixes, hardened bases, explicit security acceptance, runtime endpoint review, or PDB policy decisions."],
     ["data/image-digest-workdown/summary.md", "Image digest workdown: rendered image references that need digest resolution, image overrides, or explicit proof receipts before reproducible production OCI support."],
@@ -234,6 +236,7 @@ function roleFor(path) {
   if (path === "data/nginx-config-checks/checks.csv") return "NGINX supported-base checks for config extension slots and rendered object shape";
   if (path === "data/lifecycle-boundary/lifecycle-boundary.csv") return "one row per hook queue item or hook-like lifecycle observation";
   if (path === "data/production-disposition/next-actions.csv") return "one row per top-20 chart: recommended base, production decision focus, image digest status, and next action";
+  if (path === "data/production-disposition/support-decision-queue.csv") return "one row per top-20 chart: candidate production base, decision state, support boundary work, and required next evidence";
   if (path === "data/external-scan-lane/chart-workdown.csv") return "one row per chart: external scan findings grouped into priority and next production action";
   if (path === "data/scan-disposition-workdown/workdown.csv") return "one row per top-20 chart: route scan warnings to fixes, hardened bases, acceptance, endpoint review, or PDB decisions";
   if (path === "data/high-fanout-demo/prometheus-kps.csv") return "Prometheus/kube-prometheus-stack high-fanout base-variant example";

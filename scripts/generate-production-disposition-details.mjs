@@ -14,6 +14,8 @@ const outputRoot = join(repoRoot, "data", "production-disposition");
 const detailsPath = join(outputRoot, "dispositions.yaml");
 const summaryPath = join(outputRoot, "dispositions.md");
 const nextActionsPath = join(outputRoot, "next-actions.csv");
+const supportDecisionContractPath = join(outputRoot, "support-decision-contract.md");
+const supportDecisionQueuePath = join(outputRoot, "support-decision-queue.csv");
 const mode = process.argv[2] ?? "--generate";
 
 const dispositionCatalog = {
@@ -70,14 +72,20 @@ if (mode === "--generate") {
   console.log(`wrote ${relativeRepo(detailsPath)}`);
   console.log(`wrote ${relativeRepo(summaryPath)}`);
   console.log(`wrote ${relativeRepo(nextActionsPath)}`);
+  console.log(`wrote ${relativeRepo(supportDecisionContractPath)}`);
+  console.log(`wrote ${relativeRepo(supportDecisionQueuePath)}`);
 } else if (mode === "--verify") {
   const report = buildReport();
   check(existsSync(detailsPath), "missing production disposition details; run npm run production:disposition:details");
   check(existsSync(summaryPath), "missing production disposition details summary; run npm run production:disposition:details");
   check(existsSync(nextActionsPath), "missing production disposition next actions; run npm run production:disposition:details");
+  check(existsSync(supportDecisionContractPath), "missing production support decision contract; run npm run production:disposition:details");
+  check(existsSync(supportDecisionQueuePath), "missing production support decision queue; run npm run production:disposition:details");
   check(readFileSync(detailsPath, "utf8") === report.yaml, "production disposition details are stale");
   check(readFileSync(summaryPath, "utf8") === report.markdown, "production disposition details summary is stale");
   check(readFileSync(nextActionsPath, "utf8") === report.nextActionsCsv, "production disposition next actions are stale");
+  check(readFileSync(supportDecisionContractPath, "utf8") === report.supportDecisionContract, "production support decision contract is stale");
+  check(readFileSync(supportDecisionQueuePath, "utf8") === report.supportDecisionCsv, "production support decision queue is stale");
   console.log("verified production disposition details");
 } else {
   console.log(`Usage:
@@ -165,6 +173,8 @@ function buildReport() {
     yaml: `${toYaml(doc)}\n`,
     markdown: toMarkdown(charts, queueContext),
     nextActionsCsv: toNextActionsCsv(charts, queueContext),
+    supportDecisionContract: toSupportDecisionContract(charts, queueContext),
+    supportDecisionCsv: toSupportDecisionCsv(charts, queueContext),
   };
 }
 
@@ -511,6 +521,108 @@ function toNextActionsCsv(charts, queueContext) {
   return `${[headers.join(","), ...rows.map((row) => headers.map((header) => csvEscape(row[header])).join(","))].join("\n")}\n`;
 }
 
+function toSupportDecisionRows(charts, queueContext) {
+  const workdown = externalScanWorkdownIndex();
+  return charts
+    .map((chart) => {
+      const open = chart.dispositions.filter((item) => item.state !== "accepted");
+      const scan = workdown.get(chart.chart) ?? {};
+      const context = queueContext.get(`${chart.chart}@${chart.version}`) ?? {};
+      const base = context.recommendedBase ?? {};
+      const image = context.imageDigest ?? {};
+      const focus = productionDecisionFocus(chart, scan, image, base);
+      return {
+        chart: chart.chart,
+        version: chart.version,
+        currentSupportState: "not-production-supported",
+        candidateBase: base.base ?? "",
+        baseReadiness: base.user_readiness ?? "",
+        baseReadinessSummary: context.baseReadinessSummary ?? "",
+        decisionState: supportDecisionState({ focus, open, scan, image, base, chart }),
+        decisionFocus: focus,
+        targetScopeRequired: targetScopeRequired(base),
+        liveEvidenceRequired: liveEvidenceRequired(base),
+        imageRequirement: imageRequirement(image),
+        scanRequirement: scanRequirement(scan),
+        lifecycleRequirement: lifecycleRequirement(chart, base),
+        prerequisiteRequirement: prerequisiteRequirement(base),
+        proposedDecisionArtifact: `data/production-support-decisions/${pathSlug(chart.chart)}/support-decision.yaml`,
+        firstVerificationAfterDecision: firstVerificationAfterDecision(base),
+        nextAction: productionNextAction({ open, scan, image, base, chart }),
+      };
+    })
+    .sort((left, right) => left.decisionState.localeCompare(right.decisionState) || left.chart.localeCompare(right.chart));
+}
+
+function toSupportDecisionCsv(charts, queueContext) {
+  const rows = toSupportDecisionRows(charts, queueContext);
+  const headers = [
+    "chart",
+    "version",
+    "currentSupportState",
+    "candidateBase",
+    "baseReadiness",
+    "baseReadinessSummary",
+    "decisionState",
+    "decisionFocus",
+    "targetScopeRequired",
+    "liveEvidenceRequired",
+    "imageRequirement",
+    "scanRequirement",
+    "lifecycleRequirement",
+    "prerequisiteRequirement",
+    "proposedDecisionArtifact",
+    "firstVerificationAfterDecision",
+    "nextAction",
+  ];
+  return `${[headers.join(","), ...rows.map((row) => headers.map((header) => csvEscape(row[header])).join(","))].join("\n")}\n`;
+}
+
+function toSupportDecisionContract(charts, queueContext) {
+  const rows = toSupportDecisionRows(charts, queueContext);
+  const stateCounts = countBy(rows, (row) => row.decisionState);
+  return `# Production Support Decision Contract
+
+The top-20 catalog entries have local-test proof and accepted production
+disposition receipts. They are not production-supported until a target-scoped
+support decision is recorded.
+
+A support decision names the exact base variant, target scope, delivery path,
+runtime expectations, accepted risks, and evidence refresh required for a
+production claim.
+
+## Required Decision Fields
+
+| Field | Meaning |
+| --- | --- |
+| chart and version | The maintained chart entry. |
+| supported base | The base variant that is in production scope. Other bases stay local-test or review-only unless separately approved. |
+| target scope | Cluster type, namespace, GitOps controller, storage assumptions, CRD ownership, required Secrets, and other target prerequisites. |
+| delivery path | ConfigHub OCI, Argo, Flux, direct apply, or another declared route. |
+| scan decision | Findings fixed, accepted, blocked, or moved into a hardened base. |
+| image decision | Digest-pinned images or an explicit exception for the supported scope. |
+| lifecycle decision | Hooks, CRDs, webhooks, generated facts, controller-populated fields, and observation freshness policy. |
+| live evidence | The receipt or command that refreshes live/e2e evidence for the selected scope. |
+| support boundary | What the catalog promises, and what remains operator-owned. |
+
+## Current Queue
+
+| Decision state | Charts |
+| --- | ---: |
+${mapRows(stateCounts)}
+
+| Chart | Candidate base | Base readiness | Decision state | Next action |
+| --- | --- | --- | --- | --- |
+${rows.map((row) => `| \`${row.chart}@${row.version}\` | ${row.candidateBase || "-"} | ${row.baseReadiness || "-"} | ${row.decisionState} | ${row.nextAction} |`).join("\n")}
+
+## Rule
+
+This file describes the contract. It does not create production support. A chart
+becomes production-supported only after its proposed decision artifact is
+written, reviewed, and backed by fresh evidence for the selected target scope.
+`;
+}
+
 function nextDispositionReceiptPath(chart, disposition) {
   return `data/production-disposition/receipts/${pathSlug(chart)}/${pathSlug(disposition)}.yaml`;
 }
@@ -534,6 +646,7 @@ function recommendedBaseFromRows(rows) {
     complete_core_lane_set: row.complete_core_lane_set,
     live_rerun_readiness: row.live_rerun_readiness,
     live_rerun_next_step: row.live_rerun_next_step,
+    live_rerun_command: row.live_rerun_command,
   };
 }
 
@@ -565,6 +678,69 @@ function productionDecisionFocus(chart, scan, image, base) {
   if (number(image.subjects_needing_resolution) > 0) return "image-digest-resolution";
   if ((chart.evidence.lifecyclePolicyBasis ?? []).some((basis) => basis !== "none")) return "lifecycle-support-scope";
   return "final-target-support-decision";
+}
+
+function supportDecisionState({ focus, open, scan, image, base, chart }) {
+  if (open.length > 0) return "close-dispositions-first";
+  if (scan?.priority === "high") return "security-acceptance-or-hardened-base";
+  if (["runtime-watch", "runtime-review-needed"].includes(base.user_readiness)) return "target-runtime-scope-review";
+  if (["target-prerequisite-needed", "prerequisite-observed"].includes(base.user_readiness)) return "target-prerequisite-scope-review";
+  if (base.user_readiness === "lifecycle-observed") return "lifecycle-support-scope-decision";
+  if (number(image.subjects_needing_resolution) > 0) return "resolve-images-before-production-oci";
+  if ((chart.evidence.lifecyclePolicyBasis ?? []).some((basis) => basis !== "none")) return "lifecycle-support-scope-decision";
+  if (focus === "final-target-support-decision") return "ready-for-final-scope-decision";
+  return "scope-decision-needed";
+}
+
+function targetScopeRequired(base) {
+  const parts = ["target cluster class", "namespace", "delivery controller", "storage/runtime assumptions"];
+  if (["target-prerequisite-needed", "prerequisite-observed"].includes(base.user_readiness)) parts.push("staged target prerequisites");
+  if (["runtime-watch", "runtime-review-needed"].includes(base.user_readiness)) parts.push("runtime acceptance criteria");
+  return parts.join(";");
+}
+
+function liveEvidenceRequired(base) {
+  if (base.user_readiness === "start-here") return "refresh target-scoped live/e2e evidence before support claim";
+  if (base.user_readiness === "try-with-proof") return "complete missing live or ConfigHub lanes, then refresh target-scoped evidence";
+  if (base.user_readiness === "lifecycle-observed") return "attach lifecycle observation and refresh target-scoped evidence";
+  if (["target-prerequisite-needed", "prerequisite-observed"].includes(base.user_readiness)) {
+    return "stage prerequisite and rerun target-scoped live/e2e evidence";
+  }
+  if (["runtime-watch", "runtime-review-needed"].includes(base.user_readiness)) {
+    return "resolve or accept runtime condition, then rerun target-scoped live/e2e evidence";
+  }
+  return "refresh target-scoped live/e2e evidence";
+}
+
+function imageRequirement(image) {
+  return number(image.subjects_needing_resolution) > 0
+    ? "resolve image digests or record explicit exception before production OCI support"
+    : "no open image-digest gap in current queue";
+}
+
+function scanRequirement(scan) {
+  if (scan?.priority === "high") return "record security acceptance or create hardened base";
+  if (scan?.priority) return "accept, fix, or document scanner findings for supported scope";
+  return "no scanner workdown row";
+}
+
+function lifecycleRequirement(chart, base) {
+  const basis = chart.evidence.lifecyclePolicyBasis ?? [];
+  if (base.user_readiness === "lifecycle-observed") return "bind lifecycle observation receipt to supported scope";
+  if (basis.some((item) => item !== "none")) return `record lifecycle support boundary: ${basis.join(";")}`;
+  return "no lifecycle-specific decision beyond standard support boundary";
+}
+
+function prerequisiteRequirement(base) {
+  if (base.user_readiness === "target-prerequisite-needed") return "stage prerequisite before support decision";
+  if (base.user_readiness === "prerequisite-observed") return "include prerequisite observation in support decision";
+  return "no unresolved target prerequisite in candidate base";
+}
+
+function firstVerificationAfterDecision(base) {
+  if (base.live_rerun_command) return base.live_rerun_command;
+  if (base.live_rerun_next_step) return base.live_rerun_next_step;
+  return "refresh target-scoped live/e2e receipt and rerun production-disposition details";
 }
 
 function productionNextAction({ open, scan, image, base, chart }) {
@@ -613,6 +789,8 @@ function writeReport(report) {
   write(detailsPath, report.yaml);
   write(summaryPath, report.markdown);
   write(nextActionsPath, report.nextActionsCsv);
+  write(supportDecisionContractPath, report.supportDecisionContract);
+  write(supportDecisionQueuePath, report.supportDecisionCsv);
 }
 
 function slugFor(chart) {
@@ -686,6 +864,13 @@ function countBy(items, selector) {
     result.set(key, (result.get(key) ?? 0) + 1);
   }
   return result;
+}
+
+function mapRows(map) {
+  return [...map.entries()]
+    .sort((left, right) => left[0].localeCompare(right[0]))
+    .map(([key, value]) => `| ${key} | ${value} |`)
+    .join("\n");
 }
 
 function number(value) {
