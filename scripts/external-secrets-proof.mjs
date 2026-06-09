@@ -18,6 +18,32 @@ const chart = {
   kubeVersion: "1.30.0",
 };
 
+const externalSecretsCRDs = [
+  "acraccesstokens.generators.external-secrets.io",
+  "cloudsmithaccesstokens.generators.external-secrets.io",
+  "clusterexternalsecrets.external-secrets.io",
+  "clustergenerators.generators.external-secrets.io",
+  "clusterpushsecrets.external-secrets.io",
+  "clustersecretstores.external-secrets.io",
+  "ecrauthorizationtokens.generators.external-secrets.io",
+  "externalsecrets.external-secrets.io",
+  "fakes.generators.external-secrets.io",
+  "gcraccesstokens.generators.external-secrets.io",
+  "generatorstates.generators.external-secrets.io",
+  "githubaccesstokens.generators.external-secrets.io",
+  "grafanas.generators.external-secrets.io",
+  "mfas.generators.external-secrets.io",
+  "passwords.generators.external-secrets.io",
+  "pushsecrets.external-secrets.io",
+  "quayaccesstokens.generators.external-secrets.io",
+  "secretstores.external-secrets.io",
+  "sshkeys.generators.external-secrets.io",
+  "stssessiontokens.generators.external-secrets.io",
+  "uuids.generators.external-secrets.io",
+  "vaultdynamicsecrets.generators.external-secrets.io",
+  "webhooks.generators.external-secrets.io",
+];
+
 const variants = [
   {
     name: "default",
@@ -42,7 +68,16 @@ const variants = [
     expectedObjectCount: 19,
     expectedCRDCount: 0,
     expectedSecretCount: 1,
-    targetFactNote: "omits external-secrets CRDs while preserving webhook, cert-controller, and RBAC objects",
+    targetFacts: {
+      requiredCRDs: externalSecretsCRDs.map((name) => ({
+        name,
+        sourceVariant: "default",
+        purpose: "External Secrets CRD managed outside this no-crds base",
+        deliveryLanes: ["regularHelm", "cubInstallerApply", "configHubKubectlApply", "configHubOciArgo"],
+      })),
+    },
+    targetFactNote:
+      "omits external-secrets CRDs while preserving webhook, cert-controller, and RBAC objects; target clusters must already provide the External Secrets CRDs",
   },
 ];
 
@@ -204,9 +239,9 @@ runProofCli({
     },
     {
       category: "crd-policy",
-      status: "variant-controlled",
+      status: "variant-controlled-and-target-fact",
       variants: { default: 23, "no-crds": 0 },
-      note: "CRDs are ordinary rendered objects in the default variant and still need lifecycle/upgrade policy.",
+      note: "CRDs are ordinary rendered objects in the default variant and required target facts for the no-crds variant.",
     },
     {
       category: "admission-webhook",
@@ -229,7 +264,7 @@ runProofCli({
   dossier: {
     maintainedNotes: [
       "Default chart renders 23 external-secrets CRDs because installCRDs defaults to true.",
-      "no-crds variant omits CRDs for clusters that manage CRDs separately.",
+      "no-crds variant omits CRDs for clusters that manage CRDs separately and records those CRDs as target facts.",
       "Chart declares a bitwarden-sdk-server dependency that remains disabled in promoted variants but is recorded in dependency-lock.yaml.",
       "Validating webhook readiness must be observed after apply because rendered objects alone do not prove webhook health.",
       "The rendered webhook Secret contains metadata only; cert-controller populates certificate material after apply.",
@@ -340,29 +375,7 @@ runProofCli({
       check(scan.spec.findingCounts.medium >= 4, `${variant.name} scan must flag CRD/admission/secret/RBAC review`);
       if (variant.name === "default") {
         const requiredCRDs = [
-          "apiextensions.k8s.io/v1|CustomResourceDefinition||acraccesstokens.generators.external-secrets.io",
-          "apiextensions.k8s.io/v1|CustomResourceDefinition||cloudsmithaccesstokens.generators.external-secrets.io",
-          "apiextensions.k8s.io/v1|CustomResourceDefinition||clusterexternalsecrets.external-secrets.io",
-          "apiextensions.k8s.io/v1|CustomResourceDefinition||clustergenerators.generators.external-secrets.io",
-          "apiextensions.k8s.io/v1|CustomResourceDefinition||clusterpushsecrets.external-secrets.io",
-          "apiextensions.k8s.io/v1|CustomResourceDefinition||clustersecretstores.external-secrets.io",
-          "apiextensions.k8s.io/v1|CustomResourceDefinition||ecrauthorizationtokens.generators.external-secrets.io",
-          "apiextensions.k8s.io/v1|CustomResourceDefinition||externalsecrets.external-secrets.io",
-          "apiextensions.k8s.io/v1|CustomResourceDefinition||fakes.generators.external-secrets.io",
-          "apiextensions.k8s.io/v1|CustomResourceDefinition||gcraccesstokens.generators.external-secrets.io",
-          "apiextensions.k8s.io/v1|CustomResourceDefinition||generatorstates.generators.external-secrets.io",
-          "apiextensions.k8s.io/v1|CustomResourceDefinition||githubaccesstokens.generators.external-secrets.io",
-          "apiextensions.k8s.io/v1|CustomResourceDefinition||grafanas.generators.external-secrets.io",
-          "apiextensions.k8s.io/v1|CustomResourceDefinition||mfas.generators.external-secrets.io",
-          "apiextensions.k8s.io/v1|CustomResourceDefinition||passwords.generators.external-secrets.io",
-          "apiextensions.k8s.io/v1|CustomResourceDefinition||pushsecrets.external-secrets.io",
-          "apiextensions.k8s.io/v1|CustomResourceDefinition||quayaccesstokens.generators.external-secrets.io",
-          "apiextensions.k8s.io/v1|CustomResourceDefinition||secretstores.external-secrets.io",
-          "apiextensions.k8s.io/v1|CustomResourceDefinition||sshkeys.generators.external-secrets.io",
-          "apiextensions.k8s.io/v1|CustomResourceDefinition||stssessiontokens.generators.external-secrets.io",
-          "apiextensions.k8s.io/v1|CustomResourceDefinition||uuids.generators.external-secrets.io",
-          "apiextensions.k8s.io/v1|CustomResourceDefinition||vaultdynamicsecrets.generators.external-secrets.io",
-          "apiextensions.k8s.io/v1|CustomResourceDefinition||webhooks.generators.external-secrets.io",
+          ...externalSecretsCRDs.map((name) => `apiextensions.k8s.io/v1|CustomResourceDefinition||${name}`),
         ];
         for (const identity of requiredCRDs) check(identities.includes(identity), `missing CRD ${identity}`);
       }

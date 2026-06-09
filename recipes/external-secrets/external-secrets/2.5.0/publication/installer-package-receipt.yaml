@@ -33,12 +33,16 @@ spec:
         sha256: "da5857fba93e0394594d7e072b31e3cf28985392b5cc0443730a23b722d7670b"
         bytes: 21792
       -
+        path: "collector/target-facts.sh"
+        sha256: "74857f335056d378b1449788cb787ba300edb1cf2c3ed3c4d4a831b837dd6a1d"
+        bytes: 8923
+      -
         path: "installer.yaml"
-        sha256: "a049a58656aad82a1c07f16eacc31a9f6cd70f0b444ebf9f47cbe1127d387df7"
-        bytes: 2402
+        sha256: "bd36b572fe696025ee6d06421324efa6b869018d93c47f3636ff74cf9fb72916"
+        bytes: 6606
   deterministicBundle:
     command: "cub installer package packages/external-secrets/external-secrets/2.5.0 -o <tmp>/external-secrets-2.5.0.tgz"
-    sha256: "895629548e36c1fa7b5ecd27206276195545ac70dc00924eb2c3c6b2ae81234e"
+    sha256: "58b7d561d5a57ab403eed47377f29ec5889bc616728f0b2dd16f894f22735db5"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
@@ -61,7 +65,7 @@ spec:
       cubInstallObjectCountIncludingSupport: 20
       semanticObjectMatches: "19/19"
       separatedSecretCount: 1
-      targetFactMode: "not-required"
-      targetFactsBound: false
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
       allowedCubOnlyObjects:
         - "v1|Namespace||external-secrets"
