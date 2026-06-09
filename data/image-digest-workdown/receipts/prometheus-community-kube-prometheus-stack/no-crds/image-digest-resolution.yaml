@@ -1,15 +1,15 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "ImageDigestResolutionReceipt"
 metadata:
-  name: "prometheus-community-kube-prometheus-stack-default-image-digest-resolution"
+  name: "prometheus-community-kube-prometheus-stack-no-crds-image-digest-resolution"
 spec:
   chart: "prometheus-community/kube-prometheus-stack"
   version: "85.3.3"
-  variant: "default"
-  resolvedAt: "2026-06-09T16:59:25.931Z"
+  variant: "no-crds"
+  resolvedAt: "2026-06-09T16:59:30.297Z"
   renderedObjectSet:
-    path: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
-    sha256: "9fac2a0e4140eee298c84ce61f13dd8ca392bb92e2037d0ef0aaa4d8015ee491"
+    path: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+    sha256: "3f6049fc2b7a40bbfb009b347880e3f319a87c9b60a6fd274220287a10167fc2"
   sourceImageReview:
     path: "data/attack-plan-workdown/image-digest-review.csv"
     rows: 8

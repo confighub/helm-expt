@@ -11,7 +11,7 @@ rendered image references:             366
 rendered subjects:                     152
 image references needing resolution:   345
 rendered subjects needing resolution:  141
-resolution receipts recorded:          1
+resolution receipts recorded:          2
 catalog-supported subjects:            40
 catalog-supported needing resolution:  30
 charts with rendered image references: 96

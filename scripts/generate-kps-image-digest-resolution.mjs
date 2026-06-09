@@ -10,33 +10,29 @@ const mode = process.argv[2] ?? "--generate";
 const chart = "prometheus-community/kube-prometheus-stack";
 const chartSlug = "prometheus-community-kube-prometheus-stack";
 const version = "85.3.3";
-const variant = "default";
+const variants = ["default", "no-crds"];
 const imageReviewPath = join(repoRoot, "data", "attack-plan-workdown", "image-digest-review.csv");
-const receiptPath = join(
-  repoRoot,
-  "data",
-  "image-digest-workdown",
-  "receipts",
-  chartSlug,
-  variant,
-  "image-digest-resolution.yaml",
-);
+const resolvedImages = new Map();
 
 if (mode === "--generate") {
-  const receipt = buildReceipt();
-  writeYaml(receiptPath, receipt);
-  console.log(`wrote ${relativeRepo(receiptPath)}`);
+  for (const variant of variants) {
+    const receipt = buildReceipt(variant);
+    writeYaml(receiptPath(variant), receipt);
+    console.log(`wrote ${relativeRepo(receiptPath(variant))}`);
+  }
 } else if (mode === "--verify") {
-  verifyReceipt();
-  console.log(`verified ${relativeRepo(receiptPath)}`);
+  for (const variant of variants) {
+    verifyReceipt(variant);
+    console.log(`verified ${relativeRepo(receiptPath(variant))}`);
+  }
 } else {
   console.log(`Usage:
   node scripts/generate-kps-image-digest-resolution.mjs --generate
   node scripts/generate-kps-image-digest-resolution.mjs --verify`);
 }
 
-function buildReceipt() {
-  const subject = loadSubjectRows();
+function buildReceipt(variant) {
+  const subject = loadSubjectRows(variant);
   const uniqueImages = [...new Set(subject.rows.map((row) => row.image))].sort();
   const resolvedAt = new Date().toISOString();
   const images = uniqueImages.map((image) => {
@@ -93,35 +89,36 @@ function buildReceipt() {
   };
 }
 
-function verifyReceipt() {
-  check(existsSync(receiptPath), `${relativeRepo(receiptPath)} is missing; run npm run kps:image-digests`);
-  const receipt = readYaml(receiptPath);
-  check(receipt.kind === "ImageDigestResolutionReceipt", `${relativeRepo(receiptPath)} must be kind ImageDigestResolutionReceipt`);
+function verifyReceipt(variant) {
+  const path = receiptPath(variant);
+  check(existsSync(path), `${relativeRepo(path)} is missing; run npm run kps:image-digests`);
+  const receipt = readYaml(path);
+  check(receipt.kind === "ImageDigestResolutionReceipt", `${relativeRepo(path)} must be kind ImageDigestResolutionReceipt`);
   const spec = receipt.spec ?? {};
-  check(spec.chart === chart, `${relativeRepo(receiptPath)} chart mismatch`);
-  check(spec.version === version, `${relativeRepo(receiptPath)} version mismatch`);
-  check(spec.variant === variant, `${relativeRepo(receiptPath)} variant mismatch`);
-  check(spec.productionSupportUse?.limits?.includes("does not mean the rendered manifests are digest-pinned"), `${relativeRepo(receiptPath)} must state receipt limits`);
+  check(spec.chart === chart, `${relativeRepo(path)} chart mismatch`);
+  check(spec.version === version, `${relativeRepo(path)} version mismatch`);
+  check(spec.variant === variant, `${relativeRepo(path)} variant mismatch`);
+  check(spec.productionSupportUse?.limits?.includes("does not mean the rendered manifests are digest-pinned"), `${relativeRepo(path)} must state receipt limits`);
 
-  const subject = loadSubjectRows();
-  check(spec.renderedObjectSet?.path === subject.renderedPath, `${relativeRepo(receiptPath)} rendered path mismatch`);
-  check(spec.renderedObjectSet?.sha256 === subject.renderedSHA256, `${relativeRepo(receiptPath)} rendered sha mismatch`);
+  const subject = loadSubjectRows(variant);
+  check(spec.renderedObjectSet?.path === subject.renderedPath, `${relativeRepo(path)} rendered path mismatch`);
+  check(spec.renderedObjectSet?.sha256 === subject.renderedSHA256, `${relativeRepo(path)} rendered sha mismatch`);
   check(sha256File(join(repoRoot, subject.renderedPath)) === subject.renderedSHA256, `${subject.renderedPath} does not match image review sha`);
-  check(spec.sourceImageReview?.rows === subject.rows.length, `${relativeRepo(receiptPath)} source row count mismatch`);
+  check(spec.sourceImageReview?.rows === subject.rows.length, `${relativeRepo(path)} source row count mismatch`);
 
   const uniqueImages = [...new Set(subject.rows.map((row) => row.image))].sort();
   const receiptImages = spec.images ?? [];
-  check(receiptImages.length === uniqueImages.length, `${relativeRepo(receiptPath)} image count mismatch`);
-  check(JSON.stringify(receiptImages.map((row) => row.image).sort()) === JSON.stringify(uniqueImages), `${relativeRepo(receiptPath)} image set mismatch`);
+  check(receiptImages.length === uniqueImages.length, `${relativeRepo(path)} image count mismatch`);
+  check(JSON.stringify(receiptImages.map((row) => row.image).sort()) === JSON.stringify(uniqueImages), `${relativeRepo(path)} image set mismatch`);
   for (const image of receiptImages) {
-    check(/^sha256:[a-f0-9]{64}$/.test(image.digest ?? ""), `${relativeRepo(receiptPath)} invalid digest for ${image.image}`);
-    check(image.digestReference === `${image.image}@${image.digest}`, `${relativeRepo(receiptPath)} invalid digest reference for ${image.image}`);
+    check(/^sha256:[a-f0-9]{64}$/.test(image.digest ?? ""), `${relativeRepo(path)} invalid digest for ${image.image}`);
+    check(image.digestReference === `${image.image}@${image.digest}`, `${relativeRepo(path)} invalid digest reference for ${image.image}`);
     const expectedOccurrences = subject.rows.filter((row) => row.image === image.image).length;
-    check((image.occurrences ?? []).length === expectedOccurrences, `${relativeRepo(receiptPath)} occurrence count mismatch for ${image.image}`);
+    check((image.occurrences ?? []).length === expectedOccurrences, `${relativeRepo(path)} occurrence count mismatch for ${image.image}`);
   }
 }
 
-function loadSubjectRows() {
+function loadSubjectRows(variant) {
   const rows = parseCsv(readFileSync(imageReviewPath, "utf8")).filter(
     (row) => row.chart === chart && row.version === version && row.variant === variant,
   );
@@ -139,6 +136,7 @@ function loadSubjectRows() {
 }
 
 function resolveImage(image) {
+  if (resolvedImages.has(image)) return resolvedImages.get(image);
   const output = execFileSync("docker", ["buildx", "imagetools", "inspect", image], {
     cwd: repoRoot,
     encoding: "utf8",
@@ -148,7 +146,21 @@ function resolveImage(image) {
   const name = matchLine(output, /^Name:\s+(.+)$/m, `missing Name for ${image}`);
   const mediaType = matchLine(output, /^MediaType:\s+(.+)$/m, `missing MediaType for ${image}`);
   const digest = matchLine(output, /^Digest:\s+(sha256:[a-f0-9]{64})$/m, `missing Digest for ${image}`);
-  return { name, mediaType, digest };
+  const resolution = { name, mediaType, digest };
+  resolvedImages.set(image, resolution);
+  return resolution;
+}
+
+function receiptPath(variant) {
+  return join(
+    repoRoot,
+    "data",
+    "image-digest-workdown",
+    "receipts",
+    chartSlug,
+    variant,
+    "image-digest-resolution.yaml",
+  );
 }
 
 function matchLine(output, pattern, message) {

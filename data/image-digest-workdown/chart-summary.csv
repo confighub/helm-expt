@@ -11,7 +11,7 @@ hashicorp/vault,0.32.0,catalog-supported,top20-catalog-supported,2,2,4,4,0,0,res
 jetstack/cert-manager,v1.20.2,catalog-supported,top20-catalog-supported,2,2,6,6,0,0,resolve image digests for each affected variant before production OCI support
 longhorn/longhorn,1.11.2,catalog-supported,top20-catalog-supported,2,2,10,10,0,0,resolve image digests for each affected variant before production OCI support
 metrics-server/metrics-server,3.13.0,catalog-supported,top20-catalog-supported,2,2,2,2,0,0,resolve image digests for each affected variant before production OCI support
-prometheus-community/kube-prometheus-stack,85.3.3,catalog-supported,top20-catalog-supported,2,2,16,16,0,1,"finish digest-resolution receipts for remaining affected variants, then choose pinned bases or explicit mutable-image exceptions"
+prometheus-community/kube-prometheus-stack,85.3.3,catalog-supported,top20-catalog-supported,2,2,16,16,0,2,choose pinned bases or explicit mutable-image exceptions before production OCI support
 prometheus-community/prometheus,29.8.0,catalog-supported,top20-catalog-supported,2,2,8,8,0,0,resolve image digests for each affected variant before production OCI support
 secrets-store-csi-driver/secrets-store-csi-driver,1.6.0,catalog-supported,top20-catalog-supported,2,2,6,6,0,0,resolve image digests for each affected variant before production OCI support
 bitnami/mongodb,19.0.7,catalog-supported,top20-catalog-supported,2,0,5,0,0,0,none
