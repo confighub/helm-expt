@@ -1,22 +1,27 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ProductionSupportDecision
 metadata:
-  name: "prometheus-community-kube-prometheus-stack-default-public-oci-draft"
+  name: "prometheus-community-kube-prometheus-stack-default-public-oci-supported"
 spec:
   chart: "prometheus-community/kube-prometheus-stack"
   version: "85.3.3"
-  decision: draft
+  decision: supported
   decisionDate: "2026-06-09"
+  supportedSince: "2026-06-09T09:59:35Z"
   supportedBase: "default"
   targetScope:
-    clusterClass: vanilla-kubernetes
+    clusterClass: cub-lk-kind-vanilla
     namespace: "monitoring"
     deliveryPath: confighub-oci
-    gitopsController: argo-or-flux
+    gitopsController: argo
+    lastEvidenceAt: "2026-06-09T09:59:35Z"
+    lastEvidenceTarget: helm-expt-parity-kubeprometheudecd9-mq6gxaw5-jvz-cluster/oci
+    lastEvidenceKubeContext: kind-helm-expt-parity-kubeprometheudecd9-mq6gxaw5-jvz
+    liveEvidenceTTL: 30d
     storageAssumptions:
-      - "Use the chart's recorded storage behavior for the candidate base unless this draft is narrowed before final support."
+      - "Use the chart's recorded storage behavior for the supported scope unless a narrower scope is separately reviewed."
     networkAssumptions:
-      - "Use the service, ingress, DNS, and certificate behavior recorded by the candidate base unless this draft is narrowed before final support."
+      - "Use the service, ingress, DNS, and certificate behavior recorded by the supported scope unless a narrower scope is separately reviewed."
     requiredTargetFacts:
       - kind: Secret
         namespace: monitoring
@@ -28,29 +33,32 @@ spec:
   supportBoundary:
     includes:
       - "prometheus-community/kube-prometheus-stack@85.3.3 default base"
-      - ConfigHub OCI delivery for the declared target scope after fresh target evidence is recorded
+      - ConfigHub OCI delivery through Argo for the declared cub-lk vanilla kind target scope
       - rendered objects, labels, gates, receipts, and support objects produced by the recorded base
       - declared target-fact preflight for the Prometheus Operator admission webhook TLS Secret
+      - recorded mutable-image exception for the declared public monitoring support scope
+      - recorded scan and lifecycle decisions for the declared public monitoring support scope
     excludes:
       - "private values overlays, wrapper charts, and populated extension slots unless separately reviewed"
+      - "digest-pinned or hardened production bases unless separately reviewed"
       - "non-vanilla Kubernetes distributions unless separately reviewed"
       - "other delivery controllers or target scopes unless separately reviewed"
   decisions:
     imageDecision:
       state: "mutable-image-exception-accepted-for-target-scope"
-      detail: "both recorded base variants have digest-resolution receipts; mutable image tags are accepted only for the declared public monitoring support draft, while stricter scopes may require digest-pinned bases or image overrides"
+      detail: "both recorded base variants have digest-resolution receipts; mutable image tags are accepted only for the declared public monitoring support scope, while stricter scopes may require digest-pinned bases or image overrides"
     scanDecision:
       state: "security-accepted-for-target-scope"
-      detail: "scan findings are accepted for the declared public monitoring support draft; stricter environments may still require a hardened base"
+      detail: "scan findings are accepted for the declared public monitoring support scope; stricter environments may still require a hardened base"
     lifecycleDecision:
       state: "lifecycle-observed-for-proof-scope"
       detail: "the selected hook/lifecycle route has proof-scope observation evidence for webhook TLS prerequisites, CRD bootstrap, workload rollout, and ConfigHub OCI/Argo runtime health; upgrade and final target evidence remain scoped separately"
     targetFactDecision:
       state: "no-unresolved-target-prerequisite-in-candidate-base"
-      detail: "the candidate base declares monitoring/kube-prometheus-stack-admission cert and key as target facts; final support must stage or observe them in the target scope"
+      detail: "the candidate base declares monitoring/kube-prometheus-stack-admission cert and key as target facts, and the scoped support evidence records prerequisite staging"
     liveEvidenceDecision:
-      state: "needs-fresh-target-evidence-before-final"
-      detail: "default has broad committed proof lanes; final support still needs fresh target-scoped ConfigHub OCI/GitOps and live evidence after image, security, and lifecycle decisions are closed"
+      state: "fresh-target-evidence-passed"
+      detail: "fresh target-scoped ConfigHub OCI and Argo evidence passed on 2026-06-09 for the declared cub-lk vanilla kind monitoring scope"
   evidence:
     - path: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
       claim: "The candidate base is Helm-equivalent under recorded inputs."
@@ -60,6 +68,8 @@ spec:
       claim: "The two-cluster Helm-vs-installer parity receipt exists for the candidate base."
     - path: "runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
       claim: "The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base."
+    - path: "data/production-support-decisions/prometheus-community-kube-prometheus-stack/fresh-target-evidence-2026-06-09.yaml"
+      claim: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared cub-lk vanilla kind support scope."
     - path: "data/image-digest-workdown/receipts/prometheus-community-kube-prometheus-stack/default/image-digest-resolution.yaml"
       claim: "The rendered mutable image references for the candidate base have registry digest-resolution evidence."
     - path: "data/production-support-decisions/prometheus-community-kube-prometheus-stack/image-policy-decision.yaml"
@@ -84,7 +94,5 @@ spec:
       claim: "The webhook readiness and failure policy disposition exists for this chart."
     - path: "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
       claim: "The hook lifecycle route is selected; the lifecycle decision binds it to proof-scope observation evidence."
-  requiredBeforeFinal:
-    - "Choose the final target scope, exact GitOps controller, namespace, and artifact digest."
-    - "Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope."
-  nextAction: "treat kube-prometheus-stack as the serious-chart proof: choose the exact supported target scope and refresh scoped ConfigHub OCI/GitOps evidence for the monitoring namespace"
+  requiredBeforeFinal: []
+  nextAction: "Keep the target-scoped evidence fresh before using this supported scope as a production-support example."

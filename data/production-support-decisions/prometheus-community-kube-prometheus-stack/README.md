@@ -11,39 +11,41 @@ support decision. It does not replace the source decision artifact:
 | --- | --- |
 | Chart | `prometheus-community/kube-prometheus-stack@85.3.3` |
 | Candidate base | `default` |
-| Decision state | `draft` |
-| Target scope | vanilla-kubernetes; namespace=monitoring; delivery=confighub-oci; controller=argo-or-flux |
+| Decision state | `supported` |
+| Target scope | cub-lk-kind-vanilla; namespace=monitoring; delivery=confighub-oci; controller=argo |
 | Delivery path | `confighub-oci` |
 
 ## Open Work
 
 | Work | Action |
 | --- | --- |
-| Fresh evidence | Refresh ConfigHub OCI/GitOps and live/e2e evidence after earlier decisions are closed. |
+| Keep fresh | Keep target-scoped evidence fresh before using this supported scope as an example. |
 
 
 ## Closeout Sequence
 
-1. Choose the final target scope, GitOps controller, namespace, and artifact digest.
-2. Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence after the earlier decisions are closed.
+1. Keep the target-scoped evidence fresh for the declared support boundary.
 
 ## Required Before Final Support
 
-- Choose the final target scope, exact GitOps controller, namespace, and artifact digest.
-- Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope.
+- None.
+
 
 ## Support Boundary
 
 Included:
 
 - prometheus-community/kube-prometheus-stack@85.3.3 default base
-- ConfigHub OCI delivery for the declared target scope after fresh target evidence is recorded
+- ConfigHub OCI delivery through Argo for the declared cub-lk vanilla kind target scope
 - rendered objects, labels, gates, receipts, and support objects produced by the recorded base
 - declared target-fact preflight for the Prometheus Operator admission webhook TLS Secret
+- recorded mutable-image exception for the declared public monitoring support scope
+- recorded scan and lifecycle decisions for the declared public monitoring support scope
 
 Excluded:
 
 - private values overlays, wrapper charts, and populated extension slots unless separately reviewed
+- digest-pinned or hardened production bases unless separately reviewed
 - non-vanilla Kubernetes distributions unless separately reviewed
 - other delivery controllers or target scopes unless separately reviewed
 
@@ -53,6 +55,7 @@ Excluded:
 - [recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/receipts/scan-receipt.yaml](../../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/receipts/scan-receipt.yaml) - The rendered-object scan receipt exists for the candidate base.
 - [runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml](../../../runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml) - The two-cluster Helm-vs-installer parity receipt exists for the candidate base.
 - [runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml](../../../runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml) - The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base.
+- [data/production-support-decisions/prometheus-community-kube-prometheus-stack/fresh-target-evidence-2026-06-09.yaml](../../../data/production-support-decisions/prometheus-community-kube-prometheus-stack/fresh-target-evidence-2026-06-09.yaml) - Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared cub-lk vanilla kind support scope.
 - [data/image-digest-workdown/receipts/prometheus-community-kube-prometheus-stack/default/image-digest-resolution.yaml](../../../data/image-digest-workdown/receipts/prometheus-community-kube-prometheus-stack/default/image-digest-resolution.yaml) - The rendered mutable image references for the candidate base have registry digest-resolution evidence.
 - [data/production-support-decisions/prometheus-community-kube-prometheus-stack/image-policy-decision.yaml](../../../data/production-support-decisions/prometheus-community-kube-prometheus-stack/image-policy-decision.yaml) - The target-scoped image policy decision accepts mutable rendered tags for this public monitoring support draft with explicit limits.
 - [data/production-support-decisions/prometheus-community-kube-prometheus-stack/security-decision.yaml](../../../data/production-support-decisions/prometheus-community-kube-prometheus-stack/security-decision.yaml) - The target-scoped production security decision accepts the recorded scan findings for this public monitoring support draft.
@@ -68,7 +71,7 @@ Excluded:
 
 ## Next Action
 
-treat kube-prometheus-stack as the serious-chart proof: choose the exact supported target scope and refresh scoped ConfigHub OCI/GitOps evidence for the monitoring namespace
+Keep the target-scoped evidence fresh before using this supported scope as a production-support example.
 
 Regenerate:
 
