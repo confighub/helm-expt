@@ -49,6 +49,16 @@ function buildReport() {
 }
 
 function readme(rows) {
+  const quickRoutes = [
+    ["I want the current headline status.", "data/status-dashboard/summary.md"],
+    ["I want to know whether a top-20 chart/base is easy to try.", "data/top20-base-readiness/summary.md"],
+    ["I want one spreadsheet row per chart/base proof lane.", "data/outcome-coverage/base-outcomes.csv"],
+    ["I want the top-100 or top-500 planning picture.", "data/top100-readiness/summary.md; data/top500-catalog-analysis/review.csv"],
+    ["I want live parity status.", "data/live-kind-parity/summary.md; data/live-helm-confighub-compare/summary.md"],
+    ["I want hook, CRD, webhook, or lifecycle status.", "data/lifecycle-boundary/summary.md; data/outcome-coverage/feature-outcomes.csv"],
+    ["I want extension-slot or custom-config risk.", "data/extension-slots/summary.md; data/nginx-config-checks/summary.md"],
+    ["I want production support status and next actions.", "data/production-disposition/summary.md; data/production-disposition/next-actions.csv"],
+  ];
   const primary = [
     ["data/status-dashboard/summary.md", "Start here for a one-page status dashboard: top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity."],
     ["data/status-dashboard/top20-status.csv", "Compact chart-by-chart status for the top-20 public catalog: recommended base, setup command, base-readiness mix, evidence strength, proof lanes, feature summary, gaps, next action."],
@@ -94,6 +104,15 @@ What outcomes are promised?
 Which tests prove those outcomes?
 What is the current status for each chart, base, derived variant, and feature?
 ~~~
+
+## Quick Routes
+
+Do not start by opening every CSV. Pick the question first, then use the
+smallest generated surface that answers it.
+
+| Question | Start with |
+| --- | --- |
+${quickRoutes.map(([question, paths]) => `| ${question} | ${paths.split("; ").map((path) => `[${path.replace("data/", "")}](${path.replace("data/", "./")})`).join("<br>")} |`).join("\n")}
 
 ## Start Here
 

@@ -10,6 +10,22 @@ Which tests prove those outcomes?
 What is the current status for each chart, base, derived variant, and feature?
 ~~~
 
+## Quick Routes
+
+Do not start by opening every CSV. Pick the question first, then use the
+smallest generated surface that answers it.
+
+| Question | Start with |
+| --- | --- |
+| I want the current headline status. | [status-dashboard/summary.md](./status-dashboard/summary.md) |
+| I want to know whether a top-20 chart/base is easy to try. | [top20-base-readiness/summary.md](./top20-base-readiness/summary.md) |
+| I want one spreadsheet row per chart/base proof lane. | [outcome-coverage/base-outcomes.csv](./outcome-coverage/base-outcomes.csv) |
+| I want the top-100 or top-500 planning picture. | [top100-readiness/summary.md](./top100-readiness/summary.md)<br>[top500-catalog-analysis/review.csv](./top500-catalog-analysis/review.csv) |
+| I want live parity status. | [live-kind-parity/summary.md](./live-kind-parity/summary.md)<br>[live-helm-confighub-compare/summary.md](./live-helm-confighub-compare/summary.md) |
+| I want hook, CRD, webhook, or lifecycle status. | [lifecycle-boundary/summary.md](./lifecycle-boundary/summary.md)<br>[outcome-coverage/feature-outcomes.csv](./outcome-coverage/feature-outcomes.csv) |
+| I want extension-slot or custom-config risk. | [extension-slots/summary.md](./extension-slots/summary.md)<br>[nginx-config-checks/summary.md](./nginx-config-checks/summary.md) |
+| I want production support status and next actions. | [production-disposition/summary.md](./production-disposition/summary.md)<br>[production-disposition/next-actions.csv](./production-disposition/next-actions.csv) |
+
 ## Start Here
 
 | File | Use it for |
