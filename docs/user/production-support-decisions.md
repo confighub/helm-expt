@@ -43,22 +43,27 @@ mode, every cluster type, or every private overlay.
 
 ## How To Work The Queue
 
-Start with the generated production queue:
+Start with the target-scoped support decisions:
 
-- [Production Support Decision Contract](../../data/production-disposition/support-decision-contract.md)
-- [Production Support Decision Queue](../../data/production-disposition/support-decision-queue.csv)
-- [Production Next Actions](../../data/production-disposition/next-actions.csv)
 - [Production Support Decision Artifacts](../../data/production-support-decisions/summary.md)
+- [Production Support Decisions CSV](../../data/production-support-decisions/decisions.csv)
 
-Then work the row by decision state:
+Use the older production-disposition outputs when you need the accepted
+pre-review receipts or the original decision contract:
 
-| Decision state | What to do |
+- [Production Disposition](../../data/production-disposition/summary.md)
+- [Production Support Decision Contract](../../data/production-disposition/support-decision-contract.md)
+- [Production Next Actions](../../data/production-disposition/next-actions.csv)
+
+Then work the target-scoped row by decision field:
+
+| Decision field | What to do |
 | --- | --- |
-| `ready-for-final-scope-decision` | Choose the supported base, target scope, delivery path, and evidence refresh rule. |
-| `resolve-images-before-production-oci` | Pin images by digest or record the explicit exception for the supported scope. |
-| `lifecycle-support-scope-decision` | Decide which lifecycle behavior is supported, observed, excluded, or operator-owned. |
-| `security-acceptance-or-hardened-base` | Accept the current finding for the target scope or create a hardened base variant. |
-| `target-runtime-scope-review` | Decide whether the runtime condition is acceptable for the target scope, then refresh live evidence. |
+| `image_decision` | Pin images by digest or record the explicit exception for the supported scope. |
+| `scan_decision` | Decide which findings are accepted, fixed, hardened, or outside the supported target scope. |
+| `lifecycle_decision` | Decide which lifecycle behavior is supported, observed, excluded, or operator-owned. |
+| `target_fact_decision` | State required CRDs, APIs, Secrets, storage, or other target prerequisites. |
+| `live_evidence_decision` | Refresh target-scoped live evidence, or close the runtime/missing-lane/lifecycle decision first. |
 
 ## Minimum Decision
 

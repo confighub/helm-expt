@@ -53,7 +53,6 @@ function buildReport() {
   const liveParityRerunRows = readCsv("data/live-parity-rerun-plan/rerun-plan.csv");
   const runtimeRows = readCsv("data/runtime-gitops/wave1.csv");
   const productionRows = readCsv("data/production-disposition/top20.csv");
-  const supportDecisionRows = readCsv("data/production-disposition/support-decision-queue.csv");
   const productionSupportDecisionRows = readCsv("data/production-support-decisions/decisions.csv");
   const scanDispositionRows = readCsv("data/scan-disposition-workdown/workdown.csv");
   const derivedWorkOrders = readCsv("data/variant-goldens/derived-expansion-wave/work-orders.csv");
@@ -135,7 +134,7 @@ function buildReport() {
 
   const chartByName = new Map(chartRows.map((row) => [row.chart, row]));
   const top20Rows = top20StatusRows(top100Rows, chartByName, top20BaseReadinessRows);
-  const nextWorkQueues = nextWorkQueueRows({ top100Rows, hookRows, lifecycleObservationRows, liveParityRerunRows, supportDecisionRows });
+  const nextWorkQueues = nextWorkQueueRows({ top100Rows, hookRows, lifecycleObservationRows, liveParityRerunRows, productionSupportDecisionRows });
   return {
     rows,
     csv: toCsv(rows),
@@ -143,7 +142,7 @@ function buildReport() {
     top20Csv: top20ToCsv(top20Rows),
     nextWorkQueues,
     nextWorkQueuesCsv: nextWorkQueuesToCsv(nextWorkQueues),
-    summary: summary(rows, { chartRows, baseRows, top100Rows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, lifecycleBoundaryRows, lifecycleObservationRows, edgeRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, supportDecisionRows, productionSupportDecisionRows, scanDispositionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues }),
+    summary: summary(rows, { chartRows, baseRows, top100Rows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, lifecycleBoundaryRows, lifecycleObservationRows, edgeRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, productionSupportDecisionRows, scanDispositionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues }),
   };
 }
 
@@ -196,6 +195,8 @@ ${rows.map((row) => `| ${row.section} | ${row.metric} | ${row.value}${row.total 
 
 Use this section when the question is what should move next, not when the
 question is whether a specific receipt passed.
+Workstreams can overlap: one chart can need image, scan, lifecycle, and fresh
+evidence work before it becomes production-supported for a target scope.
 
 ### Top100 Catalog Work
 
@@ -654,7 +655,7 @@ function nextWorkQueueRows(context) {
   const liveParityRerunReadiness = groupCount(context.liveParityRerunRows, "rerun_readiness");
   return [
     ...top100WorkQueueObjects(top100Status),
-    ...supportDecisionWorkstreamObjects(context.supportDecisionRows),
+    ...supportDecisionWorkstreamObjects(context.productionSupportDecisionRows),
     ...liveParityRerunReadinessObjects(liveParityRerunReadiness),
     ...hookWorkQueueObjects(context.hookRows, context.lifecycleObservationRows),
   ];
@@ -702,51 +703,54 @@ function top100WorkQueueObjects(counts) {
 }
 
 function supportDecisionWorkstreamObjects(rows) {
-  const order = [
-    "ready-for-final-scope-decision",
-    "resolve-images-before-production-oci",
-    "lifecycle-support-scope-decision",
-    "security-acceptance-or-hardened-base",
-    "target-runtime-scope-review",
-    "target-prerequisite-scope-review",
-    "close-dispositions-first",
-    "scope-decision-needed",
+  const workstreams = [
+    {
+      item: "Supported scope evidence",
+      rows: rows.filter((row) => row.decision === "supported"),
+      next_action: "Keep target-scoped evidence fresh before using the supported scope as a production example.",
+    },
+    {
+      item: "Image digest resolution or exception",
+      rows: rows.filter((row) => row.image_decision === "needs-image-digest-resolution-or-exception"),
+      next_action: "Pin images by digest or record an explicit exception before production OCI support.",
+    },
+    {
+      item: "Scan scope decision",
+      rows: rows.filter((row) => row.scan_decision === "needs-scan-scope-decision"),
+      next_action: "Record which scanner findings are accepted, fixed, or outside the supported target scope.",
+    },
+    {
+      item: "Security acceptance or hardened base",
+      rows: rows.filter((row) => row.scan_decision === "needs-security-acceptance-or-hardened-base"),
+      next_action: "Accept current security findings for the target scope or create a narrower hardened base.",
+    },
+    {
+      item: "Lifecycle decision or observation",
+      rows: rows.filter((row) => ["needs-lifecycle-support-boundary", "route-selected-observation-needed"].includes(row.lifecycle_decision)),
+      next_action: "Record the lifecycle boundary, or execute and observe the selected hook/lifecycle route.",
+    },
+    {
+      item: "Runtime or missing-lane decision",
+      rows: rows.filter((row) => ["needs-runtime-decision-before-final", "needs-missing-live-or-confighub-lanes-before-final", "needs-lifecycle-observation-before-final"].includes(row.live_evidence_decision)),
+      next_action: "Close the runtime, missing-lane, or lifecycle-observation decision before refreshing final evidence.",
+    },
+    {
+      item: "Fresh target-scoped evidence",
+      rows: rows.filter((row) => row.live_evidence_decision === "needs-fresh-target-evidence-before-final"),
+      next_action: "After scope and risk decisions are closed, refresh ConfigHub OCI/GitOps and live/e2e evidence for that exact scope.",
+    },
   ];
-  const labels = {
-    "ready-for-final-scope-decision": "Final support decision",
-    "resolve-images-before-production-oci": "Image digest resolution",
-    "lifecycle-support-scope-decision": "Lifecycle support boundary",
-    "security-acceptance-or-hardened-base": "Security acceptance or hardened base",
-    "target-runtime-scope-review": "Target runtime scope",
-    "target-prerequisite-scope-review": "Target prerequisite scope",
-    "close-dispositions-first": "Close open dispositions",
-    "scope-decision-needed": "Scope decision",
-  };
-  const actions = {
-    "ready-for-final-scope-decision": "Choose supported base, target scope, delivery path, and evidence refresh rule.",
-    "resolve-images-before-production-oci": "Pin images by digest or record the explicit exception before production OCI support.",
-    "lifecycle-support-scope-decision": "Record lifecycle behavior as supported, observed, excluded, or operator-owned.",
-    "security-acceptance-or-hardened-base": "Accept current security findings for the target scope or create a hardened base.",
-    "target-runtime-scope-review": "Decide whether the runtime condition is acceptable, then refresh live evidence.",
-    "target-prerequisite-scope-review": "State the required CRDs, APIs, Secrets, storage, or other target prerequisites.",
-    "close-dispositions-first": "Write or fix missing disposition receipts.",
-    "scope-decision-needed": "Write the missing target-scoped support boundary.",
-  };
-  const counts = groupCount(rows, "decisionState");
-  return order
-    .filter((state) => counts.has(state))
-    .map((state) => {
-      const matchingRows = rows.filter((row) => row.decisionState === state);
-      return {
-        section: "top20-production-support",
-        item_type: "workstream",
-        item: labels[state] ?? state,
-        count: counts.get(state),
-        next_action: actions[state] ?? "Record the target-scoped decision.",
-        source: "data/production-disposition/support-decision-queue.csv",
-        detail: previewCharts(matchingRows),
-      };
-    });
+  return workstreams
+    .filter((workstream) => workstream.rows.length > 0)
+    .map((workstream) => ({
+      section: "top20-production-support",
+      item_type: "workstream",
+      item: workstream.item,
+      count: workstream.rows.length,
+      next_action: workstream.next_action,
+      source: "data/production-support-decisions/decisions.csv",
+      detail: previewCharts(workstream.rows),
+    }));
 }
 
 function liveParityRerunReadinessObjects(counts) {
@@ -822,7 +826,7 @@ function nextWorkQueuesToCsv(rows) {
 }
 
 function previewCharts(rows) {
-  const values = rows.slice(0, 5).map((row) => `${row.chart}@${row.version} (${row.candidateBase})`);
+  const values = rows.slice(0, 5).map((row) => `${row.chart}@${row.version} (${row.candidateBase || row.supported_base || row.base || "base"})`);
   const remaining = rows.length - values.length;
   if (remaining > 0) values.push(`and ${remaining} more`);
   return values.join("; ");

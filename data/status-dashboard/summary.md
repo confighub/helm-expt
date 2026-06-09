@@ -80,6 +80,8 @@ Which detailed CSV should I open next?
 
 Use this section when the question is what should move next, not when the
 question is whether a specific receipt passed.
+Workstreams can overlap: one chart can need image, scan, lifecycle, and fresh
+evidence work before it becomes production-supported for a target scope.
 
 ### Top100 Catalog Work
 
@@ -94,11 +96,13 @@ question is whether a specific receipt passed.
 
 | Workstream | Charts | Next action |
 | --- | ---: | --- |
-| Final support decision | 1 | Choose supported base, target scope, delivery path, and evidence refresh rule. |
-| Image digest resolution | 9 | Pin images by digest or record the explicit exception before production OCI support. |
-| Lifecycle support boundary | 4 | Record lifecycle behavior as supported, observed, excluded, or operator-owned. |
-| Security acceptance or hardened base | 4 | Accept current security findings for the target scope or create a hardened base. |
-| Target runtime scope | 2 | Decide whether the runtime condition is acceptable, then refresh live evidence. |
+| Supported scope evidence | 1 | Keep target-scoped evidence fresh before using the supported scope as a production example. |
+| Image digest resolution or exception | 15 | Pin images by digest or record an explicit exception before production OCI support. |
+| Scan scope decision | 15 | Record which scanner findings are accepted, fixed, or outside the supported target scope. |
+| Security acceptance or hardened base | 4 | Accept current security findings for the target scope or create a narrower hardened base. |
+| Lifecycle decision or observation | 5 | Record the lifecycle boundary, or execute and observe the selected hook/lifecycle route. |
+| Runtime or missing-lane decision | 6 | Close the runtime, missing-lane, or lifecycle-observation decision before refreshing final evidence. |
+| Fresh target-scoped evidence | 13 | After scope and risk decisions are closed, refresh ConfigHub OCI/GitOps and live/e2e evidence for that exact scope. |
 
 ### Live Parity Work
 
