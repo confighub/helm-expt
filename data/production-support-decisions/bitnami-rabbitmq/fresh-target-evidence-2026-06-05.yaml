@@ -1,0 +1,75 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSupportEvidenceReceipt"
+metadata:
+  name: "bitnami-rabbitmq-generated-passwords-argo-oci-support-evidence-20260605"
+spec:
+  chart: "bitnami/rabbitmq"
+  version: "16.0.14"
+  base: "generated-passwords"
+  observedAt: "2026-06-05T18:25:30Z"
+  result: "pass"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "rabbitmq"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+    rig: "helm-expt-parity-rabbitmq-mq198i1w-k6p"
+    kubeContext: "kind-helm-expt-parity-rabbitmq-mq198i1w-k6p"
+    target: "helm-expt-parity-rabbitmq-mq198i1w-k6p-cluster/oci"
+    workloadSpace: "helm-expt-parity-rabbitmq-mq198i1w-k6p-rabbitmq"
+    app: "rabbitmq-parity"
+  package:
+    path: "packages/bitnami/rabbitmq/16.0.14"
+  recipe:
+    path: "recipes/bitnami/rabbitmq/16.0.14"
+  oci:
+    revision: "sha256:7087a4b08b869c34da50b37975a1fc00ec804da15274294b6e1b65e8fbc2c6ec"
+    controller: "Argo CD OCI"
+    sync: "Synced"
+    health: "Healthy"
+    manifestSHA256: "44da673cdbafa50ae88dd9df998747845c68ada29f3a590ca63e9e3b50528ae3"
+    objectCount: 11
+    separatedSecrets:
+      - "secret-rabbitmq-rabbitmq-config.yaml"
+      - "secret-rabbitmq-rabbitmq.yaml"
+  comparison:
+    regularHelmRuntime: "pass"
+    configHubApplyRuntime: "pass"
+    configHubOciRuntime: "pass"
+    helmVsConfigHubOciArgo: "pass"
+    allowedExtraConfigHubObjects:
+      - "v1|Namespace||rabbitmq"
+  twoClusterCrossCheck:
+    path: "runs/live-kind-parity/bitnami-rabbitmq-generated-passwords/receipt.yaml"
+    result: "pass"
+    semanticParity: "pass"
+    regularHelmRuntime: "pass"
+    installerRuntime: "pass"
+  source:
+    liveReceiptPath: "runs/live-helm-confighub-compare/bitnami-rabbitmq-generated-passwords/receipt.yaml"
+    cleanupPolicy: "cub-lk rig and ConfigHub cluster space removed after evidence capture"
+  checks:
+    -
+      name: "regular-helm-runtime"
+      result: "pass"
+      detail: "regular Helm RabbitMQ runtime passed"
+    -
+      name: "confighub-apply-runtime"
+      result: "pass"
+      detail: "ConfigHub rendered objects applied by kubectl reached RabbitMQ readiness"
+    -
+      name: "confighub-oci-argo-runtime"
+      result: "pass"
+      detail: "Argo app rabbitmq-parity: sync=Synced health=Healthy revision=sha256:7087a4b08b869c34da50b37975a1fc00ec804da15274294b6e1b65e8fbc2c6ec"
+    -
+      name: "semantic-object-parity"
+      result: "pass"
+      detail: "regular Helm and ConfigHub OCI/Argo object sets match semantically, except the recorded Namespace support object"
+  supportClaim:
+    state: "fresh-target-evidence-passed"
+    detail: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared RabbitMQ generated-passwords support scope."
+  limits:
+    - "This supports the recorded cub-lk vanilla kind Argo OCI scope, not every Kubernetes cluster."
+    - "This assumes an existing Argo CD OCI controller is available to reconcile the ConfigHub artifact."
+    - "This supports the generated-passwords base, not the existing-secret topology."
+    - "Evidence freshness is 30 days for public demo/support examples unless refreshed earlier."
