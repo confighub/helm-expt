@@ -1,48 +1,60 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ProductionSupportDecision
 metadata:
-  name: "grafana-loki-single-binary-filesystem-public-oci-draft"
+  name: "grafana-loki-single-binary-filesystem-public-oci-supported"
 spec:
   chart: "grafana/loki"
   version: "7.0.0"
-  decision: draft
+  decision: supported
   decisionDate: "2026-06-09"
+  supportedSince: "2026-06-08T10:42:12Z"
   supportedBase: "single-binary-filesystem"
   targetScope:
-    clusterClass: vanilla-kubernetes
+    clusterClass: cub-lk-kind-vanilla
     namespace: "loki"
     deliveryPath: confighub-oci
-    gitopsController: argo-or-flux
+    gitopsController: argo
+    lastEvidenceAt: "2026-06-08T10:42:12Z"
+    lastEvidenceTarget: helm-expt-parity-loki-mq5308xy-1mc0-cluster/oci
+    lastEvidenceKubeContext: kind-helm-expt-parity-loki-mq5308xy-1mc0
+    liveEvidenceTTL: 30d
     storageAssumptions:
-      - "Use the chart's recorded storage behavior for the candidate base unless this draft is narrowed before final support."
+      - "The supported base uses Loki single-binary filesystem storage for the public proof scope; production retention, backup, restore, and rollback need a separate target decision."
     networkAssumptions:
-      - "Use the service, ingress, DNS, and certificate behavior recorded by the candidate base unless this draft is narrowed before final support."
+      - "Use the gateway and service behavior recorded by the supported scope unless a narrower scope is separately reviewed."
     requiredTargetFacts: []
   supportBoundary:
     includes:
       - "grafana/loki@7.0.0 single-binary-filesystem base"
-      - ConfigHub OCI delivery for the declared target scope after fresh target evidence is recorded
-      - rendered objects, labels, gates, receipts, and support objects produced by the recorded base
+      - ConfigHub OCI delivery through Argo for the declared cub-lk vanilla kind target scope
+      - rendered Loki single-binary, gateway, cache, canary, RBAC, labels, gates, receipts, and support objects produced by the recorded base
+      - recorded mutable-image exception with digest-resolution evidence for the declared public proof scope
+      - recorded resource and workload-security warning acceptance for the declared public proof scope
+      - recorded no-hook desired-object lifecycle policy for the declared public proof scope
     excludes:
+      - "the simple-scalable-minio base unless separately reviewed for a target with enough runtime capacity and object-store policy"
+      - "S3 or other object-store production backends, object-store credentials, retention, backup, restore, rollback, and tenant policy unless separately reviewed"
       - "private values overlays, wrapper charts, and populated extension slots unless separately reviewed"
+      - "populated loki.config, loki.structuredConfig, extraEnv, extraContainers, or raw extraObjects unless reviewed as a new base or managed ConfigHub units"
+      - "digest-pinned, resource-hardened, storage-backed, or customer production bases unless separately reviewed"
       - "non-vanilla Kubernetes distributions unless separately reviewed"
       - "other delivery controllers or target scopes unless separately reviewed"
   decisions:
     imageDecision:
-      state: "needs-image-digest-resolution-or-exception"
-      detail: "resolve image digests or record explicit exception before production OCI support"
+      state: "mutable-image-exception-accepted-for-target-scope"
+      detail: "both recorded bases have digest-resolution receipts; mutable image tags are accepted only for the declared single-binary public proof scope, while stricter scopes may require digest-pinned bases or image overrides"
     scanDecision:
-      state: "needs-scan-scope-decision"
-      detail: "accept, fix, or document scanner findings for supported scope"
+      state: "single-binary-resource-security-accepted-for-target-scope"
+      detail: "resource-request and workload-security warnings are accepted for the declared public proof scope; stricter scopes should create a resource/security hardened base"
     lifecycleDecision:
-      state: "needs-lifecycle-support-boundary"
-      detail: "record lifecycle support boundary: recipe-lifecycle-policy"
+      state: "lifecycle-observed-for-proof-scope"
+      detail: "the single-binary-filesystem base is managed as desired objects with Helm hooks and tests excluded, and reaches readiness through regular Helm, cub installer apply, and ConfigHub OCI/Argo"
     targetFactDecision:
       state: "no-unresolved-target-prerequisite-in-candidate-base"
       detail: "no unresolved target prerequisite in candidate base"
     liveEvidenceDecision:
-      state: "needs-fresh-target-evidence-before-final"
-      detail: "refresh target-scoped live/e2e evidence before support claim"
+      state: "fresh-target-evidence-passed"
+      detail: "fresh target-scoped ConfigHub OCI and Argo evidence passed on 2026-06-08 for the declared cub-lk vanilla kind Loki single-binary scope"
   evidence:
     - path: "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/receipts/helm-equivalence-receipt.yaml"
       claim: "The candidate base is Helm-equivalent under recorded inputs."
@@ -52,6 +64,16 @@ spec:
       claim: "The two-cluster Helm-vs-installer parity receipt exists for the candidate base."
     - path: "runs/live-helm-confighub-compare/grafana-loki-single-binary-filesystem/receipt.yaml"
       claim: "The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base."
+    - path: "data/production-support-decisions/grafana-loki/fresh-target-evidence-2026-06-08.yaml"
+      claim: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared cub-lk vanilla kind support scope."
+    - path: "data/image-digest-workdown/receipts/grafana-loki/single-binary-filesystem/image-digest-resolution.yaml"
+      claim: "The rendered mutable image references for the supported base have registry digest-resolution evidence."
+    - path: "data/production-support-decisions/grafana-loki/image-policy-decision.yaml"
+      claim: "The target-scoped image policy decision accepts mutable rendered tags for this public proof scope with explicit limits."
+    - path: "data/production-support-decisions/grafana-loki/security-decision.yaml"
+      claim: "The target-scoped security decision accepts the single-binary warning shape only for this public proof scope."
+    - path: "data/production-support-decisions/grafana-loki/lifecycle-decision.yaml"
+      claim: "The target-scoped lifecycle decision binds no-hook desired-object policy, storage boundaries, extension-slot policy, and OCI/Argo runtime health to proof-scope evidence."
     - path: "data/production-disposition/receipts/grafana-loki/cluster-rbac-review.yaml"
       claim: "The cluster rbac review disposition exists for this chart."
     - path: "data/production-disposition/receipts/grafana-loki/extension-slot-provenance-and-scan-policy.yaml"
@@ -62,8 +84,5 @@ spec:
       claim: "The scan gate warning disposition disposition exists for this chart."
     - path: "data/production-disposition/receipts/grafana-loki/storage-backup-restore-and-rollback-policy.yaml"
       claim: "The storage backup restore and rollback policy disposition exists for this chart."
-  requiredBeforeFinal:
-    - "Choose the final target scope, exact GitOps controller, namespace, and artifact digest."
-    - "Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope."
-    - "resolve image digests or record explicit exception before production OCI support"
-  nextAction: "resolve image digests for each affected variant before production OCI support"
+  requiredBeforeFinal: []
+  nextAction: "Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate object-store, retention, backup, restore, tenant, hardening, and digest-pinned bases for real customer Loki workloads."
