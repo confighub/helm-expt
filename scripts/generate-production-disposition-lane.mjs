@@ -12,6 +12,7 @@ import {
 const outputRoot = join(repoRoot, "data", "production-disposition");
 const reviewCsvPath = join(outputRoot, "top20.csv");
 const summaryPath = join(outputRoot, "summary.md");
+const supportDecisionQueuePath = join(outputRoot, "support-decision-queue.csv");
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -49,7 +50,18 @@ function buildReport() {
   check(rows.every((row) => row.production_support !== "production-supported"), "production support should remain separate from disposition closure");
   check(rows.some((row) => row.live_e2e === "local-kind-observed"), "at least one supported chart needs a live/e2e observation receipt");
   checkAllDispositionReceiptsUsed(rows, dispositionReceipts);
-  return { rows, csv: toCsv(rows), summary: toSummary(rows) };
+  const supportDecisionQueue = readSupportDecisionQueue();
+  return { rows, csv: toCsv(rows), summary: toSummary(rows, supportDecisionQueue) };
+}
+
+function readSupportDecisionQueue() {
+  check(
+    existsSync(supportDecisionQueuePath),
+    "missing production support decision queue; run npm run production:disposition:details",
+  );
+  const rows = parseCsv(readFileSync(supportDecisionQueuePath, "utf8"));
+  check(rows.length === 20, `expected 20 support decision queue rows, found ${rows.length}`);
+  return rows;
 }
 
 function recipeRoots() {
@@ -300,7 +312,7 @@ function toCsv(rows) {
   return `${[headers.join(","), ...rows.map((row) => headers.map((header) => csvEscape(row[header])).join(","))].join("\n")}\n`;
 }
 
-function toSummary(rows) {
+function toSummary(rows, supportDecisionQueue) {
   const localSupported = rows.filter((row) => row.local_test_support === "catalog-supported").length;
   const configHubProofPass = rows.filter((row) => row.confighub_proof === "pass").length;
   const liveObserved = rows.filter((row) => row.live_e2e === "local-kind-observed").length;
@@ -380,6 +392,18 @@ target scope, accepting or patching scan findings, confirming lifecycle and
 target-fact requirements, refreshing live/e2e evidence for that scope, and
 recording the support decision.
 
+## Final Support Workstreams
+
+The queue is grouped by the decision that must happen next. This is the most
+useful view when moving the top-20 from review-ready to production-supported.
+
+${supportDecisionWorkstreams(supportDecisionQueue)}
+
+For the full per-chart contract, use
+\`data/production-disposition/support-decision-contract.md\`. For the
+spreadsheet form, use
+\`data/production-disposition/support-decision-queue.csv\`.
+
 ## Top-20 Disposition Table
 
 | Chart | Variants | ConfigHub proof | Live/e2e | Production status | Accepted | Open dispositions |
@@ -394,6 +418,56 @@ production-supported until their scan/gate warnings, lifecycle risks, target
 facts, and live/e2e observation requirements have explicit dispositions and a
 separate production support decision records the target scope.
 `;
+}
+
+function supportDecisionWorkstreams(rows) {
+  const order = [
+    "ready-for-final-scope-decision",
+    "resolve-images-before-production-oci",
+    "lifecycle-support-scope-decision",
+    "security-acceptance-or-hardened-base",
+    "target-runtime-scope-review",
+    "target-prerequisite-scope-review",
+    "close-dispositions-first",
+    "scope-decision-needed",
+  ];
+  const labels = {
+    "ready-for-final-scope-decision": "Final support decision",
+    "resolve-images-before-production-oci": "Image digest resolution",
+    "lifecycle-support-scope-decision": "Lifecycle support boundary",
+    "security-acceptance-or-hardened-base": "Security acceptance or hardened base",
+    "target-runtime-scope-review": "Target runtime scope",
+    "target-prerequisite-scope-review": "Target prerequisite scope",
+    "close-dispositions-first": "Close open dispositions",
+    "scope-decision-needed": "Scope decision",
+  };
+  const instructions = {
+    "ready-for-final-scope-decision": "Choose the supported base, target scope, delivery path, and evidence refresh rule.",
+    "resolve-images-before-production-oci": "Pin images by digest or record an explicit exception before production OCI support.",
+    "lifecycle-support-scope-decision": "Record which lifecycle behavior is supported, observed, excluded, or operator-owned.",
+    "security-acceptance-or-hardened-base": "Accept current security findings for the target scope or create a hardened base variant.",
+    "target-runtime-scope-review": "Decide whether the runtime condition is acceptable for the target scope, then refresh live evidence.",
+    "target-prerequisite-scope-review": "State the required CRDs, APIs, Secrets, storage, or other target prerequisites and how they are checked.",
+    "close-dispositions-first": "Write or fix missing disposition receipts before making a support decision.",
+    "scope-decision-needed": "Write the missing target-scoped support boundary.",
+  };
+  const grouped = new Map();
+  for (const row of rows) {
+    if (!grouped.has(row.decisionState)) grouped.set(row.decisionState, []);
+    grouped.get(row.decisionState).push(row);
+  }
+  const lines = ["| Workstream | Charts | Next action |", "| --- | ---: | --- |"];
+  for (const state of order) {
+    const stateRows = grouped.get(state) ?? [];
+    if (!stateRows.length) continue;
+    const examples = stateRows
+      .slice(0, 5)
+      .map((row) => `\`${row.chart}@${row.version}\` (${row.candidateBase || "base TBD"})`)
+      .join("<br>");
+    const suffix = stateRows.length > 5 ? `<br>and ${stateRows.length - 5} more` : "";
+    lines.push(`| ${labels[state] ?? state} | ${stateRows.length} | ${instructions[state] ?? "Record the target-scoped decision."}<br>${examples}${suffix} |`);
+  }
+  return lines.join("\n");
 }
 
 function writeReport(report) {
