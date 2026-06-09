@@ -99,6 +99,24 @@ for CRD ownership, CRD upgrades, webhook readiness, generated material, GitOps
 handoff, and any lifecycle actions that should become operator-reviewed
 procedures.
 
+## Production Support Checklist
+
+The generated [high-fanout summary](../../data/high-fanout-demo/summary.md)
+has the current checklist. In short, production support for this chart is a
+target-scoped decision, not a blanket chart label.
+
+| Decision | `default` | `no-crds` |
+| --- | --- | --- |
+| CRD ownership | The package owns the Prometheus Operator CRDs. | The target cluster owns compatible CRDs before apply. |
+| Admission Secret | Stage or manage the webhook admission Secret before config-only delivery. | Stage the admission Secret and the external CRDs. |
+| Webhook freshness | Observe webhook, operator, and caBundle readiness after apply. | Observe the same checks after CRDs are established. |
+| RBAC and scrape scope | Approve the rendered cluster RBAC and monitoring blast radius. | Same RBAC family; external CRDs do not narrow scrape scope. |
+| Scan and image posture | Accept findings for this infrastructure scope or create a hardened base. | Same, plus prerequisite evidence for external CRDs. |
+| Final live evidence | Refresh target-scoped live parity, GitOps/OCI, and observation receipts. | Rerun GitOps/OCI after prerequisites are staged. |
+
+Use `default` when the catalog package should own the CRDs. Use `no-crds` only
+when CRDs have their own owner, version, and fresh observation.
+
 ## Why This Matters
 
 For high-fanout charts, a small Helm input can alter many Kubernetes objects and

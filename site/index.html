@@ -122,7 +122,18 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p><a href="../data/high-fanout-demo/summary.md">Open the high-fanout proof-chain summary</a> or <a href="../docs/user/chain-of-proof.md">read the chain-of-proof guide</a>.</p>
+      <p>Production support for this chart is target-scoped. The checklist below is the short version of the generated high-fanout report.</p>
+      <div class="card"><table>
+        <thead><tr><th>Decision</th><th>What must be settled</th></tr></thead>
+        <tbody><tr><td>CRD ownership</td><td>Decide whether the package owns Prometheus Operator CRDs or the target cluster owns compatible CRDs first.</td></tr><tr><td>Admission Secret</td><td>Stage or manage monitoring/kube-prometheus-stack-admission before config-only delivery.</td></tr><tr><td>Webhook freshness</td><td>Observe webhook, operator, and caBundle readiness after apply.</td></tr><tr><td>RBAC and scrape scope</td><td>Approve the rendered cluster RBAC and monitoring blast radius for the target.</td></tr><tr><td>Scan and image posture</td><td>Accept the findings for this infrastructure scope or create a hardened base.</td></tr><tr><td>Final live evidence</td><td>Refresh target-scoped live parity, GitOps/OCI, and observation receipts before claiming production support.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><a href="../data/high-fanout-demo/summary.md">Open the high-fanout proof-chain summary</a>, <a href="../docs/user/prometheus-high-fanout.md">read the KPS user guide</a>, or <a href="../docs/user/chain-of-proof.md">read the chain-of-proof guide</a>.</p>
     </section>
 
     <section aria-labelledby="command-choice">
