@@ -1412,7 +1412,7 @@ spec:
     -
       chart: "metrics-server/metrics-server"
       version: "3.13.0"
-      status: "production-blocked"
+      status: "production-review-ready"
       supportedLocalTestVariants:
         - "default"
         - "external-tls-ca"
@@ -1443,12 +1443,16 @@ spec:
         lifecycleObservationReceipts:
           []
         productionDispositionReceipts:
+          - "data/production-disposition/receipts/metrics-server-metrics-server/cluster-rbac-review.yaml"
+          - "data/production-disposition/receipts/metrics-server-metrics-server/generated-fact-ownership.yaml"
           - "data/production-disposition/receipts/metrics-server-metrics-server/hook-lifecycle-phase-policy.yaml"
+          - "data/production-disposition/receipts/metrics-server-metrics-server/scan-gate-warning-disposition.yaml"
           - "data/production-disposition/receipts/metrics-server-metrics-server/target-fact-preflight.yaml"
       dispositions:
         -
           name: "cluster RBAC review"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/metrics-server-metrics-server/cluster-rbac-review.yaml"
           owner: "security-review"
           requiredEvidence:
             - "cluster-scoped RBAC inventory"
@@ -1457,7 +1461,8 @@ spec:
           unblockRule: "supported only after cluster-scoped permissions have an explicit disposition"
         -
           name: "generated fact ownership"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/metrics-server-metrics-server/generated-fact-ownership.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "generated secret/cert inventory"
@@ -1476,7 +1481,8 @@ spec:
           unblockRule: "supported only when hooks are mapped to lifecycle policy or intentionally excluded"
         -
           name: "scan/gate warning disposition"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/metrics-server-metrics-server/scan-gate-warning-disposition.yaml"
           owner: "security-review"
           requiredEvidence:
             - "local scan receipt"

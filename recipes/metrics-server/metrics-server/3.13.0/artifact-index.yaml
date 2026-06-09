@@ -41,7 +41,7 @@ spec:
     supportLevel: "supported-for-declared-scopes"
     supportedScopes:
       - "local-test"
-    productionReadiness: "blocked-by-current-scan-gate"
+    productionReadiness: "production-review-ready"
     supportedVariants:
       - "default"
       - "external-tls-ca"
@@ -61,7 +61,7 @@ spec:
       liveParity: "1/2"
     featureSummary: "generated-secrets"
     hardGap: "existing-secret (chart ships no Secret toggle - #113)"
-    nextAction: "write or fix the cluster RBAC review disposition receipt"
+    nextAction: "refresh live/e2e receipts for the accepted production scope"
   installerPackage:
     path: "packages/metrics-server/metrics-server/3.13.0"
     installer: "packages/metrics-server/metrics-server/3.13.0/installer.yaml"

@@ -26,7 +26,4 @@ spec:
   affectedVariants:
     - default
     - external-tls-ca
-  remainingProductionBlockers:
-    - cluster RBAC review
-    - generated fact ownership
-    - scan/gate warning disposition
+  remainingProductionBlockers: []

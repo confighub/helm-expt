@@ -9,7 +9,7 @@ spec:
   supportLevel: "supported-for-declared-scopes"
   supportedScopes:
     - local-test
-  productionReadiness: "blocked-by-current-scan-gate"
+  productionReadiness: "production-review-ready"
   supportedVariants:
     - "default"
     - "external-tls-ca"
@@ -24,4 +24,5 @@ spec:
     - "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts."
     - "default is the expected quick path for a standard metrics-server install."
     - "external-tls-ca is supported when the declared metrics-server-tls target fact is satisfied."
-    - "Production remains blocked until APIService readiness, cluster RBAC, and scan/gate findings have dispositions."
+    - "Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state."
+    - "external-tls-ca remains target-sensitive: the Secret and APIService certificate chain must be validated for the target cluster."

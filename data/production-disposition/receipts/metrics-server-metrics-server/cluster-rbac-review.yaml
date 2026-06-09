@@ -1,0 +1,38 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: metrics-server-cluster-rbac-review
+spec:
+  chart: metrics-server/metrics-server
+  version: "3.13.0"
+  disposition: cluster RBAC review
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: Metrics Server intentionally renders cluster-scoped RBAC because the aggregated metrics API must read node and pod metrics and delegate authentication. The supported bases render the same four cluster-scoped RBAC objects as regular Helm, with no semantic diffs apart from the installer Namespace support object. This accepts the upstream RBAC shape for production review input; a target-specific production support decision can still require a hardened fork or cluster policy waiver.
+  evidence:
+    - path: recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/rendered/object-inventory.yaml
+      claim: The default base inventory records the exact ClusterRole and ClusterRoleBinding objects rendered for metrics-server.
+    - path: recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/rendered/object-inventory.yaml
+      claim: The external-tls-ca base renders the same cluster-scoped RBAC inventory.
+    - path: recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The local rendered-object scan flags only medium RBAC review and APIService observation findings, with zero high or critical findings.
+    - path: recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/receipts/scan-receipt.yaml
+      claim: The external-tls-ca rendered-object scan has the same RBAC/APIService warning shape.
+    - path: recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The default base is Helm-equivalent under recorded inputs, with only the installer Namespace support object added.
+    - path: recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The external-tls-ca base is Helm-equivalent under recorded inputs, with only the installer Namespace support object added.
+    - path: runs/live-kind-parity/metrics-server-metrics-server-default/receipt.yaml
+      claim: The default base passes strict two-cluster live parity between regular Helm and cub installer apply.
+    - path: runs/live-helm-confighub-compare/metrics-server-metrics-server-default/receipt.yaml
+      claim: The default base passes regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo live parity.
+  affectedVariants:
+    - default
+    - external-tls-ca
+  acceptedWarnings:
+    - cluster-rbac-review
+  remainingProductionBlockers: []
+  nextDecision: A target-scoped production support decision can now review Metrics Server RBAC together with cluster policy, API aggregation requirements, and any site-specific least-privilege constraints.

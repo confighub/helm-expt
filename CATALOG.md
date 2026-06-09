@@ -143,7 +143,7 @@ Receipts: [per-chart receipts](recipes/bitnami/redis/25.5.3/CATALOG.md)
 #### metrics-server/metrics-server@3.13.0
 
 Status: catalog-supported
-Production readiness: blocked-by-current-scan-gate
+Production readiness: production-review-ready
 Start base readiness: try-with-proof
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 0/2; local live 1/2; GitOps live 1/2; live parity 1/2

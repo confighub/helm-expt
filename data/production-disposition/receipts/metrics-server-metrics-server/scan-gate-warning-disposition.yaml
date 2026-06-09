@@ -1,0 +1,42 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: metrics-server-scan-gate-warning-disposition
+spec:
+  chart: metrics-server/metrics-server
+  version: "3.13.0"
+  disposition: scan/gate warning disposition
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: The supported Metrics Server bases have no high or critical rendered-object scan findings. The local scan warnings are APIService observation and cluster RBAC review, both now bound to explicit dispositions. The external kube-linter warning is unset memory requirements on the metrics-server Deployment; this is accepted as chart-default behavior for production review input, not as final production support.
+  evidence:
+    - path: data/external-scan-lane/review.csv
+      claim: External kube-linter rows for both supported Metrics Server bases record one unset-memory-requirements warning each, bound to rendered object digests.
+    - path: data/scan-disposition-workdown/workdown.csv
+      claim: The generated scan workdown routes Metrics Server to add-resource-policy, meaning production can either add a resource-policy base or explicitly accept chart defaults.
+    - path: recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default rendered-object scan has zero high or critical findings and records APIService/RBAC warnings explicitly.
+    - path: recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/receipts/scan-receipt.yaml
+      claim: The external-tls-ca rendered-object scan has the same warning shape.
+    - path: data/production-disposition/receipts/metrics-server-metrics-server/cluster-rbac-review.yaml
+      claim: Cluster-scoped RBAC warnings have an explicit accepted disposition for production review input.
+    - path: runs/top20-local-kind/metrics-server-default/observation-receipt.json
+      claim: The default base has a local-kind observation receipt proving Deployment rollout and APIService existence.
+    - path: runs/live-helm-confighub-compare/metrics-server-metrics-server-default/receipt.yaml
+      claim: The default base passes regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo live parity with healthy runtime.
+    - path: runs/derived-variant-target-bound/metrics-server-prod-us-east/receipt.yaml
+      claim: A derived target-bound Metrics Server variant applied through ConfigHub OCI/Argo reached Healthy runtime and APIService Available=True.
+  affectedVariants:
+    - default
+    - external-tls-ca
+  acceptedWarnings:
+    - apiservice-requires-observation
+    - cluster-rbac-review
+    - unset-memory-requirements
+  variantCaveats:
+    - "external-tls-ca has render parity and target-fact staging evidence, but its live two-cluster receipt remains a watch item until the target certificate chain is validated for the target cluster."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose whether to keep chart-default resources or add a production resource policy/base variant, and should require fresh APIService observation on the target cluster.

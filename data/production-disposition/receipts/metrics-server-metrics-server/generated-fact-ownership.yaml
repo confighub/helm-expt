@@ -1,0 +1,34 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: metrics-server-generated-fact-ownership
+spec:
+  chart: metrics-server/metrics-server
+  version: "3.13.0"
+  disposition: generated fact ownership
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: The supported Metrics Server bases do not promote the Helm-generated certificate path. The default base relies on metrics-server runtime certificate generation instead of Helm template generation, and the external-tls-ca base moves certificate material to a declared target Secret with an explicit APIService CA input. The Helm path that uses lookup and genSelfSignedCert remains outside the supported catalog scope.
+  evidence:
+    - path: recipes/metrics-server/metrics-server/3.13.0/control-points.yaml
+      claim: Generated certificate material is marked avoided by the current variants, and the target Secret path is declared as a target fact.
+    - path: recipes/metrics-server/metrics-server/3.13.0/value-model.yaml
+      claim: The value model records tls.type for each supported base and explains why the Helm-generated certificate helper is inactive.
+    - path: recipes/metrics-server/metrics-server/3.13.0/variants/default/variant.yaml
+      claim: The default base has no generated-fact input and keeps the chart's runtime certificate behavior.
+    - path: recipes/metrics-server/metrics-server/3.13.0/variants/external-tls-ca/variant.yaml
+      claim: The external-tls-ca base declares kube-system/metrics-server-tls as a required target Secret.
+    - path: packages/metrics-server/metrics-server/3.13.0/installer.yaml
+      claim: The installer package exposes the external-tls-ca Secret as an external requirement instead of hiding secret material in ConfigHub.
+    - path: runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/receipt.yaml
+      claim: The external-tls-ca parity lane stages the target Secret on both the regular Helm and cub installer paths and proves semantic render parity; runtime readiness remains a target-specific watch item.
+  affectedVariants:
+    - default
+    - external-tls-ca
+  excludedPaths:
+    - tls.type=helm
+  remainingProductionBlockers: []
+  nextDecision: Do not promote tls.type=helm until the generated certificate material has its own durable generated-fact receipt and rotation policy.

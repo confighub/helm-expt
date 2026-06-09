@@ -19,8 +19,8 @@ spec:
     helmMatchByVariant:
       default: "9/9"
       external-tls-ca: "9/9"
-    scanGate: "warn-production-blocked"
-    nextAction: "publish only after APIService observation policy and cluster RBAC review are satisfied"
+    scanGate: "warn-production-review-ready"
+    nextAction: "make a target-scoped production support decision for APIService freshness, resource policy, and external-tls-ca certificate validation"
   receipts:
     - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
     - "revisions/default/r001/receipts/render-receipt.yaml"

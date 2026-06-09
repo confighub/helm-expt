@@ -23,8 +23,4 @@ spec:
       claim: Two-cluster parity stages the required Secret for both the regular Helm and cub installer legs and passes semantic object parity; runtime readiness remains a separate watch item.
   affectedVariants:
     - external-tls-ca
-  remainingProductionBlockers:
-    - cluster RBAC review
-    - generated fact ownership
-    - hook and lifecycle phase policy
-    - scan/gate warning disposition
+  remainingProductionBlockers: []

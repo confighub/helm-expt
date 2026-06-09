@@ -17,7 +17,7 @@ spec:
       category: "generated-facts"
       status: "avoided-by-current-variants"
       evidence: "variants/default/variant.yaml and variants/external-tls-ca/variant.yaml"
-      note: "tls.type=helm would use genSelfSignedCert and lookup; it is intentionally not promoted until generated-fact receipts are formalized."
+      note: "tls.type=helm would use genSelfSignedCert and lookup; the supported bases avoid that path. default uses runtime certificate behavior, and external-tls-ca uses an explicit target Secret."
     -
       category: "target-facts"
       status: "required-for-external-tls-ca"
@@ -44,12 +44,13 @@ spec:
       policy: "no-hooks"
     -
       category: "apiservice"
-      status: "needs-observation"
+      status: "observed-for-default-target-review-required"
       object: "apiregistration.k8s.io/v1|APIService||v1beta1.metrics.k8s.io"
+      evidence: "runs/live-helm-confighub-compare/metrics-server-metrics-server-default/receipt.yaml and runs/derived-variant-target-bound/metrics-server-prod-us-east/receipt.yaml"
     -
       category: "cluster-rbac"
-      status: "scan-and-review"
-      evidence: "scan receipts"
+      status: "disposition-accepted-for-production-review-input"
+      evidence: "data/production-disposition/receipts/metrics-server-metrics-server/cluster-rbac-review.yaml"
     -
       category: "installer-support-object"
       status: "handled"

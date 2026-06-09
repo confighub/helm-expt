@@ -6,7 +6,7 @@ exactly what must be closed before production support can be claimed.
 The lifecycle columns separate retained source-hook evidence from recipe-level
 lifecycle policy and related CRD/webhook/controller observations.
 
-Accepted disposition receipts recorded: 10
+Accepted disposition receipts recorded: 13
 
 | Chart | Local-test variants | Production state | Accepted | Open | Source hooks | Lifecycle basis | Live/e2e receipts |
 | --- | --- | --- | ---: | ---: | ---: | --- | --- |
@@ -26,7 +26,7 @@ Accepted disposition receipts recorded: 10
 | `ingress-nginx/ingress-nginx@4.15.1` | default, admission-disabled | production-blocked | 0 | 4 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `jetstack/cert-manager@v1.20.2` | default, crds-enabled | production-blocked | 0 | 6 | 0 | recipe-hook-policy:no-hooks; lifecycle-observations:2/2 | 1 |
 | `longhorn/longhorn@1.11.2` | default, ui-ingress | production-blocked | 0 | 5 | 0 | recipe-hook-policy:no-hooks | 1 |
-| `metrics-server/metrics-server@3.13.0` | default, external-tls-ca | production-blocked | 2 | 3 | 0 | recipe-hook-policy:no-hooks | 1 |
+| `metrics-server/metrics-server@3.13.0` | default, external-tls-ca | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default, no-crds | production-blocked | 0 | 6 | 2 | source-hooks:2 | 1 |
 | `prometheus-community/prometheus@29.8.0` | default, server-only-ephemeral | production-blocked | 0 | 3 | 0 | none | 1 |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default, sync-secret-rotation | production-blocked | 0 | 4 | 0 | none | 1 |
@@ -39,9 +39,9 @@ The same queue is available as `next-actions.csv`.
 
 | Chart | Accepted | Open | Open dispositions | Next receipt | External scan reading |
 | --- | ---: | ---: | --- | --- | --- |
+| `metrics-server/metrics-server@3.13.0` | 5 | 0 |  | - | default: warn, 1 finding(s) (unset-memory-requirements:1); external-tls-ca: warn, 1 finding(s) (unset-memory-requirements:1) |
 | `bitnami/nginx@24.0.2` | 4 | 0 |  | - | existing-tls-ingress: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); http-clusterip: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
 | `bitnami/redis@25.5.3` | 4 | 0 |  | - | default: warn, 2 finding(s) (pdb-unhealthy-pod-eviction-policy:2); reuse-existing-secret: warn, 2 finding(s) (pdb-unhealthy-pod-eviction-policy:2) |
-| `metrics-server/metrics-server@3.13.0` | 2 | 3 | cluster RBAC review; generated fact ownership; scan/gate warning disposition | data/production-disposition/receipts/metrics-server-metrics-server/cluster-rbac-review.yaml | default: warn, 1 finding(s) (unset-memory-requirements:1); external-tls-ca: warn, 1 finding(s) (unset-memory-requirements:1) |
 | `prometheus-community/prometheus@29.8.0` | 0 | 3 | cluster RBAC review; extension slot provenance and scan policy; scan/gate warning disposition | data/production-disposition/receipts/prometheus-community-prometheus/cluster-rbac-review.yaml | default: warn, 21 finding(s) (unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:4;sensitive-host-mounts:3;host-network:1); server-only-ephemeral: warn, 6 finding(s) (no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2) |
 
 ## Standard Disposition Types
