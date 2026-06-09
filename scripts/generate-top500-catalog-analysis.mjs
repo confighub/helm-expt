@@ -278,7 +278,11 @@ function nextActionFor({ source, proof, versionMatch, sourceStatus, variantStatu
 
 function currentRiskFor({ source, proof, catalogStatus, variantStatus }) {
   if (!proof) return source.classification?.startsWith("P0") ? "source-risk-no-proof" : "not-yet-proved";
-  if (catalogStatus === "catalog-supported") return "local-test-supported-production-blocked";
+  if (catalogStatus === "catalog-supported") {
+    if (proof.productionReadiness === "production-review-ready") return "local-test-supported-production-support-decision-needed";
+    if (proof.productionReadiness === "blocked-by-current-scan-gate") return "local-test-supported-production-disposition-needed";
+    return "local-test-supported-production-not-reviewed";
+  }
   if (variantStatus === "default-only") return "proof-grade-needs-variants";
   return "needs-promotion-review";
 }
@@ -388,8 +392,8 @@ catalog-supported production-review-ready: ${summary.productionReviewReadySuppor
   chart but at a different version than the original source-scan row. These are
   upgrade/freshness review candidates.
 - The practical next work is visible: add variants to high-rank proof-grade
-  charts, add production dispositions to local-test supported charts, and
-  create recipes for high-rank rows with no current proof.
+  charts, record target-scoped support decisions for review-ready catalog
+  charts, and create recipes for high-rank rows with no current proof.
 
 ## Recent Catalog Learnings (2026-06)
 

@@ -5,7 +5,7 @@ metadata:
   generatedBy: "scripts/select-catalog-promotion-wave2.mjs"
 spec:
   sourceMatrix: "data/top500-catalog-analysis/raw.json"
-  doctrine: "A chart is not catalog-supported merely because default Helm output is deterministic; it needs obvious user-shaped variants and production dispositions."
+  doctrine: "A chart is not catalog-supported merely because default Helm output is deterministic; it needs obvious user-shaped variants and production review dispositions."
   acceptance:
     - "Each selected chart must already have proof-grade package/proof artifacts."
     - "Each selected chart must still be machine-proof-only, with no catalog-supported variants yet."

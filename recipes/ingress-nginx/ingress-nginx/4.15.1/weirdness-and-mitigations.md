@@ -16,8 +16,8 @@ current ConfigHub/cub installer proof absorbs it.
 | Variants in this note | default, admission-disabled |
 
 Production support is not implied by this file. A chart can be supported for
-local proof/demo use while production remains blocked by scan, gate, lifecycle,
-or operating-policy dispositions.
+local proof/demo use while still needing accepted scan, gate, lifecycle, and
+operating-policy dispositions plus a final target-scoped support decision.
 
 ## Chart Notes
 

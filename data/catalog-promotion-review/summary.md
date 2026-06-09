@@ -52,8 +52,8 @@ proof work.
 
 - Default-only recipes remain proof-grade until they get user-shaped variants
   or explicit deferrals.
-- Warning gates need production dispositions, waivers, or stronger mitigations
-  before catalog support.
+- Warning gates need dispositions, waivers, or stronger mitigations before
+  production support.
 - Charts with CRDs, webhooks, generated facts, lookup, cluster RBAC, or
   stateful storage need plain-English catalog notes, not only machine receipts.
 - Executable fixture paths now point at current `packages/` paths; keep this as
@@ -63,7 +63,8 @@ proof work.
 
 1. Pick 3-5 proof-grade charts from the generated/default set and add
    user-shaped variants before promotion.
-2. Add production dispositions for the currently supported local-test charts.
+2. Record target-scoped production support decisions for review-ready top-20
+   charts.
 3. Keep `catalog-status.yaml` explicit for every maintained chart.
 4. Use the legacy-patch review lane for supported old versions.
 5. Re-run this report whenever chart versions, scan policy, installer behavior,

@@ -196,7 +196,7 @@ function productGaps(input) {
   if (!input.packageExists) gaps.push("installer package path missing or not current");
   if (input.scanHigh > 0) gaps.push("high scan findings require review before catalog support");
   if (input.scanMedium > 0) gaps.push("medium scan findings require review or waiver before production support");
-  if (input.gateDecisions.includes("warn")) gaps.push("install gate warns; catalog support requires documented production disposition");
+  if (input.gateDecisions.includes("warn")) gaps.push("install gate warns; production support requires documented disposition or acceptance");
   if (input.controlCategories.includes("crds")) gaps.push("CRD lifecycle policy must be catalog-readable");
   if (input.controlCategories.includes("webhooks")) gaps.push("webhook readiness/observation policy must be catalog-readable");
   if (input.controlCategories.includes("stateful-storage")) gaps.push("stateful storage and rollback policy must be catalog-readable");
@@ -206,9 +206,13 @@ function productGaps(input) {
 function recommendationFor(state, gaps, catalogStatus = null) {
   if (state === "blocked") return "fix machine proof failures first";
   if (state === "catalog-supported") {
-    return catalogStatus?.spec?.productionReadiness === "blocked-by-current-scan-gate"
-      ? "supported for declared scopes; production remains blocked by current gate"
-      : "catalog-supported with explicit status";
+    if (catalogStatus?.spec?.productionReadiness === "production-review-ready") {
+      return "supported for declared scopes; production support needs final target-scoped decision";
+    }
+    if (catalogStatus?.spec?.productionReadiness === "blocked-by-current-scan-gate") {
+      return "supported for declared scopes; production disposition needed before support review";
+    }
+    return "catalog-supported with explicit status";
   }
   if (state === "proof-grade") return "keep as proof-grade until product variants and UX review are complete";
   if (gaps.some((gap) => gap.startsWith("recipe executable fixture") || gap.startsWith("installer package path"))) {
@@ -323,8 +327,8 @@ ${topCandidates
 
 - Default-only recipes remain proof-grade until they get user-shaped variants
   or explicit deferrals.
-- Warning gates need production dispositions, waivers, or stronger mitigations
-  before catalog support.
+- Warning gates need dispositions, waivers, or stronger mitigations before
+  production support.
 - Charts with CRDs, webhooks, generated facts, lookup, cluster RBAC, or
   stateful storage need plain-English catalog notes, not only machine receipts.
 - Executable fixture paths now point at current \`packages/\` paths; keep this as
@@ -334,7 +338,8 @@ ${topCandidates
 
 1. Pick 3-5 proof-grade charts from the generated/default set and add
    user-shaped variants before promotion.
-2. Add production dispositions for the currently supported local-test charts.
+2. Record target-scoped production support decisions for review-ready top-20
+   charts.
 3. Keep \`catalog-status.yaml\` explicit for every maintained chart.
 4. Use the legacy-patch review lane for supported old versions.
 5. Re-run this report whenever chart versions, scan policy, installer behavior,

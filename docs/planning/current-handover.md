@@ -282,7 +282,7 @@ Current Top-500 next-action counts:
 
 ```text
 review source/current-version drift and refresh recipe if needed: 21
-add production dispositions and live/e2e observation lane: 15
+record target-scoped support decision and refresh live/e2e observation lane: 15
 run catalog promotion review: 24
 create recipe, package, variants, rendered digest, scans, and receipts: 404
 add user-shaped variants before catalog promotion: 31

@@ -105,7 +105,7 @@ function buildReport() {
     spec: {
       sourceMatrix: relativeRepo(matrixPath),
       doctrine:
-        "A chart is not catalog-supported merely because default Helm output is deterministic; it needs obvious user-shaped variants and production dispositions.",
+        "A chart is not catalog-supported merely because default Helm output is deterministic; it needs obvious user-shaped variants and production review dispositions.",
       acceptance: [
         "Each selected chart must already have proof-grade package/proof artifacts.",
         "Each selected chart must still be machine-proof-only, with no catalog-supported variants yet.",
@@ -163,7 +163,7 @@ function rowFor(candidate, rows) {
     proposed_variants: candidate.variants.join(";"),
     control_focus: candidate.controlFocus.join(";"),
     why: candidate.why,
-    acceptance: "build actual variants, package bases, rendered revisions, receipts, and production dispositions before catalog support",
+    acceptance: "build actual variants, package bases, rendered revisions, receipts, and production review dispositions before catalog support",
   };
 }
 
