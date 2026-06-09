@@ -232,7 +232,7 @@ chart/base row has every lane complete.
 20/20 top-20 charts are production-review-ready by disposition receipt.
 0/20 top-20 charts still need pre-review target-fact preflight disposition.
 20/20 top-20 charts have draft target-scoped support decision artifacts.
-0/20 top-20 charts are production-supported until final target-scoped support decisions are completed.
+1/20 top-20 charts has a final target-scoped support decision; 19/20 remain drafts.
 100 charts have recipe/package proof artifacts.
 156 chart/base rows have Helm-template versus cub installer render parity.
 18/156 chart/base rows currently have the stricter in-ConfigHub proof lane marked pass.

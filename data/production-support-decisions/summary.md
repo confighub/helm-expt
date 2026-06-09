@@ -11,8 +11,8 @@ live evidence rule, and operator-owned boundaries.
 
 ```text
 decision artifacts: 20
-supported decisions: 0
-draft decisions: 20
+supported decisions: 1
+draft decisions: 19
 ```
 
 ## Decisions
@@ -22,7 +22,7 @@ draft decisions: 20
 | `argo-cd/argo-cd@9.5.15` | default | draft | vanilla-kubernetes; namespace=argo-cd; delivery=confighub-oci; controller=argo-or-flux | needs-fresh-target-evidence-before-final | resolve image digests for each affected variant before production OCI support |
 | `bitnami/mongodb@19.0.7` | generated-passwords | draft | vanilla-kubernetes; namespace=mongodb; delivery=confighub-oci; controller=argo-or-flux | needs-fresh-target-evidence-before-final | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
 | `bitnami/mysql@14.0.3` | generated-passwords | draft | vanilla-kubernetes; namespace=mysql; delivery=confighub-oci; controller=argo-or-flux | needs-fresh-target-evidence-before-final | resolve image digests for each affected variant before production OCI support |
-| `bitnami/nginx@24.0.2` | http-clusterip | draft | vanilla-kubernetes; namespace=nginx; delivery=confighub-oci; controller=argo-or-flux | needs-fresh-target-evidence-before-final | Refresh target-scoped ConfigHub OCI/GitOps evidence, then change this decision from draft to supported if the receipt passes for the declared scope. |
+| `bitnami/nginx@24.0.2` | http-clusterip | supported | cub-lk-kind-vanilla; namespace=nginx; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example. |
 | `bitnami/postgresql@18.6.7` | generated-passwords | draft | vanilla-kubernetes; namespace=postgresql; delivery=confighub-oci; controller=argo-or-flux | needs-missing-live-or-confighub-lanes-before-final | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords | draft | vanilla-kubernetes; namespace=rabbitmq; delivery=confighub-oci; controller=argo-or-flux | needs-fresh-target-evidence-before-final | resolve image digests for each affected variant before production OCI support |
 | `bitnami/redis@25.5.3` | default | draft | vanilla-kubernetes; namespace=redis; delivery=confighub-oci; controller=argo-or-flux | needs-fresh-target-evidence-before-final | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |

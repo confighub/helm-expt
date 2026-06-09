@@ -19,8 +19,8 @@ data. It does not replace them; it is the executive work queue over them.
   proof creation.
 - Current chart facts show 25 hard gaps for recommended extra capabilities: 15 existing-secret gaps (#113),
   3 template-CRD/no-crds gaps (#114), 6 curated-variant lanes, and 1 other gap.
-- **0 production-supported** (20 production-review-ready pending final target-scoped support
-  decisions). P0 #76 is closed as a
+- **1 target-scoped support decision recorded** (19 draft decisions remain;
+  20 production-review-ready disposition rows exist). P0 #76 is closed as a
   verifier-backed import-path definition; downstream `cub installer import helm`
   implementation remains product work.
 

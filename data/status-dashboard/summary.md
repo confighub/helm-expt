@@ -47,13 +47,12 @@ Which detailed CSV should I open next?
 | live evidence | live parity rows needing target review first | 7/10 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | ConfigHub/OCI semantic parity defect receipts | 0/20 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 0/40 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| production disposition | top20 production-supported charts | 0/20 | gap | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | top20 production-review-ready charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | top20 production-blocked charts | 0/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | charts with accepted production dispositions | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production support decisions | target-scoped decision artifacts | 20/20 | partial | [data/production-support-decisions/decisions.csv](../../data/production-support-decisions/decisions.csv) |
-| production support decisions | supported decision artifacts | 0/20 | gap | [data/production-support-decisions/decisions.csv](../../data/production-support-decisions/decisions.csv) |
-| production support decisions | draft decision artifacts | 20/20 | partial | [data/production-support-decisions/decisions.csv](../../data/production-support-decisions/decisions.csv) |
+| production support decisions | supported decision artifacts | 1/20 | gap | [data/production-support-decisions/decisions.csv](../../data/production-support-decisions/decisions.csv) |
+| production support decisions | draft decision artifacts | 19/20 | partial | [data/production-support-decisions/decisions.csv](../../data/production-support-decisions/decisions.csv) |
 | scan disposition | high-priority scan rows | 4/20 | partial | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
 | scan disposition | remaining mutable-image rows | 0/20 | good | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
 | scan disposition | privileged infrastructure review rows | 4/20 | partial | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
@@ -271,18 +270,17 @@ Current two-cluster kind parity non-pass receipts:
 The top-20 catalog entries are currently supported for the declared local-test
 scope. Production support is tracked separately. A review-ready row has accepted
 dispositions for scan/gate warnings, lifecycle risks, target facts, storage
-policy, RBAC, webhook behavior, and extension slots. It is still not
-production-supported until a final target-scoped support decision is recorded.
+policy, RBAC, webhook behavior, and extension slots. Final production support
+is recorded only in the target-scoped support decision artifacts.
 
 | Metric | Value |
 | --- | ---: |
-| production-supported charts | 0/20 |
 | production-review-ready pending final support decision | 20/20 |
 | production-blocked pending disposition | 0/20 |
 | charts with accepted dispositions | 20/20 |
 | target-scoped support decision artifacts | 20/20 |
-| supported decision artifacts | 0/20 |
-| draft decision artifacts | 20/20 |
+| supported decision artifacts | 1/20 |
+| draft decision artifacts | 19/20 |
 | high-priority scan rows | 4/20 |
 | mutable-image rows still needing fixes | 0/20 |
 
@@ -424,7 +422,7 @@ lifecycle observation.
 | Which hook claims are queued versus observed? | [lifecycle-boundary/summary.md](../lifecycle-boundary/summary.md) |
 | Which live comparisons passed or failed? | [live-helm-confighub-compare/summary.csv](../live-helm-confighub-compare/summary.csv) |
 | Which live rows should be rerun next? | [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md) |
-| Which top-20 charts are production-supported? | [production-disposition/summary.md](../production-disposition/summary.md) |
+| Which top-20 charts are production-supported? | [production-support-decisions/summary.md](../production-support-decisions/summary.md) |
 | Which derived variants are specified or executed? | [variant-goldens/derived-expansion-wave/work-orders.csv](../variant-goldens/derived-expansion-wave/work-orders.csv) |
 
 Regenerate:

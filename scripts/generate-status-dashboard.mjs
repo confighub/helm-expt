@@ -98,7 +98,6 @@ function buildReport() {
   rows.push(metric("live evidence", "ConfigHub/OCI semantic parity defect receipts", semanticDefectCount(liveRows), liveRows.length, "good", "data/live-helm-confighub-compare/summary.csv", "Rows whose committed receipt currently points at a semantic object comparison defect."));
   rows.push(metric("live evidence", "two-cluster semantic parity defect receipts", semanticDefectCount(kindParityRows), kindParityRows.length, "good", "data/live-kind-parity/summary.csv", "Rows whose committed two-cluster receipt currently points at a semantic object comparison defect."));
 
-  rows.push(metric("production disposition", "top20 production-supported charts", productionRows.filter((row) => row.production_support === "production-supported").length, productionRows.length, "gap", "data/production-disposition/top20.csv", "Top-20 catalog charts with a final production support decision."));
   rows.push(metric("production disposition", "top20 production-review-ready charts", productionRows.filter((row) => row.production_support === "production-review-ready").length, productionRows.length, "partial", "data/production-disposition/top20.csv", "Top-20 catalog charts with required dispositions closed, pending final production support decision and target scope."));
   rows.push(metric("production disposition", "top20 production-blocked charts", productionRows.filter((row) => row.production_support === "blocked").length, productionRows.length, "partial", "data/production-disposition/top20.csv", "Top-20 catalog charts that still have open disposition work before support review."));
   rows.push(metric("production disposition", "charts with accepted production dispositions", productionRows.filter((row) => dispositionCount(row.accepted_dispositions) > 0).length, productionRows.length, "partial", "data/production-disposition/top20.csv", "Charts with at least one disposition receipt accepted."));
@@ -334,12 +333,11 @@ ${kindParityNonPass.map((row) => `| ${row.chart}@${row.version} | ${row.base} | 
 The top-20 catalog entries are currently supported for the declared local-test
 scope. Production support is tracked separately. A review-ready row has accepted
 dispositions for scan/gate warnings, lifecycle risks, target facts, storage
-policy, RBAC, webhook behavior, and extension slots. It is still not
-production-supported until a final target-scoped support decision is recorded.
+policy, RBAC, webhook behavior, and extension slots. Final production support
+is recorded only in the target-scoped support decision artifacts.
 
 | Metric | Value |
 | --- | ---: |
-| production-supported charts | ${context.productionRows.filter((row) => row.production_support === "production-supported").length}/${context.productionRows.length} |
 | production-review-ready pending final support decision | ${context.productionRows.filter((row) => row.production_support === "production-review-ready").length}/${context.productionRows.length} |
 | production-blocked pending disposition | ${context.productionRows.filter((row) => row.production_support === "blocked").length}/${context.productionRows.length} |
 | charts with accepted dispositions | ${context.productionRows.filter((row) => dispositionCount(row.accepted_dispositions) > 0).length}/${context.productionRows.length} |
@@ -453,7 +451,7 @@ lifecycle observation.
 | Which hook claims are queued versus observed? | [lifecycle-boundary/summary.md](../lifecycle-boundary/summary.md) |
 | Which live comparisons passed or failed? | [live-helm-confighub-compare/summary.csv](../live-helm-confighub-compare/summary.csv) |
 | Which live rows should be rerun next? | [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md) |
-| Which top-20 charts are production-supported? | [production-disposition/summary.md](../production-disposition/summary.md) |
+| Which top-20 charts are production-supported? | [production-support-decisions/summary.md](../production-support-decisions/summary.md) |
 | Which derived variants are specified or executed? | [variant-goldens/derived-expansion-wave/work-orders.csv](../variant-goldens/derived-expansion-wave/work-orders.csv) |
 
 Regenerate:
