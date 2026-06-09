@@ -611,6 +611,10 @@ production claim.
 | --- | ---: |
 ${mapRows(stateCounts)}
 
+## Workstreams
+
+${supportDecisionWorkstreams(rows)}
+
 | Chart | Candidate base | Base readiness | Decision state | Next action |
 | --- | --- | --- | --- | --- |
 ${rows.map((row) => `| \`${row.chart}@${row.version}\` | ${row.candidateBase || "-"} | ${row.baseReadiness || "-"} | ${row.decisionState} | ${row.nextAction} |`).join("\n")}
@@ -621,6 +625,62 @@ This file describes the contract. It does not create production support. A chart
 becomes production-supported only after its proposed decision artifact is
 written, reviewed, and backed by fresh evidence for the selected target scope.
 `;
+}
+
+function supportDecisionWorkstreams(rows) {
+  const order = [
+    "ready-for-final-scope-decision",
+    "resolve-images-before-production-oci",
+    "lifecycle-support-scope-decision",
+    "security-acceptance-or-hardened-base",
+    "target-runtime-scope-review",
+    "target-prerequisite-scope-review",
+    "close-dispositions-first",
+    "scope-decision-needed",
+  ];
+  const labels = {
+    "ready-for-final-scope-decision": "Final support decision",
+    "resolve-images-before-production-oci": "Image digest resolution",
+    "lifecycle-support-scope-decision": "Lifecycle support boundary",
+    "security-acceptance-or-hardened-base": "Security acceptance or hardened base",
+    "target-runtime-scope-review": "Target runtime scope",
+    "target-prerequisite-scope-review": "Target prerequisite scope",
+    "close-dispositions-first": "Close open dispositions",
+    "scope-decision-needed": "Scope decision",
+  };
+  const instructions = {
+    "ready-for-final-scope-decision": "Choose the supported base, target scope, delivery path, and evidence refresh rule.",
+    "resolve-images-before-production-oci": "Pin images by digest or record the explicit exception before claiming production OCI support.",
+    "lifecycle-support-scope-decision": "Record which lifecycle behavior is supported, observed, excluded, or operator-owned.",
+    "security-acceptance-or-hardened-base": "Accept the current security findings for the target scope or create a hardened base variant.",
+    "target-runtime-scope-review": "Decide whether the runtime condition is acceptable for the target scope, then refresh live evidence.",
+    "target-prerequisite-scope-review": "State the required CRDs, APIs, Secrets, storage, or other target prerequisites and how they are checked.",
+    "close-dispositions-first": "Write or fix the missing disposition receipts before making a support decision.",
+    "scope-decision-needed": "Write the missing target-scoped support boundary.",
+  };
+  const grouped = new Map();
+  for (const row of rows) {
+    if (!grouped.has(row.decisionState)) grouped.set(row.decisionState, []);
+    grouped.get(row.decisionState).push(row);
+  }
+  const lines = [
+    "The queue is easier to work by decision state. Each row below groups charts",
+    "with the same remaining production-support decision.",
+    "",
+    "| Workstream | Charts | Next action |",
+    "| --- | ---: | --- |",
+  ];
+  for (const state of order) {
+    const stateRows = grouped.get(state) ?? [];
+    if (!stateRows.length) continue;
+    const examples = stateRows
+      .slice(0, 5)
+      .map((row) => `\`${row.chart}@${row.version}\` (${row.candidateBase || "base TBD"})`)
+      .join("<br>");
+    const suffix = stateRows.length > 5 ? `<br>and ${stateRows.length - 5} more` : "";
+    lines.push(`| ${labels[state] ?? state} | ${stateRows.length} | ${instructions[state] ?? "Record the target-scoped decision."}<br>${examples}${suffix} |`);
+  }
+  return lines.join("\n");
 }
 
 function nextDispositionReceiptPath(chart, disposition) {

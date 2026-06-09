@@ -32,6 +32,19 @@ production claim.
 | security-acceptance-or-hardened-base | 4 |
 | target-runtime-scope-review | 4 |
 
+## Workstreams
+
+The queue is easier to work by decision state. Each row below groups charts
+with the same remaining production-support decision.
+
+| Workstream | Charts | Next action |
+| --- | ---: | --- |
+| Final support decision | 1 | Choose the supported base, target scope, delivery path, and evidence refresh rule.<br>`bitnami/nginx@24.0.2` (http-clusterip) |
+| Image digest resolution | 7 | Pin images by digest or record the explicit exception before claiming production OCI support.<br>`bitnami/mysql@14.0.3` (generated-passwords)<br>`bitnami/rabbitmq@16.0.14` (generated-passwords)<br>`external-secrets/external-secrets@2.5.0` (default)<br>`grafana/grafana@10.5.15` (generated-passwords)<br>`grafana/loki@7.0.0` (single-binary-filesystem)<br>and 2 more |
+| Lifecycle support boundary | 4 | Record which lifecycle behavior is supported, observed, excluded, or operator-owned.<br>`bitnami/mongodb@19.0.7` (generated-passwords)<br>`bitnami/postgresql@18.6.7` (generated-passwords)<br>`bitnami/redis@25.5.3` (default)<br>`jetstack/cert-manager@v1.20.2` (default) |
+| Security acceptance or hardened base | 4 | Accept the current security findings for the target scope or create a hardened base variant.<br>`longhorn/longhorn@1.11.2` (default)<br>`prometheus-community/kube-prometheus-stack@85.3.3` (default)<br>`prometheus-community/prometheus@29.8.0` (default)<br>`secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` (default) |
+| Target runtime scope | 4 | Decide whether the runtime condition is acceptable for the target scope, then refresh live evidence.<br>`argo-cd/argo-cd@9.5.15` (default)<br>`grafana/tempo@1.24.4` (local-persistent)<br>`hashicorp/vault@0.32.0` (default)<br>`ingress-nginx/ingress-nginx@4.15.1` (default) |
+
 | Chart | Candidate base | Base readiness | Decision state | Next action |
 | --- | --- | --- | --- | --- |
 | `bitnami/mongodb@19.0.7` | generated-passwords | start-here | lifecycle-support-scope-decision | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
