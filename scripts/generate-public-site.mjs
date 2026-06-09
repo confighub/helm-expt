@@ -172,13 +172,13 @@ function html(catalog) {
   const top20ExtensionRows = catalog.extensionSlots
     .filter((row) => row.catalog_scope === "top20-catalog")
     .map((row) => [row.chart, row.surfaces, row.current_route]);
-  const top100AdoptionCounts = countBy(catalog.top100Readiness, "adoption_bucket");
-  const top100ReadinessRows = [
-    ["try-from-public-catalog", "Use the catalog entry, then check exact base status before broad claims."],
-    ["promote-after-review", "Recipe/package proof and multiple variants exist; choose candidates for catalog review and live lanes."],
-    ["needs-useful-variant", "The mechanism works, but the chart needs realistic user-shaped bases before it is a good offer."],
-    ["limitation-decision-first", "A named capability gap needs a support, disclosure, or defer decision before promotion."],
-  ].map(([bucket, meaning]) => [bucket, top100AdoptionCounts[bucket] ?? 0, meaning]);
+  const top100WorkabilityCounts = countBy(catalog.top100Readiness, "workability");
+  const top100WorkabilityRows = [
+    ["try-now-public-catalog", "Try now from the public catalog; check exact base and proof lane before making a stronger claim."],
+    ["works-as-proof-needs-catalog-review", "Works as a maintained proof; needs catalog review and selected live lanes before promotion."],
+    ["not-yet-a-good-catalog-offer", "Default render proves the mechanism; add a realistic user-shaped base before presenting it as an offer."],
+    ["decision-needed-before-promotion", "A limitation such as existing-secret, HA, or CRD routing needs a support, disclosure, or defer decision."],
+  ].map(([workability, meaning]) => [workability, top100WorkabilityCounts[workability] ?? 0, meaning]);
   const top100QueueRows = [
     ["Promotion review", "promote-after-review"],
     ["Needs useful variant", "needs-useful-variant"],
@@ -388,16 +388,16 @@ function html(catalog) {
 
     <section aria-labelledby="top100-readiness">
       <h2 id="top100-readiness">Top-100 Readiness</h2>
-      <p>The top-100 corpus is not one claim. It separates public catalog entries, promotion candidates, charts that need better user-shaped bases, and charts that need a limitation decision before promotion.</p>
+      <p>The top-100 corpus is not one claim. It separates charts to try now, proof rows that need catalog review, charts that need better user-shaped bases, and charts that need a limitation decision before promotion.</p>
       <div class="grid">
         <div class="metric"><strong>${escapeHtml(catalog.summary.top100ChartsWithLiveEvidence)}/100</strong><span>Charts with live evidence</span></div>
-        <div class="metric"><strong>${escapeHtml(top100AdoptionCounts["try-from-public-catalog"] ?? 0)}/100</strong><span>Public catalog entries</span></div>
-        <div class="metric"><strong>${escapeHtml(top100AdoptionCounts["promote-after-review"] ?? 0)}/100</strong><span>Promotion-review candidates</span></div>
-        <div class="metric"><strong>${escapeHtml(top100AdoptionCounts["needs-useful-variant"] ?? 0)}/100</strong><span>Need useful variants</span></div>
+        <div class="metric"><strong>${escapeHtml(top100WorkabilityCounts["try-now-public-catalog"] ?? 0)}/100</strong><span>Try now</span></div>
+        <div class="metric"><strong>${escapeHtml(top100WorkabilityCounts["works-as-proof-needs-catalog-review"] ?? 0)}/100</strong><span>Proof, review next</span></div>
+        <div class="metric"><strong>${escapeHtml(top100WorkabilityCounts["not-yet-a-good-catalog-offer"] ?? 0)}/100</strong><span>Need useful variants</span></div>
       </div>
       ${markdownLikeTable([
-        ["Bucket", "Charts", "Meaning"],
-        ...top100ReadinessRows,
+        ["Workability", "Charts", "Meaning"],
+        ...top100WorkabilityRows,
       ])}
       ${markdownLikeTable([
         ["Queue", "First rows"],
