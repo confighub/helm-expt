@@ -24,7 +24,11 @@ derived intended-state pass rows:    10
 target-bound derived pass rows:      5
 target-bound derived blocked rows:   1
 top-100 maintained hook charts:      5
-hook lifecycle receipts present:     0
+hook route receipts present:         5/5
+hook lifecycle observations present: 0/5
+hook routes awaiting observation:    5/5
+hook rows still needing route:       0/5
+related lifecycle observations:      4/4
 ```
 
 ## Outcome Promises And Proving Tests
@@ -38,7 +42,7 @@ hook lifecycle receipts present:     0
 | ConfigHub OCI can be reconciled by GitOps for tested rows. | `confighub_oci_argo_live` lane | `npm run runtime-gitops:wave:verify` |
 | Plain Helm and ConfigHub delivery reach equivalent live outcomes for tested rows. | `live_helm_vs_confighub_dual_compare`, two-cluster parity receipts | `npm run live-parity:verify && npm run kind-parity:verify` |
 | Derived ConfigHub variants preserve reviewed bases and expose post-render changes. | derived variant execution and target-bound receipts | `npm run derived-variants:verify && npm run derived-variants:target-bound:verify` |
-| Hooks and hook-like lifecycle behavior are not hidden in render proof. | hook lifecycle queue and lifecycle observations | `npm run hooks:lifecycle:verify && npm run lifecycle:cert-manager-eso:verify` |
+| Hooks and hook-like lifecycle behavior are not hidden in render proof. | hook route receipts, hook lifecycle queue, and lifecycle observations | `npm run hooks:lifecycle:verify && npm run lifecycle:boundary:verify && npm run lifecycle:cert-manager-eso:verify` |
 | Images, Secrets, CRDs, webhooks, target facts, and other chart-specific features are visible. | chart facts, attack-plan workdown, image-digest workdown | `npm run chart-facts:verify && npm run attack-plan:verify && npm run image-digests:workdown:verify` |
 
 ## Files
@@ -83,4 +87,5 @@ means the lane has not been proven for that exact chart/base row. `fail`,
 as-is on the tested target.
 
 Use the narrowest true claim: model-supported, render parity, in-ConfigHub,
-local live, GitOps live, live parity, lifecycle observed, or production-ready.
+local live, GitOps live, live parity, hook route selected, lifecycle observed,
+or production-ready.

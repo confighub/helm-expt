@@ -40,12 +40,14 @@ function buildReport() {
   const derivedTargetRows = parseCsvFile("data/derived-variant-target-bound/summary.csv");
   const hookRows = parseCsvFile("data/hook-lifecycle/top100-hooks.csv");
   const hookReceiptRows = parseCsvFile("data/hook-lifecycle/receipt-index.csv");
+  const lifecycleObservationRows = parseCsvFile("data/lifecycle-observations/cert-manager-eso/summary.csv");
   const liveParityRows = parseCsvFile("data/live-helm-confighub-compare/summary.csv");
   const kindParityRows = parseCsvFile("data/live-kind-parity/summary.csv");
 
   const modelByChart = new Map(modelRows.map((row) => [row.chart, row]));
   const factsByChart = new Map(chartFacts.map((row) => [`${row.chart}@${row.version}`, row]));
   const prodByChart = new Map(productionRows.map((row) => [`${row.chart}@${row.version}`, row]));
+  const hookReceiptByChart = new Map(hookReceiptRows.map((row) => [`${row.chart}@${row.version}`, row]));
   const lanesByChart = group(laneRows, (row) => `${row.chart}@${row.version}`);
   const kindParityByBase = new Map(kindParityRows.map((row) => [`${row.chart}@${row.version}|${row.base}`, row]));
 
@@ -78,6 +80,7 @@ function buildReport() {
           return ["fail", "watch", "blocked"].includes(result);
         }),
         supported_variants: production.supported_variants || rows.map((row) => row.variant).join(";"),
+        hook_route_status: hookReceiptByChart.get(chart)?.receipt_status ?? "",
         feature_summary: featureSummary(facts),
         hard_gap: facts.not_yet_enabled ?? "",
         buildable_backlog: facts.buildable_not_yet_run ?? "",
@@ -109,7 +112,9 @@ function buildReport() {
   });
 
   const derivedRows = derivedVariantRows(derivedTargetRows);
-  const featureRows = chartFacts.flatMap((facts) => featureRowsForChart(facts, modelByChart.get(`${facts.chart}@${facts.version}`)));
+  const featureRows = chartFacts.flatMap((facts) =>
+    featureRowsForChart(facts, modelByChart.get(`${facts.chart}@${facts.version}`), hookReceiptByChart.get(`${facts.chart}@${facts.version}`))
+  );
 
   const aggregate = {
     charts: chartRows.length,
@@ -128,7 +133,12 @@ function buildReport() {
     derivedTargetPass: count(derivedRows, (row) => row.target_bound_live === "pass"),
     derivedTargetBlocked: count(derivedRows, (row) => row.target_bound_live === "blocked"),
     hookChartsTop100: hookRows.length,
-    hookLifecycleReceipts: count(hookReceiptRows, (row) => row.receipt_status === "present"),
+    hookRouteReceipts: count(hookReceiptRows, (row) => ["route-selected", "observed", "blocked"].includes(row.receipt_status)),
+    hookLifecycleObserved: count(hookReceiptRows, (row) => row.receipt_status === "observed"),
+    hookRoutesAwaitingObservation: count(hookReceiptRows, (row) => row.receipt_status === "route-selected"),
+    hookRowsStillNeedingRoute: count(hookReceiptRows, (row) => row.receipt_status === "not-yet-written"),
+    relatedLifecycleObservationPass: count(lifecycleObservationRows, (row) => row.result === "pass"),
+    relatedLifecycleObservationRows: lifecycleObservationRows.length,
     liveParityRows: liveParityRows.length,
     liveParitySelectedPass: count(liveParityRows, (row) => row.result === "pass"),
     liveParitySelectedWatch: count(liveParityRows, (row) => row.result === "watch"),
@@ -203,7 +213,7 @@ function derivedVariantRows(targetRows) {
   return [...receipts, ...targetOnlyRows].sort((a, b) => `${a.chart}/${a.derived_variant}/${a.base}`.localeCompare(`${b.chart}/${b.derived_variant}/${b.base}`));
 }
 
-function featureRowsForChart(facts, model) {
+function featureRowsForChart(facts, model, hookReceipt) {
   const chart = `${facts.chart}@${facts.version}`;
   const recipePath = model?.recipe_path ?? "";
   const rows = [
@@ -223,17 +233,21 @@ function featureRowsForChart(facts, model) {
     ["buildable_not_yet_run", facts.buildable_not_yet_run],
     ["not_yet_enabled", facts.not_yet_enabled],
   ];
-  return rows.map(([feature, status]) => ({
-    chart,
-    feature,
-    status: featureStatus(feature, status),
-    support_meaning: featureMeaning(feature, status),
-    evidence: [
-      "data/chart-facts/chart-facts.csv",
-      `${recipePath}/helm-pain-report.yaml`,
-      `${recipePath}/weirdness-and-mitigations.md`,
-    ].filter(Boolean).join(";"),
-  }));
+  return rows.map(([feature, status]) => {
+    const hookFeature = isHookFeature(feature);
+    return {
+      chart,
+      feature,
+      status: featureStatus(feature, status),
+      support_meaning: featureMeaning(feature, status, hookFeature ? hookReceipt : undefined),
+      evidence: [
+        "data/chart-facts/chart-facts.csv",
+        `${recipePath}/helm-pain-report.yaml`,
+        `${recipePath}/weirdness-and-mitigations.md`,
+        hookFeature ? hookReceipt?.required_receipt : "",
+      ].filter(Boolean).join(";"),
+    };
+  });
 }
 
 function featureStatus(feature, status) {
@@ -243,18 +257,31 @@ function featureStatus(feature, status) {
   return text;
 }
 
-function featureMeaning(feature, status) {
+function featureMeaning(feature, status, hookReceipt) {
   const text = String(status ?? "").trim();
   if (emptyFeatureStatus(text)) return "not observed or not applicable in chart facts";
   if (feature === "not_yet_enabled") return text.includes("no open gap") ? "no hard capability gap recorded" : "hard gap or curated proof lane remains";
   if (feature === "buildable_not_yet_run") return text === "-" ? "no buildable backlog recorded" : "known build path exists but has not been promoted";
-  if (feature.includes("hook")) return "hook or lifecycle behavior must be tracked through lifecycle policy or blocker";
+  if (isHookFeature(feature)) return hookMeaning(hookReceipt);
   if (feature === "existing_secret") return "bring-your-own-secret route status";
   if (feature === "crds" && /^\d+$/.test(text)) return `CRDs are present; count ${text}; raw count is in chart-facts.csv`;
   if (feature === "no_crds_variant") return "CRD ownership route status";
   if (feature === "webhooks" && /^\d+$/.test(text)) return `admission webhooks are present; count ${text}; raw count is in chart-facts.csv`;
   if (feature === "extension_slots") return "open extension slots require per-use review";
   return "tracked chart fact";
+}
+
+function isHookFeature(feature) {
+  return ["post_deploy_hooks", "other_hooks", "hook_status"].includes(feature);
+}
+
+function hookMeaning(hookReceipt) {
+  if (!hookReceipt) return "hook or lifecycle behavior must be tracked through lifecycle policy or blocker";
+  if (hookReceipt.receipt_status === "route-selected") return "hook route is selected; runtime execution or observation is still required";
+  if (hookReceipt.receipt_status === "observed") return "hook route has lifecycle observation or execution evidence";
+  if (hookReceipt.receipt_status === "blocked") return "hook route is reviewed and blocked";
+  if (hookReceipt.receipt_status === "not-yet-written") return "hook route receipt is still required";
+  return "hook receipt exists but needs classification";
 }
 
 function emptyFeatureStatus(text) {
@@ -290,7 +317,11 @@ derived intended-state pass rows:    ${aggregate.derivedIntendedPass}
 target-bound derived pass rows:      ${aggregate.derivedTargetPass}
 target-bound derived blocked rows:   ${aggregate.derivedTargetBlocked}
 top-100 maintained hook charts:      ${aggregate.hookChartsTop100}
-hook lifecycle receipts present:     ${aggregate.hookLifecycleReceipts}
+hook route receipts present:         ${aggregate.hookRouteReceipts}/${aggregate.hookChartsTop100}
+hook lifecycle observations present: ${aggregate.hookLifecycleObserved}/${aggregate.hookChartsTop100}
+hook routes awaiting observation:    ${aggregate.hookRoutesAwaitingObservation}/${aggregate.hookChartsTop100}
+hook rows still needing route:       ${aggregate.hookRowsStillNeedingRoute}/${aggregate.hookChartsTop100}
+related lifecycle observations:      ${aggregate.relatedLifecycleObservationPass}/${aggregate.relatedLifecycleObservationRows}
 \`\`\`
 
 ## Outcome Promises And Proving Tests
@@ -304,7 +335,7 @@ hook lifecycle receipts present:     ${aggregate.hookLifecycleReceipts}
 | ConfigHub OCI can be reconciled by GitOps for tested rows. | \`confighub_oci_argo_live\` lane | \`npm run runtime-gitops:wave:verify\` |
 | Plain Helm and ConfigHub delivery reach equivalent live outcomes for tested rows. | \`live_helm_vs_confighub_dual_compare\`, two-cluster parity receipts | \`npm run live-parity:verify && npm run kind-parity:verify\` |
 | Derived ConfigHub variants preserve reviewed bases and expose post-render changes. | derived variant execution and target-bound receipts | \`npm run derived-variants:verify && npm run derived-variants:target-bound:verify\` |
-| Hooks and hook-like lifecycle behavior are not hidden in render proof. | hook lifecycle queue and lifecycle observations | \`npm run hooks:lifecycle:verify && npm run lifecycle:cert-manager-eso:verify\` |
+| Hooks and hook-like lifecycle behavior are not hidden in render proof. | hook route receipts, hook lifecycle queue, and lifecycle observations | \`npm run hooks:lifecycle:verify && npm run lifecycle:boundary:verify && npm run lifecycle:cert-manager-eso:verify\` |
 | Images, Secrets, CRDs, webhooks, target facts, and other chart-specific features are visible. | chart facts, attack-plan workdown, image-digest workdown | \`npm run chart-facts:verify && npm run attack-plan:verify && npm run image-digests:workdown:verify\` |
 
 ## Files
@@ -334,7 +365,8 @@ means the lane has not been proven for that exact chart/base row. \`fail\`,
 as-is on the tested target.
 
 Use the narrowest true claim: model-supported, render parity, in-ConfigHub,
-local live, GitOps live, live parity, lifecycle observed, or production-ready.
+local live, GitOps live, live parity, hook route selected, lifecycle observed,
+or production-ready.
 `;
 }
 
