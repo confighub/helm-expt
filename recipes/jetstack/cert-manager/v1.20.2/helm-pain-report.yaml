@@ -8,7 +8,7 @@ spec:
     version: "v1.20.2"
     source: "https://charts.jetstack.io"
     digest: "d2a50bd44a09d838c2576a8f3dfca1524597c7393cf8d82ab3ec8a465b9eeb79"
-  supportedScopeStatus: "no-unhandled-pain-points-for-supported-scopes"
+  supportedScopeStatus: "has-strict-live-witness-blockers-for-supported-scopes"
   supportedScopes:
     - "local-test"
   supportedVariants:
@@ -20,6 +20,7 @@ spec:
     - "crds-enabled variant renders six cert-manager CRDs as ordinary rendered objects."
     - "startup API check is a Helm post-install hook and is excluded from the rendered revision by --no-hooks."
     - "Mutating and validating webhook readiness must be observed after apply because rendered objects alone do not prove webhook health."
+    - "A stricter cub-scout live witness on kind Kubernetes 1.30 found that four rendered CRDs contain spec.versions[0].selectableFields that the live API omitted after apply; workloads converged, but this blocks strict rendered-object/live parity for that target profile."
     - "extraObjects is a tpl-powered extension slot; promoted variants keep it empty."
   painPoints:
     -
@@ -49,6 +50,15 @@ spec:
       disposition: "handled-by-capability-profile"
       linkedReceipt: "revisions/default/r001/receipts/render-receipt.yaml"
       supportedVariantStatus: "handled"
+    -
+      id: "capability-profile-live-pruning"
+      detectedPainPoint: "cub-scout live witness on kind Kubernetes 1.30 found four rendered CRDs with spec.versions[0].selectableFields that were absent from the live CRDs after apply; workloads converged, but strict rendered-object/live parity is blocked until the capability/feature-gate route is decided."
+      evidence:
+        - "data/live-e2e/cub-scout-watchlist.csv"
+      configHubHome: "capability-profile"
+      disposition: "blocked"
+      linkedReceipt: "revisions/default/r001/receipts/render-receipt.yaml"
+      supportedVariantStatus: "strict-live-object-parity-blocked-on-kubernetes-1.30"
     -
       id: "crd-policy"
       detectedPainPoint: "CRDs are ordinary rendered objects only in the crds-enabled variant and still need lifecycle/upgrade policy."

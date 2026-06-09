@@ -198,7 +198,10 @@ function verifyCorpusContracts() {
     check(report.spec?.chart?.name === item.status.spec?.chart, `${rel(reportPath)} chart name does not match catalog status`);
     check(String(report.spec?.chart?.version) === String(item.status.spec?.version), `${rel(reportPath)} chart version does not match catalog status`);
     check(
-      report.spec?.supportedScopeStatus === "no-unhandled-pain-points-for-supported-scopes",
+      [
+        "no-unhandled-pain-points-for-supported-scopes",
+        "has-strict-live-witness-blockers-for-supported-scopes",
+      ].includes(report.spec?.supportedScopeStatus),
       `${rel(reportPath)} must state supported scope pain status`,
     );
     for (const variant of item.status.spec?.supportedVariants ?? []) {
