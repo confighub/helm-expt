@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/bitnami/redis/25.5.3/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/bitnami/redis/25.5.3/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/bitnami/redis/25.5.3/value-model.yaml](value-model.yaml) |
+| Value source map | [recipes/bitnami/redis/25.5.3/value-source-map.yaml](value-source-map.yaml) |
 | Weirdness and mitigations | [recipes/bitnami/redis/25.5.3/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/bitnami/redis/25.5.3/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/bitnami/redis/25.5.3/helm-pain-report.yaml](helm-pain-report.yaml) |

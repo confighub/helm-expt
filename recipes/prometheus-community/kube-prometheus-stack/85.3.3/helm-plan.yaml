@@ -3,6 +3,8 @@ kind: "HelmPlan"
 metadata:
   name: "kube-prometheus-stack-kube-prometheus-stack-85.3.3"
 spec:
+  reports:
+    valueSourceMap: "value-source-map.yaml"
   readiness:
     status: "usable-with-controls"
     chart: "prometheus-community/kube-prometheus-stack"

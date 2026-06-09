@@ -30,11 +30,11 @@ for exact base-variant evidence.
 | --- | --- |
 | Adoption bucket | try-from-public-catalog |
 | User status | catalog-supported-with-live-evidence |
-| Strongest evidence | local-kubernetes-live |
-| Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 0/2; live parity 0/2 |
+| Strongest evidence | live-helm-vs-confighub-parity |
+| Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 1/2; live parity 1/2 |
 | Feature summary | hooks;generated-secrets;crds;webhooks;required-values;install-vs-upgrade;extension-slots |
 | Hard gap | existing-secret (chart ships no Secret toggle) |
-| Next action | write or fix the receipt for target fact preflight |
+| Next action | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
 
 ## Artifact Chain
 
@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-model.yaml](value-model.yaml) |
+| Value source map | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-source-map.yaml](value-source-map.yaml) |
 | Weirdness and mitigations | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml](helm-pain-report.yaml) |

@@ -22,6 +22,7 @@ spec:
     chartDossier: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/chart-dossier.yaml"
     controlPoints: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/control-points.yaml"
     valueModel: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-model.yaml"
+    valueSourceMap: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-source-map.yaml"
     weirdnessAndMitigations: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/weirdness-and-mitigations.md"
     helmPainReport: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml"
     controlPointCategories:
@@ -51,16 +52,16 @@ spec:
   proofSummary:
     adoptionBucket: "try-from-public-catalog"
     userStatus: "catalog-supported-with-live-evidence"
-    strongestEvidence: "local-kubernetes-live"
+    strongestEvidence: "live-helm-vs-confighub-parity"
     proofLanes:
       renderParity: "2/2"
       inConfigHub: "1/2"
       localLive: "1/2"
-      gitopsLive: "0/2"
-      liveParity: "0/2"
+      gitopsLive: "1/2"
+      liveParity: "1/2"
     featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;install-vs-upgrade;extension-slots"
     hardGap: "existing-secret (chart ships no Secret toggle)"
-    nextAction: "write or fix the receipt for target fact preflight"
+    nextAction: "choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support"
   installerPackage:
     path: "packages/prometheus-community/kube-prometheus-stack/85.3.3"
     installer: "packages/prometheus-community/kube-prometheus-stack/85.3.3/installer.yaml"

@@ -19,7 +19,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Production readiness | production-review-ready |
 | Supported variants | default, crds-enabled |
 | Candidate variants | none |
-| Control points | admission-webhook, capability-profile, cluster-rbac, crd-policy, dependency-lock, hook-policy, installer-support-object, source-lock, tpl |
+| Control points | admission-webhook, capability-profile, capability-profile-live-pruning, cluster-rbac, crd-policy, dependency-lock, hook-policy, installer-support-object, source-lock, tpl |
 
 ## Feature And Proof Summary
 
