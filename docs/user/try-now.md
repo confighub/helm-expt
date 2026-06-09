@@ -109,9 +109,15 @@ The chart proof, package, and comparison checks pass.
 This checks the committed proof and package for the serious chart. Use the full
 live lanes when you need fresh cluster evidence.
 
+Read [Chain Of Proof](./chain-of-proof.md) for the boundary between render
+proof, ConfigHub desired state, GitOps handoff, and live observation. Read
+[Prometheus High-Fanout Example](./prometheus-high-fanout.md) for the
+kube-prometheus-stack base choices and prerequisites.
+
 ## Next
 
 - [Tutorial Sequence](./tutorial-sequence.md)
+- [Chain Of Proof](./chain-of-proof.md)
 - [Current Proof Status](./current-proof-status.md)
 - [Catalog Dashboard](../../site/index.html)
 - [Top-20 Base Readiness](../../data/top20-base-readiness/summary.md)

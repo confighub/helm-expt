@@ -41,6 +41,8 @@ lifecycle, handoff, or observation receipts.
 
 The detailed doctrine is
 [Seven-Stage Helm Lifecycle](../reference/seven-stage-helm-lifecycle.md).
+For the user-facing proof boundaries across the tools, see
+[Chain Of Proof](./chain-of-proof.md).
 
 ## User Value
 

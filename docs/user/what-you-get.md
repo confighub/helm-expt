@@ -73,6 +73,10 @@ Use [Current Proof Status](./current-proof-status.md) and
 [Verification Lanes](./verification-lanes.md) before making a narrow claim such
 as "GitOps live", "local live", or "live parity".
 
+Use [Chain Of Proof](./chain-of-proof.md) when you need to explain which tool
+proves which boundary. The short rule is: render proof, ConfigHub proof,
+delivery proof, and live proof are related but not interchangeable.
+
 ## Why This Is Better Than Plain Helm For Operations
 
 Plain Helm is useful for rendering and installing. The operational gap is what
@@ -141,6 +145,7 @@ For free, public, managed, and production claim boundaries, see
 | Try the shortest verified path | [Tutorial Sequence](./tutorial-sequence.md) |
 | See outcome status and CSVs | [Outcomes And Tests](./outcomes-and-tests.md) |
 | See which Helm pains are addressed | [Helm Pain Points](./helm-pain-points.md) |
+| Understand which proof proves which boundary | [Chain Of Proof](./chain-of-proof.md) |
 | Adopt existing apps | [Adopting Existing Apps](./adopting-existing-apps.md) |
 | Understand proof levels | [Verification Lanes](./verification-lanes.md) |
 | Choose base versus derived variants | [Creating Variants](./creating-variants.md) |
