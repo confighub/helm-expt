@@ -7,7 +7,8 @@ npm run site:generate
 npm run site:verify
 ```
 
-Open `site/index.html` directly in a browser for the static catalog view.
+Open `site/offering.html` directly in a browser for the public offering page.
+Open `site/index.html` for the static catalog and status dashboard.
 
 Data source:
 

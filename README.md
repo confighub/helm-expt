@@ -6,7 +6,19 @@ This repo shows how popular public Helm charts can become `cub installer`
 packages with named base variants, exact rendered Kubernetes objects, optional
 derived ConfigHub variants, scans, gates, receipts, and live proof.
 
+The supported bases are intended to preserve the chart's end-to-end semantics
+while splitting the install into visible, verifiable stages. That makes changes
+safer, including AI-assisted changes, and helps keep users on the chart's
+supported path instead of accidentally driving Helm into hidden edge cases.
+
 All contents are experimental and unofficial.
+
+Public entry points:
+
+- [Offering page](./docs/user/offering.md): plain-English overview for Helm users.
+- [Static HTML offering page](./site/offering.html): generated page for a public site.
+- [Catalog dashboard](./site/index.html): generated status, catalog, and proof data.
+- [Current proof status](./docs/user/current-proof-status.md): what is proven, watch, blocked, or still backlog.
 
 Core flow:
 
