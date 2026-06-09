@@ -11,9 +11,9 @@ live evidence rule, and operator-owned boundaries.
 
 ```text
 decision artifacts: 20
-supported decisions: 12
-draft decisions: 8
-open work items: 22
+supported decisions: 13
+draft decisions: 7
+open work items: 20
 ```
 
 ## Workstreams
@@ -23,11 +23,11 @@ evidence work before it becomes production-supported for a target scope.
 
 | Workstream | Charts | Examples | Next action |
 | --- | ---: | --- | --- |
-| Supported scope evidence | 12 | `argo-cd/argo-cd@9.5.15` (default)<br>`bitnami/mongodb@19.0.7` (generated-passwords)<br>`bitnami/mysql@14.0.3` (generated-passwords)<br>`bitnami/nginx@24.0.2` (http-clusterip)<br>and 8 more | Keep target-scoped evidence fresh before using the supported scope as a production example. |
+| Supported scope evidence | 13 | `argo-cd/argo-cd@9.5.15` (default)<br>`bitnami/mongodb@19.0.7` (generated-passwords)<br>`bitnami/mysql@14.0.3` (generated-passwords)<br>`bitnami/nginx@24.0.2` (http-clusterip)<br>and 9 more | Keep target-scoped evidence fresh before using the supported scope as a production example. |
 | Image digest resolution or exception | 6 | `grafana/grafana@10.5.15` (generated-passwords)<br>`grafana/tempo@1.24.4` (local-persistent)<br>`hashicorp/vault@0.32.0` (default)<br>`longhorn/longhorn@1.11.2` (default)<br>and 2 more | Pin images by digest or record an explicit exception before production OCI support. |
-| Scan scope decision | 6 | `bitnami/postgresql@18.6.7` (generated-passwords)<br>`grafana/grafana@10.5.15` (generated-passwords)<br>`grafana/tempo@1.24.4` (local-persistent)<br>`hashicorp/vault@0.32.0` (default)<br>and 2 more | Record which scanner findings are accepted, fixed, or outside the supported target scope. |
+| Scan scope decision | 5 | `grafana/grafana@10.5.15` (generated-passwords)<br>`grafana/tempo@1.24.4` (local-persistent)<br>`hashicorp/vault@0.32.0` (default)<br>`ingress-nginx/ingress-nginx@4.15.1` (default)<br>and 1 more | Record which scanner findings are accepted, fixed, or outside the supported target scope. |
 | Security acceptance or hardened base | 2 | `longhorn/longhorn@1.11.2` (default)<br>`secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` (default) | Accept current security findings for the target scope or create a narrower hardened base. |
-| Runtime or missing-lane decision | 4 | `bitnami/postgresql@18.6.7` (generated-passwords)<br>`hashicorp/vault@0.32.0` (default)<br>`ingress-nginx/ingress-nginx@4.15.1` (default)<br>`metrics-server/metrics-server@3.13.0` (default) | Close the runtime, missing-lane, or lifecycle-observation decision before refreshing final evidence. |
+| Runtime or missing-lane decision | 3 | `hashicorp/vault@0.32.0` (default)<br>`ingress-nginx/ingress-nginx@4.15.1` (default)<br>`metrics-server/metrics-server@3.13.0` (default) | Close the runtime, missing-lane, or lifecycle-observation decision before refreshing final evidence. |
 | Fresh target-scoped evidence | 4 | `grafana/grafana@10.5.15` (generated-passwords)<br>`grafana/tempo@1.24.4` (local-persistent)<br>`longhorn/longhorn@1.11.2` (default)<br>`secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` (default) | After scope and risk decisions are closed, refresh ConfigHub OCI/GitOps and live/e2e evidence for that exact scope. |
 
 ## Priority Rows
@@ -44,7 +44,6 @@ currently concentrated.
 | `longhorn/longhorn@1.11.2` | default | image; security/hardened base; fresh evidence | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
 | `metrics-server/metrics-server@3.13.0` | default | image; scan scope; missing proof lane | resolve image digests for each affected variant before production OCI support |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | image; security/hardened base; fresh evidence | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
-| `bitnami/postgresql@18.6.7` | generated-passwords | scan scope; missing proof lane | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
 | `ingress-nginx/ingress-nginx@4.15.1` | default | scan scope; runtime decision | choose whether default is in production scope; close or document its runtime-watch live-readiness issue first |
 
 The spreadsheet form is [work-items.csv](./work-items.csv). It has one row per
@@ -84,7 +83,7 @@ Each decision directory also has a generated workdown page:
 | `bitnami/mongodb@19.0.7` | generated-passwords | supported | cub-lk-kind-vanilla; namespace=mongodb; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, replica-set, backup/restore, failover, credential-rotation, storage-class, SLO, or resource-hardened bases for real customer MongoDB workloads. |
 | `bitnami/mysql@14.0.3` | generated-passwords | supported | cub-lk-kind-vanilla; namespace=mysql; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, backup/restore, failover, credential-rotation, storage-class, SLO, or resource-hardened bases for real customer MySQL workloads. |
 | `bitnami/nginx@24.0.2` | http-clusterip | supported | cub-lk-kind-vanilla; namespace=nginx; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example. |
-| `bitnami/postgresql@18.6.7` | generated-passwords | draft | vanilla-kubernetes; namespace=postgresql; delivery=confighub-oci; controller=argo-or-flux | needs-missing-live-or-confighub-lanes-before-final | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
+| `bitnami/postgresql@18.6.7` | generated-passwords | supported | cub-lk-kind-vanilla; namespace=postgresql; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, backup/restore, point-in-time-recovery, failover, credential-rotation, storage-class, SLO, replication, or resource-hardened bases for real customer PostgreSQL workloads. |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords | supported | cub-lk-kind-vanilla; namespace=rabbitmq; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, clustering, backup/restore, queue-recovery, failover, credential-rotation, Erlang-cookie-rotation, storage-class, SLO, or resource-hardened bases for real customer RabbitMQ workloads. |
 | `bitnami/redis@25.5.3` | default | supported | cub-lk-kind-vanilla; namespace=redis; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, backup/restore, failover, storage-class, SLO, or availability-hardened bases for real customer Redis workloads. |
 | `external-secrets/external-secrets@2.5.0` | default | supported | cub-lk-kind-vanilla; namespace=external-secrets; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate provider-specific bases for SecretStore and ExternalSecret use cases. |

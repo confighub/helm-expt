@@ -1,0 +1,48 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionImagePolicyDecision"
+metadata:
+  name: "bitnami-postgresql-public-oci-image-policy-decision"
+spec:
+  chart: "bitnami/postgresql"
+  version: "18.6.7"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "postgresql"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "generated-passwords"
+  variantsCovered:
+    - "existing-secret"
+    - "generated-passwords"
+  decision: "no-open-image-digest-gap"
+  decidedAt: "2026-06-09"
+  claim: "The rendered PostgreSQL bases use digest-pinned Bitnami PostgreSQL image references in the current proof corpus. There is no open image-digest work item for the selected generated-passwords support scope."
+  renderedImageSummary:
+    renderedSubjects: 2
+    subjectsNeedingResolution: 0
+    imageRefs: 2
+    mutableTagRefs: 0
+    floatingLatestOrUntaggedRefs: 0
+  variantImageRows:
+    existing-secret:
+      rows: 1
+      uniqueImages: 1
+      renderedObjectSetSHA256: "595ce44f8c11b10ad1817bf57141529864efd48318a6a97a6e914d3669bb90dd"
+    generated-passwords:
+      rows: 1
+      uniqueImages: 1
+      renderedObjectSetSHA256: "db49bd6d27e0deaed0b9e314f0527bc2d9468b7be10f9bbdaad14593f0b65a6b"
+  limits:
+    - "This does not mean the rendered manifests are digest-pinned for future chart versions or private image overrides."
+    - "This does not claim future chart versions will stay digest-pinned."
+    - "This does not make the existing-secret runtime path production-supported."
+    - "Private image registries, mirrored images, or replacement images need their own digest policy."
+  evidence:
+    -
+      path: "data/image-digest-workdown/chart-summary.csv"
+      claim: "Summarizes PostgreSQL rendered image references and shows no open digest gap."
+    -
+      path: "data/attack-plan-workdown/image-digest-review.csv"
+      claim: "Lists every rendered PostgreSQL image reference as digest-pinned."
+  remainingSupportBlockers:
+    - "Record scan/PDB acceptance, lifecycle boundary, and fresh target-scoped ConfigHub OCI/GitOps evidence."

@@ -1,30 +1,41 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ProductionSupportDecision
 metadata:
-  name: "bitnami-postgresql-generated-passwords-public-oci-draft"
+  name: "bitnami-postgresql-generated-passwords-public-oci-supported"
 spec:
   chart: "bitnami/postgresql"
   version: "18.6.7"
-  decision: draft
+  decision: supported
   decisionDate: "2026-06-09"
+  supportedSince: "2026-06-05T18:19:50Z"
   supportedBase: "generated-passwords"
   targetScope:
-    clusterClass: vanilla-kubernetes
+    clusterClass: cub-lk-kind-vanilla
     namespace: "postgresql"
     deliveryPath: confighub-oci
-    gitopsController: argo-or-flux
+    gitopsController: argo
+    lastEvidenceAt: "2026-06-05T18:19:50Z"
+    lastEvidenceTarget: helm-expt-parity-postgresql-mq1917o7-j3h-cluster/oci
+    lastEvidenceKubeContext: kind-helm-expt-parity-postgresql-mq1917o7-j3h
+    liveEvidenceTTL: 30d
     storageAssumptions:
-      - "Use the chart's recorded storage behavior for the candidate base unless this draft is narrowed before final support."
+      - "The supported base uses the chart's default standalone StatefulSet PVC posture for the public proof scope; production storage class, backup, restore, high availability, failover, and rollback need separate target decisions."
     networkAssumptions:
-      - "Use the service, ingress, DNS, and certificate behavior recorded by the candidate base unless this draft is narrowed before final support."
+      - "Use the service behavior recorded by the supported scope unless a narrower scope is separately reviewed."
     requiredTargetFacts: []
   supportBoundary:
     includes:
       - "bitnami/postgresql@18.6.7 generated-passwords base"
-      - ConfigHub OCI delivery for the declared target scope after fresh target evidence is recorded
-      - rendered objects, labels, gates, receipts, and support objects produced by the recorded base
+      - ConfigHub OCI delivery through Argo for the declared cub-lk vanilla kind target scope
+      - rendered PostgreSQL StatefulSet, Service, PVC, PDB, generated Secret, labels, gates, receipts, and support objects produced by the recorded base
+      - digest-pinned upstream image references recorded in the proof corpus
+      - generated PostgreSQL postgres password bound before render, rendered deterministically, and separated by cub installer output
+      - recorded PDB warning acceptance and no-hooks lifecycle policy for the declared public proof scope
     excludes:
+      - "existing-secret unless separately reviewed for target credential presence, custody, and rotation policy"
+      - "replication, backup, restore, point-in-time recovery, failover, credential rotation, and storage-class/SLO policy unless separately reviewed"
       - "private values overlays, wrapper charts, and populated extension slots unless separately reviewed"
+      - "init scripts, extended configuration, external credentials, resource-hardened, storage-hardened, or customer production bases unless separately reviewed"
       - "non-vanilla Kubernetes distributions unless separately reviewed"
       - "other delivery controllers or target scopes unless separately reviewed"
   decisions:
@@ -32,17 +43,17 @@ spec:
       state: "no-open-image-digest-gap"
       detail: "no open image-digest gap in current queue"
     scanDecision:
-      state: "needs-scan-scope-decision"
-      detail: "accept, fix, or document scanner findings for supported scope"
+      state: "pdb-policy-accepted-for-target-scope"
+      detail: "the chart PDB warning is accepted only for the declared public proof scope; target production deployments should choose an availability policy"
     lifecycleDecision:
-      state: "no-chart-hooks"
-      detail: "record lifecycle support boundary: recipe-hook-policy:no-hooks"
+      state: "lifecycle-observed-for-proof-scope"
+      detail: "the generated-passwords base has no Helm hooks and reaches readiness through regular Helm, cub installer apply, and ConfigHub OCI/Argo"
     targetFactDecision:
       state: "no-unresolved-target-prerequisite-in-candidate-base"
       detail: "no unresolved target prerequisite in candidate base"
     liveEvidenceDecision:
-      state: "needs-missing-live-or-confighub-lanes-before-final"
-      detail: "complete missing live or ConfigHub lanes, then refresh target-scoped evidence"
+      state: "fresh-target-evidence-passed"
+      detail: "fresh target-scoped ConfigHub OCI and Argo evidence passed on 2026-06-05 for the declared cub-lk vanilla kind PostgreSQL generated-passwords scope"
   evidence:
     - path: "recipes/bitnami/postgresql/18.6.7/revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml"
       claim: "The candidate base is Helm-equivalent under recorded inputs."
@@ -52,6 +63,14 @@ spec:
       claim: "The two-cluster Helm-vs-installer parity receipt exists for the candidate base."
     - path: "runs/live-helm-confighub-compare/bitnami-postgresql-generated-passwords/receipt.yaml"
       claim: "The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base."
+    - path: "data/production-support-decisions/bitnami-postgresql/fresh-target-evidence-2026-06-05.yaml"
+      claim: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared cub-lk vanilla kind support scope."
+    - path: "data/production-support-decisions/bitnami-postgresql/image-policy-decision.yaml"
+      claim: "The target-scoped image policy decision records that PostgreSQL image references are digest-pinned in the current proof corpus."
+    - path: "data/production-support-decisions/bitnami-postgresql/security-decision.yaml"
+      claim: "The target-scoped security decision accepts the generated-passwords PDB warning shape only for this public proof scope."
+    - path: "data/production-support-decisions/bitnami-postgresql/lifecycle-decision.yaml"
+      claim: "The target-scoped lifecycle decision binds no-hooks policy, generated credential ownership, separated Secret handling, storage boundaries, and OCI/Argo runtime health to proof-scope evidence."
     - path: "data/production-disposition/receipts/bitnami-postgresql/generated-fact-ownership.yaml"
       claim: "The generated fact ownership disposition exists for this chart."
     - path: "data/production-disposition/receipts/bitnami-postgresql/hook-and-lifecycle-phase-policy.yaml"
@@ -62,8 +81,5 @@ spec:
       claim: "The storage backup restore and rollback policy disposition exists for this chart."
     - path: "data/production-disposition/receipts/bitnami-postgresql/target-fact-preflight.yaml"
       claim: "The target fact preflight disposition exists for this chart."
-  requiredBeforeFinal:
-    - "Choose the final target scope, exact GitOps controller, namespace, and artifact digest."
-    - "Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope."
-    - "record lifecycle support boundary: recipe-hook-policy:no-hooks"
-  nextAction: "record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope"
+  requiredBeforeFinal: []
+  nextAction: "Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, backup/restore, point-in-time-recovery, failover, credential-rotation, storage-class, SLO, replication, or resource-hardened bases for real customer PostgreSQL workloads."
