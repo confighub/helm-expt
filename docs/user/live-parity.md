@@ -27,6 +27,17 @@ Use the generated reports for exact rows:
 - [Two-Cluster Kind Parity](../../data/live-kind-parity/summary.md)
 - [Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md)
 
+The current rerun queue has 20 non-pass rows and no semantic parity defects.
+The useful next work is not one generic rerun; it is split by row type.
+
+| Next step | Rows | What to do first |
+| --- | ---: | --- |
+| runtime review | 13 | Inspect readiness, waits, storage, capacity, or app initialization. |
+| stage prerequisite | 4 | Stage or model CRDs, APIs, Secrets, storage, or another prerequisite. |
+| GitOps runtime review | 1 | Inspect controller health and GitOps waits. |
+| lifecycle route | 1 | Choose the hook or lifecycle observation route. |
+| operating policy | 1 | Record the operating-policy decision. |
+
 ## How To Read Results
 
 | Result | Meaning |

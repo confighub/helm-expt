@@ -193,6 +193,17 @@ Strict two-cluster Helm-vs-installer parity now has committed receipts for all
 Use the generated rerun plan for the next command and expected remediation:
 [Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md).
 
+The current rerun queue has no semantic parity defects. Its 20 non-pass rows
+are grouped by the next decision needed before a rerun is useful:
+
+| Next step | Rows | Meaning |
+| --- | ---: | --- |
+| runtime review | 13 | Inspect readiness, waits, storage, capacity, or application initialization. |
+| stage prerequisite | 4 | Stage or model CRDs, APIs, Secrets, storage, or another target prerequisite. |
+| GitOps runtime review | 1 | Inspect controller health or GitOps waits. |
+| lifecycle route | 1 | Choose the hook or lifecycle observation route. |
+| operating policy | 1 | Record the operating decision before expecting a different readiness result. |
+
 Production support decisions are still open for the top-20 catalog:
 
 - 0 of 20 top-20 charts are currently marked production-supported.
