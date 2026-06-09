@@ -33,7 +33,8 @@ or operating-policy dispositions.
 - Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
 - generated-passwords is the simplest install path and records generated Secret separation.
 - existing-secret-ingress is supported when admin Secret and ingress/TLS target facts are satisfied.
-- Production remains blocked until persistence, ingress exposure, dashboard/config ownership, and scan/gate findings have dispositions.
+- Cluster RBAC, generated Secret ownership, target Secret preflight, and extension-slot policy are recorded as production review input.
+- Production remains blocked until scan/gate findings, target UI exposure, and workload security posture are resolved or narrowed into a hardened base.
 
 ## Control Points
 

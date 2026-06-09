@@ -1,0 +1,45 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: grafana-generated-fact-ownership
+spec:
+  chart: grafana/grafana
+  version: "10.5.15"
+  disposition: generated fact ownership
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    The generated-passwords base binds Grafana adminPassword before render so
+    Helm output is deterministic. The rendered Secret is separated from
+    ConfigHub Units during upload and is not silently stored in ConfigHub. This
+    accepts the generated fact handling for the proof scope: the value is fixed
+    before render, the rendered Secret digest is covered by Helm equivalence,
+    and production use must decide whether to keep this generated Secret route
+    or use the existing-secret-ingress base.
+  evidence:
+    - path: recipes/grafana/grafana/10.5.15/control-points.yaml
+      claim: The recipe records generated-facts as variant-controlled through adminPassword.
+    - path: recipes/grafana/grafana/10.5.15/value-model.yaml
+      claim: The value model records adminPassword as generated-fact-bound for generated-passwords.
+    - path: recipes/grafana/grafana/10.5.15/effective-values.yaml
+      claim: The generated-passwords effective values bind adminPassword to a deterministic value before render.
+    - path: recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/rendered/object-inventory.yaml
+      claim: The generated-passwords rendered inventory contains the Grafana Secret.
+    - path: recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The generated-passwords equivalence receipt records one separated Secret file and semantic Helm equivalence.
+    - path: runs/grafana-confighub-proof/latest/confighub-proof-receipt.yaml
+      claim: The ConfigHub proof receipt records separatedSecretCount 1 and separatedSecretsNotUploaded for the Grafana Secret.
+    - path: runs/live-helm-confighub-compare/grafana-grafana-generated-passwords/receipt.yaml
+      claim: The generated-passwords base passes regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo live parity with the separated Secret staged.
+  affectedVariants:
+    - generated-passwords
+  acceptedPolicy:
+    generatedPasswords: The admin password is a generated fact bound before render and represented by separated Secret material outside ConfigHub Units.
+    productionChoice: Production can either accept this generated Secret route with a rotation policy or use existing-secret-ingress to bind an external Secret.
+  remainingProductionBlockers:
+    - scan/gate warning disposition
+  nextDecision: Resolve the remaining workload scan warnings and choose a production credential ownership route before final support.
+

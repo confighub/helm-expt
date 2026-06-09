@@ -782,11 +782,15 @@ spec:
         lifecycleObservationReceipts:
           []
         productionDispositionReceipts:
-          []
+          - "data/production-disposition/receipts/grafana-grafana/cluster-rbac-review.yaml"
+          - "data/production-disposition/receipts/grafana-grafana/extension-slot-provenance-and-scan-policy.yaml"
+          - "data/production-disposition/receipts/grafana-grafana/generated-fact-ownership.yaml"
+          - "data/production-disposition/receipts/grafana-grafana/target-fact-preflight.yaml"
       dispositions:
         -
           name: "cluster RBAC review"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/grafana-grafana/cluster-rbac-review.yaml"
           owner: "security-review"
           requiredEvidence:
             - "cluster-scoped RBAC inventory"
@@ -795,7 +799,8 @@ spec:
           unblockRule: "supported only after cluster-scoped permissions have an explicit disposition"
         -
           name: "extension slot provenance and scan policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/grafana-grafana/extension-slot-provenance-and-scan-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "tpl/raw value inventory"
@@ -804,7 +809,8 @@ spec:
           unblockRule: "supported only when extensions are explicit and scanned after render"
         -
           name: "generated fact ownership"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/grafana-grafana/generated-fact-ownership.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "generated secret/cert inventory"
@@ -822,7 +828,8 @@ spec:
           unblockRule: "supported only when warnings are accepted, fixed, or variant-blocking"
         -
           name: "target fact preflight"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/grafana-grafana/target-fact-preflight.yaml"
           owner: "installer-review"
           requiredEvidence:
             - "installer externalRequires/facts"

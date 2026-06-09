@@ -18,8 +18,8 @@ production-blocked pending disposition: 13
 source Helm-hook rows: 1
 hook/lifecycle disposition rows: 12
 related lifecycle observation rows: 2
-accepted production disposition receipts: 39
-charts with accepted dispositions: 9
+accepted production disposition receipts: 43
+charts with accepted dispositions: 10
 ```
 
 The hook/lifecycle disposition is a production-review item. It does not always
@@ -51,7 +51,7 @@ runtime checks.
 | `bitnami/rabbitmq@16.0.14` | generated-passwords, existing-secret | pass | local-kind-observed | production-review-ready | 5 |  |
 | `bitnami/redis@25.5.3` | default, reuse-existing-secret | pass | local-kind-observed | production-review-ready | 4 |  |
 | `external-secrets/external-secrets@2.5.0` | default, no-crds | pass | local-kind-observed | blocked | 0 | CRD lifecycle and upgrade policy, cluster RBAC review, extension slot provenance and scan policy, scan/gate warning disposition, webhook readiness and failure policy |
-| `grafana/grafana@10.5.15` | generated-passwords, existing-secret-ingress | pass | local-kind-observed | blocked | 0 | cluster RBAC review, extension slot provenance and scan policy, generated fact ownership, scan/gate warning disposition, target fact preflight |
+| `grafana/grafana@10.5.15` | generated-passwords, existing-secret-ingress | pass | local-kind-observed | blocked | 4 | scan/gate warning disposition |
 | `grafana/loki@7.0.0` | single-binary-filesystem, simple-scalable-minio | pass | local-kind-observed | blocked | 0 | cluster RBAC review, extension slot provenance and scan policy, hook and lifecycle phase policy, scan/gate warning disposition, storage backup restore and rollback policy |
 | `grafana/tempo@1.24.4` | local-persistent, s3-query-observability | pass | local-kind-observed | blocked | 0 | extension slot provenance and scan policy, scan/gate warning disposition, storage backup restore and rollback policy, target fact preflight |
 | `hashicorp/consul@2.0.0` | default-control-plane, secure-mesh-existing-secrets | pass | local-kind-observed | blocked | 0 | CRD lifecycle and upgrade policy, cluster RBAC review, extension slot provenance and scan policy, hook and lifecycle phase policy, scan/gate warning disposition, storage backup restore and rollback policy, target fact preflight, webhook readiness and failure policy |

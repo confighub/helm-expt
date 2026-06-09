@@ -1,0 +1,50 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: grafana-extension-slot-provenance-and-scan-policy
+spec:
+  chart: grafana/grafana
+  version: "10.5.15"
+  disposition: extension slot provenance and scan policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Grafana exposes powerful extension surfaces: datasources, dashboard
+    providers, dashboards, plugins, sidecars, and Secret/env injection. The
+    supported bases keep those provisioning and sidecar slots empty. The
+    existing-secret-ingress base deliberately adds only the UI ingress host and
+    class, while generated-passwords keeps the UI internal. This accepts the
+    current slot policy: populated provisioning, plugin, sidecar, Secret/env, or
+    richer ingress/TLS changes must become reviewed installer bases with render
+    parity and scan evidence.
+  evidence:
+    - path: recipes/grafana/grafana/10.5.15/control-points.yaml
+      claim: The recipe records extension-slots as controlled-by-empty-defaults.
+    - path: recipes/grafana/grafana/10.5.15/value-model.yaml
+      claim: The value model records datasources, dashboardProviders, dashboards, plugins, sidecar, and Secret/env paths as extension slots.
+    - path: recipes/grafana/grafana/10.5.15/effective-values.yaml
+      claim: The generated-passwords base only binds adminPassword and does not populate provisioning or sidecar slots.
+    - path: recipes/grafana/grafana/10.5.15/effective-values-existing-secret-ingress.yaml
+      claim: The existing-secret-ingress base binds admin Secret reference and a simple ingress host/class without populating provisioning or sidecar slots.
+    - path: recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/receipts/scan-receipt.yaml
+      claim: The generated-passwords scan records extension-slot-review for Grafana provisioning surfaces.
+    - path: recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/receipts/scan-receipt.yaml
+      claim: The existing-secret-ingress scan records both provisioning extension review and explicit UI ingress policy review.
+    - path: runs/live-kind-parity/grafana-grafana-generated-passwords/receipt.yaml
+      claim: The generated-passwords base passes strict two-cluster live parity for the reviewed default extension posture.
+    - path: runs/live-kind-parity/grafana-grafana-existing-secret-ingress/receipt.yaml
+      claim: The existing-secret-ingress base passes strict two-cluster live parity for the reviewed ingress posture.
+  affectedVariants:
+    - generated-passwords
+    - existing-secret-ingress
+  acceptedPolicy:
+    currentBases: Datasource, dashboard, plugin, sidecar, and extra Secret/env slots are not populated in the supported bases.
+    uiIngress: existing-secret-ingress adds a simple declared host and ingress class; TLS/auth policy remains target-specific before production.
+    populatedSlotRule: Custom provisioning, plugins, sidecars, Secret/env injection, or richer ingress/TLS changes require a reviewed installer base.
+  remainingProductionBlockers:
+    - scan/gate warning disposition
+  nextDecision: Resolve the remaining workload scan warnings and target UI exposure policy before final support.
+
