@@ -180,6 +180,7 @@ function html(catalog) {
     ["not-yet-a-good-catalog-offer", "Default render proves the mechanism; add a realistic user-shaped base before presenting it as an offer."],
     ["decision-needed-before-promotion", "A limitation such as existing-secret, HA, or CRD routing needs a support, disclosure, or defer decision."],
   ].map(([workability, meaning]) => [workability, top100WorkabilityCounts[workability] ?? 0, meaning]);
+  const top100HardGapRows = hardGapRowsByBucket(catalog.top100Readiness);
   const top100QueueRows = [
     ["Promotion review", "promote-after-review"],
     ["Needs useful variant", "needs-useful-variant"],
@@ -400,6 +401,11 @@ function html(catalog) {
         ["Workability", "Charts", "Meaning"],
         ...top100WorkabilityRows,
       ])}
+      <p>Hard gaps are capability warnings, not automatic chart failures. Read them with the adoption bucket.</p>
+      ${markdownLikeTable([
+        ["Adoption bucket", "Rows", "With hard gaps", "Meaning"],
+        ...top100HardGapRows,
+      ])}
       ${markdownLikeTable([
         ["Queue", "First rows"],
         ...top100QueueRows,
@@ -561,6 +567,34 @@ function baseReadinessLabelRows() {
     ["target-prerequisite-needed", "The target must provide a prerequisite such as CRDs, APIs, Secrets, or storage."],
     ["hook-lifecycle-review-needed", "Helm hook or hook-like lifecycle behavior needs an explicit route and receipt."],
   ];
+}
+
+function hardGapRowsByBucket(rows) {
+  const buckets = new Map();
+  for (const row of rows) {
+    const bucket = row.adoption_bucket || "unknown";
+    const current = buckets.get(bucket) ?? { total: 0, withGap: 0 };
+    current.total += 1;
+    if (row.hard_gap && row.hard_gap !== "-") current.withGap += 1;
+    buckets.set(bucket, current);
+  }
+  const order = ["try-from-public-catalog", "promote-after-review", "needs-useful-variant", "limitation-decision-first"];
+  return [...buckets.entries()]
+    .sort(([left], [right]) => {
+      const leftIndex = order.indexOf(left);
+      const rightIndex = order.indexOf(right);
+      return (leftIndex === -1 ? 99 : leftIndex) - (rightIndex === -1 ? 99 : rightIndex) || left.localeCompare(right);
+    })
+    .map(([bucket, counts]) => [bucket, String(counts.total), String(counts.withGap), hardGapBucketMeaning(bucket)]);
+}
+
+function hardGapBucketMeaning(bucket) {
+  return {
+    "try-from-public-catalog": "Reviewed bases exist; gaps usually point to additional paths that still need support or disclosure.",
+    "promote-after-review": "No named hard gap currently blocks promotion review.",
+    "needs-useful-variant": "Add realistic variants first; use any gap to shape or disclose the variant boundary.",
+    "limitation-decision-first": "The named gap blocks promotion until it is supported, disclosed, or deferred.",
+  }[bucket] ?? "Review before promotion.";
 }
 
 function commandRoutes() {
