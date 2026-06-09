@@ -20,5 +20,6 @@ spec:
       - "--namespace"
       - "vault"
   variants:
+    - "variants/dev-mode/variant.yaml"
     - "variants/default/variant.yaml"
     - "variants/ha-raft-ui/variant.yaml"

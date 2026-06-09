@@ -8,20 +8,28 @@ spec:
     chart: "hashicorp/vault"
     version: "0.32.0"
     variants:
+      - "dev-mode"
       - "default"
       - "ha-raft-ui"
     helmObjectsByVariant:
+      dev-mode: 11
       default: 12
       ha-raft-ui: 18
     cubInstallObjectsByVariant:
+      dev-mode: 12
       default: 13
       ha-raft-ui: 19
     helmMatchByVariant:
+      dev-mode: "11/11"
       default: "12/12"
       ha-raft-ui: "18/18"
     scanGate: "warn-production-blocked"
     nextAction: "publish only after TLS posture, init/unseal operating policy, storage/HA policy, injector webhook policy, RBAC review, service exposure, and Secret/extension-slot review are satisfied"
   receipts:
+    - "revisions/dev-mode/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/dev-mode/r001/receipts/render-receipt.yaml"
+    - "revisions/dev-mode/r001/receipts/scan-receipt.yaml"
+    - "revisions/dev-mode/r001/receipts/install-gate.yaml"
     - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
     - "revisions/default/r001/receipts/render-receipt.yaml"
     - "revisions/default/r001/receipts/scan-receipt.yaml"

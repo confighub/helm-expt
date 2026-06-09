@@ -45,6 +45,7 @@ function buildReport() {
   const supportedBaseByChart = new Map(productionSupportRows
     .filter((row) => row.decision === "supported" && row.supported_base)
     .map((row) => [`${row.chart}@${row.version}`, row.supported_base]));
+  const easiestBaseByChart = easiestBaseIndex(baseRows);
 
   for (const [index, production] of productionRows.entries()) {
     const chartKey = `${production.chart}@${production.version}`;
@@ -58,7 +59,12 @@ function buildReport() {
       const rerun = rerunPlan.get(`${chartKey}|${base}`);
       const readiness = readinessFor(baseRow, lifecycle);
       const supportedBase = supportedBaseByChart.get(chartKey);
-      const recommendedFirst = supportedBase ? base === supportedBase : Boolean(variant.packageBase?.default);
+      const easiestBase = easiestBaseByChart.get(chartKey);
+      const recommendedFirst = supportedBase
+        ? base === supportedBase
+        : easiestBase
+          ? base === easiestBase
+          : Boolean(variant.packageBase?.default);
       rows.push({
         rank: String(index + 1),
         chart: chartKey,
@@ -377,6 +383,28 @@ function groupCount(rows, key) {
   const result = new Map();
   for (const row of rows) result.set(row[key], (result.get(row[key]) ?? 0) + 1);
   return result;
+}
+
+function easiestBaseIndex(baseRows) {
+  const byChart = new Map();
+  for (const row of baseRows) {
+    const chartKey = row.chart;
+    const current = byChart.get(chartKey);
+    if (!current || baseEvidenceScore(row) > baseEvidenceScore(current)) byChart.set(chartKey, row);
+  }
+  return new Map([...byChart.entries()].map(([chart, row]) => [chart, row.base]));
+}
+
+function baseEvidenceScore(row) {
+  let score = 0;
+  if (row.complete_core_lane_set === "yes") score += 100;
+  if (row.two_cluster_kind_parity === "pass") score += 40;
+  if (row.render_parity === "pass") score += 10;
+  if (row.in_confighub === "pass") score += 10;
+  if (row.local_live === "pass") score += 10;
+  if (row.gitops_oci_live === "pass") score += 10;
+  if (row.live_helm_vs_confighub_parity === "pass") score += 10;
+  return score;
 }
 
 function firstSort(value) {

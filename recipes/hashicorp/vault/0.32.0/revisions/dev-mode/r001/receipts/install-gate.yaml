@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "vault-dev-mode-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "f07ae80c317a1156f1f6ae6dc849300de0ba4683eb3ffae67cdcfcd6e8072955"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for dev-mode"
+    - "Vault TLS posture must be approved before production"
+    - "Vault init, unseal, recovery, and seal-migration operating policy must be explicit before production"
+    - "Vault StatefulSet storage, HA, and rollback policy need production review"
+    - "Injector webhook, RBAC, service exposure, and Secret/extension slots need production review"
+    - "dev-mode is a local/demo base only; production still needs explicit init/unseal, recovery material, TLS, and storage policy"

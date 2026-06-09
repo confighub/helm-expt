@@ -12,6 +12,7 @@ spec:
   supportedScopes:
     - "local-test"
   supportedVariants:
+    - "dev-mode"
     - "default"
     - "ha-raft-ui"
   productionReadiness: "production-review-ready"
@@ -19,6 +20,7 @@ spec:
     - "The chart renders deterministically under pinned Helm, chart version, kube version, and values."
     - "The default variant keeps the chart defaults: standalone Vault server, injector webhook, and TLS disabled in the rendered Vault config."
     - "The ha-raft-ui variant enables integrated Raft HA and the UI Service as deliberate variant-controlled outputs."
+    - "The dev-mode variant uses the upstream chart's dev server path for local proof and demos; it starts without init/unseal and is not a production support claim."
     - "The chart does not initialize or unseal Vault; init/unseal and recovery material are operating controls, not hidden render inputs."
     - "Injector webhook, cluster RBAC, TLS posture, storage, and service exposure are scan/gate review points."
     - "extra environment, Secret, volume, plugin, init, and sidecar extension slots are powerful config surfaces; promoted variants keep them empty."
@@ -48,7 +50,7 @@ spec:
         - "control-points.yaml"
       configHubHome: "capability-profile"
       disposition: "handled-by-capability-profile"
-      linkedReceipt: "revisions/default/r001/receipts/render-receipt.yaml"
+      linkedReceipt: "revisions/dev-mode/r001/receipts/render-receipt.yaml"
       supportedVariantStatus: "handled"
     -
       id: "stateful-workload"
@@ -57,7 +59,7 @@ spec:
         - "apps/v1|StatefulSet|vault|vault"
       configHubHome: "operate-policy"
       disposition: "handled-by-scan-or-gate"
-      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/dev-mode/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "scan-and-review"
     -
       id: "admission-webhook"
@@ -66,7 +68,7 @@ spec:
         - "admissionregistration.k8s.io/v1|MutatingWebhookConfiguration||vault-agent-injector-cfg"
       configHubHome: "lifecycle-policy"
       disposition: "handled-by-scan-or-gate"
-      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/dev-mode/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "scan-and-review"
     -
       id: "service-exposure"
@@ -75,7 +77,7 @@ spec:
         - "v1|Service|vault|vault-ui"
       configHubHome: "recipe"
       disposition: "needs-operator-decision"
-      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/dev-mode/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "variant-controlled"
     -
       id: "tls-posture"
@@ -84,7 +86,7 @@ spec:
         - "v1|ConfigMap|vault|vault-config"
       configHubHome: "recipe"
       disposition: "handled-by-scan-or-gate"
-      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/dev-mode/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "scan-and-review"
     -
       id: "cluster-rbac"
@@ -93,7 +95,7 @@ spec:
         - "rbac.authorization.k8s.io/v1|ClusterRole||vault-agent-injector-clusterrole"
       configHubHome: "scan-gate"
       disposition: "handled-by-scan-or-gate"
-      linkedReceipt: "revisions/default/r001/receipts/scan-receipt.yaml"
+      linkedReceipt: "revisions/dev-mode/r001/receipts/scan-receipt.yaml"
       supportedVariantStatus: "scan-and-review"
     -
       id: "operate-policy"
@@ -102,7 +104,7 @@ spec:
         - "control-points.yaml"
       configHubHome: "recipe"
       disposition: "handled-by-scan-or-gate"
-      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/dev-mode/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "scan-and-review"
     -
       id: "extension-slots"
@@ -111,7 +113,7 @@ spec:
         - "control-points.yaml"
       configHubHome: "extension-slot"
       disposition: "handled-by-variant"
-      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/dev-mode/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "controlled-by-empty-defaults"
     -
       id: "installer-support-object"
@@ -120,7 +122,7 @@ spec:
         - "v1|Namespace||vault"
       configHubHome: "recipe"
       disposition: "absorbed-into-recipe"
-      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/dev-mode/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "handled"
     -
       id: "scan-gate"
@@ -131,7 +133,7 @@ spec:
         - "install gates"
       configHubHome: "scan-gate"
       disposition: "handled-by-scan-or-gate"
-      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/dev-mode/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "warn-production-blocked"
     -
       id: "value-model-diagnostics"

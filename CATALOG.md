@@ -73,7 +73,7 @@ The `Start Base Status` column uses the same generated readiness labels.
 | longhorn/longhorn@1.11.2 | default | start-here | live-helm-vs-confighub-parity | - | default, ui-ingress | [packages/longhorn/longhorn/1.11.2](packages/longhorn/longhorn/1.11.2) | [CATALOG.md](recipes/longhorn/longhorn/1.11.2/CATALOG.md) |
 | bitnami/mysql@14.0.3 | generated-passwords | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | generated-passwords, existing-secret | [packages/bitnami/mysql/14.0.3](packages/bitnami/mysql/14.0.3) | [CATALOG.md](recipes/bitnami/mysql/14.0.3/CATALOG.md) |
 | grafana/grafana@10.5.15 | generated-passwords | start-here | live-helm-vs-confighub-parity | - | generated-passwords, existing-secret-ingress | [packages/grafana/grafana/10.5.15](packages/grafana/grafana/10.5.15) | [CATALOG.md](recipes/grafana/grafana/10.5.15/CATALOG.md) |
-| hashicorp/vault@0.32.0 | default | runtime-review-needed | local-kubernetes-live | - | default, ha-raft-ui | [packages/hashicorp/vault/0.32.0](packages/hashicorp/vault/0.32.0) | [CATALOG.md](recipes/hashicorp/vault/0.32.0/CATALOG.md) |
+| hashicorp/vault@0.32.0 | dev-mode | start-here | live-helm-vs-confighub-parity | - | dev-mode, default, ha-raft-ui | [packages/hashicorp/vault/0.32.0](packages/hashicorp/vault/0.32.0) | [CATALOG.md](recipes/hashicorp/vault/0.32.0/CATALOG.md) |
 | secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | default | start-here | live-helm-vs-confighub-parity | - | default, sync-secret-rotation | [packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0](packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0) | [CATALOG.md](recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.md) |
 | prometheus-community/prometheus@29.8.0 | server-only-ephemeral | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | default, server-only-ephemeral | [packages/prometheus-community/prometheus/29.8.0](packages/prometheus-community/prometheus/29.8.0) | [CATALOG.md](recipes/prometheus-community/prometheus/29.8.0/CATALOG.md) |
 | bitnami/mongodb@19.0.7 | generated-passwords | start-here | live-helm-vs-confighub-parity | - | generated-passwords, existing-secret-replicaset | [packages/bitnami/mongodb/19.0.7](packages/bitnami/mongodb/19.0.7) | [CATALOG.md](recipes/bitnami/mongodb/19.0.7/CATALOG.md) |
@@ -696,9 +696,9 @@ Receipts: [per-chart receipts](recipes/grafana/grafana/10.5.15/CATALOG.md)
 
 Status: catalog-supported
 Production readiness: production-review-ready
-Start base readiness: runtime-review-needed
-Strongest evidence: local-kubernetes-live
-Proof lanes: render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 0/2; live parity 0/2
+Start base readiness: start-here
+Strongest evidence: live-helm-vs-confighub-parity
+Proof lanes: render parity 3/3; ConfigHub 1/3; local live 2/3; GitOps live 1/3; live parity 1/3
 Hard gap: -
 Package: [packages/hashicorp/vault/0.32.0](packages/hashicorp/vault/0.32.0)
 Per-chart catalog: [CATALOG.md](recipes/hashicorp/vault/0.32.0/CATALOG.md)
@@ -707,12 +707,24 @@ Helm pain report: [helm-pain-report.yaml](recipes/hashicorp/vault/0.32.0/helm-pa
 Start here:
 
 ```sh
-cub installer setup --pull packages/hashicorp/vault/0.32.0 --base default --work-dir <tmp> --non-interactive --namespace vault
+cub installer setup --pull packages/hashicorp/vault/0.32.0 --base dev-mode --work-dir <tmp> --non-interactive --namespace vault
 ```
 
 Variants:
 
-##### default (recommended first)
+##### dev-mode (recommended first)
+
+When to use: vault dev server without init/unseal variant rendered from hashicorp/vault@0.32.0
+Readiness: start-here
+Namespace: vault
+Target facts: none
+Package base: [packages/hashicorp/vault/0.32.0/bases/dev-mode](packages/hashicorp/vault/0.32.0/bases/dev-mode)
+Variant file: [recipes/hashicorp/vault/0.32.0/variants/dev-mode/variant.yaml](recipes/hashicorp/vault/0.32.0/variants/dev-mode/variant.yaml)
+Rendered objects: [recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml](recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml)
+Helm equivalence: 11/11 objects matched
+Receipts: [per-chart receipts](recipes/hashicorp/vault/0.32.0/CATALOG.md)
+
+##### default
 
 When to use: vault default server with injector variant rendered from hashicorp/vault@0.32.0
 Readiness: runtime-review-needed
@@ -1029,7 +1041,7 @@ still need catalog promotion review before support is claimed.
 | longhorn/longhorn@1.11.2 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/longhorn/longhorn/1.11.2/CATALOG.md) |
 | bitnami/mysql@14.0.3 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | generated-passwords | ha (curated proof lane - bespoke teaching needed) | [CATALOG.md](recipes/bitnami/mysql/14.0.3/CATALOG.md) |
 | grafana/grafana@10.5.15 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | generated-passwords | - | [CATALOG.md](recipes/grafana/grafana/10.5.15/CATALOG.md) |
-| hashicorp/vault@0.32.0 | catalog-supported | try-from-public-catalog | local-kubernetes-live | default | - | [CATALOG.md](recipes/hashicorp/vault/0.32.0/CATALOG.md) |
+| hashicorp/vault@0.32.0 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | dev-mode | - | [CATALOG.md](recipes/hashicorp/vault/0.32.0/CATALOG.md) |
 | secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.md) |
 | prometheus-community/prometheus@29.8.0 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | server-only-ephemeral | ha (curated proof lane - bespoke teaching needed) | [CATALOG.md](recipes/prometheus-community/prometheus/29.8.0/CATALOG.md) |
 | bitnami/mongodb@19.0.7 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | generated-passwords | - | [CATALOG.md](recipes/bitnami/mongodb/19.0.7/CATALOG.md) |

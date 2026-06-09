@@ -1197,6 +1197,7 @@ spec:
       version: "0.32.0"
       status: "production-review-ready"
       supportedLocalTestVariants:
+        - "dev-mode"
         - "default"
         - "ha-raft-ui"
       evidence:
@@ -1220,6 +1221,7 @@ spec:
             renderedPath: "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/top20-local-kind/vault-default/observation-receipt.json"
+          - "runs/top20-local-kind/vault-dev-mode/observation-receipt.json"
         sourceHookCount: 0
         lifecyclePolicyBasis:
           - "none"

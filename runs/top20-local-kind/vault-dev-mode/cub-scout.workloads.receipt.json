@@ -1,0 +1,108 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "rendered-object-set://sha256/08eb11dbb5549d08",
+      "digest": {
+        "sha256": "08eb11dbb5549d089783861dac279e43d6665f9d305e1fe81086fd8ce19cbad8"
+      }
+    },
+    {
+      "name": "k8s-live-workloads://namespace/vault",
+      "digest": {
+        "sha256": "66d2dc8854e416d05a222d164ab4f835743c05f82b0049525d0acd4515d77ae3"
+      }
+    }
+  ],
+  "predicateType": "https://cub-scout.dev/receipt/v1",
+  "predicate": {
+    "version": "v1",
+    "claim": "desired workloads from /Users/alexis/code/helm-expt/runs/top20-local-kind/vault-dev-mode/cub-scout.workloads.desired.yaml converged to a ready state in the live cluster",
+    "scope": {
+      "kind": "WorkloadSet",
+      "name": "rendered-install",
+      "namespace": "vault"
+    },
+    "verifier": {
+      "tool": "cub-scout",
+      "version": "dev"
+    },
+    "verifiedAt": "2026-06-09T22:01:05Z",
+    "freshness": {
+      "observedAt": "2026-06-09T22:01:05Z",
+      "expiresAt": "2026-06-09T23:01:05Z",
+      "ttl": "1h0m0s"
+    },
+    "predicateName": "workloads-converged",
+    "verdict": "PASS",
+    "evidence": {
+      "workloads": {
+        "desiredSource": {
+          "type": "file",
+          "ref": "/Users/alexis/code/helm-expt/runs/top20-local-kind/vault-dev-mode/cub-scout.workloads.desired.yaml",
+          "digest": "a12e5cd328fe8344c73c81479b720ca63f23e6072bdb356e5ceccf3c897477af",
+          "objectCount": 2
+        },
+        "scope": {
+          "kind": "namespace",
+          "namespace": "vault"
+        },
+        "graceWindow": "5m0s",
+        "observedAt": "2026-06-09T22:01:05Z",
+        "desiredDigest": "08eb11dbb5549d089783861dac279e43d6665f9d305e1fe81086fd8ce19cbad8",
+        "liveDigest": "66d2dc8854e416d05a222d164ab4f835743c05f82b0049525d0acd4515d77ae3",
+        "summary": {
+          "desired": 2,
+          "converged": 2,
+          "progressing": 0,
+          "failed": 0,
+          "missing": 0,
+          "inconclusive": 0
+        },
+        "workloads": [
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "vault",
+              "name": "vault-agent-injector"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Deployment is available. Replicas: 1",
+            "ageSeconds": 8
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "StatefulSet",
+              "namespace": "vault",
+              "name": "vault"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "StatefulSet is using the ondelete update strategy",
+            "ageSeconds": 8
+          }
+        ]
+      }
+    },
+    "omissions": [
+      {
+        "missing": "workload-convergence-snapshot",
+        "reason": "workloads-converged reflects readiness observed at verifiedAt; it does not prove the workloads stay converged afterward",
+        "severity": "info"
+      }
+    ],
+    "inputAttestations": [],
+    "nextSteps": [
+      {
+        "actionType": "read-only",
+        "reason": "every desired workload reached a ready/converged state",
+        "nextCommand": "cub-scout doctor",
+        "nextSurface": "cub-scout"
+      }
+    ],
+    "fingerprint": "sha256:6f40ee0ba81e523a7c897ee08b9c74c8e1c6501ba9bff8d2e87c515da5b7b4b3"
+  }
+}

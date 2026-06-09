@@ -11,6 +11,7 @@ spec:
     - local-test
   productionReadiness: "production-review-ready"
   supportedVariants:
+    - "dev-mode"
     - "default"
     - "ha-raft-ui"
   candidateVariants:

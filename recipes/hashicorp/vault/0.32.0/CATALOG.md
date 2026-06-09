@@ -17,7 +17,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
 | Production readiness | production-review-ready |
-| Supported variants | default, ha-raft-ui |
+| Supported variants | dev-mode, default, ha-raft-ui |
 | Candidate variants | none |
 | Control points | admission-webhook, capability-profile, cluster-rbac, dependency-lock, extension-slots, installer-support-object, operate-policy, service-exposure, source-lock, stateful-workload, tls-posture |
 
@@ -30,11 +30,11 @@ for exact base-variant evidence.
 | --- | --- |
 | Adoption bucket | try-from-public-catalog |
 | User status | catalog-supported-with-live-evidence |
-| Strongest evidence | local-kubernetes-live |
-| Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 0/2; live parity 0/2 |
+| Strongest evidence | live-helm-vs-confighub-parity |
+| Proof lanes | render parity 3/3; ConfigHub 1/3; local live 2/3; GitOps live 1/3; live parity 1/3 |
 | Feature summary | webhooks;required-values;values-schema;extension-slots |
 | Hard gap | - |
-| Next action | choose whether default is in production scope; close or document its runtime-review-needed live-readiness issue first |
+| Next action | resolve image digests for each affected variant before production OCI support |
 
 ## Artifact Chain
 
@@ -58,6 +58,7 @@ for exact base-variant evidence.
 
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| dev-mode | [recipes/hashicorp/vault/0.32.0/variants/dev-mode/variant.yaml](variants/dev-mode/variant.yaml) | [packages/hashicorp/vault/0.32.0/bases/dev-mode](../../../../packages/hashicorp/vault/0.32.0/bases/dev-mode) | [recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/variant-revision.yaml](revisions/dev-mode/r001/variant-revision.yaml) | 11 | 12 | 11/11 | pass | warn | warn | none |
 | default | [recipes/hashicorp/vault/0.32.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/hashicorp/vault/0.32.0/bases/default](../../../../packages/hashicorp/vault/0.32.0/bases/default) | [recipes/hashicorp/vault/0.32.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 12 | 13 | 12/12 | pass | warn | warn | none |
 | ha-raft-ui | [recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml](variants/ha-raft-ui/variant.yaml) | [packages/hashicorp/vault/0.32.0/bases/ha-raft-ui](../../../../packages/hashicorp/vault/0.32.0/bases/ha-raft-ui) | [recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/variant-revision.yaml](revisions/ha-raft-ui/r001/variant-revision.yaml) | 18 | 19 | 18/18 | pass | warn | warn | none |
 
@@ -65,13 +66,18 @@ for exact base-variant evidence.
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
-| default | [packages/hashicorp/vault/0.32.0/bases/default](../../../../packages/hashicorp/vault/0.32.0/bases/default) | yes | vault default server with injector variant rendered from hashicorp/vault@0.32.0 |
+| dev-mode | [packages/hashicorp/vault/0.32.0/bases/dev-mode](../../../../packages/hashicorp/vault/0.32.0/bases/dev-mode) | yes | vault dev server without init/unseal variant rendered from hashicorp/vault@0.32.0 |
+| default | [packages/hashicorp/vault/0.32.0/bases/default](../../../../packages/hashicorp/vault/0.32.0/bases/default) | no | vault default server with injector variant rendered from hashicorp/vault@0.32.0 |
 | ha-raft-ui | [packages/hashicorp/vault/0.32.0/bases/ha-raft-ui](../../../../packages/hashicorp/vault/0.32.0/bases/ha-raft-ui) | no | vault HA Raft with UI variant rendered from hashicorp/vault@0.32.0 |
 
 ## Receipts
 
 | Variant | Revision | Receipt | Kind | Result | Path |
 | --- | --- | --- | --- | --- | --- |
+| dev-mode | r001 | render | RenderReceipt | recorded | [recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/receipts/render-receipt.yaml](revisions/dev-mode/r001/receipts/render-receipt.yaml) |
+| dev-mode | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/receipts/helm-equivalence-receipt.yaml](revisions/dev-mode/r001/receipts/helm-equivalence-receipt.yaml) |
+| dev-mode | r001 | scan | ScanReceipt | warn | [recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/receipts/scan-receipt.yaml](revisions/dev-mode/r001/receipts/scan-receipt.yaml) |
+| dev-mode | r001 | installGate | InstallGate | warn | [recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/receipts/install-gate.yaml](revisions/dev-mode/r001/receipts/install-gate.yaml) |
 | default | r001 | render | RenderReceipt | recorded | [recipes/hashicorp/vault/0.32.0/revisions/default/r001/receipts/render-receipt.yaml](revisions/default/r001/receipts/render-receipt.yaml) |
 | default | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/hashicorp/vault/0.32.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](revisions/default/r001/receipts/helm-equivalence-receipt.yaml) |
 | default | r001 | scan | ScanReceipt | warn | [recipes/hashicorp/vault/0.32.0/revisions/default/r001/receipts/scan-receipt.yaml](revisions/default/r001/receipts/scan-receipt.yaml) |

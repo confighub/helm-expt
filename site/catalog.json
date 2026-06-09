@@ -79,8 +79,8 @@
     "runtimeGitopsWave": 10,
     "imageSubjectsNeedingResolution": 141,
     "nextTenGapRows": 9,
-    "baseVariants": 41,
-    "startHereBaseVariants": 19,
+    "baseVariants": 42,
+    "startHereBaseVariants": 20,
     "top20ChartsWithExtensionSlots": 13,
     "top100ChartsWithExtensionSlots": 82,
     "top100ChartsWithLiveEvidence": 20,
@@ -191,8 +191,8 @@
     {
       "section": "proof lanes",
       "metric": "render parity rows",
-      "value": "157",
-      "total": "157",
+      "value": "158",
+      "total": "158",
       "status": "good",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Every chart/base row has render parity under recorded inputs."
@@ -201,7 +201,7 @@
       "section": "proof lanes",
       "metric": "in-ConfigHub proof rows",
       "value": "20",
-      "total": "157",
+      "total": "158",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with upload, scan, or safe-operation proof receipts."
@@ -209,8 +209,8 @@
     {
       "section": "proof lanes",
       "metric": "local live rows",
-      "value": "22",
-      "total": "157",
+      "value": "23",
+      "total": "158",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with committed local Kubernetes observation receipts."
@@ -218,8 +218,8 @@
     {
       "section": "proof lanes",
       "metric": "GitOps/OCI live pass rows",
-      "value": "21",
-      "total": "157",
+      "value": "22",
+      "total": "158",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "6 rows have non-pass GitOps/OCI receipts."
@@ -227,8 +227,8 @@
     {
       "section": "proof lanes",
       "metric": "live Helm-vs-ConfigHub parity pass rows",
-      "value": "19",
-      "total": "157",
+      "value": "20",
+      "total": "158",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "2 rows have non-pass live parity receipts."
@@ -236,8 +236,8 @@
     {
       "section": "proof lanes",
       "metric": "two-cluster kind parity pass rows",
-      "value": "33",
-      "total": "41",
+      "value": "34",
+      "total": "42",
       "status": "partial",
       "source": "data/live-kind-parity/summary.csv",
       "note": "Regular Helm in one vanilla kind cluster, cub installer output in another, then semantic comparison."
@@ -245,8 +245,8 @@
     {
       "section": "proof lanes",
       "metric": "complete core lane rows",
-      "value": "19",
-      "total": "157",
+      "value": "20",
+      "total": "158",
       "status": "gap",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."
@@ -254,8 +254,8 @@
     {
       "section": "proof lanes",
       "metric": "top20 start-here base variants",
-      "value": "19",
-      "total": "41",
+      "value": "20",
+      "total": "42",
       "status": "partial",
       "source": "data/top20-base-readiness/base-readiness.csv",
       "note": "Base variants that are the cleanest first catalog paths today."
@@ -264,7 +264,7 @@
       "section": "proof lanes",
       "metric": "top20 bases needing unresolved prerequisite or runtime review",
       "value": "7",
-      "total": "41",
+      "total": "42",
       "status": "partial",
       "source": "data/top20-base-readiness/base-readiness.csv",
       "note": "Base variants whose render parity is useful but whose target fit, runtime, or lifecycle behavior still needs review."
@@ -308,8 +308,8 @@
     {
       "section": "graph bridge",
       "metric": "recovered graph edge rows",
-      "value": "98",
-      "total": "98",
+      "value": "99",
+      "total": "99",
       "status": "good",
       "source": "data/edge-recovery/edges.csv",
       "note": "Recovered base, override, target-fact, generated-fact, and field-reachability rows."
@@ -318,7 +318,7 @@
       "section": "graph bridge",
       "metric": "target-fact graph edges",
       "value": "56",
-      "total": "98",
+      "total": "99",
       "status": "partial",
       "source": "data/edge-recovery/edges.csv",
       "note": "Edges from a variant to required target facts such as pre-existing Secrets, CRDs, or hook-produced material."
@@ -327,7 +327,7 @@
       "section": "graph bridge",
       "metric": "generated-fact graph edges",
       "value": "1",
-      "total": "98",
+      "total": "99",
       "status": "partial",
       "source": "data/edge-recovery/edges.csv",
       "note": "Edges from generated facts to the rendered fields they affect where field reachability is available."
@@ -336,7 +336,7 @@
       "section": "graph bridge",
       "metric": "rows with field reachability",
       "value": "3",
-      "total": "98",
+      "total": "99",
       "status": "partial",
       "source": "data/edge-recovery/edges.csv",
       "note": "Rows that connect an input, generated fact, or variant change to rendered output fields."
@@ -362,8 +362,8 @@
     {
       "section": "live evidence",
       "metric": "two-cluster kind parity receipts",
-      "value": "41",
-      "total": "41",
+      "value": "42",
+      "total": "42",
       "status": "partial",
       "source": "data/live-kind-parity/summary.csv",
       "note": "Committed two-cluster parity receipts for the top-20 base variants, including pass and non-pass results."
@@ -408,7 +408,7 @@
       "section": "live evidence",
       "metric": "two-cluster semantic parity defect receipts",
       "value": "0",
-      "total": "41",
+      "total": "42",
       "status": "good",
       "source": "data/live-kind-parity/summary.csv",
       "note": "Rows whose committed two-cluster receipt currently points at a semantic object comparison defect."
@@ -1001,10 +1001,10 @@
       "support_level": "supported-for-declared-scopes",
       "production_readiness": "production-review-ready",
       "supported_scopes": "local-test",
-      "supported_variants": "default;ha-raft-ui",
+      "supported_variants": "dev-mode;default;ha-raft-ui",
       "candidate_variants": "",
-      "variant_count": 2,
-      "start_variant": "default",
+      "variant_count": 3,
+      "start_variant": "dev-mode",
       "namespace": "vault",
       "source_features": "tpl;capabilities;cluster-rbac;webhooks;stateful-storage",
       "source_classification": "P2 recipe/render/install policy",
@@ -1014,8 +1014,8 @@
       "recipe_path": "recipes/hashicorp/vault/0.32.0/recipe.yaml",
       "catalog_path": "recipes/hashicorp/vault/0.32.0/CATALOG.md",
       "helm_pain_report": "recipes/hashicorp/vault/0.32.0/helm-pain-report.yaml",
-      "start_base_readiness": "runtime-review-needed",
-      "start_command": "cub installer setup --pull packages/hashicorp/vault/0.32.0 --base default --work-dir <tmp> --non-interactive --namespace vault"
+      "start_base_readiness": "start-here",
+      "start_command": "cub installer setup --pull packages/hashicorp/vault/0.32.0 --base dev-mode --work-dir <tmp> --non-interactive --namespace vault"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -4055,8 +4055,34 @@
     {
       "rank": "13",
       "chart": "hashicorp/vault@0.32.0",
-      "base": "default",
+      "base": "dev-mode",
       "recommended_first": "yes",
+      "user_readiness": "start-here",
+      "why": "all core lanes plus two-cluster parity pass for this base",
+      "next_action": "use as the first catalog path; check production disposition before production use",
+      "live_rerun_readiness": "",
+      "live_rerun_next_step": "",
+      "live_rerun_command": "",
+      "command": "cub installer setup --pull packages/hashicorp/vault/0.32.0 --base dev-mode --work-dir <tmp> --non-interactive --namespace vault",
+      "target_facts": "none",
+      "render_parity": "pass",
+      "in_confighub": "pass",
+      "local_live": "pass",
+      "gitops_oci_live": "pass",
+      "live_helm_vs_confighub_parity": "pass",
+      "two_cluster_kind_parity": "pass",
+      "two_cluster_kind_parity_reason": "",
+      "lifecycle_observation": "",
+      "lifecycle_observation_receipt": "",
+      "complete_core_lane_set": "yes",
+      "package_base": "packages/hashicorp/vault/0.32.0/bases/dev-mode",
+      "catalog_path": "recipes/hashicorp/vault/0.32.0/CATALOG.md"
+    },
+    {
+      "rank": "13",
+      "chart": "hashicorp/vault@0.32.0",
+      "base": "default",
+      "recommended_first": "no",
       "user_readiness": "runtime-review-needed",
       "why": "helm-runtime: upstream not ready (parity passed)",
       "next_action": "inspect runtime state; keep the recipe stable unless semantic object comparison starts failing",
@@ -4066,7 +4092,7 @@
       "command": "cub installer setup --pull packages/hashicorp/vault/0.32.0 --base default --work-dir <tmp> --non-interactive --namespace vault",
       "target_facts": "none",
       "render_parity": "pass",
-      "in_confighub": "pass",
+      "in_confighub": "missing",
       "local_live": "pass",
       "gitops_oci_live": "watch",
       "live_helm_vs_confighub_parity": "watch",
@@ -5589,16 +5615,16 @@
       "workability": "try-now-public-catalog",
       "adoption_bucket": "try-from-public-catalog",
       "user_status": "catalog-supported-with-live-evidence",
-      "strongest_evidence": "local-kubernetes-live",
-      "variant_count": "2",
-      "variants": "default;ha-raft-ui",
-      "render_parity": "2/2",
-      "in_confighub": "1/2",
-      "local_live": "1/2",
-      "gitops_live": "0/2",
-      "live_parity": "0/2",
+      "strongest_evidence": "live-helm-vs-confighub-parity",
+      "variant_count": "3",
+      "variants": "dev-mode;default;ha-raft-ui",
+      "render_parity": "3/3",
+      "in_confighub": "1/3",
+      "local_live": "2/3",
+      "gitops_live": "1/3",
+      "live_parity": "1/3",
       "hard_gap": "-",
-      "next_action": "Keep this default base as parity evidence only; create a separate Vault production base with init/unseal, storage, TLS, backup/restore, and operator runbook evidence before making a support claim.",
+      "next_action": "Keep dev-mode as the local/demo first path only; create a separate Vault production base with init/unseal, storage, TLS, backup/restore, and operator runbook evidence before making a support claim.",
       "next_action_source": "production-support-decisions",
       "next_action_receipt": "",
       "recipe_path": "recipes/hashicorp/vault/0.32.0/recipe.yaml",
@@ -7931,7 +7957,7 @@
       "chart": "hashicorp/vault",
       "version": "0.32.0",
       "local_test_support": "catalog-supported",
-      "supported_variants": "default;ha-raft-ui",
+      "supported_variants": "dev-mode;default;ha-raft-ui",
       "confighub_proof": "pass",
       "live_e2e": "local-kind-observed",
       "production_support": "production-review-ready",
@@ -7946,7 +7972,7 @@
       "recipe_path": "recipes/hashicorp/vault/0.32.0",
       "package_path": "packages/hashicorp/vault/0.32.0",
       "confighub_proof_receipt": "runs/vault-confighub-proof/latest/confighub-proof-receipt.yaml",
-      "live_e2e_receipts": "runs/top20-local-kind/vault-default/observation-receipt.json"
+      "live_e2e_receipts": "runs/top20-local-kind/vault-default/observation-receipt.json;runs/top20-local-kind/vault-dev-mode/observation-receipt.json"
     },
     {
       "chart": "ingress-nginx/ingress-nginx",
@@ -8304,18 +8330,18 @@
     {
       "chart": "hashicorp/vault",
       "version": "0.32.0",
-      "supported_base": "default",
+      "supported_base": "dev-mode",
       "decision": "rejected",
       "target_scope": "vanilla-kubernetes; namespace=vault; delivery=confighub-oci; controller=argo-or-flux",
       "delivery_path": "confighub-oci",
-      "image_decision": "not-reviewed-because-default-base-is-runtime-incomplete",
-      "scan_decision": "not-reviewed-because-default-base-is-runtime-incomplete",
-      "lifecycle_decision": "vault-init-unseal-required-before-production-support",
+      "image_decision": "not-production-supported-because-dev-mode-is-local-only",
+      "scan_decision": "not-production-supported-because-dev-mode-is-local-only",
+      "lifecycle_decision": "vault-dev-mode-is-local-only",
       "target_fact_decision": "no-unresolved-target-prerequisite-in-candidate-base",
-      "live_evidence_decision": "not-production-supported-because-vault-default-is-unready",
+      "live_evidence_decision": "not-production-supported-because-vault-dev-mode-is-local-only",
       "evidence_count": "9",
       "remaining_final_requirements": "",
-      "next_action": "Keep this default base as parity evidence only; create a separate Vault production base with init/unseal, storage, TLS, backup/restore, and operator runbook evidence before making a support claim.",
+      "next_action": "Keep dev-mode as the local/demo first path only; create a separate Vault production base with init/unseal, storage, TLS, backup/restore, and operator runbook evidence before making a support claim.",
       "path": "data/production-support-decisions/hashicorp-vault/support-decision.yaml"
     },
     {

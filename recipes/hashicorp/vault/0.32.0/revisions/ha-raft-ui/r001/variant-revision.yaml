@@ -5,9 +5,9 @@ metadata:
 spec:
   variant: "../../../variants/ha-raft-ui/variant.yaml"
   revision: "r001"
-  digest: "754dd0505390f0719e67b03accc4a7fe2f1e1eb2eb70865f9e0fa7563c83d57e"
+  digest: "3d43dd4d6483d895a502d416e3814f880ec3e1f3276a4a77f78d32ac279366e7"
   digestInputs:
-    recipeSHA256: "94a30d2732d68e0b1b4e42997221110a0c2bb0eb02a6964e74c382ad7951cf86"
+    recipeSHA256: "c55d4ab5f76ce24982a3b1c9d750e799735222c1fafbd9b6039e81e508e59d6f"
     variantSHA256: "3cd96bdba9e911e47577332d1618d107b429aa04b70465155ac6385a103f375f"
     effectiveValuesSHA256: "228847bb6cfda44ca51b1144969e495bc9d76aa7581746b55f901fb372635449"
     rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"

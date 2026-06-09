@@ -14,8 +14,8 @@ or runtime review.
 ## Summary
 
 ~~~text
-base variants: 41
-start-here: 19
+base variants: 42
+start-here: 20
 try-with-proof: 14
 runtime-watch: 1
 runtime-review-needed: 5
@@ -77,7 +77,8 @@ rerun-now-after-cleanup: 0
 | `grafana/tempo@1.24.4` | s3-query-observability | no | target-prerequisite-needed | model-or-stage-first | target-prerequisite: CRDs missing | stage or model the prerequisite, then rerun the same base; keep render parity separate from target fit |
 | `hashicorp/consul@2.0.0` | default-control-plane | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
 | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | no | runtime-review-needed | review-target-first | target-runtime: pod crash loop (parity passed) | inspect runtime state; keep the recipe stable unless semantic object comparison starts failing |
-| `hashicorp/vault@0.32.0` | default | yes | runtime-review-needed | review-target-first | helm-runtime: upstream not ready (parity passed) | inspect runtime state; keep the recipe stable unless semantic object comparison starts failing |
+| `hashicorp/vault@0.32.0` | dev-mode | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
+| `hashicorp/vault@0.32.0` | default | no | runtime-review-needed | review-target-first | helm-runtime: upstream not ready (parity passed) | inspect runtime state; keep the recipe stable unless semantic object comparison starts failing |
 | `hashicorp/vault@0.32.0` | ha-raft-ui | no | runtime-review-needed | review-target-first | target-runtime: pods pending (parity passed) | inspect runtime state; keep the recipe stable unless semantic object comparison starts failing |
 | `ingress-nginx/ingress-nginx@4.15.1` | internal-clusterip | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
 | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |

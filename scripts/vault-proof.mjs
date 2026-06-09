@@ -18,6 +18,23 @@ const chart = {
 
 const variants = [
   {
+    name: "dev-mode",
+    base: "dev-mode",
+    displayName: "dev server without init/unseal",
+    valuesFile: "effective-values-dev-mode.yaml",
+    valuesText: `server:
+  dev:
+    enabled: true
+  dataStorage:
+    enabled: false
+`,
+    valuesSummary: "Vault dev server starts initialized and unsealed for local proof/demo use",
+    expectedObjectCount: 11,
+    expectedCRDCount: 0,
+    expectedSecretCount: 0,
+    targetFactNote: "dev-mode is a local/demo base only; production still needs explicit init/unseal, recovery material, TLS, and storage policy",
+  },
+  {
     name: "default",
     base: "default",
     displayName: "default server with injector",
@@ -82,6 +99,7 @@ runProofCli({
     checkedValues: [
       { path: "server.ha.enabled / server.ha.raft.enabled", variant: "ha-raft-ui", disposition: "variant-controlled", reason: "the HA variant deliberately changes Vault from standalone file storage to integrated Raft storage" },
       { path: "ui.enabled", variant: "ha-raft-ui", disposition: "service-exposure-bound", reason: "UI exposure is added only by an explicit variant and appears as a rendered Service" },
+      { path: "server.dev.enabled", variant: "dev-mode", disposition: "local-demo-only", reason: "dev-mode starts Vault initialized and unsealed for local proof/demo use; it is not a production support path" },
       { path: "global.tlsDisable / server.standalone.config / server.ha.config", variant: "all", disposition: "security-posture-review", reason: "the rendered Vault listener TLS posture must be reviewed before production promotion" },
       { path: "server.dataStorage.enabled / server.auditStorage.enabled", variant: "all", disposition: "stateful-storage-review", reason: "Vault storage, audit storage, and PVC behavior are part of the variant and install gate" },
       { path: "server.extraEnvironmentVars / server.extraSecretEnvironmentVars / server.extraVolumes / server.extraInitContainers", variant: "all", disposition: "extension-slot", reason: "Vault extension and Secret injection slots must be explicit before production promotion" },
@@ -106,6 +124,7 @@ runProofCli({
       "The chart renders deterministically under pinned Helm, chart version, kube version, and values.",
       "The default variant keeps the chart defaults: standalone Vault server, injector webhook, and TLS disabled in the rendered Vault config.",
       "The ha-raft-ui variant enables integrated Raft HA and the UI Service as deliberate variant-controlled outputs.",
+      "The dev-mode variant uses the upstream chart's dev server path for local proof and demos; it starts without init/unseal and is not a production support claim.",
       "The chart does not initialize or unseal Vault; init/unseal and recovery material are operating controls, not hidden render inputs.",
       "Injector webhook, cluster RBAC, TLS posture, storage, and service exposure are scan/gate review points.",
       "extra environment, Secret, volume, plugin, init, and sidecar extension slots are powerful config surfaces; promoted variants keep them empty.",
@@ -132,6 +151,7 @@ runProofCli({
       "regular Helm output is preserved by `cub installer setup`, plus the explained Namespace support object;",
       "the default variant keeps the chart defaults visible: Vault StatefulSet, injector webhook, ClusterRole permissions, services, and TLS-disabled listener config;",
       "the ha-raft-ui variant deliberately enables integrated Raft HA and UI exposure;",
+      "the dev-mode variant deliberately uses the upstream local dev server path so Vault can be tried without pretending init/unseal is solved;",
       "init, unseal, recovery material, and seal migration are not hidden Helm render inputs; they are post-render operating controls;",
       "TLS posture, injector webhook, RBAC, service exposure, StatefulSet storage, and Secret/env extension-slot risks are visible as scan/gate findings instead of hidden Helm behavior.",
     ],
@@ -237,13 +257,17 @@ runProofCli({
       check(identities.includes("v1|Service|vault|vault-agent-injector-svc"), `${variant.name} injector Service missing`);
       check(identities.includes("v1|ServiceAccount|vault|vault"), `${variant.name} ServiceAccount missing`);
       check(identities.includes("v1|ServiceAccount|vault|vault-agent-injector"), `${variant.name} injector ServiceAccount missing`);
-      check(identities.includes("v1|ConfigMap|vault|vault-config"), `${variant.name} ConfigMap missing`);
+      if (variant.name === "dev-mode") {
+        check(!identities.includes("v1|ConfigMap|vault|vault-config"), "dev-mode must not render standalone vault-config ConfigMap");
+      } else {
+        check(identities.includes("v1|ConfigMap|vault|vault-config"), `${variant.name} ConfigMap missing`);
+      }
       check(identities.includes("rbac.authorization.k8s.io/v1|ClusterRole||vault-agent-injector-clusterrole"), `${variant.name} injector ClusterRole missing`);
       check(identities.includes("rbac.authorization.k8s.io/v1|ClusterRoleBinding||vault-agent-injector-binding"), `${variant.name} injector ClusterRoleBinding missing`);
       check(identities.includes("rbac.authorization.k8s.io/v1|ClusterRoleBinding||vault-server-binding"), `${variant.name} server ClusterRoleBinding missing`);
-      if (variant.name === "default") {
-        check(!identities.includes("v1|Service|vault|vault-ui"), "default variant must not render UI Service");
-        check(!identities.includes("rbac.authorization.k8s.io/v1|Role|vault|vault-discovery-role"), "default variant must not render HA discovery Role");
+      if (variant.name !== "ha-raft-ui") {
+        check(!identities.includes("v1|Service|vault|vault-ui"), `${variant.name} must not render UI Service`);
+        check(!identities.includes("rbac.authorization.k8s.io/v1|Role|vault|vault-discovery-role"), `${variant.name} must not render HA discovery Role`);
       }
       if (variant.name === "ha-raft-ui") {
         check(identities.includes("v1|Service|vault|vault-ui"), "ha-raft-ui UI Service missing");

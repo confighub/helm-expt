@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "hashicorp-vault-0.32.0-dev-mode"
+spec:
+  files:
+    -
+      path: "effective-values-dev-mode.yaml"
+      source: "inline-proof"
+      sha256: "39416f88f47462f585aed0f49b8cc1909a34d15c6f40644b7537da45a8ca34ec"
+  mergedValuesCaptured: false
+  values:
+    server:
+      dataStorage:
+        enabled: false
+      dev:
+        enabled: true

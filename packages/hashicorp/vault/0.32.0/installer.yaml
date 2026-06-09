@@ -6,21 +6,15 @@ metadata:
 spec:
   bases:
     -
+      name: "dev-mode"
+      path: "bases/dev-mode"
+      default: true
+      description: "vault dev server without init/unseal variant rendered from hashicorp/vault@0.32.0"
+    -
       name: "default"
       path: "bases/default"
-      default: true
       description: "vault default server with injector variant rendered from hashicorp/vault@0.32.0"
     -
       name: "ha-raft-ui"
       path: "bases/ha-raft-ui"
       description: "vault HA Raft with UI variant rendered from hashicorp/vault@0.32.0"
-  transformers:
-    # F1 fix: honour `cub installer --namespace X` instead of the frozen upstream
-    # literal — set metadata.namespace on every namespaced resource and rename
-    # the Namespace object. Pattern: installer examples/hello-app/installer.yaml.
-    - toolchain: "Kubernetes/YAML"
-      whereResource: ""
-      description: "Set the namespace on every namespaced resource."
-      invocations:
-        - name: "set-namespace"
-          args: ["{{ .Namespace }}"]
