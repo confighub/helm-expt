@@ -16,8 +16,8 @@ that must be rerun before judging parity.
 
 ```text
 chart-recipe-variant rows: 157
-complete core lane set: 15
-incomplete core lane set: 142
+complete core lane set: 16
+incomplete core lane set: 141
 ```
 
 ## Core Lane Counts

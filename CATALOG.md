@@ -817,7 +817,7 @@ Receipts: [per-chart receipts](recipes/prometheus-community/prometheus/29.8.0/CA
 ##### server-only-ephemeral
 
 When to use: prometheus server only without persistence variant rendered from prometheus-community/prometheus@29.8.0
-Readiness: try-with-proof
+Readiness: start-here
 Namespace: monitoring
 Target facts: none
 Package base: [packages/prometheus-community/prometheus/29.8.0/bases/server-only-ephemeral](packages/prometheus-community/prometheus/29.8.0/bases/server-only-ephemeral)

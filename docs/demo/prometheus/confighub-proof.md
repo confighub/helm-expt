@@ -6,7 +6,7 @@ This proof lane shows the current ConfigHub path for `prometheus-community/prome
 using real commands only: `cub installer`, `cub variant`, `cub unit`,
 `cub function`, and `cub changeset`.
 
-The selected happy-path install variant is `default`.
+The selected happy-path install variant is `server-only-ephemeral`.
 
 ## Package Bases
 
@@ -24,8 +24,8 @@ The selected happy-path install variant is `default`.
 | Re-render | Pass |
 | Package determinism | Pass |
 | Validator path | pass |
-| ConfigHub upload | Pass; 25 ConfigHub Units (24 Kubernetes Units plus installer record) |
-| Server-side variant | Pass; 25 cloned Units |
+| ConfigHub upload | Pass; 8 ConfigHub Units (7 Kubernetes Units plus installer record) |
+| Server-side variant | Pass; 8 cloned Units |
 | ConfigHub function scan | pass |
 | Safe operations | pass |
 

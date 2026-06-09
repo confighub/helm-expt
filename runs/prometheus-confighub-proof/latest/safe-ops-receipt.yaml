@@ -13,7 +13,7 @@ spec:
     chart: "prometheus-community/prometheus"
     chartVersion: "29.8.0"
     packagePath: "packages/prometheus-community/prometheus/29.8.0"
-    variant: "default"
+    variant: "server-only-ephemeral"
   changeset:
     slug: "prometheus-safe-ops-20260527"
     createResult: "pass"
@@ -26,15 +26,15 @@ spec:
       proof.confighub.com/scope: "local-test"
       proof.confighub.com/live-apply: "false"
   approval:
-    command: "cub unit approve statefulset-monitoring-prometheus-alertmanager --space helm-prometheus-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    command: "cub unit approve deployment-monitoring-prometheus-server --space helm-prometheus-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
-    representativeUnit: "statefulset-monitoring-prometheus-alertmanager"
-    output: "Unit statefulset-monitoring-prometheus-alertmanager (973b8b5a-7ce1-47de-9bbd-30a3bb17c643) has been approved\nAwaiting triggers..."
+    representativeUnit: "deployment-monitoring-prometheus-server"
+    output: "Unit deployment-monitoring-prometheus-server (22d038e5-ea35-4a49-aa7e-e00117643303) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-prometheus-confighub-proof --where \"Labels.Proof = 'prometheus-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req nWTfYDQYfnuSEKJReqfRSgBQWnYcfGyV: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req VmsJitbTTQBKxqKtDvqBAlCnalBHIiVR: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-prometheus-confighub-proof --where \"Labels.Proof = 'prometheus-confighub-proof'\""
     result: "pass"

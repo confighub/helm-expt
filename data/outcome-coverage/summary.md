@@ -10,7 +10,7 @@ the status per chart, base variant, derived variant, and Helm feature.
 charts with model support:           100/100
 variant-rich charts:                 54/100
 chart/base rows:                     157
-complete core lane rows:             15/157
+complete core lane rows:             16/157
 render parity rows:                  157/157
 in-ConfigHub proof rows:             18/157
 local live rows:                     22/157
