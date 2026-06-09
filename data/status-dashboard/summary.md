@@ -45,9 +45,9 @@ Which detailed CSV should I open next?
 | live evidence | ConfigHub/OCI semantic parity defect receipts | 0/20 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 0/40 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-supported charts | 0/20 | gap | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
-| production disposition | top20 production-review-ready charts | 16/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
-| production disposition | top20 production-blocked charts | 4/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
-| production disposition | charts with accepted production dispositions | 16/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| production disposition | top20 production-review-ready charts | 17/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| production disposition | top20 production-blocked charts | 3/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| production disposition | charts with accepted production dispositions | 17/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | scan disposition | high-priority scan rows | 4/20 | partial | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
 | scan disposition | remaining mutable-image rows | 0/20 | good | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
 | scan disposition | privileged infrastructure review rows | 4/20 | partial | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
@@ -220,21 +220,21 @@ production-supported until a final target-scoped support decision is recorded.
 | Metric | Value |
 | --- | ---: |
 | production-supported charts | 0/20 |
-| production-review-ready pending final support decision | 16/20 |
-| production-blocked pending disposition | 4/20 |
-| charts with accepted dispositions | 16/20 |
+| production-review-ready pending final support decision | 17/20 |
+| production-blocked pending disposition | 3/20 |
+| charts with accepted dispositions | 17/20 |
 | high-priority scan rows | 4/20 |
 | mutable-image rows still needing fixes | 0/20 |
 
 | Open disposition | Charts |
 | --- | ---: |
-| cluster RBAC review | 4 |
-| CRD lifecycle and upgrade policy | 4 |
-| scan/gate warning disposition | 4 |
+| cluster RBAC review | 3 |
+| CRD lifecycle and upgrade policy | 3 |
 | extension slot provenance and scan policy | 3 |
-| hook and lifecycle phase policy | 3 |
-| webhook readiness and failure policy | 3 |
+| scan/gate warning disposition | 3 |
+| hook and lifecycle phase policy | 2 |
 | storage backup restore and rollback policy | 2 |
+| webhook readiness and failure policy | 2 |
 | generated fact ownership | 1 |
 
 | Scan route | Charts |

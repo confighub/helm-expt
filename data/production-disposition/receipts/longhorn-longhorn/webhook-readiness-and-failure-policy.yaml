@@ -1,0 +1,47 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: longhorn-webhook-readiness-and-failure-policy
+spec:
+  chart: longhorn/longhorn
+  version: "1.11.2"
+  disposition: webhook readiness and failure policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Longhorn renders admission and recovery services whose endpoint readiness
+    is produced after apply. Local and live parity receipts show the selected
+    bases can reach healthy workloads, but service endpoint and admission
+    behavior remain runtime facts. This disposition accepts the current
+    webhook/service evidence as production review input and requires fresh
+    target observations for production support.
+  evidence:
+    - path: recipes/longhorn/longhorn/1.11.2/control-points.yaml
+      claim: The recipe records Longhorn admission and recovery services as scan-and-observe.
+    - path: recipes/longhorn/longhorn/1.11.2/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default scan records admission-webhook-requires-observation and service-selector warnings for the Longhorn services.
+    - path: recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/receipts/scan-receipt.yaml
+      claim: The ui-ingress scan records the same runtime service observation requirements.
+    - path: runs/top20-local-kind/longhorn-default/observation-receipt.json
+      claim: The local-kind observation records Longhorn manager, driver-deployer, and UI rollout checks passing.
+    - path: runs/live-kind-parity/longhorn-longhorn-default/receipt.yaml
+      claim: The default base passes two-cluster runtime parity with Longhorn workloads ready.
+    - path: runs/live-kind-parity/longhorn-longhorn-ui-ingress/receipt.yaml
+      claim: The ui-ingress base passes two-cluster runtime parity with Longhorn workloads ready.
+    - path: runs/live-helm-confighub-compare/longhorn-longhorn-default/receipt.yaml
+      claim: The default base passes regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo live parity with healthy runtime.
+  affectedVariants:
+    - default
+    - ui-ingress
+  acceptedPolicy:
+    desiredObjects: Services remain part of the reviewed rendered object set.
+    runtimeFacts: Endpoint readiness and admission behavior must be observed after apply.
+    failurePolicy: A production target must record its acceptable admission and recovery service failure posture.
+  variantCaveats:
+    - "Service-selector scan warnings are treated as runtime-observation requirements, not ignored."
+    - "Production support should include endpoint, webhook, CSI, and manager health observations on the target cluster."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should attach target-specific endpoint, admission, recovery, CSI, and manager health checks to the chosen base.

@@ -42,7 +42,7 @@ spec:
     supportLevel: "supported-for-declared-scopes"
     supportedScopes:
       - "local-test"
-    productionReadiness: "blocked-by-current-scan-gate"
+    productionReadiness: "production-review-ready"
     supportedVariants:
       - "default"
       - "ui-ingress"
@@ -62,7 +62,7 @@ spec:
       liveParity: "1/2"
     featureSummary: "required-values"
     hardGap: "-"
-    nextAction: "write or fix the receipt for CRD lifecycle and upgrade policy"
+    nextAction: "refresh live/e2e receipts for the accepted production scope"
   installerPackage:
     path: "packages/longhorn/longhorn/1.11.2"
     installer: "packages/longhorn/longhorn/1.11.2/installer.yaml"

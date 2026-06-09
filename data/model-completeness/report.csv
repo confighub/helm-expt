@@ -65,7 +65,7 @@ kedacore/keda@2.19.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-revie
 kyverno/kyverno-policies@3.8.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/kyverno/kyverno-policies/3.8.0
 kyverno/kyverno@3.8.1,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/kyverno/kyverno/3.8.1
 linkerd/linkerd-crds@1.8.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/linkerd/linkerd-crds/1.8.0
-longhorn/longhorn@1.11.2,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,blocked-by-current-scan-gate,none,recipes/longhorn/longhorn/1.11.2
+longhorn/longhorn@1.11.2,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/longhorn/longhorn/1.11.2
 metrics-server/metrics-server@3.13.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/metrics-server/metrics-server/3.13.0
 minio-operator/operator@7.1.1,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/minio-operator/operator/7.1.1
 minio-operator/tenant@7.1.1,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/minio-operator/tenant/7.1.1

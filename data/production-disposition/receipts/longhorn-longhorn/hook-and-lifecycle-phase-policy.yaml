@@ -1,0 +1,49 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: longhorn-hook-and-lifecycle-phase-policy
+spec:
+  chart: longhorn/longhorn
+  version: "1.11.2"
+  disposition: hook and lifecycle phase policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    The supported Longhorn bases render with Helm hooks excluded. The chart's
+    pre-upgrade checker is therefore not part of the rendered revision. This
+    disposition accepts that boundary as production review input: render parity
+    proves the desired-object set, while upgrade checks must be represented as
+    an explicit lifecycle action or controller-observed procedure before
+    production support.
+  evidence:
+    - path: recipes/longhorn/longhorn/1.11.2/control-points.yaml
+      claim: The recipe records hook-policy as handled-for-render and names the pre-upgrade checker hook boundary.
+    - path: recipes/longhorn/longhorn/1.11.2/value-model.yaml
+      claim: The value model records preUpgradeChecker.jobEnabled as hook-excluded-by-render-policy.
+    - path: recipes/longhorn/longhorn/1.11.2/helm-pain-report.yaml
+      claim: The pain report states that pre-upgrade checks are excluded from rendered revisions by --no-hooks.
+    - path: recipes/longhorn/longhorn/1.11.2/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default scan records helm-hook-lifecycle-policy for the Longhorn pre-upgrade checker.
+    - path: recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/receipts/scan-receipt.yaml
+      claim: The ui-ingress scan records the same hook lifecycle warning.
+    - path: recipes/longhorn/longhorn/1.11.2/revisions/default/r001/receipts/install-gate.yaml
+      claim: The default install gate blocks production until pre-upgrade hook policy is reviewed.
+    - path: recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/receipts/install-gate.yaml
+      claim: The ui-ingress install gate records the same lifecycle boundary.
+    - path: runs/live-kind-parity/longhorn-longhorn-default/receipt.yaml
+      claim: The default base passes live desired-object parity without relying on Helm hook execution.
+  affectedVariants:
+    - default
+    - ui-ingress
+  acceptedPolicy:
+    desiredObjects: Supported bases manage the reviewed Longhorn desired Kubernetes objects.
+    hooks: The pre-upgrade checker is not silently preserved; it must be a named lifecycle action for upgrade support.
+    upgrades: A production upgrade path must run or replace the Longhorn pre-upgrade checks before changing the supported chart version.
+  variantCaveats:
+    - "This receipt does not prove Helm hook execution."
+    - "Longhorn upgrades need explicit lifecycle checks because storage upgrade failures have data-plane consequences."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should define the Longhorn pre-upgrade check procedure, upgrade gate, and observation receipt requirements.

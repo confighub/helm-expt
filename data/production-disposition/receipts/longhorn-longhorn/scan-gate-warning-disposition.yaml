@@ -1,0 +1,68 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: longhorn-scan-gate-warning-disposition
+spec:
+  chart: longhorn/longhorn
+  version: "1.11.2"
+  disposition: scan/gate warning disposition
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Longhorn has no critical findings in the local rendered-object scanner, but
+    it intentionally installs privileged storage infrastructure. The external
+    scanner flags high warning families for privileged containers, privilege
+    escalation, root filesystem posture, run-as-non-root, and unset resources.
+    This disposition accepts those findings as explicit production review
+    inputs, not as final production support.
+  evidence:
+    - path: data/external-scan-lane/review.csv
+      claim: External kube-linter rows for both bases record privileged, privilege escalation, root filesystem, run-as-non-root, resource, and dangling-service warnings.
+    - path: data/scan-disposition-workdown/workdown.csv
+      claim: The scan disposition workdown routes Longhorn to accept-or-split-privileged-infrastructure.
+    - path: recipes/longhorn/longhorn/1.11.2/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default rendered-object scan records CRD, RBAC, webhook/service, hook, storage workload, and StorageClass policy warnings.
+    - path: recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/receipts/scan-receipt.yaml
+      claim: The ui-ingress rendered-object scan records the same warnings plus UI ingress exposure.
+    - path: recipes/longhorn/longhorn/1.11.2/revisions/default/r001/receipts/install-gate.yaml
+      claim: The default install gate allows local-test and blocks production until CRD, webhook, hook, RBAC, storage workload, and StorageClass policy are reviewed.
+    - path: recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/receipts/install-gate.yaml
+      claim: The ui-ingress install gate records the same production boundary with explicit UI ingress exposure.
+    - path: data/production-disposition/receipts/longhorn-longhorn/crd-lifecycle-and-upgrade-policy.yaml
+      claim: CRD ownership and upgrade handling have an accepted production-review disposition.
+    - path: data/production-disposition/receipts/longhorn-longhorn/cluster-rbac-review.yaml
+      claim: Cluster RBAC handling has an accepted production-review disposition.
+    - path: data/production-disposition/receipts/longhorn-longhorn/hook-and-lifecycle-phase-policy.yaml
+      claim: Hook and lifecycle handling has an accepted production-review disposition.
+    - path: data/production-disposition/receipts/longhorn-longhorn/webhook-readiness-and-failure-policy.yaml
+      claim: Webhook, recovery service, and runtime observation handling has an accepted production-review disposition.
+    - path: runs/live-helm-confighub-compare/longhorn-longhorn-default/receipt.yaml
+      claim: The default base passes regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo live parity with healthy runtime.
+  affectedVariants:
+    - default
+    - ui-ingress
+  acceptedWarnings:
+    - admission-webhook-requires-observation
+    - cluster-rbac-review
+    - crd-upgrade-policy
+    - dangling-service
+    - helm-hook-lifecycle-policy
+    - no-read-only-root-fs
+    - privilege-escalation-container
+    - privileged-container
+    - privileged-storage-workload-review
+    - run-as-non-root
+    - service-selector-has-workload-match
+    - storageclass-policy
+    - unset-cpu-requirements
+    - unset-memory-requirements
+    - ui-ingress-policy
+  variantCaveats:
+    - "default is the stronger first production-review base because it avoids UI ingress exposure and has full ConfigHub OCI/Argo parity."
+    - "ui-ingress is a useful proof base but needs target ingress, TLS, auth, and exposure policy before production use."
+    - "A hardened production base may add resource requests/limits and security posture where the upstream chart supports it, but privileged storage behavior is intrinsic to Longhorn."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose target security acceptance or a hardened base, node/storage prerequisites, resource policy, backup/restore procedure, and live observation requirements.

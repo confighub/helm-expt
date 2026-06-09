@@ -1,0 +1,48 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: longhorn-cluster-rbac-review
+spec:
+  chart: longhorn/longhorn
+  version: "1.11.2"
+  disposition: cluster RBAC review
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Longhorn intentionally renders cluster-scoped RBAC for storage controller,
+    CRD, support-bundle, and node-level operations. This disposition accepts
+    the upstream RBAC inventory as production review input. Target policy can
+    still require separate cluster approval, a narrowed base, or a dedicated
+    infrastructure support boundary before production support.
+  evidence:
+    - path: recipes/longhorn/longhorn/1.11.2/control-points.yaml
+      claim: The recipe records cluster RBAC as scan-and-review.
+    - path: recipes/longhorn/longhorn/1.11.2/revisions/default/r001/rendered/object-inventory.yaml
+      claim: The default object inventory records the longhorn ClusterRole and ClusterRoleBinding objects.
+    - path: recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/rendered/object-inventory.yaml
+      claim: The ui-ingress object inventory records the same cluster-scoped RBAC.
+    - path: recipes/longhorn/longhorn/1.11.2/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default rendered-object scan flags cluster-rbac-review findings.
+    - path: recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/receipts/scan-receipt.yaml
+      claim: The ui-ingress rendered-object scan flags the same cluster RBAC warning family.
+    - path: recipes/longhorn/longhorn/1.11.2/revisions/default/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The default base is Helm-equivalent under recorded inputs.
+    - path: recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The ui-ingress base is Helm-equivalent under recorded inputs.
+    - path: runs/live-kind-parity/longhorn-longhorn-default/receipt.yaml
+      claim: The default base passes strict two-cluster live parity.
+    - path: runs/live-kind-parity/longhorn-longhorn-ui-ingress/receipt.yaml
+      claim: The ui-ingress base passes strict two-cluster live parity.
+  affectedVariants:
+    - default
+    - ui-ingress
+  acceptedWarnings:
+    - cluster-rbac-review
+  variantCaveats:
+    - "Cluster-scoped RBAC is expected for Longhorn but must be reviewed against the target cluster's infrastructure policy."
+    - "Longhorn should normally be treated as cluster infrastructure rather than a tenant application."
+  remainingProductionBlockers: []
+  nextDecision: A target-scoped production support decision should review Longhorn RBAC together with node access, storage ownership, and support-bundle permissions.

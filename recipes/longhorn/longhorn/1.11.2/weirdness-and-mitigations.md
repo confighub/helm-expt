@@ -12,7 +12,7 @@ current ConfigHub/cub installer proof absorbs it.
 | Catalog status | catalog-supported |
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
-| Production readiness | blocked-by-current-scan-gate |
+| Production readiness | production-review-ready |
 | Variants in this note | default, ui-ingress |
 
 Production support is not implied by this file. A chart can be supported for
@@ -30,9 +30,10 @@ or operating-policy dispositions.
 ## Catalog Mitigations
 
 - Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
-- default preserves the normal Longhorn install shape.
-- ui-ingress is supported when ingress exposure assumptions are declared.
-- Production remains blocked until storage-class ownership, node prerequisites, backup targets, and scan/gate findings have dispositions.
+- default preserves the normal Longhorn install shape and is the safer first production-review base.
+- ui-ingress is supported when ingress exposure assumptions are declared, but needs target ingress, TLS, auth, and exposure policy before production use.
+- CRD ownership, cluster RBAC, pre-upgrade hook boundary, webhook/recovery service readiness, privileged storage workload posture, and scan/gate warnings are recorded as production review input.
+- Production recommendation remains a separate decision; Longhorn needs target node prerequisites, backup/restore, data rollback, storage-class ownership, and live observation procedures before support.
 
 ## Control Points
 

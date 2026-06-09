@@ -548,7 +548,7 @@ Receipts: [per-chart receipts](recipes/grafana/loki/7.0.0/CATALOG.md)
 #### longhorn/longhorn@1.11.2
 
 Status: catalog-supported
-Production readiness: blocked-by-current-scan-gate
+Production readiness: production-review-ready
 Start base readiness: start-here
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 1/2; live parity 1/2

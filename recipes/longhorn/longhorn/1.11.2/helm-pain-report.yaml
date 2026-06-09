@@ -14,7 +14,7 @@ spec:
   supportedVariants:
     - "default"
     - "ui-ingress"
-  productionReadiness: "blocked-by-current-scan-gate"
+  productionReadiness: "production-review-ready"
   notes:
     - "Default chart renders 22 Longhorn CRDs as ordinary rendered objects with --include-crds."
     - "default variant keeps UI ingress disabled and captures the storage control plane baseline."
@@ -141,4 +141,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
-  answerForSkepticalHelmUser: "longhorn/longhorn@1.11.2 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, lifecycle-policy, scan-gate, operate-policy, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains blocked-by-current-scan-gate."
+  answerForSkepticalHelmUser: "longhorn/longhorn@1.11.2 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, lifecycle-policy, scan-gate, operate-policy, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains production-review-ready."

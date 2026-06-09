@@ -1,0 +1,50 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: longhorn-crd-lifecycle-and-upgrade-policy
+spec:
+  chart: longhorn/longhorn
+  version: "1.11.2"
+  disposition: CRD lifecycle and upgrade policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Both supported Longhorn bases render the 22 Longhorn CRDs as ordinary
+    reviewed objects. This disposition accepts that CRD ownership model as
+    production review input. A production support decision still needs a
+    target-specific CRD upgrade, rollback, and data-safety procedure before a
+    supported production scope is declared.
+  evidence:
+    - path: recipes/longhorn/longhorn/1.11.2/control-points.yaml
+      claim: The recipe records CRD policy as variant-controlled and states that both promoted variants render 22 CRDs.
+    - path: recipes/longhorn/longhorn/1.11.2/value-model.yaml
+      claim: The value model records CRDs as included in the default base.
+    - path: recipes/longhorn/longhorn/1.11.2/revisions/default/r001/rendered/object-inventory.yaml
+      claim: The default rendered object inventory records the Longhorn CRDs as reviewed rendered objects.
+    - path: recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/rendered/object-inventory.yaml
+      claim: The ui-ingress rendered object inventory records the same Longhorn CRDs plus the UI Ingress.
+    - path: recipes/longhorn/longhorn/1.11.2/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default rendered-object scan records CRD upgrade policy warnings explicitly.
+    - path: recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/receipts/scan-receipt.yaml
+      claim: The ui-ingress rendered-object scan records the same CRD upgrade policy warnings.
+    - path: runs/top20-local-kind/longhorn-default/observation-receipt.json
+      claim: The local-kind observation records CRD bootstrap apply and Established checks for the Longhorn CRDs.
+    - path: runs/live-kind-parity/longhorn-longhorn-default/receipt.yaml
+      claim: The default base passes strict two-cluster live parity between regular Helm and cub installer apply.
+    - path: runs/live-kind-parity/longhorn-longhorn-ui-ingress/receipt.yaml
+      claim: The ui-ingress base passes strict two-cluster live parity between regular Helm and cub installer apply.
+  affectedVariants:
+    - default
+    - ui-ingress
+  acceptedPolicy:
+    ownership: These supported bases own the Longhorn CRDs as part of the rendered object set.
+    upgrade: Chart upgrades must review CRD schema compatibility and Longhorn upgrade notes before replacing the supported version.
+    rollback: CRD rollback and Longhorn data rollback are target operating procedures, not render-parity claims.
+  variantCaveats:
+    - "Longhorn is storage infrastructure; CRD compatibility and data safety need target review before production support."
+    - "A future external-CRDs base can be added if a target cluster manages Longhorn CRDs outside this recipe."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose CRD ownership, upgrade ordering, rollback procedure, and storage data protection for the target scope.

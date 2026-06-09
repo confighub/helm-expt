@@ -13,13 +13,13 @@ catalog-supported local-test charts: 20
 ConfigHub proof receipts passing: 20
 live/e2e observed charts: 20
 production-supported charts: 0
-production-review-ready pending final support decision: 16
-production-blocked pending disposition: 4
+production-review-ready pending final support decision: 17
+production-blocked pending disposition: 3
 source Helm-hook rows: 1
 hook/lifecycle disposition rows: 12
 related lifecycle observation rows: 2
-accepted production disposition receipts: 75
-charts with accepted dispositions: 16
+accepted production disposition receipts: 80
+charts with accepted dispositions: 17
 ```
 
 The hook/lifecycle disposition is a production-review item. It does not always
@@ -58,7 +58,7 @@ runtime checks.
 | `hashicorp/vault@0.32.0` | default, ha-raft-ui | pass | local-kind-observed | production-review-ready | 5 |  |
 | `ingress-nginx/ingress-nginx@4.15.1` | default, admission-disabled | pass | local-kind-observed | production-review-ready | 4 |  |
 | `jetstack/cert-manager@v1.20.2` | default, crds-enabled | pass | local-kind-observed | production-review-ready | 6 |  |
-| `longhorn/longhorn@1.11.2` | default, ui-ingress | pass | local-kind-observed | blocked | 0 | CRD lifecycle and upgrade policy, cluster RBAC review, hook and lifecycle phase policy, scan/gate warning disposition, webhook readiness and failure policy |
+| `longhorn/longhorn@1.11.2` | default, ui-ingress | pass | local-kind-observed | production-review-ready | 5 |  |
 | `metrics-server/metrics-server@3.13.0` | default, external-tls-ca | pass | local-kind-observed | production-review-ready | 5 |  |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default, no-crds | pass | local-kind-observed | blocked | 0 | CRD lifecycle and upgrade policy, cluster RBAC review, extension slot provenance and scan policy, generated fact ownership, scan/gate warning disposition, webhook readiness and failure policy |
 | `prometheus-community/prometheus@29.8.0` | default, server-only-ephemeral | pass | local-kind-observed | production-review-ready | 3 |  |

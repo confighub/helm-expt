@@ -1434,7 +1434,7 @@ spec:
     -
       chart: "longhorn/longhorn"
       version: "1.11.2"
-      status: "production-blocked"
+      status: "production-review-ready"
       supportedLocalTestVariants:
         - "default"
         - "ui-ingress"
@@ -1465,11 +1465,16 @@ spec:
         lifecycleObservationReceipts:
           []
         productionDispositionReceipts:
-          []
+          - "data/production-disposition/receipts/longhorn-longhorn/crd-lifecycle-and-upgrade-policy.yaml"
+          - "data/production-disposition/receipts/longhorn-longhorn/cluster-rbac-review.yaml"
+          - "data/production-disposition/receipts/longhorn-longhorn/hook-and-lifecycle-phase-policy.yaml"
+          - "data/production-disposition/receipts/longhorn-longhorn/scan-gate-warning-disposition.yaml"
+          - "data/production-disposition/receipts/longhorn-longhorn/webhook-readiness-and-failure-policy.yaml"
       dispositions:
         -
           name: "CRD lifecycle and upgrade policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/longhorn-longhorn/crd-lifecycle-and-upgrade-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "CRD ownership decision"
@@ -1478,7 +1483,8 @@ spec:
           unblockRule: "supported only when CRD ownership and upgrade behavior are explicit"
         -
           name: "cluster RBAC review"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/longhorn-longhorn/cluster-rbac-review.yaml"
           owner: "security-review"
           requiredEvidence:
             - "cluster-scoped RBAC inventory"
@@ -1487,7 +1493,8 @@ spec:
           unblockRule: "supported only after cluster-scoped permissions have an explicit disposition"
         -
           name: "hook and lifecycle phase policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/longhorn-longhorn/hook-and-lifecycle-phase-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "hook inventory"
@@ -1496,7 +1503,8 @@ spec:
           unblockRule: "supported only when hooks are mapped to lifecycle policy or intentionally excluded"
         -
           name: "scan/gate warning disposition"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/longhorn-longhorn/scan-gate-warning-disposition.yaml"
           owner: "security-review"
           requiredEvidence:
             - "local scan receipt"
@@ -1505,7 +1513,8 @@ spec:
           unblockRule: "supported only when warnings are accepted, fixed, or variant-blocking"
         -
           name: "webhook readiness and failure policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/longhorn-longhorn/webhook-readiness-and-failure-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "webhook deployment readiness"
