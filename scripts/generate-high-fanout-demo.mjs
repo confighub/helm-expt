@@ -10,12 +10,12 @@ const outputRoot = join(repoRoot, "data", "high-fanout-demo");
 const outputs = {
   csv: join(outputRoot, "prometheus-kps.csv"),
   summary: join(outputRoot, "summary.md"),
+  operationPreview: join(outputRoot, "operation-preview.md"),
 };
 
 if (mode === "--generate") {
   const report = buildReport();
-  write(outputs.csv, report.csv);
-  write(outputs.summary, report.summary);
+  for (const [name, path] of Object.entries(outputs)) write(path, report[name]);
   console.log("wrote high-fanout demo -> data/high-fanout-demo/");
 } else if (mode === "--verify") {
   const report = buildReport();
@@ -122,6 +122,7 @@ function buildReport() {
   return {
     csv: toCsv(rows),
     summary: summary({ chart, version, rows, removedObjects, runtimeReceipt, valueSourceMap }),
+    operationPreview: operationPreview({ chart, version, valueSourceMap }),
   };
 }
 
@@ -215,6 +216,10 @@ This is deliberately small. It does not claim a full inverse map for the whole
 chart. It shows how high-value choices can become explicit graph edges instead
 of disappearing into rendered YAML.
 
+For a compact pre-ship view of those choices, see:
+
+\`data/high-fanout-demo/operation-preview.md\`
+
 ## Removed Objects
 
 | Kind | Name |
@@ -271,6 +276,7 @@ the same operational contract.
 | File | Purpose |
 | --- | --- |
 | \`data/high-fanout-demo/prometheus-kps.csv\` | Spreadsheet row for each base and the default-to-no-crds delta. |
+| \`data/high-fanout-demo/operation-preview.md\` | Pre-ship preview for the currently mapped high-fanout inputs. |
 | \`recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md\` | Variant catalog and receipt links. |
 | \`recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-source-map.yaml\` | Value-to-rendered-field reachability for the Grafana admin password and CRD toggle. |
 | \`recipes/prometheus-community/kube-prometheus-stack/85.3.3/inheritance-graph.yaml\` | Desired-state graph fragment showing the base relation. |
@@ -287,6 +293,114 @@ npm run high-fanout:generate
 npm run high-fanout:verify
 ~~~
 `;
+}
+
+function operationPreview({ chart, version, valueSourceMap }) {
+  const entries = valueSourceMap.spec?.entries ?? [];
+  const rows = entries.map((entry) => {
+    const objectCount = new Set((entry.renderedFields ?? []).map((field) => field.object)).size;
+    const fieldCount = entry.renderedFields?.length ?? 0;
+    return {
+      valuePath: entry.valuePath,
+      operation: operationFor(entry),
+      route: routeFor(entry),
+      objectCount,
+      fieldCount,
+      blastRadius: entry.rolloutImpact ?? "not recorded",
+      guardrail: guardrailFor(entry),
+      nextProof: nextProofFor(entry),
+    };
+  });
+  const rowTable = rows
+    .map((row) => `| \`${row.valuePath}\` | ${row.operation} | ${row.route} | ${row.objectCount} objects / ${row.fieldCount} fields | ${row.guardrail} | ${row.nextProof} |`)
+    .join("\n");
+  const detailSections = entries.map((entry) => detailSection(entry)).join("\n\n");
+  return `# kube-prometheus-stack Operation Preview
+
+This generated preview shows the current high-fanout inputs that can be
+explained before a change is shipped. It is not a live operation receipt. It is
+a pre-ship review aid built from:
+
+~~~text
+recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-source-map.yaml
+recipes/prometheus-community/kube-prometheus-stack/85.3.3/inheritance-graph.yaml
+data/high-fanout-demo/prometheus-kps.csv
+~~~
+
+## Preview
+
+| Input | Example operation | Correct route | Known reach | Guardrail | Next proof |
+| --- | --- | --- | --- | --- | --- |
+${rowTable}
+
+## Details
+
+${detailSections}
+
+## Rule
+
+Use this preview before deciding how to make a change:
+
+~~~text
+changes rendered object shape or lifecycle
+-> make or update a cub installer base and rerun render parity
+
+refines already-rendered ConfigHub Units
+-> use a derived ConfigHub variant, preview the Unit diff, then check and approve
+
+requires target state
+-> record target facts, preflight, delivery receipt, and fresh observation
+~~~
+
+Regenerate:
+
+~~~sh
+npm run high-fanout:generate
+npm run high-fanout:verify
+~~~
+`;
+}
+
+function detailSection(entry) {
+  const renderedFields = entry.renderedFields ?? [];
+  const rows = renderedFields
+    .map((field) => `| \`${field.object}\` | \`${field.field}\` |`)
+    .join("\n");
+  return `### \`${entry.valuePath}\`
+
+Impact: ${entry.rolloutImpact ?? "not recorded"}
+
+Immutable-field risk: ${entry.immutableFieldRisk ? "yes" : "no"}
+
+Related policies: ${(entry.relatedPolicies ?? []).map((item) => `\`${item}\``).join(", ") || "-"}
+
+| Object | Field |
+| --- | --- |
+${rows}`;
+}
+
+function operationFor(entry) {
+  if (entry.valuePath === "crds.enabled") return "choose whether this release owns Prometheus Operator CRDs";
+  if (entry.valuePath === "grafana.adminPassword") return "change or externalize the Grafana admin credential";
+  return "review change before promotion";
+}
+
+function routeFor(entry) {
+  if (entry.valuePath === "crds.enabled") return "`cub installer` base variant";
+  if (entry.valuePath === "grafana.adminPassword") return "generated fact or target secret policy";
+  return "route by seven-stage lifecycle";
+}
+
+function guardrailFor(entry) {
+  if (entry.valuePath === "crds.enabled") return "do not promote `no-crds` unless target CRDs are staged and observed";
+  if (entry.valuePath === "grafana.adminPassword") return "do not hide generated credentials in ConfigHub Units; bind or externalize them deliberately";
+  return "review rendered object reachability before applying";
+}
+
+function nextProofFor(entry) {
+  if (entry.valuePath === "crds.enabled") return "render parity, target facts, GitOps/live receipt";
+  if (entry.valuePath === "grafana.adminPassword") return "generated-fact or target-fact receipt, scan/gate, live observation";
+  return "bounded change receipt";
 }
 
 function webhookCount(objects) {

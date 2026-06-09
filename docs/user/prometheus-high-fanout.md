@@ -93,6 +93,7 @@ Read:
 | [KPS catalog](../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md) | The two bases, receipts, gates, and package links. |
 | [value source map](../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-source-map.yaml) | Which checked inputs currently map to rendered fields. |
 | [high-fanout summary](../../data/high-fanout-demo/summary.md) | Object counts, removed CRDs, proof-chain status, and the current GitOps/OCI prerequisite result. |
+| [operation preview](../../data/high-fanout-demo/operation-preview.md) | Pre-ship routing, blast-radius, guardrail, and next-proof view for mapped high-fanout inputs. |
 | [prometheus-kps.csv](../../data/high-fanout-demo/prometheus-kps.csv) | Spreadsheet rows for the two bases, proof lanes, next hard work, and the base-to-base delta. |
 
 ## What The Current Evidence Says
