@@ -48,6 +48,7 @@ function buildReport() {
   const productionStatus = productionRow?.production_support ?? "missing";
   const productionNextAction = productionRow?.next_action ?? "missing";
   const confighubProof = productionRow?.confighub_proof ?? "missing";
+  const valueSourceMap = readYaml(join(basePath, "value-source-map.yaml"));
 
   const rows = [
     row({
@@ -120,7 +121,7 @@ function buildReport() {
 
   return {
     csv: toCsv(rows),
-    summary: summary({ chart, version, rows, removedObjects, runtimeReceipt }),
+    summary: summary({ chart, version, rows, removedObjects, runtimeReceipt, valueSourceMap }),
   };
 }
 
@@ -148,12 +149,18 @@ function row(values) {
   return values;
 }
 
-function summary({ chart, version, rows, removedObjects, runtimeReceipt }) {
+function summary({ chart, version, rows, removedObjects, runtimeReceipt, valueSourceMap }) {
   const defaultRow = rows[0];
   const noCrdsRow = rows[1];
   const deltaRow = rows[2];
   const removedTable = removedObjects
     .map((object) => `| \`${object.kind}\` | \`${object.name}\` |`)
+    .join("\n");
+  const reachabilityRows = (valueSourceMap.spec?.entries ?? [])
+    .map((entry) => {
+      const fieldCount = entry.renderedFields?.length ?? 0;
+      return `| \`${entry.valuePath}\` | ${entry.rolloutImpact ?? ""} | ${fieldCount} |`;
+    })
     .join("\n");
 
   return `# Prometheus High-Fanout Demo
@@ -194,6 +201,19 @@ This is the chain-of-proof lesson. The \`no-crds\` base is not semantically
 wrong: it passes two-cluster kind parity when CRDs and the admission Secret are
 staged as target facts. It is also correct for the runtime GitOps wave to block
 when those CRDs are absent.
+
+## Value Reachability
+
+The value-source map records two user-visible inputs and the rendered fields
+they affect:
+
+| Value path | Impact | Rendered fields |
+| --- | --- | ---: |
+${reachabilityRows}
+
+This is deliberately small. It does not claim a full inverse map for the whole
+chart. It shows how high-value choices can become explicit graph edges instead
+of disappearing into rendered YAML.
 
 ## Removed Objects
 
@@ -252,6 +272,7 @@ the same operational contract.
 | --- | --- |
 | \`data/high-fanout-demo/prometheus-kps.csv\` | Spreadsheet row for each base and the default-to-no-crds delta. |
 | \`recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md\` | Variant catalog and receipt links. |
+| \`recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-source-map.yaml\` | Value-to-rendered-field reachability for the Grafana admin password and CRD toggle. |
 | \`recipes/prometheus-community/kube-prometheus-stack/85.3.3/inheritance-graph.yaml\` | Desired-state graph fragment showing the base relation. |
 | \`runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml\` | Strict live proof for regular Helm, ConfigHub apply, and ConfigHub OCI/Argo on the default base. |
 | \`runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml\` | Two-cluster kind parity proof for the no-crds base with target facts staged. |
