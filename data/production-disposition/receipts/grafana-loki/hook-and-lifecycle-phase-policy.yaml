@@ -1,0 +1,47 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: grafana-loki-hook-and-lifecycle-phase-policy
+spec:
+  chart: grafana/loki
+  version: "7.0.0"
+  disposition: hook and lifecycle phase policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    The supported Loki bases render with hooks and tests excluded. The current
+    proof is therefore a desired-object proof, not a claim that Helm hook or
+    test behavior was preserved. This disposition accepts the no-hook lifecycle
+    model for production review input: any future hook, test, migration, or
+    validation behavior must be mapped to an explicit lifecycle policy or
+    observation receipt before production support.
+  evidence:
+    - path: recipes/grafana/loki/7.0.0/control-points.yaml
+      claim: The recipe records lifecycle-policy as no-hooks for promoted renders.
+    - path: recipes/grafana/loki/7.0.0/helm-pain-report.yaml
+      claim: The pain report states that future hook or test enablement must map to lifecycle policy.
+    - path: recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/receipts/scan-receipt.yaml
+      claim: The single-binary-filesystem scan records lifecycle-policy:no-hooks explicitly.
+    - path: recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/receipts/scan-receipt.yaml
+      claim: The simple-scalable-minio scan records the same lifecycle-policy:no-hooks finding.
+    - path: recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/receipts/install-gate.yaml
+      claim: The install gate blocks production until any future hook or test enablement has explicit lifecycle policy.
+    - path: recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/receipts/install-gate.yaml
+      claim: The MinIO install gate records the same lifecycle boundary.
+    - path: runs/live-helm-confighub-compare/grafana-loki-single-binary-filesystem/receipt.yaml
+      claim: The single-binary-filesystem base passes live parity for the desired-object path without relying on hooks.
+  affectedVariants:
+    - single-binary-filesystem
+    - simple-scalable-minio
+  acceptedPolicy:
+    desiredObjects: Supported bases are managed as reviewed desired Kubernetes objects.
+    hooks: Helm hooks and tests are not part of the promoted rendered revision unless they are explicitly reintroduced as lifecycle policy.
+    observations: Runtime checks for StatefulSets, gateway, caches, canary, and storage must be recorded as observation receipts for supported production scopes.
+  variantCaveats:
+    - "This receipt does not prove arbitrary future Loki hook or test behavior."
+    - "If a chart version introduces required lifecycle jobs, they must be mapped before that version is promoted."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should define which Loki runtime checks are required after apply and whether any chart tests or migrations are part of the supported lifecycle.

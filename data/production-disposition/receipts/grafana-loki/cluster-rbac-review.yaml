@@ -1,0 +1,47 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: grafana-loki-cluster-rbac-review
+spec:
+  chart: grafana/loki
+  version: "7.0.0"
+  disposition: cluster RBAC review
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Both supported Loki bases render the upstream Loki ClusterRole and
+    ClusterRoleBinding. This disposition accepts that RBAC inventory as
+    production review input. Target policy can still require narrower RBAC,
+    separate approval, or a production-specific base before production support.
+  evidence:
+    - path: recipes/grafana/loki/7.0.0/control-points.yaml
+      claim: The recipe records cluster RBAC as a scan-and-review control point.
+    - path: recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/object-inventory.yaml
+      claim: The single-binary-filesystem inventory records loki-clusterrole and loki-clusterrolebinding.
+    - path: recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/rendered/object-inventory.yaml
+      claim: The simple-scalable-minio inventory records the same cluster RBAC objects.
+    - path: recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/receipts/scan-receipt.yaml
+      claim: The single-binary-filesystem scan flags cluster-rbac-review findings with zero high or critical findings.
+    - path: recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/receipts/scan-receipt.yaml
+      claim: The simple-scalable-minio scan flags the same cluster RBAC warning family.
+    - path: recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The single-binary-filesystem base is Helm-equivalent under recorded inputs.
+    - path: recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The simple-scalable-minio base is Helm-equivalent under recorded inputs.
+    - path: runs/live-helm-confighub-compare/grafana-loki-single-binary-filesystem/receipt.yaml
+      claim: The single-binary-filesystem base passes regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo live parity.
+    - path: runs/live-kind-parity/grafana-loki-simple-scalable-minio/receipt.yaml
+      claim: The simple-scalable-minio base has semantic parity, while runtime remains target-resource sensitive.
+  affectedVariants:
+    - single-binary-filesystem
+    - simple-scalable-minio
+  acceptedWarnings:
+    - cluster-rbac-review
+  variantCaveats:
+    - "Cluster-scoped RBAC must be reviewed against the target cluster's policy before production support."
+    - "simple-scalable-minio has semantic parity but needs target runtime capacity review before production use."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should review Loki RBAC together with tenant policy, gateway exposure, and target runtime scope.

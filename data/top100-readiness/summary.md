@@ -96,7 +96,7 @@ charts with named hard gaps: 25
 | `bitnami/redis@25.5.3` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
 | `external-secrets/external-secrets@2.5.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
 | `grafana/grafana@10.5.15` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
-| `grafana/loki@7.0.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the receipt for cluster RBAC review | `data/production-disposition/receipts/grafana-loki/cluster-rbac-review.yaml` | `production-disposition` |
+| `grafana/loki@7.0.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
 | `grafana/tempo@1.24.4` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | refresh live/e2e receipts for the accepted production scope | - | `production-disposition` |
 | `hashicorp/consul@2.0.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | write or fix the receipt for CRD lifecycle and upgrade policy | `data/production-disposition/receipts/hashicorp-consul/crd-lifecycle-and-upgrade-policy.yaml` | `production-disposition` |
 | `hashicorp/vault@0.32.0` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | write or fix the receipt for cluster RBAC review | `data/production-disposition/receipts/hashicorp-vault/cluster-rbac-review.yaml` | `production-disposition` |

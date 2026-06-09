@@ -1,0 +1,48 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: grafana-loki-extension-slot-provenance-and-scan-policy
+spec:
+  chart: grafana/loki
+  version: "7.0.0"
+  disposition: extension slot provenance and scan policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Loki exposes high-impact templated config surfaces: loki.config,
+    loki.structuredConfig, extraEnv, extraContainers, and raw extraObjects. The
+    supported bases bind only the required storage/schema/topology settings and
+    keep raw object slots empty. This disposition accepts the current extension
+    model as production review input and requires new populated config or raw
+    objects to become reviewed installer bases or ConfigHub-managed units.
+  evidence:
+    - path: recipes/grafana/loki/7.0.0/control-points.yaml
+      claim: The recipe records tpl and raw extension slots as controlled-by-empty-defaults.
+    - path: recipes/grafana/loki/7.0.0/value-model.yaml
+      claim: The value model records Loki config, structuredConfig, extraObjects, extraContainers, and extraEnv as extension slots.
+    - path: recipes/grafana/loki/7.0.0/effective-values.yaml
+      claim: The single-binary-filesystem base binds topology, filesystem storage, and schema without raw object extensions.
+    - path: recipes/grafana/loki/7.0.0/effective-values-simple-scalable-minio.yaml
+      claim: The simple-scalable-minio base binds S3/MinIO storage and bucket settings without raw object extensions.
+    - path: recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/receipts/scan-receipt.yaml
+      claim: The single-binary-filesystem scan records Loki config and raw/tpl extension slots for review.
+    - path: recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/receipts/scan-receipt.yaml
+      claim: The simple-scalable-minio scan records the same extension-slot review.
+    - path: recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The single-binary-filesystem base is Helm-equivalent, with the only content normalization limited to a leading blank line in embedded Loki config.
+    - path: runs/loki-confighub-proof/latest/confighub-proof-receipt.yaml
+      claim: The ConfigHub proof records real cub installer upload and cub variant clone for the selected base.
+  affectedVariants:
+    - single-binary-filesystem
+    - simple-scalable-minio
+  acceptedPolicy:
+    currentBases: Raw extra object slots stay empty in supported bases.
+    populatedSlotRule: New Loki config, raw objects, extra containers, or extra environment content must be reviewed, scanned, and bound to a new base or managed ConfigHub units.
+    configNormalization: The known leading-blank-line serialization normalization is allowed because parsed Loki config content is unchanged.
+  variantCaveats:
+    - "Loki config is a powerful extension surface and should not be edited as an untracked values-file delta for production."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose which Loki configuration extension surfaces are allowed for the target scope.

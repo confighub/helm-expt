@@ -14,7 +14,7 @@ spec:
   supportedVariants:
     - "single-binary-filesystem"
     - "simple-scalable-minio"
-  productionReadiness: "blocked-by-current-scan-gate"
+  productionReadiness: "production-review-ready"
   notes:
     - "Default chart rendering fails before object creation until loki.storage.bucketNames.chunks and schemaConfig are supplied."
     - "single-binary-filesystem selects SingleBinary topology, filesystem storage, and one Loki StatefulSet for local proof."
@@ -152,4 +152,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
-  answerForSkepticalHelmUser: "grafana/loki@7.0.0 maps its detected Helm pain to 9 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, operate-policy, lifecycle-policy, scan-gate, extension-slot, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains blocked-by-current-scan-gate."
+  answerForSkepticalHelmUser: "grafana/loki@7.0.0 maps its detected Helm pain to 9 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, operate-policy, lifecycle-policy, scan-gate, extension-slot, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains production-review-ready."

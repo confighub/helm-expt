@@ -12,7 +12,7 @@ current ConfigHub/cub installer proof absorbs it.
 | Catalog status | catalog-supported |
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
-| Production readiness | blocked-by-current-scan-gate |
+| Production readiness | production-review-ready |
 | Variants in this note | single-binary-filesystem, simple-scalable-minio |
 
 Production support is not implied by this file. A chart can be supported for
@@ -32,9 +32,10 @@ or operating-policy dispositions.
 ## Catalog Mitigations
 
 - Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
-- single-binary-filesystem is the simplest local Loki path.
-- simple-scalable-minio is supported as the local multi-component object-store variant.
-- Production remains blocked until object storage, retention, compactor, storage migration, and scan/gate findings have dispositions.
+- single-binary-filesystem is the simplest local Loki path and has live Helm-vs-ConfigHub OCI parity.
+- simple-scalable-minio is supported as the local multi-component object-store variant, but remains target-resource sensitive.
+- Default render blocking, storage policy, cluster RBAC, lifecycle policy, extension slots, MinIO Secret ownership, and scan/gate warnings are recorded as production review input.
+- Production recommendation remains a separate decision; the first review path should prefer single-binary-filesystem unless the target explicitly accepts the scalable object-store topology.
 
 ## Control Points
 

@@ -16,7 +16,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Catalog status | catalog-supported |
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
-| Production readiness | blocked-by-current-scan-gate |
+| Production readiness | production-review-ready |
 | Supported variants | single-binary-filesystem, simple-scalable-minio |
 | Candidate variants | none |
 | Control points | blocked-default-render, capability-profile, cluster-rbac, dependency-lock, installer-support-object, lifecycle-policy, object-storage-policy, pvc-policy, source-lock, stateful-workload, storage-config, tpl |
@@ -34,7 +34,7 @@ for exact base-variant evidence.
 | Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 1/2; live parity 1/2 |
 | Feature summary | generated-secrets;crds;webhooks;required-values;values-schema;extension-slots |
 | Hard gap | - |
-| Next action | write or fix the receipt for cluster RBAC review |
+| Next action | refresh live/e2e receipts for the accepted production scope |
 
 ## Artifact Chain
 

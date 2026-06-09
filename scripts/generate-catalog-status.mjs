@@ -99,11 +99,13 @@ const supportedCatalogEntries = {
     ],
   },
   "grafana/loki": {
+    productionReadiness: "production-review-ready",
     notes: [
       "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.",
-      "single-binary-filesystem is the simplest local Loki path.",
-      "simple-scalable-minio is supported as the local multi-component object-store variant.",
-      "Production remains blocked until object storage, retention, compactor, storage migration, and scan/gate findings have dispositions.",
+      "single-binary-filesystem is the simplest local Loki path and has live Helm-vs-ConfigHub OCI parity.",
+      "simple-scalable-minio is supported as the local multi-component object-store variant, but remains target-resource sensitive.",
+      "Default render blocking, storage policy, cluster RBAC, lifecycle policy, extension slots, MinIO Secret ownership, and scan/gate warnings are recorded as production review input.",
+      "Production recommendation remains a separate decision; the first review path should prefer single-binary-filesystem unless the target explicitly accepts the scalable object-store topology.",
     ],
   },
   "grafana/tempo": {

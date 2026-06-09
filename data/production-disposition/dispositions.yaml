@@ -855,7 +855,7 @@ spec:
     -
       chart: "grafana/loki"
       version: "7.0.0"
-      status: "production-blocked"
+      status: "production-review-ready"
       supportedLocalTestVariants:
         - "single-binary-filesystem"
         - "simple-scalable-minio"
@@ -886,11 +886,16 @@ spec:
         lifecycleObservationReceipts:
           []
         productionDispositionReceipts:
-          []
+          - "data/production-disposition/receipts/grafana-loki/cluster-rbac-review.yaml"
+          - "data/production-disposition/receipts/grafana-loki/extension-slot-provenance-and-scan-policy.yaml"
+          - "data/production-disposition/receipts/grafana-loki/hook-and-lifecycle-phase-policy.yaml"
+          - "data/production-disposition/receipts/grafana-loki/scan-gate-warning-disposition.yaml"
+          - "data/production-disposition/receipts/grafana-loki/storage-backup-restore-and-rollback-policy.yaml"
       dispositions:
         -
           name: "cluster RBAC review"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/grafana-loki/cluster-rbac-review.yaml"
           owner: "security-review"
           requiredEvidence:
             - "cluster-scoped RBAC inventory"
@@ -899,7 +904,8 @@ spec:
           unblockRule: "supported only after cluster-scoped permissions have an explicit disposition"
         -
           name: "extension slot provenance and scan policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/grafana-loki/extension-slot-provenance-and-scan-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "tpl/raw value inventory"
@@ -908,7 +914,8 @@ spec:
           unblockRule: "supported only when extensions are explicit and scanned after render"
         -
           name: "hook and lifecycle phase policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/grafana-loki/hook-and-lifecycle-phase-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "hook inventory"
@@ -917,7 +924,8 @@ spec:
           unblockRule: "supported only when hooks are mapped to lifecycle policy or intentionally excluded"
         -
           name: "scan/gate warning disposition"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/grafana-loki/scan-gate-warning-disposition.yaml"
           owner: "security-review"
           requiredEvidence:
             - "local scan receipt"
@@ -926,7 +934,8 @@ spec:
           unblockRule: "supported only when warnings are accepted, fixed, or variant-blocking"
         -
           name: "storage backup restore and rollback policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/grafana-loki/storage-backup-restore-and-rollback-policy.yaml"
           owner: "operate-review"
           requiredEvidence:
             - "PVC/storage class assumptions"

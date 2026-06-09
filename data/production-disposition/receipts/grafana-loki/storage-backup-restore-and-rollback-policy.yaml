@@ -1,0 +1,54 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: grafana-loki-storage-backup-restore-and-rollback-policy
+spec:
+  chart: grafana/loki
+  version: "7.0.0"
+  disposition: storage backup restore and rollback policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Loki's default chart cannot render until storage bucket and schema values
+    are supplied. The supported bases make storage explicit:
+    single-binary-filesystem uses filesystem storage and one Loki StatefulSet
+    for the simple proof path, while simple-scalable-minio uses S3-compatible
+    storage with a chart-owned MinIO fixture. This disposition accepts those
+    storage choices as production review input, not as a final production
+    retention, backup, restore, or rollback policy.
+  evidence:
+    - path: recipes/grafana/loki/7.0.0/default-render-blocker.yaml
+      claim: The default Helm render is blocked until storage bucket and schema values are selected.
+    - path: recipes/grafana/loki/7.0.0/value-model.yaml
+      claim: The value model records schemaConfig, filesystem storage, S3 bucket names, MinIO dependency enablement, and dependency locks explicitly.
+    - path: recipes/grafana/loki/7.0.0/effective-values.yaml
+      claim: The single-binary-filesystem base binds SingleBinary topology, filesystem storage, replication factor, and schema epoch.
+    - path: recipes/grafana/loki/7.0.0/effective-values-simple-scalable-minio.yaml
+      claim: The simple-scalable-minio base binds S3-compatible storage, bucket names, MinIO endpoint, and the chart-owned MinIO fixture.
+    - path: recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/object-inventory.yaml
+      claim: The single-binary-filesystem inventory records Loki, chunks-cache, and results-cache StatefulSets.
+    - path: recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/rendered/object-inventory.yaml
+      claim: The simple-scalable-minio inventory records Loki backend/write/cache StatefulSets and the MinIO StatefulSet and Secret.
+    - path: recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/receipts/scan-receipt.yaml
+      claim: The single-binary-filesystem scan records storage config and StatefulSet review findings.
+    - path: recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/receipts/scan-receipt.yaml
+      claim: The simple-scalable-minio scan records object-store, MinIO Secret ownership, and StatefulSet review findings.
+    - path: runs/live-helm-confighub-compare/grafana-loki-single-binary-filesystem/receipt.yaml
+      claim: The simple base has passing regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo live parity.
+    - path: runs/live-kind-parity/grafana-loki-simple-scalable-minio/receipt.yaml
+      claim: The MinIO scalable base has semantic parity but runtime remains target-resource sensitive in small kind.
+  affectedVariants:
+    - single-binary-filesystem
+    - simple-scalable-minio
+  acceptedPolicy:
+    singleBinaryFilesystem: Accepted as the first local-test and production-review path; production retention and backup remain target decisions.
+    simpleScalableMinio: Accepted as a local object-store fixture and review input; production should normally choose a real object-store target and credential policy.
+    rollback: Storage rollback cannot be inferred from render parity and must be recorded as an operating procedure for the selected storage backend.
+  variantCaveats:
+    - "simple-scalable-minio is not the easiest production path; its current live parity row is runtime-blocked/watch because replicas exceed the small kind target capacity."
+    - "MinIO Secret material is test fixture material; production object-store credentials should be target facts or a managed secret reference."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should select the Loki storage backend, retention period, backup/restore method, rollback procedure, and target runtime capacity.
