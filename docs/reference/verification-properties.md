@@ -30,8 +30,9 @@ For a catalog chart that passes a full test run, you can expect:
    content-addressed (digest); the controller pulls and reconciles it, so drift
    self-heals. No plaintext secret ever sits in the artifact.
 
-4. **Your chosen namespace is honored.** `cub installer --namespace X` puts the
-   workload in `X` (via the `set-namespace` transformer in the package).
+4. **Your chosen namespace is honored.** `cub installer setup --namespace X`
+   puts the workload in `X` (via the `set-namespace` transformer in the
+   package).
    *Limitation (F1b):* complex charts with a namespace embedded in spec fields
    (RBAC `subjects`, webhook `clientConfig`) are not yet fully re-namespaced —
    install those in their canonical namespace for now.

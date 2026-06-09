@@ -7,7 +7,7 @@ blocker for any affected path.
 
 ---
 
-## F1 — `cub installer --namespace X` silently splits the install (HIGH)
+## F1 — `cub installer setup --namespace X` silently splits the install (HIGH)
 
 **Severity:** HIGH — silent wrong result; worse than vanilla Helm. Must fix
 before newcomers touch the catalog.
