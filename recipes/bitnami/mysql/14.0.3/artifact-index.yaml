@@ -66,7 +66,7 @@ spec:
     path: "packages/bitnami/mysql/14.0.3"
     installer: "packages/bitnami/mysql/14.0.3/installer.yaml"
     receipt: "recipes/bitnami/mysql/14.0.3/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "8f1244d73c4c6ad3fb20e0e28fc2372a815ce858e6d70208357fbd5747fd154d"
+    deterministicBundleSHA256: "1acdf2ccae6aa722ffd25280d732334d80de499f7eb1344668e83f01f574da4e"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

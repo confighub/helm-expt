@@ -18,8 +18,8 @@ spec:
   notes:
     - "Chart.yaml marks this chart version deprecated, and the proof records that status."
     - "local-persistent uses local Tempo storage and explicit PVC settings."
-    - "s3-query-observability switches to S3 storage, nulls local storage to avoid Helm merge residue, and references S3 credentials from a target Secret."
-    - "s3-query-observability adds Tempo Query ingress, NetworkPolicy, and ServiceMonitor behind explicit capability and policy checks."
+    - "s3-query-observability switches to S3 storage, nulls local storage to avoid Helm merge residue, and references S3 credentials from a target Secret; live readiness still requires a reachable object-store endpoint and bucket."
+    - "s3-query-observability adds Tempo Query ingress, NetworkPolicy, and ServiceMonitor behind explicit capability and policy checks; the ServiceMonitor CRD is recorded as a target fact."
     - "The chart StatefulSet references serviceName tempo-headless, but these variants render no headless Service; the proof records this as an upstream/runtime risk."
     - "config, structuredConfig, extra volumes/mounts, and tpl-controlled strings are powerful extension surfaces; promoted variants keep them controlled."
   painPoints:
@@ -69,6 +69,15 @@ spec:
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "variant-controlled"
     -
+      id: "object-store-runtime-prerequisite"
+      detectedPainPoint: "The S3 variant needs a reachable S3-compatible endpoint and bucket before Tempo becomes ready; dummy credentials alone are not a live proof."
+      evidence:
+        - "tempo.storage.trace.s3"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/local-persistent/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "runtime-watch"
+    -
       id: "capability-profile-2"
       detectedPainPoint: "The ServiceMonitor variant records the Prometheus Operator API as an explicit target capability."
       evidence:
@@ -77,6 +86,15 @@ spec:
       disposition: "handled-by-capability-profile"
       linkedReceipt: "revisions/local-persistent/r001/receipts/render-receipt.yaml"
       supportedVariantStatus: "variant-controlled"
+    -
+      id: "servicemonitor-crd-target-fact"
+      detectedPainPoint: "The Tempo chart renders a ServiceMonitor when the API is declared, but the Prometheus Operator CRD must already exist in the target cluster."
+      evidence:
+        - "apiextensions.k8s.io/v1|CustomResourceDefinition||servicemonitors.monitoring.coreos.com"
+      configHubHome: "target-fact-requirement"
+      disposition: "handled-by-target-fact-values"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "target-fact"
     -
       id: "stateful-workload"
       detectedPainPoint: "stateful-workload affects apps/v1|StatefulSet|tempo|tempo"

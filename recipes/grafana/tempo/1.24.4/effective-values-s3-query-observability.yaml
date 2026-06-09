@@ -7,7 +7,7 @@ spec:
     -
       path: "effective-values-s3-query-observability.yaml"
       source: "inline-proof"
-      sha256: "9401362b717c30904b5bb9de7396951b98404968b8783a9f10adca98cd71b317"
+      sha256: "415fac9b10e0daaa22557eed344f33705577a61bd29f788246e29fc51270486e"
   mergedValuesCaptured: false
   values:
     networkPolicy:
@@ -19,7 +19,7 @@ spec:
         {}
       enabled: true
       size: "10Gi"
-      storageClassName: "local-path"
+      storageClassName: "standard"
     service:
       targetPort: 3200
     serviceMonitor:

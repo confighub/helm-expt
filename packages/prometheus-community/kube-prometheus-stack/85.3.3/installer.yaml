@@ -6,8 +6,6 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "kube-prometheus-stack default with Grafana password bound variant rendered from prometheus-community/kube-prometheus-stack@85.3.3"
       externalRequires:
@@ -16,9 +14,9 @@ spec:
           name: "Secret monitoring/kube-prometheus-stack-admission keys cert,key"
           namespace: "monitoring"
           suggestedSource: "kubectl -n monitoring create secret generic kube-prometheus-stack-admission --from-literal=cert=<value> --from-literal=key=<value>"
+      name: "default"
+      path: "bases/default"
     -
-      name: "no-crds"
-      path: "bases/no-crds"
       description: "kube-prometheus-stack CRDs disabled variant rendered from prometheus-community/kube-prometheus-stack@85.3.3"
       externalRequires:
         -
@@ -66,6 +64,8 @@ spec:
           kind: "ClusterFeature"
           name: "CRD thanosrulers.monitoring.coreos.com"
           suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+      name: "no-crds"
+      path: "bases/no-crds"
   collector:
     command: "/bin/sh"
     args:

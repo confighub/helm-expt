@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/grafana/grafana/10.5.15 -o <tmp>/grafana-10.5.15.tgz"
-    sha256: "bbf658cc190c376cb7aa41140eb419490f5d005b4c76018db926f9836f4395fc"
+    sha256: "0c001f4bda0567b538fa6ab24951292c9b41a2209e9be728eb257b3df3efe59c"
   package:
     name: "grafana-grafana"
     path: "packages/grafana/grafana/10.5.15"
@@ -37,8 +37,8 @@ spec:
         bytes: 7240
       -
         path: "collector/target-facts.sh"
-        sha256: "6fbba697862283e74a941b79a7b60e823f8792bb5bbe3953a4e809b369f495b6"
-        bytes: 1424
+        sha256: "f86d5a170949b8e783e1f1af68929cea68662d7d7ef462604cf799d4996af32f"
+        bytes: 1745
       -
         path: "installer.yaml"
         sha256: "8dad591d47a0110a64731173dd79500e1c47235ad85e84575f408c772120d181"

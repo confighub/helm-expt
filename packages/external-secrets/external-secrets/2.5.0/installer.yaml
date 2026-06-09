@@ -6,13 +6,11 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "external-secrets default variant rendered from external-secrets/external-secrets@2.5.0"
+      name: "default"
+      path: "bases/default"
     -
-      name: "no-crds"
-      path: "bases/no-crds"
       description: "external-secrets CRDs disabled variant rendered from external-secrets/external-secrets@2.5.0"
       externalRequires:
         -
@@ -107,6 +105,8 @@ spec:
           kind: "ClusterFeature"
           name: "CRD webhooks.generators.external-secrets.io"
           suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+      name: "no-crds"
+      path: "bases/no-crds"
   collector:
     command: "/bin/sh"
     args:
@@ -114,46 +114,46 @@ spec:
     description: "Records target-fact bindings and can live-check existing Secret requirements."
   transformers:
     -
-      toolchain: "Kubernetes/YAML"
-      whereResource: ""
       description: "Set the namespace on every namespaced resource."
       invocations:
         -
-          name: "set-namespace"
           args:
             - "{{ .Namespace }}"
-    -
+          name: "set-namespace"
       toolchain: "Kubernetes/YAML"
-      whereResource: "ConfigHub.ResourceType IN ('rbac.authorization.k8s.io/v1/ClusterRoleBinding', 'rbac.authorization.k8s.io/v1/RoleBinding')"
+      whereResource: ""
+    -
       description: "Keep RBAC subject namespaces aligned with the selected install namespace."
       invocations:
         -
-          name: "yq-i"
           args:
             - ".subjects[]?.namespace = \"{{ .Namespace }}\""
-    -
+          name: "yq-i"
       toolchain: "Kubernetes/YAML"
-      whereResource: "ConfigHub.ResourceType = 'apps/v1/Deployment'"
+      whereResource: "ConfigHub.ResourceType IN ('rbac.authorization.k8s.io/v1/ClusterRoleBinding', 'rbac.authorization.k8s.io/v1/RoleBinding')"
+    -
       description: "Keep external-secrets webhook certificate controller namespace references aligned."
       invocations:
         -
-          name: "yq-i"
           args:
             - "(.spec.template.spec.containers[] | select(.name == \"cert-controller\").args[3]) = \"--service-namespace={{ .Namespace }}\""
-        -
           name: "yq-i"
+        -
           args:
             - "(.spec.template.spec.containers[] | select(.name == \"cert-controller\").args[5]) = \"--secret-namespace={{ .Namespace }}\""
-        -
           name: "yq-i"
+        -
           args:
             - "(.spec.template.spec.containers[] | select(.name == \"webhook\").args[2]) = \"--dns-name=external-secrets-webhook.{{ .Namespace }}.svc\""
-    -
+          name: "yq-i"
       toolchain: "Kubernetes/YAML"
-      whereResource: "ConfigHub.ResourceType = 'admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration'"
+      whereResource: "ConfigHub.ResourceType = 'apps/v1/Deployment'"
+    -
       description: "Keep admission webhook service references aligned with the selected install namespace."
       invocations:
         -
-          name: "yq-i"
           args:
             - ".webhooks[].clientConfig.service.namespace = \"{{ .Namespace }}\""
+          name: "yq-i"
+      toolchain: "Kubernetes/YAML"
+      whereResource: "ConfigHub.ResourceType = 'admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration'"

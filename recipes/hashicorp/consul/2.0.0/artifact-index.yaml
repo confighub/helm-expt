@@ -69,7 +69,7 @@ spec:
     path: "packages/hashicorp/consul/2.0.0"
     installer: "packages/hashicorp/consul/2.0.0/installer.yaml"
     receipt: "recipes/hashicorp/consul/2.0.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "6627bd63382f078cf0ee46ed9cca82cec749439dcd6ccbc36849f5b586601b3f"
+    deterministicBundleSHA256: "c6856c3365bce61288c432b7103d081e32411e7411acef1103f7b9212f54ff9b"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

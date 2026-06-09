@@ -4,7 +4,7 @@ metadata:
   name: "tempo-s3-query-observability-r001"
 spec:
   variantRevision: "../variant-revision.yaml"
-  renderedObjectSetSHA256: "6fb9e1726fb68d7e7e251420e9c5761e078cd38f508fa87af7759e0b302017a4"
+  renderedObjectSetSHA256: "e647ad22435c55910e4c77470263e05daf026af43b59bde1f0ae7db754d3d5ad"
   result: "warn"
   scanner:
     name: "helm-expt-local-rendered-object-scan"

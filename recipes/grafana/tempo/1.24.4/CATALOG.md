@@ -19,7 +19,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Production readiness | production-review-ready |
 | Supported variants | local-persistent, s3-query-observability |
 | Candidate variants | none |
-| Control points | capability-profile, chart-deprecation, dependency-lock, extension-slots, installer-support-object, network-policy, query-ingress-policy, servicemonitor-capability, source-lock, stateful-workload, target-facts, upstream-runtime-risk |
+| Control points | capability-profile, chart-deprecation, dependency-lock, extension-slots, installer-support-object, network-policy, object-store-runtime-prerequisite, query-ingress-policy, servicemonitor-capability, servicemonitor-crd-target-fact, source-lock, stateful-workload, target-facts, upstream-runtime-risk |
 
 ## Feature And Proof Summary
 
@@ -59,7 +59,7 @@ for exact base-variant evidence.
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | local-persistent | [recipes/grafana/tempo/1.24.4/variants/local-persistent/variant.yaml](variants/local-persistent/variant.yaml) | [packages/grafana/tempo/1.24.4/bases/local-persistent](../../../../packages/grafana/tempo/1.24.4/bases/local-persistent) | [recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/variant-revision.yaml](revisions/local-persistent/r001/variant-revision.yaml) | 4 | 5 | 4/4 | pass | warn | warn | none |
-| s3-query-observability | [recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml](variants/s3-query-observability/variant.yaml) | [packages/grafana/tempo/1.24.4/bases/s3-query-observability](../../../../packages/grafana/tempo/1.24.4/bases/s3-query-observability) | [recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml](revisions/s3-query-observability/r001/variant-revision.yaml) | 8 | 9 | 8/8 | pass | warn | warn | required Secret tempo/tempo-s3-credentials keys access_key,secret_key |
+| s3-query-observability | [recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml](variants/s3-query-observability/variant.yaml) | [packages/grafana/tempo/1.24.4/bases/s3-query-observability](../../../../packages/grafana/tempo/1.24.4/bases/s3-query-observability) | [recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml](revisions/s3-query-observability/r001/variant-revision.yaml) | 8 | 9 | 8/8 | pass | warn | warn | required Secret tempo/tempo-s3-credentials keys access_key,secret_key; required CRD servicemonitors.monitoring.coreos.com |
 
 ## Package Bases
 

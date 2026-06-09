@@ -70,7 +70,7 @@ spec:
     path: "packages/bitnami/mongodb/19.0.7"
     installer: "packages/bitnami/mongodb/19.0.7/installer.yaml"
     receipt: "recipes/bitnami/mongodb/19.0.7/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "d030648a0e9a116280c5f8066d7b1e731f0a16d626878e347b5878bde29d39a1"
+    deterministicBundleSHA256: "a18582852d08a04121b01a7ebe48e83ace24e430f25a1e29f593ce9e6c1fcc34"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

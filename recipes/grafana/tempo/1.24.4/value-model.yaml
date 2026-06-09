@@ -8,7 +8,7 @@ spec:
       path: "persistence.enabled / persistence.storageClassName / persistence.size"
       variant: "local-persistent"
       disposition: "storage-profile-bound"
-      reason: "local single-binary storage is captured explicitly as a deterministic install variant"
+      reason: "local single-binary storage and the kind-compatible StorageClass are captured explicitly as a deterministic install variant"
     -
       path: "tempo.storage.trace.backend / tempo.storage.trace.local / tempo.storage.trace.wal"
       variant: "local-persistent"
@@ -18,7 +18,7 @@ spec:
       path: "tempo.storage.trace.s3 / tempo.extraEnv"
       variant: "s3-query-observability"
       disposition: "target-fact-bound"
-      reason: "S3 credentials are referenced from a declared target Secret instead of embedded in rendered ConfigMaps"
+      reason: "S3 credentials are referenced from a declared target Secret; live readiness also requires the referenced object-store endpoint and bucket to exist"
     -
       path: "tempo.storage.trace.local"
       variant: "s3-query-observability"
