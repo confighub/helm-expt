@@ -197,6 +197,7 @@
     "production:disposition:details": "node scripts/generate-production-disposition-details.mjs --generate",
     "production:disposition:details:verify": "node scripts/generate-production-disposition-details.mjs --verify",
     "production:support-decisions": "node scripts/generate-production-support-decisions.mjs --generate",
+    "production:support-decisions:scaffold": "node scripts/generate-production-support-decisions.mjs --scaffold",
     "production:support-decisions:verify": "node scripts/generate-production-support-decisions.mjs --verify",
     "external-scan": "node scripts/run-external-scan-lane.mjs --generate",
     "external-scan:verify": "node scripts/run-external-scan-lane.mjs --verify",

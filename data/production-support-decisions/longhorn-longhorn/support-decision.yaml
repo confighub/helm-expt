@@ -1,0 +1,70 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionSupportDecision
+metadata:
+  name: "longhorn-longhorn-default-public-oci-draft"
+spec:
+  chart: "longhorn/longhorn"
+  version: "1.11.2"
+  decision: draft
+  decisionDate: "2026-06-09"
+  supportedBase: "default"
+  targetScope:
+    clusterClass: vanilla-kubernetes
+    namespace: "longhorn"
+    deliveryPath: confighub-oci
+    gitopsController: argo-or-flux
+    storageAssumptions:
+      - "Use the chart's recorded storage behavior for the candidate base unless this draft is narrowed before final support."
+    networkAssumptions:
+      - "Use the service, ingress, DNS, and certificate behavior recorded by the candidate base unless this draft is narrowed before final support."
+    requiredTargetFacts: []
+  supportBoundary:
+    includes:
+      - "longhorn/longhorn@1.11.2 default base"
+      - ConfigHub OCI delivery for the declared target scope after fresh target evidence is recorded
+      - rendered objects, labels, gates, receipts, and support objects produced by the recorded base
+    excludes:
+      - "private values overlays, wrapper charts, and populated extension slots unless separately reviewed"
+      - "non-vanilla Kubernetes distributions unless separately reviewed"
+      - "other delivery controllers or target scopes unless separately reviewed"
+  decisions:
+    imageDecision:
+      state: "needs-image-digest-resolution-or-exception"
+      detail: "resolve image digests or record explicit exception before production OCI support"
+    scanDecision:
+      state: "needs-security-acceptance-or-hardened-base"
+      detail: "record security acceptance or create hardened base"
+    lifecycleDecision:
+      state: "no-chart-hooks"
+      detail: "record lifecycle support boundary: recipe-hook-policy:no-hooks"
+    targetFactDecision:
+      state: "no-unresolved-target-prerequisite-in-candidate-base"
+      detail: "no unresolved target prerequisite in candidate base"
+    liveEvidenceDecision:
+      state: "needs-fresh-target-evidence-before-final"
+      detail: "refresh target-scoped live/e2e evidence before support claim"
+  evidence:
+    - path: "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+      claim: "The candidate base is Helm-equivalent under recorded inputs."
+    - path: "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/receipts/scan-receipt.yaml"
+      claim: "The rendered-object scan receipt exists for the candidate base."
+    - path: "runs/live-kind-parity/longhorn-longhorn-default/receipt.yaml"
+      claim: "The two-cluster Helm-vs-installer parity receipt exists for the candidate base."
+    - path: "runs/live-helm-confighub-compare/longhorn-longhorn-default/receipt.yaml"
+      claim: "The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base."
+    - path: "data/production-disposition/receipts/longhorn-longhorn/cluster-rbac-review.yaml"
+      claim: "The cluster rbac review disposition exists for this chart."
+    - path: "data/production-disposition/receipts/longhorn-longhorn/crd-lifecycle-and-upgrade-policy.yaml"
+      claim: "The crd lifecycle and upgrade policy disposition exists for this chart."
+    - path: "data/production-disposition/receipts/longhorn-longhorn/hook-and-lifecycle-phase-policy.yaml"
+      claim: "The hook and lifecycle phase policy disposition exists for this chart."
+    - path: "data/production-disposition/receipts/longhorn-longhorn/scan-gate-warning-disposition.yaml"
+      claim: "The scan gate warning disposition disposition exists for this chart."
+    - path: "data/production-disposition/receipts/longhorn-longhorn/webhook-readiness-and-failure-policy.yaml"
+      claim: "The webhook readiness and failure policy disposition exists for this chart."
+  requiredBeforeFinal:
+    - "Choose the final target scope, exact GitOps controller, namespace, and artifact digest."
+    - "Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope."
+    - "resolve image digests or record explicit exception before production OCI support"
+    - "record security acceptance or create hardened base"
+  nextAction: "choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support"
