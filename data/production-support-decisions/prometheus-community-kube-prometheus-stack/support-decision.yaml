@@ -43,8 +43,8 @@ spec:
       state: "security-accepted-for-target-scope"
       detail: "scan findings are accepted for the declared public monitoring support draft; stricter environments may still require a hardened base"
     lifecycleDecision:
-      state: "route-selected-observation-needed"
-      detail: "the hook lifecycle route is selected; final support still needs execution or observation receipt for webhook TLS/readiness, cleanup, ordering, and upgrade behavior"
+      state: "lifecycle-observed-for-proof-scope"
+      detail: "the selected hook/lifecycle route has proof-scope observation evidence for webhook TLS prerequisites, CRD bootstrap, workload rollout, and ConfigHub OCI/Argo runtime health; upgrade and final target evidence remain scoped separately"
     targetFactDecision:
       state: "no-unresolved-target-prerequisite-in-candidate-base"
       detail: "the candidate base declares monitoring/kube-prometheus-stack-admission cert and key as target facts; final support must stage or observe them in the target scope"
@@ -66,6 +66,8 @@ spec:
       claim: "The target-scoped image policy decision accepts mutable rendered tags for this public monitoring support draft with explicit limits."
     - path: "data/production-support-decisions/prometheus-community-kube-prometheus-stack/security-decision.yaml"
       claim: "The target-scoped production security decision accepts the recorded scan findings for this public monitoring support draft."
+    - path: "data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml"
+      claim: "The target-scoped lifecycle decision binds the selected hook route to proof-scope observation evidence."
     - path: "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/cluster-rbac-review.yaml"
       claim: "The cluster rbac review disposition exists for this chart."
     - path: "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml"
@@ -81,9 +83,8 @@ spec:
     - path: "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml"
       claim: "The webhook readiness and failure policy disposition exists for this chart."
     - path: "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
-      claim: "The hook lifecycle route is selected; execution or observation is still pending."
+      claim: "The hook lifecycle route is selected; the lifecycle decision binds it to proof-scope observation evidence."
   requiredBeforeFinal:
     - "Choose the final target scope, exact GitOps controller, namespace, and artifact digest."
-    - "Execute or observe the selected hook lifecycle route, including webhook TLS/readiness, cleanup, ordering, and upgrade behavior."
-    - "Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope after the lifecycle decision is closed."
-  nextAction: "treat kube-prometheus-stack as the serious-chart proof: execute or observe lifecycle behavior next, then refresh scoped ConfigHub OCI/GitOps evidence for the monitoring namespace"
+    - "Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope."
+  nextAction: "treat kube-prometheus-stack as the serious-chart proof: choose the exact supported target scope and refresh scoped ConfigHub OCI/GitOps evidence for the monitoring namespace"

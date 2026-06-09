@@ -19,21 +19,18 @@ support decision. It does not replace the source decision artifact:
 
 | Work | Action |
 | --- | --- |
-| Lifecycle | Record the lifecycle boundary, or execute and observe the selected hook/lifecycle route. |
 | Fresh evidence | Refresh ConfigHub OCI/GitOps and live/e2e evidence after earlier decisions are closed. |
 
 
 ## Closeout Sequence
 
 1. Choose the final target scope, GitOps controller, namespace, and artifact digest.
-2. Execute or observe the selected lifecycle route and bind the receipt to this target scope.
-3. Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence after the earlier decisions are closed.
+2. Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence after the earlier decisions are closed.
 
 ## Required Before Final Support
 
 - Choose the final target scope, exact GitOps controller, namespace, and artifact digest.
-- Execute or observe the selected hook lifecycle route, including webhook TLS/readiness, cleanup, ordering, and upgrade behavior.
-- Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope after the lifecycle decision is closed.
+- Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope.
 
 ## Support Boundary
 
@@ -59,6 +56,7 @@ Excluded:
 - [data/image-digest-workdown/receipts/prometheus-community-kube-prometheus-stack/default/image-digest-resolution.yaml](../../../data/image-digest-workdown/receipts/prometheus-community-kube-prometheus-stack/default/image-digest-resolution.yaml) - The rendered mutable image references for the candidate base have registry digest-resolution evidence.
 - [data/production-support-decisions/prometheus-community-kube-prometheus-stack/image-policy-decision.yaml](../../../data/production-support-decisions/prometheus-community-kube-prometheus-stack/image-policy-decision.yaml) - The target-scoped image policy decision accepts mutable rendered tags for this public monitoring support draft with explicit limits.
 - [data/production-support-decisions/prometheus-community-kube-prometheus-stack/security-decision.yaml](../../../data/production-support-decisions/prometheus-community-kube-prometheus-stack/security-decision.yaml) - The target-scoped production security decision accepts the recorded scan findings for this public monitoring support draft.
+- [data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml](../../../data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml) - The target-scoped lifecycle decision binds the selected hook route to proof-scope observation evidence.
 - [data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/cluster-rbac-review.yaml](../../../data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/cluster-rbac-review.yaml) - The cluster rbac review disposition exists for this chart.
 - [data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml](../../../data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml) - The crd lifecycle and upgrade policy disposition exists for this chart.
 - [data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/extension-slot-provenance-and-scan-policy.yaml](../../../data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/extension-slot-provenance-and-scan-policy.yaml) - The extension slot provenance and scan policy disposition exists for this chart.
@@ -66,11 +64,11 @@ Excluded:
 - [data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/scan-gate-warning-disposition.yaml](../../../data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/scan-gate-warning-disposition.yaml) - The scan gate warning disposition disposition exists for this chart.
 - [data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/target-fact-preflight.yaml](../../../data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/target-fact-preflight.yaml) - The target fact preflight disposition exists for this chart.
 - [data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml](../../../data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml) - The webhook readiness and failure policy disposition exists for this chart.
-- [data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml](../../../data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml) - The hook lifecycle route is selected; execution or observation is still pending.
+- [data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml](../../../data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml) - The hook lifecycle route is selected; the lifecycle decision binds it to proof-scope observation evidence.
 
 ## Next Action
 
-treat kube-prometheus-stack as the serious-chart proof: execute or observe lifecycle behavior next, then refresh scoped ConfigHub OCI/GitOps evidence for the monitoring namespace
+treat kube-prometheus-stack as the serious-chart proof: choose the exact supported target scope and refresh scoped ConfigHub OCI/GitOps evidence for the monitoring namespace
 
 Regenerate:
 

@@ -1,0 +1,129 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionLifecycleDecision"
+metadata:
+  name: "prometheus-community-kube-prometheus-stack-public-oci-lifecycle-decision"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "85.3.3"
+  targetScope:
+    clusterClass: "vanilla-kubernetes"
+    namespace: "monitoring"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo-or-flux"
+  supportedBaseCandidate: "default"
+  variantsCovered:
+    - "default"
+  decision: "lifecycle-observed-for-proof-scope"
+  decidedAt: "2026-06-09"
+  claim: "The selected KPS hook/lifecycle route has observed evidence for the public monitoring proof scope: webhook TLS prerequisite staging, CRD bootstrap and Established checks, operator and workload rollout, and ConfigHub OCI/Argo runtime health. This closes the lifecycle decision for the current proof scope, but not for every production target or upgrade path."
+  route:
+    result: "route-selected"
+    summary: "Admission webhook patch hooks are handled as explicit lifecycle work, not as hidden render parity."
+    phases:
+      -
+        action: "preflight-or-presync"
+        hookTypes:
+          - "pre-install"
+          - "pre-upgrade"
+        reason: "The hook creates webhook patch prerequisites before admission configuration is safe to use."
+      -
+        action: "postsync-readiness-observation"
+        hookTypes:
+          - "post-install"
+          - "post-upgrade"
+        reason: "Webhook TLS and readiness must be observed after apply."
+      -
+        action: "upgrade-action-with-receipt"
+        hookTypes:
+          - "pre-upgrade"
+          - "post-upgrade"
+        reason: "Upgrade behavior must be recorded separately from initial render parity."
+  observedLifecycleSignals:
+    localKindObservation:
+      result: "pass"
+      observedAt: "2026-06-09T13:09:35.333Z"
+      targetNamespace: "monitoring"
+      supportSecret:
+        name: "support-secret-kube-prometheus-stack-admission"
+        result: "pass"
+        reason: "Prometheus Operator admission webhook TLS Secret is normally created by Helm hook lifecycle"
+        evidencePath: "support-secret-kube-prometheus-stack-admission.txt"
+        evidenceSHA256: "4aab199e36643fe2f2e102060a794bc7a17368dd8de344587f3bbc300de625a3"
+      crdBootstrap:
+        name: "crd-bootstrap-apply"
+        result: "pass"
+        count: 10
+        evidencePath: "crd-bootstrap-apply.txt"
+        evidenceSHA256: "b216176e6b6297f328533407f27ed249c1405b2375605f9338de3b6c3ac9ed9b"
+      crdsEstablished: 10
+      rolloutChecks: 6
+      cubScoutPrerequisites:
+        name: "cub-scout-prerequisites-met"
+        result: "pass"
+        verdict: "PASS"
+        exitCode: 0
+        evidencePath: "cub-scout.prerequisites.receipt.json"
+        evidenceSHA256: "a98a55bad8400f0ae41e473acc4239c89908d790e19e84154d24b9273fa89703"
+        stderrPath: "cub-scout.prerequisites.stderr.txt"
+        stderrSHA256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      cubScoutWorkloads:
+        name: "cub-scout-workloads-converged"
+        result: "pass"
+        verdict: "PASS"
+        exitCode: 0
+        evidencePath: "cub-scout.workloads.receipt.json"
+        evidenceSHA256: "55e3ee941f1658cba8576c7b290e33c7736b6257aec735357ae06dcfd9a117ad"
+        stderrPath: "cub-scout.workloads.stderr.txt"
+        stderrSHA256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      closedWorld:
+        name: "cub-scout-closed-world-object-set"
+        result: "watch"
+        verdict: "WATCH"
+        exitCode: 2
+        evidencePath: "cub-scout.closed-world.receipt.json"
+        evidenceSHA256: "c2cdd18a2c3cad9da6686ec8fc3d054807bb8a576215e86a87534c949abc8a4d"
+        stderrPath: "cub-scout.closed-world.stderr.txt"
+        stderrSHA256: "2d5612bf3580660df88b77f34676a9461a09b7682dcbfe827f0c458023f643e5"
+    twoClusterParity:
+      result: "pass"
+      observedAt: "2026-06-09T07:30:29Z"
+      regularHelmRuntime: "pass"
+      installerRuntime: "pass"
+      semanticParity: "pass"
+    confighubOciArgo:
+      result: "pass"
+      observedAt: "2026-06-09T09:59:35Z"
+      regularHelmRuntime: "pass"
+      confighubApplyRuntime: "pass"
+      confighubOciRuntime: "pass"
+      argoSync: "Synced"
+      argoHealth: "Healthy"
+      semanticParity: "pass"
+  limits:
+    - "This decision does not execute Helm hooks directly; it records the ConfigHub lifecycle route and observed target outcome."
+    - "The local observation is proof-scope evidence, not a reusable production target receipt."
+    - "Closed-world object-set checking remains WATCH because extra runtime objects can appear after apply."
+    - "Upgrade lifecycle, cleanup behavior, and future chart versions still need their own receipts before support expansion."
+    - "Final support still needs the exact target scope, artifact digest, and fresh ConfigHub OCI/GitOps/live evidence for that scope."
+  evidence:
+    -
+      path: "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+      claim: "Records the selected KPS hook lifecycle route."
+    -
+      path: "runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json"
+      claim: "Records webhook TLS prerequisite staging, CRD bootstrap/Established checks, workload rollout, and cub-scout checks."
+    -
+      path: "runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
+      claim: "Records two-cluster Helm-vs-installer runtime and semantic parity for the default base."
+    -
+      path: "runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
+      claim: "Records regular Helm, ConfigHub apply, and ConfigHub OCI/Argo runtime and semantic parity."
+    -
+      path: "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml"
+      claim: "Records webhook readiness and failure policy as production-review input."
+    -
+      path: "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml"
+      claim: "Records CRD ownership and upgrade policy as production-review input."
+  remainingSupportBlockers:
+    - "Choose the final target scope, exact GitOps controller, namespace, and artifact digest."
+    - "Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope."
