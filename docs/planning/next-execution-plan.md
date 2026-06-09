@@ -82,6 +82,26 @@ The next step is to turn those artifacts into product-grade confidence. This is
 not a request for more broad verifier output. It is a request to close the
 important chart and workflow residues that users will feel.
 
+The maturity target is:
+
+| Level | Meaning | Main work |
+| --- | --- | --- |
+| 90% | The proof corpus is credible. Public charts have recipes, base variants, render parity, receipts, pain reports, and generated status. | Keep the corpus honest and current. |
+| 95% | The public offering is obvious. A Helm user can see why the model is better, choose a chart/base, understand the proof boundary, and see what remains before production. | Close the serious-chart and high-fanout examples, production-support queues, lifecycle residues, and first-run docs. |
+| 99% | The product is a managed desired-state system. ConfigHub stores the graph of variants, approvals, operations, receipts, target assignments, and freshness across many clusters and teams. | Product implementation across ConfigHub Server, `cub installer`, `cub variant`, GitOps, and cub-scout. |
+
+The shift from 90% to 95% should not be measured by how many more charts have
+static parity. It should be measured by whether a skeptical Helm user can see a
+hard chart, a real variant operation, and a production-support queue and say:
+
+```text
+I know what this installs.
+I know how it differs from Helm.
+I know what changed across variants.
+I know what is safe today.
+I know what still needs a decision.
+```
+
 | Priority | Work | Why it matters | Evidence to update |
 | --- | --- | --- | --- |
 | 1 | Close top-20 production-support work items. | The catalog is useful only when a user can see which bases are supported for a target scope and what remains before production use. | `data/production-support-decisions/work-items.csv`, per-chart `catalog-status.yaml`, target-scoped receipts. |
@@ -95,6 +115,29 @@ that graph by producing chart, variant, provenance, quirk, and receipt data that
 is independently checkable. ConfigHub Server then adds authority, query,
 history, approvals, target assignment, and freshness across many variants and
 clusters.
+
+The main 95% demonstration should use kube-prometheus-stack, not because it is
+easy, but because it is hard in the ways Helm users recognize: CRDs, webhooks,
+cluster RBAC, generated facts, extension slots, lifecycle behavior, and a large
+object surface. Redis remains the teaching path. NGINX remains the simple
+web/live path. kube-prometheus-stack is the chart that proves the model is not
+only a happy-path wrapper.
+
+The first high-fanout operation should show a shared change before it is
+shipped:
+
+```text
+selected base or shared input
+-> affected variants and fields
+-> protected overrides
+-> object-level deltas
+-> scans/gates
+-> delivery or observation receipts where available
+```
+
+This is the practical answer to Helm's fanout x density x blast-radius problem.
+It is more valuable than another broad parity count because it shows a user how
+ConfigHub makes a risky fleet change reviewable before it reaches a cluster.
 
 Important boundary:
 
