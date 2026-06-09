@@ -1,0 +1,69 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionLifecycleDecision"
+metadata:
+  name: "grafana-loki-public-oci-lifecycle-decision"
+spec:
+  chart: "grafana/loki"
+  version: "7.0.0"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "loki"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "single-binary-filesystem"
+  variantsCovered:
+    - "single-binary-filesystem"
+    - "simple-scalable-minio"
+  decision: "lifecycle-observed-for-proof-scope"
+  decidedAt: "2026-06-09"
+  claim: "The Loki single-binary-filesystem base is managed as reviewed desired Kubernetes objects with Helm hooks and tests excluded. Regular Helm, cub installer apply, and ConfigHub OCI/Argo all reach runtime readiness for the supported proof scope."
+  lifecycleModel:
+    hookPolicy: "no-hooks-or-tests-in-promoted-render"
+    selectedTopology: "single-binary-filesystem"
+    observedWorkloads:
+      - "loki"
+      - "loki-gateway"
+      - "loki-chunks-cache"
+      - "loki-results-cache"
+      - "loki-canary"
+    extensionSlots: "loki.config, loki.structuredConfig, extraEnv, extraContainers, and raw extraObjects must become reviewed bases or managed ConfigHub units when populated"
+    storagePolicy: "filesystem storage is accepted for the public proof scope; production retention, backup, restore, and rollback need a target-specific operating decision"
+  observedLifecycleSignals:
+    twoClusterParity:
+      result: "pass"
+      observedAt: "2026-06-06T13:21:54Z"
+      regularHelmRuntime: "pass"
+      installerRuntime: "pass"
+      semanticParity: "pass"
+    confighubOciArgo:
+      result: "pass"
+      observedAt: "2026-06-08T10:42:12Z"
+      regularHelmRuntime: "pass"
+      confighubApplyRuntime: "pass"
+      confighubOciRuntime: "pass"
+      argoSync: "Synced"
+      argoHealth: "Healthy"
+      semanticParity: "pass"
+  limits:
+    - "This supports the single-binary-filesystem public proof base, not every Loki deployment topology."
+    - "The proof does not preserve arbitrary future Helm hook or test behavior."
+    - "Object-store, MinIO, tenant, retention, backup, restore, and rollback policies require separate reviewed bases or operating receipts."
+    - "Populated raw object, template, and structured config extension slots require their own scan and provenance decision."
+  evidence:
+    -
+      path: "runs/live-kind-parity/grafana-loki-single-binary-filesystem/receipt.yaml"
+      claim: "Two-cluster Helm-vs-installer parity passes for single-binary-filesystem."
+    -
+      path: "runs/live-helm-confighub-compare/grafana-loki-single-binary-filesystem/receipt.yaml"
+      claim: "ConfigHub OCI/Argo live parity passes for single-binary-filesystem."
+    -
+      path: "data/production-disposition/receipts/grafana-loki/hook-and-lifecycle-phase-policy.yaml"
+      claim: "Records the no-hook desired-object lifecycle boundary for Loki."
+    -
+      path: "data/production-disposition/receipts/grafana-loki/storage-backup-restore-and-rollback-policy.yaml"
+      claim: "Records filesystem and object-store storage boundaries for Loki."
+    -
+      path: "data/production-disposition/receipts/grafana-loki/extension-slot-provenance-and-scan-policy.yaml"
+      claim: "Records the Loki extension-slot and config provenance policy."
+  remainingSupportBlockers:
+    - "Record image policy, security acceptance, and fresh target-scoped ConfigHub OCI/GitOps evidence."

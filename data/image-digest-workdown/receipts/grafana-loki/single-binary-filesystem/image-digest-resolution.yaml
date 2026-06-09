@@ -1,0 +1,97 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ImageDigestResolutionReceipt"
+metadata:
+  name: "grafana-loki-single-binary-filesystem-image-digest-resolution"
+spec:
+  chart: "grafana/loki"
+  version: "7.0.0"
+  variant: "single-binary-filesystem"
+  resolvedAt: "2026-06-09T18:14:33.726Z"
+  renderedObjectSet:
+    path: "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/release-objects.yaml"
+    sha256: "6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30"
+  sourceImageReview:
+    path: "data/attack-plan-workdown/image-digest-review.csv"
+    rows: 8
+    uniqueImages: 6
+  resolver:
+    name: "docker-buildx-imagetools"
+    commandTemplate: "docker buildx imagetools inspect <image>"
+  images:
+    -
+      image: "docker.io/grafana/loki-canary:3.6.7"
+      digest: "sha256:0dac7d5cb383adb8d3723676a70ed0c65b582e636846f4ce48703556dd509ad1"
+      digestReference: "docker.io/grafana/loki-canary:3.6.7@sha256:0dac7d5cb383adb8d3723676a70ed0c65b582e636846f4ce48703556dd509ad1"
+      mediaType: "application/vnd.docker.distribution.manifest.list.v2+json"
+      resolverOutput:
+        name: "docker.io/grafana/loki-canary:3.6.7"
+      occurrences:
+        -
+          object: "apps/v1/DaemonSet/loki/loki-canary"
+          fieldPath: "spec.template.spec.containers.0.image"
+    -
+      image: "docker.io/grafana/loki:3.6.7"
+      digest: "sha256:3c8fd3570dd9219951a60d3f919c7f31923d10baee578b77bc26c4a0b32d092d"
+      digestReference: "docker.io/grafana/loki:3.6.7@sha256:3c8fd3570dd9219951a60d3f919c7f31923d10baee578b77bc26c4a0b32d092d"
+      mediaType: "application/vnd.docker.distribution.manifest.list.v2+json"
+      resolverOutput:
+        name: "docker.io/grafana/loki:3.6.7"
+      occurrences:
+        -
+          object: "apps/v1/StatefulSet/loki/loki"
+          fieldPath: "spec.template.spec.containers.0.image"
+    -
+      image: "docker.io/kiwigrid/k8s-sidecar:2.5.0"
+      digest: "sha256:a6b3f707f883108376514489a94d6629109a327b2978e1d826cd104c4ca436df"
+      digestReference: "docker.io/kiwigrid/k8s-sidecar:2.5.0@sha256:a6b3f707f883108376514489a94d6629109a327b2978e1d826cd104c4ca436df"
+      mediaType: "application/vnd.oci.image.index.v1+json"
+      resolverOutput:
+        name: "docker.io/kiwigrid/k8s-sidecar:2.5.0"
+      occurrences:
+        -
+          object: "apps/v1/StatefulSet/loki/loki"
+          fieldPath: "spec.template.spec.containers.1.image"
+    -
+      image: "docker.io/nginxinc/nginx-unprivileged:1.29-alpine"
+      digest: "sha256:0c79d56aee561a1d81c63f00eee5fb5fe29279560cdc55e91425133104c7fbe6"
+      digestReference: "docker.io/nginxinc/nginx-unprivileged:1.29-alpine@sha256:0c79d56aee561a1d81c63f00eee5fb5fe29279560cdc55e91425133104c7fbe6"
+      mediaType: "application/vnd.oci.image.index.v1+json"
+      resolverOutput:
+        name: "docker.io/nginxinc/nginx-unprivileged:1.29-alpine"
+      occurrences:
+        -
+          object: "apps/v1/Deployment/loki/loki-gateway"
+          fieldPath: "spec.template.spec.containers.0.image"
+    -
+      image: "memcached:1.6.39-alpine"
+      digest: "sha256:c8503d4491edd3110cc07d0465089d3a41cf1daf8645e71149e39a51835e92cd"
+      digestReference: "memcached:1.6.39-alpine@sha256:c8503d4491edd3110cc07d0465089d3a41cf1daf8645e71149e39a51835e92cd"
+      mediaType: "application/vnd.oci.image.index.v1+json"
+      resolverOutput:
+        name: "docker.io/library/memcached:1.6.39-alpine"
+      occurrences:
+        -
+          object: "apps/v1/StatefulSet/loki/loki-chunks-cache"
+          fieldPath: "spec.template.spec.containers.0.image"
+        -
+          object: "apps/v1/StatefulSet/loki/loki-results-cache"
+          fieldPath: "spec.template.spec.containers.0.image"
+    -
+      image: "prom/memcached-exporter:v0.15.4"
+      digest: "sha256:b6763ecb3c47f2408e0398518851b7f8c5fc46232b2649f8c78a321130c54266"
+      digestReference: "prom/memcached-exporter:v0.15.4@sha256:b6763ecb3c47f2408e0398518851b7f8c5fc46232b2649f8c78a321130c54266"
+      mediaType: "application/vnd.docker.distribution.manifest.list.v2+json"
+      resolverOutput:
+        name: "docker.io/prom/memcached-exporter:v0.15.4"
+      occurrences:
+        -
+          object: "apps/v1/StatefulSet/loki/loki-chunks-cache"
+          fieldPath: "spec.template.spec.containers.1.image"
+        -
+          object: "apps/v1/StatefulSet/loki/loki-results-cache"
+          fieldPath: "spec.template.spec.containers.1.image"
+  productionSupportUse:
+    status: "digest-resolution-recorded"
+    claim: "The mutable rendered image references for this Loki base were resolved to registry manifest digests at the recorded time."
+    limits: "This receipt does not mean the rendered manifests are digest-pinned and does not by itself make the chart production-supported."
+    nextRequired: "Choose a digest-pinned base, image override policy, or explicit mutable-image exception before broader production support."

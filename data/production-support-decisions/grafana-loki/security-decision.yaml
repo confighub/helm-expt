@@ -1,0 +1,76 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSecurityDecision"
+metadata:
+  name: "grafana-loki-public-oci-security-decision"
+spec:
+  chart: "grafana/loki"
+  version: "7.0.0"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "loki"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "single-binary-filesystem"
+  variantsCovered:
+    - "single-binary-filesystem"
+    - "simple-scalable-minio"
+  decision: "single-binary-resource-security-accepted-for-target-scope"
+  decidedAt: "2026-06-09"
+  claim: "The selected support scope is Loki's single-binary-filesystem base. The remaining external scan findings are resource-request and workload-hardening warnings. They are accepted for this public proof scope; stricter environments should create a resource/security hardened base before support expansion."
+  route: "harden-security-context"
+  routeReason: "rendered workloads need pod/container security review before production support"
+  findingSummary:
+    scanner: "kube-linter"
+    result: "warn"
+    totalFindings: 30
+    topChecks:
+      unset-memory-requirements: 15
+      unset-cpu-requirements: 14
+      no-read-only-root-fs: 1
+    variants:
+      simple-scalable-minio:
+        findingCount: 18
+        topChecks:
+          unset-memory-requirements: 9
+          unset-cpu-requirements: 8
+          no-read-only-root-fs: 1
+        renderedObjectSetSHA256: "91787d0999a776a5b32de6fa06264eb4ba43bc520a66f82234a07cdf94c2f207"
+      single-binary-filesystem:
+        findingCount: 12
+        topChecks:
+          unset-cpu-requirements: 6
+          unset-memory-requirements: 6
+        renderedObjectSetSHA256: "6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30"
+  acceptedFindings:
+    -
+      group: "resource-requests-and-limits"
+      disposition: "Accepted for the public proof scope. Add CPU and memory requests/limits in a hardened base for target SLO scopes."
+    -
+      group: "workload-security-context"
+      disposition: "Accepted for the public proof scope. Add stricter read-only-root-filesystem and related security posture in a hardened base when required."
+  topologyDisposition: "single-binary-filesystem is the supported proof topology. simple-scalable-minio remains useful evidence for the object-store path, but it needs separate target capacity, object-store, credential, and retention review before support."
+  limits:
+    - "This is not a blanket security approval for customer clusters, private overlays, regulated environments, or future chart versions."
+    - "This does not support the simple-scalable-minio topology for production use."
+    - "Loki tenant policy, gateway exposure, object-store credentials, retention, backup, restore, and rollback remain separate review surfaces."
+  evidence:
+    -
+      path: "data/scan-disposition-workdown/workdown.csv"
+      claim: "Routes Loki scan findings to harden-security-context."
+    -
+      path: "data/external-scan-lane/review.csv"
+      claim: "Records kube-linter warning counts for Loki rendered object sets."
+    -
+      path: "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for single-binary-filesystem."
+    -
+      path: "recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for simple-scalable-minio."
+    -
+      path: "data/production-disposition/receipts/grafana-loki/scan-gate-warning-disposition.yaml"
+      claim: "Earlier production disposition accepts Loki scan warnings as production-review inputs and identifies single-binary-filesystem as the stronger first support base."
+    -
+      path: "data/production-disposition/receipts/grafana-loki/cluster-rbac-review.yaml"
+      claim: "Records Loki cluster RBAC review for the candidate bases."
+  remainingSupportBlockers:
+    - "Record image policy and fresh target-scoped ConfigHub OCI/GitOps evidence."

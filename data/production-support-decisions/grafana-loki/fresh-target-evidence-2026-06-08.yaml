@@ -1,0 +1,72 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSupportEvidenceReceipt"
+metadata:
+  name: "grafana-loki-single-binary-filesystem-argo-oci-support-evidence-20260608"
+spec:
+  chart: "grafana/loki"
+  version: "7.0.0"
+  base: "single-binary-filesystem"
+  observedAt: "2026-06-08T10:42:12Z"
+  result: "pass"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "loki"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+    rig: "helm-expt-parity-loki-mq5308xy-1mc0"
+    kubeContext: "kind-helm-expt-parity-loki-mq5308xy-1mc0"
+    target: "helm-expt-parity-loki-mq5308xy-1mc0-cluster/oci"
+    workloadSpace: "helm-expt-parity-loki-mq5308xy-1mc0-loki"
+    app: "loki-parity"
+  package:
+    path: "packages/grafana/loki/7.0.0"
+  recipe:
+    path: "recipes/grafana/loki/7.0.0"
+  oci:
+    revision: "sha256:3f6db891bc29c73572cb7a2db76df7efe42a2ce60810dd3c72d12e33143ed974"
+    controller: "Argo CD OCI"
+    sync: "Synced"
+    health: "Healthy"
+    manifestSHA256: "93bed5900046f134c2a1c1f0965a0757bb0a148c7a0f3bb0fb1a176eca567ee4"
+    objectCount: 20
+  comparison:
+    regularHelmRuntime: "pass"
+    configHubApplyRuntime: "pass"
+    configHubOciRuntime: "pass"
+    helmVsConfigHubOciArgo: "pass"
+    allowedExtraConfigHubObjects:
+      - "v1|Namespace||loki"
+  twoClusterCrossCheck:
+    path: "runs/live-kind-parity/grafana-loki-single-binary-filesystem/receipt.yaml"
+    result: "pass"
+    semanticParity: "pass"
+    regularHelmRuntime: "pass"
+    installerRuntime: "pass"
+  source:
+    liveReceiptPath: "runs/live-helm-confighub-compare/grafana-loki-single-binary-filesystem/receipt.yaml"
+    cleanupPolicy: "cub-lk rig and ConfigHub cluster space removed after evidence capture"
+  checks:
+    -
+      name: "regular-helm-runtime"
+      result: "pass"
+      detail: "regular Helm Loki runtime passed"
+    -
+      name: "confighub-apply-runtime"
+      result: "pass"
+      detail: "ConfigHub rendered objects applied by kubectl reached Loki readiness"
+    -
+      name: "confighub-oci-argo-runtime"
+      result: "pass"
+      detail: "Argo app loki-parity: sync=Synced health=Healthy revision=sha256:3f6db891bc29c73572cb7a2db76df7efe42a2ce60810dd3c72d12e33143ed974"
+    -
+      name: "semantic-object-parity"
+      result: "pass"
+      detail: "regular Helm and ConfigHub OCI/Argo object sets match semantically, except the recorded Namespace support object"
+  supportClaim:
+    state: "fresh-target-evidence-passed"
+    detail: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared Loki single-binary-filesystem support scope."
+  limits:
+    - "This supports the recorded cub-lk vanilla kind Argo OCI scope, not every Kubernetes cluster."
+    - "This assumes an existing Argo CD OCI controller is available to reconcile the ConfigHub artifact."
+    - "This supports the single-binary-filesystem base, not every Loki topology."
+    - "Evidence freshness is 30 days for public demo/support examples unless refreshed earlier."

@@ -1,0 +1,60 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionImagePolicyDecision"
+metadata:
+  name: "grafana-loki-public-oci-image-policy-decision"
+spec:
+  chart: "grafana/loki"
+  version: "7.0.0"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "loki"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "single-binary-filesystem"
+  variantsCovered:
+    - "single-binary-filesystem"
+    - "simple-scalable-minio"
+  decision: "mutable-image-exception-accepted-for-target-scope"
+  decidedAt: "2026-06-09"
+  claim: "The rendered Loki bases still contain mutable image tags, but each rendered image reference has digest-resolution evidence. For the narrower single-binary filesystem public proof scope, the mutable tags are accepted as a target-scoped exception while stricter environments remain free to require digest-pinned bases or image overrides."
+  renderedImageSummary:
+    renderedSubjects: 2
+    subjectsNeedingResolution: 2
+    imageRefs: 19
+    mutableTagRefs: 19
+    floatingLatestOrUntaggedRefs: 0
+    resolutionReceipts: 2
+  variantReceipts:
+    single-binary-filesystem:
+      renderedObjectSetSHA256: "6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30"
+      sourceImageReviewRows: 8
+      uniqueImages: 6
+      receiptPath: "data/image-digest-workdown/receipts/grafana-loki/single-binary-filesystem/image-digest-resolution.yaml"
+    simple-scalable-minio:
+      renderedObjectSetSHA256: "91787d0999a776a5b32de6fa06264eb4ba43bc520a66f82234a07cdf94c2f207"
+      sourceImageReviewRows: 11
+      uniqueImages: 7
+      receiptPath: "data/image-digest-workdown/receipts/grafana-loki/simple-scalable-minio/image-digest-resolution.yaml"
+  acceptedException:
+    reason: "The public proof target uses upstream Loki image tags. The receipt set records the registry digest each tag resolved to at decision time, so reviewers can rerun the decision when upstream tags move."
+    operatorAction: "For stricter production environments, create a digest-pinned base or image override policy before support expansion."
+  limits:
+    - "This does not mean the rendered manifests are digest-pinned."
+    - "This is not a blanket approval for all clusters, private overlays, regulated environments, or future chart versions."
+    - "This does not make every Loki topology production-supported."
+    - "If an upstream image tag is retargeted, rerun digest resolution and re-review this decision before promotion."
+  evidence:
+    -
+      path: "data/image-digest-workdown/chart-summary.csv"
+      claim: "Summarizes Loki rendered image references."
+    -
+      path: "data/attack-plan-workdown/image-digest-review.csv"
+      claim: "Lists every rendered image reference found in the Loki object sets."
+    -
+      path: "data/image-digest-workdown/receipts/grafana-loki/single-binary-filesystem/image-digest-resolution.yaml"
+      claim: "Records registry digest resolution for the single-binary-filesystem rendered object set."
+    -
+      path: "data/image-digest-workdown/receipts/grafana-loki/simple-scalable-minio/image-digest-resolution.yaml"
+      claim: "Records registry digest resolution for the simple-scalable-minio rendered object set."
+  remainingSupportBlockers:
+    - "Record security acceptance and fresh target-scoped ConfigHub OCI/GitOps evidence for the selected single-binary filesystem base."

@@ -56,7 +56,7 @@ with the same remaining production-support decision.
 | `bitnami/rabbitmq@16.0.14` | generated-passwords | start-here | resolve-images-before-production-oci | resolve image digests for each affected variant before production OCI support |
 | `external-secrets/external-secrets@2.5.0` | default | start-here | resolve-images-before-production-oci | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | `grafana/grafana@10.5.15` | generated-passwords | start-here | resolve-images-before-production-oci | resolve image digests for each affected variant before production OCI support |
-| `grafana/loki@7.0.0` | single-binary-filesystem | start-here | resolve-images-before-production-oci | resolve image digests for each affected variant before production OCI support |
+| `grafana/loki@7.0.0` | single-binary-filesystem | start-here | resolve-images-before-production-oci | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | `grafana/tempo@1.24.4` | local-persistent | start-here | resolve-images-before-production-oci | resolve image digests for each affected variant before production OCI support |
 | `hashicorp/consul@2.0.0` | default-control-plane | start-here | resolve-images-before-production-oci | resolve image digests for each affected variant before production OCI support |
 | `jetstack/cert-manager@v1.20.2` | crds-enabled | try-with-proof | resolve-images-before-production-oci | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
