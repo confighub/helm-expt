@@ -1,11 +1,11 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ProductionSupportDecision
 metadata:
-  name: "grafana-tempo-local-persistent-public-oci-draft"
+  name: "grafana-tempo-local-persistent-public-oci-superseded"
 spec:
   chart: "grafana/tempo"
   version: "1.24.4"
-  decision: draft
+  decision: superseded
   decisionDate: "2026-06-09"
   supportedBase: "local-persistent"
   targetScope:
@@ -29,11 +29,11 @@ spec:
       - "other delivery controllers or target scopes unless separately reviewed"
   decisions:
     imageDecision:
-      state: "needs-image-digest-resolution-or-exception"
-      detail: "resolve image digests or record explicit exception before production OCI support"
+      state: "not-reviewed-because-source-chart-is-deprecated"
+      detail: "the literal grafana/tempo chart is marked deprecated; image digest work should move to the maintained successor chart"
     scanDecision:
-      state: "needs-scan-scope-decision"
-      detail: "accept, fix, or document scanner findings for supported scope"
+      state: "not-reviewed-because-source-chart-is-deprecated"
+      detail: "scanner findings remain useful proof data, but this deprecated source chart is not promoted as a production-supported scope"
     lifecycleDecision:
       state: "no-lifecycle-specific-decision"
       detail: "no lifecycle-specific decision beyond standard support boundary"
@@ -41,8 +41,8 @@ spec:
       state: "no-unresolved-target-prerequisite-in-candidate-base"
       detail: "no unresolved target prerequisite in candidate base"
     liveEvidenceDecision:
-      state: "needs-fresh-target-evidence-before-final"
-      detail: "refresh target-scoped live/e2e evidence before support claim"
+      state: "not-production-supported-because-source-chart-is-deprecated"
+      detail: "live evidence exists for the proof corpus, but production support should move to the maintained successor chart noted in the chart dossier"
   evidence:
     - path: "recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/receipts/helm-equivalence-receipt.yaml"
       claim: "The candidate base is Helm-equivalent under recorded inputs."
@@ -60,8 +60,5 @@ spec:
       claim: "The storage backup restore and rollback policy receipt exists for this chart."
     - path: "data/production-disposition/receipts/grafana-tempo/target-fact-preflight.yaml"
       claim: "The target fact preflight receipt exists for this chart."
-  requiredBeforeFinal:
-    - "Choose the final target scope, exact GitOps controller, namespace, and artifact digest."
-    - "Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope."
-    - "resolve image digests or record explicit exception before production OCI support"
-  nextAction: "resolve image digests for each affected variant before production OCI support"
+  requiredBeforeFinal: []
+  nextAction: "Keep this as catalog proof evidence only; review grafana-community/tempo or another maintained successor before making a production-support claim."
