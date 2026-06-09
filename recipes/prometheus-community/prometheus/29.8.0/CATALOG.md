@@ -34,7 +34,7 @@ for exact base-variant evidence.
 | Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 1/2; live parity 1/2 |
 | Feature summary | generated-secrets;required-values;values-schema;extension-slots |
 | Hard gap | ha (curated proof lane - bespoke teaching needed) |
-| Next action | write or fix the cluster RBAC review disposition receipt |
+| Next action | record security acceptance or create a hardened base; add production resource policy or accept chart defaults for local-test only; review pod security posture for the production target |
 
 ## Artifact Chain
 

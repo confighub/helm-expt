@@ -64,7 +64,7 @@ spec:
       liveParity: "1/2"
     featureSummary: "webhooks;required-values;install-vs-upgrade;extension-slots"
     hardGap: "ha (curated proof lane - bespoke teaching needed)"
-    nextAction: "write or fix the CRD lifecycle and upgrade policy disposition receipt"
+    nextAction: "write or fix the receipt for CRD lifecycle and upgrade policy"
   installerPackage:
     path: "packages/hashicorp/consul/2.0.0"
     installer: "packages/hashicorp/consul/2.0.0/installer.yaml"

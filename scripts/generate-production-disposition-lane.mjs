@@ -270,7 +270,7 @@ function dispositionList({ controls, variants, hasExtensionSlot }) {
 }
 
 function nextAction(openDispositions, liveStatus) {
-  if (openDispositions.length > 0) return `write or fix the ${openDispositions[0]} disposition receipt`;
+  if (openDispositions.length > 0) return `write or fix the receipt for ${openDispositions[0]}`;
   if (liveStatus === "not-started") return "add target-backed live/e2e observation receipt after production dispositions are written";
   return "extend live/e2e lane beyond local kind after production dispositions are written";
 }

@@ -62,7 +62,7 @@ spec:
       liveParity: "1/2"
     featureSummary: "generated-secrets;required-values;values-schema;extension-slots"
     hardGap: "ha (curated proof lane - bespoke teaching needed)"
-    nextAction: "write or fix the cluster RBAC review disposition receipt"
+    nextAction: "record security acceptance or create a hardened base; add production resource policy or accept chart defaults for local-test only; review pod security posture for the production target"
   installerPackage:
     path: "packages/prometheus-community/prometheus/29.8.0"
     installer: "packages/prometheus-community/prometheus/29.8.0/installer.yaml"

@@ -1,0 +1,49 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: prometheus-community-prometheus-extension-slot-provenance-and-scan-policy
+spec:
+  chart: prometheus-community/prometheus
+  version: "29.8.0"
+  disposition: extension slot provenance and scan policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Prometheus exposes several high-impact extension surfaces: scrape config,
+    remote read/write, ingress, network policy, PDBs, and extra manifests. The
+    supported bases do not populate remote read/write, ingress, network policy,
+    PDB, or extra manifest slots. The default base keeps the chart's standard
+    scrape configuration; server-only-ephemeral removes bundled components and
+    persistence. This accepts the current base inputs while requiring any
+    populated extension slot to become a reviewed installer base with render
+    parity and scan evidence.
+  evidence:
+    - path: recipes/prometheus-community/prometheus/29.8.0/control-points.yaml
+      claim: The recipe records extension-slots as controlled-by-empty-defaults.
+    - path: recipes/prometheus-community/prometheus/29.8.0/value-model.yaml
+      claim: The value model records serverFiles, scrapeConfigs, extraScrapeConfigs, remoteWrite, remoteRead, ingress, networkPolicy, and PDB as explicit review surfaces.
+    - path: recipes/prometheus-community/prometheus/29.8.0/effective-values.yaml
+      claim: The default base uses chart defaults and does not add user-supplied remote read/write, ingress, network policy, PDB, or extra manifests.
+    - path: recipes/prometheus-community/prometheus/29.8.0/effective-values-server-only-ephemeral.yaml
+      claim: The server-only-ephemeral base only disables bundled components and server persistence; it does not add extension-slot content.
+    - path: recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default scan records extension-slot-review for the Prometheus value surfaces.
+    - path: recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/receipts/scan-receipt.yaml
+      claim: The server-only-ephemeral scan records extension-slot-review for the same value surfaces.
+    - path: runs/live-kind-parity/prometheus-community-prometheus-default/receipt.yaml
+      claim: The default base passes strict two-cluster Helm-vs-cub-installer parity for the reviewed defaults.
+    - path: runs/live-helm-confighub-compare/prometheus-community-prometheus-server-only-ephemeral/receipt.yaml
+      claim: The server-only-ephemeral base passes regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo live parity.
+  affectedVariants:
+    - default
+    - server-only-ephemeral
+  acceptedPolicy:
+    currentBases: No user-supplied remote read/write, ingress, network policy, PDB, or extra manifest content is populated in the supported bases.
+    scrapeConfig: Standard chart scrape configuration is part of the rendered object set and remains reviewable through ConfigMap diffs.
+    populatedSlotRule: Custom scrape configs, remote read/write targets, ingress, network policy, PDB settings, or extra manifests create a new reviewed installer base rather than an untracked post-render edit.
+  remainingProductionBlockers:
+    - scan/gate warning disposition
+  nextDecision: Resolve the remaining scan/gate warning disposition before marking the chart production-review-ready.

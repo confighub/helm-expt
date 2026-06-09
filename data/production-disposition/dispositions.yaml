@@ -1680,11 +1680,13 @@ spec:
         lifecycleObservationReceipts:
           []
         productionDispositionReceipts:
-          []
+          - "data/production-disposition/receipts/prometheus-community-prometheus/cluster-rbac-review.yaml"
+          - "data/production-disposition/receipts/prometheus-community-prometheus/extension-slot-provenance-and-scan-policy.yaml"
       dispositions:
         -
           name: "cluster RBAC review"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/prometheus-community-prometheus/cluster-rbac-review.yaml"
           owner: "security-review"
           requiredEvidence:
             - "cluster-scoped RBAC inventory"
@@ -1693,7 +1695,8 @@ spec:
           unblockRule: "supported only after cluster-scoped permissions have an explicit disposition"
         -
           name: "extension slot provenance and scan policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/prometheus-community-prometheus/extension-slot-provenance-and-scan-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "tpl/raw value inventory"

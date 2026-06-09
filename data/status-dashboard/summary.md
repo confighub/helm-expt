@@ -47,7 +47,7 @@ Which detailed CSV should I open next?
 | production disposition | top20 production-supported charts | 0/20 | gap | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | top20 production-review-ready charts | 7/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | top20 production-blocked charts | 13/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
-| production disposition | charts with accepted production dispositions | 7/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| production disposition | charts with accepted production dispositions | 8/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | scan disposition | high-priority scan rows | 4/20 | partial | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
 | scan disposition | remaining mutable-image rows | 0/20 | good | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
 | scan disposition | privileged infrastructure review rows | 4/20 | partial | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
@@ -222,15 +222,15 @@ production-supported until a final target-scoped support decision is recorded.
 | production-supported charts | 0/20 |
 | production-review-ready pending final support decision | 7/20 |
 | production-blocked pending disposition | 13/20 |
-| charts with accepted dispositions | 7/20 |
+| charts with accepted dispositions | 8/20 |
 | high-priority scan rows | 4/20 |
 | mutable-image rows still needing fixes | 0/20 |
 
 | Open disposition | Charts |
 | --- | ---: |
 | scan/gate warning disposition | 13 |
-| cluster RBAC review | 12 |
-| extension slot provenance and scan policy | 11 |
+| cluster RBAC review | 11 |
+| extension slot provenance and scan policy | 10 |
 | CRD lifecycle and upgrade policy | 7 |
 | webhook readiness and failure policy | 7 |
 | hook and lifecycle phase policy | 6 |
@@ -246,16 +246,16 @@ production-supported until a final target-scoped support decision is recorded.
 
 | Chart | Production | Accepted | Open | Next action |
 | --- | --- | ---: | ---: | --- |
-| argo-cd/argo-cd@9.5.15 | blocked | 0 | 6 | write or fix the CRD lifecycle and upgrade policy disposition receipt |
+| argo-cd/argo-cd@9.5.15 | blocked | 0 | 6 | write or fix the receipt for CRD lifecycle and upgrade policy |
 | bitnami/mongodb@19.0.7 | production-review-ready | 6 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
 | bitnami/mysql@14.0.3 | production-review-ready | 5 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
 | bitnami/nginx@24.0.2 | production-review-ready | 4 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
 | bitnami/postgresql@18.6.7 | production-review-ready | 5 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
 | bitnami/rabbitmq@16.0.14 | production-review-ready | 5 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
 | bitnami/redis@25.5.3 | production-review-ready | 4 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
-| external-secrets/external-secrets@2.5.0 | blocked | 0 | 5 | write or fix the CRD lifecycle and upgrade policy disposition receipt |
-| grafana/grafana@10.5.15 | blocked | 0 | 5 | write or fix the cluster RBAC review disposition receipt |
-| grafana/loki@7.0.0 | blocked | 0 | 5 | write or fix the cluster RBAC review disposition receipt |
+| external-secrets/external-secrets@2.5.0 | blocked | 0 | 5 | write or fix the receipt for CRD lifecycle and upgrade policy |
+| grafana/grafana@10.5.15 | blocked | 0 | 5 | write or fix the receipt for cluster RBAC review |
+| grafana/loki@7.0.0 | blocked | 0 | 5 | write or fix the receipt for cluster RBAC review |
 
 Use [production-disposition/summary.md](../production-disposition/summary.md)
 for the full top-20 disposition table and

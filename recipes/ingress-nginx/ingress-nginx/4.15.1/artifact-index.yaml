@@ -59,7 +59,7 @@ spec:
       liveParity: "0/2"
     featureSummary: "webhooks;required-values"
     hardGap: "-"
-    nextAction: "write or fix the cluster RBAC review disposition receipt"
+    nextAction: "write or fix the receipt for cluster RBAC review"
   installerPackage:
     path: "packages/ingress-nginx/ingress-nginx/4.15.1"
     installer: "packages/ingress-nginx/ingress-nginx/4.15.1/installer.yaml"

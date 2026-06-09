@@ -63,7 +63,7 @@ spec:
       liveParity: "1/2"
     featureSummary: "extension-slots"
     hardGap: "-"
-    nextAction: "write or fix the CRD lifecycle and upgrade policy disposition receipt"
+    nextAction: "write or fix the receipt for CRD lifecycle and upgrade policy"
   installerPackage:
     path: "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0"
     installer: "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/installer.yaml"

@@ -60,7 +60,7 @@ spec:
       liveParity: "1/2"
     featureSummary: "crds;extension-slots"
     hardGap: "-"
-    nextAction: "write or fix the CRD lifecycle and upgrade policy disposition receipt"
+    nextAction: "write or fix the receipt for CRD lifecycle and upgrade policy"
   installerPackage:
     path: "packages/external-secrets/external-secrets/2.5.0"
     installer: "packages/external-secrets/external-secrets/2.5.0/installer.yaml"

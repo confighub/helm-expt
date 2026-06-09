@@ -1,0 +1,53 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: prometheus-community-prometheus-cluster-rbac-review
+spec:
+  chart: prometheus-community/prometheus
+  version: "29.8.0"
+  disposition: cluster RBAC review
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Prometheus needs cluster-wide read access to discover Kubernetes targets and
+    scrape metrics. The supported bases make that access explicit: default
+    renders ClusterRoles and ClusterRoleBindings for prometheus-server and
+    kube-state-metrics; server-only-ephemeral renders only the prometheus-server
+    ClusterRole and ClusterRoleBinding. This accepts the RBAC inventory as
+    production review input, not as final production support. A production
+    target must still accept the cluster-wide read scope or choose a narrower
+    future base.
+  evidence:
+    - path: recipes/prometheus-community/prometheus/29.8.0/control-points.yaml
+      claim: The recipe records cluster-rbac as a scan-and-review control point.
+    - path: recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/rendered/object-inventory.yaml
+      claim: The default base renders ClusterRoles and ClusterRoleBindings for prometheus-server and kube-state-metrics.
+    - path: recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/rendered/object-inventory.yaml
+      claim: The server-only-ephemeral base renders only the prometheus-server ClusterRole and ClusterRoleBinding.
+    - path: recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/rendered/release-objects.yaml
+      claim: The default ClusterRoles are concrete rendered objects, including kube-state-metrics list/watch access and prometheus-server get/list/watch access for scrape discovery.
+    - path: recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/rendered/release-objects.yaml
+      claim: The server-only-ephemeral ClusterRole keeps the Prometheus server discovery rules without bundled component RBAC.
+    - path: recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default scan records four cluster-rbac-review findings.
+    - path: recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/receipts/scan-receipt.yaml
+      claim: The server-only-ephemeral scan records two cluster-rbac-review findings.
+    - path: runs/live-kind-parity/prometheus-community-prometheus-default/receipt.yaml
+      claim: The default base passes strict two-cluster Helm-vs-cub-installer parity with the rendered RBAC applied.
+    - path: runs/live-kind-parity/prometheus-community-prometheus-server-only-ephemeral/receipt.yaml
+      claim: The server-only-ephemeral base passes strict two-cluster Helm-vs-cub-installer parity with the narrower rendered RBAC applied.
+    - path: runs/live-helm-confighub-compare/prometheus-community-prometheus-server-only-ephemeral/receipt.yaml
+      claim: The server-only-ephemeral base passes regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo live parity.
+  affectedVariants:
+    - default
+    - server-only-ephemeral
+  acceptedPolicy:
+    defaultBase: Includes cluster-wide RBAC for prometheus-server and kube-state-metrics. This is appropriate only where the target accepts a full bundled monitoring stack.
+    serverOnlyEphemeralBase: Keeps only prometheus-server ClusterRole and ClusterRoleBinding and is the narrower base for first production review.
+    finalTargetDecision: A target-specific production support decision must accept the cluster-wide read scope or create a narrower base before production use.
+  remainingProductionBlockers:
+    - scan/gate warning disposition
+  nextDecision: Resolve the scan/gate warnings, especially host-level and resource/security posture in the default base, before declaring production support.

@@ -467,7 +467,7 @@ function productionNextAction(open, scan) {
     }
     return scan.nextAction;
   }
-  return `write or fix the ${first.name} disposition receipt`;
+  return `write or fix the receipt for ${first.name}`;
 }
 
 function externalScanWorkdownIndex() {
