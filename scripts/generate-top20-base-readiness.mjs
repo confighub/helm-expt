@@ -35,6 +35,7 @@ function buildReport() {
   const baseRows = parseCsvFile("data/outcome-coverage/base-outcomes.csv");
   const baseByKey = new Map(baseRows.map((row) => [`${row.chart}|${row.base}`, row]));
   const lifecycleObservations = lifecycleObservationIndex();
+  const rerunPlan = liveParityRerunIndex();
   const rows = [];
 
   for (const [index, production] of productionRows.entries()) {
@@ -46,6 +47,7 @@ function buildReport() {
       const baseRow = baseByKey.get(`${chartKey}|${base}`);
       check(Boolean(baseRow), `missing base outcome row for ${chartKey} ${base}`);
       const lifecycle = lifecycleObservations.get(`${chartKey}|${base}`);
+      const rerun = rerunPlan.get(`${chartKey}|${base}`);
       const readiness = readinessFor(baseRow, lifecycle);
       rows.push({
         rank: String(index + 1),
@@ -55,6 +57,9 @@ function buildReport() {
         user_readiness: readiness.status,
         why: readiness.why,
         next_action: readiness.nextAction,
+        live_rerun_readiness: rerun?.rerun_readiness ?? "",
+        live_rerun_next_step: rerun?.next_step_type ?? "",
+        live_rerun_command: rerun?.rerun_command ?? "",
         command: `cub installer setup --pull ${production.package_path} --base ${base} --work-dir <tmp> --non-interactive --namespace ${variant.namespace}`,
         target_facts: variant.targetFactSummary || "none",
         render_parity: baseRow.render_parity,
@@ -79,6 +84,7 @@ function buildReport() {
     || a.base.localeCompare(b.base),
   );
   const counts = groupCount(rows, "user_readiness");
+  const rerunCounts = groupCount(rows.filter((row) => row.live_rerun_readiness), "live_rerun_readiness");
   const summary = `# Top-20 Base Variant Readiness
 
 This generated table answers the practical catalog question:
@@ -107,6 +113,15 @@ prerequisite-observed: ${counts.get("prerequisite-observed") ?? 0}
 render-only: ${counts.get("render-only") ?? 0}
 ~~~
 
+Live rerun readiness for non-pass rows:
+
+~~~text
+model-or-stage-first: ${rerunCounts.get("model-or-stage-first") ?? 0}
+review-target-first: ${rerunCounts.get("review-target-first") ?? 0}
+inspect-diff-first: ${rerunCounts.get("inspect-diff-first") ?? 0}
+rerun-now-after-cleanup: ${rerunCounts.get("rerun-now-after-cleanup") ?? 0}
+~~~
+
 ## How To Read User Readiness
 
 | Readiness | Meaning |
@@ -123,9 +138,9 @@ render-only: ${counts.get("render-only") ?? 0}
 
 ## Rows
 
-| Chart | Base | First | Readiness | Why | Next action |
-| --- | --- | --- | --- | --- | --- |
-${rows.map((row) => `| \`${row.chart}\` | ${row.base} | ${row.recommended_first} | ${row.user_readiness} | ${escapePipes(row.why)} | ${escapePipes(row.next_action)} |`).join("\n")}
+| Chart | Base | First | Readiness | Rerun readiness | Why | Next action |
+| --- | --- | --- | --- | --- | --- | --- |
+${rows.map((row) => `| \`${row.chart}\` | ${row.base} | ${row.recommended_first} | ${row.user_readiness} | ${row.live_rerun_readiness || "-"} | ${escapePipes(row.why)} | ${escapePipes(row.next_action)} |`).join("\n")}
 
 ## Files
 
@@ -134,6 +149,7 @@ ${rows.map((row) => `| \`${row.chart}\` | ${row.base} | ${row.recommended_first}
 | \`data/top20-base-readiness/base-readiness.csv\` | Spreadsheet-ready one-row-per-base readiness table. |
 | \`data/outcome-coverage/base-outcomes.csv\` | Underlying lane data used by this report. |
 | \`data/live-kind-parity/summary.md\` | Two-cluster Helm-vs-installer parity receipts and non-pass reasons. |
+| \`data/live-parity-rerun-plan/rerun-plan.csv\` | Rerun readiness, next step, and exact rerun command for non-pass live rows. |
 | \`CATALOG.md\` | Top-level chart and variant catalog. |
 
 Regenerate:
@@ -223,6 +239,13 @@ function lifecycleObservationIndex() {
   const path = join(repoRoot, "data", "lifecycle-observations", "cert-manager-eso", "summary.csv");
   if (!existsSync(path)) return new Map();
   return new Map(parseCsvFile("data/lifecycle-observations/cert-manager-eso/summary.csv")
+    .map((row) => [`${row.chart}@${row.version}|${row.base}`, row]));
+}
+
+function liveParityRerunIndex() {
+  const path = join(repoRoot, "data", "live-parity-rerun-plan", "rerun-plan.csv");
+  if (!existsSync(path)) return new Map();
+  return new Map(parseCsvFile("data/live-parity-rerun-plan/rerun-plan.csv")
     .map((row) => [`${row.chart}@${row.version}|${row.base}`, row]));
 }
 
