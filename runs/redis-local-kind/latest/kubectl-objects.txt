@@ -1,39 +1,39 @@
-NAME                   READY   STATUS    RESTARTS   AGE   IP            NODE                            NOMINATED NODE   READINESS GATES
-pod/redis-master-0     1/1     Running   0          96s   10.244.0.7    helm-expt-redis-control-plane   <none>           <none>
-pod/redis-replicas-0   1/1     Running   0          96s   10.244.0.8    helm-expt-redis-control-plane   <none>           <none>
-pod/redis-replicas-1   1/1     Running   0          50s   10.244.0.10   helm-expt-redis-control-plane   <none>           <none>
-pod/redis-replicas-2   1/1     Running   0          26s   10.244.0.12   helm-expt-redis-control-plane   <none>           <none>
+NAME                   READY   STATUS    RESTARTS   AGE     IP            NODE                            NOMINATED NODE   READINESS GATES
+pod/redis-master-0     1/1     Running   0          8m18s   10.244.0.7    helm-expt-redis-control-plane   <none>           <none>
+pod/redis-replicas-0   1/1     Running   0          8m18s   10.244.0.8    helm-expt-redis-control-plane   <none>           <none>
+pod/redis-replicas-1   1/1     Running   0          7m33s   10.244.0.10   helm-expt-redis-control-plane   <none>           <none>
+pod/redis-replicas-2   1/1     Running   0          7m9s    10.244.0.12   helm-expt-redis-control-plane   <none>           <none>
 
-NAME                     TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE   SELECTOR
-service/redis-headless   ClusterIP   None            <none>        6379/TCP   96s   app.kubernetes.io/instance=redis,app.kubernetes.io/name=redis
-service/redis-master     ClusterIP   10.96.214.243   <none>        6379/TCP   96s   app.kubernetes.io/component=master,app.kubernetes.io/instance=redis,app.kubernetes.io/name=redis
-service/redis-replicas   ClusterIP   10.96.208.74    <none>        6379/TCP   96s   app.kubernetes.io/component=replica,app.kubernetes.io/instance=redis,app.kubernetes.io/name=redis
+NAME                     TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE     SELECTOR
+service/redis-headless   ClusterIP   None            <none>        6379/TCP   8m18s   app.kubernetes.io/instance=redis,app.kubernetes.io/name=redis
+service/redis-master     ClusterIP   10.96.219.65    <none>        6379/TCP   8m18s   app.kubernetes.io/component=master,app.kubernetes.io/instance=redis,app.kubernetes.io/name=redis
+service/redis-replicas   ClusterIP   10.96.113.232   <none>        6379/TCP   8m18s   app.kubernetes.io/component=replica,app.kubernetes.io/instance=redis,app.kubernetes.io/name=redis
 
-NAME                              READY   AGE   CONTAINERS   IMAGES
-statefulset.apps/redis-master     1/1     96s   redis        registry-1.docker.io/bitnami/redis@sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25
-statefulset.apps/redis-replicas   3/3     96s   redis        registry-1.docker.io/bitnami/redis@sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25
+NAME                              READY   AGE     CONTAINERS   IMAGES
+statefulset.apps/redis-master     1/1     8m18s   redis        registry-1.docker.io/bitnami/redis@sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25
+statefulset.apps/redis-replicas   3/3     8m18s   redis        registry-1.docker.io/bitnami/redis@sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25
 
-NAME                                                STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE   VOLUMEMODE
-persistentvolumeclaim/redis-data-redis-master-0     Bound    pvc-02627b10-ebe5-4529-b0da-b09fede17229   8Gi        RWO            standard       <unset>                 96s   Filesystem
-persistentvolumeclaim/redis-data-redis-replicas-0   Bound    pvc-60ba4dea-4fa1-4dd7-b320-9ca394067c6a   8Gi        RWO            standard       <unset>                 96s   Filesystem
-persistentvolumeclaim/redis-data-redis-replicas-1   Bound    pvc-127d45a1-e2cd-422e-946f-8d38dde747a2   8Gi        RWO            standard       <unset>                 50s   Filesystem
-persistentvolumeclaim/redis-data-redis-replicas-2   Bound    pvc-28b04c7c-a557-4f64-b386-42c5dfb98091   8Gi        RWO            standard       <unset>                 26s   Filesystem
+NAME                                                STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE     VOLUMEMODE
+persistentvolumeclaim/redis-data-redis-master-0     Bound    pvc-ce1ae431-333b-4b5e-9291-749927206e47   8Gi        RWO            standard       <unset>                 8m18s   Filesystem
+persistentvolumeclaim/redis-data-redis-replicas-0   Bound    pvc-33120811-6fe5-477d-9aaa-067f289c8edc   8Gi        RWO            standard       <unset>                 8m18s   Filesystem
+persistentvolumeclaim/redis-data-redis-replicas-1   Bound    pvc-5552c66c-dc2e-422b-a84a-88b9548eadcf   8Gi        RWO            standard       <unset>                 7m34s   Filesystem
+persistentvolumeclaim/redis-data-redis-replicas-2   Bound    pvc-a99349e2-db56-4eb4-a32a-bc29647e34f0   8Gi        RWO            standard       <unset>                 7m9s    Filesystem
 
 NAME                                        MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
-poddisruptionbudget.policy/redis-master     N/A             1                 1                     96s
-poddisruptionbudget.policy/redis-replicas   N/A             1                 1                     96s
+poddisruptionbudget.policy/redis-master     N/A             1                 1                     8m18s
+poddisruptionbudget.policy/redis-replicas   N/A             1                 1                     8m18s
 
 NAME                                    POD-SELECTOR                                                    AGE
-networkpolicy.networking.k8s.io/redis   app.kubernetes.io/instance=redis,app.kubernetes.io/name=redis   96s
+networkpolicy.networking.k8s.io/redis   app.kubernetes.io/instance=redis,app.kubernetes.io/name=redis   8m18s
 
 NAME           TYPE     DATA   AGE
-secret/redis   Opaque   1      96s
+secret/redis   Opaque   1      8m18s
 
 NAME                            DATA   AGE
-configmap/redis-configuration   4      96s
-configmap/redis-health          6      96s
-configmap/redis-scripts         2      96s
+configmap/redis-configuration   4      8m18s
+configmap/redis-health          6      8m18s
+configmap/redis-scripts         2      8m18s
 
 NAME                           SECRETS   AGE
-serviceaccount/redis-master    0         96s
-serviceaccount/redis-replica   0         96s
+serviceaccount/redis-master    0         8m18s
+serviceaccount/redis-replica   0         8m18s

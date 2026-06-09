@@ -14,10 +14,16 @@ spec:
     name: "helm-expt-redis"
     context: "kind-helm-expt-redis"
     namespace: "redis"
-  observedAt: "2026-06-09T12:01:57.221Z"
+  cubScout:
+    status: "observed"
+    source: "sibling-checkout"
+    supportsTtl: true
+    supportsNoExtras: true
+    reason: null
+  observedAt: "2026-06-09T12:55:38.662Z"
   freshnessTTL: 1h
   result: pass
-  clusterStatus: "created"
+  clusterStatus: "existing"
   variant: "default"
   targetFacts:
     defaultStorageClass:
@@ -41,6 +47,31 @@ spec:
     - name: redis-pvcs-bound
       result: pass
       count: 4
+    - name: "cub-scout-object-set-matches"
+      result: "pass"
+      verdict: "PASS"
+      exitCode: 0
+      evidencePath: "cub-scout.object-set.receipt.json"
+      evidenceSHA256: "49aa45d94dbd3f9a02bafc5d204443c5e4f1b5650a9242fb10d719ef27542fe0"
+      stderrPath: "cub-scout.object-set.stderr.txt"
+      stderrSHA256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    - name: "cub-scout-closed-world-object-set"
+      result: "pass"
+      verdict: "PASS"
+      exitCode: 0
+      evidencePath: "cub-scout.closed-world.receipt.json"
+      evidenceSHA256: "7014269dd7ae55c0553a9c9a84da9b9f1c8f2d739d7eec98354d6eac21fcb0e6"
+      stderrPath: "cub-scout.closed-world.stderr.txt"
+      stderrSHA256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    - name: "cub-scout-workloads-converged"
+      result: "pass"
+      verdict: "PASS"
+      exitCode: 0
+      evidencePath: "cub-scout.workloads.receipt.json"
+      evidenceSHA256: "f70654128e8d36f90ebec911d04bbbdede1f1fe810c4c152d7ff08c069b665e9"
+      stderrPath: "cub-scout.workloads.stderr.txt"
+      stderrSHA256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
   kubectlObjects:
     path: kubectl-objects.txt
-    sha256: "5de58ec3969e99e54d89250baebf6099a427db45241fe14ce36ac26203b12808"
+    sha256: "64343fefb48f50d8d80f8f89ba5fefa6879b5023711190fc55c9a28f856c0a57"

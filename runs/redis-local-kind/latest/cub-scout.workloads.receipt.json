@@ -1,0 +1,252 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "rendered-object-set://sha256/be72b9a67870a785",
+      "digest": {
+        "sha256": "be72b9a67870a785421e7b3549c2b9a8901291ac74d9bf44d6ee38154bf2e920"
+      }
+    },
+    {
+      "name": "k8s-live-workloads://namespace/redis",
+      "digest": {
+        "sha256": "f640029b4ecfb643c2eb9e092df57b32c3e45d6f1b2081516c946e79fbb1fc44"
+      }
+    }
+  ],
+  "predicateType": "https://cub-scout.dev/receipt/v1",
+  "predicate": {
+    "version": "v1",
+    "claim": "desired workloads from /Users/alexis/code/helm-expt/runs/redis-local-kind/latest/cub-scout.desired.yaml converged to a ready state in the live cluster",
+    "scope": {
+      "kind": "WorkloadSet",
+      "name": "rendered-install",
+      "namespace": "redis"
+    },
+    "verifier": {
+      "tool": "cub-scout",
+      "version": "dev"
+    },
+    "verifiedAt": "2026-06-09T12:55:38Z",
+    "freshness": {
+      "observedAt": "2026-06-09T12:55:38Z",
+      "expiresAt": "2026-06-09T13:55:38Z",
+      "ttl": "1h0m0s"
+    },
+    "predicateName": "workloads-converged",
+    "verdict": "PASS",
+    "evidence": {
+      "workloads": {
+        "desiredSource": {
+          "type": "file",
+          "ref": "/Users/alexis/code/helm-expt/runs/redis-local-kind/latest/cub-scout.desired.yaml",
+          "digest": "8cd8029a805b5cf08da046333d401102abf86485a10664709fd65eefd10cc42e",
+          "objectCount": 14
+        },
+        "scope": {
+          "kind": "namespace",
+          "namespace": "redis"
+        },
+        "graceWindow": "5m0s",
+        "observedAt": "2026-06-09T12:55:38Z",
+        "desiredDigest": "be72b9a67870a785421e7b3549c2b9a8901291ac74d9bf44d6ee38154bf2e920",
+        "liveDigest": "f640029b4ecfb643c2eb9e092df57b32c3e45d6f1b2081516c946e79fbb1fc44",
+        "summary": {
+          "desired": 14,
+          "converged": 14,
+          "progressing": 0,
+          "failed": 0,
+          "missing": 0,
+          "inconclusive": 0
+        },
+        "workloads": [
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "StatefulSet",
+              "namespace": "redis",
+              "name": "redis-master"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "All replicas scheduled as expected. Replicas: 1",
+            "ageSeconds": 502
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "StatefulSet",
+              "namespace": "redis",
+              "name": "redis-replicas"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "All replicas scheduled as expected. Replicas: 3",
+            "ageSeconds": 502
+          },
+          {
+            "id": {
+              "apiVersion": "networking.k8s.io/v1",
+              "kind": "NetworkPolicy",
+              "namespace": "redis",
+              "name": "redis"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Resource is current",
+            "ageSeconds": 502
+          },
+          {
+            "id": {
+              "apiVersion": "policy/v1",
+              "kind": "PodDisruptionBudget",
+              "namespace": "redis",
+              "name": "redis-master"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "AllowedDisruptions has been computed.",
+            "ageSeconds": 502
+          },
+          {
+            "id": {
+              "apiVersion": "policy/v1",
+              "kind": "PodDisruptionBudget",
+              "namespace": "redis",
+              "name": "redis-replicas"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "AllowedDisruptions has been computed.",
+            "ageSeconds": 502
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "redis",
+              "name": "redis-configuration"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Resource is always ready",
+            "ageSeconds": 502
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "redis",
+              "name": "redis-health"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Resource is always ready",
+            "ageSeconds": 502
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "redis",
+              "name": "redis-scripts"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Resource is always ready",
+            "ageSeconds": 502
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Secret",
+              "namespace": "redis",
+              "name": "redis"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Resource is always ready",
+            "ageSeconds": 502
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ServiceAccount",
+              "namespace": "redis",
+              "name": "redis-master"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Resource is current",
+            "ageSeconds": 502
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ServiceAccount",
+              "namespace": "redis",
+              "name": "redis-replica"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Resource is current",
+            "ageSeconds": 502
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "redis",
+              "name": "redis-headless"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Service is ready",
+            "ageSeconds": 502
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "redis",
+              "name": "redis-master"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Service is ready",
+            "ageSeconds": 502
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "redis",
+              "name": "redis-replicas"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Service is ready",
+            "ageSeconds": 502
+          }
+        ]
+      }
+    },
+    "omissions": [
+      {
+        "missing": "workload-convergence-snapshot",
+        "reason": "workloads-converged reflects readiness observed at verifiedAt; it does not prove the workloads stay converged afterward",
+        "severity": "info"
+      }
+    ],
+    "inputAttestations": [],
+    "nextSteps": [
+      {
+        "actionType": "read-only",
+        "reason": "every desired workload reached a ready/converged state",
+        "nextCommand": "cub-scout doctor",
+        "nextSurface": "cub-scout"
+      }
+    ],
+    "fingerprint": "sha256:7033d95f50a2082c419195e80b12d47036f2811fbaf9acb82d238147f52e8404"
+  }
+}

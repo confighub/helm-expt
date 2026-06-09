@@ -740,6 +740,8 @@ function writeSummary() {
       version: target.version,
       variant: target.variant,
       result: receipt?.spec?.result ?? "not-started",
+      cubScout: cubScoutStatus(receipt),
+      cubScoutChecks: cubScoutCheckSummary(receipt),
       failureStage: receipt?.spec?.failure?.stage ?? "",
       receipt: receipt ? relativeRepo(receiptPath) : "",
     };
@@ -762,9 +764,9 @@ fail: ${failCount}
 not-started: ${rows.length - passCount - failCount}
 \`\`\`
 
-| Rank | Chart | Variant | Result | Failure stage | Receipt |
-| ---: | --- | --- | --- | --- | --- |
-${rows.map((row) => `| ${row.rank} | \`${row.chart}@${row.version}\` | ${row.variant} | ${row.result} | ${row.failureStage || "-"} | ${row.receipt || "-"} |`).join("\n")}
+| Rank | Chart | Variant | Result | cub-scout | cub-scout checks | Failure stage | Receipt |
+| ---: | --- | --- | --- | --- | --- | --- | --- |
+${rows.map((row) => `| ${row.rank} | \`${row.chart}@${row.version}\` | ${row.variant} | ${row.result} | ${row.cubScout || "-"} | ${row.cubScoutChecks || "-"} | ${row.failureStage || "-"} | ${row.receipt || "-"} |`).join("\n")}
 `;
   write(join(summaryRoot, "top20-local-kind.csv"), csv);
   write(join(summaryRoot, "summary.md"), summary);
@@ -780,14 +782,27 @@ function redisSummaryRow() {
     version: "25.5.3",
     variant: "default",
     result: receipt?.spec?.result ?? "not-started",
+    cubScout: cubScoutStatus(receipt),
+    cubScoutChecks: cubScoutCheckSummary(receipt),
     failureStage: "",
     receipt: receipt ? relativeRepo(redisReceiptPath) : "",
   };
 }
 
 function toCsv(rows) {
-  const headers = ["rank", "chart", "version", "variant", "result", "failureStage", "receipt"];
+  const headers = ["rank", "chart", "version", "variant", "result", "cubScout", "cubScoutChecks", "failureStage", "receipt"];
   return `${[headers.join(","), ...rows.map((row) => headers.map((header) => csvEscape(row[header])).join(","))].join("\n")}\n`;
+}
+
+function cubScoutStatus(receipt) {
+  return receipt?.spec?.cubScout?.status ?? "";
+}
+
+function cubScoutCheckSummary(receipt) {
+  const checks = (receipt?.spec?.checks ?? []).filter((checkItem) => String(checkItem.name ?? "").startsWith("cub-scout-"));
+  if (!checks.length) return "";
+  const passing = checks.filter((checkItem) => checkItem.result === "pass" && (!checkItem.verdict || checkItem.verdict === "PASS")).length;
+  return `${passing}/${checks.length} pass`;
 }
 
 function csvEscape(value) {

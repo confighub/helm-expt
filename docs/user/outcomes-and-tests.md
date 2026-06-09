@@ -96,6 +96,7 @@ Live observation lanes may write additional cub-scout receipts when a compatible
 | Receipt | Question |
 | --- | --- |
 | `cub-scout.object-set.receipt.json` | Are the rendered objects present live, with authored fields matching? |
+| `cub-scout.closed-world.receipt.json` | Are there extra live objects of the rendered kinds in scope? Extra objects are usually WATCH evidence, not automatically a failed install. |
 | `cub-scout.workloads.receipt.json` | Did the desired workloads converge to a usable runtime state? |
 | `cub-scout.prerequisites.receipt.json` | Are declared target facts, such as required Secrets or CRDs, present? |
 

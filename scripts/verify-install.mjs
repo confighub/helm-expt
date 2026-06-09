@@ -319,6 +319,7 @@ function verifyCluster({ spec, variant }) {
         status: cubScout.status,
         source: cubScout.source,
         supportsTtl: cubScout.supportsTtl,
+        supportsNoExtras: cubScout.supportsNoExtras,
         reason: cubScout.reason,
       },
       checks,
