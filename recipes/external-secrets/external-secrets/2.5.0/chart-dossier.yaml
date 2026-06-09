@@ -11,9 +11,11 @@ spec:
     - "Chart declares a bitwarden-sdk-server dependency that remains disabled in promoted variants but is recorded in dependency-lock.yaml."
     - "Validating webhook readiness must be observed after apply because rendered objects alone do not prove webhook health."
     - "The rendered webhook Secret contains metadata only; cert-controller populates certificate material after apply."
+    - "A stricter cub-scout live witness on kind Kubernetes 1.30 found that the rendered ExternalSecret CRD contains spec.versions[0].selectableFields that the live API omitted after apply; workloads converged, but this blocks strict rendered-object/live parity for that target profile."
     - "extraObjects is a tpl-powered extension slot; promoted variants keep it empty."
   knownControlPoints:
     - "capability-profile"
+    - "capability-profile-live-pruning"
     - "crd-lifecycle-policy"
     - "dependency-lock"
     - "admission-webhook-observation"

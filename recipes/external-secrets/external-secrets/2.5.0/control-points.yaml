@@ -19,6 +19,11 @@ spec:
       kubeVersion: "1.30.0"
       note: "OpenShift and ServiceMonitor branches are bound to the named Kubernetes capability profile."
     -
+      category: "capability-profile-live-pruning"
+      status: "strict-live-object-parity-blocked-on-kubernetes-1.30"
+      evidence: "data/live-e2e/cub-scout-watchlist.csv"
+      note: "cub-scout live witness on kind Kubernetes 1.30 found the ExternalSecret CRD renders spec.versions[0].selectableFields, but the live CRD omitted it after apply; workloads converged, but strict rendered-object/live parity is blocked until the capability/feature-gate route is decided."
+    -
       category: "crd-policy"
       status: "variant-controlled-and-target-fact"
       variants:

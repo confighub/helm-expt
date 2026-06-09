@@ -112,6 +112,11 @@ checks that rendered YAML alone cannot prove:
 
 [Cert-Manager And External Secrets Lifecycle Observations](../../data/lifecycle-observations/cert-manager-eso/summary.md)
 
+The cub-scout live witness watchlist records cases where ordinary live checks
+pass but strict rendered-object/live parity finds a target capability issue:
+
+[cub-scout Live Witness Watchlist](../../data/live-e2e/cub-scout-watchlist.md)
+
 The hook/lifecycle boundary page separates hook queue rows from hook-like
 controller lifecycle observations:
 

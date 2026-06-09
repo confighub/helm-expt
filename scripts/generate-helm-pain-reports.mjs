@@ -184,6 +184,9 @@ function buildReport(item) {
     });
   }
 
+  const supportedScopeStatus = painPoints.some((point) => String(point.supportedVariantStatus ?? "").includes("strict-live-object-parity-blocked"))
+    ? "has-strict-live-witness-blockers-for-supported-scopes"
+    : "no-unhandled-pain-points-for-supported-scopes";
   const defaultPathStatus = chart === "bitnami/redis" ? "no-unhandled-pain-points" : undefined;
   return {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
@@ -198,7 +201,7 @@ function buildReport(item) {
         source: readYaml(join(root, "source-lock.yaml")).spec?.contentURL ?? readYaml(join(root, "source-lock.yaml")).spec?.repositoryURL,
         digest: chartDigest(root),
       },
-      supportedScopeStatus: "no-unhandled-pain-points-for-supported-scopes",
+      supportedScopeStatus,
       ...(defaultPathStatus ? { defaultPathStatus } : {}),
       supportedScopes: catalog.spec.supportedScopes ?? [],
       supportedVariants: catalog.spec.supportedVariants ?? [],

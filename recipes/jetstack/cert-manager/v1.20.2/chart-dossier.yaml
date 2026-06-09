@@ -10,9 +10,11 @@ spec:
     - "crds-enabled variant renders six cert-manager CRDs as ordinary rendered objects."
     - "startup API check is a Helm post-install hook and is excluded from the rendered revision by --no-hooks."
     - "Mutating and validating webhook readiness must be observed after apply because rendered objects alone do not prove webhook health."
+    - "A stricter cub-scout live witness on kind Kubernetes 1.30 found that four rendered CRDs contain spec.versions[0].selectableFields that the live API omitted after apply; workloads converged, but this blocks strict rendered-object/live parity for that target profile."
     - "extraObjects is a tpl-powered extension slot; promoted variants keep it empty."
   knownControlPoints:
     - "capability-profile"
+    - "capability-profile-live-pruning"
     - "crd-lifecycle-policy"
     - "hook-lifecycle-policy"
     - "admission-webhook-observation"
