@@ -99,6 +99,7 @@ function readme(rows) {
     ["data/variant-path-coverage/summary.md", "Per chart/base/path matrix for base variants, diffs, operations, and derived ConfigHub variants."],
     ["data/quirk-coverage/summary.md", "Coverage audit for Helm quirks: tracked, partly tracked, source-scanned only, or not scanned."],
     ["data/high-fanout-demo/summary.md", "Prometheus/kube-prometheus-stack example showing how one base choice changes many objects and prerequisites."],
+    ["data/high-fanout-demo/operation-preview.md", "Pre-ship operation preview for kube-prometheus-stack high-fanout inputs: route, reach, guardrail, and next proof."],
     ["data/edge-recovery/summary.md", "Recovered graph fragments from catalog-supported recipe artifacts."],
     ["data/csv-index.csv", "Machine-readable index of every CSV under data/."],
   ];

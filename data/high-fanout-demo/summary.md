@@ -51,6 +51,10 @@ This is deliberately small. It does not claim a full inverse map for the whole
 chart. It shows how high-value choices can become explicit graph edges instead
 of disappearing into rendered YAML.
 
+For a compact pre-ship view of those choices, see:
+
+`data/high-fanout-demo/operation-preview.md`
+
 ## Removed Objects
 
 | Kind | Name |
@@ -116,6 +120,7 @@ the same operational contract.
 | File | Purpose |
 | --- | --- |
 | `data/high-fanout-demo/prometheus-kps.csv` | Spreadsheet row for each base and the default-to-no-crds delta. |
+| `data/high-fanout-demo/operation-preview.md` | Pre-ship preview for the currently mapped high-fanout inputs. |
 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md` | Variant catalog and receipt links. |
 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-source-map.yaml` | Value-to-rendered-field reachability for the Grafana admin password and CRD toggle. |
 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/inheritance-graph.yaml` | Desired-state graph fragment showing the base relation. |

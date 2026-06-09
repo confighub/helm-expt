@@ -69,6 +69,7 @@ smallest generated surface that answers it.
 | [variant-path-coverage/summary.md](./variant-path-coverage/summary.md) | Per chart/base/path matrix for base variants, diffs, operations, and derived ConfigHub variants. |
 | [quirk-coverage/summary.md](./quirk-coverage/summary.md) | Coverage audit for Helm quirks: tracked, partly tracked, source-scanned only, or not scanned. |
 | [high-fanout-demo/summary.md](./high-fanout-demo/summary.md) | Prometheus/kube-prometheus-stack example showing how one base choice changes many objects and prerequisites. |
+| [high-fanout-demo/operation-preview.md](./high-fanout-demo/operation-preview.md) | Pre-ship operation preview for kube-prometheus-stack high-fanout inputs: route, reach, guardrail, and next proof. |
 | [edge-recovery/summary.md](./edge-recovery/summary.md) | Recovered graph fragments from catalog-supported recipe artifacts. |
 | [csv-index.csv](./csv-index.csv) | Machine-readable index of every CSV under data/. |
 
