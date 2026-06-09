@@ -129,7 +129,7 @@
       <p>The site uses the generated status dashboard. A partial or gap status means the exact lane still needs receipts, not that render parity failed.</p>
       <div class="card"><table>
         <thead><tr><th>Metric</th><th>Value</th><th>Status</th></tr></thead>
-        <tbody><tr><td>in-ConfigHub proof rows</td><td>18/156</td><td>partial</td></tr><tr><td>local live rows</td><td>21/156</td><td>partial</td></tr><tr><td>GitOps/OCI live pass rows</td><td>17/156</td><td>partial</td></tr><tr><td>live Helm-vs-ConfigHub parity pass rows</td><td>15/156</td><td>partial</td></tr><tr><td>two-cluster kind parity pass rows</td><td>25/40</td><td>partial</td></tr><tr><td>two-cluster semantic parity defect receipts</td><td>0/40</td><td>good</td></tr><tr><td>derived variant live create receipts</td><td>10/10</td><td>good</td></tr><tr><td>target-bound derived variant receipts</td><td>6/10</td><td>partial</td></tr><tr><td>hook route receipts present</td><td>5/5</td><td>partial</td></tr><tr><td>hook lifecycle observations present</td><td>0/5</td><td>gap</td></tr><tr><td>hook routes still needing execution or observation</td><td>5/5</td><td>gap</td></tr><tr><td>not-scanned axes</td><td>6/26</td><td>gap</td></tr></tbody>
+        <tbody><tr><td>in-ConfigHub proof rows</td><td>18/156</td><td>partial</td></tr><tr><td>local live rows</td><td>21/156</td><td>partial</td></tr><tr><td>GitOps/OCI live pass rows</td><td>17/156</td><td>partial</td></tr><tr><td>live Helm-vs-ConfigHub parity pass rows</td><td>15/156</td><td>partial</td></tr><tr><td>two-cluster kind parity pass rows</td><td>25/40</td><td>partial</td></tr><tr><td>two-cluster semantic parity defect receipts</td><td>0/40</td><td>good</td></tr><tr><td>derived variant live create receipts</td><td>10/10</td><td>good</td></tr><tr><td>target-bound derived variant receipts</td><td>6/10</td><td>partial</td></tr><tr><td>hook route receipts present</td><td>5/5</td><td>partial</td></tr><tr><td>hook lifecycle observations present</td><td>0/5</td><td>gap</td></tr><tr><td>related lifecycle observation receipts passing</td><td>4/4</td><td>good</td></tr><tr><td>hook routes still needing execution or observation</td><td>5/5</td><td>gap</td></tr><tr><td>not-scanned axes</td><td>6/26</td><td>gap</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -297,7 +297,7 @@
 
     <section aria-labelledby="catalog">
       <h2 id="catalog">Catalog-Supported Charts</h2>
-      <p>These entries are supported for the declared local-test scope. Production support remains blocked until the listed dispositions are closed.</p>
+      <p>These entries are supported for the declared local-test scope. Production support still needs a final target-scoped support decision, even when production dispositions have been accepted.</p>
       <div class="catalog">
         <article class="card">
           <h3>argo-cd/argo-cd</h3>
@@ -636,6 +636,7 @@
         <li><a href="../data/next-ten-waves/summary.md">Next-ten execution waves</a></li>
         <li><a href="../data/top20-base-readiness/summary.md">Top-20 base readiness</a></li>
         <li><a href="../data/extension-slots/summary.md">Extension slot coverage</a></li>
+        <li><a href="../data/lifecycle-observations/cert-manager-eso/summary.md">Cert-manager and External Secrets lifecycle observations</a></li>
       </ul>
     </section>
   </main>

@@ -160,6 +160,7 @@ function html(catalog) {
     "target-bound derived variant receipts",
     "hook route receipts present",
     "hook lifecycle observations present",
+    "related lifecycle observation receipts passing",
     "hook routes still needing execution or observation",
     "not-scanned axes",
   ]
@@ -446,7 +447,7 @@ function html(catalog) {
 
     <section aria-labelledby="catalog">
       <h2 id="catalog">Catalog-Supported Charts</h2>
-      <p>These entries are supported for the declared local-test scope. Production support remains blocked until the listed dispositions are closed.</p>
+      <p>These entries are supported for the declared local-test scope. Production support still needs a final target-scoped support decision, even when production dispositions have been accepted.</p>
       <div class="catalog">
         ${entries.map(chartCard).join("\n        ")}
       </div>
@@ -514,6 +515,7 @@ function html(catalog) {
         <li><a href="../data/next-ten-waves/summary.md">Next-ten execution waves</a></li>
         <li><a href="../data/top20-base-readiness/summary.md">Top-20 base readiness</a></li>
         <li><a href="../data/extension-slots/summary.md">Extension slot coverage</a></li>
+        <li><a href="../data/lifecycle-observations/cert-manager-eso/summary.md">Cert-manager and External Secrets lifecycle observations</a></li>
       </ul>
     </section>
   </main>
