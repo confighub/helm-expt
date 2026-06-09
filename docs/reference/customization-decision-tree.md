@@ -1,12 +1,14 @@
-<!-- Catalog customization guidance for helm-expt. Validated live by the Pilot test harness (confighub-ai-demo#1134). -->
+# Helm → ConfigHub customization decision tree
 
-# Helm → ConfigHub customization decision tree (draft for confighub-ai-demo#1133)
+**Status:** working design reference. Sources: installer consumer guidance plus
+helm-expt `docs/reference/customization-algorithm.md` and
+`docs/user/change-routing-before-oci.md`.
 
-**Status:** DRAFT / design-pending (#1133). Sources: installer
-`docs/consumer-guide.md` (the authoritative consumer-facing model) + helm-expt
-`docs/reference/customization-algorithm.md` & `docs/user/change-routing-before-oci.md`.
-Grounded by the #1134 campaign for the early forks. Tags: **[proven]** =
-demonstrated live this campaign · **[observed]** · **[design]** = still to decide.
+Tags:
+
+- **[proven]**: demonstrated by committed helm-expt proof or live evidence.
+- **[observed]**: observed as a risk or recurring pattern.
+- **[design]**: still a product decision or implementation gap.
 
 ## The one rule
 > Don't ask users to abandon Helm behavior. Capture it, classify the change,
@@ -110,8 +112,8 @@ START — pull a public package → setup → upload → ConfigHub → OCI → A
 │       for GitOps delivery.
 │       → Use the chart's existing-secret base + provide the Secret out-of-band
 │         (kubectl / ExternalSecrets / Vault). [proven: postgresql, redis, mysql, mongodb → Ready]
-│       → [design] required-secret validation gate (confighub-ai-demo#1132) +
-│         typed secret reference system (helm-expt#19) are the planned guards.
+│       → [design] required-secret validation gate +
+│         typed secret reference system are the planned guards.
 │
 └─ then classify the change & route via the two lenses ↓
 ```
@@ -176,15 +178,16 @@ gate (`allow`/`warn`/`block`) → promote/reject → settle delivery prereqs →
 Labels: `proof-grade` · `catalog-candidate` · `catalog-supported` · `deprecated` · `blocked`.
 Tiers: public catalog proof → ConfigHub managed variants → managed overlay import → enterprise fleet.
 
-## What #1134 grounded vs what's still open
-- **Proven (use with confidence):** Fork 1 (namespace), Fork 3 (secret silent-fail + existing-secret fix on 4 DBs), Helm-equivalence 20/20, render→OCI→Argo→runtime pipeline, rollback via ConfigHub revision (prior pass: replicas 1→2).
+## What is grounded vs still open
+- **Proven (use with confidence):** namespace routing for simple chart rows, the secret silent-fail risk and existing-secret fix paths, Helm-equivalence across the maintained proof rows, selected render-to-OCI-to-Argo runtime lanes, and rollback through ConfigHub revision in prior live evidence.
 - **Observed:** Fork 2 (`:latest`).
-- **Not exercised live this campaign:** Layer-2 `--set-image`, derived/custom variants, hooks lifecycle, upgrade schema-diff, multi-package `--space-pattern`, signing enforcement — all from the consumer guide, all still to validate end-to-end.
-- **Open issues this maps to:** helm-expt#96 (F1b namespace refs), #97 (F4 proof regen), #19 (typed secret system), #20 (lifecycle/rollback contracts); confighub-ai-demo#1132 (required-secret gate). **F2 image-pinning has no issue yet.**
+- **Not fully exercised live across the catalog:** Layer-2 `--set-image`, derived/custom variants, hooks lifecycle, upgrade schema-diff, multi-package `--space-pattern`, and signing enforcement.
+- **Open work this maps to:** namespace references embedded in object specs, proof regeneration coupling, typed secret references, required-secret validation, lifecycle/rollback contracts, and image pinning.
 
 ## Sources
-installer: `docs/consumer-guide.md`, `author-guide.md`, `principles.md`.
+installer: consumer guide, author guide, and principles.
 helm-expt: `docs/reference/customization-algorithm.md`, `docs/user/change-routing-before-oci.md`,
 `docs/user/creating-variants.md`, `docs/user/custom-overlays.md`, `docs/user/product-support-tiers.md`,
 `docs/user/hook-lifecycle-strategy.md`.
-Campaign: `reports/pilot-helm-sweep/SCORECARD.md`, findings F1–F4.
+Generated evidence: `data/status-dashboard/summary.md`,
+`data/outcome-coverage/summary.md`, and `data/live-kind-parity/summary.md`.

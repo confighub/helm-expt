@@ -165,10 +165,9 @@ so it didn't fire here — a one-line coverage gap to fix.
 **Fix / design.** Not a per-package typo — a delivery-architecture capability,
 designed as a tiered secrets ladder (anonymous secret-free → connected "safe dev"
 out-of-band → paid ESO+Vault+rotation) with a universal **required-secret
-validation gate** as the first buildable. Full design + iteration:
-**confighub-ai-demo#1132**.
+validation gate** as the first buildable.
 
-**Status:** found + verified live; design in #1132. Shapes Wave 2 — secret-needing
+**Status:** found and verified live. Secret-needing
 charts must be tested via the existing-secret / ESO path, not the
 password-generating default.
 

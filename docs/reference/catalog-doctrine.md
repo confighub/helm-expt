@@ -1,10 +1,6 @@
-<!-- Catalog customization guidance for helm-expt. Validated live by the Pilot test harness (confighub-ai-demo#1134). -->
-
 # Helm catalog doctrine — honest defaults, standard forks, layered fills
 
-**Status:** WORKING DRAFT / proposal (shaped with Alexis, 2026-06-01). Candidate for a
-numbered principle in helm-expt `principles.md`, the START of the #1133 decision tree, and
-the catalog admission bar. Grounded by the #1134 campaign (F1–F4).
+**Status:** working doctrine for catalog admission and variant routing.
 
 ## Principle
 Every **catalog-supported** chart presents a small, predictable customization surface:
@@ -51,10 +47,10 @@ gates or target facts where applicable, and live observation when the variant is
 presented as deployable.
 
 ## Load-bearing invariants
-- **Honest default:** reaches Ready, OR declares required fills + refuses silently-broken (#1132 required-secret gate).
+- **Honest default:** reaches Ready, OR declares required fills and refuses a silently broken install through a required-secret gate.
 - **Fork = shape change; fill = slot binding.** A value change that alters the rendered object set is a *base fork* (re-render, Helm-equivalent, digest-pinned). A value bound into an already-rendered field is a *fill* (derived variant, no re-render). Never blur this — it is what preserves Helm-equivalence + digest-pinning.
 - **Shared fork vocabulary** — catalog-wide names, not per-chart ad-hoc.
-  *Campaign evidence:* the existing-secret fork is named **5 different ways** today —
+  *Current catalog evidence:* the existing-secret fork is named **5 different ways** today —
   `reuse-existing-secret` (redis) · `existing-secret` (postgresql/mysql/rabbitmq) ·
   `existing-secret-replicaset` (mongodb) · `existing-secret-ingress` (grafana) ·
   `default-control-plane` (consul). A user cannot predict that; the vocabulary fixes it.
@@ -71,14 +67,16 @@ Charts not meeting this are **catalog-candidates** (analysis tier), not catalog-
 
 ## Why this serves the three goals
 - **more charts** → it's the admission bar (a chart joins when it has an honest default + applicable forks).
-- **obvious steps** → the #1133 tree START becomes "pick a named fork"; the parameterized base is the fill form.
+- **obvious steps** → the customization flow starts with "pick a named fork"; the parameterized base is the fill form.
 - **tested & verified** → the admission check *is* the matrix: `charts × {default + parameterized + forks} × dimensions`, same harness/receipts/adversarial-verify.
 
 ## Open questions (honest)
-- Zero-placeholder honest default is impossible for secret charts over GitOps without #1132 (gate) or a GitOps secret-delivery mechanism.
+- Zero-placeholder honest default is impossible for secret charts over GitOps without a required-secret gate or a GitOps secret-delivery mechanism.
 - "Fill-safe" fields (placeholder-able without shape change) need a per-chart determination — likely the author-exposed inputs minus structural ones.
 - The shared fork vocabulary needs defining + a migration of the current inconsistent fork names.
 
 ## Sources
-helm-expt `docs/reference/customization-algorithm.md`, `docs/user/change-routing-before-oci.md`, `principles.md`;
-campaign findings F1–F4 + `reports/pilot-helm-sweep/SCORECARD.md`; the #1133 decision tree.
+helm-expt `docs/reference/customization-algorithm.md`,
+`docs/user/change-routing-before-oci.md`,
+`docs/reference/customization-decision-tree.md`, and the generated proof/status
+data under `data/`.

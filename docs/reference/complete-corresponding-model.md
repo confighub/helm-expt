@@ -146,4 +146,5 @@ declared scope; otherwise it is a candidate, with the gap named.
 
 ## Sources
 `agreed-execution-plan.md` (Helm Pain Absorption; "no unhandled pain points"), `catalog-doctrine.md`,
-`next-execution-plan.md`; the #1134 campaign equivalence result; measured catalog state 2026-06-02.
+`next-execution-plan.md`, and the generated status, outcome, and live-parity
+data under `data/`.

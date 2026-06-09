@@ -1,9 +1,7 @@
-<!-- Catalog customization guidance for helm-expt. Validated live by the Pilot test harness (confighub-ai-demo#1134). -->
-
 # Shared fork vocabulary + current→canonical mapping
 
-**Status:** WORKING DRAFT (2026-06-01). Companion to `HELM_CATALOG_DOCTRINE.md`. Built from the
-**actual** bases of all 20 TOP20 charts (`cub installer doc`), not invented.
+**Status:** working reference. Built from the actual bases of all 20 top-20
+catalog charts, not invented.
 
 ## The problem, in one table
 Every chart today has exactly **2 bases** (a `default:true` + one fork), but the names are ad-hoc.
@@ -65,4 +63,5 @@ canonical dimension(s), not a bespoke string.
 4. Flip cert-manager's default to `no-crds` (GitOps-consistent), with `crds` as the fork.
 
 ## Sources
-`cub installer doc` across the 20 TOP20 packages; `HELM_CATALOG_DOCTRINE.md`; campaign findings F1–F4.
+The current top-20 package bases, [Catalog Doctrine](./catalog-doctrine.md),
+and the generated status and outcome data under `data/`.

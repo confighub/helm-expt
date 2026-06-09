@@ -1,11 +1,10 @@
-<!-- Catalog customization guidance for helm-expt. Recommendations validated at build time by the Pilot test harness (confighub-ai-demo#1134). -->
-
 # Per-chart recipes — recommended target surface for the TOP20
 
-**Status:** WORKING DRAFT / proposal (2026-06-02). The third piece of the catalog model:
+**Status:** working proposal. The third piece of the catalog model:
 `catalog-doctrine.md` (the principle) → `fork-vocabulary.md` (the shared names + current state) →
 **this doc** (the recommended recipe per chart) → `customization-decision-tree.md` (the user flow).
-Grounded by the #1134 campaign (roles + F1–F4) and the current bases (`cub installer doc`).
+Grounded by current catalog roles, the generated data under `data/`, and the
+current package bases.
 
 ## What this is
 For each TOP20 chart, the **recommended recipe**: one honest `default`, a `parameterized` base where
@@ -79,11 +78,11 @@ CRDs) is a **fork**, not a fill — that is what preserves Helm-equivalence and 
 ## Open decisions (carried from the doctrine + vocabulary)
 1. **cert-manager default flips to `no-crds`** (GitOps owns CRDs); `crds` becomes the fork. (`fork-vocabulary.md` rec 4)
 2. **Secret-chart defaults (F3):** redis/postgresql/mysql/mongodb/rabbitmq/grafana `default` must either declare
-   the required secret fill and refuse-silently-broken (#1132 required-secret gate) **or** ship `existing-secret`
+   the required secret fill and refuse a silently broken install through a required-secret gate **or** ship `existing-secret`
    as the recommended base — never deliver silently broken over GitOps.
 3. **Per-chart fill-set:** the exact "fill-safe (non-shape) fields" list per chart needs author confirmation;
    the typical set above is the proposed starting point.
 
 ## Sources
-`catalog-doctrine.md`, `fork-vocabulary.md`; #1134 campaign `reports/pilot-helm-sweep/SCORECARD.md` (roles + F1–F4);
-current bases via `cub installer doc`.
+`catalog-doctrine.md`, `fork-vocabulary.md`, generated status/outcome data, and
+current package bases.
