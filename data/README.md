@@ -77,6 +77,30 @@ The front-door CSVs are intentionally redundant with deeper generated reports.
 They join the important evidence into a small set of spreadsheet-friendly
 tables. Use the deeper CSVs when you need drill-down.
 
+## CSV Audience Labels
+
+`csv-index.csv` assigns each CSV one audience label. Use the labels to decide
+which files are evidence, which files are planning, and which files are
+supporting drill-down.
+
+| Audience | Meaning |
+| --- | --- |
+| `user/front-door` | Start here. These CSVs join the important proof and status data into reader-facing tables. |
+| `verification` | Evidence tables for committed proof lanes, live receipts, runtime checks, and parity checks. |
+| `corpus` | Maintained chart facts, feature facts, quirk facts, and graph fragments used by the catalog. |
+| `planning` | Work queues, promotion reviews, refresh candidates, and future catalog expansion inputs. |
+| `supporting` | Secondary generated tables that explain or drill into another summary. Do not cite these as the headline status without following the linked summary. |
+
+When in doubt, read in this order:
+
+~~~text
+user/front-door
+-> verification
+-> corpus
+-> planning
+-> supporting
+~~~
+
 ## Regeneration Order
 
 Use the narrowest generator that matches the change, then run the matching
