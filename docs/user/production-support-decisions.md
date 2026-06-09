@@ -97,28 +97,49 @@ implementation still uses `cub installer`, ConfigHub Units, `cub variant
 create` where needed, scans, changesets, approvals, OCI/GitOps, and live
 observation.
 
-## First Practical Target
+## Current Draft Decisions
 
-The current queue has one chart in `ready-for-final-scope-decision`:
+The current queue has draft support decision artifacts for all top-20 catalog
+charts:
+
+```text
+data/production-support-decisions/<chart>/support-decision.yaml
+```
+
+These are drafts, not support claims. Each one names:
+
+```text
+candidate base
+vanilla target class
+ConfigHub OCI delivery path
+known evidence already in the repo
+image, scan, lifecycle, target-fact, and live-evidence decision state
+requirements that must close before final support
+```
+
+The generated summary is:
+
+```text
+data/production-support-decisions/summary.md
+```
+
+The verifier now checks that every row in the production support queue has its
+named decision artifact. That keeps the production queue actionable instead of
+being a loose spreadsheet.
+
+## First Final Candidate
+
+NGINX remains the clean first final-support candidate:
 
 ```text
 bitnami/nginx@24.0.2
 candidate base: http-clusterip
+draft artifact: data/production-support-decisions/bitnami-nginx/support-decision.yaml
 ```
 
-That is the clean first production-support candidate because its base is small,
-the extension slots are empty in the supported path, and the remaining work is
-mainly to choose the target scope and refresh evidence for that scope.
-
-The first draft decision artifact is:
-
-```text
-data/production-support-decisions/bitnami-nginx/support-decision.yaml
-```
-
-It names the proposed `http-clusterip` support boundary and records that fresh
-target-scoped ConfigHub OCI/GitOps evidence is still required before the row can
-be marked `production-supported`.
+That base is small, its extension slots are empty in the supported path, and
+the remaining work is mainly to choose the exact target scope and refresh
+evidence for that scope.
 
 After NGINX, the queue splits into four kinds of work:
 

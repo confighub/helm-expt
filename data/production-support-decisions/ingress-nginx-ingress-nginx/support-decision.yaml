@@ -1,0 +1,65 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionSupportDecision
+metadata:
+  name: "ingress-nginx-ingress-nginx-default-public-oci-draft"
+spec:
+  chart: "ingress-nginx/ingress-nginx"
+  version: "4.15.1"
+  decision: draft
+  decisionDate: "2026-06-09"
+  supportedBase: "default"
+  targetScope:
+    clusterClass: vanilla-kubernetes
+    namespace: "ingress-nginx"
+    deliveryPath: confighub-oci
+    gitopsController: argo-or-flux
+    storageAssumptions:
+      - "Use the chart's recorded storage behavior for the candidate base unless this draft is narrowed before final support."
+    networkAssumptions:
+      - "Use the service, ingress, DNS, and certificate behavior recorded by the candidate base unless this draft is narrowed before final support."
+    requiredTargetFacts: []
+  supportBoundary:
+    includes:
+      - "ingress-nginx/ingress-nginx@4.15.1 default base"
+      - ConfigHub OCI delivery for the declared target scope after fresh target evidence is recorded
+      - rendered objects, labels, gates, receipts, and support objects produced by the recorded base
+    excludes:
+      - "private values overlays, wrapper charts, and populated extension slots unless separately reviewed"
+      - "non-vanilla Kubernetes distributions unless separately reviewed"
+      - "other delivery controllers or target scopes unless separately reviewed"
+  decisions:
+    imageDecision:
+      state: "no-open-image-digest-gap"
+      detail: "no open image-digest gap in current queue"
+    scanDecision:
+      state: "needs-scan-scope-decision"
+      detail: "accept, fix, or document scanner findings for supported scope"
+    lifecycleDecision:
+      state: "no-chart-hooks"
+      detail: "record lifecycle support boundary: recipe-hook-policy:no-hooks"
+    targetFactDecision:
+      state: "no-unresolved-target-prerequisite-in-candidate-base"
+      detail: "no unresolved target prerequisite in candidate base"
+    liveEvidenceDecision:
+      state: "needs-runtime-decision-before-final"
+      detail: "resolve or accept runtime condition, then rerun target-scoped live/e2e evidence"
+  evidence:
+    - path: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+      claim: "The candidate base is Helm-equivalent under recorded inputs."
+    - path: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/receipts/scan-receipt.yaml"
+      claim: "The rendered-object scan receipt exists for the candidate base."
+    - path: "runs/live-kind-parity/ingress-nginx-ingress-nginx-default/receipt.yaml"
+      claim: "The two-cluster Helm-vs-installer parity receipt exists for the candidate base."
+    - path: "data/production-disposition/receipts/ingress-nginx-ingress-nginx/cluster-rbac-review.yaml"
+      claim: "The cluster rbac review disposition exists for this chart."
+    - path: "data/production-disposition/receipts/ingress-nginx-ingress-nginx/hook-and-lifecycle-phase-policy.yaml"
+      claim: "The hook and lifecycle phase policy disposition exists for this chart."
+    - path: "data/production-disposition/receipts/ingress-nginx-ingress-nginx/scan-gate-warning-disposition.yaml"
+      claim: "The scan gate warning disposition disposition exists for this chart."
+    - path: "data/production-disposition/receipts/ingress-nginx-ingress-nginx/webhook-readiness-and-failure-policy.yaml"
+      claim: "The webhook readiness and failure policy disposition exists for this chart."
+  requiredBeforeFinal:
+    - "Choose the final target scope, exact GitOps controller, namespace, and artifact digest."
+    - "Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope."
+    - "choose whether default is in production scope; close or document its runtime-watch live-readiness issue first"
+  nextAction: "choose whether default is in production scope; close or document its runtime-watch live-readiness issue first"
