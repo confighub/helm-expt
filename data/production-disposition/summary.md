@@ -13,13 +13,13 @@ catalog-supported local-test charts: 20
 ConfigHub proof receipts passing: 20
 live/e2e observed charts: 20
 production-supported charts: 0
-production-review-ready pending final support decision: 10
-production-blocked pending disposition: 10
+production-review-ready pending final support decision: 11
+production-blocked pending disposition: 9
 source Helm-hook rows: 1
 hook/lifecycle disposition rows: 12
 related lifecycle observation rows: 2
-accepted production disposition receipts: 46
-charts with accepted dispositions: 10
+accepted production disposition receipts: 51
+charts with accepted dispositions: 11
 ```
 
 The hook/lifecycle disposition is a production-review item. It does not always
@@ -50,7 +50,7 @@ runtime checks.
 | `bitnami/postgresql@18.6.7` | generated-passwords, existing-secret | pass | local-kind-observed | production-review-ready | 5 |  |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords, existing-secret | pass | local-kind-observed | production-review-ready | 5 |  |
 | `bitnami/redis@25.5.3` | default, reuse-existing-secret | pass | local-kind-observed | production-review-ready | 4 |  |
-| `external-secrets/external-secrets@2.5.0` | default, no-crds | pass | local-kind-observed | blocked | 0 | CRD lifecycle and upgrade policy, cluster RBAC review, extension slot provenance and scan policy, scan/gate warning disposition, webhook readiness and failure policy |
+| `external-secrets/external-secrets@2.5.0` | default, no-crds | pass | local-kind-observed | production-review-ready | 5 |  |
 | `grafana/grafana@10.5.15` | generated-passwords, existing-secret-ingress | pass | local-kind-observed | production-review-ready | 5 |  |
 | `grafana/loki@7.0.0` | single-binary-filesystem, simple-scalable-minio | pass | local-kind-observed | blocked | 0 | cluster RBAC review, extension slot provenance and scan policy, hook and lifecycle phase policy, scan/gate warning disposition, storage backup restore and rollback policy |
 | `grafana/tempo@1.24.4` | local-persistent, s3-query-observability | pass | local-kind-observed | blocked | 0 | extension slot provenance and scan policy, scan/gate warning disposition, storage backup restore and rollback policy, target fact preflight |

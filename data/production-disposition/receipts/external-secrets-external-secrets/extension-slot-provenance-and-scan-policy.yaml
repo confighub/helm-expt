@@ -1,0 +1,35 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: external-secrets-extension-slot-provenance-and-scan-policy
+spec:
+  chart: external-secrets/external-secrets
+  version: "2.5.0"
+  disposition: extension slot provenance and scan policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: External Secrets exposes extraObjects as a tpl-powered extension slot. The supported bases keep that slot empty. This disposition accepts the current base inputs while requiring any populated extraObjects content to become a reviewed installer base with render parity, scan, and lifecycle evidence.
+  evidence:
+    - path: recipes/external-secrets/external-secrets/2.5.0/control-points.yaml
+      claim: The recipe records tpl as controlled-by-empty-defaults and notes that extraObjects uses tpl.
+    - path: recipes/external-secrets/external-secrets/2.5.0/value-model.yaml
+      claim: The value model records extraObjects as an empty extension slot.
+    - path: recipes/external-secrets/external-secrets/2.5.0/effective-values.yaml
+      claim: The default effective values do not populate extraObjects.
+    - path: recipes/external-secrets/external-secrets/2.5.0/effective-values-no-crds.yaml
+      claim: The no-crds effective values do not populate extraObjects.
+    - path: recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The default base is Helm-equivalent with the empty extension slot.
+    - path: recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The no-crds base is Helm-equivalent with the empty extension slot.
+  affectedVariants:
+    - default
+    - no-crds
+  acceptedPolicy:
+    currentBases: extraObjects is empty in both supported bases.
+    populatedSlotRule: Any extraObjects content creates a new reviewed installer base rather than an untracked post-render edit.
+  remainingProductionBlockers: []
+  nextDecision: A production support decision can keep extraObjects disabled or add a separate reviewed base for specific extra objects.

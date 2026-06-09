@@ -45,9 +45,9 @@ Which detailed CSV should I open next?
 | live evidence | ConfigHub/OCI semantic parity defect receipts | 0/20 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 0/40 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-supported charts | 0/20 | gap | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
-| production disposition | top20 production-review-ready charts | 10/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
-| production disposition | top20 production-blocked charts | 10/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
-| production disposition | charts with accepted production dispositions | 10/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| production disposition | top20 production-review-ready charts | 11/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| production disposition | top20 production-blocked charts | 9/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| production disposition | charts with accepted production dispositions | 11/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | scan disposition | high-priority scan rows | 4/20 | partial | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
 | scan disposition | remaining mutable-image rows | 0/20 | good | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
 | scan disposition | privileged infrastructure review rows | 4/20 | partial | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
@@ -220,21 +220,21 @@ production-supported until a final target-scoped support decision is recorded.
 | Metric | Value |
 | --- | ---: |
 | production-supported charts | 0/20 |
-| production-review-ready pending final support decision | 10/20 |
-| production-blocked pending disposition | 10/20 |
-| charts with accepted dispositions | 10/20 |
+| production-review-ready pending final support decision | 11/20 |
+| production-blocked pending disposition | 9/20 |
+| charts with accepted dispositions | 11/20 |
 | high-priority scan rows | 4/20 |
 | mutable-image rows still needing fixes | 0/20 |
 
 | Open disposition | Charts |
 | --- | ---: |
-| scan/gate warning disposition | 10 |
-| cluster RBAC review | 9 |
-| extension slot provenance and scan policy | 9 |
-| CRD lifecycle and upgrade policy | 7 |
-| webhook readiness and failure policy | 6 |
+| scan/gate warning disposition | 9 |
+| cluster RBAC review | 8 |
+| extension slot provenance and scan policy | 8 |
+| CRD lifecycle and upgrade policy | 6 |
 | hook and lifecycle phase policy | 5 |
 | storage backup restore and rollback policy | 5 |
+| webhook readiness and failure policy | 5 |
 | target fact preflight | 2 |
 
 | Scan route | Charts |
@@ -253,7 +253,7 @@ production-supported until a final target-scoped support decision is recorded.
 | bitnami/postgresql@18.6.7 | production-review-ready | 5 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
 | bitnami/rabbitmq@16.0.14 | production-review-ready | 5 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
 | bitnami/redis@25.5.3 | production-review-ready | 4 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
-| external-secrets/external-secrets@2.5.0 | blocked | 0 | 5 | write or fix the receipt for CRD lifecycle and upgrade policy |
+| external-secrets/external-secrets@2.5.0 | production-review-ready | 5 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
 | grafana/grafana@10.5.15 | production-review-ready | 5 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
 | grafana/loki@7.0.0 | blocked | 0 | 5 | write or fix the receipt for cluster RBAC review |
 

@@ -9,7 +9,7 @@ spec:
   supportLevel: "supported-for-declared-scopes"
   supportedScopes:
     - local-test
-  productionReadiness: "blocked-by-current-scan-gate"
+  productionReadiness: "production-review-ready"
   supportedVariants:
     - "default"
     - "no-crds"
@@ -24,4 +24,5 @@ spec:
     - "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts."
     - "default preserves the normal External Secrets install shape."
     - "no-crds is supported when CRD lifecycle is owned outside this package."
-    - "Production remains blocked until CRD/webhook lifecycle, SecretStore expectations, and scan/gate findings have dispositions."
+    - "CRD lifecycle, webhook readiness, controller-owned webhook Secret fields, cluster RBAC, extension slots, and scan/gate warnings are recorded as production review input."
+    - "Production recommendation remains a separate decision; default is the stronger first production-review path, while no-crds requires compatible CRDs to be staged and observed in the target cluster."

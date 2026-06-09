@@ -40,7 +40,7 @@ spec:
     supportLevel: "supported-for-declared-scopes"
     supportedScopes:
       - "local-test"
-    productionReadiness: "blocked-by-current-scan-gate"
+    productionReadiness: "production-review-ready"
     supportedVariants:
       - "default"
       - "no-crds"
@@ -60,7 +60,7 @@ spec:
       liveParity: "1/2"
     featureSummary: "crds;extension-slots"
     hardGap: "-"
-    nextAction: "write or fix the receipt for CRD lifecycle and upgrade policy"
+    nextAction: "refresh live/e2e receipts for the accepted production scope"
   installerPackage:
     path: "packages/external-secrets/external-secrets/2.5.0"
     installer: "packages/external-secrets/external-secrets/2.5.0/installer.yaml"

@@ -1,0 +1,56 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: external-secrets-scan-gate-warning-disposition
+spec:
+  chart: external-secrets/external-secrets
+  version: "2.5.0"
+  disposition: scan/gate warning disposition
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: External Secrets has no high or critical rendered-object scan findings. The local scan warnings are CRD lifecycle, webhook observation, webhook Secret controller ownership, cluster RBAC, and disabled dependency review points. The external kube-linter warnings are missing CPU and memory requirements on the three controller Deployments in each base. This disposition accepts those warnings as explicit production review inputs, not as final production support.
+  evidence:
+    - path: data/external-scan-lane/review.csv
+      claim: External kube-linter rows for both bases record unset-cpu-requirements and unset-memory-requirements warnings bound to rendered object digests.
+    - path: data/scan-disposition-workdown/workdown.csv
+      claim: The generated scan disposition workdown routes External Secrets to add-resource-policy before production support.
+    - path: recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default rendered-object scan has zero high or critical findings and records CRD, webhook, webhook Secret, and cluster RBAC review points explicitly.
+    - path: recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/receipts/scan-receipt.yaml
+      claim: The no-crds rendered-object scan has zero high or critical findings and records webhook, webhook Secret, dependency lock, and cluster RBAC review points explicitly.
+    - path: data/production-disposition/receipts/external-secrets-external-secrets/crd-lifecycle-and-upgrade-policy.yaml
+      claim: CRD ownership and no-crds target preconditions have an accepted production-review disposition.
+    - path: data/production-disposition/receipts/external-secrets-external-secrets/webhook-readiness-and-failure-policy.yaml
+      claim: Webhook readiness, caBundle, and controller-owned Secret fields have an accepted production-review disposition.
+    - path: data/production-disposition/receipts/external-secrets-external-secrets/cluster-rbac-review.yaml
+      claim: Cluster-scoped RBAC has an accepted production-review disposition.
+    - path: data/production-disposition/receipts/external-secrets-external-secrets/extension-slot-provenance-and-scan-policy.yaml
+      claim: tpl-powered extraObjects handling has an accepted production-review disposition.
+    - path: runs/live-kind-parity/external-secrets-external-secrets-default/receipt.yaml
+      claim: The default base passes strict two-cluster live parity.
+    - path: runs/live-helm-confighub-compare/external-secrets-external-secrets-default/receipt.yaml
+      claim: The default base passes regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo live parity with healthy runtime.
+    - path: runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-default/receipt.yaml
+      claim: Runtime lifecycle observation proves CRDs, webhook caBundles, webhook Secret data, controller rollouts, and server dry-run for the default base.
+    - path: runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-no-crds/receipt.yaml
+      claim: Runtime lifecycle observation proves the no-crds base when compatible external CRDs are staged.
+  affectedVariants:
+    - default
+    - no-crds
+  acceptedWarnings:
+    - admission-webhook-requires-observation
+    - cluster-rbac-review
+    - crd-upgrade-policy
+    - dependency-lock-review
+    - webhook-secret-cert-controller-policy
+    - unset-cpu-requirements
+    - unset-memory-requirements
+  variantCaveats:
+    - "default is the stronger first production-review path because it has live Helm-vs-ConfigHub parity and lifecycle observation in the repo."
+    - "no-crds requires target CRDs to be staged and observed fresh before production use."
+    - "A hardened production base may add resource requests and limits where the upstream chart supports them."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose the CRD ownership path, resource policy, webhook failure policy, and target runtime checks for the chosen base.

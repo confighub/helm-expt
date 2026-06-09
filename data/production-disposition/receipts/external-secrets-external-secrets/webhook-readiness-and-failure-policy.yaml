@@ -1,0 +1,49 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: external-secrets-webhook-readiness-and-failure-policy
+spec:
+  chart: external-secrets/external-secrets
+  version: "2.5.0"
+  disposition: webhook readiness and failure policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    External Secrets renders admission webhook configurations and an empty
+    webhook Secret. Certificate material and webhook caBundle fields are
+    populated by the running controller after apply. This disposition accepts
+    that behavior as an observation requirement: desired config stays explicit,
+    while controller-owned runtime fields must be proved fresh after apply.
+  evidence:
+    - path: recipes/external-secrets/external-secrets/2.5.0/control-points.yaml
+      claim: The recipe records admission-webhook and webhook-secret control points as scan-and-observe.
+    - path: recipes/external-secrets/external-secrets/2.5.0/value-model.yaml
+      claim: The value model records webhook.certManager.enabled as using the built-in cert controller and an initially empty webhook Secret.
+    - path: recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/rendered/object-inventory.yaml
+      claim: The default base renders two ValidatingWebhookConfiguration objects and the external-secrets-webhook Secret.
+    - path: recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/rendered/object-inventory.yaml
+      claim: The no-crds base still renders the webhook configurations and webhook Secret.
+    - path: recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default scan records webhook observation and webhook Secret controller policy warnings.
+    - path: recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/receipts/scan-receipt.yaml
+      claim: The no-crds scan records the same webhook observation and webhook Secret controller policy warnings.
+    - path: runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-default/receipt.yaml
+      claim: The default lifecycle observation proves webhook caBundle fields are non-empty, webhook Secret data keys are populated, and server dry-run accepts a SecretStore object.
+    - path: runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-no-crds/receipt.yaml
+      claim: The no-crds lifecycle observation proves the same webhook behavior when compatible CRDs are provided externally.
+    - path: runs/live-helm-confighub-compare/external-secrets-external-secrets-default/receipt.yaml
+      claim: The default base passes regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo live parity with healthy runtime.
+  affectedVariants:
+    - default
+    - no-crds
+  acceptedPolicy:
+    controllerOwnedFields: Webhook Secret certificate data and admission webhook caBundle are produced after apply and must be observed fresh.
+    desiredObjects: ValidatingWebhookConfiguration, webhook Service, webhook Deployment, and empty Secret metadata remain part of the reviewed rendered object set.
+    failurePolicy: A production target must record its admission failure policy and webhook availability expectation before support is declared.
+  variantCaveats:
+    - "no-crds still requires compatible CRDs to exist before webhook/API validation can be proved."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should attach target-specific webhook availability and failure-policy checks to the chosen base.

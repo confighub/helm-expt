@@ -1,0 +1,51 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: external-secrets-crd-lifecycle-and-upgrade-policy
+spec:
+  chart: external-secrets/external-secrets
+  version: "2.5.0"
+  disposition: CRD lifecycle and upgrade policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    External Secrets has two supported CRD postures. The default base renders
+    23 CRDs as ordinary reviewed objects. The no-crds base omits CRDs and
+    requires the target cluster to provide compatible CRDs before the controller
+    starts. This disposition accepts the CRD routing model for production review
+    input: CRD ownership is a base choice, not an implicit Helm side effect.
+  evidence:
+    - path: recipes/external-secrets/external-secrets/2.5.0/control-points.yaml
+      claim: The recipe records installCRDs as variant-controlled, with 23 CRDs in default and zero CRDs in no-crds.
+    - path: recipes/external-secrets/external-secrets/2.5.0/value-model.yaml
+      claim: The value model records installCRDs and crds.* as explicit CRD selection controls.
+    - path: recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/rendered/object-inventory.yaml
+      claim: The default rendered object inventory records 23 CustomResourceDefinition objects.
+    - path: recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/rendered/object-inventory.yaml
+      claim: The no-crds rendered object inventory records zero CustomResourceDefinition objects.
+    - path: recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default rendered-object scan records CRD upgrade policy warnings explicitly.
+    - path: recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The default base is Helm-equivalent under recorded inputs, with only the installer Namespace support object added.
+    - path: recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The no-crds base is Helm-equivalent under recorded inputs, with only the installer Namespace support object added.
+    - path: runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-default/receipt.yaml
+      claim: The default lifecycle observation proves the rendered CRDs become Established and a SecretStore object is accepted by server dry-run.
+    - path: runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-no-crds/receipt.yaml
+      claim: The no-crds lifecycle observation proves the base works when compatible external CRDs are staged before apply.
+    - path: runs/live-kind-parity/external-secrets-external-secrets-default/receipt.yaml
+      claim: The default base passes strict two-cluster live parity between regular Helm and cub installer apply.
+  affectedVariants:
+    - default
+    - no-crds
+  acceptedPolicy:
+    default: CRDs are owned by this base and must be reviewed, upgraded, and backed out as part of the chart support policy.
+    no-crds: CRDs are owned outside this base and must exist in the target before install.
+    upgrade: CRD schema changes remain target-sensitive and require a fresh upgrade review when the chart version changes.
+  variantCaveats:
+    - "no-crds is a target-prerequisite path; its two-cluster parity row is blocked until CRDs are staged, but lifecycle observation proves the intended precondition."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose whether the target owns External Secrets CRDs through this base or through a separate CRD management path.

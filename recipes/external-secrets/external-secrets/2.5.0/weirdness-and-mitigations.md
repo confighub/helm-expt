@@ -12,7 +12,7 @@ current ConfigHub/cub installer proof absorbs it.
 | Catalog status | catalog-supported |
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
-| Production readiness | blocked-by-current-scan-gate |
+| Production readiness | production-review-ready |
 | Variants in this note | default, no-crds |
 
 Production support is not implied by this file. A chart can be supported for
@@ -33,7 +33,8 @@ or operating-policy dispositions.
 - Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
 - default preserves the normal External Secrets install shape.
 - no-crds is supported when CRD lifecycle is owned outside this package.
-- Production remains blocked until CRD/webhook lifecycle, SecretStore expectations, and scan/gate findings have dispositions.
+- CRD lifecycle, webhook readiness, controller-owned webhook Secret fields, cluster RBAC, extension slots, and scan/gate warnings are recorded as production review input.
+- Production recommendation remains a separate decision; default is the stronger first production-review path, while no-crds requires compatible CRDs to be staged and observed in the target cluster.
 
 ## Control Points
 

@@ -1,0 +1,40 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: external-secrets-cluster-rbac-review
+spec:
+  chart: external-secrets/external-secrets
+  version: "2.5.0"
+  disposition: cluster RBAC review
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: External Secrets intentionally renders cluster-scoped RBAC for the controller, cert-controller, edit/view roles, and service binding integration. Both supported bases expose the same cluster RBAC shape. This disposition accepts the upstream RBAC inventory for production review input; target policy can still require a narrower base or an explicit cluster-policy approval.
+  evidence:
+    - path: recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/rendered/object-inventory.yaml
+      claim: The default object inventory records the ClusterRole and ClusterRoleBinding objects rendered by the chart.
+    - path: recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/rendered/object-inventory.yaml
+      claim: The no-crds object inventory records the same cluster-scoped RBAC shape.
+    - path: recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/receipts/scan-receipt.yaml
+      claim: The default rendered-object scan flags cluster-rbac-review findings with zero high or critical findings.
+    - path: recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/receipts/scan-receipt.yaml
+      claim: The no-crds rendered-object scan has the same cluster RBAC warning shape, plus dependency and webhook Secret review points.
+    - path: recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The default base is Helm-equivalent under recorded inputs.
+    - path: recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The no-crds base is Helm-equivalent under recorded inputs.
+    - path: runs/live-kind-parity/external-secrets-external-secrets-default/receipt.yaml
+      claim: The default base passes strict two-cluster live parity.
+    - path: runs/live-helm-confighub-compare/external-secrets-external-secrets-default/receipt.yaml
+      claim: The default base passes regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo live parity.
+  affectedVariants:
+    - default
+    - no-crds
+  acceptedWarnings:
+    - cluster-rbac-review
+  variantCaveats:
+    - "Cluster-scoped permissions are expected for this controller class but must be reviewed against the target cluster's policy."
+  remainingProductionBlockers: []
+  nextDecision: A target-scoped production support decision can review External Secrets RBAC together with SecretStore provider scope, namespace policy, and cluster approval requirements.

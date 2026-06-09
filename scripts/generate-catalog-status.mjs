@@ -79,11 +79,13 @@ const supportedCatalogEntries = {
     ],
   },
   "external-secrets/external-secrets": {
+    productionReadiness: "production-review-ready",
     notes: [
       "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.",
       "default preserves the normal External Secrets install shape.",
       "no-crds is supported when CRD lifecycle is owned outside this package.",
-      "Production remains blocked until CRD/webhook lifecycle, SecretStore expectations, and scan/gate findings have dispositions.",
+      "CRD lifecycle, webhook readiness, controller-owned webhook Secret fields, cluster RBAC, extension slots, and scan/gate warnings are recorded as production review input.",
+      "Production recommendation remains a separate decision; default is the stronger first production-review path, while no-crds requires compatible CRDs to be staged and observed in the target cluster.",
     ],
   },
   "grafana/grafana": {
