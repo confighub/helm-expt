@@ -460,7 +460,7 @@ headline order is:
    (#145).
 4. Keep the closed Helm import path contract (#76) verifier-backed while the
    downstream `cub installer import helm` product command remains future work.
-5. Continue wave-2 base-variant promotion, production disposition, target
+5. Continue wave-2 base-variant promotion, production support decisions, target
    facts, GitOps/Argo proof, release/OCI semantics, promotion UI expectations,
    fleet inventory, fleet mutation, policy/security posture, and impact
    analysis in the order listed in `next-20-tasks.md`.
@@ -471,8 +471,9 @@ Do not add another planning document when an existing generated work queue can
 be refreshed instead.
 
 Do not mark a catalog entry production-supported because it has local-kind
-evidence. Production support needs the production-disposition lane, image
-digest handling, and runtime/GitOps evidence.
+evidence or accepted dispositions. Production support needs a final
+target-scoped decision that records the support scope, required live checks,
+image policy, lifecycle policy, and runtime/GitOps evidence.
 
 Do not make the user-facing docs longer to explain internal proof machinery.
 Link to generated evidence from the docs instead.

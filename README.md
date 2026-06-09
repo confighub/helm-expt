@@ -207,6 +207,8 @@ For the full routing table, see [Choosing Commands](./docs/user/choosing-command
 20 popular Helm charts have catalog entries.
 20/20 top-20 charts have at least one passing local kind live/e2e receipt.
 20/20 top-20 charts have chart-level ConfigHub upload, scan, and safe-ops proof receipt sets.
+20/20 top-20 charts are production-review-ready by disposition receipt.
+0/20 top-20 charts are production-supported until target-scoped support decisions are recorded.
 100 charts have recipe/package proof artifacts.
 156 chart/base rows have Helm-template versus cub-installer render parity.
 18/156 chart/base rows currently have the stricter in-ConfigHub proof lane marked pass.
@@ -216,6 +218,8 @@ The top-20 base-variant two-cluster kind parity lane has 40 committed
 receipts: 25 pass, 3 watch, 12 blocked, and 0 semantic parity defects.
 cert-manager and External Secrets have lifecycle-observation receipts for
 common CRD/webhook/controller-owned runtime behavior.
+5/5 maintained hook-bearing top-100 charts have hook route receipts;
+0/5 have hook execution or observation receipts yet.
 Top-500 source/catalog analysis exists as catalog-planning data for future
 recipe promotion work.
 ```

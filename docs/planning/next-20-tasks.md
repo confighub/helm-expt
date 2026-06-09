@@ -19,7 +19,8 @@ data. It does not replace them; it is the executive work queue over them.
   proof creation.
 - Current chart facts show 25 hard gaps for recommended extra capabilities: 15 existing-secret gaps (#113),
   3 template-CRD/no-crds gaps (#114), 6 curated-variant lanes, and 1 other gap.
-- **0 production-supported** (20 production-blocked pending disposition). P0 #76 is closed as a
+- **0 production-supported** (20 production-review-ready pending final target-scoped support
+  decisions). P0 #76 is closed as a
   verifier-backed import-path definition; downstream `cub installer import helm`
   implementation remains product work.
 
@@ -75,8 +76,9 @@ task is about delivery, live observation.
 5. **Wave-2 real base-variant promotion** - add user-shaped base variants to the 5 selected proof-grade
    charts (traefik, external-dns, velero, istiod, kyverno): real recipe variant + package base + rendered
    revision + scan/gate + Helm-equivalence receipt each.
-6. **Production disposition for the top-20** - give every scan/gate/operating-policy finding an explicit
-   disposition; move charts from `catalog-supported (local-test)` toward `production-supported`.
+6. **Production support decisions for the top-20** - use the accepted production dispositions as
+   review input; record target scope, required live checks, and support policy before moving any chart
+   from `catalog-supported (local-test)` toward `production-supported`.
 7. **Target facts beyond required Secrets** - map existing-CRD, API availability, namespace, storage class,
    ingress class, runtime class to installer-native external requirements, provided facts, cluster singleton
    facts, and collectors.

@@ -23,7 +23,8 @@ Catalog-supported recipes declare the scopes and variants we recommend.
 For the top-20 public Helm charts, the catalog entry itself is mandatory because
 users will expect to find those charts. The support level may still be narrow:
 today the top-20 are `catalog-supported` for local/test proof paths, while
-production support remains blocked until each production disposition is closed.
+production support remains unclaimed until a target-scoped support decision is
+recorded.
 
 ## Chart Updates
 
@@ -135,10 +136,13 @@ The repo currently has:
 20 bespoke proofs with richer variants
 80 generated full proofs with default variants
 20 catalog-supported recipes for local-test scope
+20 production-review-ready disposition records
+0 production-supported entries
 0 top-20 catalog candidates remaining
 ```
 
-The next maintenance milestones are to add production dispositions for the
-supported local-test recipes, promote selected proof-grade/default charts using
-`docs/planning/catalog-promotion-review.md`, and keep old-version patch reviews
-repeatable.
+The next maintenance milestones are to record target-scoped production support
+decisions, refresh live/e2e evidence for accepted production scopes, add
+execution/observation receipts for selected hook routes, promote selected
+proof-grade/default charts using `docs/planning/catalog-promotion-review.md`,
+and keep old-version patch reviews repeatable.

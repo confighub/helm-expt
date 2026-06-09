@@ -829,9 +829,10 @@ Current facts:
 ```text
 20 catalog-supported local-test charts
 20 passing ConfigHub proof receipt sets
-1 live/e2e observed chart
+20 live/e2e observed charts
 0 production-supported charts
-20 production-blocked pending disposition
+20 production-review-ready pending final support decision
+0 production-blocked pending disposition
 ```
 
 Verification:

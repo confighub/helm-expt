@@ -119,8 +119,8 @@ proof-grade: 80
 ```
 
 That is deliberate. They have enough evidence to recommend for local proof and
-demo use. They are not production-supported until the scan, gate, and
-operating-policy findings have explicit dispositions.
+demo use. They are not production-supported until a final target-scoped support
+decision records the scope, required live checks, and support policy.
 
 The next 80 are full equivalence proofs for default variants. They are not
 automatically catalog-supported because most do not yet have user-shaped

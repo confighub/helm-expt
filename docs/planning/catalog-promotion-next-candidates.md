@@ -3,8 +3,9 @@
 All top-20 bespoke recipes are now explicit `catalog-supported` entries for the
 declared `local-test` scope.
 
-They are not production-supported. Production remains blocked until the
-scan, gate, and operating-policy findings have dispositions.
+They are not production-supported. Production support remains unclaimed until
+the target scope, scan/gate expectations, lifecycle requirements, runtime
+evidence, and support policy are recorded in a final support decision.
 
 The next promotion reviews should take proof-grade charts from the generated
 default set, add user-shaped variants, and prove breadth without making the

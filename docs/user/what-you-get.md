@@ -46,11 +46,14 @@ The current public corpus contains:
 20 top-chart catalog entries with bespoke base variants
 20 top-20 charts with chart-level local kind runtime receipts
 20 top-20 charts with chart-level ConfigHub upload, scan, and safe-operation receipt sets
+20 top-20 charts with production-review-ready disposition receipts
+0 top-20 charts marked production-supported until target-scoped support decisions are recorded
 20 chart-specific Helm pain reports
 10 derived ConfigHub variant work orders with live `cub variant create` receipts
 6 target-bound derived variant receipts with OCI/GitOps/runtime evidence
 top-100 and top-500 catalog analysis data
 extension-slot coverage for 13/20 top catalog charts and 82/100 top100 chart facts
+5 maintained hook-bearing top-100 charts with route receipts; 0 with hook execution/observation receipts
 selected GitOps/OCI and live parity receipts
 ```
 
