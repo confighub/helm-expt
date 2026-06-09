@@ -66,9 +66,9 @@ Current generated facts, at the time of this plan update:
 100 charts have model support.
 20 top-100 charts are catalog-supported for the current public catalog scope.
 80 top-100 charts are proof-grade non-catalog rows.
-156 chart/base rows have render parity.
+158 chart/base rows have render parity.
 ConfigHub proof, local live proof, GitOps/OCI proof, and live parity are partial by exact row.
-1 top-20 chart has a final target-scoped support decision; 20/20 are production-review-ready.
+17 top-20 charts have supported target-scoped proof scopes; 2 are superseded source charts; 1 is rejected for the current target scope; 20/20 are production-review-ready.
 ```
 
 ## Current 90 To 95 Push

@@ -75,8 +75,8 @@ There are two live parity surfaces, and they answer different questions:
 
 | Surface | Current reading | Use it for |
 | --- | --- | --- |
-| Selected live Helm-vs-ConfigHub comparison | 20 committed receipts: 18 pass, 2 watch, 0 blocked. | Comparing regular Helm with ConfigHub delivery for one selected row per top-20 chart. |
-| Live parity rerun queue | 10 non-pass rows across ConfigHub/OCI and two-cluster parity: 3 watch, 7 blocked, 0 semantic parity defects. | Choosing the next exact row that needs a prerequisite, runtime, lifecycle, or operating-policy decision before rerun. |
+| Selected live Helm-vs-ConfigHub comparison | 20 committed receipts: 20 pass, 0 watch, 0 blocked. | Comparing regular Helm with ConfigHub delivery for one selected row per top-20 chart. |
+| Live parity rerun queue | 9 non-pass rows across ConfigHub/OCI and two-cluster parity: 2 watch, 7 blocked, 0 semantic parity defects. | Choosing the next exact row that needs a prerequisite, runtime, lifecycle, or operating-policy decision before rerun. |
 
 The watch and blocked rows are not currently object-set parity defects. They
 surface target prerequisites, hook/lifecycle routes, controller health, storage,
@@ -120,8 +120,8 @@ render reproducibility: complete for current recipe variants
 ConfigHub proof: partial by exact chart-recipe-variant row
 local live cluster proof: partial by exact chart-recipe-variant row
 GitOps/OCI live proof: partial by exact chart-recipe-variant row; use generated status for current pass, watch, blocked, and missing counts
-selected live Helm-vs-ConfigHub comparison: 18 top-20 rows pass, 2 watch, 0 blocked
-broader live parity rerun queue: 3 watch, 7 blocked, 0 semantic parity defects across ConfigHub/OCI and two-cluster parity
+selected live Helm-vs-ConfigHub comparison: 20 top-20 rows pass, 0 watch, 0 blocked
+broader live parity rerun queue: 2 watch, 7 blocked, 0 semantic parity defects across ConfigHub/OCI and two-cluster parity
 lifecycle observation proof: cert-manager and External Secrets exact rows pass, generic hook lifecycle support remains backlog
 ```
 

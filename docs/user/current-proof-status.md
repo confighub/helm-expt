@@ -167,11 +167,11 @@ different outcome.
 Current aggregate status:
 
 ```text
-helm_template_vs_installer_setup:        156 pass, 0 missing
-confighub_upload_variant_scan_safe_ops:   18 pass, 138 missing
-local_kind_kubectl_apply:                 21 pass, 135 missing
-confighub_oci_argo_live:                  20 pass, 2 watch, 4 blocked, 130 missing
-live_helm_vs_confighub_dual_compare:      18 pass, 2 watch, 0 blocked, 136 missing
+helm_template_vs_installer_setup:        158 pass, 0 missing
+confighub_upload_variant_scan_safe_ops:   20 pass, 138 missing
+local_kind_kubectl_apply:                 23 pass, 135 missing
+confighub_oci_argo_live:                  22 pass, 2 watch, 4 blocked, 130 missing
+live_helm_vs_confighub_dual_compare:      20 pass, 2 watch, 0 blocked, 136 missing
 ```
 
 Those counts come from the generated lane matrix:
@@ -193,21 +193,20 @@ Live Helm-vs-ConfigHub parity has started:
 
 - The selected top-20 live comparison lane has committed receipts for all 20
   rows.
-- 18 rows pass, 2 rows are watch, and no rows are blocked.
-- A `watch` row means semantic object parity passed, but the live target still
-  has a runtime, storage, controller-health, initialization, or operating-policy
-  condition to review.
-- The current watch rows are ingress-nginx `admission-disabled` and Vault
-  `default`.
+- 20 rows pass, no rows are watch, and no rows are blocked.
+- Across the full 158-row lane matrix, 2 older watch rows remain as backlog
+  evidence for non-selected bases. They have semantic object parity, but need
+  target, runtime, storage, controller-health, initialization, or
+  operating-policy review before they should be promoted.
 - The comparison checks regular Helm against ConfigHub delivery and records the
   expected installer-added Namespace object and any semantic object diffs.
 - Exact chart/base status is in the generated summary:
   [Live Helm-vs-ConfigHub Parity](../../data/live-helm-confighub-compare/summary.md).
 
 Strict two-cluster Helm-vs-installer parity now has committed receipts for all
-40 maintained top-20 base variants:
+42 maintained top-20 base variants:
 
-- 32 rows pass;
+- 34 rows pass;
 - 1 row is watch;
 - 7 rows are blocked by target prerequisites, runtime readiness, storage,
   hooks, or operating-policy decisions;
@@ -216,24 +215,23 @@ Strict two-cluster Helm-vs-installer parity now has committed receipts for all
 Use the generated rerun plan for the next command and expected remediation:
 [Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md).
 
-The current rerun queue has no semantic parity defects. Its 10 non-pass rows
+The current rerun queue has no semantic parity defects. Its 9 non-pass rows
 are grouped by the next decision needed before a rerun is useful:
 
 | Next step | Rows | Meaning |
 | --- | ---: | --- |
 | runtime review | 6 | Inspect readiness, waits, storage, capacity, or application initialization. |
 | stage prerequisite | 1 | Stage or model CRDs, APIs, Secrets, storage, or another target prerequisite. |
-| GitOps runtime review | 1 | Inspect controller health or GitOps waits. |
 | lifecycle route | 1 | Choose the hook or lifecycle observation route. |
 | operating policy | 1 | Record the operating decision before expecting a different readiness result. |
 
 Production support decisions are now closed for the top-20 catalog:
 
-- 16 of 20 top-20 charts have supported target-scoped proof scopes.
+- 17 of 20 top-20 charts have supported target-scoped proof scopes.
 - 2 of 20 top-20 charts are superseded deprecated source charts and remain
   catalog proof evidence only.
-- 2 of 20 top-20 charts have rejected default bases with concrete target-fit
-  or runtime reasons.
+- 1 of 20 top-20 charts has a rejected target-scoped proof scope with a
+  concrete target-fit or runtime reason.
 - 0 of 20 top-20 charts still have draft support decision artifacts.
 - 20 of 20 are production-review-ready by pre-review disposition receipt.
 - 0 of 20 still need a pre-review production disposition.
