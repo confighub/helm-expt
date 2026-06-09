@@ -81,6 +81,14 @@ installer base, add a resource policy, harden security context, explicitly
 accept or split privileged infrastructure, review runtime endpoints, or decide
 PDB policy.
 
+The image digest workdown is:
+
+[Image Digest Workdown](../../data/image-digest-workdown/summary.md)
+
+It shows rendered image references that need digest resolution, image
+overrides, or explicit proof receipts before reproducible production OCI
+support.
+
 The generated lane matrix is the authority for exact chart/version/base status:
 
 [Lane Test Matrix](../../data/lane-test-matrix/summary.md)

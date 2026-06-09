@@ -45,6 +45,7 @@ For the shortest chart-by-chart top-100 answer, start with:
 | [production disposition details](../../data/production-disposition/dispositions.md) | Detailed top-20 production plan. Shows accepted receipts, owners, required evidence, and unblock rules for each disposition type. |
 | [production next actions](../../data/production-disposition/next-actions.csv) | One row per top-20 chart. Shows the next production disposition receipt or fix to work on. |
 | [scan disposition workdown](../../data/scan-disposition-workdown/summary.md) | One row per top-20 chart. Routes scan warnings to image-pin fixes, resource policies, security hardening, privileged infrastructure acceptance, runtime endpoint review, or PDB policy decisions. |
+| [image digest workdown](../../data/image-digest-workdown/summary.md) | Rendered image references that need digest resolution, image overrides, or explicit proof receipts before reproducible production OCI support. |
 | [pain-points.csv](../../data/pain-point-coverage/pain-points.csv) | One row per common Helm pain point. Shows current answer, handoff, evidence, remaining gap, and next action. |
 | [readiness.csv](../../data/top100-readiness/readiness.csv) | One row per top-100 chart. Shows workability, adoption bucket, current user status, strongest evidence, hard gap, and next action. |
 | [next-ten waves](../../data/next-ten-waves/summary.md) | Compact next work queues for gap review, latest-version promotion, variant build, production disposition, and import prototypes. |
@@ -105,17 +106,18 @@ The machine-readable index is:
 7. Check [production disposition details](../../data/production-disposition/dispositions.md) when the question is "what evidence closes this production blocker?"
 8. Check [production next actions](../../data/production-disposition/next-actions.csv) when the question is "what production receipt or fix should we work on next?"
 9. Check [scan disposition workdown](../../data/scan-disposition-workdown/summary.md) when the question is "is this scan finding a fix, a hardened base, an acceptance, or a runtime review?"
-10. Check [next-ten waves](../../data/next-ten-waves/summary.md) when the question is "what compact work queue should we pick from next?"
-11. Check [attack-plan workdown](../../data/attack-plan-workdown/summary.md) when the question is "what is the broader generated workdown?"
-12. Check the `workability` column in [readiness.csv](../../data/top100-readiness/readiness.csv) when the question is "can I use this chart now?"
-13. Check [top500 review.csv](../../data/top500-catalog-analysis/review.csv) when the question is how the retained top500 source scan maps to current proof.
-14. Filter [base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) by chart to see each base variant.
-15. Check [feature-outcomes.csv](../../data/outcome-coverage/feature-outcomes.csv) for hooks, CRDs, generated facts, target facts, and other chart-specific behavior.
-16. Check [pain-points.csv](../../data/pain-point-coverage/pain-points.csv) for the general Helm pain being addressed.
-17. Check [coverage-matrix.csv](../../data/variant-path-coverage/coverage-matrix.csv) when the question is about one base, diff, operation, or derived variant path.
-18. Check [derived-variant-outcomes.csv](../../data/outcome-coverage/derived-variant-outcomes.csv) when the question is about post-render ConfigHub variants.
-19. Check [cert-manager and External Secrets lifecycle observations](../../data/lifecycle-observations/cert-manager-eso/summary.md) when the question is about controller-owned fields or post-apply readiness.
-20. Run the scoped verifier for the table you opened, or `npm run verify` only when you need the full corpus gate.
+10. Check [image digest workdown](../../data/image-digest-workdown/summary.md) when the question is "are rendered images reproducible enough for production OCI?"
+11. Check [next-ten waves](../../data/next-ten-waves/summary.md) when the question is "what compact work queue should we pick from next?"
+12. Check [attack-plan workdown](../../data/attack-plan-workdown/summary.md) when the question is "what is the broader generated workdown?"
+13. Check the `workability` column in [readiness.csv](../../data/top100-readiness/readiness.csv) when the question is "can I use this chart now?"
+14. Check [top500 review.csv](../../data/top500-catalog-analysis/review.csv) when the question is how the retained top500 source scan maps to current proof.
+15. Filter [base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) by chart to see each base variant.
+16. Check [feature-outcomes.csv](../../data/outcome-coverage/feature-outcomes.csv) for hooks, CRDs, generated facts, target facts, and other chart-specific behavior.
+17. Check [pain-points.csv](../../data/pain-point-coverage/pain-points.csv) for the general Helm pain being addressed.
+18. Check [coverage-matrix.csv](../../data/variant-path-coverage/coverage-matrix.csv) when the question is about one base, diff, operation, or derived variant path.
+19. Check [derived-variant-outcomes.csv](../../data/outcome-coverage/derived-variant-outcomes.csv) when the question is about post-render ConfigHub variants.
+20. Check [cert-manager and External Secrets lifecycle observations](../../data/lifecycle-observations/cert-manager-eso/summary.md) when the question is about controller-owned fields or post-apply readiness.
+21. Run the scoped verifier for the table you opened, or `npm run verify` only when you need the full corpus gate.
 
 ## Narrow Claim Rule
 

@@ -9,10 +9,10 @@ image pinning, not a registry-resolution receipt.
 ```text
 rendered image references:             366
 rendered subjects:                     152
-image references needing resolution:   360
-rendered subjects needing resolution:  149
+image references needing resolution:   345
+rendered subjects needing resolution:  141
 catalog-supported subjects:            40
-catalog-supported needing resolution:  38
+catalog-supported needing resolution:  30
 charts with rendered image references: 96
 priority subjects listed:              30
 ```

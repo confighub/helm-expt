@@ -160,6 +160,13 @@ remaining changes cleanly into derived variants or managed import.
 This tier should be easy to try without a private customer repository. It can
 prove the catalog recipe, package, rendered objects, and local live checks.
 
+Production OCI support also needs image digest evidence. A public or local
+proof can record mutable image tags, but a production-supported base should use
+digest-resolved images or carry an explicit image override/proof receipt. The
+current review queue is:
+
+[Image Digest Workdown](../../data/image-digest-workdown/summary.md)
+
 Hook boundary:
 
 ```text

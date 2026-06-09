@@ -1,11 +1,7 @@
 chart,version,catalog_status,proof_surface,rendered_subjects,subjects_needing_resolution,image_refs,mutable_tag_refs,floating_latest_or_untagged_refs,next_action
 argo-cd/argo-cd,9.5.15,catalog-supported,top20-catalog-supported,2,2,18,18,0,resolve image digests for each affected variant before production OCI support
-bitnami/mongodb,19.0.7,catalog-supported,top20-catalog-supported,2,2,5,0,5,resolve image digests for each affected variant before production OCI support
 bitnami/mysql,14.0.3,catalog-supported,top20-catalog-supported,2,2,4,4,0,resolve image digests for each affected variant before production OCI support
-bitnami/nginx,24.0.2,catalog-supported,top20-catalog-supported,2,2,4,0,4,resolve image digests for each affected variant before production OCI support
-bitnami/postgresql,18.6.7,catalog-supported,top20-catalog-supported,2,2,2,0,2,resolve image digests for each affected variant before production OCI support
 bitnami/rabbitmq,16.0.14,catalog-supported,top20-catalog-supported,2,2,4,4,0,resolve image digests for each affected variant before production OCI support
-bitnami/redis,25.5.3,catalog-supported,top20-catalog-supported,2,2,4,0,4,resolve image digests for each affected variant before production OCI support
 external-secrets/external-secrets,2.5.0,catalog-supported,top20-catalog-supported,2,2,6,6,0,resolve image digests for each affected variant before production OCI support
 grafana/grafana,10.5.15,catalog-supported,top20-catalog-supported,2,2,2,2,0,resolve image digests for each affected variant before production OCI support
 grafana/loki,7.0.0,catalog-supported,top20-catalog-supported,2,2,19,19,0,resolve image digests for each affected variant before production OCI support
@@ -18,6 +14,10 @@ metrics-server/metrics-server,3.13.0,catalog-supported,top20-catalog-supported,2
 prometheus-community/kube-prometheus-stack,85.3.3,catalog-supported,top20-catalog-supported,2,2,16,16,0,resolve image digests for each affected variant before production OCI support
 prometheus-community/prometheus,29.8.0,catalog-supported,top20-catalog-supported,2,2,8,8,0,resolve image digests for each affected variant before production OCI support
 secrets-store-csi-driver/secrets-store-csi-driver,1.6.0,catalog-supported,top20-catalog-supported,2,2,6,6,0,resolve image digests for each affected variant before production OCI support
+bitnami/mongodb,19.0.7,catalog-supported,top20-catalog-supported,2,0,5,0,0,none
+bitnami/nginx,24.0.2,catalog-supported,top20-catalog-supported,2,0,4,0,0,none
+bitnami/postgresql,18.6.7,catalog-supported,top20-catalog-supported,2,0,2,0,0,none
+bitnami/redis,25.5.3,catalog-supported,top20-catalog-supported,2,0,4,0,0,none
 ingress-nginx/ingress-nginx,4.15.1,catalog-supported,top20-catalog-supported,2,0,2,0,0,none
 elastic/eck-operator,3.4.0,proof-grade,next80-proof-grade,3,3,3,3,0,resolve image digests for each affected variant before production OCI support
 grafana/pyroscope,2.0.2,proof-grade,next80-proof-grade,3,3,9,9,0,resolve image digests for each affected variant before production OCI support
