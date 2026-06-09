@@ -30,9 +30,8 @@ data/live-parity-rerun-plan/summary.md
 | Reason | Rows |
 | --- | ---: |
 | helm-runtime: upstream not ready (parity passed) | 3 |
-| target-runtime: pod crash loop (parity passed) | 2 |
+| target-runtime: pod crash loop (parity passed) | 3 |
 | helm-hook: post-install hook failed (parity passed) | 1 |
-| target-prerequisite: CRDs missing | 1 |
 | target-runtime: pods pending (parity passed) | 1 |
 
 ## Rows
@@ -60,7 +59,7 @@ data/live-parity-rerun-plan/summary.md
 | `grafana/loki@7.0.0` | simple-scalable-minio | pass |  | runs/live-kind-parity/grafana-loki-simple-scalable-minio/receipt.yaml |
 | `grafana/loki@7.0.0` | single-binary-filesystem | pass |  | runs/live-kind-parity/grafana-loki-single-binary-filesystem/receipt.yaml |
 | `grafana/tempo@1.24.4` | local-persistent | pass |  | runs/live-kind-parity/grafana-tempo-local-persistent/receipt.yaml |
-| `grafana/tempo@1.24.4` | s3-query-observability | blocked | target-prerequisite: CRDs missing | runs/live-kind-parity/grafana-tempo-s3-query-observability/receipt.yaml |
+| `grafana/tempo@1.24.4` | s3-query-observability | blocked | target-runtime: pod crash loop (parity passed) | runs/live-kind-parity/grafana-tempo-s3-query-observability/receipt.yaml |
 | `hashicorp/consul@2.0.0` | default-control-plane | pass |  | runs/live-kind-parity/hashicorp-consul-default-control-plane/receipt.yaml |
 | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | blocked | target-runtime: pod crash loop (parity passed) | runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml |
 | `hashicorp/vault@0.32.0` | default | blocked | helm-runtime: upstream not ready (parity passed) | runs/live-kind-parity/hashicorp-vault-default/receipt.yaml |
