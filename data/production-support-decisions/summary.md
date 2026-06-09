@@ -12,8 +12,10 @@ live evidence rule, and operator-owned boundaries.
 ```text
 decision artifacts: 20
 supported decisions: 16
-draft decisions: 4
-open work items: 11
+draft decisions: 0
+rejected decisions: 2
+superseded decisions: 2
+open work items: 0
 ```
 
 ## Workstreams
@@ -24,10 +26,6 @@ evidence work before it becomes production-supported for a target scope.
 | Workstream | Charts | Examples | Next action |
 | --- | ---: | --- | --- |
 | Supported scope evidence | 16 | `argo-cd/argo-cd@9.5.15` (default)<br>`bitnami/mongodb@19.0.7` (generated-passwords)<br>`bitnami/mysql@14.0.3` (generated-passwords)<br>`bitnami/nginx@24.0.2` (http-clusterip)<br>and 12 more | Keep target-scoped evidence fresh before using the supported scope as a production example. |
-| Image digest resolution or exception | 3 | `grafana/grafana@10.5.15` (generated-passwords)<br>`grafana/tempo@1.24.4` (local-persistent)<br>`hashicorp/vault@0.32.0` (default) | Pin images by digest or record an explicit exception before production OCI support. |
-| Scan scope decision | 4 | `grafana/grafana@10.5.15` (generated-passwords)<br>`grafana/tempo@1.24.4` (local-persistent)<br>`hashicorp/vault@0.32.0` (default)<br>`ingress-nginx/ingress-nginx@4.15.1` (default) | Record which scanner findings are accepted, fixed, or outside the supported target scope. |
-| Runtime or missing-lane decision | 2 | `hashicorp/vault@0.32.0` (default)<br>`ingress-nginx/ingress-nginx@4.15.1` (default) | Close the runtime, missing-lane, or lifecycle-observation decision before refreshing final evidence. |
-| Fresh target-scoped evidence | 2 | `grafana/grafana@10.5.15` (generated-passwords)<br>`grafana/tempo@1.24.4` (local-persistent) | After scope and risk decisions are closed, refresh ConfigHub OCI/GitOps and live/e2e evidence for that exact scope. |
 
 ## Priority Rows
 
@@ -37,10 +35,7 @@ currently concentrated.
 
 | Chart | Base | Open work | Next action |
 | --- | --- | --- | --- |
-| `grafana/grafana@10.5.15` | generated-passwords | image; scan scope; fresh evidence | resolve image digests for each affected variant before production OCI support |
-| `grafana/tempo@1.24.4` | local-persistent | image; scan scope; fresh evidence | resolve image digests for each affected variant before production OCI support |
-| `hashicorp/vault@0.32.0` | default | image; scan scope; runtime decision | choose whether default is in production scope; close or document its runtime-review-needed live-readiness issue first |
-| `ingress-nginx/ingress-nginx@4.15.1` | default | scan scope; runtime decision | choose whether default is in production scope; close or document its runtime-watch live-readiness issue first |
+| - | - | - | No open production-support work items. |
 
 The spreadsheet form is [work-items.csv](./work-items.csv). It has one row per
 production-support task or keep-fresh item, so overlapping work such as image,
@@ -83,12 +78,12 @@ Each decision directory also has a generated workdown page:
 | `bitnami/rabbitmq@16.0.14` | generated-passwords | supported | cub-lk-kind-vanilla; namespace=rabbitmq; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, clustering, backup/restore, queue-recovery, failover, credential-rotation, Erlang-cookie-rotation, storage-class, SLO, or resource-hardened bases for real customer RabbitMQ workloads. |
 | `bitnami/redis@25.5.3` | default | supported | cub-lk-kind-vanilla; namespace=redis; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, backup/restore, failover, storage-class, SLO, or availability-hardened bases for real customer Redis workloads. |
 | `external-secrets/external-secrets@2.5.0` | default | supported | cub-lk-kind-vanilla; namespace=external-secrets; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate provider-specific bases for SecretStore and ExternalSecret use cases. |
-| `grafana/grafana@10.5.15` | generated-passwords | draft | vanilla-kubernetes; namespace=grafana; delivery=confighub-oci; controller=argo-or-flux | needs-fresh-target-evidence-before-final | resolve image digests for each affected variant before production OCI support |
+| `grafana/grafana@10.5.15` | generated-passwords | superseded | vanilla-kubernetes; namespace=grafana; delivery=confighub-oci; controller=argo-or-flux | not-production-supported-because-source-chart-is-deprecated | Keep this as catalog proof evidence only; review a maintained Grafana chart or replacement catalog source before making a production-support claim. |
 | `grafana/loki@7.0.0` | single-binary-filesystem | supported | cub-lk-kind-vanilla; namespace=loki; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate object-store, retention, backup, restore, tenant, hardening, and digest-pinned bases for real customer Loki workloads. |
-| `grafana/tempo@1.24.4` | local-persistent | draft | vanilla-kubernetes; namespace=tempo; delivery=confighub-oci; controller=argo-or-flux | needs-fresh-target-evidence-before-final | resolve image digests for each affected variant before production OCI support |
+| `grafana/tempo@1.24.4` | local-persistent | superseded | vanilla-kubernetes; namespace=tempo; delivery=confighub-oci; controller=argo-or-flux | not-production-supported-because-source-chart-is-deprecated | Keep this as catalog proof evidence only; review grafana-community/tempo or another maintained successor before making a production-support claim. |
 | `hashicorp/consul@2.0.0` | default-control-plane | supported | cub-lk-kind-vanilla; namespace=consul; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate secure-mesh, TLS, ACL, gateway, UI, external-CRD, production-quorum, hardening, and digest-pinned bases for real customer Consul workloads. |
-| `hashicorp/vault@0.32.0` | default | draft | vanilla-kubernetes; namespace=vault; delivery=confighub-oci; controller=argo-or-flux | needs-runtime-decision-before-final | choose whether default is in production scope; close or document its runtime-review-needed live-readiness issue first |
-| `ingress-nginx/ingress-nginx@4.15.1` | default | draft | vanilla-kubernetes; namespace=ingress-nginx; delivery=confighub-oci; controller=argo-or-flux | needs-runtime-decision-before-final | choose whether default is in production scope; close or document its runtime-watch live-readiness issue first |
+| `hashicorp/vault@0.32.0` | default | rejected | vanilla-kubernetes; namespace=vault; delivery=confighub-oci; controller=argo-or-flux | not-production-supported-because-vault-default-is-unready | Keep this default base as parity evidence only; create a separate Vault production base with init/unseal, storage, TLS, backup/restore, and operator runbook evidence before making a support claim. |
+| `ingress-nginx/ingress-nginx@4.15.1` | default | rejected | vanilla-kubernetes; namespace=ingress-nginx; delivery=confighub-oci; controller=argo-or-flux | not-production-supported-because-default-base-lacks-target-fit | Keep this default base as parity evidence only; create a separate supported ingress-nginx scope for a target with LoadBalancer behavior or an explicitly supported admission-disabled topology. |
 | `jetstack/cert-manager@v1.20.2` | crds-enabled | supported | cub-lk-kind-vanilla; namespace=cert-manager; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate issuer, certificate, provider, or hardened resource bases for real customer certificate workloads. |
 | `longhorn/longhorn@1.11.2` | default | supported | cub-lk-kind-vanilla; namespace=longhorn-system; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate backup/restore, upgrade, replica-policy, storage-class, UI-ingress, resource-hardened, or digest-pinned bases for real customer Longhorn workloads. |
 | `metrics-server/metrics-server@3.13.0` | default | supported | cub-lk-kind-vanilla; namespace=kube-system; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate external-tls-ca, resource-hardened, RBAC-hardened, API aggregation hardened, digest-pinned, or customer production bases for real Metrics Server workloads. |
@@ -98,10 +93,10 @@ Each decision directory also has a generated workdown page:
 
 ## Rule
 
-A `draft` decision is useful because it names the proposed support boundary.
-It is not a production support claim. A row can move to `supported` only when
-fresh target-scoped evidence for the declared delivery path is recorded and the
-decision no longer has `requiredBeforeFinal` entries.
+A `supported` decision names a target-scoped support boundary with fresh
+evidence. A `draft` decision names a proposed support boundary that still has
+open work. A `superseded` or `rejected` decision closes a chart or base
+without claiming production support.
 
 Regenerate:
 

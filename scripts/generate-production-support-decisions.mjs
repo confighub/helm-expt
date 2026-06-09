@@ -123,6 +123,8 @@ function summary(rows, workItems) {
   const stateCounts = groupCount(rows, "decision");
   const supported = stateCounts.get("supported") ?? 0;
   const draft = stateCounts.get("draft") ?? 0;
+  const rejected = stateCounts.get("rejected") ?? 0;
+  const superseded = stateCounts.get("superseded") ?? 0;
   const workstreams = supportWorkstreams(rows);
   const priorityRows = prioritySupportRows(rows);
   return `# Production Support Decisions
@@ -140,6 +142,8 @@ live evidence rule, and operator-owned boundaries.
 decision artifacts: ${rows.length}
 supported decisions: ${supported}
 draft decisions: ${draft}
+rejected decisions: ${rejected}
+superseded decisions: ${superseded}
 open work items: ${workItems.filter((row) => row.priority !== "keep-fresh").length}
 \`\`\`
 
@@ -160,7 +164,7 @@ currently concentrated.
 
 | Chart | Base | Open work | Next action |
 | --- | --- | --- | --- |
-${priorityRows.map((row) => `| \`${row.chart}@${row.version}\` | ${row.supported_base} | ${openWork(row).join("; ")} | ${row.next_action} |`).join("\n")}
+${priorityRows.length ? priorityRows.map((row) => `| \`${row.chart}@${row.version}\` | ${row.supported_base} | ${openWork(row).join("; ")} | ${row.next_action} |`).join("\n") : "| - | - | - | No open production-support work items. |"}
 
 The spreadsheet form is [work-items.csv](./work-items.csv). It has one row per
 production-support task or keep-fresh item, so overlapping work such as image,
@@ -180,10 +184,10 @@ ${rows.map((row) => `| \`${row.chart}@${row.version}\` | ${row.supported_base} |
 
 ## Rule
 
-A \`draft\` decision is useful because it names the proposed support boundary.
-It is not a production support claim. A row can move to \`supported\` only when
-fresh target-scoped evidence for the declared delivery path is recorded and the
-decision no longer has \`requiredBeforeFinal\` entries.
+A \`supported\` decision names a target-scoped support boundary with fresh
+evidence. A \`draft\` decision names a proposed support boundary that still has
+open work. A \`superseded\` or \`rejected\` decision closes a chart or base
+without claiming production support.
 
 Regenerate:
 

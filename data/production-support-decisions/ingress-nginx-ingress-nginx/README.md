@@ -11,29 +11,23 @@ support decision. It does not replace the source decision artifact:
 | --- | --- |
 | Chart | `ingress-nginx/ingress-nginx@4.15.1` |
 | Candidate base | `default` |
-| Decision state | `draft` |
+| Decision state | `rejected` |
 | Target scope | vanilla-kubernetes; namespace=ingress-nginx; delivery=confighub-oci; controller=argo-or-flux |
 | Delivery path | `confighub-oci` |
 
 ## Open Work
 
-| Work | Action |
-| --- | --- |
-| Scan scope | Record which scanner findings are accepted, fixed, or outside this target scope. |
-| Runtime decision | Decide whether the runtime condition is supported before refreshing live evidence. |
+- No open generated work item for this decision.
 
 
 ## Closeout Sequence
 
 1. Choose the final target scope, GitOps controller, namespace, and artifact digest.
-2. Decide which scanner findings are accepted, fixed, hardened, or outside this target scope.
-3. Decide whether the runtime condition is supported, excluded, or operator-owned.
 
 ## Required Before Final Support
 
-- Choose the final target scope, exact GitOps controller, namespace, and artifact digest.
-- Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope.
-- choose whether default is in production scope; close or document its runtime-watch live-readiness issue first
+- None.
+
 
 ## Support Boundary
 
@@ -61,7 +55,7 @@ Excluded:
 
 ## Next Action
 
-choose whether default is in production scope; close or document its runtime-watch live-readiness issue first
+Keep this default base as parity evidence only; create a separate supported ingress-nginx scope for a target with LoadBalancer behavior or an explicitly supported admission-disabled topology.
 
 Regenerate:
 

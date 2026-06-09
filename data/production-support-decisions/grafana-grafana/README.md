@@ -11,31 +11,23 @@ support decision. It does not replace the source decision artifact:
 | --- | --- |
 | Chart | `grafana/grafana@10.5.15` |
 | Candidate base | `generated-passwords` |
-| Decision state | `draft` |
+| Decision state | `superseded` |
 | Target scope | vanilla-kubernetes; namespace=grafana; delivery=confighub-oci; controller=argo-or-flux |
 | Delivery path | `confighub-oci` |
 
 ## Open Work
 
-| Work | Action |
-| --- | --- |
-| Image digest | Pin rendered image references by digest or record an explicit mutable-image exception. |
-| Scan scope | Record which scanner findings are accepted, fixed, or outside this target scope. |
-| Fresh evidence | Refresh ConfigHub OCI/GitOps and live/e2e evidence after earlier decisions are closed. |
+- No open generated work item for this decision.
 
 
 ## Closeout Sequence
 
 1. Choose the final target scope, GitOps controller, namespace, and artifact digest.
-2. Pin rendered image references by digest or record an explicit mutable-image exception.
-3. Decide which scanner findings are accepted, fixed, hardened, or outside this target scope.
-4. Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence after the earlier decisions are closed.
 
 ## Required Before Final Support
 
-- Choose the final target scope, exact GitOps controller, namespace, and artifact digest.
-- Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope.
-- resolve image digests or record explicit exception before production OCI support
+- None.
+
 
 ## Support Boundary
 
@@ -65,7 +57,7 @@ Excluded:
 
 ## Next Action
 
-resolve image digests for each affected variant before production OCI support
+Keep this as catalog proof evidence only; review a maintained Grafana chart or replacement catalog source before making a production-support claim.
 
 Regenerate:
 

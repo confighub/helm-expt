@@ -11,32 +11,23 @@ support decision. It does not replace the source decision artifact:
 | --- | --- |
 | Chart | `hashicorp/vault@0.32.0` |
 | Candidate base | `default` |
-| Decision state | `draft` |
+| Decision state | `rejected` |
 | Target scope | vanilla-kubernetes; namespace=vault; delivery=confighub-oci; controller=argo-or-flux |
 | Delivery path | `confighub-oci` |
 
 ## Open Work
 
-| Work | Action |
-| --- | --- |
-| Image digest | Pin rendered image references by digest or record an explicit mutable-image exception. |
-| Scan scope | Record which scanner findings are accepted, fixed, or outside this target scope. |
-| Runtime decision | Decide whether the runtime condition is supported before refreshing live evidence. |
+- No open generated work item for this decision.
 
 
 ## Closeout Sequence
 
 1. Choose the final target scope, GitOps controller, namespace, and artifact digest.
-2. Pin rendered image references by digest or record an explicit mutable-image exception.
-3. Decide which scanner findings are accepted, fixed, hardened, or outside this target scope.
-4. Decide whether the runtime condition is supported, excluded, or operator-owned.
 
 ## Required Before Final Support
 
-- Choose the final target scope, exact GitOps controller, namespace, and artifact digest.
-- Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope.
-- resolve image digests or record explicit exception before production OCI support
-- choose whether default is in production scope; close or document its runtime-review-needed live-readiness issue first
+- None.
+
 
 ## Support Boundary
 
@@ -66,7 +57,7 @@ Excluded:
 
 ## Next Action
 
-choose whether default is in production scope; close or document its runtime-review-needed live-readiness issue first
+Keep this default base as parity evidence only; create a separate Vault production base with init/unseal, storage, TLS, backup/restore, and operator runbook evidence before making a support claim.
 
 Regenerate:
 
