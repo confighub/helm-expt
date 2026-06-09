@@ -13,7 +13,7 @@ spec:
     chart: "jetstack/cert-manager"
     chartVersion: "v1.20.2"
     packagePath: "packages/jetstack/cert-manager/v1.20.2"
-    variant: "default"
+    variant: "crds-enabled"
   changeset:
     slug: "cert-manager-safe-ops-20260527"
     createResult: "pass"
@@ -26,15 +26,15 @@ spec:
       proof.confighub.com/scope: "local-test"
       proof.confighub.com/live-apply: "false"
   approval:
-    command: "cub unit approve deployment-cert-manager-cert-manager-cainjector --space helm-cert-manager-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    command: "cub unit approve deployment-cert-manager-cert-manager --space helm-cert-manager-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
-    representativeUnit: "deployment-cert-manager-cert-manager-cainjector"
-    output: "Unit deployment-cert-manager-cert-manager-cainjector (34b9e973-f0dc-42b1-a5d9-75843724261c) has been approved\nAwaiting triggers..."
+    representativeUnit: "deployment-cert-manager-cert-manager"
+    output: "Unit deployment-cert-manager-cert-manager (3a9facad-ac16-4065-bf94-356395406f21) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-cert-manager-confighub-proof --where \"Labels.Proof = 'cert-manager-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req osYMlRtFXqNFAbByJxhViBbGontuuAJD: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req gJblNvUunrQJgwQQfVDMsnLaCYQPkzTs: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-cert-manager-confighub-proof --where \"Labels.Proof = 'cert-manager-confighub-proof'\""
     result: "pass"

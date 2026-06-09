@@ -42,6 +42,9 @@ function buildReport() {
   const lifecycleObservations = lifecycleObservationIndex();
   const rerunPlan = liveParityRerunIndex();
   const rows = [];
+  const supportedBaseByChart = new Map(productionSupportRows
+    .filter((row) => row.decision === "supported" && row.supported_base)
+    .map((row) => [`${row.chart}@${row.version}`, row.supported_base]));
 
   for (const [index, production] of productionRows.entries()) {
     const chartKey = `${production.chart}@${production.version}`;
@@ -54,11 +57,13 @@ function buildReport() {
       const lifecycle = lifecycleObservations.get(`${chartKey}|${base}`);
       const rerun = rerunPlan.get(`${chartKey}|${base}`);
       const readiness = readinessFor(baseRow, lifecycle);
+      const supportedBase = supportedBaseByChart.get(chartKey);
+      const recommendedFirst = supportedBase ? base === supportedBase : Boolean(variant.packageBase?.default);
       rows.push({
         rank: String(index + 1),
         chart: chartKey,
         base,
-        recommended_first: variant.packageBase?.default ? "yes" : "no",
+        recommended_first: recommendedFirst ? "yes" : "no",
         user_readiness: readiness.status,
         why: readiness.why,
         next_action: readiness.nextAction,

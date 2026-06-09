@@ -35,6 +35,7 @@ export const TOP20_CONFIGHUB_PROOF_CHARTS = [
     chart: "jetstack/cert-manager",
     chartVersion: "v1.20.2",
     namespace: "cert-manager",
+    defaultBase: "crds-enabled",
   },
   {
     slug: "external-secrets",

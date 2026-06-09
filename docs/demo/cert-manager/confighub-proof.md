@@ -6,7 +6,7 @@ This proof lane shows the current ConfigHub path for `jetstack/cert-manager@v1.2
 using real commands only: `cub installer`, `cub variant`, `cub unit`,
 `cub function`, and `cub changeset`.
 
-The selected happy-path install variant is `default`.
+The selected happy-path install variant is `crds-enabled`.
 
 ## Package Bases
 
@@ -24,8 +24,8 @@ The selected happy-path install variant is `default`.
 | Re-render | Pass |
 | Package determinism | Pass |
 | Validator path | pass |
-| ConfigHub upload | Pass; 44 ConfigHub Units (43 Kubernetes Units plus installer record) |
-| Server-side variant | Pass; 44 cloned Units |
+| ConfigHub upload | Pass; 50 ConfigHub Units (49 Kubernetes Units plus installer record) |
+| Server-side variant | Pass; 50 cloned Units |
 | ConfigHub function scan | pass |
 | Safe operations | pass |
 

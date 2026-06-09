@@ -15,8 +15,8 @@ proof lanes,local live rows,22,157,partial,data/outcome-coverage/base-outcomes.c
 proof lanes,GitOps/OCI live pass rows,21,157,partial,data/outcome-coverage/base-outcomes.csv,6 rows have non-pass GitOps/OCI receipts.
 proof lanes,live Helm-vs-ConfigHub parity pass rows,19,157,partial,data/outcome-coverage/base-outcomes.csv,2 rows have non-pass live parity receipts.
 proof lanes,two-cluster kind parity pass rows,33,41,partial,data/live-kind-parity/summary.csv,"Regular Helm in one vanilla kind cluster, cub installer output in another, then semantic comparison."
-proof lanes,complete core lane rows,16,157,gap,data/outcome-coverage/base-outcomes.csv,"Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."
-proof lanes,top20 start-here base variants,16,41,partial,data/top20-base-readiness/base-readiness.csv,Base variants that are the cleanest first catalog paths today.
+proof lanes,complete core lane rows,17,157,gap,data/outcome-coverage/base-outcomes.csv,"Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."
+proof lanes,top20 start-here base variants,17,41,partial,data/top20-base-readiness/base-readiness.csv,Base variants that are the cleanest first catalog paths today.
 proof lanes,top20 bases needing unresolved prerequisite or runtime review,7,41,partial,data/top20-base-readiness/base-readiness.csv,"Base variants whose render parity is useful but whose target fit, runtime, or lifecycle behavior still needs review."
 derived variants,derived variant golden rows,10,10,good,data/variant-goldens/derived-expansion-wave/work-orders.csv,"Golden work orders that specify source base, downstream variant, current cub variant create command, and receipt targets."
 derived variants,derived variant live create receipts,10,10,good,runs/derived-variant-execution,Receipts from current cub variant create executions without hidden Helm rerender.
