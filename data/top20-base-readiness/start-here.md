@@ -32,6 +32,31 @@ production-supported charts: 0
 | `longhorn/longhorn@1.11.2` | default | `cub installer setup --pull packages/longhorn/longhorn/1.11.2 --base default --work-dir <tmp> --non-interactive --namespace longhorn-system` | check production decision for longhorn/longhorn |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | `cub installer setup --pull packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system` | check production decision for secrets-store-csi-driver/secrets-store-csi-driver |
 
+## After Setup
+
+Replace `<tmp>` with the work directory from the row you used.
+
+~~~sh
+cub installer render --work-dir <tmp>
+cub installer plan --work-dir <tmp>
+~~~
+
+For a direct local Kubernetes check, apply separated Secrets first only when
+the work directory contains `out/secrets`, then apply the manifests:
+
+~~~sh
+kubectl apply -f <tmp>/out/secrets
+kubectl apply -f <tmp>/out/manifests
+~~~
+
+For ConfigHub, upload the work directory with the chart's component and variant
+labels. Use the chart demo transcript for exact labels, or start with the Redis
+tutorial for the smallest worked example:
+
+~~~sh
+cub installer upload --work-dir <tmp> --space <space> ...
+~~~
+
 ## Related Files
 
 | File | Use |

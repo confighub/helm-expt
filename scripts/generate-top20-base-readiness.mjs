@@ -189,6 +189,31 @@ production-supported charts: 0
 | --- | --- | --- | --- |
 ${startHereRows.map((row) => `| \`${row.chart}\` | ${row.base} | \`${row.command}\` | ${productionReminder(row)} |`).join("\n")}
 
+## After Setup
+
+Replace \`<tmp>\` with the work directory from the row you used.
+
+~~~sh
+cub installer render --work-dir <tmp>
+cub installer plan --work-dir <tmp>
+~~~
+
+For a direct local Kubernetes check, apply separated Secrets first only when
+the work directory contains \`out/secrets\`, then apply the manifests:
+
+~~~sh
+kubectl apply -f <tmp>/out/secrets
+kubectl apply -f <tmp>/out/manifests
+~~~
+
+For ConfigHub, upload the work directory with the chart's component and variant
+labels. Use the chart demo transcript for exact labels, or start with the Redis
+tutorial for the smallest worked example:
+
+~~~sh
+cub installer upload --work-dir <tmp> --space <space> ...
+~~~
+
 ## Related Files
 
 | File | Use |
