@@ -1,0 +1,64 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSecurityDecision"
+metadata:
+  name: "bitnami-rabbitmq-public-oci-security-decision"
+spec:
+  chart: "bitnami/rabbitmq"
+  version: "16.0.14"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "rabbitmq"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "generated-passwords"
+  variantsCovered:
+    - "existing-secret"
+    - "generated-passwords"
+  decision: "pdb-policy-accepted-for-target-scope"
+  decidedAt: "2026-06-09"
+  claim: "The selected generated-passwords support scope has one external scan warning: the chart's PodDisruptionBudget unhealthy-pod eviction policy. It is accepted for this public proof scope. Target production deployments should choose a stricter PDB/availability policy where appropriate."
+  route: "accept-or-patch-pdb-policy"
+  routeReason: "the remaining warning is an explicit PodDisruptionBudget policy choice"
+  findingSummary:
+    scanner: "kube-linter"
+    result: "warn"
+    totalFindings: 2
+    topChecks:
+      pdb-unhealthy-pod-eviction-policy: 2
+    variants:
+      existing-secret:
+        findingCount: 1
+        topChecks:
+          pdb-unhealthy-pod-eviction-policy: 1
+        renderedObjectSetSHA256: "cdff3262264844b099e7f4421f1bbd5027360c2d23ba34667506d85255c4b6f2"
+      generated-passwords:
+        findingCount: 1
+        topChecks:
+          pdb-unhealthy-pod-eviction-policy: 1
+        renderedObjectSetSHA256: "81187ce4367f5196ddbaa35ea55b972698f8a474d78a2cdc2908b12290c89f31"
+  acceptedFindings:
+    -
+      group: "pdb-unhealthy-pod-eviction-policy"
+      disposition: "Accepted for the public proof scope. Customer production scopes should choose a target PDB/availability policy together with storage and backup posture."
+  limits:
+    - "This is not a blanket security approval for customer clusters, private overlays, regulated environments, or future chart versions."
+    - "This does not support the existing-secret base for production use."
+    - "Production storage, backup, restore, failover, credential rotation, and SLO policy remain separate decisions."
+  evidence:
+    -
+      path: "data/scan-disposition-workdown/workdown.csv"
+      claim: "Routes RabbitMQ scan findings to accept-or-patch-pdb-policy."
+    -
+      path: "data/external-scan-lane/review.csv"
+      claim: "Records kube-linter warning counts for RabbitMQ rendered object sets."
+    -
+      path: "recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for existing-secret."
+    -
+      path: "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for generated-passwords."
+    -
+      path: "data/production-disposition/receipts/bitnami-rabbitmq/scan-gate-warning-disposition.yaml"
+      claim: "Earlier production disposition accepts RabbitMQ scan warnings as production-review inputs."
+  remainingSupportBlockers:
+    - "Record image policy, lifecycle boundary, generated fact ownership, and fresh target-scoped ConfigHub OCI/GitOps evidence."

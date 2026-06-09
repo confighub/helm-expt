@@ -1,0 +1,60 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionImagePolicyDecision"
+metadata:
+  name: "bitnami-rabbitmq-public-oci-image-policy-decision"
+spec:
+  chart: "bitnami/rabbitmq"
+  version: "16.0.14"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "rabbitmq"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "generated-passwords"
+  variantsCovered:
+    - "existing-secret"
+    - "generated-passwords"
+  decision: "mutable-image-exception-accepted-for-target-scope"
+  decidedAt: "2026-06-09"
+  claim: "The rendered RabbitMQ bases still contain mutable image tags, but each rendered image reference has digest-resolution evidence. For the generated-passwords public proof scope, the mutable tags are accepted as a target-scoped exception while stricter environments remain free to require digest-pinned bases or image overrides."
+  renderedImageSummary:
+    renderedSubjects: 2
+    subjectsNeedingResolution: 2
+    imageRefs: 4
+    mutableTagRefs: 4
+    floatingLatestOrUntaggedRefs: 0
+    resolutionReceipts: 2
+  variantReceipts:
+    existing-secret:
+      renderedObjectSetSHA256: "cdff3262264844b099e7f4421f1bbd5027360c2d23ba34667506d85255c4b6f2"
+      sourceImageReviewRows: 2
+      uniqueImages: 1
+      receiptPath: "data/image-digest-workdown/receipts/bitnami-rabbitmq/existing-secret/image-digest-resolution.yaml"
+    generated-passwords:
+      renderedObjectSetSHA256: "81187ce4367f5196ddbaa35ea55b972698f8a474d78a2cdc2908b12290c89f31"
+      sourceImageReviewRows: 2
+      uniqueImages: 1
+      receiptPath: "data/image-digest-workdown/receipts/bitnami-rabbitmq/generated-passwords/image-digest-resolution.yaml"
+  acceptedException:
+    reason: "The public proof target uses the upstream Bitnami legacy RabbitMQ image tag. The receipt set records the registry digest that tag resolved to at decision time."
+    operatorAction: "For stricter production environments, create a digest-pinned base or image override policy before support expansion."
+  limits:
+    - "This does not mean the rendered manifests are digest-pinned."
+    - "This is not a blanket approval for all clusters, private overlays, regulated environments, or future chart versions."
+    - "This does not make the existing-secret base production-supported."
+    - "If an upstream image tag is retargeted, rerun digest resolution and re-review this decision before promotion."
+  evidence:
+    -
+      path: "data/image-digest-workdown/chart-summary.csv"
+      claim: "Summarizes RabbitMQ rendered image references."
+    -
+      path: "data/attack-plan-workdown/image-digest-review.csv"
+      claim: "Lists every rendered RabbitMQ image reference found in the object sets."
+    -
+      path: "data/image-digest-workdown/receipts/bitnami-rabbitmq/existing-secret/image-digest-resolution.yaml"
+      claim: "Records registry digest resolution for the existing-secret rendered object set."
+    -
+      path: "data/image-digest-workdown/receipts/bitnami-rabbitmq/generated-passwords/image-digest-resolution.yaml"
+      claim: "Records registry digest resolution for the generated-passwords rendered object set."
+  remainingSupportBlockers:
+    - "Record scan/PDB acceptance, lifecycle boundary, generated fact ownership, and fresh target-scoped ConfigHub OCI/GitOps evidence."

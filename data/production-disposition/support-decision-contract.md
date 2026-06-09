@@ -53,7 +53,7 @@ with the same remaining production-support decision.
 | `bitnami/nginx@24.0.2` | http-clusterip | start-here | ready-for-final-scope-decision | choose the supported production base and target scope, refresh live/e2e evidence, and record the final support decision |
 | `argo-cd/argo-cd@9.5.15` | default | start-here | resolve-images-before-production-oci | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | `bitnami/mysql@14.0.3` | generated-passwords | start-here | resolve-images-before-production-oci | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
-| `bitnami/rabbitmq@16.0.14` | generated-passwords | start-here | resolve-images-before-production-oci | resolve image digests for each affected variant before production OCI support |
+| `bitnami/rabbitmq@16.0.14` | generated-passwords | start-here | resolve-images-before-production-oci | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | `external-secrets/external-secrets@2.5.0` | default | start-here | resolve-images-before-production-oci | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | `grafana/grafana@10.5.15` | generated-passwords | start-here | resolve-images-before-production-oci | resolve image digests for each affected variant before production OCI support |
 | `grafana/loki@7.0.0` | single-binary-filesystem | start-here | resolve-images-before-production-oci | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |

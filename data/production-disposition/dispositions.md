@@ -74,7 +74,7 @@ runtime fit, and final support scope.
 | `bitnami/mysql@14.0.3` | generated-passwords | start-here | image-digest-resolution | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | `bitnami/nginx@24.0.2` | http-clusterip | start-here | final-target-support-decision | 0 | choose the supported production base and target scope, refresh live/e2e evidence, and record the final support decision |
 | `bitnami/postgresql@18.6.7` | generated-passwords | try-with-proof | lifecycle-support-scope | 0 | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
-| `bitnami/rabbitmq@16.0.14` | generated-passwords | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
+| `bitnami/rabbitmq@16.0.14` | generated-passwords | start-here | image-digest-resolution | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | `bitnami/redis@25.5.3` | default | start-here | lifecycle-support-scope | 0 | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
 | `external-secrets/external-secrets@2.5.0` | default | start-here | image-digest-resolution | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | `grafana/grafana@10.5.15` | generated-passwords | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |

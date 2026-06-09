@@ -11,43 +11,43 @@ support decision. It does not replace the source decision artifact:
 | --- | --- |
 | Chart | `bitnami/rabbitmq@16.0.14` |
 | Candidate base | `generated-passwords` |
-| Decision state | `draft` |
-| Target scope | vanilla-kubernetes; namespace=rabbitmq; delivery=confighub-oci; controller=argo-or-flux |
+| Decision state | `supported` |
+| Target scope | cub-lk-kind-vanilla; namespace=rabbitmq; delivery=confighub-oci; controller=argo |
 | Delivery path | `confighub-oci` |
 
 ## Open Work
 
 | Work | Action |
 | --- | --- |
-| Image digest | Pin rendered image references by digest or record an explicit mutable-image exception. |
-| Scan scope | Record which scanner findings are accepted, fixed, or outside this target scope. |
-| Fresh evidence | Refresh ConfigHub OCI/GitOps and live/e2e evidence after earlier decisions are closed. |
+| Keep fresh | Keep target-scoped evidence fresh before using this supported scope as an example. |
 
 
 ## Closeout Sequence
 
-1. Choose the final target scope, GitOps controller, namespace, and artifact digest.
-2. Pin rendered image references by digest or record an explicit mutable-image exception.
-3. Decide which scanner findings are accepted, fixed, hardened, or outside this target scope.
-4. Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence after the earlier decisions are closed.
+1. Keep the target-scoped evidence fresh for the declared support boundary.
 
 ## Required Before Final Support
 
-- Choose the final target scope, exact GitOps controller, namespace, and artifact digest.
-- Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope.
-- resolve image digests or record explicit exception before production OCI support
+- None.
+
 
 ## Support Boundary
 
 Included:
 
 - bitnami/rabbitmq@16.0.14 generated-passwords base
-- ConfigHub OCI delivery for the declared target scope after fresh target evidence is recorded
-- rendered objects, labels, gates, receipts, and support objects produced by the recorded base
+- ConfigHub OCI delivery through Argo for the declared cub-lk vanilla kind target scope
+- rendered RabbitMQ StatefulSet, Service, PVC, PDB, generated Secrets, labels, gates, receipts, and support objects produced by the recorded base
+- mutable-image exception backed by registry digest-resolution evidence for the rendered image references
+- generated RabbitMQ administrator password and Erlang cookie bound before render, rendered deterministically, and separated by cub installer output
+- recorded PDB warning acceptance and no-hooks lifecycle policy for the declared public proof scope
 
 Excluded:
 
+- existing-secret unless separately reviewed for target credential presence, Erlang cookie presence, custody, and rotation policy
+- RabbitMQ clustering, queue/message recovery, backup, restore, failover, credential rotation, Erlang-cookie rotation, and storage-class/SLO policy unless separately reviewed
 - private values overlays, wrapper charts, and populated extension slots unless separately reviewed
+- custom configuration, advanced configuration, init scripts, external credentials, resource-hardened, storage-hardened, or customer production bases unless separately reviewed
 - non-vanilla Kubernetes distributions unless separately reviewed
 - other delivery controllers or target scopes unless separately reviewed
 
@@ -57,6 +57,11 @@ Excluded:
 - [recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/receipts/scan-receipt.yaml](../../../recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/receipts/scan-receipt.yaml) - The rendered-object scan receipt exists for the candidate base.
 - [runs/live-kind-parity/bitnami-rabbitmq-generated-passwords/receipt.yaml](../../../runs/live-kind-parity/bitnami-rabbitmq-generated-passwords/receipt.yaml) - The two-cluster Helm-vs-installer parity receipt exists for the candidate base.
 - [runs/live-helm-confighub-compare/bitnami-rabbitmq-generated-passwords/receipt.yaml](../../../runs/live-helm-confighub-compare/bitnami-rabbitmq-generated-passwords/receipt.yaml) - The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base.
+- [data/production-support-decisions/bitnami-rabbitmq/fresh-target-evidence-2026-06-05.yaml](../../../data/production-support-decisions/bitnami-rabbitmq/fresh-target-evidence-2026-06-05.yaml) - Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared cub-lk vanilla kind support scope.
+- [data/image-digest-workdown/receipts/bitnami-rabbitmq/generated-passwords/image-digest-resolution.yaml](../../../data/image-digest-workdown/receipts/bitnami-rabbitmq/generated-passwords/image-digest-resolution.yaml) - Registry digest resolution exists for the rendered generated-passwords RabbitMQ image reference.
+- [data/production-support-decisions/bitnami-rabbitmq/image-policy-decision.yaml](../../../data/production-support-decisions/bitnami-rabbitmq/image-policy-decision.yaml) - The target-scoped image policy decision records the mutable-image exception and digest-resolution evidence.
+- [data/production-support-decisions/bitnami-rabbitmq/security-decision.yaml](../../../data/production-support-decisions/bitnami-rabbitmq/security-decision.yaml) - The target-scoped security decision accepts the generated-passwords PDB warning shape only for this public proof scope.
+- [data/production-support-decisions/bitnami-rabbitmq/lifecycle-decision.yaml](../../../data/production-support-decisions/bitnami-rabbitmq/lifecycle-decision.yaml) - The target-scoped lifecycle decision binds no-hooks policy, generated credential ownership, separated Secret handling, storage boundaries, and OCI/Argo runtime health to proof-scope evidence.
 - [data/production-disposition/receipts/bitnami-rabbitmq/generated-fact-ownership.yaml](../../../data/production-disposition/receipts/bitnami-rabbitmq/generated-fact-ownership.yaml) - The generated fact ownership disposition exists for this chart.
 - [data/production-disposition/receipts/bitnami-rabbitmq/hook-and-lifecycle-phase-policy.yaml](../../../data/production-disposition/receipts/bitnami-rabbitmq/hook-and-lifecycle-phase-policy.yaml) - The hook and lifecycle phase policy disposition exists for this chart.
 - [data/production-disposition/receipts/bitnami-rabbitmq/scan-gate-warning-disposition.yaml](../../../data/production-disposition/receipts/bitnami-rabbitmq/scan-gate-warning-disposition.yaml) - The scan gate warning disposition disposition exists for this chart.
@@ -65,7 +70,7 @@ Excluded:
 
 ## Next Action
 
-resolve image digests for each affected variant before production OCI support
+Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, clustering, backup/restore, queue-recovery, failover, credential-rotation, Erlang-cookie-rotation, storage-class, SLO, or resource-hardened bases for real customer RabbitMQ workloads.
 
 Regenerate:
 

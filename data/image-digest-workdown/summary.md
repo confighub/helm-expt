@@ -11,8 +11,8 @@ rendered image references:             366
 rendered subjects:                     152
 image references needing resolution:   345
 rendered subjects needing resolution:  141
-resolution receipts recorded:          16
-support policy decisions recorded:     18
+resolution receipts recorded:          18
+support policy decisions recorded:     20
 catalog-supported subjects:            40
 catalog-supported needing resolution:  30
 charts with rendered image references: 96
