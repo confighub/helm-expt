@@ -13,7 +13,7 @@ spec:
   findingCounts:
     critical: 0
     high: 0
-    medium: 9
+    medium: 12
     low: 0
     info: 0
   findings:
@@ -28,13 +28,31 @@ spec:
       rule: "cluster-rbac-review"
       severity: "medium"
       object: "rbac.authorization.k8s.io/v1|ClusterRole||vault-agent-injector-clusterrole"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||vault-agent-injector-clusterrole"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||vault-agent-injector-clusterrole"
       message: "Vault RBAC requires production review"
     -
       id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||vault-agent-injector-binding"
       rule: "cluster-rbac-review"
       severity: "medium"
       object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||vault-agent-injector-binding"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||vault-agent-injector-binding"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||vault-agent-injector-binding"
       message: "Vault RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||vault-server-binding"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||vault-server-binding"
+      message: "Cluster-scoped RBAC requires production review"
     -
       id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||vault-server-binding"
       rule: "cluster-rbac-review"

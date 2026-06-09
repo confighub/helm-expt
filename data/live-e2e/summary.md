@@ -26,7 +26,7 @@ not-started: 0
 | 9 | `bitnami/rabbitmq@16.0.14` | generated-passwords | pass | - | - | - | runs/top20-local-kind/rabbitmq-generated-passwords/observation-receipt.json |
 | 10 | `grafana/loki@7.0.0` | single-binary-filesystem | pass | - | - | - | runs/top20-local-kind/loki-single-binary-filesystem/observation-receipt.json |
 | 11 | `longhorn/longhorn@1.11.2` | default | pass | - | - | - | runs/top20-local-kind/longhorn-default/observation-receipt.json |
-| 12 | `hashicorp/vault@0.32.0` | default | pass | - | - | - | runs/top20-local-kind/vault-default/observation-receipt.json |
+| 12 | `hashicorp/vault@0.32.0` | dev-mode | pass | observed | 3/3 pass | - | runs/top20-local-kind/vault-dev-mode/observation-receipt.json |
 | 13 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | pass | - | - | - | runs/top20-local-kind/secrets-store-csi-driver-default/observation-receipt.json |
 | 14 | `prometheus-community/prometheus@29.8.0` | server-only-ephemeral | pass | - | - | - | runs/top20-local-kind/prometheus-server-only-ephemeral/observation-receipt.json |
 | 15 | `grafana/grafana@10.5.15` | generated-passwords | pass | - | - | - | runs/top20-local-kind/grafana-generated-passwords/observation-receipt.json |

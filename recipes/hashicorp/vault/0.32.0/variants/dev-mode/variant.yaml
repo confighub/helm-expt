@@ -1,0 +1,14 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "dev-mode"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "vault"
+  releaseName: "vault"
+  valuesProfile: "../../effective-values-dev-mode.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"

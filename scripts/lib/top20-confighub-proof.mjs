@@ -126,6 +126,7 @@ export const TOP20_CONFIGHUB_PROOF_CHARTS = [
     chart: "hashicorp/vault",
     chartVersion: "0.32.0",
     namespace: "vault",
+    defaultBase: "dev-mode",
   },
   {
     slug: "secrets-store-csi-driver",

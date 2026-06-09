@@ -1,0 +1,86 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "ObservationReceipt",
+  "metadata": {
+    "name": "vault-dev-mode-local-kind"
+  },
+  "spec": {
+    "variantRevision": "recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/variant-revision.yaml",
+    "renderedObjectSetSHA256": "f07ae80c317a1156f1f6ae6dc849300de0ba4683eb3ffae67cdcfcd6e8072955",
+    "observer": {
+      "name": "top20-local-e2e",
+      "version": "0.2.0",
+      "method": "kubectl-kind"
+    },
+    "target": {
+      "kind": "kind",
+      "name": "helm-expt-vault-dev",
+      "context": "kind-helm-expt-vault-dev",
+      "namespace": "vault"
+    },
+    "observedAt": "2026-06-09T22:01:05.774Z",
+    "freshnessTTL": "1h",
+    "result": "pass",
+    "chart": "hashicorp/vault",
+    "chartVersion": "0.32.0",
+    "rank": 12,
+    "variant": "dev-mode",
+    "renderedObjectCount": 11,
+    "checks": [
+      {
+        "name": "server-side-apply",
+        "result": "pass",
+        "evidencePath": "kubectl-apply.txt",
+        "evidenceSHA256": "add2e5eb4785a36bcdb69b7e7c02b675a55f97a5ad3b6e2a61961eb130746d2e"
+      },
+      {
+        "name": "deployment-vault-agent-injector-rollout",
+        "result": "pass",
+        "object": "deployment/vault-agent-injector",
+        "evidencePath": "deployment-vault-agent-injector-rollout.txt",
+        "evidenceSHA256": "5ad1d0e523d902dbcc63891ae7f9d7abfe8704c7128bf44e1912df3856032b83"
+      },
+      {
+        "name": "pod-vault-server-pod-phase",
+        "result": "pass",
+        "object": "pod/app.kubernetes.io/instance=vault,component=server",
+        "evidencePath": "pod-vault-server-pod-phase.txt",
+        "evidenceSHA256": "ce5835ec23ab05bd9ecec62e6dc893be2482271a4a10977ad46de38c5c49a22a"
+      },
+      {
+        "name": "cub-scout-object-set-matches",
+        "result": "pass",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "evidencePath": "cub-scout.object-set.receipt.json",
+        "evidenceSHA256": "085da69f894966951be59aadee09a3f68f76784bc7af09fddf524718ee654a1a",
+        "stderrPath": "cub-scout.object-set.stderr.txt",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "cub-scout-closed-world-object-set",
+        "result": "pass",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "evidencePath": "cub-scout.closed-world.receipt.json",
+        "evidenceSHA256": "5e75b62028faa378e4ebcc7759243577c8526a4de8d920824a3b1f3eff89f397",
+        "stderrPath": "cub-scout.closed-world.stderr.txt",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "cub-scout-workloads-converged",
+        "result": "pass",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "evidencePath": "cub-scout.workloads.receipt.json",
+        "evidenceSHA256": "0cdc1fb550f5e623617fb1b0362630815cf3ad96aa04caa3bc9d30a0f928c1d0",
+        "stderrPath": "cub-scout.workloads.stderr.txt",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "kubectlObjects": {
+      "path": "kubectl-objects.txt",
+      "sha256": "587e8adbb9008134d24ce72f4f43dde19c5c83f72cced7dc461f12d40e4e3ab9"
+    }
+  }
+}

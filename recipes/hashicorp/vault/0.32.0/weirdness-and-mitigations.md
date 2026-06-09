@@ -13,7 +13,7 @@ current ConfigHub/cub installer proof absorbs it.
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
 | Production readiness | production-review-ready |
-| Variants in this note | default, ha-raft-ui |
+| Variants in this note | dev-mode, default, ha-raft-ui |
 
 Production support is not implied by this file. A chart can be supported for
 local proof/demo use while still needing accepted scan, gate, lifecycle, and
@@ -24,6 +24,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 - The chart renders deterministically under pinned Helm, chart version, kube version, and values.
 - The default variant keeps the chart defaults: standalone Vault server, injector webhook, and TLS disabled in the rendered Vault config.
 - The ha-raft-ui variant enables integrated Raft HA and the UI Service as deliberate variant-controlled outputs.
+- The dev-mode variant uses the upstream chart's dev server path for local proof and demos; it starts without init/unseal and is not a production support claim.
 - The chart does not initialize or unseal Vault; init/unseal and recovery material are operating controls, not hidden render inputs.
 - Injector webhook, cluster RBAC, TLS posture, storage, and service exposure are scan/gate review points.
 - extra environment, Secret, volume, plugin, init, and sidecar extension slots are powerful config surfaces; promoted variants keep them empty.

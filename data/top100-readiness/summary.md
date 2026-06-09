@@ -89,8 +89,7 @@ decision before catalog promotion.
 
 | Evidence | Count | Meaning |
 | --- | ---: | --- |
-| `live-helm-vs-confighub-parity` | 19 | Plain Helm and ConfigHub delivery reached equivalent live outcomes for at least one variant. |
-| `local-kubernetes-live` | 1 | Rendered objects were applied to Kubernetes and observed for at least one variant. |
+| `live-helm-vs-confighub-parity` | 20 | Plain Helm and ConfigHub delivery reached equivalent live outcomes for at least one variant. |
 | `render-parity` | 80 | Regular Helm and cub installer setup render-equivalent objects. |
 
 ## How To Read This
@@ -134,7 +133,7 @@ decision before catalog promotion.
 | `grafana/loki@7.0.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes | - | `production-disposition` |
 | `grafana/tempo@1.24.4` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | resolve image digests for each affected variant before production OCI support | - | `production-disposition` |
 | `hashicorp/consul@2.0.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes | - | `production-disposition` |
-| `hashicorp/vault@0.32.0` | `try-from-public-catalog` | `local-kubernetes-live` | 2 | choose whether default is in production scope; close or document its runtime-review-needed live-readiness issue first | - | `production-disposition` |
+| `hashicorp/vault@0.32.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 3 | resolve image digests for each affected variant before production OCI support | - | `production-disposition` |
 | `ingress-nginx/ingress-nginx@4.15.1` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 3 | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope | - | `production-disposition` |
 | `jetstack/cert-manager@v1.20.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes | - | `production-disposition` |
 | `longhorn/longhorn@1.11.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support | - | `production-disposition` |

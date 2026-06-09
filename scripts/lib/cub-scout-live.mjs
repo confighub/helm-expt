@@ -192,6 +192,12 @@ function pruneApiDroppedNoops(value, path = []) {
   if (value === 0 && path.length === 2 && path[0] === "spec" && last === "minReadySeconds") {
     return undefined;
   }
+  if (value === "" && last === "caBundle" && parent === "clientConfig") {
+    return undefined;
+  }
+  if (value === "" && last === "caBundle" && parent === "spec") {
+    return undefined;
+  }
   if (
     value === false &&
     (

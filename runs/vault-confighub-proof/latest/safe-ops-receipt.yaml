@@ -13,7 +13,7 @@ spec:
     chart: "hashicorp/vault"
     chartVersion: "0.32.0"
     packagePath: "packages/hashicorp/vault/0.32.0"
-    variant: "default"
+    variant: "dev-mode"
   changeset:
     slug: "vault-safe-ops-20260527"
     createResult: "pass"
@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve statefulset-vault-vault --space helm-vault-confighub-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "statefulset-vault-vault"
-    output: "Unit statefulset-vault-vault (c3239722-775a-4366-b9d1-816d02f84d62) has been approved\nAwaiting triggers..."
+    output: "Unit statefulset-vault-vault (1c7ded5c-bfb6-4fd1-9b4f-a4191ae97d87) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-vault-confighub-proof --where \"Labels.Proof = 'vault-confighub-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req DPnCqcsDELvMiRTpqXoUsUCblxnifmpA: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req LEffEZTXiKenInPeCTrFrWJWxEeEoRfH: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-vault-confighub-proof --where \"Labels.Proof = 'vault-confighub-proof'\""
     result: "pass"

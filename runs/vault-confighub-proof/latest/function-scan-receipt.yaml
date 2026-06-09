@@ -13,61 +13,57 @@ spec:
     chart: "hashicorp/vault"
     chartVersion: "0.32.0"
     packagePath: "packages/hashicorp/vault/0.32.0"
-    variant: "default"
-    configHubUnitCount: 13
+    variant: "dev-mode"
+    configHubUnitCount: 12
   unitRevisionBindings:
     -
       slug: "clusterrolebinding-vault-agent-injector-binding"
       headRevisionNum: 2
-      dataHash: "491eab5a52d703e64ad95d6092fe2587d03bfec743198ee16cc6c6b18ca0f9b8"
+      dataHash: "6577bf1dc532a7ca9a4c6d97690c517c330999d4ef47b72953eed2e72e7b82d8"
     -
       slug: "clusterrolebinding-vault-server-binding"
       headRevisionNum: 2
-      dataHash: "858424c0d48f6e96000f3068507ad12adb1515f5483aeca807304609ac5cda4a"
+      dataHash: "8543c5f09fdcba8826bf567ebfc474682cf38f23eb46248f605c9f7987ec616a"
     -
       slug: "clusterrole-vault-agent-injector-clusterrole"
       headRevisionNum: 2
-      dataHash: "c7e4b6785ba4d15bd6481c68a51e30d7d6fcb91342cef61448bf0b74f38231de"
-    -
-      slug: "configmap-vault-vault-config"
-      headRevisionNum: 2
-      dataHash: "2b1a5c467da7eefdea3176331b161ebc3db3110e24c20e509a1474ac4475d5ff"
+      dataHash: "1e9ad74787184e0207846ed87cafbeb1321cce9e70e184d4c4a6c622c53e6b00"
     -
       slug: "deployment-vault-vault-agent-injector"
       headRevisionNum: 2
-      dataHash: "1d66df95b4a4175e8983edc82cc99d4fc79919e118d03e1d5fd00700994d8261"
+      dataHash: "ab57341985beae19e9b08514c603b7ea6d418c69bc1c09c94ab48e651fa1a851"
     -
       slug: "mutatingwebhookconfiguration-vault-agent-injector-cfg"
       headRevisionNum: 2
-      dataHash: "1fd96c26f2bcba75a81b4d5ac39229470b309495500d6da34e9d97b80ba03eb1"
+      dataHash: "8f94bf37b5a2c1e0aa00eadecf5efc7d17f789bcd52a9b226b83507e017b3c02"
     -
       slug: "namespace-vault"
-      headRevisionNum: 2
-      dataHash: "50ffe7f8a55506d2a9b5df0381f4b499968672c25b89eec7fadab41627fd74dd"
+      headRevisionNum: 1
+      dataHash: "fc750b89d5cd6122d8f63263b098a6daee1dcc392e654df447ccbdff1888a29e"
     -
       slug: "serviceaccount-vault-vault"
-      headRevisionNum: 2
-      dataHash: "793a3bd8b66588ff3e394e2cb80ffb32192d619b48ee1bb3b958848839ddd8f9"
+      headRevisionNum: 1
+      dataHash: "8b5b5c11236575c524e0acb8485856778d74dec45315bc3ea369b078536dd7da"
     -
       slug: "serviceaccount-vault-vault-agent-injector"
-      headRevisionNum: 2
-      dataHash: "131d4d222f2c59ecdc1b1de4b320430a05423eb0a691999b5cbacc6029bd979f"
+      headRevisionNum: 1
+      dataHash: "94292a2e5b53ac3810f96f1b35b93315abd678512a13b441266ecd92112a000e"
     -
       slug: "service-vault-vault"
       headRevisionNum: 2
-      dataHash: "dcbe5eb23dd6e3022ce4a021c6db12f3f1044094692faa4c4c7dbbbce29e94e5"
+      dataHash: "192281d313c3c108f8d111978f4e061fc9d12d9518b02418fec6e6b8abdc828f"
     -
       slug: "service-vault-vault-agent-injector-svc"
       headRevisionNum: 2
-      dataHash: "2019ea76cd2e1d9376e411985adc2eb93acb32722eee86e57e60e40f75e312c4"
+      dataHash: "7a12b31d1f78220b4df6cc43f07d865f78e2820fffcebd14bc24e496d61c9dd3"
     -
       slug: "service-vault-vault-internal"
       headRevisionNum: 2
-      dataHash: "fe4a385c6b61ff4e5cd249b010f45c47465c1093d0caa78322639b661929d55e"
+      dataHash: "8b76cd13f7277cde27e31a864ce917b44004acdfa566df42d6b7ab305b7c0b8d"
     -
       slug: "statefulset-vault-vault"
       headRevisionNum: 2
-      dataHash: "a89373960b922332c7a02610de1f9291c32360e4c997e66e6c1956430d484b24"
+      dataHash: "91a39cd4c6034105966f9e1dad73744f387ba208ef42868a74e48945f83d20f3"
   validations:
     -
       function: "vet-format"
@@ -75,7 +71,7 @@ spec:
       hermetic: true
       idempotent: true
       result: "pass"
-      scannedUnits: 13
+      scannedUnits: 12
       failedUnits: 0
     -
       function: "vet-placeholders"
@@ -83,7 +79,7 @@ spec:
       hermetic: true
       idempotent: true
       result: "pass"
-      scannedUnits: 13
+      scannedUnits: 12
       failedUnits: 0
     -
       function: "vet-merge-keys"
@@ -91,7 +87,7 @@ spec:
       hermetic: true
       idempotent: true
       result: "pass"
-      scannedUnits: 13
+      scannedUnits: 12
       failedUnits: 0
   result: "pass"
   limitations:

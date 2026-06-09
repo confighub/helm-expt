@@ -1,0 +1,199 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "rendered-object-set://sha256/b830a21cdeb87185",
+      "digest": {
+        "sha256": "b830a21cdeb87185baee051686e4d48a17e8261c6c06938a53d7b954345b514e"
+      }
+    },
+    {
+      "name": "k8s-live-object-set://namespace/vault",
+      "digest": {
+        "sha256": "b830a21cdeb87185baee051686e4d48a17e8261c6c06938a53d7b954345b514e"
+      }
+    }
+  ],
+  "predicateType": "https://cub-scout.dev/receipt/v1",
+  "predicate": {
+    "version": "v1",
+    "claim": "live object set matches rendered manifests from /Users/alexis/code/helm-expt/runs/top20-local-kind/vault-dev-mode/cub-scout.desired.yaml",
+    "scope": {
+      "kind": "ObjectSet",
+      "name": "rendered-install",
+      "namespace": "vault"
+    },
+    "verifier": {
+      "tool": "cub-scout",
+      "version": "dev"
+    },
+    "verifiedAt": "2026-06-09T22:01:05Z",
+    "freshness": {
+      "observedAt": "2026-06-09T22:01:05Z",
+      "expiresAt": "2026-06-09T23:01:05Z",
+      "ttl": "1h0m0s"
+    },
+    "predicateName": "object-set-matches",
+    "verdict": "PASS",
+    "evidence": {
+      "objectSet": {
+        "desiredSource": {
+          "type": "file",
+          "ref": "/Users/alexis/code/helm-expt/runs/top20-local-kind/vault-dev-mode/cub-scout.desired.yaml",
+          "digest": "095c199935fb23d76b71eac36e061b9da9bdf94a1a26e53b027244579263985a",
+          "objectCount": 11
+        },
+        "scope": {
+          "kind": "namespace",
+          "namespace": "vault"
+        },
+        "matchMode": "authored-fields",
+        "desiredDigest": "b830a21cdeb87185baee051686e4d48a17e8261c6c06938a53d7b954345b514e",
+        "liveDigest": "b830a21cdeb87185baee051686e4d48a17e8261c6c06938a53d7b954345b514e",
+        "summary": {
+          "desired": 11,
+          "matched": 11,
+          "missing": 0,
+          "mismatched": 0,
+          "inconclusive": 0
+        },
+        "objects": [
+          {
+            "id": {
+              "apiVersion": "admissionregistration.k8s.io/v1",
+              "kind": "MutatingWebhookConfiguration",
+              "name": "vault-agent-injector-cfg"
+            },
+            "status": "matched",
+            "desiredDigest": "729aa7e865131594f9b132af6636918f2c4b952014014950b21ac3a29722ebc5",
+            "liveDigest": "729aa7e865131594f9b132af6636918f2c4b952014014950b21ac3a29722ebc5"
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "vault",
+              "name": "vault-agent-injector"
+            },
+            "status": "matched",
+            "desiredDigest": "18a387da81de4f282743f99406d9d3f844877bb6a98c70d3373337d81cd52360",
+            "liveDigest": "18a387da81de4f282743f99406d9d3f844877bb6a98c70d3373337d81cd52360"
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "StatefulSet",
+              "namespace": "vault",
+              "name": "vault"
+            },
+            "status": "matched",
+            "desiredDigest": "6dbd359d38f081bc42d2e4ab05d377c64f66755c7094404fbf3f3b03dca6eb51",
+            "liveDigest": "6dbd359d38f081bc42d2e4ab05d377c64f66755c7094404fbf3f3b03dca6eb51"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "ClusterRoleBinding",
+              "name": "vault-agent-injector-binding"
+            },
+            "status": "matched",
+            "desiredDigest": "f41dd990352be4b5527a98a817011016b60dd8aca5de2e50f9362b5f2e792284",
+            "liveDigest": "f41dd990352be4b5527a98a817011016b60dd8aca5de2e50f9362b5f2e792284"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "ClusterRoleBinding",
+              "name": "vault-server-binding"
+            },
+            "status": "matched",
+            "desiredDigest": "f47cd49fad4cb5887eb4619ac5c2ff1b64cae032dd74f60cf26ea8297dd20844",
+            "liveDigest": "f47cd49fad4cb5887eb4619ac5c2ff1b64cae032dd74f60cf26ea8297dd20844"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "ClusterRole",
+              "name": "vault-agent-injector-clusterrole"
+            },
+            "status": "matched",
+            "desiredDigest": "1139c717d47f342061bc50e11c957a0e9883638a9813efeda83c2b91a1e284a7",
+            "liveDigest": "1139c717d47f342061bc50e11c957a0e9883638a9813efeda83c2b91a1e284a7"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ServiceAccount",
+              "namespace": "vault",
+              "name": "vault"
+            },
+            "status": "matched",
+            "desiredDigest": "67871f4efaee79ca13b79230777737f97e0d01a58a8fefcc319e9e27dead7fa3",
+            "liveDigest": "67871f4efaee79ca13b79230777737f97e0d01a58a8fefcc319e9e27dead7fa3"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ServiceAccount",
+              "namespace": "vault",
+              "name": "vault-agent-injector"
+            },
+            "status": "matched",
+            "desiredDigest": "d5326b483d0a290b9df1bff0cded6e09656464fd69a5084e8ca90fec5291c761",
+            "liveDigest": "d5326b483d0a290b9df1bff0cded6e09656464fd69a5084e8ca90fec5291c761"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "vault",
+              "name": "vault"
+            },
+            "status": "matched",
+            "desiredDigest": "96acefa767b1057853ea1d83d4a828fc21b2581e6aa53639a00b5c9d9566b663",
+            "liveDigest": "96acefa767b1057853ea1d83d4a828fc21b2581e6aa53639a00b5c9d9566b663"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "vault",
+              "name": "vault-agent-injector-svc"
+            },
+            "status": "matched",
+            "desiredDigest": "b216bbd0cd2dfc099ebac9cc3a2367b8f1b57f7404f2bfad17af38b0d6bc498d",
+            "liveDigest": "b216bbd0cd2dfc099ebac9cc3a2367b8f1b57f7404f2bfad17af38b0d6bc498d"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "vault",
+              "name": "vault-internal"
+            },
+            "status": "matched",
+            "desiredDigest": "634103afb04478240435ed5c38bf5647d97565eed81507e9ce1c8bae6d405b3c",
+            "liveDigest": "634103afb04478240435ed5c38bf5647d97565eed81507e9ce1c8bae6d405b3c"
+          }
+        ]
+      }
+    },
+    "omissions": [
+      {
+        "missing": "extra-live-object-coverage",
+        "reason": "object-set-matches verifies desired object identities and authored fields from the rendered manifests; it does not prove that no extra live objects exist outside that desired set",
+        "severity": "info"
+      }
+    ],
+    "inputAttestations": [],
+    "nextSteps": [
+      {
+        "actionType": "read-only",
+        "reason": "every desired rendered object was present and all authored fields matched live",
+        "nextCommand": "cub-scout doctor",
+        "nextSurface": "cub-scout"
+      }
+    ],
+    "fingerprint": "sha256:7adc424bbc80469533dbf108c8234d1d3a5ed42a817fd925636ed6ca7e286672"
+  }
+}

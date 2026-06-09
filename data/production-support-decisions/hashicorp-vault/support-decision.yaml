@@ -1,13 +1,13 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ProductionSupportDecision
 metadata:
-  name: "hashicorp-vault-default-public-oci-rejected"
+  name: "hashicorp-vault-dev-mode-public-oci-rejected"
 spec:
   chart: "hashicorp/vault"
   version: "0.32.0"
   decision: rejected
   decisionDate: "2026-06-09"
-  supportedBase: "default"
+  supportedBase: "dev-mode"
   targetScope:
     clusterClass: vanilla-kubernetes
     namespace: "vault"
@@ -20,7 +20,7 @@ spec:
     requiredTargetFacts: []
   supportBoundary:
     includes:
-      - "hashicorp/vault@0.32.0 default base"
+      - "hashicorp/vault@0.32.0 dev-mode base"
       - ConfigHub OCI delivery for the declared target scope after fresh target evidence is recorded
       - rendered objects, labels, gates, receipts, and support objects produced by the recorded base
     excludes:
@@ -29,28 +29,28 @@ spec:
       - "other delivery controllers or target scopes unless separately reviewed"
   decisions:
     imageDecision:
-      state: "not-reviewed-because-default-base-is-runtime-incomplete"
-      detail: "image digest work should be done for a production Vault base that includes the required init, unseal, storage, TLS, and operating model"
+      state: "not-production-supported-because-dev-mode-is-local-only"
+      detail: "dev-mode image review is useful for local proof, but production support requires a separate Vault base with init, unseal, storage, TLS, and operating runbook evidence"
     scanDecision:
-      state: "not-reviewed-because-default-base-is-runtime-incomplete"
-      detail: "scanner findings remain useful proof data, but the default base is not promoted as a production-supported Vault scope"
+      state: "not-production-supported-because-dev-mode-is-local-only"
+      detail: "scanner findings remain useful proof data, but the dev-mode base is not promoted as a production-supported Vault scope"
     lifecycleDecision:
-      state: "vault-init-unseal-required-before-production-support"
-      detail: "the default base reaches object parity, but Vault remains unready until init/unseal and the production storage/TLS/operator model are defined"
+      state: "vault-dev-mode-is-local-only"
+      detail: "dev-mode intentionally avoids init/unseal for local proof; production support still requires explicit init/unseal, recovery material, seal, storage, TLS, backup/restore, and operator policy"
     targetFactDecision:
       state: "no-unresolved-target-prerequisite-in-candidate-base"
       detail: "no unresolved target prerequisite in candidate base"
     liveEvidenceDecision:
-      state: "not-production-supported-because-vault-default-is-unready"
-      detail: "regular Helm and ConfigHub paths both show the Vault StatefulSet unready for the default base, so this is a correct parity result but not a supported production scope"
+      state: "not-production-supported-because-vault-dev-mode-is-local-only"
+      detail: "regular Helm and ConfigHub paths pass for dev-mode, proving the model and delivery path; the base remains local/demo only and is not a production Vault support scope"
   evidence:
-    - path: "recipes/hashicorp/vault/0.32.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - path: "recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/receipts/helm-equivalence-receipt.yaml"
       claim: "The candidate base is Helm-equivalent under recorded inputs."
-    - path: "recipes/hashicorp/vault/0.32.0/revisions/default/r001/receipts/scan-receipt.yaml"
+    - path: "recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/receipts/scan-receipt.yaml"
       claim: "The rendered-object scan receipt exists for the candidate base."
-    - path: "runs/live-kind-parity/hashicorp-vault-default/receipt.yaml"
+    - path: "runs/live-kind-parity/hashicorp-vault-dev-mode/receipt.yaml"
       claim: "The two-cluster Helm-vs-installer parity receipt exists for the candidate base."
-    - path: "runs/live-helm-confighub-compare/hashicorp-vault-default/receipt.yaml"
+    - path: "runs/live-helm-confighub-compare/hashicorp-vault-dev-mode/receipt.yaml"
       claim: "The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base."
     - path: "data/production-disposition/receipts/hashicorp-vault/cluster-rbac-review.yaml"
       claim: "The cluster rbac review receipt exists for this chart."
@@ -63,4 +63,4 @@ spec:
     - path: "data/production-disposition/receipts/hashicorp-vault/webhook-readiness-and-failure-policy.yaml"
       claim: "The webhook readiness and failure policy receipt exists for this chart."
   requiredBeforeFinal: []
-  nextAction: "Keep this default base as parity evidence only; create a separate Vault production base with init/unseal, storage, TLS, backup/restore, and operator runbook evidence before making a support claim."
+  nextAction: "Keep dev-mode as the local/demo first path only; create a separate Vault production base with init/unseal, storage, TLS, backup/restore, and operator runbook evidence before making a support claim."

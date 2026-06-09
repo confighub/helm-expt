@@ -1,0 +1,148 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: hashicorp-vault-0.32.0-dev-mode-kind-parity-20260606
+spec:
+  chart: hashicorp/vault
+  version: 0.32.0
+  base: dev-mode
+  result: pass
+  observedAt: '2026-06-09T21:47:04Z'
+  package:
+    path: packages/hashicorp/vault/0.32.0
+  recipe:
+    path: recipes/hashicorp/vault/0.32.0
+  variantRevision: recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-vault-18e1f-7521-helm
+    installerCluster: hx-vault-18e1f-7521-installer
+    namespace: vault
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-vault-18e1f-7521-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-vault-18e1f-7521-helm" ...
+
+          Deleted nodes: ["hx-vault-18e1f-7521-helm-control-plane"]'
+      - cluster: hx-vault-18e1f-7521-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-vault-18e1f-7521-installer" ...
+
+          Deleted nodes: ["hx-vault-18e1f-7521-installer-control-plane"]'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install vault vault --repo https://helm.releases.hashicorp.com
+        --version 0.32.0 --namespace vault --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/hashicorp-vault-dev-mode/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: vault
+      manifestSHA256: f07ae80c317a1156f1f6ae6dc849300de0ba4683eb3ffae67cdcfcd6e8072955
+      objectCount: 11
+      liveHelmManifestSHA256: bb992a80bba4ff9fa686b9aa7a73da212973e49c9011d580f76ffd0f14b88f33
+      liveHelmManifestObjectCount: 11
+      runtimeNamespaces: &id001
+      - vault
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# vault
+
+          deployment.apps/vault-agent-injector   1/1   1     1     35s
+
+          statefulset.apps/vault   1/1   35s'
+        pods: '# vault
+
+          vault-0                                1/1   Running   0     35s
+
+          vault-agent-injector-8c76487db-ddvbz   1/1   Running   0     35s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/vault/0.32.0
+        --base dev-mode --work-dir /tmp/helm-expt-kind-parity-hx-vault-18e1f-7521-vault
+        --non-interactive --namespace vault
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: vault
+      manifestSHA256: 9927fbcd3f74d4ce16830717d5a1f12ce74b94f664690cf53738c378f6271d61
+      objectCount: 12
+      manifestNamespaces:
+      - vault
+      runtimeNamespaces: &id002
+      - vault
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# vault
+
+          deployment.apps/vault-agent-injector   1/1   1     1     41s
+
+          statefulset.apps/vault   1/1   41s'
+        pods: '# vault
+
+          vault-0                                1/1   Running   0     41s
+
+          vault-agent-injector-8c76487db-f2t4p   1/1   Running   0     41s'
+        notReady: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||vault
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 11
+      installerObjectCount: 12
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||vault
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c45badac8df5197f317ecd414eba9355285db2a4467ac1c6a8b1ea78c7b38504
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"vault\" does not exist. Installing it now.\nNAME: vault\nLAST\
+      \ DEPLOYED: Tue Jun  9 22:47:57 2026\nNAMESPACE: vault\nSTATUS: deployed\nREVISION:\
+      \ 1\nDESCRIPTION: Install complete\nNOTES:\nThank you for installing HashiCorp\
+      \ Vault!\n\nNow that you have deployed Vault, you should look over the docs\
+      \ on using\nVault with Kubernetes available here:\n\nhttps://developer.hashicorp.com/vault/docs\n\
+      \n\nYour release is named vault. To learn more about the release, try:\n\n \
+      \ $ helm status vault\n  $ helm get manifest vault"
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# vault
+
+      deployment.apps/vault-agent-injector   1/1   1     1     41s
+
+      statefulset.apps/vault   1/1   41s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||vault'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []

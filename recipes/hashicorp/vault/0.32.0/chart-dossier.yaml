@@ -9,6 +9,7 @@ spec:
     - "The chart renders deterministically under pinned Helm, chart version, kube version, and values."
     - "The default variant keeps the chart defaults: standalone Vault server, injector webhook, and TLS disabled in the rendered Vault config."
     - "The ha-raft-ui variant enables integrated Raft HA and the UI Service as deliberate variant-controlled outputs."
+    - "The dev-mode variant uses the upstream chart's dev server path for local proof and demos; it starts without init/unseal and is not a production support claim."
     - "The chart does not initialize or unseal Vault; init/unseal and recovery material are operating controls, not hidden render inputs."
     - "Injector webhook, cluster RBAC, TLS posture, storage, and service exposure are scan/gate review points."
     - "extra environment, Secret, volume, plugin, init, and sidecar extension slots are powerful config surfaces; promoted variants keep them empty."

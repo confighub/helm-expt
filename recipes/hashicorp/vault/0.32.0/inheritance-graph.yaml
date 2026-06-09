@@ -6,8 +6,12 @@ spec:
   chart: "hashicorp/vault"
   version: "0.32.0"
   recipe: "recipe.yaml"
-  baseVariant: "default"
+  baseVariant: "dev-mode"
   variants:
+    -
+      name: "dev-mode"
+      variant: "variants/dev-mode/variant.yaml"
+      valuesProfile: "effective-values-dev-mode.yaml"
     -
       name: "default"
       variant: "variants/default/variant.yaml"
@@ -18,11 +22,12 @@ spec:
       valuesProfile: "effective-values-ha-raft-ui.yaml"
   edges:
     -
-      from: "default"
-      to: "default"
+      from: "dev-mode"
+      to: "dev-mode"
       type: "base-self"
       inheritedValuePaths:
-        []
+        - "server.dataStorage.enabled"
+        - "server.dev.enabled"
       overriddenValuePaths:
         []
       addedValuePaths:
@@ -32,7 +37,22 @@ spec:
       valueSourceMapCoverage:
         []
     -
-      from: "default"
+      from: "dev-mode"
+      to: "default"
+      type: "inherits-with-overrides"
+      inheritedValuePaths:
+        []
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        []
+      removedValuePaths:
+        - "server.dataStorage.enabled"
+        - "server.dev.enabled"
+      valueSourceMapCoverage:
+        []
+    -
+      from: "dev-mode"
       to: "ha-raft-ui"
       type: "inherits-with-overrides"
       inheritedValuePaths:
@@ -44,7 +64,8 @@ spec:
         - "server.ha.raft.enabled"
         - "ui.enabled"
       removedValuePaths:
-        []
+        - "server.dataStorage.enabled"
+        - "server.dev.enabled"
       valueSourceMapCoverage:
         []
   targetFactEdges:

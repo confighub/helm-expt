@@ -15,6 +15,11 @@ spec:
       disposition: "service-exposure-bound"
       reason: "UI exposure is added only by an explicit variant and appears as a rendered Service"
     -
+      path: "server.dev.enabled"
+      variant: "dev-mode"
+      disposition: "local-demo-only"
+      reason: "dev-mode starts Vault initialized and unsealed for local proof/demo use; it is not a production support path"
+    -
       path: "global.tlsDisable / server.standalone.config / server.ha.config"
       variant: "all"
       disposition: "security-posture-review"

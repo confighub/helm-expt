@@ -1,0 +1,25 @@
+NAME                                       READY   STATUS    RESTARTS   AGE   IP           NODE                                NOMINATED NODE   READINESS GATES
+pod/vault-0                                1/1     Running   0          7s    10.244.0.8   helm-expt-vault-dev-control-plane   <none>           <none>
+pod/vault-agent-injector-b4dc855fb-c8mtv   1/1     Running   0          7s    10.244.0.7   helm-expt-vault-dev-control-plane   <none>           <none>
+
+NAME                               TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE   SELECTOR
+service/vault                      ClusterIP   10.96.252.143   <none>        8200/TCP,8201/TCP   7s    app.kubernetes.io/instance=vault,app.kubernetes.io/name=vault,component=server
+service/vault-agent-injector-svc   ClusterIP   10.96.99.157    <none>        443/TCP             7s    app.kubernetes.io/instance=vault,app.kubernetes.io/name=vault-agent-injector,component=webhook
+service/vault-internal             ClusterIP   None            <none>        8200/TCP,8201/TCP   7s    app.kubernetes.io/instance=vault,app.kubernetes.io/name=vault,component=server
+
+NAME                                   READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS         IMAGES                      SELECTOR
+deployment.apps/vault-agent-injector   1/1     1            1           7s    sidecar-injector   hashicorp/vault-k8s:1.7.2   app.kubernetes.io/instance=vault,app.kubernetes.io/name=vault-agent-injector,component=webhook
+
+NAME                                             DESIRED   CURRENT   READY   AGE   CONTAINERS         IMAGES                      SELECTOR
+replicaset.apps/vault-agent-injector-b4dc855fb   1         1         1       7s    sidecar-injector   hashicorp/vault-k8s:1.7.2   app.kubernetes.io/instance=vault,app.kubernetes.io/name=vault-agent-injector,component=webhook,pod-template-hash=b4dc855fb
+
+NAME                     READY   AGE   CONTAINERS   IMAGES
+statefulset.apps/vault   1/1     7s    vault        hashicorp/vault:1.21.2
+
+NAME                         DATA   AGE
+configmap/kube-root-ca.crt   1      7s
+
+NAME                                  SECRETS   AGE
+serviceaccount/default                0         7s
+serviceaccount/vault                  0         7s
+serviceaccount/vault-agent-injector   0         7s

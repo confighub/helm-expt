@@ -175,10 +175,9 @@ const targets = [
     chart: "hashicorp/vault",
     version: "0.32.0",
     namespace: "vault",
-    variant: "default",
-    revision: "recipes/hashicorp/vault/0.32.0/revisions/default/r001/variant-revision.yaml",
-    rendered: "recipes/hashicorp/vault/0.32.0/revisions/default/r001/rendered/release-objects.yaml",
-    needsDefaultStorageClass: true,
+    variant: "dev-mode",
+    revision: "recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/variant-revision.yaml",
+    rendered: "recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml",
     waits: [
       { kind: "deployment", name: "vault-agent-injector", namespace: "vault" },
       {

@@ -67,8 +67,9 @@ hashicorp/consul@2.0.0,target-fact,,secure-mesh-existing-secrets,,,Secret/consul
 hashicorp/consul@2.0.0,target-fact,,secure-mesh-existing-secrets,,,Secret/consul/consul-server-cert:tls.crt+tls.key,,,1,0,recipes/hashicorp/consul/2.0.0/inheritance-graph.yaml
 hashicorp/consul@2.0.0,target-fact,,secure-mesh-existing-secrets,,,Secret/consul/consul-gossip-encryption-key:key,,,1,0,recipes/hashicorp/consul/2.0.0/inheritance-graph.yaml
 hashicorp/consul@2.0.0,target-fact,,secure-mesh-existing-secrets,,,Secret/consul/consul-bootstrap-acl-token:token,,,1,0,recipes/hashicorp/consul/2.0.0/inheritance-graph.yaml
-hashicorp/vault@0.32.0,base-self,default,default,0,,,,,0,0,recipes/hashicorp/vault/0.32.0/inheritance-graph.yaml
-hashicorp/vault@0.32.0,inherits-with-overrides,default,ha-raft-ui,0,,server.ha.enabled;server.ha.raft.enabled;ui.enabled,,,0,0,recipes/hashicorp/vault/0.32.0/inheritance-graph.yaml
+hashicorp/vault@0.32.0,base-self,dev-mode,dev-mode,2,,,,,0,0,recipes/hashicorp/vault/0.32.0/inheritance-graph.yaml
+hashicorp/vault@0.32.0,inherits-with-overrides,dev-mode,default,0,,,server.dataStorage.enabled;server.dev.enabled,,0,0,recipes/hashicorp/vault/0.32.0/inheritance-graph.yaml
+hashicorp/vault@0.32.0,inherits-with-overrides,dev-mode,ha-raft-ui,0,,server.ha.enabled;server.ha.raft.enabled;ui.enabled,server.dataStorage.enabled;server.dev.enabled,,0,0,recipes/hashicorp/vault/0.32.0/inheritance-graph.yaml
 ingress-nginx/ingress-nginx@4.15.1,base-self,default,default,0,,,,,0,0,recipes/ingress-nginx/ingress-nginx/4.15.1/inheritance-graph.yaml
 ingress-nginx/ingress-nginx@4.15.1,inherits-with-overrides,default,admission-disabled,0,,controller.admissionWebhooks.enabled,,,0,0,recipes/ingress-nginx/ingress-nginx/4.15.1/inheritance-graph.yaml
 ingress-nginx/ingress-nginx@4.15.1,inherits-with-overrides,default,internal-clusterip,0,,controller.admissionWebhooks.enabled;controller.service.type,,,0,0,recipes/ingress-nginx/ingress-nginx/4.15.1/inheritance-graph.yaml

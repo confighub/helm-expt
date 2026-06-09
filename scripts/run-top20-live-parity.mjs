@@ -24,7 +24,7 @@ const targets = [
   { rank: 9, slug: "rabbitmq", chart: "bitnami/rabbitmq", version: "16.0.14", namespace: "rabbitmq", variant: "generated-passwords", recipe: "recipes/bitnami/rabbitmq/16.0.14" },
   { rank: 10, slug: "loki", chart: "grafana/loki", version: "7.0.0", namespace: "loki", variant: "single-binary-filesystem", recipe: "recipes/grafana/loki/7.0.0" },
   { rank: 11, slug: "longhorn", chart: "longhorn/longhorn", version: "1.11.2", namespace: "longhorn-system", variant: "default", recipe: "recipes/longhorn/longhorn/1.11.2" },
-  { rank: 12, slug: "vault", chart: "hashicorp/vault", version: "0.32.0", namespace: "vault", variant: "default", recipe: "recipes/hashicorp/vault/0.32.0" },
+  { rank: 12, slug: "vault", chart: "hashicorp/vault", version: "0.32.0", namespace: "vault", variant: "dev-mode", recipe: "recipes/hashicorp/vault/0.32.0" },
   { rank: 13, slug: "secrets-store-csi-driver", chart: "secrets-store-csi-driver/secrets-store-csi-driver", version: "1.6.0", namespace: "kube-system", variant: "default", recipe: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0" },
   { rank: 14, slug: "prometheus", chart: "prometheus-community/prometheus", version: "29.8.0", namespace: "monitoring", variant: "server-only-ephemeral", recipe: "recipes/prometheus-community/prometheus/29.8.0" },
   { rank: 15, slug: "grafana", chart: "grafana/grafana", version: "10.5.15", namespace: "grafana", variant: "generated-passwords", recipe: "recipes/grafana/grafana/10.5.15" },
