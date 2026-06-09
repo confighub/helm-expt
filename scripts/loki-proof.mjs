@@ -81,14 +81,22 @@ backend:
       insecure: true
       accessKeyId: loki
       secretAccessKey: loki-secret
+  commonConfig:
+    replication_factor: 1
+read:
+  replicas: 1
+write:
+  replicas: 1
+backend:
+  replicas: 1
 minio:
   enabled: true
 `,
-    valuesSummary: "simple scalable Loki with explicit object-storage buckets and MinIO enabled",
-    expectedObjectCount: 36,
+    valuesSummary: "simple scalable Loki with one read/write/backend replica, explicit object-storage buckets, and MinIO enabled",
+    expectedObjectCount: 33,
     expectedCRDCount: 0,
     expectedSecretCount: 1,
-    targetFactNote: "satisfies required bucket names and renders the MinIO Secret as chart-owned test storage material",
+    targetFactNote: "satisfies required bucket names, uses one read/write/backend replica for a one-node local target, and renders the MinIO Secret as chart-owned test storage material",
   },
 ];
 
@@ -148,6 +156,7 @@ runProofCli({
       { path: "singleBinary.replicas / read.replicas / write.replicas / backend.replicas", variant: "single-binary-filesystem", disposition: "topology-selected", reason: "keeps exactly one Loki StatefulSet active and disables distributed read/write/backend components" },
       { path: "loki.storage.type", variant: "single-binary-filesystem", disposition: "filesystem-storage", reason: "avoids external object storage for the small local-test variant" },
       { path: "loki.storage.type / loki.storage.s3 / loki.storage.bucketNames", variant: "simple-scalable-minio", disposition: "object-storage-bound", reason: "selects S3-compatible storage with explicit bucket names and endpoint" },
+      { path: "read.replicas / write.replicas / backend.replicas / loki.commonConfig.replication_factor", variant: "simple-scalable-minio", disposition: "local-target-fit", reason: "keeps the scalable topology schedulable on a one-node local proof target while preserving read/write/backend components" },
       { path: "minio.enabled", variant: "simple-scalable-minio", disposition: "dependency-enabled", reason: "turns on the bundled MinIO dependency as a local-test object-store fixture" },
       { path: "grafana-agent-operator / rollout-operator / minio", variant: "all", disposition: "locked-dependency", reason: "chart dependency metadata is recorded in dependency-lock.yaml whether or not a dependency is enabled in a variant" },
       { path: "loki.config / loki.structuredConfig / extraObjects / extraContainers / extraEnv", variant: "all", disposition: "extension-slot", reason: "Loki exposes templated config and raw/extra manifest slots; promoted variants keep raw object slots empty" },
@@ -171,7 +180,7 @@ runProofCli({
     maintainedNotes: [
       "Default chart rendering fails before object creation until loki.storage.bucketNames.chunks and schemaConfig are supplied.",
       "single-binary-filesystem selects SingleBinary topology, filesystem storage, and one Loki StatefulSet for local proof.",
-      "simple-scalable-minio selects the scalable topology, explicit S3 bucket names, and the bundled MinIO dependency as a local object-store fixture.",
+      "simple-scalable-minio selects the scalable topology, one read/write/backend replica, explicit S3 bucket names, and the bundled MinIO dependency as a local object-store fixture.",
       "Chart dependency metadata records MinIO, grafana-agent-operator, and rollout-operator from Chart.lock.",
       "Promoted variants render no hook objects with --no-hooks; future hook or test enablement must map to lifecycle policy.",
       "Loki and MinIO render StatefulSets that need storage/upgrade/rollback policy before production.",
@@ -201,7 +210,7 @@ runProofCli({
       "regular Helm output is preserved by `cub installer setup`, plus the explained Namespace support object;",
       "default chart rendering is blocked until Loki storage bucket/schema values are supplied, and that blocker is recorded;",
       "the single-binary-filesystem variant provides the smallest local-test topology with filesystem storage;",
-      "the simple-scalable-minio variant provides an object-storage path with explicit bucket names and a chart-owned MinIO fixture;",
+      "the simple-scalable-minio variant provides a one-node local object-storage path with explicit bucket names and a chart-owned MinIO fixture;",
       "storage/schema, dependency lock, object-store Secret, ClusterRole/RBAC, StatefulSet/PVC, lifecycle, and extension-slot risks are visible as scan/gate findings instead of hidden Helm behavior.",
     ],
   },

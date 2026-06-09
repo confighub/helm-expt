@@ -4,7 +4,7 @@ metadata:
   name: "mongodb-generated-passwords-r001"
 spec:
   variantRevision: "../variant-revision.yaml"
-  renderedObjectSetSHA256: "9443f0dd0c22478095a085ec0bd53146b17084f81fd75e753f2f2ec2a8d9e59b"
+  renderedObjectSetSHA256: "4c5f0cd0bc6bffd0ff46b15cdb23ce44dba155120b6be46952d7da70ade25a68"
   result: "warn"
   scanner:
     name: "helm-expt-local-rendered-object-scan"
@@ -12,7 +12,7 @@ spec:
   policyBundleDigest: "99e1e78593c8364ddf7f0c3f9aa47ed6fe4bd54733c92b1a18720f152e6a32be"
   findingCounts:
     critical: 0
-    high: 2
+    high: 0
     medium: 8
     low: 0
     info: 0
@@ -36,23 +36,11 @@ spec:
       object: "v1|Secret|mongodb|mongodb"
       message: "MongoDB Secret content and ownership must be explicit before production promotion"
     -
-      id: "helm-hook-lifecycle-policy:source"
+      id: "helm-hook-lifecycle-policy:no-hooks-boundary"
       rule: "helm-hook-lifecycle-policy"
       severity: "medium"
-      object: "source|helm-hooks"
-      message: "Chart source contains Helm hooks; rendered proof excludes hooks and production needs lifecycle policy"
-    -
-      id: "mutable-image-tag:apps/v1|Deployment|mongodb|mongodb:log-dir"
-      rule: "mutable-image-tag"
-      severity: "high"
-      object: "apps/v1|Deployment|mongodb|mongodb"
-      message: "container log-dir uses mutable image registry-1.docker.io/bitnami/mongodb:latest"
-    -
-      id: "mutable-image-tag:apps/v1|Deployment|mongodb|mongodb:mongodb"
-      rule: "mutable-image-tag"
-      severity: "high"
-      object: "apps/v1|Deployment|mongodb|mongodb"
-      message: "container mongodb uses mutable image registry-1.docker.io/bitnami/mongodb:latest"
+      object: "source|no-hooks-boundary"
+      message: "Retained source scan records hook count 0; supported bases render no hook objects, and future hook-producing paths need lifecycle policy"
     -
       id: "stateful-workload-review:apps/v1|Deployment|mongodb|mongodb"
       rule: "stateful-workload-review"

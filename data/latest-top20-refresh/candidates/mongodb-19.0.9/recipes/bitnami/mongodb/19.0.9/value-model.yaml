@@ -25,6 +25,11 @@ spec:
       disposition: "target-secret-key"
       reason: "documents the expected root password and replica-set key in the target Secret"
     -
+      path: "image.digest"
+      variant: "all"
+      disposition: "pinned-image"
+      reason: "supported bases pin the Bitnami MongoDB image by digest instead of rendering the chart default latest tag"
+    -
       path: "persistence.enabled"
       variant: "all"
       disposition: "storage-enabled"

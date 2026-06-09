@@ -4,7 +4,7 @@ metadata:
   name: "bitnami-mongodb-19.0.9-existing-secret-replicaset-r001"
 spec:
   source: "rendered/release-objects.yaml"
-  sourceSHA256: "186e18cde7306766da04e9bfd6c72520e0ff46694cb7998732f99fe713504da8"
+  sourceSHA256: "ba28659f7a827714941ba587c403de0e7afec7bf77a35512ff751bf6c2fdd3a2"
   objectCount: 10
   objects:
     -

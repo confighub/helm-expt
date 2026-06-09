@@ -7,15 +7,15 @@ spec:
   version: 0.32.0
   base: default
   result: watch
-  observedAt: '2026-06-08T11:53:07Z'
+  observedAt: '2026-06-09T11:46:23Z'
   package:
     path: packages/hashicorp/vault/0.32.0
   recipe:
     path: recipes/hashicorp/vault/0.32.0
   variantRevision: recipes/hashicorp/vault/0.32.0/revisions/default/r001/variant-revision.yaml
   run:
-    rig: helm-expt-parity-vault-mq55jgj8-2v3
-    kubeContext: kind-helm-expt-parity-vault-mq55jgj8-2v3
+    rig: helm-expt-parity-vault-mq6kqmwh-2hh
+    kubeContext: kind-helm-expt-parity-vault-mq6kqmwh-2hh
     namespace: vault
     legNamespaces:
       regularHelm: vault-helm
@@ -23,15 +23,15 @@ spec:
       configHubOciArgo: vault-oci
     clusterLifecycle: cleaned-up
     cleanup:
-      command: cub lk down --name helm-expt-parity-vault-mq55jgj8-2v3 --force
+      command: cub lk down --name helm-expt-parity-vault-mq6kqmwh-2hh --force
       result: pass
-      detail: 'Deleting kind cluster "helm-expt-parity-vault-mq55jgj8-2v3"...
+      detail: 'Deleting kind cluster "helm-expt-parity-vault-mq6kqmwh-2hh"...
 
-        Deleting cluster "helm-expt-parity-vault-mq55jgj8-2v3" ...
+        Deleting cluster "helm-expt-parity-vault-mq6kqmwh-2hh" ...
 
-        Deleted nodes: ["helm-expt-parity-vault-mq55jgj8-2v3-control-plane"]
+        Deleted nodes: ["helm-expt-parity-vault-mq6kqmwh-2hh-control-plane"]
 
-        Deleting Space "helm-expt-parity-vault-mq55jgj8-2v3-cluster" (recursive: cascades
+        Deleting Space "helm-expt-parity-vault-mq6kqmwh-2hh-cluster" (recursive: cascades
         to Unit, Target, Worker)...
 
 
@@ -49,12 +49,12 @@ spec:
       namespace: vault-helm
       runtime:
         result: watch
-        workloads: 'deployment.apps/vault-agent-injector   1/1   1     1     3m17s
+        workloads: 'deployment.apps/vault-agent-injector   1/1   1     1     3m22s
 
-          statefulset.apps/vault   0/1   3m17s'
-        pods: 'vault-0                                 0/1   Running   0     3m17s
+          statefulset.apps/vault   0/1   3m22s'
+        pods: 'vault-0                                 0/1   Running   0     3m21s
 
-          vault-agent-injector-56474b787f-zkd7v   1/1   Running   0     3m18s'
+          vault-agent-injector-56474b787f-jmv5k   1/1   Running   0     3m22s'
         notReady:
         - pod: vault-0
           ready: 0/1
@@ -64,7 +64,7 @@ spec:
     configHubKubectlApply:
       result: watch
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/vault/0.32.0
-        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-vault-mq55jgj8-2v3-vault
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-vault-mq6kqmwh-2hh-vault
         --non-interactive --namespace vault-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
       manifestSHA256: 71b55953b5f188c8f6652a9d1ccb2754c98ae8072778f446bf6d7c00ac860a40
@@ -79,14 +79,14 @@ spec:
         namespaces: *id001
         workloads: '# vault-apply
 
-          deployment.apps/vault-agent-injector   1/1   1     1     4m53s
+          deployment.apps/vault-agent-injector   1/1   1     1     50s
 
-          statefulset.apps/vault   0/1   4m53s'
+          statefulset.apps/vault   0/1   50s'
         pods: '# vault-apply
 
-          vault-0                                 0/1   Running   0     4m52s
+          vault-0                                 0/1   Running   0     49s
 
-          vault-agent-injector-55b5b5868b-htcqt   1/1   Running   0     4m53s'
+          vault-agent-injector-55b5b5868b-njswf   1/1   Running   0     50s'
         notReady:
         - namespace: vault-apply
           pod: vault-0
@@ -94,7 +94,7 @@ spec:
           status: Running
     configHubOciArgo:
       result: watch
-      workloadSpace: helm-expt-parity-vault-mq55jgj8-2v3-vault
+      workloadSpace: helm-expt-parity-vault-mq6kqmwh-2hh-vault
       controller: Argo CD OCI
       app: vault-parity
       manifestSHA256: e221f8dade89ef803343a402f7a81dfc4474e590aeed0baf22f7633890540486
@@ -104,7 +104,7 @@ spec:
       - vault-oci
       runtimeNamespaces: &id002
       - vault-oci
-      ociRevision: sha256:56ae471cc334df36d79d4e6412c6d245f2e6944fac78e55be25dc109499c5897
+      ociRevision: sha256:503a9cb0e778769b3f58c9e717fc9f23dd0f1bc0f47c467589d082605c6b3959
       sync: Synced
       health: Progressing
       separatedSecrets: []
@@ -113,14 +113,14 @@ spec:
         namespaces: *id002
         workloads: '# vault-oci
 
-          deployment.apps/vault-agent-injector   1/1   1     1     9m41s
+          deployment.apps/vault-agent-injector   1/1   1     1     98s
 
-          statefulset.apps/vault   0/1   9m41s'
+          statefulset.apps/vault   0/1   98s'
         pods: '# vault-oci
 
-          vault-0                                 0/1   Running   0     9m41s
+          vault-0                                 0/1   Running   0     97s
 
-          vault-agent-injector-7995d5cfb6-khltj   1/1   Running   0     9m41s'
+          vault-agent-injector-7995d5cfb6-pvc8g   1/1   Running   0     98s'
         notReady:
         - namespace: vault-oci
           pod: vault-0
@@ -152,11 +152,14 @@ spec:
       semanticNormalizations: *id003
       comparisonSHA256: c45badac8df5197f317ecd414eba9355285db2a4467ac1c6a8b1ea78c7b38504
   checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
-    detail: "Creating kind cluster \"helm-expt-parity-vault-mq55jgj8-2v3\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-vault-mq55jgj8-2v3.kubeconfig)...\n\
-      Creating cluster \"helm-expt-parity-vault-mq55jgj8-2v3\" ...\n \u2022 Ensuring\
+    detail: "Creating kind cluster \"helm-expt-parity-vault-mq6kqmwh-2hh\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-vault-mq6kqmwh-2hh.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-vault-mq6kqmwh-2hh\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
       \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
@@ -164,30 +167,53 @@ spec:
       \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
       \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
-      \nSet kubectl context to \"kind-helm-expt-parity-vault-mq55jgj8-2v3\"\nYou can\
-      \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-vault-mq55jgj8-2v3\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-vault-mq55jgj8-2v3.kubeconfig\n\
-      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
-      \ \U0001F642\nInstalling Argo CD...\nCreating namespace \"argocd\"...\n"
+      \nSet kubectl context to \"kind-helm-expt-parity-vault-mq6kqmwh-2hh\"\nYou can\
+      \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-vault-mq6kqmwh-2hh\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-vault-mq6kqmwh-2hh.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\nspec:\
+      \ {}\nstatus: {"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
   - name: regular-helm-live
     result: watch
     detail: "Release \"vault\" does not exist. Installing it now.\nNAME: vault\nLAST\
-      \ DEPLOYED: Mon Jun  8 12:54:50 2026\nNAMESPACE: vault-helm\nSTATUS: deployed\n\
+      \ DEPLOYED: Tue Jun  9 12:47:20 2026\nNAMESPACE: vault-helm\nSTATUS: deployed\n\
       REVISION: 1\nDESCRIPTION: Install complete\nNOTES:\nThank you for installing\
       \ HashiCorp Vault!\n\nNow that you have deployed Vault, you should look over\
       \ the docs on using\nVault with Kubernetes available here:\n\nhttps://developer.hashicorp.com/vault/docs\n\
       \n\nYour release is named vault. To learn more about the release, try:\n\n \
       \ $ helm status vault\n  $ helm get manifest vault"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
   - name: confighub-kubectl-apply-live
     result: watch
     detail: '# vault-apply
 
-      deployment.apps/vault-agent-injector   1/1   1     1     4m53s
+      deployment.apps/vault-agent-injector   1/1   1     1     50s
 
-      statefulset.apps/vault   0/1   4m53s'
+      statefulset.apps/vault   0/1   50s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
   - name: confighub-oci-argo-live
     result: watch
-    detail: sync=Synced health=Progressing after 420s
+    detail: sync=Synced health=Progressing after 60s
   - name: semantic-object-parity
     result: pass
     detail: missing=0 extra=['v1|Namespace||vault'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []

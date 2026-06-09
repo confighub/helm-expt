@@ -22,23 +22,27 @@ spec:
         bytes: 99
       -
         path: "bases/existing-secret-replicaset/upstream.yaml"
-        sha256: "186e18cde7306766da04e9bfd6c72520e0ff46694cb7998732f99fe713504da8"
-        bytes: 22453
+        sha256: "ba28659f7a827714941ba587c403de0e7afec7bf77a35512ff751bf6c2fdd3a2"
+        bytes: 22648
       -
         path: "bases/generated-passwords/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
         bytes: 99
       -
         path: "bases/generated-passwords/upstream.yaml"
-        sha256: "9443f0dd0c22478095a085ec0bd53146b17084f81fd75e753f2f2ec2a8d9e59b"
-        bytes: 11170
+        sha256: "4c5f0cd0bc6bffd0ff46b15cdb23ce44dba155120b6be46952d7da70ade25a68"
+        bytes: 11300
+      -
+        path: "collector/target-facts.sh"
+        sha256: "4dca76e9bd4d1c4b729ff8840f6bc9e8f33b9d0180fc7e22d90ac29e64be2882"
+        bytes: 1763
       -
         path: "installer.yaml"
-        sha256: "787a8a18766c38b98590159998a4be09f2b031df02ecd58b3a877cb782089a12"
-        bytes: 524
+        sha256: "021b9ceb3ec8792d06aa23e0406d093b4ab82125e4f563906dee11e2682f5929"
+        bytes: 1333
   deterministicBundle:
     command: "cub installer package data/latest-top20-refresh/candidates/mongodb-19.0.9/packages/bitnami/mongodb/19.0.9 -o <tmp>/mongodb-19.0.9.tgz"
-    sha256: "82addb4098e2fe4eaed1b86a0d48999a5fce915123ff8394e7c14de8dfbc99d2"
+    sha256: "5f85bd35400dd0f8a489cb98ae0df849f80ada939396716ba1c33f61fa6dd65c"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
@@ -49,6 +53,8 @@ spec:
       cubInstallObjectCountIncludingSupport: 9
       semanticObjectMatches: "8/8"
       separatedSecretCount: 1
+      targetFactMode: "not-required"
+      targetFactsBound: false
       allowedCubOnlyObjects:
         - "v1|Namespace||mongodb"
     -
@@ -59,5 +65,7 @@ spec:
       cubInstallObjectCountIncludingSupport: 11
       semanticObjectMatches: "10/10"
       separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
       allowedCubOnlyObjects:
         - "v1|Namespace||mongodb"

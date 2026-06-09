@@ -5,14 +5,14 @@ metadata:
 spec:
   variant: "../../../variants/simple-scalable-minio/variant.yaml"
   revision: "r001"
-  digest: "00f69dc5367a311620114b6772ea74b2d7626cdb100252746c207645d1db8710"
+  digest: "8fbbaca079a979957bd8a1788f3a4f493432dfd5fb133d8e9ae05000cbd13140"
   digestInputs:
-    recipeSHA256: "26eb105affe70018240d03c23426fce451115134b03d6fc25612d66bd5e5d6e2"
+    recipeSHA256: "fe7c2ea5ec64cd11a9c31fd0e27a9cd60e145e6fe4db225419b5e3a7ad423e61"
     variantSHA256: "18c0be6df652e7b585172b9473fca7af8f8d709cd17cba0bdfb7f68e1eb1f62e"
-    effectiveValuesSHA256: "45c8e2f2983d654149176406ff46d2c488f78ddec2f8c9932669562f36c450a1"
+    effectiveValuesSHA256: "4619154bbc9261988097c116c7ff0a1748fd0e39b81753960ecd475f9748633d"
     rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
-    renderedObjectSetSHA256: "8c4176621cdd67670d41b1689de1bcaa74854e40fb8170070606f794d0fc36ab"
+    renderedObjectSetSHA256: "91787d0999a776a5b32de6fa06264eb4ba43bc520a66f82234a07cdf94c2f207"
   rendered:
     releaseObjects: "rendered/release-objects.yaml"
     objectInventory: "rendered/object-inventory.yaml"
-    objectCount: 36
+    objectCount: 33

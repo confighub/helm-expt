@@ -8,7 +8,7 @@ spec:
   sourceBase: "NGINX/http-clusterip"
   downstreamVariant: "NGINX/prod-us-east"
   noHelmRerender: true
-  preservedRenderedObjectSetSHA256: "a5f890172fd1bd8cf31870607c1a7874313c5746f1020d547af3dac017db4223"
+  preservedRenderedObjectSetSHA256: "7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba"
   allowedMutationPaths:
     - "Space.Labels.Variant"
     - "Space.Labels.Environment"

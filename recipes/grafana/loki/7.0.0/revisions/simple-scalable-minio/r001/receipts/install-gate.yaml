@@ -4,7 +4,7 @@ metadata:
   name: "loki-simple-scalable-minio-r001"
 spec:
   variantRevision: "../variant-revision.yaml"
-  renderedObjectSetSHA256: "8c4176621cdd67670d41b1689de1bcaa74854e40fb8170070606f794d0fc36ab"
+  renderedObjectSetSHA256: "91787d0999a776a5b32de6fa06264eb4ba43bc520a66f82234a07cdf94c2f207"
   decision: "warn"
   allowedScopes:
     - "local-test"
@@ -16,4 +16,4 @@ spec:
     - "Loki storage, schema, object-store, and StatefulSet policies need production review"
     - "Any future hook or test enablement needs explicit lifecycle policy before production"
     - "Raw/tpl extension slots must remain empty or be scanned as first-class variant inputs"
-    - "satisfies required bucket names and renders the MinIO Secret as chart-owned test storage material"
+    - "satisfies required bucket names, uses one read/write/backend replica for a one-node local target, and renders the MinIO Secret as chart-owned test storage material"

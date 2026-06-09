@@ -7,15 +7,15 @@ spec:
   version: 4.15.1
   base: admission-disabled
   result: watch
-  observedAt: '2026-06-09T10:27:17Z'
+  observedAt: '2026-06-09T11:11:08Z'
   package:
     path: packages/ingress-nginx/ingress-nginx/4.15.1
   recipe:
     path: recipes/ingress-nginx/ingress-nginx/4.15.1
   variantRevision: recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/variant-revision.yaml
   run:
-    rig: helm-expt-parity-ingressnginx-mq6hwwuk-xew
-    kubeContext: kind-helm-expt-parity-ingressnginx-mq6hwwuk-xew
+    rig: helm-expt-parity-ingressnginx-mq6jhb8y-1xw0
+    kubeContext: kind-helm-expt-parity-ingressnginx-mq6jhb8y-1xw0
     namespace: ingress-nginx
     legNamespaces:
       regularHelm: ingress-nginx-helm
@@ -23,15 +23,15 @@ spec:
       configHubOciArgo: ingress-nginx-oci
     clusterLifecycle: cleaned-up
     cleanup:
-      command: cub lk down --name helm-expt-parity-ingressnginx-mq6hwwuk-xew --force
+      command: cub lk down --name helm-expt-parity-ingressnginx-mq6jhb8y-1xw0 --force
       result: pass
-      detail: 'Deleting kind cluster "helm-expt-parity-ingressnginx-mq6hwwuk-xew"...
+      detail: 'Deleting kind cluster "helm-expt-parity-ingressnginx-mq6jhb8y-1xw0"...
 
-        Deleting cluster "helm-expt-parity-ingressnginx-mq6hwwuk-xew" ...
+        Deleting cluster "helm-expt-parity-ingressnginx-mq6jhb8y-1xw0" ...
 
-        Deleted nodes: ["helm-expt-parity-ingressnginx-mq6hwwuk-xew-control-plane"]
+        Deleted nodes: ["helm-expt-parity-ingressnginx-mq6jhb8y-1xw0-control-plane"]
 
-        Deleting Space "helm-expt-parity-ingressnginx-mq6hwwuk-xew-cluster" (recursive:
+        Deleting Space "helm-expt-parity-ingressnginx-mq6jhb8y-1xw0-cluster" (recursive:
         cascades to Unit, Target, Worker)...
 
 
@@ -50,15 +50,15 @@ spec:
       namespace: ingress-nginx-helm
       runtime:
         result: pass
-        workloads: deployment.apps/ingress-nginx-controller   1/1   1     1     28s
-        pods: ingress-nginx-controller-5486dbd97f-tts4j   1/1   Running   0     28s
+        workloads: deployment.apps/ingress-nginx-controller   1/1   1     1     26s
+        pods: ingress-nginx-controller-5486dbd97f-bwm28   1/1   Running   0     26s
         notReady: []
       stderr: ''
       getManifestError: ''
     configHubKubectlApply:
       result: pass
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/ingress-nginx/ingress-nginx/4.15.1
-        --base admission-disabled --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-ingressnginx-mq6hwwuk-xew-ingress-nginx
+        --base admission-disabled --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-ingressnginx-mq6jhb8y-1xw0-ingress-nginx
         --non-interactive --namespace ingress-nginx-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
       manifestSHA256: 57202ca0cc330e5736a6ee2af0705a26a02f49b234dfd3b6e4504a7be66f2065
@@ -73,14 +73,14 @@ spec:
         namespaces: *id001
         workloads: '# ingress-nginx-apply
 
-          deployment.apps/ingress-nginx-controller   1/1   1     1     21s'
+          deployment.apps/ingress-nginx-controller   1/1   1     1     20s'
         pods: '# ingress-nginx-apply
 
-          ingress-nginx-controller-5486dbd97f-7vplt   1/1   Running   0     20s'
+          ingress-nginx-controller-5486dbd97f-msskc   1/1   Running   0     20s'
         notReady: []
     configHubOciArgo:
       result: watch
-      workloadSpace: helm-expt-parity-ingressnginx-mq6hwwuk-xew-ingress-nginx
+      workloadSpace: helm-expt-parity-ingressnginx-mq6jhb8y-1xw0-ingress-nginx
       controller: Argo CD OCI
       app: ingress-nginx-parity
       manifestSHA256: 9da3570c6252787f652589b93b1ea1def0826d618161a71561a4b40fe9bb6538
@@ -90,7 +90,7 @@ spec:
       - ingress-nginx-oci
       runtimeNamespaces: &id002
       - ingress-nginx-oci
-      ociRevision: sha256:b8f258a1228bb8b60cbb202f626e7d0da7bef5bc6888857f4a64a20fa299533a
+      ociRevision: sha256:181b04116956e611c9e0570846b3424effa221e7c38a0236e4099b5d85e78639
       sync: Synced
       health: Progressing
       separatedSecrets: []
@@ -102,7 +102,7 @@ spec:
           deployment.apps/ingress-nginx-controller   1/1   1     1     6m50s'
         pods: '# ingress-nginx-oci
 
-          ingress-nginx-controller-5486dbd97f-ph9k6   1/1   Running   0     6m50s'
+          ingress-nginx-controller-5486dbd97f-d4rcm   1/1   Running   0     6m50s'
         notReady: []
   semanticComparison:
     allowedExtraConfigHubObjects:
@@ -135,9 +135,9 @@ spec:
     detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
-    detail: "Creating kind cluster \"helm-expt-parity-ingressnginx-mq6hwwuk-xew\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-ingressnginx-mq6hwwuk-xew.kubeconfig)...\n\
-      Creating cluster \"helm-expt-parity-ingressnginx-mq6hwwuk-xew\" ...\n \u2022\
+    detail: "Creating kind cluster \"helm-expt-parity-ingressnginx-mq6jhb8y-1xw0\"\
+      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-ingressnginx-mq6jhb8y-1xw0.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-ingressnginx-mq6jhb8y-1xw0\" ...\n \u2022\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
       \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
@@ -145,18 +145,18 @@ spec:
       \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
       \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
-      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-ingressnginx-mq6hwwuk-xew\"\
-      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-ingressnginx-mq6hwwuk-xew\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-ingressnginx-mq6hwwuk-xew.kubeconfig\n\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-ingressnginx-mq6jhb8y-1xw0\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-ingressnginx-mq6jhb8y-1xw0\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-ingressnginx-mq6jhb8y-1xw0.kubeconfig\n\
       \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
-      Installing Argo C"
+      Installing "
   - name: target-facts-regular-helm
     result: pass
     detail: secrets=0 crds=0
   - name: regular-helm-live
     result: pass
     detail: "Release \"ingress-nginx\" does not exist. Installing it now.\nNAME: ingress-nginx\n\
-      LAST DEPLOYED: Tue Jun  9 11:28:43 2026\nNAMESPACE: ingress-nginx-helm\nSTATUS:\
+      LAST DEPLOYED: Tue Jun  9 12:12:35 2026\nNAMESPACE: ingress-nginx-helm\nSTATUS:\
       \ deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n\
       The ingress-nginx controller has been installed.\nIt may take a few minutes\
       \ for the load balancer IP to be available.\nYou can watch the status by running\
@@ -176,7 +176,7 @@ spec:
     result: pass
     detail: '# ingress-nginx-apply
 
-      deployment.apps/ingress-nginx-controller   1/1   1     1     21s'
+      deployment.apps/ingress-nginx-controller   1/1   1     1     20s'
   - name: target-facts-confighub-oci
     result: pass
     detail: secrets=0 crds=0

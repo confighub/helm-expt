@@ -18,7 +18,7 @@ spec:
   notes:
     - "Default chart rendering fails before object creation until loki.storage.bucketNames.chunks and schemaConfig are supplied."
     - "single-binary-filesystem selects SingleBinary topology, filesystem storage, and one Loki StatefulSet for local proof."
-    - "simple-scalable-minio selects the scalable topology, explicit S3 bucket names, and the bundled MinIO dependency as a local object-store fixture."
+    - "simple-scalable-minio selects the scalable topology, one read/write/backend replica, explicit S3 bucket names, and the bundled MinIO dependency as a local object-store fixture."
     - "Chart dependency metadata records MinIO, grafana-agent-operator, and rollout-operator from Chart.lock."
     - "Promoted variants render no hook objects with --no-hooks; future hook or test enablement must map to lifecycle policy."
     - "Loki and MinIO render StatefulSets that need storage/upgrade/rollback policy before production."

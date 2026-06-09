@@ -59,7 +59,7 @@ for exact base-variant evidence.
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | single-binary-filesystem | [recipes/grafana/loki/7.0.0/variants/single-binary-filesystem/variant.yaml](variants/single-binary-filesystem/variant.yaml) | [packages/grafana/loki/7.0.0/bases/single-binary-filesystem](../../../../packages/grafana/loki/7.0.0/bases/single-binary-filesystem) | [recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/variant-revision.yaml](revisions/single-binary-filesystem/r001/variant-revision.yaml) | 19 | 20 | 19/19 | pass | warn | warn | none |
-| simple-scalable-minio | [recipes/grafana/loki/7.0.0/variants/simple-scalable-minio/variant.yaml](variants/simple-scalable-minio/variant.yaml) | [packages/grafana/loki/7.0.0/bases/simple-scalable-minio](../../../../packages/grafana/loki/7.0.0/bases/simple-scalable-minio) | [recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/variant-revision.yaml](revisions/simple-scalable-minio/r001/variant-revision.yaml) | 36 | 37 | 36/36 | pass | warn | warn | none |
+| simple-scalable-minio | [recipes/grafana/loki/7.0.0/variants/simple-scalable-minio/variant.yaml](variants/simple-scalable-minio/variant.yaml) | [packages/grafana/loki/7.0.0/bases/simple-scalable-minio](../../../../packages/grafana/loki/7.0.0/bases/simple-scalable-minio) | [recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/variant-revision.yaml](revisions/simple-scalable-minio/r001/variant-revision.yaml) | 33 | 34 | 33/33 | pass | warn | warn | none |
 
 ## Package Bases
 

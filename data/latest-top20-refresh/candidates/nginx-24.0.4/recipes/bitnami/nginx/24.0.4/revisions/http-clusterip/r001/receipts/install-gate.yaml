@@ -4,7 +4,7 @@ metadata:
   name: "nginx-http-clusterip-r001"
 spec:
   variantRevision: "../variant-revision.yaml"
-  renderedObjectSetSHA256: "1a26fda6a69d965163592d2af5e777ee7a28ed7c9e5c057ad233c3dd00892d09"
+  renderedObjectSetSHA256: "5c175126acf3b7abd9fce0c17791cfce7236eac8f51e9781d20814cad14b0bac"
   decision: "warn"
   allowedScopes:
     - "local-test"

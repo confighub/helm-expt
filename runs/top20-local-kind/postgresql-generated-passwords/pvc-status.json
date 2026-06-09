@@ -12,7 +12,7 @@
                     "volume.kubernetes.io/selected-node": "helm-expt-redis-control-plane",
                     "volume.kubernetes.io/storage-provisioner": "rancher.io/local-path"
                 },
-                "creationTimestamp": "2026-05-28T08:15:02Z",
+                "creationTimestamp": "2026-06-09T12:03:35Z",
                 "finalizers": [
                     "kubernetes.io/pvc-protection"
                 ],
@@ -23,8 +23,8 @@
                 },
                 "name": "data-postgresql-0",
                 "namespace": "postgresql",
-                "resourceVersion": "2347",
-                "uid": "552f3f10-40b9-4c0c-a67e-9b78eea6ef37"
+                "resourceVersion": "527",
+                "uid": "eb3381ca-360c-452b-a189-044083268366"
             },
             "spec": {
                 "accessModes": [
@@ -37,7 +37,7 @@
                 },
                 "storageClassName": "standard",
                 "volumeMode": "Filesystem",
-                "volumeName": "pvc-552f3f10-40b9-4c0c-a67e-9b78eea6ef37"
+                "volumeName": "pvc-eb3381ca-360c-452b-a189-044083268366"
             },
             "status": {
                 "accessModes": [

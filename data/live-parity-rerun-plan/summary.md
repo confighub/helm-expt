@@ -10,15 +10,15 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 11
-blocked: 8
+rows: 10
+blocked: 7
 watch: 3
 configHub-oci-live-comparison: 2
-two-cluster-kind-parity: 9
+two-cluster-kind-parity: 8
 semantic-parity-defects: 0
 infra-or-rig-rows: 0
 prerequisite-or-lifecycle-rows: 2
-runtime-or-watch-rows: 9
+runtime-or-watch-rows: 8
 ```
 
 ## Lane Breakdown
@@ -26,7 +26,7 @@ runtime-or-watch-rows: 9
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | configHub-oci-live-comparison | 2 | 0 | 2 | 0 | 0 |
-| two-cluster-kind-parity | 9 | 0 | 1 | 8 | 0 |
+| two-cluster-kind-parity | 8 | 0 | 1 | 7 | 0 |
 
 The ConfigHub/OCI live comparison rows in this queue are current `watch` rows.
 They have semantic parity and need runtime, target, or controller-health review.
@@ -50,7 +50,7 @@ The `blocked` rows are currently from the two-cluster kind parity lane.
 | gitops-runtime-review | 1 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
 | lifecycle-route | 1 | Choose the lifecycle route or observation contract before rerunning strict parity. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if the expected readiness changes. |
-| runtime-review | 7 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
+| runtime-review | 6 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
 | stage-prerequisite | 1 | Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning. |
 
 Rows in `stage-prerequisite`, `lifecycle-route`, and `operating-policy`
@@ -67,7 +67,7 @@ reasonable live rerun candidates.
 | Readiness | Rows | Meaning |
 | --- | ---: | --- |
 | model-or-stage-first | 3 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 8 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| review-target-first | 7 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Run Safety
 
@@ -96,7 +96,6 @@ faithful to the locked chart/version without changing the recipe.
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `grafana/tempo@1.24.4` | s3-query-observability | blocked | target-prerequisite: CRDs missing | `npm run kind-parity:run -- --chart grafana/tempo --version 1.24.4 --base s3-query-observability` |
 | 55 | model-or-stage-first | lifecycle-route | two-cluster-kind-parity | `jetstack/cert-manager@v1.20.2` | default | blocked | helm-hook: post-install hook failed (parity passed) | `npm run kind-parity:run -- --chart jetstack/cert-manager --version v1.20.2 --base default` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | blocked | target-runtime: pod crash loop (parity passed) | `npm run kind-parity:run -- --chart bitnami/mongodb --version 19.0.7 --base existing-secret-replicaset --repo-url oci://registry-1.docker.io/bitnamicharts` |
-| 60 | review-target-first | runtime-review | two-cluster-kind-parity | `grafana/loki@7.0.0` | simple-scalable-minio | blocked | target-runtime: pods pending (parity passed) | `npm run kind-parity:run -- --chart grafana/loki --version 7.0.0 --base simple-scalable-minio` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | blocked | target-runtime: pod crash loop (parity passed) | `npm run kind-parity:run -- --chart hashicorp/consul --version 2.0.0 --base secure-mesh-existing-secrets` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `hashicorp/vault@0.32.0` | default | blocked | helm-runtime: upstream not ready (parity passed) | `npm run kind-parity:run -- --chart hashicorp/vault --version 0.32.0 --base default` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `hashicorp/vault@0.32.0` | ha-raft-ui | blocked | target-runtime: pods pending (parity passed) | `npm run kind-parity:run -- --chart hashicorp/vault --version 0.32.0 --base ha-raft-ui` |

@@ -13,4 +13,4 @@ spec:
   packageSHA256: "a87e983b2dfe2d7052213869e41c7536e2de8c2231bbeb844add1372a1ddd09c"
   packageBytes: 82455
   evidence:
-    sourceCommand: "helm pull prometheus-community/prometheus --version 29.9.0"
+    harnessReceipt: "../../../../data/adversarial10/charts/prometheus-29.9.0/render-receipt.yaml"

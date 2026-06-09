@@ -35,6 +35,11 @@ spec:
       disposition: "object-storage-bound"
       reason: "selects S3-compatible storage with explicit bucket names and endpoint"
     -
+      path: "read.replicas / write.replicas / backend.replicas / loki.commonConfig.replication_factor"
+      variant: "simple-scalable-minio"
+      disposition: "local-target-fit"
+      reason: "keeps the scalable topology schedulable on a one-node local proof target while preserving read/write/backend components"
+    -
       path: "minio.enabled"
       variant: "simple-scalable-minio"
       disposition: "dependency-enabled"

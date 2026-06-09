@@ -10,7 +10,7 @@ spec:
   sourceSpace: "helm-nginx-confighub-proof"
   downstreamSpace: "NGINX-customer-acme-prod"
   sourceRevision: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml"
-  renderedObjectSetSHA256: "a5f890172fd1bd8cf31870607c1a7874313c5746f1020d547af3dac017db4223"
+  renderedObjectSetSHA256: "7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba"
   sourceUnits: 7
   clonedUnitsExpected: 7
   upstreamLinks: "preserve"

@@ -22,23 +22,27 @@ spec:
         bytes: 99
       -
         path: "bases/existing-secret/upstream.yaml"
-        sha256: "3d24db23028b9494edd8d4f6ba1ab94bdfd6d98b2d9d33360a4d693c944b3910"
-        bytes: 9047
+        sha256: "dfbd333f2a1842ca8af06c501cf0b9719fd1b121fc5ee87b78a1cd3253f9497a"
+        bytes: 9112
       -
         path: "bases/generated-passwords/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
         bytes: 99
       -
         path: "bases/generated-passwords/upstream.yaml"
-        sha256: "53745953b073f2a42a1833dbc4808b82463894c50405610e7dde62915550cb40"
-        bytes: 9650
+        sha256: "3813cd50ce20e68fab8ac09137d36e9164c718df62da7eb0b3df35ede0ce7f69"
+        bytes: 9715
+      -
+        path: "collector/target-facts.sh"
+        sha256: "c22a72c36e15ead112f2fe88e32860a676b46cacf394095a953a24b2be2f2abc"
+        bytes: 1643
       -
         path: "installer.yaml"
-        sha256: "11d5cbc5d781882153887e8b7406c275371b9265c04d2e0a71e2d3e009566518"
-        bytes: 508
+        sha256: "a3cd00ae750d72ee004c83f459e7a0a119d729b02581f48d5c97e35005bc4be5"
+        bytes: 1252
   deterministicBundle:
     command: "cub installer package data/latest-top20-refresh/candidates/postgresql-18.6.10/packages/bitnami/postgresql/18.6.10 -o <tmp>/postgresql-18.6.10.tgz"
-    sha256: "c9a26b8bde1ae9f3ede986812b91e2c7b970e081a3b4b59a386fd621a0daabff"
+    sha256: "1b970b1b323629e730e14c74473ebca7adb192665003aee89fff12bdf400e278"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
@@ -49,6 +53,8 @@ spec:
       cubInstallObjectCountIncludingSupport: 8
       semanticObjectMatches: "7/7"
       separatedSecretCount: 1
+      targetFactMode: "not-required"
+      targetFactsBound: false
       allowedCubOnlyObjects:
         - "v1|Namespace||postgresql"
     -
@@ -59,5 +65,7 @@ spec:
       cubInstallObjectCountIncludingSupport: 7
       semanticObjectMatches: "6/6"
       separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
       allowedCubOnlyObjects:
         - "v1|Namespace||postgresql"

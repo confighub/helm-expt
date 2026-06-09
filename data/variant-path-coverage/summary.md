@@ -28,8 +28,8 @@ ConfigHub variant, or an upgrade/customization path.
 - not-attempted: 10
 - not-tested: 2
 - not-tested-by-diff: 1
-- pass: 17
-- watch: 5
+- pass: 20
+- watch: 2
 
 ## Live Status Meanings
 
@@ -47,7 +47,6 @@ ConfigHub variant, or an upgrade/customization path.
 
 | Chart | Path | Type | Live status | Remaining gap |
 | --- | --- | --- | --- | --- |
-| `argo-cd/argo-cd@9.5.15` | `default` | base-variant | watch | confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 | `argo-cd/argo-cd@9.5.15` | `no-crds` | base-variant | blocked | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 | `bitnami/nginx@24.0.2` | `customer-acme-prod` | derived-confighub-variant | not-attempted | target/live evidence may be separate |
 | `bitnami/nginx@24.0.2` | `prod-us-east` | derived-confighub-variant | not-attempted | target/live evidence may be separate |
@@ -59,6 +58,7 @@ ConfigHub variant, or an upgrade/customization path.
 | `external-secrets/external-secrets@2.5.0` | `no-crds` | base-variant | blocked | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 | `grafana/grafana@10.5.15` | `customer-acme-prod` | derived-confighub-variant | not-attempted | target/live evidence may be separate |
 | `grafana/grafana@10.5.15` | `prod-us-east` | derived-confighub-variant | not-attempted | target/live evidence may be separate |
+| `hashicorp/consul@2.0.0` | `secure-mesh-existing-secrets` | base-variant | blocked | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 
 ## How To Use This Matrix
 

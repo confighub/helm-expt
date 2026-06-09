@@ -6,7 +6,7 @@
     "pass": 0,
     "warn": 40,
     "fail": 0,
-    "totalFindings": 310,
+    "totalFindings": 307,
     "toolStatus": {
       "kubeLinter": {
         "available": true,
@@ -1053,15 +1053,14 @@
       "scannerVersion": "0.8.3",
       "result": "warn",
       "exitCode": 1,
-      "findingCount": 21,
+      "findingCount": 18,
       "checkCounts": {
         "no-read-only-root-fs": 1,
-        "pdb-unhealthy-pod-eviction-policy": 3,
         "unset-cpu-requirements": 8,
         "unset-memory-requirements": 9
       },
       "renderedPath": "recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/rendered/release-objects.yaml",
-      "renderedSHA256": "8c4176621cdd67670d41b1689de1bcaa74854e40fb8170070606f794d0fc36ab",
+      "renderedSHA256": "91787d0999a776a5b32de6fa06264eb4ba43bc520a66f82234a07cdf94c2f207",
       "recipePath": "recipes/grafana/loki/7.0.0",
       "findings": [
         {
@@ -1072,36 +1071,6 @@
             "kind": "",
             "namespace": "",
             "name": "loki-minio"
-          }
-        },
-        {
-          "check": "pdb-unhealthy-pod-eviction-policy",
-          "message": "unhealthyPodEvictionPolicy is not explicitly set",
-          "object": {
-            "apiVersion": "",
-            "kind": "",
-            "namespace": "loki",
-            "name": "loki-backend"
-          }
-        },
-        {
-          "check": "pdb-unhealthy-pod-eviction-policy",
-          "message": "unhealthyPodEvictionPolicy is not explicitly set",
-          "object": {
-            "apiVersion": "",
-            "kind": "",
-            "namespace": "loki",
-            "name": "loki-read"
-          }
-        },
-        {
-          "check": "pdb-unhealthy-pod-eviction-policy",
-          "message": "unhealthyPodEvictionPolicy is not explicitly set",
-          "object": {
-            "apiVersion": "",
-            "kind": "",
-            "namespace": "loki",
-            "name": "loki-write"
           }
         },
         {
@@ -1430,7 +1399,7 @@
         "unset-memory-requirements": 1
       },
       "renderedPath": "recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/rendered/release-objects.yaml",
-      "renderedSHA256": "4a18b354ff67e98d84f6d89ce16b973396c9c30bf3c121f4ef146886151c44be",
+      "renderedSHA256": "df7ce7b40425eef8d057bdd80416ea3ae781ababe7ce6a154db74990c0f07905",
       "recipePath": "recipes/grafana/tempo/1.24.4",
       "findings": [
         {
@@ -1480,7 +1449,7 @@
         "unset-memory-requirements": 2
       },
       "renderedPath": "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml",
-      "renderedSHA256": "6fb9e1726fb68d7e7e251420e9c5761e078cd38f508fa87af7759e0b302017a4",
+      "renderedSHA256": "e647ad22435c55910e4c77470263e05daf026af43b59bde1f0ae7db754d3d5ad",
       "recipePath": "recipes/grafana/tempo/1.24.4",
       "findings": [
         {

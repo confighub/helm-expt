@@ -49,6 +49,8 @@ spec:
       cubInstallObjectCountIncludingSupport: 24
       semanticObjectMatches: "23/23"
       separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
       allowedCubOnlyObjects:
         - "v1|Namespace||monitoring"
     -
@@ -59,5 +61,7 @@ spec:
       cubInstallObjectCountIncludingSupport: 7
       semanticObjectMatches: "6/6"
       separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
       allowedCubOnlyObjects:
         - "v1|Namespace||monitoring"

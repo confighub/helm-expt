@@ -22,8 +22,8 @@ spec:
         bytes: 99
       -
         path: "bases/simple-scalable-minio/upstream.yaml"
-        sha256: "8c4176621cdd67670d41b1689de1bcaa74854e40fb8170070606f794d0fc36ab"
-        bytes: 62387
+        sha256: "91787d0999a776a5b32de6fa06264eb4ba43bc520a66f82234a07cdf94c2f207"
+        bytes: 60825
       -
         path: "bases/single-binary-filesystem/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
@@ -38,7 +38,7 @@ spec:
         bytes: 510
   deterministicBundle:
     command: "cub installer package packages/grafana/loki/7.0.0 -o <tmp>/loki-7.0.0.tgz"
-    sha256: "67c9172a7400c4b175236c300106540837399255845180c5258cbb4cb632661b"
+    sha256: "811e4991d8fc6afad30e30b87ebd1a56fe15a9c331882c99bd0221cee2bd9126"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
@@ -49,15 +49,19 @@ spec:
       cubInstallObjectCountIncludingSupport: 20
       semanticObjectMatches: "19/19"
       separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
       allowedCubOnlyObjects:
         - "v1|Namespace||loki"
     -
       variant: "simple-scalable-minio"
       base: "simple-scalable-minio"
       command: "cub installer setup --pull packages/grafana/loki/7.0.0 --base simple-scalable-minio --work-dir <tmp> --non-interactive --namespace loki"
-      helmReleaseObjectCount: 36
-      cubInstallObjectCountIncludingSupport: 37
-      semanticObjectMatches: "36/36"
+      helmReleaseObjectCount: 33
+      cubInstallObjectCountIncludingSupport: 34
+      semanticObjectMatches: "33/33"
       separatedSecretCount: 1
+      targetFactMode: "not-required"
+      targetFactsBound: false
       allowedCubOnlyObjects:
         - "v1|Namespace||loki"

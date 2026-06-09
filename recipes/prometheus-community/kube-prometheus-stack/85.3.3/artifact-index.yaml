@@ -60,7 +60,7 @@ spec:
       liveParity: "0/2"
     featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;install-vs-upgrade;extension-slots"
     hardGap: "existing-secret (chart ships no Secret toggle)"
-    nextAction: "choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support"
+    nextAction: "write or fix the receipt for target fact preflight"
   installerPackage:
     path: "packages/prometheus-community/kube-prometheus-stack/85.3.3"
     installer: "packages/prometheus-community/kube-prometheus-stack/85.3.3/installer.yaml"

@@ -6,7 +6,7 @@
   },
   "spec": {
     "variantRevision": "recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/variant-revision.yaml",
-    "renderedObjectSetSHA256": "4a18b354ff67e98d84f6d89ce16b973396c9c30bf3c121f4ef146886151c44be",
+    "renderedObjectSetSHA256": "df7ce7b40425eef8d057bdd80416ea3ae781ababe7ce6a154db74990c0f07905",
     "observer": {
       "name": "top20-local-e2e",
       "version": "0.2.0",
@@ -14,11 +14,11 @@
     },
     "target": {
       "kind": "kind",
-      "name": "helm-expt-live-tail",
-      "context": "kind-helm-expt-live-tail",
+      "name": "helm-expt-redis",
+      "context": "kind-helm-expt-redis",
       "namespace": "tempo"
     },
-    "observedAt": "2026-05-28T08:29:00.879Z",
+    "observedAt": "2026-06-09T12:06:20.542Z",
     "freshnessTTL": "1h",
     "result": "pass",
     "chart": "grafana/tempo",
@@ -43,7 +43,7 @@
     ],
     "kubectlObjects": {
       "path": "kubectl-objects.txt",
-      "sha256": "fc9bb82c8f211f7490e6c448ae5d7654e38cd53bcb8d83a511653eb8855f4572"
+      "sha256": "90bd3e1a790443a5d8a56de4d6399ea35fdb6dcce32f56698851fd8eb887657f"
     }
   }
 }

@@ -46,7 +46,7 @@ The same queue is available as `next-actions.csv`.
 | `bitnami/postgresql@18.6.7` | 5 | 0 |  | - | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
 | `bitnami/rabbitmq@16.0.14` | 5 | 0 |  | - | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
 | `grafana/grafana@10.5.15` | 5 | 0 |  | - | existing-secret-ingress: warn, 3 finding(s) (no-read-only-root-fs:1;unset-cpu-requirements:1;unset-memory-requirements:1); generated-passwords: warn, 3 finding(s) (no-read-only-root-fs:1;unset-cpu-requirements:1;unset-memory-requirements:1) |
-| `grafana/loki@7.0.0` | 5 | 0 |  | - | simple-scalable-minio: warn, 21 finding(s) (unset-memory-requirements:9;unset-cpu-requirements:8;pdb-unhealthy-pod-eviction-policy:3;no-read-only-root-fs:1); single-binary-filesystem: warn, 12 finding(s) (unset-cpu-requirements:6;unset-memory-requirements:6) |
+| `grafana/loki@7.0.0` | 5 | 0 |  | - | simple-scalable-minio: warn, 18 finding(s) (unset-memory-requirements:9;unset-cpu-requirements:8;no-read-only-root-fs:1); single-binary-filesystem: warn, 12 finding(s) (unset-cpu-requirements:6;unset-memory-requirements:6) |
 | `hashicorp/vault@0.32.0` | 5 | 0 |  | - | default: warn, 9 finding(s) (no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2;liveness-port:1;readiness-port:1); ha-raft-ui: warn, 12 finding(s) (dangling-service:2;no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2;liveness-port:1) |
 | `longhorn/longhorn@1.11.2` | 5 | 0 |  | - | default: warn, 24 finding(s) (no-read-only-root-fs:5;run-as-non-root:5;unset-cpu-requirements:5;unset-memory-requirements:5;dangling-service:2); ui-ingress: warn, 24 finding(s) (no-read-only-root-fs:5;run-as-non-root:5;unset-cpu-requirements:5;unset-memory-requirements:5;dangling-service:2) |
 | `metrics-server/metrics-server@3.13.0` | 5 | 0 |  | - | default: warn, 1 finding(s) (unset-memory-requirements:1); external-tls-ca: warn, 1 finding(s) (unset-memory-requirements:1) |
@@ -69,7 +69,7 @@ runtime fit, and final support scope.
 
 | Chart | First base | Base readiness | Decision focus | Image subjects needing resolution | Next action |
 | --- | --- | --- | --- | ---: | --- |
-| `argo-cd/argo-cd@9.5.15` | default | try-with-proof | missing-disposition | 2 | write or fix the receipt for target fact preflight |
+| `argo-cd/argo-cd@9.5.15` | default | start-here | missing-disposition | 2 | write or fix the receipt for target fact preflight |
 | `bitnami/mongodb@19.0.7` | generated-passwords | start-here | lifecycle-support-scope | 0 | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
 | `bitnami/mysql@14.0.3` | generated-passwords | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
 | `bitnami/nginx@24.0.2` | http-clusterip | start-here | final-target-support-decision | 0 | choose the supported production base and target scope, refresh live/e2e evidence, and record the final support decision |
@@ -79,14 +79,14 @@ runtime fit, and final support scope.
 | `external-secrets/external-secrets@2.5.0` | default | start-here | missing-disposition | 2 | write or fix the receipt for target fact preflight |
 | `grafana/grafana@10.5.15` | generated-passwords | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
 | `grafana/loki@7.0.0` | single-binary-filesystem | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
-| `grafana/tempo@1.24.4` | local-persistent | try-with-proof | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
+| `grafana/tempo@1.24.4` | local-persistent | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
 | `hashicorp/consul@2.0.0` | default-control-plane | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
 | `hashicorp/vault@0.32.0` | default | runtime-review-needed | runtime-or-prerequisite-scope | 2 | choose whether default is in production scope; close or document its runtime-review-needed live-readiness issue first |
 | `ingress-nginx/ingress-nginx@4.15.1` | default | runtime-watch | runtime-or-prerequisite-scope | 0 | choose whether default is in production scope; close or document its runtime-watch live-readiness issue first |
 | `jetstack/cert-manager@v1.20.2` | default | lifecycle-observed | lifecycle-support-scope | 2 | choose whether default is in production scope; record the target-scoped lifecycle support decision before claiming production support |
 | `longhorn/longhorn@1.11.2` | default | start-here | security-acceptance-or-hardened-base | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
 | `metrics-server/metrics-server@3.13.0` | default | try-with-proof | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | default | try-with-proof | missing-disposition | 2 | write or fix the receipt for target fact preflight |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | default | start-here | missing-disposition | 2 | write or fix the receipt for target fact preflight |
 | `prometheus-community/prometheus@29.8.0` | default | try-with-proof | security-acceptance-or-hardened-base | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | start-here | security-acceptance-or-hardened-base | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
 

@@ -5,6 +5,11 @@ metadata:
 spec:
   checkedValues:
     -
+      path: "image.digest"
+      variant: "all"
+      disposition: "pinned-image"
+      reason: "supported bases pin the Bitnami NGINX image by digest instead of rendering the chart default latest tag"
+    -
       path: "tls.enabled"
       variant: "http-clusterip"
       disposition: "generated-fact-avoided"
