@@ -1,8 +1,8 @@
 # Status Dashboard
 
 This generated dashboard is the short front door for current project status. It
-joins the top100 readiness, top500 evidence map, proof lane, quirk, hook,
-GitOps, and live-parity tables without replacing them.
+joins the top100 readiness, top500 evidence map, proof lane, graph bridge,
+quirk, hook, GitOps, and live-parity tables without replacing them.
 
 Use this page to answer:
 
@@ -39,6 +39,11 @@ Which detailed CSV should I open next?
 | derived variants | derived variant golden rows | 10/10 | good | [data/variant-goldens/derived-expansion-wave/work-orders.csv](../../data/variant-goldens/derived-expansion-wave/work-orders.csv) |
 | derived variants | derived variant live create receipts | 10/10 | good | [runs/derived-variant-execution](../../runs/derived-variant-execution) |
 | derived variants | target-bound derived variant receipts | 6/10 | partial | [runs/derived-variant-target-bound](../../runs/derived-variant-target-bound) |
+| graph bridge | charts with recovered graph fragments | 2/100 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
+| graph bridge | recovered graph edge rows | 8/8 | good | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
+| graph bridge | target-fact graph edges | 3/8 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
+| graph bridge | generated-fact graph edges | 1/8 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
+| graph bridge | rows with field reachability | 2/8 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | live evidence | runtime/GitOps wave rows | 10/10 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
 | live evidence | live Helm-vs-ConfigHub receipts | 20/20 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster kind parity receipts | 40/40 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
@@ -420,6 +425,7 @@ lifecycle observation.
 | Which Helm quirk axes are still blind spots? | [quirk-coverage/coverage.csv](../quirk-coverage/coverage.csv) |
 | Which hook charts need lifecycle receipts? | [hook-lifecycle/top100-hooks.csv](../hook-lifecycle/top100-hooks.csv) |
 | Which hook claims are queued versus observed? | [lifecycle-boundary/summary.md](../lifecycle-boundary/summary.md) |
+| Which Helm artifacts have recovered graph fragments? | [edge-recovery/summary.md](../edge-recovery/summary.md) |
 | Which live comparisons passed or failed? | [live-helm-confighub-compare/summary.csv](../live-helm-confighub-compare/summary.csv) |
 | Which live rows should be rerun next? | [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md) |
 | Which top-20 charts are production-supported? | [production-support-decisions/summary.md](../production-support-decisions/summary.md) |

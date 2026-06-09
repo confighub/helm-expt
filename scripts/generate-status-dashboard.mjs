@@ -47,6 +47,7 @@ function buildReport() {
   const hookRows = readCsv("data/hook-lifecycle/top100-hooks.csv");
   const lifecycleBoundaryRows = readCsv("data/lifecycle-boundary/lifecycle-boundary.csv");
   const lifecycleObservationRows = readCsv("data/lifecycle-observations/cert-manager-eso/summary.csv");
+  const edgeRows = readCsv("data/edge-recovery/edges.csv");
   const liveRows = readCsv("data/live-helm-confighub-compare/summary.csv");
   const kindParityRows = readCsv("data/live-kind-parity/summary.csv");
   const liveParityRerunRows = readCsv("data/live-parity-rerun-plan/rerun-plan.csv");
@@ -88,6 +89,12 @@ function buildReport() {
   rows.push(metric("derived variants", "derived variant golden rows", derivedWorkOrders.length, derivedWorkOrders.length, "good", "data/variant-goldens/derived-expansion-wave/work-orders.csv", "Golden work orders that specify source base, downstream variant, current cub variant create command, and receipt targets."));
   rows.push(metric("derived variants", "derived variant live create receipts", derivedLiveReceiptCount, derivedWorkOrders.length, "good", "runs/derived-variant-execution", "Receipts from current cub variant create executions without hidden Helm rerender."));
   rows.push(metric("derived variants", "target-bound derived variant receipts", targetBoundDerivedReceiptCount, derivedWorkOrders.length, "partial", "runs/derived-variant-target-bound", "Derived variants that went further through target binding, ConfigHub OCI, Argo sync, and runtime observation."));
+
+  rows.push(metric("graph bridge", "charts with recovered graph fragments", new Set(edgeRows.map((row) => row.chart)).size, chartRows.length, "partial", "data/edge-recovery/edges.csv", "Recipe artifacts converted into desired-state graph fragments, starting with Redis and kube-prometheus-stack."));
+  rows.push(metric("graph bridge", "recovered graph edge rows", edgeRows.length, edgeRows.length, "good", "data/edge-recovery/edges.csv", "Recovered base, override, target-fact, generated-fact, and field-reachability rows."));
+  rows.push(metric("graph bridge", "target-fact graph edges", count(edgeRows, "edge_type", "target-fact"), edgeRows.length, "partial", "data/edge-recovery/edges.csv", "Edges from a variant to required target facts such as pre-existing Secrets or hook-produced material."));
+  rows.push(metric("graph bridge", "generated-fact graph edges", count(edgeRows, "edge_type", "generated-fact"), edgeRows.length, "partial", "data/edge-recovery/edges.csv", "Edges from generated facts to the rendered fields they affect where field reachability is available."));
+  rows.push(metric("graph bridge", "rows with field reachability", edgeRows.filter((row) => row.field_reachability_paths).length, edgeRows.length, "partial", "data/edge-recovery/edges.csv", "Rows that connect an input, generated fact, or variant change to rendered output fields."));
 
   rows.push(metric("live evidence", "runtime/GitOps wave rows", runtimeRows.length, runtimeRows.length, "partial", "data/runtime-gitops/wave1.csv", "Selected Argo/Flux OCI wave rows; this is not the whole corpus."));
   rows.push(metric("live evidence", "live Helm-vs-ConfigHub receipts", liveRows.length, liveRows.length, "partial", "data/live-helm-confighub-compare/summary.csv", "Committed live comparison receipts, including pass and non-pass results."));
@@ -136,7 +143,7 @@ function buildReport() {
     top20Csv: top20ToCsv(top20Rows),
     nextWorkQueues,
     nextWorkQueuesCsv: nextWorkQueuesToCsv(nextWorkQueues),
-    summary: summary(rows, { chartRows, baseRows, top100Rows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, lifecycleBoundaryRows, lifecycleObservationRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, supportDecisionRows, productionSupportDecisionRows, scanDispositionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues }),
+    summary: summary(rows, { chartRows, baseRows, top100Rows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, lifecycleBoundaryRows, lifecycleObservationRows, edgeRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, supportDecisionRows, productionSupportDecisionRows, scanDispositionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues }),
   };
 }
 
@@ -167,8 +174,8 @@ function summary(rows, context) {
   return `# Status Dashboard
 
 This generated dashboard is the short front door for current project status. It
-joins the top100 readiness, top500 evidence map, proof lane, quirk, hook,
-GitOps, and live-parity tables without replacing them.
+joins the top100 readiness, top500 evidence map, proof lane, graph bridge,
+quirk, hook, GitOps, and live-parity tables without replacing them.
 
 Use this page to answer:
 
@@ -449,6 +456,7 @@ lifecycle observation.
 | Which Helm quirk axes are still blind spots? | [quirk-coverage/coverage.csv](../quirk-coverage/coverage.csv) |
 | Which hook charts need lifecycle receipts? | [hook-lifecycle/top100-hooks.csv](../hook-lifecycle/top100-hooks.csv) |
 | Which hook claims are queued versus observed? | [lifecycle-boundary/summary.md](../lifecycle-boundary/summary.md) |
+| Which Helm artifacts have recovered graph fragments? | [edge-recovery/summary.md](../edge-recovery/summary.md) |
 | Which live comparisons passed or failed? | [live-helm-confighub-compare/summary.csv](../live-helm-confighub-compare/summary.csv) |
 | Which live rows should be rerun next? | [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md) |
 | Which top-20 charts are production-supported? | [production-support-decisions/summary.md](../production-support-decisions/summary.md) |

@@ -37,6 +37,25 @@ The practical split is:
 This keeps Helm rendering, ConfigHub variation, and live-cluster evidence as
 separate stages. A user can see which stage is responsible for a change.
 
+## The Graph Bridge
+
+Helm normally renders objects and discards the relationships that produced
+them. helm-expt keeps some of those relationships as explicit artifacts:
+
+```text
+base variant -> derived base variant
+variant value -> rendered field
+generated fact -> rendered field
+target fact -> required live prerequisite
+```
+
+Those recovered edges are not a complete ConfigHub graph yet. They are graph
+fragments that show how a Helm chart can move from flat rendered YAML into
+managed desired state. The current generated edge-recovery scope covers Redis
+and kube-prometheus-stack:
+
+[Edge Recovery](../../data/edge-recovery/summary.md)
+
 ## What Is Already In The Corpus
 
 The current public corpus contains:
@@ -52,6 +71,7 @@ The current public corpus contains:
 20 chart-specific Helm pain reports
 10 derived ConfigHub variant work orders with live `cub variant create` receipts
 6 target-bound derived variant receipts with OCI/GitOps/runtime evidence
+2 charts with recovered desired-state graph fragments
 top-100 and top-500 catalog analysis data
 extension-slot coverage for 13/20 top catalog charts and 82/100 top100 chart facts
 5 maintained hook-bearing top-100 charts with route receipts; 0 of those hook-queue rows with hook execution/observation receipts
