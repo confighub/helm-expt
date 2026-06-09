@@ -147,7 +147,19 @@
         <div class="metric"><strong>0/20</strong><span>Production-supported charts</span></div>
         <div class="metric"><strong>20/20</strong><span>Production-blocked pending disposition</span></div>
         <div class="metric"><strong>3/20</strong><span>Charts with accepted dispositions</span></div>
+        <div class="metric"><strong>0/20</strong><span>Mutable-image scan rows</span></div>
       </div>
+      <p>Scan warnings are routed before production support is claimed. The current high-priority rows are security or privileged-infrastructure disposition work, not simple image-pin fixes.</p>
+      <div class="card"><table>
+        <thead><tr><th>Scan route</th><th>Charts</th><th>Meaning</th></tr></thead>
+        <tbody><tr><td>accept-or-patch-pdb-policy</td><td>6</td><td>Accept chart PDB behavior or add a reviewed patch.</td></tr><tr><td>add-resource-policy</td><td>5</td><td>Add resource requests/limits or keep the base scoped to local/test.</td></tr><tr><td>harden-security-context</td><td>5</td><td>Harden pod/container security settings or record explicit acceptance.</td></tr><tr><td>accept-or-split-privileged-infrastructure</td><td>4</td><td>Accept privileged infrastructure behavior or create a narrower hardened base.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
       <div class="card"><table>
         <thead><tr><th>Open disposition</th><th>Charts</th></tr></thead>
         <tbody><tr><td>scan/gate warning disposition</td><td>20</td></tr><tr><td>cluster RBAC review</td><td>13</td></tr><tr><td>extension slot provenance and scan policy</td><td>12</td></tr><tr><td>hook and lifecycle phase policy</td><td>10</td></tr><tr><td>generated fact ownership</td><td>8</td></tr><tr><td>storage backup restore and rollback policy</td><td>8</td></tr><tr><td>CRD lifecycle and upgrade policy</td><td>7</td></tr><tr><td>target fact preflight</td><td>7</td></tr></tbody>
@@ -168,7 +180,7 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p><a href="../data/production-disposition/summary.md">Open the full production disposition report</a>.</p>
+      <p><a href="../data/production-disposition/summary.md">Open the full production disposition report</a> or <a href="../data/scan-disposition-workdown/summary.md">open the scan disposition workdown</a>.</p>
     </section>
 
     <section aria-labelledby="live-rerun-plan">
@@ -619,6 +631,7 @@
         <li><a href="../data/latest-top20-refresh/promotion-readiness.md">Latest candidate promotion readiness</a></li>
         <li><a href="../data/runtime-gitops/summary.md">Runtime/GitOps first wave</a></li>
         <li><a href="../data/image-digest-workdown/summary.md">Image digest workdown</a></li>
+        <li><a href="../data/scan-disposition-workdown/summary.md">Scan disposition workdown</a></li>
         <li><a href="../data/next-ten-waves/summary.md">Next-ten execution waves</a></li>
         <li><a href="../data/top20-base-readiness/summary.md">Top-20 base readiness</a></li>
         <li><a href="../data/extension-slots/summary.md">Extension slot coverage</a></li>

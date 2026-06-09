@@ -19,6 +19,7 @@ const extensionSlotsPath = join(repoRoot, "data", "extension-slots", "extension-
 const top100ReadinessPath = join(repoRoot, "data", "top100-readiness", "readiness.csv");
 const liveParityRerunPlanPath = join(repoRoot, "data", "live-parity-rerun-plan", "rerun-plan.csv");
 const productionDispositionPath = join(repoRoot, "data", "production-disposition", "top20.csv");
+const scanDispositionPath = join(repoRoot, "data", "scan-disposition-workdown", "workdown.csv");
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -55,6 +56,7 @@ function buildSite() {
   const top100Readiness = parseCsv(readFileSync(top100ReadinessPath, "utf8"));
   const liveParityRerunPlan = parseCsv(readFileSync(liveParityRerunPlanPath, "utf8"));
   const productionDisposition = parseCsv(readFileSync(productionDispositionPath, "utf8"));
+  const scanDisposition = parseCsv(readFileSync(scanDispositionPath, "utf8"));
   const baseReadinessByKey = new Map(baseReadiness.map((row) => [`${row.chart}|${row.base}`, row]));
   const catalogEntries = top100.entries
     .filter((entry) => entry.proof_surface === "top20-catalog-supported")
@@ -86,6 +88,7 @@ function buildSite() {
       top100Readiness: "data/top100-readiness/readiness.csv",
       liveParityRerunPlan: "data/live-parity-rerun-plan/rerun-plan.csv",
       productionDisposition: "data/production-disposition/top20.csv",
+      scanDisposition: "data/scan-disposition-workdown/workdown.csv",
     },
     commandRoutes: commandRoutes(),
     top500Evidence: top500.summary,
@@ -110,6 +113,9 @@ function buildSite() {
       productionSupportedCharts: productionDisposition.filter((row) => row.production_support === "production-supported").length,
       productionBlockedCharts: productionDisposition.filter((row) => row.production_support === "blocked").length,
       chartsWithAcceptedProductionDispositions: productionDisposition.filter((row) => dispositionCount(row.accepted_dispositions) > 0).length,
+      highPriorityScanRows: scanDisposition.filter((row) => row.scanPriority === "high").length,
+      mutableImageScanRows: scanDisposition.filter((row) => row.dispositionRoute === "fix-image-pin").length,
+      privilegedInfrastructureScanRows: scanDisposition.filter((row) => row.dispositionRoute === "accept-or-split-privileged-infrastructure").length,
     },
     statusMetrics,
     catalogEntries,
@@ -120,6 +126,7 @@ function buildSite() {
     top100Readiness,
     liveParityRerunPlan,
     productionDisposition,
+    scanDisposition,
   };
   return {
     catalogJson: `${JSON.stringify(catalog, null, 2)}\n`,
@@ -196,6 +203,9 @@ function html(catalog) {
     .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
     .slice(0, 8)
     .map(([blocker, count]) => [blocker, String(count)]);
+  const scanDispositionRoutes = Object.entries(countBy(catalog.scanDisposition, "dispositionRoute"))
+    .sort((left, right) => Number(right[1]) - Number(left[1]) || left[0].localeCompare(right[0]))
+    .map(([route, count]) => [route, String(count), scanRouteMeaning(route)]);
   const productionDispositionRows = catalog.productionDisposition
     .slice(0, 10)
     .map((row) => [
@@ -338,7 +348,13 @@ function html(catalog) {
         <div class="metric"><strong>${escapeHtml(catalog.summary.productionSupportedCharts)}/${escapeHtml(catalog.productionDisposition.length)}</strong><span>Production-supported charts</span></div>
         <div class="metric"><strong>${escapeHtml(catalog.summary.productionBlockedCharts)}/${escapeHtml(catalog.productionDisposition.length)}</strong><span>Production-blocked pending disposition</span></div>
         <div class="metric"><strong>${escapeHtml(catalog.summary.chartsWithAcceptedProductionDispositions)}/${escapeHtml(catalog.productionDisposition.length)}</strong><span>Charts with accepted dispositions</span></div>
+        <div class="metric"><strong>${escapeHtml(catalog.summary.mutableImageScanRows)}/${escapeHtml(catalog.scanDisposition.length)}</strong><span>Mutable-image scan rows</span></div>
       </div>
+      <p>Scan warnings are routed before production support is claimed. The current high-priority rows are security or privileged-infrastructure disposition work, not simple image-pin fixes.</p>
+      ${markdownLikeTable([
+        ["Scan route", "Charts", "Meaning"],
+        ...scanDispositionRoutes,
+      ])}
       ${markdownLikeTable([
         ["Open disposition", "Charts"],
         ...productionBlockers,
@@ -347,7 +363,7 @@ function html(catalog) {
         ["Chart", "Production", "Accepted", "Open", "Next action"],
         ...productionDispositionRows,
       ])}
-      <p><a href="../data/production-disposition/summary.md">Open the full production disposition report</a>.</p>
+      <p><a href="../data/production-disposition/summary.md">Open the full production disposition report</a> or <a href="../data/scan-disposition-workdown/summary.md">open the scan disposition workdown</a>.</p>
     </section>
 
     <section aria-labelledby="live-rerun-plan">
@@ -490,6 +506,7 @@ function html(catalog) {
         <li><a href="../data/latest-top20-refresh/promotion-readiness.md">Latest candidate promotion readiness</a></li>
         <li><a href="../data/runtime-gitops/summary.md">Runtime/GitOps first wave</a></li>
         <li><a href="../data/image-digest-workdown/summary.md">Image digest workdown</a></li>
+        <li><a href="../data/scan-disposition-workdown/summary.md">Scan disposition workdown</a></li>
         <li><a href="../data/next-ten-waves/summary.md">Next-ten execution waves</a></li>
         <li><a href="../data/top20-base-readiness/summary.md">Top-20 base readiness</a></li>
         <li><a href="../data/extension-slots/summary.md">Extension slot coverage</a></li>
@@ -599,6 +616,18 @@ function splitDisposition(value) {
     .split(";")
     .map((item) => item.trim())
     .filter(Boolean);
+}
+
+function scanRouteMeaning(route) {
+  return {
+    "fix-image-pin": "Fix mutable image input in the supported base and regenerate proof.",
+    "add-resource-policy": "Add resource requests/limits or keep the base scoped to local/test.",
+    "harden-security-context": "Harden pod/container security settings or record explicit acceptance.",
+    "accept-or-split-privileged-infrastructure": "Accept privileged infrastructure behavior or create a narrower hardened base.",
+    "review-runtime-endpoints": "Confirm services/probes with runtime evidence or patch the supported base.",
+    "accept-or-patch-pdb-policy": "Accept chart PDB behavior or add a reviewed patch.",
+    "review-lifecycle-cleanup": "Set lifecycle cleanup policy for rendered Jobs.",
+  }[route] ?? "Chart-specific scan review.";
 }
 
 function markdownLikeTable(rows) {
