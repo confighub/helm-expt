@@ -19,7 +19,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Production readiness | production-review-ready |
 | Supported variants | default, no-crds |
 | Candidate variants | none |
-| Control points | admission-webhook, capability-profile, cluster-rbac, crd-policy, dependency-lock, installer-support-object, source-lock, tpl, webhook-secret |
+| Control points | admission-webhook, capability-profile, capability-profile-live-pruning, cluster-rbac, crd-policy, dependency-lock, installer-support-object, source-lock, tpl, webhook-secret |
 
 ## Feature And Proof Summary
 
@@ -34,7 +34,7 @@ for exact base-variant evidence.
 | Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 1/2; live parity 1/2 |
 | Feature summary | crds;extension-slots |
 | Hard gap | - |
-| Next action | write or fix the receipt for target fact preflight |
+| Next action | resolve image digests for each affected variant before production OCI support |
 
 ## Artifact Chain
 

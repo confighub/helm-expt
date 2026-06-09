@@ -79,7 +79,7 @@ metrics-server/metrics-server@3.13.0,base-self,default,default,1,,,,,0,0,recipes
 metrics-server/metrics-server@3.13.0,inherits-with-overrides,default,external-tls-ca,0,,apiService.caBundle;apiService.insecureSkipTLSVerify;tls.existingSecret.lookup;tls.existingSecret.name;tls.type,args,,1,0,recipes/metrics-server/metrics-server/3.13.0/inheritance-graph.yaml
 metrics-server/metrics-server@3.13.0,target-fact,,external-tls-ca,,,Secret/kube-system/metrics-server-tls:tls.crt+tls.key,,,1,0,recipes/metrics-server/metrics-server/3.13.0/inheritance-graph.yaml
 prometheus-community/kube-prometheus-stack@85.3.3,base-self,default,default,1,,,,,1,0,recipes/prometheus-community/kube-prometheus-stack/85.3.3/inheritance-graph.yaml
-prometheus-community/kube-prometheus-stack@85.3.3,inherits-with-overrides,default,no-crds,1,,crds.enabled,,,11,0,recipes/prometheus-community/kube-prometheus-stack/85.3.3/inheritance-graph.yaml
+prometheus-community/kube-prometheus-stack@85.3.3,inherits-with-overrides,default,no-crds,1,,crds.enabled,,crds.enabled,11,0,recipes/prometheus-community/kube-prometheus-stack/85.3.3/inheritance-graph.yaml
 prometheus-community/kube-prometheus-stack@85.3.3,target-fact,,default,,,Secret/monitoring/kube-prometheus-stack-admission:cert+key,,,1,0,recipes/prometheus-community/kube-prometheus-stack/85.3.3/inheritance-graph.yaml
 prometheus-community/kube-prometheus-stack@85.3.3,target-fact,,no-crds,,,Secret/monitoring/kube-prometheus-stack-admission:cert+key,,,1,0,recipes/prometheus-community/kube-prometheus-stack/85.3.3/inheritance-graph.yaml
 prometheus-community/kube-prometheus-stack@85.3.3,target-fact,,no-crds,,,CRD/alertmanagerconfigs.monitoring.coreos.com,,,1,0,recipes/prometheus-community/kube-prometheus-stack/85.3.3/inheritance-graph.yaml

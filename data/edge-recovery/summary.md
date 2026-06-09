@@ -13,7 +13,7 @@ edge rows:                      97
 target-fact edges:              56
 generated-fact edges:           1
 charts with target facts:        13
-charts with field reachability:  1
+charts with field reachability:  2
 ~~~
 
 ## Catalog Graph Coverage

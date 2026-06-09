@@ -1,0 +1,72 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ValueSourceMap
+metadata:
+  name: prometheus-community-kube-prometheus-stack-85.3.3
+spec:
+  chart: prometheus-community/kube-prometheus-stack
+  version: 85.3.3
+  entries:
+    - id: grafana-admin-password
+      valuePath: grafana.adminPassword
+      effectiveValueDigest: "sha256:b1d672caf1c9566cbf205936e09b689113454d852261cc428635bbe971a2b504"
+      source: inline-proof
+      renderedFields:
+        - object: v1|Secret|monitoring|kube-prometheus-stack-grafana
+          field: data.admin-password
+          value: "Y29uZmlnaHViLWdyYWZhbmEtYWRtaW4tcGFzc3dvcmQ="
+        - object: apps/v1|Deployment|monitoring|kube-prometheus-stack-grafana
+          field: spec.template.spec.containers[grafana-sc-dashboard].env.REQ_PASSWORD.valueFrom.secretKeyRef
+          value: kube-prometheus-stack-grafana/admin-password
+        - object: apps/v1|Deployment|monitoring|kube-prometheus-stack-grafana
+          field: spec.template.spec.containers[grafana-sc-datasources].env.REQ_PASSWORD.valueFrom.secretKeyRef
+          value: kube-prometheus-stack-grafana/admin-password
+        - object: apps/v1|Deployment|monitoring|kube-prometheus-stack-grafana
+          field: spec.template.spec.containers[grafana].env.GF_SECURITY_ADMIN_PASSWORD.valueFrom.secretKeyRef
+          value: kube-prometheus-stack-grafana/admin-password
+      relatedPolicies:
+        - generated-fact-policy
+        - secret-delivery-policy
+      rolloutImpact: changes-grafana-admin-secret-and-dependent-grafana-pods
+      immutableFieldRisk: false
+    - id: prometheus-operator-crds
+      valuePath: crds.enabled
+      effectiveValueByVariant:
+        default: true
+        no-crds: false
+      source: chart-default-and-no-crds-variant
+      renderedFields:
+        - object: apiextensions.k8s.io/v1|CustomResourceDefinition||alertmanagerconfigs.monitoring.coreos.com
+          field: metadata.name
+          value: alertmanagerconfigs.monitoring.coreos.com
+        - object: apiextensions.k8s.io/v1|CustomResourceDefinition||alertmanagers.monitoring.coreos.com
+          field: metadata.name
+          value: alertmanagers.monitoring.coreos.com
+        - object: apiextensions.k8s.io/v1|CustomResourceDefinition||podmonitors.monitoring.coreos.com
+          field: metadata.name
+          value: podmonitors.monitoring.coreos.com
+        - object: apiextensions.k8s.io/v1|CustomResourceDefinition||probes.monitoring.coreos.com
+          field: metadata.name
+          value: probes.monitoring.coreos.com
+        - object: apiextensions.k8s.io/v1|CustomResourceDefinition||prometheusagents.monitoring.coreos.com
+          field: metadata.name
+          value: prometheusagents.monitoring.coreos.com
+        - object: apiextensions.k8s.io/v1|CustomResourceDefinition||prometheuses.monitoring.coreos.com
+          field: metadata.name
+          value: prometheuses.monitoring.coreos.com
+        - object: apiextensions.k8s.io/v1|CustomResourceDefinition||prometheusrules.monitoring.coreos.com
+          field: metadata.name
+          value: prometheusrules.monitoring.coreos.com
+        - object: apiextensions.k8s.io/v1|CustomResourceDefinition||scrapeconfigs.monitoring.coreos.com
+          field: metadata.name
+          value: scrapeconfigs.monitoring.coreos.com
+        - object: apiextensions.k8s.io/v1|CustomResourceDefinition||servicemonitors.monitoring.coreos.com
+          field: metadata.name
+          value: servicemonitors.monitoring.coreos.com
+        - object: apiextensions.k8s.io/v1|CustomResourceDefinition||thanosrulers.monitoring.coreos.com
+          field: metadata.name
+          value: thanosrulers.monitoring.coreos.com
+      relatedPolicies:
+        - crd-lifecycle-policy
+        - no-crds-base-policy
+      rolloutImpact: changes-prometheus-operator-crd-object-set
+      immutableFieldRisk: true

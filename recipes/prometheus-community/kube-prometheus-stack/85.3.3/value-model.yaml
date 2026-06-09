@@ -3,6 +3,7 @@ kind: "ValueModel"
 metadata:
   name: "kube-prometheus-stack-kube-prometheus-stack-85.3.3"
 spec:
+  valueSourceMap: "value-source-map.yaml"
   checkedValues:
     -
       path: "grafana.adminPassword"

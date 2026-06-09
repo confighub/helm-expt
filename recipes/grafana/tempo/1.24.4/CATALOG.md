@@ -30,8 +30,8 @@ for exact base-variant evidence.
 | --- | --- |
 | Adoption bucket | try-from-public-catalog |
 | User status | catalog-supported-with-live-evidence |
-| Strongest evidence | local-kubernetes-live |
-| Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 0/2; live parity 0/2 |
+| Strongest evidence | live-helm-vs-confighub-parity |
+| Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 1/2; live parity 1/2 |
 | Feature summary | extension-slots |
 | Hard gap | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
 | Next action | resolve image digests for each affected variant before production OCI support |

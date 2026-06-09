@@ -27,6 +27,7 @@ spec:
     controlPointCategories:
       - "admission-webhook"
       - "capability-profile"
+      - "capability-profile-live-pruning"
       - "cluster-rbac"
       - "crd-policy"
       - "dependency-lock"
