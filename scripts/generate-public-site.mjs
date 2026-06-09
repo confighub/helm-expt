@@ -22,6 +22,7 @@ const top100ReadinessPath = join(repoRoot, "data", "top100-readiness", "readines
 const liveParityRerunPlanPath = join(repoRoot, "data", "live-parity-rerun-plan", "rerun-plan.csv");
 const productionDispositionPath = join(repoRoot, "data", "production-disposition", "top20.csv");
 const scanDispositionPath = join(repoRoot, "data", "scan-disposition-workdown", "workdown.csv");
+const highFanoutPath = join(repoRoot, "data", "high-fanout-demo", "prometheus-kps.csv");
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -65,6 +66,7 @@ function buildSite() {
   const liveParityRerunPlan = parseCsv(readFileSync(liveParityRerunPlanPath, "utf8"));
   const productionDisposition = parseCsv(readFileSync(productionDispositionPath, "utf8"));
   const scanDisposition = parseCsv(readFileSync(scanDispositionPath, "utf8"));
+  const highFanout = parseCsv(readFileSync(highFanoutPath, "utf8"));
   const baseReadinessByKey = new Map(baseReadiness.map((row) => [`${row.chart}|${row.base}`, row]));
   const catalogEntries = top100.entries
     .filter((entry) => entry.proof_surface === "top20-catalog-supported")
@@ -97,6 +99,7 @@ function buildSite() {
       liveParityRerunPlan: "data/live-parity-rerun-plan/rerun-plan.csv",
       productionDisposition: "data/production-disposition/top20.csv",
       scanDisposition: "data/scan-disposition-workdown/workdown.csv",
+      highFanout: "data/high-fanout-demo/prometheus-kps.csv",
     },
     commandRoutes: commandRoutes(),
     top500Evidence: top500.summary,
@@ -136,6 +139,7 @@ function buildSite() {
     liveParityRerunPlan,
     productionDisposition,
     scanDisposition,
+    highFanout,
   };
   return {
     catalogJson: `${JSON.stringify(catalog, null, 2)}\n`,
@@ -177,6 +181,17 @@ function html(catalog) {
     .map((name) => metric(name))
     .filter((row) => row.metric);
   const baseReadinessCounts = countBy(catalog.baseReadiness, "user_readiness");
+  const highFanoutRows = catalog.highFanout
+    .filter((row) => ["default", "no-crds"].includes(row.base))
+    .map((row) => [
+      row.base,
+      row.user_choice,
+      row.render_parity,
+      row.two_cluster_kind_parity,
+      row.strict_live_configHub_argo === "not-selected" ? row.runtime_gitops_wave : row.strict_live_configHub_argo,
+      row.production_status,
+      row.next_hard_work,
+    ]);
   const recommendedBaseRows = catalog.baseReadiness
     .filter((row) => row.recommended_first === "yes")
     .map((row) => [row.chart, row.base, row.user_readiness, row.command, row.why]);
@@ -335,6 +350,16 @@ function html(catalog) {
       <div class="stage-grid">
         ${stages.map(([title, body]) => `<div class="lane"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div>`).join("\n        ")}
       </div>
+    </section>
+
+    <section aria-labelledby="serious-chart">
+      <h2 id="serious-chart">Serious Chart Proof</h2>
+      <p>Redis is the teaching chart. kube-prometheus-stack is the larger proof path because it combines object fanout, CRDs, webhooks, RBAC, generated facts, extension slots, target prerequisites, GitOps, and live observation boundaries.</p>
+      ${markdownLikeTable([
+        ["Base", "User choice", "Render", "Two-cluster kind", "OCI/GitOps", "Production", "Next hard work"],
+        ...highFanoutRows,
+      ])}
+      <p><a href="../data/high-fanout-demo/summary.md">Open the high-fanout proof-chain summary</a> or <a href="../docs/user/chain-of-proof.md">read the chain-of-proof guide</a>.</p>
     </section>
 
     <section aria-labelledby="command-choice">
@@ -1132,6 +1157,7 @@ Data source:
 - \`data/top100-readiness/readiness.csv\`
 - \`data/live-parity-rerun-plan/rerun-plan.csv\`
 - \`data/production-disposition/top20.csv\`
+- \`data/high-fanout-demo/prometheus-kps.csv\`
 - \`docs/user/choosing-commands.md\`
 - \`data/variant-goldens/redis-prod-us-east/\`
 - \`data/managed-overlay-goldens/external-dns-customer-acme-prod/\`

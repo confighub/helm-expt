@@ -13,7 +13,8 @@
     "top100Readiness": "data/top100-readiness/readiness.csv",
     "liveParityRerunPlan": "data/live-parity-rerun-plan/rerun-plan.csv",
     "productionDisposition": "data/production-disposition/top20.csv",
-    "scanDisposition": "data/scan-disposition-workdown/workdown.csv"
+    "scanDisposition": "data/scan-disposition-workdown/workdown.csv",
+    "highFanout": "data/high-fanout-demo/prometheus-kps.csv"
   },
   "commandRoutes": [
     {
@@ -8321,6 +8322,74 @@
       "owner": "security-review",
       "productionState": "production-review-ready",
       "liveE2EReceipts": "1"
+    }
+  ],
+  "highFanout": [
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base": "default",
+      "user_choice": "install the stack including Prometheus Operator CRDs",
+      "values_change": "baseline",
+      "helm_objects": "124",
+      "installer_objects": "125",
+      "separated_secrets": "2",
+      "crds": "10",
+      "webhook_configurations": "2",
+      "monitoring_custom_resources": "50",
+      "render_parity": "pass",
+      "confighub_proof": "pass",
+      "two_cluster_kind_parity": "pass",
+      "strict_live_configHub_argo": "pass",
+      "runtime_gitops_wave": "not-selected",
+      "production_status": "production-review-ready",
+      "next_hard_work": "record final target-scoped support decision and refresh live/e2e evidence for that scope",
+      "lesson": "Use this base when this release owns the CRDs as part of the install.",
+      "evidence": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base": "no-crds",
+      "user_choice": "install the stack without creating CRDs",
+      "values_change": "crds.enabled=false",
+      "helm_objects": "114",
+      "installer_objects": "115",
+      "separated_secrets": "2",
+      "crds": "0",
+      "webhook_configurations": "2",
+      "monitoring_custom_resources": "50",
+      "render_parity": "pass",
+      "confighub_proof": "pass",
+      "two_cluster_kind_parity": "pass",
+      "strict_live_configHub_argo": "not-selected",
+      "runtime_gitops_wave": "blocked",
+      "production_status": "production-review-ready",
+      "next_hard_work": "stage CRDs and admission Secret for the target, then rerun GitOps/OCI and record a target-scoped support decision",
+      "lesson": "Use this base only when CRDs and separated secrets are supplied by the target environment.",
+      "evidence": "data/runtime-gitops/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base": "default-to-no-crds-delta",
+      "user_choice": "compare base variants before promotion",
+      "values_change": "crds.enabled=false removes only CRD objects",
+      "helm_objects": "10",
+      "installer_objects": "10",
+      "separated_secrets": "0",
+      "crds": "10",
+      "webhook_configurations": "0",
+      "monitoring_custom_resources": "0",
+      "render_parity": "explained-diff",
+      "confighub_proof": "n/a",
+      "two_cluster_kind_parity": "n/a",
+      "strict_live_configHub_argo": "n/a",
+      "runtime_gitops_wave": "blocked",
+      "production_status": "n/a",
+      "next_hard_work": "use the delta to decide which base belongs on a target before promotion",
+      "lesson": "The blocked GitOps receipt is useful: it proves the no-crds variant needs CRDs installed before the workload syncs.",
+      "evidence": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/inheritance-graph.yaml"
     }
   ]
 }
