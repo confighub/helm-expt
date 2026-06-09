@@ -101,7 +101,7 @@ The current top-100 should be read like this:
 | Are all maintained charts Level-2 supported for their declared scope? | 100 / 100 | `data/model-completeness/summary.md` |
 | Are all charts rich enough for common user variants? | 54 / 100 are variant-rich | `data/model-completeness/summary.md` |
 | Are all top-20 public catalog charts live/e2e tested locally? | 20 / 20 | `data/live-e2e/summary.md` |
-| Are any top-20 charts production-supported today? | 1 / 20 target-scoped decision | `data/production-support-decisions/summary.md` |
+| Are any top-20 charts production-supported today? | 16 / 20 target-scoped supported decisions | `data/production-support-decisions/summary.md` |
 | Do any charts have hard gaps for recommended extra capabilities? | 25 / 100 | `data/chart-facts/summary.md` |
 
 So the catalog is no longer "20 complete and 80 incomplete." A more accurate
@@ -113,7 +113,9 @@ reading is:
 54 charts have more than one base variant.
 46 charts are still default-only.
 25 charts have a hard gap for at least one recommended extra capability.
-1 chart has a final target-scoped production support decision.
+16 charts have supported target-scoped production support decisions.
+2 charts are superseded deprecated source charts.
+2 charts have rejected default bases with concrete production follow-up routes.
 ```
 
 The hard-gap count is about missing recommended capabilities, not total chart
