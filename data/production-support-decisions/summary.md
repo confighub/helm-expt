@@ -13,6 +13,7 @@ live evidence rule, and operator-owned boundaries.
 decision artifacts: 20
 supported decisions: 1
 draft decisions: 19
+open work items: 58
 ```
 
 ## Workstreams
@@ -46,6 +47,10 @@ currently concentrated.
 | `argo-cd/argo-cd@9.5.15` | default | image; scan scope; fresh evidence | resolve image digests for each affected variant before production OCI support |
 | `bitnami/mysql@14.0.3` | generated-passwords | image; scan scope; fresh evidence | resolve image digests for each affected variant before production OCI support |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords | image; scan scope; fresh evidence | resolve image digests for each affected variant before production OCI support |
+
+The spreadsheet form is [work-items.csv](./work-items.csv). It has one row per
+production-support task or keep-fresh item, so overlapping work such as image,
+scan, lifecycle, runtime, and fresh evidence can be assigned independently.
 
 ## Decisions
 

@@ -46,6 +46,7 @@ mode, every cluster type, or every private overlay.
 Start with the target-scoped support decisions:
 
 - [Production Support Decision Artifacts](../../data/production-support-decisions/summary.md)
+- [Production Support Work Items](../../data/production-support-decisions/work-items.csv)
 - [Production Support Decisions CSV](../../data/production-support-decisions/decisions.csv)
 
 Use the older production-disposition outputs when you need the accepted
@@ -56,6 +57,10 @@ pre-review receipts or the original decision contract:
 - [Production Next Actions](../../data/production-disposition/next-actions.csv)
 
 Then work the target-scoped row by decision field:
+
+Use `work-items.csv` when you want assignable rows. One chart can have several
+rows because image, scan, lifecycle, runtime, and fresh-evidence work can be
+owned and closed separately.
 
 | Decision field | What to do |
 | --- | --- |
