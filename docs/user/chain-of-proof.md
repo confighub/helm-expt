@@ -23,6 +23,23 @@ claim only to the strongest unbroken proof boundary
 | Desired state to delivery handoff | ConfigHub OCI, GitOps, apply receipts, controller receipts | The approved desired object set was handed to the delivery mechanism. | Historical, with controller-specific evidence. | Workload convergence unless observed. |
 | Delivery to live state | cub-scout, controller status, CI checks, operator checks, observation receipts | The target cluster was observed at a time, by a named method, with a freshness boundary. | Perishable; check `observedAt` and `expiresAt`. | Future health after the receipt expires. |
 
+## Tool Roles
+
+The tools are useful because they prove different boundaries. They are not
+competing ways to say "install this chart."
+
+| Tool or layer | Proof role |
+| --- | --- |
+| `helm-expt` | Proves fidelity and origin: the captured objects match the Helm chart, values, facts, and capability profile that produced them. |
+| `cub installer` | Proves the action surface: a reviewed package/base can produce, package, upload, sign, or inspect the intended object set through a repeatable command path. |
+| ConfigHub Server | Proves desired-state management: rendered objects become Units with labels, links, variants, approvals, gates, changesets, revisions, and queryable history. |
+| GitOps or apply controller | Proves handoff: the approved desired object set was submitted to the delivery mechanism. |
+| cub-scout or other observers | Proves reality for a time window: the cluster was checked by a named observer and the result has freshness. |
+
+This is why AI-assisted changes still need the harness. AI can generate values,
+overlays, patches, and variant plans quickly. The proof chain gives each change
+a bounded check target before it becomes a production claim.
+
 ## How To Use It
 
 Start with the narrow question you need to answer.
