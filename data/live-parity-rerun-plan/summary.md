@@ -10,14 +10,15 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 8
-blocked: 7
+rows: 7
+lifecycle-routed-not-active-rerun: 1
+blocked: 6
 watch: 1
 configHub-oci-live-comparison: 0
-two-cluster-kind-parity: 8
+two-cluster-kind-parity: 7
 semantic-parity-defects: 0
 infra-or-rig-rows: 0
-prerequisite-or-lifecycle-rows: 1
+prerequisite-or-lifecycle-rows: 0
 runtime-or-watch-rows: 7
 ```
 
@@ -26,7 +27,7 @@ runtime-or-watch-rows: 7
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | configHub-oci-live-comparison | 0 | 0 | 0 | 0 | 0 |
-| two-cluster-kind-parity | 8 | 0 | 1 | 7 | 0 |
+| two-cluster-kind-parity | 7 | 0 | 1 | 6 | 0 |
 
 The ConfigHub/OCI live comparison rows in this queue are current `watch` rows.
 They have semantic parity and need runtime, target, or controller-health review.
@@ -47,7 +48,6 @@ The `blocked` rows are currently from the two-cluster kind parity lane.
 
 | Next step | Rows | What to do |
 | --- | ---: | --- |
-| lifecycle-route | 1 | Choose the lifecycle route or observation contract before rerunning strict parity. |
 | runtime-review | 7 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
 
 Rows in `stage-prerequisite`, `lifecycle-route`, and `operating-policy`
@@ -63,7 +63,6 @@ reasonable live rerun candidates.
 
 | Readiness | Rows | Meaning |
 | --- | ---: | --- |
-| model-or-stage-first | 1 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 | review-target-first | 7 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Run Safety
@@ -88,7 +87,6 @@ faithful to the locked chart/version without changing the recipe.
 
 | Priority | Readiness | Next step | Lane | Chart | Base | Current | Reason | Command |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
-| 55 | model-or-stage-first | lifecycle-route | two-cluster-kind-parity | `jetstack/cert-manager@v1.20.2` | default | blocked | helm-hook: post-install hook failed (parity passed) | `npm run kind-parity:run -- --chart jetstack/cert-manager --version v1.20.2 --base default` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | blocked | target-runtime: pod crash loop (parity passed) | `npm run kind-parity:run -- --chart bitnami/mongodb --version 19.0.7 --base existing-secret-replicaset --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `grafana/tempo@1.24.4` | s3-query-observability | blocked | target-runtime: pod crash loop (parity passed) | `npm run kind-parity:run -- --chart grafana/tempo --version 1.24.4 --base s3-query-observability` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | blocked | target-runtime: pod crash loop (parity passed) | `npm run kind-parity:run -- --chart hashicorp/consul --version 2.0.0 --base secure-mesh-existing-secrets` |
@@ -99,8 +97,9 @@ faithful to the locked chart/version without changing the recipe.
 
 ## Related Lifecycle Evidence
 
-These rows still have their strict parity result, but a separate lifecycle
-receipt already explains the hook, CRD, webhook, or controller-owned behavior.
+These rows have a separate lifecycle receipt for hook, CRD, webhook, or
+controller-owned behavior. Rows with a passing lifecycle receipt are not active
+rerun work unless the lifecycle decision changes.
 
 | Chart | Base | Rerun result | Lifecycle result | Lifecycle receipt |
 | --- | --- | --- | --- | --- |

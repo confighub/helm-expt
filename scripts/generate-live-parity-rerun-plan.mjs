@@ -30,7 +30,7 @@ if (mode === "--generate") {
 }
 
 function buildPlan() {
-  const rows = [
+  const allRows = [
     ...configHubOciRows(),
     ...twoClusterRows(),
   ].map((row) => {
@@ -45,7 +45,9 @@ function buildPlan() {
     || left.lane.localeCompare(right.lane)
     || `${left.chart}@${left.version}/${left.base}`.localeCompare(`${right.chart}@${right.version}/${right.base}`),
   );
-  return { rows, csv: toCsv(rows), markdown: markdown(rows) };
+  const lifecycleRoutedRows = allRows.filter(lifecycleRouted);
+  const rows = allRows.filter((row) => !lifecycleRouted(row));
+  return { rows, lifecycleRoutedRows, csv: toCsv(rows), markdown: markdown(rows, lifecycleRoutedRows) };
 }
 
 function configHubOciRows() {
@@ -211,6 +213,11 @@ function nextStepType(row) {
   return "inspect-receipt";
 }
 
+function lifecycleRouted(row) {
+  return row.related_lifecycle_result === "pass"
+    && (row.reason?.startsWith("helm-hook:") || row.reason?.startsWith("target-prerequisite:"));
+}
+
 function nextStepDescription(type) {
   return {
     "inspect-parity-diff": "Inspect the object diff before changing waits, target provisioning, or the recipe.",
@@ -249,13 +256,16 @@ function rerunReadinessDescription(type) {
   }[type] ?? "Read the receipt and classify the row before rerunning.";
 }
 
-function markdown(rows) {
+function markdown(rows, lifecycleRoutedRows = []) {
   const counts = countBy(rows, "lane");
   const resultCounts = countBy(rows, "current_result");
   const laneResults = countByLaneAndResult(rows);
   const nextStepCounts = countBy(rows, "next_step_type");
   const readinessCounts = countBy(rows, "rerun_readiness");
-  const lifecycleRows = rows.filter((row) => row.related_lifecycle_receipt);
+  const lifecycleRows = [
+    ...rows.filter((row) => row.related_lifecycle_receipt),
+    ...lifecycleRoutedRows,
+  ];
   const semanticDefects = rows.filter((row) => row.reason?.startsWith("parity:")).length;
   const infraRows = rows.filter((row) => row.reason?.startsWith("infra:")).length;
   const prerequisiteRows = rows.filter((row) => row.reason?.startsWith("target-prerequisite:") || row.reason?.startsWith("helm-hook:")).length;
@@ -277,6 +287,7 @@ block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 \`\`\`text
 rows: ${rows.length}
+lifecycle-routed-not-active-rerun: ${lifecycleRoutedRows.length}
 blocked: ${resultCounts.blocked ?? 0}
 watch: ${resultCounts.watch ?? 0}
 configHub-oci-live-comparison: ${counts["configHub-oci-live-comparison"] ?? 0}
@@ -358,8 +369,9 @@ ${rows.map((row) => `| ${row.priority} | ${row.rerun_readiness} | ${row.next_ste
 
 ${lifecycleRows.length ? `## Related Lifecycle Evidence
 
-These rows still have their strict parity result, but a separate lifecycle
-receipt already explains the hook, CRD, webhook, or controller-owned behavior.
+These rows have a separate lifecycle receipt for hook, CRD, webhook, or
+controller-owned behavior. Rows with a passing lifecycle receipt are not active
+rerun work unless the lifecycle decision changes.
 
 | Chart | Base | Rerun result | Lifecycle result | Lifecycle receipt |
 | --- | --- | --- | --- | --- |
