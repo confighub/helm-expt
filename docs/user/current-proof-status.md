@@ -227,35 +227,35 @@ are grouped by the next decision needed before a rerun is useful:
 | lifecycle route | 1 | Choose the hook or lifecycle observation route. |
 | operating policy | 1 | Record the operating decision before expecting a different readiness result. |
 
-Production support decisions are still mostly open for the top-20 catalog:
+Production support decisions are now closed for the top-20 catalog:
 
-- 1 of 20 top-20 charts has a final target-scoped support decision.
-- 19 of 20 top-20 charts still have draft support decision artifacts.
-- 20 of 20 are production-review-ready pending a final support decision and
-  target scope.
+- 16 of 20 top-20 charts have supported target-scoped proof scopes.
+- 2 of 20 top-20 charts are superseded deprecated source charts and remain
+  catalog proof evidence only.
+- 2 of 20 top-20 charts have rejected default bases with concrete target-fit
+  or runtime reasons.
+- 0 of 20 top-20 charts still have draft support decision artifacts.
+- 20 of 20 are production-review-ready by pre-review disposition receipt.
 - 0 of 20 still need a pre-review production disposition.
 - 103 production-disposition receipts are accepted across 20 charts.
 - external scan work has 0 remaining mutable-image rows after the current
   supported-base image pinning pass.
 - the remaining high-priority scan rows are routed to explicit privileged
   infrastructure or security disposition work, not to simple image-pin fixes.
-- A review-ready chart is still not production-supported until its final
-  target-scoped support decision is completed.
+- A supported target scope is still narrow: it covers the named chart, base,
+  target, delivery path, accepted risks, and live evidence rule only.
 
 The top-20 production queue is no longer blocked on missing pre-review
 receipts. It is grouped from the current target-scoped support decisions.
 Workstreams can overlap: one chart can need image, scan, lifecycle, and fresh
 evidence work before it becomes production-supported for a target scope.
 
-| Workstream | Charts | Meaning |
+| Decision group | Charts | Meaning |
 | --- | ---: | --- |
-| Supported scope evidence | 1 | Keep target-scoped evidence fresh before using the supported scope as a production example. |
-| Image digest resolution or exception | 15 | Pin images by digest or record an explicit exception before production OCI support. |
-| Scan scope decision | 15 | Record which scanner findings are accepted, fixed, or outside the supported target scope. |
-| Security acceptance or hardened base | 4 | Accept current security findings for a target scope or create a hardened base variant. |
-| Lifecycle decision or observation | 5 | Record the lifecycle boundary, or execute and observe the selected hook/lifecycle route. |
-| Runtime or missing-lane decision | 6 | Close the runtime, missing-lane, or lifecycle-observation decision before refreshing final evidence. |
-| Fresh target-scoped evidence | 13 | Refresh ConfigHub OCI/GitOps and live/e2e evidence for the exact supported scope after the other decisions are closed. |
+| Supported scope evidence | 16 | Keep target-scoped evidence fresh before using the supported scope as a production example. |
+| Superseded source chart | 2 | Keep the existing proof as evidence, but review a maintained chart source before making a production-support claim. |
+| Rejected default base | 2 | Keep parity evidence, then create a better production base or target scope before support. |
+| Draft support decision | 0 | No top-20 chart is waiting on an unmade target-scoped support decision. |
 
 Use the target-scoped decision table for exact blockers and next actions:
 [Production Support Decisions](../../data/production-support-decisions/summary.md).

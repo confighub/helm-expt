@@ -107,24 +107,35 @@ implementation still uses `cub installer`, ConfigHub Units, `cub variant
 create` where needed, scans, changesets, approvals, OCI/GitOps, and live
 observation.
 
-## Current Draft Decisions
+## Current Decisions
 
-The current queue has draft support decision artifacts for all top-20 catalog
+The current queue has support decision artifacts for all top-20 catalog
 charts:
 
 ```text
 data/production-support-decisions/<chart>/support-decision.yaml
 ```
 
-These are drafts, not support claims. Each one names:
+The current generated summary is:
 
 ```text
-candidate base
-vanilla target class
-ConfigHub OCI delivery path
-known evidence already in the repo
-image, scan, lifecycle, target-fact, and live-evidence decision state
-requirements that must close before final support
+decision artifacts: 20
+supported decisions: 16
+draft decisions: 0
+rejected decisions: 2
+superseded decisions: 2
+open work items: 0
+```
+
+Each decision names:
+
+```text
+base variant
+target scope
+delivery path
+accepted evidence and risk decisions
+what remains operator-owned or out of scope
+next action
 ```
 
 The generated summary is:
@@ -133,30 +144,28 @@ The generated summary is:
 data/production-support-decisions/summary.md
 ```
 
-The verifier now checks that every row in the production support queue has its
-named decision artifact. That keeps the production queue actionable instead of
+The verifier checks that every row in the production support queue has its
+named decision artifact. That keeps the support surface actionable instead of
 being a loose spreadsheet.
 
-## First Final Candidate
+## Current Decision Groups
 
-NGINX remains the clean first final-support candidate:
+| Group | Charts | What it means |
+| --- | ---: | --- |
+| `supported` | 16 | The named chart/base/target/delivery scope has fresh evidence and an explicit operating boundary. |
+| `superseded` | 2 | The proof remains useful, but the upstream chart source is deprecated and should not be promoted as production-supported. |
+| `rejected` | 2 | The default base remains parity evidence, but it is not a good production support boundary. |
+| `draft` | 0 | No top-20 chart is waiting on an unmade support decision. |
 
-```text
-bitnami/nginx@24.0.2
-candidate base: http-clusterip
-draft artifact: data/production-support-decisions/bitnami-nginx/support-decision.yaml
-```
+The next production work is specific:
 
-That base is small, its extension slots are empty in the supported path, and
-the remaining work is mainly to choose the exact target scope and refresh
-evidence for that scope.
-
-After NGINX, the queue splits into four kinds of work:
-
-- image digest resolution for charts that need reproducible production OCI;
-- lifecycle boundary decisions for stateful or controller-heavy charts;
-- security acceptance or hardened bases for privileged infrastructure;
-- target runtime review where a live row is `watch` or `blocked`.
+- keep evidence fresh for the 16 supported scopes;
+- choose maintained successor sources for Grafana and Tempo;
+- create a production Vault base with init/unseal, storage, TLS, backup/restore,
+  and an operator runbook;
+- create an ingress-nginx support scope that matches the target environment,
+  such as real LoadBalancer behavior or a deliberately admission-disabled
+  topology.
 
 ## What Users Should Expect
 

@@ -67,8 +67,10 @@ The current public corpus contains:
 20 top-20 charts with chart-level local kind runtime receipts
 20 top-20 charts with chart-level ConfigHub upload, scan, and safe-operation receipt sets
 20 top-20 charts with production-review-ready disposition receipts
-20 top-20 charts with draft target-scoped support decision artifacts
-1 top-20 chart with a final target-scoped support decision; 19 remain drafts
+20 top-20 charts with target-scoped support decision artifacts
+16 top-20 charts with supported target-scoped proof scopes
+2 top-20 charts kept as superseded deprecated-source proof evidence
+2 top-20 charts with rejected default bases and concrete follow-up routes
 20 chart-specific Helm pain reports
 10 derived ConfigHub variant work orders with live `cub variant create` receipts
 6 target-bound derived variant receipts with OCI/GitOps/runtime evidence

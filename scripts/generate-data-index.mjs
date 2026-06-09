@@ -85,7 +85,7 @@ function readme(rows) {
     ["data/production-disposition/next-actions.csv", "Production decision work queue: recommended base, decision focus, image digest gap, and next action per top-20 chart."],
     ["data/production-disposition/support-decision-contract.md", "Production support decision contract: required fields, current decision states, and the rule for moving from production-review-ready to production-supported."],
     ["data/production-disposition/support-decision-queue.csv", "Pre-review queue showing the candidate production base, support boundary work, and required evidence before target-scoped decisions."],
-    ["data/production-support-decisions/summary.md", "Target-scoped support decision artifacts: draft and supported decisions, boundaries, evidence state, and next action."],
+    ["data/production-support-decisions/summary.md", "Target-scoped support decision artifacts: supported, rejected, and superseded decisions, boundaries, evidence state, and next action."],
     ["data/production-support-decisions/work-items.csv", "One row per production-support task or keep-fresh item: chart, base, work type, status field, priority, action, and source decision."],
     ["data/production-support-decisions/decisions.csv", "One row per target-scoped support decision artifact: chart, base, decision state, target scope, evidence decision, and next action."],
     ["data/external-scan-lane/chart-workdown.csv", "Chart-level scan/gate workdown: grouped scanner findings, priority, and next action before production disposition."],
