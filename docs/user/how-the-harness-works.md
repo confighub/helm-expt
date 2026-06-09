@@ -134,7 +134,7 @@ repo generators
 repo verifiers
 ```
 
-Product surface to add:
+Roadmap surface, not a current command in this repo:
 
 ```text
 cub installer analyze
@@ -165,7 +165,7 @@ Current implementation:
 repo generators create cub installer packages and chart-specific recipe artifacts
 ```
 
-Product surfaces to add:
+Roadmap surfaces, not current commands in this repo:
 
 ```text
 cub installer import helm
@@ -207,7 +207,7 @@ tamper-detection self-tests
 verify-install helpers for user-side Redis checks
 ```
 
-Product surfaces to add:
+Roadmap surfaces, not current commands in this repo:
 
 ```text
 cub installer compare
@@ -243,7 +243,7 @@ cub changeset and unit approve/apply/cancel lanes where proven
 ConfigHub function scans
 ```
 
-Product surfaces to add:
+Roadmap surfaces, not current commands in this repo:
 
 ```text
 Creator preview
@@ -279,7 +279,7 @@ workerless observation guidance
 additional cub-scout lane referenced for deeper runtime proof
 ```
 
-Product surfaces to add:
+Roadmap surfaces, not current commands in this repo:
 
 ```text
 cub observe
@@ -323,7 +323,7 @@ latest-version refresh before catalog roll-forward
 top-500 planning analysis
 ```
 
-Product surfaces to add:
+Roadmap surfaces, not current commands in this repo:
 
 ```text
 cub catalog search/show/install
