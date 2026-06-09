@@ -695,7 +695,12 @@ function pathSlug(text) {
 }
 
 function recommendedBaseFromRows(rows) {
-  const row = rows.find((item) => item.recommended_first === "yes")
+  const explicitSupportBase =
+    rows[0]?.chart === "jetstack/cert-manager@v1.20.2"
+      ? rows.find((item) => item.base === "crds-enabled")
+      : null;
+  const row = explicitSupportBase
+    ?? rows.find((item) => item.recommended_first === "yes")
     ?? rows.find((row) => row.complete_core_lane_set === "yes")
     ?? rows[0]
     ?? {};

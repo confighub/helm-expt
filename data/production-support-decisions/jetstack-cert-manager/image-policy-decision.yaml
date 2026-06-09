@@ -1,0 +1,60 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionImagePolicyDecision"
+metadata:
+  name: "jetstack-cert-manager-public-oci-image-policy-decision"
+spec:
+  chart: "jetstack/cert-manager"
+  version: "v1.20.2"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "cert-manager"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "crds-enabled"
+  variantsCovered:
+    - "default"
+    - "crds-enabled"
+  decision: "mutable-image-exception-accepted-for-target-scope"
+  decidedAt: "2026-06-09"
+  claim: "The rendered cert-manager bases still contain mutable image tags, but each rendered image reference has digest-resolution evidence. For this public controller support scope, the mutable tag is accepted as a target-scoped exception while stricter environments remain free to require digest-pinned bases or image overrides."
+  renderedImageSummary:
+    renderedSubjects: 2
+    subjectsNeedingResolution: 2
+    imageRefs: 6
+    mutableTagRefs: 6
+    floatingLatestOrUntaggedRefs: 0
+    resolutionReceipts: 2
+  variantReceipts:
+    default:
+      renderedObjectSetSHA256: "45029db19d75e578bec74b82a0476a6580d1f7193239a210bf4873156ac725ce"
+      sourceImageReviewRows: 3
+      uniqueImages: 3
+      receiptPath: "data/image-digest-workdown/receipts/jetstack-cert-manager/default/image-digest-resolution.yaml"
+    crds-enabled:
+      renderedObjectSetSHA256: "e288b2413bd1919173bee6afcd823be61399f101cfe2cf61f8e0df56740fefe0"
+      sourceImageReviewRows: 3
+      uniqueImages: 3
+      receiptPath: "data/image-digest-workdown/receipts/jetstack-cert-manager/crds-enabled/image-digest-resolution.yaml"
+  acceptedException:
+    reason: "The public proof target uses upstream cert-manager controller image tags. The receipt set records the registry digest each tag resolved to at decision time, so reviewers can rerun the decision when upstream tags move."
+    operatorAction: "For stricter production environments, create a digest-pinned base or image override policy before support expansion."
+  limits:
+    - "This does not mean the rendered manifests are digest-pinned."
+    - "This is not a blanket approval for all clusters, private overlays, regulated environments, or future chart versions."
+    - "This does not make cert-manager production-supported by itself."
+    - "If an upstream image tag is retargeted, rerun digest resolution and re-review this decision before promotion."
+  evidence:
+    -
+      path: "data/image-digest-workdown/chart-summary.csv"
+      claim: "Summarizes cert-manager rendered image references."
+    -
+      path: "data/attack-plan-workdown/image-digest-review.csv"
+      claim: "Lists every rendered image reference found in the cert-manager object sets."
+    -
+      path: "data/image-digest-workdown/receipts/jetstack-cert-manager/default/image-digest-resolution.yaml"
+      claim: "Records registry digest resolution for the default rendered object set."
+    -
+      path: "data/image-digest-workdown/receipts/jetstack-cert-manager/crds-enabled/image-digest-resolution.yaml"
+      claim: "Records registry digest resolution for the crds-enabled rendered object set."
+  remainingSupportBlockers:
+    - "Record security/resource-policy acceptance and lifecycle/fresh target-scoped evidence for the declared support scope."

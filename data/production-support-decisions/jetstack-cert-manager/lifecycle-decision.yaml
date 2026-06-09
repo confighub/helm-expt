@@ -1,0 +1,83 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionLifecycleDecision"
+metadata:
+  name: "jetstack-cert-manager-public-oci-lifecycle-decision"
+spec:
+  chart: "jetstack/cert-manager"
+  version: "v1.20.2"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "cert-manager"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "crds-enabled"
+  variantsCovered:
+    - "default"
+    - "crds-enabled"
+  decision: "lifecycle-observed-for-proof-scope"
+  decidedAt: "2026-06-09"
+  claim: "The cert-manager startup API check is modeled as a post-apply server dry-run and lifecycle observation, not as direct Helm hook execution. For the crds-enabled support scope, the CRDs are rendered and Established, the controller Deployments are ready, webhook caBundle fields are populated, and ConfigHub OCI/Argo runtime health is passing."
+  lifecycleModel:
+    controllerOwnedFields:
+      - "admission webhook caBundle"
+    crdPolicy: "crds-rendered-by-base-variant"
+    hookPolicy: "startupapicheck-becomes-post-apply-api-dry-run"
+  observedLifecycleSignals:
+    supportedBase:
+      result: "pass"
+      observedAt: "2026-06-06T21:14:53Z"
+      renderedCrds: 6
+      checks:
+        kind-create: "pass"
+        cub-installer-setup: "pass"
+        kubectl-apply: "pass"
+        deployment-ready:cert-manager: "pass"
+        deployment-ready:cert-manager-cainjector: "pass"
+        deployment-ready:cert-manager-webhook: "pass"
+        crds-established: "pass"
+        webhook-ca-bundle:cert-manager-webhook: "pass"
+        server-dry-run-api-object: "pass"
+    defaultBaseReference:
+      result: "pass"
+      observedAt: "2026-06-06T21:14:11Z"
+      model:
+        controllerOwnedFields:
+          - "admission webhook caBundle"
+        crdPolicy: "external-crds-required"
+        hookPolicy: "startupapicheck-becomes-post-apply-api-dry-run"
+    confighubOciArgo:
+      result: "pass"
+      observedAt: "2026-06-05T16:29:56Z"
+      regularHelmRuntime: "pass"
+      confighubApplyRuntime: "pass"
+      confighubOciRuntime: "pass"
+      argoSync: "Synced"
+      argoHealth: "Healthy"
+      semanticParity: "pass"
+  limits:
+    - "This decision does not execute Helm hooks directly; it records the ConfigHub lifecycle route and observed target outcome."
+    - "This covers the cert-manager startup API check route only, not universal Helm hook support."
+    - "Issuer, ClusterIssuer, ACME account, ingress-shim, Gateway API, and provider credential workflows are outside this base chart support claim."
+    - "The default base remains a target-prerequisite posture and is not the supported production example in this decision."
+    - "Upgrade lifecycle and future chart versions need fresh receipts before support expansion."
+  evidence:
+    -
+      path: "runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml"
+      claim: "Lifecycle observation for the crds-enabled base."
+    -
+      path: "runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-default/receipt.yaml"
+      claim: "Lifecycle observation for the default target-prerequisite posture."
+    -
+      path: "runs/live-helm-confighub-compare/jetstack-cert-manager-crds-enabled/receipt.yaml"
+      claim: "ConfigHub OCI/Argo live parity for the crds-enabled base."
+    -
+      path: "data/production-disposition/receipts/jetstack-cert-manager/hook-and-lifecycle-phase-policy.yaml"
+      claim: "Records the startup API check route and explicitly limits the hook support claim."
+    -
+      path: "data/production-disposition/receipts/jetstack-cert-manager/webhook-readiness-and-failure-policy.yaml"
+      claim: "Records webhook readiness and controller-owned caBundle policy."
+    -
+      path: "data/production-disposition/receipts/jetstack-cert-manager/crd-lifecycle-and-upgrade-policy.yaml"
+      claim: "Records CRD ownership policy for default and crds-enabled postures."
+  remainingSupportBlockers:
+    - "Record image policy, security/resource policy, and fresh target-scoped ConfigHub OCI/GitOps evidence."

@@ -76,14 +76,14 @@ runtime fit, and final support scope.
 | `bitnami/postgresql@18.6.7` | generated-passwords | try-with-proof | lifecycle-support-scope | 0 | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
 | `bitnami/redis@25.5.3` | default | start-here | lifecycle-support-scope | 0 | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
-| `external-secrets/external-secrets@2.5.0` | default | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
+| `external-secrets/external-secrets@2.5.0` | default | start-here | image-digest-resolution | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | `grafana/grafana@10.5.15` | generated-passwords | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
 | `grafana/loki@7.0.0` | single-binary-filesystem | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
 | `grafana/tempo@1.24.4` | local-persistent | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
 | `hashicorp/consul@2.0.0` | default-control-plane | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
 | `hashicorp/vault@0.32.0` | default | runtime-review-needed | runtime-or-prerequisite-scope | 2 | choose whether default is in production scope; close or document its runtime-review-needed live-readiness issue first |
 | `ingress-nginx/ingress-nginx@4.15.1` | default | runtime-watch | runtime-or-prerequisite-scope | 0 | choose whether default is in production scope; close or document its runtime-watch live-readiness issue first |
-| `jetstack/cert-manager@v1.20.2` | default | lifecycle-observed | lifecycle-support-scope | 2 | choose whether default is in production scope; record the target-scoped lifecycle support decision before claiming production support |
+| `jetstack/cert-manager@v1.20.2` | crds-enabled | try-with-proof | image-digest-resolution | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | `longhorn/longhorn@1.11.2` | default | start-here | security-acceptance-or-hardened-base | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
 | `metrics-server/metrics-server@3.13.0` | default | try-with-proof | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default | start-here | security-acceptance-or-hardened-base | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |

@@ -1,0 +1,58 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ImageDigestResolutionReceipt"
+metadata:
+  name: "jetstack-cert-manager-default-image-digest-resolution"
+spec:
+  chart: "jetstack/cert-manager"
+  version: "v1.20.2"
+  variant: "default"
+  resolvedAt: "2026-06-09T17:39:35.927Z"
+  renderedObjectSet:
+    path: "recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/release-objects.yaml"
+    sha256: "45029db19d75e578bec74b82a0476a6580d1f7193239a210bf4873156ac725ce"
+  sourceImageReview:
+    path: "data/attack-plan-workdown/image-digest-review.csv"
+    rows: 3
+    uniqueImages: 3
+  resolver:
+    name: "docker-buildx-imagetools"
+    commandTemplate: "docker buildx imagetools inspect <image>"
+  images:
+    -
+      image: "quay.io/jetstack/cert-manager-cainjector:v1.20.2"
+      digest: "sha256:6f5a644135887b2aa7d5cc145072fa56421560e3586ff1f184358022d490f4e1"
+      digestReference: "quay.io/jetstack/cert-manager-cainjector:v1.20.2@sha256:6f5a644135887b2aa7d5cc145072fa56421560e3586ff1f184358022d490f4e1"
+      mediaType: "application/vnd.docker.distribution.manifest.list.v2+json"
+      resolverOutput:
+        name: "quay.io/jetstack/cert-manager-cainjector:v1.20.2"
+      occurrences:
+        -
+          object: "apps/v1/Deployment/cert-manager/cert-manager-cainjector"
+          fieldPath: "spec.template.spec.containers.0.image"
+    -
+      image: "quay.io/jetstack/cert-manager-controller:v1.20.2"
+      digest: "sha256:fe0623d7d04a382c888f03343a3a2da716e0d96ad3d5d790c0ebcbcb2a4329a5"
+      digestReference: "quay.io/jetstack/cert-manager-controller:v1.20.2@sha256:fe0623d7d04a382c888f03343a3a2da716e0d96ad3d5d790c0ebcbcb2a4329a5"
+      mediaType: "application/vnd.docker.distribution.manifest.list.v2+json"
+      resolverOutput:
+        name: "quay.io/jetstack/cert-manager-controller:v1.20.2"
+      occurrences:
+        -
+          object: "apps/v1/Deployment/cert-manager/cert-manager"
+          fieldPath: "spec.template.spec.containers.0.image"
+    -
+      image: "quay.io/jetstack/cert-manager-webhook:v1.20.2"
+      digest: "sha256:baf651128b9f05c426cbd5e60e2036bf382c99ca270f49d0757d6f7d2452f4e5"
+      digestReference: "quay.io/jetstack/cert-manager-webhook:v1.20.2@sha256:baf651128b9f05c426cbd5e60e2036bf382c99ca270f49d0757d6f7d2452f4e5"
+      mediaType: "application/vnd.docker.distribution.manifest.list.v2+json"
+      resolverOutput:
+        name: "quay.io/jetstack/cert-manager-webhook:v1.20.2"
+      occurrences:
+        -
+          object: "apps/v1/Deployment/cert-manager/cert-manager-webhook"
+          fieldPath: "spec.template.spec.containers.0.image"
+  productionSupportUse:
+    status: "digest-resolution-recorded"
+    claim: "The mutable rendered image references for this cert-manager base were resolved to registry manifest digests at the recorded time."
+    limits: "This receipt does not mean the rendered manifests are digest-pinned and does not by itself make the chart production-supported."
+    nextRequired: "Choose a digest-pinned base, image override policy, or explicit mutable-image exception before broader production support."

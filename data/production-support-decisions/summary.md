@@ -11,9 +11,9 @@ live evidence rule, and operator-owned boundaries.
 
 ```text
 decision artifacts: 20
-supported decisions: 3
-draft decisions: 17
-open work items: 50
+supported decisions: 4
+draft decisions: 16
+open work items: 46
 ```
 
 ## Workstreams
@@ -23,12 +23,12 @@ evidence work before it becomes production-supported for a target scope.
 
 | Workstream | Charts | Examples | Next action |
 | --- | ---: | --- | --- |
-| Supported scope evidence | 3 | `bitnami/nginx@24.0.2` (http-clusterip)<br>`external-secrets/external-secrets@2.5.0` (default)<br>`prometheus-community/kube-prometheus-stack@85.3.3` (default) | Keep target-scoped evidence fresh before using the supported scope as a production example. |
-| Image digest resolution or exception | 13 | `argo-cd/argo-cd@9.5.15` (default)<br>`bitnami/mysql@14.0.3` (generated-passwords)<br>`bitnami/rabbitmq@16.0.14` (generated-passwords)<br>`grafana/grafana@10.5.15` (generated-passwords)<br>and 9 more | Pin images by digest or record an explicit exception before production OCI support. |
-| Scan scope decision | 14 | `argo-cd/argo-cd@9.5.15` (default)<br>`bitnami/mongodb@19.0.7` (generated-passwords)<br>`bitnami/mysql@14.0.3` (generated-passwords)<br>`bitnami/postgresql@18.6.7` (generated-passwords)<br>and 10 more | Record which scanner findings are accepted, fixed, or outside the supported target scope. |
+| Supported scope evidence | 4 | `bitnami/nginx@24.0.2` (http-clusterip)<br>`external-secrets/external-secrets@2.5.0` (default)<br>`jetstack/cert-manager@v1.20.2` (crds-enabled)<br>`prometheus-community/kube-prometheus-stack@85.3.3` (default) | Keep target-scoped evidence fresh before using the supported scope as a production example. |
+| Image digest resolution or exception | 12 | `argo-cd/argo-cd@9.5.15` (default)<br>`bitnami/mysql@14.0.3` (generated-passwords)<br>`bitnami/rabbitmq@16.0.14` (generated-passwords)<br>`grafana/grafana@10.5.15` (generated-passwords)<br>and 8 more | Pin images by digest or record an explicit exception before production OCI support. |
+| Scan scope decision | 13 | `argo-cd/argo-cd@9.5.15` (default)<br>`bitnami/mongodb@19.0.7` (generated-passwords)<br>`bitnami/mysql@14.0.3` (generated-passwords)<br>`bitnami/postgresql@18.6.7` (generated-passwords)<br>and 9 more | Record which scanner findings are accepted, fixed, or outside the supported target scope. |
 | Security acceptance or hardened base | 3 | `longhorn/longhorn@1.11.2` (default)<br>`prometheus-community/prometheus@29.8.0` (default)<br>`secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` (default) | Accept current security findings for the target scope or create a narrower hardened base. |
-| Lifecycle decision or observation | 3 | `grafana/loki@7.0.0` (single-binary-filesystem)<br>`hashicorp/consul@2.0.0` (default-control-plane)<br>`jetstack/cert-manager@v1.20.2` (default) | Record the lifecycle boundary, or execute and observe the selected hook/lifecycle route. |
-| Runtime or missing-lane decision | 6 | `bitnami/postgresql@18.6.7` (generated-passwords)<br>`hashicorp/vault@0.32.0` (default)<br>`ingress-nginx/ingress-nginx@4.15.1` (default)<br>`jetstack/cert-manager@v1.20.2` (default)<br>and 2 more | Close the runtime, missing-lane, or lifecycle-observation decision before refreshing final evidence. |
+| Lifecycle decision or observation | 2 | `grafana/loki@7.0.0` (single-binary-filesystem)<br>`hashicorp/consul@2.0.0` (default-control-plane) | Record the lifecycle boundary, or execute and observe the selected hook/lifecycle route. |
+| Runtime or missing-lane decision | 5 | `bitnami/postgresql@18.6.7` (generated-passwords)<br>`hashicorp/vault@0.32.0` (default)<br>`ingress-nginx/ingress-nginx@4.15.1` (default)<br>`metrics-server/metrics-server@3.13.0` (default)<br>and 1 more | Close the runtime, missing-lane, or lifecycle-observation decision before refreshing final evidence. |
 | Fresh target-scoped evidence | 11 | `argo-cd/argo-cd@9.5.15` (default)<br>`bitnami/mongodb@19.0.7` (generated-passwords)<br>`bitnami/mysql@14.0.3` (generated-passwords)<br>`bitnami/rabbitmq@16.0.14` (generated-passwords)<br>and 7 more | After scope and risk decisions are closed, refresh ConfigHub OCI/GitOps and live/e2e evidence for that exact scope. |
 
 ## Priority Rows
@@ -41,12 +41,12 @@ currently concentrated.
 | --- | --- | --- | --- |
 | `grafana/loki@7.0.0` | single-binary-filesystem | image; scan scope; lifecycle; fresh evidence | resolve image digests for each affected variant before production OCI support |
 | `hashicorp/consul@2.0.0` | default-control-plane | image; scan scope; lifecycle; fresh evidence | resolve image digests for each affected variant before production OCI support |
-| `jetstack/cert-manager@v1.20.2` | default | image; scan scope; lifecycle; lifecycle observation | choose whether default is in production scope; record the target-scoped lifecycle support decision before claiming production support |
 | `argo-cd/argo-cd@9.5.15` | default | image; scan scope; fresh evidence | resolve image digests for each affected variant before production OCI support |
 | `bitnami/mysql@14.0.3` | generated-passwords | image; scan scope; fresh evidence | resolve image digests for each affected variant before production OCI support |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords | image; scan scope; fresh evidence | resolve image digests for each affected variant before production OCI support |
 | `grafana/grafana@10.5.15` | generated-passwords | image; scan scope; fresh evidence | resolve image digests for each affected variant before production OCI support |
 | `grafana/tempo@1.24.4` | local-persistent | image; scan scope; fresh evidence | resolve image digests for each affected variant before production OCI support |
+| `hashicorp/vault@0.32.0` | default | image; scan scope; runtime decision | choose whether default is in production scope; close or document its runtime-review-needed live-readiness issue first |
 
 The spreadsheet form is [work-items.csv](./work-items.csv). It has one row per
 production-support task or keep-fresh item, so overlapping work such as image,
@@ -70,7 +70,7 @@ Each decision directory also has a generated workdown page:
 | `hashicorp/consul@2.0.0` | [default-control-plane](./hashicorp-consul/README.md) |
 | `hashicorp/vault@0.32.0` | [default](./hashicorp-vault/README.md) |
 | `ingress-nginx/ingress-nginx@4.15.1` | [default](./ingress-nginx-ingress-nginx/README.md) |
-| `jetstack/cert-manager@v1.20.2` | [default](./jetstack-cert-manager/README.md) |
+| `jetstack/cert-manager@v1.20.2` | [crds-enabled](./jetstack-cert-manager/README.md) |
 | `longhorn/longhorn@1.11.2` | [default](./longhorn-longhorn/README.md) |
 | `metrics-server/metrics-server@3.13.0` | [default](./metrics-server-metrics-server/README.md) |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | [default](./prometheus-community-kube-prometheus-stack/README.md) |
@@ -95,7 +95,7 @@ Each decision directory also has a generated workdown page:
 | `hashicorp/consul@2.0.0` | default-control-plane | draft | vanilla-kubernetes; namespace=consul; delivery=confighub-oci; controller=argo-or-flux | needs-fresh-target-evidence-before-final | resolve image digests for each affected variant before production OCI support |
 | `hashicorp/vault@0.32.0` | default | draft | vanilla-kubernetes; namespace=vault; delivery=confighub-oci; controller=argo-or-flux | needs-runtime-decision-before-final | choose whether default is in production scope; close or document its runtime-review-needed live-readiness issue first |
 | `ingress-nginx/ingress-nginx@4.15.1` | default | draft | vanilla-kubernetes; namespace=ingress-nginx; delivery=confighub-oci; controller=argo-or-flux | needs-runtime-decision-before-final | choose whether default is in production scope; close or document its runtime-watch live-readiness issue first |
-| `jetstack/cert-manager@v1.20.2` | default | draft | vanilla-kubernetes; namespace=cert-manager; delivery=confighub-oci; controller=argo-or-flux | needs-lifecycle-observation-before-final | choose whether default is in production scope; record the target-scoped lifecycle support decision before claiming production support |
+| `jetstack/cert-manager@v1.20.2` | crds-enabled | supported | cub-lk-kind-vanilla; namespace=cert-manager; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate issuer, certificate, provider, or hardened resource bases for real customer certificate workloads. |
 | `longhorn/longhorn@1.11.2` | default | draft | vanilla-kubernetes; namespace=longhorn; delivery=confighub-oci; controller=argo-or-flux | needs-fresh-target-evidence-before-final | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
 | `metrics-server/metrics-server@3.13.0` | default | draft | vanilla-kubernetes; namespace=metrics-server; delivery=confighub-oci; controller=argo-or-flux | needs-missing-live-or-confighub-lanes-before-final | resolve image digests for each affected variant before production OCI support |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default | supported | cub-lk-kind-vanilla; namespace=monitoring; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example. |
