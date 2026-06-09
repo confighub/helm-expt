@@ -4,16 +4,13 @@ metadata:
   name: "argo-cd-argo-cd-9.5.15"
 spec:
   chart:
-    name: "argo-cd"
     repository: "argo-cd"
+    name: "argo-cd"
     version: "9.5.15"
-  deterministicBundle:
-    byteIdenticalAcrossTwoLocalBundles: true
-    command: "cub installer package packages/argo-cd/argo-cd/9.5.15 -o <tmp>/argo-cd-9.5.15.tgz"
-    sha256: "1c5907a89ab33900f312199dfd14fecf7287ca3c7a97f8c7e45501599e2aa1d9"
   package:
-    name: "argo-cd-argo-cd"
     path: "packages/argo-cd/argo-cd/9.5.15"
+    name: "argo-cd-argo-cd"
+    version: "9.5.15"
     sourceFiles:
       -
         path: "README.md"
@@ -36,28 +33,39 @@ spec:
         sha256: "23a51fb8ea2215b08a853bbb26698d80f58a5514b68d4f49cdcd870a8371fc71"
         bytes: 104729
       -
+        path: "collector/target-facts.sh"
+        sha256: "ba16581b44f06841b9abe7f402984168f8284eb3cb40621d7f1c3a45fbd0dd06"
+        bytes: 3224
+      -
         path: "installer.yaml"
-        sha256: "d32e039cddb69956e521c477b0b953698f39bd557a0d62b08d9374dd65744596"
-        bytes: 913
-    version: "9.5.15"
+        sha256: "1c7e87e07175dd376d8993088c542e3a5889950c1baa7373f17193809321e619"
+        bytes: 1607
+  deterministicBundle:
+    command: "cub installer package packages/argo-cd/argo-cd/9.5.15 -o <tmp>/argo-cd-9.5.15.tgz"
+    sha256: "e0201e5fab41ab1f84776e8f1b37410ac3ab5ed7adb64ef176be55b3e08a5db1"
+    byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
-      allowedCubOnlyObjects:
-        - "v1|Namespace||argocd"
+      variant: "default"
       base: "default"
       command: "cub installer setup --pull packages/argo-cd/argo-cd/9.5.15 --base default --work-dir <tmp> --non-interactive --namespace argocd"
-      cubInstallObjectCountIncludingSupport: 50
       helmReleaseObjectCount: 49
+      cubInstallObjectCountIncludingSupport: 50
       semanticObjectMatches: "49/49"
       separatedSecretCount: 2
-      variant: "default"
-    -
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
       allowedCubOnlyObjects:
         - "v1|Namespace||argocd"
+    -
+      variant: "no-crds"
       base: "no-crds"
       command: "cub installer setup --pull packages/argo-cd/argo-cd/9.5.15 --base no-crds --work-dir <tmp> --non-interactive --namespace argocd"
-      cubInstallObjectCountIncludingSupport: 47
       helmReleaseObjectCount: 46
+      cubInstallObjectCountIncludingSupport: 47
       semanticObjectMatches: "46/46"
       separatedSecretCount: 2
-      variant: "no-crds"
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      allowedCubOnlyObjects:
+        - "v1|Namespace||argocd"

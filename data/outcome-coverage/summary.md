@@ -19,7 +19,7 @@ GitOps/OCI non-pass receipts:        9
 live Helm-vs-ConfigHub pass rows:    15/156
 live Helm-vs-ConfigHub non-pass receipts: 5
 selected live parity receipts:       15 pass, 5 watch, 0 blocked
-two-cluster kind parity receipts:    28 pass, 2 watch, 10 blocked
+two-cluster kind parity receipts:    30 pass, 1 watch, 9 blocked
 derived intended-state pass rows:    10
 target-bound derived pass rows:      5
 target-bound derived blocked rows:   1
@@ -58,7 +58,7 @@ related lifecycle observations:      4/4
 
 | Chart | Variants | Model | In-ConfigHub | Local live | GitOps live | Live parity | Two-cluster parity | Hard gap |
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| `argo-cd/argo-cd@9.5.15` | default;no-crds | yes | 1/2 | 1/2 | 0/2 | 0/2 | 0/2 | ha (curated proof lane - bespoke teaching needed) |
+| `argo-cd/argo-cd@9.5.15` | default;no-crds | yes | 1/2 | 1/2 | 0/2 | 0/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/mongodb@19.0.7` | generated-passwords;existing-secret-replicaset | yes | 1/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
 | `bitnami/mysql@14.0.3` | generated-passwords;existing-secret | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/nginx@24.0.2` | http-clusterip;existing-tls-ingress | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | existing-secret (chart ships no Secret toggle) |

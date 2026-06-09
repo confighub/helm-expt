@@ -16,10 +16,10 @@ or runtime review.
 ~~~text
 base variants: 40
 start-here: 11
-try-with-proof: 17
-runtime-watch: 2
+try-with-proof: 19
+runtime-watch: 1
 runtime-review-needed: 7
-target-prerequisite-needed: 2
+target-prerequisite-needed: 1
 hook-lifecycle-review-needed: 0
 lifecycle-observed: 1
 prerequisite-observed: 0
@@ -29,7 +29,7 @@ render-only: 0
 Live rerun readiness for non-pass rows:
 
 ~~~text
-model-or-stage-first: 3
+model-or-stage-first: 2
 review-target-first: 11
 inspect-diff-first: 0
 rerun-now-after-cleanup: 0
@@ -53,8 +53,8 @@ rerun-now-after-cleanup: 0
 
 | Chart | Base | First | Readiness | Rerun readiness | Why | Next action |
 | --- | --- | --- | --- | --- | --- | --- |
-| `argo-cd/argo-cd@9.5.15` | default | yes | runtime-watch | review-target-first | helm-runtime: upstream not ready (parity passed) | inspect the receipt and rerun after target resources, storage, and waits are appropriate |
-| `argo-cd/argo-cd@9.5.15` | no-crds | no | target-prerequisite-needed | model-or-stage-first | target-prerequisite: CRDs disabled or missing (parity passed) | stage or model the prerequisite, then rerun the same base; keep render parity separate from target fit |
+| `argo-cd/argo-cd@9.5.15` | default | yes | try-with-proof | review-target-first | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
+| `argo-cd/argo-cd@9.5.15` | no-crds | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `bitnami/mongodb@19.0.7` | generated-passwords | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
 | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | no | runtime-review-needed | review-target-first | target-runtime: pod crash loop (parity passed) | inspect runtime state; keep the recipe stable unless semantic object comparison starts failing |
 | `bitnami/mysql@14.0.3` | generated-passwords | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
