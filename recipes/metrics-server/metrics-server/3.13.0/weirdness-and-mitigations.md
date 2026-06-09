@@ -12,7 +12,7 @@ current ConfigHub/cub installer proof absorbs it.
 | Catalog status | catalog-supported |
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
-| Production readiness | blocked-by-current-scan-gate |
+| Production readiness | production-review-ready |
 | Variants in this note | default, external-tls-ca |
 
 Production support is not implied by this file. A chart can be supported for
@@ -31,7 +31,8 @@ or operating-policy dispositions.
 - Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
 - default is the expected quick path for a standard metrics-server install.
 - external-tls-ca is supported when the declared metrics-server-tls target fact is satisfied.
-- Production remains blocked until APIService readiness, cluster RBAC, and scan/gate findings have dispositions.
+- Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state.
+- external-tls-ca remains target-sensitive: the Secret and APIService certificate chain must be validated for the target cluster.
 
 ## Control Points
 
@@ -39,13 +40,13 @@ or operating-policy dispositions.
 | --- | --- | --- |
 | source-lock | handled | source-lock.yaml |
 | dependency-lock | handled | chart has no subchart dependencies |
-| generated-facts | avoided-by-current-variants | tls.type=helm would use genSelfSignedCert and lookup; it is intentionally not promoted until generated-fact receipts are formalized. |
+| generated-facts | avoided-by-current-variants | tls.type=helm would use genSelfSignedCert and lookup; the supported bases avoid that path. default uses runtime certificate behavior, and external-tls-ca uses an explicit target Secret. |
 | target-facts | required-for-external-tls-ca | variants/external-tls-ca/variant.yaml |
 | lookup | avoided | external-tls-ca sets tls.existingSecret.lookup=false; default keeps lookup path inactive |
 | capability-profile | handled | recorded in control-points.yaml |
 | hook-policy | handled | no-hooks |
-| apiservice | needs-observation | apiregistration.k8s.io/v1\|APIService\|\|v1beta1.metrics.k8s.io |
-| cluster-rbac | scan-and-review | scan receipts |
+| apiservice | observed-for-default-target-review-required | runs/live-helm-confighub-compare/metrics-server-metrics-server-default/receipt.yaml and runs/derived-variant-target-bound/metrics-server-prod-us-east/receipt.yaml |
+| cluster-rbac | disposition-accepted-for-production-review-input | data/production-disposition/receipts/metrics-server-metrics-server/cluster-rbac-review.yaml |
 | installer-support-object | handled | v1\|Namespace\|\|kube-system |
 
 ## Control Point Index

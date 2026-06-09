@@ -13,7 +13,7 @@ What this proves:
 - default chart rendering is nondeterministic until generated credentials are bound;
 - the generated-passwords variant persists auth.rootPassword, auth.password, and auth.replicationPassword before render;
 - the existing-secret variant uses a declared target Secret and does not render a Secret;
-- generated fact, target fact, Helm hook lifecycle, dependency lock, StatefulSet/PVC, and extension-slot risks are visible as scan/gate findings instead of hidden Helm behavior.
+- generated fact, target fact, lifecycle boundary, dependency lock, StatefulSet/PVC, and extension-slot risks are visible as scan/gate findings instead of hidden Helm behavior.
 
 Useful commands:
 

@@ -53,9 +53,8 @@ targetFacts:
     name: mysql-auth
     namespace: mysql
     purpose: MySQL root, user, and replication passwords
-
 targetFactChecks:
-  base: "existing-secret"
+  base: "$base"
   mode: "$check_mode"
   result: "$result"
 YAML

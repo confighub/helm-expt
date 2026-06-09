@@ -29,7 +29,7 @@ or operating-policy dispositions.
 ## Catalog Mitigations
 
 - First deliberately supported catalog entry.
-- Supported scope is local-test until scan findings have production dispositions.
+- Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state.
 - Both variants are Helm-equivalent through cub installer setup.
 
 ## Control Points

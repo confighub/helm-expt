@@ -42,7 +42,7 @@ spec:
       supportedVariantStatus: "handled"
     -
       id: "generated-facts"
-      detectedPainPoint: "auth.password is bound before render and owned by a generated-fact receipt."
+      detectedPainPoint: "auth.password is bound before render and owned by revisions/default/r001/receipts/generated-fact-receipt.yaml."
       evidence:
         - "effective-values.yaml"
       configHubHome: "generated-fact"
@@ -124,4 +124,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "values-diagnostics.yaml"
       supportedVariantStatus: "unknown=checked-for-proof-path; dead=checked-for-proof-path; ignored=checked-for-proof-path"
-  answerForSkepticalHelmUser: "bitnami/redis@25.5.3 maps its detected Helm pain to 9 ConfigHub control areas: source-lock, dependency-lock, generated-fact, target-fact-requirement, capability-profile, lifecycle-policy, recipe, scan-gate, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production recommendation remains a separate target-scoped decision."
+  answerForSkepticalHelmUser: "bitnami/redis@25.5.3 maps its detected Helm pain to 9 ConfigHub control areas: source-lock, dependency-lock, generated-fact, target-fact-requirement, capability-profile, lifecycle-policy, recipe, scan-gate, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains production-review-ready."

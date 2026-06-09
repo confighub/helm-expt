@@ -206,7 +206,7 @@ runProofCli({
     { category: "capability-profile", status: "handled", kubeVersion: chart.kubeVersion, note: "Kubernetes API and version branches are bound to the named Kubernetes capability profile." },
     { category: "generated-facts", status: "variant-controlled", evidence: "auth.rootPassword + auth.password + auth.replicationPassword", note: "The generated-passwords variant binds all generated password fields before render so Helm output is deterministic." },
     { category: "target-facts", status: "variant-controlled", evidence: "auth.existingSecret", note: "The existing-secret variant declares the target Secret instead of rendering one." },
-    { category: "hook-policy", status: "handled-for-render", policy: "no-hooks", note: "Chart source contains Helm hooks; the proof render excludes hooks and lifecycle policy must handle them before production." },
+    { category: "hook-policy", status: "handled-for-render", policy: "no-hooks", note: "The retained source scan records hook count 0 for this pinned chart version. Supported bases render no hook objects; future hook-producing paths must map to lifecycle policy before production." },
     { category: "stateful-workload", status: "scan-and-review", object: "apps/v1|StatefulSet|mysql|mysql" },
     { category: "pvc-policy", status: "scan-and-review", note: "StatefulSet volumeClaimTemplates need storage, retention, upgrade, and rollback policy." },
     { category: "tpl", status: "controlled-by-empty-defaults", note: "initdb and extended configuration slots use templating; promoted variants do not populate them." },
@@ -218,7 +218,7 @@ runProofCli({
       "generated-passwords variant persists all three password fields as generated facts and renders the Secret deterministically.",
       "existing-secret variant does not render a Secret and instead declares mysql/mysql-auth as a target fact.",
       "Chart declares the Bitnami common dependency and records it in dependency-lock.yaml.",
-      "Chart source contains Helm hook annotations; the rendered proof excludes hooks and keeps lifecycle policy explicit.",
+      "Supported bases render no hook objects, and future hook-producing paths must map to lifecycle policy before production.",
       "MySQL renders a StatefulSet with volumeClaimTemplates and needs storage/upgrade/rollback policy.",
       "initdb and extended configuration are template-powered extension slots; promoted variants keep them empty.",
     ],
@@ -235,7 +235,7 @@ runProofCli({
   plan: {
     status: "usable-with-controls",
     scanGate: "warn-production-blocked",
-    nextAction: "publish only after generated fact or target fact binding, hook lifecycle policy, dependency lock review, StatefulSet/PVC policy, and extension-slot review are satisfied",
+    nextAction: "publish only after generated fact or target fact binding, dependency lock review, StatefulSet/PVC policy, and extension-slot review are satisfied",
   },
   readme: {
     intro: "This is the promoted proof slice for the MySQL public Helm chart.",
@@ -244,7 +244,7 @@ runProofCli({
       "default chart rendering is nondeterministic until generated credentials are bound;",
       "the generated-passwords variant persists auth.rootPassword, auth.password, and auth.replicationPassword before render;",
       "the existing-secret variant uses a declared target Secret and does not render a Secret;",
-      "generated fact, target fact, Helm hook lifecycle, dependency lock, StatefulSet/PVC, and extension-slot risks are visible as scan/gate findings instead of hidden Helm behavior.",
+      "generated fact, target fact, lifecycle boundary, dependency lock, StatefulSet/PVC, and extension-slot risks are visible as scan/gate findings instead of hidden Helm behavior.",
     ],
   },
   installGate: (variant) => ({
@@ -252,7 +252,7 @@ runProofCli({
     reasons: [
       `Helm equivalence passed for ${variant.name}`,
       "Generated credential handling needs explicit generated fact or target fact policy before production",
-      "Helm hook behavior needs explicit lifecycle policy before production",
+      "Supported bases render no hook objects; future hook-producing values need explicit lifecycle policy before production",
       "MySQL StatefulSet and volumeClaimTemplates need storage, upgrade, and rollback policy",
       variant.targetFactNote,
     ],
@@ -289,7 +289,7 @@ runProofCli({
       rule: "helm-hook-lifecycle-policy",
       severity: "medium",
       object: "source|helm-hooks",
-      message: "Chart source contains Helm hooks; rendered proof excludes hooks and production needs lifecycle policy",
+      message: "Supported bases render no hook objects; future hook-producing values need explicit lifecycle policy before production",
     });
     findings.push({
       id: "extension-slot-review:initdb-configuration",

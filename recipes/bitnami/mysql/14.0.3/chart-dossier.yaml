@@ -10,7 +10,7 @@ spec:
     - "generated-passwords variant persists all three password fields as generated facts and renders the Secret deterministically."
     - "existing-secret variant does not render a Secret and instead declares mysql/mysql-auth as a target fact."
     - "Chart declares the Bitnami common dependency and records it in dependency-lock.yaml."
-    - "Chart source contains Helm hook annotations; the rendered proof excludes hooks and keeps lifecycle policy explicit."
+    - "Supported bases render no hook objects, and future hook-producing paths must map to lifecycle policy before production."
     - "MySQL renders a StatefulSet with volumeClaimTemplates and needs storage/upgrade/rollback policy."
     - "initdb and extended configuration are template-powered extension slots; promoted variants keep them empty."
   knownControlPoints:

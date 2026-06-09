@@ -61,12 +61,12 @@ spec:
       liveParity: "1/2"
     featureSummary: "generated-secrets;required-values;values-schema;install-vs-upgrade"
     hardGap: "ha (curated proof lane - bespoke teaching needed)"
-    nextAction: "write or fix the hook and lifecycle phase policy disposition receipt"
+    nextAction: "accept PDB behavior or add a reviewed patch where the chart supports it"
   installerPackage:
     path: "packages/bitnami/rabbitmq/16.0.14"
     installer: "packages/bitnami/rabbitmq/16.0.14/installer.yaml"
     receipt: "recipes/bitnami/rabbitmq/16.0.14/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "f8f76456c105e7fbd2eb3595e497f8ed2163d9963d63973f5c9c847381843835"
+    deterministicBundleSHA256: "505663d5101d214d164bdf6bacb42af233702f9b25ac4246b1702a0f9eda5ab0"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -112,7 +112,7 @@ spec:
           name: "generated-passwords-r001"
           revision: "r001"
           variantRevision: "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/variant-revision.yaml"
-          digest: "692d0887b239cabed026660e92abb084a6b53203533f8e1556404f7b173f6943"
+          digest: "cae600fba031e510fe5c5f8f33b2a610cfbf4ade184c52040affb1e6365fd14c"
           renderedObjectSetSHA256: "81187ce4367f5196ddbaa35ea55b972698f8a474d78a2cdc2908b12290c89f31"
           renderedObjects: "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/rendered/object-inventory.yaml"
@@ -186,7 +186,7 @@ spec:
           name: "existing-secret-r001"
           revision: "r001"
           variantRevision: "recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/variant-revision.yaml"
-          digest: "953d60ca10da31a89710229bfd24b6afb84497bde9f93337f89662c202bccb69"
+          digest: "e6cd5a984f86012e27472ff2823c5d9888ea7214f84119769bcabce0b25d2df1"
           renderedObjectSetSHA256: "cdff3262264844b099e7f4421f1bbd5027360c2d23ba34667506d85255c4b6f2"
           renderedObjects: "recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/rendered/object-inventory.yaml"

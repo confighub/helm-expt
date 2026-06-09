@@ -1,0 +1,38 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: bitnami-rabbitmq-hook-and-lifecycle-phase-policy
+spec:
+  chart: bitnami/rabbitmq
+  version: "16.0.14"
+  disposition: hook and lifecycle phase policy
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: RabbitMQ has source hook count 0 in the retained top-500 source scan for the pinned chart version. Both supported bases render no hook objects, run with the recipe no-hooks policy, and pass strict two-cluster Helm-vs-cub-installer parity. This closes lifecycle policy for these supported bases only; future values or chart versions that render or rely on hooks must get a separate lifecycle route before production.
+  evidence:
+    - path: data/top500-catalog-analysis/source/source-feature-scan.raw.json
+      claim: bitnami/rabbitmq has source hook count 0 in the retained source scan for version 16.0.14.
+    - path: recipes/bitnami/rabbitmq/16.0.14/control-points.yaml
+      claim: The recipe records hook-policy with policy no-hooks for the supported bases.
+    - path: recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/rendered/object-inventory.yaml
+      claim: The generated-passwords rendered object inventory contains no hook objects.
+    - path: recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/rendered/object-inventory.yaml
+      claim: The existing-secret rendered object inventory contains no hook objects.
+    - path: recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/receipts/install-gate.yaml
+      claim: The generated-passwords install gate does not require Helm hook execution.
+    - path: recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/receipts/install-gate.yaml
+      claim: The existing-secret install gate does not require Helm hook execution.
+    - path: runs/live-kind-parity/bitnami-rabbitmq-generated-passwords/receipt.yaml
+      claim: The generated-passwords base passes strict two-cluster live parity without hook objects.
+    - path: runs/live-kind-parity/bitnami-rabbitmq-existing-secret/receipt.yaml
+      claim: The existing-secret base passes strict two-cluster live parity without hook objects.
+  affectedVariants:
+    - generated-passwords
+    - existing-secret
+  remainingProductionBlockers:
+    - scan/gate warning disposition
+    - storage backup restore and rollback policy
+  nextDecision: Decide whether to accept or patch the remaining PDB scan warning, then record storage, backup, restore, and rollback policy for production support.

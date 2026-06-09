@@ -37,7 +37,7 @@ spec:
       category: "hook-policy"
       status: "handled-for-render"
       policy: "no-hooks"
-      note: "Chart source contains Helm hooks; the proof render excludes hooks and lifecycle policy must handle them before production."
+      note: "The retained source scan records hook count 0 for this pinned chart version. Supported bases render no hook objects; future hook-producing paths must map to lifecycle policy before production."
     -
       category: "stateful-workload"
       status: "scan-and-review"

@@ -222,6 +222,7 @@ spec:
           []
         productionDispositionReceipts:
           - "data/production-disposition/receipts/bitnami-mysql/generated-fact-ownership.yaml"
+          - "data/production-disposition/receipts/bitnami-mysql/hook-and-lifecycle-phase-policy.yaml"
           - "data/production-disposition/receipts/bitnami-mysql/target-fact-preflight.yaml"
       dispositions:
         -
@@ -236,7 +237,8 @@ spec:
           unblockRule: "supported only when generated material is captured or deliberately externalized"
         -
           name: "hook and lifecycle phase policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/bitnami-mysql/hook-and-lifecycle-phase-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "hook inventory"
@@ -395,6 +397,7 @@ spec:
           []
         productionDispositionReceipts:
           - "data/production-disposition/receipts/bitnami-postgresql/generated-fact-ownership.yaml"
+          - "data/production-disposition/receipts/bitnami-postgresql/hook-and-lifecycle-phase-policy.yaml"
           - "data/production-disposition/receipts/bitnami-postgresql/target-fact-preflight.yaml"
       dispositions:
         -
@@ -409,7 +412,8 @@ spec:
           unblockRule: "supported only when generated material is captured or deliberately externalized"
         -
           name: "hook and lifecycle phase policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/bitnami-postgresql/hook-and-lifecycle-phase-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "hook inventory"
@@ -484,6 +488,7 @@ spec:
           []
         productionDispositionReceipts:
           - "data/production-disposition/receipts/bitnami-rabbitmq/generated-fact-ownership.yaml"
+          - "data/production-disposition/receipts/bitnami-rabbitmq/hook-and-lifecycle-phase-policy.yaml"
           - "data/production-disposition/receipts/bitnami-rabbitmq/target-fact-preflight.yaml"
       dispositions:
         -
@@ -498,7 +503,8 @@ spec:
           unblockRule: "supported only when generated material is captured or deliberately externalized"
         -
           name: "hook and lifecycle phase policy"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/bitnami-rabbitmq/hook-and-lifecycle-phase-policy.yaml"
           owner: "catalog-review"
           requiredEvidence:
             - "hook inventory"

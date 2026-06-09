@@ -20,7 +20,7 @@ spec:
       generated-passwords: "8/8"
       existing-secret: "7/7"
     scanGate: "warn-production-blocked"
-    nextAction: "publish only after generated fact or target fact binding, hook lifecycle policy, dependency lock review, StatefulSet/PVC policy, and extension-slot review are satisfied"
+    nextAction: "publish only after generated fact or target fact binding, dependency lock review, StatefulSet/PVC policy, and extension-slot review are satisfied"
   receipts:
     - "revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml"
     - "revisions/generated-passwords/r001/receipts/render-receipt.yaml"

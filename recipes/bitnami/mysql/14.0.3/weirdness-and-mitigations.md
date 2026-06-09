@@ -25,7 +25,7 @@ or operating-policy dispositions.
 - generated-passwords variant persists all three password fields as generated facts and renders the Secret deterministically.
 - existing-secret variant does not render a Secret and instead declares mysql/mysql-auth as a target fact.
 - Chart declares the Bitnami common dependency and records it in dependency-lock.yaml.
-- Chart source contains Helm hook annotations; the rendered proof excludes hooks and keeps lifecycle policy explicit.
+- Supported bases render no hook objects, and future hook-producing paths must map to lifecycle policy before production.
 - MySQL renders a StatefulSet with volumeClaimTemplates and needs storage/upgrade/rollback policy.
 - initdb and extended configuration are template-powered extension slots; promoted variants keep them empty.
 
@@ -45,7 +45,7 @@ or operating-policy dispositions.
 | capability-profile | handled | Kubernetes API and version branches are bound to the named Kubernetes capability profile. |
 | generated-facts | variant-controlled | The generated-passwords variant binds all generated password fields before render so Helm output is deterministic. |
 | target-facts | variant-controlled | The existing-secret variant declares the target Secret instead of rendering one. |
-| hook-policy | handled-for-render | Chart source contains Helm hooks; the proof render excludes hooks and lifecycle policy must handle them before production. |
+| hook-policy | handled-for-render | The retained source scan records hook count 0 for this pinned chart version. Supported bases render no hook objects; future hook-producing paths must map to lifecycle policy before production. |
 | stateful-workload | scan-and-review | apps/v1\|StatefulSet\|mysql\|mysql |
 | pvc-policy | scan-and-review | StatefulSet volumeClaimTemplates need storage, retention, upgrade, and rollback policy. |
 | tpl | controlled-by-empty-defaults | initdb and extended configuration slots use templating; promoted variants do not populate them. |

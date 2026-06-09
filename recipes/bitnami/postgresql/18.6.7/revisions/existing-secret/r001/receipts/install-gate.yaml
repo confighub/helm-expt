@@ -13,6 +13,6 @@ spec:
   reasons:
     - "Helm equivalence passed for existing-secret"
     - "Generated credential handling needs explicit generated fact or target fact policy before production"
-    - "Helm hook behavior needs explicit lifecycle policy before production"
+    - "Supported bases render no hook objects; future hook-producing values need explicit lifecycle policy before production"
     - "PostgreSQL StatefulSet and volumeClaimTemplates need storage, upgrade, and rollback policy"
     - "requires target Secret postgresql/postgresql-auth with postgres-password before apply"

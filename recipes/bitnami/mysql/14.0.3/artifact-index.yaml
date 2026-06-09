@@ -61,12 +61,12 @@ spec:
       liveParity: "1/2"
     featureSummary: "generated-secrets;required-values;values-schema;install-vs-upgrade"
     hardGap: "ha (curated proof lane - bespoke teaching needed)"
-    nextAction: "write or fix the hook and lifecycle phase policy disposition receipt"
+    nextAction: "accept PDB behavior or add a reviewed patch where the chart supports it"
   installerPackage:
     path: "packages/bitnami/mysql/14.0.3"
     installer: "packages/bitnami/mysql/14.0.3/installer.yaml"
     receipt: "recipes/bitnami/mysql/14.0.3/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "1ee9a31152c31c2d310fc46720c6606c437745cb3bdd9b098d32b989363a9bcb"
+    deterministicBundleSHA256: "8f1244d73c4c6ad3fb20e0e28fc2372a815ce858e6d70208357fbd5747fd154d"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

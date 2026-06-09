@@ -24,7 +24,7 @@ spec:
     - "Chart declares the Bitnami common dependency and records it in dependency-lock.yaml."
     - "Promoted variants render no hook objects; future hook-producing values must map to lifecycle policy."
     - "RabbitMQ renders a StatefulSet with volumeClaimTemplates and needs storage/upgrade/rollback policy."
-    - "configuration, advancedConfiguration, initScripts, secret names, and extraDeploy are template-powered extension slots; promoted variants keep raw slots empty."
+    - "configuration, advancedConfiguration, initScripts, secret names, and extraDeploy are template-powered extension surfaces; promoted variants keep raw slots empty."
   painPoints:
     -
       id: "source-lock"

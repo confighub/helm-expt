@@ -203,7 +203,7 @@ runProofCli({
       rule: "helm-hook-lifecycle-policy",
       severity: "medium",
       object: "source|helm-hooks",
-      message: "Chart source contains Helm hooks; rendered proof excludes hooks and production needs lifecycle policy",
+      message: "Supported bases render no hook objects; future hook-producing values need explicit lifecycle policy before production",
     });
     findings.push({
       id: "extension-slot-review:configuration-advanced-extra",

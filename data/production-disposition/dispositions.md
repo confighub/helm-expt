@@ -6,16 +6,16 @@ exactly what must be closed before production support can be claimed.
 The lifecycle columns separate retained source-hook evidence from recipe-level
 lifecycle policy and related CRD/webhook/controller observations.
 
-Accepted disposition receipts recorded: 19
+Accepted disposition receipts recorded: 22
 
 | Chart | Local-test variants | Production state | Accepted | Open | Source hooks | Lifecycle basis | Live/e2e receipts |
 | --- | --- | --- | ---: | ---: | ---: | --- | --- |
 | `argo-cd/argo-cd@9.5.15` | default, no-crds | production-blocked | 0 | 6 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/mongodb@19.0.7` | generated-passwords, existing-secret-replicaset | production-blocked | 0 | 5 | 0 | recipe-hook-policy:no-hooks | 1 |
-| `bitnami/mysql@14.0.3` | generated-passwords, existing-secret | production-blocked | 2 | 3 | 0 | recipe-hook-policy:no-hooks | 1 |
+| `bitnami/mysql@14.0.3` | generated-passwords, existing-secret | production-blocked | 3 | 2 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | production-review-ready | 4 | 0 | 0 | none | 1 |
-| `bitnami/postgresql@18.6.7` | generated-passwords, existing-secret | production-blocked | 2 | 3 | 0 | recipe-hook-policy:no-hooks | 1 |
-| `bitnami/rabbitmq@16.0.14` | generated-passwords, existing-secret | production-blocked | 2 | 3 | 0 | recipe-hook-policy:no-hooks | 1 |
+| `bitnami/postgresql@18.6.7` | generated-passwords, existing-secret | production-blocked | 3 | 2 | 0 | recipe-hook-policy:no-hooks | 1 |
+| `bitnami/rabbitmq@16.0.14` | generated-passwords, existing-secret | production-blocked | 3 | 2 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/redis@25.5.3` | default, reuse-existing-secret | production-review-ready | 4 | 0 | 0 | recipe-hook-policy:no-hooks | 2 |
 | `external-secrets/external-secrets@2.5.0` | default, no-crds | production-blocked | 0 | 5 | 0 | lifecycle-observations:2/2 | 1 |
 | `grafana/grafana@10.5.15` | generated-passwords, existing-secret-ingress | production-blocked | 0 | 5 | 0 | none | 1 |
@@ -42,9 +42,9 @@ The same queue is available as `next-actions.csv`.
 | `metrics-server/metrics-server@3.13.0` | 5 | 0 |  | - | default: warn, 1 finding(s) (unset-memory-requirements:1); external-tls-ca: warn, 1 finding(s) (unset-memory-requirements:1) |
 | `bitnami/nginx@24.0.2` | 4 | 0 |  | - | existing-tls-ingress: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); http-clusterip: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
 | `bitnami/redis@25.5.3` | 4 | 0 |  | - | default: warn, 2 finding(s) (pdb-unhealthy-pod-eviction-policy:2); reuse-existing-secret: warn, 2 finding(s) (pdb-unhealthy-pod-eviction-policy:2) |
-| `bitnami/mysql@14.0.3` | 2 | 3 | hook and lifecycle phase policy; scan/gate warning disposition; storage backup restore and rollback policy | data/production-disposition/receipts/bitnami-mysql/hook-and-lifecycle-phase-policy.yaml | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
-| `bitnami/postgresql@18.6.7` | 2 | 3 | hook and lifecycle phase policy; scan/gate warning disposition; storage backup restore and rollback policy | data/production-disposition/receipts/bitnami-postgresql/hook-and-lifecycle-phase-policy.yaml | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
-| `bitnami/rabbitmq@16.0.14` | 2 | 3 | hook and lifecycle phase policy; scan/gate warning disposition; storage backup restore and rollback policy | data/production-disposition/receipts/bitnami-rabbitmq/hook-and-lifecycle-phase-policy.yaml | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
+| `bitnami/mysql@14.0.3` | 3 | 2 | scan/gate warning disposition; storage backup restore and rollback policy | data/production-disposition/receipts/bitnami-mysql/scan-gate-warning-disposition.yaml | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
+| `bitnami/postgresql@18.6.7` | 3 | 2 | scan/gate warning disposition; storage backup restore and rollback policy | data/production-disposition/receipts/bitnami-postgresql/scan-gate-warning-disposition.yaml | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
+| `bitnami/rabbitmq@16.0.14` | 3 | 2 | scan/gate warning disposition; storage backup restore and rollback policy | data/production-disposition/receipts/bitnami-rabbitmq/scan-gate-warning-disposition.yaml | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
 | `prometheus-community/prometheus@29.8.0` | 0 | 3 | cluster RBAC review; extension slot provenance and scan policy; scan/gate warning disposition | data/production-disposition/receipts/prometheus-community-prometheus/cluster-rbac-review.yaml | default: warn, 21 finding(s) (unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:4;sensitive-host-mounts:3;host-network:1); server-only-ephemeral: warn, 6 finding(s) (no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2) |
 
 ## Standard Disposition Types

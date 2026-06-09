@@ -13,18 +13,20 @@ const mode = process.argv[2] ?? "--generate";
 
 const supportedCatalogEntries = {
   "bitnami/redis": {
+    productionReadiness: "production-review-ready",
     notes: [
       "First deliberately supported catalog entry.",
-      "Supported scope is local-test until scan findings have production dispositions.",
+      "Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state.",
       "Both variants are Helm-equivalent through cub installer setup.",
     ],
   },
   "bitnami/nginx": {
+    productionReadiness: "production-review-ready",
     notes: [
       "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.",
       "http-clusterip is the simplest low-friction happy path.",
       "existing-tls-ingress is supported when the declared TLS Secret target facts are satisfied.",
-      "Production remains blocked until ingress exposure, NetworkPolicy, PDB, and scan/gate findings have dispositions.",
+      "Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state.",
     ],
   },
   "bitnami/postgresql": {
@@ -116,11 +118,13 @@ const supportedCatalogEntries = {
     ],
   },
   "metrics-server/metrics-server": {
+    productionReadiness: "production-review-ready",
     notes: [
       "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.",
       "default is the expected quick path for a standard metrics-server install.",
       "external-tls-ca is supported when the declared metrics-server-tls target fact is satisfied.",
-      "Production remains blocked until APIService readiness, cluster RBAC, and scan/gate findings have dispositions.",
+      "Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state.",
+      "external-tls-ca remains target-sensitive: the Secret and APIService certificate chain must be validated for the target cluster.",
     ],
   },
   "longhorn/longhorn": {
@@ -204,7 +208,9 @@ function buildStatus(root) {
   const status = statusFor(chart, proofTier, variantNames.length);
   const name = `${chart.replaceAll("/", "-")}-${version}`;
   const productionReadiness =
-    status === "catalog-supported" ? "blocked-by-current-scan-gate" : "not-reviewed-for-production";
+    status === "catalog-supported"
+      ? (supportedCatalogEntries[chart]?.productionReadiness ?? "blocked-by-current-scan-gate")
+      : "not-reviewed-for-production";
   const supportLevel =
     status === "catalog-supported"
       ? "supported-for-declared-scopes"
