@@ -6,18 +6,18 @@ exactly what must be closed before production support can be claimed.
 The lifecycle columns separate retained source-hook evidence from recipe-level
 lifecycle policy and related CRD/webhook/controller observations.
 
-Accepted disposition receipts recorded: 100
+Accepted disposition receipts recorded: 103
 
 | Chart | Local-test variants | Production state | Accepted | Open | Source hooks | Lifecycle basis | Live/e2e receipts |
 | --- | --- | --- | ---: | ---: | ---: | --- | --- |
-| `argo-cd/argo-cd@9.5.15` | default, no-crds | production-blocked | 6 | 1 | 0 | recipe-hook-policy:no-hooks | 1 |
+| `argo-cd/argo-cd@9.5.15` | default, no-crds | production-review-ready | 7 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/mongodb@19.0.7` | generated-passwords, existing-secret-replicaset | production-review-ready | 6 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/mysql@14.0.3` | generated-passwords, existing-secret | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | production-review-ready | 4 | 0 | 0 | none | 1 |
 | `bitnami/postgresql@18.6.7` | generated-passwords, existing-secret | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords, existing-secret | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/redis@25.5.3` | default, reuse-existing-secret | production-review-ready | 4 | 0 | 0 | recipe-hook-policy:no-hooks | 2 |
-| `external-secrets/external-secrets@2.5.0` | default, no-crds | production-blocked | 5 | 1 | 0 | lifecycle-observations:2/2 | 1 |
+| `external-secrets/external-secrets@2.5.0` | default, no-crds | production-review-ready | 6 | 0 | 0 | lifecycle-observations:2/2 | 1 |
 | `grafana/grafana@10.5.15` | generated-passwords, existing-secret-ingress | production-review-ready | 5 | 0 | 0 | none | 1 |
 | `grafana/loki@7.0.0` | single-binary-filesystem, simple-scalable-minio | production-review-ready | 5 | 0 | 0 | recipe-lifecycle-policy | 1 |
 | `grafana/tempo@1.24.4` | local-persistent, s3-query-observability | production-review-ready | 4 | 0 | 0 | none | 1 |
@@ -27,7 +27,7 @@ Accepted disposition receipts recorded: 100
 | `jetstack/cert-manager@v1.20.2` | default, crds-enabled | production-review-ready | 6 | 0 | 0 | recipe-hook-policy:no-hooks; lifecycle-observations:2/2 | 1 |
 | `longhorn/longhorn@1.11.2` | default, ui-ingress | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `metrics-server/metrics-server@3.13.0` | default, external-tls-ca | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | default, no-crds | production-blocked | 6 | 1 | 2 | source-hooks:2 | 1 |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | default, no-crds | production-review-ready | 7 | 0 | 2 | source-hooks:2 | 1 |
 | `prometheus-community/prometheus@29.8.0` | default, server-only-ephemeral | production-review-ready | 3 | 0 | 0 | none | 1 |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default, sync-secret-rotation | production-review-ready | 4 | 0 | 0 | none | 1 |
 
@@ -40,7 +40,10 @@ The same queue is available as `next-actions.csv`.
 | Chart | Accepted | Open | Open dispositions | Next receipt | External scan reading |
 | --- | ---: | ---: | --- | --- | --- |
 | `hashicorp/consul@2.0.0` | 8 | 0 |  | - | default-control-plane: warn, 5 finding(s) (liveness-port:1;readiness-port:1;startup-port:1;unset-cpu-requirements:1;unset-memory-requirements:1); secure-mesh-existing-secrets: warn, 6 finding(s) (job-ttl-seconds-after-finished:1;liveness-port:1;readiness-port:1;startup-port:1;unset-cpu-requirements:1) |
+| `argo-cd/argo-cd@9.5.15` | 7 | 0 |  | - | default: warn, 18 finding(s) (unset-cpu-requirements:9;unset-memory-requirements:9); no-crds: warn, 18 finding(s) (unset-cpu-requirements:9;unset-memory-requirements:9) |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | 7 | 0 |  | - | default: warn, 27 finding(s) (dangling-service:7;unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:3;sensitive-host-mounts:3); no-crds: warn, 27 finding(s) (dangling-service:7;unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:3;sensitive-host-mounts:3) |
 | `bitnami/mongodb@19.0.7` | 6 | 0 |  | - | existing-secret-replicaset: warn, 2 finding(s) (pdb-unhealthy-pod-eviction-policy:2); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
+| `external-secrets/external-secrets@2.5.0` | 6 | 0 |  | - | default: warn, 6 finding(s) (unset-cpu-requirements:3;unset-memory-requirements:3); no-crds: warn, 6 finding(s) (unset-cpu-requirements:3;unset-memory-requirements:3) |
 | `jetstack/cert-manager@v1.20.2` | 6 | 0 |  | - | crds-enabled: warn, 6 finding(s) (unset-cpu-requirements:3;unset-memory-requirements:3); default: warn, 6 finding(s) (unset-cpu-requirements:3;unset-memory-requirements:3) |
 | `bitnami/mysql@14.0.3` | 5 | 0 |  | - | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
 | `bitnami/postgresql@18.6.7` | 5 | 0 |  | - | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
@@ -56,9 +59,6 @@ The same queue is available as `next-actions.csv`.
 | `ingress-nginx/ingress-nginx@4.15.1` | 4 | 0 |  | - | admission-disabled: warn, 4 finding(s) (liveness-port:1;no-read-only-root-fs:1;readiness-port:1;unset-memory-requirements:1); default: warn, 4 finding(s) (liveness-port:1;no-read-only-root-fs:1;readiness-port:1;unset-memory-requirements:1) |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | 4 | 0 |  | - | default: warn, 8 finding(s) (no-read-only-root-fs:3;run-as-non-root:3;privilege-escalation-container:1;privileged-container:1); sync-secret-rotation: warn, 8 finding(s) (no-read-only-root-fs:3;run-as-non-root:3;privilege-escalation-container:1;privileged-container:1) |
 | `prometheus-community/prometheus@29.8.0` | 3 | 0 |  | - | default: warn, 21 finding(s) (unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:4;sensitive-host-mounts:3;host-network:1); server-only-ephemeral: warn, 6 finding(s) (no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2) |
-| `argo-cd/argo-cd@9.5.15` | 6 | 1 | target fact preflight | data/production-disposition/receipts/argo-cd-argo-cd/target-fact-preflight.yaml | default: warn, 18 finding(s) (unset-cpu-requirements:9;unset-memory-requirements:9); no-crds: warn, 18 finding(s) (unset-cpu-requirements:9;unset-memory-requirements:9) |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | 6 | 1 | target fact preflight | data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/target-fact-preflight.yaml | default: warn, 27 finding(s) (dangling-service:7;unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:3;sensitive-host-mounts:3); no-crds: warn, 27 finding(s) (dangling-service:7;unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:3;sensitive-host-mounts:3) |
-| `external-secrets/external-secrets@2.5.0` | 5 | 1 | target fact preflight | data/production-disposition/receipts/external-secrets-external-secrets/target-fact-preflight.yaml | default: warn, 6 finding(s) (unset-cpu-requirements:3;unset-memory-requirements:3); no-crds: warn, 6 finding(s) (unset-cpu-requirements:3;unset-memory-requirements:3) |
 
 ## Production Decision Queue
 
@@ -69,14 +69,14 @@ runtime fit, and final support scope.
 
 | Chart | First base | Base readiness | Decision focus | Image subjects needing resolution | Next action |
 | --- | --- | --- | --- | ---: | --- |
-| `argo-cd/argo-cd@9.5.15` | default | start-here | missing-disposition | 2 | write or fix the receipt for target fact preflight |
+| `argo-cd/argo-cd@9.5.15` | default | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
 | `bitnami/mongodb@19.0.7` | generated-passwords | start-here | lifecycle-support-scope | 0 | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
 | `bitnami/mysql@14.0.3` | generated-passwords | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
 | `bitnami/nginx@24.0.2` | http-clusterip | start-here | final-target-support-decision | 0 | choose the supported production base and target scope, refresh live/e2e evidence, and record the final support decision |
 | `bitnami/postgresql@18.6.7` | generated-passwords | try-with-proof | lifecycle-support-scope | 0 | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
 | `bitnami/redis@25.5.3` | default | start-here | lifecycle-support-scope | 0 | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
-| `external-secrets/external-secrets@2.5.0` | default | start-here | missing-disposition | 2 | write or fix the receipt for target fact preflight |
+| `external-secrets/external-secrets@2.5.0` | default | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
 | `grafana/grafana@10.5.15` | generated-passwords | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
 | `grafana/loki@7.0.0` | single-binary-filesystem | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
 | `grafana/tempo@1.24.4` | local-persistent | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
@@ -86,7 +86,7 @@ runtime fit, and final support scope.
 | `jetstack/cert-manager@v1.20.2` | default | lifecycle-observed | lifecycle-support-scope | 2 | choose whether default is in production scope; record the target-scoped lifecycle support decision before claiming production support |
 | `longhorn/longhorn@1.11.2` | default | start-here | security-acceptance-or-hardened-base | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
 | `metrics-server/metrics-server@3.13.0` | default | try-with-proof | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | default | start-here | missing-disposition | 2 | write or fix the receipt for target fact preflight |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | default | start-here | security-acceptance-or-hardened-base | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
 | `prometheus-community/prometheus@29.8.0` | default | try-with-proof | security-acceptance-or-hardened-base | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | start-here | security-acceptance-or-hardened-base | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
 

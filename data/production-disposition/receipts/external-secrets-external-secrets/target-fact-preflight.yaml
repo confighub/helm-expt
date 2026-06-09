@@ -1,0 +1,51 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: external-secrets-external-secrets-target-fact-preflight
+spec:
+  chart: external-secrets/external-secrets
+  version: "2.5.0"
+  disposition: target fact preflight
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    The default base renders the External Secrets CRDs. The no-crds base omits
+    those CRDs and records them as target facts. The installer package exposes
+    those CRDs as externalRequires, the collector can live-check them, and the
+    live parity and lifecycle receipts show both bases reaching ready workloads
+    when the required target CRDs and webhook lifecycle are handled explicitly.
+  evidence:
+    - path: recipes/external-secrets/external-secrets/2.5.0/variants/default/variant.yaml
+      claim: The default variant has no target-fact prerequisites because it renders the chart CRDs.
+    - path: recipes/external-secrets/external-secrets/2.5.0/variants/no-crds/variant.yaml
+      claim: The no-crds variant declares the External Secrets CRDs as required target facts.
+    - path: packages/external-secrets/external-secrets/2.5.0/installer.yaml
+      claim: The installer package records externalRequires entries for every no-crds CRD prerequisite.
+    - path: packages/external-secrets/external-secrets/2.5.0/collector/target-facts.sh
+      claim: The package collector records the no-crds target facts and can live-check the required CRDs when TARGET_FACT_CHECK_MODE=live.
+    - path: runs/live-kind-parity/external-secrets-external-secrets-default/receipt.yaml
+      claim: Two-cluster parity passes for the default base with rendered CRDs.
+    - path: runs/live-kind-parity/external-secrets-external-secrets-no-crds/receipt.yaml
+      claim: Two-cluster parity stages the required CRDs for the no-crds base and passes semantic parity.
+    - path: runs/live-helm-confighub-compare/external-secrets-external-secrets-default/receipt.yaml
+      claim: The selected live Helm-vs-ConfigHub comparison passes for regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo delivery.
+    - path: runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-default/receipt.yaml
+      claim: Lifecycle observation proves rendered CRDs are established and the controller-owned webhook Secret and caBundle are populated after apply.
+    - path: runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-no-crds/receipt.yaml
+      claim: Lifecycle observation proves externally staged CRDs plus config-only objects reach the same webhook readiness model.
+  affectedVariants:
+    - default
+    - no-crds
+  acceptedPolicy:
+    defaultBase: The default base owns the CRD render path for simple installs.
+    crdPreflight: The no-crds base requires all External Secrets CRDs to exist and be established before apply.
+    controllerOwnedFields: Webhook Secret data and webhook caBundle are produced after apply and must be observed fresh.
+  variantCaveats:
+    - "default is the simpler production-review input because it renders the CRDs."
+    - "no-crds is appropriate only when the target cluster manages External Secrets CRDs separately."
+    - "ExternalSecret and SecretStore objects are user workloads outside this base chart and need their own target/provider checks."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose the CRD ownership model and record webhook freshness checks for the target.

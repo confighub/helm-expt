@@ -48,8 +48,8 @@ Which detailed CSV should I open next?
 | live evidence | ConfigHub/OCI semantic parity defect receipts | 0/20 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 0/40 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-supported charts | 0/20 | gap | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
-| production disposition | top20 production-review-ready charts | 17/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
-| production disposition | top20 production-blocked charts | 3/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| production disposition | top20 production-review-ready charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| production disposition | top20 production-blocked charts | 0/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | charts with accepted production dispositions | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | scan disposition | high-priority scan rows | 4/20 | partial | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
 | scan disposition | remaining mutable-image rows | 0/20 | good | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
@@ -233,15 +233,15 @@ production-supported until a final target-scoped support decision is recorded.
 | Metric | Value |
 | --- | ---: |
 | production-supported charts | 0/20 |
-| production-review-ready pending final support decision | 17/20 |
-| production-blocked pending disposition | 3/20 |
+| production-review-ready pending final support decision | 20/20 |
+| production-blocked pending disposition | 0/20 |
 | charts with accepted dispositions | 20/20 |
 | high-priority scan rows | 4/20 |
 | mutable-image rows still needing fixes | 0/20 |
 
 | Open disposition | Charts |
 | --- | ---: |
-| target fact preflight | 3 |
+| none | 0 |
 
 | Scan route | Charts |
 | --- | ---: |
@@ -252,14 +252,14 @@ production-supported until a final target-scoped support decision is recorded.
 
 | Chart | Production | Accepted | Open | Next action |
 | --- | --- | ---: | ---: | --- |
-| argo-cd/argo-cd@9.5.15 | blocked | 6 | 1 | write or fix the receipt for target fact preflight |
+| argo-cd/argo-cd@9.5.15 | production-review-ready | 7 | 0 | record final target-scoped support decision and refresh live/e2e evidence for that scope |
 | bitnami/mongodb@19.0.7 | production-review-ready | 6 | 0 | record final target-scoped support decision and refresh live/e2e evidence for that scope |
 | bitnami/mysql@14.0.3 | production-review-ready | 5 | 0 | record final target-scoped support decision and refresh live/e2e evidence for that scope |
 | bitnami/nginx@24.0.2 | production-review-ready | 4 | 0 | record final target-scoped support decision and refresh live/e2e evidence for that scope |
 | bitnami/postgresql@18.6.7 | production-review-ready | 5 | 0 | record final target-scoped support decision and refresh live/e2e evidence for that scope |
 | bitnami/rabbitmq@16.0.14 | production-review-ready | 5 | 0 | record final target-scoped support decision and refresh live/e2e evidence for that scope |
 | bitnami/redis@25.5.3 | production-review-ready | 4 | 0 | record final target-scoped support decision and refresh live/e2e evidence for that scope |
-| external-secrets/external-secrets@2.5.0 | blocked | 5 | 1 | write or fix the receipt for target fact preflight |
+| external-secrets/external-secrets@2.5.0 | production-review-ready | 6 | 0 | record final target-scoped support decision and refresh live/e2e evidence for that scope |
 | grafana/grafana@10.5.15 | production-review-ready | 5 | 0 | record final target-scoped support decision and refresh live/e2e evidence for that scope |
 | grafana/loki@7.0.0 | production-review-ready | 5 | 0 | record final target-scoped support decision and refresh live/e2e evidence for that scope |
 

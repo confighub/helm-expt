@@ -9,7 +9,7 @@ spec:
     -
       chart: "argo-cd/argo-cd"
       version: "9.5.15"
-      status: "production-blocked"
+      status: "production-review-ready"
       supportedLocalTestVariants:
         - "default"
         - "no-crds"
@@ -46,6 +46,7 @@ spec:
           - "data/production-disposition/receipts/argo-cd-argo-cd/hook-and-lifecycle-phase-policy.yaml"
           - "data/production-disposition/receipts/argo-cd-argo-cd/scan-gate-warning-disposition.yaml"
           - "data/production-disposition/receipts/argo-cd-argo-cd/storage-backup-restore-and-rollback-policy.yaml"
+          - "data/production-disposition/receipts/argo-cd-argo-cd/target-fact-preflight.yaml"
       dispositions:
         -
           name: "CRD lifecycle and upgrade policy"
@@ -109,7 +110,8 @@ spec:
           unblockRule: "supported only when stateful rollback is not hand-waved"
         -
           name: "target fact preflight"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/argo-cd-argo-cd/target-fact-preflight.yaml"
           owner: "installer-review"
           requiredEvidence:
             - "installer externalRequires/facts"
@@ -684,7 +686,7 @@ spec:
     -
       chart: "external-secrets/external-secrets"
       version: "2.5.0"
-      status: "production-blocked"
+      status: "production-review-ready"
       supportedLocalTestVariants:
         - "default"
         - "no-crds"
@@ -720,6 +722,7 @@ spec:
           - "data/production-disposition/receipts/external-secrets-external-secrets/cluster-rbac-review.yaml"
           - "data/production-disposition/receipts/external-secrets-external-secrets/extension-slot-provenance-and-scan-policy.yaml"
           - "data/production-disposition/receipts/external-secrets-external-secrets/scan-gate-warning-disposition.yaml"
+          - "data/production-disposition/receipts/external-secrets-external-secrets/target-fact-preflight.yaml"
           - "data/production-disposition/receipts/external-secrets-external-secrets/webhook-readiness-and-failure-policy.yaml"
       dispositions:
         -
@@ -764,7 +767,8 @@ spec:
           unblockRule: "supported only when warnings are accepted, fixed, or variant-blocking"
         -
           name: "target fact preflight"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/external-secrets-external-secrets/target-fact-preflight.yaml"
           owner: "installer-review"
           requiredEvidence:
             - "installer externalRequires/facts"
@@ -1668,7 +1672,7 @@ spec:
     -
       chart: "prometheus-community/kube-prometheus-stack"
       version: "85.3.3"
-      status: "production-blocked"
+      status: "production-review-ready"
       supportedLocalTestVariants:
         - "default"
         - "no-crds"
@@ -1704,6 +1708,7 @@ spec:
           - "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/extension-slot-provenance-and-scan-policy.yaml"
           - "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/generated-fact-ownership.yaml"
           - "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/scan-gate-warning-disposition.yaml"
+          - "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/target-fact-preflight.yaml"
           - "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml"
       dispositions:
         -
@@ -1758,7 +1763,8 @@ spec:
           unblockRule: "supported only when warnings are accepted, fixed, or variant-blocking"
         -
           name: "target fact preflight"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/target-fact-preflight.yaml"
           owner: "installer-review"
           requiredEvidence:
             - "installer externalRequires/facts"
