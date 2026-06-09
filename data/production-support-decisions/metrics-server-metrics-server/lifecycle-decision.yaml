@@ -1,0 +1,79 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionLifecycleDecision"
+metadata:
+  name: "metrics-server-metrics-server-public-oci-lifecycle-decision"
+spec:
+  chart: "metrics-server/metrics-server"
+  version: "3.13.0"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "kube-system"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "default"
+  variantsCovered:
+    - "external-tls-ca"
+    - "default"
+  decision: "lifecycle-observed-for-proof-scope"
+  decidedAt: "2026-06-09"
+  claim: "The Metrics Server default base has no Helm hook objects and reaches readiness through regular Helm, cub installer apply, and ConfigHub OCI/Argo. APIService availability and the Kubernetes metrics API are observed after apply rather than inferred from render output."
+  lifecycleModel:
+    hookPolicy: "no-chart-hooks"
+    selectedTopology: "default-runtime-certificate-apiservice"
+    generatedFacts: "The default base avoids Helm-generated cert helpers; serving certificate behavior is runtime/APIService-observed."
+    apiServicePolicy: "APIService v1beta1.metrics.k8s.io must be observed Available after apply. The runtime/GitOps receipt records APIService Available=True and kubectl top nodes returning metrics."
+    excludedTopology: "external-tls-ca is a useful target-fact path but remains outside this production-support claim until the target certificate chain is validated for the target cluster."
+  observedLifecycleSignals:
+    twoClusterParity:
+      result: "pass"
+      observedAt: "2026-06-06T08:10:29Z"
+      regularHelmRuntime: "pass"
+      installerRuntime: "pass"
+      semanticParity: "pass"
+    confighubOciArgo:
+      result: "pass"
+      observedAt: "2026-06-05T15:44:11Z"
+      regularHelmRuntime: "pass"
+      confighubApplyRuntime: "pass"
+      confighubOciRuntime: "pass"
+      argoSync: "Synced"
+      argoHealth: "Healthy"
+      semanticParity: "pass"
+      separatedSecrets:
+        []
+    runtimeGitOps:
+      result: "pass"
+      observedAt: "2026-06-05T09:42:20Z"
+      argoSync: "Synced"
+      argoHealth: "Healthy"
+      apiServiceAvailable: true
+      metricsApiCheck: "pass"
+  limits:
+    - "This supports the default public proof base, not every Metrics Server deployment topology."
+    - "This proof does not support the external-tls-ca base until target certificate-chain runtime evidence is green."
+    - "Cluster RBAC, API aggregation policy, and resource sizing are target operating procedures outside this public proof."
+    - "If tls.type=helm or external TLS inputs are enabled, that path needs a separate reviewed base and fresh runtime observation."
+  evidence:
+    -
+      path: "runs/live-kind-parity/metrics-server-metrics-server-default/receipt.yaml"
+      claim: "Two-cluster Helm-vs-installer parity passes for default."
+    -
+      path: "runs/live-helm-confighub-compare/metrics-server-metrics-server-default/receipt.yaml"
+      claim: "ConfigHub OCI/Argo live parity passes for default."
+    -
+      path: "data/runtime-gitops/receipts/metrics-server-metrics-server/default/latest.yaml"
+      claim: "Runtime/GitOps receipt records APIService Available=True and kubectl top nodes working."
+    -
+      path: "data/production-disposition/receipts/metrics-server-metrics-server/cluster-rbac-review.yaml"
+      claim: "Records the cluster RBAC review boundary for Metrics Server."
+    -
+      path: "data/production-disposition/receipts/metrics-server-metrics-server/hook-lifecycle-phase-policy.yaml"
+      claim: "Records the no-hooks lifecycle boundary for Metrics Server."
+    -
+      path: "data/production-disposition/receipts/metrics-server-metrics-server/scan-gate-warning-disposition.yaml"
+      claim: "Records resource warning acceptance and APIService observation requirements."
+    -
+      path: "data/production-disposition/receipts/metrics-server-metrics-server/target-fact-preflight.yaml"
+      claim: "Records the external-tls-ca target-fact path that remains outside this support claim."
+  remainingSupportBlockers:
+    - "Record image policy, resource-warning acceptance, and fresh target-scoped ConfigHub OCI/GitOps evidence."

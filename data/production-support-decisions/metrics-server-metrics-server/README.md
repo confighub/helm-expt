@@ -11,43 +11,41 @@ support decision. It does not replace the source decision artifact:
 | --- | --- |
 | Chart | `metrics-server/metrics-server@3.13.0` |
 | Candidate base | `default` |
-| Decision state | `draft` |
-| Target scope | vanilla-kubernetes; namespace=metrics-server; delivery=confighub-oci; controller=argo-or-flux |
+| Decision state | `supported` |
+| Target scope | cub-lk-kind-vanilla; namespace=kube-system; delivery=confighub-oci; controller=argo |
 | Delivery path | `confighub-oci` |
 
 ## Open Work
 
 | Work | Action |
 | --- | --- |
-| Image digest | Pin rendered image references by digest or record an explicit mutable-image exception. |
-| Scan scope | Record which scanner findings are accepted, fixed, or outside this target scope. |
-| Missing proof lane | Complete the missing ConfigHub, GitOps, or live lane before final support. |
+| Keep fresh | Keep target-scoped evidence fresh before using this supported scope as an example. |
 
 
 ## Closeout Sequence
 
-1. Choose the final target scope, GitOps controller, namespace, and artifact digest.
-2. Pin rendered image references by digest or record an explicit mutable-image exception.
-3. Decide which scanner findings are accepted, fixed, hardened, or outside this target scope.
-4. Complete the missing ConfigHub, GitOps, or live lane for the selected support boundary.
+1. Keep the target-scoped evidence fresh for the declared support boundary.
 
 ## Required Before Final Support
 
-- Choose the final target scope, exact GitOps controller, namespace, and artifact digest.
-- Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope.
-- resolve image digests or record explicit exception before production OCI support
+- None.
+
 
 ## Support Boundary
 
 Included:
 
 - metrics-server/metrics-server@3.13.0 default base
-- ConfigHub OCI delivery for the declared target scope after fresh target evidence is recorded
-- rendered objects, labels, gates, receipts, and support objects produced by the recorded base
+- ConfigHub OCI delivery through Argo for the declared cub-lk vanilla kind target scope
+- rendered Metrics Server Deployment, Service, APIService, cluster RBAC, labels, gates, receipts, and support objects produced by the recorded base
+- mutable-image exception backed by registry digest-resolution evidence for the rendered image references
+- recorded resource-warning acceptance, cluster RBAC review, no-hooks lifecycle policy, APIService availability, and metrics API observation for the declared public proof scope
 
 Excluded:
 
+- external-tls-ca unless separately reviewed with target certificate-chain evidence
 - private values overlays, wrapper charts, and populated extension slots unless separately reviewed
+- resource-hardened, RBAC-hardened, API aggregation hardened, custom TLS, or customer production bases unless separately reviewed
 - non-vanilla Kubernetes distributions unless separately reviewed
 - other delivery controllers or target scopes unless separately reviewed
 
@@ -57,16 +55,21 @@ Excluded:
 - [recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/receipts/scan-receipt.yaml](../../../recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/receipts/scan-receipt.yaml) - The rendered-object scan receipt exists for the candidate base.
 - [runs/live-kind-parity/metrics-server-metrics-server-default/receipt.yaml](../../../runs/live-kind-parity/metrics-server-metrics-server-default/receipt.yaml) - The two-cluster Helm-vs-installer parity receipt exists for the candidate base.
 - [runs/live-helm-confighub-compare/metrics-server-metrics-server-default/receipt.yaml](../../../runs/live-helm-confighub-compare/metrics-server-metrics-server-default/receipt.yaml) - The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base.
-- [data/runtime-gitops/receipts/metrics-server-metrics-server/default/latest.yaml](../../../data/runtime-gitops/receipts/metrics-server-metrics-server/default/latest.yaml) - The runtime/GitOps receipt exists for the candidate base and should be refreshed for the declared target before final support.
-- [data/production-disposition/receipts/metrics-server-metrics-server/cluster-rbac-review.yaml](../../../data/production-disposition/receipts/metrics-server-metrics-server/cluster-rbac-review.yaml) - The cluster rbac review disposition exists for this chart.
-- [data/production-disposition/receipts/metrics-server-metrics-server/generated-fact-ownership.yaml](../../../data/production-disposition/receipts/metrics-server-metrics-server/generated-fact-ownership.yaml) - The generated fact ownership disposition exists for this chart.
-- [data/production-disposition/receipts/metrics-server-metrics-server/hook-lifecycle-phase-policy.yaml](../../../data/production-disposition/receipts/metrics-server-metrics-server/hook-lifecycle-phase-policy.yaml) - The hook lifecycle phase policy disposition exists for this chart.
-- [data/production-disposition/receipts/metrics-server-metrics-server/scan-gate-warning-disposition.yaml](../../../data/production-disposition/receipts/metrics-server-metrics-server/scan-gate-warning-disposition.yaml) - The scan gate warning disposition disposition exists for this chart.
-- [data/production-disposition/receipts/metrics-server-metrics-server/target-fact-preflight.yaml](../../../data/production-disposition/receipts/metrics-server-metrics-server/target-fact-preflight.yaml) - The target fact preflight disposition exists for this chart.
+- [data/runtime-gitops/receipts/metrics-server-metrics-server/default/latest.yaml](../../../data/runtime-gitops/receipts/metrics-server-metrics-server/default/latest.yaml) - The runtime/GitOps receipt records APIService Available=True and kubectl top nodes returning metrics for the default base.
+- [data/production-support-decisions/metrics-server-metrics-server/fresh-target-evidence-2026-06-05.yaml](../../../data/production-support-decisions/metrics-server-metrics-server/fresh-target-evidence-2026-06-05.yaml) - Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared cub-lk vanilla kind support scope.
+- [data/image-digest-workdown/receipts/metrics-server-metrics-server/default/image-digest-resolution.yaml](../../../data/image-digest-workdown/receipts/metrics-server-metrics-server/default/image-digest-resolution.yaml) - Registry digest resolution exists for the rendered default Metrics Server image reference.
+- [data/production-support-decisions/metrics-server-metrics-server/image-policy-decision.yaml](../../../data/production-support-decisions/metrics-server-metrics-server/image-policy-decision.yaml) - The target-scoped image policy decision records the mutable-image exception and digest-resolution evidence.
+- [data/production-support-decisions/metrics-server-metrics-server/security-decision.yaml](../../../data/production-support-decisions/metrics-server-metrics-server/security-decision.yaml) - The target-scoped security decision accepts the default resource-warning shape only for this public proof scope.
+- [data/production-support-decisions/metrics-server-metrics-server/lifecycle-decision.yaml](../../../data/production-support-decisions/metrics-server-metrics-server/lifecycle-decision.yaml) - The target-scoped lifecycle decision binds no-hooks policy, cluster RBAC, APIService observation, metrics API proof, and OCI/Argo runtime health to proof-scope evidence.
+- [data/production-disposition/receipts/metrics-server-metrics-server/cluster-rbac-review.yaml](../../../data/production-disposition/receipts/metrics-server-metrics-server/cluster-rbac-review.yaml) - The cluster rbac review receipt exists for this chart.
+- [data/production-disposition/receipts/metrics-server-metrics-server/generated-fact-ownership.yaml](../../../data/production-disposition/receipts/metrics-server-metrics-server/generated-fact-ownership.yaml) - The generated fact ownership receipt exists for this chart.
+- [data/production-disposition/receipts/metrics-server-metrics-server/hook-lifecycle-phase-policy.yaml](../../../data/production-disposition/receipts/metrics-server-metrics-server/hook-lifecycle-phase-policy.yaml) - The hook lifecycle phase policy receipt exists for this chart.
+- [data/production-disposition/receipts/metrics-server-metrics-server/scan-gate-warning-disposition.yaml](../../../data/production-disposition/receipts/metrics-server-metrics-server/scan-gate-warning-disposition.yaml) - The scan gate warning disposition receipt exists for this chart.
+- [data/production-disposition/receipts/metrics-server-metrics-server/target-fact-preflight.yaml](../../../data/production-disposition/receipts/metrics-server-metrics-server/target-fact-preflight.yaml) - The target fact preflight receipt exists for this chart.
 
 ## Next Action
 
-resolve image digests for each affected variant before production OCI support
+Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate external-tls-ca, resource-hardened, RBAC-hardened, API aggregation hardened, digest-pinned, or customer production bases for real Metrics Server workloads.
 
 Regenerate:
 

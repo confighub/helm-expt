@@ -613,7 +613,8 @@ function evidenceFor(row) {
   const dispositionRoot = join(repoRoot, "data", "production-disposition", "receipts", chartSlug);
   if (existsSync(dispositionRoot)) {
     for (const name of readdirSync(dispositionRoot).filter((item) => item.endsWith(".yaml")).sort()) {
-      addIfExists(entries, `data/production-disposition/receipts/${chartSlug}/${name}`, `The ${name.replace(/\.yaml$/, "").replaceAll("-", " ")} disposition exists for this chart.`);
+      const label = name.replace(/\.yaml$/, "").replaceAll("-", " ");
+      addIfExists(entries, `data/production-disposition/receipts/${chartSlug}/${name}`, `The ${label} receipt exists for this chart.`);
     }
   }
   return entries;

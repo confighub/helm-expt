@@ -56,8 +56,8 @@ Which detailed CSV should I open next?
 | production disposition | top20 production-blocked charts | 0/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | charts with accepted production dispositions | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production support decisions | target-scoped decision artifacts | 20/20 | partial | [data/production-support-decisions/decisions.csv](../../data/production-support-decisions/decisions.csv) |
-| production support decisions | supported decision artifacts | 13/20 | gap | [data/production-support-decisions/decisions.csv](../../data/production-support-decisions/decisions.csv) |
-| production support decisions | draft decision artifacts | 7/20 | partial | [data/production-support-decisions/decisions.csv](../../data/production-support-decisions/decisions.csv) |
+| production support decisions | supported decision artifacts | 14/20 | gap | [data/production-support-decisions/decisions.csv](../../data/production-support-decisions/decisions.csv) |
+| production support decisions | draft decision artifacts | 6/20 | partial | [data/production-support-decisions/decisions.csv](../../data/production-support-decisions/decisions.csv) |
 | scan disposition | high-priority scan rows | 4/20 | partial | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
 | scan disposition | remaining mutable-image rows | 0/20 | good | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
 | scan disposition | privileged infrastructure review rows | 4/20 | partial | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
@@ -96,11 +96,11 @@ evidence work before it becomes production-supported for a target scope.
 
 | Workstream | Charts | Next action |
 | --- | ---: | --- |
-| Supported scope evidence | 13 | Keep target-scoped evidence fresh before using the supported scope as a production example. |
-| Image digest resolution or exception | 6 | Pin images by digest or record an explicit exception before production OCI support. |
-| Scan scope decision | 5 | Record which scanner findings are accepted, fixed, or outside the supported target scope. |
+| Supported scope evidence | 14 | Keep target-scoped evidence fresh before using the supported scope as a production example. |
+| Image digest resolution or exception | 5 | Pin images by digest or record an explicit exception before production OCI support. |
+| Scan scope decision | 4 | Record which scanner findings are accepted, fixed, or outside the supported target scope. |
 | Security acceptance or hardened base | 2 | Accept current security findings for the target scope or create a narrower hardened base. |
-| Runtime or missing-lane decision | 3 | Close the runtime, missing-lane, or lifecycle-observation decision before refreshing final evidence. |
+| Runtime or missing-lane decision | 2 | Close the runtime, missing-lane, or lifecycle-observation decision before refreshing final evidence. |
 | Fresh target-scoped evidence | 4 | After scope and risk decisions are closed, refresh ConfigHub OCI/GitOps and live/e2e evidence for that exact scope. |
 
 ### Live Parity Work
@@ -287,8 +287,8 @@ is recorded only in the target-scoped support decision artifacts.
 | production-blocked pending disposition | 0/20 |
 | charts with accepted dispositions | 20/20 |
 | target-scoped support decision artifacts | 20/20 |
-| supported decision artifacts | 13/20 |
-| draft decision artifacts | 7/20 |
+| supported decision artifacts | 14/20 |
+| draft decision artifacts | 6/20 |
 | high-priority scan rows | 4/20 |
 | mutable-image rows still needing fixes | 0/20 |
 

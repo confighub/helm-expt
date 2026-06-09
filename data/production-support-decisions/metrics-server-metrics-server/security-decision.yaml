@@ -1,0 +1,64 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSecurityDecision"
+metadata:
+  name: "metrics-server-metrics-server-public-oci-security-decision"
+spec:
+  chart: "metrics-server/metrics-server"
+  version: "3.13.0"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "kube-system"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "default"
+  variantsCovered:
+    - "external-tls-ca"
+    - "default"
+  decision: "resource-defaults-accepted-for-target-scope"
+  decidedAt: "2026-06-09"
+  claim: "The selected default support scope has one external scan warning: the Metrics Server Deployment has no memory requirement set. It is accepted for this public proof scope. Target production deployments should choose resource requests and limits through a hardened base or policy."
+  route: "add-resource-policy"
+  routeReason: "rendered workloads lack production resource requests or limits"
+  findingSummary:
+    scanner: "kube-linter"
+    result: "warn"
+    totalFindings: 2
+    topChecks:
+      unset-memory-requirements: 2
+    variants:
+      default:
+        findingCount: 1
+        topChecks:
+          unset-memory-requirements: 1
+        renderedObjectSetSHA256: "97514966a1917b1ae3b597ec3a32216d0a650db7cb56d472f4e722c69c869b51"
+      external-tls-ca:
+        findingCount: 1
+        topChecks:
+          unset-memory-requirements: 1
+        renderedObjectSetSHA256: "4b9df6b53cb5d8ed0b655b121696183d1c107ea88511e889bef1aae6708c8dad"
+  acceptedFindings:
+    -
+      group: "unset-memory-requirements"
+      disposition: "Accepted for the public proof scope. Customer production scopes should choose resource requests and limits for target capacity and SLO requirements."
+  limits:
+    - "This is not a blanket security approval for customer clusters, private overlays, regulated environments, or future chart versions."
+    - "This does not support the external-tls-ca base for production use."
+    - "Production resource sizing, API aggregation policy, and cluster RBAC constraints remain separate target decisions."
+  evidence:
+    -
+      path: "data/scan-disposition-workdown/workdown.csv"
+      claim: "Routes Metrics Server scan findings to add-resource-policy."
+    -
+      path: "data/external-scan-lane/review.csv"
+      claim: "Records kube-linter warning counts for Metrics Server rendered object sets."
+    -
+      path: "recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for external-tls-ca."
+    -
+      path: "recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for default."
+    -
+      path: "data/production-disposition/receipts/metrics-server-metrics-server/scan-gate-warning-disposition.yaml"
+      claim: "Earlier production disposition accepts Metrics Server scan warnings as production-review inputs."
+  remainingSupportBlockers:
+    - "Record image policy, APIService lifecycle boundary, and fresh target-scoped ConfigHub OCI/GitOps evidence."
