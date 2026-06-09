@@ -21,6 +21,7 @@ Public entry points:
 - [Static HTML try page](./site/try.html): generated try-now page for a public site.
 - [Catalog dashboard](./site/index.html): generated status, catalog, and proof data.
 - [Current proof status](./docs/user/current-proof-status.md): what is proven, watch, blocked, or still backlog.
+- [Chain of proof](./docs/user/chain-of-proof.md): which tool proves which boundary.
 
 Core flow:
 
@@ -256,6 +257,8 @@ The `20/20` claims above are chart-level catalog coverage. Per-base and
 per-lane status is stricter; use `data/status-dashboard/summary.md` and
 `data/outcome-coverage/base-outcomes.csv` before making a claim about a
 specific chart/base pair.
+Use [Chain Of Proof](./docs/user/chain-of-proof.md) to avoid mixing proof
+levels: render proof is not live proof, and live proof has a freshness boundary.
 For the current non-pass live rows, use
 `data/live-parity-rerun-plan/summary.md`; it separates semantic parity defects
 from target prerequisites, runtime watch rows, and lifecycle work.
