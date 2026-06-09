@@ -284,6 +284,7 @@ spec:
     status: ${yamlQuote(cubScout.status)}
     source: ${yamlQuote(cubScout.source)}
     supportsTtl: ${yamlScalar(cubScout.supportsTtl)}
+    supportsNoExtras: ${yamlScalar(cubScout.supportsNoExtras)}
     reason: ${yamlQuote(cubScout.reason)}
   observedAt: ${yamlQuote(observedAt)}
   freshnessTTL: 1h

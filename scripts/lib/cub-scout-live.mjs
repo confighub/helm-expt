@@ -2,7 +2,7 @@ import { execFileSync, spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { basename, dirname, join, resolve } from "node:path";
 
-import { readYaml, repoRoot, sha256File, writeYaml } from "./proof-common.mjs";
+import { parseDocs, readYaml, repoRoot, sha256File, toYaml, writeYaml } from "./proof-common.mjs";
 
 const REQUIRED_PREDICATES = ["object-set-matches", "workloads-converged", "prerequisites-met"];
 
@@ -39,6 +39,7 @@ export function runCubScoutLiveReceipts({
 
   const checks = [];
   const failures = [];
+  const cubScoutRenderedPath = prepareCubScoutDesiredManifest(runDir, renderedPath);
   const restore = context ? switchKubeContext(context) : () => {};
   try {
     const baseArgs = ["receipt", "verify", "--scope", `namespace/${namespace}`, "--format", "json"];
@@ -47,10 +48,21 @@ export function runCubScoutLiveReceipts({
       bin: resolved.bin,
       runDir,
       label: "object-set",
-      args: [...baseArgs, "--file", renderedPath, "--predicate", "object-set-matches", ...maybeTtl],
+      args: [...baseArgs, "--file", cubScoutRenderedPath, "--predicate", "object-set-matches", ...maybeTtl],
     });
     checks.push(checkForPredicate("cub-scout-object-set-matches", objectSet));
     collectFailure(objectSet, failures);
+
+    if (resolved.supportsNoExtras) {
+      const closedWorld = runPredicate({
+        bin: resolved.bin,
+        runDir,
+        label: "closed-world",
+        args: [...baseArgs, "--file", cubScoutRenderedPath, "--predicate", "object-set-matches", "--no-extras", ...maybeTtl],
+      });
+      checks.push(checkForPredicate("cub-scout-closed-world-object-set", closedWorld, { allowWatch: true }));
+      collectFailure(closedWorld, failures, { allowWatch: true });
+    }
 
     const workloads = runPredicate({
       bin: resolved.bin,
@@ -59,7 +71,7 @@ export function runCubScoutLiveReceipts({
       args: [
         ...baseArgs,
         "--file",
-        renderedPath,
+        cubScoutRenderedPath,
         "--predicate",
         "workloads-converged",
         "--grace-window",
@@ -98,7 +110,14 @@ export function runCubScoutLiveReceipts({
     throw new Error(`cub-scout live witness reported non-PASS verdict(s): ${failures.join(", ")}`);
   }
 
-  return { status: "observed", bin: resolved.bin, source: resolved.source, supportsTtl: resolved.supportsTtl, checks };
+  return {
+    status: "observed",
+    bin: resolved.bin,
+    source: resolved.source,
+    supportsTtl: resolved.supportsTtl,
+    supportsNoExtras: resolved.supportsNoExtras,
+    checks,
+  };
 }
 
 export function loadTargetFactsForRevision(revisionPath) {
@@ -130,6 +149,37 @@ export function targetFactsToPrerequisites(targetFacts = {}, namespace = "defaul
   };
 }
 
+function prepareCubScoutDesiredManifest(runDir, renderedPath) {
+  const desiredPath = join(runDir, "cub-scout.desired.yaml");
+  const docs = parseDocs(readFileSync(renderedPath, "utf8")).map((doc) => pruneApiDroppedNoops(doc));
+  writeFileSync(desiredPath, `${docs.map((doc) => toYaml(doc)).join("\n---\n")}\n`);
+  return desiredPath;
+}
+
+// Match the authored fields Kubernetes preserves after apply. Do not prune all
+// empty arrays: some, such as NetworkPolicy ingress: [], are meaningful.
+function pruneApiDroppedNoops(value, path = []) {
+  if (value === null || value === undefined) return undefined;
+  if (Array.isArray(value)) {
+    if (
+      value.length === 0 &&
+      path.length >= 2 &&
+      path.at(-2) === "securityContext" &&
+      ["supplementalGroups", "sysctls"].includes(path.at(-1))
+    ) {
+      return undefined;
+    }
+    return value.map((item, index) => pruneApiDroppedNoops(item, [...path, String(index)])).filter((item) => item !== undefined);
+  }
+  if (typeof value !== "object") return value;
+  const result = {};
+  for (const [key, item] of Object.entries(value)) {
+    const pruned = pruneApiDroppedNoops(item, [...path, key]);
+    if (pruned !== undefined) result[key] = pruned;
+  }
+  return result;
+}
+
 function resolveCubScout(runDir) {
   const candidates = [];
   if (process.env.CUB_SCOUT_BIN) candidates.push({ source: "CUB_SCOUT_BIN", bin: process.env.CUB_SCOUT_BIN });
@@ -158,7 +208,13 @@ function resolveCubScout(runDir) {
       if (candidate.build) candidate.build();
       const support = cubScoutSupport(candidate.bin);
       if (support.supported) {
-        return { available: true, bin: candidate.bin, source: candidate.source, supportsTtl: support.supportsTtl };
+        return {
+          available: true,
+          bin: candidate.bin,
+          source: candidate.source,
+          supportsTtl: support.supportsTtl,
+          supportsNoExtras: support.supportsNoExtras,
+        };
       }
       errors.push(`${candidate.source}: ${support.reason}`);
     } catch (error) {
@@ -182,7 +238,7 @@ function cubScoutSupport(bin) {
   const text = `${result.stdout}\n${result.stderr}`;
   const missing = REQUIRED_PREDICATES.filter((predicate) => !text.includes(predicate));
   if (missing.length) return { supported: false, reason: `missing predicate(s): ${missing.join(", ")}` };
-  return { supported: true, supportsTtl: text.includes("--ttl") };
+  return { supported: true, supportsTtl: text.includes("--ttl"), supportsNoExtras: text.includes("--no-extras") };
 }
 
 function runPredicate({ bin, runDir, label, args }) {
@@ -201,10 +257,11 @@ function runPredicate({ bin, runDir, label, args }) {
   return { label, receiptPath, stdoutPath, stderrPath, receipt, verdict, exitCode: result.status ?? 0 };
 }
 
-function checkForPredicate(name, result) {
+function checkForPredicate(name, result, { allowWatch = false } = {}) {
+  const checkResult = result.verdict === "PASS" ? "pass" : allowWatch && result.verdict === "WATCH" ? "watch" : "fail";
   return {
     name,
-    result: result.verdict === "PASS" ? "pass" : "fail",
+    result: checkResult,
     verdict: result.verdict,
     exitCode: result.exitCode,
     evidencePath: basename(result.receiptPath),
@@ -214,8 +271,10 @@ function checkForPredicate(name, result) {
   };
 }
 
-function collectFailure(result, failures) {
-  if (result.verdict !== "PASS") failures.push(`${result.label}=${result.verdict}`);
+function collectFailure(result, failures, { allowWatch = false } = {}) {
+  if (result.verdict === "PASS") return;
+  if (allowWatch && result.verdict === "WATCH") return;
+  failures.push(`${result.label}=${result.verdict}`);
 }
 
 function hasPrerequisites(prereqs) {
