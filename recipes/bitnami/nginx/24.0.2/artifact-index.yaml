@@ -61,8 +61,8 @@ spec:
       gitopsLive: "1/2"
       liveParity: "1/2"
     featureSummary: "generated-secrets;install-vs-upgrade;extension-slots"
-    hardGap: "existing-secret (chart ships no Secret toggle - #113)"
-    nextAction: "refresh live/e2e receipts for the accepted production scope"
+    hardGap: "existing-secret (chart ships no Secret toggle)"
+    nextAction: "choose the supported production base and target scope, refresh live/e2e evidence, and record the final support decision"
   installerPackage:
     path: "packages/bitnami/nginx/24.0.2"
     installer: "packages/bitnami/nginx/24.0.2/installer.yaml"

@@ -34,7 +34,7 @@ for exact base-variant evidence.
 | Proof lanes | render parity 2/2; ConfigHub 1/2; local live 2/2; GitOps live 2/2; live parity 1/2 |
 | Feature summary | generated-secrets;required-values;install-vs-upgrade |
 | Hard gap | - |
-| Next action | refresh live/e2e receipts for the accepted production scope |
+| Next action | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
 
 ## Artifact Chain
 

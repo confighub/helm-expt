@@ -46,7 +46,26 @@ spec:
       valueSourceMapCoverage:
         []
   targetFactEdges:
-    []
+    -
+      variant: "default"
+      kind: "Secret"
+      namespace: "monitoring"
+      name: "kube-prometheus-stack-admission"
+      keys:
+        - "cert"
+        - "key"
+      fact: "Secret/monitoring/kube-prometheus-stack-admission:cert+key"
+      purpose: "Prometheus Operator admission webhook TLS material normally created by Helm hook lifecycle"
+    -
+      variant: "no-crds"
+      kind: "Secret"
+      namespace: "monitoring"
+      name: "kube-prometheus-stack-admission"
+      keys:
+        - "cert"
+        - "key"
+      fact: "Secret/monitoring/kube-prometheus-stack-admission:cert+key"
+      purpose: "Prometheus Operator admission webhook TLS material normally created by Helm hook lifecycle"
   generatedFactEdges:
     []
   fieldReachability:

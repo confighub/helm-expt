@@ -16,8 +16,8 @@ or runtime review.
 ~~~text
 base variants: 40
 start-here: 11
-try-with-proof: 14
-runtime-watch: 3
+try-with-proof: 15
+runtime-watch: 2
 runtime-review-needed: 7
 target-prerequisite-needed: 3
 hook-lifecycle-review-needed: 0
@@ -87,7 +87,7 @@ rerun-now-after-cleanup: 0
 | `longhorn/longhorn@1.11.2` | ui-ingress | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `metrics-server/metrics-server@3.13.0` | default | yes | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `metrics-server/metrics-server@3.13.0` | external-tls-ca | no | runtime-review-needed | review-target-first | helm-runtime: upstream not ready (parity passed) | inspect runtime state; keep the recipe stable unless semantic object comparison starts failing |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | default | yes | runtime-watch | review-target-first | helm-runtime: upstream not ready (parity passed) | inspect the receipt and rerun after target resources, storage, and waits are appropriate |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | default | yes | try-with-proof | review-target-first | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | no | target-prerequisite-needed | model-or-stage-first | target-prerequisite: CRDs missing | stage or model the prerequisite, then rerun the same base; keep render parity separate from target fit |
 | `prometheus-community/prometheus@29.8.0` | default | yes | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `prometheus-community/prometheus@29.8.0` | server-only-ephemeral | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |

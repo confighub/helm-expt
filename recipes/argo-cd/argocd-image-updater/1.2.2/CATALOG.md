@@ -33,7 +33,7 @@ for exact base-variant evidence.
 | Strongest evidence | render-parity |
 | Proof lanes | render parity 1/1; ConfigHub 0/1; local live 0/1; GitOps live 0/1; live parity 0/1 |
 | Feature summary | crds;extension-slots |
-| Hard gap | no-crds (template-baked CRDs, no toggle - #114) |
+| Hard gap | no-crds (template-baked CRDs; no clean chart toggle yet) |
 | Next action | add at least one user-shaped variant before catalog promotion |
 
 ## Artifact Chain

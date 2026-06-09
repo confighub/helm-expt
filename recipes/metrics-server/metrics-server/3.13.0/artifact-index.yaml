@@ -60,8 +60,8 @@ spec:
       gitopsLive: "1/2"
       liveParity: "1/2"
     featureSummary: "generated-secrets"
-    hardGap: "existing-secret (chart ships no Secret toggle - #113)"
-    nextAction: "refresh live/e2e receipts for the accepted production scope"
+    hardGap: "existing-secret (chart ships no Secret toggle)"
+    nextAction: "resolve image digests for each affected variant before production OCI support"
   installerPackage:
     path: "packages/metrics-server/metrics-server/3.13.0"
     installer: "packages/metrics-server/metrics-server/3.13.0/installer.yaml"

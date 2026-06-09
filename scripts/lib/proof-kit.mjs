@@ -758,7 +758,10 @@ function targetFactsCollectorScript(variants) {
       const facts = (variant.targetFacts.requiredSecrets ?? [])
         .map((secret) => {
           const keys = secret.keys.map((key) => `    - ${key}`).join("\n");
-          return `  - keys:\n${keys}\n    name: ${secret.name}\n    namespace: ${secret.namespace}\n    purpose: ${secret.purpose}`;
+          const deliveryLanes = (secret.deliveryLanes ?? secret.stageFor ?? [])
+            .map((lane) => `    - ${lane}`)
+            .join("\n");
+          return `  - keys:\n${keys}\n    name: ${secret.name}\n    namespace: ${secret.namespace}\n    purpose: ${secret.purpose}${deliveryLanes ? `\n    deliveryLanes:\n${deliveryLanes}` : ""}`;
         })
         .join("\n");
       return `  '${variant.base}')\n    if [ "$check_mode" = "live" ]; then\n${checks}\n      result="pass"\n    else\n      result="recorded"\n    fi\n    cat <<YAML\ntargetFacts:\n  requiredSecrets:\n${facts}\ntargetFactChecks:\n  base: "$base"\n  mode: "$check_mode"\n  result: "$result"\nYAML\n    ;;`;

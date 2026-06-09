@@ -449,6 +449,103 @@ def kubectl_must(args: list[str], kubeconfig: Path, context: str, step: str, tim
     return out
 
 
+def ensure_tls_material(run_root: Path) -> tuple[str, str]:
+    cert = run_root / "target-facts-tls.crt"
+    key = run_root / "target-facts-tls.key"
+    if not cert.exists() or not key.exists():
+        rc, out, err = sh([
+            "openssl", "req", "-x509", "-newkey", "rsa:2048", "-nodes",
+            "-keyout", str(key), "-out", str(cert), "-subj", "/CN=helm-expt.local",
+            "-days", "1",
+        ], timeout=60)
+        if rc != 0:
+            raise RuntimeError(f"target fact TLS material generation failed: {(err or out)[:1000]}")
+    return cert.read_text(), key.read_text()
+
+
+def target_fact_value(secret_name: str, key: str, run_root: Path) -> str:
+    if key in ("cert", "tls.crt", "ca.crt") and ("admission" in secret_name or "webhook" in secret_name):
+        return ensure_tls_material(run_root)[0]
+    if key in ("key", "tls.key") and ("admission" in secret_name or "webhook" in secret_name):
+        return ensure_tls_material(run_root)[1]
+    if key in ("tls.crt", "ca.crt"):
+        return ensure_tls_material(run_root)[0]
+    if key == "tls.key":
+        return ensure_tls_material(run_root)[1]
+    if key == "admin-user":
+        return "admin"
+    if key == "key" and "gossip" in secret_name:
+        return "MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY="
+    if key in ("access_key", "access-key"):
+        return "helm-expt-access-key"
+    if key in ("secret_key", "secret-key"):
+        return "helm-expt-secret-key"
+    if key == "token":
+        return "helm-expt-token"
+    if "cookie" in key:
+        return "helm-expt-cookie"
+    return "helm-expt-password"
+
+
+def target_fact_applies(secret: dict, lane: str) -> bool:
+    delivery_lanes = secret.get("deliveryLanes") or secret.get("stageFor") or []
+    if not delivery_lanes:
+        return True
+    aliases = {
+        "regularHelm": {"regularHelm", "helm"},
+        "configHubKubectlApply": {"configHubKubectlApply", "cubInstallerApply", "installer", "config-only"},
+        "configHubOciArgo": {"configHubOciArgo", "cubInstallerApply", "installer", "config-only"},
+    }
+    accepted = aliases.get(lane, {lane})
+    return any(item in accepted for item in delivery_lanes)
+
+
+def stage_target_facts(variant: dict, kubeconfig: Path, context: str, fallback_namespace: str, run_root: Path, label: str, lane: str) -> dict:
+    required = [
+        secret
+        for secret in (((variant.get("spec") or {}).get("targetFacts") or {}).get("requiredSecrets") or [])
+        if target_fact_applies(secret, lane)
+    ]
+    if not required:
+        return {"result": "pass", "stagedSecrets": []}
+    docs = []
+    namespaces = set()
+    staged = []
+    for secret in required:
+        namespace = secret.get("namespace") or fallback_namespace
+        name = secret.get("name")
+        keys = secret.get("keys") or []
+        if not name or not keys:
+            raise RuntimeError(f"invalid required secret target fact: {secret}")
+        namespaces.add(namespace)
+        string_data = {key: target_fact_value(name, key, run_root) for key in keys}
+        secret_type = "kubernetes.io/tls" if set(("tls.crt", "tls.key")).issubset(string_data) and len(set(string_data) - set(("tls.crt", "tls.key", "ca.crt"))) == 0 else "Opaque"
+        docs.append({
+            "apiVersion": "v1",
+            "kind": "Secret",
+            "metadata": {"name": name, "namespace": namespace},
+            "type": secret_type,
+            "stringData": string_data,
+        })
+        staged.append({"namespace": namespace, "name": name, "keys": sorted(keys), "lane": lane})
+    for namespace in sorted(namespaces):
+        if protected_namespace(namespace):
+            continue
+        namespace_yaml = yaml.safe_load(kubectl_must(
+            ["create", "namespace", namespace, "--dry-run=client", "-o", "yaml"],
+            kubeconfig,
+            context,
+            f"target fact namespace {namespace}",
+        ))
+        namespace_path = run_root / f"target-facts-{label}-{namespace}-namespace.yaml"
+        write_yaml(namespace_path, namespace_yaml)
+        kubectl_must(["apply", "-f", str(namespace_path)], kubeconfig, context, f"target fact namespace apply {namespace}")
+    target_facts_path = run_root / f"target-facts-{label}.yaml"
+    write_yaml(target_facts_path, {"apiVersion": "v1", "kind": "List", "items": docs})
+    kubectl_must(["apply", "-f", str(target_facts_path)], kubeconfig, context, f"target facts apply {label}")
+    return {"result": "pass", "stagedSecrets": staged, "path": str(target_facts_path)}
+
+
 def delete_namespace_if_safe(namespace: str, kubeconfig: Path, context: str) -> None:
     if namespace in ("default", "kube-system", "kube-public", "kube-node-lease"):
         return
@@ -601,6 +698,7 @@ def main() -> int:
     recipe_path = repo / args.recipe
     values_path = repo / args.values
     revision_path = repo / args.variant_revision
+    variant_path = recipe_path / "variants" / args.base / "variant.yaml"
     canonical_rendered_path = revision_path.parent / "rendered" / "release-objects.yaml"
     equivalence_receipt_path = revision_path.parent / "receipts" / "helm-equivalence-receipt.yaml"
     out_path = repo / args.out
@@ -668,6 +766,7 @@ def main() -> int:
         for path, label in [
             (package_path, "package"),
             (recipe_path, "recipe"),
+            (variant_path, "variant"),
             (values_path, "values"),
             (revision_path, "variant revision"),
             (canonical_rendered_path, "canonical rendered objects"),
@@ -678,6 +777,7 @@ def main() -> int:
         equivalence_receipt = load_yaml(equivalence_receipt_path)
         semantic_normalizations = equivalence_receipt.get("spec", {}).get("semanticNormalizations") or []
         receipt["spec"]["semanticComparison"]["semanticNormalizations"] = semantic_normalizations
+        variant = load_yaml(variant_path)
         canonical_helm_manifest = canonical_rendered_path.read_text()
         write_text(run_root / "canonical-helm-render.yaml", canonical_helm_manifest)
         helm_values_path = raw_values_file(values_path, run_root / "regular-helm-values.yaml")
@@ -724,6 +824,10 @@ def main() -> int:
                 ],
                 kubeconfig, context, timeout=60,
             )
+
+        helm_target_facts = stage_target_facts(variant, kubeconfig, context, helm_namespace, run_root, "regular-helm", "regularHelm")
+        receipt["spec"]["targetFacts"] = {"regularHelm": helm_target_facts}
+        check_item("target-facts-regular-helm", helm_target_facts["result"], f"staged={len(helm_target_facts.get('stagedSecrets', []))}")
 
         helm_cmd = [
             "helm", "upgrade", "--install", args.release,
@@ -800,6 +904,9 @@ def main() -> int:
         if namespace_docs:
             write_text(ns_yaml, render_docs_to_yaml(namespace_docs))
             kubectl_must(["apply", "-f", str(ns_yaml)], kubeconfig, context, "namespace apply")
+        apply_target_facts = stage_target_facts(variant, kubeconfig, context, apply_namespace, run_root, "confighub-apply", "configHubKubectlApply")
+        receipt["spec"]["targetFacts"]["configHubKubectlApply"] = apply_target_facts
+        check_item("target-facts-confighub-apply", apply_target_facts["result"], f"staged={len(apply_target_facts.get('stagedSecrets', []))}")
         if secrets_dir.exists():
             for secret_path in sorted(secrets_dir.glob("*.yaml")):
                 kubectl_must(["apply", "-f", str(secret_path)], kubeconfig, context, f"secret apply {secret_path.name}", timeout=120)
@@ -871,6 +978,9 @@ def main() -> int:
         if namespace_docs:
             write_text(ns_oci_yaml, render_docs_to_yaml(namespace_docs))
             kubectl_must(["apply", "-f", str(ns_oci_yaml)], kubeconfig, context, "namespace apply before oci")
+        oci_target_facts = stage_target_facts(variant, kubeconfig, context, oci_namespace, run_root, "confighub-oci", "configHubOciArgo")
+        receipt["spec"]["targetFacts"]["configHubOciArgo"] = oci_target_facts
+        check_item("target-facts-confighub-oci", oci_target_facts["result"], f"staged={len(oci_target_facts.get('stagedSecrets', []))}")
         staged_secrets = []
         if secrets_dir.exists():
             for secret_path in sorted(secrets_dir.glob("*.yaml")):

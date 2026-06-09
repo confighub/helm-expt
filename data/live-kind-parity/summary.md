@@ -11,8 +11,8 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 25
-watch: 3
+pass: 26
+watch: 2
 blocked: 12
 semantic parity defects: 0
 ```
@@ -29,7 +29,7 @@ data/live-parity-rerun-plan/summary.md
 
 | Reason | Rows |
 | --- | ---: |
-| helm-runtime: upstream not ready (parity passed) | 5 |
+| helm-runtime: upstream not ready (parity passed) | 4 |
 | target-runtime: pods pending (parity passed) | 3 |
 | target-prerequisite: CRDs disabled or missing (parity passed) | 2 |
 | target-prerequisite: CRDs missing | 2 |
@@ -74,7 +74,7 @@ data/live-parity-rerun-plan/summary.md
 | `longhorn/longhorn@1.11.2` | ui-ingress | pass |  | runs/live-kind-parity/longhorn-longhorn-ui-ingress/receipt.yaml |
 | `metrics-server/metrics-server@3.13.0` | default | pass |  | runs/live-kind-parity/metrics-server-metrics-server-default/receipt.yaml |
 | `metrics-server/metrics-server@3.13.0` | external-tls-ca | blocked | helm-runtime: upstream not ready (parity passed) | runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/receipt.yaml |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | default | watch | helm-runtime: upstream not ready (parity passed) | runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | default | pass |  | runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | blocked | target-prerequisite: CRDs missing | runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml |
 | `prometheus-community/prometheus@29.8.0` | default | pass |  | runs/live-kind-parity/prometheus-community-prometheus-default/receipt.yaml |
 | `prometheus-community/prometheus@29.8.0` | server-only-ephemeral | pass |  | runs/live-kind-parity/prometheus-community-prometheus-server-only-ephemeral/receipt.yaml |

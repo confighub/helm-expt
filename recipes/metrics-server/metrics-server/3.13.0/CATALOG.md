@@ -33,8 +33,8 @@ for exact base-variant evidence.
 | Strongest evidence | live-helm-vs-confighub-parity |
 | Proof lanes | render parity 2/2; ConfigHub 0/2; local live 1/2; GitOps live 1/2; live parity 1/2 |
 | Feature summary | generated-secrets |
-| Hard gap | existing-secret (chart ships no Secret toggle - #113) |
-| Next action | refresh live/e2e receipts for the accepted production scope |
+| Hard gap | existing-secret (chart ships no Secret toggle) |
+| Next action | resolve image digests for each affected variant before production OCI support |
 
 ## Artifact Chain
 

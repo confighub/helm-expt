@@ -34,7 +34,7 @@ for exact base-variant evidence.
 | Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 0/2; live parity 0/2 |
 | Feature summary | extension-slots |
 | Hard gap | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
-| Next action | refresh live/e2e receipts for the accepted production scope |
+| Next action | choose whether local-persistent is in production scope; close or document its runtime-review-needed live-readiness issue first |
 
 ## Artifact Chain
 

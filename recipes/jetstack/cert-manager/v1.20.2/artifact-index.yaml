@@ -60,7 +60,7 @@ spec:
       liveParity: "1/2"
     featureSummary: "extension-slots"
     hardGap: "-"
-    nextAction: "refresh live/e2e receipts for the accepted production scope"
+    nextAction: "choose whether default is in production scope; record the target-scoped lifecycle support decision before claiming production support"
   installerPackage:
     path: "packages/jetstack/cert-manager/v1.20.2"
     installer: "packages/jetstack/cert-manager/v1.20.2/installer.yaml"

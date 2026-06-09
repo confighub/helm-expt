@@ -255,6 +255,10 @@ def ensure_tls_material(run_root: Path) -> tuple[str, str]:
 
 
 def target_fact_value(secret_name: str, key: str, run_root: Path) -> str:
+    if key in ("cert", "tls.crt", "ca.crt") and ("admission" in secret_name or "webhook" in secret_name):
+        return ensure_tls_material(run_root)[0]
+    if key in ("key", "tls.key") and ("admission" in secret_name or "webhook" in secret_name):
+        return ensure_tls_material(run_root)[1]
     if key in ("tls.crt", "ca.crt"):
         return ensure_tls_material(run_root)[0]
     if key == "tls.key":
@@ -274,8 +278,24 @@ def target_fact_value(secret_name: str, key: str, run_root: Path) -> str:
     return "helm-expt-password"
 
 
-def stage_target_facts(variant: dict, kubeconfig: Path, context: str, fallback_namespace: str, run_root: Path, label: str) -> dict:
-    required = ((variant.get("spec") or {}).get("targetFacts") or {}).get("requiredSecrets") or []
+def target_fact_applies(secret: dict, lane: str) -> bool:
+    delivery_lanes = secret.get("deliveryLanes") or secret.get("stageFor") or []
+    if not delivery_lanes:
+        return True
+    aliases = {
+        "regularHelm": {"regularHelm", "helm"},
+        "cubInstallerApply": {"cubInstallerApply", "installer", "config-only"},
+    }
+    accepted = aliases.get(lane, {lane})
+    return any(item in accepted for item in delivery_lanes)
+
+
+def stage_target_facts(variant: dict, kubeconfig: Path, context: str, fallback_namespace: str, run_root: Path, label: str, lane: str) -> dict:
+    required = [
+        secret
+        for secret in (((variant.get("spec") or {}).get("targetFacts") or {}).get("requiredSecrets") or [])
+        if target_fact_applies(secret, lane)
+    ]
     if not required:
         return {"result": "pass", "stagedSecrets": []}
     docs = []
@@ -297,7 +317,7 @@ def stage_target_facts(variant: dict, kubeconfig: Path, context: str, fallback_n
             "type": secret_type,
             "stringData": string_data,
         })
-        staged.append({"namespace": namespace, "name": name, "keys": sorted(keys)})
+        staged.append({"namespace": namespace, "name": name, "keys": sorted(keys), "lane": lane})
     for namespace in sorted(namespaces):
         if protected_namespace(namespace):
             continue
@@ -557,8 +577,8 @@ def main() -> int:
                 raise RuntimeError(f"kind create {label} cluster failed: {(err or out)[:1000]}")
             check_item(f"kind-create-{label}", "pass", out or f"{label} kind cluster created")
 
-        helm_target_facts = stage_target_facts(variant, helm_kubeconfig, helm_context, args.namespace, run_root, "helm")
-        installer_target_facts = stage_target_facts(variant, installer_kubeconfig, installer_context, args.namespace, run_root, "installer")
+        helm_target_facts = stage_target_facts(variant, helm_kubeconfig, helm_context, args.namespace, run_root, "helm", "regularHelm")
+        installer_target_facts = stage_target_facts(variant, installer_kubeconfig, installer_context, args.namespace, run_root, "installer", "cubInstallerApply")
         receipt["spec"]["targetFacts"] = {
             "regularHelm": helm_target_facts,
             "cubInstallerApply": installer_target_facts,

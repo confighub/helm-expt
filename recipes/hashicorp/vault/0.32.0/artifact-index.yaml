@@ -62,7 +62,7 @@ spec:
       liveParity: "0/2"
     featureSummary: "webhooks;required-values;values-schema;extension-slots"
     hardGap: "-"
-    nextAction: "refresh live/e2e receipts for the accepted production scope"
+    nextAction: "choose whether default is in production scope; close or document its runtime-review-needed live-readiness issue first"
   installerPackage:
     path: "packages/hashicorp/vault/0.32.0"
     installer: "packages/hashicorp/vault/0.32.0/installer.yaml"

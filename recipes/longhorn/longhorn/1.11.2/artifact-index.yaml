@@ -62,7 +62,7 @@ spec:
       liveParity: "1/2"
     featureSummary: "required-values"
     hardGap: "-"
-    nextAction: "refresh live/e2e receipts for the accepted production scope"
+    nextAction: "choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support"
   installerPackage:
     path: "packages/longhorn/longhorn/1.11.2"
     installer: "packages/longhorn/longhorn/1.11.2/installer.yaml"

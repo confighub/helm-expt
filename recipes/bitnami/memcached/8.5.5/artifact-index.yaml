@@ -59,7 +59,7 @@ spec:
       gitopsLive: "0/1"
       liveParity: "0/1"
     featureSummary: "generated-secrets;install-vs-upgrade;extension-slots"
-    hardGap: "existing-secret (chart ships no Secret toggle - #113)"
+    hardGap: "existing-secret (chart ships no Secret toggle)"
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/bitnami/memcached/8.5.5"

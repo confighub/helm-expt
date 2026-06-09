@@ -59,13 +59,13 @@ spec:
       gitopsLive: "0/2"
       liveParity: "0/2"
     featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;install-vs-upgrade;extension-slots"
-    hardGap: "existing-secret (chart ships no Secret toggle - #113)"
-    nextAction: "refresh live/e2e receipts for the accepted production scope"
+    hardGap: "existing-secret (chart ships no Secret toggle)"
+    nextAction: "choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support"
   installerPackage:
     path: "packages/prometheus-community/kube-prometheus-stack/85.3.3"
     installer: "packages/prometheus-community/kube-prometheus-stack/85.3.3/installer.yaml"
     receipt: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "f331a763a43363fafd5d0d55d14450e7ac02c3cd6a4bcd3fed2947043d78f7fd"
+    deterministicBundleSHA256: "82fb617c583c72ed4f9d2edfd502b1ceaee2f02f5fccb363d01277af16dc3d83"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -91,8 +91,19 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            keys:
+              - "cert"
+              - "key"
+            name: "kube-prometheus-stack-admission"
+            namespace: "monitoring"
+            purpose: "Prometheus Operator admission webhook TLS material normally created by Helm hook lifecycle"
+      targetFactSummary: "required Secret monitoring/kube-prometheus-stack-admission keys cert,key"
       packageBase:
         name: "default"
         path: "packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/default"
@@ -111,7 +122,7 @@ spec:
           name: "default-r001"
           revision: "r001"
           variantRevision: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/variant-revision.yaml"
-          digest: "74af42a1e8f21b147498d6d036e6a17520748228b37f3ced638418d3798ccc27"
+          digest: "200418568381c5a68a161584826b26ec4a7b085606847e1637a7aa8e3c6cc9a8"
           renderedObjectSetSHA256: "9fac2a0e4140eee298c84ce61f13dd8ca392bb92e2037d0ef0aaa4d8015ee491"
           renderedObjects: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/object-inventory.yaml"
@@ -153,8 +164,19 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            keys:
+              - "cert"
+              - "key"
+            name: "kube-prometheus-stack-admission"
+            namespace: "monitoring"
+            purpose: "Prometheus Operator admission webhook TLS material normally created by Helm hook lifecycle"
+      targetFactSummary: "required Secret monitoring/kube-prometheus-stack-admission keys cert,key"
       packageBase:
         name: "no-crds"
         path: "packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/no-crds"
@@ -173,7 +195,7 @@ spec:
           name: "no-crds-r001"
           revision: "r001"
           variantRevision: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/variant-revision.yaml"
-          digest: "9edb216e7a03b5b56ac2061234fcbb703f474afefa2a65bccda60045f866f2f1"
+          digest: "80d6ed1ba630e9d2de6a023a54481453813999618f6f290ba66eaa13602a6b1b"
           renderedObjectSetSHA256: "3f6049fc2b7a40bbfb009b347880e3f319a87c9b60a6fd274220287a10167fc2"
           renderedObjects: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/object-inventory.yaml"

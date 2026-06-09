@@ -58,7 +58,7 @@ spec:
       gitopsLive: "0/1"
       liveParity: "0/1"
     featureSummary: "crds"
-    hardGap: "no-crds (template-baked CRDs, no toggle - #114)"
+    hardGap: "no-crds (template-baked CRDs; no clean chart toggle yet)"
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/rook-release/rook-ceph/v1.19.5"

@@ -31,7 +31,18 @@ const variants = [
     expectedObjectCount: 124,
     expectedCRDCount: 10,
     expectedSecretCount: 2,
-    targetFactNote: "includes Prometheus Operator CRDs, Grafana, webhook configurations, and generated Grafana admin password binding",
+    targetFacts: {
+      requiredSecrets: [
+        {
+          namespace: "monitoring",
+          name: "kube-prometheus-stack-admission",
+          keys: ["cert", "key"],
+          purpose: "Prometheus Operator admission webhook TLS material normally created by Helm hook lifecycle",
+          deliveryLanes: ["cubInstallerApply", "configHubKubectlApply", "configHubOciArgo"],
+        },
+      ],
+    },
+    targetFactNote: "includes Prometheus Operator CRDs, Grafana, webhook configurations, generated Grafana admin password binding, and config-only webhook TLS target facts",
   },
   {
     name: "no-crds",
@@ -47,7 +58,18 @@ grafana:
     expectedObjectCount: 114,
     expectedCRDCount: 0,
     expectedSecretCount: 2,
-    targetFactNote: "omits Prometheus Operator CRDs while preserving Grafana, webhooks, RBAC, rules, and ServiceMonitors",
+    targetFacts: {
+      requiredSecrets: [
+        {
+          namespace: "monitoring",
+          name: "kube-prometheus-stack-admission",
+          keys: ["cert", "key"],
+          purpose: "Prometheus Operator admission webhook TLS material normally created by Helm hook lifecycle",
+          deliveryLanes: ["cubInstallerApply", "configHubKubectlApply", "configHubOciArgo"],
+        },
+      ],
+    },
+    targetFactNote: "omits Prometheus Operator CRDs while preserving Grafana, webhooks, RBAC, rules, ServiceMonitors, and config-only webhook TLS target facts",
   },
 ];
 
@@ -187,11 +209,12 @@ runProofCli({
     },
     {
       category: "admission-webhook",
-      status: "scan-and-observe",
+      status: "target-fact-and-observe",
       objects: [
         "admissionregistration.k8s.io/v1|MutatingWebhookConfiguration||kube-prometheus-stack-admission",
         "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||kube-prometheus-stack-admission",
       ],
+      note: "Config-only delivery must stage the kube-prometheus-stack-admission Secret because Helm normally creates the TLS material through hook lifecycle.",
     },
     {
       category: "generated-facts",
@@ -213,7 +236,8 @@ runProofCli({
       "default variant binds grafana.adminPassword and renders 10 Prometheus Operator CRDs.",
       "no-crds variant omits CRDs for clusters that manage CRDs separately.",
       "Chart declares CRD, kube-state-metrics, node-exporter, Grafana, and windows-exporter dependencies and records them in dependency-lock.yaml.",
-      "Admission webhook readiness must be observed after apply because rendered objects alone do not prove webhook health.",
+      "Config-only delivery stages the kube-prometheus-stack-admission TLS Secret as a target fact; regular Helm creates that material through hook lifecycle.",
+      "Admission webhook readiness must still be observed after apply because rendered objects plus staged Secret do not prove webhook health.",
       "CRD manifests include YAML enum scalars such as bare equals signs; the proof parser handles these as scalar strings.",
       "Rules, scrape configs, datasource config, and extraManifests are tpl/raw extension slots; promoted variants keep raw slots empty.",
     ],
