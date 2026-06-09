@@ -107,6 +107,8 @@ function summary(rows) {
   const stateCounts = groupCount(rows, "decision");
   const supported = stateCounts.get("supported") ?? 0;
   const draft = stateCounts.get("draft") ?? 0;
+  const workstreams = supportWorkstreams(rows);
+  const priorityRows = prioritySupportRows(rows);
   return `# Production Support Decisions
 
 This generated report records target-scoped production support decisions. It is
@@ -123,6 +125,25 @@ decision artifacts: ${rows.length}
 supported decisions: ${supported}
 draft decisions: ${draft}
 \`\`\`
+
+## Workstreams
+
+Workstreams can overlap. One chart can need image, scan, lifecycle, and fresh
+evidence work before it becomes production-supported for a target scope.
+
+| Workstream | Charts | Examples | Next action |
+| --- | ---: | --- | --- |
+${workstreams.map((row) => `| ${row.name} | ${row.rows.length} | ${previewRows(row.rows)} | ${row.nextAction} |`).join("\n")}
+
+## Priority Rows
+
+These rows have the most remaining production-support decisions. The table does
+not replace the per-chart decision artifact; it shows where review effort is
+currently concentrated.
+
+| Chart | Base | Open work | Next action |
+| --- | --- | --- | --- |
+${priorityRows.map((row) => `| \`${row.chart}@${row.version}\` | ${row.supported_base} | ${openWork(row).join("; ")} | ${row.next_action} |`).join("\n")}
 
 ## Decisions
 
@@ -144,6 +165,76 @@ npm run production:support-decisions
 npm run production:support-decisions:verify
 ~~~
 `;
+}
+
+function supportWorkstreams(rows) {
+  return [
+    {
+      name: "Supported scope evidence",
+      rows: rows.filter((row) => row.decision === "supported"),
+      nextAction: "Keep target-scoped evidence fresh before using the supported scope as a production example.",
+    },
+    {
+      name: "Image digest resolution or exception",
+      rows: rows.filter((row) => row.image_decision === "needs-image-digest-resolution-or-exception"),
+      nextAction: "Pin images by digest or record an explicit exception before production OCI support.",
+    },
+    {
+      name: "Scan scope decision",
+      rows: rows.filter((row) => row.scan_decision === "needs-scan-scope-decision"),
+      nextAction: "Record which scanner findings are accepted, fixed, or outside the supported target scope.",
+    },
+    {
+      name: "Security acceptance or hardened base",
+      rows: rows.filter((row) => row.scan_decision === "needs-security-acceptance-or-hardened-base"),
+      nextAction: "Accept current security findings for the target scope or create a narrower hardened base.",
+    },
+    {
+      name: "Lifecycle decision or observation",
+      rows: rows.filter((row) => ["needs-lifecycle-support-boundary", "route-selected-observation-needed"].includes(row.lifecycle_decision)),
+      nextAction: "Record the lifecycle boundary, or execute and observe the selected hook/lifecycle route.",
+    },
+    {
+      name: "Runtime or missing-lane decision",
+      rows: rows.filter((row) => ["needs-runtime-decision-before-final", "needs-missing-live-or-confighub-lanes-before-final", "needs-lifecycle-observation-before-final"].includes(row.live_evidence_decision)),
+      nextAction: "Close the runtime, missing-lane, or lifecycle-observation decision before refreshing final evidence.",
+    },
+    {
+      name: "Fresh target-scoped evidence",
+      rows: rows.filter((row) => row.live_evidence_decision === "needs-fresh-target-evidence-before-final"),
+      nextAction: "After scope and risk decisions are closed, refresh ConfigHub OCI/GitOps and live/e2e evidence for that exact scope.",
+    },
+  ].filter((row) => row.rows.length > 0);
+}
+
+function prioritySupportRows(rows) {
+  return rows
+    .filter((row) => row.decision !== "supported")
+    .map((row) => ({ ...row, openWorkCount: openWork(row).length }))
+    .filter((row) => row.openWorkCount > 0)
+    .sort((left, right) => right.openWorkCount - left.openWorkCount || left.chart.localeCompare(right.chart))
+    .slice(0, 8);
+}
+
+function openWork(row) {
+  const work = [];
+  if (row.image_decision === "needs-image-digest-resolution-or-exception") work.push("image");
+  if (row.scan_decision === "needs-scan-scope-decision") work.push("scan scope");
+  if (row.scan_decision === "needs-security-acceptance-or-hardened-base") work.push("security/hardened base");
+  if (["needs-lifecycle-support-boundary", "route-selected-observation-needed"].includes(row.lifecycle_decision)) work.push("lifecycle");
+  if (row.live_evidence_decision === "needs-runtime-decision-before-final") work.push("runtime decision");
+  if (row.live_evidence_decision === "needs-missing-live-or-confighub-lanes-before-final") work.push("missing proof lane");
+  if (row.live_evidence_decision === "needs-lifecycle-observation-before-final") work.push("lifecycle observation");
+  if (row.live_evidence_decision === "needs-fresh-target-evidence-before-final") work.push("fresh evidence");
+  return work;
+}
+
+function previewRows(rows) {
+  if (rows.length === 0) return "-";
+  const values = rows.slice(0, 4).map((row) => `\`${row.chart}@${row.version}\` (${row.supported_base})`);
+  const remaining = rows.length - values.length;
+  if (remaining > 0) values.push(`and ${remaining} more`);
+  return values.join("<br>");
 }
 
 function toCsv(rows) {
