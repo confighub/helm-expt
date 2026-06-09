@@ -104,12 +104,14 @@ function buildReport() {
   rows.push(metric("live evidence", "ConfigHub/OCI semantic parity defect receipts", semanticDefectCount(liveRows), liveRows.length, "good", "data/live-helm-confighub-compare/summary.csv", "Rows whose committed receipt currently points at a semantic object comparison defect."));
   rows.push(metric("live evidence", "two-cluster semantic parity defect receipts", semanticDefectCount(kindParityRows), kindParityRows.length, "good", "data/live-kind-parity/summary.csv", "Rows whose committed two-cluster receipt currently points at a semantic object comparison defect."));
 
-  rows.push(metric("production disposition", "top20 production-review-ready charts", productionRows.filter((row) => row.production_support === "production-review-ready").length, productionRows.length, "partial", "data/production-disposition/top20.csv", "Top-20 catalog charts with required dispositions closed, pending final production support decision and target scope."));
+  rows.push(metric("production disposition", "top20 production-review-ready charts", productionRows.filter((row) => row.production_support === "production-review-ready").length, productionRows.length, "partial", "data/production-disposition/top20.csv", "Top-20 catalog charts with required pre-review dispositions closed."));
   rows.push(metric("production disposition", "top20 production-blocked charts", productionRows.filter((row) => row.production_support === "blocked").length, productionRows.length, "partial", "data/production-disposition/top20.csv", "Top-20 catalog charts that still have open disposition work before support review."));
   rows.push(metric("production disposition", "charts with accepted production dispositions", productionRows.filter((row) => dispositionCount(row.accepted_dispositions) > 0).length, productionRows.length, "partial", "data/production-disposition/top20.csv", "Charts with at least one disposition receipt accepted."));
-  rows.push(metric("production support decisions", "target-scoped decision artifacts", productionSupportDecisionRows.length, productionRows.length, "partial", "data/production-support-decisions/decisions.csv", "Draft or supported target-scoped support decision records."));
-  rows.push(metric("production support decisions", "supported decision artifacts", count(productionSupportDecisionRows, "decision", "supported"), productionRows.length, "gap", "data/production-support-decisions/decisions.csv", "Support decisions with fresh target evidence and no remaining final requirements."));
-  rows.push(metric("production support decisions", "draft decision artifacts", count(productionSupportDecisionRows, "decision", "draft"), productionRows.length, "partial", "data/production-support-decisions/decisions.csv", "Draft support boundaries that still need fresh target-scoped evidence."));
+  rows.push(metric("production support decisions", "target-scoped decision artifacts", productionSupportDecisionRows.length, productionRows.length, "partial", "data/production-support-decisions/decisions.csv", "Supported, superseded, rejected, or draft target-scoped support decision records."));
+  rows.push(metric("production support decisions", "supported decision artifacts", count(productionSupportDecisionRows, "decision", "supported"), productionRows.length, "partial", "data/production-support-decisions/decisions.csv", "Support decisions with fresh target evidence and no remaining final requirements."));
+  rows.push(metric("production support decisions", "superseded decision artifacts", count(productionSupportDecisionRows, "decision", "superseded"), productionRows.length, "partial", "data/production-support-decisions/decisions.csv", "Proof records kept for deprecated source charts that should not be production-promoted."));
+  rows.push(metric("production support decisions", "rejected decision artifacts", count(productionSupportDecisionRows, "decision", "rejected"), productionRows.length, "partial", "data/production-support-decisions/decisions.csv", "Default bases that remain parity evidence but need a better production base or target scope."));
+  rows.push(metric("production support decisions", "draft decision artifacts", count(productionSupportDecisionRows, "decision", "draft"), productionRows.length, "good", "data/production-support-decisions/decisions.csv", "Draft support boundaries that still need a final target-scoped decision."));
   rows.push(metric("scan disposition", "high-priority scan rows", scanDispositionRows.filter((row) => row.scanPriority === "high").length, scanDispositionRows.length, "partial", "data/scan-disposition-workdown/workdown.csv", "External scan rows that need a fix, hardened base, or explicit production disposition."));
   rows.push(metric("scan disposition", "remaining mutable-image rows", scanDispositionRows.filter((row) => row.dispositionRoute === "fix-image-pin").length, scanDispositionRows.length, "good", "data/scan-disposition-workdown/workdown.csv", "Rows still routed to image-pin fixes after the supported-base pinning work."));
   rows.push(metric("scan disposition", "privileged infrastructure review rows", scanDispositionRows.filter((row) => row.dispositionRoute === "accept-or-split-privileged-infrastructure").length, scanDispositionRows.length, "partial", "data/scan-disposition-workdown/workdown.csv", "Rows where host, node, or privileged access is likely part of the chart and needs explicit acceptance or a narrower base."));
@@ -133,7 +135,7 @@ function buildReport() {
   rows.push(metric("hooks", "related lifecycle observation receipts passing", passCount(lifecycleObservationRows, "result"), lifecycleObservationRows.length, "good", "data/lifecycle-observations/cert-manager-eso/summary.csv", "Cert-manager and External Secrets receipts for CRD/webhook/controller behavior that rendered YAML alone cannot prove."));
 
   const chartByName = new Map(chartRows.map((row) => [row.chart, row]));
-  const top20Rows = top20StatusRows(top100Rows, chartByName, top20BaseReadinessRows);
+  const top20Rows = top20StatusRows(top100Rows, chartByName, top20BaseReadinessRows, productionSupportDecisionRows);
   const nextWorkQueues = nextWorkQueueRows({ top100Rows, hookRows, lifecycleObservationRows, liveParityRerunRows, productionSupportDecisionRows });
   return {
     rows,
@@ -346,11 +348,13 @@ is recorded only in the target-scoped support decision artifacts.
 
 | Metric | Value |
 | --- | ---: |
-| production-review-ready pending final support decision | ${context.productionRows.filter((row) => row.production_support === "production-review-ready").length}/${context.productionRows.length} |
+| production-review-ready disposition rows | ${context.productionRows.filter((row) => row.production_support === "production-review-ready").length}/${context.productionRows.length} |
 | production-blocked pending disposition | ${context.productionRows.filter((row) => row.production_support === "blocked").length}/${context.productionRows.length} |
 | charts with accepted dispositions | ${context.productionRows.filter((row) => dispositionCount(row.accepted_dispositions) > 0).length}/${context.productionRows.length} |
 | target-scoped support decision artifacts | ${context.productionSupportDecisionRows.length}/${context.productionRows.length} |
 | supported decision artifacts | ${count(context.productionSupportDecisionRows, "decision", "supported")}/${context.productionRows.length} |
+| superseded decision artifacts | ${count(context.productionSupportDecisionRows, "decision", "superseded")}/${context.productionRows.length} |
+| rejected decision artifacts | ${count(context.productionSupportDecisionRows, "decision", "rejected")}/${context.productionRows.length} |
 | draft decision artifacts | ${count(context.productionSupportDecisionRows, "decision", "draft")}/${context.productionRows.length} |
 | high-priority scan rows | ${highScanRows.length}/${context.scanDispositionRows.length} |
 | mutable-image rows still needing fixes | ${context.scanDispositionRows.filter((row) => row.dispositionRoute === "fix-image-pin").length}/${context.scanDispositionRows.length} |
@@ -525,18 +529,20 @@ function toCsv(rows) {
   return `${headers.join(",")}\n${rows.map((row) => headers.map((header) => csvCell(row[header] ?? "")).join(",")).join("\n")}\n`;
 }
 
-function top20StatusRows(top100Rows, chartByName, top20BaseReadinessRows) {
+function top20StatusRows(top100Rows, chartByName, top20BaseReadinessRows, productionSupportDecisionRows) {
   const readinessByChart = new Map();
   for (const row of top20BaseReadinessRows) {
     const rows = readinessByChart.get(row.chart) ?? [];
     rows.push(row);
     readinessByChart.set(row.chart, rows);
   }
+  const supportByChart = new Map(productionSupportDecisionRows.map((row) => [`${row.chart}@${row.version}`, row]));
   return top100Rows
     .filter((row) => row.catalog_tier === "top20-catalog-supported")
     .map((row) => {
       const baseRows = readinessByChart.get(row.chart) ?? [];
       const recommended = recommendedBaseRow(baseRows);
+      const support = supportByChart.get(row.chart);
       return {
         rank: row.proof_surface_rank,
         chart: row.chart,
@@ -553,8 +559,8 @@ function top20StatusRows(top100Rows, chartByName, top20BaseReadinessRows) {
         live_parity: row.live_parity,
         feature_summary: chartByName.get(row.chart)?.feature_summary ?? "",
         hard_gap: row.hard_gap,
-        next_action: row.next_action,
-        next_action_source: row.next_action_source,
+        next_action: support?.next_action || row.next_action,
+        next_action_source: support ? "production-support-decisions" : row.next_action_source,
         catalog_path: row.catalog_path,
       };
     })

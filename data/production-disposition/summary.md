@@ -4,7 +4,9 @@ The top-20 are mandatory catalog entries because their upstream Helm charts are
 too popular to omit. This lane records the work needed to move those supported
 top-20 entries from `local-test` support toward production support.
 
-It does **not** claim production support yet.
+It does not claim production support itself. Production support is recorded in
+the target-scoped decision artifacts under
+`data/production-support-decisions/`.
 
 ## Summary
 
@@ -12,9 +14,13 @@ It does **not** claim production support yet.
 catalog-supported local-test charts: 20
 ConfigHub proof receipts passing: 20
 live/e2e observed charts: 20
-production-supported charts: 0
-production-review-ready pending final support decision: 20
+production-review-ready disposition rows: 20
 production-blocked pending disposition: 0
+target-scoped support decision artifacts: 20
+target-scoped supported decisions: 16
+target-scoped superseded decisions: 2
+target-scoped rejected decisions: 2
+target-scoped draft decisions: 0
 source Helm-hook rows: 1
 hook/lifecycle disposition rows: 12
 related lifecycle observation rows: 2
@@ -35,9 +41,9 @@ mean the retained source scan found Helm hooks. Use the evidence fields in
 
 Use `data/top20-base-readiness/base-readiness.csv` for base-by-base live
 readiness. A chart can be production-review-ready at the disposition level while
-a non-default base still needs target runtime review. The final production
-support decision must choose the supported base, target scope, and required
-runtime checks.
+a non-default base still needs target runtime review. The target-scoped
+production support decision chooses the supported base, target scope, accepted
+risk boundary, and required runtime checks.
 
 ## How To Read The Production State
 
@@ -49,28 +55,30 @@ runtime checks.
 | `production-supported` | Not set by this lane. It requires a separate target-scoped support decision. |
 
 `production-review-ready` is not the same as production support. It means the
-chart has enough accepted disposition evidence for a human or product process
-to decide the supported production scope.
+chart has enough accepted disposition evidence to make or audit a target-scoped
+production support decision.
 
-The remaining work is recorded in:
+Use these generated files as follows:
 
 | File | Use |
 | --- | --- |
-| `data/production-disposition/next-actions.csv` | One next production action per top-20 chart. |
-| `data/production-disposition/support-decision-contract.md` | The required fields and current queue for target-scoped production support decisions. |
-| `data/production-disposition/support-decision-queue.csv` | One row per top-20 chart showing the candidate base, decision state, and evidence needed before production support. |
+| `data/production-support-decisions/summary.md` | Current target-scoped support decisions: supported, superseded, rejected, or draft. |
+| `data/production-disposition/next-actions.csv` | Historical pre-decision action per top-20 chart. |
+| `data/production-disposition/support-decision-contract.md` | Pre-decision contract and queue used to create the current support decisions. |
+| `data/production-disposition/support-decision-queue.csv` | Historical one-row-per-chart support-decision queue. |
 | `data/production-disposition/dispositions.md` | Accepted receipts, evidence, owners, and unblock rules. |
 | `data/scan-disposition-workdown/summary.md` | Whether scan findings need fixes, hardened bases, explicit acceptance, runtime review, or policy decisions. |
 
-Typical final-support work includes choosing the production base, naming the
-target scope, accepting or patching scan findings, confirming lifecycle and
-target-fact requirements, refreshing live/e2e evidence for that scope, and
-recording the support decision.
+Typical support work includes choosing the production base, naming the target
+scope, accepting or patching scan findings, confirming lifecycle and target-fact
+requirements, refreshing live/e2e evidence for that scope, and recording or
+updating the support decision.
 
-## Final Support Workstreams
+## Pre-Decision Workstreams
 
-The queue is grouped by the decision that must happen next. This is the most
-useful view when moving the top-20 from review-ready to production-supported.
+This historical queue shows the decision that was needed before the current
+target-scoped decisions were closed. Use the current decision artifacts for the
+active support state.
 
 | Workstream | Charts | Next action |
 | --- | ---: | --- |
