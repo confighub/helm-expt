@@ -69,8 +69,8 @@ The shortest production work queue is:
 
 [Production Next Actions](../../data/production-disposition/next-actions.csv)
 
-It lists one next required receipt or fix per top-20 chart, starting with the
-charts closest to a production support review.
+It lists one row per top-20 chart with the recommended first base, production
+decision focus, image digest status, and next action.
 
 The scan warning workdown is:
 

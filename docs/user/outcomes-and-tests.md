@@ -43,7 +43,7 @@ For the shortest chart-by-chart top-100 answer, start with:
 | [top20 base readiness](../../data/top20-base-readiness/summary.md) | One row per top-20 base variant. Shows which bases are clean first paths and which need prerequisites, runtime review, or hook lifecycle work. |
 | [production disposition](../../data/production-disposition/summary.md) | Top-20 production review boundary. Shows accepted dispositions, open blockers, and next actions before a target-scoped production support decision can be made. |
 | [production disposition details](../../data/production-disposition/dispositions.md) | Detailed top-20 production plan. Shows accepted receipts, owners, required evidence, and unblock rules for each disposition type. |
-| [production next actions](../../data/production-disposition/next-actions.csv) | One row per top-20 chart. Shows the next production disposition receipt or fix to work on. |
+| [production next actions](../../data/production-disposition/next-actions.csv) | One row per top-20 chart. Shows recommended base, production decision focus, image digest status, and next action. |
 | [scan disposition workdown](../../data/scan-disposition-workdown/summary.md) | One row per top-20 chart. Routes scan warnings to image-pin fixes, resource policies, security hardening, privileged infrastructure acceptance, runtime endpoint review, or PDB policy decisions. |
 | [image digest workdown](../../data/image-digest-workdown/summary.md) | Rendered image references that need digest resolution, image overrides, or explicit proof receipts before reproducible production OCI support. |
 | [pain-points.csv](../../data/pain-point-coverage/pain-points.csv) | One row per common Helm pain point. Shows current answer, handoff, evidence, remaining gap, and next action. |
@@ -105,7 +105,7 @@ The machine-readable index is:
 5. Check [top20 base readiness](../../data/top20-base-readiness/summary.md) when the question is "which public catalog base should I try first?"
 6. Check [production disposition](../../data/production-disposition/summary.md) when the question is "is this ready for production-support review, and what remains before support?"
 7. Check [production disposition details](../../data/production-disposition/dispositions.md) when the question is "what evidence closes this production blocker?"
-8. Check [production next actions](../../data/production-disposition/next-actions.csv) when the question is "what production receipt or fix should we work on next?"
+8. Check [production next actions](../../data/production-disposition/next-actions.csv) when the question is "what production decision, image digest work, runtime scope, or support action should we work on next?"
 9. Check [scan disposition workdown](../../data/scan-disposition-workdown/summary.md) when the question is "is this scan finding a fix, a hardened base, an acceptance, or a runtime review?"
 10. Check [image digest workdown](../../data/image-digest-workdown/summary.md) when the question is "are rendered images reproducible enough for production OCI?"
 11. Check [next-ten waves](../../data/next-ten-waves/summary.md) when the question is "what compact work queue should we pick from next?"

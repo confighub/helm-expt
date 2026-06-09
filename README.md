@@ -415,6 +415,19 @@ committed local live/e2e receipts, production disposition, and top-500 analysis.
 The default verifier does not rerun Helm or touch a Kubernetes cluster; it proves
 that the checked-in artifacts and receipts are self-consistent and current.
 
+Use scoped checks while working. Use `npm run verify` as a broad gate before a
+large merge, public demo, release note, or external review. Use live runners
+only when the goal is to create or refresh live evidence.
+
+| Need | Start with |
+| --- | --- |
+| One doc or generated table changed | the matching `*:verify` command, plus `npm run docs:verify` for docs |
+| One chart proof changed | `<chart>:verify-proof`, `<chart>:verify-proof:self-test`, and `<chart>:verify-package` |
+| Command examples changed | `npm run installer:command-surface:verify` and `npm run variant:command-surface:verify` |
+| CSV/data front doors changed | owner `*:verify`, then `npm run data:index:verify` if CSVs moved or changed role |
+| Fresh Kubernetes or GitOps evidence needed | the specific live runner, then commit the receipt and regenerate its summary |
+| Broad release/public review gate | `npm run verify`, after scoped checks pass |
+
 Use `redis:compare` when you want to see the fresh Helm-vs-installer comparison
 end to end:
 
