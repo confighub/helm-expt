@@ -64,7 +64,7 @@ spec:
       liveParity: "1/2"
     featureSummary: "webhooks;required-values;install-vs-upgrade;extension-slots"
     hardGap: "ha (curated proof lane - bespoke teaching needed)"
-    nextAction: "resolve image digests for each affected variant before production OCI support"
+    nextAction: "image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes"
   installerPackage:
     path: "packages/hashicorp/consul/2.0.0"
     installer: "packages/hashicorp/consul/2.0.0/installer.yaml"

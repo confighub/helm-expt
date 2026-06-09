@@ -702,8 +702,8 @@ function recommendedBaseFromRows(rows) {
         ? rows.find((item) => item.base === "server-only-ephemeral")
       : null;
   const row = explicitSupportBase
-    ?? rows.find((item) => item.recommended_first === "yes")
     ?? rows.find((row) => row.complete_core_lane_set === "yes")
+    ?? rows.find((item) => item.recommended_first === "yes")
     ?? rows[0]
     ?? {};
   if (!row.base) return {};

@@ -13,57 +13,49 @@ spec:
     chart: "ingress-nginx/ingress-nginx"
     chartVersion: "4.15.1"
     packagePath: "packages/ingress-nginx/ingress-nginx/4.15.1"
-    variant: "default"
-    configHubUnitCount: 12
+    variant: "internal-clusterip"
+    configHubUnitCount: 10
   unitRevisionBindings:
     -
       slug: "clusterrolebinding-ingress-nginx"
       headRevisionNum: 2
-      dataHash: "79e669104c6ffc3178322f2ce4ee916891d1daa599a74a41412200c0d873f827"
-    -
-      slug: "configmap-ingress-nginx-ingress-nginx-controller"
-      headRevisionNum: 2
-      dataHash: "b092e19571bf6f2968f64be607467649523e6b05b994711d293df5339c5bc634"
-    -
-      slug: "deployment-ingress-nginx-ingress-nginx-controller"
-      headRevisionNum: 2
-      dataHash: "654dca9e90e73db08e9461c852d6b0e7373e4b62fb442d641f1364f751b4bab9"
-    -
-      slug: "role-ingress-nginx-ingress-nginx"
-      headRevisionNum: 2
-      dataHash: "1d172fb8ea4941b156900e234a1cbde27f569710a0417b17585ef8c50a7c75b2"
-    -
-      slug: "rolebinding-ingress-nginx-ingress-nginx"
-      headRevisionNum: 2
-      dataHash: "77b3313f338209c470b04972330d1c98cd3d72419c2cb5dea1ff7746d4214096"
-    -
-      slug: "serviceaccount-ingress-nginx-ingress-nginx"
-      headRevisionNum: 2
-      dataHash: "c7da6db5d614dbdc04e1822c06b0e4fa46c2ddd398041ef1cbb832e967c861c2"
+      dataHash: "75c3ceedd6a271ddc5727fd9449130d278f2e5fda3e20b8fe6d337a7b988346e"
     -
       slug: "clusterrole-ingress-nginx"
       headRevisionNum: 2
-      dataHash: "9c01d12371f47d80ccbd3874865b8da52d9d34c457e7c2973f13cb5b5b2485a6"
+      dataHash: "bb7ceffc91b7d041266bc1d59c9bd708bfff7e138f78fe8ae45ac6a19d66949f"
+    -
+      slug: "configmap-ingress-nginx-ingress-nginx-controller"
+      headRevisionNum: 1
+      dataHash: "904f011e73acb53b22c7f04e37c13bd5ab044645604c082eb09a080c87ab95af"
+    -
+      slug: "deployment-ingress-nginx-ingress-nginx-controller"
+      headRevisionNum: 2
+      dataHash: "49c9eb0fd253a514b52a5fd8785fb38fd9408d0655978d3b78c9812a57c1c9b3"
     -
       slug: "ingressclass-nginx"
-      headRevisionNum: 2
-      dataHash: "5099ad846f5f31fbbbc67d261dda9253ae8a9531a25c364437d6a49487cd3076"
+      headRevisionNum: 1
+      dataHash: "3d34127bd126133150dbe03e961ba56537321c3ccaf3a8673a8ec0b8a19244c3"
     -
       slug: "namespace-ingress-nginx"
-      headRevisionNum: 2
-      dataHash: "b33468710f3d2913e3190199e73953732db5e55b6fdd5a938da6c47cfb95a769"
+      headRevisionNum: 1
+      dataHash: "83b6b29eaed4e67cebdab579ede9fe0aca618033ee77067363ad136cc57934f8"
     -
-      slug: "service-ingress-nginx-ingress-nginx-controller-admission"
+      slug: "rolebinding-ingress-nginx-ingress-nginx"
       headRevisionNum: 2
-      dataHash: "639ca83a0b66ee752a72553d149761adedf59f6659e94f9453be57d686532e17"
+      dataHash: "418c4e2063f707738b6b3cd1be697b586f1d7501975f707f24a5fc39915c362c"
+    -
+      slug: "role-ingress-nginx-ingress-nginx"
+      headRevisionNum: 2
+      dataHash: "334cc2a2731cb6906149b73a999457057574992e14546853ae9fc003160c57aa"
+    -
+      slug: "serviceaccount-ingress-nginx-ingress-nginx"
+      headRevisionNum: 1
+      dataHash: "f6e3b2cb7253d234e341c91fd9accc5e63b323a70d6906f2b7abe8210915cd7d"
     -
       slug: "service-ingress-nginx-ingress-nginx-controller"
       headRevisionNum: 2
-      dataHash: "ba4ee1d1912cd4026e0571eda1d7e92bb72e04d3fc901f67a0a9efae029f27c7"
-    -
-      slug: "validatingwebhookconfiguration-ingress-nginx-admission"
-      headRevisionNum: 2
-      dataHash: "e9bc4428cd49bb80e6a4e40b4eaffbb640d75f9eb0226a6c154cecd18ea6b7a6"
+      dataHash: "b0e4bef6cc63fc56dfa5fa87a0453c9575ca1c7464ccf4ebd3d0fda826152b80"
   validations:
     -
       function: "vet-format"
@@ -71,7 +63,7 @@ spec:
       hermetic: true
       idempotent: true
       result: "pass"
-      scannedUnits: 12
+      scannedUnits: 10
       failedUnits: 0
     -
       function: "vet-placeholders"
@@ -79,7 +71,7 @@ spec:
       hermetic: true
       idempotent: true
       result: "pass"
-      scannedUnits: 12
+      scannedUnits: 10
       failedUnits: 0
     -
       function: "vet-merge-keys"
@@ -87,7 +79,7 @@ spec:
       hermetic: true
       idempotent: true
       result: "pass"
-      scannedUnits: 12
+      scannedUnits: 10
       failedUnits: 0
   result: "pass"
   limitations:

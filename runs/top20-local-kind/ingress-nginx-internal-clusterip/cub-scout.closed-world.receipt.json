@@ -1,0 +1,173 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "rendered-object-set://sha256/e6ab163e2a724dd5",
+      "digest": {
+        "sha256": "e6ab163e2a724dd5389a5b049550339b56541827becff1824b85705f51c32358"
+      }
+    },
+    {
+      "name": "k8s-live-object-set://namespace/ingress-nginx",
+      "digest": {
+        "sha256": "e6ab163e2a724dd5389a5b049550339b56541827becff1824b85705f51c32358"
+      }
+    }
+  ],
+  "predicateType": "https://cub-scout.dev/receipt/v1",
+  "predicate": {
+    "version": "v1",
+    "claim": "live object set matches rendered manifests from /Users/alexis/code/helm-expt/runs/top20-local-kind/ingress-nginx-internal-clusterip/cub-scout.desired.yaml",
+    "scope": {
+      "kind": "ObjectSet",
+      "name": "rendered-install",
+      "namespace": "ingress-nginx"
+    },
+    "verifier": {
+      "tool": "cub-scout",
+      "version": "dev"
+    },
+    "verifiedAt": "2026-06-09T20:42:28Z",
+    "freshness": {
+      "observedAt": "2026-06-09T20:42:28Z",
+      "expiresAt": "2026-06-09T21:42:28Z",
+      "ttl": "1h0m0s"
+    },
+    "predicateName": "object-set-matches",
+    "verdict": "PASS",
+    "evidence": {
+      "objectSet": {
+        "desiredSource": {
+          "type": "file",
+          "ref": "/Users/alexis/code/helm-expt/runs/top20-local-kind/ingress-nginx-internal-clusterip/cub-scout.desired.yaml",
+          "digest": "261cf10e62287304457a3998e2278b5ea12d6deffce5d1637f2b4d7e1a173aec",
+          "objectCount": 9
+        },
+        "scope": {
+          "kind": "namespace",
+          "namespace": "ingress-nginx"
+        },
+        "matchMode": "authored-fields",
+        "desiredDigest": "e6ab163e2a724dd5389a5b049550339b56541827becff1824b85705f51c32358",
+        "liveDigest": "e6ab163e2a724dd5389a5b049550339b56541827becff1824b85705f51c32358",
+        "summary": {
+          "desired": 9,
+          "matched": 9,
+          "missing": 0,
+          "mismatched": 0,
+          "inconclusive": 0
+        },
+        "objects": [
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "ingress-nginx",
+              "name": "ingress-nginx-controller"
+            },
+            "status": "matched",
+            "desiredDigest": "b21eaf1f93352f349f18967c94c275c9e34be2dda5be84a03198d44f70346bb1",
+            "liveDigest": "b21eaf1f93352f349f18967c94c275c9e34be2dda5be84a03198d44f70346bb1"
+          },
+          {
+            "id": {
+              "apiVersion": "networking.k8s.io/v1",
+              "kind": "IngressClass",
+              "name": "nginx"
+            },
+            "status": "matched",
+            "desiredDigest": "3691d3b38269df4271cbca94d025f0163103fb7318d331adaeb6556e84cb2bcb",
+            "liveDigest": "3691d3b38269df4271cbca94d025f0163103fb7318d331adaeb6556e84cb2bcb"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "ClusterRoleBinding",
+              "name": "ingress-nginx"
+            },
+            "status": "matched",
+            "desiredDigest": "d6757c91ae342684815055dff486cb15a72951fb16204be29cbf3ca2b625dcaf",
+            "liveDigest": "d6757c91ae342684815055dff486cb15a72951fb16204be29cbf3ca2b625dcaf"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "ClusterRole",
+              "name": "ingress-nginx"
+            },
+            "status": "matched",
+            "desiredDigest": "29d725a761ea72fd2b2bb70d4ef1d5e909bd2956ee73a82c4150318ca7f8981d",
+            "liveDigest": "29d725a761ea72fd2b2bb70d4ef1d5e909bd2956ee73a82c4150318ca7f8981d"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "RoleBinding",
+              "namespace": "ingress-nginx",
+              "name": "ingress-nginx"
+            },
+            "status": "matched",
+            "desiredDigest": "86566847bfd3c650d67fa2280a382939cae3a84a89b4294ffb0864f2cf90eb9a",
+            "liveDigest": "86566847bfd3c650d67fa2280a382939cae3a84a89b4294ffb0864f2cf90eb9a"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "Role",
+              "namespace": "ingress-nginx",
+              "name": "ingress-nginx"
+            },
+            "status": "matched",
+            "desiredDigest": "044e5296479aec2b647ae753f38aea8c2c0745d65137b1458dd038aa968a4074",
+            "liveDigest": "044e5296479aec2b647ae753f38aea8c2c0745d65137b1458dd038aa968a4074"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "ingress-nginx",
+              "name": "ingress-nginx-controller"
+            },
+            "status": "matched",
+            "desiredDigest": "aed02b30ff039a3a367180a9d078cc7d1ae556b0085173f4d078e3d5adca9eb4",
+            "liveDigest": "aed02b30ff039a3a367180a9d078cc7d1ae556b0085173f4d078e3d5adca9eb4"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ServiceAccount",
+              "namespace": "ingress-nginx",
+              "name": "ingress-nginx"
+            },
+            "status": "matched",
+            "desiredDigest": "0ce6de44d5dab654cbd82135c753e3947e8e05454008426b285ef3f993a70da4",
+            "liveDigest": "0ce6de44d5dab654cbd82135c753e3947e8e05454008426b285ef3f993a70da4"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "ingress-nginx",
+              "name": "ingress-nginx-controller"
+            },
+            "status": "matched",
+            "desiredDigest": "ba776b00ea3e2b3e70ad5f7cda3890c7fb7965c12c743d275ea099f310fa98cc",
+            "liveDigest": "ba776b00ea3e2b3e70ad5f7cda3890c7fb7965c12c743d275ea099f310fa98cc"
+          }
+        ],
+        "extraChecked": true
+      }
+    },
+    "omissions": [],
+    "inputAttestations": [],
+    "nextSteps": [
+      {
+        "actionType": "read-only",
+        "reason": "every desired rendered object was present and all authored fields matched live",
+        "nextCommand": "cub-scout doctor",
+        "nextSurface": "cub-scout"
+      }
+    ],
+    "fingerprint": "sha256:db43e75d08c82359f0cece4cd8e76bb5f2189417fa55f45baf11d58fc6ec86b5"
+  }
+}

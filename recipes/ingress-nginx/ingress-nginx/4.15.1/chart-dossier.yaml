@@ -9,6 +9,7 @@ spec:
     - "Default chart renders an admission Service and ValidatingWebhookConfiguration."
     - "Admission certificate create/patch Jobs are Helm hooks and are excluded from the rendered revision by --no-hooks."
     - "admission-disabled variant removes the admission Service and ValidatingWebhookConfiguration from the rendered revision."
+    - "internal-clusterip variant also changes the controller Service from LoadBalancer to ClusterIP for local/internal targets."
     - "Admission webhook readiness must be observed after apply because a rendered object alone does not prove webhook health."
   knownControlPoints:
     - "capability-profile"

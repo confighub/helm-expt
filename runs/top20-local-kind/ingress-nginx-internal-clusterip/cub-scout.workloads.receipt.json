@@ -1,0 +1,96 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "rendered-object-set://sha256/1a950856a87de5fb",
+      "digest": {
+        "sha256": "1a950856a87de5fb6a4edb720edceca3b7903bb476bddb66eedf3440c29346ce"
+      }
+    },
+    {
+      "name": "k8s-live-workloads://namespace/ingress-nginx",
+      "digest": {
+        "sha256": "f79bdf23e3f9b7d228a6f6abea3af95c3ed84c2ba5b706e761a09d3f84a7b8d5"
+      }
+    }
+  ],
+  "predicateType": "https://cub-scout.dev/receipt/v1",
+  "predicate": {
+    "version": "v1",
+    "claim": "desired workloads from /Users/alexis/code/helm-expt/runs/top20-local-kind/ingress-nginx-internal-clusterip/cub-scout.workloads.desired.yaml converged to a ready state in the live cluster",
+    "scope": {
+      "kind": "WorkloadSet",
+      "name": "rendered-install",
+      "namespace": "ingress-nginx"
+    },
+    "verifier": {
+      "tool": "cub-scout",
+      "version": "dev"
+    },
+    "verifiedAt": "2026-06-09T20:42:28Z",
+    "freshness": {
+      "observedAt": "2026-06-09T20:42:28Z",
+      "expiresAt": "2026-06-09T21:42:28Z",
+      "ttl": "1h0m0s"
+    },
+    "predicateName": "workloads-converged",
+    "verdict": "PASS",
+    "evidence": {
+      "workloads": {
+        "desiredSource": {
+          "type": "file",
+          "ref": "/Users/alexis/code/helm-expt/runs/top20-local-kind/ingress-nginx-internal-clusterip/cub-scout.workloads.desired.yaml",
+          "digest": "ef87c4b3d0aaa2a5f8cb8850d91f74b900fb5458a74d48735d1a361e6e4d9262",
+          "objectCount": 1
+        },
+        "scope": {
+          "kind": "namespace",
+          "namespace": "ingress-nginx"
+        },
+        "graceWindow": "5m0s",
+        "observedAt": "2026-06-09T20:42:28Z",
+        "desiredDigest": "1a950856a87de5fb6a4edb720edceca3b7903bb476bddb66eedf3440c29346ce",
+        "liveDigest": "f79bdf23e3f9b7d228a6f6abea3af95c3ed84c2ba5b706e761a09d3f84a7b8d5",
+        "summary": {
+          "desired": 1,
+          "converged": 1,
+          "progressing": 0,
+          "failed": 0,
+          "missing": 0,
+          "inconclusive": 0
+        },
+        "workloads": [
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "ingress-nginx",
+              "name": "ingress-nginx-controller"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Deployment is available. Replicas: 1",
+            "ageSeconds": 32
+          }
+        ]
+      }
+    },
+    "omissions": [
+      {
+        "missing": "workload-convergence-snapshot",
+        "reason": "workloads-converged reflects readiness observed at verifiedAt; it does not prove the workloads stay converged afterward",
+        "severity": "info"
+      }
+    ],
+    "inputAttestations": [],
+    "nextSteps": [
+      {
+        "actionType": "read-only",
+        "reason": "every desired workload reached a ready/converged state",
+        "nextCommand": "cub-scout doctor",
+        "nextSurface": "cub-scout"
+      }
+    ],
+    "fingerprint": "sha256:edd541ae04ec8c16cc2b2941a7366c8c96a03d88e648f6af35c12bf7290c9d21"
+  }
+}

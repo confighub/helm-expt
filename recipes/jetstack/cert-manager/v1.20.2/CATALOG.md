@@ -34,7 +34,7 @@ for exact base-variant evidence.
 | Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 1/2; live parity 1/2 |
 | Feature summary | extension-slots |
 | Hard gap | - |
-| Next action | choose whether default is in production scope; record the target-scoped lifecycle support decision before claiming production support |
+| Next action | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 
 ## Artifact Chain
 

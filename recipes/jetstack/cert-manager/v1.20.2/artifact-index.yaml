@@ -61,7 +61,7 @@ spec:
       liveParity: "1/2"
     featureSummary: "extension-slots"
     hardGap: "-"
-    nextAction: "choose whether default is in production scope; record the target-scoped lifecycle support decision before claiming production support"
+    nextAction: "image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes"
   installerPackage:
     path: "packages/jetstack/cert-manager/v1.20.2"
     installer: "packages/jetstack/cert-manager/v1.20.2/installer.yaml"

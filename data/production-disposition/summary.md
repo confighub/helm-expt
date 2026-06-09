@@ -17,9 +17,9 @@ live/e2e observed charts: 20
 production-review-ready disposition rows: 20
 production-blocked pending disposition: 0
 target-scoped support decision artifacts: 20
-target-scoped supported decisions: 16
+target-scoped supported decisions: 17
 target-scoped superseded decisions: 2
-target-scoped rejected decisions: 2
+target-scoped rejected decisions: 1
 target-scoped draft decisions: 0
 source Helm-hook rows: 1
 hook/lifecycle disposition rows: 12
@@ -84,9 +84,9 @@ active support state.
 | --- | ---: | --- |
 | Final support decision | 1 | Choose the supported base, target scope, delivery path, and evidence refresh rule.<br>`bitnami/nginx@24.0.2` (http-clusterip) |
 | Image digest resolution | 10 | Pin images by digest or record an explicit exception before production OCI support.<br>`argo-cd/argo-cd@9.5.15` (default)<br>`bitnami/mysql@14.0.3` (generated-passwords)<br>`bitnami/rabbitmq@16.0.14` (generated-passwords)<br>`external-secrets/external-secrets@2.5.0` (default)<br>`grafana/grafana@10.5.15` (generated-passwords)<br>and 5 more |
-| Lifecycle support boundary | 3 | Record which lifecycle behavior is supported, observed, excluded, or operator-owned.<br>`bitnami/mongodb@19.0.7` (generated-passwords)<br>`bitnami/postgresql@18.6.7` (generated-passwords)<br>`bitnami/redis@25.5.3` (default) |
+| Lifecycle support boundary | 4 | Record which lifecycle behavior is supported, observed, excluded, or operator-owned.<br>`bitnami/mongodb@19.0.7` (generated-passwords)<br>`bitnami/postgresql@18.6.7` (generated-passwords)<br>`bitnami/redis@25.5.3` (default)<br>`ingress-nginx/ingress-nginx@4.15.1` (internal-clusterip) |
 | Security acceptance or hardened base | 4 | Accept current security findings for the target scope or create a hardened base variant.<br>`longhorn/longhorn@1.11.2` (default)<br>`prometheus-community/kube-prometheus-stack@85.3.3` (default)<br>`prometheus-community/prometheus@29.8.0` (server-only-ephemeral)<br>`secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` (default) |
-| Target runtime scope | 2 | Decide whether the runtime condition is acceptable for the target scope, then refresh live evidence.<br>`hashicorp/vault@0.32.0` (default)<br>`ingress-nginx/ingress-nginx@4.15.1` (default) |
+| Target runtime scope | 1 | Decide whether the runtime condition is acceptable for the target scope, then refresh live evidence.<br>`hashicorp/vault@0.32.0` (default) |
 
 For the full per-chart contract, use
 `data/production-disposition/support-decision-contract.md`. For the
@@ -110,7 +110,7 @@ spreadsheet form, use
 | `grafana/tempo@1.24.4` | local-persistent, s3-query-observability | pass | local-kind-observed | production-review-ready | 4 |  |
 | `hashicorp/consul@2.0.0` | default-control-plane, secure-mesh-existing-secrets | pass | local-kind-observed | production-review-ready | 8 |  |
 | `hashicorp/vault@0.32.0` | default, ha-raft-ui | pass | local-kind-observed | production-review-ready | 5 |  |
-| `ingress-nginx/ingress-nginx@4.15.1` | default, admission-disabled | pass | local-kind-observed | production-review-ready | 4 |  |
+| `ingress-nginx/ingress-nginx@4.15.1` | default, admission-disabled, internal-clusterip | pass | local-kind-observed | production-review-ready | 4 |  |
 | `jetstack/cert-manager@v1.20.2` | default, crds-enabled | pass | local-kind-observed | production-review-ready | 6 |  |
 | `longhorn/longhorn@1.11.2` | default, ui-ingress | pass | local-kind-observed | production-review-ready | 5 |  |
 | `metrics-server/metrics-server@3.13.0` | default, external-tls-ca | pass | local-kind-observed | production-review-ready | 5 |  |

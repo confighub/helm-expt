@@ -10,22 +10,22 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 10
+rows: 9
 blocked: 7
-watch: 3
-configHub-oci-live-comparison: 2
+watch: 2
+configHub-oci-live-comparison: 1
 two-cluster-kind-parity: 8
 semantic-parity-defects: 0
 infra-or-rig-rows: 0
 prerequisite-or-lifecycle-rows: 2
-runtime-or-watch-rows: 8
+runtime-or-watch-rows: 7
 ```
 
 ## Lane Breakdown
 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| configHub-oci-live-comparison | 2 | 0 | 2 | 0 | 0 |
+| configHub-oci-live-comparison | 1 | 0 | 1 | 0 | 0 |
 | two-cluster-kind-parity | 8 | 0 | 1 | 7 | 0 |
 
 The ConfigHub/OCI live comparison rows in this queue are current `watch` rows.
@@ -51,7 +51,6 @@ The `blocked` rows are currently from the two-cluster kind parity lane.
 | operating-policy | 1 | Record the operating policy decision, then rerun only if the expected readiness changes. |
 | runtime-review | 6 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
 | stage-prerequisite | 1 | Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning. |
-| target-fit-review | 1 | Choose a target that provides the required platform behavior, or create a base that fits the target. |
 
 Rows in `stage-prerequisite`, `lifecycle-route`, and `operating-policy`
 usually need a model or target decision before another rerun is useful. Rows in
@@ -66,7 +65,7 @@ reasonable live rerun candidates.
 
 | Readiness | Rows | Meaning |
 | --- | ---: | --- |
-| model-or-stage-first | 4 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| model-or-stage-first | 3 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 | review-target-first | 6 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Run Safety
@@ -92,7 +91,6 @@ faithful to the locked chart/version without changing the recipe.
 | Priority | Readiness | Next step | Lane | Chart | Base | Current | Reason | Command |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
 | 30 | model-or-stage-first | operating-policy | configHub-oci-live-comparison | `hashicorp/vault@0.32.0` | default | watch | operate-policy: Vault init/unseal readiness (parity passed) | `npm run live-parity:top20 -- --from-rank 12 --to-rank 12 --continue-on-fail` |
-| 30 | model-or-stage-first | target-fit-review | configHub-oci-live-comparison | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | watch | target-fit: LoadBalancer Service has no external IP on kind (parity passed) | `npm run live-parity:top20 -- --from-rank 3 --to-rank 3 --continue-on-fail` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `grafana/tempo@1.24.4` | s3-query-observability | blocked | target-prerequisite: CRDs missing | `npm run kind-parity:run -- --chart grafana/tempo --version 1.24.4 --base s3-query-observability` |
 | 55 | model-or-stage-first | lifecycle-route | two-cluster-kind-parity | `jetstack/cert-manager@v1.20.2` | default | blocked | helm-hook: post-install hook failed (parity passed) | `npm run kind-parity:run -- --chart jetstack/cert-manager --version v1.20.2 --base default` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | blocked | target-runtime: pod crash loop (parity passed) | `npm run kind-parity:run -- --chart bitnami/mongodb --version 19.0.7 --base existing-secret-replicaset --repo-url oci://registry-1.docker.io/bitnamicharts` |

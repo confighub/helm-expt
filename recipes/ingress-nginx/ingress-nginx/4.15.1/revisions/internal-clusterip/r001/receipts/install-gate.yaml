@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "ingress-nginx-internal-clusterip-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "a94ba2b56636baf7e732766c12c98d808b57c276156fa7a3a752b4137bf5f46a"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for internal-clusterip"
+    - "Admission webhook availability needs a fresh observation receipt after apply"
+    - "Helm admission hook jobs need explicit lifecycle policy before production"
+    - "Cluster-scoped RBAC needs production review"
+    - "uses an internal ClusterIP Service for targets without an external LoadBalancer"

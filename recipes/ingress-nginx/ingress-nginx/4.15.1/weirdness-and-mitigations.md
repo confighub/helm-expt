@@ -13,7 +13,7 @@ current ConfigHub/cub installer proof absorbs it.
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
 | Production readiness | production-review-ready |
-| Variants in this note | default, admission-disabled |
+| Variants in this note | default, admission-disabled, internal-clusterip |
 
 Production support is not implied by this file. A chart can be supported for
 local proof/demo use while still needing accepted scan, gate, lifecycle, and
@@ -24,6 +24,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 - Default chart renders an admission Service and ValidatingWebhookConfiguration.
 - Admission certificate create/patch Jobs are Helm hooks and are excluded from the rendered revision by --no-hooks.
 - admission-disabled variant removes the admission Service and ValidatingWebhookConfiguration from the rendered revision.
+- internal-clusterip variant also changes the controller Service from LoadBalancer to ClusterIP for local/internal targets.
 - Admission webhook readiness must be observed after apply because a rendered object alone does not prove webhook health.
 
 ## Catalog Mitigations

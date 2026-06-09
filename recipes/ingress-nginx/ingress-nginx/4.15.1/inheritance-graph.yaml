@@ -16,6 +16,10 @@ spec:
       name: "admission-disabled"
       variant: "variants/admission-disabled/variant.yaml"
       valuesProfile: "effective-values-admission-disabled.yaml"
+    -
+      name: "internal-clusterip"
+      variant: "variants/internal-clusterip/variant.yaml"
+      valuesProfile: "effective-values-internal-clusterip.yaml"
   edges:
     -
       from: "default"
@@ -41,6 +45,21 @@ spec:
         []
       addedValuePaths:
         - "controller.admissionWebhooks.enabled"
+      removedValuePaths:
+        []
+      valueSourceMapCoverage:
+        []
+    -
+      from: "default"
+      to: "internal-clusterip"
+      type: "inherits-with-overrides"
+      inheritedValuePaths:
+        []
+      overriddenValuePaths:
+        []
+      addedValuePaths:
+        - "controller.admissionWebhooks.enabled"
+        - "controller.service.type"
       removedValuePaths:
         []
       valueSourceMapCoverage:

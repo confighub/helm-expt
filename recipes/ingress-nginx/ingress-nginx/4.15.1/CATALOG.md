@@ -17,7 +17,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
 | Production readiness | production-review-ready |
-| Supported variants | default, admission-disabled |
+| Supported variants | default, admission-disabled, internal-clusterip |
 | Candidate variants | none |
 | Control points | admission-webhook, capability-profile, cluster-rbac, dependency-lock, hook-policy, installer-support-object, source-lock, tpl |
 
@@ -30,11 +30,11 @@ for exact base-variant evidence.
 | --- | --- |
 | Adoption bucket | try-from-public-catalog |
 | User status | catalog-supported-with-live-evidence |
-| Strongest evidence | local-kubernetes-live |
-| Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 0/2; live parity 0/2 |
+| Strongest evidence | live-helm-vs-confighub-parity |
+| Proof lanes | render parity 3/3; ConfigHub 1/3; local live 2/3; GitOps live 1/3; live parity 1/3 |
 | Feature summary | webhooks;required-values |
 | Hard gap | - |
-| Next action | choose whether default is in production scope; close or document its runtime-watch live-readiness issue first |
+| Next action | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
 
 ## Artifact Chain
 
@@ -60,6 +60,7 @@ for exact base-variant evidence.
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/ingress-nginx/ingress-nginx/4.15.1/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/ingress-nginx/ingress-nginx/4.15.1/bases/default](../../../../packages/ingress-nginx/ingress-nginx/4.15.1/bases/default) | [recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 11 | 12 | 11/11 | pass | warn | warn | none |
 | admission-disabled | [recipes/ingress-nginx/ingress-nginx/4.15.1/variants/admission-disabled/variant.yaml](variants/admission-disabled/variant.yaml) | [packages/ingress-nginx/ingress-nginx/4.15.1/bases/admission-disabled](../../../../packages/ingress-nginx/ingress-nginx/4.15.1/bases/admission-disabled) | [recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/variant-revision.yaml](revisions/admission-disabled/r001/variant-revision.yaml) | 9 | 10 | 9/9 | pass | warn | warn | none |
+| internal-clusterip | [recipes/ingress-nginx/ingress-nginx/4.15.1/variants/internal-clusterip/variant.yaml](variants/internal-clusterip/variant.yaml) | [packages/ingress-nginx/ingress-nginx/4.15.1/bases/internal-clusterip](../../../../packages/ingress-nginx/ingress-nginx/4.15.1/bases/internal-clusterip) | [recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/variant-revision.yaml](revisions/internal-clusterip/r001/variant-revision.yaml) | 9 | 10 | 9/9 | pass | warn | warn | none |
 
 ## Package Bases
 
@@ -67,6 +68,7 @@ for exact base-variant evidence.
 | --- | --- | --- | --- |
 | default | [packages/ingress-nginx/ingress-nginx/4.15.1/bases/default](../../../../packages/ingress-nginx/ingress-nginx/4.15.1/bases/default) | yes | ingress-nginx default variant rendered from ingress-nginx/ingress-nginx@4.15.1 |
 | admission-disabled | [packages/ingress-nginx/ingress-nginx/4.15.1/bases/admission-disabled](../../../../packages/ingress-nginx/ingress-nginx/4.15.1/bases/admission-disabled) | no | ingress-nginx admission webhook disabled variant rendered from ingress-nginx/ingress-nginx@4.15.1 |
+| internal-clusterip | [packages/ingress-nginx/ingress-nginx/4.15.1/bases/internal-clusterip](../../../../packages/ingress-nginx/ingress-nginx/4.15.1/bases/internal-clusterip) | no | ingress-nginx internal ClusterIP controller variant rendered from ingress-nginx/ingress-nginx@4.15.1 |
 
 ## Receipts
 
@@ -80,6 +82,10 @@ for exact base-variant evidence.
 | admission-disabled | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/receipts/helm-equivalence-receipt.yaml](revisions/admission-disabled/r001/receipts/helm-equivalence-receipt.yaml) |
 | admission-disabled | r001 | scan | ScanReceipt | warn | [recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/receipts/scan-receipt.yaml](revisions/admission-disabled/r001/receipts/scan-receipt.yaml) |
 | admission-disabled | r001 | installGate | InstallGate | warn | [recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/receipts/install-gate.yaml](revisions/admission-disabled/r001/receipts/install-gate.yaml) |
+| internal-clusterip | r001 | render | RenderReceipt | recorded | [recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/receipts/render-receipt.yaml](revisions/internal-clusterip/r001/receipts/render-receipt.yaml) |
+| internal-clusterip | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/receipts/helm-equivalence-receipt.yaml](revisions/internal-clusterip/r001/receipts/helm-equivalence-receipt.yaml) |
+| internal-clusterip | r001 | scan | ScanReceipt | warn | [recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/receipts/scan-receipt.yaml](revisions/internal-clusterip/r001/receipts/scan-receipt.yaml) |
+| internal-clusterip | r001 | installGate | InstallGate | warn | [recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/receipts/install-gate.yaml](revisions/internal-clusterip/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

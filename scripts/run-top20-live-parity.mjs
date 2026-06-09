@@ -15,7 +15,7 @@ const keep = process.argv.includes("--keep");
 const targets = [
   { rank: 1, slug: "redis", chart: "bitnami/redis", version: "25.5.3", namespace: "redis", variant: "default", recipe: "recipes/bitnami/redis/25.5.3" },
   { rank: 2, slug: "metrics-server", chart: "metrics-server/metrics-server", version: "3.13.0", namespace: "kube-system", variant: "default", recipe: "recipes/metrics-server/metrics-server/3.13.0" },
-  { rank: 3, slug: "ingress-nginx", chart: "ingress-nginx/ingress-nginx", version: "4.15.1", namespace: "ingress-nginx", variant: "admission-disabled", recipe: "recipes/ingress-nginx/ingress-nginx/4.15.1" },
+  { rank: 3, slug: "ingress-nginx", chart: "ingress-nginx/ingress-nginx", version: "4.15.1", namespace: "ingress-nginx", variant: "internal-clusterip", recipe: "recipes/ingress-nginx/ingress-nginx/4.15.1" },
   { rank: 4, slug: "cert-manager", chart: "jetstack/cert-manager", version: "v1.20.2", namespace: "cert-manager", variant: "crds-enabled", recipe: "recipes/jetstack/cert-manager/v1.20.2" },
   { rank: 5, slug: "external-secrets", chart: "external-secrets/external-secrets", version: "2.5.0", namespace: "external-secrets", variant: "default", recipe: "recipes/external-secrets/external-secrets/2.5.0" },
   { rank: 6, slug: "argo-cd", chart: "argo-cd/argo-cd", version: "9.5.15", namespace: "argocd", variant: "default", recipe: "recipes/argo-cd/argo-cd/9.5.15" },

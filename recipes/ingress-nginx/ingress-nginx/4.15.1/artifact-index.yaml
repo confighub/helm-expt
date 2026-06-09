@@ -43,6 +43,7 @@ spec:
     supportedVariants:
       - "default"
       - "admission-disabled"
+      - "internal-clusterip"
     candidateVariants:
       []
     deferredVariants:
@@ -50,21 +51,21 @@ spec:
   proofSummary:
     adoptionBucket: "try-from-public-catalog"
     userStatus: "catalog-supported-with-live-evidence"
-    strongestEvidence: "local-kubernetes-live"
+    strongestEvidence: "live-helm-vs-confighub-parity"
     proofLanes:
-      renderParity: "2/2"
-      inConfigHub: "1/2"
-      localLive: "1/2"
-      gitopsLive: "0/2"
-      liveParity: "0/2"
+      renderParity: "3/3"
+      inConfigHub: "1/3"
+      localLive: "2/3"
+      gitopsLive: "1/3"
+      liveParity: "1/3"
     featureSummary: "webhooks;required-values"
     hardGap: "-"
-    nextAction: "choose whether default is in production scope; close or document its runtime-watch live-readiness issue first"
+    nextAction: "record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope"
   installerPackage:
     path: "packages/ingress-nginx/ingress-nginx/4.15.1"
     installer: "packages/ingress-nginx/ingress-nginx/4.15.1/installer.yaml"
     receipt: "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "aad707111eb404ae4c1b3ccf5da69375fe9daf539f0ddf9fefab5683d552c2b2"
+    deterministicBundleSHA256: "c603ffb2f01d8bfabd6dc2fb983b235b659fcf3eb1f8ff8273f39d4ea7cd2ae1"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -77,6 +78,11 @@ spec:
         path: "packages/ingress-nginx/ingress-nginx/4.15.1/bases/admission-disabled"
         default: false
         description: "ingress-nginx admission webhook disabled variant rendered from ingress-nginx/ingress-nginx@4.15.1"
+      -
+        name: "internal-clusterip"
+        path: "packages/ingress-nginx/ingress-nginx/4.15.1/bases/internal-clusterip"
+        default: false
+        description: "ingress-nginx internal ClusterIP controller variant rendered from ingress-nginx/ingress-nginx@4.15.1"
   variants:
     -
       name: "default"
@@ -110,7 +116,7 @@ spec:
           name: "default-r001"
           revision: "r001"
           variantRevision: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/variant-revision.yaml"
-          digest: "2f70f5420db713ff0ad3ac1dbd440ddb6be2ae0390a04404fc0c744fb51e1ecb"
+          digest: "121ae4816be8f35d85fd9677838f82b1f551aef4c8c6d7110fa61e7648bb6c25"
           renderedObjectSetSHA256: "257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d"
           renderedObjects: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/object-inventory.yaml"
@@ -172,7 +178,7 @@ spec:
           name: "admission-disabled-r001"
           revision: "r001"
           variantRevision: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/variant-revision.yaml"
-          digest: "df9ec5e51d2774d3ee7f68ecfb00c3388d1c2face4a4f6665d5905a40d667588"
+          digest: "c559f8547f3716cddff683df312790c09786c8bff4284023d7ad59ad6139e7b7"
           renderedObjectSetSHA256: "ad133758fa1985241f9dd1fe766f6ca9f17e199bf7562e37b3c2834a6588c25e"
           renderedObjects: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/object-inventory.yaml"
@@ -202,3 +208,65 @@ spec:
               path: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "ad133758fa1985241f9dd1fe766f6ca9f17e199bf7562e37b3c2834a6588c25e"
+    -
+      name: "internal-clusterip"
+      variant: "recipes/ingress-nginx/ingress-nginx/4.15.1/variants/internal-clusterip/variant.yaml"
+      namespace: "ingress-nginx"
+      releaseName: "ingress-nginx"
+      valuesProfile: "recipes/ingress-nginx/ingress-nginx/4.15.1/effective-values-internal-clusterip.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "internal-clusterip"
+        path: "packages/ingress-nginx/ingress-nginx/4.15.1/bases/internal-clusterip"
+        default: false
+        description: "ingress-nginx internal ClusterIP controller variant rendered from ingress-nginx/ingress-nginx@4.15.1"
+      setupCheck:
+        command: "cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base internal-clusterip --work-dir <tmp> --non-interactive --namespace ingress-nginx"
+        helmReleaseObjectCount: 9
+        cubInstallObjectCountIncludingSupport: 10
+        semanticObjectMatches: "9/9"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||ingress-nginx"
+      revisions:
+        -
+          name: "internal-clusterip-r001"
+          revision: "r001"
+          variantRevision: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/variant-revision.yaml"
+          digest: "7083577d9a18c7d732a95318c6fa9aa5619f0603d2217394f805dbefcf3600cc"
+          renderedObjectSetSHA256: "a94ba2b56636baf7e732766c12c98d808b57c276156fa7a3a752b4137bf5f46a"
+          renderedObjects: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/rendered/object-inventory.yaml"
+          objectCount: 9
+          helmObjectCount: 9
+          cubInstallObjectCountIncludingSupport: 10
+          semanticObjectMatches: "9/9"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "a94ba2b56636baf7e732766c12c98d808b57c276156fa7a3a752b4137bf5f46a"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "a94ba2b56636baf7e732766c12c98d808b57c276156fa7a3a752b4137bf5f46a"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "a94ba2b56636baf7e732766c12c98d808b57c276156fa7a3a752b4137bf5f46a"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "a94ba2b56636baf7e732766c12c98d808b57c276156fa7a3a752b4137bf5f46a"

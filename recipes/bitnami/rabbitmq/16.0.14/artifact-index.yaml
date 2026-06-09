@@ -61,7 +61,7 @@ spec:
       liveParity: "1/2"
     featureSummary: "generated-secrets;required-values;values-schema;install-vs-upgrade"
     hardGap: "ha (curated proof lane - bespoke teaching needed)"
-    nextAction: "resolve image digests for each affected variant before production OCI support"
+    nextAction: "image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes"
   installerPackage:
     path: "packages/bitnami/rabbitmq/16.0.14"
     installer: "packages/bitnami/rabbitmq/16.0.14/installer.yaml"

@@ -70,14 +70,21 @@ function buildSite() {
   const scanDisposition = parseCsv(readFileSync(scanDispositionPath, "utf8"));
   const highFanout = parseCsv(readFileSync(highFanoutPath, "utf8"));
   const baseReadinessByKey = new Map(baseReadiness.map((row) => [`${row.chart}|${row.base}`, row]));
+  const bestBaseByChart = new Map(bestBaseRows(baseReadiness).map((row) => [row.chart, row]));
   const top100ReadinessWithSupport = applySupportDecisionNextActions(top100Readiness, productionSupportDecisions);
   const catalogEntries = top100.entries
     .filter((entry) => entry.proof_surface === "top20-catalog-supported")
-    .map((entry) => ({
-      ...entry,
-      start_base_readiness: baseReadinessByKey.get(`${entry.chart}@${entry.version}|${entry.start_variant}`)?.user_readiness ?? "",
-      start_command: baseReadinessByKey.get(`${entry.chart}@${entry.version}|${entry.start_variant}`)?.command ?? "",
-    }));
+    .map((entry) => {
+      const chartKey = `${entry.chart}@${entry.version}`;
+      const bestBase = bestBaseByChart.get(chartKey);
+      const startVariant = bestBase?.base ?? entry.start_variant;
+      return {
+        ...entry,
+        start_variant: startVariant,
+        start_base_readiness: bestBase?.user_readiness ?? baseReadinessByKey.get(`${chartKey}|${startVariant}`)?.user_readiness ?? "",
+        start_command: bestBase?.command ?? baseReadinessByKey.get(`${chartKey}|${startVariant}`)?.command ?? "",
+      };
+    });
   const proofGrade = top100.entries.filter((entry) => entry.proof_surface === "next80-proof-grade");
   const latestCandidates = readiness.map((row) => ({
     chart: row.chart,
@@ -208,8 +215,7 @@ function html(catalog) {
     ["Scan and image posture", "Accept the findings for this infrastructure scope or create a hardened base."],
     ["Final live evidence", "Refresh target-scoped live parity, GitOps/OCI, and observation receipts before claiming production support."],
   ];
-  const recommendedBaseRows = catalog.baseReadiness
-    .filter((row) => row.recommended_first === "yes")
+  const recommendedBaseRows = bestBaseRows(catalog.baseReadiness)
     .map((row) => [row.chart, row.base, row.user_readiness, row.command, row.why]);
   const top20ExtensionRows = catalog.extensionSlots
     .filter((row) => row.catalog_scope === "top20-catalog")
@@ -944,6 +950,34 @@ function chartCard(entry) {
             <dt>Chart proof</dt><dd><a href="../${escapeHtml(entry.catalog_path)}">CATALOG.md</a></dd>
           </dl>
         </article>`;
+}
+
+function bestBaseRows(rows) {
+  const byChart = new Map();
+  for (const row of rows) {
+    const current = byChart.get(row.chart);
+    if (!current || compareBaseReadiness(row, current) < 0) byChart.set(row.chart, row);
+  }
+  return [...byChart.values()].sort((left, right) => left.chart.localeCompare(right.chart));
+}
+
+function compareBaseReadiness(left, right) {
+  const readinessRank = new Map([
+    ["start-here", 0],
+    ["lifecycle-observed", 1],
+    ["prerequisite-observed", 2],
+    ["try-with-proof", 3],
+    ["runtime-watch", 4],
+    ["runtime-review-needed", 5],
+    ["target-prerequisite-needed", 6],
+    ["hook-lifecycle-review-needed", 7],
+  ]);
+  const leftRank = readinessRank.get(left.user_readiness) ?? 99;
+  const rightRank = readinessRank.get(right.user_readiness) ?? 99;
+  if (leftRank !== rightRank) return leftRank - rightRank;
+  if (left.complete_core_lane_set !== right.complete_core_lane_set) return left.complete_core_lane_set === "yes" ? -1 : 1;
+  if (left.recommended_first !== right.recommended_first) return left.recommended_first === "yes" ? -1 : 1;
+  return left.base.localeCompare(right.base);
 }
 
 function baseReadinessLabelRows() {
