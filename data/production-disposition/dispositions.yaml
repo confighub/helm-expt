@@ -276,7 +276,7 @@ spec:
     -
       chart: "bitnami/nginx"
       version: "24.0.2"
-      status: "production-blocked"
+      status: "production-review-ready"
       supportedLocalTestVariants:
         - "http-clusterip"
         - "existing-tls-ingress"
@@ -309,6 +309,7 @@ spec:
         productionDispositionReceipts:
           - "data/production-disposition/receipts/bitnami-nginx/extension-slot-provenance-and-scan-policy.yaml"
           - "data/production-disposition/receipts/bitnami-nginx/generated-fact-ownership.yaml"
+          - "data/production-disposition/receipts/bitnami-nginx/scan-gate-warning-disposition.yaml"
           - "data/production-disposition/receipts/bitnami-nginx/target-fact-preflight.yaml"
       dispositions:
         -
@@ -333,7 +334,8 @@ spec:
           unblockRule: "supported only when generated material is captured or deliberately externalized"
         -
           name: "scan/gate warning disposition"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/bitnami-nginx/scan-gate-warning-disposition.yaml"
           owner: "security-review"
           requiredEvidence:
             - "local scan receipt"

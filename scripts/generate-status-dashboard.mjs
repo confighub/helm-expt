@@ -88,7 +88,8 @@ function buildReport() {
   rows.push(metric("live evidence", "ConfigHub/OCI semantic parity defect receipts", semanticDefectCount(liveRows), liveRows.length, "good", "data/live-helm-confighub-compare/summary.csv", "Rows whose committed receipt currently points at a semantic object comparison defect."));
   rows.push(metric("live evidence", "two-cluster semantic parity defect receipts", semanticDefectCount(kindParityRows), kindParityRows.length, "good", "data/live-kind-parity/summary.csv", "Rows whose committed two-cluster receipt currently points at a semantic object comparison defect."));
 
-  rows.push(metric("production disposition", "top20 production-supported charts", productionRows.filter((row) => row.production_support === "production-supported").length, productionRows.length, "gap", "data/production-disposition/top20.csv", "Top-20 catalog charts with all production dispositions closed."));
+  rows.push(metric("production disposition", "top20 production-supported charts", productionRows.filter((row) => row.production_support === "production-supported").length, productionRows.length, "gap", "data/production-disposition/top20.csv", "Top-20 catalog charts with a final production support decision."));
+  rows.push(metric("production disposition", "top20 production-review-ready charts", productionRows.filter((row) => row.production_support === "production-review-ready").length, productionRows.length, "partial", "data/production-disposition/top20.csv", "Top-20 catalog charts with required dispositions closed, pending final production support decision and target scope."));
   rows.push(metric("production disposition", "top20 production-blocked charts", productionRows.filter((row) => row.production_support === "blocked").length, productionRows.length, "partial", "data/production-disposition/top20.csv", "Top-20 catalog charts that remain blocked from production support pending explicit dispositions."));
   rows.push(metric("production disposition", "charts with accepted production dispositions", productionRows.filter((row) => dispositionCount(row.accepted_dispositions) > 0).length, productionRows.length, "partial", "data/production-disposition/top20.csv", "Charts with at least one disposition receipt accepted."));
   rows.push(metric("scan disposition", "high-priority scan rows", scanDispositionRows.filter((row) => row.scanPriority === "high").length, scanDispositionRows.length, "partial", "data/scan-disposition-workdown/workdown.csv", "External scan rows that need a fix, hardened base, or explicit production disposition."));
@@ -264,9 +265,13 @@ production support until its scan/gate warnings, lifecycle risks, target facts,
 storage policy, RBAC, webhook behavior, and extension-slot dispositions are
 closed or explicitly accepted.
 
+A review-ready row has those dispositions closed. It is still not
+production-supported until a final target-scoped support decision is recorded.
+
 | Metric | Value |
 | --- | ---: |
 | production-supported charts | ${context.productionRows.filter((row) => row.production_support === "production-supported").length}/${context.productionRows.length} |
+| production-review-ready pending final support decision | ${context.productionRows.filter((row) => row.production_support === "production-review-ready").length}/${context.productionRows.length} |
 | production-blocked pending disposition | ${context.productionRows.filter((row) => row.production_support === "blocked").length}/${context.productionRows.length} |
 | charts with accepted dispositions | ${context.productionRows.filter((row) => dispositionCount(row.accepted_dispositions) > 0).length}/${context.productionRows.length} |
 | high-priority scan rows | ${highScanRows.length}/${context.scanDispositionRows.length} |

@@ -127,6 +127,7 @@ function summarize(entries) {
     latestCurrent: entries.filter((entry) => entry.latest_status === "current").length,
     latestUpdateAvailable: entries.filter((entry) => entry.latest_status === "update-available").length,
     productionBlocked: entries.filter((entry) => entry.production_readiness === "blocked-by-current-scan-gate").length,
+    productionReviewReady: entries.filter((entry) => entry.production_readiness === "production-review-ready").length,
     top500Matched: entries.filter((entry) => entry.top500_rank !== "").length,
     noHardGap: entries.filter((entry) => String(entry.not_yet_enabled ?? "").startsWith("—")).length,
     hardGap: entries.filter((entry) => !String(entry.not_yet_enabled ?? "").startsWith("—")).length,
@@ -164,6 +165,7 @@ default-only entries: ${summary.defaultOnly}
 top-20 current with latest upstream: ${summary.latestCurrent}
 top-20 update candidates: ${summary.latestUpdateAvailable}
 production-blocked entries: ${summary.productionBlocked}
+production-review-ready entries: ${summary.productionReviewReady}
 entries matched to top-500 source rows: ${summary.top500Matched}
 no hard gap in chart-facts: ${summary.noHardGap}
 hard gap for at least one recommended capability: ${summary.hardGap}

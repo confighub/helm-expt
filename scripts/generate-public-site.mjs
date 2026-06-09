@@ -111,6 +111,7 @@ function buildSite() {
       liveParityRerunRows: liveParityRerunPlan.length,
       liveParityRerunSemanticDefects: liveParityRerunPlan.filter((row) => row.reason.startsWith("parity:")).length,
       productionSupportedCharts: productionDisposition.filter((row) => row.production_support === "production-supported").length,
+      productionReviewReadyCharts: productionDisposition.filter((row) => row.production_support === "production-review-ready").length,
       productionBlockedCharts: productionDisposition.filter((row) => row.production_support === "blocked").length,
       chartsWithAcceptedProductionDispositions: productionDisposition.filter((row) => dispositionCount(row.accepted_dispositions) > 0).length,
       highPriorityScanRows: scanDisposition.filter((row) => row.scanPriority === "high").length,
@@ -343,9 +344,10 @@ function html(catalog) {
 
     <section aria-labelledby="production-readiness">
       <h2 id="production-readiness">Production Readiness Boundary</h2>
-      <p>The top-20 charts are catalog-supported for the declared local-test scope. Production support is tracked separately and remains blocked until scan, lifecycle, target-fact, storage, RBAC, webhook, and extension-slot dispositions are closed.</p>
+      <p>The top-20 charts are catalog-supported for the declared local-test scope. Production support is tracked separately. A review-ready chart has required dispositions closed, but still needs a final target-scoped support decision.</p>
       <div class="grid">
         <div class="metric"><strong>${escapeHtml(catalog.summary.productionSupportedCharts)}/${escapeHtml(catalog.productionDisposition.length)}</strong><span>Production-supported charts</span></div>
+        <div class="metric"><strong>${escapeHtml(catalog.summary.productionReviewReadyCharts)}/${escapeHtml(catalog.productionDisposition.length)}</strong><span>Production-review-ready charts</span></div>
         <div class="metric"><strong>${escapeHtml(catalog.summary.productionBlockedCharts)}/${escapeHtml(catalog.productionDisposition.length)}</strong><span>Production-blocked pending disposition</span></div>
         <div class="metric"><strong>${escapeHtml(catalog.summary.chartsWithAcceptedProductionDispositions)}/${escapeHtml(catalog.productionDisposition.length)}</strong><span>Charts with accepted dispositions</span></div>
         <div class="metric"><strong>${escapeHtml(catalog.summary.mutableImageScanRows)}/${escapeHtml(catalog.scanDisposition.length)}</strong><span>Mutable-image scan rows</span></div>

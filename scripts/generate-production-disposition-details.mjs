@@ -100,10 +100,11 @@ function buildReport() {
     const observations = lifecycleObservations.get(row.chart) ?? [];
     const accepted = acceptedDispositionReceipts(row.chart, required, dispositionReceipts);
     const acceptedByDisposition = new Map(accepted.map((receipt) => [receipt.disposition, receipt]));
+    const openCount = required.filter((name) => !acceptedByDisposition.has(name)).length;
     return {
       chart: row.chart,
       version: row.version,
-      status: "production-blocked",
+      status: openCount === 0 ? "production-review-ready" : "production-blocked",
       supportedLocalTestVariants: row.supportedVariants,
       evidence: {
         recipe: row.recipePath,
@@ -392,9 +393,10 @@ ${Object.entries(dispositionCatalog)
 
 ## Rule
 
-No chart leaves \`production-blocked\` until each required disposition is
+A chart becomes \`production-review-ready\` when each required disposition is
 accepted, fixed, or turned into an explicit variant blocker, and the result is
-backed by rendered-digest-bound scan and live/e2e receipts.
+backed by rendered-digest-bound scan and live/e2e receipts. Production support
+still requires a separate target-scoped support decision.
 `;
 }
 

@@ -4,7 +4,7 @@ The top-20 are mandatory catalog entries because their upstream Helm charts are
 too popular to omit. This lane records the work needed to move those supported
 top-20 entries from `local-test` support toward production support.
 
-It does **not** claim production readiness yet.
+It does **not** claim production support yet.
 
 ## Summary
 
@@ -13,11 +13,12 @@ catalog-supported local-test charts: 20
 ConfigHub proof receipts passing: 20
 live/e2e observed charts: 20
 production-supported charts: 0
-production-blocked pending disposition: 20
+production-review-ready pending final support decision: 1
+production-blocked pending disposition: 19
 source Helm-hook rows: 1
 hook/lifecycle disposition rows: 12
 related lifecycle observation rows: 2
-accepted production disposition receipts: 7
+accepted production disposition receipts: 8
 charts with accepted dispositions: 3
 ```
 
@@ -39,7 +40,7 @@ mean the retained source scan found Helm hooks. Use the evidence fields in
 | `argo-cd/argo-cd@9.5.15` | default, no-crds | pass | local-kind-observed | blocked | 0 | CRD lifecycle and upgrade policy, cluster RBAC review, extension slot provenance and scan policy, hook and lifecycle phase policy, scan/gate warning disposition, storage backup restore and rollback policy |
 | `bitnami/mongodb@19.0.7` | generated-passwords, existing-secret-replicaset | pass | local-kind-observed | blocked | 0 | extension slot provenance and scan policy, generated fact ownership, hook and lifecycle phase policy, scan/gate warning disposition, target fact preflight |
 | `bitnami/mysql@14.0.3` | generated-passwords, existing-secret | pass | local-kind-observed | blocked | 0 | generated fact ownership, hook and lifecycle phase policy, scan/gate warning disposition, storage backup restore and rollback policy, target fact preflight |
-| `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | pass | local-kind-observed | blocked | 3 | scan/gate warning disposition |
+| `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | pass | local-kind-observed | production-review-ready | 4 |  |
 | `bitnami/postgresql@18.6.7` | generated-passwords, existing-secret | pass | local-kind-observed | blocked | 0 | generated fact ownership, hook and lifecycle phase policy, scan/gate warning disposition, storage backup restore and rollback policy, target fact preflight |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords, existing-secret | pass | local-kind-observed | blocked | 0 | generated fact ownership, hook and lifecycle phase policy, scan/gate warning disposition, storage backup restore and rollback policy, target fact preflight |
 | `bitnami/redis@25.5.3` | default, reuse-existing-secret | pass | local-kind-observed | blocked | 2 | generated fact ownership, scan/gate warning disposition |
@@ -62,4 +63,5 @@ mean the retained source scan found Helm hooks. Use the evidence fields in
 The top-20 must be in the catalog. Their local-test paths are easy to try
 because they have passing ConfigHub/cub installer receipts. They are not
 production-supported until their scan/gate warnings, lifecycle risks, target
-facts, and live/e2e observation requirements have explicit dispositions.
+facts, and live/e2e observation requirements have explicit dispositions and a
+separate production support decision records the target scope.

@@ -46,7 +46,7 @@ function buildReport() {
   check(rows.length === 20, `expected 20 catalog-supported rows, found ${rows.length}`);
   check(rows.every((row) => row.local_test_support === "catalog-supported"), "all top20 rows must be catalog-supported");
   check(rows.every((row) => row.confighub_proof === "pass"), "all top20 rows must have passing ConfigHub proof receipts");
-  check(rows.every((row) => row.production_support === "blocked"), "production support should remain explicitly blocked");
+  check(rows.every((row) => row.production_support !== "production-supported"), "production support should remain separate from disposition closure");
   check(rows.some((row) => row.live_e2e === "local-kind-observed"), "at least one supported chart needs a live/e2e observation receipt");
   checkAllDispositionReceiptsUsed(rows, dispositionReceipts);
   return { rows, csv: toCsv(rows), summary: toSummary(rows) };
@@ -74,13 +74,13 @@ function productionRow(root, configHubProof, liveE2E, sourceFeatures, extensionS
   const requiredDispositions = dispositionList({
     controls: controls.spec?.points ?? [],
     variants: index.spec?.variants ?? [],
-    productionReadiness: catalog.spec?.productionReadiness,
     hasExtensionSlot: extensionSlots.has(`${chart}@${version}`),
   });
   const accepted = acceptedDispositionReceipts(chart, requiredDispositions, dispositionReceipts);
   const acceptedNames = new Set(accepted.map((receipt) => receipt.disposition));
   const openDispositions = requiredDispositions.filter((name) => !acceptedNames.has(name));
   const lifecycleBasis = lifecyclePolicyBasis(controls.spec?.points ?? [], source, observations);
+  const productionSupport = openDispositions.length === 0 ? "production-review-ready" : "blocked";
   return {
     chart,
     version,
@@ -89,7 +89,7 @@ function productionRow(root, configHubProof, liveE2E, sourceFeatures, extensionS
     confighub_proof: configHubProofStatus,
     live_e2e: live.status,
     live_e2e_receipts: live.receipts.join(";"),
-    production_support: catalog.spec.productionReadiness === "blocked-by-current-scan-gate" ? "blocked" : "review",
+    production_support: productionSupport,
     required_dispositions: requiredDispositions.join(";"),
     accepted_dispositions: accepted.map((receipt) => receipt.disposition).join(";"),
     open_dispositions: openDispositions.join(";"),
@@ -240,7 +240,7 @@ function chartFromObservation(receipt) {
   return "";
 }
 
-function dispositionList({ controls, variants, productionReadiness, hasExtensionSlot }) {
+function dispositionList({ controls, variants, hasExtensionSlot }) {
   const categories = new Set(controls.map((point) => point.category));
   const hasCategory = (...names) => names.some((name) => categories.has(name));
   const variantTargetFacts = variants.flatMap((variant) => {
@@ -248,8 +248,7 @@ function dispositionList({ controls, variants, productionReadiness, hasExtension
     if (variant.targetFactSummary && variant.targetFactSummary !== "none") facts.push("target fact preflight");
     return facts;
   });
-  const dispositions = new Set();
-  if (productionReadiness === "blocked-by-current-scan-gate") dispositions.add("scan/gate warning disposition");
+  const dispositions = new Set(["scan/gate warning disposition"]);
   if (hasCategory("crds", "crd-policy", "crd-lifecycle", "crd-ownership")) {
     dispositions.add("CRD lifecycle and upgrade policy");
   }
@@ -305,6 +304,7 @@ function toSummary(rows) {
   const configHubProofPass = rows.filter((row) => row.confighub_proof === "pass").length;
   const liveObserved = rows.filter((row) => row.live_e2e === "local-kind-observed").length;
   const productionBlocked = rows.filter((row) => row.production_support === "blocked").length;
+  const productionReviewReady = rows.filter((row) => row.production_support === "production-review-ready").length;
   const sourceHookRows = rows.filter((row) => Number(row.source_hook_count) > 0).length;
   const lifecycleDispositionRows = rows.filter((row) => row.required_dispositions.includes("hook and lifecycle phase policy")).length;
   const lifecycleObservationRows = rows.filter((row) => row.lifecycle_observation_receipts).length;
@@ -316,7 +316,7 @@ The top-20 are mandatory catalog entries because their upstream Helm charts are
 too popular to omit. This lane records the work needed to move those supported
 top-20 entries from \`local-test\` support toward production support.
 
-It does **not** claim production readiness yet.
+It does **not** claim production support yet.
 
 ## Summary
 
@@ -325,6 +325,7 @@ catalog-supported local-test charts: ${localSupported}
 ConfigHub proof receipts passing: ${configHubProofPass}
 live/e2e observed charts: ${liveObserved}
 production-supported charts: 0
+production-review-ready pending final support decision: ${productionReviewReady}
 production-blocked pending disposition: ${productionBlocked}
 source Helm-hook rows: ${sourceHookRows}
 hook/lifecycle disposition rows: ${lifecycleDispositionRows}
@@ -355,7 +356,8 @@ ${rows.map((row) => `| \`${row.chart}@${row.version}\` | ${row.supported_variant
 The top-20 must be in the catalog. Their local-test paths are easy to try
 because they have passing ConfigHub/cub installer receipts. They are not
 production-supported until their scan/gate warnings, lifecycle risks, target
-facts, and live/e2e observation requirements have explicit dispositions.
+facts, and live/e2e observation requirements have explicit dispositions and a
+separate production support decision records the target scope.
 `;
 }
 

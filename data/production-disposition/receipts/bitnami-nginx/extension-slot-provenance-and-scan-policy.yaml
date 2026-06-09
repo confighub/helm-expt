@@ -26,5 +26,4 @@ spec:
   affectedVariants:
     - http-clusterip
     - existing-tls-ingress
-  remainingProductionBlockers:
-    - scan/gate warning disposition
+  remainingProductionBlockers: []

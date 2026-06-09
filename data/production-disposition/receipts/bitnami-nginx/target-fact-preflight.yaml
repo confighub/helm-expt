@@ -23,7 +23,4 @@ spec:
       claim: Two-cluster live parity stages both required Secrets for the regular Helm and cub installer legs and passes semantic parity.
   affectedVariants:
     - existing-tls-ingress
-  remainingProductionBlockers:
-    - extension slot provenance and scan policy
-    - generated fact ownership
-    - scan/gate warning disposition
+  remainingProductionBlockers: []

@@ -9,7 +9,7 @@ spec:
   supportLevel: "supported-for-declared-scopes"
   supportedScopes:
     - local-test
-  productionReadiness: "blocked-by-current-scan-gate"
+  productionReadiness: "production-review-ready"
   supportedVariants:
     - "http-clusterip"
     - "existing-tls-ingress"
@@ -24,4 +24,4 @@ spec:
     - "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts."
     - "http-clusterip is the simplest low-friction happy path."
     - "existing-tls-ingress is supported when the declared TLS Secret target facts are satisfied."
-    - "Production remains blocked until ingress exposure, NetworkPolicy, PDB, and scan/gate findings have dispositions."
+    - "Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state."

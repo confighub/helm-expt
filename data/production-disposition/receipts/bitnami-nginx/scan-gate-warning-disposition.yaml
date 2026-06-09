@@ -1,0 +1,38 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: bitnami-nginx-scan-gate-warning-disposition
+spec:
+  chart: bitnami/nginx
+  version: "24.0.2"
+  disposition: scan/gate warning disposition
+  decision: accepted
+  acceptedAt: "2026-06-09"
+  scope:
+    - local-test
+    - production-review-input
+  summary: The supported NGINX bases have no high or critical rendered-object scan findings. The external scanner's remaining finding is the PodDisruptionBudget unhealthy-pod-eviction policy on each base. The chart renders a single NGINX Deployment and a single PDB per supported base; both bases pass render parity and two-cluster live parity. Treat the PDB behavior as an explicit availability-policy choice for the declared bases rather than as a hidden render defect.
+  evidence:
+    - path: data/external-scan-lane/review.csv
+      claim: The external kube-linter rows for both supported NGINX bases record one warning each, both for pdb-unhealthy-pod-eviction-policy, bound to the rendered object digests.
+    - path: data/scan-disposition-workdown/workdown.csv
+      claim: The generated scan disposition workdown routes bitnami/nginx to accept-or-patch-pdb-policy rather than image-pin, security-hardening, endpoint, or privileged-infrastructure work.
+    - path: recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/receipts/scan-receipt.yaml
+      claim: The local rendered-object scan for http-clusterip has no high or critical findings and records the PDB/availability warning explicitly.
+    - path: recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/receipts/scan-receipt.yaml
+      claim: The local rendered-object scan for existing-tls-ingress has no high or critical findings and records the PDB/availability warning explicitly.
+    - path: recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The http-clusterip base is Helm-equivalent under recorded inputs, with only the installer Namespace support object added.
+    - path: recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The existing-tls-ingress base is Helm-equivalent under recorded inputs, with only the installer Namespace support object added.
+    - path: runs/live-kind-parity/bitnami-nginx-http-clusterip/receipt.yaml
+      claim: The http-clusterip base passes strict two-cluster live parity between regular Helm and cub installer apply.
+    - path: runs/live-kind-parity/bitnami-nginx-existing-tls-ingress/receipt.yaml
+      claim: The existing-tls-ingress base passes strict two-cluster live parity between regular Helm and cub installer apply with required TLS target facts staged.
+  affectedVariants:
+    - http-clusterip
+    - existing-tls-ingress
+  acceptedWarnings:
+    - pdb-unhealthy-pod-eviction-policy
+  remainingProductionBlockers: []
+  nextDecision: A product/operator production support decision can now review the accepted NGINX dispositions together with target-specific ingress, NetworkPolicy, and availability requirements.

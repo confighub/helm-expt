@@ -319,6 +319,9 @@ function buildSummary(rows) {
     productionBlockedSupported: rows.filter(
       (row) => row.catalog_status === "catalog-supported" && row.production_readiness === "blocked-by-current-scan-gate",
     ).length,
+    productionReviewReadySupported: rows.filter(
+      (row) => row.catalog_status === "catalog-supported" && row.production_readiness === "production-review-ready",
+    ).length,
   };
 }
 
@@ -363,7 +366,8 @@ catalog-supported: ${summary.catalogSupported}
 proof-grade: ${summary.proofGrade}
 multi-variant proofs: ${summary.multiVariantProofs}
 default-only proofs: ${summary.defaultOnlyProofs}
-catalog-supported with production gate not cleared: ${summary.productionBlockedSupported}
+catalog-supported production-blocked: ${summary.productionBlockedSupported}
+catalog-supported production-review-ready: ${summary.productionReviewReadySupported}
 \`\`\`
 
 ## What We Learn

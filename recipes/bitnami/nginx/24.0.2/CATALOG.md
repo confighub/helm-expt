@@ -16,7 +16,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Catalog status | catalog-supported |
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
-| Production readiness | blocked-by-current-scan-gate |
+| Production readiness | production-review-ready |
 | Supported variants | http-clusterip, existing-tls-ingress |
 | Candidate variants | none |
 | Control points | availability-policy, capability-profile, dependency-lock, deployment-workload, edge-ingress-policy, extension-slots, generated-facts, installer-support-object, network-policy, source-lock, target-facts |

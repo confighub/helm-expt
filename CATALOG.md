@@ -863,7 +863,7 @@ Receipts: [per-chart receipts](recipes/bitnami/mongodb/19.0.7/CATALOG.md)
 #### bitnami/nginx@24.0.2
 
 Status: catalog-supported
-Production readiness: blocked-by-current-scan-gate
+Production readiness: production-review-ready
 Start base readiness: start-here
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 1/2; live parity 1/2

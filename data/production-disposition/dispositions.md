@@ -6,14 +6,14 @@ exactly what must be closed before production support can be claimed.
 The lifecycle columns separate retained source-hook evidence from recipe-level
 lifecycle policy and related CRD/webhook/controller observations.
 
-Accepted disposition receipts recorded: 7
+Accepted disposition receipts recorded: 8
 
 | Chart | Local-test variants | Production state | Accepted | Open | Source hooks | Lifecycle basis | Live/e2e receipts |
 | --- | --- | --- | ---: | ---: | ---: | --- | --- |
 | `argo-cd/argo-cd@9.5.15` | default, no-crds | production-blocked | 0 | 6 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/mongodb@19.0.7` | generated-passwords, existing-secret-replicaset | production-blocked | 0 | 5 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/mysql@14.0.3` | generated-passwords, existing-secret | production-blocked | 0 | 5 | 0 | recipe-hook-policy:no-hooks | 1 |
-| `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | production-blocked | 3 | 1 | 0 | none | 1 |
+| `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | production-review-ready | 4 | 0 | 0 | none | 1 |
 | `bitnami/postgresql@18.6.7` | generated-passwords, existing-secret | production-blocked | 0 | 5 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords, existing-secret | production-blocked | 0 | 5 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/redis@25.5.3` | default, reuse-existing-secret | production-blocked | 2 | 2 | 0 | recipe-hook-policy:no-hooks | 2 |
@@ -39,7 +39,7 @@ The same queue is available as `next-actions.csv`.
 
 | Chart | Accepted | Open | Open dispositions | Next receipt | External scan reading |
 | --- | ---: | ---: | --- | --- | --- |
-| `bitnami/nginx@24.0.2` | 3 | 1 | scan/gate warning disposition | data/production-disposition/receipts/bitnami-nginx/scan-gate-warning-disposition.yaml | existing-tls-ingress: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); http-clusterip: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
+| `bitnami/nginx@24.0.2` | 4 | 0 |  | - | existing-tls-ingress: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); http-clusterip: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
 | `bitnami/redis@25.5.3` | 2 | 2 | generated fact ownership; scan/gate warning disposition | data/production-disposition/receipts/bitnami-redis/generated-fact-ownership.yaml | default: warn, 2 finding(s) (pdb-unhealthy-pod-eviction-policy:2); reuse-existing-secret: warn, 2 finding(s) (pdb-unhealthy-pod-eviction-policy:2) |
 | `metrics-server/metrics-server@3.13.0` | 2 | 3 | cluster RBAC review; generated fact ownership; scan/gate warning disposition | data/production-disposition/receipts/metrics-server-metrics-server/cluster-rbac-review.yaml | default: warn, 1 finding(s) (unset-memory-requirements:1); external-tls-ca: warn, 1 finding(s) (unset-memory-requirements:1) |
 | `prometheus-community/prometheus@29.8.0` | 0 | 3 | cluster RBAC review; extension slot provenance and scan policy; scan/gate warning disposition | data/production-disposition/receipts/prometheus-community-prometheus/cluster-rbac-review.yaml | default: warn, 21 finding(s) (unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:4;sensitive-host-mounts:3;host-network:1); server-only-ephemeral: warn, 6 finding(s) (no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2) |
@@ -102,6 +102,7 @@ The same queue is available as `next-actions.csv`.
 
 ## Rule
 
-No chart leaves `production-blocked` until each required disposition is
+A chart becomes `production-review-ready` when each required disposition is
 accepted, fixed, or turned into an explicit variant blocker, and the result is
-backed by rendered-digest-bound scan and live/e2e receipts.
+backed by rendered-digest-bound scan and live/e2e receipts. Production support
+still requires a separate target-scoped support decision.

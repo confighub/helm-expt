@@ -45,7 +45,8 @@ Which detailed CSV should I open next?
 | live evidence | ConfigHub/OCI semantic parity defect receipts | 0/20 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 0/40 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-supported charts | 0/20 | gap | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
-| production disposition | top20 production-blocked charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| production disposition | top20 production-review-ready charts | 1/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| production disposition | top20 production-blocked charts | 19/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | charts with accepted production dispositions | 3/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | scan disposition | high-priority scan rows | 4/20 | partial | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
 | scan disposition | remaining mutable-image rows | 0/20 | good | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
@@ -213,17 +214,21 @@ production support until its scan/gate warnings, lifecycle risks, target facts,
 storage policy, RBAC, webhook behavior, and extension-slot dispositions are
 closed or explicitly accepted.
 
+A review-ready row has those dispositions closed. It is still not
+production-supported until a final target-scoped support decision is recorded.
+
 | Metric | Value |
 | --- | ---: |
 | production-supported charts | 0/20 |
-| production-blocked pending disposition | 20/20 |
+| production-review-ready pending final support decision | 1/20 |
+| production-blocked pending disposition | 19/20 |
 | charts with accepted dispositions | 3/20 |
 | high-priority scan rows | 4/20 |
 | mutable-image rows still needing fixes | 0/20 |
 
 | Open disposition | Charts |
 | --- | ---: |
-| scan/gate warning disposition | 20 |
+| scan/gate warning disposition | 19 |
 | cluster RBAC review | 13 |
 | extension slot provenance and scan policy | 12 |
 | hook and lifecycle phase policy | 10 |
@@ -244,7 +249,7 @@ closed or explicitly accepted.
 | argo-cd/argo-cd@9.5.15 | blocked | 0 | 6 | extend live/e2e lane beyond local kind after production dispositions are written |
 | bitnami/mongodb@19.0.7 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |
 | bitnami/mysql@14.0.3 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |
-| bitnami/nginx@24.0.2 | blocked | 3 | 1 | extend live/e2e lane beyond local kind after production dispositions are written |
+| bitnami/nginx@24.0.2 | production-review-ready | 4 | 0 | extend live/e2e lane beyond local kind after production dispositions are written |
 | bitnami/postgresql@18.6.7 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |
 | bitnami/rabbitmq@16.0.14 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |
 | bitnami/redis@25.5.3 | blocked | 2 | 2 | extend live/e2e lane beyond local kind after production dispositions are written |

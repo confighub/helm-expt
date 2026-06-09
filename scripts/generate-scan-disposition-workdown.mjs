@@ -164,6 +164,7 @@ top-20 scanned charts:        ${rows.length}
 high-priority scan rows:      ${highRows.length}
 rows with latest-tag issues:  ${latestRows.length}
 production-supported rows:    ${rows.filter((row) => row.productionState === "production-supported").length}
+production-review-ready rows: ${rows.filter((row) => row.productionState === "production-review-ready").length}
 production-blocked rows:      ${rows.filter((row) => row.productionState === "production-blocked").length}
 ~~~
 
