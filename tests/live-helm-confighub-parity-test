@@ -487,8 +487,8 @@ def target_fact_value(secret_name: str, key: str, run_root: Path) -> str:
     return "helm-expt-password"
 
 
-def target_fact_applies(secret: dict, lane: str) -> bool:
-    delivery_lanes = secret.get("deliveryLanes") or secret.get("stageFor") or []
+def target_fact_applies(item: dict, lane: str) -> bool:
+    delivery_lanes = item.get("deliveryLanes") or item.get("stageFor") or []
     if not delivery_lanes:
         return True
     aliases = {
@@ -500,18 +500,47 @@ def target_fact_applies(secret: dict, lane: str) -> bool:
     return any(item in accepted for item in delivery_lanes)
 
 
-def stage_target_facts(variant: dict, kubeconfig: Path, context: str, fallback_namespace: str, run_root: Path, label: str, lane: str) -> dict:
+def target_fact_crd_docs(variant: dict, recipe_path: Path, lane: str) -> tuple[list[dict], list[dict]]:
     required = [
+        crd
+        for crd in (((variant.get("spec") or {}).get("targetFacts") or {}).get("requiredCRDs") or [])
+        if target_fact_applies(crd, lane)
+    ]
+    docs = []
+    staged = []
+    for crd in required:
+        name = crd.get("name")
+        if not name:
+            raise RuntimeError(f"invalid required CRD target fact: {crd}")
+        source_variant = crd.get("sourceVariant") or "default"
+        source_path = crd.get("sourcePath")
+        if source_path:
+            source = (recipe_path / source_path).resolve() if not Path(source_path).is_absolute() else Path(source_path)
+        else:
+            source = recipe_path / "revisions" / source_variant / "r001" / "rendered" / "release-objects.yaml"
+        if not source.exists():
+            raise RuntimeError(f"required CRD source not found for {name}: {source}")
+        matches = [doc for doc in yaml_docs(source.read_text()) if doc.get("kind") == "CustomResourceDefinition" and (doc.get("metadata") or {}).get("name") == name]
+        if not matches:
+            raise RuntimeError(f"required CRD {name} not found in {source}")
+        docs.append(matches[0])
+        staged.append({"name": name, "sourceVariant": source_variant, "lane": lane})
+    return docs, staged
+
+
+def stage_target_facts(variant: dict, recipe_path: Path, kubeconfig: Path, context: str, fallback_namespace: str, run_root: Path, label: str, lane: str) -> dict:
+    required_secrets = [
         secret
         for secret in (((variant.get("spec") or {}).get("targetFacts") or {}).get("requiredSecrets") or [])
         if target_fact_applies(secret, lane)
     ]
-    if not required:
-        return {"result": "pass", "stagedSecrets": []}
-    docs = []
+    crd_docs, staged_crds = target_fact_crd_docs(variant, recipe_path, lane)
+    if not required_secrets and not crd_docs:
+        return {"result": "pass", "stagedSecrets": [], "stagedCRDs": []}
+    secret_docs = []
     namespaces = set()
-    staged = []
-    for secret in required:
+    staged_secrets = []
+    for secret in required_secrets:
         namespace = secret.get("namespace") or fallback_namespace
         name = secret.get("name")
         keys = secret.get("keys") or []
@@ -520,14 +549,20 @@ def stage_target_facts(variant: dict, kubeconfig: Path, context: str, fallback_n
         namespaces.add(namespace)
         string_data = {key: target_fact_value(name, key, run_root) for key in keys}
         secret_type = "kubernetes.io/tls" if set(("tls.crt", "tls.key")).issubset(string_data) and len(set(string_data) - set(("tls.crt", "tls.key", "ca.crt"))) == 0 else "Opaque"
-        docs.append({
+        secret_docs.append({
             "apiVersion": "v1",
             "kind": "Secret",
             "metadata": {"name": name, "namespace": namespace},
             "type": secret_type,
             "stringData": string_data,
         })
-        staged.append({"namespace": namespace, "name": name, "keys": sorted(keys), "lane": lane})
+        staged_secrets.append({"namespace": namespace, "name": name, "keys": sorted(keys), "lane": lane})
+    if crd_docs:
+        crd_path = run_root / f"target-facts-{label}-crds.yaml"
+        write_yaml(crd_path, {"apiVersion": "v1", "kind": "List", "items": crd_docs})
+        kubectl_must(["apply", "--server-side", "--force-conflicts", "-f", str(crd_path)], kubeconfig, context, f"target fact CRD apply {label}", timeout=300)
+        for crd in staged_crds:
+            kubectl(["wait", "--for=condition=Established", f"crd/{crd['name']}", "--timeout=180s"], kubeconfig, context, timeout=210)
     for namespace in sorted(namespaces):
         if protected_namespace(namespace):
             continue
@@ -541,9 +576,10 @@ def stage_target_facts(variant: dict, kubeconfig: Path, context: str, fallback_n
         write_yaml(namespace_path, namespace_yaml)
         kubectl_must(["apply", "-f", str(namespace_path)], kubeconfig, context, f"target fact namespace apply {namespace}")
     target_facts_path = run_root / f"target-facts-{label}.yaml"
-    write_yaml(target_facts_path, {"apiVersion": "v1", "kind": "List", "items": docs})
-    kubectl_must(["apply", "-f", str(target_facts_path)], kubeconfig, context, f"target facts apply {label}")
-    return {"result": "pass", "stagedSecrets": staged, "path": str(target_facts_path)}
+    if secret_docs:
+        write_yaml(target_facts_path, {"apiVersion": "v1", "kind": "List", "items": secret_docs})
+        kubectl_must(["apply", "-f", str(target_facts_path)], kubeconfig, context, f"target facts apply {label}")
+    return {"result": "pass", "stagedSecrets": staged_secrets, "stagedCRDs": staged_crds, "path": str(target_facts_path)}
 
 
 def delete_namespace_if_safe(namespace: str, kubeconfig: Path, context: str) -> None:
@@ -825,9 +861,9 @@ def main() -> int:
                 kubeconfig, context, timeout=60,
             )
 
-        helm_target_facts = stage_target_facts(variant, kubeconfig, context, helm_namespace, run_root, "regular-helm", "regularHelm")
+        helm_target_facts = stage_target_facts(variant, recipe_path, kubeconfig, context, helm_namespace, run_root, "regular-helm", "regularHelm")
         receipt["spec"]["targetFacts"] = {"regularHelm": helm_target_facts}
-        check_item("target-facts-regular-helm", helm_target_facts["result"], f"staged={len(helm_target_facts.get('stagedSecrets', []))}")
+        check_item("target-facts-regular-helm", helm_target_facts["result"], f"secrets={len(helm_target_facts.get('stagedSecrets', []))} crds={len(helm_target_facts.get('stagedCRDs', []))}")
 
         helm_cmd = [
             "helm", "upgrade", "--install", args.release,
@@ -904,9 +940,9 @@ def main() -> int:
         if namespace_docs:
             write_text(ns_yaml, render_docs_to_yaml(namespace_docs))
             kubectl_must(["apply", "-f", str(ns_yaml)], kubeconfig, context, "namespace apply")
-        apply_target_facts = stage_target_facts(variant, kubeconfig, context, apply_namespace, run_root, "confighub-apply", "configHubKubectlApply")
+        apply_target_facts = stage_target_facts(variant, recipe_path, kubeconfig, context, apply_namespace, run_root, "confighub-apply", "configHubKubectlApply")
         receipt["spec"]["targetFacts"]["configHubKubectlApply"] = apply_target_facts
-        check_item("target-facts-confighub-apply", apply_target_facts["result"], f"staged={len(apply_target_facts.get('stagedSecrets', []))}")
+        check_item("target-facts-confighub-apply", apply_target_facts["result"], f"secrets={len(apply_target_facts.get('stagedSecrets', []))} crds={len(apply_target_facts.get('stagedCRDs', []))}")
         if secrets_dir.exists():
             for secret_path in sorted(secrets_dir.glob("*.yaml")):
                 kubectl_must(["apply", "-f", str(secret_path)], kubeconfig, context, f"secret apply {secret_path.name}", timeout=120)
@@ -978,9 +1014,9 @@ def main() -> int:
         if namespace_docs:
             write_text(ns_oci_yaml, render_docs_to_yaml(namespace_docs))
             kubectl_must(["apply", "-f", str(ns_oci_yaml)], kubeconfig, context, "namespace apply before oci")
-        oci_target_facts = stage_target_facts(variant, kubeconfig, context, oci_namespace, run_root, "confighub-oci", "configHubOciArgo")
+        oci_target_facts = stage_target_facts(variant, recipe_path, kubeconfig, context, oci_namespace, run_root, "confighub-oci", "configHubOciArgo")
         receipt["spec"]["targetFacts"]["configHubOciArgo"] = oci_target_facts
-        check_item("target-facts-confighub-oci", oci_target_facts["result"], f"staged={len(oci_target_facts.get('stagedSecrets', []))}")
+        check_item("target-facts-confighub-oci", oci_target_facts["result"], f"secrets={len(oci_target_facts.get('stagedSecrets', []))} crds={len(oci_target_facts.get('stagedCRDs', []))}")
         staged_secrets = []
         if secrets_dir.exists():
             for secret_path in sorted(secrets_dir.glob("*.yaml")):

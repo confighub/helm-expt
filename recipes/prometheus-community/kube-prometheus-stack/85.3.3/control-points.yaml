@@ -20,11 +20,11 @@ spec:
       note: "OpenShift and ServiceMonitor branches are bound to the named Kubernetes capability profile."
     -
       category: "crd-policy"
-      status: "variant-controlled"
+      status: "variant-controlled-and-target-fact"
       variants:
         default: 10
         no-crds: 0
-      note: "CRDs are ordinary rendered objects in the default variant and still need lifecycle/upgrade policy."
+      note: "CRDs are ordinary rendered objects in the default variant; no-crds records those same CRDs as target prerequisites."
     -
       category: "admission-webhook"
       status: "target-fact-and-observe"

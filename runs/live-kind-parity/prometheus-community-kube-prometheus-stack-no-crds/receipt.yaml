@@ -6,8 +6,8 @@ spec:
   chart: prometheus-community/kube-prometheus-stack
   version: 85.3.3
   base: no-crds
-  result: blocked
-  observedAt: '2026-06-06T12:41:12Z'
+  result: pass
+  observedAt: '2026-06-09T08:13:14Z'
   package:
     path: packages/prometheus-community/kube-prometheus-stack/85.3.3
   recipe:
@@ -15,27 +15,27 @@ spec:
   variantRevision: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-kubepr-5d89f-dl73-helm
-    installerCluster: hx-kubepr-5d89f-dl73-installer
+    helmCluster: hx-kubepr-5d89f-4jkk-helm
+    installerCluster: hx-kubepr-5d89f-4jkk-installer
     namespace: monitoring
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-kubepr-5d89f-dl73-helm
+      - cluster: hx-kubepr-5d89f-4jkk-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-kubepr-5d89f-dl73-helm" ...
+        detail: 'Deleting cluster "hx-kubepr-5d89f-4jkk-helm" ...
 
-          Deleted nodes: ["hx-kubepr-5d89f-dl73-helm-control-plane"]'
-      - cluster: hx-kubepr-5d89f-dl73-installer
+          Deleted nodes: ["hx-kubepr-5d89f-4jkk-helm-control-plane"]'
+      - cluster: hx-kubepr-5d89f-4jkk-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-kubepr-5d89f-dl73-installer" ...
+        detail: 'Deleting cluster "hx-kubepr-5d89f-4jkk-installer" ...
 
-          Deleted nodes: ["hx-kubepr-5d89f-dl73-installer-control-plane"]'
+          Deleted nodes: ["hx-kubepr-5d89f-4jkk-installer-control-plane"]'
   legs:
     regularHelm:
-      result: blocked
+      result: pass
       command: helm upgrade --install kube-prometheus-stack kube-prometheus-stack
         --repo https://prometheus-community.github.io/helm-charts --version 85.3.3
         --namespace monitoring --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/regular-helm-values.yaml
@@ -43,38 +43,103 @@ spec:
       namespace: monitoring
       manifestSHA256: 3f6049fc2b7a40bbfb009b347880e3f319a87c9b60a6fd274220287a10167fc2
       objectCount: 114
-      liveHelmManifestSHA256: ''
-      liveHelmManifestObjectCount: 0
+      liveHelmManifestSHA256: 1b4bf717552b5559ba29ca66989e2d5c3995152d88738d7193b5c344c5cedc1e
+      liveHelmManifestObjectCount: 114
       runtimeNamespaces: &id001
       - monitoring
       runtime:
-        result: watch
+        result: pass
         namespaces: *id001
-        workloads: '# monitoring'
-        pods: '# monitoring'
+        workloads: '# monitoring
+
+          deployment.apps/kube-prometheus-stack-grafana              1/1   1     1     106s
+
+          deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1   1     1     106s
+
+          deployment.apps/kube-prometheus-stack-operator             1/1   1     1     106s
+
+          statefulset.apps/alertmanager-kube-prometheus-stack-alertmanager   1/1   99s
+
+          statefulset.apps/prometheus-kube-prometheus-stack-prometheus       1/1   99s
+
+          daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   106s'
+        pods: '# monitoring
+
+          alertmanager-kube-prometheus-stack-alertmanager-0           2/2   Running   0     99s
+
+          kube-prometheus-stack-grafana-689f864759-bhtqz              3/3   Running   0     106s
+
+          kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-g28x9   1/1   Running   0     106s
+
+          kube-prometheus-stack-operator-6d54798576-5w6sv             1/1   Running   0     106s
+
+          kube-prometheus-stack-prometheus-node-exporter-kkh59        1/1   Running   0     106s
+
+          prometheus-kube-prometheus-stack-prometheus-0               2/2   Running   0     99s'
         notReady: []
-      stderr: 'Error: unable to build kubernetes objects from release manifest: [resource
-        mapping not found for name: "kube-prometheus-stack-alertmanager" namespace:
-        "monitoring" from "": no matches for kind "Alertmanager" in version "monitoring.coreos.com/v1"
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/kube-prometheus-stack/85.3.3
+        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-kubepr-5d89f-4jkk-kube-prometheus-stack
+        --non-interactive --namespace monitoring
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: monitoring
+      manifestSHA256: 2d293062372737e2cce411f5cdb0d3050e61b656e72392a5551c7f51ce8bde15
+      objectCount: 115
+      manifestNamespaces:
+      - kube-system
+      - monitoring
+      runtimeNamespaces: &id002
+      - monitoring
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# monitoring
 
-        ensure CRDs are installed first, resource mapping not found for name: "kube-prometheus-stack-prometheus"
-        namespace: "monitoring" from "": no matches for kind "Prometheus" in version
-        "monitoring.coreos.com/v1"
+          deployment.apps/kube-prometheus-stack-grafana              1/1   1     1     92s
 
-        ensure CRDs are installed first, resource mapping not found for name: "kube-prometheus-stack-alertmanager.rules"
-        namespace: "monitoring" from "": no matches for kind "PrometheusRule" in version
-        "monitoring.coreos.com/v1"
+          deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1   1     1     92s
 
-        ensure CRDs are installed first, resource mapping not found for name: "kube-prometheus-stack-config-reloaders"
-        namespace: "monitoring" from "": no matches for kind "PrometheusRule" in version
-        "monitoring.coreos.com/v1"
+          deployment.apps/kube-prometheus-stack-operator             1/1   1     1     92s
 
-        ensure CRDs are installed first, resource mapping not found for name: "kube-prometheus-stack-etcd"
-        namesp'
-      getManifestError: 'Error: release: not found'
+          statefulset.apps/alertmanager-kube-prometheus-stack-alertmanager   1/1   76s
+
+          statefulset.apps/prometheus-kube-prometheus-stack-prometheus       1/1   76s
+
+          daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   92s'
+        pods: '# monitoring
+
+          alertmanager-kube-prometheus-stack-alertmanager-0           2/2   Running   0     76s
+
+          kube-prometheus-stack-grafana-689f864759-l4lk8              3/3   Running   0     92s
+
+          kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-s22gt   1/1   Running   0     91s
+
+          kube-prometheus-stack-operator-6d54798576-l4x26             1/1   Running   0     91s
+
+          kube-prometheus-stack-prometheus-node-exporter-d6qxp        1/1   Running   0     91s
+
+          prometheus-kube-prometheus-stack-prometheus-0               2/2   Running   0     76s'
+        notReady: []
   semanticComparison:
     allowedExtraInstallerObjects:
     - v1|Namespace||monitoring
+    semanticNormalizations: &id003
+    - prune-null-fields
+    - prune-empty-metadata-maps
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 114
+      installerObjectCount: 115
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||monitoring
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 4472b0dababd206e1f005dd3d9f8e63cebe5cfea6a72b65bc9dfe6e66f822921
   checks:
   - name: kind-create-helm
     result: pass
@@ -84,66 +149,117 @@ spec:
     detail: installer kind cluster created
   - name: target-facts-helm
     result: pass
-    detail: staged=0
+    detail: secrets=0 crds=10
   - name: target-facts-installer
     result: pass
-    detail: staged=0
+    detail: secrets=1 crds=10
   - name: regular-helm-live
-    result: blocked
-    detail: 'Error: unable to build kubernetes objects from release manifest: [resource
-      mapping not found for name: "kube-prometheus-stack-alertmanager" namespace:
-      "monitoring" from "": no matches for kind "Alertmanager" in version "monitoring.coreos.com/v1"
+    result: pass
+    detail: "Release \"kube-prometheus-stack\" does not exist. Installing it now.\n\
+      NAME: kube-prometheus-stack\nLAST DEPLOYED: Tue Jun  9 09:14:42 2026\nNAMESPACE:\
+      \ monitoring\nSTATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\n\
+      TEST SUITE: None\nNOTES:\nkube-prometheus-stack has been installed. Check its\
+      \ status by running:\n  kubectl --namespace monitoring get pods -l \"release=kube-prometheus-stack\"\
+      \n\nGet Grafana 'admin' user password by running:\n\n  kubectl --namespace monitoring\
+      \ get secrets kube-prometheus-stack-grafana -o jsonpath=\"{.data.admin-password}\"\
+      \ | base64 -d ; echo\n\nAccess Grafana local instance:\n\n  export POD_NAME=$(kubectl\
+      \ --namespace monitoring get pod -l \"app.kubernetes.io/name=grafana,app.kubernetes.io/instance=kube-prometheus-stack\"\
+      \ -oname)\n  kubectl --namespace monitoring port-forward $POD_NAME 3000\n\n\
+      Get your grafana admin user password by running:\n\n  kubectl get secret --namespace\
+      \ monitoring -l app.kubernetes.io/component=admin-secret -o jsonpath=\"{.items[0].data.admin-password}\"\
+      \ | "
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# monitoring
 
-      ensure CRDs are installed first, resource mapping not found for name: "kube-prometheus-stack-prometheus"
-      namespace: "monitoring" from "": no matches for kind "Prometheus" in version
-      "monitoring.coreos.com/v1"
+      deployment.apps/kube-prometheus-stack-grafana              1/1   1     1     92s
 
-      ensure CRDs are installed first, resource mapping not found for name: "kube-prometheus-stack-alertmanager.rules"
-      namespace: "monitoring" from "": no matches for kind "PrometheusRule" in version
-      "monitoring.coreos.com/v1"
+      deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1   1     1     92s
 
-      ensure CRDs are installed first, resource mapping not found for name: "kube-prometheus-stack-config-reloaders"
-      namespace: "monitoring" from "": no matches for kind "PrometheusRule" in version
-      "monitoring.coreos.com/v1"
+      deployment.apps/kube-prometheus-stack-operator             1/1   1     1     92s
 
-      ensure CRDs are installed first, resource mapping not found for name: "kube-prometheus-stack-etcd"
-      namesp'
-  - name: failure
-    result: blocked
-    detail: 'manifest apply failed: resource mapping not found for name: "kube-prometheus-stack-alertmanager"
-      namespace: "monitoring" from "/tmp/helm-expt-kind-parity-hx-kubepr-5d89f-dl73-kube-prometheus-stack/out/manifests/alertmanager-monitoring-kube-prometheus-stack-alertmanager.yaml":
-      no matches for kind "Alertmanager" in version "monitoring.coreos.com/v1"
+      statefulset.apps/alertmanager-kube-prometheus-stack-alertmanager   1/1   76s
 
-      ensure CRDs are installed first
+      statefulset.apps/prometheus-kube-prometheus-stack-prometheus       1/1   76s
 
-      resource mapping not found for name: "kube-prometheus-stack-prometheus" namespace:
-      "monitoring" from "/tmp/helm-expt-kind-parity-hx-kubepr-5d89f-dl73-kube-prometheus-stack/out/manifests/prometheus-monitoring-kube-prometheus-stack-prometheus.yaml":
-      no matches for kind "Prometheus" in version "monitoring.coreos.com/v1"
-
-      ensure CRDs are installed first
-
-      resource mapping not found for name: "kube-prometheus-stack-alertmanager.rules"
-      namespace: "monitoring" from "/tmp/helm-expt-kind-parity-hx-kubepr-5d89f-dl73-kube-prometheus-stack/out/manifests/prometheusrule-monitoring-kube-prometheus-stack-alertmanager-rules.yaml":'
+      daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   92s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||monitoring'] diffs=0
   targetFacts:
     regularHelm:
       result: pass
       stagedSecrets: []
+      stagedCRDs:
+      - name: alertmanagerconfigs.monitoring.coreos.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: alertmanagers.monitoring.coreos.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: podmonitors.monitoring.coreos.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: probes.monitoring.coreos.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: prometheusagents.monitoring.coreos.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: prometheuses.monitoring.coreos.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: prometheusrules.monitoring.coreos.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: scrapeconfigs.monitoring.coreos.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: servicemonitors.monitoring.coreos.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: thanosrulers.monitoring.coreos.com
+        sourceVariant: default
+        lane: regularHelm
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
-      stagedSecrets: []
-  failure:
-    message: 'manifest apply failed: resource mapping not found for name: "kube-prometheus-stack-alertmanager"
-      namespace: "monitoring" from "/tmp/helm-expt-kind-parity-hx-kubepr-5d89f-dl73-kube-prometheus-stack/out/manifests/alertmanager-monitoring-kube-prometheus-stack-alertmanager.yaml":
-      no matches for kind "Alertmanager" in version "monitoring.coreos.com/v1"
-
-      ensure CRDs are installed first
-
-      resource mapping not found for name: "kube-prometheus-stack-prometheus" namespace:
-      "monitoring" from "/tmp/helm-expt-kind-parity-hx-kubepr-5d89f-dl73-kube-prometheus-stack/out/manifests/prometheus-monitoring-kube-prometheus-stack-prometheus.yaml":
-      no matches for kind "Prometheus" in version "monitoring.coreos.com/v1"
-
-      ensure CRDs are installed first
-
-      resource mapping not found for name: "kube-prometheus-stack-alertmanager.rules"
-      namespace: "monitoring" from "/tmp/helm-expt-kind-parity-hx-kubepr-5d89f-dl73-kube-prometheus-stack/out/manifests/prometheusrule-monitoring-kube-prometheus-stack-alertmanager-rules.yaml":
-      no matches for kind "P'
+      stagedSecrets:
+      - namespace: monitoring
+        name: kube-prometheus-stack-admission
+        keys:
+        - cert
+        - key
+        lane: cubInstallerApply
+      stagedCRDs:
+      - name: alertmanagerconfigs.monitoring.coreos.com
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: alertmanagers.monitoring.coreos.com
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: podmonitors.monitoring.coreos.com
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: probes.monitoring.coreos.com
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: prometheusagents.monitoring.coreos.com
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: prometheuses.monitoring.coreos.com
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: prometheusrules.monitoring.coreos.com
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: scrapeconfigs.monitoring.coreos.com
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: servicemonitors.monitoring.coreos.com
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: thanosrulers.monitoring.coreos.com
+        sourceVariant: default
+        lane: cubInstallerApply
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/target-facts-installer.yaml

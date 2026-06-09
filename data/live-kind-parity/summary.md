@@ -11,9 +11,9 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 26
+pass: 27
 watch: 2
-blocked: 12
+blocked: 11
 semantic parity defects: 0
 ```
 
@@ -32,9 +32,9 @@ data/live-parity-rerun-plan/summary.md
 | helm-runtime: upstream not ready (parity passed) | 4 |
 | target-runtime: pods pending (parity passed) | 3 |
 | target-prerequisite: CRDs disabled or missing (parity passed) | 2 |
-| target-prerequisite: CRDs missing | 2 |
 | target-runtime: pod crash loop (parity passed) | 2 |
 | helm-hook: post-install hook failed (parity passed) | 1 |
+| target-prerequisite: CRDs missing | 1 |
 
 ## Rows
 
@@ -75,7 +75,7 @@ data/live-parity-rerun-plan/summary.md
 | `metrics-server/metrics-server@3.13.0` | default | pass |  | runs/live-kind-parity/metrics-server-metrics-server-default/receipt.yaml |
 | `metrics-server/metrics-server@3.13.0` | external-tls-ca | blocked | helm-runtime: upstream not ready (parity passed) | runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/receipt.yaml |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default | pass |  | runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | blocked | target-prerequisite: CRDs missing | runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | pass |  | runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml |
 | `prometheus-community/prometheus@29.8.0` | default | pass |  | runs/live-kind-parity/prometheus-community-prometheus-default/receipt.yaml |
 | `prometheus-community/prometheus@29.8.0` | server-only-ephemeral | pass |  | runs/live-kind-parity/prometheus-community-prometheus-server-only-ephemeral/receipt.yaml |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | pass |  | runs/live-kind-parity/secrets-store-csi-driver-secrets-store-csi-driver-default/receipt.yaml |

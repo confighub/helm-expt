@@ -159,6 +159,10 @@ function verifySetupFacts(packageRoot, variantName, targetFacts) {
       JSON.stringify(values.targetFacts?.requiredSecrets ?? []) === JSON.stringify(targetFacts.requiredSecrets ?? []),
       `${variantName} facts requiredSecrets mismatch`,
     );
+    check(
+      JSON.stringify(values.targetFacts?.requiredCRDs ?? []) === JSON.stringify(targetFacts.requiredCRDs ?? []),
+      `${variantName} facts requiredCRDs mismatch`,
+    );
     ok = true;
   } finally {
     if (ok) rmSync(tempRoot, { recursive: true, force: true });
@@ -174,7 +178,7 @@ function packageRootFor(chart) {
 }
 
 function externalRequiresFor(targetFacts) {
-  return (targetFacts.requiredSecrets ?? []).map((secret) => ({
+  const requirements = (targetFacts.requiredSecrets ?? []).map((secret) => ({
     kind: "ClusterFeature",
     name: secretRequirementName(secret),
     namespace: secret.namespace ?? "",
@@ -182,6 +186,14 @@ function externalRequiresFor(targetFacts) {
       .map((key) => `--from-literal=${key}=<value>`)
       .join(" ")}`,
   }));
+  requirements.push(
+    ...(targetFacts.requiredCRDs ?? []).map((crd) => ({
+      kind: "ClusterFeature",
+      name: crdRequirementName(crd),
+      suggestedSource: "kubectl apply -f <crd-manifest.yaml>",
+    })),
+  );
+  return requirements;
 }
 
 function secretRequirementName(secret) {
@@ -189,8 +201,12 @@ function secretRequirementName(secret) {
   return `Secret ${secret.namespace ?? "default"}/${secret.name} ${keyLabel} ${(secret.keys ?? []).join(",")}`;
 }
 
+function crdRequirementName(crd) {
+  return `CRD ${crd.name}`;
+}
+
 function isGeneratedTargetFactRequire(item) {
-  return item?.kind === "ClusterFeature" && typeof item.name === "string" && item.name.startsWith("Secret ");
+  return item?.kind === "ClusterFeature" && typeof item.name === "string" && (item.name.startsWith("Secret ") || item.name.startsWith("CRD "));
 }
 
 function sameRequire(left, right) {
@@ -212,6 +228,7 @@ emit_empty() {
   cat <<YAML
 targetFacts:
   requiredSecrets: []
+  requiredCRDs: []
 targetFactChecks:
   base: "$base"
   mode: not-required
@@ -237,6 +254,18 @@ live_check_secret() {
   fi
 }
 
+live_check_crd() {
+  name="$1"
+  if ! command -v kubectl >/dev/null 2>&1; then
+    echo "kubectl is required for TARGET_FACT_CHECK_MODE=live" >&2
+    exit 1
+  fi
+  if ! kubectl get crd "$name" >/dev/null 2>&1; then
+    echo "required CRD $name was not found" >&2
+    exit 1
+  fi
+}
+
 case "$base" in
 ${cases}
   *)
@@ -249,6 +278,7 @@ esac
 function collectorCase(variantName, targetFacts) {
   const checks = (targetFacts.requiredSecrets ?? [])
     .flatMap((secret) => (secret.keys ?? []).map((key) => `      live_check_secret ${shellQuote(secret.namespace ?? "default")} ${shellQuote(secret.name)} ${shellQuote(key)}`))
+    .concat((targetFacts.requiredCRDs ?? []).map((crd) => `      live_check_crd ${shellQuote(crd.name)}`))
     .join("\n");
   return `  ${shellQuote(variantName)})
     if [ "$check_mode" = "live" ]; then
@@ -260,6 +290,7 @@ ${checks || "    true"}
     cat <<YAML
 targetFacts:
 ${indentYaml({ requiredSecrets: targetFacts.requiredSecrets ?? [] }, 2)}
+${indentYaml({ requiredCRDs: targetFacts.requiredCRDs ?? [] }, 2)}
 targetFactChecks:
   base: "${variantName}"
   mode: "$check_mode"

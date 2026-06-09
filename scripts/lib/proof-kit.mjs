@@ -448,7 +448,7 @@ function generatePackage(ctx) {
         description: `${chart.name} ${variant.displayName} variant rendered from ${ctx.chartRef}@${chart.version}`,
         externalRequires: externalRequiresForVariant(variant),
       })),
-      ...(variants.some((variant) => (variant.targetFacts?.requiredSecrets ?? []).length)
+      ...(variants.some((variant) => hasTargetFacts(variant))
         ? {
             collector: {
               command: "/bin/sh",
@@ -460,7 +460,7 @@ function generatePackage(ctx) {
       ...(ctx.spec.packageTransformers?.length ? { transformers: ctx.spec.packageTransformers } : {}),
     },
   });
-  if (variants.some((variant) => (variant.targetFacts?.requiredSecrets ?? []).length)) {
+  if (variants.some((variant) => hasTargetFacts(variant))) {
     write(join(packageRoot, "collector", "target-facts.sh"), targetFactsCollectorScript(variants));
   }
   write(
@@ -531,8 +531,8 @@ npm run ${ctx.scriptPrefix}:verify-package
           cubInstallObjectCountIncludingSupport: variant.expectedObjectCount + ctx.supportObjects.length,
           semanticObjectMatches: `${variant.expectedObjectCount}/${variant.expectedObjectCount}`,
           separatedSecretCount: variant.expectedSecretCount ?? 0,
-          targetFactMode: (variant.targetFacts?.requiredSecrets ?? []).length ? "collector-facts" : "not-required",
-          targetFactsBound: Boolean((variant.targetFacts?.requiredSecrets ?? []).length),
+          targetFactMode: hasTargetFacts(variant) ? "collector-facts" : "not-required",
+          targetFactsBound: hasTargetFacts(variant),
           allowedCubOnlyObjects: ctx.supportObjects,
         })),
       },
@@ -739,21 +739,30 @@ function verifyPackage(ctx) {
 
 function externalRequiresForVariant(variant) {
   const requiredSecrets = variant.targetFacts?.requiredSecrets ?? [];
-  if (!requiredSecrets.length) return undefined;
-  return requiredSecrets.map((secret) => ({
+  const requiredCRDs = variant.targetFacts?.requiredCRDs ?? [];
+  const requirements = requiredSecrets.map((secret) => ({
     kind: "ClusterFeature",
     name: `Secret ${secret.namespace}/${secret.name} ${secret.keys.length === 1 ? `key ${secret.keys[0]}` : `keys ${secret.keys.join(",")}`}`,
     namespace: secret.namespace,
     suggestedSource: `kubectl -n ${secret.namespace} create secret generic ${secret.name} ${secret.keys.map((key) => `--from-literal=${key}=<value>`).join(" ")}`,
   }));
+  requirements.push(
+    ...requiredCRDs.map((crd) => ({
+      kind: "ClusterFeature",
+      name: `CRD ${crd.name}`,
+      suggestedSource: "kubectl apply -f <crd-manifest.yaml>",
+    })),
+  );
+  return requirements.length ? requirements : undefined;
 }
 
 function targetFactsCollectorScript(variants) {
   const variantCases = variants
-    .filter((variant) => (variant.targetFacts?.requiredSecrets ?? []).length)
+    .filter((variant) => hasTargetFacts(variant))
     .map((variant) => {
       const checks = (variant.targetFacts.requiredSecrets ?? [])
         .flatMap((secret) => secret.keys.map((key) => `      live_check_secret '${secret.namespace}' '${secret.name}' '${key}'`))
+        .concat((variant.targetFacts.requiredCRDs ?? []).map((crd) => `      live_check_crd '${crd.name}'`))
         .join("\n");
       const facts = (variant.targetFacts.requiredSecrets ?? [])
         .map((secret) => {
@@ -764,10 +773,22 @@ function targetFactsCollectorScript(variants) {
           return `  - keys:\n${keys}\n    name: ${secret.name}\n    namespace: ${secret.namespace}\n    purpose: ${secret.purpose}${deliveryLanes ? `\n    deliveryLanes:\n${deliveryLanes}` : ""}`;
         })
         .join("\n");
-      return `  '${variant.base}')\n    if [ "$check_mode" = "live" ]; then\n${checks}\n      result="pass"\n    else\n      result="recorded"\n    fi\n    cat <<YAML\ntargetFacts:\n  requiredSecrets:\n${facts}\ntargetFactChecks:\n  base: "$base"\n  mode: "$check_mode"\n  result: "$result"\nYAML\n    ;;`;
+      const crdFacts = (variant.targetFacts.requiredCRDs ?? [])
+        .map((crd) => {
+          const deliveryLanes = (crd.deliveryLanes ?? crd.stageFor ?? [])
+            .map((lane) => `    - ${lane}`)
+            .join("\n");
+          return `  - name: ${crd.name}\n    purpose: ${crd.purpose}${crd.sourceVariant ? `\n    sourceVariant: ${crd.sourceVariant}` : ""}${deliveryLanes ? `\n    deliveryLanes:\n${deliveryLanes}` : ""}`;
+        })
+        .join("\n");
+      return `  '${variant.base}')\n    if [ "$check_mode" = "live" ]; then\n${checks || "      true"}\n      result="pass"\n    else\n      result="recorded"\n    fi\n    cat <<YAML\ntargetFacts:\n  requiredSecrets:${facts ? `\n${facts}` : " []"}\n  requiredCRDs:${crdFacts ? `\n${crdFacts}` : " []"}\ntargetFactChecks:\n  base: "$base"\n  mode: "$check_mode"\n  result: "$result"\nYAML\n    ;;`;
     })
     .join("\n");
-  return `#!/bin/sh\nset -eu\n\nbase="\${INSTALLER_BASE:-default}"\ncheck_mode="\${TARGET_FACT_CHECK_MODE:-record}"\n\nemit_empty() {\n  cat <<YAML\ntargetFacts:\n  requiredSecrets: []\ntargetFactChecks:\n  base: "$base"\n  mode: not-required\n  result: pass\nYAML\n}\n\nlive_check_secret() {\n  namespace="$1"\n  name="$2"\n  key="$3"\n  if ! command -v kubectl >/dev/null 2>&1; then\n    echo "kubectl is required for TARGET_FACT_CHECK_MODE=live" >&2\n    exit 1\n  fi\n  if ! kubectl -n "$namespace" get secret "$name" >/dev/null 2>&1; then\n    echo "required Secret $namespace/$name was not found" >&2\n    exit 1\n  fi\n  if ! kubectl -n "$namespace" get secret "$name" -o yaml | awk -v key="$key" '$1 == key \":\" { found=1 } END { exit found ? 0 : 1 }'; then\n    echo "required Secret $namespace/$name is missing key $key" >&2\n    exit 1\n  fi\n}\n\ncase "$base" in\n${variantCases}\n  *)\n    emit_empty\n    ;;\nesac\n`;
+  return `#!/bin/sh\nset -eu\n\nbase="\${INSTALLER_BASE:-default}"\ncheck_mode="\${TARGET_FACT_CHECK_MODE:-record}"\n\nemit_empty() {\n  cat <<YAML\ntargetFacts:\n  requiredSecrets: []\n  requiredCRDs: []\ntargetFactChecks:\n  base: "$base"\n  mode: not-required\n  result: pass\nYAML\n}\n\nlive_check_secret() {\n  namespace="$1"\n  name="$2"\n  key="$3"\n  if ! command -v kubectl >/dev/null 2>&1; then\n    echo "kubectl is required for TARGET_FACT_CHECK_MODE=live" >&2\n    exit 1\n  fi\n  if ! kubectl -n "$namespace" get secret "$name" >/dev/null 2>&1; then\n    echo "required Secret $namespace/$name was not found" >&2\n    exit 1\n  fi\n  if ! kubectl -n "$namespace" get secret "$name" -o yaml | awk -v key="$key" '$1 == key \":\" { found=1 } END { exit found ? 0 : 1 }'; then\n    echo "required Secret $namespace/$name is missing key $key" >&2\n    exit 1\n  fi\n}\n\nlive_check_crd() {\n  name="$1"\n  if ! command -v kubectl >/dev/null 2>&1; then\n    echo "kubectl is required for TARGET_FACT_CHECK_MODE=live" >&2\n    exit 1\n  fi\n  if ! kubectl get crd "$name" >/dev/null 2>&1; then\n    echo "required CRD $name was not found" >&2\n    exit 1\n  fi\n}\n\ncase "$base" in\n${variantCases}\n  *)\n    emit_empty\n    ;;\nesac\n`;
+}
+
+function hasTargetFacts(variant) {
+  return Boolean((variant.targetFacts?.requiredSecrets ?? []).length || (variant.targetFacts?.requiredCRDs ?? []).length);
 }
 
 function verifySetupVariant(ctx, tempRoot, variant, receipt) {

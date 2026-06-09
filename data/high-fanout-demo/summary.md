@@ -8,7 +8,7 @@ belong in reviewed base variants instead of ad hoc post-render edits.
 | Base | User choice | Helm objects | CRDs | Webhook configs | Monitoring custom resources | Current live evidence |
 | --- | --- | ---: | ---: | ---: | ---: | --- |
 | `default` | install the stack including Prometheus Operator CRDs | 124 | 10 | 2 | 50 | local kind parity: `pass` |
-| `no-crds` | install the stack without creating CRDs | 114 | 0 | 2 | 50 | GitOps/OCI: `blocked`; local kind parity: `blocked` |
+| `no-crds` | install the stack without creating CRDs | 114 | 0 | 2 | 50 | GitOps/OCI: `blocked`; local kind parity: `pass` |
 
 The `no-crds` base changes one render-time choice:
 
