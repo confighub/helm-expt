@@ -473,12 +473,21 @@
     },
     {
       "section": "hooks",
-      "metric": "hook lifecycle receipts present",
+      "metric": "hook route receipts present",
+      "value": "5",
+      "total": "5",
+      "status": "partial",
+      "source": "data/hook-lifecycle/top100-hooks.csv",
+      "note": "Hook-bearing rows with a recorded lifecycle route, observation, or blocker."
+    },
+    {
+      "section": "hooks",
+      "metric": "hook lifecycle observations present",
       "value": "0",
       "total": "5",
       "status": "gap",
       "source": "data/hook-lifecycle/top100-hooks.csv",
-      "note": "Current hook rows still need lifecycle route and receipt work."
+      "note": "Hook-bearing rows with runtime lifecycle observation or execution receipts."
     },
     {
       "section": "hooks",
@@ -492,11 +501,20 @@
     {
       "section": "hooks",
       "metric": "hook queue rows still needing route receipts",
+      "value": "0",
+      "total": "5",
+      "status": "good",
+      "source": "data/lifecycle-boundary/lifecycle-boundary.csv",
+      "note": "Hook-bearing rows whose behavior is inventoried but has no selected route."
+    },
+    {
+      "section": "hooks",
+      "metric": "hook routes still needing execution or observation",
       "value": "5",
       "total": "5",
       "status": "gap",
       "source": "data/lifecycle-boundary/lifecycle-boundary.csv",
-      "note": "Hook-bearing rows whose behavior is inventoried but not yet lifecycle-observed."
+      "note": "Hook-bearing rows with a selected route but no committed runtime observation or execution receipt."
     },
     {
       "section": "hooks",

@@ -105,10 +105,13 @@ function buildReport() {
   rows.push(metric("extension slots", "top100 charts with extension slots", extensionRows.length, 100, "partial", "data/extension-slots/extension-slots.csv", "Top-100 chart facts where NGINX-like extension slots are surfaced."));
   rows.push(metric("extension slots", "top500 source rows using tpl", Number(quirkRows.find((row) => row.axis === "tpl-extension-slots")?.top500_count ?? 0), top500Rows.length, "partial", "data/quirk-coverage/coverage.csv", "Broader source-scan signal for template-powered inputs; not every tpl use is an explicit supported slot."));
 
+  const hookQueueRows = lifecycleBoundaryRows.filter((row) => row.lane === "helm-hook-lifecycle-queue");
   rows.push(metric("hooks", "top100 maintained hook charts", hookRows.length, hookRows.length, "partial", "data/hook-lifecycle/top100-hooks.csv", "Hook-bearing maintained charts with required lifecycle receipt paths."));
-  rows.push(metric("hooks", "hook lifecycle receipts present", hookRows.filter((row) => row.lifecycle_disposition === "lifecycle-observed").length, hookRows.length, "gap", "data/hook-lifecycle/top100-hooks.csv", "Current hook rows still need lifecycle route and receipt work."));
+  rows.push(metric("hooks", "hook route receipts present", hookRows.filter((row) => ["route-selected", "lifecycle-observed", "blocked"].includes(row.lifecycle_disposition)).length, hookRows.length, "partial", "data/hook-lifecycle/top100-hooks.csv", "Hook-bearing rows with a recorded lifecycle route, observation, or blocker."));
+  rows.push(metric("hooks", "hook lifecycle observations present", hookRows.filter((row) => row.lifecycle_disposition === "lifecycle-observed").length, hookRows.length, "gap", "data/hook-lifecycle/top100-hooks.csv", "Hook-bearing rows with runtime lifecycle observation or execution receipts."));
   rows.push(metric("hooks", "hook/lifecycle boundary rows", lifecycleBoundaryRows.length, lifecycleBoundaryRows.length, "partial", "data/lifecycle-boundary/lifecycle-boundary.csv", "Separates hook queue rows from hook-like controller lifecycle observations."));
-  rows.push(metric("hooks", "hook queue rows still needing route receipts", lifecycleBoundaryRows.filter((row) => row.lane === "helm-hook-lifecycle-queue" && row.status === "route-and-receipt-needed").length, lifecycleBoundaryRows.filter((row) => row.lane === "helm-hook-lifecycle-queue").length, "gap", "data/lifecycle-boundary/lifecycle-boundary.csv", "Hook-bearing rows whose behavior is inventoried but not yet lifecycle-observed."));
+  rows.push(metric("hooks", "hook queue rows still needing route receipts", hookQueueRows.filter((row) => row.status === "route-and-receipt-needed").length, hookQueueRows.length, "good", "data/lifecycle-boundary/lifecycle-boundary.csv", "Hook-bearing rows whose behavior is inventoried but has no selected route."));
+  rows.push(metric("hooks", "hook routes still needing execution or observation", hookQueueRows.filter((row) => row.status === "route-selected").length, hookQueueRows.length, "gap", "data/lifecycle-boundary/lifecycle-boundary.csv", "Hook-bearing rows with a selected route but no committed runtime observation or execution receipt."));
   rows.push(metric("hooks", "related lifecycle observation receipts passing", passCount(lifecycleObservationRows, "result"), lifecycleObservationRows.length, "good", "data/lifecycle-observations/cert-manager-eso/summary.csv", "Cert-manager and External Secrets receipts for CRD/webhook/controller behavior that rendered YAML alone cannot prove."));
 
   const chartByName = new Map(chartRows.map((row) => [row.chart, row]));
@@ -347,8 +350,9 @@ NGINX-style extension-slot report.
 | --- | --- | --- | --- |
 ${hookPreview.map((row) => `| ${row.chart}@${row.version} | ${row.selected_base} | ${row.lifecycle_disposition} | ${row.next_action} |`).join("\n")}
 
-Hook rows are not support claims. They are the queue for lifecycle route and
-receipt work. The hook doctrine is
+Hook rows are not support claims. Route-selected means the chart has an
+explicit handling plan; lifecycle-observed means that plan has runtime or
+execution evidence. The hook doctrine is
 [Seven-Stage Helm Lifecycle](../../docs/reference/seven-stage-helm-lifecycle.md)
 and [Hook Lifecycle Strategy](../../docs/user/hook-lifecycle-strategy.md).
 

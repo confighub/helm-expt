@@ -17,7 +17,10 @@ top-500 charts with Helm hooks:        54
 top-100 maintained charts with hooks:  5
 catalog-supported hook charts:         1
 proof-grade hook charts:               4
-hook lifecycle receipts present:       0
+hook route receipts present:           5/5
+hook lifecycle observations present:   0/5
+hook routes awaiting observation:      5/5
+hook rows still needing route receipt: 0/5
 related lifecycle observations passing: 4/4
 ```
 
@@ -30,9 +33,9 @@ related lifecycle observations passing: 4/4
 
 ## Rule
 
-A row is not hook-lifecycle-proven until the receipt under
-`data/hook-lifecycle/receipts/` exists and records the chosen route,
-execution or controller behavior, runtime outcome, and freshness timestamp.
+A row is not hook-lifecycle-proven just because a route receipt exists. A route
+receipt records the selected handling for the hook. Lifecycle proof requires an
+execution or observation receipt with runtime outcome and freshness timestamp.
 
 Related lifecycle observations can exist outside this hook queue when a
 chart-specific lane is proving runtime behavior that rendered YAML alone cannot

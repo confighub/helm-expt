@@ -1,0 +1,29 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: HookLifecycleRouteReceipt
+metadata:
+  name: projectcalico-tigera-operator-default-hook-route
+spec:
+  chart: projectcalico/tigera-operator
+  version: v3.32.0
+  base: default
+  result: route-selected
+  selectedAt: "2026-06-09"
+  route:
+    summary: The pre-delete hook is routed to delete and rollback lifecycle policy.
+    phases:
+      - hookTypes: [pre-delete]
+        action: delete-cleanup-policy
+        reason: Uninstall cleanup depends on target state and must not be hidden in render proof.
+  evidence:
+    - path: data/hook-lifecycle/top100-hooks.csv
+      claim: Source scan found a pre-delete uninstall hook.
+    - path: recipes/projectcalico/tigera-operator/v3.32.0/helm-pain-report.yaml
+      claim: Chart pain report records cluster-scope and lifecycle risk.
+  execution:
+    helmHooksExecutedByHarness: false
+    runtimeObserved: false
+    notes:
+      - This is a route selection for a proof-grade chart, not a production support claim.
+  remainingWork:
+    - Run uninstall or rollback in a live target.
+    - Record cleanup, ordering, and any operator-owned resources.

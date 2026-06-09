@@ -52,7 +52,7 @@ function buildReport() {
     const sourceRow = sourceScanRows.find((row) => row.chart === entry.chart) ?? {};
     const base = firstListItem(entry.supported_variants) || firstListItem(entry.candidate_variants) || entry.start_variant || "default";
     const requiredReceipt = `data/hook-lifecycle/receipts/${slug(entry.chart)}/${base}/latest.yaml`;
-    const receiptStatus = existsSync(join(repoRoot, requiredReceipt)) ? "present" : "not-yet-written";
+    const receipt = hookReceiptState(requiredReceipt);
     return {
       proof_surface_rank: entry.proof_surface_rank,
       top500_rank: entry.top500_rank,
@@ -72,12 +72,12 @@ function buildReport() {
       webhook_count: Number(sourceRow.validatingWebhooks ?? 0) + Number(sourceRow.mutatingWebhooks ?? 0),
       crd_count: sourceRow.crdFiles ?? "",
       lookup_count: sourceRow.lookup?.count ?? "",
-      lifecycle_disposition: receiptStatus === "present" ? "lifecycle-observed" : "requires-route-and-receipt",
+      lifecycle_disposition: receipt.lifecycleDisposition,
       recommended_route: recommendedRoute(entry),
       route_hint: routeHint(sourceRow),
       required_receipt: requiredReceipt,
-      receipt_status: receiptStatus,
-      next_action: "choose lifecycle route, run live path, commit lifecycle or observation receipt",
+      receipt_status: receipt.receiptStatus,
+      next_action: nextActionFor(receipt),
     };
   });
 
@@ -101,7 +101,7 @@ function buildReport() {
 
   check(top500HookRows.length === 54, `expected 54 top500 hook rows; found ${top500HookRows.length}`);
   check(hookRows.length === 5, `expected 5 maintained top100 hook rows; found ${hookRows.length}`);
-  check(receiptRows.every((row) => ["present", "not-yet-written"].includes(row.receipt_status)), "hook lifecycle receipt status must be explicit");
+  check(receiptRows.every((row) => ["not-yet-written", "route-selected", "observed", "blocked", "needs-classification"].includes(row.receipt_status)), "hook lifecycle receipt status must be explicit");
 
   const outputs = {
     corpus: csv(hookRows),
@@ -119,6 +119,63 @@ function recommendedRoute(entry) {
   if (entry.catalog_status === "catalog-supported") return "production-disposition-first";
   if (Number(entry.top500_rank || 9999) <= 50) return "catalog-promotion-review-first";
   return "recipe-maintenance-review-first";
+}
+
+function hookReceiptState(path) {
+  const absolute = join(repoRoot, path);
+  if (!existsSync(absolute)) {
+    return {
+      receiptStatus: "not-yet-written",
+      lifecycleDisposition: "requires-route-and-receipt",
+    };
+  }
+
+  const text = readFileSync(absolute, "utf8");
+  const result = fieldValue(text, "result") || fieldValue(text, "status") || fieldValue(text, "phase");
+  if (result === "route-selected") {
+    return {
+      receiptStatus: "route-selected",
+      lifecycleDisposition: "route-selected",
+    };
+  }
+  if (["pass", "observed", "observed-pass", "lifecycle-observed"].includes(result)) {
+    return {
+      receiptStatus: "observed",
+      lifecycleDisposition: "lifecycle-observed",
+    };
+  }
+  if (result === "blocked") {
+    return {
+      receiptStatus: "blocked",
+      lifecycleDisposition: "blocked",
+    };
+  }
+  return {
+    receiptStatus: "needs-classification",
+    lifecycleDisposition: "receipt-present-needs-classification",
+  };
+}
+
+function fieldValue(text, field) {
+  const pattern = new RegExp(`^\\s*${field}:\\s*["']?([^"'\\n#]+)`, "m");
+  const match = text.match(pattern);
+  return match?.[1]?.trim() ?? "";
+}
+
+function nextActionFor(receipt) {
+  if (receipt.receiptStatus === "not-yet-written") {
+    return "choose lifecycle route and commit route receipt";
+  }
+  if (receipt.receiptStatus === "route-selected") {
+    return "run selected lifecycle path and commit observation or execution receipt";
+  }
+  if (receipt.receiptStatus === "observed") {
+    return "keep receipt fresh when chart, base, or cluster version changes";
+  }
+  if (receipt.receiptStatus === "blocked") {
+    return "resolve blocker or keep chart outside production support";
+  }
+  return "classify lifecycle receipt result";
 }
 
 function routeHint(sourceRow) {
@@ -140,6 +197,10 @@ function summary({ top500HookRows, hookRows, receiptRows, lifecycleObservationRo
   const catalogSupported = hookRows.filter((row) => row.catalog_status === "catalog-supported").length;
   const proofGrade = hookRows.filter((row) => row.catalog_status === "proof-grade").length;
   const lifecycleObservationPass = lifecycleObservationRows.filter((row) => row.result === "pass").length;
+  const routeReceipts = receiptRows.filter((row) => ["route-selected", "observed", "blocked"].includes(row.receipt_status)).length;
+  const observedReceipts = receiptRows.filter((row) => row.receipt_status === "observed").length;
+  const routeOnlyReceipts = receiptRows.filter((row) => row.receipt_status === "route-selected").length;
+  const missingRoutes = receiptRows.filter((row) => row.receipt_status === "not-yet-written").length;
   return `# Hook Lifecycle Wave
 
 This generated file tracks maintained charts whose source scan found Helm hooks.
@@ -159,7 +220,10 @@ top-500 charts with Helm hooks:        ${top500HookRows.length}
 top-100 maintained charts with hooks:  ${hookRows.length}
 catalog-supported hook charts:         ${catalogSupported}
 proof-grade hook charts:               ${proofGrade}
-hook lifecycle receipts present:       ${receiptRows.filter((row) => row.receipt_status === "present").length}
+hook route receipts present:           ${routeReceipts}/${receiptRows.length}
+hook lifecycle observations present:   ${observedReceipts}/${receiptRows.length}
+hook routes awaiting observation:      ${routeOnlyReceipts}/${receiptRows.length}
+hook rows still needing route receipt: ${missingRoutes}/${receiptRows.length}
 related lifecycle observations passing: ${lifecycleObservationPass}/${lifecycleObservationRows.length}
 \`\`\`
 
@@ -172,9 +236,9 @@ related lifecycle observations passing: ${lifecycleObservationPass}/${lifecycleO
 
 ## Rule
 
-A row is not hook-lifecycle-proven until the receipt under
-\`data/hook-lifecycle/receipts/\` exists and records the chosen route,
-execution or controller behavior, runtime outcome, and freshness timestamp.
+A row is not hook-lifecycle-proven just because a route receipt exists. A route
+receipt records the selected handling for the hook. Lifecycle proof requires an
+execution or observation receipt with runtime outcome and freshness timestamp.
 
 Related lifecycle observations can exist outside this hook queue when a
 chart-specific lane is proving runtime behavior that rendered YAML alone cannot

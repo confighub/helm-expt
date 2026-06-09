@@ -158,7 +158,9 @@ function html(catalog) {
     "two-cluster semantic parity defect receipts",
     "derived variant live create receipts",
     "target-bound derived variant receipts",
-    "hook lifecycle receipts present",
+    "hook route receipts present",
+    "hook lifecycle observations present",
+    "hook routes still needing execution or observation",
     "not-scanned axes",
   ]
     .map((name) => metric(name))

@@ -1,0 +1,36 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: HookLifecycleRouteReceipt
+metadata:
+  name: kyverno-kyverno-default-hook-route
+spec:
+  chart: kyverno/kyverno
+  version: 3.8.1
+  base: default
+  result: route-selected
+  selectedAt: "2026-06-09"
+  route:
+    summary: Upgrade, delete cleanup, and test hooks are split into explicit lifecycle actions.
+    phases:
+      - hookTypes: [post-upgrade]
+        action: upgrade-action-with-receipt
+        reason: Resource migration after upgrade must be recorded as an upgrade operation.
+      - hookTypes: [pre-delete]
+        action: delete-cleanup-policy
+        reason: Webhook and APIService cleanup belongs to delete or rollback policy.
+      - hookTypes: [test]
+        action: explicit-post-install-check
+        reason: Test hooks become checks, not hidden install behavior.
+  evidence:
+    - path: data/hook-lifecycle/top100-hooks.csv
+      claim: Source scan found post-upgrade, pre-delete, and test hook templates.
+    - path: recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml
+      claim: Chart pain report records CRD, webhook, generated fact, and hook lifecycle risk.
+  execution:
+    helmHooksExecutedByHarness: false
+    runtimeObserved: false
+    notes:
+      - This is a route selection for a proof-grade chart, not a production support claim.
+  remainingWork:
+    - Run a live upgrade path and record migration behavior.
+    - Run a delete or rollback path and record cleanup behavior.
+    - Convert test hooks into explicit checks with receipts.

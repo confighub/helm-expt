@@ -1,0 +1,29 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: HookLifecycleRouteReceipt
+metadata:
+  name: fluent-fluent-bit-default-hook-route
+spec:
+  chart: fluent/fluent-bit
+  version: 0.57.6
+  base: default
+  result: route-selected
+  selectedAt: "2026-06-09"
+  route:
+    summary: The chart hook is a test hook and is routed to an explicit post-install check.
+    phases:
+      - hookTypes: [test]
+        action: explicit-post-install-check
+        reason: Connectivity tests are checks against the installed target, not render-time behavior.
+  evidence:
+    - path: data/hook-lifecycle/top100-hooks.csv
+      claim: Source scan found one test hook template.
+    - path: recipes/fluent/fluent-bit/0.57.6/helm-pain-report.yaml
+      claim: Chart pain report records the test-hook route.
+  execution:
+    helmHooksExecutedByHarness: false
+    runtimeObserved: false
+    notes:
+      - This route is likely straightforward, but still needs a committed live check receipt.
+  remainingWork:
+    - Run the selected post-install check in a live target.
+    - Record the result and freshness.

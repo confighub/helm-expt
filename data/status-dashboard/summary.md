@@ -59,9 +59,11 @@ Which detailed CSV should I open next?
 | extension slots | top100 charts with extension slots | 82/100 | partial | [data/extension-slots/extension-slots.csv](../../data/extension-slots/extension-slots.csv) |
 | extension slots | top500 source rows using tpl | 362/500 | partial | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
 | hooks | top100 maintained hook charts | 5/5 | partial | [data/hook-lifecycle/top100-hooks.csv](../../data/hook-lifecycle/top100-hooks.csv) |
-| hooks | hook lifecycle receipts present | 0/5 | gap | [data/hook-lifecycle/top100-hooks.csv](../../data/hook-lifecycle/top100-hooks.csv) |
+| hooks | hook route receipts present | 5/5 | partial | [data/hook-lifecycle/top100-hooks.csv](../../data/hook-lifecycle/top100-hooks.csv) |
+| hooks | hook lifecycle observations present | 0/5 | gap | [data/hook-lifecycle/top100-hooks.csv](../../data/hook-lifecycle/top100-hooks.csv) |
 | hooks | hook/lifecycle boundary rows | 9/9 | partial | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
-| hooks | hook queue rows still needing route receipts | 5/5 | gap | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
+| hooks | hook queue rows still needing route receipts | 0/5 | good | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
+| hooks | hook routes still needing execution or observation | 5/5 | gap | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
 | hooks | related lifecycle observation receipts passing | 4/4 | good | [data/lifecycle-observations/cert-manager-eso/summary.csv](../../data/lifecycle-observations/cert-manager-eso/summary.csv) |
 
 ## Top100 Readiness
@@ -323,14 +325,15 @@ NGINX-style extension-slot report.
 
 | Hook chart | Selected base | Current disposition | Next action |
 | --- | --- | --- | --- |
-| prometheus-community/kube-prometheus-stack@85.3.3 | default | requires-route-and-receipt | choose lifecycle route, run live path, commit lifecycle or observation receipt |
-| kyverno/kyverno@3.8.1 | default | requires-route-and-receipt | choose lifecycle route, run live path, commit lifecycle or observation receipt |
-| fluent/fluent-bit@0.57.6 | default | requires-route-and-receipt | choose lifecycle route, run live path, commit lifecycle or observation receipt |
-| projectcalico/tigera-operator@v3.32.0 | default | requires-route-and-receipt | choose lifecycle route, run live path, commit lifecycle or observation receipt |
-| gatekeeper/gatekeeper@3.22.2 | default | requires-route-and-receipt | choose lifecycle route, run live path, commit lifecycle or observation receipt |
+| prometheus-community/kube-prometheus-stack@85.3.3 | default | route-selected | run selected lifecycle path and commit observation or execution receipt |
+| kyverno/kyverno@3.8.1 | default | route-selected | run selected lifecycle path and commit observation or execution receipt |
+| fluent/fluent-bit@0.57.6 | default | route-selected | run selected lifecycle path and commit observation or execution receipt |
+| projectcalico/tigera-operator@v3.32.0 | default | route-selected | run selected lifecycle path and commit observation or execution receipt |
+| gatekeeper/gatekeeper@3.22.2 | default | route-selected | run selected lifecycle path and commit observation or execution receipt |
 
-Hook rows are not support claims. They are the queue for lifecycle route and
-receipt work. The hook doctrine is
+Hook rows are not support claims. Route-selected means the chart has an
+explicit handling plan; lifecycle-observed means that plan has runtime or
+execution evidence. The hook doctrine is
 [Seven-Stage Helm Lifecycle](../../docs/reference/seven-stage-helm-lifecycle.md)
 and [Hook Lifecycle Strategy](../../docs/user/hook-lifecycle-strategy.md).
 

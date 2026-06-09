@@ -1,0 +1,40 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: HookLifecycleRouteReceipt
+metadata:
+  name: prometheus-community-kube-prometheus-stack-default-hook-route
+spec:
+  chart: prometheus-community/kube-prometheus-stack
+  version: 85.3.3
+  base: default
+  result: route-selected
+  selectedAt: "2026-06-09"
+  route:
+    summary: Admission webhook patch hooks are handled as explicit lifecycle work, not as hidden render parity.
+    phases:
+      - hookTypes: [pre-install, pre-upgrade]
+        action: preflight-or-presync
+        reason: The hook creates webhook patch prerequisites before admission configuration is safe to use.
+      - hookTypes: [post-install, post-upgrade]
+        action: postsync-readiness-observation
+        reason: Webhook TLS and readiness must be observed after apply.
+      - hookTypes: [pre-upgrade, post-upgrade]
+        action: upgrade-action-with-receipt
+        reason: Upgrade behavior must be recorded separately from initial render parity.
+  evidence:
+    - path: data/hook-lifecycle/top100-hooks.csv
+      claim: Source scan found admission webhook patch hook templates.
+    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml
+      claim: Chart pain report records CRD, webhook, generated fact, and hook lifecycle risk.
+    - path: data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/default/
+      claim: Production disposition receipts record the current review evidence for this base.
+    - path: runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml
+      claim: Live Helm-vs-ConfigHub parity exists for selected non-hook objects.
+  execution:
+    helmHooksExecutedByHarness: false
+    runtimeObserved: false
+    notes:
+      - Render parity does not claim Helm hook execution.
+      - This receipt records the selected lifecycle route only.
+  remainingWork:
+    - Execute or observe the selected lifecycle route in a live target.
+    - Record webhook readiness, cleanup, ordering, and upgrade behavior with freshness.

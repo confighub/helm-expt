@@ -38,10 +38,10 @@ function buildReport() {
       lane: "helm-hook-lifecycle-queue",
       chart: `${row.chart}@${row.version}`,
       base: row.selected_base,
-      status: row.receipt_status === "present" ? "lifecycle-observed" : "route-and-receipt-needed",
+      status: hookQueueStatus(row.receipt_status),
       route_or_policy: row.route_hint,
-      proves: "hook templates are inventoried and a receipt path is declared",
-      does_not_prove: "hook execution, cleanup, ordering, upgrade behavior, or production support",
+      proves: hookQueueProof(row.receipt_status),
+      does_not_prove: hookQueueNonProof(row.receipt_status),
       evidence: `data/hook-lifecycle/top100-hooks.csv;${row.required_receipt}`,
       next_action: row.next_action,
     })),
@@ -58,7 +58,10 @@ function buildReport() {
     })),
   ];
 
-  const hookReceiptCount = hookRows.filter((row) => row.receipt_status === "present").length;
+  const hookRouteReceiptCount = hookRows.filter((row) => ["route-selected", "observed", "blocked"].includes(row.receipt_status)).length;
+  const hookObservedCount = hookRows.filter((row) => row.receipt_status === "observed").length;
+  const hookRouteOnlyCount = hookRows.filter((row) => row.receipt_status === "route-selected").length;
+  const hookRouteNeededCount = hookRows.filter((row) => row.receipt_status === "not-yet-written").length;
   const observationPass = observationRows.filter((row) => row.result === "pass").length;
   const csv = toCsv(rows);
   const summary = `# Hook And Lifecycle Boundary
@@ -84,7 +87,10 @@ Helm hook.
 
 ~~~text
 maintained hook-bearing chart rows:       ${hookRows.length}
-hook lifecycle receipts present:          ${hookReceiptCount}/${hookRows.length}
+hook route receipts present:              ${hookRouteReceiptCount}/${hookRows.length}
+hook lifecycle observations present:      ${hookObservedCount}/${hookRows.length}
+hook routes awaiting observation:         ${hookRouteOnlyCount}/${hookRows.length}
+hook rows still needing route receipt:    ${hookRouteNeededCount}/${hookRows.length}
 hook-like lifecycle observations passing: ${observationPass}/${observationRows.length}
 ~~~
 
@@ -110,6 +116,30 @@ npm run lifecycle:boundary:verify
 ~~~
 `;
   return { rows, csv, summary };
+}
+
+function hookQueueStatus(receiptStatus) {
+  if (receiptStatus === "observed") return "lifecycle-observed";
+  if (receiptStatus === "route-selected") return "route-selected";
+  if (receiptStatus === "blocked") return "blocked";
+  if (receiptStatus === "needs-classification") return "receipt-needs-classification";
+  return "route-and-receipt-needed";
+}
+
+function hookQueueProof(receiptStatus) {
+  if (receiptStatus === "observed") return "hook route has a lifecycle observation or execution receipt";
+  if (receiptStatus === "route-selected") return "hook templates are inventoried and a route receipt records the selected handling";
+  if (receiptStatus === "blocked") return "hook behavior was reviewed and remains blocked";
+  if (receiptStatus === "needs-classification") return "hook templates are inventoried and a receipt exists, but its result is not classified";
+  return "hook templates are inventoried and a receipt path is declared";
+}
+
+function hookQueueNonProof(receiptStatus) {
+  if (receiptStatus === "observed") return "universal Helm hook support or support for unrelated hook-bearing charts";
+  if (receiptStatus === "route-selected") return "hook execution, cleanup, ordering, upgrade behavior, runtime outcome, or production support";
+  if (receiptStatus === "blocked") return "support until the blocker is resolved";
+  if (receiptStatus === "needs-classification") return "hook execution or support until the receipt is classified";
+  return "hook execution, cleanup, ordering, upgrade behavior, or production support";
 }
 
 function observationProof(chart) {
