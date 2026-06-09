@@ -1,0 +1,64 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSecurityDecision"
+metadata:
+  name: "bitnami-postgresql-public-oci-security-decision"
+spec:
+  chart: "bitnami/postgresql"
+  version: "18.6.7"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "postgresql"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "generated-passwords"
+  variantsCovered:
+    - "existing-secret"
+    - "generated-passwords"
+  decision: "pdb-policy-accepted-for-target-scope"
+  decidedAt: "2026-06-09"
+  claim: "The selected generated-passwords support scope has one external scan warning: the chart's PodDisruptionBudget unhealthy-pod eviction policy. It is accepted for this public proof scope. Target production deployments should choose a stricter PDB policy or a high-availability base where appropriate."
+  route: "accept-or-patch-pdb-policy"
+  routeReason: "the remaining warning is an explicit PodDisruptionBudget policy choice"
+  findingSummary:
+    scanner: "kube-linter"
+    result: "warn"
+    totalFindings: 2
+    topChecks:
+      pdb-unhealthy-pod-eviction-policy: 2
+    variants:
+      existing-secret:
+        findingCount: 1
+        topChecks:
+          pdb-unhealthy-pod-eviction-policy: 1
+        renderedObjectSetSHA256: "595ce44f8c11b10ad1817bf57141529864efd48318a6a97a6e914d3669bb90dd"
+      generated-passwords:
+        findingCount: 1
+        topChecks:
+          pdb-unhealthy-pod-eviction-policy: 1
+        renderedObjectSetSHA256: "db49bd6d27e0deaed0b9e314f0527bc2d9468b7be10f9bbdaad14593f0b65a6b"
+  acceptedFindings:
+    -
+      group: "pdb-unhealthy-pod-eviction-policy"
+      disposition: "Accepted for the public proof scope. Customer production scopes should choose a target PDB/availability policy together with storage and backup posture."
+  limits:
+    - "This is not a blanket security approval for customer clusters, private overlays, regulated environments, or future chart versions."
+    - "The existing-secret base remains outside this support claim because its runtime behavior still needs target review."
+    - "Production storage, backup, restore, high-availability topology, and credential rotation remain separate decisions."
+  evidence:
+    -
+      path: "data/scan-disposition-workdown/workdown.csv"
+      claim: "Routes PostgreSQL scan findings to accept-or-patch-pdb-policy."
+    -
+      path: "data/external-scan-lane/review.csv"
+      claim: "Records kube-linter warning counts for PostgreSQL rendered object sets."
+    -
+      path: "recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for existing-secret."
+    -
+      path: "recipes/bitnami/postgresql/18.6.7/revisions/generated-passwords/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for generated-passwords."
+    -
+      path: "data/production-disposition/receipts/bitnami-postgresql/scan-gate-warning-disposition.yaml"
+      claim: "Earlier production disposition accepts PostgreSQL scan warnings as production-review inputs."
+  remainingSupportBlockers:
+    - "Record image policy, lifecycle boundary, generated fact ownership, and fresh target-scoped ConfigHub OCI/GitOps evidence."

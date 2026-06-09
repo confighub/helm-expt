@@ -1,0 +1,74 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSupportEvidenceReceipt"
+metadata:
+  name: "bitnami-postgresql-generated-passwords-argo-oci-support-evidence-20260605"
+spec:
+  chart: "bitnami/postgresql"
+  version: "18.6.7"
+  base: "generated-passwords"
+  observedAt: "2026-06-05T18:19:50Z"
+  result: "pass"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "postgresql"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+    rig: "helm-expt-parity-postgresql-mq1917o7-j3h"
+    kubeContext: "kind-helm-expt-parity-postgresql-mq1917o7-j3h"
+    target: "helm-expt-parity-postgresql-mq1917o7-j3h-cluster/oci"
+    workloadSpace: "helm-expt-parity-postgresql-mq1917o7-j3h-postgresql"
+    app: "postgresql-parity"
+  package:
+    path: "packages/bitnami/postgresql/18.6.7"
+  recipe:
+    path: "recipes/bitnami/postgresql/18.6.7"
+  oci:
+    revision: "sha256:ac2561476b8a404a1e969f9d1ff030b38e71ec26ea461a220e89b0c1c8547d6a"
+    controller: "Argo CD OCI"
+    sync: "Synced"
+    health: "Healthy"
+    manifestSHA256: "1dcff96ff9e29ca71259cf68168c41913da0725596e0f79fd2c21ddbed37e09d"
+    objectCount: 8
+    separatedSecrets:
+      - "secret-postgresql-oci-postgresql.yaml"
+  comparison:
+    regularHelmRuntime: "pass"
+    configHubApplyRuntime: "pass"
+    configHubOciRuntime: "pass"
+    helmVsConfigHubOciArgo: "pass"
+    allowedExtraConfigHubObjects:
+      - "v1|Namespace||postgresql"
+  twoClusterCrossCheck:
+    path: "runs/live-kind-parity/bitnami-postgresql-generated-passwords/receipt.yaml"
+    result: "pass"
+    semanticParity: "pass"
+    regularHelmRuntime: "pass"
+    installerRuntime: "pass"
+  source:
+    liveReceiptPath: "runs/live-helm-confighub-compare/bitnami-postgresql-generated-passwords/receipt.yaml"
+    cleanupPolicy: "cub-lk rig and ConfigHub cluster space removed after evidence capture"
+  checks:
+    -
+      name: "regular-helm-runtime"
+      result: "pass"
+      detail: "regular Helm PostgreSQL runtime passed"
+    -
+      name: "confighub-apply-runtime"
+      result: "pass"
+      detail: "ConfigHub rendered objects applied by kubectl reached PostgreSQL readiness"
+    -
+      name: "confighub-oci-argo-runtime"
+      result: "pass"
+      detail: "Argo app postgresql-parity: sync=Synced health=Healthy revision=sha256:ac2561476b8a404a1e969f9d1ff030b38e71ec26ea461a220e89b0c1c8547d6a"
+    -
+      name: "semantic-object-parity"
+      result: "pass"
+      detail: "regular Helm and ConfigHub OCI/Argo object sets match semantically, except the recorded Namespace support object"
+  supportClaim:
+    state: "fresh-target-evidence-passed"
+    detail: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared PostgreSQL generated-passwords support scope."
+  limits:
+    - "This supports the recorded cub-lk vanilla kind Argo OCI scope, not every Kubernetes cluster."
+    - "This assumes an existing Argo CD OCI controller is available to reconcile the ConfigHub artifact."
+    - "This supports the generated-passwords base, not the existing-secret topology."
+    - "Evidence freshness is 30 days for public demo/support examples unless refreshed earlier."
