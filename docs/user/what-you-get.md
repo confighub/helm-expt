@@ -94,7 +94,7 @@ ConfigHub adds:
 The repo is a proof corpus and product design surface. Some workflows are still
 scripted, narrow, or represented by receipts rather than polished commands.
 
-Current productization work includes:
+Candidate product surfaces and workflow work include:
 
 ```text
 cub installer import helm
@@ -106,6 +106,9 @@ clear release/OCI handoff semantics
 closing the remaining live parity watch and blocked rows
 per-chart lifecycle routes for hook-heavy charts
 ```
+
+Those lines are not all current CLI commands. Current command routing is in
+[Choosing Commands](./choosing-commands.md).
 
 ## Hook And Lifecycle Boundary
 
