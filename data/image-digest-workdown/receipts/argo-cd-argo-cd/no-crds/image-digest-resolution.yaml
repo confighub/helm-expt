@@ -1,0 +1,76 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ImageDigestResolutionReceipt"
+metadata:
+  name: "argo-cd-argo-cd-no-crds-image-digest-resolution"
+spec:
+  chart: "argo-cd/argo-cd"
+  version: "9.5.15"
+  variant: "no-crds"
+  resolvedAt: "2026-06-09T17:49:45.310Z"
+  renderedObjectSet:
+    path: "recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/rendered/release-objects.yaml"
+    sha256: "23a51fb8ea2215b08a853bbb26698d80f58a5514b68d4f49cdcd870a8371fc71"
+  sourceImageReview:
+    path: "data/attack-plan-workdown/image-digest-review.csv"
+    rows: 9
+    uniqueImages: 3
+  resolver:
+    name: "docker-buildx-imagetools"
+    commandTemplate: "docker buildx imagetools inspect <image>"
+  images:
+    -
+      image: "ecr-public.aws.com/docker/library/redis:8.2.3-alpine"
+      digest: "sha256:08ad0b1d280850169a790dba1393ff7a90aef951fc19632cf4d3ce4f78e679ba"
+      digestReference: "ecr-public.aws.com/docker/library/redis:8.2.3-alpine@sha256:08ad0b1d280850169a790dba1393ff7a90aef951fc19632cf4d3ce4f78e679ba"
+      mediaType: "application/vnd.oci.image.index.v1+json"
+      resolverOutput:
+        name: "ecr-public.aws.com/docker/library/redis:8.2.3-alpine"
+      occurrences:
+        -
+          object: "apps/v1/Deployment/argocd/argo-cd-argocd-redis"
+          fieldPath: "spec.template.spec.containers.0.image"
+    -
+      image: "ghcr.io/dexidp/dex:v2.45.1"
+      digest: "sha256:8499afd690c437f52301efd2b05b2455da5bd2dfc20332cd697dc9937f808462"
+      digestReference: "ghcr.io/dexidp/dex:v2.45.1@sha256:8499afd690c437f52301efd2b05b2455da5bd2dfc20332cd697dc9937f808462"
+      mediaType: "application/vnd.oci.image.index.v1+json"
+      resolverOutput:
+        name: "ghcr.io/dexidp/dex:v2.45.1"
+      occurrences:
+        -
+          object: "apps/v1/Deployment/argocd/argo-cd-argocd-dex-server"
+          fieldPath: "spec.template.spec.containers.0.image"
+    -
+      image: "quay.io/argoproj/argocd:v3.4.2"
+      digest: "sha256:c612d570cb6d6ff29afb72932c1bfe98a1ecc234df50f8ea4873fb7066e760fc"
+      digestReference: "quay.io/argoproj/argocd:v3.4.2@sha256:c612d570cb6d6ff29afb72932c1bfe98a1ecc234df50f8ea4873fb7066e760fc"
+      mediaType: "application/vnd.docker.distribution.manifest.list.v2+json"
+      resolverOutput:
+        name: "quay.io/argoproj/argocd:v3.4.2"
+      occurrences:
+        -
+          object: "apps/v1/Deployment/argocd/argo-cd-argocd-applicationset-controller"
+          fieldPath: "spec.template.spec.containers.0.image"
+        -
+          object: "apps/v1/Deployment/argocd/argo-cd-argocd-dex-server"
+          fieldPath: "spec.template.spec.initContainers.0.image"
+        -
+          object: "apps/v1/Deployment/argocd/argo-cd-argocd-notifications-controller"
+          fieldPath: "spec.template.spec.containers.0.image"
+        -
+          object: "apps/v1/Deployment/argocd/argo-cd-argocd-repo-server"
+          fieldPath: "spec.template.spec.containers.0.image"
+        -
+          object: "apps/v1/Deployment/argocd/argo-cd-argocd-repo-server"
+          fieldPath: "spec.template.spec.initContainers.0.image"
+        -
+          object: "apps/v1/Deployment/argocd/argo-cd-argocd-server"
+          fieldPath: "spec.template.spec.containers.0.image"
+        -
+          object: "apps/v1/StatefulSet/argocd/argo-cd-argocd-application-controller"
+          fieldPath: "spec.template.spec.containers.0.image"
+  productionSupportUse:
+    status: "digest-resolution-recorded"
+    claim: "The mutable rendered image references for this Argo CD base were resolved to registry manifest digests at the recorded time."
+    limits: "This receipt does not mean the rendered manifests are digest-pinned and does not by itself make the chart production-supported."
+    nextRequired: "Choose a digest-pinned base, image override policy, or explicit mutable-image exception before broader production support."

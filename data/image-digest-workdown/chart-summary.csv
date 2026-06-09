@@ -1,5 +1,5 @@
 chart,version,catalog_status,proof_surface,rendered_subjects,subjects_needing_resolution,image_refs,mutable_tag_refs,floating_latest_or_untagged_refs,resolution_receipts,support_image_policy_decisions,next_action
-argo-cd/argo-cd,9.5.15,catalog-supported,top20-catalog-supported,2,2,18,18,0,0,0,resolve image digests for each affected variant before production OCI support
+argo-cd/argo-cd,9.5.15,catalog-supported,top20-catalog-supported,2,2,18,18,0,2,1,image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes
 bitnami/mysql,14.0.3,catalog-supported,top20-catalog-supported,2,2,4,4,0,0,0,resolve image digests for each affected variant before production OCI support
 bitnami/rabbitmq,16.0.14,catalog-supported,top20-catalog-supported,2,2,4,4,0,0,0,resolve image digests for each affected variant before production OCI support
 external-secrets/external-secrets,2.5.0,catalog-supported,top20-catalog-supported,2,2,6,6,0,2,1,image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes

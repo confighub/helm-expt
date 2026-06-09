@@ -1,0 +1,70 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSecurityDecision"
+metadata:
+  name: "argo-cd-argo-cd-public-oci-security-decision"
+spec:
+  chart: "argo-cd/argo-cd"
+  version: "9.5.15"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "argocd"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "default"
+  variantsCovered:
+    - "default"
+    - "no-crds"
+  decision: "resource-policy-accepted-for-target-scope"
+  decidedAt: "2026-06-09"
+  claim: "The recorded kube-linter findings are missing CPU and memory requests/limits on the Argo CD controller workloads. They are accepted for this public cub-lk GitOps-controller proof scope. Stricter environments should create a resource-policy base or overlay before support expansion."
+  route: "add-resource-policy"
+  routeReason: "rendered workloads lack production resource requests or limits"
+  findingSummary:
+    scanner: "kube-linter"
+    result: "warn"
+    totalFindings: 36
+    topChecks:
+      unset-cpu-requirements: 18
+      unset-memory-requirements: 18
+    variants:
+      default:
+        findingCount: 18
+        topChecks:
+          unset-cpu-requirements: 9
+          unset-memory-requirements: 9
+        renderedObjectSetSHA256: "e52ddef5e56e347a8959dd1e8591e116479bf8aa8682c83e3753fe7355a38cc0"
+      no-crds:
+        findingCount: 18
+        topChecks:
+          unset-cpu-requirements: 9
+          unset-memory-requirements: 9
+        renderedObjectSetSHA256: "23a51fb8ea2215b08a853bbb26698d80f58a5514b68d4f49cdcd870a8371fc71"
+  acceptedFindings:
+    -
+      group: "unset-cpu-requirements"
+      disposition: "Accepted for the public cub-lk proof scope. Add CPU requests and limits in a hardened base for customer or production SLO scopes."
+    -
+      group: "unset-memory-requirements"
+      disposition: "Accepted for the public cub-lk proof scope. Add memory requests and limits in a hardened base for customer or production SLO scopes."
+  limits:
+    - "This is not a blanket security approval for customer clusters, private overlays, or regulated environments."
+    - "This does not make all Argo CD bases production-supported by itself."
+    - "A hardened resource-policy base remains the correct route for stricter production scopes."
+  evidence:
+    -
+      path: "data/scan-disposition-workdown/workdown.csv"
+      claim: "Routes Argo CD scan findings to add-resource-policy."
+    -
+      path: "data/external-scan-lane/review.csv"
+      claim: "Records kube-linter warning counts for default and no-crds rendered object sets."
+    -
+      path: "recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for default."
+    -
+      path: "recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for no-crds."
+    -
+      path: "data/production-disposition/receipts/argo-cd-argo-cd/scan-gate-warning-disposition.yaml"
+      claim: "Earlier production disposition accepts scan warnings as production-review inputs."
+  remainingSupportBlockers:
+    - "Record image policy and fresh target-scoped ConfigHub OCI/GitOps evidence."
