@@ -336,42 +336,22 @@ The public catalog proves the method on popular charts. Managed workflows extend
 the same method to private charts, overlays, old versions, hooks, production
 windows, and fleet operations.
 
-## Issue Map
+## Roadmap Tracking
 
-Current GitHub issue state as of 2026-06-08:
+The user docs explain the model and the current evidence. The execution queue
+and issue mirror live in planning docs:
 
-```text
-Closed P0:
-  #76 Define Helm import path from cub helm template / cub helm install to cub installer recipes
+| Planning file | Use it for |
+| --- | --- |
+| [Next 20 Tasks](../planning/next-20-tasks.md) | Prioritized workstream queue. |
+| [Issue Backlog](../planning/issue-backlog.md) | Current issue mirror and capability roadmap. |
+| [Current Handover](../planning/current-handover.md) | Current status for another engineer or agent. |
 
-Open docs/story issue:
-  #82 Document how helm-expt, ConfigHub, and installer solve Helm pain points
-
-Open P1:
-  #11 ConsequencePreview
-  #12 GitOpsCompatibilityReport
-  #13 CRDCompatibilityReport
-  #14 CI/PR comment mode
-  #15 Existing Helm release state and upgrade footguns
-  #16 Suggested fixes for common Helm pain findings
-
-Open P2:
-  #17 shared dossier / HelmPlan index
-  #18 field-level governance and ownership
-  #19 typed secret reference system
-  #20 lifecycle contracts
-  #21 enriched value model
-  #22 cross-controller consequence engine
-  #23 pure serverless cub installer option
-
-Open content issues:
-  #52-#59 blog / public explanation sequence
-```
-
-The original P0 proof gates for Redis, schemas, effective values, generated
-facts, capability profiles, top-N harness, freshness, and upgrade/rollback
-receipts are closed and verified by the current harness. The remaining P0 is
-about productizing the repo-proven import path.
+The original proof gates for Redis, schemas, effective values, generated facts,
+capability profiles, top-N harness, freshness, and upgrade/rollback receipts
+are closed and verified by the current harness. The remaining work is mostly
+productization and coverage depth: importer/analyzer/preflight/proof/scan
+surfaces, derived-variant Creator flows, production decisions, and live lanes.
 
 ## Summary
 

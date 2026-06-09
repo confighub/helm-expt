@@ -85,7 +85,10 @@ Issue and command baseline:
 `cub helm template` / `cub helm install` to durable `cub installer` recipes.
 The future `cub installer import helm` command remains product implementation
 work, not a blocker for the current proof corpus.
-Issue #82 is the current user-facing explanation work for the Helm pain table.
+The Helm pain table explanation work is closed; keep
+[Helm Pain Points](../user/helm-pain-points.md) and
+[Pain Point Coverage](../../data/pain-point-coverage/summary.md) current as
+the proof lanes change.
 Use scoped verifiers while editing. Use the full `npm run verify` only as the
 broad release gate.
 ```

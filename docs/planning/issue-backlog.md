@@ -4,7 +4,7 @@ This document mirrors the GitHub issues that must not be lost in the planning
 docs. GitHub remains the execution tracker; this file keeps reviewers aligned
 with the written plan.
 
-Last synced with planning docs: 2026-06-08.
+Last synced with planning docs: 2026-06-09.
 
 ## Rule
 
@@ -60,8 +60,20 @@ open P0: 0
 open P1: 17
 open P2: 7
 open content/story issues: 8
-open unlabelled issues: 7 (#82, #96, #97, #99, #106, #113, #114)
+open unlabelled issues: 7 (#96, #99, #106, #113, #114, #156, #248)
 ```
+
+Current unlabelled operational issues:
+
+| Issue | Why it remains open |
+| --- | --- |
+| [#96](https://github.com/confighub/helm-expt/issues/96) installer namespace refs | Product/installer behavior affects namespace mutation for some charts. |
+| [#99](https://github.com/confighub/helm-expt/issues/99) image digest pinning | Production OCI support still needs digest evidence or override receipts. |
+| [#106](https://github.com/confighub/helm-expt/issues/106) top-100 Level-2 support | Tracks top-100 support, hard gaps, and variant-rich expansion. |
+| [#113](https://github.com/confighub/helm-expt/issues/113) charts without existing-secret toggles | Tracks secret-delivery cases that cannot be fixed by declaring a simple base variant. |
+| [#114](https://github.com/confighub/helm-expt/issues/114) template-baked CRDs | Tracks charts where no clean no-CRDs base exists. |
+| [#156](https://github.com/confighub/helm-expt/issues/156) Grafana placeholder drift | Derived clone behavior still needs product clarification or correction. |
+| [#248](https://github.com/confighub/helm-expt/issues/248) live parity follow-up | Tracks runtime, prerequisite, lifecycle, and policy work for current non-pass rows. |
 
 ## Capability Roadmap
 

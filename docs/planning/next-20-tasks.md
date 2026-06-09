@@ -117,8 +117,9 @@ task is about delivery, live observation.
     hook-using charts into per-chart lifecycle dispositions.
 19. **Day-2 upgrade/rollback, consequence preview, and existing-Helm diagnostics** - keep #11, #15, #16,
     #30, and related receipt work aligned with derived-variant propagation.
-20. **Public story surfaces** - finish the user-facing Helm pain table (#82), keep `CATALOG.md` and the
-    static site current, and make the first-run path simple enough for outside testers.
+20. **Public story surfaces** - keep the Helm pain docs, `CATALOG.md`, status
+    dashboard, and static site current, and make the first-run path simple
+    enough for outside testers.
 
 ## Suggested order
 Treat 1-3 as the immediate correction: `helm-expt` needs more visible derived
