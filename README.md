@@ -212,7 +212,7 @@ For the full routing table, see [Choosing Commands](./docs/user/choosing-command
 20/20 top-20 charts are production-review-ready by disposition receipt.
 0/20 top-20 charts are production-supported until target-scoped support decisions are recorded.
 100 charts have recipe/package proof artifacts.
-156 chart/base rows have Helm-template versus cub-installer render parity.
+156 chart/base rows have Helm-template versus cub installer render parity.
 18/156 chart/base rows currently have the stricter in-ConfigHub proof lane marked pass.
 The selected top-20 live Helm-vs-ConfigHub comparison lane has 15 pass,
 5 watch, and 0 blocked receipts.

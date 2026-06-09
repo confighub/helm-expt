@@ -5,7 +5,7 @@
 Live parity answers a narrow question:
 
 ```text
-Does regular Helm and the ConfigHub/cub-installer path reach the same live
+Does regular Helm and the ConfigHub/cub installer path reach the same live
 outcome for the same chart, version, values, and base variant?
 ```
 
@@ -81,7 +81,7 @@ Use the narrowest true claim.
 | Render parity only | The `cub installer` base renders equivalent Kubernetes objects under recorded inputs. |
 | Local live pass | The rendered objects reached the expected state in a local Kubernetes target. |
 | GitOps/OCI live pass | ConfigHub OCI was reconciled by Argo or Flux and observed. |
-| Live parity pass | Regular Helm and the ConfigHub/cub-installer path reached the same recorded live outcome. |
+| Live parity pass | Regular Helm and the ConfigHub/`cub installer` path reached the same recorded live outcome. |
 | Watch or blocked row | The row has useful live evidence, but it still needs the listed runtime, prerequisite, hook, storage, or policy follow-up. |
 
 Do not say "all variants are live-proven" unless the exact chart/base rows have
