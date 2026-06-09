@@ -110,6 +110,7 @@ function summarizeCharts(subjectRows) {
         mutable_tag_refs: 0,
         floating_latest_or_untagged_refs: 0,
         resolution_receipts: 0,
+        support_image_policy_decisions: 0,
         next_action: "",
       });
     }
@@ -120,6 +121,7 @@ function summarizeCharts(subjectRows) {
     chart.mutable_tag_refs += Number(row.mutable_tag_refs);
     chart.floating_latest_or_untagged_refs += Number(row.floating_latest_or_untagged_refs);
     if (row.resolution_receipt_status === "recorded") chart.resolution_receipts += 1;
+    if (row.support_image_policy_decision_status === "recorded") chart.support_image_policy_decisions = 1;
   }
   return [...charts.values()]
     .map((row) => ({
@@ -138,6 +140,9 @@ function chartNextAction(row) {
     return "finish digest-resolution receipts for remaining affected variants, then choose pinned bases or explicit mutable-image exceptions";
   }
   if (row.resolution_receipts >= row.subjects_needing_resolution) {
+    if (Number(row.support_image_policy_decisions) > 0) {
+      return "image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes";
+    }
     return "choose pinned bases or explicit mutable-image exceptions before production OCI support";
   }
   return "resolve image digests for each affected variant before production OCI support";
@@ -147,6 +152,7 @@ function summary({ imageRows, subjectRows, chartRows, priorityRows }) {
   const refsNeedingResolution = imageRows.filter((row) => row.image_status !== "digest-pinned").length;
   const subjectsNeedingResolution = subjectRows.filter((row) => row.needs_resolution === "yes").length;
   const subjectsWithReceipts = subjectRows.filter((row) => row.resolution_receipt_status === "recorded").length;
+  const subjectsWithPolicyDecisions = subjectRows.filter((row) => row.support_image_policy_decision_status === "recorded").length;
   const catalogSubjects = subjectRows.filter((row) => row.catalog_status === "catalog-supported").length;
   const catalogSubjectsNeedingResolution = subjectRows.filter((row) => row.catalog_status === "catalog-supported" && row.needs_resolution === "yes").length;
   return `# Image Digest Workdown
@@ -163,6 +169,7 @@ rendered subjects:                     ${subjectRows.length}
 image references needing resolution:   ${refsNeedingResolution}
 rendered subjects needing resolution:  ${subjectsNeedingResolution}
 resolution receipts recorded:          ${subjectsWithReceipts}
+support policy decisions recorded:     ${subjectsWithPolicyDecisions}
 catalog-supported subjects:            ${catalogSubjects}
 catalog-supported needing resolution:  ${catalogSubjectsNeedingResolution}
 charts with rendered image references: ${chartRows.length}
@@ -187,6 +194,7 @@ image references or an explicit image override/proof receipt.
 
 function subjectRow(row) {
   const receipt = imageDigestReceipt(row);
+  const policyDecision = imagePolicyDecision(row);
   const hasUnpinnedRefs = row.mutable_tag_refs + row.floating_latest_or_untagged_refs > 0;
   return {
     chart: row.chart,
@@ -201,15 +209,21 @@ function subjectRow(row) {
     needs_resolution: hasUnpinnedRefs ? "yes" : "no",
     resolution_receipt_status: receipt.status,
     resolution_receipt_path: receipt.path,
+    support_image_policy_decision_status: policyDecision.status,
+    support_image_policy_decision_state: policyDecision.decision,
+    support_image_policy_decision_path: policyDecision.path,
     example_unpinned_images: row.examples.join(";"),
     rendered_sha256: row.rendered_sha256,
     rendered_path: row.rendered_path,
-    next_action: nextAction({ hasUnpinnedRefs, receipt }),
+    next_action: nextAction({ hasUnpinnedRefs, receipt, policyDecision }),
   };
 }
 
-function nextAction({ hasUnpinnedRefs, receipt }) {
+function nextAction({ hasUnpinnedRefs, receipt, policyDecision }) {
   if (!hasUnpinnedRefs) return "none";
+  if (policyDecision.status === "recorded") {
+    return "covered by target-scoped image policy decision; create digest-pinned base or override for stricter scopes";
+  }
   if (receipt.status === "recorded") {
     return "use the digest-resolution receipt to choose a digest-pinned base or explicit mutable-image exception before production OCI support";
   }
@@ -235,6 +249,25 @@ function imageDigestReceipt(row) {
   check(spec.variant === row.variant, `${relativePath} variant mismatch`);
   check(spec.renderedObjectSet?.sha256 === row.rendered_sha256, `${relativePath} rendered sha mismatch`);
   return { status: "recorded", path: relativePath };
+}
+
+function imagePolicyDecision(row) {
+  const relativePath = [
+    "data",
+    "production-support-decisions",
+    slug(row.chart),
+    "image-policy-decision.yaml",
+  ].join("/");
+  const path = join(repoRoot, relativePath);
+  if (!existsSync(path)) return { status: "missing", decision: "", path: "" };
+  const decision = readYaml(path);
+  const spec = decision.spec ?? {};
+  check(decision.kind === "ProductionImagePolicyDecision", `${relativePath} must be kind ProductionImagePolicyDecision`);
+  check(spec.chart === row.chart, `${relativePath} chart mismatch`);
+  check(spec.version === row.version, `${relativePath} version mismatch`);
+  check((spec.variantsCovered ?? []).includes(row.variant), `${relativePath} does not cover variant ${row.variant}`);
+  check((spec.limits ?? []).some((item) => item.includes("does not mean the rendered manifests are digest-pinned")), `${relativePath} must state digest-pinning limit`);
+  return { status: "recorded", decision: spec.decision ?? "", path: relativePath };
 }
 
 function slug(value) {

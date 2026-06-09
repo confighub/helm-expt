@@ -1,0 +1,62 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionImagePolicyDecision"
+metadata:
+  name: "prometheus-community-kube-prometheus-stack-public-oci-image-policy-decision"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "85.3.3"
+  targetScope:
+    clusterClass: "vanilla-kubernetes"
+    namespace: "monitoring"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo-or-flux"
+  supportedBaseCandidate: "default"
+  variantsCovered:
+    - "default"
+    - "no-crds"
+  decision: "mutable-image-exception-accepted-for-target-scope"
+  decidedAt: "2026-06-09"
+  claim: "The rendered kube-prometheus-stack bases still contain mutable image tags, but each rendered image reference has digest-resolution evidence. For this public monitoring support draft, the mutable tags are accepted as a target-scoped exception while stricter environments remain free to require digest-pinned bases or image overrides."
+  renderedImageSummary:
+    renderedSubjects: 2
+    subjectsNeedingResolution: 2
+    imageRefs: 16
+    mutableTagRefs: 16
+    floatingLatestOrUntaggedRefs: 0
+    resolutionReceipts: 2
+  variantReceipts:
+    default:
+      renderedObjectSetSHA256: "9fac2a0e4140eee298c84ce61f13dd8ca392bb92e2037d0ef0aaa4d8015ee491"
+      sourceImageReviewRows: 8
+      uniqueImages: 7
+      receiptPath: "data/image-digest-workdown/receipts/prometheus-community-kube-prometheus-stack/default/image-digest-resolution.yaml"
+    no-crds:
+      renderedObjectSetSHA256: "3f6049fc2b7a40bbfb009b347880e3f319a87c9b60a6fd274220287a10167fc2"
+      sourceImageReviewRows: 8
+      uniqueImages: 7
+      receiptPath: "data/image-digest-workdown/receipts/prometheus-community-kube-prometheus-stack/no-crds/image-digest-resolution.yaml"
+  acceptedException:
+    reason: "The public proof target is a vanilla monitoring namespace using upstream chart defaults. The receipt set records the digest that each mutable reference resolved to at decision time, so reviewers can detect and rerun the decision when upstream image tags move."
+    operatorAction: "For stricter production environments, create a digest-pinned base or image override policy before final support."
+  limits:
+    - "This does not mean the rendered manifests are digest-pinned."
+    - "This is not a blanket approval for all clusters, private overlays, regulated environments, or future chart versions."
+    - "This does not make kube-prometheus-stack production-supported by itself."
+    - "Final support still needs lifecycle observation and fresh target-scoped ConfigHub OCI/GitOps/live evidence."
+    - "If any recorded upstream image tag is retargeted, rerun digest resolution and re-review this decision before promotion."
+  evidence:
+    -
+      path: "data/image-digest-workdown/chart-summary.csv"
+      claim: "Summarizes KPS rendered image references and shows digest-resolution receipts for both base variants."
+    -
+      path: "data/attack-plan-workdown/image-digest-review.csv"
+      claim: "Lists every rendered image reference found in the KPS object sets."
+    -
+      path: "data/image-digest-workdown/receipts/prometheus-community-kube-prometheus-stack/default/image-digest-resolution.yaml"
+      claim: "Records registry digest resolution for the default rendered object set."
+    -
+      path: "data/image-digest-workdown/receipts/prometheus-community-kube-prometheus-stack/no-crds/image-digest-resolution.yaml"
+      claim: "Records registry digest resolution for the no-crds rendered object set."
+  remainingSupportBlockers:
+    - "Execute or observe the selected hook lifecycle route, including webhook TLS/readiness, cleanup, ordering, and upgrade behavior."
+    - "Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope after the lifecycle decision is closed."
