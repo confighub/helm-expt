@@ -14,7 +14,7 @@ spec:
   supportedVariants:
     - "generated-passwords"
     - "existing-secret-ingress"
-  productionReadiness: "blocked-by-current-scan-gate"
+  productionReadiness: "production-review-ready"
   notes:
     - "Chart.yaml marks this chart version deprecated, and the proof records that status."
     - "Default chart rendering is nondeterministic unless adminPassword is bound before render."
@@ -142,4 +142,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
-  answerForSkepticalHelmUser: "grafana/grafana@10.5.15 maps its detected Helm pain to 9 ConfigHub control areas: source-lock, dependency-lock, capability-profile, generated-fact, target-fact-requirement, recipe, scan-gate, extension-slot, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains blocked-by-current-scan-gate."
+  answerForSkepticalHelmUser: "grafana/grafana@10.5.15 maps its detected Helm pain to 9 ConfigHub control areas: source-lock, dependency-lock, capability-profile, generated-fact, target-fact-requirement, recipe, scan-gate, extension-slot, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains production-review-ready."

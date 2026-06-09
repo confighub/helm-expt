@@ -16,7 +16,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Catalog status | catalog-supported |
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
-| Production readiness | blocked-by-current-scan-gate |
+| Production readiness | production-review-ready |
 | Supported variants | default, server-only-ephemeral |
 | Candidate variants | none |
 | Control points | bundle-dependencies, capability-profile, cluster-rbac, component-selection, dependency-lock, extension-slots, installer-support-object, monitoring-workloads, scrape-config, source-lock, storage-retention |
@@ -34,7 +34,7 @@ for exact base-variant evidence.
 | Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 1/2; live parity 1/2 |
 | Feature summary | generated-secrets;required-values;values-schema;extension-slots |
 | Hard gap | ha (curated proof lane - bespoke teaching needed) |
-| Next action | record security acceptance or create a hardened base; add production resource policy or accept chart defaults for local-test only; review pod security posture for the production target |
+| Next action | refresh live/e2e receipts for the accepted production scope |
 
 ## Artifact Chain
 

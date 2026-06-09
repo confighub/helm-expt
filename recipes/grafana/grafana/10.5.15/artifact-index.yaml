@@ -42,7 +42,7 @@ spec:
     supportLevel: "supported-for-declared-scopes"
     supportedScopes:
       - "local-test"
-    productionReadiness: "blocked-by-current-scan-gate"
+    productionReadiness: "production-review-ready"
     supportedVariants:
       - "generated-passwords"
       - "existing-secret-ingress"
@@ -62,7 +62,7 @@ spec:
       liveParity: "1/2"
     featureSummary: "extension-slots"
     hardGap: "-"
-    nextAction: "add production resource policy or accept chart defaults for local-test only; review pod security posture for the production target"
+    nextAction: "refresh live/e2e receipts for the accepted production scope"
   installerPackage:
     path: "packages/grafana/grafana/10.5.15"
     installer: "packages/grafana/grafana/10.5.15/installer.yaml"

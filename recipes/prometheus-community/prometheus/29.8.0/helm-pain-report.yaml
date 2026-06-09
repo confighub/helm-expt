@@ -14,7 +14,7 @@ spec:
   supportedVariants:
     - "default"
     - "server-only-ephemeral"
-  productionReadiness: "blocked-by-current-scan-gate"
+  productionReadiness: "production-review-ready"
   notes:
     - "The chart renders deterministically under pinned Helm, chart version, kube version, and values."
     - "The default variant installs Prometheus server, Alertmanager, kube-state-metrics, node-exporter, pushgateway, server PVC, services, and cluster RBAC."
@@ -142,4 +142,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
-  answerForSkepticalHelmUser: "prometheus-community/prometheus@29.8.0 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, operate-policy, scan-gate, extension-slot, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains blocked-by-current-scan-gate."
+  answerForSkepticalHelmUser: "prometheus-community/prometheus@29.8.0 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, recipe, operate-policy, scan-gate, extension-slot, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains production-review-ready."

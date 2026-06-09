@@ -6,7 +6,7 @@ exactly what must be closed before production support can be claimed.
 The lifecycle columns separate retained source-hook evidence from recipe-level
 lifecycle policy and related CRD/webhook/controller observations.
 
-Accepted disposition receipts recorded: 43
+Accepted disposition receipts recorded: 46
 
 | Chart | Local-test variants | Production state | Accepted | Open | Source hooks | Lifecycle basis | Live/e2e receipts |
 | --- | --- | --- | ---: | ---: | ---: | --- | --- |
@@ -18,17 +18,17 @@ Accepted disposition receipts recorded: 43
 | `bitnami/rabbitmq@16.0.14` | generated-passwords, existing-secret | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/redis@25.5.3` | default, reuse-existing-secret | production-review-ready | 4 | 0 | 0 | recipe-hook-policy:no-hooks | 2 |
 | `external-secrets/external-secrets@2.5.0` | default, no-crds | production-blocked | 0 | 5 | 0 | lifecycle-observations:2/2 | 1 |
-| `grafana/grafana@10.5.15` | generated-passwords, existing-secret-ingress | production-blocked | 4 | 1 | 0 | none | 1 |
+| `grafana/grafana@10.5.15` | generated-passwords, existing-secret-ingress | production-review-ready | 5 | 0 | 0 | none | 1 |
 | `grafana/loki@7.0.0` | single-binary-filesystem, simple-scalable-minio | production-blocked | 0 | 5 | 0 | recipe-lifecycle-policy | 1 |
 | `grafana/tempo@1.24.4` | local-persistent, s3-query-observability | production-blocked | 0 | 4 | 0 | none | 1 |
 | `hashicorp/consul@2.0.0` | default-control-plane, secure-mesh-existing-secrets | production-blocked | 0 | 8 | 0 | recipe-lifecycle-policy | 1 |
 | `hashicorp/vault@0.32.0` | default, ha-raft-ui | production-blocked | 0 | 5 | 0 | none | 1 |
-| `ingress-nginx/ingress-nginx@4.15.1` | default, admission-disabled | production-blocked | 3 | 1 | 0 | recipe-hook-policy:no-hooks | 1 |
+| `ingress-nginx/ingress-nginx@4.15.1` | default, admission-disabled | production-review-ready | 4 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `jetstack/cert-manager@v1.20.2` | default, crds-enabled | production-blocked | 0 | 6 | 0 | recipe-hook-policy:no-hooks; lifecycle-observations:2/2 | 1 |
 | `longhorn/longhorn@1.11.2` | default, ui-ingress | production-blocked | 0 | 5 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `metrics-server/metrics-server@3.13.0` | default, external-tls-ca | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default, no-crds | production-blocked | 0 | 6 | 2 | source-hooks:2 | 1 |
-| `prometheus-community/prometheus@29.8.0` | default, server-only-ephemeral | production-blocked | 2 | 1 | 0 | none | 1 |
+| `prometheus-community/prometheus@29.8.0` | default, server-only-ephemeral | production-review-ready | 3 | 0 | 0 | none | 1 |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default, sync-secret-rotation | production-blocked | 0 | 4 | 0 | none | 1 |
 
 ## Closest Rows
@@ -43,12 +43,12 @@ The same queue is available as `next-actions.csv`.
 | `bitnami/mysql@14.0.3` | 5 | 0 |  | - | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
 | `bitnami/postgresql@18.6.7` | 5 | 0 |  | - | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
 | `bitnami/rabbitmq@16.0.14` | 5 | 0 |  | - | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
+| `grafana/grafana@10.5.15` | 5 | 0 |  | - | existing-secret-ingress: warn, 3 finding(s) (no-read-only-root-fs:1;unset-cpu-requirements:1;unset-memory-requirements:1); generated-passwords: warn, 3 finding(s) (no-read-only-root-fs:1;unset-cpu-requirements:1;unset-memory-requirements:1) |
 | `metrics-server/metrics-server@3.13.0` | 5 | 0 |  | - | default: warn, 1 finding(s) (unset-memory-requirements:1); external-tls-ca: warn, 1 finding(s) (unset-memory-requirements:1) |
 | `bitnami/nginx@24.0.2` | 4 | 0 |  | - | existing-tls-ingress: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); http-clusterip: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
 | `bitnami/redis@25.5.3` | 4 | 0 |  | - | default: warn, 2 finding(s) (pdb-unhealthy-pod-eviction-policy:2); reuse-existing-secret: warn, 2 finding(s) (pdb-unhealthy-pod-eviction-policy:2) |
-| `grafana/grafana@10.5.15` | 4 | 1 | scan/gate warning disposition | data/production-disposition/receipts/grafana-grafana/scan-gate-warning-disposition.yaml | existing-secret-ingress: warn, 3 finding(s) (no-read-only-root-fs:1;unset-cpu-requirements:1;unset-memory-requirements:1); generated-passwords: warn, 3 finding(s) (no-read-only-root-fs:1;unset-cpu-requirements:1;unset-memory-requirements:1) |
-| `ingress-nginx/ingress-nginx@4.15.1` | 3 | 1 | scan/gate warning disposition | data/production-disposition/receipts/ingress-nginx-ingress-nginx/scan-gate-warning-disposition.yaml | admission-disabled: warn, 4 finding(s) (liveness-port:1;no-read-only-root-fs:1;readiness-port:1;unset-memory-requirements:1); default: warn, 4 finding(s) (liveness-port:1;no-read-only-root-fs:1;readiness-port:1;unset-memory-requirements:1) |
-| `prometheus-community/prometheus@29.8.0` | 2 | 1 | scan/gate warning disposition | data/production-disposition/receipts/prometheus-community-prometheus/scan-gate-warning-disposition.yaml | default: warn, 21 finding(s) (unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:4;sensitive-host-mounts:3;host-network:1); server-only-ephemeral: warn, 6 finding(s) (no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2) |
+| `ingress-nginx/ingress-nginx@4.15.1` | 4 | 0 |  | - | admission-disabled: warn, 4 finding(s) (liveness-port:1;no-read-only-root-fs:1;readiness-port:1;unset-memory-requirements:1); default: warn, 4 finding(s) (liveness-port:1;no-read-only-root-fs:1;readiness-port:1;unset-memory-requirements:1) |
+| `prometheus-community/prometheus@29.8.0` | 3 | 0 |  | - | default: warn, 21 finding(s) (unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:4;sensitive-host-mounts:3;host-network:1); server-only-ephemeral: warn, 6 finding(s) (no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2) |
 
 ## Standard Disposition Types
 

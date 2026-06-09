@@ -39,7 +39,7 @@ spec:
     supportLevel: "supported-for-declared-scopes"
     supportedScopes:
       - "local-test"
-    productionReadiness: "blocked-by-current-scan-gate"
+    productionReadiness: "production-review-ready"
     supportedVariants:
       - "default"
       - "admission-disabled"
@@ -59,7 +59,7 @@ spec:
       liveParity: "0/2"
     featureSummary: "webhooks;required-values"
     hardGap: "-"
-    nextAction: "add production resource policy or accept chart defaults for local-test only; review pod security posture for the production target; review probe port wiring"
+    nextAction: "refresh live/e2e receipts for the accepted production scope"
   installerPackage:
     path: "packages/ingress-nginx/ingress-nginx/4.15.1"
     installer: "packages/ingress-nginx/ingress-nginx/4.15.1/installer.yaml"

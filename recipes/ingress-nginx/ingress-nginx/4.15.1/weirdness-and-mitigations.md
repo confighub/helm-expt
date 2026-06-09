@@ -12,7 +12,7 @@ current ConfigHub/cub installer proof absorbs it.
 | Catalog status | catalog-supported |
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
-| Production readiness | blocked-by-current-scan-gate |
+| Production readiness | production-review-ready |
 | Variants in this note | default, admission-disabled |
 
 Production support is not implied by this file. A chart can be supported for
@@ -31,8 +31,8 @@ or operating-policy dispositions.
 - Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
 - default preserves the normal ingress-nginx admission-webhook install shape.
 - admission-disabled is supported as the simpler webhook-free variant.
-- Cluster RBAC, hook lifecycle, and webhook-readiness routing are recorded as production review input.
-- Production remains blocked until scan/gate findings and target security posture are resolved or narrowed into a hardened base.
+- Cluster RBAC, hook lifecycle, webhook-readiness routing, and scan/gate warnings are recorded as production review input.
+- Production recommendation remains a separate decision; controller health, admission behavior, probe wiring, and workload posture must be chosen for the target scope.
 - admission-disabled is the simpler first production-review base; default needs target-backed webhook lifecycle observation before production use.
 
 ## Control Points

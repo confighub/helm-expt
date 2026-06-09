@@ -12,7 +12,7 @@ current ConfigHub/cub installer proof absorbs it.
 | Catalog status | catalog-supported |
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
-| Production readiness | blocked-by-current-scan-gate |
+| Production readiness | production-review-ready |
 | Variants in this note | default, server-only-ephemeral |
 
 Production support is not implied by this file. A chart can be supported for
@@ -33,8 +33,8 @@ or operating-policy dispositions.
 - Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
 - default preserves the normal Prometheus chart install shape.
 - server-only-ephemeral is supported as the simplest short-lived local proof path.
-- Cluster RBAC and extension-slot dispositions are recorded as production review input.
-- Production remains blocked until scan/gate findings and target security posture are resolved or narrowed into a hardened base.
+- Cluster RBAC, extension-slot policy, and scan/gate warnings are recorded as production review input.
+- Production recommendation remains a separate decision; target security posture, scrape scope, storage, and resource policy must be chosen for the target scope.
 - server-only-ephemeral is the narrower first production-review base; default includes the bundled monitoring stack and node-exporter host access.
 
 ## Control Points

@@ -14,7 +14,7 @@ spec:
   supportedVariants:
     - "default"
     - "admission-disabled"
-  productionReadiness: "blocked-by-current-scan-gate"
+  productionReadiness: "production-review-ready"
   notes:
     - "Default chart renders an admission Service and ValidatingWebhookConfiguration."
     - "Admission certificate create/patch Jobs are Helm hooks and are excluded from the rendered revision by --no-hooks."
@@ -113,4 +113,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
-  answerForSkepticalHelmUser: "ingress-nginx/ingress-nginx@4.15.1 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, lifecycle-policy, scan-gate, extension-slot, recipe, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains blocked-by-current-scan-gate."
+  answerForSkepticalHelmUser: "ingress-nginx/ingress-nginx@4.15.1 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, lifecycle-policy, scan-gate, extension-slot, recipe, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains production-review-ready."

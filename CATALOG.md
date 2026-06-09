@@ -188,7 +188,7 @@ Receipts: [per-chart receipts](recipes/metrics-server/metrics-server/3.13.0/CATA
 #### ingress-nginx/ingress-nginx@4.15.1
 
 Status: catalog-supported
-Production readiness: blocked-by-current-scan-gate
+Production readiness: production-review-ready
 Start base readiness: runtime-watch
 Strongest evidence: local-kubernetes-live
 Proof lanes: render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 0/2; live parity 0/2
@@ -638,7 +638,7 @@ Receipts: [per-chart receipts](recipes/bitnami/mysql/14.0.3/CATALOG.md)
 #### grafana/grafana@10.5.15
 
 Status: catalog-supported
-Production readiness: blocked-by-current-scan-gate
+Production readiness: production-review-ready
 Start base readiness: start-here
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 1/2; live parity 1/2
@@ -773,7 +773,7 @@ Receipts: [per-chart receipts](recipes/secrets-store-csi-driver/secrets-store-cs
 #### prometheus-community/prometheus@29.8.0
 
 Status: catalog-supported
-Production readiness: blocked-by-current-scan-gate
+Production readiness: production-review-ready
 Start base readiness: try-with-proof
 Strongest evidence: live-helm-vs-confighub-parity
 Proof lanes: render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 1/2; live parity 1/2

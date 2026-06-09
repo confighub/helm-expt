@@ -12,7 +12,7 @@ current ConfigHub/cub installer proof absorbs it.
 | Catalog status | catalog-supported |
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
-| Production readiness | blocked-by-current-scan-gate |
+| Production readiness | production-review-ready |
 | Variants in this note | generated-passwords, existing-secret-ingress |
 
 Production support is not implied by this file. A chart can be supported for
@@ -33,8 +33,8 @@ or operating-policy dispositions.
 - Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
 - generated-passwords is the simplest install path and records generated Secret separation.
 - existing-secret-ingress is supported when admin Secret and ingress/TLS target facts are satisfied.
-- Cluster RBAC, generated Secret ownership, target Secret preflight, and extension-slot policy are recorded as production review input.
-- Production remains blocked until scan/gate findings, target UI exposure, and workload security posture are resolved or narrowed into a hardened base.
+- Cluster RBAC, generated Secret ownership, target Secret preflight, extension-slot policy, and scan/gate warnings are recorded as production review input.
+- Production recommendation remains a separate decision; target UI exposure, resource policy, and workload security posture must be chosen for the target scope.
 
 ## Control Points
 
