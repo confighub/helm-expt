@@ -34,7 +34,7 @@ for exact base-variant evidence.
 | Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 0/2; live parity 0/2 |
 | Feature summary | webhooks;required-values |
 | Hard gap | - |
-| Next action | refresh live/e2e receipts for the accepted production scope |
+| Next action | choose whether default is in production scope; close or document its runtime-watch live-readiness issue first |
 
 ## Artifact Chain
 

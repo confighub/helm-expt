@@ -33,8 +33,8 @@ for exact base-variant evidence.
 | Strongest evidence | local-kubernetes-live |
 | Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 0/2; live parity 0/2 |
 | Feature summary | hooks;generated-secrets;crds;webhooks;required-values;install-vs-upgrade;extension-slots |
-| Hard gap | existing-secret (chart ships no Secret toggle - #113) |
-| Next action | refresh live/e2e receipts for the accepted production scope |
+| Hard gap | existing-secret (chart ships no Secret toggle) |
+| Next action | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
 
 ## Artifact Chain
 
@@ -58,8 +58,8 @@ for exact base-variant evidence.
 
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| default | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/default](../../../../packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/default) | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 124 | 125 | 124/124 | pass | warn | warn | none |
-| no-crds | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/no-crds](../../../../packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/no-crds) | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 114 | 115 | 114/114 | pass | warn | warn | none |
+| default | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/default](../../../../packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/default) | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 124 | 125 | 124/124 | pass | warn | warn | required Secret monitoring/kube-prometheus-stack-admission keys cert,key |
+| no-crds | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/no-crds](../../../../packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/no-crds) | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 114 | 115 | 114/114 | pass | warn | warn | required Secret monitoring/kube-prometheus-stack-admission keys cert,key |
 
 ## Package Bases
 

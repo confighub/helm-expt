@@ -34,7 +34,7 @@ for exact base-variant evidence.
 | Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 1/2; live parity 1/2 |
 | Feature summary | generated-secrets;crds;webhooks;required-values;values-schema;extension-slots |
 | Hard gap | - |
-| Next action | refresh live/e2e receipts for the accepted production scope |
+| Next action | resolve image digests for each affected variant before production OCI support |
 
 ## Artifact Chain
 

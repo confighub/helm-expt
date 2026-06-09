@@ -63,7 +63,7 @@ spec:
       liveParity: "0/2"
     featureSummary: "extension-slots"
     hardGap: "ha (tempo single-binary chart; HA is the separate tempo-distributed chart)"
-    nextAction: "refresh live/e2e receipts for the accepted production scope"
+    nextAction: "choose whether local-persistent is in production scope; close or document its runtime-review-needed live-readiness issue first"
   installerPackage:
     path: "packages/grafana/tempo/1.24.4"
     installer: "packages/grafana/tempo/1.24.4/installer.yaml"

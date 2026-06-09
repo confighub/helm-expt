@@ -12,3 +12,16 @@ spec:
     apiVersions:
       []
   hookPolicy: "no-hooks"
+  targetFacts:
+    requiredSecrets:
+      -
+        namespace: "monitoring"
+        name: "kube-prometheus-stack-admission"
+        keys:
+          - "cert"
+          - "key"
+        purpose: "Prometheus Operator admission webhook TLS material normally created by Helm hook lifecycle"
+        deliveryLanes:
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"

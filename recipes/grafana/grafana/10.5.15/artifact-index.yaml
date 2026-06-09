@@ -62,7 +62,7 @@ spec:
       liveParity: "1/2"
     featureSummary: "extension-slots"
     hardGap: "-"
-    nextAction: "refresh live/e2e receipts for the accepted production scope"
+    nextAction: "resolve image digests for each affected variant before production OCI support"
   installerPackage:
     path: "packages/grafana/grafana/10.5.15"
     installer: "packages/grafana/grafana/10.5.15/installer.yaml"

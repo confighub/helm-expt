@@ -10,15 +10,15 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 20
+rows: 19
 blocked: 12
-watch: 8
+watch: 7
 configHub-oci-live-comparison: 5
-two-cluster-kind-parity: 15
+two-cluster-kind-parity: 14
 semantic-parity-defects: 0
 infra-or-rig-rows: 0
 prerequisite-or-lifecycle-rows: 5
-runtime-or-watch-rows: 15
+runtime-or-watch-rows: 14
 ```
 
 ## Lane Breakdown
@@ -26,7 +26,7 @@ runtime-or-watch-rows: 15
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | configHub-oci-live-comparison | 5 | 0 | 5 | 0 | 0 |
-| two-cluster-kind-parity | 15 | 0 | 3 | 12 | 0 |
+| two-cluster-kind-parity | 14 | 0 | 2 | 12 | 0 |
 
 The ConfigHub/OCI live comparison rows in this queue are current `watch` rows.
 They have semantic parity and need runtime, target, or controller-health review.
@@ -50,7 +50,7 @@ The `blocked` rows are currently from the two-cluster kind parity lane.
 | gitops-runtime-review | 1 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
 | lifecycle-route | 1 | Choose the lifecycle route or observation contract before rerunning strict parity. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if the expected readiness changes. |
-| runtime-review | 13 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
+| runtime-review | 12 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
 | stage-prerequisite | 4 | Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning. |
 
 Rows in `stage-prerequisite`, `lifecycle-route`, and `operating-policy`
@@ -67,7 +67,7 @@ reasonable live rerun candidates.
 | Readiness | Rows | Meaning |
 | --- | ---: | --- |
 | model-or-stage-first | 6 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 14 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| review-target-first | 13 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Run Safety
 
@@ -110,7 +110,6 @@ faithful to the locked chart/version without changing the recipe.
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `hashicorp/vault@0.32.0` | ha-raft-ui | blocked | target-runtime: pods pending (parity passed) | `npm run kind-parity:run -- --chart hashicorp/vault --version 0.32.0 --base ha-raft-ui` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `ingress-nginx/ingress-nginx@4.15.1` | default | watch | helm-runtime: upstream not ready (parity passed) | `npm run kind-parity:run -- --chart ingress-nginx/ingress-nginx --version 4.15.1 --base default` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `metrics-server/metrics-server@3.13.0` | external-tls-ca | blocked | helm-runtime: upstream not ready (parity passed) | `npm run kind-parity:run -- --chart metrics-server/metrics-server --version 3.13.0 --base external-tls-ca` |
-| 60 | review-target-first | runtime-review | two-cluster-kind-parity | `prometheus-community/kube-prometheus-stack@85.3.3` | default | watch | helm-runtime: upstream not ready (parity passed) | `npm run kind-parity:run -- --chart prometheus-community/kube-prometheus-stack --version 85.3.3 --base default` |
 
 ## Related Lifecycle Evidence
 

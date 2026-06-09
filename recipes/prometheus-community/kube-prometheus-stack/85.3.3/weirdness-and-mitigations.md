@@ -25,7 +25,8 @@ operating-policy dispositions plus a final target-scoped support decision.
 - default variant binds grafana.adminPassword and renders 10 Prometheus Operator CRDs.
 - no-crds variant omits CRDs for clusters that manage CRDs separately.
 - Chart declares CRD, kube-state-metrics, node-exporter, Grafana, and windows-exporter dependencies and records them in dependency-lock.yaml.
-- Admission webhook readiness must be observed after apply because rendered objects alone do not prove webhook health.
+- Config-only delivery stages the kube-prometheus-stack-admission TLS Secret as a target fact; regular Helm creates that material through hook lifecycle.
+- Admission webhook readiness must still be observed after apply because rendered objects plus staged Secret do not prove webhook health.
 - CRD manifests include YAML enum scalars such as bare equals signs; the proof parser handles these as scalar strings.
 - Rules, scrape configs, datasource config, and extraManifests are tpl/raw extension slots; promoted variants keep raw slots empty.
 
@@ -48,7 +49,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 | dependency-lock | handled | chart declares CRD, kube-state-metrics, node-exporter, Grafana, and windows-exporter dependencies; promoted variants lock their metadata. |
 | capability-profile | handled | OpenShift and ServiceMonitor branches are bound to the named Kubernetes capability profile. |
 | crd-policy | variant-controlled | CRDs are ordinary rendered objects in the default variant and still need lifecycle/upgrade policy. |
-| admission-webhook | scan-and-observe | recorded in control-points.yaml |
+| admission-webhook | target-fact-and-observe | Config-only delivery must stage the kube-prometheus-stack-admission Secret because Helm normally creates the TLS material through hook lifecycle. |
 | generated-facts | variant-controlled | Both promoted variants bind Grafana admin password before render so Helm output is deterministic. |
 | cluster-rbac | scan-and-review | scan receipts |
 | tpl | controlled-by-empty-defaults | Prometheus/Grafana rules, scrape configs, datasource config, and extraManifests can use templating; promoted variants keep raw slots empty. |

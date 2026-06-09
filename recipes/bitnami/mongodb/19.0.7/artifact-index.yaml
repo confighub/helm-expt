@@ -65,7 +65,7 @@ spec:
       liveParity: "1/2"
     featureSummary: "generated-secrets;required-values;install-vs-upgrade;extension-slots"
     hardGap: "-"
-    nextAction: "refresh live/e2e receipts for the accepted production scope"
+    nextAction: "record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope"
   installerPackage:
     path: "packages/bitnami/mongodb/19.0.7"
     installer: "packages/bitnami/mongodb/19.0.7/installer.yaml"

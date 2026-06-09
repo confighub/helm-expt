@@ -59,7 +59,7 @@ spec:
       liveParity: "0/2"
     featureSummary: "webhooks;required-values"
     hardGap: "-"
-    nextAction: "refresh live/e2e receipts for the accepted production scope"
+    nextAction: "choose whether default is in production scope; close or document its runtime-watch live-readiness issue first"
   installerPackage:
     path: "packages/ingress-nginx/ingress-nginx/4.15.1"
     installer: "packages/ingress-nginx/ingress-nginx/4.15.1/installer.yaml"

@@ -63,7 +63,7 @@ spec:
       liveParity: "1/2"
     featureSummary: "generated-secrets;crds;webhooks;required-values;values-schema;extension-slots"
     hardGap: "-"
-    nextAction: "refresh live/e2e receipts for the accepted production scope"
+    nextAction: "resolve image digests for each affected variant before production OCI support"
   installerPackage:
     path: "packages/grafana/loki/7.0.0"
     installer: "packages/grafana/loki/7.0.0/installer.yaml"

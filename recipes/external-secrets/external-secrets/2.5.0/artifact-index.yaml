@@ -60,7 +60,7 @@ spec:
       liveParity: "1/2"
     featureSummary: "crds;extension-slots"
     hardGap: "-"
-    nextAction: "refresh live/e2e receipts for the accepted production scope"
+    nextAction: "resolve image digests for each affected variant before production OCI support"
   installerPackage:
     path: "packages/external-secrets/external-secrets/2.5.0"
     installer: "packages/external-secrets/external-secrets/2.5.0/installer.yaml"

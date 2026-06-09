@@ -61,7 +61,7 @@ spec:
       gitopsLive: "0/1"
       liveParity: "0/1"
     featureSummary: "generated-secrets;crds;webhooks;extension-slots"
-    hardGap: "existing-secret (chart ships no Secret toggle - #113)"
+    hardGap: "existing-secret (chart ships no Secret toggle)"
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/fairwinds-stable/goldilocks/10.3.0"

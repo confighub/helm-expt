@@ -9,8 +9,8 @@ can become desired-state graph input.
 
 ~~~text
 charts with inheritance graphs: 2
-edge rows:                      6
-target-fact edges:              1
+edge rows:                      8
+target-fact edges:              3
 generated-fact edges:           1
 ~~~
 

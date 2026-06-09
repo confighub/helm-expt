@@ -27,7 +27,7 @@ Accepted disposition receipts recorded: 100
 | `jetstack/cert-manager@v1.20.2` | default, crds-enabled | production-review-ready | 6 | 0 | 0 | recipe-hook-policy:no-hooks; lifecycle-observations:2/2 | 1 |
 | `longhorn/longhorn@1.11.2` | default, ui-ingress | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `metrics-server/metrics-server@3.13.0` | default, external-tls-ca | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | default, no-crds | production-review-ready | 6 | 0 | 2 | source-hooks:2 | 1 |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | default, no-crds | production-blocked | 6 | 1 | 2 | source-hooks:2 | 1 |
 | `prometheus-community/prometheus@29.8.0` | default, server-only-ephemeral | production-review-ready | 3 | 0 | 0 | none | 1 |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default, sync-secret-rotation | production-review-ready | 4 | 0 | 0 | none | 1 |
 
@@ -43,7 +43,6 @@ The same queue is available as `next-actions.csv`.
 | `argo-cd/argo-cd@9.5.15` | 6 | 0 |  | - | default: warn, 18 finding(s) (unset-cpu-requirements:9;unset-memory-requirements:9); no-crds: warn, 18 finding(s) (unset-cpu-requirements:9;unset-memory-requirements:9) |
 | `bitnami/mongodb@19.0.7` | 6 | 0 |  | - | existing-secret-replicaset: warn, 2 finding(s) (pdb-unhealthy-pod-eviction-policy:2); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
 | `jetstack/cert-manager@v1.20.2` | 6 | 0 |  | - | crds-enabled: warn, 6 finding(s) (unset-cpu-requirements:3;unset-memory-requirements:3); default: warn, 6 finding(s) (unset-cpu-requirements:3;unset-memory-requirements:3) |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | 6 | 0 |  | - | default: warn, 27 finding(s) (dangling-service:7;unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:3;sensitive-host-mounts:3); no-crds: warn, 27 finding(s) (dangling-service:7;unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:3;sensitive-host-mounts:3) |
 | `bitnami/mysql@14.0.3` | 5 | 0 |  | - | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
 | `bitnami/postgresql@18.6.7` | 5 | 0 |  | - | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
 | `bitnami/rabbitmq@16.0.14` | 5 | 0 |  | - | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
@@ -59,6 +58,7 @@ The same queue is available as `next-actions.csv`.
 | `ingress-nginx/ingress-nginx@4.15.1` | 4 | 0 |  | - | admission-disabled: warn, 4 finding(s) (liveness-port:1;no-read-only-root-fs:1;readiness-port:1;unset-memory-requirements:1); default: warn, 4 finding(s) (liveness-port:1;no-read-only-root-fs:1;readiness-port:1;unset-memory-requirements:1) |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | 4 | 0 |  | - | default: warn, 8 finding(s) (no-read-only-root-fs:3;run-as-non-root:3;privilege-escalation-container:1;privileged-container:1); sync-secret-rotation: warn, 8 finding(s) (no-read-only-root-fs:3;run-as-non-root:3;privilege-escalation-container:1;privileged-container:1) |
 | `prometheus-community/prometheus@29.8.0` | 3 | 0 |  | - | default: warn, 21 finding(s) (unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:4;sensitive-host-mounts:3;host-network:1); server-only-ephemeral: warn, 6 finding(s) (no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2) |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | 6 | 1 | target fact preflight | data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/target-fact-preflight.yaml | default: warn, 27 finding(s) (dangling-service:7;unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:3;sensitive-host-mounts:3); no-crds: warn, 27 finding(s) (dangling-service:7;unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:3;sensitive-host-mounts:3) |
 
 ## Production Decision Queue
 
@@ -86,7 +86,7 @@ runtime fit, and final support scope.
 | `jetstack/cert-manager@v1.20.2` | default | lifecycle-observed | lifecycle-support-scope | 2 | choose whether default is in production scope; record the target-scoped lifecycle support decision before claiming production support |
 | `longhorn/longhorn@1.11.2` | default | start-here | security-acceptance-or-hardened-base | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
 | `metrics-server/metrics-server@3.13.0` | default | try-with-proof | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | default | runtime-watch | security-acceptance-or-hardened-base | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | default | try-with-proof | missing-disposition | 2 | write or fix the receipt for target fact preflight |
 | `prometheus-community/prometheus@29.8.0` | default | try-with-proof | security-acceptance-or-hardened-base | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | start-here | security-acceptance-or-hardened-base | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
 

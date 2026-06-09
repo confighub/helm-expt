@@ -27,10 +27,11 @@ spec:
       note: "CRDs are ordinary rendered objects in the default variant and still need lifecycle/upgrade policy."
     -
       category: "admission-webhook"
-      status: "scan-and-observe"
+      status: "target-fact-and-observe"
       objects:
         - "admissionregistration.k8s.io/v1|MutatingWebhookConfiguration||kube-prometheus-stack-admission"
         - "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||kube-prometheus-stack-admission"
+      note: "Config-only delivery must stage the kube-prometheus-stack-admission Secret because Helm normally creates the TLS material through hook lifecycle."
     -
       category: "generated-facts"
       status: "variant-controlled"

@@ -63,8 +63,8 @@ spec:
       gitopsLive: "0/2"
       liveParity: "0/2"
     featureSummary: "hooks;generated-secrets;crds;required-values;values-schema;install-vs-upgrade;extension-slots"
-    hardGap: "existing-secret (chart ships no Secret toggle - #113)"
-    nextAction: "review limitation before promotion: existing-secret (chart ships no Secret toggle - #113)"
+    hardGap: "existing-secret (chart ships no Secret toggle)"
+    nextAction: "review limitation before promotion: existing-secret (chart ships no Secret toggle)"
   installerPackage:
     path: "packages/kyverno/kyverno/3.8.1"
     installer: "packages/kyverno/kyverno/3.8.1/installer.yaml"
