@@ -91,7 +91,12 @@ The machine-readable index is:
 ## Live Observation Witness
 
 Live observation lanes may write additional cub-scout receipts when a compatible
-`cub-scout` binary is available. These receipts answer three runtime questions:
+`cub-scout` binary is available. Use cub-scout v2.4.0 or newer for the full
+standalone install-verification set: object-set matching, prerequisites,
+workload convergence, closed-world extras, freshness TTLs, and standalone
+three-way drift from rendered files.
+
+These receipts answer runtime questions that render parity cannot answer:
 
 | Receipt | Question |
 | --- | --- |

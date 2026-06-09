@@ -812,30 +812,42 @@ cub changeset create
 The built-in `redis:verify-install:cluster` command is intentionally small. It
 proves the Redis happy path with rollout, PVC, Secret, and Redis PING checks.
 
-For deeper runtime proof, use the
+For deeper runtime proof, use cub-scout v2.4.0 or newer and the
 [cub-scout helm-expt example](https://github.com/confighub/cub-scout/tree/main/examples/helm-expt).
+Release v2.4.0 is the first cub-scout release aimed directly at the Helm
+catalog gap: proving that an install actually worked without requiring
+ConfigHub-connected mode.
 
 That example adds the cluster-side half of the proof:
 
 ```text
 helm-expt proves:   Helm render == cub installer render
 installer proves:   package/spec -> rendered objects -> ConfigHub Units/OCI
-cub-scout proves:   rendered objects are present and matching in the live cluster
+cub-scout proves:   rendered objects, prerequisites, workloads, extras, drift, and freshness in the live cluster
 ```
 
-Typical cub-scout checks include:
+Useful cub-scout v2.4.0 checks include:
 
 ```sh
-./cub-scout map status --namespace "$NS" --json
-./cub-scout doctor --namespace "$NS" --format json
-./cub-scout compare drift --file "$MANIFESTS" -n "$NS" --format json --fail-on warning
 ./cub-scout receipt verify --file "$MANIFESTS" --scope namespace/"$NS" \
   --format json --out "$RUN_DIR/cub-scout-object-set.receipt.json" \
   --fail-on any-non-pass
+./cub-scout receipt verify --prerequisites "$PREREQS" --scope namespace/"$NS" \
+  --out "$RUN_DIR/cub-scout-prerequisites.receipt.json" \
+  --fail-on any-non-pass
+./cub-scout receipt verify --file "$MANIFESTS" --scope namespace/"$NS" \
+  --predicate workloads-converged --ttl 30m \
+  --out "$RUN_DIR/cub-scout-workloads.receipt.json" \
+  --fail-on any-non-pass
+./cub-scout receipt verify --file "$MANIFESTS" --scope namespace/"$NS" \
+  --no-extras --out "$RUN_DIR/cub-scout-closed-world.receipt.json"
+./cub-scout compare three-way --scope namespace/"$NS" \
+  --dry-from "$MANIFESTS" --fail-on warning
 ```
 
 Use this when you want a stronger live-cluster claim than the local Redis
-smoke check: object-set receipts, drift checks, source-truth checks, ownership
+smoke check: object-set receipts, prerequisite receipts, workload convergence,
+closed-world checks, standalone drift checks, source-truth checks, ownership
 graphs, snapshots, and GitOps convergence evidence.
 
 ## Background Reading
