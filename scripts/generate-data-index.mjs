@@ -66,6 +66,7 @@ function readme(rows) {
     ["data/production-disposition/dispositions.md", "Detailed production disposition plan: accepted receipts, open dispositions, owners, required evidence, and unblock rules."],
     ["data/production-disposition/next-actions.csv", "Production disposition work queue: next required receipt or fix per top-20 chart."],
     ["data/external-scan-lane/chart-workdown.csv", "Chart-level scan/gate workdown: grouped scanner findings, priority, and next action before production disposition."],
+    ["data/scan-disposition-workdown/workdown.csv", "Scan warning routes: which rows need fixes, hardened bases, explicit security acceptance, runtime endpoint review, or PDB policy decisions."],
     ["data/pain-point-coverage/summary.md", "General Helm pain point coverage: current answers, handoffs, evidence, gaps, and next actions."],
     ["data/top100-readiness/summary.md", "Top-100 readiness: one chart-by-chart answer for adoption bucket, strongest evidence, hard gap, next action, and first work queues."],
     ["data/top500-catalog-analysis/review.csv", "Top-500 evidence map: retained source-scan rows joined to current recipe proof, catalog status, version drift, source features, and next action."],
@@ -177,6 +178,7 @@ function audienceFor(path) {
   if (path.startsWith("data/extension-slots/")) return "user/front-door";
   if (path.startsWith("data/production-disposition/")) return "user/front-door";
   if (path === "data/external-scan-lane/chart-workdown.csv") return "user/front-door";
+  if (path.startsWith("data/scan-disposition-workdown/")) return "user/front-door";
   if (path.startsWith("data/nginx-config-checks/")) return "verification";
   if (path.startsWith("data/lifecycle-boundary/")) return "user/front-door";
   if (path.startsWith("data/high-fanout-demo/")) return "user/front-door";
@@ -206,6 +208,7 @@ function roleFor(path) {
   if (path === "data/lifecycle-boundary/lifecycle-boundary.csv") return "one row per hook queue item or hook-like lifecycle observation";
   if (path === "data/production-disposition/next-actions.csv") return "one row per top-20 chart: next production disposition receipt or fix";
   if (path === "data/external-scan-lane/chart-workdown.csv") return "one row per chart: external scan findings grouped into priority and next production action";
+  if (path === "data/scan-disposition-workdown/workdown.csv") return "one row per top-20 chart: route scan warnings to fixes, hardened bases, acceptance, endpoint review, or PDB decisions";
   if (path === "data/high-fanout-demo/prometheus-kps.csv") return "Prometheus/kube-prometheus-stack high-fanout base-variant example";
   if (path.endsWith("variant-lanes.csv")) return "row-level proof lane matrix";
   if (path.endsWith("chart-facts.csv")) return "chart facts and hard gaps";
@@ -249,6 +252,7 @@ function familyRole(family) {
     "catalog-promotion-wave2": "second promotion-wave review worksheet",
     "derived-variant-target-bound": "derived ConfigHub variants with target/live evidence",
     "external-scan-lane": "external scanner lane review output",
+    "scan-disposition-workdown": "scan warning routes to fixes, hardened bases, or explicit dispositions",
     "live-helm-confighub-compare": "strict live Helm-vs-ConfigHub parity",
     "live-e2e": "top-20 local kind runtime status",
     "live-kind-parity": "two-cluster kind parity receipts",
@@ -315,6 +319,7 @@ function commandMap() {
     "catalog-promotion-wave2": { generate: "npm run catalog:wave2", verify: "npm run catalog:wave2:verify" },
     "derived-variant-target-bound": { generate: "npm run derived-variants:target-bound:summary", verify: "npm run derived-variants:target-bound:summary:verify" },
     "external-scan-lane": { generate: "npm run external-scan", verify: "npm run external-scan:verify" },
+    "scan-disposition-workdown": { generate: "npm run scan-disposition:workdown", verify: "npm run scan-disposition:workdown:verify" },
     "live-e2e": { generate: "npm run top20:local-e2e:summary", verify: "npm run top20:verify-local-e2e" },
     "live-helm-confighub-compare": { generate: "npm run live-parity:top20:summary", verify: "npm run live-parity:top20:verify-slots" },
     "live-parity-rerun-plan": { generate: "npm run live-parity:rerun-plan", verify: "npm run live-parity:rerun-plan:verify" },

@@ -47,6 +47,7 @@ function buildReport() {
   const kindParityRows = readCsv("data/live-kind-parity/summary.csv");
   const runtimeRows = readCsv("data/runtime-gitops/wave1.csv");
   const productionRows = readCsv("data/production-disposition/top20.csv");
+  const scanDispositionRows = readCsv("data/scan-disposition-workdown/workdown.csv");
   const derivedWorkOrders = readCsv("data/variant-goldens/derived-expansion-wave/work-orders.csv");
   const derivedLiveReceiptCount = derivedWorkOrders.filter((row) =>
     existsSync(join(repoRoot, "runs", "derived-variant-execution", row.id, "variant-create-receipt.yaml")),
@@ -90,6 +91,9 @@ function buildReport() {
   rows.push(metric("production disposition", "top20 production-supported charts", productionRows.filter((row) => row.production_support === "production-supported").length, productionRows.length, "gap", "data/production-disposition/top20.csv", "Top-20 catalog charts with all production dispositions closed."));
   rows.push(metric("production disposition", "top20 production-blocked charts", productionRows.filter((row) => row.production_support === "blocked").length, productionRows.length, "partial", "data/production-disposition/top20.csv", "Top-20 catalog charts that remain blocked from production support pending explicit dispositions."));
   rows.push(metric("production disposition", "charts with accepted production dispositions", productionRows.filter((row) => dispositionCount(row.accepted_dispositions) > 0).length, productionRows.length, "partial", "data/production-disposition/top20.csv", "Charts with at least one disposition receipt accepted."));
+  rows.push(metric("scan disposition", "high-priority scan rows", scanDispositionRows.filter((row) => row.scanPriority === "high").length, scanDispositionRows.length, "partial", "data/scan-disposition-workdown/workdown.csv", "External scan rows that need a fix, hardened base, or explicit production disposition."));
+  rows.push(metric("scan disposition", "remaining mutable-image rows", scanDispositionRows.filter((row) => row.dispositionRoute === "fix-image-pin").length, scanDispositionRows.length, "good", "data/scan-disposition-workdown/workdown.csv", "Rows still routed to image-pin fixes after the supported-base pinning work."));
+  rows.push(metric("scan disposition", "privileged infrastructure review rows", scanDispositionRows.filter((row) => row.dispositionRoute === "accept-or-split-privileged-infrastructure").length, scanDispositionRows.length, "partial", "data/scan-disposition-workdown/workdown.csv", "Rows where host, node, or privileged access is likely part of the chart and needs explicit acceptance or a narrower base."));
 
   const quirkTierCounts = groupCount(quirkRows, "coverage_tier");
   rows.push(metric("quirks", "tracked-and-surfaced axes", quirkTierCounts.get("tracked-and-surfaced") ?? 0, quirkRows.length, "good", "data/quirk-coverage/coverage.csv", "Quirk axes visible in generated chart or user data."));
@@ -113,7 +117,7 @@ function buildReport() {
     csv: toCsv(rows),
     top20Rows,
     top20Csv: top20ToCsv(top20Rows),
-    summary: summary(rows, { chartRows, baseRows, top100Rows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, lifecycleBoundaryRows, liveRows, kindParityRows, runtimeRows, productionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount }),
+    summary: summary(rows, { chartRows, baseRows, top100Rows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, lifecycleBoundaryRows, liveRows, kindParityRows, runtimeRows, productionRows, scanDispositionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount }),
   };
 }
 
@@ -132,6 +136,8 @@ function summary(rows, context) {
     .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
     .slice(0, 8);
   const productionPreview = context.productionRows.slice(0, 10);
+  const scanDispositionRoutes = groupCount(context.scanDispositionRows, "dispositionRoute");
+  const highScanRows = context.scanDispositionRows.filter((row) => row.scanPriority === "high");
 
   return `# Status Dashboard
 
@@ -263,17 +269,25 @@ closed or explicitly accepted.
 | production-supported charts | ${context.productionRows.filter((row) => row.production_support === "production-supported").length}/${context.productionRows.length} |
 | production-blocked pending disposition | ${context.productionRows.filter((row) => row.production_support === "blocked").length}/${context.productionRows.length} |
 | charts with accepted dispositions | ${context.productionRows.filter((row) => dispositionCount(row.accepted_dispositions) > 0).length}/${context.productionRows.length} |
+| high-priority scan rows | ${highScanRows.length}/${context.scanDispositionRows.length} |
+| mutable-image rows still needing fixes | ${context.scanDispositionRows.filter((row) => row.dispositionRoute === "fix-image-pin").length}/${context.scanDispositionRows.length} |
 
 | Open disposition | Charts |
 | --- | ---: |
 ${productionBlockers.map(([blocker, count]) => `| ${blocker} | ${count} |`).join("\n")}
+
+| Scan route | Charts |
+| --- | ---: |
+${mapRows(scanDispositionRoutes)}
 
 | Chart | Production | Accepted | Open | Next action |
 | --- | --- | ---: | ---: | --- |
 ${productionPreview.map((row) => `| ${row.chart}@${row.version} | ${row.production_support} | ${dispositionCount(row.accepted_dispositions)} | ${dispositionCount(row.open_dispositions)} | ${row.next_action} |`).join("\n")}
 
 Use [production-disposition/summary.md](../production-disposition/summary.md)
-for the full top-20 disposition table.
+for the full top-20 disposition table and
+[scan-disposition-workdown/summary.md](../scan-disposition-workdown/summary.md)
+for the scan warning routes.
 
 ## Derived Variant Evidence
 

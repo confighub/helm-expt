@@ -30,6 +30,7 @@ What is the current status for each chart, base, derived variant, and feature?
 | [production-disposition/dispositions.md](./production-disposition/dispositions.md) | Detailed production disposition plan: accepted receipts, open dispositions, owners, required evidence, and unblock rules. |
 | [production-disposition/next-actions.csv](./production-disposition/next-actions.csv) | Production disposition work queue: next required receipt or fix per top-20 chart. |
 | [external-scan-lane/chart-workdown.csv](./external-scan-lane/chart-workdown.csv) | Chart-level scan/gate workdown: grouped scanner findings, priority, and next action before production disposition. |
+| [scan-disposition-workdown/workdown.csv](./scan-disposition-workdown/workdown.csv) | Scan warning routes: which rows need fixes, hardened bases, explicit security acceptance, runtime endpoint review, or PDB policy decisions. |
 | [pain-point-coverage/summary.md](./pain-point-coverage/summary.md) | General Helm pain point coverage: current answers, handoffs, evidence, gaps, and next actions. |
 | [top100-readiness/summary.md](./top100-readiness/summary.md) | Top-100 readiness: one chart-by-chart answer for adoption bucket, strongest evidence, hard gap, next action, and first work queues. |
 | [top500-catalog-analysis/review.csv](./top500-catalog-analysis/review.csv) | Top-500 evidence map: retained source-scan rows joined to current recipe proof, catalog status, version drift, source features, and next action. |
@@ -108,6 +109,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `quirk-coverage` | [quirk-coverage/summary.md](./quirk-coverage/summary.md) | Helm quirk-axis coverage audit |
 | `quirk-review-queue` | [quirk-review-queue/summary.md](./quirk-review-queue/summary.md) | queue for chart quirks needing human or product review |
 | `runtime-gitops` | [runtime-gitops/summary.md](./runtime-gitops/summary.md) | Argo/Flux OCI live proof wave |
+| `scan-disposition-workdown` | [scan-disposition-workdown/summary.md](./scan-disposition-workdown/summary.md) | scan warning routes to fixes, hardened bases, or explicit dispositions |
 | `status-dashboard` | [status-dashboard/summary.md](./status-dashboard/summary.md) | one-page front-door status dashboard |
 | `top100-catalog-analysis` | [top100-catalog-analysis/summary.md](./top100-catalog-analysis/summary.md) | top-100 proof and promotion surface |
 | `top100-readiness` | [top100-readiness/summary.md](./top100-readiness/summary.md) | front-door top-100 user readiness and evidence summary |
@@ -125,7 +127,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 65 CSV files. Each row records the path, audience,
+It includes 66 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

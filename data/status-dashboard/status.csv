@@ -29,6 +29,9 @@ live evidence,two-cluster semantic parity defect receipts,0,40,good,data/live-ki
 production disposition,top20 production-supported charts,0,20,gap,data/production-disposition/top20.csv,Top-20 catalog charts with all production dispositions closed.
 production disposition,top20 production-blocked charts,20,20,partial,data/production-disposition/top20.csv,Top-20 catalog charts that remain blocked from production support pending explicit dispositions.
 production disposition,charts with accepted production dispositions,3,20,partial,data/production-disposition/top20.csv,Charts with at least one disposition receipt accepted.
+scan disposition,high-priority scan rows,4,20,partial,data/scan-disposition-workdown/workdown.csv,"External scan rows that need a fix, hardened base, or explicit production disposition."
+scan disposition,remaining mutable-image rows,0,20,good,data/scan-disposition-workdown/workdown.csv,Rows still routed to image-pin fixes after the supported-base pinning work.
+scan disposition,privileged infrastructure review rows,4,20,partial,data/scan-disposition-workdown/workdown.csv,"Rows where host, node, or privileged access is likely part of the chart and needs explicit acceptance or a narrower base."
 quirks,tracked-and-surfaced axes,9,26,good,data/quirk-coverage/coverage.csv,Quirk axes visible in generated chart or user data.
 quirks,partly tracked axes,3,26,partial,data/quirk-coverage/coverage.csv,Visible quirk axes that still need lifecycle or proof coverage.
 quirks,source-scanned but not surfaced axes,5,26,gap,data/quirk-coverage/coverage.csv,Detected in source scan but not promoted to front-door chart facts.

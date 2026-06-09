@@ -47,6 +47,9 @@ Which detailed CSV should I open next?
 | production disposition | top20 production-supported charts | 0/20 | gap | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | top20 production-blocked charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | charts with accepted production dispositions | 3/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| scan disposition | high-priority scan rows | 4/20 | partial | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
+| scan disposition | remaining mutable-image rows | 0/20 | good | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
+| scan disposition | privileged infrastructure review rows | 4/20 | partial | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
 | quirks | tracked-and-surfaced axes | 9/26 | good | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
 | quirks | partly tracked axes | 3/26 | partial | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
 | quirks | source-scanned but not surfaced axes | 5/26 | gap | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
@@ -215,6 +218,8 @@ closed or explicitly accepted.
 | production-supported charts | 0/20 |
 | production-blocked pending disposition | 20/20 |
 | charts with accepted dispositions | 3/20 |
+| high-priority scan rows | 4/20 |
+| mutable-image rows still needing fixes | 0/20 |
 
 | Open disposition | Charts |
 | --- | ---: |
@@ -226,6 +231,13 @@ closed or explicitly accepted.
 | storage backup restore and rollback policy | 8 |
 | CRD lifecycle and upgrade policy | 7 |
 | target fact preflight | 7 |
+
+| Scan route | Charts |
+| --- | ---: |
+| accept-or-patch-pdb-policy | 6 |
+| add-resource-policy | 5 |
+| harden-security-context | 5 |
+| accept-or-split-privileged-infrastructure | 4 |
 
 | Chart | Production | Accepted | Open | Next action |
 | --- | --- | ---: | ---: | --- |
@@ -241,7 +253,9 @@ closed or explicitly accepted.
 | grafana/loki@7.0.0 | blocked | 0 | 5 | extend live/e2e lane beyond local kind after production dispositions are written |
 
 Use [production-disposition/summary.md](../production-disposition/summary.md)
-for the full top-20 disposition table.
+for the full top-20 disposition table and
+[scan-disposition-workdown/summary.md](../scan-disposition-workdown/summary.md)
+for the scan warning routes.
 
 ## Derived Variant Evidence
 
