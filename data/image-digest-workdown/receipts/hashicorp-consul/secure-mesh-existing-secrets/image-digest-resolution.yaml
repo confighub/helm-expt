@@ -1,0 +1,82 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ImageDigestResolutionReceipt"
+metadata:
+  name: "hashicorp-consul-secure-mesh-existing-secrets-image-digest-resolution"
+spec:
+  chart: "hashicorp/consul"
+  version: "2.0.0"
+  variant: "secure-mesh-existing-secrets"
+  resolvedAt: "2026-06-09T18:22:22.637Z"
+  renderedObjectSet:
+    path: "recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/release-objects.yaml"
+    sha256: "0acc8c339c2965446b754c3a9c948c4f154ca6e47b074ddc3b8d315e2cb7c468"
+  sourceImageReview:
+    path: "data/attack-plan-workdown/image-digest-review.csv"
+    rows: 11
+    uniqueImages: 3
+  resolver:
+    name: "docker-buildx-imagetools"
+    commandTemplate: "docker buildx imagetools inspect <image>"
+  images:
+    -
+      image: "hashicorp/consul-dataplane:2.0.0"
+      digest: "sha256:9ad502a85246457c2700cc1df772a22987689080b686a7a78aac3de3d7bfb5ee"
+      digestReference: "hashicorp/consul-dataplane:2.0.0@sha256:9ad502a85246457c2700cc1df772a22987689080b686a7a78aac3de3d7bfb5ee"
+      mediaType: "application/vnd.docker.distribution.manifest.list.v2+json"
+      resolverOutput:
+        name: "docker.io/hashicorp/consul-dataplane:2.0.0"
+      occurrences:
+        -
+          object: "apps/v1/Deployment/consul/consul-consul-ingress-gateway"
+          fieldPath: "spec.template.spec.containers.0.image"
+        -
+          object: "apps/v1/Deployment/consul/consul-consul-mesh-gateway"
+          fieldPath: "spec.template.spec.containers.0.image"
+        -
+          object: "apps/v1/Deployment/consul/consul-consul-terminating-gateway"
+          fieldPath: "spec.template.spec.containers.0.image"
+    -
+      image: "hashicorp/consul-k8s-control-plane:2.0.0"
+      digest: "sha256:28a695747e729ebe7c425bc0cc672ab35ee19cbc27099d0f403254240bad1df2"
+      digestReference: "hashicorp/consul-k8s-control-plane:2.0.0@sha256:28a695747e729ebe7c425bc0cc672ab35ee19cbc27099d0f403254240bad1df2"
+      mediaType: "application/vnd.docker.distribution.manifest.list.v2+json"
+      resolverOutput:
+        name: "docker.io/hashicorp/consul-k8s-control-plane:2.0.0"
+      occurrences:
+        -
+          object: "apps/v1/Deployment/consul/consul-consul-connect-injector"
+          fieldPath: "spec.template.spec.containers.0.image"
+        -
+          object: "apps/v1/Deployment/consul/consul-consul-ingress-gateway"
+          fieldPath: "spec.template.spec.initContainers.0.image"
+        -
+          object: "apps/v1/Deployment/consul/consul-consul-mesh-gateway"
+          fieldPath: "spec.template.spec.initContainers.0.image"
+        -
+          object: "apps/v1/Deployment/consul/consul-consul-terminating-gateway"
+          fieldPath: "spec.template.spec.initContainers.0.image"
+        -
+          object: "apps/v1/Deployment/consul/consul-consul-webhook-cert-manager"
+          fieldPath: "spec.template.spec.containers.0.image"
+        -
+          object: "apps/v1/StatefulSet/consul/consul-consul-server"
+          fieldPath: "spec.template.spec.initContainers.0.image"
+        -
+          object: "batch/v1/Job/consul/consul-consul-server-acl-init"
+          fieldPath: "spec.template.spec.containers.0.image"
+    -
+      image: "hashicorp/consul:2.0.0"
+      digest: "sha256:fd737d7d84bd11e6d8e54d5ffc4af68d3411bc19d1e5c357c91539d18384da13"
+      digestReference: "hashicorp/consul:2.0.0@sha256:fd737d7d84bd11e6d8e54d5ffc4af68d3411bc19d1e5c357c91539d18384da13"
+      mediaType: "application/vnd.docker.distribution.manifest.list.v2+json"
+      resolverOutput:
+        name: "docker.io/hashicorp/consul:2.0.0"
+      occurrences:
+        -
+          object: "apps/v1/StatefulSet/consul/consul-consul-server"
+          fieldPath: "spec.template.spec.containers.0.image"
+  productionSupportUse:
+    status: "digest-resolution-recorded"
+    claim: "The mutable rendered image references for this Consul base were resolved to registry manifest digests at the recorded time."
+    limits: "This receipt does not mean the rendered manifests are digest-pinned and does not by itself make the chart production-supported."
+    nextRequired: "Choose a digest-pinned base, image override policy, or explicit mutable-image exception before broader production support."

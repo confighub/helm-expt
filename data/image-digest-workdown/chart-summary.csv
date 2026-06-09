@@ -6,7 +6,7 @@ external-secrets/external-secrets,2.5.0,catalog-supported,top20-catalog-supporte
 grafana/grafana,10.5.15,catalog-supported,top20-catalog-supported,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
 grafana/loki,7.0.0,catalog-supported,top20-catalog-supported,2,2,19,19,0,2,1,image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes
 grafana/tempo,1.24.4,catalog-supported,top20-catalog-supported,2,2,3,3,0,0,0,resolve image digests for each affected variant before production OCI support
-hashicorp/consul,2.0.0,catalog-supported,top20-catalog-supported,2,2,15,15,0,0,0,resolve image digests for each affected variant before production OCI support
+hashicorp/consul,2.0.0,catalog-supported,top20-catalog-supported,2,2,15,15,0,2,1,image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes
 hashicorp/vault,0.32.0,catalog-supported,top20-catalog-supported,2,2,4,4,0,0,0,resolve image digests for each affected variant before production OCI support
 jetstack/cert-manager,v1.20.2,catalog-supported,top20-catalog-supported,2,2,6,6,0,2,1,image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes
 longhorn/longhorn,1.11.2,catalog-supported,top20-catalog-supported,2,2,10,10,0,0,0,resolve image digests for each affected variant before production OCI support

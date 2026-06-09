@@ -1,0 +1,90 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSecurityDecision"
+metadata:
+  name: "hashicorp-consul-public-oci-security-decision"
+spec:
+  chart: "hashicorp/consul"
+  version: "2.0.0"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "consul"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "default-control-plane"
+  variantsCovered:
+    - "default-control-plane"
+    - "secure-mesh-existing-secrets"
+  decision: "default-control-plane-resource-policy-accepted-for-target-scope"
+  decidedAt: "2026-06-09"
+  claim: "The selected support scope is Consul's default-control-plane base. The remaining external scan findings are resource-request and probe-port warnings. They are accepted for this public proof scope; stricter environments should create a resource-policy base and review cluster RBAC, CRD, and webhook posture for the target."
+  route: "add-resource-policy"
+  routeReason: "rendered workloads lack production resource requests or limits"
+  findingSummary:
+    scanner: "kube-linter"
+    result: "warn"
+    totalFindings: 11
+    topChecks:
+      liveness-port: 2
+      readiness-port: 2
+      startup-port: 2
+      unset-cpu-requirements: 2
+      unset-memory-requirements: 2
+      job-ttl-seconds-after-finished: 1
+    variants:
+      default-control-plane:
+        findingCount: 5
+        topChecks:
+          liveness-port: 1
+          readiness-port: 1
+          startup-port: 1
+          unset-cpu-requirements: 1
+          unset-memory-requirements: 1
+        renderedObjectSetSHA256: "7efa3e8b59c702c8b8fa744a0ff91198e09ad8ba0fb93a86b50c3fd9e39d29f7"
+      secure-mesh-existing-secrets:
+        findingCount: 6
+        topChecks:
+          job-ttl-seconds-after-finished: 1
+          liveness-port: 1
+          readiness-port: 1
+          startup-port: 1
+          unset-cpu-requirements: 1
+        renderedObjectSetSHA256: "0acc8c339c2965446b754c3a9c948c4f154ca6e47b074ddc3b8d315e2cb7c468"
+  acceptedFindings:
+    -
+      group: "resource-requests-and-limits"
+      disposition: "Accepted for the public proof scope. Add CPU and memory requests/limits in a hardened base for target SLO scopes."
+    -
+      group: "probe-port-naming"
+      disposition: "Accepted for the public proof scope. Keep or adjust probe port naming according to target policy in a stricter base."
+  topologyDisposition: "default-control-plane is the supported proof topology. secure-mesh-existing-secrets remains review input for TLS, ACL, gateway, UI, and existing-Secret operation, but it is not production-supported here."
+  limits:
+    - "This is not a blanket security approval for customer clusters, private overlays, regulated environments, or future chart versions."
+    - "This does not support the secure-mesh-existing-secrets topology for production use."
+    - "Consul CRD ownership, Gateway API ownership, cluster RBAC, webhook failure policy, TLS, ACLs, gossip, UI ingress, and mesh gateway behavior remain separate review surfaces."
+  evidence:
+    -
+      path: "data/scan-disposition-workdown/workdown.csv"
+      claim: "Routes Consul scan findings to add-resource-policy."
+    -
+      path: "data/external-scan-lane/review.csv"
+      claim: "Records kube-linter warning counts for Consul rendered object sets."
+    -
+      path: "recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for default-control-plane."
+    -
+      path: "recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for secure-mesh-existing-secrets."
+    -
+      path: "data/production-disposition/receipts/hashicorp-consul/scan-gate-warning-disposition.yaml"
+      claim: "Earlier production disposition accepts Consul scan warnings as production-review inputs and identifies default-control-plane as the stronger first support base."
+    -
+      path: "data/production-disposition/receipts/hashicorp-consul/cluster-rbac-review.yaml"
+      claim: "Records Consul cluster RBAC review for the candidate bases."
+    -
+      path: "data/production-disposition/receipts/hashicorp-consul/crd-lifecycle-and-upgrade-policy.yaml"
+      claim: "Records Consul and Gateway API CRD ownership review for the candidate bases."
+    -
+      path: "data/production-disposition/receipts/hashicorp-consul/webhook-readiness-and-failure-policy.yaml"
+      claim: "Records connect-injector webhook readiness and failure-policy review."
+  remainingSupportBlockers:
+    - "Record image policy and fresh target-scoped ConfigHub OCI/GitOps evidence."

@@ -1,0 +1,74 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionLifecycleDecision"
+metadata:
+  name: "hashicorp-consul-public-oci-lifecycle-decision"
+spec:
+  chart: "hashicorp/consul"
+  version: "2.0.0"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "consul"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+  supportedBaseCandidate: "default-control-plane"
+  variantsCovered:
+    - "default-control-plane"
+    - "secure-mesh-existing-secrets"
+  decision: "lifecycle-observed-for-proof-scope"
+  decidedAt: "2026-06-09"
+  claim: "The Consul default-control-plane base is managed as reviewed desired Kubernetes objects with Helm hooks excluded. Regular Helm, cub installer apply, and ConfigHub OCI/Argo all reach runtime readiness for the supported proof scope."
+  lifecycleModel:
+    hookPolicy: "no-hooks-in-promoted-render"
+    selectedTopology: "default-control-plane"
+    observedWorkloads:
+      - "consul-consul-server"
+      - "consul-consul-connect-injector"
+      - "consul-consul-webhook-cert-manager"
+    crdPolicy: "Consul and Gateway API CRDs are package-owned in this proof scope; platform-owned CRDs need a separate no-crds or external-CRD base."
+    webhookPolicy: "Connect injector and webhook certificate manager readiness must be observed fresh for supported targets."
+    secureMeshPolicy: "TLS, ACL, gossip, gateway, UI ingress, ACL init, and existing Secret operation belong to secure-mesh-existing-secrets or another separately reviewed base."
+  observedLifecycleSignals:
+    twoClusterParity:
+      result: "pass"
+      observedAt: "2026-06-06T13:44:54Z"
+      regularHelmRuntime: "pass"
+      installerRuntime: "pass"
+      semanticParity: "pass"
+    confighubOciArgo:
+      result: "pass"
+      observedAt: "2026-06-08T19:19:58Z"
+      regularHelmRuntime: "pass"
+      confighubApplyRuntime: "pass"
+      confighubOciRuntime: "pass"
+      argoSync: "Synced"
+      argoHealth: "Healthy"
+      semanticParity: "pass"
+  limits:
+    - "This supports the default-control-plane public proof base, not every Consul deployment topology."
+    - "The proof does not preserve arbitrary future Helm hook behavior."
+    - "TLS, ACL, gossip encryption, mesh gateway, UI ingress, and existing-Secret bootstrap require separate reviewed bases and operating receipts."
+    - "CRD ownership and upgrade safety need target-specific review before broader production support."
+  evidence:
+    -
+      path: "runs/live-kind-parity/hashicorp-consul-default-control-plane/receipt.yaml"
+      claim: "Two-cluster Helm-vs-installer parity passes for default-control-plane."
+    -
+      path: "runs/live-helm-confighub-compare/hashicorp-consul-default-control-plane/receipt.yaml"
+      claim: "ConfigHub OCI/Argo live parity passes for default-control-plane."
+    -
+      path: "data/production-disposition/receipts/hashicorp-consul/hook-and-lifecycle-phase-policy.yaml"
+      claim: "Records the no-hook desired-object lifecycle boundary for Consul."
+    -
+      path: "data/production-disposition/receipts/hashicorp-consul/crd-lifecycle-and-upgrade-policy.yaml"
+      claim: "Records Consul and Gateway API CRD lifecycle boundaries."
+    -
+      path: "data/production-disposition/receipts/hashicorp-consul/webhook-readiness-and-failure-policy.yaml"
+      claim: "Records Consul webhook readiness and failure-policy boundaries."
+    -
+      path: "data/production-disposition/receipts/hashicorp-consul/storage-backup-restore-and-rollback-policy.yaml"
+      claim: "Records Consul state, ACL, gossip, mesh, backup, restore, and rollback boundaries."
+    -
+      path: "data/production-disposition/receipts/hashicorp-consul/target-fact-preflight.yaml"
+      claim: "Records target Secret requirements for the secure mesh base that remains outside this support claim."
+  remainingSupportBlockers:
+    - "Record image policy, security acceptance, and fresh target-scoped ConfigHub OCI/GitOps evidence."

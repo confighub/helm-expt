@@ -1,0 +1,53 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ImageDigestResolutionReceipt"
+metadata:
+  name: "hashicorp-consul-default-control-plane-image-digest-resolution"
+spec:
+  chart: "hashicorp/consul"
+  version: "2.0.0"
+  variant: "default-control-plane"
+  resolvedAt: "2026-06-09T18:22:19.966Z"
+  renderedObjectSet:
+    path: "recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/rendered/release-objects.yaml"
+    sha256: "7efa3e8b59c702c8b8fa744a0ff91198e09ad8ba0fb93a86b50c3fd9e39d29f7"
+  sourceImageReview:
+    path: "data/attack-plan-workdown/image-digest-review.csv"
+    rows: 4
+    uniqueImages: 2
+  resolver:
+    name: "docker-buildx-imagetools"
+    commandTemplate: "docker buildx imagetools inspect <image>"
+  images:
+    -
+      image: "hashicorp/consul-k8s-control-plane:2.0.0"
+      digest: "sha256:28a695747e729ebe7c425bc0cc672ab35ee19cbc27099d0f403254240bad1df2"
+      digestReference: "hashicorp/consul-k8s-control-plane:2.0.0@sha256:28a695747e729ebe7c425bc0cc672ab35ee19cbc27099d0f403254240bad1df2"
+      mediaType: "application/vnd.docker.distribution.manifest.list.v2+json"
+      resolverOutput:
+        name: "docker.io/hashicorp/consul-k8s-control-plane:2.0.0"
+      occurrences:
+        -
+          object: "apps/v1/Deployment/consul/consul-consul-connect-injector"
+          fieldPath: "spec.template.spec.containers.0.image"
+        -
+          object: "apps/v1/Deployment/consul/consul-consul-webhook-cert-manager"
+          fieldPath: "spec.template.spec.containers.0.image"
+        -
+          object: "apps/v1/StatefulSet/consul/consul-consul-server"
+          fieldPath: "spec.template.spec.initContainers.0.image"
+    -
+      image: "hashicorp/consul:2.0.0"
+      digest: "sha256:fd737d7d84bd11e6d8e54d5ffc4af68d3411bc19d1e5c357c91539d18384da13"
+      digestReference: "hashicorp/consul:2.0.0@sha256:fd737d7d84bd11e6d8e54d5ffc4af68d3411bc19d1e5c357c91539d18384da13"
+      mediaType: "application/vnd.docker.distribution.manifest.list.v2+json"
+      resolverOutput:
+        name: "docker.io/hashicorp/consul:2.0.0"
+      occurrences:
+        -
+          object: "apps/v1/StatefulSet/consul/consul-consul-server"
+          fieldPath: "spec.template.spec.containers.0.image"
+  productionSupportUse:
+    status: "digest-resolution-recorded"
+    claim: "The mutable rendered image references for this Consul base were resolved to registry manifest digests at the recorded time."
+    limits: "This receipt does not mean the rendered manifests are digest-pinned and does not by itself make the chart production-supported."
+    nextRequired: "Choose a digest-pinned base, image override policy, or explicit mutable-image exception before broader production support."
