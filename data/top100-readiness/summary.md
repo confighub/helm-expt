@@ -50,6 +50,22 @@ charts with named hard gaps: 25
 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) | 1 | The current chart path is single-binary; HA belongs to a separate supported topology decision. |
 | no-crds (template-baked CRDs; no clean chart toggle yet) | 3 | The chart bakes CRDs into templates or lacks a clean CRDs-off switch. CRD ownership needs an explicit route. |
 
+## Hard Gaps Versus Adoption Buckets
+
+| Adoption bucket | Rows | Rows with named hard gaps | Meaning |
+| --- | ---: | ---: | --- |
+| `try-from-public-catalog` | 20 | 10 | The catalog has reviewed bases; the hard gap usually points to another path that still needs support or disclosure. |
+| `promote-after-review` | 27 | 0 | No named hard gap currently blocks promotion review. |
+| `needs-useful-variant` | 46 | 8 | Add realistic variants first; any named hard gap should shape those variants or be disclosed. |
+| `limitation-decision-first` | 7 | 7 | The named gap blocks the next promotion decision until it is supported, disclosed, or deferred. |
+
+A hard gap is a capability warning, not an automatic failure. A top-20 catalog
+chart can have a hard gap for an additional path such as HA or existing-secret
+support while still being usable for its reviewed base variants. A
+`limitation-decision-first` row is different: the named gap affects the next
+recommended promotion path, so it needs a support, disclosure, or deferral
+decision before catalog promotion.
+
 ## User Status
 
 | Status | Count | Meaning |

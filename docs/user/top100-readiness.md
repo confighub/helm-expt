@@ -73,6 +73,12 @@ CRDs cannot be cleanly disabled
 the chart's topology belongs to a different chart or product decision
 ```
 
+Read hard gaps together with the adoption bucket. A top-20 catalog chart can
+still be a good public example while carrying a hard gap for another path, such
+as HA or existing-secret support. A `limitation-decision-first` row is stricter:
+the named gap affects the next promotion path and needs a support, disclosure,
+or deferral decision first.
+
 ## How To Use It
 
 Start with the generated summary when choosing what to work on next:

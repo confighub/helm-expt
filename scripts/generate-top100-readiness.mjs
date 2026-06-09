@@ -147,6 +147,7 @@ function summary(rows) {
   const evidenceCounts = countBy(rows, (row) => row.strongest_evidence);
   const hardGaps = rows.filter((row) => row.hard_gap !== "-");
   const hardGapCounts = countBy(hardGaps, (row) => row.hard_gap);
+  const hardGapByBucket = hardGapBucketRows(rows);
   const top20 = rows.filter((row) => row.catalog_tier === "top20-catalog-supported");
   const next80 = rows.filter((row) => row.catalog_tier === "next80-proof-grade");
   const liveEvidence = rows.filter((row) =>
@@ -197,6 +198,19 @@ ${[...adoptionCounts.entries()].map(([bucket, count]) => `| \`${bucket}\` | ${co
 | Gap | Charts | What it means |
 | --- | ---: | --- |
 ${[...hardGapCounts.entries()].map(([gap, count]) => `| ${escapePipes(gap)} | ${count} | ${escapePipes(gapMeaning(gap))} |`).join("\n")}
+
+## Hard Gaps Versus Adoption Buckets
+
+| Adoption bucket | Rows | Rows with named hard gaps | Meaning |
+| --- | ---: | ---: | --- |
+${hardGapByBucket.map((row) => `| \`${row.bucket}\` | ${row.total} | ${row.withGap} | ${escapePipes(row.meaning)} |`).join("\n")}
+
+A hard gap is a capability warning, not an automatic failure. A top-20 catalog
+chart can have a hard gap for an additional path such as HA or existing-secret
+support while still being usable for its reviewed base variants. A
+\`limitation-decision-first\` row is different: the named gap affects the next
+recommended promotion path, so it needs a support, disclosure, or deferral
+decision before catalog promotion.
 
 ## User Status
 
@@ -312,6 +326,40 @@ function workabilityRows(rows) {
   return ordered
     .filter((row) => counts.has(row.key))
     .map((row) => ({ ...row, count: counts.get(row.key) }));
+}
+
+function hardGapBucketRows(rows) {
+  const byBucket = new Map();
+  for (const row of rows) {
+    const current = byBucket.get(row.adoption_bucket) ?? { total: 0, withGap: 0 };
+    current.total += 1;
+    if (row.hard_gap !== "-") current.withGap += 1;
+    byBucket.set(row.adoption_bucket, current);
+  }
+  const order = ["try-from-public-catalog", "promote-after-review", "needs-useful-variant", "limitation-decision-first", "try-with-lane-check", "not-ready"];
+  return [...byBucket.entries()]
+    .sort(([left], [right]) => {
+      const leftIndex = order.indexOf(left);
+      const rightIndex = order.indexOf(right);
+      return (leftIndex === -1 ? 99 : leftIndex) - (rightIndex === -1 ? 99 : rightIndex) || left.localeCompare(right);
+    })
+    .map(([bucket, counts]) => ({
+      bucket,
+      ...counts,
+      meaning: hardGapBucketMeaning(bucket),
+    }));
+}
+
+function hardGapBucketMeaning(bucket) {
+  const meanings = {
+    "try-from-public-catalog": "The catalog has reviewed bases; the hard gap usually points to another path that still needs support or disclosure.",
+    "promote-after-review": "No named hard gap currently blocks promotion review.",
+    "needs-useful-variant": "Add realistic variants first; any named hard gap should shape those variants or be disclosed.",
+    "limitation-decision-first": "The named gap blocks the next promotion decision until it is supported, disclosed, or deferred.",
+    "try-with-lane-check": "A catalog row exists, but exact lane evidence must be checked before use.",
+    "not-ready": "Outside the maintained proof lane.",
+  };
+  return meanings[bucket] ?? "Review the row before promotion.";
 }
 
 function gapMeaning(gap) {
