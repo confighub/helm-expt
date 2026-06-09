@@ -286,17 +286,13 @@ issues in that file must not be bypassed by the flow; they are gates for the
 scope they name.
 
 The consolidated doctrine and historical execution record is in
-`docs/planning/agreed-execution-plan.md`. Treat the shorthand below as
-candidate future porcelain, not current executable CLI.
-If needed, those verbs should be proposed explicitly as Cub plugins/extensions.
-The current executable installer surface includes `cub installer setup`,
-`cub installer upload`, `cub installer plan`, `cub installer package`,
-`cub installer push`, `cub installer pull`, `cub installer doc`,
-`cub installer render`, `cub installer wizard`, `cub installer vet`, and
-`cub installer verify`. During implementation the proof repo may expose more
-explicit commands, but every durable chart input, recipe, variant, revision,
-scan, gate, publish/apply action, and observation must map back to one of the
-real execution surfaces and produce an addressable artifact or receipt.
+`docs/planning/agreed-execution-plan.md`. Current command routing lives in
+`docs/user/choosing-commands.md`; the npm proof-command map lives in
+`tests/npm-scripts.md`. Treat the shorthand below as candidate product
+porcelain unless one of those command maps names it as a current command.
+During implementation, every durable chart input, recipe, variant, revision,
+scan, gate, publish/apply action, and observation must map back to a real
+execution surface and produce an addressable artifact or receipt.
 
 The upstream installer docs usually write these as `installer ...` commands.
 Here they are written as `cub installer ...` because the installer is used through
