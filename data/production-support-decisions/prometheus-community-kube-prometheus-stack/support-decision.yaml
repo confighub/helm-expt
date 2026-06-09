@@ -10,19 +10,27 @@ spec:
   supportedBase: "default"
   targetScope:
     clusterClass: vanilla-kubernetes
-    namespace: "kube-prometheus-stack"
+    namespace: "monitoring"
     deliveryPath: confighub-oci
     gitopsController: argo-or-flux
     storageAssumptions:
       - "Use the chart's recorded storage behavior for the candidate base unless this draft is narrowed before final support."
     networkAssumptions:
       - "Use the service, ingress, DNS, and certificate behavior recorded by the candidate base unless this draft is narrowed before final support."
-    requiredTargetFacts: []
+    requiredTargetFacts:
+      - kind: Secret
+        namespace: monitoring
+        name: kube-prometheus-stack-admission
+        keys:
+          - cert
+          - key
+        purpose: Prometheus Operator admission webhook TLS material normally created by Helm hook lifecycle.
   supportBoundary:
     includes:
       - "prometheus-community/kube-prometheus-stack@85.3.3 default base"
       - ConfigHub OCI delivery for the declared target scope after fresh target evidence is recorded
       - rendered objects, labels, gates, receipts, and support objects produced by the recorded base
+      - declared target-fact preflight for the Prometheus Operator admission webhook TLS Secret
     excludes:
       - "private values overlays, wrapper charts, and populated extension slots unless separately reviewed"
       - "non-vanilla Kubernetes distributions unless separately reviewed"
@@ -35,14 +43,14 @@ spec:
       state: "needs-security-acceptance-or-hardened-base"
       detail: "record security acceptance or create hardened base"
     lifecycleDecision:
-      state: "needs-lifecycle-support-boundary"
-      detail: "record lifecycle support boundary: source-hooks:2"
+      state: "route-selected-observation-needed"
+      detail: "the hook lifecycle route is selected; final support still needs execution or observation receipt for webhook TLS/readiness, cleanup, ordering, and upgrade behavior"
     targetFactDecision:
       state: "no-unresolved-target-prerequisite-in-candidate-base"
-      detail: "no unresolved target prerequisite in candidate base"
+      detail: "the candidate base declares monitoring/kube-prometheus-stack-admission cert and key as target facts; final support must stage or observe them in the target scope"
     liveEvidenceDecision:
       state: "needs-fresh-target-evidence-before-final"
-      detail: "refresh target-scoped live/e2e evidence before support claim"
+      detail: "default has broad committed proof lanes; final support still needs fresh target-scoped ConfigHub OCI/GitOps and live evidence after image, security, and lifecycle decisions are closed"
   evidence:
     - path: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
       claim: "The candidate base is Helm-equivalent under recorded inputs."
@@ -66,9 +74,12 @@ spec:
       claim: "The target fact preflight disposition exists for this chart."
     - path: "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml"
       claim: "The webhook readiness and failure policy disposition exists for this chart."
+    - path: "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+      claim: "The hook lifecycle route is selected; execution or observation is still pending."
   requiredBeforeFinal:
     - "Choose the final target scope, exact GitOps controller, namespace, and artifact digest."
-    - "Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope."
-    - "resolve image digests or record explicit exception before production OCI support"
-    - "record security acceptance or create hardened base"
-  nextAction: "choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support"
+    - "Resolve image digests or record an explicit mutable-image exception before production OCI support."
+    - "Record security acceptance for the supported scope or create a narrower hardened base for host access, privileged infrastructure, and resource policy findings."
+    - "Execute or observe the selected hook lifecycle route, including webhook TLS/readiness, cleanup, ordering, and upgrade behavior."
+    - "Refresh target-scoped ConfigHub OCI/GitOps and live/e2e evidence for the declared scope after the previous decisions are closed."
+  nextAction: "treat kube-prometheus-stack as the serious-chart proof: close image, security, and lifecycle decisions first, then refresh scoped ConfigHub OCI/GitOps evidence for the monitoring namespace"
