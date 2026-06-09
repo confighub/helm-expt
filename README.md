@@ -17,6 +17,8 @@ Public entry points:
 
 - [Offering page](./docs/user/offering.md): plain-English overview for Helm users.
 - [Static HTML offering page](./site/offering.html): generated page for a public site.
+- [Try now](./docs/user/try-now.md): short Redis and kube-prometheus-stack paths.
+- [Static HTML try page](./site/try.html): generated try-now page for a public site.
 - [Catalog dashboard](./site/index.html): generated status, catalog, and proof data.
 - [Current proof status](./docs/user/current-proof-status.md): what is proven, watch, blocked, or still backlog.
 

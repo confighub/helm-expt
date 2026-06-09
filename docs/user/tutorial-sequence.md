@@ -36,7 +36,7 @@ Install or verify the local tools before Tutorial 1:
 ```sh
 cub version
 cub plugin install confighub/installer
-cub installer version
+cub installer --help
 
 command -v kustomize || brew install kustomize
 command -v kustomize || go install sigs.k8s.io/kustomize/kustomize/v5@latest

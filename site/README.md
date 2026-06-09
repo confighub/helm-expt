@@ -8,6 +8,7 @@ npm run site:verify
 ```
 
 Open `site/offering.html` directly in a browser for the public offering page.
+Open `site/try.html` for the short try-now page.
 Open `site/index.html` for the static catalog and status dashboard.
 
 Data source:
