@@ -67,6 +67,24 @@ target scope, accepting or patching scan findings, confirming lifecycle and
 target-fact requirements, refreshing live/e2e evidence for that scope, and
 recording the support decision.
 
+## Final Support Workstreams
+
+The queue is grouped by the decision that must happen next. This is the most
+useful view when moving the top-20 from review-ready to production-supported.
+
+| Workstream | Charts | Next action |
+| --- | ---: | --- |
+| Final support decision | 1 | Choose the supported base, target scope, delivery path, and evidence refresh rule.<br>`bitnami/nginx@24.0.2` (http-clusterip) |
+| Image digest resolution | 9 | Pin images by digest or record an explicit exception before production OCI support.<br>`argo-cd/argo-cd@9.5.15` (default)<br>`bitnami/mysql@14.0.3` (generated-passwords)<br>`bitnami/rabbitmq@16.0.14` (generated-passwords)<br>`external-secrets/external-secrets@2.5.0` (default)<br>`grafana/grafana@10.5.15` (generated-passwords)<br>and 4 more |
+| Lifecycle support boundary | 4 | Record which lifecycle behavior is supported, observed, excluded, or operator-owned.<br>`bitnami/mongodb@19.0.7` (generated-passwords)<br>`bitnami/postgresql@18.6.7` (generated-passwords)<br>`bitnami/redis@25.5.3` (default)<br>`jetstack/cert-manager@v1.20.2` (default) |
+| Security acceptance or hardened base | 4 | Accept current security findings for the target scope or create a hardened base variant.<br>`longhorn/longhorn@1.11.2` (default)<br>`prometheus-community/kube-prometheus-stack@85.3.3` (default)<br>`prometheus-community/prometheus@29.8.0` (default)<br>`secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` (default) |
+| Target runtime scope | 2 | Decide whether the runtime condition is acceptable for the target scope, then refresh live evidence.<br>`hashicorp/vault@0.32.0` (default)<br>`ingress-nginx/ingress-nginx@4.15.1` (default) |
+
+For the full per-chart contract, use
+`data/production-disposition/support-decision-contract.md`. For the
+spreadsheet form, use
+`data/production-disposition/support-decision-queue.csv`.
+
 ## Top-20 Disposition Table
 
 | Chart | Variants | ConfigHub proof | Live/e2e | Production status | Accepted | Open dispositions |

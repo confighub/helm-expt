@@ -27,6 +27,7 @@ Data source:
 - `data/top100-readiness/readiness.csv`
 - `data/live-parity-rerun-plan/rerun-plan.csv`
 - `data/production-disposition/top20.csv`
+- `data/production-disposition/support-decision-queue.csv`
 - `data/high-fanout-demo/prometheus-kps.csv`
 - `docs/user/choosing-commands.md`
 - `data/variant-goldens/redis-prod-us-east/`

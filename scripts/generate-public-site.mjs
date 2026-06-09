@@ -21,6 +21,7 @@ const extensionSlotsPath = join(repoRoot, "data", "extension-slots", "extension-
 const top100ReadinessPath = join(repoRoot, "data", "top100-readiness", "readiness.csv");
 const liveParityRerunPlanPath = join(repoRoot, "data", "live-parity-rerun-plan", "rerun-plan.csv");
 const productionDispositionPath = join(repoRoot, "data", "production-disposition", "top20.csv");
+const productionSupportDecisionQueuePath = join(repoRoot, "data", "production-disposition", "support-decision-queue.csv");
 const scanDispositionPath = join(repoRoot, "data", "scan-disposition-workdown", "workdown.csv");
 const highFanoutPath = join(repoRoot, "data", "high-fanout-demo", "prometheus-kps.csv");
 const mode = process.argv[2] ?? "--generate";
@@ -65,6 +66,7 @@ function buildSite() {
   const top100Readiness = parseCsv(readFileSync(top100ReadinessPath, "utf8"));
   const liveParityRerunPlan = parseCsv(readFileSync(liveParityRerunPlanPath, "utf8"));
   const productionDisposition = parseCsv(readFileSync(productionDispositionPath, "utf8"));
+  const productionSupportDecisionQueue = parseCsv(readFileSync(productionSupportDecisionQueuePath, "utf8"));
   const scanDisposition = parseCsv(readFileSync(scanDispositionPath, "utf8"));
   const highFanout = parseCsv(readFileSync(highFanoutPath, "utf8"));
   const baseReadinessByKey = new Map(baseReadiness.map((row) => [`${row.chart}|${row.base}`, row]));
@@ -98,6 +100,7 @@ function buildSite() {
       top100Readiness: "data/top100-readiness/readiness.csv",
       liveParityRerunPlan: "data/live-parity-rerun-plan/rerun-plan.csv",
       productionDisposition: "data/production-disposition/top20.csv",
+      productionSupportDecisionQueue: "data/production-disposition/support-decision-queue.csv",
       scanDisposition: "data/scan-disposition-workdown/workdown.csv",
       highFanout: "data/high-fanout-demo/prometheus-kps.csv",
     },
@@ -138,6 +141,7 @@ function buildSite() {
     top100Readiness,
     liveParityRerunPlan,
     productionDisposition,
+    productionSupportDecisionQueue,
     scanDisposition,
     highFanout,
   };
@@ -253,6 +257,7 @@ function html(catalog) {
       String(dispositionCount(row.open_dispositions)),
       row.next_action,
     ]);
+  const productionWorkstreamRows = supportDecisionWorkstreams(catalog.productionSupportDecisionQueue);
   const stages = [
     ["1. Acquire and pin", "Lock chart source, dependencies, digests, and provenance."],
     ["2. Render and capture", "Run Helm under recorded inputs and prove render parity with cub installer."],
@@ -406,6 +411,11 @@ function html(catalog) {
         <div class="metric"><strong>${escapeHtml(catalog.summary.mutableImageScanRows)}/${escapeHtml(catalog.scanDisposition.length)}</strong><span>Mutable-image scan rows</span></div>
       </div>
       <p>Scan warnings are routed before production support is claimed. The current high-priority rows are security or privileged-infrastructure disposition work, not simple image-pin fixes.</p>
+      <p>The final support queue is grouped by the decision that must happen next.</p>
+      ${markdownLikeTable([
+        ["Workstream", "Charts", "Next action"],
+        ...productionWorkstreamRows,
+      ])}
       ${markdownLikeTable([
         ["Scan route", "Charts", "Meaning"],
         ...scanDispositionRoutes,
@@ -1033,6 +1043,56 @@ function splitDisposition(value) {
     .filter(Boolean);
 }
 
+function supportDecisionWorkstreams(rows) {
+  const order = [
+    "ready-for-final-scope-decision",
+    "resolve-images-before-production-oci",
+    "lifecycle-support-scope-decision",
+    "security-acceptance-or-hardened-base",
+    "target-runtime-scope-review",
+    "target-prerequisite-scope-review",
+    "close-dispositions-first",
+    "scope-decision-needed",
+  ];
+  const labels = {
+    "ready-for-final-scope-decision": "Final support decision",
+    "resolve-images-before-production-oci": "Image digest resolution",
+    "lifecycle-support-scope-decision": "Lifecycle support boundary",
+    "security-acceptance-or-hardened-base": "Security acceptance or hardened base",
+    "target-runtime-scope-review": "Target runtime scope",
+    "target-prerequisite-scope-review": "Target prerequisite scope",
+    "close-dispositions-first": "Close open dispositions",
+    "scope-decision-needed": "Scope decision",
+  };
+  const instructions = {
+    "ready-for-final-scope-decision": "Choose the supported base, target scope, delivery path, and evidence refresh rule.",
+    "resolve-images-before-production-oci": "Pin images by digest or record an explicit exception before production OCI support.",
+    "lifecycle-support-scope-decision": "Record which lifecycle behavior is supported, observed, excluded, or operator-owned.",
+    "security-acceptance-or-hardened-base": "Accept current security findings for the target scope or create a hardened base variant.",
+    "target-runtime-scope-review": "Decide whether the runtime condition is acceptable for the target scope, then refresh live evidence.",
+    "target-prerequisite-scope-review": "State the required CRDs, APIs, Secrets, storage, or other target prerequisites and how they are checked.",
+    "close-dispositions-first": "Write or fix missing disposition receipts before making a support decision.",
+    "scope-decision-needed": "Write the missing target-scoped support boundary.",
+  };
+  const grouped = new Map();
+  for (const row of rows) {
+    if (!grouped.has(row.decisionState)) grouped.set(row.decisionState, []);
+    grouped.get(row.decisionState).push(row);
+  }
+  const result = [];
+  for (const state of order) {
+    const stateRows = grouped.get(state) ?? [];
+    if (!stateRows.length) continue;
+    const examples = stateRows
+      .slice(0, 5)
+      .map((row) => `${row.chart}@${row.version} (${row.candidateBase || "base TBD"})`)
+      .join("; ");
+    const suffix = stateRows.length > 5 ? `; and ${stateRows.length - 5} more` : "";
+    result.push([labels[state] ?? state, String(stateRows.length), `${instructions[state] ?? "Record the target-scoped decision."} ${examples}${suffix}`]);
+  }
+  return result;
+}
+
 function scanRouteMeaning(route) {
   return {
     "fix-image-pin": "Fix mutable image input in the supported base and regenerate proof.",
@@ -1170,6 +1230,7 @@ Data source:
 - \`data/top100-readiness/readiness.csv\`
 - \`data/live-parity-rerun-plan/rerun-plan.csv\`
 - \`data/production-disposition/top20.csv\`
+- \`data/production-disposition/support-decision-queue.csv\`
 - \`data/high-fanout-demo/prometheus-kps.csv\`
 - \`docs/user/choosing-commands.md\`
 - \`data/variant-goldens/redis-prod-us-east/\`
