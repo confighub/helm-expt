@@ -15,6 +15,7 @@ import {
   sha256File,
   writeYaml,
 } from "./lib/proof-common.mjs";
+import { runCubScoutLiveReceipts } from "./lib/cub-scout-live.mjs";
 import { loadInstallChecks, supportedInstallCheckCharts } from "./lib/install-checks.mjs";
 
 class UsageError extends Error {}
@@ -289,6 +290,15 @@ function verifyCluster({ spec, variant }) {
   writeFileSync(kubectlObjectsPath, objects);
 
   const canonicalPath = join(repoRoot, variant.renderedObjects);
+  const cubScout = runCubScoutLiveReceipts({
+    runDir: receiptDir,
+    renderedPath: canonicalPath,
+    namespace,
+    context,
+    targetFacts: variant.targetFacts ?? {},
+  });
+  checks.push(...cubScout.checks);
+
   const receiptPath = join(receiptDir, "cluster-receipt.yaml");
   const receipt = {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
@@ -305,6 +315,12 @@ function verifyCluster({ spec, variant }) {
       observedAt: new Date().toISOString(),
       freshnessTTL: "1h",
       targetFacts,
+      cubScout: {
+        status: cubScout.status,
+        source: cubScout.source,
+        supportsTtl: cubScout.supportsTtl,
+        reason: cubScout.reason,
+      },
       checks,
       kubectlObjects: { path: basename(kubectlObjectsPath), sha256: sha256File(kubectlObjectsPath) },
       result: "pass",

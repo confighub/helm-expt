@@ -69,7 +69,7 @@ This page uses three different verification layers:
 | `npm run verify` | Repository-wide committed artifact consistency: docs, command surfaces, recipes, packages, receipts, catalog data, and generated data. | No, not in the default path. | No, it verifies committed receipts. |
 | `redis:compare` | Fresh Redis Helm-vs-`cub installer` comparison. | Yes. | No. |
 | Most `<chart>:compare` commands | Curated chart package/setup verification against the stored Helm-rendered object set. | No; fresh Helm rendering happens in `:generate-proof`. | No. |
-| `redis:verify-install:*` | A user's own Redis tutorial state after setup, upload, or apply. | No for `render`; it checks the user's rendered work dir against the Redis acceptance contract. | Only `redis:verify-install:cluster`. |
+| `redis:verify-install:*` | A user's own Redis tutorial state after setup, upload, or apply. | No for `render`; it checks the user's rendered work dir against the Redis acceptance contract. | Only `redis:verify-install:cluster`; when available, cub-scout writes live object-set, workload, and prerequisite receipts. |
 
 `redis:verify-install:*` currently ships because Redis is the first
 outside-user quick-start with `recipes/bitnami/redis/25.5.3/install-checks.yaml`.

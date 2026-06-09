@@ -4,6 +4,8 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { loadTargetFactsForRevision, runCubScoutLiveReceipts } from "./lib/cub-scout-live.mjs";
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(__dirname, "..");
 const clusterName = "helm-expt-redis";
@@ -77,6 +79,19 @@ function runInherit(cmd, args) {
 function yamlQuote(value) {
   if (value === null || value === undefined) return "null";
   return JSON.stringify(String(value));
+}
+
+function yamlScalar(value) {
+  if (value === null || value === undefined) return "null";
+  if (typeof value === "number" || typeof value === "boolean") return String(value);
+  return yamlQuote(value);
+}
+
+function yamlCheck(check) {
+  return Object.entries(check)
+    .filter(([, value]) => value !== undefined)
+    .map(([key, value], index) => `${index === 0 ? "    -" : "     "} ${key}: ${yamlScalar(value)}`)
+    .join("\n");
 }
 
 function ensureCluster() {
@@ -239,6 +254,15 @@ function main() {
     throw new Error(`Redis PING did not return PONG:\n${pong}`);
   }
 
+  const cubScout = runCubScoutLiveReceipts({
+    runDir: runRoot,
+    renderedPath: releaseObjects,
+    namespace,
+    context: contextName,
+    targetFacts: loadTargetFactsForRevision(variantRevision),
+  });
+  const cubScoutChecks = cubScout.checks.map(yamlCheck).join("\n");
+
   const observedAt = new Date().toISOString();
   const receipt = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ObservationReceipt
@@ -256,6 +280,11 @@ spec:
     name: ${yamlQuote(clusterName)}
     context: ${yamlQuote(contextName)}
     namespace: ${yamlQuote(namespace)}
+  cubScout:
+    status: ${yamlQuote(cubScout.status)}
+    source: ${yamlQuote(cubScout.source)}
+    supportsTtl: ${yamlScalar(cubScout.supportsTtl)}
+    reason: ${yamlQuote(cubScout.reason)}
   observedAt: ${yamlQuote(observedAt)}
   freshnessTTL: 1h
   result: pass
@@ -293,6 +322,7 @@ ${requiredSecret ? `    - name: target-secret-present
     - name: redis-pvcs-bound
       result: pass
       count: 4
+${cubScoutChecks ? `${cubScoutChecks}\n` : ""}
   kubectlObjects:
     path: kubectl-objects.txt
     sha256: ${yamlQuote(sha256File(objectsPath))}
