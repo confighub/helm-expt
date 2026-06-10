@@ -118,23 +118,272 @@ The status column is deliberately conservative. "Strong" means there is current
 catalog evidence for the supported scope. "Partial" means the route is defined
 but still depends on live evidence, product work, or chart-specific review.
 
-| Pain point | General answer | Per-chart proof | Status |
-| --- | --- | --- | --- |
-| Go-templated YAML | Render to explicit objects, inventories, and Helm-equivalence receipts. | Render receipts and object inventories per base. | Strong current proof |
-| values.yaml sprawl | Capture effective values and expose named base variants. | Effective values, variants, and value models. | Strong for supported bases |
-| State lives in cluster secrets | Keep desired state, locks, and receipts outside Helm release state. | Outcome and runtime/GitOps rows. | Partial handoff |
-| Failed upgrades wedge releases | Treat upgrade, rollback, and prune as explicit variant paths. | Operation receipts and variant-path coverage where present. | Partial |
-| CRD handling | Make CRDs visible, separable where possible, and lifecycle-gated. | CRD rows in inventories, gates, and pain reports. | Partial |
-| Subchart and dependency hell | Lock and document the dependency closure. | Dependency locks and chart dossiers. | Partial |
-| No field-level governance | Move reviewed objects into ConfigHub Units, links, functions, gates, and mutation records. | Value-source maps and recovered edges where present. | Partial, strongest on Redis |
-| No native secrets story | Separate generated facts, target facts, and external secret requirements. | Secret variants and install checks. | Partial known gap |
-| Hooks are brittle | Classify hooks by lifecycle phase; do not claim hook execution from render parity alone. | Hook lifecycle data and chart pain reports. | Partial doctrine |
-| Multi-environment promotion is DIY | Use base variants plus derived ConfigHub variants, labels, links, approvals, and receipts. | Derived variant receipts and promotion examples. | Partial |
-| GitOps impedance mismatch | Publish pinned rendered object sets and keep GitOps live proof separate from render proof. | Runtime/GitOps and live-parity summaries. | Partial live lane |
-| History without diffs | Store object revisions, diffs, operation receipts, and live observations. | Variant revisions, diffs, and receipts. | Strong static, partial operational |
-| Templating language limits | Surface `tpl`, raw manifest slots, and extension points instead of hiding them. | Feature outcomes and pain reports. | Partial |
-| Dry-run does not match reality | Separate static render proof from live target evidence. | Verification lanes, kind parity, lifecycle observations. | Partial live-dependent |
-| Chart ownership and fork burden | Route shape changes to installer bases and post-render changes to ConfigHub variants. | Change-routing and custom-overlay guides. | Partial product lane |
+### Go-templated YAML
+
+Root cause: Helm templates are string-producing programs whose structure is
+discarded after render.
+
+Current proof or representation: Render to explicit Kubernetes objects, keep
+object inventories, and record Helm-equivalence receipts. Status:
+`strong-current-proof`. Evidence:
+recipes/*/*/*/revisions/*/r001/receipts/helm-equivalence-receipt.yaml;
+data/outcome-coverage/base-outcomes.csv.
+
+Handoff: ConfigHub stores rendered objects as typed Units with revisions, diffs,
+links, gates, and approvals. Installer packages the reviewed render as a named
+cub installer base. Live observation checks whether the applied objects exist
+and remain fresh.
+
+Remaining gap: Complex template behavior is still chart-specific; provenance is
+not field-complete for every chart.
+
+### values.yaml sprawl
+
+Root cause: Chart defaults, values files, globals, subcharts, and overlays make
+effective inputs hard to see.
+
+Current proof or representation: Record effective values, value models,
+value-source maps where present, and named base variants. Status:
+`strong-for-supported-bases`. Evidence: recipes/*/*/*/effective-values*.yaml;
+recipes/*/*/*/variants/*/variant.yaml; data/outcome-coverage/base-outcomes.csv.
+
+Handoff: ConfigHub turns chosen bases into managed variants with explicit
+parameters, labels, and links. Installer exposes supported bases rather than
+unbounded ad hoc values combinations. Live observation confirms target facts and
+live outcomes for a selected variant.
+
+Remaining gap: Arbitrary user values and wrapper overlays need managed import or
+a new base variant.
+
+### State lives in cluster secrets
+
+Root cause: Helm release history is stored as cluster state rather than a
+durable desired-state graph.
+
+Current proof or representation: Keep pinned rendered object sets, receipts,
+source locks, dependency locks, and package receipts outside Helm release state.
+Status: `partial-handoff`. Evidence: data/outcome-coverage/chart-outcomes.csv;
+data/runtime-gitops/summary.md; data/live-kind-parity/summary.md.
+
+Handoff: ConfigHub stores desired state, revisions, approvals, changesets,
+links, and operation receipts. Installer uploads reviewed objects as ConfigHub
+Units and package records. Live observation compares intended object sets with
+observed live resources.
+
+Remaining gap: Queryable operation history and authority are ConfigHub Server
+concerns, not helm-expt alone.
+
+### Failed upgrades wedge releases
+
+Root cause: Helm upgrade state and three-way merge can leave release state
+wedged or ambiguous.
+
+Current proof or representation: Compute upgrade and rollback diffs where
+represented; record simulation receipts and risk notes. Status: `partial`.
+Evidence: recipes/*/*/*/operations/*/*receipt.yaml;
+data/variant-path-coverage/coverage-matrix.csv.
+
+Handoff: ConfigHub operates on approved desired revisions with changesets and
+explicit rollback targets. Installer applies or uploads selected package bases
+rather than mutating Helm release state. Live observation checks convergence,
+drift, and stale live objects after upgrade paths.
+
+Remaining gap: Real upgrade/prune behavior and rollback semantics require live
+controller evidence.
+
+### CRD handling
+
+Root cause: Helm installs CRDs specially and does not manage CRD upgrades
+cleanly.
+
+Current proof or representation: Expose CRDs in object inventories, provide
+no-crds bases where useful, and flag CRD lifecycle risk. Status: `partial`.
+Evidence: data/hook-lifecycle/summary.md;
+data/outcome-coverage/feature-outcomes.csv; recipes/*/*/*/helm-pain-report.yaml.
+
+Handoff: ConfigHub gates CRD ownership and upgrade decisions before promotion.
+Installer packages CRD/no-CRD bases and preserves declared lifecycle policy.
+Live observation checks CRD presence, API availability, and webhook readiness.
+
+Remaining gap: CRD upgrade behavior remains an operator-reviewed lifecycle path.
+
+### Subchart and dependency hell
+
+Root cause: Umbrella charts, aliases, globals, and dependency closures hide
+where rendered objects come from.
+
+Current proof or representation: Record dependency locks and chart dossiers; add
+scanner axes for alias, import-values, and library charts. Status: `partial`.
+Evidence: recipes/*/*/*/dependency-lock.yaml; data/chart-facts/chart-facts.csv;
+docs/reference/quirk-coverage.md.
+
+Handoff: ConfigHub represents component relationships and cross-object links in
+the desired-state graph. Installer packages the reviewed dependency closure as
+the supported artifact. Live observation checks whether dependency-owned objects
+are healthy after apply.
+
+Remaining gap: Dependency aliases and import-values need stronger scanner
+coverage.
+
+### No field-level governance
+
+Root cause: Rendered YAML loses intent and field provenance unless captured at
+render time.
+
+Current proof or representation: Record value-source maps where available and
+recover field reachability into graph fragments. Status:
+`partial-strong-on-redis`. Evidence:
+recipes/bitnami/redis/25.5.3/value-source-map.yaml; data/edge-recovery/edges.csv.
+
+Handoff: ConfigHub uses Units, links, TransformPaths, functions, gates, and
+mutation sources for field-level control. Installer keeps package bases bounded
+and reviewed before upload. Live observation reports live drift at object/field
+level where supported.
+
+Remaining gap: Field-complete provenance is not yet available for every chart.
+
+### No native secrets story
+
+Root cause: Helm can generate or reference secrets, but GitOps and config stores
+need explicit secret handling policy.
+
+Current proof or representation: Classify generated facts and target facts;
+provide generated-secret and existing-secret bases. Status: `partial-known-gap`.
+Evidence: recipes/bitnami/redis/25.5.3/install-checks.yaml;
+data/outcome-coverage/feature-outcomes.csv;
+data/live-helm-confighub-compare/summary.md.
+
+Handoff: ConfigHub stores secret references, requirements, gates, and receipts
+rather than silently hiding credentials. Installer separates rendered Secrets
+from uploaded manifests where required and enforces externalRequires/preflight
+where available. Live observation checks required Secret presence and workload
+start success.
+
+Remaining gap: Secret delivery on GitOps paths needs hard gates and production
+policy.
+
+### Hooks are brittle
+
+Root cause: Helm hook resources depend on phase, ordering, cluster state, and
+delete policy outside plain desired YAML.
+
+Current proof or representation: Detect hook-bearing charts and classify
+lifecycle routes; do not claim hook execution from render parity. Status:
+`partial-doctrine`. Evidence: data/hook-lifecycle/top100-hooks.csv;
+docs/user/hook-lifecycle-strategy.md.
+
+Handoff: ConfigHub represents lifecycle actions, approvals, and receipts as
+explicit desired operations. Installer executes or hands off lifecycle steps
+only where the route is supported. Live observation checks post-hook resources,
+readiness, and failure conditions.
+
+Remaining gap: Hook execution receipts are not complete for the hook-bearing
+catalog.
+
+### Multi-environment promotion is DIY
+
+Root cause: Helm values files do not provide a durable variant model or
+promotion record.
+
+Current proof or representation: Provide named bases, variant diffs, promotion
+examples, and target-bound derived variant receipts. Status: `partial`.
+Evidence: docs/user/creating-variants.md;
+docs/user/prometheus-overlay-promotion-example.md;
+data/derived-variant-target-bound/summary.csv.
+
+Handoff: ConfigHub uses spaces, Units, labels, links, `cub variant create`,
+approvals, and changesets for derived variants. Installer supplies the reviewed
+base that derived variants clone or refine. Live observation checks each target
+after promotion.
+
+Remaining gap: High-fanout propagation and override-protection need a stronger
+demo.
+
+### GitOps impedance mismatch
+
+Root cause: Helm may render in different places, while GitOps controllers apply
+or re-render under their own context.
+
+Current proof or representation: Render once, publish signed/pinned object sets,
+and prove the render under a declared flag profile. Status: `partial-live-lane`.
+Evidence: data/runtime-gitops/summary.md;
+data/live-helm-confighub-compare/summary.md.
+
+Handoff: ConfigHub tracks desired revision and handoff target as managed state.
+Installer publishes/uploads package bases into ConfigHub/OCI paths. Live
+observation checks Argo/Flux sync and live object state.
+
+Remaining gap: Controller-specific live proof is not complete for every base
+variant.
+
+### History without diffs
+
+Root cause: Helm history records revisions but not durable object/field-level
+explanations.
+
+Current proof or representation: Store variant revisions, object inventories,
+diffs, receipts, and operation simulations. Status:
+`strong-static-partial-operational`. Evidence: recipes/*/*/*/diffs/*.yaml;
+recipes/*/*/*/revisions/*/r001/variant-revision.yaml.
+
+Handoff: ConfigHub provides queryable revision history, changesets, approvals,
+and diff views. Installer records package/action receipts. Live observation
+records observed live receipts against intended revisions.
+
+Remaining gap: Fleet-wide query and operation history belong in ConfigHub
+Server.
+
+### Templating language limits
+
+Root cause: Complex helper macros, tpl, raw manifests, and conditionals make
+behavior hard to audit.
+
+Current proof or representation: Surface tpl/raw/extension slots and keep
+supported bases bounded. Status: `partial`. Evidence:
+data/outcome-coverage/feature-outcomes.csv; recipes/*/*/*/helm-pain-report.yaml.
+
+Handoff: ConfigHub moves post-render customization to typed Units, links,
+functions, and views where possible. Installer rejects or gates unbounded
+extension slots for supported catalog entries. Live observation checks live
+effects of extension-derived objects.
+
+Remaining gap: Not every template-language feature is field-provenanced yet.
+
+### Dry-run does not match reality
+
+Root cause: Admission, defaulting, controllers, webhooks, and API availability
+affect stored/live state after render.
+
+Current proof or representation: Keep render proof separate from live proof and
+record target facts/capability profile. Status: `partial-live-dependent`.
+Evidence: docs/user/verification-lanes.md; data/live-kind-parity/summary.md;
+data/lifecycle-observations/cert-manager-eso/summary.md.
+
+Handoff: ConfigHub gates promotion on target facts, approvals, and observation
+policy. Installer runs preflight and target-fact collection where available.
+Live observation checks live state, freshness, API readiness, and workload
+health.
+
+Remaining gap: Admission/defaulting parity is target-specific and requires live
+observation.
+
+### Chart ownership and fork burden
+
+Root cause: Small local changes often force teams to fork charts or maintain
+fragile overlays.
+
+Current proof or representation: Route shape-changing changes to new bases and
+post-render changes to derived ConfigHub variants. Status:
+`partial-product-lane`. Evidence: docs/user/change-routing-before-oci.md;
+docs/user/custom-overlays.md; docs/user/creating-variants.md.
+
+Handoff: ConfigHub supports Creator flows, TransformPaths, functions, labels,
+links, and approvals over rendered Units. Installer provides maintained public
+and managed recipe bases. Live observation confirms the derived or promoted
+variant reached the target.
+
+Remaining gap: Creator UX and managed imports are product work beyond current
+static catalog proof.
 
 ## What To Read
 
