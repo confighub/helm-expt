@@ -13,7 +13,8 @@
 //
 // Sources: per-chart helm-pain-report.yaml (dispositions), the source-feature scan (hook types,
 // secret-generating funcs, webhooks), the variant dirs, the variant-backlog (what's recommended but
-// unbuilt), and the wave-results (why a variant was declined). Read-only; emits data/chart-facts/.
+// unbuilt), the wave-results (why a variant was declined), dependency locks, and the generated
+// remote dependency closure report. Read-only; emits data/chart-facts/.
 //
 //   node scripts/generate-chart-facts.mjs --generate
 //   node scripts/generate-chart-facts.mjs --verify
@@ -87,6 +88,85 @@ function loadWaveDeclines() {
   return map;
 }
 
+function parseCsvRows(text) {
+  const rows = [];
+  let row = [];
+  let cell = "";
+  let quoted = false;
+  for (let i = 0; i < text.length; i += 1) {
+    const char = text[i];
+    const next = text[i + 1];
+    if (quoted) {
+      if (char === "\"" && next === "\"") {
+        cell += "\"";
+        i += 1;
+      } else if (char === "\"") {
+        quoted = false;
+      } else {
+        cell += char;
+      }
+    } else if (char === "\"") {
+      quoted = true;
+    } else if (char === ",") {
+      row.push(cell);
+      cell = "";
+    } else if (char === "\n") {
+      row.push(cell);
+      rows.push(row);
+      row = [];
+      cell = "";
+    } else if (char !== "\r") {
+      cell += char;
+    }
+  }
+  row.push(cell);
+  rows.push(row);
+  return rows.filter((r) => r.length > 1 || r[0]);
+}
+
+function loadRemoteDependencyClosure() {
+  const path = join(repoRoot, "data", "remote-dependency-closure", "top100.csv");
+  const map = new Map();
+  if (!existsSync(path)) return map;
+  const rows = parseCsvRows(readFileSync(path, "utf8").trim());
+  const headers = rows[0] ?? [];
+  for (const cols of rows.slice(1)) {
+    const row = Object.fromEntries(headers.map((header, index) => [header, cols[index] ?? ""]));
+    for (const key of [row.modeled_chart_ref, row.chart].filter(Boolean)) {
+      if (!map.has(key)) map.set(key, row);
+    }
+  }
+  return map;
+}
+
+function loadDependencyLockFacts() {
+  const map = new Map();
+  const locks = listFiles(join(repoRoot, "recipes")).filter((file) => file.endsWith("/dependency-lock.yaml"));
+  for (const lockPath of locks) {
+    const doc = readYaml(lockPath);
+    const spec = doc.spec ?? {};
+    const key = `${spec.chart ?? ""}@${spec.version ?? ""}`;
+    if (!spec.chart || !spec.version) continue;
+    const dependencies = Array.isArray(spec.dependencies) ? spec.dependencies : [];
+    map.set(key, {
+      count: dependencies.length,
+      chartLockDigest: String(spec.chartLockDigest ?? ""),
+    });
+  }
+  return map;
+}
+
+function loadCurrentChartScope() {
+  const path = join(repoRoot, "data", "top100-catalog-analysis", "review.csv");
+  if (!existsSync(path)) return null;
+  const rows = parseCsvRows(readFileSync(path, "utf8").trim());
+  const headers = rows[0] ?? [];
+  return new Set(rows.slice(1).map((cols) => {
+    const row = Object.fromEntries(headers.map((header, index) => [header, cols[index] ?? ""]));
+    return `${row.chart}@${row.version}`;
+  }).filter((ref) => !ref.endsWith("@")));
+}
+
 // Classify an unbuilt recommended variant. "hard" = no solution/workaround yet (the real gap);
 // "soft" = a known build path exists, just not run yet; "na" = doesn't apply to this chart.
 function classifyGap(ref, variant, reason, secretsGen) {
@@ -139,6 +219,9 @@ function buildRows() {
   const scan = loadSourceScan();
   const backlog = loadBacklog();
   const declines = loadWaveDeclines();
+  const remoteClosure = loadRemoteDependencyClosure();
+  const dependencyLocks = loadDependencyLockFacts();
+  const currentChartScope = loadCurrentChartScope();
   const recipeFiles = listFiles(join(repoRoot, "recipes")).filter((f) => f.endsWith("/recipe.yaml")).sort();
 
   const rows = [];
@@ -148,7 +231,10 @@ function buildRows() {
     const parts = rel.split("/"); // recipes/<repo>/<chart>/<version>
     const ref = `${parts[1]}/${parts[2]}`;
     const version = parts[3];
+    if (currentChartScope && !currentChartScope.has(`${ref}@${version}`)) continue;
     const s = scan.get(ref);
+    const dependencyLock = dependencyLocks.get(`${ref}@${version}`);
+    const remoteDependency = remoteClosure.get(ref);
 
     const variants = existsSync(join(recipeRoot, "variants")) ? readdirSync(join(recipeRoot, "variants")).sort() : [];
     const hasVariant = (v) => variants.includes(v);
@@ -213,6 +299,10 @@ function buildRows() {
       install_vs_upgrade: scanHas(s, "releaseModeBranching") ? "yes — renders differ install vs upgrade" : "—",
       notes: scanHas(s, "notesFiles") ? "yes — NOTES.txt" : "—",
       extension_slots: extensionSlots ? "yes — per-use review" : "—",
+      dependency_lock: dependencyLockSummary(dependencyLock),
+      remote_dependency_risk: remoteDependencyRisk(remoteDependency),
+      dependency_range_policy: remoteDependency?.dependency_range_policy ?? "not-needed",
+      dependency_refresh_survival: remoteDependency?.refresh_survival_status ?? "—",
       variants_built: variants.join("+"),
       buildable_not_yet_run: buildableBacklog,
       not_yet_enabled: notYetEnabled,
@@ -221,17 +311,36 @@ function buildRows() {
   return rows;
 }
 
+function dependencyLockSummary(lock) {
+  if (!lock) return "missing";
+  const digest = lock.chartLockDigest ? "Chart.lock digest" : "no Chart.lock digest";
+  return lock.count > 0 ? `locked ${lock.count} deps; ${digest}` : `empty closure; ${digest}`;
+}
+
+function remoteDependencyRisk(row) {
+  if (!row) return "—";
+  const parts = [];
+  if (row.source_remote_repo_count && row.source_remote_repo_count !== "0") parts.push(`${row.source_remote_repo_count} remote repos`);
+  if (row.source_non_exact_constraints && row.source_non_exact_constraints !== "0") parts.push(`${row.source_non_exact_constraints} non-exact constraints`);
+  if (row.source_vendored_subcharts === "true") parts.push("vendored subcharts");
+  return parts.length ? parts.join("; ") : "—";
+}
+
 function render(rows) {
   const cols = [
     "chart", "version", "post_deploy_hooks", "other_hooks", "hook_status", "generates_secrets",
     "existing_secret", "crds", "no_crds_variant", "webhooks", "required_values", "values_schema",
-    "install_vs_upgrade", "notes", "extension_slots", "variants_built",
+    "install_vs_upgrade", "notes", "extension_slots", "dependency_lock", "remote_dependency_risk",
+    "dependency_range_policy", "dependency_refresh_survival", "variants_built",
     "buildable_not_yet_run", "not_yet_enabled",
   ];
   const csvOut = [cols.join(","), ...rows.map((r) => cols.map((c) => csv(r[c])).join(","))].join("\n") + "\n";
 
   const withGaps = rows.filter((r) => !r.not_yet_enabled.startsWith("—"));
   const buildable = rows.filter((r) => r.buildable_not_yet_run !== "—");
+  const remoteRiskRows = rows.filter((r) => r.remote_dependency_risk !== "—");
+  const frozenRangeRows = rows.filter((r) => r.dependency_range_policy === "freeze-to-chart-lock");
+  const chartLockDigestGaps = rows.filter((r) => /no Chart\.lock digest/.test(r.dependency_lock) && r.remote_dependency_risk !== "—");
   const tally = (re) => rows.filter((r) => re.test(r.not_yet_enabled)).length;
   const summary = `# Chart Facts — what each chart is, and what we can't yet easily enable
 
@@ -247,6 +356,9 @@ charts with a recipe:                       ${rows.length}
 no open gap (built or n/a; modeled L2):     ${rows.length - withGaps.length}
 charts with a hard gap (no workaround yet):  ${withGaps.length}
 charts with buildable backlog (path exists): ${buildable.length}
+charts with remote dependency risk surfaced: ${remoteRiskRows.length}
+non-exact dependency rows frozen to lock:    ${frozenRangeRows.length}
+remote-risk rows missing Chart.lock digest:  ${chartLockDigestGaps.length}
 \`\`\`
 
 ## What the hard gaps are (charts affected)
@@ -274,6 +386,10 @@ other hard gap:                                         ${withGaps.filter((r) =>
 | \`install_vs_upgrade\` | chart branches on \`.Release.IsInstall\`/\`.IsUpgrade\` — upgrade render differs from the captured install render |
 | \`notes\` | chart ships \`NOTES.txt\` post-install guidance |
 | \`extension_slots\` | open tpl / extraManifests injection points — safe to fill but need per-use review |
+| \`dependency_lock\` | whether the recipe records an empty or non-empty dependency closure, and whether a Chart.lock digest is recorded |
+| \`remote_dependency_risk\` | top-100 source-scan dependency risk: remote repositories, non-exact constraints, or vendored subcharts |
+| \`dependency_range_policy\` | how non-exact source dependency ranges are handled; \`freeze-to-chart-lock\` means install uses the committed lock |
+| \`dependency_refresh_survival\` | whether this dependency row is connected to the top-20 refresh-survival surface |
 | \`buildable_not_yet_run\` | recommended variants with a known build path, just not run through the generator yet |
 | \`not_yet_enabled\` | **the honest hard gap**: recommended capability with no solution/workaround yet, + reason |
 
@@ -300,7 +416,15 @@ const { csvOut, summary } = render(rows);
 const jsonPath = join(outDir, "chart-facts.json");
 const jsonOut =
   JSON.stringify(
-    Object.fromEntries(rows.map((r) => [r.chart, { version: r.version, not_yet_enabled: r.not_yet_enabled, buildable_not_yet_run: r.buildable_not_yet_run }])),
+    Object.fromEntries(rows.map((r) => [r.chart, {
+      version: r.version,
+      not_yet_enabled: r.not_yet_enabled,
+      buildable_not_yet_run: r.buildable_not_yet_run,
+      dependency_lock: r.dependency_lock,
+      remote_dependency_risk: r.remote_dependency_risk,
+      dependency_range_policy: r.dependency_range_policy,
+      dependency_refresh_survival: r.dependency_refresh_survival,
+    }])),
     null,
     2,
   ) + "\n";

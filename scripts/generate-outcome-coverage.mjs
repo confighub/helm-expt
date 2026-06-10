@@ -231,6 +231,10 @@ function featureRowsForChart(facts, model, hookReceipt) {
     ["install_vs_upgrade", facts.install_vs_upgrade],
     ["notes", facts.notes],
     ["extension_slots", facts.extension_slots],
+    ["dependency_lock", facts.dependency_lock],
+    ["remote_dependency_risk", facts.remote_dependency_risk],
+    ["dependency_range_policy", facts.dependency_range_policy],
+    ["dependency_refresh_survival", facts.dependency_refresh_survival],
     ["buildable_not_yet_run", facts.buildable_not_yet_run],
     ["not_yet_enabled", facts.not_yet_enabled],
   ];
@@ -271,6 +275,12 @@ function featureMeaning(feature, status, hookReceipt) {
   if (feature === "no_crds_variant") return "CRD ownership route status";
   if (feature === "webhooks" && /^\d+$/.test(text)) return `admission webhooks are present; count ${text}; raw count is in chart-facts.csv`;
   if (feature === "extension_slots") return "open extension slots require per-use review";
+  if (feature === "dependency_lock") return "recipe dependency closure and Chart.lock digest status";
+  if (feature === "remote_dependency_risk") return "source-scan dependency risk surfaced from remote-dependency-closure";
+  if (feature === "dependency_range_policy") return text === "freeze-to-chart-lock"
+    ? "install uses the committed dependency lock; range re-resolution belongs to refresh candidates"
+    : "dependency range policy status";
+  if (feature === "dependency_refresh_survival") return "dependency row is connected to refresh-survival evidence where available";
   return "tracked chart fact";
 }
 
@@ -397,6 +407,8 @@ function featureSummary(facts) {
   if (truthyStatus(facts.values_schema)) features.push("values-schema");
   if (truthyStatus(facts.install_vs_upgrade)) features.push("install-vs-upgrade");
   if (truthyStatus(facts.extension_slots)) features.push("extension-slots");
+  if (truthyStatus(facts.remote_dependency_risk)) features.push("remote-dependencies");
+  if (facts.dependency_range_policy === "freeze-to-chart-lock") features.push("dependency-range-frozen");
   return features.join(";") || "none-recorded";
 }
 

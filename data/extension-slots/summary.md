@@ -41,7 +41,7 @@ recipe/package proof artifacts.
 | `grafana/loki@7.0.0` | simple-scalable-minio+single-binary-filesystem | raw/extra manifests; Secret/env injection; tpl-powered values | tpl:controlled-by-empty-defaults |
 | `grafana/tempo@1.24.4` | local-persistent+s3-query-observability | volumes/mounts; tpl-powered values | extension-slots:controlled-by-empty-defaults |
 | `hashicorp/consul@2.0.0` | default-control-plane+secure-mesh-existing-secrets | controller/gateway config; tpl-powered values | extension-slots:controlled-by-empty-defaults |
-| `hashicorp/vault@0.32.0` | default+ha-raft-ui | sidecars; volumes/mounts; Secret/env injection | extension-slots:controlled-by-empty-defaults |
+| `hashicorp/vault@0.32.0` | default+dev-mode+ha-raft-ui | sidecars; volumes/mounts; Secret/env injection | extension-slots:controlled-by-empty-defaults |
 | `jetstack/cert-manager@v1.20.2` | crds-enabled+default | raw/extra manifests; tpl-powered values | tpl:controlled-by-empty-defaults |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default+no-crds | raw/extra manifests; monitoring config; tpl-powered values | tpl:controlled-by-empty-defaults |
 | `prometheus-community/prometheus@29.8.0` | default+server-only-ephemeral | raw/extra manifests; monitoring config | extension-slots:controlled-by-empty-defaults |

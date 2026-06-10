@@ -4837,7 +4837,7 @@
     {
       "chart": "hashicorp/vault@0.32.0",
       "catalog_scope": "top20-catalog",
-      "built_variants": "default+ha-raft-ui",
+      "built_variants": "default+dev-mode+ha-raft-ui",
       "extension_slot_status": "yes — per-use review",
       "control_point_status": "extension-slots:controlled-by-empty-defaults",
       "surfaces": "sidecars; volumes/mounts; Secret/env injection",
@@ -5147,7 +5147,7 @@
     {
       "chart": "external-dns/external-dns@1.21.1",
       "catalog_scope": "top100-proof",
-      "built_variants": "default+no-crds",
+      "built_variants": "default+dry-run-txt-registry+no-crds",
       "extension_slot_status": "yes — per-use review",
       "control_point_status": "tpl-extension-slots:source-signal-recorded",
       "surfaces": "tpl-powered values",

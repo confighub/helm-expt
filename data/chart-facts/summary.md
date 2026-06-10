@@ -11,7 +11,10 @@ haven't been run through the variant generator.
 charts with a recipe:                       100
 no open gap (built or n/a; modeled L2):     75
 charts with a hard gap (no workaround yet):  25
-charts with buildable backlog (path exists): 37
+charts with buildable backlog (path exists): 38
+charts with remote dependency risk surfaced: 18
+non-exact dependency rows frozen to lock:    4
+remote-risk rows missing Chart.lock digest:  11
 ```
 
 ## What the hard gaps are (charts affected)
@@ -39,6 +42,10 @@ other hard gap:                                         1
 | `install_vs_upgrade` | chart branches on `.Release.IsInstall`/`.IsUpgrade` — upgrade render differs from the captured install render |
 | `notes` | chart ships `NOTES.txt` post-install guidance |
 | `extension_slots` | open tpl / extraManifests injection points — safe to fill but need per-use review |
+| `dependency_lock` | whether the recipe records an empty or non-empty dependency closure, and whether a Chart.lock digest is recorded |
+| `remote_dependency_risk` | top-100 source-scan dependency risk: remote repositories, non-exact constraints, or vendored subcharts |
+| `dependency_range_policy` | how non-exact source dependency ranges are handled; `freeze-to-chart-lock` means install uses the committed lock |
+| `dependency_refresh_survival` | whether this dependency row is connected to the top-20 refresh-survival surface |
 | `buildable_not_yet_run` | recommended variants with a known build path, just not run through the generator yet |
 | `not_yet_enabled` | **the honest hard gap**: recommended capability with no solution/workaround yet, + reason |
 
