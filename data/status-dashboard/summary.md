@@ -106,6 +106,21 @@ evidence work before it becomes production-supported for a target scope.
 | --- | ---: | --- |
 | model-or-stage-first | 6 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 
+### Active Proof Queue
+
+These are the current live parity rows where another run is not the first useful
+step. Each row points at the support artifact that explains the prerequisite,
+lifecycle route, target fit, or operating policy.
+
+| Chart | Base | Result | Next step | Support artifact |
+| --- | --- | --- | --- | --- |
+| grafana/tempo@1.24.4 | s3-query-observability | blocked | stage-prerequisite | [recipes/grafana/tempo/1.24.4/target-prerequisite-plan.yaml](../../recipes/grafana/tempo/1.24.4/target-prerequisite-plan.yaml) |
+| hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | blocked | target-fit-review | [recipes/hashicorp/consul/2.0.0/target-topology.yaml](../../recipes/hashicorp/consul/2.0.0/target-topology.yaml) |
+| hashicorp/vault@0.32.0 | default | blocked | operating-policy | [recipes/hashicorp/vault/0.32.0/operating-policy.yaml](../../recipes/hashicorp/vault/0.32.0/operating-policy.yaml) |
+| hashicorp/vault@0.32.0 | ha-raft-ui | blocked | target-fit-review | [recipes/hashicorp/vault/0.32.0/operating-policy.yaml](../../recipes/hashicorp/vault/0.32.0/operating-policy.yaml) |
+| metrics-server/metrics-server@3.13.0 | external-tls-ca | blocked | stage-prerequisite | [recipes/metrics-server/metrics-server/3.13.0/target-prerequisite-plan.yaml](../../recipes/metrics-server/metrics-server/3.13.0/target-prerequisite-plan.yaml) |
+| ingress-nginx/ingress-nginx@4.15.1 | default | watch | lifecycle-route | [recipes/ingress-nginx/ingress-nginx/4.15.1/lifecycle-policy.yaml](../../recipes/ingress-nginx/ingress-nginx/4.15.1/lifecycle-policy.yaml) |
+
 ### Hook And Lifecycle Work
 
 | Queue | Rows | Next action |
@@ -114,7 +129,8 @@ evidence work before it becomes production-supported for a target scope.
 | Hook-bearing rows observed | 0 | Keep receipt freshness current when the supported target changes. |
 | Related CRD/webhook/controller observations | 4 | Use these as examples for hook-like lifecycle proof, not as universal hook support. |
 
-Spreadsheet form: [next-work-queues.csv](next-work-queues.csv).
+Spreadsheet forms: [next-work-queues.csv](next-work-queues.csv) and
+[active-proof-queue.csv](active-proof-queue.csv).
 
 ## Top100 Readiness
 

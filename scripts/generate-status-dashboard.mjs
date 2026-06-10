@@ -11,6 +11,7 @@ const summaryPath = join(outDir, "summary.md");
 const csvPath = join(outDir, "status.csv");
 const top20Path = join(outDir, "top20-status.csv");
 const nextWorkQueuesPath = join(outDir, "next-work-queues.csv");
+const activeProofQueuePath = join(outDir, "active-proof-queue.csv");
 
 if (mode === "--generate") {
   const report = buildReport();
@@ -18,6 +19,7 @@ if (mode === "--generate") {
   write(csvPath, report.csv);
   write(top20Path, report.top20Csv);
   write(nextWorkQueuesPath, report.nextWorkQueuesCsv);
+  write(activeProofQueuePath, report.activeProofQueueCsv);
   console.log("wrote status dashboard");
 } else if (mode === "--verify") {
   const report = buildReport();
@@ -25,10 +27,12 @@ if (mode === "--generate") {
   check(existsSync(csvPath), "data/status-dashboard/status.csv is missing; run npm run status:dashboard");
   check(existsSync(top20Path), "data/status-dashboard/top20-status.csv is missing; run npm run status:dashboard");
   check(existsSync(nextWorkQueuesPath), "data/status-dashboard/next-work-queues.csv is missing; run npm run status:dashboard");
+  check(existsSync(activeProofQueuePath), "data/status-dashboard/active-proof-queue.csv is missing; run npm run status:dashboard");
   check(readFileSync(summaryPath, "utf8") === report.summary, "data/status-dashboard/summary.md is stale; run npm run status:dashboard");
   check(readFileSync(csvPath, "utf8") === report.csv, "data/status-dashboard/status.csv is stale; run npm run status:dashboard");
   check(readFileSync(top20Path, "utf8") === report.top20Csv, "data/status-dashboard/top20-status.csv is stale; run npm run status:dashboard");
   check(readFileSync(nextWorkQueuesPath, "utf8") === report.nextWorkQueuesCsv, "data/status-dashboard/next-work-queues.csv is stale; run npm run status:dashboard");
+  check(readFileSync(activeProofQueuePath, "utf8") === report.activeProofQueueCsv, "data/status-dashboard/active-proof-queue.csv is stale; run npm run status:dashboard");
   console.log(`verified status dashboard for ${report.rows.length} metric(s)`);
 } else {
   console.log(`Usage:
@@ -137,6 +141,7 @@ function buildReport() {
   const chartByName = new Map(chartRows.map((row) => [row.chart, row]));
   const top20Rows = top20StatusRows(top100Rows, chartByName, top20BaseReadinessRows, productionSupportDecisionRows);
   const nextWorkQueues = nextWorkQueueRows({ top100Rows, hookRows, lifecycleObservationRows, liveParityRerunRows, productionSupportDecisionRows });
+  const activeProofQueue = activeProofQueueRows(liveParityRerunRows);
   return {
     rows,
     csv: toCsv(rows),
@@ -144,7 +149,9 @@ function buildReport() {
     top20Csv: top20ToCsv(top20Rows),
     nextWorkQueues,
     nextWorkQueuesCsv: nextWorkQueuesToCsv(nextWorkQueues),
-    summary: summary(rows, { chartRows, baseRows, top100Rows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, lifecycleBoundaryRows, lifecycleObservationRows, edgeRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, productionSupportDecisionRows, scanDispositionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues }),
+    activeProofQueue,
+    activeProofQueueCsv: activeProofQueueToCsv(activeProofQueue),
+    summary: summary(rows, { chartRows, baseRows, top100Rows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, lifecycleBoundaryRows, lifecycleObservationRows, edgeRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, productionSupportDecisionRows, scanDispositionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues, activeProofQueue }),
   };
 }
 
@@ -218,13 +225,24 @@ ${productionWorkstreams}
 | --- | ---: | --- |
 ${liveParityWorkQueues}
 
+### Active Proof Queue
+
+These are the current live parity rows where another run is not the first useful
+step. Each row points at the support artifact that explains the prerequisite,
+lifecycle route, target fit, or operating policy.
+
+| Chart | Base | Result | Next step | Support artifact |
+| --- | --- | --- | --- | --- |
+${activeProofQueueMarkdown(context.activeProofQueue)}
+
 ### Hook And Lifecycle Work
 
 | Queue | Rows | Next action |
 | --- | ---: | --- |
 ${hookWorkQueueRows}
 
-Spreadsheet form: [next-work-queues.csv](next-work-queues.csv).
+Spreadsheet forms: [next-work-queues.csv](next-work-queues.csv) and
+[active-proof-queue.csv](active-proof-queue.csv).
 
 ## Top100 Readiness
 
@@ -828,8 +846,32 @@ function nextWorkQueueMarkdown(rows, section, label) {
     .join("\n") || `| none | 0 | No current ${label} rows. |`;
 }
 
+function activeProofQueueRows(rows) {
+  return rows.map((row) => ({
+    chart: `${row.chart}@${row.version}`,
+    base: row.base,
+    current_result: row.current_result,
+    next_step_type: row.next_step_type,
+    reason: row.reason,
+    support_artifact: row.support_artifact,
+    receipt: row.receipt,
+    rerun_command: row.rerun_command,
+  }));
+}
+
+function activeProofQueueMarkdown(rows) {
+  return rows
+    .map((row) => `| ${row.chart} | ${row.base} | ${row.current_result} | ${row.next_step_type} | [${row.support_artifact}](../../${row.support_artifact}) |`)
+    .join("\n") || "| none | - | - | - | - |";
+}
+
 function nextWorkQueuesToCsv(rows) {
   const headers = ["section", "item_type", "item", "count", "next_action", "source", "detail"];
+  return `${headers.join(",")}\n${rows.map((row) => headers.map((header) => csvCell(row[header] ?? "")).join(",")).join("\n")}\n`;
+}
+
+function activeProofQueueToCsv(rows) {
+  const headers = ["chart", "base", "current_result", "next_step_type", "reason", "support_artifact", "receipt", "rerun_command"];
   return `${headers.join(",")}\n${rows.map((row) => headers.map((header) => csvCell(row[header] ?? "")).join(",")).join("\n")}\n`;
 }
 
