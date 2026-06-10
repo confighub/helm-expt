@@ -41,7 +41,7 @@ user-shaped-variant: 46
 
 | File | Use |
 | --- | --- |
-| `data/top100-readiness/next80-queues.csv` | Spreadsheet-ready next80 action queue. |
+| `data/top100-readiness/next80-queues.csv` | Spreadsheet-ready next80 action queue, including source features, package path, and per-chart pain report. |
 | `data/top100-readiness/readiness.csv` | Full top100 row data. |
 | `data/top100-readiness/summary.md` | Aggregate top100 readiness view. |
 | `data/outcome-coverage/base-outcomes.csv` | Per-base proof lane details. |

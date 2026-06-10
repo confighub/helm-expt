@@ -50,6 +50,7 @@ function buildReport() {
     const workability = workabilityFor(status.userStatus);
     return {
       proof_surface_rank: top100.proof_surface_rank,
+      top500_rank: top100.top500_rank || "",
       chart: key,
       catalog_tier: top100.proof_surface,
       workability,
@@ -64,11 +65,14 @@ function buildReport() {
       gitops_live: countText(outcome.gitops_live_pass, outcome.base_rows),
       live_parity: countText(outcome.live_parity_pass, outcome.base_rows),
       hard_gap: shortGap(outcome.hard_gap || top100.not_yet_enabled),
+      source_features: top100.source_features || "",
       next_action: status.nextAction,
       next_action_source: status.nextActionSource,
       next_action_receipt: status.nextActionReceipt,
       recipe_path: top100.recipe_path,
+      package_path: top100.package_path,
       catalog_path: top100.catalog_path,
+      helm_pain_report: top100.helm_pain_report,
     };
   });
   const missingProductionRows = rows
@@ -296,20 +300,25 @@ function next80QueueRows(rows) {
       const queue = next80QueueFor(row);
       return {
         queue,
-        priority: queueOrder[queue],
+        queue_priority: queueOrder[queue],
+        proof_surface_rank: row.proof_surface_rank,
+        top500_rank: row.top500_rank,
         chart: row.chart,
         variants: row.variants,
         variant_count: row.variant_count,
         strongest_evidence: row.strongest_evidence,
         hard_gap: row.hard_gap,
+        source_features: row.source_features,
         next_action: row.next_action,
         first_step: next80FirstStep(queue),
         catalog_path: row.catalog_path,
         recipe_path: row.recipe_path,
+        package_path: row.package_path,
+        helm_pain_report: row.helm_pain_report,
       };
     })
     .sort((left, right) =>
-      Number(left.priority) - Number(right.priority)
+      Number(left.queue_priority) - Number(right.queue_priority)
       || Number(chartRank(left.chart, rows)) - Number(chartRank(right.chart, rows))
       || left.chart.localeCompare(right.chart),
     );
@@ -378,7 +387,7 @@ ${["promotion-review", "limitation-review", "user-shaped-variant"].map((queue) =
 
 | File | Use |
 | --- | --- |
-| \`data/top100-readiness/next80-queues.csv\` | Spreadsheet-ready next80 action queue. |
+| \`data/top100-readiness/next80-queues.csv\` | Spreadsheet-ready next80 action queue, including source features, package path, and per-chart pain report. |
 | \`data/top100-readiness/readiness.csv\` | Full top100 row data. |
 | \`data/top100-readiness/summary.md\` | Aggregate top100 readiness view. |
 | \`data/outcome-coverage/base-outcomes.csv\` | Per-base proof lane details. |
