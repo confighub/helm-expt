@@ -12,6 +12,7 @@ const readmePath = join(siteRoot, "README.md");
 const top100Path = join(repoRoot, "data", "top100-catalog-analysis", "raw.json");
 const top500Path = join(repoRoot, "data", "top500-catalog-analysis", "raw.json");
 const latestReadinessPath = join(repoRoot, "data", "latest-top20-refresh", "promotion-readiness.csv");
+const latestReplacementDecisionsPath = join(repoRoot, "data", "latest-top20-refresh", "replacement-decisions", "decisions.csv");
 const runtimeWavePath = join(repoRoot, "data", "runtime-gitops", "wave1.csv");
 const imageDigestSubjectsPath = join(repoRoot, "data", "image-digest-workdown", "all-subjects.csv");
 const nextTenGapsPath = join(repoRoot, "data", "next-ten-waves", "gap-review-wave.csv");
@@ -61,6 +62,9 @@ function buildSite() {
   const top100 = JSON.parse(readFileSync(top100Path, "utf8"));
   const top500 = JSON.parse(readFileSync(top500Path, "utf8"));
   const readiness = parseCsv(readFileSync(latestReadinessPath, "utf8"));
+  const latestReplacementDecisions = existsSync(latestReplacementDecisionsPath)
+    ? parseCsv(readFileSync(latestReplacementDecisionsPath, "utf8"))
+    : [];
   const runtimeWave = parseCsv(readFileSync(runtimeWavePath, "utf8"));
   const imageSubjects = parseCsv(readFileSync(imageDigestSubjectsPath, "utf8"));
   const nextTenGaps = parseCsv(readFileSync(nextTenGapsPath, "utf8"));
@@ -95,19 +99,33 @@ function buildSite() {
       };
     });
   const proofGrade = top100.entries.filter((entry) => entry.proof_surface === "next80-proof-grade");
-  const latestCandidates = readiness.map((row) => ({
-    chart: row.chart,
-    currentVersion: row.current_version,
-    candidateVersion: row.candidate_version,
-    readiness: row.promotion_readiness,
-    nextAction: row.next_action,
-  }));
+  const replacementByChart = new Map(latestReplacementDecisions.map((row) => [row.chart, row]));
+  const latestCandidates = refreshSurvival
+    .filter((row) => row.refresh_state === "upstream-update-candidate")
+    .map((row) => {
+      const replacement = replacementByChart.get(row.chart);
+      const replacementDecision =
+        replacement?.candidate_freshness === "latest-upstream-aligned"
+          ? replacement.replacement_decision
+          : replacement?.candidate_freshness === "superseded-by-newer-upstream"
+            ? "refresh-candidate-first"
+            : "no-candidate-yet";
+      return {
+        chart: row.chart,
+        currentVersion: row.current_version,
+        candidateVersion: row.latest_version,
+        proofStatus: row.candidate_proof,
+        replacementDecision,
+        nextAction: row.next_action,
+      };
+    });
   const catalog = {
     generatedBy: "scripts/generate-public-site.mjs",
     source: {
       top100: "data/top100-catalog-analysis/raw.json",
       top500: "data/top500-catalog-analysis/raw.json",
-      latestCandidates: "data/latest-top20-refresh/promotion-readiness.csv",
+      latestCandidates: "data/refresh-survival/refreshes.csv",
+      latestReplacementDecisions: "data/latest-top20-refresh/replacement-decisions/decisions.csv",
       runtimeWave: "data/runtime-gitops/wave1.csv",
       imageDigestSubjects: "data/image-digest-workdown/all-subjects.csv",
       nextTenGaps: "data/next-ten-waves/gap-review-wave.csv",
@@ -146,7 +164,8 @@ function buildSite() {
       top100CoverageDecisionQueue: top100CoverageQueueCounts["limitation-decision"] ?? 0,
       refreshCurrentRows: refreshSurvival.filter((row) => row.refresh_state === "current-proof-still-current").length,
       refreshUpdateCandidates: refreshSurvival.filter((row) => row.refresh_state === "upstream-update-candidate").length,
-      refreshCandidatesWithRenderProof: refreshSurvival.filter((row) => row.candidate_proof === "candidate-render-proof-present").length,
+      refreshCandidatesWithProof: refreshSurvival.filter((row) => row.candidate_proof.includes("proof")).length,
+      latestCandidatesAwaitingReplacementDecision: latestCandidates.filter((row) => row.replacementDecision === "not-decided").length,
       top100ChartsWithLiveEvidence: top100ReadinessWithSupport.filter((row) =>
         ["live-helm-vs-confighub-parity", "gitops-oci-live", "local-kubernetes-live", "two-cluster-kind-parity"].includes(row.strongest_evidence),
       ).length,
@@ -571,11 +590,12 @@ function html(catalog) {
 
     <section aria-labelledby="latest">
       <h2 id="latest">Latest-Version Candidates</h2>
-      <p>New upstream versions are candidates until their ConfigHub proof, live e2e, catalog status, production disposition, top-100, and top-500 lanes are regenerated.</p>
+      <p>New upstream versions are tracked separately from supported catalog versions. Some rows have proof-complete retained candidates; some retained candidates have already been superseded by newer upstream releases; some rows need a new candidate first. No row replaces a pinned supported version until a target-scoped replacement decision records whether to replace, defer, or keep both versions.</p>
       ${markdownLikeTable([
-        ["Chart", "Supported", "Candidate", "Status"],
-        ...catalog.latestCandidates.map((row) => [row.chart, row.currentVersion, row.candidateVersion, row.readiness]),
+        ["Chart", "Supported", "Latest upstream", "Candidate proof", "Replacement decision"],
+        ...catalog.latestCandidates.map((row) => [row.chart, row.currentVersion, row.candidateVersion, row.proofStatus, row.replacementDecision]),
       ])}
+      <p><a href="../data/refresh-survival/summary.md">Open the refresh survival report</a> or <a href="../data/latest-top20-refresh/replacement-decisions/summary.md">open the retained candidate replacement-decision queue</a>.</p>
     </section>
 
     <section aria-labelledby="variants">
@@ -627,6 +647,7 @@ function html(catalog) {
         <li><a href="../data/refresh-survival/summary.md">Refresh survival and upgrade seed</a></li>
         <li><a href="../data/latest-top20-refresh/promotion-readiness.md">Latest candidate promotion readiness</a></li>
         <li><a href="../data/latest-top20-refresh/promotion-work-orders.md">Latest candidate promotion work orders</a></li>
+        <li><a href="../data/latest-top20-refresh/replacement-decisions/summary.md">Latest candidate replacement decisions</a></li>
         <li><a href="../data/runtime-gitops/summary.md">Runtime/GitOps first wave</a></li>
         <li><a href="../data/image-digest-workdown/summary.md">Image digest workdown</a></li>
         <li><a href="../data/scan-disposition-workdown/summary.md">Scan disposition workdown</a></li>

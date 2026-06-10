@@ -47,7 +47,7 @@ function buildReport() {
       generatedBy: "scripts/generate-latest-candidate-production-disposition.mjs",
     },
     spec: {
-      claim: "latest-version candidates have proof lanes recorded, but are not production-supported until target-scoped support decisions are made",
+      claim: "retained update candidates have proof lanes recorded, but are not production-supported until target-scoped support decisions are made",
       rows: rows.map((row) => ({
         chart: row.chart,
         currentVersion: row.current_version,
@@ -158,9 +158,10 @@ function toSummary(rows) {
     (row) =>
       `| \`${row.chart}@${row.candidate_version}\` | ${row.primary_base} | ${row.proof_status} | ${row.production_support_status} | ${splitList(row.decision_topics).length} | ${row.scan_gate} | ${row.next_action} |`,
   );
-  return `# Latest Candidate Production Disposition
+  return `# Retained Candidate Production Disposition
 
-This report records the production boundary for latest-version candidates.
+This report records the production boundary for retained proof-complete update
+candidates.
 
 It does not promote these versions and does not claim production support. It
 states that the candidate proof lanes are present, then lists the decision

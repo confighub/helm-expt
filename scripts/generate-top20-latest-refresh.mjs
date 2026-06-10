@@ -9,6 +9,7 @@ const inputPath = join(repoRoot, "data", "production-disposition", "top20.csv");
 const outputRoot = join(repoRoot, "data", "latest-top20-refresh");
 const reviewPath = join(outputRoot, "review.csv");
 const summaryPath = join(outputRoot, "summary.md");
+const promotionReadinessPath = join(outputRoot, "promotion-readiness.csv");
 const args = process.argv.slice(2);
 const mode = args[0] ?? "--generate";
 
@@ -24,11 +25,17 @@ if (mode === "--generate") {
 
 function generate() {
   const rows = readTop20();
+  const promotionReadiness = existsSync(promotionReadinessPath)
+    ? new Map(parseCsv(readFileSync(promotionReadinessPath, "utf8")).map((row) => [row.chart, row]))
+    : new Map();
   const helmVersion = command("helm", ["version", "--short"]).trim();
   const generatedAt = new Date().toISOString();
   const reviewed = rows.map((row, index) => {
     const latest = latestChartVersion(row.chart);
     const status = row.version === latest ? "current" : "update-available";
+    const readiness = promotionReadiness.get(row.chart);
+    const proofComplete = readiness?.candidate_version === latest && readiness?.catalog_promotion === "root-path-present";
+    const retainedCandidateSuperseded = readiness && readiness.candidate_version !== latest;
     return {
       rank: index + 1,
       chart: row.chart,
@@ -41,7 +48,11 @@ function generate() {
       nextAction:
         status === "current"
           ? "keep current proof; deepen variants or production disposition"
-          : "create new recipe/package version and rerun proof chain before catalog promotion",
+          : proofComplete
+            ? "write target-scoped replacement decision before changing catalog support"
+            : retainedCandidateSuperseded
+              ? `refresh candidate from retained ${readiness.candidate_version} proof to latest ${latest} before replacement decision`
+              : "create new recipe/package version and rerun proof chain before catalog promotion",
     };
   });
 
@@ -91,11 +102,22 @@ function command(name, commandArgs) {
 function summary(rows, { generatedAt, helmVersion }) {
   const current = rows.filter((row) => row.status === "current");
   const updates = rows.filter((row) => row.status === "update-available");
+  const replacementDecisionReady = updates.filter((row) => row.nextAction === "write target-scoped replacement decision before changing catalog support");
+  const supersededRetainedCandidates = updates.filter((row) => row.nextAction.startsWith("refresh candidate from retained"));
+  const noCandidateYet = updates.length - replacementDecisionReady.length - supersededRetainedCandidates.length;
   const candidateStatusPath = join(outputRoot, "candidates", "candidate-status.csv");
+  const replacementDecisionPath = join(outputRoot, "replacement-decisions", "summary.md");
   const candidateSection = existsSync(candidateStatusPath)
     ? `## Candidate Proofs
 
-The six update candidates now have generated candidate artifacts under:
+The retained update candidates have proof-complete root paths under:
+
+\`\`\`text
+recipes/
+packages/
+\`\`\`
+
+The retained candidate source artifacts remain under:
 
 \`\`\`text
 data/latest-top20-refresh/candidates/
@@ -105,16 +127,31 @@ Verify them with:
 
 \`\`\`sh
 npm run top20:latest-candidates:verify
+npm run top20:latest-promote-root-paths:verify
 npm run top20:latest-promotion-readiness:verify
+npm run top20:latest-replacement-decisions:verify
 \`\`\`
 
-These candidate proofs show that the latest chart versions can still pass the
-recipe/package/render/compare lane. They are not catalog-supported replacements
-until ConfigHub proof receipts, live e2e receipts, catalog status, production
-disposition, and top-100/top-500 outputs are regenerated.
+Some retained candidates may already be behind the latest upstream chart
+version. For those rows, refresh the candidate before making a replacement
+decision. For rows where the retained candidate still matches the latest
+upstream version, the proof shows that the candidate has its own recipe/package
+paths, rendered objects, Helm-equivalence evidence, ConfigHub proof receipts,
+live e2e receipts, live parity receipts, production-disposition boundary,
+catalog status, and top-100/top-500 refresh coverage.
 
-The promotion-readiness output records that the candidate artifacts are complete
-and lists the remaining lanes before any public catalog row can move.
+They are still not catalog-supported replacements. The next step is a
+target-scoped replacement decision that chooses whether to replace, defer, or
+keep both versions.
+
+${existsSync(replacementDecisionPath) ? "The replacement-decision queue records that final review surface.\n" : ""}
+
+\`\`\`text
+update rows: ${updates.length}
+replacement-decision-ready candidates: ${replacementDecisionReady.length}
+retained candidates superseded by newer upstream versions: ${supersededRetainedCandidates.length}
+update rows without a retained candidate: ${noCandidateYet}
+\`\`\`
 
 `
     : "";
@@ -164,12 +201,11 @@ to the latest chart version.
 ${candidateSection}
 ## Next Work
 
-1. Re-run ConfigHub upload, function scan, safe-ops, server-side variant, and
-   live e2e proof lanes.
-2. Re-run catalog status, production disposition, root catalog, top-100, and
-   top-500 analysis after the new versions are promoted.
+1. Write or accept a target-scoped replacement decision for each candidate.
+2. If replacement is accepted, update the production support decision and
+   catalog-supported state for that target scope.
 3. Keep the previous chart version available for legacy patch and rollback
-   review until the new version is production-dispositioned.
+   review even after a newer version is accepted.
 `;
 }
 

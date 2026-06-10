@@ -48,20 +48,25 @@ function buildReport() {
     const candidate = candidateByChart.get(row.chart);
     const readiness = readinessByChart.get(row.chart);
     const refreshState = row.status === "current" ? "current-proof-still-current" : "upstream-update-candidate";
+    const candidateMatchesLatest = candidate?.latest_version === row.latest_version;
     const candidateProof =
-      candidate && readiness?.catalog_promotion === "root-path-present"
+      candidate && !candidateMatchesLatest
+        ? "candidate-superseded-by-newer-upstream"
+        : candidate && readiness?.catalog_promotion === "root-path-present"
         ? "candidate-proof-complete-root-path-present"
         : candidate
           ? "candidate-render-proof-present"
           : row.status === "current"
             ? "not-needed"
             : "missing";
-    const catalogState = readiness?.catalog_promotion ?? "current-catalog-path";
+    const catalogState = readiness?.catalog_promotion ?? (row.status === "current" ? "current-catalog-path" : "not-promoted");
     const promotionState = readiness?.promotion_readiness ?? (row.status === "current" ? "current-supported-version" : "missing");
     const liveState = candidate ? "not-yet-live-promoted" : row.status === "current" ? "current-supported-version" : "missing";
     const route =
       row.status === "current"
         ? "keep current catalog proof; refresh on next upstream movement"
+        : candidate && !candidateMatchesLatest
+          ? `refresh retained candidate ${candidate.latest_version} to latest upstream ${row.latest_version} before replacement decision`
         : readiness?.catalog_promotion === "root-path-present"
           ? "review target-scoped production support decision before replacing the supported version"
           : "run ConfigHub proof, live e2e, production disposition, catalog, top100, and top500 lanes before replacement";
@@ -86,6 +91,7 @@ function buildReport() {
   const currentRows = rows.filter((row) => row.refresh_state === "current-proof-still-current");
   const candidateProofs = updateCandidates.filter((row) => row.candidate_proof === "candidate-render-proof-present");
   const proofCompleteRootPaths = updateCandidates.filter((row) => row.candidate_proof === "candidate-proof-complete-root-path-present");
+  const supersededCandidates = updateCandidates.filter((row) => row.candidate_proof === "candidate-superseded-by-newer-upstream");
   const notPromoted = updateCandidates.filter((row) => row.catalog_state === "not-promoted");
   const kps = rows.find((row) => row.chart === "prometheus-community/kube-prometheus-stack");
   check(kps, "missing kube-prometheus-stack row in latest refresh");
@@ -94,12 +100,12 @@ function buildReport() {
     rows,
     updateCandidates,
     csv: csv(rows),
-    summary: summary({ rows, currentRows, updateCandidates, candidateProofs, proofCompleteRootPaths, notPromoted }),
+    summary: summary({ rows, currentRows, updateCandidates, candidateProofs, proofCompleteRootPaths, supersededCandidates, notPromoted }),
     kpsSeed: kpsUpgradeSeed(kps),
   };
 }
 
-function summary({ rows, currentRows, updateCandidates, candidateProofs, proofCompleteRootPaths, notPromoted }) {
+function summary({ rows, currentRows, updateCandidates, candidateProofs, proofCompleteRootPaths, supersededCandidates, notPromoted }) {
   return `# Refresh Survival
 
 This generated report shows whether the catalog survives upstream Helm chart
@@ -118,6 +124,7 @@ Current chart proofs: ${currentRows.length} / ${rows.length}
 Upstream update candidates: ${updateCandidates.length} / ${rows.length}
 Candidates with render-only proof: ${candidateProofs.length} / ${updateCandidates.length}
 Candidates with proof-complete root paths: ${proofCompleteRootPaths.length} / ${updateCandidates.length}
+Retained candidates superseded by newer upstream versions: ${supersededCandidates.length} / ${updateCandidates.length}
 Candidates without root paths: ${notPromoted.length} / ${updateCandidates.length}
 \`\`\`
 

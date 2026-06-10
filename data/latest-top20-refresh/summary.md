@@ -1,6 +1,6 @@
 # Latest Top-20 Refresh
 
-Generated: 2026-06-03T08:38:14.910Z
+Generated: 2026-06-10T13:19:58.339Z
 
 Helm client: `v4.1.4+g05fa379`
 
@@ -10,20 +10,21 @@ latest versions available from the configured Helm repositories.
 ## Result
 
 ```text
-Current chart proofs: 14 / 20
-Update candidates: 6 / 20
+Current chart proofs: 13 / 20
+Update candidates: 7 / 20
 ```
 
 ## Update Candidates
 
 | Rank | Chart | Current proof | Latest chart | Next action |
 | ---: | --- | --- | --- | --- |
-| 1 | `argo-cd/argo-cd` | `9.5.15` | `9.5.17` | create new recipe/package version and rerun proof chain before catalog promotion |
-| 2 | `bitnami/mongodb` | `19.0.7` | `19.0.9` | create new recipe/package version and rerun proof chain before catalog promotion |
-| 4 | `bitnami/nginx` | `24.0.2` | `24.0.4` | create new recipe/package version and rerun proof chain before catalog promotion |
-| 5 | `bitnami/postgresql` | `18.6.7` | `18.6.10` | create new recipe/package version and rerun proof chain before catalog promotion |
-| 18 | `prometheus-community/kube-prometheus-stack` | `85.3.3` | `86.1.0` | create new recipe/package version and rerun proof chain before catalog promotion |
-| 19 | `prometheus-community/prometheus` | `29.8.0` | `29.9.0` | create new recipe/package version and rerun proof chain before catalog promotion |
+| 1 | `argo-cd/argo-cd` | `9.5.15` | `9.5.17` | write target-scoped replacement decision before changing catalog support |
+| 2 | `bitnami/mongodb` | `19.0.7` | `19.1.0` | refresh candidate from retained 19.0.9 proof to latest 19.1.0 before replacement decision |
+| 4 | `bitnami/nginx` | `24.0.2` | `25.0.0` | refresh candidate from retained 24.0.4 proof to latest 25.0.0 before replacement decision |
+| 5 | `bitnami/postgresql` | `18.6.7` | `18.7.0` | refresh candidate from retained 18.6.10 proof to latest 18.7.0 before replacement decision |
+| 7 | `bitnami/redis` | `25.5.3` | `27.0.0` | create new recipe/package version and rerun proof chain before catalog promotion |
+| 18 | `prometheus-community/kube-prometheus-stack` | `85.3.3` | `86.1.0` | write target-scoped replacement decision before changing catalog support |
+| 19 | `prometheus-community/prometheus` | `29.8.0` | `29.9.0` | write target-scoped replacement decision before changing catalog support |
 
 ## Doctrine
 
@@ -38,7 +39,14 @@ to the latest chart version.
 
 ## Candidate Proofs
 
-The six update candidates now have generated candidate artifacts under:
+The retained update candidates have proof-complete root paths under:
+
+```text
+recipes/
+packages/
+```
+
+The retained candidate source artifacts remain under:
 
 ```text
 data/latest-top20-refresh/candidates/
@@ -48,23 +56,38 @@ Verify them with:
 
 ```sh
 npm run top20:latest-candidates:verify
+npm run top20:latest-promote-root-paths:verify
 npm run top20:latest-promotion-readiness:verify
+npm run top20:latest-replacement-decisions:verify
 ```
 
-These candidate proofs show that the latest chart versions can still pass the
-recipe/package/render/compare lane. They are not catalog-supported replacements
-until ConfigHub proof receipts, live e2e receipts, catalog status, production
-disposition, and top-100/top-500 outputs are regenerated.
+Some retained candidates may already be behind the latest upstream chart
+version. For those rows, refresh the candidate before making a replacement
+decision. For rows where the retained candidate still matches the latest
+upstream version, the proof shows that the candidate has its own recipe/package
+paths, rendered objects, Helm-equivalence evidence, ConfigHub proof receipts,
+live e2e receipts, live parity receipts, production-disposition boundary,
+catalog status, and top-100/top-500 refresh coverage.
 
-The promotion-readiness output records that the candidate artifacts are complete
-and lists the remaining lanes before any public catalog row can move.
+They are still not catalog-supported replacements. The next step is a
+target-scoped replacement decision that chooses whether to replace, defer, or
+keep both versions.
+
+The replacement-decision queue records that final review surface.
+
+
+```text
+update rows: 7
+replacement-decision-ready candidates: 3
+retained candidates superseded by newer upstream versions: 3
+update rows without a retained candidate: 1
+```
 
 
 ## Next Work
 
-1. Re-run ConfigHub upload, function scan, safe-ops, server-side variant, and
-   live e2e proof lanes.
-2. Re-run catalog status, production disposition, root catalog, top-100, and
-   top-500 analysis after the new versions are promoted.
+1. Write or accept a target-scoped replacement decision for each candidate.
+2. If replacement is accepted, update the production support decision and
+   catalog-supported state for that target scope.
 3. Keep the previous chart version available for legacy patch and rollback
-   review until the new version is production-dispositioned.
+   review even after a newer version is accepted.
