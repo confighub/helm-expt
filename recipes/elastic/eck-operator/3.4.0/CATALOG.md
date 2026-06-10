@@ -30,7 +30,7 @@ for exact base-variant evidence.
 | --- | --- |
 | Adoption bucket | promote-after-review |
 | User status | proof-grade-ready-for-promotion-review |
-| Strongest evidence | render-parity |
+| Strongest evidence | two-cluster-kind-parity |
 | Proof lanes | render parity 3/3; ConfigHub 0/3; local live 0/3; GitOps live 0/3; live parity 0/3 |
 | Feature summary | crds;webhooks;required-values;extension-slots |
 | Hard gap | - |

@@ -1069,7 +1069,7 @@ still need catalog promotion review before support is claimed.
 | crossplane-stable/crossplane@2.3.1 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/crossplane-stable/crossplane/2.3.1/CATALOG.md) |
 | descheduler/descheduler@0.36.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/descheduler/descheduler/0.36.0/CATALOG.md) |
 | dex/dex@0.24.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/dex/dex/0.24.0/CATALOG.md) |
-| elastic/eck-operator@3.4.0 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/elastic/eck-operator/3.4.0/CATALOG.md) |
+| elastic/eck-operator@3.4.0 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/elastic/eck-operator/3.4.0/CATALOG.md) |
 | elastic/filebeat@8.5.1 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/elastic/filebeat/8.5.1/CATALOG.md) |
 | elastic/kibana@8.5.1 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/elastic/kibana/8.5.1/CATALOG.md) |
 | elastic/logstash@8.5.1 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/elastic/logstash/8.5.1/CATALOG.md) |

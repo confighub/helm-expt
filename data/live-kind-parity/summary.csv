@@ -14,6 +14,7 @@ bitnami/rabbitmq,16.0.14,generated-passwords,pass,,runs/live-kind-parity/bitnami
 bitnami/redis,25.5.3,default,pass,,runs/live-kind-parity/bitnami-redis-default/receipt.yaml
 bitnami/redis,25.5.3,reuse-existing-secret,pass,,runs/live-kind-parity/bitnami-redis-reuse-existing-secret/receipt.yaml
 cloudnative-pg/cloudnative-pg,0.28.2,default,pass,,runs/live-kind-parity/cloudnative-pg-cloudnative-pg-default/receipt.yaml
+elastic/eck-operator,3.4.0,default,pass,,runs/live-kind-parity/elastic-eck-operator-default/receipt.yaml
 external-dns/external-dns,1.21.1,dry-run-txt-registry,pass,,runs/live-kind-parity/external-dns-external-dns-dry-run-txt-registry/receipt.yaml
 external-secrets/external-secrets,2.5.0,default,pass,,runs/live-kind-parity/external-secrets-external-secrets-default/receipt.yaml
 external-secrets/external-secrets,2.5.0,no-crds,pass,,runs/live-kind-parity/external-secrets-external-secrets-no-crds/receipt.yaml

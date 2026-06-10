@@ -57,7 +57,7 @@ spec:
   proofSummary:
     adoptionBucket: "promote-after-review"
     userStatus: "proof-grade-ready-for-promotion-review"
-    strongestEvidence: "render-parity"
+    strongestEvidence: "two-cluster-kind-parity"
     proofLanes:
       renderParity: "3/3"
       inConfigHub: "0/3"
