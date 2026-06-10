@@ -36,8 +36,8 @@ catalog version:
 - ConfigHub proof receipt
 - live e2e observation receipt
 - live parity receipt
-- catalog status
 - production disposition
+- catalog status
 - root catalog
 - top-100 analysis
 - top-500 analysis
