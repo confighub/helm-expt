@@ -26,6 +26,11 @@ Is this chart ready to be promoted as a public catalog offer?
 The top-100 data is most useful for choosing the next chart to promote. It is
 not a promise that every chart is already a polished user offer.
 
+For a Helm-user first-read, use
+[Top-100 Status, In Plain English](./top100-status.md). It projects this
+readiness data into five user-facing groups and explains what a user must
+provide before trying each chart.
+
 ## Current Shape
 
 ```text
@@ -65,6 +70,11 @@ The spreadsheet-friendly CSV is:
 | `promote-after-review` | Recipe/package proof and useful variants exist, but catalog review is not done. | Good next promotion candidate. Needs catalog review and selected live lanes. |
 | `needs-useful-variant` | The default render proves the mechanism, but the chart does not yet have a compelling user-shaped base. | Do not present it as a good catalog offer yet. Add realistic variants first. |
 | `limitation-decision-first` | A named capability gap affects the recommended path. | Decide whether to support, disclose, or defer the capability before promotion. |
+
+The user-facing status page uses the same source data with one extra split:
+`promote-after-review` becomes either `works-with-target-prerequisites` or
+`works-with-operator-review`, depending on whether the next obstacle is mostly
+a user-provided target input or an operator review.
 
 ## What The Counts Mean
 

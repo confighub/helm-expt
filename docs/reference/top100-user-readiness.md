@@ -26,6 +26,19 @@ npm run top100:user-readiness:verify   # check committed outputs
 
 ## Bucket Rules
 
+The generated [top-100 readiness summary](../../data/top100-readiness/summary.md)
+uses four operating buckets. This report keeps the same source of truth, then
+splits `promote-after-review` into two user-facing groups so a reader can see
+whether the next step is mostly a target prerequisite or an operator review.
+
+| User-readiness bucket | Source readiness bucket |
+| --- | --- |
+| `ready-to-try` | `try-from-public-catalog` |
+| `works-with-target-prerequisites` | `promote-after-review` |
+| `works-with-operator-review` | `promote-after-review` |
+| `needs-better-base-variant` | `needs-useful-variant` |
+| `not-ready-yet` | `limitation-decision-first` |
+
 | Bucket | Rule |
 | --- | --- |
 | `ready-to-try` | `catalog_tier = top20-catalog-supported`. Every such chart has a reviewed `recommended_first` base whose readiness is `start-here`. |

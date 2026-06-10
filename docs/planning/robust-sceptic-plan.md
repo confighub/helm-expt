@@ -70,7 +70,7 @@ Grouped by which claim is attacked. Each entry: the attack, the current defense,
 - **"This is just the rendered manifests pattern."** Defense: yes, plus provenance, variants, facts, signing, and receipts; rendered manifests is step one of six in the journey, and saying so disarms rather than concedes. Status: HELD.
 - **"kpt tried this."** Defense: config-as-data lineage is acknowledged openly (the generative GitOps doc now cites it); what is new is the proof chain and the variant model, not the data model. Status: HELD; never argue the lineage, own it.
 - **Helm maintainer pushback.** "This misrepresents Helm; we have --atomic, the diff plugin, OCI charts." Defense: tone discipline already in force, never "Helm is bad," always the import-path framing; every Helm pain named has a receipt or a citation, not an adjective. Status: HELD, but fragile under marketing pressure; one snarky tweet undoes it.
-- **"AI slop catalog."** "The proofs are AI-generated and circular." Defense: the receipts are deterministic machine checks, re-runnable by anyone, and no model output is part of any proof. Status: HELD; put that sentence in the FAQ verbatim.
+- **"AI-generated catalog."** "The proofs are model-generated and circular." Defense: the receipts are deterministic machine checks, re-runnable by anyone, and no model output is part of any proof. Status: HELD; put that sentence in the FAQ verbatim.
 - **"Vendor funnel."** "Free catalog is bait for lock-in." Defense: the serverless tier is complete at N=1 by design, the artifacts are standard KRM YAML applied by standard means, and the exit is `kubectl get -o yaml`. Status: HELD if the never-degrade-local rule from the serverless doc holds.
 
 ## 4. The adversarial test plan
