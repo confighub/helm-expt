@@ -105,8 +105,9 @@ data:
             backend: s3
             s3:
               bucket: tempo-traces
-              endpoint: s3.us-east-1.amazonaws.com
-              insecure: false
+              endpoint: tempo-object-store.tempo.svc.cluster.local:9000
+              forcepathstyle: true
+              insecure: true
               region: us-east-1
             wal:
               path: /var/tempo/wal
@@ -213,7 +214,7 @@ spec:
         app.kubernetes.io/name: tempo
         app.kubernetes.io/instance: tempo
       annotations:
-        checksum/config: d3f7fb1fca02670e6491d48d7dd24c204f2c2d01dce408c87db258d50259a5ac
+        checksum/config: fc9e07fe98f8d4639765dd059d30b68b28d8f46c569c2bbd357434ebad8632aa
     spec:
       serviceAccountName: tempo
       automountServiceAccountToken: true

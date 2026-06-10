@@ -11,9 +11,9 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 38
+pass: 39
 watch: 0
-blocked: 4
+blocked: 3
 semantic parity defects: 0
 ```
 
@@ -32,7 +32,6 @@ data/live-parity-rerun-plan/summary.md
 | helm-hook: post-install hook failed (parity passed) | 1 |
 | operate-policy: Vault init/unseal required (parity passed) | 1 |
 | target-fit: HA raft target topology not satisfied (parity passed) | 1 |
-| target-prerequisite: object store endpoint not satisfied (parity passed) | 1 |
 
 ## Rows
 
@@ -59,7 +58,7 @@ data/live-parity-rerun-plan/summary.md
 | `grafana/loki@7.0.0` | simple-scalable-minio | pass |  | runs/live-kind-parity/grafana-loki-simple-scalable-minio/receipt.yaml |
 | `grafana/loki@7.0.0` | single-binary-filesystem | pass |  | runs/live-kind-parity/grafana-loki-single-binary-filesystem/receipt.yaml |
 | `grafana/tempo@1.24.4` | local-persistent | pass |  | runs/live-kind-parity/grafana-tempo-local-persistent/receipt.yaml |
-| `grafana/tempo@1.24.4` | s3-query-observability | blocked | target-prerequisite: object store endpoint not satisfied (parity passed) | runs/live-kind-parity/grafana-tempo-s3-query-observability/receipt.yaml |
+| `grafana/tempo@1.24.4` | s3-query-observability | pass |  | runs/live-kind-parity/grafana-tempo-s3-query-observability/receipt.yaml |
 | `hashicorp/consul@2.0.0` | default-control-plane | pass |  | runs/live-kind-parity/hashicorp-consul-default-control-plane/receipt.yaml |
 | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | pass |  | runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml |
 | `hashicorp/vault@0.32.0` | default | blocked | operate-policy: Vault init/unseal required (parity passed) | runs/live-kind-parity/hashicorp-vault-default/receipt.yaml |

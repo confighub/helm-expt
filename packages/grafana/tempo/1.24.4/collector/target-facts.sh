@@ -10,6 +10,7 @@ targetFacts:
   requiredSecrets: []
   requiredCRDs: []
   requiredValues: []
+  requiredObjectStores: []
 targetFactChecks:
   base: "$base"
   mode: not-required
@@ -83,14 +84,36 @@ targetFacts:
     path: "tempo.storage.trace.s3.endpoint"
     purpose: "S3-compatible endpoint that Tempo will write traces to"
     stage: "pre-render"
+    deliveryLanes:
+      - "recipe"
   -
     path: "tempo.storage.trace.s3.bucket"
     purpose: "Existing bucket for Tempo trace blocks"
     stage: "pre-render"
+    deliveryLanes:
+      - "recipe"
   -
     path: "tempo.storage.trace.s3.region"
     purpose: "Object-store region used with the selected endpoint and bucket"
     stage: "pre-render"
+    deliveryLanes:
+      - "recipe"
+  requiredObjectStores:
+  -
+    kind: "S3CompatibleObjectStore"
+    namespace: "tempo"
+    name: "tempo-object-store"
+    serviceName: "tempo-object-store"
+    endpoint: "tempo-object-store.tempo.svc.cluster.local:9000"
+    bucket: "tempo-traces"
+    credentialsSecret:
+      name: "tempo-s3-credentials"
+      accessKey: "access_key"
+      secretKey: "secret_key"
+    purpose: "Local S3-compatible object-store fixture used to prove the S3 base can become ready when its target prerequisite exists"
+    deliveryLanes:
+      - "regularHelm"
+      - "cubInstallerApply"
 targetFactChecks:
   base: "$base"
   mode: "$check_mode"

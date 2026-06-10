@@ -18,7 +18,7 @@ spec:
       path: "tempo.storage.trace.s3 / tempo.extraEnv"
       variant: "s3-query-observability"
       disposition: "target-fact-bound"
-      reason: "S3 endpoint, bucket, and region are pre-render target values, and credentials are referenced from a declared target Secret"
+      reason: "S3 endpoint, bucket, and region are bound in the base, and credentials are referenced from a declared target Secret"
     -
       path: "tempo.storage.trace.local"
       variant: "s3-query-observability"

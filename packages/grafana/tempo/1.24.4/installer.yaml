@@ -24,6 +24,11 @@ spec:
           kind: "ClusterFeature"
           name: "CRD servicemonitors.monitoring.coreos.com"
           suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "S3-compatible object store tempo/tempo-object-store"
+          namespace: "tempo"
+          suggestedSource: "create or bind an S3-compatible endpoint, bucket, and credentials before apply"
   collector:
     command: "/bin/sh"
     args:

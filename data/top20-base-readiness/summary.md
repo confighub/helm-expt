@@ -16,12 +16,12 @@ or runtime review.
 ~~~text
 base variants: 42
 start-here: 20
-try-with-proof: 18
+try-with-proof: 19
 runtime-watch: 0
 runtime-review-needed: 0
 operating-policy-needed: 1
 target-fit-needed: 1
-target-prerequisite-needed: 1
+target-prerequisite-needed: 0
 hook-lifecycle-review-needed: 0
 lifecycle-observed: 1
 prerequisite-observed: 0
@@ -31,7 +31,7 @@ render-only: 0
 Live rerun readiness for non-pass rows:
 
 ~~~text
-model-or-stage-first: 3
+model-or-stage-first: 2
 review-target-first: 0
 inspect-diff-first: 0
 rerun-now-after-cleanup: 0
@@ -78,7 +78,7 @@ rerun-now-after-cleanup: 0
 | `grafana/loki@7.0.0` | single-binary-filesystem | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `grafana/loki@7.0.0` | simple-scalable-minio | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims | - |
 | `grafana/tempo@1.24.4` | local-persistent | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `grafana/tempo@1.24.4` | s3-query-observability | no | target-prerequisite-needed | model-or-stage-first | target-prerequisite: object store endpoint not satisfied (parity passed) | use recipes/grafana/tempo/1.24.4/target-prerequisite-plan.yaml to stage the prerequisite and capture a fresh observation receipt | [`recipes/grafana/tempo/1.24.4/target-prerequisite-plan.yaml`](../../recipes/grafana/tempo/1.24.4/target-prerequisite-plan.yaml) |
+| `grafana/tempo@1.24.4` | s3-query-observability | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims | - |
 | `hashicorp/consul@2.0.0` | default-control-plane | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims | - |
 | `hashicorp/vault@0.32.0` | dev-mode | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
