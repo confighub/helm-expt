@@ -236,11 +236,17 @@ function buildWorkOrders(rows) {
     },
     {
       lane: "confighub-proof",
-      phase: "todo",
-      evidence: (row) => `runs/latest-top20-refresh/${slug(row.chart)}-${row.candidate_version}/confighub-proof/latest/confighub-proof-receipt.yaml`,
-      firstAction: "run ConfigHub upload, function scan, safe-ops, and server-side variant proof against the candidate package",
+      phase: (row) => candidateConfighubProofComplete(row) ? "done" : "todo",
+      evidence: (row) => candidateConfighubProofReceipts(row).join(";"),
+      firstAction: (row) =>
+        candidateConfighubProofComplete(row)
+          ? "keep the candidate ConfigHub proof, function-scan, and safe-ops receipts committed"
+          : "run ConfigHub upload, function scan, safe-ops, and server-side variant proof against the candidate package",
       doneWhen: "candidate ConfigHub proof, function-scan, and safe-ops receipts are committed or summarized",
-      command: (row) => `node scripts/run-top20-confighub-proof.mjs --latest-candidates --charts ${slug(row.chart)} --cleanup-spaces`,
+      command: (row) =>
+        candidateConfighubProofComplete(row)
+          ? "npm run top20:latest-promotion-readiness:verify"
+          : `node scripts/run-top20-confighub-proof.mjs --latest-candidates --charts ${slug(row.chart)} --cleanup-spaces`,
     },
     {
       lane: "local-live-e2e",
@@ -292,13 +298,26 @@ function buildWorkOrders(rows) {
       candidate_version: row.candidate_version,
       variants: row.variants,
       lane: definition.lane,
-      phase: definition.phase,
+      phase: typeof definition.phase === "function" ? definition.phase(row) : definition.phase,
       evidence_target: definition.evidence(row),
-      first_action: definition.firstAction,
-      done_when: definition.doneWhen,
+      first_action: typeof definition.firstAction === "function" ? definition.firstAction(row) : definition.firstAction,
+      done_when: typeof definition.doneWhen === "function" ? definition.doneWhen(row) : definition.doneWhen,
       command_or_route: typeof definition.command === "function" ? definition.command(row) : definition.command,
     })),
   );
+}
+
+function candidateConfighubProofReceipts(row) {
+  const root = `runs/latest-top20-refresh/${slug(row.chart)}-${row.candidate_version}/confighub-proof/latest`;
+  return [
+    `${root}/confighub-proof-receipt.yaml`,
+    `${root}/function-scan-receipt.yaml`,
+    `${root}/safe-ops-receipt.yaml`,
+  ];
+}
+
+function candidateConfighubProofComplete(row) {
+  return candidateConfighubProofReceipts(row).every((path) => existsSync(join(repoRoot, path)));
 }
 
 function workOrderSummary(rows, workOrders) {

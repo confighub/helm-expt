@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "nginx-24-0-4-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-nginx-24-0-4-candidate-proof"
+    selector: "Labels.Proof = 'nginx-24-0-4-candidate-proof'"
+  subject:
+    chart: "bitnami/nginx"
+    chartVersion: "24.0.4"
+    packagePath: "data/latest-top20-refresh/candidates/nginx-24.0.4/packages/bitnami/nginx/24.0.4"
+    variant: "http-clusterip"
+  changeset:
+    slug: "nginx-24-0-4-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "NGINX 24.0.4 safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "nginx-24-0-4-candidate-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve deployment-nginx-nginx --space helm-nginx-24-0-4-candidate-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "deployment-nginx-nginx"
+    output: "Unit deployment-nginx-nginx (b4291f77-87ee-4645-91a3-056a1c3b4ab5) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-nginx-24-0-4-candidate-proof --where \"Labels.Proof = 'nginx-24-0-4-candidate-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req PmhwyicihLOzcZSYUzfhHzisabPbljhX: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-nginx-24-0-4-candidate-proof --where \"Labels.Proof = 'nginx-24-0-4-candidate-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."
