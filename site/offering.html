@@ -172,8 +172,8 @@
         <div class="metric"><strong>98/100</strong><span>Recipe proofs</span></div>
         <div class="metric"><strong>159/159</strong><span>Render parity</span></div>
         <div class="metric"><strong>23/159</strong><span>Local live receipts</span></div>
-        <div class="metric"><strong>42/43</strong><span>Two-cluster parity</span></div>
-        <div class="metric"><strong>0/43</strong><span>Semantic defects</span></div>
+        <div class="metric"><strong>43/44</strong><span>Two-cluster parity</span></div>
+        <div class="metric"><strong>0/44</strong><span>Semantic defects</span></div>
       </div>
       <p>Top-100 readiness is also separated by usefulness:</p>
       <div class="card"><table>
@@ -190,7 +190,7 @@
 
     <section aria-labelledby="honesty">
       <h2 id="honesty">Why This Should Be Trusted</h2>
-      <p>The catalog is designed to expose hard cases, not hide them. The latest strict cub-scout witness work found a real Kubernetes 1.30 CRD capability issue in cert-manager and External Secrets: workloads converged, but strict rendered-object/live parity blocked because live CRDs omitted rendered <code>selectableFields</code> fields.</p>
+      <p>The catalog is designed to expose hard cases, not hide them. The latest strict cub-scout witness work found Kubernetes 1.30 CRD capability issues in cert-manager and External Secrets, plus a Grafana RBAC server-normalization watch item: workloads converged, but strict rendered-object/live parity stayed blocked until the target behavior is modeled or accepted.</p>
       <p>That is the point of the model. It tells the user what is true, what is watch, what is blocked, and what decision is needed next.</p>
       <div class="card"><table>
         <thead><tr><th>Signal</th><th>Current meaning</th></tr></thead>

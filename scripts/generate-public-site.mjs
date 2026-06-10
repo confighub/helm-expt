@@ -754,7 +754,7 @@ function offeringHtml(catalog) {
 
     <section aria-labelledby="honesty">
       <h2 id="honesty">Why This Should Be Trusted</h2>
-      <p>The catalog is designed to expose hard cases, not hide them. The latest strict cub-scout witness work found a real Kubernetes 1.30 CRD capability issue in cert-manager and External Secrets: workloads converged, but strict rendered-object/live parity blocked because live CRDs omitted rendered <code>selectableFields</code> fields.</p>
+      <p>The catalog is designed to expose hard cases, not hide them. The latest strict cub-scout witness work found Kubernetes 1.30 CRD capability issues in cert-manager and External Secrets, plus a Grafana RBAC server-normalization watch item: workloads converged, but strict rendered-object/live parity stayed blocked until the target behavior is modeled or accepted.</p>
       <p>That is the point of the model. It tells the user what is true, what is watch, what is blocked, and what decision is needed next.</p>
       ${markdownLikeTable([
         ["Signal", "Current meaning"],
