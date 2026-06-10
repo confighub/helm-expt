@@ -1019,7 +1019,7 @@ Helm equivalence: 97/97 objects matched
 Receipts: [per-chart receipts](recipes/hashicorp/consul/2.0.0/CATALOG.md)
 
 
-## Full Proof Index (108 Entries)
+## Full Proof Index (109 Entries)
 
 The rows below include the live-tested top 20, proof-grade recipe/package
 artifacts, and any retained newer chart-version candidates. `catalog-supported`
@@ -1069,6 +1069,7 @@ need catalog promotion review before support is claimed.
 | bitnami/opensearch@2.0.10 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/bitnami/opensearch/2.0.10/CATALOG.md) |
 | bitnami/phpmyadmin@20.0.0 | proof-grade | needs-useful-variant | render-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/phpmyadmin/20.0.0/CATALOG.md) |
 | bitnami/postgresql@18.6.10 | catalog-candidate | - | - | generated-passwords | - | [CATALOG.md](recipes/bitnami/postgresql/18.6.10/CATALOG.md) |
+| bitnami/postgresql@18.7.0 | catalog-candidate | - | - | generated-passwords | - | [CATALOG.md](recipes/bitnami/postgresql/18.7.0/CATALOG.md) |
 | bitnami/redis@27.0.0 | catalog-candidate | - | - | default | - | [CATALOG.md](recipes/bitnami/redis/27.0.0/CATALOG.md) |
 | bitnami/spark@10.0.3 | proof-grade | limitation-decision-first | render-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/spark/10.0.3/CATALOG.md) |
 | bitnami/zookeeper@13.8.7 | proof-grade | limitation-decision-first | render-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/zookeeper/13.8.7/CATALOG.md) |

@@ -17,10 +17,10 @@ Which detailed CSV should I open next?
 
 | Section | Metric | Value | Status | Source |
 | --- | --- | ---: | --- | --- |
-| top100 | charts with model support | 106/108 | good | [data/outcome-coverage/chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) |
+| top100 | charts with model support | 107/109 | good | [data/outcome-coverage/chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) |
 | top100 | catalog-supported charts | 20/100 | partial | [data/top100-readiness/readiness.csv](../../data/top100-readiness/readiness.csv) |
 | top100 | proof-grade non-catalog charts | 80/100 | partial | [data/top100-readiness/readiness.csv](../../data/top100-readiness/readiness.csv) |
-| top100 | variant-rich charts | 62/108 | partial | [data/outcome-coverage/chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) |
+| top100 | variant-rich charts | 63/109 | partial | [data/outcome-coverage/chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) |
 | top100 | covered by top100 contract | 20/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
 | top100 | partial by top100 contract | 80/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
 | top100 | average top100 coverage | 83/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
@@ -30,27 +30,27 @@ Which detailed CSV should I open next?
 | top100 | top100 limitation-decision queue | 7/80 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
 | refresh | top20 proofs still current | 13/20 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
 | refresh | top20 upstream update candidates | 7/20 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
-| refresh | update candidates with proof-complete root paths | 5/7 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
-| refresh | latest refresh p0 action rows | 2/7 | partial | [data/latest-top20-refresh/action-queue/queue.csv](../../data/latest-top20-refresh/action-queue/queue.csv) |
+| refresh | update candidates with proof-complete root paths | 6/7 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
+| refresh | latest refresh p0 action rows | 1/7 | partial | [data/latest-top20-refresh/action-queue/queue.csv](../../data/latest-top20-refresh/action-queue/queue.csv) |
 | top500 | source rows scanned | 495/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | top500 | rows with current recipe proof | 91/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | top500 | catalog-supported rows | 20/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | top500 | proof-grade rows | 71/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | top500 | rows with no current recipe proof | 409/500 | gap | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | top500 | version-drift review rows | 21/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
-| proof lanes | render parity rows | 175/175 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | in-ConfigHub proof rows | 20/175 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | local live rows | 23/175 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | GitOps/OCI live pass rows | 22/175 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | live Helm-vs-ConfigHub parity pass rows | 20/175 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | render parity rows | 177/177 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | in-ConfigHub proof rows | 20/177 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | local live rows | 23/177 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | GitOps/OCI live pass rows | 22/177 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | live Helm-vs-ConfigHub parity pass rows | 20/177 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | two-cluster kind parity pass rows | 49/50 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| proof lanes | complete core lane rows | 20/175 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | complete core lane rows | 20/177 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | top20 start-here base variants | 20/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | proof lanes | top20 bases needing unresolved prerequisite or runtime review | 0/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | derived variants | derived variant golden rows | 10/10 | good | [data/variant-goldens/derived-expansion-wave/work-orders.csv](../../data/variant-goldens/derived-expansion-wave/work-orders.csv) |
 | derived variants | derived variant live create receipts | 10/10 | good | [runs/derived-variant-execution](../../runs/derived-variant-execution) |
 | derived variants | target-bound derived variant receipts | 6/10 | partial | [runs/derived-variant-target-bound](../../runs/derived-variant-target-bound) |
-| graph bridge | charts with recovered graph fragments | 20/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
+| graph bridge | charts with recovered graph fragments | 20/109 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | graph bridge | recovered graph edge rows | 100/100 | good | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | graph bridge | target-fact graph edges | 57/100 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | graph bridge | generated-fact graph edges | 1/100 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
@@ -121,7 +121,7 @@ considered.
 | Action | Charts | Next action |
 | --- | ---: | --- |
 | Write replacement decisions | 0 | Review the latest-aligned candidate against the supported version and record a target-scoped replacement decision. |
-| Refresh superseded retained candidates | 2 | Regenerate candidate proof/package roots for the newer upstream version, then rerun the refresh surfaces. |
+| Refresh superseded retained candidates | 1 | Regenerate candidate proof/package roots for the newer upstream version, then rerun the refresh surfaces. |
 | Create missing retained candidates | 0 | Make the needed generator support version/output overrides, then create the missing candidate proof. |
 | Promote render candidates and complete live lanes | 0 | Promote the candidate root paths, then run ConfigHub proof, local live, and live parity lanes before replacement. |
 
@@ -239,10 +239,10 @@ first.
 
 | Lane | Pass | Non-pass | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| in-ConfigHub | 20 | 0 | 155 | 175 |
-| local live | 23 | 0 | 152 | 175 |
-| GitOps/OCI live | 22 | 6 | 147 | 175 |
-| live Helm-vs-ConfigHub parity | 20 | 2 | 153 | 175 |
+| in-ConfigHub | 20 | 0 | 157 | 177 |
+| local live | 23 | 0 | 154 | 177 |
+| GitOps/OCI live | 22 | 6 | 149 | 177 |
+| live Helm-vs-ConfigHub parity | 20 | 2 | 155 | 177 |
 | two-cluster kind parity | 49 | 1 | 0 | 50 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
