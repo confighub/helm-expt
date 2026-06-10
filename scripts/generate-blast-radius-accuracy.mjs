@@ -31,7 +31,7 @@ if (mode === "--generate") {
 }
 
 function buildReport() {
-  const measured = [measureKubePrometheusNoCrds()];
+  const measured = [measureKubePrometheusNoCrds(), measureRedisExistingSecret()];
   const measuredKeys = new Set(measured.map((row) => `${row.chart}@${row.version}|${row.value_path}`));
   const unmeasured = valueSourceEntries()
     .filter((entry) => !measuredKeys.has(`${entry.chart}@${entry.version}|${entry.value_path}`))
@@ -74,19 +74,68 @@ function measureKubePrometheusNoCrds() {
   const chart = "prometheus-community/kube-prometheus-stack";
   const version = "85.3.3";
   const recipeRel = `recipes/prometheus-community/kube-prometheus-stack/${version}`;
-  const recipeDir = join(repoRoot, recipeRel);
-  const valueSourceMapPath = join(recipeDir, "value-source-map.yaml");
-  const valueSourceMap = readYaml(valueSourceMapPath);
-  const entry = valueSourceMap.spec.entries.find((item) => item.valuePath === "crds.enabled");
-  check(entry, "missing kube-prometheus-stack crds.enabled value-source-map entry");
+  return measureBasePair({
+    chart,
+    version,
+    recipeRel,
+    case_id: "kps-crds-enabled-default-to-no-crds",
+    value_path: "crds.enabled",
+    from_variant: "default",
+    to_variant: "no-crds",
+    expected_removed: 10,
+    expected_added: 0,
+    expected_changed: 0,
+    extra_evidence: [
+      `${recipeRel}/value-source-map.yaml`,
+      `${recipeRel}/inheritance-graph.yaml`,
+      `${recipeRel}/revisions/default/r001/rendered/release-objects.yaml`,
+      `${recipeRel}/revisions/no-crds/r001/rendered/release-objects.yaml`,
+      "data/high-fanout-demo/summary.md",
+    ],
+    limit: "This measures one committed base-pair rerender diff. It does not prove blast-radius accuracy for all KPS values or all charts.",
+  });
+}
 
-  const defaultObjects = objectMap(join(recipeDir, "revisions", "default", "r001", "rendered", "release-objects.yaml"));
-  const noCrdsObjects = objectMap(join(recipeDir, "revisions", "no-crds", "r001", "rendered", "release-objects.yaml"));
+function measureRedisExistingSecret() {
+  const chart = "bitnami/redis";
+  const version = "25.5.3";
+  const recipeRel = `recipes/bitnami/redis/${version}`;
+  return measureBasePair({
+    chart,
+    version,
+    recipeRel,
+    case_id: "redis-auth-password-default-to-existing-secret",
+    value_path: "auth.password",
+    from_variant: "default",
+    to_variant: "reuse-existing-secret",
+    expected_removed: 1,
+    expected_added: 0,
+    expected_changed: 2,
+    extra_evidence: [
+      `${recipeRel}/value-source-map.yaml`,
+      `${recipeRel}/inheritance-graph.yaml`,
+      `${recipeRel}/revisions/default/r001/rendered/release-objects.yaml`,
+      `${recipeRel}/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml`,
+      `${recipeRel}/revisions/default/r001/receipts/generated-fact-receipt.yaml`,
+      `${recipeRel}/install-checks.yaml`,
+    ],
+    limit: "This measures the supported Redis default-to-existing-secret base-pair diff. It does not prove every Redis value path or every generated-secret chart.",
+  });
+}
+
+function measureBasePair({ chart, version, recipeRel, case_id, value_path, from_variant, to_variant, expected_removed, expected_added, expected_changed, extra_evidence, limit }) {
+  const recipeDir = join(repoRoot, recipeRel);
+  const valueSourceMap = readYaml(join(recipeDir, "value-source-map.yaml"));
+  const entry = valueSourceMap.spec.entries.find((item) => item.valuePath === value_path);
+  check(entry, `missing ${chart}@${version} ${value_path} value-source-map entry`);
+
+  const fromObjects = objectMap(join(recipeDir, "revisions", from_variant, "r001", "rendered", "release-objects.yaml"));
+  const toObjects = objectMap(join(recipeDir, "revisions", to_variant, "r001", "rendered", "release-objects.yaml"));
   const predicted = new Set(entry.renderedFields.map((field) => field.object).sort());
-  const actualRemoved = [...defaultObjects.keys()].filter((identity) => !noCrdsObjects.has(identity)).sort();
-  const actualAdded = [...noCrdsObjects.keys()].filter((identity) => !defaultObjects.has(identity)).sort();
-  const actualChanged = [...defaultObjects.keys()]
-    .filter((identity) => noCrdsObjects.has(identity) && defaultObjects.get(identity) !== noCrdsObjects.get(identity))
+  const actualRemoved = [...fromObjects.keys()].filter((identity) => !toObjects.has(identity)).sort();
+  const actualAdded = [...toObjects.keys()].filter((identity) => !fromObjects.has(identity)).sort();
+  const actualChanged = [...fromObjects.keys()]
+    .filter((identity) => toObjects.has(identity) && fromObjects.get(identity) !== toObjects.get(identity))
     .sort();
   const actualAffected = new Set([...actualRemoved, ...actualAdded, ...actualChanged]);
   const falseNegatives = [...actualAffected].filter((identity) => !predicted.has(identity)).sort();
@@ -96,18 +145,18 @@ function measureKubePrometheusNoCrds() {
   const recall = actualAffected.size === 0 ? "" : ratio(truePositives, actualAffected.size);
   const result = falseNegatives.length === 0 && falsePositives.length === 0 ? "pass" : "fail";
 
-  check(actualRemoved.length === 10, `expected kube-prometheus-stack no-crds to remove 10 objects, got ${actualRemoved.length}`);
-  check(actualAdded.length === 0, `expected kube-prometheus-stack no-crds to add 0 objects, got ${actualAdded.length}`);
-  check(actualChanged.length === 0, `expected kube-prometheus-stack no-crds to change 0 shared objects, got ${actualChanged.length}`);
+  check(actualRemoved.length === expected_removed, `expected ${case_id} to remove ${expected_removed} objects, got ${actualRemoved.length}`);
+  check(actualAdded.length === expected_added, `expected ${case_id} to add ${expected_added} objects, got ${actualAdded.length}`);
+  check(actualChanged.length === expected_changed, `expected ${case_id} to change ${expected_changed} shared objects, got ${actualChanged.length}`);
 
   return {
     chart,
     version,
-    case_id: "kps-crds-enabled-default-to-no-crds",
-    value_path: "crds.enabled",
+    case_id,
+    value_path,
     measurement_type: "committed-base-pair-rerender-diff",
-    from_variant: "default",
-    to_variant: "no-crds",
+    from_variant,
+    to_variant,
     predicted_objects: predicted.size,
     actual_removed_objects: actualRemoved.length,
     actual_added_objects: actualAdded.length,
@@ -117,14 +166,8 @@ function measureKubePrometheusNoCrds() {
     precision,
     recall,
     result,
-    evidence: [
-      `${recipeRel}/value-source-map.yaml`,
-      `${recipeRel}/inheritance-graph.yaml`,
-      `${recipeRel}/revisions/default/r001/rendered/release-objects.yaml`,
-      `${recipeRel}/revisions/no-crds/r001/rendered/release-objects.yaml`,
-      "data/high-fanout-demo/summary.md",
-    ].join("; "),
-    limit: "This measures one committed base-pair rerender diff. It does not prove blast-radius accuracy for all KPS values or all charts.",
+    evidence: extra_evidence.join("; "),
+    limit,
   };
 }
 
@@ -197,11 +240,16 @@ that the predicted affected objects match the actual affected objects.
 | Unmeasured value-source rows | ${unmeasured.length} |
 | Total rows | ${rows.length} |
 
-The first measured case is kube-prometheus-stack \`crds.enabled=false\`. The
-prediction says that exactly the Prometheus Operator CRD objects are affected.
-The committed \`default\` and \`no-crds\` rendered object sets confirm that
-exactly 10 CRD objects are removed, with no added objects and no changed shared
-objects.
+The measured cases now cover two different risk shapes:
+
+- kube-prometheus-stack \`crds.enabled=false\`: the prediction says exactly the
+  Prometheus Operator CRD objects are affected, and the committed \`default\`
+  and \`no-crds\` rendered object sets confirm that exactly 10 CRD objects are
+  removed.
+- Redis \`auth.password\`: the prediction says the generated Secret and the two
+  Redis StatefulSets are affected when moving to \`reuse-existing-secret\`, and
+  the committed rendered object sets confirm one removed Secret and two changed
+  StatefulSets.
 
 This is useful evidence, not a general guarantee. The broader blast-radius
 claim stays partial until more value paths are measured across more charts.

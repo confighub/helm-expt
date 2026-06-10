@@ -9,17 +9,22 @@ that the predicted affected objects match the actual affected objects.
 
 | Metric | Count |
 | --- | ---: |
-| Measured cases | 1 |
-| Passing measured cases | 1 |
+| Measured cases | 2 |
+| Passing measured cases | 2 |
 | Failing measured cases | 0 |
-| Unmeasured value-source rows | 11 |
+| Unmeasured value-source rows | 10 |
 | Total rows | 12 |
 
-The first measured case is kube-prometheus-stack `crds.enabled=false`. The
-prediction says that exactly the Prometheus Operator CRD objects are affected.
-The committed `default` and `no-crds` rendered object sets confirm that
-exactly 10 CRD objects are removed, with no added objects and no changed shared
-objects.
+The measured cases now cover two different risk shapes:
+
+- kube-prometheus-stack `crds.enabled=false`: the prediction says exactly the
+  Prometheus Operator CRD objects are affected, and the committed `default`
+  and `no-crds` rendered object sets confirm that exactly 10 CRD objects are
+  removed.
+- Redis `auth.password`: the prediction says the generated Secret and the two
+  Redis StatefulSets are affected when moving to `reuse-existing-secret`, and
+  the committed rendered object sets confirm one removed Secret and two changed
+  StatefulSets.
 
 This is useful evidence, not a general guarantee. The broader blast-radius
 claim stays partial until more value paths are measured across more charts.
@@ -29,6 +34,7 @@ claim stays partial until more value paths are measured across more charts.
 | Chart | Value path | Variants | Predicted objects | Actual affected objects | False negatives | False positives | Result |
 | --- | --- | --- | ---: | ---: | ---: | ---: | --- |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | `crds.enabled` | `default` -> `no-crds` | 10 | 10 | 0 | 0 | `pass` |
+| `bitnami/redis@25.5.3` | `auth.password` | `default` -> `reuse-existing-secret` | 3 | 3 | 0 | 0 | `pass` |
 
 ## Unmeasured Value-Source Rows
 
@@ -41,7 +47,6 @@ yet.
 | `bitnami/redis@25.5.3` | `releaseName` | 3 | [value-source-map](../../recipes/bitnami/redis/25.5.3/value-source-map.yaml) |
 | `bitnami/redis@25.5.3` | `namespace` | 4 | [value-source-map](../../recipes/bitnami/redis/25.5.3/value-source-map.yaml) |
 | `bitnami/redis@25.5.3` | `image.digest` | 2 | [value-source-map](../../recipes/bitnami/redis/25.5.3/value-source-map.yaml) |
-| `bitnami/redis@25.5.3` | `auth.password` | 3 | [value-source-map](../../recipes/bitnami/redis/25.5.3/value-source-map.yaml) |
 | `bitnami/redis@27.0.0` | `replica.replicaCount` | 1 | [value-source-map](../../recipes/bitnami/redis/27.0.0/value-source-map.yaml) |
 | `bitnami/redis@27.0.0` | `releaseName` | 3 | [value-source-map](../../recipes/bitnami/redis/27.0.0/value-source-map.yaml) |
 | `bitnami/redis@27.0.0` | `namespace` | 4 | [value-source-map](../../recipes/bitnami/redis/27.0.0/value-source-map.yaml) |
