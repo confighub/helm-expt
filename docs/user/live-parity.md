@@ -14,12 +14,14 @@ what happens after Kubernetes accepts the objects.
 
 ## Current Status
 
-The repo tracks two live parity lanes.
+The repo tracks two live parity lanes. The two-cluster lane now includes all
+top-20 bases plus a small next80 expansion set.
 
 | Lane | Current result | What it means |
 | --- | --- | --- |
 | Selected live Helm-vs-ConfigHub comparison | 20 pass, 0 watch, 0 blocked | The selected top-20 rows compare regular Helm against ConfigHub delivery paths. |
 | Two-cluster kind parity for all top-20 bases | 41 pass, 0 watch, 1 blocked, 0 semantic parity defects | Regular Helm runs in one vanilla kind cluster and `cub installer` output runs in another. |
+| Broader two-cluster kind parity corpus | 49 pass, 0 watch, 1 blocked, 0 semantic parity defects | The same two-cluster method has started moving into next80 proof-grade charts. |
 
 Use the generated reports for exact rows:
 

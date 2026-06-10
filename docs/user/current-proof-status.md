@@ -131,6 +131,11 @@ pass but strict rendered-object/live parity finds a target capability issue:
 
 [cub-scout Live Witness Watchlist](../../data/live-e2e/cub-scout-watchlist.md)
 
+Accepted server-normalization rules for strict live witness checks are recorded
+separately:
+
+[Live Witness Normalization Rules](../../data/live-e2e/normalization-rules.md)
+
 The hook/lifecycle boundary page separates hook queue rows from hook-like
 controller lifecycle observations:
 
@@ -165,6 +170,26 @@ render-equivalent, locally tested, and useful for demos while still not being
 production-supported. Accepted dispositions are review input; production
 support needs a final target-scoped decision.
 
+Strict cub-scout witness checks are routed more conservatively than ordinary
+local live checks. A local live receipt can pass because the workloads converge,
+while the strict witness still finds that the live API did not preserve an
+authored field. Every committed strict-witness `BLOCK` must appear either in the
+watchlist or in the normalization log.
+
+In `data/live-e2e/top20-local-kind.csv`, `cubScout=observed` means the row has
+committed cub-scout witness evidence summarized in the CSV. A blank `cubScout`
+cell means the row still has its ordinary observation receipt, but no committed
+cub-scout witness for that row. It is not a hidden pass or fail.
+
+Receipt retention follows this policy:
+
+- commit worked-example receipts and evidence needed by public walkthroughs;
+- commit every receipt or evidence summary cited by a watchlist row;
+- keep bulk transient run artifacts local when the generated summaries are the
+  public surface;
+- when a claim depends on live evidence, commit enough detail for a reader to
+  understand the target, chart, base, result, and next action.
+
 ## Current Interpretation
 
 The repo has complete render-parity evidence for the current recipe/base rows.
@@ -175,11 +200,11 @@ different outcome.
 Current aggregate status:
 
 ```text
-helm_template_vs_installer_setup:        158 pass, 0 missing
-confighub_upload_variant_scan_safe_ops:   20 pass, 138 missing
-local_kind_kubectl_apply:                 23 pass, 135 missing
-confighub_oci_argo_live:                  22 pass, 2 watch, 4 blocked, 130 missing
-live_helm_vs_confighub_dual_compare:      20 pass, 2 watch, 0 blocked, 136 missing
+helm_template_vs_installer_setup:        159 pass, 0 missing
+confighub_upload_variant_scan_safe_ops:   20 pass, 139 missing
+local_kind_kubectl_apply:                 23 pass, 136 missing
+confighub_oci_argo_live:                  22 pass, 2 watch, 4 blocked, 131 missing
+live_helm_vs_confighub_dual_compare:      20 pass, 2 watch, 0 blocked, 137 missing
 ```
 
 Those counts come from the generated lane matrix:
@@ -202,7 +227,7 @@ Live Helm-vs-ConfigHub parity has started:
 - The selected top-20 live comparison lane has committed receipts for all 20
   rows.
 - 20 rows pass, no rows are watch, and no rows are blocked.
-- Across the full 158-row lane matrix, 2 older watch rows remain as backlog
+- Across the full 159-row lane matrix, 2 older watch rows remain as backlog
   evidence for non-selected bases. They have semantic object parity, but need
   target, runtime, storage, controller-health, initialization, or
   operating-policy review before they should be promoted.
@@ -218,6 +243,13 @@ Strict two-cluster Helm-vs-installer parity now has committed receipts for all
 - 0 rows are watch;
 - 1 row is blocked by a Helm post-install hook route that has separate
   lifecycle observation evidence;
+- 0 rows currently report a semantic parity defect.
+
+The broader two-cluster kind parity corpus now has 50 committed receipts:
+
+- 49 rows pass;
+- 0 rows are watch;
+- 1 row is blocked by the same lifecycle-routed cert-manager default row;
 - 0 rows currently report a semantic parity defect.
 
 Use the generated rerun plan for the next command and expected remediation:

@@ -243,6 +243,8 @@ The selected top-20 live Helm-vs-ConfigHub comparison lane has 20 pass,
 0 watch, and 0 blocked receipts.
 The top-20 base-variant two-cluster kind parity lane has 42 committed
 receipts: 41 pass, 0 watch, 1 blocked, and 0 semantic parity defects.
+The broader two-cluster kind parity corpus has 50 committed receipts:
+49 pass, 0 watch, 1 blocked, and 0 semantic parity defects.
 5/5 maintained hook-bearing top-100 charts have hook route receipts;
 0/5 of those hook-queue rows have hook execution or observation receipts yet.
 Separately, cert-manager and External Secrets have lifecycle-observation
@@ -290,11 +292,11 @@ and exercised outside the pure local `npm run verify` corpus. The first
 runtime/GitOps wave currently has 10 committed receipts: 5 pass and 5 non-pass
 target-fit receipts. The strict live Helm-vs-ConfigHub comparison lane has 20
 committed receipts for selected top-20 rows: 20 pass, 0 watch, and 0 blocked.
-Across the full 158-row lane matrix, there are still 2 watch rows and 136
+Across the full 159-row lane matrix, there are still 2 watch rows and 137
 missing backlog rows for this lane. The strict two-cluster kind parity lane has
-receipts for all 42 maintained top-20 base variants and separates semantic
-parity from target prerequisites, runtime readiness, hooks, and storage
-behavior.
+receipts for all 42 maintained top-20 base variants and 50 committed receipts
+overall. It separates semantic parity from target prerequisites, runtime
+readiness, hooks, and storage behavior.
 See the generated summaries for exact chart/base status:
 [Runtime/GitOps Wave](./data/runtime-gitops/summary.md) and
 [Live Helm-vs-ConfigHub Parity](./data/live-helm-confighub-compare/summary.md).
@@ -783,6 +785,7 @@ a running GitOps controller and cluster. The current generated status is:
 runtime/GitOps first wave: 5 pass, 5 non-pass target-fit receipts
 selected top-20 live Helm-vs-ConfigHub comparison: 20 pass, 0 watch, 0 blocked
 all-base top-20 two-cluster kind parity: 41 pass, 0 watch, 1 blocked, 0 semantic defects
+broader two-cluster kind parity corpus: 49 pass, 0 watch, 1 blocked, 0 semantic defects
 ```
 
 Use the generated summaries for exact chart/base status:
