@@ -6,8 +6,8 @@ spec:
   chart: bitnami/mongodb
   version: 19.0.7
   base: existing-secret-replicaset
-  result: blocked
-  observedAt: '2026-06-09T23:44:01Z'
+  result: pass
+  observedAt: '2026-06-10T01:35:35Z'
   package:
     path: packages/bitnami/mongodb/19.0.7
   recipe:
@@ -15,27 +15,27 @@ spec:
   variantRevision: recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-mongod-b95c6-dj2s-helm
-    installerCluster: hx-mongod-b95c6-dj2s-installer
+    helmCluster: hx-mongod-b95c6-d02q-helm
+    installerCluster: hx-mongod-b95c6-d02q-installer
     namespace: mongodb
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-mongod-b95c6-dj2s-helm
+      - cluster: hx-mongod-b95c6-d02q-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-mongod-b95c6-dj2s-helm" ...
+        detail: 'Deleting cluster "hx-mongod-b95c6-d02q-helm" ...
 
-          Deleted nodes: ["hx-mongod-b95c6-dj2s-helm-control-plane"]'
-      - cluster: hx-mongod-b95c6-dj2s-installer
+          Deleted nodes: ["hx-mongod-b95c6-d02q-helm-control-plane"]'
+      - cluster: hx-mongod-b95c6-d02q-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-mongod-b95c6-dj2s-installer" ...
+        detail: 'Deleting cluster "hx-mongod-b95c6-d02q-installer" ...
 
-          Deleted nodes: ["hx-mongod-b95c6-dj2s-installer-control-plane"]'
+          Deleted nodes: ["hx-mongod-b95c6-d02q-installer-control-plane"]'
   legs:
     regularHelm:
-      result: blocked
+      result: pass
       command: helm upgrade --install mongodb oci://registry-1.docker.io/bitnamicharts/mongodb
         --version 19.0.7 --namespace mongodb --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/regular-helm-values.yaml
         --wait --timeout 8m
@@ -47,43 +47,27 @@ spec:
       runtimeNamespaces: &id001
       - mongodb
       runtime:
-        result: watch
+        result: pass
         namespaces: *id001
         workloads: '# mongodb
 
-          statefulset.apps/mongodb           0/2   12m
+          statefulset.apps/mongodb           2/2   85s
 
-          statefulset.apps/mongodb-arbiter   0/1   12m'
+          statefulset.apps/mongodb-arbiter   1/1   85s'
         pods: '# mongodb
 
-          mongodb-0           0/1   CrashLoopBackOff   7 (87s ago)    12m
+          mongodb-0           1/1   Running   0     85s
 
-          mongodb-arbiter-0   0/1   CrashLoopBackOff   7 (102s ago)   12m'
-        notReady:
-        - namespace: mongodb
-          pod: mongodb-0
-          ready: 0/1
-          status: CrashLoopBackOff
-        - namespace: mongodb
-          pod: mongodb-arbiter-0
-          ready: 0/1
-          status: CrashLoopBackOff
-      stderr: 'Pulled: registry-1.docker.io/bitnamicharts/mongodb:19.0.7
+          mongodb-1           1/1   Running   0     36s
 
-        Digest: sha256:0fddefc7871ddfb1f7a385a9ae6cd2e092e830f3cc324a9e798843765a7c0eec
-
-        Error: resource StatefulSet/mongodb/mongodb-arbiter not ready. status: InProgress,
-        message: Ready: 0/1
-
-        resource StatefulSet/mongodb/mongodb not ready. status: InProgress, message:
-        Replicas: 1/2
-
-        context deadline exceeded'
+          mongodb-arbiter-0   1/1   Running   0     85s'
+        notReady: []
+      stderr: ''
       getManifestError: ''
     cubInstallerApply:
-      result: watch
+      result: pass
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/mongodb/19.0.7
-        --base existing-secret-replicaset --work-dir /tmp/helm-expt-kind-parity-hx-mongod-b95c6-dj2s-mongodb
+        --base existing-secret-replicaset --work-dir /tmp/helm-expt-kind-parity-hx-mongod-b95c6-d02q-mongodb
         --non-interactive --namespace mongodb
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
@@ -95,27 +79,21 @@ spec:
       runtimeNamespaces: &id002
       - mongodb
       runtime:
-        result: watch
+        result: pass
         namespaces: *id002
         workloads: '# mongodb
 
-          statefulset.apps/mongodb           0/2   4m54s
+          statefulset.apps/mongodb           2/2   91s
 
-          statefulset.apps/mongodb-arbiter   0/1   4m54s'
+          statefulset.apps/mongodb-arbiter   1/1   91s'
         pods: '# mongodb
 
-          mongodb-0           0/1   CrashLoopBackOff   5 (81s ago)   4m54s
+          mongodb-0           1/1   Running   0     91s
 
-          mongodb-arbiter-0   0/1   CrashLoopBackOff   5 (73s ago)   4m54s'
-        notReady:
-        - namespace: mongodb
-          pod: mongodb-0
-          ready: 0/1
-          status: CrashLoopBackOff
-        - namespace: mongodb
-          pod: mongodb-arbiter-0
-          ready: 0/1
-          status: CrashLoopBackOff
+          mongodb-1           1/1   Running   0     44s
+
+          mongodb-arbiter-0   1/1   Running   0     91s'
+        notReady: []
   semanticComparison:
     allowedExtraInstallerObjects:
     - v1|Namespace||mongodb
@@ -145,25 +123,17 @@ spec:
     result: pass
     detail: secrets=1 crds=0
   - name: regular-helm-live
-    result: blocked
+    result: pass
     detail: 'Pulled: registry-1.docker.io/bitnamicharts/mongodb:19.0.7
 
-      Digest: sha256:0fddefc7871ddfb1f7a385a9ae6cd2e092e830f3cc324a9e798843765a7c0eec
-
-      Error: resource StatefulSet/mongodb/mongodb-arbiter not ready. status: InProgress,
-      message: Ready: 0/1
-
-      resource StatefulSet/mongodb/mongodb not ready. status: InProgress, message:
-      Replicas: 1/2
-
-      context deadline exceeded'
+      Digest: sha256:0fddefc7871ddfb1f7a385a9ae6cd2e092e830f3cc324a9e798843765a7c0eec'
   - name: cub-installer-apply-live
-    result: watch
+    result: pass
     detail: '# mongodb
 
-      statefulset.apps/mongodb           0/2   4m54s
+      statefulset.apps/mongodb           2/2   91s
 
-      statefulset.apps/mongodb-arbiter   0/1   4m54s'
+      statefulset.apps/mongodb-arbiter   1/1   91s'
   - name: semantic-object-parity
     result: pass
     detail: missing=0 extra=['v1|Namespace||mongodb'] diffs=0

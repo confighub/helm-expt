@@ -335,6 +335,8 @@ def target_fact_value(secret_name: str, key: str, run_root: Path) -> str:
         return "admin"
     if key == "key" and "gossip" in secret_name:
         return "MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY="
+    if key == "mongodb-replica-set-key":
+        return "MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY="
     if key in ("access_key", "access-key"):
         return "helm-expt-access-key"
     if key in ("secret_key", "secret-key"):

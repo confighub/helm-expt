@@ -26,4 +26,4 @@ spec:
     - "existing-secret-replicaset is supported when the declared MongoDB Secret target facts are satisfied."
     - "Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state."
     - "Target production review must choose storage class, MongoDB backup/restore mechanism, and whether the replica-set base is appropriate for the target."
-    - "The existing-secret-replicaset base is still marked runtime-review-needed in the base-readiness table."
+    - "The existing-secret-replicaset base now passes two-cluster parity when the target Secret supplies MongoDB-valid replica-set key material."

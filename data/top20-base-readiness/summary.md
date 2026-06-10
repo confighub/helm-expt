@@ -16,9 +16,9 @@ or runtime review.
 ~~~text
 base variants: 42
 start-here: 20
-try-with-proof: 14
+try-with-proof: 15
 runtime-watch: 1
-runtime-review-needed: 1
+runtime-review-needed: 0
 operating-policy-needed: 1
 target-fit-needed: 2
 target-prerequisite-needed: 2
@@ -32,7 +32,7 @@ Live rerun readiness for non-pass rows:
 
 ~~~text
 model-or-stage-first: 5
-review-target-first: 2
+review-target-first: 1
 inspect-diff-first: 0
 rerun-now-after-cleanup: 0
 ~~~
@@ -60,7 +60,7 @@ rerun-now-after-cleanup: 0
 | `argo-cd/argo-cd@9.5.15` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
 | `argo-cd/argo-cd@9.5.15` | no-crds | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `bitnami/mongodb@19.0.7` | generated-passwords | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
-| `bitnami/mongodb@19.0.7` | existing-secret-replicaset | no | runtime-review-needed | review-target-first | target-runtime: pod crash loop (parity passed) | inspect runtime state; keep the recipe stable unless semantic object comparison starts failing |
+| `bitnami/mongodb@19.0.7` | existing-secret-replicaset | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `bitnami/mysql@14.0.3` | generated-passwords | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
 | `bitnami/mysql@14.0.3` | existing-secret | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `bitnami/nginx@24.0.2` | http-clusterip | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |

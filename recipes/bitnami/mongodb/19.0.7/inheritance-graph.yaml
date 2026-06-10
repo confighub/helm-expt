@@ -57,7 +57,7 @@ spec:
         - "mongodb-root-password"
         - "mongodb-replica-set-key"
       fact: "Secret/mongodb/mongodb-auth:mongodb-root-password+mongodb-replica-set-key"
-      purpose: "MongoDB root password and replica-set key"
+      purpose: "MongoDB root password and MongoDB-valid replica-set key"
   generatedFactEdges:
     []
   fieldReachability:
