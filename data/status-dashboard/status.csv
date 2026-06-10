@@ -13,7 +13,7 @@ top100,top100 limitation-decision queue,7,80,partial,data/top100-coverage/work-q
 refresh,top20 proofs still current,13,20,partial,data/refresh-survival/refreshes.csv,Supported top-20 chart versions that still match the latest upstream Helm version in the retained refresh snapshot.
 refresh,top20 upstream update candidates,7,20,partial,data/refresh-survival/refreshes.csv,Supported top-20 charts with newer upstream Helm versions that must not be promoted until the full lane reruns.
 refresh,update candidates with proof-complete root paths,4,7,partial,data/refresh-survival/refreshes.csv,"Latest-version candidates that have root recipe/package paths and proof-complete evidence, but are not replacement catalog rows."
-refresh,latest refresh p0 action rows,4,7,partial,data/latest-top20-refresh/action-queue/queue.csv,"Upstream movement rows whose next action is replacement decision, candidate refresh, or new candidate creation before support changes."
+refresh,latest refresh p0 action rows,3,7,partial,data/latest-top20-refresh/action-queue/queue.csv,"Upstream movement rows whose next action is replacement decision, candidate refresh, or new candidate creation before support changes."
 top500,source rows scanned,495,500,partial,data/top500-catalog-analysis/review.csv,Retained source-scan rows with source feature data.
 top500,rows with current recipe proof,91,500,partial,data/top500-catalog-analysis/review.csv,Retained source-scan rows matched to current recipe/package proof.
 top500,catalog-supported rows,20,500,partial,data/top500-catalog-analysis/review.csv,Rows promoted to the current public catalog; production gates still matter.

@@ -31,7 +31,7 @@ Which detailed CSV should I open next?
 | refresh | top20 proofs still current | 13/20 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
 | refresh | top20 upstream update candidates | 7/20 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
 | refresh | update candidates with proof-complete root paths | 4/7 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
-| refresh | latest refresh p0 action rows | 4/7 | partial | [data/latest-top20-refresh/action-queue/queue.csv](../../data/latest-top20-refresh/action-queue/queue.csv) |
+| refresh | latest refresh p0 action rows | 3/7 | partial | [data/latest-top20-refresh/action-queue/queue.csv](../../data/latest-top20-refresh/action-queue/queue.csv) |
 | top500 | source rows scanned | 495/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | top500 | rows with current recipe proof | 91/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | top500 | catalog-supported rows | 20/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
@@ -120,7 +120,7 @@ considered.
 
 | Action | Charts | Next action |
 | --- | ---: | --- |
-| Write replacement decisions | 3 | Review the latest-aligned candidate against the supported version and record a target-scoped replacement decision. |
+| Write replacement decisions | 2 | Review the latest-aligned candidate against the supported version and record a target-scoped replacement decision. |
 | Refresh superseded retained candidates | 3 | Regenerate candidate proof/package roots for the newer upstream version, then rerun the refresh surfaces. |
 | Create missing retained candidates | 0 | Make the needed generator support version/output overrides, then create the missing candidate proof. |
 | Promote render candidates and complete live lanes | 0 | Promote the candidate root paths, then run ConfigHub proof, local live, and live parity lanes before replacement. |

@@ -1,0 +1,57 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LatestCandidateReplacementDecision
+metadata:
+  name: prometheus-community-kube-prometheus-stack-86-1-0-defer-public-catalog-replacement
+spec:
+  chart: prometheus-community/kube-prometheus-stack
+  currentVersion: 85.3.3
+  currentSupportedVersion: 85.3.3
+  currentSupportedBase: default
+  candidateVersion: 86.1.0
+  latestUpstreamVersion: 86.1.0
+  candidateFreshness: latest-upstream-aligned
+  candidateBase: default
+  decision: defer-replacement
+  decisionDate: "2026-06-10"
+  catalogEffect: no-catalog-promotion
+  targetScope:
+    name: public-catalog-default-kube-prometheus-stack
+    clusterClass: cub-lk-kind-vanilla
+    namespace: monitoring
+    deliveryPath: confighub-oci
+    gitopsController: argo
+  summary: "Keep prometheus-community/kube-prometheus-stack@85.3.3 as the supported public catalog version for now; retain prometheus-community/kube-prometheus-stack@86.1.0 as a proof-complete candidate."
+  rationale:
+    - "The kube-prometheus-stack 86.1.0 candidate has render, ConfigHub, local live, and two-cluster live parity evidence."
+    - "The current kube-prometheus-stack 85.3.3 supported scope already has target-scoped lifecycle, security, image, and fresh ConfigHub OCI/Argo support evidence."
+    - "Replacing a large monitoring stack should not happen only because a newer candidate is proof-complete; CRD, webhook, RBAC, image, and target-freshness decisions must be re-bound to the exact replacement scope."
+  decisionTopicsReviewed:
+    - "CRD lifecycle and upgrade policy"
+    - "cluster RBAC review"
+    - "extension slot provenance and scan policy"
+    - "generated fact ownership"
+    - "scan/gate warning disposition"
+    - "webhook readiness and failure policy"
+  requirementsBeforeReplacement:
+    - "Write a kube-prometheus-stack 86.1.0 target-scoped production support decision with the final CRD ownership, upgrade, and rollback boundary."
+    - "Refresh webhook lifecycle evidence for the exact replacement scope, including admission TLS prerequisites and post-apply readiness."
+    - "Refresh security and image policy decisions for the 86.1.0 rendered object set before treating it as the supported catalog version."
+    - "Refresh ConfigHub OCI/Argo live evidence for the exact replacement scope after the replacement candidate is selected."
+    - "Record whether kube-prometheus-stack 85.3.3 remains a legacy patch/rollback reference after replacement."
+  evidence:
+    - path: data/production-support-decisions/prometheus-community-kube-prometheus-stack/support-decision.yaml
+      claim: "Current kube-prometheus-stack 85.3.3 supported scope remains the public catalog support decision."
+    - path: recipes/prometheus-community/kube-prometheus-stack/86.1.0/catalog-status.yaml
+      claim: "kube-prometheus-stack 86.1.0 is visible as a catalog-candidate, not catalog-supported."
+    - path: runs/latest-top20-refresh/kube-prometheus-stack-86.1.0/confighub-proof/latest/confighub-proof-receipt.yaml
+      claim: "kube-prometheus-stack 86.1.0 ConfigHub proof passed for the default base."
+    - path: runs/latest-top20-refresh/kube-prometheus-stack-86.1.0/local-kind/observation-receipt.json
+      claim: "kube-prometheus-stack 86.1.0 local kind observation passed for the default base."
+    - path: runs/latest-top20-refresh/kube-prometheus-stack-86.1.0/live-parity/default/receipt.yaml
+      claim: "kube-prometheus-stack 86.1.0 two-cluster Helm-vs-installer live parity passed for the default base."
+    - path: data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml
+      claim: "CRD lifecycle and upgrade policy is an explicit replacement topic for this chart."
+    - path: data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml
+      claim: "Webhook readiness and failure policy is an explicit replacement topic for this chart."
+    - path: data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/cluster-rbac-review.yaml
+      claim: "Cluster RBAC review is an explicit replacement topic for this chart."
