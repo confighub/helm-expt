@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/grafana/tempo/1.24.4/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/grafana/tempo/1.24.4/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/grafana/tempo/1.24.4/value-model.yaml](value-model.yaml) |
+| Target prerequisite plan | [recipes/grafana/tempo/1.24.4/target-prerequisite-plan.yaml](target-prerequisite-plan.yaml) |
 | Weirdness and mitigations | [recipes/grafana/tempo/1.24.4/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/grafana/tempo/1.24.4/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/grafana/tempo/1.24.4/helm-pain-report.yaml](helm-pain-report.yaml) |
