@@ -236,6 +236,13 @@ function classifyReceipt(receipt) {
   if (text.includes("startupapicheck") || text.includes("failed post-install")) {
     return `helm-hook: post-install hook failed${paritySuffix}`;
   }
+  if (
+    spec.chart === "ingress-nginx/ingress-nginx"
+    && text.includes("ingress-nginx-admission")
+    && text.includes("not found")
+  ) {
+    return `helm-hook: admission webhook certificate secret not supplied by config-only apply${paritySuffix}`;
+  }
   if (spec.chart === "grafana/tempo" && spec.base === "s3-query-observability" && text.includes("crashloopbackoff")) {
     return `target-prerequisite: object store endpoint not satisfied${paritySuffix}`;
   }

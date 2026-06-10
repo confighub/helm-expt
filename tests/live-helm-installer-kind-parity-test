@@ -462,11 +462,27 @@ def ready_status(kubeconfig: Path, context: str, namespace: str) -> dict:
             ok = ok and have == want
         if not ok:
             not_ready.append({"pod": name, "ready": ready, "status": status})
+    diagnostics = []
+    for item in not_ready:
+        rc_describe, describe, describe_err = kubectl(
+            ["-n", namespace, "describe", "pod", item["pod"]],
+            kubeconfig,
+            context,
+            timeout=60,
+        )
+        detail = describe if rc_describe == 0 else describe_err
+        diagnostics.append({
+            "pod": item["pod"],
+            "result": "pass" if rc_describe == 0 else "blocked",
+            "detailHead": detail[:3000],
+            "detailTail": detail[-3000:],
+        })
     return {
         "result": "pass" if rc == 0 and bool(workloads.strip()) and rc_pods == 0 and not not_ready else "watch",
         "workloads": workloads if rc == 0 else workload_err,
         "pods": pods if rc_pods == 0 else pod_err,
         "notReady": not_ready,
+        "diagnostics": diagnostics,
     }
 
 
@@ -480,6 +496,7 @@ def wait_ready_many(kubeconfig: Path, context: str, namespaces: list[str], timeo
             break
         time.sleep(10)
     not_ready = []
+    diagnostics = []
     workloads = []
     pods = []
     for namespace, result in last.items():
@@ -487,13 +504,33 @@ def wait_ready_many(kubeconfig: Path, context: str, namespaces: list[str], timeo
         pods.append(f"# {namespace}\n{result.get('pods', '')}".rstrip())
         for item in result.get("notReady", []):
             not_ready.append({"namespace": namespace, **item})
+        for item in result.get("diagnostics", []):
+            diagnostics.append({"namespace": namespace, **item})
     return {
         "result": "pass" if last and all(item.get("result") == "pass" for item in last.values()) else "watch",
         "namespaces": namespaces,
         "workloads": "\n".join(workloads),
         "pods": "\n".join(pods),
         "notReady": not_ready,
+        "diagnostics": diagnostics,
     }
+
+
+def parse_duration_seconds(value: str) -> int:
+    value = value.strip().lower()
+    if not value:
+        raise ValueError("duration cannot be empty")
+    units = {
+        "ms": 0.001,
+        "s": 1,
+        "m": 60,
+        "h": 3600,
+    }
+    for suffix, multiplier in units.items():
+        if value.endswith(suffix):
+            number = float(value[:-len(suffix)])
+            return max(1, int(number * multiplier))
+    return max(1, int(float(value)))
 
 
 def semantic_compare(
@@ -600,6 +637,7 @@ def main() -> int:
     parser.add_argument("--wait", default="8m")
     parser.add_argument("--keep", action="store_true")
     args = parser.parse_args()
+    wait_seconds = parse_duration_seconds(args.wait)
 
     repo = Path(__file__).resolve().parents[1]
     package_path = repo / args.package
@@ -714,7 +752,7 @@ def main() -> int:
             helm_live_manifest = get_out + "\n"
             write_text(run_root / "regular-helm-live-manifest.yaml", helm_live_manifest)
         helm_runtime_names = workload_namespaces(canonical_helm_manifest, args.namespace)
-        helm_runtime = wait_ready_many(helm_kubeconfig, helm_context, helm_runtime_names, timeout_seconds=300)
+        helm_runtime = wait_ready_many(helm_kubeconfig, helm_context, helm_runtime_names, timeout_seconds=wait_seconds)
         helm_result = "pass" if rc == 0 and get_rc == 0 and helm_runtime["result"] == "pass" else "blocked"
         leg("regularHelm",
             result=helm_result,
@@ -755,7 +793,7 @@ def main() -> int:
             run_root,
         )
         mark_stage("installer-readiness")
-        installer_runtime = wait_ready_many(installer_kubeconfig, installer_context, apply_info["runtimeNamespaces"], timeout_seconds=300)
+        installer_runtime = wait_ready_many(installer_kubeconfig, installer_context, apply_info["runtimeNamespaces"], timeout_seconds=wait_seconds)
         installer_result = "pass" if installer_runtime["result"] == "pass" else "watch"
         leg("cubInstallerApply",
             result=installer_result,

@@ -48,8 +48,8 @@ Which detailed CSV should I open next?
 | live evidence | live Helm-vs-ConfigHub receipts | 20/20 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster kind parity receipts | 42/42 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | live evidence | live parity rerun rows needing decisions | 6/6 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing model or staging first | 5/6 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing target review first | 1/6 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing model or staging first | 6/6 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing target review first | 0/6 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | ConfigHub/OCI semantic parity defect receipts | 0/20 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 0/42 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-review-ready charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
@@ -104,8 +104,7 @@ evidence work before it becomes production-supported for a target scope.
 
 | Queue | Rows | Next action |
 | --- | ---: | --- |
-| model-or-stage-first | 5 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 1 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| model-or-stage-first | 6 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 
 ### Hook And Lifecycle Work
 
@@ -183,7 +182,7 @@ spreadsheet.
 | grafana/tempo@1.24.4 | local-persistent (start-here) | start-here:1; target-prerequisite-needed:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
 | hashicorp/consul@2.0.0 | default-control-plane (start-here) | start-here:1; target-fit-needed:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
 | hashicorp/vault@0.32.0 | dev-mode (start-here) | start-here:1; operating-policy-needed:1; target-fit-needed:1 | live-helm-vs-confighub-parity | 3/3 | 1/3 | 2/3 | 1/3 | 1/3 | - |
-| ingress-nginx/ingress-nginx@4.15.1 | internal-clusterip (start-here) | start-here:1; try-with-proof:1; runtime-watch:1 | live-helm-vs-confighub-parity | 3/3 | 1/3 | 2/3 | 1/3 | 1/3 | - |
+| ingress-nginx/ingress-nginx@4.15.1 | internal-clusterip (start-here) | start-here:1; try-with-proof:1; hook-lifecycle-review-needed:1 | live-helm-vs-confighub-parity | 3/3 | 1/3 | 2/3 | 1/3 | 1/3 | - |
 | jetstack/cert-manager@v1.20.2 | crds-enabled (start-here) | start-here:1; lifecycle-observed:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
 | longhorn/longhorn@1.11.2 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
 | metrics-server/metrics-server@3.13.0 | default (start-here) | start-here:1; target-prerequisite-needed:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | existing-secret (chart ships no Secret toggle) |
@@ -233,15 +232,14 @@ useful.
 
 | Rerun readiness | Rows | Meaning |
 | --- | ---: | --- |
-| model-or-stage-first | 5 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 1 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| model-or-stage-first | 6 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 
 | Next step | Rows | Meaning |
 | --- | ---: | --- |
 | stage-prerequisite | 2 | Stage or model CRDs, APIs, Secrets, storage, or another target prerequisite before rerunning. |
+| lifecycle-route | 1 | Choose the hook or lifecycle observation route before rerunning strict parity. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if expected readiness changes. |
 | target-fit-review | 2 | Choose a target that provides the required platform behavior, or create a base that fits the target. |
-| runtime-review | 1 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
 
 Use [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md)
 for the exact row, command, receipt, diagnosis, and follow-up.
@@ -257,7 +255,7 @@ Current two-cluster kind parity non-pass receipts:
 | hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | blocked | target-fit: secure mesh target topology not satisfied (parity passed) |
 | hashicorp/vault@0.32.0 | default | blocked | operate-policy: Vault init/unseal required (parity passed) |
 | hashicorp/vault@0.32.0 | ha-raft-ui | blocked | target-fit: HA raft target topology not satisfied (parity passed) |
-| ingress-nginx/ingress-nginx@4.15.1 | default | watch | target-runtime: installer-applied workload not ready at observation cutoff (parity passed) |
+| ingress-nginx/ingress-nginx@4.15.1 | default | watch | helm-hook: admission webhook certificate secret not supplied by config-only apply (parity passed) |
 | jetstack/cert-manager@v1.20.2 | default | blocked | helm-hook: post-install hook failed (parity passed) |
 | metrics-server/metrics-server@3.13.0 | external-tls-ca | blocked | target-prerequisite: serving certificate and APIService trust not satisfied (parity passed) |
 
