@@ -101,7 +101,7 @@ spec:
       currentVersion: "25.5.3"
       candidateVersion: "27.0.0"
       primaryBase: "default"
-      proofStatus: "proof-incomplete"
+      proofStatus: "proof-complete"
       productionSupportStatus: "not-production-supported"
       productionBoundary: "candidate may proceed to production review only after target-scoped support decisions accept or route each topic"
       decisionTopics:
@@ -116,7 +116,7 @@ spec:
         configHubProofReceipt: "runs/latest-top20-refresh/redis-27.0.0/confighub-proof/latest/confighub-proof-receipt.yaml"
         localLiveReceipt: "runs/latest-top20-refresh/redis-27.0.0/local-kind/observation-receipt.json"
         liveParityReceipt: "runs/latest-top20-refresh/redis-27.0.0/live-parity/default/receipt.yaml"
-      nextAction: "finish live parity before production review"
+      nextAction: "review 5 production decision topic(s), then decide whether bitnami/redis@27.0.0 can replace 25.5.3"
     -
       chart: "prometheus-community/kube-prometheus-stack"
       currentVersion: "85.3.3"
