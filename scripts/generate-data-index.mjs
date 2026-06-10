@@ -65,6 +65,7 @@ function readme(rows) {
     ["I want the top-100 or top-500 planning picture.", "data/top100-readiness/summary.md; data/top100-readiness/next80-queues.md; data/top500-catalog-analysis/review.csv"],
     ["I want live parity status.", "data/live-kind-parity/summary.md; data/live-helm-confighub-compare/summary.md"],
     ["I want hook, CRD, webhook, or lifecycle status.", "data/lifecycle-boundary/summary.md; data/outcome-coverage/feature-outcomes.csv"],
+    ["I want candidate routes for hook-bearing source charts.", "data/hook-route-candidates/summary.md; data/hook-route-candidates/candidates.csv"],
     ["I want extension-slot or custom-config risk.", "data/extension-slots/summary.md; data/nginx-config-checks/summary.md"],
     ["I want production support status and next actions.", "data/status-dashboard/next-work-queues.csv; data/production-support-decisions/summary.md; data/production-support-decisions/work-items.csv; data/production-support-decisions/decisions.csv"],
     ["I want accepted pre-review production dispositions.", "data/production-disposition/summary.md; data/production-disposition/support-decision-contract.md; data/production-disposition/support-decision-queue.csv"],
@@ -88,6 +89,7 @@ function readme(rows) {
     ["data/extension-slots/extension-slots.csv", "One row per chart with NGINX-like extension slots: scope, built variants, surfaces, route, evidence."],
     ["data/nginx-config-checks/checks.csv", "NGINX supported-base checks for empty config extension slots, sidecars, metrics, raw objects, and ingress shape."],
     ["data/lifecycle-boundary/summary.md", "Hook and hook-like lifecycle boundary: hook queue rows, lifecycle observations, evidence, and current limits."],
+    ["data/hook-route-candidates/summary.md", "Candidate hook route plans for source top-100 hook charts that are not yet maintained hook lifecycle queue rows."],
     ["data/lifecycle-observations/cert-manager-eso/summary.md", "Concrete lifecycle observations for cert-manager and External Secrets: CRD policy, post-apply API readiness, webhook CA injection, and controller-populated Secret data."],
     ["data/live-kind-parity/summary.md", "Two-cluster live parity: regular Helm in one vanilla kind cluster and cub installer output in another."],
     ["data/live-helm-confighub-compare/summary.md", "Selected live Helm-vs-ConfigHub parity: regular Helm compared with ConfigHub delivery for selected top-20 rows."],
@@ -319,6 +321,7 @@ function roleFor(path) {
   if (path === "data/extension-slots/extension-slots.csv") return "one row per chart with NGINX-like extension slots and the route for populated slots";
   if (path === "data/nginx-config-checks/checks.csv") return "NGINX supported-base checks for config extension slots and rendered object shape";
   if (path === "data/lifecycle-boundary/lifecycle-boundary.csv") return "one row per hook queue item or hook-like lifecycle observation";
+  if (path === "data/hook-route-candidates/candidates.csv") return "one row per source-top-100 hook route candidate: pattern, dependency source, candidate route, and promotion step";
   if (path === "data/production-disposition/next-actions.csv") return "one row per top-20 chart: recommended base, production decision focus, image digest status, and next action";
   if (path === "data/production-disposition/support-decision-queue.csv") return "pre-review production support queue: candidate base, support boundary work, and required evidence";
   if (path === "data/production-support-decisions/decisions.csv") return "one row per target-scoped support decision artifact";
@@ -382,6 +385,7 @@ function familyRole(family) {
     "live-parity-rerun-plan": "rerun queue for non-pass live parity rows",
     "runtime-gitops": "Argo/Flux OCI live proof wave",
     "hook-lifecycle": "hook-bearing charts and required lifecycle receipt paths",
+    "hook-route-candidates": "candidate hook route plans before maintained lifecycle queue admission",
     "lifecycle-observations": "controller-owned or hook-like lifecycle observations",
     "latest-top20-refresh": "latest upstream chart-version refresh candidates",
     "legacy-patch-review": "older chart-version patch support review",

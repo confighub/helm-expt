@@ -198,13 +198,20 @@ function buildReport() {
     .sort((a, b) => number(a.rank) - number(b.rank));
   const auditRows = parseCsvFile("data/quirk-inventory-audit/top100-source-vs-modeled.csv");
   const hookReviewRows = parseCsvFile("data/hook-lifecycle-review/top100-source-hook-route-review.csv");
+  const hookCandidateRows = parseCsvFile("data/hook-route-candidates/candidates.csv");
   const modeledRows = parseCsvFile("data/top100-catalog-analysis/review.csv");
   const modeledByChart = new Map(modeledRows.map((row) => [row.chart, row]));
   const hookReviewByChart = new Map(hookReviewRows.map((row) => [row.chart, row]));
+  const hookCandidateByChart = new Map(hookCandidateRows.map((row) => [row.chart, row]));
   const auditByQuirk = new Map(auditRows.map((row) => [row.quirk, row]));
 
   const rows = sourceRows
-    .map((source) => chartWorkItem(source, { modeled: modeledByChart.get(source.chart), hookReview: hookReviewByChart.get(source.chart), auditByQuirk }))
+    .map((source) => chartWorkItem(source, {
+      modeled: modeledByChart.get(source.chart),
+      hookReview: hookReviewByChart.get(source.chart),
+      hookCandidate: hookCandidateFor(source, hookCandidateByChart),
+      auditByQuirk,
+    }))
     .filter((row) => row.open_quirks)
     .sort((a, b) => number(b.priority_score) - number(a.priority_score) || number(a.source_rank) - number(b.source_rank) || a.chart.localeCompare(b.chart));
 
@@ -226,6 +233,7 @@ function chartWorkItem(source, context) {
     : priorityScore >= 24 ? "P1"
       : "P2";
   const hookReview = context.hookReview;
+  const hookCandidate = context.hookCandidate;
   const modeled = context.modeled;
   const firstAction = top
     ? top.id === "hooks" && hookReview?.next_action
@@ -244,12 +252,21 @@ function chartWorkItem(source, context) {
     open_quirks: signals.map((item) => item.id).join(";"),
     top_quirk: top?.id ?? "",
     top_quirk_detail: top?.detail ?? "",
+    candidate_route: hookCandidate?.candidate_route ?? "",
+    candidate_route_artifact: hookCandidate ? "data/hook-route-candidates/summary.md" : "",
     first_action: firstAction,
     next_artifact: top?.artifact ?? "",
     why_it_matters: top?.why ?? "",
     source_evidence: evidenceFor(source, signals),
     model_gap: modelGap(signals),
   };
+}
+
+function hookCandidateFor(source, hookCandidateByChart) {
+  const direct = hookCandidateByChart.get(source.chart);
+  if (direct) return direct;
+  if (source.chart === "bitnami/thanos") return hookCandidateByChart.get("bitnami/minio") ?? null;
+  return null;
 }
 
 function auditFor(quirkId, auditByQuirk) {
@@ -300,7 +317,11 @@ function toSummary(rows, auditRows) {
   const byPriority = countBy(rows, "priority");
   const byTopQuirk = countBy(rows, "top_quirk");
   const p0 = rows.filter((row) => row.priority === "P0").slice(0, 15);
+  const candidateRows = rows.filter((row) => row.candidate_route);
   const topTable = p0.map((row) => `| ${row.priority} | ${row.source_rank} | \`${row.chart}@${row.source_version}\` | \`${row.top_quirk}\` | ${escapePipes(row.first_action)} |`).join("\n");
+  const candidateTable = candidateRows
+    .map((row) => `| ${row.priority} | \`${row.chart}@${row.source_version}\` | ${escapePipes(row.candidate_route)} | ${escapePipes(row.candidate_route_artifact)} |`)
+    .join("\n");
   const quirkTable = [...byTopQuirk.entries()]
     .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
     .map(([quirk, countValue]) => `| \`${quirk}\` | ${countValue} |`)
@@ -338,6 +359,16 @@ P2: ${byPriority.get("P2") ?? 0}
 | --- | ---: | --- | --- | --- |
 ${topTable}
 
+## Hook Route Candidates Connected
+
+These rows have source-scan hook signals and a candidate route plan. Candidate
+routes are not receipts and do not claim runtime behavior; they are the next
+step before admitting a chart to the maintained hook lifecycle queue.
+
+| Priority | Chart | Candidate route | Candidate artifact |
+| --- | --- | --- | --- |
+${candidateTable || "| - | - | - | - |"}
+
 ## Top Quirk Driving Each Row
 
 | Top quirk | Rows |
@@ -355,6 +386,7 @@ ${auditGapTable}
 | File | Purpose |
 | --- | --- |
 | \`top100-queue.csv\` | One chart-level work item per affected public top-100 source row. |
+| \`data/hook-route-candidates/summary.md\` | Candidate hook route plans referenced by queue rows where available. |
 | \`data/quirk-inventory-audit/top100-source-vs-modeled.csv\` | Source vs modeled vs proof counts that feed this queue. |
 | \`data/top500-catalog-analysis/source/source-feature-scan.raw.json\` | Source-scan input. |
 
@@ -414,6 +446,8 @@ function toCsv(rows) {
     "open_quirks",
     "top_quirk",
     "top_quirk_detail",
+    "candidate_route",
+    "candidate_route_artifact",
     "first_action",
     "next_artifact",
     "why_it_matters",

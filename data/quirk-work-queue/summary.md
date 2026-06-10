@@ -40,6 +40,20 @@ P2: 32
 | P0 | 26 | `apache-airflow/airflow@1.21.0` | `remote-dependencies` | model remote dependency closure in chart facts and source/dependency lock evidence |
 | P0 | 29 | `nextcloud/nextcloud@9.1.0` | `remote-dependencies` | model remote dependency closure in chart facts and source/dependency lock evidence |
 
+## Hook Route Candidates Connected
+
+These rows have source-scan hook signals and a candidate route plan. Candidate
+routes are not receipts and do not claim runtime behavior; they are the next
+step before admitting a chart to the maintained hook lifecycle queue.
+
+| Priority | Chart | Candidate route | Candidate artifact |
+| --- | --- | --- | --- |
+| P0 | `k8s-dashboard/kubernetes-dashboard@7.14.0` | upgrade-action-with-receipt (if rendered) | data/hook-route-candidates/summary.md |
+| P0 | `kong/kong@3.2.0` | upgrade-action-with-receipt | data/hook-route-candidates/summary.md |
+| P0 | `bitnami/kafka@32.4.3` | explicit-managed-action | data/hook-route-candidates/summary.md |
+| P0 | `bitnami/minio@17.0.21` | explicit-managed-action | data/hook-route-candidates/summary.md |
+| P0 | `bitnami/thanos@17.3.1` | explicit-managed-action | data/hook-route-candidates/summary.md |
+
 ## Top Quirk Driving Each Row
 
 | Top quirk | Rows |
@@ -76,6 +90,7 @@ P2: 32
 | File | Purpose |
 | --- | --- |
 | `top100-queue.csv` | One chart-level work item per affected public top-100 source row. |
+| `data/hook-route-candidates/summary.md` | Candidate hook route plans referenced by queue rows where available. |
 | `data/quirk-inventory-audit/top100-source-vs-modeled.csv` | Source vs modeled vs proof counts that feed this queue. |
 | `data/top500-catalog-analysis/source/source-feature-scan.raw.json` | Source-scan input. |
 
