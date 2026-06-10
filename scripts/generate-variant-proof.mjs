@@ -48,14 +48,18 @@ function parseArgs(argv) {
   if (!chartPath || !variant) return null;
   const noIncludeCrds = argv.includes("--no-include-crds");
   let baseVariant = "default";
+  let valuesFile = null;
   const valuesArgs = [];
   for (let i = 2; i < argv.length; i++) {
     if (argv[i] === "--set") valuesArgs.push("--set", argv[++i]);
-    else if (argv[i] === "--values" || argv[i] === "-f") valuesArgs.push("--values", argv[++i]);
+    else if (argv[i] === "--values" || argv[i] === "-f") {
+      valuesFile = argv[++i];
+      valuesArgs.push("--values", valuesFile);
+    }
     else if (argv[i] === "--base") baseVariant = argv[++i];
   }
   check(valuesArgs.length > 0 || noIncludeCrds, "provide --set/--values, or --no-include-crds (for charts that ship CRDs in crds/)");
-  return { chartPath, variant, valuesArgs, noIncludeCrds, baseVariant };
+  return { chartPath, variant, valuesArgs, valuesFile, noIncludeCrds, baseVariant };
 }
 
 function ensureRepo(repository, repositoryURL) {
@@ -70,7 +74,7 @@ function normalizeRelease(text) {
 function main() {
   const args = parseArgs(process.argv.slice(2));
   if (!args) return usage();
-  const { chartPath, variant, valuesArgs, noIncludeCrds, baseVariant } = args;
+  const { chartPath, variant, valuesArgs, valuesFile, noIncludeCrds, baseVariant } = args;
 
   const recipeRoot = join(repoRoot, "recipes", chartPath);
   const packageRoot = join(repoRoot, "packages", chartPath);
@@ -142,6 +146,14 @@ function main() {
 
   // 5. Recipe variant + effective-values + digest-bound revision + receipts.
   const valuesProfile = valuesArgs.filter((_, i) => i % 2 === 1).join("; ");
+  const effectiveValuesSpec = { profile: variant, renderDelta: valuesProfile, mergedValuesCaptured: false };
+  if (valuesFile) {
+    const valuesPath = join(repoRoot, valuesFile);
+    check(existsSync(valuesPath), `values file not found: ${valuesFile}`);
+    effectiveValuesSpec.valuesFile = valuesFile;
+    effectiveValuesSpec.values = readYaml(valuesPath);
+    effectiveValuesSpec.mergedValuesCaptured = true;
+  }
   writeYaml(join(recipeRoot, "variants", variant, "variant.yaml"), {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "Variant",
@@ -152,7 +164,7 @@ function main() {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "EffectiveValues",
     metadata: { name: `${artifact}-${variant}`, labels },
-    spec: { profile: variant, renderDelta: valuesProfile, mergedValuesCaptured: false },
+    spec: effectiveValuesSpec,
   });
   writeRevision(recipeRoot, chart, variant, { releaseObjects, releaseDigest, docs, objects, labels, check4 });
 

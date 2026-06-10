@@ -31,7 +31,9 @@ user-shaped-variant: 46
 ## How This Relates To Top100
 
 - Every row here already has a maintained recipe/package proof path.
-- The strongest evidence for these rows is currently render parity.
+- Most rows still have render parity as their strongest evidence. 1 row(s)
+  now have two-cluster kind parity, meaning regular Helm and `cub installer`
+  reached equivalent live outcomes in separate vanilla kind clusters.
 - Promotion needs useful variants, selected live evidence, and any target facts,
   lifecycle routes, or named limitations made explicit.
 - The top-20 catalog remains the public try-now path. This queue is the next

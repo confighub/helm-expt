@@ -9,7 +9,7 @@ spec:
     version: "1.21.1"
   deterministicBundle:
     command: "cub installer package packages/external-dns/external-dns/1.21.1 -o <tmp>/external-dns-external-dns-1.21.1.tgz"
-    sha256: "15bedfd89d5eeacf58f69a357920d25ebc1e1805516f56789744f5791b36e68c"
+    sha256: "e988e84b50eb145af6d13f9159c6fb77a02e020b6f55ec6b847e82ad75362a7f"
     byteIdenticalAcrossTwoLocalBundles: true
   package:
     path: "packages/external-dns/external-dns/1.21.1"
@@ -29,6 +29,14 @@ spec:
         sha256: "764caa006e0e36ed1ad27659090d71a9ca5ff4d671962684b49500971c57ee74"
         bytes: 8829
       -
+        path: "bases/dry-run-txt-registry/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/dry-run-txt-registry/upstream.yaml"
+        sha256: "8e3b831abefa8ca2b8754e4beb16fbc1e369965dc95b8f83e1de76cd8f2a3e62"
+        bytes: 7683
+      -
         path: "bases/no-crds/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
         bytes: 99
@@ -38,8 +46,8 @@ spec:
         bytes: 4526
       -
         path: "installer.yaml"
-        sha256: "bcc59e1989f80025717e9f5c35d5d2e3f621d5834a507fcf988074955147e795"
-        bytes: 496
+        sha256: "84755739a5eeaa160c35c0ceba09de25aa683738a372546ef51eb7607451e5de"
+        bytes: 701
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -52,12 +60,22 @@ spec:
       separatedSecretCount: 0
       variant: "default"
     -
-      variant: "no-crds"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
       base: "no-crds"
       command: "cub installer setup --pull packages/external-dns/external-dns/1.21.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 5
       cubInstallObjectCountIncludingSupport: 6
+      helmReleaseObjectCount: 5
       semanticObjectMatches: "5/5"
+      separatedSecretCount: 0
+      variant: "no-crds"
+    -
+      variant: "dry-run-txt-registry"
+      base: "dry-run-txt-registry"
+      command: "cub installer setup --pull packages/external-dns/external-dns/1.21.1 --base dry-run-txt-registry --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 4
+      cubInstallObjectCountIncludingSupport: 5
+      semanticObjectMatches: "4/4"
       separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"

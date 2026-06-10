@@ -1,0 +1,31 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "external-dns-external-dns-1.21.1-dry-run-txt-registry"
+  labels:
+    confighub.io/chart: "external-dns/external-dns"
+    confighub.io/version: "1.21.1"
+    confighub.io/variant: "dry-run-txt-registry"
+spec:
+  profile: "dry-run-txt-registry"
+  renderDelta: "recipes/external-dns/external-dns/1.21.1/values/dry-run-txt-registry-values.yaml"
+  mergedValuesCaptured: true
+  valuesFile: "recipes/external-dns/external-dns/1.21.1/values/dry-run-txt-registry-values.yaml"
+  values:
+    domainFilters:
+      - "example.com"
+    extraArgs:
+      dry-run: true
+      fqdn-template: "{{ .Name }}.example.com"
+      inmemory-zone:
+        - "example.com"
+      target-template: "127.0.0.1"
+    policy: "create-only"
+    provider:
+      name: "inmemory"
+    rbac:
+      create: false
+    registry: "txt"
+    sources:
+      - "fake"
+    txtOwnerId: "helm-expt-dry-run"

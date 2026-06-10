@@ -702,6 +702,7 @@ Proof lanes: render parity 3/3; ConfigHub 1/3; local live 2/3; GitOps live 1/3; 
 Hard gap: -
 Package: [packages/hashicorp/vault/0.32.0](packages/hashicorp/vault/0.32.0)
 Per-chart catalog: [CATALOG.md](recipes/hashicorp/vault/0.32.0/CATALOG.md)
+Helm pain report: [helm-pain-report.yaml](recipes/hashicorp/vault/0.32.0/helm-pain-report.yaml)
 
 Start here:
 
@@ -738,7 +739,7 @@ Receipts: [per-chart receipts](recipes/hashicorp/vault/0.32.0/CATALOG.md)
 ##### ha-raft-ui
 
 When to use: vault HA Raft with UI variant rendered from hashicorp/vault@0.32.0
-Readiness: target-fit-needed
+Readiness: try-with-proof
 Namespace: vault
 Target facts: see variant targetFacts
 Package base: [packages/hashicorp/vault/0.32.0/bases/ha-raft-ui](packages/hashicorp/vault/0.32.0/bases/ha-raft-ui)
@@ -1073,7 +1074,7 @@ still need catalog promotion review before support is claimed.
 | elastic/kibana@8.5.1 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/elastic/kibana/8.5.1/CATALOG.md) |
 | elastic/logstash@8.5.1 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/elastic/logstash/8.5.1/CATALOG.md) |
 | elastic/metricbeat@8.5.1 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/elastic/metricbeat/8.5.1/CATALOG.md) |
-| external-dns/external-dns@1.21.1 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/external-dns/external-dns/1.21.1/CATALOG.md) |
+| external-dns/external-dns@1.21.1 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/external-dns/external-dns/1.21.1/CATALOG.md) |
 | fairwinds-stable/goldilocks@10.3.0 | proof-grade | needs-useful-variant | render-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/fairwinds-stable/goldilocks/10.3.0/CATALOG.md) |
 | fairwinds-stable/vpa@4.11.0 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/fairwinds-stable/vpa/4.11.0/CATALOG.md) |
 | falcosecurity/falco@9.0.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/falcosecurity/falco/9.0.0/CATALOG.md) |

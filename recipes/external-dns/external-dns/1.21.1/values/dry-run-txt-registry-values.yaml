@@ -1,0 +1,17 @@
+sources:
+  - fake
+provider:
+  name: inmemory
+rbac:
+  create: false
+registry: txt
+txtOwnerId: helm-expt-dry-run
+domainFilters:
+  - example.com
+policy: create-only
+extraArgs:
+  dry-run: true
+  fqdn-template: "{{ .Name }}.example.com"
+  inmemory-zone:
+    - example.com
+  target-template: "127.0.0.1"

@@ -10,7 +10,7 @@ works now, what works with help, and what still needs product or operator work.
 charts: 100
 top-20 catalog-supported: 20
 next-80 proof-grade: 80
-charts with live evidence on at least one variant: 20
+charts with live evidence on at least one variant: 21
 charts with named hard gaps: 25
 ~~~
 
@@ -40,7 +40,7 @@ charts with named hard gaps: 25
 | Promote proof-grade charts | 27 | Run catalog review on the closest proof-grade rows. | A chart has reviewed variants, live evidence for selected bases, and an updated catalog status. | `external-dns/external-dns@1.21.1`<br>`cloudnative-pg/cloudnative-pg@0.28.2`<br>`kedacore/keda@2.19.0`<br>`elastic/eck-operator@3.4.0`<br>`grafana/alloy@1.8.2` |
 | Design user-shaped variants | 46 | Add one realistic base variant that a Helm user would actually pick. | The chart stops being default-only and moves into promotion review or limitation review. | `gitlab/gitlab-runner@0.89.0`<br>`fluent/fluent-bit@0.57.6`<br>`runix/pgadmin4@1.62.0`<br>`nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18`<br>`prometheus-community/kube-state-metrics@7.4.0` |
 | Resolve named limitations | 7 | Decide whether to support, disclose, or defer the named gap. | The catalog page and hard-gap row agree on the supported path. | `traefik/traefik@40.2.0`<br>`kyverno/kyverno@3.8.1`<br>`bitnami/elasticsearch@22.1.6`<br>`bitnami/spark@10.0.3`<br>`bitnami/zookeeper@13.8.7` |
-| Expand live evidence | 80 | Select rows that only have render parity and add local, GitOps, or live Helm-vs-ConfigHub evidence. | The strongest evidence moves beyond render parity for the selected chart/base. | `traefik/traefik@40.2.0`<br>`external-dns/external-dns@1.21.1`<br>`gitlab/gitlab-runner@0.89.0`<br>`kyverno/kyverno@3.8.1`<br>`cloudnative-pg/cloudnative-pg@0.28.2` |
+| Expand live evidence | 79 | Select rows that only have render parity and add local, GitOps, or live Helm-vs-ConfigHub evidence. | The strongest evidence moves beyond render parity for the selected chart/base. | `traefik/traefik@40.2.0`<br>`gitlab/gitlab-runner@0.89.0`<br>`kyverno/kyverno@3.8.1`<br>`cloudnative-pg/cloudnative-pg@0.28.2`<br>`fluent/fluent-bit@0.57.6` |
 
 ## Adoption Buckets
 
@@ -90,7 +90,8 @@ decision before catalog promotion.
 | Evidence | Count | Meaning |
 | --- | ---: | --- |
 | `live-helm-vs-confighub-parity` | 20 | Plain Helm and ConfigHub delivery reached equivalent live outcomes for at least one variant. |
-| `render-parity` | 80 | Regular Helm and cub installer setup render-equivalent objects. |
+| `render-parity` | 79 | Regular Helm and cub installer setup render-equivalent objects. |
+| `two-cluster-kind-parity` | 1 | Plain Helm and cub installer output reached equivalent live outcomes in separate vanilla kind clusters. |
 
 ## How To Read This
 
@@ -98,6 +99,8 @@ decision before catalog promotion.
 - `render-parity` means regular Helm and `cub installer setup` produce the same
   Kubernetes object set under recorded inputs, apart from declared installer
   support objects.
+- `two-cluster-kind-parity` means regular Helm and `cub installer setup`
+  reached equivalent live outcomes in separate vanilla kind clusters.
 - Live evidence is intentionally counted separately. A chart can be proof-grade
   without every base variant having live Kubernetes, GitOps, or live parity
   evidence yet.
@@ -142,7 +145,7 @@ decision before catalog promotion.
 | `prometheus-community/prometheus@29.8.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support | - | `production-disposition` |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support | - | `production-disposition` |
 | `traefik/traefik@40.2.0` | `limitation-decision-first` | `render-parity` | 2 | review limitation before promotion: existing-secret (chart ships no Secret toggle) | - | `limitation-review` |
-| `external-dns/external-dns@1.21.1` | `promote-after-review` | `render-parity` | 2 | run catalog promotion review | - | `catalog-promotion-review` |
+| `external-dns/external-dns@1.21.1` | `promote-after-review` | `two-cluster-kind-parity` | 3 | run catalog promotion review | - | `catalog-promotion-review` |
 | `gitlab/gitlab-runner@0.89.0` | `needs-useful-variant` | `render-parity` | 1 | add at least one user-shaped variant before catalog promotion | - | `user-shaped-variant-backlog` |
 | `kyverno/kyverno@3.8.1` | `limitation-decision-first` | `render-parity` | 2 | review limitation before promotion: existing-secret (chart ships no Secret toggle) | - | `limitation-review` |
 | `cloudnative-pg/cloudnative-pg@0.28.2` | `promote-after-review` | `render-parity` | 2 | run catalog promotion review | - | `catalog-promotion-review` |

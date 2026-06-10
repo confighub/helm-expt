@@ -15,15 +15,15 @@ supported, that choice must be tracked as its own chart-recipe-variant row in `d
 
 ```text
 charts: 100
-supported (Level 2, all 6): 100
-not yet supported: 0
+supported (Level 2, all 6): 98
+not yet supported: 2
 variant-rich (enhancement, >1 variant): 54
 ```
 
 ## Per-criterion coverage (the 6 support criteria)
 
 - `render_equivalent`: 100/100
-- `behaviorally_complete`: 100/100
+- `behaviorally_complete`: 98/100
 - `readable`: 100/100
 - `usable`: 100/100
 - `verifiable`: 100/100
@@ -32,13 +32,14 @@ variant-rich (enhancement, >1 variant): 54
 
 ## Gap by criterion (how many charts each one blocks)
 
-- none — every chart is supported (Level 2)
+- `behaviorally_complete`: 2
 
 ## Not yet supported (the work queue)
 
 | Chart | Score | Missing support criteria |
 | --- | ---: | --- |
-| none | 6/6 | — |
+| `external-secrets/external-secrets@2.5.0` | 5/6 | behaviorally_complete |
+| `jetstack/cert-manager@v1.20.2` | 5/6 | behaviorally_complete |
 
 ## Notes
 

@@ -34,7 +34,7 @@ for exact base-variant evidence.
 | Proof lanes | render parity 3/3; ConfigHub 1/3; local live 2/3; GitOps live 1/3; live parity 1/3 |
 | Feature summary | webhooks;required-values;values-schema;extension-slots |
 | Hard gap | - |
-| Next action | resolve image digests for each affected variant before production OCI support |
+| Next action | write or fix the receipt for target fact preflight |
 
 ## Artifact Chain
 

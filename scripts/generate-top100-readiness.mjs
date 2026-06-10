@@ -64,6 +64,7 @@ function buildReport() {
       local_live: countText(outcome.local_live_pass, outcome.base_rows),
       gitops_live: countText(outcome.gitops_live_pass, outcome.base_rows),
       live_parity: countText(outcome.live_parity_pass, outcome.base_rows),
+      two_cluster_kind_parity: countText(outcome.two_cluster_kind_parity_pass, outcome.base_rows),
       hard_gap: shortGap(outcome.hard_gap || top100.not_yet_enabled),
       source_features: top100.source_features || "",
       next_action: status.nextAction,
@@ -92,6 +93,7 @@ function buildReport() {
 
 function strongestEvidenceFor(row) {
   if (number(row.live_parity_pass) > 0) return "live-helm-vs-confighub-parity";
+  if (number(row.two_cluster_kind_parity_pass) > 0) return "two-cluster-kind-parity";
   if (number(row.gitops_live_pass) > 0) return "gitops-oci-live";
   if (number(row.local_live_pass) > 0) return "local-kubernetes-live";
   if (number(row.in_confighub_pass) > 0) return "in-confighub-proof";
@@ -161,7 +163,7 @@ function summary(rows) {
   const top20 = rows.filter((row) => row.catalog_tier === "top20-catalog-supported");
   const next80 = rows.filter((row) => row.catalog_tier === "next80-proof-grade");
   const liveEvidence = rows.filter((row) =>
-    ["live-helm-vs-confighub-parity", "gitops-oci-live", "local-kubernetes-live"].includes(row.strongest_evidence),
+    ["live-helm-vs-confighub-parity", "two-cluster-kind-parity", "gitops-oci-live", "local-kubernetes-live"].includes(row.strongest_evidence),
   );
   const promotionReview = rows.filter((row) => row.user_status === "proof-grade-ready-for-promotion-review");
   const needsVariant = rows.filter((row) => row.user_status === "proof-grade-needs-user-shaped-variant");
@@ -244,6 +246,8 @@ ${[...evidenceCounts.entries()].map(([status, count]) => `| \`${status}\` | ${co
 - \`render-parity\` means regular Helm and \`cub installer setup\` produce the same
   Kubernetes object set under recorded inputs, apart from declared installer
   support objects.
+- \`two-cluster-kind-parity\` means regular Helm and \`cub installer setup\`
+  reached equivalent live outcomes in separate vanilla kind clusters.
 - Live evidence is intentionally counted separately. A chart can be proof-grade
   without every base variant having live Kubernetes, GitOps, or live parity
   evidence yet.
@@ -346,6 +350,7 @@ function chartRank(chart, rows) {
 function next80QueuesSummary(rows) {
   const queueRows = next80QueueRows(rows);
   const counts = countBy(queueRows, (row) => row.queue);
+  const kindParityRows = queueRows.filter((row) => row.strongest_evidence === "two-cluster-kind-parity");
   return `# Next80 Action Queues
 
 This generated file is the compact operating view for the 80 proof-grade charts
@@ -377,7 +382,9 @@ ${["promotion-review", "limitation-review", "user-shaped-variant"].map((queue) =
 ## How This Relates To Top100
 
 - Every row here already has a maintained recipe/package proof path.
-- The strongest evidence for these rows is currently render parity.
+- Most rows still have render parity as their strongest evidence. ${kindParityRows.length} row(s)
+  now have two-cluster kind parity, meaning regular Helm and \`cub installer\`
+  reached equivalent live outcomes in separate vanilla kind clusters.
 - Promotion needs useful variants, selected live evidence, and any target facts,
   lifecycle routes, or named limitations made explicit.
 - The top-20 catalog remains the public try-now path. This queue is the next
@@ -601,6 +608,7 @@ function adoptionUse(bucket) {
 function evidenceMeaning(status) {
   const meanings = {
     "live-helm-vs-confighub-parity": "Plain Helm and ConfigHub delivery reached equivalent live outcomes for at least one variant.",
+    "two-cluster-kind-parity": "Plain Helm and cub installer output reached equivalent live outcomes in separate vanilla kind clusters.",
     "gitops-oci-live": "ConfigHub OCI delivery reconciled live through GitOps for at least one variant.",
     "local-kubernetes-live": "Rendered objects were applied to Kubernetes and observed for at least one variant.",
     "in-confighub-proof": "Rendered objects uploaded to ConfigHub and passed the ConfigHub proof lane.",

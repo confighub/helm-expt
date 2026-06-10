@@ -64,7 +64,7 @@ spec:
       liveParity: "1/3"
     featureSummary: "webhooks;required-values;values-schema;extension-slots"
     hardGap: "-"
-    nextAction: "resolve image digests for each affected variant before production OCI support"
+    nextAction: "write or fix the receipt for target fact preflight"
   installerPackage:
     path: "packages/hashicorp/vault/0.32.0"
     installer: "packages/hashicorp/vault/0.32.0/installer.yaml"
