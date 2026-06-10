@@ -1,0 +1,108 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "rendered-object-set://sha256/50ca2ffa154095ca",
+      "digest": {
+        "sha256": "50ca2ffa154095ca64e87f9ebed6aec83a73a132bd1f104b2dec56bb641f1fbf"
+      }
+    },
+    {
+      "name": "k8s-live-workloads://namespace/redis",
+      "digest": {
+        "sha256": "dad18a5d57c7663a5c50703f283a901b39de7e6b9f177eb48ee43a271bb6b80b"
+      }
+    }
+  ],
+  "predicateType": "https://cub-scout.dev/receipt/v1",
+  "predicate": {
+    "version": "v1",
+    "claim": "desired workloads from /Users/alexis/code/helm-expt/runs/latest-top20-refresh/redis-27.0.0/local-kind/cub-scout.workloads.desired.yaml converged to a ready state in the live cluster",
+    "scope": {
+      "kind": "WorkloadSet",
+      "name": "rendered-install",
+      "namespace": "redis"
+    },
+    "verifier": {
+      "tool": "cub-scout",
+      "version": "dev"
+    },
+    "verifiedAt": "2026-06-10T14:16:07Z",
+    "freshness": {
+      "observedAt": "2026-06-10T14:16:07Z",
+      "expiresAt": "2026-06-10T15:16:07Z",
+      "ttl": "1h0m0s"
+    },
+    "predicateName": "workloads-converged",
+    "verdict": "PASS",
+    "evidence": {
+      "workloads": {
+        "desiredSource": {
+          "type": "file",
+          "ref": "/Users/alexis/code/helm-expt/runs/latest-top20-refresh/redis-27.0.0/local-kind/cub-scout.workloads.desired.yaml",
+          "digest": "8611aac337a6bb40a578a81d895c8ec302a4d95f0179bda1f6bcf2eb7ec7badb",
+          "objectCount": 2
+        },
+        "scope": {
+          "kind": "namespace",
+          "namespace": "redis"
+        },
+        "graceWindow": "5m0s",
+        "observedAt": "2026-06-10T14:16:07Z",
+        "desiredDigest": "50ca2ffa154095ca64e87f9ebed6aec83a73a132bd1f104b2dec56bb641f1fbf",
+        "liveDigest": "dad18a5d57c7663a5c50703f283a901b39de7e6b9f177eb48ee43a271bb6b80b",
+        "summary": {
+          "desired": 2,
+          "converged": 2,
+          "progressing": 0,
+          "failed": 0,
+          "missing": 0,
+          "inconclusive": 0
+        },
+        "workloads": [
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "StatefulSet",
+              "namespace": "redis",
+              "name": "redis-master"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "All replicas scheduled as expected. Replicas: 1",
+            "ageSeconds": 106
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "StatefulSet",
+              "namespace": "redis",
+              "name": "redis-replicas"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "All replicas scheduled as expected. Replicas: 3",
+            "ageSeconds": 106
+          }
+        ]
+      }
+    },
+    "omissions": [
+      {
+        "missing": "workload-convergence-snapshot",
+        "reason": "workloads-converged reflects readiness observed at verifiedAt; it does not prove the workloads stay converged afterward",
+        "severity": "info"
+      }
+    ],
+    "inputAttestations": [],
+    "nextSteps": [
+      {
+        "actionType": "read-only",
+        "reason": "every desired workload reached a ready/converged state",
+        "nextCommand": "cub-scout doctor",
+        "nextSurface": "cub-scout"
+      }
+    ],
+    "fingerprint": "sha256:998e371f976b1daa3554a9a40792bce9cb92d38d6d6f452aab0f0f29a46fbdab"
+  }
+}

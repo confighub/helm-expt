@@ -1,0 +1,14 @@
+networkpolicy.networking.k8s.io/redis serverside-applied
+poddisruptionbudget.policy/redis-master serverside-applied
+poddisruptionbudget.policy/redis-replicas serverside-applied
+serviceaccount/redis-master serverside-applied
+serviceaccount/redis-replica serverside-applied
+secret/redis serverside-applied
+configmap/redis-configuration serverside-applied
+configmap/redis-health serverside-applied
+configmap/redis-scripts serverside-applied
+service/redis-headless serverside-applied
+service/redis-master serverside-applied
+service/redis-replicas serverside-applied
+statefulset.apps/redis-master serverside-applied
+statefulset.apps/redis-replicas serverside-applied

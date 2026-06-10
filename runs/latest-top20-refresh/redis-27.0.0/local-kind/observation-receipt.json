@@ -1,0 +1,99 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "ObservationReceipt",
+  "metadata": {
+    "name": "redis-27-0-0-default-local-kind"
+  },
+  "spec": {
+    "variantRevision": "data/latest-top20-refresh/candidates/redis-27.0.0/recipes/bitnami/redis/27.0.0/revisions/default/r001/variant-revision.yaml",
+    "renderedObjectSetSHA256": "b0138df792ca1ed660caf0b13e3d4ab5ba3ed09b81211a60eca3f919f8e9cd7b",
+    "observer": {
+      "name": "top20-local-e2e",
+      "version": "0.2.0",
+      "method": "kubectl-kind"
+    },
+    "target": {
+      "kind": "kind",
+      "name": "helm-expt-redis-27-0-0",
+      "context": "kind-helm-expt-redis-27-0-0",
+      "namespace": "redis"
+    },
+    "observedAt": "2026-06-10T14:16:07.229Z",
+    "freshnessTTL": "1h",
+    "result": "pass",
+    "chart": "bitnami/redis",
+    "chartVersion": "27.0.0",
+    "rank": 1,
+    "variant": "default",
+    "renderedObjectCount": 14,
+    "checks": [
+      {
+        "name": "server-side-apply",
+        "result": "pass",
+        "evidencePath": "kubectl-apply.txt",
+        "evidenceSHA256": "de6c7c8a8b74f124309540231ffed7ddc3aaab54ad2c73895cd565e891640cfc"
+      },
+      {
+        "name": "statefulset-redis-master-rollout",
+        "result": "pass",
+        "object": "statefulset/redis-master",
+        "evidencePath": "statefulset-redis-master-rollout.txt",
+        "evidenceSHA256": "6a8e7cbaedeaae143e90001d089e6a533d14791329b028a9898eff11deebe72c"
+      },
+      {
+        "name": "statefulset-redis-replicas-rollout",
+        "result": "pass",
+        "object": "statefulset/redis-replicas",
+        "evidencePath": "statefulset-redis-replicas-rollout.txt",
+        "evidenceSHA256": "54cd374890337db8ad0b8b8c9e57be1b023ce55e15e5a7395c834d8bf307fab1"
+      },
+      {
+        "name": "pvc-bound",
+        "result": "pass",
+        "count": 4,
+        "evidencePath": "pvc-status.json",
+        "evidenceSHA256": "f99317c45e9b4bc9e148e31143644346a565ff8197aee2aa0495290cde505018"
+      },
+      {
+        "name": "redis-ping",
+        "result": "pass",
+        "evidencePath": "redis-pong.txt",
+        "evidenceSHA256": "9597e5d74f44f182ebb56b65a79c6b1b84829735af1ff583d44c3384d8a0a45e"
+      },
+      {
+        "name": "cub-scout-object-set-matches",
+        "result": "pass",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "evidencePath": "cub-scout.object-set.receipt.json",
+        "evidenceSHA256": "84675b2a5b8c3d7edb76311b2cd1ee4311d5c7cb0320905f4c74724d575ed2ea",
+        "stderrPath": "cub-scout.object-set.stderr.txt",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "cub-scout-closed-world-object-set",
+        "result": "pass",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "evidencePath": "cub-scout.closed-world.receipt.json",
+        "evidenceSHA256": "671a721b3e0d9e384c13057c07e8a63a46ca0b949ebec7939e40ae3ccebd2f2d",
+        "stderrPath": "cub-scout.closed-world.stderr.txt",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "cub-scout-workloads-converged",
+        "result": "pass",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "evidencePath": "cub-scout.workloads.receipt.json",
+        "evidenceSHA256": "3c1c70ddb7638a86a3a659112a3e4bd723110eb306a245d647f022aca8d9e253",
+        "stderrPath": "cub-scout.workloads.stderr.txt",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "kubectlObjects": {
+      "path": "kubectl-objects.txt",
+      "sha256": "9499a594e70b261009159f92562781f56ca1938f0cdd1c80eff006317c9703c5"
+    }
+  }
+}

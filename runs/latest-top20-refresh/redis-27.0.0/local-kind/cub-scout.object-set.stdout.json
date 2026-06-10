@@ -1,0 +1,236 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "rendered-object-set://sha256/c24f669afaa93135",
+      "digest": {
+        "sha256": "c24f669afaa931351c0c8eb7e791346afd24d6dab341cb67dc49654f747262d1"
+      }
+    },
+    {
+      "name": "k8s-live-object-set://namespace/redis",
+      "digest": {
+        "sha256": "c24f669afaa931351c0c8eb7e791346afd24d6dab341cb67dc49654f747262d1"
+      }
+    }
+  ],
+  "predicateType": "https://cub-scout.dev/receipt/v1",
+  "predicate": {
+    "version": "v1",
+    "claim": "live object set matches rendered manifests from /Users/alexis/code/helm-expt/runs/latest-top20-refresh/redis-27.0.0/local-kind/cub-scout.desired.yaml",
+    "scope": {
+      "kind": "ObjectSet",
+      "name": "rendered-install",
+      "namespace": "redis"
+    },
+    "verifier": {
+      "tool": "cub-scout",
+      "version": "dev"
+    },
+    "verifiedAt": "2026-06-10T14:16:06Z",
+    "freshness": {
+      "observedAt": "2026-06-10T14:16:06Z",
+      "expiresAt": "2026-06-10T15:16:06Z",
+      "ttl": "1h0m0s"
+    },
+    "predicateName": "object-set-matches",
+    "verdict": "PASS",
+    "evidence": {
+      "objectSet": {
+        "desiredSource": {
+          "type": "file",
+          "ref": "/Users/alexis/code/helm-expt/runs/latest-top20-refresh/redis-27.0.0/local-kind/cub-scout.desired.yaml",
+          "digest": "51d61936aecdd6c6ee31afc53783a56fe3258c65056c9382bd9cf7a4e1fa1e90",
+          "objectCount": 14
+        },
+        "scope": {
+          "kind": "namespace",
+          "namespace": "redis"
+        },
+        "matchMode": "authored-fields",
+        "desiredDigest": "c24f669afaa931351c0c8eb7e791346afd24d6dab341cb67dc49654f747262d1",
+        "liveDigest": "c24f669afaa931351c0c8eb7e791346afd24d6dab341cb67dc49654f747262d1",
+        "summary": {
+          "desired": 14,
+          "matched": 14,
+          "missing": 0,
+          "mismatched": 0,
+          "inconclusive": 0
+        },
+        "objects": [
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "StatefulSet",
+              "namespace": "redis",
+              "name": "redis-master"
+            },
+            "status": "matched",
+            "desiredDigest": "ffecab3042457e4d7937623f7ff4030f2cadc6714c1f20d7edcf12f1cc34bf1a",
+            "liveDigest": "ffecab3042457e4d7937623f7ff4030f2cadc6714c1f20d7edcf12f1cc34bf1a"
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "StatefulSet",
+              "namespace": "redis",
+              "name": "redis-replicas"
+            },
+            "status": "matched",
+            "desiredDigest": "61bdb444bbea3288d96d265beee924cd7d3247689d30ff9268ed9f05570c789b",
+            "liveDigest": "61bdb444bbea3288d96d265beee924cd7d3247689d30ff9268ed9f05570c789b"
+          },
+          {
+            "id": {
+              "apiVersion": "networking.k8s.io/v1",
+              "kind": "NetworkPolicy",
+              "namespace": "redis",
+              "name": "redis"
+            },
+            "status": "matched",
+            "desiredDigest": "ce13f2e86b3c69b5379ad105184620e43b29c4c080853bb16b833d3973e953e3",
+            "liveDigest": "ce13f2e86b3c69b5379ad105184620e43b29c4c080853bb16b833d3973e953e3"
+          },
+          {
+            "id": {
+              "apiVersion": "policy/v1",
+              "kind": "PodDisruptionBudget",
+              "namespace": "redis",
+              "name": "redis-master"
+            },
+            "status": "matched",
+            "desiredDigest": "1052688563fe3b29608239b5210fff7732aeac9b51c3cef3817f02e04a868a7b",
+            "liveDigest": "1052688563fe3b29608239b5210fff7732aeac9b51c3cef3817f02e04a868a7b"
+          },
+          {
+            "id": {
+              "apiVersion": "policy/v1",
+              "kind": "PodDisruptionBudget",
+              "namespace": "redis",
+              "name": "redis-replicas"
+            },
+            "status": "matched",
+            "desiredDigest": "4a6358a2a1e1db4d60c7bb86553c4c60d1af41d4139de0c17215393dafe596f1",
+            "liveDigest": "4a6358a2a1e1db4d60c7bb86553c4c60d1af41d4139de0c17215393dafe596f1"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "redis",
+              "name": "redis-configuration"
+            },
+            "status": "matched",
+            "desiredDigest": "cd5561ce4fdce19000c9bfe8c470af6a155908b8609fd269efc13b3f8fab87d8",
+            "liveDigest": "cd5561ce4fdce19000c9bfe8c470af6a155908b8609fd269efc13b3f8fab87d8"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "redis",
+              "name": "redis-health"
+            },
+            "status": "matched",
+            "desiredDigest": "deec51734838302abe28b16bde0307a91236b3e2a07b14dad34f7677ca1a16b9",
+            "liveDigest": "deec51734838302abe28b16bde0307a91236b3e2a07b14dad34f7677ca1a16b9"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "redis",
+              "name": "redis-scripts"
+            },
+            "status": "matched",
+            "desiredDigest": "38807663db6cfafe48d588f2dfbcc2bf2019e57a3eac397b2ad6852110101643",
+            "liveDigest": "38807663db6cfafe48d588f2dfbcc2bf2019e57a3eac397b2ad6852110101643"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Secret",
+              "namespace": "redis",
+              "name": "redis"
+            },
+            "status": "matched",
+            "desiredDigest": "cc360464d3769ce9276348dec4c6134cb09ff82a2fb3a0a6cb8b341e6bac7a86",
+            "liveDigest": "cc360464d3769ce9276348dec4c6134cb09ff82a2fb3a0a6cb8b341e6bac7a86"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ServiceAccount",
+              "namespace": "redis",
+              "name": "redis-master"
+            },
+            "status": "matched",
+            "desiredDigest": "cf9c3fec71e8a1ff7f91a0be9249057cd39d9486e9119eab5b2f00a34c2a9fff",
+            "liveDigest": "cf9c3fec71e8a1ff7f91a0be9249057cd39d9486e9119eab5b2f00a34c2a9fff"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ServiceAccount",
+              "namespace": "redis",
+              "name": "redis-replica"
+            },
+            "status": "matched",
+            "desiredDigest": "eaabf0d71ed8f11a6380cb57f04cc6f07ccb36681f8bac183e486d820ab114d9",
+            "liveDigest": "eaabf0d71ed8f11a6380cb57f04cc6f07ccb36681f8bac183e486d820ab114d9"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "redis",
+              "name": "redis-headless"
+            },
+            "status": "matched",
+            "desiredDigest": "08241a8f4847d8ad004b0de5528a75078fddcba5ceb1458c5fa48ead0803dc47",
+            "liveDigest": "08241a8f4847d8ad004b0de5528a75078fddcba5ceb1458c5fa48ead0803dc47"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "redis",
+              "name": "redis-master"
+            },
+            "status": "matched",
+            "desiredDigest": "0c3b1d17843202a41cc2252d8ba066c34b4b8557151f44310bee24d533e4e6e0",
+            "liveDigest": "0c3b1d17843202a41cc2252d8ba066c34b4b8557151f44310bee24d533e4e6e0"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "redis",
+              "name": "redis-replicas"
+            },
+            "status": "matched",
+            "desiredDigest": "6e19bbcf493f3803e965858d2ccf7ed3d400ae90ce87961184145625b3ed0f00",
+            "liveDigest": "6e19bbcf493f3803e965858d2ccf7ed3d400ae90ce87961184145625b3ed0f00"
+          }
+        ]
+      }
+    },
+    "omissions": [
+      {
+        "missing": "extra-live-object-coverage",
+        "reason": "object-set-matches verifies desired object identities and authored fields from the rendered manifests; it does not prove that no extra live objects exist outside that desired set",
+        "severity": "info"
+      }
+    ],
+    "inputAttestations": [],
+    "nextSteps": [
+      {
+        "actionType": "read-only",
+        "reason": "every desired rendered object was present and all authored fields matched live",
+        "nextCommand": "cub-scout doctor",
+        "nextSurface": "cub-scout"
+      }
+    ],
+    "fingerprint": "sha256:9be568ba730c67a4bced49198e89b16a06e7596960cffbe6afa675b820399811"
+  }
+}

@@ -27,6 +27,25 @@ const summaryRoot = latestCandidates
   : join(repoRoot, "data", "live-e2e");
 const redisReceiptPath = join(repoRoot, "runs", "redis-local-kind", "latest", "observation-receipt.yaml");
 
+const redisLatestCandidateBaseTarget = {
+  rank: 1,
+  slug: "redis",
+  chart: "bitnami/redis",
+  namespace: "redis",
+  variant: "default",
+  needsDefaultStorageClass: true,
+  waits: [
+    { kind: "statefulset", name: "redis-master", namespace: "redis" },
+    { kind: "statefulset", name: "redis-replicas", namespace: "redis" },
+  ],
+  pvcSelector: "app.kubernetes.io/instance=redis",
+  expectedPvcCount: 4,
+  redisPing: {
+    pod: "statefulset/redis-master",
+    password: "confighub-redis-password",
+  },
+};
+
 const targets = [
   {
     rank: 2,
@@ -320,7 +339,7 @@ function selectedTargets({ onlyPassingReceiptsByDefault = false, requireAllByDef
   let selected = sourceTargets;
   if (process.argv.includes("--all")) return sourceTargets;
   if (selectedSlug) {
-    if (selectedSlug === "redis") return [];
+    if (selectedSlug === "redis" && !latestCandidates) return [];
     const target = sourceTargets.find((item) =>
       [item.slug, item.baseSlug, item.chart, item.chart.split("/").at(-1)].filter(Boolean).includes(selectedSlug),
     );
@@ -351,7 +370,7 @@ function latestCandidateTargets() {
   const readinessPath = join(repoRoot, "data", "latest-top20-refresh", "promotion-readiness.csv");
   const rows = parseCsv(readFileSync(readinessPath, "utf8"));
   return rows.map((row) => {
-    const base = targets.find((target) => target.chart === row.chart);
+    const base = row.chart === "bitnami/redis" ? redisLatestCandidateBaseTarget : targets.find((target) => target.chart === row.chart);
     check(base, `no top-20 local e2e base target for latest candidate ${row.chart}`);
     const chartName = row.chart.split("/").at(-1);
     const runPathKey = `${chartName}-${row.candidate_version}`;
@@ -452,10 +471,37 @@ function runTarget(target) {
       const bound = pvcs.filter((pvc) => pvc.status?.phase === "Bound").length;
       check(pvcs.length > 0, `${target.slug} did not create PVCs`);
       check(bound === pvcs.length, `${target.slug} has unbound PVCs`);
+      if (target.expectedPvcCount !== undefined) {
+        check(pvcs.length === target.expectedPvcCount, `${target.slug} expected ${target.expectedPvcCount} PVCs; found ${pvcs.length}`);
+      }
       checks.push({
         name: "pvc-bound",
         result: "pass",
         count: bound,
+        evidencePath,
+        evidenceSHA256: sha256File(join(runRoot, evidencePath)),
+      });
+    }
+    if (target.redisPing) {
+      stage = "redis-ping";
+      const pong = kubectl([
+        "-n",
+        target.namespace,
+        "exec",
+        target.redisPing.pod,
+        "--",
+        "redis-cli",
+        "--no-auth-warning",
+        "-a",
+        target.redisPing.password,
+        "ping",
+      ]);
+      const evidencePath = "redis-pong.txt";
+      writeFileSync(join(runRoot, evidencePath), pong);
+      check(pong.includes("PONG"), `${target.slug} Redis PING did not return PONG`);
+      checks.push({
+        name: "redis-ping",
+        result: "pass",
         evidencePath,
         evidenceSHA256: sha256File(join(runRoot, evidencePath)),
       });
