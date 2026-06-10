@@ -7,7 +7,7 @@ row is still useful evidence: it tells us exactly which production disposition
 or local-kind limitation must be handled before we claim broader support.
 
 ```text
-pass: 6
+pass: 7
 fail: 0
 not-started: 0
 ```
@@ -18,5 +18,6 @@ not-started: 0
 | 17 | `bitnami/mongodb@19.0.9` | generated-passwords | pass | observed | 3/3 pass | - | runs/latest-top20-refresh/mongodb-19.0.9/local-kind/observation-receipt.json |
 | 18 | `bitnami/nginx@24.0.4` | http-clusterip | pass | observed | 3/3 pass | - | runs/latest-top20-refresh/nginx-24.0.4/local-kind/observation-receipt.json |
 | 8 | `bitnami/postgresql@18.6.10` | generated-passwords | pass | observed | 3/3 pass | - | runs/latest-top20-refresh/postgresql-18.6.10/local-kind/observation-receipt.json |
+| 1 | `bitnami/redis@27.0.0` | default | pass | observed | 3/3 pass | - | runs/latest-top20-refresh/redis-27.0.0/local-kind/observation-receipt.json |
 | 7 | `prometheus-community/kube-prometheus-stack@86.1.0` | default | pass | observed | 3/4 pass | - | runs/latest-top20-refresh/kube-prometheus-stack-86.1.0/local-kind/observation-receipt.json |
 | 14 | `prometheus-community/prometheus@29.9.0` | server-only-ephemeral | pass | observed | 3/3 pass | - | runs/latest-top20-refresh/prometheus-29.9.0/local-kind/observation-receipt.json |
