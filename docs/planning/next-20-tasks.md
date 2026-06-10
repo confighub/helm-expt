@@ -1,9 +1,22 @@
-# Next 20 tasks — Helm catalog (distilled queue)
+# Next catalog tasks — Helm catalog (distilled queue)
 
 **Created:** 2026-06-02. A prioritized **top-20 queue distilled from the detailed plans** —
 `next-execution-plan.md` (P0/P1/P2 gates), `agreed-execution-plan.md` (doctrine), `issue-backlog.md`
 (GitHub issues), `catalog-promotion-next-candidates.md` (wave-2), and the `next80` / production-disposition
 data. It does not replace them; it is the executive work queue over them.
+
+Three newer planning inputs sharpen this queue:
+
+- `serverless-verified-install-plan.md` defines the no-login wedge: resolve a
+  public package, verify it locally, apply it, write an in-cluster receipt, and
+  show where ConfigHub Server starts.
+- `verified-install-commercial-model.md` defines the paid security and
+  operations model: factory scans, image digest inventory, signed artifacts,
+  refresh SLAs, private catalogs, and fleet-wide queries.
+- `robust-sceptic-plan.md` defines the public attack model: every claim needs
+  a receipt or route, and the next hard tests are claims registration,
+  blast-radius accuracy, torture fixtures, environment matrices, and external
+  reproduction.
 
 ## Where we actually are (so the queue is honest)
 - 100 proof-grade recipes + packages; **20 top charts catalog-supported (local-test)** with bespoke base
@@ -57,6 +70,13 @@ task is about delivery, live observation.
 | 9-12 | The rendered desired-state corpus becomes queryable: inventory, fleet mutation, policy posture, dependency graph, and impact analysis all distinguish base choices from derived variants. |
 | 14-16 | OCI/GitOps/release work proves delivery outcomes: gated publication, controller reconciliation, runtime observation, and live Helm-vs-ConfigHub parity. |
 | 20 | The public story gives a new user a simple path from catalog choice to verified outcome without burying them in internal proof machinery. |
+
+The newer sceptic plan adds two cross-cutting outcomes:
+
+| Task | Outcome to prove |
+| --- | --- |
+| 21 | Public claims are mapped to evidence, routes, or explicit refusals. No receipt or route means no claim. |
+| 22 | Blast-radius predictions are measured against actual rerenders so edge and inheritance claims are scored, not assumed. |
 
 ## Now - derived variants and current CLI truth
 1. **Make `cub variant create` the explicit derived-variant substrate** (#143) - add the command-surface
@@ -120,10 +140,21 @@ task is about delivery, live observation.
 20. **Public story surfaces** - keep the Helm pain docs, `CATALOG.md`, status
     dashboard, and static site current, and make the first-run path simple
     enough for outside testers.
+21. **Claims register and sceptic scoreboard** - generate a page that maps each
+    public claim to the evidence lane, receipt, route, or refusal that supports
+    it. This should include serverless, commercial, lifecycle, scan, signing,
+    and ConfigHub graph claims.
+22. **Blast-radius prediction accuracy harness** - for selected density
+    hotspots, mutate one input, predict affected objects/fields from the value
+    and graph data, rerender, diff, and publish misses/phantoms. Until this
+    exists, blast-radius and inheritance claims should stay scoped as design
+    intent or partial evidence.
 
 ## Suggested order
 Treat 1-3 as the immediate correction: `helm-expt` needs more visible derived
 variants, and the docs must line up with the real `cub variant create` command.
-Tasks 9-13 are the highest-value configuration-as-data lanes inside this repo. GitOps,
-release, and promotion UI come next because they make the product story legible
-without asking humans to follow every low-level CLI step.
+Tasks 18, 21, and 22 are now the strongest trust builders: lifecycle evidence,
+claim-to-receipt mapping, and measured blast-radius accuracy. Tasks 9-13 remain
+the highest-value configuration-as-data lanes inside this repo. GitOps, release,
+and promotion UI come next because they make the product story legible without
+asking humans to follow every low-level CLI step.
