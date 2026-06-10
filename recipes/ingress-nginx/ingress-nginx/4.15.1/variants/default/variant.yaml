@@ -12,3 +12,15 @@ spec:
     apiVersions:
       []
   hookPolicy: "no-hooks"
+  targetFacts:
+    requiredSecrets:
+      -
+        namespace: "ingress-nginx"
+        name: "ingress-nginx-admission"
+        keys:
+          - "cert"
+          - "key"
+          - "ca"
+        purpose: "admission webhook certificate normally created by Helm hook jobs"
+        deliveryLanes:
+          - "cubInstallerApply"

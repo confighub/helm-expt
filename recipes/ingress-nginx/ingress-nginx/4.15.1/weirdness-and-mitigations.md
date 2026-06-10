@@ -23,6 +23,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 
 - Default chart renders an admission Service and ValidatingWebhookConfiguration.
 - Admission certificate create/patch Jobs are Helm hooks and are excluded from the rendered revision by --no-hooks.
+- For live parity, the installer leg stages the admission Secret as a target fact; regular Helm continues to create it through hook execution.
 - admission-disabled variant removes the admission Service and ValidatingWebhookConfiguration from the rendered revision.
 - internal-clusterip variant also changes the controller Service from LoadBalancer to ClusterIP for local/internal targets.
 - Admission webhook readiness must be observed after apply because a rendered object alone does not prove webhook health.
@@ -44,6 +45,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 | dependency-lock | handled | chart has no subchart dependencies |
 | capability-profile | handled | service appProtocol and autoscaling branches are bound to the named Kubernetes capability profile. |
 | hook-policy | handled-for-render | admission patch Jobs are Helm hooks and are excluded from the render proof; lifecycle policy must handle them before production. |
+| target-facts | required-for-default-live-parity | variants/default/variant.yaml |
 | admission-webhook | variant-controlled | admissionregistration.k8s.io/v1\|ValidatingWebhookConfiguration\|\|ingress-nginx-admission |
 | cluster-rbac | scan-and-review | scan receipts |
 | tpl | controlled-by-empty-defaults | chart has tpl extension points; promoted variants do not set those values. |
@@ -61,6 +63,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 - hook-policy
 - installer-support-object
 - source-lock
+- target-facts
 - tpl
 - tpl-extension-slot
 

@@ -24,6 +24,21 @@ spec:
       policy: "no-hooks"
       note: "admission patch Jobs are Helm hooks and are excluded from the render proof; lifecycle policy must handle them before production."
     -
+      category: "target-facts"
+      status: "required-for-default-live-parity"
+      evidence: "variants/default/variant.yaml"
+      required:
+        -
+          kind: "Secret"
+          namespace: "ingress-nginx"
+          name: "ingress-nginx-admission"
+          keys:
+            - "cert"
+            - "key"
+            - "ca"
+          deliveryLanes:
+            - "cubInstallerApply"
+    -
       category: "admission-webhook"
       status: "variant-controlled"
       object: "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||ingress-nginx-admission"

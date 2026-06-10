@@ -19,7 +19,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Production readiness | production-review-ready |
 | Supported variants | default, admission-disabled, internal-clusterip |
 | Candidate variants | none |
-| Control points | admission-webhook, capability-profile, cluster-rbac, dependency-lock, hook-policy, installer-support-object, source-lock, tpl |
+| Control points | admission-webhook, capability-profile, cluster-rbac, dependency-lock, hook-policy, installer-support-object, source-lock, target-facts, tpl |
 
 ## Feature And Proof Summary
 
@@ -59,7 +59,7 @@ for exact base-variant evidence.
 
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| default | [recipes/ingress-nginx/ingress-nginx/4.15.1/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/ingress-nginx/ingress-nginx/4.15.1/bases/default](../../../../packages/ingress-nginx/ingress-nginx/4.15.1/bases/default) | [recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 11 | 12 | 11/11 | pass | warn | warn | none |
+| default | [recipes/ingress-nginx/ingress-nginx/4.15.1/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/ingress-nginx/ingress-nginx/4.15.1/bases/default](../../../../packages/ingress-nginx/ingress-nginx/4.15.1/bases/default) | [recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 11 | 12 | 11/11 | pass | warn | warn | required Secret ingress-nginx/ingress-nginx-admission keys cert,key,ca |
 | admission-disabled | [recipes/ingress-nginx/ingress-nginx/4.15.1/variants/admission-disabled/variant.yaml](variants/admission-disabled/variant.yaml) | [packages/ingress-nginx/ingress-nginx/4.15.1/bases/admission-disabled](../../../../packages/ingress-nginx/ingress-nginx/4.15.1/bases/admission-disabled) | [recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/variant-revision.yaml](revisions/admission-disabled/r001/variant-revision.yaml) | 9 | 10 | 9/9 | pass | warn | warn | none |
 | internal-clusterip | [recipes/ingress-nginx/ingress-nginx/4.15.1/variants/internal-clusterip/variant.yaml](variants/internal-clusterip/variant.yaml) | [packages/ingress-nginx/ingress-nginx/4.15.1/bases/internal-clusterip](../../../../packages/ingress-nginx/ingress-nginx/4.15.1/bases/internal-clusterip) | [recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/variant-revision.yaml](revisions/internal-clusterip/r001/variant-revision.yaml) | 9 | 10 | 9/9 | pass | warn | warn | none |
 

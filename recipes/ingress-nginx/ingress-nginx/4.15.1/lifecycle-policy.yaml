@@ -9,6 +9,7 @@ spec:
   bases:
     default:
       status: "route-selected-observation-needed"
+      selectedLiveParityRoute: "The two-cluster parity harness stages ingress-nginx/ingress-nginx-admission as an installer-side target fact, while regular Helm continues to create it through Helm hooks."
       renderedObjects:
         - "v1|Service|ingress-nginx|ingress-nginx-controller-admission"
         - "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||ingress-nginx-admission"

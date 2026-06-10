@@ -41,12 +41,16 @@ spec:
         sha256: "a94ba2b56636baf7e732766c12c98d808b57c276156fa7a3a752b4137bf5f46a"
         bytes: 10597
       -
+        path: "collector/target-facts.sh"
+        sha256: "dc122200586e076f97f1b905ca72a36ca17ff4928268330a087ad5ddaa903042"
+        bytes: 1935
+      -
         path: "installer.yaml"
-        sha256: "e1cf28aebb442a4b694457ba83df7720f2a08fe030880882495ad3933c906195"
-        bytes: 979
+        sha256: "4e4b4e170e53dcac98428af7fad93f9e25b48b3f04cbe1e16ae93624aeebd379"
+        bytes: 1538
   deterministicBundle:
     command: "cub installer package packages/ingress-nginx/ingress-nginx/4.15.1 -o <tmp>/ingress-nginx-4.15.1.tgz"
-    sha256: "c603ffb2f01d8bfabd6dc2fb983b235b659fcf3eb1f8ff8273f39d4ea7cd2ae1"
+    sha256: "3e37d60f8d88f0d92fe26645fe57a04d98a770bc6282f60e5dc71d3c4c79905d"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
@@ -57,8 +61,8 @@ spec:
       cubInstallObjectCountIncludingSupport: 12
       semanticObjectMatches: "11/11"
       separatedSecretCount: 0
-      targetFactMode: "not-required"
-      targetFactsBound: false
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
       allowedCubOnlyObjects:
         - "v1|Namespace||ingress-nginx"
     -

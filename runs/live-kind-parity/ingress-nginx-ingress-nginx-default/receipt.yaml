@@ -6,8 +6,8 @@ spec:
   chart: ingress-nginx/ingress-nginx
   version: 4.15.1
   base: default
-  result: watch
-  observedAt: '2026-06-10T02:10:59Z'
+  result: pass
+  observedAt: '2026-06-10T04:48:17Z'
   package:
     path: packages/ingress-nginx/ingress-nginx/4.15.1
   recipe:
@@ -15,24 +15,24 @@ spec:
   variantRevision: recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-ingres-1c8ae-mj06-helm
-    installerCluster: hx-ingres-1c8ae-mj06-installer
+    helmCluster: hx-ingres-1c8ae-8t4c-helm
+    installerCluster: hx-ingres-1c8ae-8t4c-installer
     namespace: ingress-nginx
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-ingres-1c8ae-mj06-helm
+      - cluster: hx-ingres-1c8ae-8t4c-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-ingres-1c8ae-mj06-helm" ...
+        detail: 'Deleting cluster "hx-ingres-1c8ae-8t4c-helm" ...
 
-          Deleted nodes: ["hx-ingres-1c8ae-mj06-helm-control-plane"]'
-      - cluster: hx-ingres-1c8ae-mj06-installer
+          Deleted nodes: ["hx-ingres-1c8ae-8t4c-helm-control-plane"]'
+      - cluster: hx-ingres-1c8ae-8t4c-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-ingres-1c8ae-mj06-installer" ...
+        detail: 'Deleting cluster "hx-ingres-1c8ae-8t4c-installer" ...
 
-          Deleted nodes: ["hx-ingres-1c8ae-mj06-installer-control-plane"]'
+          Deleted nodes: ["hx-ingres-1c8ae-8t4c-installer-control-plane"]'
   legs:
     regularHelm:
       result: pass
@@ -51,18 +51,18 @@ spec:
         namespaces: *id001
         workloads: '# ingress-nginx
 
-          deployment.apps/ingress-nginx-controller   1/1   1     1     31s'
+          deployment.apps/ingress-nginx-controller   1/1   1     1     32s'
         pods: '# ingress-nginx
 
-          ingress-nginx-controller-6c7cd85885-hh9hv   1/1   Running   0     31s'
+          ingress-nginx-controller-6c7cd85885-phsfb   1/1   Running   0     32s'
         notReady: []
         diagnostics: []
       stderr: ''
       getManifestError: ''
     cubInstallerApply:
-      result: watch
+      result: pass
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/ingress-nginx/ingress-nginx/4.15.1
-        --base default --work-dir /tmp/helm-expt-kind-parity-hx-ingres-1c8ae-mj06-ingress-nginx
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-ingres-1c8ae-8t4c-ingress-nginx
         --non-interactive --namespace ingress-nginx
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
@@ -74,101 +74,16 @@ spec:
       runtimeNamespaces: &id002
       - ingress-nginx
       runtime:
-        result: watch
+        result: pass
         namespaces: *id002
         workloads: '# ingress-nginx
 
-          deployment.apps/ingress-nginx-controller   0/1   1     0     7m57s'
+          deployment.apps/ingress-nginx-controller   1/1   1     1     30s'
         pods: '# ingress-nginx
 
-          ingress-nginx-controller-6c7cd85885-vrzz5   0/1   ContainerCreating   0     7m57s'
-        notReady:
-        - namespace: ingress-nginx
-          pod: ingress-nginx-controller-6c7cd85885-vrzz5
-          ready: 0/1
-          status: ContainerCreating
-        diagnostics:
-        - namespace: ingress-nginx
-          pod: ingress-nginx-controller-6c7cd85885-vrzz5
-          result: pass
-          detailHead: "Name:             ingress-nginx-controller-6c7cd85885-vrzz5\n\
-            Namespace:        ingress-nginx\nPriority:         0\nService Account:\
-            \  ingress-nginx\nNode:             hx-ingres-1c8ae-mj06-installer-control-plane/192.168.97.4\n\
-            Start Time:       Wed, 10 Jun 2026 03:12:32 +0100\nLabels:           app.kubernetes.io/component=controller\n\
-            \                  app.kubernetes.io/instance=ingress-nginx\n        \
-            \          app.kubernetes.io/managed-by=Helm\n                  app.kubernetes.io/name=ingress-nginx\n\
-            \                  app.kubernetes.io/part-of=ingress-nginx\n         \
-            \         app.kubernetes.io/version=1.15.1\n                  helm.sh/chart=ingress-nginx-4.15.1\n\
-            \                  pod-template-hash=6c7cd85885\nAnnotations:      <none>\n\
-            Status:           Pending\nIP:               \nIPs:              <none>\n\
-            Controlled By:    ReplicaSet/ingress-nginx-controller-6c7cd85885\nContainers:\n\
-            \  controller:\n    Container ID:    \n    Image:           registry.k8s.io/ingress-nginx/controller:v1.15.1@sha256:594ceea76b01c592858f803f9ff4d2cb40542cae2060410b2c95f75907d659e1\n\
-            \    Image ID:        \n    Ports:           80/TCP (http), 443/TCP (https),\
-            \ 8443/TCP (webhook)\n    Host Ports:      0/TCP (http), 0/TCP (https),\
-            \ 0/TCP (webhook)\n    SeccompProfile:  RuntimeDefault\n    Args:\n  \
-            \    /nginx-ingress-controller\n      --publish-service=$(POD_NAMESPACE)/ingress-nginx-controller\n\
-            \      --election-id=ingress-nginx-leader\n      --controller-class=k8s.io/ingress-nginx\n\
-            \      --ingress-class=nginx\n      --configmap=$(POD_NAMESPACE)/ingress-nginx-controller\n\
-            \      --validating-webhook=:8443\n      --validating-webhook-certificate=/usr/local/certificates/cert\n\
-            \      --validating-webhook-key=/usr/local/certificates/key\n    State:\
-            \          Waiting\n      Reason:       ContainerCreating\n    Ready:\
-            \          False\n    Restart Count:  0\n    Requests:\n      cpu:   \
-            \   100m\n      memory:   90Mi\n    Liveness:   http-get http://:10254/healthz\
-            \ delay=10s timeout=1s period=10s #success=1 #failure=5\n    Readiness:\
-            \  http-get http://:10254/healthz delay=10s timeout=1s period=10s #success=1\
-            \ #failure=3\n    Environment:\n      POD_NAME:       ingress-nginx-controller-6c7cd85885-vrzz5\
-            \ (v1:metadata.name)\n      POD_NAMESPACE:  ingress-nginx (v1:metadata.namespace)\n\
-            \      LD_PRELOAD:     /usr/local/lib/libmimalloc.so\n    Mounts:\n  \
-            \    /usr/local/certificates/ from webhook-cert (ro)\n      /var/run/secrets/kubernetes.io/serviceaccount\
-            \ from kube-api-access-5jxjk (ro)\nConditions:\n  Type               \
-            \         Status\n  PodReadyToStartContainers   False \n  Initialized\
-            \                 True \n  Ready                       False \n  ContainersReady\
-            \             False \n  PodScheduled                True \nVolumes:\n\
-            \  webhook-cert:\n    Type:        Secret (a volume populated by a Secret)\n\
-            \    SecretName:  ingress-nginx-admission\n    Optional:    false\n  kube-api-access-5jxjk:\n\
-            \    Type:                    Projected (a volume that contains injected\
-            \ data from multiple sources)\n    TokenExpirationSeconds:  3607\n   \
-            \ ConfigMapName:           kube-root"
-          detailTail: "7cd85885\nContainers:\n  controller:\n    Container ID:   \
-            \ \n    Image:           registry.k8s.io/ingress-nginx/controller:v1.15.1@sha256:594ceea76b01c592858f803f9ff4d2cb40542cae2060410b2c95f75907d659e1\n\
-            \    Image ID:        \n    Ports:           80/TCP (http), 443/TCP (https),\
-            \ 8443/TCP (webhook)\n    Host Ports:      0/TCP (http), 0/TCP (https),\
-            \ 0/TCP (webhook)\n    SeccompProfile:  RuntimeDefault\n    Args:\n  \
-            \    /nginx-ingress-controller\n      --publish-service=$(POD_NAMESPACE)/ingress-nginx-controller\n\
-            \      --election-id=ingress-nginx-leader\n      --controller-class=k8s.io/ingress-nginx\n\
-            \      --ingress-class=nginx\n      --configmap=$(POD_NAMESPACE)/ingress-nginx-controller\n\
-            \      --validating-webhook=:8443\n      --validating-webhook-certificate=/usr/local/certificates/cert\n\
-            \      --validating-webhook-key=/usr/local/certificates/key\n    State:\
-            \          Waiting\n      Reason:       ContainerCreating\n    Ready:\
-            \          False\n    Restart Count:  0\n    Requests:\n      cpu:   \
-            \   100m\n      memory:   90Mi\n    Liveness:   http-get http://:10254/healthz\
-            \ delay=10s timeout=1s period=10s #success=1 #failure=5\n    Readiness:\
-            \  http-get http://:10254/healthz delay=10s timeout=1s period=10s #success=1\
-            \ #failure=3\n    Environment:\n      POD_NAME:       ingress-nginx-controller-6c7cd85885-vrzz5\
-            \ (v1:metadata.name)\n      POD_NAMESPACE:  ingress-nginx (v1:metadata.namespace)\n\
-            \      LD_PRELOAD:     /usr/local/lib/libmimalloc.so\n    Mounts:\n  \
-            \    /usr/local/certificates/ from webhook-cert (ro)\n      /var/run/secrets/kubernetes.io/serviceaccount\
-            \ from kube-api-access-5jxjk (ro)\nConditions:\n  Type               \
-            \         Status\n  PodReadyToStartContainers   False \n  Initialized\
-            \                 True \n  Ready                       False \n  ContainersReady\
-            \             False \n  PodScheduled                True \nVolumes:\n\
-            \  webhook-cert:\n    Type:        Secret (a volume populated by a Secret)\n\
-            \    SecretName:  ingress-nginx-admission\n    Optional:    false\n  kube-api-access-5jxjk:\n\
-            \    Type:                    Projected (a volume that contains injected\
-            \ data from multiple sources)\n    TokenExpirationSeconds:  3607\n   \
-            \ ConfigMapName:           kube-root-ca.crt\n    Optional:           \
-            \     false\n    DownwardAPI:             true\nQoS Class:           \
-            \        Burstable\nNode-Selectors:              kubernetes.io/os=linux\n\
-            Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists\
-            \ for 300s\n                             node.kubernetes.io/unreachable:NoExecute\
-            \ op=Exists for 300s\nEvents:\n  Type     Reason       Age           \
-            \         From               Message\n  ----     ------       ----   \
-            \                ----               -------\n  Normal   Scheduled    7m57s\
-            \                  default-scheduler  Successfully assigned ingress-nginx/ingress-nginx-controller-6c7cd85885-vrzz5\
-            \ to hx-ingres-1c8ae-mj06-installer-control-plane\n  Warning  FailedMount\
-            \  105s (x11 over 7m57s)  kubelet            MountVolume.SetUp failed\
-            \ for volume \"webhook-cert\" : secret \"ingress-nginx-admission\" not\
-            \ found"
+          ingress-nginx-controller-6c7cd85885-gh426   1/1   Running   0     30s'
+        notReady: []
+        diagnostics: []
   semanticComparison:
     allowedExtraInstallerObjects:
     - v1|Namespace||ingress-nginx
@@ -196,11 +111,11 @@ spec:
     detail: secrets=0 crds=0
   - name: target-facts-installer
     result: pass
-    detail: secrets=0 crds=0
+    detail: secrets=1 crds=0
   - name: regular-helm-live
     result: pass
     detail: "Release \"ingress-nginx\" does not exist. Installing it now.\nNAME: ingress-nginx\n\
-      LAST DEPLOYED: Wed Jun 10 03:11:51 2026\nNAMESPACE: ingress-nginx\nSTATUS: deployed\n\
+      LAST DEPLOYED: Wed Jun 10 05:49:08 2026\nNAMESPACE: ingress-nginx\nSTATUS: deployed\n\
       REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nThe ingress-nginx\
       \ controller has been installed.\nIt may take a few minutes for the load balancer\
       \ IP to be available.\nYou can watch the status by running 'kubectl get service\
@@ -213,10 +128,10 @@ spec:
       \                  port:\n                    number: 80\n              path:\
       \ /\n    # This section is only required if TLS is to be enabled for the "
   - name: cub-installer-apply-live
-    result: watch
+    result: pass
     detail: '# ingress-nginx
 
-      deployment.apps/ingress-nginx-controller   0/1   1     0     7m57s'
+      deployment.apps/ingress-nginx-controller   1/1   1     1     30s'
   - name: semantic-object-parity
     result: pass
     detail: missing=0 extra=['v1|Namespace||ingress-nginx'] diffs=0
@@ -227,5 +142,14 @@ spec:
       stagedCRDs: []
     cubInstallerApply:
       result: pass
-      stagedSecrets: []
+      stagedSecrets:
+      - namespace: ingress-nginx
+        name: ingress-nginx-admission
+        keys:
+        - ca
+        - cert
+        - key
+        lane: cubInstallerApply
       stagedCRDs: []
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/ingress-nginx-ingress-nginx-default/target-facts-installer.yaml
+    requiredValues: []

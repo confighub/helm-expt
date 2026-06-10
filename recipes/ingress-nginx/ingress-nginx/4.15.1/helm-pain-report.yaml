@@ -19,6 +19,7 @@ spec:
   notes:
     - "Default chart renders an admission Service and ValidatingWebhookConfiguration."
     - "Admission certificate create/patch Jobs are Helm hooks and are excluded from the rendered revision by --no-hooks."
+    - "For live parity, the installer leg stages the admission Secret as a target fact; regular Helm continues to create it through hook execution."
     - "admission-disabled variant removes the admission Service and ValidatingWebhookConfiguration from the rendered revision."
     - "internal-clusterip variant also changes the controller Service from LoadBalancer to ClusterIP for local/internal targets."
     - "Admission webhook readiness must be observed after apply because a rendered object alone does not prove webhook health."
@@ -59,6 +60,16 @@ spec:
       disposition: "handled-by-lifecycle-policy"
       linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "handled-for-render"
+    -
+      id: "target-facts"
+      detectedPainPoint: "target-facts requires variants/default/variant.yaml"
+      evidence:
+        - "variants/default/variant.yaml"
+        - "declared-required-target-facts"
+      configHubHome: "target-fact-requirement"
+      disposition: "handled-by-target-fact-values"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "required-for-default-live-parity"
     -
       id: "admission-webhook"
       detectedPainPoint: "admission-webhook affects admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||ingress-nginx-admission"
@@ -115,4 +126,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
-  answerForSkepticalHelmUser: "ingress-nginx/ingress-nginx@4.15.1 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, lifecycle-policy, scan-gate, extension-slot, recipe, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains production-review-ready."
+  answerForSkepticalHelmUser: "ingress-nginx/ingress-nginx@4.15.1 maps its detected Helm pain to 9 ConfigHub control areas: source-lock, dependency-lock, capability-profile, lifecycle-policy, target-fact-requirement, scan-gate, extension-slot, recipe, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains production-review-ready."
