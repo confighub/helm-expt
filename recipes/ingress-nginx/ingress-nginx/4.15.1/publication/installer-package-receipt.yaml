@@ -4,13 +4,16 @@ metadata:
   name: "ingress-nginx-ingress-nginx-4.15.1"
 spec:
   chart:
-    repository: "ingress-nginx"
     name: "ingress-nginx"
+    repository: "ingress-nginx"
     version: "4.15.1"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/ingress-nginx/ingress-nginx/4.15.1 -o <tmp>/ingress-nginx-4.15.1.tgz"
+    sha256: "3d02ef3574f6f2e82546c647645f3fa8f3e766f127de1d80b000ded490f919a4"
   package:
-    path: "packages/ingress-nginx/ingress-nginx/4.15.1"
     name: "ingress-nginx-ingress-nginx"
-    version: "4.15.1"
+    path: "packages/ingress-nginx/ingress-nginx/4.15.1"
     sourceFiles:
       -
         path: "README.md"
@@ -42,50 +45,47 @@ spec:
         bytes: 10597
       -
         path: "collector/target-facts.sh"
-        sha256: "dc122200586e076f97f1b905ca72a36ca17ff4928268330a087ad5ddaa903042"
-        bytes: 1935
+        sha256: "84c0ad8eceb069825e9481ab6d6879fe1a6097be541219d214f1e64f8dad9bbb"
+        bytes: 1871
       -
         path: "installer.yaml"
-        sha256: "4e4b4e170e53dcac98428af7fad93f9e25b48b3f04cbe1e16ae93624aeebd379"
-        bytes: 1538
-  deterministicBundle:
-    command: "cub installer package packages/ingress-nginx/ingress-nginx/4.15.1 -o <tmp>/ingress-nginx-4.15.1.tgz"
-    sha256: "3e37d60f8d88f0d92fe26645fe57a04d98a770bc6282f60e5dc71d3c4c79905d"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "a43d0b09f70a4f98bd8e8aa564c0ef0f8b2afa0e62d702a67dc28c8606d4c642"
+        bytes: 1523
+    version: "4.15.1"
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||ingress-nginx"
       base: "default"
       command: "cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base default --work-dir <tmp> --non-interactive --namespace ingress-nginx"
-      helmReleaseObjectCount: 11
       cubInstallObjectCountIncludingSupport: 12
+      helmReleaseObjectCount: 11
       semanticObjectMatches: "11/11"
       separatedSecretCount: 0
       targetFactMode: "collector-facts"
       targetFactsBound: true
+      variant: "default"
+    -
       allowedCubOnlyObjects:
         - "v1|Namespace||ingress-nginx"
-    -
-      variant: "admission-disabled"
       base: "admission-disabled"
       command: "cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base admission-disabled --work-dir <tmp> --non-interactive --namespace ingress-nginx"
-      helmReleaseObjectCount: 9
       cubInstallObjectCountIncludingSupport: 10
+      helmReleaseObjectCount: 9
       semanticObjectMatches: "9/9"
       separatedSecretCount: 0
       targetFactMode: "not-required"
       targetFactsBound: false
+      variant: "admission-disabled"
+    -
       allowedCubOnlyObjects:
         - "v1|Namespace||ingress-nginx"
-    -
-      variant: "internal-clusterip"
       base: "internal-clusterip"
       command: "cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base internal-clusterip --work-dir <tmp> --non-interactive --namespace ingress-nginx"
-      helmReleaseObjectCount: 9
       cubInstallObjectCountIncludingSupport: 10
+      helmReleaseObjectCount: 9
       semanticObjectMatches: "9/9"
       separatedSecretCount: 0
       targetFactMode: "not-required"
       targetFactsBound: false
-      allowedCubOnlyObjects:
-        - "v1|Namespace||ingress-nginx"
+      variant: "internal-clusterip"

@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/bitnami/postgresql/18.6.10/control-points.yaml"
     valueModel: "recipes/bitnami/postgresql/18.6.10/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/bitnami/postgresql/18.6.10/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"
@@ -54,19 +55,19 @@ spec:
     userStatus: ""
     strongestEvidence: ""
     proofLanes:
-      renderParity: ""
-      inConfigHub: ""
-      localLive: ""
-      gitopsLive: ""
-      liveParity: ""
-    featureSummary: ""
+      renderParity: "2/2"
+      inConfigHub: "0/2"
+      localLive: "0/2"
+      gitopsLive: "0/2"
+      liveParity: "0/2"
+    featureSummary: "none-recorded"
     hardGap: ""
     nextAction: ""
   installerPackage:
     path: "packages/bitnami/postgresql/18.6.10"
     installer: "packages/bitnami/postgresql/18.6.10/installer.yaml"
     receipt: "recipes/bitnami/postgresql/18.6.10/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "1b970b1b323629e730e14c74473ebca7adb192665003aee89fff12bdf400e278"
+    deterministicBundleSHA256: "723f1bd3eb8cfe950da5e4c6b8c7b7d8e2284240af23027888e51bfaab600867"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

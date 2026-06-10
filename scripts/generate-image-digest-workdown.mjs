@@ -98,8 +98,9 @@ function buildReport() {
 function summarizeCharts(subjectRows) {
   const charts = new Map();
   for (const row of subjectRows) {
-    if (!charts.has(row.chart)) {
-      charts.set(row.chart, {
+    const key = `${row.chart}@${row.version}`;
+    if (!charts.has(key)) {
+      charts.set(key, {
         chart: row.chart,
         version: row.version,
         catalog_status: row.catalog_status,
@@ -114,7 +115,7 @@ function summarizeCharts(subjectRows) {
         next_action: "",
       });
     }
-    const chart = charts.get(row.chart);
+    const chart = charts.get(key);
     chart.rendered_subjects += 1;
     if (row.needs_resolution === "yes") chart.subjects_needing_resolution += 1;
     chart.image_refs += Number(row.image_refs);
@@ -245,8 +246,8 @@ function imageDigestReceipt(row) {
   const spec = receipt.spec ?? {};
   check(receipt.kind === "ImageDigestResolutionReceipt", `${relativePath} must be kind ImageDigestResolutionReceipt`);
   check(spec.chart === row.chart, `${relativePath} chart mismatch`);
-  check(spec.version === row.version, `${relativePath} version mismatch`);
   check(spec.variant === row.variant, `${relativePath} variant mismatch`);
+  if (spec.version !== row.version) return { status: "stale-version", path: relativePath };
   check(spec.renderedObjectSet?.sha256 === row.rendered_sha256, `${relativePath} rendered sha mismatch`);
   return { status: "recorded", path: relativePath };
 }
@@ -264,7 +265,7 @@ function imagePolicyDecision(row) {
   const spec = decision.spec ?? {};
   check(decision.kind === "ProductionImagePolicyDecision", `${relativePath} must be kind ProductionImagePolicyDecision`);
   check(spec.chart === row.chart, `${relativePath} chart mismatch`);
-  check(spec.version === row.version, `${relativePath} version mismatch`);
+  if (spec.version !== row.version) return { status: "stale-version", decision: "", path: relativePath };
   check((spec.variantsCovered ?? []).includes(row.variant), `${relativePath} does not cover variant ${row.variant}`);
   check((spec.limits ?? []).some((item) => item.includes("does not mean the rendered manifests are digest-pinned")), `${relativePath} must state digest-pinning limit`);
   return { status: "recorded", decision: spec.decision ?? "", path: relativePath };

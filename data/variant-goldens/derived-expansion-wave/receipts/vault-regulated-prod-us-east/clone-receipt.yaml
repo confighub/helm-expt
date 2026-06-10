@@ -11,8 +11,8 @@ spec:
   downstreamSpace: "Vault-regulated-prod-us-east"
   sourceRevision: "recipes/hashicorp/vault/0.32.0/revisions/default/r001/variant-revision.yaml"
   renderedObjectSetSHA256: "6de2d61c8de0c21faa951e89ec16658bcdff22e69d78075fdd394d895a5e6978"
-  sourceUnits: 14
-  clonedUnitsExpected: 14
+  sourceUnits: 13
+  clonedUnitsExpected: 13
   upstreamLinks: "preserve"
   labels:
     Component: "Vault"

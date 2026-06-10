@@ -31,8 +31,8 @@ for exact base-variant evidence.
 | Adoption bucket | - |
 | User status | - |
 | Strongest evidence | - |
-| Proof lanes | render parity -; ConfigHub -; local live -; GitOps live -; live parity - |
-| Feature summary | - |
+| Proof lanes | render parity 2/2; ConfigHub 0/2; local live 0/2; GitOps live 0/2; live parity 0/2 |
+| Feature summary | none-recorded |
 | Hard gap | - |
 | Next action | - |
 
@@ -48,6 +48,7 @@ for exact base-variant evidence.
 | Control points | [recipes/bitnami/postgresql/18.6.10/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/bitnami/postgresql/18.6.10/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/bitnami/postgresql/18.6.10/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/bitnami/postgresql/18.6.10/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/bitnami/postgresql/18.6.10](../../../../packages/bitnami/postgresql/18.6.10) |
 | Installer package receipt | [recipes/bitnami/postgresql/18.6.10/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/bitnami/postgresql/18.6.10/artifact-index.yaml](artifact-index.yaml) |

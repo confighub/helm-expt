@@ -1,0 +1,75 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "bitnami-redis-27.0.0"
+spec:
+  chart:
+    name: "redis"
+    repository: "bitnami"
+    version: "27.0.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/bitnami/redis/27.0.0 -o <tmp>/bitnami-redis-27.0.0.tgz"
+    sha256: "299c755aedfc1b8c15b7feab9e14d7efd3f7db99eca7e14097225e4822d03c8a"
+  ociPublication:
+    command: "REDIS_INSTALLER_OCI_REF=oci://<registry>/<repo>:<tag> npm run redis:publish-package"
+    reason: "No registry ref is supplied by default; publication is verified only against an explicit OCI endpoint."
+    status: "not-run"
+  package:
+    name: "bitnami-redis"
+    path: "packages/bitnami/redis/27.0.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "da825abf741736ea829c8436bce20b127cd4d7fc2b39e5036aef6a7e3697d821"
+        bytes: 1402
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "2fa9e5ecea086feda6e54659db22423415c4c80d5818d4b126856a6b08b49d05"
+        bytes: 93
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "758467319ec109764b55ee730ba51a37a2196744f45f5c064f212bfc176178f0"
+        bytes: 24461
+      -
+        path: "bases/reuse-existing-secret/kustomization.yaml"
+        sha256: "2fa9e5ecea086feda6e54659db22423415c4c80d5818d4b126856a6b08b49d05"
+        bytes: 93
+      -
+        path: "bases/reuse-existing-secret/upstream.yaml"
+        sha256: "ff3e9532687b0826784a329dd1b10afea3a7bfd355bced74d5fa9064f7908eb4"
+        bytes: 23936
+      -
+        path: "collector/target-facts.sh"
+        sha256: "e949312d9905967203b087c1216288114b4431490afee7d43d97bc622a9cb492"
+        bytes: 1659
+      -
+        path: "installer.yaml"
+        sha256: "d89d8988f55998ec18e8ddec6238a086faed4aef5b005e942adf467d000ee68c"
+        bytes: 921
+    version: "27.0.0"
+  setupChecks:
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||redis"
+      base: "default"
+      command: "cub installer setup --pull packages/bitnami/redis/27.0.0 --base default --work-dir <tmp> --non-interactive --namespace redis"
+      cubInstallObjectCountIncludingSupport: 15
+      helmReleaseObjectCount: 14
+      semanticObjectMatches: "14/14"
+      separatedSecretCount: 1
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      variant: "default"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||redis"
+      base: "reuse-existing-secret"
+      command: "cub installer setup --pull packages/bitnami/redis/27.0.0 --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace redis"
+      cubInstallObjectCountIncludingSupport: 14
+      helmReleaseObjectCount: 13
+      semanticObjectMatches: "13/13"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "reuse-existing-secret"

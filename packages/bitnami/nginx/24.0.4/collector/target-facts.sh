@@ -74,9 +74,11 @@ targetFacts:
     name: nginx-ingress-tls
     namespace: nginx
     purpose: TLS certificate material referenced by the Ingress
+
   requiredCRDs: []
+
 targetFactChecks:
-  base: "$base"
+  base: "existing-tls-ingress"
   mode: "$check_mode"
   result: "$result"
 YAML

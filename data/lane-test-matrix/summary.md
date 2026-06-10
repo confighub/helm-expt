@@ -15,20 +15,20 @@ that must be rerun before judging parity.
 ## Headline
 
 ```text
-chart-recipe-variant rows: 159
+chart-recipe-variant rows: 173
 complete core lane set: 20
-incomplete core lane set: 139
+incomplete core lane set: 153
 ```
 
 ## Core Lane Counts
 
 | Lane | Pass | Missing | Fail | Watch | Blocked |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| helm_template_vs_installer_setup | 159 | 0 | 0 | 0 | 0 |
-| confighub_upload_variant_scan_safe_ops | 20 | 139 | 0 | 0 | 0 |
-| local_kind_kubectl_apply | 23 | 136 | 0 | 0 | 0 |
-| confighub_oci_argo_live | 22 | 131 | 0 | 2 | 4 |
-| live_helm_vs_confighub_dual_compare | 20 | 137 | 0 | 2 | 0 |
+| helm_template_vs_installer_setup | 173 | 0 | 0 | 0 | 0 |
+| confighub_upload_variant_scan_safe_ops | 20 | 153 | 0 | 0 | 0 |
+| local_kind_kubectl_apply | 23 | 150 | 0 | 0 | 0 |
+| confighub_oci_argo_live | 22 | 145 | 0 | 2 | 4 |
+| live_helm_vs_confighub_dual_compare | 20 | 151 | 0 | 2 | 0 |
 
 ## Lane Definitions
 
@@ -42,7 +42,7 @@ incomplete core lane set: 139
 
 ## Current Gaps
 
-The live Helm-vs-ConfigHub dual comparison lane has 20 PASS receipt(s), 2 WATCH receipt(s), 0 BLOCKED receipt(s), 0 FAIL receipt(s), and 137 missing row(s). The ConfigHub OCI/Argo live lane has a harness, but this repo
+The live Helm-vs-ConfigHub dual comparison lane has 20 PASS receipt(s), 2 WATCH receipt(s), 0 BLOCKED receipt(s), 0 FAIL receipt(s), and 151 missing row(s). The ConfigHub OCI/Argo live lane has a harness, but this repo
 currently has no committed PASS receipts for every chart-recipe-variant row.
 
 ### First Non-Pass Or Missing ConfigHub Proof Rows
@@ -50,6 +50,8 @@ currently has no committed PASS receipts for every chart-recipe-variant row.
 - aqua/trivy-operator@0.32.1 / default
 - aqua/trivy-operator@0.32.1 / no-crds
 - argo-cd/argo-cd@9.5.15 / no-crds
+- argo-cd/argo-cd@9.5.17 / default
+- argo-cd/argo-cd@9.5.17 / no-crds
 - argo-cd/argo-events@2.4.21 / default
 - argo-cd/argo-events@2.4.21 / no-crds
 - argo-cd/argo-rollouts@2.40.9 / default
@@ -67,11 +69,9 @@ currently has no committed PASS receipts for every chart-recipe-variant row.
 - bitnami/elasticsearch@22.1.6 / ha
 - bitnami/memcached@8.5.5 / default
 - bitnami/mongodb@19.0.7 / existing-secret-replicaset
+- bitnami/mongodb@19.0.9 / existing-secret-replicaset
+- bitnami/mongodb@19.0.9 / generated-passwords
 - bitnami/mysql@14.0.3 / existing-secret
-- bitnami/nginx@24.0.2 / existing-tls-ingress
-- bitnami/opensearch@2.0.10 / default
-- bitnami/opensearch@2.0.10 / ha
-- bitnami/phpmyadmin@20.0.0 / default
 
 
 ### First Non-Pass Or Missing Local Kind Rows
@@ -79,6 +79,8 @@ currently has no committed PASS receipts for every chart-recipe-variant row.
 - aqua/trivy-operator@0.32.1 / default
 - aqua/trivy-operator@0.32.1 / no-crds
 - argo-cd/argo-cd@9.5.15 / no-crds
+- argo-cd/argo-cd@9.5.17 / default
+- argo-cd/argo-cd@9.5.17 / no-crds
 - argo-cd/argo-events@2.4.21 / default
 - argo-cd/argo-events@2.4.21 / no-crds
 - argo-cd/argo-rollouts@2.40.9 / default
@@ -96,11 +98,9 @@ currently has no committed PASS receipts for every chart-recipe-variant row.
 - bitnami/elasticsearch@22.1.6 / ha
 - bitnami/memcached@8.5.5 / default
 - bitnami/mongodb@19.0.7 / existing-secret-replicaset
+- bitnami/mongodb@19.0.9 / existing-secret-replicaset
+- bitnami/mongodb@19.0.9 / generated-passwords
 - bitnami/mysql@14.0.3 / existing-secret
-- bitnami/nginx@24.0.2 / existing-tls-ingress
-- bitnami/opensearch@2.0.10 / default
-- bitnami/opensearch@2.0.10 / ha
-- bitnami/phpmyadmin@20.0.0 / default
 
 
 ### First Non-Pass Or Missing Live Helm Vs ConfigHub Rows
@@ -108,6 +108,8 @@ currently has no committed PASS receipts for every chart-recipe-variant row.
 - aqua/trivy-operator@0.32.1 / default
 - aqua/trivy-operator@0.32.1 / no-crds
 - argo-cd/argo-cd@9.5.15 / no-crds
+- argo-cd/argo-cd@9.5.17 / default
+- argo-cd/argo-cd@9.5.17 / no-crds
 - argo-cd/argo-events@2.4.21 / default
 - argo-cd/argo-events@2.4.21 / no-crds
 - argo-cd/argo-rollouts@2.40.9 / default
@@ -125,9 +127,7 @@ currently has no committed PASS receipts for every chart-recipe-variant row.
 - bitnami/elasticsearch@22.1.6 / ha
 - bitnami/memcached@8.5.5 / default
 - bitnami/mongodb@19.0.7 / existing-secret-replicaset
+- bitnami/mongodb@19.0.9 / existing-secret-replicaset
+- bitnami/mongodb@19.0.9 / generated-passwords
 - bitnami/mysql@14.0.3 / existing-secret
-- bitnami/nginx@24.0.2 / existing-tls-ingress
-- bitnami/opensearch@2.0.10 / default
-- bitnami/opensearch@2.0.10 / ha
-- bitnami/phpmyadmin@20.0.0 / default
 

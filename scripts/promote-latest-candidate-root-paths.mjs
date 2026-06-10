@@ -82,7 +82,13 @@ function candidateRows() {
   check(existsSync(readinessPath), `${relativeRepo(readinessPath)} is missing`);
   check(existsSync(dispositionPath), `${relativeRepo(dispositionPath)} is missing`);
   const rows = parseCsv(readFileSync(readinessPath, "utf8"));
-  check(rows.length === 6, `expected 6 latest candidate rows; found ${rows.length}`);
+  const disposition = readYaml(dispositionPath);
+  const dispositionRows = disposition.spec?.rows ?? [];
+  check(rows.length >= 1, "expected at least one latest candidate row");
+  check(
+    rows.length === dispositionRows.length,
+    `latest candidate row count mismatch: readiness=${rows.length} disposition=${dispositionRows.length}`,
+  );
   return rows;
 }
 

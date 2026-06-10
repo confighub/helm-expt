@@ -16,7 +16,9 @@ const selfTest = args.includes("--self-test");
 if (selfTest) {
   runSelfTest();
 } else {
-  const result = verifyCurrentArtifactChain(repoRoot, 100);
+  const result = verifyCurrentArtifactChain(repoRoot);
+  check(result.recipeCount >= 100, `expected at least 100 recipe roots, found ${result.recipeCount}`);
+  check(result.packageCount >= 100, `expected at least 100 installer packages, found ${result.packageCount}`);
   console.log(`verified current artifact chain for ${result.recipeCount} recipe(s) and ${result.packageCount} package(s)`);
 }
 

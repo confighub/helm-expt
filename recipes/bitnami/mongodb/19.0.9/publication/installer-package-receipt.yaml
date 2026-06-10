@@ -4,13 +4,16 @@ metadata:
   name: "bitnami-mongodb-19.0.9"
 spec:
   chart:
-    repository: "bitnami"
     name: "mongodb"
+    repository: "bitnami"
     version: "19.0.9"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/bitnami/mongodb/19.0.9 -o <tmp>/mongodb-19.0.9.tgz"
+    sha256: "4af330e6e34f38ae7cb1eba0ab5001332bcf4b5809dd65bba59674ba6bdfae61"
   package:
-    path: "packages/bitnami/mongodb/19.0.9"
     name: "bitnami-mongodb"
-    version: "19.0.9"
+    path: "packages/bitnami/mongodb/19.0.9"
     sourceFiles:
       -
         path: "README.md"
@@ -34,38 +37,35 @@ spec:
         bytes: 11300
       -
         path: "collector/target-facts.sh"
-        sha256: "4dca76e9bd4d1c4b729ff8840f6bc9e8f33b9d0180fc7e22d90ac29e64be2882"
-        bytes: 1763
+        sha256: "4b4ab171b32a4f69819a34dd495bf30f897bd32ac193b6ccd96adfc70561686a"
+        bytes: 1786
       -
         path: "installer.yaml"
-        sha256: "021b9ceb3ec8792d06aa23e0406d093b4ab82125e4f563906dee11e2682f5929"
+        sha256: "4e0b59bd8a151f44a39818bbf2aa15925e36992c5c5c33b11b1c72f7bb76a717"
         bytes: 1333
-  deterministicBundle:
-    command: "cub installer package packages/bitnami/mongodb/19.0.9 -o <tmp>/mongodb-19.0.9.tgz"
-    sha256: "5f85bd35400dd0f8a489cb98ae0df849f80ada939396716ba1c33f61fa6dd65c"
-    byteIdenticalAcrossTwoLocalBundles: true
+    version: "19.0.9"
   setupChecks:
     -
-      variant: "generated-passwords"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||mongodb"
       base: "generated-passwords"
       command: "cub installer setup --pull packages/bitnami/mongodb/19.0.9 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mongodb"
-      helmReleaseObjectCount: 8
       cubInstallObjectCountIncludingSupport: 9
+      helmReleaseObjectCount: 8
       semanticObjectMatches: "8/8"
       separatedSecretCount: 1
       targetFactMode: "not-required"
       targetFactsBound: false
+      variant: "generated-passwords"
+    -
       allowedCubOnlyObjects:
         - "v1|Namespace||mongodb"
-    -
-      variant: "existing-secret-replicaset"
       base: "existing-secret-replicaset"
       command: "cub installer setup --pull packages/bitnami/mongodb/19.0.9 --base existing-secret-replicaset --work-dir <tmp> --non-interactive --namespace mongodb"
-      helmReleaseObjectCount: 10
       cubInstallObjectCountIncludingSupport: 11
+      helmReleaseObjectCount: 10
       semanticObjectMatches: "10/10"
       separatedSecretCount: 0
       targetFactMode: "collector-facts"
       targetFactsBound: true
-      allowedCubOnlyObjects:
-        - "v1|Namespace||mongodb"
+      variant: "existing-secret-replicaset"

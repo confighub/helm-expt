@@ -4,13 +4,16 @@ metadata:
   name: "hashicorp-consul-2.0.0"
 spec:
   chart:
-    repository: "hashicorp"
     name: "consul"
+    repository: "hashicorp"
     version: "2.0.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/hashicorp/consul/2.0.0 -o <tmp>/consul-2.0.0.tgz"
+    sha256: "c6856c3365bce61288c432b7103d081e32411e7411acef1103f7b9212f54ff9b"
   package:
-    path: "packages/hashicorp/consul/2.0.0"
     name: "hashicorp-consul"
-    version: "2.0.0"
+    path: "packages/hashicorp/consul/2.0.0"
     sourceFiles:
       -
         path: "README.md"
@@ -34,38 +37,35 @@ spec:
         bytes: 769734
       -
         path: "collector/target-facts.sh"
-        sha256: "c1cf0800890fcf3e255c292b621ba251ef3a1aa210f4b08915ac3452809f44ed"
-        bytes: 2380
+        sha256: "29e96688259f118dc499ba62d5d189aff79ec183fbd4299ed8cbc28abf54b3e6"
+        bytes: 2303
       -
         path: "installer.yaml"
-        sha256: "f1638ed05f395008b25518729ae9088a1aa32de6872baba8d0e96ce935f73c81"
-        bytes: 7753
-  deterministicBundle:
-    command: "cub installer package packages/hashicorp/consul/2.0.0 -o <tmp>/consul-2.0.0.tgz"
-    sha256: "ad21bc526beeb88f2b12ce5bb5b983e849ddcce53c1f628e5c7fe4a9a540a298"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "cf2b6c347833015afbd9815128aac124eb028295e1977c48b12dfca04bf50355"
+        bytes: 7738
+    version: "2.0.0"
   setupChecks:
     -
-      variant: "default-control-plane"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||consul"
       base: "default-control-plane"
       command: "cub installer setup --pull packages/hashicorp/consul/2.0.0 --base default-control-plane --work-dir <tmp> --non-interactive --namespace consul"
-      helmReleaseObjectCount: 68
       cubInstallObjectCountIncludingSupport: 69
+      helmReleaseObjectCount: 68
       semanticObjectMatches: "68/68"
       separatedSecretCount: 0
       targetFactMode: "not-required"
       targetFactsBound: false
+      variant: "default-control-plane"
+    -
       allowedCubOnlyObjects:
         - "v1|Namespace||consul"
-    -
-      variant: "secure-mesh-existing-secrets"
       base: "secure-mesh-existing-secrets"
       command: "cub installer setup --pull packages/hashicorp/consul/2.0.0 --base secure-mesh-existing-secrets --work-dir <tmp> --non-interactive --namespace consul"
-      helmReleaseObjectCount: 97
       cubInstallObjectCountIncludingSupport: 98
+      helmReleaseObjectCount: 97
       semanticObjectMatches: "97/97"
       separatedSecretCount: 1
       targetFactMode: "collector-facts"
       targetFactsBound: true
-      allowedCubOnlyObjects:
-        - "v1|Namespace||consul"
+      variant: "secure-mesh-existing-secrets"

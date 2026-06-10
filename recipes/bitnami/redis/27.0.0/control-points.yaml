@@ -1,0 +1,40 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ControlPoints
+metadata:
+  name: bitnami-redis-27.0.0
+spec:
+  points:
+    - category: source-lock
+      status: handled
+      evidence: source-lock.yaml
+    - category: dependency-lock
+      status: handled
+      evidence: dependency-lock.yaml
+    - category: generated-facts
+      status: handled-for-default-proof
+      evidence: effective-values.yaml
+      note: auth.password is deterministic in this proof; future generated-fact receipt should own this.
+    - category: target-facts
+      status: required-for-reuse-existing-secret
+      evidence: variants/reuse-existing-secret/variant.yaml
+      required:
+        - kind: Secret
+          namespace: redis
+          name: redis-existing-secret
+          keys:
+            - redis-password
+    - category: capability-profile
+      status: handled
+      kubeVersion: "1.30.0"
+    - category: hook-policy
+      status: handled
+      policy: no-hooks
+    - category: secret-handling
+      status: handled
+      note: cub installer separates one rendered Secret from uploaded manifests.
+    - category: image-digest
+      status: handled
+      digest: sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25
+    - category: installer-support-object
+      status: handled
+      object: v1|Namespace||redis

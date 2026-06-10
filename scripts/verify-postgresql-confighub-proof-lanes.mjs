@@ -21,7 +21,7 @@ function verifyConfigHubProof() {
   check(receipt.spec?.render?.manifestCount === 7, "PostgreSQL render must produce 7 manifests");
   check(receipt.spec?.render?.separatedSecretCount === 1, "PostgreSQL generated-passwords must separate 1 Secret");
   check(receipt.spec?.deterministicPackage?.byteIdenticalAcrossTwoLocalBundles === true, "PostgreSQL package must be deterministic");
-  check(receipt.spec?.upload?.postgresqlKubernetesUnitCount === 7, "PostgreSQL upload must create 7 Kubernetes Units");
+  check(receipt.spec?.upload?.kubernetesUnitCount === 7, "PostgreSQL upload must create 7 Kubernetes Units");
   check(receipt.spec?.upload?.installerRecordUnitCount === 1, "PostgreSQL upload must create installer-record Unit");
   check(receipt.spec?.upload?.separatedSecretsNotUploaded?.length === 1, "PostgreSQL must record one separated Secret");
   check(receipt.spec?.plan?.result === "pass", "PostgreSQL post-upload plan must pass");
@@ -67,4 +67,3 @@ function verifySafeOps() {
   check(receipt.spec?.cancel?.result === "pass", "PostgreSQL cancel must pass");
   check(receipt.spec?.safetyResult === "pass", "PostgreSQL safe-ops safety result must pass");
 }
-

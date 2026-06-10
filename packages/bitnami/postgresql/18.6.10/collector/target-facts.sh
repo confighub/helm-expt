@@ -62,9 +62,11 @@ targetFacts:
     name: postgresql-auth
     namespace: postgresql
     purpose: PostgreSQL administrator password
+
   requiredCRDs: []
+
 targetFactChecks:
-  base: "$base"
+  base: "existing-secret"
   mode: "$check_mode"
   result: "$result"
 YAML

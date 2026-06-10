@@ -9,7 +9,6 @@ emit_empty() {
 targetFacts:
   requiredSecrets: []
   requiredCRDs: []
-  requiredValues: []
 targetFactChecks:
   base: "$base"
   mode: not-required
@@ -60,20 +59,20 @@ case "$base" in
     cat <<YAML
 targetFacts:
   requiredSecrets:
-  -
-    namespace: "ingress-nginx"
-    name: "ingress-nginx-admission"
+  - deliveryLanes:
+    - cubInstallerApply
     keys:
-      - "cert"
-      - "key"
-      - "ca"
-    purpose: "admission webhook certificate normally created by Helm hook jobs"
-    deliveryLanes:
-      - "cubInstallerApply"
+    - cert
+    - key
+    - ca
+    name: ingress-nginx-admission
+    namespace: ingress-nginx
+    purpose: admission webhook certificate normally created by Helm hook jobs
+
   requiredCRDs: []
-  requiredValues: []
+
 targetFactChecks:
-  base: "$base"
+  base: "default"
   mode: "$check_mode"
   result: "$result"
 YAML

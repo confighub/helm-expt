@@ -50,7 +50,9 @@ function buildReport() {
   };
   check(tools.kubeLinter.available, "external scan lane currently requires kube-linter");
   const subjects = supportedVariantSubjects();
-  check(subjects.length === 40, `expected 40 supported top-20 variant subjects, found ${subjects.length}`);
+  const supportedChartCount = new Set(subjects.map((subject) => subject.chart)).size;
+  check(supportedChartCount === 20, `expected 20 supported top-20 charts, found ${supportedChartCount}`);
+  check(subjects.length >= 40, `expected at least 40 supported top-20 variant subjects, found ${subjects.length}`);
   const rows = subjects.map((subject) => scanSubject(subject, tools.kubeLinter.version));
   const summary = {
     subjects: rows.length,

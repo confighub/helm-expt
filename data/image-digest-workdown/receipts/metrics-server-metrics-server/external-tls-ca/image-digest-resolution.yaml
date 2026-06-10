@@ -6,7 +6,7 @@ spec:
   chart: "metrics-server/metrics-server"
   version: "3.13.0"
   variant: "external-tls-ca"
-  resolvedAt: "2026-06-10T04:41:34.420Z"
+  resolvedAt: "2026-06-10T15:48:21.769Z"
   renderedObjectSet:
     path: "recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/rendered/release-objects.yaml"
     sha256: "03497dfa266c74cd3bdbf9f884e4d255ae0f24b426a030f6290c36505a1300a4"

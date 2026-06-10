@@ -15,27 +15,28 @@ Catalog support must come from explicit catalog-status.yaml files.
 ## Summary
 
 ```text
-recipes reviewed: 100
-machine checks pass: 100
+recipes reviewed: 107
+machine checks pass: 107
 machine checks fail: 0
 proof-grade: 80
-catalog-candidate: 0
+catalog-candidate: 7
 catalog-supported: 20
 blocked: 0
 default-only recipes: 46
-multi-variant recipes: 54
-recipes with warning gates: 86
+multi-variant recipes: 61
+recipes with warning gates: 93
 recipes with non-current executable fixture path: 0
 ```
 
 ## Proof Tiers
 
-- `bespoke-top20`: 20
+- `bespoke-top20`: 27
 - `next80-full`: 80
 
 ## Support Levels
 
 - `machine-proof-only`: 80
+- `promotion-review-needed`: 7
 - `supported-for-declared-scopes`: 20
 
 ## Catalog Candidates
@@ -46,7 +47,13 @@ proof work.
 
 | Chart | Variants | Gate | Recommendation |
 | --- | ---: | --- | --- |
-| none | 0 | none | none |
+| `argo-cd/argo-cd@9.5.17` | 2 | warn | run human catalog promotion review |
+| `bitnami/mongodb@19.0.9` | 2 | warn | run human catalog promotion review |
+| `bitnami/nginx@24.0.4` | 2 | warn | run human catalog promotion review |
+| `bitnami/postgresql@18.6.10` | 2 | warn | run human catalog promotion review |
+| `bitnami/redis@27.0.0` | 2 | warn | run human catalog promotion review |
+| `prometheus-community/kube-prometheus-stack@86.1.0` | 2 | warn | run human catalog promotion review |
+| `prometheus-community/prometheus@29.9.0` | 2 | warn | run human catalog promotion review |
 
 ## Main Gaps
 

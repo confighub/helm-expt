@@ -28,7 +28,7 @@ function eligibleRecipeRoots() {
     .map((file) => dirname(file))
     .filter((root) => {
       const status = readYaml(join(root, "catalog-status.yaml"));
-      return ["catalog-supported", "catalog-candidate"].includes(status.spec?.status);
+      return status.spec?.status === "catalog-supported";
     })
     .sort();
 }

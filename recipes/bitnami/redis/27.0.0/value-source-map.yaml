@@ -1,0 +1,90 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ValueSourceMap
+metadata:
+  name: bitnami-redis-27.0.0
+spec:
+  chart: bitnami/redis
+  version: 27.0.0
+  entries:
+    - id: replica-count
+      valuePath: replica.replicaCount
+      effectiveValue: 3
+      source: chart-default
+      renderedFields:
+        - object: apps/v1|StatefulSet|redis|redis-replicas
+          field: spec.replicas
+          value: 3
+      rolloutImpact: changes-replica-statefulset-scale
+      immutableFieldRisk: false
+      relatedPolicies:
+        - stateful-workload
+        - pvc-policy
+    - id: release-name
+      valuePath: releaseName
+      effectiveValue: redis
+      source: variant.releaseName
+      renderedFields:
+        - object: apps/v1|StatefulSet|redis|redis-master
+          field: metadata.name
+          value: redis-master
+        - object: apps/v1|StatefulSet|redis|redis-replicas
+          field: metadata.name
+          value: redis-replicas
+        - object: v1|Service|redis|redis-headless
+          field: metadata.name
+          value: redis-headless
+        - object: apps/v1|StatefulSet|redis|redis-replicas
+          field: spec.template.spec.containers[0].env.REDIS_MASTER_HOST
+          value: redis-master-0.redis-headless.redis.svc.cluster.local
+      rolloutImpact: changing-release-name-renames-objects
+      immutableFieldRisk: true
+    - id: namespace
+      valuePath: namespace
+      effectiveValue: redis
+      source: variant.namespace
+      renderedFields:
+        - object: apps/v1|StatefulSet|redis|redis-master
+          field: metadata.namespace
+          value: redis
+        - object: apps/v1|StatefulSet|redis|redis-replicas
+          field: metadata.namespace
+          value: redis
+        - object: v1|Service|redis|redis-headless
+          field: metadata.namespace
+          value: redis
+        - object: v1|Secret|redis|redis
+          field: metadata.namespace
+          value: redis
+      rolloutImpact: moving-namespace-creates-distinct-object-set
+      immutableFieldRisk: true
+    - id: image-digest
+      valuePath: image.digest
+      effectiveValue: "sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25"
+      source: catalog-policy
+      renderedFields:
+        - object: apps/v1|StatefulSet|redis|redis-master
+          field: spec.template.spec.containers[0].image
+          value: registry-1.docker.io/bitnami/redis@sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25
+        - object: apps/v1|StatefulSet|redis|redis-replicas
+          field: spec.template.spec.containers[0].image
+          value: registry-1.docker.io/bitnami/redis@sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25
+      rolloutImpact: changing-image-rolls-redis-pods
+      immutableFieldRisk: false
+    - id: redis-password
+      valuePath: auth.password
+      effectiveValueDigest: "sha256:6486a1dce90d013579f3b52d6939524b23b3ca00c5702e409348e6c0ba782349"
+      source: generated-fact-receipt
+      renderedFields:
+        - object: v1|Secret|redis|redis
+          field: data.redis-password
+          valueDigest: "sha256:6486a1dce90d013579f3b52d6939524b23b3ca00c5702e409348e6c0ba782349"
+        - object: apps/v1|StatefulSet|redis|redis-master
+          field: spec.template.spec.volumes[redis-password].secret.secretName
+          value: redis
+        - object: apps/v1|StatefulSet|redis|redis-replicas
+          field: spec.template.spec.volumes[redis-password].secret.secretName
+          value: redis
+      relatedFacts:
+        - revisions/default/r001/receipts/generated-fact-receipt.yaml
+      rolloutImpact: changes-secret-checksum-and-rolls-redis-pods
+      immutableFieldRisk: false

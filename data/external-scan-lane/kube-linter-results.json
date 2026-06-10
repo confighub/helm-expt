@@ -1,12 +1,12 @@
 {
   "generatedBy": "scripts/run-external-scan-lane.mjs",
   "summary": {
-    "subjects": 40,
+    "subjects": 42,
     "charts": 20,
     "pass": 0,
-    "warn": 40,
+    "warn": 42,
     "fail": 0,
-    "totalFindings": 307,
+    "totalFindings": 320,
     "toolStatus": {
       "kubeLinter": {
         "available": true,
@@ -1449,7 +1449,7 @@
         "unset-memory-requirements": 2
       },
       "renderedPath": "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml",
-      "renderedSHA256": "e647ad22435c55910e4c77470263e05daf026af43b59bde1f0ae7db754d3d5ad",
+      "renderedSHA256": "4e981336df773cdd82b2551d35d27d61f4b39e6a3df0a9a693ac81fd0d3cf8ed",
       "recipePath": "recipes/grafana/tempo/1.24.4",
       "findings": [
         {
@@ -1785,6 +1785,119 @@
     {
       "chart": "hashicorp/vault",
       "version": "0.32.0",
+      "variant": "dev-mode",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 9,
+      "checkCounts": {
+        "liveness-port": 1,
+        "no-read-only-root-fs": 2,
+        "readiness-port": 1,
+        "startup-port": 1,
+        "unset-cpu-requirements": 2,
+        "unset-memory-requirements": 2
+      },
+      "renderedPath": "recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "f07ae80c317a1156f1f6ae6dc849300de0ba4683eb3ffae67cdcfcd6e8072955",
+      "recipePath": "recipes/hashicorp/vault/0.32.0",
+      "findings": [
+        {
+          "check": "liveness-port",
+          "message": "container \"sidecar-injector\" does not expose port 8080 for the HTTPGet",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault-agent-injector"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"sidecar-injector\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault-agent-injector"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"vault\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault"
+          }
+        },
+        {
+          "check": "readiness-port",
+          "message": "container \"sidecar-injector\" does not expose port 8080 for the HTTPGet",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault-agent-injector"
+          }
+        },
+        {
+          "check": "startup-port",
+          "message": "container \"sidecar-injector\" does not expose port 8080 for the HTTPGet",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault-agent-injector"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"sidecar-injector\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault-agent-injector"
+          }
+        },
+        {
+          "check": "unset-cpu-requirements",
+          "message": "container \"vault\" has cpu request 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"sidecar-injector\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault-agent-injector"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"vault\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "vault",
+            "name": "vault"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "hashicorp/vault",
+      "version": "0.32.0",
       "variant": "ha-raft-ui",
       "scanner": "kube-linter",
       "scannerVersion": "0.8.3",
@@ -2005,6 +2118,67 @@
       },
       "renderedPath": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml",
       "renderedSHA256": "257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d",
+      "recipePath": "recipes/ingress-nginx/ingress-nginx/4.15.1",
+      "findings": [
+        {
+          "check": "liveness-port",
+          "message": "container \"controller\" does not expose port 10254 for the HTTPGet",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "ingress-nginx",
+            "name": "ingress-nginx-controller"
+          }
+        },
+        {
+          "check": "no-read-only-root-fs",
+          "message": "container \"controller\" does not have a read-only root file system",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "ingress-nginx",
+            "name": "ingress-nginx-controller"
+          }
+        },
+        {
+          "check": "readiness-port",
+          "message": "container \"controller\" does not expose port 10254 for the HTTPGet",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "ingress-nginx",
+            "name": "ingress-nginx-controller"
+          }
+        },
+        {
+          "check": "unset-memory-requirements",
+          "message": "container \"controller\" has memory limit 0",
+          "object": {
+            "apiVersion": "",
+            "kind": "",
+            "namespace": "ingress-nginx",
+            "name": "ingress-nginx-controller"
+          }
+        }
+      ]
+    },
+    {
+      "chart": "ingress-nginx/ingress-nginx",
+      "version": "4.15.1",
+      "variant": "internal-clusterip",
+      "scanner": "kube-linter",
+      "scannerVersion": "0.8.3",
+      "result": "warn",
+      "exitCode": 1,
+      "findingCount": 4,
+      "checkCounts": {
+        "liveness-port": 1,
+        "no-read-only-root-fs": 1,
+        "readiness-port": 1,
+        "unset-memory-requirements": 1
+      },
+      "renderedPath": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/rendered/release-objects.yaml",
+      "renderedSHA256": "a94ba2b56636baf7e732766c12c98d808b57c276156fa7a3a752b4137bf5f46a",
       "recipePath": "recipes/ingress-nginx/ingress-nginx/4.15.1",
       "findings": [
         {
@@ -2776,7 +2950,7 @@
         "unset-memory-requirements": 1
       },
       "renderedPath": "recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/rendered/release-objects.yaml",
-      "renderedSHA256": "4b9df6b53cb5d8ed0b655b121696183d1c107ea88511e889bef1aae6708c8dad",
+      "renderedSHA256": "03497dfa266c74cd3bdbf9f884e4d255ae0f24b426a030f6290c36505a1300a4",
       "recipePath": "recipes/metrics-server/metrics-server/3.13.0",
       "findings": [
         {

@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/bitnami/nginx/24.0.4/control-points.yaml"
     valueModel: "recipes/bitnami/nginx/24.0.4/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/bitnami/nginx/24.0.4/helm-pain-report.yaml"
     controlPointCategories:
       - "availability-policy"
       - "capability-profile"
@@ -54,19 +55,19 @@ spec:
     userStatus: ""
     strongestEvidence: ""
     proofLanes:
-      renderParity: ""
-      inConfigHub: ""
-      localLive: ""
-      gitopsLive: ""
-      liveParity: ""
-    featureSummary: ""
+      renderParity: "2/2"
+      inConfigHub: "0/2"
+      localLive: "0/2"
+      gitopsLive: "0/2"
+      liveParity: "0/2"
+    featureSummary: "none-recorded"
     hardGap: ""
     nextAction: ""
   installerPackage:
     path: "packages/bitnami/nginx/24.0.4"
     installer: "packages/bitnami/nginx/24.0.4/installer.yaml"
     receipt: "recipes/bitnami/nginx/24.0.4/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "5823922869c4cdb546dfc8dd76ce7a982df0e808a9afb03dbff6c2d98eb104f4"
+    deterministicBundleSHA256: "d4adb4087bcb3986d52ce38e0199dbf13b9d1970a282cdc45fe5e6adbf90c11a"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

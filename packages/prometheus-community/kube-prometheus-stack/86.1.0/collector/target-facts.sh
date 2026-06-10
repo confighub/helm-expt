@@ -58,19 +58,22 @@ case "$base" in
     cat <<YAML
 targetFacts:
   requiredSecrets:
-  - keys:
+  - deliveryLanes:
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    keys:
     - cert
     - key
     name: kube-prometheus-stack-admission
     namespace: monitoring
-    purpose: Prometheus Operator admission webhook TLS material normally created by Helm hook lifecycle
-    deliveryLanes:
-    - cubInstallerApply
-    - configHubKubectlApply
-    - configHubOciArgo
+    purpose: Prometheus Operator admission webhook TLS material normally created by
+      Helm hook lifecycle
+
   requiredCRDs: []
+
 targetFactChecks:
-  base: "$base"
+  base: "default"
   mode: "$check_mode"
   result: "$result"
 YAML
@@ -96,99 +99,102 @@ YAML
     cat <<YAML
 targetFacts:
   requiredSecrets:
-  - keys:
+  - deliveryLanes:
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    keys:
     - cert
     - key
     name: kube-prometheus-stack-admission
     namespace: monitoring
-    purpose: Prometheus Operator admission webhook TLS material normally created by Helm hook lifecycle
-    deliveryLanes:
-    - cubInstallerApply
-    - configHubKubectlApply
-    - configHubOciArgo
+    purpose: Prometheus Operator admission webhook TLS material normally created by
+      Helm hook lifecycle
+
   requiredCRDs:
-  - name: alertmanagerconfigs.monitoring.coreos.com
-    purpose: Prometheus Operator CRD managed outside this no-crds base
-    sourceVariant: default
-    deliveryLanes:
+  - deliveryLanes:
     - regularHelm
     - cubInstallerApply
     - configHubKubectlApply
     - configHubOciArgo
-  - name: alertmanagers.monitoring.coreos.com
+    name: alertmanagerconfigs.monitoring.coreos.com
     purpose: Prometheus Operator CRD managed outside this no-crds base
     sourceVariant: default
-    deliveryLanes:
+  - deliveryLanes:
     - regularHelm
     - cubInstallerApply
     - configHubKubectlApply
     - configHubOciArgo
-  - name: podmonitors.monitoring.coreos.com
+    name: alertmanagers.monitoring.coreos.com
     purpose: Prometheus Operator CRD managed outside this no-crds base
     sourceVariant: default
-    deliveryLanes:
+  - deliveryLanes:
     - regularHelm
     - cubInstallerApply
     - configHubKubectlApply
     - configHubOciArgo
-  - name: probes.monitoring.coreos.com
+    name: podmonitors.monitoring.coreos.com
     purpose: Prometheus Operator CRD managed outside this no-crds base
     sourceVariant: default
-    deliveryLanes:
+  - deliveryLanes:
     - regularHelm
     - cubInstallerApply
     - configHubKubectlApply
     - configHubOciArgo
-  - name: prometheusagents.monitoring.coreos.com
+    name: probes.monitoring.coreos.com
     purpose: Prometheus Operator CRD managed outside this no-crds base
     sourceVariant: default
-    deliveryLanes:
+  - deliveryLanes:
     - regularHelm
     - cubInstallerApply
     - configHubKubectlApply
     - configHubOciArgo
-  - name: prometheuses.monitoring.coreos.com
+    name: prometheusagents.monitoring.coreos.com
     purpose: Prometheus Operator CRD managed outside this no-crds base
     sourceVariant: default
-    deliveryLanes:
+  - deliveryLanes:
     - regularHelm
     - cubInstallerApply
     - configHubKubectlApply
     - configHubOciArgo
-  - name: prometheusrules.monitoring.coreos.com
+    name: prometheuses.monitoring.coreos.com
     purpose: Prometheus Operator CRD managed outside this no-crds base
     sourceVariant: default
-    deliveryLanes:
+  - deliveryLanes:
     - regularHelm
     - cubInstallerApply
     - configHubKubectlApply
     - configHubOciArgo
-  - name: scrapeconfigs.monitoring.coreos.com
+    name: prometheusrules.monitoring.coreos.com
     purpose: Prometheus Operator CRD managed outside this no-crds base
     sourceVariant: default
-    deliveryLanes:
+  - deliveryLanes:
     - regularHelm
     - cubInstallerApply
     - configHubKubectlApply
     - configHubOciArgo
-  - name: servicemonitors.monitoring.coreos.com
+    name: scrapeconfigs.monitoring.coreos.com
     purpose: Prometheus Operator CRD managed outside this no-crds base
     sourceVariant: default
-    deliveryLanes:
+  - deliveryLanes:
     - regularHelm
     - cubInstallerApply
     - configHubKubectlApply
     - configHubOciArgo
-  - name: thanosrulers.monitoring.coreos.com
+    name: servicemonitors.monitoring.coreos.com
     purpose: Prometheus Operator CRD managed outside this no-crds base
     sourceVariant: default
-    deliveryLanes:
+  - deliveryLanes:
     - regularHelm
     - cubInstallerApply
     - configHubKubectlApply
     - configHubOciArgo
+    name: thanosrulers.monitoring.coreos.com
+    purpose: Prometheus Operator CRD managed outside this no-crds base
+    sourceVariant: default
+
 targetFactChecks:
-  base: "$base"
+  base: "no-crds"
   mode: "$check_mode"
   result: "$result"
 YAML

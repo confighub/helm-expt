@@ -6,8 +6,6 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "argo-cd default variant rendered from argo-cd/argo-cd@9.5.17"
       externalRequires:
@@ -16,9 +14,9 @@ spec:
           name: "Secret argocd/argocd-redis key auth"
           namespace: "argocd"
           suggestedSource: "kubectl -n argocd create secret generic argocd-redis --from-literal=auth=<value>"
+      name: "default"
+      path: "bases/default"
     -
-      name: "no-crds"
-      path: "bases/no-crds"
       description: "argo-cd CRDs disabled variant rendered from argo-cd/argo-cd@9.5.17"
       externalRequires:
         -
@@ -38,6 +36,8 @@ spec:
           kind: "ClusterFeature"
           name: "CRD appprojects.argoproj.io"
           suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+      name: "no-crds"
+      path: "bases/no-crds"
   collector:
     command: "/bin/sh"
     args:

@@ -35,7 +35,7 @@ if (mode === "--generate") {
 
 function buildReport() {
   const roots = recipeRoots();
-  check(roots.length === 100, `expected 100 recipe roots, found ${roots.length}`);
+  check(roots.length >= 100, `expected at least 100 recipe roots, found ${roots.length}`);
   const rows = roots.map(reviewRecipe).sort((left, right) => left.chart.localeCompare(right.chart));
   return { rows, csv: toCsv(rows), summary: toSummary(rows) };
 }

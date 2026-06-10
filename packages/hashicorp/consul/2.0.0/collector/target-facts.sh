@@ -9,7 +9,6 @@ emit_empty() {
 targetFacts:
   requiredSecrets: []
   requiredCRDs: []
-  requiredValues: []
 targetFactChecks:
   base: "$base"
   mode: not-required
@@ -62,35 +61,32 @@ case "$base" in
     cat <<YAML
 targetFacts:
   requiredSecrets:
-  -
-    namespace: "consul"
-    name: "consul-ca-cert"
-    keys:
-      - "tls.crt"
-    purpose: "Consul TLS CA certificate"
-  -
-    namespace: "consul"
-    name: "consul-server-cert"
-    keys:
-      - "tls.crt"
-      - "tls.key"
-    purpose: "Consul server TLS certificate and private key"
-  -
-    namespace: "consul"
-    name: "consul-gossip-encryption-key"
-    keys:
-      - "key"
-    purpose: "Consul gossip encryption key"
-  -
-    namespace: "consul"
-    name: "consul-bootstrap-acl-token"
-    keys:
-      - "token"
-    purpose: "Consul ACL bootstrap token"
+  - keys:
+    - tls.crt
+    name: consul-ca-cert
+    namespace: consul
+    purpose: Consul TLS CA certificate
+  - keys:
+    - tls.crt
+    - tls.key
+    name: consul-server-cert
+    namespace: consul
+    purpose: Consul server TLS certificate and private key
+  - keys:
+    - key
+    name: consul-gossip-encryption-key
+    namespace: consul
+    purpose: Consul gossip encryption key
+  - keys:
+    - token
+    name: consul-bootstrap-acl-token
+    namespace: consul
+    purpose: Consul ACL bootstrap token
+
   requiredCRDs: []
-  requiredValues: []
+
 targetFactChecks:
-  base: "$base"
+  base: "secure-mesh-existing-secrets"
   mode: "$check_mode"
   result: "$result"
 YAML

@@ -75,7 +75,7 @@
     "currentProofsTotal": 100,
     "currentProofsMatched": 91,
     "currentProofsUnmatchedToOldMatrix": 9,
-    "retainedCandidateProofVersions": 6
+    "retainedCandidateProofVersions": 7
   },
   "summary": {
     "catalogSupported": 20,
@@ -84,7 +84,7 @@
     "top500MatchedProofs": 91,
     "latestCandidates": 7,
     "runtimeGitopsWave": 10,
-    "imageSubjectsNeedingResolution": 141,
+    "imageSubjectsNeedingResolution": 149,
     "nextTenGapRows": 9,
     "baseVariants": 42,
     "startHereBaseVariants": 20,
@@ -97,8 +97,8 @@
     "refreshCurrentRows": 13,
     "refreshUpdateCandidates": 7,
     "refreshCandidatesWithProof": 4,
-    "latestCandidatesAwaitingReplacementDecision": 3,
-    "latestRefreshP0Rows": 5,
+    "latestCandidatesAwaitingReplacementDecision": 4,
+    "latestRefreshP0Rows": 4,
     "top100ChartsWithLiveEvidence": 28,
     "liveParityRerunRows": 0,
     "liveParityRerunSemanticDefects": 0,
@@ -117,8 +117,8 @@
     {
       "section": "top100",
       "metric": "charts with model support",
-      "value": "98",
-      "total": "100",
+      "value": "105",
+      "total": "107",
       "status": "good",
       "source": "data/outcome-coverage/chart-outcomes.csv",
       "note": "The top100 corpus has honest chart models for the declared scope."
@@ -144,8 +144,8 @@
     {
       "section": "top100",
       "metric": "variant-rich charts",
-      "value": "54",
-      "total": "100",
+      "value": "61",
+      "total": "107",
       "status": "partial",
       "source": "data/outcome-coverage/chart-outcomes.csv",
       "note": "Charts with more than one declared base variant."
@@ -234,7 +234,7 @@
     {
       "section": "refresh",
       "metric": "update candidates with proof-complete root paths",
-      "value": "3",
+      "value": "4",
       "total": "7",
       "status": "partial",
       "source": "data/refresh-survival/refreshes.csv",
@@ -243,7 +243,7 @@
     {
       "section": "refresh",
       "metric": "latest refresh p0 action rows",
-      "value": "5",
+      "value": "4",
       "total": "7",
       "status": "partial",
       "source": "data/latest-top20-refresh/action-queue/queue.csv",
@@ -306,8 +306,8 @@
     {
       "section": "proof lanes",
       "metric": "render parity rows",
-      "value": "159",
-      "total": "159",
+      "value": "173",
+      "total": "173",
       "status": "good",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Every chart/base row has render parity under recorded inputs."
@@ -316,7 +316,7 @@
       "section": "proof lanes",
       "metric": "in-ConfigHub proof rows",
       "value": "20",
-      "total": "159",
+      "total": "173",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with upload, scan, or safe-operation proof receipts."
@@ -325,7 +325,7 @@
       "section": "proof lanes",
       "metric": "local live rows",
       "value": "23",
-      "total": "159",
+      "total": "173",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with committed local Kubernetes observation receipts."
@@ -334,7 +334,7 @@
       "section": "proof lanes",
       "metric": "GitOps/OCI live pass rows",
       "value": "22",
-      "total": "159",
+      "total": "173",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "6 rows have non-pass GitOps/OCI receipts."
@@ -343,7 +343,7 @@
       "section": "proof lanes",
       "metric": "live Helm-vs-ConfigHub parity pass rows",
       "value": "20",
-      "total": "159",
+      "total": "173",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "2 rows have non-pass live parity receipts."
@@ -361,7 +361,7 @@
       "section": "proof lanes",
       "metric": "complete core lane rows",
       "value": "20",
-      "total": "159",
+      "total": "173",
       "status": "gap",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."
@@ -415,7 +415,7 @@
       "section": "graph bridge",
       "metric": "charts with recovered graph fragments",
       "value": "20",
-      "total": "100",
+      "total": "107",
       "status": "partial",
       "source": "data/edge-recovery/edges.csv",
       "note": "Catalog-supported recipe artifacts converted into desired-state graph fragments."
@@ -3544,11 +3544,11 @@
       "chart": "bitnami/redis",
       "currentVersion": "25.5.3",
       "candidateVersion": "27.0.0",
-      "proofStatus": "candidate-render-proof-present",
-      "replacementDecision": "no-candidate-yet",
-      "action": "promote-render-candidate",
-      "priority": "p0",
-      "nextAction": "run ConfigHub proof, live e2e, production disposition, catalog, top100, and top500 lanes before replacement"
+      "proofStatus": "candidate-proof-complete-root-path-present",
+      "replacementDecision": "not-decided",
+      "action": "write-replacement-decision",
+      "priority": "p1",
+      "nextAction": "review target-scoped production support decision before replacing the supported version"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -5625,15 +5625,15 @@
       "current_version": "25.5.3",
       "latest_version": "27.0.0",
       "refresh_state": "upstream-update-candidate",
-      "candidate_proof": "candidate-render-proof-present",
+      "candidate_proof": "candidate-proof-complete-root-path-present",
       "candidate_variants": "default;reuse-existing-secret",
       "candidate_object_counts": "default:14;reuse-existing-secret:13",
-      "catalog_state": "not-promoted",
-      "promotion_state": "ready-for-root-path-promotion",
+      "catalog_state": "root-path-present",
+      "promotion_state": "root-path-promoted-review-required",
       "live_promotion_state": "not-yet-live-promoted",
       "source_review": "data/latest-top20-refresh/review.csv",
       "candidate_evidence": "data/latest-top20-refresh/candidates/redis-27.0.0/recipes/bitnami/redis/27.0.0",
-      "next_action": "run ConfigHub proof, live e2e, production disposition, catalog, top100, and top500 lanes before replacement"
+      "next_action": "review target-scoped production support decision before replacing the supported version"
     },
     {
       "chart": "external-secrets/external-secrets",
@@ -8553,8 +8553,8 @@
       "next_action": "record final target-scoped support decision and refresh live/e2e evidence for that scope",
       "recipe_path": "recipes/argo-cd/argo-cd/9.5.15",
       "package_path": "packages/argo-cd/argo-cd/9.5.15",
-      "confighub_proof_receipt": "runs/argo-cd-confighub-proof/latest/confighub-proof-receipt.yaml",
-      "live_e2e_receipts": "runs/top20-local-kind/argo-cd-default/observation-receipt.json"
+      "confighub_proof_receipt": "runs/latest-top20-refresh/argo-cd-9.5.17/confighub-proof/latest/confighub-proof-receipt.yaml",
+      "live_e2e_receipts": "runs/latest-top20-refresh/argo-cd-9.5.17/local-kind/observation-receipt.json;runs/top20-local-kind/argo-cd-default/observation-receipt.json"
     },
     {
       "chart": "bitnami/mongodb",
@@ -8575,7 +8575,7 @@
       "recipe_path": "recipes/bitnami/mongodb/19.0.7",
       "package_path": "packages/bitnami/mongodb/19.0.7",
       "confighub_proof_receipt": "runs/mongodb-confighub-proof/latest/confighub-proof-receipt.yaml",
-      "live_e2e_receipts": "runs/top20-local-kind/mongodb-generated-passwords/observation-receipt.json"
+      "live_e2e_receipts": "runs/latest-top20-refresh/mongodb-19.0.9/local-kind/observation-receipt.json;runs/top20-local-kind/mongodb-generated-passwords/observation-receipt.json"
     },
     {
       "chart": "bitnami/mysql",
@@ -8617,7 +8617,7 @@
       "recipe_path": "recipes/bitnami/nginx/24.0.2",
       "package_path": "packages/bitnami/nginx/24.0.2",
       "confighub_proof_receipt": "runs/nginx-confighub-proof/latest/confighub-proof-receipt.yaml",
-      "live_e2e_receipts": "runs/top20-local-kind/nginx-http-clusterip/observation-receipt.json"
+      "live_e2e_receipts": "runs/latest-top20-refresh/nginx-24.0.4/local-kind/observation-receipt.json;runs/top20-local-kind/nginx-http-clusterip/observation-receipt.json"
     },
     {
       "chart": "bitnami/postgresql",
@@ -8638,7 +8638,7 @@
       "recipe_path": "recipes/bitnami/postgresql/18.6.7",
       "package_path": "packages/bitnami/postgresql/18.6.7",
       "confighub_proof_receipt": "runs/postgresql-confighub-proof/latest/confighub-proof-receipt.yaml",
-      "live_e2e_receipts": "runs/top20-local-kind/postgresql-generated-passwords/observation-receipt.json"
+      "live_e2e_receipts": "runs/latest-top20-refresh/postgresql-18.6.10/local-kind/observation-receipt.json;runs/top20-local-kind/postgresql-generated-passwords/observation-receipt.json"
     },
     {
       "chart": "bitnami/rabbitmq",
@@ -8680,7 +8680,7 @@
       "recipe_path": "recipes/bitnami/redis/25.5.3",
       "package_path": "packages/bitnami/redis/25.5.3",
       "confighub_proof_receipt": "runs/redis-confighub-proof/latest/confighub-proof-receipt.yaml",
-      "live_e2e_receipts": "runs/redis-local-kind/latest/observation-receipt.yaml;runs/redis-local-kind/reuse-existing-secret-latest/observation-receipt.yaml"
+      "live_e2e_receipts": "runs/latest-top20-refresh/redis-27.0.0/local-kind/observation-receipt.json;runs/redis-local-kind/latest/observation-receipt.yaml;runs/redis-local-kind/reuse-existing-secret-latest/observation-receipt.yaml"
     },
     {
       "chart": "external-secrets/external-secrets",
@@ -8910,8 +8910,8 @@
       "next_action": "record final target-scoped support decision and refresh live/e2e evidence for that scope",
       "recipe_path": "recipes/prometheus-community/kube-prometheus-stack/85.3.3",
       "package_path": "packages/prometheus-community/kube-prometheus-stack/85.3.3",
-      "confighub_proof_receipt": "runs/kube-prometheus-stack-confighub-proof/latest/confighub-proof-receipt.yaml",
-      "live_e2e_receipts": "runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json"
+      "confighub_proof_receipt": "runs/latest-top20-refresh/kube-prometheus-stack-86.1.0/confighub-proof/latest/confighub-proof-receipt.yaml",
+      "live_e2e_receipts": "runs/latest-top20-refresh/kube-prometheus-stack-86.1.0/local-kind/observation-receipt.json;runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json"
     },
     {
       "chart": "prometheus-community/prometheus",
@@ -8932,7 +8932,7 @@
       "recipe_path": "recipes/prometheus-community/prometheus/29.8.0",
       "package_path": "packages/prometheus-community/prometheus/29.8.0",
       "confighub_proof_receipt": "runs/prometheus-confighub-proof/latest/confighub-proof-receipt.yaml",
-      "live_e2e_receipts": "runs/top20-local-kind/prometheus-server-only-ephemeral/observation-receipt.json"
+      "live_e2e_receipts": "runs/latest-top20-refresh/prometheus-29.9.0/local-kind/observation-receipt.json;runs/top20-local-kind/prometheus-server-only-ephemeral/observation-receipt.json"
     },
     {
       "chart": "secrets-store-csi-driver/secrets-store-csi-driver",
@@ -9315,7 +9315,7 @@
       "productionDispositionReceipt": "",
       "owner": "security-review",
       "productionState": "production-review-ready",
-      "liveE2EReceipts": "1"
+      "liveE2EReceipts": "2"
     },
     {
       "chart": "longhorn/longhorn",
@@ -9351,7 +9351,7 @@
       "productionDispositionReceipt": "",
       "owner": "security-review",
       "productionState": "production-review-ready",
-      "liveE2EReceipts": "1"
+      "liveE2EReceipts": "2"
     },
     {
       "chart": "secrets-store-csi-driver/secrets-store-csi-driver",
@@ -9392,10 +9392,28 @@
     {
       "chart": "hashicorp/vault",
       "version": "0.32.0",
-      "variants": "default;ha-raft-ui",
+      "variants": "default;dev-mode;ha-raft-ui",
       "scanPriority": "medium",
-      "findingCount": "21",
-      "topChecks": "no-read-only-root-fs:4;unset-cpu-requirements:4;unset-memory-requirements:4;dangling-service:2;liveness-port:2;readiness-port:2;startup-port:2;pdb-unhealthy-pod-eviction-policy:1",
+      "findingCount": "30",
+      "topChecks": "no-read-only-root-fs:6;unset-cpu-requirements:6;unset-memory-requirements:6;liveness-port:3;readiness-port:3;startup-port:3;dangling-service:2;pdb-unhealthy-pod-eviction-policy:1",
+      "dispositionRoute": "harden-security-context",
+      "routeReason": "rendered workloads need pod/container security review before production support",
+      "suggestedAction": "add supported hardening values where safe, or record a chart-specific security disposition for the remaining workload behavior",
+      "supportSecurityDecision": "",
+      "supportSecurityDecisionState": "",
+      "productionNextDisposition": "target fact preflight",
+      "productionDispositionReceipt": "data/production-disposition/receipts/hashicorp-vault/target-fact-preflight.yaml",
+      "owner": "security-review",
+      "productionState": "production-blocked",
+      "liveE2EReceipts": "2"
+    },
+    {
+      "chart": "ingress-nginx/ingress-nginx",
+      "version": "4.15.1",
+      "variants": "admission-disabled;default;internal-clusterip",
+      "scanPriority": "medium",
+      "findingCount": "12",
+      "topChecks": "liveness-port:3;no-read-only-root-fs:3;readiness-port:3;unset-memory-requirements:3",
       "dispositionRoute": "harden-security-context",
       "routeReason": "rendered workloads need pod/container security review before production support",
       "suggestedAction": "add supported hardening values where safe, or record a chart-specific security disposition for the remaining workload behavior",
@@ -9405,7 +9423,7 @@
       "productionDispositionReceipt": "",
       "owner": "security-review",
       "productionState": "production-review-ready",
-      "liveE2EReceipts": "1"
+      "liveE2EReceipts": "2"
     },
     {
       "chart": "grafana/tempo",
@@ -9414,24 +9432,6 @@
       "scanPriority": "medium",
       "findingCount": "9",
       "topChecks": "no-read-only-root-fs:3;unset-cpu-requirements:3;unset-memory-requirements:3",
-      "dispositionRoute": "harden-security-context",
-      "routeReason": "rendered workloads need pod/container security review before production support",
-      "suggestedAction": "add supported hardening values where safe, or record a chart-specific security disposition for the remaining workload behavior",
-      "supportSecurityDecision": "",
-      "supportSecurityDecisionState": "",
-      "productionNextDisposition": "",
-      "productionDispositionReceipt": "",
-      "owner": "security-review",
-      "productionState": "production-review-ready",
-      "liveE2EReceipts": "1"
-    },
-    {
-      "chart": "ingress-nginx/ingress-nginx",
-      "version": "4.15.1",
-      "variants": "admission-disabled;default",
-      "scanPriority": "medium",
-      "findingCount": "8",
-      "topChecks": "liveness-port:2;no-read-only-root-fs:2;readiness-port:2;unset-memory-requirements:2",
       "dispositionRoute": "harden-security-context",
       "routeReason": "rendered workloads need pod/container security review before production support",
       "suggestedAction": "add supported hardening values where safe, or record a chart-specific security disposition for the remaining workload behavior",
@@ -9477,7 +9477,7 @@
       "productionDispositionReceipt": "",
       "owner": "catalog-review",
       "productionState": "production-review-ready",
-      "liveE2EReceipts": "1"
+      "liveE2EReceipts": "2"
     },
     {
       "chart": "external-secrets/external-secrets",
@@ -9567,7 +9567,7 @@
       "productionDispositionReceipt": "",
       "owner": "security-review",
       "productionState": "production-review-ready",
-      "liveE2EReceipts": "2"
+      "liveE2EReceipts": "3"
     },
     {
       "chart": "bitnami/mongodb",
@@ -9585,7 +9585,7 @@
       "productionDispositionReceipt": "",
       "owner": "security-review",
       "productionState": "production-review-ready",
-      "liveE2EReceipts": "1"
+      "liveE2EReceipts": "2"
     },
     {
       "chart": "bitnami/mysql",
@@ -9621,7 +9621,7 @@
       "productionDispositionReceipt": "",
       "owner": "security-review",
       "productionState": "production-review-ready",
-      "liveE2EReceipts": "1"
+      "liveE2EReceipts": "2"
     },
     {
       "chart": "bitnami/postgresql",
@@ -9639,7 +9639,7 @@
       "productionDispositionReceipt": "",
       "owner": "security-review",
       "productionState": "production-review-ready",
-      "liveE2EReceipts": "1"
+      "liveE2EReceipts": "2"
     },
     {
       "chart": "bitnami/rabbitmq",

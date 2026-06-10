@@ -1,6 +1,7 @@
 chart,supported,score,render_equivalent,behaviorally_complete,readable,usable,verifiable,honestly_scoped,variant_complete,variant_count,support_status,production_readiness,missing_criteria,recipe_path
 aqua/trivy-operator@0.32.1,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/aqua/trivy-operator/0.32.1
 argo-cd/argo-cd@9.5.15,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/argo-cd/argo-cd/9.5.15
+argo-cd/argo-cd@9.5.17,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/argo-cd/argo-cd/9.5.17
 argo-cd/argo-events@2.4.21,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/argo-cd/argo-events/2.4.21
 argo-cd/argo-rollouts@2.40.9,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/argo-cd/argo-rollouts/2.40.9
 argo-cd/argo-workflows@1.0.14,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/argo-cd/argo-workflows/1.0.14
@@ -13,13 +14,17 @@ bitnami/contour@21.1.4,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-rev
 bitnami/elasticsearch@22.1.6,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/bitnami/elasticsearch/22.1.6
 bitnami/memcached@8.5.5,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/bitnami/memcached/8.5.5
 bitnami/mongodb@19.0.7,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/bitnami/mongodb/19.0.7
+bitnami/mongodb@19.0.9,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/bitnami/mongodb/19.0.9
 bitnami/mysql@14.0.3,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/bitnami/mysql/14.0.3
 bitnami/nginx@24.0.2,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/bitnami/nginx/24.0.2
+bitnami/nginx@24.0.4,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/bitnami/nginx/24.0.4
 bitnami/opensearch@2.0.10,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/bitnami/opensearch/2.0.10
 bitnami/phpmyadmin@20.0.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/bitnami/phpmyadmin/20.0.0
+bitnami/postgresql@18.6.10,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/bitnami/postgresql/18.6.10
 bitnami/postgresql@18.6.7,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/bitnami/postgresql/18.6.7
 bitnami/rabbitmq@16.0.14,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/bitnami/rabbitmq/16.0.14
 bitnami/redis@25.5.3,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/bitnami/redis/25.5.3
+bitnami/redis@27.0.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/bitnami/redis/27.0.0
 bitnami/spark@10.0.3,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/bitnami/spark/10.0.3
 bitnami/zookeeper@13.8.7,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/bitnami/zookeeper/13.8.7
 cloudnative-pg/cloudnative-pg@0.28.2,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/cloudnative-pg/cloudnative-pg/0.28.2
@@ -81,6 +86,7 @@ percona/pxc-operator@1.19.1,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,no
 projectcalico/tigera-operator@v3.32.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/projectcalico/tigera-operator/v3.32.0
 prometheus-community/alertmanager@1.37.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/prometheus-community/alertmanager/1.37.0
 prometheus-community/kube-prometheus-stack@85.3.3,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/prometheus-community/kube-prometheus-stack/85.3.3
+prometheus-community/kube-prometheus-stack@86.1.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/prometheus-community/kube-prometheus-stack/86.1.0
 prometheus-community/kube-state-metrics@7.4.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/prometheus-community/kube-state-metrics/7.4.0
 prometheus-community/prometheus-adapter@5.3.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/prometheus-community/prometheus-adapter/5.3.0
 prometheus-community/prometheus-blackbox-exporter@11.10.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0
@@ -88,6 +94,7 @@ prometheus-community/prometheus-node-exporter@4.55.0,yes,6/6,yes,yes,yes,yes,yes
 prometheus-community/prometheus-operator-crds@29.0.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/prometheus-community/prometheus-operator-crds/29.0.0
 prometheus-community/prometheus-pushgateway@3.6.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/prometheus-community/prometheus-pushgateway/3.6.0
 prometheus-community/prometheus@29.8.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/prometheus-community/prometheus/29.8.0
+prometheus-community/prometheus@29.9.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/prometheus-community/prometheus/29.9.0
 rook-release/rook-ceph-cluster@v1.19.5,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/rook-release/rook-ceph-cluster/v1.19.5
 rook-release/rook-ceph@v1.19.5,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/rook-release/rook-ceph/v1.19.5
 runix/pgadmin4@1.62.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/runix/pgadmin4/1.62.0

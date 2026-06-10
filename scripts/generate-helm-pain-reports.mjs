@@ -232,7 +232,7 @@ function normalize(value) {
 
 function main() {
   const charts = allCharts();
-  check(charts.length === 100, `expected 100 charts, found ${charts.length}`);
+  check(charts.length >= 100, `expected at least 100 charts, found ${charts.length}`);
   const failures = [];
   for (const item of charts) {
     const report = buildReport(item);

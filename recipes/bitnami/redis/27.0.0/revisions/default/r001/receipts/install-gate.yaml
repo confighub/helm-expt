@@ -1,0 +1,17 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallGate
+metadata:
+  name: bitnami-redis-default-r001
+spec:
+  variantRevision: ../variant-revision.yaml
+  renderedObjectSetSHA256: "758467319ec109764b55ee730ba51a37a2196744f45f5c064f212bfc176178f0"
+  decision: warn
+  allowedScopes:
+    - local-test
+  blockedScopes:
+    - production
+  reasons:
+    - local scan found 0 high and 2 medium finding(s)
+    - production publish is blocked until scan findings are resolved or explicitly waived
+    - Helm equivalence passed for default variant
+    - renders Redis Secret; cub installer separates it from uploaded manifests

@@ -8,17 +8,17 @@ bespoke per chart — see `data/catalog-promotion-wave2/variant-work-orders.yaml
 ## Headline
 
 ```text
-charts: 100
-charts needing variant work: 60
-charts already variant-complete: 40
-total variants to build: 70
+charts: 107
+charts needing variant work: 65
+charts already variant-complete: 42
+total variants to build: 78
 ```
 
 ## Build volume by dimension (highest-leverage first)
 
-- `existing-secret`: 47 charts
-- `ha`: 11 charts
-- `no-crds`: 8 charts
+- `existing-secret`: 51 charts
+- `ha`: 14 charts
+- `no-crds`: 9 charts
 - `ingress-tls`: 3 charts
 - `tls`: 1 charts
 
@@ -27,7 +27,8 @@ total variants to build: 70
 | Chart | Has | Build next |
 | --- | ---: | --- |
 | `aqua/trivy-operator@0.32.1` | 2 | existing-secret |
-| `argo-cd/argo-cd@9.5.15` | 2 | ha |
+| `argo-cd/argo-cd@9.5.15` | 2 | existing-secret, ha |
+| `argo-cd/argo-cd@9.5.17` | 2 | existing-secret, ha |
 | `argo-cd/argocd-image-updater@1.2.2` | 1 | existing-secret, no-crds |
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | 2 | existing-secret |
 | `bitnami/apache@11.4.29` | 1 | existing-secret |
@@ -36,8 +37,10 @@ total variants to build: 70
 | `bitnami/memcached@8.5.5` | 1 | existing-secret |
 | `bitnami/mysql@14.0.3` | 2 | ha |
 | `bitnami/nginx@24.0.2` | 2 | existing-secret |
+| `bitnami/nginx@24.0.4` | 2 | existing-secret |
 | `bitnami/opensearch@2.0.10` | 2 | existing-secret |
 | `bitnami/phpmyadmin@20.0.0` | 1 | existing-secret |
+| `bitnami/postgresql@18.6.10` | 2 | ha |
 | `bitnami/postgresql@18.6.7` | 2 | ha |
 | `bitnami/rabbitmq@16.0.14` | 2 | ha |
 | `bitnami/spark@10.0.3` | 2 | existing-secret |
@@ -47,7 +50,7 @@ total variants to build: 70
 | `crossplane-stable/crossplane@2.3.1` | 1 | existing-secret |
 | `dex/dex@0.24.0` | 1 | existing-secret |
 | `elastic/eck-operator@3.4.0` | 3 | existing-secret |
-| `external-dns/external-dns@1.21.1` | 2 | existing-secret |
+| `external-dns/external-dns@1.21.1` | 3 | existing-secret |
 | `external-secrets/external-secrets@2.5.0` | 2 | existing-secret |
 | `fairwinds-stable/goldilocks@10.3.0` | 1 | existing-secret |
 | `falcosecurity/falco@9.0.0` | 1 | existing-secret |
@@ -56,10 +59,10 @@ total variants to build: 70
 | `gitlab/gitlab-runner@0.89.0` | 1 | existing-secret |
 | `grafana/promtail@6.17.1` | 1 | existing-secret |
 | `grafana/pyroscope@2.0.2` | 3 | existing-secret |
-| `grafana/tempo@1.24.4` | 2 | ha, ingress-tls |
+| `grafana/tempo@1.24.4` | 2 | no-crds, ha, ingress-tls |
 | `haproxytech/kubernetes-ingress@1.52.0` | 1 | existing-secret |
 | `hashicorp/consul@2.0.0` | 2 | no-crds, ha, ingress-tls |
-| `hashicorp/vault@0.32.0` | 2 | ingress-tls, tls |
+| `hashicorp/vault@0.32.0` | 3 | ingress-tls, tls |
 | `istio/istiod@1.30.0` | 1 | existing-secret |
 | `jaegertracing/jaeger@4.8.0` | 1 | existing-secret |
 | `jetstack/trust-manager@v0.22.1` | 2 | existing-secret |
@@ -73,10 +76,12 @@ total variants to build: 70
 | `nats/nats@2.14.0` | 2 | existing-secret |
 | `open-telemetry/opentelemetry-operator@0.114.0` | 2 | existing-secret |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | 2 | existing-secret |
+| `prometheus-community/kube-prometheus-stack@86.1.0` | 2 | existing-secret |
 | `prometheus-community/kube-state-metrics@7.4.0` | 1 | existing-secret |
 | `prometheus-community/prometheus-node-exporter@4.55.0` | 1 | existing-secret |
 | `prometheus-community/prometheus-operator-crds@29.0.0` | 1 | existing-secret, no-crds |
 | `prometheus-community/prometheus@29.8.0` | 2 | ha |
+| `prometheus-community/prometheus@29.9.0` | 2 | ha |
 | `rook-release/rook-ceph-cluster@v1.19.5` | 1 | existing-secret |
 | `rook-release/rook-ceph@v1.19.5` | 1 | no-crds |
 | `runix/pgadmin4@1.62.0` | 1 | existing-secret, ha |

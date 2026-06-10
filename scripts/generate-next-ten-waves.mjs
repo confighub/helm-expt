@@ -115,7 +115,10 @@ function buildReport() {
 
   check(gapRows.length === 9, `expected 9 first gap-review rows; found ${gapRows.length}`);
   check(promotionReviewRows.length === 8, `expected 8 strict promotion-review rows; found ${promotionReviewRows.length}`);
-  check(latestRows.length === 6, `expected 6 latest promotion rows; found ${latestRows.length}`);
+  check(
+    latestRows.length === latestCandidates.length,
+    `expected ${latestCandidates.length} latest promotion rows; found ${latestRows.length}`,
+  );
   check(variantRows.length === 5, `expected 5 variant build rows; found ${variantRows.length}`);
   check(productionRows.length === 5, `expected 5 production disposition rows; found ${productionRows.length}`);
   check(importPrototypeRows.length === 3, `expected 3 import prototype rows; found ${importPrototypeRows.length}`);
