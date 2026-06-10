@@ -69,6 +69,12 @@ A tutorial or catalog row should say which of those claims it proves. If a row
 has only render parity or GitOps sync, do not call it live-ready. Runtime-ready
 claims need workload-specific checks or fresh observations.
 
+cub-scout v2.4.0 or newer is the current standalone witness for deeper live
+cluster checks. It can write receipts for rendered object presence,
+prerequisites, workload convergence, closed-world extras, drift, and freshness
+without requiring ConfigHub-connected mode. The README shows the compact command
+set and links to the cub-scout helm-expt example.
+
 ## Commands
 
 Check the generated matrix:
