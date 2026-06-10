@@ -10,6 +10,8 @@ const outputRoot = join(repoRoot, "data", "top100-readiness");
 const outputs = {
   csv: join(outputRoot, "readiness.csv"),
   summary: join(outputRoot, "summary.md"),
+  next80QueuesCsv: join(outputRoot, "next80-queues.csv"),
+  next80QueuesSummary: join(outputRoot, "next80-queues.md"),
 };
 
 if (mode === "--generate") {
@@ -17,6 +19,8 @@ if (mode === "--generate") {
   const report = buildReport();
   write(outputs.csv, report.csv);
   write(outputs.summary, report.summary);
+  write(outputs.next80QueuesCsv, report.next80QueuesCsv);
+  write(outputs.next80QueuesSummary, report.next80QueuesSummary);
   console.log(`wrote top100 readiness -> data/top100-readiness/`);
 } else if (mode === "--verify") {
   const report = buildReport();
@@ -77,6 +81,8 @@ function buildReport() {
     rows,
     csv: toCsv(rows),
     summary: summary(rows),
+    next80QueuesCsv: toCsv(next80QueueRows(rows)),
+    next80QueuesSummary: next80QueuesSummary(rows),
   };
 }
 
@@ -264,6 +270,7 @@ ${rows.slice(0, 25).map((row) => `| \`${row.chart}\` | \`${row.adoption_bucket}\
 | File | Use |
 | --- | --- |
 | \`data/top100-readiness/readiness.csv\` | One row per top-100 chart: workability, user status, strongest evidence, lane counts, gap, next action, next receipt path where available, and next-action source. |
+| \`data/top100-readiness/next80-queues.csv\` | Compact next80 action queue: promotion review, user-shaped variant work, and limitation review. |
 | \`data/top100-catalog-analysis/review.csv\` | Catalog analysis and promotion surface. |
 | \`data/outcome-coverage/chart-outcomes.csv\` | Detailed outcome counts per chart. |
 | \`data/outcome-coverage/base-outcomes.csv\` | Per base-variant proof lane status. |
@@ -275,6 +282,122 @@ npm run top100:readiness
 npm run top100:readiness:verify
 ~~~
 `;
+}
+
+function next80QueueRows(rows) {
+  const queueOrder = {
+    "promotion-review": 1,
+    "limitation-review": 2,
+    "user-shaped-variant": 3,
+  };
+  return rows
+    .filter((row) => row.catalog_tier === "next80-proof-grade")
+    .map((row) => {
+      const queue = next80QueueFor(row);
+      return {
+        queue,
+        priority: queueOrder[queue],
+        chart: row.chart,
+        variants: row.variants,
+        variant_count: row.variant_count,
+        strongest_evidence: row.strongest_evidence,
+        hard_gap: row.hard_gap,
+        next_action: row.next_action,
+        first_step: next80FirstStep(queue),
+        catalog_path: row.catalog_path,
+        recipe_path: row.recipe_path,
+      };
+    })
+    .sort((left, right) =>
+      Number(left.priority) - Number(right.priority)
+      || Number(chartRank(left.chart, rows)) - Number(chartRank(right.chart, rows))
+      || left.chart.localeCompare(right.chart),
+    );
+}
+
+function next80QueueFor(row) {
+  if (row.user_status === "proof-grade-ready-for-promotion-review") return "promotion-review";
+  if (row.user_status === "proof-grade-with-named-limitation") return "limitation-review";
+  return "user-shaped-variant";
+}
+
+function next80FirstStep(queue) {
+  const steps = {
+    "promotion-review": "Run catalog promotion review, choose one supported base, then add selected live evidence.",
+    "limitation-review": "Decide whether the named gap is supported, disclosed, deferred, or blocked before promotion.",
+    "user-shaped-variant": "Add one realistic base variant a Helm user would actually choose, then rerun proof and review.",
+  };
+  return steps[queue] ?? "Review the chart before promotion.";
+}
+
+function chartRank(chart, rows) {
+  return rows.find((row) => row.chart === chart)?.proof_surface_rank ?? 9999;
+}
+
+function next80QueuesSummary(rows) {
+  const queueRows = next80QueueRows(rows);
+  const counts = countBy(queueRows, (row) => row.queue);
+  return `# Next80 Action Queues
+
+This generated file is the compact operating view for the 80 proof-grade charts
+that are not yet public catalog-supported entries.
+
+Read it as a work queue, not as a support claim:
+
+~~~text
+next80 charts: ${queueRows.length}
+promotion-review: ${counts.get("promotion-review") ?? 0}
+limitation-review: ${counts.get("limitation-review") ?? 0}
+user-shaped-variant: ${counts.get("user-shaped-variant") ?? 0}
+~~~
+
+## Queues
+
+| Queue | What it means | First step |
+| --- | --- | --- |
+| \`promotion-review\` | The chart already has more than one base variant and no named hard gap blocking review. | ${next80FirstStep("promotion-review")} |
+| \`limitation-review\` | A named gap affects the next promotion path. | ${next80FirstStep("limitation-review")} |
+| \`user-shaped-variant\` | The chart has proof-grade render/package evidence, but the current base is not yet a compelling catalog offer. | ${next80FirstStep("user-shaped-variant")} |
+
+## First Rows By Queue
+
+| Queue | First charts |
+| --- | --- |
+${["promotion-review", "limitation-review", "user-shaped-variant"].map((queue) => `| \`${queue}\` | ${sampleQueueCharts(queueRows, queue)} |`).join("\n")}
+
+## How This Relates To Top100
+
+- Every row here already has a maintained recipe/package proof path.
+- The strongest evidence for these rows is currently render parity.
+- Promotion needs useful variants, selected live evidence, and any target facts,
+  lifecycle routes, or named limitations made explicit.
+- The top-20 catalog remains the public try-now path. This queue is the next
+  expansion path.
+
+## Files
+
+| File | Use |
+| --- | --- |
+| \`data/top100-readiness/next80-queues.csv\` | Spreadsheet-ready next80 action queue. |
+| \`data/top100-readiness/readiness.csv\` | Full top100 row data. |
+| \`data/top100-readiness/summary.md\` | Aggregate top100 readiness view. |
+| \`data/outcome-coverage/base-outcomes.csv\` | Per-base proof lane details. |
+
+Regenerate:
+
+~~~sh
+npm run top100:readiness
+npm run top100:readiness:verify
+~~~
+`;
+}
+
+function sampleQueueCharts(rows, queue) {
+  const values = rows
+    .filter((row) => row.queue === queue)
+    .slice(0, 8)
+    .map((row) => `\`${row.chart}\``);
+  return values.length ? values.join("<br>") : "-";
 }
 
 function sampleCharts(rows) {
