@@ -22,6 +22,7 @@ const extensionSlotsPath = join(repoRoot, "data", "extension-slots", "extension-
 const top100ReadinessPath = join(repoRoot, "data", "top100-readiness", "readiness.csv");
 const top100CoverageWorkQueuePath = join(repoRoot, "data", "top100-coverage", "work-queue.csv");
 const top100PromotionWavePath = join(repoRoot, "data", "top100-promotion-wave", "wave.csv");
+const refreshSurvivalPath = join(repoRoot, "data", "refresh-survival", "refreshes.csv");
 const liveParityRerunPlanPath = join(repoRoot, "data", "live-parity-rerun-plan", "rerun-plan.csv");
 const productionDispositionPath = join(repoRoot, "data", "production-disposition", "top20.csv");
 const productionSupportDecisionsPath = join(repoRoot, "data", "production-support-decisions", "decisions.csv");
@@ -71,6 +72,7 @@ function buildSite() {
   const top100CoverageWorkQueue = parseCsv(readFileSync(top100CoverageWorkQueuePath, "utf8"));
   const top100CoverageQueueCounts = countBy(top100CoverageWorkQueue, "queue");
   const top100PromotionWave = parseCsv(readFileSync(top100PromotionWavePath, "utf8"));
+  const refreshSurvival = parseCsv(readFileSync(refreshSurvivalPath, "utf8"));
   const liveParityRerunPlan = parseCsv(readFileSync(liveParityRerunPlanPath, "utf8"));
   const productionDisposition = parseCsv(readFileSync(productionDispositionPath, "utf8"));
   const productionSupportDecisions = parseCsv(readFileSync(productionSupportDecisionsPath, "utf8"));
@@ -116,6 +118,7 @@ function buildSite() {
       top100Readiness: "data/top100-readiness/readiness.csv",
       top100CoverageWorkQueue: "data/top100-coverage/work-queue.csv",
       top100PromotionWave: "data/top100-promotion-wave/wave.csv",
+      refreshSurvival: "data/refresh-survival/refreshes.csv",
       liveParityRerunPlan: "data/live-parity-rerun-plan/rerun-plan.csv",
       productionDisposition: "data/production-disposition/top20.csv",
       productionSupportDecisions: "data/production-support-decisions/decisions.csv",
@@ -141,6 +144,9 @@ function buildSite() {
       top100PromotionWaveRows: top100PromotionWave.length,
       top100CoverageUserVariantQueue: top100CoverageQueueCounts["user-shaped-variant"] ?? 0,
       top100CoverageDecisionQueue: top100CoverageQueueCounts["limitation-decision"] ?? 0,
+      refreshCurrentRows: refreshSurvival.filter((row) => row.refresh_state === "current-proof-still-current").length,
+      refreshUpdateCandidates: refreshSurvival.filter((row) => row.refresh_state === "upstream-update-candidate").length,
+      refreshCandidatesWithRenderProof: refreshSurvival.filter((row) => row.candidate_proof === "candidate-render-proof-present").length,
       top100ChartsWithLiveEvidence: top100ReadinessWithSupport.filter((row) =>
         ["live-helm-vs-confighub-parity", "gitops-oci-live", "local-kubernetes-live", "two-cluster-kind-parity"].includes(row.strongest_evidence),
       ).length,
@@ -164,6 +170,7 @@ function buildSite() {
     latestCandidates,
     baseReadiness,
     extensionSlots,
+    refreshSurvival,
     top100Readiness: top100ReadinessWithSupport,
     liveParityRerunPlan,
     productionDisposition,
@@ -189,6 +196,7 @@ function html(catalog) {
     ["Render parity rows", metricValue(metric("render parity rows"))],
     ["Catalog-supported charts", metricValue(metric("catalog-supported charts"))],
     ["Proof-grade non-catalog", metricValue(metric("proof-grade non-catalog charts"))],
+    ["Top20 update candidates", `${catalog.summary.refreshUpdateCandidates}/20`],
     ["Derived create receipts", metricValue(metric("derived variant live create receipts"))],
     ["GitOps/OCI live pass", metricValue(metric("GitOps/OCI live pass rows"))],
     ["Live parity pass", metricValue(metric("live Helm-vs-ConfigHub parity pass rows"))],
@@ -616,6 +624,7 @@ function html(catalog) {
         <li><a href="../CATALOG.md">Root catalog</a></li>
         <li><a href="../data/top100-catalog-analysis/summary.md">Top-100 catalog analysis</a></li>
         <li><a href="../data/top500-catalog-analysis/summary.md">Top-500 catalog analysis</a></li>
+        <li><a href="../data/refresh-survival/summary.md">Refresh survival and upgrade seed</a></li>
         <li><a href="../data/latest-top20-refresh/promotion-readiness.md">Latest candidate promotion readiness</a></li>
         <li><a href="../data/runtime-gitops/summary.md">Runtime/GitOps first wave</a></li>
         <li><a href="../data/image-digest-workdown/summary.md">Image digest workdown</a></li>
@@ -1304,6 +1313,7 @@ Data source:
 - \`data/top100-readiness/readiness.csv\`
 - \`data/top100-coverage/work-queue.csv\`
 - \`data/top100-promotion-wave/wave.csv\`
+- \`data/refresh-survival/refreshes.csv\`
 - \`data/live-parity-rerun-plan/rerun-plan.csv\`
 - \`data/production-disposition/top20.csv\`
 - \`data/production-support-decisions/decisions.csv\`

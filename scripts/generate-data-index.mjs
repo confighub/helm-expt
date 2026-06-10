@@ -58,6 +58,7 @@ function readme(rows) {
     ["I want the top-100 coverage contract.", "data/top100-coverage/summary.md; data/top100-coverage/coverage.csv"],
     ["I want the strict top-100 work queue.", "data/top100-coverage/work-queue.md; data/top100-coverage/work-queue.csv; data/top100-coverage/decisions-needed.md"],
     ["I want the first strict top-100 promotion wave.", "data/top100-promotion-wave/summary.md; data/top100-promotion-wave/wave.csv"],
+    ["I want to know how upstream chart updates are handled.", "data/refresh-survival/summary.md; data/refresh-survival/refreshes.csv"],
     ["I want the top-100 or top-500 planning picture.", "data/top100-readiness/summary.md; data/top100-readiness/next80-queues.md; data/top500-catalog-analysis/review.csv"],
     ["I want live parity status.", "data/live-kind-parity/summary.md; data/live-helm-confighub-compare/summary.md"],
     ["I want hook, CRD, webhook, or lifecycle status.", "data/lifecycle-boundary/summary.md; data/outcome-coverage/feature-outcomes.csv"],
@@ -106,6 +107,8 @@ function readme(rows) {
     ["data/top100-promotion-wave/summary.md", "First strict top-100 promotion-review wave: proof-grade charts with two-cluster parity that need production disposition and support decisions."],
     ["data/top100-promotion-wave/wave.csv", "One row per selected top-100 promotion wave chart: variants, evidence, scan/gate status, first step, and done-when rule."],
     ["data/top100-promotion-wave/wave.yaml", "Machine-readable strict top-100 promotion wave input."],
+    ["data/refresh-survival/summary.md", "Latest-version refresh survival: current supported chart versions, upstream update candidates, and promotion gates before replacement."],
+    ["data/refresh-survival/refreshes.csv", "One row per top-20 chart in the latest refresh review: current version, latest version, candidate proof, promotion state, and next action."],
     ["data/next-ten-waves/summary.md", "Compact next work queues: gap review, latest-version promotion, variant build, production disposition, and import prototypes."],
     ["data/attack-plan-workdown/summary.md", "Broader execution workdown: import examples, hard gaps, variants, production, runtime/GitOps, latest candidates, and image digests."],
     ["data/top500-catalog-analysis/review.csv", "Top-500 evidence map: retained source-scan rows joined to current recipe proof, catalog status, version drift, source features, and next action."],
@@ -249,6 +252,7 @@ function audienceFor(path) {
   if (path.startsWith("data/pain-point-coverage/")) return "user/front-door";
   if (path.startsWith("data/top100-readiness/")) return "user/front-door";
   if (path.startsWith("data/top100-coverage/")) return "user/front-door";
+  if (path.startsWith("data/refresh-survival/")) return "user/front-door";
   if (path.startsWith("data/variant-path-coverage/")) return "user/front-door";
   if (path.startsWith("data/quirk-coverage/")) return "user/front-door";
   if (path.startsWith("data/extension-slots/")) return "user/front-door";
@@ -284,6 +288,7 @@ function roleFor(path) {
   if (path === "data/top100-coverage/coverage.csv") return "one row per top-100 chart: strict coverage contract status, item statuses, evidence paths, and next action";
   if (path === "data/top100-coverage/work-queue.csv") return "one row per partial top-100 chart: strict coverage queue, priority, missing items, first step, and done-when rule";
   if (path === "data/top100-promotion-wave/wave.csv") return "one row per selected strict top-100 promotion wave chart";
+  if (path === "data/refresh-survival/refreshes.csv") return "one row per top-20 latest-version refresh: current proof, latest upstream version, candidate render proof, and promotion route";
   if (path === "data/edge-recovery/edges.csv") return "recovered desired-state graph fragments from recipe artifacts";
   if (path === "data/variant-path-coverage/coverage-matrix.csv") return "one row per chart/base/path proof status";
   if (path === "data/quirk-coverage/coverage.csv") return "one row per Helm quirk axis: coverage tier, evidence, remaining gap, next action";
@@ -327,6 +332,7 @@ function familyRole(family) {
     "top100-readiness": "front-door top-100 user readiness and evidence summary",
     "top100-coverage": "front-door top-100 coverage contract and work queue",
     "top100-promotion-wave": "first strict top-100 promotion-review wave",
+    "refresh-survival": "latest-version refresh survival and upgrade seed",
     "edge-recovery": "recovered desired-state graph fragments",
     "variant-path-coverage": "chart/base/path proof status matrix",
     "quirk-coverage": "Helm quirk-axis coverage audit",
@@ -403,6 +409,7 @@ function commandMap() {
     "top100-readiness": { generate: "npm run top100:readiness", verify: "npm run top100:readiness:verify" },
     "top100-coverage": { generate: "npm run top100:coverage", verify: "npm run top100:coverage:verify" },
     "top100-promotion-wave": { generate: "npm run top100:promotion-wave", verify: "npm run top100:promotion-wave:verify" },
+    "refresh-survival": { generate: "npm run refresh:survival", verify: "npm run refresh:survival:verify" },
     "edge-recovery": { generate: "npm run edges:generate", verify: "npm run edges:verify" },
     "variant-path-coverage": { generate: "npm run variant-paths:generate", verify: "npm run variant-paths:verify" },
     "quirk-coverage": { generate: "npm run quirk-coverage", verify: "npm run quirk-coverage:verify" },

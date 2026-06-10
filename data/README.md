@@ -25,6 +25,7 @@ smallest generated surface that answers it.
 | I want the top-100 coverage contract. | [top100-coverage/summary.md](./top100-coverage/summary.md)<br>[top100-coverage/coverage.csv](./top100-coverage/coverage.csv) |
 | I want the strict top-100 work queue. | [top100-coverage/work-queue.md](./top100-coverage/work-queue.md)<br>[top100-coverage/work-queue.csv](./top100-coverage/work-queue.csv)<br>[top100-coverage/decisions-needed.md](./top100-coverage/decisions-needed.md) |
 | I want the first strict top-100 promotion wave. | [top100-promotion-wave/summary.md](./top100-promotion-wave/summary.md)<br>[top100-promotion-wave/wave.csv](./top100-promotion-wave/wave.csv) |
+| I want to know how upstream chart updates are handled. | [refresh-survival/summary.md](./refresh-survival/summary.md)<br>[refresh-survival/refreshes.csv](./refresh-survival/refreshes.csv) |
 | I want the top-100 or top-500 planning picture. | [top100-readiness/summary.md](./top100-readiness/summary.md)<br>[top100-readiness/next80-queues.md](./top100-readiness/next80-queues.md)<br>[top500-catalog-analysis/review.csv](./top500-catalog-analysis/review.csv) |
 | I want live parity status. | [live-kind-parity/summary.md](./live-kind-parity/summary.md)<br>[live-helm-confighub-compare/summary.md](./live-helm-confighub-compare/summary.md) |
 | I want hook, CRD, webhook, or lifecycle status. | [lifecycle-boundary/summary.md](./lifecycle-boundary/summary.md)<br>[outcome-coverage/feature-outcomes.csv](./outcome-coverage/feature-outcomes.csv) |
@@ -76,6 +77,8 @@ smallest generated surface that answers it.
 | [top100-promotion-wave/summary.md](./top100-promotion-wave/summary.md) | First strict top-100 promotion-review wave: proof-grade charts with two-cluster parity that need production disposition and support decisions. |
 | [top100-promotion-wave/wave.csv](./top100-promotion-wave/wave.csv) | One row per selected top-100 promotion wave chart: variants, evidence, scan/gate status, first step, and done-when rule. |
 | [top100-promotion-wave/wave.yaml](./top100-promotion-wave/wave.yaml) | Machine-readable strict top-100 promotion wave input. |
+| [refresh-survival/summary.md](./refresh-survival/summary.md) | Latest-version refresh survival: current supported chart versions, upstream update candidates, and promotion gates before replacement. |
+| [refresh-survival/refreshes.csv](./refresh-survival/refreshes.csv) | One row per top-20 chart in the latest refresh review: current version, latest version, candidate proof, promotion state, and next action. |
 | [next-ten-waves/summary.md](./next-ten-waves/summary.md) | Compact next work queues: gap review, latest-version promotion, variant build, production disposition, and import prototypes. |
 | [attack-plan-workdown/summary.md](./attack-plan-workdown/summary.md) | Broader execution workdown: import examples, hard gaps, variants, production, runtime/GitOps, latest candidates, and image digests. |
 | [top500-catalog-analysis/review.csv](./top500-catalog-analysis/review.csv) | Top-500 evidence map: retained source-scan rows joined to current recipe proof, catalog status, version drift, source features, and next action. |
@@ -181,6 +184,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `production-support-decisions` | [production-support-decisions/summary.md](./production-support-decisions/summary.md) | target-scoped production support decision artifacts |
 | `quirk-coverage` | [quirk-coverage/summary.md](./quirk-coverage/summary.md) | Helm quirk-axis coverage audit |
 | `quirk-review-queue` | [quirk-review-queue/summary.md](./quirk-review-queue/summary.md) | queue for chart quirks needing human or product review |
+| `refresh-survival` | [refresh-survival/summary.md](./refresh-survival/summary.md) | latest-version refresh survival and upgrade seed |
 | `runtime-gitops` | [runtime-gitops/summary.md](./runtime-gitops/summary.md) | Argo/Flux OCI live proof wave |
 | `scan-disposition-workdown` | [scan-disposition-workdown/summary.md](./scan-disposition-workdown/summary.md) | scan warning routes to fixes, hardened bases, or explicit dispositions |
 | `status-dashboard` | [status-dashboard/summary.md](./status-dashboard/summary.md) | one-page front-door status dashboard |
@@ -202,7 +206,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 76 CSV files. Each row records the path, audience,
+It includes 77 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

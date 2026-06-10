@@ -28,6 +28,7 @@ Data source:
 - `data/top100-readiness/readiness.csv`
 - `data/top100-coverage/work-queue.csv`
 - `data/top100-promotion-wave/wave.csv`
+- `data/refresh-survival/refreshes.csv`
 - `data/live-parity-rerun-plan/rerun-plan.csv`
 - `data/production-disposition/top20.csv`
 - `data/production-support-decisions/decisions.csv`
