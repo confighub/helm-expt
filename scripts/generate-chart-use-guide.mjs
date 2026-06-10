@@ -30,8 +30,10 @@ if (mode === "--generate") {
 
 function buildReport() {
   const top20StatusByChart = new Map(readCsv("data/status-dashboard/top20-status.csv").map((row) => [row.chart, row]));
+  const promotionWaveByChart = new Map(readCsv("data/top100-promotion-wave/wave.csv").map((row) => [row.chart_ref, row]));
   const rows = readCsv("data/top100-readiness/readiness.csv").map((row) => {
     const top20Status = top20StatusByChart.get(row.chart);
+    const promotionWave = promotionWaveByChart.get(row.chart);
     const route = routeFor(row);
     return {
       proof_surface_rank: row.proof_surface_rank,
@@ -44,6 +46,9 @@ function buildReport() {
       strongest_evidence: row.strongest_evidence,
       render_parity: row.render_parity,
       live_summary: liveSummary(row),
+      first_promotion_wave: promotionWave ? "yes" : "no",
+      promotion_wave_first_step: promotionWave?.first_step || "-",
+      promotion_wave_gaps: promotionWave?.gaps || "-",
       hard_gap: row.hard_gap || "-",
       production_note: route.productionNote(row, top20Status),
       catalog_path: row.catalog_path,
@@ -116,6 +121,7 @@ function liveSummary(row) {
 function summary(rows) {
   const answerCounts = groupCount(rows, "answer");
   const firstPublicRows = rows.filter((row) => row.answer === "yes-public-catalog").slice(0, 20);
+  const firstWaveRows = rows.filter((row) => row.first_promotion_wave === "yes");
   const nextRows = rows.filter((row) => row.answer !== "yes-public-catalog").slice(0, 16);
   return `# Chart Use Guide
 
@@ -153,6 +159,19 @@ base variant and proof lane.
 | Chart | Recommended base | Evidence | First action |
 | --- | --- | --- | --- |
 ${firstPublicRows.map((row) => `| \`${row.chart}\` | \`${row.recommended_base_or_variant}\` | \`${row.strongest_evidence}\` | ${row.first_action} |`).join("\n")}
+
+## First Promotion Wave
+
+These proof-ready rows are the first strict top-100 promotion-review packet.
+They are good candidates for turning machine proof into a public catalog offer,
+but they still need review, production disposition, and selected live evidence
+before their catalog status changes.
+
+| Chart | Recommended base | Evidence | First step |
+| --- | --- | --- | --- |
+${firstWaveRows.map((row) => `| \`${row.chart}\` | \`${row.recommended_base_or_variant}\` | \`${row.strongest_evidence}\` | ${row.promotion_wave_first_step} |`).join("\n")}
+
+Detailed gaps are in [../top100-promotion-wave/summary.md](../top100-promotion-wave/summary.md).
 
 ## Next Non-Catalog Rows
 

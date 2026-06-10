@@ -54,6 +54,26 @@ base variant and proof lane.
 | `prometheus-community/prometheus@29.8.0` | `server-only-ephemeral` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | `default` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
 
+## First Promotion Wave
+
+These proof-ready rows are the first strict top-100 promotion-review packet.
+They are good candidates for turning machine proof into a public catalog offer,
+but they still need review, production disposition, and selected live evidence
+before their catalog status changes.
+
+| Chart | Recommended base | Evidence | First step |
+| --- | --- | --- | --- |
+| `external-dns/external-dns@1.21.1` | `default` | `two-cluster-kind-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| `cloudnative-pg/cloudnative-pg@0.28.2` | `default` | `two-cluster-kind-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| `kedacore/keda@2.19.0` | `default` | `two-cluster-kind-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| `elastic/eck-operator@3.4.0` | `default` | `two-cluster-kind-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| `grafana/alloy@1.8.2` | `default` | `two-cluster-kind-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| `nats/nats@2.14.0` | `default` | `two-cluster-kind-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| `prometheus-community/alertmanager@1.37.0` | `default` | `two-cluster-kind-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| `elastic/logstash@8.5.1` | `default` | `two-cluster-kind-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+
+Detailed gaps are in [../top100-promotion-wave/summary.md](../top100-promotion-wave/summary.md).
+
 ## Next Non-Catalog Rows
 
 These rows have proof value but need promotion review, a better base variant,
