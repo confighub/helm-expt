@@ -40,8 +40,9 @@ spec:
       object: "rbac.authorization.k8s.io/v1|ClusterRole||vault-agent-injector-clusterrole"
     -
       category: "operate-policy"
-      status: "scan-and-review"
-      note: "Vault init, unseal, seal migration, and recovery material are post-render operating controls."
+      status: "policy-required"
+      evidence: "operating-policy.yaml"
+      note: "Vault init, unseal, seal migration, recovery material, and freshness evidence are post-render operating controls."
     -
       category: "target-topology"
       status: "target-review"

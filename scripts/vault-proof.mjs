@@ -95,6 +95,8 @@ runProofCli({
   recordChartLockDigest: true,
   recordDeprecated: true,
   expectedDeprecated: false,
+  extraRequiredFiles: ["operating-policy.yaml"],
+  extraProofDocuments: () => [{ path: "operating-policy.yaml", document: vaultOperatingPolicy() }],
   valueModel: {
     checkedValues: [
       { path: "server.ha.enabled / server.ha.raft.enabled", variant: "ha-raft-ui", disposition: "variant-controlled", reason: "the HA variant deliberately changes Vault from standalone file storage to integrated Raft storage" },
@@ -115,7 +117,12 @@ runProofCli({
     { category: "service-exposure", status: "variant-controlled", object: "v1|Service|vault|vault-ui" },
     { category: "tls-posture", status: "scan-and-review", evidence: "v1|ConfigMap|vault|vault-config" },
     { category: "cluster-rbac", status: "scan-and-review", object: "rbac.authorization.k8s.io/v1|ClusterRole||vault-agent-injector-clusterrole" },
-    { category: "operate-policy", status: "scan-and-review", note: "Vault init, unseal, seal migration, and recovery material are post-render operating controls." },
+    {
+      category: "operate-policy",
+      status: "policy-required",
+      evidence: "operating-policy.yaml",
+      note: "Vault init, unseal, seal migration, recovery material, and freshness evidence are post-render operating controls.",
+    },
     { category: "target-topology", status: "target-review", note: "The ha-raft-ui base renders three Vault server replicas. A one-node kind target is useful for object parity, but HA live readiness needs a target that can schedule the declared topology plus an init/unseal operating path." },
     { category: "extension-slots", status: "controlled-by-empty-defaults", note: "extra environment, Secret, volume, plugin, init, and sidecar slots are empty in promoted variants." },
     { category: "installer-support-object", status: "handled", object: "v1|Namespace||vault" },
@@ -127,6 +134,7 @@ runProofCli({
       "The ha-raft-ui variant enables integrated Raft HA and the UI Service as deliberate variant-controlled outputs.",
       "The dev-mode variant uses the upstream chart's dev server path for local proof and demos; it starts without init/unseal and is not a production support claim.",
       "The chart does not initialize or unseal Vault; init/unseal and recovery material are operating controls, not hidden render inputs.",
+      "operating-policy.yaml records the post-render procedure required before default and HA bases can be called ready.",
       "The HA Raft variant needs a target that can schedule three Vault server replicas; one-node kind is useful for object parity but not for HA readiness.",
       "Injector webhook, cluster RBAC, TLS posture, storage, and service exposure are scan/gate review points.",
       "extra environment, Secret, volume, plugin, init, and sidecar extension slots are powerful config surfaces; promoted variants keep them empty.",
@@ -156,6 +164,7 @@ runProofCli({
       "the ha-raft-ui variant deliberately enables integrated Raft HA and UI exposure;",
       "the dev-mode variant deliberately uses the upstream local dev server path so Vault can be tried without pretending init/unseal is solved;",
       "init, unseal, recovery material, and seal migration are not hidden Helm render inputs; they are post-render operating controls;",
+      "operating-policy.yaml records what must happen after apply for the default and HA bases before live readiness can be claimed;",
       "the HA Raft variant is explicit about target topology: three server replicas need an appropriate target, while one-node kind remains a parity target;",
       "TLS posture, injector webhook, RBAC, service exposure, StatefulSet storage, and Secret/env extension-slot risks are visible as scan/gate findings instead of hidden Helm behavior.",
     ],
@@ -239,7 +248,14 @@ runProofCli({
     }
     return findings;
   },
-  verifyExtra({ controlPoints, perVariant, check }) {
+  verifyExtra({ root, controlPoints, perVariant, check, readYaml, join }) {
+    const operatingPolicy = readYaml(join(root, "operating-policy.yaml"));
+    check(operatingPolicy.kind === "OperatingPolicy", "operating-policy.yaml must be an OperatingPolicy");
+    check(operatingPolicy.spec.bases.devMode?.status === "local-demo-only", "dev-mode operating policy mismatch");
+    check(operatingPolicy.spec.bases.default?.requiredOperations?.some((item) => item.operation === "vault operator init"), "default init operation missing");
+    check(operatingPolicy.spec.bases.default?.requiredOperations?.some((item) => item.operation === "vault operator unseal"), "default unseal operation missing");
+    check(operatingPolicy.spec.bases.haRaftUi?.targetTopology?.minimumServerReplicas === 3, "ha-raft-ui target topology mismatch");
+    check(operatingPolicy.spec.receipts.required.includes("operation-receipt"), "operation receipt requirement missing");
     check(controlPoints.spec.points?.some((point) => point.category === "stateful-workload"), "stateful-workload control point missing");
     check(controlPoints.spec.points?.some((point) => point.category === "admission-webhook"), "admission-webhook control point missing");
     check(controlPoints.spec.points?.some((point) => point.category === "tls-posture"), "tls-posture control point missing");
@@ -285,3 +301,83 @@ runProofCli({
     }
   },
 });
+
+function vaultOperatingPolicy() {
+  return {
+    apiVersion: "helm-expt.confighub.com/v1alpha1",
+    kind: "OperatingPolicy",
+    metadata: { name: "hashicorp-vault-0.32.0" },
+    spec: {
+      chart: "hashicorp/vault@0.32.0",
+      scope: "post-render operations required after the desired Kubernetes objects are applied",
+      bases: {
+        devMode: {
+          variant: "dev-mode",
+          status: "local-demo-only",
+          reason: "server.dev.enabled starts Vault initialized and unsealed for local proof. It is not a production readiness path.",
+        },
+        default: {
+          variant: "default",
+          status: "operating-policy-required",
+          requiredOperations: [
+            {
+              operation: "vault operator init",
+              timing: "after StatefulSet rollout reaches Ready",
+              proof: "record init receipt without storing unseal keys or root token in this repo",
+            },
+            {
+              operation: "vault operator unseal",
+              timing: "after init and after every seal/restart event that requires manual unseal",
+              proof: "record unseal observation and readiness check",
+            },
+            {
+              operation: "record recovery material custody",
+              timing: "before production approval",
+              proof: "reference external custody system; never commit recovery material",
+            },
+          ],
+          freshnessChecks: [
+            "vault status reports Initialized=true",
+            "vault status reports Sealed=false",
+            "StatefulSet vault has ready replicas for the selected base",
+          ],
+        },
+        haRaftUi: {
+          variant: "ha-raft-ui",
+          status: "target-topology-and-operating-policy-required",
+          targetTopology: {
+            minimumServerReplicas: 3,
+            requiresPersistentStorage: true,
+            reason: "integrated Raft HA is a target-topology decision; one-node kind is useful for object parity but not HA readiness",
+          },
+          requiredOperations: [
+            {
+              operation: "initialize first Vault server",
+              timing: "after all declared server Pods are scheduled and storage is bound",
+              proof: "record operation receipt and exclude secret material",
+            },
+            {
+              operation: "unseal and join remaining Raft peers",
+              timing: "after first server is initialized",
+              proof: "record peer status and unseal observation",
+            },
+            {
+              operation: "approve UI/API exposure and TLS posture",
+              timing: "before production approval",
+              proof: "record service exposure and TLS disposition",
+            },
+          ],
+          freshnessChecks: [
+            "vault status reports Initialized=true and Sealed=false on active server",
+            "vault operator raft list-peers includes the expected peers",
+            "UI/API Service exposure matches approved target policy",
+          ],
+        },
+      },
+      receipts: {
+        required: ["operation-receipt", "observation-receipt", "recovery-custody-reference"],
+        forbidden: ["committed-unseal-keys", "committed-root-token", "committed-recovery-key-material"],
+      },
+    },
+  };
+}

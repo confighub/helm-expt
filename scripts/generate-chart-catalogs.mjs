@@ -315,6 +315,17 @@ function receiptIndex(path, receipt, extra) {
   };
 }
 
+function optionalArtifactRows(root) {
+  const artifacts = [
+    { label: "Operating policy", path: "operating-policy.yaml" },
+    { label: "Render blocker", path: "default-render-blocker.yaml" },
+  ];
+  const rows = artifacts
+    .filter((artifact) => existsSync(join(root, artifact.path)))
+    .map((artifact) => `| ${artifact.label} | ${linkFrom(root, relativeRepo(join(root, artifact.path)))} |`);
+  return rows.length ? `${rows.join("\n")}\n` : "";
+}
+
 function targetFactSummary(targetFacts) {
   if (!targetFacts || Object.keys(targetFacts).length === 0) return "none";
   const bits = [];
@@ -397,7 +408,7 @@ for exact base-variant evidence.
 | Chart dossier | ${linkFrom(root, recipe.chartDossier)} |
 | Control points | ${linkFrom(root, recipe.controlPoints)} |
 | Value model | ${linkFrom(root, recipe.valueModel)} |
-${recipe.valueSourceMap ? `| Value source map | ${linkFrom(root, recipe.valueSourceMap)} |\n` : ""}${recipe.weirdnessAndMitigations ? `| Weirdness and mitigations | ${linkFrom(root, recipe.weirdnessAndMitigations)} |\n` : ""}| Catalog status | ${linkFrom(root, status.path)} |
+${recipe.valueSourceMap ? `| Value source map | ${linkFrom(root, recipe.valueSourceMap)} |\n` : ""}${optionalArtifactRows(root)}${recipe.weirdnessAndMitigations ? `| Weirdness and mitigations | ${linkFrom(root, recipe.weirdnessAndMitigations)} |\n` : ""}| Catalog status | ${linkFrom(root, status.path)} |
 ${recipe.helmPainReport ? `| Helm pain report | ${linkFrom(root, recipe.helmPainReport)} |\n` : ""}| Installer package | ${linkFrom(root, packageInfo.path)} |
 | Installer package receipt | ${linkFrom(root, packageInfo.receipt)} |
 | Machine index | ${linkFrom(root, relativeRepo(join(root, "artifact-index.yaml")))} |

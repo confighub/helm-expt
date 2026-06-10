@@ -1,0 +1,65 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "OperatingPolicy"
+metadata:
+  name: "hashicorp-vault-0.32.0"
+spec:
+  chart: "hashicorp/vault@0.32.0"
+  scope: "post-render operations required after the desired Kubernetes objects are applied"
+  bases:
+    devMode:
+      variant: "dev-mode"
+      status: "local-demo-only"
+      reason: "server.dev.enabled starts Vault initialized and unsealed for local proof. It is not a production readiness path."
+    default:
+      variant: "default"
+      status: "operating-policy-required"
+      requiredOperations:
+        -
+          operation: "vault operator init"
+          timing: "after StatefulSet rollout reaches Ready"
+          proof: "record init receipt without storing unseal keys or root token in this repo"
+        -
+          operation: "vault operator unseal"
+          timing: "after init and after every seal/restart event that requires manual unseal"
+          proof: "record unseal observation and readiness check"
+        -
+          operation: "record recovery material custody"
+          timing: "before production approval"
+          proof: "reference external custody system; never commit recovery material"
+      freshnessChecks:
+        - "vault status reports Initialized=true"
+        - "vault status reports Sealed=false"
+        - "StatefulSet vault has ready replicas for the selected base"
+    haRaftUi:
+      variant: "ha-raft-ui"
+      status: "target-topology-and-operating-policy-required"
+      targetTopology:
+        minimumServerReplicas: 3
+        requiresPersistentStorage: true
+        reason: "integrated Raft HA is a target-topology decision; one-node kind is useful for object parity but not HA readiness"
+      requiredOperations:
+        -
+          operation: "initialize first Vault server"
+          timing: "after all declared server Pods are scheduled and storage is bound"
+          proof: "record operation receipt and exclude secret material"
+        -
+          operation: "unseal and join remaining Raft peers"
+          timing: "after first server is initialized"
+          proof: "record peer status and unseal observation"
+        -
+          operation: "approve UI/API exposure and TLS posture"
+          timing: "before production approval"
+          proof: "record service exposure and TLS disposition"
+      freshnessChecks:
+        - "vault status reports Initialized=true and Sealed=false on active server"
+        - "vault operator raft list-peers includes the expected peers"
+        - "UI/API Service exposure matches approved target policy"
+  receipts:
+    required:
+      - "operation-receipt"
+      - "observation-receipt"
+      - "recovery-custody-reference"
+    forbidden:
+      - "committed-unseal-keys"
+      - "committed-root-token"
+      - "committed-recovery-key-material"
