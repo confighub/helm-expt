@@ -43,6 +43,7 @@ not rely on prose summaries for counts.
 | Question | Open | What it gives you |
 | --- | --- | --- |
 | Which top-20 charts are live tested? | [Live E2E Summary](../../data/live-e2e/summary.md) | One row per chart: local kind live/e2e result and the strict witness columns. |
+| Does the selected top-20 path match regular Helm in live clusters? | [Live Helm-vs-ConfigHub Parity](../../data/live-helm-confighub-compare/summary.md) | One row per selected chart/base: regular Helm compared with ConfigHub delivery and live semantic parity. |
 | Which latest chart versions are ready for promotion work? | [Promotion Work Orders](../../data/latest-top20-refresh/promotion-work-orders.md) | Per-candidate work orders for newer upstream versions. |
 | Which top-100 charts are covered, partial, or decision-needed? | [Top-100 Coverage](../../data/top100-coverage/summary.md) and [Top-100 Readiness](../../data/top100-readiness/summary.md) | Coverage-contract status per chart, and the adoption bucket with next action. |
 | Which hard chart shows the model under serious Helm complexity? | [kube-prometheus-stack catalog page](../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md) and [Lifecycle Observations](../../data/lifecycle-observations/cert-manager-eso/summary.md) | CRDs, webhooks, RBAC, generated facts, and dependency locks on one chart; observed CRD/webhook/controller runtime behavior on cert-manager and External Secrets. |
