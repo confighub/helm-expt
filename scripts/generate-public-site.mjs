@@ -16,6 +16,7 @@ const runtimeWavePath = join(repoRoot, "data", "runtime-gitops", "wave1.csv");
 const imageDigestSubjectsPath = join(repoRoot, "data", "image-digest-workdown", "all-subjects.csv");
 const nextTenGapsPath = join(repoRoot, "data", "next-ten-waves", "gap-review-wave.csv");
 const statusDashboardPath = join(repoRoot, "data", "status-dashboard", "status.csv");
+const activeProofQueuePath = join(repoRoot, "data", "status-dashboard", "active-proof-queue.csv");
 const baseReadinessPath = join(repoRoot, "data", "top20-base-readiness", "base-readiness.csv");
 const extensionSlotsPath = join(repoRoot, "data", "extension-slots", "extension-slots.csv");
 const top100ReadinessPath = join(repoRoot, "data", "top100-readiness", "readiness.csv");
@@ -61,6 +62,7 @@ function buildSite() {
   const imageSubjects = parseCsv(readFileSync(imageDigestSubjectsPath, "utf8"));
   const nextTenGaps = parseCsv(readFileSync(nextTenGapsPath, "utf8"));
   const statusMetrics = parseCsv(readFileSync(statusDashboardPath, "utf8"));
+  const activeProofQueue = parseCsv(readFileSync(activeProofQueuePath, "utf8"));
   const baseReadiness = parseCsv(readFileSync(baseReadinessPath, "utf8"));
   const extensionSlots = parseCsv(readFileSync(extensionSlotsPath, "utf8"));
   const top100Readiness = parseCsv(readFileSync(top100ReadinessPath, "utf8"));
@@ -103,6 +105,7 @@ function buildSite() {
       imageDigestSubjects: "data/image-digest-workdown/all-subjects.csv",
       nextTenGaps: "data/next-ten-waves/gap-review-wave.csv",
       statusDashboard: "data/status-dashboard/status.csv",
+      activeProofQueue: "data/status-dashboard/active-proof-queue.csv",
       baseReadiness: "data/top20-base-readiness/base-readiness.csv",
       extensionSlots: "data/extension-slots/extension-slots.csv",
       top100Readiness: "data/top100-readiness/readiness.csv",
@@ -144,6 +147,7 @@ function buildSite() {
       privilegedInfrastructureScanRows: scanDisposition.filter((row) => row.dispositionRoute === "accept-or-split-privileged-infrastructure").length,
     },
     statusMetrics,
+    activeProofQueue,
     catalogEntries,
     proofGradeEntries: proofGrade,
     latestCandidates,
@@ -241,15 +245,15 @@ function html(catalog) {
       .join(", "),
   ]);
   const rerunCounts = countBy(catalog.liveParityRerunPlan, "lane");
-  const rerunRows = catalog.liveParityRerunPlan
+  const rerunRows = catalog.activeProofQueue
     .slice(0, 10)
     .map((row) => [
-      row.lane,
-      `${row.chart}@${row.version}`,
+      row.chart,
       row.base,
       row.current_result,
-      row.related_lifecycle_result || "-",
+      row.next_step_type,
       row.reason,
+      row.support_artifact,
     ]);
   const productionBlockers = [...flattenCounts(catalog.productionDisposition, "open_dispositions").entries()]
     .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
@@ -452,10 +456,10 @@ function html(catalog) {
         <div class="metric"><strong>${escapeHtml(rerunCounts["two-cluster-kind-parity"] ?? 0)}</strong><span>Two-cluster rows to resolve</span></div>
       </div>
       ${markdownLikeTable([
-        ["Lane", "Chart", "Base", "Current", "Lifecycle", "Reason"],
+        ["Chart", "Base", "Current", "Next step", "Reason", "Support artifact"],
         ...rerunRows,
       ])}
-      <p><a href="../data/live-parity-rerun-plan/summary.md">Open the full live parity rerun plan</a>.</p>
+      <p><a href="../data/status-dashboard/active-proof-queue.csv">Open the active proof queue</a> or <a href="../data/live-parity-rerun-plan/summary.md">open the full live parity rerun plan</a>.</p>
     </section>
 
     <section aria-labelledby="top100-readiness">
@@ -1264,6 +1268,7 @@ Data source:
 - \`data/image-digest-workdown/all-subjects.csv\`
 - \`data/next-ten-waves/gap-review-wave.csv\`
 - \`data/status-dashboard/status.csv\`
+- \`data/status-dashboard/active-proof-queue.csv\`
 - \`data/top20-base-readiness/base-readiness.csv\`
 - \`data/extension-slots/extension-slots.csv\`
 - \`data/top100-readiness/readiness.csv\`
