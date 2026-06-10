@@ -1,8 +1,8 @@
 section,metric,value,total,status,source,note
-top100,charts with model support,108,110,good,data/outcome-coverage/chart-outcomes.csv,The top100 corpus has honest chart models for the declared scope.
+outcome coverage,maintained chart rows with model support,108,110,good,data/outcome-coverage/chart-outcomes.csv,The broader outcome-coverage table includes top-100 rows plus retained candidate/version rows; this count is not the top-100 corpus size.
 top100,catalog-supported charts,20,100,partial,data/top100-readiness/readiness.csv,These are the current public catalog entries; production support still depends on lane status.
 top100,proof-grade non-catalog charts,80,100,partial,data/top100-readiness/readiness.csv,These charts have proof artifacts but are not promoted catalog entries.
-top100,variant-rich charts,64,110,partial,data/outcome-coverage/chart-outcomes.csv,Charts with more than one declared base variant.
+outcome coverage,variant-rich maintained chart rows,64,110,partial,data/outcome-coverage/chart-outcomes.csv,"Maintained chart rows with more than one declared base variant, including retained candidate/version rows outside the top-100 corpus."
 top100,covered by top100 contract,20,100,partial,data/top100-coverage/coverage.csv,"Rows satisfying all top100 coverage contract items, including disposition and live witness route."
 top100,partial by top100 contract,80,100,partial,data/top100-coverage/coverage.csv,Rows with at least one coverage contract item still todo.
 top100,average top100 coverage,83,100,partial,data/top100-coverage/coverage.csv,Average of the generated per-chart coverage percentage.
