@@ -68,8 +68,15 @@ version changes." It does not generalize to other charts' hooks.
   injection, conversion behavior) is demonstrated on cert-manager and
   External Secrets (`data/lifecycle-observations/cert-manager-eso/`), not yet
   receipted for this chart's own operator/webhook pair.
-- CRD **upgrade** behavior across chart versions (the classic
-  kube-prometheus-stack footgun) has no committed receipt yet.
+- CRD **upgrade** desired-state delta now has a committed render-level
+  receipt for the pending 85.3.3 → 86.1.0 candidate
+  ([`kps-crd-upgrade-delta-85.3.3-to-86.1.0.yaml`](../../data/serious-chart-reviews/kps-crd-upgrade-delta-85.3.3-to-86.1.0.yaml),
+  regenerable via `node scripts/kps-crd-upgrade-delta.mjs --verify`): 6 of 10
+  CRDs change, every change is an additive schema property path (none
+  removed), and no version entry, served/storage flag, or conversion strategy
+  changes. That is the desired-state half of the classic
+  kube-prometheus-stack upgrade footgun; the **runtime** half (live upgrade,
+  controller compatibility, stored objects) still has no receipt.
 
 ## What Production Support Still Needs
 
@@ -89,8 +96,9 @@ From `data/production-disposition/` (state: `production-review-ready`,
 
 - "Production-supported" — it is production-review-ready with a named
   security decision outstanding; those are different states.
-- "Upgrades are proven" — no CRD/chart upgrade receipt exists for this chart;
-  only install-time lanes are committed.
+- "Upgrades are proven" — the committed CRD upgrade receipt is a
+  desired-state delta between two renders. No live upgrade has been run; the
+  runtime claim stays unmade.
 - "Hooks are solved" — this chart's hooks are observed on one base and
   profile; the claim is per-chart, per-profile, freshness-bounded.
 - "Works on any Kubernetes" — every live claim is bounded to the 1.30
@@ -103,6 +111,7 @@ From `data/production-disposition/` (state: `production-review-ready`,
 ## Suggested Next Receipts
 
 In value order: (1) the security acceptance / hardened-base decision (it
-gates the support state); (2) a CRD upgrade receipt across two pinned chart
-versions; (3) runtime webhook lifecycle observation for this chart's own
-operator, reusing the cert-manager/External Secrets pattern.
+gates the support state); (2) a **live** upgrade receipt 85.3.3 → 86.1.0 on
+kind — the committed render-level CRD delta (all-additive) is the input that
+makes that run well-scoped; (3) runtime webhook lifecycle observation for
+this chart's own operator, reusing the cert-manager/External Secrets pattern.
