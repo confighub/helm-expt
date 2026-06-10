@@ -30,6 +30,7 @@ Which detailed CSV should I open next?
 | top100 | average top100 coverage | 83/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
 | top100 | top100 promotion-review queue | 27/80 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
 | top100 | first strict top100 promotion wave | 8/27 | partial | [data/top100-promotion-wave/wave.csv](../../data/top100-promotion-wave/wave.csv) |
+| top100 | fast-track top100 promotion candidates | 2/8 | partial | [data/top100-promotion-wave/fast-track.csv](../../data/top100-promotion-wave/fast-track.csv) |
 | top100 | top100 user-shaped variant queue | 46/80 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
 | top100 | top100 limitation-decision queue | 7/80 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
 | refresh | top20 proofs still current | 13/20 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
@@ -114,6 +115,7 @@ evidence work before it becomes production-supported for a target scope.
 | --- | ---: | --- |
 | Use public catalog now | 20 | Open CATALOG.md and top20 base readiness; choose a base with the lane you need. |
 | Promote proof-grade charts | 27 | Run catalog promotion review, select realistic bases, and add selected live lanes. |
+| Fast-track low-residue promotion rows | 2 | Write storage/rollback policy, complete missing live and ConfigHub lanes, then record target-scoped support decisions. |
 | Design useful base variants | 46 | Create the first user-shaped base before treating the chart as a catalog offer. |
 | Resolve limitation decisions | 7 | Decide whether the named gap is supported, disclosed, deferred, or blocked. |
 

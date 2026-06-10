@@ -205,6 +205,8 @@ For each row:
 | --- | --- |
 | [wave.csv](./wave.csv) | Spreadsheet queue for the selected promotion-review rows. |
 | [wave.yaml](./wave.yaml) | Machine-readable wave input for future tooling. |
+| [fast-track.md](./fast-track.md) | Low-residue promotion-review subset with clean scan/gate state. |
+| [fast-track.csv](./fast-track.csv) | Spreadsheet form of the fast-track subset. |
 | [work-orders.md](./work-orders.md) | Assignable chart-by-chart review tasks for the first promotion wave. |
 | [work-orders.csv](./work-orders.csv) | Spreadsheet form of the promotion review work orders. |
 | [../top100-coverage/work-queue.md](../top100-coverage/work-queue.md) | Full strict top-100 work queue. |
