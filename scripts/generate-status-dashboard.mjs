@@ -57,6 +57,7 @@ function buildReport() {
   const extensionRows = readCsv("data/extension-slots/extension-slots.csv");
   const sourceTop100HookRows = readCsv("data/hook-lifecycle/source-top100-hooks.csv");
   const hookRows = readCsv("data/hook-lifecycle/maintained-hook-queue.csv");
+  const hookReviewRows = readCsv("data/hook-lifecycle-review/top100-source-hook-route-review.csv");
   const lifecycleBoundaryRows = readCsv("data/lifecycle-boundary/lifecycle-boundary.csv");
   const lifecycleObservationRows = readCsv("data/lifecycle-observations/cert-manager-eso/summary.csv");
   const edgeRows = readCsv("data/edge-recovery/edges.csv");
@@ -156,6 +157,7 @@ function buildReport() {
   const hookQueueRows = lifecycleBoundaryRows.filter((row) => row.lane === "helm-hook-lifecycle-queue");
   rows.push(metric("hooks", "top100 source-scan hook charts", sourceTop100HookRows.length, 100, "partial", "data/hook-lifecycle/source-top100-hooks.csv", "Public top-100 source scan rows where the retained source scan found Helm hooks."));
   rows.push(metric("hooks", "maintained hook queue rows", hookRows.length, sourceTop100HookRows.length, "partial", "data/hook-lifecycle/maintained-hook-queue.csv", "Hook-bearing maintained recipe/package rows with required lifecycle receipt paths; this is not the full top-100 hook inventory."));
+  rows.push(metric("hooks", "source-reviewed hook rows not yet maintained", hookReviewRows.filter((row) => row.in_maintained_queue === "no").length, sourceTop100HookRows.length, "gap", "data/hook-lifecycle-review/top100-source-hook-route-review.csv", "Source-scan hook or hook-like rows with a reviewed route candidate but no maintained lifecycle receipt yet."));
   rows.push(metric("hooks", "hook route receipts present", hookRows.filter((row) => ["route-selected", "install-lifecycle-observed-upgrade-pending", "lifecycle-observed", "blocked"].includes(row.lifecycle_disposition)).length, hookRows.length, "partial", "data/hook-lifecycle/maintained-hook-queue.csv", "Maintained hook queue rows with a recorded lifecycle route, observation, or blocker."));
   rows.push(metric("hooks", "hook lifecycle observations present", hookRows.filter((row) => row.lifecycle_disposition === "lifecycle-observed").length, hookRows.length, "gap", "data/hook-lifecycle/maintained-hook-queue.csv", "Maintained hook queue rows with runtime lifecycle observation or execution receipts."));
   rows.push(metric("hooks", "hook partial lifecycle observations present", hookRows.filter((row) => row.lifecycle_disposition === "install-lifecycle-observed-upgrade-pending").length, hookRows.length, "partial", "data/hook-lifecycle/maintained-hook-queue.csv", "Maintained hook queue rows whose fresh-install route has live observation while another hook phase remains pending."));
@@ -166,7 +168,7 @@ function buildReport() {
 
   const chartByName = new Map(chartRows.map((row) => [row.chart, row]));
   const top20Rows = top20StatusRows(top100Rows, chartByName, top20BaseReadinessRows, productionSupportDecisionRows);
-  const nextWorkQueues = nextWorkQueueRows({ top100Rows, top100CoverageWorkRows, remoteDependencyRows, hookRows, lifecycleObservationRows, liveParityRerunRows, productionSupportDecisionRows, latestRefreshActionRows });
+  const nextWorkQueues = nextWorkQueueRows({ top100Rows, top100CoverageWorkRows, remoteDependencyRows, hookRows, hookReviewRows, lifecycleObservationRows, liveParityRerunRows, productionSupportDecisionRows, latestRefreshActionRows });
   const activeProofQueue = activeProofQueueRows(liveParityRerunRows);
   return {
     rows,
@@ -177,7 +179,7 @@ function buildReport() {
     nextWorkQueuesCsv: nextWorkQueuesToCsv(nextWorkQueues),
     activeProofQueue,
     activeProofQueueCsv: activeProofQueueToCsv(activeProofQueue),
-    summary: summary(rows, { chartRows, baseRows, top100Rows, top100CoverageWorkRows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, lifecycleBoundaryRows, lifecycleObservationRows, edgeRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, productionSupportDecisionRows, scanDispositionRows, latestRefreshActionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues, activeProofQueue }),
+    summary: summary(rows, { chartRows, baseRows, top100Rows, top100CoverageWorkRows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, hookReviewRows, lifecycleBoundaryRows, lifecycleObservationRows, edgeRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, productionSupportDecisionRows, scanDispositionRows, latestRefreshActionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues, activeProofQueue }),
   };
 }
 
@@ -745,7 +747,7 @@ function nextWorkQueueRows(context) {
     ...supportDecisionWorkstreamObjects(context.productionSupportDecisionRows),
     ...latestRefreshWorkQueueObjects(context.latestRefreshActionRows ?? []),
     ...liveParityRerunReadinessObjects(liveParityRerunReadiness),
-    ...hookWorkQueueObjects(context.hookRows, context.lifecycleObservationRows),
+    ...hookWorkQueueObjects(context.hookRows, context.hookReviewRows ?? [], context.lifecycleObservationRows),
   ];
 }
 
@@ -977,12 +979,22 @@ function liveParityRerunReadinessObjects(counts) {
     }));
 }
 
-function hookWorkQueueObjects(hookRows, lifecycleObservationRows) {
+function hookWorkQueueObjects(hookRows, hookReviewRows, lifecycleObservationRows) {
   const routeSelected = hookRows.filter((row) => row.lifecycle_disposition === "route-selected").length;
   const partiallyObserved = hookRows.filter((row) => row.lifecycle_disposition === "install-lifecycle-observed-upgrade-pending").length;
   const observed = hookRows.filter((row) => row.lifecycle_disposition === "lifecycle-observed").length;
+  const reviewedNotMaintainedRows = hookReviewRows.filter((row) => row.in_maintained_queue === "no");
   const relatedObserved = passCount(lifecycleObservationRows, "result");
   return [
+    {
+      section: "hook-and-lifecycle-work",
+      item_type: "queue",
+      item: "Reviewed source hook routes not yet maintained",
+      count: reviewedNotMaintainedRows.length,
+      next_action: "Promote the reviewed route into a maintained lifecycle receipt, candidate artifact, or explicit blocker before support claims.",
+      source: "data/hook-lifecycle-review/top100-source-hook-route-review.csv",
+      detail: previewHookReviewRows(reviewedNotMaintainedRows),
+    },
     {
       section: "hook-and-lifecycle-work",
       item_type: "queue",
@@ -1020,6 +1032,13 @@ function hookWorkQueueObjects(hookRows, lifecycleObservationRows) {
       detail: "related lifecycle observations, not universal hook support",
     },
   ];
+}
+
+function previewHookReviewRows(rows) {
+  const values = rows.slice(0, 5).map((row) => `${row.chart}@${row.version} (${row.likely_route || "route review"})`);
+  const remaining = rows.length - values.length;
+  if (remaining > 0) values.push(`and ${remaining} more`);
+  return values.join("; ");
 }
 
 function nextWorkQueueMarkdown(rows, section, label) {
