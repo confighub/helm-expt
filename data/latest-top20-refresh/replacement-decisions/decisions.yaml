@@ -157,9 +157,9 @@ spec:
       candidatePrimaryBase: "default"
       candidateCatalogStatus: "catalog-candidate"
       candidateProofStatus: "proof-complete-root-path-present"
-      replacementDecision: "not-decided"
-      replacementDecisionArtifact: null
-      replacementDecisionSummary: null
+      replacementDecision: "defer-replacement"
+      replacementDecisionArtifact: "data/latest-top20-refresh/replacement-decisions/decision-artifacts/prometheus-community-kube-prometheus-stack-86.1.0.yaml"
+      replacementDecisionSummary: "Keep prometheus-community/kube-prometheus-stack@85.3.3 as the supported public catalog version for now; retain prometheus-community/kube-prometheus-stack@86.1.0 as a proof-complete candidate."
       decisionTopics:
         - "CRD lifecycle and upgrade policy"
         - "cluster RBAC review"
@@ -174,7 +174,7 @@ spec:
         configHubProofReceipt: "runs/latest-top20-refresh/kube-prometheus-stack-86.1.0/confighub-proof/latest/confighub-proof-receipt.yaml"
         localLiveReceipt: "runs/latest-top20-refresh/kube-prometheus-stack-86.1.0/local-kind/observation-receipt.json"
         liveParityReceipt: "runs/latest-top20-refresh/kube-prometheus-stack-86.1.0/live-parity/default/receipt.yaml"
-      nextAction: "write target-scoped replacement decision for prometheus-community/kube-prometheus-stack@86.1.0; review 6 topic(s), then choose replace, defer, or keep 85.3.3 pinned"
+      nextAction: "replacement decision defers prometheus-community/kube-prometheus-stack@86.1.0; keep 85.3.3 pinned and revisit after the recorded requirements are satisfied"
     -
       chart: "prometheus-community/prometheus"
       currentVersion: "29.8.0"
