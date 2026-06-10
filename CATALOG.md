@@ -1083,7 +1083,7 @@ still need catalog promotion review before support is claimed.
 | fluent/fluentd@0.5.3 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/fluent/fluentd/0.5.3/CATALOG.md) |
 | gatekeeper/gatekeeper@3.22.2 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/gatekeeper/gatekeeper/3.22.2/CATALOG.md) |
 | gitlab/gitlab-runner@0.89.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/gitlab/gitlab-runner/0.89.0/CATALOG.md) |
-| grafana/alloy@1.8.2 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/grafana/alloy/1.8.2/CATALOG.md) |
+| grafana/alloy@1.8.2 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/grafana/alloy/1.8.2/CATALOG.md) |
 | grafana/promtail@6.17.1 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/grafana/promtail/6.17.1/CATALOG.md) |
 | grafana/pyroscope@2.0.2 | proof-grade | limitation-decision-first | render-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/grafana/pyroscope/2.0.2/CATALOG.md) |
 | grafana/rollout-operator@0.49.0 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/grafana/rollout-operator/0.49.0/CATALOG.md) |
