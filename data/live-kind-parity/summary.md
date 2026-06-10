@@ -11,7 +11,7 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 47
+pass: 48
 watch: 0
 blocked: 1
 semantic parity defects: 0
@@ -77,6 +77,7 @@ data/live-parity-rerun-plan/summary.md
 | `metrics-server/metrics-server@3.13.0` | default | pass |  | runs/live-kind-parity/metrics-server-metrics-server-default/receipt.yaml |
 | `metrics-server/metrics-server@3.13.0` | external-tls-ca | pass |  | runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/receipt.yaml |
 | `nats/nats@2.14.0` | default | pass |  | runs/live-kind-parity/nats-nats-default/receipt.yaml |
+| `prometheus-community/alertmanager@1.37.0` | default | pass |  | runs/live-kind-parity/prometheus-community-alertmanager-default/receipt.yaml |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default | pass |  | runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | pass |  | runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml |
 | `prometheus-community/prometheus@29.8.0` | default | pass |  | runs/live-kind-parity/prometheus-community-prometheus-default/receipt.yaml |
