@@ -107,6 +107,17 @@ cub plugin install confighub/installer
 cub installer --help</pre>
     </section>
 
+    <section aria-labelledby="fastest">
+      <h2 id="fastest">Path 0: Fastest Look, No Catalog Needed</h2>
+      <p>If you only want to see what a chart renders, you do not need this repo at all. These are the direct fast paths; the catalog paths below add reviewed bases, receipts, and live evidence on top.</p>
+      <pre># See the exact objects a chart produces. No ConfigHub account.
+cub helm template
+
+# Load one Helm render into ConfigHub Units. Needs an account.
+cub helm install</pre>
+      <p>The trade-off: fast paths give you this render, today. The catalog paths give you a named, maintained base with render parity against regular Helm, scans, and committed live receipts.</p>
+    </section>
+
     <section aria-labelledby="redis">
       <h2 id="redis">Path 1: Redis Happy Path</h2>
       <p>Redis is the small teaching chart. It shows the chart to recipe to base variant to exact rendered objects path.</p>
