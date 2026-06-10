@@ -1,0 +1,189 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: kedacore-keda-2.19.0-default-kind-parity-20260606
+spec:
+  chart: kedacore/keda
+  version: 2.19.0
+  base: default
+  result: pass
+  observedAt: '2026-06-10T08:57:33Z'
+  package:
+    path: packages/kedacore/keda/2.19.0
+  recipe:
+    path: recipes/kedacore/keda/2.19.0
+  variantRevision: recipes/kedacore/keda/2.19.0/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-keda-ead66-5dsr-helm
+    installerCluster: hx-keda-ead66-5dsr-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-keda-ead66-5dsr-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-keda-ead66-5dsr-helm" ...
+
+          Deleted nodes: ["hx-keda-ead66-5dsr-helm-control-plane"]'
+      - cluster: hx-keda-ead66-5dsr-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-keda-ead66-5dsr-installer" ...
+
+          Deleted nodes: ["hx-keda-ead66-5dsr-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install keda keda --repo https://kedacore.github.io/charts
+        --version 2.19.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/kedacore-keda-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 95bac2eeb03cdf4d0392ed7d66c37c81db91beeba346752f932abef73d26db1f
+      objectCount: 29
+      liveHelmManifestSHA256: 0adae4fa0df9753250c9f422d802e92e24994d8fc30b9dd7e79d9f0134bf8aa3
+      liveHelmManifestObjectCount: 29
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/keda-admission-webhooks           1/1   1     1     49s
+
+          deployment.apps/keda-operator                     1/1   1     1     49s
+
+          deployment.apps/keda-operator-metrics-apiserver   1/1   1     1     49s'
+        pods: '# default
+
+          keda-admission-webhooks-7b48797dc8-shzv7          1/1   Running   0             49s
+
+          keda-operator-55db59458d-lxhmz                    1/1   Running   1 (37s
+          ago)   49s
+
+          keda-operator-metrics-apiserver-cb7df9874-t6d4x   1/1   Running   0             49s'
+        notReady: []
+        diagnostics: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/kedacore/keda/2.19.0
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-keda-ead66-5dsr-keda
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: 872b24ce5d534f2178b58d7503308a92be131da813676b26d328291fed56c774
+      objectCount: 30
+      manifestNamespaces:
+      - default
+      - kube-system
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/keda-admission-webhooks           1/1   1     1     51s
+
+          deployment.apps/keda-operator                     1/1   1     1     51s
+
+          deployment.apps/keda-operator-metrics-apiserver   1/1   1     1     51s'
+        pods: '# default
+
+          keda-admission-webhooks-7b48797dc8-5468q          1/1   Running   0             51s
+
+          keda-operator-55db59458d-b29qv                    1/1   Running   1 (39s
+          ago)   51s
+
+          keda-operator-metrics-apiserver-cb7df9874-k249v   1/1   Running   0             51s'
+        notReady: []
+        diagnostics: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 29
+      installerObjectCount: 30
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"keda\" does not exist. Installing it now.\nNAME: keda\nLAST\
+      \ DEPLOYED: Wed Jun 10 09:58:28 2026\nNAMESPACE: default\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n:::^.\
+      \     .::::^:     :::::::::::::::    .:::::::::.                   .^.     \
+      \             \n7???~   .^7????~.     7??????????????.   :?????????77!^.   \
+      \           .7?7.                 \n7???~  ^7???7~.       ~!!!!!!!!!!!!!!. \
+      \  :????!!!!7????7~.           .7???7.                \n7???~^7????~.      \
+      \                      :????:    :~7???7.         :7?????7.               \n\
+      7???7????!.           ::::::::::::.      :????:      .7???!        :7??77???7.\
+      \              \n7????????7:           7???????????~      :????:       :????:\
+      \      :???7?5????7.             \n7????!~????^          !77777777777^     \
+      \ :????:       :????:     ^???7?#P7????7.            \n7???~  ^????~       \
+      \                     :????:      :7???!     ^???7J#@J7?????7.           \n\
+      7???~   :7???!.                          :????:   .:~"
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/keda-admission-webhooks           1/1   1     1     51s
+
+      deployment.apps/keda-operator                     1/1   1     1     51s
+
+      deployment.apps/keda-operator-metrics-apiserver   1/1   1     1     51s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
