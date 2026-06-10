@@ -45,6 +45,10 @@ The previous supported version remains the catalog version until those lanes
 produce receipts and the generated catalog, production-disposition, top-100, and
 top-500 outputs are regenerated.
 
+The generated lane work orders are:
+
+[promotion-work-orders.md](./promotion-work-orders.md)
+
 ## Verify
 
 ```sh

@@ -27,6 +27,7 @@ data/image-digest-workdown/priority-subjects.csv,image-digest-workdown,corpus,su
 data/lane-test-matrix/variant-lanes.csv,lane-test-matrix,verification,row-level proof lane matrix,data/lane-test-matrix/summary.md,npm run lane-tests:generate,npm run lane-tests:verify
 data/latest-top20-refresh/candidates/candidate-status.csv,latest-top20-refresh,planning,supporting generated CSV,,npm run top20:latest-refresh,npm run top20:latest-refresh:verify
 data/latest-top20-refresh/promotion-readiness.csv,latest-top20-refresh,planning,supporting generated CSV,data/latest-top20-refresh/summary.md,npm run top20:latest-refresh,npm run top20:latest-refresh:verify
+data/latest-top20-refresh/promotion-work-orders.csv,latest-top20-refresh,planning,one row per candidate chart and support lane needed before latest-version promotion,data/latest-top20-refresh/summary.md,npm run top20:latest-refresh,npm run top20:latest-refresh:verify
 data/latest-top20-refresh/review.csv,latest-top20-refresh,planning,review or promotion worksheet,data/latest-top20-refresh/summary.md,npm run top20:latest-refresh,npm run top20:latest-refresh:verify
 data/legacy-patch-review/review.csv,legacy-patch-review,planning,review or promotion worksheet,data/legacy-patch-review/summary.md,npm run legacy-patch:review,npm run legacy-patch:review:verify
 data/lifecycle-boundary/lifecycle-boundary.csv,lifecycle-boundary,user/front-door,one row per hook queue item or hook-like lifecycle observation,data/lifecycle-boundary/summary.md,npm run lifecycle:boundary,npm run lifecycle:boundary:verify

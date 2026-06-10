@@ -79,6 +79,8 @@ smallest generated surface that answers it.
 | [top100-promotion-wave/wave.yaml](./top100-promotion-wave/wave.yaml) | Machine-readable strict top-100 promotion wave input. |
 | [refresh-survival/summary.md](./refresh-survival/summary.md) | Latest-version refresh survival: current supported chart versions, upstream update candidates, and promotion gates before replacement. |
 | [refresh-survival/refreshes.csv](./refresh-survival/refreshes.csv) | One row per top-20 chart in the latest refresh review: current version, latest version, candidate proof, promotion state, and next action. |
+| [latest-top20-refresh/promotion-work-orders.md](./latest-top20-refresh/promotion-work-orders.md) | Per-candidate lane closure table for the six latest-version update candidates. |
+| [latest-top20-refresh/promotion-work-orders.csv](./latest-top20-refresh/promotion-work-orders.csv) | Spreadsheet work orders for candidate render proof, ConfigHub proof, local live, live parity, production disposition, catalog/site, and top100/top500 refresh. |
 | [next-ten-waves/summary.md](./next-ten-waves/summary.md) | Compact next work queues: gap review, latest-version promotion, variant build, production disposition, and import prototypes. |
 | [attack-plan-workdown/summary.md](./attack-plan-workdown/summary.md) | Broader execution workdown: import examples, hard gaps, variants, production, runtime/GitOps, latest candidates, and image digests. |
 | [top500-catalog-analysis/review.csv](./top500-catalog-analysis/review.csv) | Top-500 evidence map: retained source-scan rows joined to current recipe proof, catalog status, version drift, source features, and next action. |
@@ -206,7 +208,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 77 CSV files. Each row records the path, audience,
+It includes 78 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

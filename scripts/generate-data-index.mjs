@@ -109,6 +109,8 @@ function readme(rows) {
     ["data/top100-promotion-wave/wave.yaml", "Machine-readable strict top-100 promotion wave input."],
     ["data/refresh-survival/summary.md", "Latest-version refresh survival: current supported chart versions, upstream update candidates, and promotion gates before replacement."],
     ["data/refresh-survival/refreshes.csv", "One row per top-20 chart in the latest refresh review: current version, latest version, candidate proof, promotion state, and next action."],
+    ["data/latest-top20-refresh/promotion-work-orders.md", "Per-candidate lane closure table for the six latest-version update candidates."],
+    ["data/latest-top20-refresh/promotion-work-orders.csv", "Spreadsheet work orders for candidate render proof, ConfigHub proof, local live, live parity, production disposition, catalog/site, and top100/top500 refresh."],
     ["data/next-ten-waves/summary.md", "Compact next work queues: gap review, latest-version promotion, variant build, production disposition, and import prototypes."],
     ["data/attack-plan-workdown/summary.md", "Broader execution workdown: import examples, hard gaps, variants, production, runtime/GitOps, latest candidates, and image digests."],
     ["data/top500-catalog-analysis/review.csv", "Top-500 evidence map: retained source-scan rows joined to current recipe proof, catalog status, version drift, source features, and next action."],
@@ -289,6 +291,7 @@ function roleFor(path) {
   if (path === "data/top100-coverage/work-queue.csv") return "one row per partial top-100 chart: strict coverage queue, priority, missing items, first step, and done-when rule";
   if (path === "data/top100-promotion-wave/wave.csv") return "one row per selected strict top-100 promotion wave chart";
   if (path === "data/refresh-survival/refreshes.csv") return "one row per top-20 latest-version refresh: current proof, latest upstream version, candidate render proof, and promotion route";
+  if (path === "data/latest-top20-refresh/promotion-work-orders.csv") return "one row per candidate chart and support lane needed before latest-version promotion";
   if (path === "data/edge-recovery/edges.csv") return "recovered desired-state graph fragments from recipe artifacts";
   if (path === "data/variant-path-coverage/coverage-matrix.csv") return "one row per chart/base/path proof status";
   if (path === "data/quirk-coverage/coverage.csv") return "one row per Helm quirk axis: coverage tier, evidence, remaining gap, next action";
