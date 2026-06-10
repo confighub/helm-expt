@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/bitnami/nginx/24.0.2/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/bitnami/nginx/24.0.2/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/bitnami/nginx/24.0.2/value-model.yaml](value-model.yaml) |
+| Value source map | [recipes/bitnami/nginx/24.0.2/value-source-map.yaml](value-source-map.yaml) |
 | Weirdness and mitigations | [recipes/bitnami/nginx/24.0.2/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/bitnami/nginx/24.0.2/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/bitnami/nginx/24.0.2/helm-pain-report.yaml](helm-pain-report.yaml) |

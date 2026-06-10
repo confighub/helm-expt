@@ -354,11 +354,13 @@ production action:
 
 Lifecycle observation proof has started:
 
-- 5 maintained hook-bearing top-100 charts now have hook route receipts.
-- 0 of those 5 hook routes have execution or observation receipts yet.
-- cert-manager `default` and `crds-enabled` pass lifecycle checks for CRD
-  ownership policy, startup API readiness, webhook CA bundle injection, and
-  server dry-run.
+- 11 public top-100 source-scan rows contain Helm hooks.
+- 5 maintained hook queue rows now have hook route receipts.
+- 3 of those 5 queue rows have lifecycle observation receipts, and 2 have
+  partial install-lifecycle observations with another phase pending.
+- cert-manager `default` and `crds-enabled` pass lifecycle checks for its
+  `startupapicheck` hook route, CRD ownership policy, startup API readiness,
+  webhook CA bundle injection, and server dry-run.
 - External Secrets `default` and `no-crds` pass lifecycle checks for CRD
   ownership policy, webhook CA bundle injection, controller-populated webhook
   Secret data, and server dry-run.

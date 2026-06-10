@@ -26,6 +26,12 @@ source inventory and becomes a support claim only when the lifecycle route and
 receipts exist. The full doctrine is
 [Seven-Stage Helm Lifecycle](../reference/seven-stage-helm-lifecycle.md).
 
+For serious chart support, hooks are required lifecycle work. A chart can have
+valid render parity while still being unready for production if its hooks are
+only inventoried or routed. Production support requires the hook route to be
+observed, translated with equivalent lifecycle evidence, or explicitly blocked
+with a reason.
+
 ## What The Top-500 Scan Shows
 
 The retained source scan is:
@@ -157,13 +163,19 @@ Suggested mapping:
 Argo translation is not automatic. It is one implementation strategy that must
 produce lifecycle receipts and observations.
 
-## Lifecycle Observations Without Helm Hooks
+## Related Lifecycle Observations
 
 Some charts have no Helm hook but still need lifecycle observation because
 controllers populate fields or Secrets after apply. External Secrets is the
 current example: the chart does not use a Helm hook in the tested bases, but
 the controller and webhook flow populate runtime data that rendered YAML alone
 cannot prove.
+
+Cert-manager is the opposite cross-lane case. It does have the
+`startupapicheck` Helm post-install hook, but the retained top-100 source-scan
+row did not flag hooks. The lifecycle lane therefore records cert-manager
+explicitly: both `default` and `crds-enabled` model `startupapicheck` as a
+post-apply API dry-run and readiness check.
 
 The cert-manager / External Secrets lifecycle lane records this pattern:
 

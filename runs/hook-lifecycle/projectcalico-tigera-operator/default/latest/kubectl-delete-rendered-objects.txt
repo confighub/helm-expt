@@ -1,0 +1,6 @@
+clusterrole.rbac.authorization.k8s.io "tigera-operator-secrets" deleted
+clusterrole.rbac.authorization.k8s.io "tigera-operator" deleted
+clusterrolebinding.rbac.authorization.k8s.io "tigera-operator" deleted
+deployment.apps "tigera-operator" deleted from default namespace
+rolebinding.rbac.authorization.k8s.io "tigera-operator-secrets" deleted from default namespace
+serviceaccount "tigera-operator" deleted from default namespace

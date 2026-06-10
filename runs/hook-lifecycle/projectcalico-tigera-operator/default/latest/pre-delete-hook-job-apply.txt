@@ -1,0 +1,1 @@
+job.batch/tigera-operator-uninstall created
