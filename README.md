@@ -292,8 +292,9 @@ The top-20 base-variant two-cluster kind parity lane has 42 committed
 receipts: 41 pass, 0 watch, 1 blocked, and 0 semantic parity defects.
 The broader two-cluster kind parity corpus has 50 committed receipts:
 49 pass, 0 watch, 1 blocked, and 0 semantic parity defects.
-5/5 maintained hook-bearing top-100 charts have hook route receipts;
-0/5 of those hook-queue rows have hook execution or observation receipts yet.
+5/5 maintained hook-bearing top-100 charts have hook route receipts.
+2/5 have lifecycle observation receipts, 2/5 have partial install-lifecycle
+observation with another phase pending, and 1/5 remains route-only.
 Separately, cert-manager and External Secrets have lifecycle-observation
 receipts for common CRD/webhook/controller-owned runtime behavior. Those
 receipts demonstrate the observation pattern, not universal hook support.

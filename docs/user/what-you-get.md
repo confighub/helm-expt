@@ -77,7 +77,7 @@ The current public corpus contains:
 20 top-20 charts with recovered desired-state graph fragments
 top-100 and top-500 catalog analysis data
 extension-slot coverage for 13/20 top catalog charts and 82/100 top100 chart facts
-5 maintained hook-bearing top-100 charts with route receipts; 0 of those hook-queue rows with hook execution/observation receipts
+5 maintained hook-bearing top-100 charts with route receipts; 2 fully observed lifecycle rows, 2 partial install-lifecycle observations, and 1 route-only row
 separate cert-manager and External Secrets lifecycle observations for common CRD/webhook/controller-owned runtime behavior
 selected GitOps/OCI and live parity receipts
 ```
