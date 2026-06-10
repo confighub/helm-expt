@@ -32,6 +32,7 @@ spec:
       - "hook-policy"
       - "installer-support-object"
       - "source-lock"
+      - "target-facts"
       - "tpl"
   catalogStatus:
     path: "recipes/ingress-nginx/ingress-nginx/4.15.1/catalog-status.yaml"
@@ -65,7 +66,7 @@ spec:
     path: "packages/ingress-nginx/ingress-nginx/4.15.1"
     installer: "packages/ingress-nginx/ingress-nginx/4.15.1/installer.yaml"
     receipt: "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "c603ffb2f01d8bfabd6dc2fb983b235b659fcf3eb1f8ff8273f39d4ea7cd2ae1"
+    deterministicBundleSHA256: "3e37d60f8d88f0d92fe26645fe57a04d98a770bc6282f60e5dc71d3c4c79905d"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -96,8 +97,18 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "cubInstallerApply"
+            keys:
+              - "cert"
+              - "key"
+              - "ca"
+            name: "ingress-nginx-admission"
+            namespace: "ingress-nginx"
+            purpose: "admission webhook certificate normally created by Helm hook jobs"
+      targetFactSummary: "required Secret ingress-nginx/ingress-nginx-admission keys cert,key,ca"
       packageBase:
         name: "default"
         path: "packages/ingress-nginx/ingress-nginx/4.15.1/bases/default"
@@ -116,7 +127,7 @@ spec:
           name: "default-r001"
           revision: "r001"
           variantRevision: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/variant-revision.yaml"
-          digest: "121ae4816be8f35d85fd9677838f82b1f551aef4c8c6d7110fa61e7648bb6c25"
+          digest: "fcb4d06cd9078d87226aad3c100f9e80ced6398e0a358f54334b5bd45a4f26d8"
           renderedObjectSetSHA256: "257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d"
           renderedObjects: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/object-inventory.yaml"

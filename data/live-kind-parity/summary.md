@@ -11,8 +11,8 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 36
-watch: 1
+pass: 37
+watch: 0
 blocked: 5
 semantic parity defects: 0
 ```
@@ -29,7 +29,6 @@ data/live-parity-rerun-plan/summary.md
 
 | Reason | Rows |
 | --- | ---: |
-| helm-hook: admission webhook certificate secret not supplied by config-only apply (parity passed) | 1 |
 | helm-hook: post-install hook failed (parity passed) | 1 |
 | operate-policy: Vault init/unseal required (parity passed) | 1 |
 | target-fit: HA raft target topology not satisfied (parity passed) | 1 |
@@ -68,7 +67,7 @@ data/live-parity-rerun-plan/summary.md
 | `hashicorp/vault@0.32.0` | dev-mode | pass |  | runs/live-kind-parity/hashicorp-vault-dev-mode/receipt.yaml |
 | `hashicorp/vault@0.32.0` | ha-raft-ui | blocked | target-fit: HA raft target topology not satisfied (parity passed) | runs/live-kind-parity/hashicorp-vault-ha-raft-ui/receipt.yaml |
 | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | pass |  | runs/live-kind-parity/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml |
-| `ingress-nginx/ingress-nginx@4.15.1` | default | watch | helm-hook: admission webhook certificate secret not supplied by config-only apply (parity passed) | runs/live-kind-parity/ingress-nginx-ingress-nginx-default/receipt.yaml |
+| `ingress-nginx/ingress-nginx@4.15.1` | default | pass |  | runs/live-kind-parity/ingress-nginx-ingress-nginx-default/receipt.yaml |
 | `ingress-nginx/ingress-nginx@4.15.1` | internal-clusterip | pass |  | runs/live-kind-parity/ingress-nginx-ingress-nginx-internal-clusterip/receipt.yaml |
 | `jetstack/cert-manager@v1.20.2` | crds-enabled | pass |  | runs/live-kind-parity/jetstack-cert-manager-crds-enabled/receipt.yaml |
 | `jetstack/cert-manager@v1.20.2` | default | blocked | helm-hook: post-install hook failed (parity passed) | runs/live-kind-parity/jetstack-cert-manager-default/receipt.yaml |

@@ -27,7 +27,19 @@ const variants = [
     valuesText: "",
     valuesSummary: "chart defaults",
     expectedObjectCount: 11,
-    targetFactNote: "keeps admission webhook object but excludes Helm hook jobs from the rendered revision",
+    targetFactNote:
+      "keeps admission webhook object, excludes Helm hook jobs from the rendered revision, and stages the admission Secret as an installer-side lifecycle target fact for live parity",
+    targetFacts: {
+      requiredSecrets: [
+        {
+          namespace: "ingress-nginx",
+          name: "ingress-nginx-admission",
+          keys: ["cert", "key", "ca"],
+          purpose: "admission webhook certificate normally created by Helm hook jobs",
+          deliveryLanes: ["cubInstallerApply"],
+        },
+      ],
+    },
   },
   {
     name: "admission-disabled",
@@ -87,6 +99,8 @@ function ingressLifecyclePolicy() {
       bases: {
         default: {
           status: "route-selected-observation-needed",
+          selectedLiveParityRoute:
+            "The two-cluster parity harness stages ingress-nginx/ingress-nginx-admission as an installer-side target fact, while regular Helm continues to create it through Helm hooks.",
           renderedObjects: [
             "v1|Service|ingress-nginx|ingress-nginx-controller-admission",
             "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||ingress-nginx-admission",
@@ -224,6 +238,14 @@ runProofCli({
       note: "service appProtocol and autoscaling branches are bound to the named Kubernetes capability profile.",
     },
     { category: "hook-policy", status: "handled-for-render", policy: "no-hooks", note: "admission patch Jobs are Helm hooks and are excluded from the render proof; lifecycle policy must handle them before production." },
+    {
+      category: "target-facts",
+      status: "required-for-default-live-parity",
+      evidence: "variants/default/variant.yaml",
+      required: [
+        { kind: "Secret", namespace: "ingress-nginx", name: "ingress-nginx-admission", keys: ["cert", "key", "ca"], deliveryLanes: ["cubInstallerApply"] },
+      ],
+    },
     { category: "admission-webhook", status: "variant-controlled", object: "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||ingress-nginx-admission" },
     { category: "cluster-rbac", status: "scan-and-review", evidence: "scan receipts" },
     { category: "tpl", status: "controlled-by-empty-defaults", note: "chart has tpl extension points; promoted variants do not set those values." },
@@ -233,6 +255,7 @@ runProofCli({
     maintainedNotes: [
       "Default chart renders an admission Service and ValidatingWebhookConfiguration.",
       "Admission certificate create/patch Jobs are Helm hooks and are excluded from the rendered revision by --no-hooks.",
+      "For live parity, the installer leg stages the admission Secret as a target fact; regular Helm continues to create it through hook execution.",
       "admission-disabled variant removes the admission Service and ValidatingWebhookConfiguration from the rendered revision.",
       "internal-clusterip variant also changes the controller Service from LoadBalancer to ClusterIP for local/internal targets.",
       "Admission webhook readiness must be observed after apply because a rendered object alone does not prove webhook health.",
@@ -305,6 +328,10 @@ runProofCli({
       "webhook cert lifecycle route missing",
     );
     check(
+      lifecyclePolicy.spec.bases.default?.selectedLiveParityRoute?.includes("target fact"),
+      "default lifecycle selected live parity route missing",
+    );
+    check(
       lifecyclePolicy.spec.bases.default?.mustObserve?.some((item) => item.includes("caBundle")),
       "webhook caBundle observation missing",
     );
@@ -322,6 +349,9 @@ runProofCli({
       if (variant.name === "default") {
         check(identities.includes("admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||ingress-nginx-admission"), "default ValidatingWebhookConfiguration missing");
         check(identities.includes("v1|Service|ingress-nginx|ingress-nginx-controller-admission"), "default admission Service missing");
+        const variantDoc = readYaml(join(root, "variants", "default", "variant.yaml"));
+        const requiredSecret = variantDoc.spec.targetFacts?.requiredSecrets?.find((item) => item.name === "ingress-nginx-admission");
+        check(requiredSecret?.deliveryLanes?.includes("cubInstallerApply"), "default admission Secret must be staged for installer live parity only");
       }
       if (variant.name === "admission-disabled") {
         check(!identities.includes("admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||ingress-nginx-admission"), "admission-disabled must not render ValidatingWebhookConfiguration");

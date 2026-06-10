@@ -31,6 +31,8 @@ spec:
       claim: The default scan records admission-webhook-requires-observation.
     - path: recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/receipts/install-gate.yaml
       claim: The default install gate blocks production until webhook availability and hook lifecycle are handled.
+    - path: runs/live-kind-parity/ingress-nginx-ingress-nginx-default/receipt.yaml
+      claim: The default base passes two-cluster live parity when the admission Secret is staged as an installer target fact.
     - path: runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml
       claim: The admission-disabled base reaches runtime pass for the ConfigHub kubectl apply leg and semantic parity for the OCI/Argo leg.
     - path: data/runtime-gitops/receipts/ingress-nginx-ingress-nginx/admission-disabled/latest.yaml
@@ -40,9 +42,8 @@ spec:
     - admission-disabled
   acceptedPolicy:
     admissionDisabled: Accepted as the first production-review posture because it has no admission webhook runtime dependency.
-    default: Requires a fresh target observation for webhook endpoint availability and certificate patching before production use.
+    default: Requires a chosen admission Secret source plus fresh target observation for webhook endpoint availability and certificate freshness before production support.
     failurePolicy: A production target must choose and record its webhook failure policy rather than inheriting it silently from chart defaults.
   remainingProductionBlockers:
     - scan/gate warning disposition
   nextDecision: Resolve the remaining workload scan warnings and target security posture before declaring production support.
-

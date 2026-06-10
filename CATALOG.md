@@ -208,9 +208,9 @@ Variants:
 ##### default
 
 When to use: ingress-nginx default variant rendered from ingress-nginx/ingress-nginx@4.15.1
-Readiness: hook-lifecycle-review-needed
+Readiness: try-with-proof
 Namespace: ingress-nginx
-Target facts: none
+Target facts: required Secret ingress-nginx/ingress-nginx-admission keys cert,key,ca
 Package base: [packages/ingress-nginx/ingress-nginx/4.15.1/bases/default](packages/ingress-nginx/ingress-nginx/4.15.1/bases/default)
 Variant file: [recipes/ingress-nginx/ingress-nginx/4.15.1/variants/default/variant.yaml](recipes/ingress-nginx/ingress-nginx/4.15.1/variants/default/variant.yaml)
 Rendered objects: [recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml](recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml)

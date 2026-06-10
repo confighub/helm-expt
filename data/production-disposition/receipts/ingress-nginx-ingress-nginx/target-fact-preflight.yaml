@@ -1,0 +1,40 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: ingress-nginx-target-fact-preflight
+spec:
+  chart: ingress-nginx/ingress-nginx
+  version: "4.15.1"
+  disposition: target fact preflight
+  decision: accepted
+  acceptedAt: "2026-06-10"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    The default base keeps the ingress-nginx admission webhook objects while the
+    Helm hook Jobs that normally create the admission certificate Secret remain
+    outside the rendered object set. For config-only delivery, that Secret is
+    modeled as a target fact: the recipe declares the Secret requirement, the
+    installer package exposes it as an external requirement, and the two-cluster
+    parity receipt proves the installer leg reaches the same live outcome as
+    regular Helm when the Secret is staged first.
+  evidence:
+    - path: recipes/ingress-nginx/ingress-nginx/4.15.1/variants/default/variant.yaml
+      claim: The default variant declares ingress-nginx/ingress-nginx-admission with cert, key, and ca as a required target Secret for the cub installer apply lane.
+    - path: packages/ingress-nginx/ingress-nginx/4.15.1/installer.yaml
+      claim: The installer package records an externalRequires entry for the admission Secret and includes a target-facts collector.
+    - path: packages/ingress-nginx/ingress-nginx/4.15.1/collector/target-facts.sh
+      claim: The package collector records the target-fact requirement and can live-check the required Secret keys.
+    - path: recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/receipts/install-gate.yaml
+      claim: The default install gate records that Helm admission hook lifecycle must be handled before production use.
+    - path: runs/live-kind-parity/ingress-nginx-ingress-nginx-default/receipt.yaml
+      claim: Two-cluster live parity stages the required admission Secret for the cub installer leg and passes semantic and workload parity.
+  affectedVariants:
+    - default
+  acceptedPolicy:
+    targetFact: The default base requires ingress-nginx/ingress-nginx-admission with cert, key, and ca before config-only apply.
+    sourceOfTruth: Secret material remains target-owned. It is not hidden inside ConfigHub rendered Units.
+    supportedScope: The current production-support decision still chooses internal-clusterip, which disables the admission webhook path.
+  remainingProductionBlockers: []
+  nextDecision: A future production support decision for the default base should choose the admission certificate source, freshness check, and webhook failure policy for the target.

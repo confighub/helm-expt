@@ -27,10 +27,12 @@ spec:
       claim: The default base's admission certificate hook lifecycle is routed to explicit lifecycle policy before production use.
     - path: data/production-disposition/receipts/ingress-nginx-ingress-nginx/webhook-readiness-and-failure-policy.yaml
       claim: Admission webhook readiness and failure behavior has an accepted production-review disposition.
+    - path: data/production-disposition/receipts/ingress-nginx-ingress-nginx/target-fact-preflight.yaml
+      claim: The default base's admission Secret target fact has an accepted production-review disposition.
     - path: runs/live-kind-parity/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml
       claim: The admission-disabled base passes strict two-cluster live parity between regular Helm and cub installer apply.
     - path: runs/live-kind-parity/ingress-nginx-ingress-nginx-default/receipt.yaml
-      claim: The default base has semantic object parity and is a watch row for target-backed webhook lifecycle observation.
+      claim: The default base passes semantic and workload parity when the admission Secret is staged as an installer target fact.
     - path: runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml
       claim: The admission-disabled base passes regular Helm and ConfigHub apply semantic parity; the Argo health row remains watch because controller runtime health is target-sensitive.
   affectedVariants:
@@ -46,7 +48,7 @@ spec:
     - unset-memory-requirements
   variantCaveats:
     - "admission-disabled is the simpler first production-review base."
-    - "default requires target-backed webhook and admission certificate lifecycle observation before production use."
+    - "default requires a chosen admission Secret source, freshness check, and webhook failure policy before production support."
     - "A hardened production base may add memory policy and securityContext posture where the upstream chart supports them."
   remainingProductionBlockers: []
   nextDecision: A production support decision should choose whether the supported ingress-nginx base includes admission webhooks, and should attach target runtime checks for controller health and admission behavior.

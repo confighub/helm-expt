@@ -24,7 +24,7 @@ target-scoped draft decisions: 0
 source Helm-hook rows: 1
 hook/lifecycle disposition rows: 12
 related lifecycle observation rows: 2
-accepted production disposition receipts: 103
+accepted production disposition receipts: 104
 charts with accepted dispositions: 20
 ```
 
@@ -109,7 +109,7 @@ spreadsheet form, use
 | `grafana/tempo@1.24.4` | local-persistent, s3-query-observability | pass | local-kind-observed | production-review-ready | 4 |  |
 | `hashicorp/consul@2.0.0` | default-control-plane, secure-mesh-existing-secrets | pass | local-kind-observed | production-review-ready | 8 |  |
 | `hashicorp/vault@0.32.0` | dev-mode, default, ha-raft-ui | pass | local-kind-observed | production-review-ready | 5 |  |
-| `ingress-nginx/ingress-nginx@4.15.1` | default, admission-disabled, internal-clusterip | pass | local-kind-observed | production-review-ready | 4 |  |
+| `ingress-nginx/ingress-nginx@4.15.1` | default, admission-disabled, internal-clusterip | pass | local-kind-observed | production-review-ready | 5 |  |
 | `jetstack/cert-manager@v1.20.2` | default, crds-enabled | pass | local-kind-observed | production-review-ready | 6 |  |
 | `longhorn/longhorn@1.11.2` | default, ui-ingress | pass | local-kind-observed | production-review-ready | 5 |  |
 | `metrics-server/metrics-server@3.13.0` | default, external-tls-ca | pass | local-kind-observed | production-review-ready | 5 |  |

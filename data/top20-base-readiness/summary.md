@@ -16,13 +16,13 @@ or runtime review.
 ~~~text
 base variants: 42
 start-here: 20
-try-with-proof: 16
+try-with-proof: 17
 runtime-watch: 0
 runtime-review-needed: 0
 operating-policy-needed: 1
 target-fit-needed: 2
 target-prerequisite-needed: 1
-hook-lifecycle-review-needed: 1
+hook-lifecycle-review-needed: 0
 lifecycle-observed: 1
 prerequisite-observed: 0
 render-only: 0
@@ -31,7 +31,7 @@ render-only: 0
 Live rerun readiness for non-pass rows:
 
 ~~~text
-model-or-stage-first: 5
+model-or-stage-first: 4
 review-target-first: 0
 inspect-diff-first: 0
 rerun-now-after-cleanup: 0
@@ -86,7 +86,7 @@ rerun-now-after-cleanup: 0
 | `hashicorp/vault@0.32.0` | ha-raft-ui | no | target-fit-needed | model-or-stage-first | target-fit: HA raft target topology not satisfied (parity passed) | use recipes/hashicorp/vault/0.32.0/operating-policy.yaml to pick a fitting target or create a smaller base for this proof target | [`recipes/hashicorp/vault/0.32.0/operating-policy.yaml`](../../recipes/hashicorp/vault/0.32.0/operating-policy.yaml) |
 | `ingress-nginx/ingress-nginx@4.15.1` | internal-clusterip | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims | - |
-| `ingress-nginx/ingress-nginx@4.15.1` | default | no | hook-lifecycle-review-needed | model-or-stage-first | helm-hook: admission webhook certificate secret not supplied by config-only apply (parity passed) | use recipes/ingress-nginx/ingress-nginx/4.15.1/lifecycle-policy.yaml to execute or observe the selected lifecycle route | [`recipes/ingress-nginx/ingress-nginx/4.15.1/lifecycle-policy.yaml`](../../recipes/ingress-nginx/ingress-nginx/4.15.1/lifecycle-policy.yaml) |
+| `ingress-nginx/ingress-nginx@4.15.1` | default | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims | - |
 | `jetstack/cert-manager@v1.20.2` | crds-enabled | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `jetstack/cert-manager@v1.20.2` | default | no | lifecycle-observed | - | helm-hook: post-install hook failed (parity passed); lifecycle observation passed | use the lifecycle route evidence at runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-default/receipt.yaml; rerun strict parity only if the hook handling decision changes | - |
 | `longhorn/longhorn@1.11.2` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |

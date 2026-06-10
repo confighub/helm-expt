@@ -15,10 +15,12 @@ spec:
     The default chart uses Helm admission certificate hook jobs. The current
     recipe renders with no hooks, so those jobs are not hidden inside the
     approved rendered object set. The supported routing is explicit:
-    admission-disabled avoids the hook-dependent admission path and is the first
-    production-review base; default keeps the admission webhook objects and must
-    be paired with a target-specific lifecycle route for webhook certificate
-    creation and patching before production use.
+    internal-clusterip avoids the hook-dependent admission path and is the
+    current production-supported base. The default base keeps the admission
+    webhook objects and uses an explicit target-fact route for config-only live
+    parity; a production target must still choose the admission certificate
+    source, freshness check, and webhook failure policy before supporting that
+    base.
   evidence:
     - path: recipes/ingress-nginx/ingress-nginx/4.15.1/control-points.yaml
       claim: The recipe records hook-policy as handled-for-render with policy no-hooks and calls out admission patch Jobs.
@@ -35,14 +37,14 @@ spec:
     - path: runs/live-kind-parity/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml
       claim: The webhook-free admission-disabled base reaches Ready in both regular Helm and cub installer apply legs.
     - path: runs/live-kind-parity/ingress-nginx-ingress-nginx-default/receipt.yaml
-      claim: The default base has semantic object parity, but the cub installer runtime leg is watch rather than pass.
+      claim: The default base passes semantic and workload parity when the admission Secret is staged as an installer target fact.
   affectedVariants:
     - default
     - admission-disabled
   acceptedPolicy:
     admissionDisabled: Use this base when the deployment should avoid the Helm hook-dependent admission webhook path.
-    default: Keep this base as local-test or target-specific review input until webhook certificate lifecycle handling is supplied and observed.
-    productionRule: Hook-dependent certificate creation and patching must be implemented as an explicit lifecycle route or avoided by choosing admission-disabled.
+    default: Keep this base as target-specific review input unless the admission Secret source, freshness check, and webhook failure policy are chosen for the target.
+    productionRule: Hook-dependent certificate creation and patching must be implemented as an explicit lifecycle route, modeled as a target fact, or avoided by choosing a base that disables admission webhooks.
   remainingProductionBlockers:
     - scan/gate warning disposition
   nextDecision: Resolve the remaining workload scan warnings and target security posture before declaring production support.

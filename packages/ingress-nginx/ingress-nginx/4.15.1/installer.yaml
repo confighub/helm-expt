@@ -10,6 +10,12 @@ spec:
       path: "bases/default"
       default: true
       description: "ingress-nginx default variant rendered from ingress-nginx/ingress-nginx@4.15.1"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "Secret ingress-nginx/ingress-nginx-admission keys cert,key,ca"
+          namespace: "ingress-nginx"
+          suggestedSource: "kubectl -n ingress-nginx create secret generic ingress-nginx-admission --from-literal=cert=<value> --from-literal=key=<value> --from-literal=ca=<value>"
     -
       name: "admission-disabled"
       path: "bases/admission-disabled"
@@ -18,6 +24,11 @@ spec:
       name: "internal-clusterip"
       path: "bases/internal-clusterip"
       description: "ingress-nginx internal ClusterIP controller variant rendered from ingress-nginx/ingress-nginx@4.15.1"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible Secret and CRD requirements."
   transformers:
     -
       toolchain: "Kubernetes/YAML"

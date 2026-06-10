@@ -363,7 +363,7 @@ def target_fact_value(secret_name: str, key: str, run_root: Path) -> str:
         return ensure_metrics_server_tls_material(run_root)[0]
     if secret_name == "metrics-server-tls" and key in ("key", "tls.key"):
         return ensure_metrics_server_tls_material(run_root)[1]
-    if key in ("cert", "tls.crt", "ca.crt") and ("admission" in secret_name or "webhook" in secret_name):
+    if key in ("cert", "tls.crt", "ca.crt", "ca") and ("admission" in secret_name or "webhook" in secret_name):
         return ensure_tls_material(run_root)[0]
     if key in ("key", "tls.key") and ("admission" in secret_name or "webhook" in secret_name):
         return ensure_tls_material(run_root)[1]

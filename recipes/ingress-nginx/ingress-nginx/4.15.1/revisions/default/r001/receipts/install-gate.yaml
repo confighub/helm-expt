@@ -15,4 +15,4 @@ spec:
     - "Admission webhook availability needs a fresh observation receipt after apply"
     - "Helm admission hook jobs need explicit lifecycle policy before production"
     - "Cluster-scoped RBAC needs production review"
-    - "keeps admission webhook object but excludes Helm hook jobs from the rendered revision"
+    - "keeps admission webhook object, excludes Helm hook jobs from the rendered revision, and stages the admission Secret as an installer-side lifecycle target fact for live parity"
