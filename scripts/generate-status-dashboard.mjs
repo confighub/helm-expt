@@ -60,6 +60,7 @@ function buildReport() {
   const hookRows = readCsv("data/hook-lifecycle/maintained-hook-queue.csv");
   const hookReviewRows = readCsv("data/hook-lifecycle-review/top100-source-hook-route-review.csv");
   const hookCandidateRows = readCsv("data/hook-route-candidates/candidates.csv");
+  const hookCandidateWorkOrderRows = readCsv("data/hook-route-candidates/work-orders.csv");
   const lifecycleBoundaryRows = readCsv("data/lifecycle-boundary/lifecycle-boundary.csv");
   const lifecycleObservationRows = readCsv("data/lifecycle-observations/cert-manager-eso/summary.csv");
   const edgeRows = readCsv("data/edge-recovery/edges.csv");
@@ -165,6 +166,7 @@ function buildReport() {
   rows.push(metric("hooks", "maintained hook queue rows", hookRows.length, sourceTop100HookRows.length, "partial", "data/hook-lifecycle/maintained-hook-queue.csv", "Hook-bearing maintained recipe/package rows with required lifecycle receipt paths; this is not the full top-100 hook inventory."));
   rows.push(metric("hooks", "source-reviewed hook rows not yet maintained", hookReviewRows.filter((row) => row.in_maintained_queue === "no").length, sourceTop100HookRows.length, "gap", "data/hook-lifecycle-review/top100-source-hook-route-review.csv", "Source-scan hook or hook-like rows with a reviewed route candidate but no maintained lifecycle receipt yet."));
   rows.push(metric("hooks", "source-reviewed hook rows with candidate route plans", hookCandidateRows.length, hookReviewRows.filter((row) => row.in_maintained_queue === "no").length, "partial", "data/hook-route-candidates/candidates.csv", "Candidate route plans for source-reviewed hook or hook-like rows. These are not maintained receipts or runtime observations."));
+  rows.push(metric("hooks", "hook candidate route work orders", hookCandidateWorkOrderRows.length, hookCandidateWorkOrderRows.length, "partial", "data/hook-route-candidates/work-orders.csv", "Assignable work orders for turning candidate routes into maintained route receipts, runtime observations, or explicit blockers."));
   rows.push(metric("hooks", "hook route receipts present", hookRows.filter((row) => ["route-selected", "install-lifecycle-observed-upgrade-pending", "lifecycle-observed", "blocked"].includes(row.lifecycle_disposition)).length, hookRows.length, "partial", "data/hook-lifecycle/maintained-hook-queue.csv", "Maintained hook queue rows with a recorded lifecycle route, observation, or blocker."));
   rows.push(metric("hooks", "hook lifecycle observations present", hookRows.filter((row) => row.lifecycle_disposition === "lifecycle-observed").length, hookRows.length, "gap", "data/hook-lifecycle/maintained-hook-queue.csv", "Maintained hook queue rows with runtime lifecycle observation or execution receipts."));
   rows.push(metric("hooks", "hook partial lifecycle observations present", hookRows.filter((row) => row.lifecycle_disposition === "install-lifecycle-observed-upgrade-pending").length, hookRows.length, "partial", "data/hook-lifecycle/maintained-hook-queue.csv", "Maintained hook queue rows whose fresh-install route has live observation while another hook phase remains pending."));
@@ -175,7 +177,7 @@ function buildReport() {
 
   const chartByName = new Map(chartRows.map((row) => [row.chart, row]));
   const top20Rows = top20StatusRows(top100Rows, chartByName, top20BaseReadinessRows, productionSupportDecisionRows);
-  const nextWorkQueues = nextWorkQueueRows({ top100Rows, top100CoverageWorkRows, remoteDependencyRows, hookRows, hookReviewRows, hookCandidateRows, lifecycleObservationRows, liveParityRerunRows, productionSupportDecisionRows, latestRefreshActionRows });
+  const nextWorkQueues = nextWorkQueueRows({ top100Rows, top100CoverageWorkRows, remoteDependencyRows, hookRows, hookReviewRows, hookCandidateRows, hookCandidateWorkOrderRows, lifecycleObservationRows, liveParityRerunRows, productionSupportDecisionRows, latestRefreshActionRows });
   const activeProofQueue = activeProofQueueRows(liveParityRerunRows);
   return {
     rows,
@@ -186,7 +188,7 @@ function buildReport() {
     nextWorkQueuesCsv: nextWorkQueuesToCsv(nextWorkQueues),
     activeProofQueue,
     activeProofQueueCsv: activeProofQueueToCsv(activeProofQueue),
-    summary: summary(rows, { chartRows, baseRows, chartUseRows, top100Rows, top100CoverageWorkRows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, hookReviewRows, hookCandidateRows, lifecycleBoundaryRows, lifecycleObservationRows, edgeRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, productionSupportDecisionRows, scanDispositionRows, latestRefreshActionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues, activeProofQueue }),
+    summary: summary(rows, { chartRows, baseRows, chartUseRows, top100Rows, top100CoverageWorkRows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, hookReviewRows, hookCandidateRows, hookCandidateWorkOrderRows, lifecycleBoundaryRows, lifecycleObservationRows, edgeRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, productionSupportDecisionRows, scanDispositionRows, latestRefreshActionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues, activeProofQueue }),
   };
 }
 
@@ -560,6 +562,7 @@ lifecycle observation.
 | Which remote dependency closures are locked? | [remote-dependency-closure/summary.md](../remote-dependency-closure/summary.md) |
 | Which top-100 source rows contain Helm hooks? | [hook-lifecycle/source-top100-hooks.csv](../hook-lifecycle/source-top100-hooks.csv) |
 | Which maintained hook rows need lifecycle receipts? | [hook-lifecycle/maintained-hook-queue.csv](../hook-lifecycle/maintained-hook-queue.csv) |
+| Which hook route candidates have assignable next work? | [hook-route-candidates/work-orders.md](../hook-route-candidates/work-orders.md) |
 | Which hook claims are queued versus observed? | [lifecycle-boundary/summary.md](../lifecycle-boundary/summary.md) |
 | Which Helm artifacts have recovered graph fragments? | [edge-recovery/summary.md](../edge-recovery/summary.md) |
 | Which live comparisons passed or failed? | [live-helm-confighub-compare/summary.csv](../live-helm-confighub-compare/summary.csv) |
@@ -772,7 +775,7 @@ function nextWorkQueueRows(context) {
     ...supportDecisionWorkstreamObjects(context.productionSupportDecisionRows),
     ...latestRefreshWorkQueueObjects(context.latestRefreshActionRows ?? []),
     ...liveParityRerunReadinessObjects(liveParityRerunReadiness),
-    ...hookWorkQueueObjects(context.hookRows, context.hookReviewRows ?? [], context.hookCandidateRows ?? [], context.lifecycleObservationRows),
+    ...hookWorkQueueObjects(context.hookRows, context.hookReviewRows ?? [], context.hookCandidateRows ?? [], context.hookCandidateWorkOrderRows ?? [], context.lifecycleObservationRows),
   ];
 }
 
@@ -1004,12 +1007,13 @@ function liveParityRerunReadinessObjects(counts) {
     }));
 }
 
-function hookWorkQueueObjects(hookRows, hookReviewRows, hookCandidateRows, lifecycleObservationRows) {
+function hookWorkQueueObjects(hookRows, hookReviewRows, hookCandidateRows, hookCandidateWorkOrderRows, lifecycleObservationRows) {
   const routeSelected = hookRows.filter((row) => row.lifecycle_disposition === "route-selected").length;
   const partiallyObserved = hookRows.filter((row) => row.lifecycle_disposition === "install-lifecycle-observed-upgrade-pending").length;
   const observed = hookRows.filter((row) => row.lifecycle_disposition === "lifecycle-observed").length;
   const reviewedNotMaintainedRows = hookReviewRows.filter((row) => row.in_maintained_queue === "no");
   const candidateCount = hookCandidateRows.length;
+  const workOrderCount = hookCandidateWorkOrderRows.length;
   const relatedObserved = passCount(lifecycleObservationRows, "result");
   return [
     {
@@ -1020,6 +1024,15 @@ function hookWorkQueueObjects(hookRows, hookReviewRows, hookCandidateRows, lifec
       next_action: "Use these as reviewed inputs; do not treat them as maintained receipts or runtime proof.",
       source: "data/hook-route-candidates/candidates.csv",
       detail: "candidate-route-plan",
+    },
+    {
+      section: "hook-and-lifecycle-work",
+      item_type: "queue",
+      item: "Hook candidate work orders",
+      count: workOrderCount,
+      next_action: "Assign base rendering, dependency closure, target preflight, GitOps mapping, receipt, and observation tasks from the generated work-order list.",
+      source: "data/hook-route-candidates/work-orders.csv",
+      detail: previewHookCandidateWorkOrders(hookCandidateWorkOrderRows),
     },
     {
       section: "hook-and-lifecycle-work",
@@ -1067,6 +1080,13 @@ function hookWorkQueueObjects(hookRows, hookReviewRows, hookCandidateRows, lifec
       detail: "related lifecycle observations, not universal hook support",
     },
   ];
+}
+
+function previewHookCandidateWorkOrders(rows) {
+  const workTypes = [...new Set(rows.map((row) => row.work_type).filter(Boolean))].slice(0, 6);
+  const remaining = new Set(rows.map((row) => row.work_type).filter(Boolean)).size - workTypes.length;
+  if (remaining > 0) workTypes.push(`and ${remaining} more`);
+  return workTypes.join("; ");
 }
 
 function previewHookReviewRows(rows) {
