@@ -1,0 +1,87 @@
+# Chart Use Guide
+
+This generated guide answers one user question:
+
+~~~text
+Can I use this chart, and what should I do next?
+~~~
+
+It is a routing surface over the maintained top-100 data. It does not replace
+the detailed proof lanes, production decisions, or per-chart catalog pages.
+
+## Summary
+
+| Answer | Charts | Meaning |
+| --- | ---: | --- |
+| yes-public-catalog | 20 | Public catalog entry exists. Choose a base and check the lane you need. |
+| not-yet-public-catalog-proof-ready | 27 | Proof exists and variants look useful, but catalog promotion review is not done. |
+| not-yet-user-ready | 46 | The current proof is too default-shaped; design a useful base variant first. |
+| decision-needed-first | 7 | A named gap must be supported, disclosed, deferred, or blocked before promotion. |
+
+## How To Use This
+
+1. Find the chart in [chart-use-guide.csv](./chart-use-guide.csv).
+2. Read the `answer` and `first_action` columns.
+3. Open the per-chart `catalog_path` for variants and receipts.
+4. Open the `helm_pain_report` when the row has a hard gap or quirk.
+5. Check production decisions before using any row as a production-support claim.
+
+## Public Catalog Rows
+
+These rows are the cleanest public starting points. They are still scoped by
+base variant and proof lane.
+
+| Chart | Recommended base | Evidence | First action |
+| --- | --- | --- | --- |
+| `argo-cd/argo-cd@9.5.15` | `default` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
+| `bitnami/mongodb@19.0.7` | `generated-passwords` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
+| `bitnami/mysql@14.0.3` | `generated-passwords` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
+| `bitnami/nginx@24.0.2` | `http-clusterip` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
+| `bitnami/postgresql@18.6.7` | `generated-passwords` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
+| `bitnami/rabbitmq@16.0.14` | `generated-passwords` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
+| `bitnami/redis@25.5.3` | `default` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
+| `external-secrets/external-secrets@2.5.0` | `default` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
+| `grafana/grafana@10.5.15` | `generated-passwords` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
+| `grafana/loki@7.0.0` | `single-binary-filesystem` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
+| `grafana/tempo@1.24.4` | `local-persistent` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
+| `hashicorp/consul@2.0.0` | `default-control-plane` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
+| `hashicorp/vault@0.32.0` | `dev-mode` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
+| `ingress-nginx/ingress-nginx@4.15.1` | `internal-clusterip` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
+| `jetstack/cert-manager@v1.20.2` | `crds-enabled` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
+| `longhorn/longhorn@1.11.2` | `default` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
+| `metrics-server/metrics-server@3.13.0` | `default` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | `default` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
+| `prometheus-community/prometheus@29.8.0` | `server-only-ephemeral` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
+| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | `default` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
+
+## Next Non-Catalog Rows
+
+These rows have proof value but need promotion review, a better base variant,
+or a limitation decision before they should be treated as catalog offers.
+
+| Chart | Answer | Evidence | First action |
+| --- | --- | --- | --- |
+| `traefik/traefik@40.2.0` | `decision-needed-first` | `render-parity` | Decide whether to support, disclose, defer, or block the hard gap before promotion. |
+| `external-dns/external-dns@1.21.1` | `not-yet-public-catalog-proof-ready` | `two-cluster-kind-parity` | Run catalog promotion review and add selected live lanes for the base a user would actually try. |
+| `gitlab/gitlab-runner@0.89.0` | `not-yet-user-ready` | `render-parity` | Design at least one useful base variant before catalog promotion. |
+| `kyverno/kyverno@3.8.1` | `decision-needed-first` | `render-parity` | Decide whether to support, disclose, defer, or block the hard gap before promotion. |
+| `cloudnative-pg/cloudnative-pg@0.28.2` | `not-yet-public-catalog-proof-ready` | `two-cluster-kind-parity` | Run catalog promotion review and add selected live lanes for the base a user would actually try. |
+| `fluent/fluent-bit@0.57.6` | `not-yet-user-ready` | `render-parity` | Design at least one useful base variant before catalog promotion. |
+| `runix/pgadmin4@1.62.0` | `not-yet-user-ready` | `render-parity` | Design at least one useful base variant before catalog promotion. |
+| `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | `not-yet-user-ready` | `render-parity` | Design at least one useful base variant before catalog promotion. |
+| `kedacore/keda@2.19.0` | `not-yet-public-catalog-proof-ready` | `two-cluster-kind-parity` | Run catalog promotion review and add selected live lanes for the base a user would actually try. |
+| `prometheus-community/kube-state-metrics@7.4.0` | `not-yet-user-ready` | `render-parity` | Design at least one useful base variant before catalog promotion. |
+| `elastic/eck-operator@3.4.0` | `not-yet-public-catalog-proof-ready` | `two-cluster-kind-parity` | Run catalog promotion review and add selected live lanes for the base a user would actually try. |
+| `elastic/kibana@8.5.1` | `not-yet-user-ready` | `render-parity` | Design at least one useful base variant before catalog promotion. |
+| `descheduler/descheduler@0.36.0` | `not-yet-user-ready` | `render-parity` | Design at least one useful base variant before catalog promotion. |
+| `prometheus-community/prometheus-blackbox-exporter@11.10.0` | `not-yet-user-ready` | `render-parity` | Design at least one useful base variant before catalog promotion. |
+| `bitnami/elasticsearch@22.1.6` | `decision-needed-first` | `render-parity` | Decide whether to support, disclose, defer, or block the hard gap before promotion. |
+| `stakater/reloader@2.2.12` | `not-yet-user-ready` | `render-parity` | Design at least one useful base variant before catalog promotion. |
+
+## Boundaries
+
+- A public catalog row is not a blanket production-support claim.
+- A render-parity row proves the installer path matches Helm under recorded
+  inputs. It does not prove live runtime behavior by itself.
+- A hard gap is a product or operator decision, not an automatic failure.
+- Use [Top-100 Readiness](../top100-readiness/summary.md), [Outcome Coverage](../outcome-coverage/summary.md), and [Production Support Decisions](../production-support-decisions/summary.md) for drill-down.

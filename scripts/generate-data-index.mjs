@@ -51,6 +51,7 @@ function buildReport() {
 function readme(rows) {
   const quickRoutes = [
     ["I want the current headline status.", "data/status-dashboard/summary.md"],
+    ["I want to know if I can use a specific chart.", "data/chart-use-guide/summary.md; data/chart-use-guide/chart-use-guide.csv"],
     ["I want the next work queues.", "data/status-dashboard/next-work-queues.csv; data/status-dashboard/active-proof-queue.csv"],
     ["I want to know which catalog base to try first.", "data/top20-base-readiness/start-here.md"],
     ["I want to know whether any top-20 chart/base is easy, partial, blocked, or watch.", "data/top20-base-readiness/summary.md"],
@@ -73,6 +74,7 @@ function readme(rows) {
   ];
   const primary = [
     ["data/status-dashboard/summary.md", "Start here for a one-page status dashboard: top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity."],
+    ["data/chart-use-guide/summary.md", "Chart-use guide: one short answer per top-100 chart for whether to use it now, promote it, design a better base, or decide a limitation first."],
     ["data/status-dashboard/next-work-queues.csv", "Machine-readable next work queues for top100 catalog work, top20 production support, live parity, and hook/lifecycle work."],
     ["data/status-dashboard/active-proof-queue.csv", "Current non-pass live parity rows with the exact support artifact that should be handled before rerun."],
     ["data/status-dashboard/top20-status.csv", "Compact chart-by-chart status for the top-20 public catalog: recommended base, setup command, base-readiness mix, evidence strength, proof lanes, feature summary, gaps, next action."],
@@ -266,6 +268,7 @@ npm run verify
 
 function audienceFor(path) {
   if (path === "data/csv-index.csv") return "user/front-door";
+  if (path.startsWith("data/chart-use-guide/")) return "user/front-door";
   if (path.startsWith("data/status-dashboard/")) return "user/front-door";
   if (path.startsWith("data/top20-base-readiness/")) return "user/front-door";
   if (path.startsWith("data/outcome-coverage/")) return "user/front-door";
@@ -294,6 +297,7 @@ function audienceFor(path) {
 
 function roleFor(path) {
   if (path === "data/csv-index.csv") return "machine-readable index of every CSV under data";
+  if (path === "data/chart-use-guide/chart-use-guide.csv") return "one row per top-100 chart: whether to use now, promote, design a better base, or decide a limitation first";
   if (path === "data/status-dashboard/status.csv") return "front-door status dashboard across top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity";
   if (path === "data/status-dashboard/next-work-queues.csv") return "machine-readable next work queues: section, item, count, action, source table, and detail";
   if (path === "data/status-dashboard/active-proof-queue.csv") return "current non-pass live parity rows with their next step, support artifact, receipt, and rerun command";
@@ -356,6 +360,7 @@ function familyRole(family) {
   const roles = {
     adversarial10: "hard-chart readiness and control-point analysis",
     "outcome-coverage": "front-door outcome, test, and status map",
+    "chart-use-guide": "front-door can-I-use-this-chart guide",
     "claims-register": "front-door public claim-to-evidence register",
     "blast-radius-accuracy": "front-door measured blast-radius accuracy seed and backlog",
     "status-dashboard": "one-page front-door status dashboard",
@@ -442,6 +447,7 @@ function verifyForPath(path, family) {
 function commandMap() {
   return {
     "outcome-coverage": { generate: "npm run outcomes:generate", verify: "npm run outcomes:verify" },
+    "chart-use-guide": { generate: "npm run chart-use:guide", verify: "npm run chart-use:guide:verify" },
     "claims-register": { generate: "npm run claims:register", verify: "npm run claims:register:verify" },
     "blast-radius-accuracy": { generate: "npm run blast-radius:accuracy", verify: "npm run blast-radius:accuracy:verify" },
     "status-dashboard": { generate: "npm run status:dashboard", verify: "npm run status:dashboard:verify" },

@@ -31,6 +31,12 @@ For a Helm-user first-read, use
 readiness data into five user-facing groups and explains what a user must
 provide before trying each chart.
 
+If you already know the chart name, use the generated
+[Chart Use Guide](../../data/chart-use-guide/summary.md). It gives one short
+answer per top-100 chart: use the public catalog now, promote after review,
+design a better base variant first, or decide a named limitation before
+promotion.
+
 ## Current Shape
 
 ```text
@@ -45,6 +51,10 @@ provide before trying each chart.
 The generated source of truth is:
 
 [Top-100 Readiness](../../data/top100-readiness/summary.md)
+
+The shortest chart-name lookup is:
+
+[Chart Use Guide](../../data/chart-use-guide/summary.md)
 
 The compact next80 work queue is:
 

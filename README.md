@@ -23,6 +23,7 @@ Public entry points:
 - [Try now](./docs/user/try-now.md): short Redis and kube-prometheus-stack paths.
 - [Static HTML try page](./site/try.html): generated try-now page for a public site.
 - [Catalog dashboard](./site/index.html): generated status, catalog, and proof data.
+- [Chart use guide](./data/chart-use-guide/summary.md): one short answer per top-100 chart for whether to use it now, promote it, improve its base variant, or decide a limitation first.
 - [Current proof status](./docs/user/current-proof-status.md): what is proven, watch, blocked, or still backlog.
 - [Top-100 status](./docs/user/top100-status.md): plain-English groups for Helm users.
 - [Chain of proof](./docs/user/chain-of-proof.md): which tool proves which boundary.
