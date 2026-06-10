@@ -13,6 +13,19 @@ Most scripts use Node.js built-ins and do not need `npm install`. Some scripts
 shell out to `cub`, `cub installer`, `helm`, `kubectl`, `kind`, or ConfigHub
 when they are exercising installer, upload, or live-cluster paths.
 
+This page is the human runbook. The generated inventory of every current
+`package.json` script is:
+
+- [NPM Script Catalog](./npm-script-catalog.md)
+- [NPM Script Catalog CSV](./npm-script-catalog.csv)
+
+Regenerate it after adding, removing, or renaming npm scripts:
+
+```sh
+npm run npm-scripts:catalog
+npm run npm-scripts:catalog:verify
+```
+
 ## Test Cadence
 
 Use the narrowest check that proves the change you made. The full verifier is

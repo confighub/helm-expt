@@ -556,6 +556,7 @@ and which commands write files, see:
 
 ```text
 tests/npm-scripts.md
+tests/npm-script-catalog.md
 ```
 
 ## Verify Your Install
