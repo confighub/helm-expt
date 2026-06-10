@@ -166,7 +166,7 @@ function buildReport() {
 
   const chartByName = new Map(chartRows.map((row) => [row.chart, row]));
   const top20Rows = top20StatusRows(top100Rows, chartByName, top20BaseReadinessRows, productionSupportDecisionRows);
-  const nextWorkQueues = nextWorkQueueRows({ top100Rows, top100CoverageWorkRows, hookRows, lifecycleObservationRows, liveParityRerunRows, productionSupportDecisionRows, latestRefreshActionRows });
+  const nextWorkQueues = nextWorkQueueRows({ top100Rows, top100CoverageWorkRows, remoteDependencyRows, hookRows, lifecycleObservationRows, liveParityRerunRows, productionSupportDecisionRows, latestRefreshActionRows });
   const activeProofQueue = activeProofQueueRows(liveParityRerunRows);
   return {
     rows,
@@ -205,6 +205,7 @@ function summary(rows, context) {
   const liveParityWorkQueues = nextWorkQueueMarkdown(context.nextWorkQueues, "live-parity-work", "queue");
   const hookWorkQueueRows = nextWorkQueueMarkdown(context.nextWorkQueues, "hook-and-lifecycle-work", "queue");
   const latestRefreshWorkQueues = nextWorkQueueMarkdown(context.nextWorkQueues, "latest-refresh-work", "action");
+  const remoteDependencyWorkQueues = nextWorkQueueMarkdown(context.nextWorkQueues, "remote-dependency-closure-work", "workstream");
 
   return `# Status Dashboard
 
@@ -239,6 +240,15 @@ evidence work before it becomes production-supported for a target scope.
 | Queue | Charts | Next action |
 | --- | ---: | --- |
 ${top100WorkQueues}
+
+### Remote Dependency Closure Work
+
+These rows close provenance and refresh-survival gaps for public charts that
+pull remote, vendored, or non-exact dependencies.
+
+| Workstream | Rows | Next action |
+| --- | ---: | --- |
+${remoteDependencyWorkQueues}
 
 ### Top20 Production Support Work
 
@@ -731,11 +741,71 @@ function nextWorkQueueRows(context) {
   const liveParityRerunReadiness = groupCount(context.liveParityRerunRows, "rerun_readiness");
   return [
     ...top100WorkQueueObjects(context.top100Rows, context.top100CoverageWorkRows),
+    ...remoteDependencyWorkstreamObjects(context.remoteDependencyRows ?? []),
     ...supportDecisionWorkstreamObjects(context.productionSupportDecisionRows),
     ...latestRefreshWorkQueueObjects(context.latestRefreshActionRows ?? []),
     ...liveParityRerunReadinessObjects(liveParityRerunReadiness),
     ...hookWorkQueueObjects(context.hookRows, context.lifecycleObservationRows),
   ];
+}
+
+function remoteDependencyWorkstreamObjects(rows) {
+  const counts = groupCount(rows, "workstream");
+  const rowsFor = (workstream) => rows.filter((row) => row.workstream === workstream);
+  return [
+    {
+      section: "remote-dependency-closure-work",
+      item_type: "workstream",
+      item: "Create recipe/import candidates",
+      count: counts.get("create-recipe-import-candidate") ?? 0,
+      next_action: "Create recipe/import candidates with source locks, dependency locks, first bases, render parity, and catalog decisions.",
+      source: "data/remote-dependency-closure/top100.csv",
+      detail: previewDependencyRows(rowsFor("create-recipe-import-candidate")),
+    },
+    {
+      section: "remote-dependency-closure-work",
+      item_type: "workstream",
+      item: "Add dependency locks",
+      count: counts.get("add-dependency-lock") ?? 0,
+      next_action: "Add dependency-lock.yaml or record that the dependency closure is intentionally empty.",
+      source: "data/remote-dependency-closure/top100.csv",
+      detail: previewDependencyRows(rowsFor("add-dependency-lock")),
+    },
+    {
+      section: "remote-dependency-closure-work",
+      item_type: "workstream",
+      item: "Record dependency range policy",
+      count: counts.get("dependency-range-policy") ?? 0,
+      next_action: "Record non-exact dependency policy and refresh-survival evidence before promotion or upgrade.",
+      source: "data/remote-dependency-closure/top100.csv",
+      detail: previewDependencyRows(rowsFor("dependency-range-policy")),
+    },
+    {
+      section: "remote-dependency-closure-work",
+      item_type: "workstream",
+      item: "Backfill Chart.lock digest",
+      count: counts.get("chart-lock-digest") ?? 0,
+      next_action: "Record a Chart.lock digest or explain why the dependency lock is source-derived.",
+      source: "data/remote-dependency-closure/top100.csv",
+      detail: previewDependencyRows(rowsFor("chart-lock-digest")),
+    },
+    {
+      section: "remote-dependency-closure-work",
+      item_type: "workstream",
+      item: "Promote closure facts",
+      count: counts.get("promote-closure-facts") ?? 0,
+      next_action: "Expose dependency closure facts in chart facts and status surfaces.",
+      source: "data/remote-dependency-closure/top100.csv",
+      detail: previewDependencyRows(rowsFor("promote-closure-facts")),
+    },
+  ];
+}
+
+function previewDependencyRows(rows) {
+  const values = rows.slice(0, 5).map((row) => `${row.chart}@${row.source_version}`);
+  const remaining = rows.length - values.length;
+  if (remaining > 0) values.push(`and ${remaining} more`);
+  return values.join("; ");
 }
 
 function latestRefreshWorkQueueObjects(rows) {

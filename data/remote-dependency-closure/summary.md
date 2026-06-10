@@ -34,6 +34,15 @@ P2:                                                             2
 | `source-version-lock-present` | 15 | A maintained dependency lock matches the source-scan chart version. |
 | `modeled-version-lock-present` | 4 | A maintained dependency lock exists for the modeled/catalog version; source scan and model may differ. |
 
+## Workstreams
+
+| Workstream | Rows | First action | Done when |
+| --- | ---: | --- | --- |
+| `create-recipe-import-candidate` | 30 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer | recipe candidate exists with source lock, dependency lock, first base variant, render parity, and an explicit catalog decision |
+| `dependency-range-policy` | 9 | record dependency range policy and refresh-survival check for non-exact dependency constraints | non-exact dependency constraints have a recorded policy plus refresh-survival evidence for the supported version |
+| `chart-lock-digest` | 6 | record Chart.lock digest or explain why the dependency lock is source-derived rather than Chart.lock-derived | dependency lock records a Chart.lock digest or explains the source of the locked dependency list |
+| `promote-closure-facts` | 4 | promote dependency closure facts into chart facts and keep refresh-survival evidence current | chart facts and status surfaces expose dependency closure, remote repositories, and refresh-survival expectation |
+
 ## Highest Priority Rows
 
 | Source rank | Chart | Lock status | Locked dependencies | Next action |
