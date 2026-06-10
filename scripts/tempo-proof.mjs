@@ -160,10 +160,99 @@ const scanPolicy = {
   ],
 };
 
+function tempoTargetPrerequisitePlan() {
+  return {
+    apiVersion: "helm-expt.confighub.com/v1alpha1",
+    kind: "TargetPrerequisitePlan",
+    metadata: {
+      name: "grafana-tempo-1.24.4",
+      chart: "grafana/tempo",
+      version: chart.version,
+    },
+    spec: {
+      summary:
+        "The s3-query-observability base is render-equivalent, but it is only target-ready when object storage, S3 credentials, the ServiceMonitor CRD, and query ingress policy are staged and observed. Dummy S3 values are not a live proof.",
+      bases: {
+        localPersistent: {
+          status: "self-contained-for-local-proof",
+          note: "The local-persistent base uses local single-binary storage, explicit PVC settings, and the standard StorageClass for the local proof target.",
+        },
+        s3QueryObservability: {
+          status: "target-prerequisite-needed",
+          requiredBeforeRender: [
+            {
+              kind: "Value",
+              path: "tempo.storage.trace.s3.endpoint",
+              purpose: "S3-compatible endpoint Tempo will write traces to",
+            },
+            {
+              kind: "Value",
+              path: "tempo.storage.trace.s3.bucket",
+              purpose: "Existing object-store bucket for trace blocks",
+            },
+            {
+              kind: "Value",
+              path: "tempo.storage.trace.s3.region",
+              purpose: "Region used with the selected endpoint and bucket",
+            },
+            {
+              kind: "API",
+              name: "monitoring.coreos.com/v1",
+              purpose: "Renders the ServiceMonitor object only when the target capability is declared",
+            },
+          ],
+          requiredBeforeApply: [
+            {
+              kind: "Secret",
+              namespace: "tempo",
+              name: "tempo-s3-credentials",
+              keys: ["access_key", "secret_key"],
+              purpose: "Credentials referenced by Tempo environment variables",
+            },
+            {
+              kind: "CRD",
+              name: "servicemonitors.monitoring.coreos.com",
+              purpose: "Target must accept the rendered ServiceMonitor object",
+            },
+            {
+              kind: "ExternalService",
+              name: "object-store",
+              purpose: "Endpoint and bucket must exist and accept the declared credentials",
+            },
+          ],
+          mustObserve: [
+            "StatefulSet tempo/tempo is available after object-store credentials are staged",
+            "PVC for tempo storage is Bound",
+            "Tempo can write to the configured endpoint and bucket",
+            "ServiceMonitor tempo/tempo is accepted by the Prometheus Operator target",
+            "query ingress policy matches the target ingress controller and hostname",
+          ],
+          requiredReceipts: [
+            "target-fact-receipt",
+            "secret-preflight-receipt",
+            "object-store-preflight-receipt",
+            "servicemonitor-crd-receipt",
+            "runtime-observation-receipt",
+          ],
+        },
+      },
+      notProvenBy: [
+        "render parity alone",
+        "dummy endpoint, bucket, region, or credentials",
+        "a Secret with the expected name but no object-store access",
+        "a ServiceMonitor object without the target CRD and operator behavior",
+        "one local filesystem proof of the local-persistent base",
+      ],
+    },
+  };
+}
+
 runProofCli({
   chart,
   variants,
   scanPolicy,
+  extraRequiredFiles: ["target-prerequisite-plan.yaml"],
+  extraProofDocuments: () => [{ path: "target-prerequisite-plan.yaml", document: tempoTargetPrerequisitePlan() }],
   expectedDependencyCount: 0,
   recordChartLockDigest: true,
   recordDeprecated: true,
@@ -371,6 +460,33 @@ runProofCli({
     return findings;
   },
   verifyExtra({ root, controlPoints, perVariant, check, readYaml, join }) {
+    const targetPrerequisitePlan = readYaml(join(root, "target-prerequisite-plan.yaml"));
+    check(targetPrerequisitePlan.kind === "TargetPrerequisitePlan", "target-prerequisite-plan.yaml must be a TargetPrerequisitePlan");
+    check(targetPrerequisitePlan.spec.bases.localPersistent?.status === "self-contained-for-local-proof", "local-persistent target prerequisite status mismatch");
+    check(targetPrerequisitePlan.spec.bases.s3QueryObservability?.status === "target-prerequisite-needed", "s3-query-observability target prerequisite status mismatch");
+    for (const path of [
+      "tempo.storage.trace.s3.endpoint",
+      "tempo.storage.trace.s3.bucket",
+      "tempo.storage.trace.s3.region",
+    ]) {
+      check(
+        targetPrerequisitePlan.spec.bases.s3QueryObservability?.requiredBeforeRender?.some((item) => item.path === path),
+        `s3-query-observability ${path} prerequisite missing`,
+      );
+    }
+    check(
+      targetPrerequisitePlan.spec.bases.s3QueryObservability?.requiredBeforeApply?.some((item) => item.name === "tempo-s3-credentials"),
+      "s3-query-observability Secret prerequisite missing",
+    );
+    check(
+      targetPrerequisitePlan.spec.bases.s3QueryObservability?.requiredBeforeApply?.some((item) => item.name === "servicemonitors.monitoring.coreos.com"),
+      "s3-query-observability ServiceMonitor CRD prerequisite missing",
+    );
+    check(
+      targetPrerequisitePlan.spec.bases.s3QueryObservability?.mustObserve?.some((item) => item.includes("write to the configured endpoint")),
+      "s3-query-observability object-store observation missing",
+    );
+    check(targetPrerequisitePlan.spec.notProvenBy?.includes("render parity alone"), "render parity limitation must be explicit");
     check(controlPoints.spec.points?.some((point) => point.category === "chart-deprecation"), "chart-deprecation control point missing");
     check(controlPoints.spec.points?.some((point) => point.category === "target-facts"), "target-facts control point missing");
     check(controlPoints.spec.points?.some((point) => point.category === "object-store-runtime-prerequisite"), "object-store-runtime-prerequisite control point missing");
