@@ -6,8 +6,6 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "ingress-nginx default variant rendered from ingress-nginx/ingress-nginx@4.15.1"
       externalRequires:
@@ -16,26 +14,28 @@ spec:
           name: "Secret ingress-nginx/ingress-nginx-admission keys cert,key,ca"
           namespace: "ingress-nginx"
           suggestedSource: "kubectl -n ingress-nginx create secret generic ingress-nginx-admission --from-literal=cert=<value> --from-literal=key=<value> --from-literal=ca=<value>"
+      name: "default"
+      path: "bases/default"
     -
+      description: "ingress-nginx admission webhook disabled variant rendered from ingress-nginx/ingress-nginx@4.15.1"
       name: "admission-disabled"
       path: "bases/admission-disabled"
-      description: "ingress-nginx admission webhook disabled variant rendered from ingress-nginx/ingress-nginx@4.15.1"
     -
+      description: "ingress-nginx internal ClusterIP controller variant rendered from ingress-nginx/ingress-nginx@4.15.1"
       name: "internal-clusterip"
       path: "bases/internal-clusterip"
-      description: "ingress-nginx internal ClusterIP controller variant rendered from ingress-nginx/ingress-nginx@4.15.1"
   collector:
     command: "/bin/sh"
     args:
       - "collector/target-facts.sh"
-    description: "Records target-fact bindings and can live-check cluster-visible Secret and CRD requirements."
+    description: "Records target-fact bindings and can live-check existing Secret requirements."
   transformers:
     -
-      toolchain: "Kubernetes/YAML"
-      whereResource: ""
       description: "Set the namespace on every namespaced resource."
       invocations:
         -
-          name: "set-namespace"
           args:
             - "{{ .Namespace }}"
+          name: "set-namespace"
+      toolchain: "Kubernetes/YAML"
+      whereResource: ""

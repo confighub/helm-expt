@@ -61,7 +61,7 @@ function buildReport() {
     .filter((file) => file.endsWith("/recipe.yaml"))
     .map((file) => dirname(file))
     .sort();
-  check(roots.length === 100, `expected 100 recipe roots, found ${roots.length}`);
+  check(roots.length >= 100, `expected at least 100 recipe roots, found ${roots.length}`);
   const rows = roots.map(scoreRecipe).sort((a, b) => a.chart.localeCompare(b.chart));
   const totalToBuild = rows.reduce((n, r) => n + r._recommend.length, 0);
   const chartsNeedingWork = rows.filter((r) => r._recommend.length > 0).length;

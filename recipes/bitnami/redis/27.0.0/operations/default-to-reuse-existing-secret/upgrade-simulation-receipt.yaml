@@ -1,0 +1,28 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: UpgradeSimulationReceipt
+metadata:
+  name: bitnami-redis-default-to-reuse-existing-secret
+spec:
+  scope: variant-transition
+  chartVersions:
+    from: 27.0.0
+    to: 27.0.0
+  fromRevision: ../../revisions/default/r001/variant-revision.yaml
+  toRevision: ../../revisions/reuse-existing-secret/r001/variant-revision.yaml
+  fromRenderedObjectSetSHA256: "758467319ec109764b55ee730ba51a37a2196744f45f5c064f212bfc176178f0"
+  toRenderedObjectSetSHA256: "ff3e9532687b0826784a329dd1b10afea3a7bfd355bced74d5fa9064f7908eb4"
+  diffDigest: "sha256:e9d44cc9a9d74c364b73e91b7b4a74aef40bcc89719b2aff6674ef9dc0c4627f"
+  preservedChanges:
+    - "StatefulSet names, Services, RBAC, ConfigMaps, and PVC templates remain in the same release/namespace identity."
+  droppedChanges:
+    - "Rendered Secret redis/redis is removed because the target now supplies redis/redis-existing-secret."
+  requiredOperatorDecisions:
+    - "Create or confirm Secret redis/redis-existing-secret with key redis-password before apply."
+    - "Decide whether removing the chart-rendered Secret should delete the old Secret or leave it for retention/rollback."
+  risks:
+    hooks: "no Helm hooks are executed in this proof path"
+    crds: "none"
+    pvc: "StatefulSet PVCs are preserved by object identity; storage policy still requires operator review."
+    generatedFacts: "auth.password generated fact is replaced by a target fact reference."
+  conflicts: []
+  result: warn

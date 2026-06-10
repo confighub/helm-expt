@@ -1,5 +1,7 @@
 chart,version,catalog_status,proof_surface,rendered_subjects,subjects_needing_resolution,image_refs,mutable_tag_refs,floating_latest_or_untagged_refs,resolution_receipts,support_image_policy_decisions,next_action
+hashicorp/vault,0.32.0,catalog-supported,top20-catalog-supported,3,3,6,6,0,0,0,resolve image digests for each affected variant before production OCI support
 argo-cd/argo-cd,9.5.15,catalog-supported,top20-catalog-supported,2,2,18,18,0,2,1,image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes
+argo-cd/argo-cd,9.5.17,catalog-supported,top20-catalog-supported,2,2,18,18,0,0,0,resolve image digests for each affected variant before production OCI support
 bitnami/mysql,14.0.3,catalog-supported,top20-catalog-supported,2,2,4,4,0,2,1,image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes
 bitnami/rabbitmq,16.0.14,catalog-supported,top20-catalog-supported,2,2,4,4,0,2,1,image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes
 external-secrets/external-secrets,2.5.0,catalog-supported,top20-catalog-supported,2,2,6,6,0,2,1,image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes
@@ -7,19 +9,25 @@ grafana/grafana,10.5.15,catalog-supported,top20-catalog-supported,2,2,2,2,0,0,0,
 grafana/loki,7.0.0,catalog-supported,top20-catalog-supported,2,2,19,19,0,2,1,image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes
 grafana/tempo,1.24.4,catalog-supported,top20-catalog-supported,2,2,3,3,0,0,0,resolve image digests for each affected variant before production OCI support
 hashicorp/consul,2.0.0,catalog-supported,top20-catalog-supported,2,2,15,15,0,2,1,image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes
-hashicorp/vault,0.32.0,catalog-supported,top20-catalog-supported,2,2,4,4,0,0,0,resolve image digests for each affected variant before production OCI support
 jetstack/cert-manager,v1.20.2,catalog-supported,top20-catalog-supported,2,2,6,6,0,2,1,image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes
 longhorn/longhorn,1.11.2,catalog-supported,top20-catalog-supported,2,2,10,10,0,2,1,image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes
 metrics-server/metrics-server,3.13.0,catalog-supported,top20-catalog-supported,2,2,2,2,0,2,1,image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes
 prometheus-community/kube-prometheus-stack,85.3.3,catalog-supported,top20-catalog-supported,2,2,16,16,0,2,1,image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes
+prometheus-community/kube-prometheus-stack,86.1.0,catalog-supported,top20-catalog-supported,2,2,16,16,0,0,0,resolve image digests for each affected variant before production OCI support
 prometheus-community/prometheus,29.8.0,catalog-supported,top20-catalog-supported,2,2,8,8,0,2,1,image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes
+prometheus-community/prometheus,29.9.0,catalog-supported,top20-catalog-supported,2,2,8,8,0,0,0,resolve image digests for each affected variant before production OCI support
 secrets-store-csi-driver/secrets-store-csi-driver,1.6.0,catalog-supported,top20-catalog-supported,2,2,6,6,0,2,1,image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes
 bitnami/mongodb,19.0.7,catalog-supported,top20-catalog-supported,2,0,5,0,0,0,1,none
+bitnami/mongodb,19.0.9,catalog-supported,top20-catalog-supported,2,0,5,0,0,0,0,none
 bitnami/nginx,24.0.2,catalog-supported,top20-catalog-supported,2,0,4,0,0,0,0,none
+bitnami/nginx,24.0.4,catalog-supported,top20-catalog-supported,2,0,4,0,0,0,0,none
+bitnami/postgresql,18.6.10,catalog-supported,top20-catalog-supported,2,0,2,0,0,0,0,none
 bitnami/postgresql,18.6.7,catalog-supported,top20-catalog-supported,2,0,2,0,0,0,1,none
 bitnami/redis,25.5.3,catalog-supported,top20-catalog-supported,2,0,4,0,0,0,0,none
-ingress-nginx/ingress-nginx,4.15.1,catalog-supported,top20-catalog-supported,2,0,2,0,0,0,0,none
+bitnami/redis,27.0.0,catalog-supported,top20-catalog-supported,2,0,4,0,0,0,0,none
+ingress-nginx/ingress-nginx,4.15.1,catalog-supported,top20-catalog-supported,3,0,3,0,0,0,0,none
 elastic/eck-operator,3.4.0,proof-grade,next80-proof-grade,3,3,3,3,0,0,0,resolve image digests for each affected variant before production OCI support
+external-dns/external-dns,1.21.1,proof-grade,next80-proof-grade,3,3,3,3,0,0,0,resolve image digests for each affected variant before production OCI support
 grafana/pyroscope,2.0.2,proof-grade,next80-proof-grade,3,3,9,9,0,0,0,resolve image digests for each affected variant before production OCI support
 aqua/trivy-operator,0.32.1,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
 argo-cd/argo-events,2.4.21,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
@@ -32,7 +40,6 @@ bitnami/spark,10.0.3,proof-grade,next80-proof-grade,2,2,4,4,0,0,0,resolve image 
 bitnami/zookeeper,13.8.7,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
 cloudnative-pg/cloudnative-pg,0.28.2,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
 elastic/logstash,8.5.1,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
-external-dns/external-dns,1.21.1,proof-grade,next80-proof-grade,2,2,2,2,0,0,0,resolve image digests for each affected variant before production OCI support
 fairwinds-stable/vpa,4.11.0,proof-grade,next80-proof-grade,2,2,6,6,0,0,0,resolve image digests for each affected variant before production OCI support
 gatekeeper/gatekeeper,3.22.2,proof-grade,next80-proof-grade,2,2,4,4,0,0,0,resolve image digests for each affected variant before production OCI support
 grafana/alloy,1.8.2,proof-grade,next80-proof-grade,2,2,4,2,0,0,0,resolve image digests for each affected variant before production OCI support

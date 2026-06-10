@@ -1,0 +1,22 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: GeneratedFactReceipt
+metadata:
+  name: bitnami-redis-default-r001
+spec:
+  variantRevision: ../variant-revision.yaml
+  generatedFactsSHA256: "cd7bfad5181e2a1ed64ecc24c4aac04b86cc90e01da81868cf699bb1dbb1358f"
+  materialPolicy: persisted
+  facts:
+    - name: auth.password
+      kind: password
+      digest: "sha256:6486a1dce90d013579f3b52d6939524b23b3ca00c5702e409348e6c0ba782349"
+      storedAs: plain
+      valuePath: effective-values.yaml#spec.values.auth.password
+      renderedObjects:
+        - v1|Secret|redis|redis
+        - apps/v1|StatefulSet|redis|redis-master
+        - apps/v1|StatefulSet|redis|redis-replicas
+  deterministicReplay:
+    sameGeneratedFactsSameRenderedObjectSet: true
+    renderedObjectSetSHA256: "758467319ec109764b55ee730ba51a37a2196744f45f5c064f212bfc176178f0"
+  result: pass

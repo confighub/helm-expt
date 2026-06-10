@@ -6,13 +6,11 @@ metadata:
 spec:
   bases:
     -
-      name: "generated-passwords"
-      path: "bases/generated-passwords"
       default: true
       description: "mongodb generated passwords variant rendered from bitnami/mongodb@19.0.9"
+      name: "generated-passwords"
+      path: "bases/generated-passwords"
     -
-      name: "existing-secret-replicaset"
-      path: "bases/existing-secret-replicaset"
       description: "mongodb existing Secret replica set variant rendered from bitnami/mongodb@19.0.9"
       externalRequires:
         -
@@ -20,6 +18,8 @@ spec:
           name: "Secret mongodb/mongodb-auth keys mongodb-root-password,mongodb-replica-set-key"
           namespace: "mongodb"
           suggestedSource: "kubectl -n mongodb create secret generic mongodb-auth --from-literal=mongodb-root-password=<value> --from-literal=mongodb-replica-set-key=<value>"
+      name: "existing-secret-replicaset"
+      path: "bases/existing-secret-replicaset"
   collector:
     command: "/bin/sh"
     args:
@@ -30,8 +30,8 @@ spec:
       description: "Set the namespace on every namespaced resource."
       invocations:
         -
-          name: "set-namespace"
           args:
             - "{{ .Namespace }}"
+          name: "set-namespace"
       toolchain: "Kubernetes/YAML"
       whereResource: ""

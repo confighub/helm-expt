@@ -177,7 +177,10 @@ function actionRow(row, replacement) {
 function retainedCandidateVersion(row, replacement) {
   if (replacement?.candidate_version) return replacement.candidate_version;
   const match = row.next_action.match(/refresh retained candidate ([^ ]+) to latest upstream/);
-  return match?.[1] ?? "";
+  if (match) return match[1];
+  if (row.candidate_proof === "candidate-proof-complete-root-path-present") return row.latest_version;
+  if (row.candidate_proof === "candidate-render-proof-present") return row.latest_version;
+  return "";
 }
 
 function summary(rows) {

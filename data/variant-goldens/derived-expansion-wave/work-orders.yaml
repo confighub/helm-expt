@@ -41,7 +41,7 @@ spec:
       sourceSpace: "helm-prometheus-confighub-proof"
       sourceRevision: "recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/variant-revision.yaml"
       renderedObjectSetSHA256: "c11349803ddbb44562066474dd04d47d7c5c75d083dbc96162224573f949c11b"
-      uploadedUnitCount: 25
+      uploadedUnitCount: 8
     -
       id: "nginx-http-clusterip"
       chart: "bitnami/nginx"
@@ -71,7 +71,7 @@ spec:
       sourceSpace: "helm-vault-confighub-proof"
       sourceRevision: "recipes/hashicorp/vault/0.32.0/revisions/default/r001/variant-revision.yaml"
       renderedObjectSetSHA256: "6de2d61c8de0c21faa951e89ec16658bcdff22e69d78075fdd394d895a5e6978"
-      uploadedUnitCount: 14
+      uploadedUnitCount: 13
   workOrders:
     -
       id: "redis-prod-us-east"
@@ -184,7 +184,7 @@ spec:
         sourceRevision: "recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/variant-revision.yaml"
         renderedObjectSetSHA256: "c11349803ddbb44562066474dd04d47d7c5c75d083dbc96162224573f949c11b"
         objectCount: 23
-        uploadedUnitCount: 25
+        uploadedUnitCount: 8
       create:
         variant: "prod-us-east"
         downstreamSpace: "Prometheus-prod-us-east"
@@ -234,7 +234,7 @@ spec:
         sourceRevision: "recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/variant-revision.yaml"
         renderedObjectSetSHA256: "c11349803ddbb44562066474dd04d47d7c5c75d083dbc96162224573f949c11b"
         objectCount: 23
-        uploadedUnitCount: 25
+        uploadedUnitCount: 8
       create:
         variant: "staging-eu-west"
         downstreamSpace: "Prometheus-staging-eu-west"
@@ -482,7 +482,7 @@ spec:
         sourceRevision: "recipes/hashicorp/vault/0.32.0/revisions/default/r001/variant-revision.yaml"
         renderedObjectSetSHA256: "6de2d61c8de0c21faa951e89ec16658bcdff22e69d78075fdd394d895a5e6978"
         objectCount: 12
-        uploadedUnitCount: 14
+        uploadedUnitCount: 13
       create:
         variant: "regulated-prod-us-east"
         downstreamSpace: "Vault-regulated-prod-us-east"
@@ -532,7 +532,7 @@ spec:
         sourceRevision: "recipes/hashicorp/vault/0.32.0/revisions/default/r001/variant-revision.yaml"
         renderedObjectSetSHA256: "6de2d61c8de0c21faa951e89ec16658bcdff22e69d78075fdd394d895a5e6978"
         objectCount: 12
-        uploadedUnitCount: 14
+        uploadedUnitCount: 13
       create:
         variant: "staging-us-east"
         downstreamSpace: "Vault-staging-us-east"

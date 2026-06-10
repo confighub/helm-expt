@@ -21,13 +21,16 @@ function verifyConfigHubProof() {
   check(receipt.spec?.render?.manifestCount === 10, "Metrics Server render must produce 10 manifests");
   check(receipt.spec?.render?.separatedSecretCount === 0, "Metrics Server default must not separate secrets");
   check(receipt.spec?.deterministicPackage?.byteIdenticalAcrossTwoLocalBundles === true, "Metrics Server package must be deterministic");
-  check(receipt.spec?.upload?.metricsServerKubernetesUnitCount === 10, "Metrics Server upload must create 10 Kubernetes Units");
+  check(receipt.spec?.upload?.kubernetesUnitCount === 10, "Metrics Server upload must create 10 Kubernetes Units");
   check(receipt.spec?.upload?.installerRecordUnitCount === 1, "Metrics Server upload must create installer-record Unit");
-  check(receipt.spec?.upload?.unresolvedClusterReferences?.length === 2, "Metrics Server must record two unresolved cluster references");
+  const targetFactRequirements = receipt.spec?.package?.targetFactRequirements ?? [];
+  check(targetFactRequirements.length === 1, "Metrics Server must record external-tls-ca target fact requirements");
+  check(targetFactRequirements[0]?.base === "external-tls-ca", "Metrics Server target fact requirements must belong to external-tls-ca");
+  check(targetFactRequirements[0]?.requirements?.length === 1, "Metrics Server external-tls-ca must declare one target prerequisite group");
   check(receipt.spec?.plan?.result === "pass", "Metrics Server post-upload plan must pass");
   check(receipt.spec?.serverSideVariant?.result === "pass", "Metrics Server server-side variant must pass");
   check(receipt.spec?.serverSideVariant?.clonedUnitCount === 11, "Metrics Server staging clone must contain 11 Units");
-  check(receipt.spec?.review?.representativeUnit === "apiservice-v1beta1-metrics-k8s-io", "Metrics Server representative review Unit must be APIService");
+  check(receipt.spec?.review?.representativeUnit === "deployment-kube-system-metrics-server", "Metrics Server representative review Unit must be deployment");
 }
 
 function verifyFunctionScan() {
@@ -67,4 +70,3 @@ function verifySafeOps() {
   check(receipt.spec?.cancel?.result === "pass", "Metrics Server cancel must pass");
   check(receipt.spec?.safetyResult === "pass", "Metrics Server safe-ops safety result must pass");
 }
-

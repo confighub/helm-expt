@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/prometheus-community/prometheus/29.9.0/control-points.yaml"
     valueModel: "recipes/prometheus-community/prometheus/29.9.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/prometheus-community/prometheus/29.9.0/helm-pain-report.yaml"
     controlPointCategories:
       - "bundle-dependencies"
       - "capability-profile"
@@ -54,12 +55,12 @@ spec:
     userStatus: ""
     strongestEvidence: ""
     proofLanes:
-      renderParity: ""
-      inConfigHub: ""
-      localLive: ""
-      gitopsLive: ""
-      liveParity: ""
-    featureSummary: ""
+      renderParity: "2/2"
+      inConfigHub: "0/2"
+      localLive: "0/2"
+      gitopsLive: "0/2"
+      liveParity: "0/2"
+    featureSummary: "none-recorded"
     hardGap: ""
     nextAction: ""
   installerPackage:

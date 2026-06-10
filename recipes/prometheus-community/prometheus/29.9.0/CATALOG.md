@@ -31,8 +31,8 @@ for exact base-variant evidence.
 | Adoption bucket | - |
 | User status | - |
 | Strongest evidence | - |
-| Proof lanes | render parity -; ConfigHub -; local live -; GitOps live -; live parity - |
-| Feature summary | - |
+| Proof lanes | render parity 2/2; ConfigHub 0/2; local live 0/2; GitOps live 0/2; live parity 0/2 |
+| Feature summary | none-recorded |
 | Hard gap | - |
 | Next action | - |
 
@@ -48,6 +48,7 @@ for exact base-variant evidence.
 | Control points | [recipes/prometheus-community/prometheus/29.9.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/prometheus-community/prometheus/29.9.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/prometheus-community/prometheus/29.9.0/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/prometheus-community/prometheus/29.9.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package | [packages/prometheus-community/prometheus/29.9.0](../../../../packages/prometheus-community/prometheus/29.9.0) |
 | Installer package receipt | [recipes/prometheus-community/prometheus/29.9.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/prometheus-community/prometheus/29.9.0/artifact-index.yaml](artifact-index.yaml) |

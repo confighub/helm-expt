@@ -6,7 +6,7 @@ spec:
   chart: "metrics-server/metrics-server"
   version: "3.13.0"
   variant: "default"
-  resolvedAt: "2026-06-10T04:41:34.814Z"
+  resolvedAt: "2026-06-10T15:48:22.341Z"
   renderedObjectSet:
     path: "recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/rendered/release-objects.yaml"
     sha256: "97514966a1917b1ae3b597ec3a32216d0a650db7cb56d472f4e722c69c869b51"

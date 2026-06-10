@@ -59,7 +59,7 @@ sidecar, or add-on slots in the chart facts.
 | `bitnami/postgresql@18.6.7` | generated-passwords+existing-secret | ha (curated proof lane - bespoke teaching needed) | use the supported base; route Helm-input changes through a reviewed `cub installer` base and post-render changes through `cub variant create` |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords+existing-secret | ha (curated proof lane - bespoke teaching needed) | use the supported base; route Helm-input changes through a reviewed `cub installer` base and post-render changes through `cub variant create` |
 | `bitnami/redis@25.5.3` | default+reuse-existing-secret | - | use the supported base; route Helm-input changes through a reviewed `cub installer` base and post-render changes through `cub variant create` |
-| `ingress-nginx/ingress-nginx@4.15.1` | default+admission-disabled | - | use the supported base; route Helm-input changes through a reviewed `cub installer` base and post-render changes through `cub variant create` |
+| `ingress-nginx/ingress-nginx@4.15.1` | default+admission-disabled+internal-clusterip | - | use the supported base; route Helm-input changes through a reviewed `cub installer` base and post-render changes through `cub variant create` |
 | `longhorn/longhorn@1.11.2` | default+ui-ingress | - | use the supported base; route Helm-input changes through a reviewed `cub installer` base and post-render changes through `cub variant create` |
 | `metrics-server/metrics-server@3.13.0` | default+external-tls-ca | existing-secret (chart ships no Secret toggle) | use the supported base; route Helm-input changes through a reviewed `cub installer` base and post-render changes through `cub variant create` |
 

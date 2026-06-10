@@ -34,16 +34,16 @@ top-500 source rows using tpl: 362/500
 | --- | --- | ---: | ---: | --- |
 | `lookup-target-facts` | `tracked-and-surfaced` | 26 | 244 | Target-fact enforcement is stronger for selected charts than for every top-100 row. |
 | `generated-facts` | `tracked-and-surfaced` | 29 | 282 | Not every generated-fact path has field-level reachability yet. |
-| `capability-profile` | `partly-tracked` | 49 | 370 | 120/156 render receipts declare renderer flags and kubeVersion. |
-| `helm-flag-profile` | `partly-tracked` | 120 | 156 | 120/156 render receipts include the expected flag profile. |
+| `capability-profile` | `partly-tracked` | 49 | 370 | 136/173 render receipts declare renderer flags and kubeVersion. |
+| `helm-flag-profile` | `partly-tracked` | 136 | 173 | 136/173 render receipts include the expected flag profile. |
 | `hook-phase` | `partly-tracked` | 5 | 54 | Hook presence and phase are tracked, but lifecycle receipts are not complete. |
 | `hook-delete-policy` | `source-scanned-not-surfaced` | 5 | 44 | Delete policy can change cleanup, rerun, and rollback behavior. |
 | `hook-weight-ordering` | `source-scanned-not-surfaced` | 4 | 21 | Weight ordering affects lifecycle sequencing and may not map cleanly to GitOps. |
 | `crds` | `tracked-and-surfaced` | 37 | 102 | CRD upgrade safety remains operator-reviewed. |
 | `crd-upgrade-behavior` | `disclosed-not-complete` | 37 | 102 | Schema conversion and multi-version upgrade behavior are not fully modeled. |
 | `install-vs-upgrade` | `tracked-and-surfaced` | 18 | 177 | It is not yet tied to upgrade-simulation receipts for every affected chart. |
-| `dependency-lock` | `tracked-and-surfaced` | 100 | 100 | 100 dependency locks found. |
-| `library-chart` | `tracked-by-lock-not-front-door` | 1 | 1 | Library chart presence is not yet a chart-facts column. |
+| `dependency-lock` | `tracked-and-surfaced` | 107 | 107 | 107 dependency locks found. |
+| `library-chart` | `tracked-by-lock-not-front-door` | 2 | 2 | Library chart presence is not yet a chart-facts column. |
 | `dependency-alias` | `tracked-by-lock-not-front-door` | 6 | 6 | Alias-driven subchart identity can obscure where objects come from. |
 | `import-values` | `not-scanned` | 0 | 0 | Imported subchart values can create hidden high-density value paths. |
 | `required-or-fail` | `tracked-and-surfaced` | 33 | 309 | Not every required value has a typed user prompt. |

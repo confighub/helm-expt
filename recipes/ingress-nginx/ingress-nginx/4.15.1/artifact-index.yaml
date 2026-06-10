@@ -66,7 +66,7 @@ spec:
     path: "packages/ingress-nginx/ingress-nginx/4.15.1"
     installer: "packages/ingress-nginx/ingress-nginx/4.15.1/installer.yaml"
     receipt: "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "3e37d60f8d88f0d92fe26645fe57a04d98a770bc6282f60e5dc71d3c4c79905d"
+    deterministicBundleSHA256: "3d02ef3574f6f2e82546c647645f3fa8f3e766f127de1d80b000ded490f919a4"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

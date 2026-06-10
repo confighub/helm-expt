@@ -13,9 +13,9 @@ wave-2 variant work orders:        5
 top-20 production rows:            20
 top-100 runtime/GitOps rows:       100
 top-100 rows with local runtime:   20
-latest top-20 candidates:          6
-rendered image rows reviewed:      369
-rendered subjects with mutable/floating images: 142
+latest top-20 candidates:          7
+rendered image rows reviewed:      427
+rendered subjects with mutable/floating images: 149
 ```
 
 ## Files

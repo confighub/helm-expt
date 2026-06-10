@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/control-points.yaml"
     valueModel: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/helm-pain-report.yaml"
     controlPointCategories:
       - "admission-webhook"
       - "capability-profile"
@@ -52,19 +53,19 @@ spec:
     userStatus: ""
     strongestEvidence: ""
     proofLanes:
-      renderParity: ""
-      inConfigHub: ""
-      localLive: ""
-      gitopsLive: ""
-      liveParity: ""
-    featureSummary: ""
+      renderParity: "2/2"
+      inConfigHub: "0/2"
+      localLive: "0/2"
+      gitopsLive: "0/2"
+      liveParity: "0/2"
+    featureSummary: "none-recorded"
     hardGap: ""
     nextAction: ""
   installerPackage:
     path: "packages/prometheus-community/kube-prometheus-stack/86.1.0"
     installer: "packages/prometheus-community/kube-prometheus-stack/86.1.0/installer.yaml"
     receipt: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "ddd45b41e0b71d8821ddb9fcf881cbbde09bb1964cca6126a9e9fdc09270bd28"
+    deterministicBundleSHA256: "6dd9090882c9ce698cc76bc038693914e8b5d7f8251ca610f1e73b32ba84679b"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

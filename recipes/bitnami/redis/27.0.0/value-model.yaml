@@ -1,0 +1,27 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ValueModel
+metadata:
+  name: bitnami-redis-27.0.0
+spec:
+  checkedValues:
+    - path: auth.password
+      disposition: generated-fact-bound
+      variant: default
+      reason: binds the Redis password before render so Helm output is deterministic and the generated fact can be reviewed by digest
+    - path: image.digest
+      disposition: pinned-image
+      variant: all
+      reason: supported bases pin the Bitnami Redis image by digest instead of rendering the chart default latest tag
+    - path: auth.existingSecret
+      disposition: target-secret-reference
+      variant: reuse-existing-secret
+      reason: moves credential ownership to an explicit target fact
+    - path: auth.existingSecretPasswordKey
+      disposition: target-secret-key-reference
+      variant: reuse-existing-secret
+      reason: records the required key shape without storing secret material
+  unknownValues: checked-for-proof-path
+  deadValues: checked-for-proof-path
+  ignoredValues: checked-for-proof-path
+  diagnostics: values-diagnostics.yaml
+  valueSourceMap: value-source-map.yaml

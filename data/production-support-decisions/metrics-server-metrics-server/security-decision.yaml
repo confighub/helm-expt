@@ -35,7 +35,7 @@ spec:
         findingCount: 1
         topChecks:
           unset-memory-requirements: 1
-        renderedObjectSetSHA256: "4b9df6b53cb5d8ed0b655b121696183d1c107ea88511e889bef1aae6708c8dad"
+        renderedObjectSetSHA256: "03497dfa266c74cd3bdbf9f884e4d255ae0f24b426a030f6290c36505a1300a4"
   acceptedFindings:
     -
       group: "unset-memory-requirements"

@@ -4,13 +4,16 @@ metadata:
   name: "hashicorp-vault-0.32.0"
 spec:
   chart:
-    repository: "hashicorp"
     name: "vault"
+    repository: "hashicorp"
     version: "0.32.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/hashicorp/vault/0.32.0 -o <tmp>/vault-0.32.0.tgz"
+    sha256: "94f717011fd360cf4e7568a71f63bc80f2fcab03277f8f54a8aa3182a25dccd4"
   package:
-    path: "packages/hashicorp/vault/0.32.0"
     name: "hashicorp-vault"
-    version: "0.32.0"
+    path: "packages/hashicorp/vault/0.32.0"
     sourceFiles:
       -
         path: "README.md"
@@ -41,47 +44,48 @@ spec:
         sha256: "734a212cbb2e8d11ed288d32bc8b709e859248ef5587090b04e0fa407b248b5f"
         bytes: 18113
       -
+        path: "collector/target-facts.sh"
+        sha256: "d39749b6d0e706c983c419e1e91eefb95f6b024b939a9f54b9698a6d9cb2c324"
+        bytes: 1449
+      -
         path: "installer.yaml"
-        sha256: "a1161e5410cda5bd779f1d76e0ed4846e10cc3aa115c76e3c3736f7c9796a1b5"
-        bytes: 622
-  deterministicBundle:
-    command: "cub installer package packages/hashicorp/vault/0.32.0 -o <tmp>/vault-0.32.0.tgz"
-    sha256: "b3a5ccd4e4b93c5e4125ce2244abd2ec37042b543518961d5f0246b392665499"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "2ac7d2b932ba72de88198fbe0923e877f2aecfe643e8bca29e30efd842550673"
+        bytes: 801
+    version: "0.32.0"
   setupChecks:
     -
-      variant: "dev-mode"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||vault"
       base: "dev-mode"
       command: "cub installer setup --pull packages/hashicorp/vault/0.32.0 --base dev-mode --work-dir <tmp> --non-interactive --namespace vault"
-      helmReleaseObjectCount: 11
       cubInstallObjectCountIncludingSupport: 12
+      helmReleaseObjectCount: 11
       semanticObjectMatches: "11/11"
       separatedSecretCount: 0
       targetFactMode: "not-required"
       targetFactsBound: false
+      variant: "dev-mode"
+    -
       allowedCubOnlyObjects:
         - "v1|Namespace||vault"
-    -
-      variant: "default"
       base: "default"
       command: "cub installer setup --pull packages/hashicorp/vault/0.32.0 --base default --work-dir <tmp> --non-interactive --namespace vault"
-      helmReleaseObjectCount: 12
       cubInstallObjectCountIncludingSupport: 13
+      helmReleaseObjectCount: 12
       semanticObjectMatches: "12/12"
       separatedSecretCount: 0
       targetFactMode: "not-required"
       targetFactsBound: false
+      variant: "default"
+    -
       allowedCubOnlyObjects:
         - "v1|Namespace||vault"
-    -
-      variant: "ha-raft-ui"
       base: "ha-raft-ui"
       command: "cub installer setup --pull packages/hashicorp/vault/0.32.0 --base ha-raft-ui --work-dir <tmp> --non-interactive --namespace vault"
-      helmReleaseObjectCount: 18
       cubInstallObjectCountIncludingSupport: 19
+      helmReleaseObjectCount: 18
       semanticObjectMatches: "18/18"
       separatedSecretCount: 0
-      targetFactMode: "not-required"
-      targetFactsBound: false
-      allowedCubOnlyObjects:
-        - "v1|Namespace||vault"
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "ha-raft-ui"

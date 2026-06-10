@@ -9,7 +9,7 @@ are the next rows to work, not the whole corpus.
 ```text
 gap-review first rows:             9
 strict promotion-review rows:      8
-latest-version promotion rows:     6
+latest-version promotion rows:     7
 variant-build rows:                5
 production-disposition first rows: 5
 import prototype rows:             3
@@ -61,12 +61,13 @@ receipts before the follow-up runtime/GitOps and image-digest lanes run.
 
 | # | Chart | Current | Candidate | Status |
 | --- | --- | --- | --- | --- |
-| 1 | argo-cd/argo-cd | 9.5.15 | 9.5.17 | ready-for-full-lane-promotion |
-| 2 | bitnami/mongodb | 19.0.7 | 19.0.9 | ready-for-full-lane-promotion |
-| 3 | bitnami/nginx | 24.0.2 | 24.0.4 | ready-for-full-lane-promotion |
-| 4 | bitnami/postgresql | 18.6.7 | 18.6.10 | ready-for-full-lane-promotion |
-| 5 | prometheus-community/kube-prometheus-stack | 85.3.3 | 86.1.0 | ready-for-full-lane-promotion |
-| 6 | prometheus-community/prometheus | 29.8.0 | 29.9.0 | ready-for-full-lane-promotion |
+| 1 | argo-cd/argo-cd | 9.5.15 | 9.5.17 | root-path-promoted-review-required |
+| 2 | bitnami/mongodb | 19.0.7 | 19.0.9 | root-path-promoted-review-required |
+| 3 | bitnami/nginx | 24.0.2 | 24.0.4 | root-path-promoted-review-required |
+| 4 | bitnami/postgresql | 18.6.7 | 18.6.10 | root-path-promoted-review-required |
+| 5 | bitnami/redis | 25.5.3 | 27.0.0 | root-path-promoted-review-required |
+| 6 | prometheus-community/kube-prometheus-stack | 85.3.3 | 86.1.0 | root-path-promoted-review-required |
+| 7 | prometheus-community/prometheus | 29.8.0 | 29.9.0 | root-path-promoted-review-required |
 
 ## Variant Build Wave
 

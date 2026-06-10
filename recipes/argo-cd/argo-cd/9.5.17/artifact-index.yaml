@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/argo-cd/argo-cd/9.5.17/control-points.yaml"
     valueModel: "recipes/argo-cd/argo-cd/9.5.17/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/argo-cd/argo-cd/9.5.17/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "cluster-rbac"
@@ -54,19 +55,19 @@ spec:
     userStatus: ""
     strongestEvidence: ""
     proofLanes:
-      renderParity: ""
-      inConfigHub: ""
-      localLive: ""
-      gitopsLive: ""
-      liveParity: ""
-    featureSummary: ""
+      renderParity: "2/2"
+      inConfigHub: "0/2"
+      localLive: "0/2"
+      gitopsLive: "0/2"
+      liveParity: "0/2"
+    featureSummary: "none-recorded"
     hardGap: ""
     nextAction: ""
   installerPackage:
     path: "packages/argo-cd/argo-cd/9.5.17"
     installer: "packages/argo-cd/argo-cd/9.5.17/installer.yaml"
     receipt: "recipes/argo-cd/argo-cd/9.5.17/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "eca9dcd033ec16724f251c98acb69182cdbd5af02cb5a081ee117d917c1e5e2d"
+    deterministicBundleSHA256: "f541eb449cf0dfee7fcc9fb940a149da98b8c6bd5c8f240c5044b6e8bb4ef8cc"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

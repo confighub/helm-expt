@@ -86,7 +86,7 @@ function buildReport() {
   check(variantRows.length === 5, `expected 5 wave-2 variant work orders; found ${variantRows.length}`);
   check(productionRows.length === 20, `expected 20 production disposition rows; found ${productionRows.length}`);
   check(runtimeRows.length === 100, `expected 100 runtime/GitOps sweep rows; found ${runtimeRows.length}`);
-  check(latestRows.length === 6, `expected 6 latest candidate rows; found ${latestRows.length}`);
+  check(latestRows.length === latest.length, `expected ${latest.length} latest candidate rows; found ${latestRows.length}`);
   check(imageRows.length > 0, "expected rendered image review rows");
 
   const outputs = {

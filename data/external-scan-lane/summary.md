@@ -18,29 +18,29 @@ ConfigHub function checks or chart-specific production dispositions.
 
 ```text
 charts scanned: 20
-variant rendered object sets scanned: 40
+variant rendered object sets scanned: 42
 pass: 0
-warn: 40
+warn: 42
 fail: 0
-total findings: 307
+total findings: 320
 ```
 
 ## Most Common Findings
 
 | Check | Count |
 | --- | ---: |
-| `unset-memory-requirements` | 90 |
-| `unset-cpu-requirements` | 85 |
-| `no-read-only-root-fs` | 40 |
+| `unset-memory-requirements` | 93 |
+| `unset-cpu-requirements` | 87 |
+| `no-read-only-root-fs` | 43 |
 | `dangling-service` | 20 |
 | `pdb-unhealthy-pod-eviction-policy` | 16 |
 | `run-as-non-root` | 16 |
 | `sensitive-host-mounts` | 9 |
-| `liveness-port` | 6 |
-| `readiness-port` | 6 |
+| `liveness-port` | 8 |
+| `readiness-port` | 8 |
+| `startup-port` | 5 |
 | `privilege-escalation-container` | 4 |
 | `privileged-container` | 4 |
-| `startup-port` | 4 |
 
 ## Chart Workdown
 

@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/bitnami/mongodb/19.0.9/control-points.yaml"
     valueModel: "recipes/bitnami/mongodb/19.0.9/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/bitnami/mongodb/19.0.9/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"
@@ -57,19 +58,19 @@ spec:
     userStatus: ""
     strongestEvidence: ""
     proofLanes:
-      renderParity: ""
-      inConfigHub: ""
-      localLive: ""
-      gitopsLive: ""
-      liveParity: ""
-    featureSummary: ""
+      renderParity: "2/2"
+      inConfigHub: "0/2"
+      localLive: "0/2"
+      gitopsLive: "0/2"
+      liveParity: "0/2"
+    featureSummary: "none-recorded"
     hardGap: ""
     nextAction: ""
   installerPackage:
     path: "packages/bitnami/mongodb/19.0.9"
     installer: "packages/bitnami/mongodb/19.0.9/installer.yaml"
     receipt: "recipes/bitnami/mongodb/19.0.9/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "5f85bd35400dd0f8a489cb98ae0df849f80ada939396716ba1c33f61fa6dd65c"
+    deterministicBundleSHA256: "4af330e6e34f38ae7cb1eba0ab5001332bcf4b5809dd65bba59674ba6bdfae61"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

@@ -7,10 +7,10 @@ ConfigHub variant, or an upgrade/customization path.
 
 ## Rows By Path Type
 
-- base-to-base-diff: 1
-- base-variant: 156
+- base-to-base-diff: 2
+- base-variant: 173
 - derived-confighub-variant: 10
-- upgrade-simulation: 2
+- upgrade-simulation: 4
 
 ## Path Type Meanings
 
@@ -24,11 +24,11 @@ ConfigHub variant, or an upgrade/customization path.
 ## Rows By Live Status
 
 - blocked: 4
-- missing: 130
+- missing: 145
 - not-attempted: 10
-- not-tested: 2
-- not-tested-by-diff: 1
-- pass: 20
+- not-tested: 4
+- not-tested-by-diff: 2
+- pass: 22
 - watch: 2
 
 ## Live Status Meanings
@@ -55,10 +55,10 @@ ConfigHub variant, or an upgrade/customization path.
 | `bitnami/redis@25.5.3` | `staging-eu-west` | derived-confighub-variant | not-attempted | target/live evidence may be separate |
 | `bitnami/redis@25.5.3` | `default-to-reuse-existing-secret` | upgrade-simulation | not-tested | live operation not proven |
 | `bitnami/redis@25.5.3` | `reuse-existing-secret-to-default` | upgrade-simulation | not-tested | live operation not proven |
+| `bitnami/redis@27.0.0` | `bitnami-redis-default-to-reuse-existing-secret` | base-to-base-diff | not-tested-by-diff | target facts must be satisfied before delivery |
+| `bitnami/redis@27.0.0` | `default-to-reuse-existing-secret` | upgrade-simulation | not-tested | live operation not proven |
+| `bitnami/redis@27.0.0` | `reuse-existing-secret-to-default` | upgrade-simulation | not-tested | live operation not proven |
 | `external-secrets/external-secrets@2.5.0` | `no-crds` | base-variant | blocked | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
-| `grafana/grafana@10.5.15` | `customer-acme-prod` | derived-confighub-variant | not-attempted | target/live evidence may be separate |
-| `grafana/grafana@10.5.15` | `prod-us-east` | derived-confighub-variant | not-attempted | target/live evidence may be separate |
-| `hashicorp/consul@2.0.0` | `secure-mesh-existing-secrets` | base-variant | blocked | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 
 ## How To Use This Matrix
 

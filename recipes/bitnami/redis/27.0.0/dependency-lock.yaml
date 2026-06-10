@@ -1,0 +1,12 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: DependencyLock
+metadata:
+  name: bitnami-redis-27.0.0
+spec:
+  chart: bitnami/redis
+  version: 27.0.0
+  dependencies:
+    - name: common
+      version: "2.40.0"
+      repository: oci://registry-1.docker.io/bitnamicharts
+      type: library

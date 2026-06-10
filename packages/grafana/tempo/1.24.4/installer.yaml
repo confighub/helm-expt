@@ -6,15 +6,18 @@ metadata:
 spec:
   bases:
     -
-      name: "local-persistent"
-      path: "bases/local-persistent"
       default: true
       description: "tempo local persistent single-binary variant rendered from grafana/tempo@1.24.4"
+      name: "local-persistent"
+      path: "bases/local-persistent"
     -
-      name: "s3-query-observability"
-      path: "bases/s3-query-observability"
       description: "tempo S3 query and observability variant rendered from grafana/tempo@1.24.4"
       externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "S3-compatible object store tempo/tempo-object-store"
+          namespace: "tempo"
+          suggestedSource: "create or bind an S3-compatible endpoint, bucket, and credentials before apply"
         -
           kind: "ClusterFeature"
           name: "Secret tempo/tempo-s3-credentials keys access_key,secret_key"
@@ -24,13 +27,10 @@ spec:
           kind: "ClusterFeature"
           name: "CRD servicemonitors.monitoring.coreos.com"
           suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
-        -
-          kind: "ClusterFeature"
-          name: "S3-compatible object store tempo/tempo-object-store"
-          namespace: "tempo"
-          suggestedSource: "create or bind an S3-compatible endpoint, bucket, and credentials before apply"
+      name: "s3-query-observability"
+      path: "bases/s3-query-observability"
   collector:
     command: "/bin/sh"
     args:
       - "collector/target-facts.sh"
-    description: "Records target-fact bindings and can live-check cluster-visible Secret and CRD requirements."
+    description: "Records target-fact bindings and can live-check existing Secret requirements."
