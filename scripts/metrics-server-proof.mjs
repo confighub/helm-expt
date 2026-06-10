@@ -100,10 +100,70 @@ const scanPolicy = {
   ],
 };
 
+function metricsTargetPrerequisitePlan() {
+  return {
+    apiVersion: "helm-expt.confighub.com/v1alpha1",
+    kind: "TargetPrerequisitePlan",
+    metadata: {
+      name: "metrics-server-metrics-server-3.13.0",
+      chart: "metrics-server/metrics-server",
+      version: chart.version,
+    },
+    spec: {
+      summary:
+        "The external-tls-ca base is render-equivalent, but it is only target-ready when the serving certificate Secret and APIService CA bundle are created from the same trust material and the aggregated metrics API is observed after apply.",
+      bases: {
+        default: {
+          status: "self-contained-for-local-proof",
+          note: "The default base keeps insecureSkipTLSVerify=true and lets metrics-server generate its serving certificate at runtime. This is the simple local proof path, not the strict external CA path.",
+        },
+        externalTlsCa: {
+          status: "target-prerequisite-needed",
+          requiredBeforeRender: [
+            {
+              kind: "Value",
+              path: "apiService.caBundle",
+              purpose: "CA bundle embedded into the rendered APIService",
+            },
+          ],
+          requiredBeforeApply: [
+            {
+              kind: "Secret",
+              namespace: "kube-system",
+              name: "metrics-server-tls",
+              keys: ["tls.crt", "tls.key"],
+              purpose: "metrics-server serving certificate and private key",
+            },
+          ],
+          coupling:
+            "apiService.caBundle must validate the certificate chain presented by kube-system/metrics-server-tls.",
+          mustObserve: [
+            "Deployment kube-system/metrics-server is available",
+            "APIService v1beta1.metrics.k8s.io has Available=True",
+            "kubectl get --raw /apis/metrics.k8s.io/v1beta1/nodes returns metrics or a target-approved empty result",
+          ],
+          requiredReceipts: [
+            "target-fact-receipt",
+            "secret-preflight-receipt",
+            "apiservice-observation-receipt",
+          ],
+        },
+      },
+      notProvenBy: [
+        "render parity alone",
+        "a Secret with the expected name but unrelated certificate material",
+        "a rendered caBundle without live APIService availability",
+      ],
+    },
+  };
+}
+
 runProofCli({
   chart,
   variants,
   scanPolicy,
+  extraRequiredFiles: ["target-prerequisite-plan.yaml"],
+  extraProofDocuments: () => [{ path: "target-prerequisite-plan.yaml", document: metricsTargetPrerequisitePlan() }],
   // single cub-only support object (the created Namespace)
   supportObjects: [`v1|Namespace||${chart.namespace}`],
   packageTransformers: [
@@ -213,6 +273,27 @@ runProofCli({
   }),
   // Chart-specific verify assertions that the generic kit cannot infer.
   verifyExtra({ root, controlPoints, perVariant, check, readYaml, readFileSync, join }) {
+    const targetPrerequisitePlan = readYaml(join(root, "target-prerequisite-plan.yaml"));
+    check(targetPrerequisitePlan.kind === "TargetPrerequisitePlan", "target-prerequisite-plan.yaml must be a TargetPrerequisitePlan");
+    check(targetPrerequisitePlan.spec.bases.default?.status === "self-contained-for-local-proof", "default target prerequisite status mismatch");
+    check(targetPrerequisitePlan.spec.bases.externalTlsCa?.status === "target-prerequisite-needed", "external-tls-ca target prerequisite status mismatch");
+    check(
+      targetPrerequisitePlan.spec.bases.externalTlsCa?.requiredBeforeRender?.some((item) => item.path === "apiService.caBundle"),
+      "external-tls-ca caBundle prerequisite missing",
+    );
+    check(
+      targetPrerequisitePlan.spec.bases.externalTlsCa?.requiredBeforeApply?.some((item) => item.name === "metrics-server-tls"),
+      "external-tls-ca Secret prerequisite missing",
+    );
+    check(
+      targetPrerequisitePlan.spec.bases.externalTlsCa?.coupling?.includes("apiService.caBundle"),
+      "external-tls-ca Secret/caBundle coupling missing",
+    );
+    check(
+      targetPrerequisitePlan.spec.bases.externalTlsCa?.mustObserve?.some((item) => item.includes("Available=True")),
+      "external-tls-ca APIService observation missing",
+    );
+    check(targetPrerequisitePlan.spec.notProvenBy?.includes("render parity alone"), "render parity limitation must be explicit");
     check(controlPoints.spec.points?.some((point) => point.category === "generated-facts"), "generated-facts control point missing");
     check(controlPoints.spec.points?.some((point) => point.category === "apiservice"), "apiservice control point missing");
     for (const variant of variants) {

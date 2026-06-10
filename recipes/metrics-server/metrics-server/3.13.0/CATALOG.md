@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/metrics-server/metrics-server/3.13.0/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/metrics-server/metrics-server/3.13.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/metrics-server/metrics-server/3.13.0/value-model.yaml](value-model.yaml) |
+| Target prerequisite plan | [recipes/metrics-server/metrics-server/3.13.0/target-prerequisite-plan.yaml](target-prerequisite-plan.yaml) |
 | Weirdness and mitigations | [recipes/metrics-server/metrics-server/3.13.0/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/metrics-server/metrics-server/3.13.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/metrics-server/metrics-server/3.13.0/helm-pain-report.yaml](helm-pain-report.yaml) |
