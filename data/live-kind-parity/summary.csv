@@ -33,6 +33,7 @@ ingress-nginx/ingress-nginx,4.15.1,default,pass,,runs/live-kind-parity/ingress-n
 ingress-nginx/ingress-nginx,4.15.1,internal-clusterip,pass,,runs/live-kind-parity/ingress-nginx-ingress-nginx-internal-clusterip/receipt.yaml
 jetstack/cert-manager,v1.20.2,crds-enabled,pass,,runs/live-kind-parity/jetstack-cert-manager-crds-enabled/receipt.yaml
 jetstack/cert-manager,v1.20.2,default,blocked,helm-hook: post-install hook failed (parity passed),runs/live-kind-parity/jetstack-cert-manager-default/receipt.yaml
+kedacore/keda,2.19.0,default,pass,,runs/live-kind-parity/kedacore-keda-default/receipt.yaml
 longhorn/longhorn,1.11.2,default,pass,,runs/live-kind-parity/longhorn-longhorn-default/receipt.yaml
 longhorn/longhorn,1.11.2,ui-ingress,pass,,runs/live-kind-parity/longhorn-longhorn-ui-ingress/receipt.yaml
 metrics-server/metrics-server,3.13.0,default,pass,,runs/live-kind-parity/metrics-server-metrics-server-default/receipt.yaml

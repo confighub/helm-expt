@@ -1095,7 +1095,7 @@ still need catalog promotion review before support is claimed.
 | jaegertracing/jaeger@4.8.0 | proof-grade | needs-useful-variant | render-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/jaegertracing/jaeger/4.8.0/CATALOG.md) |
 | jetstack/cert-manager-csi-driver@v0.14.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/jetstack/cert-manager-csi-driver/v0.14.0/CATALOG.md) |
 | jetstack/trust-manager@v0.22.1 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/jetstack/trust-manager/v0.22.1/CATALOG.md) |
-| kedacore/keda@2.19.0 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/kedacore/keda/2.19.0/CATALOG.md) |
+| kedacore/keda@2.19.0 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/kedacore/keda/2.19.0/CATALOG.md) |
 | kyverno/kyverno-policies@3.8.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/kyverno/kyverno-policies/3.8.0/CATALOG.md) |
 | kyverno/kyverno@3.8.1 | proof-grade | limitation-decision-first | render-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/kyverno/kyverno/3.8.1/CATALOG.md) |
 | linkerd/linkerd-crds@1.8.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/linkerd/linkerd-crds/1.8.0/CATALOG.md) |
