@@ -7,6 +7,7 @@ top100,covered by top100 contract,20,100,partial,data/top100-coverage/coverage.c
 top100,partial by top100 contract,80,100,partial,data/top100-coverage/coverage.csv,Rows with at least one coverage contract item still todo.
 top100,average top100 coverage,83,100,partial,data/top100-coverage/coverage.csv,Average of the generated per-chart coverage percentage.
 top100,top100 promotion-review queue,27,80,partial,data/top100-coverage/work-queue.csv,Partial top100 rows ready for catalog promotion review under the strict coverage contract.
+top100,first strict top100 promotion wave,8,27,partial,data/top100-promotion-wave/wave.csv,Promotion-review rows with two-cluster kind parity selected for the first strict top100 promotion wave.
 top100,top100 user-shaped variant queue,46,80,partial,data/top100-coverage/work-queue.csv,Partial top100 rows whose proof exists but whose current base is not yet a useful catalog offer.
 top100,top100 limitation-decision queue,7,80,partial,data/top100-coverage/work-queue.csv,"Partial top100 rows needing a support, disclosure, defer, or block decision before promotion."
 top500,source rows scanned,495,500,partial,data/top500-catalog-analysis/review.csv,Retained source-scan rows with source feature data.

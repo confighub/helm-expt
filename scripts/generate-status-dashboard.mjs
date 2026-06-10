@@ -47,6 +47,7 @@ function buildReport() {
   const top100Rows = readCsv("data/top100-readiness/readiness.csv");
   const top100CoverageRows = readCsv("data/top100-coverage/coverage.csv");
   const top100CoverageWorkRows = readCsv("data/top100-coverage/work-queue.csv");
+  const top100PromotionWaveRows = readCsv("data/top100-promotion-wave/wave.csv");
   const top500Rows = readCsv("data/top500-catalog-analysis/review.csv");
   const quirkRows = readCsv("data/quirk-coverage/coverage.csv");
   const extensionRows = readCsv("data/extension-slots/extension-slots.csv");
@@ -78,6 +79,7 @@ function buildReport() {
   rows.push(metric("top100", "partial by top100 contract", count(top100CoverageRows, "coverage_status", "partial"), top100CoverageRows.length, "partial", "data/top100-coverage/coverage.csv", "Rows with at least one coverage contract item still todo."));
   rows.push(metric("top100", "average top100 coverage", averageNumber(top100CoverageRows, "coverage_percent"), 100, "partial", "data/top100-coverage/coverage.csv", "Average of the generated per-chart coverage percentage."));
   rows.push(metric("top100", "top100 promotion-review queue", count(top100CoverageWorkRows, "queue", "promotion-review"), top100CoverageWorkRows.length, "partial", "data/top100-coverage/work-queue.csv", "Partial top100 rows ready for catalog promotion review under the strict coverage contract."));
+  rows.push(metric("top100", "first strict top100 promotion wave", top100PromotionWaveRows.length, count(top100CoverageWorkRows, "queue", "promotion-review"), "partial", "data/top100-promotion-wave/wave.csv", "Promotion-review rows with two-cluster kind parity selected for the first strict top100 promotion wave."));
   rows.push(metric("top100", "top100 user-shaped variant queue", count(top100CoverageWorkRows, "queue", "user-shaped-variant"), top100CoverageWorkRows.length, "partial", "data/top100-coverage/work-queue.csv", "Partial top100 rows whose proof exists but whose current base is not yet a useful catalog offer."));
   rows.push(metric("top100", "top100 limitation-decision queue", count(top100CoverageWorkRows, "queue", "limitation-decision"), top100CoverageWorkRows.length, "partial", "data/top100-coverage/work-queue.csv", "Partial top100 rows needing a support, disclosure, defer, or block decision before promotion."));
   rows.push(metric("top500", "source rows scanned", count(top500Rows, "source_status", "source-scanned"), top500Rows.length, "partial", "data/top500-catalog-analysis/review.csv", "Retained source-scan rows with source feature data."));
@@ -481,6 +483,7 @@ lifecycle observation.
 | Can I use this chart today? | [top100-readiness/readiness.csv](../top100-readiness/readiness.csv) |
 | Which top-100 rows satisfy the strict coverage contract? | [top100-coverage/coverage.csv](../top100-coverage/coverage.csv) |
 | Which top-100 partial rows should move next? | [top100-coverage/work-queue.md](../top100-coverage/work-queue.md) |
+| Which top-100 promotion rows are first? | [top100-promotion-wave/summary.md](../top100-promotion-wave/summary.md) |
 | Which top-100 rows need a human limitation decision? | [top100-coverage/decisions-needed.md](../top100-coverage/decisions-needed.md) |
 | How much of the retained top500 source scan maps to current proof? | [top500-catalog-analysis/review.csv](../top500-catalog-analysis/review.csv) |
 | Which base variants have which proof lanes? | [outcome-coverage/base-outcomes.csv](../outcome-coverage/base-outcomes.csv) |

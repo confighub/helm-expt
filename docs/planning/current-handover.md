@@ -304,6 +304,7 @@ Where the counts live:
 | --- | --- |
 | How many rows have proof, support, package, and variant status? | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) and [data/top500-catalog-analysis/raw.json](../../data/top500-catalog-analysis/raw.json). |
 | How do those rows map to the Helm problem-space? | [data/top500-catalog-analysis/drilldown.csv](../../data/top500-catalog-analysis/drilldown.csv) and `raw.json` columns such as `source_features`, `lookup_count`, `tpl_count`, `crd_files_count`, `cluster_roles_count`, `webhooks_count`, `stateful_sets_count`, `pvc_count`, and proof control categories. |
+| Which top-100 rows are next for strict promotion review? | [data/top100-promotion-wave/summary.md](../../data/top100-promotion-wave/summary.md). |
 | Which concrete base/render variants are next? | [data/catalog-promotion-wave2/summary.md](../../data/catalog-promotion-wave2/summary.md), [data/catalog-promotion-wave2/variant-work-orders.md](../../data/catalog-promotion-wave2/variant-work-orders.md), and [data/next-ten-waves/variant-build-wave.csv](../../data/next-ten-waves/variant-build-wave.csv). |
 | Which derived ConfigHub variant capability has receipt-style proof? | [data/variant-goldens/redis-prod-us-east/preview.yaml](../../data/variant-goldens/redis-prod-us-east/preview.yaml) shows one Redis default-to-prod clone with three changed paths and one preserved upstream-link change. [data/variant-goldens/derived-expansion-wave/README.md](../../data/variant-goldens/derived-expansion-wave/README.md) adds 10 derived-variant work orders across five reviewed bases. |
 | Which managed overlay route proves a creator path? | [data/managed-overlay-goldens/external-dns-customer-acme-prod/preview.yaml](../../data/managed-overlay-goldens/external-dns-customer-acme-prod/preview.yaml), currently showing six classified overlay routes, including one creator route. |
@@ -396,6 +397,7 @@ Use these generated summaries together:
 | What image pinning work remains? | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | What are the next compact work rows? | [data/next-ten-waves/summary.md](../../data/next-ten-waves/summary.md) |
 | Which top-20 versions need refresh? | [data/latest-top20-refresh/summary.md](../../data/latest-top20-refresh/summary.md) |
+| Which charts are next for strict promotion review? | [data/top100-promotion-wave/summary.md](../../data/top100-promotion-wave/summary.md) |
 | Which charts are next for real variants? | [data/catalog-promotion-wave2/summary.md](../../data/catalog-promotion-wave2/summary.md) |
 | What derived-variant golden exists? | [data/variant-goldens/redis-prod-us-east/README.md](../../data/variant-goldens/redis-prod-us-east/README.md) |
 | What derived-variant expansion wave exists? | [data/variant-goldens/derived-expansion-wave/README.md](../../data/variant-goldens/derived-expansion-wave/README.md) |
