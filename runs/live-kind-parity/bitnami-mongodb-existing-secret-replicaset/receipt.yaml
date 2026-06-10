@@ -7,7 +7,7 @@ spec:
   version: 19.0.7
   base: existing-secret-replicaset
   result: blocked
-  observedAt: '2026-06-06T10:16:01Z'
+  observedAt: '2026-06-09T23:44:01Z'
   package:
     path: packages/bitnami/mongodb/19.0.7
   recipe:
@@ -15,34 +15,34 @@ spec:
   variantRevision: recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-mongod-b95c6-6vmx-helm
-    installerCluster: hx-mongod-b95c6-6vmx-installer
+    helmCluster: hx-mongod-b95c6-dj2s-helm
+    installerCluster: hx-mongod-b95c6-dj2s-installer
     namespace: mongodb
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-mongod-b95c6-6vmx-helm
+      - cluster: hx-mongod-b95c6-dj2s-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-mongod-b95c6-6vmx-helm" ...
+        detail: 'Deleting cluster "hx-mongod-b95c6-dj2s-helm" ...
 
-          Deleted nodes: ["hx-mongod-b95c6-6vmx-helm-control-plane"]'
-      - cluster: hx-mongod-b95c6-6vmx-installer
+          Deleted nodes: ["hx-mongod-b95c6-dj2s-helm-control-plane"]'
+      - cluster: hx-mongod-b95c6-dj2s-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-mongod-b95c6-6vmx-installer" ...
+        detail: 'Deleting cluster "hx-mongod-b95c6-dj2s-installer" ...
 
-          Deleted nodes: ["hx-mongod-b95c6-6vmx-installer-control-plane"]'
+          Deleted nodes: ["hx-mongod-b95c6-dj2s-installer-control-plane"]'
   legs:
     regularHelm:
       result: blocked
-      command: helm upgrade --install mongodb mongodb --repo https://charts.bitnami.com/bitnami
+      command: helm upgrade --install mongodb oci://registry-1.docker.io/bitnamicharts/mongodb
         --version 19.0.7 --namespace mongodb --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: mongodb
-      manifestSHA256: 85bcba9d441796846c8452331d94210c5d3b7d8fb5e5969044741cd5c678372c
+      manifestSHA256: 3723a87004e25f813534be469bf648b6d6b80357fb01e47e465f775dcaec9231
       objectCount: 10
-      liveHelmManifestSHA256: 892c4c72f5dd54d8080feabc0a4b1518e14e399eb2c20690ac941507fd80adf9
+      liveHelmManifestSHA256: 691f8b02f1b4a0ffe4973795631264602113ee5796dc6d5d2344b5c80a4775b9
       liveHelmManifestObjectCount: 10
       runtimeNamespaces: &id001
       - mongodb
@@ -56,9 +56,9 @@ spec:
           statefulset.apps/mongodb-arbiter   0/1   12m'
         pods: '# mongodb
 
-          mongodb-0           0/1   CrashLoopBackOff   7 (93s ago)    12m
+          mongodb-0           0/1   CrashLoopBackOff   7 (87s ago)    12m
 
-          mongodb-arbiter-0   0/1   CrashLoopBackOff   7 (101s ago)   12m'
+          mongodb-arbiter-0   0/1   CrashLoopBackOff   7 (102s ago)   12m'
         notReady:
         - namespace: mongodb
           pod: mongodb-0
@@ -68,8 +68,12 @@ spec:
           pod: mongodb-arbiter-0
           ready: 0/1
           status: CrashLoopBackOff
-      stderr: 'Error: resource StatefulSet/mongodb/mongodb-arbiter not ready. status:
-        InProgress, message: Ready: 0/1
+      stderr: 'Pulled: registry-1.docker.io/bitnamicharts/mongodb:19.0.7
+
+        Digest: sha256:0fddefc7871ddfb1f7a385a9ae6cd2e092e830f3cc324a9e798843765a7c0eec
+
+        Error: resource StatefulSet/mongodb/mongodb-arbiter not ready. status: InProgress,
+        message: Ready: 0/1
 
         resource StatefulSet/mongodb/mongodb not ready. status: InProgress, message:
         Replicas: 1/2
@@ -79,12 +83,12 @@ spec:
     cubInstallerApply:
       result: watch
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/mongodb/19.0.7
-        --base existing-secret-replicaset --work-dir /tmp/helm-expt-kind-parity-hx-mongod-b95c6-6vmx-mongodb
+        --base existing-secret-replicaset --work-dir /tmp/helm-expt-kind-parity-hx-mongod-b95c6-dj2s-mongodb
         --non-interactive --namespace mongodb
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
       namespace: mongodb
-      manifestSHA256: 11c551ceb9ba722f7c76e1d1f78e004d6ee598fb9b860a4e249b194b8a080273
+      manifestSHA256: 58291f7cc46103866ccabcdd70e7e7825ed4c026c0be0c621ca2bfbd49f5dded
       objectCount: 11
       manifestNamespaces:
       - mongodb
@@ -95,14 +99,14 @@ spec:
         namespaces: *id002
         workloads: '# mongodb
 
-          statefulset.apps/mongodb           0/2   4m52s
+          statefulset.apps/mongodb           0/2   4m54s
 
-          statefulset.apps/mongodb-arbiter   0/1   4m52s'
+          statefulset.apps/mongodb-arbiter   0/1   4m54s'
         pods: '# mongodb
 
-          mongodb-0           0/1   CrashLoopBackOff   5 (88s ago)   4m52s
+          mongodb-0           0/1   CrashLoopBackOff   5 (81s ago)   4m54s
 
-          mongodb-arbiter-0   0/1   CrashLoopBackOff   5 (83s ago)   4m52s'
+          mongodb-arbiter-0   0/1   CrashLoopBackOff   5 (73s ago)   4m54s'
         notReady:
         - namespace: mongodb
           pod: mongodb-0
@@ -115,6 +119,8 @@ spec:
   semanticComparison:
     allowedExtraInstallerObjects:
     - v1|Namespace||mongodb
+    semanticNormalizations: &id003
+    - prune-null-fields
     helmVsCubInstallerApply:
       result: pass
       helmObjectCount: 10
@@ -123,7 +129,8 @@ spec:
       extraInInstaller:
       - v1|Namespace||mongodb
       semanticDiffs: []
-      comparisonSHA256: 5cb56fb3a1c69fae59ae3cf62520452fee05586a28aefab8f8d78d16664f97b3
+      semanticNormalizations: *id003
+      comparisonSHA256: 2591245b77ed39e866bd1a3753767f8f1edb0bd3eac14ad79101ce6133d129e5
   checks:
   - name: kind-create-helm
     result: pass
@@ -133,14 +140,18 @@ spec:
     detail: installer kind cluster created
   - name: target-facts-helm
     result: pass
-    detail: staged=1
+    detail: secrets=1 crds=0
   - name: target-facts-installer
     result: pass
-    detail: staged=1
+    detail: secrets=1 crds=0
   - name: regular-helm-live
     result: blocked
-    detail: 'Error: resource StatefulSet/mongodb/mongodb-arbiter not ready. status:
-      InProgress, message: Ready: 0/1
+    detail: 'Pulled: registry-1.docker.io/bitnamicharts/mongodb:19.0.7
+
+      Digest: sha256:0fddefc7871ddfb1f7a385a9ae6cd2e092e830f3cc324a9e798843765a7c0eec
+
+      Error: resource StatefulSet/mongodb/mongodb-arbiter not ready. status: InProgress,
+      message: Ready: 0/1
 
       resource StatefulSet/mongodb/mongodb not ready. status: InProgress, message:
       Replicas: 1/2
@@ -150,9 +161,9 @@ spec:
     result: watch
     detail: '# mongodb
 
-      statefulset.apps/mongodb           0/2   4m52s
+      statefulset.apps/mongodb           0/2   4m54s
 
-      statefulset.apps/mongodb-arbiter   0/1   4m52s'
+      statefulset.apps/mongodb-arbiter   0/1   4m54s'
   - name: semantic-object-parity
     result: pass
     detail: missing=0 extra=['v1|Namespace||mongodb'] diffs=0
@@ -165,6 +176,8 @@ spec:
         keys:
         - mongodb-replica-set-key
         - mongodb-root-password
+        lane: regularHelm
+      stagedCRDs: []
       path: /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
@@ -174,4 +187,6 @@ spec:
         keys:
         - mongodb-replica-set-key
         - mongodb-root-password
+        lane: cubInstallerApply
+      stagedCRDs: []
       path: /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/target-facts-installer.yaml
