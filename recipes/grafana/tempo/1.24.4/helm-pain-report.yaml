@@ -18,7 +18,7 @@ spec:
   notes:
     - "Chart.yaml marks this chart version deprecated, and the proof records that status."
     - "local-persistent uses local Tempo storage and explicit PVC settings."
-    - "s3-query-observability switches to S3 storage, nulls local storage to avoid Helm merge residue, and references S3 credentials from a target Secret; live readiness still requires a reachable object-store endpoint and bucket."
+    - "s3-query-observability switches to S3 storage, nulls local storage to avoid Helm merge residue, records endpoint/bucket/region as pre-render target values, and references S3 credentials from a target Secret."
     - "s3-query-observability adds Tempo Query ingress, NetworkPolicy, and ServiceMonitor behind explicit capability and policy checks; the ServiceMonitor CRD is recorded as a target fact."
     - "The chart StatefulSet references serviceName tempo-headless, but these variants render no headless Service; the proof records this as an upstream/runtime risk."
     - "config, structuredConfig, extra volumes/mounts, and tpl-controlled strings are powerful extension surfaces; promoted variants keep them controlled."
@@ -61,16 +61,16 @@ spec:
       supportedVariantStatus: "noted"
     -
       id: "target-facts"
-      detectedPainPoint: "The s3-query-observability variant declares the target Secret for S3 credentials instead of embedding access keys in rendered ConfigMaps."
+      detectedPainPoint: "The s3-query-observability variant declares S3 endpoint, bucket, and region as pre-render values, and references credentials from a target Secret instead of embedding access keys in rendered ConfigMaps."
       evidence:
-        - "tempo.extraEnv secretKeyRef"
+        - "tempo.storage.trace.s3 and tempo.extraEnv secretKeyRef"
       configHubHome: "target-fact-requirement"
       disposition: "handled-by-target-fact-values"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "variant-controlled"
     -
       id: "object-store-runtime-prerequisite"
-      detectedPainPoint: "The S3 variant needs a reachable S3-compatible endpoint and bucket before Tempo becomes ready; dummy credentials alone are not a live proof."
+      detectedPainPoint: "The S3 variant needs the declared endpoint, bucket, region, and credentials to be real before Tempo becomes ready; dummy credentials alone are not a live proof."
       evidence:
         - "tempo.storage.trace.s3"
       configHubHome: "recipe"

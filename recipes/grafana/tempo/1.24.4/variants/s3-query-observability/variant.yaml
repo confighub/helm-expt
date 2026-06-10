@@ -22,6 +22,19 @@ spec:
           - "access_key"
           - "secret_key"
         purpose: "S3 access credentials referenced by Tempo environment variables"
+    requiredValues:
+      -
+        path: "tempo.storage.trace.s3.endpoint"
+        purpose: "S3-compatible endpoint that Tempo will write traces to"
+        stage: "pre-render"
+      -
+        path: "tempo.storage.trace.s3.bucket"
+        purpose: "Existing bucket for Tempo trace blocks"
+        stage: "pre-render"
+      -
+        path: "tempo.storage.trace.s3.region"
+        purpose: "Object-store region used with the selected endpoint and bucket"
+        stage: "pre-render"
     requiredCRDs:
       -
         name: "servicemonitors.monitoring.coreos.com"

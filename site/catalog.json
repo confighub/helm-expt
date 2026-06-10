@@ -3986,7 +3986,7 @@
       "live_rerun_next_step": "stage-prerequisite",
       "live_rerun_command": "npm run kind-parity:run -- --chart grafana/tempo --version 1.24.4 --base s3-query-observability",
       "command": "cub installer setup --pull packages/grafana/tempo/1.24.4 --base s3-query-observability --work-dir <tmp> --non-interactive --namespace tempo",
-      "target_facts": "required Secret tempo/tempo-s3-credentials keys access_key,secret_key; required CRD servicemonitors.monitoring.coreos.com",
+      "target_facts": "required Secret tempo/tempo-s3-credentials keys access_key,secret_key; required CRD servicemonitors.monitoring.coreos.com; required Value tempo.storage.trace.s3.endpoint (pre-render); required Value tempo.storage.trace.s3.bucket (pre-render); required Value tempo.storage.trace.s3.region (pre-render)",
       "render_parity": "pass",
       "in_confighub": "missing",
       "local_live": "missing",

@@ -70,7 +70,7 @@ spec:
     path: "packages/grafana/tempo/1.24.4"
     installer: "packages/grafana/tempo/1.24.4/installer.yaml"
     receipt: "recipes/grafana/tempo/1.24.4/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "5201328651cf3dd741b4664b4b93f7809723150c0588316f81f44ac6eec73678"
+    deterministicBundleSHA256: "3ef9fa243f1982e62961f9ccf3f772b27a0f78de0f3ca592cbe9b8c7c441be9e"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -178,7 +178,20 @@ spec:
             name: "tempo-s3-credentials"
             namespace: "tempo"
             purpose: "S3 access credentials referenced by Tempo environment variables"
-      targetFactSummary: "required Secret tempo/tempo-s3-credentials keys access_key,secret_key; required CRD servicemonitors.monitoring.coreos.com"
+        requiredValues:
+          -
+            path: "tempo.storage.trace.s3.endpoint"
+            purpose: "S3-compatible endpoint that Tempo will write traces to"
+            stage: "pre-render"
+          -
+            path: "tempo.storage.trace.s3.bucket"
+            purpose: "Existing bucket for Tempo trace blocks"
+            stage: "pre-render"
+          -
+            path: "tempo.storage.trace.s3.region"
+            purpose: "Object-store region used with the selected endpoint and bucket"
+            stage: "pre-render"
+      targetFactSummary: "required Secret tempo/tempo-s3-credentials keys access_key,secret_key; required CRD servicemonitors.monitoring.coreos.com; required Value tempo.storage.trace.s3.endpoint (pre-render); required Value tempo.storage.trace.s3.bucket (pre-render); required Value tempo.storage.trace.s3.region (pre-render)"
       packageBase:
         name: "s3-query-observability"
         path: "packages/grafana/tempo/1.24.4/bases/s3-query-observability"
@@ -197,7 +210,7 @@ spec:
           name: "s3-query-observability-r001"
           revision: "r001"
           variantRevision: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml"
-          digest: "7ceb8a577a909802935d654471a1e0f27c7f3e7d69a83eb6e4a6781ecbf6db46"
+          digest: "e78cb41fbb2946e8148ea50c33aefaa448abf9eb07033d9aa277d2d0cae03d96"
           renderedObjectSetSHA256: "e647ad22435c55910e4c77470263e05daf026af43b59bde1f0ae7db754d3d5ad"
           renderedObjects: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/object-inventory.yaml"
