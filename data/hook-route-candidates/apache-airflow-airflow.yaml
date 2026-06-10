@@ -1,0 +1,55 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: HookLifecycleRouteCandidate
+metadata:
+  name: apache-airflow-airflow-hook-route-candidate
+spec:
+  chart: apache-airflow/airflow
+  version: 1.21.0
+  base: none-yet (no maintained recipe; source-scan candidate)
+  result: candidate-route-plan
+  reviewedAt: "2026-06-11"
+  hooks:
+    count: 0
+    phases: []
+    deletePolicies: none recorded in source scan
+    weights: none
+    templates: []
+  hookLikeLifecycle:
+    count: 2
+    resources: plain migration-style Jobs without Helm hook annotations
+  dependencySource: chart-own lifecycle-like Jobs
+  targetDependencies:
+    - Airflow metadata database and migration state
+    - target-specific storage, executors, and required values selected by the
+      supported base
+  route:
+    summary: Static scan found no helm.sh/hook annotations at the pinned
+      version, but the chart still ships migration-style Jobs. This route is a
+      preflight and lifecycle-boundary check before any hook-free claim.
+    phases:
+      - hookTypes: []
+        action: recipe-time-lifecycle-verification
+        reason: A zero Helm-hook count is not a proof that the selected values
+          profile has no lifecycle actions or migration jobs.
+    gitopsMapping: No Helm hook translation is claimed. If a supported base
+      uses migration Jobs, model them as explicit managed actions or GitOps
+      lifecycle Jobs with receipts.
+  evidence:
+    - path: data/top500-catalog-analysis/source/source-feature-scan.raw.json
+      claim: Static source scan recorded no Helm hook annotations for the
+        pinned Airflow chart version.
+    - path: data/hook-lifecycle-review/top100-source-hook-route-review.csv
+      claim: Independent route review flagged the chart because plain
+        migration-style Jobs still require recipe-time lifecycle verification
+        before calling the base hook-free.
+  execution:
+    helmHooksExecutedByHarness: false
+    runtimeObserved: false
+  promotionNextStep: During recipe import, verify values-conditional lifecycle
+    Jobs for the supported base. If none render, record a hook-free and
+    lifecycle-inert fact for that base. If migration Jobs render, route them as
+    explicit managed actions with receipts.
+  notClaimed:
+    - production readiness
+    - runtime lifecycle behavior
+    - that all Airflow values profiles are hook-free or lifecycle-inert

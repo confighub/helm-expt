@@ -1,6 +1,6 @@
 # Hook Route Candidates
 
-**UNOFFICIAL/EXPERIMENTAL — candidate route plans, 2026-06-10.**
+**UNOFFICIAL/EXPERIMENTAL — candidate route plans, 2026-06-11.**
 
 These are **candidates** for the maintained hook lifecycle queue, not members
 of it. Each file is a `HookLifecycleRouteCandidate` with
@@ -11,20 +11,27 @@ behavior, or claims production readiness.
 
 Per-chart plans: [kong](./kong-kong.yaml) ·
 [kubernetes-dashboard](./k8s-dashboard-kubernetes-dashboard.yaml) ·
-[kafka](./bitnami-kafka.yaml) · [minio](./bitnami-minio.yaml).
+[gitlab](./gitlab-gitlab.yaml) · [kafka](./bitnami-kafka.yaml) ·
+[minio](./bitnami-minio.yaml) · [datadog](./datadog-datadog.yaml) ·
+[thanos](./bitnami-thanos.yaml) ·
+[airflow](./apache-airflow-airflow.yaml).
 Compact table: [candidates.csv](./candidates.csv).
 
-## Why These Four
+## Why These Eight
 
 The source top-100 has 11 hook-bearing charts; the maintained queue models 5.
 The reviewed delta is in
 [`data/hook-lifecycle-review/`](../hook-lifecycle-review/summary.md). These
-four cover the two patterns that account for most of that delta:
+eight rows cover the reviewed source-hook and hook-like routes that are not yet
+maintained lifecycle receipts:
 
 | Pattern | Charts here | Route |
 | --- | --- | --- |
 | Database migration pair (`pre-upgrade` + `post-upgrade`, delete policies) | kong; kubernetes-dashboard (vendored kong) | upgrade action with receipt; Argo CD PreSync/PostSync for GitOps |
 | Provisioning Job (`post-install, post-upgrade`, values-conditional) | kafka; minio (and thanos via its vendored minio) | explicit managed action with receipt; Argo CD PostSync for GitOps |
+| Vendored lifecycle hook | gitlab (vendored traefik) | Argo/Flux lifecycle hook after serious-chart review decides the supported base |
+| Environment-conditional hook set | datadog | target-class preflight plus upgrade/install action with receipt |
+| Hook-like migration Jobs without hook annotations | airflow | recipe-time lifecycle verification before any hook-free claim |
 
 Dependency-provided hooks are recorded as such: the dashboard's hooks come
 from its vendored kong subchart, and the minio plan explicitly covers the
@@ -46,9 +53,19 @@ closure undercounts hooks.
 3. **bitnami/kafka** — recipe with a provisioning-off default base
    (hook-free render) and a provisioning-enabled base; route the Job as an
    explicit managed post-install action with a receipt.
-4. **bitnami/minio** — same as kafka, reusing one shared route receipt shape
-   for the whole bitnami provisioning pattern (kafka, minio,
-   thanos-vendored minio).
+4. **gitlab/gitlab** — treat as a serious-chart review first; confirm whether
+   the vendored Traefik lifecycle hook renders in the supported base; then
+   write a maintained route receipt or a hook-inert fact for that base.
+5. **bitnami/minio** — same as kafka, reusing one shared route receipt shape
+   for the whole bitnami provisioning pattern.
+6. **datadog/datadog** — split target scopes: normal targets where the GKE
+   Autopilot hooks are inert, GKE Autopilot targets where the allowlist work is
+   preflight, and upgrade paths where the migration Job gets a receipt.
+7. **bitnami/thanos** — record the vendored MinIO provisioning hook as
+   dependency-provided and reuse the MinIO provisioning route shape when a
+   provisioning-enabled base renders it.
+8. **apache-airflow/airflow** — verify values-conditional lifecycle Jobs at
+   recipe time. A zero Helm-hook annotation count is not a hook-free claim.
 
 ## Boundaries
 

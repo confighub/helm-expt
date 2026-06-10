@@ -1,0 +1,53 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: HookLifecycleRouteCandidate
+metadata:
+  name: gitlab-gitlab-hook-route-candidate
+spec:
+  chart: gitlab/gitlab
+  version: 10.0.0
+  base: none-yet (no maintained recipe; source-scan candidate)
+  result: candidate-route-plan
+  reviewedAt: "2026-06-11"
+  hooks:
+    count: 1
+    phases: [post-install, post-upgrade]
+    deletePolicies: none recorded in source scan
+    weights: none
+    templates:
+      - gitlab/charts/traefik/templates/dashboard-hook-ingressroute.yaml
+  dependencySource: vendored traefik subchart
+  targetDependencies:
+    - "GitLab's broader chart prerequisites dominate this hook route: CRDs,
+      required values, external endpoints, storage, and dependency closure all
+      need review before this hook can become a support claim."
+  route:
+    summary: Vendored Traefik dashboard IngressRoute hook. The hook itself is
+      minor compared with the GitLab chart's larger install surface, so the
+      route is an Argo/Flux lifecycle hook only after a serious-chart review
+      decides the supported GitLab base.
+    phases:
+      - hookTypes: [post-install, post-upgrade]
+        action: argocd-or-flux-lifecycle-hook
+        reason: The object is lifecycle-bound to install or upgrade and should
+          not be silently folded into render parity without a route receipt.
+    gitopsMapping: Argo CD PostSync or a Flux post-deploy stage, scoped to the
+      supported base that actually renders the vendored Traefik hook.
+  evidence:
+    - path: data/top500-catalog-analysis/source/source-feature-scan.raw.json
+      claim: Static source scan found the vendored Traefik hook at the pinned
+        GitLab chart version.
+    - path: data/hook-lifecycle-review/top100-source-hook-route-review.csv
+      claim: Independent route review classified this as a high-risk chart
+        because the overall GitLab chart surface is large, while the hook
+        itself is a lifecycle hook from a vendored dependency.
+  execution:
+    helmHooksExecutedByHarness: false
+    runtimeObserved: false
+  promotionNextStep: Treat GitLab as a serious-chart review before modeling;
+    choose a supported base, confirm whether the vendored Traefik hook renders
+    under that base, then either write a maintained lifecycle receipt or record
+    a hook-inert-under-supported-values fact.
+  notClaimed:
+    - production readiness
+    - runtime hook behavior
+    - that the vendored hook renders under every GitLab values profile

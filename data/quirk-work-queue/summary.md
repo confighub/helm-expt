@@ -49,10 +49,13 @@ step before admitting a chart to the maintained hook lifecycle queue.
 | Priority | Chart | Candidate route | Candidate artifact |
 | --- | --- | --- | --- |
 | P0 | `k8s-dashboard/kubernetes-dashboard@7.14.0` | upgrade-action-with-receipt (if rendered) | data/hook-route-candidates/summary.md |
+| P0 | `gitlab/gitlab@10.0.0` | argocd-or-flux-lifecycle-hook | data/hook-route-candidates/summary.md |
 | P0 | `kong/kong@3.2.0` | upgrade-action-with-receipt | data/hook-route-candidates/summary.md |
+| P0 | `datadog/datadog@3.214.0` | target-class-preflight-and-upgrade-action | data/hook-route-candidates/summary.md |
 | P0 | `bitnami/kafka@32.4.3` | explicit-managed-action | data/hook-route-candidates/summary.md |
 | P0 | `bitnami/minio@17.0.21` | explicit-managed-action | data/hook-route-candidates/summary.md |
 | P0 | `bitnami/thanos@17.3.1` | explicit-managed-action | data/hook-route-candidates/summary.md |
+| P0 | `apache-airflow/airflow@1.21.0` | recipe-time-lifecycle-verification | data/hook-route-candidates/summary.md |
 
 ## Top Quirk Driving Each Row
 
