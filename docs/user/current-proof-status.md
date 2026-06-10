@@ -301,9 +301,9 @@ Production support decisions are now closed for the top-20 catalog:
 - 1 of 20 top-20 charts has a rejected target-scoped proof scope with a
   concrete target-fit or runtime reason.
 - 0 of 20 top-20 charts still have draft support decision artifacts.
-- 20 of 20 are production-review-ready by pre-review disposition receipt.
-- 0 of 20 still need a pre-review production disposition.
-- 103 production-disposition receipts are accepted across 20 charts.
+- 19 of 20 are production-review-ready by pre-review disposition receipt.
+- 1 of 20 still has a blocked pre-review production disposition.
+- 104 production-disposition receipts are accepted across 20 charts.
 - external scan work has 0 remaining mutable-image rows after the current
   supported-base image pinning pass.
 - the remaining high-priority scan rows are routed to explicit privileged
@@ -311,16 +311,18 @@ Production support decisions are now closed for the top-20 catalog:
 - A supported target scope is still narrow: it covers the named chart, base,
   target, delivery path, accepted risks, and live evidence rule only.
 
-The top-20 production queue is no longer blocked on missing pre-review
-receipts. It is grouped from the current target-scoped support decisions.
+The top-20 production queue is mostly through pre-review disposition. Vault
+dev-mode remains blocked as a production boundary and is rejected by the
+target-scoped support decision. The active support view is grouped from the
+current target-scoped decisions.
 Workstreams can overlap: one chart can need image, scan, lifecycle, and fresh
 evidence work before it becomes production-supported for a target scope.
 
 | Decision group | Charts | Meaning |
 | --- | ---: | --- |
-| Supported scope evidence | 16 | Keep target-scoped evidence fresh before using the supported scope as a production example. |
+| Supported scope evidence | 17 | Keep target-scoped evidence fresh before using the supported scope as a production example. |
 | Superseded source chart | 2 | Keep the existing proof as evidence, but review a maintained chart source before making a production-support claim. |
-| Rejected default base | 2 | Keep parity evidence, then create a better production base or target scope before support. |
+| Rejected default base | 1 | Keep parity evidence, then create a better production base or target scope before support. |
 | Draft support decision | 0 | No top-20 chart is waiting on an unmade target-scoped support decision. |
 
 Use the target-scoped decision table for exact blockers and next actions:

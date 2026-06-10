@@ -20,10 +20,10 @@ fresh live evidence
 operator-owned boundaries
 ```
 
-The current top-20 catalog has completed the pre-review disposition step. That
-means the charts have accepted evidence for scan warnings, target facts,
-lifecycle risks, extension slots, storage, RBAC, webhooks, and operating policy.
-It does not mean every chart is production-supported.
+The current top-20 catalog has pre-review disposition evidence for every chart.
+Nineteen charts are production-review-ready. Vault dev-mode remains blocked as
+a production boundary and is rejected by the target-scoped support decision.
+Disposition evidence does not mean every chart is production-supported.
 
 ## The Boundary
 
@@ -120,9 +120,9 @@ The current generated summary is:
 
 ```text
 decision artifacts: 20
-supported decisions: 16
+supported decisions: 17
 draft decisions: 0
-rejected decisions: 2
+rejected decisions: 1
 superseded decisions: 2
 open work items: 0
 ```
@@ -152,14 +152,14 @@ being a loose spreadsheet.
 
 | Group | Charts | What it means |
 | --- | ---: | --- |
-| `supported` | 16 | The named chart/base/target/delivery scope has fresh evidence and an explicit operating boundary. |
+| `supported` | 17 | The named chart/base/target/delivery scope has fresh evidence and an explicit operating boundary. |
 | `superseded` | 2 | The proof remains useful, but the upstream chart source is deprecated and should not be promoted as production-supported. |
-| `rejected` | 2 | The default base remains parity evidence, but it is not a good production support boundary. |
+| `rejected` | 1 | The base remains parity evidence, but it is not a good production support boundary. |
 | `draft` | 0 | No top-20 chart is waiting on an unmade support decision. |
 
 The next production work is specific:
 
-- keep evidence fresh for the 16 supported scopes;
+- keep evidence fresh for the 17 supported scopes;
 - choose maintained successor sources for Grafana and Tempo;
 - create a production Vault base with init/unseal, storage, TLS, backup/restore,
   and an operator runbook;
