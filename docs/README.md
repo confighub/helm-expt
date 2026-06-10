@@ -26,6 +26,9 @@ whole repo. For the single serial order through `docs/user/*.md`, start with
 | [why-this-exists.md](./user/why-this-exists.md) | Skeptical entry point: why this is not just `cub helm install` or `cub gitops import`, and what the catalog/proof path adds. |
 | [tutorial-sequence.md](./user/tutorial-sequence.md) | Short show-and-tell tutorials for Redis, variants, overlays, GitOps, and bulk ops. |
 | [current-proof-status.md](./user/current-proof-status.md) | Short guide to current proof status and the generated summaries that are authoritative. |
+| [what-we-refuse-to-claim.md](./user/what-we-refuse-to-claim.md) | Trust boundary: why watchlist rows and strict witness blocks remain visible. |
+| [why-synced-is-not-working.md](./user/why-synced-is-not-working.md) | Runtime false-green explanation: why sync/object presence does not prove workload health. |
+| [verify-it-yourself.md](./user/verify-it-yourself.md) | Reader verification commands for corpus checks, rendered installs, parity receipts, and cub-scout receipts. |
 | [production-support-decisions.md](./user/production-support-decisions.md) | How a review-ready chart becomes production-supported for one target scope. |
 | [chain-of-proof.md](./user/chain-of-proof.md) | Which tool proves which boundary: render, ConfigHub desired state, delivery, and live observation. |
 | [top100-readiness.md](./user/top100-readiness.md) | User-facing guide to the top-100 corpus buckets and generated readiness data. |
@@ -90,6 +93,9 @@ Do not hand-edit generated Markdown unless the generator is also updated.
 | [try-now.md](./user/try-now.md) | Short first-run path for Redis and kube-prometheus-stack. |
 | [tutorial-sequence.md](./user/tutorial-sequence.md) | Sequential tutorial flow with commands and expected results. |
 | [current-proof-status.md](./user/current-proof-status.md) | User-facing entry point for current proof status. |
+| [what-we-refuse-to-claim.md](./user/what-we-refuse-to-claim.md) | User-facing trust boundary for strict witness blocks, watchlist rows, and normalization rules. |
+| [why-synced-is-not-working.md](./user/why-synced-is-not-working.md) | User-facing explanation of object-set false greens and runtime/prerequisite checks. |
+| [verify-it-yourself.md](./user/verify-it-yourself.md) | User-facing commands for independently checking repo, render, parity, and cub-scout receipt evidence. |
 | [production-support-decisions.md](./user/production-support-decisions.md) | User-facing path from production-review-ready to a target-scoped production support decision. |
 | [chain-of-proof.md](./user/chain-of-proof.md) | User-facing proof-boundary map across `helm-expt`, `cub installer`, ConfigHub, GitOps, and live observations. |
 | [top100-readiness.md](./user/top100-readiness.md) | User-facing guide to public catalog rows, promotion candidates, default-only rows, and limitation decisions in the top-100 corpus. |
