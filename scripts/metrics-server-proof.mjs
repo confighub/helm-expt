@@ -36,7 +36,9 @@ const variants = [
     base: "external-tls-ca",
     displayName: "external TLS with explicit CA",
     valuesFile: "effective-values-external-tls-ca.yaml",
-    valuesText: `tls:
+    valuesText: `args:
+  - --kubelet-insecure-tls
+tls:
   type: existingSecret
   existingSecret:
     name: metrics-server-tls
@@ -62,6 +64,10 @@ apiService:
           path: "apiService.caBundle",
           purpose: "APIService CA bundle that validates kube-system/metrics-server-tls",
           stage: "pre-render",
+          source: "metrics-server-tls-ca",
+          installerInput: "apiServiceCaBundle",
+          regularHelmFormat: "pem",
+          installerInputFormat: "base64-pem",
         },
       ],
     },
@@ -118,10 +124,10 @@ function metricsTargetPrerequisitePlan() {
           note: "The default base keeps insecureSkipTLSVerify=true and lets metrics-server generate its serving certificate at runtime. This is the simple local proof path, not the strict external CA path.",
         },
         externalTlsCa: {
-          status: "target-prerequisite-needed",
+          status: "target-prerequisite-modeled-live-parity-pass",
           currentProofLimit:
-            "The maintained proof currently renders a placeholder apiService.caBundle value. Object parity can still pass, but the live target will not be ready until the serving certificate Secret and the pre-render caBundle value are generated from the same CA.",
-          requiredToClearCurrentBlock: [
+            "The maintained canonical proof keeps the placeholder apiService.caBundle value so Helm equivalence stays stable. The installer package exposes apiServiceCaBundle as an input and rewrites the APIService at setup time. The live parity harness generates a matching CA and serving Secret for both legs, stages the Secret, passes the CA value before render, and observes the APIService.",
+          requiredForStrictLiveParity: [
             "Generate a CA and serving certificate with SANs for metrics-server.kube-system and metrics-server.kube-system.svc.",
             "Render both regular Helm and cub installer with apiService.caBundle set from that CA.",
             "Stage kube-system/metrics-server-tls from the matching serving certificate and key before apply.",
@@ -174,12 +180,34 @@ runProofCli({
   extraProofDocuments: () => [{ path: "target-prerequisite-plan.yaml", document: metricsTargetPrerequisitePlan() }],
   // single cub-only support object (the created Namespace)
   supportObjects: [`v1|Namespace||${chart.namespace}`],
+  packageInputs: [
+    {
+      name: "apiServiceCaBundle",
+      type: "string",
+      default: "Y29uZmlnaHViLW1ldHJpY3Mtc2VydmVyLWNh",
+      prompt: "Base64-encoded CA bundle for the Metrics Server APIService",
+      description:
+        "Used by the external-tls-ca base. Must match the CA that issued kube-system/metrics-server-tls.",
+    },
+  ],
   packageTransformers: [
     {
       description: "Set the namespace on every namespaced resource.",
       invocations: [{ name: "set-namespace", args: ["{{ .Namespace }}"] }],
       toolchain: "Kubernetes/YAML",
       whereResource: "",
+    },
+    {
+      description: "Bind the Metrics Server APIService caBundle from the installer input.",
+      invocations: [
+        {
+          name: "set-string-path",
+          args: ["apiregistration.k8s.io/v1/APIService", "spec.caBundle", "{{ .Inputs.apiServiceCaBundle }}"],
+        },
+      ],
+      toolchain: "Kubernetes/YAML",
+      whereResource:
+        "{{ if eq .Selection.Base \"external-tls-ca\" }}ConfigHub.ResourceType = 'apiregistration.k8s.io/v1/APIService'{{ else }}ConfigHub.ResourceType = 'helm-expt.invalid/v1/Never'{{ end }}",
     },
   ],
   valueModel: {
@@ -189,6 +217,12 @@ runProofCli({
         variant: "default",
         disposition: "chart-default-runtime-cert",
         reason: "default chart uses metrics-server runtime-generated serving certificate, so Helm generated cert helpers are inactive",
+      },
+      {
+        path: "args",
+        variant: "external-tls-ca",
+        disposition: "kind-proof-target-fit",
+        reason: "keeps the strict APIService CA proof compatible with vanilla kind kubelet certificates; production targets should set their own kubelet TLS posture",
       },
       {
         path: "tls.type",
@@ -246,6 +280,7 @@ runProofCli({
       "Default chart renders APIService with insecureSkipTLSVerify=true and lets metrics-server generate its serving certificate at runtime.",
       "tls.type=helm activates Helm lookup and genSelfSignedCert; do not promote that path until generated-fact receipts are formalized.",
       "external-tls-ca variant moves TLS material to a target Secret and binds APIService caBundle into effective values; the Secret and CA bundle must be produced together before render.",
+      "The local kind proof keeps --kubelet-insecure-tls so Metrics Server can scrape vanilla kind kubelets; production targets should review kubelet TLS separately.",
       "APIService readiness must be observed after apply because a rendered object alone does not prove aggregated API health.",
     ],
     knownControlPoints: [
@@ -284,7 +319,10 @@ runProofCli({
     const targetPrerequisitePlan = readYaml(join(root, "target-prerequisite-plan.yaml"));
     check(targetPrerequisitePlan.kind === "TargetPrerequisitePlan", "target-prerequisite-plan.yaml must be a TargetPrerequisitePlan");
     check(targetPrerequisitePlan.spec.bases.default?.status === "self-contained-for-local-proof", "default target prerequisite status mismatch");
-    check(targetPrerequisitePlan.spec.bases.externalTlsCa?.status === "target-prerequisite-needed", "external-tls-ca target prerequisite status mismatch");
+    check(
+      targetPrerequisitePlan.spec.bases.externalTlsCa?.status === "target-prerequisite-modeled-live-parity-pass",
+      "external-tls-ca target prerequisite status mismatch",
+    );
     check(
       targetPrerequisitePlan.spec.bases.externalTlsCa?.requiredBeforeRender?.some((item) => item.path === "apiService.caBundle"),
       "external-tls-ca caBundle prerequisite missing",

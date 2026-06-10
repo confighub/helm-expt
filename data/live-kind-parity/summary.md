@@ -11,9 +11,9 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 35
+pass: 36
 watch: 1
-blocked: 6
+blocked: 5
 semantic parity defects: 0
 ```
 
@@ -35,7 +35,6 @@ data/live-parity-rerun-plan/summary.md
 | target-fit: HA raft target topology not satisfied (parity passed) | 1 |
 | target-fit: secure mesh target topology not satisfied (parity passed) | 1 |
 | target-prerequisite: object store endpoint not satisfied (parity passed) | 1 |
-| target-prerequisite: serving certificate and APIService trust not satisfied (parity passed) | 1 |
 
 ## Rows
 
@@ -76,7 +75,7 @@ data/live-parity-rerun-plan/summary.md
 | `longhorn/longhorn@1.11.2` | default | pass |  | runs/live-kind-parity/longhorn-longhorn-default/receipt.yaml |
 | `longhorn/longhorn@1.11.2` | ui-ingress | pass |  | runs/live-kind-parity/longhorn-longhorn-ui-ingress/receipt.yaml |
 | `metrics-server/metrics-server@3.13.0` | default | pass |  | runs/live-kind-parity/metrics-server-metrics-server-default/receipt.yaml |
-| `metrics-server/metrics-server@3.13.0` | external-tls-ca | blocked | target-prerequisite: serving certificate and APIService trust not satisfied (parity passed) | runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/receipt.yaml |
+| `metrics-server/metrics-server@3.13.0` | external-tls-ca | pass |  | runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/receipt.yaml |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default | pass |  | runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | pass |  | runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml |
 | `prometheus-community/prometheus@29.8.0` | default | pass |  | runs/live-kind-parity/prometheus-community-prometheus-default/receipt.yaml |

@@ -449,6 +449,7 @@ function generatePackage(ctx) {
         description: `${chart.name} ${variant.displayName} variant rendered from ${ctx.chartRef}@${chart.version}`,
         externalRequires: externalRequiresForVariant(variant),
       })),
+      ...(ctx.spec.packageInputs?.length ? { inputs: ctx.spec.packageInputs } : {}),
       ...(variants.some((variant) => hasTargetFacts(variant))
         ? {
             collector: {
@@ -689,6 +690,9 @@ function verifyPackage(ctx) {
   const bases = installer.spec.bases ?? [];
   check(bases.length === variants.length, `package must declare ${variants.length} bases`);
   check(bases.filter((base) => base.default === true).length === 1, "package must have one default base");
+  if (ctx.spec.packageInputs?.length) {
+    check(stableJson(installer.spec.inputs ?? []) === stableJson(ctx.spec.packageInputs), "package inputs must match proof spec");
+  }
   if (ctx.spec.packageTransformers?.length) {
     check(
       stableJson(installer.spec.transformers ?? []) === stableJson(ctx.spec.packageTransformers),

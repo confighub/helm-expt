@@ -175,7 +175,7 @@ Receipts: [per-chart receipts](recipes/metrics-server/metrics-server/3.13.0/CATA
 ##### external-tls-ca
 
 When to use: metrics-server external TLS with explicit CA variant rendered from metrics-server/metrics-server@3.13.0
-Readiness: target-prerequisite-needed
+Readiness: try-with-proof
 Namespace: kube-system
 Target facts: required Secret kube-system/metrics-server-tls keys tls.crt,tls.key; required Value apiService.caBundle (pre-render)
 Package base: [packages/metrics-server/metrics-server/3.13.0/bases/external-tls-ca](packages/metrics-server/metrics-server/3.13.0/bases/external-tls-ca)

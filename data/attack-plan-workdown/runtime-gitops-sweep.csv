@@ -11,8 +11,8 @@ grafana/grafana,10.5.15,catalog-supported,generated-passwords;existing-secret-in
 grafana/loki,7.0.0,catalog-supported,single-binary-filesystem;simple-scalable-minio,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
 grafana/tempo,1.24.4,catalog-supported,local-persistent;s3-query-observability,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
 hashicorp/consul,2.0.0,catalog-supported,default-control-plane;secure-mesh-existing-secrets,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
-hashicorp/vault,0.32.0,catalog-supported,default;ha-raft-ui,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
-ingress-nginx/ingress-nginx,4.15.1,catalog-supported,default;admission-disabled,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+hashicorp/vault,0.32.0,catalog-supported,dev-mode;default;ha-raft-ui,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+ingress-nginx/ingress-nginx,4.15.1,catalog-supported,default;admission-disabled;internal-clusterip,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
 jetstack/cert-manager,v1.20.2,catalog-supported,default;crds-enabled,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
 longhorn/longhorn,1.11.2,catalog-supported,default;ui-ingress,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
 metrics-server/metrics-server,3.13.0,catalog-supported,default;external-tls-ca,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt

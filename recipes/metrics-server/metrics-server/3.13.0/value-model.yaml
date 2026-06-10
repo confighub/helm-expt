@@ -10,6 +10,11 @@ spec:
       disposition: "chart-default-runtime-cert"
       reason: "default chart uses metrics-server runtime-generated serving certificate, so Helm generated cert helpers are inactive"
     -
+      path: "args"
+      variant: "external-tls-ca"
+      disposition: "kind-proof-target-fit"
+      reason: "keeps the strict APIService CA proof compatible with vanilla kind kubelet certificates; production targets should set their own kubelet TLS posture"
+    -
       path: "tls.type"
       variant: "external-tls-ca"
       disposition: "target-secret-reference"

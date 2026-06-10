@@ -16,6 +16,7 @@ parity because CRDs and controllers in one leg cannot contaminate the other.
 from __future__ import annotations
 
 import argparse
+import base64
 import hashlib
 import json
 import os
@@ -322,7 +323,46 @@ def ensure_tls_material(run_root: Path) -> tuple[str, str]:
     return cert.read_text(), key.read_text()
 
 
+def ensure_metrics_server_tls_material(run_root: Path) -> tuple[str, str]:
+    cert = run_root / "metrics-server-target-facts-tls.crt"
+    key = run_root / "metrics-server-target-facts-tls.key"
+    config = run_root / "metrics-server-target-facts-openssl.cnf"
+    if not cert.exists() or not key.exists():
+        config.write_text("""[req]
+distinguished_name = req_distinguished_name
+x509_extensions = v3_req
+prompt = no
+
+[req_distinguished_name]
+CN = metrics-server.kube-system.svc
+
+[v3_req]
+basicConstraints = critical,CA:TRUE
+keyUsage = critical,digitalSignature,keyEncipherment,keyCertSign
+extendedKeyUsage = serverAuth
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = metrics-server
+DNS.2 = metrics-server.kube-system
+DNS.3 = metrics-server.kube-system.svc
+DNS.4 = metrics-server.kube-system.svc.cluster.local
+""")
+        rc, out, err = sh([
+            "openssl", "req", "-x509", "-newkey", "rsa:2048", "-nodes",
+            "-keyout", str(key), "-out", str(cert), "-days", "1",
+            "-config", str(config),
+        ], timeout=60)
+        if rc != 0:
+            raise RuntimeError(f"metrics-server target fact TLS material generation failed: {(err or out)[:1000]}")
+    return cert.read_text(), key.read_text()
+
+
 def target_fact_value(secret_name: str, key: str, run_root: Path) -> str:
+    if secret_name == "metrics-server-tls" and key in ("cert", "tls.crt", "ca.crt"):
+        return ensure_metrics_server_tls_material(run_root)[0]
+    if secret_name == "metrics-server-tls" and key in ("key", "tls.key"):
+        return ensure_metrics_server_tls_material(run_root)[1]
     if key in ("cert", "tls.crt", "ca.crt") and ("admission" in secret_name or "webhook" in secret_name):
         return ensure_tls_material(run_root)[0]
     if key in ("key", "tls.key") and ("admission" in secret_name or "webhook" in secret_name):
@@ -346,6 +386,78 @@ def target_fact_value(secret_name: str, key: str, run_root: Path) -> str:
     if "cookie" in key:
         return "helm-expt-cookie"
     return "helm-expt-password"
+
+
+def set_dotted_path(data: dict, path: str, value) -> None:
+    cursor = data
+    parts = path.split(".")
+    for part in parts[:-1]:
+        existing = cursor.get(part)
+        if not isinstance(existing, dict):
+            existing = {}
+            cursor[part] = existing
+        cursor = existing
+    cursor[parts[-1]] = value
+
+
+def target_fact_required_values(variant: dict, lane: str) -> list[dict]:
+    return [
+        item
+        for item in (((variant.get("spec") or {}).get("targetFacts") or {}).get("requiredValues") or [])
+        if target_fact_applies(item, lane)
+    ]
+
+
+def value_for_required_value(item: dict, consumer: str, run_root: Path) -> str:
+    if item.get("source") == "metrics-server-tls-ca" or item.get("path") == "apiService.caBundle":
+        cert, _ = ensure_metrics_server_tls_material(run_root)
+        if consumer == "installer":
+            return base64.b64encode(cert.encode("utf-8")).decode("ascii")
+        return cert
+    raise RuntimeError(f"no target fact value generator for {item.get('path')}")
+
+
+def apply_helm_required_value_overrides(values_path: Path, variant: dict, run_root: Path) -> list[dict]:
+    required_values = target_fact_required_values(variant, "regularHelm")
+    if not required_values:
+        return []
+    data = load_yaml(values_path)
+    applied = []
+    for item in required_values:
+        path = item.get("path")
+        if not path:
+            raise RuntimeError(f"invalid required value target fact: {item}")
+        value = value_for_required_value(item, "helm", run_root)
+        set_dotted_path(data, path, value)
+        applied.append({
+            "path": path,
+            "lane": "regularHelm",
+            "valueSHA256": sha256_text(value),
+            "format": item.get("regularHelmFormat") or "raw",
+        })
+    write_yaml(values_path, data)
+    return applied
+
+
+def installer_required_value_inputs(variant: dict, run_root: Path) -> tuple[list[str], list[dict]]:
+    required_values = target_fact_required_values(variant, "cubInstallerApply")
+    args = []
+    applied = []
+    for item in required_values:
+        input_name = item.get("installerInput")
+        path = item.get("path")
+        if not input_name or not path:
+            raise RuntimeError(f"required value {path or '<missing>'} must declare installerInput")
+        value = value_for_required_value(item, "installer", run_root)
+        args.extend(["--input", f"{input_name}={value}"])
+        applied.append({
+            "path": path,
+            "lane": "cubInstallerApply",
+            "installerInput": input_name,
+            "valueSHA256": sha256_text(value),
+            "format": item.get("installerInputFormat") or "raw",
+        })
+    return args, applied
 
 
 def target_fact_applies(item: dict, lane: str) -> bool:
@@ -710,6 +822,8 @@ def main() -> int:
         variant = load_yaml(variant_path)
         write_text(run_root / "canonical-helm-render.yaml", canonical_helm_manifest)
         helm_values_path = raw_values_file(values_path, run_root / "regular-helm-values.yaml")
+        helm_required_values = apply_helm_required_value_overrides(helm_values_path, variant, run_root)
+        installer_input_args, installer_required_values = installer_required_value_inputs(variant, run_root)
 
         mark_stage("create-kind-clusters")
         for name, kubeconfig, label in [
@@ -726,6 +840,7 @@ def main() -> int:
         receipt["spec"]["targetFacts"] = {
             "regularHelm": helm_target_facts,
             "cubInstallerApply": installer_target_facts,
+            "requiredValues": helm_required_values + installer_required_values,
         }
         check_item("target-facts-helm", helm_target_facts["result"], f"secrets={len(helm_target_facts.get('stagedSecrets', []))} crds={len(helm_target_facts.get('stagedCRDs', []))}")
         check_item("target-facts-installer", installer_target_facts["result"], f"secrets={len(installer_target_facts.get('stagedSecrets', []))} crds={len(installer_target_facts.get('stagedCRDs', []))}")
@@ -773,6 +888,7 @@ def main() -> int:
         setup_cmd = [
             "cub", "installer", "setup", "--pull", str(package_path), "--base", args.base,
             "--work-dir", str(workdir), "--non-interactive", "--namespace", args.namespace,
+            *installer_input_args,
         ]
         rc, setup_out, setup_err = sh(setup_cmd, timeout=360)
         if rc != 0:
@@ -808,8 +924,11 @@ def main() -> int:
         )
         check_item("cub-installer-apply-live", installer_result, installer_runtime.get("workloads", ""))
 
+        helm_compare_manifest = helm_live_manifest if helm_required_values and helm_live_manifest else canonical_helm_manifest
+        if helm_required_values and helm_live_manifest:
+            write_text(run_root / "regular-helm-compare-manifest.yaml", helm_compare_manifest)
         comparison = semantic_compare(
-            canonical_helm_manifest,
+            helm_compare_manifest,
             installer_manifest,
             [f"v1|Namespace||{args.namespace}"],
             semantic_normalizations,
