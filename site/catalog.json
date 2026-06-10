@@ -97,7 +97,7 @@
     "refreshCurrentRows": 13,
     "refreshUpdateCandidates": 7,
     "refreshCandidatesWithProof": 4,
-    "latestCandidatesAwaitingReplacementDecision": 2,
+    "latestCandidatesAwaitingReplacementDecision": 0,
     "latestRefreshP0Rows": 3,
     "top100ChartsWithLiveEvidence": 28,
     "liveParityRerunRows": 0,
@@ -3505,9 +3505,9 @@
       "currentVersion": "9.5.15",
       "candidateVersion": "9.5.17",
       "proofStatus": "candidate-proof-complete-root-path-present",
-      "replacementDecision": "not-decided",
-      "action": "write-replacement-decision",
-      "priority": "p1",
+      "replacementDecision": "defer-replacement",
+      "action": "replacement-deferred",
+      "priority": "p2",
       "nextAction": "review target-scoped production support decision before replacing the supported version"
     },
     {
@@ -3565,9 +3565,9 @@
       "currentVersion": "29.8.0",
       "candidateVersion": "29.9.0",
       "proofStatus": "candidate-proof-complete-root-path-present",
-      "replacementDecision": "not-decided",
-      "action": "write-replacement-decision",
-      "priority": "p1",
+      "replacementDecision": "defer-replacement",
+      "action": "replacement-deferred",
+      "priority": "p2",
       "nextAction": "review target-scoped production support decision before replacing the supported version"
     }
   ],

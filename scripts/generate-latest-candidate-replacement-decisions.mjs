@@ -274,6 +274,12 @@ function summary(rows) {
   const decided = rows.length - notDecided;
   const latestAligned = rows.filter((row) => row.candidate_freshness === "latest-upstream-aligned").length;
   const superseded = rows.filter((row) => row.candidate_freshness === "superseded-by-newer-upstream").length;
+  const latestAlignedNotDecided = rows.filter(
+    (row) => row.candidate_freshness === "latest-upstream-aligned" && row.replacement_decision === "not-decided",
+  ).length;
+  const supersededNotDecided = rows.filter(
+    (row) => row.candidate_freshness === "superseded-by-newer-upstream" && row.replacement_decision === "not-decided",
+  ).length;
   const promoted = rows.filter((row) => row.replacement_decision === "replace-supported-version").length;
   const tableRows = rows.map(
     (row) =>
@@ -298,6 +304,8 @@ proof-complete root paths: ${proofComplete} / ${rows.length}
 latest-upstream aligned: ${latestAligned} / ${rows.length}
 superseded by newer upstream: ${superseded} / ${rows.length}
 replacement decisions not written: ${notDecided} / ${rows.length}
+latest-aligned decisions not written: ${latestAlignedNotDecided} / ${latestAligned}
+superseded candidates without final decision: ${supersededNotDecided} / ${superseded}
 replacement decisions written: ${decided} / ${rows.length}
 support-promoted candidates: ${promoted} / ${rows.length}
 \`\`\`

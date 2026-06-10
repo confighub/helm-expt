@@ -1,0 +1,57 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LatestCandidateReplacementDecision
+metadata:
+  name: argo-cd-argo-cd-9-5-17-defer-public-catalog-replacement
+spec:
+  chart: argo-cd/argo-cd
+  currentVersion: 9.5.15
+  currentSupportedVersion: 9.5.15
+  currentSupportedBase: default
+  candidateVersion: 9.5.17
+  latestUpstreamVersion: 9.5.17
+  candidateFreshness: latest-upstream-aligned
+  candidateBase: default
+  decision: defer-replacement
+  decisionDate: "2026-06-10"
+  catalogEffect: no-catalog-promotion
+  targetScope:
+    name: public-catalog-default-argo-cd
+    clusterClass: cub-lk-kind-vanilla
+    namespace: argocd
+    deliveryPath: confighub-oci
+    gitopsController: argo
+  summary: "Keep argo-cd/argo-cd@9.5.15 as the supported public catalog version for now; retain argo-cd/argo-cd@9.5.17 as a proof-complete candidate."
+  rationale:
+    - "The Argo CD 9.5.17 candidate has render, ConfigHub, local live, and two-cluster live parity evidence."
+    - "The current Argo CD 9.5.15 supported scope already has target-scoped support evidence for an existing Argo CD OCI controller."
+    - "Replacing the supported GitOps controller chart needs an explicit boundary for CRDs, generated operational Secrets, Redis target facts, storage/backup, and self-management assumptions."
+  decisionTopicsReviewed:
+    - "CRD lifecycle and upgrade policy"
+    - "cluster RBAC review"
+    - "extension slot provenance and scan policy"
+    - "generated fact ownership"
+    - "hook and lifecycle phase policy"
+    - "scan/gate warning disposition"
+    - "storage backup restore and rollback policy"
+  requirementsBeforeReplacement:
+    - "Write an Argo CD 9.5.17 target-scoped production support decision with the final CRD ownership, generated Secret, target-fact, and self-management boundary."
+    - "Refresh ConfigHub OCI/Argo live evidence for the exact replacement scope after the candidate is selected."
+    - "Refresh image and scan disposition decisions for the 9.5.17 rendered object set before treating it as the supported catalog version."
+    - "Record whether Argo CD 9.5.15 remains a legacy patch/rollback reference after replacement."
+  evidence:
+    - path: data/production-support-decisions/argo-cd-argo-cd/support-decision.yaml
+      claim: "Current Argo CD 9.5.15 supported scope remains the public catalog support decision."
+    - path: recipes/argo-cd/argo-cd/9.5.17/catalog-status.yaml
+      claim: "Argo CD 9.5.17 is visible as a catalog-candidate, not catalog-supported."
+    - path: runs/latest-top20-refresh/argo-cd-9.5.17/confighub-proof/latest/confighub-proof-receipt.yaml
+      claim: "Argo CD 9.5.17 ConfigHub proof passed for the default base."
+    - path: runs/latest-top20-refresh/argo-cd-9.5.17/local-kind/observation-receipt.json
+      claim: "Argo CD 9.5.17 local kind observation passed for the default base."
+    - path: runs/latest-top20-refresh/argo-cd-9.5.17/live-parity/default/receipt.yaml
+      claim: "Argo CD 9.5.17 two-cluster Helm-vs-installer live parity passed for the default base."
+    - path: data/production-disposition/receipts/argo-cd-argo-cd/crd-lifecycle-and-upgrade-policy.yaml
+      claim: "CRD lifecycle and upgrade policy is an explicit replacement topic for this chart."
+    - path: data/production-disposition/receipts/argo-cd-argo-cd/hook-and-lifecycle-phase-policy.yaml
+      claim: "Hook and lifecycle phase policy is an explicit replacement topic for this chart."
+    - path: data/production-disposition/receipts/argo-cd-argo-cd/storage-backup-restore-and-rollback-policy.yaml
+      claim: "Storage, backup, restore, and rollback policy is an explicit replacement topic for this chart."
