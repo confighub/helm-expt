@@ -81,6 +81,27 @@ until the target behavior is modeled or accepted.
 That is the point of the model: tell the user what is true, what is watch, what
 is blocked, and what decision is needed next.
 
+## Send A Problem Chart
+
+The catalog should improve when it is challenged. If a public Helm chart breaks
+the model, or if the catalog output for a supported chart does not match the
+Helm behavior you expect, send the chart and the values that expose the problem.
+
+The expected response is not a vague claim that the chart is supported. The
+expected response is a public fixture and a receipt:
+
+- `pass`: the chart works under the stated contract;
+- `watch`: the main path works, but a runtime condition or extra object needs
+  review;
+- `blocked`: a prerequisite, lifecycle behavior, target capability, or runtime
+  failure prevents a green claim;
+- `refused`: the chart or option is outside the public catalog boundary, with a
+  named reason.
+
+This is part of the free public value. A hard chart is useful adversarial input.
+Private charts, private values, production remediation, and fleet rollout work
+belong in managed ConfigHub workflows.
+
 ## Next
 
 - [Catalog dashboard](../../site/index.html)

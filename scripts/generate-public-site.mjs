@@ -688,7 +688,7 @@ function offeringHtml(catalog) {
   const top100UserReadinessCounts = countBy(catalog.top100UserReadiness, "bucket");
   const publicCounters = [
     ["Catalog charts", `${catalog.summary.catalogSupported}/20`],
-    ["Recipe proofs", metricValue(metric("charts with model support"))],
+    ["Recipe proofs", metricValue(metric("maintained chart rows with model support"))],
     ["Render parity", metricValue(metric("render parity rows"))],
     ["Local live receipts", metricValue(metric("local live rows"))],
     ["Two-cluster parity", metricValue(metric("two-cluster kind parity pass rows"))],
@@ -854,6 +854,12 @@ function offeringHtml(catalog) {
         ["BLOCK", "The lane found a missing prerequisite, runtime failure, or target capability conflict."],
         ["Missing", "Backlog, not a failed chart."],
       ])}
+    </section>
+
+    <section aria-labelledby="challenge">
+      <h2 id="challenge">Send A Problem Chart</h2>
+      <p>If a public Helm chart breaks the model, or if the catalog output for a supported chart does not match the Helm behavior you expect, send the chart and the values that expose the problem.</p>
+      <p>The expected response is a public fixture and a receipt: pass, watch, blocked, or refused with a named reason. Private charts, private values, production remediation, and fleet rollout work belong in managed ConfigHub workflows.</p>
     </section>
 
     <section aria-labelledby="links">

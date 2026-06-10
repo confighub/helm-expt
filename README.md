@@ -27,6 +27,11 @@ Public entry points:
 - [Top-100 status](./docs/user/top100-status.md): plain-English groups for Helm users.
 - [Chain of proof](./docs/user/chain-of-proof.md): which tool proves which boundary.
 
+If you have a public Helm chart that breaks this model, or a chart where the
+catalog output does not match the behavior you expect from Helm, send it as a
+test case. The useful response is a public fixture and a receipt: pass, watch,
+blocked, or refused with a named reason.
+
 ## New Here? Start With These Five Stages
 
 Each stage asks for more trust and gives more value. You can stop at any stage.

@@ -66,7 +66,7 @@ extension slots,top500 source rows using tpl,362,500,partial,data/quirk-coverage
 hooks,top100 maintained hook charts,5,5,partial,data/hook-lifecycle/top100-hooks.csv,Hook-bearing maintained charts with required lifecycle receipt paths.
 hooks,hook route receipts present,5,5,partial,data/hook-lifecycle/top100-hooks.csv,"Hook-bearing rows with a recorded lifecycle route, observation, or blocker."
 hooks,hook lifecycle observations present,2,5,gap,data/hook-lifecycle/top100-hooks.csv,Hook-bearing rows with runtime lifecycle observation or execution receipts.
-hooks,hook partial lifecycle observations present,1,5,partial,data/hook-lifecycle/top100-hooks.csv,Hook-bearing rows whose fresh-install route has live observation while another hook phase remains pending.
+hooks,hook partial lifecycle observations present,2,5,partial,data/hook-lifecycle/top100-hooks.csv,Hook-bearing rows whose fresh-install route has live observation while another hook phase remains pending.
 hooks,hook/lifecycle boundary rows,9,9,partial,data/lifecycle-boundary/lifecycle-boundary.csv,Separates hook queue rows from hook-like controller lifecycle observations.
 hooks,hook queue rows still needing route receipts,0,5,good,data/lifecycle-boundary/lifecycle-boundary.csv,Hook-bearing rows whose behavior is inventoried but has no selected route.
 hooks,hook routes still needing execution or observation,3,5,gap,data/lifecycle-boundary/lifecycle-boundary.csv,Hook-bearing rows with a selected route and at least one missing runtime observation or execution receipt.

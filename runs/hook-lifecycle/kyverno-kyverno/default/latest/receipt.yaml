@@ -1,0 +1,102 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HookLifecycleObservationReceipt"
+metadata:
+  name: "kyverno-kyverno-default-install-and-test-lifecycle"
+spec:
+  chart: "kyverno/kyverno"
+  version: "3.8.1"
+  base: "default"
+  result: "pass"
+  observedAt: "2026-06-10T21:07:27Z"
+  package:
+    path: "packages/kyverno/kyverno/3.8.1"
+  recipe:
+    path: "recipes/kyverno/kyverno/3.8.1"
+  variantRevision: "recipes/kyverno/kyverno/3.8.1/revisions/default/r001/variant-revision.yaml"
+  lifecycleModel:
+    hookTypes:
+      - "test"
+    route: "explicit-post-install-check"
+    claim: "The Helm test hook route is observed as explicit post-install checks: CRDs established, Kyverno controller Deployments ready, admission Service endpoints ready, webhook configurations routed, and a Kyverno ClusterPolicy server dry-run accepted. This does not claim post-upgrade migration or pre-delete cleanup behavior."
+  run:
+    mode: "single-kind-cluster-cub-installer-kyverno-hook-observation"
+    cluster: "hx-hook-kyverno-8k81ll"
+    namespace: "default"
+    cleanup:
+      result: "pass"
+      detail: "deleted kind cluster"
+  checks:
+    -
+      name: "kind-create"
+      result: "pass"
+      detail: "created fresh kind cluster"
+    -
+      name: "cub-installer-setup"
+      result: "pass"
+      detail: "rendered Kyverno cub installer package output"
+      evidencePath: "cub-installer-setup.txt"
+      evidenceSHA256: "67cdb05a3bda979b880590852c7843c3ed6f775477cbe3370fd591a57a969d3b"
+    -
+      name: "kubectl-apply-crds"
+      result: "pass"
+      detail: "applied Kyverno CRDs before controllers using server-side apply"
+      evidencePath: "kubectl-apply-crds.txt"
+      evidenceSHA256: "d86fbcfdb2c891e691f47ffbda44de0bd551d434dcc5c54f0022cb84c98d5e77"
+      crdCount: 22
+    -
+      name: "crds-established"
+      result: "pass"
+      detail: "all rendered Kyverno CRDs reached Established"
+      evidencePath: "crds-established.txt"
+      evidenceSHA256: "baa975c503bdbbc25a5d72cfc13baae9d3c3ff204e9750cb3b06d97488ebcb27"
+      crdCount: 22
+    -
+      name: "kubectl-apply-manifests"
+      result: "pass"
+      detail: "applied Kyverno non-CRD manifest set after CRDs were established"
+      evidencePath: "kubectl-apply-manifests.txt"
+      evidenceSHA256: "f3e4d395af99ec899d5b0187c2cc1d2038c6c0f6226f6bbca2ebdab40908b8a1"
+      objectCount: 48
+    -
+      name: "deployment-ready:kyverno-admission-controller"
+      result: "pass"
+      detail: "kyverno-admission-controller rolled out"
+      evidencePath: "deployment-kyverno-admission-controller-rollout.txt"
+      evidenceSHA256: "4664fde26fe02e6cc662052cd0ffc03b0b23d616784dbb57ab21d2a52589253c"
+    -
+      name: "deployment-ready:kyverno-background-controller"
+      result: "pass"
+      detail: "kyverno-background-controller rolled out"
+      evidencePath: "deployment-kyverno-background-controller-rollout.txt"
+      evidenceSHA256: "09bb0f4c817103cf80791655756dcf4f5c0a18e4052409243fd7bf2cd7787662"
+    -
+      name: "deployment-ready:kyverno-cleanup-controller"
+      result: "pass"
+      detail: "kyverno-cleanup-controller rolled out"
+      evidencePath: "deployment-kyverno-cleanup-controller-rollout.txt"
+      evidenceSHA256: "e5bf91e64aab038c68d3dd5755078874a89d626496e3377069c17fdc9bbd2546"
+    -
+      name: "deployment-ready:kyverno-reports-controller"
+      result: "pass"
+      detail: "kyverno-reports-controller rolled out"
+      evidencePath: "deployment-kyverno-reports-controller-rollout.txt"
+      evidenceSHA256: "a01a9c0bb4c83e74ccd73f0d08a9e15302bbbea5924b2af39c5955e50d908d88"
+    -
+      name: "admission-service-endpoints"
+      result: "pass"
+      detail: "Kyverno admission Service has ready endpoints"
+      evidencePath: "service-kyverno-svc-endpoints.yaml"
+      evidenceSHA256: "927025c3187464521622412a48e58cb5dce4034f9e66f23601ff32168c670188"
+    -
+      name: "webhook-configurations-routed"
+      result: "pass"
+      detail: "Kyverno webhook configurations point at Services and contain CA bundles"
+      evidencePath: "webhook-configurations.json"
+      evidenceSHA256: "30ba0f7c1c6472b09c3242e449f44944b8f827cfd3de25575da9f59d2504b898"
+      webhookConfigurationCount: 10
+    -
+      name: "explicit-post-install-policy-check"
+      result: "pass"
+      detail: "server-side dry-run exercised Kyverno policy admission"
+      evidencePath: "clusterpolicy-server-dry-run.yaml"
+      evidenceSHA256: "eddb3e1b563d075541752ec56fb27a8a8b53f6527bca19dfdbce82601816c06a"

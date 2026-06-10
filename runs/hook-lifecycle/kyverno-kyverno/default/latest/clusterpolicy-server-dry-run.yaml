@@ -1,0 +1,30 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"kyverno.io/v1","kind":"ClusterPolicy","metadata":{"annotations":{},"name":"helm-expt-kyverno-lifecycle-check"},"spec":{"background":false,"rules":[{"match":{"any":[{"resources":{"kinds":["Namespace"]}}]},"name":"require-owner-label","validate":{"message":"namespace should carry an owner label","pattern":{"metadata":{"labels":{"owner":"?*"}}}}}],"validationFailureAction":"Audit"}}
+  creationTimestamp: "2026-06-10T21:08:43Z"
+  generation: 1
+  name: helm-expt-kyverno-lifecycle-check
+  uid: c10ef52f-eebf-4c7c-9c91-a5eb35b4d83a
+spec:
+  admission: true
+  background: false
+  emitWarning: false
+  rules:
+  - match:
+      any:
+      - resources:
+          kinds:
+          - Namespace
+    name: require-owner-label
+    skipBackgroundRequests: true
+    validate:
+      allowExistingViolations: true
+      message: namespace should carry an owner label
+      pattern:
+        metadata:
+          labels:
+            owner: ?*
+  validationFailureAction: Audit

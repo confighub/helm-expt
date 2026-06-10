@@ -1,0 +1,208 @@
+[
+  {
+    "apiVersion": "admissionregistration.k8s.io/v1",
+    "kind": "ValidatingWebhookConfiguration",
+    "metadata": {
+      "name": "kyverno-cel-exception-validating-webhook-cfg",
+      "creationTimestamp": "2026-06-10T21:08:38Z",
+      "generation": 1
+    },
+    "webhooks": [
+      {
+        "name": "kyverno-svc.default.svc",
+        "failurePolicy": "Fail",
+        "service": {
+          "name": "kyverno-svc",
+          "namespace": "default",
+          "path": "/celexception/validate",
+          "port": 443
+        },
+        "hasCaBundle": true
+      }
+    ],
+    "redacted": true
+  },
+  {
+    "apiVersion": "admissionregistration.k8s.io/v1",
+    "kind": "ValidatingWebhookConfiguration",
+    "metadata": {
+      "name": "kyverno-cleanup-validating-webhook-cfg",
+      "creationTimestamp": "2026-06-10T21:08:28Z",
+      "generation": 1
+    },
+    "webhooks": [
+      {
+        "name": "kyverno-cleanup-controller.default.svc",
+        "failurePolicy": "Fail",
+        "service": {
+          "name": "kyverno-cleanup-controller",
+          "namespace": "default",
+          "path": "/validate",
+          "port": 443
+        },
+        "hasCaBundle": true
+      }
+    ],
+    "redacted": true
+  },
+  {
+    "apiVersion": "admissionregistration.k8s.io/v1",
+    "kind": "ValidatingWebhookConfiguration",
+    "metadata": {
+      "name": "kyverno-exception-validating-webhook-cfg",
+      "creationTimestamp": "2026-06-10T21:08:38Z",
+      "generation": 1
+    },
+    "webhooks": [
+      {
+        "name": "kyverno-svc.default.svc",
+        "failurePolicy": "Fail",
+        "service": {
+          "name": "kyverno-svc",
+          "namespace": "default",
+          "path": "/exceptionvalidate",
+          "port": 443
+        },
+        "hasCaBundle": true
+      }
+    ],
+    "redacted": true
+  },
+  {
+    "apiVersion": "admissionregistration.k8s.io/v1",
+    "kind": "ValidatingWebhookConfiguration",
+    "metadata": {
+      "name": "kyverno-global-context-validating-webhook-cfg",
+      "creationTimestamp": "2026-06-10T21:08:38Z",
+      "generation": 1
+    },
+    "webhooks": [
+      {
+        "name": "kyverno-svc.default.svc",
+        "failurePolicy": "Fail",
+        "service": {
+          "name": "kyverno-svc",
+          "namespace": "default",
+          "path": "/globalcontextvalidate",
+          "port": 443
+        },
+        "hasCaBundle": true
+      }
+    ],
+    "redacted": true
+  },
+  {
+    "apiVersion": "admissionregistration.k8s.io/v1",
+    "kind": "ValidatingWebhookConfiguration",
+    "metadata": {
+      "name": "kyverno-policy-validating-webhook-cfg",
+      "creationTimestamp": "2026-06-10T21:08:38Z",
+      "generation": 1
+    },
+    "webhooks": [
+      {
+        "name": "validate-policy.kyverno.svc",
+        "failurePolicy": "Fail",
+        "service": {
+          "name": "kyverno-svc",
+          "namespace": "default",
+          "path": "/policyvalidate",
+          "port": 443
+        },
+        "hasCaBundle": true
+      }
+    ],
+    "redacted": true
+  },
+  {
+    "apiVersion": "admissionregistration.k8s.io/v1",
+    "kind": "ValidatingWebhookConfiguration",
+    "metadata": {
+      "name": "kyverno-resource-validating-webhook-cfg",
+      "creationTimestamp": "2026-06-10T21:08:38Z",
+      "generation": 1
+    },
+    "webhooks": [],
+    "redacted": true
+  },
+  {
+    "apiVersion": "admissionregistration.k8s.io/v1",
+    "kind": "ValidatingWebhookConfiguration",
+    "metadata": {
+      "name": "kyverno-ttl-validating-webhook-cfg",
+      "creationTimestamp": "2026-06-10T21:08:28Z",
+      "generation": 1
+    },
+    "webhooks": [
+      {
+        "name": "kyverno-cleanup-controller.default.svc",
+        "failurePolicy": "Ignore",
+        "service": {
+          "name": "kyverno-cleanup-controller",
+          "namespace": "default",
+          "path": "/verifyttl",
+          "port": 443
+        },
+        "hasCaBundle": true
+      }
+    ],
+    "redacted": true
+  },
+  {
+    "apiVersion": "admissionregistration.k8s.io/v1",
+    "kind": "MutatingWebhookConfiguration",
+    "metadata": {
+      "name": "kyverno-policy-mutating-webhook-cfg",
+      "creationTimestamp": "2026-06-10T21:08:38Z",
+      "generation": 1
+    },
+    "webhooks": [
+      {
+        "name": "mutate-policy.kyverno.svc",
+        "failurePolicy": "Fail",
+        "service": {
+          "name": "kyverno-svc",
+          "namespace": "default",
+          "path": "/policymutate",
+          "port": 443
+        },
+        "hasCaBundle": true
+      }
+    ],
+    "redacted": true
+  },
+  {
+    "apiVersion": "admissionregistration.k8s.io/v1",
+    "kind": "MutatingWebhookConfiguration",
+    "metadata": {
+      "name": "kyverno-resource-mutating-webhook-cfg",
+      "creationTimestamp": "2026-06-10T21:08:38Z",
+      "generation": 1
+    },
+    "webhooks": [],
+    "redacted": true
+  },
+  {
+    "apiVersion": "admissionregistration.k8s.io/v1",
+    "kind": "MutatingWebhookConfiguration",
+    "metadata": {
+      "name": "kyverno-verify-mutating-webhook-cfg",
+      "creationTimestamp": "2026-06-10T21:08:38Z",
+      "generation": 1
+    },
+    "webhooks": [
+      {
+        "name": "monitor-webhooks.kyverno.svc",
+        "failurePolicy": "Ignore",
+        "service": {
+          "name": "kyverno-svc",
+          "namespace": "default",
+          "path": "/verifymutate",
+          "port": 443
+        },
+        "hasCaBundle": true
+      }
+    ],
+    "redacted": true
+  }
+]

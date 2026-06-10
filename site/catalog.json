@@ -116,13 +116,13 @@
   },
   "statusMetrics": [
     {
-      "section": "top100",
-      "metric": "charts with model support",
+      "section": "outcome coverage",
+      "metric": "maintained chart rows with model support",
       "value": "108",
       "total": "110",
       "status": "good",
       "source": "data/outcome-coverage/chart-outcomes.csv",
-      "note": "The top100 corpus has honest chart models for the declared scope."
+      "note": "The broader outcome-coverage table includes top-100 rows plus retained candidate/version rows; this count is not the top-100 corpus size."
     },
     {
       "section": "top100",
@@ -143,13 +143,13 @@
       "note": "These charts have proof artifacts but are not promoted catalog entries."
     },
     {
-      "section": "top100",
-      "metric": "variant-rich charts",
+      "section": "outcome coverage",
+      "metric": "variant-rich maintained chart rows",
       "value": "64",
       "total": "110",
       "status": "partial",
       "source": "data/outcome-coverage/chart-outcomes.csv",
-      "note": "Charts with more than one declared base variant."
+      "note": "Maintained chart rows with more than one declared base variant, including retained candidate/version rows outside the top-100 corpus."
     },
     {
       "section": "top100",
@@ -721,7 +721,7 @@
     {
       "section": "hooks",
       "metric": "hook partial lifecycle observations present",
-      "value": "1",
+      "value": "2",
       "total": "5",
       "status": "partial",
       "source": "data/hook-lifecycle/top100-hooks.csv",

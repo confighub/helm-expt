@@ -6,8 +6,9 @@ spec:
   chart: kyverno/kyverno
   version: 3.8.1
   base: default
-  result: route-selected
+  result: partially-observed
   selectedAt: "2026-06-09"
+  observedAt: "2026-06-10T21:07:27Z"
   route:
     summary: Upgrade, delete cleanup, and test hooks are split into explicit lifecycle actions.
     phases:
@@ -25,12 +26,19 @@ spec:
       claim: Source scan found post-upgrade, pre-delete, and test hook templates.
     - path: recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml
       claim: Chart pain report records CRD, webhook, generated fact, and hook lifecycle risk.
+    - path: runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml
+      claim: Fresh kind run observed CRD establishment, controller rollout, admission Service readiness, webhook routes with CA bundles, and a Kyverno ClusterPolicy server dry-run.
   execution:
     helmHooksExecutedByHarness: false
-    runtimeObserved: false
+    runtimeObserved: true
+    observedRoute:
+      route: explicit-post-install-check
+      result: pass
+      receipt: runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml
     notes:
       - This is a route selection for a proof-grade chart, not a production support claim.
+      - The fresh-install test route has been observed as explicit post-install checks.
+      - CRDs are applied with a CRD-first lifecycle policy before controllers.
   remainingWork:
     - Run a live upgrade path and record migration behavior.
     - Run a delete or rollback path and record cleanup behavior.
-    - Convert test hooks into explicit checks with receipts.
