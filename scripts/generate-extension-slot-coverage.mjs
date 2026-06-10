@@ -36,10 +36,10 @@ function buildReport() {
   const quirkRows = parseCsvFile("data/quirk-coverage/coverage.csv");
   const sourceRows = JSON.parse(readFileSync(join(repoRoot, "data/top500-catalog-analysis/source/source-feature-scan.raw.json"), "utf8"));
   const top20 = new Set(top20Rows.map((row) => chartKey(row.chart)));
-  const sourceTpl = quirkRows.find((row) => row.axis === "tpl-extension-slots")?.top500_count ?? "unknown";
+  const sourceTpl = quirkRows.find((row) => row.axis === "tpl-extension-slots")?.source_top500_count ?? "unknown";
   const sourceRawExtra = sourceRows.filter((row) => hasCount(row.extraManifestValues)).length;
   const sourceTplOrRawExtra = sourceRows.filter((row) => hasCount(row.tpl) || hasCount(row.extraManifestValues)).length;
-  const matchedTop500 = quirkRows.find((row) => row.axis === "explicit-extension-slot-control-points")?.top500_count ?? "unknown";
+  const matchedTop500 = top500ProofExtensionSlotCount();
 
   const rows = chartFacts
     .filter((row) => hasExtensionSlot(row.extension_slots))
@@ -215,6 +215,12 @@ function hasCount(value) {
   if (typeof value === "number") return value > 0;
   if (value && typeof value === "object" && typeof value.count === "number") return value.count > 0;
   return false;
+}
+
+function top500ProofExtensionSlotCount() {
+  const path = "data/top500-catalog-analysis/drilldown.csv";
+  if (!existsSync(join(repoRoot, path))) return 0;
+  return parseCsvFile(path).filter((row) => row.proof_has_extension_slots === "true").length;
 }
 
 function chartKey(value) {

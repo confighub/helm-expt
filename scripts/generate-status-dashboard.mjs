@@ -53,7 +53,8 @@ function buildReport() {
   const top500Rows = readCsv("data/top500-catalog-analysis/review.csv");
   const quirkRows = readCsv("data/quirk-coverage/coverage.csv");
   const extensionRows = readCsv("data/extension-slots/extension-slots.csv");
-  const hookRows = readCsv("data/hook-lifecycle/top100-hooks.csv");
+  const sourceTop100HookRows = readCsv("data/hook-lifecycle/source-top100-hooks.csv");
+  const hookRows = readCsv("data/hook-lifecycle/maintained-hook-queue.csv");
   const lifecycleBoundaryRows = readCsv("data/lifecycle-boundary/lifecycle-boundary.csv");
   const lifecycleObservationRows = readCsv("data/lifecycle-observations/cert-manager-eso/summary.csv");
   const edgeRows = readCsv("data/edge-recovery/edges.csv");
@@ -145,13 +146,14 @@ function buildReport() {
   rows.push(metric("quirks", "not-scanned axes", quirkTierCounts.get("not-scanned") ?? 0, quirkRows.length, "gap", "data/quirk-coverage/coverage.csv", "Known blind spots in the scanner/data model."));
   rows.push(metric("extension slots", "top20 charts with extension slots", extensionRows.filter((row) => row.catalog_scope === "top20-catalog").length, 20, "partial", "data/extension-slots/extension-slots.csv", "Top-20 catalog charts that expose raw manifests, tpl snippets, config blocks, sidecars, or add-on slots."));
   rows.push(metric("extension slots", "top100 charts with extension slots", extensionRows.length, 100, "partial", "data/extension-slots/extension-slots.csv", "Top-100 chart facts where NGINX-like extension slots are surfaced."));
-  rows.push(metric("extension slots", "top500 source rows using tpl", Number(quirkRows.find((row) => row.axis === "tpl-extension-slots")?.top500_count ?? 0), top500Rows.length, "partial", "data/quirk-coverage/coverage.csv", "Broader source-scan signal for template-powered inputs; not every tpl use is an explicit supported slot."));
+  rows.push(metric("extension slots", "top500 source rows using tpl", Number(quirkRows.find((row) => row.axis === "tpl-extension-slots")?.source_top500_count ?? 0), top500Rows.length, "partial", "data/quirk-coverage/coverage.csv", "Broader source-scan signal for template-powered inputs; not every tpl use is an explicit supported slot."));
 
   const hookQueueRows = lifecycleBoundaryRows.filter((row) => row.lane === "helm-hook-lifecycle-queue");
-  rows.push(metric("hooks", "top100 maintained hook charts", hookRows.length, hookRows.length, "partial", "data/hook-lifecycle/top100-hooks.csv", "Hook-bearing maintained charts with required lifecycle receipt paths."));
-  rows.push(metric("hooks", "hook route receipts present", hookRows.filter((row) => ["route-selected", "install-lifecycle-observed-upgrade-pending", "lifecycle-observed", "blocked"].includes(row.lifecycle_disposition)).length, hookRows.length, "partial", "data/hook-lifecycle/top100-hooks.csv", "Hook-bearing rows with a recorded lifecycle route, observation, or blocker."));
-  rows.push(metric("hooks", "hook lifecycle observations present", hookRows.filter((row) => row.lifecycle_disposition === "lifecycle-observed").length, hookRows.length, "gap", "data/hook-lifecycle/top100-hooks.csv", "Hook-bearing rows with runtime lifecycle observation or execution receipts."));
-  rows.push(metric("hooks", "hook partial lifecycle observations present", hookRows.filter((row) => row.lifecycle_disposition === "install-lifecycle-observed-upgrade-pending").length, hookRows.length, "partial", "data/hook-lifecycle/top100-hooks.csv", "Hook-bearing rows whose fresh-install route has live observation while another hook phase remains pending."));
+  rows.push(metric("hooks", "top100 source-scan hook charts", sourceTop100HookRows.length, 100, "partial", "data/hook-lifecycle/source-top100-hooks.csv", "Public top-100 source scan rows where the retained source scan found Helm hooks."));
+  rows.push(metric("hooks", "maintained hook queue rows", hookRows.length, sourceTop100HookRows.length, "partial", "data/hook-lifecycle/maintained-hook-queue.csv", "Hook-bearing maintained recipe/package rows with required lifecycle receipt paths; this is not the full top-100 hook inventory."));
+  rows.push(metric("hooks", "hook route receipts present", hookRows.filter((row) => ["route-selected", "install-lifecycle-observed-upgrade-pending", "lifecycle-observed", "blocked"].includes(row.lifecycle_disposition)).length, hookRows.length, "partial", "data/hook-lifecycle/maintained-hook-queue.csv", "Maintained hook queue rows with a recorded lifecycle route, observation, or blocker."));
+  rows.push(metric("hooks", "hook lifecycle observations present", hookRows.filter((row) => row.lifecycle_disposition === "lifecycle-observed").length, hookRows.length, "gap", "data/hook-lifecycle/maintained-hook-queue.csv", "Maintained hook queue rows with runtime lifecycle observation or execution receipts."));
+  rows.push(metric("hooks", "hook partial lifecycle observations present", hookRows.filter((row) => row.lifecycle_disposition === "install-lifecycle-observed-upgrade-pending").length, hookRows.length, "partial", "data/hook-lifecycle/maintained-hook-queue.csv", "Maintained hook queue rows whose fresh-install route has live observation while another hook phase remains pending."));
   rows.push(metric("hooks", "hook/lifecycle boundary rows", lifecycleBoundaryRows.length, lifecycleBoundaryRows.length, "partial", "data/lifecycle-boundary/lifecycle-boundary.csv", "Separates hook queue rows from hook-like controller lifecycle observations."));
   rows.push(metric("hooks", "hook queue rows still needing route receipts", hookQueueRows.filter((row) => row.status === "route-and-receipt-needed").length, hookQueueRows.length, "good", "data/lifecycle-boundary/lifecycle-boundary.csv", "Hook-bearing rows whose behavior is inventoried but has no selected route."));
   rows.push(metric("hooks", "hook routes still needing execution or observation", hookQueueRows.filter((row) => ["route-selected", "install-lifecycle-observed-upgrade-pending"].includes(row.status)).length, hookQueueRows.length, "gap", "data/lifecycle-boundary/lifecycle-boundary.csv", "Hook-bearing rows with a selected route and at least one missing runtime observation or execution receipt."));
@@ -465,7 +467,7 @@ then create a reviewed \`cub installer\` base when a slot is populated.
 | --- | ---: |
 | top-20 catalog charts with extension slots | ${top20ExtensionRows.length}/20 |
 | top-100 chart facts with extension slots | ${context.extensionRows.length}/100 |
-| top-500 source rows using \`tpl\` | ${Number(context.quirkRows.find((row) => row.axis === "tpl-extension-slots")?.top500_count ?? 0)}/${context.top500Rows.length} |
+| top-500 source rows using \`tpl\` | ${Number(context.quirkRows.find((row) => row.axis === "tpl-extension-slots")?.source_top500_count ?? 0)}/${context.top500Rows.length} |
 
 | Top-20 chart | Example surfaces | Route |
 | --- | --- | --- |
@@ -512,7 +514,8 @@ lifecycle observation.
 | Which hooks, CRDs, generated facts, or target facts matter? | [outcome-coverage/feature-outcomes.csv](../outcome-coverage/feature-outcomes.csv) |
 | Which charts have NGINX-like extension slots? | [extension-slots/summary.md](../extension-slots/summary.md) |
 | Which Helm quirk axes are still blind spots? | [quirk-coverage/coverage.csv](../quirk-coverage/coverage.csv) |
-| Which hook charts need lifecycle receipts? | [hook-lifecycle/top100-hooks.csv](../hook-lifecycle/top100-hooks.csv) |
+| Which top-100 source rows contain Helm hooks? | [hook-lifecycle/source-top100-hooks.csv](../hook-lifecycle/source-top100-hooks.csv) |
+| Which maintained hook rows need lifecycle receipts? | [hook-lifecycle/maintained-hook-queue.csv](../hook-lifecycle/maintained-hook-queue.csv) |
 | Which hook claims are queued versus observed? | [lifecycle-boundary/summary.md](../lifecycle-boundary/summary.md) |
 | Which Helm artifacts have recovered graph fragments? | [edge-recovery/summary.md](../edge-recovery/summary.md) |
 | Which live comparisons passed or failed? | [live-helm-confighub-compare/summary.csv](../live-helm-confighub-compare/summary.csv) |
@@ -909,7 +912,7 @@ function hookWorkQueueObjects(hookRows, lifecycleObservationRows) {
       item: "Hook route selected, observation pending",
       count: routeSelected,
       next_action: "Run the selected lifecycle path and commit execution or observation receipts.",
-      source: "data/hook-lifecycle/top100-hooks.csv",
+      source: "data/hook-lifecycle/maintained-hook-queue.csv",
       detail: "lifecycle_disposition=route-selected",
     },
     {
@@ -918,7 +921,7 @@ function hookWorkQueueObjects(hookRows, lifecycleObservationRows) {
       item: "Hook install lifecycle observed, remaining phase pending",
       count: partiallyObserved,
       next_action: "Run the remaining lifecycle phase, such as upgrade, and commit the execution or observation receipt.",
-      source: "data/hook-lifecycle/top100-hooks.csv",
+      source: "data/hook-lifecycle/maintained-hook-queue.csv",
       detail: "lifecycle_disposition=install-lifecycle-observed-upgrade-pending",
     },
     {
@@ -927,7 +930,7 @@ function hookWorkQueueObjects(hookRows, lifecycleObservationRows) {
       item: "Hook-bearing rows observed",
       count: observed,
       next_action: "Keep receipt freshness current when the supported target changes.",
-      source: "data/hook-lifecycle/top100-hooks.csv",
+      source: "data/hook-lifecycle/maintained-hook-queue.csv",
       detail: "lifecycle_disposition=lifecycle-observed",
     },
     {

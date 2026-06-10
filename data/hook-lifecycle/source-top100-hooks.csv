@@ -1,0 +1,12 @@
+rank,chart,version,hook_count,hook_types,hook_examples,test_hook_count,hook_weight_count,hook_delete_policy_count,job_count,webhook_count,crd_count,lookup_count
+1,prometheus-community/kube-prometheus-stack,85.3.0,2,"post-install, post-upgrade, pre-install, pre-upgrade",kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/job-patch/ciliumnetworkpolicy-createSecret.yaml;kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/job-patch/ciliumnetworkpolicy-patchWebhook.yaml,0,2,2,3,2,20,4
+9,k8s-dashboard/kubernetes-dashboard,7.14.0,2,"post-upgrade, pre-upgrade",kubernetes-dashboard/charts/kong/templates/migrations-post-upgrade.yaml;kubernetes-dashboard/charts/kong/templates/migrations-pre-upgrade.yaml,0,0,2,6,4,1,13
+13,gitlab/gitlab,10.0.0,1,"post-install, post-upgrade",gitlab/charts/traefik/templates/dashboard-hook-ingressroute.yaml,0,0,0,12,4,19,2
+23,bitnami/kafka,32.4.3,1,"post-install, post-upgrade",kafka/templates/provisioning/job.yaml,0,0,1,1,0,0,4
+32,bitnami/minio,17.0.21,1,"post-install, post-upgrade",minio/templates/provisioning/job.yaml,0,0,1,1,0,0,3
+38,kyverno/kyverno,3.8.1,8,"post-upgrade, pre-delete, test",kyverno/charts/reports-server/templates/hooks/pre-delete-api-service-cleanup.yaml;kyverno/templates/hooks/post-upgrade-migrate-resources.yaml;kyverno/templates/hooks/pre-delete-remove-webhooks.yaml,1,7,7,4,0,25,4
+42,fluent/fluent-bit,0.57.6,1,test,fluent-bit/templates/tests/test-connection.yaml,1,0,1,0,0,0,0
+43,datadog/datadog,3.214.0,3,"post-install, post-upgrade, pre-install, pre-upgrade",datadog/charts/datadog-csi-driver/templates/gke_autopilot_allowlist_synchronizer.yaml;datadog/templates/gke_autopilot_allowlist_synchronizer.yaml;datadog/templates/migration-job.yaml,0,0,1,1,0,0,2
+44,bitnami/thanos,17.3.1,1,"post-install, post-upgrade",thanos/charts/minio/templates/provisioning/job.yaml,0,0,1,1,0,0,6
+84,airflow-helm/airflow,8.9.0,5,"post-install, post-upgrade",airflow/templates/db-migrations/db-migrations-job.yaml;airflow/templates/sync/sync-connections-job.yaml;airflow/templates/sync/sync-pools-job.yaml,0,5,5,5,0,0,0
+97,kong/kong,3.2.0,2,"post-upgrade, pre-upgrade",kong/templates/migrations-post-upgrade.yaml;kong/templates/migrations-pre-upgrade.yaml,0,0,2,3,1,1,10

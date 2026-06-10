@@ -292,12 +292,16 @@ The top-20 base-variant two-cluster kind parity lane has 42 committed
 receipts: 41 pass, 0 watch, 1 blocked, and 0 semantic parity defects.
 The broader two-cluster kind parity corpus has 50 committed receipts:
 49 pass, 0 watch, 1 blocked, and 0 semantic parity defects.
-5/5 maintained hook-bearing top-100 charts have hook route receipts.
-2/5 have lifecycle observation receipts, 2/5 have partial install-lifecycle
-observation with another phase pending, and 1/5 remains route-only.
-Separately, cert-manager and External Secrets have lifecycle-observation
-receipts for common CRD/webhook/controller-owned runtime behavior. Those
-receipts demonstrate the observation pattern, not universal hook support.
+11/100 public top-100 source-scan rows contain Helm hooks.
+5 maintained hook queue rows have hook route receipts.
+3/5 maintained hook queue rows have lifecycle observation receipts, and 2/5
+have partial install-lifecycle observation with another phase pending. No
+maintained hook queue row remains route-only.
+Separately, cert-manager has 2/2 `startupapicheck` Helm hook lifecycle
+observations. External Secrets has lifecycle-observation receipts for
+CRD/webhook/controller-owned runtime behavior, but no Helm hook in the tested
+bases. These receipts demonstrate the observation pattern, not universal hook
+support.
 Top-500 source/catalog analysis exists as catalog-planning data for future
 recipe promotion work.
 ```

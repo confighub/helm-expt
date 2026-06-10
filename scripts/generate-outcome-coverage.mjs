@@ -38,7 +38,7 @@ function buildReport() {
   const chartFacts = parseCsvFile("data/chart-facts/chart-facts.csv");
   const productionRows = parseCsvFile("data/production-disposition/top20.csv");
   const derivedTargetRows = parseCsvFile("data/derived-variant-target-bound/summary.csv");
-  const hookRows = parseCsvFile("data/hook-lifecycle/top100-hooks.csv");
+  const hookRows = parseCsvFile("data/hook-lifecycle/maintained-hook-queue.csv");
   const hookReceiptRows = parseCsvFile("data/hook-lifecycle/receipt-index.csv");
   const lifecycleObservationRows = parseCsvFile("data/lifecycle-observations/cert-manager-eso/summary.csv");
   const liveParityRows = parseCsvFile("data/live-helm-confighub-compare/summary.csv");
@@ -320,7 +320,7 @@ two-cluster kind parity receipts:    ${aggregate.kindParityPass} pass, ${aggrega
 derived intended-state pass rows:    ${aggregate.derivedIntendedPass}
 target-bound derived pass rows:      ${aggregate.derivedTargetPass}
 target-bound derived blocked rows:   ${aggregate.derivedTargetBlocked}
-top-100 maintained hook charts:      ${aggregate.hookChartsTop100}
+maintained hook queue rows:          ${aggregate.hookChartsTop100}
 hook route receipts present:         ${aggregate.hookRouteReceipts}/${aggregate.hookChartsTop100}
 hook lifecycle observations present: ${aggregate.hookLifecycleObserved}/${aggregate.hookChartsTop100}
 hook partial lifecycle observations: ${aggregate.hookLifecyclePartiallyObserved}/${aggregate.hookChartsTop100}

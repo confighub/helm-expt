@@ -1,0 +1,4 @@
+apiserver.operator.tigera.io/default created
+goldmane.operator.tigera.io/default created
+installation.operator.tigera.io/default created
+whisker.operator.tigera.io/default created

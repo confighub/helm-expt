@@ -22,6 +22,17 @@ Each row has a coverage tier:
 | `source-scanned-not-surfaced` | The behavior is detected in source scans, but not promoted to chart facts or outcome tables. |
 | `not-scanned` | The behavior is a known blind spot in the current scanner or data model. |
 
+Each row also separates source inventory from modeled support:
+
+| Column | Meaning |
+| --- | --- |
+| `source_top100_count` | Public top-100 source-scan rows where the quirk was detected. |
+| `modeled_or_supported_count` | Current chart facts, recipes, receipts, or maintained work queues that model the quirk. The basis varies by axis and is described in the row. |
+| `source_top500_count` | Public top-500 source-scan rows where the quirk was detected. |
+
+Do not read `modeled_or_supported_count` as the number of affected public
+charts. Do not read `source_top100_count` as proof that the quirk is supported.
+
 Use the audit when adding chart facts, pain reports, variant paths, hook
 lifecycle routes, and top-100/top-500 analysis. A chart can still be usable when
 one of its axes is incomplete, but the incomplete axis should stay visible.
