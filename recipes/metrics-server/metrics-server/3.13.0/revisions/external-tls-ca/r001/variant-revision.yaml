@@ -5,13 +5,13 @@ metadata:
 spec:
   variant: "../../../variants/external-tls-ca/variant.yaml"
   revision: "r001"
-  digest: "547919cbc27431762e897471d5381d70963696ef2cc1fe896f70efc7aa831ba1"
+  digest: "25119409096b4e7c94b8101f0f14be839252f40bb455fe6fa1a38c9b808179d1"
   digestInputs:
     recipeSHA256: "f9169aa2a30068968bd19d1a3d655ad5ff6243508cabb68176bb0dfb8e2d6faf"
-    variantSHA256: "1b70578a9c9e20afc045fa676fc93114c9e0f76fb342f3988d3d4008583d1e3e"
-    effectiveValuesSHA256: "6af618aafb9b94020cc2de1af9033b32d1b0510096b781127ff4c572233861eb"
+    variantSHA256: "eb313cf68f005b69b53e412a34efcfb71c88a76a5933984b454ef533ff1d085a"
+    effectiveValuesSHA256: "882570a70d84932f882f9677ddb30c093f970abf599d20ec47d1940790f3f6eb"
     rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
-    renderedObjectSetSHA256: "4b9df6b53cb5d8ed0b655b121696183d1c107ea88511e889bef1aae6708c8dad"
+    renderedObjectSetSHA256: "03497dfa266c74cd3bdbf9f884e4d255ae0f24b426a030f6290c36505a1300a4"
   rendered:
     releaseObjects: "rendered/release-objects.yaml"
     objectInventory: "rendered/object-inventory.yaml"

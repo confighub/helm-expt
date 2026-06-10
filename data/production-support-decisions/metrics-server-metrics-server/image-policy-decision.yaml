@@ -26,7 +26,7 @@ spec:
     resolutionReceipts: 2
   variantReceipts:
     external-tls-ca:
-      renderedObjectSetSHA256: "4b9df6b53cb5d8ed0b655b121696183d1c107ea88511e889bef1aae6708c8dad"
+      renderedObjectSetSHA256: "03497dfa266c74cd3bdbf9f884e4d255ae0f24b426a030f6290c36505a1300a4"
       sourceImageReviewRows: 1
       uniqueImages: 1
       receiptPath: "data/image-digest-workdown/receipts/metrics-server-metrics-server/external-tls-ca/image-digest-resolution.yaml"

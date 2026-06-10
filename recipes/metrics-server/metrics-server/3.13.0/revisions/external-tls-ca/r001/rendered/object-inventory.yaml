@@ -4,7 +4,7 @@ metadata:
   name: "metrics-server-metrics-server-3.13.0-external-tls-ca-r001"
 spec:
   source: "rendered/release-objects.yaml"
-  sourceSHA256: "4b9df6b53cb5d8ed0b655b121696183d1c107ea88511e889bef1aae6708c8dad"
+  sourceSHA256: "03497dfa266c74cd3bdbf9f884e4d255ae0f24b426a030f6290c36505a1300a4"
   objectCount: 9
   objects:
     -

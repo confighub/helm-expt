@@ -72,6 +72,10 @@ targetFacts:
     path: "apiService.caBundle"
     purpose: "APIService CA bundle that validates kube-system/metrics-server-tls"
     stage: "pre-render"
+    source: "metrics-server-tls-ca"
+    installerInput: "apiServiceCaBundle"
+    regularHelmFormat: "pem"
+    installerInputFormat: "base64-pem"
 targetFactChecks:
   base: "$base"
   mode: "$check_mode"

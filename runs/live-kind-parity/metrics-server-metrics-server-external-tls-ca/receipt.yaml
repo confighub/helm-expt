@@ -6,8 +6,8 @@ spec:
   chart: metrics-server/metrics-server
   version: 3.13.0
   base: external-tls-ca
-  result: blocked
-  observedAt: '2026-06-09T23:14:08Z'
+  result: pass
+  observedAt: '2026-06-10T04:24:09Z'
   package:
     path: packages/metrics-server/metrics-server/3.13.0
   recipe:
@@ -15,128 +15,119 @@ spec:
   variantRevision: recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-metric-3c02b-b3eh-helm
-    installerCluster: hx-metric-3c02b-b3eh-installer
+    helmCluster: hx-metric-3c02b-dsdn-helm
+    installerCluster: hx-metric-3c02b-dsdn-installer
     namespace: kube-system
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-metric-3c02b-b3eh-helm
+      - cluster: hx-metric-3c02b-dsdn-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-metric-3c02b-b3eh-helm" ...
+        detail: 'Deleting cluster "hx-metric-3c02b-dsdn-helm" ...
 
-          Deleted nodes: ["hx-metric-3c02b-b3eh-helm-control-plane"]'
-      - cluster: hx-metric-3c02b-b3eh-installer
+          Deleted nodes: ["hx-metric-3c02b-dsdn-helm-control-plane"]'
+      - cluster: hx-metric-3c02b-dsdn-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-metric-3c02b-b3eh-installer" ...
+        detail: 'Deleting cluster "hx-metric-3c02b-dsdn-installer" ...
 
-          Deleted nodes: ["hx-metric-3c02b-b3eh-installer-control-plane"]'
+          Deleted nodes: ["hx-metric-3c02b-dsdn-installer-control-plane"]'
   legs:
     regularHelm:
-      result: blocked
+      result: pass
       command: helm upgrade --install metrics-server metrics-server --repo https://kubernetes-sigs.github.io/metrics-server/
         --version 3.13.0 --namespace kube-system --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: kube-system
-      manifestSHA256: 4b9df6b53cb5d8ed0b655b121696183d1c107ea88511e889bef1aae6708c8dad
+      manifestSHA256: 03497dfa266c74cd3bdbf9f884e4d255ae0f24b426a030f6290c36505a1300a4
       objectCount: 9
-      liveHelmManifestSHA256: 4b9df6b53cb5d8ed0b655b121696183d1c107ea88511e889bef1aae6708c8dad
+      liveHelmManifestSHA256: 9cb04eb9b6f4b9c3292ff2f63993e2b771e8dda44af738fe3174cdc0e1b80bc0
       liveHelmManifestObjectCount: 9
       runtimeNamespaces: &id001
       - kube-system
       runtime:
-        result: watch
+        result: pass
         namespaces: *id001
         workloads: '# kube-system
 
-          deployment.apps/coredns          2/2   2     2     13m
+          deployment.apps/coredns          2/2   2     2     73s
 
-          deployment.apps/metrics-server   0/1   1     0     12m
+          deployment.apps/metrics-server   1/1   1     1     27s
 
-          daemonset.apps/kindnet      1     1     1     1     1     kubernetes.io/os=linux   13m
+          daemonset.apps/kindnet      1     1     1     1     1     kubernetes.io/os=linux   72s
 
-          daemonset.apps/kube-proxy   1     1     1     1     1     kubernetes.io/os=linux   13m'
+          daemonset.apps/kube-proxy   1     1     1     1     1     kubernetes.io/os=linux   73s'
         pods: '# kube-system
 
-          coredns-7d764666f9-5gccx                                          1/1   Running   0     13m
+          coredns-7d764666f9-dnhd6                                          1/1   Running   0     66s
 
-          coredns-7d764666f9-l47rp                                          1/1   Running   0     13m
+          coredns-7d764666f9-hdz7g                                          1/1   Running   0     66s
 
-          etcd-hx-metric-3c02b-b3eh-helm-control-plane                      1/1   Running   0     13m
+          etcd-hx-metric-3c02b-dsdn-helm-control-plane                      1/1   Running   0     74s
 
-          kindnet-pbvjl                                                     1/1   Running   0     13m
+          kindnet-4lwq9                                                     1/1   Running   0     66s
 
-          kube-apiserver-hx-metric-3c02b-b3eh-helm-control-plane            1/1   Running   0     13m
+          kube-apiserver-hx-metric-3c02b-dsdn-helm-control-plane            1/1   Running   0     73s
 
-          kube-controller-manager-hx-metric-3c02b-b3eh-helm-control-plane   1/1   Running   0     13m
+          kube-controller-manager-hx-metric-3c02b-dsdn-helm-control-plane   1/1   Running   0     73s
 
-          kube-proxy-92gwg                                                  1/1   Running   0     13m
+          kube-proxy-c5x9t                                                  1/1   Running   0     66s
 
-          kube-scheduler-hx-metric-3c02b-b3eh-helm-control-plane            1/1   Running   0     13m
+          kube-scheduler-hx-metric-3c02b-dsdn-helm-control-plane            1/1   Running   0     73s
 
-          metrics-server-66d8d7cb7-ftv6s                                    0/1   Running   0     12m'
-        notReady:
-        - namespace: kube-system
-          pod: metrics-server-66d8d7cb7-ftv6s
-          ready: 0/1
-          status: Running
-      stderr: 'Error: resource Deployment/kube-system/metrics-server not ready. status:
-        InProgress, message: Available: 0/1
-
-        context deadline exceeded'
+          metrics-server-b768588db-mxrz4                                    1/1   Running   0     26s'
+        notReady: []
+        diagnostics: []
+      stderr: ''
       getManifestError: ''
     cubInstallerApply:
-      result: watch
+      result: pass
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/metrics-server/metrics-server/3.13.0
-        --base external-tls-ca --work-dir /tmp/helm-expt-kind-parity-hx-metric-3c02b-b3eh-metrics-server
-        --non-interactive --namespace kube-system
+        --base external-tls-ca --work-dir /tmp/helm-expt-kind-parity-hx-metric-3c02b-dsdn-metrics-server
+        --non-interactive --namespace kube-system --input apiServiceCaBundle=LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUR2ekNDQXFlZ0F3SUJBZ0lVUE1vaW9TREdhRGMwUEVERzdOUTdRUjY0OENJd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0tURW5NQ1VHQTFVRUF3d2ViV1YwY21samN5MXpaWEoyWlhJdWEzVmlaUzF6ZVhOMFpXMHVjM1pqTUI0WApEVEkyTURZeE1EQTBNRGN4TTFvWERUSTJNRFl4TVRBME1EY3hNMW93S1RFbk1DVUdBMVVFQXd3ZWJXVjBjbWxqCmN5MXpaWEoyWlhJdWEzVmlaUzF6ZVhOMFpXMHVjM1pqTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEEKTUlJQkNnS0NBUUVBci8rdlFPa1pnbGVOQzJIMjdES3RkdndJeWp6WXJXYXB2R0l4cEZVZUVKSytGeU5Jd3pyagpqa3VFVVFDTytEUnFCZzQ3bXZYY1JEYkMrYktzUDB1aHNJa0ZHN2YyNWdOdnYzTjloVDBYb1NHc2FBM3c3Uk9VCllsVjcwc0VJaTE1ZTJXcGFiL2dydytxVDF4eHBNL1c5eHN6QTJMNmtFOEZxeGNWRDdjM0JveFFGYUt6ZDA1MGIKSFAxaEtlNkJwL0JWM2ZReFlWSGZzTldoZjQ1U0dDQjNLcGtkSmxrYjJHQ2hyc1dyNXNhWFNhd3htREVhM0lUZgpFWjQxejFOcDRXWHFnOU9tVXROeEloR3pGd0ZCdGo5V0FYTUNBcVNqc3RYVUduTStkSGU0REgyZ3F3WExtWnhVClQ2aHluRkh1Q2syeUVJc2tVMWo5cnVVVndmekVvVDJpSHdJREFRQUJvNEhlTUlIYk1BOEdBMVVkRXdFQi93UUYKTUFNQkFmOHdEZ1lEVlIwUEFRSC9CQVFEQWdLa01CTUdBMVVkSlFRTU1Bb0dDQ3NHQVFVRkJ3TUJNSUdEQmdOVgpIUkVFZkRCNmdnNXRaWFJ5YVdOekxYTmxjblpsY29JYWJXVjBjbWxqY3kxelpYSjJaWEl1YTNWaVpTMXplWE4wClpXMkNIbTFsZEhKcFkzTXRjMlZ5ZG1WeUxtdDFZbVV0YzNsemRHVnRMbk4yWTRJc2JXVjBjbWxqY3kxelpYSjIKWlhJdWEzVmlaUzF6ZVhOMFpXMHVjM1pqTG1Oc2RYTjBaWEl1Ykc5allXd3dIUVlEVlIwT0JCWUVGTHowVkx4NwpESjZvZVAwdkhJRWFTUW55Ymw3cU1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQXFDRWYzTnkwZTEwKy9NTVJGCnBKUmY3dTdqcnNRLzdJSFV0anh5SHNYU3BLcWEvOC9ycHF4d1JWLzN0MHhvRjNiS0wwaTNwWFdTeUpEcStORDIKYmczNXlxQndCekhzajJnZExxa25JNlgyUzBla1dGWncxOElXWCtCUG1vWHFlVXZYSnZaaW9MWW9nMEJFektWZwprQ1M0c3RickhjQmJBTnVROFZ5ZVpYcFgwdWNrM08yMHdVemlKYnJnY0lOT3BsZWdPM0kvYUJwb2Rla0VFcHdOCmFzOU1WbmpxbFhMR1lQUlNRdUlUbnJPSzRLeDE1QmVhblZ0UUg0L0lhRXI1Ky9PYU14S1V2cVR5MlcvZ01acXkKUE1wQjlUdCtlSWxGVnRwVDA1UzFSbzZGbmk2VnpoNDZvdjM4U28vUjlSc083TWs2VzMvSEZTOTJlU09uZ3VFRQowQk1iCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
       namespace: kube-system
-      manifestSHA256: 1f1198be1d18153fa854ef5f7eb3c82ad66b675d1357b22eaf2531e3ce41b61c
+      manifestSHA256: 646d498c5c57de115499ba4f8a0972dbb39793771a752d7d1bb1817e6f5752c0
       objectCount: 10
       manifestNamespaces:
       - kube-system
       runtimeNamespaces: &id002
       - kube-system
       runtime:
-        result: watch
+        result: pass
         namespaces: *id002
         workloads: '# kube-system
 
-          deployment.apps/coredns          2/2   2     2     18m
+          deployment.apps/coredns          2/2   2     2     79s
 
-          deployment.apps/metrics-server   0/1   1     0     4m54s
+          deployment.apps/metrics-server   1/1   1     1     31s
 
-          daemonset.apps/kindnet      1     1     1     1     1     kubernetes.io/os=linux   18m
+          daemonset.apps/kindnet      1     1     1     1     1     kubernetes.io/os=linux   78s
 
-          daemonset.apps/kube-proxy   1     1     1     1     1     kubernetes.io/os=linux   18m'
+          daemonset.apps/kube-proxy   1     1     1     1     1     kubernetes.io/os=linux   79s'
         pods: '# kube-system
 
-          coredns-7d764666f9-2ttcm                                               1/1   Running   0     18m
+          coredns-7d764666f9-7p7cr                                               1/1   Running   0     73s
 
-          coredns-7d764666f9-5ns2r                                               1/1   Running   0     18m
+          coredns-7d764666f9-8757h                                               1/1   Running   0     73s
 
-          etcd-hx-metric-3c02b-b3eh-installer-control-plane                      1/1   Running   0     18m
+          etcd-hx-metric-3c02b-dsdn-installer-control-plane                      1/1   Running   0     80s
 
-          kindnet-pw94v                                                          1/1   Running   0     18m
+          kindnet-dtvck                                                          1/1   Running   0     73s
 
-          kube-apiserver-hx-metric-3c02b-b3eh-installer-control-plane            1/1   Running   0     18m
+          kube-apiserver-hx-metric-3c02b-dsdn-installer-control-plane            1/1   Running   0     80s
 
-          kube-controller-manager-hx-metric-3c02b-b3eh-installer-control-plane   1/1   Running   0     18m
+          kube-controller-manager-hx-metric-3c02b-dsdn-installer-control-plane   1/1   Running   0     79s
 
-          kube-proxy-d9vl5                                                       1/1   Running   0     18m
+          kube-proxy-4wn7f                                                       1/1   Running   0     73s
 
-          kube-scheduler-hx-metric-3c02b-b3eh-installer-control-plane            1/1   Running   0     18m
+          kube-scheduler-hx-metric-3c02b-dsdn-installer-control-plane            1/1   Running   0     80s
 
-          metrics-server-66d8d7cb7-qgj94                                         0/1   Running   0     4m54s'
-        notReady:
-        - namespace: kube-system
-          pod: metrics-server-66d8d7cb7-qgj94
-          ready: 0/1
-          status: Running
+          metrics-server-b768588db-jwdrn                                         1/1   Running   0     31s'
+        notReady: []
+        diagnostics: []
   semanticComparison:
     allowedExtraInstallerObjects:
     - v1|Namespace||kube-system
@@ -166,22 +157,25 @@ spec:
     result: pass
     detail: secrets=1 crds=0
   - name: regular-helm-live
-    result: blocked
-    detail: 'Error: resource Deployment/kube-system/metrics-server not ready. status:
-      InProgress, message: Available: 0/1
-
-      context deadline exceeded'
+    result: pass
+    detail: "Release \"metrics-server\" does not exist. Installing it now.\nNAME:\
+      \ metrics-server\nLAST DEPLOYED: Wed Jun 10 05:25:02 2026\nNAMESPACE: kube-system\n\
+      STATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\n\
+      NOTES:\n***********************************************************************\n\
+      * Metrics Server                                                      *\n***********************************************************************\n\
+      \  Chart version: 3.13.0\n  App version:   0.8.0\n  Image tag:     registry.k8s.io/metrics-server/metrics-server:v0.8.0\n\
+      ***********************************************************************"
   - name: cub-installer-apply-live
-    result: watch
+    result: pass
     detail: '# kube-system
 
-      deployment.apps/coredns          2/2   2     2     18m
+      deployment.apps/coredns          2/2   2     2     79s
 
-      deployment.apps/metrics-server   0/1   1     0     4m54s
+      deployment.apps/metrics-server   1/1   1     1     31s
 
-      daemonset.apps/kindnet      1     1     1     1     1     kubernetes.io/os=linux   18m
+      daemonset.apps/kindnet      1     1     1     1     1     kubernetes.io/os=linux   78s
 
-      daemonset.apps/kube-proxy   1     1     1     1     1     kubernetes.io/os=linux   18m'
+      daemonset.apps/kube-proxy   1     1     1     1     1     kubernetes.io/os=linux   79s'
   - name: semantic-object-parity
     result: pass
     detail: missing=0 extra=['v1|Namespace||kube-system'] diffs=0
@@ -208,3 +202,13 @@ spec:
         lane: cubInstallerApply
       stagedCRDs: []
       path: /Users/alexis/code/helm-expt/runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/target-facts-installer.yaml
+    requiredValues:
+    - path: apiService.caBundle
+      lane: regularHelm
+      valueSHA256: cbc6624afe5f51022b9a75c23323dd0210eb452bfe4f26e726ea3eac79947242
+      format: pem
+    - path: apiService.caBundle
+      lane: cubInstallerApply
+      installerInput: apiServiceCaBundle
+      valueSHA256: 34dca4ca4189a86bcd5e358edca1dcead4bebb4be64a4787be1bcd9bfd9e2cd9
+      format: base64-pem

@@ -200,6 +200,7 @@ spec:
             - --metric-resolution=15s
             - --tls-cert-file=/tmp/tls-certs/tls.crt
             - --tls-private-key-file=/tmp/tls-certs/tls.key
+            - --kubelet-insecure-tls
           ports:
           - name: https
             protocol: TCP

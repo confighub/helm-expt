@@ -30,19 +30,19 @@ spec:
         bytes: 99
       -
         path: "bases/external-tls-ca/upstream.yaml"
-        sha256: "4b9df6b53cb5d8ed0b655b121696183d1c107ea88511e889bef1aae6708c8dad"
-        bytes: 7242
+        sha256: "03497dfa266c74cd3bdbf9f884e4d255ae0f24b426a030f6290c36505a1300a4"
+        bytes: 7279
       -
         path: "collector/target-facts.sh"
-        sha256: "84978c54c9c64a84495310c4f24eb7f1a49d03e158eeeacf712a401f2e49c0ca"
-        bytes: 1914
+        sha256: "50aa8958c3ab17d5078ddd955fa53fd764ab3854b5f0743f7d12136d77939de4"
+        bytes: 2059
       -
         path: "installer.yaml"
-        sha256: "f2b0398d124a44eb136420f513063d34fe94e934f4d49891087be6fec211fa7a"
-        bytes: 1312
+        sha256: "01c7b6eb6242e6a9c2afd2cf880ac902170447d3d7f040c6d064a3a41517e21a"
+        bytes: 2177
   deterministicBundle:
     command: "cub installer package packages/metrics-server/metrics-server/3.13.0 -o <tmp>/metrics-server-3.13.0.tgz"
-    sha256: "2a2e1e6c118fd01c62e70fff22f88536e17e8fd06a3b6ca4a27de90ae2360f98"
+    sha256: "fcf6277512906c9de23b70e0cbd29a9242e1b9d2472a7842d71b58bb3bedf69b"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -

@@ -16,12 +16,12 @@ or runtime review.
 ~~~text
 base variants: 42
 start-here: 20
-try-with-proof: 15
+try-with-proof: 16
 runtime-watch: 0
 runtime-review-needed: 0
 operating-policy-needed: 1
 target-fit-needed: 2
-target-prerequisite-needed: 2
+target-prerequisite-needed: 1
 hook-lifecycle-review-needed: 1
 lifecycle-observed: 1
 prerequisite-observed: 0
@@ -31,7 +31,7 @@ render-only: 0
 Live rerun readiness for non-pass rows:
 
 ~~~text
-model-or-stage-first: 6
+model-or-stage-first: 5
 review-target-first: 0
 inspect-diff-first: 0
 rerun-now-after-cleanup: 0
@@ -92,7 +92,7 @@ rerun-now-after-cleanup: 0
 | `longhorn/longhorn@1.11.2` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `longhorn/longhorn@1.11.2` | ui-ingress | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims | - |
 | `metrics-server/metrics-server@3.13.0` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `metrics-server/metrics-server@3.13.0` | external-tls-ca | no | target-prerequisite-needed | model-or-stage-first | target-prerequisite: serving certificate and APIService trust not satisfied (parity passed) | use recipes/metrics-server/metrics-server/3.13.0/target-prerequisite-plan.yaml to stage the prerequisite and capture a fresh observation receipt | [`recipes/metrics-server/metrics-server/3.13.0/target-prerequisite-plan.yaml`](../../recipes/metrics-server/metrics-server/3.13.0/target-prerequisite-plan.yaml) |
+| `metrics-server/metrics-server@3.13.0` | external-tls-ca | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims | - |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims | - |
 | `prometheus-community/prometheus@29.8.0` | server-only-ephemeral | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
