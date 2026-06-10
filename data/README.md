@@ -26,6 +26,7 @@ smallest generated surface that answers it.
 | I want to know whether value-change blast radius is measured or still assumed. | [blast-radius-accuracy/summary.md](./blast-radius-accuracy/summary.md)<br>[blast-radius-accuracy/cases.csv](./blast-radius-accuracy/cases.csv) |
 | I want the top-100 coverage contract. | [top100-coverage/summary.md](./top100-coverage/summary.md)<br>[top100-coverage/coverage.csv](./top100-coverage/coverage.csv) |
 | I want the strict top-100 work queue. | [top100-coverage/work-queue.md](./top100-coverage/work-queue.md)<br>[top100-coverage/work-queue.csv](./top100-coverage/work-queue.csv)<br>[top100-coverage/decisions-needed.md](./top100-coverage/decisions-needed.md) |
+| I want the source-scan quirk work queue. | [quirk-work-queue/summary.md](./quirk-work-queue/summary.md)<br>[quirk-work-queue/top100-queue.csv](./quirk-work-queue/top100-queue.csv) |
 | I want the first strict top-100 promotion wave. | [top100-promotion-wave/summary.md](./top100-promotion-wave/summary.md)<br>[top100-promotion-wave/wave.csv](./top100-promotion-wave/wave.csv) |
 | I want to know how upstream chart updates are handled. | [refresh-survival/summary.md](./refresh-survival/summary.md)<br>[latest-top20-refresh/action-queue/summary.md](./latest-top20-refresh/action-queue/summary.md)<br>[latest-top20-refresh/replacement-decisions/summary.md](./latest-top20-refresh/replacement-decisions/summary.md) |
 | I want the top-100 or top-500 planning picture. | [top100-readiness/summary.md](./top100-readiness/summary.md)<br>[top100-readiness/next80-queues.md](./top100-readiness/next80-queues.md)<br>[top500-catalog-analysis/review.csv](./top500-catalog-analysis/review.csv) |
@@ -98,6 +99,7 @@ smallest generated surface that answers it.
 | [top500-catalog-analysis/review.csv](./top500-catalog-analysis/review.csv) | Top-500 evidence map: retained source-scan rows joined to current recipe proof, catalog status, version drift, source features, and next action. |
 | [variant-path-coverage/summary.md](./variant-path-coverage/summary.md) | Per chart/base/path matrix for base variants, diffs, operations, and derived ConfigHub variants. |
 | [quirk-coverage/summary.md](./quirk-coverage/summary.md) | Coverage audit for Helm quirks: tracked, partly tracked, source-scanned only, or not scanned. |
+| [quirk-work-queue/summary.md](./quirk-work-queue/summary.md) | Chart-level work queue for converting public top-100 source-scan quirks into modeled, reviewable, and eventually provable catalog facts. |
 | [high-fanout-demo/summary.md](./high-fanout-demo/summary.md) | Prometheus/kube-prometheus-stack example showing how one base choice changes many objects and prerequisites. |
 | [high-fanout-demo/operation-preview.md](./high-fanout-demo/operation-preview.md) | Pre-ship operation preview for kube-prometheus-stack high-fanout inputs: route, reach, guardrail, and next proof. |
 | [edge-recovery/summary.md](./edge-recovery/summary.md) | Recovered graph fragments from catalog-supported recipe artifacts. |
@@ -202,6 +204,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `quirk-coverage` | [quirk-coverage/summary.md](./quirk-coverage/summary.md) | Helm quirk-axis coverage audit |
 | `quirk-inventory-audit` | [quirk-inventory-audit/summary.md](./quirk-inventory-audit/summary.md) | supporting generated evidence |
 | `quirk-review-queue` | [quirk-review-queue/summary.md](./quirk-review-queue/summary.md) | queue for chart quirks needing human or product review |
+| `quirk-work-queue` | [quirk-work-queue/summary.md](./quirk-work-queue/summary.md) | source-scan quirk work queue for top-100 charts |
 | `refresh-survival` | [refresh-survival/summary.md](./refresh-survival/summary.md) | latest-version refresh survival and upgrade seed |
 | `runtime-gitops` | [runtime-gitops/summary.md](./runtime-gitops/summary.md) | Argo/Flux OCI live proof wave |
 | `scan-disposition-workdown` | [scan-disposition-workdown/summary.md](./scan-disposition-workdown/summary.md) | scan warning routes to fixes, hardened bases, or explicit dispositions |
@@ -226,7 +229,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 91 CSV files. Each row records the path, audience,
+It includes 92 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
