@@ -184,6 +184,12 @@ spec:
             name: "consul-bootstrap-acl-token"
             namespace: "consul"
             purpose: "Consul ACL bootstrap token"
+        requiredTopology:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+          minimumSchedulableNodes: 3
+          purpose: "Consul secure mesh renders three server replicas with anti-affinity and gateway workloads."
       targetFactSummary: "required Secret consul/consul-ca-cert keys tls.crt; required Secret consul/consul-server-cert keys tls.crt,tls.key; required Secret consul/consul-gossip-encryption-key keys key; required Secret consul/consul-bootstrap-acl-token keys token"
       packageBase:
         name: "secure-mesh-existing-secrets"
@@ -203,7 +209,7 @@ spec:
           name: "secure-mesh-existing-secrets-r001"
           revision: "r001"
           variantRevision: "recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/variant-revision.yaml"
-          digest: "f571f3bed46371985a0db79eeca2a13ddc4676c58606d8cbee7f026a367364e6"
+          digest: "f1c903c0195ac960a1108142730b10044eeba6c0ad8649c743b483a4c88976d3"
           renderedObjectSetSHA256: "0acc8c339c2965446b754c3a9c948c4f154ca6e47b074ddc3b8d315e2cb7c468"
           renderedObjects: "recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/object-inventory.yaml"

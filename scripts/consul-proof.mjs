@@ -98,6 +98,11 @@ ui:
         { namespace: "consul", name: "consul-gossip-encryption-key", keys: ["key"], purpose: "Consul gossip encryption key" },
         { namespace: "consul", name: "consul-bootstrap-acl-token", keys: ["token"], purpose: "Consul ACL bootstrap token" },
       ],
+      requiredTopology: {
+        minimumSchedulableNodes: 3,
+        purpose: "Consul secure mesh renders three server replicas with anti-affinity and gateway workloads.",
+        deliveryLanes: ["regularHelm", "cubInstallerApply"],
+      },
     },
   },
 ];
@@ -526,6 +531,8 @@ rewrite(r)
         check(!secretIdentities.length, "default-control-plane must not render a Secret");
       }
       if (variant.name === "secure-mesh-existing-secrets") {
+        const variantDoc = readYaml(join(root, "variants", "secure-mesh-existing-secrets", "variant.yaml"));
+        check(variantDoc.spec.targetFacts?.requiredTopology?.minimumSchedulableNodes === 3, "secure mesh variant topology target fact missing");
         check(identities.includes("batch/v1|Job|consul|consul-consul-server-acl-init"), "secure-mesh-existing-secrets ACL init Job missing");
         check(identities.includes("networking.k8s.io/v1|Ingress|consul|consul-consul-ui"), "secure-mesh-existing-secrets UI Ingress missing");
         check(identities.includes("apps/v1|Deployment|consul|consul-consul-mesh-gateway"), "secure-mesh-existing-secrets mesh gateway missing");

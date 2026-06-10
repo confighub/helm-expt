@@ -36,7 +36,7 @@ spec:
       to: "external-tls-ca"
       type: "inherits-with-overrides"
       inheritedValuePaths:
-        []
+        - "args"
       overriddenValuePaths:
         []
       addedValuePaths:
@@ -46,7 +46,7 @@ spec:
         - "tls.existingSecret.name"
         - "tls.type"
       removedValuePaths:
-        - "args"
+        []
       valueSourceMapCoverage:
         []
   targetFactEdges:

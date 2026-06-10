@@ -39,3 +39,9 @@ spec:
         keys:
           - "token"
         purpose: "Consul ACL bootstrap token"
+    requiredTopology:
+      minimumSchedulableNodes: 3
+      purpose: "Consul secure mesh renders three server replicas with anti-affinity and gateway workloads."
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"

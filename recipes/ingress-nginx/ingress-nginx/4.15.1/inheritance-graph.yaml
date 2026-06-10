@@ -65,7 +65,17 @@ spec:
       valueSourceMapCoverage:
         []
   targetFactEdges:
-    []
+    -
+      variant: "default"
+      kind: "Secret"
+      namespace: "ingress-nginx"
+      name: "ingress-nginx-admission"
+      keys:
+        - "cert"
+        - "key"
+        - "ca"
+      fact: "Secret/ingress-nginx/ingress-nginx-admission:cert+key+ca"
+      purpose: "admission webhook certificate normally created by Helm hook jobs"
   generatedFactEdges:
     []
   fieldReachability:
