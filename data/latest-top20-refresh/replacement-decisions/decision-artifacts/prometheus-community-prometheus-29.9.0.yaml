@@ -1,0 +1,55 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LatestCandidateReplacementDecision
+metadata:
+  name: prometheus-community-prometheus-29-9-0-defer-public-catalog-replacement
+spec:
+  chart: prometheus-community/prometheus
+  currentVersion: 29.8.0
+  currentSupportedVersion: 29.8.0
+  currentSupportedBase: server-only-ephemeral
+  candidateVersion: 29.9.0
+  latestUpstreamVersion: 29.9.0
+  candidateFreshness: latest-upstream-aligned
+  candidateBase: server-only-ephemeral
+  decision: defer-replacement
+  decisionDate: "2026-06-10"
+  catalogEffect: no-catalog-promotion
+  targetScope:
+    name: public-catalog-server-only-prometheus
+    clusterClass: cub-lk-kind-vanilla
+    namespace: monitoring
+    deliveryPath: confighub-oci
+    gitopsController: argo
+  summary: "Keep prometheus-community/prometheus@29.8.0 as the supported public catalog version for now; retain prometheus-community/prometheus@29.9.0 as a proof-complete server-only candidate."
+  rationale:
+    - "The Prometheus 29.9.0 candidate has render, ConfigHub, local live, and two-cluster live parity evidence for the server-only-ephemeral base."
+    - "The current Prometheus 29.8.0 supported scope is intentionally narrow: server-only, ephemeral, and not the broad default stack."
+    - "Replacing even a narrow monitoring base needs the target-scoped support decision, image/security disposition, and fresh OCI evidence to name the replacement version explicitly."
+  decisionTopicsReviewed:
+    - "cluster RBAC review"
+    - "extension slot provenance and scan policy"
+    - "scan/gate warning disposition"
+    - "storage backup restore and rollback policy"
+  requirementsBeforeReplacement:
+    - "Write a Prometheus 29.9.0 target-scoped production support decision that keeps the server-only-ephemeral support boundary explicit."
+    - "Refresh ConfigHub OCI/Argo live evidence for the exact replacement scope after the candidate is selected."
+    - "Refresh image and scan disposition decisions for the 29.9.0 rendered object set before treating it as the supported catalog version."
+    - "Record whether Prometheus 29.8.0 remains a legacy patch/rollback reference after replacement."
+    - "Keep broad default-stack, persistent-storage, remote-write, scrape-customization, ingress, node-exporter, and hardened variants out of this replacement unless separately reviewed."
+  evidence:
+    - path: data/production-support-decisions/prometheus-community-prometheus/support-decision.yaml
+      claim: "Current Prometheus 29.8.0 server-only-ephemeral supported scope remains the public catalog support decision."
+    - path: recipes/prometheus-community/prometheus/29.9.0/catalog-status.yaml
+      claim: "Prometheus 29.9.0 is visible as a catalog-candidate, not catalog-supported."
+    - path: runs/latest-top20-refresh/prometheus-29.9.0/confighub-proof/latest/confighub-proof-receipt.yaml
+      claim: "Prometheus 29.9.0 ConfigHub proof passed for the server-only-ephemeral base."
+    - path: runs/latest-top20-refresh/prometheus-29.9.0/local-kind/observation-receipt.json
+      claim: "Prometheus 29.9.0 local kind observation passed for the server-only-ephemeral base."
+    - path: runs/latest-top20-refresh/prometheus-29.9.0/live-parity/server-only-ephemeral/receipt.yaml
+      claim: "Prometheus 29.9.0 two-cluster Helm-vs-installer live parity passed for the server-only-ephemeral base."
+    - path: data/production-disposition/receipts/prometheus-community-prometheus/cluster-rbac-review.yaml
+      claim: "Cluster RBAC review is an explicit replacement topic for this chart."
+    - path: data/production-disposition/receipts/prometheus-community-prometheus/extension-slot-provenance-and-scan-policy.yaml
+      claim: "Extension slot provenance and scan policy is an explicit replacement topic for this chart."
+    - path: data/production-disposition/receipts/prometheus-community-prometheus/scan-gate-warning-disposition.yaml
+      claim: "Scan gate warning disposition is an explicit replacement topic for this chart."

@@ -16,9 +16,9 @@ spec:
       candidatePrimaryBase: "default"
       candidateCatalogStatus: "catalog-candidate"
       candidateProofStatus: "proof-complete-root-path-present"
-      replacementDecision: "not-decided"
-      replacementDecisionArtifact: null
-      replacementDecisionSummary: null
+      replacementDecision: "defer-replacement"
+      replacementDecisionArtifact: "data/latest-top20-refresh/replacement-decisions/decision-artifacts/argo-cd-argo-cd-9.5.17.yaml"
+      replacementDecisionSummary: "Keep argo-cd/argo-cd@9.5.15 as the supported public catalog version for now; retain argo-cd/argo-cd@9.5.17 as a proof-complete candidate."
       decisionTopics:
         - "CRD lifecycle and upgrade policy"
         - "cluster RBAC review"
@@ -34,7 +34,7 @@ spec:
         configHubProofReceipt: "runs/latest-top20-refresh/argo-cd-9.5.17/confighub-proof/latest/confighub-proof-receipt.yaml"
         localLiveReceipt: "runs/latest-top20-refresh/argo-cd-9.5.17/local-kind/observation-receipt.json"
         liveParityReceipt: "runs/latest-top20-refresh/argo-cd-9.5.17/live-parity/default/receipt.yaml"
-      nextAction: "write target-scoped replacement decision for argo-cd/argo-cd@9.5.17; review 7 topic(s), then choose replace, defer, or keep 9.5.15 pinned"
+      nextAction: "replacement decision defers argo-cd/argo-cd@9.5.17; keep 9.5.15 pinned and revisit after the recorded requirements are satisfied"
     -
       chart: "bitnami/mongodb"
       currentVersion: "19.0.7"
@@ -185,9 +185,9 @@ spec:
       candidatePrimaryBase: "server-only-ephemeral"
       candidateCatalogStatus: "catalog-candidate"
       candidateProofStatus: "proof-complete-root-path-present"
-      replacementDecision: "not-decided"
-      replacementDecisionArtifact: null
-      replacementDecisionSummary: null
+      replacementDecision: "defer-replacement"
+      replacementDecisionArtifact: "data/latest-top20-refresh/replacement-decisions/decision-artifacts/prometheus-community-prometheus-29.9.0.yaml"
+      replacementDecisionSummary: "Keep prometheus-community/prometheus@29.8.0 as the supported public catalog version for now; retain prometheus-community/prometheus@29.9.0 as a proof-complete server-only candidate."
       decisionTopics:
         - "cluster RBAC review"
         - "extension slot provenance and scan policy"
@@ -200,4 +200,4 @@ spec:
         configHubProofReceipt: "runs/latest-top20-refresh/prometheus-29.9.0/confighub-proof/latest/confighub-proof-receipt.yaml"
         localLiveReceipt: "runs/latest-top20-refresh/prometheus-29.9.0/local-kind/observation-receipt.json"
         liveParityReceipt: "runs/latest-top20-refresh/prometheus-29.9.0/live-parity/server-only-ephemeral/receipt.yaml"
-      nextAction: "write target-scoped replacement decision for prometheus-community/prometheus@29.9.0; review 4 topic(s), then choose replace, defer, or keep 29.8.0 pinned"
+      nextAction: "replacement decision defers prometheus-community/prometheus@29.9.0; keep 29.8.0 pinned and revisit after the recorded requirements are satisfied"
