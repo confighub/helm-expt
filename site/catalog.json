@@ -4350,7 +4350,7 @@
       "live_rerun_next_step": "stage-prerequisite",
       "live_rerun_command": "npm run kind-parity:run -- --chart metrics-server/metrics-server --version 3.13.0 --base external-tls-ca",
       "command": "cub installer setup --pull packages/metrics-server/metrics-server/3.13.0 --base external-tls-ca --work-dir <tmp> --non-interactive --namespace kube-system",
-      "target_facts": "required Secret kube-system/metrics-server-tls keys tls.crt,tls.key",
+      "target_facts": "required Secret kube-system/metrics-server-tls keys tls.crt,tls.key; required Value apiService.caBundle (pre-render)",
       "render_parity": "pass",
       "in_confighub": "missing",
       "local_live": "missing",

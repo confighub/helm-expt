@@ -18,7 +18,7 @@ spec:
   notes:
     - "Default chart renders APIService with insecureSkipTLSVerify=true and lets metrics-server generate its serving certificate at runtime."
     - "tls.type=helm activates Helm lookup and genSelfSignedCert; do not promote that path until generated-fact receipts are formalized."
-    - "external-tls-ca variant moves TLS material to a target Secret and binds APIService caBundle into effective values."
+    - "external-tls-ca variant moves TLS material to a target Secret and binds APIService caBundle into effective values; the Secret and CA bundle must be produced together before render."
     - "APIService readiness must be observed after apply because a rendered object alone does not prove aggregated API health."
   painPoints:
     -
@@ -41,7 +41,7 @@ spec:
       supportedVariantStatus: "handled"
     -
       id: "generated-facts"
-      detectedPainPoint: "tls.type=helm would use genSelfSignedCert and lookup; the supported bases avoid that path. default uses runtime certificate behavior, and external-tls-ca uses an explicit target Secret."
+      detectedPainPoint: "tls.type=helm would use genSelfSignedCert and lookup; it is intentionally not promoted until generated-fact receipts are formalized. external-tls-ca avoids Helm generation but still requires a matching CA bundle before render."
       evidence:
         - "variants/default/variant.yaml and variants/external-tls-ca/variant.yaml"
       configHubHome: "generated-fact"
@@ -89,21 +89,20 @@ spec:
       id: "apiservice"
       detectedPainPoint: "apiservice affects apiregistration.k8s.io/v1|APIService||v1beta1.metrics.k8s.io"
       evidence:
-        - "runs/live-helm-confighub-compare/metrics-server-metrics-server-default/receipt.yaml and runs/derived-variant-target-bound/metrics-server-prod-us-east/receipt.yaml"
         - "apiregistration.k8s.io/v1|APIService||v1beta1.metrics.k8s.io"
       configHubHome: "scan-gate"
       disposition: "needs-operator-decision"
       linkedReceipt: "revisions/default/r001/receipts/scan-receipt.yaml"
-      supportedVariantStatus: "observed-for-default-target-review-required"
+      supportedVariantStatus: "needs-observation"
     -
       id: "cluster-rbac"
-      detectedPainPoint: "cluster-rbac requires data/production-disposition/receipts/metrics-server-metrics-server/cluster-rbac-review.yaml"
+      detectedPainPoint: "cluster-rbac requires scan receipts"
       evidence:
-        - "data/production-disposition/receipts/metrics-server-metrics-server/cluster-rbac-review.yaml"
+        - "scan receipts"
       configHubHome: "scan-gate"
       disposition: "handled-by-scan-or-gate"
       linkedReceipt: "revisions/default/r001/receipts/scan-receipt.yaml"
-      supportedVariantStatus: "disposition-accepted-for-production-review-input"
+      supportedVariantStatus: "scan-and-review"
     -
       id: "installer-support-object"
       detectedPainPoint: "installer-support-object affects v1|Namespace||kube-system"
@@ -115,7 +114,7 @@ spec:
       supportedVariantStatus: "handled"
     -
       id: "scan-gate"
-      detectedPainPoint: "Current scan gate is warn-production-review-ready"
+      detectedPainPoint: "Current scan gate is warn-production-blocked"
       evidence:
         - "helm-plan.yaml"
         - "scan receipts"
@@ -123,7 +122,7 @@ spec:
       configHubHome: "scan-gate"
       disposition: "handled-by-scan-or-gate"
       linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
-      supportedVariantStatus: "warn-production-review-ready"
+      supportedVariantStatus: "warn-production-blocked"
     -
       id: "value-model-diagnostics"
       detectedPainPoint: "Helm values can be unknown, dead, misspelled, shadowed, or ignored unless the values model records the analysis boundary."

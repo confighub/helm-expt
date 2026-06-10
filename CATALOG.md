@@ -177,7 +177,7 @@ Receipts: [per-chart receipts](recipes/metrics-server/metrics-server/3.13.0/CATA
 When to use: metrics-server external TLS with explicit CA variant rendered from metrics-server/metrics-server@3.13.0
 Readiness: target-prerequisite-needed
 Namespace: kube-system
-Target facts: required Secret kube-system/metrics-server-tls keys tls.crt,tls.key
+Target facts: required Secret kube-system/metrics-server-tls keys tls.crt,tls.key; required Value apiService.caBundle (pre-render)
 Package base: [packages/metrics-server/metrics-server/3.13.0/bases/external-tls-ca](packages/metrics-server/metrics-server/3.13.0/bases/external-tls-ca)
 Variant file: [recipes/metrics-server/metrics-server/3.13.0/variants/external-tls-ca/variant.yaml](recipes/metrics-server/metrics-server/3.13.0/variants/external-tls-ca/variant.yaml)
 Rendered objects: [recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/rendered/release-objects.yaml](recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/rendered/release-objects.yaml)
@@ -208,7 +208,7 @@ Variants:
 ##### default
 
 When to use: ingress-nginx default variant rendered from ingress-nginx/ingress-nginx@4.15.1
-Readiness: runtime-watch
+Readiness: hook-lifecycle-review-needed
 Namespace: ingress-nginx
 Target facts: none
 Package base: [packages/ingress-nginx/ingress-nginx/4.15.1/bases/default](packages/ingress-nginx/ingress-nginx/4.15.1/bases/default)

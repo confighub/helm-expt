@@ -47,7 +47,7 @@ apiService:
 `,
     valuesSummary: "target Secret plus explicit APIService CA bundle",
     expectedObjectCount: 9,
-    targetFactNote: "requires target Secret kube-system/metrics-server-tls with tls.crt and tls.key",
+    targetFactNote: "requires target Secret kube-system/metrics-server-tls with tls.crt and tls.key, plus an APIService caBundle that matches the Secret certificate authority",
     targetFacts: {
       requiredSecrets: [
         {
@@ -55,6 +55,13 @@ apiService:
           name: "metrics-server-tls",
           keys: ["tls.crt", "tls.key"],
           purpose: "metrics-server serving certificate",
+        },
+      ],
+      requiredValues: [
+        {
+          path: "apiService.caBundle",
+          purpose: "APIService CA bundle that validates kube-system/metrics-server-tls",
+          stage: "pre-render",
         },
       ],
     },
@@ -99,6 +106,14 @@ runProofCli({
   scanPolicy,
   // single cub-only support object (the created Namespace)
   supportObjects: [`v1|Namespace||${chart.namespace}`],
+  packageTransformers: [
+    {
+      description: "Set the namespace on every namespaced resource.",
+      invocations: [{ name: "set-namespace", args: ["{{ .Namespace }}"] }],
+      toolchain: "Kubernetes/YAML",
+      whereResource: "",
+    },
+  ],
   valueModel: {
     checkedValues: [
       {
@@ -140,7 +155,7 @@ runProofCli({
       category: "generated-facts",
       status: "avoided-by-current-variants",
       evidence: "variants/default/variant.yaml and variants/external-tls-ca/variant.yaml",
-      note: "tls.type=helm would use genSelfSignedCert and lookup; it is intentionally not promoted until generated-fact receipts are formalized.",
+      note: "tls.type=helm would use genSelfSignedCert and lookup; it is intentionally not promoted until generated-fact receipts are formalized. external-tls-ca avoids Helm generation but still requires a matching CA bundle before render.",
     },
     {
       category: "target-facts",
@@ -148,6 +163,7 @@ runProofCli({
       evidence: "variants/external-tls-ca/variant.yaml",
       required: [
         { kind: "Secret", namespace: "kube-system", name: "metrics-server-tls", keys: ["tls.crt", "tls.key"] },
+        { kind: "Value", path: "apiService.caBundle", stage: "pre-render", purpose: "must match the Secret certificate authority" },
       ],
     },
     { category: "lookup", status: "avoided", note: "external-tls-ca sets tls.existingSecret.lookup=false; default keeps lookup path inactive" },
@@ -161,7 +177,7 @@ runProofCli({
     maintainedNotes: [
       "Default chart renders APIService with insecureSkipTLSVerify=true and lets metrics-server generate its serving certificate at runtime.",
       "tls.type=helm activates Helm lookup and genSelfSignedCert; do not promote that path until generated-fact receipts are formalized.",
-      "external-tls-ca variant moves TLS material to a target Secret and binds APIService caBundle into effective values.",
+      "external-tls-ca variant moves TLS material to a target Secret and binds APIService caBundle into effective values; the Secret and CA bundle must be produced together before render.",
       "APIService readiness must be observed after apply because a rendered object alone does not prove aggregated API health.",
     ],
     knownControlPoints: [
@@ -182,7 +198,7 @@ runProofCli({
     proves: [
       "regular Helm output is preserved by `cub installer setup`, plus the explained Namespace support object;",
       "default chart render is deterministic under the pinned Kubernetes capability profile;",
-      "the existing-secret TLS path avoids Helm lookup and generated certificate material by making the target Secret explicit;",
+      "the existing-secret TLS path avoids Helm lookup and generated certificate material by making the target Secret and matching APIService CA bundle explicit;",
       "APIService and cluster RBAC risks are visible as scan/gate findings instead of hidden Helm behavior.",
     ],
   },
@@ -210,6 +226,8 @@ runProofCli({
         check(requiredSecret?.name === "metrics-server-tls", "external-tls-ca target Secret mismatch");
         check(requiredSecret?.keys?.includes("tls.crt"), "external-tls-ca tls.crt key missing");
         check(requiredSecret?.keys?.includes("tls.key"), "external-tls-ca tls.key key missing");
+        const requiredValue = variantDoc.spec.targetFacts?.requiredValues?.find((item) => item.path === "apiService.caBundle");
+        check(requiredValue?.stage === "pre-render", "external-tls-ca caBundle target value must be pre-render");
         check(readFileSync(releasePath, "utf8").includes("caBundle: Y29uZmlnaHViLW1ldHJpY3Mtc2VydmVyLWNh"), "external-tls-ca caBundle missing");
         check(readFileSync(releasePath, "utf8").includes("secretName: metrics-server-tls"), "external-tls-ca secretName missing");
       }

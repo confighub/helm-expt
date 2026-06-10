@@ -23,7 +23,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 
 - Default chart renders APIService with insecureSkipTLSVerify=true and lets metrics-server generate its serving certificate at runtime.
 - tls.type=helm activates Helm lookup and genSelfSignedCert; do not promote that path until generated-fact receipts are formalized.
-- external-tls-ca variant moves TLS material to a target Secret and binds APIService caBundle into effective values.
+- external-tls-ca variant moves TLS material to a target Secret and binds APIService caBundle into effective values; the Secret and CA bundle must be produced together before render.
 - APIService readiness must be observed after apply because a rendered object alone does not prove aggregated API health.
 
 ## Catalog Mitigations
@@ -40,13 +40,13 @@ operating-policy dispositions plus a final target-scoped support decision.
 | --- | --- | --- |
 | source-lock | handled | source-lock.yaml |
 | dependency-lock | handled | chart has no subchart dependencies |
-| generated-facts | avoided-by-current-variants | tls.type=helm would use genSelfSignedCert and lookup; the supported bases avoid that path. default uses runtime certificate behavior, and external-tls-ca uses an explicit target Secret. |
+| generated-facts | avoided-by-current-variants | tls.type=helm would use genSelfSignedCert and lookup; it is intentionally not promoted until generated-fact receipts are formalized. external-tls-ca avoids Helm generation but still requires a matching CA bundle before render. |
 | target-facts | required-for-external-tls-ca | variants/external-tls-ca/variant.yaml |
 | lookup | avoided | external-tls-ca sets tls.existingSecret.lookup=false; default keeps lookup path inactive |
 | capability-profile | handled | recorded in control-points.yaml |
 | hook-policy | handled | no-hooks |
-| apiservice | observed-for-default-target-review-required | runs/live-helm-confighub-compare/metrics-server-metrics-server-default/receipt.yaml and runs/derived-variant-target-bound/metrics-server-prod-us-east/receipt.yaml |
-| cluster-rbac | disposition-accepted-for-production-review-input | data/production-disposition/receipts/metrics-server-metrics-server/cluster-rbac-review.yaml |
+| apiservice | needs-observation | apiregistration.k8s.io/v1\|APIService\|\|v1beta1.metrics.k8s.io |
+| cluster-rbac | scan-and-review | scan receipts |
 | installer-support-object | handled | v1\|Namespace\|\|kube-system |
 
 ## Control Point Index

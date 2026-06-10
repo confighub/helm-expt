@@ -8,7 +8,7 @@ spec:
   maintainedNotes:
     - "Default chart renders APIService with insecureSkipTLSVerify=true and lets metrics-server generate its serving certificate at runtime."
     - "tls.type=helm activates Helm lookup and genSelfSignedCert; do not promote that path until generated-fact receipts are formalized."
-    - "external-tls-ca variant moves TLS material to a target Secret and binds APIService caBundle into effective values."
+    - "external-tls-ca variant moves TLS material to a target Secret and binds APIService caBundle into effective values; the Secret and CA bundle must be produced together before render."
     - "APIService readiness must be observed after apply because a rendered object alone does not prove aggregated API health."
   knownControlPoints:
     - "generated-facts"
