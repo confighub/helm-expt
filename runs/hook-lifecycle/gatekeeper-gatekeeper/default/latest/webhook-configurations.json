@@ -1,0 +1,59 @@
+{
+  "gatekeeper-mutating-webhook-configuration": {
+    "apiVersion": "admissionregistration.k8s.io/v1",
+    "kind": "MutatingWebhookConfiguration",
+    "metadata": {
+      "name": "gatekeeper-mutating-webhook-configuration",
+      "creationTimestamp": "2026-06-10T18:54:13Z",
+      "generation": 2
+    },
+    "webhooks": [
+      {
+        "name": "mutation.gatekeeper.sh",
+        "failurePolicy": "Ignore",
+        "service": {
+          "name": "gatekeeper-webhook-service",
+          "namespace": "default",
+          "path": "/v1/mutate",
+          "port": 443
+        },
+        "hasCaBundle": true
+      }
+    ],
+    "redacted": true
+  },
+  "gatekeeper-validating-webhook-configuration": {
+    "apiVersion": "admissionregistration.k8s.io/v1",
+    "kind": "ValidatingWebhookConfiguration",
+    "metadata": {
+      "name": "gatekeeper-validating-webhook-configuration",
+      "creationTimestamp": "2026-06-10T18:54:13Z",
+      "generation": 2
+    },
+    "webhooks": [
+      {
+        "name": "validation.gatekeeper.sh",
+        "failurePolicy": "Ignore",
+        "service": {
+          "name": "gatekeeper-webhook-service",
+          "namespace": "default",
+          "path": "/v1/admit",
+          "port": 443
+        },
+        "hasCaBundle": true
+      },
+      {
+        "name": "check-ignore-label.gatekeeper.sh",
+        "failurePolicy": "Fail",
+        "service": {
+          "name": "gatekeeper-webhook-service",
+          "namespace": "default",
+          "path": "/v1/admitlabel",
+          "port": 443
+        },
+        "hasCaBundle": true
+      }
+    ],
+    "redacted": true
+  }
+}

@@ -101,7 +101,7 @@ function buildReport() {
 
   check(top500HookRows.length === 54, `expected 54 top500 hook rows; found ${top500HookRows.length}`);
   check(hookRows.length === 5, `expected 5 maintained top100 hook rows; found ${hookRows.length}`);
-  check(receiptRows.every((row) => ["not-yet-written", "route-selected", "observed", "blocked", "needs-classification"].includes(row.receipt_status)), "hook lifecycle receipt status must be explicit");
+  check(receiptRows.every((row) => ["not-yet-written", "route-selected", "partially-observed", "observed", "blocked", "needs-classification"].includes(row.receipt_status)), "hook lifecycle receipt status must be explicit");
   for (const row of hookRows) {
     if (row.receipt_status === "observed") verifyObservedReceipt(row.required_receipt);
   }
@@ -139,6 +139,22 @@ function hookReceiptState(path) {
     return {
       receiptStatus: "route-selected",
       lifecycleDisposition: "route-selected",
+    };
+  }
+  if (result === "partially-observed") {
+    const observedAt = fieldValue(text, "observedAt");
+    const runtimeObserved = fieldValue(text, "runtimeObserved");
+    const evidencePaths = receiptEvidencePaths(text);
+    const missingEvidence = evidencePaths.filter((evidencePath) => !existsSync(join(repoRoot, evidencePath)));
+    if (!observedAt || runtimeObserved !== "true" || missingEvidence.length > 0) {
+      return {
+        receiptStatus: "needs-classification",
+        lifecycleDisposition: "partial-observed-receipt-incomplete",
+      };
+    }
+    return {
+      receiptStatus: "partially-observed",
+      lifecycleDisposition: "install-lifecycle-observed-upgrade-pending",
     };
   }
   if (["pass", "observed", "observed-pass", "lifecycle-observed"].includes(result)) {
@@ -201,6 +217,9 @@ function nextActionFor(receipt) {
   if (receipt.receiptStatus === "route-selected") {
     return "run selected lifecycle path and commit observation or execution receipt";
   }
+  if (receipt.receiptStatus === "partially-observed") {
+    return "run remaining lifecycle route and commit additional observation or execution receipt";
+  }
   if (receipt.receiptStatus === "observed") {
     return "keep receipt fresh when chart, base, or cluster version changes";
   }
@@ -229,8 +248,9 @@ function summary({ top500HookRows, hookRows, receiptRows, lifecycleObservationRo
   const catalogSupported = hookRows.filter((row) => row.catalog_status === "catalog-supported").length;
   const proofGrade = hookRows.filter((row) => row.catalog_status === "proof-grade").length;
   const lifecycleObservationPass = lifecycleObservationRows.filter((row) => row.result === "pass").length;
-  const routeReceipts = receiptRows.filter((row) => ["route-selected", "observed", "blocked"].includes(row.receipt_status)).length;
+  const routeReceipts = receiptRows.filter((row) => ["route-selected", "partially-observed", "observed", "blocked"].includes(row.receipt_status)).length;
   const observedReceipts = receiptRows.filter((row) => row.receipt_status === "observed").length;
+  const partiallyObservedReceipts = receiptRows.filter((row) => row.receipt_status === "partially-observed").length;
   const routeOnlyReceipts = receiptRows.filter((row) => row.receipt_status === "route-selected").length;
   const missingRoutes = receiptRows.filter((row) => row.receipt_status === "not-yet-written").length;
   return `# Hook Lifecycle Wave
@@ -254,6 +274,7 @@ catalog-supported hook charts:         ${catalogSupported}
 proof-grade hook charts:               ${proofGrade}
 hook route receipts present:           ${routeReceipts}/${receiptRows.length}
 hook lifecycle observations present:   ${observedReceipts}/${receiptRows.length}
+hook partial lifecycle observations:   ${partiallyObservedReceipts}/${receiptRows.length}
 hook routes awaiting observation:      ${routeOnlyReceipts}/${receiptRows.length}
 hook rows still needing route receipt: ${missingRoutes}/${receiptRows.length}
 related lifecycle observations passing: ${lifecycleObservationPass}/${lifecycleObservationRows.length}

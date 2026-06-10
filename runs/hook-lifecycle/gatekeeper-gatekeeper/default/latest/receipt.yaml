@@ -1,0 +1,94 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HookLifecycleObservationReceipt"
+metadata:
+  name: "gatekeeper-gatekeeper-default-install-lifecycle"
+spec:
+  chart: "gatekeeper/gatekeeper"
+  version: "3.22.2"
+  base: "default"
+  result: "pass"
+  observedAt: "2026-06-10T18:53:33Z"
+  package:
+    path: "packages/gatekeeper/gatekeeper/3.22.2"
+  recipe:
+    path: "recipes/gatekeeper/gatekeeper/3.22.2"
+  variantRevision: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/variant-revision.yaml"
+  lifecycleModel:
+    hookTypes:
+      - "pre-install"
+      - "pre-upgrade"
+    route: "preflight-or-presync-install-observation"
+    claim: "The fresh-install route observes the separated Secret prerequisite, CRD establishment, controller readiness, webhook service readiness, controller-populated TLS material, and server-side admission dry-run. It does not claim Gatekeeper upgrade-hook behavior."
+  run:
+    mode: "single-kind-cluster-cub-installer-install-lifecycle-observation"
+    cluster: "hx-hook-gatekeeper-8ffua6"
+    namespace: "default"
+    cleanup:
+      result: "pass"
+      detail: "deleted kind cluster"
+  checks:
+    -
+      name: "kind-create"
+      result: "pass"
+      detail: "created fresh kind cluster"
+    -
+      name: "cub-installer-setup"
+      result: "pass"
+      detail: "rendered Gatekeeper cub installer package output"
+      evidencePath: "cub-installer-setup.txt"
+      evidenceSHA256: "4125a139ec0493a81134ad2e522b97b10431e3e302f9caf0b7aa8b9232c801a2"
+    -
+      name: "kubectl-apply-separated-secrets"
+      result: "pass"
+      detail: "applied separated Gatekeeper Secret prerequisite"
+      evidencePath: "kubectl-apply-secrets.txt"
+      evidenceSHA256: "6c593fa091df62f761902632983d1209ecbe4f4b912efc1cac3c8f28b8723490"
+    -
+      name: "kubectl-apply-manifests"
+      result: "pass"
+      detail: "applied Gatekeeper cub installer manifests"
+      evidencePath: "kubectl-apply-manifests.txt"
+      evidenceSHA256: "e0437392ca07562b1676cc014e7c8562c21f0a9ac793b8d66c1f9bbc40b23361"
+    -
+      name: "crds-established"
+      result: "pass"
+      detail: "all rendered Gatekeeper CRDs reached Established"
+      evidencePath: "crds-established.txt"
+      evidenceSHA256: "c8a644f9d0c2344ea2d726b41196f685a2e2f2ec6d4de1b6db05a1852b40efd8"
+      crdCount: 17
+    -
+      name: "controller-manager-ready"
+      result: "pass"
+      detail: "Gatekeeper controller manager rolled out"
+      evidencePath: "deployment-gatekeeper-controller-manager-rollout.txt"
+      evidenceSHA256: "fa740948d5596bbaef34fa5342f3d42baca871ec720076ccfee72fa21df481a3"
+    -
+      name: "audit-ready"
+      result: "pass"
+      detail: "Gatekeeper audit deployment rolled out"
+      evidencePath: "deployment-gatekeeper-audit-rollout.txt"
+      evidenceSHA256: "15f5182ff656d2b5aa3c1285fca9416812370a09a0f6fa3ec87945ac0e71191b"
+    -
+      name: "webhook-service-endpoints"
+      result: "pass"
+      detail: "Gatekeeper webhook Service has ready endpoints"
+      evidencePath: "service-gatekeeper-webhook-endpoints.yaml"
+      evidenceSHA256: "2814c2ef43d8ede7632425ce32bd6538ca3c53131c25290ab8b3984e3574504e"
+    -
+      name: "webhook-secret-populated"
+      result: "pass"
+      detail: "Gatekeeper controller populated webhook TLS Secret keys"
+      evidencePath: "secret-gatekeeper-webhook-server-cert.json"
+      evidenceSHA256: "49c7c08a8251f7b0708f2c8e60a698f6e8f2cef0ab7a27f89bbaf1eac05dca6b"
+    -
+      name: "webhook-configurations-routed"
+      result: "pass"
+      detail: "Gatekeeper webhook configurations point at the rendered Service and contain CA bundles"
+      evidencePath: "webhook-configurations.json"
+      evidenceSHA256: "80c23e5838f824c5c44c591083114058e127f8e9843edba8596f954f3c5ad87c"
+    -
+      name: "admission-server-dry-run"
+      result: "pass"
+      detail: "server-side dry-run exercised the live admission path"
+      evidencePath: "admission-server-dry-run.yaml"
+      evidenceSHA256: "fac242bad96fdfa708fa398ad93e0a86cdd3b398247f747d89f257efc80bf157"

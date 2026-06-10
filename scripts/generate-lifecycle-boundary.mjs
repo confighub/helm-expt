@@ -58,8 +58,9 @@ function buildReport() {
     })),
   ];
 
-  const hookRouteReceiptCount = hookRows.filter((row) => ["route-selected", "observed", "blocked"].includes(row.receipt_status)).length;
+  const hookRouteReceiptCount = hookRows.filter((row) => ["route-selected", "partially-observed", "observed", "blocked"].includes(row.receipt_status)).length;
   const hookObservedCount = hookRows.filter((row) => row.receipt_status === "observed").length;
+  const hookPartiallyObservedCount = hookRows.filter((row) => row.receipt_status === "partially-observed").length;
   const hookRouteOnlyCount = hookRows.filter((row) => row.receipt_status === "route-selected").length;
   const hookRouteNeededCount = hookRows.filter((row) => row.receipt_status === "not-yet-written").length;
   const observationPass = observationRows.filter((row) => row.result === "pass").length;
@@ -89,6 +90,7 @@ Helm hook.
 maintained hook-bearing chart rows:       ${hookRows.length}
 hook route receipts present:              ${hookRouteReceiptCount}/${hookRows.length}
 hook lifecycle observations present:      ${hookObservedCount}/${hookRows.length}
+hook partial lifecycle observations:      ${hookPartiallyObservedCount}/${hookRows.length}
 hook routes awaiting observation:         ${hookRouteOnlyCount}/${hookRows.length}
 hook rows still needing route receipt:    ${hookRouteNeededCount}/${hookRows.length}
 hook-like lifecycle observations passing: ${observationPass}/${observationRows.length}
@@ -120,6 +122,7 @@ npm run lifecycle:boundary:verify
 
 function hookQueueStatus(receiptStatus) {
   if (receiptStatus === "observed") return "lifecycle-observed";
+  if (receiptStatus === "partially-observed") return "install-lifecycle-observed-upgrade-pending";
   if (receiptStatus === "route-selected") return "route-selected";
   if (receiptStatus === "blocked") return "blocked";
   if (receiptStatus === "needs-classification") return "receipt-needs-classification";
@@ -128,6 +131,7 @@ function hookQueueStatus(receiptStatus) {
 
 function hookQueueProof(receiptStatus) {
   if (receiptStatus === "observed") return "hook route has a lifecycle observation or execution receipt";
+  if (receiptStatus === "partially-observed") return "fresh-install lifecycle route has runtime observation; at least one other route remains pending";
   if (receiptStatus === "route-selected") return "hook templates are inventoried and a route receipt records the selected handling";
   if (receiptStatus === "blocked") return "hook behavior was reviewed and remains blocked";
   if (receiptStatus === "needs-classification") return "hook templates are inventoried and a receipt exists, but its result is not classified";
@@ -136,6 +140,7 @@ function hookQueueProof(receiptStatus) {
 
 function hookQueueNonProof(receiptStatus) {
   if (receiptStatus === "observed") return "universal Helm hook support or support for unrelated hook-bearing charts";
+  if (receiptStatus === "partially-observed") return "remaining hook phases such as upgrade, delete, cleanup, or production support";
   if (receiptStatus === "route-selected") return "hook execution, cleanup, ordering, upgrade behavior, runtime outcome, or production support";
   if (receiptStatus === "blocked") return "support until the blocker is resolved";
   if (receiptStatus === "needs-classification") return "hook execution or support until the receipt is classified";

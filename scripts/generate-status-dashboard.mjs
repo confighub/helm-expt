@@ -147,11 +147,12 @@ function buildReport() {
 
   const hookQueueRows = lifecycleBoundaryRows.filter((row) => row.lane === "helm-hook-lifecycle-queue");
   rows.push(metric("hooks", "top100 maintained hook charts", hookRows.length, hookRows.length, "partial", "data/hook-lifecycle/top100-hooks.csv", "Hook-bearing maintained charts with required lifecycle receipt paths."));
-  rows.push(metric("hooks", "hook route receipts present", hookRows.filter((row) => ["route-selected", "lifecycle-observed", "blocked"].includes(row.lifecycle_disposition)).length, hookRows.length, "partial", "data/hook-lifecycle/top100-hooks.csv", "Hook-bearing rows with a recorded lifecycle route, observation, or blocker."));
+  rows.push(metric("hooks", "hook route receipts present", hookRows.filter((row) => ["route-selected", "install-lifecycle-observed-upgrade-pending", "lifecycle-observed", "blocked"].includes(row.lifecycle_disposition)).length, hookRows.length, "partial", "data/hook-lifecycle/top100-hooks.csv", "Hook-bearing rows with a recorded lifecycle route, observation, or blocker."));
   rows.push(metric("hooks", "hook lifecycle observations present", hookRows.filter((row) => row.lifecycle_disposition === "lifecycle-observed").length, hookRows.length, "gap", "data/hook-lifecycle/top100-hooks.csv", "Hook-bearing rows with runtime lifecycle observation or execution receipts."));
+  rows.push(metric("hooks", "hook partial lifecycle observations present", hookRows.filter((row) => row.lifecycle_disposition === "install-lifecycle-observed-upgrade-pending").length, hookRows.length, "partial", "data/hook-lifecycle/top100-hooks.csv", "Hook-bearing rows whose fresh-install route has live observation while another hook phase remains pending."));
   rows.push(metric("hooks", "hook/lifecycle boundary rows", lifecycleBoundaryRows.length, lifecycleBoundaryRows.length, "partial", "data/lifecycle-boundary/lifecycle-boundary.csv", "Separates hook queue rows from hook-like controller lifecycle observations."));
   rows.push(metric("hooks", "hook queue rows still needing route receipts", hookQueueRows.filter((row) => row.status === "route-and-receipt-needed").length, hookQueueRows.length, "good", "data/lifecycle-boundary/lifecycle-boundary.csv", "Hook-bearing rows whose behavior is inventoried but has no selected route."));
-  rows.push(metric("hooks", "hook routes still needing execution or observation", hookQueueRows.filter((row) => row.status === "route-selected").length, hookQueueRows.length, "gap", "data/lifecycle-boundary/lifecycle-boundary.csv", "Hook-bearing rows with a selected route but no committed runtime observation or execution receipt."));
+  rows.push(metric("hooks", "hook routes still needing execution or observation", hookQueueRows.filter((row) => ["route-selected", "install-lifecycle-observed-upgrade-pending"].includes(row.status)).length, hookQueueRows.length, "gap", "data/lifecycle-boundary/lifecycle-boundary.csv", "Hook-bearing rows with a selected route and at least one missing runtime observation or execution receipt."));
   rows.push(metric("hooks", "related lifecycle observation receipts passing", passCount(lifecycleObservationRows, "result"), lifecycleObservationRows.length, "good", "data/lifecycle-observations/cert-manager-eso/summary.csv", "Cert-manager and External Secrets receipts for CRD/webhook/controller behavior that rendered YAML alone cannot prove."));
 
   const chartByName = new Map(chartRows.map((row) => [row.chart, row]));
@@ -896,6 +897,7 @@ function liveParityRerunReadinessObjects(counts) {
 
 function hookWorkQueueObjects(hookRows, lifecycleObservationRows) {
   const routeSelected = hookRows.filter((row) => row.lifecycle_disposition === "route-selected").length;
+  const partiallyObserved = hookRows.filter((row) => row.lifecycle_disposition === "install-lifecycle-observed-upgrade-pending").length;
   const observed = hookRows.filter((row) => row.lifecycle_disposition === "lifecycle-observed").length;
   const relatedObserved = passCount(lifecycleObservationRows, "result");
   return [
@@ -907,6 +909,15 @@ function hookWorkQueueObjects(hookRows, lifecycleObservationRows) {
       next_action: "Run the selected lifecycle path and commit execution or observation receipts.",
       source: "data/hook-lifecycle/top100-hooks.csv",
       detail: "lifecycle_disposition=route-selected",
+    },
+    {
+      section: "hook-and-lifecycle-work",
+      item_type: "queue",
+      item: "Hook install lifecycle observed, remaining phase pending",
+      count: partiallyObserved,
+      next_action: "Run the remaining lifecycle phase, such as upgrade, and commit the execution or observation receipt.",
+      source: "data/hook-lifecycle/top100-hooks.csv",
+      detail: "lifecycle_disposition=install-lifecycle-observed-upgrade-pending",
     },
     {
       section: "hook-and-lifecycle-work",

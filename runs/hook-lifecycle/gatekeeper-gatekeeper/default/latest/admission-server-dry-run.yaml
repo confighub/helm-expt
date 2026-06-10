@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  creationTimestamp: "2026-06-10T18:54:31Z"
+  labels:
+    kubernetes.io/metadata.name: gatekeeper-lifecycle-check
+  name: gatekeeper-lifecycle-check
+  uid: 16855794-d644-448c-bd81-484d3506eddd
+spec:
+  finalizers:
+  - kubernetes
+status:
+  phase: Active

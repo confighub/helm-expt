@@ -133,8 +133,9 @@ function buildReport() {
     derivedTargetPass: count(derivedRows, (row) => row.target_bound_live === "pass"),
     derivedTargetBlocked: count(derivedRows, (row) => row.target_bound_live === "blocked"),
     hookChartsTop100: hookRows.length,
-    hookRouteReceipts: count(hookReceiptRows, (row) => ["route-selected", "observed", "blocked"].includes(row.receipt_status)),
+    hookRouteReceipts: count(hookReceiptRows, (row) => ["route-selected", "partially-observed", "observed", "blocked"].includes(row.receipt_status)),
     hookLifecycleObserved: count(hookReceiptRows, (row) => row.receipt_status === "observed"),
+    hookLifecyclePartiallyObserved: count(hookReceiptRows, (row) => row.receipt_status === "partially-observed"),
     hookRoutesAwaitingObservation: count(hookReceiptRows, (row) => row.receipt_status === "route-selected"),
     hookRowsStillNeedingRoute: count(hookReceiptRows, (row) => row.receipt_status === "not-yet-written"),
     relatedLifecycleObservationPass: count(lifecycleObservationRows, (row) => row.result === "pass"),
@@ -254,6 +255,7 @@ function featureStatus(feature, status, hookReceipt) {
   const text = String(status ?? "").trim();
   if (emptyFeatureStatus(text)) return "-";
   if (feature === "hook_status" && hookReceipt?.receipt_status === "observed") return "lifecycle-observed: explicit receipt committed";
+  if (feature === "hook_status" && hookReceipt?.receipt_status === "partially-observed") return "install-lifecycle-observed: remaining hook phase pending";
   if (feature === "crds" || feature === "webhooks") return "present";
   return text;
 }
@@ -279,6 +281,7 @@ function isHookFeature(feature) {
 function hookMeaning(hookReceipt) {
   if (!hookReceipt) return "hook or lifecycle behavior must be tracked through lifecycle policy or blocker";
   if (hookReceipt.receipt_status === "route-selected") return "hook route is selected; runtime execution or observation is still required";
+  if (hookReceipt.receipt_status === "partially-observed") return "fresh-install lifecycle is observed; another hook phase such as upgrade still needs execution or observation";
   if (hookReceipt.receipt_status === "observed") return "hook route has lifecycle observation or execution evidence";
   if (hookReceipt.receipt_status === "blocked") return "hook route is reviewed and blocked";
   if (hookReceipt.receipt_status === "not-yet-written") return "hook route receipt is still required";
@@ -320,6 +323,7 @@ target-bound derived blocked rows:   ${aggregate.derivedTargetBlocked}
 top-100 maintained hook charts:      ${aggregate.hookChartsTop100}
 hook route receipts present:         ${aggregate.hookRouteReceipts}/${aggregate.hookChartsTop100}
 hook lifecycle observations present: ${aggregate.hookLifecycleObserved}/${aggregate.hookChartsTop100}
+hook partial lifecycle observations: ${aggregate.hookLifecyclePartiallyObserved}/${aggregate.hookChartsTop100}
 hook routes awaiting observation:    ${aggregate.hookRoutesAwaitingObservation}/${aggregate.hookChartsTop100}
 hook rows still needing route:       ${aggregate.hookRowsStillNeedingRoute}/${aggregate.hookChartsTop100}
 related lifecycle observations:      ${aggregate.relatedLifecycleObservationPass}/${aggregate.relatedLifecycleObservationRows}
