@@ -320,6 +320,7 @@ function optionalArtifactRows(root) {
     { label: "Operating policy", path: "operating-policy.yaml" },
     { label: "Target topology", path: "target-topology.yaml" },
     { label: "Lifecycle policy", path: "lifecycle-policy.yaml" },
+    { label: "Target prerequisite plan", path: "target-prerequisite-plan.yaml" },
     { label: "Production readiness plan", path: "production-readiness-plan.yaml" },
     { label: "Render blocker", path: "default-render-blocker.yaml" },
   ];
