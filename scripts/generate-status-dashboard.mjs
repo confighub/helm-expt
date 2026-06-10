@@ -49,6 +49,7 @@ function buildReport() {
   const top100CoverageWorkRows = readCsv("data/top100-coverage/work-queue.csv");
   const top100PromotionWaveRows = readCsv("data/top100-promotion-wave/wave.csv");
   const refreshSurvivalRows = readCsv("data/refresh-survival/refreshes.csv");
+  const latestRefreshActionRows = readCsv("data/latest-top20-refresh/action-queue/queue.csv");
   const top500Rows = readCsv("data/top500-catalog-analysis/review.csv");
   const quirkRows = readCsv("data/quirk-coverage/coverage.csv");
   const extensionRows = readCsv("data/extension-slots/extension-slots.csv");
@@ -86,6 +87,7 @@ function buildReport() {
   rows.push(metric("refresh", "top20 proofs still current", count(refreshSurvivalRows, "refresh_state", "current-proof-still-current"), refreshSurvivalRows.length, "partial", "data/refresh-survival/refreshes.csv", "Supported top-20 chart versions that still match the latest upstream Helm version in the retained refresh snapshot."));
   rows.push(metric("refresh", "top20 upstream update candidates", count(refreshSurvivalRows, "refresh_state", "upstream-update-candidate"), refreshSurvivalRows.length, "partial", "data/refresh-survival/refreshes.csv", "Supported top-20 charts with newer upstream Helm versions that must not be promoted until the full lane reruns."));
   rows.push(metric("refresh", "update candidates with proof-complete root paths", refreshSurvivalRows.filter((row) => row.candidate_proof === "candidate-proof-complete-root-path-present").length, count(refreshSurvivalRows, "refresh_state", "upstream-update-candidate"), "partial", "data/refresh-survival/refreshes.csv", "Latest-version candidates that have root recipe/package paths and proof-complete evidence, but are not replacement catalog rows."));
+  rows.push(metric("refresh", "latest refresh p0 action rows", count(latestRefreshActionRows, "priority", "p0"), latestRefreshActionRows.length, "partial", "data/latest-top20-refresh/action-queue/queue.csv", "Upstream movement rows whose next action is replacement decision, candidate refresh, or new candidate creation before support changes."));
   rows.push(metric("top500", "source rows scanned", count(top500Rows, "source_status", "source-scanned"), top500Rows.length, "partial", "data/top500-catalog-analysis/review.csv", "Retained source-scan rows with source feature data."));
   rows.push(metric("top500", "rows with current recipe proof", top500Rows.filter((row) => row.recipe_status.startsWith("current-recipe")).length, top500Rows.length, "partial", "data/top500-catalog-analysis/review.csv", "Retained source-scan rows matched to current recipe/package proof."));
   rows.push(metric("top500", "catalog-supported rows", count(top500Rows, "catalog_status", "catalog-supported"), top500Rows.length, "partial", "data/top500-catalog-analysis/review.csv", "Rows promoted to the current public catalog; production gates still matter."));
@@ -154,7 +156,7 @@ function buildReport() {
 
   const chartByName = new Map(chartRows.map((row) => [row.chart, row]));
   const top20Rows = top20StatusRows(top100Rows, chartByName, top20BaseReadinessRows, productionSupportDecisionRows);
-  const nextWorkQueues = nextWorkQueueRows({ top100Rows, top100CoverageWorkRows, hookRows, lifecycleObservationRows, liveParityRerunRows, productionSupportDecisionRows });
+  const nextWorkQueues = nextWorkQueueRows({ top100Rows, top100CoverageWorkRows, hookRows, lifecycleObservationRows, liveParityRerunRows, productionSupportDecisionRows, latestRefreshActionRows });
   const activeProofQueue = activeProofQueueRows(liveParityRerunRows);
   return {
     rows,
@@ -165,7 +167,7 @@ function buildReport() {
     nextWorkQueuesCsv: nextWorkQueuesToCsv(nextWorkQueues),
     activeProofQueue,
     activeProofQueueCsv: activeProofQueueToCsv(activeProofQueue),
-    summary: summary(rows, { chartRows, baseRows, top100Rows, top100CoverageWorkRows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, lifecycleBoundaryRows, lifecycleObservationRows, edgeRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, productionSupportDecisionRows, scanDispositionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues, activeProofQueue }),
+    summary: summary(rows, { chartRows, baseRows, top100Rows, top100CoverageWorkRows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, lifecycleBoundaryRows, lifecycleObservationRows, edgeRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, productionSupportDecisionRows, scanDispositionRows, latestRefreshActionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues, activeProofQueue }),
   };
 }
 
@@ -192,6 +194,7 @@ function summary(rows, context) {
   const top100WorkQueues = nextWorkQueueMarkdown(context.nextWorkQueues, "top100-catalog-work", "queue");
   const liveParityWorkQueues = nextWorkQueueMarkdown(context.nextWorkQueues, "live-parity-work", "queue");
   const hookWorkQueueRows = nextWorkQueueMarkdown(context.nextWorkQueues, "hook-and-lifecycle-work", "queue");
+  const latestRefreshWorkQueues = nextWorkQueueMarkdown(context.nextWorkQueues, "latest-refresh-work", "action");
 
   return `# Status Dashboard
 
@@ -232,6 +235,17 @@ ${top100WorkQueues}
 | Workstream | Charts | Next action |
 | --- | ---: | --- |
 ${productionWorkstreams}
+
+### Latest Refresh Work
+
+These rows are the current upstream-update queue for the supported top-20
+catalog. A row here does not replace the supported catalog version by itself.
+It identifies the next proof or review action before a replacement can be
+considered.
+
+| Action | Charts | Next action |
+| --- | ---: | --- |
+${latestRefreshWorkQueues}
 
 ### Live Parity Work
 
@@ -502,6 +516,7 @@ lifecycle observation.
 | Which live rows should be rerun next? | [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md) |
 | Which top-20 charts are production-supported? | [production-support-decisions/summary.md](../production-support-decisions/summary.md) |
 | Which production-support tasks can be assigned? | [production-support-decisions/work-items.csv](../production-support-decisions/work-items.csv) |
+| Which top-20 upstream updates should move next? | [latest-top20-refresh/action-queue/summary.md](../latest-top20-refresh/action-queue/summary.md) |
 | Which derived variants are specified or executed? | [variant-goldens/derived-expansion-wave/work-orders.csv](../variant-goldens/derived-expansion-wave/work-orders.csv) |
 
 Regenerate:
@@ -704,9 +719,51 @@ function nextWorkQueueRows(context) {
   return [
     ...top100WorkQueueObjects(context.top100Rows, context.top100CoverageWorkRows),
     ...supportDecisionWorkstreamObjects(context.productionSupportDecisionRows),
+    ...latestRefreshWorkQueueObjects(context.latestRefreshActionRows ?? []),
     ...liveParityRerunReadinessObjects(liveParityRerunReadiness),
     ...hookWorkQueueObjects(context.hookRows, context.lifecycleObservationRows),
   ];
+}
+
+function latestRefreshWorkQueueObjects(rows) {
+  const actionCounts = groupCount(rows, "action");
+  const actionRows = (action) => rows.filter((row) => row.action === action);
+  return [
+    {
+      section: "latest-refresh-work",
+      item_type: "action",
+      item: "Write replacement decisions",
+      count: actionCounts.get("write-replacement-decision") ?? 0,
+      next_action: "Review the latest-aligned candidate against the supported version and record a target-scoped replacement decision.",
+      source: "data/latest-top20-refresh/action-queue/queue.csv",
+      detail: previewLatestRefreshRows(actionRows("write-replacement-decision")),
+    },
+    {
+      section: "latest-refresh-work",
+      item_type: "action",
+      item: "Refresh superseded retained candidates",
+      count: actionCounts.get("refresh-retained-candidate") ?? 0,
+      next_action: "Regenerate candidate proof/package roots for the newer upstream version, then rerun the refresh surfaces.",
+      source: "data/latest-top20-refresh/action-queue/queue.csv",
+      detail: previewLatestRefreshRows(actionRows("refresh-retained-candidate")),
+    },
+    {
+      section: "latest-refresh-work",
+      item_type: "action",
+      item: "Create missing retained candidates",
+      count: actionCounts.get("create-retained-candidate") ?? 0,
+      next_action: "Make the needed generator support version/output overrides, then create the missing candidate proof.",
+      source: "data/latest-top20-refresh/action-queue/queue.csv",
+      detail: previewLatestRefreshRows(actionRows("create-retained-candidate")),
+    },
+  ];
+}
+
+function previewLatestRefreshRows(rows) {
+  const values = rows.slice(0, 5).map((row) => `${row.chart}@${row.latest_upstream_version}`);
+  const remaining = rows.length - values.length;
+  if (remaining > 0) values.push(`and ${remaining} more`);
+  return values.join("; ");
 }
 
 function top100WorkQueueObjects(top100Rows, workRows) {

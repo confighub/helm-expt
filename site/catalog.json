@@ -5,6 +5,7 @@
     "top500": "data/top500-catalog-analysis/raw.json",
     "latestCandidates": "data/refresh-survival/refreshes.csv",
     "latestReplacementDecisions": "data/latest-top20-refresh/replacement-decisions/decisions.csv",
+    "latestActionQueue": "data/latest-top20-refresh/action-queue/queue.csv",
     "runtimeWave": "data/runtime-gitops/wave1.csv",
     "imageDigestSubjects": "data/image-digest-workdown/all-subjects.csv",
     "nextTenGaps": "data/next-ten-waves/gap-review-wave.csv",
@@ -97,6 +98,7 @@
     "refreshUpdateCandidates": 7,
     "refreshCandidatesWithProof": 3,
     "latestCandidatesAwaitingReplacementDecision": 3,
+    "latestRefreshP0Rows": 5,
     "top100ChartsWithLiveEvidence": 28,
     "liveParityRerunRows": 0,
     "liveParityRerunSemanticDefects": 0,
@@ -237,6 +239,15 @@
       "status": "partial",
       "source": "data/refresh-survival/refreshes.csv",
       "note": "Latest-version candidates that have root recipe/package paths and proof-complete evidence, but are not replacement catalog rows."
+    },
+    {
+      "section": "refresh",
+      "metric": "latest refresh p0 action rows",
+      "value": "5",
+      "total": "7",
+      "status": "partial",
+      "source": "data/latest-top20-refresh/action-queue/queue.csv",
+      "note": "Upstream movement rows whose next action is replacement decision, candidate refresh, or new candidate creation before support changes."
     },
     {
       "section": "top500",
@@ -3495,6 +3506,8 @@
       "candidateVersion": "9.5.17",
       "proofStatus": "candidate-proof-complete-root-path-present",
       "replacementDecision": "not-decided",
+      "action": "write-replacement-decision",
+      "priority": "p1",
       "nextAction": "review target-scoped production support decision before replacing the supported version"
     },
     {
@@ -3503,6 +3516,8 @@
       "candidateVersion": "19.1.0",
       "proofStatus": "candidate-superseded-by-newer-upstream",
       "replacementDecision": "refresh-candidate-first",
+      "action": "refresh-retained-candidate",
+      "priority": "p0",
       "nextAction": "refresh retained candidate 19.0.9 to latest upstream 19.1.0 before replacement decision"
     },
     {
@@ -3511,6 +3526,8 @@
       "candidateVersion": "25.0.0",
       "proofStatus": "candidate-superseded-by-newer-upstream",
       "replacementDecision": "refresh-candidate-first",
+      "action": "refresh-retained-candidate",
+      "priority": "p0",
       "nextAction": "refresh retained candidate 24.0.4 to latest upstream 25.0.0 before replacement decision"
     },
     {
@@ -3519,6 +3536,8 @@
       "candidateVersion": "18.7.0",
       "proofStatus": "candidate-superseded-by-newer-upstream",
       "replacementDecision": "refresh-candidate-first",
+      "action": "refresh-retained-candidate",
+      "priority": "p0",
       "nextAction": "refresh retained candidate 18.6.10 to latest upstream 18.7.0 before replacement decision"
     },
     {
@@ -3527,6 +3546,8 @@
       "candidateVersion": "27.0.0",
       "proofStatus": "missing",
       "replacementDecision": "no-candidate-yet",
+      "action": "create-retained-candidate",
+      "priority": "p0",
       "nextAction": "run ConfigHub proof, live e2e, production disposition, catalog, top100, and top500 lanes before replacement"
     },
     {
@@ -3535,6 +3556,8 @@
       "candidateVersion": "86.1.0",
       "proofStatus": "candidate-proof-complete-root-path-present",
       "replacementDecision": "not-decided",
+      "action": "write-replacement-decision",
+      "priority": "p0",
       "nextAction": "review target-scoped production support decision before replacing the supported version"
     },
     {
@@ -3543,6 +3566,8 @@
       "candidateVersion": "29.9.0",
       "proofStatus": "candidate-proof-complete-root-path-present",
       "replacementDecision": "not-decided",
+      "action": "write-replacement-decision",
+      "priority": "p1",
       "nextAction": "review target-scoped production support decision before replacing the supported version"
     }
   ],
