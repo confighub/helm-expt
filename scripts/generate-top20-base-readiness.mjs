@@ -57,7 +57,8 @@ function buildReport() {
       check(Boolean(baseRow), `missing base outcome row for ${chartKey} ${base}`);
       const lifecycle = lifecycleObservations.get(`${chartKey}|${base}`);
       const rerun = rerunPlan.get(`${chartKey}|${base}`);
-      const readiness = readinessFor(baseRow, lifecycle);
+      const supportArtifact = supportArtifactFor(production.recipe_path, baseRow.two_cluster_kind_parity_reason || "");
+      const readiness = readinessFor(baseRow, lifecycle, supportArtifact);
       const supportedBase = supportedBaseByChart.get(chartKey);
       const easiestBase = easiestBaseByChart.get(chartKey);
       const recommendedFirst = supportedBase
@@ -73,6 +74,7 @@ function buildReport() {
         user_readiness: readiness.status,
         why: readiness.why,
         next_action: readiness.nextAction,
+        support_artifact: supportArtifact,
         live_rerun_readiness: rerun?.rerun_readiness ?? "",
         live_rerun_next_step: rerun?.next_step_type ?? "",
         live_rerun_command: rerun?.rerun_command ?? "",
@@ -160,9 +162,9 @@ rerun-now-after-cleanup: ${rerunCounts.get("rerun-now-after-cleanup") ?? 0}
 
 ## Rows
 
-| Chart | Base | First | Readiness | Rerun readiness | Why | Next action |
-| --- | --- | --- | --- | --- | --- | --- |
-${rows.map((row) => `| \`${row.chart}\` | ${row.base} | ${row.recommended_first} | ${row.user_readiness} | ${row.live_rerun_readiness || "-"} | ${escapePipes(row.why)} | ${escapePipes(row.next_action)} |`).join("\n")}
+| Chart | Base | First | Readiness | Rerun readiness | Why | Next action | Support artifact |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+${rows.map((row) => `| \`${row.chart}\` | ${row.base} | ${row.recommended_first} | ${row.user_readiness} | ${row.live_rerun_readiness || "-"} | ${escapePipes(row.why)} | ${escapePipes(row.next_action)} | ${row.support_artifact ? `[\`${row.support_artifact}\`](../../${row.support_artifact})` : "-"} |`).join("\n")}
 
 ## Files
 
@@ -248,7 +250,7 @@ cub installer upload --work-dir <tmp> --space <space> ...
   return { rows, csv: toCsv(rows), summary, startHere };
 }
 
-function readinessFor(row, lifecycle) {
+function readinessFor(row, lifecycle, supportArtifact = "") {
   if (row.complete_core_lane_set === "yes" && row.two_cluster_kind_parity === "pass") {
     return {
       status: "start-here",
@@ -282,28 +284,36 @@ function readinessFor(row, lifecycle) {
     return {
       status: "target-prerequisite-needed",
       why: reason,
-      nextAction: "stage or model the prerequisite, then rerun the same base; keep render parity separate from target fit",
+      nextAction: supportArtifact
+        ? `use ${supportArtifact} to stage the prerequisite and capture a fresh observation receipt`
+        : "stage or model the prerequisite, then rerun the same base; keep render parity separate from target fit",
     };
   }
   if (reason.startsWith("helm-hook")) {
     return {
       status: "hook-lifecycle-review-needed",
       why: reason,
-      nextAction: "choose a lifecycle route and commit a lifecycle or observation receipt",
+      nextAction: supportArtifact
+        ? `use ${supportArtifact} to execute or observe the selected lifecycle route`
+        : "choose a lifecycle route and commit a lifecycle or observation receipt",
     };
   }
   if (reason.startsWith("operate-policy")) {
     return {
       status: "operating-policy-needed",
       why: reason,
-      nextAction: "record the operating policy and use a receipt for the post-render operation before presenting this as ready",
+      nextAction: supportArtifact
+        ? `use ${supportArtifact} to run the post-render operation and capture an operation receipt`
+        : "record the operating policy and use a receipt for the post-render operation before presenting this as ready",
     };
   }
   if (reason.startsWith("target-fit")) {
     return {
       status: "target-fit-needed",
       why: reason,
-      nextAction: "use a target that provides the required platform behavior, or create a separate base that fits the proof target",
+      nextAction: supportArtifact
+        ? `use ${supportArtifact} to pick a fitting target or create a smaller base for this proof target`
+        : "use a target that provides the required platform behavior, or create a separate base that fits the proof target",
     };
   }
   if (row.two_cluster_kind_parity === "watch") {
@@ -332,6 +342,19 @@ function readinessFor(row, lifecycle) {
     why: "no passing render parity row found",
     nextAction: "inspect the recipe and proof receipts before presenting this base",
   };
+}
+
+function supportArtifactFor(recipePath, reason) {
+  const candidates = [];
+  if (reason.startsWith("target-prerequisite")) candidates.push("target-prerequisite-plan.yaml");
+  if (reason.startsWith("helm-hook")) candidates.push("lifecycle-policy.yaml");
+  if (reason.startsWith("operate-policy")) candidates.push("operating-policy.yaml");
+  if (reason.startsWith("target-fit")) candidates.push("target-topology.yaml", "operating-policy.yaml");
+  for (const candidate of candidates) {
+    const absolutePath = join(repoRoot, recipePath, candidate);
+    if (existsSync(absolutePath)) return `${recipePath}/${candidate}`;
+  }
+  return "";
 }
 
 function lifecycleObservationIndex() {

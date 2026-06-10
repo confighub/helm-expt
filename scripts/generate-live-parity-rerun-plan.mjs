@@ -35,9 +35,11 @@ function buildPlan() {
     ...twoClusterRows(),
   ].map((row) => {
     const next_step_type = nextStepType(row);
+    const support_artifact = supportArtifactFor(row);
     return {
       next_step_type,
       rerun_readiness: rerunReadiness(next_step_type),
+      support_artifact,
       ...row,
     };
   }).sort((left, right) =>
@@ -221,6 +223,21 @@ function nextStepType(row) {
   return "inspect-receipt";
 }
 
+function supportArtifactFor(row) {
+  const recipePath = join("recipes", row.chart ?? "", row.version ?? "");
+  const reason = row.reason ?? "";
+  const candidates = [];
+  if (reason.startsWith("target-prerequisite:")) candidates.push("target-prerequisite-plan.yaml");
+  if (reason.startsWith("helm-hook:")) candidates.push("lifecycle-policy.yaml");
+  if (reason.startsWith("operate-policy:")) candidates.push("operating-policy.yaml");
+  if (reason.startsWith("target-fit:")) candidates.push("target-topology.yaml", "operating-policy.yaml");
+  for (const candidate of candidates) {
+    const absolutePath = join(repoRoot, recipePath, candidate);
+    if (existsSync(absolutePath)) return `${recipePath}/${candidate}`;
+  }
+  return "";
+}
+
 function lifecycleRouted(row) {
   return row.related_lifecycle_result === "pass"
     && (row.reason?.startsWith("helm-hook:") || row.reason?.startsWith("target-prerequisite:"));
@@ -369,9 +386,9 @@ faithful to the locked chart/version without changing the recipe.
 
 ## Rerun Queue
 
-| Priority | Readiness | Next step | Lane | Chart | Base | Current | Reason | Command |
-| ---: | --- | --- | --- | --- | --- | --- | --- | --- |
-${rows.map((row) => `| ${row.priority} | ${row.rerun_readiness} | ${row.next_step_type} | ${row.lane} | \`${row.chart}@${row.version}\` | ${row.base} | ${row.current_result} | ${row.reason} | \`${row.rerun_command}\` |`).join("\n")}
+| Priority | Readiness | Next step | Lane | Chart | Base | Current | Reason | Support artifact | Command |
+| ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+${rows.map((row) => `| ${row.priority} | ${row.rerun_readiness} | ${row.next_step_type} | ${row.lane} | \`${row.chart}@${row.version}\` | ${row.base} | ${row.current_result} | ${row.reason} | ${row.support_artifact ? `[\`${row.support_artifact}\`](../../${row.support_artifact})` : "-"} | \`${row.rerun_command}\` |`).join("\n")}
 
 ${lifecycleRows.length ? `## Related Lifecycle Evidence
 
@@ -466,6 +483,7 @@ function toCsv(rows) {
     "diagnosis",
     "rerun_command",
     "followup",
+    "support_artifact",
     "receipt",
     "related_lifecycle_result",
     "related_lifecycle_receipt",
