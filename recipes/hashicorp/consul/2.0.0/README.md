@@ -14,6 +14,7 @@ What this proves:
 - `secure-mesh-existing-secrets` enables TLS, ACLs, gossip encryption, mesh gateways, and UI ingress using declared target Secrets;
 - CRD ownership, cluster RBAC, admission webhooks, lifecycle Jobs, rendered Secrets, StatefulSet storage, gateway topology, UI ingress, and raw/template extension-slot risks are visible as scan/gate findings instead of hidden Helm behavior.
 - the secure mesh base is explicit about target topology: three server replicas with anti-affinity need a multi-node target, while one-node kind is only a parity target.
+- target-topology.yaml records the target shape and receipts needed before secure mesh readiness can be claimed.
 
 Useful commands:
 

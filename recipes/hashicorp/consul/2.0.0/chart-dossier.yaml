@@ -12,6 +12,7 @@ spec:
     - "Both variants render 28 CRDs, including Gateway API CRDs that can conflict with cluster-managed CRD ownership."
     - "Helm hooks are excluded from proof renders, while the secure variant's normal ACL init Job remains visible as an install lifecycle object."
     - "secure-mesh-existing-secrets needs a target topology that can schedule three Consul server replicas with pod anti-affinity; one-node kind is useful for object parity but not for live readiness."
+    - "target-topology.yaml records the target shape required for the secure mesh base."
     - "server extra config, injector, controller, gateway, and tpl-controlled strings are powerful extension surfaces; promoted variants keep them controlled."
   knownControlPoints:
     - "target-facts"

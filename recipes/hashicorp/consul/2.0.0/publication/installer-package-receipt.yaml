@@ -34,15 +34,15 @@ spec:
         bytes: 769734
       -
         path: "collector/target-facts.sh"
-        sha256: "732ae709556921a585e1b316a585556ed45880b4f63d54c509eae2c018fe9a93"
-        bytes: 2278
+        sha256: "c1cf0800890fcf3e255c292b621ba251ef3a1aa210f4b08915ac3452809f44ed"
+        bytes: 2380
       -
         path: "installer.yaml"
-        sha256: "8e879f2874bec389f595c9051b32739b9be390d5ea1e0df786a1fe6e09a2afe2"
-        bytes: 7738
+        sha256: "f1638ed05f395008b25518729ae9088a1aa32de6872baba8d0e96ce935f73c81"
+        bytes: 7753
   deterministicBundle:
     command: "cub installer package packages/hashicorp/consul/2.0.0 -o <tmp>/consul-2.0.0.tgz"
-    sha256: "b7ec8ce5db06857d67bb64a8f8408b1a415300ca3a7d46fa03166093228b4072"
+    sha256: "ad21bc526beeb88f2b12ce5bb5b983e849ddcce53c1f628e5c7fe4a9a540a298"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -

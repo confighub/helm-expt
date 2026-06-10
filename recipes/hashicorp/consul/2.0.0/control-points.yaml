@@ -34,7 +34,8 @@ spec:
       object: "apps/v1|StatefulSet|consul|consul-consul-server"
     -
       category: "target-topology"
-      status: "target-review"
+      status: "target-fit-required"
+      evidence: "target-topology.yaml"
       note: "The secure-mesh-existing-secrets base renders three Consul server replicas with pod anti-affinity, so the strict one-node kind target is expected to leave two server pods pending. Use a multi-node target or a separate single-node/evaluation base for live readiness."
     -
       category: "admission-webhook"

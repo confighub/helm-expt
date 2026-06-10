@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "TargetTopology"
+metadata:
+  name: "hashicorp-consul-2.0.0"
+spec:
+  chart: "hashicorp/consul@2.0.0"
+  scope: "target shape required by each supported base after render parity has passed"
+  bases:
+    defaultControlPlane:
+      variant: "default-control-plane"
+      status: "single-node-compatible"
+      reason: "the curated default base disables disruptive PDB behavior for local proof and has live parity on the standard proof target"
+    secureMeshExistingSecrets:
+      variant: "secure-mesh-existing-secrets"
+      status: "target-fit-required"
+      targetFit:
+        minimumSchedulableNodes: 3
+        requiresPersistentStorage: true
+        requiresIngressController: true
+        requiresGatewayPolicyReview: true
+        reason: "the base renders three Consul server replicas with pod anti-affinity, mesh gateway, ingress gateway, terminating gateway, UI ingress, injector webhook, and ACL init Job"
+      prerequisites:
+        secrets:
+          - "consul/consul-ca-cert tls.crt"
+          - "consul/consul-server-cert tls.crt,tls.key"
+          - "consul/consul-gossip-encryption-key key"
+          - "consul/consul-bootstrap-acl-token token"
+        policyReviews:
+          - "CRD ownership"
+          - "cluster RBAC"
+          - "injector webhook readiness"
+          - "ACL bootstrap lifecycle"
+          - "mesh, ingress, and terminating gateway exposure"
+          - "UI ingress exposure"
+      requiredReceipts:
+        - "target-fit-observation-receipt"
+        - "secret-preflight-receipt"
+        - "webhook-readiness-receipt"
+        - "gateway-policy-receipt"
+  notProvenBy:
+    - "one-node kind runtime readiness"
+    - "render parity alone"
+    - "presence of target Secret names without live Secret/preflight evidence"
